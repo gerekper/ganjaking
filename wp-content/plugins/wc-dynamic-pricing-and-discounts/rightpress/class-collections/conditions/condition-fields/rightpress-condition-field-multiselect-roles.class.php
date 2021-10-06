@@ -55,7 +55,7 @@ abstract class RightPress_Condition_Field_Multiselect_Roles extends RightPress_C
     public function get_placeholder()
     {
 
-        return __('Select user roles', 'rightpress');
+        return esc_html__('Select user roles', 'rightpress');
     }
 
 

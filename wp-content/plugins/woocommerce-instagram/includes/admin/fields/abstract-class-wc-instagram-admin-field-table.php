@@ -309,6 +309,6 @@ abstract class WC_Instagram_Admin_Field_Table {
 	 * @param mixed $value The boolean value.
 	 */
 	protected function output_column_boolean( $row, $value ) {
-		echo ( wc_string_to_bool( $value ) ? esc_html__( 'Yes', 'woocommerce-instagram' ) : esc_html__( 'No', 'woocommerce-instagram' ) );
+		echo esc_html( wc_instagram_bool_to_string( $value ) );
 	}
 }

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Chained Products\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-27 08:27+0000\n"
+"POT-Creation-Date: 2021-08-13 10:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -13,7 +13,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.4.6; wp-5.5.3"
+"X-Loco-Version: 2.5.3; wp-5.8\n"
+"X-Domain: woocommerce-chained-products"
 
 #: includes/class-wc-chained-products.php:1630
 msgid " doesn't have sufficient quantity in stock."
@@ -55,9 +56,9 @@ msgstr ""
 msgid "About Chained Products"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1003
-#: includes/class-wc-admin-chained-products.php:1038
-#: includes/class-wc-admin-chained-products.php:1423
+#: includes/class-wc-admin-chained-products.php:1016
+#: includes/class-wc-admin-chained-products.php:1051
+#: includes/class-wc-admin-chained-products.php:1436
 msgid "Add Product"
 msgstr ""
 
@@ -100,7 +101,7 @@ msgid "Chained Item / Chained Child"
 msgstr ""
 
 #. Chained order item name(s)
-#: includes/class-wc-admin-chained-products.php:1810
+#: includes/class-wc-admin-chained-products.php:1823
 #, php-format
 msgid "Chained order item %s was added."
 msgid_plural "Chained order items %s were added."
@@ -108,7 +109,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. Chained order item name(s)
-#: includes/class-wc-admin-chained-products.php:1818
+#: includes/class-wc-admin-chained-products.php:1831
 #, php-format
 msgid "Chained order item %s was removed."
 msgid_plural "Chained order items %s were removed."
@@ -116,13 +117,13 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: includes/class-cp-admin-welcome.php:219
-#: includes/class-wc-admin-chained-products.php:955
-#: includes/class-wc-admin-chained-products.php:1016
-#: includes/class-wc-admin-chained-products.php:1406
+#: includes/class-wc-admin-chained-products.php:968
+#: includes/class-wc-admin-chained-products.php:1029
+#: includes/class-wc-admin-chained-products.php:1419
 msgid "Chained Products"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:2262
+#: includes/class-wc-admin-chained-products.php:2275
 msgid "Chained products"
 msgstr ""
 
@@ -146,13 +147,13 @@ msgid ""
 "chained products were showing in an additional tab on product's page."
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1064
+#: includes/class-wc-admin-chained-products.php:1077
 msgid ""
 "Check to update existing orders containing this main product. Existing "
 "orders will be affected."
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1071
+#: includes/class-wc-admin-chained-products.php:1084
 msgid "click here to insert shortcode in the product description"
 msgstr ""
 
@@ -195,73 +196,73 @@ msgid ""
 "your sales."
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1052
+#: includes/class-wc-admin-chained-products.php:1065
 msgid "Enable stock management for chained products"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1054
+#: includes/class-wc-admin-chained-products.php:1067
 msgid ""
 "Enable this option to manage stock for above listed chained products, "
 "uncheck otherwise. When enabled, if any of the above chained product is out "
 "of stock, then this product will not be allowed to added to cart."
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:830
+#: includes/class-wc-admin-chained-products.php:843
 msgctxt "enhanced select"
 msgid "%qty% results are available, use up and down arrow keys to navigate."
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:832
+#: includes/class-wc-admin-chained-products.php:845
 msgctxt "enhanced select"
 msgid "Loading failed"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:839
+#: includes/class-wc-admin-chained-products.php:852
 msgctxt "enhanced select"
 msgid "Loading more results&hellip;"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:831
+#: includes/class-wc-admin-chained-products.php:844
 msgctxt "enhanced select"
 msgid "No matches found"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:829
+#: includes/class-wc-admin-chained-products.php:842
 msgctxt "enhanced select"
 msgid "One result is available, press enter to select it."
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:836
+#: includes/class-wc-admin-chained-products.php:849
 msgctxt "enhanced select"
 msgid "Please delete %qty% characters"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:835
+#: includes/class-wc-admin-chained-products.php:848
 msgctxt "enhanced select"
 msgid "Please delete 1 character"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:834
+#: includes/class-wc-admin-chained-products.php:847
 msgctxt "enhanced select"
 msgid "Please enter %qty% or more characters"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:833
+#: includes/class-wc-admin-chained-products.php:846
 msgctxt "enhanced select"
 msgid "Please enter 1 or more characters"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:840
+#: includes/class-wc-admin-chained-products.php:853
 msgctxt "enhanced select"
 msgid "Searching&hellip;"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:838
+#: includes/class-wc-admin-chained-products.php:851
 msgctxt "enhanced select"
 msgid "You can only select %qty% items"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:837
+#: includes/class-wc-admin-chained-products.php:850
 msgctxt "enhanced select"
 msgid "You can only select 1 item"
 msgstr ""
@@ -282,7 +283,7 @@ msgid ""
 "themes. To verify this, you can switch to other themes."
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:2280
+#: includes/class-wc-admin-chained-products.php:2293
 msgid ""
 "For chained items having Priced Individually option enabled, the chained "
 "item price will be shown."
@@ -306,11 +307,11 @@ msgstr ""
 msgid "Glad to see that you are using"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1075
+#: includes/class-wc-admin-chained-products.php:1088
 msgid "here"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:2309
+#: includes/class-wc-admin-chained-products.php:2322
 msgid "Housekeeping"
 msgstr ""
 
@@ -334,11 +335,11 @@ msgstr ""
 msgid "Important - "
 msgstr ""
 
-#: includes/class-wc-chained-products.php:950
+#: includes/class-wc-chained-products.php:953
 msgid "in stock"
 msgstr ""
 
-#: includes/class-wc-chained-products.php:536
+#: includes/class-wc-chained-products.php:539
 msgid "Included Products"
 msgstr ""
 
@@ -358,11 +359,11 @@ msgstr ""
 msgid "Know Chained Products"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1074
+#: includes/class-wc-admin-chained-products.php:1087
 msgid "Know how to configure shortcode from"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:2311
+#: includes/class-wc-admin-chained-products.php:2324
 msgid "Know more about Housekeeping"
 msgstr ""
 
@@ -387,7 +388,7 @@ msgid ""
 "find out which plugin is conflicting. Inform us about this issue."
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1050
+#: includes/class-wc-admin-chained-products.php:1063
 msgid "Manage stock?"
 msgstr ""
 
@@ -395,11 +396,11 @@ msgstr ""
 msgid "Never show again"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1067
+#: includes/class-wc-admin-chained-products.php:1080
 msgid "Note: "
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:2311
+#: includes/class-wc-admin-chained-products.php:2324
 msgid "Note: It is recommended to keep this option enabled."
 msgstr ""
 
@@ -420,7 +421,7 @@ msgstr ""
 msgid "of your experience. Thanking you in advance 😊"
 msgstr ""
 
-#: includes/class-wc-chained-products.php:954
+#: includes/class-wc-chained-products.php:957
 #: includes/class-wc-chained-products.php:1630
 msgid "Out of stock"
 msgstr ""
@@ -437,9 +438,9 @@ msgstr ""
 msgid "Possible Usage"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:994
-#: includes/class-wc-admin-chained-products.php:1034
-#: includes/class-wc-admin-chained-products.php:1420
+#: includes/class-wc-admin-chained-products.php:1007
+#: includes/class-wc-admin-chained-products.php:1047
+#: includes/class-wc-admin-chained-products.php:1433
 msgid "Priced Individually"
 msgstr ""
 
@@ -450,14 +451,14 @@ msgid ""
 "added to cart or order."
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:989
-#: includes/class-wc-admin-chained-products.php:1029
-#: includes/class-wc-admin-chained-products.php:1416
+#: includes/class-wc-admin-chained-products.php:1002
+#: includes/class-wc-admin-chained-products.php:1042
+#: includes/class-wc-admin-chained-products.php:1429
 msgid "Qty"
 msgstr ""
 
 #. Chained order item name(s)
-#: includes/class-wc-admin-chained-products.php:1814
+#: includes/class-wc-admin-chained-products.php:1827
 #, php-format
 msgid "Quantity of chained order item %s was updated."
 msgid_plural "Quantity of chained order items %s were added."
@@ -479,8 +480,8 @@ msgstr ""
 msgid "Remind me after a month"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1005
-#: includes/class-wc-admin-chained-products.php:1433
+#: includes/class-wc-admin-chained-products.php:1018
+#: includes/class-wc-admin-chained-products.php:1446
 msgid "Remove Product"
 msgstr ""
 
@@ -488,17 +489,17 @@ msgstr ""
 msgid "Review"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:966
 #: includes/class-wc-admin-chained-products.php:979
-#: includes/class-wc-admin-chained-products.php:1021
-#: includes/class-wc-admin-chained-products.php:1025
-#: includes/class-wc-admin-chained-products.php:1410
-#: includes/class-wc-admin-chained-products.php:1413
+#: includes/class-wc-admin-chained-products.php:992
+#: includes/class-wc-admin-chained-products.php:1034
+#: includes/class-wc-admin-chained-products.php:1038
+#: includes/class-wc-admin-chained-products.php:1423
+#: includes/class-wc-admin-chained-products.php:1426
 msgid "Search for a product..."
 msgstr ""
 
 #: includes/class-cp-admin-welcome.php:146
-#: includes/class-wc-admin-chained-products.php:2285
+#: includes/class-wc-admin-chained-products.php:2298
 #: includes/class-wc-cp-admin-notices.php:76
 msgid "Settings"
 msgstr ""
@@ -520,15 +521,15 @@ msgstr ""
 msgid "show / hide quantities of chained products"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:2301
+#: includes/class-wc-admin-chained-products.php:2314
 msgid "Show chained item price"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:2292
+#: includes/class-wc-admin-chained-products.php:2305
 msgid "Show chained items to customers"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:2300
+#: includes/class-wc-admin-chained-products.php:2313
 msgid "Show price"
 msgstr ""
 
@@ -589,34 +590,34 @@ msgid ""
 msgstr ""
 
 #. Woocommerce Currency Symbol
-#: includes/class-wc-admin-chained-products.php:2277
+#: includes/class-wc-admin-chained-products.php:2290
 #, php-format
 msgid ""
 "This will show chained item price as %s in cart, cart widget/mini cart, "
 "checkout & order received page."
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:2293
+#: includes/class-wc-admin-chained-products.php:2306
 msgid ""
 "This will show chained items in cart, cart widget/mini cart, checkout & "
 "order received page."
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1070
+#: includes/class-wc-admin-chained-products.php:1083
 msgid "To show Chained Products on product page,"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1067
+#: includes/class-wc-admin-chained-products.php:1080
 msgid ""
 "Upating existing orders with chained products will not update the order "
 "total."
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1062
+#: includes/class-wc-admin-chained-products.php:1075
 msgid "Update existing orders with above chained products"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:1060
+#: includes/class-wc-admin-chained-products.php:1073
 msgid "Update existing orders?"
 msgstr ""
 
@@ -624,7 +625,7 @@ msgstr ""
 msgid "Values"
 msgstr ""
 
-#: includes/class-wc-admin-chained-products.php:2291
+#: includes/class-wc-admin-chained-products.php:2304
 msgid "Visibility"
 msgstr ""
 
@@ -648,7 +649,7 @@ msgstr ""
 msgid "What's the final result?"
 msgstr ""
 
-#: includes/class-wc-chained-products.php:537
+#: includes/class-wc-chained-products.php:540
 msgid ""
 "When you order this product, you get all the following products for free!!"
 msgstr ""

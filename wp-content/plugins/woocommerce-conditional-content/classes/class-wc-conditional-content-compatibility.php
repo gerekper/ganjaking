@@ -90,11 +90,15 @@ if ( !class_exists( 'WC_Conditional_Content_Compatibility' ) ) :
 		/*
 		 * Gets a products formatted name
 		 *
-		 * @param WC_product product
+		 * @param WC_Product product
 		 */
 		public static function woocommerce_get_formatted_product_name( $product ) {
 			if ( self::is_wc_version_gte_2_1() ) {
-				return $product->get_formatted_name();
+				if ($product->is_type('variation')) {
+					return $product->get_name();
+				} else {
+					return $product->get_formatted_name();
+				}
 			} else {
 				return woocommerce_get_formatted_product_name( $product );
 			}

@@ -19,8 +19,9 @@ namespace WPMailSMTP\Vendor\Google\Auth;
 
 use WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpClientCache;
 use WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
-use WPMailSMTP\Vendor\GuzzleHttp\Psr7;
+use WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query;
 use WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request;
+use WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils;
 use InvalidArgumentException;
 use WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface;
 use WPMailSMTP\Vendor\Psr\Http\Message\ResponseInterface;
@@ -425,7 +426,7 @@ class OAuth2 implements \WPMailSMTP\Vendor\Google\Auth\FetchAuthTokenInterface
                 $params = \array_merge($params, $this->getExtensionParams());
         }
         $headers = ['Cache-Control' => 'no-store', 'Content-Type' => 'application/x-www-form-urlencoded'];
-        return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $uri, $headers, \WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($params));
+        return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $uri, $headers, \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($params));
     }
     /**
      * Fetches the auth tokens based on the current state.
@@ -560,8 +561,8 @@ class OAuth2 implements \WPMailSMTP\Vendor\Google\Auth\FetchAuthTokenInterface
         }
         // Construct the uri object; return it if it is valid.
         $result = clone $this->authorizationUri;
-        $existingParams = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\parse_query($result->getQuery());
-        $result = $result->withQuery(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query(\array_merge($existingParams, $params)));
+        $existingParams = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::parse($result->getQuery());
+        $result = $result->withQuery(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build(\array_merge($existingParams, $params)));
         if ($result->getScheme() != 'https') {
             throw new \InvalidArgumentException('Authorization endpoint must be protected by TLS');
         }
@@ -1149,7 +1150,7 @@ class OAuth2 implements \WPMailSMTP\Vendor\Google\Auth\FetchAuthTokenInterface
         if (\is_null($uri)) {
             return;
         }
-        return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\uri_for($uri);
+        return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::uriFor($uri);
     }
     /**
      * @param string $idToken

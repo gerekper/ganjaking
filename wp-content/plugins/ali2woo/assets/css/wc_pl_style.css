@@ -1,0 +1,171 @@
+.a2w-product-info{
+	font-weight: bold;
+}
+.a2w_value{
+	font-size: 10px;
+}
+.ui-dialog {
+	padding: 0;
+}
+
+.ui-dialog .ui-dialog-title {
+	font-size: 16px;
+	line-height: 20px;
+	font-family: 'Open sans', sans-serif;
+	font-weight: 600;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+	height: 28px;
+	border-radius: 0
+}
+
+.ui-dialog .ui-dialog-content {
+	font-family: 'Open sans';
+	line-height: 20px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.ui-dialog .ui-dialog-content span {
+	font-family: 'Open sans';
+	font-size: 14px;
+	font-weight: normal
+}
+
+.ui-dialog .ui-dialog-content a {
+	font-weight: normal;
+	color: #0073aa;
+}
+
+.ui-dialog .ui-dialog-content a:hover {
+	font-weight: normal;
+	color: #00a0d2;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button {
+	margin: .2em 0em .2em 0;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+	border-top: 1px solid #ddd;
+	padding-top: 2px;
+	background: #f3f3f3;
+	padding-top: 3px!important;
+	padding-bottom: 3px!important;
+}
+
+.ui-button.ui-button-text-only .ui-button-text {
+	padding: 6px 14px;
+	font-size: 14px;
+	vertical-align: middle;
+	height: auto;
+	margin-bottom: 4px;
+	background: #0085ba;
+	border-color: #0073aa #006799 #006799;
+	-webkit-box-shadow: 0 1px 0 #006799;
+	box-shadow: 0 1px 0 #006799;
+	color: #fff;
+	text-decoration: none;
+	text-shadow: 0 -1px 1px #006799,1px 0 1px #006799,0 1px 1px #006799,-1px 0 1px #006799;
+	border-radius: 3px;
+	line-height: 1em;
+}
+
+.ui-button.ui-button-text-only.ui-state-hover {
+	border-radius: 3px;
+}
+
+.ui-dialog {
+	padding: 0;
+}
+
+.ui-dialog .ui-dialog-title {
+	font-size: 16px;
+	line-height: 20px;
+	font-family: 'Open sans', sans-serif;
+	font-weight: 600;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+	height: 28px;
+	border-radius: 0
+}
+
+.ui-dialog .ui-dialog-content {
+	font-family: 'Open sans';
+	line-height: 20px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.ui-dialog .ui-dialog-content span {
+	font-family: 'Open sans';
+	font-size: 14px;
+	font-weight: normal
+}
+
+.ui-dialog .ui-dialog-content a {
+	font-weight: normal;
+	color: #0073aa;
+}
+
+.ui-dialog .ui-dialog-content a:hover {
+	font-weight: normal;
+	color: #00a0d2;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button {
+	margin: .2em 0em .2em 0;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+	border-top: 1px solid #ddd;
+	padding-top: 2px;
+	background: #f3f3f3;
+	padding-top: 3px!important;
+	padding-bottom: 3px!important;
+}
+
+.ui-button.ui-button-text-only .ui-button-text {
+	padding: 6px 14px;
+	font-size: 14px;
+	vertical-align: middle;
+	height: auto;
+	margin-bottom: 4px;
+	background: #0085ba;
+	border-color: #0073aa #006799 #006799;
+	-webkit-box-shadow: 0 1px 0 #006799;
+	box-shadow: 0 1px 0 #006799;
+	color: #fff;
+	text-decoration: none;
+	text-shadow: 0 -1px 1px #006799,1px 0 1px #006799,0 1px 1px #006799,-1px 0 1px #006799;
+	border-radius: 3px;
+	line-height: 1em;
+}
+
+.ui-button.ui-button-text-only.ui-state-hover {
+	border-radius: 3px;
+}
+
+.ui-corner-all.ui-widget-content {
+	padding: 0;
+}
+
+.ui-draggable .ui-dialog-titlebar {
+	background: #dfdfdf;
+	border: none;
+}
+
+.ui-dialog-titlebar-close:before {display:none !important}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button {
+	margin: .2em 0em .2em 0;
+	box-shadow: none;
+	outline:none;
+}
+
+#a2w_update_process_loader{font-weight: bold;}
+
+.a2w-dialog .ui-button-icon-only .ui-button-text, .a2w-dialog .ui-button-icons-only .ui-button-text {padding: 0px;}
+.a2w-dialog .ui-button.ui-button-text-only .ui-button-text {margin: 0px;}

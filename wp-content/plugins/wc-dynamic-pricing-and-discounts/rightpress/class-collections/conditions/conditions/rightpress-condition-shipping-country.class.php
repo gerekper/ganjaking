@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Shipping_Country extends RightPress_Conditio
     public function get_label()
     {
 
-        return __('Shipping country', 'rightpress');
+        return esc_html__('Shipping country', 'rightpress');
     }
 
     /**

@@ -38,7 +38,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '5.3.2';
+	const VERSION = '5.3.3';
 
 	/** @var WC_Customer_Order_CSV_Export single instance of this plugin */
 	protected static $instance;
@@ -165,7 +165,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/class-wc-customer-order-csv-export-lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-customer-order-csv-export-lifecycle.php' );
 
 		$this->lifecycle_handler = new WC_Customer_Order_CSV_Export_Lifecycle( $this );
 	}
@@ -178,7 +178,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_hook_deprecator() {
 
-		require_once( $this->get_plugin_path() . '/includes/Hook_Deprecator.php' );
+		require_once( $this->get_plugin_path() . '/src/Hook_Deprecator.php' );
 
 		$this->hook_deprecator_instance = new \SkyVerge\WooCommerce\CSV_Export\Hook_Deprecator( $this );
 	}
@@ -198,76 +198,76 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 		require_once( $this->get_framework_path() . '/utilities/class-sv-wp-job-batch-handler.php' );
 
 		// automations
-		require_once( $this->get_plugin_path() . '/includes/Automations/Automation.php' );
-		require_once( $this->get_plugin_path() . '/includes/Automations/Automation_Data_Store_Options.php' );
-		require_once( $this->get_plugin_path() . '/includes/Automations/Automation_Factory.php' );
+		require_once( $this->get_plugin_path() . '/src/Automations/Automation.php' );
+		require_once( $this->get_plugin_path() . '/src/Automations/Automation_Data_Store_Options.php' );
+		require_once( $this->get_plugin_path() . '/src/Automations/Automation_Factory.php' );
 
 		// export class
-		require_once( $this->get_plugin_path() . '/includes/class-wc-customer-order-csv-export-export.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-customer-order-csv-export-export.php' );
 
 		// handles data storage
-		require_once( $this->get_plugin_path() . '/includes/data-stores/abstract-class-wc-customer-order-csv-export-data-store.php' );
-		require_once( $this->get_plugin_path() . '/includes/data-stores/class-wc-customer-order-csv-export-data-store-factory.php' );
+		require_once( $this->get_plugin_path() . '/src/data-stores/abstract-class-wc-customer-order-csv-export-data-store.php' );
+		require_once( $this->get_plugin_path() . '/src/data-stores/class-wc-customer-order-csv-export-data-store-factory.php' );
 
 		// export functions
-		require_once( $this->get_plugin_path() . '/includes/functions/wc-customer-order-csv-export-export-functions.php' );
+		require_once( $this->get_plugin_path() . '/src/functions/wc-customer-order-csv-export-export-functions.php' );
 
 		// handles exporting files in background
-		$this->background_export = $this->load_class( '/includes/class-wc-customer-order-csv-export-background-export.php', 'WC_Customer_Order_CSV_Export_Background_Export' );
+		$this->background_export = $this->load_class( '/src/class-wc-customer-order-csv-export-background-export.php', 'WC_Customer_Order_CSV_Export_Background_Export' );
 
 		// handles marking orders as exported in background
-		require_once( $this->get_plugin_path() . '/includes/Background_Mark_Exported.php' );
+		require_once( $this->get_plugin_path() . '/src/Background_Mark_Exported.php' );
 		$this->background_mark_exported = new Background_Mark_Exported();
 
-		require_once( $this->get_plugin_path() . '/includes/class-wc-customer-order-csv-export-batch-export-handler.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-customer-order-csv-export-batch-export-handler.php' );
 
 		// handles exporting files in batches
 		$this->batch_export = new WC_Customer_Order_CSV_Export_Batch_Export_Handler( $this->background_export, $this );
 
 		// general interface for interacting with exports
-		$this->export_handler = $this->load_class( '/includes/class-wc-customer-order-csv-export-handler.php', 'WC_Customer_Order_CSV_Export_Handler' );
+		$this->export_handler = $this->load_class( '/src/class-wc-customer-order-csv-export-handler.php', 'WC_Customer_Order_CSV_Export_Handler' );
 
 		// compatibility for legacy export formats and other extensions
-		$this->compatibility = $this->load_class( '/includes/class-wc-customer-order-csv-export-compatibility.php', 'WC_Customer_Order_CSV_Export_Compatibility' );
+		$this->compatibility = $this->load_class( '/src/class-wc-customer-order-csv-export-compatibility.php', 'WC_Customer_Order_CSV_Export_Compatibility' );
 
 		// formats definitions
-		$this->formats = $this->load_class( '/includes/class-wc-customer-order-csv-export-formats.php', 'WC_Customer_Order_CSV_Export_Formats' );
+		$this->formats = $this->load_class( '/src/class-wc-customer-order-csv-export-formats.php', 'WC_Customer_Order_CSV_Export_Formats' );
 
 		// export methods
-		$this->methods = $this->load_class( '/includes/class-wc-customer-order-csv-export-methods.php', 'WC_Customer_Order_CSV_Export_Methods' );
+		$this->methods = $this->load_class( '/src/class-wc-customer-order-csv-export-methods.php', 'WC_Customer_Order_CSV_Export_Methods' );
 
 		// handles exported file downloads
-		$this->download_handler = $this->load_class( '/includes/class-wc-customer-order-csv-export-download-handler.php', 'WC_Customer_Order_CSV_Export_Download_Handler' );
+		$this->download_handler = $this->load_class( '/src/class-wc-customer-order-csv-export-download-handler.php', 'WC_Customer_Order_CSV_Export_Download_Handler' );
 
 		// handles scheduling and execution of automatic export / upload
-		$this->automation_scheduler = $this->load_class( '/includes/Automations/Scheduler.php', Scheduler::class );
+		$this->automation_scheduler = $this->load_class( '/src/Automations/Scheduler.php', Scheduler::class );
 
 		// handles custom taxonomy
-		$this->taxonomies_handler = $this->load_class( '/includes/Taxonomies_Handler.php', Taxonomies_Handler::class );
+		$this->taxonomies_handler = $this->load_class( '/src/Taxonomies_Handler.php', Taxonomies_Handler::class );
 
 		// handles integrations
-		$this->integrations = $this->load_class( '/includes/Integrations/Integrations.php', Integrations::class );
+		$this->integrations = $this->load_class( '/src/Integrations/Integrations.php', Integrations::class );
 
-		require_once( $this->get_plugin_path() . '/includes/Export_Formats/Export_Format_Definition.php' );
-		require_once( $this->get_plugin_path() . '/includes/Export_Formats/CSV/CSV_Export_Format_Definition.php' );
-		require_once( $this->get_plugin_path() . '/includes/Export_Formats/CSV/Orders_Export_Format_Definition.php' );
-		require_once( $this->get_plugin_path() . '/includes/Export_Formats/CSV/Customers_Export_Format_Definition.php' );
-		require_once( $this->get_plugin_path() . '/includes/Export_Formats/CSV/Coupons_Export_Format_Definition.php' );
-		require_once( $this->get_plugin_path() . '/includes/Export_Formats/XML/XML_Export_Format_Definition.php' );
-		require_once( $this->get_plugin_path() . '/includes/Export_Formats/XML/Orders_Export_Format_Definition.php' );
-		require_once( $this->get_plugin_path() . '/includes/Export_Formats/XML/Customers_Export_Format_Definition.php' );
-		require_once( $this->get_plugin_path() . '/includes/Export_Formats/XML/Coupons_Export_Format_Definition.php' );
+		require_once( $this->get_plugin_path() . '/src/Export_Formats/Export_Format_Definition.php' );
+		require_once( $this->get_plugin_path() . '/src/Export_Formats/CSV/CSV_Export_Format_Definition.php' );
+		require_once( $this->get_plugin_path() . '/src/Export_Formats/CSV/Orders_Export_Format_Definition.php' );
+		require_once( $this->get_plugin_path() . '/src/Export_Formats/CSV/Customers_Export_Format_Definition.php' );
+		require_once( $this->get_plugin_path() . '/src/Export_Formats/CSV/Coupons_Export_Format_Definition.php' );
+		require_once( $this->get_plugin_path() . '/src/Export_Formats/XML/XML_Export_Format_Definition.php' );
+		require_once( $this->get_plugin_path() . '/src/Export_Formats/XML/Orders_Export_Format_Definition.php' );
+		require_once( $this->get_plugin_path() . '/src/Export_Formats/XML/Customers_Export_Format_Definition.php' );
+		require_once( $this->get_plugin_path() . '/src/Export_Formats/XML/Coupons_Export_Format_Definition.php' );
 
-		require_once( $this->get_plugin_path() . '/includes/export-methods/interface-wc-customer-order-csv-export-method.php' );
-		require_once( $this->get_plugin_path() . '/includes/export-methods/ftp/abstract-wc-customer-order-csv-export-method-file-transfer.php' );
-		require_once( $this->get_plugin_path() . '/includes/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php' );
-		require_once( $this->get_plugin_path() . '/includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php' );
-		require_once( $this->get_plugin_path() . '/includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php' );
-		require_once( $this->get_plugin_path() . '/includes/export-methods/class-wc-customer-order-csv-export-method-http-post.php' );
-		require_once( $this->get_plugin_path() . '/includes/export-methods/class-wc-customer-order-csv-export-method-email.php' );
+		require_once( $this->get_plugin_path() . '/src/export-methods/interface-wc-customer-order-csv-export-method.php' );
+		require_once( $this->get_plugin_path() . '/src/export-methods/ftp/abstract-wc-customer-order-csv-export-method-file-transfer.php' );
+		require_once( $this->get_plugin_path() . '/src/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php' );
+		require_once( $this->get_plugin_path() . '/src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php' );
+		require_once( $this->get_plugin_path() . '/src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php' );
+		require_once( $this->get_plugin_path() . '/src/export-methods/class-wc-customer-order-csv-export-method-http-post.php' );
+		require_once( $this->get_plugin_path() . '/src/export-methods/class-wc-customer-order-csv-export-method-email.php' );
 
-		require_once( $this->get_plugin_path() . '/includes/admin/Admin_Custom_Formats.php' );
-		require_once( $this->get_plugin_path() . '/includes/admin/Export_Formats_Helper.php' );
+		require_once( $this->get_plugin_path() . '/src/admin/Admin_Custom_Formats.php' );
+		require_once( $this->get_plugin_path() . '/src/admin/Export_Formats_Helper.php' );
 	}
 
 
@@ -278,11 +278,11 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 	 */
 	public function admin_includes() {
 
-		require_once( $this->get_plugin_path() . '/includes/admin/Automations.php' );
-		require_once( $this->get_plugin_path() . '/includes/admin/Meta_Boxes/Exported_By.php' );
+		require_once( $this->get_plugin_path() . '/src/admin/Automations.php' );
+		require_once( $this->get_plugin_path() . '/src/admin/Meta_Boxes/Exported_By.php' );
 
 		// loads the admin settings page and adds functionality to the order admin
-		$this->admin = $this->load_class( '/includes/admin/class-wc-customer-order-csv-export-admin.php', 'WC_Customer_Order_CSV_Export_Admin' );
+		$this->admin = $this->load_class( '/src/admin/class-wc-customer-order-csv-export-admin.php', 'WC_Customer_Order_CSV_Export_Admin' );
 
 		// message handler
 		$this->admin->message_handler = $this->get_message_handler();
@@ -296,7 +296,7 @@ class WC_Customer_Order_CSV_Export extends Framework\SV_WC_Plugin {
 	 */
 	public function ajax_includes() {
 
-		$this->ajax = $this->load_class( '/includes/class-wc-customer-order-csv-export-ajax.php', 'WC_Customer_Order_CSV_Export_AJAX' );
+		$this->ajax = $this->load_class( '/src/class-wc-customer-order-csv-export-ajax.php', 'WC_Customer_Order_CSV_Export_AJAX' );
 	}
 
 

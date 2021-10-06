@@ -31,7 +31,7 @@ class ProductsUpdate extends Request {
 		$args = [];
 
 		foreach ( $plugins->all() as $plugin ) {
-			$args[ $plugin->get_basename() ] = $plugin->get_version();
+			$args[ $plugin->get_basename() ] = $plugin->get_version()->get_value();
 		}
 
 		return $args;

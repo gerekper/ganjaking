@@ -12,8 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-$webp          = WP_Smush::get_instance()->core()->mod->webp;
-$is_configured = $webp->is_configured();
+$is_configured = WP_Smush::get_instance()->core()->mod->webp->get_is_configured_with_error_message();
 ?>
 
 <p>
@@ -68,7 +67,7 @@ $is_configured = $webp->is_configured();
 					endif;
 					?>
 				</p>
-				<?php if ( ! WP_Smush::get_instance()->core()->s3->setting_status() ) : ?>
+				<?php if ( $this->settings->get( 's3' ) && ! WP_Smush::get_instance()->core()->s3->setting_status() ) : ?>
 					<p>
 						<?php
 						printf(
@@ -88,29 +87,9 @@ $is_configured = $webp->is_configured();
 		<div class="sui-notice-content">
 			<div class="sui-notice-message">
 				<i class="sui-notice-icon sui-icon-warning-alert sui-md" aria-hidden="true"></i>
-				<p>
-					<?php
-					if ( is_wp_error( $is_configured ) ) :
-						if ( 403 === $is_configured->get_error_code() ) :
-							echo esc_html( $is_configured->get_error_message() );
-						else :
-							printf(
-								/* translators: 1. error code, 2. error message. */
-								esc_html__( "We couldn't check the WebP server rules status because there was an error with the test request. Please contact support for assistance. Code %1\$s: %2\$s.", 'wp-smushit' ),
-								esc_html( $is_configured->get_error_code() ),
-								esc_html( $is_configured->get_error_message() )
-							);
-						endif;
+				<p><?php echo esc_html( $is_configured ); ?></p>
 
-					elseif ( 'apache' === $webp->get_server_type() && $webp->is_htaccess_written() ) :
-						esc_html_e( "The server rules have been applied but the server doesn't seem to be serving your images as WebP. We recommend contacting your hosting provider to learn more about the cause of this issue.", 'wp-smushit' );
-					else :
-						esc_html_e( "Server configurations haven't been applied yet. Make configurations below to start serving images in WebP format.", 'wp-smushit' );
-					endif;
-					?>
-				</p>
-
-				<?php if ( ! WP_Smush::get_instance()->core()->s3->setting_status() ) : ?>
+				<?php if ( $this->settings->get( 's3' ) && ! WP_Smush::get_instance()->core()->s3->setting_status() ) : ?>
 					<p>
 						<?php
 						printf(
@@ -122,6 +101,14 @@ $is_configured = $webp->is_configured();
 						?>
 					</p>
 				<?php endif; ?>
+
+				<button id="smush-webp-toggle-wizard" type="button" class="sui-button" style="padding-left: 14px; margin-left: 26px;">
+					<span class="sui-loading-text">
+						<?php esc_html_e( 'Configure', 'wp-smushit' ); ?>
+					</span>
+
+					<span class="sui-icon-loader sui-loading" aria-hidden="true"></span>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -156,64 +143,61 @@ $is_configured = $webp->is_configured();
 	</div>
 </div>
 
-<?php if ( true === $is_configured ) : ?>
-	<div class="sui-box-settings-row">
-		<div class="sui-box-settings-col-1">
-			<span class="sui-settings-label">
-				<?php esc_html_e( 'Revert WebP Conversion', 'wp-smushit' ); ?>
-			</span>
-			<span class="sui-description">
-				<?php esc_html_e( 'If your server storage space is full, use this feature to revert the WebP conversions by deleting all generated files. The files will fall back to normal PNGs or JPEGs once you delete them.', 'wp-smushit' ); ?>
-			</span>
-		</div>
-
-		<div class="sui-box-settings-col-2">
-			<button
-				type="button"
-				class="sui-button sui-button-ghost"
-				id="wp-smush-webp-delete-all-modal-open"
-				data-modal-open="wp-smush-wp-delete-all-dialog"
-				data-modal-close-focus="wp-smush-webp-delete-all-modal-open"
-			>
-				<span class="sui-loading-text">
-					<i class="sui-icon-trash" aria-hidden="true"></i>
-					<?php esc_html_e( 'Delete WebP Files', 'wp-smushit' ); ?>
-				</span>
-				<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
-			</button>
-
-			<span class="sui-description">
-				<?php
-				esc_html_e( 'This feature won’t delete the WebP files converted via CDN, only the files generated via the local WebP feature.', 'wp-smushit' );
-				?>
-			</span>
-		</div>
+<div class="sui-box-settings-row">
+	<div class="sui-box-settings-col-1">
+		<span class="sui-settings-label">
+			<?php esc_html_e( 'Revert WebP Conversion', 'wp-smushit' ); ?>
+		</span>
+		<span class="sui-description">
+			<?php esc_html_e( 'If your server storage space is full, use this feature to revert the WebP conversions by deleting all generated files. The files will fall back to normal PNGs or JPEGs once you delete them.', 'wp-smushit' ); ?>
+		</span>
 	</div>
 
-	<div class="sui-box-settings-row">
-		<div class="sui-box-settings-col-1">
-			<span class="sui-settings-label">
-				<?php esc_html_e( 'Deactivate', 'wp-smushit' ); ?>
+	<div class="sui-box-settings-col-2">
+		<button
+			type="button"
+			class="sui-button sui-button-ghost"
+			id="wp-smush-webp-delete-all-modal-open"
+			data-modal-open="wp-smush-wp-delete-all-dialog"
+			data-modal-close-focus="wp-smush-webp-delete-all-modal-open"
+		>
+			<span class="sui-loading-text">
+				<i class="sui-icon-trash" aria-hidden="true"></i>
+				<?php esc_html_e( 'Delete WebP Files', 'wp-smushit' ); ?>
 			</span>
+			<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
+		</button>
 
-			<span class="sui-description">
-				<?php esc_html_e( 'If you no longer require your images to be served in WebP format, you can disable this feature.', 'wp-smushit' ); ?>
-			</span>
-		</div>
+		<span class="sui-description">
+			<?php
+			esc_html_e( 'This feature won’t delete the WebP files converted via CDN, only the files generated via the local WebP feature.', 'wp-smushit' );
+			?>
+		</span>
+	</div>
+</div>
 
-		<div class="sui-box-settings-col-2">
+<div class="sui-box-settings-row">
+	<div class="sui-box-settings-col-1">
+		<span class="sui-settings-label">
+			<?php esc_html_e( 'Deactivate', 'wp-smushit' ); ?>
+		</span>
 
-			<button class="sui-button sui-button-ghost" id="smush-toggle-webp-button" data-action="disable">
-				<span class="sui-loading-text">
-					<i class="sui-icon-power-on-off" aria-hidden="true"></i><?php esc_html_e( 'Deactivate', 'wp-smushit' ); ?>
-				</span>
-				<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
-			</button>
-
-			<span class="sui-description">
-				<?php esc_html_e( 'Deactivation won’t delete existing WebP images.', 'wp-smushit' ); ?>
-			</span>
-		</div>
+		<span class="sui-description">
+			<?php esc_html_e( 'If you no longer require your images to be served in WebP format, you can disable this feature.', 'wp-smushit' ); ?>
+		</span>
 	</div>
 
-<?php endif; ?>
+	<div class="sui-box-settings-col-2">
+
+		<button class="sui-button sui-button-ghost" id="smush-toggle-webp-button" data-action="disable">
+			<span class="sui-loading-text">
+				<i class="sui-icon-power-on-off" aria-hidden="true"></i><?php esc_html_e( 'Deactivate', 'wp-smushit' ); ?>
+			</span>
+			<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
+		</button>
+
+		<span class="sui-description">
+			<?php esc_html_e( 'Deactivation won’t delete existing WebP images.', 'wp-smushit' ); ?>
+		</span>
+	</div>
+</div>

@@ -24,11 +24,13 @@ const DirectoryScanner = ( totalSteps, currentStep ) => {
 			const remainingSteps = totalSteps - currentStep;
 			if ( currentStep !== 0 ) {
 				// Scan started on a previous page load.
-				step( remainingSteps );
+				step(remainingSteps).fail(this.showScanError);
 			} else {
-				jQuery.post( ajaxurl, { action: 'directory_smush_start' }, () =>
-					step( remainingSteps )
-				);
+				jQuery
+					.post(ajaxurl, { action: 'directory_smush_start' }, () =>
+						step(remainingSteps).fail(this.showScanError)
+					)
+					.fail(this.showScanError);
 			}
 		},
 
@@ -68,6 +70,33 @@ const DirectoryScanner = ( totalSteps, currentStep ) => {
 			WP_Smush.directory.updateProgressBar( 100 );
 			window.location.href =
 				window.wp_smush_msgs.directory_url + '&scan=done';
+		},
+
+		/**
+		 * Displays an error when the scan request fails.
+		 *
+		 * @param {Object} res XHR object.
+		 */
+		showScanError(res) {
+			const dialog = jQuery('#wp-smush-progress-dialog');
+
+			// Add the error class to show/hide elements in the dialog.
+			dialog
+				.removeClass('wp-smush-exceed-limit')
+				.addClass('wp-smush-scan-error');
+
+			// Add the error status and description to the error message.
+			dialog
+				.find('#smush-scan-error')
+				.text(`${res.status} ${res.statusText}`);
+
+			// Show/hide the 403 error specific instructions.
+			const forbiddenMessage = dialog.find('.smush-403-error-message');
+			if (403 !== res.status) {
+				forbiddenMessage.addClass('sui-hidden');
+			} else {
+				forbiddenMessage.removeClass('sui-hidden');
+			}
 		},
 
 		limitReached() {
@@ -112,7 +141,7 @@ const DirectoryScanner = ( totalSteps, currentStep ) => {
 	const step = function( remainingSteps ) {
 		if ( remainingSteps >= 0 ) {
 			currentStep = totalSteps - remainingSteps;
-			jQuery.post(
+			return jQuery.post(
 				ajaxurl,
 				{
 					action: 'directory_smush_check_step',
@@ -135,7 +164,7 @@ const DirectoryScanner = ( totalSteps, currentStep ) => {
 						currentStep++;
 						remainingSteps = remainingSteps - 1;
 						obj.onFinishStep( obj.getProgress() );
-						step( remainingSteps );
+						step(remainingSteps).fail(obj.showScanError);
 					} else if (
 						'undefined' !== typeof response.data.error &&
 						'dir_smush_limit_exceeded' === response.data.error
@@ -148,22 +177,21 @@ const DirectoryScanner = ( totalSteps, currentStep ) => {
 						currentStep++;
 						remainingSteps = remainingSteps - 1;
 						obj.onFinishStep( obj.getProgress() );
-						step( remainingSteps );
+						step(remainingSteps).fail(obj.showScanError);
 					}
 				}
 			);
-		} else {
-			jQuery.post(
-				ajaxurl,
-				{
-					action: 'directory_smush_finish',
-					items: totalSteps - ( failedItems + skippedItems ),
-					failed: failedItems,
-					skipped: skippedItems,
-				},
-				( response ) => obj.onFinish( response )
-			);
 		}
+		return jQuery.post(
+			ajaxurl,
+			{
+				action: 'directory_smush_finish',
+				items: totalSteps - ( failedItems + skippedItems ),
+				failed: failedItems,
+				skipped: skippedItems,
+			},
+			( response ) => obj.onFinish( response )
+		);
 	};
 
 	return obj;

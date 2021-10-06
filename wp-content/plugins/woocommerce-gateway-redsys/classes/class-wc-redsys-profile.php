@@ -2,14 +2,12 @@
 /**
  * Add extra profile fields for users in admin
  *
- * @author   WooThemes
- * @category Admin
  * @package  WooCommerce/Admin
  * @version  2.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
 if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
@@ -31,7 +29,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 				return;
 			} ?>
 			<h2><?php _e( 'Type', 'woocommerce-redsys' ); ?></h2>
-			<table class="form-table" id="fieldset-billing">
+			<table class="form-table" id="fieldset-redsys-tokens">
 				<tbody>
 					<tr>
 						<th>

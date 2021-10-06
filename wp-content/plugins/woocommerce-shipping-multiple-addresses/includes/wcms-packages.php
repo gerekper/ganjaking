@@ -59,6 +59,10 @@ class WC_MS_Packages {
 							}
 						}
 
+						// Fixes for issue #206
+						// 'address' array key is needed for FedEx compatibility 
+						$address['address'] = ( isset( $address['address_1'] ) ) ? $address['address_1'] : '';
+
 						$current_address = wcms_get_formatted_address( $address );
 						$key             = md5( $current_address );
 
@@ -161,29 +165,12 @@ class WC_MS_Packages {
 						foreach ( $group['products'] as $item ) {
 							$data = (array) apply_filters( 'woocommerce_add_cart_item_data', array(), $item['value']['product_id'], $item['value']['variation_id'] );
 
-							if ( isset( $item['value']['addons'] ) ) { 
-								$data['addons'] = $item['value']['addons']; 
-							}
-
-							// Composite Products support. Manually add the composite data in the cart_item_data array to match the existing cart_item_key
-							if ( isset( $item['value']['composite_data'] ) ) {
-								$data['composite_data'] = $item['value']['composite_data'];
-							}
-
-							if ( isset( $item['value']['composite_children'] ) ) {
-								$data['composite_children'] = array();
-							}
-
-							// Gravity forms support
-							if ( isset( $item['value']['_gravity_form_data'] ) ) {
-								$data['_gravity_form_data'] = $item['value']['_gravity_form_data'];
-							}
-
-							if ( isset( $item['value']['_gravity_form_lead'] ) ) {
-								$data['_gravity_form_lead'] = $item['value']['_gravity_form_lead'];
-							}
-
-							$cart_item_id = WC()->cart->generate_cart_id( $item['value']['product_id'], $item['value']['variation_id'], $item['value']['variation'], $data );
+							// list array keys to be removed in cart item data.
+							$keys_to_remove = array( 'product_id', 'variation_id', 'variation', 'quantity', 'data', 'line_tax_data', 'line_subtotal', 'line_subtotal_tax', 'line_total', 'line_tax', 'cart_key', 'data_hash', 'key' );
+							
+							// Get cart item data from add ons and generate cart id.
+							$data 			= array_merge( $data, array_diff_key( $item['value'], array_flip( $keys_to_remove ) ) );
+							$cart_item_id 	= WC()->cart->generate_cart_id( $item['value']['product_id'], $item['value']['variation_id'], $item['value']['variation'], $data );
 
 							$item['value']['package_idx'] = $idx;
 

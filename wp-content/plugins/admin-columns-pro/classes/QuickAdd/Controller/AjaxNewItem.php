@@ -2,6 +2,7 @@
 
 namespace ACP\QuickAdd\Controller;
 
+use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Registrable;
 use AC\Request;
@@ -27,14 +28,25 @@ class AjaxNewItem implements Registrable {
 	}
 
 	public function register() {
-		add_action( 'ac/table/list_screen', [ $this, 'handle_request' ], 11 );
+		if ( $this->is_request() ) {
+			add_action( 'ac/table/list_screen', [ $this, 'register_hooks' ] );
+		}
+
+	}
+
+	public function register_hooks( ListScreen $list_screen ) {
+		switch ( true ) {
+			case $list_screen instanceof ListScreen\Post:
+				add_action( 'edit_posts_per_page', [ $this, 'handle_request' ] );
+				break;
+		}
+	}
+
+	private function is_request() {
+		return $this->request->get( 'ac_action' ) === 'acp_add_new_inline';
 	}
 
 	public function handle_request() {
-		if ( 'acp_add_new_inline' !== $this->request->get( 'ac_action' ) ) {
-			return;
-		}
-
 		if ( ! wp_verify_nonce( $this->request->get( '_ajax_nonce' ), 'ac-ajax' ) ) {
 			return;
 		}
@@ -59,6 +71,8 @@ class AjaxNewItem implements Registrable {
 			$response->set_message( $e->getMessage() )
 			         ->error();
 		}
+
+		do_action( 'acp/quick_add/saved', $id, $list_screen );
 
 		$response->create_from_list_screen( $list_screen, $id )
 		         ->success();

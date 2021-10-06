@@ -59,6 +59,25 @@ function wcwl_remove_user_from_waitlist( $email, $product_id ) {
 }
 
 /**
+ * Remove given email from product's waitlist archive
+ *
+ * @param string $email
+ * @param int    $product_id
+ */
+function wcwl_remove_user_from_archive( $email, $product_id ) {
+	$old_archive = is_array( get_post_meta( $product_id, 'wcwl_waitlist_archive', true ) ) ? get_post_meta( $product_id, 'wcwl_waitlist_archive', true ) : array();
+	$new_archive = $old_archive;
+	foreach ( $old_archive as $timestamp => $users ) {
+		if ( empty( $users ) ) {
+			unset( $new_archive[ $timestamp ] );
+		} else {
+			unset( $new_archive[ $timestamp ][ $email ] );
+		}
+	}
+	update_post_meta( $product_id, 'wcwl_waitlist_archive', $new_archive );
+}
+
+/**
  * Returns the HTML markup for the waitlist elements for the given product ID
  *
  * @param int    $product_id simple/variation/grouped product ID.
@@ -398,7 +417,7 @@ function wcwl_perform_mailout_for_chained_products( $chained_products ) {
  * @return mixed|void
  */
 function wcwl_get_optin_text( $user ) {
-	if ( ! $user ) {
+	if ( ! $user && 'yes' === get_option( 'woocommerce_waitlist_create_account' ) ) {
 		return apply_filters( 'wcwl_new_user_opt-in_text', __( 'By ticking this box you agree to an account being created using the given email address and to receive waitlist communications by email', 'woocommerce-waitlist' ) );
 	} else {
 		return apply_filters( 'wcwl_registered_user_opt-in_text', __( 'By ticking this box you agree to receive waitlist communications by email', 'woocommerce-waitlist' ) );
@@ -436,6 +455,9 @@ function wcwl_get_user_language( $user, $product_id = 0 ) {
 	}
 	$lang_option = get_option( '_' . WCWL_SLUG . '_languages' );
 	$user_object = get_user_by( 'id', $user );
+	if ( ! $user_object ) {
+		$user_object = get_user_by( 'email', $user );
+	}
 	if ( $user_object && $product_id ) {
 			$languages = get_user_meta( $user_object->ID, 'wcwl_languages', true );
 			if ( isset( $languages[ $product_id ] ) ) {

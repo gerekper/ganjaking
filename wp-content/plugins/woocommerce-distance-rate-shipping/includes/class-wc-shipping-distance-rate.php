@@ -1081,21 +1081,21 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 			$address = array();
 
 			if ( ! empty( $package['destination']['address'] ) ) {
-				$address[] = $package['destination']['address'];
+				$address['address_1'] = $package['destination']['address'];
 			} else if ( ! empty( WC()->customer ) && ! empty( WC()->customer->get_shipping_address() ) ) {
-				$address[] = WC()->customer->get_shipping_address();
+				$address['address_1'] = WC()->customer->get_shipping_address();
 			}
 
 			if ( ! empty( $package['destination']['address_2'] ) ) {
-				$address[] = $package['destination']['address_2'];
+				$address['address_2'] = $package['destination']['address_2'];
 			} else if ( ! empty( WC()->customer ) && ! empty( WC()->customer->get_shipping_address_2() ) ) {
-				$address[] = WC()->customer->get_shipping_address_2();
+				$address['address_2'] = WC()->customer->get_shipping_address_2();
 			}
 
 			if ( ! empty( $package['destination']['city'] ) ) {
-				$address[] = $package['destination']['city'];
+				$address['city'] = $package['destination']['city'];
 			} else if ( ! empty( WC()->customer ) && ! empty( WC()->customer->get_shipping_city() ) ) {
-				$address[] = WC()->customer->get_shipping_city();
+				$address['city'] = WC()->customer->get_shipping_city();
 			}
 
 			if ( ! empty( $package['destination']['state'] ) ) {
@@ -1107,12 +1107,12 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 					$state = WC()->countries->states[ $country ][ $state ];
 					$country = WC()->countries->countries[ $country ];
 				}
-				$address[] = $state;
+				$address['state'] = $state;
 			}
 
 			// Cart page only has country, state and zipcodes.
 			if ( ! empty( $package['destination']['postcode'] ) ) {
-				$address[] = $package['destination']['postcode'];
+				$address['postcode'] = $package['destination']['postcode'];
 			}
 
 			if ( ! empty( $package['destination']['country'] ) ) {
@@ -1122,10 +1122,10 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				if ( $convert_country_code && isset( WC()->countries->countries[ $country ] ) ) {
 					$country = WC()->countries->countries[ $country ];
 				}
-				$address[] = $country;
+				$address['country'] = $country;
 			}
 
-			return implode( ', ', $address );
+			return implode( ', ', apply_filters( 'woocommerce_shipping_' . $this->id . '_get_customer_address_string', $address ) );
 		}
 
 		/**
@@ -1136,30 +1136,30 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 		public function get_shipping_address_string() {
 			$address = array();
 			if ( ! empty( $this->address_1 ) ) {
-				$address[] = $this->address_1;
+				$address['address_1'] = $this->address_1;
 			}
 
 			if ( ! empty( $this->address_2 ) ) {
-				$address[] = $this->address_2;
+				$address['address_2'] = $this->address_2;
 			}
 
 			if ( ! empty( $this->city ) ) {
-				$address[] = $this->city;
+				$address['city'] = $this->city;
 			}
 
 			if ( ! empty( $this->postal_code ) ) {
-				$address[] = $this->postal_code;
+				$address['postcode'] = $this->postal_code;
 			}
 
 			if ( ! empty( $this->state_province ) ) {
-				$address[] = $this->state_province;
+				$address['state'] = $this->state_province;
 			}
 
 			if ( ! empty( $this->country ) ) {
-				$address[] = $this->country;
+				$address['country'] = $this->country;
 			}
 
-			return implode( ', ', $address );
+			return implode( ', ', apply_filters( 'woocommerce_shipping_' . $this->id . '_get_shipping_address_string', $address ) );
 		}
 
 		/**

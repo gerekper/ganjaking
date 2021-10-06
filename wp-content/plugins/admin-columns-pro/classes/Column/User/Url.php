@@ -19,7 +19,7 @@ class Url extends AC\Column\User\Url
 	}
 
 	public function editing() {
-		return new Editing\Model\User\Url( $this );
+		return new Editing\Service\User\Url( $this->get_label() );
 	}
 
 	public function filtering() {

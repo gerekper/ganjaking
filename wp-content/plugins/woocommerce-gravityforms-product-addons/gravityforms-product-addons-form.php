@@ -136,6 +136,17 @@ class woocommerce_gravityforms_product_form {
                 .hidden-total {
                     display: none !important;
                 }
+
+                .product_totals ul {
+                    margin-left:0;
+                    padding-left:0;
+                }
+
+                .product_totals ul li {
+                    list-style:none;
+                    margin-bottom:1rem;
+                }
+
             </style>
 
 			<?php

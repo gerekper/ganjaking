@@ -282,7 +282,6 @@ class Functions {
   /**
    * @param string|array $args
    * @param string|array $deprecated
-   * @return array|int|WP_Error
    */
   public function getTerms($args = [], $deprecated = '') {
     return get_terms($args, $deprecated);
@@ -727,5 +726,9 @@ class Functions {
    */
   public function wpKses(string $string, $allowedHtml, $allowedProtocols = []) {
     return wp_kses($string, $allowedHtml, $allowedProtocols);
+  }
+
+  public function deprecatedHook(string $hook_name, string $version, string $replacement, string $message) {
+    _deprecated_hook($hook_name, $version, $replacement, $message);
   }
 }

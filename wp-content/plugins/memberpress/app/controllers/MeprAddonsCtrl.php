@@ -39,7 +39,7 @@ class MeprAddonsCtrl extends MeprBaseCtrl {
       ));
     }
 
-    if(preg_match('/_page_memberpress-(analytics|smtp)$/', $hook)) {
+    if(preg_match('/_page_memberpress-(analytics|smtp|affiliates)$/', $hook)) {
       wp_enqueue_style('mepr-sister-plugin-css', MEPR_CSS_URL . '/admin-sister-plugin.css', array(), MEPR_VERSION);
       wp_enqueue_script('mepr-sister-plugin-js', MEPR_JS_URL . '/admin_sister_plugin.js', array(), MEPR_VERSION);
 
@@ -181,6 +181,36 @@ class MeprAddonsCtrl extends MeprBaseCtrl {
       $activated = activate_plugin($plugin_basename);
 
       if(!is_wp_error($activated)) {
+        if(isset($_POST['config']) && is_array($_POST['config'])) {
+          $slug = isset($_POST['config']['slug']) && is_string($_POST['config']['slug']) ? wp_unslash($_POST['config']['slug']) : '';
+          $license_key = isset($_POST['config']['license_key']) && is_string($_POST['config']['license_key']) ? sanitize_text_field(wp_unslash($_POST['config']['license_key'])) : '';
+
+          if(
+            $slug == 'easy-affiliate/easy-affiliate.php' &&
+            !empty($license_key) &&
+            class_exists('EasyAffiliate\\Models\\Options') &&
+            class_exists('EasyAffiliate\\Controllers\\UpdateCtrl') &&
+            class_exists('EasyAffiliate\\Lib\\Utils')
+          ) {
+            try {
+              $options = \EasyAffiliate\Models\Options::fetch();
+              $options->mothership_license = $license_key;
+              $domain = urlencode(\EasyAffiliate\Lib\Utils::site_domain());
+              $args = compact('domain');
+              \EasyAffiliate\Controllers\UpdateCtrl::send_mothership_request("/license_keys/activate/{$options->mothership_license}", $args, 'post');
+              $options->store();
+              \EasyAffiliate\Controllers\UpdateCtrl::manually_queue_update();
+
+              // Clear the add-ons cache
+              delete_site_transient('esaf_addons');
+              delete_site_transient('esaf_all_addons');
+            }
+            catch(Exception $e) {
+              // Ignore license activation failure
+            }
+          }
+        }
+
         wp_send_json_success(
           array(
             'message'   => $type == 'plugin' ? __('Plugin installed & activated.', 'memberpress') : __('Add-on installed & activated.', 'memberpress'),
@@ -233,7 +263,7 @@ class MeprAddonsCtrl extends MeprBaseCtrl {
       'url' => 'https://downloads.wordpress.org/plugin/google-analytics-for-wordpress.latest-stable.zip',
       'slug' => 'google-analytics-for-wordpress/googleanalytics.php',
       'activate_button_text' => __('Activate MonsterInsights', 'memberpress'),
-      'step_2_button_html' => sprintf(
+      'next_step_button_html' => sprintf(
         '<a href="%s" class="button button-primary button-hero">%s</a>',
         esc_url(admin_url('admin.php?page=monsterinsights-onboarding')),
         esc_html__('Run Setup Wizard', 'memberpress')
@@ -260,7 +290,7 @@ class MeprAddonsCtrl extends MeprBaseCtrl {
       'url' => 'https://downloads.wordpress.org/plugin/wp-mail-smtp.latest-stable.zip',
       'slug' => 'wp-mail-smtp/wp_mail_smtp.php',
       'activate_button_text' => __('Activate WP Mail SMTP', 'memberpress'),
-      'step_2_button_html' => sprintf(
+      'next_step_button_html' => sprintf(
         '<a href="%s" class="button button-primary button-hero">%s</a>',
         esc_url(admin_url('admin.php?page=wp-mail-smtp')),
         esc_html__('Start Setup', 'memberpress')
@@ -278,5 +308,44 @@ class MeprAddonsCtrl extends MeprBaseCtrl {
     return $link;
   }
 
-} //End class
+  public static function affiliates() {
+    $installer_data = array(
+      'return_url' => admin_url('admin.php?page=memberpress-affiliates'),
+      'nonce' => wp_create_nonce('mepr_easy_affiliate_installer'),
+    );
 
+    $installer_data = wp_json_encode($installer_data);
+    $installer_data = rtrim(strtr(base64_encode($installer_data), '+/', '-_'), '=');
+    $installer_url = 'https://easyaffiliate.com/installer/' . $installer_data;
+
+    $plugin = array(
+      'active' => defined('ESAF_VERSION'),
+      'installed' => is_dir(WP_PLUGIN_DIR . '/easy-affiliate'),
+      'installer_url' => $installer_url,
+      'auto_install' => false,
+      'url' => '',
+      'license_key' => '',
+      'slug' => 'easy-affiliate/easy-affiliate.php',
+      'activate_button_text' => __('Activate Easy Affiliate', 'memberpress'),
+      'next_step_button_html' => sprintf(
+        '<a href="%s" class="button button-primary button-hero">%s</a>',
+        esc_url(admin_url('admin.php?page=easy-affiliate-onboarding')),
+        esc_html__('Run Setup Wizard', 'memberpress')
+      )
+    );
+
+    if(isset($_GET['data']) && is_string($_GET['data'])) {
+      $data = wp_unslash($_GET['data']);
+      $data = base64_decode(strtr($data, '-_', '+/') . str_repeat('=', 3 - (3 + strlen($data)) % 4));
+      $data = json_decode($data, true);
+
+      if(is_array($data) && isset($data['license_key'], $data['download_url'], $data['nonce']) && wp_verify_nonce($data['nonce'], 'mepr_easy_affiliate_installer')) {
+        $plugin['auto_install'] = true;
+        $plugin['url'] = $data['download_url'];
+        $plugin['license_key'] = $data['license_key'];
+      }
+    }
+
+    MeprView::render('/admin/addons/affiliates', get_defined_vars());
+  }
+}

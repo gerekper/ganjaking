@@ -62,6 +62,13 @@
             }
         }
 
+        &.wrap-smush-cdn {
+
+            /* Pro features list in Free */
+            .smush-pro-features {
+                max-width: 350px;
+            }
+        }
     }
 
 }

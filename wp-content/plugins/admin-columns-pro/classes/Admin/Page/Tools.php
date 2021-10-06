@@ -2,14 +2,14 @@
 
 namespace ACP\Admin\Page;
 
-use AC\Admin\Page;
+use AC\Admin\RenderableHead;
 use AC\Asset;
 use AC\Asset\Location;
 use AC\Renderable;
 use AC\View;
 use ACP;
 
-class Tools extends Page implements Asset\Enqueueables {
+class Tools implements Asset\Enqueueables, Renderable, RenderableHead {
 
 	const NAME = 'import-export';
 
@@ -23,10 +23,18 @@ class Tools extends Page implements Asset\Enqueueables {
 	 */
 	private $location;
 
-	public function __construct( Location\Absolute $location ) {
-		parent::__construct( self::NAME, __( 'Tools', 'codepress-admin-columns' ) );
+	/**
+	 * @var Renderable
+	 */
+	private $head;
 
+	public function __construct( Location\Absolute $location, Renderable $head ) {
 		$this->location = $location;
+		$this->head = $head;
+	}
+
+	public function render_head() {
+		return $this->head;
 	}
 
 	/**

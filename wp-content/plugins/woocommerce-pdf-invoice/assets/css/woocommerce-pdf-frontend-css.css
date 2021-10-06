@@ -1,0 +1,25 @@
+/**
+ *	WooCommerce PDF FrontEnd CSS
+ */
+ 
+.pdf_invoice_download_button {
+	border: 0;
+	border-radius: 0;
+	background: none;
+	background-color: #43454b;
+	border-color: #43454b;
+	color: #fff;
+	cursor: pointer;
+	padding: .6180469716em 1.41575em;
+	text-decoration: none;
+	font-weight: 600;
+	text-shadow: none;
+	display: inline-block;
+	-webkit-appearance: none;
+	word-break: break-all;
+}
+
+.pdf_invoice_download_button:hover {
+	background-color: #eeeeee;
+	color: #333333;
+}

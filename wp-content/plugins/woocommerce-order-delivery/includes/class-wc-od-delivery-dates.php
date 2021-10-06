@@ -25,6 +25,7 @@ class WC_OD_Delivery_Dates {
 	 *      @type string $start_date
 	 *      @type string $end_date
 	 *      @type array  $disabled_dates
+	 *      @type string $shipping_method
 	 * }.
 	 *
 	 * @param string $format The date format. Default: empty (timestamp).
@@ -34,10 +35,12 @@ class WC_OD_Delivery_Dates {
 		$args = wp_parse_args(
 			$args,
 			array(
-				'start_date'     => strtotime( wc_od_get_first_shipping_date( array() ) ),
-				'end_date'       => strtotime( ( WC_OD()->settings()->get_setting( 'max_delivery_days' ) + 1 ) . ' days', wc_od_get_local_date() ), // The maximum date (Non-inclusive) to look for a valid date.
-				'disabled_dates' => array(),
-				'delivery_days'  => WC_OD()->settings()->get_setting( 'delivery_days' ),
+				'start_date'      => strtotime( wc_od_get_first_shipping_date( array() ) ),
+				'end_date'        => strtotime( ( WC_OD()->settings()->get_setting( 'max_delivery_days' ) + 1 ) . ' days', wc_od_get_local_date() ),
+				// The maximum date (Non-inclusive) to look for a valid date.
+				'disabled_dates'  => array(),
+				'delivery_days'   => WC_OD()->settings()->get_setting( 'delivery_days' ),
+				'shipping_method' => '',
 			)
 		);
 
@@ -52,7 +55,7 @@ class WC_OD_Delivery_Dates {
 
 			if (
 				in_array( date( 'Y-m-d', $timestamp ), $args['disabled_dates'], true ) ||
-				! $delivery_date->is_valid()
+				! $delivery_date->is_valid( array( 'shipping_method' => $args['shipping_method'] ) )
 			) {
 				$disabled_dates[] = ( $format ? date( $format, $timestamp ) : $timestamp );
 			}

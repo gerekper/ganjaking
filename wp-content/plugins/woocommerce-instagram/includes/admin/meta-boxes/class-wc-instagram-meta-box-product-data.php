@@ -45,13 +45,13 @@ class WC_Instagram_Meta_Box_Product_Data {
 
 		$suffix = wc_instagram_get_scripts_suffix();
 
-		wp_enqueue_script( 'wc-instagram-admin-meta-boxes-product', WC_INSTAGRAM_URL . "assets/js/admin/meta-boxes-product{$suffix}.js", array( 'jquery', 'selectWoo' ), WC_INSTAGRAM_VERSION, true );
+		// Register script for backward compatibility.
+		wp_register_script( 'wc-instagram-admin-meta-boxes-product', WC_INSTAGRAM_URL . "assets/js/admin/meta-boxes-product{$suffix}.js", array( 'jquery', 'selectWoo' ), WC_INSTAGRAM_VERSION, true );
 		wp_localize_script(
 			'wc-instagram-admin-meta-boxes-product',
 			'wc_instagram_admin_meta_boxes_product_params',
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'nonce'    => wp_create_nonce( 'refresh_google_product_category_metabox_field' ),
 				'post_id'  => $post->ID,
 			)
 		);
@@ -168,15 +168,15 @@ class WC_Instagram_Meta_Box_Product_Data {
 	}
 
 	/**
-	 * Handles AJAX request for refresh_google_product_category_field action.
+	 * Handles AJAX requests for refresh_google_product_category_field action.
 	 *
 	 * @since 3.3.0
 	 * @deprecated 3.4.6
 	 */
 	public function refresh_google_product_category_field() {
-		wc_deprecated_function( __FUNCTION__, '3.4.6', 'WC_Instagram_AJAX::refresh_google_product_category_metabox_field()' );
+		wc_deprecated_function( __FUNCTION__, '3.4.6', 'WC_Instagram_AJAX::refresh_google_product_category_field()' );
 
-		WC_Instagram_AJAX::refresh_google_product_category_metabox_field();
+		WC_Instagram_AJAX::refresh_google_product_category_field();
 	}
 }
 

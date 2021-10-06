@@ -212,7 +212,7 @@ class WC_Instagram_Product_Catalog_Item {
 	}
 
 	/**
-	 * Gets the product's google_product_category value.
+	 * Gets the Google product category.
 	 *
 	 * @since 3.3.0
 	 *
@@ -220,6 +220,22 @@ class WC_Instagram_Product_Catalog_Item {
 	 */
 	public function get_google_product_category() {
 		$category_id = $this->get_target()->get_meta( '_instagram_google_product_category' );
+
+		// Use the value of the 'product_cat' taxonomy as a fallback.
+		if ( ! $category_id ) {
+			$product_id = $this->get_target()->get_id();
+			$categories = get_the_terms( $product_id, 'product_cat' );
+
+			if ( is_array( $categories ) ) {
+				foreach ( $categories as $category ) {
+					$category_id = (string) wc_instagram_get_google_product_category_for_term( $category );
+
+					if ( $category_id ) {
+						break;
+					}
+				}
+			}
+		}
 
 		/**
 		 * Filters the product's google_product_category value.

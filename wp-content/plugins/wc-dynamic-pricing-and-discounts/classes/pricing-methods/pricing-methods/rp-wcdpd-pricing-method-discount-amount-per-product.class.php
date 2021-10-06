@@ -49,7 +49,7 @@ class RP_WCDPD_Pricing_Method_Discount_Amount_Per_Product extends RP_WCDPD_Prici
      */
     public function get_label()
     {
-        return __('Fixed discount per item', 'rp_wcdpd');
+        return esc_html__('Fixed discount per item', 'rp_wcdpd');
     }
 
 

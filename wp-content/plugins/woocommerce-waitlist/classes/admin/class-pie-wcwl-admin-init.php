@@ -51,6 +51,15 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Init' ) ) {
 			add_action( 'pre_get_posts', array( $this, 'sort_by_waitlist_column' ), 10, 1 );
 			// Events
 			add_action( 'tribe_events_tickets_metabox_edit_accordion_content', array( $this, 'add_waitlist_for_tickets' ), 99, 2 );
+			// WooCommerce product exporter/importer
+			add_filter( 'woocommerce_product_export_column_names', array( $this, 'add_waitlist_export_columns' ) );
+			add_filter( 'woocommerce_product_export_product_default_columns', array( $this, 'add_waitlist_export_columns' ) );
+			add_filter( 'woocommerce_product_export_product_column_wcwl_waitlist_data', array( $this, 'add_waitlist_export_data' ), 10, 2 );
+			add_filter( 'woocommerce_product_export_product_column_wcwl_archive_data', array( $this, 'add_archive_export_data' ), 10, 2 );
+			add_filter( 'woocommerce_csv_product_import_mapping_options', array( $this, 'add_waitlist_import_columns' ) );
+			add_filter( 'woocommerce_csv_product_import_mapping_default_columns', array( $this, 'add_auto_mapping_for_waitlist_columns' ) );
+			add_filter( 'woocommerce_product_import_pre_insert_product_object', array( $this, 'import_waitlist_data' ), 10, 2 );
+			add_filter( 'woocommerce_product_import_pre_insert_product_object', array( $this, 'import_archive_data' ), 10, 2 );
 		}
 
 		/**
@@ -321,6 +330,112 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Init' ) ) {
 				$this->product = $product;
 				include apply_filters( 'wcwl_include_path_admin_panel_event', plugin_dir_path( __FILE__ ) . 'product-tab/components/panel-event.php' );
 			}
+		}
+
+		/**
+		 * Add waitlist and archive data to product exports
+		 *
+		 * @param array $columns
+		 * @return array $columns
+		 */
+		public function add_waitlist_export_columns( $columns ) {
+			$columns['wcwl_waitlist_data'] = 'Waitlist';
+			$columns['wcwl_archive_data']  = 'Waitlist Archive';
+
+			return $columns;
+		}
+
+		/**
+		 * Provide serialized waitlist data for export
+		 *
+		 * @param mixed $value (default: '')
+		 * @param WC_Product $product
+		 * @return mixed $value - Should be in a format that can be output into a text file (string, numeric, etc).
+		 */
+		public function add_waitlist_export_data( $value, $product ) {
+			$meta = get_post_meta( $product->get_id(), 'woocommerce_waitlist', true );
+			if ( $meta && ! empty( $meta ) ) {
+				$value = serialize( $meta );
+			}
+			return $value;
+		}
+
+		/**
+		 * Provide serialized archive data for export
+		 *
+		 * @param mixed $value (default: '')
+		 * @param WC_Product $product
+		 * @return mixed $value - Should be in a format that can be output into a text file (string, numeric, etc).
+		 */
+		public function add_archive_export_data( $value, $product ) {
+			$meta = get_post_meta( $product->get_id(), 'wcwl_waitlist_archive', true );
+			if ( $meta && ! empty( $meta ) ) {
+				$value = serialize( $meta );
+			}
+			return $value;
+		}
+
+		/**
+		 * Add waitlist and archive data to product imports
+		 *
+		 * @param array $options
+		 * @return array $options
+		 */
+		public function add_waitlist_import_columns( $options ) {
+			$options['wcwl_waitlist_data'] = 'Waitlist';
+			$options['wcwl_archive_data']  = 'Waitlist Archive';
+
+			return $options;
+		}
+
+		/**
+		 * Add automatic mapping support for waitlist columns
+		 *
+		 * @param array $columns
+		 * @return array $columns
+		 */
+		public function add_auto_mapping_for_waitlist_columns( $columns ) {
+			$columns['Waitlist']         = 'wcwl_waitlist_data';
+			$columns['Waitlist Archive'] = 'wcwl_archive_data';
+
+			return $columns;
+		}
+
+		/**
+		 * Process and import waitlist data
+		 *
+		 * @param WC_Product $object - Product being imported or updated.
+		 * @param array $data - CSV data read for the product.
+		 * @return WC_Product $object
+		 */
+		public function import_waitlist_data( $object, $data ) {
+			if ( ! empty( $data['wcwl_waitlist_data'] ) ) {
+				$meta = unserialize( $data['wcwl_waitlist_data'] );
+				if ( is_array( $meta ) ) {
+					update_post_meta( $object->get_id(), 'woocommerce_waitlist', $meta );
+					update_post_meta( $object->get_id(), '_woocommerce_waitlist_count', count( $meta ) );
+				}
+			}
+
+			return $object;
+		}
+
+		/**
+		 * Process and import archive data
+		 *
+		 * @param WC_Product $object - Product being imported or updated.
+		 * @param array $data - CSV data read for the product.
+		 * @return WC_Product $object
+		 */
+		public function import_archive_data( $object, $data ) {
+			if ( ! empty( $data['wcwl_archive_data'] ) ) {
+				$meta = unserialize( $data['wcwl_archive_data'] );
+				if ( is_array( $meta ) ) {
+					update_post_meta( $object->get_id(), 'wcwl_waitlist_archive', $meta );
+				}
+			}
+
+			return $object;
 		}
 
 		/**

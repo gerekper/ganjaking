@@ -38,7 +38,12 @@ class PermanentNotices {
   /** @var DeprecatedShortcodeNotice */
   private $deprecatedShortcodeNotice;
 
-  public function __construct(WPFunctions $wp) {
+  /** @var EmailWithInvalidSegmentNotice */
+  private $emailWithInvalidListNotice;
+
+  public function __construct(
+    WPFunctions $wp
+  ) {
     $this->wp = $wp;
     $this->phpVersionWarnings = new PHPVersionWarnings();
     $this->afterMigrationNotice = new AfterMigrationNotice();
@@ -47,7 +52,8 @@ class PermanentNotices {
     $this->inactiveSubscribersNotice = new InactiveSubscribersNotice(SettingsController::getInstance(), $wp);
     $this->blackFridayNotice = new BlackFridayNotice();
     $this->headersAlreadySentNotice = new HeadersAlreadySentNotice(SettingsController::getInstance(), $wp);
-    $this->deprecatedShortcodeNotice = new DeprecatedShortcodeNotice();
+    $this->deprecatedShortcodeNotice = new DeprecatedShortcodeNotice($wp);
+    $this->emailWithInvalidListNotice = new EmailWithInvalidSegmentNotice($wp);
   }
 
   public function init() {
@@ -85,6 +91,9 @@ class PermanentNotices {
     $this->deprecatedShortcodeNotice->init(
       Menu::isOnMailPoetAdminPage($excludeWizard)
     );
+    $this->emailWithInvalidListNotice->init(
+      Menu::isOnMailPoetAdminPage($exclude = null, $pageId = 'mailpoet-newsletters')
+    );
   }
 
   public function ajaxDismissNoticeHandler() {
@@ -107,6 +116,9 @@ class PermanentNotices {
         break;
       case (DeprecatedShortcodeNotice::OPTION_NAME):
         $this->deprecatedShortcodeNotice->disable();
+        break;
+      case (EmailWithInvalidSegmentNotice::OPTION_NAME):
+        $this->emailWithInvalidListNotice->disable();
         break;
     }
   }

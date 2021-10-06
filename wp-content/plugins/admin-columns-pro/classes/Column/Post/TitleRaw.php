@@ -4,12 +4,11 @@ namespace ACP\Column\Post;
 
 use AC;
 use ACP\Editing;
+use ACP\Editing\Storage;
+use ACP\Editing\View;
 use ACP\Search;
 use ACP\Sorting;
 
-/**
- * @since 4.0
- */
 class TitleRaw extends AC\Column\Post\TitleRaw
 	implements Sorting\Sortable, Editing\Editable, Search\Searchable {
 
@@ -18,7 +17,10 @@ class TitleRaw extends AC\Column\Post\TitleRaw
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\TitleRaw( $this );
+		return new Editing\Service\Basic(
+			new View\Text(),
+			new Storage\Post\Field( 'post_title' )
+		);
 	}
 
 	public function search() {

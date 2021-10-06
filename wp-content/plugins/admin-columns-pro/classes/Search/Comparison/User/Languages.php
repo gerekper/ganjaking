@@ -10,10 +10,12 @@ use ACP\Search\Operators;
 class Languages extends Comparison\Meta
 	implements Comparison\Values {
 
-	/** @var array */
+	/**
+	 * @var array
+	 */
 	private $languages;
 
-	public function __construct( $languages ) {
+	public function __construct( array $languages ) {
 		$operators = new Operators( [
 			Operators::EQ,
 			Operators::IS_EMPTY,

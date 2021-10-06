@@ -17,6 +17,7 @@ class User extends Meta
 	public function __construct( $meta_key, $meta_type ) {
 		$operators = new Operators( [
 			Operators::EQ,
+			Operators::CURRENT_USER,
 			Operators::IS_EMPTY,
 			Operators::NOT_IS_EMPTY,
 		] );

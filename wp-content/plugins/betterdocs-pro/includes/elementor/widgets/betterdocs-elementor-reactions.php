@@ -20,7 +20,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
         }
 
         public function get_title () {
-            return __('Doc Reactions', 'betterdocs');
+            return __('Doc Reactions', 'betterdocs-pro');
         }
 
         public function get_icon () {
@@ -43,7 +43,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->start_controls_section(
                 'betterdocs_global_warning',
                 [
-                    'label' => __('Warning!', 'betterdocs'),
+                    'label' => __('Warning!', 'betterdocs-pro'),
                 ]
             );
 
@@ -52,7 +52,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
                 [
                     'type'            => Controls_Manager::RAW_HTML,
                     'raw'             => __('<strong>BetterDocs PRO</strong> is not installed/activated on your site. Please install and activate <a href="plugin-install.php?s=betterdocs-pro&tab=search&type=term" target="_blank">BetterDocs PRO</a> first.',
-                        'betterdocs'),
+                        'betterdocs-pro'),
                     'content_classes' => 'eael-warning',
                 ]
             );
@@ -69,7 +69,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->start_controls_section(
                 'section_column_settings',
                 [
-                    'label' => __('Box Style', 'betterdocs'),
+                    'label' => __('Box Style', 'betterdocs-pro'),
                     'tab'   => Controls_Manager::TAB_STYLE,
                 ]
             );
@@ -77,7 +77,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->add_control(
                 'reaction_box_width',
                 [
-                    'label'      => __('Width', 'betterdocs'),
+                    'label'      => __('Width', 'betterdocs-pro'),
                     'type'       => Controls_Manager::SLIDER,
                     'size_units' => ['px'],
                     'range'      => [
@@ -95,7 +95,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->add_control(
                 'reaction_box_height',
                 [
-                    'label'      => __('Height', 'betterdocs'),
+                    'label'      => __('Height', 'betterdocs-pro'),
                     'type'       => Controls_Manager::SLIDER,
                     'size_units' => ['px'],
                     'range'      => [
@@ -122,7 +122,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->add_responsive_control(
                 'reaction_box_space', // Legacy control id but new control
                 [
-                    'label'      => __('Box Spacing', 'betterdocs'),
+                    'label'      => __('Box Spacing', 'betterdocs-pro'),
                     'type'       => Controls_Manager::DIMENSIONS,
                     'size_units' => ['px', '%', 'em'],
                     'selectors'  => [
@@ -134,7 +134,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->add_responsive_control(
                 'reaction_box_padding',
                 [
-                    'label'      => __('Box Padding', 'betterdocs'),
+                    'label'      => __('Box Padding', 'betterdocs-pro'),
                     'type'       => Controls_Manager::DIMENSIONS,
                     'size_units' => ['px', 'em', '%'],
                     'selectors'  => [
@@ -147,7 +147,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
                 Group_Control_Border::get_type(),
                 [
                     'name'     => 'reaction_box_border_normal',
-                    'label'    => esc_html__('Border', 'betterdocs'),
+                    'label'    => esc_html__('Border', 'betterdocs-pro'),
                     'selector' => '{{WRAPPER}} .betterdocs-article-reactions'
                 ]
             );
@@ -155,7 +155,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->add_responsive_control(
                 'reaction_box_radius_normal',
                 [
-                    'label'      => esc_html__('Border Radius', 'betterdocs'),
+                    'label'      => esc_html__('Border Radius', 'betterdocs-pro'),
                     'type'       => Controls_Manager::DIMENSIONS,
                     'size_units' => ['px', 'em', '%'],
                     'selectors'  => [
@@ -177,7 +177,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->start_controls_section(
                 'section_title_settings',
                 [
-                    'label' => __('Title', 'betterdocs'),
+                    'label' => __('Title', 'betterdocs-pro'),
                     'tab'   => Controls_Manager::TAB_STYLE,
                 ]
             );
@@ -185,16 +185,16 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->add_control(
                 'reaction_text',
                 [
-                    'label'   => __('Text', 'betterdocs'),
+                    'label'   => __('Text', 'betterdocs-pro'),
                     'type'    => Controls_Manager::TEXT,
-                    'default' => esc_html__('What are your feelings', 'betterdocs')
+                    'default' => esc_html__('What are your feelings', 'betterdocs-pro')
                 ]
             );
 
             $this->add_control(
                 'reaction_box_title_color',
                 [
-                    'label'     => esc_html__('Color', 'betterdocs'),
+                    'label'     => esc_html__('Color', 'betterdocs-pro'),
                     'type'      => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .betterdocs-article-reactions-heading h5' => 'color: {{VALUE}};',
@@ -215,7 +215,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->start_controls_section(
                 'section_icon_settings',
                 [
-                    'label' => __('Icon', 'betterdocs'),
+                    'label' => __('Icon', 'betterdocs-pro'),
                     'tab'   => Controls_Manager::TAB_STYLE,
                 ]
             );
@@ -223,7 +223,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->add_control(
                 'reaction_box_icon_area',
                 [
-                    'label'      => __('Area', 'betterdocs'),
+                    'label'      => __('Area', 'betterdocs-pro'),
                     'type'       => Controls_Manager::SLIDER,
                     'size_units' => ['px'],
                     'range'      => [
@@ -241,7 +241,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->add_control(
                 'reaction_box_icon_size',
                 [
-                    'label'      => __('Icon Size', 'betterdocs'),
+                    'label'      => __('Icon Size', 'betterdocs-pro'),
                     'type'       => Controls_Manager::SLIDER,
                     'size_units' => ['px'],
                     'range'      => [
@@ -259,7 +259,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->add_control(
                 'reaction_box_icon_background',
                 [
-                    'label'     => esc_html__('Background Color', 'betterdocs'),
+                    'label'     => esc_html__('Background Color', 'betterdocs-pro'),
                     'type'      => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .betterdocs-article-reaction-links li a' => 'background-color: {{VALUE}};',
@@ -270,7 +270,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->add_control(
                 'reaction_box_icon_hover_background',
                 [
-                    'label'     => esc_html__('Hover Background Color', 'betterdocs'),
+                    'label'     => esc_html__('Hover Background Color', 'betterdocs-pro'),
                     'type'      => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .betterdocs-article-reaction-links li a:hover' => 'background-color: {{VALUE}};',
@@ -281,7 +281,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->add_control(
                 'reaction_box_icon_color',
                 [
-                    'label'     => esc_html__('Color', 'betterdocs'),
+                    'label'     => esc_html__('Color', 'betterdocs-pro'),
                     'type'      => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .betterdocs-article-reaction-links li a svg path' => 'fill: {{VALUE}};',
@@ -292,7 +292,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
             $this->add_control(
                 'reaction_box_icon_hover_color',
                 [
-                    'label'     => esc_html__('Hover Color', 'betterdocs'),
+                    'label'     => esc_html__('Hover Color', 'betterdocs-pro'),
                     'type'      => Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .betterdocs-article-reaction-links li a:hover svg path' => 'fill: {{VALUE}};',

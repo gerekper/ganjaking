@@ -1,7 +1,7 @@
 <?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');} ?>
 
 <p id="config-<?php echo $email->dashed_name(); ?>" class="mepr-config-email-row">
-  <label for="<?php echo $email->field_name('enabled'); ?>">
+  <label for="<?php echo $email->field_name('enabled', true); ?>">
     <input type="checkbox"
            name="<?php echo $email->field_name('enabled'); ?>"
            id="<?php echo $email->field_name('enabled', true); ?>"<?php checked($email->enabled()); ?>/>

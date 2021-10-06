@@ -8,14 +8,11 @@ use ACP\Export;
 use ACP\Filtering;
 use ACP\Search;
 
-/**
- * @since 4.0
- */
 class Email extends AC\Column\User\Email
 	implements Editing\Editable, Filtering\Filterable, Export\Exportable, Search\Searchable {
 
 	public function editing() {
-		return new Editing\Model\User\Email( $this );
+		return new Editing\Service\User\Email( $this->get_label() );
 	}
 
 	public function filtering() {

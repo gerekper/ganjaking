@@ -15,43 +15,9 @@
 		toggleModuleButton: document.getElementById('smush-toggle-webp-button'),
 		recheckStatusButton: document.getElementById('smush-webp-recheck'),
 		recheckStatusLink: document.getElementById('smush-webp-recheck-link'),
-		applyHtaccessButton: document.getElementById(
-			'smush-webp-apply-htaccess'
-		),
-		removeHtaccessButton: document.getElementById(
-			'smush-webp-remove-htaccess'
-		),
-
-		selectedServer: '',
-		serverSelector: null,
-		serverInstructions: [],
+		showWizardButton: document.getElementById('smush-webp-toggle-wizard'),
 
 		init() {
-			const self = this;
-			// Define selected server.
-			self.serverSelector = document.getElementById('webp-server-type');
-			if (self.serverSelector) {
-				self.selectedServer = self.serverSelector.value;
-				// Server type changed.
-				jQuery(self.serverSelector).on( 'change', function (e) {
-					const value = e.currentTarget.value;
-					self.hideCurrentInstructions();
-					self.showServerInstructions(value);
-					self.selectedServer = value;
-				});
-
-				// Init server instructions tabs.
-				const tabs = document.querySelectorAll(
-					'.webp-server-instructions'
-				);
-				for (let i = 0; i < tabs.length; i++) {
-					const server = tabs[i].getAttribute('data-server');
-					self.serverInstructions[server] = tabs[i];
-				}
-
-				self.showServerInstructions(self.selectedServer);
-			}
-
 			this.maybeShowDeleteAllSuccessNotice();
 
 			/**
@@ -92,21 +58,10 @@
 					.addEventListener('click', (e) => this.deleteAll(e));
 			}
 
-			/**
-			 * Handle "Apply Rules' button click on WebP page.
-			 */
-			if (this.applyHtaccessButton) {
-				this.applyHtaccessButton.addEventListener('click', (e) =>
-					this.writeHtaccess(e, 'apply')
-				);
-			}
-
-			/**
-			 * Handle "Remove Rules' button click on WebP page.
-			 */
-			if (this.removeHtaccessButton) {
-				this.removeHtaccessButton.addEventListener('click', (e) =>
-					this.writeHtaccess(e, 'remove')
+			if (this.showWizardButton) {
+				this.showWizardButton.addEventListener(
+					'click',
+					this.toggleWizard
 				);
 			}
 		},
@@ -138,10 +93,12 @@
 					if ('undefined' !== typeof res.success && res.success) {
 						const scanPromise = this.runScan();
 						scanPromise.onload = () => {
-							location.search = location.search;
-						}
+							window.location.href =
+								window.wp_smush_msgs.localWebpURL;
+						};
 					} else if ('undefined' !== typeof res.data.message) {
 						this.showNotice(res.data.message);
+						button.classList.remove('sui-button-onload');
 					}
 				} else {
 					let message = window.wp_smush_msgs.generic_ajax_error;
@@ -149,9 +106,8 @@
 						message = res.data.message;
 					}
 					this.showNotice(message);
+					button.classList.remove('sui-button-onload');
 				}
-
-				button.classList.remove('sui-button-onload');
 			};
 
 			xhr.send(
@@ -163,9 +119,6 @@
 		 * re-check server configuration for WebP.
 		 */
 		recheckStatus() {
-			const nonceField = document.getElementsByName(
-				'wp_smush_options_nonce'
-			);
 			this.recheckStatusButton.classList.add('sui-button-onload');
 
 			const xhr = new XMLHttpRequest();
@@ -179,30 +132,27 @@
 				let message = false;
 				const res = JSON.parse(xhr.response);
 				if (200 === xhr.status) {
-					if ('undefined' !== typeof res.success && res.success) {
-						if (
-							res.data.is_configured !==
-							this.recheckStatusButton.dataset.isConfigured
-						) {
-							// Reload the page when the configuration status changed.
-							location.reload();
-						}
-					} else {
-						message = window.wp_smush_msgs.generic_ajax_error;
+					const isConfigured = res.success ? '1' : '0';
+					if (
+						isConfigured !==
+						this.recheckStatusButton.dataset.isConfigured
+					) {
+						// Reload the page when the configuration status changed.
+						location.reload();
 					}
 				} else {
 					message = window.wp_smush_msgs.generic_ajax_error;
 				}
 
-				if (res && res.data && res.data.message) {
-					message = res.data.message;
+				if (res && res.data) {
+					message = res.data;
 				}
 
 				if (message) {
 					this.showNotice(message);
 				}
 			};
-			xhr.send('_ajax_nonce=' + nonceField[0].value);
+			xhr.send('_ajax_nonce=' + window.wp_smush_msgs.webp_nonce);
 		},
 
 		deleteAll(e) {
@@ -260,56 +210,19 @@
 			xhr.send('_ajax_nonce=' + this.nonceField[0].value);
 		},
 
-		writeHtaccess(e, action) {
-			e.preventDefault();
-
-			const button = e.currentTarget;
-			button.classList.add('sui-button-onload');
+		toggleWizard(e) {
+			e.currentTarget.classList.add('sui-button-onload');
 
 			const xhr = new XMLHttpRequest();
 			xhr.open(
-				'POST',
-				ajaxurl + '?action=smush_webp_write_htaccess_rules',
+				'GET',
+				ajaxurl +
+					'?action=smush_toggle_webp_wizard&_ajax_nonce=' +
+					window.wp_smush_msgs.webp_nonce,
 				true
 			);
-			xhr.setRequestHeader(
-				'Content-type',
-				'application/x-www-form-urlencoded'
-			);
-			xhr.onload = () => {
-				button.classList.remove('sui-button-onload');
-				let message = false,
-					type;
-				const res = JSON.parse(xhr.response);
-				if (200 === xhr.status) {
-					if ('undefined' !== typeof res.success && res.success) {
-						location.reload();
-					}
-				} else {
-					message = window.wp_smush_msgs.generic_ajax_error;
-				}
-
-				if (res && res.data && res.data.message) {
-					message = res.data.message;
-					type = 'warning';
-				}
-
-				if (message) {
-					this.showNotice(message, type);
-				}
-			};
-
-			const ajaxAction = 'apply' === action ? 'apply' : 'remove',
-				nonceField = document.getElementsByName(
-					'wp_smush_options_nonce'
-				);
-
-			xhr.send(
-				'write_action=' +
-					ajaxAction +
-					'&_ajax_nonce=' +
-					nonceField[0].value
-			);
+			xhr.onload = () => location.reload();
+			xhr.send();
 		},
 
 		/**
@@ -391,21 +304,6 @@
 				noticeMessage,
 				noticeOptions
 			);
-		},
-
-		hideCurrentInstructions() {
-			if (this.serverInstructions[this.selectedServer]) {
-				this.serverInstructions[this.selectedServer].classList.add(
-					'sui-hidden'
-				);
-			}
-		},
-
-		showServerInstructions(server) {
-			if (typeof this.serverInstructions[server] !== 'undefined') {
-				const serverTab = this.serverInstructions[server];
-				serverTab.classList.remove('sui-hidden');
-			}
 		},
 	};
 

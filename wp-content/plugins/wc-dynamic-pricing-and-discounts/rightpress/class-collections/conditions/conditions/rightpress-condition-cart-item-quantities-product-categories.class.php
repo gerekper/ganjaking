@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Cart_Item_Quantities_Product_Categories exte
     public function get_label()
     {
 
-        return __('Cart item quantity - Categories', 'rightpress');
+        return esc_html__('Cart item quantity - Categories', 'rightpress');
     }
 
 

@@ -13,10 +13,10 @@ class Options_Helper {
 	/**
 	 * Retrieves a single field from any option for the SEO plugin. Keys are always unique.
 	 *
+	 * @codeCoverageIgnore We have to write test when this method contains own code.
+	 *
 	 * @param string $key     The key it should return.
 	 * @param mixed  $default The default value that should be returned if the key isn't set.
-	 *
-	 * @codeCoverageIgnore We have to write test when this method contains own code.
 	 *
 	 * @return mixed|null Returns value if found, $default if not.
 	 */
@@ -54,7 +54,7 @@ class Options_Helper {
 	 * @return string The title separator.
 	 */
 	public function get_title_separator() {
-		$replacement = $this->get_default( 'wpseo_titles', 'separator' );
+		$default = $this->get_default( 'wpseo_titles', 'separator' );
 
 		// Get the titles option and the separator options.
 		$separator         = $this->get( 'separator' );
@@ -64,6 +64,12 @@ class Options_Helper {
 		if ( isset( $seperator_options[ $separator ] ) ) {
 			// Set the new replacement.
 			$replacement = $seperator_options[ $separator ];
+		}
+		elseif ( isset( $seperator_options[ $default ] ) ) {
+			$replacement = $seperator_options[ $default ];
+		}
+		else {
+			$replacement = \reset( $seperator_options );
 		}
 
 		/**

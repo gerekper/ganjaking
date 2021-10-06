@@ -79,3 +79,41 @@ function rp_wcdpd_get_checkout_fee_rules_applicable_to_cart()
     // Return applicable adjustments
     return RP_WCDPD_Controller_Methods_Checkout_Fee::get_instance()->applicable_adjustments;
 }
+
+/**
+ * Get cart discount rules applied to order
+ *
+ * Returns array with keys representing coupon codes (cart discount unique identifiers) and values representing
+ * rule data or set to null if such rule no longer exists
+ *
+ * @param WC_Order|int $order
+ * @return array
+ */
+function rp_wcdpd_get_cart_discount_rules_applied_to_order($order)
+{
+
+    $applied_rules = array();
+
+    // Load order
+    $order = wc_get_order($order);
+
+    // Ready or fail
+    RP_WCDPD::ready_or_fail(__FUNCTION__);
+
+    // Get coupon codes
+    foreach ($order->get_coupon_codes() as $code) {
+
+        // Check if coupon code represents cart discount
+        if (RP_WCDPD_Controller_Methods_Cart_Discount::coupon_is_cart_discount($code)) {
+
+            // Get rules
+            if ($rules = RP_WCDPD_Rules::get('cart_discounts', array('uids' => array($code)), true)) {
+
+                // Add rule to applied rules array
+                $applied_rules[$code] = array_pop($rules);
+            }
+        }
+    }
+
+    return $applied_rules;
+}

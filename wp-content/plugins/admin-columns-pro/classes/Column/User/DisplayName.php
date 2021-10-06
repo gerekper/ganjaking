@@ -14,7 +14,7 @@ class DisplayName extends AC\Column\User\DisplayName
 	}
 
 	public function editing() {
-		return new Editing\Model\User\DisplayName( $this );
+		return new Editing\Service\User\DisplayName();
 	}
 
 }

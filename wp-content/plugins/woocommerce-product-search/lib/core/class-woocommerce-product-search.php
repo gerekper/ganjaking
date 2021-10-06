@@ -135,13 +135,10 @@ class WooCommerce_Product_Search {
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-product-processor.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-term-processor.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-worker.php';
-			if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
-				require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service.php';
-			} else {
-				require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service-v2.php';
-			}
+			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-hit.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-utility.php';
+			require_once WOO_PS_BLOCKS_LIB . '/class-blocks.php';
 		}
 
 		if ( !empty( $_REQUEST['ixmbd'] ) ) {

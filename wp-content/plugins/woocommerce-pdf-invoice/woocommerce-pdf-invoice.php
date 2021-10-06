@@ -3,11 +3,11 @@
 Plugin Name: WooCommerce PDF Invoices
 Plugin URI: https://woocommerce.com/products/pdf-invoices/
 Description: Attach a PDF Invoice to the completed order email and allow invoices to be downloaded from customer's My Account page. 
-Version: 4.13.3
+Version: 4.14.4
 Author: Andrew Benbow
 Author URI: http://www.chromeorange.co.uk
-WC requires at least: 3.0.0
-WC tested up to: 5.3.0
+WC requires at least: 3.5.0
+WC tested up to: 5.5.0
 Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
 */
 
@@ -43,7 +43,7 @@ Woo: 228318:7495e3f13cc0fa3ee07304691d12555c
     /**
      * Defines
      */
-    define( 'PDFVERSION' , '4.13.3' );
+    define( 'PDFVERSION' , '4.14.4' );
     define( 'PDFLANGUAGE', 'woocommerce-pdf-invoice' );
     define( 'PDFSETTINGS' , admin_url( 'admin.php?page=woocommerce_pdf' ) );
     define( 'PDFSUPPORTURL' , 'http://support.woothemes.com/' );

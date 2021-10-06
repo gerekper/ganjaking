@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce Cart Add-Ons
  * Plugin URI: https://woocommerce.com/products/cart-add-ons/
  * Description: A tool for driving incremental and impulse purchases once customers are in the shopping cart. It extends the concept of upsells and cross-sells at the product level, and engages your customers at the moment they are most likely to increase spending.
- * Version: 2.0.0
+ * Version: 2.1.0
  * Author: WooCommerce
- * Tested up to: 5.6
+ * Tested up to: 5.8
  * WC requires at least: 4.0
- * WC tested up to: 5.0
+ * WC tested up to: 5.5
  * Author URI: https://woocommerce.com/
  * Text domain: sfn_cart_addons
  * Woo: 18717:3a8ef25334396206f5da4cf208adeda3
@@ -30,36 +30,25 @@
  * @package woocommerce-cart-add-ons
  */
 
+defined( 'ABSPATH' ) || exit;
 
 use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
 use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
 use Automattic\WooCommerce\Admin\Features\Features;
-/**
- * Localisation
- **/
 
-
-load_plugin_textdomain( 'sfn_cart_addons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+// Subscribe to automated translations.
 add_filter( 'woocommerce_translations_updates_for_woocommerce-cart-add-ons', '__return_true' );
 
+define( 'WC_CART_ADDONS_VERSION', '2.1.0' ); // WRCS: DEFINED_VERSION.
 
-define( 'WC_CART_ADDONS_VERSION', '2.0.0' ); // WRCS: DEFINED_VERSION.
-
-// Activation.
-register_activation_hook( __FILE__, array( 'SFN_Cart_Addons', 'activate' ) );
+require 'widget.php';
 
 class SFN_Cart_Addons {
 
 	public function __construct() {
-
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
-		require 'widget.php';
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
-
-		// Menu.
 		add_action( 'admin_menu', array( $this, 'menu' ), 20 );
-
 		add_filter( 'woocommerce_screen_ids', array( $this, 'register_screen_id' ) );
 
 		// Help format variations.
@@ -70,7 +59,6 @@ class SFN_Cart_Addons {
 		// Settings styles and scripts.
 		add_action( 'admin_enqueue_scripts', array( $this, 'settings_scripts' ) );
 		add_action( 'admin_post_sfn_cart_addons_update_settings', array( $this, 'update_settings' ) );
-
 		add_action( 'wp_ajax_sfn_product_is_variable', array( $this, 'ajax_product_is_variable' ) );
 
 		// Cart page.
@@ -82,27 +70,6 @@ class SFN_Cart_Addons {
 
 	public function register_widget() {
 		register_widget( 'cart_addons_widget' );
-	}
-
-	public static function activate() {
-		$settings = get_option( 'sfn_cart_addons', false );
-
-		if ( ! $settings ) {
-			$settings = array(
-				'header_title'   => __( 'Product Add-ons', 'sfn_cart_addons' ),
-				'default_addons' => array(),
-			);
-
-			update_option( 'sfn_cart_addons', $settings );
-		}
-
-		if ( ! get_option( 'sfn_cart_addons_products', false ) ) {
-			update_option( 'sfn_cart_addons_products', array() );
-		}
-
-		if ( ! get_option( 'sfn_cart_addons_categories', false ) ) {
-			update_option( 'sfn_cart_addons_categories', array() );
-		}
 	}
 
 	/**
@@ -148,10 +115,10 @@ class SFN_Cart_Addons {
 	public function register_help_tab() {
 		$screen = get_current_screen();
 
-		$contents  = '<h4>' . __( 'Use shortcodes on any page or post', 'sfn_cart_addons' ) . '</h4>' . "\n";
-		$contents .= '<p><code>[display-addons length=5 mode=loop]</code> - ' . __( 'Will use your theme\'s template', 'sfn_cart_addons' ) . '<br /><code>[display-addons length=4 mode=images_name]</code> - ' . __( 'Shows the product image along with the product name', 'sfn_cart_addons' ) . '<br /><code>[display-addons length=8 mode=images_name_price]</code> - ' . __( 'Will display product images with name and price', 'sfn_cart_addons' ) . '</p>' . "\n";
-		$contents .= '<h4>' . __( 'Use directly in your theme', 'sfn_cart_addons' ) . '</h4>' . "\n";
-		$contents .= '<p><code>&lt;?php if ( function_exists(\'sfn_display_cart_addons\') ) sfn_display_cart_addons($num, $display); ?&gt;</code><br />' . sprintf( __( '%s is the maximum number of add-ons to display.', 'sfn_cart_addons' ), '<code>$num</code>' ) . ' ' . sprintf( __( '%s can be one of the following: \'loop\', \'images\', \'images_name\', \'images_name_price\', \'names\', \'names_price\'', 'sfn_cart_addons' ), '<code>$display</code>' ) . '</p>';
+		$contents  = '<h4>' . esc_html__( 'Use shortcodes on any page or post', 'sfn_cart_addons' ) . '</h4>' . "\n";
+		$contents .= '<p><code>[display-addons length=5 mode=loop]</code> - ' . esc_html__( 'Will use your theme\'s template', 'sfn_cart_addons' ) . '<br /><code>[display-addons length=4 mode=images_name]</code> - ' . esc_html__( 'Shows the product image along with the product name', 'sfn_cart_addons' ) . '<br /><code>[display-addons length=8 mode=images_name_price]</code> - ' . esc_html__( 'Will display product images with name and price', 'sfn_cart_addons' ) . '</p>' . "\n";
+		$contents .= '<h4>' . esc_html__( 'Use directly in your theme', 'sfn_cart_addons' ) . '</h4>' . "\n";
+		$contents .= '<p><code>&lt;?php if ( function_exists(\'sfn_display_cart_addons\') ) sfn_display_cart_addons($num, $display); ?&gt;</code><br />' . sprintf( esc_html__( '%s is the maximum number of add-ons to display.', 'sfn_cart_addons' ), '<code>$num</code>' ) . ' ' . sprintf( esc_html__( '%s can be one of the following: \'loop\', \'images\', \'images_name\', \'images_name_price\', \'names\', \'names_price\'', 'sfn_cart_addons' ), '<code>$display</code>' ) . '</p>';
 
 		// Add my_help_tab if current screen is My Admin Page.
 		$screen->add_help_tab(
@@ -165,7 +132,6 @@ class SFN_Cart_Addons {
 
 	public function register_screen_id( $screens ) {
 		$screens[] = 'woocommerce_page_sfn-cart-addons';
-
 		return $screens;
 	}
 
@@ -194,6 +160,7 @@ class SFN_Cart_Addons {
 			$cart_addons_settings = array(
 				'all_categories_used' => __( 'All categories have been used', 'sfn_cart_addons' ),
 				'search_products'     => __( 'Search for a product &hellip;', 'sfn_cart_addons' ),
+				'security'            => wp_create_nonce( 'sfn-settings' ),
 			);
 
 			wp_enqueue_script( 'cart_addons_settings', plugins_url( 'assets/js/settings' . $suffix . '.js', __FILE__ ), array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-core' ), WC_CART_ADDONS_VERSION, true );
@@ -204,28 +171,37 @@ class SFN_Cart_Addons {
 	}
 
 	public function settings() {
-		require_once( 'settings.php' );
+		require_once 'settings.php';
 	}
 
 	public function update_settings() {
 		global $wpdb, $woocommerce;
 
-		$_POST = array_map( 'stripslashes_deep', $_POST );
+		if ( ! isset( $_POST['sfn_cart_addons_update_settings_nonce'] ) || ! wp_verify_nonce( wc_clean( wp_unslash( $_POST['sfn_cart_addons_update_settings_nonce'] ) ), 'sfn_cart_addons_update_settings' )
+		) {
+			return;
+		}
 
-		$settings = get_option( 'sfn_cart_addons', array() );
+		$settings = get_option(
+			'sfn_cart_addons',
+			array(
+				'header_title'   => __( 'Product Add-ons', 'sfn_cart_addons' ),
+				'default_addons' => array(),
+			)
+		);
 		$default  = array();
 
 		if ( isset( $_POST['header_title'] ) ) {
-			$settings['header_title'] = $_POST['header_title'];
+			$settings['header_title'] = wc_clean( wp_unslash( $_POST['header_title'] ) );
 		}
 
 		if ( isset( $_POST['upsell_number'] ) ) {
-			$settings['upsell_number'] = (int) $_POST['upsell_number'];
+			$settings['upsell_number'] = absint( $_POST['upsell_number'] );
 		}
 
 		if ( isset( $_POST['default_products'] ) && is_array( $_POST['default_products'] ) ) {
 			if ( ! empty( $_POST['default_products'] ) ) {
-				$default_products = $this->csv_to_array( $_POST['default_products'] );
+				$default_products = $this->csv_to_array( wc_clean( wp_unslash( $_POST['default_products'] ) ) );
 
 				foreach ( $default_products as $product_id ) {
 					$default[] = $product_id;
@@ -240,11 +216,12 @@ class SFN_Cart_Addons {
 		$category_addons = array();
 
 		if ( isset( $_POST['category'] ) && is_array( $_POST['category'] ) ) {
-			$categories = $_POST['category'];
+			$categories          = array_map( 'absint', wp_unslash( $_POST['category'] ) );
+			$category_priorities = isset( $_POST['category_priorities'] ) && is_array( $_POST['category_priorities'] ) ? array_map( 'absint', wp_unslash( $_POST['category_priorities'] ) ) : array();
 
-			foreach ( $_POST['category_priorities'] as $idx => $key ) {
+			foreach ( $category_priorities as $idx => $key ) {
 				$category_id               = $categories[ $key ];
-				$category_products[ $key ] = $this->csv_to_array( $_POST['category_products'][ $key ] );
+				$category_products[ $key ] = isset( $_POST['category_products'], $_POST['category_products'][ $key ] ) ? $this->csv_to_array( wc_clean( wp_unslash( $_POST['category_products'][ $key ] ) ) ) : array();
 
 				// Make sure there are products selected.
 				if ( ! empty( $category_products[ $key ] ) ) {
@@ -264,13 +241,14 @@ class SFN_Cart_Addons {
 			}
 		}
 
-		$products = isset( $_POST['product'] ) ? $_POST['product'] : array();
+		if ( isset( $_POST['product'] ) && is_array( $_POST['product'] ) ) {
+			$products           = array_map( 'absint', wp_unslash( $_POST['product'] ) );
+			$product_priorities = isset( $_POST['product_priorities'] ) && is_array( $_POST['product_priorities'] ) ? array_map( 'absint', wp_unslash( $_POST['product_priorities'] ) ) : array();
 
-		if ( ! empty( $_POST['product_priorities'] ) ) {
-			foreach ( $_POST['product_priorities'] as $idx => $key ) {
+			foreach ( $product_priorities as $idx => $key ) {
 				$product_id               = $products[ $key ];
-				$include_variations       = ( isset( $_POST['product_include_variations'][ $key ] ) ) ? $_POST['product_include_variations'][ $key ] : 0;
-				$product_products[ $key ] = $this->csv_to_array( $_POST['product_products'][ $key ] );
+				$include_variations       = isset( $_POST['product_include_variations'][ $key ] ) ? 1 : 0;
+				$product_products[ $key ] = isset( $_POST['product_products'], $_POST['product_products'][ $key ] ) ? $this->csv_to_array( wc_clean( wp_unslash( $_POST['product_products'][ $key ] ) ) ) : array();
 
 				// Make sure there are products selected.
 				if ( ! empty( $product_products[ $key ] ) ) {
@@ -293,20 +271,20 @@ class SFN_Cart_Addons {
 
 		$tmp = array();
 		foreach ( $category_addons as $key => $row ) {
-			$tmp[$key] = $row['priority'];
+			$tmp[ $key ] = $row['priority'];
 		}
 		array_multisort( $tmp, SORT_ASC, $category_addons );
 
 		$tmp = array();
 		foreach ( $product_addons as $key => $row ) {
-			$tmp[$key] = $row['priority'];
+			$tmp[ $key ] = $row['priority'];
 		}
 		array_multisort( $tmp, SORT_ASC, $product_addons );
 
 		update_option( 'sfn_cart_addons_categories', $category_addons );
 		update_option( 'sfn_cart_addons_products', $product_addons );
 
-		wp_redirect( 'admin.php?page=sfn-cart-addons&updated=1' );
+		wp_safe_redirect( 'admin.php?page=sfn-cart-addons&updated=1' );
 		exit;
 	}
 
@@ -314,12 +292,14 @@ class SFN_Cart_Addons {
 	 * AJAX method to check if the given $_GET['product_id'] is a variable product
 	 */
 	public function ajax_product_is_variable() {
+		check_ajax_referer( 'sfn-settings', 'security' );
+
 		ob_start();
 
 		$is_variable = false;
 		$type        = '';
 		$product_id  = absint( $_GET['product_id'] );
-		$product     = ( function_exists( 'wc_get_product' ) ) ? wc_get_product( $product_id ) : new WC_Product( $product_id );
+		$product     = wc_get_product( $product_id );
 
 		if ( $product->is_type( 'variable' ) ) {
 			$is_variable = true;
@@ -328,14 +308,15 @@ class SFN_Cart_Addons {
 		ob_end_clean();
 
 		die( wp_json_encode( array( 'is_variable' => $is_variable ) ) );
-
 	}
 
 	/**
+	 * csv_to_array
+	 *
 	 * Used for backwards compatibility with the switch from Chosen to Select2.
 	 * Converts array{0: "1,2,3"} to array{0: "1", 1: "2", 2: "3"}
 	 *
-	 * @param array $array
+	 * @param array|string $array Array of data.
 	 * @return array
 	 */
 	public function csv_to_array( $array ) {
@@ -349,7 +330,7 @@ class SFN_Cart_Addons {
 			$new_array = explode( ',', $array[0] );
 		}
 
-		return $new_array;
+		return array_map( 'absint', $new_array );
 	}
 
 	public function cart_display_addons() {
@@ -357,26 +338,36 @@ class SFN_Cart_Addons {
 	}
 
 	public function display_addons( $length = null, $display_mode = 'loop', $add_to_cart = 0, $return = true ) {
-		global $wpdb, $woocommerce;
+		global $wpdb;
+
+		if ( ! WC()->cart ) {
+			return;
+		}
 
 		$add_to_cart = (bool) $add_to_cart;
-		$settings    = get_option( 'sfn_cart_addons' );
+		$settings    = get_option(
+			'sfn_cart_addons',
+			array(
+				'header_title'   => __( 'Product Add-ons', 'sfn_cart_addons' ),
+				'default_addons' => array(),
+			)
+		);
 		$addon       = false;
 		$args        = false;
 		$addon_ids   = array();
-		$contents    = $woocommerce->cart->cart_contents;
+		$contents    = WC()->cart->cart_contents;
 
 		if ( ! is_null( $length ) && ! empty( $length ) ) {
 			$max = $length;
 		} else {
-			$max = ( isset( $settings['upsell_number'] ) ) ? (int) $settings['upsell_number'] : false;
+			$max = isset( $settings['upsell_number'] ) ? (int) $settings['upsell_number'] : false;
 		}
 
 		// Extract all the product ids from the cart.
 		$products_in_cart = array();
 
 		foreach ( $contents as $product ) {
-			$products_in_cart[] = ( isset( $product['variation_id'] ) && $product['variation_id'] > 0 ) ? $product['variation_id'] : $product['product_id'];
+			$products_in_cart[] = isset( $product['variation_id'] ) && $product['variation_id'] > 0 ? $product['variation_id'] : $product['product_id'];
 		}
 
 		// Search for product matches.
@@ -407,8 +398,6 @@ class SFN_Cart_Addons {
 					}
 				}
 			}
-
-
 		}
 
 		// Search for category matches.
@@ -474,20 +463,24 @@ class SFN_Cart_Addons {
 			do_action( 'woocommerce_before_shop_loop' );
 
 			?>
-			<div class="sfn-cart-addons">
+			<div class="woocommerce sfn-cart-addons">
 				<h2><?php echo esc_html( $settings['header_title'] ); ?></h2>
 				<ul class="products sfn-cart-addons">
 					<?php
 					do_action( 'woocommerce_before_shop_loop_products' );
 					$x = 0;
 
-					if ( $loop->have_posts() ) : while ( $loop->have_posts() ) : $loop->the_post(); global $product;
-						$product = sfn_get_product( get_the_ID() );
-						if ( ! $product || ! $product->is_visible() ) {
-							continue;
-						}
-						wc_get_template( 'content-product.php', array( 'product' => $product ) );
-					endwhile; endif;
+					if ( $loop->have_posts() ) :
+						while ( $loop->have_posts() ) :
+							$loop->the_post();
+							global $product;
+							$product = wc_get_product( get_the_ID() );
+							if ( ! $product || ! $product->is_visible() ) {
+								continue;
+							}
+							wc_get_template( 'content-product.php', array( 'product' => $product ) );
+						endwhile;
+					endif;
 					?>
 
 				</ul>
@@ -498,118 +491,142 @@ class SFN_Cart_Addons {
 			do_action( 'woocommerce_after_shop_loop' );
 		} elseif ( 'images' === $display_mode ) {
 			?>
-			<div class="sfn-cart-addons-images">
+			<div class="woocommerce sfn-cart-addons-images">
 				<ul class="products sfn-cart-addons">
 					<?php
 					$x = 0;
-					if ( $loop->have_posts() ) : while ( $loop->have_posts() ) : $loop->the_post(); global $product;
-						$product = sfn_get_product( get_the_ID() );
-						if ( ! $product || ! $product->is_visible() ) {
-							continue;
-						}
-						echo '<li><a href="' . get_permalink( $product->get_id() ) . '">' . woocommerce_get_product_thumbnail() . '</a>';
-						if ( $add_to_cart ) {
-							woocommerce_template_loop_add_to_cart();
-						}
-						echo '</li>';
-					endwhile; endif;
+					if ( $loop->have_posts() ) :
+						while ( $loop->have_posts() ) :
+							$loop->the_post();
+							global $product;
+							$product = wc_get_product( get_the_ID() );
+							if ( ! $product || ! $product->is_visible() ) {
+								continue;
+							}
+							echo '<li class="product"><a href="' . esc_url( get_permalink( $product->get_id() ) ) . '">' . woocommerce_get_product_thumbnail() . '</a>';
+							if ( $add_to_cart ) {
+								woocommerce_template_loop_add_to_cart();
+							}
+							echo '</li>';
+						endwhile;
+					endif;
 					?>
 				</ul>
 			</div>
 			<?php
 		} elseif ( 'images_name' === $display_mode ) {
 			?>
-			<div class="sfn-cart-addons-images">
+			<div class="woocommerce sfn-cart-addons-images">
 				<ul class="products sfn-cart-addons">
 					<?php
 					$x = 0;
-					if ( $loop->have_posts() ) : while ( $loop->have_posts() ) : $loop->the_post(); global $product;
-						$product = sfn_get_product( get_the_ID() );
-						if ( ! $product || ! $product->is_visible() ) {
-							continue;
-						}
-						echo '<li style="text-align:center;"><a href="' . get_permalink( $product->get_id() ) . '">' . woocommerce_get_product_thumbnail() . '</a><br/><a href="' . get_permalink( $product->get_id() ) . '">' . get_the_title() . '</a>';
+					if ( $loop->have_posts() ) :
+						while ( $loop->have_posts() ) :
+							$loop->the_post();
+							global $product;
+							$product = wc_get_product( get_the_ID() );
+							if ( ! $product || ! $product->is_visible() ) {
+								continue;
+							}
+							echo '<li class="product">
+								<a href="' . esc_url( get_permalink( $product->get_id() ) ) . '">' . woocommerce_get_product_thumbnail() . '</a>
+								<h2 class="woocommerce-loop-product__title"><a href="' . esc_url( get_permalink( $product->get_id() ) ) . '">' . wp_kses_post( get_the_title() ) . '</a></h2>';
 
-						if ( $add_to_cart ) {
-							woocommerce_template_loop_add_to_cart();
-						}
+							if ( $add_to_cart ) {
+								woocommerce_template_loop_add_to_cart();
+							}
 
-						echo '</li>';
-					endwhile; endif;
+							echo '</li>';
+						endwhile;
+					endif;
 					?>
 				</ul>
 			</div>
 			<?php
 		} elseif ( 'images_name_price' === $display_mode ) {
 			?>
-			<div class="sfn-cart-addons-images">
+			<div class="woocommerce sfn-cart-addons-images">
 				<ul class="products sfn-cart-addons">
 					<?php
 					$x = 0;
-					if ( $loop->have_posts() ) : while ( $loop->have_posts() ) : $loop->the_post(); global $product;
-						$product = sfn_get_product( get_the_ID() );
-						if ( ! $product || ! $product->is_visible() ) {
-							continue;
-						}
+					if ( $loop->have_posts() ) :
+						while ( $loop->have_posts() ) :
+							$loop->the_post();
+							global $product;
+							$product = wc_get_product( get_the_ID() );
+							if ( ! $product || ! $product->is_visible() ) {
+								continue;
+							}
 
-						echo '<li style="text-align:center;"><a href="' . get_permalink( $product->get_id() ) . '">' . woocommerce_get_product_thumbnail() . '</a><br/><a href="' . get_permalink( $product->get_id() ) . '">' . get_the_title() . '</a> ' . wc_price( $product->get_price() );
+							echo '<li class="product"><a href="' . esc_url( get_permalink( $product->get_id() ) ) . '">' . woocommerce_get_product_thumbnail() . '</a>
+							<h2 class="woocommerce-loop-product__title"><a href="' . esc_url( get_permalink( $product->get_id() ) ) . '">' . wp_kses_post( get_the_title() ) . '</a></h2> <span class="price">' . wc_price( $product->get_price() ) . '</span>';
 
-						if ( $add_to_cart ) {
-							woocommerce_template_loop_add_to_cart();
-						}
 
-						echo '</li>';
-					endwhile; endif;
+							if ( $add_to_cart ) {
+								woocommerce_template_loop_add_to_cart();
+							}
+
+							echo '</li>';
+						endwhile;
+					endif;
 					?>
 				</ul>
 			</div>
 			<?php
 		} elseif ( 'names' === $display_mode ) {
 			?>
-			<div class="sfn-cart-addons-names">
+			<div class="woocommerce sfn-cart-addons-names">
 				<ul class="products sfn-cart-addons">
 					<?php
 					$x = 0;
-					if ( $loop->have_posts() ) : while ( $loop->have_posts() ) : $loop->the_post(); global $product;
+					if ( $loop->have_posts() ) :
+						while ( $loop->have_posts() ) :
+							$loop->the_post();
+							global $product;
 
-						$product = sfn_get_product( get_the_ID() );
+							$product = wc_get_product( get_the_ID() );
 
-						if ( ! $product || ! $product->is_visible() ) {
-							continue;
-						}
+							if ( ! $product || ! $product->is_visible() ) {
+								continue;
+							}
 
-						echo '<li><a href="' . get_permalink( $product->get_id() ) . '">' . get_the_title() . '</a>';
+							echo '<li class="product"><a href="' . esc_url( get_permalink( $product->get_id() ) ) . '">' . wp_kses_post( get_the_title() ) . '</a>';
 
-						if ( $add_to_cart ) {
-							woocommerce_template_loop_add_to_cart();
-						}
+							if ( $add_to_cart ) {
+								woocommerce_template_loop_add_to_cart();
+							}
 
-						echo '</li>';
-					endwhile; endif;
+							echo '</li>';
+						endwhile;
+					endif;
 					?>
 				</ul>
 			</div>
 			<?php
-		} elseif ( 'names_price' === $display_mode) {
+		} elseif ( 'names_price' === $display_mode ) {
 			?>
-			<div class="sfn-cart-addons-names">
+			<div class="woocommerce sfn-cart-addons-names">
 				<ul class="products sfn-cart-addons">
 					<?php
 					$x = 0;
-					if ( $loop->have_posts() ) : while ( $loop->have_posts() ) : $loop->the_post(); global $product;
-						$product = sfn_get_product(get_the_ID());
+					if ( $loop->have_posts() ) :
+						while ( $loop->have_posts() ) :
+							$loop->the_post();
+							global $product;
+							$product = wc_get_product( get_the_ID() );
 
-						if ( ! $product || ! $product->is_visible() ) {
-							continue;
-						}
-						echo '<li><a href="' . get_permalink( $product->get_id() ) . '">' . get_the_title() . ' ' . wc_price( $product->get_price() ) . '</a>';
+							if ( ! $product || ! $product->is_visible() ) {
+								continue;
+							}
+							echo '<li class="product"><a href="' . esc_url( get_permalink( $product->get_id() ) ) . '">' . wp_kses_post( get_the_title() ) . ' ' . wc_price( $product->get_price() ) . '</a>';
 
-						if ( $add_to_cart ) {
-							woocommerce_template_loop_add_to_cart();
-						}
+							if ( $add_to_cart ) {
+								woocommerce_template_loop_add_to_cart();
+							}
 
-						echo '</li>';
-					endwhile; endif;
+							echo '</li>';
+						endwhile;
+					endif;
 					?>
 				</ul>
 			</div>
@@ -630,18 +647,15 @@ class SFN_Cart_Addons {
 	}
 
 	public function sc_display_addons( $atts ) {
-		extract(
-			shortcode_atts(
-				array(
-					'length'      => 4,
-					'mode'        => 'loop',
-					'add_to_cart' => 0,
-				),
-				$atts
-			)
+		$attributes = shortcode_atts(
+			array(
+				'length'      => 4,
+				'mode'        => 'loop',
+				'add_to_cart' => 0,
+			),
+			$atts
 		);
-
-		return $this->display_addons( $length, $mode, $add_to_cart );
+		return $this->display_addons( $attributes['length'], $attributes['mode'], $attributes['add_to_cart'] );
 	}
 
 	public function post_class( $classes ) {
@@ -659,13 +673,13 @@ class SFN_Cart_Addons {
 			$id = $post->ID;
 		}
 
-		$product = sfn_get_product( $id );
+		$product = wc_get_product( $id );
 
 		if ( $product && $product->is_type( 'variation' ) ) {
 			$attributes = $product->get_variation_attributes();
 			$extra_data = ' &ndash; ' . implode( ', ', $attributes );
 
-			$title = sprintf( __( '%s%s', 'sfn_cart_addons' ), $product->get_title(), $extra_data );
+			$title = sprintf( '%1$s%2$s', $product->get_title(), $extra_data );
 		}
 
 		return $title;
@@ -683,8 +697,8 @@ class SFN_Cart_Addons {
 
 	public function get_product_categories( $product_id ) {
 
-		$product    = ( function_exists( 'wc_get_product' ) ) ? wc_get_product( $product_id ) : new WC_Product( $product_id );
-		$parent_id  = version_compare( WC_VERSION, '3.0', '<' ) ? ( isset( $product->parent ) ) ? $product->parent->id : 0 : $product->get_parent_id();
+		$product    = wc_get_product( $product_id );
+		$parent_id  = $product->get_parent_id();
 		$categories = array();
 
 		// If product is a variation, use the parent product.
@@ -711,12 +725,14 @@ add_action( 'plugins_loaded', 'wc_cart_addons_init' );
  * Initialize plugin.
  */
 function wc_cart_addons_init() {
+	load_plugin_textdomain( 'sfn_cart_addons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		add_action( 'admin_notices', 'wc_cart_addons_woocommerce_deactivated' );
 		return;
 	}
 
+	global $sfn_cart_addons;
 	$sfn_cart_addons = new SFN_Cart_Addons();
 }
 
@@ -733,62 +749,5 @@ function sfn_display_cart_addons( $length = 4, $display_mode = 'loop', $add_to_c
 
 	if ( isset( $sfn_cart_addons ) ) {
 		echo $sfn_cart_addons->display_addons( $length, $display_mode, $add_to_cart );
-	}
-}
-
-if ( ! function_exists( 'sfn_get_product' ) ) {
-	function sfn_get_product( $id ) {
-		if ( function_exists( 'wc_get_product' ) ) {
-			return wc_get_product( $id );
-		} else {
-			$product_post = get_post( $id );
-
-			if ( ! $product_post ) {
-				return new WC_Product( $id );
-			}
-
-			if ( 'product_variation' === $product_post->post_type ) {
-				return new WC_Product_Variation( $id );
-			} else {
-				return new WC_Product( $id );
-			}
-		}
-	}
-}
-
-if ( ! function_exists( 'woocommerce_template_loop_add_to_cart' ) ) {
-	function woocommerce_template_loop_add_to_cart() {
-		global $product;
-
-		if ( $product ) {
-			$defaults = array(
-				'quantity'   => 1,
-				'class'      => implode(
-					' ',
-					array_filter(
-						array(
-							'button',
-							'product_type_' . $product->get_type(),
-							$product->is_purchasable() && $product->is_in_stock() ? 'add_to_cart_button' : '',
-							$product->supports( 'ajax_add_to_cart' ) ? 'ajax_add_to_cart' : '',
-						)
-					)
-				),
-				'attributes' => array(
-					'data-product_id'  => $product->get_id(),
-					'data-product_sku' => $product->get_sku(),
-					'aria-label'       => $product->add_to_cart_description(),
-					'rel'              => 'nofollow',
-				),
-			);
-
-			$args = apply_filters( 'woocommerce_loop_add_to_cart_args', wp_parse_args( array(), $defaults ), $product );
-		}
-
-		if ( $product->is_type( 'variation' ) ) {
-			include 'add-to-cart.php';
-		} else {
-			wc_get_template( 'loop/add-to-cart.php', $args );
-		}
 	}
 }

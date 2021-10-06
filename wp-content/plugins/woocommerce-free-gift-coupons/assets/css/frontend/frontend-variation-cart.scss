@@ -1,6 +1,12 @@
 /** Style to handle the variation selection in cart. */
+.wc-fgc-new-row {
+	position: relative;
+}
+.wc-fgc-decoy-row {
+	display: none;
+}
 .wc_fgc_cart {
-	padding: 0.625em;
+	padding: 0;
 	&:after {
 		clear: both;
 	}
@@ -10,6 +16,9 @@
 			display: table;
 			clear: both;
 		}
+	}
+	.woocommerce-product-gallery {
+		display: none;
 	}
 	img {
 		max-width: 100%;
@@ -21,16 +30,22 @@
 	.quantity {
 		display: none !important;
 	}
-}
-.wc-fgc-close-section {
-	display: block;
-	text-align: right;
-	margin: 1.25em 0;
-}
-.wc-fgc-close-btn {
-	.dashicons {
-		font-size: 1.5em;
+	.variations {
+		margin-top: 0;
+		margin-left: 0;
+		margin-right: 0;
+
+		.label {
+			padding-left: 0;
+		}
+		.value {
+			padding-left: 0;
+		}
 	}
+
+}
+.wc-fgc-close-link {
+	margin-left: 1em;
 }
 
 /*--Cart Page--*/
@@ -53,11 +68,40 @@
 	display: none;
 	background: #dd3333 none repeat scroll 0 0;
 	color: #ffffff;
-	padding: 0.3125em 0.625em;
+	margin: 1.25em 0.1em;
+	padding: .8em .2em;
 	text-align: center;
 }
-.wc_fgc_updatenow {
+button.wc_fgc_updatenow {
 	cursor: pointer;
+	font-size: .75em;
+}
+
+/*=====================================
+=            Twenty Twenty fixes      =
+=====================================*/
+.woocommerce, .woocommerce-page {
+
+	table.shop_table {
+		tr.wc-fgc-has-open-panel {
+			border-bottom: 0;
+			td { border-bottom: 0; }
+		}
+		tr.wc-fgc-new-row {
+			border-top: 0;
+
+			td { 
+				border-top: 0;
+				border-bottom: 0;
+			}
+			
+			.entry-summary {
+				float: none !important;
+				width: 100% !important;
+			}
+		}
+
+	}
 }
 
 /*=====================================
@@ -67,7 +111,7 @@
 	table.shop_table_responsive {
 		tr.wc-fgc-new-row {
 			td {
-				text-align: left;
+				text-align: left !important;
 				&::before {
 					display: block;
 					content: "";
@@ -81,21 +125,8 @@
 		}
 	}
 }
-@media only screen and (min-width: 768px) {
-	.wc_fgc_cart {
-		.product {
-			.woocommerce-product-gallery {
-				width: 48%;
-				float: left;
-			}
-			.summary {
-				width: 48%;
-				float: right;
-			}
-		}
-	}
-}
-@media only screen and (max-width:768px) {
+
+@media only screen and (max-width:767.9px) {
 	.wc_fgc_cart {
 		a.reset_variations {
 			&:before {
@@ -104,5 +135,9 @@
 				margin-top: 0.1em;
 			}
 		}
+	}
+	.wc-fgc-close-section {
+		top: .5em;
+		right: .5em;
 	}
 }

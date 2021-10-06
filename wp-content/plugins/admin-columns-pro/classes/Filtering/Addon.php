@@ -50,19 +50,19 @@ class Addon implements Registrable {
 		$layout_id = $this->request->get( 'layout' );
 
 		if ( ! $layout_id ) {
-			wp_die();
+			exit;
 		}
 
 		$list_screen = $this->storage->find( new ListScreenId( $this->request->get( 'layout' ) ) );
 
 		if ( ! $list_screen ) {
-			wp_die();
+			exit;
 		}
 
 		$table_screen = $this->table_screen( $list_screen );
 
 		if ( ! $table_screen ) {
-			wp_die();
+			exit;
 		}
 
 		wp_send_json_success( $table_screen->update_dropdown_cache() );

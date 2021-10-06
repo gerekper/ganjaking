@@ -2,6 +2,7 @@
  * Product Purchase - Module
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var ProductPurchaseScripts = {
         init : function () {
             this.trigger_on_page_load() ;
@@ -38,9 +39,13 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_enable_msg_for_earned_points' , this.enable_earn_point_msg_in_edit_order_page ) ;
 
             $( document ).on( 'click' , '.rs_sumo_reward_button' , this.bulk_update_points_for_product_purchase ) ;
+            $( document ).on( 'click' , '.add_rule' , this.add_rule_for_range_based_points ) ;
+            $( document ).on( 'click' , '.remove_rule' , this.remove_rule_for_range_based_points ) ;
         } ,
-        trigger_on_page_load : function () {
-            if ( fp_product_purchase_module_param.fp_wc_version <= parseFloat( '2.2.0' ) ) {
+        trigger_on_page_load : function() {
+            $( '.rs_range_from_date' ).datepicker( { dateFormat : 'dd-mm-yy' } ) ;
+            $( '.rs_range_to_date' ).datepicker( { dateFormat : 'dd-mm-yy' } ) ;
+            if( fp_product_purchase_module_param.fp_wc_version <= parseFloat( '2.2.0' ) ) {
                 $( '.rs_include_particular_categories_for_product_purchase' ).chosen() ;
                 $( '.rs_exclude_particular_categories_for_product_purchase' ).chosen() ;
                 $( '.rs_select_particular_categories' ).chosen() ;
@@ -61,6 +66,8 @@ jQuery( function ( $ ) {
                 $( '#rs_award_points_for_cart_or_product_total' ).closest( 'tr' ).show() ;
                 $( '#rs_global_enable_disable_sumo_reward' ).closest( 'tr' ).show() ;
                 $( '.rs_hide_bulk_update_for_product_purchase_start' ).hide() ;
+                $( '.rs_range_based_rules_data' ).parent().show() ;
+                $( '#rs_range_based_rule_priority' ).closest( 'tr' ).hide() ;
                 ProductPurchaseScripts.show_or_hide_for_award_point_based_on() ;
             } else {
                 $( '#rs_exclude_shipping_cost_based_on_cart_total' ).closest( 'tr' ).hide() ;
@@ -85,7 +92,11 @@ jQuery( function ( $ ) {
                 ProductPurchaseScripts.show_or_hide_for_minimum_cart_total_error() ;
                 $( '#rs_show_hide_maximum_cart_total_earn_error_message' ).closest( 'tr' ).show() ;
                 $( '#rs_maximum_cart_total_for_earning' ).closest( 'tr' ).show() ;
-                ProductPurchaseScripts.show_or_hide_for_maximum_cart_total_error() ;
+                ProductPurchaseScripts.show_or_hide_for_maximum_cart_total_error() ;               
+                 $( '.rs_range_based_rules_data' ).parent().hide() ;
+                $( '#rs_range_based_rule_priority' ).closest( 'tr' ).hide() ;
+                $( '.rs-hide-minimum-quantity-fields' ).closest( 'tr' ).hide() ;
+                $('#rs_minimum_quantity_error_message').closest('tr').show();
             }
         } ,
         enable_first_purchase_points : function () {
@@ -94,9 +105,11 @@ jQuery( function ( $ ) {
         toggle_show_or_hide_for_first_purchase_points : function () {
             if ( $( '#rs_enable_first_purchase_reward_points' ).is( ':checked' ) ) {
                 $( '#rs_global_reward_points_type' ).closest( 'tr' ).show() ;
+                $( '#rs_min_total_for_first_purchase' ).closest( 'tr' ).show() ;
                 ProductPurchaseScripts.toggle_show_or_hide_rewards_type_based_first_purchase_points() ;
             } else {
                 $( '#rs_global_reward_points_type' ).closest( 'tr' ).hide() ;
+                $( '#rs_min_total_for_first_purchase' ).closest( 'tr' ).hide() ;
                 $( '.show_if_first_purchase' ).closest( 'tr' ).hide() ;
             }
         } ,
@@ -134,8 +147,11 @@ jQuery( function ( $ ) {
                 $( '#rs_show_hide_maximum_cart_total_earn_error_message' ).closest( 'tr' ).show() ;
                 $( '#rs_maximum_cart_total_for_earning' ).closest( 'tr' ).show() ;
                 ProductPurchaseScripts.show_or_hide_for_maximum_cart_total_error() ;
-                $( '#rs_display_earn_point_tax_based' ).closest( 'tr' ).show() ;
-            } else {
+                $( '#rs_display_earn_point_tax_based' ).closest( 'tr' ).show() ;                
+                $( '.rs_range_based_rules_data' ).parent().hide() ;
+                $( '#rs_range_based_rule_priority' ).closest( 'tr' ).hide() ;
+                $( '.rs-hide-minimum-quantity-fields' ).closest( 'tr' ).show() ;
+            } else if( $( '#rs_award_points_for_cart_or_product_total' ).val() == '2' ) {
                 $( '#rs_enable_disable_reward_point_based_coupon_amount' ).closest( 'tr' ).hide() ;
                 $( '#rs_enable_cart_total_reward_points' ).closest( 'tr' ).show() ;
                 $( '#rs_reward_type_for_cart_total' ).closest( 'tr' ).show() ;
@@ -159,7 +175,41 @@ jQuery( function ( $ ) {
                 $( '#rs_maximum_cart_total_for_earning' ).closest( 'tr' ).hide() ;
                 $( '#rs_show_hide_maximum_cart_total_earn_error_message' ).closest( 'tr' ).hide() ;
                 $( '#rs_max_cart_total_for_earning_error_message' ).closest( 'tr' ).hide() ;
+                $( '#rs_display_earn_point_tax_based' ).closest( 'tr' ).hide() ;                
+                $( '.rs_range_based_rules_data' ).parent().hide() ;
+                $( '#rs_range_based_rule_priority' ).closest( 'tr' ).hide() ;
+                $( '.rs-hide-minimum-quantity-fields' ).closest( 'tr' ).hide() ;
+            } else {               
+                $( '.rs_range_based_rules_data' ).parent().show() ;
+                $( '#rs_exclude_shipping_cost_based_on_cart_total' ).closest( 'tr' ).show() ;
+                $( '#rs_calculate_point_based_on_reg_or_sale' ).closest( 'tr' ).hide() ;
+                $( '#rs_point_not_award_when_sale_price' ).closest( 'tr' ).hide() ;
+                $( '#rs_enable_disable_reward_point_based_coupon_amount' ).closest( 'tr' ).hide() ;
                 $( '#rs_display_earn_point_tax_based' ).closest( 'tr' ).hide() ;
+                $( '#rs_restrict_reward' ).closest( 'tr' ).hide() ;
+                $( '#rs_minimum_cart_total_for_earning' ).closest( 'tr' ).hide() ;
+                $( '#rs_show_hide_minimum_cart_total_earn_error_message' ).closest( 'tr' ).hide() ;
+                $( '#rs_maximum_cart_total_for_earning' ).closest( 'tr' ).hide() ;
+                $( '#rs_show_hide_maximum_cart_total_earn_error_message' ).closest( 'tr' ).hide() ;
+                $( '#rs_max_cart_total_for_earning_error_message' ).closest( 'tr' ).hide() ;
+                $( '#rs_min_cart_total_for_earning_error_message' ).closest( 'tr' ).hide() ;
+                ProductPurchaseScripts.show_or_hide_for_enable_cart_total_based_points() ;
+                $( '#rs_range_based_rule_priority' ).closest( 'tr' ).show() ;
+                $( '.rs-hide-minimum-quantity-fields' ).closest( 'tr' ).hide() ;
+                $( '#rs_product_purchase_global_level_applicable_for' ).closest( 'tr' ).hide() ;
+                $( '#rs_global_enable_disable_sumo_reward' ).closest( 'tr' ).hide() ;
+                $( '#rs_global_reward_type' ).closest( 'tr' ).hide() ;
+                $( '#rs_global_reward_percent' ).closest( 'tr' ).hide() ;
+                $( '#rs_enable_cart_total_reward_points' ).closest( 'tr' ).hide() ;
+                $( '#rs_reward_type_for_cart_total' ).closest( 'tr' ).hide() ;
+                $( '#rs_reward_points_for_cart_total_in_percent' ).closest( 'tr' ).hide() ;
+                $( '#rs_reward_points_for_cart_total_in_fixed' ).closest( 'tr' ).hide() ;
+                $( '#rs_reward_points_for_cart_total_in_percent' ).closest( 'tr' ).hide() ;
+                $( '#rs_include_particular_categories_for_product_purchase' ).closest( 'tr' ).hide() ;
+                $( '#rs_global_reward_points' ).closest( 'tr' ).hide() ;
+                $( '#rs_exclude_particular_categories_for_product_purchase' ).closest( 'tr' ).hide() ;
+                $( '#rs_include_products_for_product_purchase' ).closest( 'tr' ).hide() ;
+                $( '#rs_exclude_products_for_product_purchase' ).closest( 'tr' ).hide() ;
             }
         } ,
         enable_cart_total_based_points : function () {
@@ -432,7 +482,32 @@ jQuery( function ( $ ) {
             }
             return false ;
         } ,
-        block : function ( id ) {
+        add_rule_for_range_based_points : function( event ) {
+            event.preventDefault( ) ;
+            var $this = $( event.currentTarget ) ;
+            var usage_count = parseInt( $( 'input#rs_range_based_rule_id:last' ).val( ) ) ;
+            var rule_count = usage_count + 1 || 1 ;
+            var data = {
+                action : 'add_rule_for_range_based_earn_points' ,
+                rule_count : rule_count ,
+                sumo_security : fp_product_purchase_module_param.range_based_rule_nonce
+            } ;
+            $.post( fp_product_purchase_module_param.ajaxurl , data , function( response ) {
+                if( true == response.success && response.data.html ) {
+                    $( $this ).closest( '.rs-range-based-rules' ).find( 'tbody' ).append( response.data.html ) ;
+                    $( '.rs_range_from_date' ).datepicker( { dateFormat : 'dd-mm-yy' } ) ;
+                    $( '.rs_range_to_date' ).datepicker( { dateFormat : 'dd-mm-yy' } ) ;
+                } else {
+                    alert( response.data.error ) ;
+                }
+            } ) ;
+        } ,
+        remove_rule_for_range_based_points : function( event ) {
+            event.preventDefault( ) ;
+            var $this = $( event.currentTarget ) ;
+            $( $this ).closest( "tr" ).remove() ;
+        } ,
+        block : function( id ) {
             $( id ).block( {
                 message : null ,
                 overlayCSS : {

@@ -2,23 +2,16 @@
 
 namespace ACP\Editing\Model\User;
 
-use ACP\Editing\Model;
+use AC\Column;
+use ACP\Editing\Service;
 
-class Url extends Model\User {
+/**
+ * @deprecated 5.6
+ */
+class Url extends Service\User\Url {
 
-	public function get_edit_value( $id ) {
-		return ac_helper()->user->get_user_field( 'user_url', $id );
-	}
-
-	public function get_view_settings() {
-		return [
-			'type'        => 'text',
-			'placeholder' => $this->column->get_label(),
-		];
-	}
-
-	public function save( $id, $value ) {
-		return $this->update_user( $id, [ 'user_url' => $value ] );
+	public function __construct( Column $column ) {
+		parent::__construct( $column->get_label() );
 	}
 
 }

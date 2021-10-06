@@ -20,7 +20,7 @@ class Role extends AC\Column\User\Role
 	}
 
 	public function editing() {
-		return new Editing\Model\User\Role( $this );
+		return new Editing\Service\User\Role();
 	}
 
 	public function filtering() {

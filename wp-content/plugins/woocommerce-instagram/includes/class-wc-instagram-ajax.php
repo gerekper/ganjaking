@@ -31,7 +31,7 @@ class WC_Instagram_AJAX {
 		$ajax_events = array(
 			'generate_product_catalog_slug',
 			'refresh_google_product_category_field',
-			'refresh_google_product_category_metabox_field',
+			'refresh_google_product_category_metabox_field', // Deprecated.
 		);
 
 		foreach ( $ajax_events as $ajax_event ) {
@@ -63,22 +63,27 @@ class WC_Instagram_AJAX {
 	}
 
 	/**
-	 * Refreshes the 'google_product_category' field in the product catalog settings form.
+	 * Refreshes the 'google_product_category' field.
+	 *
+	 * The new POST parameter `selects` supports the following values:
+	 * - all:   Fetches all the select fields.
+	 * - child: Fetches only a select field with the subcategories.
 	 *
 	 * @since 3.4.6
+	 * @since 3.6.0 Allow fetching only a select field with the subcategories of the specified category.
+	 *                  Deprecated POST parameter 'catalog_id'.
 	 */
 	public static function refresh_google_product_category_field() {
 		check_ajax_referer( 'refresh_google_product_category_field' );
 
-		$catalog_id  = ( ! empty( $_POST['catalog_id'] ) ? wc_clean( wp_unslash( $_POST['catalog_id'] ) ) : 'new' );
-		$category_id = ( ! empty( $_POST['category_id'] ) ? wc_clean( wp_unslash( $_POST['category_id'] ) ) : '' );
+		$category_id = ( ! empty( $_POST['category_id'] ) ? wc_clean( wp_unslash( $_POST['category_id'] ) ) : null );
+		$selects     = ( ! empty( $_POST['selects'] ) ? wc_clean( wp_unslash( $_POST['selects'] ) ) : 'all' );
 
-		$product_catalog = new WC_Instagram_Settings_Product_Catalog( $catalog_id );
-
-		$data          = $product_catalog->get_form_field( 'product_google_category' );
-		$data['value'] = $category_id;
-
-		$html = $product_catalog->generate_google_product_category_html( 'product_google_category', $data );
+		if ( 'child' === $selects ) {
+			$html = WC_Instagram_Admin_Field_Google_Product_Category::get_child_selector( $category_id );
+		} else {
+			$html = WC_Instagram_Admin_Field_Google_Product_Category::get_selectors( $category_id );
+		}
 
 		wp_send_json_success( array( 'output' => $html ) );
 	}
@@ -87,20 +92,12 @@ class WC_Instagram_AJAX {
 	 * Refreshes the 'google_product_category' field in the product data metabox.
 	 *
 	 * @since 3.4.6
-	 *
-	 * @global int $thepostid The current post ID.
+	 * @deprecated 3.6.0
 	 */
 	public static function refresh_google_product_category_metabox_field() {
-		global $thepostid;
+		wc_deprecated_function( __FUNCTION__, '3.6.0', 'WC_Instagram_AJAX::refresh_google_product_category_field()' );
 
-		check_ajax_referer( 'refresh_google_product_category_metabox_field' );
-
-		$thepostid   = ( ! empty( $_POST['post_id'] ) ? wc_clean( wp_unslash( $_POST['post_id'] ) ) : null );
-		$category_id = ( ! empty( $_POST['category_id'] ) ? wc_clean( wp_unslash( $_POST['category_id'] ) ) : null );
-
-		$html = WC_Instagram_Admin_Field_Google_Product_Categories::render( $category_id );
-
-		wp_send_json_success( array( 'output' => $html ) );
+		self::refresh_google_product_category_field();
 	}
 }
 

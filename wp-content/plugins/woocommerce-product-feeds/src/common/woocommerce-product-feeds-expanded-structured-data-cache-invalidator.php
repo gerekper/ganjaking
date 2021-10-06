@@ -35,6 +35,29 @@ class WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator {
 		add_action( 'woocommerce_update_options_gpf', array( $this, 'invalidate_schema_indirectly' ), 90 );
 		add_action( 'edited_term', [ $this, 'invalidate_schema_indirectly' ], 90 );
 		add_action( 'delete_term', [ $this, 'invalidate_schema_indirectly' ], 90 );
+		add_filter( 'is_protected_meta', [ $this, 'register_protected_meta' ], 10, 3 );
+	}
+
+
+	/**
+	 * Hide our meta value from the Custom Fields metabox.
+	 *
+	 * @param $protected
+	 * @param $meta_key
+	 * @param $meta_type
+	 *
+	 * @return bool|mixed
+	 */
+	public function register_protected_meta( $protected, $meta_key, $meta_type ) {
+		if ( 'post' === $meta_type &&
+			 (
+				'woocommerce_gpf_schema_cache_timestamp' === $meta_key ||
+				'woocommerce_gpf_schema_cache' === $meta_key
+			 )
+		) {
+			return true;
+		}
+		return $protected;
 	}
 
 	// Store a timestamp to invalidate any items older than this.

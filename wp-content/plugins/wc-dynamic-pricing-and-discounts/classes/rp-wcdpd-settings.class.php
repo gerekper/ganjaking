@@ -40,7 +40,6 @@ class RP_WCDPD_Settings
 
     // Define options for some product pricing rule select fields
     protected static $quantities_based_on_methods = null;
-    protected static $group_quantities_based_on_methods = null;
     protected static $exclusivity_methods = array();
     protected static $receive_products_methods = null;
 
@@ -52,6 +51,7 @@ class RP_WCDPD_Settings
      */
     public function __construct()
     {
+
         // Load settings now
         $this->load_settings();
 
@@ -104,75 +104,76 @@ class RP_WCDPD_Settings
      */
     public static function get_structure()
     {
+
         if (self::$structure === null) {
 
             // Define main settings
             self::$structure = array(
                 'product_pricing' => array(
-                    'title' => __('Product Pricing', 'rp_wcdpd'),
+                    'title' => esc_html__('Product Pricing', 'rp_wcdpd'),
                     'children' => array(
                         'product_pricing_rules' => array(
-                            'title' => __('Product Pricing Settings', 'rp_wcdpd'),
+                            'title' => esc_html__('Product Pricing Settings', 'rp_wcdpd'),
                             'children' => array(
                                 'product_pricing_rule_selection_method' => array(
-                                    'title'     => __('Rule selection method', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Rule selection method', 'rp_wcdpd'),
                                     'type'      => 'grouped_select',
                                     'default'   => 'first',
                                     'required'  => true,
                                     'class'     => 'rp_wcdpd_rule_selection_method',
                                     'options'   => array(
                                         'all'   => array(
-                                            'label'     => __('Apply All', 'rp_wcdpd'),
+                                            'label'     => esc_html__('Apply All', 'rp_wcdpd'),
                                             'options'   => array(
-                                                'all' => __('Apply all applicable rules', 'rp_wcdpd'),
+                                                'all' => esc_html__('Apply all applicable rules', 'rp_wcdpd'),
                                             ),
                                         ),
                                         'one'   => array(
-                                            'label'     => __('Apply One - Per Cart Item', 'rp_wcdpd'),
+                                            'label'     => esc_html__('Apply One - Per Cart Item', 'rp_wcdpd'),
                                             'options'   => array(
-                                                'first'         => __('Apply first applicable rule', 'rp_wcdpd'),
-                                                'smaller_price' => __('Apply rule for smaller price', 'rp_wcdpd'),
-                                                'bigger_price'  => __('Apply rule for bigger price', 'rp_wcdpd'),
+                                                'first'         => esc_html__('Apply first applicable rule', 'rp_wcdpd'),
+                                                'smaller_price' => esc_html__('Apply rule for smaller price', 'rp_wcdpd'),
+                                                'bigger_price'  => esc_html__('Apply rule for bigger price', 'rp_wcdpd'),
                                             ),
                                         ),
                                         'other'  => array(
-                                            'label' => __('Disabled', 'rp_wcdpd'),
+                                            'label' => esc_html__('Disabled', 'rp_wcdpd'),
                                             'options'   => array(
-                                                'disabled' => __('All rules disabled', 'rp_wcdpd'),
+                                                'disabled' => esc_html__('All rules disabled', 'rp_wcdpd'),
                                             ),
                                         ),
                                     ),
                                 ),
                                 'product_pricing_total_limit' => array(
-                                    'title'     => __('Total limit', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Total limit', 'rp_wcdpd'),
                                     'type'      => 'grouped_select',
                                     'default'   => '0',
                                     'required'  => true,
                                     'class'     => 'rp_wcdpd_setting_total_limit',
                                     'options'   => array(
                                         'no_limit'   => array(
-                                            'label'     => __('No Limit', 'rp_wcdpd'),
+                                            'label'     => esc_html__('No Limit', 'rp_wcdpd'),
                                             'options'   => array(
-                                                '0' => __('No discount limit', 'rp_wcdpd'),
+                                                '0' => esc_html__('No discount limit', 'rp_wcdpd'),
                                             ),
                                         ),
                                         'price_discount'   => array(
-                                            'label'     => __('Price Discount Limit', 'rp_wcdpd'),
+                                            'label'     => esc_html__('Price Discount Limit', 'rp_wcdpd'),
                                             'options'   => array(
-                                                'price_discount_amount'     => __('Price discount limit', 'rp_wcdpd') . ' ' . get_woocommerce_currency_symbol(),
-                                                'price_discount_percentage' => __('Price discount limit %', 'rp_wcdpd'),
+                                                'price_discount_amount'     => esc_html__('Price discount limit', 'rp_wcdpd') . ' ' . get_woocommerce_currency_symbol(),
+                                                'price_discount_percentage' => esc_html__('Price discount limit %', 'rp_wcdpd'),
                                             ),
                                         ),
                                         'total_discount'   => array(
-                                            'label'     => __('Total Discount Limit', 'rp_wcdpd'),
+                                            'label'     => esc_html__('Total Discount Limit', 'rp_wcdpd'),
                                             'options'   => array(
-                                                'total_discount_amount' => __('Total discount limit', 'rp_wcdpd') . ' ' . get_woocommerce_currency_symbol(),
+                                                'total_discount_amount' => esc_html__('Total discount limit', 'rp_wcdpd') . ' ' . get_woocommerce_currency_symbol(),
                                             ),
                                         ),
                                     ),
                                 ),
                                 'product_pricing_total_limit_value' => array(
-                                    'title'                     => __('Total limit value', 'rp_wcdpd'),
+                                    'title'                     => esc_html__('Total limit value', 'rp_wcdpd'),
                                     'type'                      => 'decimal',
                                     'class'                     => 'rp_wcdpd_setting_total_limit_value',
                                     'placeholder'               => '0.0',
@@ -183,64 +184,64 @@ class RP_WCDPD_Settings
                     ),
                 ),
                 'cart_discounts' => array(
-                    'title' => __('Cart Discounts', 'rp_wcdpd'),
+                    'title' => esc_html__('Cart Discounts', 'rp_wcdpd'),
                     'children' => array(
                         'cart_discounts_rules' => array(
-                            'title' => __('Cart Discounts Settings', 'rp_wcdpd'),
+                            'title' => esc_html__('Cart Discounts Settings', 'rp_wcdpd'),
                             'children' => array(
                                 'cart_discounts_rule_selection_method' => array(
-                                    'title'     => __('Rule selection method', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Rule selection method', 'rp_wcdpd'),
                                     'type'      => 'grouped_select',
                                     'default'   => 'first',
                                     'required'  => true,
                                     'class'     => 'rp_wcdpd_rule_selection_method',
                                     'options'   => array(
                                         'all'   => array(
-                                            'label'     => __('Apply All', 'rp_wcdpd'),
+                                            'label'     => esc_html__('Apply All', 'rp_wcdpd'),
                                             'options'  => array(
-                                                'all'   => __('Apply all applicable rules', 'rp_wcdpd'),
+                                                'all'   => esc_html__('Apply all applicable rules', 'rp_wcdpd'),
                                             ),
                                         ),
                                         'one'   => array(
-                                            'label'     => __('Apply One', 'rp_wcdpd'),
+                                            'label'     => esc_html__('Apply One', 'rp_wcdpd'),
                                             'options'  => array(
-                                                'first'             => __('Apply first applicable rule', 'rp_wcdpd'),
-                                                'bigger_discount'   => __('Apply bigger discount', 'rp_wcdpd'),
-                                                'smaller_discount'  => __('Apply smaller discount', 'rp_wcdpd'),
+                                                'first'             => esc_html__('Apply first applicable rule', 'rp_wcdpd'),
+                                                'bigger_discount'   => esc_html__('Apply bigger discount', 'rp_wcdpd'),
+                                                'smaller_discount'  => esc_html__('Apply smaller discount', 'rp_wcdpd'),
                                             ),
                                         ),
                                         'other'  => array(
-                                            'label' => __('Disabled', 'rp_wcdpd'),
+                                            'label' => esc_html__('Disabled', 'rp_wcdpd'),
                                             'options'   => array(
-                                                'disabled' => __('All rules disabled', 'rp_wcdpd'),
+                                                'disabled' => esc_html__('All rules disabled', 'rp_wcdpd'),
                                             ),
                                         ),
                                     ),
                                 ),
                                 'cart_discounts_total_limit' => array(
-                                    'title'     => __('Total limit', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Total limit', 'rp_wcdpd'),
                                     'type'      => 'grouped_select',
                                     'default'   => '0',
                                     'required'  => true,
                                     'class'     => 'rp_wcdpd_setting_total_limit',
                                     'options'   => array(
                                         'no_limit'   => array(
-                                            'label'     => __('No Limit', 'rp_wcdpd'),
+                                            'label'     => esc_html__('No Limit', 'rp_wcdpd'),
                                             'options'   => array(
-                                                '0' => __('No discount limit', 'rp_wcdpd'),
+                                                '0' => esc_html__('No discount limit', 'rp_wcdpd'),
                                             ),
                                         ),
                                         'total'   => array(
-                                            'label'     => __('Total Limit', 'rp_wcdpd'),
+                                            'label'     => esc_html__('Total Limit', 'rp_wcdpd'),
                                             'options'   => array(
-                                                'total_amount'        => __('Total discount limit', 'rp_wcdpd') . ' ' . get_woocommerce_currency_symbol(),
-                                                'total_percentage'    => __('Total discount limit %', 'rp_wcdpd'),
+                                                'total_amount'        => esc_html__('Total discount limit', 'rp_wcdpd') . ' ' . get_woocommerce_currency_symbol(),
+                                                'total_percentage'    => esc_html__('Total discount limit %', 'rp_wcdpd'),
                                             ),
                                         ),
                                     ),
                                 ),
                                 'cart_discounts_total_limit_value' => array(
-                                    'title'         => __('Total limit value', 'rp_wcdpd'),
+                                    'title'         => esc_html__('Total limit value', 'rp_wcdpd'),
                                     'type'          => 'decimal',
                                     'required'      => true,
                                     'class'         => 'rp_wcdpd_setting_total_limit_value',
@@ -251,64 +252,64 @@ class RP_WCDPD_Settings
                     ),
                 ),
                 'checkout_fees' => array(
-                    'title' => __('Checkout Fees', 'rp_wcdpd'),
+                    'title' => esc_html__('Checkout Fees', 'rp_wcdpd'),
                     'children' => array(
                         'checkout_fees_rules' => array(
-                            'title' => __('Checkout Fees Settings', 'rp_wcdpd'),
+                            'title' => esc_html__('Checkout Fees Settings', 'rp_wcdpd'),
                             'children' => array(
                                 'checkout_fees_rule_selection_method' => array(
-                                    'title'     => __('Rule selection method', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Rule selection method', 'rp_wcdpd'),
                                     'type'      => 'grouped_select',
                                     'default'   => 'first',
                                     'required'  => true,
                                     'class'     => 'rp_wcdpd_rule_selection_method',
                                     'options'   => array(
                                         'all'   => array(
-                                            'label'     => __('Apply All', 'rp_wcdpd'),
+                                            'label'     => esc_html__('Apply All', 'rp_wcdpd'),
                                             'options'  => array(
-                                                'all'   => __('Apply all applicable rules', 'rp_wcdpd'),
+                                                'all'   => esc_html__('Apply all applicable rules', 'rp_wcdpd'),
                                             ),
                                         ),
                                         'one'   => array(
-                                            'label'     => __('Apply One', 'rp_wcdpd'),
+                                            'label'     => esc_html__('Apply One', 'rp_wcdpd'),
                                             'options'  => array(
-                                                'first'         => __('Apply first applicable rule', 'rp_wcdpd'),
-                                                'bigger_fee'    => __('Apply bigger fee', 'rp_wcdpd'),
-                                                'smaller_fee'   => __('Apply smaller fee', 'rp_wcdpd'),
+                                                'first'         => esc_html__('Apply first applicable rule', 'rp_wcdpd'),
+                                                'bigger_fee'    => esc_html__('Apply bigger fee', 'rp_wcdpd'),
+                                                'smaller_fee'   => esc_html__('Apply smaller fee', 'rp_wcdpd'),
                                             ),
                                         ),
                                         'other'  => array(
-                                            'label' => __('Disabled', 'rp_wcdpd'),
+                                            'label' => esc_html__('Disabled', 'rp_wcdpd'),
                                             'options'   => array(
-                                                'disabled' => __('All rules disabled', 'rp_wcdpd'),
+                                                'disabled' => esc_html__('All rules disabled', 'rp_wcdpd'),
                                             ),
                                         ),
                                     ),
                                 ),
                                 'checkout_fees_total_limit' => array(
-                                    'title'     => __('Total limit', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Total limit', 'rp_wcdpd'),
                                     'type'      => 'grouped_select',
                                     'default'   => '0',
                                     'required'  => true,
                                     'class'     => 'rp_wcdpd_setting_total_limit',
                                     'options'   => array(
                                         'no_limit'   => array(
-                                            'label'     => __('No Limit', 'rp_wcdpd'),
+                                            'label'     => esc_html__('No Limit', 'rp_wcdpd'),
                                             'options'   => array(
-                                                '0' => __('No fee limit', 'rp_wcdpd'),
+                                                '0' => esc_html__('No fee limit', 'rp_wcdpd'),
                                             ),
                                         ),
                                         'total'   => array(
-                                            'label'     => __('Total Limit', 'rp_wcdpd'),
+                                            'label'     => esc_html__('Total Limit', 'rp_wcdpd'),
                                             'options'   => array(
-                                                'total_amount'        => __('Total fee limit', 'rp_wcdpd') . ' ' . get_woocommerce_currency_symbol(),
-                                                'total_percentage'    => __('Total fee limit %', 'rp_wcdpd'),
+                                                'total_amount'        => esc_html__('Total fee limit', 'rp_wcdpd') . ' ' . get_woocommerce_currency_symbol(),
+                                                'total_percentage'    => esc_html__('Total fee limit %', 'rp_wcdpd'),
                                             ),
                                         ),
                                     ),
                                 ),
                                 'checkout_fees_total_limit_value' => array(
-                                    'title'         => __('Total limit value', 'rp_wcdpd'),
+                                    'title'         => esc_html__('Total limit value', 'rp_wcdpd'),
                                     'type'          => 'decimal',
                                     'required'      => true,
                                     'class'         => 'rp_wcdpd_setting_total_limit_value',
@@ -319,143 +320,139 @@ class RP_WCDPD_Settings
                     ),
                 ),
                 'promo' => array(
-                    'title' => __('Promotion', 'rp_wcdpd'),
+                    'title' => esc_html__('Promotion', 'rp_wcdpd'),
                     'children' => array(
                     ),
                 ),
                 'settings' => array(
-                    'title' => __('Settings', 'rp_wcdpd'),
+                    'title' => esc_html__('Settings', 'rp_wcdpd'),
                     'children' => array(
-                        'general_settings' => array(
-                            'title' => __('General', 'rp_wcdpd'),
-                            'children' => array(),
-                        ),
                         'product_pricing_settings' => array(
-                            'title' => __('Product Pricing', 'rp_wcdpd'),
+                            'title' => esc_html__('Product Pricing', 'rp_wcdpd'),
                             'children' => array(
                                 'product_pricing_change_display_prices' => array(
-                                    'title'     => __('Change display prices in shop', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Change display prices in shop', 'rp_wcdpd'),
                                     'type'      => 'select',
                                     'default'   => '0',
                                     'required'  => true,
                                     'options'   => array(
-                                        '0'             => __('Do not change', 'rp_wcdpd'),
-                                        'change_simple' => __('Change - Include simple adjustments', 'rp_wcdpd'),
-                                        'change_all'    => __('Change - Include all adjustment types', 'rp_wcdpd'),
+                                        '0'             => esc_html__('Do not change', 'rp_wcdpd'),
+                                        'change_simple' => esc_html__('Change - Include simple adjustments', 'rp_wcdpd'),
+                                        'change_all'    => esc_html__('Change - Include all adjustment types', 'rp_wcdpd'),
                                     ),
-                                    'hint'      => __('This functionality may increase page load time. Rules with complex conditions may confuse customers when prices change unexpectedly.', 'rp_wcdpd'),
+                                    'hint'      => esc_html__('This functionality may increase page load time. Rules with complex conditions may confuse customers when prices change unexpectedly.', 'rp_wcdpd'),
                                 ),
                                 'product_pricing_sale_price_handling' => array(
-                                    'title'     => __('Base price for products on sale', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Base price for products on sale', 'rp_wcdpd'),
                                     'type'      => 'select',
                                     'default'   => 'sale',
                                     'required'  => true,
                                     'options'   => array(
-                                        'sale'      => __('Sale price', 'rp_wcdpd'),
-                                        'regular'   => __('Regular price', 'rp_wcdpd'),
-                                        'exclude'   => __('Exclude products already on sale', 'rp_wcdpd'),
+                                        'sale'      => esc_html__('Sale price', 'rp_wcdpd'),
+                                        'regular'   => esc_html__('Regular price', 'rp_wcdpd'),
+                                        'exclude'   => esc_html__('Exclude products already on sale', 'rp_wcdpd'),
                                     ),
-                                    'hint'      => __('Affects products with a sale price set in product settings. Setting this to regular price may override price adjustments made by other plugins.', 'rp_wcdpd'),
+                                    'hint'      => esc_html__('Affects products with a sale price set in product settings. Setting this to regular price may override price adjustments made by other plugins.', 'rp_wcdpd'),
                                 ),
                                 'product_pricing_bxgyf_auto_add' => array(
-                                    'title'     => __('Automatically add free product to cart', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Automatically add free product to cart', 'rp_wcdpd'),
                                     'type'      => 'checkbox',
                                     'default'   => '0',
-                                    'hint'      => __('This only works with Buy X Get Y rules when all properties of a free product are known - specific product or specific variation must be selected.', 'rp_wcdpd'),
+                                    'hint'      => esc_html__('This only works with Buy X Get Y rules when all properties of a free product are known - specific product or specific variation must be selected.', 'rp_wcdpd'),
                                 ),
                                 'product_pricing_display_regular_price' => array(
-                                    'title'     => __('Display regular price when discounting', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Display regular price when discounting', 'rp_wcdpd'),
                                     'type'      => 'checkbox',
                                     'default'   => '1',
                                 ),
                             ),
                         ),
                         'cart_discounts_settings' => array(
-                            'title' => __('Cart Discounts', 'rp_wcdpd'),
+                            'title' => esc_html__('Cart Discounts', 'rp_wcdpd'),
                             'children' => array(
                                 'cart_discounts_if_multiple_applicable' => array(
-                                    'title'     => __('If multiple discounts are applicable', 'rp_wcdpd'),
+                                    'title'     => esc_html__('If multiple discounts are applicable', 'rp_wcdpd'),
                                     'type'      => 'select',
                                     'default'   => 'individual',
                                     'required'  => true,
                                     'options'   => array(
-                                        'individual'    => __('Display all individual discounts', 'rp_wcdpd'),
-                                        'combined'      => __('Combine to one total discount', 'rp_wcdpd'),
+                                        'individual'    => esc_html__('Display all individual discounts', 'rp_wcdpd'),
+                                        'combined'      => esc_html__('Combine to one total discount', 'rp_wcdpd'),
                                     ),
                                 ),
                                 'cart_discounts_combined_title' => array(
-                                    'title'     => __('Combined discount title', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Combined discount title', 'rp_wcdpd'),
                                     'type'      => 'text',
-                                    'default'   => __('Discount', 'rp_wcdpd'),
+                                    'default'   => esc_html__('Discount', 'rp_wcdpd'),
                                     'required'  => true,
                                 ),
                                 'cart_discounts_apply_with_individual_use_coupons' => array(
-                                    'title'     => __('Apply with individual use coupons', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Apply with individual use coupons', 'rp_wcdpd'),
                                     'type'      => 'checkbox',
                                     'default'   => '1',
                                 ),
                                 'cart_discounts_allow_coupons' => array(
-                                    'title'     => __('Allow regular coupons with cart discounts', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Allow regular coupons with cart discounts', 'rp_wcdpd'),
                                     'type'      => 'checkbox',
                                     'default'   => '1',
                                 ),
                             ),
                         ),
                         'checkout_fees_settings' => array(
-                            'title' => __('Checkout Fees', 'rp_wcdpd'),
+                            'title' => esc_html__('Checkout Fees', 'rp_wcdpd'),
                             'children' => array(
                                 'checkout_fees_if_multiple_applicable' => array(
-                                    'title'     => __('If multiple fees are applicable', 'rp_wcdpd'),
+                                    'title'     => esc_html__('If multiple fees are applicable', 'rp_wcdpd'),
                                     'type'      => 'select',
                                     'default'   => 'individual',
                                     'required'  => true,
                                     'options'   => array(
-                                        'individual'    => __('Display all individual fees', 'rp_wcdpd'),
-                                        'combined'      => __('Combine to one total fee', 'rp_wcdpd'),
+                                        'individual'    => esc_html__('Display all individual fees', 'rp_wcdpd'),
+                                        'combined'      => esc_html__('Combine to one total fee', 'rp_wcdpd'),
                                     ),
                                     // Use this hint if we switch to per-rule tax classes
-                                    // 'hint'      => __('If you choose to combine multiple fees to one fee and fees have different tax classes, they will be grouped by tax class and multiple combined fees will be displayed (one per tax class).', 'rp_wcdpd'),
+                                    // 'hint'      => esc_html__('If you choose to combine multiple fees to one fee and fees have different tax classes, they will be grouped by tax class and multiple combined fees will be displayed (one per tax class).', 'rp_wcdpd'),
                                 ),
                                 'checkout_fees_combined_title' => array(
-                                    'title'     => __('Combined fee title', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Combined fee title', 'rp_wcdpd'),
                                     'type'      => 'text',
-                                    'default'   => __('Fee', 'rp_wcdpd'),
+                                    'default'   => esc_html__('Fee', 'rp_wcdpd'),
                                     'required'  => true,
                                 ),
                                 'checkout_fees_tax_class' => array(
-                                    'title'     => __('Tax class', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Tax class', 'rp_wcdpd'),
                                     'type'      => 'select',
                                     'default'   => 'standard',
                                     'required'  => true,
-                                    'options'   => RightPress_Help::get_wc_tax_class_list(array('rp_wcdpd_not_taxable' => __('Not Taxable', 'rp_wcdpd'))),
+                                    'options'   => RightPress_Help::get_wc_tax_class_list(array('rp_wcdpd_not_taxable' => esc_html__('Not Taxable', 'rp_wcdpd'))),
                                 ),
                             ),
                         ),
                         'condition_settings' => array(
-                            'title' => __('Custom Taxonomy Conditions', 'rp_wcdpd'),
+                            'title' => esc_html__('Conditions', 'rp_wcdpd'),
                             'children' => array(
                                 'conditions_custom_taxonomies' => array(
-                                    'title'     => __('Enabled taxonomies', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Enabled custom taxonomy conditions', 'rp_wcdpd'),
                                     'type'      => 'multiselect',
                                     'required'  => false,
                                     'options'   => array(),
-                                    'hint'      => __('Allows integration with 3rd party extensions that add custom product taxonomies, e.g. product brands.', 'rp_wcdpd'),
+                                    'hint'      => esc_html__('Allows integration with 3rd party extensions that add custom product taxonomies, e.g. product brands.', 'rp_wcdpd'),
                                 ),
                             ),
                         ),
                         'import_export' => array(
-                            'title' => __('Import & Export', 'rp_wcdpd'),
+                            'title' => esc_html__('Import & Export', 'rp_wcdpd'),
                             'children' => array(
                                 'import' => array(
-                                    'title'     => __('Import settings', 'rp_wcdpd'),
+                                    'title'     => esc_html__('Import settings', 'rp_wcdpd'),
                                     'type'      => 'file',
                                     'required'  => false,
-                                    'hint'      => __('Warning! Importing settings will irrecoverably overwrite your existing settings, including any pricing rules, discounts and fees.', 'rp_wcdpd'),
+                                    'hint'      => esc_html__('Warning! Importing settings will irrecoverably overwrite your existing settings, including any pricing rules, discounts and fees.', 'rp_wcdpd'),
                                 ),
                                 'export' => array(
-                                    'title'         => __('Export settings', 'rp_wcdpd'),
+                                    'title'         => esc_html__('Export settings', 'rp_wcdpd'),
                                     'type'          => 'link',
-                                    'link_label'    => __('Click here to export', 'rp_wcdpd'),
+                                    'link_label'    => esc_html__('Click here to export', 'rp_wcdpd'),
                                     'link_url'      => admin_url('?rp_wcdpd_export_settings=1'),
                                 ),
                             ),
@@ -466,17 +463,17 @@ class RP_WCDPD_Settings
 
             // Amounts in conditions include tax - display only if settings are enabled on current website
             if (wc_tax_enabled()) {
-                self::$structure['settings']['children']['general_settings']['children']['condition_amounts_include_tax'] = array(
-                    'title'     => __('Amounts in conditions include tax', 'rp_wcdpd'),
+                self::$structure['settings']['children']['condition_settings']['children']['condition_amounts_include_tax'] = array(
+                    'title'     => esc_html__('Amounts in conditions include tax', 'rp_wcdpd'),
                     'type'      => 'checkbox',
                     'default'   => '1',
                 );
             }
 
             // Warning about possible tax inconsistencies when different products have different tax rates and percentage discounts are combined thus resulting in one fixed amount discount (issue #451)
-            if (wc_tax_enabled() && RP_WCDPD_Helper::wc_has_multiple_tax_classes()) {
-                self::$structure['settings']['children']['cart_discounts_settings']['children']['cart_discounts_if_multiple_applicable']['hint'] = __('<strong>Warning!</strong> Combining discounts may result in unexpected tax calculation when percentage discounts are used and different tax rates apply to different cart items.', 'rp_wcdpd');
-            }
+            //if (wc_tax_enabled() && RP_WCDPD_Helper::wc_has_multiple_tax_classes()) {
+                self::$structure['settings']['children']['cart_discounts_settings']['children']['cart_discounts_if_multiple_applicable']['hint'] = esc_html__('Warning! Combining discounts may result in unexpected tax calculation when percentage discounts are used and different tax rates apply to different cart items.', 'rp_wcdpd');
+            //}
 
             // Allow other classes to add settings
             self::$structure = apply_filters('rp_wcdpd_settings_structure', self::$structure);
@@ -493,6 +490,7 @@ class RP_WCDPD_Settings
      */
     public function load_settings()
     {
+
         // Load any stored settings
         $stored = get_option('rp_wcdpd_settings', array());
 
@@ -537,6 +535,9 @@ class RP_WCDPD_Settings
         // Pre-2.2 compatibility for conditions
         $this->fix_conditions_pre_2_2();
 
+        // Pre-2.4 compatibility for group pricing quantities based on
+        $this->fix_group_quantities_based_on_pre_2_4();
+
         // Migrate "Display Price Override" setting
         if (!isset($stored['product_pricing_change_display_prices']) && !empty($stored['promo_display_price_override'])) {
             $this->settings['product_pricing_change_display_prices'] = 'change_simple';
@@ -552,6 +553,7 @@ class RP_WCDPD_Settings
      */
     public static function get_options($key)
     {
+
         // Special case for custom taxonomies
         if ($key === 'conditions_custom_taxonomies') {
             return RP_WCDPD_Controller_Conditions::get_all_custom_taxonomies();
@@ -568,6 +570,7 @@ class RP_WCDPD_Settings
      */
     public function register_settings()
     {
+
         // Check if current user can manage plugin settings
         if (!RP_WCDPD::is_admin()) {
             return;
@@ -641,6 +644,7 @@ class RP_WCDPD_Settings
      */
     public static function tab_has_settings($tab)
     {
+
         foreach ($tab['children'] as $section_key => $section) {
             if (RP_WCDPD_Settings::section_has_settings($section)) {
                 return true;
@@ -659,6 +663,7 @@ class RP_WCDPD_Settings
      */
     public static function section_has_settings($section)
     {
+
         return !empty($section['children']);
     }
 
@@ -670,6 +675,7 @@ class RP_WCDPD_Settings
      */
     public static function get_all()
     {
+
         $instance = self::get_instance();
         return $instance->settings;
     }
@@ -684,6 +690,7 @@ class RP_WCDPD_Settings
      */
     public static function get($key, $default = null)
     {
+
         $instance = self::get_instance();
 
         // Get settings value
@@ -705,6 +712,7 @@ class RP_WCDPD_Settings
      */
     public static function check($key, $compare = null)
     {
+
         // Get value
         $value = RP_WCDPD_Settings::get($key, false);
 
@@ -735,6 +743,7 @@ class RP_WCDPD_Settings
      */
     public static function update($key, $value)
     {
+
         // User not allowed to update settings
         if (!RP_WCDPD::is_admin()) {
             return false;
@@ -762,10 +771,11 @@ class RP_WCDPD_Settings
      */
     public function add_to_menu()
     {
+
         add_submenu_page(
             'woocommerce',
-            __('Pricing & Discounts', 'rp_wcdpd'),
-            __('Pricing & Discounts', 'rp_wcdpd'),
+            esc_html__('Pricing & Discounts', 'rp_wcdpd'),
+            esc_html__('Pricing & Discounts', 'rp_wcdpd'),
             RP_WCDPD::get_admin_capability(),
             'rp_wcdpd_settings',
             array('RP_WCDPD_Settings', 'print_settings_page')
@@ -780,6 +790,7 @@ class RP_WCDPD_Settings
      */
     public static function print_settings_page()
     {
+
         // Get current tab
         $current_tab = RP_WCDPD_Settings::get_tab();
 
@@ -813,6 +824,7 @@ class RP_WCDPD_Settings
      */
     public static function get_tab()
     {
+
         $structure = RP_WCDPD_Settings::get_structure();
 
         // Check if we know tab identifier
@@ -834,6 +846,7 @@ class RP_WCDPD_Settings
      */
     public function print_section_info($section)
     {
+
         foreach (RP_WCDPD_Settings::get_structure() as $tab_key => $tab) {
             if (!empty($tab['children'][$section['id']]['info'])) {
                 echo '<p>' . $tab['children'][$section['id']]['info'] . '</p>';
@@ -851,6 +864,7 @@ class RP_WCDPD_Settings
      */
     public function print_field_text($args = array(), $field_type = null)
     {
+
         // Get prefixed key
         $prefixed_key = 'rp_wcdpd_' . $args['field_key'];
 
@@ -891,6 +905,7 @@ class RP_WCDPD_Settings
      */
     public function print_field_number($args = array())
     {
+
         self::print_field_text($args, 'number');
     }
 
@@ -903,6 +918,7 @@ class RP_WCDPD_Settings
      */
     public function print_field_decimal($args = array())
     {
+
         self::print_field_text($args, 'decimal');
     }
 
@@ -915,6 +931,7 @@ class RP_WCDPD_Settings
      */
     public function print_field_textarea($args = array())
     {
+
         // Get prefixed key
         $prefixed_key = 'rp_wcdpd_' . $args['field_key'];
 
@@ -947,6 +964,7 @@ class RP_WCDPD_Settings
      */
     public function print_field_checkbox($args = array())
     {
+
         // Get prefixed key
         $prefixed_key = 'rp_wcdpd_' . $args['field_key'];
 
@@ -973,6 +991,7 @@ class RP_WCDPD_Settings
      */
     public function print_field_select($args = array(), $is_multiselect = false, $is_grouped = false)
     {
+
         // Get prefixed key
         $prefixed_key = 'rp_wcdpd_' . $args['field_key'];
 
@@ -1009,6 +1028,7 @@ class RP_WCDPD_Settings
      */
     public function print_field_grouped_select($args = array())
     {
+
         self::print_field_select($args, false, true);
     }
 
@@ -1021,6 +1041,7 @@ class RP_WCDPD_Settings
      */
     public function print_field_multiselect($args = array())
     {
+
         self::print_field_select($args, true);
     }
 
@@ -1033,6 +1054,7 @@ class RP_WCDPD_Settings
      */
     public function print_field_file($args = array())
     {
+
         self::print_field_text($args, 'file');
     }
 
@@ -1045,6 +1067,7 @@ class RP_WCDPD_Settings
      */
     public function print_field_link($args = array())
     {
+
         // Get properties
         $label = !empty($args['field']['link_label']) ? $args['field']['link_label'] : $args['field']['link_url'];
 
@@ -1061,6 +1084,7 @@ class RP_WCDPD_Settings
      */
     public static function print_settings_field($field_key)
     {
+
         $instance = RP_WCDPD_Settings::get_instance();
 
         // Find field
@@ -1094,6 +1118,7 @@ class RP_WCDPD_Settings
      */
     public function validate_settings($input)
     {
+
         $structure = RP_WCDPD_Settings::get_structure();
 
         // Track if this is a first or a second call to this function
@@ -1139,12 +1164,17 @@ class RP_WCDPD_Settings
         $field_array = array();
         $errors = array();
 
+        // Do not override existing settings if form from old plugin version was submitted
+        if (!isset($_POST['rp_wcdpd_version']) || $_POST['rp_wcdpd_version'] !== RP_WCDPD_VERSION) {
+            return array(self::$version => $output);
+        }
+
         // Attempt to validate settings
         try {
 
             // Check if request came from a correct page
             if (empty($_POST['current_tab']) || !isset($structure[$_POST['current_tab']])) {
-                throw new Exception(__('Unable to validate settings.', 'rp_wcdpd'));
+                throw new Exception(esc_html__('Unable to validate settings.', 'rp_wcdpd'));
             }
 
             // Reference current tab
@@ -1232,7 +1262,7 @@ class RP_WCDPD_Settings
                                         $clean = trim($input[$full_key]);
 
                                         if (empty($clean)) {
-                                            throw new Exception(__('Notification message must not be empty.', 'rp_wcdpd'));
+                                            throw new Exception(esc_html__('Notification message must not be empty.', 'rp_wcdpd'));
                                         }
                                     }
 
@@ -1256,7 +1286,7 @@ class RP_WCDPD_Settings
             // Validate rules
             foreach (self::$contexts as $rule_type) {
                 if ($current_tab === $rule_type) {
-                    $output[$rule_type] = RP_WCDPD_Settings::validate_rules($rule_type, $input);
+                    $output[$rule_type] = RP_WCDPD_Settings::validate_rules($rule_type, $input, $this->settings[$rule_type]);
                 }
             }
 
@@ -1265,7 +1295,7 @@ class RP_WCDPD_Settings
                 add_settings_error(
                     'rp_wcdpd',
                     'rp_wcdpd_settings_updated',
-                    __('Settings updated.', 'rp_wcdpd'),
+                    esc_html__('Settings updated.', 'rp_wcdpd'),
                     'updated'
                 );
             }
@@ -1290,10 +1320,12 @@ class RP_WCDPD_Settings
      * @access public
      * @param string $rule_type
      * @param array $input
+     * @param array $existing_rules
      * @return array
      */
-    public static function validate_rules($rule_type, $input)
+    public static function validate_rules($rule_type, $input, $existing_rules)
     {
+
         $output = array();
 
         // Only proceed if some data was passed in
@@ -1301,6 +1333,44 @@ class RP_WCDPD_Settings
 
             // Iterate over rules of this type
             foreach ($input[$rule_type] as $posted) {
+
+                // Get posted exclusivity setting
+                $posted_exclusivity = isset($posted['exclusivity']) && RP_WCDPD_Settings::exclusivity_method_exists($rule_type, $posted['exclusivity']) ? $posted['exclusivity'] : null;
+
+                // Rule unchanged
+                if (!empty($posted['unchanged'])) {
+
+                    // Iterate over existing rules
+                    foreach ($existing_rules as $existing_rule) {
+
+                        // Check if we got a match
+                        if ($existing_rule['uid'] === $posted['uid']) {
+
+                            // Reference current existing rule
+                            $current_existing_rule = $existing_rule;
+
+                            // Update exclusivity
+                            if ($posted_exclusivity) {
+                                $current_existing_rule['exclusivity'] = $posted_exclusivity;
+                            }
+                            else if (in_array($current_existing_rule['method'], array('exclude', 'restrict_purchase'), true)) {
+                                $current_existing_rule['exclusivity'] = null;
+                            }
+                            else {
+                                return false;
+                            }
+
+                            // Add to output array
+                            $output[] = $current_existing_rule;
+
+                            // Do not check other existing rules
+                            break;
+                        }
+                    }
+
+                    // Proceed to another rule
+                    continue;
+                }
 
                 $current = array();
                 $is_bogo = false;
@@ -1314,8 +1384,8 @@ class RP_WCDPD_Settings
                 }
 
                 // Exclusivity
-                if (isset($posted['exclusivity']) && RP_WCDPD_Settings::exclusivity_method_exists($rule_type, $posted['exclusivity'])) {
-                    $current['exclusivity'] = $posted['exclusivity'];
+                if ($posted_exclusivity) {
+                    $current['exclusivity'] = $posted_exclusivity;
                 }
                 else if (in_array($posted['method'], array('exclude', 'restrict_purchase'), true)) {
                     $current['exclusivity'] = null;
@@ -1432,6 +1502,7 @@ class RP_WCDPD_Settings
      */
     public static function validate_product_pricing_rule($current, $posted)
     {
+
         // Rule method
         if (isset($posted['method']) && RP_WCDPD_Settings::product_pricing_method_exists($posted['method'])) {
             $current['method'] = $posted['method'];
@@ -1441,19 +1512,9 @@ class RP_WCDPD_Settings
         }
 
         // Quantities based on
-        if (in_array($current['method'], array('bulk', 'tiered', 'bogo', 'bogo_repeat', 'bogo_xx', 'bogo_xx_repeat'), true)) {
+        if (in_array($current['method'], array('bulk', 'tiered', 'group', 'group_repeat', 'bogo', 'bogo_repeat', 'bogo_xx', 'bogo_xx_repeat'), true)) {
             if (isset($posted['quantities_based_on']) && RP_WCDPD_Settings::quantities_based_on_method_exists($posted['quantities_based_on'])) {
                 $current['quantities_based_on'] = $posted['quantities_based_on'];
-            }
-            else {
-                return false;
-            }
-        }
-
-        // Group quantities based on
-        if (in_array($current['method'], array('group', 'group_repeat'), true)) {
-            if (isset($posted['group_quantities_based_on']) && RP_WCDPD_Settings::group_quantities_based_on_method_exists($posted['group_quantities_based_on'])) {
-                $current['group_quantities_based_on'] = $posted['group_quantities_based_on'];
             }
             else {
                 return false;
@@ -1502,6 +1563,7 @@ class RP_WCDPD_Settings
      */
     public static function validate_quantity_ranges($current, $posted)
     {
+
         $quantity_ranges = array();
 
         // Check if any quantity ranges are configured
@@ -1529,6 +1591,7 @@ class RP_WCDPD_Settings
      */
     public static function validate_single_quantity_range($quantity_range)
     {
+
         $single = array();
 
         // Unique identifier
@@ -1609,6 +1672,7 @@ class RP_WCDPD_Settings
      */
     public static function validate_group_products($current, $posted)
     {
+
         $group_products = array();
 
         // Iterate over group products
@@ -1634,6 +1698,7 @@ class RP_WCDPD_Settings
      */
     public static function validate_single_group_product($group_product)
     {
+
         $single = array();
 
         // Unique identifier
@@ -1696,6 +1761,7 @@ class RP_WCDPD_Settings
      */
     public static function get_settings_revision()
     {
+
         $instance = self::get_instance();
 
         // Check if we have revision in memory
@@ -1722,6 +1788,7 @@ class RP_WCDPD_Settings
      */
     public static function reset_settings_revision()
     {
+
         $instance = self::get_instance();
 
         // Generate revision hash and cache in memory
@@ -1742,6 +1809,7 @@ class RP_WCDPD_Settings
      */
     public static function is_settings_page()
     {
+
         return preg_match('/page=rp_wcdpd_settings/i', $_SERVER['REQUEST_URI']);
     }
 
@@ -1753,6 +1821,7 @@ class RP_WCDPD_Settings
      */
     public function configuration_to_javascript()
     {
+
         if (!RP_WCDPD_Settings::is_settings_page() || !RP_WCDPD_Settings::settings_page_uses_templates()) {
             return;
         }
@@ -1799,9 +1868,11 @@ class RP_WCDPD_Settings
             }
         }
 
+        // Add multiselect option labels
+        $configuration = $this->add_multiselect_option_labels($configuration, $current_tab);
+
         // Pass configuration values to JS
         wp_localize_script('rp-wcdpd-rules-scripts', 'rp_wcdpd_config', $configuration);
-        wp_localize_script('rp-wcdpd-rules-scripts', 'rp_wcdpd_multiselect_options', $this->get_multiselect_option_labels($current_tab, $configuration));
     }
 
     /**
@@ -1812,6 +1883,7 @@ class RP_WCDPD_Settings
      */
     public function render_templates_in_footer()
     {
+
         // Load only on our pages that use templates
         if (RP_WCDPD_Settings::is_settings_page() && RP_WCDPD_Settings::settings_page_uses_templates()) {
 
@@ -1831,6 +1903,7 @@ class RP_WCDPD_Settings
      */
     public static function settings_page_uses_templates()
     {
+
         return in_array(RP_WCDPD_Settings::get_tab(), self::$contexts, true);
     }
 
@@ -1843,6 +1916,7 @@ class RP_WCDPD_Settings
      */
     public static function get_tab_title($key)
     {
+
         if (!empty(self::$structure[$key])) {
             return self::$structure[$key]['title'];
         }
@@ -1851,16 +1925,15 @@ class RP_WCDPD_Settings
     }
 
     /**
-     * Get selected multiselect field option labels
+     * Add selected multiselect field option labels to configuration array
      *
      * @access public
-     * @param string $context
      * @param array $configuration
+     * @param string $context
      * @return array
      */
-    public function get_multiselect_option_labels($context, $configuration)
+    public function add_multiselect_option_labels($configuration, $context)
     {
-        $labels = array();
 
         // Iterate over rules of current context
         if (in_array($context, self::$contexts, true) && !empty($configuration[$context])) {
@@ -1874,9 +1947,7 @@ class RP_WCDPD_Settings
 
                         // Get labels for conditions multiselect field options
                         if ($current_labels = RP_WCDPD_Controller_Conditions::get_conditions_multiselect_field_option_labels($row[$child_type])) {
-
-                            // Set labels for current child type
-                            $labels[$context][$row_key][$child_type] = $current_labels;
+                            $configuration[$context][$row_key][$child_type . '_multiselect_option_labels'] = $current_labels;
                         }
                     }
                 }
@@ -1894,7 +1965,7 @@ class RP_WCDPD_Settings
 
                                 // Get multiselect option labels
                                 if (method_exists($condition_field, 'get_multiselect_option_labels')) {
-                                    $labels[$context][$row_key][$bogo_field_key] = $condition_field->get_multiselect_option_labels($row[$bogo_field_key]);
+                                    $configuration[$context][$row_key][$bogo_field_key . '_multiselect_option_labels'] = $condition_field->get_multiselect_option_labels($row[$bogo_field_key]);
                                 }
                             }
                         }
@@ -1903,7 +1974,7 @@ class RP_WCDPD_Settings
             }
         }
 
-        return $labels;
+        return $configuration;
     }
 
     /**
@@ -1915,6 +1986,7 @@ class RP_WCDPD_Settings
      */
     public function custom_settings_capability($capability)
     {
+
         return RP_WCDPD::get_admin_capability();
     }
 
@@ -1922,10 +1994,12 @@ class RP_WCDPD_Settings
      * Get product pricing methods for display in admin UI
      *
      * @access public
+     * @param bool $grouped
      * @return array
      */
-    public static function get_product_pricing_methods_for_display()
+    public static function get_product_pricing_methods_for_display($grouped = true)
     {
+
         $for_display = array();
 
         // Get methods
@@ -1937,16 +2011,26 @@ class RP_WCDPD_Settings
             // Iterate over methods
             foreach ($group['children'] as $method_key => $method) {
 
-                // Add group if needed
-                if (!isset($for_display[$group_key])) {
-                    $for_display[$group_key] = array(
-                        'label'     => $group['label'],
-                        'options'  => array(),
-                    );
-                }
+                // Grouped
+                if ($grouped) {
 
-                // Push method to group
-                $for_display[$group_key]['options'][$method_key] = $method->get_label();
+                    // Add group if needed
+                    if (!isset($for_display[$group_key])) {
+                        $for_display[$group_key] = array(
+                            'label'     => $group['label'],
+                            'options'  => array(),
+                        );
+                    }
+
+                    // Push method to group
+                    $for_display[$group_key]['options'][$method_key] = $method->get_label();
+                }
+                // Note grouped
+                else {
+
+                    // Push method
+                    $for_display[$method_key] = $method->get_label();
+                }
             }
         }
 
@@ -1962,6 +2046,7 @@ class RP_WCDPD_Settings
      */
     public static function product_pricing_method_exists($method)
     {
+
         // Get methods
         $methods = RP_WCDPD_Controller_Methods_Product_Pricing::get_items();
 
@@ -1984,24 +2069,23 @@ class RP_WCDPD_Settings
      */
     public static function get_quantities_based_on_methods_for_display()
     {
+
         // Define methods
         if (self::$quantities_based_on_methods === null) {
             self::$quantities_based_on_methods = array(
                 'individual' => array(
-                    'label' => __('Individual Products', 'rp_wcdpd'),
+                    'label' => esc_html__('Individual', 'rp_wcdpd'),
                     'options' => array(
-                        'product'       => __('Each individual product', 'rp_wcdpd'),
-                        'variation'     => __('Each individual variation', 'rp_wcdpd'),
-                        'configuration' => __('Each individual cart line item', 'rp_wcdpd'),
+                        'product'       => esc_html__('Individual product', 'rp_wcdpd'),
+                        'variation'     => esc_html__('Individual variation', 'rp_wcdpd'),
+                        'configuration' => esc_html__('Individual cart item', 'rp_wcdpd'),
                     ),
                 ),
                 'cumulative' => array(
-                    'label' => __('All Matched Products', 'rp_wcdpd'),
+                    'label' => esc_html__('Added Up', 'rp_wcdpd'),
                     'options' => array(
-                        //'categories'    => __('All matched product quantities split by category', 'rp_wcdpd'),
-                        //'all'           => __('All matched product quantities added up', 'rp_wcdpd'),
-                        'categories'    => __('Quantities added up by category', 'rp_wcdpd'),
-                        'all'           => __('All quantities added up', 'rp_wcdpd'),
+                        'all'           => esc_html__('Added up', 'rp_wcdpd'),
+                        'categories'    => esc_html__('Added up by category', 'rp_wcdpd'),
                     ),
                 ),
             );
@@ -2020,6 +2104,7 @@ class RP_WCDPD_Settings
      */
     public static function quantities_based_on_method_exists($method)
     {
+
         // Iterate over methods
         foreach (RP_WCDPD_Settings::get_quantities_based_on_methods_for_display() as $group_key => $group) {
             foreach ($group['options'] as $option_key => $label) {
@@ -2034,45 +2119,6 @@ class RP_WCDPD_Settings
     }
 
     /**
-     * Get group "Quantities based on" methods for display in admin UI
-     *
-     * @access public
-     * @return array
-     */
-    public static function get_group_quantities_based_on_methods_for_display()
-    {
-        // Define methods
-        if (self::$group_quantities_based_on_methods === null) {
-            self::$group_quantities_based_on_methods = array(
-                'group_product'         => __('Each individual product', 'rp_wcdpd'),
-                'group_variation'       => __('Each individual variation', 'rp_wcdpd'),
-                'group_configuration'   => __('Each individual cart line item', 'rp_wcdpd'),
-                'group_category'        => __('Each individual category', 'rp_wcdpd'),
-                'group_all'             => __('All quantities added up', 'rp_wcdpd'),
-            );
-        }
-
-        // Return methods
-        return self::$group_quantities_based_on_methods;
-    }
-
-    /**
-     * Check if group "Quantities based on" method exists
-     *
-     * @access public
-     * @param string $method
-     * @return bool
-     */
-    public static function group_quantities_based_on_method_exists($method)
-    {
-        // Get methods
-        $methods = RP_WCDPD_Settings::get_group_quantities_based_on_methods_for_display();
-
-        // Check if such method exists
-        return isset($methods[$method]);
-    }
-
-    /**
      * Get exclusivity methods for display in admin UI
      *
      * @access public
@@ -2081,26 +2127,27 @@ class RP_WCDPD_Settings
      */
     public static function get_exclusivity_methods_for_display($context)
     {
+
         // Define methods
         if (!isset(self::$exclusivity_methods[$context])) {
             self::$exclusivity_methods[$context] = array(
                 'non_exclusive' => array(
-                    'label' => __('Non-Exclusive', 'rp_wcdpd'),
+                    'label' => esc_html__('Non-Exclusive', 'rp_wcdpd'),
                     'options' => array(
-                        'all'   => __('Apply with other applicable rules', 'rp_wcdpd'),
+                        'all'   => esc_html__('Apply with other applicable rules', 'rp_wcdpd'),
                     ),
                 ),
                 'exclusive' => array(
-                    'label' => ($context === 'product_pricing' ? __('Exclusive - Per Cart Item', 'rp_wcdpd') : __('Exclusive', 'rp_wcdpd')),
+                    'label' => ($context === 'product_pricing' ? esc_html__('Exclusive - Per Cart Item', 'rp_wcdpd') : esc_html__('Exclusive', 'rp_wcdpd')),
                     'options' => array(
-                        'this'  => __('Apply this rule and disregard other rules', 'rp_wcdpd'),
-                        'other' => __('Apply if other rules are not applicable', 'rp_wcdpd'),
+                        'this'  => esc_html__('Apply this rule and disregard other rules', 'rp_wcdpd'),
+                        'other' => esc_html__('Apply if other rules are not applicable', 'rp_wcdpd'),
                     ),
                 ),
                 'disabled' => array(
-                    'label' => __('Disabled', 'rp_wcdpd'),
+                    'label' => esc_html__('Disabled', 'rp_wcdpd'),
                     'options' => array(
-                        'disabled' => __('Disabled', 'rp_wcdpd'),
+                        'disabled' => esc_html__('Disabled', 'rp_wcdpd'),
                     ),
                 ),
             );
@@ -2120,6 +2167,7 @@ class RP_WCDPD_Settings
      */
     public static function exclusivity_method_exists($context, $method)
     {
+
         // Iterate over methods
         foreach (RP_WCDPD_Settings::get_exclusivity_methods_for_display($context) as $group_key => $group) {
             if (isset($group['options'][$method])) {
@@ -2139,24 +2187,25 @@ class RP_WCDPD_Settings
      */
     public static function get_receive_products_methods_for_display()
     {
+
         // Define methods
         if (self::$receive_products_methods === null) {
             self::$receive_products_methods = array(
                 'same' => array(
-                    'label' => __('Same Products', 'rp_wcdpd'),
+                    'label' => esc_html__('Same Products', 'rp_wcdpd'),
                     'options' => array(
-                        //'matched' => __('Same as at full price', 'rp_wcdpd'),
-                        'matched' => __('Same as products at full price', 'rp_wcdpd'),
+                        //'matched' => esc_html__('Same as at full price', 'rp_wcdpd'),
+                        'matched' => esc_html__('Same as products at full price', 'rp_wcdpd'),
                     ),
                 ),
                 'products' => array(
-                    'label' => __('Other Products', 'rp_wcdpd'),
+                    'label' => esc_html__('Other Products', 'rp_wcdpd'),
                     'options' => array(
-                        'product__product'      => __('Other products', 'rp_wcdpd'),
-                        'product__variation'    => __('Other product variations', 'rp_wcdpd'),
-                        'product__category'     => __('Other products in categories', 'rp_wcdpd'),
-                        'product__attributes'   => __('Other products with attributes', 'rp_wcdpd'),
-                        'product__tags'         => __('Other products with tags', 'rp_wcdpd'),
+                        'product__product'      => esc_html__('Other products', 'rp_wcdpd'),
+                        'product__variation'    => esc_html__('Other product variations', 'rp_wcdpd'),
+                        'product__category'     => esc_html__('Other products in categories', 'rp_wcdpd'),
+                        'product__attributes'   => esc_html__('Other products with attributes', 'rp_wcdpd'),
+                        'product__tags'         => esc_html__('Other products with tags', 'rp_wcdpd'),
                     ),
                 ),
             );
@@ -2175,6 +2224,7 @@ class RP_WCDPD_Settings
      */
     public static function receive_products_method_exists($method)
     {
+
         // Iterate over methods
         foreach (RP_WCDPD_Settings::get_receive_products_methods_for_display() as $group_key => $group) {
             if (isset($group['options'][$method])) {
@@ -2194,14 +2244,32 @@ class RP_WCDPD_Settings
      */
     public function maybe_display_migration_notice()
     {
+
+        $is_displayed = false;
+
         // Main migration notice
         if ($notice = get_option('rp_wcdpd_migration_notice')) {
-            printf('<div class="update-nag" style="display: block; border-left-color: #dc3232;"><h3 style="margin-top: 0.3em; margin-bottom: 0.6em;">Action Required!</h3>' . $notice . '<p><a href="%s">Contact Support</a>&nbsp;&nbsp;&nbsp;<a href="%s">Hide this notice</a></p></div>', 'http://url.rightpress.net/new-support-ticket', add_query_arg('rp_wcdpd_hide_migration_notice', '1'));
+
+            // Print
+            printf('<div class="update-nag rp_wcdpd_migration_notice"><h3>Action Required!</h3>' . $notice . '<p><a href="%s">Contact Support</a>&nbsp;&nbsp;&nbsp;<a href="%s">Hide this notice</a></p></div>', 'http://url.rightpress.net/new-support-ticket', add_query_arg('rp_wcdpd_hide_migration_notice', '1'));
+
+            // Set flag
+            $is_displayed = true;
         }
 
         // "Products to adjust" migration notice
         if ($notice = get_option('rp_wcdpd_migration_notice_products_to_adjust')) {
-            printf('<div class="update-nag" style="display: block; border-left-color: #dc3232;"><h3 style="margin-top: 0.3em; margin-bottom: 0.6em;">Warning!</h3>' . $notice . '<p><a href="%s">Contact Support</a>&nbsp;&nbsp;&nbsp;<a href="%s">Hide this notice</a></p></div>', 'http://url.rightpress.net/new-support-ticket', add_query_arg('rp_wcdpd_hide_migration_notice_products_to_adjust', '1'));
+
+            // Print
+            printf('<div class="update-nag rp_wcdpd_migration_notice"><h3>Warning!</h3>' . $notice . '<p><a href="%s">Contact Support</a>&nbsp;&nbsp;&nbsp;<a href="%s">Hide this notice</a></p></div>', 'http://url.rightpress.net/new-support-ticket', add_query_arg('rp_wcdpd_hide_migration_notice_products_to_adjust', '1'));
+
+            // Set flag
+            $is_displayed = true;
+        }
+
+        // Enqueue or inject stylesheet
+        if ($is_displayed) {
+            RightPress_Help::enqueue_or_inject_stylesheet('rp-wcdpd-settings-styles', RP_WCDPD_PLUGIN_URL . '/assets/css/settings.css', RP_WCDPD_VERSION);
         }
     }
 
@@ -2213,6 +2281,7 @@ class RP_WCDPD_Settings
      */
     public function hide_migration_notice()
     {
+
         // Main migration notice
         if (!empty($_REQUEST['rp_wcdpd_hide_migration_notice'])) {
             delete_option('rp_wcdpd_migration_notice');
@@ -2240,6 +2309,7 @@ class RP_WCDPD_Settings
      */
     public function fix_bogo_get_products_pre_2_1()
     {
+
         if (!empty($this->settings['product_pricing']) && is_array($this->settings['product_pricing'])) {
 
             // Condition key and multiselect field mapping
@@ -2307,6 +2377,7 @@ class RP_WCDPD_Settings
      */
     public function fix_conditions_pre_2_2()
     {
+
         if (!empty($this->settings['product_pricing']) && is_array($this->settings['product_pricing'])) {
             foreach ($this->settings['product_pricing'] as $rule_key => $rule) {
                 if (!empty($rule['conditions']) && is_array($rule['conditions'])) {
@@ -2331,6 +2402,42 @@ class RP_WCDPD_Settings
     }
 
     /**
+     * Pre-2.4 compatibility for group pricing quantities based on
+     *
+     * In version "group quantities based on" setting was removed and main "quantities based on" field is used now insted
+     *
+     * @access public
+     * @return void
+     */
+    public function fix_group_quantities_based_on_pre_2_4()
+    {
+
+        if (!empty($this->settings['product_pricing']) && is_array($this->settings['product_pricing'])) {
+            foreach ($this->settings['product_pricing'] as $rule_key => $rule) {
+                if (!empty($rule['method']) && in_array($rule['method'], array('group', 'group_repeat'), true)) {
+                    if (empty($rule['quantities_based_on']) && !empty($rule['group_quantities_based_on'])) {
+
+                        $pairs = array(
+                            'group_product'         => 'individual__product',
+                            'group_variation'       => 'individual__variation',
+                            'group_configuration'   => 'individual__configuration',
+                            'group_category'        => 'cumulative__categories',
+                            'group_all'             => 'cumulative__all',
+                        );
+
+                        if (isset($pairs[$rule['group_quantities_based_on']])) {
+
+                            $this->settings['product_pricing'][$rule_key]['quantities_based_on'] = $pairs[$rule['group_quantities_based_on']];
+
+                            unset($this->settings['product_pricing'][$rule_key]['group_quantities_based_on']);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Export settings
      *
      * Pushes file to browser
@@ -2340,6 +2447,7 @@ class RP_WCDPD_Settings
      */
     public function export()
     {
+
         // Get settings
         $settings = get_option('rp_wcdpd_settings', array());
 
@@ -2367,6 +2475,7 @@ class RP_WCDPD_Settings
      */
     public function import()
     {
+
         try {
 
             // Check if file was uploaded correctly
@@ -2418,13 +2527,14 @@ class RP_WCDPD_Settings
      */
     public function print_import_notice()
     {
+
         // Success notice
         if ($_REQUEST['rp_wcdpd_settings_imported'] === '1') {
 
             add_settings_error(
                 'rp_wcdpd',
                 'rp_wcdpd_settings_updated',
-                __('Settings were successfully imported.', 'rp_wcdpd'),
+                esc_html__('Settings were successfully imported.', 'rp_wcdpd'),
                 'updated'
             );
         }
@@ -2434,7 +2544,7 @@ class RP_WCDPD_Settings
             add_settings_error(
                 'rp_wcdpd',
                 'rp_wcdpd_settings_updated',
-                __('Error: Uploaded configuration file is not valid.', 'rp_wcdpd')
+                esc_html__('Error: Uploaded configuration file is not valid.', 'rp_wcdpd')
             );
         }
     }

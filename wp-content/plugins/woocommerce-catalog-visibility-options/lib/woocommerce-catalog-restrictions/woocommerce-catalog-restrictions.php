@@ -27,24 +27,24 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 
 			$this->template_url = apply_filters( 'woocommerce_catalog_restrictions_template_url', 'woocommerce-catalog-visibility-options/' );
 
-			require 'woocommerce-catalog-restrictions-functions.php';
-			require 'shortcodes/class-wc-catalog-restrictions-location-picker-shortcode.php';
-			require 'widgets/class-wc-catalog-restrictions-location-picker-widget.php';
+			require untrailingslashit( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'woocommerce-catalog-restrictions-functions.php';
+			require untrailingslashit( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'shortcodes/class-wc-catalog-restrictions-location-picker-shortcode.php';
+			require untrailingslashit( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'widgets/class-wc-catalog-restrictions-location-picker-widget.php';
 
 			WC_Catalog_Restrictions_Location_Picker_ShortCode::instance();
 
 			WC_Catalog_Restrictions_Location_Picker_Widget::register();
 
 			if ( is_admin() && !defined( 'DOING_AJAX' ) ) {
-				require 'includes/class-wc-catalog-restrictions-product-admin.php';
-				require 'includes/class-wc-catalog-restrictions-category-admin.php';
+				require untrailingslashit( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'includes/class-wc-catalog-restrictions-product-admin.php';
+				require untrailingslashit( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'includes/class-wc-catalog-restrictions-category-admin.php';
 
 
 				WC_Catalog_Restrictions_Product_Admin::instance();
 				WC_Catalog_Restrictions_Category_Admin::instance();
 
 				if ( $this->get_setting( '_wc_restrictions_locations_enabled', 'no' ) == 'yes' ) {
-					require 'includes/class-wc-catalog-restrictions-user-admin.php';
+					require untrailingslashit( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'includes/class-wc-catalog-restrictions-user-admin.php';
 					WC_Catalog_Restrictions_User_Admin::instance();
 				}
 			} else {
@@ -137,6 +137,10 @@ if ( !class_exists( 'WC_Catalog_Restrictions' ) ) {
 
 		public function on_init() {
 			if ( !WC() ) {
+				return;
+			}
+
+			if (apply_filters('woocommerce_catalog_restrictions_allow_editors', false) && current_user_can('edit_posts')) {
 				return;
 			}
 

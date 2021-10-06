@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Symfony\Component\DependencyInjection\Compiler; if (!defined('ABSPATH')) exit; interface RepeatablePassInterface extends \MailPoetVendor\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface { public function setRepeatedPass(\MailPoetVendor\Symfony\Component\DependencyInjection\Compiler\RepeatedPass $repeatedPass); } 
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Compiler; if (!defined('ABSPATH')) exit; interface RepeatablePassInterface extends CompilerPassInterface { public function setRepeatedPass(RepeatedPass $repeatedPass); } 

@@ -45,7 +45,7 @@ abstract class RP_WCDPD_Method_Product_Pricing_Volume extends RP_WCDPD_Method_Pr
      */
     public function get_group_label()
     {
-        return __('Volume', 'rp_wcdpd');
+        return esc_html__('Volume', 'rp_wcdpd');
     }
 
     /**

@@ -171,7 +171,7 @@ if ( ! class_exists( 'VillaTheme_Plugin_Check_Update' ) ) {
 					<p><?php echo esc_html__( 'Hello! Would you like to receive automatic update? Please activate your copy of ', $this->slug ) . '<strong>' . $plugin['Name'] . '</strong>' ?></p>
 					<p>
 						<a href="<?php esc_attr_e( esc_url( $this->setting_url ) ) ?>#update"
-						   class="button button-primary"><?php esc_html_e( 'Active', $this->slug ) ?></a>
+						   class="button button-primary"><?php esc_html_e( 'Activate', $this->slug ) ?></a>
 						<a href="<?php esc_attr_e( add_query_arg( array( $this->slug . '_hide' => 1 ) ) ) ?>"
 						   class="button"><?php esc_html_e( 'Hide', $this->slug ) ?></a>
 					</p>

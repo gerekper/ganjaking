@@ -41,7 +41,7 @@ class Plugin extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.5.5';
+	const VERSION = '2.5.6';
 
 	/** plugin id */
 	const PLUGIN_ID = 'checkout_add_ons';

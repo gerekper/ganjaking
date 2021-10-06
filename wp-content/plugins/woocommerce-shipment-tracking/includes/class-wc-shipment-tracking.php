@@ -115,7 +115,7 @@ class WC_Shipment_Tracking_Actions {
 				),
 				'Sweden'         => array(
 					'PostNord Sverige AB' => 'https://portal.postnord.com/tracking/details/%1$s',
-					'DHL.se'              => 'https://www.dhl.se/content/se/sv/express/godssoekning.shtml?AWB=%1$s&brand=DHL',
+					'DHL.se'              => 'https://www.dhl.com/se-sv/home/tracking.html?submit=1&tracking-id=%1$s',
 					'Bring.se'            => 'https://tracking.bring.se/tracking/%1$s',
 					'UPS.se'              => 'https://www.ups.com/track?loc=sv_SE&tracknum=%1$s&requester=WT/',
 					'DB Schenker'         => 'http://privpakportal.schenker.nu/TrackAndTrace/packagesearch.aspx?packageId=%1$s',

@@ -12,7 +12,7 @@ class RichEditing extends AC\Column\User\RichEditing
 	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Search\Searchable {
 
 	public function editing() {
-		return new Editing\Model\User\RichEditing( $this );
+		return new Editing\Service\User\RichEditing();
 	}
 
 	public function filtering() {

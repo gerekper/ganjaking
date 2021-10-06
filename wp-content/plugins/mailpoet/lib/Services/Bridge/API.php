@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Logging\LoggerFactory;
 use MailPoet\WP\Functions as WPFunctions;
+use WP_Error;
 
 class API {
   const SENDING_STATUS_OK = 'ok';
@@ -27,6 +28,8 @@ class API {
   private $wp;
   /** @var LoggerFactory */
   private $loggerFactory;
+  /** @var mixed|null It is an instance of \CurlHandle in PHP8 and aboove but a resource in PHP7 */
+  private $curlHandle = null;
 
   public $urlMe = 'https://bridge.mailpoet.com/api/v0/me';
   public $urlPremium = 'https://bridge.mailpoet.com/api/v0/premium';
@@ -35,7 +38,10 @@ class API {
   public $urlStats = 'https://bridge.mailpoet.com/api/v0/stats';
   public $urlAuthorizedEmailAddresses = 'https://bridge.mailpoet.com/api/v0/authorized_email_addresses';
 
-  public function __construct($apiKey, $wp = null) {
+  public function __construct(
+    $apiKey,
+    $wp = null
+  ) {
     $this->setKey($apiKey);
     if (is_null($wp)) {
       $this->wp = new WPFunctions();
@@ -93,14 +99,22 @@ class API {
     );
   }
 
+  public function setCurlHandle($handle) {
+    $this->curlHandle = $handle;
+  }
+
   public function sendMessages($messageBody) {
+    $this->curlHandle = null;
+    add_action('requests-curl.before_request', [$this, 'setCurlHandle'], 10, 2);
     add_action('requests-curl.after_request', [$this, 'logCurlInformation'], 10, 2);
     $result = $this->request(
       $this->urlMessages,
       $messageBody
     );
     remove_action('requests-curl.after_request', [$this, 'logCurlInformation']);
+    remove_action('requests-curl.before_request', [$this, 'setCurlHandle']);
     if (is_wp_error($result)) {
+      $this->logCurlError($result);
       return [
         'status' => self::SENDING_STATUS_CONNECTION_ERROR,
         'message' => $result->get_error_message(),
@@ -177,5 +191,14 @@ class API {
       'body' => $body !== null ? json_encode($body) : null,
     ];
     return $this->wp->wpRemotePost($url, $params);
+  }
+
+  private function logCurlError(WP_Error $error) {
+    $logData = [
+      'curl_errno' => $this->curlHandle ? curl_errno($this->curlHandle) : 'n/a',
+      'curl_error' => $this->curlHandle ? curl_error($this->curlHandle) : $error->get_error_message(),
+      'curl_info' => $this->curlHandle ? curl_getinfo($this->curlHandle) : 'n/a',
+    ];
+    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_MSS)->addError('requests-curl.failed', $logData);
   }
 }

@@ -9,12 +9,23 @@ use MailPoet\API\JSON\Endpoint as APIEndpoint;
 use MailPoet\API\JSON\Error as APIError;
 use MailPoet\Config\AccessControl;
 use MailPoet\Config\ServicesChecker;
+use MailPoet\Cron\Workers\InactiveSubscribers;
+use MailPoet\Cron\Workers\SubscribersEngagementScore;
+use MailPoet\Cron\Workers\WooCommerceSync;
+use MailPoet\Entities\ScheduledTaskEntity;
+use MailPoet\Form\FormMessageController;
 use MailPoet\Mailer\MailerLog;
+use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
+use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Services\AuthorizedEmailsController;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\SettingsController;
+use MailPoet\Statistics\StatisticsOpensRepository;
+use MailPoet\Subscribers\SubscribersCountsController;
 use MailPoet\WooCommerce\TransactionalEmails;
 use MailPoet\WP\Functions as WPFunctions;
+use MailPoetVendor\Carbon\Carbon;
+use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 class Settings extends APIEndpoint {
 
@@ -33,6 +44,27 @@ class Settings extends APIEndpoint {
   /** @var ServicesChecker */
   private $servicesChecker;
 
+  /** @var WPFunctions */
+  private $wp;
+
+  /** @var EntityManager */
+  private $entityManager;
+
+  /** @var StatisticsOpensRepository */
+  private $statisticsOpensRepository;
+
+  /** @var ScheduledTasksRepository */
+  private $scheduledTasksRepository;
+
+  /** @var FormMessageController */
+  private $messageController;
+
+  /** @var SegmentsRepository */
+  private $segmentsRepository;
+
+  /** @var SubscribersCountsController */
+  private $subscribersCountsController;
+
   public $permissions = [
     'global' => AccessControl::PERMISSION_MANAGE_SETTINGS,
   ];
@@ -42,13 +74,27 @@ class Settings extends APIEndpoint {
     Bridge $bridge,
     AuthorizedEmailsController $authorizedEmailsController,
     TransactionalEmails $wcTransactionalEmails,
-    ServicesChecker $servicesChecker
+    WPFunctions $wp,
+    EntityManager $entityManager,
+    StatisticsOpensRepository $statisticsOpensRepository,
+    ScheduledTasksRepository $scheduledTasksRepository,
+    FormMessageController $messageController,
+    ServicesChecker $servicesChecker,
+    SegmentsRepository $segmentsRepository,
+    SubscribersCountsController $subscribersCountsController
   ) {
     $this->settings = $settings;
     $this->bridge = $bridge;
     $this->authorizedEmailsController = $authorizedEmailsController;
     $this->wcTransactionalEmails = $wcTransactionalEmails;
     $this->servicesChecker = $servicesChecker;
+    $this->wp = $wp;
+    $this->entityManager = $entityManager;
+    $this->statisticsOpensRepository = $statisticsOpensRepository;
+    $this->scheduledTasksRepository = $scheduledTasksRepository;
+    $this->messageController = $messageController;
+    $this->segmentsRepository = $segmentsRepository;
+    $this->subscribersCountsController = $subscribersCountsController;
   }
 
   public function get() {
@@ -78,10 +124,28 @@ class Settings extends APIEndpoint {
 
       $this->authorizedEmailsController->onSettingsSave($settings);
       if ($signupConfirmation !== $this->settings->get('signup_confirmation.enabled')) {
-        $this->settings->updateSuccessMessages();
+        $this->messageController->updateSuccessMessages();
       }
       return $this->successResponse($this->settings->getAll());
     }
+  }
+
+  public function recalculateSubscribersScore() {
+    $this->statisticsOpensRepository->resetSubscribersScoreCalculation();
+    $this->statisticsOpensRepository->resetSegmentsScoreCalculation();
+    $task = $this->scheduledTasksRepository->findOneBy([
+      'type' => SubscribersEngagementScore::TASK_TYPE,
+      'status' => ScheduledTaskEntity::STATUS_SCHEDULED,
+    ]);
+    if (!$task) {
+      $task = new ScheduledTaskEntity();
+      $task->setType(SubscribersEngagementScore::TASK_TYPE);
+      $task->setStatus(ScheduledTaskEntity::STATUS_SCHEDULED);
+    }
+    $task->setScheduledAt(Carbon::createFromTimestamp($this->wp->currentTime('timestamp')));
+    $this->entityManager->persist($task);
+    $this->entityManager->flush();
+    return $this->successResponse();
   }
 
   public function setAuthorizedFromAddress($data = []) {
@@ -112,7 +176,7 @@ class Settings extends APIEndpoint {
     $oldInactivationInterval = $oldSettings['deactivate_subscriber_after_inactive_days'];
     $newInactivationInterval = $newSettings['deactivate_subscriber_after_inactive_days'];
     if ($oldInactivationInterval !== $newInactivationInterval) {
-      $this->settings->onInactiveSubscribersIntervalChange();
+      $this->onInactiveSubscribersIntervalChange();
     }
 
     $oldSendingMethod = $oldSettings['mta_group'];
@@ -129,7 +193,7 @@ class Settings extends APIEndpoint {
       ? $newSettings['mailpoet_subscribe_old_woocommerce_customers']['enabled']
       : '0';
     if ($oldSubscribeOldWoocommerceCustomers !== $newSubscribeOldWoocommerceCustomers) {
-      $this->settings->onSubscribeOldWoocommerceCustomersChange();
+      $this->onSubscribeOldWoocommerceCustomersChange();
     }
 
     if (!empty($newSettings['woocommerce']['use_mailpoet_editor'])) {
@@ -152,5 +216,54 @@ class Settings extends APIEndpoint {
       $this->settings->set('sender', $sender);
       $this->settings->set('reply_to', null);
     }
+  }
+
+  public function onSubscribeOldWoocommerceCustomersChange(): void {
+    $task = $this->scheduledTasksRepository->findOneBy([
+      'type' => WooCommerceSync::TASK_TYPE,
+      'status' => ScheduledTaskEntity::STATUS_SCHEDULED,
+    ]);
+    if (!($task instanceof ScheduledTaskEntity)) {
+      $task = $this->createScheduledTask(WooCommerceSync::TASK_TYPE);
+    }
+    $datetime = Carbon::createFromTimestamp((int)WPFunctions::get()->currentTime('timestamp'));
+    $task->setScheduledAt($datetime->subMinute());
+    $this->scheduledTasksRepository->persist($task);
+    $this->scheduledTasksRepository->flush();
+  }
+
+  public function onInactiveSubscribersIntervalChange(): void {
+    $task = $this->scheduledTasksRepository->findOneBy([
+      'type' => InactiveSubscribers::TASK_TYPE,
+      'status' => ScheduledTaskEntity::STATUS_SCHEDULED,
+    ]);
+    if (!($task instanceof ScheduledTaskEntity)) {
+      $task = $this->createScheduledTask(InactiveSubscribers::TASK_TYPE);
+    }
+    $datetime = Carbon::createFromTimestamp((int)WPFunctions::get()->currentTime('timestamp'));
+    $task->setScheduledAt($datetime->subMinute());
+    $this->scheduledTasksRepository->persist($task);
+    $this->scheduledTasksRepository->flush();
+  }
+
+  private function createScheduledTask(string $type): ScheduledTaskEntity {
+    $task = new ScheduledTaskEntity();
+    $task->setType($type);
+    $task->setStatus(ScheduledTaskEntity::STATUS_SCHEDULED);
+    return $task;
+  }
+
+  public function recalculateSubscribersCountsCache() {
+    $segments = $this->segmentsRepository->findAll();
+    foreach ($segments as $segment) {
+      $this->subscribersCountsController->recalculateSegmentStatisticsCache($segment);
+      if ($segment->isStatic()) {
+        $this->subscribersCountsController->recalculateSegmentGlobalStatusStatisticsCache($segment);
+      }
+    }
+    $this->subscribersCountsController->recalculateSubscribersWithoutSegmentStatisticsCache();
+    // remove redundancies from cache
+      $this->subscribersCountsController->removeRedundancyFromStatisticsCache();
+    return $this->successResponse();
   }
 }

@@ -10,7 +10,9 @@ use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberCustomFieldEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
+use MailPoet\Entities\UserAgentEntity;
 use MailPoet\WP\Functions as WPFunctions;
+use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Doctrine\DBAL\Connection;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 use MailPoetVendor\Doctrine\ORM\Query\Expr\Join;
@@ -19,6 +21,9 @@ use MailPoetVendor\Doctrine\ORM\Query\Expr\Join;
  * @extends Repository<SubscriberEntity>
  */
 class SubscribersRepository extends Repository {
+  /** @var WPFunctions */
+  private $wp;
+
   protected $ignoreColumnsForUpdate = [
     'wp_user_id',
     'is_woocommerce_user',
@@ -26,6 +31,14 @@ class SubscribersRepository extends Repository {
     'created_at',
     'last_subscribed_at',
   ];
+
+  public function __construct(
+    EntityManager $entityManager,
+    WPFunctions $wp
+  ) {
+    $this->wp = $wp;
+    parent::__construct($entityManager);
+  }
 
   protected function getEntityClassName() {
     return SubscriberEntity::class;
@@ -287,7 +300,6 @@ class SubscribersRepository extends Repository {
     ->setParameter('emails', $emails)
     ->getQuery()->getResult();
   }
-<<<<<<< HEAD
 
   public function getCurrentWPUser(): ?SubscriberEntity {
     $wpUser = WPFunctions::get()->wpGetCurrentUser();
@@ -296,6 +308,46 @@ class SubscribersRepository extends Repository {
     }
     return $this->findOneBy(['wpUserId' => $wpUser->ID]);
   }
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+
+  public function findByUpdatedScoreNotInLastMonth(int $limit): array {
+    $dateTime = (new Carbon())->subMonths(1);
+    return $this->entityManager->createQueryBuilder()
+      ->select('s')
+      ->from(SubscriberEntity::class, 's')
+      ->where('s.engagementScoreUpdatedAt IS NULL')
+      ->orWhere('s.engagementScoreUpdatedAt < :dateTime')
+      ->setParameter('dateTime', $dateTime)
+      ->getQuery()
+      ->setMaxResults($limit)
+      ->getResult();
+  }
+
+  public function maybeUpdateLastEngagement(SubscriberEntity $subscriberEntity, ?UserAgentEntity $userAgent = null): void {
+    if ($userAgent instanceof UserAgentEntity && $userAgent->getUserAgentType() === UserAgentEntity::USER_AGENT_TYPE_MACHINE) {
+      return;
+    }
+    $now = Carbon::createFromTimestamp((int)$this->wp->currentTime('timestamp'));
+    // Do not update engagement if was recently updated to avoid unnecessary updates in DB
+    if ($subscriberEntity->getLastEngagementAt() && $subscriberEntity->getLastEngagementAt() > $now->subMinute()) {
+      return;
+    }
+    // Update last engagement for human (and also unknown) user agent
+    $subscriberEntity->setLastEngagementAt($now);
+    $this->flush();
+  }
+
+  /**
+   * @param array $ids
+   * @return string[]
+   */
+  public function getUndeletedSubscribersEmailsByIds(array $ids): array {
+    return $this->entityManager->createQueryBuilder()
+      ->select('s.email')
+      ->from(SubscriberEntity::class, 's')
+      ->where('s.deletedAt IS NULL')
+      ->andWhere('s.id IN (:ids)')
+      ->setParameter('ids', $ids)
+      ->getQuery()
+      ->getArrayResult();
+  }
 }

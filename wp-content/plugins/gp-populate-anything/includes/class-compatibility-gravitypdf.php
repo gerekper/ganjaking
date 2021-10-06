@@ -15,23 +15,17 @@ class GPPA_Compatibility_GravityPDF {
 	}
 
 	public function __construct() {
-		add_action( 'gfpdf_legacy_pre_view_or_download_pdf', array( $this, 'add_hydrate_form_hook_for_pdf_view_or_download' ) );
-		add_action( 'gfpdf_pre_generate_and_save_pdf_notification', array( $this, 'add_hydrate_form_hook_for_pdf_notification' ), 10, 2 );
+		add_action( 'gfpdf_pre_view_or_download_pdf', array( $this, 'hydrate_form_hook_for_pdf_view_or_download' ) );
+		add_action( 'gfpdf_pre_generate_and_save_pdf_notification', array( $this, 'hydrate_form_hook' ), 10, 2 );
+		add_action( 'gfpdf_pre_generate_and_save_pdf', array( $this, 'hydrate_form_hook' ), 10, 2 );
 	}
 
-	public function add_hydrate_form_hook_for_pdf_view_or_download( $lid ) {
-		$this->_current_entry = GFAPI::get_entry( $lid );
-
-		/**
-		 * Flush forms cache to allow the filter below to take effect
-		 */
-		GFFormsModel::flush_current_forms();
-
-		add_filter( 'gform_form_post_get_meta', array( $this, 'hydrate_form_for_pdf' ) );
-	}
-
-	public function add_hydrate_form_hook_for_pdf_notification( $form, $entry ) {
-
+	/**
+	 * Store current entry field and add necessary filter to hydrate form field choices prior to PDF generation.
+	 *
+	 * @param $entry array Current entry.
+	 */
+	public function add_hydrate_form_hook( $entry ) {
 		$this->_current_entry = $entry;
 
 		/**
@@ -40,6 +34,14 @@ class GPPA_Compatibility_GravityPDF {
 		GFFormsModel::flush_current_forms();
 
 		add_filter( 'gform_form_post_get_meta', array( $this, 'hydrate_form_for_pdf' ) );
+	}
+
+	public function hydrate_form_hook_for_pdf_view_or_download( $entry_id ) {
+		$this->add_hydrate_form_hook( GFAPI::get_entry( $entry_id ) );
+	}
+
+	public function hydrate_form_hook( $form, $entry ) {
+		$this->add_hydrate_form_hook( $entry );
 	}
 
 	/**

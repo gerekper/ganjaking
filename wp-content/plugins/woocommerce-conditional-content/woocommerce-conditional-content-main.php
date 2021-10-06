@@ -28,9 +28,9 @@ if ( !class_exists( 'WC_Conditional_Content' ) ) {
 		 */
 		public function __construct() {
 			//include some defaults via our filters
-			add_filter( 'wc_conditional_content_get_locations', array(&$this, 'default_locations'), 0 );
-			add_filter( 'wc_conditional_content_get_rule_types', array(&$this, 'default_rule_types'), 0 );
-			add_filter( 'wc_conditional_content_get_rule_operators', array(&$this, 'default_rule_operators'), 0 );
+			add_filter( 'wc_conditional_content_get_locations', array($this, 'default_locations'), 0 );
+			add_filter( 'wc_conditional_content_get_rule_types', array($this, 'default_rule_types'), 0 );
+			add_filter( 'wc_conditional_content_get_rule_operators', array($this, 'default_rule_operators'), 0 );
 
 			//Include some core functions
 			include 'woocommerce-conditional-content-functions.php';

@@ -5,11 +5,14 @@ namespace MailPoet\Logging;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Models\Log;
-use MailPoetVendor\Carbon\Carbon;
+use MailPoet\Entities\LogEntity;
 use MailPoetVendor\Monolog\Handler\AbstractProcessingHandler;
 
 class LogHandler extends AbstractProcessingHandler {
+  /**
+   * Logs older than this many days will be deleted
+   */
+  const DAYS_TO_KEEP_LOGS = 30;
 
   /**
    * Percentage value, what is the probability of running purge routine
@@ -17,36 +20,36 @@ class LogHandler extends AbstractProcessingHandler {
    */
   const LOG_PURGE_PROBABILITY = 5;
 
-  /**
-   * Logs older than this many days will be deleted
-   */
-  const DAYS_TO_KEEP_LOGS = 30;
-
   /** @var callable|null */
   private $randFunction;
 
-  public function __construct($level = \MailPoetVendor\Monolog\Logger::DEBUG, $bubble = \true, $randFunction = null) {
+  /** @var LogRepository */
+  private $logRepository;
+
+  public function __construct(
+    LogRepository $logRepository,
+    $level = \MailPoetVendor\Monolog\Logger::DEBUG,
+    $bubble = \true,
+    $randFunction = null
+  ) {
     parent::__construct($level, $bubble);
     $this->randFunction = $randFunction;
+    $this->logRepository = $logRepository;
   }
 
   protected function write(array $record) {
-    $model = $this->createNewLogModel();
-    $model->hydrate([
-      'name' => $record['channel'],
-      'level' => $record['level'],
-      'message' => $record['formatted'],
-      'created_at' => $record['datetime']->format('Y-m-d H:i:s'),
-    ]);
-    $model->save();
+    $entity = new LogEntity();
+    $entity->setName($record['channel']);
+    $entity->setLevel($record['level']);
+    $entity->setMessage($record['formatted']);
+    $entity->setCreatedAt($record['datetime']);
+
+    $this->logRepository->persist($entity);
+    $this->logRepository->flush();
 
     if ($this->getRandom() <= self::LOG_PURGE_PROBABILITY) {
       $this->purgeOldLogs();
     }
-  }
-
-  private function createNewLogModel() {
-    return Log::create();
   }
 
   private function getRandom() {
@@ -57,7 +60,6 @@ class LogHandler extends AbstractProcessingHandler {
   }
 
   private function purgeOldLogs() {
-    Log::whereLt('created_at', Carbon::now()->subDays(self::DAYS_TO_KEEP_LOGS)->toDateTimeString())
-       ->deleteMany();
+    $this->logRepository->purgeOldLogs(self::DAYS_TO_KEEP_LOGS);
   }
 }

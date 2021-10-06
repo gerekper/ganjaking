@@ -67,6 +67,32 @@ class WebP extends Abstract_Module {
 	}
 
 	/**
+	 * Gets whether WebP is configured, returning a message to display when it's not.
+	 * This is a wrapper for displaying a message on failure which is used in three places.
+	 * Moved here to reduce the redundancy.
+	 *
+	 * @since 3.8.8
+	 *
+	 * @return true|string True when it's configured. String when it's not.
+	 */
+	public function get_is_configured_with_error_message( $force = false ) {
+		$is_configured = $this->is_configured( $force );
+
+		if ( true === $is_configured ) {
+			return true;
+		}
+
+		if ( is_wp_error( $is_configured ) ) {
+			return $is_configured->get_error_message();
+		}
+		if ( 'apache' === $this->get_server_type() && $this->is_htaccess_written() ) {
+			return __( "The server rules have been applied but the server doesn't seem to be serving your images as WebP. We recommend contacting your hosting provider to learn more about the cause of this issue.", 'wp-smushit' );
+		}
+
+		return __( "Server configurations haven't been applied yet. Make configurations to start serving images in WebP format.", 'wp-smushit' );
+	}
+
+	/**
 	 * Get status of server configuration for webp.
 	 *
 	 * @since 3.8.0
@@ -99,10 +125,10 @@ class WebP extends Abstract_Module {
 		if ( true !== $files_created ) {
 			$message = sprintf(
 				/* translators: path that couldn't be written */
-				esc_html__( 'We couldn\'t create the WebP test files. This is probably due to your current folder permissions. Please adjust the permissions for "%s" to 755 and try again.', 'wp-smushit' ),
+				__( 'We couldn\'t create the WebP test files. This is probably due to your current folder permissions. Please adjust the permissions for "%s" to 755 and try again.', 'wp-smushit' ),
 				$files_created
 			);
-			return new WP_Error( 403, $message );
+			return new WP_Error( 'test_files_not_created', $message );
 		}
 
 		$udir       = $this->get_upload_dir();
@@ -125,7 +151,13 @@ class WebP extends Abstract_Module {
 		}
 
 		// Return the response code and message otherwise.
-		return new WP_Error( $code, wp_remote_retrieve_response_message( $response ) );
+		$error_message = sprintf(
+			/* translators: 1. error code, 2. error message. */
+			__( "We couldn't check the WebP server rules status because there was an error with the test request. Please contact support for assistance. Code %1\$s: %2\$s.", 'wp-smushit' ),
+			$code,
+			wp_remote_retrieve_response_message( $response )
+		);
+		return new WP_Error( $code, $error_message );
 	}
 
 	/**
@@ -186,7 +218,7 @@ class WebP extends Abstract_Module {
 		if ( 'root' === $location ) {
 			// This works on single sites at root.
 			$code .= ' RewriteCond ' . $rewrite_path . '/$1.webp -f
- RewriteRule ' . $udir['upload_site_rel_path'] . '/(.*.(?:png|jpe?g))$ ' . $udir['webp_site_rel_path'] . '/$1.webp [NC,T=image/webp]';
+ RewriteRule ' . $udir['upload_rel_path'] . '/(.*.(?:png|jpe?g))$ ' . $udir['webp_rel_path'] . '/$1.webp [NC,T=image/webp]';
 		} else {
 			// This works at /uploads/.
 			$code .= ' RewriteCond ' . $rewrite_path . '/$1.$2.webp -f
@@ -246,33 +278,48 @@ class WebP extends Abstract_Module {
 			restore_current_blog();
 		}
 
-		// Get paths relative to the Document root.
-		$root_path_base = false !== strpos( $upload['basedir'], $_SERVER['DOCUMENT_ROOT'] ) ? $_SERVER['DOCUMENT_ROOT'] : dirname( WP_CONTENT_DIR );
+		// Is it possible that none of the following conditions are met?
+		$root_path_base = '';
 
-		$upload_root_rel_path = ltrim( substr( $upload['basedir'], strlen( $root_path_base ) ), '/' );
-		$webp_root_rel_path   = dirname( $upload_root_rel_path ) . '/smush-webp';
-
-		// Environments like Flywheel have an ABSPATH that's not used in the paths.
-		$site_path_base = false !== strpos( $upload['basedir'], ABSPATH ) ? ABSPATH : dirname( WP_CONTENT_DIR );
-
-		// Sites in subdir installs may have a path different from the one relative to the root.
-		if ( $site_path_base === $root_path_base ) {
-			$upload_site_rel_path = $upload_root_rel_path;
-			$webp_site_rel_path   = $webp_root_rel_path;
-		} else {
-			$upload_site_rel_path = ltrim( substr( $upload['basedir'], strlen( $site_path_base ) ), '/' );
-			$webp_site_rel_path   = dirname( $upload_site_rel_path ) . '/smush-webp';
+		// Get the the Document root path. There must be a better way to do this.
+		// For example, /srv/www/thesite/public_html for /srv/www/thesite/public_html/wp-content/uploads.
+		if ( 0 === strpos( $upload['basedir'], ABSPATH ) ) {
+			// Environments like Flywheel have an ABSPATH that's not used in the paths.
+			$root_path_base = ABSPATH;
+		} elseif ( isset( $_SERVER['DOCUMENT_ROOT'] ) && 0 === strpos( $upload['basedir'], $_SERVER['DOCUMENT_ROOT'] ) ) {
+			// This gets called when scanning for unsmushed images.
+			// When ran from certain contexts, $_SERVER['DOCUMENT_ROOT'] might not be set.
+			$root_path_base = $_SERVER['DOCUMENT_ROOT'];
+		} elseif ( 0 === strpos( $upload['basedir'], dirname( WP_CONTENT_DIR ) ) ) {
+			// We're assuming WP_CONTENT_DIR is only one level deep into the document root.
+			// This might not be true in customized sites. A bit edgy.
+			$root_path_base = dirname( WP_CONTENT_DIR );
 		}
 
+		/**
+		 * Filters the Document root path used to get relative paths for webp rules.
+		 * Hopefully of help for debugging and SLS.
+		 *
+		 * @since 3.9.0
+		 */
+		$root_path_base = apply_filters( 'smush_webp_rules_root_path_base', $root_path_base );
+
+		// Get the upload path relative to the Document root.
+		// For example, wp-content/uploads for /srv/www/thesite/public_html/wp-content/uploads.
+		$upload_root_rel_path = ltrim( str_replace( $root_path_base, '', $upload['basedir'] ), '/' );
+
+		// Get the relative path for the  directory containing the webp files.
+		// This directory is a silbling of the 'uploads' dirrectory.
+		// For example, wp-content/smush-webp for wp-content/uploads.
+		$webp_root_rel_path = dirname( $upload_root_rel_path ) . '/smush-webp';
+
 		$upload_dir_info = array(
-			'upload_path'          => $upload['basedir'],
-			'upload_rel_path'      => $upload_root_rel_path, // Relative to DOCUMENT_ROOT.
-			'upload_site_rel_path' => $upload_site_rel_path, // Relative to the site's dir.
-			'upload_url'           => $upload['baseurl'],
-			'webp_path'            => dirname( $upload['basedir'] ) . '/smush-webp',
-			'webp_rel_path'        => $webp_root_rel_path, // Relative to DOCUMENT_ROOT.
-			'webp_site_rel_path'   => $webp_site_rel_path, // Relative to the site's dir.
-			'webp_url'             => dirname( $upload['baseurl'] ) . '/smush-webp',
+			'upload_path'     => $upload['basedir'],
+			'upload_rel_path' => $upload_root_rel_path,
+			'upload_url'      => $upload['baseurl'],
+			'webp_path'       => dirname( $upload['basedir'] ) . '/smush-webp',
+			'webp_rel_path'   => $webp_root_rel_path,
+			'webp_url'        => dirname( $upload['baseurl'] ) . '/smush-webp',
 		);
 
 		return $upload_dir_info;
@@ -358,6 +405,7 @@ class WebP extends Abstract_Module {
 		if ( ! ( 'image/jpeg' === $mime || 'image/png' === $mime ) ) {
 			return false;
 		}
+
 		return true;
 	}
 
@@ -495,10 +543,8 @@ class WebP extends Abstract_Module {
 	 *
 	 * @return string Server type
 	 */
-	public static function get_server_type() {
+	public function get_server_type() {
 		global $is_apache, $is_IIS, $is_iis7, $is_nginx;
-
-		$type = '';
 
 		if ( $is_apache ) {
 			// It's a common configuration to use nginx in front of Apache.
@@ -507,35 +553,25 @@ class WebP extends Abstract_Module {
 
 			if ( is_wp_error( $response ) ) {
 				// Bad luck.
-				$type = 'apache';
-			} else {
-				$server = strtolower( wp_remote_retrieve_header( $response, 'server' ) );
-				// Could be LiteSpeed too.
-				$type = strpos( $server, 'nginx' ) !== false ? 'nginx' : 'apache';
+				return 'apache';
 			}
-		} elseif ( $is_nginx ) {
-			$type = 'nginx';
-		} elseif ( $is_IIS ) {
-			$type = 'IIS';
-		} elseif ( $is_iis7 ) {
-			$type = 'IIS 7';
+
+			$server = strtolower( wp_remote_retrieve_header( $response, 'server' ) );
+			// Could be LiteSpeed too.
+			return ( strpos( $server, 'nginx' ) !== false ? 'nginx' : 'apache' );
+
+		}
+		if ( $is_nginx ) {
+			return 'nginx';
+		}
+		if ( $is_IIS ) {
+			return 'IIS';
+		}
+		if ( $is_iis7 ) {
+			return 'IIS 7';
 		}
 
-		return $type;
-	}
-
-	/**
-	 * Get a list of server types
-	 *
-	 * @return array
-	 */
-	public function get_servers() {
-		return array(
-			'apache'     => 'Apache / LiteSpeed',
-			'nginx'      => 'NGINX',
-			'iis'        => 'IIS',
-			'cloudflare' => 'Cloudflare',
-		);
+		return 'unknown';
 	}
 
 	/*
@@ -628,14 +664,14 @@ class WebP extends Abstract_Module {
 	public function save_htaccess() {
 		$cannot_write_message = sprintf(
 			/* translators: 1. opening 'a' tag to premium support, 2. closing 'a' tag. */
-			esc_html__( 'We tried to apply the .htaccess rules automatically but we were unable to complete this action. Make sure the file permissions on your .htaccess file are set to 644, or switch to manual mode and apply the rules yourself. If you need further assistance, you can %1$scontact support%2$s for help.', 'wp-smushit' ),
+			__( 'We tried to apply the .htaccess rules automatically but we were unable to complete this action. Make sure the file permissions on your .htaccess file are set to 644, or switch to manual mode and apply the rules yourself. If you need further assistance, you can %1$scontact support%2$s for help.', 'wp-smushit' ),
 			'<a href="https://wpmudev.com/hub2/support/#get-support" target="_blank">',
 			'</a>'
 		);
 
 		$last_error = sprintf(
 			/* translators: 1. opening 'a' tag to docs, 2. opening 'a' tag to premium support, 3. closing 'a' tag. */
-			esc_html__( 'We tried different rules but your server still isn\'t serving WebP images. Please contact your hosting provider for further assistance. You can also see our %1$stroubleshooting guide%3$s or %2$scontact support%3$s for help.', 'wp-smushit' ),
+			__( 'We tried different rules but your server still isn\'t serving WebP images. Please contact your hosting provider for further assistance. You can also see our %1$stroubleshooting guide%3$s or %2$scontact support%3$s for help.', 'wp-smushit' ),
 			'<a href="https://wpmudev.com/docs/wpmu-dev-plugins/smush/#wordpress-in-its-own-directory" target="_blank">',
 			'<a href="https://wpmudev.com/hub2/support/#get-support" target="_blank">',
 			'</a>'
@@ -661,6 +697,8 @@ class WebP extends Abstract_Module {
 			if ( true === $is_configured ) {
 				break;
 			}
+
+			// TODO: if $is_configured is a wp error, display the message.
 
 			$this->unsave_htaccess( $location );
 		}

@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Product_Tags extends RightPress_Condition_Pr
     public function get_label()
     {
 
-        return __('Product tags', 'rightpress');
+        return esc_html__('Product tags', 'rightpress');
     }
 
     /**

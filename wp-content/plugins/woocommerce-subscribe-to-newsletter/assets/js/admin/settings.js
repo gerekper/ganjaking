@@ -17,10 +17,16 @@
 	var wcNewsletterSubscriptionSettings = {
 		init: function() {
 			$( '#woocommerce_newsletter_service' ).on( 'change', function() {
-				$( '.newsletter-provider-fields' )
-					.hide()
-					.filter( '.' + $( this ).val() )
-					.show();
+				var $fields = $( '.newsletter-provider-fields' ),
+					value   = $( this ).val();
+
+				// Hide all fields.
+				$fields.hide();
+
+				// Show only the selected provider fields.
+				if ( value ) {
+					$fields.filter( '.' + value ).show();
+				}
 			} ).trigger( 'change' );
 
 			$( '.forminp-provider_lists' ).on( 'click', '.refresh-lists', function( event ) {
@@ -49,7 +55,7 @@
 						} );
 
 						// Select previous value selected (if exists):
-						if ( $lists.find( 'option[value=' + selected  + ']' ).length > 0 ) {
+						if ( $lists.find( 'option[value="' + selected  + '"]' ).length ) {
 							$lists.val( selected  );
 						} else {
 							$lists.selectedIndex = 0;

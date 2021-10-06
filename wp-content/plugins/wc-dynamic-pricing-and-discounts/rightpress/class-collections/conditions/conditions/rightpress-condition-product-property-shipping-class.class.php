@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Product_Property_Shipping_Class extends Righ
     public function get_label()
     {
 
-        return __('Product shipping class', 'rightpress');
+        return esc_html__('Product shipping class', 'rightpress');
     }
 
     /**

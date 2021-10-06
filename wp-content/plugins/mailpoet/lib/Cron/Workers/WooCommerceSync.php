@@ -12,6 +12,7 @@ use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 class WooCommerceSync extends SimpleWorker {
   const TASK_TYPE = 'woocommerce_sync';
   const SUPPORT_MULTIPLE_INSTANCES = false;
+  const AUTOMATIC_SCHEDULING = false;
 
   /** @var WooCommerceSegment */
   private $woocommerceSegment;
@@ -19,7 +20,10 @@ class WooCommerceSync extends SimpleWorker {
   /** @var WooCommerceHelper */
   private $woocommerceHelper;
 
-  public function __construct(WooCommerceSegment $woocommerceSegment, WooCommerceHelper $woocommerceHelper) {
+  public function __construct(
+    WooCommerceSegment $woocommerceSegment,
+    WooCommerceHelper $woocommerceHelper
+  ) {
     $this->woocommerceSegment = $woocommerceSegment;
     $this->woocommerceHelper = $woocommerceHelper;
     parent::__construct();

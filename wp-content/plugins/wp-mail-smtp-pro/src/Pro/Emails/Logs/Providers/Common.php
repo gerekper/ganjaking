@@ -88,7 +88,8 @@ class Common {
 				->set_headers( array_filter( $headers ) )
 				->set_attachments( $attachments )
 				->set_mailer( Options::init()->get( 'mail', 'mailer' ) )
-				->set_status( Email::STATUS_UNSENT );
+				->set_status( Email::STATUS_UNSENT )
+				->set_initiator();
 
 			if ( wp_mail_smtp()->pro->get_logs()->is_enabled_content() ) {
 				$email

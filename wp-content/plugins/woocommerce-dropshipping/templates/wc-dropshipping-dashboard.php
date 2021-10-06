@@ -12,7 +12,7 @@
    $wcd_orders_completed = $dashboard_report->get_completed_orders();
    $wcd_orders_pending = $dashboard_report->get_pending_orders();
    $wcd_orders_affiliate = $dashboard_report->get_affiliate_prod();
-   $wcd_week_old_sales = $dashboard_report->get_week_total_sales();
+   $wcd_week_old_sales = $dashboard_report->get_week_total_sales(); 
    $wcd_get_best_selling_prod = $dashboard_report->get_best_selling_prod();
    $wcd_get_low_stocks_prod = $dashboard_report->get_low_on_stocks_prod();
    $get_completed_dropship_orders = $dashboard_report->get_completed_dropship_orders();
@@ -41,7 +41,7 @@
      </div>
      <div class="metric-box metric-style4">
         <img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/icons/totaol.svg'; ?>">
-        <h2><?= $wcd_currency ?> <?= $wcd_week_old_sales[ 'profit' ] ?></h2>
+        <h2><?= $wcd_currency ?> <?= isset( $wcd_week_old_sales[ 'profit' ] ) ? $wcd_week_old_sales[ 'profit' ] : ''; ?></h2>
         <p class="wcd-blurb-text"><?php _e( 'Projected Profit', 'woocommerce-dropshipping'); ?></p>
      </div>
   </div>
@@ -150,13 +150,13 @@
         <img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/icons/settings.svg'; ?>">
         <h2><?php _e( 'Adjust Plugin Settings', 'woocommerce-dropshipping'); ?></h2>
         <p class="plugin-setup-desc"><?php _e( 'Configure packing slips, emails and more.', 'woocommerce-dropshipping'); ?></p>
-        <a href="/wp-admin/admin.php?page=wc-settings&tab=email&section=dropship_manager"><?php _e( 'Go to Settings', 'woocommerce-dropshipping' ); ?></a>
+        <a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=wc-settings&tab=wc_dropship_settings"><?php _e( 'Go to Settings', 'woocommerce-dropshipping' ); ?></a>
      </div>
      <div class="metric-box">
         <img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/icons/affiliate.svg'; ?>">
         <h2><?php _e( 'Suppliers', 'woocommerce-dropshipping'); ?></h2>
         <p class="plugin-setup-desc"><?php _e( 'Organise your store\'s products by their supplier.', 'woocommerce-dropshipping'); ?></p>
-        <a href="/wp-admin/edit-tags.php?taxonomy=dropship_supplier&post_type=product"><?php _e( 'Manage Suppliers', 'woocommerce-dropshipping' ); ?></a>
+        <a href="<?php echo get_site_url(); ?>/wp-admin/edit-tags.php?taxonomy=dropship_supplier&post_type=product"><?php _e( 'Manage Suppliers', 'woocommerce-dropshipping' ); ?></a>
      </div>
   </div>
 </div>

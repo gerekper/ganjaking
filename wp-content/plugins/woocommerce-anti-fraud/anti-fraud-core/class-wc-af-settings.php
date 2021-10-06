@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'WC_AF_Settings' ) ) :
 
-	function wc_af_add_settings($settings) {
+	function wc_af_add_settings( $settings) {
 		/**
 		 * Settings class
 		 *
@@ -64,7 +64,8 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 				'paypal_settings' => __( 'Paypal Settings', 'wc_af' ),
 				'minfraud_settings' => __( 'MinFraud Settings', 'wc_af' ),
 				'minfraud_insights_settings' => __( 'MinFraud Insights Settings', 'wc_af' ),
-                                'minfraud_factors_settings' => __( 'MinFraud Factors Settings', 'wc_af' ),
+				'minfraud_factors_settings' => __( 'MinFraud Factors Settings', 'wc_af' ),
+				'minfraud_recaptcha_settings' => __( 'Re-Captcha', 'wc_af' ),
 				);
 
 				return apply_filters( 'woocommerce_get_sections_' . $this->id, $sections );
@@ -115,7 +116,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 				
 				$installed_payment_methods = WC()->payment_gateways->payment_gateways();
 				$availableMethods = [];
-				foreach( $installed_payment_methods as $methods=>$arr ) {
+				foreach ( $installed_payment_methods as $methods=>$arr ) {
 					$availableMethods[$methods] = $arr->method_title;
 				}
 
@@ -231,7 +232,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'desc'     => 'MaxMind minFraud is a paid, external service that uses machine learning to detect potential fraud transactions.  By using minFraud you can potentially detect more fraudulent transactions.<hr/>',
 						'id'       => 'wc_af_minfraud_settings',
 					),
-                                        array(
+										array(
 						'title'    => __( 'Enable/Disable', 'woocommerce-anti-fraud' ),
 						'type'     => 'checkbox',
 						'label'    => '',
@@ -286,7 +287,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 
 					) );
 
-				}if ( 'minfraud_factors_settings' == $current_section ) {
+				} if ( 'minfraud_factors_settings' == $current_section ) {
 
 					/**
 					 * WCAF Filter Plugin  MinFraud Settings
@@ -302,7 +303,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'desc'     => 'MaxMind minFraud is a paid, external service that uses machine learning to detect potential fraud transactions.  By using minFraud you can potentially detect more fraudulent transactions.<hr/>',
 						'id'       => 'wc_af_minfraud_settings',
 					),
-                                        array(
+										array(
 						'title'    => __( 'Enable/Disable', 'woocommerce-anti-fraud' ),
 						'type'     => 'checkbox',
 						'label'    => '',
@@ -357,7 +358,54 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 
 					) );
 
-				}else if ( 'black_list' == $current_section ) {
+				} if ( 'minfraud_recaptcha_settings' == $current_section ) {
+
+					/**
+					 * WCAF Filter Plugin  MinFraud Settings
+					 *
+					 * @since 1.0.0
+					 * @param array $settings Array of the plugin settings
+					*/
+
+					$settings = apply_filters( 'myplugin_recaptcha_settings', array(
+					array(
+						'name'     => __( 'Google Re-Captcha Settings', 'woocommerce-anti-fraud' ),
+						'type'     => 'title',
+						'desc'     => 'Click <a href="https://www.google.com/recaptcha/admin" target="_blank">here</a> to know more.<hr/>',
+						'id'       => 'wc_af_recaptch_settings',
+					),
+					array(
+						'title'    => __( 'Site Key', 'woocommerce-anti-fraud' ),
+						'type'     => 'text',
+						'label'    => '',
+						'desc'    =>  __( 'Enter Site Key', 'woocommerce-anti-fraud' ),
+						'default'  => '',
+						'id'       => 'wc_af_recaptcha_site_key'
+					),
+					array(
+						'title'    => __( 'Secret Key', 'woocommerce-anti-fraud' ),
+						'type'     => 'text',
+						'label'    => '',
+						'desc'    =>  __( 'Enter Secret Key', 'woocommerce-anti-fraud' ),
+						'default'  => '',
+						'id'       => 'wc_af_recaptcha_secret_key'
+					),
+					array(
+						'title'       => __( 'Enable Re-Captcha', 'woocommerce-anti-fraud' ),
+						'type'        => 'checkbox',
+						'label'       => '',
+						'default'     => 'no',
+						'desc' => __( 'Enable Re-Captcha on checkout page<br/>' ),
+						'id'    => 'wc_af_enable_recaptcha_checkout',
+					),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'wc_af_recaptch_settings'
+					)
+
+					) );
+
+				} else if ( 'black_list' == $current_section ) {
 
 					/**
 					 * WCAF Filter Plugin  Blacklist Settings
@@ -401,6 +449,15 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'class'       => 'wc_af_tags_input',
 					),
 
+					//Enable IP blacklist
+					array(
+						'title'       => __( 'IP Blacklist', 'woocommerce-anti-fraud' ),
+						'type'        => 'checkbox',
+						'label'       => 'wc_af_ip_blacklist',
+						'default'     => 'no',
+						'desc' => __( 'Enable the IP blacklist function' ),
+						'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'enable_automatic_ip_blacklist',
+					),
 					//Block these email addresses
 					array(
 						'name'        => __( 'Blocked IP Adresses', 'woocommerce-anti-fraud' ),
@@ -542,7 +599,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 					 * @since 1.0.0
 					 * @param array $settings Array of the plugin settings
 					 */
-					$settings = apply_filters( 'wc_af_general_settings', array(
+					 $generalSettingsArray = array(
 
 						array(
 						'name' => __( 'General Settings' ),
@@ -558,14 +615,6 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'desc' => __( 'Perform the fraud check before payment<br/><br/><i>If this is enabled, the fraud check will be done on the order checkout page i.e. immediately before the actual payment. If the calculated fraud score violates any of the other rules enabled in the Anti Fraud settings, the customer will not be allowed to place this order.</i>' ),
 						'id'    => 'wc_af_fraud_check_before_payment',
 					),
-					array(
-						'title'       => __( 'Enable Payment Method Whitelisting', 'woocommerce-anti-fraud' ),
-						'type'        => 'checkbox',
-						'label'       => '',
-						'default'     => 'no',
-						'desc' => __( '' ),
-						'id'    => 'wc_af_enable_whitelist_payment_method'
-					),
 					//Pre payment custom text
 					array(
 						 'title'       => __( 'Pre-Payment Checking Notification Message', 'woocommerce-anti-fraud' ),
@@ -577,7 +626,14 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						 'id'    => 'wc_af_pre_payment_message',
 					),
 					array(
-						'name'        => __( 'Whitelisted Payment Methods', 'woocommerce-anti-fraud', 'woocommerce-anti-fraud' ),
+						'title'       => __( 'Enable Payment Method Whitelisting', 'woocommerce-anti-fraud' ),
+						'type'        => 'checkbox',
+						'label'       => '',
+						'default'     => 'no',
+						'id'    => 'wc_af_enable_whitelist_payment_method'
+					),
+					array(
+						'name'        => __( 'Whitelisted Payment Methods', 'woocommerce-anti-fraud' ),
 						'type'        => 'multiselect',
 						'options'  => $availableMethods,
 						'desc'        => __( 'List of payment methods those will be whitelisted i.e. will not be considered for Cancel Order Score and On-Hold Order Score evaluation for each order.', 'woocommerce-anti-fraud '),
@@ -589,14 +645,12 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'type'        => 'checkbox',
 						'label'       => '',
 						'default'     => 'no',
-						'desc' => __( '' ),
 						'id'    => 'wc_af_enable_whitelist_user_roles'
 					),
 					array(
 						'title'       => __( 'User Roles', 'woocommerce-anti-fraud' ),
 						'type'        => 'multiselect',
 						'options'  => $user_roles,
-						'desc' => __( '' ),
 						'id'    => 'wc_af_whitelist_user_roles',
 						'placeholder' => 'Select roles',
 						'default'     => $wc_af_whitelist_user_roles,
@@ -668,7 +722,6 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 					array(
 						'name'     => __( 'Medium Risk threshold', 'woocommerce-anti-fraud' ),
 						'type'     => 'number',
-						'desc'     => __( '' ),
 						'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_low_risk_threshold',
 						'css'         => 'display: block; width: 5em;',
 						'default' => '25',
@@ -681,7 +734,6 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 					array(
 						'name'     => __( 'High Risk threshold', 'woocommerce-anti-fraud' ),
 						'type'     => 'number',
-						'desc'     => __( '' ),
 						'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_higher_risk_threshold',
 						'css'         => 'display: block; width: 5em;',
 						'default' => '75',
@@ -696,7 +748,6 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'type'        => 'checkbox',
 						'label'       => '',
 						'default'     => 'no',
-						'desc' => __( '' ),
 						'id'    => 'wc_af_enable_debug_logging'
 					),
 					array(
@@ -704,7 +755,9 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'id' => 'wc_af_thresholds_settings'
 					),
 					
-					) );
+					);
+					 
+					$settings = apply_filters( 'wc_af_general_settings', $generalSettingsArray );
 				} else if ( 'rules' == $current_section ) {
 					$settings = apply_filters( 'wc_af_rule_settings', array(
 
@@ -918,7 +971,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'id'    => 'wc_af_suspecius_email'
 					),
 					array(
-						'name'        => __( 'High-risk domains', 'woocommerce-anti-fraud', 'woocommerce-anti-fraud' ),
+						'name'        => __( 'High-risk domains', 'woocommerce-anti-fraud' ),
 						'type'        => 'textarea',
 						'desc'        => __( 'Enter any email origin domains you consider to be high-risk below:', 'woocommerce-anti-fraud '),
 						'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_suspecious_email_domains',
@@ -955,7 +1008,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'id'    => 'wc_af_unsafe_countries'
 					),
 					array(
-						'name'        => __( 'Define unsafe countries', 'woocommerce-anti-fraud', 'woocommerce-anti-fraud' ),
+						'name'        => __( 'Define unsafe countries', 'woocommerce-anti-fraud' ),
 						'type'        => 'multiselect',
 						'desc'        => __( '' ),
 						'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_define_unsafe_countries_list',
@@ -1062,7 +1115,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'desc'     => __( 'Time span (hours) to check' ),
 						'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_attempt_time_span',
 						'css'         => 'display: block; width: 5em;',
-						'default' => '1',
+						'default' => '24',
 					),
 					array(
 						'name'     => __( 'Maximum number of orders per time span' ),
@@ -1070,7 +1123,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'desc'     => __( 'Maximum number of orders that a user can make in the specified time span' ),
 						'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_max_order_attempt_time_span',
 						'css'         => 'display: block; width: 5em;',
-						'default' => '2',
+						'default' => '5',
 						'custom_attributes' => array(
 							'min'  => 0,
 							'step' => 1,
@@ -1353,8 +1406,8 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						} else {
 							$email_api_key = get_option( 'check_email_domain_api_key' );
 							if ( !empty($email_api_key) ) {
-                                                            add_action('admin_notices', array( $this, 'auth_quickemailverification_error_admin_notice'));
-                                                        }
+															add_action('admin_notices', array( $this, 'auth_quickemailverification_error_admin_notice'));
+							}
 						}
 					}
 				}

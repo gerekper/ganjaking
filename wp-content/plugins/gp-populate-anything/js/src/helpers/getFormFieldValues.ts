@@ -18,6 +18,8 @@ export default function getFormFieldValues(formId?:number|string, isGravityView:
 		$form = $( '.gv-widget-search' );
 	}
 
+	// @todo $form.serializeArray() excludes disabled inputs so there are sometimes issues with Live Preview if hidden
+	//   fields are shown.
 	var inputsArray = $.grep($form.serializeArray(), function (value?:JQuerySerializeArrayElement) {
 		if (!value || value.name.indexOf(inputPrefix) !== 0) {
 			return false;

@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Symfony\Component\DependencyInjection\Exception; if (!defined('ABSPATH')) exit; class EnvNotFoundException extends \MailPoetVendor\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException { } 
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection\Exception; if (!defined('ABSPATH')) exit; class EnvNotFoundException extends InvalidArgumentException { } 

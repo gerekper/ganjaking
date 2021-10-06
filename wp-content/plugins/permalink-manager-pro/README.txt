@@ -6,8 +6,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: permalinks, custom permalinks, url editor, permalinks, woocommerce permalinks
 Requires at least: 4.4.0
 Requires PHP: 5.4
-Tested up to: 5.7.2
-Stable tag: 2.2.11
+Tested up to: 5.8.1
+Stable tag: 2.2.13.1
 
 Permalink Manager allows to easily change full URL addresses of posts, pages, custom post types, terms and WooCommerce links. You can also set different permalink formats per language or bulk change the URLs.
 
@@ -102,6 +102,18 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 8.	Permalink Manager settings.
 
 == Changelog ==
+
+= 2.2.13.1 (September 20, 2021) =
+* Dev - Minor security improvements inside WP-Admin dashboard
+* Fix - Allow canonical redirect for default language if "Hide URL language information for default language" is turned on in Polylang settings
+* Enhancement - New settings field - "Primary category support"
+* Enhancement - "Force 404 on non-existing pagination pages" works now with archive pages
+
+= 2.2.12 (August 17, 2021) =
+* Dev - New filters added - 'permalink_manager_excluded_post_ids' & 'permalink_manager_excluded_term_ids'
+* Dev - Additional minor changes in the codebase
+* Fix - Canonical permalinks for blog pagination is now correctly filtered (if Yoast SEO is used)
+* Fix - Better support for 'private' posts & pages
 
 = 2.2.11 (June 24, 2021) =
 * Fix - The function that automatically removes the broken URIs is no longer triggered when WP Rocket is turned on and non-logged-in user tries to access the broken URL.

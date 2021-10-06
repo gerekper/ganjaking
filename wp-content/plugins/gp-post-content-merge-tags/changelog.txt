@@ -1,6 +1,57 @@
 
 # Changelog
 
+## 1.3.2
+
+	- Fixed issue where merge tag selector was not available in Gutenberg if using Gravity Forms 2.5.2.1 or newer.
+	- Fixed a UI issue where PCMT checkbox appeared on redirect confirmation settings.
+
+## 1.3.1
+
+	- Fixed issue where "Edit Page Content" link would not show in Confirmation settings if using No Conflict mode.
+
+## 1.2.4
+
+	- Added full compatibility with Gravity Forms 2.5. (#5)
+
+## 1.3
+
+	- Added full compatibility with Gravity Forms 2.5. (#5)
+
+## 1.2.3
+
+	- Improved Merge Tag selector compatibility with more Gutenberg blocks such as the Button block and third-party blocks.
+
+## 1.2.2
+
+	- Updated Pretty ID to be properly registered entry meta and to make it available to feeds during submission.
+
+## 1.2.1
+
+	- Fixed a crash that occurred in PHP 5.xx installations.
+
+## 1.1.13
+
+	- Added support for adding Gravity Forms merge tags in the WordPress Block Editor (Gutenberg)!
+	- Added inline docs for "gppct_always_process_merge_tags" and "gppct_process_general_merge_tags".
+
+## 1.2
+
+	- Added support for adding Gravity Forms merge tags in the WordPress Block Editor (Gutenberg)!
+	- Added inline docs for "gppct_always_process_merge_tags" and "gppct_process_general_merge_tags".
+
+## 1.1.12
+
+	- Fixed issue where Global Merge Tags would not work with checkbox fields.
+
+## 1.1.11
+
+	- Fixed issue where Post Content Merge Tags would cause a plugin initialization failure with the Classic Editor block in Gutenberg.
+
+## 1.1.10
+
+	- Added support for logging.
+
 ## 1.1.9
 
 	- Added context parameter to shortcode to allow filtering attributes specifically for the [eid] shortcode.

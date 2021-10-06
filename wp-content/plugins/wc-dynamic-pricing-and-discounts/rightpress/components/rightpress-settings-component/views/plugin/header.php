@@ -9,7 +9,7 @@ defined('ABSPATH') || exit;
 
 ?>
 
-<h2 style="padding: 0; margin: 0; height: 0;">
+<h2 class="rightpress-plugin-settings-notices-fix">
     <!-- Fix for WordPress notices jumping in between header and settings area -->
 </h2>
 

@@ -20,7 +20,7 @@ class Registered extends AC\Column\User\Registered
 	}
 
 	public function editing() {
-		return new Editing\Model\User\Registered( $this );
+		return new Editing\Service\User\Registered();
 	}
 
 	public function search() {

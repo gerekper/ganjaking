@@ -49,7 +49,7 @@ class RP_WCDPD_Pricing_Method_Discount_Per_Cart_Item_Percentage extends RP_WCDPD
      */
     public function get_label()
     {
-        return __('Percentage discount per cart item', 'rp_wcdpd');
+        return esc_html__('Percentage discount per cart item', 'rp_wcdpd');
     }
 
     /**

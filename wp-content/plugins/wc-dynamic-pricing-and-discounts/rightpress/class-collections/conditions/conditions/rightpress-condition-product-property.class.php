@@ -42,7 +42,7 @@ abstract class RightPress_Condition_Product_Property extends RightPress_Conditio
     public function get_group_label()
     {
 
-        return __('Product Property', 'rightpress');
+        return esc_html__('Product Property', 'rightpress');
     }
 
 

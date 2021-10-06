@@ -27,7 +27,7 @@ class DatePublished extends AC\Column\Post\DatePublished
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Date( $this );
+		return new Editing\Service\Post\Date();
 	}
 
 }

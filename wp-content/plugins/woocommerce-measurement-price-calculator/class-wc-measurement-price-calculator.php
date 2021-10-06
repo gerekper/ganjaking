@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/measurement-price-calculator/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2012-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -34,7 +34,7 @@ class WC_Measurement_Price_Calculator extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version */
-	const VERSION = '3.19.0';
+	const VERSION = '3.20.1';
 
 	/** @var WC_Measurement_Price_Calculator single instance of this plugin */
 	protected static $instance;
@@ -97,16 +97,16 @@ class WC_Measurement_Price_Calculator extends Framework\SV_WC_Plugin {
 
 		$plugin_path = $this->get_plugin_path();
 
-		require_once( $plugin_path . '/includes/class-wc-price-calculator-cart.php' );
-		require_once( $plugin_path . '/includes/class-wc-price-calculator-measurement.php' );
-		require_once( $plugin_path . '/includes/class-wc-price-calculator-product-loop.php' );
-		require_once( $plugin_path . '/includes/class-wc-price-calculator-product-page.php' );
-		require_once( $plugin_path . '/includes/class-wc-price-calculator-product.php' );
-		require_once( $plugin_path . '/includes/class-wc-price-calculator-settings.php' );
+		require_once( $plugin_path . '/src/class-wc-price-calculator-cart.php' );
+		require_once( $plugin_path . '/src/class-wc-price-calculator-measurement.php' );
+		require_once( $plugin_path . '/src/class-wc-price-calculator-product-loop.php' );
+		require_once( $plugin_path . '/src/class-wc-price-calculator-product-page.php' );
+		require_once( $plugin_path . '/src/class-wc-price-calculator-product.php' );
+		require_once( $plugin_path . '/src/class-wc-price-calculator-settings.php' );
 
 		if ( is_admin() ) {
 
-			require_once( $plugin_path . '/includes/admin/woocommerce-measurement-price-calculator-admin-init.php' );
+			require_once( $plugin_path . '/src/admin/woocommerce-measurement-price-calculator-admin-init.php' );
 		}
 	}
 
@@ -120,7 +120,7 @@ class WC_Measurement_Price_Calculator extends Framework\SV_WC_Plugin {
 	 */
 	public function woocommerce_init() {
 
-		$this->pricing_calculator_inventory = $this->load_class( '/includes/class-wc-price-calculator-inventory.php', 'WC_Price_Calculator_Inventory' );
+		$this->pricing_calculator_inventory = $this->load_class( '/src/class-wc-price-calculator-inventory.php', 'WC_Price_Calculator_Inventory' );
 
 		$this->product_loop = new \WC_Price_Calculator_Product_Loop();
 
@@ -128,9 +128,9 @@ class WC_Measurement_Price_Calculator extends Framework\SV_WC_Plugin {
 
 		$this->cart = new \WC_Price_Calculator_Cart();
 
-		$this->shortcodes = $this->load_class( '/includes/Shortcodes.php', '\\SkyVerge\\WooCommerce\\Measurement_Price_Calculator\\Shortcodes' );
+		$this->shortcodes = $this->load_class( '/src/Shortcodes.php', '\\SkyVerge\\WooCommerce\\Measurement_Price_Calculator\\Shortcodes' );
 
-		$this->compatibility = $this->load_class( '/includes/class-wc-price-calculator-compatibility.php', 'WC_Price_Calculator_Compatibility' );
+		$this->compatibility = $this->load_class( '/src/class-wc-price-calculator-compatibility.php', 'WC_Price_Calculator_Compatibility' );
 	}
 
 
@@ -141,7 +141,7 @@ class WC_Measurement_Price_Calculator extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new \SkyVerge\WooCommerce\Measurement_Price_Calculator\Lifecycle( $this );
 	}

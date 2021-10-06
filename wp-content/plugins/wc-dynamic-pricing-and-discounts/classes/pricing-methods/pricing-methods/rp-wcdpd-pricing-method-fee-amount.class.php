@@ -49,7 +49,7 @@ class RP_WCDPD_Pricing_Method_Fee_Amount extends RP_WCDPD_Pricing_Method_Fee
      */
     public function get_label()
     {
-        return __('Fixed fee', 'rp_wcdpd');
+        return esc_html__('Fixed fee', 'rp_wcdpd');
     }
 
 

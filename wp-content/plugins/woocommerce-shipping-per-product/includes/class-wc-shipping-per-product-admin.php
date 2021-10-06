@@ -18,6 +18,14 @@ class WC_Shipping_Per_Product_Admin {
 	 * @var WC_Shipping_Per_Product_Init
 	 */
 	protected $per_product;
+	/**
+	 * The maximum number of rules to display in the product editor.
+	 * If a product has more rules than this, the rules will need to
+	 * be managed offsite and imported (overridden).
+	 *
+	 * @var int
+	 */
+	private static $rule_count_limit = 200;
 
 	/**
 	 * Constructor.
@@ -33,6 +41,7 @@ class WC_Shipping_Per_Product_Admin {
 		add_action( 'woocommerce_process_product_meta', array( $this, 'save' ) );
 		add_action( 'woocommerce_save_product_variation', array( $this, 'save_variation' ), 10, 2 );
 		add_action( 'woocommerce_product_duplicate', array( $this, 'duplicate_rules' ), 10, 2 );
+		add_action( 'wp_ajax_wc_shipping_per_product_export_rules', array( $this, 'export_rules' ) );
 	}
 
 	/**
@@ -112,6 +121,8 @@ class WC_Shipping_Per_Product_Admin {
 		if ( ! $post_id ) {
 			$post_id = $post->ID;
 		}
+
+		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules WHERE product_id = %d ORDER BY rule_order;", $post_id ) );
 		?>
 		<div class="rules per_product_shipping_rules">
 
@@ -133,7 +144,7 @@ class WC_Shipping_Per_Product_Admin {
 					<tr>
 						<th>&nbsp;</th>
 						<th><?php _e( 'Country Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'A 2 digit country code, e.g. US. Leave blank to apply to all.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
-						<th><?php _e( 'State/County Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'A state code, e.g. AL. Leave blank to apply to all.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
+						<th><?php _e( 'State/County Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'A 2 digit state code, e.g. AL. Leave blank to apply to all.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
 						<th><?php _e( 'Zip/Postal Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Postcode for this rule. Wildcards (*) can be used. Leave blank to apply to all areas.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
 						<th class="cost"><?php _e( 'Line Cost (Excl. Tax)', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Decimal cost for the line as a whole.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
 						<th class="item_cost"><?php _e( 'Item Cost (Excl. Tax)', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Decimal cost for the item (multiplied by qty).', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
@@ -142,28 +153,51 @@ class WC_Shipping_Per_Product_Admin {
 				<tfoot>
 					<tr>
 						<th colspan="6">
-							<a href="#" class="button button-primary insert" data-postid="<?php echo $post_id; ?>"><?php _e( 'Insert row', 'woocommerce-shipping-per-product' ); ?></a>
-							<a href="#" class="button remove"><?php _e( 'Remove row', 'woocommerce-shipping-per-product' ); ?></a>
+							<?php if ( $count < self::$rule_count_limit ) : ?>
+								<a href="#" class="button button-primary insert" data-postid="<?php echo esc_attr( $post_id ); ?>"><?php _e( 'Insert row', 'woocommerce-shipping-per-product' ); ?></a>
+							<?php endif; ?>
 
-							<a href="#" download="per-product-rates-<?php echo $post_id ?>.csv" class="button export" data-postid="<?php echo $post_id; ?>"><?php _e( 'Export CSV', 'woocommerce-shipping-per-product' ); ?></a>
-							<a href="<?php echo admin_url( 'admin.php?import=woocommerce_per_product_shipping_csv' ); ?>" class="button import"><?php _e( 'Import CSV', 'woocommerce-shipping-per-product' ); ?></a>
-							<a href="<?php echo admin_url( 'admin.php?import=woocommerce_per_product_shipping_csv&override_product_id=' . absint( $post_id ) ); ?>" class="button import"><?php _e( 'Import CSV (override)', 'woocommerce-shipping-per-product' ); ?></a>
+							<?php if ( $count <= self::$rule_count_limit ) : ?>
+								<a href="#" class="button remove"><?php _e( 'Remove row', 'woocommerce-shipping-per-product' ); ?></a>
+							<?php endif; ?>
+
+							<a href="#" class="button export" data-postid="<?php echo esc_attr( $post_id ); ?>"><?php _e( 'Export CSV', 'woocommerce-shipping-per-product' ); ?></a>
+							<a href="<?php echo esc_url( admin_url( 'admin.php?import=woocommerce_per_product_shipping_csv' ) ); ?>" class="button import"><?php _e( 'Import CSV', 'woocommerce-shipping-per-product' ); ?></a>
+							<a href="<?php echo esc_url( admin_url( 'admin.php?import=woocommerce_per_product_shipping_csv&override_product_id=' . absint( $post_id ) ) ); ?>" class="button import"><?php _e( 'Import CSV (override)', 'woocommerce-shipping-per-product' ); ?></a>
 						</th>
 					</tr>
 				</tfoot>
 				<tbody>
 					<?php
-					$rules = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules WHERE product_id = %d ORDER BY rule_order;", $post_id ) );
+					if ( $count <= self::$rule_count_limit ) {
+						$rules = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules WHERE product_id = %d ORDER BY rule_order;", $post_id ) );
 
-					foreach ( $rules as $rule ) {
-					?>
+						foreach ( $rules as $rule ) {
+						?>
+							<tr>
+								<td class="sort">&nbsp;<input type="hidden" value="<?php echo esc_attr( $rule->rule_order ); ?>" name="per_product_order[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
+								<td class="country"><input type="text" maxlength="2" value="<?php echo esc_attr( $rule->rule_country ); ?>" placeholder="*" name="per_product_country[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
+								<td class="state"><input type="text" maxlength="2" value="<?php echo esc_attr( $rule->rule_state ); ?>" placeholder="*" name="per_product_state[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
+								<td class="postcode"><input type="text" value="<?php echo esc_attr( $rule->rule_postcode ); ?>" placeholder="*" name="per_product_postcode[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
+								<td class="cost"><input type="text" class="wc_input_price input-text regular-input" value="<?php echo esc_attr( $rule->rule_cost ); ?>" placeholder="0.00" name="per_product_cost[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
+								<td class="item_cost"><input type="text" class="wc_input_price input-text regular-input" value="<?php echo esc_attr( $rule->rule_item_cost ); ?>" placeholder="0.00" name="per_product_item_cost[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
+							</tr>
+							<?php
+						}
+					} else {
+						?>
 						<tr>
-							<td class="sort">&nbsp;<input type="hidden" value="<?php echo esc_attr( $rule->rule_order ); ?>" name="per_product_order[<?php echo $post_id; ?>][<?php echo $rule->rule_id ?>]" /></td>
-							<td class="country"><input type="text" value="<?php echo esc_attr( $rule->rule_country ); ?>" placeholder="*" name="per_product_country[<?php echo $post_id; ?>][<?php echo $rule->rule_id ?>]" /></td>
-							<td class="state"><input type="text" value="<?php echo esc_attr( $rule->rule_state ); ?>" placeholder="*" name="per_product_state[<?php echo $post_id; ?>][<?php echo $rule->rule_id ?>]" /></td>
-							<td class="postcode"><input type="text" value="<?php echo esc_attr( $rule->rule_postcode ); ?>" placeholder="*" name="per_product_postcode[<?php echo $post_id; ?>][<?php echo $rule->rule_id ?>]" /></td>
-							<td class="cost"><input type="text" value="<?php echo esc_attr( $rule->rule_cost ); ?>" placeholder="0.00" name="per_product_cost[<?php echo $post_id; ?>][<?php echo $rule->rule_id ?>]" /></td>
-							<td class="item_cost"><input type="text" value="<?php echo esc_attr( $rule->rule_item_cost ); ?>" placeholder="0.00" name="per_product_item_cost[<?php echo $post_id; ?>][<?php echo $rule->rule_id ?>]" /></td>
+							<td colspan="6" style="text-align:center;padding:50px 1%;">
+								<?php
+								printf(
+										__( '%1$sNOTICE:%2$s Only tables with %3$d rules or fewer can be edited within the product editor. %4$sPlease export your rules, modify as needed, and use the "Import CSV (override)" button to update this product\'s rules.', 'woocommerce-shipping-per-product' ),
+										'<h2>',
+										'</h2>',
+										self::$rule_count_limit,
+										'<br>'
+								);
+								?>
+							</td>
 						</tr>
 						<?php
 					}
@@ -288,8 +322,8 @@ class WC_Shipping_Per_Product_Admin {
 						! empty( $countries[ $key ][ $new_key ] )
 						|| ! empty( $states[ $key ][ $new_key ] )
 						|| ! empty( $postcodes[ $key ][ $new_key ] )
-						|| ! empty( $costs[ $key ][ $new_key ] )
-						|| ! empty( $item_costs[ $key ][ $new_key ] )
+						|| ( isset( $costs[ $key ][ $new_key ] ) && is_numeric( $costs[ $key ][ $new_key ] ) )
+						|| ( isset( $item_costs[ $key ][ $new_key ] ) && is_numeric( $item_costs[ $key ][ $new_key ] ) )
 					);
 
 					if ( $has_column_with_value ) {
@@ -312,8 +346,8 @@ class WC_Shipping_Per_Product_Admin {
 					! empty( $countries[ $key ] )
 					|| ! empty( $states[ $key ] )
 					|| ! empty( $postcodes[ $key ] )
-					|| ! empty( $costs[ $key ] )
-					|| ! empty( $item_costs[ $key ] )
+					|| ( isset( $costs[ $key ] ) && is_numeric( $costs[ $key ] ) )
+					|| ( isset( $item_costs[ $key ] ) && is_numeric( $item_costs[ $key ] ) )
 				);
 
 				if ( $has_column_with_value ) {
@@ -446,5 +480,30 @@ class WC_Shipping_Per_Product_Admin {
 
 		// Increments the transient version to invalidate cache.
 		WC_Cache_Helper::get_transient_version( 'shipping', true );
+	}
+
+	/**
+	 * Retrieve and send shipping rules with the given product ID
+	 */
+	public function export_rules() {
+		$product_id = $_POST['product_id'];
+		$response   = array(
+			'success' => false,
+		);
+
+		// Make sure the product ID was passed
+		if ( empty( $product_id ) ) {
+			wp_send_json( $response );
+		}
+
+		global $wpdb;
+		$response['rules'] = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woocommerce_per_product_shipping_rules WHERE product_id = %d ORDER BY rule_order;", $product_id ) );
+
+		// If we have results, change 'success' to true
+		if ( ! empty( $response['rules'] ) ) {
+			$response['success'] = true;
+		}
+
+		wp_send_json( $response );
 	}
 }

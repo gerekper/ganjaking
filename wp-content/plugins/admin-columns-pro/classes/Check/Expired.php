@@ -10,6 +10,7 @@ use AC\Screen;
 use AC\Storage;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
+use ACP\Entity\License;
 use ACP\LicenseKeyRepository;
 use ACP\LicenseRepository;
 use ACP\Type\License\Key;
@@ -53,6 +54,43 @@ class Expired implements Registrable {
 	}
 
 	/**
+	 * @return bool
+	 */
+	private function show_message() {
+		$license_key = $this->license_key_repository->find();
+
+		if ( ! $license_key ) {
+			return false;
+		}
+
+		$license = $this->license_repository->find( $license_key );
+
+		if ( ! $license
+		     || ! $license->is_expired()
+		     || ! $license->get_expiry_date()->exists() ) {
+			return false;
+		}
+
+		// Prevent overlap with auto renewal payments and message
+		if ( $license->is_auto_renewal() && $license->is_expired() && $license->get_expiry_date()->get_expired_seconds() < ( 2 * DAY_IN_SECONDS ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * @return License|null
+	 */
+	private function get_license() {
+		$license_key = $this->license_key_repository->find();
+
+		return $license_key
+			? $this->license_repository->find( $license_key )
+			: null;
+	}
+
+	/**
 	 * @param Screen $screen
 	 *
 	 * @throws Exception
@@ -62,45 +100,57 @@ class Expired implements Registrable {
 			return;
 		}
 
-		$license_key = $this->license_key_repository->find();
+		// Inline message on plugin page
+		if ( $screen->is_plugin_screen() && $this->show_message() ) {
+			$license = $this->get_license();
 
-		if ( ! $license_key ) {
+			if ( ! $license ) {
+				return;
+			}
+
+			$this->register_notice(
+				new Message\Plugin(
+					$this->get_message( $license->get_expiry_date()->get_value(), $license->get_key() ),
+					$this->plugin_basename
+				)
+			);
+
 			return;
 		}
 
-		$license = $this->license_repository->find( $license_key );
+		// Permanent displayed on settings page
+		if ( $screen->is_admin_screen() && $this->show_message() ) {
+			$license = $this->get_license();
 
-		if ( ! $license
-		     || ! $license->is_expired()
-		     || ! $license->get_expiry_date()->exists() ) {
+			if ( ! $license ) {
+				return;
+			}
+
+			$this->register_notice(
+				new Message\Notice( $this->get_message( $license->get_expiry_date()->get_value(), $license->get_key() ) )
+			);
+
 			return;
 		}
 
-		// Prevent overlap with auto renewal payments and message
-		if ( $license->is_auto_renewal() && $license->is_expired() && $license->get_expiry_date()->get_expired_seconds() < ( 2 * DAY_IN_SECONDS ) ) {
-			return;
-		}
+		// Dismissible on list table
+		if ( $screen->is_list_screen() && $this->get_dismiss_option()->is_expired() && $this->show_message() ) {
+			$license = $this->get_license();
 
-		$message = $this->get_message( $license->get_expiry_date()->get_value(), $license->get_key() );
+			if ( ! $license ) {
+				return;
+			}
 
-		if ( $screen->is_plugin_screen() ) {
-			// Inline message on plugin page
-			$notice = new Message\Plugin( $message, $this->plugin_basename );
-		} else if ( $screen->is_admin_screen() ) {
-			// Permanent displayed on settings page
-			$notice = new Message\Notice( $message );
-		} else if ( $screen->is_list_screen() && $this->get_dismiss_option()->is_expired() ) {
-			// Dismissible on list table
-			$notice = new Message\Notice\Dismissible( $message, $this->get_ajax_handler() );
-		} else {
-			$notice = false;
+			$this->register_notice(
+				new Message\Notice\Dismissible( $this->get_message( $license->get_expiry_date()->get_value(), $license->get_key() ), $this->get_ajax_handler() )
+			);
 		}
+	}
 
-		if ( $notice instanceof Message ) {
-			$notice
-				->set_type( Message::WARNING )
-				->register();
-		}
+	private function register_notice( Message $notice ) {
+		$notice
+			->set_type( Message::WARNING )
+			->register();
 	}
 
 	/**

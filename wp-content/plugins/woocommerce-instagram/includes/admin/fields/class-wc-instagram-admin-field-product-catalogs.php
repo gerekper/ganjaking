@@ -218,21 +218,7 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 	 * @param WC_Instagram_Product_Catalog $product_catalog Product Catalog.
 	 */
 	public function output_column_tax_location( $row, $product_catalog ) {
-		if ( ! $product_catalog->get_include_tax() ) {
-			echo '-';
-			return;
-		}
-
-		$tax_location = $product_catalog->get_tax_location();
-		$countries    = WC()->countries->get_countries();
-
-		if ( ! empty( $tax_location ) && 'base' !== get_option( 'woocommerce_tax_based_on' ) ) {
-			$country_code = $tax_location[0];
-		} else {
-			$country_code = WC()->countries->get_base_country();
-		}
-
-		echo esc_html( isset( $countries[ $country_code ] ) ? $countries[ $country_code ] : $country_code );
+		echo esc_html( wc_instagram_get_formatted_product_catalog_tax_location( $product_catalog, '-' ) );
 	}
 
 	/**

@@ -1,6 +1,84 @@
 
 # Changelog
 
+## 1.0-beta-10
+
+	- Improved user experience of how Summary Fields are managed. They're now listed out vertically and sortable.
+	- Added French translation. Thank you, [Cyrille Sanson](https://100son.net)!
+	- Fixed typo in :sum modifier merge tag default value.
+
+## 1.0-beta-9.35
+
+	- Added i18n support for GPNF's "Close" modal button.
+
+## 1.0-beta-9.34
+
+	- Updated custom template names to have precedence before all standard template names.
+	- Updated docblock with variables in `nested-entries-all.php`.
+	- Added new `GP_Nested_Forms::get_template_names()` method and updated instances where we specified template names manually to use this new helper method.
+
+## 1.0-beta-9.33
+
+	- Added support for using :value (or ,value if using All Fields Template) Merge Tag modifier for Nested Form fields.
+
+## 1.0-beta-9.32
+
+	- Added support for disabling delete confirmation by passing empty confirmAction label.
+	- Updated `gpnf_disable_new_cancel_confirmation` filter's default value to true if a non-false value is passed for the confirmAction label.
+	- Fixed a potential issue where a child form that requires login did not display the proper login required message.
+	- Fixed issue where number formats could be lost when editing a Nested Entry with conditional logic.
+
+## 1.0-beta-9.31
+
+	- Fixed an issue where {Parent} merge tags were not processed correctly in nested form's notification.
+
+## 1.0-beta-9.30
+
+	- Fixed issue where init scripts for Nested Forms could be loaded twice and cause inconsistent behavior such as doubled up loading indicators.
+
+## 1.0-beta-9.29
+
+	- Fixed an issue where AJAX rendered forms may display a JS error when using List fields.
+
+## 1.0-beta-9.28
+
+	- Added [gpnf_replace_parent_merge_tag_on_edit](https://gravitywiz.com/documentation/gpnf_replace_parent_merge_tag_on_edit-js) filter to re-populate parent merge tags when editing an entry.
+	- Added new [gpnf_fetch_form_html_after_add](https://gravitywiz.com/documentation/gpnf_fetch_form_html_after_add/) and [gpnf_fetch_form_html_after_delete](https://gravitywiz.com/documentation/gpnf_fetch_form_html_after_delete/) JavaScript filters
+	- Fixed an issue where an imported parent form without its child may generate a PHP notice.
+	- Fixed PHP notice in Gravity Forms Coupons Add-On settings page.
+
+## 1.0-beta-9.27
+
+	- Fixed an issue where {Parent} merge tags didn't work with Drop Down fields.
+	- Fixed issue where parent form ID was not correctly set as a template name variant for the 'nested-entries-detail' template.
+	- Fixed issue where Rich Text Editor test searched for Windows-specific keyboard shortcut in button label.
+
+## 1.0-beta-9.26
+
+	- Added support for filtering the modal's submit button label.
+
+## 1.0-beta-9.25
+
+	- Fixed issue where submitting a child entry with a pending upload would result in the submit button getting stuck as a spinner.
+
+## 1.0-beta-9.24
+
+	- Added [gpnf_disable_new_cancel_confirmation](http://gravitywiz.com/documentation/gpnf_disable_new_cancel_confirmation-js) filter.
+
+## 1.0-beta-9.23
+
+	- Fixed issue where GPNF's cookie could be reset under certain network conditions and if there are more than one Nested Forms on a parent form.
+	- Fixed a potential issue that may cause GPNF to fail to render.
+
+## 1.0-beta-9.22
+
+	- Fixed issue where init scripts were not executed with older versions of jQuery.
+	- Fixed an issue where modified parent merge tag values would be reset on entry edit.
+
+## 1.0-beta-9.21
+
+	- Fixed a potential issue where In-line Calendars may duplicate on submission error.
+
 ## 1.0-beta-9.20
 
 	- Updated Gravity Perks minimum required version to 2.2.3.

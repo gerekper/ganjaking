@@ -186,8 +186,8 @@ function wc_update_store_credit_used_for_order( $the_order, $code, $value = null
 	if ( is_array( $code ) ) {
 		$credit_used = $code;
 	} else {
-		$credit_used     = wc_get_store_credit_used_for_order( $order, 'per_coupon' );
-		$credit[ $code ] = $value;
+		$credit_used          = wc_get_store_credit_used_for_order( $order, 'per_coupon' );
+		$credit_used[ $code ] = $value;
 	}
 
 	// Remove falsy values, including coupons with zero discount.

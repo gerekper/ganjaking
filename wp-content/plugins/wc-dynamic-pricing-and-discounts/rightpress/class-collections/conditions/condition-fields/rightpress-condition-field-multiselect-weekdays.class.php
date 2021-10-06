@@ -55,7 +55,7 @@ abstract class RightPress_Condition_Field_Multiselect_Weekdays extends RightPres
     public function get_placeholder()
     {
 
-        return __('Select days of week', 'rightpress');
+        return esc_html__('Select days of week', 'rightpress');
     }
 
 

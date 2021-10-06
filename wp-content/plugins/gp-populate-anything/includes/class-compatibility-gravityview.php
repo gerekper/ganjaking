@@ -25,6 +25,22 @@ class GPPA_Compatibility_GravityView {
 		add_filter( 'gppa_field_filter_values', array( $this, 'field_filter_values_replace_filter_prefix' ), 10, 6 );
 		add_filter( 'gppa_get_batch_field_html', array( $this, 'render_search_field' ), 10, 6 );
 
+		add_filter( 'gravityview/fields/custom/form', array( $this, 'hydrate_submitted_entry_choices' ), 10, 2 );
+
+	}
+
+	/**
+	 * Hydrate form field choices so merge tag labels work properly and do not return only the value.
+	 *
+	 * @param $form array Current form
+	 * @param $entry array Current entry being displayed in GravityView
+	 *
+	 * @return array Form with hydrated choices
+	 */
+	public function hydrate_submitted_entry_choices( $form, $entry ) {
+		$form = gp_populate_anything()->modify_admin_field_choices( $form, false, $entry );
+
+		return $form;
 	}
 
 	/**

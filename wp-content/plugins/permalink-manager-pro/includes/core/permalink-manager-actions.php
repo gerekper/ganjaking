@@ -467,12 +467,12 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 			$taxonomy = $wpdb->get_var($wpdb->prepare("SELECT t.taxonomy FROM $wpdb->term_taxonomy AS t WHERE t.term_id = %s LIMIT 1", $term_id));
 
 			// Remove custom URIs for removed terms or disabled taxonomies
-			$remove = (!empty($taxonomy)) ? Permalink_Manager_Helper_Functions::is_disabled($taxonomy, 'taxonomy', $check_if_exists) : true;
+			$remove = (!empty($taxonomy)) ? Permalink_Manager_Helper_Functions::is_taxonomy_disabled($taxonomy, $check_if_exists) : true;
 		} else if(is_numeric($element_id)) {
 			$post_type = $wpdb->get_var("SELECT post_type FROM {$wpdb->prefix}posts WHERE ID = {$element_id} AND post_status NOT IN ('auto-draft', 'trash') AND post_type != 'nav_menu_item'");
 
 			// Remove custom URIs for removed, auto-draft posts or disabled post types
-			$remove = (!empty($post_type)) ? Permalink_Manager_Helper_Functions::is_disabled($post_type, 'post_type', $check_if_exists) : true;
+			$remove = (!empty($post_type)) ? Permalink_Manager_Helper_Functions::is_post_type_disabled($post_type, $check_if_exists) : true;
 
 			// Remove custom URIs for attachments redirected with Yoast's SEO Premium
 			$yoast_permalink_options = (class_exists('WPSEO_Premium')) ? get_option('wpseo_permalinks') : array();

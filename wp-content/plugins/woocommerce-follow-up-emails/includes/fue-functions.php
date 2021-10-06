@@ -1763,6 +1763,19 @@ function fue_replacement_url_var( $replacement ) {
 }
 
 /**
+ * Helper function for hashing an email address to pass as the hqid query parameter.
+ *
+ * @param string $email the email address to hash
+ *
+ * @return string the salted, hashed email address
+ *
+ * @since 4.9.16
+ */
+function fue_email_hash( $email ) {
+	return wp_hash( $email, 'fue_email' );
+}
+
+/**
  * Log debug messages (using the WooCommerce logging class).
  *
  * @since 4.9.4

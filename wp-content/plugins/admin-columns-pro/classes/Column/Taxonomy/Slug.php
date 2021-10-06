@@ -18,7 +18,7 @@ class Slug extends AC\Column
 	}
 
 	public function editing() {
-		return new Editing\Model\Taxonomy\Slug( $this );
+		return new Editing\Service\Taxonomy\Slug( $this->get_taxonomy() );
 	}
 
 	public function export() {

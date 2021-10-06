@@ -34,7 +34,6 @@
 				$( '#mainform .woocommerce-save-button' ).after( this.$deleteLink );
 			}
 
-			this.initGoogleProductCategorySelects();
 			this.bindEvents();
 		},
 
@@ -112,9 +111,6 @@
 			});
 
 			$( '.form-table' )
-				.on( 'change', '.wc-instagram-gpc-select', function() {
-					that.loadCategorySelect( $( this ).val() );
-				})
 				.on( 'change', 'input[name=filter_by]', function() {
 					that.filterByToggle( $( this ).val() );
 				});
@@ -183,10 +179,6 @@
 			);
 		},
 
-		initGoogleProductCategorySelects: function( ) {
-			$( '.wc-instagram-gpc-select:not(.select2-hidden-accessible)' ).selectWoo( { width: 'auto' } );
-		},
-
 		filterByToggle: function( option ) {
 			var selector = option.replace( '_', '-' );
 
@@ -213,49 +205,6 @@
 
 			this.toggleFormFields( 'include_product_ids', ( 'specific' === option ) );
 			this.toggleFormFields( 'exclude_product_ids', ( 'all_except' === option ) );
-		},
-
-		updateHiddenInput: function ( category_id ) {
-			$( '#product_google_category' ).val( category_id );
-		},
-
-		loadCategorySelect: function(category_id ) {
-			var self = this;
-
-			// Use the parent category if none is provided.
-			if ( ! category_id ) {
-				$( '.wc-instagram-gpc-select' ).each(function () {
-					var value = $( this ).val();
-
-					if ( '' !== value ) {
-						category_id = value;
-					} else {
-						// Only loop till a empty value is find.
-						return false;
-					}
-				});
-			}
-
-			this.updateHiddenInput( category_id );
-
-			$.post( window.wc_instagram_product_catalog_params.ajax_url, {
-				action: 'wc_instagram_refresh_google_product_category_field',
-				_wpnonce: window.wc_instagram_product_catalog_params.nonce,
-				catalog_id: window.wc_instagram_product_catalog_params.catalog_id,
-				category_id: category_id
-			})
-			.done( function( result ) {
-				if ( ! result.success ) {
-					return;
-				}
-
-				var $tr = $( '.wc-instagram-gpc-select' ).first().closest( 'tr' );
-
-				if ( $tr.length ) {
-					$tr.replaceWith( result.data.output );
-					self.initGoogleProductCategorySelects();
-				}
-			});
 		}
 	};
 

@@ -67,7 +67,7 @@ function wc_od_get_delivery_day_status( $delivery_day, $args = array(), $context
 	}
 
 	$defaults = array(
-		'shipping_method' => false,
+		'shipping_method' => '',
 	);
 
 	/**

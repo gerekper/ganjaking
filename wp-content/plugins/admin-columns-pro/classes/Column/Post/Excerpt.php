@@ -21,7 +21,7 @@ class Excerpt extends AC\Column\Post\Excerpt
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Excerpt( $this );
+		return new Editing\Service\Post\Excerpt();
 	}
 
 	public function export() {

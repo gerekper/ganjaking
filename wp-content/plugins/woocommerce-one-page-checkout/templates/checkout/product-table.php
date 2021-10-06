@@ -16,13 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<tr class="product-item cart <?php if ( wcopc_get_products_prop( $product, 'in_cart' ) ) echo 'selected'; ?>">
 
 		<td class="product-thumbnail">
-			<a href="<?php echo wp_get_attachment_url( $product->get_image_id() ); ?>" data-rel="prettyPhoto"  itemprop="image" class="woocommerce-main-image zoom">
+			<a href="<?php echo esc_url( wp_get_attachment_url( $product->get_image_id() ) ); ?>" data-rel="prettyPhoto" itemprop="image" class="woocommerce-main-image zoom">
 				<?php echo $product->get_image(); ?>
 			</a>
 		</td>
 
 		<td class="product-name">
-			<?php echo $product->get_title(); ?>
+			<?php echo wp_kses_post( $product->get_title() ); ?>
 			<?php if ( $product->is_type( 'variation' ) ) : ?>
 				<?php $attribute_string = sprintf( '&nbsp;(%s)', wc_get_formatted_variation( $product->get_variation_attributes(), true ) ); ?>
 			<span class="attributes"><?php echo esc_html( apply_filters( 'wcopc_attributes', $attribute_string, $product->get_variation_attributes(), $product ) ); ?></span>

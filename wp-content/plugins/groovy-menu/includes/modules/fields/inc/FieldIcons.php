@@ -41,6 +41,7 @@ class FieldIcons extends \GroovyMenu\FieldField {
 		<div class="gm-gui__module__ui gm-gui__module__import">
 			<button class="gm-upload-icon-pack"
 				type="button"><?php esc_html_e( 'Upload icon pack', 'groovy-menu' ); ?></button>
+			<input type="hidden" id="gm-replace-field-name" name="gm-replace-field-name" value="">
 			<input type="hidden" class="groovy-upload-icon" name="icons">
 			<?php if ( ! empty( $default_packs ) ): ?>
 				<button class="gm-install-default-icon-pack"
@@ -53,7 +54,8 @@ class FieldIcons extends \GroovyMenu\FieldField {
 			foreach ( self::getFonts() as $fontName => $font ) {
 				?>
 				<div class="groovy-iconset" data-name="<?php echo esc_attr( $fontName ); ?>">
-					<span class="groovy-iconset-name"><?php echo esc_html( $font['name'] ); ?></span>
+					<span class="groovy-iconset-name"><?php echo esc_html( $font['name'] ); ?> (<?php echo esc_attr( $fontName ); ?>)</span>
+					<button class="groovy-replace-icon-pack"><?php esc_html_e( 'Replace', 'groovy-menu' ); ?></button>
 					<button class="groovy-delete-font"><?php esc_html_e( 'delete', 'groovy-menu' ); ?></button>
 					<div class="groovy-icons">
 						<?php

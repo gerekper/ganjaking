@@ -19,6 +19,13 @@ class SubscriberNewsletterStats {
   /** @var StatisticsClickEntity[] */
   private $clicks;
 
+  /**
+   * SubscriberNewsletterStats constructor.
+   *
+   * @param NewsletterEntity $newsletter
+   * @param StatisticsOpenEntity $open
+   * @param array<int, StatisticsClickEntity> $clicks
+   */
   public function __construct(
     NewsletterEntity $newsletter,
     StatisticsOpenEntity $open,

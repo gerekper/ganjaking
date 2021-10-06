@@ -1,6 +1,6 @@
 <p class="order-info">
 	<?php
-	$order_date = date_i18n('F d, y h:i A', strtotime( WC_Warranty_Compatibility::get_order_prop( $order, 'order_date' ) ) );
+	$order_date = date_i18n( WooCommerce_Warranty::get_datetime_format(), strtotime( WC_Warranty_Compatibility::get_order_prop( $order, 'order_date' ) ) );
 	printf(
 		__('Order <mark class="order-number">%s</mark> made on <mark class="order-date">%s</mark>.', 'wc_warranty'),
 		$order->get_order_number(),
@@ -64,8 +64,8 @@
 				<?php
 				printf(
 					__('%s x %d', 'wc_warranty'),
-					$product->get_title(),
-					$item['qty']
+					$item->get_name(),
+					$item->get_quantity()
 				);
 
 				$product   = $item->get_product();
@@ -124,7 +124,7 @@
 				}
 			}
 
-			$warranty_details[] = __( 'Updated ', 'wc_warranty' ) . date_i18n( 'F d, Y h:i A', strtotime( $result['post_modified'] ) );
+			$warranty_details[] = __( 'Updated ', 'wc_warranty' ) . date_i18n( WooCommerce_Warranty::get_datetime_format(), strtotime( $result['post_modified'] ) );
 
 			if ( $result['request_tracking_code'] == 'y' && empty($result['tracking_code']) ) {
 				// Ask for the shipping provider and tracking code
@@ -159,7 +159,7 @@
 				$refund_date   = get_post_meta( $result['ID'], '_refund_date', true );
 
 				if ( $refund_amount && $refund_date ) {
-					$pretty_date = date_i18n( get_option('date_format') .' '. get_option('time_format'), strtotime( $refund_date ) );
+					$pretty_date = date_i18n( WooCommerce_Warranty::get_datetime_format(), strtotime( $refund_date ) );
 					$warranty_details[] = sprintf(__('Item has been refunded the amount of %s on %s', 'wc_warranty'), wc_price( $refund_amount ), $pretty_date );
 				} else {
 					$warranty_details[] = __('Item has been refunded', 'wc_warranty');
@@ -177,8 +177,11 @@
 		</td>
 		<td>
 			<?php
-			foreach ( $result['products'] as $product ) {
-				echo '<a href="'. get_permalink( $product['product_id'] ) .'">'. warranty_get_product_title( $product['product_id'] ) .'</a> &times; '. $product['quantity'] .'<br/>';
+			foreach ( $result['products'] as $product_request ) {
+				$product      = wc_get_product( $product_request['product_id'] );
+				$product_name = ( $product ) ? $product->get_name() : warranty_get_product_title( $product_request['product_id'] );
+				
+				echo '<a href="' . esc_url( get_permalink( $product_request['product_id'] ) ) . '">' . $product_name . '</a> &times; ' . $product_request['quantity'] . '<br/>';
 			}
 			?>
 		</td>

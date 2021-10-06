@@ -1,9 +1,9 @@
 === WooCommerce Twilio SMS Notifications ===
 Author: skyverge
 Tags: woocommerce
-Requires at least: 4.4
-Tested up to: 5.5.1
-Requires PHP: 5.6
+Requires at least: 5.2
+Tested up to: 5.8
+Requires PHP: 7.0
 
 Send SMS order notifications to admins and customers for your WooCommerce store. Powered by Twilio :)
 

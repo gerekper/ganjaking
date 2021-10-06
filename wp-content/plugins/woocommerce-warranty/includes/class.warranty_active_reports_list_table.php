@@ -92,23 +92,16 @@ class Warranty_Active_Reports_List_Table extends WP_List_Table {
     }
 
     function column_order_id($item) {
-
-        $order_id = get_post_meta( $item->ID, '_order_id', true );
-        $order = wc_get_order( $order_id );
+		$order_id     = get_post_meta( $item->ID, '_order_id', true );
+        $order        = wc_get_order( $order_id );
         $order_number = ( $order ) ? $order->get_order_number() : '-';
+		$edit_url     = get_edit_post_link( $order_id, 'url' );
 
-        if ( class_exists('WC_Seq_Order_Number') ) {
-            $seq_order_id = $GLOBALS['wc_seq_order_number']->find_order_by_order_number( $order_id );
-
-            if ( $seq_order_id ) {
-                return '<a href="post.php?post='. $order_id .'&action=edit">#'. $seq_order_id .'</a>';
-            } else {
-                return '<a href="post.php?post='. $order_id .'&action=edit">'. $order_number .'</a>';
-            }
-        } else {
-            return '<a href="post.php?post='. $order_id .'&action=edit">'. $order_number .'</a>';
-        }
-
+		if ( $edit_url ) {
+			return '<a href="' . esc_url( $edit_url ) . '">' . $order_number . '</a>';	
+		}
+		
+        return $order_number;
     }
 
     function column_status($item) {
@@ -188,7 +181,7 @@ class Warranty_Active_Reports_List_Table extends WP_List_Table {
     function column_date($item) {
         $order_id   = get_post_meta( $item->ID, '_order_id', true );
         $order      = wc_get_order( $order_id );
-        return date_i18n( get_option('date_format') .' '. get_option('time_format'), strtotime( WC_Warranty_Compatibility::get_order_prop( $order, 'modified_date' ) ) );
+        return date_i18n( WooCommerce_Warranty::get_datetime_format(), strtotime( WC_Warranty_Compatibility::get_order_prop( $order, 'modified_date' ) ) );
     }
 
     function no_items() {

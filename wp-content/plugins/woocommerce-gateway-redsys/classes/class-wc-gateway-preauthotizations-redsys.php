@@ -24,8 +24,8 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 
 		$this->id = 'preauthorizationsredsys';
 
-		if ( ! empty( $this->get_option( 'logo' ) ) ) {
-			$logo_url   = $this->get_option( 'logo' );
+		if ( ! empty( WCRed()->get_redsys_option( 'logo', 'preauthorizationsredsys' ) ) ) {
+			$logo_url   = WCRed()->get_redsys_option( 'logo', 'preauthorizationsredsys' );
 			$this->icon = apply_filters( 'woocommerce_preauthorizationsredsys_icon', $logo_url );
 		} else {
 			$this->icon = apply_filters( 'woocommerce_preauthorizationsredsys_icon', REDSYS_PLUGIN_URL_P . 'assets/images/redsys.png' );
@@ -36,58 +36,61 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		$this->liveurlws            = 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl';
 		$this->testurlws            = 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl';
 		$this->testsha256           = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
-		$this->testmode             = $this->get_option( 'testmode' );
+		$this->testmode             = WCRed()->get_redsys_option( 'testmode', 'preauthorizationsredsys' );
 		$this->method_title         = __( 'Redsys Preauthorizations (by José Conti)', 'woocommerce-redsys' );
 		$this->method_description   = __( 'Redsys Preauthorizations works redirecting customers to Redsys or paying directly without leaving the website if you have active payment with 1 click and a terminal not secure.', 'woocommerce-redsys' );
-		$this->not_use_https        = $this->get_option( 'not_use_https' );
+		$this->not_use_https        = WCRed()->get_redsys_option( 'not_use_https', 'preauthorizationsredsys' );
 		$this->notify_url           = add_query_arg( 'wc-api', 'WC_Gateway_preauthorizationsredsys', home_url( '/' ) );
 		$this->notify_url_not_https = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_preauthorizationsredsys', home_url( '/' ) ) );
 		// Load the settings
 		$this->init_form_fields();
 		$this->init_settings();
 		// Define user set variables
-		$this->title                = $this->get_option( 'title' );
-		$this->description          = $this->get_option( 'description' );
-		$this->logo                 = $this->get_option( 'logo' );
-		$this->orderdo              = $this->get_option( 'orderdo' );
-		$this->customer             = $this->get_option( 'customer' );
-		$this->merchantgroup        = $this->get_option( 'merchantgroup' );
-		$this->commercename         = $this->get_option( 'commercename' );
-		$this->terminal             = $this->get_option( 'terminal' );
-		$this->secret               = $this->get_option( 'secret' );
-		$this->secretsha256         = $this->get_option( 'secretsha256' );
-		$this->customtestsha256     = $this->get_option( 'customtestsha256' );
-		$this->debug                = $this->get_option( 'debug' );
-		$this->hashtype             = $this->get_option( 'hashtype' );
-		$this->redsyslanguage       = $this->get_option( 'redsyslanguage' );
-		$this->wooredsysurlko       = $this->get_option( 'wooredsysurlko' );
-		$this->terminal2            = $this->get_option( 'terminal2' );
-		$this->useterminal2         = $this->get_option( 'useterminal2' );
-		$this->toamount             = $this->get_option( 'toamount' );
-		$this->usetokens            = $this->get_option( 'usetokens' );
-		$this->subsusetokensdisable = $this->get_option( 'subsusetokensdisable' );
-		$this->usetokensdirect      = $this->get_option( 'usetokensdirect' );
-		$this->bulkrefund           = $this->get_option( 'bulkrefund' );
-		$this->sendemails           = $this->get_option( 'sendemails' );
-		$this->checkoutredirect     = $this->get_option( 'checkoutredirect' );
-		$this->traactive            = $this->get_option( 'traactive' );
-		$this->traamount            = $this->get_option( 'traamount' );
+		$this->title                = WCRed()->get_redsys_option( 'title', 'preauthorizationsredsys' );
+		$this->multisitesttings     = WCRed()->get_redsys_option( 'multisitesttings', 'preauthorizationsredsys' );
+		$this->ownsetting           = WCRed()->get_redsys_option( 'ownsetting', 'preauthorizationsredsys' );
+		$this->hideownsetting       = WCRed()->get_redsys_option( 'hideownsetting', 'preauthorizationsredsys' );
+		$this->description          = WCRed()->get_redsys_option( 'description', 'preauthorizationsredsys' );
+		$this->logo                 = WCRed()->get_redsys_option( 'logo', 'preauthorizationsredsys' );
+		$this->orderdo              = WCRed()->get_redsys_option( 'orderdo', 'preauthorizationsredsys' );
+		$this->customer             = WCRed()->get_redsys_option( 'customer', 'preauthorizationsredsys' );
+		$this->merchantgroup        = WCRed()->get_redsys_option( 'merchantgroup', 'preauthorizationsredsys' );
+		$this->commercename         = WCRed()->get_redsys_option( 'commercename', 'preauthorizationsredsys' );
+		$this->terminal             = WCRed()->get_redsys_option( 'terminal', 'preauthorizationsredsys' );
+		$this->secret               = WCRed()->get_redsys_option( 'secret', 'preauthorizationsredsys' );
+		$this->secretsha256         = WCRed()->get_redsys_option( 'secretsha256', 'preauthorizationsredsys' );
+		$this->customtestsha256     = WCRed()->get_redsys_option( 'customtestsha256', 'preauthorizationsredsys' );
+		$this->debug                = WCRed()->get_redsys_option( 'debug', 'preauthorizationsredsys' );
+		$this->hashtype             = WCRed()->get_redsys_option( 'hashtype', 'preauthorizationsredsys' );
+		$this->redsyslanguage       = WCRed()->get_redsys_option( 'redsyslanguage', 'preauthorizationsredsys' );
+		$this->wooredsysurlko       = WCRed()->get_redsys_option( 'wooredsysurlko', 'preauthorizationsredsys' );
+		$this->terminal2            = WCRed()->get_redsys_option( 'terminal2', 'preauthorizationsredsys' );
+		$this->useterminal2         = WCRed()->get_redsys_option( 'useterminal2', 'preauthorizationsredsys' );
+		$this->toamount             = WCRed()->get_redsys_option( 'toamount', 'preauthorizationsredsys' );
+		$this->usetokens            = WCRed()->get_redsys_option( 'usetokens', 'preauthorizationsredsys' );
+		$this->subsusetokensdisable = WCRed()->get_redsys_option( 'subsusetokensdisable', 'preauthorizationsredsys' );
+		$this->usetokensdirect      = WCRed()->get_redsys_option( 'usetokensdirect', 'preauthorizationsredsys' );
+		$this->bulkrefund           = WCRed()->get_redsys_option( 'bulkrefund', 'preauthorizationsredsys' );
+		$this->sendemails           = WCRed()->get_redsys_option( 'sendemails', 'preauthorizationsredsys' );
+		$this->checkoutredirect     = WCRed()->get_redsys_option( 'checkoutredirect', 'preauthorizationsredsys' );
+		$this->traactive            = WCRed()->get_redsys_option( 'traactive', 'preauthorizationsredsys' );
+		$this->traamount            = WCRed()->get_redsys_option( 'traamount', 'preauthorizationsredsys' );
 		$this->redsysdirectdeb      = 'T';
 		$this->preauthorization     = 'yes';
-		$this->privateproduct       = $this->get_option( 'privateproduct' );
-		$this->sentemailscustomers  = $this->get_option( 'sentemailscustomers' );
-		$this->sendemailthankyou    = $this->get_option( 'sendemailthankyou' );
-		$this->sendemailthankyoutxt = $this->get_option( 'sendemailthankyoutxt' );
-		$this->testforuser          = $this->get_option( 'testforuser' );
-		$this->testforuserid        = $this->get_option( 'testforuserid' );
-		$this->redsysbanktransfer   = $this->get_option( 'redsysbanktransfer' );
-		$this->redirectiontime      = $this->get_option( 'redirectiontime' );
-		$this->sendemailsdscard     = $this->get_option( 'sendemailsdscard' );
-		$this->buttoncheckout       = $this->get_option( 'buttoncheckout' );
-		$this->butonbgcolor         = $this->get_option( 'butonbgcolor' );
-		$this->butontextcolor       = $this->get_option( 'butontextcolor' );
-		$this->descripredsys        = $this->get_option( 'descripredsys' );
-		$this->testshowgateway      = $this->get_option( 'testshowgateway' );
+		$this->privateproduct       = WCRed()->get_redsys_option( 'privateproduct', 'preauthorizationsredsys' );
+		$this->sentemailscustomers  = WCRed()->get_redsys_option( 'sentemailscustomers', 'preauthorizationsredsys' );
+		$this->sendemailthankyou    = WCRed()->get_redsys_option( 'sendemailthankyou', 'preauthorizationsredsys' );
+		$this->sendemailthankyoutxt = WCRed()->get_redsys_option( 'sendemailthankyoutxt', 'preauthorizationsredsys' );
+		$this->testforuser          = WCRed()->get_redsys_option( 'testforuser', 'preauthorizationsredsys' );
+		$this->testforuserid        = WCRed()->get_redsys_option( 'testforuserid', 'preauthorizationsredsys' );
+		$this->redsysbanktransfer   = WCRed()->get_redsys_option( 'redsysbanktransfer', 'preauthorizationsredsys' );
+		$this->redirectiontime      = WCRed()->get_redsys_option( 'redirectiontime', 'preauthorizationsredsys' );
+		$this->sendemailsdscard     = WCRed()->get_redsys_option( 'sendemailsdscard', 'preauthorizationsredsys' );
+		$this->buttoncheckout       = WCRed()->get_redsys_option( 'buttoncheckout', 'preauthorizationsredsys' );
+		$this->butonbgcolor         = WCRed()->get_redsys_option( 'butonbgcolor', 'preauthorizationsredsys' );
+		$this->butontextcolor       = WCRed()->get_redsys_option( 'butontextcolor', 'preauthorizationsredsys' );
+		$this->descripredsys        = WCRed()->get_redsys_option( 'descripredsys', 'preauthorizationsredsys' );
+		$this->testshowgateway      = WCRed()->get_redsys_option( 'testshowgateway', 'preauthorizationsredsys' );
 		$this->log                  = new WC_Logger();
 		$this->supports             = array(
 			'products',
@@ -233,7 +236,7 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	function init_form_fields() {
 
 		$options    = array();
-		$selections = (array) $this->get_option( 'testforuserid' );
+		$selections = (array) WCRed()->get_redsys_option( 'testforuserid', 'preauthorizationsredsys' );
 
 		if ( count( $selections ) !== 0 ) {
 			foreach ( $selections as $user_id ) {
@@ -248,7 +251,7 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		}
 
 		$options_show    = array();
-		$selections_show = (array)$this->get_option( 'testshowgateway' );
+		$selections_show = (array) WCRed()->get_redsys_option( 'testshowgateway', 'preauthorizationsredsys' );
 		if ( count( $selections_show ) !== 0 ) {
 			foreach ( $selections_show as $user_id ) {
 				if ( ! empty( $user_id ) ) {
@@ -267,6 +270,27 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable Servired/RedSys', 'woocommerce-redsys' ),
 				'default' => 'no',
+			),
+			'multisitesttings'   => array(
+				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Use this setting arround all Network', 'woocommerce-redsys' ),
+				'description' => '',
+				'default'     => 'no',
+			),
+			'hideownsetting'   => array(
+				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
+				'description' => '',
+				'default'     => 'no',
+			),
+			'ownsetting'         => array(
+				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
+				'description' => '',
+				'default'     => 'no',
 			),
 			'redirectiontime'      => array(
 				'title'       => __( 'Redirection time', 'woocommerce-redsys' ),
@@ -548,6 +572,23 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 		foreach ( $redsyslanguages as $redsyslanguage => $valor ) {
 			$this->form_fields['redsyslanguage']['options'][ $redsyslanguage ] = $valor;
 		}
+		if ( ! is_multisite() ) {
+			unset( $this->form_fields['multisitesttings'] );
+			unset( $this->form_fields['ownsetting'] );
+			unset( $this->form_fields['hideownsetting'] );
+		} else {
+			if ( is_main_site() ) {
+				unset( $this->form_fields['ownsetting'] );
+			} else {
+				unset( $this->form_fields['multisitesttings'] );
+				unset( $this->form_fields['hideownsetting'] );
+				$globalsettings = WCRed()->get_redsys_option( 'multisitesttings', $this->id );
+				$hide           = WCRed()->get_redsys_option( 'hideownsetting', $this->id );
+				if ( 'yes' === $hide || 'yes' !== $globalsettings ) {
+					unset( $this->form_fields['ownsetting'] );
+				}
+			}
+		}
 	}
 	/**
 	 * Package: WooCommerce Redsys Gateway
@@ -557,7 +598,7 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 	function check_user_test_mode( $userid ) {
 
 		$usertest_active = $this->testforuser;
-		$selections      = (array) $this->get_option( 'testforuserid' );
+		$selections      = (array) WCRed()->get_redsys_option( 'testforuserid', 'preauthorizationsredsys' );
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'preauthorizationsredsys', ' ' );
 			$this->log->add( 'preauthorizationsredsys', '/****************************/' );

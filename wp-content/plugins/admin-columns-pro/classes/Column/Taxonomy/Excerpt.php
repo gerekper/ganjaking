@@ -21,7 +21,10 @@ class Excerpt extends AC\Column
 	}
 
 	public function editing() {
-		return new Editing\Model\Taxonomy\Description( $this );
+		return new Editing\Service\Basic(
+			new Editing\View\TextArea(),
+			new Editing\Storage\Taxonomy\Field( $this->get_taxonomy(), 'description' )
+		);
 	}
 
 	public function register_settings() {

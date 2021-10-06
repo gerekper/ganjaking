@@ -17,7 +17,10 @@ class MeprQuadernoIntegration {
 
     if(!isset($args['metadata']) || !is_array($args['metadata'])) { $args['metadata'] = array(); }
 
-    $args['metadata']['tax_rate']       = $txn->tax_rate;
+    if(isset($txn->tax_rate) && $txn->tax_rate > 0) {
+      $args['metadata']['tax_rate'] = $txn->tax_rate;
+    }
+
     $args['metadata']['vat_number']     = get_user_meta($usr->ID, 'mepr_vat_number', true);
     $args['metadata']['invoice_email']  = $usr->user_email;
 

@@ -28,8 +28,8 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 
 		// Add "URI Editor" to "Quick Edit" for all taxonomies
 		foreach($all_taxonomies as $tax => $label) {
-			// Check if post type is allowed
-			if(Permalink_Manager_Helper_Functions::is_disabled($tax, 'taxonomy')) { continue; }
+			// Check if taxonomy is allowed
+			if(Permalink_Manager_Helper_Functions::is_taxonomy_disabled($tax)) { continue; }
 
 			add_action( "edited_{$tax}", array($this, 'update_term_uri'), 10, 2 );
 			add_action( "create_{$tax}", array($this, 'update_term_uri'), 10, 2 );
@@ -50,7 +50,7 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 	* Change permalinks for taxonomies
 	*/
 	function custom_tax_permalinks($permalink, $term) {
-		global $wp_rewrite, $permalink_manager_uris, $permalink_manager_options;
+		global $wp_rewrite, $permalink_manager_uris, $permalink_manager_options, $permalink_manager_ignore_permalink_filters;
 
 		// Do not filter permalinks in Customizer
 		if((function_exists('is_customize_preview') && is_customize_preview()) || !empty($_REQUEST['customize_url'])) { return $permalink; }
@@ -58,10 +58,13 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 		// Do not filter in WPML String Editor
 		if(!empty($_REQUEST['icl_ajx_action']) && $_REQUEST['icl_ajx_action'] == 'icl_st_save_translation') { return $permalink; }
 
+		// Do not filter if $permalink_manager_ignore_permalink_filters global is set
+		if(!empty($permalink_manager_ignore_permalink_filters)) { return $permalink; }
+
 		$term = (is_numeric($term)) ? get_term($term) : $term;
 
-		// Check if taxonomy is allowed
-		if(empty($term->term_id) || (!empty($term->taxonomy) && Permalink_Manager_Helper_Functions::is_disabled($term->taxonomy, 'taxonomy'))) { return $permalink; }
+		// Check if the term is allowed
+		if(empty($term->term_id) || Permalink_Manager_Helper_Functions::is_term_excluded($term)) { return $permalink; }
 
 		// Get term id
 		$term_id = $term->term_id;
@@ -134,7 +137,7 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 		$top_parent_slug = '';
 
 		// 1A. Check if taxonomy is allowed
-		if($check_if_disabled && Permalink_Manager_Helper_Functions::is_disabled($taxonomy, 'taxonomy')) { return ''; }
+		if($check_if_disabled && Permalink_Manager_Helper_Functions::is_taxonomy_disabled($taxonomy)) { return ''; }
 
 		// 2A. Get the native permastructure
 		$native_permastructure = Permalink_Manager_Helper_Functions::get_default_permastruct($taxonomy_name, true);
@@ -270,9 +273,12 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 		}
 
 		// Get excluded items
-		$exclude_terms = $wpdb->get_col("SELECT t.term_id FROM {$wpdb->termmeta} AS tm LEFT JOIN {$wpdb->terms} AS t ON (tm.term_id = t.term_id) WHERE tm.meta_key = 'auto_update_uri' AND tm.meta_value = '-2'");
-		if(!empty($exclude_terms)) {
-			$where .= sprintf(" AND t.term_id NOT IN ('%s') ", implode("', '", $exclude_terms));
+		$excluded_terms_ui = $wpdb->get_col("SELECT t.term_id FROM {$wpdb->termmeta} AS tm LEFT JOIN {$wpdb->terms} AS t ON (tm.term_id = t.term_id) WHERE tm.meta_key = 'auto_update_uri' AND tm.meta_value = '-2'");
+		$excluded_terms_hook = (array) apply_filters('permalink_manager_excluded_term_ids', array());
+		$excluded_terms = array_merge($excluded_terms_ui, $excluded_terms_hook);
+
+		if(!empty($excluded_terms)) {
+			$where .= sprintf(" AND t.term_id NOT IN ('%s') ", implode("', '", $excluded_terms));
 		}
 
 		// Get the rows before they are altered
@@ -338,8 +344,10 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 			}
 
 			// Filter array before saving
-			$permalink_manager_uris = array_filter($permalink_manager_uris);
-			update_option('permalink-manager-uris', $permalink_manager_uris);
+			if(is_array($permalink_manager_uris)) {
+				$permalink_manager_uris = array_filter($permalink_manager_uris);
+				update_option('permalink-manager-uris', $permalink_manager_uris);
+			}
 
 			$output = array('updated' => $updated_array, 'updated_count' => $updated_slugs_count);
 		}
@@ -405,8 +413,10 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 			}
 
 			// Filter array before saving
-			$permalink_manager_uris = array_filter($permalink_manager_uris);
-			update_option('permalink-manager-uris', $permalink_manager_uris);
+			if(is_array($permalink_manager_uris)) {
+				$permalink_manager_uris = array_filter($permalink_manager_uris);
+				update_option('permalink-manager-uris', $permalink_manager_uris);
+			}
 
 			$output = array('updated' => $updated_array, 'updated_count' => $updated_slugs_count);
 			wp_reset_postdata();
@@ -447,7 +457,7 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 				$old_uri = isset($old_uris[$id]) ? trim($old_uris[$id], "/") : "";
 
 				// Process new values - empty entries will be treated as default values
-				$new_uri = preg_replace('/\s+/', '', $new_uri);
+				$new_uri = Permalink_Manager_Helper_Functions::sanitize_title($new_uri);
 				$new_uri = (!empty($new_uri)) ? trim($new_uri, "/") : $default_uri;
 				$new_slug = (strpos($new_uri, '/') !== false) ? substr($new_uri, strrpos($new_uri, '/') + 1) : $new_uri;
 
@@ -461,8 +471,10 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 			}
 
 			// Filter array before saving & append the global
-			$old_uris = $permalink_manager_uris = array_filter($old_uris);
-			update_option('permalink-manager-uris', $old_uris);
+			if(is_array($permalink_manager_uris)) {
+				$old_uris = $permalink_manager_uris = array_filter($old_uris);
+				update_option('permalink-manager-uris', $old_uris);
+			}
 
 			//print_r($permalink_manager_uris);
 
@@ -478,9 +490,12 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 	public function edit_uri_box($term = '') {
 		global $permalink_manager_uris;
 
+		// Check if the term is excluded
+		if(empty($term) || Permalink_Manager_Helper_Functions::is_term_excluded($term)) { return; }
+
 		// Stop the hook (if needed)
 		if(!empty($term->taxonomy)) {
-			$show_uri_editor = apply_filters("permalink_manager_hide_uri_editor_term_{$term->taxonomy}", true);
+			$show_uri_editor = apply_filters("permalink_manager_hide_uri_editor_term_{$term->taxonomy}", true, $term);
 
 			if(!$show_uri_editor) { return; }
 		}
@@ -552,12 +567,12 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 		$this_term = get_term($term_id);
 		$term_permalink_id = "tax-{$term_id}";
 
-		// Check if taxonomy is allowed
-		if(Permalink_Manager_Helper_Functions::is_disabled($this_term->taxonomy, 'taxonomy')) { return; }
+		// Check if the term is allowed
+		if(empty($this_term->taxonomy) || Permalink_Manager_Helper_Functions::is_term_excluded($this_term)) { return; }
 
 		// Stop the hook (if needed)
 		$allow_update_term = apply_filters("permalink_manager_update_term_uri_{$this_term->taxonomy}", true);
-		if(!$allow_update_term) { return $post_id; }
+		if(!$allow_update_term) { return; }
 
 		// Get auto-update URI setting (if empty use global setting)
 		if(!empty($_POST["auto_update_uri"])) {
@@ -594,7 +609,9 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 
 		do_action('permalink_manager_updated_term_uri', $term_id, $new_uri, $old_uri, $native_uri, $default_uri);
 
-		update_option('permalink-manager-uris', $permalink_manager_uris);
+		if(is_array($permalink_manager_uris)) {
+			update_option('permalink-manager-uris', $permalink_manager_uris);
+		}
 	}
 
 	/**
@@ -608,7 +625,9 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 			unset($permalink_manager_uris["tax-{$term_id}"]);
 		}
 
-		update_option('permalink-manager-uris', $permalink_manager_uris);
+		if(is_array($permalink_manager_uris)) {
+			update_option('permalink-manager-uris', $permalink_manager_uris);
+		}
 	}
 
 }

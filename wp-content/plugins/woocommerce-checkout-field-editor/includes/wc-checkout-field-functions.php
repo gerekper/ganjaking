@@ -683,6 +683,10 @@ function wc_get_checkout_field_value( $order, $name, $options ) {
 	$order_id    = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
 	$field_value = get_post_meta( $order_id, $name, true );
 
+	if ( array_key_exists( $field_value, $options['options'] ) ) {
+		$field_value = $options['options'][ $field_value ];
+	}
+
 	if ( 'checkbox' === $options['type'] && '1' === $field_value ) {
 		$field_value = __( 'yes', 'woocommerce-checkout-field-editor' );
 	}

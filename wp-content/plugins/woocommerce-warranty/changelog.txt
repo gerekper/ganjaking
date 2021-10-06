@@ -1,7 +1,24 @@
 *** Warranty Requests Changelog ***
 
+2021-09-13 - version 1.9.29
+* Fix   - Display Variation details on the Request Warranty Page.
+
+2021-08-31 - version 1.9.28
+* Fix - Incorrect IDs on plugin reports page when Sequential Order Numbers is installed.
+
+2021-08-19 - version 1.9.27
+* Fix   - PHP Notice: Undefined index: qty.
+* Fix   - PHP Notice: Undefined index: index.
+* Fix   - PHP Notice: Missing 'completed' variable.
+* Fix   - PHP Notice: A non-numeric value.
+* Fix   - Make datetime format consistent throughout plugin files.
+
+2021-07-27 - version 1.9.26
+* Fix 	- Incorrect remaining item for variable products.
+* Fix 	- Empty warranty label on variable products.
+
 2021-06-10 - version 1.9.25
-* Fix - Release changelog entries
+* Fix 	- Release changelog entries
 * Fix	- Warning "undefined array key 0".
 * Fix	- Warning "Trying to access array offset on value of type null".
 

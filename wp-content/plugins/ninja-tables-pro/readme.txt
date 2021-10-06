@@ -4,8 +4,8 @@ Donate link: https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/
 Tags:  table, Data Tables, WP Data tables, WordPress table Plugin, Table Grid, wp table, datatables plugin, csv data, TablePress Migration, Footable Plugin, Tablular Data, stackable table, spreadsheet data, Woo Commerce Product Table, Amazon Affiliate Table, bootstrap table
 Requires at least: 4.5
 Requires PHP: 5.4 or greater
-Tested up to: 5.7.2
-Stable tag: 4.1.6
+Tested up to: 5.8.1
+Stable tag: 4.1.7
 
 == Description ==
 
@@ -28,6 +28,13 @@ Manual Install:
 Upload the plugin files to the /wp-content/plugins/ directory, then activate the plugin.
 
 == Changelog ==
+
+=4.1.7 (Date: September 17, 2021)
+- Added woocommerce product variations
+- Fixes date & date range filter manual input date search issue
+- Fixes progressive filter filter_selects
+- Fixes category post filter issue
+- Fixes filter shortcode for AND logical operator and phrase filter
 
 =4.1.6 (Date: Jun 28, 2021)
 - Fixes CSV export & Print issue in frontend
@@ -75,7 +82,7 @@ Upload the plugin files to the /wp-content/plugins/ directory, then activate the
 - Adds Jetpack lazy image compatibility.
 - Adds Fluent Form meta fields to display.
 - Adds cart and checkout button customization.
-- Adds batch insert for CSV to avoid PHP memory issue.
+- Adds batch isert for CSV to avoid PHP memory issue.
 - Adds filters and search to be included in Print page.
 - Adds removing image option in both backend and frontend.
 - Adds all chunk data loaded hook for frontend ('ninja_table_all_chunk_loaded'').
@@ -125,19 +132,19 @@ Upload the plugin files to the /wp-content/plugins/ directory, then activate the
 
 =3.5.7 (Date: Aug 28, 2019)
 - All Accessibility Issues fixed so far (y)
-- Google Sheet integration improved
+- Google Sheet integration imroved
 - SKU field added to WooCommerce integration
 - Added advanced shortcode to Posts and WooCoomerce
-- Added Remote SQL Connection
+- Added Remote SQL COnnection
 - Frontend editing image disapear issue fixed
-- Spinner effect for legacy mode (Configurable)
+- Spinner effect for legacy mode (Configrable)
 - Added Print Header and Footer
 - Improvement on integrations
 - Filtering issue fixed for number range
 - Date format bug fixed
 - Spinner effect improved
 - PHP warning fixed
-- Added filter and improvements
+- Added filter and improvemts
 - Number data type UX improved
 
 =3.5.5 (Date: June 20, 2019)
@@ -156,7 +163,7 @@ Upload the plugin files to the /wp-content/plugins/ directory, then activate the
 - Added Image Type Data Field
 - Added Built in lightbox
 - Added Button Type Box
-- Added Excel Formulas
+- Added Excel Formullas
 - Added Many new features
 - Added Inline editing
 
@@ -190,14 +197,14 @@ Upload the plugin files to the /wp-content/plugins/ directory, then activate the
 * Add Cell level Color Customization
 * Add Features for advanced Filter Customizations
 * Improved Table Import Export Feature
-* Added Global JS error handling. Now Ninja table will be initialized if other plugin throw JS error on front end.
+* Added Global JS error handling. Now Ninja table will be initiazed if other plugin throw JS error on front end.
 * Added Advanced Css Classes for Table rows to styling.
 * Improve overall Admin UI
 * Added Performance improvement to load lots of data on frontend
 
 3.1.0 ( December 24, 2018 )
 * Added Stackable Table UI
-* Added Default Table Configuration Option
+* Added Default Table Configration Option
 * Fix Intro Screen
 * Improve Table UI
 * Improve overall Admin UI
@@ -213,19 +220,19 @@ Upload the plugin files to the /wp-content/plugins/ directory, then activate the
  - Fix licensing issue
 
 3.0.3 ( November 19, 2018 )
- - Added Lots of Improvements
+ - Added Lots of Improvments
  - Added Remote CSV File Connection
  - Added Google Sheet Connection
  - Added WP Posts Table
 
 
 2.4.0 ( October 05, 2018 )
- - Added Lots of Improvements
- - Added Custom Filters
+ - Added Lots of Improvments
+ - Added Custom Filtes
  - Brand New UI and UX
 
 2.3.1 ( August 19, 2018 )
- - Added Lots of Improvements
+ - Added Lots of Improvments
 
 2.2.1 ( June 19, 2018 )
  - Fix License Server Issue for some hosts

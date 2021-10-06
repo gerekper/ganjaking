@@ -223,7 +223,7 @@ class Indexable_Repository {
 	 * @return bool|Indexable Instance of indexable.
 	 */
 	public function find_for_home_page( $auto_create = true ) {
-		$indexable = wp_cache_get( 'home-page', 'yoast-seo-indexables' );
+		$indexable = \wp_cache_get( 'home-page', 'yoast-seo-indexables' );
 		if ( ! $indexable ) {
 			/**
 			 * Indexable instance.
@@ -238,7 +238,7 @@ class Indexable_Repository {
 
 			$indexable = $this->ensure_permalink( $indexable );
 
-			wp_cache_set( 'home-page', $indexable, 'yoast-seo-indexables', ( 5 * MINUTE_IN_SECONDS ) );
+			\wp_cache_set( 'home-page', $indexable, 'yoast-seo-indexables', ( 5 * \MINUTE_IN_SECONDS ) );
 		}
 
 		return $indexable;
@@ -478,9 +478,13 @@ class Indexable_Repository {
 	 *
 	 * @return bool|Indexable The indexable.
 	 */
-	protected function ensure_permalink( $indexable ) {
+	public function ensure_permalink( $indexable ) {
 		if ( $indexable && $indexable->permalink === null ) {
 			$indexable->permalink = $this->permalink_helper->get_permalink_for_indexable( $indexable );
+
+			if ( $indexable->permalink === null && $indexable->post_status === 'unindexed' ) {
+				$indexable->permalink = 'unindexed';
+			}
 
 			// Only save if changed.
 			if ( $indexable->permalink !== null ) {
@@ -513,8 +517,8 @@ class Indexable_Repository {
 	/**
 	 * Resets the permalinks of the passed object type and subtype.
 	 *
-	 * @param string      $type    The type of the indexable. Can be null.
-	 * @param null|string $subtype The subtype. Can be null.
+	 * @param string|null $type    The type of the indexable. Can be null.
+	 * @param string|null $subtype The subtype. Can be null.
 	 *
 	 * @return int|bool The number of permalinks changed if the query was succesful. False otherwise.
 	 */

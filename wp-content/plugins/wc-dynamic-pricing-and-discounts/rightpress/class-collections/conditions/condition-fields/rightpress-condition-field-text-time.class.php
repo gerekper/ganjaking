@@ -54,7 +54,7 @@ abstract class RightPress_Condition_Field_Text_Time extends RightPress_Condition
      */
     public function get_placeholder()
     {
-        return __('select time', 'rightpress');
+        return esc_html__('select time', 'rightpress');
     }
 
     /**

@@ -191,7 +191,7 @@ class NextGen extends Abstract_Integration {
 			// Check for timeout error and suggest to filter timeout.
 			if ( strpos( $error_message, 'timed out' ) ) {
 				$error         = 'timeout';
-				$error_message = esc_html__( 'Smush request timed out. You can try setting a higher value ( > 60 ) for `WP_SMUSH_API_TIMEOUT`.', 'wp-smushit' );
+				$error_message = esc_html__( 'Smush request timed out. You can try setting a higher value ( > 60 ) for `WP_SMUSH_TIMEOUT`.', 'wp-smushit' );
 			}
 
 			$error     = isset( $error ) ? $error : 'other';

@@ -42,8 +42,8 @@ abstract class RightPress_Condition_Method_Postcode extends RightPress_Condition
     {
 
         return array(
-            'matches'           => __('matches', 'rightpress'),
-            'does_not_match'    => __('does not match', 'rightpress'),
+            'matches'           => esc_html__('matches', 'rightpress'),
+            'does_not_match'    => esc_html__('does not match', 'rightpress'),
         );
     }
 

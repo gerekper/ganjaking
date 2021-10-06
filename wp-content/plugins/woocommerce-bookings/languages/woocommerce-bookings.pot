@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Bookings 1.15.42\n"
+"Project-Id-Version: WooCommerce Bookings 1.15.43\n"
 "Report-Msgid-Bugs-To: https://docs.woocommerce.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-07-21T17:33:49+00:00\n"
+"POT-Creation-Date: 2021-07-28T17:41:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: woocommerce-bookings\n"
@@ -184,7 +184,7 @@ msgstr ""
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:256
 #: includes/class-wc-bookings-google-calendar-connection.php:1272
-#: includes/wc-bookings-functions.php:1101
+#: includes/wc-bookings-functions.php:1109
 msgid "Persons"
 msgstr ""
 
@@ -1521,7 +1521,7 @@ msgstr ""
 
 #: includes/admin/views/html-booking-resources.php:8
 #: includes/booking-form/class-wc-booking-form.php:320
-#: includes/wc-bookings-functions.php:850
+#: includes/wc-bookings-functions.php:858
 msgid "Type"
 msgstr ""
 
@@ -2110,7 +2110,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: includes/booking-form/class-wc-booking-form.php:294
-#: includes/wc-bookings-functions.php:1128
+#: includes/wc-bookings-functions.php:1136
 msgid "day"
 msgid_plural "days"
 msgstr[0] ""
@@ -3186,31 +3186,31 @@ msgstr ""
 msgid "Rules with lower priority numbers will override rules with a higher priority (e.g. 9 overrides 10 ). Global rules take priority over product rules which take priority over resource rules. By using priority numbers you can execute rules in different orders."
 msgstr ""
 
-#: includes/wc-bookings-functions.php:1124
+#: includes/wc-bookings-functions.php:1132
 msgid "month"
 msgid_plural "months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-bookings-functions.php:1131
+#: includes/wc-bookings-functions.php:1139
 msgid "week"
 msgid_plural "weeks"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-bookings-functions.php:1135
+#: includes/wc-bookings-functions.php:1143
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-bookings-functions.php:1138
+#: includes/wc-bookings-functions.php:1146
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/wc-bookings-functions.php:1141
+#: includes/wc-bookings-functions.php:1149
 msgid "night"
 msgid_plural "nights"
 msgstr[0] ""

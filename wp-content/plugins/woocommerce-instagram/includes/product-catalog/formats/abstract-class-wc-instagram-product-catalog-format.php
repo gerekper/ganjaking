@@ -157,7 +157,12 @@ abstract class WC_Instagram_Product_Catalog_Format {
 	 * @param array $products Product list.
 	 */
 	protected function load_product_items( $products ) {
+		if ( empty( $products ) ) {
+			return;
+		}
+
 		$include_variations = $this->get_product_catalog()->get_include_variations();
+		$stock_status       = $this->get_product_catalog()->get_stock_status();
 
 		foreach ( $products as $product ) {
 			try {
@@ -165,6 +170,10 @@ abstract class WC_Instagram_Product_Catalog_Format {
 					$variations = $product->get_available_variations();
 
 					foreach ( $variations as $variation ) {
+						if ( 'instock' === $stock_status && ! $variation['is_in_stock'] ) {
+							continue;
+						}
+
 						$product_variation = wc_get_product( $variation['variation_id'] );
 
 						if ( $product_variation ) {
@@ -293,7 +302,8 @@ abstract class WC_Instagram_Product_Catalog_Format {
 				$value = ( $product_item->get_condition() ? $product_item->get_condition() : $product_catalog->get_condition() );
 				break;
 			case 'google_product_category':
-				$value = ( $product_item->get_google_product_category() ? $product_item->get_google_product_category() : $product_catalog->get_google_product_category() );
+				$product_cat = $product_item->get_google_product_category();
+				$value       = ( $product_cat ? $product_cat : $product_catalog->get_google_product_category() );
 				break;
 			case 'description':
 				$value    = '';

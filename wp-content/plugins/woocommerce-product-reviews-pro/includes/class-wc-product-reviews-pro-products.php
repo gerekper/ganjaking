@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-product-reviews-pro/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2015-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2021, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
  * Product Reviews Pro Products handler.
@@ -165,16 +165,16 @@ class WC_Product_Reviews_Pro_Products {
 				if ( ! isset( self::$contribution_count_for_product[ $product_id ][ $cache_key ] ) ) {
 
 					$select = $wpdb->prepare( "
-						SELECT COUNT(comment_ID) 
-						FROM $wpdb->comments 
-						WHERE comment_post_ID = %d 
+						SELECT COUNT(comment_ID)
+						FROM $wpdb->comments
+						WHERE comment_post_ID = %d
 						AND comment_approved = 1
 					", (int) $product_id );
 
 					if ( 'any' !== $cache_key && ! empty( $types ) ) {
 
-						$where_types  = implode( ', ', array_fill( 0, count( (array) $types ), '%s' ) );
-						$select      .= $wpdb->prepare( " 
+						$where_types = implode( ', ', array_fill( 0, count( (array) $types ), '%s' ) );
+						$select     .= $wpdb->prepare( "
 							AND comment_type IN({$where_types})
 						", (array) $types );
 					}

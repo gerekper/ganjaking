@@ -1,5 +1,34 @@
 *** WooCommerce Product Search ***
 
+2021.08.06 - version 4.0.1
+* Fixes issues with dropdown style not being applied to category or attribute filters (appearing to be haphazard due to disorderly Javascript execution paths).
+* Omitting shop page check for customizer so block widget content is shown regardless of setting to show on shop pages only.
+
+2021.08.04 - version 4.0.0
+* WooCommerce 5.5 compatible.
+* Requires at least WooCommerce 5.0.
+* WordPress 5.8+ full widgets block editor compatibility.
+* Full block editor compatibility with new blocks added for all search and filter facilities provided by the extension.
+* Added the Product Search Field block.
+* Added the Product Filter – Search block.
+* Added the Product Filter – Category block.
+* Added the Product Filter – Attribute block.
+* Added the Product Filter – Price block.
+* Added the Product Filter – Rating block.
+* Added the Product Filter – Reset block.
+* Added the Product Filter – Sale block.
+* Added the Product Filter – Stock block.
+* Added the Product Filter – Tag block.
+* Added the Product Filter – Products block.
+* Blinded inline scripts against unwanted modification during content rendering (wptexturize etc).
+* Added the woocommerce_product_search_is_shop filter.
+* Added the woocommerce_product_search_is_shop() API function.
+* Added support for shop_only attributes on filter shortcodes and corresponding API functions.
+* Fixed automated search filter output in wp_footer corrupting responses to certain JSON requests, e.g. filter block output for ServerSideRender.
+* Fixed Javascript errors when trying to set properties of certain document elements when absent.
+* Removes the assistant as it is superfluous if the widgets block editor is used. The block browser can be used instead.
+* Requires fully updated database, removed backward-compatibility for configurations that have no object_term table.
+
 2021.06.16 - version 3.8.0
 * WordPress 5.8 compatible.
 * WooCommerce 5.4 compatible.

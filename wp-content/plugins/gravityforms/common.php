@@ -12,6 +12,9 @@ use \Gravity_Forms\Gravity_Forms\Messages\Dismissable_Messages;
  */
 class GFCommon {
 
+	private static $plugins;
+	private static $license_info;
+
 	// deprecated; set to GFForms::$version in GFForms::init() for backwards compat
 	public static $version = null;
 
@@ -525,7 +528,7 @@ class GFCommon {
 	}
 
 	public static function is_valid_email( $email ) {
-		return is_email( $email );
+		return is_email( trim( $email ) );
 	}
 
 	public static function is_valid_email_list( $email_list ) {
@@ -1235,6 +1238,26 @@ class GFCommon {
 		return str_replace( '&#x7b;', '{', $text );
 	}
 
+	/**
+	 * Given a calculation formula tag, (e.g. {:1} + 3), gather any field IDs referenced
+	 * within it and return as an array.
+	 *
+	 * @since 2.5.10
+	 *
+	 * @param string $text The formula tag to parse.
+	 *
+	 * @return array
+	 */
+	public static function get_field_ids_from_formula_tag( $text ) {
+		preg_match_all( '/\{[^:]*:([0-9]+)\}/', $text, $matches );
+
+		if ( empty( $matches[1] ) ) {
+			return array();
+		}
+
+		return $matches[1];
+	}
+
 	public static function format_post_category( $value, $use_id ) {
 
 		list( $item_value, $item_id ) = rgexplode( ':', $value, 2 );
@@ -1919,7 +1942,7 @@ class GFCommon {
 		}
 
 		$version_info = self::get_version_info();
-		$is_expired   = false;
+		$is_expired   = ! rgempty( 'expiration_time', $version_info ) && $version_info['expiration_time'] < time();
 		if ( ! rgar( $version_info, 'is_valid_key' ) && $is_expired ) {
 			$message .= "<br/><br/>Your Gravity Forms License Key has expired. In order to continue receiving support and software updates you must renew your license key. You can do so by following the renewal instructions on the Gravity Forms Settings page in your WordPress Dashboard or by <a href='http://www.gravityhelp.com/renew-license/?key=" . self::get_key() . "'>clicking here</a>.";
 		}
@@ -2873,9 +2896,7 @@ Content-Type: text/html;
 	}
 
 	public static function get_key_info( $key ) {
-		$key_info["is_active"] = true;
 
-		return $key_info;
 		$options            = array( 'method' => 'POST', 'timeout' => 3 );
 		$options['headers'] = array(
 			'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
@@ -2891,7 +2912,6 @@ Content-Type: text/html;
 
 		$key_info = unserialize( trim( $raw_response['body'] ) );
 
-		$key_info["is_active"] = true;
 		return $key_info ? $key_info : array();
 	}
 
@@ -2899,18 +2919,100 @@ Content-Type: text/html;
 	 * Get the license and plugins information.
 	 *
 	 * @since unknown
+	 * @since 2.5     Deprecated the gform_version_info option. Get the license and plugins data from their own methods.
 	 *
 	 * @param bool $cache If we should use the cached data.
 	 *
 	 * @return array|null
 	 */
 	public static function get_version_info( $cache = true ) {
+		/**
+		 * @var \Gravity_Forms\Gravity_Forms\License\GF_License_API_Connector $license_connector
+		 */
+		$license_connector = GFForms::get_service_container()->get( \Gravity_Forms\Gravity_Forms\License\GF_License_Service_Provider::LICENSE_API_CONNECTOR );
 
-		$version_info = array( 'is_valid_key' => '1', 'version' => '2.5.7.5', 'url' => home_url() , 'is_error' => '0','timestamp'=>time());
+		if ( ! is_null( self::$plugins ) && $cache ) {
+			$plugins      = self::$plugins;
+			$license_info = self::$license_info;
+		} else {
+			$plugins            = $license_connector->get_plugins( $cache );
+			$license_info       = self::get_key() ? $license_connector->check_license( false, $cache ) : new WP_Error( \Gravity_Forms\Gravity_Forms\License\GF_License_Statuses::NO_DATA );
+			self::$plugins      = $plugins;
+			self::$license_info = $license_info;
+		}
 
+		return array(
+			'is_valid_key' => ! is_wp_error( $license_info ) && $license_info->can_be_used(),
+			'reason'       => $license_info->get_error_message(),
+			'version'      => rgars( $plugins, 'gravityforms/version' ),
+			'url'          => rgars( $plugins, 'gravityforms/url' ),
+			'is_error'     => is_wp_error( $license_info ) || $license_info->has_errors(),
+			'offerings'    => $plugins,
+		);
+	}
+
+	/**
+	 * The legacy version of the get_version_info() method.
+	 *
+	 * @since 2.5
+	 *
+	 * @param bool $cache True if use the cache.
+	 *
+	 * @return array|false|mixed|string[]|void
+	 */
+	public static function legacy_get_version_info( $cache = true ) {
+
+		$version_info = get_option( 'gform_version_info' );
+		if ( ! $cache ) {
+			$version_info = null;
+		} else {
+
+			// Checking cache expiration
+			$cache_duration = DAY_IN_SECONDS; // 24 hours.
+			$cache_timestamp = $version_info && isset( $version_info['timestamp'] ) ? $version_info['timestamp'] : 0;
+
+			// Is cache expired ?
+			if ( $cache_timestamp + $cache_duration < time() ) {
+				$version_info = null;
+			}
+		}
+
+		if ( is_wp_error( $version_info ) || isset( $version_info['headers'] ) ) {
+			// Legacy ( < 2.1.1.14 ) version info contained the whole raw response.
+			$version_info = null;
+		}
+
+		if ( ! $version_info ) {
+			//Getting version number
+			$options            = array( 'method' => 'POST', 'timeout' => 20 );
+			$options['headers'] = array(
+				'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
+				'User-Agent'   => 'WordPress/' . get_bloginfo( 'version' ),
+				'Referer'      => get_bloginfo( 'url' ),
+			);
+			$options['body']    = self::get_remote_post_params();
+			$options['timeout'] = 15;
+
+			$nocache = $cache ? '' : 'nocache=1'; //disabling server side caching
+
+			$raw_response = self::post_to_manager( 'version.php', $nocache, $options );
+
+			if ( is_wp_error( $raw_response ) || rgars( $raw_response, 'response/code' ) != 200 ) {
+
+				$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '1' );
+			} else {
+				$version_info = json_decode( $raw_response['body'], true );
+				if ( empty( $version_info ) ) {
+					$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '1' );
+				}
+			}
+
+			$version_info['timestamp'] = time();
 
 			// Caching response.
 			update_option( 'gform_version_info', $version_info, false ); //caching version info
+		}
+
 		return $version_info;
 	}
 
@@ -3590,8 +3692,7 @@ Content-Type: text/html;
 		$key = json_encode( $types ) . '_' . $product_id . '_' . $form['id'];
 		if ( ! isset( $_product_fields[ $key ] ) ) {
 			$fields = array();
-			for ( $i = 0, $count = sizeof( $form['fields'] ); $i < $count; $i ++ ) {
-				$field = $form['fields'][ $i ];
+			foreach ( $form['fields'] as $field ) {
 				if ( in_array( $field->type, $types ) && $field->productField == $product_id ) {
 					$fields[] = $field;
 				}
@@ -3792,7 +3893,7 @@ Content-Type: text/html;
 			),
 			'form_id'      => 0,
 			'label'        => __( 'Preview', 'gravityforms' ),
-			'link_class'   => 'button preview-form gform-button gform-button--white',
+			'link_class'   => 'preview-form gform-button gform-button--white',
 			'menu_class'   => 'gf_form_toolbar_preview',
 			'priority'     => 700,
 			'target'       => '_blank',
@@ -3949,15 +4050,15 @@ Content-Type: text/html;
 
 		// When a proper_filename value exists, it could be a security issue if it's different than the original file name.
 		if ( $proper_filename && strtolower( $proper_filename ) !== strtolower( $file_name ) ) {
-			return new WP_Error( 'invalid_file', esc_html__( 'There was an problem while verifying your file.' ) );
+			return new WP_Error( 'invalid_file', esc_html__( 'There was an problem while verifying your file.', 'gravityforms' ) );
 		}
 
 		// If either $ext or $type are empty, WordPress doesn't like this file and we should bail.
 		if ( ! $ext ) {
-			return new WP_Error( 'illegal_extension', esc_html__( 'Sorry, this file extension is not permitted for security reasons.' ) );
+			return new WP_Error( 'illegal_extension', esc_html__( 'Sorry, this file extension is not permitted for security reasons.', 'gravityforms' ) );
 		}
 		if ( ! $type ) {
-			return new WP_Error( 'illegal_type', esc_html__( 'Sorry, this file type is not permitted for security reasons.' ) );
+			return new WP_Error( 'illegal_type', esc_html__( 'Sorry, this file type is not permitted for security reasons.', 'gravityforms' ) );
 		}
 
 		return true;
@@ -5996,7 +6097,7 @@ Content-Type: text/html;
 		wp_localize_script(
 			'gform_gravityforms', 'gform_i18n', array(
 				'datepicker' => array(
-					'days'   => array(
+					'days'     => array(
 						'monday'    => esc_html__( 'Mon', 'gravityforms' ),
 						'tuesday'   => esc_html__( 'Tue', 'gravityforms' ),
 						'wednesday' => esc_html__( 'Wed', 'gravityforms' ),
@@ -6005,7 +6106,7 @@ Content-Type: text/html;
 						'saturday'  => esc_html__( 'Sat', 'gravityforms' ),
 						'sunday'    => esc_html__( 'Sun', 'gravityforms' ),
 					),
-					'months' => array(
+					'months'   => array(
 						'january'   => esc_html__( 'January', 'gravityforms' ),
 						'february'  => esc_html__( 'February', 'gravityforms' ),
 						'march'     => esc_html__( 'March', 'gravityforms' ),
@@ -6019,9 +6120,28 @@ Content-Type: text/html;
 						'november'  => esc_html__( 'November', 'gravityforms' ),
 						'december'  => esc_html__( 'December', 'gravityforms' ),
 					),
+					'firstDay' => absint( get_option( 'start_of_week' ) ),
+					'iconText' => esc_html__( 'Select date', 'gravityforms' ),
 				),
 			)
 		);
+
+		if ( is_admin() ) {
+			// localizes all gravity forms language strings for the admin
+			wp_localize_script(
+				'gform_gravityforms', 'gform_admin_i18n', array(
+					// named sub objects that match the admin js file name (camelCased) they are localizing
+					'formAdmin'   => array(
+						'toggleFeedInactive' => esc_html__( 'Inactive', 'gravityforms' ),
+						'toggleFeedActive'   => esc_html__( 'Active', 'gravityforms' ),
+					),
+					'shortcodeUi' => array(
+						'editForm'   => esc_html__( 'Edit Form', 'gravityforms' ),
+						'insertForm' => esc_html__( 'Insert Form', 'gravityforms' ),
+					),
+				)
+			);
+		}
 	}
 
 	public static function localize_gform_gravityforms_multifile() {
@@ -6892,33 +7012,33 @@ Content-Type: text/html;
 
 		if ( empty( $new_key ) ) {
 
-			//Unlinking key to site
+			// Unlinking key to site.
 			$result = gapi()->update_current_site( '' );
 
 		} else {
 
-			//License Key has changed, update site record appropriately.
+			// License Key has changed, update site record appropriately.
 
-			//Get new license key information
+			// Get new license key information.
 			$version_info = GFCommon::get_version_info( false );
 
-			//Has site been already registered?
-			$is_site_registered = gapi()->is_site_registered();
-			$is_valid_new 			= $version_info['is_valid_key'] && ! $is_site_registered;
-			$is_valid_registered 	= $version_info['is_valid_key'] && $is_site_registered;
+			// Has site been already registered?
+			$is_site_registered  = gapi()->is_site_registered();
+			$is_valid_new        = $version_info['is_valid_key'] && ! $is_site_registered;
+			$is_valid_registered = $version_info['is_valid_key'] && $is_site_registered;
 
 			if ( $is_valid_new ) {
-				//Site is new (not registered) and license key is valid
-				//Register new site
+				// Site is new (not registered) and license key is valid.
+				// Register new site.
 				$result = gapi()->register_current_site( $new_key, $is_md5 );
 			} elseif ( $is_valid_registered ) {
 
-				//Site is already registered and new license key is valid
-				//Update site with new license key
+				// Site is already registered and new license key is valid.
+				// Update site with new license key.
 				$result = gapi()->update_current_site( $new_key );
 			} else {
 
-				//Invalid key, do not change site registration.
+				// Invalid key, do not change site registration.
 				$result = new WP_Error( 'invalid_license', 'Invalid license. Site cannot be registered' );
 				GFCommon::log_error( 'Invalid license. Site cannot be registered' );
 			}
@@ -6989,8 +7109,15 @@ Content-Type: text/html;
 			return $icon;
 		} else if ( filter_var( $icon, FILTER_VALIDATE_URL ) ) {
 			return sprintf( '<img src="%s" />', esc_attr( $icon ) );
-		} else if ( strpos( $icon, 'fa' ) === 0 ) {
-			return sprintf( '<i class="fa %s"></i>', esc_attr( $icon ) );
+		} else if ( strpos( $icon, 'fa-' ) !== false ) {
+			// Allow for custom types of font awesome implementation.
+			// Keys in on: "fa-icon-name fa*" or "fa* fa-icon-name"
+			preg_match('/(fa[a-z])?(?:[\s]?fa-[a-zA-Z0-9]+[\s]?)(fa[a-z])?/', $icon, $matches );
+			if ( count( $matches ) < 2 ) {
+				return sprintf( '<i class="fa %s"></i>', esc_attr( $icon ) );
+			} else {
+				return sprintf( '<i class="%s"></i>', esc_attr( $icon ) );
+			}
 		} else if ( strpos( $icon, 'dashicons' ) === 0 ) {
 			return sprintf( '<i class="dashicons %s"></i>', esc_attr( $icon ) );
 		} else if ( strpos( $icon, 'gform-icon' ) === 0 ) {
@@ -7398,6 +7525,37 @@ class GFCache {
 		}
 
 		return $data;
+	}
+
+}
+
+/**
+ *
+ * Notes:
+ * 1. The WordPress Transients API does not support boolean
+ * values so boolean values should be converted to integers
+ * or arrays before setting the values as persistent.
+ *
+ * 2. The transients API only deletes the transient from the database
+ * when the transient is accessed after it has expired. WordPress doesn't
+ * do any garbage collection of transients.
+ *
+ */
+class GF_Cache {
+	public function get( $key, &$found = null, $is_persistent = true ) {
+		return GFCache::get( $key, $found, $is_persisent );
+	}
+
+	public function set( $key, $data, $is_persistent = false, $expiration_seconds = 0 ) {
+		return GFCache::set( $key, $data, $is_persistent, $expiration_seconds );
+	}
+
+	public function delete( $key ) {
+		return GFCache::delete( $key );
+	}
+
+	public function flush( $flush_persistent = false ) {
+		return GFCache::flush( $flus_persistent );
 	}
 
 }

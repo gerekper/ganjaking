@@ -19,7 +19,7 @@ class Type extends AC\Column\Comment\Type
 	}
 
 	public function editing() {
-		return new Editing\Model\Comment\Type( $this );
+		return new Editing\Service\Basic( new Editing\View\Text(), new Editing\Storage\Comment\Field( 'comment_type' ) );
 	}
 
 	public function filtering() {

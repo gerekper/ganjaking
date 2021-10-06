@@ -29,7 +29,7 @@ class GPNF_Merge_Tags {
 			);
 
 			$merge_tags[] = array(
-				'tag'   => "{{$field->label}:{$field->id}:sum=CHLID_FIELD_ID}",
+				'tag'   => "{{$field->label}:{$field->id}:sum=CHILD_FIELD_ID}",
 				'label' => sprintf( esc_html__( '%s: Sum', 'gp-nested-forms' ), $field->label ),
 			);
 

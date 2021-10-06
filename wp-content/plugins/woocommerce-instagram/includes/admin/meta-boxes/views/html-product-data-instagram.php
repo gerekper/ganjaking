@@ -74,5 +74,18 @@ defined( 'ABSPATH' ) || exit;
 		?>
 	</div>
 
-	<?php echo WC_Instagram_Admin_Field_Google_Product_Categories::render( $category_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	<div class="options_group">
+		<?php
+		woocommerce_wp_text_input(
+			array(
+				'id'          => '_instagram_google_product_category',
+				'label'       => _x( 'Product category', 'product data setting title', 'woocommerce-instagram' ),
+				'description' => _x( 'A product category value provided by Google feed.', 'product data setting desc', 'woocommerce-instagram' ),
+				'desc_tip'    => true,
+				'type'        => 'hidden',
+				'class'       => 'wc-instagram-gpc-field',
+			)
+		);
+		?>
+	</div>
 </div>

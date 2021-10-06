@@ -4,18 +4,18 @@
  * Woo: 187872:aa3a54eef10ec085a1b1357375e86c2d
  * Plugin URI: https://www.elementstark.com/solutions/woocommerce-bulk-variation-forms/
  * Description: WooCommerce Bulk Variations allows your shoppers to add more than one variation at a time to the cart.  Great for wholesales, B2B sites, and for easing the process of adding more than one variation at a time for anyone.
- * Version: 1.6.6
+ * Version: 1.6.9
  * Author: Lucas Stark
  * Author URI: https://elementstark.com
  * Requires at least: 3.3
- * Tested up to: 5.4.1
+ * Tested up to: 5.8
  * Text Domain: woocommerce-bulk-variations
  * Domain Path: /i18n/languages/
- * Copyright: © 2009-2020 Lucas Stark.
+ * Copyright: © 2009-2021 Lucas Stark.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * WC requires at least: 3.0.0
- * WC tested up to: 4.1.0
+ * WC tested up to: 5.6
  */
 
 
@@ -95,7 +95,7 @@ if ( is_woocommerce_active() ) {
 
 			add_action( 'wc_quick_view_before_single_product', array( $this, 'set_is_quick_view' ), 0 );
 			add_action( 'wc_quick_view_enqueue_scripts', array( $this, 'include_quickview_bulk_form_assets' ) );
-			add_action('woocommerce_bv_before_add_to_cart_button', array($this, 'on_woocommerce_bv_before_add_to_cart_button'));
+			add_action('woocommerce_bv_before_second_add_to_cart_button', array($this, 'on_woocommerce_bv_before_second_add_to_cart_button'));
 
 		}
 
@@ -222,14 +222,14 @@ if ( is_woocommerce_active() ) {
 		/**
 		 * Renders product addons below the matrix table.
 		 */
-		public function on_woocommerce_bv_before_add_to_cart_button(){
+		public function on_woocommerce_bv_before_second_add_to_cart_button(){
 		    if (defined('WC_PRODUCT_ADDONS_VERSION') && class_exists('WC_Product_Addons')) {
 
                 global $Product_Addon_Display;
 
                 add_filter('woocommerce_product_addons_show_grand_total', '__return_false', 9999);
 
-                $before_html = '<h4>' . apply_filters('woocommerce_bv_before_product_addons_text', __('Additional Options', 'woocommerce-bulk-variations')) . '</h4>';
+                $before_html = apply_filters('woocommerce_bv_before_product_addons_text', '');
                 echo apply_filters('woocommerce_bv_before_product_addons_html', $before_html);
 
                 $Product_Addon_Display->display();

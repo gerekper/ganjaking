@@ -6,45 +6,31 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Entities\DynamicSegmentFilterData;
-use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
-use MailPoet\Segments\DynamicSegments\Exceptions\InvalidFilterException;
-use MailPoet\Segments\DynamicSegments\Filters\EmailAction;
-use MailPoet\Segments\DynamicSegments\Filters\UserRole;
-use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCategory;
-use MailPoet\Segments\DynamicSegments\Filters\WooCommerceProduct;
+use MailPoet\Segments\SegmentDependencyValidator;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 class FilterHandler {
-  /** @var EmailAction */
-  private $emailAction;
-
-  /** @var UserRole */
-  private $userRole;
-
-  /** @var WooCommerceProduct */
-  private $wooCommerceProduct;
-
-  /** @var WooCommerceCategory */
-  private $wooCommerceCategory;
-
   /** @var EntityManager */
   private $entityManager;
 
+  /** @var SegmentDependencyValidator */
+  private $segmentDependencyValidator;
+
+  /** @var FilterFactory */
+  private $filterFactory;
+
   public function __construct(
     EntityManager $entityManager,
-    EmailAction $emailAction,
-    UserRole $userRole,
-    WooCommerceProduct $wooCommerceProduct,
-    WooCommerceCategory $wooCommerceCategory
+    SegmentDependencyValidator $segmentDependencyValidator,
+    FilterFactory $filterFactory
   ) {
-    $this->emailAction = $emailAction;
-    $this->userRole = $userRole;
-    $this->wooCommerceProduct = $wooCommerceProduct;
-    $this->wooCommerceCategory = $wooCommerceCategory;
+
     $this->entityManager = $entityManager;
+    $this->segmentDependencyValidator = $segmentDependencyValidator;
+    $this->filterFactory = $filterFactory;
   }
 
   public function apply(QueryBuilder $queryBuilder, SegmentEntity $segment): QueryBuilder {
@@ -57,7 +43,12 @@ class FilterHandler {
         ->createQueryBuilder()
         ->select("DISTINCT $subscribersTable.id as inner_subscriber_id")
         ->from($subscribersTable);
-      $this->applyFilter($subscribersIdsQuery, $filter);
+      // When a required plugin is missing we want to return empty result
+      if ($this->segmentDependencyValidator->getMissingPluginsByFilter($filter)) {
+        $subscribersIdsQuery->andWhere('1 = 0');
+      } else {
+        $this->filterFactory->getFilterForFilterEntity($filter)->apply($subscribersIdsQuery, $filter);
+      }
       $filterSelects[] = $subscribersIdsQuery->getSQL();
       $queryBuilder->setParameters(array_merge(
         $subscribersIdsQuery->getParameters(),
@@ -71,11 +62,9 @@ class FilterHandler {
   private function joinSubqueries(QueryBuilder $queryBuilder, SegmentEntity $segment, array $subQueries): QueryBuilder {
     $filter = $segment->getDynamicFilters()->first();
     if (!$filter) return $queryBuilder;
-    $filterData = $filter->getFilterData();
-    $data = $filterData->getData();
     $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
 
-    if (!isset($data['connect']) || $data['connect'] === 'or') {
+    if ($segment->getFiltersConnectOperator() === DynamicSegmentFilterData::CONNECT_TYPE_OR) {
       // the final query: SELECT * FROM subscribers INNER JOIN (filter_select1 UNION filter_select2) filtered_subscribers ON filtered_subscribers.inner_subscriber_id = id
       $queryBuilder->innerJoin(
         $subscribersTable,
@@ -96,23 +85,5 @@ class FilterHandler {
         "$subqueryName.inner_subscriber_id = $subscribersTable.id");
     }
     return $queryBuilder;
-  }
-
-  private function applyFilter(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filter): QueryBuilder {
-    $filterData = $filter->getFilterData();
-    switch ($filterData->getFilterType()) {
-      case DynamicSegmentFilterData::TYPE_USER_ROLE:
-        return $this->userRole->apply($queryBuilder, $filter);
-      case DynamicSegmentFilterData::TYPE_EMAIL:
-        return $this->emailAction->apply($queryBuilder, $filter);
-      case DynamicSegmentFilterData::TYPE_WOOCOMMERCE:
-        $action = $filterData->getParam('action');
-        if ($action === WooCommerceProduct::ACTION_PRODUCT) {
-          return $this->wooCommerceProduct->apply($queryBuilder, $filter);
-        }
-        return $this->wooCommerceCategory->apply($queryBuilder, $filter);
-      default:
-        throw new InvalidFilterException('Invalid type', InvalidFilterException::INVALID_TYPE);
-    }
   }
 }

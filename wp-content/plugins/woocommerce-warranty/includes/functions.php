@@ -247,7 +247,8 @@ function warranty_get_warranty_duration_string( $warranty, $order ) {
  * @return array
  */
 function warranty_get_product_warranty( $product_id, $maybe_use_parent = true ) {
-	$product = wc_get_product( $product_id );
+	$product 			= wc_get_product( $product_id );
+	$warranty_control 	= '';
 
 	if ( $maybe_use_parent && $product && $product->is_type( 'variation' ) ) {
 		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
@@ -256,7 +257,9 @@ function warranty_get_product_warranty( $product_id, $maybe_use_parent = true ) 
 			$parent_product_id = $product->get_parent_id();
 		}
 
-		if ( 'parent' == get_post_meta( $parent_product_id, '_warranty_control', true ) ) {
+		$warranty_control = get_post_meta( $parent_product_id, '_warranty_control', true );
+
+		if ( 'parent' === $warranty_control ) {
 			$warranty = get_post_meta( $parent_product_id, '_warranty', true );
 		} else {
 			$warranty = get_post_meta( $product_id, '_warranty', true );
@@ -292,7 +295,7 @@ function warranty_get_product_warranty( $product_id, $maybe_use_parent = true ) 
 	}
 
 	if ( empty( $warranty['label'] ) ) {
-		$warranty['label'] = get_post_meta( $product_id, '_warranty_label', true );
+		$warranty['label'] = ( 'parent' === $warranty_control ) ? get_post_meta( $parent_product_id, '_warranty_label', true ) : get_post_meta( $product_id, '_warranty_label', true );
 	}
 
 	return apply_filters( 'get_product_warranty', $warranty, $product_id );
@@ -666,7 +669,7 @@ function warranty_get_date($order_date, $warranty_duration, $warranty_unit) {
 	}
 
 	if ( $expired_time) {
-		return date_i18n( get_option('date_format'), $expired_time);
+		return date_i18n( wc_date_format(), $expired_time );
 	}
 
 	return '-';
@@ -1032,46 +1035,42 @@ function warranty_return_product_stock( $request_id ) {
  * @param float $amount If left empty, it will refund the full line item price
  * @return bool|WP_Error
  */
-function warranty_refund_item( $request_id, $amount = null ) {
+function warranty_refund_item( $request_id, $amount = 0 ) {
 	$request        = warranty_load( $request_id );
-	$product_id     = $request['product_id'];
-	$qty            = $request['qty'];
-	$order_item_key = $request['index'];
 	$order_id       = $request['order_id'];
-	$product        = wc_get_product( $product_id );
 	$order          = wc_get_order( $order_id );
 	$refund_reason  = __('Item Returned', 'wc_warranty');
 	$refunded       = false;
-	$add_notice     = isset( $_REQUEST['add_notice'] ) ? (bool)$_REQUEST['add_notice'] : false;
 	$refunded_amount = empty( $request['refund_amount'] ) ? 0 : $request['refund_amount'];
+
+	$refund_items   = array();
+	foreach ( $request['products'] as $product ) {
+		$refund_items[ $product['order_item_index'] ] = $product;
+	}
 
 	// attempt to process the refund
 	$line_items = array();
 	$order_items = $order->get_items();
 
 	foreach ( $order_items as $line_item_key => $line_item ) {
-		if ( $order_item_key != $line_item_key )
+		if ( ! in_array( $line_item_key, array_keys( $refund_items ) ) ) {
 			continue;
+		}
 
 		if ( !$amount ) {
-			$amount = $line_item['line_total'];
+			$amount += $line_item['line_total'];
 		}
 
-		$refunded_amount += $amount;
-
-		// Set the qty to 0 if this is only a partial refund
-		if ( $refunded_amount < $line_item['line_total'] ) {
-			$qty = 0;
-		}
+		$qty = $refund_items[ $line_item_key ]['quantity'];
 
 		$line_items[ $line_item_key ] = array(
 			'qty'           => $qty,
-			'refund_total'  => $amount,
+			'refund_total'  => 0,
 			'refund_tax'    => array($line_item['line_tax'])
 		);
-
-		break;
 	}
+
+	$refunded_amount += $amount;
 
 	$refund = wc_create_refund( array(
 		'amount'     => $amount,

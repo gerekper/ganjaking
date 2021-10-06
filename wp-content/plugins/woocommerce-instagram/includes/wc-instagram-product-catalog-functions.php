@@ -226,3 +226,45 @@ function wc_instagram_get_formatted_product_catalog( $the_catalog, $args = array
 
 	return ( $formatter instanceof WC_Instagram_Product_Catalog_Format ? $formatter->get_output() : '' );
 }
+
+/**
+ * Gets the formatted tax location of the product catalog.
+ *
+ * @since 3.6.1
+ *
+ * @param mixed  $the_catalog Product catalog object, ID or slug.
+ * @param string $default     Optional. The value when there is no tax location. Default empty.
+ * @return string
+ */
+function wc_instagram_get_formatted_product_catalog_tax_location( $the_catalog, $default = '' ) {
+	$catalog = wc_instagram_get_product_catalog( $the_catalog );
+
+	if ( ! $catalog ) {
+		return $default;
+	}
+
+	$tax_location = $default;
+
+	if ( $catalog->get_include_tax() ) {
+		$countries    = WC()->countries->get_countries();
+		$tax_location = $catalog->get_tax_location();
+
+		if ( ! empty( $tax_location ) && 'base' !== get_option( 'woocommerce_tax_based_on' ) ) {
+			$country_code = $tax_location[0];
+		} else {
+			$country_code = WC()->countries->get_base_country();
+		}
+
+		$tax_location = ( isset( $countries[ $country_code ] ) ? $countries[ $country_code ] : $country_code );
+	}
+
+	/**
+	 * Filters the formatted tax location of the product catalog.
+	 *
+	 * @since 3.6.1
+	 *
+	 * @param string                       $tax_location The formatted tax location.
+	 * @param WC_Instagram_Product_Catalog $catalog      Product catalog object.
+	 */
+	return apply_filters( 'wc_instagram_product_catalog_formatted_tax_location', $tax_location, $catalog );
+}

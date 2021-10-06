@@ -19,7 +19,7 @@ class Approved extends AC\Column\Comment\Approved
 	}
 
 	public function editing() {
-		return new Editing\Model\Comment\Approved( $this );
+		return new Editing\Service\Comment\Approved();
 	}
 
 	public function filtering() {

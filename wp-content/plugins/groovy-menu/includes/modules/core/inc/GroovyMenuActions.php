@@ -13,6 +13,7 @@ class GroovyMenuActions {
 	public static function do_preset_shortcodes( \GroovyMenuStyle $styles ) {
 		global $groovyMenuSettings;
 		global $groovyMenuActions;
+		global $groovyMenuPreview;
 
 		if ( ! isset( $groovyMenuSettings['_preset_shortcodes_added'] ) || ! $groovyMenuSettings['_preset_shortcodes_added'] ) {
 
@@ -69,6 +70,10 @@ class GroovyMenuActions {
 
 					// Prepare content.
 					$action_content = wp_unslash( self::prepare_string_for_unslash( $settings[ $setting_index ] ) );
+
+					if ( $groovyMenuPreview ) {
+						$action_content = stripslashes( $action_content );
+					}
 
 					// Wrap content.
 					$groovyMenuActions['custom_preset'][ $action_name ][] = $wrapper['before'] . $action_content . $wrapper['after'];
@@ -148,6 +153,25 @@ class GroovyMenuActions {
 			'gm_toolbar_left_last',
 			'gm_toolbar_right_first',
 			'gm_toolbar_right_last',
+			'gm_before_logo',
+			'gm_after_logo',
+			'gm_before_main_header',
+			'gm_after_main_header',
+			'gm_after_main_menu_nav',
+			'gm_main_menu_nav_first',
+			'gm_main_menu_nav_last',
+			'gm_main_menu_actions_button_first',
+			'gm_main_menu_actions_button_last',
+			'gm_custom_mobile_hamburger',
+			'gm_before_mobile_hamburger',
+			'gm_after_mobile_hamburger',
+			'gm_mobile_main_menu_top',
+			'gm_mobile_main_menu_nav_first',
+			'gm_mobile_main_menu_nav_last',
+			'gm_mobile_after_main_menu_nav',
+			'gm_mobile_before_search_icon',
+			'gm_mobile_before_minicart',
+			'gm_mobile_toolbar_end',
 		);
 
 		if ( ! isset( $groovyMenuSettings['_preset_toolbar_menu_added'] ) || ! $groovyMenuSettings['_preset_toolbar_menu_added'] ) {
@@ -196,7 +220,7 @@ class GroovyMenuActions {
 			'link_after'      => '',
 			'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
 			'depth'           => 0,
-			'walker'          => '',
+			'walker'          => new \GroovyMenu\FrontendSimpleWalker(),
 		);
 
 		wp_nav_menu( $args );

@@ -4,6 +4,9 @@
 
 
 /* Live Update */
+.rightpress_clear_both {
+    clear: both;
+}
 .rightpress_product_price_live_update {
     margin: 1.5em 0 !important;
     overflow: hidden !important;

@@ -42,8 +42,8 @@ abstract class RightPress_Condition_Method_Point_In_Time extends RightPress_Cond
     {
 
         return array(
-            'later'     => __('within past', 'rightpress'),
-            'earlier'   => __('earlier than', 'rightpress'),
+            'later'     => esc_html__('within past', 'rightpress'),
+            'earlier'   => esc_html__('earlier than', 'rightpress'),
         );
     }
 

@@ -1,6 +1,14 @@
 
 # Changelog
 
+## 1.6.2
+
+	- Fixed positional issues introduced by GF in [PR#1183](https://github.com/gravityforms/gravityforms/pull/1883/files).
+
+## 1.6.1
+
+	- Fixed a potential compatibility issue with GF 2.5 and entry list pages.
+
 ## 1.6
 
 	- Improved support for Gravity Forms 2.5. (#9)

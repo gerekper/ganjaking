@@ -174,7 +174,7 @@ class WCS_ATT_Order {
 		$product              = $order_item->get_product();
 		$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
 
-		if ( empty( $subscription_schemes ) && ! isset( $cart_item[ 'subscription_resubscribe' ] ) && ! isset( $_GET[ 'order_again' ] ) ) {
+		if ( empty( $subscription_schemes ) && ! isset( $cart_item[ 'subscription_resubscribe' ] ) && ! isset( $cart_item[ 'subscription_initial_payment' ] ) && ! isset( $_GET[ 'order_again' ] ) ) {
 			return $cart_item;
 		}
 

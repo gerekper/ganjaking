@@ -7,7 +7,6 @@ use WPSEO_Admin_Asset_Manager;
 use WPSEO_Tracking_Server_Data;
 use WPSEO_Utils;
 use Yoast\WP\SEO\Conditionals\Admin_Conditional;
-use Yoast\WP\SEO\Conditionals\Admin_Page_Conditional;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 
@@ -22,6 +21,13 @@ class HelpScout_Beacon implements Integration_Interface {
 	 * @var string
 	 */
 	protected $beacon_id = '2496aba6-0292-489c-8f5d-1c0fba417c2f';
+
+	/**
+	 * The id for the beacon for users that have tracking on.
+	 *
+	 * @var string
+	 */
+	protected $beacon_id_tracking_users = '6b8e74c5-aa81-4295-b97b-c2a62a13ea7f';
 
 	/**
 	 * The products the beacon is loaded for.
@@ -63,6 +69,7 @@ class HelpScout_Beacon implements Integration_Interface {
 		'wpseo_social',
 		'wpseo_tools',
 		'wpseo_licenses',
+		'wpseo_workouts',
 	];
 
 	/**
@@ -82,17 +89,23 @@ class HelpScout_Beacon implements Integration_Interface {
 	/**
 	 * Headless_Rest_Endpoints_Enabled_Conditional constructor.
 	 *
-	 * @param Options_Helper            $options The options helper.
+	 * @param Options_Helper            $options       The options helper.
 	 * @param WPSEO_Admin_Asset_Manager $asset_manager The asset manager.
 	 */
 	public function __construct( Options_Helper $options, WPSEO_Admin_Asset_Manager $asset_manager ) {
 		$this->options       = $options;
 		$this->asset_manager = $asset_manager;
 		$this->ask_consent   = ! $this->options->get( 'tracking' );
-		$this->page          = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_STRING );
+		$this->page          = \filter_input( \INPUT_GET, 'page', \FILTER_SANITIZE_STRING );
 
 		foreach ( $this->base_pages as $page ) {
-			$this->pages_ids[ $page ] = $this->beacon_id;
+			if ( $this->ask_consent ) {
+				// We want to be able to show surveys to people who have tracking on, so we give them a different beacon.
+				$this->pages_ids[ $page ] = $this->beacon_id_tracking_users;
+			}
+			else {
+				$this->pages_ids[ $page ] = $this->beacon_id;
+			}
 		}
 	}
 
@@ -100,8 +113,8 @@ class HelpScout_Beacon implements Integration_Interface {
 	 * {@inheritDoc}
 	 */
 	public function register_hooks() {
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_help_scout_script' ] );
-		add_action( 'admin_footer', [ $this, 'output_beacon_js' ] );
+		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_help_scout_script' ] );
+		\add_action( 'admin_footer', [ $this, 'output_beacon_js' ] );
 	}
 
 	/**
@@ -125,10 +138,10 @@ class HelpScout_Beacon implements Integration_Interface {
 			return;
 		}
 
-		printf(
+		\printf(
 			'<script type="text/javascript">window.%1$s(\'%2$s\', %3$s)</script>',
 			( $this->ask_consent ) ? 'wpseoHelpScoutBeaconConsent' : 'wpseoHelpScoutBeacon',
-			esc_html( $this->pages_ids[ $this->page ] ),
+			\esc_html( $this->pages_ids[ $this->page ] ),
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaping done in format_json_encode.
 			WPSEO_Utils::format_json_encode( (array) $this->get_session_data() )
 		);
@@ -136,6 +149,8 @@ class HelpScout_Beacon implements Integration_Interface {
 
 	/**
 	 * Checks if the current page is a page containing the beacon.
+	 *
+	 * @return bool
 	 */
 	private function is_beacon_page() {
 		$return = false;
@@ -148,7 +163,7 @@ class HelpScout_Beacon implements Integration_Interface {
 		 *
 		 * @api bool - Whether we show the beacon or not.
 		 */
-		return apply_filters( 'wpseo_helpscout_show_beacon', $return );
+		return \apply_filters( 'wpseo_helpscout_show_beacon', $return );
 	}
 
 	/**
@@ -157,16 +172,16 @@ class HelpScout_Beacon implements Integration_Interface {
 	 * @return string The data to pass as identifying data.
 	 */
 	protected function get_session_data() {
-		$current_user = wp_get_current_user();
+		$current_user = \wp_get_current_user();
 
 		// Do not make these strings translatable! They are for our support agents, the user won't see them!
 		$data = [
-			'name'                                                  => trim( $current_user->user_firstname . ' ' . $current_user->user_lastname ),
-			'email'                                                 => $current_user->user_email,
-			'WordPress Version'                                     => $this->get_wordpress_version(),
-			'Server'                                                => $this->get_server_info(),
-			'<a href="' . admin_url( 'themes.php' ) . '">Theme</a>' => $this->get_theme_info(),
-			'<a href="' . admin_url( 'plugins.php' ) . '">Plugins</a>' => $this->get_active_plugins(),
+			'name'                                                   => \trim( $current_user->user_firstname . ' ' . $current_user->user_lastname ),
+			'email'                                                  => $current_user->user_email,
+			'WordPress Version'                                      => $this->get_wordpress_version(),
+			'Server'                                                 => $this->get_server_info(),
+			'<a href="' . \admin_url( 'themes.php' ) . '">Theme</a>' => $this->get_theme_info(),
+			'<a href="' . \admin_url( 'plugins.php' ) . '">Plugins</a>' => $this->get_active_plugins(),
 		];
 
 		if ( ! empty( $this->products ) ) {
@@ -209,7 +224,7 @@ class HelpScout_Beacon implements Integration_Interface {
 
 		foreach ( $fields_to_use as $label => $field_to_use ) {
 			if ( isset( $server_data[ $field_to_use ] ) ) {
-				$server_info .= sprintf( '<tr><td>%1$s</td><td>%2$s</td></tr>', esc_html( $label ), esc_html( $server_data[ $field_to_use ] ) );
+				$server_info .= \sprintf( '<tr><td>%1$s</td><td>%2$s</td></tr>', \esc_html( $label ), \esc_html( $server_data[ $field_to_use ] ) );
 			}
 		}
 
@@ -247,7 +262,7 @@ class HelpScout_Beacon implements Integration_Interface {
 		global $wp_version;
 
 		$wordpress_version = $wp_version;
-		if ( is_multisite() ) {
+		if ( \is_multisite() ) {
 			$wordpress_version .= ' MULTI-SITE';
 		}
 
@@ -260,18 +275,18 @@ class HelpScout_Beacon implements Integration_Interface {
 	 * @return string The theme info as string.
 	 */
 	private function get_theme_info() {
-		$theme = wp_get_theme();
+		$theme = \wp_get_theme();
 
-		$theme_info = sprintf(
+		$theme_info = \sprintf(
 			'<a href="%1$s">%2$s</a> v%3$s by %4$s',
-			esc_attr( $theme->display( 'ThemeURI' ) ),
-			esc_html( $theme->display( 'Name' ) ),
-			esc_html( $theme->display( 'Version' ) ),
-			esc_html( $theme->display( 'Author' ) )
+			\esc_attr( $theme->display( 'ThemeURI' ) ),
+			\esc_html( $theme->display( 'Name' ) ),
+			\esc_html( $theme->display( 'Version' ) ),
+			\esc_html( $theme->display( 'Author' ) )
 		);
 
-		if ( is_child_theme() ) {
-			$theme_info .= sprintf( '<br />Child theme of: %1$s', esc_html( $theme->display( 'Template' ) ) );
+		if ( \is_child_theme() ) {
+			$theme_info .= \sprintf( '<br />Child theme of: %1$s', \esc_html( $theme->display( 'Template' ) ) );
 		}
 
 		return $theme_info;
@@ -283,22 +298,22 @@ class HelpScout_Beacon implements Integration_Interface {
 	 * @return string The active plugins.
 	 */
 	private function get_active_plugins() {
-		$updates_available = get_site_transient( 'update_plugins' );
+		$updates_available = \get_site_transient( 'update_plugins' );
 
 		$active_plugins = '';
-		foreach ( wp_get_active_and_valid_plugins() as $plugin ) {
-			$plugin_data = get_plugin_data( $plugin );
-			$plugin_file = str_replace( trailingslashit( WP_PLUGIN_DIR ), '', $plugin );
+		foreach ( \wp_get_active_and_valid_plugins() as $plugin ) {
+			$plugin_data = \get_plugin_data( $plugin );
+			$plugin_file = \str_replace( \trailingslashit( \WP_PLUGIN_DIR ), '', $plugin );
 
 			if ( isset( $updates_available->response[ $plugin_file ] ) ) {
 				$active_plugins .= '<i class="icon-close1"></i> ';
 			}
 
-			$active_plugins .= sprintf(
+			$active_plugins .= \sprintf(
 				'<a href="%1$s">%2$s</a> v%3$s',
-				esc_attr( $plugin_data['PluginURI'] ),
-				esc_html( $plugin_data['Name'] ),
-				esc_html( $plugin_data['Version'] )
+				\esc_attr( $plugin_data['PluginURI'] ),
+				\esc_html( $plugin_data['Name'] ),
+				\esc_html( $plugin_data['Version'] )
 			);
 		}
 
@@ -328,7 +343,7 @@ class HelpScout_Beacon implements Integration_Interface {
 			'pages_ids' => $this->pages_ids,
 		];
 
-		$helpscout_settings = apply_filters( 'wpseo_helpscout_beacon_settings', $filterable_helpscout_setting );
+		$helpscout_settings = \apply_filters( 'wpseo_helpscout_beacon_settings', $filterable_helpscout_setting );
 
 		$this->products  = $helpscout_settings['products'];
 		$this->pages_ids = $helpscout_settings['pages_ids'];

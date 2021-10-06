@@ -580,8 +580,7 @@ if ($wpml->wpml_exists()) {
 					<div id="slide3d_transsettings" class="group_transsettings" style="display:none">
 						<div id="sltrans_3d_wrap">
 							<div id="sltrans_in_3d_wrap">																
-								<div id="sltrans_3d_sets">
-									<div class="div25"></div>
+								<div id="sltrans_3d_sets">									
 									<label_a><?php _e('3D Effect', 'revslider');?></label_a><select id="sltrans_3d_effect" class="slideinput tos2 nosearchbox easyinit callEvent" data-showprio="show" data-show="._3DST_*val*_SHOW" data-hide="._3DST_ALL"  data-evt="updateSlideAnimation" data-evtparam="tocustom"  data-r="slideChange.d3.f" data-theme="dark">
 										<option value="none"><?php _e('None', 'revslider');?></option>
 										<option value="cube"><?php _e('Cube', 'revslider');?></option>
@@ -801,6 +800,10 @@ if ($wpml->wpml_exists()) {
 						<label_a><?php _e('Sensibility', 'revslider');?></label_a><select data-theme="dark" id="slide_seo_z" class="slideinput tos2 nosearchbox easyinit"  data-r="seo.z">
 							<option value="front"><?php _e('Over Layers (Front)', 'revslider');?></option>
 							<option value="back"><?php _e('Behind Layers (Back)', 'revslider');?></option>
+						</select>
+						<label_a><?php _e('Tag', 'revslider');?></label_a><select data-theme="dark" id="slide_tag_type" class="slideinput tos2 nosearchbox easyinit"  data-r="seo.tag">
+							<option value="l"><?php _e('&lt;RS-LAYER&gt;', 'revslider');?></option>
+							<option value="a"><?php _e('&lt;A&gt;', 'revslider');?></option>
 						</select>
 					</div>
 				</div>

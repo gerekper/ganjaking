@@ -34,7 +34,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.17.0';
+	const VERSION = '1.17.2';
 
 	/** @var WC_Nested_Category_Layout single instance of this plugin */
 	protected static $instance;
@@ -223,7 +223,7 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 	 */
 	public function woocommerce_product_query( $wp_query ) {
 
-		// don't mess with the pagination on the search page
+		// don't mess with the pagination on the search page or the product tag page
 		if ( $wp_query->is_search() ) {
 			return;
 		}
@@ -236,17 +236,21 @@ class WC_Nested_Category_Layout extends Framework\SV_WC_Plugin {
 		}
 
 		// main shop page: is the nested layout enabled?
-		if ( 'no' === get_option( 'woocommerce_nested_subcat_shop', 'no' ) ) {
-			if ( $wp_query->is_post_type_archive( 'product' ) || $wp_query->is_page( wc_get_page_id( 'shop' ) ) ) {
-				return;
-			}
+		$is_shop_page = $wp_query->is_post_type_archive( 'product' ) || $wp_query->is_page( wc_get_page_id( 'shop' ) );
+
+		if ( $is_shop_page && 'no' === get_option( 'woocommerce_nested_subcat_shop', 'no' ) ) {
+			return;
+		}
+
+		// bail if this is neither a shop page or a category page
+		if ( false === $is_shop_page && 0 === $current_product_category_id ) {
+			return;
 		}
 
 		// if this is a leaf category, bail and allow the normal pagination to take over
 		if ( 0 === count( get_categories( [ 'taxonomy' => 'product_cat', 'child_of' => $current_product_category_id ] ) ) ) {
 			return;
 		}
-
 
 		// load only direct children products, ignore sub-categories
 		if ( $current_product_category_id && isset( $wp_query->tax_query->queried_terms['product_cat'] ) ) {

@@ -12,14 +12,18 @@ use WP_Error;
  */
 class ViewPluginDetails implements Registrable {
 
-	/** @var string */
+	/**
+	 * @var string
+	 */
 	private $slug;
 
-	/** @var RequestDispatcher */
+	/**
+	 * @var RequestDispatcher
+	 */
 	private $api;
 
 	public function __construct( $slug, RequestDispatcher $api ) {
-		$this->slug = $slug;
+		$this->slug = (string) $slug;
 		$this->api = $api;
 	}
 

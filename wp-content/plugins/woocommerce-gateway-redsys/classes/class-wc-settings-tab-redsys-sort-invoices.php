@@ -1,18 +1,17 @@
 <?php
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 class WC_Settings_Tab_Redsys_Sort_Invoices {
 
 	/**
 	 * Bootstraps the class and hooks required actions & filters.
-	 *
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
@@ -75,10 +74,10 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	}
 
 	/**
-	* Get all the settings for this plugin for @see woocommerce_admin_fields() function.
-	*
-	* @return array Array of settings for @see woocommerce_admin_fields() function.
-	*/
+	 * Get all the settings for this plugin for @see woocommerce_admin_fields() function.
+	 *
+	 * @return array Array of settings for @see woocommerce_admin_fields() function.
+	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -160,7 +159,7 @@ if ( 'yes' === get_option( 'wc_settings_tab_redsys_sort_invoices_is_active' ) ) 
 	add_filter( 'manage_edit-shop_order_columns', 'redsys_add_invoice_number' );
 	add_action( 'manage_shop_order_posts_custom_column', 'redsys_add_invoice_number_value', 2 );
 	add_filter( 'manage_edit-shop_order_sortable_columns', 'redsys_add_invoice_number_sortable_colum' );
-	//add_action(	'woocommerce_email_before_order_table', 'redsys_add_invoice_number_to_customer_email' );
+	// add_action(   'woocommerce_email_before_order_table', 'redsys_add_invoice_number_to_customer_email' );
 	add_action( 'woocommerce_payment_complete', 'redsys_sort_invoice_orders' );
 	add_action( 'woocommerce_order_status_processing', 'redsys_sort_invoice_orders_admin' );
 	add_action( 'woocommerce_order_status_completed', 'redsys_sort_invoice_orders_admin' );
@@ -169,26 +168,26 @@ if ( 'yes' === get_option( 'wc_settings_tab_redsys_sort_invoices_is_active' ) ) 
 	}
 }
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function redsys_add_invoice_number( $columns ) {
 
 	$new_column = ( is_array( $columns ) ) ? $columns : array();
 	unset( $new_column['wc_actions'] );
 
-	//edit this for you column(s)
-	//all of your columns will be added before the actions colums
+	// edit this for you column(s)
+	// all of your columns will be added before the actions colums
 	$new_column['invoice_number'] = __( 'Invoice Number', 'woocommerce-redsys' );
 
-	//stop editing
+	// stop editing
 	$new_column['wc_actions'] = $columns['wc_actions'];
 	return $new_column;
 }
 
 // render the values
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function redsys_add_invoice_number_value( $column ) {
 	global $post;
 
@@ -201,8 +200,8 @@ function redsys_add_invoice_number_value( $column ) {
 
 // sort invoice order colum
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function redsys_add_invoice_number_sortable_colum( $columns ) {
 
 	$custom = array(
@@ -212,8 +211,8 @@ function redsys_add_invoice_number_sortable_colum( $columns ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function redsys_sort_invoice_orders( $order_id ) {
 
 	$reset_invoice_number = get_option( 'wc_settings_tab_redsys_sort_invoices_reset_invoice_number' );
@@ -259,8 +258,8 @@ function redsys_sort_invoice_orders( $order_id ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function redsys_sort_invoice_orders_admin( $order_id ) {
 
 	$reset_invoice_number = get_option( 'wc_settings_tab_redsys_sort_invoices_reset_invoice_number' );
@@ -306,8 +305,8 @@ function redsys_sort_invoice_orders_admin( $order_id ) {
 }
 // We hook to WooCommerce payment function
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function redsys_add_invoice_number_to_customer_email( $order ) {
 
 	$invoice_number = redsys_check_add_invoice_number( $order );
@@ -321,8 +320,8 @@ function redsys_add_invoice_number_to_customer_email( $order ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function redsys_check_add_invoice_number( $order ) {
 	global $woocommerce, $post;
 
@@ -365,8 +364,8 @@ function redsys_check_add_invoice_number( $order ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function redsys_show_invoice_number( $oldnumber, $order ) {
 	$preorderprefix = get_option( 'wc_settings_tab_redsys_sort_invoices_prefix_order_number' );
 	$preordersufix  = get_option( 'wc_settings_tab_redsys_sort_invoices_postfix_order_number' );
@@ -388,8 +387,8 @@ function redsys_show_invoice_number( $oldnumber, $order ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function redsys_use_patterns( $string ) {
 	$Numericzero                   = preg_replace( '/(\{d\})/', date_i18n( 'd' ), $string );
 	$Numeric                       = preg_replace( '/(\{j\})/', date_i18n( 'j' ), $Numericzero );
@@ -415,8 +414,8 @@ function redsys_use_patterns( $string ) {
 }
 
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function redsys_check_current_year() {
 		$current_year = date_i18n( 'Y' );
 		$saved_year   = get_option( 'redsys_saved_year' );

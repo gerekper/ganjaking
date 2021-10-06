@@ -37,8 +37,6 @@ class WoocommerceGpfTheContentProtection {
 	/**
 	 * Restore postdata after the_content has been used.
 	 *
-	 * @return mixed
-	 *
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	public function after_processing() {

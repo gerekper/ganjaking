@@ -1,5 +1,12 @@
 *** WooCommerce Cost of Goods Changelog ***
 
+2021.09.07 - version 2.11.0
+ * Misc - Hide WooCommerce Analytics error notice on the Reports page
+ * Misc - Remove legacy woo-includes functions
+ * Misc - Remove the option to apply costs for previous orders without costs
+ * Misc - Apply costs for all orders is now available only for stores with at least one order
+ * Misc - Add tooltips for the cost of goods fields on the product page
+
 2020.12.03 - version 2.10.0
  * Misc - Add compatibility for WooCommerce 4.7
  * Misc - Require PHP 7.0 or newer

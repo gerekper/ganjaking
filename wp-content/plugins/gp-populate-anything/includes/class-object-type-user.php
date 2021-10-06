@@ -309,6 +309,7 @@ class GPPA_Object_Type_User extends GPPA_Object_Type {
 				'callable' => array( $this, 'get_meta_values' ),
 				'args'     => array( $user_meta_key, $wpdb->usermeta ),
 				'group'    => 'meta',
+				'orderby'  => true,
 			);
 		}
 
@@ -397,6 +398,33 @@ class GPPA_Object_Type_User extends GPPA_Object_Type {
 			'order'    => $order,
 		);
 
+		/**
+		 * Support ordering by user meta.
+		 *
+		 * Logic was borrowed from Post Object type.
+		 */
+		if ( strpos( $orderby, 'meta_' ) === 0 ) {
+			$meta_key = str_replace( 'meta_', '', $orderby );
+
+			/**
+			 * This order_by setup is required to get both numeric meta and alphanumeric meta to sort is a some-what
+			 * natural order.
+			 */
+			$query_args['order_by'] = "
+					(
+						SELECT ({$wpdb->usermeta}.meta_value + 0)
+							FROM {$wpdb->usermeta}
+							WHERE {$wpdb->users}.ID = {$wpdb->usermeta}.user_id
+							AND {$wpdb->usermeta}.meta_key = '{$meta_key}'
+					) {$order},
+					(
+						SELECT ({$wpdb->usermeta}.meta_value)
+							FROM {$wpdb->usermeta}
+							WHERE {$wpdb->users}.ID = {$wpdb->usermeta}.user_id
+							AND {$wpdb->usermeta}.meta_key = '{$meta_key}'
+					)";
+		}
+
 		return $query_args;
 
 	}
@@ -443,6 +471,15 @@ class GPPA_Object_Type_User extends GPPA_Object_Type {
 
 		return $query_builder_args;
 
+	}
+
+	/**
+	 * @param $args array  Query arguments to hash
+	 *
+	 * @return string   SHA1 representation of the requested query
+	 */
+	public function query_cache_hash( $args ) {
+		return sha1( serialize( $this->process_filter_groups( $args, $this->default_query_args( $args ) ) ) );
 	}
 
 	public function query( $args ) {

@@ -144,8 +144,13 @@
 		var oldval =  $.extend(true,{},RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].settings);
 		
 		RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].settings = new Array();			
-		for (var i in neworder) RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].settings.push(oldval[neworder[i]]);							
-		
+
+		for(var i = 0; i < oldorder.length; i++){
+			for(var j = 0; j < neworder.length; j++){
+				if(oldorder[i] === neworder[j]) RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].settings[j] = oldval[i]
+			}	
+		}
+
 		RVS.F.openBackupGroup({id:"filmstrip_reorder",txt:bricks.sortslide,icon:"sort",lastkey:"settings"});						
 		RVS.F.backup({	path:RVS.S.slideId+".slide.addOns."+slug+".settings",									
 						icon:"sort",
@@ -232,10 +237,7 @@
 		addon.forms.slidegeneral.append($(_h));
 		addon.forms.filmstripimages = $('#filmstrip_slide_images');
 		addon.forms.filmstripimagesettings = $('#filmstrip_slide_image_settings');
-		addon.forms.slidegeneral.find('.tos2.nosearchbox').ddTP({
-			
-			placeholder:bricks.placeholder
-		});
+		addon.forms.slidegeneral.find('.tos2.nosearchbox').ddTP({placeholder:bricks.placeholder});
 		RVS.F.initOnOff();
 		RVS.F.updateEasyInputs({container: addon.forms.slidegeneral, path: RVS.S.slideId + '.slide.', trigger:"init"});
 		drawFilmStripSlides();														
@@ -286,10 +288,11 @@
 
 	// DRAW THE FILM STRIP SETTING OF 1 SINGLE SLIDE ELEMENT
 	function drawFilmStripSlideSettings(si) {
-		if (RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].settings===null || RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].settings.length===0) {
+		if (RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].settings===null || RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].settings.length===0) {			
 			addon.forms.filmstripimagesettings[0].innerHTML="";
 			return false;
 		}
+		
 		var _ = RVS.SLIDER[RVS.S.slideId].slide.addOns[slug].settings,
 		
 		_h = '<div class="tp-clearfix"></div>';			
@@ -319,10 +322,11 @@
 		_h += '<div class="tp-clearfix"></div>';
 		
 		addon.forms.filmstripimagesettings[0].innerHTML = _h;
-		addon.forms.filmstripimagesettings.find('.tos2.nosearchbox').ddTP({
-			
-			placeholder:bricks.placeholder
-		});
+		
+		addon.forms.filmstripimagesettings.find('.tos2.nosearchbox').ddTP("destroy");
+		addon.forms.filmstripimagesettings.find('.tos2.nosearchbox').ddTP("rebuild");
+		addon.forms.filmstripimagesettings.find('.tos2.nosearchbox').ddTP("rebuild");
+		
 		RVS.F.updateEasyInputs({container:addon.forms.filmstripimagesettings, path:RVS.S.slideId+".slide.", trigger:"init"});
 		
 	}

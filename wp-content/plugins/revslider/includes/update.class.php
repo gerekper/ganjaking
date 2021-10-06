@@ -120,7 +120,7 @@ class RevSliderUpdate {
 			'version'	=> urlencode(RS_REVISION)
 		);
 		
-		if(version_compare(RS_REVISION, get_option('revslider-stable-version', '4.2'), '<')){ //We'll get the last stable only now!
+		if(get_option('revslider-valid', 'false') !== 'true' && version_compare(RS_REVISION, get_option('revslider-stable-version', '4.2'), '<')){ //We'll get the last stable only now!
 			$rattr['get_stable'] = 'true';
 		}
 		
@@ -150,7 +150,7 @@ class RevSliderUpdate {
 			update_option('revslider-update-check-short', time());
 			
 			$hash = ($this->force === true) ? '' : get_option('revslider-update-hash', '');
-			$purchase = '073e077f-b600-41e4-8b74-767431910d31';
+			$purchase = (get_option('revslider-valid', 'false') == 'true') ? get_option('revslider-code', '') : '';
 			$data = array(
 				'version' => urlencode(RS_REVISION),
 				'item' => urlencode(RS_PLUGIN_SLUG),

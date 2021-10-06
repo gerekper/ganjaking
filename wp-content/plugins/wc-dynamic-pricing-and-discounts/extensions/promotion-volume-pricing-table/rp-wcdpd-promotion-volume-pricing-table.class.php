@@ -26,11 +26,16 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
      */
     public function __construct()
     {
+
         // Register settings structure
         add_filter('rp_wcdpd_settings_structure', array($this, 'register_settings_structure'), 140);
 
         // Set up promotion tool
         add_action('init', array($this, 'set_up_promotion_tool'));
+
+        // Listen for Ajax calls
+        add_action('wp_ajax_rp_wcdpd_load_variation_pricing_table', array($this, 'load_variation_pricing_table'));
+        add_action('wp_ajax_nopriv_rp_wcdpd_load_variation_pricing_table', array($this, 'load_variation_pricing_table'));
     }
 
     /**
@@ -42,87 +47,87 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
      */
     public function register_settings_structure($settings)
     {
+
         $settings['promo']['children']['volume_pricing_table'] = array(
-            'title' => __('Volume Pricing Table', 'rp_wcdpd'),
-            'info'  => __('Displays a table with potential savings that come with higher quantities purchased.', 'rp_wcdpd'),
+            'title' => esc_html__('Volume Pricing Table', 'rp_wcdpd'),
+            'info'  => esc_html__('Displays a table with potential savings that come with higher quantities purchased.', 'rp_wcdpd'),
             'children' => array(
                 'promo_volume_pricing_table' => array(
-                    'title'     => __('Enable', 'rp_wcdpd'),
+                    'title'     => esc_html__('Enable', 'rp_wcdpd'),
                     'type'      => 'checkbox',
                     'default'   => '0',
                 ),
                 'promo_volume_pricing_table_title' => array(
-                    'title'     => __('Title', 'rp_wcdpd'),
+                    'title'     => esc_html__('Title', 'rp_wcdpd'),
                     'type'      => 'text',
-                    'default'   => __('Quantity discounts', 'rp_wcdpd'),
+                    'default'   => esc_html__('Quantity discounts', 'rp_wcdpd'),
                     'required'  => false,
                 ),
                 'promo_volume_pricing_table_position' => array(
-                    'title'     => __('Position', 'rp_wcdpd'),
+                    'title'     => esc_html__('Position', 'rp_wcdpd'),
                     'type'      => 'select',
                     'default'   => 'woocommerce_before_add_to_cart_form',
                     'required'  => true,
                     'options'   => array(
-                        'woocommerce_before_add_to_cart_form'       => __('Add to cart - Before', 'rp_wcdpd'),
-                        'woocommerce_after_add_to_cart_form'        => __('Add to cart - After', 'rp_wcdpd'),
-                        'woocommerce_product_meta_start'            => __('Product meta - Before', 'rp_wcdpd'),
-                        'woocommerce_product_meta_end'              => __('Product meta - After', 'rp_wcdpd'),
-                        'woocommerce_single_product_summary'        => __('Product summary - Before', 'rp_wcdpd'),
-                        'woocommerce_after_single_product_summary'  => __('Product summary - After', 'rp_wcdpd'),
-                        'woocommerce_after_main_content'            => __('Page content - After', 'rp_wcdpd'),
+                        'woocommerce_before_add_to_cart_form'       => esc_html__('Add to cart - Before', 'rp_wcdpd'),
+                        'woocommerce_after_add_to_cart_form'        => esc_html__('Add to cart - After', 'rp_wcdpd'),
+                        'woocommerce_product_meta_start'            => esc_html__('Product meta - Before', 'rp_wcdpd'),
+                        'woocommerce_product_meta_end'              => esc_html__('Product meta - After', 'rp_wcdpd'),
+                        'woocommerce_single_product_summary'        => esc_html__('Product summary - Before', 'rp_wcdpd'),
+                        'woocommerce_after_single_product_summary'  => esc_html__('Product summary - After', 'rp_wcdpd'),
                     ),
                 ),
                 'promo_volume_pricing_table_layout' => array(
-                    'title'     => __('Layout', 'rp_wcdpd'),
+                    'title'     => esc_html__('Layout', 'rp_wcdpd'),
                     'type'      => 'grouped_select',
                     'default'   => 'horizontal',
                     'required'  => true,
                     'options'   => array(
                         'inline'    => array(
-                            'label'     => __('Inline', 'rp_wcdpd'),
+                            'label'     => esc_html__('Inline', 'rp_wcdpd'),
                             'options'   => array(
-                                'inline-horizontal'    => __('Inline - Horizontal', 'rp_wcdpd'),
-                                'inline-vertical'      => __('Inline - Vertical', 'rp_wcdpd'),
+                                'inline-horizontal'    => esc_html__('Inline - Horizontal', 'rp_wcdpd'),
+                                'inline-vertical'      => esc_html__('Inline - Vertical', 'rp_wcdpd'),
                             ),
                         ),
                         'modal'    => array(
-                            'label'     => __('Modal', 'rp_wcdpd'),
+                            'label'     => esc_html__('Modal', 'rp_wcdpd'),
                             'options'   => array(
-                                'modal-horizontal'    => __('Modal - Horizontal', 'rp_wcdpd'),
-                                'modal-vertical'      => __('Modal - Vertical', 'rp_wcdpd'),
+                                'modal-horizontal'    => esc_html__('Modal - Horizontal', 'rp_wcdpd'),
+                                'modal-vertical'      => esc_html__('Modal - Vertical', 'rp_wcdpd'),
                             ),
                         ),
                     ),
                 ),
                 'promo_volume_pricing_table_value_to_display' => array(
-                    'title'     => __('Value to display', 'rp_wcdpd'),
+                    'title'     => esc_html__('Value to display', 'rp_wcdpd'),
                     'type'      => 'select',
                     'default'   => 'price',
                     'required'  => true,
                     'options'   => array(
-                        'price'                 => __('Discounted price', 'rp_wcdpd'),
-                        'discount_amount'       => __('Discount amount', 'rp_wcdpd'),
-                        'discount_percentage'   => __('Discount percentage', 'rp_wcdpd'),
+                        'price'                 => esc_html__('Discounted price', 'rp_wcdpd'),
+                        'discount_amount'       => esc_html__('Discount amount', 'rp_wcdpd'),
+                        'discount_percentage'   => esc_html__('Discount percentage', 'rp_wcdpd'),
                     ),
                 ),
                 'promo_volume_pricing_table_missing_ranges' => array(
-                    'title'     => __('Undefined quantity handling', 'rp_wcdpd'),
+                    'title'     => esc_html__('Undefined quantity handling', 'rp_wcdpd'),
                     'type'      => 'select',
                     'default'   => 'display',
                     'required'  => true,
                     'options'   => array(
-                        'display'   => __('Display missing range with regular price', 'rp_wcdpd'),
-                        'hide'      => __('Do not display missing range', 'rp_wcdpd'),
+                        'display'   => esc_html__('Display missing range with regular price', 'rp_wcdpd'),
+                        'hide'      => esc_html__('Do not display missing range', 'rp_wcdpd'),
                     ),
                 ),
                 'promo_volume_pricing_table_variation_layout' => array(
-                    'title'     => __('Variable product handling', 'rp_wcdpd'),
+                    'title'     => esc_html__('Variable product handling', 'rp_wcdpd'),
                     'type'      => 'select',
                     'default'   => 'multiple',
                     'required'  => true,
                     'options'   => array(
-                        'multiple'  => __('Display individual pricing tables', 'rp_wcdpd'),
-                        'single'    => __('Display one pricing table with all variations', 'rp_wcdpd'),
+                        'multiple'  => esc_html__('Display individual pricing tables', 'rp_wcdpd'),
+                        'single'    => esc_html__('Display one pricing table with all variations', 'rp_wcdpd'),
                     ),
                 ),
             ),
@@ -148,8 +153,16 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
             return;
         }
 
+        // Get position hook
+        $position = RP_WCDPD_Settings::get('promo_volume_pricing_table_position');
+
+        // "Page content - After" no longer available since version 2.4 (related to issue #457), switch to default
+        if ($position === 'woocommerce_after_main_content') {
+            $position = 'woocommerce_before_add_to_cart_form';
+        }
+
         // Add hook
-        add_action(RP_WCDPD_Settings::get('promo_volume_pricing_table_position'), array($this, 'maybe_display_pricing_table_hook'));
+        add_action($position, array($this, 'maybe_display_pricing_table_hook'));
     }
 
     /**
@@ -160,6 +173,7 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
      */
     public function maybe_display_pricing_table_hook()
     {
+
         global $product;
 
         RP_WCDPD_Promotion_Volume_Pricing_Table::maybe_display_pricing_table($product);
@@ -174,6 +188,9 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
      */
     public static function maybe_display_pricing_table($product)
     {
+
+        $is_displayed = false;
+
         // Product invalid
         if (!is_a($product, 'WC_Product')) {
             return;
@@ -186,8 +203,13 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
             return;
         }
 
+        // Do not display dynamically loaded variation pricing tables during Ajax requests as they wouldn't work here
+        if (is_ajax() && $product->is_type(array('variable', 'variation')) && RP_WCDPD_Settings::get('promo_volume_pricing_table_variation_layout') === 'multiple') {
+            return;
+        }
+
         // Simple product handling
-        if (!$product->is_type('variable') && !$product->is_type('variation')) {
+        if (!$product->is_type(array('variable', 'variation'))) {
 
             // Get applicable rule
             if ($rule = self::get_applicable_volume_rule($product)) {
@@ -201,6 +223,9 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
                         'rule'          => $rule,
                         'table_data'    => $table_data,
                     )), $product, false);
+
+                    // Set flag
+                    $is_displayed = true;
                 }
             }
         }
@@ -212,97 +237,71 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
                 $product = wc_get_product($product->get_parent_id());
             }
 
-            $variation_rules = array();
-            $available_variations = 0;
+            // Display single table for all variations
+            if (RP_WCDPD_Settings::get('promo_volume_pricing_table_variation_layout') === 'single') {
 
-            // Get rules for all variations
-            foreach ($product->get_available_variations() as $variation_data) {
+                $variation_rules = array();
+                $available_variations = 0;
 
-                // Load variation
-                $variation = wc_get_product($variation_data['variation_id']);
+                // Get rules for all variations
+                foreach ($product->get_available_variations() as $variation_data) {
 
-                // Get rule for current variation
-                if ($rule = self::get_applicable_volume_rule($variation)) {
+                    // Load variation
+                    $variation = wc_get_product($variation_data['variation_id']);
 
-                    // Get table data
-                    if ($table_data = self::get_table_data($variation, $rule)) {
-                        $available_variations++;
-                    }
+                    // Get rule for current variation
+                    if ($rule = self::get_applicable_volume_rule($variation)) {
 
-                    // Add to main array
-                    $variation_rules[] = array(
-                        'product'       => $variation,
-                        'rule'          => $rule,
-                        'table_data'    => $table_data,
-                    );
-                }
-            }
+                        // Get table data
+                        if ($table_data = self::get_table_data($variation, $rule)) {
+                            $available_variations++;
+                        }
 
-            // Display table
-            if (!empty($variation_rules) && $available_variations) {
-                self::display_pricing_table($variation_rules, $product, true);
-            }
-        }
-    }
-
-    /**
-     * Check if product variation prices match
-     *
-     * @access public
-     * @param array $data
-     * @return bool
-     */
-    public static function variation_prices_match($data)
-    {
-        $last = null;
-
-        // Check each variation
-        foreach ($data as $single) {
-
-            $current = 0.0;
-
-            // Variation not available
-            if ($single['table_data'] === false) {
-                return false;
-            }
-
-            // Add prices of all ranges
-            foreach ($single['table_data'] as $range) {
-                $current += (float) $range['price_raw'];
-            }
-
-            // Prices do not match
-            if ($last !== null && $last !== $current) {
-                return false;
-            }
-
-            $last = $current;
-        }
-
-        return true;
-    }
-
-    /**
-     * Check if rule applies to all variations
-     *
-     * @access public
-     * @param array $data
-     * @return bool
-     */
-    public static function rule_always_applies_to_all_variations($data)
-    {
-        // Check each variation
-        foreach ($data as $single) {
-            if (!empty($single['rule']['conditions'])) {
-                foreach ($single['rule']['conditions'] as $condition) {
-                    if (RP_WCDPD_Controller_Conditions::is_type($condition, array('product__variation', 'product__attributes', 'product_property__regular_price', 'product_property__on_sale', 'product_property__stock_quantity', 'product_property__meta'))) {
-                        return false;
+                        // Add to main array
+                        $variation_rules[] = array(
+                            'product'       => $variation,
+                            'rule'          => $rule,
+                            'table_data'    => $table_data,
+                        );
                     }
                 }
+
+                // Check if we have something to display
+                if (!empty($variation_rules) && $available_variations) {
+
+                    // Display pricing table
+                    self::display_pricing_table($variation_rules, $product, true);
+
+                    // Set flag
+                    $is_displayed = true;
+                }
+            }
+            // Display individual tables for variations
+            else {
+
+                // Display container
+                RP_WCDPD_Promotion_Volume_Pricing_Table::display_pricing_table_variation_container();
+
+                // Set flag
+                $is_displayed = true;
             }
         }
 
-        return true;
+        // Check if pricing table is displayed
+        if ($is_displayed) {
+
+            // Load jQuery plugins
+            RightPress_Loader::load_jquery_plugin('rightpress-helper');
+            RightPress_Loader::load_jquery_plugin('rightpress-live-product-update');
+
+            // Inject styles
+            RightPress_Help::inject_stylesheet('rp-wcdpd-promotion-volume-pricing-table-styles', RP_WCDPD_PLUGIN_URL . '/extensions/promotion-volume-pricing-table/assets/styles.css', RP_WCDPD_VERSION);
+
+            // Enqueue or inject scripts
+            RightPress_Help::enqueue_or_inject_script('rp-wcdpd-promotion-volume-pricing-table-scripts', (RP_WCDPD_PLUGIN_URL . '/extensions/promotion-volume-pricing-table/assets/scripts.js'), array('jquery'), RP_WCDPD_VERSION, false, array(
+                'ajaxurl' => admin_url('admin-ajax.php?rightpress_ajax=1'),
+            ));
+        }
     }
 
     /**
@@ -316,6 +315,24 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
      */
     public static function display_pricing_table($data, $product, $is_variable)
     {
+
+        if ($html = RP_WCDPD_Promotion_Volume_Pricing_Table::get_pricing_table_html($data, $product, $is_variable)) {
+            echo $html;
+        }
+    }
+
+    /**
+     * Get volume pricing table html
+     *
+     * @access public
+     * @param array $data
+     * @param object $product
+     * @param bool $is_variable
+     * @return string
+     */
+    public static function get_pricing_table_html($data, $product, $is_variable)
+    {
+
         // Allow developers to abort
         if (!apply_filters('rp_wcdpd_volume_pricing_table_display', true, $data, $product, $is_variable)) {
             return;
@@ -327,61 +344,128 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
         // Get table title
         $title = apply_filters('rp_wcdpd_volume_pricing_table_title', RP_WCDPD_Settings::get('promo_volume_pricing_table_title'), $product, $data, $is_variable);
 
-        // Display one pricing table for simple product or variable product with equal prices
-        if (!$is_variable || (self::variation_prices_match($data) && self::rule_always_applies_to_all_variations($data) && RP_WCDPD_Settings::get('promo_volume_pricing_table_variation_layout') === 'multiple')) {
+        // Display pricing table for simple product
+        if (!$is_variable) {
 
-            // Treat multiple variations as one since prices are the same
-            $single = array_shift($data);
-            $is_variable = false;
-
-            // Display table
-            RightPress_Help::include_extension_template('promotion-volume-pricing-table', $layout, RP_WCDPD_PLUGIN_PATH, RP_WCDPD_PLUGIN_KEY, array('title' => $title, 'data' => array($single)));
+            // Include template and return html
+            ob_start();
+            RightPress_Help::include_extension_template('promotion-volume-pricing-table', $layout, RP_WCDPD_PLUGIN_PATH, RP_WCDPD_PLUGIN_KEY, array('title' => $title, 'data' => $data));
+            return ob_get_clean();
         }
         // Display one table for all variations
         else if (RP_WCDPD_Settings::get('promo_volume_pricing_table_variation_layout') === 'single') {
 
-            // Display table
+            // Include template and return html
+            ob_start();
             RightPress_Help::include_extension_template('promotion-volume-pricing-table', $layout, RP_WCDPD_PLUGIN_PATH, RP_WCDPD_PLUGIN_KEY, array('title' => $title, 'data' => $data));
+            return ob_get_clean();
         }
-        // Display multiple individual tables for multiple variations
+        // Display individual table for product variation
         else {
 
-            // Open variable product container
-            echo '<div id="rp_wcdpd_pricing_table_variation_container" class="rp_wcdpd_pricing_table_variation_container">';
+            // Include template and return html
+            ob_start();
+            echo '<div id="rp_wcdpd_pricing_table_variation_' . $product->get_id() . '" class="rp_wcdpd_pricing_table_variation">'; // Note: This wrapper was left in order not to break custom styling based on ids/classes of this element
+            RightPress_Help::include_extension_template('promotion-volume-pricing-table', $layout, RP_WCDPD_PLUGIN_PATH, RP_WCDPD_PLUGIN_KEY, array('title' => $title, 'data' => $data));
+            echo '</div>';
+            return ob_get_clean();
+        }
+    }
 
-            // Iterate over products with rules
-            foreach ($data as $single) {
+    /**
+     * Display pricing table variation container
+     *
+     * @access public
+     * @return void
+     */
+    public static function display_pricing_table_variation_container()
+    {
 
-                // Current variation is unavailable - do not display a table for it
-                if ($single['table_data'] === false) {
-                    continue;
-                }
+        // Open variable product container
+        echo '<div id="rp_wcdpd_pricing_table_variation_container" class="rp_wcdpd_pricing_table_variation_container" style="display: none;"></div>';
+    }
 
-                // Open variation container
-                echo '<div id="rp_wcdpd_pricing_table_variation_' . $single['product']->get_id() . '" class="rp_wcdpd_pricing_table_variation">';
+    /**
+     * Load variation pricing table via Ajax
+     *
+     * @access public
+     * @return void
+     */
+    public function load_variation_pricing_table()
+    {
 
-                // Display table
-                RightPress_Help::include_extension_template('promotion-volume-pricing-table', $layout, RP_WCDPD_PLUGIN_PATH, RP_WCDPD_PLUGIN_KEY, array('title' => $title, 'data' => array($single)));
+        try {
 
-                // Close variation container
-                echo '</div>';
+            $html = null;
+
+            // Get request data
+            $request_data = RightPress_Product_Price::get_request_data_for_ajax_tools();
+
+            // Load product object
+            $object_id = !empty($request_data['variation_id']) ? $request_data['variation_id'] : $request_data['product_id'];
+            $product = wc_get_product($object_id);
+
+            // Unable to load product
+            if (!$product) {
+                throw new Exception('Unable to load product.');
             }
 
-            // Close variable product container
-            echo '</div>';
+            // Unable to determine variation for variable product
+            if ($product->is_type('variable')) {
+                throw new Exception('Unable to determine product variation.');
+            }
+
+            // Product is not variation
+            if (!$product->is_type('variation')) {
+                throw new Exception('Product variation not provided.');
+            }
+
+            // Get rule for current variation
+            if ($rule = self::get_applicable_volume_rule($product)) {
+
+                // Get table data
+                if ($table_data = self::get_table_data($product, $rule)) {
+
+                    // Get table html
+                    $html = RP_WCDPD_Promotion_Volume_Pricing_Table::get_pricing_table_html(array(array(
+                        'product'       => $product,
+                        'rule'          => $rule,
+                        'table_data'    => $table_data,
+                    )), $product, true);
+                }
+            }
+
+            // Check if we have anything to display
+            if ($html) {
+
+                // Send success response
+                echo json_encode(array(
+                    'result'        => 'success',
+                    'display'       => 1,
+                    'html'          => $html,
+                    'html_hash'     => md5($html),
+                ));
+            }
+            // Nothing to display
+            else {
+
+                // Send success response
+                echo json_encode(array(
+                    'result'    => 'success',
+                    'display'   => 0,
+                ));
+            }
+        }
+        catch (Exception $e) {
+
+            // Send error response
+            echo json_encode(array(
+                'result'    => 'error',
+                'message'   => $e->getMessage(),
+            ));
         }
 
-        // Inject styles
-        RightPress_Help::inject_stylesheet('rp-wcdpd-promotion-volume-pricing-table-styles', RP_WCDPD_PLUGIN_URL . '/extensions/promotion-volume-pricing-table/assets/styles.css', RP_WCDPD_VERSION);
-
-        // Inject script in place for Ajax requests (normally Product Quick View type of requests)
-        if (is_ajax()) {
-            echo '<script type="text/javascript" src="' . RP_WCDPD_PLUGIN_URL . '/extensions/promotion-volume-pricing-table/assets/scripts.js"></script>';
-        }
-        // Enqueue scripts the regular way
-        else {
-            wp_enqueue_script('rp-wcdpd-promotion-volume-pricing-table-scripts', RP_WCDPD_PLUGIN_URL . '/extensions/promotion-volume-pricing-table/assets/scripts.js', array('jquery'), RP_WCDPD_VERSION);
-        }
+        exit;
     }
 
     /**
@@ -397,6 +481,7 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
      */
     public static function get_applicable_volume_rule($product)
     {
+
         // Get matching rules
         if ($matched_rules = RP_WCDPD_Product_Pricing::get_applicable_rules_for_product($product, array('bulk', 'tiered'), false, array('RP_WCDPD_Promotion_Volume_Pricing_Table', 'get_reference_amount_for_table'))) {
 
@@ -425,6 +510,7 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
      */
     public static function get_reference_amount_for_table($adjustment, $base_amount)
     {
+
         $amount = 0;
 
         // Check if at least one quantity range is defined
@@ -458,17 +544,18 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
      */
     public static function get_table_data($product, $rule)
     {
+
         $data = array();
 
         // Set flag
-        RightPress_Product_Price_Test::test_started();
+        RightPress_Product_Price::start_running_custom_calculations();
 
         // Get product price
         $regular_price = $product->get_regular_price();
         $final_price = $product->get_price();
 
-        // Remove flag
-        RightPress_Product_Price_Test::test_ended();
+        // Unset flag
+        RightPress_Product_Price::stop_running_custom_calculations();
 
         // Get quantity ranges
         $quantity_ranges = $rule['quantity_ranges'];
@@ -551,6 +638,7 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
      */
     public static function select_quantity_range_by_quantity($quantity_ranges, $quantity)
     {
+
         foreach ($quantity_ranges as $quantity_range) {
             if ($quantity_range['from'] <= $quantity && $quantity <= $quantity_range['to']) {
                 return $quantity_range;
@@ -569,6 +657,7 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
      */
     public static function get_variation_attributes_string($product)
     {
+
         // Product is not variation
         if (!$product->is_type('variation')) {
             return '';
@@ -580,7 +669,6 @@ class RP_WCDPD_Promotion_Volume_Pricing_Table
         // Convert to string and return
         return http_build_query($attributes);
     }
-
 
 
 

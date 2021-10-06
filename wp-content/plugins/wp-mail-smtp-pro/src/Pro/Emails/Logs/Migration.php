@@ -2,24 +2,25 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs;
 
+use WPMailSMTP\MigrationAbstract;
 use WPMailSMTP\Pro\Tasks\Migrations\EmailLogMigration4;
 use WPMailSMTP\Pro\Tasks\Migrations\EmailLogMigration5;
 use WPMailSMTP\Tasks\Tasks;
-use WPMailSMTP\WP;
 
 /**
  * Class Migration
  *
  * @since 1.5.0
+ * @since 3.0.0 Extends MigrationAbstract.
  */
-class Migration {
+class Migration extends MigrationAbstract {
 
 	/**
 	 * Version of the database table(s) for this Logs functionality.
 	 *
 	 * @since 1.5.0
 	 */
-	const DB_VERSION = 6;
+	const DB_VERSION = 8;
 
 	/**
 	 * Option key where we save the current DB version for Logs functionality.
@@ -36,110 +37,15 @@ class Migration {
 	const ERROR_OPTION_NAME = 'wp_mail_smtp_logs_error';
 
 	/**
-	 * Current version, received from DB wp_options table.
+	 * Whether migration is enabled.
 	 *
-	 * @since 1.5.0
+	 * @since 3.0.0
 	 *
-	 * @var int
+	 * @return bool
 	 */
-	protected $cur_ver;
+	public static function is_enabled() {
 
-	/**
-	 * Migration constructor.
-	 *
-	 * @since 1.5.0
-	 */
-	public function __construct() {
-
-		$this->cur_ver = self::get_cur_version();
-
-		$this->validate_db();
-	}
-
-	/**
-	 * Static on purpose, to get current DB version without __construct() and validation.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @return int
-	 */
-	public static function get_cur_version() {
-
-		return (int) get_option( self::OPTION_NAME, 0 );
-	}
-
-	/**
-	 * Check DB version and update to the latest one.
-	 *
-	 * @since 1.5.0
-	 */
-	protected function validate_db() {
-
-		if ( $this->cur_ver < self::DB_VERSION ) {
-			$this->run( self::DB_VERSION );
-		}
-	}
-
-	/**
-	 * Update DB version in options table.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param int $ver Version number.
-	 */
-	protected function update_db_ver( $ver = 0 ) {
-
-		$ver = (int) $ver;
-
-		if ( empty( $ver ) ) {
-			$ver = self::DB_VERSION;
-		}
-
-		// Autoload it, because this value is checked all the time
-		// and no need to request it separately from all autoloaded options.
-		update_option( self::OPTION_NAME, $ver, true );
-	}
-
-	/**
-	 * Prevent running the same migration twice.
-	 * Run migration only when required.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param int $ver
-	 */
-	protected function maybe_required_older_migrations( $ver ) {
-
-		$ver = (int) $ver;
-
-		if ( ( $ver - $this->cur_ver ) > 1 ) {
-			$this->run( $ver - 1 );
-		}
-	}
-
-	/**
-	 * Actual migration launcher.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param int $ver
-	 */
-	protected function run( $ver ) {
-
-		$ver = (int) $ver;
-
-		if ( method_exists( $this, 'migrate_to_' . $ver ) ) {
-			$this->{'migrate_to_' . $ver}();
-		} else {
-
-			$message = sprintf( /* translators: %1$s - WP Mail SMTP, %2$s - error message. */
-				esc_html__( 'There was an error while upgrading the database. Please contact %1$s support with this information: %2$s.', 'wp-mail-smtp-pro' ),
-				'<strong>WP Mail SMTP</strong>',
-				'<code>migration from v' . self::get_cur_version() . ' to v' . self::DB_VERSION . ' failed. Plugin version: v' . WPMS_PLUGIN_VER . '</code>'
-			);
-
-			WP::add_admin_notice( $message, WP::ADMIN_NOTICE_ERROR );
-		}
+		return wp_mail_smtp()->get_pro()->get_logs()->is_enabled();
 	}
 
 	/**
@@ -152,7 +58,7 @@ class Migration {
 	 *              set the Engine to InnoDB and made the `collate` parameter optional for the query.
 	 * @since 2.2.0 Added error saving to the WP option, so it can be displayed on the Email Log page.
 	 */
-	private function migrate_to_1() {
+	protected function migrate_to_1() {
 
 		global $wpdb;
 
@@ -200,7 +106,7 @@ class Migration {
 	 * @since 1.6.0
 	 * @since 1.6.1 Included previous DB migration call for new users on 1.6.0.
 	 */
-	private function migrate_to_2() {
+	protected function migrate_to_2() {
 
 		$this->maybe_required_older_migrations( 2 );
 
@@ -223,7 +129,7 @@ class Migration {
 	 *
 	 * @since 2.1.0
 	 */
-	private function migrate_to_3() {
+	protected function migrate_to_3() {
 
 		$this->maybe_required_older_migrations( 3 );
 
@@ -253,7 +159,7 @@ class Migration {
 	 *
 	 * @since 2.1.2
 	 */
-	private function migrate_to_4() {
+	protected function migrate_to_4() {
 
 		$this->maybe_required_older_migrations( 4 );
 
@@ -282,15 +188,7 @@ class Migration {
 		}
 
 		if ( ! $is_subject_varchar ) {
-
-			// Initialize the AS task in 'init' hook, when AS is ready to process tasks.
-			add_action(
-				'init',
-				function() {
-					( new EmailLogMigration4() )->async()->register();
-				},
-				2
-			);
+			( new EmailLogMigration4() )->async()->register();
 		}
 
 		// Save the current version to DB.
@@ -302,7 +200,7 @@ class Migration {
 	 *
 	 * @since 2.2.0
 	 */
-	private function migrate_to_5() {
+	protected function migrate_to_5() {
 
 		$this->maybe_required_older_migrations( 5 );
 
@@ -311,14 +209,7 @@ class Migration {
 			return;
 		}
 
-		// Initialize the AS task in 'init' hook, when AS is ready to process tasks.
-		add_action(
-			'init',
-			function() {
-				( new EmailLogMigration5() )->async()->register();
-			},
-			2
-		);
+		( new EmailLogMigration5() )->async()->register();
 
 		// Save the current version to DB.
 		$this->update_db_ver( 5 );
@@ -329,7 +220,7 @@ class Migration {
 	 *
 	 * @since 2.5.0
 	 */
-	private function migrate_to_6() {
+	protected function migrate_to_6() {
 
 		$this->maybe_required_older_migrations( 6 );
 
@@ -345,5 +236,60 @@ class Migration {
 		if ( $result !== false ) {
 			$this->update_db_ver( 6 );
 		}
+	}
+
+	/**
+	 * Add the "initiator_name" and "initiator_file" columns to the DB table.
+	 *
+	 * @since 3.0.0
+	 */
+	protected function migrate_to_7() {
+
+		$this->maybe_required_older_migrations( 7 );
+
+		global $wpdb;
+
+		$table = Logs::get_table_name();
+
+		$sql = "ALTER TABLE `$table` ADD `initiator_name` VARCHAR(255) NULL AFTER `attachments`, ADD `initiator_file` TEXT NULL;";
+
+		$result = $wpdb->query( $sql ); // phpcs:ignore
+
+		// Save the current version to DB.
+		if ( $result !== false ) {
+			$this->update_db_ver( 7 );
+		}
+	}
+
+	/**
+	 * Hide CC and BCC columns in email logs table for existing users.
+	 *
+	 * @since 3.1.0
+	 */
+	protected function migrate_to_8() {
+
+		$this->maybe_required_older_migrations( 8 );
+
+		global $wpdb;
+
+		$meta_key = 'managewp-mail-smtp_page_wp-mail-smtp-logscolumnshidden';
+
+		$rows = $wpdb->get_results( "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = '{$meta_key}'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+
+		foreach ( $rows as $row ) {
+			$value = maybe_unserialize( $row->meta_value );
+
+			if ( empty( $value ) || ! is_array( $value ) ) {
+				$value = [];
+			}
+
+			$value[] = 'cc';
+			$value[] = 'bcc';
+
+			update_user_meta( $row->user_id, $meta_key, array_unique( $value ) );
+		}
+
+		// Save the current version to DB.
+		$this->update_db_ver( 8 );
 	}
 }

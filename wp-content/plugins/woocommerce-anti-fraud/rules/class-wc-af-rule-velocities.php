@@ -80,6 +80,7 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 		// Get the Same IP Orders
 		$velocities_orders = wc_get_orders(
 			array(
+				'limit'               => -1,
 				'exclude'             => array( $order_id ),
 				'customer_ip_address' => $order_ip,
 				'type'                => wc_get_order_types( 'order-count' ),

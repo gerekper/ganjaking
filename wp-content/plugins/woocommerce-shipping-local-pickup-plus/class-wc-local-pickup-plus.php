@@ -37,7 +37,7 @@ use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
 class WC_Local_Pickup_Plus extends Framework\SV_WC_Plugin {
 
 
-	const VERSION = '2.9.5';
+	const VERSION = '2.9.8';
 
 	/** shipping method ID */
 	const SHIPPING_METHOD_ID = 'local_pickup_plus';
@@ -135,50 +135,50 @@ class WC_Local_Pickup_Plus extends Framework\SV_WC_Plugin {
 		$plugin_path = $this->get_plugin_path();
 
 		// load helper functions
-		require_once( $plugin_path . '/includes/functions/wc-local-pickup-plus-functions.php' );
+		require_once( $plugin_path . '/src/functions/wc-local-pickup-plus-functions.php' );
 
 		// static class for custom post types handling
-		require_once( $plugin_path . '/includes/class-wc-local-pickup-plus-post-types.php' );
+		require_once( $plugin_path . '/src/class-wc-local-pickup-plus-post-types.php' );
 
 		// include the Shipping method class
-		require_once( $plugin_path . '/includes/class-wc-shipping-local-pickup-plus.php' );
+		require_once( $plugin_path . '/src/class-wc-shipping-local-pickup-plus.php' );
 
 		// geocoding API handler
-		$this->geocoding        = $this->load_class( '/includes/api/class-wc-local-pickup-plus-geocoding-api.php', 'WC_Local_Pickup_Plus_Geocoding_API' );
+		$this->geocoding        = $this->load_class( '/src/api/class-wc-local-pickup-plus-geocoding-api.php', 'WC_Local_Pickup_Plus_Geocoding_API' );
 		// geolocation handler
-		$this->geolocation      = $this->load_class( '/includes/class-wc-local-pickup-plus-geolocation.php', 'WC_Local_Pickup_Plus_Geolocation' );
+		$this->geolocation      = $this->load_class( '/src/class-wc-local-pickup-plus-geolocation.php', 'WC_Local_Pickup_Plus_Geolocation' );
 		// init session handler
-		$this->session          = $this->load_class( '/includes/class-wc-local-pickup-plus-session.php', 'WC_Local_Pickup_Plus_Session' );
+		$this->session          = $this->load_class( '/src/class-wc-local-pickup-plus-session.php', 'WC_Local_Pickup_Plus_Session' );
 		// products handler
-		$this->products         = $this->load_class( '/includes/class-wc-local-pickup-plus-products.php', 'WC_Local_Pickup_Plus_Products' );
+		$this->products         = $this->load_class( '/src/class-wc-local-pickup-plus-products.php', 'WC_Local_Pickup_Plus_Products' );
 		// orders handler
-		$this->orders           = $this->load_class( '/includes/class-wc-local-pickup-plus-orders.php', 'WC_Local_Pickup_Plus_Orders' );
+		$this->orders           = $this->load_class( '/src/class-wc-local-pickup-plus-orders.php', 'WC_Local_Pickup_Plus_Orders' );
 		// packages handler
-		$this->packages         = $this->load_class( '/includes/class-wc-local-pickup-plus-packages.php', 'WC_Local_Pickup_Plus_Packages' );
+		$this->packages         = $this->load_class( '/src/class-wc-local-pickup-plus-packages.php', 'WC_Local_Pickup_Plus_Packages' );
 		// init pickup locations
-		$this->pickup_locations = $this->load_class( '/includes/class-wc-local-pickup-plus-pickup-locations.php', 'WC_Local_Pickup_Plus_Pickup_Locations' );
+		$this->pickup_locations = $this->load_class( '/src/class-wc-local-pickup-plus-pickup-locations.php', 'WC_Local_Pickup_Plus_Pickup_Locations' );
 		// init appointments handler instance
-		$this->appointments     = $this->load_class( '/includes/Appointments/Appointments.php', Appointments::class ); // phpcs:ignore
+		$this->appointments     = $this->load_class( '/src/Appointments/Appointments.php', Appointments::class ); // phpcs:ignore
 
-		require_once( $plugin_path . '/includes/Appointments/Timezones.php' );
-		require_once( $plugin_path . '/includes/Appointments/Appointment.php' );
+		require_once( $plugin_path . '/src/Appointments/Timezones.php' );
+		require_once( $plugin_path . '/src/Appointments/Appointment.php' );
 
 		// init UI handlers
 		if ( is_admin() ) {
 			// admin side
-			$this->admin    = $this->load_class( '/includes/admin/class-wc-local-pickup-plus-admin.php', 'WC_Local_Pickup_Plus_Admin' );
+			$this->admin    = $this->load_class( '/src/admin/class-wc-local-pickup-plus-admin.php', 'WC_Local_Pickup_Plus_Admin' );
 		} else {
 			// frontend side
-			$this->frontend = $this->load_class( '/includes/frontend/Frontend.php', 'SkyVerge\WooCommerce\Local_Pickup_Plus\Frontend' );
+			$this->frontend = $this->load_class( '/src/frontend/Frontend.php', 'SkyVerge\WooCommerce\Local_Pickup_Plus\Frontend' );
 		}
 
 		// load ajax methods
 		if ( is_ajax() ) {
-			$this->ajax = $this->load_class( '/includes/class-wc-local-pickup-plus-ajax.php', 'WC_Local_Pickup_Plus_Ajax' );
+			$this->ajax = $this->load_class( '/src/class-wc-local-pickup-plus-ajax.php', 'WC_Local_Pickup_Plus_Ajax' );
 		}
 
 		// init integrations classes
-		$this->integrations = $this->load_class( '/includes/integrations/class-wc-local-pickup-plus-integrations.php', 'WC_Local_Pickup_Plus_Integrations' );
+		$this->integrations = $this->load_class( '/src/integrations/class-wc-local-pickup-plus-integrations.php', 'WC_Local_Pickup_Plus_Integrations' );
 	}
 
 
@@ -192,7 +192,7 @@ class WC_Local_Pickup_Plus extends Framework\SV_WC_Plugin {
 	public function init_plugin() {
 
 		// static class for custom post types handling
-		require_once( $this->get_plugin_path() . '/includes/class-wc-local-pickup-plus-post-types.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-local-pickup-plus-post-types.php' );
 
 		\WC_Local_Pickup_Plus_Post_Types::init();
 
@@ -218,7 +218,7 @@ class WC_Local_Pickup_Plus extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/class-wc-local-pickup-plus-lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-local-pickup-plus-lifecycle.php' );
 
 		$this->lifecycle_handler = new \WC_Local_Pickup_Plus_Lifecycle( $this );
 	}
@@ -291,7 +291,7 @@ class WC_Local_Pickup_Plus extends Framework\SV_WC_Plugin {
 		if ( ! $this->shipping_method instanceof \WC_Shipping_Local_Pickup_Plus ) {
 
 			if ( ! class_exists( 'WC_Shipping_Local_Pickup_Plus' ) ) {
-				require_once( $this->get_plugin_path() . '/includes/class-wc-shipping-local-pickup-plus.php' );
+				require_once( $this->get_plugin_path() . '/src/class-wc-shipping-local-pickup-plus.php' );
 			}
 
 			$this->shipping_method = new \WC_Shipping_Local_Pickup_Plus();

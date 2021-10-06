@@ -196,13 +196,13 @@ class RP_WCDPD_Pricing
     public static function get_pricing_settings_label($context)
     {
         if ($context === 'product_pricing') {
-            return __('Adjustment', 'rp_wcdpd');
+            return esc_html__('Adjustment', 'rp_wcdpd');
         }
         else if ($context === 'cart_discounts') {
-            return __('Discount', 'rp_wcdpd');
+            return esc_html__('Discount', 'rp_wcdpd');
         }
         else if ($context === 'checkout_fees') {
-            return __('Fee', 'rp_wcdpd');
+            return esc_html__('Fee', 'rp_wcdpd');
         }
     }
 

@@ -13,6 +13,9 @@
 			// Add woocommerce-pdf_admin-css.css to admin
 			add_action( 'admin_enqueue_scripts', array( $this, 'woocommerce_pdf_admin_css' ) );
 
+			// Add woocommerce-pdf-frontend-css.css to frontend
+			add_action( 'init', array( $this, 'woocommerce_pdf_frontend_css' ) );
+
 	    	// Stop everything if iconv or mbstring are not loaded, prevents fatal errors
 	    	if ( extension_loaded('iconv') && extension_loaded('mbstring') ) {					
 				
@@ -28,11 +31,20 @@
 				add_filter( 'wcs_new_order_created', array( $this, 'create_pdf_invoice_for_manual_subscriptions'), 10, 3 );
 				add_filter( 'wcs_renewal_order_created', array( $this, 'create_pdf_invoice_for_manual_subscriptions' ), 10,2 );
 
+				// Attach Invoice to Refund Emails
+				// add_action( 'woocommerce_order_partially_refunded', array( $this, 'attach_invoice_refunds' ), 10, 2 );
+				// add_action( 'woocommerce_order_fully_refunded', array( $this, 'attach_invoice_refunds' ), 10, 2 );
+
+				add_action( 'woocommerce_order_fully_refunded_notification', array( $this, 'attach_invoice_refunds' ), 10, 2 );
+				add_action( 'woocommerce_order_partially_refunded_notification', array( $this, 'attach_invoice_refunds' ), 10, 2 );
+
 				// Add Send Invoice icon to actions on orders page in admin
-				add_filter( 'woocommerce_admin_order_actions', array( $this,'send_invoice_icon_admin_init' ) ,10 , 2 );
+				// add_filter( 'woocommerce_admin_order_actions', array( $this,'send_invoice_icon_admin_init' ) ,10 , 2 );
 				
 				// Add Download Invoice icon to actions on orders page in admin
-				add_filter( 'woocommerce_admin_order_actions', array( $this,'download_invoice_icon_admin_init' ) ,11 , 2 );
+				// add_filter( 'woocommerce_admin_order_actions', array( $this,'download_invoice_icon_admin_init' ) ,11 , 2 );
+
+				add_action( 'admin_init', array( $this, 'pdf_invoice_order_action_icons' ) );
 
 				// Send PDF when icon is clicked
 				add_action( 'wp_ajax_pdfinvoice-admin-send-pdf', array( $this, 'pdfinvoice_admin_send_pdf') );
@@ -72,7 +84,7 @@
 
 				// Use Action Scheduler to update Order Meta with pdf_creation
 				add_action( 'woocommerce_pdf_invoice_update_order_meta_invoice_date', array( __CLASS__, 'action_scheduler_update_order_meta_invoice_date' ), 10, 2 );
-				
+
 				// Add invoice link to Thank You page
 				add_action( 'woocommerce_thankyou' , array( $this,'invoice_link_thanks' ), 10 );
 
@@ -106,6 +118,14 @@
 			
 		}
 
+		public static function pdf_invoice_order_action_icons() {
+			// Add Send Invoice icon to actions on orders page in admin
+			add_filter( 'woocommerce_admin_order_actions', array( 'WC_pdf_functions','send_invoice_icon_admin_init' ) ,10 , 2 );
+			
+			// Add Download Invoice icon to actions on orders page in admin
+			add_filter( 'woocommerce_admin_order_actions', array( 'WC_pdf_functions','download_invoice_icon_admin_init' ) ,11 , 2 );
+		}
+
 		/**
 		 * [create_pdf_invoice_for_manual_subscriptions description]
 		 * @param  [type] $renewal_order [description]
@@ -127,6 +147,8 @@
 		    return $renewal_order;
 
 		}
+
+
 
 		/**
 		 * [get_order_status_array description]
@@ -198,6 +220,14 @@
 
 		} // woocommerce_completed_order_create_invoice
 
+		public static function attach_invoice_refunds( $order_id, $refund_id ) {
+			if( !class_exists('WC_send_pdf') ){
+				include( 'class-pdf-send-pdf-class.php' );
+			}
+			// Return Attachments
+			return add_filter( 'woocommerce_email_attachments' , array( 'WC_send_pdf' ,'pdf_attachment' ), 10, 3 );
+		}
+
 		/**
 		 * [get_next_invoice_number description]
 		 * @param [type] $order_id [description]
@@ -206,10 +236,10 @@
 			global $wpdb,$woocommerce;
 
 			// Get the invoice options
-			$woocommerce_pdf_invoice_options = get_option( 'woocommerce_pdf_invoice_settings' );
+			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 			$annual_restart = FALSE;
-			if ( isset($woocommerce_pdf_invoice_options['annual_restart']) && $woocommerce_pdf_invoice_options['annual_restart'] == 'TRUE' ) {
+			if ( isset($settings['annual_restart']) && $settings['annual_restart'] == 'TRUE' ) {
 				$annual_restart = TRUE;
 			}
 
@@ -267,13 +297,13 @@
 				$next_invoice = 1;
 
 				// If there is a $start_number and $annual_restart is not set
-				if ( $woocommerce_pdf_invoice_options['start_number'] && !$annual_restart ) {
-					$next_invoice = $woocommerce_pdf_invoice_options['start_number'];
+				if ( isset($settings['start_number']) && !$annual_restart ) {
+					$next_invoice = $settings['start_number'];
 				}
 
 				// If there is a $start_number and $annual_restart is set and there are no previous invoices.
-				if ( $woocommerce_pdf_invoice_options['start_number'] && $annual_restart && $invoice_count == 0 ) {
-					$next_invoice = $woocommerce_pdf_invoice_options['start_number'];
+				if ( isset($settings['start_number']) && $annual_restart && $invoice_count == 0 ) {
+					$next_invoice = $settings['start_number'];
 				}
 
 			} else {
@@ -281,8 +311,8 @@
 			}
 
 			// Check the pdf_next_number settings in case 
-			if( isset( $woocommerce_pdf_invoice_options['pdf_next_number'] ) && $woocommerce_pdf_invoice_options['pdf_next_number'] > $next_invoice && !$annual_restart ) {
-				$next_invoice =  $woocommerce_pdf_invoice_options['pdf_next_number'];
+			if( isset( $settings['pdf_next_number'] ) && $settings['pdf_next_number'] > $next_invoice && !$annual_restart ) {
+				$next_invoice =  $settings['pdf_next_number'];
 			}
 
 			return $next_invoice;
@@ -513,10 +543,21 @@
 			wp_enqueue_style( 'woocommerce-pdf-admin-css' );
 		}
 
+		function woocommerce_pdf_frontend_css() {
+			wp_register_style( 
+                'woocommerce-pdf-frontend-css', 
+                str_replace( 'classes/', '', plugins_url( 'assets/css/woocommerce-pdf-frontend-css.css', __FILE__ ) ),
+                NULL,
+                PDFVERSION 
+                );
+
+            wp_enqueue_style( 'woocommerce-pdf-frontend-css' );
+		}
+
 		/**
 		 * Add Send Invoice icon to actions on orders page in admin
 		 */
-		function send_invoice_icon_admin_init( $actions, $order ) {
+		public static function send_invoice_icon_admin_init( $actions, $order ) {
 			global $post, $column, $woocommerce;
 
 			if ( get_post_meta( $post->ID, '_invoice_number', TRUE ) ) {
@@ -536,7 +577,7 @@
 		/**
 		 * Add Download Invoice icon to actions on orders page in admin
 		 */
-		function download_invoice_icon_admin_init( $actions, $order ) {
+		public static function download_invoice_icon_admin_init( $actions, $order ) {
 			global $post, $column, $woocommerce;
 
 			// Get the PDF invoice settings
@@ -736,10 +777,29 @@
 		 	$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
 		 	if ( isset($settings['link_thanks']) && $settings['link_thanks'] == 'true' && get_post_meta( $order_id, '_invoice_number_display', TRUE ) ) {
-				
-				$invoice_link_thanks  = __('<p class="pdf-download">Download your invoice : ', 'woocommerce-pdf-invoice' );
-				$invoice_link_thanks .= '<a href="'. add_query_arg( 'pdfid', $order_id ) .'">' . get_post_meta( $order_id, '_invoice_number_display', TRUE ) .'</a>';
-				$invoice_link_thanks .= __('</p>', 'woocommerce-pdf-invoice');
+
+		 		// Invoice number 
+		 		$display_invoice_number = get_post_meta( $order_id, '_invoice_number_display', TRUE );
+
+		 		// URL
+		 		$download_url = add_query_arg( 'pdfid', $order_id, $_SERVER['REQUEST_URI'] );
+
+		 		// Button or link?
+		 		$button_or_link = isset( $settings['thanks_style'] ) ? $settings['thanks_style'] : 'link';
+
+		 		// Output
+		 		$output = isset( $settings['pdf_thank_you_text'] ) ? $settings['pdf_thank_you_text'] : 'Download your invoice : [[INVOICENUMBER]]';
+		 		
+		 		if( $button_or_link === 'button' ) {
+
+		 			$button_output          = str_replace( '[[INVOICENUMBER]]', $display_invoice_number, $output );
+                    $button_url             = '<a href="'. $download_url .'" class="pdf_invoice_download_button">' . $button_output . '</a>';
+                    $invoice_link_thanks  = sprintf( __('<p class="pdf-download">%s</p>', 'woocommerce-pdf-invoice' ), $button_url );
+                } else {
+		 			$download_url 		 = '<a href="'. $download_url .'">' . $display_invoice_number . '</a>';
+		 			$download_output 	 = str_replace( '[[INVOICENUMBER]]', $download_url, $output );
+		 			$invoice_link_thanks = sprintf( __('<p class="pdf-download">%s</p>', 'woocommerce-pdf-invoice' ), $download_output );
+		 		}
 
 				echo apply_filters( 'pdf_invoice_invoice_link_thanks', $invoice_link_thanks, $order_id );
 				

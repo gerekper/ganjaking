@@ -417,22 +417,28 @@ return array(
 	'misc_icons'  => array(
 		'title'  => esc_html__( 'Misc icons', 'groovy-menu' ),
 		'fields' => array(
-			'search_icon' => array(
+			'search_icon'      => array(
 				'type'    => 'icon',
 				'title'   => esc_html__( 'Search icon', 'groovy-menu' ),
 				'default' => 'gmi gmi-zoom-search',
 			),
-			'cart_icon'   => array(
+			'cart_icon'        => array(
 				'type'    => 'icon',
 				'title'   => esc_html__( 'Cart icon', 'groovy-menu' ),
 				'default' => 'gmi gmi-bag',
 			),
-			'menu_icon'   => array(
+			'menu_icon'        => array(
 				'type'    => 'icon',
-				'title'   => esc_html__( 'Side icon', 'groovy-menu' ),
+				'title'   => esc_html__( 'Side icon', 'groovy-menu' ) . ' (' . esc_html__( 'Hamburger', 'groovy-menu' ) . ')',
 				'default' => 'fa fa-bars',
 			),
-			'close_icon'  => array(
+			'menu_button_text' => array(
+				'title'       => esc_html__( 'Hamburger menu text', 'groovy-menu' ),
+				'description' => esc_html__( 'This string can be translated with multilingual plugins', 'groovy-menu' ),
+				'type'        => 'text',
+				'default'     => 'Menu',
+			),
+			'close_icon'       => array(
 				'type'    => 'icon',
 				'title'   => esc_html__( 'Close icon', 'groovy-menu' ),
 				'default' => 'fa fa-times',
@@ -497,6 +503,12 @@ return array(
 				'default'     => false,
 				'description' => esc_html__( 'Is also apply to not public post types', 'groovy-menu' ),
 			),
+			'enable_critical_inline_css'      => array(
+				'type'        => 'checkbox',
+				'title'       => esc_html__( 'Enable inline critical CSS', 'groovy-menu' ),
+				'default'     => false,
+				'description' => esc_html__( 'Adds CSS rules in front of the Groovy Menu HTML that describes the default sizes of menus and hidden elements.', 'groovy-menu' ),
+			),
 			'google_fonts_local'              => array(
 				'type'        => 'checkbox',
 				'title'       => esc_html__( 'Use local google fonts', 'groovy-menu' ),
@@ -515,11 +527,17 @@ return array(
 				'default'     => false,
 				'description' => esc_html__( 'Disable loading internal Font from Groovy menu (search, mini-cart icons) at the front-end side of the site', 'groovy-menu' ),
 			),
-			'allow_use_font_preloader'     => array(
+			'allow_use_font_preloader'        => array(
 				'type'        => 'checkbox',
 				'title'       => esc_html__( 'Allow use preloader for internal fonts', 'groovy-menu' ),
 				'default'     => true,
 				'description' => esc_html__( 'Add preload link tag', 'groovy-menu' ),
+			),
+			'disable_menu_block_for_woo_payments' => array(
+				'type'        => 'checkbox',
+				'title'       => esc_html__( 'Disable rendering Menu Blocks for Woocommerce payments pages', 'groovy-menu' ),
+				'default'     => false,
+				'description' => esc_html__( 'Helps prevent conflict with some 3th-party Woocommerce payment plugins', 'groovy-menu' ),
 			),
 			'allow_import_online_library'     => array(
 				'type'        => 'checkbox',
@@ -527,7 +545,13 @@ return array(
 				'default'     => false,
 				'description' => '',
 			),
-			'uninstall_data' => array(
+			'remove_breaking_p_tag'           => array(
+				'type'        => 'checkbox',
+				'title'       => esc_html__( 'Clean &lt;P&gt; tag from Menu blocks', 'groovy-menu' ),
+				'default'     => true,
+				'description' => esc_html__( 'Wordpress inserts paragraphs instead of line breaks by default. Sometimes replacing double line breaks with paragraph elements works with errors inside shortcodes.', 'groovy-menu' ),
+			),
+			'uninstall_data'                  => array(
 				'type'        => 'checkbox',
 				'title'       => esc_html__( 'Remove All Data after uninstall', 'groovy-menu' ),
 				'default'     => false,

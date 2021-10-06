@@ -406,6 +406,9 @@ jQuery(document).ready(function() {
 			type: 'POST',
 			data: {
 				action: 'pm_get_exp_date',
+				licence: {
+					licence_key: jQuery('#permalink-manager #settings #licence_key input[type="text"]').val()
+				}
 			},
 			beforeSend: function() {
 				var spinner = '<img src="' + permalink_manager.spinners + '/wpspin_light-2x.gif" width="16" height="16">';

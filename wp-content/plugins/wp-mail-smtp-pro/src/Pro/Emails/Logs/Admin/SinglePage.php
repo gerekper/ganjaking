@@ -282,6 +282,13 @@ class SinglePage extends PageAbstract {
 					?>
 				</pre>
 
+				<?php if ( ! empty( $email->get_initiator_file() ) ) : ?>
+					<h3><?php esc_html_e( 'Source', 'wp-mail-smtp-pro' ); ?></h3>
+					<pre>
+						<b><?php echo esc_html( $email->get_initiator_name() ); ?></b> <?php echo esc_html( $email->get_initiator_file() ); ?>
+					</pre>
+				<?php endif; ?>
+
 				<?php if ( $email->has_error() ) : ?>
 					<div class="email-extra-details-error">
 						<h3><?php esc_html_e( 'Error', 'wp-mail-smtp-pro' ); ?></h3>
@@ -320,7 +327,7 @@ class SinglePage extends PageAbstract {
 						<?php
 						if ( Email::STATUS_DELIVERED === $email->get_status() ) {
 							$label        = '<strong>' . esc_html__( 'Delivered', 'wp-mail-smtp-pro' ) . '</strong>';
-							$icon_classes = 'status dashicons dashicons-yes-alt delivered';
+							$icon_classes = 'wp-mail-smtp-dashicons-yes-alt-green status delivered';
 						} elseif ( Email::STATUS_SENT === $email->get_status() ) {
 							$label        = '<strong>' . esc_html__( 'Sent', 'wp-mail-smtp-pro' ) . '</strong>';
 							$icon_classes = 'status dot sent';
@@ -407,6 +414,17 @@ class SinglePage extends PageAbstract {
 							printf( /* translators: %s - whether one of email links was clicked. */
 								esc_html__( 'Clicked: %s', 'wp-mail-smtp-pro' ),
 								'<strong>' . $this->display_was_email_link_already_clicked() . '</strong>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+							);
+							?>
+						</li>
+					<?php endif; ?>
+					<?php if ( ! empty( $email->get_initiator_name() ) ) : ?>
+						<li>
+							<i class="dashicons dashicons-admin-plugins"></i>
+							<?php
+							printf( /* translators: %s - email source. */
+								esc_html__( 'Source: %s', 'wp-mail-smtp-pro' ),
+								'<strong>' . esc_html( $email->get_initiator_name() ) . '</strong>'
 							);
 							?>
 						</li>

@@ -4,6 +4,9 @@ namespace ACP\Editing\Model;
 
 use ACP\Editing\Model;
 
+/**
+ * @deprecated 5.6
+ */
 abstract class Comment extends Model {
 
 	/**

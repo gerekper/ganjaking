@@ -8,14 +8,11 @@ use ACP\Export;
 use ACP\Filtering;
 use ACP\Search;
 
-/**
- * @since 4.0
- */
 class Date extends AC\Column\Media\Date
 	implements Filtering\Filterable, Editing\Editable, Export\Exportable, Search\Searchable {
 
 	public function editing() {
-		return new Editing\Model\Media\Date( $this );
+		return new Editing\Service\Media\Date();
 	}
 
 	public function filtering() {

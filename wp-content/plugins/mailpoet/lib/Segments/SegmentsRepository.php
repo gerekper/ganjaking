@@ -11,6 +11,7 @@ use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
+use MailPoet\Form\FormsRepository;
 use MailPoet\Newsletter\Segment\NewsletterSegmentRepository;
 use MailPoet\NotFoundException;
 use MailPoet\WP\Functions as WPFunctions;
@@ -26,12 +27,17 @@ class SegmentsRepository extends Repository {
   /** @var NewsletterSegmentRepository */
   private $newsletterSegmentRepository;
 
+  /** @var FormsRepository */
+  private $formsRepository;
+
   public function __construct(
     EntityManager $entityManager,
-    NewsletterSegmentRepository $newsletterSegmentRepository
+    NewsletterSegmentRepository $newsletterSegmentRepository,
+    FormsRepository $formsRepository
   ) {
     parent::__construct($entityManager);
     $this->newsletterSegmentRepository = $newsletterSegmentRepository;
+    $this->formsRepository = $formsRepository;
   }
 
   protected function getEntityClassName() {
@@ -89,11 +95,14 @@ class SegmentsRepository extends Repository {
     return count($results) === 0;
   }
 
+  /**
+   * @param DynamicSegmentFilterData[] $filtersData
+   */
   public function createOrUpdate(
     string $name,
     string $description = '',
     string $type = SegmentEntity::TYPE_DEFAULT,
-    ?DynamicSegmentFilterData $filterData = null,
+    array $filtersData = [],
     ?int $id = null
   ): SegmentEntity {
     if ($id) {
@@ -108,15 +117,24 @@ class SegmentsRepository extends Repository {
       $this->persist($segment);
     }
 
-    if ($filterData instanceof DynamicSegmentFilterData) {
-      // So far we allow only one filter
-      $filterEntity = $segment->getDynamicFilters()->first();
-      if (!$filterEntity instanceof DynamicSegmentFilterEntity) {
-        $filterEntity = new DynamicSegmentFilterEntity($segment, $filterData);
-        $segment->getDynamicFilters()->add($filterEntity);
-        $this->entityManager->persist($filterEntity);
-      } else {
-        $filterEntity->setFilterData($filterData);
+    // We want to remove redundant filters before update
+    while ($segment->getDynamicFilters()->count() > count($filtersData)) {
+      $filterEntity = $segment->getDynamicFilters()->last();
+      if ($filterEntity) {
+        $segment->getDynamicFilters()->removeElement($filterEntity);
+        $this->entityManager->remove($filterEntity);
+      }
+    }
+    foreach ($filtersData as $key => $filterData) {
+      if ($filterData instanceof DynamicSegmentFilterData) {
+        $filterEntity = $segment->getDynamicFilters()->get($key);
+        if (!$filterEntity instanceof DynamicSegmentFilterEntity) {
+          $filterEntity = new DynamicSegmentFilterEntity($segment, $filterData);
+          $segment->getDynamicFilters()->add($filterEntity);
+          $this->entityManager->persist($filterEntity);
+        } else {
+          $filterEntity->setFilterData($filterData);
+        }
       }
     }
     $this->flush();
@@ -162,8 +180,14 @@ class SegmentsRepository extends Repository {
   }
 
   public function bulkTrash(array $ids, string $type = SegmentEntity::TYPE_DEFAULT): int {
-    $activelyUsed = $this->newsletterSegmentRepository->getSubjectsOfActivelyUsedEmailsForSegments($ids);
-    $ids = array_diff($ids, array_keys($activelyUsed));
+    $activelyUsedInNewsletters = $this->newsletterSegmentRepository->getSubjectsOfActivelyUsedEmailsForSegments($ids);
+    $activelyUsedInForms = $this->formsRepository->getNamesOfFormsForSegments();
+    $activelyUsed = array_unique(array_merge(array_keys($activelyUsedInNewsletters), array_keys($activelyUsedInForms)));
+    $ids = array_diff($ids, $activelyUsed);
+    return $this->updateDeletedAt($ids, new Carbon(), $type);
+  }
+
+  public function doTrash(array $ids, string $type = SegmentEntity::TYPE_DEFAULT): int {
     return $this->updateDeletedAt($ids, new Carbon(), $type);
   }
 
@@ -186,5 +210,18 @@ class SegmentsRepository extends Repository {
     ->getQuery()->execute();
 
     return $rows;
+  }
+
+  public function findByUpdatedScoreNotInLastDay(int $limit): array {
+    $dateTime = (new Carbon())->subDay();
+    return $this->entityManager->createQueryBuilder()
+      ->select('s')
+      ->from(SegmentEntity::class, 's')
+      ->where('s.averageEngagementScoreUpdatedAt IS NULL')
+      ->orWhere('s.averageEngagementScoreUpdatedAt < :dateTime')
+      ->setParameter('dateTime', $dateTime)
+      ->getQuery()
+      ->setMaxResults($limit)
+      ->getResult();
   }
 }

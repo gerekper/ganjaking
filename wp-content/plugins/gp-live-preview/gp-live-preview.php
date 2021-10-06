@@ -3,7 +3,7 @@
  * Plugin Name: GP Live Preview
  * Description: Preview your forms on the frontend of your site.
  * Plugin URI: https://gravitywiz.com/documentation/gravity-forms-live-preview/
- * Version: 1.6
+ * Version: 1.6.2
  * Author: Gravity Wiz
  * Author URI: http://gravitywiz.com/
  * License: GPL2
@@ -12,7 +12,7 @@
  * Domain Path: /languages
  */
 
-define( 'GP_LIVE_PREVIEW_VERSION', '1.6' );
+define( 'GP_LIVE_PREVIEW_VERSION', '1.6.2' );
 
 require 'includes/class-gp-bootstrap.php';
 

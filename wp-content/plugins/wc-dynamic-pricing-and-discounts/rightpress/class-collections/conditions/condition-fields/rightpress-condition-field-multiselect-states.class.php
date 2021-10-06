@@ -55,7 +55,7 @@ abstract class RightPress_Condition_Field_Multiselect_States extends RightPress_
     public function get_placeholder()
     {
 
-        return __('Select states', 'rightpress');
+        return esc_html__('Select states', 'rightpress');
     }
 
 

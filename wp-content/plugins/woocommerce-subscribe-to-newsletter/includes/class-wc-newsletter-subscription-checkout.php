@@ -124,6 +124,10 @@ class WC_Newsletter_Subscription_Checkout {
 	 * @param WC_Checkout $checkout Optional. Checkout instance.
 	 */
 	public function checkout_content( $checkout = null ) {
+		if ( ! wc_newsletter_subscription_provider_has_list() ) {
+			return;
+		}
+
 		if ( ! $checkout ) {
 			$checkout = WC()->checkout();
 		}

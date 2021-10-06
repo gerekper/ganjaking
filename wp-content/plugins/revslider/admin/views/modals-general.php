@@ -53,8 +53,17 @@ if(!defined('ABSPATH')) exit();
 		<div class="rb-modal-content">
 			<div id="rbm_addons" class="rb_modal form_inner">
 				<div class="rbm_header"><i class="rbm_symbol material-icons">extension</i><span class="rbm_title"><?php _e('Addons', 'revslider');?></span><i class="rbm_close material-icons">close</i><div id="check_addon_updates" class="basic_action_button autosize"><i class="material-icons">refresh</i><?php _e('Check for Updates', 'revslider');?></div></div>
-				<div id="rbm_addonlist" class="rbm_content">
-				</div>
+				<div id="addon_overviewheader_wrap">
+						<div id="addon_overviewheader" class="addon_overview_header">
+							<div class="rs_fh_left"><input class="flat_input" id="searchaddons" type="text" placeholder="<?php _e('Search Addons...', 'revslider');?>"/></div>
+							<div class="rs_fh_right" style="margin-right:-5px">
+								<select id="sel_addon_sorting" data-evt="updateAddonsOverview" data-evtparam="#addon_sorting" class="addon_sortby tos2 nosearchbox callEvent" data-theme="autowidthinmodal"><option value="datedesc"><?php _e('Sort by Date', 'revslider');?></option><option value="pop"><?php _e('Sort by Popularity', 'revslider');?></option><option value="title"><?php _e('Sort by Title', 'revslider');?></option></select>
+								<select id="sel_addon_filtering" data-evt="updateAddonsOverview" data-evtparam="#addon_filtering" class="addon_filterby tos2 nosearchbox callEvent" data-theme="autowidthinmodal"><option value="all"><?php _e('Show all Addons', 'revslider');?></option><option value="action"><?php _e('Action Needed', 'revslider');?></option><option value="installed"><?php _e('Installed Addons', 'revslider');?></option><option value="notinstalled"><?php _e('Not Installed Addons', 'revslider');?></option><option value="activated"><?php _e('Activated Addons', 'revslider');?></option></select>							
+							</div>
+							<div class="tp-clearfix"></div>
+						</div>
+					</div>
+				<div id="rbm_addonlist" class="rbm_content"></div>
 				<div id="rbm_addon_details">
 					<div class="rbm_addon_details_inner"><div class="div20"></div><div class="ale_i_title"><?php _e('Slider Revolution Addons', 'revslider');?></div><div class="ale_i_content"><?php _e('Please select an Addon to start with.', 'revslider');?></div><div class="div20"></div></div>
 				</div>

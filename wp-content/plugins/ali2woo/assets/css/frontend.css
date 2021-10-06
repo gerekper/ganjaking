@@ -1,0 +1,238 @@
+.a2w-small {
+	font-size: 9px;
+}
+
+.a2w-error {
+	color: red;
+}
+
+.a2w-hidden-shipping-recalc {
+    display: none;
+}
+
+.a2w_shipping_field_container {
+	width: 400px; 
+	display: inline-block;
+}
+
+@media only screen and (max-device-width: 480px) {
+	.a2w_shipping_field_container {
+		width: 200px;
+	}
+}
+
+/* select shipping styles */
+
+.a2w_shipping_wrap {
+    margin-bottom: 20px;
+}
+
+button + .a2w_shipping_wrap {
+    clear: both;
+    margin-top:10px;
+}
+
+.a2w_shipping_wrap .shipping_info{
+    cursor: pointer;
+}
+
+.a2w_shipping_wrap .shipping_info:hover{
+    text-decoration: underline;
+}
+
+.a2w_shipping_wrap .label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+
+.a2w_shipping_wrap div.info { 
+    margin-bottom: 20px;
+}
+
+.a2w_shipping_wrap.hidden, .a2w_shipping_wrap .hidden {
+    display: none;
+}
+
+/* popup shipping styles start */
+
+.ali2woo-ui-dialog {
+    width: auto !important;
+    min-width: 250px;
+    max-width: 90vw;
+    border-radius: 15px;
+    font-size: 13px;
+}
+
+.ali2woo-ui-dialog select {
+    font-size: 13px; 
+    border-radius: 10px;   
+}
+
+.ali2woo-ui-dialog .ui-dialog-titlebar {
+ /*   padding: 0.1em .5em;
+    position: relative;
+    font-size: 1em;
+    background: #b0de78;
+    border: 0;
+    color: #fff;
+    font-weight: normal;*/
+}
+
+.ali2woo-ui-dialog .ui-dialog-content {
+ /*   background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    overflow: auto;
+    position: relative;
+    padding: 0 !important;*/
+}
+
+.a2w_shipping_modal {
+    display: none;
+}
+
+.a2w_shipping_modal .shipping_info {
+    margin-top: 10px;
+    font-weight: 700;
+ }
+
+ .a2w_shipping_modal .hidden,  .a2w_shipping_modal .a2w-div-table.hidden {
+    display: none;
+}
+
+/*todo: move this to common styles */
+.ali2woo-ui-dialog .a2w-div-table {
+
+    display: table;         
+    width: 99.9%;       
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid #dcdcde;
+    overflow: hidden;             
+    border-spacing: 0;
+
+
+}
+
+   /* .ali2woo-ui-dialog .a2w-div-table .a2w-div-table-row {
+        display: table-row;
+      
+    }*/
+
+    .ali2woo-ui-dialog .a2w-div-table .a2w-div-table-row {
+        width: auto;
+        clear: both;
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin: 0 10px;
+    }
+
+    .ali2woo-ui-dialog .a2w-div-table .a2w-div-table-row::after {
+        content: '';
+        width: 100%;
+        height: 1px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: #dcdcde;
+    }
+
+    .ali2woo-ui-dialog .a2w-div-table .a2w-div-table-row:last-child::after {
+        display: none;
+    }
+
+    .ali2woo-ui-dialog .a2w-div-table .a2w-div-table-col {
+        float: left; /* fix for  buggy browsers */
+        display: table-column;         
+        width: 150px; 
+        padding: 10px 0;
+    }
+
+    @media screen and (max-width: 620px) {
+        .ali2woo-ui-dialog .a2w-div-table .a2w-div-table-col {
+                width: 100px;
+        }
+    }
+
+  .a2w-div-table .a2w-div-table-row .small-col {
+      width: 20px;
+  }
+
+  .a2w-div-table  .a2w-div-table-row .delivery-col {
+    margin-left: 20px;
+  }
+
+  .ali2woo-ui-dialog  .a2w-div-table .first-row {
+    font-weight: bold;
+    margin: 0 !important;
+    padding-left: 10px;
+  }
+
+
+
+.ali2woo-ui-dialog .a2w-load-container {
+    height: auto!important;
+    text-align: center;
+}
+.ali2woo-ui-dialog .a2w-load-container .a2w-load-speeding-wheel {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    border: 2px solid #b5c6da;
+    border-radius: 50%;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    animation: cssload-spin 1325ms infinite linear;
+    -o-animation: cssload-spin 1325ms infinite linear;
+    -ms-animation: cssload-spin 1325ms infinite linear;
+    -webkit-animation: cssload-spin 1325ms infinite linear;
+    -moz-animation: cssload-spin 1325ms infinite linear;
+}
+
+.ali2woo-ui-dialog .ship-to,
+.ali2woo-ui-dialog .choose-delivery {
+    margin-bottom: 5px;
+}
+
+.ali2woo-ui-dialog .a2w-div-table .select_method {
+    margin: 0;
+}
+
+.ali2woo-ui-dialog .ui-dialog-buttonpane .ui-button {
+    height: 36px;
+    padding: 5px 15px;
+    font-weight: 500;
+    border-radius: 10px;
+    border: none;
+    transition: color .2s ease-in-out;
+    background-color: #f0f0f0;
+    box-shadow: none;
+}
+
+.ali2woo-ui-dialog .ui-dialog-buttonpane .ui-button:hover {
+    color: #333;
+}
+/*
+.a2w_shipping_modal .shipping_info {
+    font-weight: 700;
+}*/
+
+.a2w_shipping_modal .shipping-result {
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+
+@keyframes cssload-spin {100%{ transform: rotate(360deg); transform: rotate(360deg); }}
+@-o-keyframes cssload-spin {100%{ -o-transform: rotate(360deg); transform: rotate(360deg); }}
+@-ms-keyframes cssload-spin {100%{ -ms-transform: rotate(360deg); transform: rotate(360deg); }}
+@-webkit-keyframes cssload-spin {100%{ -webkit-transform: rotate(360deg); transform: rotate(360deg); }}
+@-moz-keyframes cssload-spin {100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }}
+
+/* popup shipping styles end */
+
+
+
+
+

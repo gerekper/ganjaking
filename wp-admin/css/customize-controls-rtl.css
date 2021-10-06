@@ -1266,7 +1266,6 @@ p.customize-section-description {
 	padding: 4px 5px;
 	border: 2px solid #f0f0f1;
 	-webkit-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 }
 
@@ -2390,7 +2389,6 @@ body.cheatin p {
 	margin: 0 10px 0 0;
 	transition: all 0.2s;
 	-webkit-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	outline: none;
 }
@@ -2604,7 +2602,7 @@ body.adding-widget .add-new-widget:before,
 	height: 30px;
 	line-height: 2.1;
 	text-align: center;
-	color: #787c82;
+	color: #646970;
 }
 
 #available-widgets-filter .clear-results,
@@ -2672,7 +2670,7 @@ body.adding-widget .add-new-widget:before,
 	top: 7px;
 	right: 26px;
 	z-index: 1;
-	color: #787c82;
+	color: #646970;
 	height: 30px;
 	width: 30px;
 	line-height: 2;

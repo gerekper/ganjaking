@@ -2,21 +2,11 @@
 
 namespace ACP\Editing\Model\Media;
 
-use AC\MetaType;
-use ACP\Editing\Model;
+use ACP\Editing\Service;
 
-class AlternateText extends Model {
-
-	public function get_edit_value( $id ) {
-		if ( ! wp_attachment_is_image( $id ) ) {
-			return null;
-		}
-
-		return parent::get_edit_value( $id );
-	}
-
-	public function save( $id, $value ) {
-		return (bool) update_metadata( MetaType::POST, $id, '_wp_attachment_image_alt', $value );
-	}
+/**
+ * @deprecated 5.6
+ */
+class AlternateText extends Service\Media\AlternateText {
 
 }

@@ -2,17 +2,11 @@
 
 namespace ACP\Editing\Model\Post;
 
-use ACP\Editing\Model;
+use ACP\Editing\Service;
 
-class Menu extends Model\Menu {
-
-	/**
-	 * @param int $id
-	 *
-	 * @return string|false
-	 */
-	protected function get_title( $id ) {
-		return get_post_field( 'post_title', $id );
-	}
+/**
+ * @deprecated 5.6
+ */
+class Menu extends Service\Post\Menu {
 
 }

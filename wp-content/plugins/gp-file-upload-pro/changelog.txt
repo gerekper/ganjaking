@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0-beta-1.10
+
+	- Fixed a compatibility issue with WooCommerce GF Product Add-on.
+
+## 1.0-beta-1.9
+
+	- Fixed issue where pressing the enter key in certain fields would open up the file browser.
+	- Improved field settings by conditionally showing/hiding settings such as Cropping Required if Cropping is not enabled.
+	- Fixed issue where the cropper could potentially open up with the incorrect dimensions/coordinates after other images have been cropped.
+	- Improved how images are passed into Plupload when dragging-and-dropping onto the droparea.
+	- Added option to require that images are cropped prior to upload.
+	- Fixed issue where cropping would be unreliable if there were more than one enhanced File Upload field on a page.
+
 ## 1.0-beta-1.8
 
 	- Fixed a compatibility issue with WordPress 5.7.

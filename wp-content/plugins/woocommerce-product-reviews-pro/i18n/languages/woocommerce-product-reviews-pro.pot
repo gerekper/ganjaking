@@ -1,15 +1,15 @@
-# Copyright (C) 2020 SkyVerge
+# Copyright (C) 2021 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Reviews Pro 1.17.1\n"
+"Project-Id-Version: WooCommerce Product Reviews Pro 1.17.4\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2020-12-07 09:05:53+00:00\n"
+"POT-Creation-Date: 2021-03-30 10:55:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -275,7 +275,8 @@ msgstr ""
 
 #: includes/admin/class-wc-product-reviews-pro-admin.php:816
 #: includes/admin/class-wc-reviews-list-table.php:68
-#: includes/admin/class-wc-reviews.php:87
+#: includes/admin/class-wc-reviews.php:105
+#: includes/admin/class-wc-reviews.php:156
 #: includes/admin/views/html-report-product-reviews.php:13
 #: includes/class-wc-product-reviews-pro-contribution-type.php:65
 msgid "Reviews"
@@ -567,88 +568,92 @@ msgstr ""
 msgid "%1$sReview by %2$s%3$s"
 msgstr ""
 
-#: includes/admin/class-wc-reviews.php:92
+#: includes/admin/class-wc-reviews.php:96
+msgid "Product Reviews Pro"
+msgstr ""
+
+#: includes/admin/class-wc-reviews.php:161
 #. translators: Placeholder: %s - product title
 msgid "Reviews for %s"
 msgstr ""
 
-#: includes/admin/class-wc-reviews.php:223
+#: includes/admin/class-wc-reviews.php:282
 msgid "Search reviews"
 msgstr ""
 
-#: includes/admin/class-wc-reviews.php:257
+#: includes/admin/class-wc-reviews.php:316
 msgid "%s comment approved"
 msgid_plural "%s comments approved"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-reviews.php:262
+#: includes/admin/class-wc-reviews.php:321
 msgid "%s comment marked as spam."
 msgid_plural "%s comments marked as spam."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-reviews.php:262
-#: includes/admin/class-wc-reviews.php:271
+#: includes/admin/class-wc-reviews.php:321
+#: includes/admin/class-wc-reviews.php:330
 msgid "Undo"
 msgstr ""
 
-#: includes/admin/class-wc-reviews.php:266
+#: includes/admin/class-wc-reviews.php:325
 msgid "%s comment restored from the spam"
 msgid_plural "%s comments restored from the spam"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-reviews.php:271
+#: includes/admin/class-wc-reviews.php:330
 msgid "%s comment moved to the Trash."
 msgid_plural "%s comments moved to the Trash."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-reviews.php:275
+#: includes/admin/class-wc-reviews.php:334
 msgid "%s comment restored from the Trash"
 msgid_plural "%s comments restored from the Trash"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-reviews.php:279
+#: includes/admin/class-wc-reviews.php:338
 msgid "%s comment permanently deleted"
 msgid_plural "%s comments permanently deleted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-reviews.php:285
+#: includes/admin/class-wc-reviews.php:344
 msgid "This comment is already approved."
 msgstr ""
 
-#: includes/admin/class-wc-reviews.php:285
-#: includes/admin/class-wc-reviews.php:291
+#: includes/admin/class-wc-reviews.php:344
+#: includes/admin/class-wc-reviews.php:350
 msgid "Edit comment"
 msgstr ""
 
-#: includes/admin/class-wc-reviews.php:288
+#: includes/admin/class-wc-reviews.php:347
 msgid "This comment is already in the Trash."
 msgstr ""
 
-#: includes/admin/class-wc-reviews.php:288
+#: includes/admin/class-wc-reviews.php:347
 msgid "View Trash"
 msgstr ""
 
-#: includes/admin/class-wc-reviews.php:291
+#: includes/admin/class-wc-reviews.php:350
 msgid "This comment is already marked as spam."
 msgstr ""
 
-#: includes/admin/class-wc-reviews.php:322
+#: includes/admin/class-wc-reviews.php:381
 msgid "WooCommerce"
 msgstr ""
 
-#: includes/admin/class-wc-reviews.php:364
+#: includes/admin/class-wc-reviews.php:423
 #: includes/class-wc-product-reviews-pro-contribution-type.php:442
 #: includes/integrations/woocommerce-product-vendors/class-wc-product-reviews-pro-integration-product-vendors.php:580
 msgid "Edit Review"
 msgstr ""
 
-#: includes/admin/class-wc-reviews.php:368
+#: includes/admin/class-wc-reviews.php:427
 #: includes/class-wc-product-reviews-pro-contribution-type.php:485
 msgid "Moderate Review"
 msgstr ""
@@ -677,19 +682,19 @@ msgstr ""
 #: includes/class-wc-product-reviews-pro-ajax.php:146
 #: includes/class-wc-product-reviews-pro-ajax.php:195
 #: includes/class-wc-product-reviews-pro-ajax.php:248
-#: includes/class-wc-product-reviews-pro-ajax.php:491
-#: includes/class-wc-product-reviews-pro-ajax.php:661
-#: includes/class-wc-product-reviews-pro-ajax.php:773
-#: includes/class-wc-product-reviews-pro-ajax.php:873
-#: includes/class-wc-product-reviews-pro-ajax.php:925
-#: includes/class-wc-product-reviews-pro-ajax.php:1027
+#: includes/class-wc-product-reviews-pro-ajax.php:512
+#: includes/class-wc-product-reviews-pro-ajax.php:682
+#: includes/class-wc-product-reviews-pro-ajax.php:794
+#: includes/class-wc-product-reviews-pro-ajax.php:894
+#: includes/class-wc-product-reviews-pro-ajax.php:946
+#: includes/class-wc-product-reviews-pro-ajax.php:1048
 msgid "Invalid request."
 msgstr ""
 
 #: includes/class-wc-product-reviews-pro-ajax.php:156
 #: includes/class-wc-product-reviews-pro-ajax.php:204
 #: includes/class-wc-product-reviews-pro-ajax.php:256
-#: includes/class-wc-product-reviews-pro-ajax.php:500
+#: includes/class-wc-product-reviews-pro-ajax.php:521
 msgid "Invalid request. Contribution not found."
 msgstr ""
 
@@ -705,7 +710,7 @@ msgid "Vote has been cast. Thanks!"
 msgstr ""
 
 #: includes/class-wc-product-reviews-pro-ajax.php:216
-#: includes/class-wc-product-reviews-pro-ajax.php:1055
+#: includes/class-wc-product-reviews-pro-ajax.php:1076
 msgid "You'll be notified when there are replies."
 msgstr ""
 
@@ -714,7 +719,7 @@ msgid "You are no longer following replies."
 msgstr ""
 
 #: includes/class-wc-product-reviews-pro-ajax.php:229
-#: includes/class-wc-product-reviews-pro-ajax.php:1059
+#: includes/class-wc-product-reviews-pro-ajax.php:1080
 #: includes/class-wc-product-reviews-pro-emails.php:221
 #: includes/class-wc-product-reviews-pro-emails.php:251
 #: includes/class-wc-product-reviews-pro-emails.php:261
@@ -736,67 +741,67 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:521
+#: includes/class-wc-product-reviews-pro-ajax.php:542
 msgid "Attachment successfully removed."
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:668
-#: includes/class-wc-product-reviews-pro-ajax.php:735
-#: includes/class-wc-product-reviews-pro-ajax.php:780
-#: includes/class-wc-product-reviews-pro-ajax.php:865
-#: includes/class-wc-product-reviews-pro-ajax.php:932
+#: includes/class-wc-product-reviews-pro-ajax.php:689
+#: includes/class-wc-product-reviews-pro-ajax.php:756
+#: includes/class-wc-product-reviews-pro-ajax.php:801
+#: includes/class-wc-product-reviews-pro-ajax.php:886
+#: includes/class-wc-product-reviews-pro-ajax.php:953
 msgid "Invalid request. Product not found."
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:676
-#: includes/class-wc-product-reviews-pro-ajax.php:682
-#: includes/class-wc-product-reviews-pro-ajax.php:788
+#: includes/class-wc-product-reviews-pro-ajax.php:697
+#: includes/class-wc-product-reviews-pro-ajax.php:703
+#: includes/class-wc-product-reviews-pro-ajax.php:809
 msgid "Invalid request. Review not found."
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:750
+#: includes/class-wc-product-reviews-pro-ajax.php:771
 msgid "Invalid request. No review found."
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:795
+#: includes/class-wc-product-reviews-pro-ajax.php:816
 msgid "Invalid request. Review content can't be empty."
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:812
+#: includes/class-wc-product-reviews-pro-ajax.php:833
 msgid "You did not make any changes to your review!"
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:842
+#: includes/class-wc-product-reviews-pro-ajax.php:863
 msgid "Review updated!"
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:846
+#: includes/class-wc-product-reviews-pro-ajax.php:867
 msgid "Something went wrong. Please try again!"
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:900
+#: includes/class-wc-product-reviews-pro-ajax.php:921
 msgid ""
 "Whoops, looks like you've already reviewed this product! Please contact the "
 "store if you’d like to update your review."
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:971
+#: includes/class-wc-product-reviews-pro-ajax.php:992
 msgid "Invalid request. File is not updated."
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:1004
+#: includes/class-wc-product-reviews-pro-ajax.php:1025
 msgid "Confirmation mail sent!"
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:1008
+#: includes/class-wc-product-reviews-pro-ajax.php:1029
 msgid "Something went wrong. Please try again."
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:1034
+#: includes/class-wc-product-reviews-pro-ajax.php:1055
 msgid "Email is required."
 msgstr ""
 
-#: includes/class-wc-product-reviews-pro-ajax.php:1043
+#: includes/class-wc-product-reviews-pro-ajax.php:1064
 msgid "An account is already registered with your email address. Please login."
 msgstr ""
 
@@ -2049,14 +2054,15 @@ msgctxt "Verb"
 msgid "Trash"
 msgstr ""
 
-#: includes/admin/class-wc-reviews.php:194
-msgctxt "reviews per page (screen options)"
-msgid "Reviews"
-msgstr ""
-
+#: includes/admin/class-wc-reviews.php:113
 #: includes/class-wc-product-reviews-pro-review-qualifiers.php:67
 msgctxt "taxonomy general name"
 msgid "Review Qualifiers"
+msgstr ""
+
+#: includes/admin/class-wc-reviews.php:253
+msgctxt "reviews per page (screen options)"
+msgid "Reviews"
 msgstr ""
 
 #: includes/class-wc-product-reviews-pro-review-qualifiers.php:68

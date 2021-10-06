@@ -46,7 +46,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Grouped' ) ) {
 			self::$product = $product;
 			if ( $this->has_out_of_stock_children() ) {
 				add_filter( 'woocommerce_get_stock_html', array( __CLASS__, 'append_checkboxes' ) );
-				add_action( 'woocommerce_after_add_to_cart_button', array( __CLASS__, 'output_waitlist_elements' ) );
+				add_action( 'woocommerce_after_add_to_cart_form', array( __CLASS__, 'output_waitlist_elements' ) );
 			}
 		}
 		/**

@@ -45,7 +45,7 @@ class Date extends Model {
 			case 'future_past' :
 				$date = date( 'Y-m-d' );
 
-				if ( 'future' == $this->get_filter_value() ) {
+				if ( 'future' === $this->get_filter_value() ) {
 					$vars['date_query'][] = [
 						'inclusive' => true,
 						'after'     => $date,

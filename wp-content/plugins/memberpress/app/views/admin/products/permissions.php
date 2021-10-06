@@ -32,4 +32,6 @@ if($group !== false && $group instanceof MeprGroup && $group->is_upgrade_path) {
       <?php wp_editor(stripslashes($product->cannot_purchase_message), 'meprcannotpurchasemessage'); ?>
     </div>
   </div>
+
+  <?php MeprHooks::do_action('mepr_products_permissions_tab', $product); ?>
 </div>

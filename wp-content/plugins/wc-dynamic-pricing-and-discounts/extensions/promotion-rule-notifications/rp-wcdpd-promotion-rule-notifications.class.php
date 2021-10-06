@@ -47,8 +47,8 @@ class RP_WCDPD_Promotion_Rule_Notifications
     {
 
         $settings['promo']['children']['rule_notifications'] = array(
-            'title' => __('Customer Notifications', 'rp_wcdpd'),
-            'info'  => __('Displays a notification when pricing rule, cart discount or checkout fee is applied.', 'rp_wcdpd'),
+            'title' => esc_html__('Customer Notifications', 'rp_wcdpd'),
+            'info'  => esc_html__('Displays a notification when pricing rule, cart discount or checkout fee is applied.', 'rp_wcdpd'),
             'children' => array(),
         );
 

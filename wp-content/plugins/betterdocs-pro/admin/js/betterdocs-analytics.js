@@ -40,7 +40,7 @@
         const analyticsForm = $('#betterdocs-analytics-form');
 
         renderChart();
-
+        
         analyticsForm.submit(function (e) {
             e.preventDefault();
             var betterdocs = $('#betterdocs_docs').val(),
@@ -52,7 +52,7 @@
                 alert("Please select both start and end date");
                 return false;
             }
-
+            
             var params = '?page=betterdocs-analytics';
 
             if (nxStartDate !== '' && nxEndDate !== '') {
@@ -65,6 +65,7 @@
             if (betterdocs != null) {
                 params += '&betterdocs=' + betterdocs;
             }
+            
             window.history.pushState('/admin.php?page=betterdocs-analytics', 'Connects', params);
 
             renderChart();

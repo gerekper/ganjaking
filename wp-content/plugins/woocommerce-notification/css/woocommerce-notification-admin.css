@@ -12,6 +12,9 @@
 body.toplevel_page_woocommerce-notification {
     overflow-x: hidden;
 }
+.woocommerce-notification .vi-ui.menu{
+    flex-wrap: wrap;
+}
 
 .woocommerce-notification input[type=number] {
     height: auto;

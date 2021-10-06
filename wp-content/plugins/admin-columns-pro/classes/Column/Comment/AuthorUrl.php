@@ -19,7 +19,10 @@ class AuthorUrl extends AC\Column\Comment\AuthorUrl
 	}
 
 	public function editing() {
-		return new Editing\Model\Comment\AuthorURL( $this );
+		return new Editing\Service\Basic(
+			( new Editing\View\Url() )->set_clear_button( true ),
+			new Editing\Storage\Comment\Field( 'comment_author_url' )
+		);
 	}
 
 	public function filtering() {

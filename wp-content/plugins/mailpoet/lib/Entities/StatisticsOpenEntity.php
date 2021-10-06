@@ -40,6 +40,18 @@ class StatisticsOpenEntity {
    */
   private $subscriber;
 
+  /**
+   * @ORM\ManyToOne(targetEntity="MailPoet\Entities\UserAgentEntity")
+   * @var UserAgentEntity|null
+   */
+  private $userAgent;
+
+  /**
+   * @ORM\Column(type="smallint")
+   * @var int
+   */
+  private $userAgentType = 0;
+
   public function __construct(
     NewsletterEntity $newsletter,
     SendingQueueEntity $queue,
@@ -85,5 +97,21 @@ class StatisticsOpenEntity {
    */
   public function setSubscriber($subscriber) {
     $this->subscriber = $subscriber;
+  }
+
+  public function getUserAgent(): ?UserAgentEntity {
+    return $this->userAgent;
+  }
+
+  public function setUserAgent(?UserAgentEntity $userAgent): void {
+    $this->userAgent = $userAgent;
+  }
+
+  public function getUserAgentType(): int {
+    return $this->userAgentType;
+  }
+
+  public function setUserAgentType(int $userAgentType): void {
+    $this->userAgentType = $userAgentType;
   }
 }

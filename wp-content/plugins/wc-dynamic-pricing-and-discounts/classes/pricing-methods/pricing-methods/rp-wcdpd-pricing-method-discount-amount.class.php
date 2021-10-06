@@ -49,7 +49,7 @@ class RP_WCDPD_Pricing_Method_Discount_Amount extends RP_WCDPD_Pricing_Method_Di
      */
     public function get_label()
     {
-        return __('Fixed discount', 'rp_wcdpd');
+        return esc_html__('Fixed discount', 'rp_wcdpd');
     }
 
 

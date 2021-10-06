@@ -333,6 +333,7 @@ export default class GPPALiveMergeTags {
 			const elementMergeTag = $el.attr(liveAttr);
 			const attr = liveAttr.replace(/^data-gppa-live-merge-tag-/, '');
 			let attrVal;
+			let canBeDecoupled = true;
 
 			/**
 			 * Special innerHtml attribute should be handled differently. innerHtml is a fake attribute utilized to replace
@@ -356,7 +357,7 @@ export default class GPPALiveMergeTags {
 					break;
 				default:
 					attrVal = $el.attr(attr);
-
+					canBeDecoupled = false;
 					break;
 			}
 
@@ -383,6 +384,7 @@ export default class GPPALiveMergeTags {
 				elementMergeTag in this.currentMergeTagValues
 				&& attrVal != this.currentMergeTagValues[elementMergeTag]
 				&& attrVal != elementMergeTag
+				&& canBeDecoupled
 			) {
 				continue;
 			}

@@ -5,7 +5,7 @@
  */
 class GroovyMenuCategoryPreset {
 
-	const meta_name      = 'gm_custom_preset_id';
+	const meta_name = 'gm_custom_preset_id';
 	const meta_menu_name = 'gm_custom_menu_id';
 
 	protected $taxonomies = array();

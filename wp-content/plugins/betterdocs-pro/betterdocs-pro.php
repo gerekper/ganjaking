@@ -10,7 +10,7 @@
  * Plugin Name:       BetterDocs Pro
  * Plugin URI:        https:/betterdocs.co
  * Description:       Help your customers browse the docs and find instant answers through BetterDocs Instant Answers. Get access to Multiple KB, Insightful Analytics & many more!
- * Version:           1.6.4
+ * Version:           1.6.9
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.net
  * License:           GPL-3.0+
@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'BETTERDOCS_PRO_VERSION', '1.6.4' );
+define( 'BETTERDOCS_PRO_VERSION', '1.6.9' );
 //define( 'BETTERDOCS_PRO_PUBLIC_URL', plugins_url( '/', __FILE__ ) );
 define( 'BETTERDOCS_PRO_URL', plugin_dir_url( __FILE__ ) );
 define( 'BETTERDOCS_PRO_PUBLIC_URL', BETTERDOCS_PRO_URL . 'public/' );
@@ -105,7 +105,7 @@ function betterdocs_install_core_notice() {
 	if( ! class_exists( 'BetterDocs' ) ) :
 	?>
 		<div class="error notice is-dismissible">
-			<p><?php echo sprintf( '<strong>%1$s</strong> %2$s <strong>%3$s</strong> %4$s', __( 'BetterDocs Pro', 'betterdocs' ), __( 'requires', 'betterdocs' ), __( 'BetterDocs', 'betterdocs' ), __( 'core plugin to be installed. Please get the plugin now!', 'betterdocs' ) ) ?> <button id="betterdocs-install-core" class="button button-primary"><?php echo $button_text; ?></button></p>
+			<p><?php echo sprintf( '<strong>%1$s</strong> %2$s <strong>%3$s</strong> %4$s', __( 'BetterDocs Pro', 'betterdocs-pro' ), __( 'requires', 'betterdocs-pro' ), __( 'BetterDocs', 'betterdocs-pro' ), __( 'core plugin to be installed. Please get the plugin now!', 'betterdocs-pro' ) ) ?> <button id="betterdocs-install-core" class="button button-primary"><?php echo $button_text; ?></button></p>
 		</div>
 	<?php
 	endif;

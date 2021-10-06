@@ -56,6 +56,9 @@ WPMailSMTP.Admin.Settings = WPMailSMTP.Admin.Settings || ( function( document, w
 			app.bindActions();
 
 			app.setJQueryConfirmDefaults();
+
+			// Flyout Menu.
+			app.initFlyoutMenu();
 		},
 
 		/**
@@ -200,12 +203,12 @@ WPMailSMTP.Admin.Settings = WPMailSMTP.Admin.Settings || ( function( document, w
 
 				$buttonIcon
 					.removeClass( 'dashicons-admin-page' )
-					.addClass( 'dashicons-yes-alt wp-mail-smtp-success wp-mail-smtp-animate' );
+					.addClass( 'wp-mail-smtp-dashicons-yes-alt-green wp-mail-smtp-success wp-mail-smtp-animate' );
 
 				setTimeout(
 					function() {
 						$buttonIcon
-							.removeClass( 'dashicons-yes-alt wp-mail-smtp-success wp-mail-smtp-animate' )
+							.removeClass( 'wp-mail-smtp-dashicons-yes-alt-green wp-mail-smtp-success wp-mail-smtp-animate' )
 							.addClass( 'dashicons-admin-page' );
 					},
 					1000
@@ -441,6 +444,56 @@ WPMailSMTP.Admin.Settings = WPMailSMTP.Admin.Settings || ( function( document, w
 				boxWidth: '400px',
 				useBootstrap: false
 			};
+		},
+
+		/**
+		 * Flyout Menu (quick links).
+		 *
+		 * @since 3.0.0
+		 */
+		initFlyoutMenu: function() {
+
+			// Flyout Menu Elements.
+			var $flyoutMenu = $( '#wp-mail-smtp-flyout' );
+
+			if ( $flyoutMenu.length === 0 ) {
+				return;
+			}
+
+			var $head = $flyoutMenu.find( '.wp-mail-smtp-flyout-head' );
+
+			// Click on the menu head icon.
+			$head.on( 'click', function( e ) {
+				e.preventDefault();
+				$flyoutMenu.toggleClass( 'opened' );
+			} );
+
+			// Page elements and other values.
+			var $wpfooter = $( '#wpfooter' );
+
+			if ( $wpfooter.length === 0 ) {
+				return;
+			}
+
+			var $overlap = $( '.wp-mail-smtp-page-logs-archive, .wp-mail-smtp-tab-tools-action-scheduler, .wp-mail-smtp-page-reports, .wp-mail-smtp-tab-tools-debug-events' ),
+				wpfooterTop = $wpfooter.offset().top,
+				wpfooterBottom = wpfooterTop + $wpfooter.height(),
+				overlapBottom = $overlap.length > 0 ? $overlap.offset().top + $overlap.height() + 85 : 0;
+
+			// Hide menu if scrolled down to the bottom of the page or overlap some critical controls.
+			$( window ).on( 'resize scroll', _.debounce( function() {
+
+				var viewTop = $( window ).scrollTop(),
+					viewBottom = viewTop + $( window ).height();
+
+				if ( wpfooterBottom <= viewBottom && wpfooterTop >= viewTop && overlapBottom > viewBottom ) {
+					$flyoutMenu.addClass( 'out' );
+				} else {
+					$flyoutMenu.removeClass( 'out' );
+				}
+			}, 50 ) );
+
+			$( window ).trigger( 'scroll' );
 		}
 	};
 

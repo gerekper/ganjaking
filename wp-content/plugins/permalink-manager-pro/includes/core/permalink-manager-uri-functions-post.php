@@ -51,7 +51,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 	* Change permalinks for posts, pages & custom post types
 	*/
 	static function custom_post_permalinks($permalink, $post) {
-		global $wp_rewrite, $permalink_manager_uris, $permalink_manager_options;
+		global $wp_rewrite, $permalink_manager_uris, $permalink_manager_options, $permalink_manager_ignore_permalink_filters;
 
 		// Do not filter permalinks in Customizer
 		if((function_exists('is_customize_preview') && is_customize_preview()) || !empty($_REQUEST['customize_url'])) { return $permalink; }
@@ -65,18 +65,19 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		// Do not run when metaboxes are loaded with Gutenberg
 		if(!empty($_REQUEST['meta-box-loader']) && empty($_POST['custom_uri'])) { return $permalink; }
 
+		// Do not filter if $permalink_manager_ignore_permalink_filters global is set
+		if(!empty($permalink_manager_ignore_permalink_filters)) { return $permalink; }
+
 		$post = (is_integer($post)) ? get_post($post) : $post;
 
 		// Do not run if post object is invalid
-		if(empty($post) || empty($post->ID) || empty($post->post_type)) {
-			return $permalink;
-		}
+		if(empty($post) || empty($post->ID) || empty($post->post_type)) { return $permalink; }
 
 		// Start with homepage URL
 		$home_url = Permalink_Manager_Helper_Functions::get_permalink_base($post);
 
-		// 1. Check if post type is allowed
-		if(!empty($post->post_type) && Permalink_Manager_Helper_Functions::is_disabled($post->post_type, 'post_type') && $post->post_type !== 'attachment') { return $permalink; }
+		// Check if the post is excluded
+		if(!empty($post->post_type) && Permalink_Manager_Helper_Functions::is_post_excluded($post) && $post->post_type !== 'attachment') { return $permalink; }
 
 		// 2A. Do not change permalink of frontpage
 		if(Permalink_Manager_Helper_Functions::is_front_page($post->ID)) {
@@ -168,7 +169,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		$post_name = (empty($post->post_name)) ? Permalink_Manager_Helper_Functions::sanitize_title($post->post_title) : $post->post_name;
 
 		// 1A. Check if post type is allowed
-		if($check_if_disabled && Permalink_Manager_Helper_Functions::is_disabled($post_type, 'post_type')) { return ''; }
+		if($check_if_disabled && Permalink_Manager_Helper_Functions::is_post_type_disabled($post_type)) { return ''; }
 
 		// 1A. Get the native permastructure
 		if($post_type == 'attachment') {
@@ -419,9 +420,12 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		}
 
 		// Get excluded items
-		$exclude_posts = $wpdb->get_col("SELECT post_ID FROM {$wpdb->postmeta} AS pm LEFT JOIN {$wpdb->posts} AS p ON (pm.post_ID = p.ID) WHERE pm.meta_key = 'auto_update_uri' AND pm.meta_value = '-2' AND post_type IN ('{$post_types}')");
-		if(!empty($exclude_posts)) {
-			$where .= sprintf(" AND ID NOT IN ('%s') ", implode("', '", $exclude_posts));
+		$excluded_posts_ui = $wpdb->get_col("SELECT post_ID FROM {$wpdb->postmeta} AS pm LEFT JOIN {$wpdb->posts} AS p ON (pm.post_ID = p.ID) WHERE pm.meta_key = 'auto_update_uri' AND pm.meta_value = '-2' AND post_type IN ('{$post_types}')");
+		$excluded_posts_hook = (array) apply_filters('permalink_manager_excluded_post_ids', array());
+		$excluded_posts = array_merge($excluded_posts_ui, $excluded_posts_hook);
+
+		if(!empty($excluded_posts)) {
+			$where .= sprintf(" AND ID NOT IN ('%s') ", implode("', '", $excluded_posts));
 		}
 
 		// Support for attachments
@@ -485,8 +489,10 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 			}
 
 			// Filter array before saving
-			$permalink_manager_uris = array_filter($permalink_manager_uris);
-			update_option('permalink-manager-uris', $permalink_manager_uris);
+			if(is_array($permalink_manager_uris)) {
+				$permalink_manager_uris = array_filter($permalink_manager_uris);
+				update_option('permalink-manager-uris', $permalink_manager_uris);
+			}
 
 			$output = array('updated' => $updated_array, 'updated_count' => $updated_slugs_count);
 			wp_reset_postdata();
@@ -550,8 +556,10 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 			}
 
 			// Filter array before saving
-			$permalink_manager_uris = array_filter($permalink_manager_uris);
-			update_option('permalink-manager-uris', $permalink_manager_uris);
+			if(is_array($permalink_manager_uris)) {
+				$permalink_manager_uris = array_filter($permalink_manager_uris);
+				update_option('permalink-manager-uris', $permalink_manager_uris);
+			}
 
 			$output = array('updated' => $updated_array, 'updated_count' => $updated_slugs_count);
 			wp_reset_postdata();
@@ -589,7 +597,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 				$old_uri = isset($old_uris[$id]) ? trim($old_uris[$id], "/") : "";
 
 				// Process new values - empty entries will be treated as default values
-				$new_uri = preg_replace('/\s+/', '', $new_uri);
+				$new_uri = Permalink_Manager_Helper_Functions::sanitize_title($new_uri);
 				$new_uri = (!empty($new_uri)) ? trim($new_uri, "/") : $default_uri;
 				$new_slug = (strpos($new_uri, '/') !== false) ? substr($new_uri, strrpos($new_uri, '/') + 1) : $new_uri;
 
@@ -605,8 +613,10 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 			}
 
 			// Filter array before saving & append the global
-			$permalink_manager_uris = array_filter($old_uris);
-			update_option('permalink-manager-uris', $permalink_manager_uris);
+			if(is_array($permalink_manager_uris)) {
+				$permalink_manager_uris = array_filter($old_uris);
+				update_option('permalink-manager-uris', $permalink_manager_uris);
+			}
 
 			$output = array('updated' => $updated_array, 'updated_count' => $updated_slugs_count);
 		}
@@ -623,14 +633,14 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		// Detect auto drafts
 		$autosave = (!empty($new_title) && empty($new_slug)) ? true : false;
 
-		// Check if post type is disabled
-		if(Permalink_Manager_Helper_Functions::is_disabled($post->post_type, 'post_type')) { return $html; }
+		// Check if the post is excluded
+		if(empty($post->post_type) || Permalink_Manager_Helper_Functions::is_post_excluded($post)) { return $html; }
 
 		// Ignore drafts
 		if(!empty($permalink_manager_options["general"]["ignore_drafts"]) && !empty($post->post_status) && $post->post_status == 'draft') { return $html; }
 
 		// Stop the hook (if needed)
-		$show_uri_editor = apply_filters("permalink_manager_show_uri_editor_post_{$post->post_type}", true);
+		$show_uri_editor = apply_filters("permalink_manager_show_uri_editor_post_{$post->post_type}", true, $post);
 		if(!$show_uri_editor) { return $html; }
 
 		$new_html = preg_replace("/^(<strong>(.*)<\/strong>)(.*)/is", "$1 ", $html);
@@ -685,7 +695,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		$post_type = (!empty($current_screen->post_type)) ? $current_screen->post_type : false;
 
 		// Check if post type is disabled
-		if($post_type && Permalink_Manager_Helper_Functions::is_disabled($post_type, 'post_type')) { return $columns; }
+		if($post_type && Permalink_Manager_Helper_Functions::is_post_type_disabled($post_type)) { return $columns; }
 
 		return (is_array($columns)) ? array_merge($columns, array('permalink-manager-col' => __( 'Current URI', 'permalink-manager'))) : $columns;
 	}
@@ -735,8 +745,8 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 
 		$post_object = get_post($post_id);
 
-		// Check if post type is allowed
-		if(empty($post_object->post_type) || Permalink_Manager_Helper_Functions::is_disabled($post_object->post_type, 'post_type')) { return $post_id; };
+		// Check if post is allowed
+		if(empty($post_object->post_type) || Permalink_Manager_Helper_Functions::is_post_excluded($post_object)) { return $post_id; }
 
 		// Exclude drafts
 		if(!empty($permalink_manager_options["general"]["ignore_drafts"]) && !empty($post_object->post_status) && $post_object->post_status == 'draft') { return $post_id; }
@@ -755,7 +765,9 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		$new_uri = self::get_default_post_uri($post_id);
 		$permalink_manager_uris[$post_object->ID] = $new_uri;
 
-		update_option('permalink-manager-uris', $permalink_manager_uris);
+		if(is_array($permalink_manager_uris)) {
+			update_option('permalink-manager-uris', $permalink_manager_uris);
+		}
 
 		do_action('permalink_manager_new_post_uri', $post_id, $new_uri, $native_uri);
 	}
@@ -786,8 +798,8 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		$post_id = ($is_revision) ? $is_revision : $post_id;
 		$post = get_post($post_id);
 
-		// Check if post type is allowed
-		if(empty($post->post_type) || Permalink_Manager_Helper_Functions::is_disabled($post->post_type, 'post_type') || $post->post_type == 'nav_menu_item') { return $post_id; };
+		// Check if post is allowed
+		if(empty($post->post_type) || Permalink_Manager_Helper_Functions::is_post_excluded($post)) { return $post_id; }
 
 		// Exclude drafts
 		if(!empty($permalink_manager_options["general"]["ignore_drafts"]) && !empty($post->post_status) && $post->post_status == 'draft') { return $post_id; }
@@ -840,8 +852,10 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		}
 
 		// Save only changed URIs
-		$permalink_manager_uris[$post_id] = $new_uri;
-		update_option('permalink-manager-uris', $permalink_manager_uris);
+		if(is_array($permalink_manager_uris)) {
+			$permalink_manager_uris[$post_id] = $new_uri;
+			update_option('permalink-manager-uris', $permalink_manager_uris);
+		}
 
 		do_action('permalink_manager_updated_post_uri', $post_id, $new_uri, $old_uri, $native_uri, $default_uri, $single_update = true);
 	}
@@ -857,7 +871,9 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 			unset($permalink_manager_uris[$post_id]);
 		}
 
-		update_option('permalink-manager-uris', $permalink_manager_uris);
+		if(is_array($permalink_manager_uris)) {
+			update_option('permalink-manager-uris', $permalink_manager_uris);
+		}
 	}
 
 }

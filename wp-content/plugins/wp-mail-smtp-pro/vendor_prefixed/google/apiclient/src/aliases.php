@@ -70,7 +70,7 @@ if (\false) {
     class Google_Task_Exception extends \WPMailSMTP\Vendor\Google\Task\Exception
     {
     }
-    class Google_Task_Retryable extends \WPMailSMTP\Vendor\Google\Task\Retryable
+    interface Google_Task_Retryable extends \WPMailSMTP\Vendor\Google\Task\Retryable
     {
     }
     class Google_Task_Runner extends \WPMailSMTP\Vendor\Google\Task\Runner

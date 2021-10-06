@@ -9,6 +9,7 @@ use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\NewsletterLinkEntity;
 use MailPoet\Entities\StatisticsClickEntity;
 use MailPoet\Entities\StatisticsOpenEntity;
+use MailPoet\Entities\UserAgentEntity;
 use MailPoet\Newsletter\Url as NewsletterUrl;
 use MailPoet\Premium\Subscriber\Stats\SubscriberNewsletterStats;
 use MailPoet\WooCommerce\Helper as WCHelper;
@@ -38,7 +39,7 @@ class SubscriberDetailedStatsResponseBuilder {
 
   /**
    * @param SubscriberNewsletterStats[] $newslettersStats
-   * @return array
+   * @return array<array>
    */
   public function build(array $newslettersStats): array {
     $response = [];
@@ -54,6 +55,11 @@ class SubscriberDetailedStatsResponseBuilder {
     return $response;
   }
 
+  /**
+   * @param NewsletterEntity $newsletter
+   *
+   * @return array<string, mixed>
+   */
   private function buildNewsletter(NewsletterEntity $newsletter): array {
     $sentAt = $newsletter->getSentAt();
     $previewUrl = $this->newsletterUrl->getViewInBrowserUrl(
@@ -75,14 +81,24 @@ class SubscriberDetailedStatsResponseBuilder {
     ];
   }
 
+  /**
+   * @param StatisticsOpenEntity $open
+   *
+   * @return array<string, int|string|null>
+   */
   private function buildOpen(StatisticsOpenEntity $open): array {
     return [
       'id' => $open->getId(),
-      'type' => 'open',
+      'type' => $open->getUserAgentType() === UserAgentEntity::USER_AGENT_TYPE_MACHINE ? 'machine-open' : 'open',
       'created_at' => $open->getCreatedAt()->format(self::DATE_FORMAT),
     ];
   }
 
+  /**
+   * @param StatisticsClickEntity $click
+   *
+   * @return array<string, array<int, array<string, mixed>>|int|string|null>
+   */
   private function buildClick(StatisticsClickEntity $click): array {
     $link = $click->getLink();
     $linkUrl = ($link instanceof NewsletterLinkEntity) ? $link->getUrl() : '';

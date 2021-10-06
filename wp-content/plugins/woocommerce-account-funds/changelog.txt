@@ -1,5 +1,8 @@
 *** WooCommerce Account Funds ***
 
+2021-09-91 - version 2.5.3
+* Tweak - Tested compatibility up to WC 5.7.
+
 2021-07-20 - version 2.5.2
 * Tweak - Don't return zero when the customer funds balance is negative.
 

@@ -1,8 +1,8 @@
 === Groovy Menu ===
 Contributors: Grooni
 Requires at least: 4.9.7
-Tested up to: 5.7
-Stable tag: 2.4.12
+Tested up to: 5.8
+Stable tag: 2.5.4
 Requires PHP: 7.0
 License: Themeforest Split Licence
 License URI: -
@@ -65,6 +65,60 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.5.4 =
+* Add: New option "Show hamburger menu only" for Minimalistic menu type.
+* Add: New feature "Organize fullscreen menu items into columns" when Minimalistic menu type "Fullscreen menu" is enabled.
+* Fix: Fixed bug with the incorrect position of the menu, when the search and mini-basket icons are disabled.
+* Fix: Drawer auto-closing now works by click on the anchor links in minimalistic style.
+* Fix: The incorrect appearance of added custom code in preview mode.
+
+= 2.5.3 =
+* Add: Added a setting to enable the preloader "General settings > Enable preloader of the menu".
+* Fix: Submenu caret size for second and lower levels.
+
+= 2.5.2 =
+* Improve: Added work with "Bulk Select" WordPress 5.8 feature located under Appearance > Menus.
+* Fix: Handle locations in "Menu setting" and "Manage locations" under Appearance > Menus.
+
+= 2.5.1.1 =
+* HotFix: Fix Second Sidebar Menu "Main menu bar right" position.
+
+= 2.5.0 - 2.5.1 =
+* Add: Added the ability to add a hamburger menu as "Second sidebar menu" to "Classic" type of menu.
+* Add: Added new feature the Export/Import for Menu Blocks. (Phase 1)
+* Add: Menu preload, now all of menu elements appears in one time
+* Add: New feature "Animated Hamburger icon" for Minimalistic type of menu.
+* Add: New option "Show text beside hamburger icon" for Mobile and Minimalistic menu type.
+* Add: Added two new settings for the Expanded sidebar menu: "Initial sidebar: Hide first level icons" and "Expanded sidebar: Hide first level icons".
+* Add: Added ability to set a background image for a "Drawer" in "Minimalistic" type of menu.
+* Add: Added ability to select places for search icons and Woocommerce mini-cart in Minimalistic type of menu.
+* Add: Added the ability to integrate a menu using a special Groovy helper plugin, in cases where integration through a child theme is not possible, e.g.Genesis Framework based themes.
+* Add: Added settings to control time delay of appearing in/out between dropdowns and submenus.
+* Add: Setting "Tracking anchor links" for "Scrollbar & Onepage" preset section.
+* Add: Setting "Full height sidebar menu" for Minimalistic type of menu.
+* Add: Added "Replace" button allows to replace icon pack under "Global setting > Icon pack" tab.
+* Add: New option "Enable inline critical CSS" that is placed under Dashboard > Global settings > at "Tools" tab.
+* Add: New setting "Disable rendering Menu Block for Woocommerce payments pages" under Dashboard > "Global settings > Tools".
+* Add: Added font settings for Additional menu items text under "Styles > Typography > Additional menu items text".
+* Add: Added padding setting for custom toolbar under "Styles > Toolbar > Toolbar padding".
+* Add: Added new setting "Clean <P> tag from Menu blocks" that is placed under "Dashboard > Global settings > Tools".
+* Add: Setting that allows disabling the mobile menu.
+* Add: Setting that allows disabling the desktop menu.
+* Add: Feature that allows adding custom menu block to toolbar menu.
+* Improve: "General > Toolbar menu" section renamed to "General > Additional menu". Now you can insert additional nav menus in different places in the header.
+* Improve: Added the ability to add Menu Blocks, Icons, Badges into Addition menus.
+* Improve: NPM modules have been updated.
+* Improve: Improved work of "Animated Hamburger icon".
+* Improve: Animation for the sticky menu.
+* Improve: Moved all font settings to "Styles > Typography" section.
+* Fix: Deleting font files if icon pack has been removed (under Dashboard > Global setting > Icon packs).
+* Fix: Checking the existence of font files during Icon Pack loading and considering that when creating a CSS file.
+* Fix: Changed CSS Flex alignment direction for "Expanded sidebar" and "Sidebar" menu types. This also allows to add a scroll for the first level of the menu in cases where menu items do not fit in height on the screen.
+* Fix: Bug with uploading ZIP with non-standard icon fonts from Icomoon.io has been fixed.
+* Fix: Added support for single pages for taxonomies created using "Advanced custom fields" without the "Has archive" flag.
+* Fix: Setting Custom width under "Appearance > Menu" for Expanded sidebar menu.
+* Fix: Some pesky bugs have been exterminated.
 
 = 2.4.12 =
 * Add: New setting to set drawer width as fullwidth for mobile menu.

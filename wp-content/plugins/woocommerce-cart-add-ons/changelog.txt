@@ -1,5 +1,12 @@
 *** WooCommerce Cart Add-ons ***
 
+2021-08-03 - version 2.1.0
+* Fix - Fix appearance of cart addons shortcodes due to missing classnames.
+* Fix - Fix sidebar widget .
+* Fix - Update build scripts.
+* Tweak - WC 5.5 compatibility.
+* Tweak - WP 5.8 compatibility.
+
 2021-03-09 - version 2.0.0
 * Fix - Add Better guards for WC Navigation not being enabled.
 

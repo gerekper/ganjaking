@@ -92,7 +92,10 @@ class Rev_addon_gal_Admin {
 		
 			$sliders = array();
 			$slider = new RevSliderSlider();
+			global $rs_do_init_action;
+			$rs_do_init_action = false;
 			$arrSliders = $slider->get_sliders();
+			$rs_do_init_action = true;
 			$defSlider = get_option( 'revslider_gallery_addon' );
 			$defSlider = str_replace('revslider-gallery-addon-slider=', '', $defSlider);
 			
@@ -248,7 +251,10 @@ class Rev_addon_gal_Admin {
 	 */
 	public function rev_addon_media_form(){
 		$slider = new RevSliderSlider();
+		global $rs_do_init_action;
+		$rs_do_init_action = false;
 		$arrSliders = $slider->get_sliders();
+		$rs_do_init_action = true;
 		$defSlider = get_option( 'revslider_gallery_addon' );
 	?>
 		<script type="text/html" id="tmpl-rev-addon-gallery-setting">

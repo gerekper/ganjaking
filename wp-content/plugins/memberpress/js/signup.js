@@ -6,6 +6,13 @@
       $('div.mepr_coupon_'+$(this).data("prdid")).show();
     });
 
+    $('body').on('keydown', '.mepr-signup-form .mepr-coupon-code', function(e) {
+      if(e.which === 13) {
+        e.preventDefault();
+        $(this).trigger('blur');
+      }
+    });
+
     // Store the default price string
     $('.mepr_price_cell').each(function () {
       $(this).data('default-price-string', $(this).text());

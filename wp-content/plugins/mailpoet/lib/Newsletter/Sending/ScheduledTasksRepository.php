@@ -49,6 +49,47 @@ class ScheduledTasksRepository extends Repository {
       ->getResult();
   }
 
+  public function findScheduledOrRunningTask(?string $type): ?ScheduledTaskEntity {
+    $queryBuilder = $this->doctrineRepository->createQueryBuilder('st')
+      ->select('st')
+      ->where('(st.status = :scheduledStatus) OR (st.status is NULL)')
+      ->andWhere('st.deletedAt IS NULL')
+      ->setParameter('scheduledStatus', ScheduledTaskEntity::STATUS_SCHEDULED);
+    if (!empty($type)) {
+      $queryBuilder
+        ->andWhere('st.type = :type')
+        ->setParameter('type', $type);
+    }
+    return $queryBuilder->getQuery()->getOneOrNullResult();
+  }
+
+  public function findScheduledTask(?string $type): ?ScheduledTaskEntity {
+    $queryBuilder = $this->doctrineRepository->createQueryBuilder('st')
+      ->select('st')
+      ->where('st.status = :scheduledStatus')
+      ->andWhere('st.deletedAt IS NULL')
+      ->setParameter('scheduledStatus', ScheduledTaskEntity::STATUS_SCHEDULED);
+    if (!empty($type)) {
+      $queryBuilder
+        ->andWhere('st.type = :type')
+        ->setParameter('type', $type);
+    }
+    return $queryBuilder->getQuery()->getOneOrNullResult();
+  }
+
+  public function findPreviousTask(ScheduledTaskEntity $task): ?ScheduledTaskEntity {
+    return $this->doctrineRepository->createQueryBuilder('st')
+      ->select('st')
+      ->where('st.type = :type')
+      ->setParameter('type', $task->getType())
+      ->andWhere('st.createdAt < :created')
+      ->setParameter('created', $task->getCreatedAt())
+      ->orderBy('st.scheduledAt', 'DESC')
+      ->setMaxResults(1)
+      ->getQuery()
+      ->getOneOrNullResult();
+  }
+
   protected function getEntityClassName() {
     return ScheduledTaskEntity::class;
   }

@@ -7,14 +7,16 @@ use AC\Storage;
 
 class LicenseCheckTransient implements Expirable {
 
+	const CACHE_KEY = 'acp_periodic_license_check';
+
 	/**
 	 * @var Storage\Timestamp
 	 */
 	protected $timestamp;
 
-	public function __construct() {
+	public function __construct( $network_only = false ) {
 		$this->timestamp = new Storage\Timestamp(
-			new Storage\Option( 'acp_periodic_license_check' )
+			( new Storage\OptionFactory() )->create( self::CACHE_KEY, $network_only )
 		);
 	}
 

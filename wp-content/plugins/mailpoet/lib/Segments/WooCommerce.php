@@ -75,6 +75,7 @@ class WooCommerce {
         $this->unsubscribeUsersFromSegment(); // remove leftover association
         break;
       case 'woocommerce_new_customer':
+      case 'woocommerce_created_customer':
         $newCustomer = true;
       case 'woocommerce_update_customer':
       default:
@@ -91,15 +92,17 @@ class WooCommerce {
           'is_woocommerce_user' => 1,
         ];
         if (!empty($newCustomer)) {
-          $data['status'] = Subscriber::STATUS_SUBSCRIBED;
           $data['source'] = Source::WOOCOMMERCE_USER;
         }
         $data['id'] = $subscriber->id();
-
+        if ($wpUser->first_name) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+          $data['first_name'] = $wpUser->first_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+        }
+        if ($wpUser->last_name) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+          $data['last_name'] = $wpUser->last_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+        }
         $subscriber = Subscriber::createOrUpdate($data);
         if ($subscriber->getErrors() === false && $subscriber->id > 0) {
-          $this->updateFirstNames($subscriber->id);
-          $this->updateLastNames($subscriber->id);
           // add subscriber to the WooCommerce Customers segment
           SubscriberSegment::subscribeToSegments(
             $subscriber,
@@ -113,10 +116,10 @@ class WooCommerce {
   }
 
   public function synchronizeGuestCustomer($orderId) {
-    $wcOrder = $this->wp->getPost($orderId);
+    $wcOrder = $this->woocommerceHelper->wcGetOrder($orderId);
     $wcSegment = Segment::getWooCommerceSegment();
 
-    if ($wcOrder === false or $wcSegment === false) return;
+    if ((!$wcOrder instanceof \WC_Order) || $wcSegment === false) return;
     $signupConfirmation = $this->settings->get('signup_confirmation');
     $status = Subscriber::STATUS_UNCONFIRMED;
     if ((bool)$signupConfirmation['enabled'] === false) {
@@ -132,8 +135,17 @@ class WooCommerce {
       ->findOne();
 
     if ($subscriber !== false) {
-      $this->updateFirstNames($subscriber->id);
-      $this->updateLastNames($subscriber->id);
+      $firstName = $wcOrder->get_billing_first_name(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      $lastName = $wcOrder->get_billing_last_name(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      if ($firstName) {
+        $subscriber->firstName = $firstName;
+      }
+      if ($lastName) {
+        $subscriber->lastName = $lastName;
+      }
+      if ($firstName || $lastName) {
+        $subscriber->save();
+      }
       // add subscriber to the WooCommerce Customers segment
       SubscriberSegment::subscribeToSegments(
         $subscriber,
@@ -148,6 +160,7 @@ class WooCommerce {
     $this->markRegisteredCustomers();
     $insertedUsersEmails = $this->insertSubscribersFromOrders();
     $this->removeUpdatedSubscribersWithInvalidEmail($insertedUsersEmails);
+    unset($insertedUsersEmails);
     $this->updateFirstNames();
     $this->updateLastNames();
     $this->insertUsersToSegment();
@@ -167,11 +180,11 @@ class WooCommerce {
     $mailpoetEmailColumn = $wpdb->get_row(
       'SHOW FULL COLUMNS FROM ' . MP_SUBSCRIBERS_TABLE . ' WHERE Field = "email"'
     );
-    $this->mailpoetEmailCollation = $mailpoetEmailColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    $this->mailpoetEmailCollation = $mailpoetEmailColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
     $wpPostmetaValueColumn = $wpdb->get_row(
       'SHOW FULL COLUMNS FROM ' . $wpdb->postmeta . ' WHERE Field = "meta_value"'
     );
-    $this->wpPostmetaValueCollation = $wpPostmetaValueColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    $this->wpPostmetaValueCollation = $wpPostmetaValueColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
   }
 
   private function needsCollationChange(): bool {
@@ -195,7 +208,7 @@ class WooCommerce {
     global $wpdb;
     $subscribersTable = Subscriber::$_table;
     Subscriber::rawExecute(sprintf('
-      UPDATE %1$s mps
+      UPDATE LOW_PRIORITY %1$s mps
         JOIN %2$s wu ON mps.wp_user_id = wu.id
         JOIN %3$s wpum ON wu.id = wpum.user_id AND wpum.meta_key = "' . $wpdb->prefix . 'capabilities"
       SET is_woocommerce_user = 1, source = "%4$s"
@@ -245,7 +258,7 @@ class WooCommerce {
       ->delete_many();
   }
 
-  private function updateFirstNames($subscriberId = null) {
+  private function updateFirstNames() {
     global $wpdb;
     $collate = '';
     if ($this->needsCollationChange()) {
@@ -253,18 +266,18 @@ class WooCommerce {
     }
     $subscribersTable = Subscriber::$_table;
     Subscriber::rawExecute(sprintf('
-      UPDATE %1$s mps
+      UPDATE LOW_PRIORITY %1$s mps
         JOIN %2$s wppm ON mps.email = wppm.meta_value %3$s AND wppm.meta_key = "_billing_email"
         JOIN %2$s wppm2 ON wppm2.post_id = wppm.post_id AND wppm2.meta_key = "_billing_first_name"
         JOIN (SELECT MAX(post_id) AS max_id FROM %2$s WHERE meta_key = "_billing_email" GROUP BY meta_value) AS tmaxid ON tmaxid.max_id = wppm.post_id
       SET mps.first_name = wppm2.meta_value
-        WHERE ' . ($subscriberId ? ' mps.id = "' . (int)$subscriberId . '" ' : ' mps.first_name = "" ' ) . '
+        WHERE  mps.first_name = ""
         AND mps.is_woocommerce_user = 1
         AND wppm2.meta_value IS NOT NULL
     ', $subscribersTable, $wpdb->postmeta, $collate));
   }
 
-  private function updateLastNames($subscriberId = null) {
+  private function updateLastNames() {
     global $wpdb;
     $collate = '';
     if ($this->needsCollationChange()) {
@@ -272,12 +285,12 @@ class WooCommerce {
     }
     $subscribersTable = Subscriber::$_table;
     Subscriber::rawExecute(sprintf('
-      UPDATE %1$s mps
+      UPDATE LOW_PRIORITY %1$s mps
         JOIN %2$s wppm ON mps.email = wppm.meta_value %3$s AND wppm.meta_key = "_billing_email"
         JOIN %2$s wppm2 ON wppm2.post_id = wppm.post_id AND wppm2.meta_key = "_billing_last_name"
         JOIN (SELECT MAX(post_id) AS max_id FROM %2$s WHERE meta_key = "_billing_email" GROUP BY meta_value) AS tmaxid ON tmaxid.max_id = wppm.post_id
       SET mps.last_name = wppm2.meta_value
-        WHERE ' . ($subscriberId ? ' mps.id = "' . (int)$subscriberId . '" ' : ' mps.last_name = "" ' ) . '
+        WHERE mps.last_name = ""
         AND mps.is_woocommerce_user = 1
         AND wppm2.meta_value IS NOT NULL
     ', $subscribersTable, $wpdb->postmeta, $collate));
@@ -437,7 +450,7 @@ class WooCommerce {
     $wcSegment = Segment::getWooCommerceSegment();
 
     $sql = sprintf('
-      UPDATE %1$s mpss
+      UPDATE LOW_PRIORITY %1$s mpss
         JOIN %2$s mps ON mpss.subscriber_id = mps.id
       SET mpss.status = "%3$s"
         WHERE

@@ -1,8 +1,19 @@
 *** Product CSV Import Suite Changelog ***
 
+2021-08-24 - version 1.10.46
+* Fix - Ensure we don't fire any unnecessary actions when importing products that don't have any `post_` fields.
+* Fix - Tweak: Wording update to remove "ninja" from import instructions.
+* Tweak - WC 5.6 compatibility.
+* Tweak - WP 5.8 compatibility.
+
+2021-07-27 - version 1.10.45
+* Tweak - Wording update to remove "ninja" from import instructions.
+
+2021-07-15 - version 1.10.44
+* Tweak - Addresses a problem in some builds of the previous release.
+
 2021-07-15 - version 1.10.43
 * Fix - Ensure the product lookup table is only updated for products that were imported.
-
 
 2021-07-02 - version 1.10.42
 * Fix - ensure post modified dates get updated even if an import doesn't have any normal post fields.

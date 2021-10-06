@@ -8,6 +8,7 @@
 
 namespace Smush\Core;
 
+use Smush\Core\Modules\Smush;
 use WP_CLI;
 use WP_CLI_Command;
 use WP_Smush;
@@ -182,7 +183,8 @@ class CLI extends WP_CLI_Command {
 			$attachment_id = array_pop( $images );
 
 			// Skip if already Smushed.
-			if ( ! in_array( (int) $attachment_id, $unsmushed_attachments, true ) ) {
+			$should_convert = $core->mod->webp->should_be_converted( $attachment_id );
+			if ( ! in_array( (int) $attachment_id, $unsmushed_attachments, true ) && ! $should_convert ) {
 				/* translators: %d - attachment ID */
 				$errors[] = sprintf( __( 'Image (ID: %d) already compressed', 'wp-smushit' ), $attachment_id );
 				continue;

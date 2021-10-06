@@ -49,7 +49,7 @@ class RP_WCDPD_Pricing_Method_Discount_Percentage extends RP_WCDPD_Pricing_Metho
      */
     public function get_label()
     {
-        return __('Percentage discount', 'rp_wcdpd');
+        return esc_html__('Percentage discount', 'rp_wcdpd');
     }
 
     /**

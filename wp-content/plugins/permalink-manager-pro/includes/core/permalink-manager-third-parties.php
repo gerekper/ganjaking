@@ -576,9 +576,12 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 				$yoast_canonical_url = get_post_meta($element->ID, '_yoast_wpseo_canonical', true);
 				if(!empty($yoast_canonical_url)) { return $url; }
 
-				$paged = (get_query_var('page')) ? get_query_var('page') : 1;
-				if($paged > 1) {
-					$new_url = sprintf('%s/%d', trim($new_url, '/'), $paged);
+				if(is_home()) {
+					$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+					$new_url = ($paged > 1) ? sprintf('%s/%s/%d', trim($new_url, '/'), $wp_rewrite->pagination_base, $paged) : $new_url;
+				} else {
+					$paged = (get_query_var('page')) ? get_query_var('page') : 1;
+					$new_url = ($paged > 1) ? sprintf('%s/%d', trim($new_url, '/'), $paged) : $new_url;
 				}
 			} else if(!empty($element->taxonomy) && !empty($element->term_id)) {
 				$new_url = get_term_link($element, $element->taxonomy);
@@ -627,7 +630,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
  			$custom_uri = trim(preg_replace("/([^\/]+)$/", '', $wp->request), "/");
  		}
 
- 		$all_uris = array_flip($permalink_manager_uris);
+		$all_uris = array_flip($permalink_manager_uris);
  		$custom_uri_parts = explode('/', trim($custom_uri));
  		$breadcrumbs = array();
  		$snowball = '';
@@ -794,7 +797,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	 */
 	function wpaiextra_uri_display($content_type, $current_values) {
 		// Check if post type is supported
-		if($content_type !== 'taxonomies' && Permalink_Manager_Helper_Functions::is_disabled($content_type)) {
+		if($content_type !== 'taxonomies' && Permalink_Manager_Helper_Functions::is_post_type_disabled($content_type)) {
 			return;
 		}
 
@@ -885,7 +888,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		// Check if the imported elements are terms
 		if($importData['post_type'] == 'taxonomies') {
 			$is_term = true;
-		} else if(Permalink_Manager_Helper_Functions::is_disabled($importData['post_type'], 'post_type')) {
+		} else if(Permalink_Manager_Helper_Functions::is_post_type_disabled($importData['post_type'])) {
 			return;
 		}
 
@@ -1010,7 +1013,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		global $permalink_manager_uris;
 
 		// Use only for "listing" post type & custom permalink
-		if(empty($element->post_type) || $element->post_type !== 'job_listing' || $native_uri) { return $default_uri; }
+		if(empty($element->post_type) || $element->post_type !== 'job_listing') { return $default_uri; }
 
 		// A1. Listing type
 		if(strpos($default_uri, '%listing-type%') !== false || strpos($default_uri, '%listing_type%') !== false) {

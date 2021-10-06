@@ -1,5 +1,14 @@
 *** Shipping Per Product Changelog ***
 
+2021-08-12 - version 2.3.15
+* Fix - Only allow 200 shipping rule tables to be edited in the product editor.
+* Fix - Skip importing rows where the product ID is empty.
+
+2021-07-27 - version 2.3.14
+* Fix - Only allow numeric values for cost fields and validate accordingly.
+* Fix - Change the support links to go to the correct WooCommerce support form.
+* Fix - Make sure country and state codes only use 2 characters.
+
 2021-02-09 - version 2.3.13
 * Fix - Possible conflict with Advanced Shipping Packages.
 

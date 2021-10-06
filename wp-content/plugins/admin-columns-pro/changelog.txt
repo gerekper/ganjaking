@@ -1,5 +1,35 @@
 == Changelog ==
 
+= 5.6 =
+Release Date: September 21st, 2021
+
+* [Breaking Changes] A complete refactoring of the Editing feature. The ACF and WooCommerce integrations need to be updated.
+* [Breaking Changes] Removed deprecated methods from ACP version 4.4 or older.
+* [Deprecated] All Editing models have become deprecated. Editing services should be used instead.
+* [Added] Placeholder column to determine where and if Polylang columns should be displayed
+* [Added] New 'Has Term' column for the Post list table
+* [Added] It is now possible to smart filter user related columns on the current user.
+* [Added] It is now possible to do calculations with inline editing for numeric custom fields.
+* [Improved] Editing can now always be toggled for the Custom Field Column and does not specifically need to be activated first.
+* [Improved] New styling and interface for the admin area.
+* [Fixed] Sorting for default/native column can now be disabled.
+* [Fixed] A fatal error when inline editing taxonomy fields when the Post Count column was available on the page.
+* [Updated] Admin Columns Core changes ( 4.4 )
+* [Added] Complete restyling of the Admin interface
+* [Fixed] Load a default column set when the preferred column set was restricted in the meantime
+* [Fixed] Gravatar display option did not work anymore since the value sanitation
+* [Fixed] Possible namespace clash in Admin class
+
+= 5.5.3 =
+Release Date: June 18th, 2021
+
+* [Added] Added Media columns: Artist and Album
+* [Improved] A more compact (horizontal) view for the Screen Options on the table screen
+* [Fixed] Sticky Headers could give an error when Screen Options were removed from the screen
+* [Fixed] Resetting sorting did not work correctly for column settings that were never stored
+* [Updated] Admin Columns Core changes ( 4.3.2 )
+* [Fixed] Column date setting gave an error when the default date format was empty
+
 = 5.5.2 =
 Release Date: June 11th, 2021
 

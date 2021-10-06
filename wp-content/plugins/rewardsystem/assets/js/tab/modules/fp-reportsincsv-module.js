@@ -2,6 +2,7 @@
  * Reports in CSV - Module
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var ReportsInCSVModuleScripts = {
         init : function ( ) {
             this.trigger_on_page_load( ) ;
@@ -21,11 +22,6 @@ jQuery( function ( $ ) {
             $( document ).on( 'click' , '#rs_export_user_points_report_csv' , this.export_report_for_user ) ;
         } ,
         trigger_on_page_load : function ( ) {
-            if ( fp_reports_in_csv_module_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
-                $( '#rs_export_users_report_list' ).chosen( ) ;
-            } else {
-                $( '#rs_export_users_report_list' ).select2( ) ;
-            }
             $( '#rs_point_export_report_start_date' ).datepicker( { dateFormat : 'yy-mm-dd' } ) ;
             $( '#rs_point_export_report_end_date' ).datepicker( { dateFormat : 'yy-mm-dd' } ) ;
         } ,

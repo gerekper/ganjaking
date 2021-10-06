@@ -7,6 +7,8 @@ if (!defined('ABSPATH')) {
 
 /**
  * Display volume pricing table manually for specific product
+ *
+ * Note: This function is designed work within the WooCommerce's .product DOM element - it may or may not work properly elsewhere
  */
 if (!function_exists('rp_wcdpd_display_volume_pricing_table')) {
 

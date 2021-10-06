@@ -51,10 +51,9 @@ final class DeprecatedAddon
 					}
 				}
 
-				if ( $column instanceof Editing\Editable && $column->editing()->is_active() ) {
-					/** @var Editing\Settings $setting */
+				if ( $column instanceof Editing\Editable ) {
 					$setting = $column->get_setting( 'edit' );
-					if ( $setting && $setting->is_active() ) {
+					if ( $setting instanceof Editing\Settings && $setting->is_active() ) {
 						return true;
 					}
 				}

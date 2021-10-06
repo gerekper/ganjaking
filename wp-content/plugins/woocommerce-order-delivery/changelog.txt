@@ -1,5 +1,12 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2021.09.07 - version 1.9.3
+* Fix - The delivery date was still available when all its time frames were full (Only when restricted by shipping methods).
+
+2021.08.31 - version 1.9.2
+* Tweak - Tested compatibility up to WC 5.7.
+* Tweak - Tested compatibility up to WP 5.8.
+
 2021.06.08 - version 1.9.1
 * Tweak - Tested compatibility with WC 5.4.
 * Tweak - Tested compatibility with WP 5.7.

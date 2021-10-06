@@ -21,20 +21,13 @@ defined( 'ABSPATH' ) || exit;
 global $product;
 
 do_action( 'wc_fgc_before_single_cart_product' );
-
 ?>
 
-<div class="wc_fgc_cart" id="wc_fgc_<?php echo $cart_item_key; ?>">
-
-	<div class="wc-fgc-close-section">
-		<button class="wc-fgc-close-btn">
-			<span class="dashicons dashicons-after dashicons-no-alt"></span>
-		</button>
-	</div>
+<div class="wc_fgc_cart" id="wc_fgc_<?php echo esc_attr( $cart_item_key ); ?>" data-single_add_to_cart_text="<?php echo esc_attr( $product->single_add_to_cart_text() ) ;?>" data-product_title="<?php echo esc_attr( $product->get_title() ) ;?>" >
 
 	<div class="wc-fgc-stock-error" style="display: none;"></div>
 
-	<div id="product-<?php the_ID(); ?>" <?php wc_product_class( '', $product ); ?>>
+	<div id="product-<?php echo esc_attr( $product->get_id() ); ?>" <?php wc_product_class( '', $product ); ?>>
 
 		<?php
 		/**
@@ -53,7 +46,7 @@ do_action( 'wc_fgc_before_single_cart_product' );
 			 * @hooked woocommerce_template_single_title - 5
 			 * @hooked woocommerce_template_single_add_to_cart - 30
 			 */
-			 do_action( 'wc_fgc_single_product_summary' ); 
+			do_action( 'wc_fgc_single_product_summary' );
 			?>
 		</div>
 

@@ -16,7 +16,7 @@ class WPSEO_Shortlinker {
 	 * @return array The shortlink data.
 	 */
 	protected function collect_additional_shortlink_data() {
-		return [
+		$data = [
 			'php_version'      => $this->get_php_version(),
 			'platform'         => 'wordpress',
 			'platform_version' => $this->get_platform_version(),
@@ -25,6 +25,13 @@ class WPSEO_Shortlinker {
 			'days_active'      => $this->get_days_active(),
 			'user_language'    => $this->get_user_language(),
 		];
+
+		$admin_page = filter_input( INPUT_GET, 'page' );
+		if ( ! empty( $admin_page ) ) {
+			$data['screen'] = $admin_page;
+		}
+
+		return $data;
 	}
 
 	/**
@@ -110,8 +117,33 @@ class WPSEO_Shortlinker {
 	 * @return int The number of days the plugin is active.
 	 */
 	private function get_days_active() {
-		
-		$cohort = '365plus';
+		$date_activated = WPSEO_Options::get( 'first_activated_on' );
+		$datediff       = ( time() - $date_activated );
+		$days           = (int) round( $datediff / DAY_IN_SECONDS );
+		switch ( $days ) {
+			case 0:
+			case 1:
+				$cohort = '0-1';
+				break;
+			case ( $days < 5 ):
+				$cohort = '2-5';
+				break;
+			case ( $days < 30 ):
+				$cohort = '6-30';
+				break;
+			case ( $days < 91 ):
+				$cohort = '31-90';
+				break;
+			case ( $days < 181 ):
+				$cohort = '91-180';
+				break;
+			case ( $days < 366 ):
+				$cohort = '181-365';
+				break;
+			default:
+				$cohort = '365plus';
+		}
+
 		return $cohort;
 	}
 

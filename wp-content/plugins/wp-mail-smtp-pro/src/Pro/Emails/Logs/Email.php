@@ -119,6 +119,24 @@ class Email {
 	protected $attachments = 0;
 
 	/**
+	 * Name of the plugin/theme (or WP core) that initiated/called the `wp_mail` function.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var string
+	 */
+	protected $initiator_name = '';
+
+	/**
+	 * File path and line number of the plugin/theme (or WP core) that initiated/called the `wp_mail` function.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var string
+	 */
+	protected $initiator_file = '';
+
+	/**
 	 * Retrieve a particular email when constructing the object.
 	 *
 	 * @since 1.5.0
@@ -415,6 +433,30 @@ class Email {
 	}
 
 	/**
+	 * Get name of the plugin/theme (or WP core) that initiated/called the `wp_mail` function.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return string
+	 */
+	public function get_initiator_name() {
+
+		return $this->initiator_name;
+	}
+
+	/**
+	 * Get file path and line number of the plugin/theme (or WP core) that initiated/called the `wp_mail` function.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return string
+	 */
+	public function get_initiator_file() {
+
+		return $this->initiator_file;
+	}
+
+	/**
 	 * Get email content type.
 	 *
 	 * @since 2.9.0
@@ -693,6 +735,32 @@ class Email {
 	}
 
 	/**
+	 * Set the initiator by checking the backtrace for the wp_mail function call.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return Email
+	 */
+	public function set_initiator() {
+
+		$backtrace = $this->get_wpmail_backtrace();
+
+		if ( empty( $backtrace['file'] ) ) {
+			return $this;
+		}
+
+		$this->initiator_file = $backtrace['file'];
+
+		if ( ! empty( $backtrace['line'] ) ) {
+			$this->initiator_file .= ':' . $backtrace['line'];
+		}
+
+		$this->initiator_name = WP::get_initiator_name( $backtrace['file'] );
+
+		return $this;
+	}
+
+	/**
 	 * Save a new or modified email in DB.
 	 *
 	 * @since 1.5.0
@@ -708,24 +776,26 @@ class Email {
 
 		if ( (bool) $this->get_id() ) {
 			// Update the existing DB table record.
-			$wpdb->update(
+			$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
 				$table,
-				array(
-					'subject'       => $this->subject,
-					'people'        => $this->people,
-					'headers'       => $this->headers,
-					'error_text'    => $this->error_text,
-					'content_plain' => $this->content_plain,
-					'content_html'  => $this->content_html,
-					'status'        => $this->status,
-					'date_sent'     => $this->get_date_sent()->format( WP::datetime_mysql_format() ),
-					'mailer'        => $this->mailer,
-					'attachments'   => $this->attachments,
-				),
-				array(
+				[
+					'subject'        => $this->subject,
+					'people'         => $this->people,
+					'headers'        => $this->headers,
+					'error_text'     => $this->error_text,
+					'content_plain'  => $this->content_plain,
+					'content_html'   => $this->content_html,
+					'status'         => $this->status,
+					'date_sent'      => $this->get_date_sent()->format( WP::datetime_mysql_format() ),
+					'mailer'         => $this->mailer,
+					'attachments'    => $this->attachments,
+					'initiator_name' => $this->initiator_name,
+					'initiator_file' => $this->initiator_file,
+				],
+				[
 					'id' => $this->get_id(),
-				),
-				array(
+				],
+				[
 					'%s', // subject.
 					'%s', // people.
 					'%s', // headers.
@@ -736,10 +806,12 @@ class Email {
 					'%s', // date_sent.
 					'%s', // mailer.
 					'%d', // attachments.
-				),
-				array(
+					'%s', // initiator_name.
+					'%s', // initiator_file.
+				],
+				[
 					'%d',
-				)
+				]
 			);
 
 			$email_id = $this->get_id();
@@ -747,19 +819,21 @@ class Email {
 			// Create a new DB table record.
 			$wpdb->insert(
 				$table,
-				array(
-					'subject'       => $this->subject,
-					'people'        => $this->people,
-					'headers'       => $this->headers,
-					'error_text'    => $this->error_text,
-					'content_plain' => $this->content_plain,
-					'content_html'  => $this->content_html,
-					'status'        => $this->status,
-					'date_sent'     => $this->get_date_sent()->format( WP::datetime_mysql_format() ),
-					'mailer'        => $this->mailer,
-					'attachments'   => $this->attachments,
-				),
-				array(
+				[
+					'subject'        => $this->subject,
+					'people'         => $this->people,
+					'headers'        => $this->headers,
+					'error_text'     => $this->error_text,
+					'content_plain'  => $this->content_plain,
+					'content_html'   => $this->content_html,
+					'status'         => $this->status,
+					'date_sent'      => $this->get_date_sent()->format( WP::datetime_mysql_format() ),
+					'mailer'         => $this->mailer,
+					'attachments'    => $this->attachments,
+					'initiator_name' => $this->initiator_name,
+					'initiator_file' => $this->initiator_file,
+				],
+				[
 					'%s', // subject.
 					'%s', // people.
 					'%s', // headers.
@@ -770,7 +844,9 @@ class Email {
 					'%s', // date_sent.
 					'%s', // mailer.
 					'%d', // attachments.
-				)
+					'%s', // initiator_name.
+					'%s', // initiator_file.
+				]
 			);
 
 			$email_id = $wpdb->insert_id;
@@ -874,5 +950,29 @@ class Email {
 	public function has_error() {
 
 		return ! empty( $this->get_error_text() );
+	}
+
+	/**
+	 * Get the wpmail function backtrace, if it exists.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return array
+	 */
+	private function get_wpmail_backtrace() {
+
+		$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+
+		foreach ( $backtrace as $item ) {
+			if ( $item['function'] === 'wp_mail' ) {
+				if ( isset( $item['function'] ) ) {
+					unset( $item['function'] );
+				}
+
+				return $item;
+			}
+		}
+
+		return [];
 	}
 }

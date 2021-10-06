@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\woocommerce"
+		},
+		{
+			"path": "..\\..\\themes\\twentytwenty-child"
+		},
+		{
+			"path": "..\\woocommerce-multilingual"
+		},
+		{
+			"path": "..\\wc-disable-order-date-edit"
+		},
+		{
+			"path": "..\\woocommerce-quick-view"
+		},
+		{
+			"path": "..\\woocommerce-name-your-price"
+		},
+		{
+			"path": "..\\woocommerce-multicurrency"
+		},
+		{
+			"path": "..\\woocommerce-free-gift-coupons"
+		}
+	],
+	"settings": {}
+}

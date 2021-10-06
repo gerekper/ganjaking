@@ -2,6 +2,7 @@
  * Discount Compatibility- Module
  */
 jQuery( function( $ ) {
+    'use strict' ;
     var DiscountCompatibility = {
         init : function( ) {
             this.show_restriction_message_for_redeeming() ;

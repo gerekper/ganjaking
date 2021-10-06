@@ -377,6 +377,7 @@ return [
 	__( 'Task Types', 'pm-pro' ),
 	__( 'Subtask Types', 'pm-pro' ),
 	__( 'Tasks', 'pm-pro' ),
+	__( 'Please add <mark>Estimation time</mark> for sub tasks to get the list !', 'pm-pro' ),
 	__( 'Completed At', 'pm-pro' ),
 	__( 'Task Title', 'pm-pro' ),
 	__( 'Subtask Title', 'pm-pro' ),

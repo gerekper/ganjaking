@@ -55,10 +55,6 @@ abstract class EvalBarrett extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger
      */
     protected static function generateCustomReduction(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\BCMath $m, $class)
     {
-        if (isset($n->reduce)) {
-            self::$custom_reduction = $n->reduce;
-            return $n->reduce;
-        }
         $m_length = \strlen($m);
         if ($m_length < 5) {
             $code = 'return bcmod($x, $n);';

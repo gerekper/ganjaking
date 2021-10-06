@@ -1385,11 +1385,11 @@ class MeprUser extends MeprBaseModel {
     // To update pricing terms string with AJAX, we need to send the POST address
     // This only runs when running AJAX, that's the only place the two actions are set
     if( isset($_POST['action']) && ($_POST['action'] == "mepr_update_price_string" || $_POST['action'] == "mepr_update_spc_invoice_table") ){
-      $one      = sanitize_text_field($_POST['mepr_address_one']);
-      $city     = sanitize_text_field($_POST['mepr_address_city']);
-      $state    = sanitize_text_field($_POST['mepr_address_state']);
-      $country  = sanitize_text_field($_POST['mepr_address_country']);
-      $postcode = sanitize_text_field($_POST['mepr_address_zip']);
+      $one      = isset($_POST['mepr_address_one']) ? sanitize_text_field($_POST['mepr_address_one']) : '';
+      $city     = isset($_POST['mepr_address_city']) ? sanitize_text_field($_POST['mepr_address_city']) : '';
+      $state    = isset($_POST['mepr_address_state']) ? sanitize_text_field($_POST['mepr_address_state']) : '';
+      $country  = isset($_POST['mepr_address_country']) ? sanitize_text_field($_POST['mepr_address_country']) : '';
+      $postcode = isset($_POST['mepr_address_zip']) ? sanitize_text_field($_POST['mepr_address_zip']) : '';
     }
 
     return (!empty($country) && !empty($postcode) && !empty($state) && !empty($city) && !empty($one));

@@ -63,7 +63,7 @@ class BetterDocsPro_Analytics {
 		$columns['date'] = $date_column;
 		return apply_filters('betterdocs_post_columns', $columns );
 	}
-
+	
     public function manage_custom_columns( $column, $post_id ){
 		switch ( $column ) {
             case 'betterdocs_views':
@@ -121,7 +121,6 @@ class BetterDocsPro_Analytics {
             // 'clicks' => 'Clicks',
             // 'ctr' => 'CTR',
         );
-
         if( file_exists( BETTERDOCS_PRO_ADMIN_DIR_PATH . 'partials/betterdocs-pro-admin-analytics-display.php' ) ) {
             return include_once BETTERDOCS_PRO_ADMIN_DIR_PATH . 'partials/betterdocs-pro-admin-analytics-display.php';
         }
@@ -137,7 +136,6 @@ class BetterDocsPro_Analytics {
         $output = get_post_meta( $idd, '_betterdocs_meta_views', true );
         $analytics_url = admin_url( 'admin.php?page=betterdocs-analytics&betterdocs=' . $idd . '&comparison_factor=views,feelings' );
         $format = '<a href="'. esc_url( $analytics_url ) .'">%s</a>';
-
         if( empty( $output ) ) {
             return sprintf( $format, '0 views');
         }
@@ -146,6 +144,7 @@ class BetterDocsPro_Analytics {
 
     public function stats_counter(){
         global $pagenow;
+        
         $class = '';
         if( ! empty( $pagenow ) ) {
             $class = 'nx-header-for-' . str_replace('.php', '', $pagenow);
@@ -163,7 +162,7 @@ class BetterDocsPro_Analytics {
             )
         );
         $results = $wpdb->get_results( $query );
-
+		
         $views = $clicks = $ctr = 0;
         if( ! empty( $results ) ) { 
             foreach( $results as $result ) {
@@ -258,14 +257,13 @@ class BetterDocsPro_Analytics {
     }
     protected function datasets( $query_vars = array() ){
         global $wpdb;
-
+	
         $ids = $betterdocs_all = false;
         $extra_sql_input = $extra_sql = $xTra_SQL = '';
         if( ! isset( $query_vars['betterdocs'] ) ) {
             $ids = true;
             $betterdocs_all = true;
         }
-
 
         if( isset( $query_vars['betterdocs'] ) ) {
             $betterdocs = trim($query_vars['betterdocs']);
@@ -284,7 +282,7 @@ class BetterDocsPro_Analytics {
         }
 
         $sql = "SELECT D_POSTS.ID, D_POSTS.post_title, FEELINGS_IMPRESSIONS.meta_key, FEELINGS_IMPRESSIONS.meta_value  FROM ( SELECT POSTS.ID, POSTS.post_title, META.meta_key, META.meta_value FROM $wpdb->posts AS POSTS LEFT JOIN $wpdb->postmeta AS META ON ( POSTS.ID = META.post_id ) WHERE 1 = 1 AND ( META.meta_key = %s OR META.meta_key = %s ) AND POSTS.post_type = %s AND ( ( POSTS.post_status = %s ) ) ) AS FEELINGS_IMPRESSIONS RIGHT JOIN $wpdb->posts AS D_POSTS ON ( FEELINGS_IMPRESSIONS.ID = D_POSTS.ID ) $xTra_SQL";
-
+        
         $query = $wpdb->prepare(
             $sql,
             array(
@@ -295,7 +293,7 @@ class BetterDocsPro_Analytics {
             )
         );
         $results = $wpdb->get_results( $query, ARRAY_A );
-
+	
         $default_value = array(
             "fill" => false,
         );
@@ -345,7 +343,7 @@ class BetterDocsPro_Analytics {
                         if( isset( $happy[ $temp_date ] ) ) {
                             $happy[ $temp_date ] = $number_of_happy = isset( $single['happy'] ) ? $single['happy'] : 0;
                         }
-                        if( in_array( 'feelings', $comaprison_factor ) ) { 
+                        if( in_array( 'feelings', $comaprison_factor ) ) {
                             $available_data[ 'happy' ] = $happy;
                             if( $max_stepped_size < $number_of_happy ) {
                                 $max_stepped_size = $number_of_happy;
@@ -355,7 +353,7 @@ class BetterDocsPro_Analytics {
                         if( isset( $sad[ $temp_date ] ) ) {
                             $sad[ $temp_date ] = $number_of_sad = isset( $single['sad'] ) ? $single['sad'] : 0;
                         }
-                        if( in_array( 'feelings', $comaprison_factor ) ) { 
+                        if( in_array( 'feelings', $comaprison_factor ) ) {
                             $available_data[ 'sad' ] = $sad;
                             if( $max_stepped_size < $number_of_sad ) {
                                 $max_stepped_size = $number_of_sad;
@@ -365,7 +363,7 @@ class BetterDocsPro_Analytics {
                         if( isset( $normal[ $temp_date ] ) ) {
                             $normal[ $temp_date ] = $number_of_normal = isset( $single['normal'] ) ? $single['normal'] : 0;
                         }
-                        if( in_array( 'feelings', $comaprison_factor ) ) { 
+                        if( in_array( 'feelings', $comaprison_factor ) ) {
                             $available_data[ 'normal' ] = $normal;
                             if( $max_stepped_size < $number_of_normal ) {
                                 $max_stepped_size = $number_of_normal;
@@ -375,13 +373,13 @@ class BetterDocsPro_Analytics {
                         // if( isset( $clicks[ $temp_date ] ) ) {
                         //     $clicks[ $temp_date ] = $number_of_clicks = isset( $single['clicks'] ) ? $single['clicks'] : 0;
                         // }
-                        // if( in_array( 'clicks', $comaprison_factor ) ) { 
+                        // if( in_array( 'clicks', $comaprison_factor ) ) {
                         //     $available_data[ 'clicks' ] = $clicks;
                         //     if( $max_stepped_size < $number_of_clicks ) {
                         //         $max_stepped_size = $number_of_clicks;
                         //     }
                         // }
-                        // if( in_array( 'ctr', $comaprison_factor ) ) { 
+                        // if( in_array( 'ctr', $comaprison_factor ) ) {
                         //     $ctr[ $temp_date ] = $number_of_ctr = $number_of_impressions > 0 ? number_format( ( intval( $number_of_clicks ) / intval( $number_of_impressions ) ) * 100, 2) : 0;
                         //     $available_data[ 'ctr' ] = $ctr;
                         //     if( $max_stepped_size < $number_of_ctr ) {
@@ -408,6 +406,7 @@ class BetterDocsPro_Analytics {
                     }
                 }
             }
+        
             // FOR ALL VIEWS, FEELINGS
             if( $betterdocs_all ) {
                 array_walk_recursive( $results, function( $value, $key, $userdata ){
@@ -468,7 +467,6 @@ class BetterDocsPro_Analytics {
                 }
                 $this->impressions = [];
             }
-
             return $this->results;
         }
         return array();
@@ -572,7 +570,7 @@ class BetterDocsPro_Analytics {
     public function analytics_data() {
 
         global $user_ID, $post, $post_type;
-
+      
         $get_docs = get_posts( array( 'post_type' => 'docs', 'post_status' => 'publish') );
         
         if( $post_type != 'docs' || count( $get_docs ) == 0 ) {
@@ -588,6 +586,7 @@ class BetterDocsPro_Analytics {
         if ( ! wp_is_post_revision( $post ) && ! is_preview() ) {
             if ( is_single() ) {
                 $analytics_from =  BetterDocs_DB::get_settings( 'analytics_from' );
+               
                 $analytics_from = empty( $analytics_from ) ? 'everyone' : $analytics_from;
         
                 $should_count = false;
@@ -668,6 +667,7 @@ class BetterDocsPro_Analytics {
                 }
                 
                 $views = get_post_meta( $post_id, '_betterdocs_meta_views', true );
+             
                 if( $views === null ) {
                     add_post_meta( $post_id, '_betterdocs_meta_views', 1 );
                 } else {

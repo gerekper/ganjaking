@@ -175,22 +175,22 @@ class RevSliderData {
 
 		//Serif Fonts
 		$fonts[] = array('type' => 'websafe', 'version' => __('Serif Fonts', 'revslider'), 'label' => 'Georgia, serif');
-		$fonts[] = array('type' => 'websafe', 'version' => __('Serif Fonts', 'revslider'), 'label' => '"Palatino Linotype", "Book Antiqua", Palatino, serif');
-		$fonts[] = array('type' => 'websafe', 'version' => __('Serif Fonts', 'revslider'), 'label' => '"Times New Roman", Times, serif');
+		$fonts[] = array('type' => 'websafe', 'version' => __('Serif Fonts', 'revslider'), 'label' => '\'Palatino Linotype\', \'Book Antiqua\', Palatino, serif');
+		$fonts[] = array('type' => 'websafe', 'version' => __('Serif Fonts', 'revslider'), 'label' => '\'Times New Roman\', Times, serif');
 
 		//Sans-Serif Fonts
 		$fonts[] = array('type' => 'websafe', 'version' => __('Sans-Serif Fonts', 'revslider'), 'label' => 'Arial, Helvetica, sans-serif');
-		$fonts[] = array('type' => 'websafe', 'version' => __('Sans-Serif Fonts', 'revslider'), 'label' => '"Arial Black", Gadget, sans-serif');
-		$fonts[] = array('type' => 'websafe', 'version' => __('Sans-Serif Fonts', 'revslider'), 'label' => '"Comic Sans MS", cursive, sans-serif');
+		$fonts[] = array('type' => 'websafe', 'version' => __('Sans-Serif Fonts', 'revslider'), 'label' => '\'Arial Black\', Gadget, sans-serif');
+		$fonts[] = array('type' => 'websafe', 'version' => __('Sans-Serif Fonts', 'revslider'), 'label' => '\'Comic Sans MS\', cursive, sans-serif');
 		$fonts[] = array('type' => 'websafe', 'version' => __('Sans-Serif Fonts', 'revslider'), 'label' => 'Impact, Charcoal, sans-serif');
-		$fonts[] = array('type' => 'websafe', 'version' => __('Sans-Serif Fonts', 'revslider'), 'label' => '"Lucida Sans Unicode", "Lucida Grande", sans-serif');
+		$fonts[] = array('type' => 'websafe', 'version' => __('Sans-Serif Fonts', 'revslider'), 'label' => '\'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif');
 		$fonts[] = array('type' => 'websafe', 'version' => __('Sans-Serif Fonts', 'revslider'), 'label' => 'Tahoma, Geneva, sans-serif');
-		$fonts[] = array('type' => 'websafe', 'version' => __('Sans-Serif Fonts', 'revslider'), 'label' => '"Trebuchet MS", Helvetica, sans-serif');
+		$fonts[] = array('type' => 'websafe', 'version' => __('Sans-Serif Fonts', 'revslider'), 'label' => '\'Trebuchet MS\', Helvetica, sans-serif');
 		$fonts[] = array('type' => 'websafe', 'version' => __('Sans-Serif Fonts', 'revslider'), 'label' => 'Verdana, Geneva, sans-serif');
 
 		//Monospace Fonts
-		$fonts[] = array('type' => 'websafe', 'version' => __('Monospace Fonts', 'revslider'), 'label' => '"Courier New", Courier, monospace');
-		$fonts[] = array('type' => 'websafe', 'version' => __('Monospace Fonts', 'revslider'), 'label' => '"Lucida Console", Monaco, monospace');
+		$fonts[] = array('type' => 'websafe', 'version' => __('Monospace Fonts', 'revslider'), 'label' => '\'Courier New\', Courier, monospace');
+		$fonts[] = array('type' => 'websafe', 'version' => __('Monospace Fonts', 'revslider'), 'label' => '\'Lucida Console\', Monaco, monospace');
 
 
 		//push all variants to the websafe fonts
@@ -740,7 +740,7 @@ class RevSliderData {
 		$transitions = '{
 			"basic":{ "icon":"aspect_ratio",
 				"fade":{
-					"notransition":{"title":"*clear* No Transition"},
+					"notransition":{"title":"*clear* No Transition","speed":"10","in":{"o":1},"out":{"a":false, "o":1}},
 					"fade":{"title":"*opacity* Fade In","in":{"o":0},"out":{"a":false}},
 					"crossfade":{"title":"*opacity* Cross Fade","in":{"o":0}},
 					"fadethroughdark":{"title":"*dark_mode* Via Dark","in":{"o":0},"out":{"a":false,"o":0},"p":"dark"},

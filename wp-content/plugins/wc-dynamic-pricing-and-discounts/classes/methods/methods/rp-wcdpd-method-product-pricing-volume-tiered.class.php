@@ -48,7 +48,7 @@ class RP_WCDPD_Method_Product_Pricing_Volume_Tiered extends RP_WCDPD_Method_Prod
      */
     public function get_label()
     {
-        return __('Tiered pricing', 'rp_wcdpd');
+        return esc_html__('Tiered pricing', 'rp_wcdpd');
     }
 
     /**

@@ -189,7 +189,7 @@ class License {
 			<input type="password" id="wp-mail-smtp-setting-license-key"
 				<?php echo ( $options->is_const_defined( 'license', 'key' ) || $is_valid ) ? 'disabled' : ''; ?>
 				value="<?php echo esc_attr( $key ); ?>" name="wp-mail-smtp[license][key]"/>
-		
+			
 
 			<?php
 			// Offer option to deactivate the key.
@@ -406,6 +406,7 @@ class License {
 	 * @param bool   $ajax
 	 */
 	public function validate_key( $key = '', $forced = false, $ajax = false ) {
+
 		$options = new Options();
 		$all_opt = $options->get_all();
 		$all_opt['license']['type'] = 'pro';

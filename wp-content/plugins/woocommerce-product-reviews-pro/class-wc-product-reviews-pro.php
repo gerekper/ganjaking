@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-product-reviews-pro/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2015-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2021, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
  * WooCommerce Product Reviews Pro Main Plugin Class.
@@ -34,7 +34,7 @@ class WC_Product_Reviews_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.17.1';
+	const VERSION = '1.17.4';
 
 	/** @var WC_Product_Reviews_Pro single instance of this plugin */
 	protected static $instance;

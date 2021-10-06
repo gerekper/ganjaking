@@ -15,7 +15,7 @@ class Slug extends AC\Column\Post\Slug
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Slug( $this );
+		return new Editing\Service\Post\Slug();
 	}
 
 	public function search() {

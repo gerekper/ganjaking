@@ -35,7 +35,10 @@ class FeatureFlagEntity {
    * @param string $name
    * @param bool|null $value
    */
-  public function __construct($name, $value = null) {
+  public function __construct(
+    $name,
+    $value = null
+  ) {
     $this->name = $name;
     $this->value = $value;
   }

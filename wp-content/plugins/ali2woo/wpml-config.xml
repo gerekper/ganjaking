@@ -1,0 +1,31 @@
+<wpml-config>
+	<custom-fields>
+		<custom-field action="copy">a2w_service_name</custom-field>
+		<custom-field action="copy">a2w_text_initial_name</custom-field>
+		<custom-field action="copy">a2w_use_price_rule</custom-field>
+		<custom-field action="copy">_a2wl_skip_meta</custom-field>
+		<custom-field action="copy">_a2w_country_code</custom-field>
+		<custom-field action="copy">_a2w_shipping_data</custom-field>
+		<custom-field action="copy">_a2w_disable_add_new_variants</custom-field>
+		<custom-field action="copy">_a2w_disable_sync</custom-field>
+		<custom-field action="copy">_a2w_disable_var_price_change</custom-field>
+		<custom-field action="copy">_a2w_disable_var_quantity_change</custom-field>
+		<custom-field action="copy">_a2w_external_id</custom-field>
+		<custom-field action="copy">_a2w_import_id</custom-field>
+		<custom-field action="copy">_a2w_import_type</custom-field>
+		<custom-field action="copy">_a2w_last_update</custom-field>
+		<custom-field action="copy">_a2w_orders_count</custom-field>
+		<custom-field action="copy">_a2w_original_product_url</custom-field>
+		<custom-field action="copy">_a2w_original_variations_attributes</custom-field>
+		<custom-field action="copy">_a2w_product_url</custom-field>
+		<custom-field action="copy">_a2w_seller_url</custom-field>
+		<custom-field action="copy">_a2w_skip_meta</custom-field>
+		<custom-field action="copy">_a2w_video</custom-field>
+		<custom-field action="copy">_swatch_size</custom-field>
+		<custom-field action="copy">_swatch_type</custom-field>
+		<custom-field action="copy">_swatch_type_options</custom-field>
+		<custom-field action="copy">_a2w_external_image_url</custom-field>
+		<custom-field action="copy">_a2w_import_lang</custom-field>
+		<custom-field action="copy">_wp_a2w_attached_file</custom-field>		
+	</custom-fields>
+</wpml-config>

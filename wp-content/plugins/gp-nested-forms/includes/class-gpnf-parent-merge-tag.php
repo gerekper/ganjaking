@@ -46,7 +46,7 @@ class GPNF_Parent_Merge_Tag {
 				$full_tag = $match[0];
 				$modifier = $match[1];
 
-				$stubbed_text_format = preg_match( '/\d+\.\d+/', $modifier ) ? '{BogusLabel:%s}' : '{:%s}';
+				$stubbed_text_format = preg_match( '/\d+(\.\d+)?/', $modifier ) ? '{Parent Form Field:%s}' : '{%s}';
 				$stubbed_text        = sprintf( $stubbed_text_format, $modifier );
 
 				$value = GFCommon::replace_variables( $stubbed_text, $parent_form, $parent_entry, $url_encode, $esc_html, $nl2br, $format );

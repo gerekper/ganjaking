@@ -2,7 +2,6 @@
 
 namespace Yoast\WP\SEO\Presenters\Admin;
 
-use WPSEO_Admin_Asset_Manager;
 use Yoast\WP\SEO\Config\Badge_Group_Names;
 use Yoast\WP\SEO\Presenters\Abstract_Presenter;
 
@@ -44,37 +43,22 @@ class Badge_Presenter extends Abstract_Presenter {
 	private $badge_group_names;
 
 	/**
-	 * An instance of the WPSEO_Admin_Asset_Manager class.
-	 *
-	 * @var WPSEO_Admin_Asset_Manager
-	 */
-	private $asset_manager;
-
-	/**
 	 * Badge_Presenter constructor.
 	 *
-	 * @param string            $id                Id of the badge.
-	 * @param string            $link              Optional link of the badge.
-	 * @param string            $group             Optional group which the badge belongs to.
-	 * @param Badge_Group_Names $badge_group_names Optional object storing the group names.
+	 * @param string                 $id                Id of the badge.
+	 * @param string                 $link              Optional link of the badge.
+	 * @param string                 $group             Optional group which the badge belongs to.
+	 * @param Badge_Group_Names|null $badge_group_names Optional object storing the group names.
 	 */
 	public function __construct( $id, $link = '', $group = '', $badge_group_names = null ) {
 		$this->id    = $id;
 		$this->link  = $link;
 		$this->group = $group;
 
-		if ( ! $this->asset_manager ) {
-			$this->asset_manager = new WPSEO_Admin_Asset_Manager();
-		}
-
 		if ( ! $badge_group_names instanceof Badge_Group_Names ) {
 			$badge_group_names = new Badge_Group_Names();
 		}
 		$this->badge_group_names = $badge_group_names;
-
-		if ( $this->is_group_still_new() ) {
-			$this->asset_manager->enqueue_style( 'badge' );
-		}
 	}
 
 	/**
@@ -89,7 +73,7 @@ class Badge_Presenter extends Abstract_Presenter {
 		}
 
 		if ( $this->link !== '' ) {
-			return sprintf(
+			return \sprintf(
 				'<a class="yoast-badge yoast-badge__is-link yoast-new-badge" id="%1$s-new-badge" href="%2$s">%3$s</a>',
 				\esc_attr( $this->id ),
 				\esc_url( $this->link ),
@@ -97,7 +81,7 @@ class Badge_Presenter extends Abstract_Presenter {
 			);
 		}
 
-		return sprintf(
+		return \sprintf(
 			'<span class="yoast-badge yoast-new-badge" id="%1$s-new-badge">%2$s</span>',
 			\esc_attr( $this->id ),
 			\esc_html__( 'New', 'wordpress-seo' )

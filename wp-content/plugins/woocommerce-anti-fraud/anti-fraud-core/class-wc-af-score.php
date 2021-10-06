@@ -57,7 +57,7 @@ if ( ! class_exists( 'WC_AF_Score' ) ) {
 
 					// Check if the rule reported a risk
 					if ( true === $rule->is_enabled() && true === $rule->is_risk( $this->order ) ) {
-						$risk_points += $rule->get_risk_points();
+						$risk_points += (int) $rule->get_risk_points();
 						$score -= (int) $rule->get_risk_points();
 						$this->failed_rules[] = $rule;
 					} else {

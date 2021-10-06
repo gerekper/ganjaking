@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Doctrine\ORM\Mapping; if (!defined('ABSPATH')) exit; interface EntityListenerResolver { function clear($className = null); function resolve($className); function register($object); } 
+ namespace MailPoetVendor\Doctrine\ORM\Mapping; if (!defined('ABSPATH')) exit; interface EntityListenerResolver { public function clear($className = null); public function resolve($className); public function register($object); } 

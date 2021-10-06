@@ -6,10 +6,14 @@ use DateTime;
 
 class ExpiryDate {
 
-	/** @var DateTime Null is lifetime */
+	/**
+	 * @var DateTime `null` is lifetime
+	 */
 	private $expiry_date;
 
-	/** @var DateTime */
+	/**
+	 * @var DateTime
+	 */
 	private $current_date;
 
 	public function __construct( DateTime $expiry_date = null ) {

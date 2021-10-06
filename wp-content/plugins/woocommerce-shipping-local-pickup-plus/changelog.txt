@@ -1,5 +1,15 @@
 *** WooCommerce Local Pickup Plus Changelog ***
 
+2021.08.26 - version 2.9.8
+ * Fix - Fix a compatibility issue with some themes that caused text in the select box to be cut off at checkout
+
+2021.08.02 - version 2.9.7
+ * Fix - Fix an issue when shipping packages and selecting a shipping rate
+
+2021.07.05 - version 2.9.6
+ * Tweak - Ensure that the "woocommerce-shipping-total shipping" CSS classes are added in the plugin HTML template output
+ * Misc - Dropped `woo-includes` folder and renamed `includes` folder to `src`
+
 2021.06.07 - version 2.9.5
  * Fix - Fix a bug that causes an error on checkout when the next day date is selected as the appointment date
 

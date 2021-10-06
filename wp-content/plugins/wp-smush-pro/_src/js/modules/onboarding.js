@@ -332,7 +332,7 @@
 
 					if ( 200 === xhr.status ) {
 						setTimeout( function() {
-							window.location.href = window.wp_smush_msgs.bulkURL;
+							window.location.search = 'page=smush-bulk';
 						}, 1000 );
 					} else {
 						window.console.log(

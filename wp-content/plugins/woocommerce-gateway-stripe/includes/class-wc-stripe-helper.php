@@ -599,12 +599,13 @@ class WC_Stripe_Helper {
 	}
 
 	/**
-	 * Checks if this page is a cart or checkout page.
+	 * Checks if this page contains a cart or checkout shortcode.
 	 *
-	 * @since 5.2.3
+	 * @since 5.2.1
 	 * @return boolean
 	 */
-	public static function has_cart_or_checkout_on_current_page() {
-		return is_cart() || is_checkout();
+	public static function has_cart_or_checkout_shortcode_on_current_page() {
+		return wc_post_content_has_shortcode( 'woocommerce_cart' )
+			|| wc_post_content_has_shortcode( 'woocommerce_checkout' );
 	}
 }

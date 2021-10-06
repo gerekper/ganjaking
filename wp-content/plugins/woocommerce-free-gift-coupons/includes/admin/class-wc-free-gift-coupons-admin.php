@@ -11,7 +11,7 @@ if ( class_exists( 'WC_Free_Gift_Coupons_Admin' ) ) {
  * Main Admin Class
  *
  * @class WC_Free_Gift_Coupons_Admin
- * @version	2.0.0
+ * @version	3.3.0
  */
 class WC_Free_Gift_Coupons_Admin {
 
@@ -20,7 +20,7 @@ class WC_Free_Gift_Coupons_Admin {
 	 * 
 	 * @var string
 	 */
-	public static $version = '3.0.5';
+	public static $version = '3.3.0';
 
 	/** 
 	 * Coupon Product ids list
@@ -99,10 +99,19 @@ class WC_Free_Gift_Coupons_Admin {
 	 * Output the new Coupon metabox fields
 	 *
 	 * @return HTML
-	 * @since 1.0
+	 * @since 1.0.0
+	 * @since 3.1.0 Added custom hooks for display from 3rd party.
 	 */
 	public static function coupon_options( $coupon_id, $coupon ) {
 		self::load_scripts( $coupon_id );
+
+		/**
+		 * Display content before.
+		 *
+		 * @param WC_Coupon $coupon The coupon object.
+		 * @since 3.1.0
+		 */
+		do_action( 'wc_fgc_before_coupon_option_display', $coupon );
 		?>
 
 		<p class="form-field show_if_free_gift">
@@ -139,8 +148,8 @@ class WC_Free_Gift_Coupons_Admin {
 
 		<p class="form-field show_if_free_gift">
 
-			<select id="_wc_fgc_product_sync_ids" style="width:80%;" class="wc-product-search" name="_wc_fgc_product_sync_ids" data-sortable="sortable" data-allow-clear="tru" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wc_free_gift_coupons' ); ?>" data-action="woocommerce_json_search_products_and_variations">
-				<option></option>
+			<select id="_wc_fgc_product_sync_ids" style="width:80%;" class="wc-product-search" name="_wc_fgc_product_sync_ids[]" multiple="multiple" data-sortable="sortable" data-allow-clear="true" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wc_free_gift_coupons' ); ?>" data-action="woocommerce_json_search_products_and_variations">
+				
 				<?php
 				$product_ids = $coupon->get_meta( '_wc_fgc_product_sync_ids', true, 'edit' );
 
@@ -156,7 +165,7 @@ class WC_Free_Gift_Coupons_Admin {
 			</select>			
 			<?php
 			echo wc_help_tip(
-				__( 'This adds the Synced Product to the required Product List, if it is not already added. If changed, the previously synced product remains in your required products list.', 'wc_free_gift_coupons' )
+				__( 'This adds the Synced Product to the required "Usage restriction > Products" List, if it is not already added. If changed, the previously synced product remains in your required products list.', 'wc_free_gift_coupons' )
 			);
 			?>
 		</p>
@@ -173,6 +182,13 @@ class WC_Free_Gift_Coupons_Admin {
 			) );
 		}
 
+		/**
+		 * Display content after.
+		 *
+		 * @param WC_Coupon $coupon The coupon object.
+		 * @since 3.1.0
+		 */
+		do_action( 'wc_fgc_after_coupon_option_display', $coupon );
 	}
 
 	/**
@@ -198,6 +214,7 @@ class WC_Free_Gift_Coupons_Admin {
 		<script type="text/template" id="tmpl-wc-free-gift-products-table-header">	
 			<thead>
 				<tr>
+					<th><?php esc_html_e( 'ID', 'wc_free_gift_coupons' );?></th>
 					<th><?php esc_html_e( 'Product', 'wc_free_gift_coupons' );?></th>
 					<th><?php esc_html_e( 'Quantity', 'wc_free_gift_coupons' );?></th>
 					<th>&nbsp;</th>
@@ -214,6 +231,7 @@ class WC_Free_Gift_Coupons_Admin {
 		?>
 		<script type="text/template" id="tmpl-wc-free-gift-product">
 			
+				<td class="product-id">#{{{ data.gift_id }}}</td>
 				<td class="product-title">{{{ data.title }}}</td>
 				<td class="product-quantity">
 					<input type="number" name="wc_free_gift_coupons_data[{{{ data.gift_id }}}][quantity]" value="{{{ data.quantity }}}" />
@@ -235,7 +253,9 @@ class WC_Free_Gift_Coupons_Admin {
 	 * @param WC_Data          $coupon The object being saved.
 	 * @param WC_Data_Store_WP $data_store The data store persisting the data.
 	 * @return void
-	 * @since 1.0
+	 * @since 1.0.0
+	 * @since 3.0.0 hooking adjusted, added product sync update.
+	 * @since 3.1.0 Added custom hook. 
 	 */
 	public static function process_shop_coupon_meta( $coupon, $data_store ) {
 		// Run only when it's coupon.
@@ -262,10 +282,17 @@ class WC_Free_Gift_Coupons_Admin {
 				}
 
 			}
+
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing -- Nonce check handled by WooCommerce core.
-			$synced_products       = isset( $_POST['_wc_fgc_product_sync_ids'] ) ? array_filter( array_map( 'intval', (array) $_POST['_wc_fgc_product_sync_ids'] ) ) : array();
-			$clear_old_synced_prod = false;
-			$save_coupon           = false; // $coupon->save() gives issue, so leave as false for now, till further notice.
+			$old_synced_products = isset( $_POST['_wc_fgc_product_sync_ids'] ) ? array_filter( array_map( 'intval', (array) $_POST['_wc_fgc_product_sync_ids'] ) ) : array();
+	
+			// Do not allow syncing to self.
+			$synced_products = array_diff( $old_synced_products, array_keys( $gift_data ) );
+
+			if ( count( $old_synced_products ) !== count( $synced_products ) ) {
+				$notice = __( 'You cannot sync a free gift to itself, so that product was not saved to the sync settings.', 'wc_free_gift_coupons' );
+				WC_Free_Gift_Coupons_Admin_Notices::add_notice( $notice, 'info', true );
+			}
 
 			// Add the synced product to list of required products. Stealth way of making sure the sync doesn't malfunction!
 			self::sort_synced_products_for_coupon( $coupon, $synced_products, $clear_old_synced_prod, $save_coupon );
@@ -278,6 +305,15 @@ class WC_Free_Gift_Coupons_Admin {
 			$coupon->update_meta_data( '_wc_free_gift_coupon_data', $gift_data );
 			$coupon->update_meta_data( '_wc_free_gift_coupon_free_shipping', $free_gift_shipping );
 			$coupon->update_meta_data( '_wc_fgc_product_sync_ids', $synced_products );
+
+			/**
+			 * Hook before the coupon meta is saved.
+			 *
+			 * @param WC_Coupon $coupon The coupon object.
+			 * @since 3.1.0
+			 */
+			do_action( 'wc_fgc_before_save_coupon_meta', $coupon );
+
 			$coupon->save_meta_data();
 		}
 
@@ -289,6 +325,8 @@ class WC_Free_Gift_Coupons_Admin {
 	 * Clears the old synced data is $clear_old_synced_products is true,
 	 * And adds the new set.
 	 *
+	 * @since 3.0.0
+	 * 
 	 * @param  WC_Coupon  $coupon The coupon object.
 	 * @param  array      $new_synced_products New synced product to be added to product_ids list.
 	 * @param  bool       $clear_old_synced_products Removes old synced products if true, default is true.

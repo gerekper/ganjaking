@@ -215,7 +215,7 @@ class MeprLoginCtrl extends MeprBaseCtrl {
     $mepr_options = MeprOptions::fetch();
 
     if(isset($mepr_options->logout_redirect_url) && !empty($mepr_options->logout_redirect_url)) {
-      MeprUtils::wp_redirect($mepr_options->logout_redirect_url);
+      MeprUtils::wp_redirect(MeprHooks::apply_filters('mepr-process-logout-redirect-url', $mepr_options->logout_redirect_url));
       exit;
     }
   }

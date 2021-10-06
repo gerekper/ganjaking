@@ -80,7 +80,7 @@ class RightPress_Time
             $time_periods['year'] = array(
                 'key'           => 'year', // Must be supported by the parser used for strtotime()
                 'label'         => _n_noop('year', 'years', 'rightpress'),
-                'label_count'   => _n_noop('%d year', '%d year', 'rightpress'),
+                'label_count'   => _n_noop('%d year', '%d years', 'rightpress'),
             );
 
             // Allow developers to add custom time periods
@@ -126,7 +126,7 @@ class RightPress_Time
 
         // Time period does not exists
         if (!isset($time_periods[$time_period])) {
-            throw new RightPress_Exception('rightpress_time_invalid_time_period', __('Invalid time period.', 'rightpress'));
+            throw new RightPress_Exception('rightpress_time_invalid_time_period', esc_html__('Invalid time period.', 'rightpress'));
         }
 
         // Translate and return
@@ -139,9 +139,10 @@ class RightPress_Time
      * @access public
      * @param int $time_length
      * @param string $time_period
+     * @param bool $always_display_time_length
      * @return string
      */
-    public static function get_formatted_time_period_string($time_length, $time_period)
+    public static function get_formatted_time_period_string($time_length, $time_period, $always_display_time_length = true)
     {
 
         // Get all time periods
@@ -149,11 +150,20 @@ class RightPress_Time
 
         // Time period does not exist
         if (!isset($time_periods[$time_period])) {
-            throw new RightPress_Exception('rightpress_time_invalid_time_period', __('Invalid time period.', 'rightpress'));
+            throw new RightPress_Exception('rightpress_time_invalid_time_period', esc_html__('Invalid time period.', 'rightpress'));
         }
 
-        // Translate and return
-        return sprintf(translate_nooped_plural($time_periods[$time_period]['label_count'], $time_length, 'rightpress'), $time_length);
+        // Check if time length needs to be displayed
+        $display_time_length = ($time_length != 1 || $always_display_time_length);
+
+        // Get correct label to use
+        $label = $display_time_length ? $time_periods[$time_period]['label_count'] : $time_periods[$time_period]['label'];
+
+        // Translate label
+        $label = translate_nooped_plural($label, $time_length, 'rightpress');
+
+        // Maybe add time length and return
+        return ($display_time_length ? sprintf($label, $time_length) : $label);
     }
 
     /**
@@ -262,7 +272,7 @@ class RightPress_Time
 
         // Invalid datetime object
         if (!is_a($datetime, 'DateTime')) {
-            throw new RightPress_Exception('rightpress_modify_datetime_with_period_length_invalid_datetime', __('Invalid datetime.', 'rightpress'));
+            throw new RightPress_Exception('rightpress_modify_datetime_with_period_length_invalid_datetime', esc_html__('Invalid datetime.', 'rightpress'));
         }
 
         // Get length and period
@@ -271,12 +281,12 @@ class RightPress_Time
 
         // Invalid length
         if (!$length || !is_numeric($length) || !ctype_digit((string) $length)) {
-            throw new RightPress_Exception('rightpress_modify_datetime_with_period_length_invalid_datetime', __('Invalid time period length.', 'rightpress'));
+            throw new RightPress_Exception('rightpress_modify_datetime_with_period_length_invalid_datetime', esc_html__('Invalid time period length.', 'rightpress'));
         }
 
         // Invalid period
         if (!isset($time_periods[$period])) {
-            throw new RightPress_Exception('rightpress_modify_datetime_with_period_length_invalid_datetime', __('Invalid time period.', 'rightpress'));
+            throw new RightPress_Exception('rightpress_modify_datetime_with_period_length_invalid_datetime', esc_html__('Invalid time period.', 'rightpress'));
         }
 
         // Modify datetime with period length
@@ -325,7 +335,7 @@ class RightPress_Time
 
         // Target length is not defined
         if (!isset($target_lengths_in_seconds[$target])) {
-            throw new RightPress_Exception('rightpress_target_length_undefined', __('Target length undefined.', 'rightpress'));
+            throw new RightPress_Exception('rightpress_target_length_undefined', esc_html__('Target length undefined.', 'rightpress'));
         }
 
         // Get current datetime

@@ -436,7 +436,7 @@ class Shop_Order {
 					break;
 
 					default:
-						$where .= $wpdb->prepare( " AND woim_value.meta_value='%s' ", $value );
+						$where .= $wpdb->prepare( " AND woim_value.meta_value=%s ", $value );
 
 				}
 			}

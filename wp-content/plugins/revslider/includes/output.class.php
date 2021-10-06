@@ -16,6 +16,7 @@ global $rs_preview_mode;
 global $rs_js_collection;
 global $rs_css_collection;
 global $rs_revicons;
+global $rs_youtube_api_loaded;
 
 $rs_double_jquery_script = false;
 $rs_material_icons_css = false;
@@ -26,6 +27,7 @@ $rs_preview_mode = false;
 $rs_js_collection = array('revapi' => array(), 'js' => array(), 'minimal' => '');
 $rs_css_collection = array();
 $rs_revicons = false;
+$rs_youtube_api_loaded = false;
 
 class RevSliderOutput extends RevSliderFunctions {
 	
@@ -128,6 +130,11 @@ class RevSliderOutput extends RevSliderFunctions {
 	 * @before: RevSliderOutput::$class_include
 	 **/
 	public $classes = array();
+	
+	/**
+	 * holds all additions to the current layer getting printed
+	 **/
+	public $layer_additions = array();
 	
 	/**
 	 * holds if static layers should be done
@@ -246,6 +253,11 @@ class RevSliderOutput extends RevSliderFunctions {
 	 * defines if javascript is changed as its pushed to the footer or not
 	 **/
 	private $full_js = true;
+
+	/**
+	 * defines if this slider has in any way a youtube layer or slide that is used
+	 **/
+	private $youtube_exists = false;
 	
 	/**
 	 * stands for JavaScript Tab Addition and defines how many tabs there should be added to the JavaScript prints to make everything better looking in HTML
@@ -818,10 +830,10 @@ class RevSliderOutput extends RevSliderFunctions {
 			
 			echo $this->add_custom_navigation_css();
 			echo $this->get_material_icons_css();
-			
+			echo $this->add_youtube_api_html();
 			echo $this->close_slider_wrapper_div();
 			echo $this->add_unfloat_html();
-			
+
 			$this->add_modal_font_icons();
 			
 			do_action('revslider_add_slider_base_post', $this);
@@ -853,6 +865,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		$class		= $this->slider->get_param('wrapperclass','');
 		$class		.= ($this->usage === 'modal') ? ' rs-modal ' : '';
 		$style		= '';
+		$addition	= '';
 		
 		//add background color
 		$style .= (!empty($bg_color)) ? 'background:'.RSColorpicker::get($bg_color).';' : '';
@@ -900,7 +913,13 @@ class RevSliderOutput extends RevSliderFunctions {
 			}
 			
 			$bg_img = $this->check_valid_image($bg_img);
+			
 			if($bg_img !== false){
+				$global = $this->get_global_settings();
+				$lazyloadbg = $this->get_val($global, 'lazyonbg', false);
+				$addition .= ($lazyloadbg !== false && $lazyloadbg !== 'false') ? ' data-bglazy="'.$bg_img.'"' : '';
+				$bg_img = ($lazyloadbg !== false && $lazyloadbg !== 'false') ? RS_PLUGIN_URL.'public/assets/assets/dummy.png' : $bg_img;
+
 				$style .= 'background-image:url('.$bg_img.');';
 				$style .= 'background-repeat:'.esc_attr($this->slider->get_param(array('layout', 'bg', 'repeat'), 'no-repeat')).';'; //$this->slider->get_param(array('def', 'background', 'repeat'), 'no-repeat')
 				$style .= 'background-size:'.esc_attr($this->slider->get_param(array('layout', 'bg', 'fit'), 'cover')).';'; //$this->slider->get_param(array('def', 'background', 'fit'), 'cover')
@@ -928,7 +947,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		}
 		
 		$r = RS_T3.'<!-- START '.esc_html(str_replace('-', '', $this->slider->get_title())).' REVOLUTION SLIDER '. RS_REVISION .' --><p class="rs-p-wp-fix"></p>'."\n";
-		$r .= RS_T3.'<rs-module-wrap';		
+		$r .= RS_T3.'<rs-module-wrap';
 		$this->rs_module_wrap_open = true;
 		$r .= ' id="'.$this->get_html_id().'_wrapper"';
 		$r .= (!empty($class)) ? ' class="'.trim($class).'"' : '';
@@ -944,6 +963,8 @@ class RevSliderOutput extends RevSliderFunctions {
 			$r .= ($show_alternate == 'mobile' || $show_alternate == 'mobile-ie8') ? ' data-amobile="enabled" ' : '';
 			$r .= ($show_alternate == 'mobile-ie8' || $show_alternate == 'ie8') ? ' data-aie8="enabled" ' : '';
 		}
+
+		$r .= $addition;
 				
 		$r .= ' style="visibility:hidden;'. $style .'">'."\n";
 		
@@ -975,6 +996,29 @@ class RevSliderOutput extends RevSliderFunctions {
 		}
 		
 		return apply_filters('revslider_add_unfloat_html', $r, $this);
+	}
+	
+	
+	/**
+	 * check if the youtube api needs to be added, this should only be done once for all sliders
+	 * @since: 6.5.7
+	 **/
+	public function add_youtube_api_html(){
+		global $rs_youtube_api_loaded;
+		
+		$r = '';
+
+		if($rs_youtube_api_loaded === true) return $r; //already loaded
+		if($this->youtube_exists !== true) return $r; //no layer or slide used it
+
+		//check global option if enabled
+		$gs = $this->get_global_settings();
+		if($this->_truefalse($this->get_val($gs, array('script', 'ytapi'), true)) === true){
+			$r = RS_T4.'<script src="https://www.youtube.com/iframe_api"></script>'."\n";
+			$rs_youtube_api_loaded = true;
+		}
+		
+		return apply_filters('revslider_add_youtube_api_html', $r, $this);
 	}
 	
 	
@@ -1517,6 +1561,7 @@ class RevSliderOutput extends RevSliderFunctions {
 			}else{
 				//additional background params
 				$bgFit = $slide->get_param(array('bg', 'fit'), 'cover'); //$this->slider->get_param(array('def', 'background', 'fit'), 'cover')
+				if(!in_array($bgFit, array('cover', 'contain', 'percentage', 'auto'))) $bgFit = 'cover';
 				$return['f'] = ($bgFit == 'percentage') ? intval($slide->get_param(array('bg', 'fitX'), '100')).'% '.intval($slide->get_param(array('bg', 'fitY'), '100')).'%' : $bgFit; //$this->slider->get_param(array('def', 'background', 'fitX'), '100') $this->slider->get_param(array('def', 'background', 'fitY'), '100')
 				$return['r'] = $slide->get_param(array('bg', 'repeat'), 'no-repeat'); //$this->slider->get_param(array('def', 'background', 'repeat'), 'no-repeat')
 			}
@@ -1819,6 +1864,7 @@ class RevSliderOutput extends RevSliderFunctions {
 	 */
 	public function add_layer($row_group_uid = false, $special_type = false){
 		$layer = apply_filters('revslider_putLayer_pre', $this->get_layer(), $this, $row_group_uid, $this->is_static, $special_type);
+		$this->layer_additions = array();
 		$this->set_layer($layer);
 		$this->set_layer_unique_id();
 		
@@ -1886,8 +1932,9 @@ class RevSliderOutput extends RevSliderFunctions {
 		$html_corners		= $this->get_html_corners();
 		$html_disp			= $this->get_html_disp();
 		$html_layer			= $this->get_html_layer();
+		$html_layer_additions = $this->get_html_layer_additions();
 		$layertype 			= $this->get_layer_type();
-		
+
 		$this->create_style_hover();
 		
 		echo "\n";
@@ -1941,6 +1988,8 @@ class RevSliderOutput extends RevSliderFunctions {
 		echo ($html_clip != '')				? $this->ld().RS_T8.$html_clip."\n" : '';
 		
 		echo ($html_frames != '')			? $this->ld().RS_T8.$html_frames : '';
+		
+		echo ($html_layer_additions != '')	? $html_layer_additions : '';
 		
 		if(!empty($loop_data)){
 			foreach($loop_data as $ldk => $ld){
@@ -2047,7 +2096,8 @@ class RevSliderOutput extends RevSliderFunctions {
 			case 'streamyoutubeboth':
 				$vid = (in_array($video_type, array('streamyoutube', 'streamyoutubeboth'), true)) ? $this->slide->get_param(array('bg', 'youtube'), '') : $vid; //change $vid to the stream!
 				$vid = ($this->get_val($layer, array('media', 'videoFromStream'), false) === true) ? $this->slide->get_param(array('bg', 'youtube'), '') : $vid;
-				
+				$this->youtube_exists = (empty($vid)) ? $this->youtube_exists : true;
+
 				return (empty($vid)) ?  false : true;
 			break;
 			case 'vimeo':
@@ -2365,6 +2415,13 @@ class RevSliderOutput extends RevSliderFunctions {
 			$objlib = new RevSliderObjectLibrary();
 			$objlib->_check_object_exist($img); //redownload if needed
 			
+			$global = $this->get_global_settings();
+			$lazyloadbg = $this->get_val($global, 'lazyonbg', false);
+			if($lazyloadbg !== false && $lazyloadbg !== 'false'){
+				$this->layer_additions['data-bglazy'] = $img;
+				$img = RS_PLUGIN_URL.'public/assets/assets/dummy.png';
+			}
+
 			$style['background'] = "url('".$img."')";
 			$style['background'] .= ' '.$this->get_val($layer, array('idle', 'backgroundRepeat'), 'no-repeat');
 			$style['background'] .= ' '.$this->get_val($layer, array('idle', 'backgroundPosition'), 'center center');
@@ -2385,7 +2442,10 @@ class RevSliderOutput extends RevSliderFunctions {
 		}
 		
 		if(!in_array($type, array('image', 'video', 'row', 'column', 'group', 'shape', 'audio'), true)){
-			$style['font-family'] = str_replace('"', "'", "'" . $this->get_val($layer, array('idle', 'fontFamily'), 'Roboto') . "'");
+			$style['font-family'] = str_replace(array('"', "'"), "", $this->get_val($layer, array('idle', 'fontFamily'), 'Roboto'));
+			$font_family		  = explode(',', $style['font-family']);
+			$style['font-family'] = (!empty($font_family) && is_array($font_family)) ? array_map('trim', $font_family) : trim($font_family);
+			$style['font-family'] = (!empty($style['font-family'])) ? "'" . implode("', '", $style['font-family']) . "'"  : '';
 		}
 		
 		$text_transform = $this->get_val($layer, array('idle', 'textTransform'), 'none');
@@ -4709,6 +4769,7 @@ rs-module .material-icons {
 					$vid = $my_v_ret['v'];
 				}
 				
+				$this->youtube_exists = (empty($vid)) ? $this->youtube_exists : true;
 				$data['ytid'] = $vid;
 				$data['vatr'] = 'version=3&amp;enablejsapi=1&amp;html5=1&amp;'.$vargs;
 				if(!in_array($sp, array('1', 1), true)) $data['video']['sp'] = $sp;
@@ -4938,6 +4999,7 @@ rs-module .material-icons {
 	public function get_background_image(){
 		$layer	= $this->get_layer();
 		$type	= $this->get_val($layer, 'type', 'text');
+		$add	= '';
 		$image	= '<rs-bg-elem style="';
 		//check for background images
 		if(in_array($type, array('shape', 'row', 'group'), true)){
@@ -4954,6 +5016,14 @@ rs-module .material-icons {
 				$objlib->_check_object_exist($url_image);
 				
 				if(in_array($type, array('group', 'shape', 'row'))){
+					
+					$global = $this->get_global_settings();
+					$lazyloadbg = $this->get_val($global, 'lazyonbg', false);
+					if($lazyloadbg !== false && $lazyloadbg !== 'false'){
+						$add .= ' data-bglazy="'. $this->remove_http($url_image) .'"';
+						$url_image = RS_PLUGIN_URL.'public/assets/assets/dummy.png';
+					}
+
 					$image .= "background: url('".$this->remove_http($url_image)."')";
 					$image .= ' '.$this->get_val($layer, array('idle', 'backgroundRepeat'), 'no-repeat');
 					$image .= ' '.$this->get_val($layer, array('idle', 'backgroundPosition'), 'center center');
@@ -4965,7 +5035,7 @@ rs-module .material-icons {
 				}
 			}
 		}
-		$image .= '"></rs-bg-elem>';
+		$image .= '"'. $add .'></rs-bg-elem>';
 		
 		return ($image !== '<rs-bg-elem style=""></rs-bg-elem>') ? $image : '';
 	}
@@ -5181,6 +5251,24 @@ rs-module .material-icons {
 		$html .= '"';
 		
 		return ($html !== 'data-disp=""') ? $html : '';
+	}
+	
+	/**
+	 * get layer HTML layer additions
+	 **/
+	public function get_html_layer_additions(){
+		$layer	= $this->get_layer();
+		$html	= '';
+		
+		if(!empty($this->layer_additions)){
+			foreach($this->layer_additions as $data => $value){
+				$html .= $this->ld().RS_T8.$data.'="';
+				$html .= (is_array($value)) ? json_encode($value) : $value;
+				$html .= '"'."\n";
+			}
+		}
+		
+		return $html;
 	}
 	
 	/**
@@ -5473,6 +5561,7 @@ rs-module .material-icons {
 				if($youtube_id === '' && $vimeo_id === '' && $html_mpeg === '') return false;
 				
 				if($youtube_id !== ''){
+					$this->youtube_exists = true;
 					$arguments = $slide->get_param(array('bg', 'video', 'args'), RevSliderFront::YOUTUBE_ARGUMENTS);
 					$arguments = (empty($arguments)) ? RevSliderFront::YOUTUBE_ARGUMENTS : $arguments;
 					if($mute_video === false){
@@ -5517,6 +5606,7 @@ rs-module .material-icons {
 				$youtube_id = $slide->get_param(array('bg', 'youtube'), '');
 				if($youtube_id == '') return false;
 				
+				$this->youtube_exists = true;
 				if(strpos($youtube_id, 'http') !== false){ //check if full URL
 					parse_str(parse_url($youtube_id, PHP_URL_QUERY), $my_v_ret); //we have full URL, split it to ID
 					$youtube_id = $my_v_ret['v'];
@@ -5764,7 +5854,7 @@ rs-module .material-icons {
 			switch($slide->get_param(array('seo', 'type'), 'regular')){
 				default: //---- normal link
 				case 'regular':
-					$target	= ' data-target="'.$slide->get_param(array('seo', 'target'), '_self').'"';
+					$target	= 'data-tag="'.$slide->get_param(array('seo', 'tag'), 'l').'" data-target="'.$slide->get_param(array('seo', 'target'), '_self').'"';					
 					$http	= $slide->get_param(array('seo', 'linkHelp'), 'auto');
 					$l		= $this->remove_http($slide->get_param(array('seo', 'link'), ''), $http);
 					$link	= ($l !== '') ? ' data-link="'.do_shortcode($l).'"'.$target : $link;
@@ -7001,7 +7091,7 @@ rs-module .material-icons {
 			$html .= 'if (window.RS_MODULES!==undefined && window.RS_MODULES.modules!==undefined && window.RS_MODULES.modules["'. $html_id_trimmed .'"]!==undefined) {';
 			$html .= 'window.RS_MODULES.modules["'. $html_id_trimmed .'"].once = false;';
 			$html .= 'window.'. $revapi .' = undefined;';
-			$html .= 'window.RS_MODULES.checkMinimal()';
+			$html .= 'if (window.RS_MODULES.checkMinimal!==undefined) window.RS_MODULES.checkMinimal()';
 			$html .= '}';
 		}
 		
@@ -7197,16 +7287,15 @@ rs-module .material-icons {
 			//$html .= $this->JTA . RS_T2.'window.'. $revapi .' = window.'. $revapi .'===undefined || window.'. $revapi .'===null || window.'. $revapi .'.length===0  ? document.getElementById("'. $html_id .'") : window.'. $revapi .';'."\n";
 		}		
 		$html .= $this->JTA . RS_T2.'if(window.RS_MODULES === undefined) window.RS_MODULES = {};'."\n";
-		$html .= $this->JTA . RS_T2.'if(RS_MODULES.modules === undefined) RS_MODULES.modules = {};'."\n"; 
-		$html .= $this->JTA . RS_T2.'RS_MODULES.modules["'.$html_id_trimmed .'"] = {init:function() {'."\n"; 
-		$html .= $this->JTA . RS_T3.'window.'. $revapi .' = window.'. $revapi .'===undefined || window.'. $revapi .'===null || window.'. $revapi .'.length===0  ? document.getElementById("'. $html_id .'") : window.'. $revapi .';'."\n";		
-		$html .= $this->JTA . RS_T3.'if(window.'. $revapi .' === null || window.'. $revapi .' === undefined || window.'. $revapi .'.length==0) return;'."\n";
+		$html .= $this->JTA . RS_T2.'if(RS_MODULES.modules === undefined) RS_MODULES.modules = {};'."\n";
+		$html .= $this->JTA . RS_T2.'RS_MODULES.modules["'.$html_id_trimmed .'"] = {once: RS_MODULES.modules["'.$html_id_trimmed .'"]!==undefined ? RS_MODULES.modules["'.$html_id_trimmed .'"].once : undefined, init:function() {'."\n";		
+		$html .= $this->JTA . RS_T3.'window.'. $revapi .' = window.'. $revapi .'===undefined || window.'. $revapi .'===null || window.'. $revapi .'.length===0  ? document.getElementById("'. $html_id .'") : window.'. $revapi .';'."\n";
+		$html .= $this->JTA . RS_T3.'if(window.'. $revapi .' === null || window.'. $revapi .' === undefined || window.'. $revapi .'.length==0) { window.'. $revapi .'initTry = window.'. $revapi .'initTry ===undefined ? 0 : window.'. $revapi .'initTry+1; if (window.'. $revapi .'initTry<20) requestAnimationFrame(function() {RS_MODULES.modules["'.$html_id_trimmed .'"].init()}); return;}'."\n";
 		$html .= $this->JTA . RS_T3.'window.'.$revapi.' = jQuery(window.'. $revapi .');'."\n";
 		if($this->full_js){
 			$html .= ($this->slider->get_param(array('troubleshooting', 'jsNoConflict'), true) === true) ? $this->JTA . RS_T3.'jQuery.noConflict();'."\n" : ''; 
-		}
-		$html .= $this->JTA . RS_T3.'if(window.'.$revapi.'.revolution==undefined){ revslider_showDoubleJqueryError("'.$html_id.'"); return;}'."\n";
-				
+		}		
+		$html .= $this->JTA . RS_T3.'if(window.'.$revapi.'.revolution==undefined){ revslider_showDoubleJqueryError("'.$html_id.'"); return;}'."\n";				
 		$html = apply_filters('revslider_fe_before_init_script', $html, $this->slider, $html_id); // needed for AddOns
 		$html .= $this->JTA . RS_T3.$revapi.'.revolutionInit({'."\n";
 		
@@ -8080,6 +8169,11 @@ rs-module .material-icons {
 			$keys['lazyloaddata'] = array('v' => $lazyloaddata, 'd' => '');
 		}
 		
+		$lazyloadbg = $this->get_val($global, 'lazyonbg', false);
+		if($lazyloadbg !== false && $lazyloadbg !== 'false'){
+			$keys['lazyOnBg'] = array('v' => $lazyloadbg, 'd' => false);
+		}
+
 		$cache_size = $this->slider->get_param(array('size', 'editorCache'), false);
 		if($cache_size !== false){
 			$keys['editorheight'] = array('v' => implode(',', (array)$cache_size), 'd' => '');
@@ -8248,6 +8342,8 @@ rs-module .material-icons {
 			$kbd = $s->get_param(array('nav', 'keyboard', 'direction'), 'horizontal');
 			
 			$msr = $s->get_param(array('nav', 'mouse', 'reverse'), false);
+			$msst = $s->get_param(array('nav', 'mouse', 'target'), 'window');
+			$mstr = $s->get_param(array('nav', 'mouse', 'threshold'), 50);
 			$mswu = $s->get_param(array('nav', 'mouse', 'viewport'), 50);
 			$mscd = $s->get_param(array('nav', 'mouse', 'calldelay'), '1000ms');
 			$ohs = $s->get_param(array('general', 'slideshow', 'stopOnHover'), true);
@@ -8256,6 +8352,8 @@ rs-module .material-icons {
 			if($kbd !== 'horizontal')$h['keyboard_direction'] = $kbd;
 			if($msn !== 'off')		 $h['mouseScrollNavigation'] = $msn;
 			if($msr !== 'default')	 $h['mouseScrollReverse'] = $msr;
+			if($msst !== 'window')	 $h['target'] = $msst;
+			if($mstr !== 50)		 $h['threshold'] = $mstr;
 			if($mswu !== 50)		 $h['wheelViewPort'] = $mswu;
 			if($mscd !== '1000ms')		 $h['wheelCallDelay'] = $mscd;
 			

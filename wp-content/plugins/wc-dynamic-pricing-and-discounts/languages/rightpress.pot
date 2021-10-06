@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: RightPress Library\n"
-"POT-Creation-Date: 2020-04-14 11:09+0300\n"
+"POT-Creation-Date: 2021-07-04 11:55+0300\n"
 "PO-Revision-Date: 2014-03-10 23:22+0300\n"
 "Last-Translator: \n"
 "Language-Team: RightPress <info@rightpress.net>\n"
@@ -519,6 +519,10 @@ msgstr ""
 msgid "Product regular price"
 msgstr ""
 
+#: class-collections/conditions/conditions/rightpress-condition-product-property-sale-price.class.php:49
+msgid "Product sale price"
+msgstr ""
+
 #: class-collections/conditions/conditions/rightpress-condition-product-property-shipping-class.class.php:49
 msgid "Product shipping class"
 msgstr ""
@@ -870,11 +874,11 @@ msgstr ""
 msgid "All zones"
 msgstr ""
 
-#: classes/helper/rightpress-help.class.php:3067
+#: classes/helper/rightpress-help.class.php:3075
 msgid "Standard Rate"
 msgstr ""
 
-#: classes/helper/rightpress-help.class.php:3634
+#: classes/helper/rightpress-help.class.php:3733
 #, php-format
 msgid "%1$s was called incorrectly. %2$s. Since version %3$s."
 msgstr ""
@@ -955,33 +959,33 @@ msgstr[1] ""
 #: classes/utility/rightpress-time.class.php:83
 #, php-format
 msgid "%d year"
-msgid_plural "%d year"
+msgid_plural "%d years"
 msgstr[0] ""
 msgstr[1] ""
 
 #: classes/utility/rightpress-time.class.php:129
-#: classes/utility/rightpress-time.class.php:152
-#: classes/utility/rightpress-time.class.php:279
+#: classes/utility/rightpress-time.class.php:153
+#: classes/utility/rightpress-time.class.php:289
 msgid "Invalid time period."
 msgstr ""
 
-#: classes/utility/rightpress-time.class.php:265
+#: classes/utility/rightpress-time.class.php:275
 msgid "Invalid datetime."
 msgstr ""
 
-#: classes/utility/rightpress-time.class.php:274
+#: classes/utility/rightpress-time.class.php:284
 msgid "Invalid time period length."
 msgstr ""
 
-#: classes/utility/rightpress-time.class.php:328
+#: classes/utility/rightpress-time.class.php:338
 msgid "Target length undefined."
 msgstr ""
 
-#: components/rightpress-product-list-shared-column/rightpress-product-list-shared-column.class.php:47
+#: components/rightpress-product-list-shared-column/rightpress-product-list-shared-column.class.php:48
 msgid "Properties"
 msgstr ""
 
-#: components/rightpress-product-price/classes/rightpress-product-price-live-update.class.php:162
+#: components/rightpress-product-price/classes/rightpress-product-price-live-update.class.php:178
 msgid "Price"
 msgstr ""
 
@@ -1070,7 +1074,7 @@ msgid ""
 msgstr ""
 
 #: components/rightpress-settings-component/views/plugin/preloader.php:20
-msgid "<strong>User Interface Loading</strong>"
+msgid "User Interface Loading"
 msgstr ""
 
 #: components/rightpress-settings-component/views/plugin/preloader.php:24
@@ -1078,5 +1082,9 @@ msgstr ""
 msgid ""
 "This plugin uses a JavaScript-driven user interface. If this notice does not "
 "disappear within a few seconds, you should check Console for any JavaScript "
-"errors or get in touch with <a href=\"%s\">RightPress Support</a>."
+"errors or get in touch with %s."
+msgstr ""
+
+#: components/rightpress-settings-component/views/plugin/preloader.php:24
+msgid "RightPress Support"
 msgstr ""

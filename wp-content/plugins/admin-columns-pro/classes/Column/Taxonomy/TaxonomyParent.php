@@ -41,7 +41,7 @@ class TaxonomyParent extends AC\Column
 	}
 
 	public function editing() {
-		return new Editing\Model\Taxonomy\TaxonomyParent( $this );
+		return new Editing\Service\Taxonomy\TaxonomyParent( $this->get_taxonomy() );
 	}
 
 	public function filtering() {

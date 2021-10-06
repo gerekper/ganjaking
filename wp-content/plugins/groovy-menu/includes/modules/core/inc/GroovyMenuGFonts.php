@@ -186,7 +186,7 @@ class GroovyMenuGFonts {
 
 	/**
 	 * @param string $preset_id
-	 * @param array $specific_font_data
+	 * @param array  $specific_font_data
 	 *
 	 * @return array
 	 */
@@ -301,26 +301,46 @@ class GroovyMenuGFonts {
 
 		$fonts_options = array(
 			array(
-				'section'     => 'general',
+				'section'     => 'styles',
 				'font_option' => 'logo_txt_font',
 				'weight'      => array(
-					'general' => [ 'logo_txt_weight', 'sticky_logo_txt_weight' ]
+					'styles' => [
+						'logo_txt_weight',
+						'sticky_logo_txt_weight',
+					]
 				),
 				'subset'      => array(
-					'general' => [ 'logo_txt_subset', 'sticky_logo_txt_subset' ]
+					'styles' => [
+						'logo_txt_subset',
+						'
+						sticky_logo_txt_subset',
+					]
 				),
 			),
 			array(
 				'section'     => 'styles',
 				'font_option' => 'google_font',
 				'weight'      => array(
-					'styles'  => [ 'item_text_weight' ],
-					'mobile'  => [ 'mobile_item_text_weight', 'mobile_subitem_text_weight' ],
-					'general' => [ 'sub_level_item_text_weight', 'megamenu_title_text_weight' ]
+					'styles' => [
+						'item_text_weight',
+						'sub_level_item_text_weight',
+						'megamenu_title_text_weight',
+						'toolbar_menu_text_weight',
+						'second_sidebar_menu_text_weight',
+					],
+					'mobile' => [
+						'mobile_item_text_weight',
+						'mobile_subitem_text_weight',
+					],
 				),
 				'subset'      => array(
-					'styles'  => [ 'item_text_subset' ],
-					'general' => [ 'sub_level_item_text_subset', 'megamenu_title_text_subset' ]
+					'styles' => [
+						'item_text_subset',
+						'sub_level_item_text_subset',
+						'megamenu_title_text_subset',
+						'toolbar_menu_text_subset',
+						'second_sidebar_menu_text_subset',
+					],
 				),
 			),
 		);
@@ -525,9 +545,9 @@ class GroovyMenuGFonts {
 	/**
 	 * Parse and prepare font setting array for css rules
 	 *
-	 * @param string $variant   font variant.
-	 * @param array  $font_info family, variants, subset.
-	 * @param array  $subsets   font subset.
+	 * @param string $variant    font variant.
+	 * @param array  $font_info  family, variants, subset.
+	 * @param array  $subsets    font subset.
 	 * @param string $fonts_path path to font file.
 	 *
 	 * @return array
@@ -673,7 +693,10 @@ class GroovyMenuGFonts {
 
 		global $wp_filesystem;
 		if ( empty( $wp_filesystem ) ) {
-			$file_path = str_replace( array( '\\', '/' ), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/file.php' );
+			$file_path = str_replace( array(
+				'\\',
+				'/'
+			), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/file.php' );
 
 			if ( file_exists( $file_path ) ) {
 				require_once $file_path;

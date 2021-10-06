@@ -816,7 +816,15 @@ class WP_Reset_Collections
                     }
                     break;
                 case '301-redirects':
-
+                    if (class_exists('WF_Licensing_301')) {
+                        global $wf_301_licensing;
+                        if ($wf_301_licensing->validate($license_key)) {
+                            wp_send_json_success();
+                        } else {
+                            wp_send_json_error();
+                        }
+                    }
+                    break;
                 case 'google-maps-widget':
                     if (class_exists('GMWP')) {
                         $tmp = GMWP::validate_activation_code($license_key);
@@ -952,7 +960,13 @@ class WP_Reset_Collections
                     }
                     break;
                 case '301-redirects':
-                    
+                    if (class_exists('WF_Licensing_301')) {
+                        global $wf_301_licensing;
+                        if ($wf_301_licensing->is_active()) {
+                            return 'license_active';
+                        }
+                    }
+                    break;
                 case 'google-maps-widget':
                     if (class_exists('GMWP')) {
                         if (GMWP::is_activated()) {

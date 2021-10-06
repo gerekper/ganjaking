@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 
 ?>
 
-<h2 style="padding: 0; margin: 0; height: 0;">
+<h2 class="rp_wcdpd_settings_notices_fix">
     <!-- Fix for WordPress notices jumping in between header and settings area -->
 </h2>
 
@@ -22,3 +22,5 @@ if (!defined('ABSPATH')) {
         <?php endif; ?>
     <?php endforeach; ?>
 </h2>
+
+<input type="hidden" name="rp_wcdpd_version" value="<?php echo RP_WCDPD_VERSION; ?>">

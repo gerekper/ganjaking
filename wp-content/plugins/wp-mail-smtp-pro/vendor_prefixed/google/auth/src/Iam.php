@@ -20,6 +20,7 @@ namespace WPMailSMTP\Vendor\Google\Auth;
 use WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpClientCache;
 use WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
 use WPMailSMTP\Vendor\GuzzleHttp\Psr7;
+use WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils;
 /**
  * Tools for using the IAM API.
  *
@@ -70,7 +71,7 @@ class Iam
         }
         $body = ['delegates' => $delegates, 'payload' => \base64_encode($stringToSign)];
         $headers = ['Authorization' => 'Bearer ' . $accessToken];
-        $request = new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $uri, $headers, \WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for(\json_encode($body)));
+        $request = new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $uri, $headers, \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor(\json_encode($body)));
         $res = $httpHandler($request);
         $body = \json_decode((string) $res->getBody(), \true);
         return $body['signedBlob'];

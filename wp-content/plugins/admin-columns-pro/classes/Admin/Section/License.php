@@ -6,6 +6,7 @@ use AC;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
+use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Type\Url;
 use AC\View;
@@ -52,6 +53,7 @@ class License extends AC\Admin\Section implements Enqueueables {
 	public function get_assets() {
 		return new Assets( [
 			new Style( 'acp-license-manager', $this->location->with_suffix( 'assets/core/css/license-manager.css' ) ),
+			new Script( 'acp-license-manager', $this->location->with_suffix( 'assets/core/js/license-manager.js' ) ),
 		] );
 	}
 
@@ -91,10 +93,9 @@ class License extends AC\Admin\Section implements Enqueueables {
 
 	public function render() {
 		$view = new View( [
-			'title'       => __( 'Updates', 'codepress-admin-columns' ),
-			'description' => __( 'Enter your license code to receive automatic updates.', 'codepress-admin-columns' ),
-			'content'     => $this->render_license_form(),
-			'class'       => 'general',
+			'title'   => __( 'License', 'codepress-admin-columns' ),
+			'content' => $this->render_license_form(),
+			'class'   => 'general',
 		] );
 
 		$view->set_template( 'admin/page/settings-section' );

@@ -612,7 +612,7 @@ class WC_Points_Rewards_Admin {
 
 			array(
 				'title' => __( 'Product / Cart / Checkout Messages', 'woocommerce-points-and-rewards' ),
-				'desc'  => sprintf( __( 'Adjust the message by using %1$s{points}%2$s and %1$s{points_label}%2$s to represent the points earned / available for redemption and the label set for points.', 'woocommerce-points-and-rewards' ), '<code>', '</code>' ),
+				'desc'  => sprintf( esc_html__( 'Adjust the message by using %1$s{points}%2$s and %1$s{points_label}%2$s to represent the points earned / available for redemption and the label set for points.', 'woocommerce-points-and-rewards' ), '<code>', '</code>' ),
 				'type'  => 'title',
 				'id'    => 'wc_points_rewards_messages_start'
 			),
@@ -623,7 +623,7 @@ class WC_Points_Rewards_Admin {
 				'desc_tip' => __( 'Add an optional message to the single product page below the price. Customize the message using {points} and {points_label}. Limited HTML is allowed. Leave blank to disable.', 'woocommerce-points-and-rewards' ),
 				'id'       => 'wc_points_rewards_single_product_message',
 				'css'      => 'min-width: 400px;',
-				'default'  => sprintf( __( 'Purchase this product now and earn %s!', 'woocommerce-points-and-rewards' ), '<strong>{points}</strong> {points_label}' ),
+				'default'  => sprintf( esc_html__( 'Purchase this product now and earn %s!', 'woocommerce-points-and-rewards' ), '<strong>{points}</strong> {points_label}' ),
 				'type'     => 'textarea',
 			),
 
@@ -633,7 +633,7 @@ class WC_Points_Rewards_Admin {
 				'desc_tip' => __( 'Add an optional message to the variable product page below the price. Customize the message using {points} and {points_label}. Limited HTML is allowed. Leave blank to disable.', 'woocommerce-points-and-rewards' ),
 				'id'       => 'wc_points_rewards_variable_product_message',
 				'css'      => 'min-width: 400px;',
-				'default'  => sprintf( __( 'Earn up to %s.', 'woocommerce-points-and-rewards' ), '<strong>{points}</strong> {points_label}' ),
+				'default'  => sprintf( esc_html__( 'Earn up to %s.', 'woocommerce-points-and-rewards' ), '<strong>{points}</strong> {points_label}' ),
 				'type'     => 'textarea',
 			),
 
@@ -643,7 +643,7 @@ class WC_Points_Rewards_Admin {
 				'desc_tip' => __( 'Displayed on the cart and checkout page when points are earned. Customize the message using {points} and {points_label}. Limited HTML is allowed.', 'woocommerce-points-and-rewards' ),
 				'id'       => 'wc_points_rewards_earn_points_message',
 				'css'      => 'min-width: 400px;',
-				'default'  => sprintf( __( 'Complete your order and earn %s for a discount on a future purchase', 'woocommerce-points-and-rewards' ), '<strong>{points}</strong> {points_label}' ),
+				'default'  => sprintf( esc_html__( 'Complete your order and earn %s for a discount on a future purchase', 'woocommerce-points-and-rewards' ), '<strong>{points}</strong> {points_label}' ),
 				'type'     => 'textarea',
 			),
 
@@ -653,7 +653,7 @@ class WC_Points_Rewards_Admin {
 				'desc_tip' => __( 'Displayed on the cart and checkout page when points are available for redemption. Customize the message using {points}, {points_value}, and {points_label}. Limited HTML is allowed.', 'woocommerce-points-and-rewards' ),
 				'id'       => 'wc_points_rewards_redeem_points_message',
 				'css'      => 'min-width: 400px;',
-				'default'  => sprintf( __( 'Use %s for a %s discount on this order!', 'woocommerce-points-and-rewards' ), '<strong>{points}</strong> {points_label}', '<strong>{points_value}</strong>' ),
+				'default'  => sprintf( esc_html__( 'Use %s for a %s discount on this order!', 'woocommerce-points-and-rewards' ), '<strong>{points}</strong> {points_label}', '<strong>{points_value}</strong>' ),
 				'type'     => 'textarea',
 			),
 
@@ -663,7 +663,7 @@ class WC_Points_Rewards_Admin {
 				'desc_tip' => __( 'Displayed on the thank you / order received page when points were earned. Customize the message using {points}, {total_points}, {points_label}, and {total_points_label}. Limited HTML is allowed.', 'woocommerce-points-and-rewards' ),
 				'id'       => 'wc_points_rewards_thank_you_message',
 				'css'      => 'min-width: 400px;min-height: 75px;',
-				'default'  => sprintf( __( 'You have earned %s for this order. You have a total of %s.', 'woocommerce-points-and-rewards' ), '<strong>{points}</strong> {points_label}', '<strong>{total_points}</strong> {total_points_label}' ),
+				'default'  => sprintf( esc_html__( 'You have earned %s for this order. You have a total of %s.', 'woocommerce-points-and-rewards' ), '<strong>{points}</strong> {points_label}', '<strong>{total_points}</strong> {total_points_label}' ),
 				'type'     => 'textarea',
 			),
 

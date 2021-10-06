@@ -21,11 +21,25 @@ if ( ! defined( 'WPINC' ) ) {
  * Class Dashboard
  */
 class Dashboard extends Abstract_Page implements Interface_Page {
+
 	/**
 	 * Function triggered when the page is loaded before render any content.
 	 */
-	public function on_load() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_tutorials_scripts' ) );
+	public function on_load() {}
+
+	/**
+	 * Enqueue scripts.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param string $hook Hook from where the call is made.
+	 */
+	public function enqueue_scripts( $hook ) {
+		// Scripts for Configs.
+		$this->enqueue_configs_scripts();
+
+		// Scripts for Tutorials.
+		$this->enqueue_tutorials_scripts();
 	}
 
 	/**
@@ -182,7 +196,7 @@ class Dashboard extends Abstract_Page implements Interface_Page {
 			'resize_count'    => ! $resize_count ? 0 : $resize_count,
 			'upsell_url_cdn'  => $upsell_url_cdn,
 			'upsell_url_webp' => $upsell_url_webp,
-			'webp_configured' => WP_Smush::get_instance()->core()->mod->webp->is_configured(),
+			'webp_configured' => true === WP_Smush::get_instance()->core()->mod->webp->is_configured(),
 		);
 
 		$this->view( 'dashboard/summary-meta-box', $args );
@@ -265,11 +279,9 @@ class Dashboard extends Abstract_Page implements Interface_Page {
 		$webp = WP_Smush::get_instance()->core()->mod->webp;
 
 		$args = array(
-			'htaccess_written' => $webp->is_htaccess_written(),
-			'is_configured'    => true === $webp->is_configured(),
-			'is_webp_active'   => $this->settings->get( 'webp_mod' ),
-			'server_type'      => $webp::get_server_type(),
-			'upsell_url'       => $upsell_url,
+			'is_configured'  => $webp->get_is_configured_with_error_message(),
+			'is_webp_active' => $this->settings->get( 'webp_mod' ),
+			'upsell_url'     => $upsell_url,
 		);
 
 		$this->view( 'dashboard/webp/meta-box', $args );

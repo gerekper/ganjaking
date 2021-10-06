@@ -5,7 +5,7 @@
  * Contains version information for the current WordPress release.
  *
  * @package WordPress
- * @since 1.1.0
+ * @since 1.2.0
  */
 
 /**
@@ -13,11 +13,7 @@
  *
  * @global string $wp_version
  */
-<<<<<<< HEAD
-$wp_version = '5.7';
-=======
-$wp_version = '5.6.2';
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+$wp_version = '5.8.1';
 
 /**
  * Holds the WordPress DB revision, increments when changes are made to the WordPress DB schema.

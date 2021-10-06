@@ -18,10 +18,15 @@ if(!class_exists('RevSliderGutenberg')){
 		private $prefix;
 		
 		public function __construct($pre){
+			global $wp_version;
 			$this->prefix = $pre;
 			
 			// add ThemePunch block category
-			add_filter('block_categories', array($this, 'create_block_category'), 10, 2);
+			if(version_compare($wp_version, '5.8', '>=')){
+				add_filter('block_categories_all', array($this, 'create_block_category'), 10, 2);
+			}else{ //block_categories is deprecated since 5.8
+				add_filter('block_categories', array($this, 'create_block_category'), 10, 2);
+			}
 			
 			// Hook: Frontend assets.
 			add_action('enqueue_block_assets', array($this, 'revslider_gutenberg_cgb_block_assets'));
@@ -67,7 +72,7 @@ if(!class_exists('RevSliderGutenberg')){
 			wp_enqueue_style(
 				'revslider_gutenberg-cgb-style-css', // Handle.
 				plugins_url( $this->prefix . 'dist/blocks.style.build.css', dirname( __FILE__ )), // Block style CSS.
-				array('wp-editor'), // Dependency to include the CSS after it.
+				array(), // Dependency to include the CSS after it.
 				RS_REVISION// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.style.build.css') // Version: File modification time.
 			);
 		}
@@ -86,7 +91,7 @@ if(!class_exists('RevSliderGutenberg')){
 			wp_enqueue_script(
 				'revslider_gutenberg-cgb-block-js', // Handle.
 				plugins_url( $this->prefix . 'dist/blocks.build.js', dirname( __FILE__ )), // Block.build.js: We register the block here. Built with Webpack.
-				array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor'), // Dependencies, defined above.
+				array('wp-blocks', 'wp-i18n', 'wp-element'), // Dependencies, defined above.
 				// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js'), // Version: File modification time.
 				RS_REVISION,
 				true // Enqueue the script in the footer.

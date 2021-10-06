@@ -3,16 +3,16 @@
  * Plugin Name: WooCommerce Waitlist
  * Plugin URI: http://www.woothemes.com/products/woocommerce-waitlist/
  * Description: This plugin enables registered users to request an email notification when an out-of-stock product comes back into stock. It tallies these registrations in the admin panel for review and provides details.
- * Version: 2.2.6
+ * Version: 2.3.0
  * Author: Neil Pie
  * Author URI: https://pie.co.de/
  * Developer: Neil Pie
  * Developer URI: https://pie.co.de/
  * Woo: 122144:55d9643a241ecf5ad501808c0787483f
  * WC requires at least: 3.0.0
- * WC tested up to: 5.4.1
+ * WC tested up to: 5.5.2
  * Requires at least: 4.2.0
- * Tested up to: 5.7.2
+ * Tested up to: 5.8.0
  * Text Domain: woocommerce-waitlist
  * Domain Path: /assets/languages/
  * License: GNU General Public License v3.0
@@ -455,7 +455,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 				return true;
 			}
 			$product_stock = $product->get_stock_quantity();
-			if ( self::is_variation( $product ) && ! $product->get_manage_stock() ) {
+			if ( self::is_variation( $product ) && 'parent' === $product->get_manage_stock() ) {
 				$parent = wc_get_product( $product->get_parent_id() );
 				if ( ! $parent->get_manage_stock() ) {
 					return true;
@@ -478,7 +478,11 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * @return boolean
 		 */
 		public function stock_level_has_broken_threshold( $product, $stock_level_required ) {
-			$previous_stock_level = (int) get_post_meta( $product->get_id(), 'wcwl_stock_level', true );
+			if ( self::is_variation( $product ) && 'parent' === $product->get_manage_stock() ) {
+				$previous_stock_level = (int) get_post_meta( $product->get_parent_id(), 'wcwl_stock_level', true );
+			} else {
+				$previous_stock_level = (int) get_post_meta( $product->get_id(), 'wcwl_stock_level', true );
+			}
 		  if ( $previous_stock_level < $stock_level_required ) {
 				return true;
 			} else {
@@ -707,6 +711,10 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 			$emails['Pie_WCWL_Waitlist_Joined_Email'] = new Pie_WCWL_Waitlist_Joined_Email();
 			$emails['Pie_WCWL_Waitlist_Left_Email']   = new Pie_WCWL_Waitlist_Left_Email();
 			$emails['Pie_WCWL_Waitlist_Signup_Email'] = new Pie_WCWL_Waitlist_Signup_Email();
+			if ( 'yes' === get_option( WCWL_SLUG . '_double_optin' ) ) {
+				require_once 'classes/class-pie-wcwl-waitlist-optin-email.php';
+				$emails['Pie_WCWL_Waitlist_Optin_Email'] = new Pie_WCWL_Waitlist_Optin_Email();
+			}
 
 			return $emails;
 		}
@@ -758,6 +766,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 			update_option( WCWL_SLUG . '_registration_needed', 'no' );
 			update_option( WCWL_SLUG . '_create_account', 'yes' );
 			update_option( WCWL_SLUG . '_auto_login', 'no' );
+			update_option( WCWL_SLUG . '_double_optin', 'no' );
 			update_option( WCWL_SLUG . '_minimum_stock', 1 );
 		}
 

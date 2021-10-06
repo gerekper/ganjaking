@@ -42,13 +42,13 @@ class Admin extends ExportTab {
 
 		wp_enqueue_style(
 			'wp-mail-smtp-flatpickr',
-			wp_mail_smtp()->plugin_url . '/assets/pro/css/vendor/flatpickr.min.css',
+			wp_mail_smtp()->assets_url . '/css/vendor/flatpickr.min.css',
 			[],
 			'4.6.9'
 		);
 		wp_enqueue_script(
 			'wp-mail-smtp-flatpickr',
-			wp_mail_smtp()->plugin_url . '/assets/pro/js/vendor/flatpickr.min.js',
+			wp_mail_smtp()->assets_url . '/js/vendor/flatpickr.min.js',
 			[ 'jquery' ],
 			'4.6.9',
 			true

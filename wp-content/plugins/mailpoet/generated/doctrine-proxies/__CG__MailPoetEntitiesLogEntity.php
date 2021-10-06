@@ -215,6 +215,50 @@ class LogEntity extends \MailPoet\Entities\LogEntity implements \MailPoetVendor\
     /**
      * {@inheritDoc}
      */
+    public function setName(?string $name): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', [$name]);
+
+        parent::setName($name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setLevel(?int $level): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setLevel', [$level]);
+
+        parent::setLevel($level);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setMessage(?string $message): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMessage', [$message]);
+
+        parent::setMessage($message);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreatedAt(\DateTimeInterface $createdAt): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', [$createdAt]);
+
+        parent::setCreatedAt($createdAt);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getId()
     {
         if ($this->__isInitialized__ === false) {
@@ -247,17 +291,6 @@ class LogEntity extends \MailPoet\Entities\LogEntity implements \MailPoetVendor\
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedAt', []);
 
         return parent::getCreatedAt();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setCreatedAt(\DateTimeInterface $createdAt)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', [$createdAt]);
-
-        return parent::setCreatedAt($createdAt);
     }
 
 }

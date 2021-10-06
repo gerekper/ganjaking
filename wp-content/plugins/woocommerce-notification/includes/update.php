@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * The main challange here is defining a dynamic dl link
  * for $updade_plugins_transient->response[ $plugin_slug ]->package;
+ *
+ * Version 1.0.1
  */
 
 
@@ -67,7 +69,7 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 			$plugin = isset( $_REQUEST['plugin'] ) ? trim( $_REQUEST['plugin'] ) : '';
 
 			if ( ! current_user_can( 'update_plugins' ) ) {
-				wp_die( __( 'You do not have sufficient permissions to update plugins for this site.' ) );
+				wp_die( esc_html__( 'You do not have sufficient permissions to update plugins for this site.' ) );
 			}
 
 			check_admin_referer( 'upgrade-plugin_' . $plugin );
@@ -84,28 +86,15 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 			}
 
 			// return to lugins page link
-			echo '<a href="' . self_admin_url( 'plugins.php' ) . '" title="' . esc_attr__( 'Go to plugins page' ) . '" target="_parent">' . __( 'Return to Plugins page' ) . '</a>';
+			?>
+			<a href="<?php echo esc_url( self_admin_url( 'plugins.php' ) ) ?>"
+			   title="<?php echo esc_attr( 'Go to plugins page' ) ?>"
+			   target="_parent"><?php esc_html_e( 'Return to Plugins page' ) ?></a>
+			<?php
 
 			include( ABSPATH . 'wp-admin/admin-footer.php' );
 		}
 
-
-		/**
-		 * Initialize the upgrade strings.
-		 *
-		 * @since 2.8.0
-		 */
-		public function upgrade_strings() {
-
-			parent::upgrade_strings();
-
-			$this->strings['no_package']            = sprintf(
-				__( 'Please (re)activate your license in %sMaster Slider > setting page%s. Valid license is required in order to update this plugin.' ),
-				'<a href="' . admin_url( 'admin.php?page=' . $this->slug . '-setting' ) . '">', '</a>'
-			);
-			$this->strings['downloading_package']   = __( 'Downloading package ...' );
-			$this->strings['download_item_package'] = __( 'Downloading package ...' );
-		}
 
 		/**
 		 * Upgrade a plugin.
@@ -127,7 +116,7 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 			$plugin = $this->plugin_slug;
 
 			$this->init();
-			$this->upgrade_strings();
+
 
 			$current = get_site_transient( 'update_plugins' );
 			if ( ! isset( $current->response[ $plugin ] ) ) {
@@ -144,7 +133,6 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 
 			add_filter( 'upgrader_pre_install', array( $this, 'deactivate_plugin_before_upgrade' ), 10, 2 );
 			add_filter( 'upgrader_clear_destination', array( $this, 'delete_old_plugin' ), 10, 4 );
-			//'source_selection' => array($this, 'source_selection'), //there's a trac ticket to move up the directory for zip's which are made a bit differently, useful for non-.org plugins.
 
 			$this->run( array(
 				'package'           => $r->package,
@@ -224,17 +212,23 @@ if ( ! class_exists( 'VillaTheme_Plugin_Updater' ) ) {
 			$wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );
 
 			if ( is_network_admin() || ! is_multisite() ) {
-
-
-				echo '<tr class="plugin-update-tr"><td colspan="' . $wp_list_table->get_column_count() . '" class="plugin-update colspanchange"><div class="notice inline notice-warning notice-alt"><p>';
-
-				printf( __( 'New version of %1$s available. You can download or <a href="%2$s" class="thickbox" title="%3$s">view version %4$s</a>. Please make sure that you fill your purchased code in <a href="%5$s">Setting page</a>.' ),
-					$plugin_name, esc_url( $details_url ), esc_attr( $plugin_name ), $r->new_version, $this->setting_page_url
-				);
-
-				do_action( "in_plugin_update_message-{$file}", $plugin_data, $r );
-
-				echo '</p></div></td></tr>';
+				?>
+				<tr class="plugin-update-tr">
+					<td colspan="<?php echo esc_attr( $wp_list_table->get_column_count() ) ?>"
+						class="plugin-update colspanchange">
+						<div class="notice inline notice-warning notice-alt">
+							<p>
+								<?php
+								printf( wp_kses_post( __( 'New version of %1$s available. You can download or <a href="%2$s" class="thickbox" title="%3$s">view version %4$s</a>. Please make sure that you fill your auto-update key in <a href="%5$s">Setting page</a>.' ) ),
+									$plugin_name, esc_url( $details_url ), esc_attr( $plugin_name ), $r->new_version, esc_url( $this->setting_page_url )
+								);
+								do_action( "in_plugin_update_message-{$file}", $plugin_data, $r );
+								?>
+							</p>
+						</div>
+					</td>
+				</tr>
+				<?php
 			}
 		}
 	}

@@ -21,4 +21,4 @@ $input_button = woocommerce_quantity_input( array(
 	'max_value'   => $product->backorders_allowed() ? '' : $product->get_stock_quantity(),
 	'min_value'   => 0,
 ), $product, false );
-echo str_replace( 'type="number"', 'type="number" data-add_to_cart="' . $product->get_id() . '" data-cart_quantity="' . $cart_quantity . '"', $input_button ); ?>
+echo str_replace( 'type="number"', 'type="number" data-add_to_cart="' . esc_attr( $product->get_id() ) . '" data-cart_quantity="' . esc_attr( $cart_quantity ) . '"', $input_button ); ?>

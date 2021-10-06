@@ -83,16 +83,21 @@ class VI_WNOTIFICATION_Frontend_Notify {
 	 */
 	public function product_html() {
 		$enable = $this->settings->enable();
+
 		if ( $enable ) {
 			$products = $this->get_product();
 			if ( is_array( $products ) && count( $products ) ) {
 				echo json_encode( $products );
 				die;
-			}
+			}else{
+				echo json_encode( array() );
+				die;
+            }
+		}else{
+			echo json_encode( array() );
+			die;
 		}
 
-		echo json_encode( array() );
-		die;
 	}
 
 	/**
@@ -174,18 +179,11 @@ class VI_WNOTIFICATION_Frontend_Notify {
 	 * @return array|mixed|void
 	 */
 	public function get_cities( $limit = 0 ) {
-		$detect_country = $this->settings->country();
 
-
-		//		if ( ! $detect_country ) {
-		//			$detect_data = $this->detect_country();
-		//
-		//			$city    = isset( $detect_data['city'] ) ? $detect_data['city'] : '';
-		//		} else {
 		$city = $this->settings->get_virtual_city();
 		if ( $city ) {
 			$city = explode( "\n", $city );
-			$city = array_filter( $city );
+			$city = array_filter( $city ,'trim');
 			if ( $limit ) {
 				if ( count( $city ) > $limit ) {
 					shuffle( $city );
@@ -193,9 +191,8 @@ class VI_WNOTIFICATION_Frontend_Notify {
 					return array_slice( $city, 0, $limit );
 				}
 			}
+			$city=array_map('trim', $city);
 		}
-
-		//		}
 		return $city;
 	}
 
@@ -277,16 +274,22 @@ class VI_WNOTIFICATION_Frontend_Notify {
 		$product_thumb                  = $this->settings->get_product_sizes();
 		$save_logs                      = $this->settings->save_logs();
 		$archive_page                   = $this->settings->archive_page();
+		$product_visibility = $this->settings->get_params('product_visibility') ?: '';
 		$prefix                         = woocommerce_notification_prefix();
-
+		$current_lang ='';
 		if ( is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
 			$current_lang = wpml_get_current_language();
-			$prefix       .= $current_lang;
+		} elseif ( class_exists( 'Polylang' ) ) {
+			$current_lang = pll_current_language( 'slug' );
 		}
-
+		$prefix       .= $current_lang;
 		/*Check Single Product page*/
-		if ( $enable_single_product && is_product() ) {
-			$product_id = get_the_ID();
+		if ( $enable_single_product && (is_product() || isset($_POST['viwn_pd_id'])) ) {
+		    if (is_product()) {
+			    $product_id = get_the_ID();
+		    }else{
+			    $product_id = isset($_POST['viwn_pd_id']) ? sanitize_text_field($_POST['viwn_pd_id']):'';
+            }
 			if ( ! $product_id ) {
 				return $products;
 			}
@@ -315,7 +318,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 								if ( ! $product_variation->is_in_stock() && ! $this->settings->enable_out_of_stock_product() ) {
 									unset( $temp_p[ $key ] );
 								} else {
-									if ( $product_variation->get_catalog_visibility() == 'hidden' ) {
+									if ( !empty($product_visibility) && !in_array($product_variation->get_catalog_visibility(),$product_visibility)) {
 										continue;
 									}
 
@@ -374,7 +377,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 					}
 				} else {
 					if ( $product->is_in_stock() || $this->settings->enable_out_of_stock_product() ) {
-						if ( $product->get_catalog_visibility() == 'hidden' ) {
+						if (!empty($product_visibility) && !in_array($product->get_catalog_visibility(),$product_visibility) ) {
 							return false;
 						}
 
@@ -385,7 +388,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 						}
 
 						$product_tmp = array(
-							'title' => get_the_title(),
+							'title' => $product->get_name(),
 							'url'   => $link,
 							'thumb' => has_post_thumbnail( $product_id ) ? get_the_post_thumbnail_url( $product_id,
 								$product_thumb ) : '',
@@ -467,7 +470,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 						$the_query->the_post();
 						$same_cate_product_id = get_the_ID();
 						$same_cate_product    = wc_get_product( $same_cate_product_id );
-						if ( $same_cate_product->get_catalog_visibility() == 'hidden' ) {
+						if (!empty($product_visibility) && !in_array($same_cate_product->get_catalog_visibility(),$product_visibility) ) {
 							continue;
 						}
 						if ( $same_cate_product->is_type( 'external' ) && $product_link ) {
@@ -517,9 +520,16 @@ class VI_WNOTIFICATION_Frontend_Notify {
 		/*Get All page*/
 		/*Check with Product get from Billing*/
 		$limit_product = $this->settings->get_limit_product();
-
+		if ($this->settings->get_params('enable_current_category') && (is_product_category() || isset($_POST['viwn_category_name']))) {
+			if ( is_product_category() ) {
+				global $wp_query;
+				$viwn_category_name = $wp_query->query_vars['product_cat'] ?? '';
+			} else {
+				$viwn_category_name = isset( $_POST['viwn_category_name'] ) ? sanitize_text_field( wp_unslash( $_POST['viwn_category_name'] ) ) : '';
+			}
+		}
 		if ( $archive_page > 0 ) {
-			$products = get_transient( $prefix );
+			$products = get_transient( $prefix.($viwn_category_name??'') );
 			if ( is_array( $products ) && count( $products ) ) {
 				return $products;
 			} else {
@@ -691,23 +701,45 @@ class VI_WNOTIFICATION_Frontend_Notify {
 
 					}
 			}
+			if (!empty($viwn_category_name)){
+				$args['tax_query'] = array(
+					'relation' => 'AND',
+					array(
+						'taxonomy' => 'product_cat',
+						'field'    => 'slug',
+						'terms'    => $viwn_category_name
+					)
+				);
+			}
 			/*Enable in stock*/
 			if ( $this->settings->enable_out_of_stock_product() ) {
 				unset( $args['meta_query'] );
 			}
+			if (function_exists('stm_lms_product_remove_from_archive')) {
+				remove_action( 'pre_get_posts', 'stm_lms_product_remove_from_archive' );
+			}
 			$the_query = new WP_Query( $args );
-
-
+			if (function_exists('stm_lms_product_remove_from_archive')) {
+				add_action( 'pre_get_posts', 'stm_lms_product_remove_from_archive' );
+			}
 			if ( $the_query->have_posts() ) {
 				while ( $the_query->have_posts() ) {
 					$the_query->the_post();
-					$product = wc_get_product( get_the_ID() );
-					if ( $product->get_catalog_visibility() == 'hidden' ) {
+					$product_id = apply_filters( 'wpml_object_id', get_the_ID(), 'product', false, $current_lang );
+					$product = wc_get_product( $product_id );
+
+					if( !is_object($product) ){
+					    continue;
+                    }
+					if (
+					        !empty($product_visibility) &&
+                            !in_array($product->get_catalog_visibility(),$product_visibility)
+                    ) {
 						continue;
 					}
 					if ( $product->is_type( 'external' ) && $product_link ) {
 						// do stuff for simple products
-						$link = get_post_meta( get_the_ID(), '_product_url', '#' );
+						$link = get_post_meta( $product_id, '_product_url', '#' );
 						if ( ! $link ) {
 							$link = get_the_permalink();
 							if ( $save_logs ) {
@@ -722,7 +754,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 						}
 					}
 					$product_tmp = array(
-						'title' => get_the_title(),
+						'title' => get_the_title($product_id),
 						'url'   => $link,
 						'thumb' => has_post_thumbnail() ? get_the_post_thumbnail_url( '', $product_thumb ) : '',
 					);
@@ -741,14 +773,13 @@ class VI_WNOTIFICATION_Frontend_Notify {
 			wp_reset_postdata();
 			if ( count( $products ) ) {
 
-				set_transient( $prefix, $products, 3600 );
+				set_transient( $prefix.($viwn_category_name??''), $products, 3600 );
 
 				return $products;
 			} else {
 				return false;
 			}
 		} else {
-
 			/*Get from billing*/
 			/*Parram*/
 			$order_threshold_num  = $this->settings->get_order_threshold_num();
@@ -801,6 +832,16 @@ class VI_WNOTIFICATION_Frontend_Notify {
 					),
 				);
 			}
+			if (!empty($viwn_category_name)){
+				$args['tax_query'] = array(
+					'relation' => 'AND',
+					array(
+						'taxonomy' => 'product_cat',
+						'field'    => 'slug',
+						'terms'    => $viwn_category_name
+					)
+				);
+			}
 			$my_query = new WP_Query( $args );
 
 			$products = array();
@@ -810,7 +851,6 @@ class VI_WNOTIFICATION_Frontend_Notify {
 					$order_id = get_the_ID();
 					$order    = new WC_Order( $order_id );
 					$items    = $order->get_items();
-
 					foreach ( $items as $item ) {
 						$line_product_id = $item['product_id'];
 						if ( in_array( $line_product_id, $exclude_products ) || in_array( $item['variation_id'],
@@ -821,15 +861,19 @@ class VI_WNOTIFICATION_Frontend_Notify {
 //							if ( isset( $item['variation_id'] ) && $item['variation_id'] ) {
 //								$p_data = wc_get_product( $item['variation_id'] );
 //							}else{
+							$line_product_id = apply_filters( 'wpml_object_id', $line_product_id, 'product', false, $current_lang );
 							$p_data = wc_get_product( $line_product_id );
 //                            }
+							if( !is_object($p_data) ){
+								continue;
+							}
 							if ( ! $p_data->is_in_stock() && ! $this->settings->enable_out_of_stock_product() ) {
 								continue;
 							}
 							if ( $p_data->get_status() != 'publish' ) {
 								continue;
 							}
-							if ( $p_data->get_catalog_visibility() == 'hidden' ) {
+							if (!empty($product_visibility) && !in_array($p_data->get_catalog_visibility(),$product_visibility) ) {
 								continue;
 							}
 							// do stuff for everything else
@@ -839,7 +883,8 @@ class VI_WNOTIFICATION_Frontend_Notify {
 							}
 							$line_product_title = get_the_title( $line_product_id );
 							if ( ! empty( $item['variation_id'] ) ) {
-								$line_product_title = get_the_title( $item['variation_id'] );
+							    $line_variation_id = apply_filters( 'wpml_object_id', $item['variation_id'], 'product', false, $current_lang );
+								$line_product_title = get_the_title( $line_variation_id );
 							}
 							$product_tmp = array(
 								'title'      => $line_product_title,
@@ -886,8 +931,6 @@ class VI_WNOTIFICATION_Frontend_Notify {
 			// Reset Post Data
 			wp_reset_postdata();
 			if ( count( $products ) ) {
-				set_transient( $prefix, $products, 3600 );
-
 				return $products;
 
 			} else {
@@ -1123,19 +1166,21 @@ class VI_WNOTIFICATION_Frontend_Notify {
 	 * Show HTML code
 	 */
 	public function wp_footer() {
+        if(!is_admin()){
 
-		$sound_enable = $this->settings->sound_enable();
-		$sound        = $this->settings->get_sound();
+	        $sound_enable = $this->settings->sound_enable();
+	        $sound        = $this->settings->get_sound();
 
-		echo $this->show_product();
+	        echo $this->show_product();
 
-		if ( $sound_enable ) {
-			?>
-            <audio id="woocommerce-notification-audio">
-                <source src="<?php echo esc_url( VI_WNOTIFICATION_SOUNDS_URL . $sound ) ?>">
-            </audio>
-			<?php
-		}
+	        if ( $sound_enable ) {
+		        ?>
+                <audio id="woocommerce-notification-audio">
+                    <source src="<?php echo esc_url( VI_WNOTIFICATION_SOUNDS_URL . $sound ) ?>">
+                </audio>
+		        <?php
+	        }
+        }
 	}
 
 	/**
@@ -1391,11 +1436,16 @@ class VI_WNOTIFICATION_Frontend_Notify {
 		$options_array['initial_delay'] = $initial_delay;
 		/*Process products, address, time */
 		/*Load products*/
-		if ( $archive || $non_ajax || is_product() ) {
+		if (  $non_ajax && ($archive ||is_product()) ) {
 			$options_array['ajax_url'] = '';
 			$products                  = $this->get_product();
 		} else {
 			$options_array['ajax_url'] = admin_url( 'admin-ajax.php' );
+			$options_array['viwn_pd_id'] = $enable_single_product && is_product() ? get_the_ID():'';
+			if ($this->settings->get_params('enable_current_category') && is_product_category()){
+			    global $wp_query;
+				$options_array['viwn_category_name'] = $wp_query->query_vars['product_cat'] ??'';
+            }
 			$products                  = array();
 		}
 		if ( is_array( $products ) && count( $products ) ) {

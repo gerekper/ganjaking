@@ -2,16 +2,20 @@
 
 namespace ACP\Editing\Model\Post;
 
-use ACP\Editing\Model;
+use ACP\Editing\Service\Basic;
+use ACP\Editing\Storage;
+use ACP\Editing\View;
 
-class TitleRaw extends Model\Post {
+/**
+ * @deprecated 5.6
+ */
+class TitleRaw extends Basic {
 
-	public function get_edit_value( $id ) {
-		return get_post_field( 'post_title', $id );
-	}
-
-	public function save( $id, $value ) {
-		return $this->update_post( $id, [ 'post_title' => $value ] );
+	public function __construct() {
+		parent::__construct(
+			new View\Text(),
+			new Storage\Post\Field( 'post_title' )
+		);
 	}
 
 }

@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Util\Security;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 
@@ -16,7 +17,9 @@ class WooCommerceProduct implements Filter {
   /** @var EntityManager */
   private $entityManager;
 
-  public function __construct(EntityManager $entityManager) {
+  public function __construct(
+    EntityManager $entityManager
+  ) {
     $this->entityManager = $entityManager;
   }
 
@@ -25,6 +28,7 @@ class WooCommerceProduct implements Filter {
     $filterData = $filter->getFilterData();
     $productId = (int)$filterData->getParam('product_id');
     $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    $parameterSuffix = $filter->getId() ?? Security::generateRandomString();
     return $queryBuilder->innerJoin(
       $subscribersTable,
       $wpdb->postmeta,
@@ -38,8 +42,8 @@ class WooCommerceProduct implements Filter {
       'items',
       $wpdb->prefix . 'woocommerce_order_itemmeta',
       'itemmeta',
-      "itemmeta.order_item_id=items.order_item_id AND itemmeta.meta_key='_product_id' AND itemmeta.meta_value=:product" . $filter->getId()
+      "itemmeta.order_item_id=items.order_item_id AND itemmeta.meta_key='_product_id' AND itemmeta.meta_value=:product" . $parameterSuffix
     )->andWhere('postmeta.post_id NOT IN ( SELECT id FROM ' . $wpdb->posts . ' as p WHERE p.post_status IN ("wc-cancelled", "wc-failed"))'
-    )->setParameter('product' . $filter->getId(), $productId);
+    )->setParameter('product' . $parameterSuffix, $productId);
   }
 }

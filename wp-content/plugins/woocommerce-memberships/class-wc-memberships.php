@@ -37,7 +37,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 
 
 	/** plugin version number */
-	const VERSION = '1.22.2';
+	const VERSION = '1.22.3';
 
 	/** @var \WC_Memberships single instance of this plugin */
 	protected static $instance;
@@ -173,7 +173,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 
 		parent::init_setup_wizard_handler();
 
-		require_once( $this->get_plugin_path() . '/includes/admin/class-wc-memberships-setup-wizard.php' );
+		require_once( $this->get_plugin_path() . '/src/admin/class-wc-memberships-setup-wizard.php' );
 
 		$this->setup_wizard_handler = new \SkyVerge\WooCommerce\Memberships\Admin\Setup_Wizard( $this );
 	}
@@ -214,7 +214,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/class-wc-memberships-upgrade.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-memberships-upgrade.php' );
 
 		$this->lifecycle_handler = new \WC_Memberships_Upgrade( $this );
 	}
@@ -243,34 +243,34 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 	public function includes() {
 
 		// load post types
-		require_once( $this->get_plugin_path() . '/includes/class-wc-memberships-post-types.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-memberships-post-types.php' );
 
 		// load user messages helper
-		require_once( $this->get_plugin_path() . '/includes/class-wc-memberships-user-messages.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-memberships-user-messages.php' );
 
 		// load helper functions
-		require_once( $this->get_plugin_path() . '/includes/functions/wc-memberships-functions.php' );
+		require_once( $this->get_plugin_path() . '/src/functions/wc-memberships-functions.php' );
 
 		// load data stores
-		require_once( $this->get_plugin_path() . '/includes/Data_Stores/Profile_Field_Definition/Option.php' );
-		require_once( $this->get_plugin_path() . '/includes/Data_Stores/Profile_Field/User_Meta.php' );
+		require_once( $this->get_plugin_path() . '/src/Data_Stores/Profile_Field_Definition/Option.php' );
+		require_once( $this->get_plugin_path() . '/src/Data_Stores/Profile_Field/User_Meta.php' );
 
 		// load profile field objects
-		require_once( $this->get_plugin_path() . '/includes/Profile_Fields/Exceptions/Invalid_Field.php' );
-		require_once( $this->get_plugin_path() . '/includes/Profile_Fields/Profile_Field_Definition.php' );
-		require_once( $this->get_plugin_path() . '/includes/Profile_Fields/Profile_Field.php' );
-		require_once( $this->get_plugin_path() . '/includes/Profile_Fields.php' );
+		require_once( $this->get_plugin_path() . '/src/Profile_Fields/Exceptions/Invalid_Field.php' );
+		require_once( $this->get_plugin_path() . '/src/Profile_Fields/Profile_Field_Definition.php' );
+		require_once( $this->get_plugin_path() . '/src/Profile_Fields/Profile_Field.php' );
+		require_once( $this->get_plugin_path() . '/src/Profile_Fields.php' );
 
 		// init general classes
-		$this->rules            = $this->load_class( '/includes/class-wc-memberships-rules.php',            'WC_Memberships_Rules' );
-		$this->plans            = $this->load_class( '/includes/class-wc-memberships-membership-plans.php', 'WC_Memberships_Membership_Plans' );
-		$this->emails           = $this->load_class( '/includes/class-wc-memberships-emails.php',           'WC_Memberships_Emails' );
-		$this->user_memberships = $this->load_class( '/includes/class-wc-memberships-user-memberships.php', 'WC_Memberships_User_Memberships' );
-		$this->capabilities     = $this->load_class( '/includes/class-wc-memberships-capabilities.php',     'WC_Memberships_Capabilities' );
-		$this->member_discounts = $this->load_class( '/includes/class-wc-memberships-member-discounts.php', 'WC_Memberships_Member_Discounts' );
-		$this->shipping         = $this->load_class( '/includes/class-wc-memberships-shipping.php',         'WC_Memberships_Shipping' );
+		$this->rules            = $this->load_class( '/src/class-wc-memberships-rules.php',            'WC_Memberships_Rules' );
+		$this->plans            = $this->load_class( '/src/class-wc-memberships-membership-plans.php', 'WC_Memberships_Membership_Plans' );
+		$this->emails           = $this->load_class( '/src/class-wc-memberships-emails.php',           'WC_Memberships_Emails' );
+		$this->user_memberships = $this->load_class( '/src/class-wc-memberships-user-memberships.php', 'WC_Memberships_User_Memberships' );
+		$this->capabilities     = $this->load_class( '/src/class-wc-memberships-capabilities.php',     'WC_Memberships_Capabilities' );
+		$this->member_discounts = $this->load_class( '/src/class-wc-memberships-member-discounts.php', 'WC_Memberships_Member_Discounts' );
+		$this->shipping         = $this->load_class( '/src/class-wc-memberships-shipping.php',         'WC_Memberships_Shipping' );
 
-		require_once( $this->get_plugin_path() . '/includes/Restrictions.php' );
+		require_once( $this->get_plugin_path() . '/src/Restrictions.php' );
 
 		$this->restrictions = new SkyVerge\WooCommerce\Memberships\Restrictions();
 
@@ -293,21 +293,21 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 		}
 
 		// load utilities
-		$this->utilities = $this->load_class( '/includes/class-wc-memberships-utilities.php', 'WC_Memberships_Utilities' );
+		$this->utilities = $this->load_class( '/src/class-wc-memberships-utilities.php', 'WC_Memberships_Utilities' );
 
 		// load integrations
-		$this->integrations = $this->load_class( '/includes/integrations/class-wc-memberships-integrations.php', 'WC_Memberships_Integrations' );
+		$this->integrations = $this->load_class( '/src/integrations/class-wc-memberships-integrations.php', 'WC_Memberships_Integrations' );
 
 		// Gutenberg blocks
-		$this->blocks = $this->load_class( '/includes/Blocks.php', '\\SkyVerge\\WooCommerce\\Memberships\\Blocks' );
+		$this->blocks = $this->load_class( '/src/Blocks.php', '\\SkyVerge\\WooCommerce\\Memberships\\Blocks' );
 
 		// WP CLI support
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
-			include_once $this->get_plugin_path() . '/includes/class-wc-memberships-cli.php';
+			include_once $this->get_plugin_path() . '/src/class-wc-memberships-cli.php';
 		}
 
 		// System Status Report static handler
-		require_once( $this->get_plugin_path() . '/includes/class-wc-memberships-system-status-report.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-memberships-system-status-report.php' );
 	}
 
 
@@ -318,7 +318,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 	 */
 	private function admin_includes() {
 
-		$this->admin = $this->load_class( '/includes/admin/class-wc-memberships-admin.php', 'WC_Memberships_Admin' );
+		$this->admin = $this->load_class( '/src/admin/class-wc-memberships-admin.php', 'WC_Memberships_Admin' );
 
 		// message handler
 		$this->admin->message_handler = $this->get_message_handler();
@@ -332,7 +332,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 	 */
 	private function ajax_includes() {
 
-		$this->ajax = $this->load_class( '/includes/class-wc-memberships-ajax.php', 'WC_Memberships_AJAX' );
+		$this->ajax = $this->load_class( '/src/class-wc-memberships-ajax.php', 'WC_Memberships_AJAX' );
 	}
 
 
@@ -344,7 +344,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 	private function frontend_includes() {
 
 		// init shortcodes
-		require_once( $this->get_plugin_path() . '/includes/Shortcodes.php' );
+		require_once( $this->get_plugin_path() . '/src/Shortcodes.php' );
 
 		/** @deprecated remove legacy class aliases when the plugin has fully migrated to namespaces */
 		class_alias(\SkyVerge\WooCommerce\Memberships\Shortcodes::class, 'WC_Memberships_Shortcodes');
@@ -352,7 +352,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 		\SkyVerge\WooCommerce\Memberships\Shortcodes::initialize();
 
 		// load front end
-		$this->frontend = $this->load_class( '/includes/frontend/class-wc-memberships-frontend.php', 'WC_Memberships_Frontend' );
+		$this->frontend = $this->load_class( '/src/frontend/class-wc-memberships-frontend.php', 'WC_Memberships_Frontend' );
 	}
 
 
@@ -655,7 +655,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 
 		if ( null === $this->rest_api ) {
 
-			require_once( $this->get_plugin_path() . '/includes/api/class-wc-memberships-rest-api.php' );
+			require_once( $this->get_plugin_path() . '/src/api/class-wc-memberships-rest-api.php' );
 
 			$this->rest_api = new \SkyVerge\WooCommerce\Memberships\REST_API( $this );
 		}
@@ -674,7 +674,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 	public function get_webhooks_instance() {
 
 		if ( null === $this->webhooks ) {
-			$this->webhooks = $this->load_class( '/includes/api/class-wc-memberships-webhooks.php', '\SkyVerge\WooCommerce\Memberships\API\Webhooks' );
+			$this->webhooks = $this->load_class( '/src/api/class-wc-memberships-webhooks.php', '\SkyVerge\WooCommerce\Memberships\API\Webhooks' );
 		}
 
 		return $this->webhooks;

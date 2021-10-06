@@ -21,7 +21,10 @@ class Initializer {
 
   const INITIALIZED = 'MAILPOET_PREMIUM_INITIALIZED';
 
-  public function __construct(WPFunctions $wp, ConfigHooks $hooks) {
+  public function __construct(
+    WPFunctions $wp,
+    ConfigHooks $hooks
+  ) {
     $this->wp = $wp;
     $this->hooks = $hooks;
   }
@@ -29,7 +32,8 @@ class Initializer {
   public function init($params = [
     'file' => '',
     'version' => '1.0.0',
-  ]) {
+  ]
+  ) {
     Env::init($params['file'], $params['version']);
 
     $this->wp->addAction('mailpoet_initialized', [

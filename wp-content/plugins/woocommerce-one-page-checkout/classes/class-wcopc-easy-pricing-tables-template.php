@@ -37,8 +37,8 @@ class WCOPC_Easy_Pricing_Tables_Template extends WCOPC_Template {
 	 */
 	public function display_pricing_table( $template, $shortcode_atts ) {
 		if ( $this->template_key == $template && isset( $shortcode_atts['easy_pricing_table_id'] ) ) {
-			echo '<div id="opc-product-selection" data-opc_id="' . PP_One_Page_Checkout::$shortcode_page_id . '"class="wcopc">';
-			echo do_shortcode( '[easy-pricing-table id="' . $shortcode_atts['easy_pricing_table_id'] . '"]' );
+			echo '<div id="opc-product-selection" data-opc_id="' . esc_attr( PP_One_Page_Checkout::$shortcode_page_id ) . '"class="wcopc">';
+			echo do_shortcode( '[easy-pricing-table id="' . esc_attr( $shortcode_atts['easy_pricing_table_id'] ) . '"]' );
 			echo '</div>';
 		}
 	}
@@ -57,15 +57,15 @@ class WCOPC_Easy_Pricing_Tables_Template extends WCOPC_Template {
 		));
 ?>
 	<fieldset id="wcopc_easy_pricing_table_fields" style="margin: 1em 0;">
-		<label for="wcopc_easy_pricing_table_id" style="width: 70px; display: inline-block;"><?php _e( 'Pricing Table:', 'wcopc' ); ?></label>
+		<label for="wcopc_easy_pricing_table_id" style="width: 70px; display: inline-block;"><?php esc_html_e( 'Pricing Table:', 'wcopc' ); ?></label>
 		<?php if ( ! empty( $easy_pricing_tables ) ) : ?>
 		<select id="wcopc_easy_pricing_table_id" style="width: 75%;">
 			<?php foreach( $easy_pricing_tables as $easy_pricing_table ) : ?>
-			<option value="<?php echo $easy_pricing_table->ID; ?>"><?php echo $easy_pricing_table->post_title; ?></option>
+			<option value="<?php echo esc_attr( $easy_pricing_table->ID ); ?>"><?php echo esc_html( $easy_pricing_table->post_title ); ?></option>
 			<?php endforeach; ?>
 		</select>
 		<?php else : ?>
-			<span><?php _e( 'No pricing tables available.', 'wcopc' ); ?>
+			<span><?php esc_html_e( 'No pricing tables available.', 'wcopc' ); ?>
 		<?php endif; ?>
 	</fieldset>
 <?php

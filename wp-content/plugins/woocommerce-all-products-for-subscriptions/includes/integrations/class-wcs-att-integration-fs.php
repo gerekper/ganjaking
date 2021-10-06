@@ -3,7 +3,7 @@
  * WCS_ATT_Integration_FS class
  *
  * @author   SomewhereWarm <info@somewherewarm.com>
- * @package  WooCommerce Product Bundles
+ * @package  WooCommerce All Products For Subscriptions
  * @since    3.1.18
  */
 

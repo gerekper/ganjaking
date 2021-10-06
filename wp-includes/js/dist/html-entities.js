@@ -82,27 +82,19 @@ this["wp"] = this["wp"] || {}; this["wp"]["htmlEntities"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 430);
-=======
-/******/ 	return __webpack_require__(__webpack_require__.s = 453);
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+/******/ 	return __webpack_require__(__webpack_require__.s = "1FHn");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-<<<<<<< HEAD
-/***/ 430:
-=======
-/***/ 453:
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+/***/ "1FHn":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeEntities", function() { return decodeEntities; });
 /** @type {HTMLTextAreaElement} */
-var _decodeTextArea;
+let _decodeTextArea;
 /**
  * Decodes the HTML entities from a given string.
  *
@@ -134,7 +126,7 @@ function decodeEntities(html) {
   }
 
   _decodeTextArea.innerHTML = html;
-  var decoded = _decodeTextArea.textContent;
+  const decoded = _decodeTextArea.textContent;
   _decodeTextArea.innerHTML = '';
   /**
    * Cast to string, HTMLTextAreaElement should always have `string` textContent.

@@ -15,8 +15,10 @@ use MailPoet\Settings\SettingsController;
 use MailPoet\Statistics\Track\Unsubscribes;
 use MailPoet\Subscribers\LinkTokens;
 use MailPoet\Subscribers\NewSubscriberNotificationMailer;
+use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Util\Helpers;
 use MailPoet\WP\Functions as WPFunctions;
+use MailPoetVendor\Carbon\Carbon;
 
 class Pages {
   const DEMO_EMAIL = 'demo@mailpoet.com';
@@ -63,6 +65,9 @@ class Pages {
   /** @var ManageSubscriptionFormRenderer */
   private $manageSubscriptionFormRenderer;
 
+  /** @var SubscribersRepository */
+  private $subscribersRepository;
+
   public function __construct(
     NewSubscriberNotificationMailer $newSubscriberNotificationSender,
     WPFunctions $wp,
@@ -74,7 +79,8 @@ class Pages {
     AssetsController $assetsController,
     TemplateRenderer $templateRenderer,
     Unsubscribes $unsubscribesTracker,
-    ManageSubscriptionFormRenderer $manageSubscriptionFormRenderer
+    ManageSubscriptionFormRenderer $manageSubscriptionFormRenderer,
+    SubscribersRepository $subscribersRepository
   ) {
     $this->wp = $wp;
     $this->newSubscriberNotificationSender = $newSubscriberNotificationSender;
@@ -87,6 +93,7 @@ class Pages {
     $this->templateRenderer = $templateRenderer;
     $this->unsubscribesTracker = $unsubscribesTracker;
     $this->manageSubscriptionFormRenderer = $manageSubscriptionFormRenderer;
+    $this->subscribersRepository = $subscribersRepository;
   }
 
   public function init($action = false, $data = [], $initShortcodes = false, $initPageFilters = false) {
@@ -138,7 +145,8 @@ class Pages {
     }
 
     $subscriber = Subscriber::where('email', $email)->findOne();
-    return ($subscriber && $this->linkTokens->verifyToken($subscriber, $token)) ? $subscriber : null;
+    $subscriberEntity = $subscriber ? $this->subscribersRepository->findOneById($subscriber->id) : null;
+    return ($subscriber && $subscriberEntity && $this->linkTokens->verifyToken($subscriberEntity, $token)) ? $subscriber : null;
   }
 
   public function confirm() {
@@ -152,8 +160,8 @@ class Pages {
 
     $this->subscriber->status = Subscriber::STATUS_SUBSCRIBED;
     $this->subscriber->confirmedIp = Helpers::getIP();
-    $this->subscriber->setExpr('confirmed_at', 'NOW()');
-    $this->subscriber->setExpr('last_subscribed_at', 'NOW()');
+    $this->subscriber->confirmedAt = Carbon::createFromTimestamp($this->wp->currentTime('timestamp'));
+    $this->subscriber->lastSubscribedAt = Carbon::createFromTimestamp($this->wp->currentTime('timestamp'));
     $this->subscriber->unconfirmedData = null;
     $this->subscriber->save();
 
@@ -172,8 +180,8 @@ class Pages {
       );
     }
 
-    // Send new subscriber notification only when status changes to subscribed to avoid spamming
-    if ($originalStatus !== Subscriber::STATUS_SUBSCRIBED) {
+    // Send new subscriber notification only when status changes to subscribed or there are unconfirmed data to avoid spamming
+    if ($originalStatus !== Subscriber::STATUS_SUBSCRIBED || $subscriberData !== null) {
       $this->newSubscriberNotificationSender->send($this->subscriber, $subscriberSegments);
     }
 
@@ -209,7 +217,7 @@ class Pages {
     global $post;
 
     if (
-      ($post->post_title !== $this->wp->__('MailPoet Page', 'mailpoet')) // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+      ($post->post_title !== $this->wp->__('MailPoet Page', 'mailpoet')) // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
       ||
       ($pageTitle !== $this->wp->singlePostTitle('', false))
     ) {
@@ -384,7 +392,8 @@ class Pages {
       return '';
     }
     $queueId = isset($this->data['queueId']) ? (int)$this->data['queueId'] : null;
-    $unsubscribeUrl = $this->subscriptionUrlFactory->getUnsubscribeUrl($this->subscriber, $queueId);
+    $subscriberEntity = $this->subscriber ? $this->subscribersRepository->findOneById($this->subscriber->id) : null;
+    $unsubscribeUrl = $this->subscriptionUrlFactory->getUnsubscribeUrl($subscriberEntity, $queueId);
     $templateData = [
       'unsubscribeUrl' => $unsubscribeUrl,
     ];
@@ -404,7 +413,8 @@ class Pages {
       ? htmlspecialchars($params['text'])
       : $this->wp->__('Manage your subscription', 'mailpoet')
     );
+    $subscriberEntity = $this->subscribersRepository->findOneById($this->subscriber->id);
 
-    return '<a href="' . $this->subscriptionUrlFactory->getManageUrl($this->subscriber) . '">' . $text . '</a>';
+    return '<a href="' . $this->subscriptionUrlFactory->getManageUrl($subscriberEntity) . '">' . $text . '</a>';
   }
 }

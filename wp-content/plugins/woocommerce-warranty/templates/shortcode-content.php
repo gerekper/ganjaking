@@ -30,7 +30,7 @@
                 $items  = $order->get_items();
                 $idxs   = $_GET['idx'];
 
-                $args = compact( 'woocommerce', 'completed', 'items', 'order_id', 'order', 'idxs' );
+                $args = compact( 'woocommerce', 'items', 'order_id', 'order', 'idxs' );
                 wc_get_template( 'shortcode-request-form.php', $args, 'warranty', WooCommerce_Warranty::$base_path .'/templates/' );
             }
         } else {

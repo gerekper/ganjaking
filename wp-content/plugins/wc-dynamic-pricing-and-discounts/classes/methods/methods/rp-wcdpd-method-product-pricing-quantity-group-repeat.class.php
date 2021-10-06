@@ -51,7 +51,7 @@ class RP_WCDPD_Method_Product_Pricing_Quantity_Group_Repeat extends RP_WCDPD_Met
      */
     public function get_label()
     {
-        return __('Group of products - Repeating', 'rp_wcdpd');
+        return esc_html__('Group of products - Repeating', 'rp_wcdpd');
     }
 
 

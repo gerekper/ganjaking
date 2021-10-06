@@ -52,16 +52,22 @@ class WC_OD_Delivery_Date {
 	/**
 	 * Checks if the day is available for delivery.
 	 *
+	 * @since 1.8.0
+	 * @since 1.9.3 Added `$args` parameter.
+	 *
+	 * @param array $args Optional. Additional arguments.
 	 * @return bool
 	 */
-	public function is_valid() {
+	public function is_valid( $args = array() ) {
 		if ( wc_od_is_disabled_day( $this->timestamp ) ) {
 			return false;
 		}
 
 		if ( $this->delivery_day->has_time_frames() ) {
-			// We should check if all the time frames are full.
-			if ( $this->time_frames_are_full() ) {
+			$time_frames = wc_od_get_time_frames_for_delivery_day( $this->delivery_day, $args );
+
+			// Check if the time frames are full.
+			if ( $this->time_frames_are_full( $time_frames ) ) {
 				return false;
 			}
 		} else {
@@ -80,16 +86,12 @@ class WC_OD_Delivery_Date {
 	 * Checks if a delivery day has reached all the available orders for all the timeframes.
 	 *
 	 * @since 1.8.0
+	 * @since 1.9.3 Added `$time_frames` parameter.
 	 *
+	 * @param WC_OD_Collection_Time_Frames $time_frames The time frames collection.
 	 * @return bool
 	 */
-	public function time_frames_are_full() {
-		if ( ! $this->delivery_day->has_time_frames() ) {
-			return false;
-		}
-
-		$time_frames = $this->delivery_day->get_time_frames();
-
+	public function time_frames_are_full( $time_frames ) {
 		foreach ( $time_frames as $time_frame ) {
 			$number_of_orders = $time_frame->get_number_of_orders();
 

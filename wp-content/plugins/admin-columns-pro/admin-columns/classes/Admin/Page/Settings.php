@@ -2,26 +2,47 @@
 
 namespace AC\Admin\Page;
 
-use AC\Admin\Page;
+use AC\Admin;
+use AC\Admin\RenderableHead;
 use AC\Admin\Section;
 use AC\Admin\SectionCollection;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
+use AC\Asset\Location;
+use AC\Renderable;
 use AC\View;
 
-class Settings extends Page implements Enqueueables {
+class Settings implements Enqueueables, Renderable, RenderableHead {
 
 	const NAME = 'settings';
+
+	/**
+	 * @var Renderable
+	 */
+	private $head;
 
 	/**
 	 * @var SectionCollection
 	 */
 	protected $sections;
 
-	public function __construct( SectionCollection $sections ) {
-		parent::__construct( self::NAME, __( 'Settings', 'codepress-admin-columns' ) );
+	/**
+	 * @var Location\Absolute
+	 */
+	private $location;
 
+	public function __construct( Renderable $head, Location\Absolute $location, SectionCollection $sections = null ) {
+		if ( null === $sections ) {
+			$sections = new SectionCollection();
+		}
+
+		$this->head = $head;
+		$this->location = $location;
 		$this->sections = $sections;
+	}
+
+	public function render_head() {
+		return $this->head;
 	}
 
 	/**
@@ -35,19 +56,22 @@ class Settings extends Page implements Enqueueables {
 
 	/**
 	 * @param Section $section
+	 * @param int     $prio
 	 *
 	 * @return $this
 	 */
-	public function add_section( Section $section ) {
-		$this->sections->add( $section );
+	public function add_section( Section $section, $prio = 10 ) {
+		$this->sections->add( $section, $prio );
 
 		return $this;
 	}
 
 	public function get_assets() {
-		$assets = new Assets();
+		$assets = new Assets( [
+			new Admin\Asset\Settings( 'ac-admin-page-settings', $this->location->with_suffix( 'assets/js/admin-page-settings.js' ) ),
+		] );
 
-		foreach ( $this->sections as $section ) {
+		foreach ( $this->sections->all() as $section ) {
 			if ( $section instanceof Enqueueables ) {
 				$assets->add_collection( $section->get_assets() );
 			}
@@ -58,7 +82,7 @@ class Settings extends Page implements Enqueueables {
 
 	public function render() {
 		$view = new View( [
-			'sections' => $this->sections,
+			'sections' => $this->sections->all(),
 		] );
 
 		return $view->set_template( 'admin/page/settings' )->render();

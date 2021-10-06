@@ -19,7 +19,7 @@ class PingStatus extends AC\Column\Post\PingStatus
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\PingStatus( $this );
+		return new Editing\Service\Post\PingStatus();
 	}
 
 	public function filtering() {

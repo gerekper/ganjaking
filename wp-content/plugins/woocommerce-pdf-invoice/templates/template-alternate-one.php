@@ -159,6 +159,9 @@
           [[PDFSHIPPINGMETHOD]]
     	</td>
     </tr>
+
+    [[PDFSHIPMENTTRACKING]]
+    
   </table>
   </div>
 

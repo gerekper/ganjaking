@@ -170,6 +170,10 @@ $keys = array(
 		'type' => 'boolean',
 		'default' => false
 	),
+	'lazyload.threshold' => array(
+		'type' => 'string',
+		'default' => ''
+	),
 	'lazyload.process_img' => array(
 		'type' => 'boolean',
 		'default' => true
@@ -2319,7 +2323,10 @@ $keys = array(
 		)
 	),
 
-
+	'robots_block.enable' => array(
+		'type' => 'boolean',
+		'default' => false
+	),
 	'common.track_usage' => array(
 		'type' => 'boolean',
 		'default' => false

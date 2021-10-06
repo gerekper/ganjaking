@@ -56,8 +56,8 @@ class RevSliderCache extends RevSliderFunctions {
 		
 		$sid = intval($sid);
 		if($sid > 0){
-			$return = $wpdb->query("DELETE FROM ". $wpdb->prefix . 'options' ." WHERE `option_name` LIKE '_transient_revslider_slider_".$sid."%'");
-			$wpdb->query("DELETE FROM ". $wpdb->prefix . 'options' ." WHERE `option_name` LIKE '_transient_timeout_revslider_slider_".$sid."%'");
+			$return = $wpdb->query($wpdb->prepare("DELETE FROM ". $wpdb->prefix . 'options' ." WHERE `option_name` LIKE '_transient_revslider_slider_%d%%'", $sid));
+			$wpdb->query($wpdb->prepare("DELETE FROM ". $wpdb->prefix . 'options' ." WHERE `option_name` LIKE '_transient_timeout_revslider_slider_%d%%'", $sid));
 		}
 		
 		return $return;

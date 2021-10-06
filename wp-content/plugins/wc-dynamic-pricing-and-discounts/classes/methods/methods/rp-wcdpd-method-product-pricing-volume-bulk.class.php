@@ -48,7 +48,7 @@ class RP_WCDPD_Method_Product_Pricing_Volume_Bulk extends RP_WCDPD_Method_Produc
      */
     public function get_label()
     {
-        return __('Bulk pricing', 'rp_wcdpd');
+        return esc_html__('Bulk pricing', 'rp_wcdpd');
     }
 
     /**

@@ -2,13 +2,25 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs\Admin;
 
-use WPMailSMTP\Options;
 use WPMailSMTP\WP;
+use WPMailSMTP\Options;
+use WPMailSMTP\Admin\PageAbstract;
 
 /**
  * Class SettingsTab.
+ *
+ * @since 1.5.0
  */
-class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
+class SettingsTab extends PageAbstract {
+
+	/**
+	 * Slug of a tab.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @var string
+	 */
+	protected $slug = 'logs';
 
 	/**
 	 * Plugin options.
@@ -26,16 +38,17 @@ class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
 	 */
 	public function __construct() {
 
+		parent::__construct();
+
 		$this->options = new Options();
 	}
 
 	/**
-	 * @var string Slug of a tab.
-	 */
-	protected $slug = 'logs';
-
-	/**
-	 * @inheritdoc
+	 * Link label of a tab.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return string
 	 */
 	public function get_label() {
 
@@ -43,7 +56,11 @@ class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
 	}
 
 	/**
-	 * @inheritdoc
+	 * Title of a tab.
+	 *
+	 * @since 1.5.0
+	 *
+	 * @return string
 	 */
 	public function get_title() {
 
@@ -51,18 +68,20 @@ class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
 	}
 
 	/**
-	 * @inheritdoc
+	 * Tab content.
+	 *
+	 * @since 1.5.0
 	 */
-	public function display() {
-		?>
+	public function display() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
+		?>
 		<form method="POST" action="">
 			<?php $this->wp_nonce_field(); ?>
 
 			<!-- Section Title -->
 			<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content wp-mail-smtp-clear section-heading no-desc" id="wp-mail-smtp-setting-row-email-heading">
 				<div class="wp-mail-smtp-setting-field">
-					<h2><?php echo $this->get_title(); ?></h2>
+					<h2><?php echo $this->get_title(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h2>
 				</div>
 			</div>
 
@@ -256,9 +275,13 @@ class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
 	}
 
 	/**
-	 * @inheritdoc
+	 * Process tab form submission ($_POST).
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $data Data from $_POST array.
 	 */
-	public function process_post( $data ) {
+	public function process_post( $data ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		$this->check_admin_referer();
 

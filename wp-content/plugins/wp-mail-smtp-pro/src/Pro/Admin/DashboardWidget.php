@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro\Admin;
 
+use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Emails\Logs\Email;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
@@ -205,7 +206,7 @@ class DashboardWidget {
 					'unconfirmed_emails' => esc_html__( 'Unconfirmed sent emails', 'wp-mail-smtp-pro' ),
 					'failed_emails'      => esc_html__( 'Failed emails', 'wp-mail-smtp-pro' ),
 				],
-				'no_send_confirmations' => $this->mailer_without_send_confirmation(),
+				'no_send_confirmations' => Helpers::mailer_without_send_confirmation(),
 			]
 		);
 	}
@@ -367,7 +368,7 @@ class DashboardWidget {
 			'unsent'    => esc_html__( 'Failed Emails', 'wp-mail-smtp-pro' ),
 		];
 
-		if ( $this->mailer_without_send_confirmation() ) {
+		if ( Helpers::mailer_without_send_confirmation() ) {
 			unset( $options['sent'] );
 			$options['delivered'] = esc_html__( 'Sent Emails', 'wp-mail-smtp-pro' );
 		}
@@ -493,7 +494,7 @@ class DashboardWidget {
 					}
 
 					// Make some exceptions for mailers without send confirmation functionality.
-					if ( $this->mailer_without_send_confirmation() ) {
+					if ( Helpers::mailer_without_send_confirmation() ) {
 						$per_row = 3;
 					}
 
@@ -1083,7 +1084,7 @@ class DashboardWidget {
 			],
 		];
 
-		if ( $this->mailer_without_send_confirmation() ) {
+		if ( Helpers::mailer_without_send_confirmation() ) {
 
 			// Skip the 'unconfirmed sent' section.
 			unset( $output_data['sent'] );
@@ -1175,25 +1176,5 @@ class DashboardWidget {
 		}
 
 		return $data;
-	}
-
-	/**
-	 * Check if the current active mailer has email send confirmation functionality.
-	 *
-	 * @since 2.7.0
-	 *
-	 * @return bool
-	 */
-	private function mailer_without_send_confirmation() {
-
-		return ! in_array(
-			Options::init()->get( 'mail', 'mailer' ),
-			[
-				'smtpcom',
-				'sendinblue',
-				'mailgun',
-			],
-			true
-		);
 	}
 }

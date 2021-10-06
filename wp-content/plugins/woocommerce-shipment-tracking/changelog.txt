@@ -1,5 +1,8 @@
 *** Shipment Tracking Changelog ***
 
+2021-07-27 - version 1.6.28
+* Fix   - Change DHL Sweden Tracking URL.
+
 2021-06-22 - version 1.6.27
 * Fix   - Change Canada Post Tracking URL.
 * Fix   - Change type and add format for tracking_link item schema.

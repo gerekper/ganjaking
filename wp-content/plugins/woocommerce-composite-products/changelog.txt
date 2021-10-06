@@ -1,5 +1,22 @@
 *** WooCommerce Composite Products ***
 
+2021.09.24 - version 8.3.2
+* Fix - Fixed incorrect early returns in 'set_notice_option'.
+
+2021.09.22 - version 8.3.1
+* Fix - Prevent composited product stock from being reduced when editing Composite products in configurable orders.
+* Fix - Fixed an issue that prevented the 'Analytics > Composites' report from displaying results when running the latest version of WoCommerce Admin.
+
+2021.09.09 - version 8.3.0
+* Important - Composite Products now requires WooCommerce 3.6+.
+* Feature - Introduced 'Analytics > Composites' revenue report.
+* Feature - Made it possible to remove optional Components in the Cart page.
+* Feature - Introduced 'woocommerce_composite_component_disable_addons' filter.
+* Fix - Fixed failed Add to Cart action when the selected option is not in current component view.
+* Fix - Display product's original price in composited item price if the component has a discount.
+* Fix - Fixed a fatal error that is triggered by invalid 'wc_cp_notice_options' values.
+* Fix - Prevent duplicate component option title from showing when configuring a Composite Product in an order.
+
 2021.07.08 - version 8.2.0
 * Feature - Re-introduce 'Virtual' checkbox for Composite Products. When saving a Composite as Virtual, all physical products purchased in its Components will be treated as Virtual, too.
 * Fix - Fixed 'Undefined variable: availability' notice in 'WC_CP_Product::get_availability_text()'.

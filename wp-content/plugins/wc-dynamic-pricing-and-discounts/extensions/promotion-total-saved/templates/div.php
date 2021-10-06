@@ -25,6 +25,6 @@ if (!defined('ABSPATH')) {
         </span>
     </div>
 
-    <div style="clear: both;"></div>
+    <div class="rp_wcdpd_clear_both"></div>
 
 </div>

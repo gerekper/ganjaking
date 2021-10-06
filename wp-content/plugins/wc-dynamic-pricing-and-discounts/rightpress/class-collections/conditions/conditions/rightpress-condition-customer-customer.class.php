@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Customer_Customer extends RightPress_Conditi
     public function get_label()
     {
 
-        return __('Customer', 'rightpress');
+        return esc_html__('Customer', 'rightpress');
     }
 
     /**

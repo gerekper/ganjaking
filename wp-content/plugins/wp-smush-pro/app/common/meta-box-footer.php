@@ -37,13 +37,17 @@ if ( 'smush-cdn' === $current_tab && ! WP_Smush::get_instance()->core()->mod->cd
 	<?php endif; ?>
 
 	<button type="submit" class="sui-button sui-button-blue" id="save-settings-button" aria-live="polite" <?php disabled( $disabled, false, false ); ?>>
-		<span class="sui-button-text-default">
+		<span class="sui-button-text-default sui-loading-text">
 			<span class="sui-icon-save" aria-hidden="true"></span> <?php echo esc_html( $button_text ); ?>
 		</span>
 
-		<span class="sui-button-text-onload">
+		<?php if ( ! empty( $button_msg ) ) : ?>
+			<span class="sui-button-text-onload">
+				<span class="sui-icon-loader sui-loading" aria-hidden="true"></span>
+				<?php echo esc_html( $button_msg ); ?>
+			</span>
+		<?php else : ?>
 			<span class="sui-icon-loader sui-loading" aria-hidden="true"></span>
-			<?php echo esc_html( $button_msg ); ?>
-		</span>
+		<?php endif; ?>
 	</button>
 </div>

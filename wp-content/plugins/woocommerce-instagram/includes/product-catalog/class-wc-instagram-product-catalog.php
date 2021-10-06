@@ -369,6 +369,17 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	}
 
 	/**
+	 * Gets stock status.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @return string
+	 */
+	public function get_stock_status() {
+		return $this->get_prop( 'stock_status' );
+	}
+
+	/**
 	 * Gets the product IDs of the catalog.
 	 *
 	 * @since 3.0.0

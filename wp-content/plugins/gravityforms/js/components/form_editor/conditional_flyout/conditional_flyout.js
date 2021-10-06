@@ -1,5 +1,6 @@
 // Utility variables
 var GF_CONDITIONAL_INSTANCE = false;
+var GF_CONDITIONAL_INSTANCES_COLLECTION = [];
 var FOCUSABLE_ELEMENTS      = [ 'a[href]', 'area[href]', 'input:not([disabled])', 'select:not([disabled])', 'textarea:not([disabled])', 'button:not([disabled])', 'iframe', 'object', 'embed', '[contenteditable]', '[tabindex]:not([tabindex^="-"])' ];
 var TAB_KEY                 = 9;
 var ESCAPE_KEY              = 27;
@@ -149,7 +150,7 @@ function getCorrectDefaultFieldId( field ) {
 		return null;
 	}
 
-	if ( ! field.inputs || ! field.inputs.length ) {
+	if ( field.type === 'checkbox' || field.type === 'radio' || ! field.inputs || ! field.inputs.length ) {
 		return field.id;
 	}
 
@@ -298,12 +299,21 @@ function getAddressOptions( field, inputId, value ) {
  * @param {string} objectType The object type of the current field.
  */
 function generateGFConditionalLogic( fieldId, objectType ) {
-	if ( objectType !== 'page' && GF_CONDITIONAL_INSTANCE ) {
-		GF_CONDITIONAL_INSTANCE.hideFlyout();
-		GF_CONDITIONAL_INSTANCE.removeEventListeners();
+	if ( GF_CONDITIONAL_INSTANCE && GF_CONDITIONAL_INSTANCE.fieldId != fieldId  ) {
+		GF_CONDITIONAL_INSTANCES_COLLECTION.forEach( function( instance, instanceIndex ) {
+			instance.hideFlyout();
+			instance.removeEventListeners();
+			instance.deactivated = true;
+		});
 	}
 
 	GF_CONDITIONAL_INSTANCE = new GFConditionalLogic( fieldId, objectType );
+
+	GF_CONDITIONAL_INSTANCES_COLLECTION = GF_CONDITIONAL_INSTANCES_COLLECTION.filter( function( instance ) {
+		return instance.deactivated !== true;
+	});
+
+	GF_CONDITIONAL_INSTANCES_COLLECTION.push( GF_CONDITIONAL_INSTANCE );
 }
 
 /**
@@ -735,7 +745,7 @@ GFConditionalLogic.prototype.renderRule = function( rule, idx ) {
  * @return {string}
  */
 GFConditionalLogic.prototype.renderRules = function() {
-	var container = document.querySelector( '.conditional_logic_flyout__logic' );
+	var container = this.els.flyouts[ this.objectType ].querySelector( '.conditional_logic_flyout__logic' );
 
 	var html = '';
 	for ( var i = 0; i < this.state.rules.length; i++ ) {

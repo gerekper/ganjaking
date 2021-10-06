@@ -16,7 +16,7 @@ class Modified extends AC\Column\Post\Modified
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Modified( $this );
+		return new Editing\Service\Post\Modified();
 	}
 
 	public function filtering() {

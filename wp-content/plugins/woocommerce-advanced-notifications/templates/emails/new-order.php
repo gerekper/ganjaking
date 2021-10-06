@@ -132,7 +132,8 @@ if ( 'bacs' !== ( version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->payment_
 	<tfoot>
 		<?php
 		if ( $show_totals ) :
-			if ( $triggers['all'] && ( $totals = $order->get_order_item_totals() ) ) {
+			$totals = $order->get_order_item_totals();
+			if ( $totals ) {
 				$i = 0;
 				foreach ( $totals as $total ) {
 					$i++;

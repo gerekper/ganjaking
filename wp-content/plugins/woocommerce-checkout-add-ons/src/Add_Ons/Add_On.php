@@ -337,24 +337,6 @@ abstract class Add_On extends \WC_Data {
 
 
 	/**
-	 * Gets the add-on cost.
-	 *
-	 * TODO remove this method by February 2021 or by version 3.0.0 {FN 2021-03-10}
-	 *
-	 * @since 1.0
-	 * @deprecated since 2.1.2
-	 *
-	 * @return float the add-on cost
-	 */
-	public function get_cost() {
-
-		wc_deprecated_function( __METHOD__, '2.1.2', __CLASS__ . '::get_adjustment()' );
-
-		return $this->get_adjustment();
-	}
-
-
-	/**
 	 * Gets the add-on cost (including tax).
 	 *
 	 * @since 1.0

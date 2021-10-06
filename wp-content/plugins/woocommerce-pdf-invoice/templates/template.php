@@ -128,6 +128,8 @@
     	<td valign="top">[[PDFINVOICE_SHIPMETHOD_HEADING]]</td>
         <td valign="top">[[PDFSHIPPINGMETHOD]]</td>
     </tr>
+
+    [[PDFSHIPMENTTRACKING]]
     
     <tr>   
     	<td valign="top" colspan="2">
@@ -156,7 +158,7 @@
     [[ORDERINFO]]
     [[PDFBARCODES]]
     
-	<table table width="100%">
+	<table width="100%">
     	<tr>
         	<td width="60%" valign="top">
             [[PDFORDERNOTES]]

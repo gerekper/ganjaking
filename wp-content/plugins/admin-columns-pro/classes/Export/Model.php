@@ -7,7 +7,6 @@ use ACP;
 /**
  * Exportability model, which can be attached as an extension to a column. It handles custom
  * behaviour a column should exhibit when being exported
- * @since 1.0
  */
 abstract class Model extends ACP\Model {
 
@@ -16,12 +15,12 @@ abstract class Model extends ACP\Model {
 	 *
 	 * @param int $id Item ID
 	 *
-	 * @since 1.0
+	 * @return string
 	 */
 	abstract public function get_value( $id );
 
 	/**
-	 * @since 1.0
+	 * @return bool
 	 */
 	public function is_active() {
 		return true;

@@ -3884,7 +3884,7 @@ abstract class GFAddOn {
 			add_action( 'gform_form_settings_page_' . $this->_slug, array( $this, 'form_settings_page' ) );
 
 			// Let feed add-ons handle initializing their settings.
-			if ( ! $this->method_is_overridden( 'feed_settings_init' ) ) {
+			if ( $this->method_is_overridden( 'form_settings_fields' ) ) {
 
 				// Get current form.
 				$form = $this->get_current_form();
@@ -4954,6 +4954,20 @@ abstract class GFAddOn {
 	//--------------  Uninstall  ---------------
 
 	/**
+	 * Override this function to customize the uninstall message displayed on the uninstall page.
+	 *
+	 * @since 2.5.9.4
+	 *
+	 * @return string
+	 */
+	public function uninstall_message() {
+		return sprintf(
+				__( 'This operation deletes ALL %s settings.', 'gravityforms' ),
+				$this->get_short_title()
+		);
+	}
+
+	/**
 	 * Override this function to customize the markup for the uninstall section on the plugin settings page.
 	 *
 	 * @since Unknown
@@ -4976,7 +4990,7 @@ abstract class GFAddOn {
 					<div class="addon-logo dashicons"><?php echo $icon_markup; ?></div>
 					<div class="addon-uninstall-text">
 						<h4 class="gform-settings-panel__title"><?php printf( esc_html__( '%s', 'gravityforms' ), $this->get_short_title() ) ?></h4>
-						<div><?php printf( esc_html__( 'This operation deletes ALL %s settings.', 'gravityforms' ), $this->get_short_title() ) ?></div>
+						<div><?php echo esc_html( $this->uninstall_message() ); ?></div>
 					</div>
 					<div class="addon-uninstall-button">
 						<input id="addon" name="addon" type="hidden" value="<?php echo $this->get_short_title(); ?>">

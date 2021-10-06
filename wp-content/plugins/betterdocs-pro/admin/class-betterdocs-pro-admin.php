@@ -58,7 +58,6 @@ class Betterdocs_Pro_Admin
 		add_action('wp_ajax_update_docs_term', array($this, 'update_docs_term'));
 		add_action('save_post_docs', array($this, 'update_new_post_doc_order_by_category'));
 		add_action('betterdocs_single_post_nav', array($this, 'single_post_nav'));
-		add_action('wp_ajax_betterdocs_dark_mode', array($this, 'dark_mode'));
 
 		$alphabetically_order_post = BetterDocs_DB::get_settings('alphabetically_order_post');
 		if ($alphabetically_order_post != 1) {
@@ -67,6 +66,12 @@ class Betterdocs_Pro_Admin
 		}
 		add_action('new_to_auto-draft', array($this, 'auto_add_category'));
 	}
+
+    public function body_classes($classes)
+    {
+        $classes .= 'betterdocs-pro';
+        return $classes;
+    }
 
 	/**
 	 * Auto Add in Category, Adding from Sorting
@@ -87,18 +92,6 @@ class Betterdocs_Pro_Admin
 			return;
 		}
 		wp_set_post_terms($post->ID, array($cat->term_id), 'doc_category', false);
-	}
-
-	public function body_classes($classes)
-	{
-		$dark_mode = false;
-		$saved_settings = get_option('betterdocs_settings', false);
-		$dark_mode = isset($saved_settings['dark_mode']) ? $saved_settings['dark_mode'] : false;
-		$dark_mode = !empty($dark_mode) ? boolval($dark_mode) : false;
-		if ($dark_mode === true) {
-			$classes .= ' betterdocs-dark-mode ';
-		}
-		return $classes;
 	}
 
 	/**
@@ -159,13 +152,13 @@ class Betterdocs_Pro_Admin
 			}
 		}
 
-		wp_enqueue_script('clipboard', BETTERDOCS_PUBLIC_URL . 'js/clipboard.min.js', array('jquery'), $this->version, true);
-		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/betterdocs-pro-admin.js', array('jquery', 'clipboard'), $this->version, false);
+		wp_enqueue_script(
+		    $this->plugin_name,
+            plugin_dir_url(__FILE__) . 'js/betterdocs-pro-admin.js',
+            array('jquery', 'clipboard'), $this->version, false
+        );
 
-		$dark_mode = false;
-		if (class_exists('BetterDocs_DB')) {
-			$dark_mode = BetterDocs_DB::get_settings('dark_mode');
-		}
+
 
 		wp_localize_script(
 			$this->plugin_name,
@@ -176,103 +169,9 @@ class Betterdocs_Pro_Admin
 				'knowledge_base_order_nonce' => wp_create_nonce('knowledge_base_order_nonce'),
 				'paged'               => isset($_GET['paged']) ? absint(wp_unslash($_GET['paged'])) : 0,
 				'per_page_id'         => "edit_{$tax->taxonomy}_per_page",
-				'menu_title'          => __('Switch to BetterDocs UI', 'betterdocs-pro'),
-				'dark_mode'           => !empty($dark_mode) ? boolval($dark_mode) : false,
+				'menu_title'          => __('Switch to BetterDocs UI', 'betterdocs-pro')
 			)
 		);
-	}
-
-	public static function header_template()
-	{
-		?>
-		<div class="betterdocs-settings-header">
-			<div class="betterdocs-header-full">
-				<img src="<?php echo BETTERDOCS_ADMIN_URL ?>assets/img/betterdocs-icon.svg" alt="">
-				<h2 class="title"><?php _e('BetterDocs', 'betterdocs-pro'); ?></h2>
-
-				<div class="betterdocs-header-button">
-					<a href="edit.php?post_type=docs&bdocs_view=classic" class="betterdocs-button betterdocs-button-secondary"><?php _e('Switch to Classic UI', 'betterdocs-pro'); ?></a>
-					<a href="post-new.php?post_type=docs" class="betterdocs-button betterdocs-button-primary"><?php _e('Add New Doc', 'betterdocs-pro'); ?></a>
-					<?php if (BetterDocs_Multiple_Kb::$enable == 1) { ?>
-						<select name="dashboard-select-kb" id="dashboard-select-kb" onchange="javascript:location.href = 'admin.php?page=betterdocs-admin&knowledgebase=' + this.value;">
-							<option value="all"><?php esc_html_e('All Knowledge Base', 'betterdocs-pro') ?></option>
-							<?php
-							$terms_object = array(
-								'taxonomy' => 'knowledge_base',
-								'hide_empty' => true,
-								'parent' => 0
-							);
-
-							$taxonomy_objects = get_terms($terms_object);
-							if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
-								foreach ($taxonomy_objects as $term) :
-									$selected = (isset($_GET['knowledgebase']) && $term->slug == $_GET['knowledgebase']) ? ' selected' : '';
-									echo '<option value="' . $term->slug . '"' . $selected . '>' . $term->name . '</option>';
-								endforeach;
-							endif;
-							?>
-						</select>
-					<?php } ?>
-				</div>
-				<div class="betterdocs-switch-mode">
-					<label for='betterdocs-mode-toggle'>
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
-							<g id="Sun">
-								<g>
-									<path style="fill-rule:evenodd;clip-rule:evenodd;" d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" />
-								</g>
-							</g>
-						</svg>
-					</label>
-					<input class='betterdocs-mode-toggle' id='betterdocs-mode-toggle' type='checkbox'>
-					<label class='betterdocs-mode-toggle-button' for='betterdocs-mode-toggle'></label>
-					<label for='betterdocs-mode-toggle'>
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-							<path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" />
-						</svg>
-					</label>
-				</div>
-			</div>
-		</div>
-<?php
-	}
-
-	public function betterdocs_menu_slug()
-	{
-		return 'betterdocs-admin';
-	}
-
-	public function betterdocs_admin_output()
-	{
-		return array($this, 'betterdocs_admin_display');
-	}
-
-	public function betterdocs_admin_display()
-	{
-
-		$terms_object = array(
-			'taxonomy' => 'doc_category',
-			'orderby' => 'meta_value_num',
-			'meta_key' => 'doc_category_order',
-			'order' => 'ASC',
-			'hide_empty' => false,
-		);
-
-		if (BetterDocs_Multiple_Kb::$enable == 1 && isset($_GET['knowledgebase']) && $_GET['knowledgebase'] !== 'all') {
-			$terms_object['meta_query'] = array(
-				array(
-					'key'       => 'doc_category_knowledge_base',
-					'value'     => $_GET['knowledgebase'],
-					'compare'   => 'LIKE'
-				)
-			);
-		}
-
-		$terms = get_terms($terms_object);
-
-		if (file_exists(BETTERDOCS_PRO_ADMIN_DIR_PATH . 'partials/betterdocs-pro-admin-sorting-display.php')) {
-			return include_once BETTERDOCS_PRO_ADMIN_DIR_PATH . 'partials/betterdocs-pro-admin-sorting-display.php';
-		}
 	}
 
 	/**
@@ -346,26 +245,7 @@ class Betterdocs_Pro_Admin
 		return $submenu_file;
 	}
 
-	/**
-	 * AJAX Handler to update terms' tax position.
-	 */
-	public function dark_mode()
-	{
-		if (!check_ajax_referer('doc_cat_order_nonce', 'nonce', false)) {
-			wp_send_json_error();
-		}
 
-		if (isset($_POST['mode'])) {
-			$saved_settings = BetterDocs_DB::get_settings();
-			$saved_settings['dark_mode'] = $_POST['mode'];
-
-			if (BetterDocs_DB::update_settings($saved_settings)) {
-				wp_send_json_success();
-			}
-		}
-
-		wp_send_json_error();
-	}
 
 	/**
 	 * 
@@ -413,8 +293,6 @@ class Betterdocs_Pro_Admin
 		if (update_term_meta($term_id, '_docs_order', implode(',', $docs_ordering_data))) {
 			wp_send_json_success();
 		}
-
-		wp_send_json_error();
 	}
 
 	/**
@@ -519,7 +397,7 @@ class Betterdocs_Pro_Admin
 			$args['orderby'] = 'post__in';
 			$args['post__in'] = array_merge($new_ids, $docs_order);
 		}
-
+        //var_dump($args);
 		return $args;
 	}
 

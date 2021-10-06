@@ -45,7 +45,7 @@ abstract class RP_WCDPD_Pricing_Method_Discount extends RP_WCDPD_Pricing_Method
      */
     public function get_group_label()
     {
-        return __('Discount', 'rp_wcdpd');
+        return esc_html__('Discount', 'rp_wcdpd');
     }
 
     /**

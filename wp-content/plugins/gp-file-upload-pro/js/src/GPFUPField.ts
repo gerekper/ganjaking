@@ -75,8 +75,27 @@ export default class GPFUPField {
 			$(this.$field!).find('.validation_message').remove();
 
 			await this.rehydrateFiles();
-			this.addVM();
-			this.addPluploadFilters();
+
+			// Wait for this.Uploader before calling addVM and addPluploadFilters
+			// The specific case here occurs in a WC product page. See #23362.
+			// The source is WC `$.fn.wc_gravity_form running` and failing `gfMultiFileUploader.setup(this);`
+			// See explanation in #9#issuecomment-808988375
+			let uploaderRetry = 0;
+			let initMaxRetry = 10;
+			const waitForUploader = ()=>{
+				if ( ! this.Uploader ) {
+					if ( uploaderRetry < initMaxRetry ) {
+						uploaderRetry++;
+						return window.setTimeout( waitForUploader, 10 );
+					}
+					return;
+				}
+
+				this.addVM();
+				this.addPluploadFilters();
+				return;
+			};
+			waitForUploader();
 		});
 	}
 

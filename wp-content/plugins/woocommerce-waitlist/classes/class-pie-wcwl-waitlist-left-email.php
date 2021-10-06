@@ -49,8 +49,8 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Left_Email' ) ) {
 			$this->heading            = $this->get_option( 'heading', $this->get_default_heading() );
 			$this->triggered_manually = false;
 			global $sitepress;
-			if ( isset( $sitepress ) ) {
-				$this->language = wpml_get_default_language();
+			if ( isset( $sitepress ) && defined( 'ICL_LANGUAGE_CODE' ) ) {
+				$this->language = ICL_LANGUAGE_CODE;
 			}
 		}
 

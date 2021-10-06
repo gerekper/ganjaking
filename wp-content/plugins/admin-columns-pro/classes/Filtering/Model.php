@@ -218,31 +218,4 @@ abstract class Model extends ACP\Model {
 		return $value;
 	}
 
-	/**
-	 * @param $format
-	 *
-	 * @return array|false
-	 * @deprecated 4.2
-	 */
-	protected function get_date_options_relative( $format ) {
-		_deprecated_function( __METHOD__, '4.2', 'ACP\Filtering\Helper::get_date_options_relative()' );
-
-		return ( new Helper() )->get_date_options_relative( $format );
-	}
-
-	/**
-	 * @param array  $dates
-	 * @param        $display
-	 * @param string $format
-	 * @param null   $key
-	 *
-	 * @return array
-	 * @deprecated 4.2
-	 */
-	protected function get_date_options( array $dates, $display, $format = 'Y-m-d', $key = null ) {
-		_deprecated_function( __METHOD__, '4.2', 'ACP\Filtering\Helper::get_date_options()' );
-
-		return ( new Helper() )->get_date_options( $dates, $display, $format, $key );
-	}
-
 }

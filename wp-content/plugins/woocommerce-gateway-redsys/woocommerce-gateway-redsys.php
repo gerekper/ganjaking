@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
  * Plugin URI: https://woocommerce.com/products/redsys-gateway/
  * Description: Extends WooCommerce with RedSys gateway.
- * Version: 15.1.2
+ * Version: 16.1.0
  * Author: José Conti
  * Author URI: https://www.joseconti.com/
- * Tested up to: 5.7
+ * Tested up to: 5.8
  * WC requires at least: 3.0
- * WC tested up to: 5.4
+ * WC tested up to: 5.7
  * Woo: 187871:50392593e834002d8bee386333d1ed3c
  * Text Domain: woocommerce-redsys
  * Domain Path: /languages/
@@ -18,7 +18,7 @@
  */
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '15.1.2' );
+	define( 'REDSYS_VERSION', '16.1.0' );
 }
 
 if ( ! defined( 'REDSYS_FLUSH_VERSION' ) ) {
@@ -33,12 +33,24 @@ if ( ! defined( 'REDSYS_PLUGIN_PATH_P' ) ) {
 	define( 'REDSYS_PLUGIN_PATH_P', plugin_dir_path( __FILE__ ) );
 }
 
+if ( ! defined( 'REDSYS_PLUGIN_FILE' ) ) {
+	define( 'REDSYS_PLUGIN_FILE', __FILE__ );
+}
+
+if ( ! defined( 'REDSYS_ABSPATH' ) ) {
+	define( 'REDSYS_ABSPATH', dirname( REDSYS_PLUGIN_FILE ) . '/' );
+}
+
+if ( ! defined( 'REDSYS_PLUGIN_BASENAME' ) ) {
+	define( 'REDSYS_PLUGIN_BASENAME', plugin_basename( REDSYS_PLUGIN_FILE ) );
+}
+
 if ( ! defined( 'REDSYS_CHECK_WOO_CONNECTION' ) ) {
 	define( 'REDSYS_CHECK_WOO_CONNECTION', true );
 }
 
 if ( ! defined( 'REDSYS_POST_UPDATE_URL_P' ) ) {
-	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2021/06/01/woocommerce-redsys-gateway-15-1-x/' );
+	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2021/09/12/woocommerce-redsys-gateway-16-1-x-multisite/' );
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
@@ -54,7 +66,7 @@ if ( ! defined( 'REDSYS_TELEGRAM_SIGNUP_P' ) ) {
 }
 
 if ( ! defined( 'REDSYS_REVIEW_P' ) ) {
-	define( 'REDSYS_REVIEW_P', 'https://woocommerce.com/sso?product=187871' );
+	define( 'REDSYS_REVIEW_P', 'https://woocommerce.com/products/redsys-gateway/' );
 }
 
 if ( ! defined( 'REDSYS_TICKET' ) ) {
@@ -81,7 +93,7 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
  * Copyright: (C) 2013 - 2021 José Conti
  */
-function WCPSD2() {
+function WCPSD2() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
 	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-redsys-psd2.php'; // PSD2 class for Redsys
 	return new WC_Gateway_Redsys_PSD2();
 }
@@ -101,7 +113,7 @@ function WCRed() {
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
  * Copyright: (C) 2013 - 2021 José Conti
  */
- function redsys_deactivate_plugins() {
+function redsys_deactivate_plugins() {
 	include_once REDSYS_PLUGIN_DATA_PATH_P . 'deactivate-plugins.php';
 	$plugins = array();
 	$plugins = plugins_to_deactivate();
@@ -161,7 +173,7 @@ function redsys_add_endpoint() {
 	global $wp_rewrite;
 
 	add_rewrite_endpoint( 'add-redsys-method', EP_ALL );
-	
+
 	if ( WCRed()->has_to_flush() ) {
 		$wp_rewrite->flush_rules();
 	}
@@ -187,7 +199,7 @@ function redsys_add_endpoint_pay() {
 	global $wp_rewrite;
 
 	add_rewrite_endpoint( 'redirect-redsys-pay', EP_ALL );
-	
+
 	if ( WCRed()->has_to_flush() ) {
 		$wp_rewrite->flush_rules();
 	}
@@ -251,7 +263,7 @@ function woocommerce_gateway_redsys_premium_init() {
 		</tr>
 		<?php
 	}
-	
+
 	function redsys_users_test() {
 
 		$selections = (array) $this->testforuserid;
@@ -286,9 +298,9 @@ function woocommerce_gateway_redsys_premium_init() {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function redsys_add_select2_to_users_test() {
-		
+
 		$screen = get_current_screen();
-		
+
 		if ( 'woocommerce_page_wc-settings' === $screen->id ) {
 			wp_register_script( 'redsys-select2', REDSYS_PLUGIN_URL_P . 'assets/js/test-users-min.js', array( 'jquery', 'select2' ), REDSYS_VERSION, true );
 			wp_enqueue_script( 'redsys-select2' );
@@ -360,8 +372,8 @@ function woocommerce_gateway_redsys_premium_init() {
 		global $woocommerce;
 
 		if ( ! is_checkout() && ! is_wc_endpoint_url() ) {
-			$data     = new WC_Gateway_redsys();
-			$redirect = $data->get_option( 'checkoutredirect' );
+	
+			$redirect = WCRed()->get_redsys_option( 'checkoutredirect', 'redsys' );
 
 			if ( 'yes' === $redirect ) {
 				$checkout_url = wc_get_checkout_url();
@@ -478,7 +490,7 @@ function woocommerce_gateway_redsys_premium_init() {
 
 		if ( is_admin() && 'shop_order' === $screen->id ) {
 			wp_enqueue_script( 'redsysajax-script', plugins_url( '/assets/js/preauthorizations-min.js', __FILE__ ), array( 'jquery', 'stupidtable', 'jquery-tiptip' ), REDSYS_VERSION, true );
-	
+
 			if ( isset( $post->ID ) ) {
 				$post_id = $post->ID;
 			} else {
@@ -505,7 +517,7 @@ function woocommerce_gateway_redsys_premium_init() {
 
 		if ( is_admin() && 'shop_order' === $screen->id ) {
 			wp_enqueue_script( 'redsysajax-script-2', plugins_url( '/assets/js/woo-deposits-charge-min.js', __FILE__ ), array( 'jquery', 'stupidtable', 'jquery-tiptip' ), REDSYS_VERSION, true );
-	
+
 			if ( isset( $post->ID ) ) {
 				$post_id = $post->ID;
 			} else {
@@ -520,7 +532,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	}
 	add_action( 'admin_enqueue_scripts', 'redsys_charge_deposit_js' );
 
-	$redsys_options = get_option( 'woocommerce_redsys_settings' );
+	// $redsys_options = get_option( 'woocommerce_redsys_settings' );
 
 	// Adding all Redsys Gateways.
 
@@ -548,6 +560,12 @@ function woocommerce_gateway_redsys_premium_init() {
 	if ( 'yes' === $thankyourecipe ) {
 		require_once REDSYS_PLUGIN_PATH_P . 'includes/thank-you-receipe.php';
 	}
+	
+	// Adding Plugin List Links.
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-plugin-list-links.php'; // Version 16.1. Add Links to plugin list
+	
+	// Adding Dashboard Widget.
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-redsys-wp-dashboard.php'; // Version 16.1. WordPress Dashboard
 
 	// Adding all Redsys Gateways.
 
@@ -564,14 +582,18 @@ function woocommerce_gateway_redsys_premium_init() {
 	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-redsys-bank-transfer.php'; // Bank Transfer Version 9.0.
 
 	// Adding InSIte.
-	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-insite-redsys.php'; // Insite version 10.0.
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-insite-redsys.php'; // Insite version 10.0. (version 15 refactoring)
 
 	// Adding Direct Debit stand alone.
 	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-direct-debit-redsys.php'; // Insite version 11.0.
 
-	// Adding Toens in admin user profile.
+	// Adding Tokens in admin user profile.
 
 	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-redsys-profile.php'; // Version 14.0
+
+	// Adding Pay Gold
+
+	require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-paygold-redsys.php'; // Paygold Version 16.0
 
 	// Adding Google Pay
 	// require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-googlepay-redsys.php'; // Google Pay version 12.0.
@@ -603,7 +625,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	add_filter( 'handle_bulk_actions-edit-shop_order', array( 'WC_Gateway_Redsys', 'redsys_bulk_actions_handler' ), 10, 3 );
 	// Needed for allow "pay" 0€
 	add_filter( 'woocommerce_cart_needs_payment', array( 'WC_Gateway_Redsys_Global', 'cart_needs_payment' ), 10, 2 );
-	add_filter( 'woocommerce_order_needs_payment',array( 'WC_Gateway_Redsys_Global', 'order_needs_payment' ), 10, 3 );
+	add_filter( 'woocommerce_order_needs_payment', array( 'WC_Gateway_Redsys_Global', 'order_needs_payment' ), 10, 3 );
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -678,6 +700,13 @@ function woocommerce_gateway_redsys_premium_init() {
 			} else {
 				$order_button_text = $order_button_text;
 			}
+		} elseif ( $chosen_payment_method === 'paygold' ) {
+			$text = WCRed()->get_redsys_option( 'buttoncheckout', 'paygold' );
+			if ( ! empty( $text ) ) {
+				$order_button_text = $text;
+			} else {
+				$order_button_text = $order_button_text;
+			}
 		}
 		return $order_button_text;
 	}
@@ -716,7 +745,7 @@ function woocommerce_gateway_redsys_premium_init() {
 		} elseif ( $chosen_payment_method === 'insite' ) {
 			$textb = WCRed()->get_redsys_option( 'colorbutton', 'insite' );
 			$text  = WCRed()->get_redsys_option( 'colortextbutton', 'insite' );
-			
+
 			if ( ! empty( $textb ) ) {
 				$textb = 'background-color:' . $textb . ';';
 			} else {
@@ -727,7 +756,7 @@ function woocommerce_gateway_redsys_premium_init() {
 			} else {
 				$text = '';
 			}
-			
+
 			if ( $textb !== '' || $text !== '' ) {
 				$cssbutton = 'style="' . $textb . ' ' . $text . 'display:none; visibility: hidden;" ';
 				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
@@ -808,6 +837,25 @@ function woocommerce_gateway_redsys_premium_init() {
 				$cssbutton = 'style="' . $textb . '' . $text . '" ';
 				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
 			}
+		} elseif ( $chosen_payment_method === 'paygold' ) {
+			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'paygold' );
+			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'paygold' );
+
+			if ( ! empty( $textb ) ) {
+				$textb = 'background-color:' . $textb . ';';
+			} else {
+				$textb = '';
+			}
+			if ( ! empty( $text ) ) {
+				$text = 'color:' . $text . ';';
+			} else {
+				$text = '';
+			}
+
+			if ( $textb !== '' || $text !== '' ) {
+				$cssbutton = 'style="' . $textb . '' . $text . '" ';
+				$html      = str_replace( '<button type="submit"', '<button type="submit" ' . $cssbutton, $html );
+			}
 		} elseif ( $chosen_payment_method === 'redsysdirectdebit' ) {
 			$textb = WCRed()->get_redsys_option( 'butonbgcolor', 'redsysdirectdebit' );
 			$text  = WCRed()->get_redsys_option( 'butontextcolor', 'redsysdirectdebit' );
@@ -836,10 +884,10 @@ function woocommerce_gateway_redsys_premium_init() {
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
-	function redsys_refresh_checkout_on_payment_methods_change(){
+	function redsys_refresh_checkout_on_payment_methods_change() {
 
-		if ( WCRed()->is_gateway_enabled( 'insite' ) ) {	
-		?>
+		if ( WCRed()->is_gateway_enabled( 'insite' ) ) {
+			?>
 			<script type="text/javascript">
 				// Added by WooCommerce Redsys Gateway https://woocommerce.com/products/redsys-gateway/
 				(function($){
@@ -857,7 +905,7 @@ function woocommerce_gateway_redsys_premium_init() {
 					});
 				} )(jQuery);
 				jQuery( document.body ).on( 'checkout_error', function() {
-				    setTimeout(location.reload.bind(location), 4000);
+					setTimeout(location.reload.bind(location), 4000);
 				} );
 				( function( $ ) {
 					var orderReviewSection = $('#order_review');
@@ -884,7 +932,7 @@ function woocommerce_gateway_redsys_premium_init() {
 					} );
 				}( jQuery ) );
 			</script>
-	    <?php
+			<?php
 		}
 	}
 	add_action( 'woocommerce_review_order_after_payment', 'redsys_refresh_checkout_on_payment_methods_change' );

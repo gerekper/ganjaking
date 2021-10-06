@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -135,6 +135,8 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 					if ( true === $is_hold ) {
 						$this->hold_applied_coupon( $coupons_data );
 					}
+					// Set a session cookie to persist the coupon in case the cart is empty. This code will persist the coupon even if the param sc-page is not supplied.
+					WC()->session->set_customer_session_cookie( true ); // Thanks to: Devon Godfrey.
 				} else {
 					foreach ( $coupons_data as $coupon_data ) {
 						$coupon_code = $coupon_data['coupon-code'];
@@ -378,7 +380,9 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 			$sc_params  = array( 'coupon-code', 'sc-page' );
 			$url_params = array_diff_key( $url_args, array_flip( $sc_params ) );
 
-			return add_query_arg( $url_params, $url );
+			$redirect_url = apply_filters( 'wc_sc_redirect_url_after_smart_coupons_process', add_query_arg( $url_params, $url ), array( 'source' => $this ) );
+
+			return $redirect_url;
 		}
 
 		/**

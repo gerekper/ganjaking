@@ -99,4 +99,11 @@ class PrimeField extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField
     {
         return \WPMailSMTP\Vendor\phpseclib3\Math\PrimeField\Integer::getModulo($this->instanceID)->getLength();
     }
+    /**
+     *  Destructor
+     */
+    public function __destruct()
+    {
+        \WPMailSMTP\Vendor\phpseclib3\Math\PrimeField\Integer::cleanupCache($this->instanceID);
+    }
 }

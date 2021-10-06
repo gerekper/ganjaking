@@ -940,7 +940,6 @@ jQuery(function ($) {
 						invalidField.focus();
 						invalidField.scrollIntoView({
 							block: 'center',
-							inline: 'center',
 						});
 					}
 				});

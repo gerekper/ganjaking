@@ -5,23 +5,43 @@ namespace MailPoet\Newsletter;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\NewsletterEntity;
+use MailPoet\Entities\SendingQueueEntity;
+use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Models\Subscriber as SubscriberModel;
 use MailPoet\Router\Endpoints\ViewInBrowser as ViewInBrowserEndpoint;
 use MailPoet\Router\Router;
 use MailPoet\Subscribers\LinkTokens;
+use MailPoet\Subscribers\SubscribersRepository;
 
 class Url {
-  public static function getViewInBrowserUrl(
+  /** @var LinkTokens */
+  private $linkTokens;
+
+  /** @var SubscribersRepository */
+  private $subscribersRepository;
+
+  public function __construct(
+    LinkTokens $linkTokens,
+    SubscribersRepository $subscribersRepository
+  ) {
+    $this->linkTokens = $linkTokens;
+    $this->subscribersRepository = $subscribersRepository;
+  }
+
+  public function getViewInBrowserUrl(
     $newsletter,
     $subscriber = false,
     $queue = false,
     bool $preview = true
   ) {
-    $linkTokens = new LinkTokens;
     if ($subscriber instanceof SubscriberModel) {
-      $subscriber->token = $linkTokens->getToken($subscriber);
+      $subscriberEntity = $this->subscribersRepository->findOneById($subscriber->id);
+      if ($subscriberEntity instanceof SubscriberEntity) {
+        $subscriber->token = $this->linkTokens->getToken($subscriberEntity);
+      }
     }
-    $data = self::createUrlDataObject($newsletter, $subscriber, $queue, $preview);
+    $data = $this->createUrlDataObject($newsletter, $subscriber, $queue, $preview);
     return Router::buildRequest(
       ViewInBrowserEndpoint::ENDPOINT,
       ViewInBrowserEndpoint::ACTION_VIEW,
@@ -29,28 +49,36 @@ class Url {
     );
   }
 
-  public static function createUrlDataObject($newsletter, $subscriber, $queue, $preview) {
+  public function createUrlDataObject($newsletter, $subscriber, $queue, $preview) {
+    if ($newsletter instanceof NewsletterEntity) {
+      $newsletterId = (!empty($newsletter->getId())) ? (int)$newsletter->getId() : 0;
+      $newsletterHash = (!empty($newsletter->getHash())) ? $newsletter->getHash() : 0;
+    } else {
+      $newsletterId = (!empty($newsletter->id)) ? (int)$newsletter->id : 0;
+      $newsletterHash = (!empty($newsletter->hash)) ? $newsletter->hash : 0;
+    }
+
+    if ($queue instanceof SendingQueueEntity) {
+      $sendingQueueId = (!empty($queue->getId())) ? (int)$queue->getId() : 0;
+    } else {
+      $sendingQueueId = (!empty($queue->id)) ? (int)$queue->id : 0;
+    }
+
     return [
-      (!empty($newsletter->id)) ?
-        (int)$newsletter->id :
-        0,
-      (!empty($newsletter->hash)) ?
-        $newsletter->hash :
-        0,
+      $newsletterId,
+      $newsletterHash,
       (!empty($subscriber->id)) ?
         (int)$subscriber->id :
         0,
       (!empty($subscriber->token)) ?
         $subscriber->token :
         0,
-      (!empty($queue->id)) ?
-        (int)$queue->id :
-        0,
+      $sendingQueueId,
       (int)$preview,
     ];
   }
 
-  public static function transformUrlDataObject($data) {
+  public function transformUrlDataObject($data) {
     reset($data);
     if (!is_int(key($data))) return $data;
     $transformedData = [];

@@ -75,6 +75,10 @@ class LicenseActivate {
 
 		$this->license_key_repository->save( $license_key );
 
+		( new SubscriptionDetails( $this->license_repository, $this->api ) )->handle(
+			new API\Request\SubscriptionDetails( $license_key, $this->site_url )
+		);
+
 		$response = $this->api->dispatch(
 			new API\Request\Activation( $license_key, $this->site_url )
 		);
@@ -94,6 +98,11 @@ class LicenseActivate {
 		);
 
 		$this->success_notice( $response->get( 'message' ) );
+
+		if ( $request->get( 'redirect' ) ) {
+			wp_safe_redirect( $request->get( 'redirect' ) );
+			exit;
+		}
 	}
 
 	private function error_notice( $message ) {

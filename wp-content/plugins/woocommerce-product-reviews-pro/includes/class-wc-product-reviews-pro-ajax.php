@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-product-reviews-pro/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2015-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2021, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
  * WC Product Reviews Pro AJAX class
@@ -428,13 +428,13 @@ class WC_Product_Reviews_Pro_AJAX {
 			// Note: the use of `query_posts()` here is legitimate and intended precisely to alter the main query when pulling contributions from a product.
 			// In this way we can ease pagination and use WordPress standard handling of comment (contribution) template functions.
 			// This method only runs while performing a specific AJAX call so it won't affect anything else or disrupt other queries.
-			// TODO is `query_posts()` here raises further concerns or casts negative feedback, consider refactoring this when Product Reviews Pro has a rewrite or large refactor {FN 2018-07-17}
-			query_posts( array(
+			// @TODO if `query_posts()` here raises further concerns or casts negative feedback, consider refactoring this when Product Reviews Pro has a rewrite or large refactor {FN 2018-07-17}
+			query_posts( [
 				'p'            => $_REQUEST['product_id'],
 				'post_type'    => 'product',
 				'withcomments' => 1,
 				'feed'         => 1,
-			) );
+			] );
 
 			if ( have_posts() ) {
 
@@ -442,24 +442,45 @@ class WC_Product_Reviews_Pro_AJAX {
 
 					the_post();
 
+					// make sure all comments are loaded
+					add_filter( 'comments_template_query_args', [ $this, 'load_all_reviews_without_pagination' ], 999 );
+
 					ob_start();
 					comments_template( '', true );
 					ob_end_clean();
 
-					$filters        = wc_product_reviews_pro_get_current_comment_filters();
-					$current_type   = isset( $filters['comment_type'] ) ? $filters['comment_type'] : null;
-					$current_rating = isset( $filters['rating'] ) ? $filters['rating'] : null;
+					// clean up after loading all comments
+					remove_filter( 'comments_template_query_args', [ $this, 'load_all_reviews_without_pagination' ], 999 );
 
-					wc_get_template( 'single-product/contributions-list.php', array(
-						'comments'       => $wp_query->comments,
-						'current_type'   => $current_type,
-						'current_rating' => $current_rating,
-					) );
+					wc_get_template( 'single-product/contributions-list.php', [
+						'comments' => $wp_query->comments,
+					] );
 				}
+
 			}
 
 			exit;
 		}
+	}
+
+
+	/**
+	 * Overrides comments query arguments to load all comments without pagination.
+	 *
+	 * @see \WC_Product_Reviews_Pro_AJAX::contributions_list()
+	 *
+	 * @internal
+	 *
+	 * @since 1.17.4
+	 *
+	 * @param array $comment_args
+	 * @return array
+	 */
+	public function load_all_reviews_without_pagination( $comment_args ) {
+
+		$comment_args['number'] = $comment_args['offset'] = 0;
+
+		return $comment_args;
 	}
 
 

@@ -2,6 +2,7 @@
  * SMS - Module
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var SMSModule = {
         init : function () {
             this.show_or_hide_for_api_option() ;

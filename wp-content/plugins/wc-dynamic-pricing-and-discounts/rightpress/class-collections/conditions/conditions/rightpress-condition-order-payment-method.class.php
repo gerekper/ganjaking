@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Order_Payment_Method extends RightPress_Cond
     public function get_label()
     {
 
-        return __('Payment method', 'rightpress');
+        return esc_html__('Payment method', 'rightpress');
     }
 
     /**

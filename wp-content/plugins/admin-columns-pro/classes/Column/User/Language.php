@@ -14,8 +14,6 @@ use ACP\Sorting;
 class Language extends AC\Column\Meta
 	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Search\Searchable {
 
-	private $translations = null;
-
 	public function __construct() {
 		$this->set_type( 'column-user_default_language' );
 		$this->set_label( __( 'Language' ) );
@@ -26,7 +24,8 @@ class Language extends AC\Column\Meta
 	}
 
 	public function get_value( $id ) {
-		$translations = $this->get_translations();
+		$translations = ( new AC\Helper\User() )->get_translations_remote();
+
 		$locale = $this->get_raw_value( $id );
 
 		if ( ! isset( $translations[ $locale ] ) ) {
@@ -39,38 +38,23 @@ class Language extends AC\Column\Meta
 	/**
 	 * @return array
 	 */
-	private function get_translations() {
-		if ( null === $this->translations ) {
-			require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
-			$this->translations = wp_get_available_translations();
-		}
-
-		return $this->translations;
-	}
-
-	/**
-	 * @param bool $include_default
-	 *
-	 * @return array
-	 */
-	public function get_language_options( $include_default = true ) {
-		$translations = $this->get_translations();
-		$languages = get_available_languages();
+	public function get_language_options() {
+		$translations = ( new AC\Helper\User() )->get_translations_remote();
 		$options = [];
 
-		if ( $include_default ) {
-			$options[''] = _x( 'Site Default', 'default site language' );
+		foreach ( get_available_languages() as $language ) {
+			$options[ $language ] = isset( $translations[ $language ] )
+				? $translations[ $language ]['native_name']
+				: $language;
 		}
 
-		foreach ( $languages as $language ) {
-			$options[ $language ] = $translations[ $language ]['native_name'];
-		}
+		natcasesort( $options );
 
 		return $options;
 	}
 
 	public function editing() {
-		return new Editing\Model\User\Language( $this );
+		return new Editing\Service\User\Language( $this->get_language_options() );
 	}
 
 	public function filtering() {
@@ -82,7 +66,7 @@ class Language extends AC\Column\Meta
 	}
 
 	public function search() {
-		return new Search\Comparison\User\Languages( $this->get_language_options( false ) );
+		return new Search\Comparison\User\Languages( $this->get_language_options() );
 	}
 
 }

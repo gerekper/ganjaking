@@ -83,6 +83,21 @@ class WooCommerce_Product_Search_Filter_Sale {
 	}
 
 	/**
+	 * Instance ID.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return string
+	 */
+	private static function get_n() {
+		$n = self::$instances;
+		if ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) {
+			$n .= '-' . md5( rand() );
+		}
+		return $n;
+	}
+
+	/**
 	 * Renders the sale filter.
 	 *
 	 * @param array $atts
@@ -103,6 +118,7 @@ class WooCommerce_Product_Search_Filter_Sale {
 				'heading_class'       => null,
 				'heading_element'     => 'div',
 				'heading_id'          => null,
+				'shop_only'           => 'no',
 				'show_heading'        => 'yes',
 				'submit_button'       => 'no',
 				'submit_button_label' => __( 'Go', 'woocommerce-product-search' ),
@@ -111,14 +127,14 @@ class WooCommerce_Product_Search_Filter_Sale {
 			$atts
 		);
 
-		$n               = self::$instances;
+		$n               = self::get_n();
 		$container_class = '';
 		$container_id    = sprintf( 'product-search-filter-sale-%d', $n );
 		$heading_class   = 'product-search-filter-sale-heading product-search-filter-extras-heading';
 		$heading_id      = sprintf( 'product-search-filter-sale-heading-%d', $n );
 		$containers      = array();
 
-		if ( $atts['heading'] === null ) {
+		if ( $atts['heading'] === null || $atts['heading'] === '' ) {
 			$atts['heading']  = _x( 'Sale', 'product filter sale heading', 'woocommerce-product-search' );
 		}
 
@@ -133,6 +149,7 @@ class WooCommerce_Product_Search_Filter_Sale {
 
 					case 'filter' :
 					case 'has_on_sale_only' :
+					case 'shop_only' :
 					case 'submit_button' :
 					case 'show_heading' :
 
@@ -168,6 +185,10 @@ class WooCommerce_Product_Search_Filter_Sale {
 			if ( $is_param ) {
 				$params[$key] = $value;
 			}
+		}
+
+		if ( $params['shop_only'] && !woocommerce_product_search_is_shop() ) {
+			return '';
 		}
 
 		if ( !empty( $containers['container_class'] ) ) {

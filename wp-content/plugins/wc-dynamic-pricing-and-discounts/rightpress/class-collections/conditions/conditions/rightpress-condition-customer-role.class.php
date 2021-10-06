@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Customer_Role extends RightPress_Condition_C
     public function get_label()
     {
 
-        return __('User role', 'rightpress');
+        return esc_html__('User role', 'rightpress');
     }
 
     /**

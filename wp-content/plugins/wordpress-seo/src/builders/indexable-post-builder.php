@@ -3,6 +3,7 @@
 namespace Yoast\WP\SEO\Builders;
 
 use WP_Error;
+use WP_Post;
 use WPSEO_Meta;
 use Yoast\WP\SEO\Exceptions\Indexable\Post_Not_Found_Exception;
 use Yoast\WP\SEO\Helpers\Post_Helper;
@@ -16,6 +17,7 @@ use Yoast\WP\SEO\Repositories\Indexable_Repository;
  * Formats the post meta to indexable format.
  */
 class Indexable_Post_Builder {
+
 	use Indexable_Social_Image_Trait;
 
 	/**
@@ -75,6 +77,10 @@ class Indexable_Post_Builder {
 	 * @throws Post_Not_Found_Exception When the post could not be found.
 	 */
 	public function build( $post_id, $indexable ) {
+		if ( ! $this->post_helper->is_post_indexable( $post_id ) ) {
+			return false;
+		}
+
 		$post = $this->post_helper->get_post( $post_id );
 
 		if ( $post === null ) {
@@ -141,8 +147,8 @@ class Indexable_Post_Builder {
 	/**
 	 * Retrieves the permalink for a post with the given post type and ID.
 	 *
-	 * @param string  $post_type The post type.
-	 * @param integer $post_id   The post ID.
+	 * @param string $post_type The post type.
+	 * @param int    $post_id   The post ID.
 	 *
 	 * @return false|string|WP_Error The permalink.
 	 */
@@ -270,7 +276,7 @@ class Indexable_Post_Builder {
 	 * @param string $keyword The focus keyword that is set.
 	 * @param int    $score   The score saved on the meta data.
 	 *
-	 * @return null|int Score to use.
+	 * @return int|null Score to use.
 	 */
 	protected function get_keyword_score( $keyword, $score ) {
 		if ( empty( $keyword ) ) {
@@ -386,7 +392,7 @@ class Indexable_Post_Builder {
 	/**
 	 * Checks whether an indexable should be built for this post.
 	 *
-	 * @param \WP_Post $post The post for which an indexable should be built.
+	 * @param WP_Post $post The post for which an indexable should be built.
 	 *
 	 * @return bool `true` if the post should be excluded from building, `false` if not.
 	 */

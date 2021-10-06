@@ -43,7 +43,7 @@ abstract class RightPress_Condition_Product_Property_On_Sale extends RightPress_
     public function get_label()
     {
 
-        return __('Product is on sale', 'rightpress');
+        return esc_html__('Product is on sale', 'rightpress');
     }
 
     /**

@@ -152,6 +152,11 @@ class Stats extends APIEndpoint {
     return $task->getStatus() !== ScheduledTaskEntity::STATUS_SCHEDULED;
   }
 
+  /**
+   * @param array<string, int> $data
+   *
+   * @return \MailPoet\API\JSON\SuccessResponse
+   */
   public function getProducts(array $data = []) {
     $id = (isset($data['newsletter_id']) ? (int)$data['newsletter_id'] : false);
     return $this->successResponse($this->purchasedProducts->getStats($id));

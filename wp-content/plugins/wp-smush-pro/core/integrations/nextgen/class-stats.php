@@ -280,7 +280,11 @@ class Stats extends NextGen {
 					$status_txt .= '</div>';
 				}
 			} elseif ( ! empty( $percent ) && ! empty( $bytes_readable ) ) {
-				$status_txt  = sprintf( __( 'Reduced by %1$s (%2$01.1f%%)', 'wp-smushit' ), $bytes_readable, number_format_i18n( $percent, 2 ) );
+				$status_txt  = sprintf( /* translators: %1$s: reduced by bytes, %2$s: size format */
+					__( 'Reduced by %1$s (%2$01.1f%%)', 'wp-smushit' ),
+					$bytes_readable,
+					number_format_i18n( $percent, 2 )
+				);
 				$status_txt .= '<div class="sui-smush-media smush-status-links">';
 
 				$show_resmush = $this->show_resmush( $show_resmush, $wp_smush_data );

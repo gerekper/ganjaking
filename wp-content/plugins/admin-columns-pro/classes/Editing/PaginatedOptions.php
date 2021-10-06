@@ -7,9 +7,9 @@ use AC;
 interface PaginatedOptions {
 
 	/**
-	 * @param string $search
-	 * @param int    $page
-	 * @param int    null
+	 * @param string   $search
+	 * @param int      $page
+	 * @param int|null $id
 	 *
 	 * @return AC\Helper\Select\Options\Paginated
 	 */

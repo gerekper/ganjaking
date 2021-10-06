@@ -1,5 +1,19 @@
 *** WooCommerce Waitlist Change Log ***
 
+2021.08.02 - version 2.3.0
+Added: Import/export options for waitlist data within WooCommerce's product exporter
+Added: Waitlist elements will now show by default within Elementor template
+Added: Option for double opt-in (via email) for non-registered users when joining waitlist
+Added: Filter to disable showing waitlist within Elementor template (wcwl_add_waitlist_for_elementor)
+Added: minimal styling to button on archive page to avoid overlap
+
+2021.07.28
+* Added: Filter for disabling waitlist for products by default
+* Added: Product ID to optin elements on frontend to avoid duplicates
+
+2021.07.19
+* Fix: Parent variables managing stock not always correctly updating child waitlists
+
 2021.07.02 - version 2.2.6
 * Added: Compatibility with chained products plugin
 

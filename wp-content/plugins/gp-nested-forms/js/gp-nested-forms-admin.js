@@ -38,8 +38,6 @@
 				self.$formSelect.val( nestedFormId );
 
 				var selectedFields = field['gpnfFields'] ? field['gpnfFields'] : [];
-				// Setup Select2 now for UX consistency during field initialization.
-				self.setFieldsSelect( [ ], selectedFields );
 				self.toggleNestedFormFields( selectedFields );
 
 			} );
@@ -66,62 +64,104 @@
 			}
 		};
 
+		self.sortAsmSelectDropdown = function( fields ) {
+			var $select = self.$fieldSelect.siblings('.asmSelect');
+			var fieldIds = fields.map(function(field) {
+				return field.id.toString();
+			});
+
+			$select.find('option:not([value=""])').sort(function(a, b) {
+				a = fieldIds.indexOf(a.value.toString());
+				b = fieldIds.indexOf(b.value.toString());
+
+				return a - b;
+			}).appendTo($select);
+		}
+
 		self.setFieldsSelect = function( fields, selectedFields ) {
 
 			var options = [];
 
 			if ( ! fields.length && selectedFields.length ) {
-				for( var i = 0; i < selectedFields.length; i++ ) {
-					options.push( '<option value="' + selectedFields[ i ] + '">' + selectedFields[i] + '</option>' );
+				for ( var i = 0; i < selectedFields.length; i++ ) {
+					options.push( '<option value="' + selectedFields[ i ] + '" selected="selected">' + selectedFields[i] + '</option>' );
 				}
 			} else {
-				for( var i = 0; i < fields.length; i++ ) {
-					if( $.inArray( fields[ i ].type, [ 'page', 'html', 'section', 'captcha' ] ) === -1 ) {
-						options.push( '<option value="' + fields[ i ].id + '">' + GetLabel( fields[ i ] ) + '</option>' );
+				// Sort the fields/options to match the value. Without doing this, the order of the sortable will be
+				// incorrect.
+				//
+				// This also means we need to re-sort the "Select your fields" dropdown to match the field order from
+				// the child form.
+				var sortedFields = $.extend([], fields).sort(function(a, b) {
+					a = selectedFields.indexOf(a.id.toString());
+					b = selectedFields.indexOf(b.id.toString());
+
+					return a - b;
+				});
+
+				for ( var i = 0; i < sortedFields.length; i++ ) {
+					var field = sortedFields[i];
+					// Interestingly, setting the .val() on the select does not work so we need to fallback to setting
+					// the selected attribute on the options.
+					var selected = $.inArray( String( field.id ), selectedFields ) != -1 ? 'selected="selected"' : '';
+
+					if ( $.inArray( field.type, [ 'page', 'html', 'section', 'captcha' ] ) === -1 ) {
+						options.push( '<option value="' + field.id + '"' + selected + '>' +  GetLabel( field ) + '</option>' );
 					}
 				}
 			}
 
 			self.$fieldSelect
+			self.$fieldSelect
 				.html( options.join( '' ) )
 				.val( selectedFields )
 				.change();
 
-			var isInitailized = self.$fieldSelect.hasClass( 'select2-hidden-accessible' );
-			if ( isInitailized ) {
+			if ( self.$fieldSelect.data( 'asmApplied' ) ) {
+				self.sortAsmSelectDropdown( fields );
 				return;
 			}
 
-			if ( typeof $.fn.selectWoo !== 'undefined' ) {
-				self.$fieldSelect.selectWoo( {
-					placeholder: GPNFAdminData.strings.displayFieldsPlaceholder
-				} );
-			} else {
-				self.$fieldSelect.select2( {
-					placeholder: GPNFAdminData.strings.displayFieldsPlaceholder
-				} );
-			}
+			var updateFields = function(val) {
+				SetFieldProperty( 'gpnfFields', val );
+				RefreshSelectedFieldPreview();
+			};
 
-			self.$fieldSelect
-				.on( 'select2:select select2:unselect', function() {
-					console.log( 'select unselet two' );
-					RefreshSelectedFieldPreview();
-				} ).on( 'select2:unselecting', function() {
-					// Prevent Select2 from opening menu when an option is unselected.
-					var opts = $( this ).data( 'select2' ).options;
-					opts.set( 'disabled', true );
-					setTimeout( function() {
-						opts.set( 'disabled', false );
-					}, 1 );
-				} );
+			self.$fieldSelect.asmSelect({
+				addItemTarget: 'bottom',
+				highlight: true,
+				sortable: true
+			}).data( 'asmApplied', true );
 
-			// Add our custom class to identify (and style) our Select2's. You'd think there would be an easier way...
-			$.each( self.$fieldSelect.data( 'select2' ), function ( index, $elem ) {
-				if( $elem instanceof jQuery ) {
-					$elem.addClass( typeof $.fn.selectWoo !== 'undefined' ? 'gpnf-selectwoo' : 'gpnf-select2' );
-				}
-			} );
+			var $sortable = self.$fieldSelect.siblings('.asmListSortable');
 
+			// Change axis to undefined to allow dragging on x and y axes
+			$sortable.sortable('option', 'axis', '');
+
+			// Do not allow scrolling as there is no way to only disable X-axis scrolling
+			$sortable.sortable('option', 'scroll', false);
+
+			// Force getting offset parent position and caching it. Without this, if the field settings are scrolled
+			// and dragging starts, the ghost will be positioned incorrectly until another item is intersected.
+			$sortable.on('sortstart', function() {
+				var sortable = $(this).sortable('instance');
+				sortable.offset.parent = sortable._getParentOffset();
+			});
+
+			// Bind directly to sortupdate on the sortable as ASM select doesn't seem to be passing the value on
+			// correctly.
+			$sortable.on('sortupdate', function () {
+				// Use setTimeout to give ASM select time to update the field value (but ironically not trigger a change)
+				setTimeout(function() {
+					updateFields(self.$fieldSelect.val());
+				}, 5);
+			})
+
+			self.$fieldSelect.change(function () {
+				updateFields($(this).val());
+			});
+
+			self.sortAsmSelectDropdown( fields );
 		};
 
 		self.getFormFields = function( formId, selectedFields ) {
@@ -136,7 +176,7 @@
 				} else {
 					alert( GPNFAdminData.strings.getFormFieldsError );
 				}
-			} );
+				} );
 		};
 
 		self.getFeedProcessingSetting = function( field ) {

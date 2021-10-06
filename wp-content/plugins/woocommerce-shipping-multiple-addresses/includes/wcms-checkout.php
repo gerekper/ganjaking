@@ -16,9 +16,10 @@ class WC_MS_Checkout {
 
         add_filter( 'woocommerce_package_rates', array($this, 'remove_multishipping_from_methods'), 10, 2 );
         add_action( 'woocommerce_before_checkout_shipping_form', array( $this, 'before_shipping_form' ) );
+        add_action( 'woocommerce_before_checkout_shipping_form', array( $this, 'display_set_addresses_button' ), 5 );
         add_action( 'woocommerce_before_checkout_shipping_form', array( $this, 'render_user_addresses_dropdown' ) );
-        add_action( 'woocommerce_before_checkout_form', array( $this, 'before_checkout_form' ) );
-
+        add_action( 'wp_ajax_wcms_ajax_save_billing_fields', array( $this, 'save_billing_fields' ) );
+        add_action( 'wp_ajax_nopriv_wcms_ajax_save_billing_fields', array( $this, 'save_billing_fields' ) );
         add_action( 'woocommerce_after_checkout_validation', array( $this, 'checkout_validation' ) );
 
         add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'checkout_process' ) );
@@ -209,12 +210,82 @@ class WC_MS_Checkout {
 
                 });';
 
-        }
+        } elseif ( ! $this->wcms->cart->cart_has_multi_shipping() && WC()->cart->needs_shipping() ) {
+			$page_id = wc_get_page_id( 'multiple_addresses' );
+			$inline  = '
+				var col = jQuery("#customer_details .col-2");
+
+				jQuery(col).find("#shiptobilling-checkbox")
+					.attr("checked", true)
+					.hide();
+
+				jQuery( "#wcms_set_addresses" ).on( "click", function( evt ) {
+
+					evt.preventDefault();
+					var ajax_url 		= WCMS.ajaxurl;
+					var billing_container = jQuery(".woocommerce-billing-fields");
+
+					var post_data 	= {
+						"action"             : "wcms_ajax_save_billing_fields",
+						"billing_first_name" : billing_container.find("#billing_first_name").val(),
+						"billing_last_name"  : billing_container.find("#billing_last_name").val(),
+						"billing_company"    : billing_container.find("#billing_company").val(),
+						"billing_country"    : billing_container.find("#billing_country").val(),
+						"billing_address_1"  : billing_container.find("#billing_address_1").val(),
+						"billing_address_2"  : billing_container.find("#billing_address_2").val(),
+						"billing_city"       : billing_container.find("#billing_city").val(),
+						"billing_state"      : billing_container.find("#billing_state").val(),
+						"billing_postcode"   : billing_container.find("#billing_postcode").val(),
+						"billing_phone"      : billing_container.find("#billing_phone").val(),
+						"billing_email"      : billing_container.find("#billing_email").val()
+					};
+
+					jQuery.ajax({
+						method: "POST",
+						url: ajax_url,
+						data: post_data,
+						success : function( res ) {
+							window.location = "' . esc_url( get_permalink( $page_id ) ) . '";
+						}
+					});
+				});';
+		}
 
         if ( $inline ) {
             wc_enqueue_js( $inline );
         }
     }
+
+	public function display_set_addresses_button( $checkout ) {
+		if ( is_checkout() && ! $this->wcms->cart->cart_has_multi_shipping() && WC()->cart->needs_shipping() ) {
+			
+			$css = 'display:none;';
+
+            if ( $this->wcms->is_multiship_enabled() && $this->wcms->cart->cart_is_eligible_for_multi_shipping() ) {
+                $css = '';
+            } else {
+                // clear all session so we don't use old cart addresses in case
+                // the customer adds more valid products to the cart
+                $this->wcms->clear_session();
+            }
+			
+			echo '
+				<p class="woocommerce-info woocommerce_message" id="wcms_message" style="' . esc_attr( $css ) . '">
+					' . WC_Ship_Multiple::$lang['notification'] . '<br /><br />
+					<input type="button" id="wcms_set_addresses" name="wcms_set_addresses" value="' . esc_attr( WC_Ship_Multiple::$lang['btn_items'] ) . '" />
+				</p>';
+		}
+	}
+
+	public function save_billing_fields() {
+		foreach ( WC()->checkout->get_checkout_fields( 'billing' ) as $key => $field ) {
+			WC()->customer->{"set_{$key}"}( wc_clean( $_POST[ $key ] ) );
+		}
+
+		WC()->customer->save();
+
+		wp_send_json( array( 'result' => 'success' ) );
+	}
 
 	public function render_user_addresses_dropdown() {
 
@@ -241,32 +312,6 @@ class WC_MS_Checkout {
 	<?php
 		endif;
 	}
-
-    public function before_checkout_form() {
-        if ( ! $this->wcms->cart->cart_has_multi_shipping() && WC()->cart->needs_shipping() ) {
-            $css        = 'style="display:none;"';
-            $data       = 0;
-            $page_id    = wc_get_page_id( 'multiple_addresses' );
-
-            if ( $this->wcms->is_multiship_enabled() && $this->wcms->cart->cart_is_eligible_for_multi_shipping() ) {
-                $css = '';
-                $data = 1;
-            } else {
-                // clear all session so we don't use old cart addresses in case
-                // the customer adds more valid products to the cart
-                $this->wcms->clear_session();
-            }
-
-            echo '
-                <div id="wcms_message" '. $css .'>
-                    <p class="woocommerce-info woocommerce_message" id="wcms_message" '. $css .' data-allowed="'. $data .'">
-                        '. WC_Ship_Multiple::$lang['notification'] .'
-                        <a class="button" href="'. get_permalink($page_id) .'">'. WC_Ship_Multiple::$lang['btn_items'] .'</a>
-                    </p>
-                </div>';
-        }
-
-    }
 
 	/**
 	 * Store original cart item key
@@ -680,7 +725,7 @@ class WC_MS_Checkout {
 
                         // Calculate tax based on package shipping address
                         if ( 'shipping' === $tax_based_on
-                            && ( ! isset( $rate_options['tax_status'] ) || 'none' != $rate_options['tax_status'] ) ) {
+                            && ( ! isset( $rate_options['tax_status'] ) || 'none' != $rate_options['tax_status'] ) && ! WC()->customer->get_is_vat_exempt() ) {
                             $shipping_tax_rates = WC_Tax::get_shipping_tax_rates();
                             $rate->taxes = WC_Tax::calc_tax( $rate->cost, $shipping_tax_rates );
                         }
@@ -713,8 +758,9 @@ class WC_MS_Checkout {
         // store the shipping rates
         wcms_session_set( 'wcms_package_rates', $rates );
 
-        $this->calculate_taxes( $cart, $packages );
-
+		if( wc_tax_enabled() && ! WC()->customer->get_is_vat_exempt() ) {
+			$this->calculate_taxes( $cart, $packages );
+		}
     }
 
     private function get_discounted_price( $cart, $values, $price, $add_totals = false ) {
@@ -761,16 +807,14 @@ class WC_MS_Checkout {
         }
 
         // clear the taxes arrays remove tax totals from the grand total
-        $pre_wc_32 = version_compare( WC_VERSION, '3.2.0', '<' );
-        $old_taxes                  = $pre_wc_32 ? $cart->taxes : $cart->get_cart_contents_taxes();
+        $pre_wc_32                  = version_compare( WC_VERSION, '3.2.0', '<' );
         $old_tax_total              = $cart->tax_total;
-        $old_shipping_taxes         = $pre_wc_32 ? $cart->shipping_taxes : $cart->get_shipping_taxes();
         $old_shipping_tax_total     = $cart->shipping_tax_total;
-        $old_total                  = $cart->total;
-        $cart_total_without_taxes   = $old_total - ($old_tax_total + $old_shipping_tax_total);
 
         // deduct taxes from the subtotal
-        $cart->subtotal -= $old_tax_total;
+        if ( $pre_wc_32 ) {
+            $cart->subtotal -= $old_tax_total;
+        }
 
         $item_taxes     = array();
         $cart_taxes     = array();
@@ -815,10 +859,14 @@ class WC_MS_Checkout {
                     $line_price = 0;
 
                     foreach ( $values['composite_data'] as $composite ) {
-                        $line_price += $composite['price'];
+                        if ( isset( $composite['price'] ) ) {
+                            $line_price += $composite['price'];
+                        }
                     }
 
-                    $line_price *= $values['quantity'];
+                    if ( isset( $values['quantity'] ) ) {
+                        $line_price *= $values['quantity'];
+                    }
                 }
 
                 if ( ! $_product->is_taxable() ) {
@@ -1108,7 +1156,8 @@ class WC_MS_Checkout {
         } else {
             $cart->set_cart_contents_taxes( array_map( 'WC_Tax::round', $cart_taxes ) );
             $discounts = array_sum( $cart->coupon_discount_totals ) + array_sum( $cart->coupon_discount_tax_totals );
-            $cart->set_total( $cart->get_subtotal() + $cart->get_shipping_total() + array_sum( $cart->get_cart_contents_taxes() ) + $old_shipping_tax_total - $discounts );
+
+            $cart->set_total( ( $cart->get_subtotal() + $cart->get_subtotal_tax() - $old_tax_total ) + $cart->get_shipping_total() + array_sum( $cart->get_cart_contents_taxes() ) + $old_shipping_tax_total - $discounts );
         }
 
         if ( $merge ) {
@@ -1197,7 +1246,7 @@ class WC_MS_Checkout {
 			$tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_display_cart : WC()->cart->get_tax_price_display_mode();
 
 			if ( $tax_display_mode == 'excl' ) {
-				$row_price = $cart_item['line_total'];
+				$row_price = $cart_item['line_subtotal'];
 
                 $product_subtotal = wc_price( $row_price );
 
@@ -1205,7 +1254,7 @@ class WC_MS_Checkout {
                     $product_subtotal .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
                 }
             } else {
-                $row_price = $cart_item['line_total'] + $cart_item['line_tax'];
+                $row_price = $cart_item['line_subtotal'] + $cart_item['line_subtotal_tax'];
 
                 $product_subtotal = wc_price( $row_price );
 

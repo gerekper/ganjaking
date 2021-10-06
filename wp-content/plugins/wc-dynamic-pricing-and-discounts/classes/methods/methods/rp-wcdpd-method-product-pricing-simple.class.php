@@ -51,7 +51,7 @@ class RP_WCDPD_Method_Product_Pricing_Simple extends RP_WCDPD_Method_Product_Pri
      */
     public function get_group_label()
     {
-        return __('Simple', 'rp_wcdpd');
+        return esc_html__('Simple', 'rp_wcdpd');
     }
 
     /**
@@ -62,7 +62,7 @@ class RP_WCDPD_Method_Product_Pricing_Simple extends RP_WCDPD_Method_Product_Pri
      */
     public function get_label()
     {
-        return __('Simple adjustment', 'rp_wcdpd');
+        return esc_html__('Simple adjustment', 'rp_wcdpd');
     }
 
     /**

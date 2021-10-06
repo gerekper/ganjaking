@@ -155,6 +155,7 @@
           <?php wp_editor($mepr_options->unauthorized_message, $mepr_options->unauthorized_message_str); ?>
         </div>
       </div>
+      <?php MeprHooks::do_action('mepr_display_pages_options'); ?>
     </div>
 
     <div id="accounts" class="mepr-options-hidden-pane">
@@ -373,6 +374,7 @@
         <?php wp_editor($mepr_options->custom_message, $mepr_options->custom_message_str); ?>
         <p class="description"><?php _e('This text will appear below the navigation on the Account Page.', 'memberpress'); ?></p>
       </div>
+      <?php MeprHooks::do_action('mepr_display_account_options'); ?>
     </div>
 
     <div id="fields" class="mepr-options-hidden-pane">
@@ -499,6 +501,7 @@
         <label for="<?php echo $mepr_options->mail_send_from_email_str; ?>"><?php _e('From Email:', 'memberpress'); ?>&nbsp;</label>
         <input type="text" id="<?php echo $mepr_options->mail_send_from_email_str; ?>" name="<?php echo $mepr_options->mail_send_from_email_str; ?>" class="regular-text" value="<?php echo stripslashes($mepr_options->mail_send_from_email); ?>" />
       </div>
+      <?php MeprHooks::do_action('mepr_display_emails_options'); ?>
     </div>
 
     <div id="marketing" class="mepr-options-hidden-pane">
@@ -520,6 +523,7 @@
       <div class="mepr-options-pane">
         <?php MeprHooks::do_action('mepr_display_autoresponders'); ?>
       </div>
+      <?php MeprHooks::do_action('mepr_display_marketing_options'); ?>
     </div>
 
     <div id="info" class="mepr-options-hidden-pane">

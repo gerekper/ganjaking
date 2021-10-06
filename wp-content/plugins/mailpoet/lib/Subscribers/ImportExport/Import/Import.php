@@ -208,9 +208,10 @@ class Import {
       }
       if (in_array($column, ['confirmed_ip', 'subscribed_ip'], true)) {
         $data = array_map(
-          function($index, $ip) use(&$invalidRecords, $validator) {
+          function($index, $ip) use($validator) {
             if (!$validator->validateIPAddress($ip)) {
-              $invalidRecords[] = $index;
+              // if invalid or empty, we allow the import but remove the IP
+              return null;
             }
             return $ip;
           }, array_keys($data), $data
@@ -224,21 +225,7 @@ class Import {
         }
         // validate date type
         if ($customField->getType() === CustomFieldEntity::TYPE_DATE) {
-<<<<<<< HEAD
           $data = $this->validateDateTime($data, $invalidRecords);
-=======
-          $validationRule = 'datetime';
-          $data = array_map(
-            function($index, $date) use($validationRule, &$invalidRecords) {
-              if (empty($date)) return $date;
-              $date = (new DateConverter())->convertDateToDatetime($date, $validationRule);
-              if (!$date) {
-                $invalidRecords[] = $index;
-              }
-              return $date;
-            }, array_keys($data), $data
-          );
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
         }
       }
     }
@@ -467,7 +454,7 @@ class Import {
   }
 
   public function createOrUpdateCustomFields(
-    string $acion,
+    string $action,
     array $createdOrUpdatedSubscribers,
     array $subscribersData,
     array $subscribersCustomFieldsIds
@@ -501,13 +488,15 @@ class Import {
       'value',
       'created_at',
     ];
-    foreach (array_chunk($subscribersCustomFieldsData, self::DB_QUERY_CHUNK_SIZE) as $subscribersCustomFieldsDataChunk) {
+    $customFieldCount = count($subscribersCustomFieldsIds);
+    $customFieldBatchSize = (int)(round(self::DB_QUERY_CHUNK_SIZE / $customFieldCount) * $customFieldCount);
+    foreach (array_chunk($subscribersCustomFieldsData, $customFieldBatchSize) as $subscribersCustomFieldsDataChunk) {
       $this->importExportRepository->insertMultiple(
         SubscriberCustomFieldEntity::class,
         $columns,
         $subscribersCustomFieldsDataChunk
       );
-      if ($acion === self::ACTION_UPDATE) {
+      if ($action === self::ACTION_UPDATE) {
         $this->importExportRepository->updateMultiple(
           SubscriberCustomFieldEntity::class,
           $columns,

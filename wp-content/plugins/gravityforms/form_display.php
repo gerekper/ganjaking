@@ -335,8 +335,9 @@ class GFFormDisplay {
 
 		//Creating temp folder if it does not exist
 		$target_path = $form_upload_path . '/tmp/';
-		wp_mkdir_p( $target_path );
-		GFCommon::recursive_add_index_file( $form_upload_path );
+		if ( ! is_dir( $target_path ) && wp_mkdir_p( $target_path ) ) {
+			GFCommon::recursive_add_index_file( $target_path );
+		}
 
 		foreach ( $form['fields'] as $field ) {
 			$input_name = "input_{$field->id}";
@@ -413,11 +414,11 @@ class GFFormDisplay {
 		$fields = array();
 		foreach ( $form['fields'] as $field ) {
 			/* @var GF_Field $field */
-			if ( GFCommon::is_product_field( $field->type ) || $field->type == 'donation' || $field->type === 'consent' ) {
+			if ( $field->is_state_validation_supported() ) {
 				$value = RGFormsModel::get_field_value( $field, $field_values, false );
 				$value = $field->get_value_default_if_empty( $value );
 
-				switch ( $field->inputType ) {
+				switch ( $field->get_input_type() ) {
 					case 'calculation' :
 					case 'singleproduct' :
 					case 'hiddenproduct' :
@@ -1142,8 +1143,9 @@ class GFFormDisplay {
 			$form_string .= '</div>'; //closes gform_body
 
 			//suppress form footer for multi-page forms (footer will be included on the last page
+			$label_placement = rgar( $form, 'labelPlacement', 'before' );
 			if ( ! $has_pages ) {
-				$form_string .= self::gform_footer( $form, 'gform_footer ' . $form['labelPlacement'], $ajax, $field_values, '', $display_title, $display_description, $tabindex );
+				$form_string .= self::gform_footer( $form, 'gform_footer ' . $label_placement, $ajax, $field_values, '', $display_title, $display_description, $tabindex );
 			}
 
 			$form_string .= '
@@ -1381,7 +1383,8 @@ class GFFormDisplay {
 		$form_id      = absint( $form['id'] );
 		$footer       = "
         <div class='" . esc_attr( $class ) . "'>";
-		$button_input = self::get_form_button( $form['id'], "gform_submit_button_{$form['id']}", $form['button'], __( 'Submit', 'gravityforms' ), 'gform_button', __( 'Submit', 'gravityforms' ), 0 );
+		$button       = rgar( $form, 'button', array( 'type' => 'link' ) );
+		$button_input = self::get_form_button( $form['id'], "gform_submit_button_{$form['id']}", $button, __( 'Submit', 'gravityforms' ), 'gform_button', __( 'Submit', 'gravityforms' ), 0 );
 		$button_input = gf_apply_filters( array( 'gform_submit_button', $form_id ), $button_input, $form );
 
 		$save_button = rgars( $form, 'save/enabled' ) ? self::get_form_button( $form_id, "gform_save_{$form_id}_footer", $form['save']['button'], rgars( $form, 'save/button/text' ), 'gform_save_link', rgars( $form, 'save/button/text' ), 0, "jQuery(\"#gform_save_{$form_id}\").val(1);" ) : '';
@@ -2048,12 +2051,7 @@ class GFFormDisplay {
 
 		global $_gf_state;
 
-		//if field can be populated dynamically, disable state validation
-		if ( $field->allowsPrepopulate ) {
-			return false;
-		} else if ( ! GFCommon::is_product_field( $field->type ) && $field->type != 'donation' && $field->type != 'consent' ) {
-			return false;
-		} else if ( ! in_array( $field->inputType, array( 'singleshipping', 'singleproduct', 'hiddenproduct', 'checkbox', 'radio', 'select', 'consent' ) ) ) {
+		if ( ! $field->is_state_validation_supported() ) {
 			return false;
 		}
 

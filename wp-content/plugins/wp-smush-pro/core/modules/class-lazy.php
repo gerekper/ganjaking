@@ -80,7 +80,7 @@ class Lazy extends Abstract_Module {
 
 		// Load js file that is required in public facing pages.
 		add_action( 'wp_head', array( $this, 'add_inline_styles' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ), 99 );
 		if ( defined( 'WP_SMUSH_ASYNC_LAZY' ) && WP_SMUSH_ASYNC_LAZY ) {
 			add_filter( 'script_loader_tag', array( $this, 'async_load' ), 10, 2 );
 		}
@@ -221,6 +221,7 @@ class Lazy extends Abstract_Module {
 		if ( defined( 'WP_SMUSH_LAZY_LOAD_AVADA' ) && WP_SMUSH_LAZY_LOAD_AVADA ) {
 			$this->add_avada_support();
 		}
+		$this->add_divi_support();
 		$this->add_soliloquy_support();
 	}
 
@@ -289,6 +290,21 @@ class Lazy extends Abstract_Module {
 	}
 
 	/**
+	 * Adds lazyload support to Divi & it's Waypoint library.
+	 *
+	 * @since 3.9.0
+	 */
+	private function add_divi_support() {
+		if ( ! defined( 'ET_BUILDER_THEME' ) || ! ET_BUILDER_THEME ) {
+			return;
+		}
+
+		$script = "function rw() { Waypoint.refreshAll(); } window.addEventListener( 'lazybeforeunveil', rw, false); window.addEventListener( 'lazyloaded', rw, false);";
+
+		wp_add_inline_script( 'smush-lazy-load', $script );
+	}
+
+	/**
 	 * Prevents the navigation from being missaligned in Soliloquy when lazy loading.
 	 *
 	 * @since 3.7.0
@@ -341,8 +357,8 @@ class Lazy extends Abstract_Module {
 	 * @return bool
 	 */
 	public function maybe_skip_parse( $skip ) {
-		// Don't lazy load for feeds, previews.
-		if ( is_feed() || is_preview() ) {
+		// Don't lazy load for feeds, previews, embeds.
+		if ( is_feed() || is_preview() || is_embed() ) {
 			$skip = true;
 		}
 
@@ -463,6 +479,7 @@ class Lazy extends Abstract_Module {
 		} else {
 			$class = 'lazyload';
 		}
+
 		Helpers\Parser::remove_attribute( $new_image, 'class' );
 		Helpers\Parser::add_attribute( $new_image, 'class', apply_filters( 'wp_smush_lazy_load_classes', $class ) );
 
@@ -664,5 +681,4 @@ class Lazy extends Abstract_Module {
 	private function is_amp() {
 		return function_exists( 'is_amp_endpoint' ) && is_amp_endpoint();
 	}
-
 }

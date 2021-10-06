@@ -2,13 +2,20 @@
  * Action - Module
  */
 jQuery( function ( $ ) {
+   'use strict' ;
     var RSActionFrontend = {
         init : function () {
             if ( fp_action_frontend_params.user_id !== '0' ) {
                 $( '.rsgatewaypointsmsg' ).hide() ;
                 $( '#order_review' ).on( 'click' , '.payment_methods input.input-radio' , this.msg_for_rewardgateway ) ;
+                
+                $('.rs-coupon-reward-message').show();
+                $(document).on('applied_coupon',this.woocommerce_applied_coupon);
             }
         } ,
+        woocommerce_applied_coupon:function(){
+          $('.rs-coupon-reward-message').hide();
+        },
         msg_for_rewardgateway : function () {
 
             var gatewayid = $( this ).val() ;

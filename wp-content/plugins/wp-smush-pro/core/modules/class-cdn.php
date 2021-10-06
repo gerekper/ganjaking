@@ -69,6 +69,7 @@ class CDN extends Abstract_Module {
 		'jpg',
 		'jpeg',
 		'png',
+		'webp',
 	);
 
 	/**
@@ -322,6 +323,11 @@ class CDN extends Abstract_Module {
 			return;
 		}
 
+		// Disable CDN on staging.
+		if ( isset( $_SERVER['WPMUDEV_HOSTING_ENV'] ) && 'staging' === $_SERVER['WPMUDEV_HOSTING_ENV'] ) {
+			return;
+		}
+
 		$this->status = $this->settings->get_setting( WP_SMUSH_PREFIX . 'cdn_status' );
 
 		// CDN is not enabled and not active.
@@ -413,6 +419,45 @@ class CDN extends Abstract_Module {
 		$url = add_query_arg( $args, $url );
 
 		return $url;
+	}
+
+	/**
+	 * Enables the CDN.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param bool $enable Whether to enable or disable the CDN.
+	 * @return true|WP_error
+	 */
+	public function toggle_cdn( $enable ) {
+		$this->settings->set( 'cdn', $enable );
+
+		if ( $enable ) {
+			$status = $this->settings->get_setting( WP_SMUSH_PREFIX . 'cdn_status' );
+
+			if ( ! $status ) {
+				$status = WP_Smush::get_instance()->api()->check();
+				$data   = $this->process_cdn_status( $status );
+
+				if ( is_wp_error( $data ) ) {
+					return $data;
+				}
+
+				$this->settings->set_setting( WP_SMUSH_PREFIX . 'cdn_status', $data );
+			}
+
+			$this->schedule_cron();
+
+			// Clear HB page cache.
+			do_action( 'wphb_clear_page_cache' );
+		} else {
+			// Remove CDN settings if disabling.
+			$this->settings->delete_setting( WP_SMUSH_PREFIX . 'cdn_status' );
+
+			self::unschedule_cron();
+		}
+
+		return true;
 	}
 
 	/**************************************
@@ -695,7 +740,8 @@ class CDN extends Abstract_Module {
 
 		// Try to get image URL from attachment ID.
 		if ( empty( $attachment_id ) ) {
-			$url = $main_image_url = wp_get_attachment_url( $attachment_id );
+			$url            = wp_get_attachment_url( $attachment_id );
+			$main_image_url = $url;
 		}
 
 		foreach ( $sources as $i => $source ) {
@@ -833,36 +879,23 @@ class CDN extends Abstract_Module {
 	 *
 	 * @param array|WP_Error $status  Status in JSON format.
 	 *
-	 * @return mixed
+	 * @return stdClass|WP_Error
 	 */
 	public function process_cdn_status( $status ) {
 		if ( is_wp_error( $status ) ) {
-			wp_send_json_error(
-				array(
-					'message' => $status->get_error_message(),
-				)
-			);
+			return $status;
 		}
 
 		$status = json_decode( $status['body'] );
 
 		// Too many requests.
 		if ( is_null( $status ) ) {
-			wp_send_json_error(
-				array(
-					'message' => __( 'Too many requests, please try again in a moment.', 'wp-smushit' ),
-				)
-			);
+			return new \WP_Error( 'too_many_requests', __( 'Too many requests, please try again in a moment.', 'wp-smushit' ) );
 		}
 
 		// Some other error from API.
 		if ( ! $status->success ) {
-			wp_send_json_error(
-				array(
-					'message' => $status->data->message,
-				),
-				$status->data->error_code
-			);
+			return new \WP_Error( $status->data->error_code, $status->data->message );
 		}
 
 		return $status->data;
@@ -880,6 +913,17 @@ class CDN extends Abstract_Module {
 
 		if ( isset( $status->cdn_enabling ) && $status->cdn_enabling ) {
 			$status = $this->process_cdn_status( $smush->api()->enable() );
+
+			if ( is_wp_error( $status ) ) {
+				$code = is_numeric( $status->get_error_code() ) ? $status->get_error_code() : null;
+				wp_send_json_error(
+					array(
+						'message' => $status->get_error_message(),
+					),
+					$code
+				);
+			}
+
 			$this->settings->set_setting( WP_SMUSH_PREFIX . 'cdn_status', $status );
 		}
 

@@ -3,8 +3,8 @@ Contributors: wpdevteam, re_enter_rupok
 Donate link: https://wpdeveloper.net
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
-Tested up to: 5.7.2
-Stable tag: 1.6.4
+Tested up to: 5.8
+Stable tag: 1.6.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,29 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.6.9 - 29/09/2021 =
+- Fixed: Instant Answers not showing when certain docs are assigned to display
+- Fixed: Instant Answers reaction styling not showing properly
+- Fixed: Instant Answers conflict with Translation plugins
+- Few minor bug fix and improvements
+
+= 1.6.8 - 22/09/2021 =
+- Fixed: Instant Answers not being responsive
+- Fixed: Single Docs breadcrumbs not showing properly when they are assigned in Multiple Kbs
+- Few minor bug fix and improvements
+
+= 1.6.7 - 26/08/2021 =
+- Fixed: Internal Knowledge Base not working properly when a user is assigned to multiple roles
+- Few minor bug fix and improvements
+
+= 1.6.6 - 03/08/2021 =
+- Improved: Coding structure to enhance security
+- Few minor bug fix and improvements
+
+= 1.6.5 - 01/08/2021 =
+- Fixed: Multiple Role Management not working with Members plugin
+- Few minor bug fix and improvements
 
 = 1.6.4 - 15/07/2021 =
 - Improved: WPML Compatibility

@@ -51,7 +51,7 @@ class RP_WCDPD_Method_Product_Pricing_Quantity_Group_Once extends RP_WCDPD_Metho
      */
     public function get_label()
     {
-        return __('Group of products', 'rp_wcdpd');
+        return esc_html__('Group of products', 'rp_wcdpd');
     }
 
 

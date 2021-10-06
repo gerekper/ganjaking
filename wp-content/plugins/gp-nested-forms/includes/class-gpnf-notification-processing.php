@@ -41,7 +41,7 @@ class GPNF_Notification_Processing {
 			if ( is_array( $value ) ) {
 				$object[ $prop ] = $this->complicate_parent_merge_tag( $value );
 			} elseif ( is_string( $value ) ) {
-				$object[ $prop ] = preg_replace( '/\{Parent:(.*?)\}/', '{%GPNF:Parent:$1%}', $value );
+				$object[ $prop ] = preg_replace( '/\{Parent:(.*?)\}/i', '{%GPNF:Parent:$1%}', $value );
 			}
 		}
 

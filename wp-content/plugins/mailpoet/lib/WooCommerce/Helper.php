@@ -38,6 +38,10 @@ class Helper {
     return get_woocommerce_currency();
   }
 
+  public function getWoocommerceCurrencySymbol() {
+    return get_woocommerce_currency_symbol();
+  }
+
   public function woocommerceFormField($key, $args, $value) {
     return woocommerce_form_field($key, $args, $value);
   }
@@ -62,5 +66,9 @@ class Helper {
   public function getRawPrice($price, array $args = []) {
     $htmlPrice = $this->wcPrice($price, $args);
     return html_entity_decode(strip_tags($htmlPrice));
+  }
+
+  public function getAllowedCountries(): array {
+    return (new \WC_Countries)->get_allowed_countries() ?? [];
   }
 }

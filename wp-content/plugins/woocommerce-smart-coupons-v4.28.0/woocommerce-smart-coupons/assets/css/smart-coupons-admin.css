@@ -1,0 +1,40 @@
+/* Smart Coupons Admin CSS */
+.smart-coupons-field,
+#sc-share-link,
+#sc_coupon_categorydiv,
+#sc_coupon_categorydiv ul.category-tabs li.tabs,
+#sc_coupon_categorydiv ul.add-menu-item-tabs li.tabs,
+#sc_coupon_categorydiv .wp-tab-active,
+#sc_coupon_categorydiv div.tabs-panel,
+button#export_coupons,
+a#wc_sc_print_coupons,
+a#sc-manage-category {
+	background-color: #f0fff0;
+}
+button#export_coupons > span.dashicons,
+a#wc_sc_print_coupons > span.dashicons {
+	transform: translateY(15%);
+}
+div#smart_coupons_tabs h2 {
+	margin-bottom: 10px;
+}
+div#smart_coupons_tabs h2 .sc-quick-links {
+	text-align: right;
+	font-size: 0.8em;
+}
+.coupon_title_prefix_suffix_field input {
+	height: 2em;
+}
+li.wc_sc_actions_tab a::before {
+	font-family: WooCommerce !important;
+	content: '\e01c' !important;
+}
+div.sc-manage-category {
+	margin: 10px 0;
+}
+div.sc-manage-category a {
+	font-weight: 600;
+}
+div.smart_coupons_product_options_variable {
+	display: flow-root;
+}

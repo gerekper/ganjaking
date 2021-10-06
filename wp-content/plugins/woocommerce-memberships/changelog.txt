@@ -1,5 +1,9 @@
 *** WooCommerce Memberships Changelog ***
 
+2021.07.05 - version 1.22.3
+ * Fix - Address an issue with plans with fixed dates and some timezone configurations
+ * Misc - Drop the `woo-includes` folder and move plugin classes from `includes` to `src` folder
+
 2021.06.23 - version 1.22.2
  * Fix - Display the correct cart item subtotal when a customer adds more than a discounted subscription product to cart
  * Fix - Address a potential issue in the shipping handler

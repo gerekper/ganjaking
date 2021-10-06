@@ -6,7 +6,7 @@
  * Description: Easily download customers, orders, and coupons in CSV and XML and schedule recurring, automated exports via FTP, HTTP POST, and more.
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 5.3.2
+ * Version: 5.3.3
  * Text Domain: woocommerce-customer-order-csv-export
  * Domain Path: /i18n/languages/
  *
@@ -23,23 +23,10 @@
  *
  * Woo: 18652:914de15813a903c767b55445608bf290
  * WC requires at least: 3.5
- * WC tested up to: 5.1.0
+ * WC tested up to: 5.6.0
  */
 
 defined( 'ABSPATH' ) or exit;
-
-// Required functions
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'woo-includes/woo-functions.php' );
-}
-
-// Plugin updates
-woothemes_queue_update( plugin_basename( __FILE__ ), '914de15813a903c767b55445608bf290', '18652' );
-
-// WC active check
-if ( ! is_woocommerce_active() ) {
-	return;
-}
 
 // required Action Scheduler library
 // TODO: we can stop bundling Action Scheduler when WooCommerce 4.0 is the minimum required version as it's now part of core WooCommerce {WV 2019-11-12}

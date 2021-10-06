@@ -1,0 +1,12 @@
+
+#a2w_external_order_modal {
+    display: none;    
+}
+
+.ali2woo-ui-dialog > #a2w_external_order_modal {
+    display: block;
+}
+
+#order_data .order_data_column .address.order_items strong{
+    display: inline;
+}

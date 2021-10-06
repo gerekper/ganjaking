@@ -11,9 +11,9 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 		 */
 		protected $settings;
 
-		protected $lver = false;
+		protected $lver                    = false;
 		protected $remote_child_themes_url = 'https://updates.grooni.com/theme-demos/gm-child-themes/config/';
-		protected $remote_get_msg_url = 'https://license.grooni.com/grooni-msg-spot/';
+		protected $remote_get_msg_url      = 'https://license.grooni.com/grooni-msg-spot/';
 
 		public function __construct() {
 
@@ -1030,6 +1030,28 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 				if ( ! empty( $_POST['icons'] ) ) {
 					if ( class_exists( 'ZipArchive' ) ) {
 
+						if ( ! defined( 'FS_METHOD' ) ) {
+							define( 'FS_METHOD', 'direct' );
+						}
+
+						global $wp_filesystem;
+						if ( empty( $wp_filesystem ) ) {
+							$file_path = str_replace( array(
+								'\\',
+								'/'
+							), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/file.php' );
+
+							if ( file_exists( $file_path ) ) {
+								require_once $file_path;
+								WP_Filesystem();
+							}
+						}
+						if ( empty( $wp_filesystem ) ) {
+							@ob_clean();
+							echo esc_html__( 'Cannot start $wp_filesystem.', 'groovy-menu' );
+							exit;
+						}
+
 						$filename = get_attached_file( $_POST['icons'] );
 						$zip      = new ZipArchive();
 						if ( $zip->open( $filename ) ) {
@@ -1037,19 +1059,34 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 
 							$selection     = $zip->getFromName( 'selection.json' );
 							$selectionData = json_decode( $selection, true );
-							$name          = 'groovy-' . rand( 10000, 99999 );
+							$name          = empty( $_POST['gm-replace-field-name'] ) ? 'groovy-' . time() : esc_attr( $_POST['gm-replace-field-name'] );
+
+							\GroovyMenuUtils::delete_icon_pack_files( $name );
 
 							$fontFiles['woff'] = $zip->getFromName( 'fonts/' . $selectionData['metadata']['name'] . '.woff' );
+							$fontFiles['ttf']  = $zip->getFromName( 'fonts/' . $selectionData['metadata']['name'] . '.ttf' );
+							$fontFiles['svg']  = $zip->getFromName( 'fonts/' . $selectionData['metadata']['name'] . '.svg' );
+							$fontFiles['eot']  = $zip->getFromName( 'fonts/' . $selectionData['metadata']['name'] . '.eot' );
 
 							$dir = GroovyMenuUtils::getFontsDir();
 
-							file_put_contents( $dir . $name . '.woff', $fontFiles['woff'] );
-							file_put_contents( $dir . $name . '.css', GroovyMenuUtils::generate_fonts_css( $name, $selectionData ) );
+							foreach ( $fontFiles as $font_type => $font_file ) {
+								if ( false !== $font_file ) {
+									$type         = esc_attr( $font_type );
+									$put_contents = $wp_filesystem->put_contents( $dir . $name . '.' . $type, $fontFiles[ $type ], FS_CHMOD_FILE );
+								}
+							}
+
+							$generated_font_css = GroovyMenuUtils::generate_fonts_css( $name, $selectionData, $fontFiles );
+
+							$put_contents = $wp_filesystem->put_contents( $dir . $name . '.css', $generated_font_css['css'], FS_CHMOD_FILE );
 
 							$icons = array();
-							foreach ( $selectionData['icons'] as $icon ) {
+							foreach ( $generated_font_css['data']['icons'] as $icon ) {
+								$icon_name = isset( $icon['gm-name'])? $icon['gm-name'] : $icon['icon']['tags'][0];
+
 								$icons[] = array(
-									'name' => $icon['icon']['tags'][0],
+									'name' => $icon_name,
 									'code' => $icon['properties']['code']
 								);
 							}
@@ -1079,8 +1116,9 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 
 			if ( GroovyMenuRoleCapabilities::globalOptions( true ) ) {
 				$fonts = \GroovyMenu\FieldIcons::getFonts();
-				unset( $fonts[ $_GET['name'] ] );
+				unset( $fonts[ esc_attr( $_GET['name'] ) ] );
 				\GroovyMenu\FieldIcons::setFonts( $fonts );
+				\GroovyMenuUtils::delete_icon_pack_files( esc_attr( $_GET['name'] ) );
 			}
 			exit;
 		}
@@ -1883,7 +1921,7 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
                         <?php if ( ! $allow_library ) : ?>
 	                        <?php if ( ! $this->lver ) {
 		                        echo '</span><span class="preset-title__alpha-sub">';
-		                        esc_html_e( 'To enable presets from the online library, please enable the option in "Global settings > Tools > Allow fetching presets from online library"', 'groovy-menu' );
+		                        esc_html_e( 'To show presets from the online library, please enable toggle beside "Allow fetching presets from online library" placed in "Global Settings" at the "Tools" tab', 'groovy-menu' );
 		                        echo ' </span>';
 	                        } ?>
                         <?php endif; ?>
@@ -1905,7 +1943,7 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 
 						<?php if ( $this->lver ) : ?>
 							<div class="preset preset-comparision">
-								<a href="<?php echo admin_url( 'admin.php?page=groovy_menu_welcome' ); ?>">
+								<a href="<?php echo esc_url( 'https://groovymenu.grooni.com/upgrade/' ); ?>" target="_blank">
 									<div class="preset-inner">
 										<div class="preset-placeholder">
 											<div class="preset-placeholder-inner">
@@ -2335,6 +2373,8 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 
 			$admin_nav_menu_page = '<a href="' . admin_url( 'nav-menus.php?action=locations' ) . '">' . esc_html__( 'Manage Locations', 'groovy-menu' ) . '</a>';
 
+			//$pages_list = GroovyMenuUtils::getPagesList(); // TODO one page TEST-DEV mode
+
 			?>
 
 			<div class="gm-dashboard-container gm-dashboard__integration">
@@ -2387,14 +2427,25 @@ if ( ! class_exists( 'GroovyMenuSettings' ) ) {
 										 src="<?php echo GROOVY_MENU_URL; ?>assets/images/integration.svg" alt="">
 								</div>
 								<div class="gm-dashboard-body-block--right">
-									<h3><?php esc_html_e( 'Integration through Child Theme', 'groovy-menu' ); ?></h3>
+									<h3><?php
+										if ( 'plugin' === $child_proposal['integration_type'] ) {
+											esc_html_e( 'Integration through additional Plugin', 'groovy-menu' );
+										} else {
+											esc_html_e( 'Integration through Child Theme', 'groovy-menu' );
+										}
+										?></h3>
 									<?php if ( isset( $child_proposal['auto_integration'] ) && $child_proposal['auto_integration'] ) { ?>
 										<p><?php esc_html_e( 'According to the information from the Groovy Menu integration database, your current theme fully supports integration of Groovy Menu.', 'groovy-menu' ) ?></p>
 									<?php } ?>
 
 									<?php if ( isset( $child_proposal['zip_url'] ) && $child_proposal['zip_url'] ) { ?>
 										<p><?php echo sprintf( esc_html__( 'Your activated %s theme is already in our database. That is mean you don\'t need to use auto or manual integration.', 'groovy-menu' ), $current_theme ) ?></p>
-										<p><?php esc_html_e( 'We already prepared Child theme as the solution for your integration. Please download and activate', 'groovy-menu' ); ?>:
+										<p><?php
+											if ( 'plugin' === $child_proposal['integration_type'] ) {
+												esc_html_e( 'We already prepared additional Plugin as the solution for your integration. Please download and activate', 'groovy-menu' );
+											} else {
+												esc_html_e( 'We already prepared Child theme as the solution for your integration. Please download and activate', 'groovy-menu' );
+											} ?>:
 										</p>
 										<p>
 											<a href="<?php echo esc_attr( $child_proposal['zip_url'] ); ?>"

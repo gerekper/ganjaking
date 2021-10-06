@@ -133,6 +133,12 @@ class CDN extends Abstract_Summary_Page implements Interface_Page {
 			'overcap'    => 'error',
 		);
 
+		// Disable CDN on staging.
+		if ( isset( $_SERVER['WPMUDEV_HOSTING_ENV'] ) && 'staging' === $_SERVER['WPMUDEV_HOSTING_ENV'] ) {
+			$status_msg['disabled']   = __( 'Your Staging environment’s media is currently being served from your local server. If you move your Staging files into Production, your Production environment’s media will automatically be served from the Smush CDN.', 'wp-smushit' );
+			$status_color['disabled'] = 'warning';
+		}
+
 		$this->view(
 			'cdn/meta-box',
 			array(

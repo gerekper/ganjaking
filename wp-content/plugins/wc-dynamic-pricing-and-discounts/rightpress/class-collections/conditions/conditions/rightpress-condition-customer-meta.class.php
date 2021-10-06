@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Customer_Meta extends RightPress_Condition_C
     public function get_label()
     {
 
-        return __('User meta', 'rightpress');
+        return esc_html__('User meta', 'rightpress');
     }
 
     /**

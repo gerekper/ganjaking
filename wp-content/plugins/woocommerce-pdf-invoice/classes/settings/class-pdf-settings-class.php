@@ -48,7 +48,9 @@
             'pdf_font'              => 'Default',
             'pdf_currency_font'     => 'false',
             'pdf_rtl'               => 'false',
-            'pdf_display_tax'       => 'FALSE'
+            'pdf_display_tax'       => 'FALSE',
+            'pdf_thank_you_text'    => 'Download your invoice : [[INVOICENUMBER]]',
+            'thanks_style'          => 'link'
         );
 
         Private static $layout_defaults = array(
@@ -71,6 +73,7 @@
              * Add scripts
              */
             add_action( 'admin_enqueue_scripts', array( $this,'pdf_media_assets' ) );
+            add_action( 'admin_enqueue_scripts', array( $this, 'woocommerce_pdf_admin_css' ) );
 
             /**
              * Add menu item to WooCommerce Menu
@@ -240,6 +243,8 @@
                         }
                     }
 
+                    // Get the next invoice number
+                    $next_invoice = WC_pdf_functions::get_next_invoice_number();
                     ?>
 
                     <!-- PDF Invoice Debugging -->
@@ -289,12 +294,12 @@
                         </td>
                     </tr>
                      
-                    <!-- Show invoice link on Thank You page -->
+                    <!-- Show invoice link on the Thank You page -->
                     <?php $thanks_array = array( 'false' => 'No' , 'true' => 'Yes' ); ?>
                     <tr valign="top">
                         <th scope="row" class="titledesc">
-                            <label for="woocommerce_pdf_invoice_settings[link_thanks]"><?php _e('Show "Download Invoice" link on Thank You page?', 'woocommerce-pdf-invoice' ); ?></label>
-                            <img class="help_tip woocommerce-help-tip" data-tip="<?php _e('Add a link to download the invoice to the Thank You for your order page', 'woocommerce-pdf-invoice' ); ?>" src="<?php echo plugins_url( 'woocommerce/assets/images/help.png' );?>" height="16" width="16" />                 
+                            <label for="woocommerce_pdf_invoice_settings[link_thanks]"><?php _e('Show "Download Invoice" option on the Thank You page?', 'woocommerce-pdf-invoice' ); ?></label>
+                            <img class="help_tip woocommerce-help-tip" data-tip="<?php _e('Add an option to download the invoice to the Thank You page', 'woocommerce-pdf-invoice' ); ?>" src="<?php echo plugins_url( 'woocommerce/assets/images/help.png' );?>" height="16" width="16" />                 
                         </th>
                         <td class="forminp forminp-number">
                         <select name="woocommerce_pdf_invoice_settings[link_thanks]" id="woocommerce_pdf_invoice_settings[link_thanks]" style="width: 350px;">
@@ -303,7 +308,57 @@
                             <?php } ?>
                         </select>
                         </td>
-                    </tr>                     
+                    </tr>
+
+                    <!-- Text for link on the Thank You page -->
+                    <?php $invoice_download_url_placeholder = WC_pdf_admin_settings::$defaults['pdf_thank_you_text']; ?>
+                    <tr valign="top">
+                        <th scope="row" class="titledesc">
+                            <label for="woocommerce_pdf_invoice_settings[pdf_thank_you_text]"><?php _e('Text for the Thank You page', 'woocommerce-pdf-invoice' ); ?></label>
+                            <img class="help_tip woocommerce-help-tip" data-tip="<?php _e('This text is used on the Thank You page to display a link to download the invoice.', 'woocommerce-pdf-invoice' ); ?>" src="<?php echo plugins_url( 'woocommerce/assets/images/help.png' );?>" height="16" width="16" />                 
+                        </th>
+
+                        <td class="forminp forminp-number">
+                            <textarea id="woocommerce_pdf_invoice_settings[pdf_thank_you_text]" 
+                            name="woocommerce_pdf_invoice_settings[pdf_thank_you_text]"
+                            placeholder="<?php echo $invoice_download_url_placeholder ?>" style="width: 350px;"><?php echo $woocommerce_pdf_invoice_options['pdf_thank_you_text']; ?>
+                            </textarea>                     
+                        </td>
+                    </tr>
+
+                    <!-- Use button or text link on the Thank You page -->
+                    <?php $thanks_style_array = array( 'link' => 'Use a text link' , 'button' => 'Use a button' ); ?>
+<?php
+                    $url                    = site_url();
+
+                    $display_invoice_number = $woocommerce_pdf_invoice_options['pdf_prefix'].$woocommerce_pdf_invoice_options['pdf_next_number'].$woocommerce_pdf_invoice_options['pdf_sufix'];
+
+                    $link_url               = '<a href="'. $url .'">' . $display_invoice_number . '</a>';
+                    $link_output            = str_replace( '[[INVOICENUMBER]]', $link_url, $woocommerce_pdf_invoice_options['pdf_thank_you_text'] );
+                    $invoice_link_thanks    = sprintf( __('<p class="pdf-download">%s</p>', 'woocommerce-pdf-invoice' ), $link_output );
+
+                    $button_output          = str_replace( '[[INVOICENUMBER]]', $display_invoice_number, $woocommerce_pdf_invoice_options['pdf_thank_you_text'] );
+                    $button_url             = '<a href="'. $url .'" class="pdf_invoice_download_button">' . $button_output . '</a>';
+                    $invoice_button_thanks  = sprintf( __('<p class="pdf-download">%s</p>', 'woocommerce-pdf-invoice' ), $button_url );
+?>
+                    <tr valign="top">
+                        <th scope="row" class="titledesc">
+                            <label for="woocommerce_pdf_invoice_settings[thanks_style]"><?php _e('Use a link or button on the Thank You page?', 'woocommerce-pdf-invoice' ); ?></label>
+                            <img class="help_tip woocommerce-help-tip" data-tip="<?php _e('Add a link to download the invoice to the Thank You for your order page', 'woocommerce-pdf-invoice' ); ?>" src="<?php echo plugins_url( 'woocommerce/assets/images/help.png' );?>" height="16" width="16" />                 
+                        </th>
+                        <td class="forminp forminp-number">
+                        <select name="woocommerce_pdf_invoice_settings[thanks_style]" id="woocommerce_pdf_invoice_settings[thanks_style]" style="width: 350px;">
+                            <?php foreach ( $thanks_style_array as $key => $value ) { ?>
+                                <option value="<?php echo $key; ?>" <?php selected( $woocommerce_pdf_invoice_options['thanks_style'], $key ); ?>><?php echo $value; ?></option>
+                            <?php } ?>
+                        </select>
+
+                            <p>
+                                <?php echo sprintf( __('Link Format : %s', 'woocommerce-pdf-invoice' ), $invoice_link_thanks ); ?><br />
+                                <?php echo sprintf( __('Button Format : %s', 'woocommerce-pdf-invoice' ), $invoice_button_thanks ); ?>
+                            </p>
+                        </td>
+                    </tr>                   
 
                     <!-- Send invoice, send invoice and link to download or just link to download -->
                     <?php 
@@ -325,23 +380,25 @@
 
                     <!-- Invoice Download Link Format -->
                     <?php $invoice_download_url_placeholder = WC_pdf_admin_settings::$defaults['invoice_download_url']; ?>
+
                     <tr valign="top">
                         <th scope="row" class="titledesc">
                             <label for="woocommerce_pdf_invoice_settings[invoice_download_url]"><?php _e('Invoice download URL format', 'woocommerce-pdf-invoice' ); ?></label>
-                            <img class="help_tip woocommerce-help-tip" data-tip="<?php _e('This text is used in emails and the "thank you" page to display a link to download the invoice.', 'woocommerce-pdf-invoice' ); ?>" src="<?php echo plugins_url( 'woocommerce/assets/images/help.png' );?>" height="16" width="16" />                 
+                            <img class="help_tip woocommerce-help-tip" data-tip="<?php _e('This text is used in emails to display a link to download the invoice.', 'woocommerce-pdf-invoice' ); ?>" src="<?php echo plugins_url( 'woocommerce/assets/images/help.png' );?>" height="16" width="16" />                 
                         </th>
 
                         <td class="forminp forminp-number">
                             <textarea id="woocommerce_pdf_invoice_settings[invoice_download_url]" 
                             name="woocommerce_pdf_invoice_settings[invoice_download_url]"
                             placeholder="<?php echo $invoice_download_url_placeholder ?>" style="width: 350px;"><?php echo $woocommerce_pdf_invoice_options['invoice_download_url']; ?>
-                            </textarea>                     
-                        </td>
-                        <p>
-                            <?php __('Current URL Format :', 'woocommerce-pdf-invoice' ) . $woocommerce_pdf_invoice_options['invoice_download_url']; ?><br />
-                            <?php __('Default URL Format :', 'woocommerce-pdf-invoice' ) . $invoice_download_url_placeholder; ?>
-                        </p>
+                            </textarea>
 
+                            <p>
+                                <?php echo sprintf( __('Current URL Format : %s', 'woocommerce-pdf-invoice' ), $woocommerce_pdf_invoice_options['invoice_download_url'] ); ?><br />
+                                <?php echo sprintf( __('Default URL Format : %s', 'woocommerce-pdf-invoice' ), $invoice_download_url_placeholder ); ?>
+                            </p>
+
+                        </td>
                     </tr>
 
                     <!-- Paper size -->
@@ -651,9 +708,6 @@
                     </tr>
    
                     <!--Next Invoice Number -->
-<?php
-                    $next_invoice = WC_pdf_functions::get_next_invoice_number();
-?>
                     <tr valign="top">
                         <th scope="row" class="titledesc">
                             <label for="woocommerce_pdf_invoice_settings[pdf_next_number]"><?php _e('The next invoice number will be', 'woocommerce-pdf-invoice' ); ?></label>
@@ -859,11 +913,26 @@
             $settings = get_option('woocommerce_pdf_invoice_layout_settings');
             $defaults = WC_pdf_admin_settings::$layout_defaults;
 
-            $settings['template_css']       = isset( $settings['template_css'] )        ? $settings['template_css']         : $defaults['template_css']; 
+            $settings['template_css'] = isset( $settings['template_css'] ) ? $settings['template_css'] : $defaults['template_css']; 
 
             return $settings;
 
         }
+
+        /**
+         * Add woocommerce-pdf-frontend-css.css to settings
+         */
+        function woocommerce_pdf_admin_css() {
+            wp_register_style( 
+                'woocommerce-pdf-frontend-css', 
+                str_replace( 'classes/settings/', '', plugins_url( 'assets/css/woocommerce-pdf-frontend-css.css', __FILE__ ) ),
+                NULL,
+                PDFVERSION 
+                );
+
+            wp_enqueue_style( 'woocommerce-pdf-frontend-css' );
+        }
+
     }
 
     $GLOBALS['WC_pdf_admin_settings'] = new WC_pdf_admin_settings();

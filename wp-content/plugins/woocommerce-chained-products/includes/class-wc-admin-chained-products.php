@@ -2,6 +2,7 @@
 /**
  * Class to handle all backend related functionalities in chained products
  *
+ * @version     1.1.0
  * @package     woocommerce-chained-products/includes/
  */
 
@@ -124,13 +125,25 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 						$priced_individually = ( ! empty( $priced_individually ) ) ? $priced_individually : 'no';
 
 						if ( ! empty( $chained_item_of ) && 'no' === $priced_individually ) {
-							$quantity  = wc_get_order_item_meta( $order_item_id, '_qty' );
+							$quantity = wc_get_order_item_meta( $order_item_id, '_qty' );
+
 							$tax_class = wc_get_order_item_meta( $order_item_id, '_tax_class' );
+							$set_tax   = 0;
+							if ( ! empty( $tax_class ) ) {
+								// Find WC's valid tax classes.
+								$valid_tax_classes = WC_Tax::get_tax_class_slugs();
+								if ( in_array( $tax_class, $valid_tax_classes, true ) ) {
+									$set_tax = 1;
+								}
+							}
 
 							$item->set_total( wc_format_decimal( 0 ) );
 							$item->set_subtotal( wc_format_decimal( 0 ) );
 							$item->set_quantity( $quantity );
-							$item->set_tax_class( $tax_class );
+							// Only set valid tax class if found.
+							if ( $set_tax ) {
+								$item->set_tax_class( $tax_class );
+							}
 						}
 					}
 				}
@@ -2010,7 +2023,7 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 		}
 
 		/**
-		 * Function to find whether product is chained to any product
+		 * Function to find whether product is chained to any product.
 		 *
 		 * @param int $product_id Product ID.
 		 * @return boolean
@@ -2035,7 +2048,7 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 		}
 
 		/**
-		 * Function to find whether product has chained items associated with it
+		 * Function to find whether product has chained items associated with it.
 		 *
 		 * @param int $product_id Product ID.
 		 * @return boolean

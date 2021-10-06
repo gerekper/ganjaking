@@ -41,12 +41,14 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Newsletter\\NewslettersRepository' => 'getNewslettersRepositoryService',
             'MailPoet\\Newsletter\\Statistics\\NewsletterStatisticsRepository' => 'getNewsletterStatisticsRepositoryService',
             'MailPoet\\Newsletter\\Url' => 'getUrlService',
+            'MailPoet\\Premium\\API\\JSON\\v1\\Bounces' => 'getBouncesService',
             'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\StatsResponseBuilder' => 'getStatsResponseBuilderService',
             'MailPoet\\Premium\\API\\JSON\\v1\\Stats' => 'getStatsService',
             'MailPoet\\Premium\\API\\JSON\\v1\\SubscriberDetailedStats' => 'getSubscriberDetailedStatsService',
             'MailPoet\\Premium\\Config\\Initializer' => 'getInitializerService',
             'MailPoet\\Premium\\Config\\Renderer' => 'getRenderer2Service',
             'MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository' => 'getStatisticsClicksRepositoryService',
+            'MailPoet\\Premium\\Newsletter\\Stats\\Bounces' => 'getBounces2Service',
             'MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement' => 'getSubscriberEngagementService',
             'MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository' => 'getStatisticsWooCommercePurchasesRepositoryService',
             'MailPoet\\Util\\CdnAssetUrl' => 'getCdnAssetUrlService',
@@ -182,6 +184,16 @@ class PremiumCachedContainer extends Container
     }
 
     /**
+     * Gets the public 'MailPoet\Premium\API\JSON\v1\Bounces' shared autowired service.
+     *
+     * @return \MailPoet\Premium\API\JSON\v1\Bounces
+     */
+    protected function getBouncesService()
+    {
+        return $this->services['MailPoet\\Premium\\API\\JSON\\v1\\Bounces'] = new \MailPoet\Premium\API\JSON\v1\Bounces(($this->services['MailPoet\\Newsletter\\NewslettersRepository'] ?? $this->getNewslettersRepositoryService()), ($this->services['MailPoet\\Premium\\Newsletter\\Stats\\Bounces'] ?? $this->getBounces2Service()));
+    }
+
+    /**
      * Gets the public 'MailPoet\Premium\API\JSON\v1\ResponseBuilders\StatsResponseBuilder' shared autowired service.
      *
      * @return \MailPoet\Premium\API\JSON\v1\ResponseBuilders\StatsResponseBuilder
@@ -243,6 +255,16 @@ class PremiumCachedContainer extends Container
     protected function getStatisticsClicksRepositoryService()
     {
         return $this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] = new \MailPoet\Premium\Newsletter\StatisticsClicksRepository(($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Newsletter\Stats\Bounces' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Newsletter\Stats\Bounces
+     */
+    protected function getBounces2Service()
+    {
+        return $this->services['MailPoet\\Premium\\Newsletter\\Stats\\Bounces'] = new \MailPoet\Premium\Newsletter\Stats\Bounces(($this->services['MailPoet\\Listing\\Handler'] ?? $this->getHandlerService()), ($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService()));
     }
 
     /**

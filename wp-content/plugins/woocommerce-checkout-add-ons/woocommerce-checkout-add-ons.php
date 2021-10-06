@@ -6,7 +6,7 @@
  * Description: Easily create paid add-ons for your WooCommerce checkout and display them in the Orders admin, the My Orders section, and even order emails!
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 2.5.5
+ * Version: 2.5.6
  * Text Domain: woocommerce-checkout-add-ons
  * Domain Path: /i18n/languages/
  *
@@ -23,23 +23,10 @@
  *
  * Woo: 466854:8fdca00b4000b7a8cc26371d0e470a8f
  * WC requires at least: 3.5
- * WC tested up to: 5.4.1
+ * WC tested up to: 5.6.0
  */
 
 defined( 'ABSPATH' ) or exit;
-
-// Required functions
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'woo-includes/woo-functions.php' );
-}
-
-// Plugin updates
-woothemes_queue_update( plugin_basename( __FILE__ ), '8fdca00b4000b7a8cc26371d0e470a8f', '466854' );
-
-// WC active check
-if ( ! is_woocommerce_active() ) {
-	return;
-}
 
 /**
  * The plugin loader class.

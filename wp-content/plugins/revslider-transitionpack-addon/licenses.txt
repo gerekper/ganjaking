@@ -1,0 +1,86 @@
+*****************************************
+SLIDER REVOLUTION TRANSITION PACK ADDON
+USED RESOURCES AND ITS LICENSES
+*****************************************
+
+
+THREE.JS AND ITS LIBRARES
+-------------------------------
+@author spidersharma / http://eduperiment.com/
+Inspired from Unreal Engine::
+https://docs.unrealengine.com/latest/INT/Engine/Rendering/PostProcessEffects/Bloom/
+
+*FADE EFFECT (and all Texture from THREE.JS Examples)
+
+
+
+RESOURCES FROM GL TRANSITIONS (https://gl-transitions.com/)
+--------------------------------------------
+All Codechanges done by ThemePunch
+
+*MOSAIC EFFECT 
+// License: MIT
+// Author: Xaychru
+// ported by gre from https://gist.github.com/Xaychru/130bb7b7affedbda9df5 
+
+*DREAMY EFFECT 
+// Author: mikolalysenko
+// License: MIT
+
+*MORPH EFFECT
+// Author: paniq
+// License: MIT
+
+*LINEAR BLUR
+// author: gre
+// license: MIT
+
+*WATER DROP
+// author: Paweł Płóciennik
+// license: MIT
+
+*ZOOMOVER EFFECT
+// License: MIT
+// Author: rectalogic
+// ported by gre from https://gist.github.com/rectalogic/b86b90161503a0023231
+
+// Converted from https://github.com/rectalogic/rendermix-basic-effects/blob/master/assets/com/rendermix/CrossZoom/CrossZoom.frag
+// Which is based on https://github.com/evanw/glfx.js/blob/master/src/filters/blur/zoomblur.js
+// With additional easing functions from https://github.com/rectalogic/rendermix-basic-effects/blob/master/assets/com/rendermix/Easing/Easing.glsllib
+
+*MIRRORCUBE
+// Author: gre
+// License: MIT
+
+
+
+RESOURCES FROM SHADERTOYS  
+------------------------------------------------
+WATER EFFECT by https://www.shadertoy.com/user/anemolo   https://www.shadertoy.com/view/tdj3W3
+BURN OVER Code by https://www.shadertoy.com/user/clay
+
+
+
+GLSL SANDBOX
+----------------------------------------------------
+BURN EFFECTS - Based on http://glslsandbox.com/e#35642.0   
+Ported by https://www.shadertoy.com/user/aiekick to SHADERTOYS:
+https://www.shadertoy.com/view/ltV3RG
+
+
+
+RESOURCES FROM TYPMANUS/CODROPS
+--------------------------------
+Creative WebGL Image Transitions 
+*EFFECTS: FADE, WAVE, OVERSCALE, CUT, OVERROLL, VERTICALMELT, COLORFLOW, STRETCH
+https://tympanus.net/codrops/2019/11/05/creative-webgl-image-transitions/
+https://github.com/akella/webGLImageTransitions/blob/master/README.md
+
+
+GLITCH2 EFFECT  - Original Effect Relay on
+----------------------------------------------
+Author : Ian McEwan, Ashima Arts.
+License : Copyright (C) 2011 Ashima Arts. All rights reserved. Distributed under the MIT License. See LICENSE file. https://github.com/ashima/webgl-noise
+
+
+

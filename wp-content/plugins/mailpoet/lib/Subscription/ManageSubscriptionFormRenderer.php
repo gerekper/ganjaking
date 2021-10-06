@@ -6,13 +6,16 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Renderer as TemplateRenderer;
+use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Form\Block\Date as FormBlockDate;
 use MailPoet\Form\Renderer as FormRenderer;
+use MailPoet\InvalidStateException;
 use MailPoet\Models\CustomField;
 use MailPoet\Models\Segment;
 use MailPoet\Models\Subscriber;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\LinkTokens;
+use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Util\Helpers;
 use MailPoet\Util\Url as UrlHelper;
 use MailPoet\WP\Functions as WPFunctions;
@@ -42,6 +45,9 @@ class ManageSubscriptionFormRenderer {
   /** @var TemplateRenderer */
   private $templateRenderer;
 
+  /** @var SubscribersRepository */
+  private $subscribersRepository;
+
   public function __construct(
     WPFunctions $wp,
     SettingsController $settings,
@@ -49,7 +55,8 @@ class ManageSubscriptionFormRenderer {
     LinkTokens $linkTokens,
     FormRenderer $formRenderer,
     FormBlockDate $dateBlock,
-    TemplateRenderer $templateRenderer
+    TemplateRenderer $templateRenderer,
+    SubscribersRepository $subscribersRepository
   ) {
     $this->wp = $wp;
     $this->settings = $settings;
@@ -58,6 +65,7 @@ class ManageSubscriptionFormRenderer {
     $this->formRenderer = $formRenderer;
     $this->dateBlock = $dateBlock;
     $this->templateRenderer = $templateRenderer;
+    $this->subscribersRepository = $subscribersRepository;
   }
 
   public function renderForm(Subscriber $subscriber, string $formState = self::FORM_STATE_NOT_SUBMITTED): string {
@@ -82,11 +90,24 @@ class ManageSubscriptionFormRenderer {
 
     $form = $this->wp->applyFilters('mailpoet_manage_subscription_page_form_fields', $form);
 
+    // Because subscriber isn't stored in DB Doctrine can't found entity in DB, we need temporary workaround
+    if ($subscriber->email !== Pages::DEMO_EMAIL) {
+      $subscriberEntity = $this->subscribersRepository->findOneById($subscriber->id);
+    } else {
+      $subscriberEntity = new SubscriberEntity();
+      $subscriberEntity->setEmail($subscriber->email);
+      $subscriberEntity->setFirstName($subscriber->firstName);
+      $subscriberEntity->setLastName($subscriber->lastName);
+      $subscriberEntity->setLinkToken($subscriber->linkToken);
+    }
+    if (!$subscriberEntity) {
+      throw new InvalidStateException();
+    }
     $templateData = [
       'actionUrl' => admin_url('admin-post.php'),
       'redirectUrl' => $this->urlHelper->getCurrentUrl(),
       'email' => $subscriber->email,
-      'token' => $this->linkTokens->getToken($subscriber),
+      'token' => $this->linkTokens->getToken($subscriberEntity),
       'editEmailInfo' => __('Need to change your email address? Unsubscribe here, then simply sign up again.', 'mailpoet'),
       'formHtml' => $this->formRenderer->renderBlocks($form, [], $honeypot = false, $captcha = false),
       'formState' => $formState,
@@ -94,7 +115,7 @@ class ManageSubscriptionFormRenderer {
 
     if ($subscriber->isWPUser() || $subscriber->isWooCommerceUser()) {
       $wpCurrentUser = $this->wp->wpGetCurrentUser();
-      if ($wpCurrentUser->user_email === $subscriber->email) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+      if ($wpCurrentUser->user_email === $subscriber->email) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
         $templateData['editEmailInfo'] = Helpers::replaceLinkTags(
           __('[link]Edit your profile[/link] to update your email.', 'mailpoet'),
           $this->wp->getEditProfileUrl(),

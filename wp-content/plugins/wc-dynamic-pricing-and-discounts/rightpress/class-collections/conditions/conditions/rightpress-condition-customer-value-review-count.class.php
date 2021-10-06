@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Customer_Value_Review_Count extends RightPre
     public function get_label()
     {
 
-        return __('Customer review count', 'rightpress');
+        return esc_html__('Customer review count', 'rightpress');
     }
 
     /**

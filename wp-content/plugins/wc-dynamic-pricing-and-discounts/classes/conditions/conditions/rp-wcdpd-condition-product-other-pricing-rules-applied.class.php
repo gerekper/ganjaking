@@ -51,7 +51,7 @@ class RP_WCDPD_Condition_Product_Other_Pricing_Rules_Applied extends RightPress_
     public function get_label()
     {
 
-        return __('Any pricing rule applied', 'rp_wcdpd');
+        return esc_html__('Any pricing rule applied', 'rp_wcdpd');
     }
 
     /**

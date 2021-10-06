@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns Pro
-Version: 5.5.2
+Version: 5.6
 Description: Customize columns on the administration screens for post(types), users and other content. Filter and sort content, and edit posts directly from the posts overview. All via an intuitive, easy-to-use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -20,7 +20,7 @@ if ( ! is_admin() ) {
 }
 
 define( 'ACP_FILE', __FILE__ );
-define( 'ACP_VERSION', '5.5.2' );
+define( 'ACP_VERSION', '5.6' );
 
 /**
  * Deactivate Admin Columns
@@ -78,14 +78,16 @@ add_action( 'after_setup_theme', function () {
 add_action( 'after_setup_theme', function () {
 	// Minimum required version. False is incompatible.
 	$versions = [
-		'ac-addon-acf/ac-addon-acf.php'                         => '2.6',
-		'ac-addon-buddypress/ac-addon-buddypress.php'           => '1.5',
-		'ac-addon-events-calendar/ac-addon-events-calendar.php' => '1.5',
-		'ac-addon-metabox/ac-addon-metabox.php'                 => '1.1',
-		'ac-addon-ninjaforms/ac-addon-ninjaforms.php'           => '1.4',
-		'ac-addon-pods/ac-addon-pods.php'                       => '1.5',
-		'ac-addon-types/ac-addon-types.php'                     => '1.6',
-		'ac-addon-woocommerce/ac-addon-woocommerce.php'         => '3.5',
+		'ac-addon-acf/ac-addon-acf.php'                         => '2.7',
+		'ac-addon-buddypress/ac-addon-buddypress.php'           => '1.6',
+		'ac-addon-events-calendar/ac-addon-events-calendar.php' => '1.6',
+		'ac-addon-gravityforms/ac-addon-gravityforms.php'       => '1.1',
+		'ac-addon-metabox/ac-addon-metabox.php'                 => '1.2',
+		'ac-addon-ninjaforms/ac-addon-ninjaforms.php'           => '1.5',
+		'ac-addon-pods/ac-addon-pods.php'                       => '1.6',
+		'ac-addon-types/ac-addon-types.php'                     => '1.7',
+		'ac-addon-woocommerce/ac-addon-woocommerce.php'         => '3.6',
+		'ac-addon-yoast-seo/ac-addon-yoast-seo'                 => '1.1',
 		'media-library-assistant/index.php'                     => '2.83',
 	];
 

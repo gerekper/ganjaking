@@ -15,15 +15,25 @@ class RevSliderLicense extends RevSliderFunctions {
 	 * @before 6.2.0: RevSliderAdmin::activate_plugin();
 	 **/
 	public function activate_plugin($code){
-		$code = '073e077f-b600-41e4-8b74-767431910d31';
 		$rslb = RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		$data = array('code' => urlencode($code), 'version'	=> urlencode(RS_REVISION), 'product' => urlencode(RS_PLUGIN_SLUG));
+		
 		$response	  = $rslb->call_url('activate.php', $data, 'updates');
 		$version_info = wp_remote_retrieve_body($response);
-		update_option('revslider-valid', 'true');
-		update_option('revslider-code', $code);
-		return true;
 		
+		if(is_wp_error($version_info)) return false;
+		
+		if($version_info == 'valid'){
+			update_option('revslider-valid', 'true');
+			update_option('revslider-code', $code);
+			return true;
+		}elseif($version_info == 'exist'){
+			return 'exist';
+		}elseif($version_info == 'banned'){
+			return 'banned';
+		}
+		
+		return false;
 	}
 	
 	
@@ -34,7 +44,7 @@ class RevSliderLicense extends RevSliderFunctions {
 	 **/
 	public function deactivate_plugin(){
 		$rslb = RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
-		$code = '073e077f-b600-41e4-8b74-767431910d31';
+		$code = get_option('revslider-code', '');
 		$data = array('code' => urlencode($code), 'product' => urlencode(RS_PLUGIN_SLUG));
 		
 		$res = $rslb->call_url('deactivate.php', $data, 'updates');
@@ -43,8 +53,8 @@ class RevSliderLicense extends RevSliderFunctions {
 		if(is_wp_error($vi)) return false;
 
 		if($vi == 'valid'){
-			update_option('revslider-valid', 'true');
-			update_option('revslider-code', '073e077f-b600-41e4-8b74-767431910d31');
+			update_option('revslider-valid', 'false');
+			update_option('revslider-code', '');
 			
 			return true;
 		}

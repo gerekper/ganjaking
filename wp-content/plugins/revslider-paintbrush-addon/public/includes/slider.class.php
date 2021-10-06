@@ -151,6 +151,16 @@ class RsPaintBrushSliderFront extends RevSliderFunctions {
 	}
 
 	public function write_init_script($slider, $id) {
+		if(empty($slider)) return false;
+		
+		$settings = $slider->get_params();
+		if(empty($settings)) return false;
+		
+		$addOns = $this->get_val($settings, 'addOns', false);
+		if(empty($addOns)) return false;
+		
+		$addOn = $this->get_val($addOns, 'revslider-' . $this->pluginTitle . '-addon', false);
+		if(empty($addOn)) return false;
 		
 		// addon enabled
 		$enabled = $this->isEnabled($slider);

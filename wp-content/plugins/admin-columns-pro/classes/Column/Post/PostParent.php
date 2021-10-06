@@ -9,9 +9,6 @@ use ACP\Filtering;
 use ACP\Search;
 use ACP\Sorting;
 
-/**
- * @since 2.0
- */
 class PostParent extends AC\Column\Post\PostParent
 	implements Sorting\Sortable, Editing\Editable, Filtering\Filterable, Export\Exportable, Search\Searchable {
 
@@ -20,7 +17,7 @@ class PostParent extends AC\Column\Post\PostParent
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\PostParent( $this );
+		return new Editing\Service\Post\PostParent( $this->get_post_type() );
 	}
 
 	public function filtering() {

@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
 /*
 Plugin Name: Groovy Menu
-Version: 2.4.12
+Version: 2.5.4
 Description: Groovy menu is a modern adjustable and flexible menu designed for creating mobile-friendly menus with a lot of options.
 Plugin URI: https://groovymenu.grooni.com/
 Author: Grooni
@@ -11,16 +11,23 @@ Domain Path: /languages/
 */
 
 
-define( 'GROOVY_MENU_VERSION', '2.4.12' );
+define( 'GROOVY_MENU_VERSION', '2.5.4' );
 define( 'GROOVY_MENU_DB_VER_OPTION', 'groovy_menu_db_version' );
 define( 'GROOVY_MENU_PREFIX_WIM', 'groovy-menu-wim' );
+define( 'GROOVY_MENU_SITE_URI', site_url() );
 define( 'GROOVY_MENU_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GROOVY_MENU_URL', plugin_dir_url( __FILE__ ) );
 define( 'GROOVY_MENU_BASENAME', plugin_basename( trailingslashit( dirname( dirname( __FILE__ ) ) ) . 'groovy-menu.php' ) );
 
-update_option( 'groovy_menu_db_version__lic', GROOVY_MENU_VERSION );
-update_option( 'groovy_menu_db_version__lic_data', array( 'gm_version' => GROOVY_MENU_VERSION, 'supported_until' => '01.01.2030', 'type' => 'single', 'purchase_key' => 'activated' ) );
-set_transient( 'groovy_menu_db_version__lic_cache', true );
+update_option( GROOVY_MENU_DB_VER_OPTION . '__lic', [		  
+	'product' => 'groovy-menu',
+	'item_id' => '23049456',
+	'type' => 'regular',
+	'supported_until' => '2030-04-24T00:00:00+10:00',
+	'purchase_key' => '11111111-2222-3333-4444-55555555555555',
+	'approve' => true,
+	'gm_version' => '2.5.4'
+] );
 
 
 if ( ! defined( 'AUTH_COOKIE' ) && function_exists( 'is_multisite' ) && is_multisite() ) {
@@ -64,6 +71,8 @@ register_deactivation_hook( __FILE__, 'groovy_menu_deactivation' );
 add_action( 'init', array( 'GroovyMenuUtils', 'add_groovy_menu_preset_post_type' ), 3 );
 add_filter( 'plugin_row_meta', array( 'GroovyMenuUtils', 'gm_plugin_meta_links' ), 10, 2 );
 add_filter( 'plugin_action_links', array( 'GroovyMenuUtils', 'gm_plugin_page_links' ), 10, 2 );
+add_filter( 'wp_update_nav_menu', array( 'GroovyMenuUtils', 'saveNavMenuLocation' ), 10 );
+add_action( 'admin_enqueue_scripts', array( 'GroovyMenuUtils', 'checkNavMenuLocationPage' ), 10 );
 
 add_action( 'init', 'groovy_menu_init_classes', 2 );
 
@@ -121,6 +130,10 @@ if ( method_exists( 'GroovyMenuUtils', 'update_config_text_domain' ) && is_admin
 if ( method_exists( 'GroovyMenuUtils', 'output_uniqid_gm_js' ) ) {
 	add_action( 'gm_enqueue_script_actions', array( 'GroovyMenuUtils', 'output_uniqid_gm_js' ), 999 );
 	add_action( 'gm_after_main_header', array( 'GroovyMenuUtils', 'output_uniqid_gm_js' ), 999 );
+}
+
+if ( method_exists( 'GroovyMenuUtils', 'add_critical_css' ) ) {
+	add_action( 'gm_before_main_header', array( 'GroovyMenuUtils', 'add_critical_css' ), 1 );
 }
 
 if ( method_exists( 'GroovyMenuUtils', 'load_font_internal' ) ) {
@@ -226,7 +239,6 @@ if ( empty( $lic_gm_version ) || GROOVY_MENU_VERSION !== $lic_gm_version ) {
 	GroovyMenuUtils::check_lic();
 }
 $lic_type = GroovyMenuUtils::get_paramlic( 'type' );
-$gm_supported_module['check_update'] = "";
 if ( 'extended' !== $lic_type || ! empty( $gm_supported_module['check_update'] ) ) {
 	if ( class_exists( '\Puc_v4_Factory' ) ) {
 		$update_checker = \Puc_v4_Factory::buildUpdateChecker(
@@ -544,6 +556,12 @@ if ( ! function_exists( 'groovy_menu_scripts_admin' ) ) {
 	 */
 	function groovy_menu_scripts_admin( $hook_suffix ) {
 
+		$screen            = get_current_screen();
+		$menu_block_editor = false;
+		if ( ! empty( $screen->id ) && 'edit-gm_menu_block' === $screen->id ) {
+			$menu_block_editor = true;
+		}
+
 		// For any admin page.
 		wp_enqueue_style( 'groovy-css-admin-menu', GROOVY_MENU_URL . 'assets/style/admin-common.css', [], GROOVY_MENU_VERSION );
 		wp_enqueue_script( 'groovy-js-admin', GROOVY_MENU_URL . 'assets/js/admin.js', [], GROOVY_MENU_VERSION, true );
@@ -562,7 +580,7 @@ if ( ! function_exists( 'groovy_menu_scripts_admin' ) ) {
 		// Only integration.
 		if ( in_array( $hook_suffix, array(
 				'groovy-menu_page_groovy_menu_integration',
-				'toplevel_page_groovy_menu_integration'
+				'toplevel_page_groovy_menu_integration',
 			), true ) && ! isset( $_GET['action'] ) ) { // @codingStandardsIgnoreLine
 			wp_enqueue_script( 'groovy-menu-js-dashboard', GROOVY_MENU_URL . 'assets/js/dashboard.js', array(), GROOVY_MENU_VERSION, true );
 			wp_enqueue_script( 'groovy-menu-js-integration', GROOVY_MENU_URL . 'assets/js/integration.js', array(), GROOVY_MENU_VERSION, true );
@@ -575,7 +593,7 @@ if ( ! function_exists( 'groovy_menu_scripts_admin' ) ) {
 		// Only dashboard.
 		if ( in_array( $hook_suffix, array(
 				'groovy-menu_page_groovy_menu_settings',
-				'toplevel_page_groovy_menu_settings'
+				'toplevel_page_groovy_menu_settings',
 			), true ) && ! isset( $_GET['action'] ) ) { // @codingStandardsIgnoreLine
 			wp_enqueue_script( 'groovy-menu-js-dashboard', GROOVY_MENU_URL . 'assets/js/dashboard.js', array(), GROOVY_MENU_VERSION, true );
 			wp_enqueue_style( 'groovy-menu-style-font-roboto', 'https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap', array(), GROOVY_MENU_VERSION );
@@ -584,7 +602,7 @@ if ( ! function_exists( 'groovy_menu_scripts_admin' ) ) {
 		// Only preset editor page.
 		if ( in_array( $hook_suffix, array(
 				'groovy-menu_page_groovy_menu_settings',
-				'toplevel_page_groovy_menu_settings'
+				'toplevel_page_groovy_menu_settings',
 			), true ) && isset( $_GET['id'] ) && isset( $_GET['action'] ) && 'edit' === $_GET['action'] ) { // @codingStandardsIgnoreLine
 			wp_enqueue_script( 'groovy-menu-js-preset', GROOVY_MENU_URL . 'assets/js/preset.js', [], GROOVY_MENU_VERSION, true );
 			wp_localize_script( 'groovy-menu-js-preset', 'groovyMenuNonce', array( 'style' => esc_attr( wp_create_nonce( 'gm_nonce_preset_save' ) ) ) );
@@ -616,7 +634,7 @@ if ( ! function_exists( 'groovy_menu_scripts_admin' ) ) {
 		);
 
 		// Only Allowed pages.
-		if ( in_array( $hook_suffix, $allow_pages, true ) ) {
+		if ( in_array( $hook_suffix, $allow_pages, true ) || $menu_block_editor ) {
 
 			wp_add_inline_script( 'groovy-js-admin', 'var groovyMenuL10n = ' . wp_json_encode( GroovyMenuUtils::l10n( true ) ) . ';' );
 

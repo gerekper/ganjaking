@@ -63,7 +63,7 @@
 				if ( 200 === xhr.status ) {
 					const res = JSON.parse( xhr.response );
 					if ( 'undefined' !== typeof res.success && res.success ) {
-						location.reload();
+						window.location.search = 'page=smush-cdn';
 					} else if ( 'undefined' !== typeof res.data.message ) {
 						WP_Smush.helpers.showErrorNotice( res.data.message );
 					}

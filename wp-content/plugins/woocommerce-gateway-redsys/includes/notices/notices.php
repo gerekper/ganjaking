@@ -193,13 +193,15 @@ add_action( 'admin_enqueue_scripts', 'redsys_notice_style' );
 function check_redsys_connected() {
 
 	if ( REDSYS_CHECK_WOO_CONNECTION ) {
-		$auth = WC_Helper_Options::get( 'auth' );
-		if ( empty( $auth['access_token'] ) ) {
-			$class    = 'notice notice-error';
-			$link     = admin_url( 'admin.php?page=wc-addons&section=helper' );
-			$message  = '<a href="' . esc_html( $link ) . '">' . __( 'Connect WooCommerce with WooCommerce.com', 'woocommerce-redsys' ) . '</a>';
-			$message2 = __( 'to get WooCommerce Redsys Gateway updates. This connection will allow you to update the plugin automatically and be advised of new updates<br />If you don\'t connect it, you could be with an old plugin version and maybe with some bugs.', 'woocommerce-redsys' );
-			printf( '<div class="%1$s"><p>%2$s %3$s</p></div>', esc_attr( $class ), $message, $message2 );
+		if ( class_exists( WC_Helper_Options ) ) {
+			$auth = WC_Helper_Options::get( 'auth' );
+			if ( empty( $auth['access_token'] ) ) {
+				$class    = 'notice notice-error';
+				$link     = admin_url( 'admin.php?page=wc-addons&section=helper' );
+				$message  = '<a href="' . esc_html( $link ) . '">' . __( 'Connect WooCommerce with WooCommerce.com', 'woocommerce-redsys' ) . '</a>';
+				$message2 = __( 'to get WooCommerce Redsys Gateway updates. This connection will allow you to update the plugin automatically and be advised of new updates<br />If you don\'t connect it, you could be with an old plugin version and maybe with some bugs.', 'woocommerce-redsys' );
+				printf( '<div class="%1$s"><p>%2$s %3$s</p></div>', esc_attr( $class ), $message, $message2 );
+			}
 		}
 	}
 }

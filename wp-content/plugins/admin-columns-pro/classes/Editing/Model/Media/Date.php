@@ -2,18 +2,11 @@
 
 namespace ACP\Editing\Model\Media;
 
-use ACP\Editing\Model;
+use ACP\Editing\Service;
 
-class Date extends Model\Post\Date {
-
-	public function get_edit_value( $id ) {
-		$post = get_post( $id );
-
-		if ( ! $post ) {
-			return null;
-		}
-
-		return $post->post_date;
-	}
+/**
+ * @deprecated 5.6
+ */
+class Date extends Service\Post\Date {
 
 }

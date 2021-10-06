@@ -20,7 +20,7 @@ class Tags extends AC\Column\Post\Tags
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Taxonomy( $this );
+		return new Editing\Service\Post\Taxonomy( $this->get_taxonomy(), true );
 	}
 
 	public function filtering() {

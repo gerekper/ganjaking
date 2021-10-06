@@ -70,6 +70,21 @@ class WooCommerce_Product_Search_Field {
 	}
 
 	/**
+	 * Instance ID.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return string
+	 */
+	private static function get_n() {
+		$n = self::$instances;
+		if ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) {
+			$n .= '-' . md5( rand() );
+		}
+		return $n;
+	}
+
+	/**
 	 * Shortcode handler for [woocommerce_product_search], renders a product search form.
 	 *
 	 * Enqueues required scripts and styles.
@@ -237,7 +252,7 @@ class WooCommerce_Product_Search_Field {
 
 		$product_search = true;
 
-		$n          = self::$instances;
+		$n          = self::get_n();
 		$search_id  = 'product-search-' . $n;
 		$form_id    = 'product-search-form-' . $n;
 		$field_id   = 'product-search-field-' . $n;
@@ -345,12 +360,17 @@ class WooCommerce_Product_Search_Field {
 
 		$post_target_url = add_query_arg( $url_params , admin_url( 'admin-ajax.php' ) );
 
-		$output .= '<script type="text/javascript">';
-		$output .= 'document.getElementById("' . $field_id . '").disabled = true;';
-		$output .= 'document.addEventListener( "DOMContentLoaded", function() {';
-		$output .= 'if ( typeof jQuery !== "undefined" ) {';
-		$output .= 'if ( typeof jQuery().typeWatch !== "undefined" ) {';
-		$output .= sprintf(
+		$inline_script = '';
+
+		$inline_script .= sprintf(
+			'if ( document.getElementById("%s") !== null ) { document.getElementById("%s").disabled = true; }',
+			$field_id,
+			$field_id
+		);
+
+		$safex_inline_script = 'if ( typeof jQuery !== "undefined" ) {';
+		$safex_inline_script .= 'if ( typeof jQuery().typeWatch !== "undefined" ) {';
+		$safex_inline_script .= sprintf(
 			'jQuery("#%s").typeWatch( {
 				callback: function (value) { ixwps.productSearch(\'%s\', \'%s\', \'%s\', \'%s\', value, %s); },
 				wait: %d,
@@ -367,23 +387,28 @@ class WooCommerce_Product_Search_Field {
 			$params['characters']
 		);
 		if ( $params['inhibit_enter'] ) {
-			$output .= sprintf( 'ixwps.inhibitEnter("%s");', $field_id );
+			$safex_inline_script .= sprintf( 'ixwps.inhibitEnter("%s");', $field_id );
 		}
 		if ( $params['navigable'] ) {
-			$output .= sprintf( 'ixwps.navigate("%s","%s");', $field_id, $results_id );
+			$safex_inline_script .= sprintf( 'ixwps.navigate("%s","%s");', $field_id, $results_id );
 		}
 		if ( $params['dynamic_focus'] ) {
-			$output .= sprintf( 'ixwps.dynamicFocus("%s","%s");', $search_id, $results_content_id );
+			$safex_inline_script .= sprintf( 'ixwps.dynamicFocus("%s","%s");', $search_id, $results_content_id );
 		}
-		$output .= '} else {';
-		$output .= 'if ( typeof console !== "undefined" && typeof console.log !== "undefined" ) { ';
-		$output .= 'document.getElementById("' . $field_id . '").disabled = false;';
-		$output .= 'console.log("A conflict is preventing required resources to be loaded."); ';
-		$output .= '}';
-		$output .= '}';
-		$output .= '}';
-		$output .= '} );';
-		$output .= '</script>';
+		$safex_inline_script .= '} else {';
+		$safex_inline_script .= 'if ( typeof console !== "undefined" && typeof console.log !== "undefined" ) { ';
+		$safex_inline_script .= sprintf(
+			'if ( document.getElementById("%s") !== null ) { document.getElementById("%s").disabled = false; }',
+			$field_id,
+			$field_id
+		);
+		$safex_inline_script .= 'console.log("A conflict is preventing required resources to be loaded."); ';
+		$safex_inline_script .= '}';
+		$safex_inline_script .= '}';
+		$safex_inline_script .= '}';
+
+		$inline_script .= woocommerce_product_search_safex( $safex_inline_script );
+		wp_add_inline_script( 'product-search', $inline_script );
 
 		self::$instances++;
 

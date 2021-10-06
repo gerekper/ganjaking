@@ -14,7 +14,7 @@ import domReady from '@wordpress/dom-ready';
 /**
  * SUI dependencies
  */
-import { TutorialsList, TutorialsSlider } from '@wpmudev/react-tutorials';
+import { TutorialsList, TutorialsSlider } from '@wpmudev/shared-tutorials';
 
 function hideTutorials() {
 	const xhr = new XMLHttpRequest();

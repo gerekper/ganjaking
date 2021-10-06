@@ -2,6 +2,8 @@
 
 namespace ACP\Check;
 
+use AC\Admin\Page\Columns;
+use AC\Admin\Page\Settings;
 use AC\Ajax;
 use AC\Capabilities;
 use AC\Message;
@@ -68,13 +70,13 @@ class Renewal
 		$interval = (int) filter_input( INPUT_POST, 'interval', FILTER_SANITIZE_NUMBER_INT );
 
 		if ( ! array_key_exists( $interval, $this->intervals ) ) {
-			wp_die();
+			exit;
 		}
 
 		// 90 days
-		$result = $this->get_dismiss_option( $interval )->save( time() + ( MONTH_IN_SECONDS * 3 ) );
+		$this->get_dismiss_option( $interval )->save( time() + ( MONTH_IN_SECONDS * 3 ) );
 
-		wp_die( $result );
+		exit;
 	}
 
 	/**
@@ -101,23 +103,13 @@ class Renewal
 	}
 
 	/**
-	 * @param Screen $screen
-	 *
-	 * @throws Exception
+	 * @return License|null
 	 */
-	public function display( Screen $screen ) {
-		if ( ! $screen->has_screen() || ! current_user_can( Capabilities::MANAGE ) ) {
-			return;
-		}
-
-		if ( true === apply_filters( 'acp/hide_renewal_notice', false ) ) {
-			return;
-		}
-
+	private function get_license() {
 		$license_key = $this->license_key_repository->find();
 
 		if ( ! $license_key ) {
-			return;
+			return null;
 		}
 
 		$license = $this->license_repository->find( $license_key );
@@ -129,32 +121,74 @@ class Renewal
 		     || $license->is_lifetime()
 		     || ! $license->get_expiry_date()->exists()
 		) {
+			return null;
+		}
+
+		return $license;
+	}
+
+	/**
+	 * @param Screen $screen
+	 *
+	 * @throws Exception
+	 */
+	public function display( Screen $screen ) {
+		if ( ! current_user_can( Capabilities::MANAGE ) ) {
 			return;
 		}
 
-		$days_remaining = $license->get_expiry_date()->get_remaining_days();
-
-		$interval = $days_remaining > 0
-			? $this->get_current_interval( (int) floor( $days_remaining ) )
-			: null;
-
-		$notice = null;
-
-		if ( $screen->is_plugin_screen() && $license->get_expiry_date()->is_expiring_within_seconds( DAY_IN_SECONDS * 21 ) ) {
-			// Inline message on plugin page
-			$notice = new Message\Plugin( $this->get_message( $license ), $this->plugin_basename );
-		} else if ( $screen->is_admin_screen( 'settings' ) && $license->get_expiry_date()->is_expiring_within_seconds( DAY_IN_SECONDS * 21 ) ) {
-			// Permanent displayed on settings page
-			$notice = new Message\Notice( $this->get_message( $license ) );
-		} else if ( ( $screen->is_list_screen() || $screen->is_admin_screen( 'columns' ) ) && $interval && $this->get_dismiss_option( $interval )->is_expired() ) {
-			// Dismissible
-			$notice = new Message\Notice\Dismissible( $this->get_message( $license ), $this->get_ajax_handler_interval( $interval ) );
+		if ( true === apply_filters( 'acp/hide_renewal_notice', false ) ) {
+			return;
 		}
 
-		if ( $notice instanceof Message ) {
-			$notice
-				->set_type( $notice::WARNING )
-				->register();
+		switch ( true ) {
+
+			// Inline message on plugin page
+			case $screen->is_plugin_screen():
+				$license = $this->get_license();
+
+				if ( $license && $license->get_expiry_date()->is_expiring_within_seconds( DAY_IN_SECONDS * 21 ) ) {
+					$notice = new Message\Plugin( $this->get_message( $license ), $this->plugin_basename );
+					$notice
+						->set_type( $notice::WARNING )
+						->register();
+				}
+				break;
+
+			// Permanent displayed on settings page
+			case $screen->is_admin_screen( Settings::NAME ):
+				$license = $this->get_license();
+
+				if ( $license && $license->get_expiry_date()->is_expiring_within_seconds( DAY_IN_SECONDS * 21 ) ) {
+					$notice = new Message\Notice( $this->get_message( $license ) );
+					$notice
+						->set_type( $notice::WARNING )
+						->register();
+				}
+				break;
+
+			// Dismissible
+			case $screen->is_list_screen() || $screen->is_admin_screen( Columns::NAME ) :
+				$license = $this->get_license();
+
+				if ( ! $license ) {
+					break;
+				}
+
+				$days_remaining = $license->get_expiry_date()->get_remaining_days();
+
+				$interval = $days_remaining > 0
+					? $this->get_current_interval( (int) floor( $days_remaining ) )
+					: null;
+
+				if ( $interval && $this->get_dismiss_option( $interval )->is_expired() ) {
+					$notice = new Message\Notice\Dismissible( $this->get_message( $license ), $this->get_ajax_handler_interval( $interval ) );
+					$notice
+						->set_type( $notice::WARNING )
+						->register();
+				}
+
+				break;
 		}
 	}
 
@@ -189,16 +223,11 @@ class Renewal
 
 	/**
 	 * @param DateTime $date
-	 * @param string   $format
 	 *
 	 * @return string
 	 */
-	private function localize_date( DateTime $date, $format = null ) {
-		if ( null === $format ) {
-			$format = get_option( 'date_format' );
-		}
-
-		return ac_format_date( $format, $date->getTimestamp() );
+	private function localize_date( DateTime $date ) {
+		return ac_format_date( get_option( 'date_format' ), $date->getTimestamp() );
 	}
 
 	/**

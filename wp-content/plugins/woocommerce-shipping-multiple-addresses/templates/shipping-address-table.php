@@ -46,11 +46,14 @@
 
 		<?php
 		if ( isset($ms_settings['cart_duplication']) && $ms_settings['cart_duplication'] != 'no' ):
-			$dupe_url = add_query_arg( 'duplicate-form', '1' );
+			$dupe_url = add_query_arg( array(
+				'duplicate-form' => '1',
+				'_wcmsnonce'     => wp_create_nonce( 'wcms-duplicate-cart' ),
+			), get_permalink( wc_get_page_id( 'multiple_addresses' ) ) );
 		?>
 			<div style="float: right;">
-				<a class="h2-link" href="<?php echo $dupe_url; ?>"><?php _e('Duplicate Cart', 'wc_shipping_multiple_address'); ?></a>
-				<img class="help_tip" title="<?php _e('Duplicating your cart will allow you to ship the exact same cart contents to multiple locations. This will also increase the price of your purchase.', 'wc_shipping_multiple_address'); ?>" src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16">
+				<a class="h2-link" href="<?php echo esc_url( $dupe_url ); ?>"><?php _e( 'Duplicate Cart', 'wc_shipping_multiple_address' ); ?></a>
+				<img class="help_tip" title="<?php _e( 'Duplicating your cart will allow you to ship the exact same cart contents to multiple locations. This will also increase the price of your purchase.', 'wc_shipping_multiple_address' ); ?>" src="<?php echo WC()->plugin_url(); ?>/assets/images/help.png" height="16" width="16">
 			</div>
 		<?php
 		endif;

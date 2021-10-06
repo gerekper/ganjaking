@@ -448,7 +448,6 @@ class BCMath extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\Engin
      */
     protected function normalize(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\BCMath $result)
     {
-        unset($result->reduce);
         $result->precision = $this->precision;
         $result->bitmask = $this->bitmask;
         if ($result->bitmask !== \false) {

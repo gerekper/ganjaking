@@ -19,7 +19,7 @@ class Sticky extends AC\Column\Post\Sticky
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Sticky( $this );
+		return new Editing\Service\Post\Sticky();
 	}
 
 	public function filtering() {

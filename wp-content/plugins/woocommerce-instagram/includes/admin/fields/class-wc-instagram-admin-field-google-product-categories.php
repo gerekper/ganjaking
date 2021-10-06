@@ -2,8 +2,9 @@
 /**
  * Field: Google Product Category.
  *
- * @package WC_Instagram/Admin/Fields
- * @since   3.3.0
+ * @package    WC_Instagram/Admin/Fields
+ * @since      3.3.0
+ * @deprecated 3.6.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -13,20 +14,22 @@ if ( class_exists( 'WC_Instagram_Admin_Field_Google_Product_Categories', false )
 }
 
 /**
- * Class WC_Instagram_Admin_Field_Google_Product_Categories
- *
- * @since 3.3.0
+ * Class WC_Instagram_Admin_Field_Google_Product_Categories.
  */
 class WC_Instagram_Admin_Field_Google_Product_Categories {
+
 	/**
 	 * Gets the field representing the Google product categories of the product.
 	 *
-	 * @since 3.3.0
+	 * @since      3.3.0
+	 * @deprecated 3.6.0
 	 *
 	 * @param int $category_id The category ID.
 	 * @return string|false
 	 */
 	public static function render( $category_id ) {
+		wc_deprecated_function( __FUNCTION__, '3.6.0', 'WC_Instagram_Admin_Field_Google_Product_Category::get_selectors()' );
+
 		$categories   = WC_Instagram_Google_Product_Categories::get_parents( $category_id );
 		$categories[] = $category_id;
 
@@ -46,7 +49,7 @@ class WC_Instagram_Admin_Field_Google_Product_Categories {
 						$args,
 						array(
 							'label'       => _x( 'Product category', 'product data setting title', 'woocommerce-instagram' ),
-							'description' => _x( 'A product category value provided by Google feed', 'product data setting desc', 'woocommerce-instagram' ),
+							'description' => _x( 'A product category value provided by Google feed.', 'product data setting desc', 'woocommerce-instagram' ),
 							'desc_tip'    => true,
 						)
 					);

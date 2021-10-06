@@ -142,14 +142,7 @@ $_10_set = $is_10_set == 'ct-ultimate-gdpr-cookie-popup-10-set' ? true : false;
     <?php echo ct_gdpr_set_class_attr( $attr_array ); ?>
 ">
 
-    <?php
-    if( isset( $options['cookie_gear_close_box'] ) && $options['cookie_gear_close_box'] == 'on'  && empty($options['cookie_close_text_modal'])){
-        ?>
-        <a href = "javascript:void(0);" id = "ct-ultimate-cookie-close-modal"><i class="fa fa-times"></i></a>
-        <?php
-    }else if (isset( $options['cookie_gear_close_box'] ) && $options['cookie_gear_close_box'] == 'on'  && !empty($options['cookie_close_text_modal'])){ ?>
-        <a href = "javascript:void(0);" id = "ct-ultimate-cookie-close-modal"><?php echo $options['cookie_close_text_modal']; ?></a>
-    <?php } ?>
+    
 
     <?php echo $popup_panel_open_tag; ?>
         <div id="ct-ultimate-gdpr-cookie-content" <?php echo $content_style; ?>>
@@ -162,13 +155,24 @@ $_10_set = $is_10_set == 'ct-ultimate-gdpr-cookie-popup-10-set' ? true : false;
         <?php echo $btn_wrapper; ?>
             <div
                 id="ct-ultimate-gdpr-cookie-accept"
+                class="cookie-buttons"
                 style="border-color: <?php echo esc_attr( $accept_border_color );
                         ?>; background-color: <?php echo esc_attr( $accept_bg_color );
                         ?>; color: <?php echo esc_attr( $accept_color );
             ?>;">
                 <?php echo $accept_btn_content; ?>
+                
             </div>
-
+            <div id="ct_ultimate-gdpr-cookie-reject" class="cookie-buttons">
+            <?php
+                if( isset( $options['cookie_gear_close_box'] ) && $options['cookie_gear_close_box'] == 'on'  && empty($options['cookie_close_text_modal'])){
+                        ?>
+                       <a href = "javascript:void(0);" id = "ct-ultimate-cookie-close-modal"><i class="fa fa-times"></i></a>
+                        <?php
+                    }else if (isset( $options['cookie_gear_close_box'] ) && $options['cookie_gear_close_box'] == 'on'  && !empty($options['cookie_close_text_modal'])){ ?>
+                        <a href = "javascript:void(0);" id = "ct-ultimate-cookie-close-modal"><?php echo $options['cookie_close_text_modal']; ?> <i class="fa fa-times"></i></a>
+            <?php } ?>
+            </div>
             <?php
             if (
                 ! $_10_set
@@ -180,6 +184,7 @@ $_10_set = $is_10_set == 'ct-ultimate-gdpr-cookie-popup-10-set' ? true : false;
             ?>
             <div
                 id="ct-ultimate-gdpr-cookie-read-more"
+                class="cookie-buttons"
                 style="border-color: <?php echo esc_attr( $options['cookie_button_border_color'] );
                         ?>; background-color: <?php echo esc_attr( $options['cookie_button_bg_color'] );
                         ?>; color: <?php echo esc_attr( $options['cookie_button_text_color'] );

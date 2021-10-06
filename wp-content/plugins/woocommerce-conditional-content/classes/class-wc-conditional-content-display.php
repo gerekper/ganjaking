@@ -37,7 +37,7 @@ class WC_Conditional_Content_Display {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'load_locations' ), 0 );
-		add_action( 'template_redirect', array( $this, 'bind_display' ), 0 );
+		add_action( 'template_redirect', array( $this, 'bind_display' ), -1 );
 	}
 
 	public function load_locations() {

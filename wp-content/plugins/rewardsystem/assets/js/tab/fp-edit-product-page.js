@@ -2,6 +2,7 @@
  * Edit Product Page
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var EditProductPageScript = {
         init : function () {
             jQuery( '#_rewardsystem__points_based_on_conversion' ).attr( 'readonly' , 'true' ) ;

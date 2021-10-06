@@ -16,7 +16,7 @@ class GP_Populate_Anything_Live_Merge_Tags {
 	public $live_merge_tag_regex_option_choice      = '/(<option.*>)(.*?@({.*?:?.+?}).*?)<\/option>/';
 	public $live_merge_tag_regex_textarea           = '/(<textarea.*>)([\S\s]*?@({.*?:?.+?})[\S\s]*?)<\/textarea>/';
 	public $live_merge_tag_regex                    = '/@({((.*?):?(.+?))})/';
-	public $merge_tag_regex                         = '/{((.*?):?([0-9]+?)?(:(.+?))?)}/';
+	public $merge_tag_regex                         = '/{((.*?):?([0-9]+?\.?[0-9]*?)?(:(.+?))?)}/';
 	public $live_merge_tag_regex_attr               = '/([a-zA-Z-]+)=([\'"]([^\'"]*@{.*?:?.+?}[^\'"]*)(?<!\\\)[\'"])/';
 	public $value_attr                              = '/value=\'/';
 	public $script_regex                            = '/<script[\s\S]*?<\/script>/';
@@ -30,7 +30,10 @@ class GP_Populate_Anything_Live_Merge_Tags {
 	}
 
 	public function __construct() {
+		add_filter( 'gform_admin_pre_render', array( $this, 'populate_lmt_whitelist' ), 5 );
 		add_filter( 'gform_pre_render', array( $this, 'populate_lmt_whitelist' ), 5 );
+		add_filter( 'gform_before_resend_notifications', array( $this, 'populate_lmt_whitelist' ), 5 );
+		add_filter( 'gform_pre_submission_filter', array( $this, 'populate_lmt_whitelist' ), 5 );
 
 		add_filter( 'gform_field_choice_markup_pre_render', array( $this, 'replace_live_merge_tag_select_field_option' ), 10, 4 );
 
@@ -65,6 +68,8 @@ class GP_Populate_Anything_Live_Merge_Tags {
 
 		add_filter( 'gform_replace_merge_tags', array( $this, 'replace_live_merge_tags_static' ), 10, 7 );
 		add_filter( 'gform_admin_pre_render', array( $this, 'replace_field_label_live_merge_tags_static' ) );
+
+		add_filter( 'gform_order_summary', array( $this, 'replace_live_merge_tags_static' ), 10, 3 );
 
 		/**
 		 * Prevent replacement of Live Merge Tags in Preview Submission.
@@ -415,6 +420,12 @@ class GP_Populate_Anything_Live_Merge_Tags {
 			$this->add_current_lmt_value( $field->formId, $field->defaultValue, $merge_tag_value );
 		}
 
+		// No need to add data attributes for select fields as this
+		// will modify the enclosed <option> elements causing hydration to fail. See HS#24437
+		if ( $field->get_input_type() === 'select' ) {
+			return $content;
+		}
+
 		$data_attr = 'data-gppa-live-merge-tag-value="' . esc_attr( $this->escape_live_merge_tags( $field->defaultValue ) ) . '"';
 
 		return str_replace( ' value=\'', ' ' . $data_attr . ' value=\'', $content );
@@ -728,9 +739,12 @@ class GP_Populate_Anything_Live_Merge_Tags {
 	 * @return bool
 	 */
 	public function is_value_submission_empty( $entry_value, $field, $form ) {
-		$is_empty = $field->is_value_submission_empty( $form['id'] );
+		$dummy_field = clone $field;
 
-		if ( $is_empty ) {
+		$is_empty = $dummy_field->is_value_submission_empty( $form['id'] );
+
+		// Only do this check if AJAX as GF_Field::is_value_submission_empty() relies on POSTed values.
+		if ( wp_doing_ajax() && $is_empty ) {
 			return true;
 		}
 
@@ -741,10 +755,13 @@ class GP_Populate_Anything_Live_Merge_Tags {
 		 * Fortunately, GF_Field->validate() has been changed and it's more suitable for this use-case.
 		 */
 		if ( version_compare( GFForms::$version, '2.5-beta-1', '>=' ) ) {
-			$field->isRequired = true;
-			$field->validate( $entry_value, $form );
+			$dummy_field->isRequired = true;
 
-			if ( ! empty( $field->validation_message ) ) {
+			// Suppress any PHP notices as there may be undefined indexes.
+			// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+			@$dummy_field->validate( $entry_value, $form );
+
+			if ( ! empty( $dummy_field->validation_message ) ) {
 				return true;
 			}
 		}
@@ -756,11 +773,8 @@ class GP_Populate_Anything_Live_Merge_Tags {
 
 		$lmt_nonces = null;
 
-		/**
-		 * JSON is used here due to issues with modifiers causing merge tags to be truncated in $_REQUEST and $_POST
-		 */
 		if ( rgar( $_REQUEST, 'lmt-nonces' ) ) {
-			$lmt_nonces = GFCommon::json_decode( stripslashes( rgar( $_REQUEST, 'lmt-nonces' ) ), true );
+			$lmt_nonces = rgar( $_REQUEST, 'lmt-nonces' );
 		}
 
 		if ( ! $entry_values ) {
@@ -856,8 +870,10 @@ class GP_Populate_Anything_Live_Merge_Tags {
 			 * Otherwise, we need to use the merge tag result when the format is text to avoid an issue where
 			 * HTML entities get escaped and break coupling/decoupling when users enter characters such as & in
 			 * fields that are depended upon.
+			 *
+			 * <br /> is an allowed tag to improve support for linebreaks in textareas.
 			 */
-			if ( strip_tags( $merge_tag_match_value_html ) !== $merge_tag_match_value_html ) {
+			if ( strip_tags( $merge_tag_match_value_html, '<br>' ) !== $merge_tag_match_value_html ) {
 				$merge_tag_match_value = $merge_tag_match_value_html;
 			} else {
 				$merge_tag_match_value = GFCommon::replace_variables( $merge_tag, $form, $entry_values, false, false, false, 'text' );
@@ -865,13 +881,20 @@ class GP_Populate_Anything_Live_Merge_Tags {
 
 			$merge_tag_modifiers = $this->extract_merge_tag_modifiers( $merge_tag );
 
+			// Do not merge the value of conditionally hidden fields
+			if ( isset( $merge_tag_match[3] ) && is_numeric( $merge_tag_match[3] ) ) {
+				$field = GFFormsModel::get_field( $form, $merge_tag_match[3] );
+				if ( GFFormsModel::is_field_hidden( $form, $field, array(), $entry_values ) ) {
+					$merge_tag_match_value = '';
+				}
+			}
+
 			if ( ( $fallback = rgar( $merge_tag_modifiers, 'fallback' ) ) && ! $merge_tag_match_value ) {
 				$merge_tag_match_value = $fallback;
 			}
 
-			// Return field ID for field-specific merge tags; otherwise, return generic merge tag (e.g. "all_fields").
-			// For input-specific merge tags (e.g. {:1.6}) desired match is at index 5. For field-specific merge tags (e.g. {:1}), it's 3.
-			$field_id = rgar( $merge_tag_match, 5, rgar( $merge_tag_match, 3, $merge_tag_match[1] ) );
+			// Return input ID for field-specific merge tags; otherwise, return generic merge tag (e.g. "all_fields").
+			$field_id = rgar( $merge_tag_match, 3, $merge_tag_match[1] );
 			/**
 			 * Filter the live merge tag value.
 			 *

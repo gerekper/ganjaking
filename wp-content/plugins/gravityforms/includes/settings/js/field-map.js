@@ -363,6 +363,12 @@ var FieldMap = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, FieldMap);
 
     _this = _super.apply(this, arguments);
+    /**
+     * State is managed via the value attribute on a hidden input that
+     * is output via the markup() method in class-generic-map.php. This value
+     * is set on initial load via that method in the php.
+     */
+
     _this.state = {
       mapping: JSON.parse(document.querySelector("[name=\"".concat(_this.props.input, "\"]")).value)
     };
@@ -1052,46 +1058,17 @@ var Mapping = /*#__PURE__*/function (_Component) {
           choice = _this$props7.choice,
           valueField = _this$props7.valueField;
       var allow_custom = valueField.allow_custom;
-      var choices = choice.choices || valueField.choices;
+      var choiceName = choice.name && valueField.choices[choice.name] ? choice.name : 'default'; // if no name is present, use default values.
+
+      var choices = choice.choices || valueField.choices[choiceName]; // Safety check to ensure choices are an array.
+
+      if (!choices) {
+        choices = [];
+      }
+
       var values = choices.map(function (c) {
         return c.value;
-      }); // Limit choices to required types.
-
-      var requiredTypes = choice.required_types;
-
-      if (requiredTypes && requiredTypes.length) {
-        for (var i = 0; i < choices.length; ++i) {
-          if ('Form Fields' == choices[i].label) {
-            var theseChoices = choices[i].choices;
-
-            for (var j = 0; j < theseChoices.length; ++j) {
-              theseChoices = theseChoices.filter(function (field) {
-                return requiredTypes.indexOf(field.type) !== -1;
-              });
-              choices = theseChoices;
-            }
-          }
-        }
-      } // Remove excluded types.
-
-
-      var excludedTypes = choice.excluded_types;
-
-      if (excludedTypes && excludedTypes.length) {
-        for (var _i = 0; _i < choices.length; ++_i) {
-          if ('Form Fields' == choices[_i].label) {
-            var _theseChoices = choices[_i].choices;
-
-            for (var _j = 0; _j < _theseChoices.length; ++_j) {
-              _theseChoices = _theseChoices.filter(function (field) {
-                return excludedTypes.indexOf(field.type) === -1;
-              });
-              choices = _theseChoices;
-            }
-          }
-        }
-      } // Add custom key if enabled and is not already present.
-
+      }); // Add custom key if enabled and is not already present.
 
       if (allow_custom && !values.includes('gf_custom')) {
         choices.push({

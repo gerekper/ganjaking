@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Quick View
  * Plugin URI: https://woocommerce.com/products/woocommerce-quick-view/
  * Description: Let customers quick view products and add them to their cart from a lightbox. Supports variations.
- * Version: 1.4.0
+ * Version: 1.5.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Text Domain: wc_quick_view
- * WC tested up to: 5.0
+ * WC tested up to: 5.5
  * WC requires at least: 2.6
- * Tested up to: 5.6
+ * Tested up to: 5.8
  *
  * Copyright: © 2021 WooCommerce
  * License: GNU General Public License v3.0
@@ -32,7 +32,7 @@ function woocommerce_quick_view_missing_wc_notice() {
  * WC_Quick_View class
  */
 if ( ! class_exists( 'WC_Quick_View' ) ) :
-	define( 'WC_QUICK_VIEW_VERSION', '1.4.0' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_QUICK_VIEW_VERSION', '1.5.0' ); // WRCS: DEFINED_VERSION.
 
 	class WC_Quick_View {
 		private $quick_view_trigger;

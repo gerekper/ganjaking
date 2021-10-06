@@ -17,13 +17,15 @@
  * needs please refer to https://docs.woocommerce.com/document/woocommerce-product-reviews-pro/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2015-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2021, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use Automattic\WooCommerce\Admin\Features\Navigation\Menu as Enhanced_Navigation_Menu;
+use Automattic\WooCommerce\Admin\Features\Navigation\Screen as Enhanced_Navigation_Screen;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
  * Reviews class
@@ -49,7 +51,8 @@ class WC_Reviews {
 	public function __construct() {
 
 		// Add admin menu items
-		add_action( 'admin_menu', array( $this, 'add_menu_items' ) );
+		add_action( 'admin_menu', [ $this, 'add_menu_items' ] );
+		add_action( 'admin_menu', [ $this, 'add_enhanced_navigation_items' ] );
 
 		// Highlight correct parent when editing a review
 		add_filter( 'parent_file', array( $this, 'edit_review_parent_file' ) );
@@ -76,6 +79,49 @@ class WC_Reviews {
 
 
 	/**
+	 * Adds support to WooCommerce Navigation.
+	 *
+	 * @internal
+	 *
+	 * @since 1.17.2
+	 */
+	public function add_enhanced_navigation_items() {
+
+		if ( ! Framework\SV_WC_Helper::is_wc_navigation_enabled() ) {
+			return;
+		}
+
+		Enhanced_Navigation_Menu::add_plugin_category( [
+			'id'     => 'woocommerce-product-reviews-pro',
+			'title'  => __( 'Product Reviews Pro', 'woocommerce-product-reviews-pro' ),
+			'parent' => 'woocommerce',
+		] );
+
+		$menu_item_args = $this->get_menu_item_args();
+
+		Enhanced_Navigation_Menu::add_plugin_item( [
+			'id'         => 'wc-product-reviews-pro-reviews',
+			// WooCommerce doesn't apply `awaiting-mod` class as well as removed the counter for orders
+			'title'      => __( 'Reviews', 'woocommerce-product-reviews-pro' ),
+			'capability' => $menu_item_args['capability'],
+			'url'        => $menu_item_args['menu_slug'],
+			'parent'     => 'woocommerce-product-reviews-pro',
+			'order'      => 1,
+		] );
+
+		$review_qualifier_args = Enhanced_Navigation_Menu::get_taxonomy_items( 'product_review_qualifier', [
+			'title'  => _x( 'Review Qualifiers', 'taxonomy general name', 'woocommerce-product-reviews-pro' ),
+			'parent' => 'woocommerce-product-reviews-pro',
+			'order'  => 2,
+		] );
+
+		if ( isset( $review_qualifier_args['all'] ) ) {
+			Enhanced_Navigation_Menu::add_plugin_item( $review_qualifier_args['all'] );
+		}
+	}
+
+
+	/**
 	 * Adds admin menu items.
 	 *
 	 * @internal
@@ -83,6 +129,29 @@ class WC_Reviews {
 	 * @since 1.0.0
 	 */
 	public function add_menu_items() {
+
+		$args = $this->get_menu_item_args();
+
+		// add reviews list table
+		$page = call_user_func_array( 'add_submenu_page', array_values( $args ) );
+
+		// WordPress generates the page hook name automatically and there is no way to manually set or filter it,
+		// so to be sure we use the correct hook name, we store a reference to it.
+		$this->reviews_page_hook = $page;
+
+		// hook screen options to edit reviews page load
+		add_action( "load-{$page}", array( $this, 'load_reviews_screen' ) );
+	}
+
+
+	/**
+	 * Gets menu item argument after possible modification.
+	 *
+	 * @since 1.17.2
+	 *
+	 * @return array
+	 */
+	private function get_menu_item_args(): array {
 
 		$menu_item_title = $page_title = __( 'Reviews', 'woocommerce-product-reviews-pro' );
 
@@ -106,24 +175,14 @@ class WC_Reviews {
 		 *
 		 * @param array $args `add_submenu_page()` arguments
 		 */
-		$args = (array) apply_filters( 'wc_product_reviews_pro_reviews_submenu_page_args', array(
+		return (array) apply_filters( 'wc_product_reviews_pro_reviews_submenu_page_args', [
 			'parent_slug' => 'woocommerce',
 			'page_title'  => $page_title,
 			'menu_title'  => $menu_item_title,
 			'capability'  => 'edit_posts',
 			'menu_slug'   => 'reviews',
-			'callback'    => array( $this, 'render_reviews_list_table' )
-		) );
-
-		// add reviews list table
-		$page = call_user_func_array( 'add_submenu_page', array_values( $args ) );
-
-		// WordPress generates the page hook name automatically and there is no way to manually set or filter it,
-		// so to be sure we use the correct hook name, we store a reference to it.
-		$this->reviews_page_hook = $page;
-
-		// hook screen options to edit reviews page load
-		add_action( "load-{$page}", array( $this, 'load_reviews_screen' ) );
+			'callback'    => [ $this, 'render_reviews_list_table' ],
+		] );
 	}
 
 

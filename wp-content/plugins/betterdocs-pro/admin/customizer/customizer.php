@@ -404,7 +404,7 @@ function betterdocs_customize_register_pro( $wp_customize ) {
                 $wp_customize,
                 'betterdocs_mkb_title_tag',
                 array(
-                    'label'      => __( 'Category Title Tag', 'betterdocs' ),
+                    'label'      => __( 'Category Title Tag', 'betterdocs-pro' ),
                     'section'    => 'betterdocs_mkb_settings',
                     'settings'   => 'betterdocs_mkb_title_tag',
                     'type'    => 'select',

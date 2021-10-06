@@ -34,7 +34,7 @@ class WC_Google_Analytics_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.10.0';
+	const VERSION = '1.11.0';
 
 	/** @var \WC_Google_Analytics_Pro the singleton instance of the plugin */
 	protected static $instance;
@@ -80,7 +80,7 @@ class WC_Google_Analytics_Pro extends Framework\SV_WC_Plugin {
 		}
 
 		// add the plugin to available WooCommerce integrations
-		add_filter( 'woocommerce_integrations', array( $this, 'load_integration' ) );
+		add_filter( 'woocommerce_integrations', [ $this, 'load_integration' ], PHP_INT_MAX );
 	}
 
 
@@ -91,7 +91,7 @@ class WC_Google_Analytics_Pro extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/class-wc-google-analytics-pro-lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-google-analytics-pro-lifecycle.php' );
 
 		$this->lifecycle_handler = new \SkyVerge\WooCommerce\Google_Analytics_Pro\Lifecycle( $this );
 	}
@@ -133,12 +133,12 @@ class WC_Google_Analytics_Pro extends Framework\SV_WC_Plugin {
 
 		// load subscriptions integration
 		if ( $this->is_plugin_active( 'woocommerce-subscriptions.php' ) ) {
-			$this->subscriptions_integration = $this->load_class( '/includes/class-wc-google-analytics-pro-subscriptions-integration.php', 'WC_Google_Analytics_Pro_Subscriptions_Integration' );
+			$this->subscriptions_integration = $this->load_class( '/src/class-wc-google-analytics-pro-subscriptions-integration.php', 'WC_Google_Analytics_Pro_Subscriptions_Integration' );
 		}
 
 		// AJAX includes
 		if ( is_ajax() ) {
-			$this->load_class( '/includes/class-wc-google-analytics-pro-ajax.php', 'WC_Google_Analytics_Pro_AJAX' );
+			$this->load_class( '/src/class-wc-google-analytics-pro-ajax.php', 'WC_Google_Analytics_Pro_AJAX' );
 		}
 	}
 
@@ -156,12 +156,12 @@ class WC_Google_Analytics_Pro extends Framework\SV_WC_Plugin {
 	public function load_integration( $integrations = array() ) {
 
 		if ( ! class_exists( self::INTEGRATION_CLASS ) ) {
-			require_once( $this->get_plugin_path() . '/includes/class-sv-wc-tracking-integration.php' );
-			require_once( $this->get_plugin_path() . '/includes/class-wc-google-analytics-pro-integration.php' );
+			require_once( $this->get_plugin_path() . '/src/class-sv-wc-tracking-integration.php' );
+			require_once( $this->get_plugin_path() . '/src/class-wc-google-analytics-pro-integration.php' );
 		}
 
 		if ( ! in_array( self::INTEGRATION_CLASS, $integrations, true ) ) {
-			$integrations[ self::PLUGIN_ID ] = self::INTEGRATION_CLASS;
+			$integrations = array_merge( [ self::PLUGIN_ID => self::INTEGRATION_CLASS ], $integrations );
 		}
 
 		return $integrations;
@@ -367,7 +367,7 @@ class WC_Google_Analytics_Pro extends Framework\SV_WC_Plugin {
 
 		$settings = get_option( 'woocommerce_google_analytics_pro_settings', array() );
 
-		if ( ! isset( $settings['debug_mode'] ) || 'off' === $settings['debug_mode'] ) {
+		if ( ! isset( $settings['debug_mode'] ) || 'no' === $settings['debug_mode'] ) {
 			return;
 		}
 
@@ -418,8 +418,10 @@ class WC_Google_Analytics_Pro extends Framework\SV_WC_Plugin {
 		// show any dependency notices
 		parent::add_admin_notices();
 
+		$integration = $this->get_integration();
+		
 		// onboarding notice
-		if ( ! $this->get_integration()->get_access_token() && 'yes' !== $this->get_integration()->get_option( 'use_manual_tracking_id' ) ) {
+		if ( ! $integration->is_connected() ) {
 
 			if ( $this->is_plugin_settings() ) {
 
@@ -551,7 +553,7 @@ class WC_Google_Analytics_Pro extends Framework\SV_WC_Plugin {
 
 			if (    $integration
 			     && $integration->get_access_token()
-			     && 'yes' !== $integration->get_option( 'use_manual_tracking_id', 'no' ) ) {
+			     && '' !== $integration->get_tracking_id() ) {
 
 				$analytics   = $integration->get_management_api();
 				$account_id  = $integration->get_ga_account_id();

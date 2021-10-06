@@ -63,8 +63,14 @@ class Common {
 		// WP Maintenance Plugin integration.
 		add_action( 'template_redirect', array( $this, 'wp_maintenance_mode' ) );
 
+		// WooCommerce's product gallery thumbnail CDN support.
+		add_filter( 'woocommerce_single_product_image_thumbnail_html', array( $this, 'woocommerce_cdn_gallery_thumbnails' ) );
+
 		// Buddyboss theme and its platform plugin integration.
 		add_filter( 'wp_smush_cdn_before_process_src', array( $this, 'buddyboss_platform_modify_image_src' ), 10, 2 );
+
+		// GiveWP donation form load lazyload images in iframe.
+		add_action( 'give_donation_form_top', array( $this, 'givewp_skip_image_lazy_load' ), 0 );
 	}
 
 	/**
@@ -435,7 +441,6 @@ class Common {
 		return $skip;
 	}
 
-
 	/**************************************
 	 *
 	 * WP Maintenance Plugin
@@ -458,6 +463,58 @@ class Common {
 		if ( ! is_user_logged_in() && ! empty( $mt_options['state'] ) ) {
 			add_filter( 'wp_smush_should_skip_parse', '__return_true' );
 		}
+	}
+
+	/**************************************
+	 *
+	 * WooCommerce
+	 *
+	 * @since 3.9.0
+	 */
+
+	/**
+	 * Replaces the product's gallery thumbnail URL with the CDN URL.
+	 *
+	 * WC uses a <div data-thumbnail=""> attribute to get the thumbnail
+	 * img src which is then added via JS. Our regex for parsing the page
+	 * doesn't check for this div and attribute (and it shouldn't, it becomes too slow).
+	 *
+	 * We can remove this if we ever use the filter "wp_get_attachment_image_src"
+	 * to replace the images' src URL with the CDN one.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param string $html The thumbnail markup.
+	 * @return string
+	 */
+	public function woocommerce_cdn_gallery_thumbnails( $html ) {
+		$cdn = WP_Smush::get_instance()->core()->mod->cdn;
+
+		// Replace only when the CDN is active.
+		if ( ! $cdn->get_status() ) {
+			return $html;
+		}
+
+		preg_match_all( '/<(div)\b(?>\s+(?:data-thumb=[\'"](?P<thumb>[^\'"]*)[\'"])|[^\s>]+|\s+)*>/is', $html, $matches );
+
+		if ( ! $matches || ! is_array( $matches ) ) {
+			return $html;
+		}
+
+		foreach ( $matches as $key => $url ) {
+			// Only use the match for the thumbnail URL if it's supported.
+			if ( 'thumb' !== $key || ! $cdn->is_supported_path( $url[0] ) ) {
+				continue;
+			}
+
+			// Replace the data-thumb attribute of the div with the CDN link.
+			$cdn_url = $cdn->generate_cdn_url( $url[0] );
+			if ( $cdn_url ) {
+				$html = str_replace( $url[0], $cdn_url, $html );
+			}
+		}
+
+		return $html;
 	}
 
 	/**************************************
@@ -539,4 +596,12 @@ class Common {
 		return $src;
 	}
 
+	/**
+	 * Skip images from lazy loading on GiveWP forms.
+	 *
+	 * @since 3.8.8
+	 */
+	public function givewp_skip_image_lazy_load() {
+		add_filter( 'wp_smush_should_skip_parse', '__return_true' );
+	}
 }

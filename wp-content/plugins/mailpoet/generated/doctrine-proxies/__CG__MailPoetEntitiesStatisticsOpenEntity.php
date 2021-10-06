@@ -69,10 +69,10 @@ class StatisticsOpenEntity extends \MailPoet\Entities\StatisticsOpenEntity imple
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'createdAt'];
+            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'userAgent', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'userAgentType', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'createdAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'createdAt'];
+        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'userAgent', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'userAgentType', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsOpenEntity' . "\0" . 'createdAt'];
     }
 
     /**
@@ -232,6 +232,50 @@ class StatisticsOpenEntity extends \MailPoet\Entities\StatisticsOpenEntity imple
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSubscriber', [$subscriber]);
 
         return parent::setSubscriber($subscriber);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUserAgent(): ?\MailPoet\Entities\UserAgentEntity
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUserAgent', []);
+
+        return parent::getUserAgent();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUserAgent(?\MailPoet\Entities\UserAgentEntity $userAgent): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUserAgent', [$userAgent]);
+
+        parent::setUserAgent($userAgent);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUserAgentType(): int
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUserAgentType', []);
+
+        return parent::getUserAgentType();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUserAgentType(int $userAgentType): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUserAgentType', [$userAgentType]);
+
+        parent::setUserAgentType($userAgentType);
     }
 
     /**

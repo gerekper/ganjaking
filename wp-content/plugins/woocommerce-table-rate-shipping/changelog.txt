@@ -1,5 +1,15 @@
 *** Table Rate Shipping Changelog ***
 
+2021-09-29 - version 3.0.34
+* Fix 	- Incorrect shipping fee calculation with measurement price calculator product.
+* Fix 	- "Abort Reason" warnings persist after shipping information is updated.
+
+2021-08-31 - version 3.0.33
+* Fix 	- "No class" shipping class being ignored where multiple shipping classes are declared.
+
+2021-08-19 - version 3.0.32
+* Fix 	- Fatal error on PHP 8.0 when using "%" for non formatting text.
+
 2021-07-21 - version 3.0.31
 * Fix 	- Rates does not display when table rate has multiple classes being set.
 * Fix 	- Remove "including tax" in tooltips.

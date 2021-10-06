@@ -124,9 +124,6 @@ class Admin {
 		// Main JS.
 		wp_register_script( 'smush-admin', WP_SMUSH_URL . 'app/assets/js/smush-admin.min.js', array( 'jquery', 'smush-sui', 'underscore', 'wp-color-picker' ), WP_SMUSH_VERSION, true );
 
-		// Configs react script. TODO: load for that tab only.
-		wp_register_script( 'smush-react-configs', WP_SMUSH_URL . 'app/assets/js/smush-react-configs.min.js', array( 'wp-i18n', 'smush-sui' ), WP_SMUSH_VERSION, true );
-
 		if ( ! WP_Smush::is_pro() ) {
 			// Used on dashboard video widget.
 			wp_register_script( 'smush-wistia', '//fast.wistia.com/assets/external/E-v1.js', array(), WP_SMUSH_VERSION, true );
@@ -175,9 +172,6 @@ class Admin {
 			// Smush admin (smush-admin) includes the Shared UI.
 			wp_enqueue_style( 'smush-admin' );
 			wp_enqueue_script( 'smush-wpmudev-sui' );
-
-			// React scripts.
-			wp_enqueue_script( 'smush-react-configs' );
 
 			if ( ! WP_Smush::is_pro() ) {
 				// Used on dashboard video widget.
@@ -346,7 +340,7 @@ class Admin {
 		$content .=
 			'<p>' . __( 'Smush sends images to the WPMU DEV servers to optimize them for web use. This includes the transfer of EXIF data. The EXIF data will either be stripped or returned as it is. It is not stored on the WPMU DEV servers.', 'wp-smushit' ) . '</p>';
 		$content .=
-			'<p>' . sprintf(
+			'<p>' . sprintf( /* translators: %1$s - opening <a>, %2$s - closing </a> */
 				__( "Smush uses the Stackpath Content Delivery Network (CDN). Stackpath may store web log information of site visitors, including IPs, UA, referrer, Location and ISP info of site visitors for 7 days. Files and images served by the CDN may be stored and served from countries other than your own. Stackpath's privacy policy can be found %1\$shere%2\$s.", 'wp-smushit' ),
 				'<a href="https://www.stackpath.com/legal/privacy-statement/" target="_blank">',
 				'</a>'
@@ -368,6 +362,8 @@ class Admin {
 	 * Prints the Membership Validation issue notice
 	 */
 	public function media_library_membership_notice() {
+		return;
+
 		// No need to print it for free version.
 		if ( ! WP_Smush::is_pro() ) {
 			return;

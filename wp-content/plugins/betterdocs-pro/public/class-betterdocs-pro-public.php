@@ -179,7 +179,9 @@ class Betterdocs_Pro_Public
         global $current_user;
         $roles = $current_user->roles;
         $content_visibility = BetterDocs_DB::get_settings('content_visibility');
-        if (is_user_logged_in() && is_array($content_visibility) && (in_array($roles[0], $content_visibility) || in_array('all', $content_visibility))) {
+        //If The User Has Multiple Roles Assigned
+        $role_exists = !empty( array_intersect( $roles, $content_visibility ) );
+        if (is_user_logged_in() && (($role_exists === true) || in_array('all', $content_visibility))) {
             return true;
         } else {
             return false;

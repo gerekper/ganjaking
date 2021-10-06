@@ -4,6 +4,8 @@
 
 (function () {
 
+    'use strict';
+
     /**
      * Register plugin
      */
@@ -68,7 +70,7 @@
                         if (!jQuery(this).data('rightpress_disabled_click_notice_added')) {
 
                             // Add notice
-                            jQuery(this).click(function() {
+                            jQuery(this).on('click', function() {
                                 alert(config.rightpress_disabled_click_notice);
                             });
 
@@ -84,7 +86,7 @@
          * Check if body click event handler was already added (we only need one handler for any number of fields)
          */
         var body_click_handler_added = false;
-        var body_events = jQuery('body').data('events');
+        var body_events = typeof jQuery._data(jQuery('body')[0], 'events') !== 'undefined' ? jQuery._data(jQuery('body')[0], 'events') : jQuery('body').data('events');
 
         if (typeof body_events !== 'undefined' && typeof body_events.click === 'object') {
             jQuery.each(body_events.click, function(index, body_event) {

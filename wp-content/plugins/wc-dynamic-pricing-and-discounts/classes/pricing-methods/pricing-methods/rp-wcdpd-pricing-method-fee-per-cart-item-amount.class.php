@@ -49,7 +49,7 @@ class RP_WCDPD_Pricing_Method_Fee_Per_Cart_Item_Amount extends RP_WCDPD_Pricing_
      */
     public function get_label()
     {
-        return __('Fixed fee per cart item', 'rp_wcdpd');
+        return esc_html__('Fixed fee per cart item', 'rp_wcdpd');
     }
 
     /**

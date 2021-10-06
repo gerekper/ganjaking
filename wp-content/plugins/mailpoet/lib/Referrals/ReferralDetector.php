@@ -18,7 +18,10 @@ class ReferralDetector {
   /** @var SettingsController */
   private $settings;
 
-  public function __construct(WPFunctions $wp, SettingsController $settings) {
+  public function __construct(
+    WPFunctions $wp,
+    SettingsController $settings
+  ) {
     $this->wp = $wp;
     $this->settings = $settings;
   }

@@ -29,6 +29,7 @@ if ( ( defined( 'WP_SMUSH_PRESERVE_STATS' ) && WP_SMUSH_PRESERVE_STATS ) || true
 
 global $wpdb;
 
+// Option names prefixed with WP_SMUSH_PREFIX.
 $smushit_keys = array(
 	'resmush-list',
 	'nextgen-resmush-list',
@@ -53,11 +54,16 @@ $smushit_keys = array(
 	'hide-conflict-notice',
 	'show_upgrade_modal',
 	'preset_configs',
+	'webp_hide_wizard',
+	'hide-tutorials',
+	'hide_tutorials_from_bulk_smush', // Possible leftover from 3.8.4.
 );
 
+// Option names without the WP_SMUSH_PREFIX prefix.
 $db_keys = array(
 	'skip-smush-setup',
 	'smush_global_stats',
+	'wp_smush_stats_nextgen',
 );
 
 // Cache Keys.
@@ -103,6 +109,8 @@ if ( ! is_multisite() ) {
 	}
 
 	wp_cache_delete( 'get_image_sizes', 'smush_image_sizes' );
+
+	delete_transient( 'wp-smush-conflict_check' );
 }
 
 // Delete Directory Smush stats.

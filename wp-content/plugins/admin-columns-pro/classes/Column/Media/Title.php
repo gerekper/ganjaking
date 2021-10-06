@@ -7,14 +7,11 @@ use ACP\Editing;
 use ACP\Export;
 use ACP\Search;
 
-/**
- * @since 4.0
- */
 class Title extends AC\Column\Media\Title
 	implements Editing\Editable, Export\Exportable, Search\Searchable {
 
 	public function editing() {
-		return new Editing\Model\Media\Title( $this );
+		return new Editing\Service\Media\Title();
 	}
 
 	public function export() {

@@ -2,6 +2,7 @@
 
 namespace ACP\Updates;
 
+use AC\Plugin\Version;
 use AC\PluginInformation;
 use AC\Registrable;
 use ACP\API;
@@ -63,7 +64,7 @@ class Updater implements Registrable {
 
 		$plugin_data = (object) $plugin_data;
 
-		if ( version_compare( $this->plugin->get_version(), $plugin_data->new_version, '<' ) ) {
+		if ( $this->plugin->get_version()->is_lt( new Version( $plugin_data->new_version ) ) ) {
 			$transient->response[ $this->plugin->get_basename() ] = $plugin_data;
 		}
 

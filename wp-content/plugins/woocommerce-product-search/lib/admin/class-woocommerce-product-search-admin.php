@@ -365,14 +365,17 @@ class WooCommerce_Product_Search_Admin {
 				),
 				array( 'a' => array( 'href' => array() ) )
 			);
-			$content .= ' ';
-			$content .= wp_kses(
-				sprintf(
-					__( 'You can use the <a href="%s">Assistant</a> to add filter widgets to your sidebars.', 'woocommerce-product-search' ),
-					esc_url( self::get_admin_section_url( self::SECTION_ASSISTANT ) )
-				),
-				array( 'a' => array( 'href' => array() ) )
-			);
+
+			if ( self::uses_classic_widgets() ) {
+				$content .= ' ';
+				$content .= wp_kses(
+					sprintf(
+						__( 'You can use the <a href="%s">Assistant</a> to add filter widgets to your sidebars.', 'woocommerce-product-search' ),
+						esc_url( self::get_admin_section_url( self::SECTION_ASSISTANT ) )
+					),
+					array( 'a' => array( 'href' => array() ) )
+				);
+			}
 			$content .= ' ';
 			$content .= esc_html__( 'These live filters update the products shown in your shop instantly, to include those that are related.', 'woocommerce-product-search' );
 			$content .= ' ';
@@ -911,13 +914,16 @@ class WooCommerce_Product_Search_Admin {
 		echo esc_html( __( 'Index', 'woocommerce-product-search' ) );
 		echo '</a>';
 		if ( current_user_can( self::ASSISTANT_CONTROL_CAPABILITY ) ) {
-			echo '|';
-			echo '</li>';
-			echo '<li class="tab-header">';
-			printf( '<a class="%s" href="%s">', isset( $current_section ) && $current_section == self::SECTION_ASSISTANT ? 'current' : '', esc_url( self::get_admin_section_url( self::SECTION_ASSISTANT ) ) );
-			echo esc_html( __( 'Assistant', 'woocommerce-product-search' ) );
-			echo '</a>';
-			echo '</li>';
+
+			if ( self::uses_classic_widgets() ) {
+				echo '|';
+				echo '</li>';
+				echo '<li class="tab-header">';
+				printf( '<a class="%s" href="%s">', isset( $current_section ) && $current_section == self::SECTION_ASSISTANT ? 'current' : '', esc_url( self::get_admin_section_url( self::SECTION_ASSISTANT ) ) );
+				echo esc_html( __( 'Assistant', 'woocommerce-product-search' ) );
+				echo '</a>';
+				echo '</li>';
+			}
 		} else {
 			echo '</li>';
 		}
@@ -2445,6 +2451,29 @@ class WooCommerce_Product_Search_Admin {
 				echo '</tr>';
 			}
 		}
+	}
+
+	/**
+	 * Classic widgets used?
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return boolean false if the widgets block editor is used
+	 */
+	public static function uses_classic_widgets() {
+
+		global $wp_version;
+
+		$result = false;
+
+		if ( version_compare( $wp_version, '5.8.0' ) < 0 ) {
+			$result = true;
+		}
+
+		if ( function_exists( 'wp_use_widgets_block_editor' ) ) {
+			$result = !wp_use_widgets_block_editor();
+		}
+		return $result;
 	}
 }
 WooCommerce_Product_Search_Admin::init();

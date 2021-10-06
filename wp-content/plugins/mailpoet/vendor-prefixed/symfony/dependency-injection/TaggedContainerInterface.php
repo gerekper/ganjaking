@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Symfony\Component\DependencyInjection; if (!defined('ABSPATH')) exit; interface TaggedContainerInterface extends \MailPoetVendor\Symfony\Component\DependencyInjection\ContainerInterface { public function findTaggedServiceIds($name); } 
+ namespace MailPoetVendor\Symfony\Component\DependencyInjection; if (!defined('ABSPATH')) exit; interface TaggedContainerInterface extends ContainerInterface { public function findTaggedServiceIds($name); } 

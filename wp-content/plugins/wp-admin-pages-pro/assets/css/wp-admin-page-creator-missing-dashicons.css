@@ -1,0 +1,53 @@
+.dashicons-admin-site-alt::before {
+  content: "\f11d"; }
+
+.dashicons-menu-alt:before {
+  content: "\f10b"; }
+
+.dashicons-admin-site-alt2::before {
+  content: "\f11e"; }
+
+.dashicons-admin-site-alt3::before {
+  content: "\f11f"; }
+
+.dashicons-buddicons-activity:before {
+  content: "\f452"; }
+
+.dashicons-buddicons-bbpress-logo:before {
+  content: "\f12b"; }
+
+.dashicons-buddicons-buddypress-logo:before {
+  content: "\f448"; }
+
+.dashicons-buddicons-community:before {
+  content: "\f453"; }
+
+.dashicons-buddicons-forums:before {
+  content: "\f449"; }
+
+.dashicons-buddicons-friends:before {
+  content: "\f454"; }
+
+.dashicons-buddicons-groups:before {
+  content: "\f456"; }
+
+.dashicons-buddicons-pm:before {
+  content: "\f457"; }
+
+.dashicons-buddicons-replies:before {
+  content: "\f451"; }
+
+.dashicons-buddicons-topics:before {
+  content: "\f450"; }
+
+.dashicons-buddicons-tracking:before {
+  content: "\f455"; }
+
+.dashicons-editor-ltr:before {
+  content: "\f129"; }
+
+.dashicons-plus-light:before {
+  content: "\f10c"; }
+
+.fs-field-license_key .fs-toggle-visibility {
+  display: none; }

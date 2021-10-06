@@ -188,7 +188,8 @@ class RsAddOnParticlesBase {
 				'objectlibrary' => __('SVG Library', $_textDomain),
 				'originalcolor' => __('Custom SVG Original Color', $_textDomain),
 				'bubblemessage' => __('Bubble clicking is not compatible with Hovers', $_textDomain),
-				'responsive' => __('Responsive', $_textDomain)
+				'responsive' => __('Responsive', $_textDomain),
+				'forceback' => __('Force Back', $_textDomain)
 			)
 		);
 	
@@ -531,6 +532,27 @@ class RsAddOnParticlesBase {
 							'menu' => "#module_slide_trigger, #gst_slide_revslider-particles-addon, #particles-tab-1 > div", 
 							'scrollTo' => '#particle_settings_wrap', 
 							'focus' => "*[data-r='addOns.revslider-particles-addon.hideOnMobile']"
+							
+						)
+						
+					),
+
+					'particles_force_back' => array(
+						
+						'title' => __('Force Back', $_textdomain), 
+						'helpPath' => 'addOns.revslider-particles-addon.fback', 
+						'keywords' => array('addon', 'addons', 'particles', 'particles addon', 'force back', 'behind layers'), 
+						'description' => __('Enable this option to force particles effect behind layers in you want to use Sensibility option over layers but want to still display particles behind layers.', $_textdomain), 
+						'helpStyle' => 'normal', 
+						'article' => 'http://docs.themepunch.com/slider-revolution/particles-addon/', 
+						'video' => false,
+						'section' => 'Slide Settings -> Particles',
+						'highlight' => array(
+							
+							'dependencies' => array(array('path' => '#slide#.slide.addOns.revslider-particles-addon.enable', 'value' => true, 'option' => 'particles_enable')),
+							'menu' => "#module_slide_trigger, #gst_slide_revslider-particles-addon, #particles-tab-1 > div", 
+							'scrollTo' => '#particle_settings_wrap', 
+							'focus' => "*[data-r='addOns.revslider-particles-addon.fback']"
 							
 						)
 						

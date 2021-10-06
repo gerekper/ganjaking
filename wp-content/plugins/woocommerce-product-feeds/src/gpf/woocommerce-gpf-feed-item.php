@@ -565,10 +565,12 @@ class WoocommerceGpfFeedItem {
 				break;
 		}
 
-		$description = apply_filters(
-			'the_content',
-			$description
-		);
+		if ( apply_filters( 'woocommerce_gpf_apply_the_content_filter', true ) ) {
+			$description = apply_filters(
+				'the_content',
+				$description
+			);
+		}
 
 		// Strip out invalid unicode.
 		$description = preg_replace(
@@ -671,7 +673,7 @@ class WoocommerceGpfFeedItem {
 		}
 
 		// Grab the regular price of the base product.
-		$regular_price = $product->get_regular_price();
+		$regular_price = $product->get_regular_price() ?? '';
 		if ( '' !== $regular_price ) {
 			$prices['regular_price_ex_tax']  = wc_get_price_excluding_tax( $product, array( 'price' => $regular_price ) );
 			$prices['regular_price_inc_tax'] = wc_get_price_including_tax( $product, array( 'price' => $regular_price ) );
@@ -680,8 +682,8 @@ class WoocommerceGpfFeedItem {
 		// pricing as an example) filter the active price, but not the sale
 		// price. If the active price < the regular price treat it as a sale
 		// price.
-		$sale_price   = $product->get_sale_price();
-		$active_price = $product->get_price();
+		$sale_price   = $product->get_sale_price() ?? '';
+		$active_price = $product->get_price() ?? '';
 
 		// phpcs:disable WordPress.PHP.DevelopmentFunctions.error_log_var_export
 		$this->debug->log(
@@ -1143,7 +1145,6 @@ class WoocommerceGpfFeedItem {
 	private function get_prepopulate_value_for_product( $prepopulate, $which_product ) {
 
 		list( $type, $value ) = explode( ':', $prepopulate );
-
 		switch ( $type ) {
 			case 'tax':
 				$result = $this->get_tax_prepopulate_value_for_product( $value, $which_product );
@@ -1156,6 +1157,9 @@ class WoocommerceGpfFeedItem {
 				break;
 			case 'meta':
 				$result = $this->get_meta_prepopulate_value_for_product( $value, $which_product );
+				break;
+			case 'cattribute':
+				$result = $this->get_custom_attribute_prepopulate_value_for_product( $value, $which_product );
 				break;
 			case 'method':
 				$result = $this->get_method_prepopulate_value_for_product(
@@ -1365,6 +1369,24 @@ class WoocommerceGpfFeedItem {
 				unset( $values[ $key ] );
 			}
 		}
+
+		return $values;
+	}
+
+	/**
+	 * Get a prepopulate value for a custom attribute for a product.
+	 *
+	 * @param $attribute_key
+	 * @param $which_product
+	 */
+	private function get_custom_attribute_prepopulate_value_for_product( $attribute_key, $which_product ) {
+		if ( 'general' === $which_product ) {
+			$product = $this->general_product;
+		} else {
+			$product = $this->specific_product;
+		}
+		$values = $product->get_attribute( $attribute_key );
+		$values = explode( ' | ', $values );
 
 		return $values;
 	}

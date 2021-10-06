@@ -11,7 +11,7 @@
 			</span>
 			<span class="gpfup__select-files-container">
 				{{ strings.or }}
-				<button class="gpfup__select-files" @click.prevent="onBrowse">{{ strings.select_files }}</button>
+				<button type="button" class="gpfup__select-files" @click.prevent="onBrowse">{{ strings.select_files }}</button>
 			</span>
 		</div>
 		<div v-else>

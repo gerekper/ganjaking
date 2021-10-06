@@ -8,7 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 $options     = get_post_meta( $product_id, 'wcwl_options', true );
 $stock_level = get_option( 'woocommerce_waitlist_minimum_stock' );
 if ( ! $options ) {
-	$options = array( 'enable_waitlist' => 'true', 'enable_stock_trigger' => 'false', 'minimum_stock' => $stock_level );
+	$options = array(
+		'enable_waitlist'      => apply_filters( 'wcwl_default_option_enable_waitlist', 'true', $product_id ),
+		'enable_stock_trigger' => 'false',
+		'minimum_stock'        => $stock_level
+	);
 	update_post_meta( $product_id, 'wcwl_options', $options );
 }
 ?>

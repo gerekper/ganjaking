@@ -97,7 +97,6 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 					'catalog_url'  => wc_instagram_get_product_catalog_url( '{slug}' ),
 					'tax_based_on' => get_option( 'woocommerce_tax_based_on' ),
 					'delete_link'  => $this->get_delete_link_html(),
-					'nonce'        => wp_create_nonce( 'refresh_google_product_category_field' ),
 				)
 			);
 		}
@@ -408,7 +407,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 					'product_google_category'     => array(
 						'title'       => _x( 'Google Product Category', 'setting title', 'woocommerce-instagram' ),
 						'desc_tip'    => _x( 'Default Google Product Category.', 'setting desc', 'woocommerce-instagram' ),
-						'description' => _x( 'This option can be set per product.', 'setting desc', 'woocommerce-instagram' ),
+						'description' => _x( 'This option can be set per product and product category.', 'setting desc', 'woocommerce-instagram' ),
 						'type'        => 'google_product_category',
 					),
 				)
@@ -515,59 +514,22 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 			$field_key = $this->get_field_key( $key );
 			$defaults  = array(
 				'title'             => '',
-				'class'             => '',
-				'css'               => '',
-				'placeholder'       => '',
 				'desc_tip'          => false,
 				'description'       => '',
 				'custom_attributes' => array(),
 				'value'             => $this->get_option( $key, 0 ),
 			);
 
-			$data      = wp_parse_args( $data, $defaults );
-			$selects   = WC_Instagram_Google_Product_Categories::get_parents( $data['value'] );
-			$selects[] = $data['value'];
+			$data = wp_parse_args( $data, $defaults );
 
 			ob_start();
 			$this->output_field_start( $key, $data );
 
-			foreach ( $selects as $index => $select ) :
-				$placeholder = ( $index ? __( 'Select a subcategory &hellip;', 'woocommerce-instagram' ) : __( 'Select a category &hellip;', 'woocommerce-instagram' ) );
-				$options     = WC_Instagram_Google_Product_Categories::get_sibling_titles( $select );
-				$options     = array( '' => $placeholder ) + $options;
-
-				echo '<span class="wc-instagram-gpc-select-wrapper">';
-				$this->output_select_field(
-					array(
-						'class'   => 'wc-enhanced-select wc-instagram-gpc-select ' . $data['class'],
-						'css'     => $data['css'],
-						'options' => $options,
-						'value'   => $select,
-					)
-				);
-				echo '</span>';
-			endforeach;
-
-			$selected_value_children = WC_Instagram_Google_Product_Categories::get_children( $data['value'] );
-
-			if ( ! empty( $selected_value_children ) ) :
-				$options = array( '' => __( 'Select a subcategory &hellip;', 'woocommerce-instagram' ) ) + WC_Instagram_Google_Product_Categories::get_titles( $selected_value_children );
-
-				echo '<span class="wc-instagram-gpc-select-wrapper">';
-				$this->output_select_field(
-					array(
-						'class'   => 'wc-enhanced-select wc-instagram-gpc-select ' . $data['class'],
-						'css'     => $data['css'],
-						'options' => $options,
-					)
-				);
-				echo '</span>';
-			endif;
-
 			printf(
-				'<input type="hidden" id="%1$s" name="%1$s" value="%2$s" />',
+				'<input class="wc-instagram-gpc-field" type="hidden" id="%1$s" name="%1$s" value="%2$s" %3$s />',
 				esc_attr( $field_key ),
-				esc_attr( $data['value'] )
+				esc_attr( $data['value'] ),
+				$this->get_custom_attribute_html( $data ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			);
 
 			$this->output_field_end( $key, $data );
@@ -614,7 +576,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 		 *
 		 * @param string $key   Field key.
 		 * @param mixed  $value Posted Value.
-		 * @return array An array with the shipping methods.
+		 * @return array
 		 */
 		public function validate_product_categories_field( $key, $value ) {
 			return $this->validate_array_field( $key, $value );
@@ -627,7 +589,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 		 *
 		 * @param string $key   Field key.
 		 * @param mixed  $value Posted Value.
-		 * @return array An array with the product IDs.
+		 * @return array
 		 */
 		public function validate_product_search_field( $key, $value ) {
 			return $this->validate_array_field( $key, $value );

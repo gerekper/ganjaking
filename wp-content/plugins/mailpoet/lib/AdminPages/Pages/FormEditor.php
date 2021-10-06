@@ -12,7 +12,7 @@ use MailPoet\CustomFields\CustomFieldsRepository;
 use MailPoet\Entities\FormEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Form\Block;
-use MailPoet\Form\FormFactory;
+use MailPoet\Form\FormsRepository;
 use MailPoet\Form\Renderer as FormRenderer;
 use MailPoet\Form\Templates\TemplateRepository;
 use MailPoet\Form\Templates\Templates\Template10BelowPages;
@@ -77,7 +77,7 @@ use MailPoet\Form\Templates\Templates\Template7SlideIn;
 use MailPoet\Form\Templates\Templates\Template7Widget;
 use MailPoet\Form\Util\CustomFonts;
 use MailPoet\Form\Util\Export;
-use MailPoet\Models\Form;
+use MailPoet\NotFoundException;
 use MailPoet\Router\Endpoints\FormPreview;
 use MailPoet\Router\Router;
 use MailPoet\Segments\SegmentsSimpleListRepository;
@@ -105,9 +105,6 @@ class FormEditor {
   /** @var WPFunctions */
   private $wp;
 
-  /** @var FormFactory */
-  private $formsFactory;
-
   /** @var Localizer */
   private $localizer;
 
@@ -122,6 +119,9 @@ class FormEditor {
 
   /** @var SegmentsSimpleListRepository */
   private $segmentsListRepository;
+
+  /** @var FormsRepository */
+  private $formsRepository;
 
   private $activeTemplates = [
     FormEntity::DISPLAY_TYPE_POPUP => [
@@ -203,11 +203,11 @@ class FormEditor {
     FormRenderer $formRenderer,
     Block\Date $dateBlock,
     WPFunctions $wp,
-    FormFactory $formsFactory,
     Localizer $localizer,
     UserFlagsController $userFlags,
     WPPostListLoader $wpPostListLoader,
     TemplateRepository $templateRepository,
+    FormsRepository $formsRepository,
     SegmentsSimpleListRepository $segmentsListRepository
   ) {
     $this->pageRenderer = $pageRenderer;
@@ -216,33 +216,37 @@ class FormEditor {
     $this->formRenderer = $formRenderer;
     $this->dateBlock = $dateBlock;
     $this->wp = $wp;
-    $this->formsFactory = $formsFactory;
     $this->localizer = $localizer;
     $this->templatesRepository = $templateRepository;
     $this->userFlags = $userFlags;
     $this->wpPostListLoader = $wpPostListLoader;
     $this->segmentsListRepository = $segmentsListRepository;
+    $this->formsRepository = $formsRepository;
   }
 
   public function render() {
-    if (!isset($_GET['id']) && !isset($_GET['action'])) {
+    if (!isset($_GET['id']) && !isset($_GET['action']) && !isset($_GET['template_id'])) {
       $this->renderTemplateSelection();
       return;
     }
-    if (isset($_GET['action']) && $_GET['action'] === 'create') {
-      $this->createForm();
+    if (isset($_GET['template_id'])) {
+      $template = $this->templatesRepository->getFormTemplate($_GET['template_id']);
+      $form = $template->toFormEntity();
+    } else {
+      $form = $this->getFormData((int)$_GET['id']);
     }
-    $form = $this->getFormData((int)$_GET['id']);
     $customFields = $this->customFieldsRepository->findAll();
+    if (!$form instanceof FormEntity) {
+      throw new NotFoundException('Form does not exist');
+    }
     $dateTypes = $this->dateBlock->getDateTypes();
     $data = [
-      'form' => $form,
+      'form' => $form->toArray(),
       'form_exports' => [
           'php'       => Export::get('php', $form),
           'iframe'    => Export::get('iframe', $form),
           'shortcode' => Export::get('shortcode', $form),
       ],
-      'mailpoet_pages' => Pages::getMailPoetPages(),
       'segments' => $this->segmentsListRepository->getListWithSubscribedSubscribersCounts([SegmentEntity::TYPE_DEFAULT]),
       'styles' => $this->formRenderer->getCustomStyles($form),
       'date_types' => array_map(function ($label, $value) {
@@ -289,17 +293,6 @@ class FormEditor {
       'templates' => $templatesData,
     ];
     $this->pageRenderer->displayPage('form/template_selection.html', $data);
-  }
-
-  private function createForm() {
-    $form = $this->formsFactory->createEmptyForm();
-
-    $this->wp->wpSafeRedirect(
-      $this->wp->getSiteUrl(null,
-        '/wp-admin/admin.php?page=mailpoet-form-editor&id=' . $form->getId()
-      )
-    );
-    exit;
   }
 
   private function getPreviewPageUrl() {
@@ -356,17 +349,16 @@ class FormEditor {
     return $translations;
   }
 
-  private function getFormData(int $id) {
-    $form = Form::findOne($id);
-    if (!$form instanceof Form) {
+  private function getFormData(int $id): ?FormEntity {
+    $form = $this->formsRepository->findOneById($id);
+    if (!$form instanceof FormEntity) {
       return null;
     }
-    $form = $form->asArray();
-    $form['styles'] = $this->formRenderer->getCustomStyles($form);
+    $form->setStyles($this->formRenderer->getCustomStyles($form));
     // Use empty settings in case they are corrupted or missing
-    if (!is_array($form['settings'])) {
+    if (!is_array($form->getSettings())) {
       $initialFormTemplate = $this->templatesRepository->getFormTemplate(TemplateRepository::INITIAL_FORM_TEMPLATE);
-      $form['settings'] = $initialFormTemplate->getSettings();
+      $form->setSettings($initialFormTemplate->getSettings());
     }
     return $form;
   }

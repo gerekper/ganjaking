@@ -26,6 +26,9 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 			if ( isset( $_GET['wcwl_remove_user'] ) && isset( $_GET['product_id'] ) && isset( $_GET['key'] ) && is_email( $_GET['wcwl_remove_user'] )  ) {
 				add_action( 'wp', array( $this, 'remove_user_from_waitlist' ) );
 			}
+			if ( isset( $_GET['wcwl_user_optin'] ) && isset( $_GET['product_id'] ) && isset( $_GET['key'] ) && is_email( $_GET['wcwl_user_optin'] )  ) {
+				add_action( 'wp', array( $this, 'handle_user_double_optin_request' ) );
+			}
 			// Compatibility.
 			add_filter( 'wc_get_template', array( $this, 'check_theme_directory_for_waitlist_template' ), 10, 5 );
 			// Login Redirects.
@@ -55,10 +58,12 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 		public function frontend_enqueue_scripts() {
 			wp_enqueue_script( 'wcwl_frontend', WCWL_ENQUEUE_PATH . '/includes/js/src/wcwl_frontend.min.js', array(), WCWL_VERSION, true );
 			wp_localize_script( 'wcwl_frontend', 'wcwl_data', array(
-				'ajax_url'            => admin_url( 'admin-ajax.php' ),
-				'loading_message'     => apply_filters( 'wcwl_loading_message', __( 'Loading', 'woocommerce-waitlist' ) ),
-				'email_error_message' => apply_filters( 'wcwl_email_error_message', __( 'Please enter a valid email address', 'woocommerce-waitlist' ) ),
-				'optin_error_message' => apply_filters( 'wcwl_optin_error_message', __( 'Please select the box to consent to the terms before continuing', 'woocommerce-waitlist' ) ),
+				'ajax_url'              => admin_url( 'admin-ajax.php' ),
+				'user_id'							  => get_current_user_id(),
+				'loading_message'       => apply_filters( 'wcwl_loading_message', __( 'Loading', 'woocommerce-waitlist' ) ),
+				'email_error_message'   => apply_filters( 'wcwl_email_error_message', __( 'Please enter a valid email address', 'woocommerce-waitlist' ) ),
+				'optin_error_message'   => apply_filters( 'wcwl_optin_error_message', __( 'Please select the box to consent to the terms before continuing', 'woocommerce-waitlist' ) ),
+				'no_checkboxes_message' => apply_filters( 'wcwl_no_checkbox_grouped_message', __( 'Please select at least one product to join the waitlist before continuing', 'woocommerce-waitlist' ) ),
 			) );
 			wp_enqueue_style( 'wcwl_frontend', WCWL_ENQUEUE_PATH . '/includes/css/src/wcwl_frontend.min.css', array(), WCWL_VERSION );
 			wp_enqueue_style( 'dashicons' );
@@ -246,18 +251,59 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 		 * @return void
 		 */
 		public function remove_user_from_waitlist() {
-			$email      = $_GET['wcwl_remove_user'];
+			$email      = sanitize_email( $_GET['wcwl_remove_user'] );
 			$product_id = absint( $_GET['product_id'] );
-			if ( ! hash_equals( hash_hmac( 'sha256', $email . '|' . $product_id, get_the_guid( $product_id ) . $email . 'woocommerce-waitlist' ), $_GET['key'] ) ) {
+			if ( ! hash_equals( hash_hmac( 'sha256', $email . '|' . $product_id, get_the_guid( $product_id ) . $email . 'woocommerce-waitlist-join' ), $_GET['key'] ) ) {
 				wc_add_notice( __( 'Sorry, there was a problem with your request, please contact a site administrator for assistance.', 'woocommerce-waitlist' ), 'error' );
 			}
-			$response = wcwl_remove_user_from_waitlist( sanitize_email( $_GET['wcwl_remove_user'] ), absint( $_GET['product_id'] ) );
-			if ( is_wp_error( $response ) ) {
-				wc_add_notice( sprintf( __( 'Sorry, there was a problem with your request: %s', 'woocommerce-waitlist' ), $response->get_error_message() ), 'error' );
-			} else {
+			$response = wcwl_remove_user_from_waitlist( $email, $product_id );
+			if ( ! is_wp_error( $response ) ) {
 				WC_Emails::instance();
 				do_action( 'wcwl_left_mailout_send_email', $email, $product_id );
-				wc_add_notice( __( 'You have successfully been removed from the waitlist for this product.', 'woocommerce-waitlist' ) );
+			}
+			wc_add_notice( __( 'You email address has been removed from this product.', 'woocommerce-waitlist' ) );
+			wcwl_remove_user_from_archive( $email, $product_id );
+		}
+
+		/**
+		 * Handle user's double optin request to join the waitlist
+		 */
+		public function handle_user_double_optin_request() {
+			$email      = sanitize_email( $_GET['wcwl_user_optin'] );
+			$product_id = absint( $_GET['product_id'] );
+			$products   = isset( $_GET['products'] ) ? explode( ',', $_GET['products'] ) : '';
+			$lang       = isset( $_GET['lang'] ) ? sanitize_text_field( $_GET['lang'] ) : '';
+			if ( ! get_transient( $_GET['key'] ) ) {
+				wc_add_notice( __( 'Sorry your authorisation code has expired, please try again.  If you continue to experience issues please contact us.', 'woocommerce-waitlist' ), 'error' );
+				return;
+			}
+			if ( ! hash_equals( hash_hmac( 'sha256', $email . '|' . $product_id, get_the_guid( $product_id ) . $email . 'woocommerce-waitlist-optin' ), $_GET['key'] ) ) {
+				wc_add_notice( __( 'Sorry, there was a problem with your request, please contact us for assistance.', 'woocommerce-waitlist' ), 'error' );
+				return;
+			}
+			delete_transient( $_GET['key'] );
+			if ( $products ) {
+				$response = 'success';
+				foreach ( $products as $product_id ) {
+					if ( ! $product_id ) {
+						continue;
+					}
+					$response = wcwl_add_user_to_waitlist( $email, $product_id, $lang );
+					if ( is_wp_error( $response ) ) {
+						wc_add_notice( sprintf( __( 'Sorry, there was a problem with your request: %s', 'woocommerce-waitlist' ), $response->get_error_message() ), 'error' );
+						break;
+					}
+				}
+				if ( ! is_wp_error( $response ) ) {
+						wc_add_notice( __( 'You have been added to the waitlist for the selected products.', 'woocommerce-waitlist' ) );
+				}
+			} else {
+				$response = wcwl_add_user_to_waitlist( $email, $product_id, $lang );
+				if ( is_wp_error( $response ) ) {
+					wc_add_notice( sprintf( __( 'Sorry, there was a problem with your request: %s', 'woocommerce-waitlist' ), $response->get_error_message() ), 'error' );
+				} else {
+					wc_add_notice( __( 'You have been added to the waitlist for this product.', 'woocommerce-waitlist' ) );
+				}
 			}
 		}
 

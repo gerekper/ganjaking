@@ -144,7 +144,7 @@ abstract class MeprCptModel extends MeprBaseModel
     }
 
     //Not cached? Let's load up the posts with get_posts then
-    $posts = get_posts(array('numberposts' => -1, 'post_type' => $cpt, 'post_status' => 'publish'));
+    $posts = get_posts(MeprHooks::apply_filters('mepr_cpt_all_args', array('numberposts' => -1, 'post_type' => $cpt, 'post_status' => 'publish'), $cpt));
 
     foreach($posts as $post) {
       $models[] = $r->newInstance($post->ID);

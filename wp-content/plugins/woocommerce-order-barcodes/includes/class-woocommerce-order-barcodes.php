@@ -136,9 +136,8 @@ class WooCommerce_Order_Barcodes {
 		add_action( 'add_meta_boxes', array( $this, 'add_order_metabox' ), 30 );
 
 		// Generate and save barcode as order meta
-		add_action( 'woocommerce_after_order_notes', array( $this, 'add_checkout_fields' ), 1, 1 );
-		add_action( 'woocommerce_new_order', array( $this, 'update_order_meta' ), 1, 1 );
-		add_action( 'woocommerce_resume_order', array( $this, 'update_order_meta' ), 1, 1 );
+		add_action( 'woocommerce_new_order', array( $this, 'generate_barcode' ), 1, 1 );
+		add_action( 'woocommerce_resume_order', array( $this, 'generate_barcode' ), 1, 1 );
 
 		// Save barcode from order edit screen
 		add_action( 'wp_ajax_save_barcode', array( $this, 'save_barcode' ) );
@@ -158,6 +157,11 @@ class WooCommerce_Order_Barcodes {
 		// Remove the barcode from API responses. Disabled by default. Can use __return_true or __return_false to toggle.
 		if ( true === apply_filters( 'wc_order_barcodes_remove_image_from_api', false ) ) {
 			add_filter( 'woocommerce_rest_prepare_shop_order_object', array( $this, 'remove_barcode_from_api_response' ), null, 3 );
+		}
+
+		// Add barcode url in API responses. Enabled by default. Can use __return_true or __return_false to toggle.
+		if ( true === apply_filters( 'wc_order_barcodes_add_url_in_api', true ) ) {
+			add_filter( 'woocommerce_rest_prepare_shop_order_object', array( $this, 'add_barcode_url_in_api_response' ), 10, 3 );
 		}
 
 		add_action( 'init', array( $this, 'get_barcode_image' ), 10, 0 );
@@ -205,8 +209,12 @@ class WooCommerce_Order_Barcodes {
 	 * @since   1.0.0
 	 * @return  void
 	 */
-	public function generate_barcode() {
-		global $post;
+	public function generate_barcode( $order_id ) {
+		
+		if ( empty( $order_id ) ) {
+			return;
+		}
+		
 
 		if ( 'yes' !== $this->barcode_enable ) {
 			return;
@@ -215,9 +223,7 @@ class WooCommerce_Order_Barcodes {
 		// Get unqiue barcode string.
 		$barcode_string = $this->get_barcode_string();
 
-		if ( isset( $post->ID ) ) {
-			update_post_meta( $post->ID, '_barcode_text', $barcode_string );
-		}
+		update_post_meta( $order_id, '_barcode_text', $barcode_string );
 	}
 
 	/**
@@ -357,10 +363,12 @@ class WooCommerce_Order_Barcodes {
 		wp_enqueue_style( $this->_token . '-admin' );
 
 		if ( ! $barcode_text ) {
-			$this->generate_barcode();
+			$this->generate_barcode( $order->ID );
 		}
 
-		echo $this->display_barcode( $order->ID );
+		echo '<div class="woocommerce-order-barcodes-container" style="text-align:center;">';	
+		echo $this->display_barcode( $order->ID, true );
+		echo '</div>';
 	}
 
 	/**
@@ -719,6 +727,26 @@ class WooCommerce_Order_Barcodes {
 						unset( $response->data['meta_data'][$k] );
 					}
 				}
+			}
+		}
+		return $response;
+	}
+
+	/**
+	 * Add the barcode URL in REST API responses.
+	 * @access  public
+	 * @since   1.3.24
+	 * @param   object  $response 	WP_REST_Response
+	 * @param   object  $object     Order Object
+	 * @param   object  $request    The request made to WC-API
+	 * @return  object  $response
+	 */
+	public function add_barcode_url_in_api_response ( $response, $object, $request ) {
+		if ( is_a( $response, 'WP_REST_Response' ) && is_a( $object, 'WC_Order' ) ) {
+			$barcode_url = $this->barcode_url( $object->get_id() );
+			
+			if ( ! empty( $barcode_url ) ) {
+				$response->data['barcode_url'] = $barcode_url;
 			}
 		}
 		return $response;

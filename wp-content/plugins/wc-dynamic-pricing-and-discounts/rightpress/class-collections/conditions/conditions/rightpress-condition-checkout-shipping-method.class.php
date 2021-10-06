@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Checkout_Shipping_Method extends RightPress_
     public function get_label()
     {
 
-        return __('Shipping method', 'rightpress');
+        return esc_html__('Shipping method', 'rightpress');
     }
 
     /**
@@ -65,15 +65,25 @@ abstract class RightPress_Condition_Checkout_Shipping_Method extends RightPress_
             // Get chosen shipping methods
             if ($shipping_methods = $session->get('chosen_shipping_methods')) {
 
+                $result = array();
+
                 // Get single shipping method
                 // TODO: We should introduce multiple shipping method support
                 $shipping_method = array_shift($shipping_methods);
 
-                // Return shipping method as both parent shipping method id and combined instance identifier
-                return array(
-                    $shipping_method,
-                    strtok($shipping_method, ':'),
-                );
+                // Add full shipping method
+                $result[] = $shipping_method;
+
+                // Add parent shipping method
+                $result[] = strtok($shipping_method, ':');
+
+                // Add shipping method instance if extra options are available in format method:1-2 (WCDPD issue #716)
+                if (preg_match('/^.+\:\d+\-\d+$/', $shipping_method)) {
+                    $result[] = substr($shipping_method,0, strrpos($shipping_method,'-'));
+                }
+
+                // Return value
+                return $result;
             }
         }
 

@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
 	</div>
 
 	<div class="sui-box-settings-row sui-flushed">
-		<strong><?php esc_html_e( 'Active Media Types', 'wp-smushit' ); ?></strong>
+		<span class="sui-settings-label"><?php esc_html_e( 'Active Media Types', 'wp-smushit' ); ?></span>
 		<div>
 			<?php foreach ( $media_types as $media => $value ) : ?>
 				<?php

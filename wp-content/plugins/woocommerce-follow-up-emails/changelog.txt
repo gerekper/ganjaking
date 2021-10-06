@@ -1,5 +1,15 @@
 *** WooCommerce Follow-Up Emails ***
 
+2021-09-30 - version 4.9.16
+* Fix - Better unsubscribe link management.
+* Tweak - WC 5.7 compatibility.
+* Tweak - WP 5.8 compatibility.
+
+2021-08-11 - version 4.9.15
+* Fix - Remove created renewal order emails on status changes.
+* Tweak - WC 5.5 compatibility.
+* Tweak - WP 5.8 compatibility.
+
 2021-06-30 - version 4.9.14
 * Fix - Use local timezone for booking time and date variables.
 

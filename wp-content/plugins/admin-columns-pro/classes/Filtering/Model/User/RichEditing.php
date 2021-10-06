@@ -18,14 +18,12 @@ class RichEditing extends Model {
 	}
 
 	public function get_filtering_data() {
-		$data = [
+		return [
 			'options' => [
 				0 => __( 'No' ),
 				1 => __( 'Yes' ),
 			],
 		];
-
-		return $data;
 	}
 
 }

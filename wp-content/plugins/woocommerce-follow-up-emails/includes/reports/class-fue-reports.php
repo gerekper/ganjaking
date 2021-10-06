@@ -136,8 +136,9 @@ class FUE_Reports {
 
 			$next = add_query_arg( array(
 				'fueid' => $parsed['eid'],
-				'qid'   => $parsed['oid']
-			), $parsed['next'] );
+				'qid'   => $parsed['oid'],
+				'hqid'  => fue_email_hash( $parsed['user_email'] ),
+ 			), $parsed['next'] );
 
 			/*
 			 * We cannot use `wp_safe_redirect` here because

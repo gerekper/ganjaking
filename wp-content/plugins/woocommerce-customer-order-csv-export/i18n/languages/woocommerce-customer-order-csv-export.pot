@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Customer/Order/Coupon Export 5.3.2\n"
+"Project-Id-Version: WooCommerce Customer/Order/Coupon Export 5.3.3\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2021-03-15 18:15:33+00:00\n"
+"POT-Creation-Date: 2021-09-08 09:29:27+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -97,829 +97,826 @@ msgid "WooCommerce Customer/Order/Coupon Export"
 msgstr ""
 
 #: class-wc-customer-order-csv-export.php:885
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:246
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:246
 msgid "Orders"
 msgstr ""
 
 #: class-wc-customer-order-csv-export.php:886
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:250
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:250
 msgid "Customers"
 msgstr ""
 
 #: class-wc-customer-order-csv-export.php:887
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:496
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:548
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:254
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:496
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:548
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:254
 msgid "Coupons"
 msgstr ""
 
-#: includes/Automations/Automation.php:520
+#: src/Automations/Automation.php:520
 #. translators: Placeholders: %s - export method
 msgid "Export method not set"
 msgstr ""
 
-#: includes/Automations/Automation.php:527
-#: includes/class-wc-customer-order-csv-export-handler.php:120
+#: src/Automations/Automation.php:527
+#: src/class-wc-customer-order-csv-export-handler.php:120
 #. translators: Placeholders: %s - export method
 msgid "Invalid Export Method: %s"
 msgstr ""
 
-#: includes/Automations/Automation_Data_Store_Options.php:85
+#: src/Automations/Automation_Data_Store_Options.php:85
 msgid "Invalid Automation"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:229
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:558
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:648
-#: includes/Export_Formats/XML/XML_Export_Format_Definition.php:238
-#: includes/Export_Formats/XML/XML_Export_Format_Definition.php:351
-#: includes/Export_Formats/XML/XML_Export_Format_Definition.php:423
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:310
-#: includes/admin/views/html-export-modals.php:379
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:229
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:558
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:648
+#: src/Export_Formats/XML/XML_Export_Format_Definition.php:238
+#: src/Export_Formats/XML/XML_Export_Format_Definition.php:351
+#: src/Export_Formats/XML/XML_Export_Format_Definition.php:423
+#: src/admin/class-wc-customer-order-csv-export-admin.php:310
+#: src/admin/views/html-export-modals.php:379
 msgid "Default"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:285
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:311
-#: includes/admin/views/html-export-modals.php:385
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:285
+#: src/admin/class-wc-customer-order-csv-export-admin.php:311
+#: src/admin/views/html-export-modals.php:385
 msgid "Default - One Row per Item"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:352
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:592
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:312
-#: includes/admin/views/html-export-modals.php:388
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:352
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:592
+#: src/admin/class-wc-customer-order-csv-export-admin.php:312
+#: src/admin/views/html-export-modals.php:388
 msgid "CSV Import"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:406
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:406
 msgid "Legacy CSV Import"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:458
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:458
 msgid "Legacy - Single Column for all Items"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:460
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:508
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:460
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:508
 msgid "Order ID"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:461
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:509
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:140
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:461
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:509
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:140
 msgid "Date"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:462
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:510
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:462
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:510
 msgid "Order Status"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:463
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:511
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:463
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:511
 msgid "Shipping"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:464
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:512
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:464
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:512
 msgid "Shipping Tax"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:465
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:513
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:465
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:513
 msgid "Fees"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:466
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:514
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:466
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:514
 msgid "Fee Tax"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:467
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:515
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:467
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:515
 msgid "Tax"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:468
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:516
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:468
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:516
 msgid "Discount Total"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:469
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:517
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:469
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:517
 msgid "Order Total"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:470
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:518
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:470
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:518
 msgid "Payment Method"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:471
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:519
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:471
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:519
 msgid "Shipping Method"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:472
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:520
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:472
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:520
 msgid "Billing First Name"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:473
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:521
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:473
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:521
 msgid "Billing Last Name"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:474
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:522
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:474
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:522
 msgid "Billing Email"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:475
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:523
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:475
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:523
 msgid "Billing Phone"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:476
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:524
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:476
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:524
 msgid "Billing Address 1"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:477
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:525
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:477
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:525
 msgid "Billing Address 2"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:478
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:526
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:478
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:526
 msgid "Billing Post code"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:479
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:527
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:479
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:527
 msgid "Billing City"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:480
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:528
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:480
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:528
 msgid "Billing State"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:481
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:529
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:481
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:529
 msgid "Billing Country"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:482
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:530
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:482
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:530
 msgid "Billing Company"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:483
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:531
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:483
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:531
 msgid "Shipping First Name"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:484
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:532
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:484
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:532
 msgid "Shipping Last Name"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:485
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:533
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:485
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:533
 msgid "Shipping Address 1"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:486
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:534
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:486
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:534
 msgid "Shipping Address 2"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:487
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:535
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:487
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:535
 msgid "Shipping Post code"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:488
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:536
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:488
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:536
 msgid "Shipping City"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:489
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:537
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:489
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:537
 msgid "Shipping State"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:490
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:538
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:490
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:538
 msgid "Shipping Country"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:491
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:539
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:491
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:539
 msgid "Shipping Company"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:492
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:540
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:492
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:540
 msgid "Customer Note"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:493
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:493
 msgid "Order Items"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:494
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:546
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:494
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:546
 msgid "Download Permissions Granted"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:495
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:547
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:495
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:547
 msgid "Order Notes"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:505
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:505
 msgid "Legacy - One Row per Item"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:541
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:541
 msgid "Item SKU"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:542
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:542
 msgid "Item Name"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:543
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:543
 msgid "Item Variation"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:544
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:544
 msgid "Item Amount"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:545
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:545
 msgid "Row Price"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:625
-#: includes/Export_Formats/XML/XML_Export_Format_Definition.php:298
-#: includes/Export_Formats/XML/XML_Export_Format_Definition.php:387
-#: includes/admin/Export_Formats_Helper.php:53
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:625
+#: src/Export_Formats/XML/XML_Export_Format_Definition.php:298
+#: src/Export_Formats/XML/XML_Export_Format_Definition.php:387
+#: src/admin/Export_Formats_Helper.php:53
 msgid "Legacy"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:627
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:627
 msgid "ID"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:628
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:628
 msgid "First Name"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:629
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:629
 msgid "Last Name"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:630
-#: includes/class-wc-customer-order-csv-export-methods.php:322
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:630
+#: src/class-wc-customer-order-csv-export-methods.php:322
 msgid "Email"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:631
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:631
 msgid "Phone"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:632
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:632
 msgid "Address"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:633
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:633
 msgid "Address 2"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:634
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:634
 msgid "Post code"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:635
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:635
 msgid "City"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:636
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:636
 msgid "State"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:637
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:637
 msgid "Country"
 msgstr ""
 
-#: includes/Export_Formats/CSV/CSV_Export_Format_Definition.php:638
+#: src/Export_Formats/CSV/CSV_Export_Format_Definition.php:638
 msgid "Company"
 msgstr ""
 
-#: includes/admin/Admin_Custom_Formats.php:253
+#: src/admin/Admin_Custom_Formats.php:253
 msgid "Comma"
 msgstr ""
 
-#: includes/admin/Admin_Custom_Formats.php:254
+#: src/admin/Admin_Custom_Formats.php:254
 msgid "Semicolon"
 msgstr ""
 
-#: includes/admin/Admin_Custom_Formats.php:255
+#: src/admin/Admin_Custom_Formats.php:255
 msgid "Tab"
 msgstr ""
 
-#: includes/admin/Admin_Custom_Formats.php:270
+#: src/admin/Admin_Custom_Formats.php:270
 msgid "A single order"
 msgstr ""
 
-#: includes/admin/Admin_Custom_Formats.php:271
+#: src/admin/Admin_Custom_Formats.php:271
 msgid "A single line item"
 msgstr ""
 
-#: includes/admin/Admin_Custom_Formats.php:286
+#: src/admin/Admin_Custom_Formats.php:286
 msgid "Pipe-delimited format"
 msgstr ""
 
-#: includes/admin/Admin_Custom_Formats.php:287
+#: src/admin/Admin_Custom_Formats.php:287
 msgid "JSON"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:75
+#: src/admin/Automations/Edit.php:75
 msgid "Edit automated export"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:75
+#: src/admin/Automations/Edit.php:75
 msgid "New automated export"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:82
-#: includes/admin/Automations/List_Table.php:413
+#: src/admin/Automations/Edit.php:82 src/admin/Automations/List_Table.php:413
 msgid "Enabled"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:90
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:138
+#: src/admin/Automations/Edit.php:90
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:138
 msgid "Export name"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:91
+#: src/admin/Automations/Edit.php:91
 msgid "An internal name for this automated export."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:103 includes/admin/Manual_Export.php:86
-#: includes/admin/views/html-export-modals.php:318
+#: src/admin/Automations/Edit.php:103 src/admin/Manual_Export.php:86
+#: src/admin/views/html-export-modals.php:318
 msgid "Export type"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:108
+#: src/admin/Automations/Edit.php:108
 msgid "The export type cannot be changed for existing automations."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:114 includes/admin/Manual_Export.php:95
-#: includes/admin/views/html-export-modals.php:342
+#: src/admin/Automations/Edit.php:114 src/admin/Manual_Export.php:95
+#: src/admin/views/html-export-modals.php:342
 msgid "Output type"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:119
+#: src/admin/Automations/Edit.php:119
 msgid "The output cannot be changed for existing automations."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:145 includes/admin/Manual_Export.php:145
-#: includes/admin/views/html-export-modals.php:256
+#: src/admin/Automations/Edit.php:145 src/admin/Manual_Export.php:145
+#: src/admin/views/html-export-modals.php:256
 msgid "Filename"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:160 includes/admin/Manual_Export.php:132
-#: includes/admin/views/html-export-modals.php:237
+#: src/admin/Automations/Edit.php:160 src/admin/Manual_Export.php:132
+#: src/admin/views/html-export-modals.php:237
 msgid "Format"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:171
+#: src/admin/Automations/Edit.php:171
 msgid "Schedule options"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:177
+#: src/admin/Automations/Edit.php:177
 msgid "Trigger automated export"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:178
+#: src/admin/Automations/Edit.php:178
 msgid ""
 "Choose whether to auto-export orders on a schedule or immediately when "
 "they're paid for."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:181
+#: src/admin/Automations/Edit.php:181
 msgid "on scheduled intervals"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:182
+#: src/admin/Automations/Edit.php:182
 msgid "immediately as orders are paid"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:199
+#: src/admin/Automations/Edit.php:199
 #. translators: Placeholders: %s - date
 msgid "The next export is scheduled on %s"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:201
+#: src/admin/Automations/Edit.php:201
 msgid "The export is not scheduled."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:207
+#: src/admin/Automations/Edit.php:207
 msgid "Start time"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:210
+#: src/admin/Automations/Edit.php:210
 #. translators: Placeholders: %s - export type, such as orders or customers
 msgid "Any new %s will start exporting at this time."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:211
-#: includes/admin/Automations/Edit.php:232
+#: src/admin/Automations/Edit.php:211 src/admin/Automations/Edit.php:232
 msgid "items"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:215
+#: src/admin/Automations/Edit.php:215
 #. translators: Placeholders: %s - time
 msgid "Local time is %s."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:228
+#: src/admin/Automations/Edit.php:228
 msgid "Export interval (in minutes)*"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:231
+#: src/admin/Automations/Edit.php:231
 #. translators: Placeholders: %s - export type, such as orders or customers
 msgid "Any new %s will be exported on this schedule."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:234
+#: src/admin/Automations/Edit.php:234
 msgid "Required in order to schedule the automatic export."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:244
-#: includes/admin/Automations/List_Table.php:416
+#: src/admin/Automations/Edit.php:244 src/admin/Automations/List_Table.php:416
 msgid "Method"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:245
+#: src/admin/Automations/Edit.php:245
 msgid "Automatically export orders via the method selected."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:252
+#: src/admin/Automations/Edit.php:252
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid ""
 "Local exports are generated, then saved to the %1$sExport List%2$s for 14 "
 "days."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:280
+#: src/admin/Automations/Edit.php:280
 msgid "Export options"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:286 includes/admin/Manual_Export.php:194
+#: src/admin/Automations/Edit.php:286 src/admin/Manual_Export.php:194
 msgid "Order statuses"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:287 includes/admin/Manual_Export.php:195
+#: src/admin/Automations/Edit.php:287 src/admin/Manual_Export.php:195
 msgid "Orders with these statuses will be included in the export."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:295 includes/admin/Manual_Export.php:202
+#: src/admin/Automations/Edit.php:295 src/admin/Manual_Export.php:202
 msgid "Leave blank to export orders with any status."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:301 includes/admin/Manual_Export.php:221
-#: includes/admin/Manual_Export.php:251
+#: src/admin/Automations/Edit.php:301 src/admin/Manual_Export.php:221
+#: src/admin/Manual_Export.php:251
 msgid "Product categories"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:302 includes/admin/Manual_Export.php:222
+#: src/admin/Automations/Edit.php:302 src/admin/Manual_Export.php:222
 msgid "Orders with products in these categories will be included in the export."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:310 includes/admin/Manual_Export.php:229
+#: src/admin/Automations/Edit.php:310 src/admin/Manual_Export.php:229
 msgid "Leave blank to export orders with products in any category."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:316 includes/admin/Manual_Export.php:235
-#: includes/admin/Manual_Export.php:265
+#: src/admin/Automations/Edit.php:316 src/admin/Manual_Export.php:235
+#: src/admin/Manual_Export.php:265
 msgid "Products"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:317 includes/admin/Manual_Export.php:236
+#: src/admin/Automations/Edit.php:317 src/admin/Manual_Export.php:236
 msgid "Orders with these products will be included in the export."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:326 includes/admin/Manual_Export.php:245
+#: src/admin/Automations/Edit.php:326 src/admin/Manual_Export.php:245
 msgid "Leave blank to export orders with any products."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:334 includes/admin/Manual_Export.php:305
-#: includes/admin/views/html-export-modals.php:272
+#: src/admin/Automations/Edit.php:334 src/admin/Manual_Export.php:305
+#: src/admin/views/html-export-modals.php:272
 msgid "Add order notes"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:335 includes/admin/Manual_Export.php:306
-#: includes/admin/views/html-export-modals.php:222
+#: src/admin/Automations/Edit.php:335 src/admin/Manual_Export.php:306
+#: src/admin/views/html-export-modals.php:222
 msgid "Enable to add a note to exported orders."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:380
+#: src/admin/Automations/Edit.php:380
 msgid "FTP settings"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:386
+#: src/admin/Automations/Edit.php:386
 msgid "Server address"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:387
+#: src/admin/Automations/Edit.php:387
 msgid "The address of the remote FTP server to upload to."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:396
+#: src/admin/Automations/Edit.php:396
 msgid "Username"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:397
+#: src/admin/Automations/Edit.php:397
 msgid "The username for the remote FTP server."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:406
+#: src/admin/Automations/Edit.php:406
 msgid "Password"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:407
+#: src/admin/Automations/Edit.php:407
 msgid "The password for the remote FTP server."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:416
+#: src/admin/Automations/Edit.php:416
 msgid "Port"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:417
+#: src/admin/Automations/Edit.php:417
 msgid "The port for the remote FTP server."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:428
+#: src/admin/Automations/Edit.php:428
 msgid "Initial path"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:429
+#: src/admin/Automations/Edit.php:429
 msgid ""
 "The initial path for the remote FTP server with trailing slash, but "
 "excluding leading slash."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:438
+#: src/admin/Automations/Edit.php:438
 msgid "Security"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:439
+#: src/admin/Automations/Edit.php:439
 msgid "Select the security type for the remote FTP server."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:443
+#: src/admin/Automations/Edit.php:443
 msgid "None"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:444
+#: src/admin/Automations/Edit.php:444
 msgid "FTP with Implicit SSL"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:445
+#: src/admin/Automations/Edit.php:445
 msgid "FTP with Explicit TLS/SSL"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:446
+#: src/admin/Automations/Edit.php:446
 msgid "SFTP (FTP over SSH)"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:454
+#: src/admin/Automations/Edit.php:454
 msgid "Passive mode"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:455
+#: src/admin/Automations/Edit.php:455
 msgid ""
 "Enable passive mode if you are having issues connecting to FTP, especially "
 "if you see \"PORT command successful\" in the error log."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:464
+#: src/admin/Automations/Edit.php:464
 msgid "Test FTP"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:496
+#: src/admin/Automations/Edit.php:496
 msgid "HTTP POST settings"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:502
+#: src/admin/Automations/Edit.php:502
 msgid "HTTP POST URL"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:503
+#: src/admin/Automations/Edit.php:503
 msgid "Enter the URL to POST the exported file to."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:512
+#: src/admin/Automations/Edit.php:512
 msgid "Test HTTP POST"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:544
+#: src/admin/Automations/Edit.php:544
 msgid "Email settings"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:550
+#: src/admin/Automations/Edit.php:550
 msgid "Recipient(s)"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:552
+#: src/admin/Automations/Edit.php:552
 #. translators: Placeholders: %s - email address
 msgid ""
 "Enter recipients (comma separated) the exported file should be emailed to. "
 "Defaults to %s."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:561
+#: src/admin/Automations/Edit.php:561
 msgid "Email subject"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:562
+#: src/admin/Automations/Edit.php:562
 msgid "Enter the email subject."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:565
+#: src/admin/Automations/Edit.php:565
 #. translators: Placeholders: %1$s - blog name
 msgid "[%1$s] Export"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:575
+#: src/admin/Automations/Edit.php:575
 msgid "Test Email"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:629
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:370
+#: src/admin/Automations/Edit.php:629
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:370
 msgid "Save"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:648
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:388
+#: src/admin/Automations/Edit.php:648
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:388
 msgid "Please refresh the page and retry."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:654
+#: src/admin/Automations/Edit.php:654
 msgid "A name is required."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:658
+#: src/admin/Automations/Edit.php:658
 msgid "The name must be 25 characters or fewer."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:662
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:318
+#: src/admin/Automations/Edit.php:662
+#: src/admin/class-wc-customer-order-csv-export-admin.php:318
 msgid "The name cannot be \"Manual\"."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:716
+#: src/admin/Automations/Edit.php:716
 msgid "Automated export saved successfully."
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:734
+#: src/admin/Automations/Edit.php:734
 #. translators: Placeholders: %s - error message
 msgid "Automated export could not be saved. %s"
 msgstr ""
 
-#: includes/admin/Automations/Edit.php:892
+#: src/admin/Automations/Edit.php:892
 msgid "Please save your settings before testing"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:88
-#: includes/admin/Custom_Formats_List_Table.php:94
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:89
+#: src/admin/Automations/List_Table.php:88
+#: src/admin/Custom_Formats_List_Table.php:94
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:89
 msgid "Filter by export type"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:90
-#: includes/admin/Custom_Formats_List_Table.php:96
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:91
+#: src/admin/Automations/List_Table.php:90
+#: src/admin/Custom_Formats_List_Table.php:96
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:91
 msgid "Show all types"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:101
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:102
+#: src/admin/Automations/List_Table.php:101
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:102
 msgid "Filter by method"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:103
+#: src/admin/Automations/List_Table.php:103
 msgid "Show all methods"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:259
-#: includes/admin/Custom_Formats_List_Table.php:334
+#: src/admin/Automations/List_Table.php:259
+#: src/admin/Custom_Formats_List_Table.php:334
 msgid "Manage"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:264
-#: includes/admin/Custom_Formats_List_Table.php:299
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:362
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:495
+#: src/admin/Automations/List_Table.php:264
+#: src/admin/Custom_Formats_List_Table.php:299
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:362
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:495
 msgid "Delete"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:324
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:203
+#: src/admin/Automations/List_Table.php:324
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:203
 msgid "N/A"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:394
+#: src/admin/Automations/List_Table.php:394
 msgid "No automated exports."
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:412
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:73
+#: src/admin/Automations/List_Table.php:412
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:73
 msgid "Name"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:414
-#: includes/admin/Custom_Formats_List_Table.php:125
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:136
+#: src/admin/Automations/List_Table.php:414
+#: src/admin/Custom_Formats_List_Table.php:125
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:136
 msgid "Type"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:415
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:137
+#: src/admin/Automations/List_Table.php:415
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:137
 msgid "Output"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:417
+#: src/admin/Automations/List_Table.php:417
 msgid "Last Export"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:418
+#: src/admin/Automations/List_Table.php:418
 msgid "Next Export"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:419
-#: includes/admin/Custom_Formats_List_Table.php:131
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:141
+#: src/admin/Automations/List_Table.php:419
+#: src/admin/Custom_Formats_List_Table.php:131
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:141
 msgid "Actions"
 msgstr ""
 
-#: includes/admin/Automations.php:151
-#: includes/class-wc-customer-order-csv-export-ajax.php:362
+#: src/admin/Automations.php:151
+#: src/class-wc-customer-order-csv-export-ajax.php:362
 msgid "Please try again."
 msgstr ""
 
-#: includes/admin/Automations.php:158
+#: src/admin/Automations.php:158
 msgid "Automated export deleted"
 msgstr ""
 
-#: includes/admin/Automations.php:164
+#: src/admin/Automations.php:164
 #. translators: Placeholders: %s - error message
 msgid "Could not delete automation. %s"
 msgstr ""
 
-#: includes/admin/Custom_Formats_List_Table.php:124
+#: src/admin/Custom_Formats_List_Table.php:124
 msgid "Format name"
 msgstr ""
 
-#: includes/admin/Custom_Formats_List_Table.php:126
+#: src/admin/Custom_Formats_List_Table.php:126
 msgid "Output Type"
 msgstr ""
 
-#: includes/admin/Custom_Formats_List_Table.php:127
+#: src/admin/Custom_Formats_List_Table.php:127
 msgid "Rows represent"
 msgstr ""
 
-#: includes/admin/Custom_Formats_List_Table.php:128
+#: src/admin/Custom_Formats_List_Table.php:128
 msgid "Cell format"
 msgstr ""
 
-#: includes/admin/Custom_Formats_List_Table.php:129
+#: src/admin/Custom_Formats_List_Table.php:129
 msgid "Delimiter"
 msgstr ""
 
-#: includes/admin/Custom_Formats_List_Table.php:130
+#: src/admin/Custom_Formats_List_Table.php:130
 msgid "Indent Output"
 msgstr ""
 
-#: includes/admin/Custom_Formats_List_Table.php:248
+#: src/admin/Custom_Formats_List_Table.php:248
 msgid "Indent XML output"
 msgstr ""
 
-#: includes/admin/Custom_Formats_List_Table.php:248
+#: src/admin/Custom_Formats_List_Table.php:248
 msgid "Do not indent XML output"
 msgstr ""
 
-#: includes/admin/Custom_Formats_List_Table.php:270
+#: src/admin/Custom_Formats_List_Table.php:270
 msgid "-"
 msgstr ""
 
-#: includes/admin/Custom_Formats_List_Table.php:317
+#: src/admin/Custom_Formats_List_Table.php:317
 #. translators: Placeholders: %1$s - a comma separated list of automated
 #. exports names in double quotes, %2$s - the name of an automated export in
 #. double quotes
@@ -934,408 +931,403 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/Custom_Formats_List_Table.php:439
+#: src/admin/Custom_Formats_List_Table.php:439
 msgid "Custom formats will appear here."
 msgstr ""
 
-#: includes/admin/Export_Formats_Helper.php:51
+#: src/admin/Export_Formats_Helper.php:51
 msgid "Predefined"
 msgstr ""
 
-#: includes/admin/Export_Formats_Helper.php:52
+#: src/admin/Export_Formats_Helper.php:52
 msgid "Custom"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:55
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:358
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:359
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:382
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:433
+#: src/admin/Manual_Export.php:55
+#: src/admin/class-wc-customer-order-csv-export-admin.php:358
+#: src/admin/class-wc-customer-order-csv-export-admin.php:359
+#: src/admin/class-wc-customer-order-csv-export-admin.php:382
+#: src/admin/class-wc-customer-order-csv-export-admin.php:433
 msgid "Export"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:80
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:388
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1821
+#: src/admin/Manual_Export.php:80
+#: src/admin/class-wc-customer-order-csv-export-admin.php:388
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1821
 msgid "Manual Export"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:108
-#: includes/admin/views/html-export-modals.php:205
+#: src/admin/Manual_Export.php:108 src/admin/views/html-export-modals.php:205
 msgid ""
 "The filename for exported orders. Merge variables: %%timestamp%%, "
 "%%order_ids%%"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:109
+#: src/admin/Manual_Export.php:109
 msgid ""
 "If enabled, all exported orders will be marked as exported and excluded "
 "from future automated exports."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:112
-#: includes/admin/views/html-export-modals.php:208
+#: src/admin/Manual_Export.php:112 src/admin/views/html-export-modals.php:208
 msgid "The filename for exported customers. Merge variables: %%timestamp%%"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:113
+#: src/admin/Manual_Export.php:113
 msgid ""
 "If enabled, all exported customers will be marked as exported and excluded "
 "from future automated exports."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:116
-#: includes/admin/views/html-export-modals.php:211
+#: src/admin/Manual_Export.php:116 src/admin/views/html-export-modals.php:211
 msgid "The filename for exported coupons. Merge variables: %%timestamp%%"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:133
-#: includes/admin/views/html-export-modals.php:195
+#: src/admin/Manual_Export.php:133 src/admin/views/html-export-modals.php:195
 msgid ""
 "Default is a new format for v3.0, Import matches the Customer/Order CSV "
 "Import plugin format."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:162
+#: src/admin/Manual_Export.php:162
 msgid "Mark as exported"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:178
-#: includes/admin/views/html-export-modals.php:288
+#: src/admin/Manual_Export.php:178 src/admin/views/html-export-modals.php:288
 msgid "Batch processing"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:179
+#: src/admin/Manual_Export.php:179
 msgid "Use batch processing for manual exports."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:180
+#: src/admin/Manual_Export.php:180
 msgid ""
 "Only enable this setting when notified that your site does not support "
 "background processing."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:188
+#: src/admin/Manual_Export.php:188
 msgid "Export Options"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:208
+#: src/admin/Manual_Export.php:208
 msgid "Refunds"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:209
+#: src/admin/Manual_Export.php:209
 msgid "Determine whether to export all orders or those with at least 1 refund."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:214
+#: src/admin/Manual_Export.php:214
 msgid "Include all orders"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:215
+#: src/admin/Manual_Export.php:215
 msgid "Only include orders with refunds"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:252
+#: src/admin/Manual_Export.php:252
 msgid "Coupons that apply to these categories will be included in the export."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:259
+#: src/admin/Manual_Export.php:259
 msgid "Leave blank to export coupons that apply to any category."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:266
+#: src/admin/Manual_Export.php:266
 msgid "Coupons that apply to these products will be included in the export."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:275
+#: src/admin/Manual_Export.php:275
 msgid "Leave blank to export coupons that apply to any products."
 msgstr ""
 
-#: includes/admin/Manual_Export.php:281
+#: src/admin/Manual_Export.php:281
 msgid "Start date"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:283
+#: src/admin/Manual_Export.php:283
 msgid ""
 "Start date of customers or orders to include in the exported file, in the "
 "format <code>YYYY-MM-DD.</code>"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:289
+#: src/admin/Manual_Export.php:289
 msgid "End date"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:291
+#: src/admin/Manual_Export.php:291
 msgid ""
 "End date of customers or orders to include in the exported file, in the "
 "format <code>YYYY-MM-DD.</code>"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:320
+#: src/admin/Manual_Export.php:320
 msgid "Subscriptions options"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:326
+#: src/admin/Manual_Export.php:326
 msgid "Export subscriptions orders only"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:327
+#: src/admin/Manual_Export.php:327
 msgid "Export subscription orders"
 msgstr ""
 
-#: includes/admin/Manual_Export.php:335
+#: src/admin/Manual_Export.php:335
 msgid "Export renewal orders"
 msgstr ""
 
-#: includes/admin/Meta_Boxes/Exported_By.php:67
+#: src/admin/Meta_Boxes/Exported_By.php:67
 msgid "order"
 msgstr ""
 
-#: includes/admin/Meta_Boxes/Exported_By.php:95
-#: includes/admin/Meta_Boxes/Exported_By.php:115
+#: src/admin/Meta_Boxes/Exported_By.php:95
+#: src/admin/Meta_Boxes/Exported_By.php:115
 msgid "customer"
 msgstr ""
 
-#: includes/admin/Meta_Boxes/Exported_By.php:139
+#: src/admin/Meta_Boxes/Exported_By.php:139
 #. translators: %1$s - singular export type
 msgid ""
 "Automated exports that are checked will not contain this %1$s in future "
 "exports."
 msgstr ""
 
-#: includes/admin/Meta_Boxes/Exported_By.php:153
+#: src/admin/Meta_Boxes/Exported_By.php:153
 #. translators: Placeholder: %s - export type, such as order or customer
 msgid "All automated %s exports"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:67
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:67
 msgid "Format Options"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:122
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:122
 msgid "CSV delimiter"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:133
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:133
 msgid "Indent output"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:134
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:134
 msgid "Enable to indent (pretty-print) XML output"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:146
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:146
 msgid "Include all meta"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:147
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:147
 msgid "Enable to include all meta in the export"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:156
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:156
 msgid "Column Mapping"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:156
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:156
 msgid "Field Mapping"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:204
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:204
 msgid "A row represents"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:205
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:205
 msgid ""
 "Choose whether a single row in CSV should represent a full, single order or "
 "a single line item for an order."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:214
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:214
 msgid "Items columns should use"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:215
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:215
 msgid ""
 "Choose whether items columns (line items, shipping items, fee items, etc) "
 "should be pipe-delimited or JSON-formatted."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:285
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:285
 msgid "Column name"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:285
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:285
 msgid "Field name"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:291
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:291
 msgid "Data source"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:400
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:400
 msgid "Invalid data."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:409
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:409
 msgid "Your custom format has been saved. "
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:415
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:415
 #. translators: %1$s - opening <a> tag, %2$s - closing </a> tag
 msgid "Return to the %1$scustom formats list%2$s."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:445
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:445
 msgid "Format could not be saved. %s"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:477
+#: src/admin/class-wc-customer-order-csv-export-admin-custom-format-builder.php:477
 msgid "No data to save."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:289
+#: src/admin/class-wc-customer-order-csv-export-admin.php:289
 msgid "Export Started"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:290
+#: src/admin/class-wc-customer-order-csv-export-admin.php:290
 msgid "Export Completed"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:291
-#: includes/class-wc-customer-order-csv-export-ajax.php:175
+#: src/admin/class-wc-customer-order-csv-export-admin.php:291
+#: src/class-wc-customer-order-csv-export-ajax.php:175
 msgid "Export Failed"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:292
+#: src/admin/class-wc-customer-order-csv-export-admin.php:292
 msgid "Export Resumed"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:293
+#: src/admin/class-wc-customer-order-csv-export-admin.php:293
 msgid "Export Transfer Failed"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:294
+#: src/admin/class-wc-customer-order-csv-export-admin.php:294
 msgid "Export Not Found"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:295
-#: includes/class-wc-customer-order-csv-export-ajax.php:175
+#: src/admin/class-wc-customer-order-csv-export-admin.php:295
+#: src/class-wc-customer-order-csv-export-ajax.php:175
 msgid "Nothing to Export"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:296
+#: src/admin/class-wc-customer-order-csv-export-admin.php:296
 msgid "Unexpected Error"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:297
+#: src/admin/class-wc-customer-order-csv-export-admin.php:297
 msgid ""
 "Something unexpected happened while exporting. Your export may or may have "
 "not completed. Please check the %1$sExport List%2$s and your site error log "
 "for possible clues as to what may have happened."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:298
+#: src/admin/class-wc-customer-order-csv-export-admin.php:298
 msgid "Add new custom format"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:299
+#: src/admin/class-wc-customer-order-csv-export-admin.php:299
 msgid "Load mapping"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:300
+#: src/admin/class-wc-customer-order-csv-export-admin.php:300
 msgid "Done"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:301
+#: src/admin/class-wc-customer-order-csv-export-admin.php:301
 msgid "Add new"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:302
+#: src/admin/class-wc-customer-order-csv-export-admin.php:302
 msgid "Load"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:303
+#: src/admin/class-wc-customer-order-csv-export-admin.php:303
 msgid "Close"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:304
+#: src/admin/class-wc-customer-order-csv-export-admin.php:304
 msgid "Send"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:305
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:316
+#: src/admin/class-wc-customer-order-csv-export-admin.php:305
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:316
 msgid "Download"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:306
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:362
+#: src/admin/class-wc-customer-order-csv-export-admin.php:306
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:362
 msgid "Cancel"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:307
+#: src/admin/class-wc-customer-order-csv-export-admin.php:307
 msgid "Are you sure you want to delete this export?"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:308
+#: src/admin/class-wc-customer-order-csv-export-admin.php:308
 msgid "Are you sure you want to cancel this export?"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:309
+#: src/admin/class-wc-customer-order-csv-export-admin.php:309
 msgid "Are you sure you want to send/upload this file?"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:313
+#: src/admin/class-wc-customer-order-csv-export-admin.php:313
 msgid ""
 "Are you sure you want to delete this automated export? You can disable the "
 "export without deleting by clicking \"Manage.\""
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:314
+#: src/admin/class-wc-customer-order-csv-export-admin.php:314
 msgid ""
 "Are you sure you want to delete this custom format? This action is not "
 "reversible"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:315
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1044
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1227
+#: src/admin/class-wc-customer-order-csv-export-admin.php:315
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1044
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1227
 msgid "Export and send"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:316
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1005
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1029
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1213
+#: src/admin/class-wc-customer-order-csv-export-admin.php:316
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1005
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1029
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1213
 msgid "Download to CSV"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:317
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1011
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1032
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1214
+#: src/admin/class-wc-customer-order-csv-export-admin.php:317
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1011
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1032
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1214
 msgid "Download to XML"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:396
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1822
+#: src/admin/class-wc-customer-order-csv-export-admin.php:396
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1822
 msgid "Automated Exports"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:404
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1823
+#: src/admin/class-wc-customer-order-csv-export-admin.php:404
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1823
 msgid "Export List"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:412
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1824
+#: src/admin/class-wc-customer-order-csv-export-admin.php:412
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1824
 msgid "Custom Formats"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:448
+#: src/admin/class-wc-customer-order-csv-export-admin.php:448
 msgid "Customer/Order/Coupon Export"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:565
+#: src/admin/class-wc-customer-order-csv-export-admin.php:565
 #. translators: Placeholders: %1$s - exported file name, %2$s - opening <a>
 #. tag, %3$s - closing </a> tag
 msgid ""
@@ -1343,34 +1335,34 @@ msgid ""
 "%2$sExport List%3$s."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:568
-#: includes/admin/views/html-export-modals.php:114
+#: src/admin/class-wc-customer-order-csv-export-admin.php:568
+#: src/admin/views/html-export-modals.php:114
 msgid ""
 " Please note it may take a few minutes for all items to be marked as "
 "exported."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:609
-#: includes/class-wc-customer-order-csv-export-background-export.php:125
+#: src/admin/class-wc-customer-order-csv-export-admin.php:609
+#: src/class-wc-customer-order-csv-export-background-export.php:125
 #. translators: Placeholders: %1$s - opening <a> tag, %2$s - closing </a> tag
 msgid "Additional details may be found in the CSV Export %1$slogs%2$s."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:617
+#: src/admin/class-wc-customer-order-csv-export-admin.php:617
 msgid "Looks like automatic exports are failing."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:624
+#: src/admin/class-wc-customer-order-csv-export-admin.php:624
 #. translators: Placeholders: %s - file name
 msgid "Automatically exporting file %s failed."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:629
+#: src/admin/class-wc-customer-order-csv-export-admin.php:629
 #. translators: Placeholders: %s - file name
 msgid "Exporting file %s failed."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:642
+#: src/admin/class-wc-customer-order-csv-export-admin.php:642
 #. translators: Placeholders: %1$s - export method, such as "via Email", %2$s -
 #. opening <a> tag, %3$s - closing </a> tag
 msgid ""
@@ -1378,282 +1370,282 @@ msgid ""
 "failing. Exported files are available under %2$sExport List%3$s."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:651
+#: src/admin/class-wc-customer-order-csv-export-admin.php:651
 #. translators: Placeholders: %1$s - file name, %2$s - export method, such as
 #. "via Email"
 msgid "File %1$s was automatically exported, but the transfer %2$s failed."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:656
+#: src/admin/class-wc-customer-order-csv-export-admin.php:656
 #. translators: Placeholders: %1$s - file name, %2$s - export method, such as
 #. "via Email"
 msgid "File %1$s was exported, but the transfer %2$s failed."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:660
-#: includes/class-wc-customer-order-csv-export-background-export.php:152
+#: src/admin/class-wc-customer-order-csv-export-admin.php:660
+#: src/class-wc-customer-order-csv-export-background-export.php:152
 #. translators: %1$s - opening <a> tag, %2$s - closing </a> tag
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
 msgid "Exported file is available under %1$sExport List%2$s."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:869
+#: src/admin/class-wc-customer-order-csv-export-admin.php:869
 msgid "%d exported file deleted."
 msgid_plural "%d exported files deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:893
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:910
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:134
+#: src/admin/class-wc-customer-order-csv-export-admin.php:893
+#: src/admin/class-wc-customer-order-csv-export-admin.php:910
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:134
 msgid "Export Status"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:936
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:974
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1106
+#: src/admin/class-wc-customer-order-csv-export-admin.php:936
+#: src/admin/class-wc-customer-order-csv-export-admin.php:974
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1106
 msgid "Exported"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:944
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:982
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1105
+#: src/admin/class-wc-customer-order-csv-export-admin.php:944
+#: src/admin/class-wc-customer-order-csv-export-admin.php:982
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1105
 msgid "Not Exported"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1062
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1062
 msgid "Order exported by"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1063
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1063
 msgid "Customer exported by"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1084
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1084
 msgid "Exported By"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1111
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1111
 msgid "Show all orders"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1211
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1211
 msgid "Mark as Exported"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1212
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1212
 msgid "Mark as Not Exported"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1330
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1330
 msgid "%d customer marked as exported"
 msgid_plural "%d customers marked as exported"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1334
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1334
 msgid "%d order marked as exported"
 msgid_plural "%d orders marked as exported"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1353
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1353
 msgid "%d customer marked as not exported"
 msgid_plural "%d customers marked as not exported"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1357
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1357
 msgid "%d order marked as not exported"
 msgid_plural "%d orders marked as not exported"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1578
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1578
 msgid "Export cancelled."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1582
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1582
 msgid "Exported file deleted."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1624
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1624
 #. translators: Placeholders: %s - file name
 msgid "Could not transfer file %s - no auto export method configured."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1636
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1636
 #. translators: Placeholders: %1$s - file name, %2$3 - transfer method, such as
 #. "via Email"
 msgid "File %1$s transferred %2$s."
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-admin.php:1641
+#: src/admin/class-wc-customer-order-csv-export-admin.php:1641
 #. translators: Placeholders: %1$s - file name, %2$3 - transfer method, such as
 #. "via Email", %3$s - error message
 msgid "Could not transfer %1$s %2$s: %3$s"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:66
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:66
 msgid "Queued"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:67
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:67
 msgid "Processing"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:68
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:68
 msgid "Completed"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:69
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:69
 msgid "Failed"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:70
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:70
 msgid "Paused"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:104
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:104
 msgid "Show all transfer methods"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:105
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:229
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:105
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:229
 msgid "Manual"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:135
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:135
 msgid "Transfer Status"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:139
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:139
 msgid "File name"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:224
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:224
 msgid "Auto"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:337
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:337
 #. translators: Placeholders: %s - via [method], full example: Send via Email
 msgid "Send %s"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:346
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:346
 msgid "Resume"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:403
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:403
 msgid "Select export"
 msgstr ""
 
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:480
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:480
 msgid ""
 "Exported files will appear here. Files are stored for 14 days after the "
 "export."
 msgstr ""
 
-#: includes/admin/views/html-custom-format-mapping.php:92
+#: src/admin/views/html-custom-format-mapping.php:92
 msgid "Select a value"
 msgstr ""
 
-#: includes/admin/views/html-custom-format-mapping.php:94
+#: src/admin/views/html-custom-format-mapping.php:94
 msgid "Meta field..."
 msgstr ""
 
-#: includes/admin/views/html-custom-format-mapping.php:95
+#: src/admin/views/html-custom-format-mapping.php:95
 msgid "Static value..."
 msgstr ""
 
-#: includes/admin/views/html-custom-format-mapping.php:99
+#: src/admin/views/html-custom-format-mapping.php:99
 msgid "Meta key:"
 msgstr ""
 
-#: includes/admin/views/html-custom-format-mapping.php:104
+#: src/admin/views/html-custom-format-mapping.php:104
 msgid "Value:"
 msgstr ""
 
-#: includes/admin/views/html-custom-format-mapping.php:135
+#: src/admin/views/html-custom-format-mapping.php:135
 msgid ""
 "There are no mapped columns. Click the Add Column button below to start "
 "mapping columns."
 msgstr ""
 
-#: includes/admin/views/html-custom-format-mapping.php:142
+#: src/admin/views/html-custom-format-mapping.php:142
 msgid "Add column"
 msgstr ""
 
-#: includes/admin/views/html-custom-format-mapping.php:143
+#: src/admin/views/html-custom-format-mapping.php:143
 msgid "Remove selected column(s)"
 msgstr ""
 
-#: includes/admin/views/html-custom-format-mapping.php:144
+#: src/admin/views/html-custom-format-mapping.php:144
 msgid "Load column mapping"
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:44
+#: src/admin/views/html-export-modals.php:44
 msgid "Close modal panel"
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:75
+#: src/admin/views/html-export-modals.php:75
 msgid "Your data is being exported now."
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:77
+#: src/admin/views/html-export-modals.php:77
 msgid " When the export is complete, the download will start automatically."
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:83
+#: src/admin/views/html-export-modals.php:83
 msgid ""
 " Do not navigate away from this page or use the back button until the "
 "export is complete."
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:90
+#: src/admin/views/html-export-modals.php:90
 #. translators: Placeholders: %1$s - opening <a> tag, %2$s - closing </a> tag
 msgid ""
 "When completed, the exported file will also be available under %1$sExport "
 "List%2$s for the next 14 days."
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:94
+#: src/admin/views/html-export-modals.php:94
 #. translators: Placeholders: %1$s - opening <a> tag, %2$s - closing </a> tag
 msgid " You can safely leave this screen and return to the Export List later."
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:101
+#: src/admin/views/html-export-modals.php:101
 msgid "Your export is ready!"
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:105
+#: src/admin/views/html-export-modals.php:105
 #. translators: Placeholders: %1$s - opening <a> tag, %2$s - closing </a> tag
 msgid "%1$sClick here%2$s if your download does not start automatically. "
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:110
+#: src/admin/views/html-export-modals.php:110
 #. translators: Placeholders: %1$s - opening <a> tag, %2$s - closing </a> tag
 msgid ""
 "The exported file will be available under %1$sExport List%2$s for the next "
 "14 days."
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:141
+#: src/admin/views/html-export-modals.php:141
 msgid ""
 "Choose an automated export to use that transfer method for this export. "
 "Only exports with FTP, HTTP post, or email transfer methods can be selected."
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:144
+#: src/admin/views/html-export-modals.php:144
 msgid "Transfer method"
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:154
+#: src/admin/views/html-export-modals.php:154
 #. translators: %1$s - <a> tag, %2$s - </a> tag
 msgid "Or %1$screate new automated export.%2$s"
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:165
+#: src/admin/views/html-export-modals.php:165
 #. translators: %1$s - export type, such as orders or customers, %2$s - <a>
 #. tag, %3$s - </a> tag
 msgid ""
@@ -1663,345 +1655,345 @@ msgid ""
 "export now &raquo;%3$s"
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:226
+#: src/admin/views/html-export-modals.php:226
 msgid ""
 "Use batch processing for manual exports. Only enable this setting when "
 "notified that your site does not support background processing."
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:413
+#: src/admin/views/html-export-modals.php:413
 msgid "Existing formats"
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:418
+#: src/admin/views/html-export-modals.php:418
 msgid "JSON snippet"
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:419
+#: src/admin/views/html-export-modals.php:419
 msgid "Build my own"
 msgstr ""
 
-#: includes/admin/views/html-export-modals.php:422
+#: src/admin/views/html-export-modals.php:422
 msgid "Insert or copy & paste mapping configuration here"
 msgstr ""
 
-#: includes/admin/views/html-system-status-table.php:43
+#: src/admin/views/html-system-status-table.php:43
 msgid "Automated exports"
 msgstr ""
 
-#: includes/admin/views/html-system-status-table.php:44
+#: src/admin/views/html-system-status-table.php:44
 msgid "The number of configured automated exports."
 msgstr ""
 
-#: includes/admin/views/html-system-status-table.php:48
+#: src/admin/views/html-system-status-table.php:48
 msgid "Custom formats"
 msgstr ""
 
-#: includes/admin/views/html-system-status-table.php:49
+#: src/admin/views/html-system-status-table.php:49
 msgid "The number of configured custom formats."
 msgstr ""
 
-#: includes/admin/views/html-system-status-table.php:54
+#: src/admin/views/html-system-status-table.php:54
 msgid "Next export"
 msgstr ""
 
-#: includes/admin/views/html-system-status-table.php:55
+#: src/admin/views/html-system-status-table.php:55
 msgid "The next scheduled automated export."
 msgstr ""
 
-#: includes/admin/views/html-system-status-table.php:60
+#: src/admin/views/html-system-status-table.php:60
 #. translators: Placeholders: %s - date & time
 msgid "Scheduled on %s"
 msgstr ""
 
-#: includes/admin/views/html-system-status-table.php:62
+#: src/admin/views/html-system-status-table.php:62
 msgid "Not scheduled"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:69
+#: src/class-wc-customer-order-csv-export-ajax.php:69
 msgid "Missing export query."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:80
+#: src/class-wc-customer-order-csv-export-ajax.php:80
 msgid "Invalid automated export"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:89
+#: src/class-wc-customer-order-csv-export-ajax.php:89
 msgid "Missing export type, method, or output type."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:125
+#: src/class-wc-customer-order-csv-export-ajax.php:125
 msgid "No orders found to export"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:129
+#: src/class-wc-customer-order-csv-export-ajax.php:129
 msgid "No customers found to export"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:133
+#: src/class-wc-customer-order-csv-export-ajax.php:133
 msgid "No coupons found to export."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:137
+#: src/class-wc-customer-order-csv-export-ajax.php:137
 msgid "No items found to export."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:156
+#: src/class-wc-customer-order-csv-export-ajax.php:156
 msgid "An error occurred."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:368
+#: src/class-wc-customer-order-csv-export-ajax.php:368
 msgid "Not found."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:383
+#: src/class-wc-customer-order-csv-export-ajax.php:383
 msgid "enable"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:385
+#: src/class-wc-customer-order-csv-export-ajax.php:385
 msgid "disable"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:387
+#: src/class-wc-customer-order-csv-export-ajax.php:387
 msgid "toggle"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-ajax.php:391
+#: src/class-wc-customer-order-csv-export-ajax.php:391
 msgid "Could not %1$s automated export. %2$s"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-background-export.php:130
+#: src/class-wc-customer-order-csv-export-background-export.php:130
 msgid "No export found with id %s. It may have been cancelled during export."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-background-export.php:134
+#: src/class-wc-customer-order-csv-export-background-export.php:134
 msgid "Unfortunately, your export failed."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-background-export.php:144
+#: src/class-wc-customer-order-csv-export-background-export.php:144
 #. translators: Placeholders: %s - a transfer method name such as Email or FTP
 msgid "Export completed successfully, but the transfer %s failed."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-background-export.php:148
+#: src/class-wc-customer-order-csv-export-background-export.php:148
 msgid "Export completed successfully, but the transfer failed."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-download-handler.php:59
+#: src/class-wc-customer-order-csv-export-download-handler.php:59
 msgid "You do not have the proper permissions to download this file."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-download-handler.php:65
+#: src/class-wc-customer-order-csv-export-download-handler.php:65
 msgid "Export not found"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-export.php:116
+#: src/class-wc-customer-order-csv-export-export.php:116
 msgid "Unable to find or create export job"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-handler.php:128
+#: src/class-wc-customer-order-csv-export-handler.php:128
 msgid "Test was successful!"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-handler.php:130
+#: src/class-wc-customer-order-csv-export-handler.php:130
 msgid "Test failed!"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-handler.php:139
+#: src/class-wc-customer-order-csv-export-handler.php:139
 msgid "Test failed: %s"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-handler.php:499
+#: src/class-wc-customer-order-csv-export-handler.php:499
 #. translators: Placeholders: %s - output type (CSV or XML)
 msgid "Order exported to %s and successfully downloaded."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-handler.php:507
+#: src/class-wc-customer-order-csv-export-handler.php:507
 #. translators: Placeholders: %s - output type (CSV or XML)
 msgid "Order exported to %s and successfully uploaded to server."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-handler.php:515
+#: src/class-wc-customer-order-csv-export-handler.php:515
 #. translators: Placeholders: %s - output type (CSV or XML)
 msgid "Order exported to %s and successfully POSTed to remote server."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-handler.php:523
+#: src/class-wc-customer-order-csv-export-handler.php:523
 #. translators: Placeholders: %s - output type (CSV or XML)
 msgid "Order exported to %s and successfully emailed."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-handler.php:531
+#: src/class-wc-customer-order-csv-export-handler.php:531
 #. translators: Placeholders: %s - output type (CSV or XML)
 msgid "Order exported to %s."
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-handler.php:910
+#: src/class-wc-customer-order-csv-export-handler.php:910
 #. translators: Placeholders: %s - export ID
 msgid "Could not find export: %s"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-handler.php:1417
+#: src/class-wc-customer-order-csv-export-handler.php:1417
 #. translators: Placeholders: %s - error message
 msgid "Failed to transfer exported file: %s"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-methods.php:175
+#: src/class-wc-customer-order-csv-export-methods.php:175
 #. translators: Placeholders: %s - date
 msgid "Order Export for %s"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-methods.php:180
+#: src/class-wc-customer-order-csv-export-methods.php:180
 #. translators: Placeholders: %s - date
 msgid "Customer Export for %s"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-methods.php:185
+#: src/class-wc-customer-order-csv-export-methods.php:185
 #. translators: Placeholders: %s - date
 msgid "Export for %s"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-methods.php:319
+#: src/class-wc-customer-order-csv-export-methods.php:319
 msgid "Locally"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-methods.php:320
+#: src/class-wc-customer-order-csv-export-methods.php:320
 msgid "FTP"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-methods.php:321
+#: src/class-wc-customer-order-csv-export-methods.php:321
 msgid "HTTP POST"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-methods.php:343
+#: src/class-wc-customer-order-csv-export-methods.php:343
 #. translators: Placeholders: %s - export method name, example: "via Email"
 msgid "via %s"
 msgstr ""
 
-#: includes/data-stores/database/class-wc-customer-order-csv-export-data-store-database.php:236
+#: src/data-stores/database/class-wc-customer-order-csv-export-data-store-database.php:236
 msgid "Unable to locate a legacy mysql connection in this WordPress install"
 msgstr ""
 
-#: includes/data-stores/database/class-wc-customer-order-csv-export-database-stream-iterator.php:69
+#: src/data-stores/database/class-wc-customer-order-csv-export-database-stream-iterator.php:69
 msgid "Unable to find export for iteration"
 msgstr ""
 
-#: includes/export-methods/class-wc-customer-order-csv-export-method-email.php:89
-#: includes/export-methods/class-wc-customer-order-csv-export-method-http-post.php:75
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:121
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:119
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:105
+#: src/export-methods/class-wc-customer-order-csv-export-method-email.php:89
+#: src/export-methods/class-wc-customer-order-csv-export-method-http-post.php:75
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:121
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:119
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:105
 msgid "Unable to find export for transfer"
 msgstr ""
 
-#: includes/export-methods/ftp/abstract-wc-customer-order-csv-export-method-file-transfer.php:113
+#: src/export-methods/ftp/abstract-wc-customer-order-csv-export-method-file-transfer.php:113
 msgid "FTP Username is blank."
 msgstr ""
 
-#: includes/export-methods/ftp/abstract-wc-customer-order-csv-export-method-file-transfer.php:121
+#: src/export-methods/ftp/abstract-wc-customer-order-csv-export-method-file-transfer.php:121
 msgid "FTP Server is blank."
 msgstr ""
 
-#: includes/export-methods/ftp/abstract-wc-customer-order-csv-export-method-file-transfer.php:127
+#: src/export-methods/ftp/abstract-wc-customer-order-csv-export-method-file-transfer.php:127
 msgid "FTP Port is blank."
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:65
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:65
 msgid "Could not initialize cURL."
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:103
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:103
 #. translators: Placeholders: %s - option name
 msgid "Could not set cURL option: %s"
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:140
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:140
 #. translators: Placeholders: %s - name of file to be uploaded
 msgid "Could not set cURL file name: %s"
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:147
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:147
 #. translators: Placeholders: %s - file path
 msgid "Could not open %s for reading."
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:154
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:154
 #. translators: Placeholders: %s - name of file to be updloaded
 msgid "Could not load file %s"
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:161
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp-implicit-ssl.php:161
 #. translators: Placeholders: %1$s - cURL error number, %2$s - cURL error
 #. message
 msgid "Could not upload file. cURL Error: [%1$s] - %2$s"
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:74
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:74
 #. translators: Placeholders: %1$s - server address, %2$s - server port.
 msgid ""
 "Could not connect via FTP to %1$s on port %2$s, check server address and "
 "port."
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:81
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:81
 #. translators: Placeholders: %s - username
 msgid ""
 "Could not authenticate via FTP with username %s and password. Check "
 "username and password."
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:90
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:90
 msgid "Could not set passive mode"
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:101
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:101
 #. translators: Placeholders: %s - directory path
 msgid "Could not change directory to %s - check path exists."
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:138
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:138
 #. translators: Placeholders: %s - file path
 msgid "Could not open file %s for reading."
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:145
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:145
 #. translators: Placeholders: %s - file name
 msgid "Could not upload file: %s - check permissions."
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:177
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-ftp.php:177
 #. translators: Placeholders: %s - error message
 msgid "FTP error: %s"
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:62
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:62
 msgid "SSH2 Extension is not installed, cannot connect via SFTP."
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:72
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:72
 #. translators: Placeholders: %1$s - server address, %2$s - server port.
 msgid ""
 "Could not connect via SSH to %1$s on port %2$s, check server address and "
 "port."
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:79
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:79
 #. translators: Placeholders: %s - username
 msgid ""
 "Could not authenticate via SSH with username %s and password. Check "
 "username and password."
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:88
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:88
 msgid "Could not setup SFTP link"
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:136
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:136
 #. translators: Placeholders: %s - file path
 msgid "Could not open remote file: %s."
 msgstr ""
 
-#: includes/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:174
+#: src/export-methods/ftp/class-wc-customer-order-csv-export-method-sftp.php:174
 #. translators: Placeholders: %s - error message
 msgid "SFTP error: %s"
 msgstr ""
@@ -2034,10 +2026,8 @@ msgctxt "export output type"
 msgid "XML"
 msgstr ""
 
-#: includes/CSV_Export_Generator.php:1034
-#: includes/CSV_Export_Generator.php:1048
-#: includes/XML_Export_Generator.php:1086
-#: includes/XML_Export_Generator.php:1100
+#: src/CSV_Export_Generator.php:1034 src/CSV_Export_Generator.php:1048
+#: src/XML_Export_Generator.php:1086 src/XML_Export_Generator.php:1100
 #. translators: Placeholders: %1$s - first name; %2$s - last name
 #. translators: Placeholders: %1$s - first name; %2$s - last name / surname
 #. translators: Placeholders: %1$s - first name; %2$s - last name / surname
@@ -2045,31 +2035,30 @@ msgctxt "full name"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/admin/Admin_Custom_Formats.php:174
+#: src/admin/Admin_Custom_Formats.php:174
 msgctxt "page title"
 msgid "Custom Formats"
 msgstr ""
 
-#: includes/admin/Automations.php:121
+#: src/admin/Automations.php:121
 msgctxt "page title"
 msgid "Automated Exports"
 msgstr ""
 
-#: includes/admin/Admin_Custom_Formats.php:175
-#: includes/admin/Automations.php:122
+#: src/admin/Admin_Custom_Formats.php:175 src/admin/Automations.php:122
 msgctxt "page title action"
 msgid "Add new"
 msgstr ""
 
-#: includes/admin/Automations/List_Table.php:114
-#: includes/admin/Custom_Formats_List_Table.php:107
-#: includes/admin/class-wc-customer-order-csv-export-list-table.php:116
+#: src/admin/Automations/List_Table.php:114
+#: src/admin/Custom_Formats_List_Table.php:107
+#: src/admin/class-wc-customer-order-csv-export-list-table.php:116
 msgctxt "button text"
 msgid "Filter"
 msgstr ""
 
-#: includes/class-wc-customer-order-csv-export-compatibility.php:329
-#: includes/class-wc-customer-order-csv-export-compatibility.php:394
+#: src/class-wc-customer-order-csv-export-compatibility.php:329
+#: src/class-wc-customer-order-csv-export-compatibility.php:394
 msgctxt "hash before the order number"
 msgid "#"
 msgstr ""

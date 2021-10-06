@@ -30,6 +30,7 @@ class Operator extends Mapping {
 			Operators::LT_DAYS_AGO  => 'lt_days_ago',
 			Operators::GT_DAYS_AGO  => 'gt_days_ago',
 			Operators::WITHIN_DAYS  => 'within_days',
+			Operators::CURRENT_USER => 'current_user',
 		];
 	}
 

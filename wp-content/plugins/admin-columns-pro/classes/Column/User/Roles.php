@@ -40,7 +40,7 @@ class Roles extends AC\Column\Meta
 	}
 
 	public function editing() {
-		return new Editing\Model\User\Role( $this );
+		return new Editing\Service\User\Role();
 	}
 
 	public function sorting() {

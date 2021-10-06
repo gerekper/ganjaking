@@ -9,9 +9,7 @@
  */
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+if(!defined('ABSPATH')) exit();
 
 if( ! class_exists( 'RevSliderGutenberg' ) ) {
 
@@ -20,11 +18,16 @@ if( ! class_exists( 'RevSliderGutenberg' ) ) {
 		private $prefix;
 		
 		public function __construct($pre) {
+			global $wp_version;
 			
 			$this->prefix = $pre;
 			
 			// add ThemePunch block category
-			add_filter('block_categories', array($this, 'create_block_category'), 10, 2);
+			if(version_compare($wp_version, '5.8', '>=')){
+				add_filter('block_categories_all', array($this, 'create_block_category'), 10, 2);
+			}else{ //block_categories is deprecated since 5.8.0
+				add_filter('block_categories', array($this, 'create_block_category'), 10, 2);
+			}
 			
 			// Hook: Frontend assets.
 			add_action( 'enqueue_block_assets', array( $this, 'revslider_gutenberg_cgb_block_assets' ) );

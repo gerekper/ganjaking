@@ -112,16 +112,9 @@ class Permalink_Manager_Pro_Addons extends Permalink_Manager_Class {
 	 * Settings tab
 	 */
 	public function filter_settings_fields($fields) {
-		$expiration_info = Permalink_Manager_Pro_Functions::get_expiration_date();
-
 		// Network licence key (multisite)
-		if(is_multisite()) {
-			$licence_key = get_site_option('permalink-manager-licence-key');
-		}
-		// Single website licence key
-		else {
-			$licence_key = (!empty($permalink_manager_options['licence']['licence_key'])) ? $permalink_manager_options['licence']['licence_key'] : "";
-		}
+		$license_key = Permalink_Manager_Pro_Functions::get_license_key();
+		$expiration_info = Permalink_Manager_Pro_Functions::get_expiration_date();
 
 		// 1. licence key
 		$fields['licence'] = array(
@@ -130,9 +123,16 @@ class Permalink_Manager_Pro_Addons extends Permalink_Manager_Class {
 			'fields' => array(
 				'licence_key' => array(
 					'type' => 'text',
-					'value' => $licence_key,
+					'value' => $license_key,
 					'label' => __('Licence key', 'permalink-manager'),
-					'after_description' => sprintf('<p class="field-description description licence-info">%s</p><p class="field-description description"><a href="%s" id="pm_get_exp_date" class="mute">%s</a></p>', $expiration_info, "#", __('Check the expiration date.', 'permalink-manager'))
+					'after_description' => sprintf(
+						'<p class="field-description description licence-info">%s</p><p class="field-description description"><a href="%s" id="pm_get_exp_date" class="mute">%s</a> | <a href="https://permalinkmanager.pro/license-info/%s" target="_blank" class="mute">%s</a></p>',
+						$expiration_info,
+						"#",
+						__('Reload the expiration date', 'permalink-manager'),
+						$license_key,
+						__('Get license information', 'permalink-manager')
+					)
 				)
 			)
 		);
@@ -265,8 +265,8 @@ class Permalink_Manager_Pro_Addons extends Permalink_Manager_Class {
 	public static function display_redirect_form($element_id) {
 		global $permalink_manager_redirects, $permalink_manager_options, $permalink_manager_external_redirects;
 
-		// Do not display if "Extra redirects" option is turned off
-		if(empty($permalink_manager_options['general']['extra_redirects'])) {
+		// Do not trigger if "Extra redirects" option is turned off
+		if(empty($permalink_manager_options['general']['redirect']) || empty($permalink_manager_options['general']['extra_redirects'])) {
 			return __('Turn on "<strong>Extra redirects (aliases)</strong>" in Permalink Manager settings to enable this feature.', 'permalink-manager');
 		}
 
@@ -317,7 +317,7 @@ class Permalink_Manager_Pro_Addons extends Permalink_Manager_Class {
 		);
 
 		$external_redirect_url = (!empty($permalink_manager_external_redirects[$element_id])) ? $permalink_manager_external_redirects[$element_id] : "";
-		$html .= Permalink_Manager_Admin_Functions::generate_option_field("permalink-manager-external-redirect", array("input_class" => "widefat custom_uri", "value" => urldecode($external_redirect_url), "placeholder" => __("http://another-website.com/final-target-url", "permalink-manager")));
+		$html .= Permalink_Manager_Admin_Functions::generate_option_field("permalink-manager-external-redirect", array("input_class" => "widefat", "value" => urldecode($external_redirect_url), "placeholder" => __("http://another-website.com/final-target-url", "permalink-manager")));
 
 		// 2B. Description
 		$html .= "<div class=\"redirects-panel-description\">";

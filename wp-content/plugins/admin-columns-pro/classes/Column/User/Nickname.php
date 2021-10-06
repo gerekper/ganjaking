@@ -7,9 +7,6 @@ use ACP\Editing;
 use ACP\Search;
 use ACP\Sorting;
 
-/**
- * @since 2.0
- */
 class Nickname extends AC\Column\User\Nickname
 	implements Editing\Editable, Sorting\Sortable, Search\Searchable {
 
@@ -18,7 +15,10 @@ class Nickname extends AC\Column\User\Nickname
 	}
 
 	public function editing() {
-		return new Editing\Model\Meta( $this );
+		return new Editing\Service\Basic(
+			( new Editing\View\Text() )->set_clear_button( true ),
+			new Editing\Storage\User\Meta( $this->get_meta_key() )
+		);
 	}
 
 	public function search() {

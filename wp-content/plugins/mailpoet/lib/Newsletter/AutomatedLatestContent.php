@@ -46,8 +46,8 @@ class AutomatedLatestContent {
     // Queries with taxonomies are autodetected as 'is_archive=true' and 'is_home=false'
     // while queries without them end up being 'is_archive=false' and 'is_home=true'.
     // This is to fix that by always enforcing constistent behavior.
-    $query->is_archive = true; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
-    $query->is_home = false; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    $query->is_archive = true; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    $query->is_home = false; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
   }
 
   public function getPosts($args, $postsToExclude = [], $newsletterId = false, $newerThanTimestamp = false) {
@@ -84,6 +84,11 @@ class AutomatedLatestContent {
       $parameters['post__not_in'] = $postsToExclude;
     }
     $parameters['tax_query'] = $this->constructTaxonomiesQuery($args);
+
+    // WP posts with the type attachment have always post_status `inherit`
+    if ($parameters['post_type'] === 'attachment' && $parameters['post_status'] === 'publish') {
+      $parameters['post_status'] = 'inherit';
+    }
 
     // This enables using posts query filters for get_posts, where by default
     // it is disabled.
@@ -177,7 +182,7 @@ class AutomatedLatestContent {
     foreach ($posts as $post) {
       $postsToLog[] = [
         'id' => $post->ID,
-        'post_date' => $post->post_date, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+        'post_date' => $post->post_date, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
       ];
     }
     $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->addInfo(

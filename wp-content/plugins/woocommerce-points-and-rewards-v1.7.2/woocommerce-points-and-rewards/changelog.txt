@@ -1,0 +1,403 @@
+*** WooCommerce Points and Rewards Changelog ***
+
+2021-09-30 - version 1.7.2
+* Fix - Add: Enable automatic translations for the plugin content.
+* Tweak - WC 5.7 compatibility.
+* Tweak - WP 5.8 compatibility.
+
+2021-09-15 - version 1.7.1
+* Fix - When an admin increases a user's points balance all newly added points have a new expiry date.
+* Tweak - WC 5.7 compatibility.
+* Tweak - WP 5.8 compatibility.
+
+2021-08-04 - version 1.7.0
+* New - Allow WooCommerce Points and Rewards to work with the WooCommerce Blocks Cart and Checkout blocks.
+
+2021-02-03 - version 1.6.43
+* Tweak - WC 5.0 compatibility.
+* Tweak - WordPress 5.6.1 compatibility.
+
+2021-01-14 - version 1.6.42
+* Tweak - Point to general settings link when checking coupon setting.
+* Fix - Add compatibility with WooCommerce Pre-Orders.
+* Fix - Variable product Points not updated when Points conversion changed.
+
+2020-12-01 - version 1.6.41
+* Tweak - WC 4.7 compatibility.
+* Tweak - WordPress 5.6 compatibility.
+* Fix - Compatibility with PHP 8.0.
+
+2020-11-17 - version 1.6.40
+* Fix - Points not redeemed on subscription renewal orders.
+
+2020-10-28 - version 1.6.39
+* Fix - Unable to apply points from the checkout page to an order with a subscription product.
+
+2020-09-29 - version 1.6.38
+* Fix - Prevent fatal error when viewing coupons in admin with Subscriptions.
+* Fix - Update reward messages when using a regular coupon.
+* Fix - Only apply points to previous orders which have been paid.
+* Tweak - Use standard format for help tips in settings.
+* Tweak - Remove legacy code for wc_points_balance.
+
+2020-08-25 - version 1.6.37
+* Fix - Update Min Points Discount tooltip to more accurately describe the setting.
+
+2020-08-19 - version 1.6.36
+* Tweak - WordPress 5.5 compatibility.
+
+2020-08-06 - version 1.6.35
+* Tweak - Remove use of deprecated WC_Abstract_Legacy_Order::get_product_from_item() for WC 4.4 and up.
+
+2020-07-07 - version 1.6.34
+* Fix - Escape output for selectWoo fields.
+* Fix - Fix integration with automated taxes plugins.
+
+2020-06-10 - version 1.6.33
+* Fix - Stop using legacy filter to solve rounding issues.
+* Tweak - WC 4.2 compatibility.
+
+2020-04-30 - version 1.6.32
+* Tweak - Remove legacy code.
+* Tweak - WC 4.1 compatibility.
+
+2020-03-04 - version 1.6.31
+* Tweak - WC tested up to 4.0.
+
+2020-02-18 - version 1.6.30
+* Fix - Maximum points discount is not taken into account when users have more points available.
+
+2020-02-04 - version 1.6.29
+* Fix - Use proper escape for attributes.
+* Fix - Set maximum amount of points when redeeming a partial amount.
+* Fix - Allow redeeming partial points at checkout.
+
+2020-01-21 - version 1.6.28
+* Fix - Only display points for users from current site in Multisite.
+* Tweak - WC 3.9 compatibility.
+
+2020-01-15 - version 1.6.27
+* Fix - Points redemption showing warning on cart when non-numeric value is used for points value.
+* Fix - Available points incorrect for non-numeric max setting.
+
+2019-11-22 - version 1.6.26
+* Fix - Points not rewarded after partial redemption.
+
+2019-11-05 - version 1.6.25
+* Tweak - WC 3.8 compatibility.
+
+2019-10-30 - version 1.6.24
+* Fix - Points Modifier set to `0%` allows Points to be Earned.
+* Fix - Partial redemption will no longer works only once
+
+2019-08-08 - version 1.6.23
+* Tweak - WC 3.7 compatibility.
+
+2019-06-27 - version 1.6.22
+* Feature - Add option to select whether points should be deducted based on pre-tax or post-tax price.
+
+2019-05-30 - version 1.6.21
+* Fix - Only award points for paid or completed orders.
+
+2019-05-14 - version 1.6.20
+* Feature - Added a new option for setting a minimum product discount when redeeming points.
+
+2019-04-16 - version 1.6.19
+* Tweak - WC 3.6 compatibility.
+
+2019-03-04 - version 1.6.18
+* Fix - Points log order by points not working.
+
+2019-01-24 - version 1.6.17
+* Fix - Typo $points_earnedo should be $points_earned
+
+2019-01-07 - version 1.6.16
+* Fix - My Account Points tab not found after visiting permalinks page.
+* Fix - Allow usage of % sign in points modifier field for coupons.
+* Fix - Round points at the last possible moment to avoid rounding errors.
+* Fix - Improve compatibility with product discounts applied by WooCommerce Memberships
+* Fix - PHP notice for non-numeric value on the cart screen.
+
+2018-10-09 - version 1.6.15
+* Fix - My Account Points tab would sometimes render 404 error.
+* Fix - Changing points label would sometimes cause My Account Points tab to render 404 error.
+* Fix - When in cart selecting cancel on partial points redemption still applied the points.
+* Update - WC tested up to 3.5
+
+2018-08-02 - version 1.6.14
+* Fix    - Partial refund deducts incorrect number of points.
+* Fix    - Currency Position Right causing console errors.
+* Tweak  - Add non-rounded discount to the filter `wc_points_rewards_discount_points_modifier`.
+* Fix    - Fix double Points string appearing for variable products.
+* Fix    - Broken customer filter on some server configurations.
+
+2018-05-23 - version 1.6.13
+* Update - WC tested up to 3.4
+* Update - Privacy policy notification.
+* Fix    - Update pot file strings.
+
+2018-04-24 - version 1.6.12
+* Fix   - Apply Discount notice returns after submission.
+* Fix   - Bulk Edit Change To points does not work.
+* Fix   - Customer hits cancel after applying partial points redemption but points still applied.
+* Fix   - Label on front-end should match settings label.
+* Fix   - Output P&R HTML element on the checkout regardless of whether points are rewarded or not.
+* Fix   - Renewal points are not properly assigned to renewal orders for Subscriptions.
+* Fix   - Use max category discount rules for variable products.
+* Tweak - Add pagination on the front-end to display all points' calculations.
+* Tweak - Respect decimal separator settings in WooCommerce.
+* Tweak - Support partial refund on orders to partially refund points accordingly.
+
+2018-01-24 - version 1.6.11
+* Fix   - Points being accrued on 100% coupons when taxes are set to inclusive.
+* Tweak - Add Accommodations compatibility
+* Fix   - Display points for variable products as well.
+* Fix   - Extra cent rounding issues with coupons.
+
+2017-12-12 - version 1.6.10
+* Fix    - Points earned field for variations not accepting % percentage.
+* Fix    - Allow bookable products to have points earned at the product level.
+* Update - WC tested up to version.
+
+2017-11-08 - version 1.6.9
+* Fix - Compound tax products were not allowing the full subtotal to be covered by points
+
+2017-10-30 - version 1.6.8
+* Fix - Incorrect points being applied in multiple quantities for newer versions of WooCommerce
+
+2017-10-12 - version 1.6.7
+* Fix - Points not being redeemed when order is on-hold.
+
+2017-09-28 - version 1.6.6
+* Tweak - Add custom message setting specifically for variable products.
+* Tweak - Rename My Account tab to "Points"
+* Fix   - Translation domain not the correct string.
+* Fix   - Theme switch breaks my account points endpoint.
+* Fix   - Do not add points for a gifted order.
+
+2017-08-24 - version 1.6.5
+* Fix - Points earned message not showing correct amount on cart/checkout in certain cases due to caching.
+* Fix - Sometimes redeemed points message in cart/checkout page shows incorrect amount.
+* Fix - When cart has coupon, points applied incorrectly in certain cases.
+* Fix - Deprecated use of get_cart_url causing deprecating notices.
+
+2017-05-30 - version 1.6.4
+* Fix - Flush endpoints to prevent 404 on Points and Rewards tab in My Account.
+
+2017-05-16 - version 1.6.3
+* Fix - Admin can't update customer points on a multisite install.
+* Fix - Show all available users in the points table for admin.
+* Tweak - Move Points and Rewards to My Account Tab on the frontend.
+
+2017-05-13 - version 1.6.2
+* Fix - Gateways like PayPal which puts order in pending before IPN process was not redeeming points.
+
+2017-04-27 - 1.6.1
+* Fix - When order status is not processing or completed, redeemed points are not deducted.
+* Fix - Points earned field setting were not saving when product is of type composite.
+* Update - Show customer/user account emails on both manage points table and points log table.
+
+2017-03-17 - 1.6.0
+* Fix - Error when setting category level points setting on cart/checkout.
+* Fix - Points are being added back to the account after redemption.
+* Fix - Move the "Earn points" message right above the cart form.
+* Fix - Update for WooCommerce 3.0 compatibility.
+* Fix - PHP notices when activating plugin.
+
+2016-11-05 - 1.5.14
+* Fix - Points were redeemed even on failed payments.
+* Fix - Logic that determines if coupon is applied.
+* Fix - Variation with same price not showing earn points message.
+
+2016-05-31 - 1.5.13
+* Fix - Category level max discount is not being applied.
+* Fix - Zero points customers were not able to be updated.
+* Fix - Pagination issue.
+
+2016-04-12 - 1.5.12
+* Fix - Issue when no points awarded for product reviews action
+
+2016-03-30 - 1.5.11
+* Tweak - Show zero points customers on the manage points page.
+* Fix - Typo which causes subscription renewal points on variable product from saving.
+
+2016-02-24 - 1.5.10
+* Fix - Manage points page showing same customers more than once.
+
+2016-01-19 - version 1.5.9
+* Fix - Fix filtering by customer in the points list table.
+
+2016-01-15 - version 1.5.8
+* Fix - Make sure to use the correct database prefix when making our user query.
+
+2016-01-04 - version 1.5.7
+* Fix - Points ordering on the manage points list table has been fixed.
+* Fix - Fix for duplicate users sometimes showing up in the manage points list table.
+* Fix - Make sure to display a points earned message if a user earns points, even if they spend some too.
+
+2015-12-10 - version 1.5.6
+* Fix - No points earned when order changed from Pending to Completed
+* Fix - Bulk editing Points Earned popup not showing
+* Fix - Fatal Error for Variable Product with many variations
+
+2015-11-18 - version 1.5.5
+* Fix - Ordering the list table by number of points actually orders by point rather than user info
+* Fix - Redisplay the point redemption form on checkout after the customer removes it
+
+2015-10-09 - version 1.5.4
+* Fix - Points removal after failed order.
+* Fix - Settings screen saving.
+
+2015-08-18 - version 1.5.3
+* Fix - Config link.
+
+2015-08-17 - version 1.5.2
+* Fix - Make sure the setting filters are hooked correctly to prevent deprecated notices
+* Feature - Display the number of earned points and total number of user points on the order received page
+
+2015-08-05 - version 1.5.1
+* Fix - Some settings were not being saved in WC 2.3 due to backwards compatibilty issue
+
+2015-07-27 - version 1.5.0
+* Update - Settings page is now moved to all under Points & Rewards under main WooCommerce
+* Fix - Manage points list columns were not sorting properly when clicked.
+
+2015-04-21 - version 1.4.2
+* Feature - User can now add an expiry date to points
+* Tweak - Added a <br/> for points message on variable products
+
+2015-04-21 - version 1.4.1
+* Fix - Potential XSS with add_query_arg/remove_query_arg.
+
+2015-04-12 - version 1.4.0
+ * Tweak - Introduce the wc_points_rewards_review_post_comments_args filter
+ * Tweak - Introduce the wc_points_rewards_review_approve_comments_args filter
+ * Tweak - Introduce the wc_points_rewards_post_add_product_review_points filter
+ * Tweak - Introduce the wc_points_rewards_approve_add_product_review_points filter
+ * Feature - Added compatibility with WooCommerce Product Reviews Pro
+
+2015-04-07 - version 1.3.5
+* Fix - Points calculation when prices include tax.
+
+2015-03-11 - version 1.3.4
+* Fix - Global maximum points discount as percentage not working
+* Fix - message class name capitalized typo
+
+2015-02-21 - version 1.3.3
+* Fix - apply points to previous orders produces error
+
+2015-02-20 - version 1.3.2
+* Fix - undefined indexes
+* Fix - variations setting were not WC 2.3 compatible
+* Fix - variation/single points earned and maximum points where not retrieved properly in WC 2.3
+
+2015-02-17 - version 1.3.1
+* version bump
+
+2015-01-26 - version 1.3.0
+* WC 2.3 Compatibility (backwards compat back to 2.2).
+* Refactored code and text domain.
+* Included POT file.
+* Fix - Using points placeholder instead of points on the "Earn up to X points" message.
+* Fix - Showing correct number of points for variations that manually set 0 points.
+* Fix - Show point options for bookings.
+* Tweak - Adding hooks to add more admin fields.
+* Feature - Adding support for Product Bundles & Composite Products.
+* Feature - Allow Different Points For Subscription Renewal.
+* Feature - Apply points to past orders after a custom date
+* Feature - Reset Points and Rewards option in system status tools section.
+
+2014-08-25 - version 1.2.8
+* Fix - Rounding error with large amount of points on cart / checkout page
+
+2014-08-18 - version 1.2.7
+* Fix - Displaying all users (even users with no points) on Manage Customer Points page
+
+2014-08-11 - version 1.2.6
+* Fix - Updating link to coupon page in WordPress admin
+* Fix - Adding "Earn up to X points" on product page (affected variable products with identical prices)
+
+2014-07-08 - version 1.2.5
+* Only give points for approved comments
+
+2014-05-07 - version 1.2.3
+* Fix category price field to allow %
+* Fix settings page links
+
+2014-03-19 - version 1.2.2
+* Disable prompt when partial redemption is off
+
+2014-03-19 - version 1.2.1
+* Fix get_discount_for_redeeming_points when dealing with quantities > 1
+* Fixed issue when calculating cart totals more than once
+* Check if variation with method_exists( $product, 'get_variation_price' )
+
+2014-03-13 - version 1.2.0
+* Option to enable partial redemption
+* Hide points fields for variable products
+* Sync variation prices on save
+
+2014-03-12 - version 1.1.8
+* Fix screen ids
+
+2014-03-10 - version 1.1.7
+* Filter the coupon label to read "Points Redemption"
+
+2014-03-03 - version 1.1.6
+* Change processing trigger from woocommerce_order_status_on-hold_to_processing to woocommerce_order_status_processing
+
+2014-02-28 - version 1.1.5
+* Switch to user_register hook for account points
+
+2014-02-21 - version 1.1.4
+* Points applied before tax to give more accurate display during checkout
+* Fix point calculation for orders completed later
+
+2014-02-20 - version 1.1.3
+* Fix applying discounts on the checkout
+
+2014-01-31 - version 1.1.2
+* Fix notices in admin
+
+2014-01-28 - version 1.1.1
+* Fix order_user_by_points
+* Earn Points Rounding Mode option
+
+2014-01-06 - version 1.1.0
+* 2.1 compatibility
+
+2013-10-25 - version 1.0.9
+* Fix points message when user points < cart points
+* Workaround for core get_item_subtotal() function
+
+2013-10-10 - version 1.0.8
+* Fix max product discount logic
+
+2013-09-18 - version 1.0.7
+* Fix logic for max check
+
+2013-09-16 - version 1.0.6
+* Separate option for cart level max discount to product level max discount
+* Updated WP Admin Message Handler to 1.0.1
+
+2013-09-05 - version 1.0.5
+* Resolved issues with textdomains
+* Use line item prices for calculating points (compatibility with dynamic pricing)
+
+2013-09-01 - version 1.0.4
+* Allow earn points conversion rate to be zero.
+
+2013-08-12 - version 1.0.3
+* Save points for subscription products.
+* Add esc_js to "show all customers" string.
+
+2013-07-30 - version 1.0.2
+* Tweak - Points are no longer earned on order discounts
+* Tweak - Full point required for a partial dollar discount (ie a $1.01 discount would require 2 points)
+* Fix - Other coupons/discounts are respected when applying points for a product discount
+
+2013-06-22 - version 1.0.1
+* Fix - Show a points message on the single product page for variable products with variations that all have the same price
+
+2013-06-13 - version 1.0
+* Initial Release

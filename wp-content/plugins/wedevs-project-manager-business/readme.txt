@@ -3,7 +3,7 @@ Contributors: tareq1988, wedevs, asaquzzaman, wpasikur
 Donate Link: https://tareq.co/donate/
 Tags: project, manager, project manager, project management, todo, todo list, task, basecamp, milestone, message, file, comment, client, team, tracking, planning, lists, reporting, project management plugin for wordpress, project manager, project manager plugin for wordpress, wordpress project management
 Requires at least: 4.4
-Tested up to: 5.6
+Tested up to: 5.7.2
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
@@ -120,6 +120,15 @@ A. Found any bugs? Please create an [issue](https://github.com/tareq1988/wp-proj
 13. Project Settings -> Email Settings Tab
 
 == Changelog ==
+
+= v2.5.10 - July 16, 2021 =
+
+**Update** Info tooltip to remind that Estimation time is mandatory to get sub-task list
+**Fix** Co-worker was unable to add custom time log
+**Fix** After deleting one time log, new time log can not be created instantly
+**Fix** Redirect to task detail page while searching tasks
+**Fix** Some multisite support functionality
+**Fix** Gantt chart routes naming for different server support
 
 = v2.5.9 - Jan 29, 2021 =
 

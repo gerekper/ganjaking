@@ -5,6 +5,7 @@
  * Handles all Variation Update related functionalities.
  *
  * @since 3.0.0
+ * @package  WooCommerce Free Gift Coupons/Edit in Cart
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Main WC_FGC_Update_Variation_Cart Class
  *
- * @version 3.0.0
+ * @version 3.1.0
  */
 class WC_FGC_Update_Variation_Cart {
 
@@ -22,8 +23,8 @@ class WC_FGC_Update_Variation_Cart {
 	 * This helps prevent an FGC coupon from being removed
 	 * even if there's no more gift item in the cart.
 	 *
-	 * @var bool
 	 * @since 3.1.0
+	 * @var bool
 	 */
 	private static $prevent_coupon_flushing = false;
 
@@ -46,16 +47,34 @@ class WC_FGC_Update_Variation_Cart {
 		// Update the cart as per the user choice.
 		add_action( 'wc_ajax_fgc_update_variation_in_cart', array( __CLASS__, 'update_variation_in_cart' ) );
 
-		// Show error message on the checkout page.
-		add_action( 'woocommerce_before_checkout_process', array( __CLASS__, 'check_is_valid_product' ) );
+		// Show notice if gift item variations haven't been selected.
+		add_action( 'woocommerce_check_cart_items', array( __CLASS__, 'display_unselected_variation_notice' ) );
+
+		// For JS Degrade compatibility.
+
+		// Hide quantity input when updating.
+		add_filter( 'woocommerce_quantity_input_args', array( __CLASS__, 'hide_quantity_input' ), 99, 2 );
+
+		// Change add to cart link.
+		add_filter( 'woocommerce_product_single_add_to_cart_text', array( __CLASS__, 'single_add_to_cart_text' ), 99, 2 );
+
+		// Add hidden input to add to cart form.
+		add_action( 'woocommerce_after_single_variation', array( __CLASS__, 'display_hidden_update_input' ) );	
+
+		// Hide "From: X".
+		add_filter( 'woocommerce_get_price_html', array( __CLASS__, 'hide_from_statement' ), 99, 2 );
+
+		// Update cart.
+		add_filter( 'woocommerce_add_cart_item_data', array( __CLASS__, 'add_cart_item_data' ), 5, 3 );
 
 	}
 
 	/**
 	 * Prevent Coupon Flushing.
 	 *
-	 * @return bool Returns field $prevent_coupon_flushing
 	 * @since 3.1.0
+	 *
+	 * @return bool Returns field $prevent_coupon_flushing
 	 */
 	public static function prevent_coupon_flushing() {
 		return self::$prevent_coupon_flushing;
@@ -64,8 +83,9 @@ class WC_FGC_Update_Variation_Cart {
 	/**
 	 * Enqueue needed js and css.
 	 *
-	 * @param string $page   Name of the page.
 	 * @since 3.0.0
+	 * 
+	 * @param string $page   Name of the page.
 	 */
 	public static function enqueue_cart_script( $page ) {
 		// Check is cart page or not.
@@ -102,15 +122,18 @@ class WC_FGC_Update_Variation_Cart {
 						'animationLoop'  => false, // Breaks photoswipe pagination if true.
 					)
 				),
-				'zoom_enabled'                => get_theme_support( 'wc-product-gallery-zoom' ),
-				'photoswipe_enabled'          => get_theme_support( 'wc-product-gallery-lightbox' ),
-				'flexslider_enabled'          => get_theme_support( 'wc-product-gallery-slider' ),
-				'server_error'                => __( 'Sorry, an error occured, please try again later.', 'wc_free_gift_coupons' ),
-				'variation_update_error'  => __( 'Sorry, the gift item could not be updated, please try again later.', 'wc_free_gift_coupons' ),
+				'i18n_server_error'           => __( 'Sorry, an error occured, please try again later.', 'wc_free_gift_coupons' ),
+				'i18n_variation_update_error' => __( 'Sorry, the gift item could not be updated, please try again later.', 'wc_free_gift_coupons' ),
+				// translators: %button_text% the single_add_to_cart_text() for the product %product_title% is the product title.
+				'i18_update_button_label'     => _x( '%button_text% options for %product_title%', 'add to cart button label in cart edit context', 'wc_free_gift_coupons' ),
 			);
 
 			// Localize array here.
 			wp_localize_script( 'wc_fgc_js', 'wc_fgc_var_cart_params', $wc_fgc_trans_array );
+
+			// Make sure the script template is loaded.
+			add_action( 'wp_print_footer_scripts', array( __CLASS__, 'print_row_template' ) );
+
 		}
 
 	}
@@ -119,15 +142,17 @@ class WC_FGC_Update_Variation_Cart {
 	 * Change alert text for Variation.
 	 * 
 	 * Adjust selection alert text for variation popup.
+	 *
+	 * @since 3.0.0
 	 * 
-	 * @hook woocommerce_get_script_data
+	 * @hooked woocommerce_get_script_data
 	 * @param array $params
 	 * @param string $handle
 	 * @return $array
 	 */
 	public static function change_variation_select_alert( $params, $handle ) {
 		if ( 'wc-add-to-cart-variation' === $handle ) {
-			$params['i18n_make_a_selection_text'] = __( ' Please select some product options.', 'wc_free_gift_coupons' );
+			$params['i18n_make_a_selection_text'] = __( 'Please select some product options.', 'wc_free_gift_coupons' );
 		}
 		return $params;
 	}
@@ -136,30 +161,22 @@ class WC_FGC_Update_Variation_Cart {
 	 * Add data on the product page.
 	 *
 	 * @since 3.0.0
+	 * 
 	 * @param array        $cart_item  Cart item array.
 	 * @param array string $cart_item_key Cart item key.
 	 */
 	public static function variation_update_data( $cart_item, $cart_item_key ) {
 
-		$_product = $cart_item['data'];
-
-		$product_id   = isset( $cart_item['product_id'] ) ? intval( $cart_item['product_id'] ) : 0; // Get the variation id.
-		$variation_id = isset( $cart_item['variation_id'] ) ? intval( $cart_item['variation_id'] ) : 0; // Get the variation id.
-	
-		$get_gift_cart_meta = isset( $cart_item['free_gift'] ) ? $cart_item['free_gift'] : '';
+		$_product = isset( $cart_item['data'] ) && $cart_item['data'] instanceof WC_Product ? $cart_item['data'] : false;
 
 		// Check if product is varaible and has free gift item meta in it.
-		if ( ( $_product->is_type( 'variable' ) || $variation_id > 0 ) && ! empty( $get_gift_cart_meta )
-		&& 'variable' === $cart_item['fgc_type'] && ! self::is_cart_widget() ) {
+		if ( $_product && ! self::is_cart_widget() && ! empty( $cart_item[ 'fgc_edit_in_cart' ] ) ) {
 
-			// Check if no variation selected, so as to do something cool :)
-			if ( $variation_id > 0 ) {
-				$edit_in_cart_text      = _x( 'Change options', 'edit in cart link text', 'wc_free_gift_coupons' );
-				$var_edit_trigger_class = '';
-			} else {
-				$edit_in_cart_text      = _x( 'Choose options', 'edit in cart link text', 'wc_free_gift_coupons' );
-				$var_edit_trigger_class = ' wc-fgc-show-edit';
-			}
+			$product_id   = isset( $cart_item['product_id'] ) ? intval( $cart_item['product_id'] ) : 0; // Get the variation id.
+			$variation_id = isset( $cart_item['variation_id'] ) ? intval( $cart_item['variation_id'] ) : 0; // Get the variation id.
+			$variation    = isset( $cart_item['variation'] ) ? $cart_item['variation'] : array(); // Array of chosen attributes in the cart.
+
+			$pre_selected_attributes = ! empty( $cart_item['fgc_pre_selected_attributes'] ) ? $cart_item['fgc_pre_selected_attributes'] : array();
 
 			// Get Link incase js fails.
 			$edit_in_cart_link = add_query_arg(
@@ -169,16 +186,42 @@ class WC_FGC_Update_Variation_Cart {
 				$_product->get_permalink( $cart_item )
 			);
 
-			// Translators: %1$s text for edit price link.
-			$edit_in_cart_link_content = sprintf( _x( '<small>%1$s<span class="dashicons dashicons-after dashicons-edit"></span></small>', 'edit in cart text', 'wc_free_gift_coupons' ), $edit_in_cart_text );
+			// Check if no variation selected, or if its "any", so as to do something cool :)
+			if ( $variation_id > 0 && ! self::has_any_variation( $variation ) ) {
+				// translators: %1$s Screen reader text opening <span> %2$s Product title %3$s Closing </span>
+				$edit_in_cart_text = sprintf( esc_html_x( 'Edit options %1$sfor %2$s%3$s', 'edit in cart link text', 'wc_free_gift_coupons' ),
+					'<span class="screen-reader-text">',
+					$_product->get_title(),
+					'</span>'
+				);
 
-			$variation_html =
-			'<div class="actions wc-fgc-cart-update' . esc_attr( $var_edit_trigger_class ) . '">
-				<a href="' . esc_url( get_permalink( $_product->get_id() ) ) . '" class="wc-fgc-edit-var-link button wc_fgc_updatenow" data-item_key="' . esc_attr( $cart_item_key ) . '" data-product_id="' . esc_attr( $product_id ) . '" data-variation_id="' . esc_attr( $variation_id ) . '">'
-				. $edit_in_cart_link_content .
-				'</a>
-			</div>';
-			echo $variation_html;
+				$var_edit_trigger_class = '';
+			} else {
+				// translators: %1$s Screen reader text opening <span> %2$s Product title %3$s Closing </span>
+				$edit_in_cart_text      = sprintf( esc_html_x( 'Choose options %1$sfor %2$s%3$s', 'edit in cart link text', 'wc_free_gift_coupons' ),
+					'<span class="screen-reader-text">',
+					$_product->get_title(),
+					'</span>'
+				);
+				$var_edit_trigger_class = 'wc-fgc-auto-open-edit';
+
+			}
+
+			?>
+
+			<div class="actions wc-fgc-cart-update" >
+				<button
+					formaction="<?php echo esc_attr( $edit_in_cart_link );?>"
+					class="wc-fgc-edit-in-cart wc_fgc_updatenow wc-fgc-edit-var-link button <?php echo esc_attr( $var_edit_trigger_class ); ?>"
+					data-cart_item_key="<?php echo esc_attr( $cart_item_key );?>"
+					data-product_id="<?php echo esc_attr( $product_id );?>"
+					data-variation_id="<?php echo esc_attr( $variation_id );?>"
+					data-pre_selected_attributes="<?php echo htmlspecialchars( wp_json_encode( $pre_selected_attributes ) );?>"
+					href="<?php esc_url( $edit_in_cart_link ); ?>">
+					<?php echo $edit_in_cart_text; ?>
+				</button>
+			</div>
+			<?php
 		}
 	}
 
@@ -213,7 +256,14 @@ class WC_FGC_Update_Variation_Cart {
 		setup_postdata( $post );
 	
 		/* Setting global things on our own for getting things in woocommerce manner ::end */
-		do_action( 'wc_fgc_before_single_cart_product' );
+		/**
+		 * Before single cart product template is loaded.
+		 *
+		 * @param array $cart_item
+		 * @since 3.0.0
+		 * @since 3.1.0 Added $cart_item param.
+		 */
+		do_action( 'wc_fgc_before_single_product_cart_template', $cart_item );
 
 		ob_start();
 
@@ -221,8 +271,8 @@ class WC_FGC_Update_Variation_Cart {
 		wc_get_template(
 			'cart/content-product.php',
 			array(
-				'variation_id' => $variation_id,
-				'cart_item_key' => $cart_item_key,
+				'variation_id'  => $variation_id,
+				'cart_item_key' => $cart_item_key,	
 			),
 			'',
 			WC_Free_Gift_Coupons::plugin_path() . '/templates/'
@@ -234,24 +284,38 @@ class WC_FGC_Update_Variation_Cart {
 		wp_send_json_success( $html );
 	}
 
-
 	/**
 	 * Handle ajax as per the updation in the cart.
 	 *
 	 * @since 3.0.0
 	 */
 	public static function update_variation_in_cart() {
-		do_action( 'wc_fgc_before_updating_product_in_cart' );
 
-		// phpcs:ignore
-		$_product_id = ! empty( $_GET['product_id'] ) ? intval( wp_unslash( $_GET['product_id'] ) ) : 0;
-		$variation_id  = isset( $_GET['variation_id'] ) ? intval( wp_unslash( absint( $_GET['variation_id'] ) ) ) : 0; // phpcs:ignore
-		$cart_item_key = isset( $_GET['cart_item_key'] ) ? sanitize_text_field( wp_unslash( $_GET['cart_item_key'] ) ) : 0; // phpcs:ignore
-		$variation     = isset( $_GET['variation'] ) ? map_deep( wp_unslash( $_GET['variation'] ), 'sanitize_text_field' ) : array(); // phpcs:ignore
+		$_product_id = ! empty( $_REQUEST['product_id'] ) ? intval( wp_unslash( $_REQUEST['product_id'] ) ) : 0; // phpcs:ignore
+		$variation_id  = isset( $_REQUEST['variation_id'] ) ? intval( wp_unslash( absint( $_REQUEST['variation_id'] ) ) ) : 0; // phpcs:ignore
+		$cart_item_key = isset( $_REQUEST['cart_item_key'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['cart_item_key'] ) ) : 0; // phpcs:ignore
+		$variation     = isset( $_REQUEST['variation'] ) ? map_deep( wp_unslash( $_REQUEST['variation'] ), 'sanitize_text_field' ) : array(); // phpcs:ignore
 
 		$cart_item = WC()->cart->get_cart_item( $cart_item_key );
 
 		if ( ! empty( $cart_item ) ) {
+
+			/**
+			 * Run before updating our product in cart.
+			 *
+			 * @param array $cart_item
+			 * @since 3.0.0
+			 * @since 3.1.0 Added $cart_item key param.
+			 */
+			do_action( 'wc_fgc_before_updating_product_in_cart', $cart_item );
+		
+			/**
+			 * Edit the cart_item.
+			 *
+			 * @param array $cart_item
+			 * @since 3.1.0
+			 */
+			$cart_item = apply_filters( 'wc_fgc_edit_cart_item', $cart_item );
 
 			// Helps when it's just a single variation gift item in the cart, so we prevent removal trigger.
 			self::$prevent_coupon_flushing = true;
@@ -259,6 +323,8 @@ class WC_FGC_Update_Variation_Cart {
 			$passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $_product_id, $cart_item['quantity'], $variation_id, $variation, $cart_item );
 
 			if ( $passed_validation && false !== WC()->cart->add_to_cart( $_product_id, $cart_item['quantity'], $variation_id, $variation, $cart_item ) ) {
+				// Clear notices, so old errors don't show up.
+				wc_clear_notices();
 
 				// Remove the existing product from cart.
 				WC()->cart->remove_cart_item( $cart_item_key );
@@ -268,7 +334,13 @@ class WC_FGC_Update_Variation_Cart {
 				wp_send_json_success();
 
 			} else {
-				wp_send_json_error( esc_html__( 'Product selections are not valid, so this selection cannot be confirmed.', 'wc_free_gift_coupons' ) );
+				$error_notices  = wc_get_notices( 'error' );
+				$default_notice = esc_html__( 'Product selections are not valid, so this selection cannot be confirmed.', 'wc_free_gift_coupons' );
+
+				// Use the last error notice, or our default notice.
+				$msg = ( 0 < count( $error_notices ) ? end( $error_notices )['notice'] : $default_notice );
+	
+				wp_send_json_error( $msg );
 			}
 
 		} else {
@@ -279,41 +351,34 @@ class WC_FGC_Update_Variation_Cart {
 	}
 
 	/**
-	 * Check is valid product in the cart.
+	 * Scan cart contents for unconfigured variable gift product.
 	 *
-	 * @since 3.0.0
-	 * @since 3.1.0 - added link to error note.
+	 * @since 3.2.0
+	 *
+	 * @return array - The unconfigured cart items.
 	 */
-	public static function check_is_valid_product() {
+	private static function check_cart_for_gift_errors() {
+
 		$cart = WC()->cart->get_cart();
 
+		$errors = array();
+
 		if ( ! empty( $cart ) ) {
+			
 			$_is_not_valid_product = false;
+			
 			foreach ( $cart as $cart_item_key => $cart_item ) {
 
-				$_cart_remove_pro = wc_get_product( $cart_item['product_id'] );
-
-				if ( $_cart_remove_pro->is_type( 'variable' ) && isset( $cart_item['free_gift'] ) ) {
+				if ( $cart_item['data']->is_type( 'variable' ) && isset( $cart_item['free_gift'] ) ) {
 
 					if ( 0 === $cart_item['variation_id'] ) {
-
-						$_is_not_valid_product = true;
-
-						$_product_name = $_cart_remove_pro->get_name();
-						break;
+						$errors[$cart_item_key] = $cart_item;
 					}
 				}
 			}
-
-			if ( $_is_not_valid_product ) {
-				$cart_link_text = __( 'Click here', 'wc_free_gift_coupons' );
-				$cart_link      = '<a href="' . esc_url( self::edit_in_cart_redirect() ) . '">' . $cart_link_text . '</a>';
-
-				// Translators: 1: Product name. 2: Cart link.
-				$message = sprintf( __( 'We were unable to process your order, please try again by choosing attributes for "%1$s". %2$s', 'wc_free_gift_coupons' ), $_product_name, $cart_link );
-				throw new Exception( $message );
-			}
 		}
+
+		return $errors;
 	}
 
 	/**
@@ -326,33 +391,13 @@ class WC_FGC_Update_Variation_Cart {
 	}
 
 	/**
-	 * Customize product display of ajax-loaded template.
-	 *
-	 * @since 3.0.2
-	 * @deprecated 3.1.0
-	 */
-	public static function custom_hooks_and_filters() {
-		wc_deprecated_function( 'WC_FGC_Update_Variation_Cart::custom_hooks_and_filters()', '3.1.0', 'wc_fgc_customize_product_template_in_cart()' );	
-	}
-
-	/**
-	 * Change add to cart text
-	 *
-	 * @since 3.0.2
-	 * @deprecated 3.1.0
-	 */
-	public static function add_to_cart_text( $text ) {
-		wc_deprecated_function( 'WC_FGC_Update_Variation_Cart::custom_hooks_and_filters()', '3.1.0', 'wc_fgc_add_to_cart_text()' );			
-	}
-
-
-	/**
 	 * Hide the quantity input when updating.
+	 *
+	 * @since 3.1.0
 	 *
 	 * @param array $args
 	 * @param object $product
 	 * @return string
-	 * @since 3.1.0
 	 */
 	public static function hide_quantity_input( $args, $product ) {
 
@@ -373,10 +418,11 @@ class WC_FGC_Update_Variation_Cart {
 	/**
 	 * If Updating a gift change single item's add to cart button text.
 	 *
+	 * @since 3.1.0
+	 *
 	 * @param string $text
 	 * @param object $product
 	 * @return string
-	 * @since 3.1.0
 	 */
 	public static function single_add_to_cart_text( $text, $product ) {
 
@@ -391,8 +437,6 @@ class WC_FGC_Update_Variation_Cart {
 		return $text;
 
 	}
-
-
 
 	/**
 	 * Add a hidden input to facilitate changing the variation from cart, and enqueue script.
@@ -410,28 +454,104 @@ class WC_FGC_Update_Variation_Cart {
 		}
 	}
 
+	/**
+	 * Hide "From:X" statement.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param int $price
+	 * @param WC_Product $product
+	 * @return mixed
+	 */
+	public static function hide_from_statement( $price, $product ) {
+		if ( isset( $_GET['update-gift'] ) && $product->is_type( 'variable' ) ) {
+			return '';
+		}
+		return $price;
+	}
+
+	/**
+	 * Has "any" variation?
+	 *
+	 * Tests if any of the attributes are empty.
+	 *
+	 * @param array $variation
+	 * @return bool
+	 * @since 3.1.0
+	 */
+	public static function has_any_variation( $variations ) {
+		return count( $variations ) !== count( array_filter( $variations ) );
+	}
+
+	/**
+	 * Display notice for unselected variations.
+	 *
+	 * @since 3.1.0
+	 */
+	public static function display_unselected_variation_notice() {
+
+		if ( is_cart() || is_checkout() ) {
+
+			$unselected_variations = self::check_cart_for_gift_errors();
+
+			if ( ! empty( $unselected_variations ) ) {
+
+				$type = is_checkout() ? 'error' : 'notice';
+
+				// Construct phases, also for easy translation.
+				$comma  = _x( ', ', 'comma for product name separation in unselected variation notice sentence.', 'wc_free_gift_coupons' );
+				$and    = _x( ' and ', '"and" phrase to separate last product in unselected variation notice sentence.', 'wc_free_gift_coupons' );
+				$phrase = '';
+
+				$count          = 0;
+				$products_count = count( $unselected_variations );
+
+				foreach ( $unselected_variations as $cart_item_key => $cart_item ) {
+					$word_seperator = '';
+
+					// Is it second to the last item?
+					if ( ( $products_count - $count ) === 2 ) {
+						$word_seperator = $and;
+					} elseif ( ( $products_count - $count ) !== 1 ) { // Use comma for other items, except last.
+						$word_seperator = $comma;
+					}
+
+					$pre_selected_attributes = ! empty( $cart_item['fgc_pre_selected_attributes'] ) ? $cart_item['fgc_pre_selected_attributes'] : array();
+
+					$edit_in_cart_link = add_query_arg(
+						array(
+							'update-gift'  => $cart_item_key
+						),
+						$cart_item['data']->get_permalink( $cart_item )
+					);
+
+					$phrase .= '<a class="wc-fgc-edit-in-cart wc-fgc-edit-var-link" href="' . esc_url( $edit_in_cart_link ) . '" data-cart_item_key="' . esc_attr( $cart_item_key ) . '" data-product_id="' . esc_attr( $cart_item['product_id'] ) . '" data-variation_id="' . esc_attr( $cart_item['variation_id'] ) . '" data-pre_selected_attributes="'. htmlspecialchars( wp_json_encode( $pre_selected_attributes ) ) .'">' . esc_html( $cart_item['data']->get_name() ) . '</a>' . $word_seperator;
+
+					++$count;
+				}
+
+				// Translators: %s is product link list.
+				$message = sprintf( __( 'You have not selected options for the following gift items: <strong>"%s"</strong>', 'wc_free_gift_coupons' ), $phrase );
+
+				wc_add_notice( $message, $type );
+
+			}
+
+		}
+
+	}
 
 	/*-----------------------------------------------------------------------------------*/
 	/* Cart                                                                              */
 	/*-----------------------------------------------------------------------------------*/
 
 	/**
-	 * Redirect to the cart when editing a price "in-cart".
-	 *
-	 * @param  string $url
-	 * @return string
-	 * @since   3.1.0
-	 */
-	public static function edit_in_cart_redirect() {
-		return wc_get_cart_url();
-	}
-
-	/**
 	 * Filter the displayed notice after redirecting to the cart when editing a price "in-cart".
 	 *
+	 * @since 3.1.0
+	 *
 	 * @param  string $url
 	 * @return string
-	 * @since   3.1.0
 	 */
 	public static function edit_in_cart_redirect_message( $message ) {
 		return __( 'Cart updated.', 'wc_free_gift_coupons' );
@@ -440,11 +560,12 @@ class WC_FGC_Update_Variation_Cart {
 	/**
 	 * Add cart session data.
 	 *
+	 * @since 3.1.0
+	 *
 	 * @param array $cart_item_data extra cart item data we want to pass into the item.
 	 * @param int   $product_id contains the id of the product to add to the cart.
 	 * @param int   $variation_id ID of the variation being added to the cart.
 	 * @return array
-	 * @since 3.1.0
 	 */
 	public static function add_cart_item_data( $cart_item_data, $product_id, $variation_id ) {
 
@@ -477,6 +598,11 @@ class WC_FGC_Update_Variation_Cart {
 						$cart_item_data['fgc_type'] = $cart_item['fgc_type'];
 					}
 
+					// Pass edit in cart ish to new product.
+					if ( isset( $cart_item['fgc_edit_in_cart' ] ) ) {
+						$cart_item_data['fgc_edit_in_cart'] = $cart_item['fgc_edit_in_cart'];
+					}
+
 					// Remove.
 					WC()->cart->remove_cart_item( $updating_cart_key );
 
@@ -495,6 +621,98 @@ class WC_FGC_Update_Variation_Cart {
 		return $cart_item_data;
 	}
 
-}
+	/**
+	 * Print the new row script template.
+	 *
+	 * @since 3.1.0
+	 */
+	public static function print_row_template() { ?>
+		<script type="text/html" id="tmpl-wc-fgc-edit">
+			<tr class="wc-fgc-decoy-row"></tr>
+			<tr class="wc-fgc-new-row" id="wc-fgc-new-row_{{{data.cart_item_key}}}">
+				   <td colspan="{{{data.colsBeforeProductName}}}"></td>
+				   <td colspan="{{{data.colSpan}}}" class="product-name wc-fgc-product-content">{{{data.content}}}</td>
+		   </tr>
+		</script>
+		<?php
+	}
 
+
+	/*
+	 * -----------------------------------------------------------------------------------
+	 *  Deprecated Functions                                                                 
+	 *------------------------------------------------------------------------------------
+	 */
+
+	/**
+	 * Check is valid product in the cart.
+	 *
+	 * @since 3.0.0
+	 * @since 3.1.0 - Added link to error note.
+	 * @deprecated 3.2.0
+	 */
+	public static function check_is_valid_product() {
+		$cart = WC()->cart->get_cart();
+
+		if ( ! empty( $cart ) ) {
+			$_is_not_valid_product = false;
+			foreach ( $cart as $cart_item_key => $cart_item ) {
+
+				if ( $cart_item['data']->is_type( 'variable' ) && isset( $cart_item['free_gift'] ) ) {
+
+					if ( 0 === $cart_item['variation_id'] ) {
+
+						$_is_not_valid_product = true;
+
+						$_product_name = $cart_item['data']->get_name();
+						break;
+					}
+				}
+			}
+
+			if ( $_is_not_valid_product ) {
+				$cart_link_text = __( 'Click here', 'wc_free_gift_coupons' );
+				$cart_link      = '<a href="' . esc_url( wc_get_cart_url() ) . '">' . $cart_link_text . '</a>';
+
+				// Translators: 1: Product name. 2: Cart link.
+				$message = sprintf( __( 'We were unable to process your order, please try again by choosing attributes for "%1$s". %2$s', 'wc_free_gift_coupons' ), $_product_name, $cart_link );
+				throw new Exception( $message );
+			}
+		}
+	}
+
+	/**
+	 * Customize product display of ajax-loaded template.
+	 *
+	 * @since 3.0.2
+	 * @deprecated 3.1.0
+	 */
+	public static function custom_hooks_and_filters() {
+		wc_deprecated_function( 'WC_FGC_Update_Variation_Cart::custom_hooks_and_filters()', '3.1.0', 'wc_fgc_customize_product_template_in_cart()' );	
+	}
+
+	/**
+	 * Change add to cart text
+	 *
+	 * @since 3.0.2
+	 * @deprecated 3.1.0
+	 */
+	public static function add_to_cart_text( $text ) {
+		wc_deprecated_function( 'WC_FGC_Update_Variation_Cart::custom_hooks_and_filters()', '3.1.0', 'wc_fgc_add_to_cart_text()' );			
+	}
+
+	/**
+	 * Redirect to the cart when editing a price "in-cart".
+	 *
+	 * @since 3.1.0
+	 * @deprecated 3.2.0
+	 *
+	 * @param  string $url
+	 * @return string
+	 */
+	public static function edit_in_cart_redirect() {
+		return wc_get_cart_url();
+	}
+
+}
 WC_FGC_Update_Variation_Cart::init();

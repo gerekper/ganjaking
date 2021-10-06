@@ -2,7 +2,36 @@
 	"use strict";
 
 	$(document).ready(function () {
-		var ia_color_settings = [
+		let active_tab = localStorage.getItem("betterdocs_admin_tab");
+		if (active_tab === 'tab-content-1') {
+			$('.icon-wrap-1').addClass('active');
+			$('.tab-content-1').addClass('active');
+			$('.select-kb-top').hide();
+		} else {
+			$('.icon-wrap-2').addClass('active');
+			$('.tab-content-2').addClass('active');
+			$('.select-kb-top').show();
+		}
+
+		$('.tabs-nav a').click(function(e) {
+			e.preventDefault();
+			$(this).siblings('a').removeClass('active').end().addClass('active');
+			let sel = this.getAttribute('data-toggle-target');
+			if (sel === '.tab-content-2') {
+				$('.select-kb-top').show();
+			} else {
+				$('.select-kb-top').hide();
+			}
+			let val = $(this).hasClass('active') ? sel : '';
+			localStorage.setItem('betterdocs_admin_tab', val.replace('.',''));
+			$('.betterdocs-tab-content').removeClass('active').filter(sel).addClass('active');
+		});
+
+		$('.select-kb-top').on('change', function() {
+			javascript:location.href = "admin.php?page=betterdocs-admin&knowledgebase=" + this.value;
+		});
+
+		let ia_color_settings = [
 			{
 				id: "#ia_accent_color",
 				settings: [
@@ -447,34 +476,6 @@
 				}, 1000);
 		});
 
-		// Switch to Dark Mode
-		$("#betterdocs-mode-toggle").prop(
-			"checked",
-			docs_cat_ordering_data.dark_mode
-		);
-		$("#betterdocs-mode-toggle").on("click", function (e) {
-			$("body").toggleClass("betterdocs-dark-mode");
-			$.ajax({
-				type: "POST",
-				url: docs_cat_ordering_data.ajaxurl,
-				data: {
-					action: "betterdocs_dark_mode",
-					mode: e.currentTarget.checked ? 1 : 0,
-					nonce: docs_cat_ordering_data.doc_cat_order_nonce,
-				},
-				dataType: "JSON",
-				success: function (response) {
-					// console.log( response );
-				},
-			});
-		});
-
-		// Go To Sorting UI
-		$("body.post-type-docs .wp-heading-inline").after(
-			'<a href="admin.php?page=betterdocs-admin" class="page-title-action">' +
-				docs_cat_ordering_data.menu_title +
-				"</a>"
-		);
 		// drag and drop sortalbe doc post
 		const docs_post_list = $(".betterdocs-single-listing ul");
 		docs_post_list.each(function (i, single_doc_list) {

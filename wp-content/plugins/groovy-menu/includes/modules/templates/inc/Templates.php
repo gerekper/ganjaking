@@ -25,6 +25,12 @@ class Templates {
 			<div class="gm-modal-body">
 				<div class="gm-modal-row">
 					<?php
+					if ( empty( $presets ) ) {
+						echo '<div class="gm-modal-notice">'.
+						     esc_html__( 'To show presets from the online library, please enable toggle beside "Allow fetching presets from online library" placed in "Global Settings" at the "Tools" tab', 'groovy-menu' ) .
+						'</div>';
+					}
+
 					foreach ( $presets as $preset ) { ?>
 						<div
 								class="preset"

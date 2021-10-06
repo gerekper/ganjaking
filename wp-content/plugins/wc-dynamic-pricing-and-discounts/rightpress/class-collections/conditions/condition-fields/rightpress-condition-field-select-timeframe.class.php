@@ -67,9 +67,9 @@ abstract class RightPress_Condition_Field_Select_Timeframe extends RightPress_Co
         if ($this->key === 'timeframe_span') {
             return array_merge(array(
                 'all_time' => array(
-                    'label'     => __('All time', 'rightpress'),
+                    'label'     => esc_html__('All time', 'rightpress'),
                     'options'   => array(
-                        'all_time' => __('all time', 'rightpress'),
+                        'all_time' => esc_html__('all time', 'rightpress'),
                     ),
                 ),
             ), $this->timeframes_for_display);

@@ -17,7 +17,7 @@ class Yoast_Form {
 	/**
 	 * Instance of this class
 	 *
-	 * @var object
+	 * @var Yoast_Form
 	 * @since 2.0
 	 */
 	public static $instance;
@@ -285,9 +285,9 @@ class Yoast_Form {
 	 *
 	 * @since 12.8
 	 *
-	 * @param string $variable    The variables within the option to create the checkbox list for.
-	 * @param string $labels      The labels to show for the variable.
-	 * @param array  $attr        Extra attributes to add to the checkbox list.
+	 * @param string $variable The variables within the option to create the checkbox list for.
+	 * @param string $labels   The labels to show for the variable.
+	 * @param array  $attr     Extra attributes to add to the checkbox list.
 	 */
 	public function checkbox_list( $variable, $labels, $attr = [] ) {
 		$defaults = [
@@ -327,6 +327,7 @@ class Yoast_Form {
 	 * @param bool   $reverse Reverse order of buttons (default true).
 	 * @param string $help    Inline Help that will be printed out before the toggle.
 	 * @param bool   $strong  Whether the visual label is displayed in strong text. Default is false.
+	 *                        Starting from Yoast SEO 16.5, the visual label is forced to bold via CSS.
 	 * @param array  $attr    Extra attributes to add to the light switch.
 	 */
 	public function light_switch( $var, $label, $buttons = [], $reverse = true, $help = '', $strong = false, $attr = [] ) {
@@ -851,11 +852,11 @@ class Yoast_Form {
 		$attr     = wp_parse_args( $attr, $defaults );
 
 		$index_switch_values = [
-			'off' => __( 'Yes', 'wordpress-seo' ),
-			'on'  => __( 'No', 'wordpress-seo' ),
+			'off' => __( 'On', 'wordpress-seo' ),
+			'on'  => __( 'Off', 'wordpress-seo' ),
 		];
 
-		$is_disabled = ( isset( $attr['disabled'] ) && $attr['disabled'] ) ? true : false;
+		$is_disabled = ( isset( $attr['disabled'] ) && $attr['disabled'] );
 
 		$this->toggle_switch(
 			$var,
@@ -863,7 +864,7 @@ class Yoast_Form {
 			sprintf(
 				/* translators: %s expands to an indexable object's name, like a post type or taxonomy */
 				esc_html__( 'Show %s in search results?', 'wordpress-seo' ),
-				'<strong>' . esc_html( $label ) . '</strong>'
+				esc_html( $label )
 			),
 			$help,
 			[ 'disabled' => $is_disabled ]
@@ -891,11 +892,11 @@ class Yoast_Form {
 		$off_key = ( $inverse_keys ) ? 'on' : 'off';
 
 		$show_hide_switch = [
-			$on_key  => __( 'Show', 'wordpress-seo' ),
-			$off_key => __( 'Hide', 'wordpress-seo' ),
+			$on_key  => __( 'On', 'wordpress-seo' ),
+			$off_key => __( 'Off', 'wordpress-seo' ),
 		];
 
-		$is_disabled = ( isset( $attr['disabled'] ) && $attr['disabled'] ) ? true : false;
+		$is_disabled = ( isset( $attr['disabled'] ) && $attr['disabled'] );
 
 		$this->toggle_switch(
 			$var,
@@ -909,8 +910,8 @@ class Yoast_Form {
 	/**
 	 * Retrieves the value for the form field.
 	 *
-	 * @param string $field_name    The field name to retrieve the value for.
-	 * @param string $default_value The default value, when field has no value.
+	 * @param string      $field_name    The field name to retrieve the value for.
+	 * @param string|null $default_value The default value, when field has no value.
 	 *
 	 * @return mixed|null The retrieved value.
 	 */
@@ -970,7 +971,7 @@ class Yoast_Form {
 	 *
 	 * @param string $feature_setting The feature setting.
 	 *
-	 * @return boolean True if we are dealing with the Usage tracking feature on a multisite subsite.
+	 * @return bool True if we are dealing with the Usage tracking feature on a multisite subsite.
 	 */
 	protected function is_tracking_on_subsite( $feature_setting ) {
 		return ( $feature_setting === 'tracking' && ! is_network_admin() && ! is_main_site() );

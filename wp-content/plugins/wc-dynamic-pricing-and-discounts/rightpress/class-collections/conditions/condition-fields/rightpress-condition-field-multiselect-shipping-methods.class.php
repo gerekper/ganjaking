@@ -55,7 +55,7 @@ abstract class RightPress_Condition_Field_Multiselect_Shipping_Methods extends R
     public function get_placeholder()
     {
 
-        return __('Select shipping methods', 'rightpress');
+        return esc_html__('Select shipping methods', 'rightpress');
     }
 
 

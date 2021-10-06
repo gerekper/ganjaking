@@ -94,6 +94,8 @@ class VI_WNOTIFICATION_Data {
 			//new option
 			'change_virtual_time_enable'     => '',
 			'change_message_number_enable'   => '',
+			'product_visibility'   => array('visible','catalog','search'),
+			'enable_current_category'   =>0,
 		);
 		$this->params = apply_filters( 'woonotification_settings_args', wp_parse_args( $this->params, $args ) );
 	}
@@ -557,7 +559,7 @@ class VI_WNOTIFICATION_Data {
 	 * @return mixed|void
 	 */
 	public function show_variation() {
-		return apply_filters( 'woonotification_show_variation', $this->params['show_variation'] );
+		return apply_filters( 'woonotification_show_variation', $this->params['show_variation'] ??'' );
 	}
 
 	/**

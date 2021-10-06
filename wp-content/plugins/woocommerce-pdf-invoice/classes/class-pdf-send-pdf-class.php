@@ -40,6 +40,13 @@
          */
 	 	public static function pdf_attachment( $attachment = NULL, $id = NULL, $order = NULL ) {
 
+	 		// Clean up the refunded $id
+	 		$email_option_name = 'woocommerce_' . $id . '_settings';
+
+	 		if( 'customer_partially_refunded_order' === $id ) {
+	 			$email_option_name = 'woocommerce_customer_refunded_order_settings';
+	 		}
+
 	 		// Get the PDF Invoice settings
 	 		$settings = get_option( 'woocommerce_pdf_invoice_settings' );
 
@@ -61,7 +68,7 @@
         	$email_ids[] = 'customer_completed_renewal_order';
 
         	// Check the settings for the email ID
-        	$email_options = get_option( 'woocommerce_' . $id . '_settings' );
+        	$email_options = get_option( $email_option_name );
         	if( isset( $email_options['pdf_invoice_attach_pdf_invoice'] ) && $email_options['pdf_invoice_attach_pdf_invoice'] == 'yes' ) {
         		$email_ids[] = $id;
         	}
@@ -377,6 +384,14 @@
 
 					if ( isset($settings['pdf_termsid']) && $settings['pdf_termsid'] != 0 ) {
 
+						if( isset( $settings["pdf_debug"] ) && $settings["pdf_debug"] == "true" ) {
+				  			// Load PDF Dbugging
+				  			if( !class_exists( 'WC_pdf_debug') ) {
+				  				include( 'class-pdf-debug.php' );
+				  			}
+				  			WC_pdf_debug::pdf_debug( $pdf->get_woocommerce_invoice_terms( $settings['pdf_termsid'], $order_id ), 'WC_PDF_Invoice', __('PDF Terms Body : ', 'woocommerce-pdf-invoice'), TRUE );
+						}
+
 						// Start the PDF Generator for the terms
 						$dompdf = new Dompdf();
 						$dompdf->setOptions($options);
@@ -527,9 +542,9 @@
 		 */
 		private static function create_filename( $order_id ) {
 
-			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
-
-			$pdf = new WC_send_pdf();
+			$settings 	= get_option( 'woocommerce_pdf_invoice_settings' );
+			$order 		= new WC_Order( $order_id );
+			$pdf 		= new WC_send_pdf();
 
 			$replace 	= array( ' ', "/", "'",'"', "--" );
 			$clean_up	= array( ',' );
@@ -541,11 +556,13 @@
 
 				$invoice_date = $pdf->get_woocommerce_pdf_date( $order_id,'completed', true, 'invoice', $settings['pdf_date_format'] );
 
-				$filename	= str_replace( '{{company}}',	$settings['pdf_company_name'] , $filename );
-				$filename	= str_replace( '{{invoicedate}}', $invoice_date, $filename );
+				$filename	= str_replace( '{{company}}',		$settings['pdf_company_name'] , $filename );
+				$filename	= str_replace( '{{invoicedate}}', 	$invoice_date, $filename );
 				$filename	= str_replace( '{{invoicenumber}}',	( $pdf->get_woocommerce_pdf_invoice_num( $order_id ) ? $pdf->get_woocommerce_pdf_invoice_num( $order_id ) : $order_id ) , $filename );
+				$filename	= str_replace( '{{ordernumber}}', 	$order->get_order_number(), $filename );
 				$filename	= str_replace( '{{month}}',	date( 'F', strtotime( $invoice_date ) ) , $filename );
 				$filename	= str_replace( '{{mon}}',	date( 'M', strtotime( $invoice_date ) ) , $filename );
+				$filename	= str_replace( '{{year}}',	date( 'Y', strtotime( $invoice_date ) ) , $filename );
 				$filename	= str_replace( '{{year}}',	date( 'Y', strtotime( $invoice_date ) ) , $filename );
 				
 			}
@@ -573,18 +590,23 @@
 		 */
 		public static function get_pdf_template( $filename, $order_id, $email_id = NULL ) {
 
-			// Get the filename from the WooCommerce email settings
-			if( !is_null( $email_id ) ) {
-				$email_options = get_option( 'woocommerce_' . $email_id . '_settings' );
+			// Make sure we don't affect the T&Cs template file
+			if( $filename !== 'terms-template.php' ) {
 
-				if( isset( $email_options['pdf_invoice_template_pdf_invoice'] ) ) {
-					$filename = $email_options['pdf_invoice_template_pdf_invoice'];
+				// Get the filename from the WooCommerce email settings
+				if( !is_null( $email_id ) ) {
+					$email_options = get_option( 'woocommerce_' . $email_id . '_settings' );
+
+					if( isset( $email_options['pdf_invoice_template_pdf_invoice'] ) ) {
+						$filename = $email_options['pdf_invoice_template_pdf_invoice'];
+					}
+				} else {
+					$email_options = get_option( 'woocommerce_pdf_customer_invoice_settings' );
+					if( isset( $email_options['pdf_invoice_template_pdf_invoice'] ) ) {
+						$filename = $email_options['pdf_invoice_template_pdf_invoice'];
+					}
 				}
-			} else {
-				$email_options = get_option( 'woocommerce_pdf_customer_invoice_settings' );
-				if( isset( $email_options['pdf_invoice_template_pdf_invoice'] ) ) {
-					$filename = $email_options['pdf_invoice_template_pdf_invoice'];
-				}
+
 			}
 
 			// Add .php if necessary
@@ -771,6 +793,9 @@
 			// Alternate One additions
 			$content = str_replace(	'[[PDFDOCTITLE]]', 							self::get_pdf_doc_title( $order_id ), 			 							$content );
 			$content = str_replace(	'[[PDFINVOICE_SUPPLYDETAILS_HEADING]]', 	self::get_pdf_supply_details_heading( $order_id ), 			 				$content );
+
+			// WooCommerce Shipment Tracking
+			$content = str_replace(	'[[PDFSHIPMENTTRACKING]]', 					self::get_shipment_tracking( $order_id ), 		 							$content );
 
 			// Allow the content to be filtered
 			$content = apply_filters( 'pdf_content_additional_content' , $content , $order_id );
@@ -1307,6 +1332,71 @@
 		}
 
 		/**
+		 * [get_shipment_tracking description]
+		 * @param  [type] $order_id [description]
+		 * @return [type]           [description]
+		 */
+		public static function get_shipment_tracking( $order_id ) {
+
+			$tracking = get_post_meta( $order_id, '_wc_shipment_tracking_items', TRUE );
+
+			if( !isset( $tracking ) || is_null( $tracking ) || $tracking == '' ) {
+				return '';
+			} else {
+
+				$tracking_output = '<tr><td colspan="4"><h3>[[PDFSHIPMENTTRACKINGTITLE]]</h3>[[PDFSHIPMENTTRACKINGNUMBERS]]</td></tr>';
+
+				$tracking_output = apply_filters( 'pdf_invoice_shipment_tracking_output', $tracking_output, $order_id );
+
+				$tracking_output = str_replace(	'[[PDFSHIPMENTTRACKINGTITLE]]', self::get_invoice_shipment_tracking_title( $order_id ), $tracking_output );
+				$tracking_output = str_replace(	'[[PDFSHIPMENTTRACKINGNUMBERS]]', self::get_invoice_shipment_tracking_numbers( $order_id, $tracking ), $tracking_output );
+
+				return $tracking_output;
+			}
+
+		}
+
+		public static function get_invoice_shipment_tracking_title( $order_id ) {
+			return apply_filters( 'pdf_invoice_shipment_tracking_title', esc_html__('Shipment Tracking', 'woocommerce-pdf-invoice'), $order_id );
+		}
+
+		public static function get_invoice_shipment_tracking_numbers( $order_id, $tracking ) {
+
+			$details = '<table width="100%">';
+
+			foreach( $tracking as $track ) {
+				$tracking_provider 	= isset( $track['tracking_provider'] ) ? $track['tracking_provider'] : $track['custom_tracking_provider'];
+				$tracking_number 	= isset( $track['tracking_number'] ) ? $track['tracking_number'] : $track['custom_tracking_number'];
+				$date_shipped 		= isset( $track['date_shipped'] ) ? $track['date_shipped'] : '';
+
+				$date_shipped 		= date_i18n( 'Y-m-d', $date_shipped );
+
+				$details .= '<tr>
+								<td>' . self::get_invoice_shipment_tracking_shipped_via_title( $order_id ) . ' ' . $tracking_provider . '</td>
+								<td>' . self::get_invoice_shipment_tracking_tracking_id_title( $order_id ) . ' ' . $tracking_number . '</td>
+								<td>' . self::get_invoice_shipment_tracking_shippied_on_title( $order_id ) . ' ' . $date_shipped . '</td>
+							</tr>';
+
+			}
+
+			$details .= '</table>';
+
+			return apply_filters( 'pdf_invoice_shipment_tracking_numbers', $details, $order_id, $tracking );
+		}
+
+		public static function get_invoice_shipment_tracking_shipped_via_title( $order_id ) {
+			return apply_filters( 'pdf_invoice_shipment_tracking_hipped_via_title', esc_html__('Shipped Via:', 'woocommerce-pdf-invoice'), $order_id );
+		}
+
+		public static function get_invoice_shipment_tracking_tracking_id_title( $order_id ) {
+			return apply_filters( 'pdf_invoice_shipment_tracking_tracking_id_title', esc_html__('Tracking ID:', 'woocommerce-pdf-invoice'), $order_id );
+		}
+
+		public static function get_invoice_shipment_tracking_shippied_on_title( $order_id ) {
+			return apply_filters( 'pdf_invoice_shipment_tracking_shippied_on_title', esc_html__('Shipped On:', 'woocommerce-pdf-invoice'), $order_id );
+		}
+
+		/**
 		 * [get_pdf_headers description]
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
@@ -1402,7 +1492,7 @@
 					        $cell_class 	= $cell_odd_class;
 					    }
 
-						$_product = version_compare( WC_VERSION, '3.0', '<' ) ? $order->get_product_from_item( $item ) : $item->get_product();
+						$_product = $item->get_product();
 						
 						$item_name 	= $item['name'];
 						$item_id 	= $item->get_id();
@@ -1555,7 +1645,7 @@
 					        $cell_class 	= $cell_odd_class;
 					    }
 
-						$_product = version_compare( WC_VERSION, '3.0', '<' ) ? $order->get_product_from_item( $item ) : $item->get_product();
+						$_product = $item->get_product();
 						
 						$item_name 	= $item['name'];
 						$item_id 	= $item->get_id();
@@ -1780,7 +1870,7 @@
 			// Check WC version - changes for WC 3.0.0
 			$pre_wc_30 		= version_compare( WC_VERSION, '3.0', '<' );
 
-			$_product 	= $order->get_product_from_item( $item );
+			$_product 	= $item->get_product();
 			$item_name 	= $item['name'];
 			$item_id 	= $pre_wc_30 ? $item['variation_id'] : $item->get_id();
 
@@ -1961,7 +2051,7 @@
 			// get_availability_class
 
 			$custom 	= '';
-			$product 	= $order->get_product_from_item( $item );
+			$product 	= $item->get_product();
 
 			// WC_pdf_debug::pdf_debug( $identifier, 'WC_PDF_Invoice', __('Identifier : ', 'woocommerce-pdf-invoice'), FALSE );
 			// WC_pdf_debug::pdf_debug( $item, 'WC_PDF_Invoice', __('Item : ', 'woocommerce-pdf-invoice'), FALSE );
@@ -2732,8 +2822,10 @@
 			$id		 = $page_id; 
 			$post 	 = get_post( $id );  
 			
-			$content = str_replace(	'[[TERMSTITLE]]', 						$post->post_title,  										$content );
-			$content = str_replace(	'[[TERMS]]', 							$post->post_content,										$content );
+			$content = str_replace(	'[[PDFFONTFAMILY]]', 					self::get_fontfamily( $order_id, $settings ),							$content );
+			$content = str_replace( '[[PDFRTL]]', 							self::get_text_direction( $order_id, $settings ),					$content );
+			$content = str_replace(	'[[TERMSTITLE]]', 						$post->post_title,  													$content );
+			$content = str_replace(	'[[TERMS]]', 							apply_filters( 'the_content', $post->post_content ),					$content );
 
 			$content = str_replace(	'[[PDFREGISTEREDNAME]]', 				self::get_invoice_registeredname( $order_id, $settings ), 				$content );
 			$content = str_replace(	'[[PDFREGISTEREDADDRESS]]', 			self::get_invoice_registeredaddress( $order_id, $settings ),			$content );

@@ -1,0 +1,48 @@
+.a2w_comment_images {
+    overflow:auto;
+}
+.a2w_comment_images .image { width:100px;height:100px;float:left;position:relative; margin-right: 10px; }
+.a2w_comment_images a.delete { 
+    display:none;
+    position:absolute;
+    top:0;right:0;
+    width:17px;
+    height:17px;
+    text-indent:-999px;
+    background:right top no-repeat url(../../img/delete.png);
+}
+
+.a2w_comment_images svg.icon-plus {
+    width: 12px;
+    height: 12px;
+    margin-left: 20px;
+    fill: #e0e7eb;
+}
+
+.a2w_comment_images .image:hover a.delete { display:block; }
+
+.a2w_review_images{
+    display:inline-block;
+    white-space:nowrap;
+}
+
+.a2w_review_images img{
+    width: 40px !important;
+    height:40px !important;
+    float:none !important;
+    display: inline-block; 
+}
+.a2w_review_images a{
+    display: inline-block !important;
+    margin-right: 5px;    
+}
+
+#add-new-comment {
+    float: left;
+    width:100px;
+}
+
+#remove-comments {
+    float: left; 
+    width:200px;  
+}

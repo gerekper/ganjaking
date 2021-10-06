@@ -38,6 +38,12 @@ class RP_WCDPD_Promotion_Your_Price
 
         // Maybe change element position
         add_filter('rightpress_product_price_live_update_position_hook', array($this, 'maybe_change_element_position'));
+
+        // Maybe toggle subtotal display
+        add_filter('rightpress_product_price_live_update_display_subtotal', array($this, 'maybe_toggle_subtotal_display'), 0);
+
+        // Maybe always display quantity
+        add_filter('rightpress_product_price_live_update_always_display_quantity', array($this, 'maybe_always_display_quantity'), 0);
     }
 
     /**
@@ -51,37 +57,58 @@ class RP_WCDPD_Promotion_Your_Price
     {
 
         $settings['promo']['children']['your_price'] = array(
-            'title' => __('Your Price', 'rp_wcdpd'),
-            'info'  => __('Displays a dynamically updated price on a single product page. This price reflects all pricing adjustments that would be applicable if a specified quantity was added to cart.', 'rp_wcdpd'),
+            'title' => esc_html__('Your Price', 'rp_wcdpd'),
+            'info'  => esc_html__('Displays a dynamically updated price on a single product page. This price reflects all pricing adjustments that would be applicable if a specified quantity was added to cart.', 'rp_wcdpd'),
             'children' => array(
                 'promo_your_price' => array(
-                    'title'     => __('Enable', 'rp_wcdpd'),
+                    'title'     => esc_html__('Enable', 'rp_wcdpd'),
                     'type'      => 'checkbox',
                     'default'   => '0',
                 ),
                 'promo_your_price_always_display' => array(
-                    'title'     => __('Display when product is not discounted', 'rp_wcdpd'),
+                    'title'     => esc_html__('Display when product is not discounted', 'rp_wcdpd'),
+                    'type'      => 'checkbox',
+                    'default'   => '1',
+                ),
+                'promo_your_price_display_quantity' => array(
+                    'title'     => esc_html__('Display quantity next to price', 'rp_wcdpd'),
+                    'type'      => 'checkbox',
+                    'default'   => '0',
+                ),
+                'promo_your_price_display_subtotal' => array(
+                    'title'     => esc_html__('Display subtotal when displaying quantity', 'rp_wcdpd'),
                     'type'      => 'checkbox',
                     'default'   => '1',
                 ),
                 'promo_your_price_position' => array(
-                    'title'     => __('Position on page', 'rp_wcdpd'),
-                    'type'      => 'select',
+                    'title'     => esc_html__('Position on page', 'rp_wcdpd'),
+                    'type'      => 'grouped_select',
                     'default'   => 'woocommerce_before_add_to_cart_button',
                     'required'  => true,
                     'options'   => array(
-                        'woocommerce_before_add_to_cart_button'     => __('Add to cart button - Before', 'rp_wcdpd'),
-                        'woocommerce_after_add_to_cart_button'      => __('Add to cart button - After', 'rp_wcdpd'),
-                        'woocommerce_before_add_to_cart_form'       => __('Add to cart form - Before', 'rp_wcdpd'),
-                        'woocommerce_after_add_to_cart_form'        => __('Add to cart form - After', 'rp_wcdpd'),
-                        'woocommerce_product_meta_start'            => __('Product meta - Before', 'rp_wcdpd'),
-                        'woocommerce_product_meta_end'              => __('Product meta - After', 'rp_wcdpd'),
+                        'replace'    => array(
+                            'label'     => esc_html__('Display separately', 'rp_wcdpd'),
+                            'options'   => array(
+                                'woocommerce_before_add_to_cart_button' => esc_html__('Add to cart button - Before', 'rp_wcdpd'),
+                                'woocommerce_after_add_to_cart_button'  => esc_html__('Add to cart button - After', 'rp_wcdpd'),
+                                'woocommerce_before_add_to_cart_form'   => esc_html__('Add to cart form - Before', 'rp_wcdpd'),
+                                'woocommerce_after_add_to_cart_form'    => esc_html__('Add to cart form - After', 'rp_wcdpd'),
+                                'woocommerce_product_meta_start'        => esc_html__('Product meta - Before', 'rp_wcdpd'),
+                                'woocommerce_product_meta_end'          => esc_html__('Product meta - After', 'rp_wcdpd'),
+                            ),
+                        ),
+                        'separate'    => array(
+                            'label'     => esc_html__('Replace main price', 'rp_wcdpd'),
+                            'options'   => array(
+                                'rightpress_replace_wc_price' => esc_html__('Replace main price', 'rp_wcdpd'),
+                            ),
+                        ),
                     ),
                 ),
                 'promo_your_price_label' => array(
-                    'title'     => __('Label', 'rp_wcdpd'),
+                    'title'     => esc_html__('Label', 'rp_wcdpd'),
                     'type'      => 'text',
-                    'default'   => __('Your Price:', 'rp_wcdpd'),
+                    'default'   => esc_html__('Your Price:', 'rp_wcdpd'),
                     'required'  => false,
                 ),
             ),
@@ -108,7 +135,7 @@ class RP_WCDPD_Promotion_Your_Price
         add_filter('rightpress_product_price_live_update_enabled', '__return_true');
 
         // Maybe display element when product is not discounted
-        if (RP_WCDPD_Settings::check('promo_your_price_always_display')) {
+        if (RP_WCDPD_Settings::check('promo_your_price_always_display') || RP_WCDPD_Settings::get('promo_your_price_position') === 'rightpress_replace_wc_price') {
             add_filter('rightpress_product_price_live_update_always_display', '__return_true');
         }
 
@@ -150,6 +177,36 @@ class RP_WCDPD_Promotion_Your_Price
 
         // Allow developers to override
         return apply_filters('rp_wcdpd_promotion_your_price_position', $position);
+    }
+
+    /**
+     * Maybe toggle subtotal display
+     *
+     * @access public
+     * @param bool $display_subtotal
+     * @return bool
+     */
+    public function maybe_toggle_subtotal_display($display_subtotal)
+    {
+
+        return RP_WCDPD_Settings::check('promo_your_price_display_subtotal');
+    }
+
+    /**
+     * Maybe always display quantity
+     *
+     * @access public
+     * @param bool $always_display_quantity
+     * @return bool
+     */
+    public function maybe_always_display_quantity($always_display_quantity)
+    {
+
+        if (!$always_display_quantity) {
+            $always_display_quantity = RP_WCDPD_Settings::check('promo_your_price_display_quantity');
+        }
+
+        return $always_display_quantity;
     }
 
 

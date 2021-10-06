@@ -93,15 +93,20 @@ li.ddTP_RO { margin-bottom: 1px; }
 .ddTP_R__group {cursor: default;display: block;padding: 6px; }
 
 /* FROM BASICS.CSS */
-.rs_overview .ddTP_C { vertical-align: top;  margin-right: 40px; box-sizing: content-box; padding-right: 25px; height:50px; font-weight: 500}
-.rs_overview .ddTP_C.ddTP_C--nomargin { margin-right: 0px; }
-.rs_overview .ddTP_C .ddTP_S--single .ddTP_S__arrow { height: 50px; }
-.rs_overview .ddTP_C .ddTP_S { box-shadow:none;outline:none;border: none; padding:0px; margin:0px; display: inline-block;font-size: 17px; color: #797b7e; background: transparent  }
+.rs_overview .ddTP_C, #rb_tlw #addon_overviewheader .ddTP_C { vertical-align: top;  margin-right: 40px; box-sizing: content-box; padding-right: 25px; height:50px; font-weight: 500}
+.rs_overview .ddTP_C.ddTP_C--nomargin, #rb_tlw #addon_overviewheader .ddTP_C.ddTP_C--nomargin { margin-right: 0px; }
+.rs_overview .ddTP_C .ddTP_S--single .ddTP_S__arrow, #rb_tlw #addon_overviewheader .ddTP_C .ddTP_S--single .ddTP_S__arrow { height: 50px; }
+.rs_overview .ddTP_C .ddTP_S, #rb_tlw #addon_overviewheader .ddTP_C .ddTP_S { box-shadow:none;outline:none;border: none; padding:0px; margin:0px; display: inline-block;font-size: 17px; color: #797b7e; background: transparent  }
 .rs_overview .ddTP_C .ddTP_S--single .ddTP_S__rendered { color:#797b7e; line-height: 50px; vertical-align: top }
+#rb_tlw #addon_overviewheader .ddTP_C .ddTP_S--single .ddTP_S__rendered { color:#797b7e; line-height: 50px; vertical-align: top; font-size:17px; }
 .rs_overview .ddTP_C .ddTP_S--single .ddTP_S__arrow b { border-color: #797b7e transparent transparent transparent }
-.rs_overview .ddTP_C:hover .ddTP_S--single .ddTP_S__arrow b { border-color: #fff transparent transparent transparent }
-.rs_overview .ddTP_C:hover .ddTP_S__rendered { color: #fff !important; }
+#rb_tlw #addon_overviewheader .ddTP_C .ddTP_S--single .ddTP_S__arrow b {border-color: #888 transparent transparent transparent;border-style: solid;border-width: 5px 4px 0 4px;height: 0;left: 50%;margin-left: -4px;margin-top: -2px;position: absolute;top: 50%;width: 0; }
+.rs_overview .ddTP_C:hover .ddTP_S--single .ddTP_S__arrow b, #rb_tlw #addon_overviewheader .ddTP_C:hover .ddTP_S--single .ddTP_S__arrow b { border-color: #fff transparent transparent transparent }
+.rs_overview .ddTP_C:hover .ddTP_S__rendered, #rb_tlw #addon_overviewheader .ddTP_C:hover .ddTP_S__rendered { color: #fff !important; }
 
+#rb_tlw #addon_overviewheader .ddTP_C .ddTP_S--single .ddTP_S__arrow { background:transparent;line-height: 50px;vertical-align: top;height: 50px !important; margin-left:10px; border:none !important}
+
+#rb_tlw #addon_overviewheader .ddTP.ddTP_C.ddTP-fake.ddTP_C--autowidthinmodal { margin-right:0px !important}
 /* BLUE STYLE */
 .rs_overview .ddTP_C.ddTP_C--blue { width: 100% !important; background: #00529d; line-height: 20px; border-radius: 4px; box-sizing: border-box; height: auto; padding:0px !important; margin:0px;}
 .rs_overview .ddTP_C.ddTP_C--blue  .selection,
@@ -125,8 +130,9 @@ li.ddTP_RO { margin-bottom: 1px; }
 
 
 /* AUTOWIDTH CHANGES */
-.ddTP.ddTP_C.ddTP_C--autowidth { width: auto !important; }
-.ddTP_C.ddTP_C--autowidth .ddTP-dropdown { min-width: 150px; }
+.ddTP.ddTP_C.ddTP_C--autowidth, #rb_tlw #addon_overviewheader .ddTP.ddTP_C.ddTP_C--autowidthinmodal { width: auto !important; }
+.ddTP_C.ddTP_C--autowidth .ddTP-dropdown,
+#rb_tlw #addon_overviewheader .ddTP.ddTP_C.ddTP_C--autowidthinmodal .ddTP-dropdown { min-width: 150px; }
 
 #objectlibrary.rs_overview .ddTP_C { margin-right: 0px; }
 
@@ -150,11 +156,14 @@ li.ddTP_RO { margin-bottom: 1px; }
 ._TPRB_.rs_overview .olibrary_item.selected .olibrary_custom_tagselector_wrap .ddTP_C .ddTP_S--single .ddTP_S__arrow b {  border-color:#fff transparent transparent transparent; }
 
 #ol_modulessorting .ddTP_C .ddTP_S--single,
+#addon_overviewheader .ddTP_C .ddTP_S--single,
 #modulesoverviewheader .ddTP_C .ddTP_S--single,
+#rb_tlw #addon_overviewheader .ddTP_C .ddTP_S--single,
 #modulesoverviewfooter .ddTP_C .ddTP_S--single { height: 50px; }
 
  .ddTP_C--open { z-index: 100010; }
 span.ddTP_C.ddTP_C--inmodal.ddTP_C--open {z-index: 1000005;}
+span.ddTP_C.ddTP_C--autowidthinmodal.ddTP_C--open {z-index: 1000005;}
 
 .ddTP_R,
 .ddTP_C .ddTP_R > .ddTP_ROs { max-height: 250px }

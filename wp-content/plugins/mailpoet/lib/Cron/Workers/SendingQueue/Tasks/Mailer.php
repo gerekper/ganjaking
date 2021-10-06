@@ -11,7 +11,9 @@ use MailPoet\Mailer\MailerLog;
 class Mailer {
   public $mailer;
 
-  public function __construct($mailer = false) {
+  public function __construct(
+    $mailer = false
+  ) {
     $this->mailer = ($mailer) ? $mailer : $this->configureMailer();
   }
 

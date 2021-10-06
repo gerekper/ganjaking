@@ -43,9 +43,12 @@ if(!defined('ABSPATH')) exit();
 						</div>
 						<div class="div75"></div>
 					</div>
-					
+					<?php
+					if(get_option('revslider-valid', 'false') == 'true') { ?>
 						<div id="open_welcome_register_form" class="big_purple_linkbutton"><?php _e('Lets get Started with ' );?> <b> <?php printf(__('Slider Revolution %s', 'revslider'), RS_REVISION); ?></b></div>
-					
+					<?php } else { ?>
+						<div id="open_welcome_register_form" class="big_purple_linkbutton"><?php _e('Activate Slider Revolution to');?> <b> <i class="material-icons">lock</i> <?php _e('Unlock all Features');?></b></div>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -112,6 +115,7 @@ if(!defined('ABSPATH')) exit();
 						<label_a><?php _e('Insert scripts in footer', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.footer"><span class="linebreak"></span>
 						<label_a><?php _e('Defer JavaScript loading', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.defer"><span class="linebreak"></span>
 						<label_a><?php _e('Load Files asynchronously', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.async"><span class="linebreak"></span>
+						<label_a><?php _e('Load YouTube API early', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.script.ytapi"><span class="linebreak"></span>
 												
 						
 						<div class="div25"></div>
@@ -138,7 +142,7 @@ if(!defined('ABSPATH')) exit();
 						<div class="div25"></div>
 						<div class="ale_i_title"><?php _e('Modules Optimization', 'revslider');?></div>
 						<hr class="general_hr">
-						<label_a><?php _e('Force 1xDPR on mobile', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.onedpronmobile"><span class="linebreak"></span>						
+						<label_a><?php _e('Force 1xDPR on mobile', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.onedpronmobile"><span class="linebreak"></span>
 						<label_a><?php _e('Force viewport loading', 'revslider');?></label_a><select data-showprio="show" data-show=".show_forceViewport_*val*" data-hide=".hide_forceViewport" id="forceViewport" name="forceViewport" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.forceViewport">
 										<option value="true"><?php _e("On", 'revslider');?></option><option value="false"><?php _e("Off", 'revslider');?></option><option value="none"><?php _e("No Change", 'revslider');?></option>
 									</select><span class="linebreak"></span>
@@ -146,6 +150,7 @@ if(!defined('ABSPATH')) exit();
 						<label_a><?php _e('Default lazy loading in modules', 'revslider');?></label_a><select id="overwritelazyloading" name="overwritelazyloading" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.forceLazyLoading">
 										<option value="all"><?php _e("All", 'revslider');?></option><option value="smart"><?php _e("Smart", 'revslider');?></option><option value="single"><?php _e("Single", 'revslider');?></option><option value="none"><?php _e("No Change", 'revslider');?></option>
 									</select><span class="linebreak"></span>
+						<label_a><?php _e('Lazy Load on BG Images', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.lazyonbg"><span class="linebreak"></span>
 						<label_a><?php _e('Third-party lazy loading data', 'revslider');?></label_a><input type="text" class="easyinit globalinput"  data-r="globals.lazyloaddata" placeholder="<?php _e('(i.e. lazy-src for WP Rocket)', 'revslider'); ?>"><span class="linebreak"></span>
 						<label_a><?php _e('Use internal caching', 'revslider');?></label_a><input type="checkbox" class="easyinit globalinput" data-r="globals.internalcaching"><span class="linebreak"></span>
 						<label_a></label_a><div id="rs_force_clear_cache" class="basic_action_button autosize"><i class="material-icons">build</i><?php _e('Clear Cache', 'revslider'); ?></div>

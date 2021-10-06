@@ -43,7 +43,7 @@ abstract class RightPress_Condition_Cart extends RightPress_Condition
     public function get_group_label()
     {
 
-        return __('Cart', 'rightpress');
+        return esc_html__('Cart', 'rightpress');
     }
 
 

@@ -1,5 +1,8 @@
 *** WooCommerce Bookings Changelog ***
 
+2021-07-28 - version 1.15.43
+* Tweak - Introduced a new woocommerce_bookings_filter_time_slots filter to modify availability on a per-product basis.
+
 2021-07-20 - version 1.15.42
 * Fix - Fix the start date in the reminder email when the customer's timezone is different from the shop timezone.
 

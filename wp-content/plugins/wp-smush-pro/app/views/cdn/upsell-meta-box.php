@@ -28,7 +28,19 @@ if ( ! defined( 'WPINC' ) ) {
 		?>
 	</p>
 
+	<ul class="smush-pro-features">
+		<li class="smush-pro-feature-row">
+			<div class="smush-pro-feature-title"><?php esc_html_e( 'Fix Google PageSpeeds ‘properly size images’ suggestion', 'wp-smushit' ); ?></div>
+		</li>
+		<li class="smush-pro-feature-row">
+			<div class="smush-pro-feature-title"><?php esc_html_e( 'WebP conversion with CDN', 'wp-smushit' ); ?></div>
+		</li>
+		<li class="smush-pro-feature-row">
+			<div class="smush-pro-feature-title"><?php esc_html_e( 'Serve background images from the CDN', 'wp-smushit' ); ?></div>
+		</li>
+	</ul>
+
 	<a href="<?php echo esc_url( $upgrade_url ); ?>" class="sui-button sui-button-purple" target="_blank">
-		<?php esc_html_e( 'UPGRADE', 'wp-smushit' ); ?>
+		<?php esc_html_e( 'Try CDN for free', 'wp-smushit' ); ?>
 	</a>
 </div>

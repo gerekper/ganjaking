@@ -1,6 +1,15 @@
 <?php
+
+defined( 'ABSPATH' ) || exit;
+
 global $wpdb, $woocommerce;
-$settings        = get_option( 'sfn_cart_addons', array() );
+$settings        = get_option(
+	'sfn_cart_addons',
+	array(
+		'header_title'   => __( 'Product Add-ons', 'sfn_cart_addons' ),
+		'default_addons' => array(),
+	)
+);
 $terms           = get_terms( 'product_cat', array( 'hide_empty' => false ) );
 $categories      = array();
 $category_addons = get_option( 'sfn_cart_addons_categories', array() );
@@ -16,7 +25,10 @@ foreach ( $terms as $term ) {
 	}
 
 	if ( ! $used ) {
-		$categories[] = array( 'id' => $term->term_id, 'name' => $term->name );
+		$categories[] = array(
+			'id'   => $term->term_id,
+			'name' => $term->name,
+		);
 	}
 }
 ?>
@@ -70,8 +82,8 @@ foreach ( $terms as $term ) {
 
 							foreach ( $product_ids as $product_id ) :
 								$product      = wc_get_product( $product_id );
-								$product_name = $product ? htmlspecialchars( wp_kses_post( $product->get_formatted_name() ) ) : '';
-							?>
+								$product_name = $product ? wp_strip_all_tags( $product->get_formatted_name() ) : '';
+								?>
 								<option value="<?php echo esc_attr( $product_id ); ?>" selected="selected"><?php echo esc_html( $product_name ); ?></option>
 							<?php endforeach; ?>
 						</select>
@@ -105,7 +117,7 @@ foreach ( $terms as $term ) {
 					foreach ( $category_addons as $x => $addons ) :
 						$p++;
 						$category = get_term( $addons['category_id'], 'product_cat' );
-				?>
+						?>
 				<tr scope="row">
 					<td class="column-drag"><span class="dashicons dashicons-menu"></span></td>
 					<td class="priority-alignment">
@@ -130,8 +142,8 @@ foreach ( $terms as $term ) {
 
 							foreach ( $product_ids as $product_id ) :
 								$product      = wc_get_product( $product_id );
-								$product_name = $product ? htmlspecialchars( wp_kses_post( $product->get_formatted_name() ) ) : '';
-							?>
+								$product_name = $product ? wp_strip_all_tags( $product->get_formatted_name() ) : '';
+								?>
 								<option value="<?php echo esc_attr( $product_id ); ?>" selected="selected"><?php echo esc_html( $product_name ); ?></option>
 							<?php endforeach; ?>
 						</select>
@@ -140,7 +152,7 @@ foreach ( $terms as $term ) {
 						<a class="remove" href="#" title="<?php esc_attr_e( 'Remove Row', 'sfn_cart_addons' ); ?>"><span class="dashicons dashicons-no"></span></a>
 					</td>
 				</tr>
-				<?php
+						<?php
 					endforeach;
 				endif;
 				?>
@@ -169,14 +181,14 @@ foreach ( $terms as $term ) {
 				if ( ! empty( $product_addons ) ) :
 					$p = 0;
 					foreach ( $product_addons as $x => $addons ) :
-						$product = sfn_get_product( $addons['product_id'] );
+						$product = wc_get_product( $addons['product_id'] );
 
 						if ( ! $product ) {
 							continue;
 						}
 
 						$p++;
-				?>
+						?>
 				<tr scope="row">
 					<td class="column-drag"><span class="dashicons dashicons-menu"></span></td>
 					<td class="priority-alignment">
@@ -192,11 +204,11 @@ foreach ( $terms as $term ) {
 						</select>
 
 						<?php
-						$addon_product = function_exists( 'wc_get_product' ) ? wc_get_product( $addons['product_id'] ) : new WC_Product( $addons['product_id'] );
+						$addon_product = wc_get_product( $addons['product_id'] );
 						$display       = $addon_product->is_type( 'variable' ) ? 'block' : 'none';
 						?>
 						<label style="display:<?php echo esc_attr( $display ); ?>;">
-							<input type="checkbox" id="product_include_variations_{number}" name="product_include_variations[<?php echo esc_attr( $x ); ?>]" value="1" <?php checked( 1, @$addons['include_variations'] ); ?> />
+							<input type="checkbox" id="product_include_variations_{number}" name="product_include_variations[<?php echo esc_attr( $x ); ?>]" value="1" <?php checked( ! empty( $addons['include_variations'] ), true ); ?> />
 							<?php esc_html_e( 'include variations', 'sfn_cart_addons' ); ?>
 						</label>
 					</td>
@@ -213,8 +225,8 @@ foreach ( $terms as $term ) {
 
 							foreach ( $product_ids as $product_id ) :
 								$product      = wc_get_product( $product_id );
-								$product_name = $product ? htmlspecialchars( wp_kses_post( $product->get_formatted_name() ) ) : '';
-							?>
+								$product_name = $product ? wp_strip_all_tags( $product->get_formatted_name() ) : '';
+								?>
 								<option value="<?php echo esc_attr( $product_id ); ?>" selected="selected"><?php echo esc_html( $product_name ); ?></option>
 							<?php endforeach; ?>
 						</select>
@@ -223,7 +235,7 @@ foreach ( $terms as $term ) {
 						<a class="remove" href="#" title="<?php esc_attr_e( 'Remove Row', 'sfn_cart_addons' ); ?>"><span class="dashicons dashicons-no"></span></a>
 					</td>
 				</tr>
-				<?php
+						<?php
 					endforeach;
 				endif;
 				?>
@@ -233,6 +245,7 @@ foreach ( $terms as $term ) {
 		<button type="button" id="add_product" class="button"><?php esc_html_e( '+ Add Product', 'sfn_cart_addons' ); ?></button>
 
 		<p class="submit">
+			<?php wp_nonce_field( 'sfn_cart_addons_update_settings', 'sfn_cart_addons_update_settings_nonce' ); ?>
 			<input type="hidden" name="action" value="sfn_cart_addons_update_settings" />
 			<input type="submit" name="save" value="<?php esc_attr_e( 'Update Settings', 'sfn_cart_addons' ); ?>" class="button-primary" />
 		</p>
@@ -298,5 +311,5 @@ foreach ( $terms as $term ) {
 </table>
 
 <script type="text/javascript">
-	var store_categories = <?php echo wp_json_encode( $categories ); ?>;
+	var store_categories = JSON.parse( decodeURIComponent( '<?php echo rawurlencode( wp_json_encode( $categories  ) ); ?>' ) );
 </script>

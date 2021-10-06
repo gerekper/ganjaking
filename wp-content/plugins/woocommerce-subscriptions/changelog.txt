@@ -1,5 +1,16 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2021-09-28 - version 3.1.5
+* Fix: Update subtracted tax amounts to account for quantity changes. PR#4107
+* Fix: Correctly remove limited coupons (i.e. "Active for x payments") when the coupon code is made up of only numeric characters. PR#4139
+* Fix: Only set subtracted taxes on new items when the rates don't match the base location. PR#4177
+* Fix: Hide variable subscription meta fields on the Edit Product page of custom variable products. PR#4193
+* Fix: Use the shipping fields to get and save the edit subscription shipping field data. PR#4161
+* Fix: Fix TypeError exceptions by checking for WC_Order types inside wcs_get_subscriptions_for_order(). PR#4188
+* Fix: Incorrect subtracted tax calculations when updating the subscription when the store currency uses a comma decimal separator. PR#4182
+* Fix: Hide the shipping address fields on checkout when the cart contains a subscription product and the 'Force shipping to billing address' setting is selected. PR#4172
+* Fix: Get the signup fee for coupon calculation inclusive or excluding tax depending on store settings. PR#4166
+
 2021-07-22 - version 3.1.4
 * Fix: Points and Rewards discounts (including WC Coupons when Points and Rewards is active) being removed from the cart when applied on the checkout page. PR#4158
 * Fix: Subscriptions with one-time shipping having shipping charged on all renewal orders. PR#4156

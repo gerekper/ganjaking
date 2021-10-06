@@ -1,5 +1,15 @@
 *** WooCommerce Product Reviews Pro Changelog ***
 
+2021.03.30 - version 1.17.4
+ * Fix - When filtering reviews by star rating and comments are paginated, ensure to display all reviews matching the chosen rating
+
+2021.03.19 - version 1.17.3
+ * Fix - Address a fatal error that could occur on sites running other SkyVerge plugins at the same time
+
+2021.03.18 - version 1.17.2
+ * Tweak - Add support for the WooCommerce Navigation admin feature
+ * Localization - Add Russian translation (thanks to Paley)
+
 2020.12.07 - version 1.17.1
  * Misc - Update deprecated jQuery usages
 

@@ -164,7 +164,9 @@ class GroovyMenuUtils {
 	public static function getUploadDir() {
 		$uploadDir = wp_upload_dir();
 
-		return $uploadDir['basedir'] . '/groovy/';
+		$return_dir = str_replace( array( '\\', '/', ), DIRECTORY_SEPARATOR, $uploadDir['basedir'] . '/groovy/' );
+
+		return $return_dir;
 	}
 
 
@@ -174,7 +176,9 @@ class GroovyMenuUtils {
 	public static function getFontsDir() {
 		$fonts = self::getUploadDir() . 'fonts/';
 
-		return $fonts;
+		$return_dir = str_replace( array( '\\', '/', ), DIRECTORY_SEPARATOR, $fonts );
+
+		return $return_dir;
 	}
 
 
@@ -304,7 +308,13 @@ class GroovyMenuUtils {
 					default:
 						$type_obj = get_post_type_object( $type );
 						// Post type can has archive and single pages.
-						if ( is_object( $type_obj ) && ! empty( $type_obj->has_archive ) && $type_obj->has_archive ) {
+						if ( is_object( $type_obj ) &&
+						     (
+							     ( ! empty( $type_obj->has_archive ) && $type_obj->has_archive )
+							     ||
+							     ( ! empty( $type_obj->capability_type ) && 'post' === $type_obj->capability_type )
+						     )
+						) {
 							$post_types_ext[ $type . '--single' ] = $name . ' [' . esc_html__( 'single pages', 'groovy-menu' ) . ']';
 						}
 						break;
@@ -424,6 +434,40 @@ class GroovyMenuUtils {
 
 		$params = array(
 			'post_type'   => 'gm_menu_block',
+			'post_status' => 'publish',
+			'numberposts' => - 1,
+		);
+
+		$posts = get_posts( $params );
+
+		foreach ( $posts as $post ) {
+			if ( ! empty( $post->ID ) ) {
+				$title                     = empty( $post->post_title ) ? '' : $post->post_title;
+				$title                     = $title . ' (id:' . $post->ID . ')';
+				$cached_posts[ $post->ID ] = $title;
+			}
+		}
+
+		return $cached_posts;
+
+	}
+
+
+	/**
+	 * Get all posts by PAGE post type.
+	 *
+	 * @return array
+	 */
+	public static function getPagesList() {
+
+		static $cached_posts = array();
+
+		if ( ! empty( $cached_posts ) ) {
+			return $cached_posts;
+		}
+
+		$params = array(
+			'post_type'   => 'page',
 			'post_status' => 'publish',
 			'numberposts' => - 1,
 		);
@@ -870,6 +914,38 @@ class GroovyMenuUtils {
 
 
 	/**
+	 * @param $nav_menu_selected_id
+	 *
+	 * @return bool
+	 */
+	public static function saveNavMenuLocation( $nav_menu_selected_id ) {
+		if ( !current_user_can( 'administrator' ) ) {
+			return false;
+		}
+
+		$style           = new GroovyMenuStyle();
+		$global_settings = get_option( GroovyMenuStyle::OPTION_NAME );
+		$locations       = get_theme_mod( 'nav_menu_locations' );
+
+		if ( isset( $global_settings['taxonomies'] ) && isset( $global_settings['taxonomies']['default_master_menu'] ) ) {
+			if ( isset( $locations['gm_primary'] ) && $locations['gm_primary'] !== intval( $global_settings['taxonomies']['default_master_menu'] ) ) {
+				$global_settings['taxonomies']['default_master_menu'] = strval( $locations['gm_primary'] );
+
+				update_option( $style::OPTION_NAME, $global_settings );
+			}
+		}
+
+		return false;
+	}
+
+	public static function checkNavMenuLocationPage( $hook_suffix ) {
+		if ( 'nav-menus.php' === $hook_suffix && isset( $_REQUEST['action'] ) && 'locations' === $_REQUEST['action'] ) {
+			self::saveNavMenuLocation( 0 );
+		}
+	}
+
+
+	/**
 	 * Return registered nav_menu locations.
 	 *
 	 * @param string $name check exists location name.
@@ -1002,7 +1078,6 @@ class GroovyMenuUtils {
 
 
 	public static function check_apr() {
-		return true;
 		$apr        = '';
 		$name       = '_' . '_l' . 'ic';
 		$name_cache = $name . '_cache2';
@@ -1194,12 +1269,18 @@ class GroovyMenuUtils {
 
 		$default_image_sizes = get_intermediate_image_sizes();
 
-		$image_sizes = array( 'full' => array() );
+		static $image_sizes = array();
 
-		foreach ( $default_image_sizes as $size ) {
-			$image_sizes[ $size ]['width']  = intval( get_option( "{$size}_size_w" ) );
-			$image_sizes[ $size ]['height'] = intval( get_option( "{$size}_size_h" ) );
-			$image_sizes[ $size ]['crop']   = get_option( "{$size}_crop" ) ? get_option( "{$size}_crop" ) : false;
+		if ( empty( $image_sizes ) ) {
+
+			$image_sizes = array( 'full' => array() );
+
+			foreach ( $default_image_sizes as $size ) {
+				$image_sizes[ $size ]['width']  = intval( get_option( "{$size}_size_w" ) );
+				$image_sizes[ $size ]['height'] = intval( get_option( "{$size}_size_h" ) );
+				$image_sizes[ $size ]['crop']   = get_option( "{$size}_crop" ) ? get_option( "{$size}_crop" ) : false;
+			}
+
 		}
 
 		if ( isset( $_wp_additional_image_sizes ) && count( $_wp_additional_image_sizes ) ) {
@@ -1476,6 +1557,67 @@ class GroovyMenuUtils {
 
 
 	/**
+	 * Delete font files.
+	 *
+	 * @param string $font_name
+	 *
+	 * @return boolean
+	 */
+	public static function delete_icon_pack_files( $font_name = '' ) {
+		$font_name = str_replace( array(
+			':',
+			'.',
+			'\\',
+			'/'
+		), '', esc_attr( $font_name ) );
+
+		if ( empty( $font_name ) ) {
+			return false;
+		}
+
+		if ( ! defined( 'FS_METHOD' ) ) {
+			define( 'FS_METHOD', 'direct' );
+		}
+
+		global $wp_filesystem;
+		if ( empty( $wp_filesystem ) ) {
+			$file_path = str_replace( array(
+				'\\',
+				'/'
+			), DIRECTORY_SEPARATOR, ABSPATH . '/wp-admin/includes/file.php' );
+
+			if ( file_exists( $file_path ) ) {
+				require_once $file_path;
+				WP_Filesystem();
+			}
+		}
+		if ( empty( $wp_filesystem ) ) {
+			return false;
+		}
+
+		$exist_fonts = array(
+			'eot'  => true,
+			'woff' => true,
+			'ttf'  => true,
+			'svg'  => true,
+			'css'  => true,
+		);
+
+		$dir = GroovyMenuUtils::getFontsDir();
+
+		foreach ( $exist_fonts as $file_type => $flag ) {
+
+			$file_path = $dir . $font_name . '.' . $file_type;
+
+			if ( $wp_filesystem->exists( $file_path ) ) {
+				$wp_filesystem->delete( $file_path, false, 'f' );
+			}
+		}
+
+		return true;
+	}
+
+	/**
 	 * Install default fonts.
 	 *
 	 * @param bool $self_install
@@ -1560,17 +1702,23 @@ class GroovyMenuUtils {
 						$dir = GroovyMenuUtils::getFontsDir();
 						wp_mkdir_p( $dir );
 
-						file_put_contents( $dir . $name . '.woff', $fontFiles['woff'] );
-						file_put_contents( $dir . $name . '.ttf', $fontFiles['ttf'] );
-						file_put_contents( $dir . $name . '.svg', $fontFiles['svg'] );
-						file_put_contents( $dir . $name . '.eot', $fontFiles['eot'] );
-						file_put_contents( $dir . $name . '.css',
-							self::generate_fonts_css( $name, $selectionData ) );
+						foreach ( $fontFiles as $font_type => $font_file ) {
+							if ( false !== $font_file ) {
+								$type         = esc_attr( $font_type );
+								$put_contents = $wp_filesystem->put_contents( $dir . $name . '.' . $type, $fontFiles[ $type ], FS_CHMOD_FILE );
+							}
+						}
+
+						$generated_font_css = GroovyMenuUtils::generate_fonts_css( $name, $selectionData, $fontFiles );
+
+						$put_contents = $wp_filesystem->put_contents( $dir . $name . '.css', $generated_font_css['css'], FS_CHMOD_FILE );
 
 						$icons = array();
-						foreach ( $selectionData['icons'] as $icon ) {
+						foreach ( $generated_font_css['data']['icons'] as $icon ) {
+							$icon_name = isset( $icon['gm-name'] ) ? $icon['gm-name'] : $icon['icon']['tags'][0];
+
 							$icons[] = array(
-								'name' => $icon['icon']['tags'][0],
+								'name' => $icon_name,
 								'code' => $icon['properties']['code']
 							);
 						}
@@ -1590,20 +1738,94 @@ class GroovyMenuUtils {
 	}
 
 	/**
-	 * @param $name
-	 * @param $selectionData
+	 * @param string $name
+	 * @param array  $selectionData
+	 * @param array  $font_files
 	 *
-	 * @return string
+	 * @return array
 	 */
-	public static function generate_fonts_css( $name, $selectionData ) {
+	public static function generate_fonts_css( $name, $selectionData, $font_files = array() ) {
+
+		$exist_fonts = array(
+			'eot'  => true,
+			'woff' => true,
+			'ttf'  => true,
+			'svg'  => true,
+		);
+
+		$starter = true;
+
+		$postfix = 'jk3qnc';
+		if ( ! empty( $_POST['gm-replace-field-name'] ) ) {
+			$postfix = 'jk3qnc' . rand( 100, 999 );
+		}
+
+		foreach ( $font_files as $index => $font_file ) {
+			if ( false === $font_file && ! empty( $exist_fonts[ $index ] ) ) {
+				$exist_fonts[ $index ] = false;
+			}
+		}
+
 		$css = '
 @font-face {
 	font-family: \'' . $name . '\';
-	src:url(\'' . $name . '.eot?jk3qnc\');
-	src:url(\'' . $name . '.eot?jk3qnc#iefix\') format(\'embedded-opentype\'),
-		url(\'' . $name . '.ttf?jk3qnc\') format(\'truetype\'),
-		url(\'' . $name . '.woff?jk3qnc\') format(\'woff\'),
-		url(\'' . $name . '.svg?jk3qnc#icomoon1\') format(\'svg\');
+	';
+
+		foreach ( $exist_fonts as $font_type => $flag ) {
+			if ( ! $flag ) {
+				continue;
+			}
+
+			$type = esc_attr( $font_type );
+			if ( 'eot' === $type ) {
+				if ( $starter ) {
+					$css .= 'src:url(\'' . $name . '.eot?' . $postfix . '\');
+	src:url(\'' . $name . '.eot?' . $postfix . '#iefix\') format(\'embedded-opentype\')';
+				} else {
+					$css .= ',
+		url(\'' . $name . '.eot?' . $postfix . '#iefix\') format(\'embedded-opentype\')';
+				}
+				$starter = false;
+			}
+
+			if ( 'ttf' === $type ) {
+				if ( $starter ) {
+					$css .= 'src:url(\'' . $name . '.ttf?' . $postfix . '\');
+	src:url(\'' . $name . '.ttf?' . $postfix . '\') format(\'truetype\')';
+				} else {
+					$css .= ',
+		url(\'' . $name . '.ttf?' . $postfix . '\') format(\'truetype\')';
+				}
+				$starter = false;
+			}
+
+			if ( 'woff' === $type ) {
+				if ( $starter ) {
+					$css .= 'src:url(\'' . $name . '.woff?' . $postfix . '\');
+	src:url(\'' . $name . '.woff?' . $postfix . '\') format(\'woff\')';
+				} else {
+					$css .= ',
+		url(\'' . $name . '.woff?' . $postfix . '\') format(\'woff\')';
+				}
+				$starter = false;
+			}
+
+			if ( 'svg' === $type ) {
+				if ( $starter ) {
+					$css .= 'src:url(\'' . $name . '.svg?' . $postfix . '#icomoon1\');
+	src:url(\'' . $name . '.svg?' . $postfix . '#icomoon1\') format(\'svg\')';
+				} else {
+					$css .= ',
+		url(\'' . $name . '.svg?' . $postfix . '#icomoon1\') format(\'svg\')';
+				}
+				$starter = false;
+			}
+		}
+
+		$css .= ';';
+
+
+		$css .= '
 	font-weight: normal;
 	font-style: normal;
 	font-display: block;
@@ -1634,14 +1856,46 @@ class GroovyMenuUtils {
 }
 ';
 
-		foreach ( $selectionData['icons'] as $icon ) {
-			$iconName = $icon['icon']['tags'][0];
-			$code     = dechex( $icon['properties']['code'] );
-			$css      .= '.' . $name . '-' . $iconName . ':before { content: \'\\' . $code . '\'; }';
+		$comp_icons = array();
 
+		foreach ( $selectionData['icons'] as $key => $icon ) {
+			if ( empty( $icon['properties']['code'] ) ) {
+				continue;
+			}
+
+			if ( ! empty( $icon['icon']['tags'][0] ) ) {
+				$iconName = $icon['icon']['tags'][0];
+			} elseif ( ! empty( $icon['properties']['name'] ) ) {
+				$iconName = $icon['properties']['name'];
+			} else {
+				$iconName = 'code-' . $icon['properties']['code'];
+			}
+
+			$iconName = esc_attr( str_replace( [ ' ', ',', '.', ':', '&' ], [ '-', '', '', '', '_' ], $iconName ) );
+			$escapers = array( "\'", "\\", "/", "\"", "\n", "\r", "\t", "\x08", "\x0c", '\r\n' );
+			$iconName = str_replace( $escapers, '', $iconName );
+
+			if ( strlen( $iconName ) > 128 ) {
+				$iconName = 'code-' . $icon['properties']['code'];
+			}
+
+			if ( ! empty( $comp_icons[ $iconName ] ) ) {
+				$iconName = $iconName . rand( 100, 999 );
+			}
+
+			$comp_icons[ $iconName ]                   = true;
+			$selectionData['icons'][ $key ]['gm-name'] = $iconName;
+
+			$code  = dechex( $icon['properties']['code'] );
+			$css  .= '.' . $name . '-' . $iconName . ':before { content: \'\\' . $code . '\'; }';
 		}
 
-		return $css;
+		$return_array = array(
+			'css'  => $css,
+			'data' => $selectionData
+		);
+
+		return $return_array;
 	}
 
 	/**
@@ -2068,7 +2322,6 @@ class GroovyMenuUtils {
 	 * @return bool|string
 	 */
 	public static function check_lic( $immediately = false ) {
-	return true;
 		if ( ! $immediately && get_transient( GROOVY_MENU_DB_VER_OPTION . '__lic_cache' ) ) {
 			$lic_opt = get_option( GROOVY_MENU_DB_VER_OPTION . '__lic' );
 			if ( empty( $lic_opt ) || ! $lic_opt ) {
@@ -2619,9 +2872,22 @@ class GroovyMenuUtils {
 	}
 
 	public static function remove_p_tag( $content, $do_shortcode = true ) {
+		$global_settings = get_option( GroovyMenuStyle::OPTION_NAME );
+
+		// remove_breaking_p_tag
+		if ( empty( $global_settings['tools']['remove_breaking_p_tag'] ) || ! $global_settings['tools']['remove_breaking_p_tag'] ) {
+			if ( $do_shortcode ) {
+				$content = do_shortcode( $content );
+			}
+
+			return $content;
+		}
+
+		// Try to clean content from the breaking HTML "P" tag.
 		if ( $do_shortcode ) {
 			$content = do_shortcode( shortcode_unautop( $content ) );
 		}
+
 		$content = preg_replace( '#<p[^>]*>\[vc_row(.*?)\/vc_row]<\/p>#', '[vc_row$1/vc_row]', $content );
 		$content = preg_replace( '#<p[^>]*><div#', '<div', $content );
 		$content = preg_replace( '#\/div><\/p>#', '/div>', $content );
@@ -2634,5 +2900,97 @@ class GroovyMenuUtils {
 
 		return $content;
 	}
+
+	public static function add_critical_css() {
+
+		$global_settings = get_option( GroovyMenuStyle::OPTION_NAME );
+		// Check option.
+		if ( empty( $global_settings['tools']['enable_critical_inline_css'] ) || ! $global_settings['tools']['enable_critical_inline_css'] ) {
+			return;
+		}
+
+		global $groovyMenuSettings;
+
+		$crit_css     = array( 'desktop' => '', 'mobile' => '', 'all' => '' );
+		$mobile_width = $groovyMenuSettings["mobileWidth"] ? : '1024';
+		$header_style = intval( $groovyMenuSettings["header"]["style"] ? : '1' );
+
+		$crit_css['all'] .= '
+.gm-hidden{opacity:0;visibility:hidden;}
+.gm-dropdown:not(.gm-open) .gm-dropdown-menu-wrapper {overflow:hidden;}
+.gm-navbar:not(.gm-init-done) .gm-main-menu-wrapper .gm-dropdown-menu-wrapper {position:absolute;left:0;visibility:hidden;}
+.gm-navbar:not(.gm-init-done) .gm-logo__img {display:none;width:auto;max-width:none;max-height:none;}
+.gm-navbar:not(.gm-init-done) .gm-main-menu-wrapper ul, .gm-navbar:not(.gm-init-done) ul, .gm-navbar:not(.gm-init-done) ~ .gm-navigation-drawer ul {list-style: none;}
+.gm-navbar:not(.gm-init-done) .gm-badge, .gm-navbar:not(.gm-init-done) .gm-menu-btn{display:none;}
+.gm-navbar:not(.gm-init-done) ~ .gm-navigation-drawer, .gm-navbar:not(.gm-init-done) ~ .gm-navigation-drawer .gm-badge, .gm-navbar:not(.gm-init-done) ~ .gm-navigation-drawer .gm-menu-btn{display:none;}
+.gm-navbar:not(.gm-init-done) .gm-main-menu-wrapper .gm-actions {display:none;}
+.gm-navbar:not(.gm-init-done) .gm-logo > a img {height:' . $groovyMenuSettings["logoHeight"] . 'px;}
+';
+
+		$crit_css['desktop'] .= '
+.gm-navbar.gm-navbar-fixed-sticky:not(.gm-init-done) .gm-wrapper{position:fixed;}
+.gm-navbar:not(.gm-init-done) ~ .gm-navigation-drawer{position:fixed;top:0;overflow-y:auto;}
+.gm-navbar:not(.gm-init-done) .gm-inner {position: relative;box-sizing: content-box;width: 100%;margin-right: auto;margin-left: auto;}
+.gm-navbar:not(.gm-init-done) .gm-container {display:flex;margin-right:auto;margin-left:auto;align-items:stretch;justify-content:space-between;position:relative;}
+.gm-navbar:not(.gm-init-done) .gm-main-menu-wrapper .gm-navbar-nav {display:flex;justify-content:space-between;}
+.gm-navbar:not(.gm-init-done) .gm-main-menu-wrapper .gm-minicart, .gm-navbar:not(.gm-init-done) .gm-main-menu-wrapper .gm-minicart-link, .gm-navbar:not(.gm-init-done) .gm-main-menu-wrapper .gm-navbar-nav>li, .gm-navbar:not(.gm-init-done) .gm-main-menu-wrapper .gm-search {display:flex;align-items:center;justify-content:center;}
+.gm-navbar:not(.gm-init-done) .gm-main-menu-wrapper, .gm-navbar:not(.gm-init-done) .gm-main-menu-wrapper .gm-actions {display:flex;}
+.gm-navbar:not(.gm-navbar-sticky-toggle) .gm-logo__img-default {display:flex;}
+';
+
+		$crit_css['mobile'] .= '
+.gm-navbar:not(.gm-navbar-sticky-toggle) .gm-logo__img-mobile {display:flex;}
+.gm-navbar:not(.gm-init-done) .gm-logo > a img {height:' . $groovyMenuSettings["logoHeightMobile"] . 'px;}
+.gm-navbar:not(.gm-init-done) .gm-inner .gm-container{height:' . $groovyMenuSettings["mobileHeaderHeight"] . 'px;}
+.gm-navbar:not(.gm-init-done) .gm-main-menu-wrapper .gm-navbar-nav{display:none;}
+';
+
+		if ( in_array( $header_style, array( 1, 2 ), true ) ) {
+			if ( ! $groovyMenuSettings["overlap"] ) {
+				$crit_css['desktop'] .= '.gm-padding{padding-top:' . $groovyMenuSettings["headerHeight"] . 'px;}';
+			}
+			$crit_css['desktop'] .= '.gm-navbar:not(.gm-init-done) .gm-navbar-nav > .gm-menu-item > .gm-anchor{margin:5px ' . $groovyMenuSettings["itemsGutterSpace"] . 'px;}';
+			$crit_css['desktop'] .= '.gm-navbar:not(.gm-init-done) .gm-main-menu-wrapper .gm-navbar-nav>.gm-menu-item>.gm-anchor {display:flex;width:100%;padding:5px 0;line-height:25px;align-items:center;justify-content:space-between;}';
+			$crit_css['desktop'] .= '.gm-navbar:not(.gm-init-done) .gm-logo {display:flex;align-items:center;justify-content:center;}';
+		}
+
+		if ( in_array( $header_style, array( 3, 4, 5 ), true ) ) {
+			$crit_css['desktop'] .= '.gm-navbar:not(.gm-init-done) .gm-wrapper{position:relative;height:100vh;}';
+		}
+
+		if ( 1 === $header_style ) {
+			$crit_css['desktop'] .= '.gm-navbar:not(.gm-init-done) .gm-inner .gm-container{height:' . $groovyMenuSettings["headerHeight"] . 'px;}';
+			$crit_css['desktop'] .= '.gm-navbar:not(.gm-navbar-sticky-toggle) .gm-inner{min-height:' . $groovyMenuSettings["headerHeight"] . 'px;}';
+			$crit_css['desktop'] .= '.gm-navbar:not(.gm-init-done) .gm-wrapper{position:absolute;top:0;right:0;left:0;width:100%;margin-right:auto;margin-left:auto;}';
+
+			// Canvas and container boxed width.
+			if ( 'canvas-boxed-container-boxed' === $groovyMenuSettings['canvasContainerWidthType'] ) {
+				$crit_css['desktop'] .= '.gm-navbar:not(.gm-init-done) .gm-wrapper{max-width:' . $groovyMenuSettings["canvasBoxedContainerBoxedWidth"] . 'px;}';
+				$crit_css['desktop'] .= '.gm-navbar:not(.gm-init-done) .gm-padding{max-width:' . $groovyMenuSettings["canvasBoxedContainerBoxedWidth"] . 'px; margin-right: auto; margin-left: auto;}';
+			}
+
+			// Canvas wide - container boxed.
+			if ( 'canvas-wide-container-boxed' === $groovyMenuSettings['canvasContainerWidthType'] ) {
+				$crit_css['desktop'] .= '.gm-navbar:not(.gm-init-done) .gm-container{max-width:' . $groovyMenuSettings["canvasWideContainerBoxedWidth"] . 'px;}';
+			}
+
+			// Canvas wide - container wide.
+			if ( 'canvas-wide-container-wide' === $groovyMenuSettings['canvasContainerWidthType'] ) {
+				$crit_css['desktop'] .= '.gm-navbar:not(.gm-init-done) .gm-wrapper, .gm-container{max-width:none;}';
+				$crit_css['mobile']  .= '.gm-wrapper, .gm-container{max-width:none;}';
+				$crit_css['desktop'] .= '.gm-navbar:not(.gm-init-done) .gm-container{padding-left:' . $groovyMenuSettings["canvasWideContainerWidePadding"] . 'px;}';
+				$crit_css['desktop'] .= '.gm-navbar:not(.gm-init-done) .gm-container{padding-right:' . $groovyMenuSettings["canvasWideContainerWidePadding"] . 'px;}';
+			}
+		}
+
+		$crit_css['desktop'] = ' @media (min-width:' . $mobile_width . 'px) {' . $crit_css['desktop'] . '}';
+		$crit_css['mobile']  = ' @media (max-width:' . $mobile_width . 'px) {' . $crit_css['mobile'] . '}';
+
+		$crit_css_ready = '<style type="text/css">' . $crit_css['all'] . $crit_css['desktop'] . $crit_css['mobile'] . '</style>';
+
+		echo $crit_css_ready;
+
+	}
+
 
 }

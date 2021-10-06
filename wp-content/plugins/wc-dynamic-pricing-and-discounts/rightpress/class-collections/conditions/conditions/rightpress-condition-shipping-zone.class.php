@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Shipping_Zone extends RightPress_Condition_S
     public function get_label()
     {
 
-        return __('Shipping zone', 'rightpress');
+        return esc_html__('Shipping zone', 'rightpress');
     }
 
     /**

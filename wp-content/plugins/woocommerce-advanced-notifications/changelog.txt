@@ -1,5 +1,8 @@
 *** Advanced Notifications Changelog ***
 
+2021-07-27 - version 1.2.32
+* Fix - "Include Order Totals" only works for "All Purchases" trigger.
+
 2021-07-21 - version 1.2.31
 * Fix - Date used in emails is not correct
 

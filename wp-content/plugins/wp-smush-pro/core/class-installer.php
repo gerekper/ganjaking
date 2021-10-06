@@ -125,15 +125,16 @@ class Installer {
 				delete_option( WP_SMUSH_PREFIX . 'transparent_png' );
 			}
 
-			if ( version_compare( $version, '3.8.4', '<' ) ) {
-				// Delete the flag to hide a removed tutorial element.
-				delete_option( WP_SMUSH_PREFIX . 'hide_tutorials_from_bulk_smush' );
-				delete_site_option( WP_SMUSH_PREFIX . 'hide_tutorials_from_bulk_smush' );
-			}
-
 			if ( version_compare( $version, '3.8.6', '<' ) ) {
 				// Add the flag to display the release highlights modal.
 				add_site_option( WP_SMUSH_PREFIX . 'show_upgrade_modal', true );
+			}
+
+			if ( version_compare( $version, '3.9.0', '<' ) ) {
+				// Hide the Local WebP wizard if Local WebP is enabled.
+				if ( Settings::get_instance()->get( 'webp_mod' ) ) {
+					add_site_option( WP_SMUSH_PREFIX . 'webp_hide_wizard', true );
+				}
 			}
 
 			// Create/upgrade directory smush table.

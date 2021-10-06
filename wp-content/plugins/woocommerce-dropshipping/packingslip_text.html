@@ -61,5 +61,5 @@ Chosen Shipping Method: <?php echo $order_info['shipping_info']['shipping_method
 <br>
 <b>To mark this order as shipped please visit the following link on your browser:</b><br> 
 	<a><?php echo bloginfo('url') ?>/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid=<?php echo $order_info['id']; ?>&supplierid=<?php echo $supplier_info['id'];?></a><br><br>
-
+packingslip_text.html
 <?php echo @$order_info['options']['packing_slip_thankyou']; ?><br><br>

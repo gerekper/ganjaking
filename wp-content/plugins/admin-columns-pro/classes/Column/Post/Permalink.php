@@ -18,7 +18,7 @@ class Permalink extends AC\Column\Post\Permalink
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Slug( $this );
+		return new Editing\Service\Post\Slug();
 	}
 
 	public function export() {

@@ -2,22 +2,11 @@
 
 namespace ACP\Editing\Model\User;
 
-use ACP\Editing\Model;
+use ACP\Editing\Service;
 
-class ShowToolbar extends Model {
-
-	public function get_view_settings() {
-		return [
-			'type'    => 'togglable',
-			'options' => [
-				'true'  => __( 'True', 'codepress-admin-columns' ),
-				'false' => __( 'False', 'codepress-admin-columns' ),
-			],
-		];
-	}
-
-	public function save( $id, $value ) {
-		return false !== update_user_meta( $id, 'show_admin_bar_front', $value );
-	}
+/**
+ * @deprecated 5.6
+ */
+class ShowToolbar extends Service\User\ShowToolbar {
 
 }

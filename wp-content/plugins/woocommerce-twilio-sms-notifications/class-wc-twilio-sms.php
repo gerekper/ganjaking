@@ -34,7 +34,7 @@ class WC_Twilio_SMS extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '1.15.1';
+	const VERSION = '1.16.1';
 
 	/** @var WC_Twilio_SMS single instance of this plugin */
 	protected static $instance;
@@ -105,7 +105,7 @@ class WC_Twilio_SMS extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new \SkyVerge\WooCommerce\Twilio_SMS\Lifecycle( $this );
 	}
@@ -119,21 +119,21 @@ class WC_Twilio_SMS extends Framework\SV_WC_Plugin {
 	private function includes() {
 
 		// a message length calculator helper to estimate the number of parts an SMS may be split into
-		require_once( $this->get_plugin_path() . '/includes/Message_Length_Calculator.php' );
+		require_once( $this->get_plugin_path() . '/src/Message_Length_Calculator.php' );
 
 		// the URL shortener class helps shortening URLs in SMS messages
-		require_once( $this->get_plugin_path() . '/includes/class-wc-twilio-sms-url-shortener.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-twilio-sms-url-shortener.php' );
 
 		// the notification handler sends SMS notifications
-		require_once( $this->get_plugin_path() . '/includes/class-wc-twilio-sms-notification.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-twilio-sms-notification.php' );
 
 		// the bookings integration
-		require_once( $this->get_plugin_path() . '/includes/Integrations/Bookings/Bookings.php' );
-		require_once( $this->get_plugin_path() . '/includes/Integrations/Bookings/NotificationSchedule.php' );
+		require_once( $this->get_plugin_path() . '/src/Integrations/Bookings/Bookings.php' );
+		require_once( $this->get_plugin_path() . '/src/Integrations/Bookings/NotificationSchedule.php' );
 
 		// the response handler manages creating XML response message
 		if ( isset( $_REQUEST['wc_twilio_sms_response'] ) ) {
-			$this->load_class( '/includes/class-wc-twilio-sms-response.php', 'WC_Twilio_SMS_Response' );
+			$this->load_class( '/src/class-wc-twilio-sms-response.php', 'WC_Twilio_SMS_Response' );
 		}
 
 		// load admin classes
@@ -151,10 +151,10 @@ class WC_Twilio_SMS extends Framework\SV_WC_Plugin {
 	private function admin_includes() {
 
 		// admin
-		$this->admin = $this->load_class( '/includes/admin/class-wc-twilio-sms-admin.php', 'WC_Twilio_SMS_Admin' );
+		$this->admin = $this->load_class( '/src/admin/class-wc-twilio-sms-admin.php', 'WC_Twilio_SMS_Admin' );
 
 		// AJAX
-		$this->ajax = $this->load_class( '/includes/class-wc-twilio-sms-ajax.php', 'WC_Twilio_SMS_AJAX' );
+		$this->ajax = $this->load_class( '/src/class-wc-twilio-sms-ajax.php', 'WC_Twilio_SMS_AJAX' );
 	}
 
 
@@ -263,7 +263,7 @@ class WC_Twilio_SMS extends Framework\SV_WC_Plugin {
 		}
 
 		// Load API
-		require_once( $this->get_plugin_path() . '/includes/class-wc-twilio-sms-api.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-twilio-sms-api.php' );
 
 		$account_sid = get_option( 'wc_twilio_sms_account_sid', '' );
 		$auth_token  = get_option( 'wc_twilio_sms_auth_token', '' );

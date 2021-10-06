@@ -43,10 +43,10 @@ abstract class RightPress_Condition_Method_List_Advanced extends RightPress_Cond
     public function get_options()
     {
         return array(
-            'at_least_one'  => __('at least one of selected', 'rightpress'),
-            'all'           => __('all of selected', 'rightpress'),
-            'only'          => __('only selected', 'rightpress'),
-            'none'          => __('none of selected', 'rightpress'),
+            'at_least_one'  => esc_html__('at least one of selected', 'rightpress'),
+            'all'           => esc_html__('all of selected', 'rightpress'),
+            'only'          => esc_html__('only selected', 'rightpress'),
+            'none'          => esc_html__('none of selected', 'rightpress'),
         );
     }
 

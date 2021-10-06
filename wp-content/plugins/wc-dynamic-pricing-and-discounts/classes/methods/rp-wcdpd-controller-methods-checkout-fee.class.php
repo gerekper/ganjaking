@@ -140,7 +140,7 @@ class RP_WCDPD_Controller_Methods_Checkout_Fee extends RP_WCDPD_Controller_Metho
     public function get_combined_simple_checkout_fee_label()
     {
         $label = RP_WCDPD_Settings::get('checkout_fees_combined_title');
-        return !RightPress_Help::is_empty($label) ? $label : __('Fee', 'rp_wcdpd');
+        return !RightPress_Help::is_empty($label) ? $label : esc_html__('Fee', 'rp_wcdpd');
     }
 
     /**

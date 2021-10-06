@@ -113,13 +113,26 @@ class WoocommerceGpfCacheStatus {
 				)
 			);
 		}
-		$msg = '';
-		if ( function_exists( 'as_next_scheduled_action' ) &&
-			 (
-				 as_next_scheduled_action( 'woocommerce_product_feeds_cache_clear_all' ) !== false ||
-				 as_next_scheduled_action( 'woocommerce_product_feeds_cache_rebuild_all' ) !== false
-			 )
-		) {
+		$msg                 = '';
+		$pending_clear_all   = as_get_scheduled_actions(
+			[
+				'hook'     => 'woocommerce_product_feeds_cache_clear_all',
+				'status'   => \ActionScheduler_Store::STATUS_PENDING,
+				'per_page' => 1,
+				'orderby'  => 'none',
+			],
+			'ids'
+		);
+		$pending_rebuild_all = as_get_scheduled_actions(
+			[
+				'hook'     => 'woocommerce_product_feeds_cache_rebuild_all',
+				'status'   => \ActionScheduler_Store::STATUS_PENDING,
+				'per_page' => 1,
+				'orderby'  => 'none',
+			],
+			'ids'
+		);
+		if ( ! empty( $pending_clear_all ) || ! empty( $pending_rebuild_all ) ) {
 			$msg = $this->template_loader->get_template_with_variables(
 				'woo-gpf',
 				'admin-cache-rebuild-scheduled',

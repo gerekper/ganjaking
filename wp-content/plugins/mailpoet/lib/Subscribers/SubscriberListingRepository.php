@@ -41,15 +41,20 @@ class SubscriberListingRepository extends ListingRepository {
   /** @var SegmentSubscribersRepository */
   private $segmentSubscribersRepository;
 
+  /** @var SubscribersCountsController */
+  private $subscribersCountsController;
+
   public function __construct(
     EntityManager $entityManager,
     FilterHandler $dynamicSegmentsFilter,
-    SegmentSubscribersRepository $segmentSubscribersRepository
+    SegmentSubscribersRepository $segmentSubscribersRepository,
+    SubscribersCountsController $subscribersCountsController
   ) {
     parent::__construct($entityManager);
     $this->dynamicSegmentsFilter = $dynamicSegmentsFilter;
     $this->entityManager = $entityManager;
     $this->segmentSubscribersRepository = $segmentSubscribersRepository;
+    $this->subscribersCountsController = $subscribersCountsController;
   }
 
   public function getData(ListingDefinition $definition): array {
@@ -97,7 +102,7 @@ class SubscriberListingRepository extends ListingRepository {
   }
 
   protected function applySelectClause(QueryBuilder $queryBuilder) {
-    $queryBuilder->select("PARTIAL s.{id,email,firstName,lastName,status,createdAt,countConfirmations,wpUserId,isWoocommerceUser}");
+    $queryBuilder->select("PARTIAL s.{id,email,firstName,lastName,status,createdAt,countConfirmations,wpUserId,isWoocommerceUser,engagementScore}");
   }
 
   protected function applyFromClause(QueryBuilder $queryBuilder) {
@@ -226,29 +231,24 @@ class SubscriberListingRepository extends ListingRepository {
   public function getFilters(ListingDefinition $definition): array {
     $group = $definition->getGroup();
 
-    $queryBuilder = clone $this->queryBuilder;
-    $this->applyFromClause($queryBuilder);
-    $subscribersWithoutSegmentQuery = $this->segmentSubscribersRepository->getSubscribersWithoutSegmentCountQuery();
+    $subscribersWithoutSegmentStats = $this->subscribersCountsController->getSubscribersWithoutSegmentStatisticsCount();
+    $key = $group ?: 'all';
+    $subscribersWithoutSegmentCount = $subscribersWithoutSegmentStats[$key];
 
-    if ($group) {
-      $this->applyGroup($queryBuilder, $group);
-      $this->applyGroup($subscribersWithoutSegmentQuery, $group);
-    }
-
-    $subscribersWithoutSegment = $subscribersWithoutSegmentQuery->getQuery()->getSingleScalarResult();
     $subscribersWithoutSegmentLabel = sprintf(
-      WPFunctions::get()->__('Subscribers without a list (%s)', 'mailpoet'),
-      number_format((float)$subscribersWithoutSegment)
+      __('Subscribers without a list (%s)', 'mailpoet'),
+      number_format((float)$subscribersWithoutSegmentCount)
     );
 
+    $queryBuilder = clone $this->queryBuilder;
     $queryBuilder
-      ->select('sg.id, sg.name, COUNT(s) AS subscribersCount')
-      ->leftJoin('s.subscriberSegments', 'ssg')
-      ->join('ssg.segment', 'sg')
-      ->groupBy('sg.id')
-      ->andWhere('sg.deletedAt IS NULL')
-      ->andWhere('s.deletedAt IS NULL')
-      ->having('subscribersCount > 0');
+      ->select('s')
+      ->from(SegmentEntity::class, 's');
+    if ($group === 'trash') {
+      $queryBuilder->andWhere('s.deletedAt IS NOT NULL');
+    } else {
+      $queryBuilder->andWhere('s.deletedAt IS NULL');
+    }
 
     // format segment list
     $allSubscribersList = [
@@ -262,32 +262,23 @@ class SubscriberListingRepository extends ListingRepository {
     ];
 
     $segmentList = [];
-    foreach ($queryBuilder->getQuery()->getResult() as $item) {
-      $segmentList[] = [
-        'label' => sprintf('%s (%s)', $item['name'], number_format((float)$item['subscribersCount'])),
-        'value' => $item['id'],
-      ];
-    }
-
-    $queryBuilder = clone $this->queryBuilder;
-    // Load dynamic segments with some subscribers
-    $queryBuilder
-      ->select('s')
-      ->from(SegmentEntity::class, 's')
-      ->andWhere('s.type = :dynamicType')
-      ->andWhere('s.deletedAt IS NULL')
-      ->setParameter('dynamicType', SegmentEntity::TYPE_DYNAMIC);
-
     foreach ($queryBuilder->getQuery()->getResult() as $segment) {
-      $count = $this->segmentSubscribersRepository->getSubscribersCount($segment->getId());
-      if (!$count) {
+      $key = $group ?: 'all';
+      if ($segment->isStatic()) {
+        $count = $this->subscribersCountsController->getSegmentGlobalStatusStatisticsCount($segment);
+      } else {
+        $count = $this->subscribersCountsController->getSegmentStatisticsCount($segment);
+      }
+      if (!$count[$key]) {
         continue;
       }
+
       $segmentList[] = [
-        'label' => sprintf('%s (%s)', $segment->getName(), number_format((float)$count)),
+        'label' => sprintf('%s (%s)', $segment->getName(), number_format((float)$count[$key])),
         'value' => $segment->getId(),
       ];
     }
+
     usort($segmentList, function($a, $b) {
       return strcasecmp($a['label'], $b['label']);
     });

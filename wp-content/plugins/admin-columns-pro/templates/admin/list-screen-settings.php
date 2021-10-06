@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<section class="ac-setbox ac-ls-settings ac-section -closable" data-section="ls-settings">
+<section class="ac-setbox ac-ls-settings ac-section" data-section="ls-settings">
 	<header class="ac-section__header">
 		<div class="ac-setbox__header__title"><?= __( 'Settings', 'codepress-admin-columns' ); ?>
 			<small>(<?= __( 'optional', 'codepress-admin-columns' ); ?>)</small>

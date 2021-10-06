@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP;
 
+use WPMailSMTP\Admin\DebugEvents\DebugEvents;
 use WPMailSMTP\Providers\MailerAbstract;
 
 // Load PHPMailer class, so we can subclass it.
@@ -41,7 +42,7 @@ class MailCatcher extends \PHPMailer implements MailCatcherInterface {
 	 *
 	 * @return bool
 	 */
-	public function send() {
+	public function send() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
 		$options     = new Options();
 		$mail_mailer = sanitize_key( $options->get( 'mail', 'mailer' ) );
@@ -70,7 +71,7 @@ class MailCatcher extends \PHPMailer implements MailCatcherInterface {
 		}
 
 		// Define a custom header, that will be used to identify the plugin and the mailer.
-		$this->XMailer = 'WPMailSMTP/Mailer/' . $mail_mailer . ' ' . WPMS_PLUGIN_VER;
+		$this->XMailer = 'WPMailSMTP/Mailer/' . $mail_mailer . ' ' . WPMS_PLUGIN_VER; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 		// Use the default PHPMailer, as we inject our settings there for certain providers.
 		if (
@@ -107,9 +108,15 @@ class MailCatcher extends \PHPMailer implements MailCatcherInterface {
 				 */
 				do_action( 'wp_mail_smtp_mailcatcher_smtp_send_before', $this );
 
-				return $this->postSend();
+				$post_send = $this->postSend();
+
+				DebugEvents::add_debug(
+					esc_html__( 'An email request was sent.' )
+				);
+
+				return $post_send;
 			} catch ( \phpmailerException $e ) {
-				$this->mailHeader = '';
+				$this->mailHeader = ''; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				$this->setError( $e->getMessage() );
 
 				// Set the debug error, but not for default PHP mailer.
@@ -129,7 +136,7 @@ class MailCatcher extends \PHPMailer implements MailCatcherInterface {
 		}
 
 		// We need this so that the \PHPMailer class will correctly prepare all the headers.
-		$this->Mailer = 'mail';
+		$this->Mailer = 'mail'; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 		/**
 		 * Fires before email pre send.
@@ -164,6 +171,28 @@ class MailCatcher extends \PHPMailer implements MailCatcherInterface {
 		$mailer->send();
 
 		$is_sent = $mailer->is_email_sent();
+
+		if ( ! $is_sent ) {
+			$error = $mailer->get_response_error();
+
+			if ( ! empty( $error ) ) {
+
+				// Add mailer to the beginning and save to display later.
+				$message = 'Mailer: ' . esc_html( wp_mail_smtp()->get_providers()->get_options( $mailer->get_mailer_name() )->get_title() ) . "\r\n";
+
+				$conflicts = new Conflicts();
+
+				if ( $conflicts->is_detected() ) {
+					$message .= 'Conflicts: ' . esc_html( $conflicts->get_conflict_name() ) . "\r\n";
+				}
+
+				Debug::set( $message . $error );
+			}
+		} else {
+
+			// Clear debug messages if email is successfully sent.
+			Debug::clear();
+		}
 
 		/**
 		 * Fires after email send.

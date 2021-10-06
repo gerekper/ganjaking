@@ -170,6 +170,12 @@ if ( class_exists( 'WP_Importer' ) ) {
 					while ( ( $row = fgetcsv( $handle, 0, $this->delimiter ) ) !== false ) {
 						list( $post_id, $country, $state, $postcode, $cost, $item_cost ) = $row;
 
+						// If $post_id is empty, skip the row
+						if ( empty( $post_id ) ) {
+							$this->skipped++;
+							continue;
+						}
+
 						$country = trim( strtoupper( $country ) );
 						$state   = trim( strtoupper( $state ) );
 
@@ -220,6 +226,18 @@ if ( class_exists( 'WP_Importer' ) ) {
 					$this->skipped
 				)
 			);
+
+			// Let the user know why rows were skipped
+			if ( $this->skipped > 0 ) {
+				printf(
+					'<div class="error settings-error below-h2"><p>%s</p></div>',
+					sprintf(
+						/* translators: 1) Total skipped */
+						__( '<strong>%1$s</strong> rows were missing a valid product ID', 'woocommerce-shipping-per-product' ),
+						$this->skipped
+					)
+				);
+			}
 
 			$this->import_end();
 		}

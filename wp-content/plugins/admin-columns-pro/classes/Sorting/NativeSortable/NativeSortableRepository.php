@@ -47,6 +47,9 @@ class NativeSortableRepository {
 		if ( $data ) {
 
 			foreach ( $data as $column_name => $_order_by ) {
+				if ( $column_name === $order_by ) {
+					return $this->column_repository->find( $column_name );
+				}
 
 				if ( is_string( $_order_by ) && $_order_by === $order_by ) {
 					return $this->column_repository->find( $column_name );

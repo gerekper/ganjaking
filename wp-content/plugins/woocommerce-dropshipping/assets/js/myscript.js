@@ -20,7 +20,7 @@ function open_dropshipper_dialog(my_id) {
 			}
 		}]
 	});
-}
+} 
 
 function js_save_dropshipper_shipping_info(my_order_id, my_info) {
 	var data = {
@@ -61,6 +61,9 @@ jQuery(document).ready(function() {
 });
 
 jQuery(document).ready(function() { 
+	
+	jQuery( '.drop_color' ).wpColorPicker(); 
+
 	jQuery(document).on('click', '.hidecbe', function() {
 
 
@@ -78,8 +81,70 @@ jQuery(document).ready(function() {
 	    });
 
     });
+	
+	jQuery('.wc-dropship-setting-tabs li').click(function(){
+		jQuery('.wc-dropship-setting-tabs li').removeClass('active');
+		jQuery('.drop-setting-section').removeClass('active');
+		jQuery(this).addClass('active');
+		var tabId = jQuery(this).data('id');
+		jQuery('#'+tabId).addClass('active');
+	});
 });
 // Ajax callback for Aliexpress related product open in diffrent tab
+
+jQuery(document).ready(function($) { 
+   $("#send_supplier_email").click(function () {
+	   
+	   var termval = [];
+	   $('.term_id_value:checked').each(function() {
+			termval.push($(this).val()); 
+	   });
+	   if(termval !=''){	
+		   $(this).html('Sending...');		
+		   var ajaxurl = $(this).data('ajax-url');
+		   var order_id = $(this).data('order-id');	   
+		   $.ajax({
+				url: ajaxurl,
+				data: { termval : termval, order_id : order_id, action : 'send_supplier_email' },
+				type: 'post',
+				dataType: 'json',
+				success: function(response) {
+					$("#send_supplier_email").html('Successfully Send');		
+				},
+				error: function(e){
+					$("#send_supplier_email").html('Successfully Send');
+				}
+			});
+	   }else{
+		   alert('Please select at least one supplier');
+	   }
+	});
+	
+	$('.miscellaneous_packing_slip_options_master_checkbox').click(function () {
+	   if($(this).is(':checked')){
+		  $('.miscellaneous_packing_slip_options_checkbox').removeAttr("disabled");	
+		  $('.miscellaneous_packing_slip_options_checkbox').prop('checked', true);
+		  $('.inner-toggle').show();
+	   }else{
+		  $('.inner-toggle').hide(); 
+		  $('.miscellaneous_packing_slip_options_checkbox').attr("disabled", true);
+		  $('.miscellaneous_packing_slip_options_checkbox').prop('checked', false);
+	   }
+	   
+	});
+	
+	$('.miscellaneous_packing_slip_options_checkbox').click(function () {
+		var dataId = $(this).data('id');
+	   if($(this).is(':checked')){	
+		  $('.'+dataId).show();
+	   }else{
+		  $('.'+dataId).hide(); 
+	   }
+	   
+	});
+	
+});
+
 /*jQuery(document).ready(function() { 
    jQuery("#opmc_ali_place_order").click(function () {
 	   var order_id = jQuery('#order_id').val();	   

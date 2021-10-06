@@ -1,14 +1,36 @@
-<div class="wrap">
-    <hr class="wp-header-end">
-    <div class="betterdocs-listing-wrapper">
-        <?php do_action('betterdocs_listing_header'); ?>
-    </div>
+<?php
+global $wpdb;
 
+$terms_object = array(
+    'taxonomy' => 'doc_category',
+    'orderby' => 'meta_value_num',
+    'meta_key' => 'doc_category_order',
+    'order' => 'ASC',
+    'hide_empty' => false,
+);
+
+if (BetterDocs_Multiple_Kb::$enable == 1 && isset($_GET['knowledgebase']) && $_GET['knowledgebase'] !== 'all') {
+    $terms_object['meta_query'] = array(
+        array(
+            'key'       => 'doc_category_knowledge_base',
+            'value'     => $_GET['knowledgebase'],
+            'compare'   => 'LIKE'
+        )
+    );
+}
+
+$terms = get_terms($terms_object);
+
+$kb = '';
+if (isset($_GET['knowledgebase']) && !empty($_GET['knowledgebase']) && $_GET['knowledgebase'] !== 'all') {
+    $kb = $_GET['knowledgebase'];
+}
+
+?>
+<div class="betterdocs-tab-content tab-content-2">
     <div class="betterdocs-listing-content">
         <?php
-        global $wpdb;
         $output = '';
-
         if (is_array($terms) && !empty($terms)) {
             foreach ($terms as $term) {
                 $xTra_QL = $xTra_Term_QL = '';
@@ -28,10 +50,10 @@
 
                 $query = $wpdb->prepare(
                     "SELECT post_title AS title, ID, post_status  FROM $wpdb->posts
-                        WHERE post_type = %s
-                        AND ( ( post_status = %s ) OR ( post_status = %s ) OR ( post_status = %s ) OR ( post_status = %s ) )
-                        AND ID IN ( SELECT object_id AS post_id FROM $wpdb->term_relationships
-                        WHERE term_taxonomy_id = %s $xTra_Term_QL )$xTra_QL",
+                                WHERE post_type = %s
+                                AND ( ( post_status = %s ) OR ( post_status = %s ) OR ( post_status = %s ) OR ( post_status = %s ) )
+                                AND ID IN ( SELECT object_id AS post_id FROM $wpdb->term_relationships
+                                WHERE term_taxonomy_id = %s $xTra_Term_QL )$xTra_QL",
                     array(
                         'docs',
                         'publish',
@@ -43,7 +65,6 @@
                 );
 
                 $results = $wpdb->get_results($query);
-
 
                 if (is_array($results)) {
                     $output .= '<div class="betterdocs-single-listing">';
@@ -87,10 +108,10 @@
         }
         $query = $wpdb->prepare(
             "SELECT post_title AS title, ID, post_status FROM $wpdb->posts 
-            WHERE post_type = %s 
-            AND ( ( post_status = %s ) OR ( post_status = %s ) OR ( post_status = %s ) OR ( post_status = %s ) ) 
-            AND ID NOT IN  ( SELECT object_id as post_id FROM $wpdb->term_relationships 
-            WHERE  term_taxonomy_id IN ( SELECT term_taxonomy_id FROM $wpdb->term_taxonomy WHERE taxonomy = %s ) )",
+                    WHERE post_type = %s 
+                    AND ( ( post_status = %s ) OR ( post_status = %s ) OR ( post_status = %s ) OR ( post_status = %s ) ) 
+                    AND ID NOT IN  ( SELECT object_id as post_id FROM $wpdb->term_relationships 
+                    WHERE  term_taxonomy_id IN ( SELECT term_taxonomy_id FROM $wpdb->term_taxonomy WHERE taxonomy = %s ) )",
             array(
                 'docs',
                 'publish',
@@ -132,7 +153,7 @@
             $output .= '</div>';
             $output .= '<a href="post-new.php?post_type=docs" class="betterdocs-add-new-link"><span class="add-new-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="20px" fill="#b0b2ba"><path d="M 14.970703 2.9726562 A 2.0002 2.0002 0 0 0 13 5 L 13 13 L 5 13 A 2.0002 2.0002 0 1 0 5 17 L 13 17 L 13 25 A 2.0002 2.0002 0 1 0 17 25 L 17 17 L 25 17 A 2.0002 2.0002 0 1 0 25 13 L 17 13 L 17 5 A 2.0002 2.0002 0 0 0 14.970703 2.9726562 z"></path></svg></span><span class="add-new-text">Add New Docs</span></a>';
             $output .= '</div>';
-        } 
+        }
         if (empty($terms) && empty($uncategorized_docs)) {
             $output .= '<div class="betterdocs-single-listing">';
             $output .= '<div class="betterdocs-single-listing-inner">';
@@ -150,5 +171,4 @@
         ?>
 
     </div>
-
 </div>

@@ -119,6 +119,8 @@ abstract class Abstract_Page {
 	 * @since 2.9.0
 	 */
 	public function add_action_hooks() {
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+
 		// Notices.
 		add_action( 'admin_notices', array( $this, 'smush_upgrade_notice' ) );
 		add_action( 'network_admin_notices', array( $this, 'smush_upgrade_notice' ) );
@@ -137,6 +139,15 @@ abstract class Abstract_Page {
 		// Filter query args to remove from the URL.
 		add_filter( 'removable_query_args', array( $this, 'add_removable_query_args' ) );
 	}
+
+	/**
+	 * Enqueue scripts.
+	 *
+	 * @since 3.8.8
+	 *
+	 * @param string $hook Hook from where the call is made.
+	 */
+	public function enqueue_scripts( $hook ) {}
 
 	/**
 	 * Return the admin menu slug
@@ -884,8 +895,9 @@ abstract class Abstract_Page {
 
 	/**
 	 * Enqueue scripts.
+	 * Used by the Tutorials and Dashboard pages.
 	 */
-	public function enqueue_tutorials_scripts() {
+	protected function enqueue_tutorials_scripts() {
 		wp_enqueue_script(
 			'smush-tutorials',
 			WP_SMUSH_URL . 'app/assets/js/smush-tutorials.min.js',
@@ -907,5 +919,94 @@ abstract class Abstract_Page {
 		);
 
 		wp_localize_script( 'smush-tutorials', 'smush_tutorials', $strings );
+	}
+
+	/**
+	 * Enqueue the scripts for configs.
+	 * Used in the Settings and Dashboard pages.
+	 *
+	 * @since 3.9.0
+	 */
+	protected function enqueue_configs_scripts() {
+		// Configs are only used on single installs and on the network admin on MU.
+		if ( is_multisite() && ! is_network_admin() ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'smush-react-configs',
+			WP_SMUSH_URL . 'app/assets/js/smush-react-configs.min.js',
+			array( 'wp-i18n', 'smush-sui' ),
+			WP_SMUSH_VERSION,
+			true
+		);
+
+		wp_add_inline_script(
+			'smush-react-configs',
+			'wp.i18n.setLocaleData( ' . wp_json_encode( $this->get_locale_data() ) . ', "wp-smushit" );',
+			'before'
+		);
+
+		// Configs.
+		wp_localize_script(
+			'smush-react-configs',
+			'smushReact',
+			array(
+				'hideBranding' => apply_filters( 'wpmudev_branding_hide_branding', false ),
+				'isPro'        => WP_Smush::is_pro(),
+				'links'        => array(
+					'configsPage'  => network_admin_url( 'admin.php?page=smush-settings&view=configs' ),
+					'accordionImg' => WP_SMUSH_URL . 'app/assets/images/smush-config-icon@2x.png',
+					'hubConfigs'   => 'https://wpmudev.com/hub2/configs/my-configs',
+					'hubWelcome'   => 'https://wpmudev.com/hub-welcome/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_hub_config',
+				),
+				'requestsData' => array(
+					'root'           => esc_url_raw( rest_url( 'wp-smush/v1/' . \Smush\Core\Configs::OPTION_NAME ) ),
+					'nonce'          => wp_create_nonce( 'wp_rest' ),
+					'apiKey'         => \Smush\Core\Helper::get_wpmudev_apikey(),
+					'hubBaseURL'     => defined( 'WPMUDEV_CUSTOM_API_SERVER' ) && WPMUDEV_CUSTOM_API_SERVER ? trailingslashit( WPMUDEV_CUSTOM_API_SERVER ) . 'api/hub/v1/package-configs' : null,
+					// Hardcoding these because the Free version doesn't have the WDP ID header in wp-smushit.php.
+					'pluginData'     => array(
+						'name' => 'Smush' . ( WP_Smush::is_pro() ? ' Pro' : '' ),
+						'id'   => '912164',
+					),
+					'pluginRequests' => array(
+						'nonce'        => wp_create_nonce( 'smush_handle_config' ),
+						'uploadAction' => 'smush_upload_config',
+						'createAction' => 'smush_save_config',
+						'applyAction'  => 'smush_apply_config',
+					),
+				),
+			)
+		);
+	}
+
+	/**
+	 * Gets the translated strings for javascript translations.
+	 *
+	 * @since 3.8.5
+	 * @since 3.9.0 Moved from Smush\App\Admin to here.
+	 *
+	 * @return array
+	 */
+	protected function get_locale_data() {
+		$translations = get_translations_for_domain( 'wp-smushit' );
+
+		$locale = array(
+			'' => array(
+				'domain' => 'wp-smushit',
+				'lang'   => get_user_locale(),
+			),
+		);
+
+		if ( ! empty( $translations->headers['Plural-Forms'] ) ) {
+			$locale['']['plural_forms'] = $translations->headers['Plural-Forms'];
+		}
+
+		foreach ( $translations->entries as $msgid => $entry ) {
+			$locale[ $msgid ] = $entry->translations;
+		}
+
+		return $locale;
 	}
 }

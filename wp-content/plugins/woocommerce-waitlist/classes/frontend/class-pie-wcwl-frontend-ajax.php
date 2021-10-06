@@ -35,14 +35,25 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 		public function process_user_waitlist_request() {
 			$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
 			$this->verify_product( $product_id );
-			$lang    = isset( $_POST['language'] ) ? sanitize_text_field( $_POST['language'] ) : '';
-			$email   = isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '';
-			$context = isset( $_POST['context'] ) ? sanitize_text_field( $_POST['context'] ) : '';
-			if ( 'leave' === $context ) {
+			$products = isset( $_POST['products'] ) && is_array( $_POST['products'] ) ? $_POST['products'] : array();
+			$lang     = isset( $_POST['language'] ) ? sanitize_text_field( $_POST['language'] ) : '';
+			$email    = isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '';
+			$context  = isset( $_POST['context'] ) ? sanitize_text_field( $_POST['context'] ) : '';
+			if ( 'yes' === get_option( 'woocommerce_waitlist_double_optin' ) &&
+					( $context && 'leave' !== $context ) &&
+					( ! get_current_user_id() && ! email_exists( $email ) ) ) {
+				$response = $this->send_optin_email( $email, $product_id, $products, $lang );
+				if ( ! $response ) {
+					$response = sprintf( __( 'Failed to send optin email on %s.' ), gmdate( 'd M, y' ) );
+				} else {
+					$response = $this->get_optin_response;
+				}
+				$context = '';
+			} elseif ( 'leave' === $context ) {
 				$response = wcwl_remove_user_from_waitlist( $email, $product_id );
 				$context  = '';
 			} elseif ( 'update' === $context ) {
-				$response = $this->process_grouped_product_request( $email );
+				$response = $this->process_grouped_product_request( $email, $products, $lang );
 			} else {
 				$response = wcwl_add_user_to_waitlist( $email, $product_id, $lang );
 				$context  = '';
@@ -64,12 +75,10 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 		 * Process the frontend user request to join/leave the given waitlist/s
 		 * Required for grouped products (and events)
 		 */
-		public function process_grouped_product_request( $email ) {
-			if ( ! isset( $_POST['products'] ) || empty( $_POST['products'] ) ) {
+		public function process_grouped_product_request( $email, $products, $lang ) {
+			if ( ! $products || empty( $products ) ) {
 				return new WP_Error( 'wcwl_error', __( 'No products selected', 'woocommerce-waitlist' ) );
 			}
-			$products = isset( $_POST['products'] ) && is_array( $_POST['products'] ) ? $_POST['products'] : array();
-			$lang     = isset( $_POST['language'] ) ? sanitize_text_field( $_POST['language'] ) : '';
 			foreach ( $products as $product_id => $data ) {
 				if ( 'true' === $data['checked'] ) {
 					wcwl_add_user_to_waitlist( $email, $product_id, $data['lang'] );
@@ -96,6 +105,38 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 				return tribe_events_get_event( $product_id );
 			}
 			wp_send_json_error( $this->invalid_product_text );
+		}
+
+		/**
+		 * Send optin email (double optin) for customer to confirm email address
+		 *
+		 * @param string $email
+		 * @param int    $product_id
+		 * @param array  $products
+		 * @param string $lang
+		 */
+		public function send_optin_email( $email, $product_id, $products, $lang ) {
+			$products = $this->get_product_ids_to_join( $products );
+			WC_Emails::instance();
+			require_once WCWL_FILE_PATH . 'classes/class-pie-wcwl-waitlist-optin-email.php';
+			$mailer = new Pie_WCWL_Waitlist_Optin_Email();
+			return $mailer->trigger( $email, $product_id, $products, $lang );
+		}
+
+		/**
+		 * Organise products to join in a csv for email templates
+		 */
+		public function get_product_ids_to_join( $products ) {
+			if ( ! $products ) {
+				return $products;
+			}
+			$to_join = '';
+			foreach ( $products as $product_id => $data ) {
+				if ( 'true' === $data['checked'] ) {
+					$to_join .= $product_id . ',';
+				}
+			}
+			return $to_join;
 		}
 
 		/**
@@ -173,6 +214,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 			$this->nonce_not_verified_text = apply_filters( 'wcwl_error_message_invalid_nonce', __( 'There was a problem with your request: nonce could not be verified.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
 			$this->invalid_user_text       = apply_filters( 'wcwl_error_message_invalid_user', __( 'There was a problem with your request: the current user could not be identified.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
 			$this->invalid_product_text    = apply_filters( 'wcwl_error_message_invalid_product', __( 'There was a problem with your request: the selected product could not be found.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
+			$this->get_optin_response      = apply_filters( 'wcwl_notice_message_double_optin', __( 'Please check your inbox and confirm your email address to be added to the waitlist', 'woocommerce-waitlist' ) );
 		}
 	}
 }

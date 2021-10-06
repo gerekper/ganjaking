@@ -24,7 +24,9 @@ class User extends AC\Settings\Column\User {
 			],
 			[
 				'title'   => __( 'Custom Field', 'codepress-admin-columns' ),
-				'options' => [ self::PROPERTY_META => __( 'Custom Field', 'codepress-admin-columns' ) ],
+				'options' => [
+					self::PROPERTY_META => __( 'Custom Field', 'codepress-admin-columns' ),
+				],
 			],
 		];
 	}
@@ -33,13 +35,10 @@ class User extends AC\Settings\Column\User {
 
 		switch ( $this->get_display_author_as() ) {
 			case self::PROPERTY_META :
-
 				return [ new UserCustomField( $this->column ) ];
 			case self::PROPERTY_GRAVATAR :
-
 				return [ new Gravatar( $this->column ) ];
 			default:
-
 				return parent::get_dependent_settings();
 		}
 	}
@@ -49,7 +48,7 @@ class User extends AC\Settings\Column\User {
 		switch ( $this->get_display_author_as() ) {
 			case self::PROPERTY_META :
 				/** @var UserCustomField $setting */
-				$setting = $this->column->get_setting( 'custom_field' );
+				$setting = $this->column->get_setting( UserCustomField::NAME );
 
 				return get_user_meta( $user_id, $setting->get_field(), true );
 			case self::PROPERTY_GRAVATAR :

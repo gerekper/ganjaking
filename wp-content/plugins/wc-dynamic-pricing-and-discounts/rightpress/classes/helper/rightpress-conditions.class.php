@@ -473,7 +473,7 @@ final class RightPress_Conditions
                     // Change empty values
                     foreach ($attributes as $attribute_key => $attribute) {
                         if ($attribute === '') {
-                            $attributes[$attribute_key] = sprintf(strtolower(__('Any %s', 'woocommerce')), wc_attribute_label(str_replace('attribute_', '', $attribute_key)));
+                            $attributes[$attribute_key] = sprintf(strtolower(esc_html__('Any %s', 'woocommerce')), wc_attribute_label(str_replace('attribute_', '', $attribute_key)));
                         }
                     }
 
@@ -844,7 +844,7 @@ final class RightPress_Conditions
             $shipping_zone = WC_Shipping_Zones::get_zone($shipping_zone_id);
 
             // Get shipping zone name
-            $shipping_zone_name = ($shipping_zone_id ? $shipping_zone->get_zone_name() : __('Other locations', 'rightpress'));
+            $shipping_zone_name = ($shipping_zone_id ? $shipping_zone->get_zone_name() : esc_html__('Other locations', 'rightpress'));
 
             // Get instances of shipping methods from current shipping zone
             foreach ($shipping_zone->get_shipping_methods() as $shipping_method_instance) {
@@ -870,7 +870,7 @@ final class RightPress_Conditions
                 // Add parent shipping method
                 $items[] = array(
                     'id'    => (string) $shipping_method->id,
-                    'text'  => $shipping_method->method_title . ' - ' . __('All zones', 'rightpress'),
+                    'text'  => $shipping_method->method_title . ' - ' . esc_html__('All zones', 'rightpress'),
                 );
 
                 // Add instances from zones

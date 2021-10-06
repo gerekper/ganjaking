@@ -202,7 +202,7 @@
                                         $selected = '';
                                     }
                                 }
-                                echo '<option '. $selected .' value="'. $betterdocs->ID .'">'. $betterdocs->post_title .'</option>';
+                                echo '<option '. $selected .' value="'. esc_attr($betterdocs->ID) .'">'. $betterdocs->post_title .'</option>';
                                 $selected = '';
                             }
                         }
@@ -231,7 +231,7 @@
                             if( in_array( trim( $factor_key ), $comparison_factors ) ) {
                                 $selected = 'selected="true"';
                             }
-                            echo '<option '. $selected .' value="'. $factor_key .'">'. __( $factor , 'betterdocs-pro' ) .'</option>';
+                            echo '<option '. $selected .' value="'. esc_attr($factor_key) .'">'. __( $factor , 'betterdocs-pro' ) .'</option>';
                             $selected = '';
                         }
                     ?>

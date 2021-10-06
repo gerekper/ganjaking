@@ -101,9 +101,9 @@ jQuery(document).ready(function($) {
     });
 
     $("tbody#product_tbody").on("change", ".product-select", function() {
-        var $label = $(this).next(".include-variations-label");
+        var $label = $(this).parent().find(".include-variations-label");
 
-        $.get(ajaxurl, {action: "sfn_product_is_variable", product_id: $(this).val()}, function(resp) {
+        $.get(ajaxurl, {action: "sfn_product_is_variable", product_id: $(this).val(), security: cart_addons_settings.security}, function(resp) {
             if ( resp.is_variable === true ) {
                 $label.show();
             } else {

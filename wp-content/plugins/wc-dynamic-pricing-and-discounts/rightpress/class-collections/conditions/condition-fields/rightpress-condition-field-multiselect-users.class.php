@@ -55,7 +55,7 @@ abstract class RightPress_Condition_Field_Multiselect_Users extends RightPress_C
     public function get_placeholder()
     {
 
-        return __('Select customers', 'rightpress');
+        return esc_html__('Select customers', 'rightpress');
     }
 
 

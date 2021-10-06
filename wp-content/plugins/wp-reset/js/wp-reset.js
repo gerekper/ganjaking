@@ -620,54 +620,78 @@ jQuery(document).ready(function ($) {
 
   function do_reset_site(wait_message) {
     block_ui(wait_message);
+
     $.get({
-      url: ajaxurl,
-      data: {
-        action: "wp_reset_run_tool",
-        _ajax_nonce: wp_reset.nonce_run_tool,
-        tool: "site_reset",
-        extra_data: {
-          reactivate_theme: $("#site-reset-reactivate-theme").is(":checked")
-            ? 1
-            : 0,
-          reactivate_plugins: $("#site-reset-reactivate-plugins").is(":checked")
-            ? 1
-            : 0,
-          reactivate_wpreset: $("#site-reset-reactivate-wpreset").is(":checked")
-            ? 1
-            : 0,
+        url: ajaxurl,
+        data: {
+            action: 'wp_reset_run_tool',
+            _ajax_nonce: wp_reset.nonce_run_tool,
+            tool: 'before_reset'
         },
-      },
-    })
-      .done(function (data) {
-        if (data.success && data.data) {
-          if ($("#site-reset-reactivate-wpreset").is(":checked")) {
-            wpr_swal
-              .fire({
-                type: "success",
-                title:
-                  "Site successfully reset! The page will reload in a moment.",
-                timer: 1500,
-                showConfirmButton: false,
+    }).done(function (data) {
+        if (data.success) {
+            $.get({
+                url: ajaxurl,
+                data: {
+                  action: "wp_reset_run_tool",
+                  _ajax_nonce: wp_reset.nonce_run_tool,
+                  tool: "site_reset",
+                  extra_data: {
+                    reactivate_theme: $("#site-reset-reactivate-theme").is(":checked")
+                      ? 1
+                      : 0,
+                    reactivate_plugins: $("#site-reset-reactivate-plugins").is(":checked")
+                      ? 1
+                      : 0,
+                    reactivate_wpreset: $("#site-reset-reactivate-wpreset").is(":checked")
+                      ? 1
+                      : 0,
+                  },
+                },
               })
-              .then(() => {
-                window.location.href = wp_reset.settings_url;
-              });
-          } else {
-            window.location.href = data.data;
-          }
+                .done(function (data) {
+                  if (data.success && data.data) {
+                    if ($("#site-reset-reactivate-wpreset").is(":checked")) {
+                      wpr_swal
+                        .fire({
+                          type: "success",
+                          title:
+                            "Site successfully reset! The page will reload in a moment.",
+                          timer: 1500,
+                          showConfirmButton: false,
+                        })
+                        .then(() => {
+                          window.location.href = wp_reset.settings_url;
+                        });
+                    } else {
+                      window.location.href = data.data;
+                    }
+                  } else {
+                    wpr_swal.close();
+                    wpr_swal.fire({
+                      type: "error",
+                      title: wp_reset.documented_error + " " + data.data,
+                    });
+                  }
+                })
+                .fail(function (data) {
+                  wpr_swal.close();
+                  wpr_swal.fire({ type: "error", title: wp_reset.undocumented_error });
+                });
         } else {
-          wpr_swal.close();
-          wpr_swal.fire({
-            type: "error",
-            title: wp_reset.documented_error + " " + data.data,
-          });
+            wpr_swal.fire({
+                icon: 'error',
+                title: wp_reset.undocumented_error,
+            });
         }
-      })
-      .fail(function (data) {
-        wpr_swal.close();
-        wpr_swal.fire({ type: "error", title: wp_reset.undocumented_error });
-      });
+    }).fail(function (data) {
+        wpr_swal.fire({
+            icon: 'error',
+            title: wp_reset.undocumented_error,
+        });
+    });
+
+    
   }
 
   // nuclear reset

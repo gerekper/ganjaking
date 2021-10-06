@@ -4,6 +4,8 @@
 
 jQuery(document).ready(function() {
 
+    'use strict';
+
     // Fix element
     function fix_element()
     {

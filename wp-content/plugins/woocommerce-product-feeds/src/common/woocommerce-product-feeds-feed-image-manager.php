@@ -32,6 +32,23 @@ class WoocommerceProductFeedsFeedImageManager {
 		add_action( 'wp_ajax_woo_gpf_exclude_media', [ $this, 'exclude_media' ] );
 		add_action( 'wp_ajax_woo_gpf_include_media', [ $this, 'include_media' ] );
 		add_action( 'wp_ajax_woo_gpf_set_primary_media', [ $this, 'set_primary_media' ] );
+		add_filter( 'is_protected_meta', [ $this, 'register_protected_meta' ], 10, 3 );
+	}
+
+	/**
+	 * Hide our meta value from the Custom Fields metabox.
+	 *
+	 * @param $protected
+	 * @param $meta_key
+	 * @param $meta_type
+	 *
+	 * @return bool|mixed
+	 */
+	public function register_protected_meta( $protected, $meta_key, $meta_type ) {
+		if ( 'woocommerce_gpf_primary_media_id' === $meta_key && 'post' === $meta_type ) {
+			return true;
+		}
+		return $protected;
 	}
 
 	/**

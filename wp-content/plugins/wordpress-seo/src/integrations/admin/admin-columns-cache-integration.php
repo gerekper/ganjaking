@@ -32,7 +32,7 @@ class Admin_Columns_Cache_Integration implements Integration_Interface {
 	 *
 	 * In this case: only when on an admin page.
 	 *
-	 * @returns array The conditionals.
+	 * @return array The conditionals.
 	 */
 	public static function get_conditionals() {
 		return [ Admin_Conditional::class ];
@@ -55,10 +55,6 @@ class Admin_Columns_Cache_Integration implements Integration_Interface {
 	 * page (e.g. keyword score, incoming link count, etc.)
 	 */
 	public function register_hooks() {
-		if ( \wp_doing_ajax() ) {
-			\add_action( 'admin_init', [ $this, 'fill_cache' ] );
-		}
-
 		// Hook into tablenav to calculate links and linked.
 		\add_action( 'manage_posts_extra_tablenav', [ $this, 'maybe_fill_cache' ] );
 	}
@@ -80,7 +76,12 @@ class Admin_Columns_Cache_Integration implements Integration_Interface {
 	public function fill_cache() {
 		global $wp_query;
 
-		$posts    = empty( $wp_query->posts ) ? $wp_query->get_posts() : $wp_query->posts;
+		// No need to continue building a cache if the main query did not return anything to cache.
+		if ( empty( $wp_query->posts ) ) {
+			return;
+		}
+
+		$posts    = $wp_query->posts;
 		$post_ids = [];
 
 		// Post lists return a list of objects.
@@ -117,7 +118,7 @@ class Admin_Columns_Cache_Integration implements Integration_Interface {
 	 *
 	 * @param int $post_id The post ID.
 	 *
-	 * @return Indexable|false. The indexable. False if none could be found.
+	 * @return Indexable|false The indexable. False if none could be found.
 	 */
 	public function get_indexable( $post_id ) {
 		if ( ! \array_key_exists( $post_id, $this->indexable_cache ) ) {

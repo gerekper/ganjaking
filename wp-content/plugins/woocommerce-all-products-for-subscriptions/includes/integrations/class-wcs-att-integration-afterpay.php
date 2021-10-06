@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with AfterPay.
  *
  * @class    WCS_ATT_Integration_AfterPay
- * @version  3.1.29
+ * @version  3.1.30
  */
 class WCS_ATT_Integration_AfterPay {
 
@@ -55,8 +55,8 @@ class WCS_ATT_Integration_AfterPay {
 	 */
 	public static function init() {
 
-		self::$gateway  = WC_Gateway_Afterpay::getInstance();
-		$settings       = self::$gateway->getSettings();
+		self::$gateway = WC_Gateway_Afterpay::getInstance();
+		$settings      = self::$gateway->getSettings();
 
 		/**
 		 * Retrieve hooks set by users in the AfterPay settings.
@@ -100,6 +100,7 @@ class WCS_ATT_Integration_AfterPay {
 
 		if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $product ) ) {
 			remove_action( self::$single_product_page_hook, array( self::$gateway, 'print_info_for_product_detail_page' ), self::$single_product_page_hook_priority );
+			remove_filter( 'woocommerce_get_price_html', array( self::$gateway, 'filter_woocommerce_get_price_html' ) );
 		}
 	}
 
@@ -132,8 +133,8 @@ class WCS_ATT_Integration_AfterPay {
 
 		foreach ( $cart_contents as $cart_item ) {
 
-			if ( ! empty( $cart_item[ 'wcsatt_data'][ 'active_subscription_scheme' ] ) ) {
-				remove_action( 'woocommerce_cart_totals_after_order_total',  array( self::$gateway, 'render_cart_page_elements' ) );
+			if ( ! empty( $cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ] ) ) {
+				remove_action( 'woocommerce_cart_totals_after_order_total', array( self::$gateway, 'render_cart_page_elements' ) );
 				break;
 			}
 		}

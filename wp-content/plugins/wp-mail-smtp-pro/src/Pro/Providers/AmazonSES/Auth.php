@@ -28,13 +28,17 @@ class Auth extends AuthAbstract {
 	const AWS_EU_WEST_3      = 'eu-west-3'; // phpcs:ignore
 	const AWS_EU_CENTRAL_1   = 'eu-central-1'; // phpcs:ignore
 	const AWS_EU_NORTH_1     = 'eu-north-1'; // phpcs:ignore
+	const AWS_EU_SOUTH_1     = 'eu-south-1'; // phpcs:ignore
 	const AWS_AP_SOUTH_1     = 'ap-south-1'; // phpcs:ignore
 	const AWS_AP_NORTHEAST_1 = 'ap-northeast-1'; // phpcs:ignore
 	const AWS_AP_NORTHEAST_2 = 'ap-northeast-2'; // phpcs:ignore
 	const AWS_AP_SOUTHEAST_1 = 'ap-southeast-1'; // phpcs:ignore
 	const AWS_AP_SOUTHEAST_2 = 'ap-southeast-2'; // phpcs:ignore
+	const AWS_AF_SOUTH_1     = 'af-south-1'; // phpcs:ignore
 	const AWS_CA_CENTRAL_1   = 'ca-central-1'; // phpcs:ignore
+	const AWS_ME_SOUTH_1     = 'me-south-1'; // phpcs:ignore
 	const AWS_SA_EAST_1      = 'sa-east-1'; // phpcs:ignore
+	const AWS_US_GOV_WEST_1  = 'us-gov-west-1'; // phpcs:ignore
 
 	/**
 	 * Array of domains and their data.
@@ -115,6 +119,7 @@ class Auth extends AuthAbstract {
 	 *
 	 * @since 1.5.0
 	 * @since 2.4.0 Added Ohio, Canada, Mumbai, Tokyo, Seoul, Singapore, Sydney, London, Frankfurt and São Paulo.
+	 * @since 3.0.0 Added Cape Town, Milan, Bahrain and GovCloud (US-West).
 	 *
 	 * @return array
 	 */
@@ -130,13 +135,17 @@ class Auth extends AuthAbstract {
 			self::AWS_EU_WEST_3      => esc_html__( 'EU (Paris)', 'wp-mail-smtp-pro' ),
 			self::AWS_EU_CENTRAL_1   => esc_html__( 'EU (Frankfurt)', 'wp-mail-smtp-pro' ),
 			self::AWS_EU_NORTH_1     => esc_html__( 'EU (Stockholm)', 'wp-mail-smtp-pro' ),
+			self::AWS_EU_SOUTH_1     => esc_html__( 'EU (Milan)', 'wp-mail-smtp-pro' ),
 			self::AWS_AP_SOUTH_1     => esc_html__( 'Asia Pacific (Mumbai)', 'wp-mail-smtp-pro' ),
 			self::AWS_AP_NORTHEAST_1 => esc_html__( 'Asia Pacific (Tokyo)', 'wp-mail-smtp-pro' ),
 			self::AWS_AP_NORTHEAST_2 => esc_html__( 'Asia Pacific (Seoul)', 'wp-mail-smtp-pro' ),
 			self::AWS_AP_SOUTHEAST_1 => esc_html__( 'Asia Pacific (Singapore)', 'wp-mail-smtp-pro' ),
 			self::AWS_AP_SOUTHEAST_2 => esc_html__( 'Asia Pacific (Sydney)', 'wp-mail-smtp-pro' ),
+			self::AWS_AF_SOUTH_1     => esc_html__( 'Africa (Cape Town)', 'wp-mail-smtp-pro' ),
 			self::AWS_CA_CENTRAL_1   => esc_html__( 'Canada (Central)', 'wp-mail-smtp-pro' ),
+			self::AWS_ME_SOUTH_1     => esc_html__( 'Middle East (Bahrain)', 'wp-mail-smtp-pro' ),
 			self::AWS_SA_EAST_1      => esc_html__( 'South America (São Paulo)', 'wp-mail-smtp-pro' ),
+			self::AWS_US_GOV_WEST_1  => esc_html__( 'GovCloud (US-West)', 'wp-mail-smtp-pro' ),
 		];
 	}
 
@@ -145,6 +154,7 @@ class Auth extends AuthAbstract {
 	 *
 	 * @since 1.5.0
 	 * @since 2.4.0 Added Ohio, Canada, London, São Paulo, Tokyo, Seoul and Singapore.
+	 * @since 3.0.0 Added Cape Town, Milan and Bahrain.
 	 *
 	 * @return array
 	 */
@@ -187,6 +197,10 @@ class Auth extends AuthAbstract {
 				'lat' => 59.334591,
 				'lon' => 18.063240,
 			],
+			self::AWS_EU_SOUTH_1     => [
+				'lat' => 45.4642,
+				'lon' => 9.1900,
+			],
 			self::AWS_AP_SOUTH_1     => [
 				'lat' => 19.0760,
 				'lon' => 72.8777,
@@ -207,9 +221,17 @@ class Auth extends AuthAbstract {
 				'lat' => 33.8688,
 				'lon' => 151.2093,
 			],
+			self::AWS_AF_SOUTH_1     => [
+				'lat' => - 33.9249,
+				'lon' => 18.4241,
+			],
 			self::AWS_CA_CENTRAL_1   => [
 				'lat' => 51.2538,
 				'lon' => 85.3232,
+			],
+			self::AWS_ME_SOUTH_1     => [
+				'lat' => 26.0667,
+				'lon' => 50.5577,
 			],
 			self::AWS_SA_EAST_1      => [
 				'lat' => 23.5505,

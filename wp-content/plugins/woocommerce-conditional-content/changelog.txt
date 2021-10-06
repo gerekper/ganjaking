@@ -1,4 +1,12 @@
 *** WooCommerce Conditional Content Changelog ***
+2021.09.02 - version 2.1.7
+    * Update:  Allow the selection of specific variations for Cart Product rules.
+    * Update:  WP and WC compatibility tags.
+
+2021.02.12 - version 2.1.6
+    * Fix: Modify template binding to be -1 so that we can bind to AJAX requests.
+    * Update:  WP and WC compatibility tags.
+
 2020.11.27 - version 2.1.5
     * Enhancement: Add Cart Total Quantity rule to target specific cart quantity regardless of the product(s) being purchased.
     * Update:  WP and WC compatibility tags.

@@ -42,9 +42,9 @@ abstract class RightPress_Condition_Method_Date extends RightPress_Condition_Met
     {
 
         return array(
-            'from'          => __('from', 'rightpress'),
-            'to'            => __('to', 'rightpress'),
-            'specific_date' => __('specific date', 'rightpress'),
+            'from'          => esc_html__('from', 'rightpress'),
+            'to'            => esc_html__('to', 'rightpress'),
+            'specific_date' => esc_html__('specific date', 'rightpress'),
         );
     }
 

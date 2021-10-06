@@ -71,9 +71,9 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		// 1. Get current section
 		if(isset($_GET['page']) && $_GET['page'] == PERMALINK_MANAGER_PLUGIN_SLUG) {
 			if(isset($_POST['section'])) {
-				$this->active_section = $_POST['section'];
+				$this->active_section = sanitize_text_field($_POST['section']);
 			} else if(isset($_GET['section'])) {
-				$this->active_section = $_GET['section'];
+				$this->active_section = sanitize_text_field($_GET['section']);
 			} else {
 				$sections_names = array_keys($this->sections);
 				$this->active_section = $sections_names[0];
@@ -83,9 +83,9 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		// 2. Get current subsection
 		if($this->active_section && isset($this->sections[$this->active_section]['subsections'])) {
 			if(isset($_POST['subsection'])) {
-				$this->active_subsection = $_POST['subsection'];
+				$this->active_subsection = sanitize_text_field($_POST['subsection']);
 			} else if(isset($_GET['subsection'])) {
-				$this->active_subsection = $_GET['subsection'];
+				$this->active_subsection = sanitize_text_field($_GET['subsection']);
 			} else {
 				$subsections_names = array_keys($this->sections[$this->active_section]['subsections']);
 				$this->active_subsection = $subsections_names[0];

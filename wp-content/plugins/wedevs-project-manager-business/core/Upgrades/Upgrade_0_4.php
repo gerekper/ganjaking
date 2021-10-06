@@ -12,7 +12,7 @@ class Upgrade_0_4 {
 
     function update_module_path() {
         if ( is_multisite() ) {
-            $modules = get_sit_option( 'pm_pro_active_modules', '' );
+            $modules = get_site_option( 'pm_pro_active_modules', '' );
         } else {
             $modules = get_option( 'pm_pro_active_modules', '' );
         }
@@ -29,7 +29,7 @@ class Upgrade_0_4 {
 
         if ( ! empty( $new_paths ) ) {
             if ( is_multisite() ) {
-                update_sit_option( 'pm_pro_active_modules', $new_paths );
+                update_site_option( 'pm_pro_active_modules', $new_paths );
             } else {
                 update_option( 'pm_pro_active_modules', $new_paths );
             }

@@ -22,5 +22,6 @@ function redsys_return_types() {
 		'preauthorizationsredsys',
 		'directdebitredsys',
 		'webserviceredsys',
+		'paygold',
 	);
 }

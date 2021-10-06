@@ -43,10 +43,15 @@ class FUE_Front_Handler {
 				$error = urlencode( __( 'Please enter a valid email address', 'follow_up_emails' ) );
 			}
 
+			$email_hash = ( ! empty( $_POST['fue_hqid'] ) ) ? $_POST['fue_hqid'] : '';
+			if ( $email_hash && ! hash_equals( fue_email_hash( $email ), $email_hash ) ) {
+				$error = urlencode( __( 'Please enter the correct recipient email address', 'follow_up_emails' ) );
+			}
+
 			$order_id    = ( ! empty( $_POST['unsubscribe_order_id'] ) ) ? absint( $_POST['unsubscribe_order_id'] ) : 0;
 			$unsubscribe = ( ! empty( $_POST['unsubscribe_all'] ) && 'yes' === $_POST['unsubscribe_all'] ) ? true : false;
 
-			if ( fue_is_email_excluded( $email, 0, $order_id ) ) {
+			if ( ! $error && fue_is_email_excluded( $email, 0, $order_id ) ) {
 				if ( $order_id > 0 ) {
 					$error = sprintf( __( 'The email (%1$s) is already unsubscribed from receiving emails regarding Order %2$d', 'follow_up_emails' ), $email, $order_id );
 				} else {
@@ -58,6 +63,7 @@ class FUE_Front_Handler {
 				$url = add_query_arg( array(
 					'fueid' => intval( $_POST['fue_eid'] ),
 					'qid'   => ( ! empty( $_POST['fue_qid'] ) ) ? intval( $_POST['fue_qid'] ) : '',
+					'hqid'  => $email_hash,
 					'error' => urlencode( $error ),
 				), fue_get_unsubscribe_url());
 

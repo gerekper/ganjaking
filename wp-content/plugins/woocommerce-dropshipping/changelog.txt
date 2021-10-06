@@ -1,5 +1,35 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2021-09-06 - version 3.6
+* PLUGINS-672 - Supplier role users can't access 3rd party plugin admin functionality.
+* PLUGINS-841 - All prices must work with Woocommerce settings Currency options.
+* PLUGINS-912 - Add option to show shipping company name on Supplier's email.
+
+2021-08-25 - version 3.5
+* PLUGINS-776 - Add more fields on the suppliers csv.
+* PLUGINS-1046 - Suppliers attached to products can be changed after import.
+
+2021-08-13 - version 3.4
+* PLUGINS-300 - Export list of orders for a specific supplier.
+* PLUGINS-1157 - I have added the orders filter feature. Date From and Date To options are now available as filters.
+
+2021-08-06 - version 3.3
+* PLUGINS-873 - Disable all inputs associated with "insert all data on PDF" checkbox.
+* PLUGINS-940 - Improve suppliers order pagination.
+* PLUGINS-907 - Arrange/group settings by section.
+* PLUGINS-915 - Send cancel order notification to supplier.
+* PLUGINS-527 - Make plugin compatible with WooCommerce Sequential Order Numbers Pro and Custom Order Numbers for WooCommerce.
+* PLUGINS-996 - Show country in packing slip.
+
+2021-07-27 - version 3.2.1
+* PLUGINS-1156 - ABSPATH Bug fix.
+
+2021-07-23 - version 3.2
+* PLUGINS-704 - Place checkboxes at start of options.
+* PLUGINS-870 - Place Dropshipping settings on high level tab.
+* PLUGINS-1047 - Subscriptions renewal supplier email option.
+* PLUGINS-1107 - Customisation options on supplier emails and PDFs.
+
 2021-06-23 - version 3.1
 * PLUGINS-886 - Bug on Mark as Shipped process
 * PLUGINS-577 - "Supplier" word unchangeable for language translation

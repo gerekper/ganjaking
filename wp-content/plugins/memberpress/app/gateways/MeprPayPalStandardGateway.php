@@ -1092,7 +1092,7 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
       }
     }
 
-    if ($txn) {
+    if (isset($txn->id) && $txn->id) {
       $sub      = $txn->subscription();
       $product  = new MeprProduct($txn->product_id);
 

@@ -1,8 +1,24 @@
-/*1.4.2.2 - 2020.12.12/
+/*1.4.2.5 - 2021.08.25**/
+- Fixed: Hidden notify in new widget preview wordpress
+- Fixed: Critical error when the product is not added to other languages in ajax.
+
+/*1.4.2.4 - 2021.08.06**/
+- Updated: Compatibility with WP5.8 and WC5.5.
+- Fixed:   Critical error when the product is not added to other languages.
+- Fixed: Style notify image on safari
+
+/*1.4.2.3 - 2021.06.08**/
+- Added: Filter product with product visibility
+- Added: Notifications which are displayed on a category page are only related to the products of that category
+– Updated: Remove the blank space between the city and the comma
+- Fixed: Get product title in specific language WPML
+- Fixed: Style notify image on mobile
+
+/*1.4.2.2 - 2020.12.12**/
 - Added: Compatibility with WP 5.6
 
-/*1.4.2.1 - 2020.10.10/
-– Added: Auto detect with  WooCommerce geolocation
+/*1.4.2.1 - 2020.10.10**/
+– Added: Auto detect with WooCommerce geolocation
 
 /*1.4.2 - 2020.08.15**/
 – Updated: Class support

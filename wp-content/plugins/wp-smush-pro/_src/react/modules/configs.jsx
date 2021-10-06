@@ -13,9 +13,9 @@ const { __, sprintf } = wp.i18n;
 /**
  * SUI dependencies
  */
-import { PresetsPage } from '@wpmudev/shared-presets';
+import { Presets } from '@wpmudev/shared-presets';
 
-export const ConfigsPage = () => {
+export const Configs = ({ isWidget }) => {
 	// TODO: Handle the html interpolation and translation better.
 	const proDescription = (
 		<>
@@ -76,6 +76,14 @@ export const ConfigsPage = () => {
 				'wp-smushit'
 			),
 			'{configName}'
+		),
+		uploadWrongPluginErrorMessage: sprintf(
+			/* translators: %s {pluginName} */
+			__(
+				'The uploaded file is not a %s Config. Please make sure the uploaded file is correct.',
+				'wp-smushit'
+			),
+			'{pluginName}'
 		),
 		applyAction: {
 			closeIcon,
@@ -146,7 +154,8 @@ export const ConfigsPage = () => {
 	};
 
 	return (
-		<PresetsPage
+		<Presets
+			isWidget={isWidget}
 			isPro={window.smushReact.isPro}
 			isWhitelabel={window.smushReact.hideBranding}
 			sourceLang={lang}
@@ -159,6 +168,10 @@ export const ConfigsPage = () => {
 domReady(function () {
 	const configsPageBox = document.getElementById('smush-box-configs');
 	if (configsPageBox) {
-		ReactDOM.render(<ConfigsPage />, configsPageBox);
+		ReactDOM.render(<Configs isWidget={false} />, configsPageBox);
+	}
+	const configsWidgetBox = document.getElementById('smush-widget-configs');
+	if (configsWidgetBox) {
+		ReactDOM.render(<Configs isWidget={true} />, configsWidgetBox);
 	}
 });

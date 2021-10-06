@@ -244,7 +244,7 @@ class WoocommerceProductFeedsFeedManagerListTable extends WP_List_Table {
 		}
 		$term = get_term( $term_id );
 		$path = $term->name;
-		while ( 0 !== $term->parent ) {
+		while ( ! empty( $term->parent ) ) {
 			$term = get_term( $term->parent );
 			$path = $term->name . ' > ' . $path;
 		}

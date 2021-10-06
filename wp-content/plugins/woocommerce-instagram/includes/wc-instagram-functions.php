@@ -271,3 +271,19 @@ function wc_instagram_get_images_number( $context = '' ) {
 
 	return intval( $number );
 }
+
+/**
+ * Converts a bool to 'yes' or 'no'.
+ *
+ * The returned string is translatable.
+ *
+ * @since 3.6.1
+ *
+ * @see wc_string_to_bool()
+ *
+ * @param bool $value Bool to convert.
+ * @return string
+ */
+function wc_instagram_bool_to_string( $value ) {
+	return ( wc_string_to_bool( $value ) ? __( 'Yes', 'woocommerce-instagram' ) : __( 'No', 'woocommerce-instagram' ) );
+}

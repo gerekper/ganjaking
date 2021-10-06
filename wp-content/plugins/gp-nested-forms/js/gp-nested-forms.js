@@ -33,6 +33,8 @@
 				self.entries = oldGPNF.entries;
 				oldGPNF.modal.destroy();
 				$( document ).off( '.{0}'.format( self.getNamespace() ) );
+				window.gform.removeHook( 'action', 'gform_list_post_item_add', 10, self.getNamespace() );
+				window.gform.removeHook( 'action', 'gform_list_post_item_delete', 10, self.getNamespace() );
 				gform.removeFilter( 'gform_calculation_formula', 10, 'gpnf_{0}_{1}'.format( self.formId, self.fieldId ) );
 				/* Hack: fixes issue when Beaver Builder triggers ready event again without reloading UI */
 				self.viewModel = oldGPNF.viewModel;
@@ -78,23 +80,35 @@
 			}
 		};
 
+		/**
+		 * Initialize cookie for GPNF via AJAX.
+		 *
+		 * Session should only be initialized once per parent form.
+		 *
+		 * @returns {JQueryXHR}
+		 */
 		self.initSession = function() {
-			return $.post( self.ajaxUrl, self.sessionData, function( response ) {
-				/**
-				 * Do something after the Nested Forms session has been initialized.
-				 *
-				 * @since 1.0-beta-8.62
-				 *
-				 * @param {GPNestedForms} gpnf Current instance of the GPNestedForms class.
-				 */
-				gform.doAction( 'gpnf_session_initialized', self );
-			} );
+			if (typeof window['gpnfSessionPromise_' + self.formId] === 'undefined') {
+				window['gpnfSessionPromise_' + self.formId] = $.post( self.ajaxUrl, self.sessionData, function( response ) {
+					/**
+					 * Do something after the Nested Forms session has been initialized.
+					 *
+					 * @since 1.0-beta-8.62
+					 *
+					 * @param {GPNestedForms} gpnf Current instance of the GPNestedForms class.
+					 */
+					gform.doAction( 'gpnf_session_initialized', self );
+				} );
+			}
+
+			return window['gpnfSessionPromise_' + self.formId];
 		};
 
 		self.initModal = function() {
 
 			self.modalArgs = gform.applyFilters( 'gpnf_modal_args', {
 				labels: self.modalLabels,
+				closeLabel: self.modalLabels.closeScreenReaderLabel,
 				colors: self.modalColors,
 				footer: true,
 				stickyFooter: self.modalStickyFooter,
@@ -195,7 +209,17 @@
 		self.openModal = function( trigger ) {
 			self.saveParentFocus( trigger );
 			self.modal.open();
-			if ( self.isGF25 ) {
+			/**
+			 * We need to to manually trigger our `gpnf_post_render` event so that init scripts are executed in
+			 * two scenarios.
+			 *
+			 * 1. When running GF 2.5 as it wraps init scripts in DOMContentLoaded (instead of jQuery's ready event) so
+			 *    child form init scripts are not automatically executed when they're included in the DOM.
+			 * 2. When the version of jQuery is less than v3. v3.5 is included in WordPress 5.5+. Before that,
+			 *    jQuery v1.12.4 was included. Not sure why this is necessary but I'm assuming most users will either be
+			 *    on WordPress 5.5+ - or - progressively, they'll be on GF 2.5.
+			 */
+			if ( self.isGF25 || parseInt( jQuery.fn.jquery ) < 3 ) {
 				$( document ).trigger( 'gpnf_post_render', [ self.nestedFormId, '1' ] );
 			}
 			self.initIframe( self.nestedFormId );
@@ -294,6 +318,28 @@
 			return self.getMode() === 'add' ? self.modalArgs.labels.title : self.modalArgs.labels.editTitle;
 		};
 
+		/**
+		 * Logic borrowed from gravityforms.js (Lines 2539-2551)
+		 *
+		 * @returns {boolean}
+		 */
+		self.hasPendingUploads = function() {
+			var pendingUploads = false;
+
+			if (!gfMultiFileUploader || !gfMultiFileUploader.uploaders) {
+				return false;
+			}
+
+			$.each(gfMultiFileUploader.uploaders, function(i, uploader){
+				if(uploader.total.queued>0){
+					pendingUploads = true;
+					return false;
+				}
+			});
+
+			return pendingUploads;
+		}
+
 		self.addModalButtons = function() {
 
 			self.modal.modalBoxFooter.innerHTML = '';
@@ -310,10 +356,10 @@
 				var isWooCommercePage = typeof window.jQuery.fn.wc_gravity_form === 'function';
 				if ( $button[0].style.display !== 'none' || ( isWooCommercePage && $button[0].style.display === '' ) ) {
 
-					var useModalTitleText = ( $button.attr( 'type' ) === 'submit' || $button.attr( 'type' ) === 'image' ),
-						label             = useModalTitleText ? self.getModalTitle() : $button.val(),
-						classes           = [ 'tingle-btn', 'tingle-btn--primary' ],
-						isDisabled        = $button.is( ':disabled' );
+					var isSubmitButton = ( $button.attr( 'type' ) === 'submit' || $button.attr( 'type' ) === 'image' ),
+						label          = isSubmitButton ? self.getSubmitButtonLabel() : $button.val(),
+						classes        = [ 'tingle-btn', 'tingle-btn--primary' ],
+						isDisabled     = $button.is( ':disabled' );
 
 					if ( $button.hasClass( 'gform_previous_button' ) ) {
 						classes.push( 'gpnf-btn-previous' );
@@ -324,6 +370,13 @@
 					}
 
 					var tingleBtn = self.modal.addFooterBtn( label, classes.join( ' ' ), function( event ) {
+						if (self.hasPendingUploads()) {
+							var gfStrings = typeof gform_gravityforms != 'undefined' ? gform_gravityforms.strings : {};
+							alert(gfStrings.currently_uploading);
+
+							return;
+						}
+
 						$( event.target ).addClass( 'gpnf-spinner' );
 						$button.click();
 					} );
@@ -343,7 +396,8 @@
 			if ( self.mode == 'edit' && $( self.modal.modalBoxContent ).find( '.gform_wrapper' ).length > 0 ) {
 				self.modal.addFooterBtn( self.modalArgs.labels.delete, 'tingle-btn tingle-btn--danger tingle-btn--pull-left gpnf-btn-delete', function() {
 					var $button = $( this );
-					if ( ! $button.data( 'isConfirming' ) ) {
+					var isConfirmActionEnabled = self.modalArgs.labels.confirmAction !== false && self.modalArgs.labels.confirmAction !== '';
+					if ( ! $button.data( 'isConfirming' ) && isConfirmActionEnabled ) {
 						$button
 							.data( 'isConfirming', true )
 							.text( self.modalArgs.labels.confirmAction );
@@ -360,6 +414,19 @@
 			}
 
 		};
+
+		self.getSubmitButtonLabel = function() {
+
+			var mode = self.getMode();
+
+			if ( mode === 'add' && self.modalArgs.labels.submit ) {
+				return self.modalArgs.labels.submit;
+			} else if ( mode === 'edit' && self.modalArgs.labels.editSubmit ) {
+				return self.modalArgs.labels.editSubmit;
+			}
+
+			return self.getModalTitle();
+		}
 
 		self.addColorStyles = function() {
 
@@ -397,9 +464,17 @@
 		};
 
 		self.handleCancelClick = function( $button ) {
+			/**
+			 * Filter if GPNF should not warn before canceling adding a new entry.
+			 *
+			 * Return "true" here to disable the "Are you sure?" button prompt.
+			 *
+			 * @since 1.0-beta-9.24
+			 */
+			var disableNewCancelConfirmation = window.gform.applyFilters( 'gpnf_disable_new_cancel_confirmation', self.modalArgs.labels.confirmAction === false || self.modalArgs.labels.confirmAction === '' );
 			if ( $button.data( 'isConfirming' ) ) {
 				self.modal.close();
-			} else if ( self.hasChanges() ) {
+			} else if ( self.hasChanges() && ! disableNewCancelConfirmation ) {
 				$button
 					.data( 'isConfirming', true )
 					.removeClass( 'tingle-btn--default' )
@@ -445,13 +520,8 @@
 				}
 			} );
 
-			gform.addAction( 'gform_list_post_item_add', function() {
-				self.modal.checkOverflow();
-			} );
-
-			gform.addAction( 'gform_list_post_item_delete', function() {
-				self.modal.checkOverflow();
-			} );
+			gform.addAction( 'gform_list_post_item_add', self.modal.checkOverflow, 10, self.getNamespace() );
+			gform.addAction( 'gform_list_post_item_delete', self.modal.checkOverflow, 10, self.getNamespace() );
 
 		};
 
@@ -547,8 +617,21 @@
 					// Success!
 					self.viewModel.entries.remove( item );
 
-					self.refreshMarkup();
-
+					/**
+					 * Filter to determine if the child form HTML should be refreshed after deleting child entries.
+					 *
+					 * Return "false" here to disable refreshing child form HTML via AJAX after entries are deleted.
+					 *
+					 * @since 1.0-beta-9.28
+					 *
+					 * @param boolean 			refreshMarkup   	Whether or not to refresh HTML after deleting entries.
+					 * @param int           	formId 				The parent form ID.
+					 * @param int             	fieldId   			The field ID of the Nested Form field.
+					 * @param {GPNestedForms} 	gpnf      			Current instance of the GPNestedForms object.
+					 */
+					if ( window.gform.applyFilters( 'gpnf_fetch_form_html_after_delete', true, self.formId, self.fieldId, self ) ) {
+						self.refreshMarkup();
+					}
             } );
 
 		};
@@ -686,12 +769,24 @@
 			self.$modal.find( ':input' ).each(function () {
 				var $this = $( this );
 				var value = $this.data( 'gpnf-value' );
-
 				if ($this.data( 'gpnf-changed' )) {
 					return true;
 				}
 
 				if ( ! value) {
+					return true;
+				}
+
+				/**
+				 * Filter whether GPNF should re-populate any parent merge tags  when editing an entry
+				 *
+				 * @since 1.0-beta-9.28
+				 *
+				 * @param boolean 			replace_parent_merge_tag   Whether or not to re-apply parent merge tags
+				 * @param int           	formId 				       The parent form ID.
+				 */
+				if ( self.mode === 'edit' && ! gform.applyFilters( 'gpnf_replace_parent_merge_tag_on_edit', false, self.formId ) ) {
+					// Skip processing edited/populated merge tags
 					return true;
 				}
 
@@ -816,9 +911,6 @@
 							$formWrapper.removeClass( 'gform_validation_error' );
 						}
 						setTimeout( function() { /* delay the scroll by 50 milliseconds to fix a bug in chrome */ }, 50 );
-						if ( window['gformInitDatepicker'] ) {
-							gformInitDatepicker();
-						}
 						if ( window['gformInitPriceFields']) {
 							gformInitPriceFields();
 						}
@@ -870,7 +962,22 @@
 			else {
 
 				gpnf.viewModel.entries.push( entry );
-				gpnf.refreshMarkup();
+
+				/**
+				 * Filter to determine if the child form HTML should be refreshed after adding entries.
+				 *
+				 * Return "false" here to disable refreshing child form HTML via AJAX after new entries are added.
+				 *
+				 * @since 1.0-beta-9.28
+				 *
+				 * @param boolean 			refreshMarkup   	Whether or not to refresh HTML after adding entries.
+				 * @param int           	formId 				The parent form ID.
+				 * @param int             	fieldId   			The field ID of the Nested Form field.
+				 * @param {GPNestedForms} 	gpnf      			Current instance of the GPNestedForms object.
+				 */
+				if ( window.gform.applyFilters( 'gpnf_fetch_form_html_after_add', true, self.formId, self.fieldId, self ) ) {
+					gpnf.refreshMarkup();
+				}
 
 			}
 

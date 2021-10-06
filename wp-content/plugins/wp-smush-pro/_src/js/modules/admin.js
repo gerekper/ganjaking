@@ -121,8 +121,15 @@ jQuery(function ($) {
 					Smush.updateImageStats(r.data.new_size);
 				}
 			} else if (r.data && r.data.error_msg) {
-				// Show error.
-				currentButton.parent().append(r.data.error_msg);
+				if (
+					-1 === this.data.indexOf('nextgen') &&
+					'restore' === action
+				) {
+					$('.smush-status').addClass('error').html(r.data.error_msg);
+				} else {
+					// Show error.
+					currentButton.parent().append(r.data.error_msg);
+				}
 			}
 		});
 	};

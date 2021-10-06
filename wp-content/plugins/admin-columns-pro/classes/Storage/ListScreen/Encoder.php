@@ -3,18 +3,19 @@
 namespace ACP\Storage\ListScreen;
 
 use AC\ListScreen;
+use AC\Plugin\Version;
 
 final class Encoder {
 
 	/**
-	 * @var string
+	 * @var Version
 	 */
 	private $version;
 
 	/**
-	 * @param string $version
+	 * @param Version $version
 	 */
-	public function __construct( $version ) {
+	public function __construct( Version $version ) {
 		$this->version = $version;
 	}
 
@@ -25,7 +26,7 @@ final class Encoder {
 	 */
 	public function encode( ListScreen $list_screen ) {
 		return [
-			'version'  => $this->version,
+			'version'  => $this->version->get_value(),
 			'title'    => $list_screen->get_title(),
 			'type'     => $list_screen->get_key(),
 			'id'       => $list_screen->get_layout_id(),

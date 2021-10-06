@@ -49,7 +49,7 @@ class WCS_ATT_Display_Product {
 		add_filter( 'woocommerce_available_variation', array( __CLASS__, 'add_subscription_options_to_variation_data' ), 1, 3 );
 
 		// Add product page class if a product has subscription plans.
-		add_filter( 'woocommerce_post_class', array( __CLASS__, 'add_product_class' ), 10, 2 );
+		add_filter( 'post_class', array( __CLASS__, 'add_product_class' ), 10, 3 );
 	}
 
 	/**
@@ -731,7 +731,13 @@ class WCS_ATT_Display_Product {
 	 * @param  array       $classes
 	 * @param  WC_Product  $product
 	 */
-	public static function add_product_class( $classes, $product ) {
+	public static function add_product_class( $classes, $class, $product_id ) {
+
+		global $product;
+
+		if ( $product && ! is_a( $product, 'WC_Product' ) ) {
+			return $classes;
+		}
 
 		if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $product ) ) {
 			$classes[] = 'has-subscription-plans';

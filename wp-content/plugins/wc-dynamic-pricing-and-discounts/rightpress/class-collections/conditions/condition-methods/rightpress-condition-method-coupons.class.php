@@ -42,12 +42,12 @@ abstract class RightPress_Condition_Method_Coupons extends RightPress_Condition_
     {
 
         return array(
-            'at_least_one_any'  => __('at least one of any', 'rightpress'),
-            'at_least_one'      => __('at least one of selected', 'rightpress'),
-            'all'               => __('all of selected', 'rightpress'),
-            'only'              => __('only selected', 'rightpress'),
-            'none'              => __('none of selected', 'rightpress'),
-            'none_at_all'       => __('none at all', 'rightpress'),
+            'at_least_one_any'  => esc_html__('at least one of any', 'rightpress'),
+            'at_least_one'      => esc_html__('at least one of selected', 'rightpress'),
+            'all'               => esc_html__('all of selected', 'rightpress'),
+            'only'              => esc_html__('only selected', 'rightpress'),
+            'none'              => esc_html__('none of selected', 'rightpress'),
+            'none_at_all'       => esc_html__('none at all', 'rightpress'),
         );
     }
 

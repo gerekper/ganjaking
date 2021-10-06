@@ -11,7 +11,7 @@
  * the readme will list any important changes.
  *
  * @see https://docs.woocommerce.com/document/template-structure/
- * @version 3.0.0
+ * @version 2.2.3
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -29,8 +29,8 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 <p>
 	<?php $product_link = apply_filters( 'wcwl_product_link_joined_email', add_query_arg( array(
     'wcwl_remove_user' => esc_attr( $email ),
-    'product_id' => absint( $product_id ),
-		'key' => $key,
+    'product_id'       => absint( $product_id ),
+		'key'              => $key,
 	), $product_link ) ); ?>
 	<?php printf( __( 'If you would like to remove your email address from the waitlist you can do so by clicking %1$shere%2$s.', 'woocommerce-waitlist' ), '<a href="' . esc_attr( $product_link ) . '">', '</a>' ); ?>
 </p>

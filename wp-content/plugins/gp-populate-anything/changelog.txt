@@ -1,11 +1,165 @@
 # Changelog
 
+## 1.0.10
+
+	- Fixed issue where arrays populated into values would not be converted to strings for non-multi-selectable-choice fields.
+
+## 1.0.9
+
+	- Fixed an issue where filtering by a custom datatabase table date field may return empty results.
+
+## 1.0.8
+
+	- Fixed an issue where GPPA would not fetch results when ordering by 'Taxonomy' or 'Parent Term'.
+
+## 1.0.7
+
+	- Fixed issue with `gppa_live_merge_tag_value` filter not using the correct `$field_id` parameter if merge tag modifiers are used.
+	- Fixed issue where selected choices of dynamically populated fields could be lost when navigating between form pages.
+	- Updated AJAX request to send request data as JSON to prevent issues with Merge Tag modifiers from interfering with the form data format.
+	- Fixed issue where certain calculations would not work with Populate Anything if formula fields came after the field being calculated.
+
+## 1.0.6
+
+	- Fixed issue where Live Merge Tags in attributes such as `href` wouldn't update in some cases.
+	- Added [gppa_run_pre_render_in_ajax](https://gravitywiz.com/documentation/gppa_run_pre_render_in_ajax/) PHP filter.
+
+## 1.0.5
+
+	- Fixed a potential issue that can cause GPPA to fail to hydrate when some plugins or filters expect `GFFormDisplay` to be available during XHR.
+
+## 1.0.4
+
+	- Fixed issue where Live Merge Tags would not be populated in Order Summaries or in Notifications in some situations.
+
+## 1.0.3
+
+	- Fixed `gform_pre_render` filter parameters that are used during hydration of a field in XHR.
+
+## 1.0.2
+
+	- Fixed a potential issue where number fields may fire extraneous XHR requests when losing focus, causing a brief content flash.
+
+## 1.0.1
+
+	- Fixed an issue where the default population of name fields resulted in a comma separated list (i.e. "first, middle, last")
+
 ## 1.0-beta-4.171
 
 	- Updated minimum Gravity Perks version to 2.2.3.
 	- Improved support for Gravity Forms 2.5.
 	- Fixed compatibility issue where Populate Anything would not work with the GravityView Search Widget.
 	- Fixed issue where multiple change events in quick succession would result in the previous request being discarded.
+
+## 1.0
+
+	- Updated version to 1.0. Populate Anything is officially out of beta!
+
+## 1.0-beta-5.23
+
+	- Fixed an issue where ordering taxonomy terms by Term ID returned an empty set.
+	- Fixed a potential PHP warning as `GF_Field_FileUpload->get_value_export()` expects passed values to be JSON encoded.
+
+## 1.0-beta-5.22
+
+	- Fixed issue where fetching meta from Taxonomy Terms was not consistent with the behavior of the Posts and Users Object Types. The expected behavior is to fetch meta with the `$single` parameter set to `true`.
+	- Fixed issue with Live Merge Tag values coming from conditionally hidden fields with inputs (such as Address field).
+
+## 1.0-beta-5.21
+
+	- Fixed a potential compatibility issue with GPLCD and confirmation redirect URL parameters when a field is populated using GPPA.
+
+## 1.0-beta-5.20
+
+	- Added [gppa_should_trigger_change](https://gravitywiz.com/documentation/gppa_should_trigger_change-js/) JavaScript filter.
+
+## 1.0-beta-5.19
+
+	- Fixed an issue where [gppa_missing_filter_text](https://gravitywiz.com/documentation/gppa_missing_filter_text/) was not applied to Radio Button fields.
+
+## 1.0-beta-5.18
+
+	- Fixed an issue where GPPA may generate a PHP warning when populating some Meta user values.
+
+## 1.0-beta-5.17
+
+	- Added Post Excerpt to the list of properties GPPA can populate with.
+
+## 1.0-beta-5.16
+
+	- Updated "Ordering" property dropdown in Field Settings to use option groups like the property dropdown for filters.
+	- Added support for ordering by user meta to the User Object Type.
+	- Fixed PHP notice in certain AJAX requests.
+
+## 1.0-beta-5.15
+
+	- Fixed issue where Live Merge Tags would not use the correct value if the field where the value is coming from has its value populated dynamically.
+
+## 1.0-beta-5.14
+
+	- Added support for the "does not contain" operator.
+	- Fixed formatting issue with Multi Select values in Live Merge Tags and addressed regression related to population of multi-choice values.
+	- Fixed issue where newlines in Live Merge Tag values from textareas would improperly include a "<br>" tag.
+	- Fixed issue where Live Merge Tags would return the wrong value when dependent fields were conditionally hidden by multi-select fields.
+	- Fixed issue where dynamically populated fields with Max Character limits would not have the JavaScript counter re-added after population.
+	- Improved performance of Post, Term, and User Object Types by utilizing runtime query caching.
+
+## 1.0-beta-5.13
+
+	- Fixed an issue where conditionally shown HTML fields may not refresh LMTs.
+
+## 1.0-beta-5.12
+
+	- Fixed an issue where required Time Fields used in LMTs are rendered incorrectly.
+	- Fixed PHP notices in Gravity Forms Coupons Add-On settings page.
+
+## 1.0-beta-5.11
+
+	- Improved support for running Gravity Forms pre_render hook during AJAX repopulation of fields. This improves compatibility with integrations such as GPPA + GPLC.
+
+## 1.0-beta-5.10
+
+	- Added updated field IDs to `gppa_updated_batch_fields`.
+
+## 1.0-beta-5.9
+
+	- Fixed an issue with date formatting when populating from a form entry.
+
+## 1.0-beta-5.8
+
+	- Fixed issue where merge tags of fields with dynamically populated choices would show the value instead of the label in GravityView Custom Content fields.
+
+## 1.0-beta-5.7
+
+	- Fixed a potential issue where filtering by a `post_date` may not work.
+
+## 1.0-beta-5.6
+
+	- Fixed a potential issue where FVO may return all entries.
+	- Fixed a potential issue when LMTs are used to copy Drop Down fields.
+
+## 1.0-beta-5.5
+
+	- Fixed a potential issue with numerically named DB table columns.
+
+## 1.0-beta-5.4
+
+	- Fixed issue where calculations field setting was incorrectly displayed for Quantity fields. (#181)
+
+## 1.0-beta-5.3
+
+	- Added [gppa_process_template_cache_key](https://gravitywiz.com/documentation/gppa_process_template_cache_key/) filter.
+	- Improved performance when querying a high number of Gravity Forms entries as choices or values.
+
+## 1.0-beta-5.2
+
+	- Fixed issue where Live Merge Tags for Date fields would show an empty value on initial page load in some situations.
+	- Fixed an issue where conditionally hidden fields may show up in LMTs.
+
+## 1.0-beta-5.1
+
+	- Fixed a compatibility issue with Gravity Flow Vacation Requests Extension.
+	- Fixed regression with compatibility layer for Gravity PDF.
 
 ## 1.0-beta-5.0
 

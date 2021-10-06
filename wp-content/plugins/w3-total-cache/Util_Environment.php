@@ -1096,7 +1096,7 @@ class Util_Environment {
 			return 'pro development';
 		if ( Util_Environment::is_w3tc_pro( $config ) )
 			return 'pro';
-		return 'pro';
+		return 'community';
 	}
 
 	/**
@@ -1106,9 +1106,19 @@ class Util_Environment {
 	 * @return bool
 	 */
 	static public function is_w3tc_pro( $config = null ) {
-		
+		if ( defined( 'W3TC_PRO' ) && W3TC_PRO )
 			return true;
-		
+		if ( defined( 'W3TC_ENTERPRISE' ) && W3TC_ENTERPRISE )
+			return true;
+
+		if ( is_object( $config ) ) {
+			$plugin_type = $config->get_string( 'plugin.type' );
+
+			if ( $plugin_type == 'pro' || $plugin_type == 'pro_dev' )
+				return true;
+		}
+
+		return false;
 	}
 
 	/**

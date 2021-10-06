@@ -119,10 +119,12 @@ class Ajax {
 		add_action( 'wp_ajax_smush_webp_toggle', array( $this, 'webp_toggle' ) );
 		// Check server configuration status for WebP.
 		add_action( 'wp_ajax_smush_webp_get_status', array( $this, 'webp_get_status' ) );
-		// Apply or remove apache rules for WebP support into .htaccess file.
-		add_action( 'wp_ajax_smush_webp_write_htaccess_rules', array( $this, 'webp_write_htaccess_rules' ) );
+		// Apply apache rules for WebP support into .htaccess file.
+		add_action( 'wp_ajax_smush_webp_apply_htaccess_rules', array( $this, 'webp_apply_htaccess_rules' ) );
 		// Delete all webp images for all attachments.
 		add_action( 'wp_ajax_smush_webp_delete_all', array( $this, 'webp_delete_all' ) );
+		// Hide the webp wizard.
+		add_action( 'wp_ajax_smush_toggle_webp_wizard', array( $this, 'webp_toggle_wizard' ) );
 
 		/**
 		 * LAZY LOADING
@@ -954,7 +956,7 @@ class Ajax {
 			// Check for timeout error and suggest to filter timeout.
 			if ( strpos( $error_message, 'timed out' ) ) {
 				$error         = 'timeout';
-				$error_message = esc_html__( "Timeout error. You can increase the request timeout to make sure Smush has enough time to process larger files. `define('WP_SMUSH_API_TIMEOUT', 150);`", 'wp-smushit' );
+				$error_message = esc_html__( "Timeout error. You can increase the request timeout to make sure Smush has enough time to process larger files. `define('WP_SMUSH_TIMEOUT', 150);`", 'wp-smushit' );
 			}
 
 			$error = isset( $error ) ? $error : 'other';
@@ -1073,30 +1075,13 @@ class Ajax {
 			);
 		}
 
-		$param = isset( $_POST['param'] ) ? sanitize_text_field( wp_unslash( $_POST['param'] ) ) : '';
+		$enable   = filter_input( INPUT_POST, 'param', FILTER_VALIDATE_BOOLEAN );
+		$response = WP_Smush::get_instance()->core()->mod->cdn->toggle_cdn( $enable );
 
-		$this->settings->set( 'cdn', 'true' === $param );
-
-		if ( 'true' === $param ) {
-			// Maybe here is not the place for this. Check CDN settings on page load.
-			$status = $this->settings->get_setting( WP_SMUSH_PREFIX . 'cdn_status' );
-			$smush  = WP_Smush::get_instance();
-
-			if ( ! $status ) {
-				$status = $smush->api()->check();
-				$data   = $smush->core()->mod->cdn->process_cdn_status( $status );
-				$this->settings->set_setting( WP_SMUSH_PREFIX . 'cdn_status', $data );
-			}
-
-			$smush->core()->mod->cdn->schedule_cron();
-
-			// Clear HB page cache.
-			do_action( 'wphb_clear_page_cache' );
-		} else {
-			// Remove CDN settings if disabling.
-			$this->settings->delete_setting( WP_SMUSH_PREFIX . 'cdn_status' );
-
-			CDN::unschedule_cron();
+		if ( is_wp_error( $response ) ) {
+			wp_send_json_error(
+				array( 'message' => $response->get_error_message() )
+			);
 		}
 
 		wp_send_json_success();
@@ -1147,61 +1132,39 @@ class Ajax {
 	 * @since 3.8.0
 	 */
 	public function webp_get_status() {
-		check_ajax_referer( 'save_wp_smush_options' );
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error(
-				array(
-					'message' => __( 'User can not modify options', 'wp-smushit' ),
-				),
-				403
-			);
+		if ( ! check_ajax_referer( 'wp-smush-webp-nonce', false, false ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( esc_html__( "Either the nonce expired or you can't modify options. Please reload the page and try again.", 'wp-smushit' ) );
 		}
 
-		wp_send_json_success(
-			array(
-				'is_configured' => true === WP_Smush::get_instance()->core()->mod->webp->is_configured( true ) ? '1' : '0',
-			)
-		);
+		$is_configured = WP_Smush::get_instance()->core()->mod->webp->get_is_configured_with_error_message( true );
+
+		if ( true === $is_configured ) {
+			wp_send_json_success();
+		}
+
+		// The messages are set in React with dangerouslySetInnerHTML so they must be html-escaped.
+		wp_send_json_error( esc_html( $is_configured ) );
 	}
 
 	/**
 	 * Write apache rules for WebP support from .htaccess file.
-	 *
-	 * Handles "Remove Rules" and "Apply Rules" button press on the WebP meta box.
+	 * Handles the "Apply Rules" button press on the WebP meta box.
 	 *
 	 * @since 3.8.0
 	 */
-	public function webp_write_htaccess_rules() {
-		check_ajax_referer( 'save_wp_smush_options' );
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error(
-				array(
-					'message' => __( 'User can not modify options', 'wp-smushit' ),
-				),
-				403
-			);
+	public function webp_apply_htaccess_rules() {
+		if ( ! check_ajax_referer( 'wp-smush-webp-nonce', false, false ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( "Either the nonce expired or you can't modify options. Please reload the page and try again." );
 		}
 
-		$webp = WP_Smush::get_instance()->core()->mod->webp;
-
-		$action = filter_input( INPUT_POST, 'write_action', FILTER_SANITIZE_STRING );
-		if ( 'apply' === $action ) {
-			$was_written = $webp->save_htaccess();
-		} else {
-			$was_written = $webp->unsave_htaccess();
-		}
+		$was_written = WP_Smush::get_instance()->core()->mod->webp->save_htaccess();
 
 		if ( true === $was_written ) {
 			wp_send_json_success();
-		} else {
-			wp_send_json_error(
-				array(
-					'message' => $was_written,
-				)
-			);
 		}
+
+		// The messages are set in React with dangerouslySetInnerHTML so they must be html-escaped.
+		wp_send_json_error( esc_html( $was_written ) );
 	}
 
 	/**
@@ -1227,6 +1190,19 @@ class Ajax {
 		WP_Smush::get_instance()->core()->mod->webp->delete_all();
 
 		wp_send_json_success();
+	}
+
+	/**
+	 * Toggles the webp wizard.
+	 *
+	 * @since 3.8.8
+	 */
+	public function webp_toggle_wizard() {
+		if ( check_ajax_referer( 'wp-smush-webp-nonce', false, false ) && current_user_can( 'manage_options' ) ) {
+			$is_hidden = get_site_option( WP_SMUSH_PREFIX . 'webp_hide_wizard' );
+			update_site_option( WP_SMUSH_PREFIX . 'webp_hide_wizard', ! $is_hidden );
+			wp_send_json_success();
+		}
 	}
 
 	/***************************************

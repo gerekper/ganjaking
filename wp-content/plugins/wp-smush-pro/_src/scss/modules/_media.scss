@@ -66,6 +66,7 @@ $sui-wrap-class: false;
 			border: 1px solid #E6E6E6;
 		}
 		td {
+			overflow-wrap: break-word;
 			vertical-align: middle;
 			padding: 8px 10px;
 			color: #555555;

@@ -36,7 +36,6 @@ class NewsletterOptionsRepository extends Repository {
       ->setParameter('segmentIds', $segmentIds)
       ->getQuery()->getResult();
   }
-<<<<<<< HEAD
 
   /**
    * @return NewsletterOptionEntity[]
@@ -56,6 +55,4 @@ class NewsletterOptionsRepository extends Repository {
       ->setParameter('segmentIds', $segmentIds)
       ->getQuery()->getResult();
   }
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 }

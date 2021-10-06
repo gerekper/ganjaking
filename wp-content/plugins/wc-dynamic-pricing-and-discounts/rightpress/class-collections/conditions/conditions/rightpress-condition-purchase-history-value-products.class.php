@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Purchase_History_Value_Products extends Righ
     public function get_label()
     {
 
-        return __('Value purchased - Products', 'rightpress');
+        return esc_html__('Value purchased - Products', 'rightpress');
     }
 
 

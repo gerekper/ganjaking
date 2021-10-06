@@ -8,12 +8,21 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Models\Newsletter;
 use MailPoet\Models\StatisticsNewsletters;
 use MailPoet\Models\Subscriber;
-use MailPoet\Newsletter\Url;
+use MailPoet\Newsletter\Url as NewsletterUrl;
 use MailPoet\WP\Functions as WPFunctions;
 
 class NewslettersExporter {
 
   const LIMIT = 100;
+
+  /** @var NewsletterUrl */
+  private $newsletterUrl;
+
+  public function __construct(
+    NewsletterUrl $newsletterUrl
+  ) {
+    $this->newsletterUrl = $newsletterUrl;
+  }
 
   public function export($email, $page = 1) {
     $data = $this->exportSubscriber(Subscriber::findOne(trim($email)), $page);
@@ -70,7 +79,7 @@ class NewslettersExporter {
     if (isset($newsletters[$statisticsRow['newsletter_id']])) {
       $newsletterData[] = [
         'name' => WPFunctions::get()->__('Email preview', 'mailpoet'),
-        'value' => Url::getViewInBrowserUrl(
+        'value' => $this->newsletterUrl->getViewInBrowserUrl(
           $newsletters[$statisticsRow['newsletter_id']],
           $subscriber
         ),

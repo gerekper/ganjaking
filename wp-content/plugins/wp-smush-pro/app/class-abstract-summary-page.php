@@ -45,7 +45,7 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 				null,
 				'main',
 				array(
-					'box_class'         => 'sui-box sui-summary sui-summary-smush',
+					'box_class'         => 'sui-box sui-summary sui-summary-smush ' . $this->get_whitelabel_class(),
 					'box_content_class' => false,
 				)
 			);
@@ -59,6 +59,21 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 				do_action( 'wp_smush_after_stats_box' );
 			}
 		}
+	}
+
+	/**
+	 * Return rebranded class.
+	 *
+	 * @since 3.8.8
+	 *
+	 * @return string
+	 */
+	private function get_whitelabel_class() {
+		if ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) {
+			return '';
+		}
+
+		return apply_filters( 'wpmudev_branding_hero_image', '' ) ? 'sui-rebranded' : 'sui-unbranded';
 	}
 
 	/**

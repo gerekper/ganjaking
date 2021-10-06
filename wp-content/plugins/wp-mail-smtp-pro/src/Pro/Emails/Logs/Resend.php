@@ -147,10 +147,10 @@ class Resend {
 		ob_start();
 		?>
 		<div id="wp-mail-smtp-resend-confirmation-content">
-			<p><?php esc_html_e( 'Are you sure you want to resend email?', 'wp-mail-smtp-pro' ); ?></p>
+			<p><?php esc_html_e( 'Are you sure you want to resend this email?', 'wp-mail-smtp-pro' ); ?></p>
 			<p>
 				<label for="wp-mail-smtp-resent-recipient-email">
-					<?php esc_html_e( 'Email Recipients (separated by comma)', 'wp-mail-smtp-pro' ); ?>
+					<?php esc_html_e( 'Email recipients (separate with a comma)', 'wp-mail-smtp-pro' ); ?>
 				</label>
 				<input type="text" name="email" value="<?php echo esc_attr( implode( ',', $email->get_people( 'to' ) ) ); ?>" id="wp-mail-smtp-resent-recipient-email">
 			</p>

@@ -1,5 +1,27 @@
 === WooCommerce Free Gift Coupons ===
 
+2021.08.27- version 3.3.0
+* Update: Tested against WooCommerce 5.6.0.
+* Fix: Prevent syncing a free gift to itself.
+* Fix: Stop validating coupon, let WooCommerce core handle all validation. Resolves issue of coupon not being valid when sync product is a variation.
+* Fix: Check if gift is either product or variation. Resolves issue with syncing to variation.
+
+2021.03.24 - version 3.2.0
+* New: Sync quantity of free gift to more than one product at a time.
+* New: Compatibility with All Products for Subscriptions, free gifts are not valid when user subscribes to cart.
+* Update: Cart validation, throw notice of unconfigured variable gift *before* user attempts checkout.
+* Fix: Border styles for Twenty Twenty One theme.
+* Fix: More specific jQuery listeners to resolve conflicts with Flatsome's cart quickview.
+
+2021.01.14 - version 3.1.0
+* New: Templates added for gift variation selection in cart, easier customization.
+* New: No-JS graceful degradation for gift variation selection.
+* New: Auto scroll when gift variation edit section is opened scrolls to the gift variation input.
+* Fix: UX audit, revision to cart edit layout, screen reader and accessibility enhancements.
+* Update: Tested against WC 4.9.
+* Update: Remove coupon code from cart if all gift items are removed, and type is ‘free gift’.
+* Update: Hide product removed notice if coupon is automatically removed.
+
 2020.11.25 - version 3.0.5
 * Fix: Rebuild minified script.
 

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php foreach( $products as $product ) : ?>
 	<li class="product-item <?php if ( wcopc_get_products_prop( $product, 'in_cart' ) ) echo 'selected'; ?>" >
 		<?php wc_get_template( 'checkout/add-to-cart/radio.php', array( 'product' => $product ), '', PP_One_Page_Checkout::$template_path );; ?>
-		<?php echo $product->get_title(); ?>
+		<?php echo wp_kses_post( $product->get_title() ); ?>
 		<?php if ( $product->is_type( 'variation' ) ) : ?>
 			<?php $attribute_string = sprintf( '&nbsp;(%s)', wc_get_formatted_variation( $product->get_variation_attributes(), true ) ); ?>
 			<span class="attributes"><?php echo esc_html( apply_filters( 'woocommerce_attribute', $attribute_string, $product->get_variation_attributes(), $product ) ); ?></span>

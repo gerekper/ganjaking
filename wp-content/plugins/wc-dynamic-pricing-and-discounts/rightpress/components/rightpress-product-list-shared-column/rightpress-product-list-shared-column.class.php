@@ -26,6 +26,7 @@ final class RightPress_Product_List_Shared_Column
      */
     public function __construct()
     {
+
         // Add product list custom column
         add_filter('manage_product_posts_columns', array($this, 'add_product_list_custom_column'), 99);
 
@@ -44,7 +45,7 @@ final class RightPress_Product_List_Shared_Column
     {
 
         // Define custom column
-        $custom_column = array(self::$column_name => '<span class="rightpress_product_list_shared_column_header">' . __('Properties', 'rightpress') . '</span>');
+        $custom_column = array(self::$column_name => '<span class="rightpress_product_list_shared_column_header">' . esc_html__('Properties', 'rightpress') . '</span>');
 
         // Insert before date if it is set
         if (isset($columns['date'])) {

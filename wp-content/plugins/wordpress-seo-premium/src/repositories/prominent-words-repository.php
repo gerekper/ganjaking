@@ -1,16 +1,24 @@
 <?php
 
-namespace Yoast\WP\SEO\Repositories;
+namespace Yoast\WP\SEO\Premium\Repositories;
 
 use Yoast\WP\Lib\Model;
 use Yoast\WP\Lib\ORM;
 
 /**
- * Class Prominent_Words_Repository
- *
- * @package Yoast\WP\SEO\ORM\Repositories
+ * Class Prominent_Words_Repository.
  */
 class Prominent_Words_Repository {
+
+	/**
+	 * Class constructor.
+	 *
+	 * Empty constructor is necessary for BC.
+	 *
+	 * @see \Yoast\WP\SEO\Repositories\Prominent_Words_Repository
+	 */
+	public function __construct() {
+	}
 
 	/**
 	 * Starts a query for this repository.
@@ -26,7 +34,7 @@ class Prominent_Words_Repository {
 	 *
 	 * @param int $indexable_id The indexable ID.
 	 *
-	 * @return array The list of prominent words items found by the idexable id.
+	 * @return array The list of prominent words items found by the indexable id.
 	 */
 	public function find_by_indexable_id( $indexable_id ) {
 		return $this->query()->where( 'indexable_id', $indexable_id )->find_many();
@@ -64,6 +72,7 @@ class Prominent_Words_Repository {
 			}
 			$prominent_word->df = (int) $stem_counts[ $prominent_word->stem ];
 		}
+
 		return $prominent_words;
 	}
 
@@ -81,24 +90,45 @@ class Prominent_Words_Repository {
 			return [];
 		}
 
-		$offset                           = ( ( $page - 1 ) * $limit );
-		$indexable_ids_in_prominent_words = $this->query()
-			->distinct()
-			->select( 'pw.indexable_id' )
-			->table_alias( 'pw' )
-			->join( Model::get_table_name( 'indexable' ), [ 'pw.indexable_id', '=', 'i.id' ], 'i' )
-			->where_in( 'pw.stem', $stems )
-			->where_raw( 'i.post_status NOT IN ( \'draft\', \'auto-draft\', \'trash\' ) OR post_status IS NULL' )
-			->limit( $limit )
-			->offset( $offset )
-			->find_many();
+		$offset = ( ( $page - 1 ) * $limit );
 
-		return \array_map(
-			static function( $obj ) {
-				return $obj->indexable_id;
-			},
-			$indexable_ids_in_prominent_words
-		);
+		$stem_placeholders = \implode( ', ', \array_fill( 0, \count( $stems ), '%s' ) );
+
+		$query = Model::of_type( 'Indexable' )
+			->table_alias( 'i' )
+			->select( 'id' )
+			->where_raw(
+				'i.id IN ( SELECT DISTINCT pw.indexable_id FROM ' . Model::get_table_name( 'Prominent_Words' ) . ' pw WHERE pw.stem IN (' . $stem_placeholders . ') )',
+				$stems
+			)
+			->where_raw( '( i.post_status NOT IN ( \'draft\', \'auto-draft\', \'trash\' ) OR i.post_status IS NULL )' )
+			->limit( $limit )
+			->offset( $offset );
+
+		$results = $query->find_array();
+
+		return \wp_list_pluck( $results, 'id' );
+	}
+
+	/**
+	 * Deletes multiple prominent words from the database in one query.
+	 *
+	 * @param int   $indexable_id   The id of the indexable which needs to have
+	 *                              some of its prominent words deleted.
+	 * @param array $outdated_stems The array with to-be-deleted prominent word stems.
+	 *
+	 * @return bool Whether the delete was successful.
+	 */
+	public function delete_by_indexable_id_and_stems( $indexable_id, $outdated_stems ) {
+		// Check if the data are of the right format.
+		if ( ( ! $indexable_id ) || empty( $outdated_stems ) || ! \is_array( $outdated_stems ) ) {
+			return false;
+		}
+
+		return $this->query()
+			->where( 'indexable_id', $indexable_id )
+			->where_in( 'stem', $outdated_stems )
+			->delete_many();
 	}
 
 	/**
@@ -118,15 +148,15 @@ class Prominent_Words_Repository {
 		 * Returns "Prominent_Words" with two properties: 'stem' and 'document_frequency'.
 		 */
 		$raw_doc_frequencies = $this->query()
-				->select( 'stem' )
-				->select_expr( 'COUNT( stem )', 'document_frequency' )
-				->where_in( 'stem', $stems )
-				->group_by( 'stem' )
-				->find_many();
+			->select( 'stem' )
+			->select_expr( 'COUNT( stem )', 'document_frequency' )
+			->where_in( 'stem', $stems )
+			->group_by( 'stem' )
+			->find_many();
 
 		// We want to change the raw document frequencies into a map mapping stems to document frequency.
 		$stems = \array_map(
-			static function ( $item ) {
+			static function( $item ) {
 				return $item->stem;
 			},
 			$raw_doc_frequencies

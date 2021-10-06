@@ -6,7 +6,6 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Entities\SendingQueueEntity;
-use MailPoet\Tasks\Subscribers as TaskSubscribers;
 use MailPoet\Util\Helpers;
 use MailPoet\WP\Functions as WPFunctions;
 
@@ -90,20 +89,6 @@ class SendingQueue extends Model {
     return $this;
   }
 
-  /**
-   * Used only for checking processed subscribers in old queues
-   */
-  private function getSubscribers() {
-    if (is_array($this->subscribers) || $this->subscribers === null || !is_serialized($this->subscribers)) {
-      return $this->subscribers;
-    }
-    $subscribers = unserialize($this->subscribers);
-    if (empty($subscribers['processed'])) {
-      $subscribers['processed'] = [];
-    }
-    return $subscribers;
-  }
-
   public function getNewsletterRenderedBody($type = false) {
     $renderedNewsletter = $this->decodeRenderedNewsletterBodyObject($this->newsletterRenderedBody);
     return ($type && !empty($renderedNewsletter[$type])) ?
@@ -113,22 +98,6 @@ class SendingQueue extends Model {
 
   public function getMeta() {
     return (Helpers::isJson($this->meta) && is_string($this->meta)) ? json_decode($this->meta, true) : $this->meta;
-  }
-
-  public function isSubscriberProcessed($subscriberId) {
-    if (!empty($this->subscribers)
-      && ScheduledTaskSubscriber::getTotalCount($this->taskId) === 0
-    ) {
-      $subscribers = $this->getSubscribers();
-      return in_array($subscriberId, $subscribers['processed']);
-    } else {
-      $task = $this->task()->findOne();
-      if ($task) {
-        $taskSubscribers = new TaskSubscribers($task);
-        return $taskSubscribers->isSubscriberProcessed($subscriberId);
-      }
-      return false;
-    }
   }
 
   public function asArray() {

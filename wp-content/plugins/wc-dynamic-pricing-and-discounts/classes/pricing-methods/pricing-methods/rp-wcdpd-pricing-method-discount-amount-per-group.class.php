@@ -49,7 +49,7 @@ class RP_WCDPD_Pricing_Method_Discount_Amount_Per_Group extends RP_WCDPD_Pricing
      */
     public function get_label()
     {
-        return __('Fixed discount per group', 'rp_wcdpd');
+        return esc_html__('Fixed discount per group', 'rp_wcdpd');
     }
 
 

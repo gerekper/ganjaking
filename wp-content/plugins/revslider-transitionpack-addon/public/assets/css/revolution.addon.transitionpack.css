@@ -1,0 +1,19 @@
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2021 ThemePunch
+*/
+
+.tp-transitionpack svg a,
+.tp-transitionpack svg d,
+.tp-transitionpack svg g,
+.tp-transitionpack svg polygon,
+.tp-transitionpack svg rect,
+.tp-transitionpack svg line
+.tp-transitionpack svg text,
+.tp-transitionpack svg circle,
+.tp-transitionpack svg path
+{		
+		transition: none;
+
+}

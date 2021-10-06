@@ -1599,7 +1599,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 								<?php
 								if ( $request['request_type'] == 'refund' ):
 									$item_amount    = warranty_get_item_amount( $request_id );
-									$available      = max(0, $item_amount - $refunded);
+									$available      = max( 0, $item_amount - floatval( $refunded ) );
 								?>
 									<div id="warranty-refund-modal-<?php echo $request_id; ?>" style="display:none;">
 										<table class="form-table">

@@ -3,7 +3,7 @@
 namespace ACP\Admin;
 
 use AC;
-use AC\Admin\Main\Columns;
+use AC\Admin\Page\Columns;
 use AC\Asset;
 use AC\Asset\Location;
 use AC\ListScreen;

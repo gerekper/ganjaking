@@ -6,8 +6,8 @@ use WP_Query;
 use WPSEO_Premium_Prominent_Words_Support;
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
+use Yoast\WP\SEO\Premium\Repositories\Prominent_Words_Repository;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
-use Yoast\WP\SEO\Repositories\Prominent_Words_Repository;
 
 /**
  * Handles the actual requests to the prominent words endpoints.
@@ -41,6 +41,12 @@ class Link_Suggestions_Action {
 	 * @var WPSEO_Premium_Prominent_Words_Support
 	 */
 	protected $prominent_words_support;
+
+	/**
+	 * The amount of indexables to retrieve in one go
+	 * when generating internal linking suggestions.
+	 */
+	const BATCH_SIZE = 1000;
 
 	/**
 	 * Link_Suggestions_Service constructor.
@@ -81,9 +87,9 @@ class Link_Suggestions_Action {
 
 		/*
 		 * Gets best suggestions (returns a sorted array [$indexable_id => score]).
-		 * The indexables are processed in batches of 100 indexables each.
+		 * The indexables are processed in batches of 1000 indexables each.
 		 */
-		$suggestions_scores = $this->retrieve_suggested_indexable_ids( $words_from_request, $limit, 100, $current_indexable_id );
+		$suggestions_scores = $this->retrieve_suggested_indexable_ids( $words_from_request, $limit, self::BATCH_SIZE, $current_indexable_id );
 
 		$indexable_ids = \array_keys( $suggestions_scores );
 
@@ -128,9 +134,9 @@ class Link_Suggestions_Action {
 
 		/*
 		 * Gets best suggestions (returns a sorted array [$indexable_id => score]).
-		 * The indexables are processed in batches of 100 indexables each.
+		 * The indexables are processed in batches of 1000 indexables each.
 		 */
-		$suggestions_scores = $this->retrieve_suggested_indexable_ids( $weighted_words, $limit, 100, $id );
+		$suggestions_scores = $this->retrieve_suggested_indexable_ids( $weighted_words, $limit, self::BATCH_SIZE, $id );
 
 		$indexable_ids = \array_keys( $suggestions_scores );
 

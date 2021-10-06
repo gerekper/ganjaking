@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-product-reviews-pro/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2015-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2021, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\Product_Reviews_Pro;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
  * Plugin lifecycle handler.
@@ -206,7 +206,7 @@ class Lifecycle extends Framework\Plugin\Lifecycle {
 
 		// clear our plugin's transients since we fixed a bug with them not clearing
 		$wpdb->query( "
-			DELETE FROM {$wpdb->options} 
+			DELETE FROM {$wpdb->options}
 			WHERE option_name LIKE '_transient_wc_product_reviews_pro_%'
 		" );
 	}

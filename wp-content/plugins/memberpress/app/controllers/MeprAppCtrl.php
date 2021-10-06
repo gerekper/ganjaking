@@ -388,6 +388,16 @@ class MeprAppCtrl extends MeprBaseCtrl {
     add_menu_page('MemberPress', $menu_title, $capability, 'memberpress', 'MeprAppCtrl::toplevel_menu_route', MEPR_IMAGES_URL."/memberpress-16@2x.png", 775677);
 
     add_submenu_page('memberpress', __('Members', 'memberpress'), __('Members', 'memberpress'), $capability, 'memberpress-members', array($mbr_ctrl,'listing'));
+
+    if(!get_option('mepr_disable_affiliates_menu_item')) {
+      if(defined('ESAF_VERSION')) {
+        add_submenu_page('memberpress', __('Affiliates', 'memberpress'), __('Affiliates', 'memberpress'), $capability, admin_url('admin.php?page=easy-affiliate'));
+      }
+      else {
+        add_submenu_page('memberpress', __('Affiliates', 'memberpress'), __('Affiliates', 'memberpress'), $capability, 'memberpress-affiliates', 'MeprAddonsCtrl::affiliates');
+      }
+    }
+
     add_submenu_page('memberpress', __('Subscriptions', 'memberpress'), __('Subscriptions', 'memberpress'), $capability, 'memberpress-subscriptions', array( $sub_ctrl, 'listing' ));
     // Specifically for subscriptions listing
     add_submenu_page(null, __('Subscriptions', 'memberpress'), __('Subscriptions', 'memberpress'), $capability, 'memberpress-lifetimes', array( $sub_ctrl, 'listing' ));

@@ -26,6 +26,15 @@ class GPPA_Object_Type_Post extends GPPA_Object_Type {
 		add_filter( 'gppa_property_label_post_post_type', array( $this, 'label_transform_post_type' ) );
 	}
 
+	/**
+	 * @param $args array  Query arguments to hash
+	 *
+	 * @return string   SHA1 representation of the requested query
+	 */
+	public function query_cache_hash( $args ) {
+		return sha1( serialize( $this->process_filter_groups( $args, $this->default_query_args( $args ) ) ) );
+	}
+
 	public function parse_date_in_filter_value( $filter_value, $field_values, $primary_property_value, $filter, $ordering, $field, $property ) {
 		$property_id = ! empty( $property['group'] ) ? $property['group'] . '_' . $property['value'] : $property['value'];
 
@@ -138,10 +147,23 @@ class GPPA_Object_Type_Post extends GPPA_Object_Type {
 		 */
 		extract( $args );
 
-		if ( $filter['operator'] === '>=' || $filter['operator'] === '>' ) {
-			$filter_value = date( 'Y-m-d 00:00:00', strtotime( $filter_value ) );
-		} elseif ( $filter['operator'] === '<=' || $filter['operator'] === '<' ) {
-			$filter_value = date( 'Y-m-d 23:59:59', strtotime( $filter_value ) );
+		switch ( $filter['operator'] ) {
+			case '>=':
+			case '>':
+				$filter_value = date( 'Y-m-d 00:00:00', strtotime( $filter_value ) );
+				break;
+			case '<=':
+			case '<':
+				$filter_value = date( 'Y-m-d 23:59:59', strtotime( $filter_value ) );
+				break;
+			case 'is': // `post_date` is a DATETIME column which includes time, ensure date is within range (see HS#24545)
+				$query_builder_args['where'][ $filter_group_index ][] = $this->build_where_clause( $wpdb->posts, rgar( $property, 'value' ), '>=', date( 'Y-m-d 00:00:00', strtotime( $filter_value ) ) );
+				$query_builder_args['where'][ $filter_group_index ][] = $this->build_where_clause( $wpdb->posts, rgar( $property, 'value' ), '<=', date( 'Y-m-d 23:59:59', strtotime( $filter_value ) ) );
+				return $query_builder_args;
+			case 'isnot': // Same as is, just inverse and make sure it's outside of the 24 hours range
+				$query_builder_args['where'][ $filter_group_index ][] = $this->build_where_clause( $wpdb->posts, rgar( $property, 'value' ), '<', date( 'Y-m-d 00:00:00', strtotime( $filter_value ) ) );
+				$query_builder_args['where'][ $filter_group_index ][] = $this->build_where_clause( $wpdb->posts, rgar( $property, 'value' ), '>', date( 'Y-m-d 23:59:59', strtotime( $filter_value ) ) );
+				return $query_builder_args;
 		}
 
 		$query_builder_args['where'][ $filter_group_index ][] = $this->build_where_clause( $wpdb->posts, rgar( $property, 'value' ), $filter['operator'], $filter_value );
@@ -374,6 +396,13 @@ AND {$wpdb->term_relationships}.object_id = {$wpdb->posts}.ID
 					'label'    => esc_html__( 'Post Content', 'gp-populate-anything' ),
 					'value'    => 'post_content',
 					'callable' => '__return_empty_array',
+					'orderby'  => true,
+				),
+				'post_excerpt' => array(
+					'label'    => esc_html__( 'Post Excerpt', 'gp-populate-anything' ),
+					'value'    => 'post_excerpt',
+					'callable' => array( $this, 'get_col_rows' ),
+					'args'     => array( $wpdb->posts, 'post_excerpt' ),
 					'orderby'  => true,
 				),
 				'post_name'    => array(

@@ -43,31 +43,31 @@ abstract class RightPress_WP_Log_Entry_Controller extends RightPress_WP_Custom_P
         return array(
 
             'processing' => array(
-                'label'             => _x('Processing', 'Log entry status', 'rightpress'),
+                'label'             => esc_attr_x('Processing', 'Log entry status', 'rightpress'),
                 'label_count'       => _n_noop('Processing <span class="count">(%s)</span>', 'Processing <span class="count">(%s)</span>', 'rightpress'),
                 'system_change_to'  => array('success', 'warning', 'failed', 'error'),
             ),
 
             'success' => array(
-                'label'             => _x('Success', 'Log entry status', 'rightpress'),
+                'label'             => esc_attr_x('Success', 'Log entry status', 'rightpress'),
                 'label_count'       => _n_noop('Success <span class="count">(%s)</span>', 'Success <span class="count">(%s)</span>', 'rightpress'),
                 'system_change_to'  => array('warning', 'failed', 'error'),
             ),
 
             'warning' => array(
-                'label'             => _x('Warning', 'Log entry status', 'rightpress'),
+                'label'             => esc_attr_x('Warning', 'Log entry status', 'rightpress'),
                 'label_count'       => _n_noop('Warning <span class="count">(%s)</span>', 'Warning <span class="count">(%s)</span>', 'rightpress'),
                 'system_change_to'  => array('failed', 'error'),
             ),
 
             'failed' => array(
-                'label'             => _x('Failed', 'Log entry status', 'rightpress'),
+                'label'             => esc_attr_x('Failed', 'Log entry status', 'rightpress'),
                 'label_count'       => _n_noop('Failed <span class="count">(%s)</span>', 'Failed <span class="count">(%s)</span>', 'rightpress'),
                 'system_change_to'  => array('error'),
             ),
 
             'error' => array(
-                'label'             => _x('Error', 'Log entry status', 'rightpress'),
+                'label'             => esc_attr_x('Error', 'Log entry status', 'rightpress'),
                 'label_count'       => _n_noop('Error <span class="count">(%s)</span>', 'Error <span class="count">(%s)</span>', 'rightpress'),
                 'system_change_to'  => array(),
             ),
@@ -127,21 +127,21 @@ abstract class RightPress_WP_Log_Entry_Controller extends RightPress_WP_Custom_P
 
         return array(
             'labels'            => array(
-                'name'                  => __('Activity Log', 'rightpress'),
-                'singular_name'         => __('Activity Log', 'rightpress'),
-                'add_new'               => __('Add Log Entry', 'rightpress'),
-                'add_new_item'          => __('Add New Log Entry', 'rightpress'),
-                'edit_item'             => __('Edit Log Entry', 'rightpress'),
-                'new_item'              => __('New Log Entry', 'rightpress'),
-                'all_items'             => __('Activity Log', 'rightpress'),
-                'view_item'             => __('View Log Entry', 'rightpress'),
-                'search_items'          => __('Search Activity Log', 'rightpress'),
-                'not_found'             => __('No Log Entries Found', 'rightpress'),
-                'not_found_in_trash'    => __('No Log Entries Found In Trash', 'rightpress'),
+                'name'                  => esc_html__('Activity Log', 'rightpress'),
+                'singular_name'         => esc_html__('Activity Log', 'rightpress'),
+                'add_new'               => esc_html__('Add Log Entry', 'rightpress'),
+                'add_new_item'          => esc_html__('Add New Log Entry', 'rightpress'),
+                'edit_item'             => esc_html__('Edit Log Entry', 'rightpress'),
+                'new_item'              => esc_html__('New Log Entry', 'rightpress'),
+                'all_items'             => esc_html__('Activity Log', 'rightpress'),
+                'view_item'             => esc_html__('View Log Entry', 'rightpress'),
+                'search_items'          => esc_html__('Search Activity Log', 'rightpress'),
+                'not_found'             => esc_html__('No Log Entries Found', 'rightpress'),
+                'not_found_in_trash'    => esc_html__('No Log Entries Found In Trash', 'rightpress'),
                 'parent_item_colon'     => '',
-                'menu_name'             => __('Activity Log', 'rightpress'),
+                'menu_name'             => esc_html__('Activity Log', 'rightpress'),
             ),
-            'description'       => __('Activity Log', 'rightpress'),
+            'description'       => esc_html__('Activity Log', 'rightpress'),
             'public'            => false,
             'show_ui'           => true,
             'show_in_menu'      => ('edit.php?post_type=' . $this->get_main_post_type()),

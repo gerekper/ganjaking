@@ -3,6 +3,8 @@
 namespace NinjaTablesPro\DataProviders;
 
 
+use NinjaTables\Classes\ArrayHelper;
+
 class WoocommercePostsProvider
 {
     use WooDataSourceTrait;
@@ -27,6 +29,8 @@ class WoocommercePostsProvider
         add_action('wp_ajax_ninja_table_woocommerece_get_options', array($this, 'getWooSettings'));
         add_action('wp_ajax_ninja_table_save_query_settings_woo_table', array($this, 'saveQuerySettings'));
         add_action('wp_ajax_ninja_table_wp_woo_get_custom_field_options', array($this, 'getCustomFieldOptions'));
+        add_action('wp_ajax_ninja_table_wp_woo_add_to_cart', array($this, 'addToCart'));
+        add_action('wp_ajax_nopriv_ninja_table_wp_woo_add_to_cart', array($this, 'addToCart'));
 
 
         add_action('ninja_rendering_table_wp_woo', array($this, 'addFrontendAsset'), 10, 1);
@@ -601,5 +605,57 @@ class WoocommercePostsProvider
         $content = $this->getCartFragmentHtml($_REQUEST['ninja_table']);
         $fragments['div.ninjatable_cart_wrapper'] = $content;
         return $fragments;
+    }
+
+    public function addToCart()
+    {
+        ob_start();
+        $product_id = absint(ArrayHelper::get($_POST, 'product_id'));
+        $product = wc_get_product($product_id);
+
+        if ($product->get_type() === 'simple') {
+            \WC_AJAX::add_to_cart();
+        } else if($product->get_type() === 'variable') {
+            $qty = ArrayHelper::get($_POST, 'quantity');
+            $product_id = apply_filters( 'woocommerce_add_to_cart_product_id', $product_id);
+            $quantity = empty($qty) ? 1 : apply_filters( 'woocommerce_stock_amount', $qty);
+            $variation_id = ArrayHelper::get($_POST, 'variation_id');
+
+            $cart_item_data = $_POST;
+            unset($cart_item_data['quantity']);
+
+            $variation = array();
+
+            foreach ($cart_item_data as $key => $value) {
+                if (preg_match("/^attribute*/", $key)) {
+                    $variation[$key] = $value;
+                }
+            }
+
+            foreach ($variation as $key=>$value) { $variation[$key] = stripslashes($value); }
+            $passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity );
+
+            if ( $passed_validation && WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation, $cart_item_data  ) ) {
+                do_action( 'woocommerce_ajax_added_to_cart', $product_id );
+                if ( get_option( 'woocommerce_cart_redirect_after_add' ) == 'yes' ) {
+                    wc_add_to_cart_message( $product_id );
+                }
+                global $woocommerce;
+                $items = $woocommerce->cart->get_cart();
+                wc_setcookie( 'woocommerce_items_in_cart', count( $items ) );
+                wc_setcookie( 'woocommerce_cart_hash', md5( json_encode( $items ) ) );
+                do_action( 'woocommerce_set_cart_cookies', true );
+                // Return fragments
+                \WC_AJAX::get_refreshed_fragments();
+
+            } else {
+                // If there was an error adding to the cart, redirect to the product page to show any errors
+                $data = array(
+                    'error' => true,
+                    'product_url' => apply_filters( 'woocommerce_cart_redirect_after_error', get_permalink( $product_id ), $product_id )
+                );
+                wp_send_json_error( $data );
+            }
+        }
     }
 }

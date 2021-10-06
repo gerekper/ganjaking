@@ -36,7 +36,7 @@ class WC_COG extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.10.0';
+	const VERSION = '2.11.0';
 
 	/** @var WC_COG single instance of this plugin */
 	protected static $instance;
@@ -121,7 +121,7 @@ class WC_COG extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new \SkyVerge\WooCommerce\COG\Lifecycle( $this );
 	}
@@ -134,7 +134,7 @@ class WC_COG extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_rest_api_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/class-wc-cog-rest-api.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-cog-rest-api.php' );
 
 		$this->rest_api_handler = new \WC_COG_REST_API( $this );
 	}
@@ -150,29 +150,29 @@ class WC_COG extends Framework\SV_WC_Plugin {
 	public function includes() {
 
 		// COG product functions
-		require_once( $this->get_plugin_path() . '/includes/class-wc-cog-product.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-cog-product.php' );
 
 		// framework background job handlers
 		require_once( $this->get_framework_path() . '/utilities/class-sv-wp-async-request.php' );
 		require_once( $this->get_framework_path() . '/utilities/class-sv-wp-background-job-handler.php' );
 
 		// set up the integrations handler
-		$this->integrations = $this->load_class( '/includes/integrations/class-wc-cog-integrations.php', 'WC_COG_Integrations' );
+		$this->integrations = $this->load_class( '/src/integrations/class-wc-cog-integrations.php', 'WC_COG_Integrations' );
 
 		// background job handler to apply costs to previous orders
-		require_once( $this->get_plugin_path() . '/includes/utilities/class-wc-cog-previous-orders-handler.php' );
+		require_once( $this->get_plugin_path() . '/src/utilities/class-wc-cog-previous-orders-handler.php' );
 		$this->previous_orders_handler = new \SkyVerge\WooCommerce\COG\Utilities\Previous_Orders_Handler();
 
 		// import/export handler
 		// TODO: potentially move this to the /integrations directory and break up into plugin-specific classes {CW 2020-01-02}
-		$this->import_export_handler = $this->load_class( '/includes/utilities/class-wc-cog-import-export-handler.php', 'WC_COG_Import_Export_Handler' );
+		$this->import_export_handler = $this->load_class( '/src/utilities/class-wc-cog-import-export-handler.php', 'WC_COG_Import_Export_Handler' );
 
 		if ( is_admin() ) {
 			$this->admin_includes();
 		}
 
 		if ( is_ajax() ) {
-			require_once( $this->get_plugin_path() . '/includes/class-wc-cog-ajax.php' );
+			require_once( $this->get_plugin_path() . '/src/class-wc-cog-ajax.php' );
 			$this->ajax = new \SkyVerge\WooCommerce\COG\AJAX();
 		}
 	}
@@ -186,10 +186,10 @@ class WC_COG extends Framework\SV_WC_Plugin {
 	private function admin_includes() {
 
 		// admin
-		$this->admin = $this->load_class( '/includes/admin/class-wc-cog-admin.php', 'WC_COG_Admin' );
+		$this->admin = $this->load_class( '/src/admin/class-wc-cog-admin.php', 'WC_COG_Admin' );
 
 		// reports
-		$this->admin_reports = $this->load_class( '/includes/admin/class-wc-cog-admin-reports.php', 'WC_COG_Admin_Reports' );
+		$this->admin_reports = $this->load_class( '/src/admin/class-wc-cog-admin-reports.php', 'WC_COG_Admin_Reports' );
 	}
 
 
@@ -597,6 +597,19 @@ class WC_COG extends Framework\SV_WC_Plugin {
 			&& 'wc-settings' === $_GET['page']
 			&& 'products'    === $_GET['tab']
 			&& 'inventory'   === $_GET['section'];
+	}
+
+
+	/**
+	 * Returns true if on the reports page.
+	 *
+	 * @since 2.11.0
+	 *
+	 * @return bool
+	 */
+	public function is_reports_page() : bool {
+
+		return 'wc-reports' === filter_input( INPUT_GET, 'page', FILTER_SANITIZE_STRING );
 	}
 
 

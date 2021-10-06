@@ -2,14 +2,15 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs\Tracking;
 
-use WPMailSMTP\WP;
+use WPMailSMTP\MigrationAbstract;
 
 /**
  * Email tracking Migration Class
  *
  * @since 2.9.0
+ * @since 3.0.0 Extends MigrationAbstract.
  */
-class Migration {
+class Migration extends MigrationAbstract {
 
 	/**
 	 * Version of the email tracking database tables.
@@ -33,110 +34,15 @@ class Migration {
 	const ERROR_OPTION_NAME = 'wp_mail_smtp_email_tracking_db_error';
 
 	/**
-	 * Current version, received from DB wp_options table.
+	 * Whether migration is enabled.
 	 *
-	 * @since 2.9.0
+	 * @since 3.0.0
 	 *
-	 * @var int
+	 * @return bool
 	 */
-	protected $cur_ver;
+	public static function is_enabled() {
 
-	/**
-	 * Migration constructor.
-	 *
-	 * @since 2.9.0
-	 */
-	public function __construct() {
-
-		$this->cur_ver = self::get_current_version();
-
-		$this->validate_db();
-	}
-
-	/**
-	 * Static on purpose, to get current DB version without __construct() and validation.
-	 *
-	 * @since 2.9.0
-	 *
-	 * @return int
-	 */
-	public static function get_current_version() {
-
-		return (int) get_option( self::OPTION_NAME, 0 );
-	}
-
-	/**
-	 * Check DB version and update to the latest one.
-	 *
-	 * @since 2.9.0
-	 */
-	protected function validate_db() {
-
-		if ( $this->cur_ver < self::DB_VERSION ) {
-			$this->run( self::DB_VERSION );
-		}
-	}
-
-	/**
-	 * Update DB version in options table.
-	 *
-	 * @since 2.9.0
-	 *
-	 * @param int $ver Version number.
-	 */
-	protected function update_db_ver( $ver = 0 ) {
-
-		$ver = (int) $ver;
-
-		if ( empty( $ver ) ) {
-			$ver = self::DB_VERSION;
-		}
-
-		// Autoload it, because this value is checked all the time
-		// and no need to request it separately from all autoloaded options.
-		update_option( self::OPTION_NAME, $ver, true );
-	}
-
-	/**
-	 * Prevent running the same migration twice.
-	 * Run migration only when required.
-	 *
-	 * @since 2.9.0
-	 *
-	 * @param int $ver The current migration version.
-	 */
-	protected function maybe_required_older_migrations( $ver ) {
-
-		$ver = (int) $ver;
-
-		if ( ( $ver - $this->cur_ver ) > 1 ) {
-			$this->run( $ver - 1 );
-		}
-	}
-
-	/**
-	 * Actual migration launcher.
-	 *
-	 * @since 2.9.0
-	 *
-	 * @param int $ver The specified migration version to run.
-	 */
-	protected function run( $ver ) {
-
-		$ver = (int) $ver;
-
-		if ( method_exists( $this, 'migrate_to_' . $ver ) ) {
-			$this->{'migrate_to_' . $ver}();
-		} else {
-
-			$message = sprintf( /* translators: %1$s - WP Mail SMTP, %2$s - error message. */
-				esc_html__( 'There was an error while upgrading the email tracking database. Please contact %1$s support with this information: %2$s.', 'wp-mail-smtp-pro' ),
-				'<strong>WP Mail SMTP</strong>',
-				'<code>migration from v' . self::get_current_version() . ' to v' . self::DB_VERSION . ' failed. Plugin version: v' . WPMS_PLUGIN_VER . '</code>'
-			);
-
-			WP::add_admin_notice( $message, WP::ADMIN_NOTICE_ERROR );
-		}
+		return wp_mail_smtp()->get_pro()->get_logs()->is_enabled_tracking();
 	}
 
 	/**
@@ -144,7 +50,7 @@ class Migration {
 	 *
 	 * @since 2.9.0
 	 */
-	private function migrate_to_1() {
+	protected function migrate_to_1() {
 
 		global $wpdb;
 
@@ -181,7 +87,7 @@ class Migration {
 	 *
 	 * @since 2.9.0
 	 */
-	private function migrate_to_2() {
+	protected function migrate_to_2() {
 
 		$this->maybe_required_older_migrations( 2 );
 

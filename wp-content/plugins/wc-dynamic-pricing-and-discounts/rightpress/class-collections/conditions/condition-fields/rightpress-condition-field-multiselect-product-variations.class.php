@@ -55,7 +55,7 @@ abstract class RightPress_Condition_Field_Multiselect_Product_Variations extends
     public function get_placeholder()
     {
 
-        return __('Select product variations', 'rightpress');
+        return esc_html__('Select product variations', 'rightpress');
     }
 
 

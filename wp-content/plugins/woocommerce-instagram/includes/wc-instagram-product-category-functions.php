@@ -78,3 +78,29 @@ function wc_instagram_get_product_categories_choices() {
 
 	return $choices;
 }
+
+/**
+ * Gets the Google product category associated to the taxonomy term.
+ *
+ * Uses the term parent as a fallback.
+ *
+ * @since 3.6.0
+ *
+ * @param WP_Term|int $the_term The taxonomy term.
+ * @param string      $taxonomy Optional. The term taxonomy. Default 'product_cat'.
+ * @return int|false The category ID. False if not found.
+ */
+function wc_instagram_get_google_product_category_for_term( $the_term, $taxonomy = 'product_cat' ) {
+	$term_id     = ( $the_term instanceof WP_Term ? $the_term->term_id : $the_term );
+	$category_id = get_term_meta( $term_id, 'instagram_google_product_category', true );
+
+	if ( ! $category_id ) {
+		$parent_id = ( $the_term instanceof WP_Term ? $the_term->parent : wp_get_term_taxonomy_parent_id( $term_id, $taxonomy ) );
+
+		if ( $parent_id ) {
+			$category_id = wc_instagram_get_google_product_category_for_term( $parent_id, $taxonomy );
+		}
+	}
+
+	return ( $category_id ? (int) $category_id : false );
+}

@@ -11,7 +11,7 @@
 	 */
 	$('form#smush-bulk-form').on('submit', function (e) {
 		e.preventDefault();
-		$('#save-settings-button').addClass('sui-button-onload-text');
+		$('#save-settings-button').addClass('sui-button-onload');
 		// TODO: this might be a problem, if we can't recalculate on larger installs.
 		saveSettings($(this).serialize(), 'bulk');
 		runReCheck();
@@ -78,7 +78,9 @@
 		);
 
 		xhr.onload = () => {
-			$('#save-settings-button').removeClass('sui-button-onload-text');
+			$('#save-settings-button').removeClass(
+				'sui-button-onload-text sui-button-onload'
+			);
 
 			if (200 === xhr.status) {
 				const res = JSON.parse(xhr.response);
@@ -130,7 +132,7 @@
 	 * Re-check images from bulk smush and integrations pages.
 	 */
 	function runReCheck() {
-		$('#save-settings-button').addClass('sui-button-onload-text');
+		$('#save-settings-button').addClass('sui-button-onload');
 
 		const param = {
 			action: 'scan_for_resmush',
@@ -139,9 +141,9 @@
 		};
 
 		// Send ajax, Update Settings, And Check For resmush.
-		$.post(ajaxurl, $.param(param)).done(function (r) {
+		$.post(ajaxurl, $.param(param)).done(function () {
 			//showSuccessNotice(r.data.notice);
-			$('#save-settings-button').removeClass('sui-button-onload-text');
+			$('#save-settings-button').removeClass('sui-button-onload');
 		});
 	}
 

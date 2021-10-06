@@ -33,7 +33,7 @@ class FeaturedImage extends AC\Column\Post\FeaturedImage
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\FeaturedImage( $this );
+		return new Editing\Service\Post\FeaturedImage();
 	}
 
 	public function export() {

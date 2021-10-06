@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Customer_Value_Average_Order_Amount extends 
     public function get_label()
     {
 
-        return __('Spent - Average per order', 'rightpress');
+        return esc_html__('Spent - Average per order', 'rightpress');
     }
 
     /**

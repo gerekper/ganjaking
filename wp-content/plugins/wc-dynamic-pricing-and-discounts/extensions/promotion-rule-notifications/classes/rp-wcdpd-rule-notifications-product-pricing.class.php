@@ -52,17 +52,17 @@ class RP_WCDPD_Rule_Notifications_Product_Pricing extends RP_WCDPD_Rule_Notifica
     {
         $settings['promo']['children']['rule_notifications']['children'] = array_merge($settings['promo']['children']['rule_notifications']['children'], array(
             'promo_rule_notifications_product_pricing' => array(
-                'title'     => __('Product Pricing', 'rp_wcdpd'),
+                'title'     => esc_html__('Product Pricing', 'rp_wcdpd'),
                 'type'      => 'checkbox',
                 'default'   => '0',
             ),
             'promo_rule_notifications_product_pricing_message' => array(
-                'title'     => __('Text', 'rp_wcdpd'),
+                'title'     => esc_html__('Text', 'rp_wcdpd'),
                 'type'      => 'textarea',
                 'required'  => true,
                 'class'     => 'if_rp_wcdpd_promo_rule_notifications_product_pricing',
-                'default'   => __('Product discount has been applied to your cart.', 'rp_wcdpd'),
-                'hint'      => __('Macro {{description}} displays public description.', 'rp_wcdpd'),
+                'default'   => esc_html__('Product discount has been applied to your cart.', 'rp_wcdpd'),
+                'hint'      => esc_html__('Macro {{description}} displays public description.', 'rp_wcdpd'),
             ),
         ));
 

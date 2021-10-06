@@ -19,7 +19,7 @@ class Menu extends AC\Column\Menu
 	}
 
 	public function editing() {
-		return new Editing\Model\Taxonomy\Menu( $this );
+		return new Editing\Service\Taxonomy\Menu( $this->get_object_type(), $this->get_item_type() );
 	}
 
 	public function export() {

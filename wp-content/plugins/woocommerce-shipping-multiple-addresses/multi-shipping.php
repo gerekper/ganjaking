@@ -58,54 +58,54 @@ function woocommerce_multi_shipping_init() {
 				),
 				'cart_duplication_section' => array(
 					'type'          => 'title',
-					'title'         => __('Cart Duplication', 'wc_shipping_multiple_address'),
-					'description'   => __('This functionality will allow your customers to duplicate the contents of their cart in order to be able to ship the same cart to multiple addresses in addition to individual products.', 'wc_shipping_multiple_address')
+					'title'         => __( 'Cart Duplication', 'wc_shipping_multiple_address' ),
+					'description'   => __( 'This functionality will allow your customers to duplicate the contents of their cart in order to be able to ship the same cart to multiple addresses in addition to individual products.', 'wc_shipping_multiple_address' )
 				),
 				'cart_duplication' => array(
-					'title'         => __('Enable Cart Duplication', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Enable Cart Duplication', 'wc_shipping_multiple_address' ),
 					'type'          => 'checkbox',
 					'label'         => 'Enable'
 				),
 				'checkout_section' => array(
 					'type'          => 'title',
-					'title'         => __('Checkout Fields', 'wc_shipping_multiple_address')
+					'title'         => __( 'Checkout Fields', 'wc_shipping_multiple_address' )
 				),
 				'checkout_notes'    => array(
 					'type'          => 'checkbox',
-					'title'         => __('Delivery Notes', 'wc_shipping_multiple_address'),
-					'label'         => __('Enable', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Delivery Notes', 'wc_shipping_multiple_address' ),
+					'label'         => __( 'Enable', 'wc_shipping_multiple_address' ),
 					'default'       => 'yes',
-					'description'   => __('Allow customers to write delivery notes to every shipping address selected.', 'wc_shipping_multiple_address'),
+					'description'   => __( 'Allow customers to write delivery notes to every shipping address selected.', 'wc_shipping_multiple_address' ),
 					'desc_tip'      => true
 				),
 				'checkout_notes_limit'  => array(
 					'type'          => 'text',
-					'title'         => __('Limit Character Input', 'wc_shipping_multiple_address'),
-					'label'         => __('Characters', 'wc_shipping_multiple_address'),
-					'description'   => __('Limit the character input for delivery notes. Leave the box empty to disable the limit.', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Limit Character Input', 'wc_shipping_multiple_address' ),
+					'label'         => __( 'Characters', 'wc_shipping_multiple_address' ),
+					'description'   => __( 'Limit the character input for delivery notes. Leave the box empty to disable the limit.', 'wc_shipping_multiple_address' ),
 					'css'           => 'width: 100px',
 					'desc_tip'      => true
 				),
 				'checkout_datepicker'   => array(
 					'type'          => 'checkbox',
-					'title'         => __('Date Picker', 'wc_shipping_multiple_address'),
-					'label'         => __('Enable', 'wc_shipping_multiple_address'),
-					'description'   => __('Allow customers to pick delivery dates for every shipping address selected.', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Date Picker', 'wc_shipping_multiple_address' ),
+					'label'         => __( 'Enable', 'wc_shipping_multiple_address' ),
+					'description'   => __( 'Allow customers to pick delivery dates for every shipping address selected.', 'wc_shipping_multiple_address' ),
 					'desc_tip'      => true
 				),
 				'checkout_valid_days' => array(
 					'type'          => 'multiselect',
-					'title'         => __('Valid Shipping Days', 'wc_shipping_multiple_address'),
-					'label'         => __('Days', 'wc_shipping_multiple_address'),
-					'description'   => __('Days that customers can select for the "Shipping Date" during checkout.', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Valid Shipping Days', 'wc_shipping_multiple_address' ),
+					'label'         => __( 'Days', 'wc_shipping_multiple_address' ),
+					'description'   => __( 'Days that customers can select for the "Shipping Date" during checkout.', 'wc_shipping_multiple_address' ),
 					'options'       => array(
-						0   => __('Sunday', 'wc_shipping_multiple_address'),
-						1   => __('Monday', 'wc_shipping_multiple_address'),
-						2   => __('Tuesday', 'wc_shipping_multiple_address'),
-						3   => __('Wednesday', 'wc_shipping_multiple_address'),
-						4   => __('Thursday', 'wc_shipping_multiple_address'),
-						5   => __('Friday', 'wc_shipping_multiple_address'),
-						6   => __('Saturday', 'wc_shipping_multiple_address')
+						0   => __( 'Sunday', 'wc_shipping_multiple_address' ),
+						1   => __( 'Monday', 'wc_shipping_multiple_address' ),
+						2   => __( 'Tuesday', 'wc_shipping_multiple_address' ),
+						3   => __( 'Wednesday', 'wc_shipping_multiple_address' ),
+						4   => __( 'Thursday', 'wc_shipping_multiple_address' ),
+						5   => __( 'Friday', 'wc_shipping_multiple_address' ),
+						6   => __( 'Saturday', 'wc_shipping_multiple_address' )
 					),
 					'default'       => array(0,1,2,3,4,5,6),
 					'class'         => 'show-if-checkout-datepicker wc-enhanced-select',
@@ -113,85 +113,85 @@ function woocommerce_multi_shipping_init() {
 				),
 				'checkout_exclude_dates' => array(
 					'type'          => 'ms_multi_datepicker',
-					'title'         => __('Excluded Delivery Dates', 'wc_shipping_multiple_address'),
-					'label'         => __('Excluded Dates', 'wc_shipping_multiple_address'),
-					'description'   => __('Specific dates that customers cannnot select for the "Shipping Date" during checkout.', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Excluded Delivery Dates', 'wc_shipping_multiple_address' ),
+					'label'         => __( 'Excluded Dates', 'wc_shipping_multiple_address' ),
+					'description'   => __( 'Specific dates that customers cannnot select for the "Shipping Date" during checkout.', 'wc_shipping_multiple_address' ),
 					'class'         => 'show-if-checkout-datepicker',
 					'desc_tip'      => true
 				),
 				'gift_section'  => array(
 					'type'          => 'title',
-					'title'         => __('Gift Packages', 'wc_shipping_multiple_address'),
-					'description'   => __('Allow customers to mark certain shipping packages as gifts', 'wc_shipping_multiple_address')
+					'title'         => __( 'Gift Packages', 'wc_shipping_multiple_address' ),
+					'description'   => __( 'Allow customers to mark certain shipping packages as gifts', 'wc_shipping_multiple_address' )
 				),
 				'gift_packages'     => array(
-					'title'         => __('Enable Gift Packages', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Enable Gift Packages', 'wc_shipping_multiple_address' ),
 					'type'          => 'checkbox',
 					'label'         => 'Enable'
 				),
 				'exclusions'        => array(
 					'type'          => 'title',
-					'title'         => __('Excluded Products &amp; Categories', 'wc_shipping_multiple_address'),
-					'description'   => __('Do not allow multiple shipping addresses when any of the products and categories below are in the cart', 'wc_shipping_multiple_address')
+					'title'         => __( 'Excluded Products &amp; Categories', 'wc_shipping_multiple_address' ),
+					'description'   => __( 'Do not allow multiple shipping addresses when any of the products and categories below are in the cart', 'wc_shipping_multiple_address' )
 				),
 				'excluded_products' => array(
-					'title'         => __('Products', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Products', 'wc_shipping_multiple_address' ),
 					'type'          => 'ms_product_select'
 				),
 				'excluded_categories' => array(
-					'title'         => __('Categories', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Categories', 'wc_shipping_multiple_address' ),
 					'type'          => 'ms_category_select'
 				),
 				'language_section' => array(
 					'type'          => 'title',
-					'title'         => __('Text your shoppers see when Multiple Shipping is enabled at checkout', 'wc_shipping_multiple_address')
+					'title'         => __( 'Text your shoppers see when Multiple Shipping is enabled at checkout', 'wc_shipping_multiple_address' )
 				),
 				'lang_notification' => array(
 					'type'          => 'text',
-					'title'         => __('Checkout Notification', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Checkout Notification', 'wc_shipping_multiple_address' ),
 					'css'           => 'width: 350px;',
-					'default'       => 'You may use multiple shipping addresses on this cart'
+					'default'       => __( 'You may use multiple shipping addresses on this cart', 'wc_shipping_multiple_address' ),
 				),
 				'lang_btn_items' => array(
 					'type'          => 'text',
-					'title'         => __('Button: Item Addresses', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Button: Item Addresses', 'wc_shipping_multiple_address' ),
 					'css'           => 'width: 350px;',
-					'default'       => __('Set Addresses', 'wc_shipping_multiple_address')
+					'default'       => __( 'Set Multiple Addresses', 'wc_shipping_multiple_address' )
 				),
 				'partial_orders'    => array(
-					'title'         => __('Partially Complete Orders', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Partially Complete Orders', 'wc_shipping_multiple_address' ),
 					'type'          => 'checkbox',
-					'label'         => __('Enable', 'wc_shipping_multiple_address'),
-					'description'   => __('Partially complete order by shipping address', 'wc_shipping_multiple_address'),
+					'label'         => __( 'Enable', 'wc_shipping_multiple_address' ),
+					'description'   => __( 'Partially complete order by shipping address', 'wc_shipping_multiple_address' ),
 					'desc_tip'      => true
 				),
 				'email_section'     => array(
 					'type'          => 'title',
-					'title'         => __('Partial Order Completed Email', 'wc_shipping_multiple_address')
+					'title'         => __( 'Partial Order Completed Email', 'wc_shipping_multiple_address' )
 				),
 				'partial_orders_email' => array(
-					'title'         => __('Send Email', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Send Email', 'wc_shipping_multiple_address' ),
 					'type'          => 'checkbox',
-					'label'         => __('Enable', 'wc_shipping_multiple_address'),
-					'description'   => __('Send an email when an order has been marked as partially complete', 'wc_shipping_multiple_address'),
+					'label'         => __( 'Enable', 'wc_shipping_multiple_address' ),
+					'description'   => __( 'Send an email when an order has been marked as partially complete', 'wc_shipping_multiple_address' ),
 					'desc_tip'      => true
 				),
 				'email_subject'     => array(
 					'type'          => 'text',
-					'title'         => __('Subject', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Subject', 'wc_shipping_multiple_address' ),
 					'css'           => 'width: 350px;',
-					'default'       => __('Part of your order has been shipped', 'wc_shipping_multiple_address')
+					'default'       => __( 'Part of your order has been shipped', 'wc_shipping_multiple_address' )
 				),
 				'email_message'     => array(
 					'type'          => 'ms_wp_editor',
-					'description'   => __('Leave empty to use the default email message', 'wc_shipping_multiple_address'),
+					'description'   => __( 'Leave empty to use the default email message', 'wc_shipping_multiple_address' ),
 					'desc_tip'      => true,
-					'title'         => __('Message', 'wc_shipping_multiple_address'),
+					'title'         => __( 'Message', 'wc_shipping_multiple_address' ),
 					'css'           => 'width: 350px;',
-					'default'       => __('<p>Hi there. Part of your recent order on '. get_option( 'blogname' ) .' has been completed. Your order details are shown below for your reference:</p>
+					'default'       => __( '<p>Hi there. Part of your recent order on '. get_option( 'blogname' ) .' has been completed. Your order details are shown below for your reference:</p>
 										<h2>Order: {order_id}</h2>
 										{products_table}
-										{addresses_table}', 'wc_shipping_multiple_address')
+										{addresses_table}', 'wc_shipping_multiple_address' )
 				),
 			);
 		}

@@ -104,6 +104,7 @@ class ComposerStaticInit6cd39ad071973d12e23974cf675cdc17
         'CT_Ultimate_GDPR_Service_Yith_Woocommerce_Wishlist' => __DIR__ . '/../..' . '/includes/service/service-yith-woocommerce-wishlist.php',
         'CT_Ultimate_GDPR_Service_Youtube' => __DIR__ . '/../..' . '/includes/service/service-youtube.php',
         'CT_Ultimate_GDPR_Service_bbPress' => __DIR__ . '/../..' . '/includes/service/service-bbpress.php',
+        'CT_Ultimate_GDPR_Shortcode_Block_Cookies' => __DIR__ . '/../..' . '/includes/shortcode/shortcode-block-cookies.php',
         'CT_Ultimate_GDPR_Shortcode_Cookie_Popup' => __DIR__ . '/../..' . '/includes/shortcode/shortcode-cookie-popup.php',
         'CT_Ultimate_GDPR_Shortcode_Myaccount' => __DIR__ . '/../..' . '/includes/shortcode/shortcode-myaccount.php',
         'CT_Ultimate_GDPR_Shortcode_Policy_Accept' => __DIR__ . '/../..' . '/includes/shortcode/shortcode-policy-accept.php',

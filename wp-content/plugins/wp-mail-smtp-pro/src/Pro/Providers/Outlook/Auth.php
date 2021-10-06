@@ -256,10 +256,10 @@ class Auth extends AuthAbstract {
 			$client instanceof GenericProvider
 		) {
 
-			$url_options = array(
-				'state' => wp_create_nonce( $this->state_key ),
+			$url_options = [
+				'state' => 'wp-mail-smtp-' . wp_create_nonce( $this->state_key ),
 				'scope' => $this->get_scopes(),
-			);
+			];
 
 			$auth_url = $client->getAuthorizationUrl( $url_options );
 

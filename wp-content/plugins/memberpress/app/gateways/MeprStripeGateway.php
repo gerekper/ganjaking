@@ -121,11 +121,10 @@ class MeprStripeGateway extends MeprBaseRealGateway {
    * @throws MeprRemoteException
    */
   public function get_stripe_tax_rate_id($name, $rate, $product, $inclusive = false)
-
   {
     $tax_request = [
       'inclusive' => 'false',
-      'percentage' => $rate,
+      'percentage' => MeprUtils::format_float((float) $rate),
     ];
 
     if (empty($name)) {
@@ -222,12 +221,18 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       $tax_inclusive = false;
     }
 
-    $success_url = $mepr_options->thankyou_page_url([
-        'membership' => sanitize_title($product->post_title),
-        'transaction_id' => $txn->id,
-        'membership_id' => $product->ID,
-    ]);
-    $cancel_url   = esc_url_raw( strtok($_POST['mepr_current_url'], "#"));
+    $thankyou_page_args = [
+      'membership' => sanitize_title($product->post_title),
+      'transaction_id' => $txn->id,
+      'membership_id' => $product->ID,
+    ];
+
+    if($sub instanceof MeprSubscription) {
+      $thankyou_page_args = array_merge($thankyou_page_args, ['subscription_id' => $sub->id]);
+    }
+
+    $success_url = $mepr_options->thankyou_page_url($thankyou_page_args);
+    $cancel_url = esc_url_raw(strtok($_POST['mepr_current_url'], "#"));
 
     if (empty($cancel_url)) {
       $cancel_url = home_url() . $_SERVER["REQUEST_URI"];
@@ -507,16 +512,9 @@ class MeprStripeGateway extends MeprBaseRealGateway {
   }
 
   public function process_payment_form($txn) {
-    // The payment form only needs to be processed for Stripe Checkout
-    if (!isset($_REQUEST['mepr_stripe_is_checkout'])) {
-      if (isset($_REQUEST['mepr_payment_methods_hidden']) && $txn->amount == 0.00) {
-        MeprTransaction::create_free_transaction($txn);
-      }
-
-      return;
+    if(isset($_REQUEST['mepr_payment_methods_hidden']) && $txn->amount == 0.00) {
+      MeprTransaction::create_free_transaction($txn);
     }
-
-    parent::process_payment_form($txn);
   }
 
   /** Used to send data to a given payment gateway. In gateways which redirect
@@ -1108,6 +1106,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
         $txn->trans_num = $charge['id'];
         $txn->store();
         $this->record_payment($charge);
+        MeprHooks::do_action('mepr-signup', $txn);
         return;
       }
     }
@@ -1131,6 +1130,7 @@ class MeprStripeGateway extends MeprBaseRealGateway {
 
       if ($first_txn instanceof MeprTransaction) {
         $this->activate_subscription($first_txn, $memberpress_subscription);
+        MeprHooks::do_action('mepr-signup', $first_txn);
       }
 
       $memberpress_subscription->store();
@@ -1175,6 +1175,8 @@ class MeprStripeGateway extends MeprBaseRealGateway {
 
     $customer = $this->legacy_stripe_customer($txn->subscription_id, $card);
 
+    $tax_rate_id = $txn->tax_rate > 0 ? $this->get_stripe_tax_rate_id($txn->tax_desc, $txn->tax_rate, $prd, false) : null;
+
     if($sub->trial && (float) $sub->trial_amount > 0.00) {
       // Use a temporary transaction to calculate the paid trial amount without tax
       $tmp_txn = new MeprTransaction();
@@ -1185,10 +1187,9 @@ class MeprStripeGateway extends MeprBaseRealGateway {
       $amount = self::is_zero_decimal_currency() ? MeprUtils::format_float($tmp_txn->amount, 0) : MeprUtils::format_float($tmp_txn->amount * 100, 0);
 
       $plan = $this->stripe_plan($txn->subscription(), true);
-      $tax_rate_id = $this->get_stripe_tax_rate_id($txn->tax_desc, $txn->tax_rate, $prd, false);
 
       // For paid trials, add the trial payment amount as an invoice item before creating the subscription
-      $args = MeprHooks::apply_filters('mepr_stripe_paid_trial_invoice_args', [
+      $args = [
         'customer' => $customer->id,
         'amount' => $amount,
         'currency' => $mepr_options->currency_code,
@@ -1199,23 +1200,33 @@ class MeprStripeGateway extends MeprBaseRealGateway {
           'site_url' => get_site_url(),
           'ip_address' => $_SERVER['REMOTE_ADDR']
         ],
-        'tax_rates' => [$tax_rate_id],
         'discountable' => 'false'
-      ], $txn, $sub);
+      ];
+
+      if($tax_rate_id) {
+        $args['tax_rates'] = [$tax_rate_id];
+      }
+
+      $args = MeprHooks::apply_filters('mepr_stripe_paid_trial_invoice_args', $args, $txn, $sub);
 
       $this->send_stripe_request('invoiceitems', $args, 'post');
     }
 
-    $args = MeprHooks::apply_filters('mepr_stripe_subscription_args', array(
+    $args = array(
       'plan' => $plan->id,
-      'tax_rates' => [$tax_rate_id],
       'metadata' => array(
         'platform' => 'MemberPress Connect acct_1FIIDhKEEWtO8ZWC',
         'transaction_id' => $txn->id,
         'site_url' => esc_url( get_site_url() ),
         'ip_address' => $_SERVER['REMOTE_ADDR']
       ),
-    ), $txn, $sub);
+    );
+
+    if($tax_rate_id) {
+      $args['tax_rates'] = [$tax_rate_id];
+    }
+
+    $args = MeprHooks::apply_filters('mepr_stripe_subscription_args', $args, $txn, $sub);
 
     if($sub->trial) {
       $args = array_merge(array('trial_period_days' => $sub->trial_days), $args);
@@ -1353,18 +1364,19 @@ class MeprStripeGateway extends MeprBaseRealGateway {
   public function update_subscription_payment_method(MeprSubscription $sub, MeprUser $usr, $payment_method) {
     // Attach the payment method to the customer and set this as the default payment method for the subscription
     if(strpos($sub->subscr_id, 'sub_') === 0) {
+      $subscription = (object) $this->send_stripe_request('subscriptions/' . $sub->subscr_id, [], 'get');
+      $this->send_stripe_request('payment_methods/' . $payment_method->id . '/attach', ['customer' => $subscription->customer]);
+      $this->send_stripe_request('subscriptions/' . $sub->subscr_id, ['default_payment_method' => $payment_method->id]);
+
       $customer_id = $usr->get_stripe_customer_id($this->get_meta_gateway_id());
 
       if(!is_string($customer_id) || strpos($customer_id, 'cus_') !== 0) {
-        // If the Stripe customer ID isn't saved locally for this user, let's fetch it first from the subscription, then
-        // save it. This can happen if sub_ subscriptions are imported and the cus_ IDs aren't imported for users.
-        $subscription = (object) $this->send_stripe_request('subscriptions/' . $sub->subscr_id, [], 'get');
+        // If the Stripe customer ID isn't saved locally for this user, let's save it. This can happen if sub_
+        // subscriptions are imported and the cus_ IDs aren't imported for users.
         $usr->set_stripe_customer_id($this->get_meta_gateway_id(), $subscription->customer);
       }
-
-      $this->get_customer_id($usr, $payment_method->id);
-      $this->send_stripe_request('subscriptions/' . $sub->subscr_id, ['default_payment_method' => $payment_method->id], 'post');
-    } else {
+    }
+    else {
       $this->stripe_customer($sub->id, $payment_method->id);
     }
 
@@ -1555,22 +1567,23 @@ class MeprStripeGateway extends MeprBaseRealGateway {
 
     if($tax_inclusive) {
       $plan_id = $this->get_stripe_plan_id($sub, $prd, $usr, $sub->total);
-      $tax_rate_id = $this->get_stripe_tax_rate_id($sub->tax_desc, $sub->tax_rate, $prd, true);
+      $tax_rate_id = $sub->tax_rate > 0 ? $this->get_stripe_tax_rate_id($sub->tax_desc, $sub->tax_rate, $prd, true) : null;
     }
     else {
       $prd->price = $sub->price;
       $plan_id = $this->get_stripe_plan_id($sub, $prd, $usr);
-      $tax_rate_id = $this->get_stripe_tax_rate_id($sub->tax_desc, $sub->tax_rate, $prd, false);
+      $tax_rate_id = $sub->tax_rate > 0 ? $this->get_stripe_tax_rate_id($sub->tax_desc, $sub->tax_rate, $prd, false) : null;
+    }
+
+    $item = ['plan' => $plan_id];
+
+    if($tax_rate_id) {
+      $item['tax_rates'] = [$tax_rate_id];
     }
 
     $args = MeprHooks::apply_filters('mepr_stripe_resume_subscription_args', [
       'customer' => $customer->id,
-      'items' => [
-        [
-          'plan' => $plan_id,
-          'tax_rates'=> [$tax_rate_id],
-        ],
-      ],
+      'items' => [$item],
       'expand' => [
         'latest_invoice',
       ],
@@ -3249,9 +3262,9 @@ class MeprStripeGateway extends MeprBaseRealGateway {
 
     if ($tax_inclusive) {
       $plan_id = $this->get_stripe_plan_id($sub, $prd, $usr, $prd->price);
-      $tax_rate_id = $this->get_stripe_tax_rate_id($txn->tax_desc, $txn->tax_rate, $prd, $tax_inclusive);
+      $tax_rate_id = $txn->tax_rate > 0 ? $this->get_stripe_tax_rate_id($txn->tax_desc, $txn->tax_rate, $prd, $tax_inclusive) : null;
     } else {
-      $tax_rate_id = $this->get_stripe_tax_rate_id($txn->tax_desc, $txn->tax_rate, $prd);
+      $tax_rate_id = $txn->tax_rate > 0 ? $this->get_stripe_tax_rate_id($txn->tax_desc, $txn->tax_rate, $prd) : null;
     }
 
     if($sub->trial && (float) $sub->trial_amount > 0.00) {
@@ -3269,9 +3282,8 @@ class MeprStripeGateway extends MeprBaseRealGateway {
 
       $amount = self::is_zero_decimal_currency() ? MeprUtils::format_float($amount, 0) : MeprUtils::format_float($amount * 100, 0);
 
-
       // For paid trials, add the trial payment amount as an invoice item before creating the subscription
-      $args = MeprHooks::apply_filters('mepr_stripe_paid_trial_invoice_args', [
+      $args = [
         'customer' => $customer_id,
         'amount' => $amount,
         'currency' => $mepr_options->currency_code,
@@ -3282,17 +3294,28 @@ class MeprStripeGateway extends MeprBaseRealGateway {
           'site_url' => get_site_url(),
           'ip_address' => $_SERVER['REMOTE_ADDR']
         ],
-        'tax_rates' => [$tax_rate_id],
         'discountable' => 'false'
-      ], $txn, $sub);
+      ];
+
+      if($tax_rate_id) {
+        $args['tax_rates'] = [$tax_rate_id];
+      }
+
+      $args = MeprHooks::apply_filters('mepr_stripe_paid_trial_invoice_args', $args, $txn, $sub);
 
       $this->send_stripe_request('invoiceitems', $args, 'post');
+    }
+
+    $item = ['plan' => $plan_id];
+
+    if($tax_rate_id) {
+      $item['tax_rates'] = [$tax_rate_id];
     }
 
     $args = MeprHooks::apply_filters('mepr_stripe_subscription_args', [
       'customer' => $customer_id,
       'default_payment_method' => $payment_method_id,
-      'items' => [['plan' => $plan_id, 'tax_rates' => [$tax_rate_id]]],
+      'items' => [$item],
       'expand' => [
         'latest_invoice.payment_intent',
         'pending_setup_intent'

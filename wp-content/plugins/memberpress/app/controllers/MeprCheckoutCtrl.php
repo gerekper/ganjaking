@@ -55,14 +55,24 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
           switch($model) {
             case 'MeprTransaction':
               // Only fetch the object once!
-              if(!isset($txn) && isset($_GET['trans_num']) && !empty($_GET['trans_num'])) {
-                $rec = $model::get_one_by_trans_num($_GET['trans_num']);
-                $txn = $obj = new MeprTransaction($rec->id);
+              if(!isset($txn)) {
+                if(isset($_GET['trans_num']) && !empty($_GET['trans_num'])) {
+                  $rec = $model::get_one_by_trans_num($_GET['trans_num']);
+                  $txn = $obj = new MeprTransaction($rec->id);
+                }
+                elseif(isset($_GET['transaction_id']) && !empty($_GET['transaction_id'])) {
+                  $txn = $obj = new MeprTransaction((int) $_GET['transaction_id']);
+                }
               }
               break;
             case 'MeprSubscription':
-              if(!isset($sub) && isset($_GET['subscr_id']) && !empty($_GET['subscr_id'])) {
-                $sub = $obj = $model::get_one_by_subscr_id($_GET['subscr_id']);
+              if(!isset($sub)) {
+                if(isset($_GET['subscr_id']) && !empty($_GET['subscr_id'])) {
+                  $sub = $obj = $model::get_one_by_subscr_id($_GET['subscr_id']);
+                }
+                elseif(isset($_GET['subscription_id']) && !empty($_GET['subscription_id'])) {
+                  $sub = $obj = $model::get_one((int) $_GET['subscription_id']);
+                }
               }
               break;
             case 'MeprUser':
@@ -78,7 +88,7 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
             default:
               unset($obj);
           }
-          if(isset($obj) && ((int)$obj->id > 0 || (int)$obj->ID > 0)) {
+          if(isset($obj) && (isset($obj->id) && (int) $obj->id > 0) || (isset($obj->ID) && (int) $obj->ID > 0)) {
             $content = str_replace($code, $obj->$attr, $content);
             break; // once we've replaced the code time to move on
           }
@@ -687,7 +697,7 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
     // If these aren't set as parameters then this isn't actually a real checkout
     if( !isset($req['membership']) ||
         !isset($req['membership_id']) ||
-        !isset($req['trans_num']) ) {
+       (!isset($req['trans_num']) && !isset($req['transaction_id']))) {
       return false;
     }
 
@@ -704,23 +714,19 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
     return true;
   }
 
-
   private function request_has_valid_thank_you_trans_num($req) {
     // If this is an invalid transaction then let's bail, yo
-    $txn_results = MeprTransaction::get_one_by_trans_num($req['trans_num']);
-    if( !$txn_results || empty($txn_results) ) {
-      return false;
-    }
+    $transaction = $this->get_transaction_from_request($req);
 
-    return true;
+    return !empty($transaction);
   }
 
   private function request_has_valid_thank_you_membership($atts, $req) {
     $membership = new MeprProduct($req['membership_id']);
-    $txn_results = MeprTransaction::get_one_by_trans_num($req['trans_num']);
+    $transaction = $this->get_transaction_from_request($req);
 
     // If this transaction doesn't match the membership then something fishy is going on here bro
-    if($txn_results->product_id != $membership->ID) {
+    if(empty($transaction) || $transaction->product_id != $membership->ID) {
       return false;
     }
 
@@ -732,5 +738,16 @@ class MeprCheckoutCtrl extends MeprBaseCtrl {
     }
 
     return true;
+  }
+
+  private function get_transaction_from_request($req) {
+    if(isset($req['trans_num'])) {
+      return MeprTransaction::get_one_by_trans_num($req['trans_num']);
+    }
+    elseif(isset($req['transaction_id'])) {
+      return MeprTransaction::get_one((int) $req['transaction_id']);
+    }
+
+    return false;
   }
 }

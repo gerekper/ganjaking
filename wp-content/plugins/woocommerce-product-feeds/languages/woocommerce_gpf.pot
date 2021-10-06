@@ -1,9 +1,9 @@
 # Copyright (C) 2017 Ademti Software Ltd.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Product Feed 10.1.4\n"
+"Project-Id-Version: WooCommerce Google Product Feed 10.2.1\n"
 "Report-Msgid-Bugs-To: https://plugins.leewillis.co.uk/support\n"
-"POT-Creation-Date: 2021-07-20 09:42:57+00:00\n"
+"POT-Creation-Date: 2021-09-28 08:52:42+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "<strong>%1$d</strong> / <strong>%2$d</strong> generated"
 msgstr ""
 
-#: src/cache/woocommerce-gpf-cache-status.php:127
+#: src/cache/woocommerce-gpf-cache-status.php:140
 msgid "** Cache rebuild scheduled **"
 msgstr ""
 
@@ -130,19 +130,19 @@ msgstr ""
 msgid "Invalid feed requested"
 msgstr ""
 
-#: src/common/woocommerce-product-feeds-feed-image-manager.php:127
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:144
 msgid "Set as product image"
 msgstr ""
 
-#: src/common/woocommerce-product-feeds-feed-image-manager.php:132
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:149
 msgid "Added via product gallery"
 msgstr ""
 
-#: src/common/woocommerce-product-feeds-feed-image-manager.php:137
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:154
 msgid "Attached as media to product"
 msgstr ""
 
-#: src/common/woocommerce-product-feeds-feed-image-manager.php:142
+#: src/common/woocommerce-product-feeds-feed-image-manager.php:159
 msgid "Added via filters"
 msgstr ""
 
@@ -909,76 +909,84 @@ msgstr ""
 msgid "Google merchant centre product inventory feed (legacy)s"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:879
+#: src/gpf/woocommerce-gpf-common.php:880
 msgid "SKU"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:880
+#: src/gpf/woocommerce-gpf-common.php:881
 msgid "Product title"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:881
+#: src/gpf/woocommerce-gpf-common.php:882
 msgid "Variation title"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:882
+#: src/gpf/woocommerce-gpf-common.php:883
 msgid "Stock Qty"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:883
+#: src/gpf/woocommerce-gpf-common.php:884
 msgid "Stock Status"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:884
+#: src/gpf/woocommerce-gpf-common.php:885
 msgid "\"Allow backorders\" setting"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:885
+#: src/gpf/woocommerce-gpf-common.php:886
 msgid "Tax class"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:891
+#: src/gpf/woocommerce-gpf-common.php:892
 msgid "- Product fields -"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:911
+#: src/gpf/woocommerce-gpf-common.php:916
 #. Translators: %s is a taxonomy name
 msgid "%s (full hierarchy)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:920
+#: src/gpf/woocommerce-gpf-common.php:927
+msgid "- Global attributes -"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:931
 msgid "- Taxonomies -"
 msgstr ""
 
 #: src/gpf/woocommerce-gpf-common.php:952
+msgid "- Custom attributes -"
+msgstr ""
+
+#: src/gpf/woocommerce-gpf-common.php:987
 msgid "- Custom fields -"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:971
+#: src/gpf/woocommerce-gpf-common.php:1006
 msgid "- Descriptions -"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:973
+#: src/gpf/woocommerce-gpf-common.php:1008
 msgid "Main product description (full preferred) plus variation description"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:975
+#: src/gpf/woocommerce-gpf-common.php:1010
 msgid "Main product description (short preferred) plus variation description"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:977
+#: src/gpf/woocommerce-gpf-common.php:1012
 msgid "Main product description only (full preferred)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:979
+#: src/gpf/woocommerce-gpf-common.php:1014
 msgid "Main product description only (short preferred)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:981
+#: src/gpf/woocommerce-gpf-common.php:1016
 msgid "Variation description only, fallback to main description (full preferred)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-common.php:983
+#: src/gpf/woocommerce-gpf-common.php:1018
 msgid "Variation description only, fallback to main description (short preferred)"
 msgstr ""
 

@@ -4,7 +4,7 @@
 <div id="mailpoet_subscribers_import" class="wrap">
   <h1 class="mailpoet-h1 mailpoet-title">
     <span><%= __('Import') %></span>
-    <a class="mailpoet-button mailpoet-button-small" href="?page=mailpoet-subscribers#/"><%= __('Back to Subscribers') %></a>
+    <a class="mailpoet-button button button-secondary button-small" href="?page=mailpoet-subscribers#/"><%= __('Back to Subscribers') %></a>
   </h1>
   <!-- STEP subscriber data manipulation -->
   <% include 'subscribers/importExport/import/step_data_manipulation.html' %>
@@ -102,13 +102,6 @@
 'seeVideo': __(' See video guide'),
 'importAgain': __('Import again'),
 'viewSubscribers': __('View subscribers'),
-'offerMigrationHead': __('Let a MailPoet expert help you for free'),
-'offerMigrationSubhead': __('You have a nice list! Our amazing support team can help you, all for free, with the following'),
-'offerMigrationList1': __('Review your list for best practices to ensure top deliverability'),
-'offerMigrationList2': __('Review your Settings to make sure everything is set up correctly'),
-'offerMigrationList3': __('Design a beautiful template that matches your brand'),
-'offerMigrationList4': __('Review your forms to get more subscribers'),
-'offerMigrationCTA': __('Contact us for free'),
 'methodPaste': __('Paste the data into a text box'),
 'pickLists': __('Pick one or more list(s)'),
 'pickListsDescription': __('Pick the list that you want to import these subscribers to.'),
@@ -140,6 +133,9 @@
 'inactive': __('Inactive'),
 'dontUpdate': _x('Don’t update', 'This is a value in a select box for "Set new subscribers’ status to"'),
 'newSubscribersStatus': __('Set new subscribers’ status to'),
+'consentSubscribed': __('Choose “Subscribed” only if you have explicit consent to send them bulk or marketing emails. [link]Why is consent important?[/link]'),
+'congratulationResult': __('Congratulations, you’ve imported your subscribers!'),
+'suppressionListReminder': __('Are you importing subscribers from another marketing service provider? You may need to separately import the list of bad or previously unsubscribed addresses to avoid contacting them. [link]See how to import a suppression list.[/link]'),
 'existingSubscribersStatus': __('Update existing subscribers’ status to'),
 }) %>
 <% endblock %>

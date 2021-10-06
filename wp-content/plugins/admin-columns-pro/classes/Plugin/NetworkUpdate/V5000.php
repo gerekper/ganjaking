@@ -3,7 +3,6 @@
 namespace ACP\Plugin\NetworkUpdate;
 
 use AC\Plugin;
-use AC\Plugin\Updater\Site;
 use ACP\Entity\License;
 use ACP\LicenseKeyRepository;
 use ACP\LicenseRepository;
@@ -18,8 +17,9 @@ class V5000 extends Update\V5000 {
 		parent::apply_update();
 
 		// Run the update script for the first (main) site in order to migrate Layout settings for Sites and Network. We need to perform all necessary updates
-		$stored_version = AC()->get_stored_version();
-		$updater = new Site( AC() );
+		$stored_version = AC()->get_stored_version()->get_value();
+
+		$updater = AC()->get_updater();
 		$updater
 			->add_update( new Plugin\Update\V3005( $stored_version ) )
 			->add_update( new Plugin\Update\V3007( $stored_version ) )

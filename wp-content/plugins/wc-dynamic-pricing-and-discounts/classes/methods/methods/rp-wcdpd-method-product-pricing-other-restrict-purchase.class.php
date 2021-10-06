@@ -56,7 +56,7 @@ class RP_WCDPD_Method_Product_Pricing_Other_Restrict_Purchase extends RP_WCDPD_M
      */
     public function get_label()
     {
-        return __('Restrict purchase of matched products', 'rp_wcdpd');
+        return esc_html__('Restrict purchase of matched products', 'rp_wcdpd');
     }
 
     /**

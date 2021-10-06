@@ -69,31 +69,15 @@ class Providers {
 	 */
 	public function process_auth_code() {
 
-		// Only super admins can do that.
-		if ( ! is_super_admin() ) {
+		// Bail if the auth request is not allowed.
+		if ( ! $this->allow_auth_request() ) {
 			return;
 		}
 
-		// Ajax is not supported.
-		if ( WP::is_doing_ajax() ) {
-			return;
-		}
+		$state = sanitize_key( $_GET['state'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$code  = preg_replace( '/[^a-zA-Z0-9_\-.]/', '', $_GET['code'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput
 
-		// We should be coming from somewhere.
-		if ( empty( $_SERVER['HTTP_REFERER'] ) ) {
-			return;
-		}
-
-		// We should have a required GET data.
-		if (
-			! isset( $_GET['code'] ) ||
-			! isset( $_GET['state'] )
-		) {
-			return;
-		}
-
-		$state = sanitize_key( $_GET['state'] );
-		$code  = preg_replace( '/[^a-zA-Z0-9_\-.]/', '', $_GET['code'] ); // phpcs:ignore
+		$nonce = str_replace( 'wp-mail-smtp-', '', $state );
 
 		$auth         = new MSAuth();
 		$redirect_url = wp_mail_smtp()->get_admin()->get_admin_page_url();
@@ -108,7 +92,7 @@ class Providers {
 			$redirect_url = \WPMailSMTP\Admin\SetupWizard::get_site_url() . '#/step/configure_mailer/outlook';
 		}
 
-		if ( ! wp_verify_nonce( $state, $auth->state_key ) ) {
+		if ( ! wp_verify_nonce( $nonce, $auth->state_key ) ) {
 			$url = add_query_arg(
 				'error',
 				'microsoft_no_code',
@@ -144,6 +128,48 @@ class Providers {
 
 		wp_safe_redirect( $url );
 		exit;
+	}
+
+	/**
+	 * Whether we allow the auth request to be processed.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return bool
+	 */
+	private function allow_auth_request() {
+
+		// Only super admins can do that.
+		if ( ! is_super_admin() ) {
+			return false;
+		}
+
+		// Ajax is not supported.
+		if ( WP::is_doing_ajax() ) {
+			return false;
+		}
+
+		// We should be coming from somewhere.
+		if ( empty( $_SERVER['HTTP_REFERER'] ) ) {
+			return false;
+		}
+
+		// We should have a required GET data.
+		if (
+			! isset( $_GET['code'] ) || // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			! isset( $_GET['state'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		) {
+			return false;
+		}
+
+		$state = sanitize_key( $_GET['state'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		// Check whether state contains "wp-mail-smtp-".
+		if ( substr( $state, 0, 13 ) !== 'wp-mail-smtp-' ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**

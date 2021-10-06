@@ -2,6 +2,9 @@
 
 namespace ACP\Check;
 
+use AC\Admin\Page\Addons;
+use AC\Admin\Page\Columns;
+use AC\Admin\Page\Settings;
 use AC\Ajax;
 use AC\Capabilities;
 use AC\Message;
@@ -10,6 +13,7 @@ use AC\Screen;
 use AC\Storage;
 use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
+use ACP\Admin\Page\Tools;
 use ACP\LicenseKeyRepository;
 use ACP\LicenseRepository;
 
@@ -59,7 +63,7 @@ class Activation
 			return true;
 		}
 
-		// An expired license has it's own message
+		// An expired license has its own message
 		if ( $license->is_expired() ) {
 			return false;
 		}
@@ -75,33 +79,38 @@ class Activation
 			return;
 		}
 
-		if ( ! $this->show_message() ) {
-			return;
-		}
+		switch ( true ) {
+			case $screen->is_plugin_screen() && $this->show_message() :
 
-		// Inline message on plugin page
-		if ( $screen->is_plugin_screen() ) {
-			$notice = new Message\Plugin( $this->get_message(), $this->plugin_basename );
-			$notice
-				->set_type( Message::INFO )
-				->register();
-		}
+				// Inline message on plugin page
+				$notice = new Message\Plugin( $this->get_message(), $this->plugin_basename );
+				$notice
+					->set_type( Message::INFO )
+					->register();
+				break;
+			case $this->is_admin_screen( $screen ) && $this->show_message() :
 
-		// Permanent message on admin page
-		if ( $screen->is_admin_screen() ) {
-			$notice = new Message\Notice( $this->get_message() );
-			$notice
-				->set_type( Message::INFO )
-				->register();
-		}
+				// Permanent message on admin page
+				$notice = new Message\Notice( $this->get_message() );
+				$notice
+					->set_type( Message::INFO )
+					->register();
+				break;
+			case $screen->get_list_screen() && $this->get_dismiss_option()->is_expired() && $this->show_message() :
 
-		// Dismissible on list tables
-		if ( $screen->get_list_screen() && $this->get_dismiss_option()->is_expired() ) {
-			$notice = new Message\Notice\Dismissible( $this->get_message(), $this->get_ajax_handler() );
-			$notice
-				->set_type( Message::INFO )
-				->register();
+				// Dismissible message on list table
+				$notice = new Message\Notice\Dismissible( $this->get_message(), $this->get_ajax_handler() );
+				$notice
+					->set_type( Message::INFO )
+					->register();
+				break;
 		}
+	}
+
+	private function is_admin_screen( Screen $screen ) {
+		return $screen->is_admin_screen( Columns::NAME ) ||
+		       $screen->is_admin_screen( Tools::NAME ) ||
+		       $screen->is_admin_screen( Addons::NAME );
 	}
 
 	/**
@@ -151,7 +160,7 @@ class Activation
 		$this->get_ajax_handler()->verify_request();
 		$this->get_dismiss_option()->save( time() + ( MONTH_IN_SECONDS * 2 ) );
 
-		wp_die( 1 );
+		exit;
 	}
 
 }

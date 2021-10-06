@@ -1,0 +1,94 @@
+{
+    "packages": [
+        {
+            "name": "skyverge/math",
+            "version": "0.5.5",
+            "version_normalized": "0.5.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/skyverge/math.git",
+                "reference": "c6723c0c8dc173a49bd0ecbe91205dc76c4d9a77"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/skyverge/math/zipball/c6723c0c8dc173a49bd0ecbe91205dc76c4d9a77",
+                "reference": "c6723c0c8dc173a49bd0ecbe91205dc76c4d9a77",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*",
+                "satooshi/php-coveralls": "*"
+            },
+            "time": "2021-09-07T11:43:05+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "SkyVerge\\Math\\": "src/",
+                    "SkyVerge\\Math\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Arbitrary-precision arithmetic library",
+            "keywords": [
+                "Arbitrary-precision",
+                "Arithmetic",
+                "BigDecimal",
+                "BigInteger",
+                "BigRational",
+                "Brick",
+                "Math",
+                "SkyVerge"
+            ],
+            "support": {
+                "source": "https://github.com/skyverge/math/tree/0.5.5"
+            },
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/BenMorel"
+                },
+                {
+                    "type": "tidelift",
+                    "url": "https://tidelift.com/funding/github/packagist/brick/math"
+                }
+            ],
+            "install-path": "../skyverge/math"
+        },
+        {
+            "name": "skyverge/wc-plugin-framework",
+            "version": "5.5.0",
+            "version_normalized": "5.5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/skyverge/wc-plugin-framework.git",
+                "reference": "1a0f0738ac389ffb0e79f943c2efcb83ba8724ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/skyverge/wc-plugin-framework/zipball/1a0f0738ac389ffb0e79f943c2efcb83ba8724ce",
+                "reference": "1a0f0738ac389ffb0e79f943c2efcb83ba8724ce",
+                "shasum": ""
+            },
+            "require-dev": {
+                "lucatume/wp-browser": "^2.1"
+            },
+            "time": "2019-10-15T17:02:44+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "description": "The official SkyVerge WooCommerce plugin framework",
+            "support": {
+                "source": "https://github.com/skyverge/wc-plugin-framework/tree/5.5.0",
+                "issues": "https://github.com/skyverge/wc-plugin-framework/issues"
+            },
+            "install-path": "../skyverge/wc-plugin-framework"
+        }
+    ],
+    "dev": false,
+    "dev-package-names": []
+}

@@ -141,7 +141,7 @@
 }
 
 .welcome-panel p {
-	color: #787c82;
+	color: #646970;
 }
 
 .welcome-panel li a {
@@ -513,7 +513,7 @@ body #dashboard-widgets .postbox form .submit {
 }
 
 .rssSummary {
-	color: #787c82;
+	color: #646970;
 	margin-top: 4px;
 }
 
@@ -533,7 +533,7 @@ body #dashboard-widgets .postbox form .submit {
 
 #dashboard_primary .rss-widget span,
 #dashboard_primary .rss-widget span.rss-date {
-	color: #787c82;
+	color: #646970;
 }
 
 #dashboard_primary .rss-widget span.rss-date {
@@ -694,7 +694,7 @@ body #dashboard-widgets .postbox form .submit {
 	margin-bottom: 1em;
 }
 #dashboard_quick_press .drafts li time {
-	color: #787c82;
+	color: #646970;
 }
 
 #dashboard_quick_press .drafts p {
@@ -757,7 +757,7 @@ body #dashboard-widgets .postbox form .submit {
 }
 
 #dashboard_activity .no-activity p {
-	color: #787c82;
+	color: #646970;
 	font-size: 16px;
 }
 
@@ -770,7 +770,7 @@ body #dashboard-widgets .postbox form .submit {
 
 #dashboard_activity .subsubsub a .count,
 #dashboard_activity .subsubsub a.current .count {
-	color: #787c82; /* white background on the dashboard but #f1f1f1 on list tables */
+	color: #646970; /* white background on the dashboard but #f0f0f1 on list tables */
 }
 
 #future-posts ul,
@@ -789,7 +789,7 @@ body #dashboard-widgets .postbox form .submit {
 	display: inline-block;
 	margin-left: 5px;
 	min-width: 150px;
-	color: #787c82;
+	color: #646970;
 }
 
 .activity-block {
@@ -996,7 +996,7 @@ a.rsswidget {
 }
 
 .rss-widget span.rss-date {
-	color: #787c82;
+	color: #646970;
 	font-size: 13px;
 	margin-right: 3px;
 }
@@ -1027,33 +1027,23 @@ a.rsswidget {
 }
 
 #dashboard_browser_nag p.browser-update-nag.has-browser-icon {
-	padding-left: 125px;
+	padding-left: 128px;
 }
 
 #dashboard_browser_nag .browser-icon {
-	margin-top: -35px;
-}
-
-#dashboard_browser_nag.postbox.browser-insecure {
-	background-color: #b32d2e;
-	border-color: #b32d2e;
+	margin-top: -32px;
 }
 
 #dashboard_browser_nag.postbox {
-	background-color: #dba617;
+	background-color: #b32d2e;
 	background-image: none;
-	border-color: #f0c33c;
+	border-color: #b32d2e;
 	color: #fff;
 	box-shadow: none;
 }
 
-#dashboard_browser_nag.postbox.browser-insecure h2 {
-	border-bottom-color: #e65054;
-	color: #fff;
-}
-
 #dashboard_browser_nag.postbox h2 {
-	border-bottom-color: #f5e6ab;
+	border-bottom-color: transparent;
 	background: transparent none;
 	color: #fff;
 	box-shadow: none;
@@ -1061,6 +1051,10 @@ a.rsswidget {
 
 #dashboard_browser_nag a {
 	color: #fff;
+}
+
+#dashboard_browser_nag.postbox .postbox-header {
+	border-color: transparent;
 }
 
 #dashboard_browser_nag h2.hndle {

@@ -16,7 +16,7 @@ class MimeType extends AC\Column\Media\MimeType
 	}
 
 	public function editing() {
-		return new Editing\Model\Media\MimeType( $this );
+		return new Editing\Service\Media\MimeType();
 	}
 
 	public function filtering() {

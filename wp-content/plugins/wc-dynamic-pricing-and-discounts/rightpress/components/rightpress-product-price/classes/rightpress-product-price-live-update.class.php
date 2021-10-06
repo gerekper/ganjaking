@@ -13,8 +13,8 @@ defined('ABSPATH') || exit;
 final class RightPress_Product_Price_Live_Update
 {
 
-    // Flag
-    private $processing_live_update_request = false;
+    // Default position hook
+    private $default_position_hook = 'woocommerce_before_add_to_cart_button';
 
     // Singleton control
     protected static $instance = false; public static function get_instance() { return self::$instance ? self::$instance : (self::$instance = new self()); }
@@ -45,11 +45,29 @@ final class RightPress_Product_Price_Live_Update
     public function init()
     {
 
-        // Get container position hook
-        $position_hook = apply_filters('rightpress_product_price_live_update_position_hook', 'woocommerce_before_add_to_cart_button');
+        // Get position hook
+        $position_hook = $this->get_position_hook();
+
+        // Set position hook to default position hook if element is to replace main WooCommerce price element
+        if ($position_hook === 'rightpress_replace_wc_price') {
+            $position_hook = $this->default_position_hook;
+        }
 
         // Print container
         RightPress_Help::add_late_action($position_hook, array($this, 'print_container'));
+    }
+
+    /**
+     * Get position hook
+     *
+     * @access public
+     * @return string
+     */
+    public function get_position_hook()
+    {
+
+        // Allow plugins/developers to override default position hook and return
+        return apply_filters('rightpress_product_price_live_update_position_hook', $this->default_position_hook);
     }
 
     /**
@@ -66,8 +84,10 @@ final class RightPress_Product_Price_Live_Update
             return;
         }
 
-        // Print container
-        echo '<div style="clear: both;"></div><dl class="rightpress_product_price_live_update" style="display: none;"><dt><span class="rightpress_product_price_live_update_label"></span></dt><dd><span class="price"></span></dd></dl>';
+        // Print container only if not replacing default WooCommerce price element
+        if ($this->get_position_hook() !== 'rightpress_replace_wc_price') {
+            echo '<div class="rightpress_clear_both"></div><dl class="rightpress_product_price_live_update" style="display: none;"><dt><span class="rightpress_product_price_live_update_label"></span></dt><dd><span class="price rightpress_product_price_live_update_price"></span></dd></dl>';
+        }
 
         // Enqueue assets
         $this->enqueue_assets();
@@ -96,7 +116,8 @@ final class RightPress_Product_Price_Live_Update
 
         // Pass variables
         wp_localize_script('rightpress-product-price-live-update-scripts', 'rightpress_product_price_live_update_vars', array(
-            'ajaxurl' => admin_url('admin-ajax.php?rightpress_ajax=1'),
+            'ajaxurl'           => admin_url('admin-ajax.php?rightpress_ajax=1'),
+            'replace_wc_price'  => ($this->get_position_hook() === 'rightpress_replace_wc_price'),
         ));
     }
 
@@ -111,100 +132,75 @@ final class RightPress_Product_Price_Live_Update
 
         try {
 
-            // Set flag
-            $this->processing_live_update_request = true;
-
             // Get request data
-            $request_data = RightPress_Product_Price_Live_Update::get_request_data();
+            $request_data = RightPress_Product_Price::get_request_data_for_ajax_tools();
 
             // Load product object
             $object_id = !empty($request_data['variation_id']) ? $request_data['variation_id'] : $request_data['product_id'];
             $product = wc_get_product($object_id);
 
-            // Unable to load product
+            // Unable to load product object
             if (!$product) {
                 throw new Exception('Unable to load product.');
             }
 
-            // Unable to determine variation for variable product
-            if ($product->get_type() === 'variable') {
-                throw new Exception('Unable to determine product variation.');
+            // Get cart item data
+            $cart_item_data = apply_filters('rightpress_product_price_live_update_test_cart_item_data', array(), $product, $request_data);
+
+            // Allow plugins to require default price to be displayed when there are no adjustments applicable
+            $always_display = apply_filters('rightpress_product_price_live_update_always_display', false, $product);
+
+            // Get price data
+            $price_data = RightPress_Product_Price_Test::get_price_data_for_ajax_tools($cart_item_data, $always_display);
+
+            // Error occurred
+            if ($price_data === false) {
+
+                // Send response
+                echo json_encode(array(
+                    'result'    => 'error',
+                    'message'   => 'Uknown error.',
+                ));
             }
+            // Price would not be adjusted
+            else if ($price_data === null) {
 
-            // Product is not available for purchase (price is not set in WooCommerce product settings)
-            if ($product->get_price('edit') === '') {
-
-                // Send success response
+                // Send response
                 echo json_encode(array(
                     'result'    => 'success',
                     'display'   => 0,
                 ));
             }
-            // Product is available for purchase
+            // Price would be adjusted
             else {
 
-                // Get cart item data
-                $cart_item_data = apply_filters('rightpress_product_price_live_update_test_cart_item_data', array(), $product, $request_data);
+                // Format label
+                $label_text = (string) apply_filters('rightpress_product_price_live_update_label', esc_html__('Price', 'rightpress'), $product, $price_data);
+                $label_html = apply_filters('rightpress_product_price_live_update_label_html', $label_text, $product, $price_data);
 
-                // Allow plugins to require default price to be displayed when there are no adjustments applicable
-                $always_display = apply_filters('rightpress_product_price_live_update_always_display', false, $product);
+                // Allow developers to always display quantity, i.e. table with subtotal
+                $always_display_quantity = apply_filters('rightpress_product_price_live_update_always_display_quantity', false, $product, $price_data);
 
-                // Run product price test
-                $price_data = RightPress_Product_Price_Test::run($product, $request_data['quantity'], $request_data['variation_attributes'], true, $always_display, $cart_item_data);
+                // Allow developers to hide subtotal
+                $display_subtotal = apply_filters('rightpress_product_price_live_update_display_subtotal', true, $product, $price_data);
 
-                // Price test was successful
-                if ($price_data !== false) {
+                // Run price through a WooCommerce product price filter so that 3rd party price adjustments are applied (WCDPD issue #639)
+                $filtered_price = apply_filters('woocommerce_product_get_price', $price_data['price'], $product);
 
-                    // Price would be adjusted
-                    if ($price_data !== null) {
+                // Run price through our own get price filter
+                $filtered_price = apply_filters('rightpress_product_price_live_update_price', $filtered_price, $product);
 
-                        // Format label
-                        $label_text = (string) apply_filters('rightpress_product_price_live_update_label', __('Price', 'rightpress'), $product, $price_data);
-                        $label_html = apply_filters('rightpress_product_price_live_update_label_html', $label_text, $product, $price_data);
+                // Get display price html
+                $price_html = RightPress_Product_Price_Display::get_cart_item_product_display_price($product, $price_data, null, $display_subtotal, $always_display_quantity, $filtered_price);
 
-                        // Allow developers to always display quantity, i.e. table with subtotal
-                        $always_display_quantity = apply_filters('rightpress_product_price_live_update_always_display_quantity', false, $product, $price_data);
-
-                        // Allow developers to hide subtotal
-                        $display_subtotal = apply_filters('rightpress_product_price_live_update_display_subtotal', true, $product, $price_data);
-
-                        // Run price through a WooCommerce product price filter so that 3rd party price adjustments are applied (WCDPD issue #639)
-                        $filtered_price = apply_filters('woocommerce_product_get_price', $price_data['price'], $product);
-
-                        // Run price through our own get price filter
-                        $filtered_price = apply_filters('rightpress_product_price_live_update_price', $filtered_price, $product);
-
-                        // Get display price html
-                        $price_html = RightPress_Product_Price_Display::get_cart_item_product_display_price($product, $price_data, null, $display_subtotal, $always_display_quantity, $filtered_price);
-
-                        // Send success response
-                        echo json_encode(array(
-                            'result'        => 'success',
-                            'display'       => 1,
-                            'label_html'    => $label_html,
-                            'price_html'    => $price_html,
-                            'extra_data'    => apply_filters('rightpress_product_price_live_update_extra_data', array()),
-                        ));
-                    }
-                    // Price would not be adjusted
-                    else {
-
-                        // Send success response
-                        echo json_encode(array(
-                            'result'    => 'success',
-                            'display'   => 0,
-                        ));
-                    }
-                }
-                // Error occurred during price test
-                else {
-
-                    // Send error response
-                    echo json_encode(array(
-                        'result'    => 'error',
-                        'message'   => 'Uknown error.',
-                    ));
-                }
+                // Send success response
+                echo json_encode(array(
+                    'result'        => 'success',
+                    'display'       => 1,
+                    'label_html'    => $label_html,
+                    'price_html'    => $price_html,
+                    'extra_data'    => apply_filters('rightpress_product_price_live_update_extra_data', array()),
+                ));
             }
         }
         catch (Exception $e) {
@@ -220,19 +216,11 @@ final class RightPress_Product_Price_Live_Update
     }
 
     /**
-     * Check if system is processing product price live update request
-     *
-     * @access public
-     * @return bool
-     */
-    public static function is_processing_live_update_request()
-    {
-        $instance = RightPress_Product_Price_Live_Update::get_instance();
-        return $instance->processing_live_update_request;
-    }
-
-    /**
      * Get request data
+     *
+     * Proxy for RightPress_Product_Price::get_request_data_for_ajax_tools()
+     *
+     * Note: Do not remove this method from this location as it is called by several plugins which may be of different versions
      *
      * @access public
      * @return array
@@ -240,19 +228,8 @@ final class RightPress_Product_Price_Live_Update
     public static function get_request_data()
     {
 
-        // Allow plugins to extract their own data from request
-        $custom_keys = apply_filters('rightpress_product_price_live_update_custom_keys', array('rightpress_complete_input_list'));
-
-        // Extract request data
-        return RightPress_Help::get_product_page_ajax_request_data($custom_keys);
+        return RightPress_Product_Price::get_request_data_for_ajax_tools();
     }
-
-
-
-
-
-
-
 
 
 

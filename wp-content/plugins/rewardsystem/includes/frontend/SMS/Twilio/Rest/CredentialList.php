@@ -33,10 +33,10 @@
  */
 
 class Services_Twilio_Rest_CredentialList extends Services_Twilio_InstanceResource {
-    protected function init($client, $uri) {
-        $this->setupSubresources(
-            'credentials'
-        );
-    }
+	protected function init( $client, $uri) {
+		$this->setupSubresources(
+			'credentials'
+		);
+	}
 }
 

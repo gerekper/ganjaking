@@ -684,7 +684,15 @@ function wc_bookings_get_time_slots( $bookable_product, $blocks, $intervals = ar
 		WC_Bookings_Cache::set( $transient_name, $available_slots );
 	}
 
-	return $available_slots;
+	$args = array(
+		'blocks'           => $blocks,
+		'intervals'        => $intervals,
+		'resource_id'      => $resource_id,
+		'from'             => $from,
+		'to'               => $to,
+		'include_sold_out' => $include_sold_out,
+	);
+	return apply_filters( 'woocommerce_bookings_filter_time_slots', $available_slots, $bookable_product, $args );
 }
 
 /**

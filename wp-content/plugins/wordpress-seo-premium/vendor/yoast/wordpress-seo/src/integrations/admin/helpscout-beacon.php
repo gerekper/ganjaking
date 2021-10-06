@@ -69,6 +69,7 @@ class HelpScout_Beacon implements Integration_Interface {
 		'wpseo_social',
 		'wpseo_tools',
 		'wpseo_licenses',
+		'wpseo_workouts',
 	];
 
 	/**
@@ -246,7 +247,7 @@ class HelpScout_Beacon implements Integration_Interface {
 
 		$product_info  = '<table>';
 		$product_info .= '<tr><td>Version</td><td>' . $plugin->product->version . '</td></tr>';
-		$product_info .= '<tr><td>Expiration date</td><td>' . date('Y-m-d', strtotime('+50 years')) . '</td></tr>';
+		$product_info .= '<tr><td>Expiration date</td><td>' . $plugin->expiry_date . '</td></tr>';
 		$product_info .= '</table>';
 
 		return $product_info;

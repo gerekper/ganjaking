@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Shipping_State extends RightPress_Condition_
     public function get_label()
     {
 
-        return __('Shipping state', 'rightpress');
+        return esc_html__('Shipping state', 'rightpress');
     }
 
     /**

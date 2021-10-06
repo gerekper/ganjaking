@@ -4,10 +4,8 @@ namespace AC\Admin\Page;
 
 use AC\Admin;
 use AC\Admin\Banner;
-use AC\Admin\Helpable;
-use AC\Admin\HelpTab;
-use AC\Admin\Page;
 use AC\Admin\Preference;
+use AC\Admin\RenderableHead;
 use AC\Admin\ScreenOption;
 use AC\Admin\Section\Partial\Menu;
 use AC\Asset\Assets;
@@ -21,6 +19,7 @@ use AC\DefaultColumnsRepository;
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\ListScreenTypes;
+use AC\Renderable;
 use AC\Request;
 use AC\Type\ListScreenId;
 use AC\Type\Url\Documentation;
@@ -28,7 +27,7 @@ use AC\Type\Url\Site;
 use AC\Type\Url\UtmTags;
 use AC\View;
 
-class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOptions {
+class Columns implements Enqueueables, Admin\ScreenOptions, Renderable, RenderableHead {
 
 	const NAME = 'columns';
 
@@ -53,6 +52,11 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	private $storage;
 
 	/**
+	 * @var Renderable
+	 */
+	private $head;
+
+	/**
 	 * @var Preference\ListScreen
 	 */
 	private $preference;
@@ -62,15 +66,18 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 	 */
 	private $is_network;
 
-	public function __construct( Location\Absolute $location, DefaultColumnsRepository $default_columns, Menu $menu, Storage $storage, Preference\ListScreen $preference, $is_network = false ) {
-		parent::__construct( self::NAME, __( 'Admin Columns', 'codepress-admin-columns' ) );
-
+	public function __construct( Location\Absolute $location, DefaultColumnsRepository $default_columns, Menu $menu, Storage $storage, Renderable $head, Preference\ListScreen $preference, $is_network = false ) {
 		$this->location = $location;
 		$this->default_columns = $default_columns;
 		$this->menu = $menu;
 		$this->storage = $storage;
+		$this->head = $head;
 		$this->preference = $preference;
 		$this->is_network = (bool) $is_network;
+	}
+
+	public function render_head() {
+		return $this->head;
 	}
 
 	/**
@@ -107,14 +114,6 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 			new Style( 'ac-select2' ),
 			new Script( 'ac-select2' ),
 		] );
-	}
-
-	public function get_help_tabs() {
-		return [
-			new HelpTab\Introduction(),
-			new HelpTab\Basics(),
-			new HelpTab\CustomField(),
-		];
 	}
 
 	private function get_column_id() {
@@ -285,6 +284,10 @@ class Columns extends Page implements Enqueueables, Helpable, Admin\ScreenOption
 						echo $columns->set_template( 'admin/edit-columns' );
 
 						do_action( 'ac/settings/after_columns', $list_screen );
+
+						if ( ! ac_is_pro_active() ) {
+							echo ( new View() )->set_template( 'admin/list-screen-settings-mockup' )->render();
+						}
 
 						?>
 					</div>

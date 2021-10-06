@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Customer_Value_Last_Order_Time extends Right
     public function get_label()
     {
 
-        return __('Last order', 'rightpress');
+        return esc_html__('Last order', 'rightpress');
     }
 
     /**

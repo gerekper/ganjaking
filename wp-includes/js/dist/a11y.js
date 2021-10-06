@@ -82,34 +82,19 @@ this["wp"] = this["wp"] || {}; this["wp"]["a11y"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-<<<<<<< HEAD
-/******/ 	return __webpack_require__(__webpack_require__.s = 465);
-=======
-/******/ 	return __webpack_require__(__webpack_require__.s = 491);
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+/******/ 	return __webpack_require__(__webpack_require__.s = "jncB");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 1:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["i18n"]; }());
-
-/***/ }),
-
-/***/ 271:
+/***/ "Y8OO":
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["domReady"]; }());
 
 /***/ }),
 
-<<<<<<< HEAD
-/***/ 465:
-=======
-/***/ 491:
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+/***/ "jncB":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -121,11 +106,11 @@ __webpack_require__.d(__webpack_exports__, "setup", function() { return /* bindi
 __webpack_require__.d(__webpack_exports__, "speak", function() { return /* binding */ speak; });
 
 // EXTERNAL MODULE: external ["wp","domReady"]
-var external_wp_domReady_ = __webpack_require__(271);
+var external_wp_domReady_ = __webpack_require__("Y8OO");
 var external_wp_domReady_default = /*#__PURE__*/__webpack_require__.n(external_wp_domReady_);
 
 // EXTERNAL MODULE: external ["wp","i18n"]
-var external_wp_i18n_ = __webpack_require__(1);
+var external_wp_i18n_ = __webpack_require__("l3Sj");
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/a11y/build-module/add-intro-text.js
 /**
@@ -142,14 +127,15 @@ var external_wp_i18n_ = __webpack_require__(1);
  */
 
 function addIntroText() {
-  var introText = document.createElement('p');
+  const introText = document.createElement('p');
   introText.id = 'a11y-speak-intro-text';
   introText.className = 'a11y-speak-intro-text';
   introText.textContent = Object(external_wp_i18n_["__"])('Notifications');
   introText.setAttribute('style', 'position: absolute;' + 'margin: -1px;' + 'padding: 0;' + 'height: 1px;' + 'width: 1px;' + 'overflow: hidden;' + 'clip: rect(1px, 1px, 1px, 1px);' + '-webkit-clip-path: inset(50%);' + 'clip-path: inset(50%);' + 'border: 0;' + 'word-wrap: normal !important;');
   introText.setAttribute('hidden', 'hidden');
-  var _document = document,
-      body = _document.body;
+  const {
+    body
+  } = document;
 
   if (body) {
     body.appendChild(introText);
@@ -166,17 +152,17 @@ function addIntroText() {
  *
  * @return {HTMLDivElement} The ARIA live region HTML element.
  */
-function addContainer() {
-  var ariaLive = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'polite';
-  var container = document.createElement('div');
-  container.id = "a11y-speak-".concat(ariaLive);
+function addContainer(ariaLive = 'polite') {
+  const container = document.createElement('div');
+  container.id = `a11y-speak-${ariaLive}`;
   container.className = 'a11y-speak-region';
   container.setAttribute('style', 'position: absolute;' + 'margin: -1px;' + 'padding: 0;' + 'height: 1px;' + 'width: 1px;' + 'overflow: hidden;' + 'clip: rect(1px, 1px, 1px, 1px);' + '-webkit-clip-path: inset(50%);' + 'clip-path: inset(50%);' + 'border: 0;' + 'word-wrap: normal !important;');
   container.setAttribute('aria-live', ariaLive);
   container.setAttribute('aria-relevant', 'additions text');
   container.setAttribute('aria-atomic', 'true');
-  var _document = document,
-      body = _document.body;
+  const {
+    body
+  } = document;
 
   if (body) {
     body.appendChild(container);
@@ -190,10 +176,10 @@ function addContainer() {
  * Clears the a11y-speak-region elements and hides the explanatory text.
  */
 function clear() {
-  var regions = document.getElementsByClassName('a11y-speak-region');
-  var introText = document.getElementById('a11y-speak-intro-text');
+  const regions = document.getElementsByClassName('a11y-speak-region');
+  const introText = document.getElementById('a11y-speak-intro-text');
 
-  for (var i = 0; i < regions.length; i++) {
+  for (let i = 0; i < regions.length; i++) {
     regions[i].textContent = '';
   } // Make sure the explanatory text is hidden from assistive technologies.
 
@@ -204,7 +190,7 @@ function clear() {
 }
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/a11y/build-module/filter-message.js
-var previousMessage = '';
+let previousMessage = '';
 /**
  * Filter the message to be announced to the screenreader.
  *
@@ -228,7 +214,7 @@ function filterMessage(message) {
    */
 
   if (previousMessage === message) {
-    message += "\xA0";
+    message += '\u00A0';
   }
 
   previousMessage = message;
@@ -253,9 +239,9 @@ function filterMessage(message) {
  */
 
 function setup() {
-  var introText = document.getElementById('a11y-speak-intro-text');
-  var containerAssertive = document.getElementById('a11y-speak-assertive');
-  var containerPolite = document.getElementById('a11y-speak-polite');
+  const introText = document.getElementById('a11y-speak-intro-text');
+  const containerAssertive = document.getElementById('a11y-speak-assertive');
+  const containerPolite = document.getElementById('a11y-speak-polite');
 
   if (introText === null) {
     addIntroText();
@@ -300,9 +286,9 @@ function speak(message, ariaLive) {
    */
   clear();
   message = filterMessage(message);
-  var introText = document.getElementById('a11y-speak-intro-text');
-  var containerAssertive = document.getElementById('a11y-speak-assertive');
-  var containerPolite = document.getElementById('a11y-speak-polite');
+  const introText = document.getElementById('a11y-speak-intro-text');
+  const containerAssertive = document.getElementById('a11y-speak-assertive');
+  const containerPolite = document.getElementById('a11y-speak-polite');
 
   if (containerAssertive && ariaLive === 'assertive') {
     containerAssertive.textContent = message;
@@ -320,6 +306,13 @@ function speak(message, ariaLive) {
   }
 }
 
+
+/***/ }),
+
+/***/ "l3Sj":
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["i18n"]; }());
 
 /***/ })
 

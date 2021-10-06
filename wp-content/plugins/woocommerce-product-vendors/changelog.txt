@@ -1,5 +1,11 @@
 *** Product Vendors Changelog ***
 
+2021-07-14 - version 2.1.55
+* Add - New action on Vendor Profile screen, `wcpv_vendor_settings_render_additional_fields`, to enable other plugins to add additional settings fields.
+* Fix - Ensure array key exists before we try using it.
+* Fix - Ensure the data we are using is an array before we try accessing a property of that array.
+
+
 2021-07-02 - version 2.1.54
 * Fix - Column width and characters break issues when viewing the product list table on narrow screen sizes.
 * Fix - Ensure the Vendor Email field is required properly and if not set for existing Vendors, show an admin notice.

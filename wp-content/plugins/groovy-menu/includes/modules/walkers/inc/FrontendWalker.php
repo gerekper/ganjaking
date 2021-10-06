@@ -15,13 +15,13 @@ defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
  */
 class FrontendWalker extends WalkerNavMenu {
 
-	protected $currentLvl = 0;
-	protected $isMegaMenu = false;
-	protected $megaMenuCustomWidth = false;
-	protected $megaMenuCnt = 0;
-	protected $megaMenuColStarted = false;
-	protected $megaMenuCols = 5;
-	protected $megaMenuPost = null;
+	protected $currentLvl            = 0;
+	protected $isMegaMenu            = false;
+	protected $megaMenuCustomWidth   = false;
+	protected $megaMenuCnt           = 0;
+	protected $megaMenuColStarted    = false;
+	protected $megaMenuCols          = 5;
+	protected $megaMenuPost          = null;
 	protected $megaMenuPostNotMobile = null;
 	protected $currentItem;
 
@@ -62,7 +62,7 @@ class FrontendWalker extends WalkerNavMenu {
 			}
 
 			if ( $this->isMegaMenu && $this->getBackgroundId( $this->currentItem ) ) {
-				$size   = $this->getBackgroundSize( $this->currentItem );
+				$size    = $this->getBackgroundSize( $this->currentItem );
 				$styles .= 'background-image: url(' . $this->getBackgroundUrl( $this->currentItem, $size ) . ');';
 				$styles .= 'background-repeat: ' . $this->getBackgroundRepeat( $this->currentItem ) . ';';
 				$styles .= 'background-position: ' . $this->getBackgroundPosition( $this->currentItem ) . ';';
@@ -755,9 +755,9 @@ class FrontendWalker extends WalkerNavMenu {
 				$item_output .= '</span>'; // .gm-menu-item__txt-wrapper
 				if ( ! $this->isMegaMenu || $depth < 1 ) {
 					if ( $this->hasParents() && $this->hasChildren( $classes ) ) {
-						$item_output .= '<span class="gm-caret"><i class="fa fa-fw fa-angle-right"></i></span>';
+						$item_output .= '<span class="gm-caret" aria-label="submenu"><i class="fa fa-fw fa-angle-right"></i></span>';
 					} elseif ( $this->hasChildren( $classes ) ) {
-						$item_output .= '<span class="gm-caret"><i class="fa fa-fw fa-angle-down"></i></span>';
+						$item_output .= '<span class="gm-caret" aria-label="dropdown"><i class="fa fa-fw fa-angle-down"></i></span>';
 					}
 				}
 				$item_output .= $thumb;
@@ -779,9 +779,9 @@ class FrontendWalker extends WalkerNavMenu {
 			} else {
 				if ( ! $this->isMegaMenu || $depth < 1 ) {
 					if ( $this->hasParents() && $this->hasChildren( $classes ) ) {
-						$item_output .= '<span class="gm-caret ' . $atts['class'] . '"><i class="fa fa-fw fa-angle-right"></i></span>';
+						$item_output .= '<span class="gm-caret ' . $atts['class'] . '" aria-label="submenu"><i class="fa fa-fw fa-angle-right"></i></span>';
 					} elseif ( $this->hasChildren( $classes ) ) {
-						$item_output .= '<span class="gm-caret ' . $atts['class'] . '"><i class="fa fa-fw fa-angle-down"></i></span>';
+						$item_output .= '<span class="gm-caret ' . $atts['class'] . '" aria-label="dropdown"><i class="fa fa-fw fa-angle-down"></i></span>';
 					}
 				}
 				$item_output .= $thumb;

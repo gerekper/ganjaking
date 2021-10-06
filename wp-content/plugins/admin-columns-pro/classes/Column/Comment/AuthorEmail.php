@@ -19,7 +19,7 @@ class AuthorEmail extends AC\Column\Comment\AuthorEmail
 	}
 
 	public function editing() {
-		return new Editing\Model\Comment\AuthorEmail( $this );
+		return new Editing\Service\Basic( new Editing\View\Email(), new Editing\Storage\Post\Field( 'comment_author_email' ) );
 	}
 
 	public function filtering() {

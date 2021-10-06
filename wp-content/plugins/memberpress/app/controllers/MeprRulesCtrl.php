@@ -245,7 +245,7 @@ class MeprRulesCtrl extends MeprCptCtrl {
       $redirect_to = $mepr_options->login_page_url("action=mepr_unauthorized&mepr-unauth-page={$post->ID}&redirect_to=".$uri);
       $redirect_to = (MeprUtils::is_ssl()) ? str_replace('http:', 'https:', $redirect_to) : $redirect_to;
     }
-    MeprUtils::wp_redirect($redirect_to);
+    MeprUtils::wp_redirect(MeprHooks::apply_filters('mepr-rule-redirect-unauthorized', $redirect_to, $uri));
     exit;
   }
 

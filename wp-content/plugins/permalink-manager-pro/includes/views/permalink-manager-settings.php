@@ -201,7 +201,13 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'label' => __('Breadcrumbs support', 'permalink-manager'),
 						'input_class' => '',
 						'description' => __('If enabled, the HTML breadcrumbs will be filtered by Permalink Manager to mimic the current URL structure.<br />Works with: <strong>WooCommerce, Yoast SEO, Slim Seo, RankMath and SEOPress</strong> breadcrumbs.', 'permalink-manager')
-					)
+					),
+					'primary_category' => array(
+						'type' => 'single_checkbox',
+						'label' => __('"Primary category" support', 'permalink-manager'),
+						'input_class' => '',
+						'description' => __('If enabled, Permalink Manager will use the "primary category" for the default post permalinks.<br />Works with: <strong>Yoast SEO, The SEO Framework, RankMath and SEOPress</strong> breadcrumbs.', 'permalink-manager')
+					),
 				)
 			),
 			'advanced' => array(
@@ -238,7 +244,7 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'choices' => array('edit_theme_options' => __('Administrator (edit_theme_options)', 'permalink-manager'), 'publish_pages' => __('Editor (publish_pages)', 'permalink-manager'), 'publish_posts' => __('Author (publish_posts)', 'permalink-manager'), 'edit_posts' => __('Contributor (edit_posts)', 'permalink-manager')),
 						'description' => sprintf(__('Only the users who have selected capability will be able to access URI Editor.<br />The list of capabilities <a href="%s" target="_blank">can be found here</a>.', 'permalink-manager'), 'https://wordpress.org/support/article/roles-and-capabilities/#capability-vs-role-table')
 					),
-					'auto_remove_duplicates' => array(
+					'auto_fix_duplicates' => array(
 						'type' => 'select',
 						'label' => __('Automatically fix broken URIs', 'permalink-manager'),
 						'input_class' => 'settings-select',

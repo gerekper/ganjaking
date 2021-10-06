@@ -111,6 +111,11 @@ class RP_WCDPD_Data_Updater extends RightPress_Data_Updater implements RightPres
     public function execute_custom()
     {
 
+        // Save settings dump to database
+        if ($stored_settings = get_option('rp_wcdpd_settings')) {
+            add_option(('rp_wcdpd_settings_backup_' . time()), $stored_settings, '', false);
+        }
+
         // Clear price cache transients on update from pre-2.3.5
         if ($previous_version = get_option('rp_wcdpd_version')) {
             if (version_compare($previous_version, '2.3.5', '<')) {

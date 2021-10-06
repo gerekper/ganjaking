@@ -5,11 +5,11 @@
  * Description: Reward customers for purchases and other actions with points which can be redeemed for discounts
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.6.43
+ * Version: 1.7.1
  * Text Domain: woocommerce-points-and-rewards
  * Domain Path: /languages/
- * Tested up to: 5.6.1
- * WC tested up to: 5.0
+ * Tested up to: 5.8
+ * WC tested up to: 5.7
  * WC requires at least: 2.6
  *
  * Copyright: © 2021 WooCommerce
@@ -143,7 +143,7 @@ register_activation_hook( __FILE__, 'wc_points_rewards_activate' );
  */
 
 if ( ! class_exists( 'WC_Points_Rewards' ) ) :
-	define( 'WC_POINTS_REWARDS_VERSION', '1.6.43' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_POINTS_REWARDS_VERSION', '1.7.1' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_POINTS_REWARDS_ENDPOINT', 'points-and-rewards' );
 
 	class WC_Points_Rewards {
@@ -161,6 +161,9 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 
 		/** @var string the plugin path */
 		private $plugin_path;
+
+		/** @var string the plugin file */
+		public static $plugin_file = __FILE__;
 
 		/** @var string the plugin url */
 		private $plugin_url;
@@ -233,6 +236,30 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 			$this->install();
 
 			add_action( 'after_switch_theme', 'wc_points_rewards_activate' );
+		}
+
+		/**
+		 * Set up the Blocks integration class
+		 *
+		 * @since x.x.x
+		 */
+		public static function setup_blocks_integration() {
+			add_action(
+				'woocommerce_blocks_cart_block_registration',
+				function( $integration_registry ) {
+					$integration_registry->register( new WC_Points_Rewards_Integration() );
+				}
+			);
+			add_action(
+				'woocommerce_blocks_checkout_block_registration',
+				function( $integration_registry ) {
+					$integration_registry->register( new WC_Points_Rewards_Integration() );
+				}
+			);
+
+			// store API endpoint extension
+			require_once dirname( __FILE__ ) . '/includes/class-wc-points-rewards-extend-store-endpoint.php';
+			WC_Points_Rewards_Extend_Store_Endpoint::init();
 		}
 
 		/**
@@ -327,6 +354,9 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 			// actions class
 			require_once dirname( __FILE__ ) . '/includes/class-wc-points-rewards-actions.php';
 			$this->actions = new WC_Points_Rewards_Actions();
+
+			// blocks integration class
+			require_once dirname( __FILE__ ) . '/includes/class-wc-points-rewards-blocks-integration.php';
 
 			// manager class
 			require_once dirname( __FILE__ ) . '/includes/class-wc-points-rewards-manager.php';
@@ -587,6 +617,47 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 		}
 
 		/**
+		 * Checks to see if the WooCommerce checkout or cart block is present on the page
+		 *
+		 * @todo This is a temporary implementation to check for the presence of WooCommerce blocks on the page
+		 *   until WooCommerce Blocks gets something we can register with to avoid the need to perform this check.
+		 *
+		 * @returns bool True if either of the blocks are present on the page.
+		 * @since x.x.x
+		 */
+		public static function is_woocommerce_block_present() {
+
+			// Always enqueue the assets if we're in the block editor, since we may need to render a checkout or cart block.
+			// Don't enqueue them anywhere else in the admin area though.
+			if ( is_admin() ) {
+				return get_current_screen()->is_block_editor;
+			}
+
+			$post = get_post();
+			if ( ! has_blocks( $post->post_content ) ) {
+				return false;
+			}
+			$blocks      = parse_blocks( $post->post_content );
+			$block_names = array_map(
+				function ( $block ) {
+					return $block['blockName'];
+				},
+				$blocks
+			);
+
+			return in_array(
+				       'woocommerce/cart',
+				       $block_names,
+				       true
+			       ) ||
+			       in_array(
+				       'woocommerce/checkout',
+				       $block_names,
+				       true
+			       );
+		}
+
+		/**
 		 * Function expire_points()
 		 * If a value is set for points expiry, then expire points based on expiry period
 		 *
@@ -635,24 +706,33 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 				}
 			} // End if().
 		}
+
+		/**
+		 * Initializes the extension.
+		 *
+		 * @since 1.6.32
+		 * @return Object Instance of extension.
+		 */
+		public static function woocommerce_points_and_rewards_init() {
+			load_plugin_textdomain( 'woocommerce-points-and-rewards', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+
+			if ( ! class_exists( 'WooCommerce' ) ) {
+				add_action( 'admin_notices', 'woocommerce_points_and_rewards_missing_wc_notice' );
+				return;
+			}
+
+			$GLOBALS['wc_points_rewards'] = WC_Points_Rewards::instance();
+		}
+
+		public static function init() {
+			add_action( 'plugins_loaded', array( __CLASS__, 'woocommerce_points_and_rewards_init' ) );
+
+			if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '4.4.0', '>' ) ) {
+				// When WooCommerceBlocks is loaded, set up the Integration class.
+				add_action( 'woocommerce_blocks_loaded', array( __CLASS__, 'setup_blocks_integration' ) );
+			}
+		}
 	}
 endif;
 
-add_action( 'plugins_loaded', 'woocommerce_points_and_rewards_init' );
-
-/**
- * Initializes the extension.
- *
- * @since 1.6.32
- * @return Object Instance of extension.
- */
-function woocommerce_points_and_rewards_init() {
-	load_plugin_textdomain( 'woocommerce-points-and-rewards', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
-
-	if ( ! class_exists( 'WooCommerce' ) ) {
-		add_action( 'admin_notices', 'woocommerce_points_and_rewards_missing_wc_notice' );
-		return;
-	}
-
-	$GLOBALS['wc_points_rewards'] = WC_Points_Rewards::instance();
-}
+WC_Points_Rewards::init();

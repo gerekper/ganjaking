@@ -160,14 +160,14 @@ class WooCommerce_Product_Search_Filter_Stock_Widget extends WP_Widget {
 		$settings['heading_class']      = !empty( $new_instance['heading_class'] ) ? trim( $new_instance['heading_class'] ) : '';
 		$settings['heading_id']         = !empty( $new_instance['heading_id'] ) ? trim( $new_instance['heading_id'] ) : '';
 		$settings['heading_element']    = !empty( $new_instance['heading_element'] ) ? trim( $new_instance['heading_element'] ) : '';
-		$settings['show_heading']       = !empty( $new_instance['show_heading'] ) ? 'yes' : 'no';
+		$settings['show_heading']       = woocommerce_product_search_input_yn( $new_instance['show_heading'] );
 
-		$settings['filter']        = !empty( $new_instance['filter'] ) ? 'yes' : 'no';
+		$settings['filter']             = woocommerce_product_search_input_yn( $new_instance['filter'] );
 
-		$settings['shop_only']        = !empty( $new_instance['shop_only'] ) ? 'yes' : 'no';
-		$settings['has_in_stock_only'] = !empty( $new_instance['has_in_stock_only'] ) ? 'yes' : 'no';
+		$settings['shop_only']        = woocommerce_product_search_input_yn( $new_instance['shop_only'] );
+		$settings['has_in_stock_only'] = woocommerce_product_search_input_yn( $new_instance['has_in_stock_only'] );
 
-		$settings['submit_button']       = !empty( $new_instance['submit_button'] ) ? 'yes' : 'no';
+		$settings['submit_button']       = woocommerce_product_search_input_yn( $new_instance['submit_button'] );
 		$settings['submit_button_label'] = isset( $new_instance['submit_button_label'] ) ? strip_tags( $new_instance['submit_button_label'] ) : __( 'Go', 'woocommerce-product-search' );
 
 		$container_id = !empty( $new_instance['container_id'] ) ? trim( $new_instance['container_id'] ) : '';

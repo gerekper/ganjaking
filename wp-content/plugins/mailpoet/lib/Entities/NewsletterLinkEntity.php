@@ -53,11 +53,16 @@ class NewsletterLinkEntity {
    * If we didn't specify extra lazy the function would load all clicks and count them. This way it uses a single count query.
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\StatisticsClickEntity", mappedBy="link", fetch="EXTRA_LAZY")
    *
-   * @var StatisticsClickEntity[]|ArrayCollection
+   * @var ArrayCollection<int, StatisticsClickEntity>
    */
   private $clicks;
 
-  public function __construct(NewsletterEntity $newsletter, SendingQueueEntity $queue, string $url, string $hash) {
+  public function __construct(
+    NewsletterEntity $newsletter,
+    SendingQueueEntity $queue,
+    string $url,
+    string $hash
+  ) {
     $this->newsletter = $newsletter;
     $this->queue = $queue;
     $this->url = $url;

@@ -806,6 +806,16 @@ class WC_Product_Vendors_Utils {
 	 * @return array mixed
 	 */
 	public static function get_product_commission( $product_id, $vendor_data ) {
+		if ( ! $vendor_data || empty( $vendor_data['commission_type'] ) ) {
+			$default_commission_type = get_option( 'wcpv_vendor_settings_default_commission_type' );
+
+			if ( is_array( $vendor_data ) ) {
+				$vendor_data['commission_type'] = $default_commission_type;
+			} else {
+				$vendor_data = array( 'commission_type' => $default_commission_type );
+			}
+		}
+
 		$product = wc_get_product( $product_id );
 
 		// check if product is a variation

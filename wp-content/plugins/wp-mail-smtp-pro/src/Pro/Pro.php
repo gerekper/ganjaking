@@ -10,6 +10,7 @@ use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking;
 use WPMailSMTP\WP;
+use WPMailSMTP\Pro\Emails\Logs\Reports\Reports;
 
 /**
  * Class Pro handles all Pro plugin code and functionality registration.
@@ -76,6 +77,9 @@ class Pro {
 		// Register Action Scheduler tasks.
 		add_filter( 'wp_mail_smtp_tasks_get_tasks', [ $this, 'get_tasks' ] );
 
+		// Register DB migrations.
+		add_filter( 'wp_mail_smtp_core_init_migrations', [ $this, 'get_migrations' ] );
+
 		// Add Pro specific DB tables to the list of custom DB tables.
 		add_filter( 'wp_mail_smtp_core_get_custom_db_tables', [ $this, 'add_pro_specific_custom_db_tables' ] );
 
@@ -91,7 +95,6 @@ class Pro {
 		$this->get_providers();
 		$this->get_license();
 		$this->get_site_health()->init();
-		$this->disable_wp_auto_update_plugins();
 
 		if ( current_user_can( $this->get_logs()->get_manage_capability() ) ) {
 			$this->get_logs_export()->init();
@@ -118,6 +121,14 @@ class Pro {
 			'wp_mail_smtp_core_get_dashboard_widget',
 			function () {
 				return DashboardWidget::class;
+			}
+		);
+
+		// Use the Pro Reports.
+		add_filter(
+			'wp_mail_smtp_core_get_reports',
+			function () {
+				return Reports::class;
 			}
 		);
 	}
@@ -442,6 +453,27 @@ class Pro {
 	}
 
 	/**
+	 * Register DB migrations.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param array $migrations Migrations classes.
+	 *
+	 * @return array
+	 */
+	public function get_migrations( $migrations ) {
+
+		return array_merge(
+			$migrations,
+			[
+				\WPMailSMTP\Pro\Emails\Logs\Migration::class,
+				\WPMailSMTP\Pro\Emails\Logs\Tracking\Migration::class,
+				\WPMailSMTP\Pro\Emails\Logs\Attachments\Migration::class,
+			]
+		);
+	}
+
+	/**
 	 * Display custom auth notices for pro mailers based on the error/success codes.
 	 *
 	 * @since 2.3.0
@@ -509,19 +541,9 @@ class Pro {
 	}
 
 	/**
-	 * Disable (temporary) new WordPress 5.5 'auto-update for plugins' feature.
-	 *
-	 * @since 2.3.0
-	 */
-	private function disable_wp_auto_update_plugins() {
-
-		add_filter( 'plugin_auto_update_setting_html', [ $this, 'auto_update_setting_html' ], 100, 3 );
-		add_filter( 'auto_update_plugin', [ $this, 'rollback_auto_update_plugin_default_value' ], 100, 2 );
-		add_filter( 'pre_update_site_option_auto_update_plugins', [ $this, 'update_auto_update_plugins_option' ], 100, 4 );
-	}
-
-	/**
 	 * Filter the HTML of the auto-updates setting for WP Mail SMTP Pro plugin.
+	 *
+	 * @deprecated 3.0.0
 	 *
 	 * @since 2.3.0
 	 *
@@ -533,6 +555,8 @@ class Pro {
 	 * @return string
 	 */
 	public function auto_update_setting_html( $html, $plugin_file, $plugin_data ) {
+
+		_deprecated_function( __METHOD__, '3.0.0' );
 
 		if (
 			! empty( $plugin_data['Author'] ) &&
@@ -549,6 +573,8 @@ class Pro {
 	 * Rollback to default value for automatically update WP Mail SMTP Pro plugin.
 	 * Some devs or tools can use `auto_update_plugin` filter and turn on auto-updates for all plugins.
 	 *
+	 * @deprecated 3.0.0
+	 *
 	 * @since 2.3.0
 	 *
 	 * @param mixed  $auto_update    Whether to update.
@@ -557,6 +583,8 @@ class Pro {
 	 * @return null|bool
 	 */
 	public function rollback_auto_update_plugin_default_value( $auto_update, $filter_payload ) {
+
+		_deprecated_function( __METHOD__, '3.0.0' );
 
 		// Check whether auto-updates for plugins are supported and enabled. If not, return early.
 		if (
@@ -586,6 +614,8 @@ class Pro {
 	 * Filter value, which is prepared for `auto_update_plugins` option before it's saved into DB.
 	 * We need to exclude WP Mail SMTP Pro.
 	 *
+	 * @deprecated 3.0.0
+	 *
 	 * @since 2.3.0
 	 *
 	 * @param mixed  $plugins     New plugins of the network option.
@@ -596,6 +626,8 @@ class Pro {
 	 * @return array
 	 */
 	public function update_auto_update_plugins_option( $plugins, $old_plugins, $option, $network_id ) {
+
+		_deprecated_function( __METHOD__, '3.0.0' );
 
 		// No need to filter out our plugins if none were saved.
 		if ( empty( $plugins ) ) {

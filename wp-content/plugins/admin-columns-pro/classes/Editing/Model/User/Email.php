@@ -2,32 +2,16 @@
 
 namespace ACP\Editing\Model\User;
 
-use ACP\Editing\Model;
-use ACP\Editing\Settings\BulkEditing;
+use AC\Column;
+use ACP\Editing\Service;
 
-class Email extends Model\User {
+/**
+ * @deprecated 5.6
+ */
+class Email extends Service\User\Email {
 
-	public function get_edit_value( $id ) {
-		return ac_helper()->user->get_user_field( 'user_email', $id );
-	}
-
-	public function get_view_settings() {
-		return [
-			self::VIEW_TYPE          => 'email',
-			self::VIEW_REQUIRED      => true,
-			self::VIEW_PLACEHOLDER   => $this->column->get_label(),
-			self::VIEW_BULK_EDITABLE => false,
-		];
-	}
-
-	public function save( $id, $value ) {
-		return $this->update_user( $id, [ 'user_email' => $value ] );
-	}
-
-	public function register_settings() {
-		parent::register_settings();
-
-		$this->column->remove_setting( BulkEditing::NAME );
+	public function __construct( Column $column ) {
+		parent::__construct( $column->get_label() );
 	}
 
 }

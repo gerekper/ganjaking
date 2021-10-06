@@ -392,10 +392,11 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 				$disabled_dates,
 				WC_OD_Delivery_Dates::get_disabled_dates(
 					array(
-						'start_date'    => $start_timestamp,
-						'end_date'      => $end_timestamp,
-						'delivery_days' => $delivery_days,
-						'disabled_days' => $disabled_dates,
+						'start_date'      => $start_timestamp,
+						'end_date'        => $end_timestamp,
+						'delivery_days'   => $delivery_days,
+						'disabled_days'   => $disabled_dates,
+						'shipping_method' => $this->get_shipping_method(),
 					),
 					'Y-m-d'
 				)

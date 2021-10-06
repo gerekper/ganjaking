@@ -117,7 +117,8 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 	 * @since 6.0
 	 */
 	public function install_addon($addon, $force = false){
-
+		if(get_option('revslider-valid', 'false') !== 'true') return __('Please activate Slider Revolution', 'revslider');
+		
 		//check if downloaded already
 		$plugins	= get_plugins();
 		$addon_path = $addon.'/'.$addon.'.php';
@@ -140,11 +141,12 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 	public function download_addon($addon){
 		global $rslb;
 		
-			
+		if(get_option('revslider-valid', 'false') !== 'true') return __('Please activate Slider Revolution', 'revslider');
+		
 		$plugin_slug	= basename($addon);
 		if(0 !== strpos($plugin_slug, 'revslider-')) die( '-1' );
 
-		$code = '073e077f-b600-41e4-8b74-767431910d31';
+		$code = get_option('revslider-code', '');
 		
 		$done	= false;
 		$count	= 0;

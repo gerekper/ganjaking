@@ -169,3 +169,27 @@ body[data-mepr-chosen-tab="courses"] p.submit {
     margin-bottom: 10px;
   }
 }
+.mepr-sister-plugin-easy-affiliate .mepr-sister-plugin-info > .mepr-sister-plugin-info-image {
+  padding: 0;
+}
+.mepr-sister-plugin-easy-affiliate .mepr-sister-plugin-info > .mepr-sister-plugin-info-features {
+  padding-left: 35px;
+}
+.mepr-sister-plugin-easy-affiliate .mepr-sister-plugin-info-image div {
+  background-color: transparent;
+  box-shadow: none;
+}
+.mepr-sister-plugin-easy-affiliate .mepr-sister-plugin-info-features ul li {
+  position: relative;
+  padding-left: 30px;
+}
+.mepr-sister-plugin-easy-affiliate .mepr-sister-plugin-info-features svg {
+  width: 19px;
+  height: auto;
+  position: absolute;
+  left: 0;
+  top: 4px;
+}
+.mepr-sister-plugin-easy-affiliate .mepr-sister-plugin-info-features svg path {
+  fill: #609D62;
+}

@@ -18,7 +18,7 @@ class Excerpt extends AC\Column\Comment\Excerpt
 	}
 
 	public function editing() {
-		return new Editing\Model\Comment\Comment( $this );
+		return new Editing\Service\Comment\Content();
 	}
 
 	public function search() {

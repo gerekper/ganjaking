@@ -1,3 +1,12 @@
+= v2.5.10 - July 16, 2021 =
+
+**Update** Info tooltip to remind that Estimation time is mandatory to get sub-task list
+**Fix** Co-worker was unable to add custom time log
+**Fix** After deleting one time log, new time log can not be created instantly
+**Fix** Redirect to task detail page while searching tasks
+**Fix** Some multisite support functionality
+**Fix** Gantt chart routes naming for different server support
+
 = v2.5.9 - Jan 29, 2021 =
 
 **Fix** Time tracker is not working real time.

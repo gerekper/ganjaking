@@ -604,6 +604,7 @@ class Settings {
 		delete_site_option( WP_SMUSH_PREFIX . 'networkwide' );
 		delete_site_option( WP_SMUSH_PREFIX . 'hide_smush_welcome' );
 		delete_site_option( WP_SMUSH_PREFIX . 'hide_upgrade_notice' );
+		delete_site_option( WP_SMUSH_PREFIX . 'webp_hide_wizard' );
 		delete_site_option( WP_SMUSH_PREFIX . 'preset_configs' );
 		$this->delete_setting( WP_SMUSH_PREFIX . 'settings' );
 		$this->delete_setting( WP_SMUSH_PREFIX . 'image_sizes' );
@@ -906,6 +907,7 @@ class Settings {
 			'format'          => array(
 				'jpeg'   => true,
 				'png'    => true,
+				'webp'   => true,
 				'gif'    => true,
 				'svg'    => true,
 				'iframe' => true,

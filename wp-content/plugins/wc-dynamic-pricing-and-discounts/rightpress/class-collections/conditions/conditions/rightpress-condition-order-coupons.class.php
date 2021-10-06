@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Order_Coupons extends RightPress_Condition_O
     public function get_label()
     {
 
-        return __('Coupons applied', 'rightpress');
+        return esc_html__('Coupons applied', 'rightpress');
     }
 
     /**
@@ -62,7 +62,7 @@ abstract class RightPress_Condition_Order_Coupons extends RightPress_Condition_O
         $coupons = array();
 
         // Get used coupons
-        if ($used_coupons = $this->get_order($params)->get_used_coupons()) {
+        if ($used_coupons = (RightPress_Helper::wc_version_gte('3.7') ? $this->get_order($params)->get_coupon_codes() : $this->get_order($params)->get_used_coupons())) {
 
             // Iterate over used coupons
             foreach ($used_coupons as $coupon_code) {

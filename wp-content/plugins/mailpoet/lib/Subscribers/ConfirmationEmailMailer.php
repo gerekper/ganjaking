@@ -32,18 +32,28 @@ class ConfirmationEmailMailer {
   /** @var MetaInfo */
   private $mailerMetaInfo;
 
+  /** @var SubscribersRepository */
+  private $subscribersRepository;
+
   /** @var SubscriptionUrlFactory */
   private $subscriptionUrlFactory;
 
   /** @var array Cache for confirmation emails sent within a request */
   private $sentEmails = [];
 
-  public function __construct(Mailer $mailer, WPFunctions $wp, SettingsController $settings, SubscriptionUrlFactory $subscriptionUrlFactory) {
+  public function __construct(
+    Mailer $mailer,
+    WPFunctions $wp,
+    SettingsController $settings,
+    SubscribersRepository $subscribersRepository,
+    SubscriptionUrlFactory $subscriptionUrlFactory
+  ) {
     $this->mailer = $mailer;
     $this->wp = $wp;
     $this->settings = $settings;
     $this->mailerMetaInfo = new MetaInfo;
     $this->subscriptionUrlFactory = $subscriptionUrlFactory;
+    $this->subscribersRepository = $subscribersRepository;
   }
 
   /**
@@ -88,15 +98,19 @@ class ConfirmationEmailMailer {
     );
 
     // replace activation link
+    $subscriberEntity = $this->subscribersRepository->findOneById($subscriber->id);
     $body = Helpers::replaceLinkTags(
       $body,
-      $this->subscriptionUrlFactory->getConfirmationUrl($subscriber),
+      $this->subscriptionUrlFactory->getConfirmationUrl($subscriberEntity),
       ['target' => '_blank'],
       'activation_link'
     );
 
     //create a text version. @ is important here, Html2Text throws warnings
-    $text = @Html2Text::convert((mb_detect_encoding($body, 'UTF-8', true)) ? $body : utf8_encode($body));
+    $text = @Html2Text::convert(
+      (mb_detect_encoding($body, 'UTF-8', true)) ? $body : utf8_encode($body),
+      true
+    );
 
     // build email data
     $email = [

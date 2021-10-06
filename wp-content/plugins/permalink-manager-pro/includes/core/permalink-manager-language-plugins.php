@@ -93,6 +93,11 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 			}
 
 			add_action('icl_make_duplicate', array($this, 'wpml_duplicate_uri'), 999, 4);
+
+			// Allow canonical redirect for default language if "Hide URL language information for default language" is turned on in Polylang settings
+			if(!empty($polylang) && !empty($polylang->links_model) && !empty($polylang->links_model->options['hide_default'])) {
+				add_filter('permalink_manager_filter_query', array($this, 'pl_allow_canonical_redirect'), 3, 5);
+			}
 		}
 	}
 
@@ -583,6 +588,24 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		$permalink_manager_uris[$id] = Permalink_Manager_URI_Functions_Post::get_default_post_uri($id);
 
 		update_option('permalink-manager-uris', $permalink_manager_uris);
+	}
+
+	function pl_allow_canonical_redirect($query, $old_query, $uri_parts, $pm_query, $content_type) {
+		global $polylang;
+
+		// Run only if "Hide URL language information for default language" is turned on in Polylang settings
+		if(!empty($pm_query['id']) && !empty($pm_query['lang'])) {
+			$url_lang = $polylang->links_model->get_language_from_url();
+			$def_lang = pll_default_language('slug');
+
+			// Check if the slug of default language is present in the requested URL
+			if($url_lang == $def_lang) {
+				// Allow canonical redirect
+				unset($query['do_not_redirect']);
+			}
+		}
+
+		return $query;
 	}
 
 }

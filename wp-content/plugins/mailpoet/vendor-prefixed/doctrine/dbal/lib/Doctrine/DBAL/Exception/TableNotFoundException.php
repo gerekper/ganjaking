@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Doctrine\DBAL\Exception; if (!defined('ABSPATH')) exit; class TableNotFoundException extends \MailPoetVendor\Doctrine\DBAL\Exception\DatabaseObjectNotFoundException { } 
+ namespace MailPoetVendor\Doctrine\DBAL\Exception; if (!defined('ABSPATH')) exit; class TableNotFoundException extends DatabaseObjectNotFoundException { } 

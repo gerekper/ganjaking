@@ -820,10 +820,10 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 
 				$buttonIcon
 					.removeClass( 'dashicons-admin-page' )
-					.addClass( 'dashicons-yes-alt' )
+					.addClass( 'wp-mail-smtp-dashicons-yes-alt-green' )
 					.fadeOut( 1000, 'swing', function() {
 						$buttonIcon
-							.removeClass( 'dashicons-yes-alt' )
+							.removeClass( 'wp-mail-smtp-dashicons-yes-alt-green' )
 							.addClass( 'dashicons-admin-page' )
 							.fadeIn( 200 );
 					} );

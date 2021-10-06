@@ -12,6 +12,51 @@ class Settings extends AC\Settings\Column
 
 	private $edit;
 
+	/**
+	 * @var AC\Settings\Column[]
+	 */
+	protected $sections = [];
+
+	/**
+	 * @var boolean
+	 */
+	private $refresh_column;
+
+	public function __construct( AC\Column $column, $refresh_column = false ) {
+		parent::__construct( $column );
+
+		$this->set_refresh( $refresh_column );
+	}
+
+	/**
+	 * @param boolean $enable
+	 */
+	public function set_refresh( $enable ) {
+		$this->refresh_column = $enable;
+	}
+
+	/**
+	 * @param AC\Settings\Column $setting
+	 *
+	 * @return $this
+	 */
+	public function add_section( AC\Settings\Column $setting ) {
+		$this->sections[ $setting->get_name() ] = $setting;
+
+		return $this;
+	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return AC\Settings\Column|null
+	 */
+	public function get_section( $name ) {
+		return isset( $this->sections[ $name ] )
+			? $this->sections[ $name ]
+			: null;
+	}
+
 	protected function define_options() {
 		return [ self::NAME => 'off' ];
 	}
@@ -42,18 +87,30 @@ class Settings extends AC\Settings\Column
 		return $view;
 	}
 
-	public function create_view() {
-		$edit = $this->create_element( 'radio', 'edit' );
-		$edit
+	protected function create_radio_element() {
+		$radio = $this->create_element( 'radio', 'edit' );
+		$radio
 			->set_options( [
 				'on'  => __( 'Yes' ),
 				'off' => __( 'No' ),
 			] );
 
+		if ( $this->refresh_column ) {
+			$radio->set_attribute( 'data-refresh', 'column' );
+		}
+
+		return $radio;
+	}
+
+	public function create_view() {
 		$view = new View();
 		$view->set( 'label', __( 'Inline Editing', 'codepress-admin-columns' ) )
 		     ->set( 'instructions', $this->get_instruction() )
-		     ->set( 'setting', $edit );
+		     ->set( 'setting', $this->create_radio_element() );
+
+		foreach ( $this->sections as $section ) {
+			$view->set( 'sections', [ $section->create_view() ] );
+		}
 
 		return $view;
 	}

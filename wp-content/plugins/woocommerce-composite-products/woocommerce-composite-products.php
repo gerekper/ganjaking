@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Composite Products
 * Plugin URI: https://woocommerce.com/products/composite-products/
 * Description: Create personalized product kits and configurable products.
-* Version: 8.2.0
+* Version: 8.3.2
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -15,10 +15,10 @@
 * Requires PHP: 5.6
 *
 * Requires at least: 4.4
-* Tested up to: 5.7
+* Tested up to: 5.8
 *
 * WC requires at least: 3.1
-* WC tested up to: 5.4
+* WC tested up to: 5.7
 *
 * Copyright: © 2017-2021 SomewhereWarm SMPC.
 * License: GNU General Public License v3.0
@@ -34,12 +34,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Composite_Products
- * @version  8.2.0
+ * @version  8.3.2
  */
 class WC_Composite_Products {
 
-	public $version  = '8.2.0';
-	public $required = '3.1.0';
+	public $version  = '8.3.2';
+	public $required = '3.6.0';
 
 	/**
 	 * The single instance of the class.
@@ -195,6 +195,7 @@ class WC_Composite_Products {
 
 		// WC version sanity check.
 		if ( ! function_exists( 'WC' ) || version_compare( WC()->version, $this->required ) < 0 ) {
+			/* translators: Required version. */
 			$notice = sprintf( __( 'WooCommerce Composite Products requires at least WooCommerce <strong>%s</strong>.', 'woocommerce-composite-products' ), $this->required );
 			require_once( WC_CP_ABSPATH . 'includes/admin/class-wc-cp-admin-notices.php' );
 			WC_CP_Admin_Notices::add_notice( $notice, 'error' );
@@ -203,6 +204,7 @@ class WC_Composite_Products {
 
 		// PHP version check.
 		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '5.6.20', '<' ) ) {
+			/* translators: %1$s: PHP version, %2$s: Documentation link. */
 			$notice = sprintf( __( 'WooCommerce Composite Products requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-composite-products' ), '5.6.20', 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' );
 			require_once( WC_CP_ABSPATH . 'includes/admin/class-wc-cp-admin-notices.php' );
 			WC_CP_Admin_Notices::add_notice( $notice, 'error' );
@@ -344,6 +346,9 @@ class WC_Composite_Products {
 
 		// Notices handling.
 		require_once( WC_CP_ABSPATH . 'includes/class-wc-cp-notices.php' );
+
+		// Analytics.
+		require_once( WC_CP_ABSPATH . 'includes/admin/analytics/class-wc-cp-admin-analytics.php' );
 
 		// Admin functions and meta-boxes.
 		if ( is_admin() ) {

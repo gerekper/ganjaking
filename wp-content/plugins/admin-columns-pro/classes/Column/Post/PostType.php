@@ -32,7 +32,7 @@ class PostType extends AC\Column implements Editing\Editable {
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\PostType( $this );
+		return new Editing\Service\Post\PostType();
 	}
 
 }

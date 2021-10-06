@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.6.0
+ * @version     1.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -872,6 +872,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 				return;
 			}
 
+			$receivers_data           = $receivers_emails;
 			$sc_called_credit_details = get_post_meta( $order_id, 'sc_called_credit_details', true );
 
 			$order       = wc_get_order( $order_id );
@@ -1125,17 +1126,49 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 				}
 			}
 
+			$email_scheduled_details = array();
+			// Assign scheduled timestamps to each user's email.
+			if ( ! empty( $receivers_data ) && is_array( $receivers_data ) && ! empty( $sending_timestamps ) ) {
+				foreach ( $receivers_data as $coupon_id => $receivers ) {
+					$scheduled_timestamp = ! empty( $sending_timestamps[ $coupon_id ] ) ? $sending_timestamps[ $coupon_id ] : '';
+					// Get the receivers by coupon codes.
+					if ( ! empty( $scheduled_timestamp ) && is_array( $receivers ) && ! empty( $receivers ) ) {
+						foreach ( $receivers as $key => $receiver_email ) {
+							$before_timestamps                          = ! empty( $email_scheduled_details[ $receiver_email ] ) ? $email_scheduled_details[ $receiver_email ] : '';
+							$timestamps                                 = ! empty( $scheduled_timestamp[ $key ] ) ? array( $scheduled_timestamp[ $key ] ) : array();
+							$email_scheduled_details[ $receiver_email ] = ! empty( $before_timestamps ) && is_array( $before_timestamps ) ? array_merge( $before_timestamps, $timestamps ) : $timestamps;
+						}
+					}
+				}
+			}
+
 			if ( 'yes' === $is_send_email && ( count( $receivers_detail ) + $receiver_count ) > 0 ) {
 				WC()->mailer();
+
+				$contains_core_coupons = false;
+				if ( ! empty( $receivers_emails_list ) ) {
+					$coupon_ids_to_be_sent = array_keys( $receivers_emails_list );
+					if ( ! empty( $coupon_ids_to_be_sent ) ) {
+						foreach ( $coupon_ids_to_be_sent as $coupon_id ) {
+							$discount_type = get_post_meta( $coupon_id, 'discount_type', true );
+							if ( ! empty( $discount_type ) && 'smart_coupon' !== $discount_type ) {
+								$contains_core_coupons = true;
+								break;
+							}
+						}
+					}
+				}
 
 				$action_args = apply_filters(
 					'wc_sc_acknowledgement_email_notification_args',
 					array(
-						'email'            => $gift_certificate_sender_email,
-						'order_id'         => $order_id,
-						'receivers_detail' => $receivers_detail,
-						'receiver_name'    => $gift_certificate_receiver_name,
-						'receiver_count'   => count( $receivers_detail ),
+						'email'                 => $gift_certificate_sender_email,
+						'order_id'              => $order_id,
+						'receivers_detail'      => $receivers_detail,
+						'receiver_name'         => $gift_certificate_receiver_name,
+						'receiver_count'        => count( $receivers_detail ),
+						'scheduled_email'       => array_filter( $email_scheduled_details ),
+						'contains_core_coupons' => ( true === $contains_core_coupons ) ? 'yes' : 'no',
 					)
 				);
 

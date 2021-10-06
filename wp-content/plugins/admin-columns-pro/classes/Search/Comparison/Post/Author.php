@@ -20,6 +20,7 @@ class Author extends PostField
 	public function __construct( $post_type ) {
 		$operators = new Operators( [
 			Operators::EQ,
+			Operators::CURRENT_USER,
 		] );
 
 		$this->post_type = $post_type;

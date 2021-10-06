@@ -27,48 +27,48 @@ class WC_MS_Cart {
 
     public function duplicate_cart_post() {
 
-        if ( isset($_POST['duplicate_submit']) ) {
-            $address_ids    = (isset($_POST['address_ids'])) ? (array)$_POST['address_ids'] : array();
-            $fields         = WC()->countries->get_address_fields( WC()->countries->get_base_country(), 'shipping_' );
+        if ( isset( $_GET['duplicate-form'] ) && isset( $_GET['_wcmsnonce'] ) && wp_verify_nonce( $_GET['_wcmsnonce'], 'wcms-duplicate-cart' ) ) {
+            $fields = WC()->countries->get_address_fields( WC()->countries->get_base_country(), 'shipping_' );
 
             $user_addresses = $this->wcms->address_book->get_user_addresses( wp_get_current_user() );
+			$address_ids 	= array_keys( $user_addresses );
 
-            $data   = (wcms_session_isset('cart_item_addresses')) ? wcms_session_get('cart_item_addresses') : array();
-            $rel    = (wcms_session_isset('wcms_item_addresses')) ? wcms_session_get('wcms_item_addresses') : array();
+            $data   = ( wcms_session_isset( 'cart_item_addresses' ) ) ? wcms_session_get( 'cart_item_addresses' ) : array();
+            $rel    = ( wcms_session_isset( 'wcms_item_addresses' ) ) ? wcms_session_get( 'wcms_item_addresses' ) : array();
 
-            for ($x = 0; $x < count($address_ids); $x++ ) {
-                $added      = $this->duplicate_cart();
-                $address_id = $address_ids[ $x ];
-                $address    = $user_addresses[ $address_id ];
+			$added      = $this->duplicate_cart();
+			$address_id = array_shift( $address_ids );
+			$address    = $user_addresses[ $address_id ];
 
-                foreach ( $added as $item ) {
-                    $qtys           = $item['qty'];
-                    $product_id     = $item['id'];
-                    $sig            = $item['key'] .'_'. $product_id .'_';
+			foreach ( $added as $item ) {
+				$qtys       = $item['qty'];
+				$product_id = $item['id'];
+				$sig        = $item['key'] . '_' . $product_id . '_';
 
-                    $i = 1;
-                    for ( $y = 0; $y < $qtys; $y++ ) {
-                        $rel[ $address_id ][]  = $item['key'];
+				$i = 1;
+				for ( $y = 0; $y < $qtys; $y++ ) {
+					$rel[ $address_id ][]  = $item['key'];
 
-                        while ( isset($data['shipping_first_name_'. $sig . $i]) ) {
-                            $i++;
-                        }
+					while ( isset( $data[ 'shipping_first_name_' . $sig . $i ] ) ) {
+						$i++;
+					}
 
-                        $_sig = $sig . $i;
-                        if ( $fields ) foreach ( $fields as $key => $field ) {
-                            $data[$key .'_'. $_sig] = $address[ $key ];
-                        }
-                    }
+					$_sig = $sig . $i;
+					if ( $fields ) { 
+						foreach ( $fields as $key => $field ) {
+							$data[ $key . '_' . $_sig ] = $address[ $key ];
+						}
+					}
+				}
 
-                    $cart_address_ids_session = wcms_session_get( 'cart_address_ids' );
+				$cart_address_ids_session = wcms_session_get( 'cart_address_ids' );
 
-                    if (!wcms_session_isset( 'cart_address_ids' ) || ! in_array($sig, $cart_address_ids_session) ) {
-                        $cart_address_sigs_session = wcms_session_get( 'cart_address_sigs' );
-                        $cart_address_sigs_session[$_sig] = $address_id;
-                        wcms_session_set( 'cart_address_sigs', $cart_address_sigs_session);
-                    }
-                }
-            }
+				if ( ! wcms_session_isset( 'cart_address_ids' ) || ! in_array( $sig, $cart_address_ids_session ) ) {
+					$cart_address_sigs_session          = wcms_session_get( 'cart_address_sigs' );
+					$cart_address_sigs_session[ $_sig ] = $address_id;
+					wcms_session_set( 'cart_address_sigs', $cart_address_sigs_session );
+				}
+			}
 
             wcms_session_set( 'cart_item_addresses', $data );
             wcms_session_set( 'address_relationships', $rel );
@@ -213,9 +213,12 @@ class WC_MS_Cart {
         $ms_settings = get_option( 'woocommerce_multiple_shipping_settings', array() );
 
         if ( isset($ms_settings['cart_duplication']) && $ms_settings['cart_duplication'] != 'no' ) {
-            $dupe_url = add_query_arg('duplicate-form', '1', get_permalink(wc_get_page_id('multiple_addresses')));
+            $dupe_url = add_query_arg( array(
+				'duplicate-form' => '1',
+				'_wcmsnonce'     => wp_create_nonce( 'wcms-duplicate-cart' ),
+			), get_permalink( wc_get_page_id( 'multiple_addresses' ) ) );
 
-            echo '<a class="button expand" href="' . $dupe_url . '" >' . __('Duplicate Cart', 'wc_shipping_multiple_address') . '</a>';
+            echo '<a class="button expand" href="' . esc_url( $dupe_url ) . '" >' . __( 'Duplicate Cart', 'wc_shipping_multiple_address' ) . '</a>';
         }
     }
 

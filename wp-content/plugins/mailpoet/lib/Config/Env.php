@@ -61,12 +61,12 @@ class Env {
     self::$tempUrl = $wpUploadDir['baseurl'] . '/' . self::$pluginName;
     self::$languagesPath = self::$path . '/lang';
     self::$libPath = self::$path . '/lib';
-    self::$pluginPrefix = 'mailpoet_';
+    self::$pluginPrefix = WPFunctions::get()->applyFilters('mailpoet_db_prefix', 'mailpoet_');
     self::initDbParameters($dbHost, $dbUser, $dbPassword, $dbName);
 
     // back compatibility for older Premium plugin with underscore naming
-    self::$plugin_name = self::$pluginName; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
-    self::$temp_path = self::$tempPath; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    self::$plugin_name = self::$pluginName; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    self::$temp_path = self::$tempPath; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
   }
 
   /**
@@ -83,7 +83,7 @@ class Env {
     self::$dbPrefix = $wpdb->prefix . self::$pluginPrefix;
     self::$dbHost = $host;
     self::$dbIsIpv6 = $isIpv6;
-    self::$dbPort = $port ?: 3306;
+    self::$dbPort = $port;
     self::$dbSocket = $socket;
     self::$dbName = $dbName;
     self::$dbUsername = $dbUser;

@@ -112,6 +112,7 @@ class WC_GFPA_Admin_Controller {
 	public function render_panel() {
 		global $post;
 		$product = wc_get_product( $post );
+		$gravity_form_data = $product->get_meta( '_gravity_form_data', true );
 		include( dirname( __FILE__ ) . '/views/html-gravityforms-addons-wc-metabox.php' );
 	}
 

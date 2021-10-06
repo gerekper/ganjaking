@@ -1,6 +1,6 @@
 <?php
 
-use ACP\Controller\ListScreenCreate;
+use ACP\RequestHandler\ListScreenCreate;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

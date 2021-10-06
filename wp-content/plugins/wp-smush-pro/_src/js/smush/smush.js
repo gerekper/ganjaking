@@ -633,6 +633,9 @@ class Smush {
 					.getElementById('wp-smush-pending-to-smush-text')
 					.classList.add('sui-hidden');
 			}
+
+			// Reset the progress when we finish so the next smushing starts from zero.
+			this._updateProgress(0, 0);
 		} else {
 			// Show loader.
 			statusIcon

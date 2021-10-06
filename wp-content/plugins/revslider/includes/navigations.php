@@ -335,7 +335,7 @@ $navigations[] = array(
 	'name' => 'Hebe',
 	'css' => ".hebe .tp-tab-title {\n    color:##title-color##;\n    font-size:##title-size##px;\n    font-weight:700;\n    text-transform:uppercase;\n    font-family:'##title-font##'\n    margin-bottom:5px;\n}\n\n.hebe .tp-tab-desc {\n\tfont-size:##param1-size##px;\n    font-weight:400;\n    color:##param1-color##;\n    line-height:25px;\n\tfont-family:'##param1-font##';\n}\n",
 	'markup' => "<div class=\"tp-tab-title\">{{param1}}</div>\n<div class=\"tp-tab-desc\">{{title}}</div>",
-	'settings' => '{"dim":{"width":160,"height":160},"placeholders":{"title-color":{"title":"Title-Color","type":"color","data":"#a8d8ee"},"title-size":{"title":"Title-Size","type":"custom","data":"13"},"title-font":{"title":"Title-Font","type":"font-family","data":"Roboto Slab"},"param1-color":{"title":"Param-1-Color","type":"color","data":"#ffffff"},"param1-size":{"title":"Param-1-Size","type":"custom","data":"18"},"param1-font":{"title":"Param-1-Font","type":"font-family","data":"Roboto Slab"}},"presets":{},"version":"6.0.0"}',
+	'settings' => '{"dim":{"width":160,"height":160},"placeholders":{"title-color":{"title":"Param-Color","type":"color","data":"#a8d8ee"},"title-size":{"title":"Param-Size","type":"custom","data":"13"},"title-font":{"title":"Param-Font","type":"font-family","data":"Roboto Slab"},"param1-color":{"title":"Title-Color","type":"color","data":"#ffffff"},"param1-size":{"title":"Title-Size","type":"custom","data":"18"},"param1-font":{"title":"Title-Font","type":"font-family","data":"Roboto Slab"}},"presets":{},"version":"6.0.0"}',
 );
 $navigations[] = array(
 	'id' => 4005,

@@ -4,3 +4,42 @@
 #wcds-remove-supplier {
   color: red!important;
 }
+.wc-dropship-setting-tabs{
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  display: table;
+}
+
+.wc-dropship-setting-tabs li{
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: 0.3s;
+  margin-bottom: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.wc-dropship-setting-tabs li:hover {
+  background-color: #ddd;
+}
+
+.wc-dropship-setting-tabs li.active {
+  background-color: #ccc;
+}
+.drop-setting-section{display:none;}
+.drop-setting-section.active{display:block;}
+.slidesection_bkp .submit {padding-left: 20px;}
+.packing-slip-sections{border: 2px solid #999;padding: 20px;position: relative;}
+.packing-slip-sections h4{position: absolute;top: -35px;font-size: 20px;background: #f0f0f1;padding: 0 8px;font-weight: 400;}
+.inner-toggle{display:none;}
+.sw-pagination{margin-top: 25px;}
+.sw-pagination a {
+    padding: 8px 14px;
+    background: #2271b1;
+    color: #fff;
+	text-decoration: none;
+}
+.sw-pagination .current{padding: 8px 10px;background: #ccc;color: #fff;}

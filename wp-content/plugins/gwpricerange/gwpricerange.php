@@ -3,7 +3,7 @@
 * Plugin Name: GP Price Range
 * Description: Specify a minimum/maximum price for "User Defined Price" product fields.
 * Plugin URI: https://gravitywiz.com/documentation/gravity-forms-price-range/
-* Version: 1.1.1
+* Version: 1.2.1
 * Author: Gravity Wiz
 * Author URI: http://gravitywiz.com/
 * License: GPL2

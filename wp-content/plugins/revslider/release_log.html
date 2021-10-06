@@ -1,4 +1,70 @@
 <div class="slider-revolution-update-list">
+	<h3 class="version-number">Version 6.5.8 (7th September 2021)</h3>
+	<div class="change"><strong style="font-weight:700">Changes</strong></div>
+	<ul>
+		<li>Added cursor mode "none" to the option list to be able to hide the cursor on "a" tags when mouse track is activated</li>
+		<li>Introducing tag option for slide links (available options: "a" &  "rs-layer") to avoid FireFox popup blocking on _blank targets</li>	
+		<li>Introducing a global option: "Lazy Load on BG Images". This will allow to load BG images also with lazy load, defined due the lazy load global and module based options</li>
+		<li>Editing the size of layers in a column will replace % sizes into px on edit. Added a further protection which will only change the height values if the height is set over 98% within the column of any layer</li>
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>Carousel slider is flickering in Safari</li>
+		<li>Safari clippath animations are not visible during the animation</li>
+		<li>Some third party form options fail to work correctly. (This may have affected other third party integration as well)</li>
+		<li>Missing Elementor property on load causes the Cookiebot plugin to fail</li>
+		<li>Solid color background with opacity gets darker on refocus</li>
+		<li>First slide using the Advanced Transition's blur effect flashes black background</li>
+		<li>Advanced Transition with PanZoom BG jumps on slide change</li>
+		<li>Using fullscreen toggle on slider with parallax effect does not reset BG correctly</li>
+		<li>Blend Mode "color" is not working well in Safari. (Fallback to color-burn works)</li>
+		<li>Slider Revolution can not be added to Wordpress Widgets area. JS Failures</li>
+		<li>Revolution Slider in Essential Grid's lightbox opens only on the first time</li>
+		<li>Carousel background is squashed if the carousel's 'Keep Aspect Ratio(Justify)' option is turned off</li>
+		<li>Slider added using the Gutenberg block is pushed to the right side if the slider uses "Fixed during scroll" option</li>
+		<li>Gap (border) option does not work correctly on fullwidth and fullscreen slider</li>
+	</ul>
+
+	<h3 class="version-number">Version 6.5.7 (20th August 2021)</h3>
+	<div class="change"><strong style="font-weight:700">Changes</strong></div>
+	<ul>		
+		<li>Added global option to load YT Api in header which can be useful if Google Analytics enabled on page</li>
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>Carousel slider doesn't render after reopening modal</li>
+		<li>Modal does not open after update 6.5.6</li>
+		<li>Slider background does not render for a customer after upgrading from 6.3.9 to 6.5.6</li>
+		<li>Shape, Button and Text layers breaks Module processes if they use % based height in columns</li>
+		<li>Triggered groups shows content after resize even they should stay invisible</li>
+		<li>'Scroll Below Slider' action lags if page has scroll-behavior set to smooth</li>
+		<li>All Default Slide transitions shows animation within 1000ms on frontend, even backend has a different value set</li>
+		<li>Modal shows horizontal scrollbar on windows</li>
+	</ul>
+	
+	<h3 class="version-number">Version 6.5.6 (06th August 2021)</h3>
+	<div class="change"><strong style="font-weight:700">Changes</strong></div>
+	<ul>
+		<li>Timeline default length update will also update all layer timings with "Wait for End" in each slides of that module</li>
+		<li>Added search, filter and sorting functions to the Addon overview area for better overview</li>
+	</ul>
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>Elementor popup not loading with slider. Even with added protections, it is not stable, therefore we recommend to use Slider Revolution's own popup functionality</li>
+		<li>Video and PanZoom aspect ratio may not be correct during the slide transition</li>
+		<li>Vimeo video in carousel not covering vertically and the first play of Vimeo background videos are not showing in carousel</li>
+		<li>RS conflicts with elementor lottie</li>
+		<li>Fonts don't render correctly due to quotes around font family</li>
+		<li>A deprecation notice block_categories occurs from WordPress 5.8.0 onwards</li>
+		<li>Justify carousel hides max amount of shown slides option and makes layout dimension changes hard to understand</li>
+		<li>Navigation font family preset is not selected after reload</li>
+		<li>Navigation Skin editor meta values not shown, meta type shows always custom</li>
+		<li>Background image gets drawn twice while using BG Fit Percentage</li>
+		<li>Shortcodes from RevSlider v5 with - in it are not found</li>
+		<li>Mouse scroll not working on fullscreen slider if viewport value is set to 100%</li>
+		<li>Alternate slide animation is ignoring main animation once loop done</li>
+	</ul>
+
 	<h3 class="version-number">Version 6.5.5 (21st July 2021)</h3>
 	<div class="change"><strong style="font-weight:700">Changes</strong></div>
 	<ul>
@@ -26,6 +92,7 @@
 		<li>WooCommerce on demand slider module inserting does not start module automatically</li>
 		<li>Modal slides in actions do not refresh the drop down view, even the correct slide is selected</li>
 		<li>Content height jumps if rs6.css loaded in footer delayed</li>
+		<li>Slider sizes in backend layout tab not updated until refreshing single values</li>
 	</ul>
 
 	<h3 class="version-number">Version 6.5.4 (2nd July 2021)</h3>

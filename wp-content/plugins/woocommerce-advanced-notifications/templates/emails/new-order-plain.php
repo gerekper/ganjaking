@@ -103,7 +103,8 @@ echo "============================================================\n";
 
 if ( $show_totals ) {
 
-	if ( $triggers['all'] && ( $totals = $order->get_order_item_totals() ) ) {
+	$totals = $order->get_order_item_totals();
+	if ( $totals ) {
 		foreach ( $totals as $total ) {
 			echo $total['label'] . ' ';
 			echo preg_replace( "/&#?[a-z0-9]{2,8};/i", "", $total['value'] );

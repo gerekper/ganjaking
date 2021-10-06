@@ -22,8 +22,17 @@ class Tutorials extends Abstract_Page implements Interface_Page {
 	/**
 	 * Function triggered when the page is loaded before render any content.
 	 */
-	public function on_load() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_tutorials_scripts' ) );
+	public function on_load() {}
+
+	/**
+	 * Enqueue scripts.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param string $hook Hook from where the call is made.
+	 */
+	public function enqueue_scripts( $hook ) {
+		$this->enqueue_tutorials_scripts();
 	}
 
 	/**

@@ -184,10 +184,6 @@ function update_dynamic_price_ajax(gform_total) {
 
             $('button[type=submit]', $form).attr('id', 'gform_submit_button_' + form_id).addClass('button gform_button');
 
-            // attempt to prevent themes from submitting the form via AJAX.
-            $('button[type=submit]', $form).on('click', function(e) {
-                e.stopPropagation();
-            });
 
             if (next_page != 0) {
                 $('button[type=submit]', $form).remove();
@@ -218,9 +214,16 @@ function update_dynamic_price_ajax(gform_total) {
             });
 
 
-            $("form#gform_" + form_id + " .gform_fileupload_multifile").each(function () {
-                gfMultiFileUploader.setup(this);
-            });
+            if (wc_gravityforms_params.initialize_file_uploader) {
+                // Setup the multifile uploader if for some reason Gravity Forms itself has not done so.
+                $("form#gform_" + form_id + " .gform_fileupload_multifile").each(function () {
+                    if (typeof gfMultiFileUploader.uploaders[this.id] === "undefined") {
+                        console.log('Setting up multifile manually');
+                        gfMultiFileUploader.setup(this);
+                    }
+                });
+            }
+
 
         }
     };

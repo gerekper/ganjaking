@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Purchase_History_Value_Product_Variations ex
     public function get_label()
     {
 
-        return __('Value purchased - Variations', 'rightpress');
+        return esc_html__('Value purchased - Variations', 'rightpress');
     }
 
 

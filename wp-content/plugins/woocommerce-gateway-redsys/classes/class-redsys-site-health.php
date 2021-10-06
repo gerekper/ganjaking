@@ -52,7 +52,7 @@ function redsys_add_soap_test( $tests ) {
 }
 
 function redsys_oficial_redsys_test() {
-	if ( ( ! in_array( 'redsysoficial/class-wc-redsys.php', apply_filters( 'active_plugins', get_option('active_plugins' ) ) ) ) && ( ! in_array( 'redsys/class-wc-redsys.php', apply_filters( 'active_plugins', get_option('active_plugins' ) ) ) ) ) { 
+	if ( ( ! in_array( 'redsysoficial/class-wc-redsys.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) && ( ! in_array( 'redsys/class-wc-redsys.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) ) {
 		$result = array(
 			'label'       => __( 'Oficial Redsys and InSite Plugin not active, ok', 'woocommerce-redsys' ),
 			'status'      => 'good',
@@ -61,8 +61,8 @@ function redsys_oficial_redsys_test() {
 				'color' => 'red',
 			),
 			'description' => sprintf(
-			'<p>%s</p>',
-			__( 'This is Ok.', 'woocommerce-redsys'  )
+				'<p>%s</p>',
+				__( 'This is Ok.', 'woocommerce-redsys' )
 			),
 			'actions'     => '',
 			'test'        => 'redsys-oficial-redsys-test',
@@ -77,11 +77,16 @@ function redsys_oficial_redsys_test() {
 				'color' => 'red',
 			),
 			'description' => sprintf(
-			'<p>%s</p>',
-			sprintf(
-			__( 'Oficial Redsys or InSIte plugin active, please deactivate it.
-If you have both plugin active, WooCommerce Redsys Gateway by José Conti (WooCommerce.com), and Redsys WooCommerce (oficial plugin), you will have many problems. <a href="%1$s" target="_blank">Deactivate the Oficial Redsys Plugin</a>.', 'woocommerce-redsys' ), admin_url( 'plugins.php?s=redsys%20woocommerce&plugin_status=active' )
-			)),
+				'<p>%s</p>',
+				sprintf(
+					__(
+						'Oficial Redsys or InSIte plugin active, please deactivate it.
+If you have both plugin active, WooCommerce Redsys Gateway by José Conti (WooCommerce.com), and Redsys WooCommerce (oficial plugin), you will have many problems. <a href="%1$s" target="_blank">Deactivate the Oficial Redsys Plugin</a>.',
+						'woocommerce-redsys'
+					),
+					admin_url( 'plugins.php?s=redsys%20woocommerce&plugin_status=active' )
+				)
+			),
 			'actions'     => '',
 			'test'        => '',
 		);
@@ -90,7 +95,7 @@ If you have both plugin active, WooCommerce Redsys Gateway by José Conti (WooCo
 }
 
 function redsys_oficial_bizum_test() {
-	if ( ! in_array( 'bizum/class-wc-bizum.php', apply_filters( 'active_plugins', get_option('active_plugins' ) ) ) ) { 
+	if ( ! in_array( 'bizum/class-wc-bizum.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 		$result = array(
 			'label'       => __( 'Oficial Bizum Plugin not active, ok', 'woocommerce-redsys' ),
 			'status'      => 'good',
@@ -99,8 +104,8 @@ function redsys_oficial_bizum_test() {
 				'color' => 'red',
 			),
 			'description' => sprintf(
-			'<p>%s</p>',
-			__( 'This is Ok.', 'woocommerce-redsys'  )
+				'<p>%s</p>',
+				__( 'This is Ok.', 'woocommerce-redsys' )
 			),
 			'actions'     => '',
 			'test'        => 'redsys-oficial-bizum-test',
@@ -115,11 +120,16 @@ function redsys_oficial_bizum_test() {
 				'color' => 'red',
 			),
 			'description' => sprintf(
-			'<p>%s</p>',
-			sprintf(
-			__( 'Oficial Bizum plugin active, please deactivate it.
-If you have both plugin active, WooCommerce Redsys Gateway by José Conti (WooCommerce.com), and Bizum WooCommerce (oficial plugin), you will have many problems. <a href="%1$s" target="_blank">Deactivate the Oficial Bizum Plugin</a>.', 'woocommerce-redsys' ), admin_url( 'plugins.php?s=Bizum%20WooCommerce&plugin_status=active' )
-			)),
+				'<p>%s</p>',
+				sprintf(
+					__(
+						'Oficial Bizum plugin active, please deactivate it.
+If you have both plugin active, WooCommerce Redsys Gateway by José Conti (WooCommerce.com), and Bizum WooCommerce (oficial plugin), you will have many problems. <a href="%1$s" target="_blank">Deactivate the Oficial Bizum Plugin</a>.',
+						'woocommerce-redsys'
+					),
+					admin_url( 'plugins.php?s=Bizum%20WooCommerce&plugin_status=active' )
+				)
+			),
 			'actions'     => '',
 			'test'        => '',
 		);
@@ -128,14 +138,13 @@ If you have both plugin active, WooCommerce Redsys Gateway by José Conti (WooCo
 }
 
 function redsys_test_url_soap_test() {
-	
+
 	try {
-	  $soapClient = new SoapClient( 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl' );
+		$soapClient = new SoapClient( 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl' );
+	} catch ( Exception $e ) {
+		$exceptionMessage = $e->getMessage();
 	}
-	catch( Exception $e ) {
-	  $exceptionMessage = $e->getMessage();
-	}
-	if ( ! $exceptionMessage ) { 
+	if ( ! $exceptionMessage ) {
 		$result = array(
 			'label'       => __( 'SOAP URL Test is Working, OK', 'woocommerce-redsys' ),
 			'status'      => 'good',
@@ -144,8 +153,8 @@ function redsys_test_url_soap_test() {
 				'color' => 'red',
 			),
 			'description' => sprintf(
-			'<p>%s</p>',
-			__( 'This is Ok.', 'woocommerce-redsys' )
+				'<p>%s</p>',
+				__( 'This is Ok.', 'woocommerce-redsys' )
 			),
 			'actions'     => '',
 			'test'        => 'redsys-test-url-soap-test',
@@ -160,8 +169,8 @@ function redsys_test_url_soap_test() {
 				'color' => 'red',
 			),
 			'description' => sprintf(
-			'<p>%s</p>',
-			__( 'Normally this happens because your hosting is blocking the Port 25443 for SOAP, please talk to your hosting and tell them to open port 25443 for SOAP. If they ask you the URL to which the plugin is trying to connect, it\'s https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl If the hosting does not open the port, the plugin will not work correctly in test mode..', 'woocommerce-redsys' )
+				'<p>%s</p>',
+				__( 'Normally this happens because your hosting is blocking the Port 25443 for SOAP, please talk to your hosting and tell them to open port 25443 for SOAP. If they ask you the URL to which the plugin is trying to connect, it\'s https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl If the hosting does not open the port, the plugin will not work correctly in test mode..', 'woocommerce-redsys' )
 			),
 			'actions'     => '',
 			'test'        => '',
@@ -171,14 +180,13 @@ function redsys_test_url_soap_test() {
 }
 
 function redsys_real_url_soap_test() {
-	
+
 	try {
-	  $soapClient = new SoapClient( 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl' );
+		$soapClient = new SoapClient( 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl' );
+	} catch ( Exception $e ) {
+		$exceptionMessage = $e->getMessage();
 	}
-	catch( Exception $e ) {
-	  $exceptionMessage = $e->getMessage();
-	}
-	if ( ! $exceptionMessage ) { 
+	if ( ! $exceptionMessage ) {
 		$result = array(
 			'label'       => __( 'SOAP URL Real is Working, ok', 'woocommerce-redsys' ),
 			'status'      => 'good',
@@ -187,8 +195,8 @@ function redsys_real_url_soap_test() {
 				'color' => 'red',
 			),
 			'description' => sprintf(
-			'<p>%s</p>',
-			__( 'This is Ok.', 'woocommerce-redsys' )
+				'<p>%s</p>',
+				__( 'This is Ok.', 'woocommerce-redsys' )
 			),
 			'actions'     => '',
 			'test'        => 'redsys-real-url-soap-test',
@@ -203,8 +211,8 @@ function redsys_real_url_soap_test() {
 				'color' => 'red',
 			),
 			'description' => sprintf(
-			'<p>%s</p>',
-			__( 'Normally this happens because your hosting is blocking outgoing SOAP calls, Please talk to your hosting and tell them to open SOAP. If they ask you the URL to which the plugin is trying to connect, it\'s https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl. If the hosting does not open the port, the plugin will not work correctly. .', 'woocommerce-redsys' )
+				'<p>%s</p>',
+				__( 'Normally this happens because your hosting is blocking outgoing SOAP calls, Please talk to your hosting and tell them to open SOAP. If they ask you the URL to which the plugin is trying to connect, it\'s https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl. If the hosting does not open the port, the plugin will not work correctly. .', 'woocommerce-redsys' )
 			),
 			'actions'     => '',
 			'test'        => '',
@@ -214,7 +222,7 @@ function redsys_real_url_soap_test() {
 }
 
 function redsys_soap_test() {
-	
+
 	if ( class_exists( 'SOAPClient' ) ) {
 		$result = array(
 			'label'       => __( 'SOAP is active, ok', 'woocommerce-redsys' ),
@@ -224,8 +232,8 @@ function redsys_soap_test() {
 				'color' => 'red',
 			),
 			'description' => sprintf(
-			'<p>%s</p>',
-			__( 'This is Ok.', 'woocommerce-redsys' )
+				'<p>%s</p>',
+				__( 'This is Ok.', 'woocommerce-redsys' )
 			),
 			'actions'     => '',
 			'test'        => '',
@@ -240,8 +248,8 @@ function redsys_soap_test() {
 				'color' => 'red',
 			),
 			'description' => sprintf(
-			'<p>%s</p>',
-			__( 'SOAP is needed for Pay with 1 clic, refunds, subscriptions, etc. Ask to your hosting to enable it. Without active SOAP on the server, the functionality of the plugin is very limited.', 'woocommerce-redsys' )
+				'<p>%s</p>',
+				__( 'SOAP is needed for Pay with 1 clic, refunds, subscriptions, etc. Ask to your hosting to enable it. Without active SOAP on the server, the functionality of the plugin is very limited.', 'woocommerce-redsys' )
 			),
 			'actions'     => '',
 			'test'        => 'redsys-soap-test',

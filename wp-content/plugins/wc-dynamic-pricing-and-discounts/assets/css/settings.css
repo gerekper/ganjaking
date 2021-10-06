@@ -1,6 +1,9 @@
 /**
  * WooCommerce Dynamic Pricing & Discounts Plugin Settings Page Styles
  */
+.rp_wcdpd_clear_both {
+    clear: both;
+}
 .rp_wcdpd_tabs_container {
     width: 100%;
 }
@@ -121,6 +124,12 @@ wrap h2.rp_wcdpd_tabs_container {
 }
 div.rp_wcdpd_settings {
     margin-top: 15px;
+}
+
+.rp_wcdpd_settings_notices_fix {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 0 !important;
 }
 
 div.rp_wcdpd_rules_header {
@@ -370,6 +379,10 @@ div.rp_wcdpd_rules_settings {
     text-align: center;
     padding-top: 10px;
 }
+.rp_wcdpd_loading_data {
+    text-align: center;
+    padding: 20px;
+}
 .rp_wcdpd_settings input.rp_wcdpd_half_left,
 .rp_wcdpd_settings select.rp_wcdpd_half_left {
     float: left;
@@ -567,6 +580,10 @@ div.rp_wcdpd_rules_settings {
     height: 40px;
 }
 
+.rp_wcdpd_preloader_header {
+    font-weight: 700;
+}
+
 .rp_wcdpd_settings label {
     font-weight: 700;
 }
@@ -613,4 +630,16 @@ div.rp_wcdpd_rules_settings {
     padding-left: 10px;
     margin-left: 8px;
     border-left: 1px solid #ccc;
+}
+
+.rp_wcdpd_migration_notice {
+    display: block;
+    text-align: left;
+    background-color: #fff;
+    border-left: 4px solid #dc3232;
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%);
+}
+.rp_wcdpd_migration_notice h3 {
+    margin-top: 0.3em;
+    margin-bottom: 0.6em;
 }

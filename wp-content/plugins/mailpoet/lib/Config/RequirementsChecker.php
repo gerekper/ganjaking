@@ -22,7 +22,9 @@ class RequirementsChecker {
     '\Html2Text\Html2Text',
   ];
 
-  public function __construct($displayErrorNotice = true) {
+  public function __construct(
+    $displayErrorNotice = true
+  ) {
     $this->displayErrorNotice = $displayErrorNotice;
   }
 

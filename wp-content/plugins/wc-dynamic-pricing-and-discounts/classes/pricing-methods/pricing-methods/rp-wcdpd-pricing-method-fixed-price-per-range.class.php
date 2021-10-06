@@ -49,7 +49,7 @@ class RP_WCDPD_Pricing_Method_Fixed_Price_Per_Range extends RP_WCDPD_Pricing_Met
      */
     public function get_label()
     {
-        return __('Fixed price per range', 'rp_wcdpd');
+        return esc_html__('Fixed price per range', 'rp_wcdpd');
     }
 
 

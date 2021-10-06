@@ -86,10 +86,18 @@ class SubscriberNewsletterStatsRepository extends ListingRepository {
       ->setParameter('search', "%$search%");
   }
 
+  /**
+   * @param QueryBuilder $queryBuilder
+   * @param array<int|string> $filters
+   */
   protected function applyFilters(QueryBuilder $queryBuilder, array $filters) {
     // No filters for this listing
   }
 
+  /**
+   * @param QueryBuilder $queryBuilder
+   * @param array<int|string> $parameters
+   */
   protected function applyParameters(QueryBuilder $queryBuilder, array $parameters) {
     $subscriberId = $parameters['id'] ?? null;
     if ($subscriberId) {

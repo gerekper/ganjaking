@@ -22,6 +22,12 @@ class DisplayFormInWPContent {
     FormEntity::DISPLAY_TYPE_SLIDE_IN,
   ];
 
+  const SUPPORTED_POST_TYPES = [
+    'post',
+    'product',
+    'job_listing',
+  ];
+
   /** @var WPFunctions */
   private $wp;
 
@@ -74,18 +80,19 @@ class DisplayFormInWPContent {
   }
 
   private function shouldDisplay(): bool {
+    $result = true;
     // This is a fix Yoast plugin and Shapely theme compatibility
     // This is to make sure we only display once for each page
     // Yast plugin calls `get_the_excerpt` which also triggers hook `the_content` we don't want to include our form in that
     // Shapely calls the hook `the_content` multiple times on the page as well and we would display popup multiple times - not ideal
     if (!$this->wp->inTheLoop() || !$this->wp->isMainQuery()) {
-      return false;
+      $result = $this->wp->applyFilters('mailpoet_display_form_is_main_loop', false);
     }
     // this code ensures that we display the form only on a page which is related to single post
-    if (!$this->wp->isSingle() && !$this->wp->isPage()) return false;
+    if (!$this->wp->isSingle() && !$this->wp->isPage()) $result = $this->wp->applyFilters('mailpoet_display_form_is_single', false);
     $noFormsCache = $this->wp->getTransient(DisplayFormInWPContent::NO_FORM_TRANSIENT_KEY);
-    if ($noFormsCache === '1') return false;
-    return true;
+    if ($noFormsCache === '1') $result = false;
+    return $result;
   }
 
   private function saveNoForms() {
@@ -125,11 +132,7 @@ class DisplayFormInWPContent {
 
   private function getContentBellow(FormEntity $form, string $displayType): string {
     if (!$this->shouldDisplayFormType($form, $displayType)) return '';
-    $formData = [
-      'body' => $form->getBody(),
-      'styles' => $form->getStyles(),
-      'settings' => $form->getSettings(),
-    ];
+
     $formSettings = $form->getSettings();
     if (!is_array($formSettings)) return '';
     $htmlId = 'mp_form_' . $displayType . $form->getId();
@@ -138,8 +141,8 @@ class DisplayFormInWPContent {
       'form_id' => $form->getId(),
       'form_success_message' => $formSettings['success_message'] ?? null,
       'form_type' => $displayType,
-      'styles' => $this->formRenderer->renderStyles($formData, '#' . $htmlId, $displayType),
-      'html' => $this->formRenderer->renderHTML($formData),
+      'styles' => $this->formRenderer->renderStyles($form, '#' . $htmlId, $displayType),
+      'html' => $this->formRenderer->renderHTML($form),
       'close_button_icon' => $formSettings['close_button'] ?? 'round_white',
     ];
 
@@ -189,7 +192,7 @@ class DisplayFormInWPContent {
       return false;
     }
 
-    if ($this->wp->isSingular('post') || $this->wp->isSingular('product')) {
+    if ($this->wp->isSingular($this->wp->applyFilters('mailpoet_display_form_supported_post_types', self::SUPPORTED_POST_TYPES))) {
       if ($this->shouldDisplayFormOnPost($setup, 'posts')) return true;
       if ($this->shouldDisplayFormOnCategory($setup)) return true;
       if ($this->shouldDisplayFormOnTag($setup)) return true;

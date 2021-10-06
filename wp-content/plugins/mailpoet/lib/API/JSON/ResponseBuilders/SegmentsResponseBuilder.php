@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MailPoet\API\JSON\ResponseBuilders;
 
@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Entities\SegmentEntity;
-use MailPoet\Segments\SegmentSubscribersRepository;
+use MailPoet\Subscribers\SubscribersCountsController;
 use MailPoet\WP\Functions;
 
 class SegmentsResponseBuilder {
@@ -15,15 +15,15 @@ class SegmentsResponseBuilder {
   /** @var Functions */
   private $wp;
 
-  /** @var SegmentSubscribersRepository */
-  private $segmentSubscriberRepository;
+  /** @var SubscribersCountsController */
+  private $subscribersCountsController;
 
   public function __construct(
     Functions $wp,
-    SegmentSubscribersRepository $segmentSubscriberRepository
+    SubscribersCountsController $subscribersCountsController
   ) {
     $this->wp = $wp;
-    $this->segmentSubscriberRepository = $segmentSubscriberRepository;
+    $this->subscribersCountsController = $subscribersCountsController;
   }
 
   public function build(SegmentEntity $segment): array {
@@ -35,41 +35,23 @@ class SegmentsResponseBuilder {
       'created_at' => $segment->getCreatedAt()->format(self::DATE_FORMAT),
       'updated_at' => $segment->getUpdatedAt()->format(self::DATE_FORMAT),
       'deleted_at' => ($deletedAt = $segment->getDeletedAt()) ? $deletedAt->format(self::DATE_FORMAT) : null,
+      'average_engagement_score' => $segment->getAverageEngagementScore(),
+      'filters_connect' => $segment->getFiltersConnectOperator(),
     ];
   }
 
   public function buildForListing(array $segments): array {
     $data = [];
-<<<<<<< HEAD
     foreach ($segments as $segment) {
       $data[] = $this->buildListingItem($segment);
-=======
-    $segmendIds = array_map(function(SegmentEntity $segment): int {
-      return (int)$segment->getId();
-    }, $segments);
-    $scheduledNewsletterSubjectsMap = $this->newsletterSegmentRepository->getScheduledNewsletterSubjectsBySegmentIds($segmendIds);
-    $automatedNewsletterSubjectsMap = $this->newsletterSegmentRepository->getAutomatedEmailSubjectsBySegmentIds($segmendIds);
-    $sendingNewsletterSubjectsMap = $this->newsletterSegmentRepository->getSendingEmailSubjectsBySegmentIds($segmendIds);
-    foreach ($segments as $segment) {
-      $data[] = $this->buildListingItem($segment, $scheduledNewsletterSubjectsMap, $automatedNewsletterSubjectsMap, $sendingNewsletterSubjectsMap);
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
     }
     return $data;
   }
 
-<<<<<<< HEAD
   private function buildListingItem(SegmentEntity $segment): array {
     $data = $this->build($segment);
 
-=======
-  private function buildListingItem(SegmentEntity $segment, array $scheduledNewsletterSubjectsMap, array $automatedNewsletterSubjectsMap, array $sendingNewsletterSubjectsMap): array {
-    $data = $this->build($segment);
-
-    $data['automated_emails_subjects'] = $automatedNewsletterSubjectsMap[$segment->getId()] ?? [];
-    $data['scheduled_emails_subjects'] = $scheduledNewsletterSubjectsMap[$segment->getId()] ?? [];
-    $data['sending_emails_subjects'] = $sendingNewsletterSubjectsMap[$segment->getId()] ?? [];
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
-    $data['subscribers_count'] = $this->segmentSubscriberRepository->getSubscribersStatisticsCount($segment);
+    $data['subscribers_count'] = $this->subscribersCountsController->getSegmentStatisticsCount($segment);
     $data['subscribers_url'] = $this->wp->adminUrl(
       'admin.php?page=mailpoet-subscribers#/filter[segment=' . $segment->getId() . ']'
     );

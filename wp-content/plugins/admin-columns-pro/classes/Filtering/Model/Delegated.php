@@ -39,15 +39,4 @@ class Delegated extends Model {
 		return $this->dropdown_attr_id;
 	}
 
-	/**
-	 * @param string $dropdown_attr_id
-	 *
-	 * @deprecated 4.2.3
-	 */
-	public function set_dropdown_attr_id( $dropdown_attr_id ) {
-		_deprecated_function( __METHOD__, '4.2.3' );
-
-		$this->dropdown_attr_id = $dropdown_attr_id;
-	}
-
 }

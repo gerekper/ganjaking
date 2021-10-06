@@ -45,7 +45,8 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 	static function get_primary_term($post_id, $taxonomy, $slug_only = true) {
 		global $permalink_manager_options;
 
-		$primary_term_enabled = apply_filters('permalink_manager_primary_term', true);
+		$primary_term_enabled = (isset($permalink_manager_options['general']['primary_category'])) ? (bool) $permalink_manager_options['general']['primary_category'] : true;
+		$primary_term_enabled = apply_filters('permalink_manager_primary_term', $primary_term_enabled);
 
 		if(!$primary_term_enabled) { return; }
 
@@ -225,20 +226,68 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 		return apply_filters('permalink_manager_disabled_taxonomies', $disabled_taxonomies);
 	}
 
-	static public function is_disabled($content_name, $content_type = 'post_type', $check_if_exists = true) {
-		$out = false;
-
-		if($content_type == 'post_type') {
-			$disabled_post_types = self::get_disabled_post_types();
-			$post_type_exists = ($check_if_exists) ? post_type_exists($content_name) : true;
-			$out = ((is_array($disabled_post_types) && in_array($content_name, $disabled_post_types)) || empty($post_type_exists)) ? true : false;
-		} else {
-			$disabled_taxonomies = self::get_disabled_taxonomies();
-			$taxonomy_exists = ($check_if_exists) ? taxonomy_exists($content_name) : true;
-			$out = ((is_array($disabled_taxonomies) && in_array($content_name, $disabled_taxonomies)) || empty($taxonomy_exists)) ? true : false;
-		}
+	/**
+	 * Check if post type should be ignored by Permalink Manager
+	 */
+	static public function is_post_type_disabled($post_type, $check_if_exists = true) {
+		$disabled_post_types = self::get_disabled_post_types();
+		$post_type_exists = ($check_if_exists) ? post_type_exists($post_type) : true;
+		$out = ((is_array($disabled_post_types) && in_array($post_type, $disabled_post_types)) || empty($post_type_exists)) ? true : false;
 
 		return $out;
+	}
+
+	/**
+	 * Check if taxonomy should be ignored by Permalink Manager
+	 */
+	static public function is_taxonomy_disabled($taxonomy, $check_if_exists = true) {
+		$disabled_taxonomies = self::get_disabled_taxonomies();
+		$taxonomy_exists = ($check_if_exists) ? taxonomy_exists($taxonomy) : true;
+		$out = ((is_array($disabled_taxonomies) && in_array($taxonomy, $disabled_taxonomies)) || empty($taxonomy_exists)) ? true : false;
+
+		return $out;
+	}
+
+	/**
+	 * Check if single post should be ignored by Permalink Manager
+	 */
+	public static function is_post_excluded($post = null) {
+		$post = (is_integer($post)) ? get_post($post) : $post;
+
+		// A. Check if post type is disabled
+		if(!empty($post->post_type) && self::is_post_type_disabled($post->post_type)) {
+			return true;
+		}
+
+		$excluded_post_ids = apply_filters('permalink_manager_excluded_post_ids', array());
+
+		// B. Check if post ID is excluded
+		if(is_array($excluded_post_ids) && !empty($post->ID) && in_array($post->ID, $excluded_post_ids)) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if single term should be ignored by Permalink Manager
+	 */
+	public static function is_term_excluded($term = null) {
+		$term = (is_numeric($term)) ? get_term($term) : $term;
+
+		// A. Check if post type is disabled
+		if(!empty($term->taxonomy) && self::is_taxonomy_disabled($term->taxonomy)) {
+			return true;
+		}
+
+		$excluded_term_ids = apply_filters('permalink_manager_excluded_term_ids', array());
+
+		// B. Check if post ID is excluded
+		if(is_array($excluded_term_ids) && !empty($term->term_id) && in_array($term->term_id, $excluded_term_ids)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

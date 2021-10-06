@@ -11,6 +11,7 @@
     var mailpoet_date_formats = <%= json_encode(date_formats) %>;
     var mailpoet_premium_active = <%= json_encode(premium_plugin_active) %>;
     var mailpoet_max_confirmation_emails = <%= max_confirmation_emails %>;
+    var mailpoet_tracking_enabled = <%= json_encode(tracking_enabled) %>;
     var mailpoet_beacon_articles = [
       '57ce07ffc6979108399a044b',
       '57ce079f903360649f6e56fc',
@@ -26,6 +27,7 @@
     var mailpoet_subscribers_count = <%= subscriber_count %>;
     var mailpoet_has_premium_support = <%= has_premium_support ? 'true' : 'false' %>;
     var mailpoet_premium_link = <%= json_encode(link_premium) %>;
+    var mailpoet_subscribers_counts_cache_created_at = <%= json_encode(subscribers_counts_cache_created_at) %>;
   </script>
 <% endblock %>
 
@@ -54,6 +56,8 @@
     'moveToTrash': __('Move to trash'),
     'deletePermanently': __('Delete Permanently'),
     'showMoreDetails': __('Show more details'),
+    'lastEngagement': __('Last engagement'),
+    'never': _x('never', 'when was the last time the subscriber engaged with the website?'),
 
     'previousPage': __('Previous page'),
     'firstPage': __('First page'),
@@ -91,6 +95,7 @@
     'subscriber': __('Subscriber'),
     'status': __('Status'),
     'lists': __('Lists'),
+    'statisticsColumn': __('Score'),
     'subscribedOn': __('Subscribed on'),
     'lastModifiedOn': __('Last modified on'),
     'oneSubscriberTrashed': __('1 subscriber was moved to the trash.'),
@@ -114,13 +119,12 @@
     'listsToWhichSubscriberWasSubscribed': __('Lists to which the subscriber was subscribed.'),
     'WPUsersSegment': __('WordPress Users'),
     'WPUserEditNotice': __('This subscriber is a registered WordPress user. [link]Edit his/her profile[/link] to change his/her email.'),
-    'allSendingPausedHeader': __('All sending is currently paused!'),
-    'allSendingPausedBody': __('Your key to send with MailPoet is invalid.'),
-    'allSendingPausedLink': __('Purchase a key'),
     'statsListingActionTitle': __('Statistics'),
     'statsHeading': _x('Stats: %s', 'This is a heading for the subscribers statistics page example: "Stats: mailpoet@example.com"'),
     'statsSentEmail': __('Sent email'),
     'statsOpened': __('Opened'),
+    'statsMachineOpened': _x('Machine-opened', 'Percentage of newsletters that were opened by a machine'),
+    'statsMachineOpenedTooltip': __('A machine-opened email is an email opened by a computer in the background without the user’s explicit request or knowledge. [link]Read more[/link]'),
     'statsClicked': __('Clicked'),
     'statsNotClicked': __('Not opened'),
     'openedEmailsHeading': __('Opened emails'),
@@ -144,6 +148,23 @@
     'columnAction': _x('Action', 'Table column label for subscriber actions e.g. email open, link clicked'),
     'columnActionOn': _x('Action on', 'Table column label for date when subscriber action happened'),
     'columnCount': _x('Count', 'Table column label for count of subscriber actions'),
+    'unknownBadgeName': __('Unknown'),
+    'unknownBadgeTooltip': __('Not enough data.'),
+    'tooltipUnknown': __('Fewer than 3 emails sent'),
+    'excellentBadgeName': __('Excellent'),
+    'excellentBadgeTooltip': __('Congrats!'),
+    'tooltipExcellent': __('Read 50% or more of sent emails'),
+    'goodBadgeName': __('Good'),
+    'goodBadgeTooltip': __('Good stuff.'),
+    'tooltipGood': __('Read between 20 and 50% of sent emails'),
+    'averageBadgeName': __('Low'),
+    'averageBadgeTooltip': __('Something to improve.'),
+    'tooltipAverage': __('Read 20% or fewer of sent emails'),
+    'engagementScoreDescription': __('Average percent of emails subscribers read in the last year'),
+
+    'subscribersCountWereCalculated': __('Lists and Segments subscribers counts were calculated'),
+    'subscribersMinutesAgo': __('minutes ago'),
+    'recalculateNow': __('Recalculate now'),
   }) %>
 <% endblock %>
 

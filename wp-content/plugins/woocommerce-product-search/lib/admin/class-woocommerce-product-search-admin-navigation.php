@@ -245,17 +245,20 @@ class WooCommerce_Product_Search_Admin_Navigation {
 					'order' => 30
 				)
 			);
-			Menu::add_plugin_item(
-				array(
-					'id'         => 'woocommerce-product-search-assistant',
-					'title'      => __( 'Assistant', 'woocommerce-product-search' ),
-					'capability' => 'manage_woocommerce',
-					'url'        => WooCommerce_Product_Search_Admin::get_admin_section_url( WooCommerce_Product_Search_Admin::SECTION_ASSISTANT ),
-					'parent'     => 'woocommerce-product-search',
 
-					'order' => 40
-				)
-			);
+			if ( WooCommerce_Product_Search_Admin::uses_classic_widgets() ) {
+				Menu::add_plugin_item(
+					array(
+						'id'         => 'woocommerce-product-search-assistant',
+						'title'      => __( 'Assistant', 'woocommerce-product-search' ),
+						'capability' => 'manage_woocommerce',
+						'url'        => WooCommerce_Product_Search_Admin::get_admin_section_url( WooCommerce_Product_Search_Admin::SECTION_ASSISTANT ),
+						'parent'     => 'woocommerce-product-search',
+
+						'order' => 40
+					)
+				);
+			}
 
 		}
 	}

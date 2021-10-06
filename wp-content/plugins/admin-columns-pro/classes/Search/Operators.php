@@ -28,6 +28,7 @@ final class Operators extends Config {
 	const LT_DAYS_AGO = 'LT_DAYS_AGO';
 	const GT_DAYS_AGO = 'GT_DAYS_AGO';
 	const WITHIN_DAYS = 'WITHIN_DAYS';
+	const CURRENT_USER = 'CURRENT_USER';
 
 	/**
 	 * @param array $operators
@@ -67,6 +68,7 @@ final class Operators extends Config {
 			self::LT_DAYS_AGO,
 			self::GT_DAYS_AGO,
 			self::WITHIN_DAYS,
+			self::CURRENT_USER,
 		];
 	}
 

@@ -4,6 +4,8 @@
 
 (function () {
 
+    'use strict';
+
     /**
      * Register plugin
      */
@@ -40,7 +42,7 @@
         });
 
         // On checkbox state change
-        jQuery(selector_checkbox_simple).change(function() {
+        jQuery(selector_checkbox_simple).on('change', function() {
             toggle_simple_product_fields();
         });
 
@@ -89,7 +91,7 @@
 
         // On checkbox state change
         jQuery(selector_checkbox_variable).each(function() {
-            jQuery(this).change(function() {
+            jQuery(this).on('change', function() {
                 toggle_variable_product_fields();
             });
         });
@@ -109,7 +111,7 @@
             toggle_variable_product_fields();
 
             jQuery(selector_checkbox_variable).last().each(function() {
-                jQuery(this).change(function() {
+                jQuery(this).on('change', function() {
                     toggle_variable_product_fields();
                 });
             });

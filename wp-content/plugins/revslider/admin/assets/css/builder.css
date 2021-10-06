@@ -79,6 +79,10 @@
 #the_container._audio_sel_ .form_collector .form_inner._nsfa_,
 #the_container._button_sel_ .form_collector .form_inner._nsfb_,
 #the_container._object_sel_ .form_collector .form_inner._nsfo_,
+#the_container._layer_in_column_sel_._text_sel_ ._nsftbsic_,
+#the_container._layer_in_column_sel_._shape_sel_ ._nsftbsic_,
+#the_container._layer_in_column_sel_._button_sel_ ._nsftbsic_,
+#the_container._layer_in_column_sel_._object_sel_ ._nsftbsic_,
 
 ._column_sel_ ._nsfc_,
 ._row_sel_ ._nsfr_,
@@ -3152,6 +3156,12 @@ rs-pzimg-wrap { display: block; position: absolute }
 #the_container ._just_carousel_ .form_collector .form_inner ._nvojcm_ { display: none !important;}
 #the_container .form_collector .form_inner.hide_while_empty { display: none !important; }
 
+
+#the_container ._just_carousel_ .form_collector .form_inner #sr_size_width_d,
+#the_container ._just_carousel_ .form_collector .form_inner #sr_size_width_n,
+#the_container ._just_carousel_ .form_collector .form_inner #sr_size_width_t,
+#the_container ._just_carousel_ .form_collector .form_inner #sr_size_width_m  { opacity: 0.3 !important; pointer-events: none !important; }
+
 #the_container .form_collector .form_inner .collapsable { padding: 20px;display:none; position: relative}
 #the_container .form_collector .form_inner.open .collapsable {  display:block;}
 
@@ -3483,8 +3493,12 @@ i.material-icons.icon_in_dropdown { margin-right: 5px; color: #f82c90;font-size:
 /**********************************
   - RS ADDON MANAGEMENT -
 ***********************************/
+
+#addon_overviewheader_wrap { padding:20px 55px 0px;width: 820px;position: absolute;top: 50px;left: 0px;z-index: 100;background: #000;box-sizing: border-box;background-color: #212226;}
+#addon_overviewheader { border-bottom: 1px solid #333438;}
+
 #rbm_addons { width: 1195px; }
-#rbm_addonlist { width: 820px; height: 750px; background: #212226; position: relative;overflow: hidden; box-sizing: border-box; padding:30px 30px;}
+#rbm_addonlist { width: 820px; height: 800px; background: #212226; position: relative;overflow: hidden; box-sizing: border-box; padding:100px 30px 30px; }
 #rbm_addon_details {  width:375px; position: absolute; right:0px; top:50px; height:750px; overflow: hidden; box-sizing: border-box; }
 
 .rs_ale { display: inline-block; width:190px; height:215px; position: relative; box-sizing: border-box; cursor: pointer;}

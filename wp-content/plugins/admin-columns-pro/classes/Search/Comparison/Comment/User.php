@@ -13,6 +13,7 @@ class User extends Field
 	public function __construct() {
 		$operators = new Operators( [
 			Operators::EQ,
+			Operators::CURRENT_USER,
 			Operators::IS_EMPTY,
 			Operators::NOT_IS_EMPTY,
 		] );

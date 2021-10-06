@@ -15,7 +15,7 @@ class AlternateText extends AC\Column\Media\AlternateText
 	}
 
 	public function editing() {
-		return new Editing\Model\Media\AlternateText( $this );
+		return new Editing\Service\Media\AlternateText();
 	}
 
 	public function search() {

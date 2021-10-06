@@ -1,0 +1,164 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: assets/js/blocks/src/components/block-member-content.js:13
+msgid "Member Content"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:15
+msgid "Only members of the selected plan(s) can see this content."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:195
+msgid ""
+"Visitors without the required plan will see a custom restriction message "
+"instead of this block."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:198
+msgid ""
+"Visitors without the required plan will see the restriction message "
+"specified in %1$sMemberships Settings%2$s instead of this block."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:202
+msgid "This block will be invisible to anyone without the required plan access."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:211
+msgid "No message"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:212
+msgid "Default restriction message"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:213
+msgid "Custom restriction message"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:229
+msgid "Basic HTML is allowed. You can also use the following merge tags:"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:245
+msgid "The content below will be visible only to users who are members of any plan."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:247
+msgid "The content below will be visible only to users who are members of %s."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:253
+msgid "End of member-only content block."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:263
+#: assets/js/blocks/src/components/block-non-member-content.js:89
+msgid "or"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:282
+#: assets/js/blocks/src/components/block-non-member-content.js:108
+msgid "Membership plans"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:301
+msgid ""
+"Members of any selected plan(s) will see this block's content. Leave blank "
+"to show this content to members of any plan."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:307
+msgid "Delay access"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:312
+msgid "Determine when members should be able to see this content."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:315
+msgid "Immediately"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:316
+msgid "After being a member for a specific time"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:317
+msgid "After a specific date"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:333
+msgid "Active members can see block content after this date."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:347
+msgid "Days"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:348
+msgid "Weeks"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:349
+msgid "Months"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:350
+msgid "Years"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:355
+msgid "Active members can see block content after this period."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:361
+msgid "Hide block from members during free trial"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:362
+msgid ""
+"If enabled, members of a subscription plan can access this content "
+"immediately after their free trial ends, unless a specific time to get "
+"access from is selected."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:369
+msgid "Restricted content message"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-member-content.js:378
+msgid "Message Content"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-non-member-content.js:12
+msgid "Non-Member Content"
+msgstr ""
+
+#: assets/js/blocks/src/components/block-non-member-content.js:127
+msgid ""
+"Users who are not members of the selected plan(s) will see the content "
+"within this block. Leave blank to show this content to users who don't "
+"belong to any plan."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-non-member-content.js:14
+msgid "Only non-members can see this content."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-non-member-content.js:71
+msgid "This content will only be shown to guests or non-members."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-non-member-content.js:73
+msgid ""
+"This content will only be shown to guests or users who are not members of "
+"%s."
+msgstr ""
+
+#: assets/js/blocks/src/components/block-non-member-content.js:79
+msgid "End of content for non-members only."
+msgstr ""

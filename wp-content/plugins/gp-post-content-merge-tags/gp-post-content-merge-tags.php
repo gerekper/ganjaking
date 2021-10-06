@@ -2,15 +2,15 @@
 /**
  * Plugin Name: GP Post Content Merge Tags
  * Description: Adds support for Gravity Form merge tags in your post content.
- * Plugin URI: http://gravitywiz.com/gravity-forms-post-content-merge-tags/
- * Version: 1.1.9
+ * Plugin URI: https://gravitywiz.com/documentation/gravity-forms-post-content-merge-tags/
+ * Version: 1.3.2
  * Author: Gravity Wiz
  * Author URI: http://gravitywiz.com/
  * License: GPL2
  * Perk: True
  */
 
-define( 'GP_POST_CONTENT_MERGE_TAGS_VERSION', '1.1.9' );
+define( 'GP_POST_CONTENT_MERGE_TAGS_VERSION', '1.3.2' );
 
 require 'includes/class-gp-bootstrap.php';
 

@@ -156,13 +156,13 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 		$settings['heading_class']      = !empty( $new_instance['heading_class'] ) ? trim( $new_instance['heading_class'] ) : '';
 		$settings['heading_id']         = !empty( $new_instance['heading_id'] ) ? trim( $new_instance['heading_id'] ) : '';
 		$settings['heading_element']    = !empty( $new_instance['heading_element'] ) ? trim( $new_instance['heading_element'] ) : '';
-		$settings['show_heading']       = !empty( $new_instance['show_heading'] ) ? 'yes' : 'no';
+		$settings['show_heading']       = woocommerce_product_search_input_yn( $new_instance['show_heading'] );
 
-		$settings['filter']        = !empty( $new_instance['filter'] ) ? 'yes' : 'no';
+		$settings['filter']        = woocommerce_product_search_input_yn( $new_instance['filter'] );
 
-		$settings['submit_button'] = !empty( $new_instance['submit_button'] ) ? 'yes' : 'no';
+		$settings['submit_button'] = woocommerce_product_search_input_yn( $new_instance['submit_button'] );
 
-		$settings['shop_only'] = !empty( $new_instance['shop_only'] ) ? 'yes' : 'no';
+		$settings['shop_only'] = woocommerce_product_search_input_yn( $new_instance['shop_only'] );
 
 		$delay = !empty( $new_instance['delay'] ) ? intval( $new_instance['delay'] ) : WooCommerce_Product_Search::DEFAULT_DELAY;
 		if ( $delay < WooCommerce_Product_Search::MIN_DELAY ) {
@@ -170,13 +170,13 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 		}
 		$settings['delay'] = $delay;
 
-		$settings['slider']               = !empty( $new_instance['slider'] ) ? 'yes' : 'no';
-		$settings['fields']               = !empty( $new_instance['fields'] ) ? 'yes' : 'no';
+		$settings['slider']               = woocommerce_product_search_input_yn( $new_instance['slider'] );
+		$settings['fields']               = woocommerce_product_search_input_yn( $new_instance['fields'] );
 		$settings['submit_button_label']  = isset( $new_instance['submit_button_label'] ) ? strip_tags( $new_instance['submit_button_label'] ) : __( 'Go', 'woocommerce-product-search' );
 		$settings['min_placeholder']      = isset( $new_instance['min_placeholder'] ) ? strip_tags( $new_instance['min_placeholder'] ) : __( 'Min', 'woocommerce-product-search' );
 		$settings['max_placeholder']      = isset( $new_instance['max_placeholder'] ) ? strip_tags( $new_instance['max_placeholder'] ) : __( 'Max', 'woocommerce-product-search' );
-		$settings['show_currency_symbol'] = !empty( $new_instance['show_currency_symbol'] ) ? 'yes' : 'no';
-		$settings['show_clear']           = !empty( $new_instance['show_clear'] ) ? 'yes' : 'no';
+		$settings['show_currency_symbol'] = woocommerce_product_search_input_yn( $new_instance['show_currency_symbol'] );
+		$settings['show_clear']           = woocommerce_product_search_input_yn( $new_instance['show_clear'] );
 
 		$container_id = !empty( $new_instance['container_id'] ) ? trim( $new_instance['container_id'] ) : '';
 		if ( strlen( $container_id ) > 0 ) {

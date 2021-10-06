@@ -51,7 +51,7 @@ function pm_pro_gantt_script() {
 }
 
 add_filter( 'pm_pro_load_router_files', function( $files ) {
-    $router_files = glob( __DIR__ . "/routes/*.php" );
+    $router_files = glob( __DIR__ . "/Routes/*.php" );
 
     return array_merge( $files, $router_files );
 });

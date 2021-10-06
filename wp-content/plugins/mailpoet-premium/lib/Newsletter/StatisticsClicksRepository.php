@@ -19,7 +19,7 @@ class StatisticsClicksRepository extends Repository {
 
   /**
    * @param NewsletterEntity $newsletter
-   * @return array
+   * @return mixed[]
    */
   public function getClickedLinks(NewsletterEntity $newsletter) {
     $query = $this->doctrineRepository
@@ -40,7 +40,7 @@ class StatisticsClicksRepository extends Repository {
 
   /**
    * @param NewsletterEntity $newsletter
-   * @return array
+   * @return mixed
    */
   public function getClickedLinksForFilter(NewsletterEntity $newsletter) {
     $query = $this->doctrineRepository

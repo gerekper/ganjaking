@@ -34,7 +34,7 @@ class SubscriptionDetails {
 		$this->license_repository = $license_repository;
 		$this->api = $api;
 	}
- 
+
 	/**
 	 * @param API\Request\SubscriptionDetails $request
 	 *

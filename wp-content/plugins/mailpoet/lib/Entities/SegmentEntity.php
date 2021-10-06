@@ -53,11 +53,27 @@ class SegmentEntity {
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\DynamicSegmentFilterEntity", mappedBy="segment")
-   * @var DynamicSegmentFilterEntity[]|ArrayCollection
+   * @var ArrayCollection<int, DynamicSegmentFilterEntity>
    */
   private $dynamicFilters;
 
-  public function __construct(string $name, string $type, string $description) {
+  /**
+   * @ORM\Column(type="float", nullable=true)
+   * @var float|null
+   */
+  private $averageEngagementScore;
+
+  /**
+   * @ORM\Column(type="datetimetz", nullable=true)
+   * @var \DateTimeInterface|null
+   */
+  private $averageEngagementScoreUpdatedAt;
+
+  public function __construct(
+    string $name,
+    string $type,
+    string $description
+  ) {
     $this->name = $name;
     $this->type = $type;
     $this->description = $description;
@@ -112,7 +128,7 @@ class SegmentEntity {
   }
 
   /**
-   * @return DynamicSegmentFilterEntity[]|ArrayCollection
+   * @return ArrayCollection<int, DynamicSegmentFilterEntity>
    */
   public function getDynamicFilters() {
     return $this->dynamicFilters;
@@ -124,5 +140,34 @@ class SegmentEntity {
 
   public function isStatic(): bool {
     return in_array($this->getType(), [self::TYPE_DEFAULT, self::TYPE_WP_USERS, self::TYPE_WC_USERS], true);
+  }
+
+  public function getAverageEngagementScore(): ?float {
+    return $this->averageEngagementScore;
+  }
+
+  public function setAverageEngagementScore(?float $averageEngagementScore): void {
+    $this->averageEngagementScore = $averageEngagementScore;
+  }
+
+  public function getAverageEngagementScoreUpdatedAt(): ?\DateTimeInterface {
+    return $this->averageEngagementScoreUpdatedAt;
+  }
+
+  public function setAverageEngagementScoreUpdatedAt(?\DateTimeInterface $averageEngagementScoreUpdatedAt): void {
+    $this->averageEngagementScoreUpdatedAt = $averageEngagementScoreUpdatedAt;
+  }
+
+  /**
+   * Returns connect operand from the first filter, when doesn't exist, then returns a default value.
+   * @return string
+   */
+  public function getFiltersConnectOperator(): string {
+    $firstFilter = $this->getDynamicFilters()->first();
+    $filterData = $firstFilter ? $firstFilter->getFilterData() : null;
+    if (!$firstFilter || !$filterData) {
+      return DynamicSegmentFilterData::CONNECT_TYPE_AND;
+    }
+    return $filterData->getParam('connect') ?: DynamicSegmentFilterData::CONNECT_TYPE_AND;
   }
 }

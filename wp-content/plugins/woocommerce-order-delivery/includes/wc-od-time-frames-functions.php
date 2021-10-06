@@ -171,7 +171,7 @@ function wc_od_search_time_frame( $time_frames, $params = array() ) {
  */
 function wc_od_get_time_frames_for_delivery_day( $delivery_day, $args = array(), $context = '' ) {
 	$defaults = array(
-		'shipping_method' => false,
+		'shipping_method' => '',
 	);
 
 	$delivery_day = wc_od_get_delivery_day( $delivery_day );

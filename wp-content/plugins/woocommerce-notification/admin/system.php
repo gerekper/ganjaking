@@ -27,7 +27,7 @@ class VI_WNOTIFICATION_Admin_System {
 					if ( @fopen( VI_WNOTIFICATION_CACHE . 'test-log.log', 'a' ) ) {
 						echo '<mark class="yes">&#10004; <code class="private">' . VI_WNOTIFICATION_CACHE . '</code></mark> ';
 					} else {
-						printf( '<mark class="error">&#10005; ' . esc_html__( 'To allow logging, make <code>%s</code> writable or define a custom <code>VI_WNOTIFICATION_CACHE</code>.', 'woocommerce-notification' ) . '</mark>', VI_WNOTIFICATION_CACHE );
+						echo sprintf( '<mark class="error">&#10005; ' . __( 'To allow logging, make <code>%s</code> writable or define a custom <code>VI_WNOTIFICATION_CACHE</code>.', 'woocommerce-notification' ) . '</mark>', VI_WNOTIFICATION_CACHE );
 					}
 					?>
 

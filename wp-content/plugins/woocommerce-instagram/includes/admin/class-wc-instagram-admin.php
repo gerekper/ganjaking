@@ -37,8 +37,10 @@ class WC_Instagram_Admin {
 		include_once 'wc-instagram-admin-functions.php';
 		include_once 'class-wc-instagram-admin-notices.php';
 		include_once 'class-wc-instagram-debug-tools.php';
+		include_once 'class-wc-instagram-admin-system-status.php';
 
 		if ( wc_instagram_has_business_account() ) {
+			include_once 'class-wc-instagram-admin-taxonomies.php';
 			include_once 'meta-boxes/class-wc-instagram-meta-box-product-data.php';
 		}
 	}
@@ -140,26 +142,36 @@ class WC_Instagram_Admin {
 		$is_setting_page = wc_instagram_is_settings_page();
 		$suffix          = wc_instagram_get_scripts_suffix();
 
-		if ( $is_setting_page || 'product' === $screen_id ) {
+		if ( $is_setting_page || 'product' === $screen_id || 'edit-product_cat' === $screen_id ) {
 			wp_enqueue_style( 'wc-instagram-admin', WC_INSTAGRAM_URL . 'assets/css/admin.css', array(), WC_INSTAGRAM_VERSION );
 
-			if ( $is_setting_page ) {
-				wp_register_script( 'wc-instagram-subset-fields', WC_INSTAGRAM_URL . "assets/js/admin/subset-fields{$suffix}.js", array( 'jquery' ), WC_INSTAGRAM_VERSION, true );
-				wp_register_script( 'wc-instagram-editable-url', WC_INSTAGRAM_URL . "assets/js/admin/editable-url{$suffix}.js", array( 'jquery-tiptip', 'wc-clipboard' ), WC_INSTAGRAM_VERSION, true );
-				wp_localize_script(
-					'wc-instagram-editable-url',
-					'wc_instagram_editable_url_params',
-					array(
-						'copied'  => __( 'Copied!', 'woocommerce-instagram' ),
-						'buttons' => array(
-							'edit'   => __( 'Edit', 'woocommerce-instagram' ),
-							'save'   => __( 'Ok', 'woocommerce-instagram' ),
-							'cancel' => __( 'Cancel', 'woocommerce-instagram' ),
-							'copy'   => __( 'Copy link', 'woocommerce-instagram' ),
-						),
-					)
-				);
-			}
+			wp_enqueue_script( 'wc-instagram-google-product-category', WC_INSTAGRAM_URL . "assets/js/admin/google-product-category{$suffix}.js", array( 'jquery', 'selectWoo' ), WC_INSTAGRAM_VERSION, true );
+			wp_localize_script(
+				'wc-instagram-google-product-category',
+				'wc_instagram_google_product_category_params',
+				array(
+					'action' => 'wc_instagram_refresh_google_product_category_field',
+					'nonce'  => wp_create_nonce( 'refresh_google_product_category_field' ),
+				)
+			);
+		}
+
+		if ( $is_setting_page ) {
+			wp_register_script( 'wc-instagram-subset-fields', WC_INSTAGRAM_URL . "assets/js/admin/subset-fields{$suffix}.js", array( 'jquery' ), WC_INSTAGRAM_VERSION, true );
+			wp_register_script( 'wc-instagram-editable-url', WC_INSTAGRAM_URL . "assets/js/admin/editable-url{$suffix}.js", array( 'jquery-tiptip', 'wc-clipboard' ), WC_INSTAGRAM_VERSION, true );
+			wp_localize_script(
+				'wc-instagram-editable-url',
+				'wc_instagram_editable_url_params',
+				array(
+					'copied'  => __( 'Copied!', 'woocommerce-instagram' ),
+					'buttons' => array(
+						'edit'   => __( 'Edit', 'woocommerce-instagram' ),
+						'save'   => __( 'Ok', 'woocommerce-instagram' ),
+						'cancel' => __( 'Cancel', 'woocommerce-instagram' ),
+						'copy'   => __( 'Copy link', 'woocommerce-instagram' ),
+					),
+				)
+			);
 		}
 	}
 
@@ -193,7 +205,7 @@ class WC_Instagram_Admin {
 	 * @param mixed $file  Plugin Base file.
 	 * @return array
 	 */
-	public static function plugin_row_meta( $links, $file ) {
+	public function plugin_row_meta( $links, $file ) {
 		if ( WC_INSTAGRAM_BASENAME === $file ) {
 			$row_meta = array(
 				'docs'     => sprintf(

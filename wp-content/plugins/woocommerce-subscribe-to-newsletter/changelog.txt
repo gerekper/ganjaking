@@ -1,5 +1,12 @@
 *** Subscribe to Newsletter Changelog ***
 
+2021-08-02 - version 3.3.2
+* Fix - Fixed JS error on refreshing the provider's lists field and the provider doesn't have defined lists.
+* Fix - Fixed JS error on the settings page when there is no provider selected yet.
+
+2021-07-12 - version 3.3.1
+* Fix - Fixed warning message on checkout when no list is selected.
+
 2021-07-07 - version 3.3.0
 * Feature - Added setting for changing the location of the subscription field in the checkout form.
 * Tweak - Reorganized the subscription settings fields.

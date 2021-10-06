@@ -18,7 +18,7 @@ class ResetSorting extends Section {
 
 		$view = new View( [
 			'title'       => __( 'Sorting Preferences', 'codepress-admin-columns' ),
-			'description' => __( 'This will reset the sorting preference for all users.', 'codepress-admin-columns' ),
+			'description' => __( 'Reset the sorting preference for all users.', 'codepress-admin-columns' ),
 			'content'     => $form->render(),
 			'class'       => 'general',
 		] );

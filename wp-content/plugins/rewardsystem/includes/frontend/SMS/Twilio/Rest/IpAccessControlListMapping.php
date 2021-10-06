@@ -28,10 +28,10 @@
  *    The subresources associated with this mapping (IpAddresses)
  */
 class Services_Twilio_Rest_IpAccessControlListMapping extends Services_Twilio_InstanceResource {
-    protected function init($client, $uri) {
-        $this->setupSubresources(
-            'ip_addresses'
-        );
-    }
+	protected function init( $client, $uri) {
+		$this->setupSubresources(
+			'ip_addresses'
+		);
+	}
 }
 

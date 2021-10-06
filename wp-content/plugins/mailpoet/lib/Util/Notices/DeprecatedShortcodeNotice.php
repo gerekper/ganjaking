@@ -16,18 +16,27 @@ class DeprecatedShortcodeNotice {
   const DISMISS_NOTICE_TIMEOUT_SECONDS = 15552000; // 6 months
   const OPTION_NAME = 'dismissed-deprecated-shortcode-notice';
 
+  /** @var WPFunctions */
+  private $wp;
+
+  public function __construct(
+    WPFunctions $wp
+  ) {
+    $this->wp = $wp;
+  }
+
   public function init($shouldDisplay) {
-    if ($shouldDisplay && $this->isUsingDeprecatedShortcode()) {
+    if ($shouldDisplay && !$this->wp->getTransient(self::OPTION_NAME) && $this->isUsingDeprecatedShortcode()) {
       return $this->display();
     }
     return null;
   }
 
   public function isUsingDeprecatedShortcode() {
-    global $wp_filter;// phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    global $wp_filter;// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
     $hook = 'mailpoet_newsletter_shortcode';
-    if (empty($wp_filter[$hook])) return false;// phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
-    $callbacks = $wp_filter[$hook];// phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    if (empty($wp_filter[$hook])) return false;// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    $callbacks = $wp_filter[$hook];// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
     if (empty($callbacks->callbacks) || !is_array($callbacks->callbacks)) return false;
     foreach ($callbacks->callbacks as $callbackByPriority) {
       if (empty($callbackByPriority) || !is_array($callbackByPriority)) continue;
@@ -47,7 +56,7 @@ class DeprecatedShortcodeNotice {
     $error = $errorString . '<br><br>' . Helpers::replaceLinkTags($linkString, 'https://kb.mailpoet.com/article/160-create-a-custom-shortcode', [
       'target' => '_blank',
       'data-beacon-article' => '581f6faac697914aa838044f',
-      'class' => 'mailpoet-button mailpoet-button-small',
+      'class' => 'mailpoet-button button-primary',
     ]);
 
     $extraClasses = 'mailpoet-dismissible-notice is-dismissible';
@@ -56,6 +65,6 @@ class DeprecatedShortcodeNotice {
   }
 
   public function disable() {
-    WPFunctions::get()->setTransient(self::OPTION_NAME, true, self::DISMISS_NOTICE_TIMEOUT_SECONDS);
+    $this->wp->setTransient(self::OPTION_NAME, true, self::DISMISS_NOTICE_TIMEOUT_SECONDS);
   }
 }

@@ -408,7 +408,7 @@ class WC_Product_Vendors_Store_Admin {
 		$logo                 = ! empty( $vendor_data['logo'] ) ? $vendor_data['logo'] : '';
 		$profile              = ! empty( $vendor_data['profile'] ) ? $vendor_data['profile'] : '';
 		$email                = ! empty( $vendor_data['email'] ) ? $vendor_data['email'] : '';
-		$commission           = is_numeric( $vendor_data['commission'] ) ? $vendor_data['commission'] : '';
+		$commission           = ( ! empty( $vendor_data['commission'] ) && is_numeric( $vendor_data['commission'] ) ) ? $vendor_data['commission'] : '';
 		$commission_type      = ! empty( $vendor_data['commission_type'] ) ? $vendor_data['commission_type'] : 'percentage';
 		$instant_payout       = ! empty( $vendor_data['instant_payout'] ) ? $vendor_data['instant_payout'] : 'no';
 		$paypal               = ! empty( $vendor_data['paypal'] ) ? $vendor_data['paypal'] : '';

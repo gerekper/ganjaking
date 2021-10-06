@@ -2,12 +2,17 @@
 
 namespace ACP\Editing\Model\Comment;
 
-use ACP\Editing\Model;
+use ACP\Editing;
+use ACP\Editing\Service\Basic;
+use ACP\Editing\Storage;
 
-class AuthorName extends Model\Comment {
+/**
+ * @deprecated 5.6
+ */
+class AuthorName extends Basic {
 
-	public function save( $id, $value ) {
-		return $this->update_comment( $id, [ 'comment_author' => $value ] );
+	public function __construct() {
+		parent::__construct( new Editing\View\Text(), new Storage\Comment\Field( 'comment_author' ) );
 	}
 
 }

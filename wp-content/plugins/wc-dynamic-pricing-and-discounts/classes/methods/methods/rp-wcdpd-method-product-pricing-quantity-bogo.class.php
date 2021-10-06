@@ -45,7 +45,7 @@ abstract class RP_WCDPD_Method_Product_Pricing_Quantity_BOGO extends RP_WCDPD_Me
      */
     public function get_group_label()
     {
-        return __('Buy / Get', 'rp_wcdpd');
+        return esc_html__('Buy / Get', 'rp_wcdpd');
     }
 
     /**

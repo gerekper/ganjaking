@@ -413,6 +413,7 @@ abstract class GPPA_Object_Type {
 				return '%' . $wpdb->esc_like( $value );
 
 			case 'contains':
+			case 'does_not_contain':
 				return '%' . $wpdb->esc_like( $value ) . '%';
 
 			case 'is_in':
@@ -437,6 +438,9 @@ abstract class GPPA_Object_Type {
 
 			case 'contains':
 				return 'LIKE';
+
+			case 'does_not_contain':
+				return 'NOT LIKE';
 
 			case 'is':
 				return '=';

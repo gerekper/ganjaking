@@ -15,7 +15,7 @@ class Caption extends AC\Column\Media\Caption
 	}
 
 	public function editing() {
-		return new Editing\Model\Media\Caption( $this );
+		return new Editing\Service\Media\Caption();
 	}
 
 	public function search() {

@@ -339,10 +339,12 @@ class WooCommerce_Product_Search_Service {
 		}
 		wp_register_script( 'typewatch', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/jquery.ix.typewatch.js' : '/js/jquery.ix.typewatch.min.js' ), array( 'jquery' ), WOO_PS_PLUGIN_VERSION, true );
 		wp_register_script( 'product-search', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/product-search.js' : '/js/product-search.min.js' ), array( 'jquery', 'typewatch' ), WOO_PS_PLUGIN_VERSION, true );
-		wp_register_script( 'product-filter', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/product-filter.js' : '/js/product-filter.min.js' ), array( 'jquery', 'typewatch' ), WOO_PS_PLUGIN_VERSION, true );
+
 		wp_register_script( 'wps-price-slider', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/price-slider.js' : '/js/price-slider.min.js' ), array( 'jquery', 'jquery-ui-slider' ), WOO_PS_PLUGIN_VERSION, true );
 		wp_register_script( 'selectize', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/selectize/selectize.js' : '/js/selectize/selectize.min.js' ), array( 'jquery' ), WOO_PS_PLUGIN_VERSION, true );
 		wp_register_script( 'selectize-ix', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/selectize.ix.js' : '/js/selectize.ix.min.js' ), array( 'jquery', 'selectize' ), WOO_PS_PLUGIN_VERSION, true );
+
+		wp_register_script( 'product-filter', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/product-filter.js' : '/js/product-filter.min.js' ), array( 'jquery', 'typewatch', 'selectize', 'selectize-ix' ), WOO_PS_PLUGIN_VERSION, true );
 
 		foreach ( array(
 			'product-search',
@@ -353,7 +355,7 @@ class WooCommerce_Product_Search_Service {
 				wp_deregister_style( $style );
 			}
 		}
-		wp_register_style( 'product-search', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_STYLES ? '/css/product-search.css' : '/css/product-search.min.css' ), array(), WOO_PS_PLUGIN_VERSION );
+
 		wp_register_style( 'wps-price-slider', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_STYLES ? '/css/price-slider.css' : '/css/price-slider.min.css' ), array(), WOO_PS_PLUGIN_VERSION );
 		$selectize_css = apply_filters( 'woocommerce_product_search_selectize_css', 'selectize' );
 		switch( $selectize_css ) {
@@ -366,7 +368,8 @@ class WooCommerce_Product_Search_Service {
 			default :
 				$selectize_css = 'selectize';
 		}
-		wp_register_style( 'selectize', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_STYLES ? '/css/selectize/' . $selectize_css . '.css' : '/css/selectize/' . $selectize_css . '.min.css' ), array( 'product-search' ), WOO_PS_PLUGIN_VERSION );
+
+		wp_register_style( 'selectize', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_STYLES ? '/css/selectize/' . $selectize_css . '.css' : '/css/selectize/' . $selectize_css . '.min.css' ), array(), WOO_PS_PLUGIN_VERSION );
 
 		wp_localize_script(
 			'selectize-ix',
@@ -374,6 +377,13 @@ class WooCommerce_Product_Search_Service {
 			array(
 				'clear' => __( 'Clear', 'woocommerce-product-search' )
 			)
+		);
+
+		wp_register_style(
+			'product-search',
+			WOO_PS_PLUGIN_URL . ( WPS_DEBUG_STYLES ? '/css/product-search.css' : '/css/product-search.min.css' ),
+			array( 'selectize', 'wps-price-slider' ),
+			WOO_PS_PLUGIN_VERSION
 		);
 	}
 
@@ -570,7 +580,8 @@ class WooCommerce_Product_Search_Service {
 				}
 				$limit = max( 1, $limit );
 
-				$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+				if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+					$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
 
 					$request_term_ids = array();
 
@@ -691,6 +702,7 @@ class WooCommerce_Product_Search_Service {
 
 						$wp_query->set( 'post__in', self::NONE );
 					}
+				}
 
 			}
 		}
@@ -708,6 +720,10 @@ class WooCommerce_Product_Search_Service {
 	public static function make_consistent_post_ids( &$post_ids, $params = null ) {
 
 		global $wpdb, $wps_doing_ajax;
+
+		if ( !WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+			return;
+		}
 
 		$limit = null;
 		if ( isset( $params['limit'] ) ) {
@@ -1134,6 +1150,10 @@ class WooCommerce_Product_Search_Service {
 					}
 				}
 			}
+		}
+
+		if ( !WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+			return $result;
 		}
 
 		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
@@ -2359,6 +2379,10 @@ class WooCommerce_Product_Search_Service {
 
 		$terms = array();
 
+		if ( !WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+			return $terms;
+		}
+
 		if ( count( $post_ids ) > 0 ) {
 
 			$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
@@ -2484,6 +2508,9 @@ class WooCommerce_Product_Search_Service {
 
 		$counts = array();
 
+		if ( !WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+			return $counts;
+		}
 		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
 
 		$where = array();

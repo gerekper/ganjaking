@@ -376,14 +376,7 @@ jQuery( function( $ ) {
 					if ( ! result ) {
 						return;
 					}
-					if ( result.applePay ) {
-						paymentRequestType = 'apple_pay';
-					} else if ( result.googlePay ) {
-						paymentRequestType = 'google_pay';
-					} else {
-						paymentRequestType = 'payment_request_api';
-					}
-
+					paymentRequestType = result.applePay ? 'apple_pay' : 'payment_request_api';
 					wc_stripe_payment_request.attachPaymentRequestButtonEventListeners( prButton, paymentRequest );
 					wc_stripe_payment_request.showPaymentRequestButton( prButton );
 				} );
@@ -595,13 +588,6 @@ jQuery( function( $ ) {
 			var addToCartButton = $( '.single_add_to_cart_button' );
 
 			prButton.on( 'click', function ( evt ) {
-				// If login is required for checkout, display redirect confirmation dialog.
-				if ( wc_stripe_payment_request_params.login_confirmation ) {
-					evt.preventDefault();
-					displayLoginConfirmation( paymentRequestType );
-					return;
-				}
-
 				// First check if product can be added to cart.
 				if ( addToCartButton.is( '.disabled' ) ) {
 					evt.preventDefault(); // Prevent showing payment request modal.
@@ -683,25 +669,14 @@ jQuery( function( $ ) {
 		},
 
 		attachCartPageEventListeners: function ( prButton, paymentRequest ) {
-			prButton.on( 'click', function ( evt ) {
-				// If login is required for checkout, display redirect confirmation dialog.
-				if ( wc_stripe_payment_request_params.login_confirmation ) {
-					evt.preventDefault();
-					displayLoginConfirmation( paymentRequestType );
-					return;
-				}
+			if ( ( ! wc_stripe_payment_request_params.button.is_custom || ! wc_stripe_payment_request.isCustomPaymentRequestButton( prButton ) ) &&
+				( ! wc_stripe_payment_request_params.button.is_branded || ! wc_stripe_payment_request.isBrandedPaymentRequestButton( prButton ) ) ) {
+				return;
+			}
 
-				if (
-					wc_stripe_payment_request.isCustomPaymentRequestButton(
-						prButton
-					) ||
-					wc_stripe_payment_request.isBrandedPaymentRequestButton(
-						prButton
-					)
-				) {
-					evt.preventDefault();
-					paymentRequest.show();
-				}
+			prButton.on( 'click', function ( evt ) {
+				evt.preventDefault();
+				paymentRequest.show();
 			} );
 		},
 
@@ -772,31 +747,5 @@ jQuery( function( $ ) {
 			element.css( 'background-image', 'url(' + fallback + ')' );
 		}
 		testImg.src = background;
-	}
-
-	// TODO: Replace this by `client/blocks/payment-request/login-confirmation.js`
-	// when we start using webpack to build this file.
-	function displayLoginConfirmation( paymentRequestType ) {
-		if ( ! wc_stripe_payment_request_params.login_confirmation ) {
-			return;
-		}
-
-		var message = wc_stripe_payment_request_params.login_confirmation.message;
-
-		// Replace dialog text with specific payment request type "Apple Pay" or "Google Pay".
-		if ( 'payment_request_api' !== paymentRequestType ) {
-			message = message.replace(
-				/\*\*.*?\*\*/,
-				'apple_pay' === paymentRequestType ? 'Apple Pay' : 'Google Pay'
-			);
-		}
-
-		// Remove asterisks from string.
-		message = message.replace( /\*\*/g, '' );
-
-		if ( confirm( message ) ) {
-			// Redirect to my account page.
-			window.location.href = wc_stripe_payment_request_params.login_confirmation.redirect_url;
-		}
 	}
 } );

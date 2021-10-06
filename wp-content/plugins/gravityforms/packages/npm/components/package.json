@@ -1,0 +1,47 @@
+{
+  "name": "@gravityforms/components",
+  "version": "1.0.1",
+  "description": "UI components for use in Gravity Forms development. Both React and vanilla js flavors.",
+  "author": "Rocketgenius",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "gravityforms",
+    "javascript",
+    "components"
+  ],
+  "homepage": "https://github.com/gravityforms/gravityforms/tree/HEAD/packages/npm/components/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gravityforms/gravityforms.git",
+    "directory": "packages/npm/components"
+  },
+  "bugs": {
+    "url": "https://github.com/gravityforms/gravityforms/issues"
+  },
+  "engines": {
+    "node": ">=14.15.0",
+    "npm": ">=6.14.8"
+  },
+  "main": "index.js",
+  "scripts": {},
+  "dependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/plugin-proposal-decorators": "^7.7.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.13",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-transform-object-assign": "^7.0.0",
+    "@babel/plugin-transform-regenerator": "^7.7.0",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "@gravityforms/utils": "file:../utils",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

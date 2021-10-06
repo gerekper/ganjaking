@@ -1,5 +1,12 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2021.08.27 - version 3.1.30
+* Feature - Added integration with Stripe to hide quick-pay buttons in product pages with σubscription plans.
+* Fix - Fixed floating Add to Cart button in pages created by Elementor.
+* Fix - Hide AfterPay quick-pay buttons from Variable Products with Subscription plans.
+* Fix - Make sure cart plan discounts are applied when manually paying for failed subscription orders.
+* Fix - Do not change a switching fee when switch proration is disabled. Regression introduced in v3.1.29.
+
 2021.07.12 - version 3.1.29
 * Feature - Added integration with AfterPay gateway.
 * Tweak - Use sale price as crossed-out price in subscription plan prices if the product is on sale.

@@ -63,14 +63,14 @@
 
 		// Dashboard lazy load meta box.
 		#smush-box-dashboard-lazy-load {
+			.sui-settings-label {
+				color: #333333;
+			}
 			.sui-box-settings-row.sui-flushed {
 				border-top: 1px solid #E6E6E6;
 				padding: 14px 30px;
-				display: flex;
 				justify-content: space-between;
 				align-items: center;
-
-				& > div { height: 30px; }
 			}
 		}
 
@@ -459,39 +459,64 @@
 				color: #FECF2F;
 			}
 		}
-		// Directory smush overwrites when limit exceeded
-		.wp-smush-progress-dialog.wp-smush-exceed-limit {
-			.sui-hidden {
-				display: block;
-			}
+		// Directory smush.
+		.wp-smush-progress-dialog {
 
-			.sui-progress {
-				.sui-progress-icon {
-					.sui-icon-loader {
-						@include icon( before, info );
-						&:before {
-							color: #FECF2F;
-							animation: none;
+			// When limit is exceeded.
+			&.wp-smush-exceed-limit {
+
+				#smush-limit-reached-notice {
+					display: block;
+				}
+
+				.wp-smush-resume-scan {
+					display: inline;
+				}
+
+				.sui-progress {
+					.sui-progress-icon {
+						.sui-icon-loader {
+							@include icon( before, info );
+							&:before {
+								color: #FECF2F;
+								animation: none;
+							}
 						}
+					}
+				}
+
+				.sui-progress-bar span {
+					background: #888888;
+				}
+
+				.sui-box-footer .sui-actions-right:not(.sui-hidden) {
+					margin-left: 10px;
+					margin-right: auto;
+					float: left;
+
+					.sui-button {
+						padding: 5px 16px 7px;
+						border: 2px solid #ddd;
+						background: transparent;
+						color: #888;
 					}
 				}
 			}
 
-			.sui-progress-bar span {
-				background: #888888;
+			// When the request fails.
+			&.wp-smush-scan-error {
+
+				#smush-scan-error-notice {
+					display: block;
+				}
+
+				.sui-progress-block, .sui-progress-state {
+					display: none;
+				}
 			}
 
-			.sui-box-footer .sui-actions-right:not(.sui-hidden) {
-				margin-left: 10px;
-				margin-right: auto;
-				float: left;
-
-				.sui-button {
-					padding: 5px 16px 7px;
-					border: 2px solid #ddd;
-					background: transparent;
-					color: #888;
-				}
+			#smush-limit-reached-notice, .wp-smush-resume-scan, #smush-scan-error-notice {
+				display: none;
 			}
 		}
 
@@ -706,12 +731,12 @@
 				font-weight: 500;
 				line-height: 30px;
 				color: #333;
-				padding: 0 0 0 30px;
+				padding: 0 0 0 20px;
 				position: relative;
 				&:before {
 					color: #8D00B1;
 					vertical-align: middle;
-					margin-left: -30px;
+					margin-left: -20px;
 					margin-right: 10px;
 					margin-top: 0;
 					font-size: 18px;
@@ -774,13 +799,6 @@
 			font-size: 18px;
 		}
 
-		span {
-			&.add-dir-loader {
-				padding-right: 10px;
-				font-size: 18px;
-			}
-		}
-
 		.sui-button {
 
 			&.smush-button-check-success,
@@ -827,6 +845,38 @@
 			@media screen and (min-width: 783px) {
 				background: #FFFFFF url('#{$img--path}/smush-graphic-bulksmush-upsell@2x.png') top 25px left 30px no-repeat;
 				background-size: 73px 119px;
+			}
+		}
+
+		/**
+		* Pro features list in the modules pages for the Free version.
+		*
+		* @since 3.9.0
+		*/
+		.sui-message-content {
+
+			.smush-pro-features {
+				max-width: 420px;
+				margin: 0 auto 30px auto;
+				text-align: left;
+
+				.smush-pro-feature-row {
+
+					.smush-pro-feature-title {
+						font-size: 12px;
+						line-height: 22px;
+
+						&:before {
+							font-size: 12px;
+						}
+					}
+
+					&:not(:last-child) {
+						border-bottom: 1px solid #F2F2F2;
+						padding-bottom: 12px;
+						margin-bottom: 12px;
+					}
+				}
 			}
 		}
 	}
@@ -965,6 +1015,35 @@
 				margin: 0;
 				display: flex;
 				justify-content: space-between;
+			}
+		}
+	}
+
+	/**
+	 * Fixes the headers and footers with .sui-actions-right on mobiles.
+	 *
+	 * @todo Remove when there's a fix for this in SUI, which isn't planned atm.
+	 * @since 3.9.0
+	 */
+	@include media(max-width, sm) {
+		.sui-wrap {
+
+			.sui-box-header {
+
+				.sui-box-title {
+					flex: 1;
+				}
+
+				.sui-actions-right {
+					flex: 1;
+					flex-direction: column;
+					align-items: flex-end;
+				}
+			}
+
+			.sui-box-footer .sui-actions-right {
+				flex-direction: column;
+				align-items: flex-end;
 			}
 		}
 	}

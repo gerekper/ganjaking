@@ -1,4 +1,15 @@
 *** Catalog Visibility Options Changelog ***
+2021.07.21 - version 3.2.17
+    * Update:  Use full relative paths for file includes to solve problems with some hosting providers PHP  7.4 configuration.
+    * New:  Add filter, woocommerce_catalog_restrictions_allow_editors, to allow users who can edit_posts cap to bypass Catalog Visibility Options.
+    * Update:  WP and WC version compatibility tags.
+
+2021.07.15 - version 3.2.16
+    * Update:  WP and WC version compatibility tags.
+
+2021.02.12 - version 3.2.15
+    * Update:  WP and WC version compatibility tags.
+
 2021.01.04 - version 3.2.14
     * Update:  WP and WC version compatibility tags.
     * Fix:  Fix issue with compatibility for WooCommerce Bookings

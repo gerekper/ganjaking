@@ -11,7 +11,7 @@
  * the readme will list any important changes.
  *
  * @see https://docs.woocommerce.com/document/template-structure/
- * @version 1.9.0
+ * @version 2.2.3
  */
 ?>
 <div class="wcwl_elements wcwl_nojs">
@@ -29,20 +29,18 @@
 		<div class="wcwl_intro">
 			<p><?php echo $intro; ?></p>
 		</div>
-		<?php if ( $notice ) { ?>
-			<div class="wcwl_notice woocommerce-message">
-				<div aria-live="polite">
-					<p><?php echo $notice; ?></p>
-				</div>
-				<button type="button" class="wcwl_notice_dismiss">
-					<span class="screen-reader-text"><?php echo $dismiss_notification_text; ?></span>
-				</button>
+		<div class="wcwl_notice woocommerce-message">
+			<div aria-live="polite">
+				<p><?php echo $notice; ?></p>
 			</div>
-		<?php } ?>
+			<button type="button" class="wcwl_notice_dismiss">
+				<span class="screen-reader-text"><?php echo $dismiss_notification_text; ?></span>
+			</button>
+		</div>
 		<?php if ( $opt_in && ! $on_waitlist ) { ?>
 			<div class="wcwl_optin">
-				<input type="checkbox" name="wcwl_optin" id="wcwl_optin">
-				<label for="wcwl_optin"><?php echo $opt_in_text; ?></label>
+				<input type="checkbox" name="wcwl_optin_<?php echo $product_id; ?>" id="wcwl_optin_<?php echo $product_id; ?>">
+				<label for="wcwl_optin_<?php echo $product_id; ?>"><?php echo $opt_in_text; ?></label>
 			</div>
 		<?php } ?>
 		<div class="wcwl_email_elements <?php echo $email_class; ?>">

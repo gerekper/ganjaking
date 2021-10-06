@@ -6,19 +6,19 @@
     'aliases' => 
     array (
     ),
-    'reference' => '10c61573c43da4d66428b62e1d1eb5a49ef92191',
+    'reference' => '8f36f018c04c4f6677639a05f7de3e05639439e7',
     'name' => 'woocommerce/woocommerce-points-and-rewards',
   ),
   'versions' => 
   array (
     'composer/installers' => 
     array (
-      'pretty_version' => 'v1.9.0',
-      'version' => '1.9.0.0',
+      'pretty_version' => 'v1.11.0',
+      'version' => '1.11.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b93bcf0fa1fccb0b7d176b0967d969691cd74cca',
+      'reference' => 'ae03311f45dfe194412081526be2e003960df74b',
     ),
     'roundcube/plugin-installer' => 
     array (
@@ -41,7 +41,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '10c61573c43da4d66428b62e1d1eb5a49ef92191',
+      'reference' => '8f36f018c04c4f6677639a05f7de3e05639439e7',
     ),
   ),
 );

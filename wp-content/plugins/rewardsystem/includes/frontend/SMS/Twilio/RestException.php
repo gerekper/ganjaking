@@ -11,34 +11,34 @@
  */
 class Services_Twilio_RestException extends Exception {
 
-    /**
-     * The HTTP status for the exception.
-     */
-    protected $status;
+	/**
+	 * The HTTP status for the exception.
+	 */
+	protected $status;
 
-    /**
-     * A URL to get more information about the error. This is not always
-     * available
-     */
-    protected $info;
+	/**
+	 * A URL to get more information about the error. This is not always
+	 * available
+	 */
+	protected $info;
 
-    public function __construct($status, $message, $code = 0, $info = '') {
-        $this->status = $status;
-        $this->info = $info;
-        parent::__construct($message, $code);
-    }
+	public function __construct( $status, $message, $code = 0, $info = '') {
+		$this->status = $status;
+		$this->info = $info;
+		parent::__construct($message, $code);
+	}
 
-    /**
-     * Get the HTTP status code
-     */
-    public function getStatus() {
-        return $this->status;
-    }
+	/**
+	 * Get the HTTP status code
+	 */
+	public function getStatus() {
+		return $this->status;
+	}
 
-    /**
-     * Get a link to more information
-     */
-    public function getInfo() {
-        return $this->info;
-    }
+	/**
+	 * Get a link to more information
+	 */
+	public function getInfo() {
+		return $this->info;
+	}
 }

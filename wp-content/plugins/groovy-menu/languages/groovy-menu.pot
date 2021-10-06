@@ -3,8 +3,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Groovy Menu 2.4.12\n"
-"POT-Creation-Date: 2021-04-02 19:00+0300\n"
+"Project-Id-Version: Groovy Menu 2.5.3\n"
+"POT-Creation-Date: 2021-07-28 13:29+0300\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,14 +17,14 @@ msgstr ""
 "esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;"
 "_nx_noop:4c,1,2;_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;"
 "__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: assets\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 
-#: groovy-menu.php:390
+#: groovy-menu.php:397
 msgid "Groovy menu Primary"
 msgstr ""
 
@@ -64,17 +64,17 @@ msgstr ""
 msgid "Top level links align"
 msgstr ""
 
-#: includes/config/Config.php:38 includes/config/Config.php:4070
-#: includes/config/Config.php:4132
+#: includes/config/Config.php:38 includes/config/Config.php:2777
+#: includes/config/Config.php:5064 includes/config/Config.php:5125
 msgid "Align left"
 msgstr ""
 
-#: includes/config/Config.php:39 includes/config/Config.php:4071
+#: includes/config/Config.php:39 includes/config/Config.php:5065
 msgid "Align center"
 msgstr ""
 
-#: includes/config/Config.php:40 includes/config/Config.php:4072
-#: includes/config/Config.php:4133
+#: includes/config/Config.php:40 includes/config/Config.php:2778
+#: includes/config/Config.php:5066 includes/config/Config.php:5126
 msgid "Align right"
 msgstr ""
 
@@ -89,11 +89,11 @@ msgid ""
 "the logo."
 msgstr ""
 
-#: includes/config/Config.php:61 includes/config/Config.php:4077
+#: includes/config/Config.php:61 includes/config/Config.php:5071
 msgid "Forced centered logo"
 msgstr ""
 
-#: includes/config/Config.php:62 includes/config/Config.php:4078
+#: includes/config/Config.php:62 includes/config/Config.php:5072
 msgid ""
 "The central position of the logo is calculated depending on the "
 "width of the screen and side elements."
@@ -190,7 +190,7 @@ msgid ""
 msgstr ""
 
 #: includes/config/Config.php:164 includes/config/Config.php:198
-#: includes/config/Config.php:3287
+#: includes/config/Config.php:4055
 msgid "Desktop"
 msgstr ""
 
@@ -207,7 +207,7 @@ msgid "Slide Down"
 msgstr ""
 
 #: includes/config/Config.php:175 includes/config/Config.php:219
-#: includes/config/Config.php:3292
+#: includes/config/Config.php:4060
 msgid "Mobile"
 msgstr ""
 
@@ -262,237 +262,230 @@ msgid "Sticky toolbar."
 msgstr ""
 
 #: includes/config/Config.php:252
-msgid "Show WooCommerce minicart"
-msgstr ""
-
-#: includes/config/Config.php:256
-msgid "Toggle switch to show/hide WooCommerce minicart"
-msgstr ""
-
-#: includes/config/Config.php:265
-msgid "WooCommerce minicart icon size"
-msgstr ""
-
-#: includes/config/Config.php:270 includes/config/Config.php:309
-#: includes/config/Config.php:1038
-msgid "Desktop icon size"
-msgstr ""
-
-#: includes/config/Config.php:278 includes/config/Config.php:317
-#: includes/config/Config.php:1046
-msgid "Mobile icon size"
-msgstr ""
-
-#: includes/config/Config.php:278 includes/config/Config.php:1046
-msgid "Slide container"
-msgstr ""
-
-#: includes/config/Config.php:286
-msgid "wooCommerce cart icon size"
-msgstr ""
-
-#: includes/config/Config.php:290
 msgid "Show WPML language switcher"
 msgstr ""
 
-#: includes/config/Config.php:291
+#: includes/config/Config.php:253
 msgid ""
 "Note: switcher will be displayed only if WPML plugin is installed "
 "and activated."
 msgstr ""
 
-#: includes/config/Config.php:295
+#: includes/config/Config.php:257
 msgid "Toggle switch to show/hide WPML language switcher"
 msgstr ""
 
-#: includes/config/Config.php:304
+#: includes/config/Config.php:266
 msgid "WPML language switcher icon size"
 msgstr ""
 
-#: includes/config/Config.php:328
+#: includes/config/Config.php:271 includes/config/Config.php:918
+#: includes/config/Config.php:4620
+msgid "Desktop icon size"
+msgstr ""
+
+#: includes/config/Config.php:279 includes/config/Config.php:926
+#: includes/config/Config.php:4629
+msgid "Mobile icon size"
+msgstr ""
+
+#: includes/config/Config.php:290
 msgid "Show caret at the top level"
 msgstr ""
 
-#: includes/config/Config.php:334
+#: includes/config/Config.php:296
 msgid "Show divider between navigation and search/cart"
 msgstr ""
 
-#: includes/config/Config.php:343
+#: includes/config/Config.php:305
 msgid "Show divider between menu links"
 msgstr ""
 
-#: includes/config/Config.php:348 includes/config/Config.php:4138
+#: includes/config/Config.php:310
 #: includes/migration/migrate_debug.php:221
 msgid "Show"
 msgstr ""
 
-#: includes/config/Config.php:357
+#: includes/config/Config.php:319
 msgid "Stretch to all menu height"
 msgstr ""
 
-#: includes/config/Config.php:371
+#: includes/config/Config.php:333
 msgid "Hide icons at top level menu and submenu"
 msgstr ""
 
-#: includes/config/Config.php:374
+#: includes/config/Config.php:336
 msgid ""
 "You can switch between displaying or hiding icons added to menu "
 "items from &quot;Appearance > menus&quot;."
 msgstr ""
 
-#: includes/config/Config.php:378
+#: includes/config/Config.php:340
+msgid "Enable preloader of the menu"
+msgstr ""
+
+#: includes/config/Config.php:346
 msgid "Menu z-index"
 msgstr ""
 
-#: includes/config/Config.php:379
+#: includes/config/Config.php:347
 msgid ""
 "Set the z-index to ensure the menu are higher than other site "
 "content."
 msgstr ""
 
-#: includes/config/Config.php:386
+#: includes/config/Config.php:354
 msgid "Submenu"
 msgstr ""
 
-#: includes/config/Config.php:391
+#: includes/config/Config.php:359
 msgid "Show submenu"
 msgstr ""
 
-#: includes/config/Config.php:392
+#: includes/config/Config.php:360
 msgid "Select behavior of opening the submenu."
 msgstr ""
 
-#: includes/config/Config.php:395 includes/config/Config.php:1086
+#: includes/config/Config.php:363 includes/config/Config.php:983
 msgid "on hover"
 msgstr ""
 
-#: includes/config/Config.php:396
+#: includes/config/Config.php:364
 msgid "on click"
 msgstr ""
 
-#: includes/config/Config.php:401 includes/config/Config.php:2165
+#: includes/config/Config.php:369 includes/config/Config.php:1679
+#: includes/config/Config.php:2449
 msgid "Submenu width"
 msgstr ""
 
-#: includes/config/Config.php:402
+#: includes/config/Config.php:370
 msgid ""
 "By applying this option you can set width of submenu excluding "
 "mega menu. Note: this option works with default and icon menu "
 "types."
 msgstr ""
 
-#: includes/config/Config.php:410
+#: includes/config/Config.php:378
 msgid "Hide background image at submenu"
 msgstr ""
 
-#: includes/config/Config.php:411
+#: includes/config/Config.php:379
 msgid ""
 "You can hide background image at submenu settings in &quot;"
 "Appearance > Menus&quot;."
 msgstr ""
 
-#: includes/config/Config.php:416
+#: includes/config/Config.php:384
 msgid "Top level link bottom border"
 msgstr ""
 
-#: includes/config/Config.php:421 includes/config/Config.php:563
-#: includes/config/Config.php:594 includes/config/Config.php:1117
-#: includes/config/Config.php:1672 includes/config/Config.php:1708
-#: includes/config/Config.php:1744 includes/config/Config.php:1986
-#: includes/config/Config.php:2029 includes/config/Config.php:2070
-#: includes/config/Config.php:2239 includes/config/Config.php:2273
-#: includes/config/Config.php:2975 includes/config/Config.php:2995
-#: includes/config/Config.php:3304 includes/config/Config.php:3324
-#: includes/config/Config.php:4181
+#: includes/config/Config.php:389 includes/config/Config.php:531
+#: includes/config/Config.php:562 includes/config/Config.php:1014
+#: includes/config/Config.php:1481 includes/config/Config.php:1517
+#: includes/config/Config.php:1553 includes/config/Config.php:1938
+#: includes/config/Config.php:1974 includes/config/Config.php:2268
+#: includes/config/Config.php:2311 includes/config/Config.php:2353
+#: includes/config/Config.php:2537 includes/config/Config.php:2571
+#: includes/config/Config.php:3436 includes/config/Config.php:3456
+#: includes/config/Config.php:4072 includes/config/Config.php:4092
+#: includes/config/Config.php:5167
 msgid "thickness"
 msgstr ""
 
-#: includes/config/Config.php:429 includes/config/Config.php:553
-#: includes/config/Config.php:584 includes/config/Config.php:1127
-#: includes/config/Config.php:1680 includes/config/Config.php:1716
-#: includes/config/Config.php:1752 includes/config/Config.php:1994
-#: includes/config/Config.php:2037 includes/config/Config.php:2078
-#: includes/config/Config.php:2247 includes/config/Config.php:2280
-#: includes/config/Config.php:4188
+#: includes/config/Config.php:397 includes/config/Config.php:521
+#: includes/config/Config.php:552 includes/config/Config.php:1024
+#: includes/config/Config.php:1489 includes/config/Config.php:1525
+#: includes/config/Config.php:1561 includes/config/Config.php:1927
+#: includes/config/Config.php:1963 includes/config/Config.php:2276
+#: includes/config/Config.php:2319 includes/config/Config.php:2361
+#: includes/config/Config.php:2545 includes/config/Config.php:2578
+#: includes/config/Config.php:5174
 msgid "style"
 msgstr ""
 
-#: includes/config/Config.php:432 includes/config/Config.php:558
-#: includes/config/Config.php:589 includes/config/Config.php:1130
-#: includes/config/Config.php:1683 includes/config/Config.php:1719
-#: includes/config/Config.php:1755 includes/config/Config.php:1997
-#: includes/config/Config.php:2040 includes/config/Config.php:2081
-#: includes/config/Config.php:2250 includes/config/Config.php:2285
-#: includes/config/Config.php:3862 includes/config/Config.php:3951
-#: includes/config/Config.php:4191
+#: includes/config/Config.php:400 includes/config/Config.php:526
+#: includes/config/Config.php:557 includes/config/Config.php:1027
+#: includes/config/Config.php:1492 includes/config/Config.php:1528
+#: includes/config/Config.php:1564 includes/config/Config.php:1932
+#: includes/config/Config.php:1968 includes/config/Config.php:2279
+#: includes/config/Config.php:2322 includes/config/Config.php:2364
+#: includes/config/Config.php:2548 includes/config/Config.php:2583
+#: includes/config/Config.php:4779 includes/config/Config.php:4884
+#: includes/config/Config.php:5177
 msgid "Dotted"
 msgstr ""
 
-#: includes/config/Config.php:433 includes/config/Config.php:557
-#: includes/config/Config.php:588 includes/config/Config.php:1131
-#: includes/config/Config.php:1684 includes/config/Config.php:1720
-#: includes/config/Config.php:1756 includes/config/Config.php:1998
-#: includes/config/Config.php:2041 includes/config/Config.php:2082
-#: includes/config/Config.php:2251 includes/config/Config.php:2284
-#: includes/config/Config.php:3863 includes/config/Config.php:3952
-#: includes/config/Config.php:4192
+#: includes/config/Config.php:401 includes/config/Config.php:525
+#: includes/config/Config.php:556 includes/config/Config.php:1028
+#: includes/config/Config.php:1493 includes/config/Config.php:1529
+#: includes/config/Config.php:1565 includes/config/Config.php:1931
+#: includes/config/Config.php:1967 includes/config/Config.php:2280
+#: includes/config/Config.php:2323 includes/config/Config.php:2365
+#: includes/config/Config.php:2549 includes/config/Config.php:2582
+#: includes/config/Config.php:4780 includes/config/Config.php:4885
+#: includes/config/Config.php:5178
 msgid "Dashed"
 msgstr ""
 
-#: includes/config/Config.php:434 includes/config/Config.php:556
-#: includes/config/Config.php:587 includes/config/Config.php:1132
-#: includes/config/Config.php:1685 includes/config/Config.php:1721
-#: includes/config/Config.php:1757 includes/config/Config.php:1999
-#: includes/config/Config.php:2042 includes/config/Config.php:2083
-#: includes/config/Config.php:2252 includes/config/Config.php:2283
-#: includes/config/Config.php:3861 includes/config/Config.php:3950
-#: includes/config/Config.php:4193
+#: includes/config/Config.php:402 includes/config/Config.php:524
+#: includes/config/Config.php:555 includes/config/Config.php:1029
+#: includes/config/Config.php:1494 includes/config/Config.php:1530
+#: includes/config/Config.php:1566 includes/config/Config.php:1930
+#: includes/config/Config.php:1966 includes/config/Config.php:2281
+#: includes/config/Config.php:2324 includes/config/Config.php:2366
+#: includes/config/Config.php:2550 includes/config/Config.php:2581
+#: includes/config/Config.php:4778 includes/config/Config.php:4883
+#: includes/config/Config.php:5179
 msgid "Solid"
 msgstr ""
 
-#: includes/config/Config.php:440 includes/config/Config.php:570
-#: includes/config/Config.php:601 includes/config/Config.php:1076
-#: includes/config/Config.php:1140 includes/config/Config.php:1436
-#: includes/config/Config.php:1484 includes/config/Config.php:1691
-#: includes/config/Config.php:1727 includes/config/Config.php:1763
-#: includes/config/Config.php:2005 includes/config/Config.php:2048
-#: includes/config/Config.php:2089 includes/config/Config.php:2258
-#: includes/config/Config.php:2290 includes/config/Config.php:2337
-#: includes/config/Config.php:2982 includes/config/Config.php:3002
-#: includes/config/Config.php:3311 includes/config/Config.php:3331
-#: includes/config/Config.php:3435 includes/config/Config.php:3455
-#: includes/config/Config.php:3488 includes/config/Config.php:3508
-#: includes/config/Config.php:3541 includes/config/Config.php:3561
-#: includes/config/Config.php:3594 includes/config/Config.php:3614
-#: includes/config/Config.php:3647 includes/config/Config.php:3667
-#: includes/config/Config.php:3704 includes/config/Config.php:3728
-#: includes/config/Config.php:3875 includes/config/Config.php:3964
-#: includes/config/Config.php:4198
+#: includes/config/Config.php:408 includes/config/Config.php:538
+#: includes/config/Config.php:569 includes/config/Config.php:973
+#: includes/config/Config.php:1037 includes/config/Config.php:1500
+#: includes/config/Config.php:1536 includes/config/Config.php:1572
+#: includes/config/Config.php:1726 includes/config/Config.php:1946
+#: includes/config/Config.php:1982 includes/config/Config.php:2287
+#: includes/config/Config.php:2330 includes/config/Config.php:2372
+#: includes/config/Config.php:2556 includes/config/Config.php:2588
+#: includes/config/Config.php:2686 includes/config/Config.php:3443
+#: includes/config/Config.php:3463 includes/config/Config.php:3834
+#: includes/config/Config.php:3882 includes/config/Config.php:4079
+#: includes/config/Config.php:4099 includes/config/Config.php:4262
+#: includes/config/Config.php:4282 includes/config/Config.php:4315
+#: includes/config/Config.php:4335 includes/config/Config.php:4368
+#: includes/config/Config.php:4388 includes/config/Config.php:4421
+#: includes/config/Config.php:4441 includes/config/Config.php:4474
+#: includes/config/Config.php:4494 includes/config/Config.php:4531
+#: includes/config/Config.php:4555 includes/config/Config.php:4794
+#: includes/config/Config.php:4899 includes/config/Config.php:5184
 msgid "color"
 msgstr ""
 
-#: includes/config/Config.php:451
+#: includes/config/Config.php:419
 msgid "Submenu active link color"
 msgstr ""
 
-#: includes/config/Config.php:458 includes/config/Config.php:472
+#: includes/config/Config.php:426 includes/config/Config.php:440
 msgid "First level submenu background color"
 msgstr ""
 
-#: includes/config/Config.php:465 includes/config/Config.php:479
+#: includes/config/Config.php:433 includes/config/Config.php:447
 msgid "Next level submenu background color"
 msgstr ""
 
-#: includes/config/Config.php:486 includes/config/Config.php:1541
+#: includes/config/Config.php:454 includes/config/Config.php:1350
 msgid "Dropdown appearance style"
 msgstr ""
 
-#: includes/config/Config.php:489 includes/config/Config.php:504
-#: includes/config/Config.php:662 includes/config/Config.php:796
-#: includes/config/Config.php:1544 includes/config/Config.php:1560
-#: includes/config/Config.php:3194 includes/config/Config.php:4069
-#: includes/config/Config.php:4131 includes/config/Config.php:4342
-#: includes/config/Config.php:4382
+#: includes/config/Config.php:457 includes/config/Config.php:472
+#: includes/config/Config.php:1353 includes/config/Config.php:1369
+#: includes/config/Config.php:1697 includes/config/Config.php:1713
+#: includes/config/Config.php:2776 includes/config/Config.php:3655
+#: includes/config/Config.php:3704 includes/config/Config.php:3755
+#: includes/config/Config.php:3908 includes/config/Config.php:3956
+#: includes/config/Config.php:5063 includes/config/Config.php:5124
+#: includes/config/Config.php:5328 includes/config/Config.php:5368
 #: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:106
 #: includes/modules/core/inc/GroovyMenuSingleMetaPreset.php:125
 #: includes/modules/fields/inc/FieldTaxonomyPreset.php:22
@@ -500,740 +493,1046 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: includes/config/Config.php:490 includes/config/Config.php:1545
+#: includes/config/Config.php:458 includes/config/Config.php:1354
+#: includes/config/Config.php:1698
 msgid "Fade in out"
 msgstr ""
 
-#: includes/config/Config.php:491 includes/config/Config.php:1546
+#: includes/config/Config.php:459 includes/config/Config.php:1355
+#: includes/config/Config.php:1699
 msgid "Animate from bottom"
 msgstr ""
 
-#: includes/config/Config.php:492 includes/config/Config.php:1547
+#: includes/config/Config.php:460 includes/config/Config.php:1356
+#: includes/config/Config.php:1700
 msgid "Animate with scaling"
 msgstr ""
 
-#: includes/config/Config.php:493 includes/config/Config.php:1548
+#: includes/config/Config.php:461 includes/config/Config.php:1357
+#: includes/config/Config.php:1701
 msgid "Slide from right"
 msgstr ""
 
-#: includes/config/Config.php:494 includes/config/Config.php:1549
+#: includes/config/Config.php:462 includes/config/Config.php:1358
+#: includes/config/Config.php:1702
 msgid "Slide from right FadeIn"
 msgstr ""
 
-#: includes/config/Config.php:495 includes/config/Config.php:1550
+#: includes/config/Config.php:463 includes/config/Config.php:1359
+#: includes/config/Config.php:1703
 msgid "Slide from left"
 msgstr ""
 
-#: includes/config/Config.php:496 includes/config/Config.php:1551
+#: includes/config/Config.php:464 includes/config/Config.php:1360
+#: includes/config/Config.php:1704
 msgid "Slide from left FadeIn"
 msgstr ""
 
-#: includes/config/Config.php:501 includes/config/Config.php:1557
+#: includes/config/Config.php:469 includes/config/Config.php:1366
 msgid "Menu item hover style"
 msgstr ""
 
-#: includes/config/Config.php:505 includes/config/Config.php:1561
+#: includes/config/Config.php:473 includes/config/Config.php:1370
+#: includes/config/Config.php:1714
 msgid "Shift right"
 msgstr ""
 
-#: includes/config/Config.php:506 includes/config/Config.php:1562
+#: includes/config/Config.php:474 includes/config/Config.php:1371
+#: includes/config/Config.php:1715
 msgid "Fade in"
 msgstr ""
 
-#: includes/config/Config.php:511
+#: includes/config/Config.php:479
 msgid "Page overlay when menu drops down"
 msgstr ""
 
-#: includes/config/Config.php:515
+#: includes/config/Config.php:483
 msgid "Show overlay"
 msgstr ""
 
-#: includes/config/Config.php:521 includes/config/Config.php:3765
-#: includes/config/Config.php:3784
+#: includes/config/Config.php:489 includes/config/Config.php:4666
+#: includes/config/Config.php:4689
 msgid "Background color"
 msgstr ""
 
-#: includes/config/Config.php:528 includes/config/Config.php:2344
+#: includes/config/Config.php:496 includes/config/Config.php:1733
+#: includes/config/Config.php:2693
 msgid "Blur effect"
 msgstr ""
 
-#: includes/config/Config.php:535 includes/config/Config.php:2351
+#: includes/config/Config.php:503 includes/config/Config.php:1740
+#: includes/config/Config.php:2700
 msgid "Blur intensity"
 msgstr ""
 
-#: includes/config/Config.php:549
+#: includes/config/Config.php:517
 msgid "Submenu bottom border"
 msgstr ""
 
-#: includes/config/Config.php:580
+#: includes/config/Config.php:548
 msgid "Submenu box border top color"
 msgstr ""
 
-#: includes/config/Config.php:610
+#: includes/config/Config.php:578
 msgid ""
 "Shift down the submenu at the height of the top border thickness"
 msgstr ""
 
-#: includes/config/Config.php:617
+#: includes/config/Config.php:585
 msgid "Submenu text color"
 msgstr ""
 
-#: includes/config/Config.php:623
+#: includes/config/Config.php:591
 msgid "Submenu text hover color"
 msgstr ""
 
-#: includes/config/Config.php:629
+#: includes/config/Config.php:597
 msgid "Submenu active link text color"
 msgstr ""
 
-#: includes/config/Config.php:635
+#: includes/config/Config.php:603
 msgid "Submenu background color"
 msgstr ""
 
-#: includes/config/Config.php:641
+#: includes/config/Config.php:609
 msgid "Submenu item hover background color"
 msgstr ""
 
-#: includes/config/Config.php:647
-msgid "Submenu text"
-msgstr ""
-
-#: includes/config/Config.php:651 includes/config/Config.php:784
-#: includes/config/Config.php:3184 includes/config/Config.php:4332
-#: includes/config/Config.php:4372
-msgid "Size"
-msgstr ""
-
-#: includes/config/Config.php:658 includes/config/Config.php:792
-#: includes/config/Config.php:3191 includes/config/Config.php:4339
-#: includes/config/Config.php:4379
-msgid "Case"
-msgstr ""
-
-#: includes/config/Config.php:661 includes/config/Config.php:795
-msgid "Select value"
-msgstr ""
-
-#: includes/config/Config.php:663 includes/config/Config.php:797
-#: includes/config/Config.php:3195 includes/config/Config.php:4343
-#: includes/config/Config.php:4383
-msgid "Uppercase"
-msgstr ""
-
-#: includes/config/Config.php:664 includes/config/Config.php:798
-#: includes/config/Config.php:3196 includes/config/Config.php:4344
-#: includes/config/Config.php:4384
-msgid "Capitalize"
-msgstr ""
-
-#: includes/config/Config.php:665 includes/config/Config.php:799
-#: includes/config/Config.php:3197 includes/config/Config.php:4345
-#: includes/config/Config.php:4385
-msgid "Lowercase"
-msgstr ""
-
-#: includes/config/Config.php:670 includes/config/Config.php:805
-#: includes/config/Config.php:3202 includes/config/Config.php:4350
-#: includes/config/Config.php:4390
-msgid "Font variant"
-msgstr ""
-
-#: includes/config/Config.php:678 includes/config/Config.php:814
-#: includes/config/Config.php:3210
-msgid "Subset"
-msgstr ""
-
-#: includes/config/Config.php:686 includes/config/Config.php:823
-#: includes/config/Config.php:3218 includes/config/Config.php:4358
-#: includes/config/Config.php:4398
-msgid "Letter spacing"
-msgstr ""
-
-#: includes/config/Config.php:696
+#: includes/config/Config.php:615
 msgid "Dropdown radius"
 msgstr ""
 
-#: includes/config/Config.php:701 includes/config/Config.php:1779
-#: includes/config/Config.php:1832 includes/config/Config.php:2204
+#: includes/config/Config.php:620 includes/config/Config.php:1588
+#: includes/config/Config.php:2107 includes/config/Config.php:2502
 msgid "switch"
 msgstr ""
 
-#: includes/config/Config.php:708 includes/config/Config.php:1786
-#: includes/config/Config.php:2863 includes/config/Config.php:2946
+#: includes/config/Config.php:627 includes/config/Config.php:1595
+#: includes/config/Config.php:1808 includes/config/Config.php:2752
+#: includes/config/Config.php:3324 includes/config/Config.php:3407
 msgid "top left"
 msgstr ""
 
-#: includes/config/Config.php:719 includes/config/Config.php:1794
-#: includes/config/Config.php:2865 includes/config/Config.php:2948
+#: includes/config/Config.php:638 includes/config/Config.php:1603
+#: includes/config/Config.php:1810 includes/config/Config.php:2754
+#: includes/config/Config.php:3326 includes/config/Config.php:3409
 msgid "top right"
 msgstr ""
 
-#: includes/config/Config.php:730 includes/config/Config.php:1802
-#: includes/config/Config.php:2868 includes/config/Config.php:2951
+#: includes/config/Config.php:649 includes/config/Config.php:1611
+#: includes/config/Config.php:1813 includes/config/Config.php:2757
+#: includes/config/Config.php:3329 includes/config/Config.php:3412
 msgid "bottom left"
 msgstr ""
 
-#: includes/config/Config.php:741 includes/config/Config.php:1810
-#: includes/config/Config.php:2870 includes/config/Config.php:2953
+#: includes/config/Config.php:660 includes/config/Config.php:1619
+#: includes/config/Config.php:1815 includes/config/Config.php:2759
+#: includes/config/Config.php:3331 includes/config/Config.php:3414
 msgid "bottom right"
 msgstr ""
 
-#: includes/config/Config.php:756
+#: includes/config/Config.php:675
 msgid "Dropdown gap"
 msgstr ""
 
-#: includes/config/Config.php:757
+#: includes/config/Config.php:676
 msgid "Gap between Main menu and Dropdown menu"
 msgstr ""
 
-#: includes/config/Config.php:765
+#: includes/config/Config.php:684
 msgid "Submenu gap"
 msgstr ""
 
-#: includes/config/Config.php:766
+#: includes/config/Config.php:685
 msgid "Gap beside Dropdown menu and Submenu"
 msgstr ""
 
-#: includes/config/Config.php:774
-#: includes/modules/core/inc/GroovyMenuSettings.php:2089
+#: includes/config/Config.php:693
+msgid "Time delay of smooth appearing between dropdowns and submenus"
+msgstr ""
+
+#: includes/config/Config.php:694
+msgid "Affects to diagonal movement between adjacent menu items"
+msgstr ""
+
+#: includes/config/Config.php:701
+msgid "Time delay of auto closing for submenus"
+msgstr ""
+
+#: includes/config/Config.php:702
+msgid ""
+"Affects how quickly the submenu will close after mouseout event"
+msgstr ""
+
+#: includes/config/Config.php:709
+#: includes/modules/core/inc/GroovyMenuSettings.php:2127
 #: includes/modules/walkers/inc/WalkerNavMenu.php:185
 msgid "Mega menu"
 msgstr ""
 
-#: includes/config/Config.php:779
-msgid "Mega menu title text"
-msgstr ""
-
-#: includes/config/Config.php:834
+#: includes/config/Config.php:714
 msgid "Show Mega Menu titles as a regular menu items"
 msgstr ""
 
-#: includes/config/Config.php:835
+#: includes/config/Config.php:715
 msgid "For sub mega menu items."
 msgstr ""
 
-#: includes/config/Config.php:835
+#: includes/config/Config.php:715
 msgid "Show with links and badges."
 msgstr ""
 
-#: includes/config/Config.php:840
+#: includes/config/Config.php:720
 msgid ""
 "Highlight the titles of the megamenu on hover state and active"
 msgstr ""
 
-#: includes/config/Config.php:841
+#: includes/config/Config.php:721
 msgid ""
 "It&rsquo;s apply for mega menu titles that contain links. "
 "Highlight the title with colors according to the settings as for "
 "usual menu items."
 msgstr ""
 
-#: includes/config/Config.php:847
+#: includes/config/Config.php:727
 msgid "Mega menu title text color"
 msgstr ""
 
-#: includes/config/Config.php:854
+#: includes/config/Config.php:734
 msgid "Mega menu canvas and container width"
 msgstr ""
 
-#: includes/config/Config.php:857
+#: includes/config/Config.php:737
 msgid "Mega menu canvas and container boxed"
 msgstr ""
 
-#: includes/config/Config.php:858
+#: includes/config/Config.php:738
 msgid "Mega menu canvas wide - container boxed"
 msgstr ""
 
-#: includes/config/Config.php:859
+#: includes/config/Config.php:739
 msgid "Mega menu canvas and container wide"
 msgstr ""
 
-#: includes/config/Config.php:865
+#: includes/config/Config.php:745
 msgid "Mega menu canvas and container boxed width"
 msgstr ""
 
-#: includes/config/Config.php:874
+#: includes/config/Config.php:754
 msgid ""
 "Note that container will be 30px narrower than canvas. (canvas "
 "width by default is 1200px)."
 msgstr ""
 
-#: includes/config/Config.php:881
+#: includes/config/Config.php:761
 msgid "Mega menu canvas wide - container boxed width"
 msgstr ""
 
-#: includes/config/Config.php:890
+#: includes/config/Config.php:770
 msgid "Default container width is 1200px."
 msgstr ""
 
-#: includes/config/Config.php:897
+#: includes/config/Config.php:777
 msgid "Custom Mega menu background color"
 msgstr ""
 
-#: includes/config/Config.php:903
+#: includes/config/Config.php:783
 msgid "Mega menu background color"
 msgstr ""
 
-#: includes/config/Config.php:913
+#: includes/config/Config.php:793
 msgid "Add Mega menu columns padding"
 msgstr ""
 
-#: includes/config/Config.php:919
+#: includes/config/Config.php:799
 msgid "Mega menu columns divider color"
 msgstr ""
 
-#: includes/config/Config.php:926
+#: includes/config/Config.php:806
 msgid "Mega menu links bottom border"
 msgstr ""
 
-#: includes/config/Config.php:932
+#: includes/config/Config.php:812
 msgid "Mega menu links left/right padding"
 msgstr ""
 
-#: includes/config/Config.php:939
+#: includes/config/Config.php:819
 msgid "Mega menu gap"
 msgstr ""
 
-#: includes/config/Config.php:940
+#: includes/config/Config.php:820
 msgid "Gap between Main menu and Mega menu"
 msgstr ""
 
-#: includes/config/Config.php:948
-#: includes/modules/core/inc/GroovyMenuUtils.php:506
-#: template/Header.php:848 template/Header.php:1226
+#: includes/config/Config.php:828
+#: includes/modules/core/inc/GroovyMenuUtils.php:516
+#: template/Header.php:921 template/Header.php:1412
 msgid "Search"
 msgstr ""
 
-#: includes/config/Config.php:953
+#: includes/config/Config.php:833
 msgid "Search form type"
 msgstr ""
 
-#: includes/config/Config.php:957
+#: includes/config/Config.php:837
 msgid "Select a type of the search form"
 msgstr ""
 
-#: includes/config/Config.php:962 includes/config/Config.php:992
+#: includes/config/Config.php:842 includes/config/Config.php:872
 msgid "Dropdown"
 msgstr ""
 
-#: includes/config/Config.php:965 includes/config/Config.php:991
+#: includes/config/Config.php:845 includes/config/Config.php:871
 msgid "Fullscreen"
 msgstr ""
 
-#: includes/config/Config.php:966
+#: includes/config/Config.php:846
 msgid "Custom"
 msgstr ""
 
-#: includes/config/Config.php:967
+#: includes/config/Config.php:847
 msgid "Disable"
 msgstr ""
 
-#: includes/config/Config.php:972
+#: includes/config/Config.php:852
 msgid "Filter search result by"
 msgstr ""
 
-#: includes/config/Config.php:977
+#: includes/config/Config.php:857
 msgid "Search in all post types"
 msgstr ""
 
-#: includes/config/Config.php:987
+#: includes/config/Config.php:867
 msgid "Custom wrapper"
 msgstr ""
 
-#: includes/config/Config.php:1004
+#: includes/config/Config.php:884
 msgid "Select Menu Block for search wrapper"
 msgstr ""
 
-#: includes/config/Config.php:1005
+#: includes/config/Config.php:885
 msgid ""
 "The content of the selected menu block will be displayed in the "
 "search form"
 msgstr ""
 
-#: includes/config/Config.php:1014
+#: includes/config/Config.php:894
 msgid "Show default search form?"
 msgstr ""
 
-#: includes/config/Config.php:1015
+#: includes/config/Config.php:895
 msgid "Adds a standard search form to the block menu"
 msgstr ""
 
-#: includes/config/Config.php:1023
+#: includes/config/Config.php:903
 msgid "Canvas background color for fullscreen search wrapper"
 msgstr ""
 
-#: includes/config/Config.php:1024
+#: includes/config/Config.php:904
 msgid "Also applicable for mobile screen resolutions"
 msgstr ""
 
-#: includes/config/Config.php:1033
+#: includes/config/Config.php:913
 msgid "Search form icon size"
 msgstr ""
 
-#: includes/config/Config.php:1057
-msgid "Mobile search icon position"
+#: includes/config/Config.php:926 includes/config/Config.php:4629
+msgid "Slide container"
 msgstr ""
 
-#: includes/config/Config.php:1058 includes/config/Config.php:4139
-#: includes/config/Config.php:4255
+#: includes/config/Config.php:937
+msgid "Search icon position"
+msgstr ""
+
+#: includes/config/Config.php:938 includes/config/Config.php:954
+#: includes/config/Config.php:4585 includes/config/Config.php:4601
+#: includes/config/Config.php:5241
 msgid ""
 "You can change the icon color in the [Styles] - [Side Icon] "
 "section."
 msgstr ""
 
-#: includes/config/Config.php:1058 includes/config/Config.php:4139
-msgid "See [Side icon mobile] and [Side icon mobile sticky]"
+#: includes/config/Config.php:938 includes/config/Config.php:4585
+msgid "See [Side icon] and [Side icon sticky]"
 msgstr ""
 
-#: includes/config/Config.php:1061
+#: includes/config/Config.php:941 includes/config/Config.php:957
+#: includes/config/Config.php:4588 includes/config/Config.php:4604
 msgid "Drawer (bottom position)"
 msgstr ""
 
-#: includes/config/Config.php:1062
+#: includes/config/Config.php:942 includes/config/Config.php:958
+#: includes/config/Config.php:4589 includes/config/Config.php:4605
 msgid "Top bar side icon"
 msgstr ""
 
-#: includes/config/Config.php:1063
+#: includes/config/Config.php:943 includes/config/Config.php:959
+#: includes/config/Config.php:4590 includes/config/Config.php:4606
 msgid "Top bar side icon & Drawer (bottom position)"
 msgstr ""
 
-#: includes/config/Config.php:1071 includes/config/Config.php:1099
-#: includes/config/Config.php:1109 includes/config/Config.php:1155
-#: includes/config/Config.php:1187 includes/config/Config.php:1197
+#: includes/config/Config.php:944 includes/config/Config.php:960
+#: includes/config/Config.php:4591 includes/config/Config.php:4607
+msgid "Hide icon"
+msgstr ""
+
+#: includes/config/Config.php:953
+msgid "Mobile search icon position"
+msgstr ""
+
+#: includes/config/Config.php:954 includes/config/Config.php:4601
+msgid "See [Side icon mobile] and [Side icon mobile sticky]"
+msgstr ""
+
+#: includes/config/Config.php:968 includes/config/Config.php:996
+#: includes/config/Config.php:1006 includes/config/Config.php:1052
+#: includes/config/Config.php:1084 includes/config/Config.php:1094
 msgid "Opened search form"
 msgstr ""
 
-#: includes/config/Config.php:1071
+#: includes/config/Config.php:968
 msgid "Search icon color"
 msgstr ""
 
-#: includes/config/Config.php:1099
+#: includes/config/Config.php:996
 msgid "Fullscreen close icon color"
 msgstr ""
 
-#: includes/config/Config.php:1109 includes/config/Config.php:2023
-#: includes/config/Config.php:2065 includes/config/Config.php:2234
+#: includes/config/Config.php:1006 includes/config/Config.php:2305
+#: includes/config/Config.php:2348 includes/config/Config.php:2532
 msgid "Side border"
 msgstr ""
 
-#: includes/config/Config.php:1155
+#: includes/config/Config.php:1052
 msgid "Input field colors"
 msgstr ""
 
-#: includes/config/Config.php:1163 includes/config/Config.php:1205
+#: includes/config/Config.php:1060 includes/config/Config.php:1102
 msgid "background"
 msgstr ""
 
-#: includes/config/Config.php:1172 includes/config/Config.php:3826
-#: includes/config/Config.php:3915
+#: includes/config/Config.php:1069 includes/config/Config.php:4737
+#: includes/config/Config.php:4842
 msgid "text color"
 msgstr ""
 
-#: includes/config/Config.php:1187
+#: includes/config/Config.php:1084
 msgid "Dropdown background"
 msgstr ""
 
-#: includes/config/Config.php:1197
+#: includes/config/Config.php:1094
 msgid "Dropdown search button"
 msgstr ""
 
-#: includes/config/Config.php:1214
+#: includes/config/Config.php:1111
 msgid "hover background"
 msgstr ""
 
-#: includes/config/Config.php:1229 includes/config/Config.php:2565
+#: includes/config/Config.php:1126 includes/config/Config.php:3026
 #: includes/config/ConfigGlobal.php:21
 msgid "Logo"
 msgstr ""
 
-#: includes/config/Config.php:1234
+#: includes/config/Config.php:1131
 msgid "Logo type"
 msgstr ""
 
-#: includes/config/Config.php:1244
+#: includes/config/Config.php:1141
 msgid "Enable fit logotype to the sidebar area"
 msgstr ""
 
-#: includes/config/Config.php:1245
+#: includes/config/Config.php:1142
 msgid "It apply for desktop resolution"
 msgstr ""
 
-#: includes/config/Config.php:1254 includes/config/Config.php:4087
+#: includes/config/Config.php:1151 includes/config/Config.php:5080
 msgid "Logo margin"
 msgstr ""
 
-#: includes/config/Config.php:1262 includes/config/Config.php:4092
+#: includes/config/Config.php:1159 includes/config/Config.php:4182
+#: includes/config/Config.php:5085
 msgid "Top"
 msgstr ""
 
-#: includes/config/Config.php:1273 includes/config/Config.php:2381
-#: includes/config/Config.php:2400 includes/config/Config.php:4100
+#: includes/config/Config.php:1170 includes/config/Config.php:2651
+#: includes/config/Config.php:2670 includes/config/Config.php:4193
+#: includes/config/Config.php:5093
 #: includes/modules/walkers/inc/WalkerNavMenu.php:577
 msgid "Right"
 msgstr ""
 
-#: includes/config/Config.php:1284 includes/config/Config.php:4108
+#: includes/config/Config.php:1181 includes/config/Config.php:4204
+#: includes/config/Config.php:5101
 msgid "Bottom"
 msgstr ""
 
-#: includes/config/Config.php:1295 includes/config/Config.php:2379
-#: includes/config/Config.php:2398 includes/config/Config.php:4116
+#: includes/config/Config.php:1192 includes/config/Config.php:2649
+#: includes/config/Config.php:2668 includes/config/Config.php:4215
+#: includes/config/Config.php:5109
 #: includes/modules/walkers/inc/WalkerNavMenu.php:576
 msgid "Left"
 msgstr ""
 
-#: includes/config/Config.php:1313
+#: includes/config/Config.php:1210
 msgid "Logo height"
 msgstr ""
 
-#: includes/config/Config.php:1321
+#: includes/config/Config.php:1218
 msgid "Logo height sticky"
 msgstr ""
 
-#: includes/config/Config.php:1332
+#: includes/config/Config.php:1229
 msgid "Mobile logo height"
 msgstr ""
 
-#: includes/config/Config.php:1340
+#: includes/config/Config.php:1237
 msgid "Mobile logo height sticky"
 msgstr ""
 
-#: includes/config/Config.php:1348
+#: includes/config/Config.php:1245
 msgid "Show Alternative text for logo"
 msgstr ""
 
-#: includes/config/Config.php:1348 includes/config/Config.php:1355
+#: includes/config/Config.php:1245 includes/config/Config.php:1252
 msgid "Alt attribute"
 msgstr ""
 
-#: includes/config/Config.php:1351 includes/config/Config.php:1358
+#: includes/config/Config.php:1248 includes/config/Config.php:1255
 msgid "This attribute is editable in the WordPress media library."
 msgstr ""
 
-#: includes/config/Config.php:1351
+#: includes/config/Config.php:1248
 msgid ""
 "If there is no alternative text, then the attribute will be "
 "displayed empty."
 msgstr ""
 
-#: includes/config/Config.php:1355
+#: includes/config/Config.php:1252
 msgid "Show Title as Alternative text"
 msgstr ""
 
-#: includes/config/Config.php:1365
+#: includes/config/Config.php:1262
 msgid "Switch default logo to alternative"
 msgstr ""
 
-#: includes/config/Config.php:1374
+#: includes/config/Config.php:1271
 msgid "Switch sticky logo to alternative"
 msgstr ""
 
-#: includes/config/Config.php:1383
+#: includes/config/Config.php:1280
 msgid "Switch mobile logo to alternative"
 msgstr ""
 
-#: includes/config/Config.php:1389
+#: includes/config/Config.php:1286
 msgid "Switch sticky mobile logo to alternative"
 msgstr ""
 
-#: includes/config/Config.php:1395 includes/config/Config.php:3162
-msgid "Google font family"
+#: includes/config/Config.php:1292
+msgid "Additional menu"
 msgstr ""
 
-#: includes/config/Config.php:1396
-msgid "Choose preferred Google font family for logo."
+#: includes/config/Config.php:1297
+msgid "Enable additional navigation menu"
 msgstr ""
 
-#: includes/config/Config.php:1405
-msgid "Text logo"
+#: includes/config/Config.php:1303 includes/config/Config.php:1645
+msgid "Navigation menu"
 msgstr ""
 
-#: includes/config/Config.php:1410 includes/config/Config.php:1458
-#: includes/config/Config.php:3803 includes/config/Config.php:3892
-msgid "font size"
+#: includes/config/Config.php:1311
+msgid "Additional menu position"
 msgstr ""
 
-#: includes/config/Config.php:1418 includes/config/Config.php:1466
-msgid "variant"
+#: includes/config/Config.php:1315
+msgid "Toolbar: Left side First"
 msgstr ""
 
-#: includes/config/Config.php:1427 includes/config/Config.php:1475
-msgid "subset"
+#: includes/config/Config.php:1316
+msgid "Toolbar: Left side Last"
 msgstr ""
 
-#: includes/config/Config.php:1443 includes/config/Config.php:1491
-msgid "hover color"
+#: includes/config/Config.php:1317
+msgid "Toolbar: Right side First"
 msgstr ""
 
-#: includes/config/Config.php:1453
-msgid "Sticky text logo"
+#: includes/config/Config.php:1318
+msgid "Toolbar: Right side Last"
 msgstr ""
 
-#: includes/config/Config.php:1501
-msgid "Toolbar menu"
+#: includes/config/Config.php:1319
+msgid "Logo: Before"
 msgstr ""
 
-#: includes/config/Config.php:1507
-msgid "Enable additional navigation menu at the toolbar"
+#: includes/config/Config.php:1320
+msgid "Logo: After"
 msgstr ""
 
-#: includes/config/Config.php:1513
-msgid "Navigation menu displayed in the toolbar"
+#: includes/config/Config.php:1321
+msgid "Main header: Before"
 msgstr ""
 
-#: includes/config/Config.php:1521
-msgid "Toolbar menu position"
+#: includes/config/Config.php:1322
+msgid "Main header: After"
 msgstr ""
 
-#: includes/config/Config.php:1525
-msgid "Left side First"
+#: includes/config/Config.php:1323
+msgid "Main nav menu: After"
 msgstr ""
 
-#: includes/config/Config.php:1526
-msgid "Left side Last"
+#: includes/config/Config.php:1324
+msgid "Main nav menu: First"
 msgstr ""
 
-#: includes/config/Config.php:1527
-msgid "Right side First"
+#: includes/config/Config.php:1325
+msgid "Main nav menu: Last"
 msgstr ""
 
-#: includes/config/Config.php:1528
-msgid "Right side Last"
+#: includes/config/Config.php:1326
+msgid "Action buttons: First"
 msgstr ""
 
-#: includes/config/Config.php:1534
-msgid "Show toolbar menu at the mobile"
+#: includes/config/Config.php:1327
+msgid "Action buttons: Last"
 msgstr ""
 
-#: includes/config/Config.php:1568
+#: includes/config/Config.php:1328
+msgid "Mobile hamburger: Custom"
+msgstr ""
+
+#: includes/config/Config.php:1329
+msgid "Mobile hamburger: Before"
+msgstr ""
+
+#: includes/config/Config.php:1330
+msgid "Mobile hamburger: After"
+msgstr ""
+
+#: includes/config/Config.php:1331
+msgid "Mobile drawer: Top"
+msgstr ""
+
+#: includes/config/Config.php:1332
+msgid "Mobile drawer: Nav First"
+msgstr ""
+
+#: includes/config/Config.php:1333
+msgid "Mobile drawer: Nav Last"
+msgstr ""
+
+#: includes/config/Config.php:1334
+msgid "Mobile drawer: After"
+msgstr ""
+
+#: includes/config/Config.php:1335
+msgid "Mobile drawer: Before search icon"
+msgstr ""
+
+#: includes/config/Config.php:1336
+msgid "Mobile drawer: Before mini-cart"
+msgstr ""
+
+#: includes/config/Config.php:1337
+msgid "Mobile Toolbar: First"
+msgstr ""
+
+#: includes/config/Config.php:1343
+msgid "Show additional menu at the mobile"
+msgstr ""
+
+#: includes/config/Config.php:1377
 msgid "Top level menu styles"
 msgstr ""
 
-#: includes/config/Config.php:1573 includes/config/Config.php:1618
+#: includes/config/Config.php:1382 includes/config/Config.php:1427
+#: includes/config/Config.php:1837 includes/config/Config.php:1882
+#: includes/config/Config.php:2072 includes/config/Config.php:2846
+#: includes/config/Config.php:5026
 msgid "Color"
 msgstr ""
 
-#: includes/config/Config.php:1580 includes/config/Config.php:1625
-#: includes/config/Config.php:2796 includes/config/Config.php:2880
+#: includes/config/Config.php:1389 includes/config/Config.php:1434
+#: includes/config/Config.php:1827 includes/config/Config.php:1844
+#: includes/config/Config.php:1889 includes/config/Config.php:2769
+#: includes/config/Config.php:3257 includes/config/Config.php:3341
 msgid "Background"
 msgstr ""
 
-#: includes/config/Config.php:1587 includes/config/Config.php:1632
+#: includes/config/Config.php:1396 includes/config/Config.php:1441
+#: includes/config/Config.php:1851 includes/config/Config.php:1896
 msgid "Color hover"
 msgstr ""
 
-#: includes/config/Config.php:1594 includes/config/Config.php:1639
+#: includes/config/Config.php:1403 includes/config/Config.php:1448
+#: includes/config/Config.php:1858 includes/config/Config.php:1903
 msgid "Background hover"
 msgstr ""
 
-#: includes/config/Config.php:1601 includes/config/Config.php:1646
+#: includes/config/Config.php:1410 includes/config/Config.php:1455
+#: includes/config/Config.php:1865 includes/config/Config.php:1910
+#: includes/config/Config.php:2061 includes/config/Config.php:2838
+#: includes/config/Config.php:5018
 msgid "Font size"
 msgstr ""
 
-#: includes/config/Config.php:1613
+#: includes/config/Config.php:1422
 msgid "Dropdown menu styles"
 msgstr ""
 
-#: includes/config/Config.php:1658
+#: includes/config/Config.php:1467
 msgid "Dropdown width"
 msgstr ""
 
-#: includes/config/Config.php:1666
+#: includes/config/Config.php:1475
 msgid "Dropdown border"
 msgstr ""
 
-#: includes/config/Config.php:1702
+#: includes/config/Config.php:1511
 msgid "Dropdown top border styles"
 msgstr ""
 
-#: includes/config/Config.php:1738
+#: includes/config/Config.php:1547
 msgid "Dropdown divider lines"
 msgstr ""
 
-#: includes/config/Config.php:1774
-msgid "Toolbar dropdown radius"
+#: includes/config/Config.php:1583
+msgid "Menu dropdown radius"
 msgstr ""
 
-#: includes/config/Config.php:1822
+#: includes/config/Config.php:1632
+msgid "Second Sidebar menu"
+msgstr ""
+
+#: includes/config/Config.php:1638
+msgid "Enable Second Sidebar menu"
+msgstr ""
+
+#: includes/config/Config.php:1653
+msgid "Menu open type"
+msgstr ""
+
+#: includes/config/Config.php:1656 includes/config/Config.php:2615
+#: includes/config/Config.php:5046
+msgid "Offcanvas slide from the left"
+msgstr ""
+
+#: includes/config/Config.php:1657 includes/config/Config.php:2616
+#: includes/config/Config.php:5047
+msgid "Offcanvas slide from the right"
+msgstr ""
+
+#: includes/config/Config.php:1663 includes/config/Config.php:2624
+msgid "Drawer animation speed"
+msgstr ""
+
+#: includes/config/Config.php:1671
+msgid "Drawer width"
+msgstr ""
+
+#: includes/config/Config.php:1687 includes/config/Config.php:2676
+msgid "Full height sidebar menu"
+msgstr ""
+
+#: includes/config/Config.php:1688
+msgid "Set sidebar menu above top level menu"
+msgstr ""
+
+#: includes/config/Config.php:1694
+msgid "Submenu appearance style"
+msgstr ""
+
+#: includes/config/Config.php:1710
+msgid "Menu items hover style"
+msgstr ""
+
+#: includes/config/Config.php:1721
+msgid "Drawer background color"
+msgstr ""
+
+#: includes/config/Config.php:1755
+msgid "Submenu next level background color"
+msgstr ""
+
+#: includes/config/Config.php:1762 includes/config/Config.php:2711
+msgid "Slider menu background Image"
+msgstr ""
+
+#: includes/config/Config.php:1770 includes/config/Config.php:2718
+msgid "Slider menu background image size"
+msgstr ""
+
+#: includes/config/Config.php:1777 includes/config/Config.php:2724
+msgid "Slider menu background"
+msgstr ""
+
+#: includes/config/Config.php:1782 includes/config/Config.php:1786
+#: includes/config/Config.php:2728 includes/config/Config.php:2732
+#: includes/config/Config.php:3300 includes/config/Config.php:3304
+#: includes/config/Config.php:3383 includes/config/Config.php:3387
+msgid "repeat"
+msgstr ""
+
+#: includes/config/Config.php:1785 includes/config/Config.php:2731
+#: includes/config/Config.php:3303 includes/config/Config.php:3386
+msgid "no-repeat"
+msgstr ""
+
+#: includes/config/Config.php:1787 includes/config/Config.php:2733
+#: includes/config/Config.php:3305 includes/config/Config.php:3388
+msgid "repeat-x"
+msgstr ""
+
+#: includes/config/Config.php:1788 includes/config/Config.php:2734
+#: includes/config/Config.php:3306 includes/config/Config.php:3389
+msgid "repeat-y"
+msgstr ""
+
+#: includes/config/Config.php:1794 includes/config/Config.php:2739
+#: includes/config/Config.php:3311 includes/config/Config.php:3394
+msgid "attachment"
+msgstr ""
+
+#: includes/config/Config.php:1797 includes/config/Config.php:2742
+#: includes/config/Config.php:3314 includes/config/Config.php:3397
+msgid "fixed"
+msgstr ""
+
+#: includes/config/Config.php:1798 includes/config/Config.php:2743
+#: includes/config/Config.php:3315 includes/config/Config.php:3398
+msgid "scroll"
+msgstr ""
+
+#: includes/config/Config.php:1804 includes/config/Config.php:2646
+#: includes/config/Config.php:2748 includes/config/Config.php:3320
+#: includes/config/Config.php:3403
+msgid "position"
+msgstr ""
+
+#: includes/config/Config.php:1807 includes/config/Config.php:2751
+#: includes/config/Config.php:3323 includes/config/Config.php:3406
+msgid "center center"
+msgstr ""
+
+#: includes/config/Config.php:1809 includes/config/Config.php:2753
+#: includes/config/Config.php:3325 includes/config/Config.php:3408
+msgid "top center"
+msgstr ""
+
+#: includes/config/Config.php:1811 includes/config/Config.php:2755
+#: includes/config/Config.php:3327 includes/config/Config.php:3410
+msgid "center left"
+msgstr ""
+
+#: includes/config/Config.php:1812 includes/config/Config.php:2756
+#: includes/config/Config.php:3328 includes/config/Config.php:3411
+msgid "center right"
+msgstr ""
+
+#: includes/config/Config.php:1814 includes/config/Config.php:2758
+#: includes/config/Config.php:3330 includes/config/Config.php:3413
+msgid "bottom center"
+msgstr ""
+
+#: includes/config/Config.php:1821 includes/config/Config.php:2764
+#: includes/config/Config.php:3336 includes/config/Config.php:3419
+msgid "Cover background"
+msgstr ""
+
+#: includes/config/Config.php:1832
+msgid "Drawer item text color"
+msgstr ""
+
+#: includes/config/Config.php:1877
+msgid "Submenu item text colors"
+msgstr ""
+
+#: includes/config/Config.php:1922
+msgid "Drawer divider lines"
+msgstr ""
+
+#: includes/config/Config.php:1958
+msgid "Submenu divider lines"
+msgstr ""
+
+#: includes/config/Config.php:1994
+msgid "Show animated Hamburger"
+msgstr ""
+
+#: includes/config/Config.php:1999 includes/config/Config.php:2404
+#: includes/config/Config.php:2794 includes/config/Config.php:4969
+msgid "Hamburger animation style"
+msgstr ""
+
+#: includes/config/Config.php:2006 includes/config/Config.php:2415
+#: includes/config/Config.php:2801 includes/config/Config.php:4983
+msgid "line thickness"
+msgstr ""
+
+#: includes/config/Config.php:2018
+msgid "Menu hamburger icon position"
+msgstr ""
+
+#: includes/config/Config.php:2021
+msgid "Main menu bar left"
+msgstr ""
+
+#: includes/config/Config.php:2022
+msgid "Main menu bar right"
+msgstr ""
+
+#: includes/config/Config.php:2023
+msgid "Main menu bar before logo"
+msgstr ""
+
+#: includes/config/Config.php:2024
+msgid "Main menu bar after logo"
+msgstr ""
+
+#: includes/config/Config.php:2025
+msgid "Main menu bar before nav menu"
+msgstr ""
+
+#: includes/config/Config.php:2026
+msgid "Main menu bar after nav menu"
+msgstr ""
+
+#: includes/config/Config.php:2027
+msgid "Main menu bar before action button"
+msgstr ""
+
+#: includes/config/Config.php:2033
+msgid "Show text beside hamburger icon"
+msgstr ""
+
+#: includes/config/Config.php:2034
+msgid ""
+"You can add a text in the [Hamburger menu text] input under "
+"[Groovy menu dashboard - Global settings button] on the [Misc] tab."
+msgstr ""
+
+#: includes/config/Config.php:2039 includes/config/Config.php:2788
+#: includes/config/Config.php:2819 includes/config/Config.php:4962
+#: includes/config/Config.php:5000
+msgid "Enable"
+msgstr ""
+
+#: includes/config/Config.php:2046 includes/config/Config.php:2826
+#: includes/config/Config.php:5006
+msgid "Flex position"
+msgstr ""
+
+#: includes/config/Config.php:2049 includes/config/Config.php:2829
+#: includes/config/Config.php:5009
+msgid "left"
+msgstr ""
+
+#: includes/config/Config.php:2050 includes/config/Config.php:2830
+#: includes/config/Config.php:5010
+msgid "right"
+msgstr ""
+
+#: includes/config/Config.php:2051 includes/config/Config.php:2831
+#: includes/config/Config.php:5011
+msgid "top"
+msgstr ""
+
+#: includes/config/Config.php:2052 includes/config/Config.php:2832
+#: includes/config/Config.php:5012
+msgid "bottom"
+msgstr ""
+
+#: includes/config/Config.php:2082 includes/config/Config.php:2853
+#: includes/config/Config.php:5033
+msgid "Color sticky"
+msgstr ""
+
+#: includes/config/Config.php:2097
 msgid "Scrollbar"
 msgstr ""
 
-#: includes/config/Config.php:1822
+#: includes/config/Config.php:2097
 msgid "Onepage"
 msgstr ""
 
-#: includes/config/Config.php:1827
+#: includes/config/Config.php:2102
 msgid "Enable internal submenus scrollbar"
 msgstr ""
 
-#: includes/config/Config.php:1829
+#: includes/config/Config.php:2104
 msgid "Enable scrolling for long lists of submenus and mega menus"
 msgstr ""
 
-#: includes/config/Config.php:1838
+#: includes/config/Config.php:2113
 msgid "scroll speed"
 msgstr ""
 
-#: includes/config/Config.php:1851
+#: includes/config/Config.php:2125
 msgid "Enable mobile menu scrollbar"
 msgstr ""
 
-#: includes/config/Config.php:1854
+#: includes/config/Config.php:2128
 msgid "Enable scrolling for long lists of mobile menu & submenus"
 msgstr ""
 
-#: includes/config/Config.php:1857
+#: includes/config/Config.php:2131
+msgid "Tracking anchor links"
+msgstr ""
+
+#: includes/config/Config.php:2134
+msgid "Anchor links in a onepage menu"
+msgstr ""
+
+#: includes/config/Config.php:2137
 msgid ""
 "Enable to handle anchor links for &quot;Menu blocks&quot; content"
 msgstr ""
 
-#: includes/config/Config.php:1860
+#: includes/config/Config.php:2140
 msgid ""
 "Allows to enable anchor links in &quot;Menu blocks&quot; and "
 "smooth scroll"
 msgstr ""
 
-#: includes/config/Config.php:1863
+#: includes/config/Config.php:2144
 msgid "Custom scroll speed options"
 msgstr ""
 
-#: includes/config/Config.php:1866
+#: includes/config/Config.php:2147
 msgid ""
 "Used to smoothly scroll the page content to anchor links in a "
 "onepage menu"
 msgstr ""
 
-#: includes/config/Config.php:1869 includes/config/Config.php:1878
-#: includes/config/Config.php:1887
+#: includes/config/Config.php:2150 includes/config/Config.php:2159
+#: includes/config/Config.php:2168
 msgid "Scroll Speed"
 msgstr ""
 
-#: includes/config/Config.php:1870
+#: includes/config/Config.php:2151
 msgid ""
 "Amount of time in milliseconds it should take to scroll 1000px"
 msgstr ""
 
-#: includes/config/Config.php:1878
+#: includes/config/Config.php:2159
 msgid "Minimum"
 msgstr ""
 
-#: includes/config/Config.php:1879
+#: includes/config/Config.php:2160
 msgid "The minimum amount of time the scroll animation should take"
 msgstr ""
 
-#: includes/config/Config.php:1887
+#: includes/config/Config.php:2168
 msgid "Maximum"
 msgstr ""
 
-#: includes/config/Config.php:1888
+#: includes/config/Config.php:2169
 msgid "The maximum amount of time the scroll animation should take"
 msgstr ""
 
-#: includes/config/Config.php:1896
+#: includes/config/Config.php:2177
 msgid "Scroll easing pattern to use"
 msgstr ""
 
-#: includes/config/Config.php:1897
+#: includes/config/Config.php:2178
 msgid ""
 "Linear Moves at the same speed from start point to end point. Ease-"
 "In Gradually increases in speed. Ease-In-Out Gradually increases "
@@ -1241,1108 +1540,1207 @@ msgid ""
 "decreases in speed."
 msgstr ""
 
-#: includes/config/Config.php:1900
+#: includes/config/Config.php:2181
 msgid "Linear"
 msgstr ""
 
-#: includes/config/Config.php:1901
+#: includes/config/Config.php:2182
 msgid "Ease-In Quad"
 msgstr ""
 
-#: includes/config/Config.php:1902
+#: includes/config/Config.php:2183
 msgid "Ease-In Cubic"
 msgstr ""
 
-#: includes/config/Config.php:1903
+#: includes/config/Config.php:2184
 msgid "Ease-In Quart"
 msgstr ""
 
-#: includes/config/Config.php:1904
+#: includes/config/Config.php:2185
 msgid "Ease-In Quint"
 msgstr ""
 
-#: includes/config/Config.php:1905
+#: includes/config/Config.php:2186
 msgid "Ease-In-Out Quad"
 msgstr ""
 
-#: includes/config/Config.php:1906
+#: includes/config/Config.php:2187
 msgid "Ease-In-Out Cubic"
 msgstr ""
 
-#: includes/config/Config.php:1907
+#: includes/config/Config.php:2188
 msgid "Ease-In-Out Quart"
 msgstr ""
 
-#: includes/config/Config.php:1908
+#: includes/config/Config.php:2189
 msgid "Ease-In-Out Quint"
 msgstr ""
 
-#: includes/config/Config.php:1909
+#: includes/config/Config.php:2190
 msgid "Ease-Out Quad"
 msgstr ""
 
-#: includes/config/Config.php:1910
+#: includes/config/Config.php:2191
 msgid "Ease-Out Cubic"
 msgstr ""
 
-#: includes/config/Config.php:1911
+#: includes/config/Config.php:2192
 msgid "Ease-Out Quart"
 msgstr ""
 
-#: includes/config/Config.php:1912
+#: includes/config/Config.php:2193
 msgid "Ease-Out Quint"
 msgstr ""
 
-#: includes/config/Config.php:1918
+#: includes/config/Config.php:2199
 msgid "Menu item preview"
 msgstr ""
 
-#: includes/config/Config.php:1923
-#: includes/modules/core/inc/GroovyMenuSettings.php:1756
-#: includes/modules/core/inc/GroovyMenuSettings.php:2738
+#: includes/config/Config.php:2204
+#: includes/modules/core/inc/GroovyMenuSettings.php:1794
+#: includes/modules/core/inc/GroovyMenuSettings.php:2787
 #: template/PreviewModal.php:8
 msgid "Preview"
 msgstr ""
 
-#: includes/config/Config.php:1927 includes/config/Config.php:3448
-#: includes/config/Config.php:3501 includes/config/Config.php:3554
-#: includes/config/Config.php:3607 includes/config/Config.php:3660
-#: includes/config/Config.php:3720 includes/config/Config.php:3868
-#: includes/config/Config.php:3957
+#: includes/config/Config.php:2208 includes/config/Config.php:4275
+#: includes/config/Config.php:4328 includes/config/Config.php:4381
+#: includes/config/Config.php:4434 includes/config/Config.php:4487
+#: includes/config/Config.php:4547 includes/config/Config.php:4786
+#: includes/config/Config.php:4891
 msgid "width"
 msgstr ""
 
-#: includes/config/Config.php:1935
+#: includes/config/Config.php:2216
 msgid "height"
 msgstr ""
 
-#: includes/config/Config.php:1946
-#: includes/modules/core/inc/GroovyMenuSettings.php:2126
+#: includes/config/Config.php:2228
+#: includes/modules/core/inc/GroovyMenuSettings.php:2164
 msgid "Icon menu"
 msgstr ""
 
-#: includes/config/Config.php:1952 includes/config/Config.php:2100
-#: includes/config/Config.php:2362
+#: includes/config/Config.php:2234 includes/config/Config.php:2383
+#: includes/config/Config.php:2632
 msgid "Top level width"
 msgstr ""
 
-#: includes/config/Config.php:1959
+#: includes/config/Config.php:2241
 msgid "Top level icon size"
 msgstr ""
 
-#: includes/config/Config.php:1967
+#: includes/config/Config.php:2249
 msgid "Top level icon active & hover background color"
 msgstr ""
 
-#: includes/config/Config.php:1974
+#: includes/config/Config.php:2256
 msgid "Top level icon active & hover color"
 msgstr ""
 
-#: includes/config/Config.php:1981
+#: includes/config/Config.php:2263
 msgid "Top level items bottom border"
 msgstr ""
 
-#: includes/config/Config.php:2016
+#: includes/config/Config.php:2298
 msgid "Top level link background color"
 msgstr ""
 
-#: includes/config/Config.php:2024
+#: includes/config/Config.php:2306
 msgid ""
 "Set left/right side border of menu. Side depends on menu align"
 msgstr ""
 
-#: includes/config/Config.php:2059
+#: includes/config/Config.php:2342
 msgid "Sidebar menu"
 msgstr ""
 
-#: includes/config/Config.php:2107
+#: includes/config/Config.php:2390
 #: includes/modules/fields/inc/FieldHeader.php:40
 msgid "Expanding sidebar"
 msgstr ""
 
-#: includes/config/Config.php:2113
+#: includes/config/Config.php:2396
 msgid "Show side icon"
 msgstr ""
 
-#: includes/config/Config.php:2114
+#: includes/config/Config.php:2397
 msgid "The button that expand the menu by touch or click"
 msgstr ""
 
-#: includes/config/Config.php:2121 includes/config/Config.php:4023
-msgid "Hamburger animation style"
-msgstr ""
-
-#: includes/config/Config.php:2125
+#: includes/config/Config.php:2408
 msgid "Animation"
 msgstr ""
 
-#: includes/config/Config.php:2132 includes/config/Config.php:4037
-msgid "line thickness"
-msgstr ""
-
-#: includes/config/Config.php:2142
+#: includes/config/Config.php:2426
 msgid "Expand sidebar on hover"
 msgstr ""
 
-#: includes/config/Config.php:2143
+#: includes/config/Config.php:2427
 msgid "This allows you to enable the effect of expanding the sidebar"
 msgstr ""
 
-#: includes/config/Config.php:2149
+#: includes/config/Config.php:2433
 msgid "Initial sidebar width"
 msgstr ""
 
-#: includes/config/Config.php:2157
+#: includes/config/Config.php:2441
 msgid "Expanded sidebar width"
 msgstr ""
 
-#: includes/config/Config.php:2173
+#: includes/config/Config.php:2457
 msgid "Use expand animation"
 msgstr ""
 
-#: includes/config/Config.php:2179
+#: includes/config/Config.php:2463
 msgid "Expand animation duration"
 msgstr ""
 
-#: includes/config/Config.php:2190
+#: includes/config/Config.php:2474
 msgid "Icons size"
 msgstr ""
 
-#: includes/config/Config.php:2191
+#: includes/config/Config.php:2475 includes/config/Config.php:2484
+#: includes/config/Config.php:2491
 msgid "first menu level"
 msgstr ""
 
-#: includes/config/Config.php:2199
+#: includes/config/Config.php:2483
+msgid "Initial sidebar"
+msgstr ""
+
+#: includes/config/Config.php:2483 includes/config/Config.php:2490
+msgid "Hide first level icons"
+msgstr ""
+
+#: includes/config/Config.php:2490
+msgid "Expanded sidebar"
+msgstr ""
+
+#: includes/config/Config.php:2497
 msgid "Use another Logo image for open state of menu"
 msgstr ""
 
-#: includes/config/Config.php:2210
+#: includes/config/Config.php:2508
 msgid "Image logo type"
 msgstr ""
 
-#: includes/config/Config.php:2213
+#: includes/config/Config.php:2511
 #: includes/config/ConfigGlobal.php:46
 msgid "Default logo"
 msgstr ""
 
-#: includes/config/Config.php:2214
+#: includes/config/Config.php:2512
 #: includes/config/ConfigGlobal.php:52
 msgid "Alternative logo"
 msgstr ""
 
-#: includes/config/Config.php:2215
+#: includes/config/Config.php:2513
 #: includes/config/ConfigGlobal.php:58
 msgid "Sticky menu logo"
 msgstr ""
 
-#: includes/config/Config.php:2216
+#: includes/config/Config.php:2514
 #: includes/config/ConfigGlobal.php:64
 msgid "Sticky menu alternative logo"
 msgstr ""
 
-#: includes/config/Config.php:2217
+#: includes/config/Config.php:2515
 #: includes/config/ConfigGlobal.php:70
 msgid "Mobile logo"
 msgstr ""
 
-#: includes/config/Config.php:2218
+#: includes/config/Config.php:2516
 #: includes/config/ConfigGlobal.php:76
 msgid "Alternative mobile logo"
 msgstr ""
 
-#: includes/config/Config.php:2219
+#: includes/config/Config.php:2517
 #: includes/config/ConfigGlobal.php:82
 msgid "Sticky menu mobile logo"
 msgstr ""
 
-#: includes/config/Config.php:2220
+#: includes/config/Config.php:2518
 #: includes/config/ConfigGlobal.php:88
 msgid "Sticky menu mobile alternative logo"
 msgstr ""
 
-#: includes/config/Config.php:2221
+#: includes/config/Config.php:2519
 #: includes/config/ConfigGlobal.php:94
 msgid "Icon menu logo"
 msgstr ""
 
-#: includes/config/Config.php:2269
+#: includes/config/Config.php:2567
 msgid "Top level menu bottom border"
 msgstr ""
 
-#: includes/config/Config.php:2300
+#: includes/config/Config.php:2598
 msgid "Top level menu vertical padding"
 msgstr ""
 
-#: includes/config/Config.php:2307
+#: includes/config/Config.php:2606
 msgid "Minimalistic menu"
 msgstr ""
 
-#: includes/config/Config.php:2313
+#: includes/config/Config.php:2612
 msgid "Minimalistic menu open type"
 msgstr ""
 
-#: includes/config/Config.php:2316 includes/config/Config.php:4052
-msgid "Offcanvas slide from the left"
-msgstr ""
-
-#: includes/config/Config.php:2317 includes/config/Config.php:4053
-msgid "Offcanvas slide from the right"
-msgstr ""
-
-#: includes/config/Config.php:2318 includes/config/Config.php:4054
+#: includes/config/Config.php:2617 includes/config/Config.php:5048
 msgid "Slide menu and container from the left"
 msgstr ""
 
-#: includes/config/Config.php:2319 includes/config/Config.php:4055
+#: includes/config/Config.php:2618 includes/config/Config.php:5049
 msgid "Slide menu and container from the right"
 msgstr ""
 
-#: includes/config/Config.php:2325
-msgid "Slide animation speed"
-msgstr ""
-
-#: includes/config/Config.php:2333 includes/config/Config.php:2800
-msgid "Top level menu background color"
-msgstr ""
-
-#: includes/config/Config.php:2369 includes/config/Config.php:2376
-#: includes/config/Config.php:2387 includes/config/Config.php:2395
+#: includes/config/Config.php:2639 includes/config/Config.php:2646
+#: includes/config/Config.php:2657 includes/config/Config.php:2665
 msgid "Fullscreen menu"
 msgstr ""
 
-#: includes/config/Config.php:2370
+#: includes/config/Config.php:2640
 msgid "Allow navigation menu to open in fullscreen mode"
 msgstr ""
 
-#: includes/config/Config.php:2376 includes/config/Config.php:2859
-#: includes/config/Config.php:2942
-msgid "position"
-msgstr ""
-
-#: includes/config/Config.php:2380 includes/config/Config.php:2399
+#: includes/config/Config.php:2650 includes/config/Config.php:2669
 msgid "Center"
 msgstr ""
 
-#: includes/config/Config.php:2387
+#: includes/config/Config.php:2657
 msgid "top level width"
 msgstr ""
 
-#: includes/config/Config.php:2395
+#: includes/config/Config.php:2665
 msgid "top level alignment"
 msgstr ""
 
-#: includes/config/Config.php:2406 includes/config/Config.php:2411
+#: includes/config/Config.php:2677
+msgid ""
+"Occupy maximum screen height. If disabled, then the slide will not "
+"overlap the top block."
+msgstr ""
+
+#: includes/config/Config.php:2682 includes/config/Config.php:3261
+msgid "Top level menu background color"
+msgstr ""
+
+#: includes/config/Config.php:2682
+msgid "Slider"
+msgstr ""
+
+#: includes/config/Config.php:2773
+msgid "Top bar action icons Align"
+msgstr ""
+
+#: includes/config/Config.php:2783 includes/config/Config.php:4957
+msgid "Animated Hamburger icon"
+msgstr ""
+
+#: includes/config/Config.php:2783 includes/config/Config.php:4957
+msgid "with &quot;X&quot; close icon"
+msgstr ""
+
+#: includes/config/Config.php:2813 includes/config/Config.php:4995
+msgid "Custom text beside hamburger icon"
+msgstr ""
+
+#: includes/config/Config.php:2814 includes/config/Config.php:4996
+msgid "Text from Global setting, section Misc Icon"
+msgstr ""
+
+#: includes/config/Config.php:2865 includes/config/Config.php:2870
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/config/Config.php:2435 includes/config/Config.php:2440
+#: includes/config/Config.php:2895 includes/config/Config.php:2900
 msgid "Custom JS"
 msgstr ""
 
-#: includes/config/Config.php:2458
+#: includes/config/Config.php:2919
 msgid "Custom code"
 msgstr ""
 
-#: includes/config/Config.php:2463
+#: includes/config/Config.php:2924
 msgid "Custom CSS class"
 msgstr ""
 
-#: includes/config/Config.php:2469 includes/config/Config.php:2512
-#: includes/config/Config.php:2565 includes/config/Config.php:2592
-#: includes/config/Config.php:2629 includes/config/Config.php:2656
-#: includes/config/Config.php:2693
+#: includes/config/Config.php:2930 includes/config/Config.php:2973
+#: includes/config/Config.php:3026 includes/config/Config.php:3053
+#: includes/config/Config.php:3090 includes/config/Config.php:3117
+#: includes/config/Config.php:3154
 msgid "Insert custom shortcode or raw HTML for"
 msgstr ""
 
-#: includes/config/Config.php:2469
+#: includes/config/Config.php:2930
 msgid "Groovy Menu wrapper"
 msgstr ""
 
-#: includes/config/Config.php:2473 includes/config/Config.php:2483
+#: includes/config/Config.php:2934 includes/config/Config.php:2944
 msgid "Before Main Header"
 msgstr ""
 
-#: includes/config/Config.php:2483 includes/config/Config.php:2501
+#: includes/config/Config.php:2944 includes/config/Config.php:2962
 msgid "Select the Menu Block to show in"
 msgstr ""
 
-#: includes/config/Config.php:2484 includes/config/Config.php:2502
+#: includes/config/Config.php:2945 includes/config/Config.php:2963
 msgid ""
 "The content of the selected menu block will be displayed in the "
 "action area"
 msgstr ""
 
-#: includes/config/Config.php:2491 includes/config/Config.php:2501
+#: includes/config/Config.php:2952 includes/config/Config.php:2962
 msgid "After Main Header"
 msgstr ""
 
-#: includes/config/Config.php:2512 includes/config/Config.php:3252
+#: includes/config/Config.php:2973 includes/config/Config.php:4020
 #: includes/config/ConfigGlobal.php:383
 #: includes/modules/fields/inc/FieldHeader.php:53
 msgid "Toolbar"
 msgstr ""
 
-#: includes/config/Config.php:2517
+#: includes/config/Config.php:2978
 msgid "Toolbar Left First"
 msgstr ""
 
-#: includes/config/Config.php:2528
+#: includes/config/Config.php:2989
 msgid "Toolbar Left Last"
 msgstr ""
 
-#: includes/config/Config.php:2539
+#: includes/config/Config.php:3000
 msgid "Toolbar Right First"
 msgstr ""
 
-#: includes/config/Config.php:2550
+#: includes/config/Config.php:3011
 msgid "Toolbar Right Last"
 msgstr ""
 
-#: includes/config/Config.php:2569
+#: includes/config/Config.php:3030
 msgid "Logo Before"
 msgstr ""
 
-#: includes/config/Config.php:2579
+#: includes/config/Config.php:3040
 msgid "Logo After"
 msgstr ""
 
-#: includes/config/Config.php:2592
+#: includes/config/Config.php:3053
 msgid "Main Navigation"
 msgstr ""
 
-#: includes/config/Config.php:2596
+#: includes/config/Config.php:3057
 msgid "Main Menu Navigation First"
 msgstr ""
 
-#: includes/config/Config.php:2606
+#: includes/config/Config.php:3067
 msgid "Main Menu Navigation Last"
 msgstr ""
 
-#: includes/config/Config.php:2616
+#: includes/config/Config.php:3077
 msgid "Main Menu After"
 msgstr ""
 
-#: includes/config/Config.php:2629
+#: includes/config/Config.php:3090
 msgid "Action Buttons"
 msgstr ""
 
-#: includes/config/Config.php:2633
+#: includes/config/Config.php:3094
 msgid "Action Buttons First"
 msgstr ""
 
-#: includes/config/Config.php:2643
+#: includes/config/Config.php:3104
 msgid "Action Buttons Last"
 msgstr ""
 
-#: includes/config/Config.php:2656
+#: includes/config/Config.php:3117
 msgid "Mobile Hamburger"
 msgstr ""
 
-#: includes/config/Config.php:2660
+#: includes/config/Config.php:3121
 msgid "Action for"
 msgstr ""
 
-#: includes/config/Config.php:2660 includes/config/Config.php:4005
+#: includes/config/Config.php:3121 includes/config/Config.php:4951
 msgid "Custom mobile menu open trigger"
 msgstr ""
 
-#: includes/config/Config.php:2670
+#: includes/config/Config.php:3131
 msgid "Before hamburger icon"
 msgstr ""
 
-#: includes/config/Config.php:2680
+#: includes/config/Config.php:3141
 msgid "After hamburger icon"
 msgstr ""
 
-#: includes/config/Config.php:2693 includes/config/Config.php:3979
+#: includes/config/Config.php:3154 includes/config/Config.php:4919
 msgid "Mobile menu"
 msgstr ""
 
-#: includes/config/Config.php:2697
+#: includes/config/Config.php:3158
 msgid "Mobile Menu Top"
 msgstr ""
 
-#: includes/config/Config.php:2707
+#: includes/config/Config.php:3168
 msgid "Mobile Menu Navigation First"
 msgstr ""
 
-#: includes/config/Config.php:2717
+#: includes/config/Config.php:3178
 msgid "Mobile Menu Navigation Last"
 msgstr ""
 
-#: includes/config/Config.php:2727
+#: includes/config/Config.php:3188
 msgid "Mobile Menu After"
 msgstr ""
 
-#: includes/config/Config.php:2737
+#: includes/config/Config.php:3198
 msgid "Mobile Before Search icon"
 msgstr ""
 
-#: includes/config/Config.php:2747
+#: includes/config/Config.php:3208
 msgid "Mobile Before Woo mini-cart"
 msgstr ""
 
-#: includes/config/Config.php:2757
+#: includes/config/Config.php:3218
 msgid "Mobile Toolbar End"
 msgstr ""
 
-#: includes/config/Config.php:2772
+#: includes/config/Config.php:3233
 msgid "Styles"
 msgstr ""
 
-#: includes/config/Config.php:2777
+#: includes/config/Config.php:3238
 msgid "Hover styles"
 msgstr ""
 
-#: includes/config/Config.php:2782
+#: includes/config/Config.php:3243
 msgid "Top level hover Style"
 msgstr ""
 
-#: includes/config/Config.php:2806
+#: includes/config/Config.php:3267
 msgid ""
 "Change Top level menu background color when submenu(s) are opened"
 msgstr ""
 
-#: includes/config/Config.php:2812
+#: includes/config/Config.php:3273
 msgid "Top level menu background color when submenu(s) are opened"
 msgstr ""
 
-#: includes/config/Config.php:2822
+#: includes/config/Config.php:3283
 msgid "Top level menu background Image"
 msgstr ""
 
-#: includes/config/Config.php:2829
+#: includes/config/Config.php:3290
 msgid "Top level menu background image size"
 msgstr ""
 
-#: includes/config/Config.php:2835
+#: includes/config/Config.php:3296
 msgid "Top level menu background"
 msgstr ""
 
-#: includes/config/Config.php:2839 includes/config/Config.php:2843
-#: includes/config/Config.php:2922 includes/config/Config.php:2926
-msgid "repeat"
-msgstr ""
-
-#: includes/config/Config.php:2842 includes/config/Config.php:2925
-msgid "no-repeat"
-msgstr ""
-
-#: includes/config/Config.php:2844 includes/config/Config.php:2927
-msgid "repeat-x"
-msgstr ""
-
-#: includes/config/Config.php:2845 includes/config/Config.php:2928
-msgid "repeat-y"
-msgstr ""
-
-#: includes/config/Config.php:2850 includes/config/Config.php:2933
-msgid "attachment"
-msgstr ""
-
-#: includes/config/Config.php:2853 includes/config/Config.php:2936
-msgid "fixed"
-msgstr ""
-
-#: includes/config/Config.php:2854 includes/config/Config.php:2937
-msgid "scroll"
-msgstr ""
-
-#: includes/config/Config.php:2862 includes/config/Config.php:2945
-msgid "center center"
-msgstr ""
-
-#: includes/config/Config.php:2864 includes/config/Config.php:2947
-msgid "top center"
-msgstr ""
-
-#: includes/config/Config.php:2866 includes/config/Config.php:2949
-msgid "center left"
-msgstr ""
-
-#: includes/config/Config.php:2867 includes/config/Config.php:2950
-msgid "center right"
-msgstr ""
-
-#: includes/config/Config.php:2869 includes/config/Config.php:2952
-msgid "bottom center"
-msgstr ""
-
-#: includes/config/Config.php:2875 includes/config/Config.php:2958
-msgid "Cover background"
-msgstr ""
-
-#: includes/config/Config.php:2884
+#: includes/config/Config.php:3345
 msgid "Top level menu sticky background color"
 msgstr ""
 
-#: includes/config/Config.php:2890
+#: includes/config/Config.php:3351
 msgid ""
 "Change Top level menu sticky background color when submenu(s) are "
 "opened"
 msgstr ""
 
-#: includes/config/Config.php:2896
+#: includes/config/Config.php:3357
 msgid ""
 "Top level menu sticky background color when submenu(s) are opened"
 msgstr ""
 
-#: includes/config/Config.php:2906
+#: includes/config/Config.php:3367
 msgid "Top level menu sticky background Image"
 msgstr ""
 
-#: includes/config/Config.php:2912
+#: includes/config/Config.php:3373
 msgid "Top level menu sticky background image size"
 msgstr ""
 
-#: includes/config/Config.php:2918
+#: includes/config/Config.php:3379
 msgid "Top level menu sticky background"
 msgstr ""
 
-#: includes/config/Config.php:2966
+#: includes/config/Config.php:3427
 msgid "Border"
 msgstr ""
 
-#: includes/config/Config.php:2971
+#: includes/config/Config.php:3432
 msgid "Menu bottom border"
 msgstr ""
 
-#: includes/config/Config.php:2991
+#: includes/config/Config.php:3452
 msgid "Sticky menu bottom border"
 msgstr ""
 
-#: includes/config/Config.php:3011
+#: includes/config/Config.php:3472
 msgid "Top level hover line thickness"
 msgstr ""
 
-#: includes/config/Config.php:3023 includes/config/Config.php:4146
+#: includes/config/Config.php:3484 includes/config/Config.php:5132
 msgid "Colors"
 msgstr ""
 
-#: includes/config/Config.php:3027
+#: includes/config/Config.php:3488
 msgid "Top level link text color"
 msgstr ""
 
-#: includes/config/Config.php:3033
+#: includes/config/Config.php:3494
 msgid "Top level hover and active link color"
 msgstr ""
 
-#: includes/config/Config.php:3039
+#: includes/config/Config.php:3500
 msgid ""
 "Top level hover and active text color (hover style 3, 4 and 6 only)"
 msgstr ""
 
-#: includes/config/Config.php:3046
+#: includes/config/Config.php:3507
 msgid "Top level link text color when submenu(s) are opened"
 msgstr ""
 
-#: includes/config/Config.php:3054 includes/config/Config.php:3119
+#: includes/config/Config.php:3515 includes/config/Config.php:3580
 msgid "normal"
 msgstr ""
 
-#: includes/config/Config.php:3064 includes/config/Config.php:3129
+#: includes/config/Config.php:3525 includes/config/Config.php:3590
 msgid "hover and active"
 msgstr ""
 
-#: includes/config/Config.php:3074 includes/config/Config.php:3139
+#: includes/config/Config.php:3535 includes/config/Config.php:3600
 msgid "hover and active text color (hover style 3, 4 and 6 only)"
 msgstr ""
 
-#: includes/config/Config.php:3092
+#: includes/config/Config.php:3553
 msgid "Sticky top level text color"
 msgstr ""
 
-#: includes/config/Config.php:3098
+#: includes/config/Config.php:3559
 msgid "Sticky top level hover and active link color"
 msgstr ""
 
-#: includes/config/Config.php:3104
+#: includes/config/Config.php:3565
 msgid ""
 "Sticky top level hover and active text color (hover style 3, 4 and "
 "6 only)"
 msgstr ""
 
-#: includes/config/Config.php:3111
+#: includes/config/Config.php:3572
 msgid "Sticky top level text color when submenu(s) are opened"
 msgstr ""
 
-#: includes/config/Config.php:3158 includes/config/Config.php:4323
+#: includes/config/Config.php:3619 includes/config/Config.php:5309
 msgid "Typography"
 msgstr ""
 
-#: includes/config/Config.php:3163
+#: includes/config/Config.php:3623 includes/config/Config.php:3793
+msgid "Google font family"
+msgstr ""
+
+#: includes/config/Config.php:3624
 msgid "Choose preferred Google font family for menu."
 msgstr ""
 
-#: includes/config/Config.php:3173
+#: includes/config/Config.php:3634
 msgid "Top level menu items gutter space"
 msgstr ""
 
-#: includes/config/Config.php:3175
+#: includes/config/Config.php:3636
 msgid ""
 "This value will be applied as padding to left and right of the "
 "item."
 msgstr ""
 
-#: includes/config/Config.php:3180 includes/config/Config.php:4328
+#: includes/config/Config.php:3641 includes/config/Config.php:5314
 msgid "Top level text"
 msgstr ""
 
-#: includes/config/Config.php:3229
+#: includes/config/Config.php:3645 includes/config/Config.php:3693
+#: includes/config/Config.php:3743 includes/config/Config.php:5318
+#: includes/config/Config.php:5358
+msgid "Size"
+msgstr ""
+
+#: includes/config/Config.php:3652 includes/config/Config.php:3700
+#: includes/config/Config.php:3751 includes/config/Config.php:3904
+#: includes/config/Config.php:3952 includes/config/Config.php:5325
+#: includes/config/Config.php:5365
+msgid "Case"
+msgstr ""
+
+#: includes/config/Config.php:3656 includes/config/Config.php:3705
+#: includes/config/Config.php:3756 includes/config/Config.php:3909
+#: includes/config/Config.php:3957 includes/config/Config.php:5329
+#: includes/config/Config.php:5369
+msgid "Uppercase"
+msgstr ""
+
+#: includes/config/Config.php:3657 includes/config/Config.php:3706
+#: includes/config/Config.php:3757 includes/config/Config.php:3910
+#: includes/config/Config.php:3958 includes/config/Config.php:5330
+#: includes/config/Config.php:5370
+msgid "Capitalize"
+msgstr ""
+
+#: includes/config/Config.php:3658 includes/config/Config.php:3707
+#: includes/config/Config.php:3758 includes/config/Config.php:3911
+#: includes/config/Config.php:3959 includes/config/Config.php:5331
+#: includes/config/Config.php:5371
+msgid "Lowercase"
+msgstr ""
+
+#: includes/config/Config.php:3663 includes/config/Config.php:3712
+#: includes/config/Config.php:3764 includes/config/Config.php:3917
+#: includes/config/Config.php:3965 includes/config/Config.php:5336
+#: includes/config/Config.php:5376
+msgid "Font variant"
+msgstr ""
+
+#: includes/config/Config.php:3666 includes/config/Config.php:3674
+#: includes/config/Config.php:3703 includes/config/Config.php:3715
+#: includes/config/Config.php:3723 includes/config/Config.php:3754
+#: includes/config/Config.php:3767 includes/config/Config.php:3776
+#: includes/config/Config.php:3819 includes/config/Config.php:3828
+#: includes/config/Config.php:3867 includes/config/Config.php:3876
+#: includes/config/Config.php:3907 includes/config/Config.php:3920
+#: includes/config/Config.php:3929 includes/config/Config.php:3955
+#: includes/config/Config.php:3968 includes/config/Config.php:3977
+#: includes/config/Config.php:4723 includes/config/Config.php:4828
+#: includes/config/Config.php:5339 includes/config/Config.php:5379
+msgid "Select value"
+msgstr ""
+
+#: includes/config/Config.php:3671 includes/config/Config.php:3720
+#: includes/config/Config.php:3773 includes/config/Config.php:3926
+#: includes/config/Config.php:3974
+msgid "Subset"
+msgstr ""
+
+#: includes/config/Config.php:3679 includes/config/Config.php:3728
+#: includes/config/Config.php:3782 includes/config/Config.php:3935
+#: includes/config/Config.php:3983 includes/config/Config.php:5344
+#: includes/config/Config.php:5384
+msgid "Letter spacing"
+msgstr ""
+
+#: includes/config/Config.php:3689
+msgid "Submenu text"
+msgstr ""
+
+#: includes/config/Config.php:3738
+msgid "Mega menu title text"
+msgstr ""
+
+#: includes/config/Config.php:3793 includes/config/Config.php:3803
+msgid "Text logo"
+msgstr ""
+
+#: includes/config/Config.php:3794
+msgid "Choose preferred Google font family for logo."
+msgstr ""
+
+#: includes/config/Config.php:3808 includes/config/Config.php:3856
+#: includes/config/Config.php:4712 includes/config/Config.php:4817
+msgid "font size"
+msgstr ""
+
+#: includes/config/Config.php:3816 includes/config/Config.php:3864
+msgid "variant"
+msgstr ""
+
+#: includes/config/Config.php:3825 includes/config/Config.php:3873
+msgid "subset"
+msgstr ""
+
+#: includes/config/Config.php:3841 includes/config/Config.php:3889
+msgid "hover color"
+msgstr ""
+
+#: includes/config/Config.php:3851
+msgid "Sticky text logo"
+msgstr ""
+
+#: includes/config/Config.php:3899
+msgid "Additional menu items text"
+msgstr ""
+
+#: includes/config/Config.php:3947
+msgid "Second Sidebar menu items text"
+msgstr ""
+
+#: includes/config/Config.php:3997
 msgid "Shadow"
 msgstr ""
 
-#: includes/config/Config.php:3233
+#: includes/config/Config.php:4001
 msgid "Menu shadow"
 msgstr ""
 
-#: includes/config/Config.php:3239
+#: includes/config/Config.php:4007
 msgid "Submenu shadow"
 msgstr ""
 
-#: includes/config/Config.php:3245
+#: includes/config/Config.php:4013
 msgid "Sticky menu shadow"
 msgstr ""
 
-#: includes/config/Config.php:3257
+#: includes/config/Config.php:4025
 msgid "Toolbar type"
 msgstr ""
 
-#: includes/config/Config.php:3260
+#: includes/config/Config.php:4028
 msgid "Default Groovy Menu toolbar"
 msgstr ""
 
-#: includes/config/Config.php:3261
+#: includes/config/Config.php:4029
 msgid "Custom Menu Block toolbar"
 msgstr ""
 
-#: includes/config/Config.php:3266
+#: includes/config/Config.php:4034
 msgid "Select Menu Block for custom toolbar wrapper"
 msgstr ""
 
-#: includes/config/Config.php:3267
+#: includes/config/Config.php:4035
 msgid ""
 "The content of the selected menu block will be displayed in the "
 "toolbar wrapper"
 msgstr ""
 
-#: includes/config/Config.php:3274
+#: includes/config/Config.php:4042
 msgid "Hide toolbar on mobile devices"
 msgstr ""
 
-#: includes/config/Config.php:3279
+#: includes/config/Config.php:4047
 msgid "Align toolbar to the center"
 msgstr ""
 
-#: includes/config/Config.php:3300
+#: includes/config/Config.php:4068
 msgid "Toolbar top border"
 msgstr ""
 
-#: includes/config/Config.php:3320
+#: includes/config/Config.php:4088
 msgid "Toolbar bottom border"
 msgstr ""
 
-#: includes/config/Config.php:3340
+#: includes/config/Config.php:4108
 msgid "Toolbar background color"
 msgstr ""
 
-#: includes/config/Config.php:3346
+#: includes/config/Config.php:4114
 msgid "Toolbar additional information color"
 msgstr ""
 
-#: includes/config/Config.php:3353
+#: includes/config/Config.php:4121
 msgid "WPML dropdown background color"
 msgstr ""
 
-#: includes/config/Config.php:3360
+#: includes/config/Config.php:4128
 msgid "Toolbar additional information font size"
 msgstr ""
 
-#: includes/config/Config.php:3368
+#: includes/config/Config.php:4136
 msgid "Hide social icon link text on mobile devices"
 msgstr ""
 
-#: includes/config/Config.php:3374
+#: includes/config/Config.php:4142
 msgid "Toolbar social icon size"
 msgstr ""
 
-#: includes/config/Config.php:3382
+#: includes/config/Config.php:4150
 msgid "Toolbar social icon color"
 msgstr ""
 
-#: includes/config/Config.php:3389
+#: includes/config/Config.php:4157
 msgid "Toolbar social icon hover color"
 msgstr ""
 
-#: includes/config/Config.php:3396
+#: includes/config/Config.php:4164
 msgid "Add left/right border to social icons"
 msgstr ""
 
-#: includes/config/Config.php:3407 includes/config/Config.php:3411
+#: includes/config/Config.php:4174
+msgid "Toolbar padding"
+msgstr ""
+
+#: includes/config/Config.php:4234 includes/config/Config.php:4238
 #: includes/config/ConfigGlobal.php:432
 msgid "Side icon"
 msgstr ""
 
-#: includes/config/Config.php:3407
+#: includes/config/Config.php:4234
+#: includes/config/ConfigGlobal.php:432
 msgid "Hamburger"
 msgstr ""
 
-#: includes/config/Config.php:3415 includes/config/Config.php:3468
-#: includes/config/Config.php:3521 includes/config/Config.php:3574
-#: includes/config/Config.php:3627 includes/config/Config.php:3681
+#: includes/config/Config.php:4242 includes/config/Config.php:4295
+#: includes/config/Config.php:4348 includes/config/Config.php:4401
+#: includes/config/Config.php:4454 includes/config/Config.php:4508
 msgid "size"
 msgstr ""
 
-#: includes/config/Config.php:3422 includes/config/Config.php:3475
-#: includes/config/Config.php:3528 includes/config/Config.php:3581
-#: includes/config/Config.php:3634 includes/config/Config.php:3689
+#: includes/config/Config.php:4249 includes/config/Config.php:4302
+#: includes/config/Config.php:4355 includes/config/Config.php:4408
+#: includes/config/Config.php:4461 includes/config/Config.php:4516
 msgid "padding area"
 msgstr ""
 
-#: includes/config/Config.php:3429 includes/config/Config.php:3482
-#: includes/config/Config.php:3535 includes/config/Config.php:3588
-#: includes/config/Config.php:3641 includes/config/Config.php:3697
-#: includes/config/Config.php:3838 includes/config/Config.php:3927
+#: includes/config/Config.php:4256 includes/config/Config.php:4309
+#: includes/config/Config.php:4362 includes/config/Config.php:4415
+#: includes/config/Config.php:4468 includes/config/Config.php:4524
+#: includes/config/Config.php:4751 includes/config/Config.php:4856
 msgid "background color"
 msgstr ""
 
-#: includes/config/Config.php:3444
+#: includes/config/Config.php:4271
 msgid "Side icon border"
 msgstr ""
 
-#: includes/config/Config.php:3464
+#: includes/config/Config.php:4291
 msgid "Side icon sticky"
 msgstr ""
 
-#: includes/config/Config.php:3497
+#: includes/config/Config.php:4324
 msgid "Side icon sticky border"
 msgstr ""
 
-#: includes/config/Config.php:3517
+#: includes/config/Config.php:4344
 msgid "Side icon mobile"
 msgstr ""
 
-#: includes/config/Config.php:3550
+#: includes/config/Config.php:4377
 msgid "Side icon mobile border"
 msgstr ""
 
-#: includes/config/Config.php:3570
+#: includes/config/Config.php:4397
 msgid "Side icon mobile sticky"
 msgstr ""
 
-#: includes/config/Config.php:3603
+#: includes/config/Config.php:4430
 msgid "Side icon mobile sticky border"
 msgstr ""
 
-#: includes/config/Config.php:3623
+#: includes/config/Config.php:4450
 msgid "Side icon mobile float"
 msgstr ""
 
-#: includes/config/Config.php:3656
+#: includes/config/Config.php:4483
 msgid "Side icon mobile float border"
 msgstr ""
 
-#: includes/config/Config.php:3676
+#: includes/config/Config.php:4503
 msgid "Side icon mobile fullwidth"
 msgstr ""
 
-#: includes/config/Config.php:3715
+#: includes/config/Config.php:4542
 msgid "Side icon mobile fullwidth border"
 msgstr ""
 
-#: includes/config/Config.php:3741 includes/config/Config.php:4138
+#: includes/config/Config.php:4567
 msgid "Woo minicart"
 msgstr ""
 
-#: includes/config/Config.php:3745
+#: includes/config/Config.php:4571
+msgid "Show WooCommerce minicart"
+msgstr ""
+
+#: includes/config/Config.php:4575
+msgid "Toggle switch to show/hide WooCommerce minicart"
+msgstr ""
+
+#: includes/config/Config.php:4584
+msgid "Woocomerce mini-cart icon position"
+msgstr ""
+
+#: includes/config/Config.php:4600
+msgid "Mobile Woocomerce mini-cart icon position"
+msgstr ""
+
+#: includes/config/Config.php:4615
+msgid "WooCommerce minicart icon size"
+msgstr ""
+
+#: includes/config/Config.php:4638
+msgid "wooCommerce cart icon size"
+msgstr ""
+
+#: includes/config/Config.php:4643
 msgid "Disable dropdown state for minicart"
 msgstr ""
 
-#: includes/config/Config.php:3751
+#: includes/config/Config.php:4650
 msgid "WooCommerce minicart count"
 msgstr ""
 
-#: includes/config/Config.php:3755
+#: includes/config/Config.php:4655
 msgid "Shape"
 msgstr ""
 
-#: includes/config/Config.php:3758
+#: includes/config/Config.php:4658
 msgid "Drop"
 msgstr ""
 
-#: includes/config/Config.php:3759
+#: includes/config/Config.php:4659
 msgid "Circle"
 msgstr ""
 
-#: includes/config/Config.php:3760
+#: includes/config/Config.php:4660
 msgid "Square"
 msgstr ""
 
-#: includes/config/Config.php:3771 includes/config/Config.php:3790
+#: includes/config/Config.php:4673 includes/config/Config.php:4696
 msgid "Text color"
 msgstr ""
 
-#: includes/config/Config.php:3780
+#: includes/config/Config.php:4684
 msgid "WooCommerce minicart dropdown"
 msgstr ""
 
-#: includes/config/Config.php:3799
+#: includes/config/Config.php:4707
 msgid "Checkout button"
 msgstr ""
 
-#: includes/config/Config.php:3810 includes/config/Config.php:3899
+#: includes/config/Config.php:4720 includes/config/Config.php:4825
 msgid "font weight"
 msgstr ""
 
-#: includes/config/Config.php:3814 includes/config/Config.php:3903
+#: includes/config/Config.php:4724 includes/config/Config.php:4829
 msgid "100"
 msgstr ""
 
-#: includes/config/Config.php:3815 includes/config/Config.php:3904
+#: includes/config/Config.php:4725 includes/config/Config.php:4830
 msgid "300 (Light)"
 msgstr ""
 
-#: includes/config/Config.php:3816 includes/config/Config.php:3905
+#: includes/config/Config.php:4726 includes/config/Config.php:4831
 msgid "400 (Normal)"
 msgstr ""
 
-#: includes/config/Config.php:3817 includes/config/Config.php:3906
+#: includes/config/Config.php:4727 includes/config/Config.php:4832
 msgid "500"
 msgstr ""
 
-#: includes/config/Config.php:3818 includes/config/Config.php:3907
+#: includes/config/Config.php:4728 includes/config/Config.php:4833
 msgid "600"
 msgstr ""
 
-#: includes/config/Config.php:3819 includes/config/Config.php:3908
+#: includes/config/Config.php:4729 includes/config/Config.php:4834
 msgid "700 (Bold)"
 msgstr ""
 
-#: includes/config/Config.php:3820 includes/config/Config.php:3909
+#: includes/config/Config.php:4730 includes/config/Config.php:4835
 msgid "800"
 msgstr ""
 
-#: includes/config/Config.php:3821 includes/config/Config.php:3910
+#: includes/config/Config.php:4731 includes/config/Config.php:4836
 msgid "900"
 msgstr ""
 
-#: includes/config/Config.php:3832 includes/config/Config.php:3921
+#: includes/config/Config.php:4744 includes/config/Config.php:4849
 msgid "text color on hover"
 msgstr ""
 
-#: includes/config/Config.php:3844 includes/config/Config.php:3933
+#: includes/config/Config.php:4758 includes/config/Config.php:4863
 msgid "background color on hover"
 msgstr ""
 
-#: includes/config/Config.php:3853
+#: includes/config/Config.php:4769
 msgid "Checkout button border"
 msgstr ""
 
-#: includes/config/Config.php:3857 includes/config/Config.php:3946
+#: includes/config/Config.php:4774 includes/config/Config.php:4879
 msgid "Border style"
 msgstr ""
 
-#: includes/config/Config.php:3860 includes/config/Config.php:3949
+#: includes/config/Config.php:4777 includes/config/Config.php:4882
 msgid "None"
 msgstr ""
 
-#: includes/config/Config.php:3880 includes/config/Config.php:3969
+#: includes/config/Config.php:4801 includes/config/Config.php:4906
 msgid "color on hover"
 msgstr ""
 
-#: includes/config/Config.php:3888
+#: includes/config/Config.php:4812
 msgid "View cart button"
 msgstr ""
 
-#: includes/config/Config.php:3942
+#: includes/config/Config.php:4874
 msgid "View cart button border"
 msgstr ""
 
-#: includes/config/Config.php:3984
+#: includes/config/Config.php:4924
 msgid "Mobile options"
 msgstr ""
 
-#: includes/config/Config.php:3989
+#: includes/config/Config.php:4929
 msgid "Mobile navigation menu"
 msgstr ""
 
-#: includes/config/Config.php:3990
+#: includes/config/Config.php:4930
 msgid ""
 "If for some reason you need to show another menu in the mobile "
 "version, then assign it here."
 msgstr ""
 
-#: includes/config/Config.php:3996
+#: includes/config/Config.php:4936
+msgid "Disable to display of desktop menu"
+msgstr ""
+
+#: includes/config/Config.php:4942
 msgid "Mobile submenus style"
 msgstr ""
 
-#: includes/config/Config.php:3999
+#: includes/config/Config.php:4945
 msgid "Standard dropdown list"
 msgstr ""
 
-#: includes/config/Config.php:4000 includes/config/Config.php:4161
-#: includes/config/Config.php:4310
+#: includes/config/Config.php:4946 includes/config/Config.php:5147
+#: includes/config/Config.php:5296
 msgid "Slider mobile submenu opening style"
 msgstr ""
 
-#: includes/config/Config.php:4006
+#: includes/config/Config.php:4952
 msgid ""
 "Place any custom element with CSS class [gm-custom-hamburger] as "
 "open/close trigger for a mobile menu"
 msgstr ""
 
-#: includes/config/Config.php:4006
+#: includes/config/Config.php:4952
 msgid "For example"
 msgstr ""
 
-#: includes/config/Config.php:4006
+#: includes/config/Config.php:4952
 msgid ""
 "This option will disable the output of Groovy Menu hamburger menu"
 msgstr ""
 
-#: includes/config/Config.php:4011
-msgid "Show Hamburger icon as animated"
-msgstr ""
-
-#: includes/config/Config.php:4011
-msgid "with &quot;X&quot; close icon"
-msgstr ""
-
-#: includes/config/Config.php:4016
-msgid "Enable"
-msgstr ""
-
-#: includes/config/Config.php:4030
+#: includes/config/Config.php:4976
 msgid "Allow float"
 msgstr ""
 
-#: includes/config/Config.php:4049
+#: includes/config/Config.php:5043
 msgid "Mobile navigation drawer open type"
 msgstr ""
 
-#: includes/config/Config.php:4060
+#: includes/config/Config.php:5054
 msgid "Prevent auto closing of the mobile menu"
 msgstr ""
 
-#: includes/config/Config.php:4063
+#: includes/config/Config.php:5057
 msgid ""
 "Prevent automatically closing of the mobile menu when scrolling, "
 "resizing the page or tapping outside the menu area"
 msgstr ""
 
-#: includes/config/Config.php:4066
+#: includes/config/Config.php:5060
 #: includes/modules/fields/inc/FieldHeader.php:46
 msgid "Logo Align"
 msgstr ""
 
-#: includes/config/Config.php:4128
+#: includes/config/Config.php:5121
 msgid "Side icon Align"
 msgstr ""
 
-#: includes/config/Config.php:4138
-msgid "at the Top Bar"
-msgstr ""
-
-#: includes/config/Config.php:4151
+#: includes/config/Config.php:5137
 msgid "Mobile navigation drawer background color"
 msgstr ""
 
-#: includes/config/Config.php:4157
+#: includes/config/Config.php:5143
 msgid "Mobile submenu title background color"
 msgstr ""
 
-#: includes/config/Config.php:4164
+#: includes/config/Config.php:5150
 msgid "Mobile navigation drawer text color"
 msgstr ""
 
-#: includes/config/Config.php:4170
+#: includes/config/Config.php:5156
 msgid "Mobile navigation drawer text hover and active link color"
 msgstr ""
 
-#: includes/config/Config.php:4176
+#: includes/config/Config.php:5162
 msgid "Menu items bottom border"
 msgstr ""
 
-#: includes/config/Config.php:4207
+#: includes/config/Config.php:5193
 msgid "Mobile toolbar icons color"
 msgstr ""
 
-#: includes/config/Config.php:4213
+#: includes/config/Config.php:5199
 msgid "Use custom colors for submenu carets"
 msgstr ""
 
-#: includes/config/Config.php:4218
+#: includes/config/Config.php:5204
 msgid "Top level caret color"
 msgstr ""
 
-#: includes/config/Config.php:4225
+#: includes/config/Config.php:5211
 msgid "Sub level caret color"
 msgstr ""
 
-#: includes/config/Config.php:4232
+#: includes/config/Config.php:5218
 msgid "Current (active) caret color"
 msgstr ""
 
-#: includes/config/Config.php:4241
+#: includes/config/Config.php:5227
 msgid "Sizes"
 msgstr ""
 
-#: includes/config/Config.php:4246
+#: includes/config/Config.php:5232
 msgid "Mobile version switch"
 msgstr ""
 
-#: includes/config/Config.php:4247
+#: includes/config/Config.php:5233
 msgid ""
 "You can change switch to mobile breakpoint using this option. "
 "(default:1023px)."
 msgstr ""
 
-#: includes/config/Config.php:4254
+#: includes/config/Config.php:5240
 msgid "Fullwidth mobile navigation drawer"
 msgstr ""
 
-#: includes/config/Config.php:4255
+#: includes/config/Config.php:5241
 msgid "See [Side icon mobile fullwidth]"
 msgstr ""
 
-#: includes/config/Config.php:4260
+#: includes/config/Config.php:5246
 msgid "Mobile navigation drawer width"
 msgstr ""
 
-#: includes/config/Config.php:4265
+#: includes/config/Config.php:5251
 msgid "Maximum size"
 msgstr ""
 
-#: includes/config/Config.php:4273
+#: includes/config/Config.php:5259
 msgid "Dynamic minimum size"
 msgstr ""
 
-#: includes/config/Config.php:4284
+#: includes/config/Config.php:5270
 msgid "Mobile header height"
 msgstr ""
 
-#: includes/config/Config.php:4291
+#: includes/config/Config.php:5277
 msgid "Mobile header sticky height"
 msgstr ""
 
-#: includes/config/Config.php:4298
+#: includes/config/Config.php:5284
 msgid "Mobile menu top gap"
 msgstr ""
 
-#: includes/config/Config.php:4305
+#: includes/config/Config.php:5291
 msgid "Mobile submenu title height"
 msgstr ""
 
-#: includes/config/Config.php:4313
+#: includes/config/Config.php:5299
 msgid "Mobile navigation menu item vertical padding"
 msgstr ""
 
-#: includes/config/Config.php:4314
+#: includes/config/Config.php:5300
 msgid ""
 "This value will applied as padding to top and bottom of the item"
 msgstr ""
 
-#: includes/config/Config.php:4368
+#: includes/config/Config.php:5354
 msgid "Sublevel text"
 msgstr ""
 
@@ -2666,76 +3064,84 @@ msgstr ""
 msgid "Cart icon"
 msgstr ""
 
+#: includes/config/ConfigGlobal.php:436
+msgid "Hamburger menu text"
+msgstr ""
+
 #: includes/config/ConfigGlobal.php:437
-msgid "Close icon"
+msgid "This string can be translated with multilingual plugins"
 msgstr ""
 
 #: includes/config/ConfigGlobal.php:443
+msgid "Close icon"
+msgstr ""
+
+#: includes/config/ConfigGlobal.php:449
 msgid "Icon packs"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:447
+#: includes/config/ConfigGlobal.php:453
 msgid "Icons"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:454
+#: includes/config/ConfigGlobal.php:460
 msgid "Permissions"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:458
+#: includes/config/ConfigGlobal.php:464
 msgid "Allow for follow post types"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:460
+#: includes/config/ConfigGlobal.php:466
 msgid ""
 "If enabled, it will allow you to display additional control (meta-"
 "box) over the Menu for each post. You will be able to assign "
 "individual Presets and Menus which to display for each post."
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:465
+#: includes/config/ConfigGlobal.php:471
 msgid "Tools"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:468
+#: includes/config/ConfigGlobal.php:474
 msgid "Wrapper HTML tag for Groovy Menu"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:471
+#: includes/config/ConfigGlobal.php:477
 msgid "HEADER"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:472
+#: includes/config/ConfigGlobal.php:478
 msgid "DIV"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:478
+#: includes/config/ConfigGlobal.php:484
 msgid ""
 "Toggle visibility of Groovy menu settings at Appearance &gt; Menus"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:480
+#: includes/config/ConfigGlobal.php:486
 msgid ""
 "The theme or another plugin can override the visibility of the "
 "Groovy menu settings at Appearance &gt; Menus. To show up Groovy "
 "menus settings instead, use this option."
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:484
+#: includes/config/ConfigGlobal.php:490
 msgid "Alternative JavaScript initialization"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:486
+#: includes/config/ConfigGlobal.php:492
 msgid ""
 "If enabled can help in cases where third party caching plugins "
 "have hard-coded JavaScript output."
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:490
+#: includes/config/ConfigGlobal.php:496
 msgid "Run JavaScript initialization as soon as possible"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:492
+#: includes/config/ConfigGlobal.php:498
 msgid ""
 "If disabled, then initialization occurs on the JavaScript event "
 "\"DOMContentLoaded\". If enabled, then initialization is performed "
@@ -2744,81 +3150,112 @@ msgid ""
 "after the \"DOMContentLoaded\" event."
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:496
+#: includes/config/ConfigGlobal.php:502
 msgid ""
 "Enable displaying the Groovy menu layout into Menu blocks post type"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:498
+#: includes/config/ConfigGlobal.php:504
 msgid "Is also apply to not public post types"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:502
+#: includes/config/ConfigGlobal.php:508
+msgid "Enable inline critical CSS"
+msgstr ""
+
+#: includes/config/ConfigGlobal.php:510
+msgid ""
+"Adds CSS rules in front of the Groovy Menu HTML that describes the "
+"default sizes of menus and hidden elements."
+msgstr ""
+
+#: includes/config/ConfigGlobal.php:514
 msgid "Use local google fonts"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:504
+#: includes/config/ConfigGlobal.php:516
 msgid ""
 "For presets settings. When turning on, the Google fonts will be "
 "connected from local upload folder. Turning off option for use the "
 "Google CDN service."
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:508
+#: includes/config/ConfigGlobal.php:520
 msgid "Disable Font Awesome"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:510
+#: includes/config/ConfigGlobal.php:522
 msgid ""
 "Disable loading Font Awesome from Groovy menu at the front-end "
 "side of the site"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:514
+#: includes/config/ConfigGlobal.php:526
 msgid "Disable internal Font"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:516
+#: includes/config/ConfigGlobal.php:528
 msgid ""
 "Disable loading internal Font from Groovy menu (search, mini-cart "
 "icons) at the front-end side of the site"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:520
+#: includes/config/ConfigGlobal.php:532
 msgid "Allow use preloader for internal fonts"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:522
+#: includes/config/ConfigGlobal.php:534
 msgid "Add preload link tag"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:526
+#: includes/config/ConfigGlobal.php:538
+msgid "Disable rendering Menu Blocks for Woocommerce payments pages"
+msgstr ""
+
+#: includes/config/ConfigGlobal.php:540
+msgid ""
+"Helps prevent conflict with some 3th-party Woocommerce payment "
+"plugins"
+msgstr ""
+
+#: includes/config/ConfigGlobal.php:544
 msgid "Allow fetching presets from online library"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:532
+#: includes/config/ConfigGlobal.php:550
+msgid "Clean &lt;P&gt; tag from Menu blocks"
+msgstr ""
+
+#: includes/config/ConfigGlobal.php:552
+msgid ""
+"Wordpress inserts paragraphs instead of line breaks by default. "
+"Sometimes replacing double line breaks with paragraph elements "
+"works with errors inside shortcodes."
+msgstr ""
+
+#: includes/config/ConfigGlobal.php:556
 msgid "Remove All Data after uninstall"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:534
+#: includes/config/ConfigGlobal.php:558
 msgid ""
 "This tool will remove Groovy menu, Presets and other data when "
 "using the \"Delete\" link on the plugins screen."
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:540
+#: includes/config/ConfigGlobal.php:564
 msgid "Taxonomies"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:543
+#: includes/config/ConfigGlobal.php:567
 msgid "Default preset for all content"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:550
+#: includes/config/ConfigGlobal.php:574
 msgid "Default navigation menu for all content"
 msgstr ""
 
-#: includes/config/ConfigGlobal.php:558
+#: includes/config/ConfigGlobal.php:582
 msgid "Override for particular taxonomies"
 msgstr ""
 
@@ -3001,8 +3438,8 @@ msgid "Select icon"
 msgstr ""
 
 #: includes/modules/core/inc/GroovyMenuIcons.php:10
-#: includes/modules/core/inc/GroovyMenuSettings.php:2657
-#: includes/modules/templates/inc/Templates.php:89
+#: includes/modules/core/inc/GroovyMenuSettings.php:2706
+#: includes/modules/templates/inc/Templates.php:95
 msgid "Close"
 msgstr ""
 
@@ -3039,9 +3476,9 @@ msgid "Register your copy of plugin"
 msgstr ""
 
 #: includes/modules/core/inc/GroovyMenuSettings.php:341
-#: includes/modules/core/inc/GroovyMenuSettings.php:1352
-#: includes/modules/core/inc/GroovyMenuSettings.php:1547
-#: includes/modules/core/inc/GroovyMenuSettings.php:2020
+#: includes/modules/core/inc/GroovyMenuSettings.php:1390
+#: includes/modules/core/inc/GroovyMenuSettings.php:1585
+#: includes/modules/core/inc/GroovyMenuSettings.php:2058
 msgid "Need help?"
 msgstr ""
 
@@ -3090,7 +3527,7 @@ msgid "Setting changed"
 msgstr ""
 
 #: includes/modules/core/inc/GroovyMenuSettings.php:493
-#: includes/modules/core/inc/GroovyMenuUtils.php:2046
+#: includes/modules/core/inc/GroovyMenuUtils.php:2267
 msgid ""
 "The changes you made will be lost if you navigate away from this "
 "page."
@@ -3119,8 +3556,8 @@ msgstr ""
 #: includes/modules/core/inc/GroovyMenuSettings.php:736
 #: includes/modules/core/inc/GroovyMenuSettings.php:814
 #: includes/modules/core/inc/GroovyMenuSettings.php:815
-#: includes/modules/core/inc/GroovyMenuSettings.php:1541
-#: includes/modules/core/inc/GroovyMenuSettings.php:2014
+#: includes/modules/core/inc/GroovyMenuSettings.php:1579
+#: includes/modules/core/inc/GroovyMenuSettings.php:2052
 msgid "Integration"
 msgstr ""
 
@@ -3137,8 +3574,9 @@ msgid "Premium"
 msgstr ""
 
 #: includes/modules/core/inc/GroovyMenuSettings.php:1020
-#: includes/modules/core/inc/GroovyMenuSettings.php:2816
-#: includes/modules/core/inc/GroovyMenuSettings.php:3060
+#: includes/modules/core/inc/GroovyMenuSettings.php:2865
+#: includes/modules/core/inc/GroovyMenuSettings.php:3109
+#: includes/modules/menublocks/inc/MenuBlockImportHelper.php:69
 msgid "Fail. Nonce field outdated. Try reload page."
 msgstr ""
 
@@ -3146,763 +3584,778 @@ msgstr ""
 msgid "Fail. Need more Capabilities."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1060
-#: includes/modules/core/inc/GroovyMenuUtils.php:1581
+#: includes/modules/core/inc/GroovyMenuSettings.php:1051
+msgid "Cannot start $wp_filesystem."
+msgstr ""
+
+#: includes/modules/core/inc/GroovyMenuSettings.php:1097
+#: includes/modules/core/inc/GroovyMenuUtils.php:1696
 msgid ""
 "Wasn't able to work with Zip Archive. Missing php-zip extension."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1069
-#: includes/modules/core/inc/GroovyMenuSettings.php:2971
+#: includes/modules/core/inc/GroovyMenuSettings.php:1106
+#: includes/modules/core/inc/GroovyMenuSettings.php:3020
 msgid "Saved"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1151
+#: includes/modules/core/inc/GroovyMenuSettings.php:1189
 msgid "Error. When get uploaded file. Or wrong file format."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1340
+#: includes/modules/core/inc/GroovyMenuSettings.php:1378
 msgid "Global settings"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1342
+#: includes/modules/core/inc/GroovyMenuSettings.php:1380
 msgid "Upload logo here"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1374
-#: includes/modules/core/inc/GroovyMenuSettings.php:1590
+#: includes/modules/core/inc/GroovyMenuSettings.php:1412
+#: includes/modules/core/inc/GroovyMenuSettings.php:1628
 msgid "Plugin is registered!"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1376
-#: includes/modules/core/inc/GroovyMenuSettings.php:1592
+#: includes/modules/core/inc/GroovyMenuSettings.php:1414
+#: includes/modules/core/inc/GroovyMenuSettings.php:1630
 msgid "Plugin is NOT registered!"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1393
-#: includes/modules/core/inc/GroovyMenuSettings.php:1610
+#: includes/modules/core/inc/GroovyMenuSettings.php:1431
+#: includes/modules/core/inc/GroovyMenuSettings.php:1648
 msgid "premium version"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1405
+#: includes/modules/core/inc/GroovyMenuSettings.php:1443
 msgid ""
 "You need to register your copy of Groovy Menu to activate the "
 "plugin features"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1406
+#: includes/modules/core/inc/GroovyMenuSettings.php:1444
 msgid "Need to register on URL"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1410
+#: includes/modules/core/inc/GroovyMenuSettings.php:1448
 msgid "License site"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1412
+#: includes/modules/core/inc/GroovyMenuSettings.php:1450
 msgid "Check license"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1414
+#: includes/modules/core/inc/GroovyMenuSettings.php:1452
 msgid "A new license for current site is registered."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1416
+#: includes/modules/core/inc/GroovyMenuSettings.php:1454
 msgid "Please, refresh the page."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1425
+#: includes/modules/core/inc/GroovyMenuSettings.php:1463
 msgid "Clipboard"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1434
+#: includes/modules/core/inc/GroovyMenuSettings.php:1472
 msgid "Manage your license(s)"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1449
-#: includes/modules/core/inc/GroovyMenuSettings.php:2234
+#: includes/modules/core/inc/GroovyMenuSettings.php:1487
+#: includes/modules/core/inc/GroovyMenuSettings.php:2272
 msgid "Premium support"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1453
+#: includes/modules/core/inc/GroovyMenuSettings.php:1491
 msgid "Active"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1455
+#: includes/modules/core/inc/GroovyMenuSettings.php:1493
 msgid "Support is valid until"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1463
+#: includes/modules/core/inc/GroovyMenuSettings.php:1501
 msgid "Expired"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1465
+#: includes/modules/core/inc/GroovyMenuSettings.php:1503
 msgid "Renew support to get help for 6 months"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1474
+#: includes/modules/core/inc/GroovyMenuSettings.php:1512
 msgid "Get support"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1480
+#: includes/modules/core/inc/GroovyMenuSettings.php:1518
 msgid "Renew support"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1487
+#: includes/modules/core/inc/GroovyMenuSettings.php:1525
 msgid "Help with integration"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1488
+#: includes/modules/core/inc/GroovyMenuSettings.php:1526
 msgid ""
 "If automatic integration does not work properly, and for manual "
 "integration you do not have enough time and experience."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1492
-#: includes/modules/core/inc/GroovyMenuSettings.php:2252
-#: includes/modules/core/inc/GroovyMenuSettings.php:2506
-#: includes/modules/core/inc/GroovyMenuSettings.php:2539
+#: includes/modules/core/inc/GroovyMenuSettings.php:1530
+#: includes/modules/core/inc/GroovyMenuSettings.php:2290
+#: includes/modules/core/inc/GroovyMenuSettings.php:2555
+#: includes/modules/core/inc/GroovyMenuSettings.php:2588
 msgid "Manual integration"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1501
-#: includes/modules/core/inc/GroovyMenuSettings.php:1639
+#: includes/modules/core/inc/GroovyMenuSettings.php:1539
+#: includes/modules/core/inc/GroovyMenuSettings.php:1677
 msgid "Buy new license"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1501
-#: includes/modules/core/inc/GroovyMenuSettings.php:1639
+#: includes/modules/core/inc/GroovyMenuSettings.php:1539
+#: includes/modules/core/inc/GroovyMenuSettings.php:1677
 msgid "Starting a new project? Buy another license"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1505
-#: includes/modules/core/inc/GroovyMenuSettings.php:1643
+#: includes/modules/core/inc/GroovyMenuSettings.php:1543
+#: includes/modules/core/inc/GroovyMenuSettings.php:1681
 msgid "Important!"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1505
+#: includes/modules/core/inc/GroovyMenuSettings.php:1543
 msgid "One standard license is valid only for"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1506
+#: includes/modules/core/inc/GroovyMenuSettings.php:1544
 msgid "1 website"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1506
+#: includes/modules/core/inc/GroovyMenuSettings.php:1544
 msgid ""
 "Including multiple, you need to have own license on each "
 "individual site within your MultiSite installation organized on "
 "sub-domains."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1508
+#: includes/modules/core/inc/GroovyMenuSettings.php:1546
 msgid ""
 "When moving a site from one domain to another please deregister "
 "the plugin first."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1512
-#: includes/modules/core/inc/GroovyMenuSettings.php:1649
+#: includes/modules/core/inc/GroovyMenuSettings.php:1550
+#: includes/modules/core/inc/GroovyMenuSettings.php:1687
 msgid "Purchase new license"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1520
-#: includes/modules/core/inc/GroovyMenuSettings.php:1657
+#: includes/modules/core/inc/GroovyMenuSettings.php:1558
+#: includes/modules/core/inc/GroovyMenuSettings.php:1695
 msgid "System Status"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1530
-#: includes/modules/core/inc/GroovyMenuSettings.php:2002
+#: includes/modules/core/inc/GroovyMenuSettings.php:1568
+#: includes/modules/core/inc/GroovyMenuSettings.php:2040
 msgid "First Steps"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1531
-#: includes/modules/core/inc/GroovyMenuSettings.php:2003
+#: includes/modules/core/inc/GroovyMenuSettings.php:1569
+#: includes/modules/core/inc/GroovyMenuSettings.php:2041
 msgid "To display the menu on the site, you need to add"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1532
-#: includes/modules/core/inc/GroovyMenuSettings.php:2004
+#: includes/modules/core/inc/GroovyMenuSettings.php:1570
+#: includes/modules/core/inc/GroovyMenuSettings.php:2042
 msgid "menu items"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1533
-#: includes/modules/core/inc/GroovyMenuSettings.php:2005
+#: includes/modules/core/inc/GroovyMenuSettings.php:1571
+#: includes/modules/core/inc/GroovyMenuSettings.php:2043
 msgid "do the"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1534
-#: includes/modules/core/inc/GroovyMenuSettings.php:2006
+#: includes/modules/core/inc/GroovyMenuSettings.php:1572
+#: includes/modules/core/inc/GroovyMenuSettings.php:2044
 msgid "integration"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1534
-#: includes/modules/core/inc/GroovyMenuSettings.php:1552
-#: includes/modules/core/inc/GroovyMenuSettings.php:2006
-#: includes/modules/core/inc/GroovyMenuSettings.php:2024
+#: includes/modules/core/inc/GroovyMenuSettings.php:1572
+#: includes/modules/core/inc/GroovyMenuSettings.php:1590
+#: includes/modules/core/inc/GroovyMenuSettings.php:2044
+#: includes/modules/core/inc/GroovyMenuSettings.php:2062
 msgid "and"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1535
-#: includes/modules/core/inc/GroovyMenuSettings.php:2007
+#: includes/modules/core/inc/GroovyMenuSettings.php:1573
+#: includes/modules/core/inc/GroovyMenuSettings.php:2045
 msgid "upload the logo"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1535
-#: includes/modules/core/inc/GroovyMenuSettings.php:2007
+#: includes/modules/core/inc/GroovyMenuSettings.php:1573
+#: includes/modules/core/inc/GroovyMenuSettings.php:2045
 msgid "And"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1535
-#: includes/modules/core/inc/GroovyMenuSettings.php:2008
+#: includes/modules/core/inc/GroovyMenuSettings.php:1573
+#: includes/modules/core/inc/GroovyMenuSettings.php:2046
 msgid "customize"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1535
-#: includes/modules/core/inc/GroovyMenuSettings.php:2009
+#: includes/modules/core/inc/GroovyMenuSettings.php:1573
+#: includes/modules/core/inc/GroovyMenuSettings.php:2047
 msgid "the menu design for your taste"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1538
-#: includes/modules/core/inc/GroovyMenuSettings.php:2011
+#: includes/modules/core/inc/GroovyMenuSettings.php:1576
+#: includes/modules/core/inc/GroovyMenuSettings.php:2049
 msgid "dashboard"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1542
-#: includes/modules/core/inc/GroovyMenuSettings.php:2015
+#: includes/modules/core/inc/GroovyMenuSettings.php:1580
+#: includes/modules/core/inc/GroovyMenuSettings.php:2053
 msgid ""
 "The automatic integration option is the easiest and in most cases "
 "the working way to implement Groovy Menu on your website..."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1544
-#: includes/modules/core/inc/GroovyMenuSettings.php:2017
+#: includes/modules/core/inc/GroovyMenuSettings.php:1582
+#: includes/modules/core/inc/GroovyMenuSettings.php:2055
 msgid "READ MORE"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1549
-#: includes/modules/core/inc/GroovyMenuSettings.php:2022
+#: includes/modules/core/inc/GroovyMenuSettings.php:1587
+#: includes/modules/core/inc/GroovyMenuSettings.php:2060
 msgid "Our online"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1551
-#: includes/modules/core/inc/GroovyMenuSettings.php:2023
+#: includes/modules/core/inc/GroovyMenuSettings.php:1589
+#: includes/modules/core/inc/GroovyMenuSettings.php:2061
 msgid "documentation"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1554
-#: includes/modules/core/inc/GroovyMenuSettings.php:2025
+#: includes/modules/core/inc/GroovyMenuSettings.php:1592
+#: includes/modules/core/inc/GroovyMenuSettings.php:2063
 msgid "video tutorials"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1555
-#: includes/modules/core/inc/GroovyMenuSettings.php:2026
+#: includes/modules/core/inc/GroovyMenuSettings.php:1593
+#: includes/modules/core/inc/GroovyMenuSettings.php:2064
 msgid ""
 "consist of a lot of the most important information about the "
 "plugin settings."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1559
-#: includes/modules/core/inc/GroovyMenuSettings.php:2030
+#: includes/modules/core/inc/GroovyMenuSettings.php:1597
+#: includes/modules/core/inc/GroovyMenuSettings.php:2068
 msgid "MANUAL"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1561
-#: includes/modules/core/inc/GroovyMenuSettings.php:2032
+#: includes/modules/core/inc/GroovyMenuSettings.php:1599
+#: includes/modules/core/inc/GroovyMenuSettings.php:2070
 msgid "VIDEO"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1621
+#: includes/modules/core/inc/GroovyMenuSettings.php:1659
 msgid "under the extended license for the template:"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1643
+#: includes/modules/core/inc/GroovyMenuSettings.php:1681
 msgid "This license is registered for the current template."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1645
+#: includes/modules/core/inc/GroovyMenuSettings.php:1683
 msgid ""
 "If you liked the plugin and want to install it on another template "
 "and use it separately, then you need to purchase a license."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1699
+#: includes/modules/core/inc/GroovyMenuSettings.php:1737
 msgid "Preset name saved"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1702
+#: includes/modules/core/inc/GroovyMenuSettings.php:1740
 msgid "Menu presets"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1743
+#: includes/modules/core/inc/GroovyMenuSettings.php:1781
 msgid "Rename"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1750
+#: includes/modules/core/inc/GroovyMenuSettings.php:1788
 msgid "Set as default"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1777
+#: includes/modules/core/inc/GroovyMenuSettings.php:1815
 msgid "Set thumbnail"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1785
+#: includes/modules/core/inc/GroovyMenuSettings.php:1823
 msgid "Unset thumbnail"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1793
+#: includes/modules/core/inc/GroovyMenuSettings.php:1831
 #, php-format
 msgid "%d uses"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1803
+#: includes/modules/core/inc/GroovyMenuSettings.php:1841
 msgid "Delete"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1822
+#: includes/modules/core/inc/GroovyMenuSettings.php:1860
 msgid "CREATE NEW PRESET"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1824
-#: includes/modules/core/inc/GroovyMenuSettings.php:1851
-#: includes/modules/core/inc/GroovyMenuSettings.php:1893
+#: includes/modules/core/inc/GroovyMenuSettings.php:1862
+#: includes/modules/core/inc/GroovyMenuSettings.php:1889
+#: includes/modules/core/inc/GroovyMenuSettings.php:1931
 msgid "Available in the"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1825
-#: includes/modules/core/inc/GroovyMenuSettings.php:1852
-#: includes/modules/core/inc/GroovyMenuSettings.php:1895
+#: includes/modules/core/inc/GroovyMenuSettings.php:1863
+#: includes/modules/core/inc/GroovyMenuSettings.php:1890
+#: includes/modules/core/inc/GroovyMenuSettings.php:1933
 msgid "PRO version"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1848
+#: includes/modules/core/inc/GroovyMenuSettings.php:1886
 msgid "IMPORT MENU PRESET"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1882
+#: includes/modules/core/inc/GroovyMenuSettings.php:1920
 msgid "Add preset from library"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1886
+#: includes/modules/core/inc/GroovyMenuSettings.php:1924
+#: includes/modules/templates/inc/Templates.php:30
 msgid ""
-"To enable presets from the online library, please enable the "
-"option in \"Global settings > Tools > Allow fetching presets from "
-"online library\""
+"To show presets from the online library, please enable toggle "
+"beside \"Allow fetching presets from online library\" placed in "
+"\"Global Settings\" at the \"Tools\" tab"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1913
+#: includes/modules/core/inc/GroovyMenuSettings.php:1951
 msgid "FREE VS Premium"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1914
+#: includes/modules/core/inc/GroovyMenuSettings.php:1952
 msgid "Compare both plugins features"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1982
+#: includes/modules/core/inc/GroovyMenuSettings.php:2020
 msgid "free version"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1985
+#: includes/modules/core/inc/GroovyMenuSettings.php:2023
 msgid "Enjoying GROOVY?"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1987
+#: includes/modules/core/inc/GroovyMenuSettings.php:2025
 msgid ""
 "Why not leave a review on WordPress.org? We'd really appreciate it."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1993
+#: includes/modules/core/inc/GroovyMenuSettings.php:2031
 msgid "Groovy Mega Menu!"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:1994
+#: includes/modules/core/inc/GroovyMenuSettings.php:2032
 msgid ""
 "Thank you for choosing our plugin! Add an awesome mega menu on "
 "your site. Is an easy to customize, just need to upload your <br> "
 "logo and fit your own colors, fonts and sizes."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2038
+#: includes/modules/core/inc/GroovyMenuSettings.php:2076
 msgid "Video"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2039
+#: includes/modules/core/inc/GroovyMenuSettings.php:2077
 msgid "Tutorials"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2072
+#: includes/modules/core/inc/GroovyMenuSettings.php:2110
 msgid "View all tutorials"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2076
+#: includes/modules/core/inc/GroovyMenuSettings.php:2114
 msgid "Free version vs"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2077
-#: includes/modules/core/inc/GroovyMenuSettings.php:2085
+#: includes/modules/core/inc/GroovyMenuSettings.php:2115
+#: includes/modules/core/inc/GroovyMenuSettings.php:2123
 msgid "PREMIUM"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2078
+#: includes/modules/core/inc/GroovyMenuSettings.php:2116
 msgid "Comparision table"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2081
+#: includes/modules/core/inc/GroovyMenuSettings.php:2119
 msgid "FEATURE LIST"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2083
+#: includes/modules/core/inc/GroovyMenuSettings.php:2121
 msgid "FREE PLUGIN"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2099
+#: includes/modules/core/inc/GroovyMenuSettings.php:2137
 msgid "Mega menu blocks"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2108
+#: includes/modules/core/inc/GroovyMenuSettings.php:2146
 msgid "Sticky menu"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2117
+#: includes/modules/core/inc/GroovyMenuSettings.php:2155
 msgid "Vertical menu"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2135
+#: includes/modules/core/inc/GroovyMenuSettings.php:2173
 msgid "Minimal menu"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2144
+#: includes/modules/core/inc/GroovyMenuSettings.php:2182
 msgid "Hovers"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2147
+#: includes/modules/core/inc/GroovyMenuSettings.php:2185
 msgid "Only 2 hover types"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2153
+#: includes/modules/core/inc/GroovyMenuSettings.php:2191
 msgid "Logotypes"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2156
+#: includes/modules/core/inc/GroovyMenuSettings.php:2194
 msgid "Only 1 logo + mobile logo"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2162
+#: includes/modules/core/inc/GroovyMenuSettings.php:2200
 msgid "Online presets library"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2171
+#: includes/modules/core/inc/GroovyMenuSettings.php:2209
 msgid "Different menus types on the one site"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2180
+#: includes/modules/core/inc/GroovyMenuSettings.php:2218
 msgid "Export/import of settings"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2189
+#: includes/modules/core/inc/GroovyMenuSettings.php:2227
 msgid "Badges"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2198
+#: includes/modules/core/inc/GroovyMenuSettings.php:2236
 msgid "WooCommerce integration"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2207
+#: includes/modules/core/inc/GroovyMenuSettings.php:2245
 msgid "Google fonts"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2216
+#: includes/modules/core/inc/GroovyMenuSettings.php:2254
 msgid "Search feature"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2225
+#: includes/modules/core/inc/GroovyMenuSettings.php:2263
 msgid "Custom icons"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2243
-#: includes/modules/core/inc/GroovyMenuSettings.php:2438
+#: includes/modules/core/inc/GroovyMenuSettings.php:2281
+#: includes/modules/core/inc/GroovyMenuSettings.php:2487
 msgid "Automatic integration"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2261
+#: includes/modules/core/inc/GroovyMenuSettings.php:2299
 msgid "Extended license"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2270
+#: includes/modules/core/inc/GroovyMenuSettings.php:2308
 msgid "Set specific menu for the taxonomies"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2281
+#: includes/modules/core/inc/GroovyMenuSettings.php:2319
 msgid "UPGRADE TO PRO"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2336
+#: includes/modules/core/inc/GroovyMenuSettings.php:2374
 msgid "Manage Locations"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2346
+#: includes/modules/core/inc/GroovyMenuSettings.php:2384
 msgid "Please select one of integration method below"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2348
+#: includes/modules/core/inc/GroovyMenuSettings.php:2386
 #, php-format
 msgid "You can get more info from the %s"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2350
-#: includes/modules/core/inc/GroovyMenuSettings.php:2371
+#: includes/modules/core/inc/GroovyMenuSettings.php:2388
+#: includes/modules/core/inc/GroovyMenuSettings.php:2409
 msgid "video tutorial"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2365
+#: includes/modules/core/inc/GroovyMenuSettings.php:2403
 msgid "Integration for DIVI Theme"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2366
+#: includes/modules/core/inc/GroovyMenuSettings.php:2404
 msgid ""
 "We automatically recognized the current theme as the DIVI, For the "
 "DIVI theme we have module already integrated into code of the "
 "plugin."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2367
+#: includes/modules/core/inc/GroovyMenuSettings.php:2405
 msgid "So you don't need to do something for integration!"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2369
+#: includes/modules/core/inc/GroovyMenuSettings.php:2407
 #, php-format
 msgid "How To Create A DIVI Mega Menu with Groovy Menu %s"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2390
+#: includes/modules/core/inc/GroovyMenuSettings.php:2430
+msgid "Integration through additional Plugin"
+msgstr ""
+
+#: includes/modules/core/inc/GroovyMenuSettings.php:2432
 msgid "Integration through Child Theme"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2392
+#: includes/modules/core/inc/GroovyMenuSettings.php:2436
 msgid ""
 "According to the information from the Groovy Menu integration "
 "database, your current theme fully supports integration of Groovy "
 "Menu."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2396
+#: includes/modules/core/inc/GroovyMenuSettings.php:2440
 #, php-format
 msgid ""
 "Your activated %s theme is already in our database. That is mean "
 "you don't need to use auto or manual integration."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2397
+#: includes/modules/core/inc/GroovyMenuSettings.php:2443
+msgid ""
+"We already prepared additional Plugin as the solution for your "
+"integration. Please download and activate"
+msgstr ""
+
+#: includes/modules/core/inc/GroovyMenuSettings.php:2445
 msgid ""
 "We already prepared Child theme as the solution for your "
 "integration. Please download and activate"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2412
+#: includes/modules/core/inc/GroovyMenuSettings.php:2461
 msgid "For advanced users"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2417
+#: includes/modules/core/inc/GroovyMenuSettings.php:2466
 msgid ""
 "Create a Child theme or add to existing one the following code to "
 "functions.php."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2420
+#: includes/modules/core/inc/GroovyMenuSettings.php:2469
 msgid ""
 "For the correct operation of the plugin, you should create a Child "
 "theme with header.php and add the support code to it. Following "
 "code just example. We suggest download our child theme below."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2444
+#: includes/modules/core/inc/GroovyMenuSettings.php:2493
 msgid "Enable automatic integration"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2447
-#: includes/modules/core/inc/GroovyMenuSettings.php:2494
-#: includes/modules/core/inc/GroovyMenuSettings.php:2655
+#: includes/modules/core/inc/GroovyMenuSettings.php:2496
+#: includes/modules/core/inc/GroovyMenuSettings.php:2543
+#: includes/modules/core/inc/GroovyMenuSettings.php:2704
 msgid "Save changes"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2451
+#: includes/modules/core/inc/GroovyMenuSettings.php:2500
 msgid ""
 "If enabled, the Groovy Menu markup will be placed after &lt;"
 "body&gt; html tag."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2462
+#: includes/modules/core/inc/GroovyMenuSettings.php:2511
 msgid ""
 "Choose the location for the integration menu into pre-defined "
 "areas in your theme."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2463
+#: includes/modules/core/inc/GroovyMenuSettings.php:2512
 msgid ""
 "If chosen then the Groovy Menu will display its own markup instead "
 "of the standard code from the function wp_nav_menu()."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2466
+#: includes/modules/core/inc/GroovyMenuSettings.php:2515
 msgid "Theme Locations"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2472
+#: includes/modules/core/inc/GroovyMenuSettings.php:2521
 msgid "Select a Location"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2490
+#: includes/modules/core/inc/GroovyMenuSettings.php:2539
 msgid "Note:"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2490
+#: includes/modules/core/inc/GroovyMenuSettings.php:2539
 #, php-format
 msgid ""
 "Make sure the menu is assigned on the %s page. Otherwise, the "
 "location selection list will be empty."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2490
+#: includes/modules/core/inc/GroovyMenuSettings.php:2539
 msgid "Groovy menu Primary location will be ignored."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2490
+#: includes/modules/core/inc/GroovyMenuSettings.php:2539
 msgid "The Groovy Menu Primary area will be ignored."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2507
+#: includes/modules/core/inc/GroovyMenuSettings.php:2556
 msgid ""
 "Attention! We strongly recommend you insert the following code "
 "into a Child theme. Therefore, the changes you make will not "
 "affect the files of the parent theme."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2508
+#: includes/modules/core/inc/GroovyMenuSettings.php:2557
 msgid ""
 "You can display the Groovy menu  by adding the following code "
 "directly to the template:"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2515
+#: includes/modules/core/inc/GroovyMenuSettings.php:2564
 msgid ""
 "The place where the code should be inserted depends on the theme. "
 "The most common place is the"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2517
+#: includes/modules/core/inc/GroovyMenuSettings.php:2566
 #, php-format
 msgid "after %s tag"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2532
+#: includes/modules/core/inc/GroovyMenuSettings.php:2581
 msgid "Need integration for your theme?"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2533
+#: includes/modules/core/inc/GroovyMenuSettings.php:2582
 msgid ""
 "if none of the above methods of automatic integration doesn't work "
 "properly, and for manual integration, you do not have enough time "
 "and experience."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2534
+#: includes/modules/core/inc/GroovyMenuSettings.php:2583
 msgid ""
 "You can order to the manual integration service from our team."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2535
+#: includes/modules/core/inc/GroovyMenuSettings.php:2584
 msgid "We do it in the shortest time!"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2546
+#: includes/modules/core/inc/GroovyMenuSettings.php:2595
 msgid "Get stucked?"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2552
+#: includes/modules/core/inc/GroovyMenuSettings.php:2601
 #, php-format
 msgid "Ask the %s team"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2553
+#: includes/modules/core/inc/GroovyMenuSettings.php:2602
 msgid "support"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2619
+#: includes/modules/core/inc/GroovyMenuSettings.php:2668
 msgid "Restore <br>Defaults"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2745
-#: includes/modules/core/inc/GroovyMenuSettings.php:2882
+#: includes/modules/core/inc/GroovyMenuSettings.php:2794
+#: includes/modules/core/inc/GroovyMenuSettings.php:2931
 msgid "Restore"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2750
-#: includes/modules/core/inc/GroovyMenuSettings.php:2875
-#: includes/modules/core/inc/GroovyMenuSettings.php:2879
-#: includes/modules/core/inc/GroovyMenuSettings.php:2967
-#: includes/modules/core/inc/GroovyMenuSettings.php:3079
-#: includes/modules/core/inc/GroovyMenuSettings.php:3113
+#: includes/modules/core/inc/GroovyMenuSettings.php:2799
+#: includes/modules/core/inc/GroovyMenuSettings.php:2924
+#: includes/modules/core/inc/GroovyMenuSettings.php:2928
+#: includes/modules/core/inc/GroovyMenuSettings.php:3016
+#: includes/modules/core/inc/GroovyMenuSettings.php:3128
+#: includes/modules/core/inc/GroovyMenuSettings.php:3162
 #: includes/modules/walkers/inc/WalkerHelper.php:82
 msgid "Save"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2797
-#: includes/modules/core/inc/GroovyMenuSettings.php:2845
-#: includes/modules/core/inc/GroovyMenuSettings.php:2935
+#: includes/modules/core/inc/GroovyMenuSettings.php:2846
+#: includes/modules/core/inc/GroovyMenuSettings.php:2894
+#: includes/modules/core/inc/GroovyMenuSettings.php:2984
 #: includes/modules/walkers/inc/WalkerHelper.php:740
 msgid "Error. Missing id of the current menu"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2837
+#: includes/modules/core/inc/GroovyMenuSettings.php:2886
 msgid "Error. Bad form data"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2896
+#: includes/modules/core/inc/GroovyMenuSettings.php:2945
 msgid "Error. Wrong form data for save"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2925
+#: includes/modules/core/inc/GroovyMenuSettings.php:2974
 msgid "Error. Bad style data"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2930
+#: includes/modules/core/inc/GroovyMenuSettings.php:2979
 msgid "Error. Missing direction of the current menu"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2940
+#: includes/modules/core/inc/GroovyMenuSettings.php:2989
 msgid "Error. Missing Groovy Menu version parameter"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2945
+#: includes/modules/core/inc/GroovyMenuSettings.php:2994
 msgid "Error. Outdated Groovy Menu version parameter"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2954
+#: includes/modules/core/inc/GroovyMenuSettings.php:3003
 msgid "Error. Groovy Menu preset style already saved"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2974
+#: includes/modules/core/inc/GroovyMenuSettings.php:3023
 msgid "Current section restored to default"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:2977
+#: includes/modules/core/inc/GroovyMenuSettings.php:3026
 msgid "All Settings restored to default"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:3115
+#: includes/modules/core/inc/GroovyMenuSettings.php:3164
 msgid "Save Error"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:3201
+#: includes/modules/core/inc/GroovyMenuSettings.php:3250
 msgid "The error of creating an export file!"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:3203
+#: includes/modules/core/inc/GroovyMenuSettings.php:3252
 msgid ""
 "Below is the contents of the text from the file. Copy the code and "
 "save it as a text file."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuSettings.php:3205
+#: includes/modules/core/inc/GroovyMenuSettings.php:3254
 msgid "Suggested file name"
 msgstr ""
 
@@ -3927,235 +4380,236 @@ msgstr ""
 msgid "View Groovy Menu Preset"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:298
-#: includes/modules/core/inc/GroovyMenuUtils.php:308
+#: includes/modules/core/inc/GroovyMenuUtils.php:302
+#: includes/modules/core/inc/GroovyMenuUtils.php:318
 msgid "single pages"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:301
+#: includes/modules/core/inc/GroovyMenuUtils.php:305
 msgid "Search page"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:302
+#: includes/modules/core/inc/GroovyMenuUtils.php:306
 msgid "404 Not Found Page"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:393
-#: includes/modules/core/inc/GroovyMenuUtils.php:402
+#: includes/modules/core/inc/GroovyMenuUtils.php:403
+#: includes/modules/core/inc/GroovyMenuUtils.php:412
 msgid "Search in:"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:521
+#: includes/modules/core/inc/GroovyMenuUtils.php:531
 msgid "Search..."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:543
+#: includes/modules/core/inc/GroovyMenuUtils.php:553
 msgid "START TYPING AND PRESS ENTER TO SEARCH"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1217
+#: includes/modules/core/inc/GroovyMenuUtils.php:1265
 msgid "Original full size"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1425
-#: includes/modules/core/inc/GroovyMenuUtils.php:1428
+#: includes/modules/core/inc/GroovyMenuUtils.php:1473
+#: includes/modules/core/inc/GroovyMenuUtils.php:1476
 msgid "Docs"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1426
+#: includes/modules/core/inc/GroovyMenuUtils.php:1474
 msgid "Free support"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1429
+#: includes/modules/core/inc/GroovyMenuUtils.php:1477
 msgid "Get Support"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1451
+#: includes/modules/core/inc/GroovyMenuUtils.php:1499
 msgid "Settings"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1469
+#: includes/modules/core/inc/GroovyMenuUtils.php:1517
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1524
+#: includes/modules/core/inc/GroovyMenuUtils.php:1633
+#: includes/modules/menublocks/inc/MenuBlockImportHelper.php:745
 msgid "WP_Filesystem() load library error"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1890
+#: includes/modules/core/inc/GroovyMenuUtils.php:2111
 msgid ""
 "Plugin Groovy Menu  is deactivated. Minimum required version for "
 "PHP 7."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:1892
+#: includes/modules/core/inc/GroovyMenuUtils.php:2113
 msgid "Plugins page"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2255
+#: includes/modules/core/inc/GroovyMenuUtils.php:2476
 msgid "PHP 7.0 or greater"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2262
+#: includes/modules/core/inc/GroovyMenuUtils.php:2483
 msgid "ZipArchive"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2263
+#: includes/modules/core/inc/GroovyMenuUtils.php:2484
 msgid "Installed"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2263
+#: includes/modules/core/inc/GroovyMenuUtils.php:2484
 msgid "Fail"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2282
+#: includes/modules/core/inc/GroovyMenuUtils.php:2503
 msgid "PHP Max input vars"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2284
+#: includes/modules/core/inc/GroovyMenuUtils.php:2505
 msgid "Matters to the Appearance - Menus editor"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2285
+#: includes/modules/core/inc/GroovyMenuUtils.php:2506
 #, php-format
 msgid ""
 "Current Max input vars is OK, however %s is recommended for the "
 "correct operation of all the function."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2293
+#: includes/modules/core/inc/GroovyMenuUtils.php:2514
 msgid "PHP Max execution time"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2295
+#: includes/modules/core/inc/GroovyMenuUtils.php:2516
 msgid "php.ini values show above. Real values may vary."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2296
+#: includes/modules/core/inc/GroovyMenuUtils.php:2517
 msgid "Current max execution time is OK, however 180 is recommended."
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2585
+#: includes/modules/core/inc/GroovyMenuUtils.php:2806
 msgid "3d x"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2586
+#: includes/modules/core/inc/GroovyMenuUtils.php:2807
 msgid "3d x reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2587
+#: includes/modules/core/inc/GroovyMenuUtils.php:2808
 msgid "3d y"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2588
+#: includes/modules/core/inc/GroovyMenuUtils.php:2809
 msgid "3d y reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2589
+#: includes/modules/core/inc/GroovyMenuUtils.php:2810
 msgid "3d xy"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2590
+#: includes/modules/core/inc/GroovyMenuUtils.php:2811
 msgid "3d xy reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2591
+#: includes/modules/core/inc/GroovyMenuUtils.php:2812
 msgid "arrow"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2592
+#: includes/modules/core/inc/GroovyMenuUtils.php:2813
 msgid "arrow reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2593
+#: includes/modules/core/inc/GroovyMenuUtils.php:2814
 msgid "arrow alt"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2594
+#: includes/modules/core/inc/GroovyMenuUtils.php:2815
 msgid "arrow alt reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2595
+#: includes/modules/core/inc/GroovyMenuUtils.php:2816
 msgid "arrow turn"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2596
+#: includes/modules/core/inc/GroovyMenuUtils.php:2817
 msgid "arrow turn reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2597
+#: includes/modules/core/inc/GroovyMenuUtils.php:2818
 msgid "boring"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2598
+#: includes/modules/core/inc/GroovyMenuUtils.php:2819
 msgid "collapse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2599
+#: includes/modules/core/inc/GroovyMenuUtils.php:2820
 msgid "collapse reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2600
+#: includes/modules/core/inc/GroovyMenuUtils.php:2821
 msgid "elastic"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2601
+#: includes/modules/core/inc/GroovyMenuUtils.php:2822
 msgid "elastic reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2602
+#: includes/modules/core/inc/GroovyMenuUtils.php:2823
 msgid "emphatic"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2603
+#: includes/modules/core/inc/GroovyMenuUtils.php:2824
 msgid "emphatic reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2604
+#: includes/modules/core/inc/GroovyMenuUtils.php:2825
 msgid "minus"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2605
+#: includes/modules/core/inc/GroovyMenuUtils.php:2826
 msgid "slider"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2606
+#: includes/modules/core/inc/GroovyMenuUtils.php:2827
 msgid "slider reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2607
+#: includes/modules/core/inc/GroovyMenuUtils.php:2828
 msgid "spin"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2608
+#: includes/modules/core/inc/GroovyMenuUtils.php:2829
 msgid "spin reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2609
+#: includes/modules/core/inc/GroovyMenuUtils.php:2830
 msgid "spring"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2610
+#: includes/modules/core/inc/GroovyMenuUtils.php:2831
 msgid "spring reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2611
+#: includes/modules/core/inc/GroovyMenuUtils.php:2832
 msgid "stand"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2612
+#: includes/modules/core/inc/GroovyMenuUtils.php:2833
 msgid "stand reverse"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2613
+#: includes/modules/core/inc/GroovyMenuUtils.php:2834
 msgid "squeeze"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2614
+#: includes/modules/core/inc/GroovyMenuUtils.php:2835
 msgid "vortex"
 msgstr ""
 
-#: includes/modules/core/inc/GroovyMenuUtils.php:2615
+#: includes/modules/core/inc/GroovyMenuUtils.php:2836
 msgid "vortex reverse"
 msgstr ""
 
@@ -4204,17 +4658,21 @@ msgstr ""
 msgid "Upload icon pack"
 msgstr ""
 
-#: includes/modules/fields/inc/FieldIcons.php:47
+#: includes/modules/fields/inc/FieldIcons.php:48
 msgid "Install default icon packs"
 msgstr ""
 
-#: includes/modules/fields/inc/FieldIcons.php:57
+#: includes/modules/fields/inc/FieldIcons.php:58
+msgid "Replace"
+msgstr ""
+
+#: includes/modules/fields/inc/FieldIcons.php:59
 msgid "delete"
 msgstr ""
 
 #: includes/modules/fields/inc/FieldImport.php:20
-#: includes/modules/templates/inc/Templates.php:74
-#: includes/modules/templates/inc/Templates.php:85
+#: includes/modules/templates/inc/Templates.php:80
+#: includes/modules/templates/inc/Templates.php:91
 msgid "Import"
 msgstr ""
 
@@ -4255,20 +4713,59 @@ msgstr ""
 msgid "Presets for taxonomies"
 msgstr ""
 
+#: includes/modules/menublocks/inc/MenuBlockExportHelper.php:61
+#: includes/modules/templates/inc/Templates.php:166
+msgid "Export"
+msgstr ""
+
+#: includes/modules/menublocks/inc/MenuBlockExportHelper.php:61
 #: includes/modules/menublocks/inc/MenuBlockPostType.php:59
+msgid "Menu block"
+msgstr ""
+
+#: includes/modules/menublocks/inc/MenuBlockImportHelper.php:54
+msgid "Import Menu Block"
+msgstr ""
+
+#: includes/modules/menublocks/inc/MenuBlockImportHelper.php:88
+msgid "Error. ZIP Archive error"
+msgstr ""
+
+#: includes/modules/menublocks/inc/MenuBlockImportHelper.php:675
+#, php-format
+msgid ""
+"Could not write ZIP file into directory: %s . Check folder, we "
+"need write permission."
+msgstr ""
+
+#: includes/modules/menublocks/inc/MenuBlockImportHelper.php:757
+msgid "Can not download ZIP package."
+msgstr ""
+
+#: includes/modules/menublocks/inc/MenuBlockImportHelper.php:787
+#, php-format
+msgid ""
+"ERROR %s. Could not extract demo media package. Please contact our "
+"support staff."
+msgstr ""
+
+#: includes/modules/menublocks/inc/MenuBlockImportHelper.php:804
+#, php-format
+msgid ""
+"ERROR %s. Demo media package is not download. Please contact our "
+"support staff."
+msgstr ""
+
+#: includes/modules/menublocks/inc/MenuBlockPostType.php:58
 msgid "Menu blocks"
 msgstr ""
 
 #: includes/modules/menublocks/inc/MenuBlockPostType.php:60
-msgid "Menu block"
-msgstr ""
-
 #: includes/modules/menublocks/inc/MenuBlockPostType.php:61
-#: includes/modules/menublocks/inc/MenuBlockPostType.php:62
 msgid "Add New Menu block"
 msgstr ""
 
-#: includes/modules/menublocks/inc/MenuBlockPostType.php:63
+#: includes/modules/menublocks/inc/MenuBlockPostType.php:62
 msgid "Edit Menu block"
 msgstr ""
 
@@ -4276,20 +4773,16 @@ msgstr ""
 msgid "Groovy presets library"
 msgstr ""
 
-#: includes/modules/templates/inc/Templates.php:109
+#: includes/modules/templates/inc/Templates.php:115
 msgid "New preset"
 msgstr ""
 
-#: includes/modules/templates/inc/Templates.php:131
+#: includes/modules/templates/inc/Templates.php:137
 msgid "Import preset"
 msgstr ""
 
-#: includes/modules/templates/inc/Templates.php:147
+#: includes/modules/templates/inc/Templates.php:153
 msgid "Duplicate"
-msgstr ""
-
-#: includes/modules/templates/inc/Templates.php:160
-msgid "Export"
 msgstr ""
 
 #: includes/modules/virtualpages/virtualpages.php:60
@@ -4319,90 +4812,90 @@ msgstr ""
 msgid "Frozen"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:235
+#: includes/modules/walkers/inc/AdminWalker.php:239
 msgid "sub item"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:252
+#: includes/modules/walkers/inc/AdminWalker.php:257
 msgid "Move up"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:269
+#: includes/modules/walkers/inc/AdminWalker.php:274
 msgid "Move down"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:289
+#: includes/modules/walkers/inc/AdminWalker.php:294
 msgid "Edit menu item"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:290
+#: includes/modules/walkers/inc/AdminWalker.php:295
 msgid "Edit"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:301
+#: includes/modules/walkers/inc/AdminWalker.php:306
 msgid "URL"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:310
+#: includes/modules/walkers/inc/AdminWalker.php:315
 msgid "Navigation Label (\"-\" to hide)"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:318
+#: includes/modules/walkers/inc/AdminWalker.php:323
 msgid "Title Attribute"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:328
+#: includes/modules/walkers/inc/AdminWalker.php:333
 msgid "Open link in a new tab"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:340
+#: includes/modules/walkers/inc/AdminWalker.php:345
 msgid "Menu block URL"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:350
+#: includes/modules/walkers/inc/AdminWalker.php:355
 msgid "CSS Classes (optional)"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:358
+#: includes/modules/walkers/inc/AdminWalker.php:363
 msgid "Link Relationship (XFN)"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:366
+#: includes/modules/walkers/inc/AdminWalker.php:371
 msgid "Description"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:371
+#: includes/modules/walkers/inc/AdminWalker.php:376
 msgid ""
 "The description will be displayed in the menu if the current theme "
 "supports it."
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:393
+#: includes/modules/walkers/inc/AdminWalker.php:398
 msgid "Move"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:395
+#: includes/modules/walkers/inc/AdminWalker.php:400
 msgid "Up one"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:397
+#: includes/modules/walkers/inc/AdminWalker.php:402
 msgid "Down one"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:401
+#: includes/modules/walkers/inc/AdminWalker.php:406
 msgid "To the top"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:409
+#: includes/modules/walkers/inc/AdminWalker.php:414
 #, php-format
 msgid "Original: %s"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:428
+#: includes/modules/walkers/inc/AdminWalker.php:433
 msgid "Remove"
 msgstr ""
 
-#: includes/modules/walkers/inc/AdminWalker.php:446
+#: includes/modules/walkers/inc/AdminWalker.php:451
 #: includes/modules/walkers/inc/WalkerHelper.php:84
 msgid "Cancel"
 msgstr ""
@@ -4706,23 +5199,23 @@ msgstr ""
 msgid "none"
 msgstr ""
 
-#: includes/modules/walkers/inc/WalkerNavMenu.php:957
+#: includes/modules/walkers/inc/WalkerNavMenu.php:973
 msgid "Divi Builder Conflict Prevention"
 msgstr ""
 
-#: includes/modules/walkers/inc/WalkerNavMenu.php:962
+#: includes/modules/walkers/inc/WalkerNavMenu.php:978
 msgid "Fusion Builder Conflict Prevention"
 msgstr ""
 
-#: includes/modules/walkers/inc/WalkerNavMenu.php:967
+#: includes/modules/walkers/inc/WalkerNavMenu.php:983
 msgid "Cornerstone Conflict Prevention"
 msgstr ""
 
-#: includes/modules/walkers/inc/WalkerNavMenu.php:971
+#: includes/modules/walkers/inc/WalkerNavMenu.php:987
 msgid "Elementor Conflict Prevention"
 msgstr ""
 
-#: includes/modules/walkers/inc/WalkerNavMenu.php:975
+#: includes/modules/walkers/inc/WalkerNavMenu.php:991
 msgid "Divi builder Conflict Prevention"
 msgstr ""
 
@@ -4800,16 +5293,16 @@ msgid ""
 "unpredictable behaviour"
 msgstr ""
 
-#: template/Header.php:747
+#: template/Header.php:788
 msgid "Please add image or text logo"
 msgstr ""
 
-#: template/Header.php:945
+#: template/Header.php:1037
 msgid ""
 "Please assign a menu to the primary menu location under Menus."
 msgstr ""
 
-#: template/Header.php:1034 template/Header.php:1277
+#: template/Header.php:1133 template/Header.php:1463
 msgid "My cart"
 msgstr ""
 

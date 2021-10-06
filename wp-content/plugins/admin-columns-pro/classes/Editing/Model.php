@@ -2,25 +2,48 @@
 
 namespace ACP\Editing;
 
-use AC;
+use AC\Column;
+use AC\Request;
 use ACP;
-use ACP\Editing;
 use WP_Error;
 
 /**
- * @since 4.0
+ * @deprecated 5.6
  */
-abstract class Model extends ACP\Model {
+abstract class Model implements Service {
 
 	const VIEW_BULK_EDITABLE = 'bulk_editable';
+
 	const VIEW_PLACEHOLDER = 'placeholder';
 	const VIEW_REQUIRED = 'required';
 	const VIEW_TYPE = 'type';
 
 	/**
+	 * @var Column
+	 */
+	protected $column;
+
+	/**
 	 * @var WP_Error
 	 */
-	private $error;
+	protected $error;
+
+	public function __construct( Column $column ) {
+		$this->column = $column;
+	}
+
+	public function get_view( $context ) {
+		$settings = $this->get_view_settings();
+
+		// Backwards compatibility
+		$is_bulk_editable = ! isset( $settings[ self:: VIEW_BULK_EDITABLE ] ) || false !== $settings[ self:: VIEW_BULK_EDITABLE ];
+
+		if ( Service::CONTEXT_BULK === $context && ! $is_bulk_editable ) {
+			return false;
+		}
+
+		return new View\Legacy( $this->get_view_settings() );
+	}
 
 	/**
 	 * @param WP_Error $error
@@ -44,16 +67,10 @@ abstract class Model extends ACP\Model {
 	}
 
 	/**
-	 * @return bool Check if editing is enabled by user
+	 * @return Column
 	 */
-	public function is_active() {
-		$setting = $this->column->get_setting( 'edit' );
-
-		if ( ! $setting instanceof Editing\Settings ) {
-			return false;
-		}
-
-		return $setting->is_active();
+	public function get_column() {
+		return $this->column;
 	}
 
 	/**
@@ -71,7 +88,7 @@ abstract class Model extends ACP\Model {
 	 */
 	public function get_view_settings() {
 		return [
-			'type' => 'text',
+			self::VIEW_TYPE => 'text',
 		];
 	}
 
@@ -86,27 +103,8 @@ abstract class Model extends ACP\Model {
 		return $this->column->get_raw_value( $id );
 	}
 
-	/**
-	 * @param $id
-	 *
-	 * @return mixed
-	 */
 	public function get_value( $id ) {
-		$value = $this->get_edit_value( $id );
-
-		/**
-		 * Filter the raw value, used for editability, for a column
-		 *
-		 * @param mixed     $value  Column value used for editability
-		 * @param int       $id     Post ID to get the column editability for
-		 * @param AC\Column $column Column object
-		 *
-		 * @since 4.0
-		 */
-		$value = apply_filters( 'acp/editing/value', $value, $id, $this->column );
-		$value = apply_filters( 'acp/editing/value/' . $this->column->get_type(), $value, $id, $this->column );
-
-		return $value;
+		return $this->get_edit_value( $id );
 	}
 
 	/**
@@ -114,59 +112,17 @@ abstract class Model extends ACP\Model {
 	 * @param string|array $value
 	 *
 	 * @return bool
-	 * @since 4.0
 	 */
 	abstract protected function save( $id, $value );
 
-	/**
-	 * @param int   $id
-	 * @param mixed $value
-	 *
-	 * @return bool
-	 */
-	public function update( $id, $value ) {
-		$this->error = null;
-
-		/**
-		 * Filter for changing the value before storing it to the DB
-		 *
-		 * @param mixed     $value Value send from inline edit ajax callback
-		 * @param AC\Column $column
-		 * @param int       $id
-		 *
-		 * @since 4.0
-		 */
-		$value = apply_filters( 'acp/editing/save_value', $value, $this->column, $id );
-
-		$result = $this->save( $id, $value );
-
-		if ( ! $this->error ) {
-			/**
-			 * Fires after a inline-edit successfully saved a value
-			 *
-			 * @param AC\Column $column Column instance
-			 * @param int       $id     Item ID
-			 * @param string    $value  User submitted input
-			 *
-			 * @since 4.0
-			 */
-			do_action( 'acp/editing/saved', $this->column, $id, $value );
-		}
-
-		return $result;
+	public function update( Request $request ) {
+		return $this->save( $request->get( 'id' ), $request->get( 'value' ) );
 	}
 
 	/**
 	 * Register column field settings
 	 */
 	public function register_settings() {
-		$can_bulk_edit = isset( $this->get_view_settings()[ self::VIEW_BULK_EDITABLE ] ) ? $this->get_view_settings()[ self::VIEW_BULK_EDITABLE ] : true;
-
-		$this->column->add_setting( new Editing\Settings( $this->column ) );
-
-		if ( $can_bulk_edit ) {
-			$this->column->add_setting( new Editing\Settings\BulkEditing( $this->column ) );
-		}
 	}
 
 }

@@ -3,7 +3,7 @@
  * Main class to handle mainly frontend related chained products actions
  *
  * @since       2.5.0
- *
+ * @version     1.1.0
  * @package     woocommerce-chained-products/includes/
  */
 
@@ -105,11 +105,11 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 			add_filter( 'woocommerce_widget_cart_item_visible', array( $this, 'sa_chained_item_visible' ), 10, 3 );
 			// Show Chained Products on Checkout.
 			add_filter( 'woocommerce_checkout_cart_item_visible', array( $this, 'sa_chained_item_visible' ), 10, 3 );
-			// Show Chained Products on Order Received page.
+			// Show Chained Products on Order Received page + email order items.
 			add_filter( 'woocommerce_order_item_visible', array( $this, 'sa_order_chained_item_visible' ), 10, 2 );
 
 			add_action( 'admin_footer', array( $this, 'chained_products_admin_css' ) );
-			add_action( 'sa_wcp_frontend_css', array( $this, 'chained_products_frontend_css' ) );
+			add_action( 'wp_footer', array( $this, 'chained_products_frontend_css' ) );
 
 			add_action( 'get_header', array( $this, 'sa_chained_theme_header' ) );
 
@@ -138,6 +138,9 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 			add_filter( 'woocommerce_bundled_item_raw_price', array( $this, 'sa_cp_set_bundled_item_raw_price' ), 20, 4 );
 
 			add_filter( 'get_product_addons', array( $this, 'sa_cp_ignore_addons_for_chained_items' ), 10, 1 );
+
+			// Control stock for chained parent based on chained items.
+			add_filter( 'woocommerce_product_is_in_stock', array( $this, 'chained_products_is_in_stock' ), 10, 2 );
 
 		}
 
@@ -1540,9 +1543,6 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 
 			global $wc_chained_products;
 			$bool = $wc_chained_products->is_show_chained_items();
-			if ( true === $bool && ! is_ajax() && ! is_admin() ) {
-				do_action( 'sa_wcp_frontend_css' );
-			}
 
 			return $bool;
 		}
@@ -1562,9 +1562,6 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 
 			global $wc_chained_products;
 			$bool = $wc_chained_products->is_show_chained_items();
-			if ( true === $bool && ! is_ajax() && ! is_admin() ) {
-				do_action( 'sa_wcp_frontend_css' );
-			}
 
 			return $bool;
 		}
@@ -1573,14 +1570,17 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 * Function to add css for frontend pages
 		 */
 		public function chained_products_frontend_css() {
-			?>
-			<style type="text/css" class="wcp-frontend">
-				.chained_item td.product-name {
-					font-size: 0.9em;
-					padding-left: 2em !important;
-				}
-			</style>
-			<?php
+			// TODO: mentioned classes are not available for cart widget so need to add support for cart widget.
+			if ( is_cart() || is_checkout() || is_wc_endpoint_url( 'order-received' ) ) {
+				?>
+				<style type="text/css" class="wcp-frontend">
+					.chained_item td.product-name {
+						font-size: 0.9em;
+						padding-left: 2em !important;
+					}
+				</style>
+				<?php
+			}
 		}
 
 		/**
@@ -1986,6 +1986,70 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		public function register_chained_products_shortcodes() {
 
 			add_shortcode( 'chained_products', array( $this, 'get_chained_products_html_view' ) );
+		}
+
+		/**
+		 * Modify stock status of chained parent.
+		 *
+		 * @param boolean    $is_in_stock Is in stock.
+		 * @param WC_Product $product The product object.
+		 * @return boolean
+		 */
+		public function chained_products_is_in_stock( $is_in_stock = true, $product = null ) {
+			if ( true === $is_in_stock ) {
+				$is_manage_stock = ( is_object( $product ) && is_callable( array( $product, 'get_meta' ) ) ) ? $product->get_meta( '_chained_product_manage_stock' ) : 'no';
+				if ( 'yes' === $is_manage_stock ) {
+					$chained_product_detail = ( is_object( $product ) && is_callable( array( $product, 'get_meta' ) ) ) ? $product->get_meta( '_chained_product_detail' ) : array();
+					if ( ! empty( $chained_product_detail ) ) {
+						foreach ( $chained_product_detail as $chained_product_id => $chained_product_data ) {
+							$chained_product = wc_get_product( $chained_product_id );
+							if ( is_object( $chained_product ) && is_callable( array( $chained_product, 'is_in_stock' ) ) ) {
+								$chained_is_in_stock = $chained_product->is_in_stock();
+								if ( false === $chained_is_in_stock ) {
+									$is_in_stock = $chained_is_in_stock;
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+			return $is_in_stock;
+		}
+
+		/**
+		 * Get chained parent ids.
+		 * Added compatibility for WooCommerce Waitlist for The team at PIE.
+		 *
+		 * @param integer $product_id The product id.
+		 * @return array $ids
+		 */
+		public function get_chained_parent_ids( $product_id = 0 ) {
+			global $wpdb;
+			$ids = array();
+			if ( ! empty( $product_id ) ) {
+				$parent_ids = $wpdb->get_col( // phpcs:ignore
+					$wpdb->prepare(
+						"SELECT post_id
+							FROM {$wpdb->postmeta}
+							WHERE meta_key = %s
+								AND meta_value LIKE %s",
+						'_chained_product_detail',
+						'%' . $wpdb->esc_like( $product_id ) . '%'
+					)
+				);
+				if ( ! empty( $parent_ids ) ) {
+					foreach ( $parent_ids as $parent_id ) {
+						$chained_product_detail = get_post_meta( $parent_id, '_chained_product_detail', true );
+						$chained_product_ids    = ( ! empty( $chained_product_detail ) ) ? array_keys( $chained_product_detail ) : array();
+						$chained_product_ids    = array_map( 'absint', $chained_product_ids );
+						if ( in_array( absint( $product_id ), $chained_product_ids, true ) ) {
+							$ids[] = absint( $parent_id );
+						}
+					}
+				}
+			}
+			return $ids;
 		}
 
 		/**

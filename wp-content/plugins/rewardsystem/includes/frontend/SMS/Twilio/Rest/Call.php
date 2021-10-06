@@ -80,27 +80,27 @@
  */
 class Services_Twilio_Rest_Call extends Services_Twilio_InstanceResource {
 
-    /**
-     * Hang up the call
-     */
-    public function hangup() {
-        $this->update('Status', 'completed');
-    }
+	/**
+	 * Hang up the call
+	 */
+	public function hangup() {
+		$this->update('Status', 'completed');
+	}
 
-    /**
-     * Redirect the call to a new URL
-     *
-     * :param string $url: the new URL to retrieve call flow from.
-     */
-    public function route($url) {
-        $this->update('Url', $url);
-    }
+	/**
+	 * Redirect the call to a new URL
+	 *
+	 * :param string $url: the new URL to retrieve call flow from.
+	 */
+	public function route( $url) {
+		$this->update('Url', $url);
+	}
 
-    protected function init($client, $uri) {
-        $this->setupSubresources(
-            'notifications',
-            'recordings',
-            'feedback'
-        );
-    }
+	protected function init( $client, $uri) {
+		$this->setupSubresources(
+			'notifications',
+			'recordings',
+			'feedback'
+		);
+	}
 }

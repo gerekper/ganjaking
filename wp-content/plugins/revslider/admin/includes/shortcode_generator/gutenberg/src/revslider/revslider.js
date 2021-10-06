@@ -32,8 +32,10 @@ export class RevSlider extends Component {
     // Create Block in RVS with current state
     RVS.SC.BLOCK = this.state;    
     // Open Template Library when block is added for the first time to the page
-    if(!this.props.attributes.content && !this.props.attributes.text &&  wp.data.select( 'core/editor' ).isEditedPostDirty()) { 
-      RVS.SC.openTemplateLibrary('gutenberg');
+    if(!this.props.attributes.content && !this.props.attributes.text) { 
+      // Check if in widget area, then do not open the template library automatically
+      if(wp.data.select( 'core/editor' )!= null && wp.data.select( 'core/editor' ).isEditedPostDirty()) RVS.SC.openTemplateLibrary('gutenberg');
+      else return false;
     }
     else{
       // Fallback for saved blocks with no alias attribute (< RevSlider V6.1.6)

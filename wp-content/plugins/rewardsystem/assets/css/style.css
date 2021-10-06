@@ -24,7 +24,7 @@ span.simpleshopmessage img{
     display:inline-flex !important;
 }
 .share_wrapper_default_url, .share_wrapper_static_url,.share_wrapper1, .share_wrapper11{
-    margin-top: -12px;
+    /*margin-top: -12px;*/
     background-color:#3b5998;
     /*padding:2px;*/
     color:#fff;
@@ -40,6 +40,7 @@ span.simpleshopmessage img{
     margin-top: -3px;
     margin-left: 3px;
     margin-right: 3px;
+    display:inline-block;
 }
 /*FB Button CSS - End*/
 
@@ -269,3 +270,13 @@ a.rs_custom_social_icon_a .rs_custom_ok_button,a.rs_custom_social_icon_a rs_cust
 }
 
 /*Whatsapp share Section - End*/
+
+.fp-srp-send-point{
+border:none;
+padding: 6px 10px 6px 10px;
+}
+
+.fp-srp-send-point-value{
+    min-width:250px !important;
+    height:30px !important;
+}

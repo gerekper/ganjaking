@@ -30,7 +30,9 @@ abstract class SimpleWorker implements CronWorkerInterface {
   /** @var WPFunctions */
   protected $wp;
 
-  public function __construct(WPFunctions $wp = null) {
+  public function __construct(
+    WPFunctions $wp = null
+  ) {
     if (static::TASK_TYPE === null) {
       throw new \Exception('Constant TASK_TYPE is not defined on subclass ' . get_class($this));
     }
@@ -51,6 +53,10 @@ abstract class SimpleWorker implements CronWorkerInterface {
 
   public function schedule() {
     $this->cronWorkerScheduler->schedule(static::TASK_TYPE, $this->getNextRunDate());
+  }
+
+  protected function scheduleImmediately(): void {
+    $this->cronWorkerScheduler->schedule(static::TASK_TYPE, $this->getNextRunDateImmediately());
   }
 
   public function checkProcessingRequirements() {
@@ -74,6 +80,10 @@ abstract class SimpleWorker implements CronWorkerInterface {
     $date->setISODate((int)$date->format('o'), ((int)$date->format('W')) + 1, mt_rand(1, 7));
     $date->startOfDay();
     return $date;
+  }
+
+  protected function getNextRunDateImmediately(): Carbon {
+    return Carbon::createFromTimestamp($this->wp->currentTime('timestamp'));
   }
 
   public function scheduleAutomatically() {

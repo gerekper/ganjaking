@@ -2,6 +2,7 @@
  * Module Tab
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var RSModuleTab = {
         init : function () {
             $( document ).on( 'change' , '.rs_enable_module' , this.activate_module ) ;
@@ -24,12 +25,19 @@ jQuery( function ( $ ) {
                     if ( fp_module_tab_params.section ) {
                         window.location.href = fp_module_tab_params.redirecturl ;
                     } else {
-                        if ( enable == 'yes' ) {
+                        var tabname = closest.find( '.fp-srp-tab-name' ).val();
+                        if ( 'yes' == enable ) {
                             divclass.removeClass( fp_module_tab_params.inactiveclass ).addClass( fp_module_tab_params.activeclass ) ;
-                            closest.find( '.rs_settings_link' ).show() ;
+                            closest.find( '.rs_settings_link' ).addClass( 'fp-srp-show' ) ;
+                            closest.find( '.rs_settings_link' ).removeClass( 'fp-srp-hide' ) ;
+                            $('#'+tabname).addClass( 'fp-srp-show' );
+                            $('#'+tabname).removeClass( 'fp-srp-hide' );
                         } else {
                             divclass.removeClass( fp_module_tab_params.activeclass ).addClass( fp_module_tab_params.inactiveclass ) ;
-                            closest.find( '.rs_settings_link' ).hide() ;
+                            closest.find( '.rs_settings_link' ).addClass( 'fp-srp-hide' ) ;
+                            closest.find( '.rs_settings_link' ).removeClass( 'fp-srp-show' ) ;
+                            $('#'+tabname).addClass( 'fp-srp-hide' );
+                            $('#'+tabname).removeClass( 'fp-srp-show' );
                         }
                     }
                 } else {

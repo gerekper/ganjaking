@@ -205,11 +205,14 @@ class Table extends \WP_List_Table {
 
 		$columns = [];
 
-		$columns['cb']      = '<input type="checkbox" />';
-		$columns['status']  = '';
-		$columns['subject'] = esc_html__( 'Subject', 'wp-mail-smtp-pro' );
-		$columns['from']    = esc_html__( 'From', 'wp-mail-smtp-pro' );
-		$columns['to']      = esc_html__( 'To', 'wp-mail-smtp-pro' );
+		$columns['cb']        = '<input type="checkbox" />';
+		$columns['status']    = '';
+		$columns['subject']   = esc_html__( 'Subject', 'wp-mail-smtp-pro' );
+		$columns['from']      = esc_html__( 'From', 'wp-mail-smtp-pro' );
+		$columns['to']        = esc_html__( 'To', 'wp-mail-smtp-pro' );
+		$columns['initiator'] = esc_html__( 'Source', 'wp-mail-smtp-pro' );
+		$columns['cc']        = esc_html__( 'CC', 'wp-mail-smtp-pro' );
+		$columns['bcc']       = esc_html__( 'BCC', 'wp-mail-smtp-pro' );
 
 		if ( wp_mail_smtp()->get_pro()->get_logs()->is_enabled_open_email_tracking() ) {
 			$columns['opened'] = esc_html__( 'Opened', 'wp-mail-smtp-pro' );
@@ -229,7 +232,7 @@ class Table extends \WP_List_Table {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \WPMailSMTP\Pro\Emails\Logs\Email $item Email object.
+	 * @param Email $item Email object.
 	 *
 	 * @return string Checkbox for bulk selection.
 	 */
@@ -246,7 +249,7 @@ class Table extends \WP_List_Table {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \WPMailSMTP\Pro\Emails\Logs\Email $item Email object.
+	 * @param Email $item Email object.
 	 *
 	 * @return string Email status as a dot.
 	 */
@@ -254,7 +257,7 @@ class Table extends \WP_List_Table {
 
 		switch ( $item->get_status() ) {
 			case Email::STATUS_DELIVERED:
-				return '<span title="' . esc_attr__( 'Delivered', 'wp-mail-smtp-pro' ) . '" class="dashicons dashicons-yes-alt delivered"></span>';
+				return '<span title="' . esc_attr__( 'Delivered', 'wp-mail-smtp-pro' ) . '" class="wp-mail-smtp-dashicons-yes-alt-green delivered"></span>';
 			case Email::STATUS_SENT:
 				return '<span title="' . esc_attr__( 'Sent', 'wp-mail-smtp-pro' ) . '" class="dot sent"></span>';
 			case Email::STATUS_WAITING:
@@ -269,7 +272,7 @@ class Table extends \WP_List_Table {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \WPMailSMTP\Pro\Emails\Logs\Email $item Email object.
+	 * @param Email $item Email object.
 	 *
 	 * @return string Email subject.
 	 */
@@ -316,8 +319,8 @@ class Table extends \WP_List_Table {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \WPMailSMTP\Pro\Emails\Logs\Email $item Email object.
-	 * @param string                            $link The link type to create.
+	 * @param Email  $item Email object.
+	 * @param string $link The link type to create.
 	 *
 	 * @return string
 	 */
@@ -382,7 +385,7 @@ class Table extends \WP_List_Table {
 	 * @since 1.5.0
 	 * @since 1.7.1 Added special processing for Gmail/Outlook mailers.
 	 *
-	 * @param \WPMailSMTP\Pro\Emails\Logs\Email $item Email object.
+	 * @param Email $item Email object.
 	 *
 	 * @return string Email recipient(s).
 	 */
@@ -402,7 +405,7 @@ class Table extends \WP_List_Table {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \WPMailSMTP\Pro\Emails\Logs\Email $item Email object.
+	 * @param Email $item Email object.
 	 *
 	 * @return string Email recipient(s), comma separated.
 	 */
@@ -424,11 +427,77 @@ class Table extends \WP_List_Table {
 	}
 
 	/**
+	 * Display name of the plugin/theme (or WP core) that initiated/called the `wp_mail` function.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param Email $item Email object.
+	 *
+	 * @return string
+	 */
+	public function column_initiator( $item ) {
+
+		return esc_html( $item->get_initiator_name() );
+	}
+
+	/**
+	 * Display CC email addresses.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param Email $item Email object.
+	 *
+	 * @return string Email CC recipient(s), comma separated.
+	 */
+	public function column_cc( $item ) {
+
+		$cc_emails = $item->get_people( 'cc' );
+
+		foreach ( $cc_emails as $key => $email ) {
+			$cc_emails[ $key ] = $this->generate_email_search_link( $email );
+		}
+
+		if ( ! empty( $cc_emails ) ) {
+			$cc_emails = implode( ', ', $cc_emails );
+		} else {
+			$cc_emails = esc_html__( 'N/A', 'wp-mail-smtp-pro' );
+		}
+
+		return $cc_emails;
+	}
+
+	/**
+	 * Display BCC email addresses.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param Email $item Email object.
+	 *
+	 * @return string Email BCC recipient(s), comma separated.
+	 */
+	public function column_bcc( $item ) {
+
+		$bcc_emails = $item->get_people( 'bcc' );
+
+		foreach ( $bcc_emails as $key => $email ) {
+			$bcc_emails[ $key ] = $this->generate_email_search_link( $email );
+		}
+
+		if ( ! empty( $bcc_emails ) ) {
+			$bcc_emails = implode( ', ', $bcc_emails );
+		} else {
+			$bcc_emails = esc_html__( 'N/A', 'wp-mail-smtp-pro' );
+		}
+
+		return $bcc_emails;
+	}
+
+	/**
 	 * Display whether email was opened.
 	 *
 	 * @since 2.9.0
 	 *
-	 * @param \WPMailSMTP\Pro\Emails\Logs\Email $item Email object.
+	 * @param Email $item Email object.
 	 *
 	 * @return string
 	 */
@@ -448,7 +517,7 @@ class Table extends \WP_List_Table {
 	 *
 	 * @since 2.9.0
 	 *
-	 * @param \WPMailSMTP\Pro\Emails\Logs\Email $item Email object.
+	 * @param Email $item Email object.
 	 *
 	 * @return string
 	 */
@@ -468,7 +537,7 @@ class Table extends \WP_List_Table {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param \WPMailSMTP\Pro\Emails\Logs\Email $item Email object.
+	 * @param Email $item Email object.
 	 *
 	 * @return string
 	 * @throws \Exception Date manipulation can throw an exception.

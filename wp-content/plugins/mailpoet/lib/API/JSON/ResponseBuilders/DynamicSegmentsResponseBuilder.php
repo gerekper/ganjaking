@@ -5,10 +5,11 @@ namespace MailPoet\API\JSON\ResponseBuilders;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Segments\SegmentDependencyValidator;
 use MailPoet\Segments\SegmentSubscribersRepository;
+use MailPoet\Subscribers\SubscribersCountsController;
 use MailPoet\WP\Functions;
 
 class DynamicSegmentsResponseBuilder {
@@ -23,24 +24,38 @@ class DynamicSegmentsResponseBuilder {
   /** @var SegmentSubscribersRepository */
   private $segmentSubscriberRepository;
 
+  /** @var SegmentDependencyValidator */
+  private $segmentDependencyValidator;
+
+  /** @var SubscribersCountsController */
+  private $subscribersCountsController;
+
   public function __construct(
     Functions $wp,
     SegmentSubscribersRepository $segmentSubscriberRepository,
-    SegmentsResponseBuilder $segmentsResponseBuilder
+    SegmentsResponseBuilder $segmentsResponseBuilder,
+    SegmentDependencyValidator $segmentDependencyValidator,
+    SubscribersCountsController $subscribersCountsController
   ) {
     $this->segmentsResponseBuilder = $segmentsResponseBuilder;
     $this->segmentSubscriberRepository = $segmentSubscriberRepository;
     $this->wp = $wp;
+    $this->segmentDependencyValidator = $segmentDependencyValidator;
+    $this->subscribersCountsController = $subscribersCountsController;
   }
 
   public function build(SegmentEntity $segmentEntity) {
     $data = $this->segmentsResponseBuilder->build($segmentEntity);
-    // So far we allow dynamic segments to have only one filter
-    $filter = $segmentEntity->getDynamicFilters()->first();
-    if (!$filter instanceof DynamicSegmentFilterEntity) {
-      return $data;
+    $data = $this->addMissingPluginProperties($segmentEntity, $data);
+    $dynamicFilters = $segmentEntity->getDynamicFilters();
+    $filters = [];
+    foreach ($dynamicFilters as $dynamicFilter) {
+      $filter = $dynamicFilter->getFilterData()->getData();
+      $filter['id'] = $dynamicFilter->getId();
+      $filters[] = $filter;
     }
-    return array_merge($data, $filter->getFilterData()->getData() ?? []);
+    $data['filters'] = $filters;
+    return $data;
   }
 
   public function buildForListing(array $segments): array {
@@ -51,13 +66,32 @@ class DynamicSegmentsResponseBuilder {
     return $data;
   }
 
+  private function addMissingPluginProperties(SegmentEntity $segment, array $data): array {
+    $missingPlugins = $this->segmentDependencyValidator->getMissingPluginsBySegment($segment);
+    if ($missingPlugins) {
+      $missingPlugin = reset($missingPlugins);
+      $data['is_plugin_missing'] = true;
+      $data['missing_plugin_message'] = sprintf(
+        __('Activate the %s plugin to see the number of subscribers and enable the editing of this segment.', 'mailpoet'),
+        $missingPlugin
+      );
+    } else {
+      $data['is_plugin_missing'] = false;
+      $data['missing_plugin_message'] = null;
+    }
+    return $data;
+  }
+
   private function buildListingItem(SegmentEntity $segment): array {
     $data = $this->segmentsResponseBuilder->build($segment);
+    $data = $this->addMissingPluginProperties($segment, $data);
     $data['subscribers_url'] = $this->wp->adminUrl(
       'admin.php?page=mailpoet-subscribers#/filter[segment=' . $segment->getId() . ']'
     );
-    $data['count_all'] = $this->segmentSubscriberRepository->getSubscribersCount((int)$segment->getId());
-    $data['count_subscribed'] = $this->segmentSubscriberRepository->getSubscribersCount((int)$segment->getId(), SubscriberEntity::STATUS_SUBSCRIBED);
+
+    $segmentStatisticsCount = $this->subscribersCountsController->getSegmentStatisticsCount($segment);
+    $data['count_all'] = $segmentStatisticsCount['all'];
+    $data['count_subscribed'] = $segmentStatisticsCount[SubscriberEntity::STATUS_SUBSCRIBED];
     return $data;
   }
 }

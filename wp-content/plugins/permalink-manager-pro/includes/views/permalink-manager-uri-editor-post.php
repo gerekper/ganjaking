@@ -133,8 +133,8 @@ class Permalink_Manager_URI_Editor_Post extends WP_List_Table {
 	*/
 	private function sort_data($a, $b) {
 		// Set defaults
-		$orderby = (!empty($_GET['orderby'])) ? $_GET['orderby'] : 'post_title';
-		$order = (!empty($_GET['order'])) ? $_GET['order'] : 'asc';
+		$orderby = (!empty($_GET['orderby'])) ? sanitize_sql_orderby($_GET['orderby']) : 'post_title';
+		$order = (!empty($_GET['order'])) ? sanitize_sql_orderby($_GET['order']) : 'asc';
 		$result = strnatcasecmp( $a[$orderby], $b[$orderby] );
 
 		return ($order === 'asc') ? $result : -$result;
@@ -193,7 +193,7 @@ class Permalink_Manager_URI_Editor_Post extends WP_List_Table {
 	* Search box
 	*/
 	public function search_box($text = '', $input_id = '') {
-		$search_query = (!empty($_REQUEST['s'])) ? esc_attr(wp_unslash($_REQUEST['s'])) : "";
+		$search_query = (!empty($_REQUEST['s'])) ? esc_sql(wp_unslash($_REQUEST['s'])) : "";
 
     $output = "<p class=\"search-box\">";
 		$output .= "<label class=\"screen-reader-text\" for=\"{$input_id}\">{$text}:</label>";
@@ -219,8 +219,8 @@ class Permalink_Manager_URI_Editor_Post extends WP_List_Table {
 		$per_page = $permalink_manager_options['screen-options']['per_page'];
 
 		// SQL query parameters
-		$order = (isset($_REQUEST['order']) && in_array($_REQUEST['order'], array('asc', 'desc'))) ? $_REQUEST['order'] : 'desc';
-		$orderby = (isset($_REQUEST['orderby'])) ? $_REQUEST['orderby'] : 'ID';
+		$order = (isset($_REQUEST['order']) && in_array($_REQUEST['order'], array('asc', 'desc'))) ? sanitize_sql_orderby($_REQUEST['order']) : 'desc';
+		$orderby = (isset($_REQUEST['orderby'])) ? sanitize_sql_orderby($_REQUEST['orderby']) : 'ID';
 		$offset = ($current_page - 1) * $per_page;
 		$search_query = (!empty($_REQUEST['s'])) ? esc_sql($_REQUEST['s']) : "";
 
@@ -252,6 +252,13 @@ class Permalink_Manager_URI_Editor_Post extends WP_List_Table {
 		} else {
 			$sql_parts['where'] = "WHERE ((post_status IN ($this->displayed_post_statuses) AND post_type IN ($this->displayed_post_types)) {$attachment_support}) {$extra_filters} ";
 		}
+
+		// Do not display excluded posts in Bulk URI Editor
+		$excluded_posts = (array) apply_filters('permalink_manager_excluded_post_ids', array());
+		if(!empty($excluded_posts)) {
+			$sql_parts['where'] .= sprintf("AND ID NOT IN ('%s') ", implode("', '", $excluded_posts));
+		}
+
 		$sql_parts['end'] = "ORDER BY {$orderby} {$order}";
 
 		// Prepare the SQL query

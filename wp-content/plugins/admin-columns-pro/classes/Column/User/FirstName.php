@@ -19,7 +19,10 @@ class FirstName extends AC\Column\User\FirstName
 	}
 
 	public function editing() {
-		return new Editing\Model\Meta( $this );
+		return new Editing\Service\Basic(
+			( new Editing\View\Text() )->set_clear_button( true ),
+			new Editing\Storage\User\Meta( $this->get_meta_key() )
+		);
 	}
 
 	public function filtering() {

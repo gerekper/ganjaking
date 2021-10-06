@@ -5,6 +5,9 @@ namespace ACP\Editing\Model;
 use AC;
 use ACP\Editing\Model;
 
+/**
+ * @deprecated 5.6
+ */
 class Meta extends Model {
 
 	/**

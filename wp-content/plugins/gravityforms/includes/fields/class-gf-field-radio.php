@@ -9,6 +9,15 @@ class GF_Field_Radio extends GF_Field {
 
 	public $type = 'radio';
 
+	/**
+	 * Indicates if this field supports state validation.
+	 *
+	 * @since 2.5.11
+	 *
+	 * @var bool
+	 */
+	protected $_supports_state_validation = true;
+
 	public function get_form_editor_field_title() {
 		return esc_attr__( 'Radio Buttons', 'gravityforms' );
 	}
@@ -57,6 +66,21 @@ class GF_Field_Radio extends GF_Field {
 
 	public function is_conditional_logic_supported() {
 		return true;
+	}
+
+	/**
+	 * Determines if this field will be processed by the state validation.
+	 *
+	 * @since 2.5.11
+	 *
+	 * @return bool
+	 */
+	public function is_state_validation_supported() {
+		if ( $this->enableOtherChoice && rgpost( "is_submit_{$this->formId}" ) && rgpost( "input_{$this->id}" ) == 'gf_other_choice' ) {
+			return false;
+		}
+
+		return parent::is_state_validation_supported();
 	}
 
 	public function validate( $value, $form ) {
@@ -386,12 +410,11 @@ class GF_Field_Radio extends GF_Field {
 	}
 
 	public function get_value_entry_list( $value, $entry, $field_id, $columns, $form ) {
-		return wp_kses_post( GFCommon::selection_display( $value, $this, $entry['currency'] ) );
+		return $this->get_selected_choice_output( $value, rgar( $entry, 'currency' ) );
 	}
 
 	public function get_value_entry_detail( $value, $currency = '', $use_text = false, $format = 'html', $media = 'screen' ) {
-
-		return wp_kses_post( GFCommon::selection_display( $value, $this, $currency, $use_text ) );
+		return $this->get_selected_choice_output( $value, $currency, $use_text );
 	}
 
 	/**

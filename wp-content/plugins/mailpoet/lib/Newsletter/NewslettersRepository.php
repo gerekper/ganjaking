@@ -38,7 +38,9 @@ class NewslettersRepository extends Repository {
   /** @var LoggerFactory */
   private $loggerFactory;
 
-  public function __construct(EntityManager $entityManager) {
+  public function __construct(
+    EntityManager $entityManager
+  ) {
     parent::__construct($entityManager);
     $this->loggerFactory = LoggerFactory::getInstance();
   }
@@ -128,6 +130,40 @@ class NewslettersRepository extends Repository {
       'product_purchased_in_category_emails_count' => $analyticsMap[NewsletterEntity::TYPE_AUTOMATIC][PurchasedInCategory::SLUG] ?? 0,
       'abandoned_cart_emails_count' => $analyticsMap[NewsletterEntity::TYPE_AUTOMATIC][AbandonedCart::SLUG] ?? 0,
     ];
+  }
+
+  /**
+   * @param array $segmentIds
+   * @return NewsletterEntity[]
+   */
+  public function getArchives(array $segmentIds = []) {
+    $types = [
+      NewsletterEntity::TYPE_STANDARD,
+      NewsletterEntity::TYPE_NOTIFICATION_HISTORY,
+    ];
+
+    $queryBuilder = $this->entityManager
+      ->createQueryBuilder()
+      ->select('n')
+      ->distinct()
+      ->from(NewsletterEntity::class, 'n')
+      ->innerJoin(SendingQueueEntity::class, 'sq', Join::WITH, 'sq.newsletter = n.id')
+      ->innerJoin(ScheduledTaskEntity::class, 'st', Join::WITH, 'st.id = sq.task')
+      ->where('n.type IN (:types)')
+      ->andWhere('st.status = :statusCompleted')
+      ->andWhere('n.deletedAt IS NULL')
+      ->orderBy('st.processedAt', 'DESC')
+      ->addOrderBy('st.id', 'ASC')
+      ->setParameter('types', $types)
+      ->setParameter('statusCompleted', SendingQueueEntity::STATUS_COMPLETED);
+
+    if (!empty($segmentIds)) {
+      $queryBuilder->innerJoin(NewsletterSegmentEntity::class, 'ns', Join::WITH, 'ns.newsletter = n.id')
+        ->andWhere('ns.segment IN (:segmentIds)')
+        ->setParameter('segmentIds', $segmentIds);
+    }
+
+    return $queryBuilder->getQuery()->getResult();
   }
 
   /**

@@ -1,7 +1,7 @@
 <?php
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -29,18 +29,18 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	public function __construct() {
 		global $woocommerce;
 
-		$this->id                 = 'googlpay';
+		$this->id = 'googlpayred';
 
-		if ( ! empty( $this->get_option( 'logo' ) ) ) {
-			$logo_url   = $this->get_option( 'logo' );
-			$this->icon = apply_filters( 'woocommerce_googlepay_icon', $logo_url );
+		if ( ! empty( WCRed()->get_redsys_option( 'logo', 'googlpayred' ) ) ) {
+			$logo_url   = WCRed()->get_redsys_option( 'logo', 'googlpayred' );
+			$this->icon = apply_filters( 'woocommerce_googlpayred_icon', $logo_url );
 		} else {
-			$this->icon = apply_filters( 'woocommerce_googlepay_icon', REDSYS_PLUGIN_URL_P . 'assets/images/googlepay.png' );
+			$this->icon = apply_filters( 'woocommerce_googlpayred_icon', REDSYS_PLUGIN_URL_P . 'assets/images/googlepay.png' );
 		}
 
 		$this->method_title       = __( 'Checkout.com', 'wc_checkout_com' );
-		$this->method_description = __( 'The Checkout.com extension allows shop owners to process online payments through the <a href=\"https://www.checkout.com\">Checkout.com Payment Gateway.</a>', 'wc_checkout_com');
-		$this->title              = __("Google Pay", 'wc_checkout_com');
+		$this->method_description = __( 'The Checkout.com extension allows shop owners to process online payments through the <a href=\"https://www.checkout.com\">Checkout.com Payment Gateway.</a>', 'wc_checkout_com' );
+		$this->title              = __( 'Google Pay', 'wc_checkout_com' );
 		$this->has_fields         = true;
 		$this->log                = new WC_Logger();
 
@@ -101,7 +101,8 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 			<p><?php _e( 'GooglePay works by sending the user to your bank TPV to enter their payment information.', 'woocommerce-redsys' ); ?></p>
 			<?php
 			echo WCRed()->return_help_notice();
-			if ( class_exists( 'SitePress' ) ) { ?>
+			if ( class_exists( 'SitePress' ) ) {
+				?>
 				<div class="updated fade"><h4><?php _e( 'Attention! WPML detected.', 'woocommerce-redsys' ); ?></h4>
 					<p><?php _e( 'The Gateway will be shown in the customer language. The option "Language Gateway" is not taken into consideration', 'woocommerce-redsys' ); ?></p>
 				</div>
@@ -113,21 +114,25 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 					$this->generate_settings_html();
 					?>
 				</table><!--/.form-table-->
-			<?php else :
+				<?php
+			else :
 				include_once REDSYS_PLUGIN_DATA_PATH_P . 'allowed-currencies.php';
-				$currencies = WCRed()->allowed_currencies();
+				$currencies          = WCRed()->allowed_currencies();
 				$formated_currencies = '';
 
 				foreach ( $currencies as $currency ) {
 					$formated_currencies .= $currency . ', ';
 				}
 				?>
-				<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'woocommerce-redsys' ); ?></strong>: <?php esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
-					echo $formated_currencies; ?>
+				<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'woocommerce-redsys' ); ?></strong>: 
+																	   <?php
+																		esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
+																		echo $formated_currencies;
+																		?>
 				</p></div>
 				<?php
 			endif;
-		}
+	}
 	/**
 	 * Initialise Gateway Settings Form Fields
 	 *
@@ -141,44 +146,44 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	 */
 	function init_form_fields() {
 		$this->form_fields = array(
-			'enabled'            => array(
+			'enabled'           => array(
 				'title'   => __( 'Enable/Disable', 'woocommerce-redsys' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable GooglePay', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
-			'title'              => array(
+			'title'             => array(
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'GooglePay', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'description'        => array(
+			'description'       => array(
 				'title'       => __( 'Description', 'woocommerce-redsys' ),
 				'type'        => 'textarea',
 				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Pay via GooglePay; you can pay with your credit card.', 'woocommerce-redsys' ),
 			),
-			'commercename'       => array(
+			'commercename'      => array(
 				'title'       => __( 'Commerce Name', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Commerce Name', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'customer'           => array(
+			'customer'          => array(
 				'title'       => __( 'Commerce number (FUC)', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Commerce number (FUC) provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'terminal'           => array(
+			'terminal'          => array(
 				'title'       => __( 'Terminal number', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Terminal number provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'secretsha256'       => array(
+			'secretsha256'      => array(
 				'title'       => __( 'Encryption secret passphrase SHA-256', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Encryption secret passphrase SHA-256 provided by your bank.', 'woocommerce-redsys' ),
@@ -201,7 +206,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 					'returnnocancel' => __( 'Don\'t cancel the order and return to Checkout page', 'woocommerce-redsys' ),
 				),
 			),
-			'debug'              => array(
+			'debug'             => array(
 				'title'       => __( 'Debug Log', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Enable logging', 'woocommerce-redsys' ),
@@ -209,10 +214,10 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 				'description' => __( 'Log GooglePay events, such as notifications requests, inside <code>WooCommerce > Status > Logs > googlepay-{date}-{number}.log</code>', 'woocommerce-redsys' ),
 			),
 		);
-		$redsyslanguages = WCRed()->get_redsys_languages();
-	
-		foreach( $redsyslanguages as $redsyslanguage => $valor ) {
-			$this->form_fields['googlepaylanguage']['options'][$redsyslanguage] = $valor;
+		$redsyslanguages   = WCRed()->get_redsys_languages();
+
+		foreach ( $redsyslanguages as $redsyslanguage => $valor ) {
+			$this->form_fields['googlepaylanguage']['options'][ $redsyslanguage ] = $valor;
 		}
 	}
 
@@ -222,18 +227,18 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_error_by_code( $error_code ) {
-		
+
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'googlepay', ' ' );
 			$this->log->add( 'googlepay', '/****************************/' );
-			$this->log->add( 'googlepay', '     DS Error Code: ' .  $error_code );
+			$this->log->add( 'googlepay', '     DS Error Code: ' . $error_code );
 			$this->log->add( 'googlepay', '/****************************/' );
 			$this->log->add( 'googlepay', ' ' );
 		}
-		
+
 		$ds_errors = array();
 		$ds_errors = WCRed()->get_ds_error();
-		
+
 		if ( ! empty( $error_code ) ) {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'googlepay', ' ' );
@@ -262,14 +267,14 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_currencies() {
-		
+
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'googlepay', ' ' );
 			$this->log->add( 'googlepay', '/******************************/' );
@@ -277,9 +282,9 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'googlepay', '/******************************/' );
 			$this->log->add( 'googlepay', ' ' );
 		}
-		
+
 		include_once REDSYS_PLUGIN_DATA_PATH_P . 'currencies.php';
-		
+
 		if ( 'yes' === $this->debug ) {
 			if ( function_exists( 'redsys_return_currencies' ) ) {
 				$this->log->add( 'googlepay', ' ' );
@@ -301,12 +306,12 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	* Get redsys Args for passing to the tpv
-	*
-	* @access public
-	* @param mixed $order
-	* @return array
-	*/
+	 * Get redsys Args for passing to the tpv
+	 *
+	 * @access public
+	 * @param mixed $order
+	 * @return array
+	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -320,7 +325,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 		$transaction_id2  = WCRed()->prepare_order_number( $order_id );
 		$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
 		$transaction_type = '0';
-		$secretsha256     = utf8_decode(  $this->secretsha256 );
+		$secretsha256     = utf8_decode( $this->secretsha256 );
 		if ( class_exists( 'SitePress' ) ) {
 			$gatewaylanguage = WCRed()->get_lang_code( ICL_LANGUAGE_CODE );
 		} elseif ( $this->googlepaylanguage ) {
@@ -328,7 +333,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 		} else {
 			$gatewaylanguage = '001';
 		}
-	
+
 		if ( $this->woogooglepayurlko ) {
 			if ( $this->woogooglepayurlko == 'returncancel' ) {
 				$$returnfromgooglepay = $order->get_cancel_order_url();
@@ -341,42 +346,43 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 		$DSMerchantTerminal = $this->terminal;
 
 		// redsys Args
-		$miObj = new RedsysAPI;
-		$miObj->setParameter( "DS_MERCHANT_AMOUNT", $order_total_sign );
-		$miObj->setParameter( "DS_MERCHANT_ORDER", $transaction_id2 );
-		$miObj->setParameter( "DS_MERCHANT_MERCHANTCODE", $this->customer );
-		$miObj->setParameter( "DS_MERCHANT_CURRENCY", $currency_codes[ get_woocommerce_currency() ] );
-		$miObj->setParameter( "DS_MERCHANT_TRANSACTIONTYPE", $transaction_type );
-		$miObj->setParameter( "DS_MERCHANT_TERMINAL", $DSMerchantTerminal );
-		$miObj->setParameter( "DS_MERCHANT_MERCHANTURL", $this->notify_url );
-		$miObj->setParameter( "DS_MERCHANT_URLOK", add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-		$miObj->setParameter( "DS_MERCHANT_URLKO", $returnfromgooglepay );
-		$miObj->setParameter( "DS_CONSUMERLANGUAGE", $gatewaylanguage );
-		$miObj->setParameter( "DS_MERCHANT_PRODUCTDESCRIPTION", __( 'Order' , 'woocommerce-redsys' ) . ' ' .  $order->get_order_number() );
-		$miObj->setParameter( "DS_MERCHANT_MERCHANTNAME", $this->commercename );
-		$miObj->setParameter( "Ds_Merchant_PayMethods", 'N' );
-		
-		$version         = 'HMAC_SHA256_V1';
-		$request         = '';
-		$params          = $miObj->createMerchantParameters();
-		$signature       = $miObj->createMerchantSignature( $secretsha256 );
+		$miObj = new RedsysAPI();
+		$miObj->setParameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
+		$miObj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
+		$miObj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
+		$miObj->setParameter( 'DS_MERCHANT_CURRENCY', $currency_codes[ get_woocommerce_currency() ] );
+		$miObj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
+		$miObj->setParameter( 'DS_MERCHANT_TERMINAL', $DSMerchantTerminal );
+		$miObj->setParameter( 'DS_MERCHANT_MERCHANTURL', $this->notify_url );
+		$miObj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+		$miObj->setParameter( 'DS_MERCHANT_URLKO', $returnfromgooglepay );
+		$miObj->setParameter( 'DS_CONSUMERLANGUAGE', $gatewaylanguage );
+		$miObj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', __( 'Order', 'woocommerce-redsys' ) . ' ' . $order->get_order_number() );
+		$miObj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
+		$miObj->setParameter( 'Ds_Merchant_PayMethods', 'N' );
+
+		$version        = 'HMAC_SHA256_V1';
+		$request        = '';
+		$params         = $miObj->createMerchantParameters();
+		$signature      = $miObj->createMerchantSignature( $secretsha256 );
 		$googlepay_args = array(
 			'Ds_SignatureVersion'   => $version,
 			'Ds_MerchantParameters' => $params,
 			'Ds_Signature'          => $signature,
 		);
-		if ( 'yes' == $this->debug )
-		$this->log->add( 'googlepay', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r($googlepay_args, true) );
+		if ( 'yes' == $this->debug ) {
+			$this->log->add( 'googlepay', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $googlepay_args, true ) );
+		}
 		$googlepay_args = apply_filters( 'woocommerce_googlepay_args', $googlepay_args );
 		return $googlepay_args;
 	}
 	/**
-	* Generate the redsys form
-	*
-	* @access public
-	* @param mixed $order_id
-	* @return string
-	*/
+	 * Generate the redsys form
+	 *
+	 * @access public
+	 * @param mixed $order_id
+	 * @return string
+	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -384,16 +390,17 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	 */
 	function generate_googlepay_form( $order_id ) {
 		global $woocommerce;
-		
+
 		$usesecretsha256 = $this->secretsha256;
 		$order           = new WC_Order( $order_id );
-		$googlepay_adr  = $this->liveurl . '?';
-		$googlepay_args = $this->get_googlepay_args( $order );
+		$googlepay_adr   = $this->liveurl . '?';
+		$googlepay_args  = $this->get_googlepay_args( $order );
 		$form_inputs     = '';
 		foreach ( $googlepay_args as $key => $value ) {
 			$form_inputs .= '<input type="hidden" name="' . $key . '" value="' . esc_attr( $value ) . '" />';
 		}
-		wc_enqueue_js( '
+		wc_enqueue_js(
+			'
 			jQuery("body").block({
 				message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/select2-spinner.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to GooglePay to make the payment.', 'woocommerce-redsys' ) . '",
 				overlayCSS:
@@ -412,52 +419,53 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 				}
 			});
 			jQuery("#submit_googlepay_payment_form").click();
-			' );
-			return '<form action="'.esc_url( $googlepay_adr ).'" method="post" id="googlepay_payment_form" target="_top">
-			' . $form_inputs . '<input type="submit" class="button-alt" id="submit_googlepay_payment_form" value="'.__( 'Pay with GooglePay account', 'woocommerce-redsys' ).'" /> <a class="button cancel" href="'.esc_url( $order->get_cancel_order_url() ).'">'.__( 'Cancel order &amp; restore cart', 'woocommerce-redsys' ).'</a>
+			'
+		);
+			return '<form action="' . esc_url( $googlepay_adr ) . '" method="post" id="googlepay_payment_form" target="_top">
+			' . $form_inputs . '<input type="submit" class="button-alt" id="submit_googlepay_payment_form" value="' . __( 'Pay with GooglePay account', 'woocommerce-redsys' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'woocommerce-redsys' ) . '</a>
 		</form>';
 	}
-	
+
 	/**
-	* Process the payment and return the result
-	*
-	* @access public
-	* @param int $order_id
-	* @return array
-	*/
+	 * Process the payment and return the result
+	 *
+	 * @access public
+	 * @param int $order_id
+	 * @return array
+	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function process_payment( $order_id ) {
-		
+
 		$order = new WC_Order( $order_id );
 		return array(
-			'result'    => 'success',
-			'redirect'  => $order->get_checkout_payment_url( true ),
+			'result'   => 'success',
+			'redirect' => $order->get_checkout_payment_url( true ),
 		);
 	}
-	
+
 	/**
-	* Output for the order received page.
-	*
-	* @access public
-	* @return void
-	*/
+	 * Output for the order received page.
+	 *
+	 * @access public
+	 * @return void
+	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function receipt_page( $order ) {
-		echo '<p>'.__( 'Thank you for your order, please click the button below to pay with GooglePay.', 'woocommerce-redsys' ).'</p>';
+		echo '<p>' . __( 'Thank you for your order, please click the button below to pay with GooglePay.', 'woocommerce-redsys' ) . '</p>';
 		echo $this->generate_googlepay_form( $order );
 	}
-	
+
 	/**
-	* Check redsys IPN validity
-	**/
+	 * Check redsys IPN validity
+	 **/
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -465,18 +473,18 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	 */
 	function check_ipn_request_is_valid() {
 		global $woocommerce;
-		
+
 		if ( 'yes' == $this->debug ) {
 			$this->log->add( 'googlepay', 'HTTP Notification received: ' . print_r( $_POST, true ) );
 		}
 		$usesecretsha256 = $this->secretsha256;
 		if ( $usesecretsha256 ) {
-			$version     = $_POST["Ds_SignatureVersion"];
-			$data        = $_POST["Ds_MerchantParameters"];
-			$remote_sign = $_POST["Ds_Signature"];
-			$miObj       = new RedsysAPI;
+			$version     = $_POST['Ds_SignatureVersion'];
+			$data        = $_POST['Ds_MerchantParameters'];
+			$remote_sign = $_POST['Ds_Signature'];
+			$miObj       = new RedsysAPI();
 			$localsecret = $miObj->createMerchantSignatureNotif( $usesecretsha256, $data );
-			
+
 			if ( $localsecret == $remote_sign ) {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'googlepay', 'Received valid notification from GooglePay' );
@@ -506,37 +514,37 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 			}
 		}
 	}
-	
+
 	/**
-	* Check for Servired/RedSys HTTP Notification
-	*
-	* @access public
-	* @return void
-	*/
+	 * Check for Servired/RedSys HTTP Notification
+	 *
+	 * @access public
+	 * @return void
+	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function check_ipn_response() {
-		
+
 		@ob_clean();
 		$_POST = stripslashes_deep( $_POST );
 		if ( $this->check_ipn_request_is_valid() ) {
 			header( 'HTTP/1.1 200 OK' );
-			do_action( "valid-googlepay-standard-ipn-request", $_POST );
+			do_action( 'valid-googlepay-standard-ipn-request', $_POST );
 		} else {
 			wp_die( 'GooglePay Notification Request Failure' );
 		}
 	}
-	
+
 	/**
-	* Successful Payment!
-	*
-	* @access public
-	* @param array $posted
-	* @return void
-	*/
+	 * Successful Payment!
+	 *
+	 * @access public
+	 * @param array $posted
+	 * @return void
+	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -544,48 +552,48 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 	 */
 	function successful_request( $posted ) {
 		global $woocommerce;
-		
-		$version            = $_POST["Ds_SignatureVersion"];
-		$data               = $_POST["Ds_MerchantParameters"];
-		$remote_sign        = $_POST["Ds_Signature"];
-		$miObj              = new RedsysAPI;
-		
-		$decodedata         = $miObj->decodeMerchantParameters($data);
-		$localsecret        = $miObj->createMerchantSignatureNotif($usesecretsha256,$data);
-		$total              = $miObj->getParameter('Ds_Amount');
-		$ordermi            = $miObj->getParameter('Ds_Order');
-		$dscode             = $miObj->getParameter('Ds_MerchantCode');
-		$currency_code      = $miObj->getParameter('Ds_Currency');
-		$response           = $miObj->getParameter('Ds_Response');
-		$id_trans           = $miObj->getParameter('Ds_AuthorisationCode');
-		$dsdate             = $miObj->getParameter('Ds_Date');
-		$dshour             = $miObj->getParameter('Ds_Hour');
-		$dstermnal          = $miObj->getParameter('Ds_Terminal');
-		$dsmerchandata      = $miObj->getParameter('Ds_MerchantData');
-		$dssucurepayment    = $miObj->getParameter('Ds_SecurePayment');
-		$dscardcountry      = $miObj->getParameter('Ds_Card_Country');
-		$dsconsumercountry  = $miObj->getParameter('Ds_ConsumerLanguage');
-		$dscargtype         = $miObj->getParameter('Ds_Card_Type');
-		$order1             = $ordermi;
-		$order2             = WCRed()->clean_order_number( $order1 );
-		$order              = WCRed()->get_order( (int)$order2 );
-		
+
+		$version     = $_POST['Ds_SignatureVersion'];
+		$data        = $_POST['Ds_MerchantParameters'];
+		$remote_sign = $_POST['Ds_Signature'];
+		$miObj       = new RedsysAPI();
+
+		$decodedata        = $miObj->decodeMerchantParameters( $data );
+		$localsecret       = $miObj->createMerchantSignatureNotif( $usesecretsha256, $data );
+		$total             = $miObj->getParameter( 'Ds_Amount' );
+		$ordermi           = $miObj->getParameter( 'Ds_Order' );
+		$dscode            = $miObj->getParameter( 'Ds_MerchantCode' );
+		$currency_code     = $miObj->getParameter( 'Ds_Currency' );
+		$response          = $miObj->getParameter( 'Ds_Response' );
+		$id_trans          = $miObj->getParameter( 'Ds_AuthorisationCode' );
+		$dsdate            = $miObj->getParameter( 'Ds_Date' );
+		$dshour            = $miObj->getParameter( 'Ds_Hour' );
+		$dstermnal         = $miObj->getParameter( 'Ds_Terminal' );
+		$dsmerchandata     = $miObj->getParameter( 'Ds_MerchantData' );
+		$dssucurepayment   = $miObj->getParameter( 'Ds_SecurePayment' );
+		$dscardcountry     = $miObj->getParameter( 'Ds_Card_Country' );
+		$dsconsumercountry = $miObj->getParameter( 'Ds_ConsumerLanguage' );
+		$dscargtype        = $miObj->getParameter( 'Ds_Card_Type' );
+		$order1            = $ordermi;
+		$order2            = WCRed()->clean_order_number( $order1 );
+		$order             = WCRed()->get_order( (int) $order2 );
+
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepay', 'Ds_Amount: ' . $total . ', Ds_Order: ' . $order1 . ',  Ds_MerchantCode: '. $dscode . ', Ds_Currency: ' . $currency_code . ', Ds_Response: ' . $response . ', Ds_AuthorisationCode: ' . $id_trans . ', $order2: ' . $order2 );
+			$this->log->add( 'googlepay', 'Ds_Amount: ' . $total . ', Ds_Order: ' . $order1 . ',  Ds_MerchantCode: ' . $dscode . ', Ds_Currency: ' . $currency_code . ', Ds_Response: ' . $response . ', Ds_AuthorisationCode: ' . $id_trans . ', $order2: ' . $order2 );
 		}
-		
+
 		$response = intval( $response );
-		if ( $response  <= 99 ) {
-			//authorized
-			$order_total_compare = number_format( $order->get_total() , 2 , '' , '' );
+		if ( $response <= 99 ) {
+			// authorized
+			$order_total_compare = number_format( $order->get_total(), 2, '', '' );
 			if ( $order_total_compare != $total ) {
-				//amount does not match
+				// amount does not match
 				if ( 'yes' == $this->debug ) {
-					$this->log->add( 'googlepay', 'Payment error: Amounts do not match (order: '.$order_total_compare.' - received: ' . $total . ')' );
+					$this->log->add( 'googlepay', 'Payment error: Amounts do not match (order: ' . $order_total_compare . ' - received: ' . $total . ')' );
 				}
-				
+
 				// Put this order on-hold for manual checking
-				$order->update_status( 'on-hold', sprintf( __( 'Validation error: Order vs. Notification amounts do not match (order: %s - received: %s).', 'woocommerce-redsys' ), $order_total_compare , $total ) );
+				$order->update_status( 'on-hold', sprintf( __( 'Validation error: Order vs. Notification amounts do not match (order: %1$s - received: %2$s).', 'woocommerce-redsys' ), $order_total_compare, $total ) );
 				exit;
 			}
 			$authorisation_code = $id_trans;
@@ -593,24 +601,24 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 				update_post_meta( $order->id, '_payment_order_number_googlepay', $order1 );
 			}
 			if ( ! empty( $dsdate ) ) {
-				update_post_meta( $order->id, '_payment_date_redsys',   $dsdate );
+				update_post_meta( $order->id, '_payment_date_redsys', $dsdate );
 			}
 			if ( ! empty( $dshour ) ) {
-				update_post_meta( $order->id, '_payment_hour_redsys',   $dshour );
+				update_post_meta( $order->id, '_payment_hour_redsys', $dshour );
 			}
 			if ( ! empty( $id_trans ) ) {
 				update_post_meta( $order->id, '_authorisation_code_redsys', $authorisation_code );
 			}
 			if ( ! empty( $dscardcountry ) ) {
-				update_post_meta( $order->id, '_card_country_googlepay',   $dscardcountry );
+				update_post_meta( $order->id, '_card_country_googlepay', $dscardcountry );
 			}
 			if ( ! empty( $dscargtype ) ) {
-				update_post_meta( $order->id, '_card_type_googlepay',   $dscargtype == 'C' ? 'Credit' : 'Debit' );
+				update_post_meta( $order->id, '_card_type_googlepay', $dscargtype == 'C' ? 'Credit' : 'Debit' );
 			}
-			
+
 			// Payment completed
 			$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
-			$order->add_order_note( __( 'Authorisation code: ',  'woocommerce-redsys' ) . $authorisation_code );
+			$order->add_order_note( __( 'Authorisation code: ', 'woocommerce-redsys' ) . $authorisation_code );
 			$order->payment_complete();
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'googlepay', 'Payment complete.' );
@@ -618,7 +626,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 		} else {
 			$ds_responses = WCRed()->get_ds_response();
 			$ds_errors    = WCRed()->get_ds_error();
-			
+
 			if ( ! empty( $ds_responses ) ) {
 				foreach ( $ds_responses as $ds_response => $value ) {
 					if ( $ds_response === $response ) {
@@ -655,7 +663,7 @@ class WC_Gateway_GooglePay_Redsys extends WC_Payment_Gateway {
 
 			// Order cancelled.
 			$order->update_status( 'cancelled', __( 'Cancelled by GooglePay', 'woocommerce-redsys' ) );
-			$order->add_order_note( __('Order canceled by GooglePay', 'woocommerce-redsys') );
+			$order->add_order_note( __( 'Order canceled by GooglePay', 'woocommerce-redsys' ) );
 			WC()->cart->empty_cart();
 		}
 	}

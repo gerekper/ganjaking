@@ -16,6 +16,13 @@ class NativeTaxonomy extends AC\Column
 		$this->set_original( true );
 	}
 
+	// Overwrite the Edit setting with a new dependent setting
+	public function register_settings() {
+		parent::register_settings();
+
+		$this->add_setting( ( new Editing\Settings\Factory\Taxonomy( $this ) )->create() );
+	}
+
 	public function get_taxonomy() {
 		return str_replace( 'taxonomy-', '', $this->get_type() );
 	}
@@ -25,7 +32,7 @@ class NativeTaxonomy extends AC\Column
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Taxonomy( $this );
+		return new Editing\Service\Post\Taxonomy( $this->get_taxonomy(), 'on' === $this->get_option( 'enable_term_creation' ) );
 	}
 
 	public function sorting() {

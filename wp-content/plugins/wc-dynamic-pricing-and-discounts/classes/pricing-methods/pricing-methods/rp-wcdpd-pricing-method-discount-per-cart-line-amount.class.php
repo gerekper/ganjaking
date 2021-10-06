@@ -49,7 +49,7 @@ class RP_WCDPD_Pricing_Method_Discount_Per_Cart_Line_Amount extends RP_WCDPD_Pri
      */
     public function get_label()
     {
-        return __('Fixed discount per cart line', 'rp_wcdpd');
+        return esc_html__('Fixed discount per cart line', 'rp_wcdpd');
     }
 
     /**

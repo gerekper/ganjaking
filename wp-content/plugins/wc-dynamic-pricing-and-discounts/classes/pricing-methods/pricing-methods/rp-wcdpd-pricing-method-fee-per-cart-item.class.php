@@ -45,7 +45,7 @@ abstract class RP_WCDPD_Pricing_Method_Fee_Per_Cart_Item extends RP_WCDPD_Pricin
      */
     public function get_group_label()
     {
-        return __('Fee Per Cart Item', 'rp_wcdpd');
+        return esc_html__('Fee Per Cart Item', 'rp_wcdpd');
     }
 
 

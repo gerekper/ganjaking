@@ -61,8 +61,8 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		if(time() - $last_check > 1296000 || $force == true){ //30 days
 			update_option('revslider-library-check', time());
 
-			$validated = 'true';
-			$code = '073e077f-b600-41e4-8b74-767431910d31';
+			$validated = get_option('revslider-valid', 'false');
+			$code = ($validated == 'false') ? '' : get_option('revslider-code', '');
 			$hash = get_option('revslider-library-hash', '');
 			$rattr = array(
 				'library_version' => urlencode(self::LIBRARY_VERSION),
@@ -180,7 +180,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 		$path		= (in_array($type, $this->allowed_types, true)) ? $this->object_thumb_path : $this->object_orig_path;
 		$file		= $this->upload_dir['basedir'] . $path . $object_handle;
 		$url_file	= $this->upload_dir['baseurl'] . $path . $object_handle;
-		$validated	= 'true';
+		$validated	= get_option('revslider-valid', 'false');
 		$_download	= !is_file($file); //check if object thumb is already downloaded
 
 		if($validated == 'false' && !in_array($type, $this->allowed_types, true)){
@@ -200,7 +200,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 						$error = __('Plugin not activated', 'revslider');
 					}else{
 						$rslb	= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
-						$code	= '073e077f-b600-41e4-8b74-767431910d31';
+						$code	= ($validated == 'false') ? '' : get_option('revslider-code', '');
 						$rattr	= array(
 							'library_version' => urlencode(self::LIBRARY_VERSION),
 							'version'	=> urlencode(RS_REVISION),
@@ -323,10 +323,12 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 
 		$layers_data = false;
 		if($curl !== false){
-			$validated = true;
+			$validated = get_option('revslider-valid', 'false');
 
-			
-				$code	= '073e077f-b600-41e4-8b74-767431910d31';
+			if($validated == 'false'){
+				$error = __('Plugin not activated', 'revslider');
+			}else{
+				$code	= ($validated == 'false') ? '' : get_option('revslider-code', '');
 				$rattr	= array(
 					'code'		=> urlencode($code),
 					'library_version' => urlencode(self::LIBRARY_VERSION),
@@ -354,7 +356,7 @@ class RevSliderObjectLibrary extends RevSliderFunctions {
 					$layers_data = false;
 					$error = __('Error downloading layers data', 'revslider');
 				}
-
+			}
 		}
 
 		//could not connect to server

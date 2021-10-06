@@ -17,10 +17,10 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 		<thead>
 			<tr>
 				<th class="product-name">
-					<?php _e( 'Product', 'wcopc' ); ?>
-					<div class="product-quantity"><?php _e( 'Quantity', 'wcopc' ); ?></div>
+					<?php esc_html_e( 'Product', 'wcopc' ); ?>
+					<div class="product-quantity"><?php esc_html_e( 'Quantity', 'wcopc' ); ?></div>
 				</th>
-				<th class="product-total"><?php _e( 'Total', 'wcopc' ); ?></th>
+				<th class="product-total"><?php esc_html_e( 'Total', 'wcopc' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -32,13 +32,13 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 
 					if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_checkout_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 						?>
-						<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item opc_cart_item', $cart_item, $cart_item_key ) ); ?>" data-add_to_cart="<?php echo $_product->variation_id ? $_product->variation_id : $_product->id; ?>" data-update_key="<?php echo $cart_item_key; ?>">
+						<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item opc_cart_item', $cart_item, $cart_item_key ) ); ?>" data-add_to_cart="<?php echo esc_attr( $_product->variation_id ? $_product->variation_id : $_product->id ); ?>" data-update_key="<?php echo esc_attr( $cart_item_key ); ?>">
 							<td class="product-name">
 								<div class="product-remove" >
-									<?php echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( wcopc_get_cart_remove_url( $cart_item_key ) ), __( 'Remove this item', 'wcopc' ) ), $cart_item_key ); ?>
+									<?php echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( wcopc_get_cart_remove_url( $cart_item_key ) ), esc_attr__( 'Remove this item', 'wcopc' ) ), $cart_item_key ); ?>
 								</div>
 								<div class="product-details" >
-									<?php echo apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key ); ?>
+									<?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key ) ); ?>
 									<?php echo wcopc_get_formatted_cart_item_data( $cart_item ); ?>
 								</div>
 								<div class="product-quantity">
@@ -72,7 +72,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 		<tfoot>
 
 			<tr class="cart-subtotal">
-				<th><?php _e( 'Cart Subtotal', 'wcopc' ); ?></th>
+				<th><?php esc_html_e( 'Cart Subtotal', 'wcopc' ); ?></th>
 				<td><?php wc_cart_totals_subtotal_html(); ?></td>
 			</tr>
 
@@ -103,7 +103,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 			<?php if ( $tax_display_mode === 'excl' ) : ?>
 				<?php if ( get_option( 'woocommerce_tax_total_display' ) === 'itemized' ) : ?>
 					<?php foreach ( WC()->cart->get_tax_totals() as $code => $tax ) : ?>
-						<tr class="tax-rate tax-rate-<?php echo sanitize_title( $code ); ?>">
+						<tr class="tax-rate tax-rate-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
 							<th><?php echo esc_html( $tax->label ); ?></th>
 							<td><?php echo wp_kses_post( $tax->formatted_amount ); ?></td>
 						</tr>
@@ -126,7 +126,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 			<?php do_action( 'woocommerce_review_order_before_order_total' ); ?>
 
 			<tr class="order-total">
-				<th><?php _e( 'Order Total', 'wcopc' ); ?></th>
+				<th><?php esc_html_e( 'Order Total', 'wcopc' ); ?></th>
 				<td><?php wc_cart_totals_order_total_html(); ?></td>
 			</tr>
 
@@ -155,12 +155,12 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 
 					foreach ( $available_gateways as $gateway ) {
 						?>
-						<li class="payment_method_<?php echo $gateway->id; ?>">
-							<input id="payment_method_<?php echo $gateway->id; ?>" type="radio" class="input-radio" name="payment_method" value="<?php echo esc_attr( $gateway->id ); ?>" <?php checked( $gateway->chosen, true ); ?> data-order_button_text="<?php echo esc_attr( $gateway->order_button_text ); ?>" />
-							<label for="payment_method_<?php echo $gateway->id; ?>"><?php echo $gateway->get_title(); ?> <?php echo $gateway->get_icon(); ?></label>
+						<li class="payment_method_<?php echo esc_attr( $gateway->id ); ?>">
+							<input id="payment_method_<?php echo esc_attr( $gateway->id ); ?>" type="radio" class="input-radio" name="payment_method" value="<?php echo esc_attr( $gateway->id ); ?>" <?php checked( $gateway->chosen, true ); ?> data-order_button_text="<?php echo esc_attr( $gateway->order_button_text ); ?>" />
+							<label for="payment_method_<?php echo esc_attr( $gateway->id ); ?>"><?php echo wp_kses_post( $gateway->get_title() ); ?> <?php echo $gateway->get_icon(); ?></label>
 							<?php
 								if ( $gateway->has_fields() || $gateway->get_description() ) :
-									echo '<div class="payment_box payment_method_' . $gateway->id . '" ' . ( $gateway->chosen ? '' : 'style="display:none;"' ) . '>';
+									echo '<div class="payment_box payment_method_' . esc_attr( $gateway->id ) . '" ' . ( $gateway->chosen ? '' : 'style="display:none;"' ) . '>';
 									$gateway->payment_fields();
 									echo '</div>';
 								endif;
@@ -171,9 +171,9 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 				} else {
 
 					if ( ! WC()->customer->get_country() )
-						$no_gateways_message = __( 'Please fill in your details above to see available payment methods.', 'wcopc' );
+						$no_gateways_message = esc_html__( 'Please fill in your details above to see available payment methods.', 'wcopc' );
 					else
-						$no_gateways_message = __( 'Sorry, it seems that there are no available payment methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'wcopc' );
+						$no_gateways_message = esc_html__( 'Sorry, it seems that there are no available payment methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'wcopc' );
 
 					echo '<p>' . apply_filters( 'woocommerce_no_available_payment_methods_message', $no_gateways_message ) . '</p>';
 
@@ -184,7 +184,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 
 		<div class="form-row place-order">
 
-			<noscript><?php _e( 'Since your browser does not support JavaScript, or it is disabled, please ensure you click the <em>Update Totals</em> button before placing your order. You may be charged more than the amount stated above if you fail to do so.', 'wcopc' ); ?><br/><input type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="<?php _e( 'Update totals', 'wcopc' ); ?>" /></noscript>
+			<noscript><?php esc_html_e( 'Since your browser does not support JavaScript, or it is disabled, please ensure you click the <em>Update Totals</em> button before placing your order. You may be charged more than the amount stated above if you fail to do so.', 'wcopc' ); ?><br/><input type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="<?php esc_attr__( 'Update totals', 'wcopc' ); ?>" /></noscript>
 
 			<?php wp_nonce_field( 'woocommerce-process_checkout' ); ?>
 

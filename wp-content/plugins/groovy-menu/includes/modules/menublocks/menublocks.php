@@ -2,8 +2,14 @@
 
 require_once dirname( __FILE__ ). DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-
+// Start Menu Block initialization.
 new \GroovyMenu\MenuBlockPostType();
+
+// Start Menu Block export Helper.
+new \GroovyMenu\MenuBlockExportHelper();
+
+// Start Menu Block import Helper.
+new \GroovyMenu\MenuBlockImportHelper();
 
 
 // Start pre storage (compile groovy menu preset and nav_menu) before template.

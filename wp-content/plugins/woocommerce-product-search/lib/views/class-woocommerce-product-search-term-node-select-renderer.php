@@ -238,7 +238,11 @@ class WooCommerce_Product_Search_Term_Node_Select_Renderer {
 			if ( $this->render_root_container && !empty( $this->root_id ) ) {
 				$output .= $nl . $sp . '</select>' . $nl;
 				$output .= '<script type="text/javascript">';
-				$output .= 'document.getElementById("' . esc_attr( $this->root_id ) . '").disabled = true;';
+				$output .= sprintf(
+					'if ( document.getElementById("%s") !== null ) { document.getElementById("%s").disabled = true; }',
+					esc_attr( $this->root_id ),
+					esc_attr( $this->root_id )
+				);
 				$output .= '</script>';
 			}
 		}

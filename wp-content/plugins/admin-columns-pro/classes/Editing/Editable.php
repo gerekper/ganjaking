@@ -5,8 +5,7 @@ namespace ACP\Editing;
 interface Editable {
 
 	/**
-	 * Return the editing model for this column
-	 * @return Model
+	 * @return Service|false
 	 */
 	public function editing();
 

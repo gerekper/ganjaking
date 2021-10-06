@@ -172,7 +172,69 @@
 	}
 }
 
-.wc-instagram-gpc-select-wrapper {
-	display: block;
-	margin-bottom: 1em;
+.wc-instagram-gpc-selects-container {
+	margin-bottom: 8px;
+
+	.wc-instagram-gpc-select-wrapper {
+		margin-bottom: 10px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.woocommerce_options_panel {
+
+	.wc-instagram-gpc-selects-container {
+		float: left;
+		width: 50%;
+	}
+
+	.select2-container {
+		float: none !important;
+		width: 100% !important;
+	}
+}
+
+.term-google-product-category-wrap {
+
+	#addtag & {
+
+		.select2-container {
+			width: 95% !important;
+			max-width: 400px;
+		}
+	}
+
+	#edittag & {
+
+		.select2-container {
+			width: 100% !important;
+			max-width: 400px;
+		}
+	}
+}
+
+@media only screen and (max-width: 782px) {
+
+	.term-google-product-category-wrap {
+
+		#edittag & {
+
+			.select2-container {
+				max-width: 100%;
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 1280px) {
+
+	.woocommerce_options_panel {
+
+		.wc-instagram-gpc-selects-container {
+			width: 80%;
+		}
+	}
 }

@@ -6,7 +6,6 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Models\Newsletter;
-use MailPoet\Newsletter\Renderer\Preprocessor;
 use MailPoet\Newsletter\Renderer\Renderer as NewsletterRenderer;
 use MailPoetVendor\csstidy;
 use MailPoetVendor\csstidy_print;
@@ -37,24 +36,26 @@ class Renderer {
   }
 
   public function render(Newsletter $newsletter, ?string $subject = null) {
-    $html = explode(Preprocessor::WC_CONTENT_PLACEHOLDER, $this->renderer->renderAsPreview($newsletter, 'html', $subject));
+    $renderedHtml = $this->renderer->renderAsPreview($newsletter, 'html', $subject);
+    $headingText = $subject ?? '';
+    $renderedHtml = str_replace(ContentPreprocessor::WC_HEADING_PLACEHOLDER, $headingText, $renderedHtml);
+    $html = explode(ContentPreprocessor::WC_CONTENT_PLACEHOLDER, $renderedHtml);
     $this->htmlBeforeContent = $html[0];
     $this->htmlAfterContent = $html[1];
   }
 
-  public function getHTMLBeforeContent($headingText) {
+  public function getHTMLBeforeContent() {
     if (empty($this->htmlBeforeContent)) {
       throw new \Exception("You should call 'render' before 'getHTMLBeforeContent'");
     }
-    $html = str_replace(Preprocessor::WC_HEADING_PLACEHOLDER, $headingText, $this->htmlBeforeContent);
-    return $html . '<div id="' . self::CONTENT_CONTAINER_ID . '"><div id="body_content_inner">';
+    return $this->htmlBeforeContent . '<div id="' . self::CONTENT_CONTAINER_ID . '"><div id="body_content"><div id="body_content_inner"><table style="width: 100%"><tr><td style="padding: 10px 20px">';
   }
 
   public function getHTMLAfterContent() {
     if (empty($this->htmlAfterContent)) {
       throw new \Exception("You should call 'render' before 'getHTMLAfterContent'");
     }
-    return '</div></div>' . $this->htmlAfterContent;
+    return '</td></tr></table></div></div></div>' . $this->htmlAfterContent;
   }
 
   public function prefixCss($css) {

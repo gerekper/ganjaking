@@ -1,5 +1,19 @@
 *** WooCommerce Measurement Price Calculator Changelog ***
 
+2021.09.23 - version 3.20.1
+ * Fix - Address some PHP notices when handling measurement products without pricing rules in newer PHP versions
+ * Fix - Address an issue where a "rounding necessary" error occurs when adding a product to cart under certain configurations
+
+2021.09.13 - version 3.20.0
+ * Fix - Address some floating point math issues by using BigNumber.js and Brick\Math libraries
+
+2021.07.15 - version 3.19.2
+ * Tweak - Format available stock number for measurement products with thousands and decimal separators
+ * Misc - Remove support for the legacy woo-includes functions
+
+2021.02.17 - version 3.19.1
+ * Fix - Address a PHP 8 compatibility issue when adding to cart products without specifying a measurement
+
 2020.12.07 - version 3.19.0
  * Misc - Add compatibility for WooCommerce 4.7
  * Misc - Require PHP 7.0 or newer

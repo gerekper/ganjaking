@@ -3,7 +3,7 @@
  * Single Product Instagram
  *
  * @package WC_Instagram/Templates
- * @version 3.1.0
+ * @version 3.5.1
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -21,9 +21,9 @@ global $product;
 <section class="woocommerce-instagram">
 	<?php
 	$heading = sprintf(
-		/* translators: %s: product title */
+		/* translators: %s: product name */
 		apply_filters( 'woocommerce_instagram_section_title', __( '%s on Instagram', 'woocommerce-instagram' ) ),
-		$product->get_title()
+		$product->get_name()
 	);
 
 	if ( $heading ) :
@@ -48,9 +48,9 @@ global $product;
 			<?php
 			echo wp_kses_post(
 				sprintf(
-					/* translators: 1: product title, 2: product hashtag */
+					/* translators: 1: product name, 2: product hashtag */
 					__( 'Want to share your instagrams of you with your %1$s? Use the %2$s hashtag.', 'woocommerce-instagram' ),
-					'<strong>' . esc_html( $product->get_title() ) . '</strong>',
+					'<strong>' . esc_html( $product->get_name() ) . '</strong>',
 					'<strong>#' . esc_attr( $hashtag ) . '</strong>'
 				)
 			);

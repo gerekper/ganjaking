@@ -5,15 +5,15 @@
  * camelize() needs to be special cased in setupSubresources
  */
 class Services_Twilio_Rest_Sip extends Services_Twilio_InstanceResource {
-    protected function init($client, $uri) {
-        $this->setupSubresources(
-            'domains',
-            'ip_access_control_lists',
-            'credential_lists'
-        );
-    }
+	protected function init( $client, $uri) {
+		$this->setupSubresources(
+			'domains',
+			'ip_access_control_lists',
+			'credential_lists'
+		);
+	}
 
-    public function getResourceName($camelized = false) {
-        return "SIP";
-    }
+	public function getResourceName( $camelized = false) {
+		return 'SIP';
+	}
 }

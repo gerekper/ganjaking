@@ -344,18 +344,19 @@ class WC_CP_Admin_Notices {
 				if ( false === WC_CP_Install::is_update_process_running() ) {
 					$prompt = self::get_force_update_prompt();
 				}
-
+				/* translators: prompt. */
 				$status = sprintf( __( '<strong>WooCommerce Composite Products</strong> is updating your database.%s', 'woocommerce-composite-products' ), $prompt );
 
 			// Show a prompt to update.
 			} elseif ( false === WC_CP_Install::auto_update_enabled() && false === WC_CP_Install::is_update_incomplete() ) {
 
 				$status  = __( '<strong>WooCommerce Composite Products</strong> has been updated! To keep things running smoothly, your database needs to be updated, as well.', 'woocommerce-composite-products' );
+				/* translators: link to documentation. */
 				$status .= '<br/>' . sprintf( __( 'Before you proceed, please take a few minutes to <a href="%s" target="_blank">learn more</a> about best practices when updating.', 'woocommerce-composite-products' ), WC_CP()->get_resource_url( 'updating' ) );
 				$status .= self::get_trigger_update_prompt();
 
 			} elseif ( WC_CP_Install::is_update_incomplete() ) {
-
+				/* translators: failed prompt. */
 				$status = sprintf( __( '<strong>WooCommerce Composite Products</strong> has not finished updating your database.%s', 'woocommerce-composite-products' ), self::get_failed_update_prompt() );
 			}
 
@@ -528,6 +529,7 @@ class WC_CP_Admin_Notices {
 			// Perhaps the upgrade process failed to start?
 			$fallback_url    = esc_url( wp_nonce_url( add_query_arg( 'force_wc_cp_db_update', true, admin_url() ), 'wc_cp_force_db_update_nonce', '_wc_cp_admin_nonce' ) );
 			$fallback_link   = '<a href="' . $fallback_url . '">' . __( 'run it manually', 'woocommerce-composite-products' ) . '</a>';
+			/* translators: fallback action link. */
 			$fallback_prompt = sprintf( __( ' The process seems to be taking a little longer than usual, so let\'s try to %s.', 'woocommerce-composite-products' ), $fallback_link );
 		}
 
@@ -545,6 +547,7 @@ class WC_CP_Admin_Notices {
 
 		$support_url    = WC_CP()->get_resource_url( 'ticket-form' );
 		$support_link   = '<a href="' . $support_url . '">' . __( 'get in touch with us', 'woocommerce-composite-products' ) . '</a>';
+		/* translators: link to support. */
 		$support_prompt = sprintf( __( ' If this message persists, please restore your database from a backup, or %s.', 'woocommerce-composite-products' ), $support_link );
 
 		return $support_prompt;

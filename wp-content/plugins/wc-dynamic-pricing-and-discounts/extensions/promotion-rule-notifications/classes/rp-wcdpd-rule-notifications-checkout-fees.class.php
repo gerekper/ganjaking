@@ -52,17 +52,17 @@ class RP_WCDPD_Rule_Notifications_Checkout_Fees extends RP_WCDPD_Rule_Notificati
     {
         $settings['promo']['children']['rule_notifications']['children'] = array_merge($settings['promo']['children']['rule_notifications']['children'], array(
             'promo_rule_notifications_checkout_fees' => array(
-                'title'     => __('Checkout Fees', 'rp_wcdpd'),
+                'title'     => esc_html__('Checkout Fees', 'rp_wcdpd'),
                 'type'      => 'checkbox',
                 'default'   => '0',
             ),
             'promo_rule_notifications_checkout_fees_message' => array(
-                'title'     => __('Text', 'rp_wcdpd'),
+                'title'     => esc_html__('Text', 'rp_wcdpd'),
                 'type'      => 'textarea',
                 'required'  => true,
                 'class'     => 'if_rp_wcdpd_promo_rule_notifications_checkout_fees',
-                'default'   => __('Fee <strong>"{{title}}"</strong> has been applied to your cart.', 'rp_wcdpd'),
-                'hint'      => __('Macro {{title}} displays fee title.<br> Macro {{description}} displays public description.', 'rp_wcdpd'),
+                'default'   => sprintf(esc_html__('Fee %s has been applied to your cart.', 'rp_wcdpd'), '<strong>{{title}}</strong>'),
+                'hint'      => (esc_html__('Macro {{title}} displays fee title.', 'rp_wcdpd') . '<br>' . esc_html__('Macro {{description}} displays public description', 'rp_wcdpd')),
             ),
         ));
 

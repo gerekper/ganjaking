@@ -574,71 +574,9 @@ jQuery( function( $ ) {
 			prec = ! isFinite( +decimals ) ? 0 : Math.abs( decimals ),
 			sep = ( typeof thousands_sep === 'undefined' ) ? ',' : thousands_sep,
 			dec = ( typeof dec_point === 'undefined' ) ? '.' : dec_point,
-			s = '',
+			s = '';
 
-			toFixedFix = function ( n, prec ) {
-
-				// instead of multiplying a float by the power, as in the original implementation
-				// of http://phpjs.org/functions/number_format/, we shift the decimal point's position
-				// in the string - this works around an issue where something like 1.275 * 100 = 127.49999999999
-				var k = Math.pow( 10, prec ),
-					s = '' + n,
-					p = s.indexOf( '.' );
-
-				// there be a decimal point in the number!
-				if ( p > -1 ) {
-
-					p += prec; // shift the decimal point's position by the precision amount - this is effectively the same as n * pow, without the floating point errors
-					s = s.replace( '.', '' );
-
-					var leading_zeroes = '';
-
-					// check for leading zeroes and break them off
-					// before using .startsWith though, we need to add a polyfill to support IE *sigh*
-					if ( ! String.prototype.startsWith ) {
-						String.prototype.startsWith = function( searchString, position ) {
-							position = ! isNaN( parseInt( position ) ) ? position : 0;
-							return this.indexOf( searchString, position ) === position;
-						};
-					}
-					if ( s.startsWith( '0' ) ) {
-						leading_zeroes = s.slice( 0, s.length - parseFloat( s ).toString().length );
-					}
-
-					var original = s; // stash the current value right now, we may need to do some rounding with it
-					s = s.slice( 0, p );
-
-					// check the number we're just about to cut off - if >= 5, we should be rounding the value of s up before restoring the decimal
-					var round = original.slice( p, p+1 );
-					if ( round >= 5 ) {
-						s = parseFloat( s );
-						s += 1;
-						s = '' + s;
-
-						// restore any leading zeros to the rounded number
-						s = leading_zeroes + s;
-					}
-
-					// before we use this, be sure our initial slice has the number of digits we expect
-					// we may need to add trailing zeros to have the right number of digits
-					if ( s.length < p ) {
-						// how many zeroes do we need to add? multiple by that power of 10
-						var zeroes = p - s.length;
-						s *= Math.pow( 10, zeroes );
-						s = Number( s, 10 );
-					} else {
-						s = Number( [ s, '.', s.slice( p ) ].join( '' ), 10 );
-					}
-
-					return '' + ( Math.round( s ) / k );
-				}
-
-				// fall back to the original toFixed()
-				return n.toFixed( prec );
-			};
-
-		// Fix for IE parseFloat(0.55).toFixed(0) = 0;
-		s = ( prec ? toFixedFix( n, prec ) : '' + Math.round( n ) ).split( '.' );
+		s = ( (new BigNumber(n)).toFixed(prec) ).split( '.' );
 
 		if ( s[0].length > 3 ) {
 			s[0] = s[0].replace( /\B(?=(?:\d{3})+(?!\d))/g, sep );
@@ -674,13 +612,15 @@ jQuery( function( $ ) {
 	 */
 	function convertUnits( value, fromUnit, toUnit ) {
 
+		value = new BigNumber(value);
+
 		// fromUnit to its corresponding standard unit
 		if ( 'undefined' !== typeof( wc_price_calculator_params.unit_normalize_table[ fromUnit ] ) ) {
 
 			if ( 'undefined' !== typeof( wc_price_calculator_params.unit_normalize_table[ fromUnit ].inverse ) && wc_price_calculator_params.unit_normalize_table[ fromUnit ].inverse ) {
-				value /= wc_price_calculator_params.unit_normalize_table[ fromUnit ].factor;
+				value = value.div(wc_price_calculator_params.unit_normalize_table[ fromUnit ].factor);
 			} else {
-				value *= wc_price_calculator_params.unit_normalize_table[ fromUnit ].factor;
+				value = value.times(wc_price_calculator_params.unit_normalize_table[ fromUnit ].factor);
 			}
 
 			fromUnit = wc_price_calculator_params.unit_normalize_table[ fromUnit ].unit;
@@ -690,13 +630,13 @@ jQuery( function( $ ) {
 		if ( 'undefined' !== typeof( wc_price_calculator_params.unit_conversion_table[ fromUnit ] ) && 'undefined' !== typeof( wc_price_calculator_params.unit_conversion_table[ fromUnit ][ toUnit ] ) ) {
 
 			if ( 'undefined' !== typeof( wc_price_calculator_params.unit_conversion_table[ fromUnit ][ toUnit ].inverse ) && wc_price_calculator_params.unit_conversion_table[ fromUnit ][ toUnit ].inverse ) {
-				value /= wc_price_calculator_params.unit_conversion_table[ fromUnit ][ toUnit ].factor;
+				value = value.div(wc_price_calculator_params.unit_conversion_table[ fromUnit ][ toUnit ].factor);
 			} else {
-				value *= wc_price_calculator_params.unit_conversion_table[ fromUnit ][ toUnit ].factor;
+				value = value.times(wc_price_calculator_params.unit_conversion_table[ fromUnit ][ toUnit ].factor);
 			}
 		}
 
-		return value;
+		return value.toNumber();
 	}
 
 

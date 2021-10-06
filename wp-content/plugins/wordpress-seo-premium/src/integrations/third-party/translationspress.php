@@ -34,6 +34,13 @@ class TranslationsPress implements Integration_Interface {
 	protected $api_url;
 
 	/**
+	 * The array to cache our addition to the `site_transient_update_plugins` filter.
+	 *
+	 * @var null|array
+	 */
+	protected $cached_translations;
+
+	/**
 	 * The Date helper object.
 	 *
 	 * @var Date_Helper
@@ -83,6 +90,7 @@ class TranslationsPress implements Integration_Interface {
 
 	/**
 	 * Filters the translations transients to include the private plugin or theme.
+	 * Caches our own return value to prevent heavy overhead.
 	 *
 	 * @param bool|object $value The transient value.
 	 *
@@ -97,11 +105,19 @@ class TranslationsPress implements Integration_Interface {
 			$value->translations = [];
 		}
 
+		if ( is_array( $this->cached_translations ) ) {
+			$value->translations = array_merge( $value->translations, $this->cached_translations );
+			return $value;
+		}
+
+		$this->cached_translations = [];
+
 		$translations = $this->get_translations();
 		if ( empty( $translations[ $this->slug ]['translations'] ) ) {
 			return $value;
 		}
 
+		// The following call is the reason we need to cache the results of this method.
 		$installed_translations = \wp_get_installed_translations( 'plugins' );
 		$available_languages    = \get_available_languages();
 		foreach ( $translations[ $this->slug ]['translations'] as $translation ) {
@@ -118,10 +134,11 @@ class TranslationsPress implements Integration_Interface {
 				}
 			}
 
-			$translation['type']       = 'plugin';
-			$translation['slug']       = $this->slug;
-			$translation['autoupdate'] = true;
-			$value->translations[]     = $translation;
+			$translation['type']         = 'plugin';
+			$translation['slug']         = $this->slug;
+			$translation['autoupdate']   = true;
+			$value->translations[]       = $translation;
+			$this->cached_translations[] = $translation;
 		}
 
 		return $value;

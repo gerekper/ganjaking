@@ -10,11 +10,11 @@ if(!defined('ABSPATH')) exit();
 
 $system_config	= $rsaf->get_system_requirements();
 $current_user	= wp_get_current_user();
-$revslider_valid = 'true';
+$revslider_valid = get_option('revslider-valid', 'false');
 $latest_version	= get_option('revslider-latest-version', RS_REVISION);
 $stable_version	= get_option('revslider-stable-version', '4.2');
-$latest_version	= (version_compare($latest_version, $stable_version, '<')) ? $stable_version : $latest_version;
-$code			= '073e077f-b600-41e4-8b74-767431910d31';
+$latest_version	= ($revslider_valid !== 'true' && version_compare($latest_version, $stable_version, '<')) ? $stable_version : $latest_version;
+$code			= get_option('revslider-code', '');
 $time			= date('H');
 $timezone		= date('e');/* Set the $timezone variable to become the current timezone */
 $hi				= __('Good Evening ', 'revslider');

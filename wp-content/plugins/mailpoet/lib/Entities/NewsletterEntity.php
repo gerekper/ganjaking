@@ -134,25 +134,25 @@ class NewsletterEntity {
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\NewsletterEntity", mappedBy="parent")
-   * @var NewsletterEntity[]|ArrayCollection
+   * @var ArrayCollection<int, NewsletterEntity>
    */
   private $children;
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\NewsletterSegmentEntity", mappedBy="newsletter", orphanRemoval=true)
-   * @var NewsletterSegmentEntity[]|ArrayCollection
+   * @var ArrayCollection<int, NewsletterSegmentEntity>
    */
   private $newsletterSegments;
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\NewsletterOptionEntity", mappedBy="newsletter", orphanRemoval=true)
-   * @var NewsletterOptionEntity[]|ArrayCollection
+   * @var ArrayCollection<int, NewsletterOptionEntity>
    */
   private $options;
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\SendingQueueEntity", mappedBy="newsletter")
-   * @var SendingQueueEntity[]|ArrayCollection
+   * @var ArrayCollection<int, SendingQueueEntity>
    */
   private $queues;
 
@@ -407,21 +407,21 @@ class NewsletterEntity {
   }
 
   /**
-   * @return NewsletterEntity[]|ArrayCollection
+   * @return ArrayCollection<int, NewsletterEntity>
    */
   public function getChildren() {
     return $this->children;
   }
 
   /**
-   * @return NewsletterSegmentEntity[]|ArrayCollection
+   * @return ArrayCollection<int, NewsletterSegmentEntity>
    */
   public function getNewsletterSegments() {
     return $this->newsletterSegments;
   }
 
   /**
-   * @return NewsletterOptionEntity[]|ArrayCollection
+   * @return ArrayCollection<int, NewsletterOptionEntity>
    */
   public function getOptions() {
     return $this->options;
@@ -440,7 +440,7 @@ class NewsletterEntity {
   }
 
   /**
-   * @return SendingQueueEntity[]|ArrayCollection
+   * @return ArrayCollection<int, SendingQueueEntity>
    */
   public function getQueues() {
     return $this->queues;
@@ -456,10 +456,36 @@ class NewsletterEntity {
     return $this->queues->matching($criteria)->first() ?: null;
   }
 
+  /**
+   * @return Collection<int, SendingQueueEntity>
+   */
   private function getUnfinishedQueues(): Collection {
     $criteria = new Criteria();
     $expr = Criteria::expr();
     $criteria->where($expr->neq('countToProcess', 0));
     return $this->queues->matching($criteria);
+  }
+
+  public function getGlobalStyle(string $category, string $style): ?string {
+    $body = $this->getBody();
+    if ($body === null) {
+      return null;
+    }
+    return $body['globalStyles'][$category][$style] ?? null;
+  }
+
+  public function getProcessedAt(): ?DateTimeInterface {
+    $processedAt = null;
+    $queue = $this->getLatestQueue();
+
+    if ($queue instanceof SendingQueueEntity) {
+      $task = $queue->getTask();
+
+      if ($task instanceof ScheduledTaskEntity) {
+        $processedAt = $task->getProcessedAt();
+      }
+    }
+
+    return $processedAt;
   }
 }

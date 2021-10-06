@@ -37,6 +37,9 @@ class Renderer {
   /** @var Text */
   private $text;
 
+  /** @var Placeholder */
+  private $placeholder;
+
   public function __construct(
     AutomatedLatestContentBlock $ALC,
     Button $button,
@@ -46,7 +49,8 @@ class Renderer {
     Image $image,
     Social $social,
     Spacer $spacer,
-    Text $text
+    Text $text,
+    Placeholder $placeholder
   ) {
     $this->ALC = $ALC;
     $this->button = $button;
@@ -57,9 +61,13 @@ class Renderer {
     $this->social = $social;
     $this->spacer = $spacer;
     $this->text = $text;
+    $this->placeholder = $placeholder;
   }
 
   public function render(NewsletterEntity $newsletter, $data) {
+    if (is_null($data['blocks']) && isset($data['type'])) {
+      return null;
+    }
     $columnCount = count($data['blocks']);
     $columnsLayout = isset($data['columnLayout']) ? $data['columnLayout'] : null;
     $columnWidths = ColumnsHelper::columnWidth($columnCount, $columnsLayout);
@@ -113,8 +121,10 @@ class Renderer {
         return $this->spacer->render($block);
       case 'text':
         return $this->text->render($block);
+      case 'placeholder':
+        return $this->placeholder->render($block);
     }
-    return '';
+    return "<!-- Skipped unsupported block type: {$block['type']} -->";
   }
 
   public function processAutomatedLatestContent(NewsletterEntity $newsletter, $args, $columnBaseWidth) {

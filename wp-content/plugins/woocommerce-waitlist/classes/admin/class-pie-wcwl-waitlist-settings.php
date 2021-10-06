@@ -152,6 +152,13 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Settings' ) ) {
 					'class'   => 'wcwl_hidden',
 				),
 				array(
+					'title'   => __( 'Double Opt-In', 'woocommerce-waitlist' ),
+					'desc'    => __( 'Require unregistered customers to confirm their email address before adding them to the waitlist', 'woocommerce-waitlist' ),
+					'id'      => WCWL_SLUG . '_double_optin',
+					'default' => 'no',
+					'type'    => 'checkbox',
+				),
+				array(
 					'title'   => __( 'Display opt-in for new users', 'woocommerce-waitlist' ),
 					'desc'    => __( 'Display a checkbox to logged out users to get consent for creating an account and using their email address', 'woocommerce-waitlist' ),
 					'id'      => 'woocommerce_waitlist_new_user_opt-in',

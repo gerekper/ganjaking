@@ -4,32 +4,42 @@ namespace AC\Admin\Page;
 
 use AC;
 use AC\Admin;
-use AC\Admin\Page;
+use AC\Admin\RenderableHead;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
 use AC\Asset\Style;
-use AC\PluginInformation;
+use AC\Integration\Filter;
+use AC\IntegrationRepository;
+use AC\Renderable;
 
-class Addons extends Page implements Enqueueables {
+class Addons implements Enqueueables, Renderable, RenderableHead {
 
 	const NAME = 'addons';
 
 	/**
 	 * @var Location\Absolute
 	 */
-	private $location;
+	protected $location;
 
 	/**
-	 * @var AC\Integrations
+	 * @var IntegrationRepository
 	 */
-	private $integrations;
+	protected $integrations;
 
-	public function __construct( Location\Absolute $location, AC\Integrations $integrations ) {
-		parent::__construct( self::NAME, __( 'Add-ons', 'codepress-admin-columns' ) );
+	/**
+	 * @var Renderable
+	 */
+	protected $head;
 
+	public function __construct( Location\Absolute $location, IntegrationRepository $integrations, Renderable $head ) {
 		$this->location = $location;
 		$this->integrations = $integrations;
+		$this->head = $head;
+	}
+
+	public function render_head() {
+		return $this->head;
 	}
 
 	public function get_assets() {
@@ -42,11 +52,13 @@ class Addons extends Page implements Enqueueables {
 	public function render() {
 		ob_start();
 
+		echo '<div class="ac-addons-groups">';
+
 		foreach ( $this->get_grouped_addons() as $group ) :
 			?>
 
 			<div class="ac-addons group-<?= esc_attr( $group['class'] ); ?>">
-				<h2><?php echo esc_html( $group['title'] ); ?></h2>
+				<h2 class="ac-lined-header"><?php echo $group['title']; ?></h2>
 
 				<ul>
 					<?php
@@ -58,7 +70,8 @@ class Addons extends Page implements Enqueueables {
 							'title'       => $addon->get_title(),
 							'slug'        => $addon->get_slug(),
 							'description' => $addon->get_description(),
-							'actions'     => $this->render_actions( $addon ),
+							'link'        => $addon->get_link(),
+							'actions'     => $this->render_actions( $addon )->render(),
 						] );
 
 						echo $view->set_template( 'admin/edit-addon' );
@@ -68,82 +81,18 @@ class Addons extends Page implements Enqueueables {
 			</div>
 		<?php endforeach;
 
+		echo '</div>';
+
 		return ob_get_clean();
 	}
 
 	/**
 	 * @param AC\Integration $addon
 	 *
-	 * @return string
+	 * @return Renderable
 	 */
-	private function render_actions( AC\Integration $addon ) {
-		ob_start();
-
-		$plugin = new PluginInformation( $addon->get_basename() );
-
-		// Installed..
-		if ( $plugin->is_installed() ) :
-
-			// Active
-			if ( $plugin->is_active() ) : ?>
-				<span class="active"><?php _e( 'Active', 'codepress-admin-columns' ); ?></span>
-
-				<?php if ( current_user_can( 'activate_plugins' ) ) : ?>
-					<a href="<?php echo esc_url( $this->get_deactivation_url( $addon->get_basename() ) ); ?>" class="button right"><?php _e( 'Deactivate', 'codepress-admin-columns' ); ?></a>
-				<?php endif;
-			// Not active
-			elseif ( current_user_can( 'activate_plugins' ) ) : ?>
-				<a href="<?php echo esc_url( $this->get_activation_url( $addon->get_basename() ) ); ?>" class="button button-primary right"><?php _e( 'Activate', 'codepress-admin-columns' ); ?></a>
-			<?php endif;
-
-		// Not installed...
-		elseif ( ac_is_pro_active() && current_user_can( 'install_plugins' ) ) : ?>
-			<a href="#" class="button" data-install>
-				<?php esc_html_e( 'Download & Install', 'codepress-admin-columns' ); ?>
-			</a>
-		<?php else : ?>
-			<a target="_blank" href="<?php echo esc_url( $addon->get_link() ); ?>" class="button"><?php esc_html_e( 'Get this add-on', 'codepress-admin-columns' ); ?></a>
-		<?php endif;
-
-		return ob_get_clean();
-	}
-
-	/**
-	 * Deactivate plugin
-	 *
-	 * @param string $basename
-	 *
-	 * @return string
-	 */
-	private function get_deactivation_url( $basename ) {
-		return $this->get_plugin_action_url( 'deactivate', $basename );
-	}
-
-	/**
-	 * Activate or Deactivate plugin
-	 *
-	 * @param string $action
-	 * @param string $basename
-	 *
-	 * @return string
-	 */
-	private function get_plugin_action_url( $action, $basename ) {
-		return add_query_arg( [
-			'action'      => $action,
-			'plugin'      => $basename,
-			'ac-redirect' => true,
-		], wp_nonce_url( admin_url( 'plugins.php' ), $action . '-plugin_' . $basename ) );
-	}
-
-	/**
-	 * Activate plugin
-	 *
-	 * @param $basename
-	 *
-	 * @return string
-	 */
-	private function get_activation_url( $basename ) {
-		return $this->get_plugin_action_url( 'activate', $basename );
+	protected function render_actions( AC\Integration $addon ) {
+		return new Admin\Section\AddonStatus( $addon );
 	}
 
 	/**
@@ -151,31 +100,29 @@ class Addons extends Page implements Enqueueables {
 	 */
 	private function get_grouped_addons() {
 
-		$active = [];
-		$recommended = [];
-		$available = [];
+		$active = $this->integrations->find_all( [
+			IntegrationRepository::ARG_FILTER => [
+				new Filter\IsActive( is_multisite(), is_network_admin() ),
+			],
+		] );
 
-		foreach ( $this->integrations->all() as $integration ) {
-			$plugin = new PluginInformation( $integration->get_basename() );
+		$recommended = $this->integrations->find_all( [
+			IntegrationRepository::ARG_FILTER => [
+				new Filter\IsNotActive( is_multisite(), is_network_admin() ),
+				new Filter\IsPluginActive(),
+			],
+		] );
 
-			// active
-			if ( $plugin->is_active() ) {
-				$active[] = $integration;
-				continue;
-			}
-
-			// recommended
-			if ( $integration->is_plugin_active() ) {
-				$recommended[] = $integration;
-				continue;
-			}
-
-			$available[] = $integration;
-		}
+		$available = $this->integrations->find_all( [
+			IntegrationRepository::ARG_FILTER => [
+				new Filter\IsNotActive( is_multisite(), is_network_admin() ),
+				new Filter\IsPluginNotActive(),
+			],
+		] );
 
 		$groups = [];
 
-		if ( $recommended ) {
+		if ( $recommended->exists() ) {
 			$groups[] = [
 				'title'        => __( 'Recommended', 'codepress-admin-columns' ),
 				'class'        => 'recommended',
@@ -183,7 +130,7 @@ class Addons extends Page implements Enqueueables {
 			];
 		}
 
-		if ( $active ) {
+		if ( $active->exists() ) {
 			$groups[] = [
 				'title'        => __( 'Active', 'codepress-admin-columns' ),
 				'class'        => 'active',
@@ -191,7 +138,7 @@ class Addons extends Page implements Enqueueables {
 			];
 		}
 
-		if ( $available ) {
+		if ( $available->exists() ) {
 			$groups[] = [
 				'title'        => __( 'Available', 'codepress-admin-columns' ),
 				'class'        => 'available',

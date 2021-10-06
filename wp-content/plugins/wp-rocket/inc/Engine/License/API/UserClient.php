@@ -36,6 +36,7 @@ class UserClient {
 		return true;
 	}
 
+
 	/**
 	 * Gets the user data from the user endpoint
 	 *

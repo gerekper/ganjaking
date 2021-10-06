@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Order_Total extends RightPress_Condition_Ord
     public function get_label()
     {
 
-        return __('Order total', 'rightpress');
+        return esc_html__('Order total', 'rightpress');
     }
 
     /**

@@ -18,19 +18,19 @@ class AuthorName extends AC\Column\Post\AuthorName
 	}
 
 	public function editing() {
-		if ( 'custom_field' === $this->get_user_setting()->get_value() ) {
-			return new Editing\Model\Disabled( $this );
+		if ( Settings\Column\User::PROPERTY_META === $this->get_user_setting()->get_value() ) {
+			return false;
 		}
 
-		return new Editing\Model\Post\Author( $this );
+		return new Editing\Service\Post\Author();
 	}
 
 	public function filtering() {
-		if ( 'custom_field' === $this->get_user_setting()->get_value() ) {
+		if ( Settings\Column\User::PROPERTY_META === $this->get_user_setting()->get_value() ) {
 			return new Filtering\Model\Disabled( $this );
 		}
 
-		if ( 'roles' === $this->get_user_setting()->get_value() ) {
+		if ( Settings\Column\User::PROPERTY_ROLES === $this->get_user_setting()->get_value() ) {
 			return new Filtering\Model\Post\Roles( $this );
 		}
 

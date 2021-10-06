@@ -8,6 +8,8 @@
 
 namespace Smush\Core;
 
+use WP_Smush;
+
 /**
  * Class Configs
  *
@@ -303,7 +305,7 @@ class Configs {
 			$new_settings = array_intersect_key( $sanitized_config['settings'], $stored_settings );
 
 			if ( $new_settings ) {
-				if ( ! \WP_Smush::is_pro() ) {
+				if ( ! WP_Smush::is_pro() ) {
 					// Disable the pro features before applying them.
 					foreach ( $this->pro_features as $name ) {
 						$new_settings[ $name ] = false;
@@ -312,8 +314,12 @@ class Configs {
 
 				// Update the flag file when local webp changes.
 				if ( isset( $new_settings['webp_mod'] ) && $new_settings['webp_mod'] !== $stored_settings['webp_mod'] ) {
-					// TODO: we're updating the option here and below with `set_setting()`. Avoid doing this.
-					\WP_Smush::get_instance()->core()->mod->webp->toggle_webp( $new_settings['webp_mod'] );
+					WP_Smush::get_instance()->core()->mod->webp->toggle_webp( $new_settings['webp_mod'] );
+				}
+
+				// Update the CDN status for CDN changes.
+				if ( isset( $new_settings['cdn'] ) && $new_settings['cdn'] !== $stored_settings['cdn'] ) {
+					WP_Smush::get_instance()->core()->mod->cdn->toggle_cdn( $new_settings['cdn'] );
 				}
 
 				// Keep the stored settings that aren't present in the incoming one.
@@ -608,7 +614,7 @@ class Configs {
 	 */
 	private function format_boolean_setting_value( $name, $value ) {
 		// Display the pro features as 'inactive' for free installs.
-		if ( ! \WP_Smush::is_pro() && in_array( $name, $this->pro_features, true ) ) {
+		if ( ! WP_Smush::is_pro() && in_array( $name, $this->pro_features, true ) ) {
 			$value = false;
 		}
 		return $value ? __( 'Active', 'wp-smushit' ) : __( 'Inactive', 'wp-smushit' );

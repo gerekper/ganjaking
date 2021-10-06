@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Purchase_History_Quantity_Products extends R
     public function get_label()
     {
 
-        return __('Quantity purchased - Products', 'rightpress');
+        return esc_html__('Quantity purchased - Products', 'rightpress');
     }
 
 

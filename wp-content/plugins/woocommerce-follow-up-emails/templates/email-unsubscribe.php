@@ -6,23 +6,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 $order_id       = 0;
 $order_url      = '';
 $email_address  = '';
+$email_hash     = '';
 $queue_id       = '';
 
 if ( !empty( $_GET['qid'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+	$email_hash = ! empty( $_GET['hqid'] ) ? $_GET['hqid'] : '';
 	$queue_id   = absint( $_GET['qid'] ); // phpcs:ignore WordPress.Security.NonceVerification
 	$queue      = new FUE_Sending_Queue_Item( $queue_id );
 
 	if ( $queue->exists() ) {
-		$order_id       = $queue->order_id;
-		$order          = WC_FUE_Compatibility::wc_get_order( $order_id );
-		$email_address  = $queue->user_email;
 
-		if ( function_exists( 'wc_get_endpoint_url' ) ) {
-			$order_url = wc_get_endpoint_url( 'view-order', $order_id, wc_get_page_permalink( 'myaccount' ) );
-		} else {
-			$order_url = add_query_arg('order', $order_id, get_permalink( wc_get_page_id( 'view_order' ) ) );
+		$email_address = '';
+		// Check that the hash matches, so we could show the user specific data.
+		if ( ! empty ( $email_hash ) && hash_equals( $email_hash, fue_email_hash( $queue->user_email ) ) ) {
+			$email_address = $queue->user_email;
+			$order_id      = $queue->order_id;
+			$order         = WC_FUE_Compatibility::wc_get_order( $order_id );
+
+			if ( function_exists( 'wc_get_endpoint_url' ) ) {
+				$order_url = wc_get_endpoint_url( 'view-order', $order_id, wc_get_page_permalink( 'myaccount' ) );
+			} else {
+				$order_url = add_query_arg( 'order', $order_id, get_permalink( wc_get_page_id( 'view_order' ) ) );
+			}
 		}
-
 	}
 }
 
@@ -60,6 +66,7 @@ get_header();
 						<input type="hidden" name="fue_action" value="fue_unsubscribe" />
 						<input type="hidden" name="fue_eid" value="<?php echo esc_attr($eid); ?>" />
 						<input type="hidden" name="fue_qid" value="<?php echo esc_attr($queue_id); ?>" />
+						<input type="hidden" name="fue_hqid" value="<?php echo esc_attr($email_hash); ?>" />
 						<p>
 							<label for="fue_email"><?php esc_html_e('Email Address:', 'follow_up_emails'); ?></label>
 							<br/>

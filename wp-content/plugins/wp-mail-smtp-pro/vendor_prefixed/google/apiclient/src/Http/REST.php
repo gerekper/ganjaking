@@ -104,7 +104,6 @@ class REST
         $body = self::decodeBody($response, $request);
         if ($expectedClass = self::determineExpectedClass($expectedClass, $request)) {
             $json = \json_decode($body, \true);
-            $expectedClass = 'WPMailSMTP\\Vendor\\' . $expectedClass;
             return new $expectedClass($json);
         }
         return $response;

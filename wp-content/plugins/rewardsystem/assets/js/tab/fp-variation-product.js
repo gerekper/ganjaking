@@ -2,6 +2,7 @@
  * Variable Product Validation
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var RSVariableProductValidation = {
         init : function () {
             this.toggle_variable_settings() ;

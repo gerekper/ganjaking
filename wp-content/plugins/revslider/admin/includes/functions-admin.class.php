@@ -1412,8 +1412,14 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 		if(!is_admin()) return false;
 
 		global $pagenow;
+		global $wp_version;
 
-		return in_array($pagenow, array('post.php', 'post-new.php'));
+		if(version_compare($wp_version, '5.8', '>=')){
+			return in_array($pagenow, array('post.php', 'post-new.php', 'widgets.php'));
+		}
+		else{
+			return in_array($pagenow, array('post.php', 'post-new.php'));
+		}
 	}
 	
 }

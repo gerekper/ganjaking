@@ -23,6 +23,7 @@ class Labels extends ArrayIterator {
 			Operators::BETWEEN      => __( 'between', 'codepress-admin-columns' ),
 			Operators::IS_EMPTY     => __( 'is not set', 'codepress-admin-columns' ),
 			Operators::NOT_IS_EMPTY => __( 'is set', 'codepress-admin-columns' ),
+			Operators::CURRENT_USER => __( 'is current user', 'codepress-admin-columns' ),
 		], $labels );
 
 		parent::__construct( $labels );

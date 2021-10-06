@@ -1,0 +1,1135 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: wp-ultimo-admin-page-creator 1.8.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-05 11:52+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../init.php:33
+msgid "WP Ultimo: Admin Page Creator requires WP Ultimo version 1.6.0. "
+msgstr ""
+
+#: ../init.php:51
+msgid "WP Ultimo: Admin Page Creator"
+msgstr ""
+
+#: ../inc/class-wu-addon-updater.php:103
+msgid "Status: Activated - Golden Ticket"
+msgstr ""
+
+#: ../inc/class-wu-addon-updater.php:113
+msgid "Status: Activated"
+msgstr ""
+
+#: ../inc/class-wu-addon-updater.php:117
+msgid "Status: License no longer valid - Refund issued"
+msgstr ""
+
+#: ../inc/class-wu-addon-updater.php:123
+msgid "Status: Not Activated - Invalid License Key"
+msgstr ""
+
+#: ../inc/class-wu-addon-updater.php:162
+msgid "Activate your Add-ons"
+msgstr ""
+
+#: ../inc/class-wu-addon-updater.php:163
+msgid ""
+"Use the license key you received with the add-on files to activate your copy "
+"and be notified of new versions automatically."
+msgstr ""
+
+#: ../inc/class-wu-addon-updater.php:178 ../inc/class-wu-addon-updater.php:189
+#, php-format
+msgid "License Key - %s"
+msgstr ""
+
+#: ../inc/class-wu-addon-updater.php:179
+msgid ""
+"You have a golden ticket license. There's no need to activate each add-on "
+"individually."
+msgstr ""
+
+#: ../inc/class-wu-addon-updater.php:190
+msgid ""
+"Put the code you received alongside the add-on when you finalized your "
+"purchase."
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:13
+#: ../standalone/inc/class-wapp-pages.php:140
+#: ../standalone/inc/class-wapp-pages.php:141
+msgid "Admin Page"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:14
+#: ../inc/class-wu-admin-pages.php:759 ../views/admin-pages/list.php:3
+#: ../views/meta/settings.php:2
+msgid "Admin Pages"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:180
+msgid "Additional Sub-pages"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:190
+msgid "Admin Pages in Replace Mode"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:200
+msgid "Dashboard Widgets"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:227
+msgid "No Admin Pages avaliable."
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:265
+msgid "Yes"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:265
+msgid "No"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:278
+msgid "Other"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:285
+#, php-format
+msgid "Replacing the entire %s page(s) contents"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:286
+#, php-format
+msgid "Appending content to the top of the %s page(s)"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:287
+#, php-format
+msgid "Appending content to the bottom of the %s page(s)"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:292
+#: ../inc/class-wu-admin-pages-list-table.php:293
+#: ../inc/class-wu-admin-pages-list-table.php:294
+#, php-format
+msgid "Hiding the entire %s page(s) contents"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:317
+msgid "Parent menu not available."
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:351
+#: ../inc/class-wu-admin-pages-list-table.php:374
+#: ../inc/class-wu-admin-pages-list-table.php:400
+msgid "None"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:368
+#: ../inc/class-wu-admin-pages-list-table.php:394
+msgid "All"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:448
+msgid "Edit"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:449
+msgid "Duplicate"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:450
+#: ../inc/class-wu-admin-pages-list-table.php:515
+msgid "Delete"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:467
+msgid "Icon"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:468
+msgid "Name"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:469
+msgid "Parent Menu"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:470
+msgid "Content Type"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:471
+#: ../views/admin-pages/admin-page-advanced-options.php:97
+msgid "Roles Allowed"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:472
+#: ../views/admin-pages/admin-page-advanced-options.php:62
+msgid "Plans Allowed"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:473
+msgid "Is Active?"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:516
+msgid "Activate"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages-list-table.php:517
+msgid "Deactivate"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:677
+msgctxt "post type general name"
+msgid "Admin Pages"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:678
+msgctxt "post type singular name"
+msgid "Admin Page"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:679
+msgctxt "admin menu"
+msgid "Admin Pages"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:680
+msgctxt "add new on admin bar"
+msgid "Admin Page"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:681
+msgctxt "Admin Page"
+msgid "Add New"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:682
+#: ../views/admin-pages/edit-admin-page.php:13
+msgid "Add New Admin Page"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:683
+msgid "New Admin Page"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:684
+#: ../views/admin-pages/edit-admin-page.php:13
+msgid "Edit Admin Page"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:685
+msgid "View Admin Page"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:686 ../inc/class-wu-admin-pages.php:759
+#: ../inc/class-wu-admin-pages.php:783
+msgid "All Admin Pages"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:687
+msgid "Search Admin Pages"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:688
+msgid "Parent Admin Pages:"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:689
+msgid "No Admin Pages found."
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:690
+msgid "No Admin Pages found in Trash."
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:705
+msgid "Description."
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:767
+msgid "Add New"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:2191
+msgid "You don't have permission to access this page"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:2208
+msgid "You must enter a title for the page."
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:2212
+msgid "You must enter a menu label for the page."
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:2323
+msgid "Use Normal WordPress Editor"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:2329
+msgid "Use HTML Editor (Advanced)"
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:2347 ../inc/class-wu-admin-pages.php:2406
+msgid "You do not have the necessary permissions to perform this action."
+msgstr ""
+
+#: ../inc/class-wu-admin-pages.php:2379 ../inc/class-wu-admin-pages.php:2439
+msgid "Something went wrong"
+msgstr ""
+
+#: ../inc/class-wu-beaver-builder-support.php:86
+msgid "Beaver Builder"
+msgstr ""
+
+#: ../inc/class-wu-beaver-builder-support.php:87
+msgid "Beaver Builder Template"
+msgstr ""
+
+#: ../inc/class-wu-beaver-builder-support.php:108
+msgid "Use Beaver Builder Template"
+msgstr ""
+
+#: ../inc/class-wu-beaver-builder-support.php:111
+msgid ""
+"You need Beaver Builder Standard, PRO or Agency Version active to use this "
+"feature"
+msgstr ""
+
+#: ../inc/class-wu-brizy-support.php:48
+msgid "Brizy"
+msgstr ""
+
+#: ../inc/class-wu-brizy-support.php:49
+msgid "Brizy Template"
+msgstr ""
+
+#: ../inc/class-wu-brizy-support.php:208
+msgid "Use Brizy Template"
+msgstr ""
+
+#: ../inc/class-wu-brizy-support.php:211
+msgid "You need Brizy active to use this feature."
+msgstr ""
+
+#: ../inc/class-wu-divi-support.php:100
+msgid "Use Divi Template"
+msgstr ""
+
+#: ../inc/class-wu-divi-support.php:102
+msgid "You need Divi active to use this feature"
+msgstr ""
+
+#: ../inc/class-wu-divi-support.php:124
+msgid "Toggle panel: Select Divi Template"
+msgstr ""
+
+#: ../inc/class-wu-divi-support.php:130
+msgid "Divi Template"
+msgstr ""
+
+#: ../inc/class-wu-divi-support.php:137
+msgid ""
+"You can select a custom Divi template to be used as the content of this "
+"admin page."
+msgstr ""
+
+#: ../inc/class-wu-divi-support.php:137
+msgid "More about Divi templates"
+msgstr ""
+
+#: ../inc/class-wu-divi-support.php:151
+msgid "Select the Divi Template"
+msgstr ""
+
+#: ../inc/class-wu-divi-support.php:153 ../inc/class-wu-divi-support.php:157
+msgid "No Divi Template"
+msgstr ""
+
+#: ../inc/class-wu-divi-support.php:166
+msgid "Edit your Templates"
+msgstr ""
+
+#: ../inc/class-wu-divi-support.php:168
+#: ../views/admin-pages/template-selector.php:52
+msgid "Add new Template"
+msgstr ""
+
+#: ../inc/class-wu-elementor-support.php:48
+msgid "Elementor PRO"
+msgstr ""
+
+#: ../inc/class-wu-elementor-support.php:49
+msgid "Elementor PRO Template"
+msgstr ""
+
+#: ../inc/class-wu-elementor-support.php:145
+msgid "Use Elementor PRO Template"
+msgstr ""
+
+#: ../inc/class-wu-elementor-support.php:148
+msgid "You need Elementor PRO active to use this feature"
+msgstr ""
+
+#: ../inc/class-wu-elementor-support.php:212
+msgid ""
+"Elementor PRO needs to be available network-wide for this page to be "
+"displayed"
+msgstr ""
+
+#: ../inc/class-wu-external-link-support.php:94
+msgid "External Link"
+msgstr ""
+
+#: ../inc/class-wu-external-link-support.php:95
+msgid "External Link URL"
+msgstr ""
+
+#: ../inc/class-wu-external-link-support.php:147
+msgid "Use External Link"
+msgstr ""
+
+#: ../inc/class-wu-external-link-support.php:175
+#: ../views/admin-pages/template-selector.php:6
+#, php-format
+msgid "Toggle panel: %s"
+msgstr ""
+
+#: ../inc/class-wu-external-link-support.php:192
+msgid "https://www.google.com/"
+msgstr ""
+
+#: ../inc/class-wu-external-link-support.php:196
+msgid ""
+"We checked this URL and its remote server is configured to block the URL "
+"from being embedable via iframe. Choosing to display it via iframe might "
+"result in a empty screen."
+msgstr ""
+
+#: ../inc/class-wu-external-link-support.php:198
+msgid "We checked this URL and it can be loaded via iframes!"
+msgstr ""
+
+#: ../inc/class-wu-external-link-support.php:199
+msgid "Checking..."
+msgstr ""
+
+#: ../inc/class-wu-external-link-support.php:209
+msgid "Open URL in the same tab?"
+msgstr ""
+
+#: ../inc/class-wu-external-link-support.php:214
+msgid "Open URL in new tab?"
+msgstr ""
+
+#: ../inc/class-wu-external-link-support.php:219
+msgid "Load URL inside iframe?"
+msgstr ""
+
+#: ../inc/class-wu-gutenberg-support.php:65
+#: ../inc/class-wu-gutenberg-support.php:104
+msgid "Gutenberg Template"
+msgstr ""
+
+#: ../inc/class-wu-gutenberg-support.php:66
+#: ../inc/class-wu-gutenberg-support.php:105
+msgid "Gutenberg Templates"
+msgstr ""
+
+#: ../inc/class-wu-gutenberg-support.php:132
+msgid "You need WordPress version 5.0 to use this feature"
+msgstr ""
+
+#: ../inc/class-wu-gutenberg-support.php:137
+msgid "Disable Classic Editor plugin to active this feature."
+msgstr ""
+
+#: ../inc/class-wu-gutenberg-support.php:143
+msgid "Use Gutenberg Template"
+msgstr ""
+
+#: ../inc/class-wu-hide-page-support.php:95
+#: ../inc/class-wu-hide-page-support.php:96
+#: ../inc/class-wu-hide-page-support.php:151
+msgid "Hide Page from Menu"
+msgstr ""
+
+#: ../inc/class-wu-oxygen-builder-support.php:48
+msgid "Oxygen Builder"
+msgstr ""
+
+#: ../inc/class-wu-oxygen-builder-support.php:49
+msgid "Oxygen Builder Template"
+msgstr ""
+
+#: ../inc/class-wu-oxygen-builder-support.php:69
+msgid "Use Oxygen Builder Template (Beta)"
+msgstr ""
+
+#: ../inc/class-wu-oxygen-builder-support.php:72
+msgid "You need Oxygen Builder active to use this feature"
+msgstr ""
+
+#: ../inc/class-wu-page-content-source-page-builder.php:102
+msgid "Page Builder"
+msgstr ""
+
+#: ../inc/class-wu-page-content-source-page-builder.php:103
+msgid "Page Builder Template"
+msgstr ""
+
+#: ../inc/class-wu-page-content-source.php:68
+#: ../inc/class-wu-page-content-source.php:69
+msgid "Content Source"
+msgstr ""
+
+#: ../inc/class-wu-widget-support.php:75
+msgid "Welcome"
+msgstr ""
+
+#: ../inc/models/wu-admin-page.php:370
+#, php-format
+msgid "%s (Copy)"
+msgstr ""
+
+#: ../inc/wu-apc-functions.php:71
+msgid "Not Found"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:2
+msgid "Toggle panel: Advanced Options"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:5
+msgid "Advanced Options"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:21
+msgid "Permissions"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:22
+msgid "Separator"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:23
+#: ../views/admin-pages/admin-page-advanced-options.php:146
+msgid "CSS"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:24
+#: ../views/admin-pages/admin-page-advanced-options.php:172
+msgid "JavaScript"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:29
+#: ../views/admin-pages/admin-page-advanced-options.php:200
+msgid "Exclude Sites"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:49
+msgid "Limit Access"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:52
+msgid "Check this box to have access to the permission filters."
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:63
+msgid "Select the subscription plans allowed to have access to this page."
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:84
+#: ../views/admin-pages/admin-page-advanced-options.php:119
+msgid "Check / Uncheck All"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:98
+msgid "Select the user roles allowed to have access to this page."
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:129
+msgid "Target Users"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:131
+msgid "Select the target users"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:134
+msgid ""
+"Leave empty to display the page to users that match all other criteria set "
+"in the Permissions tab. Users selected here will see the page even if they "
+"are not part of the allowed roles in the Permissions tab."
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:147
+msgid ""
+"You can enter custom CSS in the box below. Be careful not to break the "
+"styles of the admin panel."
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:158
+msgid "Import External Styles"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:159
+msgid "Use the textarea to add CSS files you want to load. One URL per line."
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:173
+msgid "Use the box below to enter custom JavaScript code for this page."
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:184
+msgid "Import External Scripts"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:185
+msgid ""
+"Use the textarea to add JavaScript files you want to load. One URL per line. "
+"Be careful and only include scripts from trusted sources!"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:202
+msgid "Select the target sites"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:205
+msgid "Select in which sites this admin page should NOT be displayed."
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:224
+msgid "Separators are not applicable to this menu type or content source."
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:230
+msgid "Before Menu Item"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:233
+msgid "Check this box to add a separator before the menu item."
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:239
+msgid "After Menu item"
+msgstr ""
+
+#: ../views/admin-pages/admin-page-advanced-options.php:242
+msgid "Check this box to add a separator after the menu item."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:18
+msgid "Admin Page updated with success!"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:30
+msgid "Enter Admin Page Title"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:78
+msgid ""
+"PHP processing is enabled for this WordPress install and is supported on "
+"custom admin pages. To remove PHP processing, remove <code>define"
+"(\"WU_APC_ALLOW_PHP_PROCESSING\", true);</code> from your wp-config.php."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:84
+msgid ""
+"The HTML content block does not support PHP by default. If you wish to add "
+"PHP processing to your pages, add <code>define(\"WU_APC_ALLOW_PHP_PROCESSING"
+"\", true);</code> to your wp-config.php."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:112
+msgid "Toggle Panel: General Options"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:113
+msgid "General Options"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:124
+msgid "Use this block to define the settings for the menu item for this page."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:128
+msgid "Loading..."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:136
+msgid "Type"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:140
+msgid "Top-level Menu"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:141
+msgid "Submenu"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:142
+msgid "Replace Existing Page"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:143
+msgid "Replace Existing Sub Page"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:144
+msgid "Dashboard Widget"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:152
+msgid "Menu Parent"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:170
+msgid "Apply to multiple pages?"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:172
+msgid "Check this box to apply this page to multiple admin pages."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:178
+msgid "Page to Replace"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:194
+#: ../views/admin-pages/edit-admin-page.php:253
+msgid "There seems to be an error fetching your list of admin pages."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:194
+#: ../views/admin-pages/edit-admin-page.php:253
+msgid "Click here to reset that list"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:204
+#: ../views/admin-pages/edit-admin-page.php:263
+msgid "How to Replace"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:208
+#: ../views/admin-pages/edit-admin-page.php:267
+msgid "Replace All Content"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:209
+#: ../views/admin-pages/edit-admin-page.php:268
+msgid "Append this content at the Top"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:210
+#: ../views/admin-pages/edit-admin-page.php:269
+msgid "Append this content at the Bottom"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:219
+msgid "Sub Page to Replace"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:278
+msgid "Display as Welcome Box?"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:280
+msgid ""
+"Display this widget in the place of the default WordPress Welcome widget."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:286
+msgid "Is Dismissible?"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:288
+msgid "Unchecking this box will remove the dismiss link from the Welcome box."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:294
+msgid "Position"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:298
+msgid "Normal"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:299
+msgid "Side"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:307
+msgid "Priority"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:311
+msgid "High"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:312
+msgid "Low"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:322
+msgid "Show Welcome box?"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:335
+msgid "Rename"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:336
+msgid "Admin Menu Label"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:346
+msgid "Menu Order"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:351
+msgid "Items are usually spaced in increments of 10"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:359
+msgid "Slug"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:362
+msgid "Optional"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:364
+msgid "This will be used for the URL"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:372
+msgid "Admin Menu Icon"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:376
+msgid "No icon"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:399
+msgid "Update Admin Page"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:399
+msgid "Create Admin Page"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:410
+msgid "Toggle panel: Display Options"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:411
+msgid "Display Options"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:418
+msgid "Display the Page Title?"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:422
+msgid "This will add the page title at the top of the custom page."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:427
+msgid "Add the Page Margin?"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:431
+msgid ""
+"This will keep the normal margins of and admin page. You might want to "
+"remove this if you are using HTML or page builders as the content."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:436
+msgid "Display Admin Notices?"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:440
+msgid ""
+"Use this option to control wether or not you want to display admin notices "
+"on this custom page."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:447
+msgid "Display this Page in Main Site?"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:451
+msgid ""
+"Use this option to control if you want to display this page on main site as "
+"well."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:460
+msgid "Toggle panel: Active"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:461
+msgid "Active"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:468
+msgid "Is this Admin Page active?"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:472
+msgid ""
+"This page will not appear inside your users Dashboard panel until it is "
+"marked as Active."
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:480
+msgid "Toggle panel: Delete this Admin Page"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:481
+#: ../views/admin-pages/edit-admin-page.php:497
+msgid "Delete this Admin Page"
+msgstr ""
+
+#: ../views/admin-pages/edit-admin-page.php:495
+msgid "Be careful, this cannot be undone!"
+msgstr ""
+
+#: ../views/admin-pages/list.php:6 ../views/admin-pages/list.php:8
+msgid "Add new Admin Page"
+msgstr ""
+
+#: ../views/admin-pages/list.php:15
+#, php-format
+msgid "%s Admin Page(s) were successfully deleted!"
+msgstr ""
+
+#: ../views/admin-pages/list.php:21
+#, php-format
+msgid "%s Admin Page(s) were successfully duplicated!"
+msgstr ""
+
+#: ../views/admin-pages/list.php:27
+#, php-format
+msgid "%s Admin Page(s) were successfully activated!"
+msgstr ""
+
+#: ../views/admin-pages/list.php:33
+#, php-format
+msgid "%s Admin Page(s) were successfully deactivated!"
+msgstr ""
+
+#: ../views/admin-pages/list.php:39
+msgid "Explanation"
+msgstr ""
+
+#: ../views/admin-pages/template-selector.php:19
+#, php-format
+msgid ""
+"You can select a custom %s template to be used as the content of this admin "
+"page."
+msgstr ""
+
+#: ../views/admin-pages/template-selector.php:19
+#, php-format
+msgid "More about %s and its templates."
+msgstr ""
+
+#: ../views/admin-pages/template-selector.php:26
+#, php-format
+msgid "Select the %s"
+msgstr ""
+
+#: ../views/admin-pages/template-selector.php:30
+#, php-format
+msgid "No %s"
+msgstr ""
+
+#: ../views/admin-pages/template-selector.php:32
+msgid "Select a Template"
+msgstr ""
+
+#: ../views/admin-pages/template-selector.php:43
+msgid "Inline Editor"
+msgstr ""
+
+#: ../views/admin-pages/template-selector.php:44
+msgid "Edit Template"
+msgstr ""
+
+#: ../views/admin-pages/template-selector.php:48
+msgid "See all Templates"
+msgstr ""
+
+#: ../views/meta/getting-started.php:3
+msgid "Thanks for installing WP Admin Pages PRO!"
+msgstr ""
+
+#: ../views/meta/getting-started.php:6
+msgid ""
+"Thank you for using WP Ultimo to build your premium network! This page "
+"explains the motives behing WP Ultimo and lists some useful information for "
+"you!"
+msgstr ""
+
+#: ../views/meta/getting-started.php:9
+#, php-format
+msgid "Version %s"
+msgstr ""
+
+#: ../views/meta/getting-started.php:12
+msgid "Getting Started"
+msgstr ""
+
+#: ../views/meta/getting-started.php:21
+msgid "The Goal:"
+msgstr ""
+
+#: ../views/meta/getting-started.php:21
+msgid "A <strong>Complete</strong> Solution"
+msgstr ""
+
+#: ../views/meta/getting-started.php:27
+msgid ""
+"Despite the number of solutions around, creating and maintaining a premium "
+"network of sites, like <strong>WordPress.com</strong> for example, can be "
+"really complicated. <strong>WP Ultimo</strong> was developed as a new way to "
+"achieve this goal. A <strong>simpler</strong> and <strong>better way</"
+"strong>."
+msgstr ""
+
+#: ../views/meta/getting-started.php:28
+msgid ""
+"In WP Ultimo you will find everything you need to have a premium network up "
+"and running in less than 5 minutes. After all, WordPress became famous "
+"because of its ease of installation - we believe that WP Ultimo should be "
+"like that as well."
+msgstr ""
+
+#: ../views/meta/getting-started.php:30
+msgid ""
+"All the core functionality - often delegated to add-ons by other solutions "
+"-, such as domain mapping, for example, is present in our core code. We do "
+"offer add-ons, but only for non-crucial features and to enhance your network "
+"functionality. Enjoy!"
+msgstr ""
+
+#: ../views/meta/getting-started.php:37
+msgid "Community & Support"
+msgstr ""
+
+#: ../views/meta/getting-started.php:43
+msgid "Join our Forums!"
+msgstr ""
+
+#: ../views/meta/getting-started.php:44
+msgid ""
+"Discuss your ideas and questions with other members creating their own "
+"networks!"
+msgstr ""
+
+#: ../views/meta/getting-started.php:45
+msgid "Visit the Forums &rarr;"
+msgstr ""
+
+#: ../views/meta/getting-started.php:49
+msgid "Read our Knowledge Base"
+msgstr ""
+
+#: ../views/meta/getting-started.php:50
+msgid ""
+"We have a pretty extensive list of tutorials available to help you get "
+"started!"
+msgstr ""
+
+#: ../views/meta/getting-started.php:51
+msgid "Visit the Knowledge Base &rarr;"
+msgstr ""
+
+#: ../views/meta/getting-started.php:55
+msgid "Roadmap"
+msgstr ""
+
+#: ../views/meta/getting-started.php:56
+msgid ""
+"Our roadmap is public and you get to suggest and vote for features you would "
+"like to see implemented!"
+msgstr ""
+
+#: ../views/meta/getting-started.php:57
+msgid "View the Roadmap &rarr;"
+msgstr ""
+
+#: ../views/meta/getting-started.php:61
+msgid "Contact Us"
+msgstr ""
+
+#: ../views/meta/getting-started.php:62
+msgid ""
+"If you are having an issue with WP Ultimo that you are not being able to "
+"sort out, send us a note and we will help you right away."
+msgstr ""
+
+#: ../views/meta/getting-started.php:63
+msgid "Send us a Message &rarr;"
+msgstr ""
+
+#: ../views/meta/getting-started.php:73
+msgid "Complete Changelog"
+msgstr ""
+
+#: ../views/meta/getting-started.php:74
+msgid "The complete history of WP Ultimo versions up to this date."
+msgstr ""
+
+#: ../views/meta/getting-started.php:83
+msgid "Go to Dashboard"
+msgstr ""
+
+#: ../views/meta/settings.php:4
+msgid "Display the \"Admin Pages\" menu item?"
+msgstr ""
+
+#: ../views/meta/settings.php:6
+msgid "Save Menu Visibility"
+msgstr ""
+
+#: ../views/template/dashboard.php:12
+msgid "Dashboard"
+msgstr ""
+
+#: ../views/template/dashboard.php:32
+msgid "Dismiss the welcome panel"
+msgstr ""
+
+#: ../views/template/dashboard.php:32
+msgid "Dismiss"
+msgstr ""
+
+#: ../views/template/page.php:55
+msgid "You are seeing this because you are a super admin."
+msgstr ""
+
+#: ../views/template/page.php:64
+msgid "Edit on Admin Page Creator"
+msgstr ""

@@ -21,7 +21,10 @@ class SendingServiceKeyCheck extends KeyCheckWorker {
   /** @var ServicesChecker */
   private $servicesChecker;
 
-  public function __construct(SettingsController $settings, ServicesChecker $servicesChecker) {
+  public function __construct(
+    SettingsController $settings,
+    ServicesChecker $servicesChecker
+  ) {
     $this->settings = $settings;
     $this->servicesChecker = $servicesChecker;
     parent::__construct();

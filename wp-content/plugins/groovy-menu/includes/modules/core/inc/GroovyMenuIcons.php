@@ -12,7 +12,7 @@ function GroovyMenuRenderIconsModal() {
 	foreach ( \GroovyMenu\FieldIcons::getFonts() as $fontName => $font ) {
 		$icons .= '
 <div class="groovy-iconset" data-name="' . $fontName . '">
-	<span class="groovy-iconset-name">' . $font['name'] . '</span>
+	<span class="groovy-iconset-name">' . $font['name'] . ' (' . $fontName . ')</span>
 	<div class="groovy-icons">
 ';
 

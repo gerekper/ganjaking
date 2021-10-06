@@ -215,6 +215,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			$_card_decline_times = get_post_meta( $order_id, '_card_decline_times', true );
 			Af_Logger::debug('Card declined '.$_card_decline_times.' time');*/
 			$is_enable_blacklist = get_option('wc_settings_anti_fraudenable_automatic_email_blacklist');
+			$is_enable_ip_blacklist = get_option('wc_settings_anti_fraudenable_automatic_ip_blacklist');
 			
 			if ('yes' == $is_enable_blacklist) {
 
@@ -358,24 +359,13 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 								
 								$new_status = 'cancelled';
 								Af_Logger::debug('Status changed to ' .$new_status);
-								$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress', false);
-								if ($existing_blacklist_ip != '') {
-									$auto_blacklist_ip = explode( ',', $existing_blacklist_ip );
-								
-									if (!in_array( $ip_address, $auto_blacklist_ip )) {
-										$existing_blacklist_ip .= ',' . $ip_address;
-										update_option('wc_settings_anti_fraudblacklist_ipaddress', $existing_blacklist_ip);
-									}
-								} else {
-									update_option('wc_settings_anti_fraudblacklist_ipaddress', $ip_address);
-								}
 								$is_whitelisted = false;
 							} elseif ( $score_points <= $hold_score && 0 !== $hold_score ) {
 
 								$new_status = 'on-hold';
 							}
 						}else{
-							if ( $payment_method == 'cod' || $payment_method == 'bacs' || $payment_method == 'cheque' )	{
+							if ( 'cod' == $payment_method || 'bacs' == $payment_method || 'cheque' == $payment_method )	{
 								
 								$is_whitelisted = true;
 								$new_status = 'on-hold';					
@@ -383,8 +373,9 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 							} else {
 								
 								$is_whitelisted = true;
-								$new_status = 'processing';					
-								Af_Logger::debug('Payment method ' . $payment_method . ' available in whitelist. Status changed to ' .$new_status);
+								//don't change status, use the default status assigned by payment plugin
+								$new_status = '';					
+								Af_Logger::debug('Payment method ' . $payment_method . ' available in whitelist. Status will be used from payment method plugin');
 							}							
 						}
 					}
@@ -393,17 +384,6 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 					if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
 								
 						$new_status = 'cancelled';
-						$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress', false);
-						if ($existing_blacklist_ip != '') {
-							$auto_blacklist_ip = explode( ',', $existing_blacklist_ip );
-						
-							if (!in_array( $ip_address, $auto_blacklist_ip )) {
-								$existing_blacklist_ip .= ',' . $ip_address;
-								update_option('wc_settings_anti_fraudblacklist_ipaddress', $existing_blacklist_ip);
-							}
-						} else {
-							update_option('wc_settings_anti_fraudblacklist_ipaddress', $ip_address);
-						}
 						$is_whitelisted = false;
 					} elseif ( $score_points <= $hold_score && 0 !== $hold_score ) {
 
@@ -426,6 +406,29 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 						
 						update_option('wc_settings_anti_fraudblacklist_emails', $existing_blacklist_emails);
 					}
+				}
+				// Blacklist ip if enabled
+				if ('yes' == $is_enable_ip_blacklist  && $new_score_points > get_option('wc_settings_anti_fraud_higher_risk_threshold')) {
+					Af_Logger::debug('IP Blacklist '.$ip_address);
+					$existing_blacklist_ip = get_option('wc_settings_anti_fraudblacklist_ipaddress', false);
+					if ($existing_blacklist_ip != '') {
+						$auto_blacklist_ip = explode( ',', $existing_blacklist_ip );
+					
+						if (!in_array( $ip_address, $auto_blacklist_ip )) {
+							$existing_blacklist_ip .= ',' . $ip_address;
+							update_option('wc_settings_anti_fraudblacklist_ipaddress', $existing_blacklist_ip);
+						}
+					} else {
+						update_option('wc_settings_anti_fraudblacklist_ipaddress', $ip_address);
+					}
+				}
+
+				$max_order_per_ip =  new WC_AF_Rule_Velocities();
+				$is_max = $max_order_per_ip->is_risk($order);
+				if ( 'yes' === get_option('wc_af_attempt_count_check') && true === $is_max ) {
+					$new_status = 'cancelled';
+					$order->add_order_note( __( 'Max order limit reched from same IP.', 'woocommerce-anti-fraud' ) );
+					Af_Logger::debug('Max Order Reched  and Order: '. $new_status);
 				}
 			}      
 			/**

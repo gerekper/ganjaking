@@ -178,7 +178,7 @@ class Revslider_Featured_Addon_Public {
 	 * the deepest level possible.
 	 *
 	 */
-	function set_revslider_addon_meta_key( $null = null, $object_id, $meta_key, $single ) {
+	function set_revslider_addon_meta_key( $null = null, $object_id = '', $meta_key = '', $single = '') {
 		// only affect thumbnails on the frontend, do allow ajax calls
 		
 		if ( ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) || '_thumbnail_id' != $meta_key )

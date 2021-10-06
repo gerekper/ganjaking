@@ -1361,11 +1361,17 @@ var ix_dropdown_thumbnails = [],
 			ix_dropdown_order[element.id] = element_order;
 		} );
 
+
 		if ( typeof $().selectize !== 'undefined' ) {
 			$( 'select.apply-selectize' ).trigger( 'apply-selectize' );
+			window.wps_did_apply_selectize = true;
+		} else {
+
+			console.log( 'Tried to trigger the apply-selectize event but selectize is missing.' );
 		}
 
 		ixwpsf.toggleWidgets();
 
 	} );
+
 } )( jQuery );

@@ -108,7 +108,9 @@ class GP_Live_Preview extends GWPerk {
 			return;
 		}
 
-		$form_id = rgget( 'id' );
+		// Logic borrowed from GFForms::top_toolbar() for getting first form ID if form ID is not in the query params.
+		$forms   = RGFormsModel::get_forms( null, 'title' );
+		$form_id = rgempty( 'id', $_GET ) ? count( $forms ) > 0 ? $forms[0]->id : '0' : rgget( 'id' );
 
 		self::register_script( 'gp-live-preview-admin', $this->get_base_url() . '/js/gp-live-preview-admin.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( 'gp-live-preview-admin' );
@@ -314,6 +316,8 @@ class GP_Live_Preview extends GWPerk {
 				'at'        => 'right+24 top-10',
 				'collision' => 'none',
 			),
+			// Fixes positional issues introduced by GF in [PR#1183](https://github.com/gravityforms/gravityforms/pull/1883/files).
+			'open' => null,
 		);
 		ob_start();
 		?>
@@ -322,7 +326,7 @@ class GP_Live_Preview extends GWPerk {
 				<?php foreach ( $this->get_live_preview_options() as $key => $option ) : ?>
 					<li class="gplp-menu-item gplp-menu-item-<?php echo esc_html( $key ); ?>">
 						<input type="checkbox" class="gplp-option"
-						       id="gplp-option-<?php echo esc_html( $key ); ?>"
+							   id="gplp-option-<?php echo esc_html( $key ); ?>"
 							   value="<?php echo esc_html( $key ); ?>"
 							<?php checked( rgar( $this->get_user_options(), esc_html( $key ) ) ); ?> />
 						<label for="gplp-option-<?php echo esc_html( $key ); ?>"><?php echo esc_html( $option['label'] ); ?></label>
@@ -369,7 +373,8 @@ class GP_Live_Preview extends GWPerk {
 	}
 
 	public function is_applicable_admin_page() {
-		return in_array( rgget( 'page' ), array( 'gf_edit_forms', 'gf_entries' ) ) && rgget( 'id' );
+		$page = rgget( 'page' );
+		return ( $page === 'gf_edit_forms' && rgget( 'id' ) ) || $page === 'gf_entries';
 	}
 
 	public function ajax_save_option() {

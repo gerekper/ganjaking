@@ -66,7 +66,7 @@
     <table class="borderless details" cellpadding="5">
         <tr>
             <th><?php _e('Date', 'wc_warranty'); ?>:</th>
-            <td><?php echo date_i18n( get_option('date_format') .' '. get_option('time_format'), strtotime( $warranty['post_modified'] ) ); ?></td>
+            <td><?php echo date_i18n( WooCommerce_Warranty::get_datetime_format(), strtotime( $warranty['post_modified'] ) ); ?></td>
         </tr>
         <tr>
             <th><?php _e('Order Number', 'wc_warranty'); ?>:</th>

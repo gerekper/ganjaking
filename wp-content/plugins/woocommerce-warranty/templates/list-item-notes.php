@@ -11,10 +11,9 @@ if ( empty( $notes ) ):
     <li><?php _e('There are no notes yet', 'wc_warranty'); ?></li>
 <?php
 else:
-    $datetime_format = get_option( 'date_format' ) .' '. get_option( 'time_format' );
     foreach( $notes as $note ):
         $author = new WP_User( $note->user_id );
-        $pretty_date = date_i18n( $datetime_format, strtotime( $note->comment_date ) );
+        $pretty_date = date_i18n( WooCommerce_Warranty::get_datetime_format(), strtotime( $note->comment_date ) );
         ?>
         <li class="note" rel="<?php echo esc_attr( $note->comment_ID ); ?>">
             <div class="note-content">

@@ -98,6 +98,26 @@ class WPSEO_Upgrade_Manager {
 		if ( version_compare( $version_number, '16.3-beta2', '<' ) ) {
 			add_action( 'init', [ $this, 'upgrade_16_3' ], 12 );
 		}
+
+		if ( version_compare( $version_number, '17.2-RC0', '<' ) ) {
+			add_action( 'init', [ $this, 'upgrade_17_2' ], 12 );
+		}
+	}
+
+	/**
+	 * Schedules the cleanup integration if it's no already scheduled.
+	 *
+	 * @return void
+	 */
+	public function upgrade_17_2() {
+		// If Yoast SEO hasn't been upgraded to 17.2 the cleanup integration has not been implemented in the current way.
+		if ( ! \defined( '\Yoast\WP\SEO\Integrations\Cleanup_Integration::START_HOOK' ) ) {
+			return;
+		}
+		// If Yoast SEO premium was upgraded after Yoast SEO, reschedule the task to clean out orphaned prominent words.
+		if ( ! \wp_next_scheduled( \Yoast\WP\SEO\Integrations\Cleanup_Integration::START_HOOK ) ) {
+			\wp_schedule_single_event( ( time() + ( MINUTE_IN_SECONDS * 5 ) ), \Yoast\WP\SEO\Integrations\Cleanup_Integration::START_HOOK );
+		}
 	}
 
 	/**

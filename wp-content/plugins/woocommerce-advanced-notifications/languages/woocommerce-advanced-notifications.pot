@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Advanced Notifications 1.2.31\n"
+"Project-Id-Version: WooCommerce Advanced Notifications 1.2.32\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-advanced-notifications\n"
-"POT-Creation-Date: 2021-07-21 20:19:04+00:00\n"
+"POT-Creation-Date: 2021-07-27 18:02:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -415,13 +415,13 @@ msgstr ""
 msgid "jS F Y"
 msgstr ""
 
-#: templates/emails/new-order-plain.php:114 templates/emails/new-order.php:148
-#: templates/emails/refunds-plain.php:109 templates/emails/refunds.php:142
+#: templates/emails/new-order-plain.php:115 templates/emails/new-order.php:149
+#: templates/emails/refunds-plain.php:110 templates/emails/refunds.php:143
 msgid "Total"
 msgstr ""
 
-#: templates/emails/new-order-plain.php:122
-#: templates/emails/refunds-plain.php:117
+#: templates/emails/new-order-plain.php:123
+#: templates/emails/refunds-plain.php:118
 msgid "Note"
 msgstr ""
 
@@ -441,7 +441,7 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: templates/emails/new-order.php:157 templates/emails/refunds.php:151
+#: templates/emails/new-order.php:158 templates/emails/refunds.php:152
 msgid "Note:"
 msgstr ""
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Class to handle the plugin routing.
+ * Class to handle the Google product categories.
  *
  * @package WC_Instagram
  * @since   3.3.0

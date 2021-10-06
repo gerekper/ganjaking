@@ -133,6 +133,7 @@ require_once 'conditions/rightpress-condition-product-property.class.php';
 require_once 'conditions/rightpress-condition-product-property-meta.class.php';
 require_once 'conditions/rightpress-condition-product-property-on-sale.class.php';
 require_once 'conditions/rightpress-condition-product-property-regular-price.class.php';
+require_once 'conditions/rightpress-condition-product-property-sale-price.class.php';
 require_once 'conditions/rightpress-condition-product-property-shipping-class.class.php';
 require_once 'conditions/rightpress-condition-product-property-stock-quantity.class.php';
 require_once 'conditions/rightpress-condition-product-property-type.class.php';

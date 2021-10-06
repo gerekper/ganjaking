@@ -132,7 +132,7 @@ p {
 .login form {
 	margin-top: 20px;
 	margin-right: 0;
-	padding: 26px 24px 46px;
+	padding: 26px 24px 34px;
 	font-weight: 400;
 	overflow: hidden;
 	background: #fff;
@@ -189,6 +189,18 @@ p {
 
 .login .button-primary {
 	float: left;
+}
+
+.login .reset-pass-submit {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
+
+.login .reset-pass-submit .button {
+	display: inline-block;
+	float: none;
+	margin-bottom: 6px;
 }
 
 .login .admin-email-confirm-form .submit {
@@ -286,6 +298,7 @@ p {
 
 #backtoblog {
 	margin: 16px 0;
+	word-break: break-word;
 }
 
 .login #nav a,
@@ -323,6 +336,10 @@ p {
 	margin: 0 0 16px 6px;
 	min-height: 40px;
 	max-height: none;
+}
+
+.login input.password-input {
+	font-family: Consolas, Monaco, monospace;
 }
 
 .js.login input.password-input,
@@ -391,10 +408,6 @@ body.interim-login {
 /* Hide the Edge "reveal password" native button */
 input::-ms-reveal {
 	display: none;
-}
-
-@-ms-viewport {
-	width: device-width;
 }
 
 @media screen and (max-height: 550px) {

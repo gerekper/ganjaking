@@ -1,0 +1,19 @@
+/* 
+ * @author    ThemePunch <info@themepunch.com>
+ * @link      http://www.themepunch.com/
+ * @copyright 2021 ThemePunch
+*/
+
+
+.tp-transitionpack { overflow: hidden; }
+
+
+row.twocolorfields .revbuilder-colorpicker.revbuilder-cpicker-master-wrap  { width: 69px !important;  overflow: hidden}
+row.twocolorfields .revbuilder-colorpicker.revbuilder-cpicker-master-wrap .layerinput,
+#tpack_twistsettings .revbuilder-colorpicker.revbuilder-cpicker-master-wrap .layerinput { display:none;}
+
+row oneshort .chrt_lngtxt { max-width: 28px; margin-right: 7px; }
+
+.tpacktrans.disabled {
+	display: none !important;
+}

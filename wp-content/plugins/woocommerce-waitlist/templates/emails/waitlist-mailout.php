@@ -11,7 +11,7 @@
  * the readme will list any important changes.
  *
  * @see https://docs.woocommerce.com/document/template-structure/
- * @version 2.1.9
+ * @version 2.2.3
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -33,5 +33,13 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <?php if ( WooCommerce_Waitlist_Plugin::persistent_waitlists_are_disabled( $product_id ) && ! $triggered_manually ) {
 	echo '<p>' . __( 'You have been removed from the waitlist for this product', 'woocommerce-waitlist' ) . '</p>';
+}
+if ( get_option( 'woocommerce_waitlist_archive_on' ) && ! email_exists( $email ) ) {
+	$remove_link = add_query_arg( array(
+    'wcwl_remove_user' => esc_attr( $email ),
+    'product_id'       => absint( $product_id ),
+		'key'              => $key,
+	), get_permalink( $product_id ) );
+	printf( __( 'To disassociate your email address with this product please click %1$shere%2$s.', 'woocommerce-waitlist' ), '<a href="' . $remove_link . '">', '</a>' );
 }
 do_action( 'woocommerce_email_footer', $email ); ?>

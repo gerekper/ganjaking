@@ -71,7 +71,8 @@ class Screen implements AC\Registrable {
 	public function register() {
 		add_action( 'admin_enqueue_scripts', [ $this, 'scripts' ] );
 
-		add_filter( 'manage_' . $this->list_screen->get_screen_id() . '_sortable_columns', [ $this, 'add_sortable_headings' ] );
+		add_filter( 'manage_' . $this->list_screen->get_screen_id() . '_sortable_columns', [ $this, 'add_sortable_headings' ], 20 );
+		add_filter( 'manage_' . $this->list_screen->get_screen_id() . '_sortable_columns', [ $this, 'unset_original_sortable_headings' ], 21 );
 
 		$this->request_setter()->handle( new AC\Request() );
 		$this->manage_sort()->handle( $_GET );
@@ -133,7 +134,6 @@ class Screen implements AC\Registrable {
 	 * @return array Column name or Sanitized Label
 	 */
 	public function add_sortable_headings( $sortable_columns ) {
-
 		// Stores the default columns on the listings screen
 		if ( ! wp_doing_ajax() && current_user_can( AC\Capabilities::MANAGE ) ) {
 			$this->native_sortable_repository->update( $sortable_columns ?: [] );
@@ -151,6 +151,25 @@ class Screen implements AC\Registrable {
 			$column_name = $column->get_name();
 
 			$sortable_columns[ $column_name ] = $column_name;
+		}
+
+		return $sortable_columns;
+	}
+
+	/**
+	 * @param array $sortable_columns
+	 *
+	 * @return array
+	 */
+	public function unset_original_sortable_headings( $sortable_columns ) {
+		$columns = $this->column_respository->find_all( [
+			ColumnRepository::ARG_FILTER => new Filter\DisabledOriginalColumns(),
+		] );
+
+		foreach ( $columns as $column ) {
+			if ( isset( $sortable_columns[ $column->get_name() ] ) ) {
+				unset( $sortable_columns[ $column->get_name() ] );
+			}
 		}
 
 		return $sortable_columns;

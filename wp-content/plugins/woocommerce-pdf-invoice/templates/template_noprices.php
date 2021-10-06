@@ -128,6 +128,8 @@
     	<td valign="top">[[PDFINVOICE_SHIPMETHOD_HEADING]]</td>
         <td valign="top">[[PDFSHIPPINGMETHOD]]</td>
     </tr>
+
+    [[PDFSHIPMENTTRACKING]]
     
     <tr>   
     	<td valign="top" colspan="2">

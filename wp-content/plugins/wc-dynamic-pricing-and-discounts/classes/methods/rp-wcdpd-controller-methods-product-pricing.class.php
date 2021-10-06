@@ -69,6 +69,9 @@ class RP_WCDPD_Controller_Methods_Product_Pricing extends RP_WCDPD_Controller_Me
 
         // No price changes to apply to cart
         add_action('rightpress_product_price_cart_no_changes_to_prices', array($this, 'no_price_changes_to_apply_to_cart'), $this->rightpress_hook_position);
+
+        // Reset product price limits before prepared cart item prices are refreshed
+        add_action('rightpress_product_price_cart_before_refresh_prepared_cart_item_prices', array($this, 'reset_limits_before_refreshing_prepared_cart_item_prices'));
     }
 
     /**
@@ -509,6 +512,17 @@ class RP_WCDPD_Controller_Methods_Product_Pricing extends RP_WCDPD_Controller_Me
         return array();
     }
 
+    /**
+     * Reset product price limits before prepared cart item prices are refreshed
+     *
+     * @access public
+     * @return void
+     */
+    public function reset_limits_before_refreshing_prepared_cart_item_prices()
+    {
+
+        RP_WCDPD_Limit_Product_Pricing::reset();
+    }
 
 
 

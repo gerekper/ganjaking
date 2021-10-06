@@ -90,7 +90,7 @@ class S3 extends Abstract_Integration {
 		$settings[ $this->module ] = array(
 			'label'       => __( 'Enable Amazon S3 support', 'wp-smushit' ),
 			'short_label' => __( 'Amazon S3', 'wp-smushit' ),
-			'desc'        => sprintf(
+			'desc'        => sprintf( /* translators: %1$s - <a>, %2$s - </a> */
 				esc_html__(
 					"Storing your image on S3 buckets using %1\$sWP Offload Media%2\$s? Smush can detect
 				and smush those assets for you, including when you're removing files from your host server.",
@@ -276,8 +276,7 @@ class S3 extends Abstract_Integration {
 		} elseif ( ! method_exists( $as3cf, 'is_plugin_setup' ) ) {
 			// Check if in case for some reason, we couldn't find the required function.
 			$class   = ' sui-notice-warning';
-			$message = sprintf(
-				/* translators: %1$s: opening a tag, %2$s: closing a tag */
+			$message = sprintf( /* translators: %1$s: opening a tag, %2$s: closing a tag */
 				esc_html__(
 					'We are having trouble interacting with WP Offload Media, make sure the plugin is activated. Or you can %1$sreport a bug%2$s.',
 					'wp-smushit'
@@ -288,8 +287,7 @@ class S3 extends Abstract_Integration {
 		} elseif ( ! $as3cf->is_plugin_setup() ) {
 			// Plugin is not setup, or some information is missing.
 			$class   = ' sui-notice-warning';
-			$message = sprintf(
-				/* translators: %1$s: opening a tag, %2$s: closing a tag */
+			$message = sprintf( /* translators: %1$s: opening a tag, %2$s: closing a tag */
 				esc_html__(
 					'It seems you haven’t finished setting up WP Offload Media yet. %1$sConfigure it now%2$s to enable Amazon S3 support.',
 					'wp-smushit'

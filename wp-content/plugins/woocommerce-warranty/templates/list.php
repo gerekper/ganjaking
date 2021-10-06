@@ -301,7 +301,8 @@ SQL;
 
         if (! $order ) {
             if ( class_exists('WC_Seq_Order_Number') ) {
-                $order_id = $GLOBALS['wc_seq_order_number']->find_order_by_order_number( $item['order_id'] );
+				$seq_order_num_obj = ( function_exists('wc_sequential_order_numbers') ) ? wc_sequential_order_numbers() : $GLOBALS['wc_seq_order_number'];
+                $order_id          = is_callable( array( $seq_order_num_obj, 'find_order_by_order_number' ) ) ? $seq_order_num_obj->find_order_by_order_number( $item['order_id'] ) : false;
 
                 if ( $order_id ) {
                     $item_order = '<a href="post.php?post='. $order_id .'&action=edit">#'. $item['order_id'] .'</a>';

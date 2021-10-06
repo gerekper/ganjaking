@@ -97,13 +97,13 @@
 							</button>
 						</div>
 
-						<li style="margin-top: 15px">
+						<div style="margin-top: 15px">
 							<input type="checkbox" :id="'gppa-' + populate + '-unique-results'" v-model="uniqueResults" />
 
 							<label class="inline" :for="'gppa-' + populate + '-unique-results'">
 								<span>{{ i18nStrings.unique }}</span>
 							</label>
-						</li>
+						</div>
 
 						<gppa-results-preview :field="field"
 						  :filter-groups="filterGroups"
@@ -129,9 +129,17 @@
 									Property &ndash;
 								</option>
 
-								<option v-for="option in orderingProperties" v-bind:value="option.value">
+								<option v-for="option in orderingPropertiesUngrouped"
+								        v-bind:value="option.value">
 									{{ truncateStringMiddle(option.label) }}
 								</option>
+
+								<optgroup v-for="(options, groupID) in orderingPropertiesGrouped"
+								          v-bind:label="groupID in objectTypeInstance.groups && objectTypeInstance.groups[groupID].label">
+									<option v-for="option in options" v-bind:value="option.value">
+										{{ truncateStringMiddle(option.label) }}
+									</option>
+								</optgroup>
 							</select>
 
 							<select class="gppa-ordering-method" v-model="orderingMethod">
@@ -222,7 +230,7 @@
 				this.$watch(property, (val, oldVal) => {
 					try {
 						if (typeof val !== 'undefined') {
-							SetFieldProperty(fieldSetting, JSON.parse(JSON.stringify(val)));
+							window.SetFieldProperty(fieldSetting, JSON.parse(JSON.stringify(val)));
 						}
 					} catch (e) {
 						console.warn(e);
@@ -359,7 +367,6 @@
 				})[0];
 			},
 			fieldValueObjects: function () {
-
 				var vm = this;
 
 				return window.form.fields.filter(function (field) {
@@ -373,7 +380,6 @@
 
 					return 'gppa-choices-enabled' in field && field['gppa-choices-enabled'] && field['gppa-choices-object-type'];
 				});
-
 			},
 			groupedProperties: function () {
 				var groupedProperties = Object.assign({}, this.properties);
@@ -384,10 +390,21 @@
 			ungroupedProperties: function () {
 				return this.properties.ungrouped;
 			},
-			orderingProperties: function () {
-				return Object.values(this.flattenedProperties).filter(function (prop) {
-					return 'orderby' in prop && prop.orderby;
-				});
+			orderingPropertiesGrouped: function () {
+				const groupedProperties = {...this.groupedProperties};
+
+				for ( const [groupId, properties] of Object.entries(groupedProperties) ) {
+					groupedProperties[groupId] = properties.filter(property => property?.['orderby']);
+
+					if (groupedProperties[groupId].length === 0) {
+						delete groupedProperties[groupId];
+					}
+				}
+
+				return groupedProperties;
+			},
+			orderingPropertiesUngrouped: function () {
+				return this.ungroupedProperties?.filter(property => property?.['orderby']);
 			},
 			flattenedProperties: function () {
 				var propertiesFlat = {};
@@ -613,7 +630,7 @@
 						}
 						break;
 					case 'values':
-                        if( $.inArray( GetInputType( GetSelectedField() ), [ 'number', 'calculation' ] ) !== -1 ) {
+						if( $.inArray( window.GetInputType( window.GetSelectedField() ), [ 'number', 'calculation' ] ) !== -1 && window.GetSelectedField()['type'] !== 'quantity' ) {
                             $('.calculation_setting').show();
 						}
 					    break;
@@ -722,7 +739,7 @@
 
 				var vm = this;
 
-				$.post(ajaxurl, ajaxArgs, null, 'json').done(function (data) {
+				$.post(window.ajaxurl, ajaxArgs, null, 'json').done(function (data) {
 					vm.properties = Object.assign({}, data);
 				});
 			},
@@ -747,7 +764,7 @@
 					ajaxArgs['primary-property-value'] = this.primaryPropertyComputed;
 				}
 
-				$.post(ajaxurl, ajaxArgs, null, 'json').done(function (data) {
+				$.post(window.ajaxurl, ajaxArgs, null, 'json').done(function (data) {
 					if (data === 'gppa_over_max_values_in_editor') {
 						/**
 						 * If gppa_max_property_values_in_editor filter is met, do not output any properties to be selected.

@@ -19,7 +19,7 @@ class AuthorName extends AC\Column\Comment\AuthorName
 	}
 
 	public function editing() {
-		return new Editing\Model\Comment\AuthorName( $this );
+		return new Editing\Service\Basic( new Editing\View\Text(), new Editing\Storage\Comment\Field( 'comment_author' ) );
 	}
 
 	public function filtering() {

@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Doctrine\ORM\Id; if (!defined('ABSPATH')) exit; use MailPoetVendor\Doctrine\ORM\EntityManager; abstract class AbstractIdGenerator { public abstract function generate(\MailPoetVendor\Doctrine\ORM\EntityManager $em, $entity); public function isPostInsertGenerator() { return \false; } } 
+ namespace MailPoetVendor\Doctrine\ORM\Id; if (!defined('ABSPATH')) exit; use MailPoetVendor\Doctrine\ORM\EntityManager; abstract class AbstractIdGenerator { public abstract function generate(EntityManager $em, $entity); public function isPostInsertGenerator() { return \false; } } 

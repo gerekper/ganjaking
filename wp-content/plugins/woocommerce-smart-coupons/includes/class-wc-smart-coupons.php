@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.6.0
+ * @version     2.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -381,7 +381,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		/**
 		 * Coupon's expiration date (formatted)
 		 *
-		 * @param int $expiry_date Expirty date of coupon.
+		 * @param int $expiry_date Expiry date of coupon.
 		 * @return string $expires_string Formatted expiry date
 		 */
 		public function get_expiration_format( $expiry_date ) {
@@ -1813,10 +1813,10 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 							update_post_meta( $order_id, 'smart_coupons_contribution', $smart_coupons_contribution );
 
-							if ( 'woocommerce_add_coupon_discount' === $post_action && $order->has_status( array( 'on-hold', 'auto-draft', 'pending' ) ) && did_action( 'sc_after_order_calculate_discount_amount' ) <= 0 ) {
-								do_action( 'sc_after_order_calculate_discount_amount', $order_id );
-							}
 						}
+					}
+					if ( 'woocommerce_add_coupon_discount' === $post_action && $order->has_status( array( 'on-hold', 'auto-draft', 'pending' ) ) && did_action( 'sc_after_order_calculate_discount_amount' ) <= 0 ) {
+						do_action( 'sc_after_order_calculate_discount_amount', $order_id );
 					}
 				}
 			}

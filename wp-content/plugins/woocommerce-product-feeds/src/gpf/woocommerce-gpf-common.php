@@ -725,8 +725,9 @@ class WoocommerceGpfCommon {
 		if ( 'description' === $key ) {
 			$options = $this->get_description_prepopulate_options();
 		}
-		$options = array_merge( $options, $this->get_available_taxonomies() );
 		$options = array_merge( $options, $this->get_prepopulate_fields() );
+		$options = array_merge( $options, $this->get_available_taxonomies() );
+		$options = array_merge( $options, $this->get_available_custom_attributes() );
 		$options = array_merge( $options, $this->get_prepopulate_meta() );
 
 		return apply_filters( 'woocommerce_gpf_prepopulate_options', $options, $key );
@@ -902,25 +903,59 @@ class WoocommerceGpfCommon {
 	private function get_available_taxonomies() {
 		$taxonomies = get_object_taxonomies( 'product' );
 		$taxes      = [];
+		$attributes = [];
 		foreach ( $taxonomies as $taxonomy ) {
-			$tax_details                 = get_taxonomy( $taxonomy );
-			$taxes[ 'tax:' . $taxonomy ] = $tax_details->labels->name;
+			$tax_details = get_taxonomy( $taxonomy );
+			if ( taxonomy_is_product_attribute( $taxonomy ) ) {
+				$attributes[ 'tax:' . $taxonomy ] = $tax_details->labels->name;
+				continue;
+			}
 			if ( $tax_details->hierarchical ) {
 				$taxes[ 'taxhierarchy:' . $taxonomy ] = sprintf(
-					// Translators: %s is a taxonomy name
+				// Translators: %s is a taxonomy name
 					__( '%s (full hierarchy)', 'woocommerce_gpf' ),
 					$tax_details->labels->name
 				);
 			}
+			$taxes[ 'tax:' . $taxonomy ] = $tax_details->labels->name;
 		}
 		asort( $taxes );
+		asort( $attributes );
 
 		return array_merge(
+			[
+				'disabled:attributes' => __( '- Global attributes -', 'woo_gpf' ),
+			],
+			$attributes,
 			[
 				'disabled:taxes' => __( '- Taxonomies -', 'woo_gpf' ),
 			],
 			$taxes
 		);
+	}
+
+	/**
+	 * Allow people to register custom attributes for use as pre-population options.
+	 *
+	 * @return array
+	 */
+	private function get_available_custom_attributes() {
+		$attributes     = [];
+		$attribute_keys = apply_filters( 'woocommerce_gpf_custom_attributes_for_prepopulation', [] );
+		foreach ( $attribute_keys as $key ) {
+			$attributes[ 'cattribute:' . $key ] = $key;
+		}
+
+		if ( ! empty( $attributes ) ) {
+			$attributes = array_merge(
+				[
+					'disabled:cattributes' => __( '- Custom attributes -', 'woo_gpf' ),
+				],
+				$attributes
+			);
+		}
+
+		return $attributes;
 	}
 
 	private function get_prepopulate_meta() {

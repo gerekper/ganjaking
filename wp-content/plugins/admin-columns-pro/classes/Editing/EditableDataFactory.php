@@ -16,41 +16,37 @@ class EditableDataFactory {
 	 * @return array
 	 */
 	public function create( AC\ListScreen $list_screen ) {
+		$is_table_inline_editable = $this->is_list_screen_inline_editable( $list_screen );
+		$is_table_bulk_editable = $this->is_list_screen_bulk_editable( $list_screen );
+
+		if ( ! $is_table_inline_editable && ! $is_table_bulk_editable ) {
+			return [];
+		}
+
 		$editable_data = [];
-
 		foreach ( $list_screen->get_columns() as $column ) {
-			if ( ! $column instanceof Editable ) {
+			$service = ServiceFactory::create( $column );
+
+			if ( ! $service instanceof Service ) {
 				continue;
 			}
 
-			$model = $column->editing();
+			$inline_data = $is_table_inline_editable && $this->is_inline_edit_active( $column )
+				? $this->create_data_by_service( $service, $column, Service::CONTEXT_SINGLE )
+				: null;
 
-			if ( $model instanceof Model\Disabled ) {
+			$bulk_data = $is_table_bulk_editable && $this->is_bulk_edit_active( $column )
+				? $this->create_data_by_service( $service, $column, Service::CONTEXT_BULK )
+				: null;
+
+			if ( ! $inline_data && ! $bulk_data ) {
 				continue;
-			}
-
-			$is_inline_editable = $this->is_list_screen_inline_editable( $list_screen ) && $this->is_column_inline_editable( $column );
-			$is_bulk_editable = $this->is_list_screen_bulk_editable( $list_screen ) && $this->is_column_bulk_editable( $column );
-
-			if ( ! $is_inline_editable && ! $is_bulk_editable ) {
-				continue;
-			}
-
-			$data = $this->get_editable_settings( $column );
-
-			if ( false === $data ) {
-				continue;
-			}
-
-			if ( isset( $data['options'] ) ) {
-				$data['options'] = $this->format_js( $data['options'] );
 			}
 
 			$editable_data[ $column->get_name() ] = [
 				'type'        => $column->get_type(),
-				'editable'    => $data,
-				'inline_edit' => $is_inline_editable,
-				'bulk_edit'   => $is_bulk_editable,
+				'inline_edit' => $inline_data,
+				'bulk_edit'   => $bulk_data,
 			];
 		}
 
@@ -78,51 +74,55 @@ class EditableDataFactory {
 	}
 
 	/**
-	 * @param Column $column
+	 * @param Service $service
+	 * @param Column  $column
+	 * @param string  $context
 	 *
-	 * @return bool
+	 * @return array|null
 	 */
-	private function is_column_bulk_editable( Column $column ) {
-		$settings = $this->get_editable_settings( $column );
+	private function create_data_by_service( Service $service, Column $column, $context ) {
+		$view = $service->get_view( $context );
 
-		if ( isset( $settings[ Model::VIEW_BULK_EDITABLE ] ) && false === $settings[ Model::VIEW_BULK_EDITABLE ] ) {
-			return false;
+		if ( ! $view ) {
+			return null;
 		}
 
-		$setting = $column->get_setting( 'bulk_edit' );
-
-		$is_bulk_editable = $setting instanceof Settings\BulkEditing && $setting->is_active();
-
-		return (bool) apply_filters( 'acp/editing/bulk-edit-active', $is_bulk_editable, $column );
-	}
-
-	/**
-	 * @param Column $column
-	 *
-	 * @return bool
-	 */
-	private function is_column_inline_editable( Column $column ) {
-		$setting = $column->get_setting( 'edit' );
-
-		return $setting instanceof Settings && $setting->is_active();
-	}
-
-	/**
-	 * @param Column $column
-	 *
-	 * @return array|false
-	 */
-	private function get_editable_settings( Column $column ) {
-		$data = false;
-
-		if ( $column instanceof Editable ) {
-			$data = $column->editing()->get_view_settings();
-		}
-
-		$data = apply_filters( 'acp/editing/view_settings', $data, $column );
+		$data = apply_filters( 'acp/editing/view_settings', $view->get_args(), $column );
 		$data = apply_filters( 'acp/editing/view_settings/' . $column->get_type(), $data, $column );
 
-		return $data;
+		if ( ! is_array( $data ) ) {
+			return null;
+		}
+
+		if ( isset( $data['options'] ) ) {
+			$data['options'] = $this->format_js( $data['options'] );
+		}
+
+		return (array) $data;
+	}
+
+	/**
+	 * @param Column $column
+	 *
+	 * @return bool
+	 */
+	private function is_bulk_edit_active( Column $column ) {
+		$setting = $column->get_setting( Settings\BulkEditing::NAME );
+
+		$is_active = $setting instanceof Settings\BulkEditing && $setting->is_active();
+
+		return (bool) apply_filters( 'acp/editing/bulk-edit-active', $is_active, $column );
+	}
+
+	/**
+	 * @param Column $column
+	 *
+	 * @return bool
+	 */
+	private function is_inline_edit_active( Column $column ) {
+		$setting = $column->get_setting( Settings::NAME );
+
+		return $setting instanceof Settings && $setting->is_active();
 	}
 
 	/**

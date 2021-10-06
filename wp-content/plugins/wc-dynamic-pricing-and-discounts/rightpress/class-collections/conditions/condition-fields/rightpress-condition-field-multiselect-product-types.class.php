@@ -55,7 +55,7 @@ abstract class RightPress_Condition_Field_Multiselect_Product_Types extends Righ
     public function get_placeholder()
     {
 
-        return __('Select product types', 'rightpress');
+        return esc_html__('Select product types', 'rightpress');
     }
 
 

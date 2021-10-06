@@ -5,11 +5,12 @@ namespace ACP\Editing;
 use AC;
 use AC\Asset\Location;
 use AC\ListScreenRepository\Storage;
+use AC\Registrable;
+use AC\Request;
 use ACP;
-use ACP\Editing\Controller;
-use ACP\Editing\Preference\EditState;
+use ACP\Settings\ListScreen\HideOnScreenCollection;
 
-class Addon implements AC\Registrable {
+class Addon implements Registrable {
 
 	/**
 	 * @var Storage
@@ -21,10 +22,10 @@ class Addon implements AC\Registrable {
 	 */
 	private $location;
 
-	/** @var AC\Request */
+	/** @var Request */
 	private $request;
 
-	public function __construct( Storage $storage, Location\Absolute $location, AC\Request $request ) {
+	public function __construct( Storage $storage, Location\Absolute $location, Request $request ) {
 		$this->storage = $storage;
 		$this->location = $location;
 		$this->request = $request;
@@ -33,30 +34,24 @@ class Addon implements AC\Registrable {
 	public function register() {
 		add_action( 'ac/column/settings', [ $this, 'register_column_settings' ] );
 		add_action( 'ac/table/list_screen', [ $this, 'register_table_screen' ] );
-		add_action( 'wp_ajax_acp_editing_single_request', [ $this, 'ajax_single_request' ] );
-		add_action( 'wp_ajax_acp_editing_bulk_request', [ $this, 'ajax_bulk_request' ] );
+		add_action( 'wp_ajax_acp_editing_request', [ $this, 'ajax_edit_request' ] );
 		add_action( 'acp/admin/settings/hide_on_screen', [ $this, 'add_hide_on_screen' ], 10, 2 );
 	}
 
-	public function add_hide_on_screen( ACP\Settings\ListScreen\HideOnScreenCollection $collection, AC\ListScreen $list_screen ) {
+	public function add_hide_on_screen( HideOnScreenCollection $collection, AC\ListScreen $list_screen ) {
 		if ( $list_screen instanceof ListScreen ) {
 			$collection->add( new Admin\HideOnScreen\InlineEdit() )
 			           ->add( new Admin\HideOnScreen\BulkEdit(), 20 );
 		}
 	}
 
-	public function ajax_single_request() {
+	public function ajax_edit_request() {
 		check_ajax_referer( 'ac-ajax' );
 
-		$controller = new Controller\Single( $this->storage, $this->request, new EditState() );
-		$controller->dispatch( $this->request->get( 'method' ) );
-	}
+		$factory = new RequestHandlerFactory( $this->storage );
 
-	public function ajax_bulk_request() {
-		check_ajax_referer( 'ac-ajax' );
-
-		$controller = new Controller\Bulk( $this->storage, $this->request );
-		$controller->dispatch( $this->request->get( 'method' ) );
+		$factory->create( $this->request )
+		        ->handle( $this->request );
 	}
 
 	/**
@@ -77,44 +72,33 @@ class Addon implements AC\Registrable {
 			$list_screen,
 			$editable_data,
 			$this->location,
-			new EditState(),
+			new Preference\EditState(),
 			$this->request
 		);
 
 		$table_screen->register();
 	}
 
-	/**
-	 * Register setting for editing
-	 *
-	 * @param AC\Column $column
-	 */
-	public function register_column_settings( $column ) {
-		if ( $column instanceof Editable ) {
-			$column->editing()->register_settings();
-		}
+	public function register_column_settings( AC\Column $column ) {
+		( new ColumnInlineSettingsSetter() )->register( $column );
+		( new ColumnBulkSettingsSetter() )->register( $column );
 	}
 
 	/**
-	 * @param AC\ListScreen $list_screen
-	 *
 	 * @return bool
 	 * @deprecated 5.1
 	 */
-	public function is_editing_active( AC\ListScreen $list_screen ) {
+	public function is_editing_active() {
 		_deprecated_function( __METHOD__, '5.1' );
 
 		return false;
 	}
 
 	/**
-	 * @return Helper
 	 * @deprecated 4.5.4
 	 */
 	public function helper() {
 		_deprecated_function( __METHOD__, '4.5.4' );
-
-		return new Helper();
 	}
 
 }

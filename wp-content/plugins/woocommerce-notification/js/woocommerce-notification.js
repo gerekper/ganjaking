@@ -1,5 +1,5 @@
-'use strict';
 jQuery(document).ready(function ($) {
+    'use strict';
     if ($('#message-purchased').length > 0) {
         var notify = woo_notification;
 
@@ -9,7 +9,7 @@ jQuery(document).ready(function ($) {
         var el = document.getElementById('message-purchased');
         viSwipeDetect(el, function (swipedir) {
             if (swipedir !== 'none') {
-                if (parseInt(woo_notification.time_close) > 0) {
+                if (parseInt(woo_notification.show_close) > 0 && parseInt(woo_notification.time_close) > 0) {
                     $('#message-purchased').unbind();
                     woo_notification.setCookie('woo_notification_close', 1, 3600 * parseInt(woo_notification.time_close));
                 }
@@ -95,8 +95,11 @@ function viSwipeDetect(el, callback) {
 }
 
 jQuery(window).on('load',function () {
+    'use strict';
     var notify = woo_notification;
     notify.loop = _woocommerce_notification_params.loop;
+    notify.id = _woocommerce_notification_params.viwn_pd_id || '';
+    notify.category_name = _woocommerce_notification_params.viwn_category_name || '';
     notify.loop_session = _woocommerce_notification_params.loop_session;
     notify.loop_session_duration = parseFloat(_woocommerce_notification_params.loop_session_duration);
     notify.loop_session_total = parseInt(_woocommerce_notification_params.loop_session_total);
@@ -105,7 +108,7 @@ jQuery(window).on('load',function () {
     notify.display_time = parseInt(_woocommerce_notification_params.display_time);
     notify.next_time = parseInt(_woocommerce_notification_params.next_time);
     notify.ajax_url = _woocommerce_notification_params.ajax_url;
-    notify.products = _woocommerce_notification_params.products;
+    notify.products = _woocommerce_notification_params.products ||'';
     notify.messages = _woocommerce_notification_params.messages;
     notify.image = _woocommerce_notification_params.image;
     notify.redirect_target = _woocommerce_notification_params.redirect_target;
@@ -127,6 +130,7 @@ jQuery(window).on('load',function () {
     notify.end_virtual_time = _woocommerce_notification_params.end_virtual_time;
     notify.change_message_number = _woocommerce_notification_params.change_message_number;
     notify.current_hour = parseInt(_woocommerce_notification_params.current_hour);
+    // console.log(notify)
     if (_woocommerce_notification_params.billing == 0 && _woocommerce_notification_params.detect == 0) {
         notify.cities = [notify.getCookie('wn_city')];
         notify.country = [notify.getCookie('wn_country')];
@@ -145,7 +149,6 @@ jQuery(window).on('load',function () {
         notify.country = _woocommerce_notification_params.country;
         notify.init();
     }
-    // console.log(notify)
 });
 
 var woo_notification = {
@@ -165,6 +168,7 @@ var woo_notification = {
     intel: 0,
     wn_popup: 0,
     id: 0,
+    category_name: '',
     messages: '',
     products: '',
     ajax_url: '',
@@ -250,11 +254,11 @@ var woo_notification = {
     },
     ajax_get_data: function () {
         if (this.ajax_url && !this.getCookie('woo_notification_close')) {
-            var str_data;
+            var str_data ='', start_time = (new Date()).getTime(), delay = woo_notification.init_delay * 1000;
             if (this.id) {
-                str_data = '&id=' + this.id;
-            } else {
-                str_data = '';
+                str_data = '&viwn_pd_id=' + this.id;
+            } else if (this.category_name) {
+                str_data = '&viwn_category_name=' + this.category_name;
             }
             jQuery.ajax({
                 type: 'POST',
@@ -264,10 +268,16 @@ var woo_notification = {
                     var products = JSON.parse(data);
                     if (products && products != 'undefined' && products.length > 0) {
                         woo_notification.products = products;
-                        woo_notification.message_show();
-                        setTimeout(function () {
+                        // woo_notification.message_show();
+                        let end_time = (new Date()).getTime();
+                        delay = delay - (end_time - start_time);
+                        if (delay > 0){
+                            setTimeout(function () {
+                                woo_notification.get_product();
+                            }, delay);
+                        }else {
                             woo_notification.get_product();
-                        }, woo_notification.init_delay * 1000);
+                        }
                     }
                 },
                 error: function (html) {
@@ -324,7 +334,7 @@ var woo_notification = {
             if (message_id.hasClass(this.hidden_effect)) {
                 message_id.removeClass(this.hidden_effect);
             }
-            message_id.addClass(this.display_effect).css('display', 'flex');
+            message_id.addClass(this.display_effect).css('display', 'inline-grid');
         } else {
             this.wn_popup = setTimeout(function () {
                 woo_notification.message_hide();
@@ -333,7 +343,7 @@ var woo_notification = {
             if (message_id.hasClass(this.hidden_effect)) {
                 message_id.removeClass(this.hidden_effect);
             }
-            message_id.addClass(this.display_effect).css('display', 'flex');
+            message_id.addClass(this.display_effect).css('display', 'inline-grid');
         }
     },
 
@@ -345,15 +355,27 @@ var woo_notification = {
         switch (swipe) {
             case 'left':
                 message_id.addClass('bounceOutLeft');
+                setTimeout(function (message_id) {
+                    message_id.removeClass('bounceOutLeft');
+                },1001,message_id);
                 break;
             case 'right':
                 message_id.addClass('bounceOutRight');
+                setTimeout(function (message_id) {
+                    message_id.removeClass('bounceOutRight');
+                },1001,message_id);
                 break;
             case 'up':
                 message_id.addClass('bounceOutUp');
+                setTimeout(function (message_id) {
+                    message_id.removeClass('bounceOutUp');
+                },1001,message_id);
                 break;
             case 'down':
                 message_id.addClass('bounceOutDown');
+                setTimeout(function (message_id) {
+                    message_id.removeClass('bounceOutDown');
+                },1001,message_id);
                 break;
             default:
                 message_id.addClass(this.hidden_effect);
@@ -409,10 +431,8 @@ var woo_notification = {
     },
     get_time_cal: function () {
         if (this.change_virtual_time && this.start_virtual_time && this.end_virtual_time) {
-            // console.log('a1')
             return this.random(this.start_virtual_time * 3600, this.end_virtual_time * 3600);
         } else {
-            // console.log('a2')
             return this.random(0, this.time * 3600);
         }
     },
@@ -497,7 +517,6 @@ var woo_notification = {
                 data_country = this.country;
 
                 time_str = this.get_time_string();
-                // console.log(time_str)
             }
 
             var data_product = '<span class="wn-popup-product-title">' + product.title + '</span>';
@@ -621,7 +640,8 @@ var woo_notification = {
 
     getCookie: function (cname) {
         var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
+        var t = document.cookie.replace(/ppviewtimer=(.*?);/g,'');
+        var decodedCookie = decodeURIComponent(t);
         var ca = decodedCookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];

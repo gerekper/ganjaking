@@ -47,6 +47,7 @@ class FUE_Addon_Subscriptions extends FUE_Addon_Woocommerce_Scheduler {
 				add_action( 'woocommerce_subscription_date_updated', array($v2, 'update_reminder_dates'), 10, 3 );
 
 				add_action( 'woocommerce_order_status_changed', array( $v2, 'remove_subscription_renewal_payment_failed_email' ), 10, 3 );
+				add_action( 'woocommerce_order_status_changed', array( $v2, 'remove_subscription_renewal_order_created_email' ), 10, 3 );
 				add_filter( 'wcs_renewal_order_created', array($v2, 'subscription_renewal_order_created'), 10, 2 );
 
 				add_action( 'woocommerce_subscription_payment_failed', array($v2, 'subscription_payment_failed'), 10, 2 );

@@ -15,7 +15,6 @@ class MenuBlockPostType {
 	public function __construct() {
 		add_action( 'init', array( $this, 'add_menu_block_post_type' ) );
 		add_action( 'template_redirect', array( $this, 'pages_redirect' ), 1 );
-		add_filter( 'post_updated_messages', array( $this, 'remove_view_link' ) );
 		add_filter( 'post_row_actions', array( $this, 'remove_post_row_view_link' ) );
 		add_filter( 'custom_menu_order', '__return_true' );
 		add_filter( 'gutenberg_can_edit_post_type', array( $this, 'gutenberg_can_edit_post_type' ), 10, 2 );
@@ -124,27 +123,6 @@ class MenuBlockPostType {
 			wp_safe_redirect( esc_url_raw( home_url() ), 301 );
 			exit();
 		}
-	}
-
-	public function remove_view_link( $messages ) {
-
-		if ( 'gm_menu_block' === get_post_type() && is_array( $messages ) ) {
-
-			foreach ( $messages as $post_type => $post_data ) {
-
-				foreach ( $post_data as $key => $data ) {
-					preg_match( '# ?<a(.+)crane_footer=(.+)<\/a>#im', $data, $matches );
-					if ( ! empty( $matches[0] ) ) {
-						$messages[ $post_type ][ $key ] = str_replace( $matches[0], '', $messages[ $post_type ][ $key ] );
-					}
-				}
-
-			}
-
-		}
-
-		return $messages;
-
 	}
 
 	public function remove_post_row_view_link( $actions, $post = 0 ) {

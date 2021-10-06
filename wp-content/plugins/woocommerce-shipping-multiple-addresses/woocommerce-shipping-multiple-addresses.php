@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Ship to Multiple Addresses
  * Plugin URI: https://woocommerce.com/products/shipping-multiple-addresses/
  * Description: Allow customers to ship orders with multiple products or quantities to separate addresses instead of forcing them to place multiple orders for different delivery addresses.
- * Version: 3.6.29
+ * Version: 3.6.34
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: wc_shipping_multiple_address
  * Domain Path: /languages
- * Tested up to: 5.5
- * WC tested up to: 4.5
+ * Tested up to: 5.8
+ * WC tested up to: 5.5
  * WC requires at least: 3.0
  * Woo: 18741:aa0eb6f777846d329952d5b891d6f8cc
  *
@@ -33,7 +33,7 @@ function woocommerce_shipping_multiple_addresses_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
-	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.6.29' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.6.34' ); // WRCS: DEFINED_VERSION.
 
 	class WC_Ship_Multiple {
 
@@ -53,7 +53,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 		public $gateway_settings    = null;
 		public static $lang         = array(
 			'notification'  => 'You may use multiple shipping addresses on this cart',
-			'btn_items'     => 'Set Addresses'
+			'btn_items'     => 'Set Multiple Addresses',
 		);
 
 		public function __construct() {
@@ -434,18 +434,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 				else
 					WC()->show_messages();
 
-				if ( isset($_REQUEST['duplicate-form']) ) {
-					wc_get_template(
-						'duplicate-form.php',
-						array(
-							'checkout'      => $checkout,
-							'addresses'     => $addresses,
-							'shipFields'    => $shipFields
-						),
-						'multi-shipping',
-						dirname( __FILE__ ) .'/templates/'
-					);
-				} elseif ( empty($addresses) || isset($_REQUEST['address-form']) ) {
+				if ( empty( $addresses ) || isset( $_REQUEST['address-form'] ) ) {
 					wc_get_template(
 						'address-form.php',
 						array(
@@ -899,31 +888,19 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 					$shipping_tax   = WC()->cart->shipping_tax_total;
 					$inc_or_exc_tax = '';
 
-					if ( $shipping_total > 0 ) {
+					if ( $shipping_total > 0 && wc_tax_enabled() ) {
 
 						// Append price to label using the correct tax settings
-						if ( WC()->cart->display_totals_ex_tax || ! WC()->cart->prices_include_tax ) {
-
-							if ( $shipping_tax > 0 ) {
-
-								if ( WC()->cart->prices_include_tax ) {
-									$shipping_total = $shipping_total;
-									$inc_or_exc_tax = WC()->countries->ex_tax_or_vat();
-								} else {
-									$shipping_total += $shipping_tax;
-									$inc_or_exc_tax = WC()->countries->inc_tax_or_vat();
-								}
-							}
-						} else {
+						if ( ! WC()->cart->display_totals_ex_tax ) {
 							$shipping_total += $shipping_tax;
 
-							if ( $shipping_tax > 0 && ! WC()->cart->prices_include_tax ) {
+							if ( 0 < $shipping_tax ) {
 								$inc_or_exc_tax = WC()->countries->inc_tax_or_vat();
 							}
 						}
 					}
 
-					echo wc_price( $shipping_total ) .' '. $inc_or_exc_tax;
+					echo wc_price( $shipping_total ) . ' ' . $inc_or_exc_tax;
 					?>
 				</td>
 				<script type="text/javascript">

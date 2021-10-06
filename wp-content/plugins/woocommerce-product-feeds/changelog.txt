@@ -1,5 +1,24 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2021.09.28 - version 10.2.1
+* Fix: Revert Action Scheduler to v3.2.1 due to conflicts
+
+2021.09.12 - version 10.2.0
+* New: WooCommerce 5.7, 5.8 compatibility
+* New: Allow Custom Attributes to be registered for pre-population options via filter
+* New: Allow the_content filtering of descriptions to be disabled via filter
+* Change: List global attribute taxonomies as "Global Attributes" in settings, not mixed in with Taxonomies
+* Change: Improvements when broken "empty" prices are returned
+* Change: Update Action Scheduler to 3.3.x
+* Change: Tolerate broken term hierarchy structures without failing
+
+2021.08.16 - version 10.1.6
+* New: WooCommerce 5.6 compatibility
+
+2021.08.11 - version 10.1.5
+* Fix: Resolve issue where primary image setting could be overwritten on product save
+* Change: Introduce additional debug output when debug active
+
 2021.07.20 - version 10.1.4
 * Change: Amend cache-blocking headers to no-store
 * Change: Allow excluded catalogue visibilities to be modified via filter

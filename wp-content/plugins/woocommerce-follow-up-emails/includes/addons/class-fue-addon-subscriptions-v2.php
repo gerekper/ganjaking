@@ -1909,4 +1909,58 @@ class FUE_Addon_Subscriptions_V2 {
 			Follow_Up_Emails::instance()->scheduler->delete_item( $item->id );
 		}
 	}
+
+	/**
+	 * Remove queued emails for renewal order created when order status changes.
+	 *
+	 * @since 4.9.15
+	 *
+	 * @param $order_id
+	 * @param $old_status
+	 * @param $new_status
+	 */
+	public function remove_subscription_renewal_order_created_email( $order_id, $old_status, $new_status ) {
+
+		if ( ! wcs_order_contains_renewal( $order_id ) ) {
+			// It is not a subscription renewal order.
+			return;
+		}
+
+		$filter = array(
+			'meta_query' => array(
+				array(
+					'key'   => '_interval_type',
+					'value' => 'subs_renewal_order',
+				),
+			),
+		);
+
+		$emails    = fue_get_emails( 'any', '', $filter );
+		$email_ids = array();
+		foreach ( $emails as $email ) {
+			$key = 'remove_email_status_change';
+			if ( ! empty( $email->meta[ $key ] ) && 'yes' == $email->meta[ $key ] ) {
+				$email_ids[] = $email->id;
+			}
+		}
+
+		$items = array();
+		foreach ( wcs_get_subscriptions_for_renewal_order( $order_id ) as $subscription ) {
+			$items = array_merge(
+				Follow_Up_Emails::instance()->scheduler->get_items(
+					array(
+						'is_sent'  => 0,
+						'order_id' => $subscription->get_parent_id(),
+						'email_id' => $email_ids,
+					)
+				),
+				$items
+			);
+		}
+
+		foreach ( $items as $item ) {
+			Follow_Up_Emails::instance()->scheduler->delete_item( $item->id );
+		}
+	}
+
 }

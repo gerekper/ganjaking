@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Checkout_Payment_Method extends RightPress_C
     public function get_label()
     {
 
-        return __('Payment method', 'rightpress');
+        return esc_html__('Payment method', 'rightpress');
     }
 
     /**

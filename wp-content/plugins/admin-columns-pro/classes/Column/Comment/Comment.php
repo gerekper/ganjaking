@@ -15,7 +15,7 @@ class Comment extends AC\Column\Comment\Comment
 	implements Editing\Editable, Sorting\Sortable, Export\Exportable, Search\Searchable {
 
 	public function editing() {
-		return new Editing\Model\Comment\Comment( $this );
+		return new Editing\Service\Comment\Content();
 	}
 
 	public function sorting() {

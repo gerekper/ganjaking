@@ -18,7 +18,7 @@ class WCOPC_Compat_Name_Your_Price {
 	const PREFIX = '-opc-';
 	const SUFFIX = '-opc-';
 
-	protected static $is_nyp_3 = false; 
+	protected static $is_nyp_3 = false;
 
 	public static function init() {
 
@@ -91,7 +91,6 @@ class WCOPC_Compat_Name_Your_Price {
 			add_action( 'woocommerce_before_variations_form', array( __CLASS__, 'move_display_for_variable_product' ) );
 		}
 
-		
 	}
 
 	/**

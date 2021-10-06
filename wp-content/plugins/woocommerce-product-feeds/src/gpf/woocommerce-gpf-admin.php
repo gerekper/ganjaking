@@ -122,7 +122,7 @@ class WoocommerceGpfAdmin {
 		add_action( 'woocommerce_save_product_variation', array( $this, 'save_variation' ), 10, 2 );
 
 		add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_woocommerce_settings_tab' ), 99 );
-		add_action( 'woocommerce_settings_tabs_gpf', array( $this, 'config_page' ) );
+		add_action( 'woocommerce_settings_gpf', array( $this, 'config_page' ) );
 		add_action( 'woocommerce_update_options_gpf', array( $this, 'save_settings' ) );
 
 		$this->feed_image_manager->initialise();

@@ -51,7 +51,7 @@ class RP_WCDPD_Method_Cart_Discount_Simple extends RP_WCDPD_Method_Cart_Discount
      */
     public function get_group_label()
     {
-        return __('Simple', 'rp_wcdpd');
+        return esc_html__('Simple', 'rp_wcdpd');
     }
 
     /**
@@ -62,7 +62,7 @@ class RP_WCDPD_Method_Cart_Discount_Simple extends RP_WCDPD_Method_Cart_Discount
      */
     public function get_label()
     {
-        return __('Simple discount', 'rp_wcdpd');
+        return esc_html__('Simple discount', 'rp_wcdpd');
     }
 
     /**
@@ -175,7 +175,7 @@ class RP_WCDPD_Method_Cart_Discount_Simple extends RP_WCDPD_Method_Cart_Discount
      */
     public function get_coupon_label($adjustment)
     {
-        return !RightPress_Help::is_empty($adjustment['rule']['title']) ? $adjustment['rule']['title'] : __('Discount', 'rp_wcdpd');
+        return !RightPress_Help::is_empty($adjustment['rule']['title']) ? $adjustment['rule']['title'] : esc_html__('Discount', 'rp_wcdpd');
     }
 
 

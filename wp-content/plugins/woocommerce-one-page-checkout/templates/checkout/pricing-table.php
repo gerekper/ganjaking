@@ -8,11 +8,11 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 ?>
 
-<div class="opc-pricing-table-wrapper opc_columns_<?php echo count( $products ); ?>">
+<div class="opc-pricing-table-wrapper opc_columns_<?php echo esc_attr( count( $products ) ); ?>">
 <?php foreach( $products as $product ) : ?>
 	<div class="opc-pricing-table-product product-item cart <?php if ( wcopc_get_products_prop( $product, 'in_cart' ) ) echo 'selected'; ?>">
 		<div class="opc-pricing-table-product-header">
-			<h3 class="opc-pricing-table-product-title"><?php echo $product->get_title(); ?></h3>
+			<h3 class="opc-pricing-table-product-title"><?php echo wp_kses_post( $product->get_title() ); ?></h3>
 			<div class="opc-pricing-table-product-price">
 				<p><?php echo $product->get_price_html(); ?></p>
 			</div>
@@ -61,13 +61,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			<div class="opc-pricing-table-product-dimensions">
 			<?php if ( $product->has_weight() ) : ?>
 				<!-- Product Weight -->
-				<h4><?php _e( 'Weight', 'wcopc' ) ?></h4>
-				<p class="product_weight"><?php echo $product->get_weight() . ' ' . esc_attr( get_option( 'woocommerce_weight_unit' ) ); ?></p>
+				<h4><?php esc_html_e( 'Weight', 'wcopc' ) ?></h4>
+				<p class="product_weight"><?php echo wc_format_weight( $product->get_weight() ); ?></p>
 			<?php endif; ?>
 			<?php if ( $product->has_dimensions() ) : ?>
 			<!-- Product Dimension -->
-				<h4><?php _e( 'Dimensions', 'wcopc' ) ?></h4>
-				<p class="product_dimensions"><?php echo $product->get_dimensions(); ?></p>
+				<h4><?php esc_html_e( 'Dimensions', 'wcopc' ) ?></h4>
+				<p class="product_dimensions"><?php echo wc_format_dimensions( $product->get_dimensions( false ) ); ?></p>
 			<?php endif; ?>
 			</div>
 		<?php endif; // $product->enable_dimensions_display() ?>

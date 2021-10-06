@@ -42,9 +42,11 @@ class Updates implements Registrable {
 	}
 
 	public function register_updater() {
+		$key = $this->license_key_repository->find();
+
 		foreach ( $this->plugins->all() as $plugin ) {
 			// Add plugins to update process
-			$updater = new Updates\Updater( $plugin, new API\Cached( $this->api ), $this->site_url, $this->plugins, $this->license_key_repository->find() );
+			$updater = new Updates\Updater( $plugin, new API\Cached( $this->api ), $this->site_url, $this->plugins, $key );
 			$updater->register();
 
 			// Click "view details" on plugin page

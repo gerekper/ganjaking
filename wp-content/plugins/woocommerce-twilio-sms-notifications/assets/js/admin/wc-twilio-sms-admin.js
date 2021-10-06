@@ -3,7 +3,7 @@
  *
  * @since 1.0
  */
-jQuery( document ).ready( function ( $ ) {
+jQuery( function ( $ ) {
 
 	/* global wc_twilio_sms_admin, alert */
 

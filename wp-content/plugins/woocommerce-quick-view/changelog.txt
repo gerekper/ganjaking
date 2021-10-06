@@ -1,5 +1,11 @@
 *** WooCommerce Quick View Changelog ***
 
+2021-08-10 - version 1.5.0
+* Fix - Add 'wc_quick_view_after_single_product' hook in quick-view.php.
+* Fix - Update build scripts and tooling.
+* Tweak - WC 5.5 compatibility.
+* Tweak - WP 5.8 compatibility.
+
 2021-01-27 - version 1.4.0
 * Fix - Quickview with products shortcode.
 * Tweak - WC 5.0 compatibility.

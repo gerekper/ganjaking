@@ -49,7 +49,7 @@ class RP_WCDPD_Pricing_Method_Fixed_Price_Per_Group extends RP_WCDPD_Pricing_Met
      */
     public function get_label()
     {
-        return __('Fixed price per group', 'rp_wcdpd');
+        return esc_html__('Fixed price per group', 'rp_wcdpd');
     }
 
 

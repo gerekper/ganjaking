@@ -156,6 +156,12 @@ class WoocommerceGpfFrontend {
 		remove_filter( 'terms_clauses', 'to_terms_clauses', 99, 3 );
 	}
 
+	public function log_query_args( $args ) {
+		$this->debug->log( 'Query args:' . wp_json_encode( $args, JSON_PRETTY_PRINT ) );
+
+		return $args;
+	}
+
 	/**
 	 * Generate the query function to use, and argument array.
 	 *
@@ -242,6 +248,10 @@ class WoocommerceGpfFrontend {
 		$chunk_size = apply_filters( 'woocommerce_gpf_chunk_size', $chunk_size, $this->cache->is_enabled() );
 
 		$args = $this->get_query_args( $chunk_size );
+
+		if ( $this->debug->debug_active() ) {
+			add_filter( 'woocommerce_product_object_query_args', [ $this, 'log_query_args' ], 99999 );
+		}
 
 		$output_count = 0;
 		$limit        = $this->feed_config->limit;

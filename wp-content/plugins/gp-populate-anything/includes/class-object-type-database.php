@@ -33,13 +33,13 @@ class GPPA_Object_Type_Database extends GPPA_Object_Type {
 		}
 
 		if ( ! isset( $this->_primary_key_cache[ $primary_property_value ] ) ) {
-			$props = array_keys( get_object_vars( $object ) );
+			$props = array_keys( $object );
 			$this->_primary_key_cache[ $primary_property_value ] = $props[0];
 		}
 
 		$key = $this->_primary_key_cache[ $primary_property_value ];
 
-		return $object->{$key};
+		return $object[ $key ];
 	}
 
 	public function get_label() {
@@ -86,6 +86,7 @@ class GPPA_Object_Type_Database extends GPPA_Object_Type {
 					'<',
 					'<=',
 					'contains',
+					'does_not_contain',
 					'starts_with',
 					'ends_with',
 					'like',
@@ -194,7 +195,7 @@ class GPPA_Object_Type_Database extends GPPA_Object_Type {
 
 		$query = $this->build_mysql_query( apply_filters( 'gppa_object_type_database_pre_query_parts', $query_args, $this ), rgar( $args, 'field' ) );
 
-		return $this->get_db()->get_results( apply_filters( 'gppa_object_type_database_query', $query, $args, $this ) );
+		return $this->get_db()->get_results( apply_filters( 'gppa_object_type_database_query', $query, $args, $this ), ARRAY_A );
 
 	}
 
@@ -204,12 +205,48 @@ class GPPA_Object_Type_Database extends GPPA_Object_Type {
 			return null;
 		}
 
-		if ( ! isset( $object->{$prop} ) ) {
+		if ( ! isset( $object[ $prop ] ) ) {
 			return null;
 		}
 
-		return $object->{$prop};
+		return $object[ $prop ];
 
+	}
+
+	public function build_where_clause( $table, $column, $operator, $value ) {
+		$value = $this->maybe_convert_to_date( $table, $column, $value );
+		return parent::build_where_clause( $table, $column, $operator, $value );
+	}
+
+	private $tables_cache = array(); // MySQL tables format cache
+
+	/**
+	 * Converts $value to MySQL friendly date if the table column is of type date.
+	 *
+	 * @param $table  string  Table name to look up
+	 * @param $column string  Column name
+	 * @param $value  string  Value to convert
+	 *
+	 * @return string  Converted date value if applicable.
+	 */
+	private function maybe_convert_to_date( $table, $column, $value ) {
+		$is_date = false;
+		if ( isset( $this->tables_cache[ $table ] ) ) {
+			$is_date = $this->tables_cache[ $table ][ $column ] === 'date';
+		} else {
+			global $wpdb;
+			$structure = $wpdb->get_results( sprintf( 'DESCRIBE `%s`', esc_sql( $table ) ), ARRAY_N );
+			foreach ( $structure as $index => $row ) {
+				$this->tables_cache[ $table ][ $row[0] ] = $row[1];
+				if ( $row[0] === $column && $row[1] === 'date' ) {
+					$is_date = true;
+				}
+			}
+		}
+		if ( $is_date ) {
+			$value = gmdate( 'Y-m-d', strtotime( $value ) );
+		}
+		return $value;
 	}
 
 }

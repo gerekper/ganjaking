@@ -41,6 +41,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\Util\CdnAssetUrl::class);
 
     // API
+    $container->autowire(\MailPoet\Premium\API\JSON\v1\Bounces::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\API\JSON\v1\Stats::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\API\JSON\v1\SubscriberDetailedStats::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\API\JSON\v1\ResponseBuilders\StatsResponseBuilder::class)->setPublic(true);
@@ -53,6 +54,7 @@ class ContainerConfigurator implements IContainerConfigurator {
       ->setPublic(true)
       ->setFactory([__CLASS__, 'createRenderer']);
     // Stats
+    $container->autowire(\MailPoet\Premium\Newsletter\Stats\Bounces::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Newsletter\Stats\PurchasedProducts::class);
     $container->autowire(\MailPoet\Premium\Newsletter\Stats\SubscriberEngagement::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Newsletter\StatisticsClicksRepository::class)->setPublic(true);

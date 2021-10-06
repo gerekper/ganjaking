@@ -37,7 +37,10 @@
 
 
 /* SEARCH TEXT */
-.rs_overview input.flat_input { font-size: 20px; color:#fff; background: none; border: none; outline:none; box-shadow: none; font-weight: 500;  line-height:50px; padding: 0px; margin: 0px; vertical-align: top  }
+.rs_overview input.flat_input,
+#rb_tlw #addon_overviewheader_wrap input.flat_input
+ { font-size: 20px; color:#fff; background: none; border: none; outline:none; box-shadow: none; font-weight: 500;  line-height:50px; padding: 0px; margin: 0px; vertical-align: top  }
+ #rb_tlw #addon_overviewheader_wrap input.flat_input { height: 50px;}
 .rs_overview  input.flat_input::-webkit-input-placeholder  { color: #fff;}
 .rs_overview  input.flat_input::-moz-placeholder            { color: #fff;}
 .rs_overview  input.flat_input:-ms-input-placeholder       { color: #fff;}

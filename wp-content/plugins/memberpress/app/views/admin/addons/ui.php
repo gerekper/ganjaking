@@ -91,7 +91,8 @@
 
                   <?php elseif($status == 'download') : ?>
 
-                    <button type="button" data-plugin="<?php echo esc_attr($info->url); ?>" data-type="add-on"><i class="mp-icon mp-icon-download-cloud"></i><?php esc_html_e('Install Add-on', 'memberpress'); ?></button>
+                  <a href="https://www.gpltimes.com/product-category/memberpress/" target="_blank"><?php esc_html_e('Install Add-on', 'memberpress'); ?></a>
+
 
                   <?php else : ?>
 

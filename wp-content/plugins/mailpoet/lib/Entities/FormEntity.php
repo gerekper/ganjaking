@@ -46,6 +46,16 @@ class FormEntity {
   const COLUMNS_BLOCK_TYPE = 'columns';
   const COLUMN_BLOCK_TYPE = 'column';
 
+  public const FORM_FIELD_TYPES = [
+    self::CHECKBOX_BLOCK_TYPE,
+    self::RADIO_BLOCK_TYPE,
+    self::SEGMENT_SELECTION_BLOCK_TYPE,
+    self::DATE_BLOCK_TYPE,
+    self::SELECT_BLOCK_TYPE,
+    self::TEXT_BLOCK_TYPE,
+    self::TEXTAREA_BLOCK_TYPE,
+  ];
+
   /**
    * @ORM\Column(type="string")
    * @var string
@@ -76,7 +86,9 @@ class FormEntity {
    */
   private $styles;
 
-  public function __construct($name) {
+  public function __construct(
+    $name
+  ) {
     $this->name = $name;
     $this->status = self::STATUS_ENABLED;
   }
@@ -165,24 +177,24 @@ class FormEntity {
     ];
   }
 
-  public function getBlocksByType(string $type, array $blocks = null): array {
+  public function getBlocksByTypes(array $types, array $blocks = null): array {
     $found = [];
     if ($blocks === null) {
       $blocks = $this->getBody() ?? [];
     }
     foreach ($blocks as $block) {
-      if ($block['type'] === $type) {
+      if (isset($block['type']) && in_array($block['type'], $types, true)) {
         $found[] = $block;
       }
       if (isset($block['body']) && is_array($block['body']) && !empty($block['body'])) {
-        $found = array_merge($found, $this->getBlocksByType($type, $block['body']));
+        $found = array_merge($found, $this->getBlocksByTypes($types, $block['body']));
       }
     }
     return $found;
   }
 
   public function getSegmentBlocksSegmentIds(): array {
-    $listSelectionBlocks = $this->getBlocksByType(FormEntity::SEGMENT_SELECTION_BLOCK_TYPE);
+    $listSelectionBlocks = $this->getBlocksByTypes([FormEntity::SEGMENT_SELECTION_BLOCK_TYPE]);
     $listSelection = [];
     foreach ($listSelectionBlocks as $listSelectionBlock) {
       $listSelection = array_unique(

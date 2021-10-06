@@ -567,6 +567,76 @@ gform.tools = {
 					return n1;
 			}
 		});
+	},
+
+	/**
+	 * @function gform.tools.getCookie
+	 * @description Gets a specific cookie.
+	 *
+	 * @since 2.5.8
+	 *
+	 * @param name The cookie to get
+	 * @returns {boolean|string}
+	 */
+
+	getCookie: function( name ) {
+		var cookieArr = document.cookie.split( ";" );
+
+		for(var i = 0; i < cookieArr.length; i++) {
+			var cookiePair = cookieArr[i].split( "=" );
+
+			if( name == cookiePair[0].trim() ) {
+				return decodeURIComponent( cookiePair[1] );
+			}
+		}
+
+		return null;
+	},
+
+	/**
+	 * @function gform.tools.setCookie
+	 * @description Creates and sets a cookie.
+	 *
+	 * @since 2.5.8
+	 *
+	 * @param name The cookie name
+	 * @param value The cookie value
+	 * @param daysToExpire The number of days until cookie should expire. If not set,
+	 * will expire at the end of the user sessions.
+	 * @param updateExistingValue Whether or not to update the existing cookie value to include the new value.
+	 * Can be helpful for keeping cookie count lower for the browser.
+	 */
+
+	setCookie: function( name, value, daysToExpire, updateExistingValue ) {
+		var expirationDate = '';
+		var cookieValue = value;
+
+		if ( daysToExpire ) {
+			var date = new Date();
+			date.setTime( date.getTime() + ( daysToExpire * 24 * 60 * 60 * 1000 ) );
+			expirationDate = ' expires=' + date.toUTCString();
+		}
+
+		if ( updateExistingValue ) {
+			var currentValue = gform.tools.getCookie( name );
+			cookieValue = currentValue !== '' && currentValue !== null ? currentValue + ',' + value : value;
+		}
+
+		// Set cookie
+		document.cookie = encodeURIComponent( name ) + '=' + encodeURIComponent( cookieValue ) + ';' + expirationDate;
+	},
+
+	/**
+	 * @function gform.tools.removeCookie
+	 * @description Removes a cookie.
+	 *
+	 * @since 2.5.8
+	 *
+	 * @param name The cookie name to check
+	 */
+
+	removeCookie: function( name ) {
+		gform.tools.setCookie( name, '', -1 );
 	}
 };
 
@@ -1934,6 +2004,15 @@ var GFMergeTag = function() {
 		modifier = modifier.replace(":", "");
 
 		var fieldId = parseInt(inputId,10);
+
+		// Check address field's copy value checkbox and reset fieldID to source field if checked
+		var isCopyPreviousAddressChecked = jQuery( '#input_' + formId + '_' + fieldId + '_copy_values_activated:checked' ).length > 0;
+		if ( isCopyPreviousAddressChecked ) {
+			var sourceFieldId = jQuery( '#input_' + formId + '_' + fieldId + '_copy_values_activated' ).data('source_field_id');
+			inputId = inputId == fieldId ? sourceFieldId : inputId.toString().replace( fieldId + '.', sourceFieldId + '.' );
+			fieldId = sourceFieldId;
+		}
+
 		var field = jQuery('#field_' + formId + '_' + fieldId);
 
 		var inputSelector = fieldId == inputId ? 'input[name^="input_' + fieldId + '"]' : 'input[name="input_' + inputId + '"]';
@@ -1973,6 +2052,8 @@ var GFMergeTag = function() {
 				break;
 
 		}
+
+
 
 		// Filter out unselected checkboxes and radio buttons
 		if ( input.prop('type') === 'checkbox' || input.prop('type') === 'radio' ) {
@@ -2092,6 +2173,10 @@ var GFMergeTag = function() {
 				val = gformToNumber( val );
 				return val === false ? 0 : val;
 				break;
+
+			default:
+				val = val.trim();
+				break;
 		}
 
 		return val;
@@ -2141,9 +2226,13 @@ var GFCalc = function(formId, formulaFields){
     this.init = function(formId, formulaFields) {
 
         var calc = this;
-        jQuery(document).bind("gform_post_conditional_logic", function(){
-            calc.runCalcs( formId, formulaFields );
-        } );
+
+        // @since 2.5.10 - namespace event to avoid multiple bindings.
+	    jQuery(document)
+		    .off("gform_post_conditional_logic.gfCalc_{0}".format(formId))
+		    .on("gform_post_conditional_logic.gfCalc_{0}".format(formId), function(){
+			    calc.runCalcs( formId, formulaFields );
+	    } );
 
         for(var i=0; i<formulaFields.length; i++) {
             var formulaField = jQuery.extend({}, formulaFields[i]);
@@ -2154,7 +2243,6 @@ var GFCalc = function(formId, formulaFields){
     }
 
     this.runCalc = function(formulaField, formId) {
-
         var calcObj      = this,
             field        = jQuery('#field_' + formId + '_' + formulaField.field_id),
             formulaInput = field.hasClass( 'gfield_price' ) ? jQuery( '#ginput_base_price_' + formId + '_' + formulaField.field_id ) : jQuery( '#input_' + formId + '_' + formulaField.field_id ),
@@ -2170,6 +2258,8 @@ var GFCalc = function(formId, formulaFields){
                 result = eval(expr);
 
             } catch( e ) { }
+        } else {
+        	return;
         }
 
         // if result is positive infinity, negative infinity or a NaN, defaults to 0
@@ -2310,6 +2400,10 @@ var GFCalc = function(formId, formulaFields){
 
             var inputId = matches[i][1];
             var fieldId = parseInt(inputId,10);
+
+            if ( fieldId == formulaField.field_id && fieldId == inputId ) {
+            	continue;
+            }
 
             var modifier = 'value';
 			if( matches[i][3] ){

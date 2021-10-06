@@ -5,6 +5,9 @@ namespace ACP\Editing\Model;
 use ACP\Editing\Model;
 use WP_Error;
 
+/**
+ * @deprecated 5.6
+ */
 abstract class User extends Model {
 
 	/**

@@ -151,43 +151,6 @@
 	margin-top: 0 !important;
 }
 
-.gpnf-select2.select2-container--default .select2-selection--multiple {
-	border: 1px solid #ddd;
-	box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
-	background-color: #fff;
-	color: #32373c;
-	outline: none;
-	transition: 0.05s border-color ease-in-out;
-	border-radius: 0;
-}
-
-.gpnf-select2.select2-container--default.select2-container--focus .select2-selection--multiple {
-	border-color: #5b9dd9;
-	box-shadow: 0 0 2px rgba( 30, 140, 190, 0.8 );
-}
-
-.gpnf-select2.select2-selection ul.select2-selection__rendered li {
-	margin-bottom: 0 !important;
-}
-.gpnf-select2.select2-selection li.select2-selection__choice {
-	padding: 3px 6px 3px 4px !important;
-	border-radius: 3px !important;
-	border-bottom: 1px solid rgba( 0, 0, 0, 0.075 ) !important;
-}
-.gpnf-select2 .select2-dropdown .select2-results__option {
-	margin-bottom: 0 !important;
-}
-
-.gpnf-select2 .select2-default {
-	width: auto !important;
-}
-
-.gpnf-select2.select2-container .select2-search--inline .select2-search__field {
-	min-height: auto;
-	margin-top: 0;
-	line-height: 26px;
-}
-
 .gpnf-modal-header-color-setting .gp-group {
 	align-items: center;
 }
@@ -230,81 +193,52 @@
 	display: none;
 }
 
-
-
-
-/**
- * Select2 styles.
- */
-.gpnf-selectwoo .select2-search--inline .select2-search__field {
-	max-width: calc( 100% - 10px );
-	padding: 0;
-	margin-top: 0;
-	min-height: 28px;
+/* ASM Select Styles */
+#gpnf-form-settings .asmContainer {
+	width: 100%;
 }
 
-.gpnf-selectwoo .select2-search--inline .select2-search__field:focus {
-	border: 0 !important;
+#gpnf-form-settings .asmList {
+	/* Allow sortable item ghosts to be dragged outside of container */
+	overflow: visible !important;
+	border: 0;
+	margin: 0.5rem -0.125rem 0;
 }
 
-.gpnf-selectwoo.select2-selection {
-	font-size: 0;
+#gpnf-form-settings .asmListItem {
+	width: calc( 50% - 0.25rem );
+	display: block;
+	border: 1px solid #d5d7e9;
+	margin: 0 0.125rem 0.25rem !important;
+	float: left;
+	box-sizing: border-box;
+	border-radius: 3px;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	padding: 0 !important;
+	height: auto;
+	line-height: 1;
+	/* max-width: calc( 50% - 1.25rem ); */
 }
 
-.gpnf-selectwoo.select2-selection * {
-	font-size: 0.8rem;
+#gpnf-form-settings .asmListItem:hover .asmListItemRemove {
+	display: block;
+	top: 50%;
+	margin: auto;
+	margin-top: -7px;
 }
 
-.gpnf-selectwoo .select2-selection__rendered {
-	padding-top: 5px !important;
-}
-
-.gpnf-selectwoo .select2-selection__choice {
-	padding: 6px !important;
-	margin-top: 0 !important;
-	border: 0 !important;
-}
-
-.gpnf-selectwoo .select2-results__option {
-	margin-bottom: 0;
-}
-
-.gpnf-selectwoo .select2-results__option:focus {
-	outline: 0;
-	background-color: #ddd;
-}
-
-.gpnf-selectwoo .select2-results__option[data-selected='true'] {
-	padding-right: 30px;
-	background: url( 'data:image/svg+xml;utf8,<svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg"><path d="M4 6.58579L10.2929 0.292893C10.6834 -0.0976311 11.3166 -0.0976311 11.7071 0.292893C12.0976 0.683418 12.0976 1.31658 11.7071 1.70711L4 9.41421L0.292893 5.70711C-0.0976311 5.31658 -0.0976311 4.68342 0.292893 4.29289C0.683418 3.90237 1.31658 3.90237 1.70711 4.29289L4 6.58579Z" fill="%23C3C5DB" /></svg>' ) no-repeat right 10px center;
-}
-
-.gpnf-selectwoo .select2-results__option.select2-results__option--highlighted[data-selected='true'] {
-	background: #5897fb url( 'data:image/svg+xml;utf8,<svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg"><path d="M4 6.58579L10.2929 0.292893C10.6834 -0.0976311 11.3166 -0.0976311 11.7071 0.292893C12.0976 0.683418 12.0976 1.31658 11.7071 1.70711L4 9.41421L0.292893 5.70711C-0.0976311 5.31658 -0.0976311 4.68342 0.292893 4.29289C0.683418 3.90237 1.31658 3.90237 1.70711 4.29289L4 6.58579Z" fill="white" /></svg>' ) no-repeat right 10px center;
-}
-
-.gpnf-selectwoo.select2-container--default.select2-container--disabled .select2-selection--multiple {
-	background-color: #ecedf8;
-	border: 1px solid #ecedf8;
-	color: #9092b2;
-	pointer-events: none;
-}
-
-.gpnf-selectwoo.select2-container--default.select2-container--disabled .select2-selection--multiple .select2-selection__choice,
-.gpnf-select2.select2-container--default.select2-container--disabled .select2-selection--multiple .select2-selection__choice{
-	visibility: hidden;
-}
-
-.gpnf-select2.select2-container--disabled {
-	opacity: 0.75;
-	pointer-events: none;
-}
-
-.gpnf-selectwoo.select2-container--default.select2-container--disabled .select2-search__field,
-.gpnf-select2.select2-container--default.select2-container--disabled .select2-search__field {
-	visibility: hidden;
-}
-
-.gpnf-selectwoo.select2-container {
-	width: 100% !important;
+#gpnf-form-settings .asmListItemLabel {
+	display: block;
+	padding: 0 2rem 0 0.75rem !important;
+	line-height: 2.25rem;
+	height: calc( 2.25rem - 2px );
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

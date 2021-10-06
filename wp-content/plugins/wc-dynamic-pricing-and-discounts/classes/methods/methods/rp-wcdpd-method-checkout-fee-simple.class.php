@@ -51,7 +51,7 @@ class RP_WCDPD_Method_Checkout_Fee_Simple extends RP_WCDPD_Method_Checkout_Fee
      */
     public function get_group_label()
     {
-        return __('Simple', 'rp_wcdpd');
+        return esc_html__('Simple', 'rp_wcdpd');
     }
 
     /**
@@ -62,7 +62,7 @@ class RP_WCDPD_Method_Checkout_Fee_Simple extends RP_WCDPD_Method_Checkout_Fee
      */
     public function get_label()
     {
-        return __('Simple fee', 'rp_wcdpd');
+        return esc_html__('Simple fee', 'rp_wcdpd');
     }
 
     /**

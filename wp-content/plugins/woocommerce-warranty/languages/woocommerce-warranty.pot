@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Warranty Requests 1.9.25\n"
+"Project-Id-Version: WooCommerce Warranty Requests 1.9.26\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-warranty\n"
-"POT-Creation-Date: 2021-06-10 12:38:26+00:00\n"
+"POT-Creation-Date: 2021-07-27 18:10:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: includes/class-warranty-admin.php:336 includes/class-warranty-admin.php:452
 #: includes/class-warranty-frontend.php:69
-#: includes/class-warranty-settings.php:343 includes/functions.php:361
+#: includes/class-warranty-settings.php:343 includes/functions.php:364
 #: templates/admin/product-panel.php:58 templates/admin/product-panel.php:101
 #: templates/manage.php:169 templates/manage.php:212 templates/manage.php:336
 #: templates/manage.php:378 templates/manage.php:503 templates/manage.php:563
@@ -68,7 +68,7 @@ msgstr ""
 
 #: includes/class-warranty-admin.php:337 includes/class-warranty-admin.php:453
 #: includes/class-warranty-frontend.php:71
-#: includes/class-warranty-settings.php:344 includes/functions.php:363
+#: includes/class-warranty-settings.php:344 includes/functions.php:366
 #: templates/admin/product-panel.php:59 templates/admin/product-panel.php:102
 #: templates/manage.php:170 templates/manage.php:213 templates/manage.php:337
 #: templates/manage.php:379 templates/manage.php:504 templates/manage.php:564
@@ -84,7 +84,7 @@ msgstr ""
 
 #: includes/class-warranty-admin.php:338 includes/class-warranty-admin.php:454
 #: includes/class-warranty-frontend.php:73
-#: includes/class-warranty-settings.php:345 includes/functions.php:365
+#: includes/class-warranty-settings.php:345 includes/functions.php:368
 #: templates/admin/product-panel.php:60 templates/admin/product-panel.php:103
 #: templates/manage.php:171 templates/manage.php:214 templates/manage.php:338
 #: templates/manage.php:380 templates/manage.php:505 templates/manage.php:565
@@ -100,7 +100,7 @@ msgstr ""
 
 #: includes/class-warranty-admin.php:339 includes/class-warranty-admin.php:455
 #: includes/class-warranty-frontend.php:75
-#: includes/class-warranty-settings.php:346 includes/functions.php:367
+#: includes/class-warranty-settings.php:346 includes/functions.php:370
 #: templates/admin/product-panel.php:61 templates/admin/product-panel.php:104
 #: templates/manage.php:172 templates/manage.php:215 templates/manage.php:339
 #: templates/manage.php:381 templates/manage.php:506 templates/manage.php:566
@@ -189,19 +189,19 @@ msgstr ""
 
 #: includes/class-warranty-admin.php:1322
 #: templates/admin/new-warranty-form.php:48 templates/list.php:184
-#: templates/shortcode-request-form.php:69
+#: templates/shortcode-request-form.php:70
 msgid "Replacement item"
 msgstr ""
 
 #: includes/class-warranty-admin.php:1323
 #: templates/admin/new-warranty-form.php:50 templates/list.php:185
-#: templates/list.php:359 templates/shortcode-request-form.php:71
+#: templates/list.php:359 templates/shortcode-request-form.php:72
 msgid "Refund"
 msgstr ""
 
 #: includes/class-warranty-admin.php:1324
 #: templates/admin/new-warranty-form.php:53 templates/list.php:186
-#: templates/shortcode-request-form.php:74
+#: templates/shortcode-request-form.php:75
 msgid "Refund as store credit"
 msgstr ""
 
@@ -351,7 +351,7 @@ msgid "Lifetime"
 msgstr ""
 
 #: includes/class-warranty-admin.php:1730 includes/class-warranty-cart.php:58
-#: includes/class-warranty-cart.php:68 includes/functions.php:314
+#: includes/class-warranty-cart.php:68 includes/functions.php:317
 msgid "No warranty"
 msgstr ""
 
@@ -408,22 +408,22 @@ msgstr ""
 msgid "No Warranty"
 msgstr ""
 
-#: includes/class-warranty-frontend.php:68 includes/functions.php:360
+#: includes/class-warranty-frontend.php:68 includes/functions.php:363
 #: woocommerce-warranty.php:277
 msgid "Day"
 msgstr ""
 
-#: includes/class-warranty-frontend.php:70 includes/functions.php:362
+#: includes/class-warranty-frontend.php:70 includes/functions.php:365
 #: woocommerce-warranty.php:279
 msgid "Week"
 msgstr ""
 
-#: includes/class-warranty-frontend.php:72 includes/functions.php:364
+#: includes/class-warranty-frontend.php:72 includes/functions.php:367
 #: woocommerce-warranty.php:281
 msgid "Month"
 msgstr ""
 
-#: includes/class-warranty-frontend.php:74 includes/functions.php:366
+#: includes/class-warranty-frontend.php:74 includes/functions.php:369
 #: woocommerce-warranty.php:283
 msgid "Year"
 msgstr ""
@@ -939,8 +939,8 @@ msgstr ""
 msgid "Tracking Code:"
 msgstr ""
 
-#: includes/functions.php:82 includes/functions.php:1372
-#: includes/functions.php:1389
+#: includes/functions.php:82 includes/functions.php:1375
+#: includes/functions.php:1392
 msgid "Track Shipment"
 msgstr ""
 
@@ -988,31 +988,31 @@ msgstr ""
 msgid "Expiry Date: "
 msgstr ""
 
-#: includes/functions.php:317
+#: includes/functions.php:320
 msgid "Lifetime Warranty Included"
 msgstr ""
 
-#: includes/functions.php:321
+#: includes/functions.php:324
 msgid "Warranty Included (%d %s)"
 msgstr ""
 
-#: includes/functions.php:328
+#: includes/functions.php:331
 msgid "%d %s for %s; "
 msgstr ""
 
-#: includes/functions.php:744
+#: includes/functions.php:747
 msgid "RMA Request for Order #"
 msgstr ""
 
-#: includes/functions.php:1043
+#: includes/functions.php:1046
 msgid "Item Returned"
 msgstr ""
 
-#: includes/functions.php:1097
+#: includes/functions.php:1100
 msgid "Refund failed"
 msgstr ""
 
-#: includes/functions.php:1349
+#: includes/functions.php:1352
 msgid "<a href=\"%s\">RMA #%d</a> status changed to %s"
 msgstr ""
 
@@ -1021,7 +1021,7 @@ msgid "Request type"
 msgstr ""
 
 #: templates/admin/new-warranty-form.php:67
-#: templates/shortcode-request-form.php:114
+#: templates/shortcode-request-form.php:115
 #: templates/shortcode-return-form.php:33
 msgid "Submit"
 msgstr ""
@@ -1483,15 +1483,15 @@ msgstr ""
 msgid "The following errors were found while processing your request:"
 msgstr ""
 
-#: templates/shortcode-request-form.php:66
+#: templates/shortcode-request-form.php:67
 msgid "I want to request for a"
 msgstr ""
 
-#: templates/shortcode-request-form.php:88
+#: templates/shortcode-request-form.php:89
 msgid "Return Shipping Tracking"
 msgstr ""
 
-#: templates/shortcode-request-form.php:102
+#: templates/shortcode-request-form.php:103
 msgid "Tracking code"
 msgstr ""
 

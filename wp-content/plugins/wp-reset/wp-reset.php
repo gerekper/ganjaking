@@ -3,7 +3,7 @@
   Plugin Name: WP Reset PRO
   Plugin URI: https://wpreset.com/
   Description: Easily undo any change on the site by restoring a snapshot, or reset the entire site or any of its parts to the default values.
-  Version: 5.96
+  Version: 6.00
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: wp-reset
@@ -96,7 +96,6 @@ class WP_Reset
         add_action('admin_action_wpr_clear_log', array($this, 'clear_log'));
         add_action('admin_action_wpr_delete_temporary_files', array($this, 'delete_temporary_files'));
         add_action('admin_action_wpr_delete_snapshot_tables', array($this, 'delete_snapshot_tables'));
-        add_action('admin_action_wpr_clear_autouploader', array($this, 'autosnapshots_uploader_reset'));
         add_action('wp_before_admin_bar_render', array($this, 'admin_bar'));
 
         add_action('plugins_loaded', array($this, 'admin_actions'));
@@ -418,6 +417,11 @@ class WP_Reset
      */
     function clear_log()
     {
+        check_admin_referer('wpr_clear_log');
+        if(!current_user_can('manage_options')){
+            return false;
+        }
+
         update_option('wp-reset-log', array());
 
         if (!empty($_GET['redirect'])) {
@@ -710,7 +714,7 @@ class WP_Reset
             'nonce_run_tool' => wp_create_nonce('wp-reset_run_tool'),
             'nonce_do_reset' => wp_create_nonce('wp-reset_do_reset'),
             'cloud_service' => array_key_exists($options['cloud_service'], $this->cloud_services) ? 1 : 0,
-            'rebranding' => $this->get_rebranding() === false ? 0 : 1
+            'rebranding' => $this->get_rebranding() === false ? 0 : $this->get_rebranding()
         );
 
         if ($this->is_plugin_page()) {
@@ -1675,6 +1679,12 @@ class WP_Reset
             } else {
                 wp_send_json_success();
             }
+        } elseif ($tool == 'before_reset') {
+            $active_plugins = get_option('active_plugins');
+            set_transient('wpr_active_plugins', $active_plugins, 100);
+            remove_all_actions('update_option_active_plugins');
+            update_option('active_plugins', array(plugin_basename(__FILE__)));
+            wp_send_json_success();
         } elseif ($tool == 'site_reset') {
             $res = $this->do_reinstall($extra_data);
             if (is_wp_error($res)) {
@@ -2812,7 +2822,10 @@ class WP_Reset
         $timezone_string = get_option('timezone_string');
         $wf_licensing_wpr = get_option('wf_licensing_wpr');
 
-        $active_plugins = get_option('active_plugins');
+        $active_plugins = get_transient('wpr_active_plugins');
+        if(false === $active_plugins){
+            $active_plugins = get_option('active_plugins');
+        }
         $active_theme = wp_get_theme();
 
         if (!empty($params['reactivate_webhooks'])) {
@@ -3562,9 +3575,8 @@ class WP_Reset
             echo '</ul>';
         }
         echo '</div>';
-        echo '<p><a class="button button-delete" href="' . add_query_arg(array('action' => 'wpr_clear_log', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Clear Log</a>';
-        //echo '<p><a class="button button-delete" href="' . add_query_arg(array('action' => 'wpr_clear_autouploader', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Clear Autouploader</a>';
-
+        echo '<p><a class="button button-delete" href="' . add_query_arg(array('_wpnonce' => wp_create_nonce( 'wpr_clear_log' ), 'action' => 'wpr_clear_log', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Clear Log</a>';
+        
         echo '</div>';
         echo '</div>';
 
@@ -3588,7 +3600,7 @@ class WP_Reset
             }
 
             echo 'There are ' . $total_files . ' temporary files, totaling ' . WP_Reset_Utility::format_size($total_size);
-            echo '<p><a class="button button-delete" href="' . add_query_arg(array('action' => 'wpr_delete_temporary_files', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Delete temporary snapshot files</a></p>';
+            echo '<p><a class="button button-delete" href="' . add_query_arg(array('_wpnonce' => wp_create_nonce( 'wpr_delete_temporary_files' ), 'action' => 'wpr_delete_temporary_files', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Delete temporary snapshot files</a></p>';
         }
 
         echo '</p></div>';
@@ -3643,7 +3655,7 @@ class WP_Reset
                     echo '<li>' . $table . '</li>';
                 }
                 echo '</ul>';
-                echo '<a class="button button-delete" href="' . add_query_arg(array('action' => 'wpr_delete_snapshot_tables', 'uid' => $uid, 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Delete the tables prefixed with ' . $uid . '_</a>';
+                echo '<a class="button button-delete" href="' . add_query_arg(array('_wpnonce' => wp_create_nonce( 'wpr_delete_snapshot_tables' ), 'action' => 'wpr_delete_snapshot_tables', 'uid' => $uid, 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Delete the tables prefixed with ' . $uid . '_</a>';
                 echo '</div>';
             }
         }
@@ -4298,8 +4310,10 @@ class WP_Reset
             'size-200' => 'when total snapshot size exceeds 200 MB',
             'size-500' => 'when total snapshot size exceeds 500 MB',
             'size-1000' => 'when total snapshot size exceeds 1000 MB',
+            'size-2000' => 'when total snapshot size exceeds 2000 MB',
+            'size-3000' => 'when total snapshot size exceeds 3000 MB',
         );
-        echo '<div class="sub-option-group">Delete automatic snapshots: <select id="option_prune_snapshots_details" style="width:240px;">';
+        echo '<div class="sub-option-group">Delete automatic snapshots: <select id="option_prune_snapshots_details" style="width:295px;">';
         WP_Reset_Utility::create_select_options($prune_details, $options['prune_snapshots_details']);
         echo '</select></div></div>';
 
@@ -4324,8 +4338,10 @@ class WP_Reset
                 'size-200' => 'when total snapshot size exceeds 200 MB',
                 'size-500' => 'when total snapshot size exceeds 500 MB',
                 'size-1000' => 'when total snapshot size exceeds 1000 MB',
+                'size-2000' => 'when total snapshot size exceeds 2000 MB',
+                'size-3000' => 'when total snapshot size exceeds 3000 MB',
             );
-            echo '<div class="sub-option-group">Delete automatic snapshots from cloud: <select id="option_prune_cloud_snapshots_details" style="width:240px;">';
+            echo '<div class="sub-option-group">Delete automatic snapshots from cloud: <select id="option_prune_cloud_snapshots_details" style="width:295px;">';
             WP_Reset_Utility::create_select_options($cloud_prune_details, $options['prune_cloud_snapshots_details']);
             echo '</select></div></div>';
         }
@@ -5418,13 +5434,14 @@ class WP_Reset
      */
     function delete_snapshot_tables($uid = '')
     {
+        check_admin_referer( 'wpr_delete_snapshot_tables' );
         global $wpdb;
 
         if (empty($uid)) {
             $uid = $_GET['uid'];
         }
 
-        if (strlen($uid) != 4 && strlen($uid) != 6) {
+        if (!ctype_alpha($uid) || !current_user_can('manage_options') || (strlen($uid) != 4 && strlen($uid) != 6)) {
             return new WP_Error(1, 'Invalid UID format.');
         }
 
@@ -5452,6 +5469,11 @@ class WP_Reset
      */
     function delete_temporary_files()
     {
+        check_admin_referer('wpr_delete_temporary_files');
+        if(!current_user_can('manage_options')){
+            return false;
+        }
+
         if (file_exists($this->export_dir_path())) {
             $this->delete_folder($this->export_dir_path(), basename($this->export_dir_path()));
         }

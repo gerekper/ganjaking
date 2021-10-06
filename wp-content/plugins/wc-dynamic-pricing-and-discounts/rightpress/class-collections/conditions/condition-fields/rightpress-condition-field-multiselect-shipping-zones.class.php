@@ -55,7 +55,7 @@ abstract class RightPress_Condition_Field_Multiselect_Shipping_Zones extends Rig
     public function get_placeholder()
     {
 
-        return __('Select shipping zones', 'rightpress');
+        return esc_html__('Select shipping zones', 'rightpress');
     }
 
 

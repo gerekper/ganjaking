@@ -1,5 +1,26 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.09.06 - version 4.27.0
+* New: Settings in acknowledgement email ('Subject' and 'Heading') to handle texts related to scheduled email
+* New: Option 'wc_sc_auto_apply_coupon_removable' and hook 'wc_sc_is_auto_apply_coupon_removable' to allow removal of auto-apply coupons
+* Fix: Under 'Import Coupons' 'Email coupon to recipients?' not appearing if there is no email added in the first row of the CSV file
+* Fix: Incorrect calculation in store credit when used in manually created orders
+* Fix: Coupon type in the acknowledgement email is always of the discount type 'smart_coupon' irrespective of the coupon sent
+* Developer: New hook 'wc_sc_redirect_url_after_smart_coupons_process' to allow 3rd party plugin to modify the redirect URL after the plugin has processed the URL coupons
+* Update: Tweaking in auto-apply feature
+* Update: Changes in texts in email templates for acknowledgement email
+* Update: Allow removal of auto apply coupons
+* Update: Spellcheck for 'Coupons', 'arguments'
+* Update: POT file
+
+2021.08.23 - version 4.26.0
+* New: Tested up to WooCommerce 5.6.0 & WordPress 5.8.0
+* Update: Improvements in auto-apply feature
+* Update: Set a session cookie to persist the coupon in case the cart is empty [Thanks to: Devon Godfrey]
+* Update: Spellcheck for 'generation'
+* Update: Changes in HTML for displaying coupon shareable link on the admin side
+* Update: POT file
+
 2021.07.06 - version 4.25.1
 * Fix: Notice: Undefined variable: user_role during guest checkout
 * Fix: Notice: Undefined variable: email during guest checkout

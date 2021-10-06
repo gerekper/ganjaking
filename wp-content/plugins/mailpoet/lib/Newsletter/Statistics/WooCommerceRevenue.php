@@ -21,7 +21,12 @@ class WooCommerceRevenue {
   /** @var Helper */
   private $wooCommerceHelper;
 
-  public function __construct($currency, $value, $ordersCount, Helper $wooCommerceHelper) {
+  public function __construct(
+    $currency,
+    $value,
+    $ordersCount,
+    Helper $wooCommerceHelper
+  ) {
     $this->currency = $currency;
     $this->value = $value;
     $this->ordersCount = $ordersCount;

@@ -56,6 +56,12 @@ wp_enqueue_style( 'wp-color-picker' );
 			<span aria-hidden="true"></span>
 			<span><?php esc_html_e( '.png', 'wp-smushit' ); ?></span>
 		</label>
+		<label for="format-webp" class="sui-checkbox sui-checkbox-stacked">
+			<input type='hidden' value='0' name='format[webp]' />
+			<input type="checkbox" name="format[webp]" id="format-webp" <?php checked( ! isset( $settings['format']['webp'] ) || $settings['format']['webp'] ); ?> />
+			<span aria-hidden="true"></span>
+			<span><?php esc_html_e( '.webp', 'wp-smushit' ); ?></span>
+		</label>
 		<label for="format-gif" class="sui-checkbox sui-checkbox-stacked">
 			<input type='hidden' value='0' name='format[gif]' />
 			<input type="checkbox" name="format[gif]" id="format-gif" <?php checked( $settings['format']['gif'] ); ?> />

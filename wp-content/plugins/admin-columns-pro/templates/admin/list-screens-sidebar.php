@@ -2,7 +2,7 @@
 
 use AC\ListScreen;
 use AC\View;
-use ACP\Controller\ListScreenCreate;
+use ACP\RequestHandler\ListScreenCreate;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

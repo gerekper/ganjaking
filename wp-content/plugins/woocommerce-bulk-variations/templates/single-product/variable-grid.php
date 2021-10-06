@@ -1,4 +1,4 @@
-<?php
+    <?php
 global $woocommerce, $wc_bulk_variations, $post;
 $matrix_data = woocommerce_bulk_variations_create_matrix( $post->ID );
 
@@ -19,13 +19,39 @@ $info_boxes   = array();
 <?php do_action( 'woocommerce_bv_before_add_to_cart_form' ); ?>
 
 
+
+
 <div id="matrix_form">
+
+
+
     <div class="summary">
 		<?php woocommerce_template_single_title(); ?>
 		<?php woocommerce_template_single_price(); ?>
 		<?php woocommerce_template_single_excerpt(); ?>
     </div>
+
     <form id="wholesale_form" action="" class="bulk_variations_form cart matrix" method="post" enctype='multipart/form-data'>
+        <div style="display: flex;">
+            <div>
+                <div style="padding-left: 0;" class="matrix-add-to-cart-wrap">
+				    <?php if ( ! $wc_bulk_variations->is_only_bulk_variation_form() ) : ?>
+                        <input class="button btn-back-to-single" type="button" value="<?php _e( 'Back to the Product Page', 'woocommerce-bulk-variations' ); ?>"/>
+				    <?php else : ?>
+                        <input class="button btn-back-to-product" type="button" value="<?php _e( '<-- Product Page', 'woocommerce-bulk-variations' ); ?>"/>
+				    <?php endif; ?>
+                </div>
+            </div>
+            <div style="flex:auto;border-top:1px solid #C4C4C4"></div>
+            <div >
+			    <?php do_action( 'woocommerce_bv_before_add_to_cart_button' ); ?>
+                <div style="padding-right:0;" class="matrix-add-to-cart-wrap">
+                    <button type="submit" class="single_add_to_cart_button button alt"><?php echo apply_filters( 'single_add_to_cart_text', __( 'Add to cart', 'woocommerce' ), 'variable' ); ?></button>
+                </div>
+			    <?php do_action( 'woocommerce_bv_after_add_to_cart_button' ); ?>
+            </div>
+        </div>
+
         <table id="matrix_form_table">
             <thead>
             <tr>
@@ -114,23 +140,32 @@ $info_boxes   = array();
             </tbody>
         </table>
 
-	    <?php do_action( 'woocommerce_bv_before_add_to_cart_button' ); ?>
-        <div class="matrix-add-to-cart-wrap">
-            <button type="submit" class="single_add_to_cart_button button alt"><?php echo apply_filters( 'single_add_to_cart_text', __( 'Add to cart', 'woocommerce' ), 'variable' ); ?></button>
+        <div style="display: flex;">
+            <div>
+                <div style="padding-left: 0;" class="matrix-add-to-cart-wrap">
+                <?php if ( ! $wc_bulk_variations->is_only_bulk_variation_form() ) : ?>
+                    <input class="button btn-back-to-single" type="button" value="<?php _e( 'Back to the Product Page', 'woocommerce-bulk-variations' ); ?>"/>
+                <?php else : ?>
+                    <input class="button btn-back-to-product" type="button" value="<?php _e( '<-- Product Page', 'woocommerce-bulk-variations' ); ?>"/>
+                <?php endif; ?>
+                </div>
+            </div>
+            <div style="flex:auto;border-top:1px solid #C4C4C4"></div>
+            <div >
+                <?php do_action( 'woocommerce_bv_before_second_add_to_cart_button' ); ?>
+                <div style="padding-right:0;" class="matrix-add-to-cart-wrap">
+                    <button type="submit" class="single_add_to_cart_button button alt"><?php echo apply_filters( 'single_add_to_cart_text', __( 'Add to cart', 'woocommerce' ), 'variable' ); ?></button>
+                </div>
+                <?php do_action( 'woocommerce_bv_after_second_add_to_cart_button' ); ?>
+            </div>
         </div>
-	    <?php do_action( 'woocommerce_bv_after_add_to_cart_button' ); ?>
-
         <div>
             <input type="hidden" name="add-variations-to-cart" value="true"/>
             <input type="hidden" name="product_id" value="<?php echo esc_attr( $post->ID ); ?>"/>
         </div>
     </form>
 
-	<?php if ( ! $wc_bulk_variations->is_only_bulk_variation_form() ) : ?>
-        <input class="button btn-back-to-single" type="button" value="<?php _e( '<-- Singular Order Form', 'woocommerce-bulk-variations' ); ?>"/>
-	<?php else : ?>
-        <input class="button btn-back-to-product" type="button" value="<?php _e( '<-- Product Page', 'woocommerce-bulk-variations' ); ?>"/>
-	<?php endif; ?>
+
 
     <div id="matrix_form_info_holder" style="display:none;">
 		<?php foreach ( $info_boxes as $key => $field_data ) : ?>

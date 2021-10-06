@@ -2,11 +2,11 @@
 
 namespace WPMailSMTP\Providers\Gmail;
 
-use WPMailSMTP\Debug;
+use WPMailSMTP\Admin\DebugEvents\DebugEvents;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Providers\MailerAbstract;
-use WPMailSMTP\Vendor\Google_Service_Gmail;
-use WPMailSMTP\Vendor\Google_Service_Gmail_Message;
+use WPMailSMTP\Vendor\Google\Service\Gmail;
+use WPMailSMTP\Vendor\Google\Service\Gmail\Message;
 
 /**
  * Class Mailer.
@@ -30,7 +30,7 @@ class Mailer extends MailerAbstract {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var Google_Service_Gmail_Message
+	 * @var Message
 	 */
 	protected $message;
 
@@ -78,7 +78,7 @@ class Mailer extends MailerAbstract {
 		require_once wp_mail_smtp()->plugin_path . '/vendor/autoload.php';
 
 		$auth    = new Auth();
-		$message = new Google_Service_Gmail_Message();
+		$message = new Message();
 
 		// Set the authorized Gmail email address as the "from email" if the set email is not on the list of aliases.
 		$possible_from_emails = $auth->get_user_possible_send_from_addresses();
@@ -105,19 +105,16 @@ class Mailer extends MailerAbstract {
 
 			$message->setRaw( $base64 );
 
-			$service  = new Google_Service_Gmail( $auth->get_client() );
+			$service  = new Gmail( $auth->get_client() );
 			$response = $service->users_messages->send( 'me', $message );
+
+			DebugEvents::add_debug(
+				esc_html__( 'An email request was sent to the Gmail API.' )
+			);
 
 			$this->process_response( $response );
 		} catch ( \Exception $e ) {
-			$this->error_message = $e->getMessage();
-
-			Debug::set(
-				'Mailer: Gmail' . "\r\n" .
-				$this->process_exception_message( $e->getMessage() )
-			);
-
-			return;
+			$this->error_message = $this->process_exception_message( $e->getMessage() );
 		}
 	}
 
@@ -127,7 +124,7 @@ class Mailer extends MailerAbstract {
 	 * @since 1.0.0
 	 * @since 1.5.0 Added action "wp_mail_smtp_providers_gmail_mailer_process_response" with $response.
 	 *
-	 * @param Google_Service_Gmail_Message $response Instance of Gmail response.
+	 * @param Message $response Instance of Gmail response.
 	 */
 	protected function process_response( $response ) {
 
@@ -157,19 +154,12 @@ class Mailer extends MailerAbstract {
 
 		$is_sent = false;
 
-		if ( method_exists( $this->response, 'getId' ) ) {
-			$message_id = $this->response->getId();
-			if ( ! empty( $message_id ) ) {
-				$is_sent = true;
-			}
+		if ( method_exists( $this->response, 'getId' ) && ! empty( $this->response->getId() ) ) {
+			$is_sent = true;
 		}
 
-		// Clear debug messages if email is successfully sent.
-		if ( $is_sent ) {
-			Debug::clear();
-		}
-
-		return $is_sent;
+		/** This filter is documented in src/Providers/MailerAbstract.php. */
+		return apply_filters( 'wp_mail_smtp_providers_mailer_is_email_sent', $is_sent, $this->mailer );
 	}
 
 	/**

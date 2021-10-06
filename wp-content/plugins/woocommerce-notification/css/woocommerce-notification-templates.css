@@ -1,7 +1,7 @@
 #message-purchased.wn-extended {
     border-radius: 5px;
     background-position: bottom right;
-    height: 96px;
+    /*height: 96px;*/
 }
 
 #message-purchased .wn-notification-image-wrapper {
@@ -23,6 +23,7 @@
     left: 0;
     background-repeat: no-repeat;
     background-position: top right;
+    background-size: 100% 100%;
 }
 
 #message-purchased.wn-extended .message-purchase-main > * {

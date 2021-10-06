@@ -503,6 +503,12 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 					}
 				}
 
+				if ( 2 === $header_style ) {
+					if ( isset( $settings['minimalisticMenuShowOnlyHamburger'] ) && $settings['minimalisticMenuShowOnlyHamburger'] ) {
+						$classes_navbar[] = 'gm-navbar--show-only-hamburger';
+					}
+				}
+
 			}
 
 			if ( isset( $settings['shadow'] ) && $settings['shadow'] && ! in_array( $header_style, array( 3, 5 ), true ) ) {
@@ -548,6 +554,45 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 
 			return $classes_navbar;
 
+		}
+
+		/**
+		 * Return array of html classes for GM wrapper
+		 *
+		 * @return array
+		 */
+		public function getHtmlClassesSecondSidebarMenu() {
+			$classes_navbar = array( 'gm-navbar-animated', 'gm-main-menu-wrapper' );
+
+			$settings = $this->serialize( true );
+
+			$compiled_css = $this->get( 'general', 'compiled_css' . ( is_rtl() ? '_rtl' : '' ) );
+
+			if ( empty( $compiled_css ) ) {
+				$classes_navbar[] = 'gm-no-compiled-css';
+			}
+
+			$custom_css_class = $this->getCustomHtmlClass();
+			if ( ! empty( $custom_css_class ) ) {
+				$classes_navbar[] = $custom_css_class;
+			}
+
+			// Top level hover Style.
+			if ( isset( $settings['secondSidebarMenuHoverStyle'] ) && $settings['secondSidebarMenuHoverStyle'] ) {
+				$classes_navbar[] = 'gm-dropdown-hover-style-' . $settings['secondSidebarMenuHoverStyle'];
+			}
+
+			// Dropdown appearance style.
+			if ( isset( $settings['secondSidebarMenuAppearanceStyle'] ) && $settings['secondSidebarMenuAppearanceStyle'] ) {
+				$classes_navbar[] = 'gm-dropdown-appearance-' . $settings['secondSidebarMenuAppearanceStyle'];
+			}
+
+			// Scrollbar.
+			if ( isset( $settings['scrollbarEnable'] ) && $settings['scrollbarEnable'] ) {
+				$classes_navbar[] = 'gm-dropdown-with-scrollbar';
+			}
+
+			return $classes_navbar;
 		}
 
 

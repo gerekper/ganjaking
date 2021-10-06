@@ -166,7 +166,7 @@ class AJAX {
 				AND woim_id.meta_value = %d
 				AND woim_value.meta_key = '_wc_checkout_add_on_value'
 				AND woim_value.meta_value LIKE %s
-		", $id, '%' . $term . '%' );
+		", $id, '%' . $wpdb->esc_like( $term ) . '%' );
 
 		$results = $wpdb->get_results( $query );
 

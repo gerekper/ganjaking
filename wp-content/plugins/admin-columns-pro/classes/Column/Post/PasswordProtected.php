@@ -14,7 +14,7 @@ class PasswordProtected extends AC\Column\Post\PasswordProtected
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Password( $this );
+		return new Editing\Service\Post\PasswordProtected();
 	}
 
 }

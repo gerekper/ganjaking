@@ -17,6 +17,7 @@ class Author extends Field
 			Operators::NOT_CONTAINS,
 			Operators::BEGINS_WITH,
 			Operators::ENDS_WITH,
+			Operators::CURRENT_USER,
 		] );
 
 		parent::__construct( $operators );

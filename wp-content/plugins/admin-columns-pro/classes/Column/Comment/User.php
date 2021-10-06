@@ -21,7 +21,7 @@ class User extends AC\Column\Comment\User
 	}
 
 	public function editing() {
-		return new Editing\Model\Comment\User( $this );
+		return new Editing\Service\Comment\User();
 	}
 
 	public function filtering() {

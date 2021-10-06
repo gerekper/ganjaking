@@ -1,11 +1,56 @@
-﻿*** Redsys Gateway Change Log ***
+*** Redsys Gateway Change Log ***
+
+2021.09.12 - version 16.1.0
+
+* NEW: Now you can select Order Number format in Redsys redirection.
+* NEW: Multisite deep compatibility. Now you have specific options for WordPress Multisite.
+* NEW: You can see Redsys new guides and posts in WordPress Dashboard.
+* NEW: Now you can add a custom logo for InSite.
+* NEW: Now you can select between InSite (Redsys in the checkout) Independent Elements credit card form (default) or Integrated credit card form.
+* IMPROVED: String translation.
+* IMPROVED: Webservice.
+* IMPROVED: Now Paygold check for SOAP and SimpleXML.
+* FIXED: Removed a debug line in Redsys redirection screen settings.
+* FIXED: Now you can make a InSite refund.
+* FIXED: Now you can make a Subscription refund.
+* FIXED: Fixed an error telling to subscriptions that is a Fail order.
+* FIXED: Fixed a problem with payments with free subscriptions and with users with token.
+* FIXED: Fixed a problem in My Account > Payment Methods, where in some cases when there are not Redsys Tokens an error are screened.
+
+2021.07.05 - version 16.0.1
+
+* FIXED: Fixed a problem with PayGold, the metabox was trying to load in other post types
+* Updated: Updated all new translations
+
+2021.07.04 - version 16.0.0
+
+* NEW: Added PayGold Method
+* NEW: Added new Bizum Filter. Now you can use infinite terminals with bizum_modify_data_to_send filter.
+* NEW: Added all new Redsys errors to the plugins. Now recognizes more that 1.370 Redsys errors.
+
+2021.06.21 - version 15.2.2
+
+* FIXED: In v15.2.1 I introduced a bug that prevented the return of orders prior to v15.2.1. 
+
+2021.06.21 - version 15.2.1
+
+* IMPROVED: Improved filter redsys_modify_data_to_send. Now FUC is saved as meta, so refunds work correctly.
+* FIXED: Removed a Redsys Method not ready. Sorry, I forget to comment a line, and a not ready Redsys method was loaded on the WooCommerce Payment settings page.
+
+2021.06.19 - version 15.2.0
+
+* NEW: Now InSite is hidden in the Add Method page.
+* NEW: Now you can activate Redsys redirection only in Add Method page.
+* FIXED: Fixed an issue where data could not be copied to the admin profile page.
+* FIXED: Fixed the order "1 billion".
 
 2021.06.09 - version 15.1.2
 
-* Fixed: Problem with Bizum that I had no idea. What a loser I am! 
+* Fixed: Problem with Bizum.
+
 2021.06.01 - version 15.1.1
 
-* Fixed: Replacing a jQuery that I had accidentally deleted because I'm stupid.
+* Fixed: Replacing a jQuery that I had accidentally deleted.
 
 2021.06.01 - version 15.1.0
 

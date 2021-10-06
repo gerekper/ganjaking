@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Product_Property_Meta extends RightPress_Con
     public function get_label()
     {
 
-        return __('Product meta field', 'rightpress');
+        return esc_html__('Product meta field', 'rightpress');
     }
 
     /**

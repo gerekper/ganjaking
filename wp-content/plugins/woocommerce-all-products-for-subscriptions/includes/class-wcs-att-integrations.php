@@ -60,9 +60,14 @@ class WCS_ATT_Integrations {
 		}
 
 		// AfterPay compatibility.
-		if ( class_exists( 'WC_Gateway_Afterpay' ) ) {
+		if ( class_exists( 'WC_Gateway_Afterpay' ) && is_callable( array( 'WC_Gateway_Afterpay', 'getInstance' ) ) ) {
 			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-afterpay.php' );
 			WCS_ATT_Integration_AfterPay::init();
+		}
+
+		// Stripe compatibility.
+		if ( class_exists( 'WC_Gateway_Stripe' ) ) {
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-stripe.php' );
 		}
 
 		// Define dependencies.

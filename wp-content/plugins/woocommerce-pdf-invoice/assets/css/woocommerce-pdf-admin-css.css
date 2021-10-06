@@ -56,7 +56,7 @@ h3.dompdf-config {
 
 .dompgf-debugging-table input[type=submit] {
 	text-align: left !important;
-	padding: 20px 5px !important;
+	/* padding: 20px 5px !important; */
 	font-size:20pt;
 }
 

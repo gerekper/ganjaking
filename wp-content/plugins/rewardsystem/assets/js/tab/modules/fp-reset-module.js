@@ -2,22 +2,15 @@
  * Reset - Module
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var ResetModule = {
         init : function () {
-            this.trigger_on_page_load() ;
             jQuery( '.gif_rs_reset_tab_settings' ).css( 'display' , 'none' ) ;
             jQuery( '.gif_rs_sumo_reward_button_for_reset' ).css( 'display' , 'none' ) ;
             jQuery( '#rs_reset_selected_user_data' ).closest( 'tr' ).hide() ;
             $( document ).on( 'change' , '.rs_reset_data_for_users' , this.user_type_to_reset_data ) ;
             $( document ).on( 'click' , '#rs_reset_tab' , this.reset_tab_settings ) ;
             $( document ).on( 'click' , '#rs_reset_data_submit' , this.reset_data_for_user ) ;
-        } ,
-        trigger_on_page_load : function () {
-            if ( fp_reset_module_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
-                $( '#rs_reset_selected_user_data' ).chosen() ;
-            } else {
-                $( '#rs_reset_selected_user_data' ).select2() ;
-            }
         } ,
         user_type_to_reset_data : function () {
             ResetModule.show_or_hide_for_user_type_to_reset_data( this ) ;

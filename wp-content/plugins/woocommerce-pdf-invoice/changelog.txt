@@ -1,4 +1,31 @@
 *** WooCommerce PDF Invoice Changelog ***
+2021.09.09 - version 4.14.4
+ * Fix shipping tracking output logic
+
+2021.09.07 - version 4.14.3
+ * Fix shipping tracking output
+
+2021.08.03 - version 4.14.2
+ * Fix terms template multipage issue
+
+2021.08.03 - version 4.14.1
+ * Remove debugging code.
+
+2021.08.03 - version 4.14.0
+ * Add {{ordernumber}} to filename variables
+ * WC 5.5
+ * WooCommerce Shipment Tracking
+ * Make sure terms template is not affected by email template setting
+ * Make sure terms template uses correct font
+ * Fix Undefined array key "pdf_suffix"
+ * Change WC version requirement (3.5.0)
+
+2021.05.15 - version 4.13.4
+ * Fix php notices in PHP helper tab
+ * Make sure partial refund emails have PDF attached if required
+ * Remove some button CSS
+ * Remove deprecated $order methods
+
 2021.05.15 - version 4.13.3
  * Fix System Status enabled emails showing X
  * Check if Theme Editor is available / available for logged in user

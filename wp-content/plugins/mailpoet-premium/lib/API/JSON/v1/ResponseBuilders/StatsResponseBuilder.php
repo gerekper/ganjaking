@@ -14,6 +14,14 @@ use MailPoetVendor\Doctrine\Common\Collections\ArrayCollection;
 class StatsResponseBuilder {
   const DATE_FORMAT = 'Y-m-d H:i:s';
 
+  /**
+   * @param NewsletterEntity $newsletter
+   * @param NewsletterStatistics $statistics
+   * @param array<array> $clickedLinks
+   * @param string $previewUrl
+   *
+   * @return array<string, int|string|array|null>
+   */
   public function build(
     NewsletterEntity $newsletter,
     NewsletterStatistics $statistics,
@@ -46,8 +54,8 @@ class StatsResponseBuilder {
   }
 
   /**
-   * @param NewsletterSegmentEntity[]|ArrayCollection $segments
-   * @return array
+   * @param ArrayCollection<int, NewsletterSegmentEntity> $segments
+   * @return array<array>
    */
   private function buildSegments($segments): array {
     $result = [];

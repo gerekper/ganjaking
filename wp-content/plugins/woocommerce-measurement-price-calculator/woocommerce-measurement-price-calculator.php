@@ -6,11 +6,11 @@
  * Description: WooCommerce plugin to provide price and quantity calculations based on product measurements
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 3.19.0
+ * Version: 3.20.1
  * Text Domain: woocommerce-measurement-price-calculator
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2012-2020, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2012-2021, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,29 +18,15 @@
  * @package   WC-Measurement-Price-Calculator
  * @author    SkyVerge
  * @category  Plugin
- * @copyright Copyright (c) 2012-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2012-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 18735:be4679e3d3b24f513b2266b79e859bab
  * WC requires at least: 3.5
- * WC tested up to: 4.7.1
+ * WC tested up to: 5.7.0
  */
 
 defined( 'ABSPATH' ) or exit;
-
-// Required functions
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'woo-includes/woo-functions.php' );
-}
-
-// Plugin updates
-woothemes_queue_update( plugin_basename( __FILE__ ), 'be4679e3d3b24f513b2266b79e859bab', '18735' );
-
-// WC active check
-if ( ! is_woocommerce_active() ) {
-	return;
-}
-
 
 /**
  * WooCommerce Measurement Price Calculator loader.
@@ -133,6 +119,9 @@ class WC_Measurement_Price_Calculator_Loader {
 		}
 
 		$this->load_framework();
+
+		// autoload vendor files
+		require( plugin_dir_path( __FILE__ ) . 'vendor/autoload.php' );
 
 		// load the main plugin class
 		require_once( plugin_dir_path( __FILE__ ) . 'class-wc-measurement-price-calculator.php' );

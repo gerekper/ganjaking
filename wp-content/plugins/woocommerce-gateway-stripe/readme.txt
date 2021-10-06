@@ -2,9 +2,9 @@
 Contributors: woocommerce, automattic, royho, akeda, mattyza, bor0, woothemes
 Tags: credit card, stripe, apple pay, payment request, google pay, sepa, sofort, bancontact, alipay, giropay, ideal, p24, woocommerce, automattic
 Requires at least: 4.4
-Tested up to: 5.7
+Tested up to: 5.6
 Requires PHP: 5.6
-Stable tag: 5.3.0
+Stable tag: 5.2.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Attributions: thorsten-stripe
@@ -126,8 +126,7 @@ If you get stuck, you can ask for help in the Plugin Forum.
 
 == Changelog ==
 
-= 5.3.0 - 2021-07-21 =
-* Fix - Disable Payment Request Buttons when order has to be split into multiple packages because Payment Requests do not support that use case.
-* Tweak - Payment request button should guide users to login when necessary.
+= 5.2.2 - 2021-06-10 =
 
-[See changelog for all versions](https://raw.githubusercontent.com/woocommerce/woocommerce-gateway-stripe/trunk/changelog.txt).
+* Fix - The absence of a cart causing fatal errors when rendering the Cart or Checkout block.
+

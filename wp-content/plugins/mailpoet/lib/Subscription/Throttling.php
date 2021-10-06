@@ -5,36 +5,40 @@ namespace MailPoet\Subscription;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Models\SubscriberIP;
+use MailPoet\Entities\SubscriberIPEntity;
+use MailPoet\Subscribers\SubscriberIPsRepository;
 use MailPoet\Util\Helpers;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Throttling {
-  public static function throttle() {
-    $wp = new WPFunctions;
-    $subscriptionLimitEnabled = $wp->applyFilters('mailpoet_subscription_limit_enabled', true);
+  /** @var SubscriberIPsRepository */
+  private $subscriberIPsRepository;
 
-    $subscriptionLimitWindow = $wp->applyFilters('mailpoet_subscription_limit_window', DAY_IN_SECONDS);
-    $subscriptionLimitBase = $wp->applyFilters('mailpoet_subscription_limit_base', MINUTE_IN_SECONDS);
+  /** @var WPFunctions */
+  private $wp;
+
+  public function __construct(
+    SubscriberIPsRepository $subscriberIPsRepository,
+    WPFunctions $wp
+  ) {
+    $this->wp = $wp;
+    $this->subscriberIPsRepository = $subscriberIPsRepository;
+  }
+
+  public function throttle() {
+    $subscriptionLimitEnabled = $this->wp->applyFilters('mailpoet_subscription_limit_enabled', true);
+
+    $subscriptionLimitWindow = (int)$this->wp->applyFilters('mailpoet_subscription_limit_window', DAY_IN_SECONDS);
+    $subscriptionLimitBase = (int)$this->wp->applyFilters('mailpoet_subscription_limit_base', MINUTE_IN_SECONDS);
 
     $subscriberIp = Helpers::getIP();
 
-    if ($subscriptionLimitEnabled && !$wp->isUserLoggedIn()) {
+    if ($subscriptionLimitEnabled && !$this->isUserExemptFromThrottling()) {
       if (!empty($subscriberIp)) {
-        $subscriptionCount = SubscriberIP::where('ip', $subscriberIp)
-          ->whereRaw(
-            '(`created_at` >= NOW() - INTERVAL ? SECOND)',
-            [(int)$subscriptionLimitWindow]
-          )->count();
-
+        $subscriptionCount = $this->subscriberIPsRepository->getCountByIPAndCreatedAtAfterTimeInSeconds($subscriberIp, $subscriptionLimitWindow);
         if ($subscriptionCount > 0) {
           $timeout = $subscriptionLimitBase * pow(2, $subscriptionCount - 1);
-          $existingUser = SubscriberIP::where('ip', $subscriberIp)
-            ->whereRaw(
-              '(`created_at` >= NOW() - INTERVAL ? SECOND)',
-              [(int)$timeout]
-            )->findOne();
-
+          $existingUser = $this->subscriberIPsRepository->findOneByIPAndCreatedAtAfterTimeInSeconds($subscriberIp, $timeout);
           if (!empty($existingUser)) {
             return $timeout;
           }
@@ -42,34 +46,43 @@ class Throttling {
       }
     }
 
-    $ip = SubscriberIP::create();
-    $ip->ip = $subscriberIp;
-    $ip->save();
+    if ($subscriberIp !== null) {
+      $ip = new SubscriberIPEntity($subscriberIp);
+      $existingIp = $this->subscriberIPsRepository->findOneBy(['ip' => $ip->getIP(), 'createdAt' => $ip->getCreatedAt()]);
+      if (!$existingIp) {
+        $this->subscriberIPsRepository->persist($ip);
+        $this->subscriberIPsRepository->flush();
+      }
+    }
 
-    self::purge();
+    $this->purge();
 
     return false;
   }
 
-  public static function purge() {
-    $wp = new WPFunctions;
-    $interval = $wp->applyFilters('mailpoet_subscription_purge_window', MONTH_IN_SECONDS);
-    return SubscriberIP::whereRaw(
-      '(`created_at` < NOW() - INTERVAL ? SECOND)',
-      [$interval]
-    )->deleteMany();
+  public function purge(): void {
+    $interval = $this->wp->applyFilters('mailpoet_subscription_purge_window', MONTH_IN_SECONDS);
+    $this->subscriberIPsRepository->deleteCreatedAtBeforeTimeInSeconds($interval);
   }
 
-  public static function secondsToTimeString($seconds) {
-    $wp = new WPFunctions;
+  public function secondsToTimeString($seconds): string {
     $hrs = floor($seconds / 3600);
     $min = floor($seconds % 3600 / 60);
     $sec = $seconds % 3600 % 60;
     $result = [
-      'hours' => $hrs ? sprintf($wp->__('%d hours', 'mailpoet'), $hrs) : '',
-      'minutes' => $min ? sprintf($wp->__('%d minutes', 'mailpoet'), $min) : '',
-      'seconds' => $sec ? sprintf($wp->__('%d seconds', 'mailpoet'), $sec) : '',
+      'hours' => $hrs ? sprintf(__('%d hours', 'mailpoet'), $hrs) : '',
+      'minutes' => $min ? sprintf(__('%d minutes', 'mailpoet'), $min) : '',
+      'seconds' => $sec ? sprintf(__('%d seconds', 'mailpoet'), $sec) : '',
     ];
     return join(' ', array_filter($result));
+  }
+
+  private function isUserExemptFromThrottling(): bool {
+    if (!$this->wp->isUserLoggedIn()) {
+      return false;
+    }
+    $user = $this->wp->wpGetCurrentUser();
+    $roles = $this->wp->applyFilters('mailpoet_subscription_throttling_exclude_roles', ['administrator', 'editor']);
+    return !empty(array_intersect($roles, (array)$user->roles));
   }
 }

@@ -1,5 +1,5 @@
 <?php
-// version 2.0.16
+// version 2.1.55
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -93,6 +93,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<p><?php esc_html_e( 'Set your local timezone.', 'woocommerce-product-vendors' ); ?></p>
 					</td>
 				</tr>
+				<?php do_action( 'wcpv_vendor_settings_render_additional_fields' ); ?>
 			</tbody>
 		</table>
 

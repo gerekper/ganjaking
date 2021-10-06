@@ -1,5 +1,11 @@
 *** WooCommerce Nested Category Layout Changelog ***
 
+2021.08.09 - version 1.17.2
+ * Fix - Ensure WooCommerce products sorting is properly handled when visiting product tag archives and sorting products
+
+2021.08.02 - version 1.17.1
+ * Fix - Ensure products tag archives are correctly output
+
 2021.07.05 - version 1.17.0
  * Tweak - Improve theme compatibility with breaking changes due to needed refactoring
  * Misc - Remove legacy woo-includes functions

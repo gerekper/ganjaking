@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MailPoet\API\JSON\v1;
 
@@ -11,6 +11,7 @@ use MailPoet\API\JSON\Error;
 use MailPoet\API\JSON\Response;
 use MailPoet\API\JSON\ResponseBuilders\DynamicSegmentsResponseBuilder;
 use MailPoet\Config\AccessControl;
+use MailPoet\Doctrine\Validator\ValidationException;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Listing\Handler;
 use MailPoet\Newsletter\Segment\NewsletterSegmentRepository;
@@ -116,7 +117,11 @@ class DynamicSegments extends APIEndpoint {
       ], [], Response::STATUS_BAD_REQUEST);
     } catch (InvalidArgumentException $e) {
       return $this->badRequest([
-        Error::BAD_REQUEST  => __('Another record already exists. Please specify a different "name".', 'mailpoet'),
+        Error::BAD_REQUEST => __('Another record already exists. Please specify a different "name".', 'mailpoet'),
+      ]);
+    } catch (ValidationException $exception) {
+      return $this->badRequest([
+        Error::BAD_REQUEST => __('Please specify a name.', 'mailpoet'),
       ]);
     }
   }
@@ -124,20 +129,30 @@ class DynamicSegments extends APIEndpoint {
   private function getErrorString(InvalidFilterException $e) {
     switch ($e->getCode()) {
       case InvalidFilterException::MISSING_TYPE:
-        return WPFunctions::get()->__('Segment type is missing.', 'mailpoet');
+        return WPFunctions::get()->__('The segment type is missing.', 'mailpoet');
       case InvalidFilterException::INVALID_TYPE:
-        return WPFunctions::get()->__('Segment type is unknown.', 'mailpoet');
+        return WPFunctions::get()->__('The segment type is unknown.', 'mailpoet');
       case InvalidFilterException::MISSING_ROLE:
-        return WPFunctions::get()->__('Please select user role.', 'mailpoet');
+        return WPFunctions::get()->__('Please select a user role.', 'mailpoet');
       case InvalidFilterException::MISSING_ACTION:
       case InvalidFilterException::INVALID_EMAIL_ACTION:
-        return WPFunctions::get()->__('Please select email action.', 'mailpoet');
+        return WPFunctions::get()->__('Please select an email action.', 'mailpoet');
       case InvalidFilterException::MISSING_NEWSLETTER_ID:
         return WPFunctions::get()->__('Please select an email.', 'mailpoet');
       case InvalidFilterException::MISSING_PRODUCT_ID:
-        return WPFunctions::get()->__('Please select category.', 'mailpoet');
+        return WPFunctions::get()->__('Please select a product.', 'mailpoet');
+      case InvalidFilterException::MISSING_COUNTRY:
+        return WPFunctions::get()->__('Please select a country.', 'mailpoet');
       case InvalidFilterException::MISSING_CATEGORY_ID:
-        return WPFunctions::get()->__('Please select product.', 'mailpoet');
+        return WPFunctions::get()->__('Please select a category.', 'mailpoet');
+      case InvalidFilterException::MISSING_VALUE:
+        return WPFunctions::get()->__('Please fill all required values.', 'mailpoet');
+      case InvalidFilterException::MISSING_NUMBER_OF_ORDERS_FIELDS:
+        return WPFunctions::get()->__('Please select a type for the comparison, a number of orders and a number of days.', 'mailpoet');
+      case InvalidFilterException::MISSING_TOTAL_SPENT_FIELDS:
+        return WPFunctions::get()->__('Please select a type for the comparison, an amount and a number of days.', 'mailpoet');
+      case InvalidFilterException::MISSING_FILTER:
+        return WPFunctions::get()->__('Please add at least one condition for filtering.', 'mailpoet');
       default:
         return WPFunctions::get()->__('An error occurred while saving data.', 'mailpoet');
     }

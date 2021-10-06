@@ -1,10 +1,10 @@
 === WooCommerce Smart Coupons ===
-Contributors: storeapps, niravmehta, ratnakar.dubey, Tarun.Parswani, Mansi Shah, Chandan Kumar
+Contributors: storeapps, niravmehta, ratnakar.dubey, Tarun.Parswani, Mansi Shah, Chandan Kumar, Balakrishnan
 Donate link: https://www.storeapps.org/
 Tags: woocommerce, coupon, credit, store credit, gift, certificate, voucher, discount, gift certificate, gift voucher, customer, self service
 Requires at least: 4.4
-Tested up to: 5.7.2
-Stable tag: 4.25.1
+Tested up to: 5.8.0
+Stable tag: 4.27.0
 
 Powerful, "all in one" solution for gift certificates, store credits, discount coupons and vouchers. Allows customers to buy credits for themselves or gift them to others. Unique "Apply Coupon with One Click" technology during checkout, tight integration with WooCommerce and automatic maintenance.
 

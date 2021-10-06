@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Subscription scheme object. May extend the WC_Data class or handle CRUD in the future, if schemes are moved out of meta.
  *
  * @class    WCS_ATT_Scheme
- * @version  3.1.17
+ * @version  3.1.30
  */
 class WCS_ATT_Scheme implements ArrayAccess {
 
@@ -307,16 +307,16 @@ class WCS_ATT_Scheme implements ArrayAccess {
 
 			$populate_prices = true;
 
-			if ( empty( $prices[ 'regular_price' ] ) && empty( $prices[ 'price' ] ) ) {
+			if ( '' === $prices[ 'regular_price' ] && '' === $prices[ 'price' ] ) {
 				$populate_prices = false;
 			}
 
 			if ( $populate_prices ) {
 
-				if ( empty( $prices[ 'regular_price' ] ) ) {
+				if ( '' === $prices[ 'regular_price' ] ) {
 					$prices[ 'regular_price' ] = $prices[ 'price' ];
-				} elseif ( empty( $prices[ 'price' ] ) ) {
-					$prices[ 'price' ]         = $prices[ 'regular_price' ];
+				} elseif ( '' === $prices[ 'price' ] ) {
+					$prices[ 'price' ] = $prices[ 'regular_price' ];
 				}
 
 				$prices[ 'price' ] = $this->get_discounted_price( $prices );

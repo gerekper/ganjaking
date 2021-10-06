@@ -44,6 +44,18 @@ class Settings extends Abstract_Page implements Interface_Page {
 	}
 
 	/**
+	 * Enqueue scripts.
+	 *
+	 * @since 3.9.0
+	 *
+	 * @param string $hook Hook from where the call is made.
+	 */
+	public function enqueue_scripts( $hook ) {
+		// Scripts for Configs.
+		$this->enqueue_configs_scripts();
+	}
+
+	/**
 	 * Register meta boxes.
 	 */
 	public function register_meta_boxes() {

@@ -1,5 +1,35 @@
 *** WooCommerce Product Bundles ***
 
+2021.09.24 - version 6.12.4
+* Fix - Fixed incorrect early returns in 'set_notice_option'.
+
+2021.09.22 - version 6.12.3
+* Fix - Prevent bundled item stock from being reduced when editing Bundles in configurable orders.
+* Fix - Fixed a fatal error affecting the integration of Product Bundles with Memberships, triggered when trying to retrieve the ID of a non-object.
+* Fix - Fixed an issue that prevented the 'Analytics > Bundles' report from displaying results when running the latest version of WoCommerce Admin.
+
+2021.09.20 - version 6.12.2
+* Fix - Fixed fatal error triggered by 'exclude_bundled_product_from_member_discounts' when the product object is missing.
+* Fix - Prevent duplicate 'Part of' cart item meta when reordering ungrouped bundles.
+* Fix - Fixed a fatal error triggered while removing an optional bundled item during the subscription renewal of a Bundle with subscription plans.
+* Fix - Relaxed validation checks while renewing subscribed Bundles with deleted items.
+
+2021.09.10 - version 6.12.1
+* Fix - Prevent stale products in cart while using item grouping 'None'.
+
+2021.09.01 - version 6.12.0
+* Important - Product Bundles now requires WooCommerce 3.6+.
+* Feature - Added integration with the Revenue Analytics of Composite Products.
+* Feature - Made it possible to remove optional bundled items in the Cart page.
+* Fix - Make sure original bundled item price is displayed when the bundled item has a discount.
+* Fix - Prevent bundled products from being reported as 'on backorder' in bundles, unless backordering requires notification.
+* Fix - Allow bundle-sells discounts granted by Composite Products, bundled products, and composited products to be applied to other products in the cart.
+* Fix - Update 'Edit in Cart' query string to include bundle quantity.
+* Fix - Fixed an infinite loop affecting discounts when using Memberships. Thanks @Alex for pointing this out!
+* Fix - Fixed a fatal error that is triggered by invalid 'wc_pb_notice_options' values.
+* Fix - Fixed PHP notice triggered when a non-numeric value is used in 'WC_Product_Bundle::calculate_price'.
+* Tweak - Bundled items are now displayed under composited Bundles in the mini cart when the 'Item Grouping > Flat' is selected.
+
 2021.07.12 - version 6.11.1
 * Feature - Added 'bundle_stock_status' and 'bundle_stock_quantity' REST API fields (read only).
 * Fix - Fixed an indexing issue affecting the 'wc_order_bundle_lookup' table.

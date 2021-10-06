@@ -81,6 +81,7 @@ return array(
     'CT_Ultimate_GDPR_Service_Yith_Woocommerce_Wishlist' => $baseDir . '/includes/service/service-yith-woocommerce-wishlist.php',
     'CT_Ultimate_GDPR_Service_Youtube' => $baseDir . '/includes/service/service-youtube.php',
     'CT_Ultimate_GDPR_Service_bbPress' => $baseDir . '/includes/service/service-bbpress.php',
+    'CT_Ultimate_GDPR_Shortcode_Block_Cookies' => $baseDir . '/includes/shortcode/shortcode-block-cookies.php',
     'CT_Ultimate_GDPR_Shortcode_Cookie_Popup' => $baseDir . '/includes/shortcode/shortcode-cookie-popup.php',
     'CT_Ultimate_GDPR_Shortcode_Myaccount' => $baseDir . '/includes/shortcode/shortcode-myaccount.php',
     'CT_Ultimate_GDPR_Shortcode_Policy_Accept' => $baseDir . '/includes/shortcode/shortcode-policy-accept.php',

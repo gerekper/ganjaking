@@ -1,29 +1,29 @@
 <?php
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
-	
+
 	/**
-	* Constructor for the gateway.
-	*
-	* @access public
-	* @return void
-	*/
+	 * Constructor for the gateway.
+	 *
+	 * @access public
+	 * @return void
+	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public function __construct() {
-		
+
 		$this->id                   = 'directdebitredsys';
 		$this->icon                 = apply_filters( 'woocommerce_' . $this->id . '_icon', REDSYS_PLUGIN_URL_P . 'assets/images/redsys.png' );
 		$this->has_fields           = false;
@@ -32,34 +32,37 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$this->liveurlws            = 'https://sis.redsys.es/sis/services/SerClsWSEntrada?wsdl';
 		$this->testurlws            = 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntrada?wsdl';
 		$this->testsha256           = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
-		$this->testmode             = $this->get_option( 'testmode' );
+		$this->testmode             = WCRed()->get_redsys_option( 'testmode', 'directdebitredsys' );
 		$this->method_title         = __( 'Direct Debit (by José Conti)', 'woocommerce-redsys' );
 		$this->method_description   = __( 'Direct Debit works redirecting customers to Direct Debit.', 'woocommerce-redsys' );
-		$this->not_use_https        = $this->get_option( 'not_use_https' );
+		$this->not_use_https        = WCRed()->get_redsys_option( 'not_use_https', 'directdebitredsys' );
 		$this->notify_url           = add_query_arg( 'wc-api', 'WC_Gateway_' . $this->id, home_url( '/' ) );
 		$this->notify_url_not_https = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_' . $this->id, home_url( '/' ) ) );
 		// Load the settings
 		$this->init_form_fields();
 		$this->init_settings();
 		// Define user set variables
-		$this->title                = $this->get_option( 'title' );
-		$this->description          = $this->get_option( 'description' );
-		$this->customer             = $this->get_option( 'customer' );
-		$this->commercename         = $this->get_option( 'commercename' );
-		$this->terminal             = $this->get_option( 'terminal' );
-		$this->secretsha256         = $this->get_option( 'secretsha256' );
-		$this->customtestsha256     = $this->get_option( 'customtestsha256' );
-		$this->directdebitredsyslanguage       = $this->get_option( 'directdebitredsyslanguage' );
-		$this->debug                = $this->get_option( 'debug' );
-		$this->testforuser          = $this->get_option( 'testforuser' );
-		$this->testforuserid        = $this->get_option( 'testforuserid' );
-		$this->buttoncheckout       = $this->get_option( 'buttoncheckout' );
-		$this->butonbgcolor         = $this->get_option( 'butonbgcolor' );
-		$this->butontextcolor       = $this->get_option( 'butontextcolor' );
-		$this->descripredsys        = $this->get_option( 'descripredsys' );
-		$this->testshowgateway      = $this->get_option( 'testshowgateway' );
-		$this->log                  = new WC_Logger();
-		$this->supports             = array(
+		$this->title                     = WCRed()->get_redsys_option( 'title', 'directdebitredsys' );
+		$this->multisitesttings          = WCRed()->get_redsys_option( 'multisitesttings', 'directdebitredsys' );
+		$this->ownsetting                = WCRed()->get_redsys_option( 'ownsetting', 'directdebitredsys' );
+		$this->hideownsetting            = WCRed()->get_redsys_option( 'hideownsetting', 'directdebitredsys' );
+		$this->description               = WCRed()->get_redsys_option( 'description', 'directdebitredsys' );
+		$this->customer                  = WCRed()->get_redsys_option( 'customer', 'directdebitredsys' );
+		$this->commercename              = WCRed()->get_redsys_option( 'commercename', 'directdebitredsys' );
+		$this->terminal                  = WCRed()->get_redsys_option( 'terminal', 'directdebitredsys' );
+		$this->secretsha256              = WCRed()->get_redsys_option( 'secretsha256', 'directdebitredsys' );
+		$this->customtestsha256          = WCRed()->get_redsys_option( 'customtestsha256', 'directdebitredsys' );
+		$this->directdebitredsyslanguage = WCRed()->get_redsys_option( 'directdebitredsyslanguage', 'directdebitredsys' );
+		$this->debug                     = WCRed()->get_redsys_option( 'debug', 'directdebitredsys' );
+		$this->testforuser               = WCRed()->get_redsys_option( 'testforuser', 'directdebitredsys' );
+		$this->testforuserid             = WCRed()->get_redsys_option( 'testforuserid', 'directdebitredsys' );
+		$this->buttoncheckout            = WCRed()->get_redsys_option( 'buttoncheckout', 'directdebitredsys' );
+		$this->butonbgcolor              = WCRed()->get_redsys_option( 'butonbgcolor', 'directdebitredsys' );
+		$this->butontextcolor            = WCRed()->get_redsys_option( 'butontextcolor', 'directdebitredsys' );
+		$this->descripredsys             = WCRed()->get_redsys_option( 'descripredsys', 'directdebitredsys' );
+		$this->testshowgateway           = WCRed()->get_redsys_option( 'testshowgateway', 'directdebitredsys' );
+		$this->log                       = new WC_Logger();
+		$this->supports                  = array(
 			'products',
 		);
 		// Actions
@@ -67,15 +70,15 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'warning_checkout_test_mode_directdebit' ) );
-	
+
 		// Payment listener/API hook
 		add_action( 'woocommerce_api_wc_gateway_' . $this->id, array( $this, 'check_ipn_response' ) );
-		
+
 		if ( ! $this->is_valid_for_use() ) {
 			$this->enabled = false;
 		}
 	}
-	
+
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -88,7 +91,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			return true;
 		}
 	}
-	
+
 	/**
 	 * Admin Panel Options
 	 *
@@ -105,7 +108,8 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		<p><?php esc_html_e( 'Direct Debit works by sending the user to Direct Debit Gateway', 'woocommerce-redsys' ); ?></p>
 		<?php
 			echo WCRed()->return_help_notice();
-			if ( class_exists( 'SitePress' ) ) { ?>
+		if ( class_exists( 'SitePress' ) ) {
+			?>
 			<div class="updated fade"><h4><?php esc_html_e( 'Attention! WPML detected.', 'woocommerce-redsys' ); ?></h4>
 				<p><?php esc_html_e( 'The Gateway will be shown in the customer language. The option "Language Gateway" is not taken into consideration', 'woocommerce-redsys' ); ?></p>
 			</div>
@@ -117,20 +121,25 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 				$this->generate_settings_html();
 				?>
 			</table><!--/.form-table-->
-		<?php else :
-			$currencies = WCRed()->allowed_currencies();
+			<?php
+		else :
+			$currencies          = WCRed()->allowed_currencies();
 			$formated_currencies = '';
 
 			foreach ( $currencies as $currency ) {
 				$formated_currencies .= $currency . ', ';
 			}
-		?>
-	<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'woocommerce-redsys' ); ?></strong>: <?php esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
-		echo esc_html( $formated_currencies ); ?></p></div>
+			?>
+	<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'woocommerce-redsys' ); ?></strong>: 
+														   <?php
+															esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
+															echo esc_html( $formated_currencies );
+															?>
+		</p></div>
 			<?php
 		endif;
 	}
-	
+
 	/**
 	 * Initialise Gateway Settings Form Fields
 	 *
@@ -143,9 +152,9 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function init_form_fields() {
-		
+
 		$options    = array();
-		$selections = (array)$this->get_option( 'testforuserid' );
+		$selections = (array) WCRed()->get_redsys_option( 'testforuserid', 'directdebitredsys' );
 
 		if ( count( $selections ) !== 0 ) {
 			foreach ( $selections as $user_id ) {
@@ -160,7 +169,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		}
 
 		$options_show    = array();
-		$selections_show = (array)$this->get_option( 'testshowgateway' );
+		$selections_show = (array) WCRed()->get_redsys_option( 'testshowgateway', 'directdebitredsys' );
 		if ( count( $selections_show ) !== 0 ) {
 			foreach ( $selections_show as $user_id ) {
 				if ( ! empty( $user_id ) ) {
@@ -173,61 +182,82 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			}
 		}
 		$this->form_fields = array(
-			'enabled'              => array(
+			'enabled'                   => array(
 				'title'   => __( 'Enable/Disable', 'woocommerce-redsys' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable Direct Debit', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
-			'title'            => array(
+			'multisitesttings'   => array(
+				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Use this setting arround all Network', 'woocommerce-redsys' ),
+				'description' => '',
+				'default'     => 'no',
+			),
+			'hideownsetting'   => array(
+				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
+				'description' => '',
+				'default'     => 'no',
+			),
+			'ownsetting'         => array(
+				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
+				'description' => '',
+				'default'     => 'no',
+			),
+			'title'                     => array(
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Direct Debit', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'description'      => array(
+			'description'               => array(
 				'title'       => __( 'Description', 'woocommerce-redsys' ),
 				'type'        => 'textarea',
 				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Pay via Direct Debit you can pay with your Direct Debit account.', 'woocommerce-redsys' ),
 			),
-			'buttoncheckout'      => array(
+			'buttoncheckout'            => array(
 				'title'       => __( 'Button Checkout Text', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Add the button text at the checkout.', 'woocommerce-redsys' ),
 			),
-			'butonbgcolor'          => array(
+			'butonbgcolor'              => array(
 				'title'       => __( 'Button Color Background', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This if button Color Background Place Order at Checkout', 'woocommerce-redsys' ),
 				'class'       => 'colorpick',
 			),
-			'butontextcolor'          => array(
+			'butontextcolor'            => array(
 				'title'       => __( 'Color text Button', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'This if button text color Place Order at Checkout', 'woocommerce-redsys' ),
 				'class'       => 'colorpick',
 			),
-			'customer'         => array(
+			'customer'                  => array(
 				'title'       => __( 'Commerce number (FUC)', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Commerce number (FUC) provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'commercename'     => array(
+			'commercename'              => array(
 				'title'       => __( 'Commerce Name', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Commerce Name', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'terminal'         => array(
+			'terminal'                  => array(
 				'title'       => __( 'Terminal number', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Terminal number provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'descripredsys'        => array(
+			'descripredsys'             => array(
 				'title'       => __( 'Redsys description', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Chose what to show in Redsys as description.', 'woocommerce-redsys' ),
@@ -239,40 +269,40 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 					'sku'   => __( 'List of products SKU', 'woocommerce-redsys' ),
 				),
 			),
-			'not_use_https'    => array(
+			'not_use_https'             => array(
 				'title'       => __( 'HTTPS SNI Compatibility', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Activate SNI Compatibility.', 'woocommerce-redsys' ),
 				'default'     => 'no',
 				'description' => sprintf( __( 'If you are using HTTPS and Redsys don\'t support your certificate, example Lets Encrypt, you can deactivate HTTPS notifications. WARNING: If you are forcing redirection to HTTPS with htaccess, you need to add an exception for notification URL', 'woocommerce-redsys' ) ),
 			),
-			'secretsha256'     => array(
+			'secretsha256'              => array(
 				'title'       => __( 'Encryption secret passphrase SHA-256', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Encryption secret passphrase SHA-256 provided by your bank.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'customtestsha256' => array(
+			'customtestsha256'          => array(
 				'title'       => __( 'TEST MODE: Encryption secret passphrase SHA-256', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Encryption secret passphrase SHA-256 provided by your bank for test mode.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'directdebitredsyslanguage'   => array(
+			'directdebitredsyslanguage' => array(
 				'title'       => __( 'Language Gateway', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Choose the language for the Gateway. Not all Banks accept all languages', 'woocommerce-redsys' ),
 				'default'     => '001',
 				'options'     => array(),
 			),
-			'testmode'         => array(
+			'testmode'                  => array(
 				'title'       => __( 'Running in test mode', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Running in test mode', 'woocommerce-redsys' ),
 				'default'     => 'yes',
 				'description' => sprintf( __( 'Select this option for the initial testing required by your bank, deselect this option once you pass the required test phase and your production environment is active.', 'woocommerce-redsys' ) ),
 			),
-			'testshowgateway'   => array(
+			'testshowgateway'           => array(
 				'title'       => __( 'Show to this users', 'woocommerce-redsys' ),
 				'type'        => 'multiselect',
 				'label'       => __( 'Show the gateway in the chcekout when it is in test mode', 'woocommerce-redsys' ),
@@ -282,14 +312,14 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 				'default'     => '',
 				'description' => sprintf( __( 'Select users that will see the gateway when it is in test mode. If no users are selected, will be shown to all users', 'woocommerce-redsys' ) ),
 			),
-			'testforuser'      => array(
+			'testforuser'               => array(
 				'title'       => __( 'Running in test mode for a user', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Running in test mode for a user', 'woocommerce-redsys' ),
 				'default'     => 'yes',
 				'description' => sprintf( __( 'The user selected below will use the terminal in test mode. Other users will continue to use live mode unless you have the "Running in test mode" option checked.', 'woocommerce-redsys' ) ),
 			),
-			'testforuserid'    => array(
+			'testforuserid'             => array(
 				'title'       => __( 'Users', 'woocommerce-redsys' ),
 				'type'        => 'multiselect',
 				'label'       => __( 'Users running in test mode', 'woocommerce-redsys' ),
@@ -299,7 +329,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 				'default'     => '',
 				'description' => sprintf( __( 'Select users running in test mode', 'woocommerce-redsys' ) ),
 			),
-			'debug'            => array(
+			'debug'                     => array(
 				'title'       => __( 'Debug Log', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Running in test mode', 'woocommerce-redsys' ),
@@ -308,10 +338,27 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 				'description' => __( 'Log Direct Debit events, such as notifications requests, inside <code>WooCommerce > Status > Logs > directdebit-{date}-{number}.log</code>', 'woocommerce-redsys' ),
 			),
 		);
-		$redsyslanguages = WCRed()->get_redsys_languages();
-		
-		foreach( $redsyslanguages as $redsyslanguage => $valor ) {
-			$this->form_fields['directdebitredsyslanguage']['options'][$redsyslanguage] = $valor;
+		$redsyslanguages   = WCRed()->get_redsys_languages();
+
+		foreach ( $redsyslanguages as $redsyslanguage => $valor ) {
+			$this->form_fields['directdebitredsyslanguage']['options'][ $redsyslanguage ] = $valor;
+		}
+		if ( ! is_multisite() ) {
+			unset( $this->form_fields['multisitesttings'] );
+			unset( $this->form_fields['ownsetting'] );
+			unset( $this->form_fields['hideownsetting'] );
+		} else {
+			if ( is_main_site() ) {
+				unset( $this->form_fields['ownsetting'] );
+			} else {
+				unset( $this->form_fields['multisitesttings'] );
+				unset( $this->form_fields['hideownsetting'] );
+				$globalsettings = WCRed()->get_redsys_option( 'multisitesttings', $this->id );
+				$hide           = WCRed()->get_redsys_option( 'hideownsetting', $this->id );
+				if ( 'yes' === $hide || 'yes' !== $globalsettings ) {
+					unset( $this->form_fields['ownsetting'] );
+				}
+			}
 		}
 	}
 
@@ -323,7 +370,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	function check_user_test_mode( $userid ) {
 
 		$usertest_active = $this->testforuser;
-		$selections = (array)$this->get_option( 'testforuserid' );
+		$selections      = (array) WCRed()->get_redsys_option( 'testforuserid', 'directdebitredsys' );
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'directdebitredsys', ' ' );
 			$this->log->add( 'directdebitredsys', '/****************************/' );
@@ -331,24 +378,24 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'directdebitredsys', '/****************************/' );
 			$this->log->add( 'directdebitredsys', ' ' );
 		}
-		
+
 		if ( 'yes' === $usertest_active ) {
-		
+
 			if ( ! empty( $selections ) ) {
 				foreach ( $selections as $user_id ) {
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'directdebitredsys', ' ' );
 						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', '   Checking user ' . $userid    );
+						$this->log->add( 'directdebitredsys', '   Checking user ' . $userid );
 						$this->log->add( 'directdebitredsys', '/****************************/' );
 						$this->log->add( 'directdebitredsys', ' ' );
 						$this->log->add( 'directdebitredsys', ' ' );
 						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', '  User in forach ' . $user_id   );
+						$this->log->add( 'directdebitredsys', '  User in forach ' . $user_id );
 						$this->log->add( 'directdebitredsys', '/****************************/' );
 						$this->log->add( 'directdebitredsys', ' ' );
 					}
-					if ( (string)$user_id === (string)$userid ) {
+					if ( (string) $user_id === (string) $userid ) {
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'directdebitredsys', ' ' );
 							$this->log->add( 'directdebitredsys', '/****************************/' );
@@ -475,7 +522,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		}
 		return $url;
 	}
-	
+
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -533,7 +580,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function get_redsys_args( $order ) {
-		
+
 		$order_id         = $order->get_id();
 		$currency_codes   = WCRed()->get_currencies();
 		$transaction_id2  = WCRed()->prepare_order_number( $order_id );
@@ -571,8 +618,8 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, 'directdebitredsys' ) );
 		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 		$miobj->setParameter( 'DS_MERCHANT_PAYMETHODS', 'D' );
-		
-		$version      = 'HMAC_SHA256_V1';
+
+		$version = 'HMAC_SHA256_V1';
 		// Se generan los parámetros de la petición.
 		$request      = '';
 		$params       = $miobj->createMerchantParameters();
@@ -618,7 +665,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 */
 	function generate_redsys_form( $order_id ) {
 		global $woocommerce;
-		
+
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'directdebitredsys', ' ' );
 			$this->log->add( 'directdebitredsys', '/****************************/' );
@@ -626,7 +673,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'directdebitredsys', '/****************************/' );
 			$this->log->add( 'directdebitredsys', ' ' );
 		}
-		
+
 		$order           = WCRed()->get_order( $order_id );
 		$user_id         = $order->get_user_id();
 		$usesecretsha256 = $this->get_redsys_sha256( $user_id );
@@ -637,7 +684,8 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		foreach ( $redsys_args as $key => $value ) {
 			$form_inputs[] .= '<input type="hidden" name="' . $key . '" value="' . esc_attr( $value ) . '" />';
 		}
-		wc_enqueue_js( '
+		wc_enqueue_js(
+			'
 		$("body").block({
 			message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/select2-spinner.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to Direct Debit to make the payment.', 'woocommerce-redsys' ) . '",
 			overlayCSS:
@@ -656,13 +704,14 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			}
 		});
 	jQuery("#submit_redsys_payment_form").click();
-	' );
+	'
+		);
 		return '<form action="' . esc_url( $redsys_adr ) . '" method="post" id="redsys_payment_form" target="_top">
 		' . implode( '', $form_inputs ) . '
 		<input type="submit" class="button-alt" id="submit_redsys_payment_form" value="' . __( 'Pay with Direct Debit', 'woocommerce-redsys' ) . '" /> <a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'woocommerce-redsys' ) . '</a>
 	</form>';
 	}
-	
+
 	/**
 	 * Process the payment and return the result
 	 *
@@ -682,13 +731,13 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			'redirect' => $order->get_checkout_payment_url( true ),
 		);
 	}
-	
+
 	/**
-	* Output for the order received page.
-	*
-	* @access public
-	* @return void
-	*/
+	 * Output for the order received page.
+	 *
+	 * @access public
+	 * @return void
+	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -698,7 +747,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		echo '<p>' . esc_html__( 'Thank you for your order, please click the button below to pay with Direct Debit.', 'woocommerce-redsys' ) . '</p>';
 		echo $this->generate_redsys_form( $order );
 	}
-	
+
 	/**
 	 * Check redsys IPN validity
 	 **/
@@ -740,7 +789,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			$order           = WCRed()->get_order( $order2 );
 			$user_id         = $order->get_user_id();
 			$usesecretsha256 = $this->get_redsys_sha256( $user_id );
-			if ( empty( $secretsha256 ) &&  ! $secretsha256_meta ) {
+			if ( empty( $secretsha256 ) && ! $secretsha256_meta ) {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'directdebitredsys', ' ' );
 					$this->log->add( 'directdebitredsys', 'Using $usesecretsha256 Settings' );
@@ -765,7 +814,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 				}
 				$usesecretsha256 = $secretsha256;
 			}
-			$localsecret     = $miObj->createMerchantSignatureNotif( $usesecretsha256, $data );
+			$localsecret = $miObj->createMerchantSignatureNotif( $usesecretsha256, $data );
 			if ( $localsecret === $remote_sign ) {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'directdebitredsys', 'Received valid notification from Servired/RedSys' );
@@ -798,7 +847,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			}
 		}
 	}
-	
+
 	/**
 	 * Check for Direct Debit HTTP Notification
 	 *
@@ -820,7 +869,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			wp_die( 'Direct Debit Notification Request Failure' );
 		}
 	}
-	
+
 	/**
 	 * Successful Payment!
 	 *
@@ -834,7 +883,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function successful_request( $posted ) {
-		
+
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'directdebitredsys', ' ' );
 			$this->log->add( 'directdebitredsys', '/****************************/' );
@@ -843,10 +892,10 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'directdebitredsys', ' ' );
 		}
 
-		$version           = $_POST['Ds_SignatureVersion'];
-		$data              = $_POST['Ds_MerchantParameters'];
-		$remote_sign       = $_POST['Ds_Signature'];
-		
+		$version     = $_POST['Ds_SignatureVersion'];
+		$data        = $_POST['Ds_MerchantParameters'];
+		$remote_sign = $_POST['Ds_Signature'];
+
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'directdebitredsys', ' ' );
 			$this->log->add( 'directdebitredsys', '$version: ' . $version );
@@ -917,7 +966,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'directdebitredsys', 'Ds_ErrorCode: ' . $dserrorcode );
 			$this->log->add( 'directdebitredsys', 'Ds_PayMethod: ' . $dpaymethod );
 		}
-		
+
 		// refund.
 
 		if ( '3' === $dstransactiontype ) {
@@ -940,7 +989,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			$order->add_order_note( __( 'There was an error refunding', 'woocommerce-redsys' ) );
 			exit;
 		}
-		
+
 		$response = intval( $response );
 		if ( $response <= 99 ) {
 			// authorized.
@@ -1054,7 +1103,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			if ( ! empty( $dscargtype ) ) {
 				update_post_meta( $order->get_id(), '_card_type_redsys', 'C' === $dscargtype ? 'Credit' : 'Debit' );
 				if ( 'yes' === $this->debug ) {
-				 $this->log->add( 'directdebitredsys', '_card_type_redsys saved: ' . $dscargtype );
+					$this->log->add( 'directdebitredsys', '_card_type_redsys saved: ' . $dscargtype );
 				}
 			} else {
 				if ( 'yes' === $this->debug ) {
@@ -1093,16 +1142,15 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'directdebitredsys', ' ' );
 			}
 		} else {
-			
+
 			$ds_response_value = WCRed()->get_error( $response );
 			$ds_error_value    = WCRed()->get_error( $dserrorcode );
 
-			
 			if ( $ds_response_value ) {
 				$order->add_order_note( __( 'Order cancelled by Redsys: ', 'woocommerce-redsys' ) . $ds_response_value );
 				update_post_meta( $order_id, '_redsys_error_payment_ds_response_value', $ds_response_value );
 			}
-			
+
 			if ( $ds_error_value ) {
 				$order->add_order_note( __( 'Order cancelled by Redsys: ', 'woocommerce-redsys' ) . $ds_error_value );
 				update_post_meta( $order_id, '_redsys_error_payment_ds_response_value', $ds_error_value );
@@ -1128,7 +1176,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			WC()->cart->empty_cart();
 		}
 	}
-	
+
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -1136,7 +1184,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 */
 	function ask_for_refund( $order_id, $transaction_id, $amount ) {
 
-		//post code to REDSYS
+		// post code to REDSYS
 		$order          = WCRed()->get_order( $order_id );
 		$terminal       = get_post_meta( $order_id, '_payment_terminal_redsys', true );
 		$currency_codes = WCRed()->get_currencies();
@@ -1160,7 +1208,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'directdebitredsys', __( 'Using meta for SHA256', 'woocommerce-redsys' ) );
 				$this->log->add( 'directdebitredsys', __( 'The SHA256 Meta is: ', 'woocommerce-redsys' ) . $secretsha256 );
-				}
+			}
 		} else {
 			$secretsha256 = $secretsha256;
 			if ( 'yes' === $this->debug ) {
@@ -1266,7 +1314,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'directdebitredsys', '*********************************' );
 				$this->log->add( 'directdebitredsys', ' ' );
 				$this->log->add( 'directdebitredsys', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
-				}
+			}
 			return $post_arg;
 		}
 		return true;
@@ -1295,7 +1343,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -1404,8 +1452,8 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	}
 }
 /**
-* Copyright: (C) 2013 - 2021 José Conti
-*/
+ * Copyright: (C) 2013 - 2021 José Conti
+ */
 function woocommerce_add_gateway_directdebit_redsys( $methods ) {
 		$methods[] = 'WC_Gateway_Direct_Debit_Redsys';
 		return $methods;

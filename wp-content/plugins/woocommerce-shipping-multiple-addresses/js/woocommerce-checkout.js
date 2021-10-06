@@ -623,21 +623,6 @@ jQuery(document).ready(function($) {
         $("#delete_index").val( index );
         $("#delete_key").val( key );
     });
-
-    $('.button.selectable').on('click', function() {
-        var container   = $(this).parents(".address-duplicate-block");
-        var idx         = $(this).data("index");
-        var input       = $("#address_input_"+ idx);
-
-        input.click();
-
-        if ( $(input).is(":checked") ) {
-            $(container).addClass("on");
-        } else {
-            $(container).removeClass("on");
-        }
-
-    });
 });
 
 jQuery(window).resize( function() {

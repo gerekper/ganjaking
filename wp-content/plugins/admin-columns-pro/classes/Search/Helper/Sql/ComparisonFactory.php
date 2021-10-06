@@ -45,6 +45,7 @@ final class ComparisonFactory {
 			Operators::LT_DAYS_AGO  => 'LtDaysAgo',
 			Operators::GT_DAYS_AGO  => 'GtDaysAgo',
 			Operators::WITHIN_DAYS  => 'WithinDays',
+			Operators::CURRENT_USER => 'CurrentUser',
 		];
 
 		if ( ! array_key_exists( $operator, $operators ) ) {

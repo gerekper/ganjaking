@@ -225,8 +225,8 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 				$term = get_term($term_id);
 				$term_taxonomy = (!empty($term->taxonomy)) ? $term->taxonomy : false;
 
-				// Check if taxonomy is allowed
-				$disabled = ($term_taxonomy && Permalink_Manager_Helper_Functions::is_disabled($term_taxonomy, 'taxonomy')) ? true : false;
+				// Check if term is allowed
+				$disabled = ($term_taxonomy && Permalink_Manager_Helper_Functions::is_term_excluded($term)) ? true : false;
 
 				// Proceed only if the term is not removed and its taxonomy is not disabled
 				if(!$disabled && $term_taxonomy) {
@@ -281,8 +281,8 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 				$final_uri = (!empty($post_to_load->post_name)) ? $post_to_load->post_name : false;
 				$post_type = (!empty($post_to_load->post_type)) ? $post_to_load->post_type : false;
 
-				// Check if post type is allowed
-				$disabled = ($post_type && Permalink_Manager_Helper_Functions::is_disabled($post_type, 'post_type')) ? true : false;
+				// Check if post is allowed
+				$disabled = ($post_type && Permalink_Manager_Helper_Functions::is_post_excluded($post_to_load)) ? true : false;
 
 				// Proceed only if the term is not removed and its taxonomy is not disabled
 				if(!$disabled && $post_type) {
@@ -298,8 +298,11 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 						}
 					}
 
-					// Alter query parameters + support drafts URLs
-					if($post_to_load->post_status == 'draft' || empty($final_uri)) {
+					// Alter the final query array
+					if($post_to_load->post_status == 'private' && (!is_user_logged_in() || current_user_can('read_private_posts', $element_id) !== true)) {
+						$element_id = null;
+						$query = $old_query;
+					} else if($post_to_load->post_status == 'draft' || empty($final_uri)) {
 						if(is_user_logged_in()) {
 							if($post_type == 'page') {
 								$query['page_id'] = $element_id;
@@ -343,11 +346,11 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			/**
 			 * 4. Auto-remove removed term custom URI & redirects (works if enabled in plugin settings)
 			 */
-			if(!empty($broken_uri) && (!empty($permalink_manager_options['general']['auto_remove_duplicates'])) && $permalink_manager_options['general']['auto_remove_duplicates'] == 1) {
+			if(!empty($broken_uri) && (!empty($permalink_manager_options['general']['auto_fix_duplicates'])) && $permalink_manager_options['general']['auto_fix_duplicates'] == 1) {
 				// Do not trigger if WP Rocket cache plugin is turned on
-				if(!defined('WP_ROCKET_VERSION')) {
+				if(!defined('WP_ROCKET_VERSION') && is_array($permalink_manager_uris)) {
 					$broken_element_id = (!empty($revision_id)) ? $revision_id : $element_id;
-					$remove_broken_uri = Permalink_Manager_Actions::force_clear_single_element_uris_and_redirects($broken_element_id);
+					$remove_broken_uri = (!empty($broken_element_id)) ? Permalink_Manager_Actions::force_clear_single_element_uris_and_redirects($broken_element_id) : '';
 
 					// Reload page if success
 					if($remove_broken_uri && !headers_sent()) {
@@ -425,7 +428,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		/**
 		 * 7. Debug data
 		 */
-		if(!empty($taxonomy)) {
+		if(!empty($term_taxonomy)) {
 			$content_type = "Taxonomy: {$term_taxonomy}";
 		} else if(!empty($post_type)) {
 			$content_type = "Post type: {$post_type}";
@@ -495,13 +498,14 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		$post = get_queried_object();
 
 		// 2. Check if post object is defined
-		if(!empty($post->post_type) && !empty($post->post_content)) {
+		if((!empty($post->post_type) && !empty($post->post_content)) || (!empty($wp_query->max_num_pages))) {
 			// 2A. Check if pagination is detected
 			$current_page = (!empty($wp_query->query_vars['page'])) ? $wp_query->query_vars['page'] : 1;
 			$current_page = (empty($wp_query->query_vars['page']) && !empty($wp_query->query_vars['paged'])) ? $wp_query->query_vars['paged'] : $current_page;
 
 			// 2B. Count post pages
-			$num_pages = (is_home() || is_archive()) ? $wp_query->max_num_pages : substr_count(strtolower($post->post_content), '<!--nextpage-->') + 1;
+			$post_content = (!empty($post->post_content)) ? $post->post_content : '';
+			$num_pages = (is_home() || is_archive()) ? $wp_query->max_num_pages : substr_count(strtolower($post_content), '<!--nextpage-->') + 1;
 
 			$is_404 = ($current_page > 1 && ($current_page > $num_pages)) ? true : false;
 		}
@@ -516,15 +520,11 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 
 		// 5. Block non-existent pages (Force 404 error)
 		if(!empty($is_404)) {
-			$wp_query->is_404 = true;
 			$wp_query->query = $wp_query->queried_object = $wp_query->queried_object_id = null;
 			$wp_query->set_404();
-
 			status_header(404);
 			nocache_headers();
-			include(get_query_template('404'));
-
-			die();
+			$pm_query = '';
 		}
 	}
 
@@ -646,24 +646,23 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			 * 1D. Enhance native redirect
 			 */
 			if($canonical_redirect && empty($wp_query->query_vars['do_not_redirect']) && !empty($queried_object) && empty($correct_permalink)) {
-
 				// Affect only posts with custom URI and old URIs
 				if(!empty($queried_object->ID) && isset($permalink_manager_uris[$queried_object->ID]) && empty($wp_query->query['preview'])) {
 					// Ignore posts with specific statuses
 					if(!(empty($queried_object->post_status)) && in_array($queried_object->post_status, array('draft', 'pending', 'auto-draft', 'future'))) {
-						return '';
+						return;
 					}
 
-					// Check if post type is allowed
-					if(Permalink_Manager_Helper_Functions::is_disabled($queried_object->post_type, 'post_type')) { return ''; }
+					// Check if the post is excluded
+					if(Permalink_Manager_Helper_Functions::is_post_excluded($queried_object)) { return; }
 
 					// Get the real URL
 					$correct_permalink = get_permalink($queried_object->ID);
 				}
 				// Affect only terms with custom URI and old URIs
 				else if(!empty($queried_object->term_id) && isset($permalink_manager_uris["tax-{$queried_object->term_id}"]) && defined('PERMALINK_MANAGER_PRO')) {
-					// Check if taxonomy is allowed
-					if(Permalink_Manager_Helper_Functions::is_disabled($queried_object->taxonomy, "taxonomy")) { return ''; }
+					// Check if the term is excluded
+					if(Permalink_Manager_Helper_Functions::is_term_excluded($queried_object)) { return; }
 
 					// Get the real URL
 					$correct_permalink = get_term_link($queried_object->term_id, $queried_object->taxonomy);

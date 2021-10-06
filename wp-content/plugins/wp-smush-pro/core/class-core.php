@@ -261,6 +261,7 @@ class Core extends Stats {
 
 		$wp_smush_msgs = array(
 			'nonce'                   => wp_create_nonce( 'wp-smush-ajax' ),
+			'webp_nonce'              => wp_create_nonce( 'wp-smush-webp-nonce' ),
 			'settingsUpdated'         => esc_html__( 'Your settings have been updated', 'wp-smushit' ),
 			'resmush'                 => esc_html__( 'Super-Smush', 'wp-smushit' ),
 			'smush_now'               => esc_html__( 'Smush Now', 'wp-smushit' ),
@@ -281,7 +282,6 @@ class Core extends Stats {
 			'sync_stats'              => esc_html__( 'Give us a moment while we sync the stats.', 'wp-smushit' ),
 			// Progress bar text.
 			'progress_smushed'        => esc_html__( 'images optimized', 'wp-smushit' ),
-			'add_dir'                 => esc_html__( 'Choose directory', 'wp-smushit' ),
 			'bulk_resume'             => esc_html__( 'Resume scan', 'wp-smushit' ),
 			'bulk_stop'               => esc_html__( 'Stop current bulk smush process.', 'wp-smushit' ),
 			// Errors.
@@ -300,50 +300,10 @@ class Core extends Stats {
 			// URLs.
 			'smush_url'               => network_admin_url( 'admin.php?page=smush' ),
 			'directory_url'           => network_admin_url( 'admin.php?page=smush-directory' ),
-			'bulkURL'                 => admin_url( 'admin.php?page=smush-bulk' ),
+			'localWebpURL'            => network_admin_url( 'admin.php?page=smush-webp' ),
 		);
 
 		wp_localize_script( $handle, 'wp_smush_msgs', $wp_smush_msgs );
-
-		wp_add_inline_script(
-			'smush-react-configs',
-			'wp.i18n.setLocaleData( ' . wp_json_encode( $this->get_locale_data() ) . ', "wp-smushit" );',
-			'before'
-		);
-
-		// Configs.
-		wp_localize_script(
-			'smush-react-configs',
-			'smushReact',
-			array(
-				'hideBranding' => apply_filters( 'wpmudev_branding_hide_branding', false ),
-				'isPro'        => WP_Smush::is_pro(),
-				'links'        => array(
-					'accordionImg' => WP_SMUSH_URL . 'app/assets/images/smush-config-icon@2x.png',
-					'hubConfigs'   => 'https://wpmudev.com/hub2/configs/my-configs',
-					'hubWelcome'   => 'https://wpmudev.com/hub-welcome/?utm_source=smush&utm_medium=plugin&utm_campaign=smush_hub_config',
-				),
-				'requestsData' => array(
-					'root'           => esc_url_raw( rest_url( 'wp-smush/v1/' . Configs::OPTION_NAME ) ),
-					'nonce'          => wp_create_nonce( 'wp_rest' ),
-					'apiKey'         => Helper::get_wpmudev_apikey(),
-					'hubBaseURL'     => defined( 'WPMUDEV_CUSTOM_API_SERVER' ) && WPMUDEV_CUSTOM_API_SERVER ? trailingslashit( WPMUDEV_CUSTOM_API_SERVER ) . 'api/hub/v1/package-configs' : null,
-					'pluginData'     => get_file_data(
-						WP_SMUSH_DIR . basename( WP_SMUSH_BASENAME ),
-						array(
-							'name' => 'Plugin Name',
-							'id'   => 'WDP ID',
-						)
-					),
-					'pluginRequests' => array(
-						'nonce'        => wp_create_nonce( 'smush_handle_config' ),
-						'uploadAction' => 'smush_upload_config',
-						'createAction' => 'smush_save_config',
-						'applyAction'  => 'smush_apply_config',
-					),
-				),
-			)
-		);
 
 		// Load the stats on selected screens only.
 		if ( false !== strpos( $current_screen->id, 'page_smush' ) ) {
@@ -414,34 +374,6 @@ class Core extends Stats {
 		$data['timeout'] = WP_SMUSH_TIMEOUT * 1000;
 
 		wp_localize_script( $handle, 'wp_smushit_data', $data );
-	}
-
-	/**
-	 * Gets the translated strings for javascript translations.
-	 *
-	 * @since 3.8.5
-	 *
-	 * @return array
-	 */
-	private function get_locale_data() {
-		$translations = get_translations_for_domain( 'wp-smushit' );
-
-		$locale = array(
-			'' => array(
-				'domain' => 'wp-smushit',
-				'lang'   => get_user_locale(),
-			),
-		);
-
-		if ( ! empty( $translations->headers['Plural-Forms'] ) ) {
-			$locale['']['plural_forms'] = $translations->headers['Plural-Forms'];
-		}
-
-		foreach ( $translations->entries as $msgid => $entry ) {
-			$locale[ $msgid ] = $entry->translations;
-		}
-
-		return $locale;
 	}
 
 	/**

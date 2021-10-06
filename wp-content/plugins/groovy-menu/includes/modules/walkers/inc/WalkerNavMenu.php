@@ -935,6 +935,7 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 	 */
 	public function getMenuBlockPostContent( $post_id ) {
 		global $wp_filter;
+		global $groovyMenuSettings;
 
 		$mm_content = '';
 
@@ -950,6 +951,21 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 				GroovyMenuUtils::is_product_woocommerce_page()
 			) {
 				$is_woocommerce_page = true;
+			}
+
+			// Helps prevent conflict with some 3th-party Woocommerce payment plugins.
+			if ( $groovyMenuSettings['disableMenuBlockForWooPayments'] ) {
+				$is_woocommerce_checkout = false;
+				if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+					$is_woocommerce_checkout = true;
+				}
+				if ( function_exists( 'is_checkout_pay_page' ) && is_checkout_pay_page() ) {
+					$is_woocommerce_checkout = true;
+				}
+
+				if ( $is_woocommerce_checkout ) {
+					return '';
+				}
 			}
 
 			// prevent conflict with Divi theme builder.

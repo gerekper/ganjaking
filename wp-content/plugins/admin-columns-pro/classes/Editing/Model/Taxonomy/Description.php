@@ -2,22 +2,21 @@
 
 namespace ACP\Editing\Model\Taxonomy;
 
-use ACP\Editing\Model;
+use AC\Column;
+use ACP\Editing;
+use ACP\Editing\Service\Basic;
+use ACP\Editing\Storage;
 
-class Description extends Model\Taxonomy {
+/**
+ * @deprecated 5.6
+ */
+class Description extends Basic {
 
-	public function get_edit_value( $id ) {
-		return ac_helper()->taxonomy->get_term_field( 'description', $id, $this->column->get_taxonomy() );
-	}
-
-	public function get_view_settings() {
-		return [
-			'type' => 'textarea',
-		];
-	}
-
-	public function save( $id, $value ) {
-		return $this->update_term( $id, [ 'description' => $value ] );
+	public function __construct( Column $column ) {
+		parent::__construct(
+			new Editing\View\TextArea(),
+			( new Storage\Taxonomy\Field( $column->get_taxonomy(), 'description' ) )
+		);
 	}
 
 }

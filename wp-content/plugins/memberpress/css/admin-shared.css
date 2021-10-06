@@ -183,6 +183,10 @@ img.mepr_loader {
   font-size: 13px;
 }
 
+.button-primary[disabled] .mp-icon {
+  color: #666;
+}
+
 .mepr-radius-border {
   margin-top:5px;
   padding:15px;

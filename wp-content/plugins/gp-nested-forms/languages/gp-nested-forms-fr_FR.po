@@ -1,0 +1,324 @@
+# Copyright (C) 2021 GP Nested Forms
+# This file is distributed under the same license as the GP Nested Forms package.
+msgid ""
+msgstr ""
+"Project-Id-Version: GP Nested Forms\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;"
+"_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;"
+"esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 3.0\n"
+"Last-Translator: \n"
+"Language: fr_FR\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: ../class-gp-nested-forms.php:224, ../class-gp-nested-forms.php:637,
+#: ../includes/class-gp-field-nested-form.php:8
+msgid "Nested Form"
+msgstr "Formulaire imbriqué"
+
+#: ../class-gp-nested-forms.php:224
+msgid ""
+"Select the form that should be used to create nested entries for this form."
+msgstr ""
+"Sélectionnez le formulaire qui doit être utilisé pour créer les entrées "
+"imbriquées de ce formulaire."
+
+#: ../class-gp-nested-forms.php:225, ../class-gp-nested-forms.php:658
+msgid "Summary Fields"
+msgstr "Champs récapitulatifs"
+
+#: ../class-gp-nested-forms.php:225
+msgid ""
+"Select which fields from the nested entry will display in table on the "
+"current form. This does not affect which fields will appear in the modal."
+msgstr ""
+"Sélectionnez les champs de l’entrée imbriquée qui apparaîtront dans un "
+"tableau sur le formulaire actuel. Cela n’affecte pas les champs qui "
+"apparaîtront dans la fenêtre modale."
+
+#: ../class-gp-nested-forms.php:226, ../class-gp-nested-forms.php:673
+msgid "Entry Labels"
+msgstr "Libellé d’entrée"
+
+#: ../class-gp-nested-forms.php:226
+msgid ""
+"Specify a singular and plural label with which entries submitted via this "
+"field will be labeled (i.e. \"employee\", \"employees\")."
+msgstr ""
+"Indiquez un libellé au singulier et au pluriel avec lequel les entrées "
+"soumises via ce champ seront marquées (par exemple : « employé », "
+"« employés »)."
+
+#: ../class-gp-nested-forms.php:227, ../class-gp-nested-forms.php:722
+msgid "Entry Limits"
+msgstr "Limites d’entrée"
+
+#: ../class-gp-nested-forms.php:227
+msgid ""
+"Specify the minimum and maximum number of entries that can be submitted for "
+"this field."
+msgstr ""
+"Indiquez le nombre minimum et maximum d’entrées qui peuvent être soumises "
+"pour ce champ."
+
+#: ../class-gp-nested-forms.php:228, ../class-gp-nested-forms.php:746
+msgid "Feed Processing"
+msgstr "Traitement du flux"
+
+#: ../class-gp-nested-forms.php:228
+msgid ""
+"By default, any Gravity Forms add-on feeds will be processed immediately "
+"when the nested form is submitted. Use this option to delay feed processing "
+"for entries submitted via the nested form until after the parent form is "
+"submitted. <br><br>For example, if you have a User Registration feed "
+"configured for the nested form, you may not want the users to actually be "
+"registered until the parent form is submitted."
+msgstr ""
+"Par défaut, les flux de tout module de Gravity Forms seront traités "
+"immédiatement lorsque le formulaire imbriqué sera soumis. Utilisez cette "
+"option pour retarder le traitement des flux pour les entrées soumises via le "
+"formulaire imbriqué jusqu'à ce que le formulaire parent soit soumis. "
+"<br><br>Par exemple, si vous avez un flux d’enregistrement d’utilisateur "
+"configuré pour le formulaire imbriqué, vous voudrez peut-être faire en sorte "
+"que les utilisateurs ne soient réellement enregistrés qu'une fois le "
+"formulaire parent soumis."
+
+#: ../class-gp-nested-forms.php:229, ../class-gp-nested-forms.php:701
+msgid "Modal Color"
+msgstr "Couleur de la fenêtre modale"
+
+#: ../class-gp-nested-forms.php:229
+msgid ""
+"Select a color which will be used to set the background color of the nested "
+"form modal header and navigational buttons."
+msgstr ""
+"Sélectionnez une couleur qui sera utilisée pour définir la couleur d’arrière-"
+"plan de l’en-tête de la fenêtre modale du formulaire imbriqué et des boutons "
+"de navigation."
+
+#: ../class-gp-nested-forms.php:387
+msgid ""
+"There was an error retrieving the fields for this form. Please try again or "
+"contact support."
+msgstr ""
+"Une erreur s’est produite lors de la récupération des champs de ce "
+"formulaire. Veuillez réessayer ou contacter le service d’assistance."
+
+#: ../class-gp-nested-forms.php:388
+msgid "Select your fields"
+msgstr "Sélectionnez vos champs"
+
+#: ../class-gp-nested-forms.php:547, ../class-gp-nested-forms.php:895
+msgid "Parent Entry ID"
+msgstr "ID de l’entrée du parent"
+
+#: ../class-gp-nested-forms.php:642
+msgid "Select a Form"
+msgstr "Sélectionnez un formulaire"
+
+#: ../class-gp-nested-forms.php:678
+msgid "Singular"
+msgstr "Singulier"
+
+#: ../class-gp-nested-forms.php:680
+msgid "e.g. Entry"
+msgstr "par exemple : entrée"
+
+#: ../class-gp-nested-forms.php:684
+msgid "Plural"
+msgstr "Pluriel"
+
+#: ../class-gp-nested-forms.php:686
+msgid "e.g. Entries"
+msgstr "par exemple : entrées"
+
+#: ../class-gp-nested-forms.php:728
+msgid "Minimum"
+msgstr "Minimum"
+
+#: ../class-gp-nested-forms.php:730
+msgid "e.g. 2"
+msgstr "par exemple : 2"
+
+#: ../class-gp-nested-forms.php:735
+msgid "Maximum"
+msgstr "Maximum"
+
+#: ../class-gp-nested-forms.php:737
+msgid "e.g. 5"
+msgstr "par exemple : 5"
+
+#: ../class-gp-nested-forms.php:750
+msgid "Process nested feeds when the"
+msgstr "Traiter les flux imbriqués lorsque le"
+
+#: ../class-gp-nested-forms.php:752
+msgid "parent form"
+msgstr "formulaire parent"
+
+#: ../class-gp-nested-forms.php:753
+msgid "nested form"
+msgstr "formulaire imbriqué"
+
+#: ../class-gp-nested-forms.php:755
+msgid "is submitted."
+msgstr "est soumis."
+
+#: ../class-gp-nested-forms.php:900
+msgid "Parent Entry Form ID"
+msgstr "ID du formulaire de l’entrée du parent"
+
+#: ../class-gp-nested-forms.php:905
+msgid "Child Form Field ID"
+msgstr "ID du champ du formulaire enfant"
+
+#: ../class-gp-nested-forms.php:975
+msgid "Oops! You don't have permission to get fields for this form."
+msgstr ""
+"Oups ! Vous n’avez pas la permission d’obtenir des champs pour ce formulaire."
+
+#: ../class-gp-nested-forms.php:990, ../class-gp-nested-forms.php:997
+msgid "Oops! You don't have permission to delete this entry."
+msgstr "Oups ! Vous n’avez pas la permission de supprimer cette entrée."
+
+#: ../class-gp-nested-forms.php:1016, ../class-gp-nested-forms.php:1028
+msgid "Oops! You don't have permission to edit this entry."
+msgstr "Oups ! Vous n’avez pas la permission de modifier cette entrée."
+
+#: ../class-gp-nested-forms.php:1024
+msgid "Oops! We can't locate that entry."
+msgstr "Oups ! Nous n arrivons pas à localiser cette entrée."
+
+#: ../class-gp-nested-forms.php:1067
+msgid "Oops! You don't have permission to do this."
+msgstr "Oups ! Vous n’avez pas la permission de faire cette action."
+
+#: ../class-gp-nested-forms.php:1084
+msgid "Configuration Error"
+msgstr "Erreur de configuration"
+
+#: ../class-gp-nested-forms.php:1085
+msgid ""
+"Child forms cannot contain nested forms. Please edit the child form and "
+"remove any nested form fields in it."
+msgstr ""
+"Les formulaires enfants ne peuvent pas contenir de formulaires imbriqués. "
+"Veuillez modifier le formulaire enfant et en retirer tous les champs de "
+"formulaire imbriqués."
+
+#: ../class-gp-nested-forms.php:1098
+msgid "Sorry. You must be logged in to view this form."
+msgstr "Désolé. Vous devez être connecté pour voir ce formulaire."
+
+#: ../class-gp-nested-forms.php:1136, ../class-gp-nested-forms.php:1143
+msgid "Oops! You don't have permission to duplicate this entry."
+msgstr "Oups ! Vous n’avez pas la permission de dupliquer cette entrée."
+
+#: ../class-gp-nested-forms.php:1993, ../class-gp-nested-forms.php:2014,
+#: ../class-gp-nested-forms.php:2023,
+#: ../includes/class-gp-field-nested-form.php:81
+msgid "Add %s"
+msgstr "Ajouter %s"
+
+#: ../class-gp-nested-forms.php:1994, ../class-gp-nested-forms.php:2015,
+#: ../class-gp-nested-forms.php:2028
+msgid "Edit %s"
+msgstr "Modifier %s"
+
+#: ../class-gp-nested-forms.php:1997
+msgid "Cancel"
+msgstr "Annuler"
+
+#: ../class-gp-nested-forms.php:1998,
+#: ../includes/class-gp-field-nested-form.php:101
+msgid "Delete"
+msgstr "Supprimer"
+
+#: ../class-gp-nested-forms.php:1999
+msgid "Are you sure?"
+msgstr "Êtes-vous sûr(e) ?"
+
+#: ../includes/class-gp-field-nested-form.php:42
+msgid ""
+"Nested Form fields cannot be edited. Edit the child entry to make changes."
+msgstr ""
+"Les champs du formulaire imbriqué ne peuvent pas être modifiés. Veuillez "
+"modifier l’entrée enfant pour apporter des changements."
+
+#: ../includes/class-gp-field-nested-form.php:66
+msgid "Configuration Required"
+msgstr "Configuration requise"
+
+#: ../includes/class-gp-field-nested-form.php:67
+msgid ""
+"Use the Nested Form and Summary Fields settings to choose the form and "
+"fields to display in this Nested Form field."
+msgstr ""
+"Utilisez les paramètres du formulaire imbriqué et des champs récapitulatifs "
+"pour choisir le formulaire et les champs à afficher dans ce champ de "
+"formulaire imbriqué."
+
+#: ../includes/class-gp-field-nested-form.php:97
+msgid "There are no %1$s%2$s.%3$s"
+msgstr "Il n'y a pas de %1$s%2$s.%3$s"
+
+#: ../includes/class-gp-field-nested-form.php:99
+msgid "Edit"
+msgstr "Modifier"
+
+#: ../includes/class-gp-field-nested-form.php:100
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+#: ../includes/class-gp-field-nested-form.php:182
+msgid "Maximum number of %s reached."
+msgstr "Le nombre maximal de %s a été atteint."
+
+#: ../includes/class-gp-field-nested-form.php:265
+msgid "View Expanded %s List"
+msgstr "Voir la liste étendue de %s"
+
+#: ../includes/class-gp-field-nested-form.php:288
+msgid "View Entry"
+msgstr "Voir l'entrée"
+
+#: ../includes/class-gp-field-nested-form.php:375
+msgid "Entry"
+msgstr "Entrée"
+
+#: ../includes/class-gp-field-nested-form.php:376
+msgid "Entries"
+msgstr "Entrées"
+
+#. translators: %1$d is replaced with the minimum. %2$s is replaced with the label for an individual entry.
+#: ../includes/class-gp-field-nested-form.php:430
+msgid "Please enter a minimum of %1$d %2$s"
+msgstr "Veuillez entrer au minimum  %1$d %2$s"
+
+#. translators: %1$d is replaced with the maximum. %2$s is replaced with the label for an individual entry.
+#: ../includes/class-gp-field-nested-form.php:448
+msgid "Please enter a maximum of %1$d %2$s"
+msgstr "Veuillez entrer au maximum  %1$d %2$s"
+
+#: ../includes/class-gpnf-merge-tags.php:28
+msgid "%s: Count"
+msgstr "%s: compte"
+
+#: ../includes/class-gpnf-merge-tags.php:33
+msgid "%s: Sum"
+msgstr "%s: somme"
+
+#: ../includes/class-gpnf-merge-tags.php:41
+msgid "%s: Total"
+msgstr "%s: total"
+

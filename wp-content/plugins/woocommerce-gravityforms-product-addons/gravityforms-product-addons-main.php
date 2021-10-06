@@ -408,7 +408,8 @@ class WC_GFPA_Main {
 			), get_woocommerce_price_format() ) ), // For accounting JS
 			'prices'                       => $prices,
 			'price_suffix'                 => array( $product->get_id() => $product->get_price_suffix() ),
-			'use_ajax'                     => array( $product->get_id() => apply_filters( 'woocommerce_gforms_use_ajax', isset( $gravity_form_data['use_ajax'] ) ? ( $gravity_form_data['use_ajax'] == 'yes' ) : false ) )
+			'use_ajax'                     => array( $product->get_id() => apply_filters( 'woocommerce_gforms_use_ajax', isset( $gravity_form_data['use_ajax'] ) ? ( $gravity_form_data['use_ajax'] == 'yes' ) : false ) ),
+			'initialize_file_uploader'     => apply_filters('woocommerce_gforms_initialize_file_uploader', false)
 		);
 
 		$wc_gravityforms_params = apply_filters( 'woocommerce_gforms_script_params', $wc_gravityforms_params, $product->get_id() );

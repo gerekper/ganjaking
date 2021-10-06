@@ -222,7 +222,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 				'title'       => __( 'Handling Fee Per [item]', 'woocommerce-table-rate-shipping' ),
 				'type'        => 'price',
 				'desc_tip'    => true,
-				'description' => sprintf( __( 'Handling fee. Enter an amount, e.g. %1$s, or a percentage, e.g. 5%. Leave blank to disable. Applied based on the "Calculation Type" chosen below.', 'woocommerce-table-rate-shipping' ), '2' . wc_get_price_decimal_separator() . '50'  ),
+				'description' => sprintf( __( 'Handling fee. Enter an amount, e.g. %1$s, or a percentage, e.g. 5&#37;. Leave blank to disable. Applied based on the "Calculation Type" chosen below.', 'woocommerce-table-rate-shipping' ), '2' . wc_get_price_decimal_separator() . '50'  ),
 				'default'     => '',
 				'placeholder' => __( 'n/a', 'woocommerce-table-rate-shipping' ),
 			),
@@ -373,8 +373,18 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 			$priority   = get_option( 'woocommerce_table_rate_default_priority_' . $this->instance_id );
 			$priorities = get_option( 'woocommerce_table_rate_priorities_' . $this->instance_id );
 
-			foreach ( $found_shipping_classes as $class ) {
-				if ( isset( $priorities[ $class ] ) && ( $priorities[ $class ] < $priority || empty( $shipping_class_slug ) ) ) {
+			$rates_has_no_class = false;
+			
+			// search the shipping rates array if it has empty rate_class or zero rate_class
+			foreach ( $this->get_shipping_rates( ARRAY_A ) as $idx => $shipping_rate ) {
+				if ( empty( $shipping_rate['rate_class'] ) ) {
+					$rates_has_no_class = true;
+					break;
+				}
+			}
+
+			foreach ( $found_shipping_classes as $id => $class ) {
+				if ( isset( $priorities[ $class ] ) && ( $priorities[ $class ] < $priority || ( empty( $shipping_class_slug ) && $rates_has_no_class === false ) ) ) {
 					$priority = $priorities[ $class ];
 					$shipping_class_slug = $class;
 				}
@@ -500,7 +510,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 			return false;
 
 		$rates = array();
-		$this->unset_abort_message();
+		$this->unset_abort_message( $package );
 
 		// Get rates, depending on type
 		if ( $this->calculation_type == 'item' ) {
@@ -537,7 +547,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 						$matched = true;
 						if ( $rate->rate_abort ) {
 							if ( ! empty( $rate->rate_abort_reason ) && ! wc_has_notice( $rate->rate_abort_reason, 'notice' ) ) {
-								$this->add_notice( $rate->rate_abort_reason, 'notice' );
+								$this->add_notice( $rate->rate_abort_reason, $package );
 							}
 							return;
 						}
@@ -619,7 +629,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 
 						if ( $rate->rate_abort ) {
 							if ( ! empty( $rate->rate_abort_reason ) ) {
-								$this->add_notice( $rate->rate_abort_reason, 'notice' );
+								$this->add_notice( $rate->rate_abort_reason, $package );
 							}
 							return;
 						}
@@ -757,7 +767,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 
 						if ( $rate->rate_abort ) {
 							if ( ! empty( $rate->rate_abort_reason ) ) {
-								$this->add_notice( $rate->rate_abort_reason, 'notice' );
+								$this->add_notice( $rate->rate_abort_reason, $package );
 							}
 							return;
 						}
@@ -844,7 +854,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 
 				if ( $rate->rate_abort ) {
 					if ( ! empty( $rate->rate_abort_reason ) ) {
-						$this->add_notice( $rate->rate_abort_reason, 'notice' );
+						$this->add_notice( $rate->rate_abort_reason, $package );
 					}
 					$rates = array(); // Clear rates
 					break;
@@ -1020,6 +1030,12 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 		}
 
 		$row_base_price = $_product->get_price() * $qty;
+        
+        // From Issue #134 : Adding a compatibility product price for Measurement Price Calculator plugin by SkyVerge.
+        if ( class_exists( 'WC_Measurement_Price_Calculator_Loader' ) && isset( $item['pricing_item_meta_data']['_price'] ) ) {
+            $row_base_price = $item['pricing_item_meta_data']['_price'] * $qty;
+        }
+
 		$row_base_price = apply_filters( 'woocommerce_table_rate_package_row_base_price', $row_base_price, $_product, $qty );
 
 		if ( $_product->is_taxable() && wc_prices_include_tax() ) {
@@ -1065,8 +1081,8 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 	 * @param string $message Message to show
 	 * @return void
 	 */
-	private function add_notice( $message ) {
-		$this->save_abort_message( $message );
+	private function add_notice( $message, $package = null ) {
+		$this->save_abort_message( $message, $package );
 
 		// Only display shipping notices in cart/checkout.
 		if ( ! is_cart() && ! is_checkout() ) {
@@ -1084,13 +1100,16 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 	 * @since 3.0.25
 	 * @param string $message Abort message.
 	 */
-	private function save_abort_message( $message ) {
+	private function save_abort_message( $message, $package = null ) {
 		$abort = WC()->session->get( WC_Table_Rate_Shipping::$abort_key );
-		if ( empty( $abort ) ) {
+		
+        if ( empty( $abort ) ) {
 			$abort = array();
 		}
 
-		$abort[ $this->instance_id ] = $message;
+        $package_hash           = WC_Table_Rate_Shipping::create_package_hash( $package );
+		$abort[ $package_hash ] = $message;
+
 		WC()->session->set( WC_Table_Rate_Shipping::$abort_key, $abort );
 	}
 
@@ -1099,9 +1118,11 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 	 *
 	 * @since 3.0.25
 	 */
-	private function unset_abort_message() {
-		$abort = WC()->session->get( WC_Table_Rate_Shipping::$abort_key );
-		unset( $abort[ $this->instance_id ] );
+	private function unset_abort_message( $package = null ) {
+		$abort        = WC()->session->get( WC_Table_Rate_Shipping::$abort_key );
+        $package_hash = WC_Table_Rate_Shipping::create_package_hash( $package );
+
+        unset( $abort[ $package_hash ] );
 		WC()->session->set( WC_Table_Rate_Shipping::$abort_key, $abort );
 	}
 

@@ -11,7 +11,9 @@ use MailPoet\Models\ScheduledTaskSubscriber;
 class Subscribers {
   private $task;
 
-  public function __construct(ScheduledTask $task) {
+  public function __construct(
+    ScheduledTask $task
+  ) {
     $this->task = $task;
   }
 
@@ -21,14 +23,6 @@ class Subscribers {
 
   public function getSubscribers() {
     return ScheduledTaskSubscriber::where('task_id', $this->task->id);
-  }
-
-  public function isSubscriberProcessed($subscriberId) {
-    $subscriber = $this->getSubscribers()
-      ->where('subscriber_id', $subscriberId)
-      ->where('processed', ScheduledTaskSubscriber::STATUS_PROCESSED)
-      ->findOne();
-    return !empty($subscriber);
   }
 
   public function removeSubscribers(array $subscribersToRemove) {

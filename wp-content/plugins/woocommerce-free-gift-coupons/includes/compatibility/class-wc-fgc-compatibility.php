@@ -19,6 +19,30 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Free_Gift_Coupons_Compatibility { 
 
+	/**
+	 * The single instance of the class
+	 *
+	 * @var $instance
+	 * @since 3.1.0
+	 */
+	protected static $instance = null;
+
+	/**
+	 * Main WC_Free_Gift_Coupons_Compatibility Instance.
+	 *
+	 * Ensures only one instance of WC_Free_Gift_Coupons_Compatibility is loaded or can be loaded.
+	 *
+	 * @static
+	 * @return WC_Free_Gift_Coupons_Compatibility - Main instance
+	 * @since 3.1.0
+	 */
+	public static function instance() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
 	public function __construct() {
 
 		// Initialize.
@@ -30,6 +54,11 @@ class WC_Free_Gift_Coupons_Compatibility {
 	 */
 	public static function init() {
 
+		// All Product for Subscriptions support.
+		if ( class_exists( 'WCS_ATT' ) ) {
+			include_once  'modules/class-wc-fgc-apfs-compatibility.php' ;
+		}
+
 		// Smart Coupons support.
 		if ( class_exists( 'WC_Smart_Coupons' ) ) {
 			include_once  'modules/class-wc-fgc-smart-coupons-compatibility.php' ;
@@ -38,6 +67,16 @@ class WC_Free_Gift_Coupons_Compatibility {
 		// Subscriptions support.
 		if ( class_exists( 'WC_Subscriptions' ) ) {
 			include_once  'modules/class-wc-fgc-subscriptions-compatibility.php' ;
+		}
+
+		// Product Addons support.
+		if ( class_exists( 'WC_Product_Addons' ) ) {
+			include_once  'modules/class-wc-fgc-product-addons-compatibility.php';
+		}
+
+		// Name Your Price support.
+		if ( class_exists( 'WC_Name_Your_Price' ) ) {
+			include_once  'modules/class-wc-fgc-name-your-price-compatibility.php';
 		}
 
 		// Deactivate functionality from mini-extensions.
@@ -60,4 +99,4 @@ class WC_Free_Gift_Coupons_Compatibility {
 
 }
 
-WC_Free_Gift_Coupons_Compatibility::init();
+WC_Free_Gift_Coupons_Compatibility::instance();

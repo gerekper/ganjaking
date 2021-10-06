@@ -2,39 +2,23 @@
 
 namespace WPMailSMTP\Pro\Emails\Control\Admin;
 
+use WPMailSMTP\Admin\Pages\ControlTab;
 use WPMailSMTP\Options;
 use WPMailSMTP\WP;
 
 /**
  * Class SettingsTab.
+ *
+ * @since 1.5.0
  */
-class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
+class SettingsTab extends ControlTab {
 
 	/**
-	 * @var string Slug of a tab.
+	 * Output HTML of the email controls settings.
+	 *
+	 * @since 1.5.0
 	 */
-	protected $slug = 'control';
-
-	/**
-	 * @inheritdoc
-	 */
-	public function get_label() {
-
-		return esc_html__( 'Email Controls', 'wp-mail-smtp-pro' );
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public function get_title() {
-
-		return $this->get_label();
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public function display() {
+	public function display() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		$options  = new Options();
 		$controls = wp_mail_smtp()->pro->get_control()->get_controls();
@@ -57,7 +41,6 @@ class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
 					continue;
 				}
 				?>
-
 				<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content wp-mail-smtp-clear section-heading no-desc" id="wp-mail-smtp-setting-row-email-heading-<?php echo esc_attr( $section_id ); ?>">
 					<div class="wp-mail-smtp-setting-field">
 						<h2><?php echo esc_html( $section['title'] ); ?></h2>
@@ -76,7 +59,6 @@ class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
 						continue;
 					}
 					?>
-
 					<div id="wp-mail-smtp-setting-row-control_<?php echo esc_attr( $email_id ); ?>" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox-toggle wp-mail-smtp-clear">
 						<div class="wp-mail-smtp-setting-label">
 							<label for="wp-mail-smtp-setting-<?php echo esc_attr( $email_id ); ?>">
@@ -93,38 +75,26 @@ class SettingsTab extends \WPMailSMTP\Admin\PageAbstract {
 							</label>
 							<?php if ( ! empty( $email['desc'] ) ) : ?>
 								<p class="desc">
-									<?php echo $email['desc']; ?>
+									<?php echo $email['desc']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</p>
 							<?php endif; ?>
 						</div>
 					</div>
-
-					<?php endforeach; ?>
+				<?php endforeach; ?>
 			<?php endforeach; ?>
 
 			<?php $this->display_save_btn(); ?>
 
 		</form>
-
 		<?php
 	}
 
 	/**
-	 * Whether this key dedicated to MultiSite environment.
+	 * Process tab form submission ($_POST).
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param string $key Email unique key.
-	 *
-	 * @return bool
-	 */
-	protected function is_it_for_multisite( $key ) {
-
-		return strpos( $key, 'network' ) !== false;
-	}
-
-	/**
-	 * @inheritdoc
+	 * @param array $data Post data specific for the plugin.
 	 */
 	public function process_post( $data ) {
 

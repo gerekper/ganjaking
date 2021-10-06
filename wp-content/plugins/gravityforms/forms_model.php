@@ -4,6 +4,8 @@ if ( ! class_exists( 'GFForms' ) ) {
 	die();
 }
 
+use \Gravity_Forms\Gravity_Forms\License;
+
 require_once( ABSPATH . WPINC . '/post.php' );
 require_once( 'includes/legacy/forms_model_legacy.php' );
 
@@ -3144,7 +3146,7 @@ class GFFormsModel {
 		foreach ( $fields as $field ) {
 			if ( $field instanceof GF_Field_Repeater && isset( $field->fields ) && is_array( $field->fields ) ) {
 				/* @var GF_Field_Repeater $field */
-				$entry = $field->hydrate( $entry, $form, $apply_filters );
+				$entry = $field->hydrate( $entry, $form );
 			}
 		}
 	}
@@ -4573,11 +4575,12 @@ class GFFormsModel {
 			return false;
 		}
 
+		$ext_check      = is_array( $uploaded_filename ) ? $uploaded_filename[0]['uploaded_filename'] : $uploaded_filename;
 		$form_unique_id = self::get_form_unique_id( $form_id );
-		$extension      = pathinfo( $uploaded_filename, PATHINFO_EXTENSION );
+		$extension      = pathinfo( $ext_check, PATHINFO_EXTENSION );
 		$temp_filename  = "{$form_unique_id}_{$input_name}.{$extension}";
 
-		GFCommon::log_debug( __METHOD__ . '(): Uploaded filename is ' . $uploaded_filename . ' and temporary filename is ' . $temp_filename );
+		GFCommon::log_debug( __METHOD__ . '(): Uploaded filename is ' . $ext_check . ' and temporary filename is ' . $temp_filename );
 		return array( 'uploaded_filename' => $uploaded_filename, 'temp_filename' => $temp_filename );
 
 	}
@@ -5519,7 +5522,7 @@ class GFFormsModel {
 		return $dir['baseurl'] . "/gravity_forms/$form_id" . '-' . wp_hash( $form_id );
 	}
 
-	public static function get_file_upload_path( $form_id, $file_name ) {
+	public static function get_file_upload_path( $form_id, $file_name, $increment_found = true ) {
 
 		if ( version_compare( phpversion(), '7.4', '<' ) && get_magic_quotes_gpc() ) {
 			$file_name = stripslashes( $file_name );
@@ -5575,7 +5578,7 @@ class GFFormsModel {
 
 		$counter     = 1;
 		$target_path = $target_root . $file_name . $extension;
-		while ( file_exists( $target_path ) ) {
+		while ( $increment_found && file_exists( $target_path ) ) {
 			$target_path = $target_root . $file_name . "$counter" . $extension;
 			$counter ++;
 		}
@@ -6099,31 +6102,39 @@ class GFFormsModel {
 	 */
 	public static function save_key( $new_key ) {
 
-		$new_key = trim( $new_key );
+		$new_key      = trim( $new_key );
+		$new_key_md5  = md5( $new_key );
 		$previous_key = get_option( 'rg_gforms_key' );
+
+		/**
+		 * @var License\GF_License_API_Connector $license_connector
+		 */
+		$license_connector = GFForms::get_service_container()->get( License\GF_License_Service_Provider::LICENSE_API_CONNECTOR );
+		$license_connector->clear_cache_for_key( $new_key_md5 );
+
+		// Delete gform_version_info so GF will ping version.php to send site record update.
+		delete_option( 'gform_version_info' );
 
 		if ( empty( $new_key ) ) {
 
 			delete_option( 'rg_gforms_key' );
 
-			GFCommon::update_site_registration( '' );
+			// Unlink the site with the license key on Gravity API.
+			$license_connector->update_site_registration( '' );
 
-		} else if ( $previous_key != $new_key ) {
+		} elseif ( $previous_key != $new_key ) {
+			update_option( 'rg_gforms_key', $new_key_md5 );
 
-			$key_md5 = md5( $new_key );
+			// Updating site registration with Gravity Server.
+			$result = $license_connector->update_site_registration( $new_key_md5, true );
 
-			// Saving new key
-			update_option( 'rg_gforms_key', $key_md5 );
-
-			// Updating site registration with Gravity Server
-			GFCommon::update_site_registration( $key_md5, true );
-
+			// New key is invalid, revert to old key.
+			if ( ! $result->can_be_used() ) {
+				update_option( 'rg_gforms_key', $previous_key );
+			}
 		} else {
-
-			// Updating site registration even if keys did not change.
-			// This will boost site registration from sites that already have a license key entered
-			GFCommon::update_site_registration( $new_key, true );
-
+			// Updating site registration with Gravity Server.
+			$license_connector->update_site_registration( $new_key_md5, true );
 		}
 
 	}
@@ -6865,33 +6876,43 @@ class GFFormsModel {
 	 * Returns the ids of the specified forms.
 	 *
 	 * @since unknown
-	 * @since 2.5 added $sort_column and $sort_dir parameters.
+	 * @since 2.5     Added $sort_column and $sort_dir parameters.
+	 * @since 2.5.8   Added support for passing null for the $active and $trash args.
 	 *
-	 * @param bool 	 $active      True if active forms are returned. False to get inactive forms. Defaults to true.
-	 * @param bool	 $trash       True if trashed forms are returned. False to exclude trash. Defaults to false.
-	 * @param string $sort_column The column to sort the results on.
-	 * @param string $sort_dir    The sort direction, ASC or DESC.
+	 * @param bool|null $active      True if active forms are returned. False to get inactive forms. Null to ignore the is_active property. Defaults to true.
+	 * @param bool|null $trash       True if trashed forms are returned. False to exclude trash. Null to ignore the is_trash property. Defaults to false.
+	 * @param string    $sort_column The column to sort the results on.
+	 * @param string    $sort_dir    The sort direction, ASC or DESC.
 	 *
 	 * @return array of form IDs.
 	 */
 	public static function get_form_ids( $active = true, $trash = false, $sort_column = 'id', $sort_dir = 'ASC' ) {
 		global $wpdb;
-		$table   = self::get_form_table_name();
 
-		$sort_keyword = $sort_dir == 'ASC' ? 'ASC' : 'DESC';
+		$sql   = 'SELECT id FROM ' . self::get_form_table_name();
+		$where = array();
 
-		$db_columns = GFFormsModel::get_form_db_columns();
+		if ( null !== $active ) {
+			$where[] = $wpdb->prepare( 'is_active=%d', $active );
+		}
 
-		if ( ! in_array( strtolower( $sort_column ), $db_columns ) ) {
+		if ( null !== $trash ) {
+			$where[] = $wpdb->prepare( 'is_trash=%d', $trash );
+		}
+
+		if ( ! empty( $where ) ) {
+			$sql .= ' WHERE ' . join( ' AND ', $where );
+		}
+
+		if ( ! in_array( strtolower( $sort_column ), GFFormsModel::get_form_db_columns() ) ) {
 			$sort_column = 'id';
 		}
 
-		$order_by = ! empty( $sort_column ) ? "ORDER BY $sort_column $sort_keyword" : '';
+		if ( ! empty( $sort_column ) ) {
+			$sql .= " ORDER BY $sort_column " . ( $sort_dir == 'ASC' ? 'ASC' : 'DESC' );
+		}
 
-		$sql     = $wpdb->prepare( "SELECT id from $table where is_active = %d and is_trash = %d $order_by", (bool) $active, (bool) $trash );
-		$results = $wpdb->get_col( $sql );
-
-		return $results;
+		return $wpdb->get_col( $sql );
 	}
 
 	public static function get_entry_meta( $form_ids ) {

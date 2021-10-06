@@ -36,7 +36,7 @@ class WC_Conditional_Content_Input_Cart_Product_Select {
                             name="<?php echo $field['name']; ?>[products][]"
                             class="wc-product-search"
                             data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>"
-                            data-action="woocommerce_json_search_products"
+                            data-action="woocommerce_json_search_products_and_variations"
                             multiple="multiple" data-placeholder="<?php _e( 'Search for a product&hellip;', 'woocommerce' ); ?>">
 						<?php
 						$current     = isset( $value['products'] ) ? $value['products'] : array();

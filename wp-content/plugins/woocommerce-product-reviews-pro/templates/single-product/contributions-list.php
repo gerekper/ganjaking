@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-product-reviews-pro/ for more information.
  *
  * @author    SkyVerge
- * @copyright Copyright (c) 2015-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2015-2021, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -26,13 +26,15 @@ defined( 'ABSPATH' ) or exit;
 /**
  * Display contributions list
  *
+ * @var \WP_Comment[] $comments list of contributions as comments to display
+ *
  * @version 1.7.0
  * @since 1.0.0
  */
 
 $filters        = wc_product_reviews_pro_get_current_comment_filters();
-$current_type   = isset( $filters['comment_type'] ) ? $filters['comment_type'] : null;
-$current_rating = isset( $filters['rating'] ) ? $filters['rating'] : null;
+$current_type   = $filters['comment_type'] ?? null;
+$current_rating = $filters['rating'] ?? null;
 
 ?>
 

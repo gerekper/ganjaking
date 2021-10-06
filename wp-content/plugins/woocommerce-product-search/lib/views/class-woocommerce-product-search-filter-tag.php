@@ -93,6 +93,21 @@ class WooCommerce_Product_Search_Filter_Tag {
 	}
 
 	/**
+	 * Instance ID.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return string
+	 */
+	private static function get_n() {
+		$n = self::$instances;
+		if ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) {
+			$n .= '-' . md5( rand() );
+		}
+		return $n;
+	}
+
+	/**
 	 * Renders the tag filter.
 	 *
 	 * Using a taxonomy other than product_tag is currently NOT fully supported.
@@ -123,6 +138,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 				'number'             => self::DEFAULT_NUMBER,
 				'order'              => 'ASC',
 				'orderby'            => 'name',
+				'shop_only'          => 'no',
 				'show'               => 'all',
 				'show_count'         => 'no',
 				'show_heading'       => 'yes',
@@ -139,7 +155,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 			$atts
 		);
 
-		$n               = self::$instances;
+		$n               = self::get_n();
 		$container_class = '';
 		$container_id    = sprintf( 'product-search-filter-tag-%d', $n);
 		$heading_class   = 'product-search-filter-terms-heading product-search-filter-tag-heading';
@@ -150,7 +166,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 		if ( $taxonomy === false ) {
 			$taxonomy = 'product_tag';
 		} else {
-			if ( $atts['heading'] === null ) {
+			if ( $atts['heading'] === null || $atts['heading'] === '' ) {
 				if ( !empty( $taxonomy->labels ) && !empty( $taxonomy->labels->singular_name ) ) {
 					$atts['heading'] = _x( $taxonomy->labels->singular_name, 'product category singular name', 'woocommerce-product-search' );
 				} else {
@@ -183,6 +199,7 @@ class WooCommerce_Product_Search_Filter_Tag {
 					case 'filter' :
 					case 'hide_empty' :
 					case 'multiple' :
+					case 'shop_only' :
 					case 'show_count' :
 					case 'show_heading' :
 					case 'show_names' :
@@ -285,6 +302,10 @@ class WooCommerce_Product_Search_Filter_Tag {
 			if ( $is_param ) {
 				$params[$key] = $value;
 			}
+		}
+
+		if ( $params['shop_only'] && !woocommerce_product_search_is_shop() ) {
+			return '';
 		}
 
 		if ( !empty( $containers['container_class'] ) ) {
@@ -483,21 +504,22 @@ class WooCommerce_Product_Search_Filter_Tag {
 			'</div>'
 		);
 
+		$inline_script = '';
 		$js_object = sprintf( '{taxonomy:"%s"', esc_attr( $taxonomy ) );
 		$js_object .= ',multiple:' . ( $params['multiple'] ? 'true' : 'false' );
 		$js_object .= ',filter:' . ( $params['filter'] ? 'true' : 'false' );
 		$js_object .= sprintf( ',show:"%s"', esc_attr( $params['show'] ) );
 		$js_object .= sprintf( ',origin_id:"%s"', esc_attr( $container_id ) );
 		$js_object .= '}';
-		$output .= '<script type="text/javascript">';
-		$output .= 'document.addEventListener( "DOMContentLoaded", function() {';
-		$output .= 'if ( typeof jQuery !== "undefined" ) {';
-		$output .= 'if ( typeof ixwpsf !== "undefined" && typeof ixwpsf.taxonomy !== "undefined" ) {';
-		$output .= 'ixwpsf.taxonomy.push(' . $js_object . ');';
-		$output .= '}';
-		$output .= '}';
-		$output .= '} );';
-		$output .= '</script>';
+
+		$inline_script .= 'if ( typeof jQuery !== "undefined" ) {';
+		$inline_script .= 'if ( typeof ixwpsf !== "undefined" && typeof ixwpsf.taxonomy !== "undefined" ) {';
+		$inline_script .= 'ixwpsf.taxonomy.push(' . $js_object . ');';
+		$inline_script .= '}';
+		$inline_script .= '}';
+
+		$inline_script = woocommerce_product_search_safex( $inline_script );
+		wp_add_inline_script( 'product-filter', $inline_script );
 
 		WooCommerce_Product_Search_Filter::filter_added();
 

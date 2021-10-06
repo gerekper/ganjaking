@@ -1,0 +1,241 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: Poedit 2.2.4\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Shohei Tanaka <cs@artws.info>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+
+#: assets/js/blocks/src/components/block-member-content.js:13
+msgid "Member Content"
+msgstr "会員コンテンツ"
+
+#: assets/js/blocks/src/components/block-member-content.js:15
+msgid "Only members of the selected plan(s) can see this content."
+msgstr "このコンテンツを見ることができるのは、選択したプランの会員のみです。"
+
+#: assets/js/blocks/src/components/block-member-content.js:222
+msgid ""
+"Visitors without the required plan will see a custom restriction message instead "
+"of this block."
+msgstr ""
+"必要なプランがない訪問者には、このブロックの代わりにカスタム制限メッセージが表示さ"
+"れます。"
+
+#: assets/js/blocks/src/components/block-member-content.js:225
+msgid ""
+"Visitors without the required plan will see the restriction message specified in "
+"%1$sMemberships Settings%2$s instead of this block."
+msgstr ""
+"必要なプランがない訪問者には、このブロックの代わりに %1$s 会員権限設定 %2$s で指定"
+"された制限メッセージが表示されます。"
+
+#: assets/js/blocks/src/components/block-member-content.js:229
+msgid "This block will be invisible to anyone without the required plan access."
+msgstr "このブロックは、必要なプランアクセス権を持たない人には見えません。"
+
+#: assets/js/blocks/src/components/block-member-content.js:238
+msgid "No message"
+msgstr "メッセージはありません"
+
+#: assets/js/blocks/src/components/block-member-content.js:239
+msgid "Default restriction message"
+msgstr "既定の制限メッセージ"
+
+#: assets/js/blocks/src/components/block-member-content.js:240
+msgid "Custom restriction message"
+msgstr "カスタム制限メッセージ"
+
+#: assets/js/blocks/src/components/block-member-content.js:256
+msgid "Basic HTML is allowed. You can also use the following merge tags:"
+msgstr "基本的な HTML が許可されます。次のマージ タグを使用することもできます。"
+
+#: assets/js/blocks/src/components/block-member-content.js:272
+msgid "The content below will be visible only to users who are members of any plan."
+msgstr "以下のコンテンツは、任意のプランの会員であるユーザーにのみ表示されます。"
+
+#: assets/js/blocks/src/components/block-member-content.js:274
+msgid "The content below will be visible only to users who are members of %s."
+msgstr "以下のコンテンツは、%s の会員であるユーザーにのみ表示されます。"
+
+#: assets/js/blocks/src/components/block-member-content.js:280
+msgid "End of member-only content block."
+msgstr "会員専用コンテンツ ブロックの終了。"
+
+#: assets/js/blocks/src/components/block-member-content.js:290
+#: assets/js/blocks/src/components/block-non-member-content.js:116
+msgid "or"
+msgstr "または"
+
+#: assets/js/blocks/src/components/block-member-content.js:309
+#: assets/js/blocks/src/components/block-non-member-content.js:135
+msgid "Membership plans"
+msgstr "会員権限プラン"
+
+#: assets/js/blocks/src/components/block-member-content.js:328
+msgid ""
+"Members of any selected plan(s) will see this block's content. Leave blank to "
+"show this content to members of any plan."
+msgstr ""
+"選択したプランの会員には、このブロックのコンテンツが表示されます。このコンテンツを"
+"任意のプランの会員に表示するには、空白のままにします。"
+
+#: assets/js/blocks/src/components/block-member-content.js:334
+msgid "Delay access"
+msgstr "遅延アクセス"
+
+#: assets/js/blocks/src/components/block-member-content.js:339
+msgid "Determine when members should be able to see this content."
+msgstr "会員にこのコンテンツをいつ表示できるかを決定します。"
+
+#: assets/js/blocks/src/components/block-member-content.js:34
+#: assets/js/blocks/src/components/block-non-member-content.js:33
+msgid "restricted"
+msgstr "制限されたコンテンツ（会員資格が必須）"
+
+#: assets/js/blocks/src/components/block-member-content.js:342
+msgid "Immediately"
+msgstr "すぐに"
+
+#: assets/js/blocks/src/components/block-member-content.js:343
+msgid "After being a member for a specific time"
+msgstr "特定の時間の会員の後"
+
+#: assets/js/blocks/src/components/block-member-content.js:344
+msgid "After a specific date"
+msgstr "特定の日付の後"
+
+#: assets/js/blocks/src/components/block-member-content.js:35
+#: assets/js/blocks/src/components/block-non-member-content.js:34
+msgid "hide"
+msgstr "コンテンツのみを非表示にします"
+
+#: assets/js/blocks/src/components/block-member-content.js:36
+#: assets/js/blocks/src/components/block-non-member-content.js:35
+msgid "protected"
+msgstr "保護"
+
+#: assets/js/blocks/src/components/block-member-content.js:360
+msgid "Active members can see block content after this date."
+msgstr "有効な会員は、この日付以降にブロックコンテンツを表示できます。"
+
+#: assets/js/blocks/src/components/block-member-content.js:37
+#: assets/js/blocks/src/components/block-non-member-content.js:36
+msgid "memberships"
+msgstr "会員権限"
+
+#: assets/js/blocks/src/components/block-member-content.js:374
+msgid "Days"
+msgstr "日"
+
+#: assets/js/blocks/src/components/block-member-content.js:375
+msgid "Weeks"
+msgstr "週"
+
+#: assets/js/blocks/src/components/block-member-content.js:376
+msgid "Months"
+msgstr "月"
+
+#: assets/js/blocks/src/components/block-member-content.js:377
+msgid "Years"
+msgstr "年"
+
+#: assets/js/blocks/src/components/block-member-content.js:38
+#: assets/js/blocks/src/components/block-non-member-content.js:37
+msgid "members"
+msgstr "会員"
+
+#: assets/js/blocks/src/components/block-member-content.js:382
+msgid "Active members can see block content after this period."
+msgstr "有効な会員は、この期間を過ぎにブロックコンテンツを表示できます。"
+
+#: assets/js/blocks/src/components/block-member-content.js:388
+msgid "Hide block from members during free trial"
+msgstr "無料トライアル中に会員からブロックを非表示にする"
+
+#: assets/js/blocks/src/components/block-member-content.js:389
+msgid ""
+"If enabled, members of a subscription plan can access this content immediately "
+"after their free trial ends, unless a specific time to get access from is "
+"selected."
+msgstr ""
+"有効にすると、定期購入プランの会員は、特定のアクセス時間が選択されていない限り、無"
+"料試用期間が終了した直後にこのコンテンツにアクセスできます。"
+
+#: assets/js/blocks/src/components/block-member-content.js:39
+#: assets/js/blocks/src/components/block-non-member-content.js:38
+msgid "non-members"
+msgstr "非会員"
+
+#: assets/js/blocks/src/components/block-member-content.js:396
+msgid "Restricted content message"
+msgstr "制限付きコンテンツメッセージ"
+
+#: assets/js/blocks/src/components/block-member-content.js:40
+#: assets/js/blocks/src/components/block-non-member-content.js:39
+msgid "non members"
+msgstr "非会員"
+
+#: assets/js/blocks/src/components/block-member-content.js:405
+msgid "Message Content"
+msgstr "メッセージの内容"
+
+#: assets/js/blocks/src/components/block-member-content.js:41
+#: assets/js/blocks/src/components/block-non-member-content.js:40
+msgid "restrictions"
+msgstr "制限"
+
+#: assets/js/blocks/src/components/block-member-content.js:42
+#: assets/js/blocks/src/components/block-non-member-content.js:41
+msgid "content"
+msgstr "コンテンツ"
+
+#: assets/js/blocks/src/components/block-member-content.js:43
+#: assets/js/blocks/src/components/block-non-member-content.js:42
+msgid "hidden"
+msgstr "非表示"
+
+#: assets/js/blocks/src/components/block-member-content.js:44
+#: assets/js/blocks/src/components/block-non-member-content.js:43
+msgid "private"
+msgstr "非公開"
+
+#: assets/js/blocks/src/components/block-member-content.js:45
+#: assets/js/blocks/src/components/block-non-member-content.js:44
+msgid "public"
+msgstr "公開"
+
+#: assets/js/blocks/src/components/block-non-member-content.js:100
+msgid ""
+"This content will only be shown to guests or users who are not members of %s."
+msgstr "このコンテンツは、%s の会員でないゲストまたはユーザーにのみ表示されます。"
+
+#: assets/js/blocks/src/components/block-non-member-content.js:106
+msgid "End of content for non-members only."
+msgstr "非会員のコンテンツの終了。"
+
+#: assets/js/blocks/src/components/block-non-member-content.js:12
+msgid "Non-Member Content"
+msgstr "非会員コンテンツ"
+
+#: assets/js/blocks/src/components/block-non-member-content.js:14
+msgid "Only non-members can see this content."
+msgstr "このコンテンツを表示できるのは、非会員のみです。"
+
+#: assets/js/blocks/src/components/block-non-member-content.js:154
+msgid ""
+"Users who are not members of the selected plan(s) will see the content within "
+"this block. Leave blank to show this content to users who don't belong to any "
+"plan."
+msgstr ""
+"選択したプランの会員でないユーザーには、このブロック内のコンテンツが表示されます。"
+"このコンテンツをプランに属していないユーザーに表示するには、空白のままにします。"
+
+#: assets/js/blocks/src/components/block-non-member-content.js:98
+msgid "This content will only be shown to guests or non-members."
+msgstr "このコンテンツは、ゲストまたは非会員にのみ表示されます。"

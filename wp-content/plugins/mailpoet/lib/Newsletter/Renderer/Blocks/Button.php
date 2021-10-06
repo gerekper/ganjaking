@@ -11,7 +11,7 @@ use MailPoet\Newsletter\Renderer\StylesHelper;
 class Button {
   public function render($element, $columnBaseWidth) {
     $element['styles']['block']['width'] = $this->calculateWidth($element, $columnBaseWidth);
-    $styles = 'display:inline-block;-webkit-text-size-adjust:none;mso-hide:all;text-decoration:none !important;text-align:center;' . StylesHelper::getBlockStyles($element, $exclude = ['textAlign']);
+    $styles = 'display:inline-block;-webkit-text-size-adjust:none;mso-hide:all;text-decoration:none;text-align:center;' . StylesHelper::getBlockStyles($element, $exclude = ['textAlign']);
     $styles = EHelper::escapeHtmlStyleAttr($styles);
     $template = '
       <tr>
@@ -36,7 +36,10 @@ class Button {
                     font-weight:bold;">' . EHelper::escapeHtmlText($element['text']) . '
                   </center>
                   </v:roundrect>
-                  <![endif]--><a class="mailpoet_button" href="' . EHelper::escapeHtmlLinkAttr($element['url']) . '" style="' . $styles . '"> ' . EHelper::escapeHtmlText($element['text']) . '</a>
+                  <![endif]-->
+                  <!--[if !mso]><!-- -->
+                  <a class="mailpoet_button" href="' . EHelper::escapeHtmlLinkAttr($element['url']) . '" style="' . $styles . '"> ' . EHelper::escapeHtmlText($element['text']) . '</a>
+                  <!--<![endif]-->
                 </td>
               </tr>
             </table>

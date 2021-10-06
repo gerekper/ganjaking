@@ -473,4 +473,228 @@ class WP {
 
 		return $r;
 	}
+
+	/**
+	 * True if WP is processing plugin related AJAX call.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return bool
+	 */
+	public static function is_doing_self_ajax() {
+
+		$action = isset( $_REQUEST['action'] ) ? sanitize_key( $_REQUEST['action'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		return self::is_doing_ajax() && $action && substr( $action, 0, 12 ) === 'wp_mail_smtp';
+	}
+
+	/**
+	 * Get the name of the plugin/theme/wp-core that initiated the desired function call.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $file_path The absolute path of a file that that called the desired function.
+	 *
+	 * @return string
+	 */
+	public static function get_initiator_name( $file_path ) {
+
+		$cache_key = 'wp_mail_smtp_initiators';
+
+		// Mainly we have several initiators and we can cache them for better performance.
+		$initiators_cache = get_transient( $cache_key );
+		$initiators_cache = is_array( $initiators_cache ) ? $initiators_cache : [];
+
+		if ( isset( $initiators_cache[ $file_path ] ) ) {
+			return $initiators_cache[ $file_path ];
+		}
+
+		$name = self::get_initiator_plugin( $file_path );
+
+		if ( empty( $name ) ) {
+			$name = self::get_initiator_plugin( $file_path, true );
+		}
+
+		if ( empty( $name ) ) {
+			$name = self::get_initiator_theme( $file_path );
+		}
+
+		if ( empty( $name ) ) {
+			$name = self::get_initiator_wp_core( $file_path );
+		}
+
+		if ( empty( $name ) ) {
+			$name = esc_html__( 'N/A', 'wp-mail-smtp' );
+		}
+
+		$initiators_cache[ $file_path ] = $name;
+		set_transient( $cache_key, $initiators_cache, HOUR_IN_SECONDS );
+
+		return $name;
+	}
+
+	/**
+	 * Get the initiator's name, if it's a plugin (or mu plugin).
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $file_path       The absolute path of a file.
+	 * @param bool   $check_mu_plugin Whether to check for mu plugins or not.
+	 *
+	 * @return false|string
+	 */
+	private static function get_initiator_plugin( $file_path, $check_mu_plugin = false ) {
+
+		$constant = empty( $check_mu_plugin ) ? 'WP_PLUGIN_DIR' : 'WPMU_PLUGIN_DIR';
+
+		if ( ! defined( $constant ) ) {
+			return false;
+		}
+
+		$root      = basename( constant( $constant ) );
+		$separator = defined( 'DIRECTORY_SEPARATOR' ) ? '\\' . DIRECTORY_SEPARATOR : '\/';
+
+		preg_match( "/$separator$root$separator(.[^$separator]+)($separator|\.php)/", $file_path, $result );
+
+		if ( ! empty( $result[1] ) ) {
+			if ( ! function_exists( 'get_plugins' ) ) {
+				include ABSPATH . '/wp-admin/includes/plugin.php';
+			}
+
+			$all_plugins = empty( $check_mu_plugin ) ? get_plugins() : get_mu_plugins();
+			$plugin_slug = $result[1];
+
+			foreach ( $all_plugins as $plugin => $plugin_data ) {
+				if (
+					1 === preg_match( "/^$plugin_slug(\/|\.php)/", $plugin ) &&
+					isset( $plugin_data['Name'] )
+				) {
+					return $plugin_data['Name'];
+				}
+			}
+
+			return $result[1];
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get the initiator's name, if it's a theme.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $file_path The absolute path of a file.
+	 *
+	 * @return false|string
+	 */
+	private static function get_initiator_theme( $file_path ) {
+
+		if ( ! defined( 'WP_CONTENT_DIR' ) ) {
+			return false;
+		}
+
+		$root      = basename( WP_CONTENT_DIR );
+		$separator = defined( 'DIRECTORY_SEPARATOR' ) ? '\\' . DIRECTORY_SEPARATOR : '\/';
+
+		preg_match( "/$separator$root{$separator}themes{$separator}(.[^$separator]+)/", $file_path, $result );
+
+		if ( ! empty( $result[1] ) ) {
+			$theme = wp_get_theme( $result[1] );
+
+			if ( method_exists( $theme, 'get' ) ) {
+				return $theme->get( 'Name' );
+			}
+
+			return $result[1];
+		}
+
+		return false;
+	}
+
+	/**
+	 * Return WP Core if the file path is from WP Core (wp-admin or wp-includes folders).
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $file_path The absolute path of a file.
+	 *
+	 * @return false|string
+	 */
+	private static function get_initiator_wp_core( $file_path ) {
+
+		if ( ! defined( 'ABSPATH' ) ) {
+			return false;
+		}
+
+		$wp_includes = defined( 'WPINC' ) ? trailingslashit( ABSPATH . WPINC ) : false;
+		$wp_admin    = trailingslashit( ABSPATH . 'wp-admin' );
+
+		if (
+			strpos( $file_path, $wp_includes ) === 0 ||
+			strpos( $file_path, $wp_admin ) === 0
+		) {
+			return esc_html__( 'WP Core', 'wp-mail-smtp' );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Retrieves the timezone from site settings as a `DateTimeZone` object.
+	 *
+	 * Timezone can be based on a PHP timezone string or a ±HH:MM offset.
+	 *
+	 * We use `wp_timezone()` when it's available (WP 5.3+),
+	 * otherwise fallback to the same code, copy-pasted.
+	 *
+	 * @since 3.0.2
+	 *
+	 * @return \DateTimeZone Timezone object.
+	 */
+	public static function wp_timezone() {
+
+		if ( function_exists( 'wp_timezone' ) ) {
+			return wp_timezone();
+		}
+
+		return new \DateTimeZone( self::wp_timezone_string() );
+	}
+
+	/**
+	 * Retrieves the timezone from site settings as a string.
+	 *
+	 * Uses the `timezone_string` option to get a proper timezone if available,
+	 * otherwise falls back to an offset.
+	 *
+	 * We use `wp_timezone_string()` when it's available (WP 5.3+),
+	 * otherwise fallback to the same code, copy-pasted.
+	 *
+	 * @since 3.0.2
+	 *
+	 * @return string PHP timezone string or a ±HH:MM offset.
+	 */
+	public static function wp_timezone_string() {
+
+		if ( function_exists( 'wp_timezone_string' ) ) {
+			return wp_timezone_string();
+		}
+
+		$timezone_string = get_option( 'timezone_string' );
+
+		if ( $timezone_string ) {
+			return $timezone_string;
+		}
+
+		$offset  = (float) get_option( 'gmt_offset' );
+		$hours   = (int) $offset;
+		$minutes = ( $offset - $hours );
+
+		$sign      = ( $offset < 0 ) ? '-' : '+';
+		$abs_hour  = abs( $hours );
+		$abs_mins  = abs( $minutes * 60 );
+		$tz_offset = sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
+
+		return $tz_offset;
+	}
 }

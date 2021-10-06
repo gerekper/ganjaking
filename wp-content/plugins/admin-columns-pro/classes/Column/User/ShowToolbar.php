@@ -19,7 +19,7 @@ class ShowToolbar extends AC\Column\User\ShowToolbar
 	}
 
 	public function editing() {
-		return new Editing\Model\User\ShowToolbar( $this );
+		return new Editing\Service\User\ShowToolbar();
 	}
 
 	public function filtering() {

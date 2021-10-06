@@ -18,7 +18,7 @@ class Name extends AC\Column
 	}
 
 	public function editing() {
-		return new Editing\Model\Taxonomy\Name( $this );
+		return new Editing\Service\Taxonomy\Name( $this->get_taxonomy() );
 	}
 
 	public function export() {

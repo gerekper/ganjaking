@@ -18,7 +18,7 @@ class Attachment extends AC\Column\Post\Attachment
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Attachment( $this );
+		return new Editing\Service\Post\Attachment();
 	}
 
 	public function export() {

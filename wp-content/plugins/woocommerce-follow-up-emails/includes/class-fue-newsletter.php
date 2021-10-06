@@ -219,6 +219,9 @@ class FUE_Newsletter {
 
 		if ( is_email( $term ) ) {
 			$subscriber = $this->get_subscriber( $term );
+			if ( !$subscriber ) {
+				return;
+			}
 			$id = $subscriber['id'];
 		}
 

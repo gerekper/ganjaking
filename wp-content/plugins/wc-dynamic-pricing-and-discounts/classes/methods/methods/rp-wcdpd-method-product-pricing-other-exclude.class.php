@@ -53,7 +53,7 @@ class RP_WCDPD_Method_Product_Pricing_Other_Exclude extends RP_WCDPD_Method_Prod
      */
     public function get_label()
     {
-        return __('Exclude products from all rules', 'rp_wcdpd');
+        return esc_html__('Exclude products from all rules', 'rp_wcdpd');
     }
 
     /**

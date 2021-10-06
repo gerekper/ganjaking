@@ -19,7 +19,7 @@ class Author extends AC\Column\Post\Author
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Author( $this );
+		return new Editing\Service\Post\Author();
 	}
 
 	public function export() {

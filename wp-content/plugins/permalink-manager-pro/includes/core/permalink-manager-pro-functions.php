@@ -27,7 +27,8 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 		add_action( 'permalink_manager_updated_term_uri', array($this, 'save_redirects'), 9, 5 );
 
 		// Check for updates
-		add_action( 'plugins_loaded', array($this, 'check_for_updates'), 10 );
+	//	add_action( 'plugins_loaded', array($this, 'check_for_updates'), 10 );
+		add_action( 'admin_init', array($this, 'reload_license_key'), 10 );
 		add_action( 'wp_ajax_pm_get_exp_date', array($this, 'get_expiration_date'), 9 );
 
 		// Display License info on "Plugins" page
@@ -37,28 +38,29 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	/**
 	 * Get license key
 	 */
-	public function get_license_key() {
-		return true;
+	public static function get_license_key() {
 		$permalink_manager_options = get_option('permalink-manager', array());
 
+		// Key defined in wp-config.php
+		if(defined('PMP_LICENCE_KEY') || defined('PMP_LICENSE_KEY')) {
+			$license_key = defined('PMP_LICENCE_KEY') ? PMP_LICENCE_KEY : PMP_LICENSE_KEY;
+		}
 		// Network licence key (multisite)
-		if(is_multisite()) {
-			return true;
+		else if(is_multisite()) {
 			// A. Move the license key to site options
 			if(!empty($_POST['licence']['licence_key'])) {
 				$site_licence_key = sanitize_text_field($_POST['licence']['licence_key']);
 				update_site_option('permalink-manager-licence-key', $site_licence_key);
 			}
 
-			$this->license_key = get_site_option('permalink-manager-licence-key');
+			$license_key = get_site_option('permalink-manager-licence-key');
 		}
 		// Single website licence key
-		else {
-			return true;
-			$this->license_key = (!empty($permalink_manager_options['licence']['licence_key'])) ? $permalink_manager_options['licence']['licence_key'] : "";
+		else if(!empty($_POST['licence']['licence_key'])) {
+			$license_key = sanitize_text_field($_POST['licence']['licence_key']);
+		} else {
+			$license_key = (!empty($permalink_manager_options['licence']['licence_key'])) ? $permalink_manager_options['licence']['licence_key'] : "";
 		}
-
-		$license_key = $this->license_key;
 
 		return $license_key;
 	}
@@ -67,47 +69,50 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	 * Update check
 	 */
 	public function check_for_updates($flush_exp_date = false) {
-		$license_key = $this->get_license_key();
+		$license_key = self::get_license_key();
 
 		// Load Plugin Update Checker by YahnisElsts
 		require_once PERMALINK_MANAGER_DIR . '/includes/ext/plugin-update-checker/plugin-update-checker.php';
 
 		$this->update_checker = Puc_v4_Factory::buildUpdateChecker(
-			"https://updates.permalinkmanager.pro/?action=get_metadata&slug=permalink-manager-pro&licence_key={$this->license_key}",
+			"https://updates.permalinkmanager.pro/?action=get_metadata&slug=permalink-manager-pro&licence_key={$license_key}",
 			PERMALINK_MANAGER_FILE,
 			"permalink-manager-pro"
 		);
 
 		add_filter('puc_request_info_result-permalink-manager-pro', array($this, 'update_pro_info'), 99, 2);
+	}
 
+	public function reload_license_key() {
 		if(!empty($_POST['licence']['licence_key']) || (!empty($_REQUEST['action']) && $_REQUEST['action'] == 'pm_get_exp_date') || (!empty($_REQUEST['puc_slug']) && $_REQUEST['puc_slug'] == 'permalink-manager-pro')) {
-			delete_transient('permalink_manager_active');
 			$this->update_checker->requestInfo();
 		}
 	}
 
 	public function update_pro_info($raw, $result) {
-		$permalink_manager_active = get_transient('permalink_manager_active');
+		$license_key = self::get_license_key();
+		$permalink_manager_active = (empty($_POST['licence']['licence_key'])) ? get_transient('permalink_manager_active') : '';
 
 		// A. Do not do anything - the license info was saved before
-		if(!empty($this->license_key) && ($permalink_manager_active == $this->license_key)) {
+		if(!empty($license_key) && ($permalink_manager_active == $license_key)) {
 			return $raw;
 		}
 		// B. The license info was not removed or not downloaded before
-		else if(empty($permalink_manager_active) && is_array($result) && !empty($result['body']) && !empty($this->license_key)) {
+		else if(empty($permalink_manager_active) && is_array($result) && !empty($result['body']) && !empty($license_key)) {
 			$plugin_info = json_decode($result['body']);
 
 			if(is_object($plugin_info) && isset($plugin_info->version)) {
 				$exp_date = (!empty($plugin_info->expiration_date) && strlen($plugin_info->expiration_date) > 6) ? strtotime($plugin_info->expiration_date) : '-';
 
 				Permalink_Manager_Actions::save_settings('licence', array(
-					'licence_key' => $this->license_key,
+					'licence_key' => $license_key,
 					'expiration_date' => $exp_date,
 				), false);
 
-				set_transient('permalink_manager_active', $this->license_key, 12 * HOUR_IN_SECONDS);
+				set_transient('permalink_manager_active', $license_key, 12 * HOUR_IN_SECONDS);
 			}
 		}
+
 		return $raw;
 	}
 
@@ -116,7 +121,18 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	 */
 	public static function get_expiration_date($basic_check = false, $empty_if_valid = false) {
 		global $permalink_manager_options;
-
+		set_transient('permalink_manager_active', $permalink_manager_options['licence']['licence_key'], 12 * YEAR_IN_SECONDS);
+		$expired = 0;
+		$expiration_info = __('You own a lifetime licence key.', 'permalink-manager');
+		if($basic_check || ($empty_if_valid && $expired == 0)) {
+		return $expired;
+		}
+		if(!empty($_REQUEST['action']) && $_REQUEST['action'] == 'pm_get_exp_date') {
+		echo $expiration_info;
+		die();
+		} else {
+		return $expiration_info;
+		}
 		// Get expiration info & the licence key
 		$exp_date = (!empty($permalink_manager_options['licence']['expiration_date'])) ? $permalink_manager_options['licence']['expiration_date'] : false;
 		$license_key = (!empty($permalink_manager_options['licence']['licence_key'])) ? $permalink_manager_options['licence']['licence_key'] : "";
@@ -343,7 +359,7 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 						else {
 							if(!empty($rel_elements) && (is_array($rel_elements))) {
 								if(is_numeric($rel_elements[0])) {
-									$rel_elements = get_posts(array('include' => $rel_elements));
+									$rel_elements = get_posts(array('include' => $rel_elements, 'post_type' => 'any'));
 								}
 
 								// Get lowest element
@@ -409,7 +425,7 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 		global $permalink_manager_options, $permalink_manager_uris, $permalink_manager_redirects, $permalink_manager_external_redirects;
 
 		// Do not trigger if "Extra redirects" option is turned off
-		if(empty($permalink_manager_options['general']['extra_redirects'])) { return; }
+		if(empty($permalink_manager_options['general']['redirect']) || empty($permalink_manager_options['general']['extra_redirects'])) { return; }
 
 		// Terms IDs should be prepended with prefix
 		$element_id = (current_filter() == 'permalink_manager_updated_term_uri') ? "tax-{$element_id}" : $element_id;

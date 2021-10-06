@@ -16,7 +16,7 @@ class Status extends AC\Column\Post\Status
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Status( $this );
+		return new Editing\Service\Post\PostStatus( $this->get_post_type(), new Editing\ApplyFilter\PostStatus( $this ) );
 	}
 
 	public function filtering() {

@@ -30,6 +30,8 @@ abstract class TableRows extends Request {
 	}
 
 	public function handle_request() {
+		remove_action( 'parse_term_query', [ $this, __FUNCTION__ ] );
+
 		$this->check_nonce();
 
 		$ids = $this->request->filter( 'ac_ids', [], FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY );

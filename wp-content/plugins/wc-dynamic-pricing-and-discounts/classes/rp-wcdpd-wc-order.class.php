@@ -77,7 +77,7 @@ class RP_WCDPD_WC_Order
                     }
                     // Rule was not found
                     else {
-                        $rule_title = __('Cart Discount (deleted)', 'rp_wcdpd');
+                        $rule_title = esc_html__('Cart Discount (deleted)', 'rp_wcdpd');
                     }
 
                     // Starting from WooCommerce 3.2 fix coupon codes using Javascript

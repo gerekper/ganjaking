@@ -12,7 +12,7 @@ class Nicename extends AC\Column\User\Nicename
 	implements Editing\Editable, Export\Exportable, Search\Searchable, Sorting\Sortable {
 
 	public function editing() {
-		return new Editing\Model\User\Nicename( $this );
+		return new Editing\Service\User\Nicename( $this->get_label() );
 	}
 
 	public function export() {

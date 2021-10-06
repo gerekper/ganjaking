@@ -1,0 +1,160 @@
+*** WooCommerce Stamps.com shipping and API integration ***
+
+2021-08-19 - version 1.3.23
+* Tweak - Changed label for USPS Medium Flat Rate Box.
+
+2020-12-10 - version 1.3.22
+* Tweak - PHP 8 compatibility.
+
+2020-10-06 - version 1.3.21
+* Tweak - WC 4.5 compatibility.
+
+2020-08-19 - version 1.3.20
+* Tweak - WordPress 5.5 compatibility.
+
+2020-06-10 - version 1.3.19
+* Tweak - Migrate middleware to connect.woocommerce.com.
+* Tweak - WC 4.2 compatibility.
+
+2020-04-30 - version 1.3.18
+* Tweak - WC 4.1 compatibility.
+
+2020-04-14 - version 1.3.17
+* Tweak - Remove legacy code.
+* Tweak - Check logging is enabled before logging balance.
+* Tweak - Obfuscate logging data.
+
+2020-03-05 - version 1.3.16
+* Tweak - WC 4.0 compatibility.
+
+2020-01-30 - version 1.3.15
+* Fix - Unable to get labels when destination was to Puerto Rico.
+
+2019-01-14 - version 1.3.14
+* Tweak - WC tested up to 3.9.
+
+2019-11-04 - version 1.3.13
+* Tweak - WC tested up to 3.8.
+
+2019-08-06 - version 1.3.12
+* Tweak - WC tested up to 3.7.
+
+2019-07-18 - version 1.3.11
+* Fix - Ensure API errors are displayed to the user.
+
+2019-04-18 - version 1.3.10
+* Fix - Error when trying to get rate.
+
+2019-04-16 - version 1.3.9
+* Tweak - WC tested up to 3.6
+
+2018-12-19 - version 1.3.8
+* Fix   - Plugin crashes dashboard when SoapClient isn't present.
+
+2018-09-26 - version 1.3.7
+* Fix   - Fixed rounding issue with control totals for top ups. 
+* Update - WC tested up to 3.5
+
+2018-05-23 - version 1.3.6
+* Update - WC tested up to 3.4
+* Add - GDPR policy
+
+2017-12-15 - version 1.3.5
+* Update - WC 3.3 Compatibility
+
+2017-07-03 - version 1.3.4
+* Tweak - Add copy-to-clipboard link for truncated tracking number.
+
+2017-06-23 - version 1.3.3
+* Tweak - Added settings, support and docs links in plugin action links.
+* Tweak - More verbose logging when exception happens on SOAP request.
+* Tweak - Removed the harmful Test API setting checkbox and just use `WC_STAMPS_TEST_MODE` constant to activate it. Since the Test API requires whitelisting (both the dev host AND stamps.woocommerce.com) it is a super developer oriented feature and should not be in the settings UI.
+* Fix - Issue where long tracking numbers overflow shipping labels meta box.
+* Fix - PHP notice thrown when requesting a label with samples only enabled.
+* Fix - Issue where an army address is not being "accepted" and throws an error while trying to purchase a label.
+* Fix - Harden the automatic top-up that should only happen when the balance is less than the threshold.
+* Tweak - Better setting UI that follows core setting convention.
+
+2017-05-08 - version 1.3.2
+* Fix - Allow purchasing labels even if the address fails verification or the merchant declines address corrections (CleanseHash/OverrideHash)
+
+2017-04-06 - version 1.3.1
+* Fix - Additional updates for WooCommerce 3.0 compatibility, especially in order meta data handling
+* Fix - Cleanse Hash Error that would likely prevent user from buying domestic labels
+
+2017-04-03 - version 1.3.0
+* New - API version updated to v50.
+* New - Setting to enable test mode.
+* Fix - Error when city does not require a zip code.
+* Fix - SOAP error when connecting over ssl on php 5.6.
+* Fix - Properly handle when no rate is available for the selected package type, weight and dimensions.
+* Fix - restore support for American Samoa, Guam, and Northern Mariana Islands in Shipping Return Address
+* Fix - restore support for Puerto Rico and US Virgin Islands in Shipping Return Address
+* Fix - Some PHP7 warnings cleanup
+* Fix - Update for WC 3.0 compatibility
+
+2016-09-03 - version 1.2.8
+* Tweak - Limit the number of top up retries to 3 to avoid API overload.
+
+2016-06-15 - version 1.2.7
+* Fix - Remove check on USPS that caused extension to bail early and give notice
+
+2016-06-09 - version 1.2.6
+* Fix - Make sure item from order is shippable product when trying retrieve packages
+
+2016-01-28 - version 1.2.5
+* HotFix - Revert back to StampsV45 due to mismatched authentication issues
+
+2016-01-18 - version 1.2.4
+* Update - Moved to Stamps API V50
+* Update - Removed deprecated shipping type
+* Feature - Custom default shipping label date (used to be hard-coded to next day)
+
+2015-08-14 - version 1.2.3
+* Fix - The display for weight when generating shipping rates has been fixed.
+
+2015-07-09 - version 1.2.2
+* Fix - Use AddOnV7
+* Fix - limit US zip codes to 5 digits
+
+2015-07-01 - version 1.2.1
+* Fix - Update production WSDL file.
+
+2015-06-24 - version 1.2.0
+* Feature - Prefill customs items.
+* Fix - Replace unserialize with json.
+* Fix - Escaping in backend views.
+* Fix - Added capability checks to ajax calls.
+* Tweak - Update swsim to v45.
+* Tweak - Show notice when missing address data.
+
+2014-12-11 - version 1.1.4
+* Fix get_magic_quotes_gpc handling.
+
+2014-12-10 - version 1.1.3
+* Fix cron job events by ensuring cron actions fire for all uses.
+
+2014-12-09 - version 1.1.2
+* Get label - Change postcode to PostalCode.
+
+2014-11-27 - version 1.1.1
+* Added request logging for failed get rate attempts.
+* Fixed request of regional rate box A's.
+
+2014-11-25 - version 1.1.0
+* Added ImageType option - choose which format of label to return.
+* Added PrintLayout option.
+* Default all labels to PDF.
+* Schedule topup 8 secs into future.
+* Made admin bar item refresh balance.
+
+2014-11-10 - version 1.0.2
+* Request package dimensions using weights/unit setting used in WooCommerce rather than lbs/in.
+
+2014-11-01 - version 1.0.1
+* Enforce 5 digit shipper zipcode.
+* Added paper_size setting for international labels.
+* Added request logging.
+
+2014-10-29 - version 1.0.0
+* First Release.

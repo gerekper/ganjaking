@@ -34,7 +34,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '1.17.0';
+	const VERSION = '1.18.0';
 
 	/** @var WC_Seq_Order_Number_Pro single instance of this plugin */
 	protected static $instance;
@@ -118,9 +118,10 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 			// inject our admin options
 			add_filter( 'woocommerce_general_settings', array( $this, 'admin_settings' ) );
 			add_action( 'woocommerce_settings_start',   array( $this, 'admin_settings_js' ) );
-
-			// roll my own Settings field error check, which isn't beautiful, but is important
-			add_filter( 'pre_update_option_woocommerce_order_number_start', array( $this, 'validate_order_number_start_setting' ), 10, 2 );
+			add_action( 'woocommerce_admin_field_info', [ $this, 'render_info_field' ] );
+			add_action( 'woocommerce_admin_field_order_number_format', [ $this, 'render_number_format_field' ] );
+			add_filter( 'pre_update_option_woocommerce_order_number_start', [ $this, 'validate_order_number_start_setting' ], 10, 2 );
+			add_action( 'woocommerce_settings_save_general', [ $this, 'save_number_format_field' ] );
 
 			// add support for the CSV export plugin
 			add_filter( 'woocommerce_export_csv_extra_columns', array( $this, 'export_csv_extra_columns' ) );
@@ -145,7 +146,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 	 */
 	public function init_admin() {
 
-		require_once( $this->get_plugin_path() . '/includes/Admin/Onboarding_Tips.php' );
+		require_once( $this->get_plugin_path() . '/src/Admin/Onboarding_Tips.php' );
 
 		new \SkyVerge\WooCommerce\Sequential_Order_Numbers_Pro\Admin\Onboarding_Tips( $this );
 	}
@@ -158,7 +159,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new SkyVerge\WooCommerce\Sequential_Order_Numbers_Pro\Lifecycle( $this );
 	}
@@ -171,7 +172,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_rest_api_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/REST_API.php' );
+		require_once( $this->get_plugin_path() . '/src/REST_API.php' );
 
 		$this->rest_api_handler = new \SkyVerge\WooCommerce\Sequential_Order_Numbers_Pro\REST_API( $this );
 	}
@@ -610,56 +611,44 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 			$updated_settings[] = $section;
 
 			// New section after the "General Options" section
-			if ( isset( $section['id'] ) && 'general_options' === $section['id']
-				&& isset( $section['type'] ) && 'sectionend' === $section['type'] ) {
+			if ( isset( $section['id'], $section['type'] ) &&
+			     'general_options' === $section['id'] && 'sectionend' === $section['type'] ) {
 
-				$updated_settings[] = array( 'name' => __( 'Order Numbers', 'woocommerce-sequential-order-numbers-pro' ), 'type' => 'title', 'desc' => '', 'id' => 'order_number_options' );
+				$updated_settings[] = [
+					'name' => __( 'Order Numbers', 'woocommerce-sequential-order-numbers-pro' ),
+					'type' => 'title',
+					'desc' => __( 'Use sequential, formatted order numbers to track your orders. Change the starting number, or add prefixes and suffixes for accounting.', 'woocommerce-sequential-order-numbers-pro' ),
+					'id'   => 'order_number_options',
+				];
 
-				$updated_settings[] = array(
-					'name'     => __( 'Order Number Start', 'woocommerce-sequential-order-numbers-pro' ),
-					'desc_tip' => sprintf(
-					/* translators: Placeholders: %s - sample order number */
-						__( 'The starting number for the incrementing portion of the order numbers, unless there is an existing order with a higher number.  Use leading zeroes to pad your order numbers to a desired minimum length.  Any newly placed orders will be numbered like: %s', 'woocommerce-sequential-order-numbers-pro' ), $this->format_order_number( get_option( 'woocommerce_order_number_start' ), $this->get_order_number_prefix(), $this->get_order_number_suffix(), $this->get_order_number_length() )
-					),
-					'id'       => 'woocommerce_order_number_start',
-					'type'     => 'text',
-					'css'      => 'min-width:300px;',
-					'default'  => '',
-					/* translators: Placeholders: %s - order number */
-					'desc'     => '<br />' . sprintf( __( 'Sample order number: %s', 'woocommerce-sequential-order-numbers-pro' ), '<span id="sample_order_number">' . $this->format_order_number( get_option( 'woocommerce_order_number_start' ), $this->get_order_number_prefix(), $this->get_order_number_suffix(), $this->get_order_number_length() ) . '</span>' ),
-				);
-
-				$updated_settings[] = array(
-					'name'     => __( 'Order Number Prefix', 'woocommerce-sequential-order-numbers-pro' ),
-					'desc_tip' => __( 'Set your custom order number prefix.  You may use {DD}, {MM}, {YYYY} for the current day, month and year respectively.', 'woocommerce-sequential-order-numbers-pro' ),
-					'id'       => 'woocommerce_order_number_prefix',
-					'type'     => 'text',
-					'css'      => 'min-width:300px;',
-					'default'  => '',
+				$updated_settings[] = [
+					'title' => __( 'Sample order number', 'woocommerce-sequential-order-numbers-pro' ),
+					'type'  => 'info',
+					'id'    => 'sample_order_number',
+					'css'   => 'font-size: 1.3em;',
+					'name'  => $this->format_order_number( $this->get_order_number_start(), $this->get_order_number_prefix(), $this->get_order_number_suffix(), $this->get_order_number_length() ),
 					/* translators: Placeholders: %1$s - opening <a> link tag, %2$s - closing </a> link tag */
-					'desc'     => '<br />' . sprintf( __( 'See the %1$splugin documentation%2$s for the full set of available patterns.', 'woocommerce-sequential-order-numbers-pro' ), '<a target="_blank" href="http://docs.woocommerce.com/document/sequential-order-numbers/">', '</a>' ),
-				);
+					'desc'  => sprintf( __( 'See the %1$splugin documentation%2$s for the full set of available patterns.', 'woocommerce-sequential-order-numbers-pro' ), '<a target="_blank" href="https://docs.woocommerce.com/document/sequential-order-numbers/#prefix-suffix">', '</a>' ),
+				];
 
-				$updated_settings[] = array(
-					'name'     => __( 'Order Number Suffix', 'woocommerce-sequential-order-numbers-pro' ),
-					'desc_tip' => __( 'Set your custom order number suffix. You may use {DD}, {MM}, {YYYY} for the current day, month and year respectively.', 'woocommerce-sequential-order-numbers-pro' ),
-					'id'       => 'woocommerce_order_number_suffix',
-					'type'     => 'text',
-					'css'      => 'min-width:300px;',
-					'default'  => '',
-				);
+				$updated_settings[] = [
+					'name'     => __( 'Order Number Format', 'woocommerce-sequential-order-numbers-pro' ),
+					'desc_tip' => __( 'Enter prefixes, suffixes, or patterns for order numbers. You can use leading 0s to control order number length.', 'woocommerce-sequential-order-numbers-pro' ),
+					'id'       => 'woocommerce_order_number_format',
+					'type'     => 'order_number_format',
+				];
 
-				$updated_settings[] = array(
+				$updated_settings[] = [
 					'name'     => __( 'Skip Free Orders', 'woocommerce-sequential-order-numbers-pro' ),
 					'desc'     => __( 'Skip order numbers for free orders', 'woocommerce-sequential-order-numbers-pro' ),
-					'desc_tip' => __( 'With this enabled an order number will not be assigned to an order consisting solely of free products.', 'woocommerce-sequential-order-numbers-pro' ),
+					'desc_tip' => __( 'Use a different sequence and prefix for free orders. Example: FREE-123.', 'woocommerce-sequential-order-numbers-pro' ),
 					'id'       => 'woocommerce_order_number_skip_free_orders',
 					'type'     => 'checkbox',
 					'css'      => 'min-width:300px;',
 					'default'  => 'no',
-				);
+				];
 
-				$updated_settings[] = array(
+				$updated_settings[] = [
 					'name'     => __( 'Free Order Identifer', 'woocommerce-sequential-order-numbers-pro' ),
 					/* translators: Placeholders: %s - sample order number */
 					'desc'     => sprintf( __( 'Example free order identifier: %s', 'woocommerce-sequential-order-numbers-pro' ), '<span id="sample_free_order_number">' . $this->format_order_number( $this->get_free_order_number_start(), $this->get_free_order_number_prefix() ) . '</span>' ),
@@ -669,13 +658,132 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 					'css'      => 'min-width:300px;',
 					/* translators: FREE- as in free purchase order */
 					'default'  => __( 'FREE-', 'woocommerce-sequential-order-numbers-pro' ),
-				);
+				];
 
-				$updated_settings[] = array( 'type' => 'sectionend', 'id' => 'order_number_options' );
+				$updated_settings[] = [ 'type' => 'sectionend', 'id' => 'order_number_options' ];
 			}
 		}
 
 		return $updated_settings;
+	}
+
+
+	/**
+	 * Renders custom woocommerce admin form field via woocommerce_admin_field_* action.
+	 *
+	 * @since 1.18.0
+	 *
+	 * @param array $data associative array of field parameters
+	 */
+	public function render_info_field( $data ) {
+
+		if ( empty( $data['id'] ) ) {
+			return;
+		}
+
+		$data = wp_parse_args( $data, [
+			'title' => '',
+			'class' => '',
+			'css'   => '',
+			'name'  => '',
+			'desc'  => '',
+		] );
+
+		?>
+		<tr valign="top">
+			<th scope="row" class="titledesc">
+				<label for="<?php echo esc_attr( $data['id'] ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="forminp">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
+					<span class="<?php echo esc_attr( $data['class'] ); ?>"
+					      id="<?php echo esc_attr( $data['id'] ); ?>"
+					      style="<?php echo esc_attr( $data['css'] ); ?>">
+					        <?php echo esc_html( $data['name'] ); ?>
+					</span>
+					<p class="description"><?php echo wp_kses_post( $data['desc'] ); ?></p>
+				</fieldset>
+			</td>
+		</tr>
+		<?php
+	}
+
+
+	/**
+	 * Renders order number format woocommerce admin form fields.
+	 *
+	 * @since 1.18.0
+	 *
+	 * @param array $data associative array of field parameters
+	 */
+	public function render_number_format_field( $data ) {
+
+		if ( empty( $data['id'] ) ) {
+			return;
+		}
+
+		$data = (array) wp_parse_args( $data, [
+			'title'    => '',
+			'class'    => '',
+			'css'      => '',
+			'name'     => '',
+			'desc'     => '',
+			'desc_tip' => '',
+		] );
+
+		?>
+		<tr valign="top">
+			<th scope="row" class="titledesc">
+				<label><?php echo wp_kses_post( $data['title'] ); ?></label>
+				<?php echo wc_help_tip( $data['desc_tip'] ); ?>
+			</th>
+			<td class="forminp">
+				<fieldset style="display: flex; flex-wrap: wrap; gap: 12px;">
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span></legend>
+
+					<label class="order-number-format-prefix">
+						<input type="text" name="woocommerce_order_number_prefix" id="woocommerce_order_number_prefix"
+						       style="width: 104px; display: block; margin-bottom: 4px;"
+						       value="<?php echo esc_attr( $this->get_order_number_prefix() ) ?>"
+						       placeholder="<?php esc_attr_e( '{mm}', 'woocommerce-sequential-order-numbers-pro' ); ?>">
+						<span class="description"><?php esc_html_e( 'Prefix', 'woocommerce-sequential-order-numbers-pro' ); ?></span>
+					</label>
+					<label class="order-number-format-start">
+						<input type="text" name="woocommerce_order_number_start" id="woocommerce_order_number_start"
+						       style="width: 104px; display: block; margin-bottom: 4px;"
+						       value="<?php echo esc_attr( $this->get_order_number_start() ) ?>">
+						<span class="description"><?php esc_html_e( 'Number', 'woocommerce-sequential-order-numbers-pro' ); ?></span>
+					</label>
+					<label class="order-number-format-suffix">
+						<input type="text" name="woocommerce_order_number_suffix" id="woocommerce_order_number_suffix"
+						       style="width: 104px; display: block; margin-bottom: 4px;"
+						       value="<?php echo esc_attr( $this->get_order_number_suffix() ) ?>"
+						       placeholder="<?php esc_attr_e( '{yyyy}', 'woocommerce-sequential-order-numbers-pro' ); ?>">
+						<span class="description"><?php esc_html_e( 'Suffix', 'woocommerce-sequential-order-numbers-pro' ); ?></span>
+					</label>
+				</fieldset>
+			</td>
+		</tr>
+		<?php
+	}
+
+
+	/**
+	 * Saves order number format woocommerce admin form fields.
+	 *
+	 * @since 1.18.0
+	 */
+	public function save_number_format_field() {
+
+		foreach ( [ 'prefix', 'start', 'suffix' ] as $field ) {
+
+			$value = sanitize_text_field( Framework\SV_WC_Helper::get_posted_value( 'woocommerce_order_number_' . $field ) );
+
+			update_option( 'woocommerce_order_number_' . $field, $value );
+		}
+
 	}
 
 
@@ -721,22 +829,23 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 			function formatOrderNumber( orderNumber, orderNumberPrefix, orderNumberSuffix ) {
 
 				// Ensure the prefix and suffix are set to uppercase.
-				orderNumberPrefix = ( typeof orderNumberPrefix === "undefined" ) ? "" : orderNumberPrefix.toUpperCase();
-				orderNumberSuffix = ( typeof orderNumberSuffix === "undefined" ) ? "" : orderNumberSuffix.toUpperCase();
+				orderNumberPrefix = ( typeof orderNumberPrefix === "undefined" ) ? "" : orderNumberPrefix;
+				orderNumberSuffix = ( typeof orderNumberSuffix === "undefined" ) ? "" : orderNumberSuffix;
 
 				var formatted = orderNumberPrefix + orderNumber + orderNumberSuffix;
+				var formattedUpper = formatted.toUpperCase();
 
 				var d = new Date();
-				if ( formatted.indexOf( '{D}' )    > -1) formatted = formatted.replace( /{D}/g,    d.getDate() );
-				if ( formatted.indexOf( '{DD}' )   > -1) formatted = formatted.replace( /{DD}/g,   leftPad( d.getDate().toString(), 2, '0' ) );
-				if ( formatted.indexOf( '{M}' )    > -1) formatted = formatted.replace( /{M}/g,    d.getMonth() + 1 );
-				if ( formatted.indexOf( '{MM}' )   > -1) formatted = formatted.replace( /{MM}/g,   leftPad( ( d.getMonth() + 1 ).toString(), 2, '0' ) );
-				if ( formatted.indexOf( '{YY}' )   > -1) formatted = formatted.replace( /{YY}/g,   ( d.getFullYear() ).toString().substr( 2 ) );
-				if ( formatted.indexOf( '{YYYY}' ) > -1) formatted = formatted.replace( /{YYYY}/g, d.getFullYear() );
-				if ( formatted.indexOf( '{H}' )    > -1) formatted = formatted.replace( /{H}/g,    d.getHours() );
-				if ( formatted.indexOf( '{HH}' )   > -1) formatted = formatted.replace( /{HH}/g,   leftPad( d.getHours().toString(), 2, '0' ) );
-				if ( formatted.indexOf( '{N}' )    > -1) formatted = formatted.replace( /{N}/g,    leftPad( d.getMinutes().toString(), 2, '0' ) );
-				if ( formatted.indexOf( '{S}' )    > -1) formatted = formatted.replace( /{S}/g,    leftPad( d.getSeconds().toString(), 2, '0' ) );
+				if ( formattedUpper.indexOf( '{D}' )    > -1) formatted = formatted.replace( /{D}/gi,    d.getDate() );
+				if ( formattedUpper.indexOf( '{DD}' )   > -1) formatted = formatted.replace( /{DD}/gi,   leftPad( d.getDate().toString(), 2, '0' ) );
+				if ( formattedUpper.indexOf( '{M}' )    > -1) formatted = formatted.replace( /{M}/gi,    d.getMonth() + 1 );
+				if ( formattedUpper.indexOf( '{MM}' )   > -1) formatted = formatted.replace( /{MM}/gi,   leftPad( ( d.getMonth() + 1 ).toString(), 2, '0' ) );
+				if ( formattedUpper.indexOf( '{YY}' )   > -1) formatted = formatted.replace( /{YY}/gi,   ( d.getFullYear() ).toString().substr( 2 ) );
+				if ( formattedUpper.indexOf( '{YYYY}' ) > -1) formatted = formatted.replace( /{YYYY}/gi, d.getFullYear() );
+				if ( formattedUpper.indexOf( '{H}' )    > -1) formatted = formatted.replace( /{H}/gi,    d.getHours() );
+				if ( formattedUpper.indexOf( '{HH}' )   > -1) formatted = formatted.replace( /{HH}/gi,   leftPad( d.getHours().toString(), 2, '0' ) );
+				if ( formattedUpper.indexOf( '{N}' )    > -1) formatted = formatted.replace( /{N}/gi,    leftPad( d.getMinutes().toString(), 2, '0' ) );
+				if ( formattedUpper.indexOf( '{S}' )    > -1) formatted = formatted.replace( /{S}/gi,    leftPad( d.getSeconds().toString(), 2, '0' ) );
 
 				return formatted;
 			}
@@ -1180,6 +1289,19 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 		}
 
 		return $this->order_number_length;
+	}
+	
+	
+	/**
+	 * Returns the order number start.
+	 *
+	 * @since 1.18.0
+	 *
+	 * @return string order number start
+	 */
+	private function get_order_number_start() {
+
+		return get_option( 'woocommerce_order_number_start' );
 	}
 
 

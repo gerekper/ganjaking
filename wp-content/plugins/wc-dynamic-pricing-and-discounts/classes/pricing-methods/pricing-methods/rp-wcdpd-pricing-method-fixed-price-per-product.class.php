@@ -49,7 +49,7 @@ class RP_WCDPD_Pricing_Method_Fixed_Price_Per_Product extends RP_WCDPD_Pricing_M
      */
     public function get_label()
     {
-        return __('Fixed price per item', 'rp_wcdpd');
+        return esc_html__('Fixed price per item', 'rp_wcdpd');
     }
 
     /**

@@ -148,7 +148,7 @@ class WC_Catalog_Restrictions_Filters {
 
 		add_filter( 'woocommerce_product_variation_get_price', array(
 			$this,
-			'on_get_product_variation_price'
+			'on_get_price'
 		), 10, 2 );
 
 		//Filters the regular product get price.
@@ -160,7 +160,7 @@ class WC_Catalog_Restrictions_Filters {
 
 		remove_filter( 'woocommerce_product_variation_get_price', array(
 			$this,
-			'on_get_product_variation_price'
+			'on_get_price'
 		), 10 );
 
 		//Filters the regular product get price.

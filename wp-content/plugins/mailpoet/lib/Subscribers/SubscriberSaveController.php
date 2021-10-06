@@ -96,7 +96,7 @@ class SubscriberSaveController {
         (int)$oldSubscriber->getId(),
         StatisticsUnsubscribeEntity::SOURCE_ADMINISTRATOR,
         null,
-        $currentUser->display_name // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+        $currentUser->display_name // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
       );
     }
 
@@ -121,6 +121,26 @@ class SubscriberSaveController {
     }
 
     return $subscriber;
+  }
+
+  public function filterOutReservedColumns(array $subscriberData): array {
+    $reservedColumns = [
+      'id',
+      'wp_user_id',
+      'is_woocommerce_user',
+      'status',
+      'subscribed_ip',
+      'confirmed_ip',
+      'confirmed_at',
+      'created_at',
+      'updated_at',
+      'deleted_at',
+      'unconfirmed_data',
+    ];
+    return array_diff_key(
+      $subscriberData,
+      array_flip($reservedColumns)
+    );
   }
 
   private function getNonDefaultSubscribedSegments(array $data): array {
@@ -158,7 +178,7 @@ class SubscriberSaveController {
     return array_diff($data['segments'], $oldSegmentIds);
   }
 
-  private function createOrUpdate(array $data, ?SubscriberEntity $subscriber): SubscriberEntity {
+  public function createOrUpdate(array $data, ?SubscriberEntity $subscriber): SubscriberEntity {
     if (!$subscriber) {
       $subscriber = $this->createSubscriber();
       if (!isset($data['source'])) $data['source'] = Source::ADMINISTRATOR;
@@ -177,6 +197,9 @@ class SubscriberSaveController {
     $confirmedAt = isset($data['confirmed_at']) ? Carbon::createFromFormat('Y-m-d H:i:s', $data['confirmed_at']) : null;
     if ($confirmedAt) $subscriber->setConfirmedAt($confirmedAt);
 
+    // wipe any unconfirmed data at this point
+    $subscriber->setUnconfirmedData(null);
+
     $this->subscribersRepository->persist($subscriber);
     $this->subscribersRepository->flush();
 
@@ -187,7 +210,7 @@ class SubscriberSaveController {
     $subscriber = new SubscriberEntity();
     $subscriber->setUnsubscribeToken($this->security->generateUnsubscribeTokenByEntity($subscriber));
     $subscriber->setLinkToken(Security::generateHash(SubscriberEntity::LINK_TOKEN_LENGTH));
-    $subscriber->setStatus($this->settings->get('signup_confirmation.enabled') ? SubscriberEntity::STATUS_SUBSCRIBED : SubscriberEntity::STATUS_UNCONFIRMED);
+    $subscriber->setStatus(!$this->settings->get('signup_confirmation.enabled') ? SubscriberEntity::STATUS_SUBSCRIBED : SubscriberEntity::STATUS_UNCONFIRMED);
 
     return $subscriber;
   }
@@ -209,7 +232,7 @@ class SubscriberSaveController {
     return $subscriber;
   }
 
-  private function updateCustomFields(array $data, SubscriberEntity $subscriber): void {
+  public function updateCustomFields(array $data, SubscriberEntity $subscriber): void {
     $customFieldsMap = [];
     foreach ($data as $key => $value) {
       if (strpos($key, 'cf_') === 0) {

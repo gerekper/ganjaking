@@ -15,7 +15,7 @@ class Order extends AC\Column\Post\Order
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Order( $this );
+		return new Editing\Service\Post\Order();
 	}
 
 	public function search() {

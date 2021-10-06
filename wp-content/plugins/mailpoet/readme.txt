@@ -1,13 +1,9 @@
 === MailPoet - emails and newsletters in WordPress ===
-Contributors: mailpoet, wysija
+Contributors: mailpoet
 Tags: email, email marketing, post notification, woocommerce emails, email automation, newsletter, newsletter builder, newsletter subscribers
 Requires at least: 5.3
-Tested up to: 5.6
-<<<<<<< HEAD
-Stable tag: 3.60.7
-=======
-Stable tag: 3.60.2
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+Tested up to: 5.8
+Stable tag: 3.71.0
 Requires PHP: 7.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -188,7 +184,183 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 
 == Changelog ==
 
-<<<<<<< HEAD
+= 3.71.0 - 2021-09-28 =
+* Improved: handling recipient related SMTP errors;
+* Changed: removed "MailPoet Page" from form's "After submit, go to page" options;
+* Changed: don't save a form without assigned list;
+* Fixed: unable to remove description from segments.
+
+= 3.70.0 - 2021-09-20 =
+* Added: filter to alter mailpoet database table prefix;
+* Added: bounced metric on the Email Stats page;
+* Improved: update lucatume/wp-browser;
+* Improved: MailPoet form security against spambots;
+* Improved: coding standards;
+* Improved: refactor to Doctrine;
+* Improved: code comment on warning;
+* Fixed: machine-opened metric on the Email Stats page;
+* Fixed: flaky integration test;
+* Fixed: "Updated at" in the System Status shows time with incorrect time zone;
+* Fixed: horizontal scrollbar in form style settings sidebar.
+
+= 3.69.1 - 2021-09-13 =
+* Added: saving detailed bounce stats;
+* Added: show last engagement date on the Subscriber page;
+* Added: notice when creating opens-related segment;
+* Added: new machine-opened and # of machine-opens segments;
+* Changed: throttle also logged-in users when signing up multiple times;
+* Changed: show CAPTCHA on the first signup, instead on the second;
+* Changed: performance of the queries used to sync WooCommerce data;
+* Changed: display more specific error message for banned users;
+* Fixed: an error when using MySQL in strict mode;
+* Fixed: compatibility with WooCommerce Payments new checkout experience;
+* Fixed: segment counter when using multiple text input fields;
+* Fixed: missing space after signup checkbox on the checkout.
+
+= 3.69.0 - 2021-09-07 =
+* Added: saving subscribers' last engagement date;
+* Added: show machine-opened emails on the subscriber stats page;
+* Improved: performance of subscribers count recalculation;
+* Fixed: heading shortcode not rendered in WooCommerce transactional emails if moved below order content;
+* Fixed: unsubscribing from a preview email when logged out throws fatal error.
+
+= 3.68.0 - 2021-08-30 =
+* Added: show machine-opened percentage on the email stats page;
+* Added: open and click User-agents in Export Personal Data tool;
+* Improved: subscribers in your plan shown on top of the page;
+* Improved: MailPoet will honor the Reply-to address for WordPress emails sent with MailPoet. Thanks, Mark!
+* Improved: Gutenberg updated for form editor;
+* Improved: React updated to v17;
+* Changed: put less emphasis on open metric on the emails listing;
+* Fixed: a conflict if PHPMailer is already loaded by another plugin.
+
+= 3.67.1 - 2021-08-24 =
+* Added: differentiating human and machine email opens;
+* Added: saving opens and clicks User-agent;
+* Improved: Unified notice for invalid API key;
+* Fixed: conflict with "Invoices for WooCommerce" plugin when signing up for newsletters on checkout;
+* Fixed: potential error in MailPoet Router;
+* Fixed: cannot edit a subscriber when they are subscribed to a non-existing list.
+
+= 3.67.0 - 2021-08-17 =
+* Improved: better handle potential errors when previewing an email;
+* Improved: "Recalculate" Lists and Segments count button also on Subscribers page;
+* Improved: allow importing subscribers with consent but without IP addresses;
+* Improved: prevent deleting a list if used with a form;
+* Fixed: empty WooCommerce Products block can't be deleted;
+* Fixed: when scheduling email, calendar doesn't respect WordPress "week starts on" setting;
+* Fixed: exporting personal data in WordPress Tools fails with MailPoet error;
+* Fixed: below pages form doesn't show on pages created with WP Job Manager;
+* Fixed: button rendering in Outlook 2016.
+
+= 3.66.0 - 2021-08-09 =
+* Improved: tested up to WordPress 5.8;
+* Improved: more consistent behavior when subscribing via different sources;
+* Changed: removed a poll after deactivating MailPoet plugin;
+* Fixed: creating segment from stats page doesn't work;
+* Fixed: WooCommerce customers are moved to trash when WordPress Users list is disabled;
+* Fixed: wrong "recalculated at" time for lists counts in some cases.
+
+= 3.65.1 - 2021-07-20 =
+* Fixed: Sign up button in welcome wizard not working.
+
+= 3.65.0 - 2021-07-13 =
+* Added: Lists and Segments subscribers counts cache to speed up MailPoet pages.
+
+= 3.64.3 - 2021-07-06 =
+* Fixed: custom email shortcodes notice cannot be dismissed.
+
+= 3.64.2 - 2021-06-28 =
+* Improved: performance of the engagement score calculation;
+* Improved: segment form error handling;
+* Improved: hide help icon in form editor preview;
+* Changed: MailPoet no longer unsubscribes from unchecked lists in signup form;
+* Fixed: rare PHP error when unsubscribing;
+* Fixed: duplicated New Subscriber notification;
+* Fixed: large 3rd-party admin menu icons;
+* Fixed: false-positive registration spam detection.
+
+= 3.64.1 - 2021-06-22 =
+* Added: create complex segments using multiple conditions;
+* Fixed: error when WooCommerce transactional emails template is deleted.
+
+= 3.64.0 - 2021-06-15 =
+* Fixed: rare error when activating MailPoet;
+* Fixed: missing column in DBs running old MySQL;
+* Fixed: WooCommerce emails stay the same when MailPoet customizer is disabled;
+* Fixed: big margins in WooCommerce emails.
+
+= 3.63.0 - 2021-06-07 =
+* Improved: Subscribers page load time for sites with higher number of lists;
+* Improved: unified typography with WordPress admin styles;
+* Improved: unified buttons with WordPress admin styles;
+* Improved: new segment form layout;
+* Changed: removed list migration assistance;
+* Changed: removed PHP migration assistance;
+* Fixed: incorrect form image width in some themes;
+* Fixed: emoji in Subject line not visible in the last step of email creation.
+
+= 3.62.1 - 2021-06-01 =
+* Added: logging for failed curl requests;
+* Improved: email editor to gracefully highlight unsupported email blocks;
+* Fixed: missing MailPoet logo in stats emails and MSS setup email;
+* Fixed: Media post type doesn't show results in Automatic Latest Content;
+* Fixed: 1px horizontal line in Outlook 2016.
+
+= 3.62.0 - 2021-05-25 =
+* Added: new segment for MailPoet's custom fields;
+* Improved: segment score calculation performance;
+* Improved: better customization of the opt-in checkbox in the registration form;
+* Fixed: Gutenberg form block to work with latest version of Gutenberg;
+* Fixed: low-probability double sending on high-traffic sites.
+* Fixed: failing to connect to DB when using non-standard port;
+* Fixed: plugin update from timing out on high-traffic sites. Thank you, Edda!
+
+= 3.61.0 - 2021-05-17 =
+* Added: visualize the average "Subscriber score" for an email list to help gauge engagement;
+* Added: new segment for customer's country;
+* Added: welcome emails are now scheduled when subscribing through "Manage subscription" page. Thanks, Ron!
+* Fixed: unable to segment by 0 opened emails;
+* Fixed: broken product attributes in WooCommerce order email.
+
+= 3.60.12 - 2021-05-11 =
+* Fixed: a Doctrine error causing some MailPoet functionality to stop working in rare cases;
+* Fixed: transactional emails not counted towards subscribers score;
+* Fixed: broken custom CSS in the form editor when using > in CSS selector;
+* Fixed: custom field created during import does not show up to be selected from the drop-menu list;
+* Fixed: broken debug bar on WordPress.com sites.
+
+= 3.60.11 - 2021-05-04 =
+* Added: new segment for subscribers who clicked on any link in any newsletter;
+* Added: new segment for subscribers' subscribed date;
+* Improved: MailPoet's resilience to network issues when sending emails;
+* Improved: performance of inactive subscribers detection;
+* Improved: allow segmenting by zero opened emails;
+* Improved: Gutenberg updated for form editor;
+* Fixed: subscriber score shows values higher than 100%;
+* Fixed: MailPoet not working when DB used ANSI_QUOTES mode;
+* Fixed: HTML entities in newsletter buttons.
+
+= 3.60.10 - 2021-04-27 =
+* Added: a reminder to import the suppression list via "Subscriber Import" when migrating email marketing services;
+* Added: visualize subscriber engagement in the subscriber listing;
+* Added: new segment for subscribers with an active subscription;
+* Added: new segment for total amount spent;
+* Fixed: WP-Admin sidebar overlapping MailPoet's contents on WordPress.com websites.
+
+= 3.60.9 - 2021-04-20 =
+* Added: new segment for a number of orders;
+* Added: new segment for a number of opened emails;
+* Improved: tested up to WordPress 5.7;
+* Fixed: importing subscribers with multiple custom fields;
+* Fixed: slowed down WooCommerce checkout on large stores;
+* Fixed: errors in MailPoet breaking WooCommerce checkout;
+* Fixed: custom date field value not displaying on manage subscription page.
+
+= 3.60.8 - 2021-04-12 =
+* Fixed: editing WooCommerce purchased in category segment;
+* Fixed: handling 3rd-party plugin segments when the plugin is disabled.
+
 = 3.60.7 - 2021-04-06 =
 * Improved: show all segment conditions in one place;
 * Fixed: the collation error in WooCommerce checkout. Thanks Mark!
@@ -224,8 +396,6 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 * Improved: subscriber import to skip disengaged MailChimp subscribers;
 * Fixed: shortcode which displays total subscribed subscribers.
 
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 = 3.60.2 - 2021-03-01 =
 * Fixed: view in browser shortcodes when tracking is disabled;
 * Fixed: searching lists when importing subscribers;

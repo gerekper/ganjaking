@@ -1,5 +1,14 @@
 *** WooCommerce Chained Products Changelog ***
 
+2021.08.13 - version 2.10.0
+* New: WooCommerce 4.8.1, 4.9.3, 5.0.1, 5.1.1, 5.2.3, 5.3.1, 5.4.2, 5.5.1 compatible
+* New: WordPress 5.8.0 compatible
+* New: Function 'get_chained_parent_ids' to find parent products ids in which a product is linked as chained product
+* Fix: PHP Fatal error: Uncaught WC_Data_Exception: Invalid tax class
+* Fix: Yith WooCommerce Added to Cart Popup Premium not working on a chained product
+* Update: Set stock status of chained parent based on stock status of its chained child
+* Update: POT file
+
 2020.11.27 - version 2.9.9
 * New: WooCommerce 4.6.2, 4.7.1 compatible
 * Developer: Filter 'chained_products_show_for_variable'

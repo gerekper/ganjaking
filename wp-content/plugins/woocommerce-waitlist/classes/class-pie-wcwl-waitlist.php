@@ -131,7 +131,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 					$this->load_waitlist( $waitlist, 'old' );
 				}
 			}
-			add_action( 'wcwl_after_add_email_to_waitlist', array( $this, 'email_customer_joined_waitlist' ), 10, 2 );
+			add_action( 'wcwl_after_add_email_to_waitlist', array( $this, 'email_customer_joined_waitlist' ),  10, 2 );
 			add_action( 'wcwl_after_add_email_to_waitlist', array( $this, 'email_admin_user_joined_waitlist' ), 10, 2 );
 		}
 
@@ -324,9 +324,13 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 		 */
 		public function email_customer_joined_waitlist( $product_id, $email ) {
 			$product = wc_get_product( $product_id );
-			if ( $product ) {
+			if ( $product && 'yes' !== get_transient( 'wcwl_joined_' . $email . '_' . $product_id ) ) {
 				WC_Emails::instance();
-				do_action( 'wcwl_joined_mailout_send_email', $email, $product_id );
+				require_once 'class-pie-wcwl-waitlist-joined-email.php';
+				$mailer = new Pie_WCWL_Waitlist_Joined_Email();
+				$lang   = defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : '';
+				set_transient( 'wcwl_joined_' . $email . '_' . $product_id, 'yes', 10 );
+				return $mailer->trigger( $email, $product_id, $lang );
 			}
 		}
 

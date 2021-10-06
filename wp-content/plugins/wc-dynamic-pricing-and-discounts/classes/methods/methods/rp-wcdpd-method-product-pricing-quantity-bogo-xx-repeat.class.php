@@ -51,7 +51,7 @@ class RP_WCDPD_Method_Product_Pricing_Quantity_BOGO_XX_Repeat extends RP_WCDPD_M
      */
     public function get_label()
     {
-        return __('Buy x get x - Repeating', 'rp_wcdpd');
+        return esc_html__('Buy x get x - Repeating', 'rp_wcdpd');
     }
 
 

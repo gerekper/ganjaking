@@ -4,6 +4,8 @@
 
 jQuery(document).ready(function() {
 
+    'use strict';
+
     /**
      * Display hints in settings
      */
@@ -23,11 +25,11 @@ jQuery(document).ready(function() {
     /**
      * Toggle fields
      */
-    jQuery('#rp_wcdpd_cart_discounts_if_multiple_applicable').change(function() {
+    jQuery('#rp_wcdpd_cart_discounts_if_multiple_applicable').on('change', function() {
         var display = jQuery(this).val() === 'combined';
         jQuery('#rp_wcdpd_cart_discounts_combined_title').prop('disabled', !display).closest('tr').css('display', (display ? 'table-row' : 'none'));
     }).change();
-    jQuery('#rp_wcdpd_checkout_fees_if_multiple_applicable').change(function() {
+    jQuery('#rp_wcdpd_checkout_fees_if_multiple_applicable').on('change', function() {
         var display = jQuery(this).val() === 'combined';
         jQuery('#rp_wcdpd_checkout_fees_combined_title').prop('disabled', !display).closest('tr').css('display', (display ? 'table-row' : 'none'));
     }).change();
@@ -35,8 +37,8 @@ jQuery(document).ready(function() {
     /**
      * Toggle promotion fields
      */
-    jQuery(['rp_wcdpd_promo_your_price', 'rp_wcdpd_promo_total_saved', 'rp_wcdpd_promo_countdown_timer', 'rp_wcdpd_promo_volume_pricing_table']).each(function(index, value) {
-        jQuery('#' + value).change(function() {
+    jQuery(['rp_wcdpd_promo_your_price', 'rp_wcdpd_promo_total_saved', 'rp_wcdpd_promo_countdown_timer', 'rp_wcdpd_promo_volume_pricing_table', 'rp_wcdpd_promo_product_banners']).each(function(index, value) {
+        jQuery('#' + value).on('change', function() {
             if ((jQuery(this).is(':checkbox') && jQuery(this).is(':checked')) || (jQuery(this).is('select') && jQuery(this).val() !== '0')) {
                 jQuery('[id^="' + value + '_"]').closest('tr').show();
             }
@@ -46,7 +48,7 @@ jQuery(document).ready(function() {
         }).change();
     });
     jQuery(['rp_wcdpd_promo_rule_notifications_product_pricing', 'rp_wcdpd_promo_rule_notifications_cart_discounts', 'rp_wcdpd_promo_rule_notifications_checkout_fees']).each(function(index, value) {
-        jQuery('#' + value).change(function() {
+        jQuery('#' + value).on('change', function() {
             if ((jQuery(this).is(':checkbox') && jQuery(this).is(':checked'))) {
                 jQuery('.if_' + value).closest('tr').show();
             }
@@ -55,6 +57,14 @@ jQuery(document).ready(function() {
             }
         }).change();
     });
+
+    /**
+     * Toggle "Your Price" fields
+     */
+    jQuery('#rp_wcdpd_promo_your_price_position').on('change', function() {
+        var display = (jQuery('#rp_wcdpd_promo_your_price').is(':checked') && jQuery(this).val() !== 'rightpress_replace_wc_price');
+        jQuery('#rp_wcdpd_promo_your_price_always_display, #rp_wcdpd_promo_your_price_label').closest('tr').css('display', (display ? 'table-row' : 'none'));
+    }).change();
 
     /**
      * Turn all multiselects to Select2

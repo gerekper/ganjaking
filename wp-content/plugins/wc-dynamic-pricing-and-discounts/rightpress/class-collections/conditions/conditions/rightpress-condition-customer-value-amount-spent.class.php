@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Customer_Value_Amount_Spent extends RightPre
     public function get_label()
     {
 
-        return __('Spent - Total', 'rightpress');
+        return esc_html__('Spent - Total', 'rightpress');
     }
 
     /**

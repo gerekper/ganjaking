@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Cart_Items_Product_Shipping_Classes extends 
     public function get_label()
     {
 
-        return __('Cart items - Shipping Classes', 'rightpress');
+        return esc_html__('Cart items - Shipping Classes', 'rightpress');
     }
 
     /**

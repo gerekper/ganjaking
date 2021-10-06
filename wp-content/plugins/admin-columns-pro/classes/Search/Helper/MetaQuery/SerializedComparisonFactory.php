@@ -23,6 +23,7 @@ final class SerializedComparisonFactory {
 
 		$operators = [
 			Operators::EQ           => 'LIKE',
+			Operators::CURRENT_USER => 'LIKE',
 			Operators::NEQ          => 'NOT LIKE',
 			Operators::CONTAINS     => 'LIKE',
 			Operators::NOT_CONTAINS => 'NOT LIKE',

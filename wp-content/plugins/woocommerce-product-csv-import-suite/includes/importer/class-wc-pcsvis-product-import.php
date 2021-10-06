@@ -935,25 +935,40 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				$postdata['comment_status'] = $post['comment_status'];
 			}
 
-			$result = wp_update_post( $postdata, true );
+			if ( sizeof( $postdata ) > 1 ) {
+				$result = wp_update_post( $postdata, true );
 
-			if ( is_wp_error( $result ) ) {
-				$errors   = $result->get_error_messages();
-				$messages = array();
-				foreach ( $errors as $error ) {
-					$messages[] = $error;
+				if ( is_wp_error( $result ) ) {
+					$errors   = $result->get_error_messages();
+					$messages = array();
+					foreach ( $errors as $error ) {
+						$messages[] = $error;
+					}
+					$this->add_import_result( 'failed', implode( ', ', $messages ), $post_id, $processing_product_title, $processing_product_sku );
+					WC_Product_CSV_Import_Suite::log( sprintf( __('> Failed to update product %s', 'woocommerce-product-csv-import-suite'), $post_id ), true );
+					unset( $post );
+					return;
+				} else {
+					if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
+						$this->set_catalog_visibility( $post_id, $post );
+						$this->set_featured( $post_id, $post );
+					}
+
+					WC_Product_CSV_Import_Suite::log( __( '> Merged post data: ', 'woocommerce-product-csv-import-suite' ) . print_r( $postdata, true ) );
 				}
-				$this->add_import_result( 'failed', implode( ', ', $messages ), $post_id, $processing_product_title, $processing_product_sku );
-				WC_Product_CSV_Import_Suite::log( sprintf( __('> Failed to update product %s', 'woocommerce-product-csv-import-suite'), $post_id ), true );
-				unset( $post );
-				return;
 			} else {
-				if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-					$this->set_catalog_visibility( $post_id, $post );
-					$this->set_featured( $post_id, $post );
-				}
+				$wpdb->update(
+					$wpdb->posts,
+					array(
+						'post_modified'     => current_time( 'mysql' ),
+						'post_modified_gmt' => current_time( 'mysql', 1 ),
+					),
+					array(
+						'ID' => $postdata['ID'],
+					)
+				);
 
-				WC_Product_CSV_Import_Suite::log( __( '> Merged post data: ', 'woocommerce-product-csv-import-suite' ) . print_r( $postdata, true ) );
+				clean_post_cache( $postdata['ID'] );
 			}
 
 		} else {

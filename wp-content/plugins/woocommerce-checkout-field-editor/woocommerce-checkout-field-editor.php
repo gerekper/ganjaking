@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce Checkout Field Editor
  * Plugin URI: https://woocommerce.com/products/woocommerce-checkout-field-editor/
  * Description: Add, remove and modifiy fields shown on your WooCommerce checkout page.
- * Version: 1.6.2
+ * Version: 1.7.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Tested up to: 5.6
- * WC tested up to: 5.0
+ * Tested up to: 5.8
+ * WC tested up to: 5.7
  * WC requires at least: 2.6
  *
  * Text Domain: woocommerce-checkout-field-editor
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-define( 'WC_CHECKOUT_FIELD_EDITOR_VERSION', '1.6.2' ); // WRCS: DEFINED_VERSION.
+define( 'WC_CHECKOUT_FIELD_EDITOR_VERSION', '1.7.0' ); // WRCS: DEFINED_VERSION.
 define( 'WC_CHECKOUT_FIELD_EDITOR_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 // Plugin init hook.

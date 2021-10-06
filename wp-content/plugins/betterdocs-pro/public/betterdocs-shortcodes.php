@@ -125,7 +125,11 @@ function betterdocs_category_box_2($atts, $content = null)
 		// display category grid by order
 		foreach ($taxonomy_objects as $term) {
 			$term_id = $term->term_id;
-			if ($term->count != 0) {
+			$term_slug = $term->slug;
+			$count = $term->count;
+			$get_term_count = betterdocs_get_postcount($count, $term_id, $nested_subcategory);
+			$term_count = apply_filters('betterdocs_postcount', $get_term_count, $get_args['multiple_knowledge_base'], $term_id, $term_slug, $count, $nested_subcategory);
+			if ($term_count > 0) {
 				// set active category class in single page	
 				$wrap_class = 'docs-single-cat-wrap';
 
@@ -142,9 +146,9 @@ function betterdocs_category_box_2($atts, $content = null)
 				echo '<'.$get_args['title_tag'].' class="docs-cat-title">' . $term->name . '</'.$get_args['title_tag'].'>';
 				if ($post_count == 1) {
 					if ($term->count == 1) {
-						echo wp_sprintf('<span>%s %s</span>', $term->count, ($count_text_singular) ? $count_text_singular : __('article', 'betterdocs'));
+						echo wp_sprintf('<span>%s %s</span>', $term_count, ($count_text_singular) ? $count_text_singular : __('article', 'betterdocs'));
 					} else {
-						echo wp_sprintf('<span>%s %s</span>', $term->count, ($count_text) ? $count_text : __('articles', 'betterdocs'));
+						echo wp_sprintf('<span>%s %s</span>', $term_count, ($count_text) ? $count_text : __('articles', 'betterdocs'));
 					}
 				}
 				echo '</div>
@@ -195,7 +199,7 @@ function betterdocs_multiple_kb($atts, $content = null)
 	}
 
 	$taxonomy_objects = get_terms($terms_object);
-
+	
 	if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
 		$class = ['betterdocs-categories-wrap betterdocs-category-box layout-2 ash-bg'];
 		$class[] = 'layout-flex';
@@ -221,9 +225,9 @@ function betterdocs_multiple_kb($atts, $content = null)
 				if ($cat_icon_id) {
 					echo wp_get_attachment_image($cat_icon_id, 'thumbnail');
 				} else {
-					echo '<img class="docs-cat-icon" src="' . BETTERDOCS_ADMIN_URL . 'assets/img/betterdocs-cat-icon.svg" alt="">';
+					echo '<img class="docs-cat-icon" src="' . BETTERDOCS_ADMIN_URL . 'assets/img/betterdocs-cat-icon.svg" alt="'.$term->name.'">';
 				}
-
+			
 				echo '<'.$get_args['title_tag'].' class="docs-cat-title">' . $term->name . '</'.$get_args['title_tag'].'>';
 				$mkb_desc = get_theme_mod('betterdocs_mkb_desc');
 
@@ -311,7 +315,7 @@ function betterdocs_multiple_kb_2($atts, $content = null)
 				if ($cat_icon_id) {
 					echo wp_get_attachment_image($cat_icon_id, 'thumbnail');
 				} else {
-					echo '<img class="docs-cat-icon" src="' . BETTERDOCS_ADMIN_URL . 'assets/img/betterdocs-cat-icon.svg" alt="">';
+					echo '<img class="docs-cat-icon" src="' . BETTERDOCS_ADMIN_URL . 'assets/img/betterdocs-cat-icon.svg" alt="'.$term->name.'">';
 				}
 
 				echo '<div class="title-count">';
@@ -375,7 +379,6 @@ function betterdocs_category_grid_2($atts, $content = null)
 		),
 		$atts
 	);
-
     $nested_subcategory = ($nested_subcategory == 1 && $get_args['nested_subcategory'] == '') || ($get_args['nested_subcategory'] == true && $get_args['nested_subcategory'] != "false");
 	$taxonomy_objects = BetterDocs_Helper::taxonomy_object($get_args['multiple_knowledge_base'], $get_args['terms'], $get_args['kb_slug'], $nested_subcategory);
 
@@ -406,20 +409,24 @@ function betterdocs_category_grid_2($atts, $content = null)
 			$category_id = '';
 			$page_cat = '';
 		}
-
+  
 		$taxonomy_first_row = array_slice($taxonomy_objects, 0, $column_number);
 		$taxonomy_all = array_slice($taxonomy_objects, $column_number);
-
+		
 		echo '<div class="betterdocs-categories-wrap wrap-top-row layout-flex">';
 
 		foreach ($taxonomy_first_row as $term) {
+			$term_id = $term->term_id;
+			$term_slug = $term->slug;
+			$count = $term->count;
+			$get_term_count = betterdocs_get_postcount($count, $term_id, $nested_subcategory);
+			$term_count = apply_filters('betterdocs_postcount', $get_term_count, $get_args['multiple_knowledge_base'], $term_id, $term_slug, $count, $nested_subcategory);
 			if ('0' == ($term->count && $term->parent)) {
 				$term_permalink = BetterDocs_Helper::term_permalink('doc_category', $term->slug);
 				echo '<a href="' . esc_url($term_permalink) . '" class="docs-single-cat-wrap docs-cat-list-2 docs-cat-list-2-box">';
 				echo '<div class="docs-cat-list-2-box-content">';
 				$term_id = $term->term_id;
 				$cat_icon_id = get_term_meta($term_id, 'doc_category_image-id', true);
-
 				if ($cat_icon_id) {
 					echo wp_get_attachment_image($cat_icon_id, 'thumbnail');
 				} else {
@@ -431,9 +438,9 @@ function betterdocs_category_grid_2($atts, $content = null)
 
 				if ($post_count == 1) {
 					if ($term->count == 1) {
-						echo wp_sprintf('<span>%s %s</span>', $term->count, ($count_text_singular) ? $count_text_singular : __('article', 'betterdocs'));
+						echo wp_sprintf('<span>%s %s</span>', $term_count, ($count_text_singular) ? $count_text_singular : __('article', 'betterdocs'));
 					} else {
-						echo wp_sprintf('<span>%s %s</span>', $term->count, ($count_text) ? $count_text : __('articles', 'betterdocs'));
+						echo wp_sprintf('<span>%s %s</span>', $term_count, ($count_text) ? $count_text : __('articles', 'betterdocs'));
 					}
 				}
 				echo '</div>';
@@ -453,15 +460,15 @@ function betterdocs_category_grid_2($atts, $content = null)
 					<a href="' . esc_url($term_permalink) . '"><'.$get_args['title_tag'].' class="docs-cat-title">' . $term->name . '</'.$get_args['title_tag'].'></a>
 				</div>
 				<div class="docs-item-container">';
-
+			
 			if (isset($get_args['posts_per_grid']) && $get_args['posts_per_grid'] == true && is_numeric($get_args['posts_per_grid'])) {
 				$posts_per_grid = $get_args['posts_per_grid'];
 			} else {
 				$posts_per_grid = $posts_number;
 			}
-
+			
 			$list_args = BetterDocs_Helper::list_query_arg('docs', $get_args['multiple_knowledge_base'], $term_slug, $posts_per_grid, $get_args['orderby'], $get_args['order'], $get_args['kb_slug']);
-
+			
 			$args = apply_filters('betterdocs_articles_args', $list_args, $term->term_id);
 
 			$post_query = new WP_Query($args);

@@ -39,9 +39,11 @@ class WC_pdf_invoice_helper_functions {
 		$folder 	= WC_pdf_invoice_helper_functions::get_template_folder( $location );
 		$templates 	= glob( $folder . '*.php' );
 		$return 	= array();
+		$paths 		= array();
+		$extension 	= array();
 
 		// Remove the paths
-		if( $remove_paths ) {
+		if( $remove_paths && 0 !== count( $templates ) ) {
 
 			foreach( $templates as $template ) {
 	            $filename = str_replace( $folder, '', $template );
@@ -54,7 +56,7 @@ class WC_pdf_invoice_helper_functions {
 	    }
 
 	    // Remove the extension
-		if( $remove_extension ) {
+		if( $remove_extension && 0 !== count( $templates ) ) {
 
 			foreach( $templates as $template ) {
 	            $filename = str_replace( '.php', '', $template );
@@ -66,10 +68,13 @@ class WC_pdf_invoice_helper_functions {
 	        $templates = $extension;
 	    }
 
-		foreach( $templates as $template ) {
-            $return[$template] = $template;
-        }
+	    if( 0 !== count( $templates ) ) {
 
+			foreach( $templates as $template ) {
+	            $return[$template] = $template;
+	        }
+	    }
+	    
 	    return $return;
 
 	}

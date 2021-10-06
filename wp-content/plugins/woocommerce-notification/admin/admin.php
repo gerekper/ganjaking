@@ -37,20 +37,6 @@ class VI_WNOTIFICATION_Admin_Admin {
 			$setting_url = admin_url( 'admin.php?page=woocommerce-notification' );
 			new VillaTheme_Plugin_Updater( 'woocommerce-notification/woocommerce-notification.php', 'woocommerce-notification', $setting_url );
 		}
-		if ( class_exists( 'VillaTheme_Support_Pro' ) ) {
-			new VillaTheme_Support_Pro(
-				array(
-					'support'   => 'https://villatheme.com/supports/forum/plugins/woocommerce-notification/',
-					'docs'      => 'http://docs.villatheme.com/?item=woocommerce-notification',
-					'review'    => 'https://codecanyon.net/downloads',
-					'css'       => VI_WNOTIFICATION_CSS,
-					'image'     => VI_WNOTIFICATION_IMAGES,
-					'slug'      => 'woocommerce-notification',
-					'menu_slug' => 'woocommerce-notification',
-					'version'   => VI_WNOTIFICATION_VERSION
-				)
-			);
-		}
 	}
 	public function admin_print_styles(){
 		$background_image   = $this->settings->get_background_image();
@@ -198,7 +184,20 @@ class VI_WNOTIFICATION_Admin_Admin {
 
 		load_plugin_textdomain( 'woocommerce-notification' );
 		$this->load_plugin_textdomain();
-
+		if ( class_exists( 'VillaTheme_Support_Pro' ) ) {
+			new VillaTheme_Support_Pro(
+				array(
+					'support'   => 'https://villatheme.com/supports/forum/plugins/woocommerce-notification/',
+					'docs'      => 'http://docs.villatheme.com/?item=woocommerce-notification',
+					'review'    => 'https://codecanyon.net/downloads',
+					'css'       => VI_WNOTIFICATION_CSS,
+					'image'     => VI_WNOTIFICATION_IMAGES,
+					'slug'      => 'woocommerce-notification',
+					'menu_slug' => 'woocommerce-notification',
+					'version'   => VI_WNOTIFICATION_VERSION
+				)
+			);
+		}
 	}
 
 

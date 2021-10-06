@@ -49,8 +49,8 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Joined_Email' ) ) {
 			$this->heading            = $this->get_option( 'heading', $this->get_default_heading() );
 			$this->triggered_manually = false;
 			global $sitepress;
-			if ( isset( $sitepress ) ) {
-				$this->language = wpml_get_default_language();
+			if ( isset( $sitepress ) && defined( 'ICL_LANGUAGE_CODE' ) ) {
+				$this->language = ICL_LANGUAGE_CODE;
 			}
 		}
 
@@ -179,7 +179,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Joined_Email' ) ) {
 					'email_heading' => apply_filters( 'woocommerce_email_heading_' . $this->id, $this->get_translated_string( $this->heading, $this->language ) ),
 					'product_id'    => $product_id,
 					'email'         => $this->recipient,
-					'key'           => hash_hmac( 'sha256', $this->recipient . '|' . $product_id, get_the_guid( $product_id ) . $this->recipient . 'woocommerce-waitlist' ),
+					'key'           => hash_hmac( 'sha256', $this->recipient . '|' . $product_id, get_the_guid( $product_id ) . $this->recipient . 'woocommerce-waitlist-join' ),
 				),
 				false,
 				$this->template_base
@@ -205,7 +205,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist_Joined_Email' ) ) {
 					'email_heading' => apply_filters( 'woocommerce_email_heading_' . $this->id, $this->get_translated_string( $this->heading, $this->language ) ),
 					'product_id'    => $product_id,
 					'email'         => $this->recipient,
-					'key'           => hash_hmac( 'sha256', $this->recipient . '|' . $product_id, get_the_guid( $product_id ) ),
+					'key'           => hash_hmac( 'sha256', $this->recipient . '|' . $product_id, get_the_guid( $product_id ) . $this->recipient . 'woocommerce-waitlist-join' ),
 				),
 				false,
 				$this->template_base

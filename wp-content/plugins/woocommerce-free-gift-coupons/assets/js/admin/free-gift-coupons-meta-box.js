@@ -167,7 +167,7 @@ var WC_Free_Gift_Coupons = {};
 					$( '#wc-free-gift-table' ).trigger( 'addFreeGiftProduct', new_gift );
 
 					// Keep values out of enhanced select container.
-					$( this ).val([]).change();
+					$( this ).val([]).trigger('change');
 
 					$('#wc-free-gift-table').sortable('refresh');
 
@@ -200,7 +200,7 @@ var WC_Free_Gift_Coupons = {};
 				$toggle_fields.show();
 			}
 
-		}).change();
+		}).trigger('change');
 	});
 
 })(jQuery, WC_Free_Gift_Coupons);

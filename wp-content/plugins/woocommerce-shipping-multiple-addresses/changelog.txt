@@ -1,5 +1,25 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2021-09-29 - version 3.6.34
+* Fix   - Different subtotal value when discount coupon is used.
+* Fix   - "Undefined Index: price" notice error when using WC Composite Product plugin.
+
+2021-08-31 - version 3.6.33
+* Fix   - Address array is missing in package destination.
+* Fix   - "Set Multiple Address" button to always show regardless of cart item quantity.
+* Fix   - Shipping methods always display "(incl. tax)" text regardless of tax display settings.
+
+2021-08-19 - version 3.6.32
+* Add   - Save billing address fields functionality when click "Set Multiple Address" button.
+* Tweak - Move the location of the "Set Multiple Address" button to shipping address area.
+
+2021-08-12 - version 3.6.31
+* Tweak - Simplify duplicate cart process.
+* Fix   - Taxes added even when customer is tax exempt.
+
+2021-07-27 - version 3.6.30
+* Tweak - Refactor the code for add ons compatibility.
+
 2021-06-29 - version 3.6.29
 * Fix   - Use subtotal for free shipping calculation.
 * Fix   - Add new address button does not work in plain or numeric permalink.

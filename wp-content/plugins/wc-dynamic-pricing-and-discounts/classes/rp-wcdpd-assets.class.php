@@ -182,17 +182,17 @@ class RP_WCDPD_Assets extends RightPress_Assets
         wp_enqueue_style('rp-wcdpd-settings-styles', RP_WCDPD_PLUGIN_URL . '/assets/css/settings.css', array(), RP_WCDPD_VERSION);
 
         // jQuery UI styles
-        RightPress_Help::enqueue_or_inject_stylesheet('rp-wcdpd-jquery-ui-styles', RP_WCDPD_PLUGIN_URL . '/assets/jquery-ui/jquery-ui.min.css', '1.11.4');
+        RightPress_Help::enqueue_or_inject_stylesheet('rp-wcdpd-jquery-ui-styles', RP_WCDPD_PLUGIN_URL . '/assets/jquery-ui/jquery-ui.min.css', '1.12.1');
 
         // Get correct row note placeholder
         if ($current_tab === 'cart_discounts') {
-            $row_note_placeholder = __('Cart Discount', 'rp_wcdpd');
+            $row_note_placeholder = esc_html__('Cart Discount', 'rp_wcdpd');
         }
         else if ($current_tab === 'checkout_fees') {
-            $row_note_placeholder = __('Checkout Fee', 'rp_wcdpd');
+            $row_note_placeholder = esc_html__('Checkout Fee', 'rp_wcdpd');
         }
         else {
-            $row_note_placeholder = __('Pricing Rule', 'rp_wcdpd');
+            $row_note_placeholder = esc_html__('Pricing Rule', 'rp_wcdpd');
         }
 
         // Pass variables to settings JS UI
@@ -200,9 +200,9 @@ class RP_WCDPD_Assets extends RightPress_Assets
             'ajaxurl'       => RP_WCDPD_Ajax::get_url(),
             'current_tab'   => $current_tab,
             'labels'        => array(
-                'select2_placeholder_custom_product_taxonomies' => __('No taxonomies enabled', 'rp_wcdpd'),
-                'select2_placeholder'                           => __('Select values', 'rp_wcdpd'),
-                'select2_no_results'                            => __('No results found', 'rp_wcdpd'),
+                'select2_placeholder_custom_product_taxonomies' => esc_html__('No taxonomies enabled', 'rp_wcdpd'),
+                'select2_placeholder'                           => esc_html__('Select values', 'rp_wcdpd'),
+                'select2_no_results'                            => esc_html__('No results found', 'rp_wcdpd'),
             ),
         ));
 
@@ -212,34 +212,34 @@ class RP_WCDPD_Assets extends RightPress_Assets
             'current_tab'       => $current_tab,
             'price_format'                      => sprintf(get_woocommerce_price_format(), get_woocommerce_currency_symbol(), '{{value}}'),
             'price_decimals'                    => wc_get_price_decimals(),
-            'title_format_bogo'                 => sprintf(__('Buy %s get %s', 'rp_wcdpd'), '{{x}}', '{{y}}'),
-            'title_format_bogo_repeat'          => sprintf(__('Buy %s get %s - Repeating', 'rp_wcdpd'), '{{x}}', '{{y}}'),
+            'product_pricing_method_titles'     => RP_WCDPD_Settings::get_product_pricing_methods_for_display(false),
+            'title_format_bogo'                 => sprintf(esc_html__('Buy %s get %s', 'rp_wcdpd'), '{{x}}', '{{y}}'),
+            'title_format_bogo_repeat'          => sprintf(esc_html__('Buy %s get %s - Repeating', 'rp_wcdpd'), '{{x}}', '{{y}}'),
             'labels'                            => array(
-                'select2_placeholder'   => __('Select values', 'rp_wcdpd'),
-                'select2_no_results'    => __('No results found', 'rp_wcdpd'),
-                //'row_note_placeholder'  => '<span style="color: #cccccc; font-weight: normal;">' . $row_note_placeholder . '</span>',
+                'select2_placeholder'   => esc_html__('Select values', 'rp_wcdpd'),
+                'select2_no_results'    => esc_html__('No results found', 'rp_wcdpd'),
                 'row_note_placeholder'  => $row_note_placeholder,
-                'per_item'              => __('per item', 'rp_wcdpd'),
-                'per_cart_item'         => __('per cart item', 'rp_wcdpd'),
-                'per_cart_line'         => __('per cart line', 'rp_wcdpd'),
-                'per_group'             => __('per group', 'rp_wcdpd'),
+                'per_item'              => esc_html__('per item', 'rp_wcdpd'),
+                'per_cart_item'         => esc_html__('per cart item', 'rp_wcdpd'),
+                'per_cart_line'         => esc_html__('per cart line', 'rp_wcdpd'),
+                'per_group'             => esc_html__('per group', 'rp_wcdpd'),
             ),
             'error_messages'    => array(
-                'generic_error'                     => __('Error: Please fix this element.', 'rp_wcdpd'),
-                'required'                          => __('Value is required.', 'rp_wcdpd'),
-                'number_natural'                    => __('Value must be positive.', 'rp_wcdpd'),
-                'number_min_0'                      => __('Value must be positive.', 'rp_wcdpd'),
-                'number_min_1'                      => __('Value must be greater than or equal to 1.', 'rp_wcdpd'),
-                'number_whole'                      => __('Value must be a whole number.', 'rp_wcdpd'),
-                'no_quantity_ranges'                => __('At least one quantity range is required for this pricing rule.', 'rp_wcdpd'),
-                'no_group_products'                 => __('At least one product must be added to a group.', 'rp_wcdpd'),
-                'no_conditions'                     => __('At least one condition is required for this rule.', 'rp_wcdpd'),
-                'quantity_ranges_from_more_than_to' => __('Closing quantity must not be lower than opening quantity.', 'rp_wcdpd'),
-                'quantity_ranges_last_to_open'      => __('Quantity range cannot be left open when adding subsequent quantity ranges.', 'rp_wcdpd'),
-                'quantity_ranges_last_from_higher'  => __('Quantity range must start with a higher value than previous quantity range.', 'rp_wcdpd'),
-                'quantity_ranges_overlap'           => __('Quantity ranges must not overlap.', 'rp_wcdpd'),
-                'condition_non_existent'            => __('Rule must not contain conditions of non-existent type.', 'rp_wcdpd'),
-                'condition_disabled'                => __('Rule must not contain disabled conditions.', 'rp_wcdpd'),
+                'generic_error'                     => esc_html__('Error: Please fix this element.', 'rp_wcdpd'),
+                'required'                          => esc_html__('Value is required.', 'rp_wcdpd'),
+                'number_natural'                    => esc_html__('Value must be positive.', 'rp_wcdpd'),
+                'number_min_0'                      => esc_html__('Value must be positive.', 'rp_wcdpd'),
+                'number_min_1'                      => esc_html__('Value must be greater than or equal to 1.', 'rp_wcdpd'),
+                'number_whole'                      => esc_html__('Value must be a whole number.', 'rp_wcdpd'),
+                'no_quantity_ranges'                => esc_html__('At least one quantity range is required for this pricing rule.', 'rp_wcdpd'),
+                'no_group_products'                 => esc_html__('At least one product must be added to a group.', 'rp_wcdpd'),
+                'no_conditions'                     => esc_html__('At least one condition is required for this rule.', 'rp_wcdpd'),
+                'quantity_ranges_from_more_than_to' => esc_html__('Closing quantity must not be lower than opening quantity.', 'rp_wcdpd'),
+                'quantity_ranges_last_to_open'      => esc_html__('Quantity range cannot be left open when adding subsequent quantity ranges.', 'rp_wcdpd'),
+                'quantity_ranges_last_from_higher'  => esc_html__('Quantity range must start with a higher value than previous quantity range.', 'rp_wcdpd'),
+                'quantity_ranges_overlap'           => esc_html__('Quantity ranges must not overlap.', 'rp_wcdpd'),
+                'condition_non_existent'            => esc_html__('Rule must not contain conditions of non-existent type.', 'rp_wcdpd'),
+                'condition_disabled'                => esc_html__('Rule must not contain disabled conditions.', 'rp_wcdpd'),
             ),
             'open_rule_uid' => !empty($_REQUEST['open_rule_uid']) ? $_REQUEST['open_rule_uid'] : null,
         ));

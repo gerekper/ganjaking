@@ -300,10 +300,9 @@ class RevSliderSlider extends RevSliderFunctions {
 	public function init_by_alias($alias, $show_error = true){
 		global $wpdb;
 		
-		$alias = str_replace(' ', '-', $alias); //make sure that no spaces are added
-		$slider_data = $wpdb->get_row($wpdb->prepare("SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE alias = %s", $alias), ARRAY_A);
-		if(empty($slider_data)){
-			$alias = str_replace('-', ' ', $alias); //go back to an very old option where an slider alias could have a space
+		$_alias = str_replace(' ', '-', $alias); //make sure that no spaces are added
+		$slider_data = $wpdb->get_row($wpdb->prepare("SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE alias = %s", $_alias), ARRAY_A);
+		if(empty($slider_data)){ //go back to an very old option where an slider alias could have a space
 			$slider_data = $wpdb->get_row($wpdb->prepare("SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE alias = %s", $alias), ARRAY_A);
 		}
 		if(empty($slider_data) && !is_admin() && $show_error === true){
@@ -613,12 +612,12 @@ class RevSliderSlider extends RevSliderFunctions {
 		if($templates === true) $sql .= "(";
 		
 		foreach($string as $v){
-			$sql .= $add. "params LIKE '%".$wpdb->esc_like($v)."%'";
+			$sql .= $add. "params LIKE '%%%s%%'";
 			if($add === '') $add = " OR ";
 		}
 		if($templates === true) $sql .= ") AND `type` != 'template'";
 		
-		return $wpdb->get_results($sql, ARRAY_A);
+		return $wpdb->get_results($wpdb->prepare($sql, $string), ARRAY_A);
 	}
 	
 	

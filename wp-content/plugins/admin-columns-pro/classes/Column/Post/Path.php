@@ -16,7 +16,7 @@ class Path extends AC\Column\Post\Path
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Slug( $this );
+		return new Editing\Service\Post\Slug();
 	}
 
 }

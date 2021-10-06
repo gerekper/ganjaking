@@ -1,5 +1,9 @@
 *** Product Addons Changelog ***
 
+2021-09-21 - version 4.2.0
+* Fix - Fix page going off center after submitting an invalid form in some themes.
+* Tweak - WC 5.8 compatibility.
+
 2021-06-15 - version 4.1.0
 * Fix - Reduce the number of events that trigger an add-on price calculation in the product page.
 * Tweak - WC 5.5 compatibility.

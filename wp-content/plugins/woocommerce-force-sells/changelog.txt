@@ -1,0 +1,109 @@
+*** WooCommerce Force Sells ***
+
+2021-08-03 - version 1.1.29
+* Fix - Correctly escape strings in admin settings screens.
+* Fix - Fix qty syncing for forced variable products.
+* Fix - Update build scripts and tooling.
+* Tweak - WC 5.5 compatibility.
+* Tweak - WP 5.8 compatibility.
+
+2021-02-10 - version 1.1.28
+* Tweak - WC 5.0 compatibility.
+* Tweak - WP 5.6 compatibility.
+
+2020-10-12 - version 1.1.27
+* Fix - Prevent products from being forced again when going through the manual payment page.
+
+2020-10-06 - version 1.1.26
+* Fix - Prevent variable products (not variations) from being linked as a force sell product.
+* Fix - Update deprecated hook woocommerce_before_cart_item_quantity_zero.
+* Tweak - WC 4.5 compatibility.
+
+2020-08-19 - version 1.1.25
+* Tweak - WordPress 5.5 compatibility.
+
+2020-06-10 - version 1.1.24
+* Tweak - WC 4.2 compatibility.
+
+2020-04-29 - version 1.1.23
+* Tweak - WC 4.1 compatibility.
+
+2020-03-04 - version 1.1.22
+* Tweak - Remove legacy code.
+* Tweak - WC 4.0 compatibility.
+
+2020-01-13 - version 1.1.21
+* Tweak - WC 3.9 compatibility.
+
+2019-08-08 - version 1.1.20
+* Tweak - WC 3.7 compatibility.
+
+2019-06-05 - version 1.1.19
+* Fix - Subscription products on synced force sell was added twice to cart when initial order failed.
+
+2019-04-16 - version 1.1.18
+* Tweak - WC 3.6 compatibility.
+
+2018-09-25 - version 1.1.17
+* Update - WC 3.5 compatibility.
+
+2018-05-21 - version 1.1.16
+* Fix    - Use product title instead of relying on post for compatibility.
+* Update - WC 3.4 compatibility.
+
+2018-01-16 - version 1.1.15
+* Fix - Deleted product causes fatal error.
+
+2017-12-14 - version 1.1.14
+* Update - WC tested up to version.
+
+2017-05-08 - version 1.1.13
+* Fix - Additional compatibilities for WC 3.0.
+
+2017-04-12 - version 1.1.12
+* Fix - Synced force sells field not working with WC 3.0.
+
+2017-01-11 - version 1.1.11
+* Fix - When forced item is out of stock, main product was allowed to be added.
+* New - Introduce "wc_force_sell_disallow_no_stock" filter to allow main product to be added even when forced item is out of stock.
+
+2016-10-05 - version 1.1.10
+* Fix - PHP Notice caused by invalid value passed to foreach()
+* Tweak - Make sure get_force_sell_ids always returns array
+* Fix - Prevent duplication of the same forced product in single product page.
+
+2015-01-13 - version 1.1.9
+* Hook the remove and restore actions later so plugins like Bookings can clean up their data first, before a force sell is removed.
+
+2015-12-03 = version 1.1.8
+* Fix - Make sure to delete orphan force sells if the product gets deleted (like inactive bookings).
+
+2015-02-02 - version 1.1.7
+* Compatibility with 2.3 cart undo feature.
+* Removed $woocommerce globals.
+
+2015-01-29 - version 1.1.6
+* Fix - Backwards compatibility
+
+2015-01-28 - version 1.1.5
+* New - WC 2.3 compatibility (chosen -> select2)
+
+2014-11-27 - version 1.1.4
+* Update class structure / loading
+* Don't use global variables
+
+2013-10-24 - version 1.1.3
+* Cleaned pass by reference notices
+* Added filters to manipulate products and quantities being added
+
+2013-01-21 - version 1.1.2
+* WC 2.0 compat
+
+2012-12-07 - version 1.1.1
+* Fixed bug where products forcing each other ended up in a loop
+
+2012-12-04 - version 1.1
+* New updater
+
+2012-05-10 - version 1.0
+* First release

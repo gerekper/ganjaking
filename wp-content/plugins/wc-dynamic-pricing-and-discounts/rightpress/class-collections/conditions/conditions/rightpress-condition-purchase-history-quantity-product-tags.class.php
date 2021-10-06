@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Purchase_History_Quantity_Product_Tags exten
     public function get_label()
     {
 
-        return __('Quantity purchased - Tags', 'rightpress');
+        return esc_html__('Quantity purchased - Tags', 'rightpress');
     }
 
 

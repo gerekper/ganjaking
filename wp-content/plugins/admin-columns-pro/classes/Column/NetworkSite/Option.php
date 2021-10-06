@@ -26,7 +26,10 @@ abstract class Option extends AC\Column
 	}
 
 	public function editing() {
-		return new Editing\Model\Site\Option( $this );
+		return new Editing\Service\Basic(
+			new Editing\View\Text(),
+			new Editing\Storage\Site\Option( $this->get_option_name() )
+		);
 	}
 
 }

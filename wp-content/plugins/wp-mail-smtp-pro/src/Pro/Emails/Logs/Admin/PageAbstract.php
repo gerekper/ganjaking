@@ -53,29 +53,19 @@ abstract class PageAbstract extends \WPMailSMTP\Admin\PageAbstract {
 	 * @since 1.5.0
 	 */
 	public function display_logging_disabled() {
-		?>
 
+		?>
 		<div class="wp-mail-smtp-logs-note">
-			<h2><?php esc_html_e( 'Email Logging is Not Enabled', 'wp-mail-smtp-pro' ); ?></h2>
+			<h2><?php esc_html_e( 'Email Log is Not Enabled', 'wp-mail-smtp-pro' ); ?></h2>
 			<p>
 				<?php
-				printf(
-					wp_kses( /* translators: %s - settings page URL to configure Email Log. */
-						__( 'Email Logging can be turned on in the WP Mail SMTP plugin settings, under the <a href="%s">Email Log tab</a>. ', 'wp-mail-smtp-pro' ),
-						array(
-							'a' => array(
-								'href' => true,
-							),
-						)
-					),
-					esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG . '&tab=logs' ) )
-				);
+				esc_html_e( 'Emails sent when logging is disabled are not stored in the database and will not display when enabled. ', 'wp-mail-smtp-pro' );
 				?>
-				<br>
-				<?php esc_html_e( 'Emails sent when logging is disabled are not stored in the database and will not display when enabled.', 'wp-mail-smtp-pro' ); ?>
 			</p>
+			<a href="<?php echo esc_url( wp_mail_smtp()->get_admin()->get_admin_page_url( Area::SLUG . '&tab=logs' ) ); ?>" class="wp-mail-smtp-btn wp-mail-smtp-btn-orange wp-mail-smtp-btn-md">
+				<?php esc_html_e( 'Enable Email Log', 'wp-mail-smtp-pro' ); ?>
+			</a>
 		</div>
-
 		<?php
 	}
 

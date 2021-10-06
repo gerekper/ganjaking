@@ -194,6 +194,10 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 				$operator     = GF_Query_Condition::LIKE;
 				$filter_value = $this->get_sql_value( $filter['operator'], $filter_value );
 				break;
+			case 'DOES_NOT_CONTAIN':
+				$operator     = GF_Query_Condition::NLIKE;
+				$filter_value = $this->get_sql_value( $filter['operator'], $filter_value );
+				break;
 			case 'STARTS_WITH':
 				$operator     = GF_Query_Condition::LIKE;
 				$filter_value = $this->get_sql_value( $filter['operator'], $filter_value );
@@ -549,6 +553,14 @@ class GPPA_Object_Type_GF_Entry extends GPPA_Object_Type {
 	public function replace_gf_merge_tags_for_entry( $template_value, $field, $template, $populate, $object, $object_type ) {
 
 		if ( $object_type->id !== $this->id ) {
+			return $template_value;
+		}
+
+		/**
+		 * Check for existence of merge tags prior to trying to parse as looking up the form and replace_variables()
+		 * itself can be expensive when there are a lot of entries.
+		 */
+		if ( ! preg_match( gp_populate_anything()->live_merge_tags->merge_tag_regex, $template_value ) ) {
 			return $template_value;
 		}
 

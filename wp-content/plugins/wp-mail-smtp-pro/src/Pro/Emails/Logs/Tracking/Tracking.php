@@ -52,11 +52,6 @@ class Tracking {
 	public function __construct( $is_enabled = false ) {
 
 		$this->is_enabled = $is_enabled;
-
-		if ( $this->is_enabled ) {
-			// Initialize DB migration.
-			new Migration();
-		}
 	}
 
 	/**

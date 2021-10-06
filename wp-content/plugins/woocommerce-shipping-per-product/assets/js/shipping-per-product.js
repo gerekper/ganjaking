@@ -96,11 +96,11 @@ jQuery(function($) {
 			var postid = $(this).data('postid');
 			var code = '<tr>\
 				<td class="sort">&nbsp;<input type="hidden" value="" name="per_product_order[' + postid + '][new][]" /></td>\
-				<td class="country"><input type="text" value="" placeholder="*" name="per_product_country[' + postid + '][new][]" /></td>\
-				<td class="state"><input type="text" value="" placeholder="*" name="per_product_state[' + postid + '][new][]" /></td>\
+				<td class="country"><input type="text" value="" maxlength="2" placeholder="*" name="per_product_country[' + postid + '][new][]" /></td>\
+				<td class="state"><input type="text" value="" maxlength="2" placeholder="*" name="per_product_state[' + postid + '][new][]" /></td>\
 				<td class="postcode"><input type="text" value="" placeholder="*" name="per_product_postcode[' + postid + '][new][]" /></td>\
-				<td class="cost"><input type="text" value="0.00" placeholder="0.00" name="per_product_cost[' + postid + '][new][]" /></td>\
-				<td class="item_cost"><input type="text" value="0.00" placeholder="0.00" name="per_product_item_cost[' + postid + '][new][]" /></td>\
+				<td class="cost"><input type="text" class="wc_input_price input-text regular-input" value="0.00" placeholder="0.00" name="per_product_cost[' + postid + '][new][]" /></td>\
+				<td class="item_cost"><input type="text" class="wc_input_price input-text regular-input" value="0.00" placeholder="0.00" name="per_product_item_cost[' + postid + '][new][]" /></td>\
 			</tr>';
 
 			if ( $tbody.find('tr.current').length ) {
@@ -111,25 +111,70 @@ jQuery(function($) {
 			recalculate_orders();
 			return false;
 		} )
-		.on( 'click', '.per_product_shipping_rules .export', function() {
-			var postid = $(this).data('postid');
-			var csv_data = "data:application/csv;charset=utf-8," + wc_shipping_per_product_params.i18n_product_id + "," + wc_shipping_per_product_params.i18n_country_code + "," + wc_shipping_per_product_params.i18n_state + "," + wc_shipping_per_product_params.i18n_postcode + "," + wc_shipping_per_product_params.i18n_cost + "," + wc_shipping_per_product_params.i18n_item_cost + "\n";
+		.on( 'click', '.per_product_shipping_rules .export', function( e ) {
+			e.preventDefault();
 
-			$(this).closest('.per_product_shipping_rules').find('tbody tr').each(function() {
-				var row = postid + ',';
-				$(this).find('input:not([type=hidden])').each(function() {
-					var val = $(this).val();
-					if ( ! val )
-						val = $(this).attr('placeholder');
-					row = row + val + ',';
-				});
-				row = row.substring( 0, row.length - 1 );
-				csv_data = csv_data + row + "\n";
-			});
+			var export_btn = $( this ),
+				post_id = $( this ).data( 'postid' );
 
-			$(this).attr( 'href', encodeURI( csv_data ) );
+			// Disable the export button while the CSV download is generated
+			export_btn.attr( 'disabled', true );
 
-			return true;
+			$.ajax( {
+				url: ajaxurl,
+				method: 'post',
+				data: {
+					action: 'wc_shipping_per_product_export_rules',
+					product_id: post_id,
+				},
+				success: function( response ) {
+					if ( response.success ) {
+
+						// Set the CSV header row
+						var csv_string = wc_shipping_per_product_params.i18n_product_id + "," +
+						                 wc_shipping_per_product_params.i18n_country_code + "," +
+						                 wc_shipping_per_product_params.i18n_state + "," +
+						                 wc_shipping_per_product_params.i18n_postcode + "," +
+						                 wc_shipping_per_product_params.i18n_cost + "," +
+						                 wc_shipping_per_product_params.i18n_item_cost + "\n";
+
+						// Loop through each returned row and add to our CSV
+						$.each( response.rules, function( index, rule ) {
+							var columns, row;
+
+							columns = [
+								rule.product_id,
+								rule.rule_country || '*',
+								rule.rule_state || '*',
+								rule.rule_postcode || '*',
+								rule.rule_cost || '0.00',
+								rule.rule_item_cost || '0.00',
+							];
+
+							row = columns.join();
+
+							csv_string = csv_string + row + "\n";
+						} );
+
+						// Create a download link
+						var download_link = document.createElement( 'a' );
+
+						// Set the download link attributes
+						download_link.href = URL.createObjectURL( new Blob( [csv_string] ) );
+						download_link.download = 'per-product-rates-' + post_id + '.csv';
+
+						// Download the CSV
+						document.body.appendChild( download_link );
+						download_link.click();
+						document.body.removeChild( download_link );
+
+						// Enable the export button again
+						export_btn.attr( 'disabled', false );
+
+						return true;
+					}
+				}
+			} );
 		} );
 
 	$('body').trigger( 'init_shipping_per_product' );

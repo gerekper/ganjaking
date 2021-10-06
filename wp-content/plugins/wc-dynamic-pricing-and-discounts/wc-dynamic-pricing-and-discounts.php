@@ -10,13 +10,13 @@
  * Text Domain: rp_wcdpd
  * Domain Path: /languages
  *
- * Version: 2.3.8
+ * Version: 2.4
  *
  * Requires at least: 4.0
- * Tested up to: 5.4
+ * Tested up to: 5.7
  *
  * WC requires at least: 3.0
- * WC tested up to: 4.0
+ * WC tested up to: 5.4
  *
  * @package WooCommerce Dynamic Pricing & Discounts
  * @category Core
@@ -38,7 +38,7 @@ define('RP_WCDPD_ADMIN_CAPABILITY', 'manage_rp_wcdpd');
 define('RP_WCDPD_SUPPORT_PHP', '5.3');
 define('RP_WCDPD_SUPPORT_WP', '4.0');
 define('RP_WCDPD_SUPPORT_WC', '3.0');
-define('RP_WCDPD_VERSION', '2.3.8');
+define('RP_WCDPD_VERSION', '2.4');
 
 // Load main plugin class
 require_once 'rp_wcdpd.class.php';

@@ -16,7 +16,6 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	/**
 	 * Constructor for the gateway.
 	 *
-	 * @access public
 	 * @return void
 	 */
 	/**
@@ -27,9 +26,9 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	public function __construct() {
 		global $woocommerce, $checkfor254;
 		$this->id = 'redsysbank';
-		$logo_url = $this->get_option( 'logo' );
+		$logo_url = WCRed()->get_redsys_option( 'logo', 'redsysbank' );
 		if ( ! empty( $logo_url ) ) {
-			$logo_url   = $this->get_option( 'logo' );
+			$logo_url   = WCRed()->get_redsys_option( 'logo', 'redsysbank' );
 			$this->icon = apply_filters( 'woocommerce_bank_redsys_icon', $logo_url );
 		} else {
 			$this->icon = apply_filters( 'woocommerce_bank_redsys_icon', REDSYS_PLUGIN_URL_P . 'assets/images/redsys.png' );
@@ -38,34 +37,37 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		$this->liveurl              = 'https://sis.redsys.es/sis/realizarPago';
 		$this->method_title         = __( 'Redsys Direct Bank Transfer (by José Conti)', 'woocommerce-redsys' );
 		$this->method_description   = __( 'Redys bank transfer works by showing in Redsys the bank account where to make the transfer. Some banks offer to make it in the moment, so the order is marked as paid in WooCommerce.', 'woocommerce-redsys' );
-		$this->not_use_https        = $this->get_option( 'not_use_https' );
+		$this->not_use_https        = WCRed()->get_redsys_option( 'not_use_https', 'redsysbank' );
 		$this->notify_url           = add_query_arg( 'wc-api', 'WC_Gateway_bankredsys', home_url( '/' ) );
 		$this->notify_url_not_https = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_redsysbank', home_url( '/' ) ) );
 		// Load the settings.
 		$this->init_form_fields();
 		$this->init_settings();
 		// Define user set variables.
-		$this->title           = $this->get_option( 'title' );
-		$this->description     = $this->get_option( 'description' );
-		$this->logo            = $this->get_option( 'logo' );
-		$this->orderdo         = $this->get_option( 'orderdo' );
-		$this->customer        = $this->get_option( 'customer' );
-		$this->commercename    = $this->get_option( 'commercename' );
-		$this->terminal        = $this->get_option( 'terminal' );
-		$this->secret          = $this->get_option( 'secret' );
-		$this->secretsha256    = $this->get_option( 'secretsha256' );
-		$this->debug           = $this->get_option( 'debug' );
-		$this->hashtype        = $this->get_option( 'hashtype' );
-		$this->redsyslanguage  = $this->get_option( 'redsyslanguage' );
-		$this->codigoswift     = $this->get_option( 'codigoswift' );
-		$this->iban            = $this->get_option( 'iban' );
-		$this->beneficiario    = $this->get_option( 'beneficiario' );
-		$this->buttoncheckout  = $this->get_option( 'buttoncheckout' );
-		$this->butonbgcolor    = $this->get_option( 'butonbgcolor' );
-		$this->butontextcolor  = $this->get_option( 'butontextcolor' );
-		$this->descripredsys   = $this->get_option( 'descripredsys' );
-		$this->testshowgateway = $this->get_option( 'testshowgateway' );
-		$this->log             = new WC_Logger();
+		$this->title            = WCRed()->get_redsys_option( 'title', 'redsysbank' );
+		$this->multisitesttings = WCRed()->get_redsys_option( 'multisitesttings', 'redsysbank' );
+		$this->ownsetting       = WCRed()->get_redsys_option( 'ownsetting', 'redsysbank' );
+		$this->hideownsetting   = WCRed()->get_redsys_option( 'hideownsetting', 'redsysbank' );
+		$this->description      = WCRed()->get_redsys_option( 'description', 'redsysbank' );
+		$this->logo             = WCRed()->get_redsys_option( 'logo', 'redsysbank' );
+		$this->orderdo          = WCRed()->get_redsys_option( 'orderdo', 'redsysbank' );
+		$this->customer         = WCRed()->get_redsys_option( 'customer', 'redsysbank' );
+		$this->commercename     = WCRed()->get_redsys_option( 'commercename', 'redsysbank' );
+		$this->terminal         = WCRed()->get_redsys_option( 'terminal', 'redsysbank' );
+		$this->secret           = WCRed()->get_redsys_option( 'secret', 'redsysbank' );
+		$this->secretsha256     = WCRed()->get_redsys_option( 'secretsha256', 'redsysbank' );
+		$this->debug            = WCRed()->get_redsys_option( 'debug', 'redsysbank' );
+		$this->hashtype         = WCRed()->get_redsys_option( 'hashtype', 'redsysbank' );
+		$this->redsyslanguage   = WCRed()->get_redsys_option( 'redsyslanguage', 'redsysbank' );
+		$this->codigoswift      = WCRed()->get_redsys_option( 'codigoswift', 'redsysbank' );
+		$this->iban             = WCRed()->get_redsys_option( 'iban', 'redsysbank' );
+		$this->beneficiario     = WCRed()->get_redsys_option( 'beneficiario', 'redsysbank' );
+		$this->buttoncheckout   = WCRed()->get_redsys_option( 'buttoncheckout', 'redsysbank' );
+		$this->butonbgcolor     = WCRed()->get_redsys_option( 'butonbgcolor', 'redsysbank' );
+		$this->butontextcolor   = WCRed()->get_redsys_option( 'butontextcolor', 'redsysbank' );
+		$this->descripredsys    = WCRed()->get_redsys_option( 'descripredsys', 'redsysbank' );
+		$this->testshowgateway  = WCRed()->get_redsys_option( 'testshowgateway', 'redsysbank' );
+		$this->log              = new WC_Logger();
 		// Actions.
 		add_action( 'valid_redsysbank_standard_ipn_request', array( $this, 'successful_request' ) );
 		add_action( 'woocommerce_receipt_redsysbank', array( $this, 'receipt_page' ) );
@@ -158,6 +160,27 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable Redsys Bank Transfer', 'woocommerce-redsys' ),
 				'default' => 'no',
+			),
+			'multisitesttings'   => array(
+				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Use this setting arround all Network', 'woocommerce-redsys' ),
+				'description' => '',
+				'default'     => 'no',
+			),
+			'hideownsetting'   => array(
+				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
+				'description' => '',
+				'default'     => 'no',
+			),
+			'ownsetting'         => array(
+				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
+				'description' => '',
+				'default'     => 'no',
 			),
 			'title'          => array(
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
@@ -286,6 +309,23 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		
 		foreach( $redsyslanguages as $redsyslanguage => $valor ) {
 			$this->form_fields['redsyslanguage']['options'][$redsyslanguage] = $valor;
+		}
+		if ( ! is_multisite() ) {
+			unset( $this->form_fields['multisitesttings'] );
+			unset( $this->form_fields['ownsetting'] );
+			unset( $this->form_fields['hideownsetting'] );
+		} else {
+			if ( is_main_site() ) {
+				unset( $this->form_fields['ownsetting'] );
+			} else {
+				unset( $this->form_fields['multisitesttings'] );
+				unset( $this->form_fields['hideownsetting'] );
+				$globalsettings = WCRed()->get_redsys_option( 'multisitesttings', $this->id );
+				$hide           = WCRed()->get_redsys_option( 'hideownsetting', $this->id );
+				if ( 'yes' === $hide || 'yes' !== $globalsettings ) {
+					unset( $this->form_fields['ownsetting'] );
+				}
+			}
 		}
 	}
 	/**

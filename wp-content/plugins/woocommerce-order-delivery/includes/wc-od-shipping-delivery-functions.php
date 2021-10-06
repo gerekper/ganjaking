@@ -558,7 +558,7 @@ function wc_od_get_last_shipping_date( $args = array(), $context = '' ) {
 function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 	$defaults = array(
 		'shipping_date'      => '', // Accept strings or timestamps.
-		'shipping_method'    => false,
+		'shipping_method'    => '',
 		'delivery_days'      => WC_OD()->settings()->get_setting( 'delivery_days' ),
 		'delivery_range'     => array(), // Backward compatibility.
 		'end_date'           => strtotime( ( WC_OD()->settings()->get_setting( 'max_delivery_days' ) + 1 ) . ' days', wc_od_get_local_date() ), // The maximum date (Non-inclusive) to look for a valid date.
@@ -657,7 +657,7 @@ function wc_od_get_first_delivery_date( $args = array(), $context = '' ) {
 			// Decrease the minimum delivery days.
 			$min_delivery_days--;
 
-			if ( 0 > $min_delivery_days && $delivery_date->is_valid() ) {
+			if ( 0 > $min_delivery_days && $delivery_date->is_valid( array( 'shipping_method' => $args['shipping_method'] ) ) ) {
 				$first_delivery_date = $timestamp;
 			}
 		}

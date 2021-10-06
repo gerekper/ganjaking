@@ -328,7 +328,7 @@ class WC_GFPA_Cart {
 					$value   = $this->get_lead_field_value( $lead, $field );
 					$arr_var = ( is_array( $value ) ) ? implode( '', $value ) : '-';
 
-					if ( $value === '0' || ( !empty( $value ) && !empty( $arr_var ) ) ) {
+					if ( $value === '0' || ( !empty( $value ) && !empty( $arr_var ) && $value != '[]' ) ) {
 						$display_value     = GFCommon::get_lead_field_display( $field, $value, isset( $lead["currency"] ) ? $lead["currency"] : false, false );
 						$price_adjustement = false;
 						$display_value     = apply_filters( "gform_entry_field_value", $display_value, $field, $lead, $form_meta );
@@ -552,7 +552,7 @@ class WC_GFPA_Cart {
 						$value   = $this->get_lead_field_value( $lead, $field );
 						$arr_var = ( is_array( $value ) ) ? implode( '', $value ) : '-';
 
-						if ( $value === '0' || ( !empty( $value ) && !empty( $arr_var ) ) ) {
+						if ( $value === '0' || ( !empty( $value ) && !empty( $arr_var ) && $value != '[]' ) ) {
 							try {
 								$strip_html = true;
 								if ( $field['type'] == 'fileupload' && isset( $lead[ $field['id'] ] ) ) {
@@ -625,7 +625,7 @@ class WC_GFPA_Cart {
 									//Set the prefix to hidden if the hidden class is present.
 									$prefix        = strpos( $field->cssClass, 'wc-gforms-hide-from-email' ) !== false ? '_' : '';
 									$display_title = GFCommon::get_label( $field );
-									$display_value = str_replace( $display_title . ',', '', $display_text );;
+									$display_value = str_replace( $display_title . ',', '', $display_value );;
 								}
 
 								if ( empty( $prefix ) && empty( $display_title ) ) {

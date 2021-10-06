@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\API\JSON\API;
 use MailPoet\AutomaticEmails\AutomaticEmails;
 use MailPoet\Cron\CronTrigger;
+use MailPoet\InvalidStateException;
 use MailPoet\PostEditorBlocks\PostEditorBlock;
 use MailPoet\Router;
 use MailPoet\Settings\SettingsController;
@@ -76,6 +77,9 @@ class Initializer {
   /** @var Localizer */
   private $localizer;
 
+  /** @var AssetsLoader */
+  private $assetsLoader;
+
   const INITIALIZED = 'MAILPOET_INITIALIZED';
 
   public function __construct(
@@ -95,25 +99,27 @@ class Initializer {
     WCTransactionalEmails $wcTransactionalEmails,
     PostEditorBlock $postEditorBlock,
     WooCommerceHelper $wcHelper,
-    Localizer $localizer
+    Localizer $localizer,
+    AssetsLoader $assetsLoader
   ) {
-      $this->rendererFactory = $rendererFactory;
-      $this->accessControl = $accessControl;
-      $this->api = $api;
-      $this->activator = $activator;
-      $this->settings = $settings;
-      $this->router = $router;
-      $this->hooks = $hooks;
-      $this->changelog = $changelog;
-      $this->menu = $menu;
-      $this->cronTrigger = $cronTrigger;
-      $this->permanentNotices = $permanentNotices;
-      $this->shortcodes = $shortcodes;
-      $this->databaseInitializer = $databaseInitializer;
-      $this->wcTransactionalEmails = $wcTransactionalEmails;
-      $this->wcHelper = $wcHelper;
-      $this->postEditorBlock = $postEditorBlock;
-      $this->localizer = $localizer;
+    $this->rendererFactory = $rendererFactory;
+    $this->accessControl = $accessControl;
+    $this->api = $api;
+    $this->activator = $activator;
+    $this->settings = $settings;
+    $this->router = $router;
+    $this->hooks = $hooks;
+    $this->changelog = $changelog;
+    $this->menu = $menu;
+    $this->cronTrigger = $cronTrigger;
+    $this->permanentNotices = $permanentNotices;
+    $this->shortcodes = $shortcodes;
+    $this->databaseInitializer = $databaseInitializer;
+    $this->wcTransactionalEmails = $wcTransactionalEmails;
+    $this->wcHelper = $wcHelper;
+    $this->postEditorBlock = $postEditorBlock;
+    $this->localizer = $localizer;
+    $this->assetsLoader = $assetsLoader;
   }
 
   public function init() {
@@ -181,7 +187,13 @@ class Initializer {
   }
 
   public function runActivator() {
-    return $this->activator->activate();
+    try {
+      $this->activator->activate();
+    } catch (InvalidStateException $e) {
+      return $this->handleRunningMigration($e);
+    } catch (\Exception $e) {
+      return $this->handleFailedInitialization($e);
+    }
   }
 
   public function preInitialize() {
@@ -190,6 +202,7 @@ class Initializer {
       $this->setupWidget();
       $this->hooks->init();
       $this->setupWoocommerceTransactionalEmails();
+      $this->assetsLoader->loadStyles();
     } catch (\Exception $e) {
       $this->handleFailedInitialization($e);
     }
@@ -219,11 +232,12 @@ class Initializer {
       $this->setupPages();
 
       $this->setupPermanentNotices();
-      $this->setupDeactivationSurvey();
       $this->setupAutomaticEmails();
       $this->postEditorBlock->init();
 
       WPFunctions::get()->doAction('mailpoet_initialized', MAILPOET_VERSION);
+    } catch (InvalidStateException $e) {
+      return $this->handleRunningMigration($e);
     } catch (\Exception $e) {
       return $this->handleFailedInitialization($e);
     }
@@ -240,7 +254,7 @@ class Initializer {
 
     // if current db version and plugin version differ
     if (version_compare($currentDbVersion, Env::$version) !== 0) {
-      $this->runActivator();
+      $this->activator->activate();
     }
   }
 
@@ -343,9 +357,11 @@ class Initializer {
     return WPNotice::displayError($exception);
   }
 
-  public function setupDeactivationSurvey() {
-    $survey = new DeactivationSurvey($this->renderer);
-    $survey->init();
+  private function handleRunningMigration(InvalidStateException $exception) {
+    if (function_exists('wp_get_current_user')) {
+      Menu::addErrorPage($this->accessControl);
+    }
+    return WPNotice::displayWarning($exception->getMessage());
   }
 
   public function setupAutomaticEmails() {
@@ -364,11 +380,9 @@ class Initializer {
   private function setupWoocommerceTransactionalEmails() {
     $wcEnabled = $this->wcHelper->isWooCommerceActive();
     $optInEnabled = $this->settings->get('woocommerce.use_mailpoet_editor', false);
-    if ($wcEnabled) {
-      $this->wcTransactionalEmails->enableEmailSettingsSyncToWooCommerce();
-      if ($optInEnabled) {
-        $this->wcTransactionalEmails->useTemplateForWoocommerceEmails();
-      }
+    if ($wcEnabled && $optInEnabled) {
+      $this->wcTransactionalEmails->overrideStylesForWooEmails();
+      $this->wcTransactionalEmails->useTemplateForWoocommerceEmails();
     }
   }
 }

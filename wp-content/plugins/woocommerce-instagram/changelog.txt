@@ -1,5 +1,26 @@
 *** WooCommerce Instagram Changelog ***
 
+2021-09-28 - version 3.6.2
+* Dev - Updated Instagram Graph API version to v12.0.
+* Tweak - Tested compatibility with WC 5.8.
+
+2021-09-01 - version 3.6.1
+* Tweak - Added plugin info to the WooCommerce System Status Report.
+* Tweak - Tested compatibility with WC 5.7.
+
+2021-08-24 - version 3.6.0
+* Feature - Define the "Google Product Category" at the "Product Category" level.
+* Tweak - Improved performance of the Google Product Category field.
+* Tweak - Enhanced responsive styles for the Google Product Category field.
+* Tweak - Tested compatibility with WC 5.6.
+* Fix - Exclude out-of-stock product variations when the catalog only includes in-stock products.
+
+2021-08-03 - version 3.5.1
+* Tweak - Use the product name instead of the title in the content displayed on the product page.
+* Tweak - Tested compatibility up to WC 5.5.
+* Tweak - Tested compatibility up to WP 5.8.
+* Dev - Updated template `single-product/instagram.php`.
+
 2021-06-17 - version 3.5.0
 * Feature - Define a product catalog only with specific products.
 * Tweak - Added a "Filter by" field to the product catalog form.

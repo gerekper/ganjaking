@@ -24,7 +24,12 @@ class SendGrid {
 
   private $wp;
 
-  public function __construct($apiKey, $sender, $replyTo, SendGridMapper $errorMapper) {
+  public function __construct(
+    $apiKey,
+    $sender,
+    $replyTo,
+    SendGridMapper $errorMapper
+  ) {
     $this->apiKey = $apiKey;
     $this->sender = $sender;
     $this->replyTo = $replyTo;

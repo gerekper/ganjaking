@@ -53,5 +53,10 @@ do_action( 'wc_quick_view_before_single_product' );
 </div>
 
 <?php
+/**
+ * Hook: wc_quick_view_after_single_product.
+ */
+do_action( 'wc_quick_view_after_single_product' );
+
 remove_filter( 'woocommerce_add_to_cart_form_action', '__return_empty_string' );
 ?>

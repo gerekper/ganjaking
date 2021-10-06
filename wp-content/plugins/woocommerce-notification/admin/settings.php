@@ -30,8 +30,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 		}
 
 		ob_start();
-
-		$keyword = filter_input( INPUT_GET, 'keyword', FILTER_SANITIZE_STRING );
+		$keyword = isset($_GET['keyword'])? sanitize_text_field($_GET['keyword']):'';
 
 		if ( empty( $keyword ) ) {
 			die();
@@ -68,7 +67,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 
 		ob_start();
 
-		$keyword = filter_input( INPUT_GET, 'keyword', FILTER_SANITIZE_STRING );
+		$keyword = isset($_GET['keyword'])? sanitize_text_field($_GET['keyword']):'';
 
 		if ( empty( $keyword ) ) {
 			die();
@@ -139,7 +138,7 @@ class VI_WNOTIFICATION_Admin_Settings {
 
 		ob_start();
 
-		$keyword = filter_input( INPUT_GET, 'keyword', FILTER_SANITIZE_STRING );
+		$keyword = isset($_GET['keyword'])? sanitize_text_field($_GET['keyword']):'';
 
 		if ( empty( $keyword ) ) {
 			die();
@@ -388,9 +387,11 @@ class VI_WNOTIFICATION_Admin_Settings {
                 <!--Products-->
                 <div class="vi-ui bottom attached tab segment" data-tab="products">
                     <!-- Tab Content !-->
+                    <?php
+                    $product_visibility = self::get_field('product_visibility',['visible','catalog','search']);
+                    ?>
                     <table class="optiontable form-table">
                         <tbody>
-
                         <tr valign="top">
                             <th scope="row">
                                 <label><?php esc_html_e( 'Show Products', 'woocommerce-notification' ) ?></label>
@@ -415,6 +416,21 @@ class VI_WNOTIFICATION_Admin_Settings {
                         </tr>
                         <tr valign="top">
                             <th scope="row">
+                                <label for="<?php echo self::set_field( 'enable_current_category' ) ?>"><?php esc_html_e( 'Current category', 'woocommerce-notification' ) ?></label>
+                            </th>
+                            <td>
+                                <div class="vi-ui toggle checkbox">
+                                    <input id="<?php echo self::set_field( 'enable_current_category' ) ?>"
+                                           type="checkbox" <?php checked( self::get_field( 'enable_current_category' ), 1 ) ?>
+                                           tabindex="0" class="vi_hidden" value="1"
+                                           name="<?php echo self::set_field( 'enable_current_category' ) ?>"/>
+                                    <label></label>
+                                </div>
+                                <p class="description"><?php esc_html_e( 'Notifications which are displayed on a category page are only related to the products of that category', 'woocommerce-notification' ) ?></p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">
                                 <label for="<?php echo self::set_field( 'enable_out_of_stock_product' ) ?>"><?php esc_html_e( 'Out-of-stock products', 'woocommerce-notification' ) ?></label>
                             </th>
                             <td>
@@ -426,6 +442,24 @@ class VI_WNOTIFICATION_Admin_Settings {
                                     <label></label>
                                 </div>
                                 <p class="description"><?php esc_html_e( 'Turn on to show out-of-stock products on notifications.', 'woocommerce-notification' ) ?></p>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row">
+                                <label for="<?php echo self::set_field( 'product_visibility' ) ?>"><?php esc_html_e( 'Product visibility', 'woocommerce-notification' ) ?></label>
+                            </th>
+                            <td>
+                                <select name="<?php echo self::set_field( 'product_visibility',true ) ?>"
+                                        class="vi-ui fluid dropdown" multiple>
+                                    <option <?php selected( in_array('visible',$product_visibility), true ) ?>
+                                            value="visible"><?php esc_attr_e( 'Shop and search results', 'woocommerce-notification' ) ?></option>
+                                    <option <?php selected( in_array('catalog',$product_visibility), true ) ?>
+                                            value="catalog"><?php esc_attr_e( 'Shop only', 'woocommerce-notification' ) ?></option>
+                                    <option <?php selected( in_array('search',$product_visibility), true ) ?>
+                                            value="search"><?php esc_attr_e( 'Search results only', 'woocommerce-notification' ) ?></option>
+                                    <option <?php selected( in_array('hidden',$product_visibility), true ) ?>
+                                            value="hidden"><?php esc_attr_e( 'Hidden', 'woocommerce-notification' ) ?></option>
+                                </select>
                             </td>
                         </tr>
                         <!--	Select Categories-->

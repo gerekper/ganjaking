@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Cart_Subtotal extends RightPress_Condition_C
     public function get_label()
     {
 
-        return __('Cart subtotal', 'rightpress');
+        return esc_html__('Cart subtotal', 'rightpress');
     }
 
     /**

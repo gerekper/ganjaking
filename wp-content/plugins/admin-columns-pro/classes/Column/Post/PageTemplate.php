@@ -19,7 +19,7 @@ class PageTemplate extends AC\Column\Post\PageTemplate
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\PageTemplate( $this );
+		return new Editing\Service\Post\PageTemplate( $this->get_post_type() );
 	}
 
 	public function filtering() {

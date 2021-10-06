@@ -61,10 +61,4 @@ class PrimaryTaxonomy extends Editing\Model\Meta
 		);
 	}
 
-	public function register_settings() {
-		parent::register_settings();
-
-		$this->column->remove_setting( Editing\Settings\BulkEditing::NAME );
-	}
-
 }

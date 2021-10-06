@@ -31,7 +31,8 @@
         $variation = warranty_get_variation_string( $order, $item );
 
         if ( $item && $item['qty'] >= 1 ):
-            $max = warranty_get_quantity_remaining( $order_id, $item['product_id'], $idx );
+			$product	= $item->get_product();
+			$max 		= warranty_get_quantity_remaining( $order_id, $product->get_id(), $idx );
             ?>
             <div class="wfb-field-div wfb-field-div-select">
                 <label>

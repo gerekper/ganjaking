@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Shipping_Postcode extends RightPress_Conditi
     public function get_label()
     {
 
-        return __('Shipping postcode', 'rightpress');
+        return esc_html__('Shipping postcode', 'rightpress');
     }
 
     /**

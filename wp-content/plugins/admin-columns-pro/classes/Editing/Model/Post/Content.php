@@ -2,31 +2,28 @@
 
 namespace ACP\Editing\Model\Post;
 
+use AC\Column;
 use ACP\Editing;
-use ACP\Editing\Model;
-use ACP\Editing\Settings\BulkEditing;
+use ACP\Editing\Settings\EditableType;
+use ACP\Editing\View;
 
-class Content extends Model\Post {
+/**
+ * @deprecated 5.6
+ */
+class Content extends Editing\Service\Post\Content {
 
-	public function get_view_settings() {
-		/* @var Editing\Settings\Content $setting */
-		$setting = $this->column->get_setting( Editing\Settings\Content::NAME );
+	public function __construct( Column $column ) {
 
-		return [
-			self::VIEW_BULK_EDITABLE => false,
-			self::VIEW_TYPE          => $setting ? $setting->get_editable_type() : 'textarea',
-		];
-	}
+		/* @var EditableType\Content $setting */
+		$setting = $column->get_setting( EditableType\Content::NAME );
 
-	public function save( $id, $value ) {
-		return $this->update_post( $id, [ 'post_content' => $value ] );
-	}
+		$view = new View\TextArea();
 
-	public function register_settings() {
-		parent::register_settings();
+		if ( $setting && EditableType\Content::TYPE_WYSIWYG === $setting->get_editable_type() ) {
+			$view = new View\Wysiwyg();
+		}
 
-		$this->column->add_setting( new Editing\Settings\Content( $this->column ) );
-		$this->column->remove_setting( BulkEditing::NAME );
+		parent::__construct( $view );
 	}
 
 }

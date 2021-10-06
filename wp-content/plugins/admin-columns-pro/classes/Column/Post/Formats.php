@@ -19,7 +19,7 @@ class Formats extends AC\Column\Post\Formats
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\Formats( $this );
+		return new Editing\Service\Post\Formats();
 	}
 
 	public function filtering() {

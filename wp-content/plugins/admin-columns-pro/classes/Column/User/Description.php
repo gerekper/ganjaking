@@ -18,7 +18,10 @@ class Description extends AC\Column\User\Description
 	}
 
 	public function editing() {
-		return new Editing\Model\User\Description( $this );
+		return new Editing\Service\Basic(
+			( new Editing\View\TextArea() )->set_clear_button( true ),
+			new Editing\Storage\Meta( $this->get_meta_key(), new AC\MetaType( AC\MetaType::USER ) )
+		);
 	}
 
 	public function search() {

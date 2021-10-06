@@ -14,17 +14,16 @@ class GP_Price_Range extends GWPerk {
 	function field_settings_ui() {
 		?>
 
-		<li class="price_range_setting gwp_field_setting field_setting">
+		<li class="price_range_setting gwp_field_setting field_setting gp-field-setting">
 			<label style="clear:both;" class="section_label"><?php _e( 'Price Range', 'gravityperks' ); ?> <?php gform_tooltip( "{$this->slug}_price_range" ); ?></label>
-			<div style="width:90px; float:left;">
-				<input type="text" onkeyup="SetFieldProperty('priceRangeMin', gperk.cleanPriceRange(this.value));" size="10" id="price_range_min">
+			<div class="gp-group">
 				<label for="price_range_min"><?php _e( 'Min', 'gravityperks' ); ?></label>
+				<input type="text" onkeyup="SetFieldProperty('priceRangeMin', gpprCleanPriceRange(this.value));" size="10" id="price_range_min">
 			</div>
-			<div style="width:90px; float:left;">
-				<input type="text" onkeyup="SetFieldProperty('priceRangeMax', gperk.cleanPriceRange(this.value));" size="10" id="price_range_max">
+			<div class="gp-group">
 				<label for="price_range_max"><?php _e( 'Max', 'gravityperks' ); ?></label>
+				<input type="text" onkeyup="SetFieldProperty('priceRangeMax', gpprCleanPriceRange(this.value));" size="10" id="price_range_max">
 			</div>
-			<br class="clear" />
 		</li>
 
 		<?php
@@ -36,7 +35,7 @@ class GP_Price_Range extends GWPerk {
 
 		fieldSettings['price'] += ", .price_range_setting";
 
-		jQuery(document).bind('gwsFieldTabSelected', function(event) {
+		jQuery(document).bind( 'gform_load_field_settings', function(event) {
 
 			var currency = GetCurrentCurrency();
 			jQuery('#price_range_min').val(field.priceRangeMin ? currency.toMoney(field.priceRangeMin, true) : '');
@@ -54,7 +53,7 @@ class GP_Price_Range extends GWPerk {
 
 		});
 
-		gperk.cleanPriceRange = function(value) {
+		gpprCleanPriceRange = function(value) {
 
 			var currency = GetCurrentCurrency();
 			var price = currency.toMoney(value);
@@ -85,8 +84,22 @@ class GP_Price_Range extends GWPerk {
 		}
 
 		$price = GFCommon::to_number( $value );
-		$min   = $field->priceRangeMin;
-		$max   = $field->priceRangeMax;
+		/**
+		 * Filter the minimum price for a field
+		 *
+		 * @since 1.2.1
+		 *
+		 * @param integer $min The minimum price.
+		 */
+		$min = gf_apply_filters( array( 'gppr_price_range_min', $form['id'], $field->id ), $field->priceRangeMin );
+		/**
+		 * Filter the maximum price for a field
+		 *
+		 * @since 1.2.1
+		 *
+		 * @param integer $max The maximum price.
+		 */
+		$max = gf_apply_filters( array( 'gppr_price_range_max', $form['id'], $field->id ), $field->priceRangeMax );
 
 		if ( ( $min && $price < $min ) || ( $max && $price > $max ) ) {
 

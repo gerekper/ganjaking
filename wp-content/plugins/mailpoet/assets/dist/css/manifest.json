@@ -1,9 +1,8 @@
 {
-    "mailpoet-admin.css": "mailpoet-admin.5e97ff7b.css",
-    "mailpoet-editor.css": "mailpoet-editor.6f6bed0d.css",
-    "mailpoet-font.css": "mailpoet-font.08fac2ef.css",
-    "mailpoet-form-editor.css": "mailpoet-form-editor.239f4a8a.css",
-    "mailpoet-plugin.css": "mailpoet-plugin.92c52132.css",
-    "mailpoet-post-editor-block.css": "mailpoet-post-editor-block.b87557ef.css",
-    "mailpoet-public.css": "mailpoet-public.c040faed.css"
+    "mailpoet-admin.css": "mailpoet-admin.98d10b98.css",
+    "mailpoet-editor.css": "mailpoet-editor.2899836c.css",
+    "mailpoet-form-editor.css": "mailpoet-form-editor.2a459911.css",
+    "mailpoet-plugin.css": "mailpoet-plugin.e80aa113.css",
+    "mailpoet-post-editor-block.css": "mailpoet-post-editor-block.c60ce63a.css",
+    "mailpoet-public.css": "mailpoet-public.35daadf4.css"
 }

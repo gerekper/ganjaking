@@ -2,16 +2,16 @@
 
 namespace ACP\Editing\Model\Taxonomy;
 
-use ACP\Editing\Model;
+use AC\Column;
+use ACP\Editing;
 
-class Slug extends Model\Taxonomy {
+/**
+ * @deprecated 5.6
+ */
+class Slug extends Editing\Service\Taxonomy\Slug {
 
-	public function get_edit_value( $id ) {
-		return ac_helper()->taxonomy->get_term_field( 'slug', $id, $this->get_column()->get_taxonomy() );
-	}
-
-	public function save( $id, $value ) {
-		return $this->update_term( $id, [ 'slug' => $value ] );
+	public function __construct( Column $column ) {
+		parent::__construct( $column->get_taxonomy() );
 	}
 
 }

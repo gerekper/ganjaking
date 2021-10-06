@@ -259,6 +259,12 @@ if ( ! class_exists( 'GroovyMenuPreset' ) ) {
 		 * @return array|null|object
 		 */
 		public static function getById( $post_id ) {
+			static $db_cache = array();
+
+			if ( isset( $db_cache[ $post_id ] ) ) {
+				return $db_cache[ $post_id ];
+			}
+
 			if ( ! $post_id || 'default' === $post_id ) {
 				$post_id = self::getDefaultPreset();
 			}
@@ -279,6 +285,8 @@ if ( ! class_exists( 'GroovyMenuPreset' ) ) {
 					$result = $preset;
 				}
 			}
+
+			$db_cache[ $post_id ] = $result;
 
 			return $result;
 		}

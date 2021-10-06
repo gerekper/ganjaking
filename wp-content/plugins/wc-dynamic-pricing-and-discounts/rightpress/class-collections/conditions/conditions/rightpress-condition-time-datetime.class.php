@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Time_Datetime extends RightPress_Condition_T
     public function get_label()
     {
 
-        return __('Date & time', 'rightpress');
+        return esc_html__('Date & time', 'rightpress');
     }
 
     /**

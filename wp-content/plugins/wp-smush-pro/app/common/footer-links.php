@@ -9,10 +9,25 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+$hide_footer = false;
+$footer_text = sprintf( /* translators: %s - icon */
+	esc_html__( 'Made with %s by WPMU DEV', 'wp-smushit' ),
+	'<span aria-hidden="true" class="sui-icon-heart"></span>'
+);
+
+if ( WP_Smush::is_pro() ) {
+	$hide_footer = apply_filters( 'wpmudev_branding_change_footer', $hide_footer );
+	$footer_text = apply_filters( 'wpmudev_branding_footer_text', $footer_text );
+}
+
 ?>
 
 <div class="sui-footer">
-	<?php esc_html_e( 'Made with', 'wp-smushit' ); ?> <i class="sui-icon-heart" aria-hidden="true"></i> <?php esc_html_e( 'by WPMU DEV', 'wp-smushit' ); ?>
+	<?php
+	// @codingStandardsIgnoreStart
+	echo $footer_text;
+	// @codingStandardsIgnoreEnd
+	?>
 </div>
 
 <ul class="sui-footer-nav">
@@ -38,7 +53,7 @@ if ( ! defined( 'WPINC' ) ) {
 		<li><a href="https://incsub.com/privacy-policy/" target="_blank">
 				<?php esc_html_e( 'Privacy Policy', 'wp-smushit' ); ?>
 			</a></li>
-	<?php else : ?>
+	<?php elseif ( ! $hide_footer ) : ?>
 		<li><a href="https://wpmudev.com/hub2/" target="_blank">
 				<?php esc_html_e( 'The Hub', 'wp-smushit' ); ?>
 			</a></li>

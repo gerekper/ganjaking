@@ -1,5 +1,10 @@
 *** WooCommerce Google Analytics Pro ***
 
+2021.09.21 - version 1.11.0
+ * Misc - Add support for 404 events
+ * Misc - Remove support for setting the tracking ID manually
+ * Misc - Improve text, links to help articles, tooltips and settings layout
+
 2020.12.09 - version 1.10.0
  * Misc - Add compatibility for WooCommerce 4.7
  * Misc - Require PHP 7.0 or newer

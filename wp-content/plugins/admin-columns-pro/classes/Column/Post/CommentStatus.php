@@ -21,7 +21,7 @@ class CommentStatus extends AC\Column\Post\CommentStatus
 	}
 
 	public function editing() {
-		return new Editing\Model\Post\CommentStatus( $this );
+		return new Editing\Service\Post\CommentStatus();
 	}
 
 	public function filtering() {
