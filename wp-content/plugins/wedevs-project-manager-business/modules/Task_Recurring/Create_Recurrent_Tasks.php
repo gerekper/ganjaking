@@ -47,8 +47,8 @@ class Create_Recurrent_Tasks {
         $dbtasks = pm_get_tasks( [ 'recurrent' => '1,2,3,4', 'with' => 'project' ] );
         $tasks = [];
 
-        foreach ( $dbtasks['data'] as $key => $task ) {
-            if ( $task['project']['data']['status'] != 0 ) {
+        foreach ( $dbtasks['data'] as $task ) {
+            if ( ! empty( $task['project']['data']['status'] ) && $task['project']['data']['status'] != 0 ) {
                 continue;
             }
 

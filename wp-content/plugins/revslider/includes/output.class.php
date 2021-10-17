@@ -258,6 +258,11 @@ class RevSliderOutput extends RevSliderFunctions {
 	 * defines if this slider has in any way a youtube layer or slide that is used
 	 **/
 	private $youtube_exists = false;
+
+	/**
+	 * defines if the exception should be visible to the visitor or only in the console
+	 **/
+	private $console_exception = false;
 	
 	/**
 	 * stands for JavaScript Tab Addition and defines how many tabs there should be added to the JavaScript prints to make everything better looking in HTML
@@ -713,9 +718,14 @@ class RevSliderOutput extends RevSliderFunctions {
 		
 		if(!$this->check_add_to()) return false;
 		
+		$locale = setlocale(LC_NUMERIC, 0);
+		if($locale !== 'C') setlocale(LC_NUMERIC, 'C');
+
 		$this->set_slider_id($sid);
 		$this->add_slider_base();
 		
+		if($locale !== 'C') setlocale(LC_NUMERIC, $locale);
+
 		do_action('revslider_add_slider_to_stage_post', $sid, $this);
 
 		return $this->get_slider();
@@ -727,7 +737,7 @@ class RevSliderOutput extends RevSliderFunctions {
 	 */
 	public function add_slider_base(){
 		try{
-			global $rs_slider_serial, $rs_js_collection, $rs_wmpl, $rs_loaded_by_editor;
+			global $rs_slider_serial, $rs_js_collection, $rs_wmpl, $rs_loaded_by_editor, $rs_preview_mode;
 			$cache = RevSliderGlobals::instance()->get('RevSliderCache');
 			
 			do_action('revslider_add_slider_base_pre', $this);
@@ -759,6 +769,11 @@ class RevSliderOutput extends RevSliderFunctions {
 			
 			//check if we are mobile and the slider needs to be printed or not
 			if($this->slider->get_param(array('general', 'disableOnMobile'), false) === true && wp_is_mobile()) return false;
+
+			if($this->slider->get_param('pakps', false) === true && $this->_truefalse(get_option('revslider-valid', 'false')) === false && $rs_preview_mode === false && $this->get_preview_mode() === false){
+				$this->console_exception = true;
+				throw new Exception(__('Please register the Slider Revolution plugin to use premium templates.', 'revslider'));// return false;
+			}
 			
 			//the initial id can be an alias, so reset the id now
 			$sid = $this->slider->get_id();
@@ -850,7 +865,12 @@ class RevSliderOutput extends RevSliderFunctions {
 		}catch(Exception $e){
 			$message = $e->getMessage();
 			
-			$this->print_error_message($message);
+			if($this->console_exception){
+				$this->print_error_message_console($message);
+			}else{
+				$this->print_error_message($message);
+			}
+
 		}
 	}
 	
@@ -7098,6 +7118,20 @@ rs-module .material-icons {
 		return $html;
 	}
 	
+	/**
+	 * add error message into the console
+	 */
+	public function print_error_message_console($message){
+
+		$message = $this->slider->get_title().': '.$message;
+		$html = '';
+		$html .= '<script type="text/javascript">';
+		$html .= 'console.log("'.esc_html($message).'")';
+		$html .= '</script>'."\n";
+
+		echo $html;
+	}
+
 	/**
 	 * put inline error message in a box.
 	 * @before: RevSliderOutput::putErrorMessage

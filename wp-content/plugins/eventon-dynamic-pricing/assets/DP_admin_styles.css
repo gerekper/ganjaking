@@ -1,0 +1,82 @@
+/* event edit post styles */
+.evodp_item_block_container p b.event_times{
+    border-radius: 5px;
+    background-color: #ececec;
+    padding: 2px 8px;
+}
+#evodp_pricing p.yesno_leg_line {
+    padding: 10px 0;
+}
+#evodp_pricing ul.evodp_blocks_list{
+	list-style-type: none;
+    background-color: #7a7a7a; color:#fff;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #929292;
+    margin: 20px 0;
+}
+#evodp_pricing .evodp_blocks_list li{
+	border-bottom: 1px solid #929292;
+    margin: 0;
+    padding: 7px 8px;
+    position: relative;
+}
+#evodp_pricing .evodp_blocks_list li:last-child{border:none;}
+#evodp_pricing .evodp_blocks_list li dd{
+	display: inline-block;
+    margin: 0px;
+    text-transform: uppercase;
+    background-color: #f9d29f;
+    padding: 1px 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+}
+#evodp_pricing .evodp_blocks_list li p{padding: 0; margin: 0; color:#bdbdbd;}
+#evodp_pricing .evodp_blocks_list li p b{ color:#ffffff;}
+#evodp_pricing .evodp_blocks_list li span{
+	    text-transform: uppercase;
+    color: #bdbdbd;
+    display: inline-block;
+    width: 45px;
+}
+#evodp_pricing .evodp_blocks_list li span.e{padding-left: 10px; width: 30px;}
+#evodp_pricing .evodp_blocks_list li span.reg_price{padding-left: 10px;}
+#evodp_pricing .evodp_blocks_list li em{
+	font-style: normal;
+    text-transform: uppercase;
+    opacity: 0.4;
+    cursor: pointer;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    width: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    font-size: 12px;
+    height: 20px;
+    line-height: 18px;
+    float: right;
+    margin-left: 8px;
+    margin-top: 10px;
+}
+#evodp_pricing .evodp_blocks_list.evodp_blocks_una li em{ margin-top: -1px;}
+#evodp_pricing .evodp_blocks_list li em:hover{
+	opacity: 1;
+    color: #3d3d3d;
+    background-color: #fff;
+}
+.evodp_item_block_container{    padding: 30px;}
+.evodp_item_block_container p.message{margin: 0 -30px -30px;}
+.evodp_item_block_container span{
+    display: inline-block; width: 80px;
+}
+.evodp_item_block_container span.evodp_lb_times{
+    width: 100%; display: flex; justify-content:space-around;
+}
+body .ui-timepicker-wrapper{z-index: 900001;}
+/* no member pricing */
+#evodp_pricing td.nomp .evodp_blocks_list i.mem_price,
+#evodp_pricing td.nomp .evodp_item_block_container .mprice
+{
+	display: none;
+}

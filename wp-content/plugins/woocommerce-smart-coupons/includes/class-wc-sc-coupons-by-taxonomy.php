@@ -6,7 +6,7 @@
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
  * @since       4.13.0
- * @version     1.2.0
+ * @version     1.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,6 +41,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 			add_filter( 'woocommerce_coupon_is_valid_for_product', array( $this, 'validate' ), 11, 4 );
 			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'handle_non_product_type_coupons' ), 11, 3 );
 			add_filter( 'is_protected_meta', array( $this, 'make_action_meta_protected' ), 10, 3 );
+			add_action( 'wc_sc_new_coupon_generated', array( $this, 'copy_coupon_taxonomy_meta' ) );
 		}
 
 		/**
@@ -781,6 +782,21 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Taxonomy' ) ) {
 			}
 
 			return $term_ids;
+		}
+
+		/**
+		 * Function to copy taxonomy restriction meta in newly generated coupon
+		 *
+		 * @param  array $args The arguments.
+		 */
+		public function copy_coupon_taxonomy_meta( $args = array() ) {
+
+			// Copy meta data to new coupon.
+			$this->copy_coupon_meta_data(
+				$args,
+				array( 'wc_sc_taxonomy_restrictions' )
+			);
+
 		}
 
 		/**

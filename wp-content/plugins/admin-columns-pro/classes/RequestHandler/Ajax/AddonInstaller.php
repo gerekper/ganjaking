@@ -57,20 +57,16 @@ class AddonInstaller implements Registrable {
 		return $handler;
 	}
 
-	public function handle() {
-		$this->get_ajax_handler()->verify_request();
-
+	private function get_license() {
 		$license_key = $this->license_key_repository->find();
 
-		$license = $license_key
+		return $license_key
 			? $this->license_repository->find( $license_key )
 			: null;
+	}
 
-		if ( ! $license || ! $license->is_active() ) {
-			$message = __( 'License is not active.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Enter your license key on <a href="%s">the settings page</a>.', 'codepress-admin-columns' ), acp_get_license_page_url() );
-
-			wp_send_json_error( $message );
-		}
+	public function handle() {
+		$this->get_ajax_handler()->verify_request();
 
 		$plugin_slug = filter_input( INPUT_POST, 'plugin_name' );
 		$network_wide = '1' === filter_input( INPUT_POST, 'network_wide' );
@@ -86,7 +82,15 @@ class AddonInstaller implements Registrable {
 		// Install
 		if ( ! $plugin->is_installed() ) {
 			if ( ! current_user_can( 'install_plugins' ) ) {
-				wp_send_json_error( 'No install permission.' );
+				wp_send_json_error( 'No user permission.' );
+			}
+
+			$license = $this->get_license();
+
+			if ( ! $license || ! $license->is_active() ) {
+				$message = __( 'License is not active.', 'codepress-admin-columns' ) . ' ' . sprintf( __( 'Enter your license key on <a href="%s">the settings page</a>.', 'codepress-admin-columns' ), acp_get_license_page_url() );
+
+				wp_send_json_error( $message );
 			}
 
 			$response = $this->api->dispatch( new API\Request\DownloadInformation( $plugin_slug, $license->get_key(), $this->site_url ) );
@@ -108,7 +112,7 @@ class AddonInstaller implements Registrable {
 		}
 
 		if ( ! current_user_can( 'activate_plugins' ) ) {
-			wp_send_json_error( 'No activate permission.' );
+			wp_send_json_error( 'No user permission.' );
 		}
 
 		// Activate

@@ -1,0 +1,43 @@
+﻿Event Lists & Items (LI) addon for EventON Plugin
+====================================
+v 0.10 (2020-8-7)
+ADDED: compatibility with speakers addon to show speaker image and descripion in list
+FIXED: font awesome icon compatibilty
+
+v 0.9 (2019-11-25)
+FIXED: php compatibility issues
+FIXED: javascript error on list shortcodes
+REQ: eventon 2.8.2
+
+v 0.8 (2019-11-12)
+ADDED: List as boxes style to show color filled boxes
+ADDED: Locations in box style to have correct layout
+ADDED: Notice for when there are no terms in taxonomy
+UPDATED: Styles for the lists boxes style
+FIXED: Compatibility with eventON 2.8
+
+v 0.7 (2018-12-21)
+FIXED: single item based list not passing the base values in ajax
+
+v 0.6 (2018-11-15)
+ADDED: shortcode option to show events list as past or upcoming events
+UPDATED: lists to pass all calendar arguments when clicking on an item
+
+v 0.5 (2018-3-13)
+FIXED: language variable not passing to show correct translations
+
+v 0.4 (2017-2-28)
+FIXED: other calendar ux_val switching to lightbox incorrectly
+FIXED: List showing part of inside section for some - styles
+
+v 0.3 (2017-1-19)
+FIXED: Events not clickable once opened from lists
+FIXED: Default event opening to lightbox
+UPDATED: Font family support for eventon 2.5
+
+v 0.2 (2016-10-10)
+FIXED: other calendar version open events as lightbox 
+UPDATED: Compatibility with eventON 2.4.7
+
+v 0.1 (2016-7-19)
+Initial release

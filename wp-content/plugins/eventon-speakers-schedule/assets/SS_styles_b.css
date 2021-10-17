@@ -1,0 +1,164 @@
+/**
+ * Speaker & Schedule Styles
+ * @version 0.1
+ */
+.evo_tax_list_terms_items{	padding: 10px 0;}
+.evo_tax_list_terms_items span b{
+	float:left; display: block;
+	cursor: pointer;
+	font-size: 22px;
+}
+.evo_tax_list_terms_items span b.fa-circle-o{opacity: 0.7;}
+.evo_tax_list_terms_items span b:hover{opacity: 0.4;}
+.evo_tax_list_terms .evo_tax_list_terms_items span{display: block; margin-bottom: 15px;}
+.evo_tax_list_terms_items span em{
+	padding-left: 8px;
+	display: inline-block; line-height: 20px
+}
+.evomb_body .evo_tax_saved_terms p{
+	display: block;
+	margin: 0 5px 5px 0;
+	background-color: #8e8e8e; color:#fff;
+	border-radius: 5px;
+	padding: 5px 40px 5px 10px;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+}
+.evomb_body .evo_tax_saved_terms p:hover{ background-color: #ffce71; color:#7b7a7a;}
+.evomb_body .evo_tax_saved_terms p:hover i{color: #fff}
+.evo_spk_terms b{
+	display: none;
+	height: 50px; width: 50px; overflow: hidden; border-radius: 50%; 
+	float: left; margin-right: 10px;
+}
+.evo_spk_terms b img{width: 50px; height: auto;}
+.evo_spk_terms span{display: inline-block;}
+.evo_spk_terms span em{padding-left: 10px; opacity: 0.7;}
+.evo_spk_terms i{
+	display: block;
+	position: absolute;
+    top: 0; right: 0;
+    height: 100%;
+    padding: 5px 10px 0;
+    box-sizing: border-box;
+    font-style: normal;
+    background-color: #3d3d3d;
+    color: #7b7a7a;
+}
+.evo_tax_list_terms{
+	padding: 20px 20px 10px;
+    margin: 0px -25px;
+    background-color: #696666;
+    color:#fff;
+}
+.evcal_speaker_data_section{padding-top: 10px;}
+.evomb_section .evospk_btns{padding: 0;}
+.evomb_section .evospk_btns .evo_btn{
+	display: block;
+	text-align: center;
+	color: #fff;
+	border-radius: 0px;
+	margin: 0;
+	position: relative;
+	font-size: 14px;
+	border-bottom: 1px solid #7b7a7a;
+}
+.evomb_section .evospk_btns .evo_btn.opened:hover:after{
+	content: "\f142";
+}
+.evomb_section .evospk_btns .evo_btn:hover:after{
+	content: "\f140";
+    height: 20px;
+    width: 14px;
+    display: block;
+    color: #ffffff;
+    position: absolute;
+    right: 15px;
+    top: 4px;
+    font: 400 20px/1 dashicons;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-decoration: none!important;
+}
+.evomb_body .evo_tax_list_terms_items{
+	max-height: 120px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+    background-color: #757474;
+    padding: 10px 10px 0;
+    border-radius: 5px;
+}
+.evosch_blocks_list li i,.evosch_blocks_list li em{
+	padding: 2px 8px;
+	border-radius: 5px;
+	background-color: #3d3d3d; color:#fff;
+	margin-left: 5px;
+	font-style: normal;
+	cursor:pointer;
+}
+.evosch_blocks_list .evosch_nav li{
+	border:none;
+	display: inline-block;
+	border-radius: 5px;
+	border:none;
+	color:#3c3c3c;
+	padding: 3px 8px;
+	margin: 5px 2px;
+	cursor: pointer;
+}
+.evosch_blocks_list .evosch_nav li:hover{background-color: #3d3d3d;color:#fff;}
+.evosch_blocks_list .evosch_nav li.show{background-color: #afafaf;color:#fff;}
+.evosch_blocks_list li i:hover,.evosch_blocks_list li em:hover{opacity: 0.6;}
+.evosch_blocks_list ul.evosch_oneday_schedule {display: none;}
+.evosch_blocks_list ul.evosch_oneday_schedule.show {display: block;}
+.evosch_blocks_list .evosch_desc{
+	opacity: 0.7;font-size: 12px;
+}
+.evosch_blocks_list p.evosch_spks{padding: 0px; opacity: 0.5;}
+.evosch_blocks_list ul.evosch_nav{ padding: 0px;}
+.evosch_blocks_list ul li{
+	padding: 8px 25px 8px 15px; margin:5px 0;position: relative;
+	background-color: #fff;border-radius: 5px;
+}
+.evosch_blocks_list ul li:hover{background-color: #efefef}
+.evosch_blocks_list ul li.evosch_block:after{
+	content:"\f0c9";
+	position: absolute;
+    top: 0px; right: 0px;
+    opacity: 0.3;
+    display: flex;
+    font: normal normal normal 14px/1 evo_FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0, 0);
+    cursor: move;
+    height: 100%;
+    width: 25px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+/* lightbox */
+	.evo_tax_entry{padding: 20px;}
+	.evo_tax_entry label{font-style: italic;display: block; opacity: 0.7}
+	textarea.evoss_field, input.evoss_field, seelct.evoss_field{
+		border-radius: 4px;
+	    padding: 3px 6px 4px;
+	    font-style: italic;
+	}
+	.ajde_popup_text p.evo_tax_msg{
+		padding: 15px;
+		margin: 0 -20px -20px;
+		background-color: #84d27a; color: #fff;
+	}
+	.ajde_popup_text p.evo_tax_msg.err{background-color:#ff5f3b}
+	.ajde_popup_text.evospk_new_block .custom_upload_image_button, .ajde_popup_text.evospk_new_block .custom_upload_image_button:hover{
+		color: #fff;
+    	background-color: #B9B8B8;
+    	box-shadow:none;
+	}
+	.evo_tax_entry p.evo_sch_spk span{padding: 0 8px 5px 0; display: inline-block;}

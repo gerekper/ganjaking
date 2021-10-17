@@ -1,4 +1,4 @@
- div.revslider_block {
+div.revslider_block {
   background: url(images/rs6_logo_2x.png);
   background-size: 120px 30px;
   background-repeat: no-repeat;
@@ -17,11 +17,10 @@ div.revslider_block .slider_slug {
 div.revslider_block .slider_edit_button {
   float: right; }
 
-  /*
+/*
 [data-type="themepunch/revslider"] .editor-block-list__block-edit:before {
   outline: 1px solid rgba(145, 151, 162, 0.25) !important; }
 */
-
 .editor-block-list-item-themepunch-revslider svg,
 .components-panel__body.edit-post-block-sidebar__panel svg.dashicons-update {
   width: 24px;
@@ -29,8 +28,3 @@ div.revslider_block .slider_edit_button {
 
 .editor-block-list-item-themepunch-revslider .editor-block-types-list__item-title {
   padding: 4px 1px 4px 1px; }
-
-  button.components-button.components-dropdown-menu__toggle.has-icon[aria-label="Slider Revolution"] .dashicon.dashicons.dashicons-update {
-    margin-left: 0px;
-    margin-right: 0px;
-  }

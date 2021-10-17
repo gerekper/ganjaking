@@ -3,7 +3,7 @@ Contributors: tareq1988, wedevs, asaquzzaman, wpasikur
 Donate Link: https://tareq.co/donate/
 Tags: project, manager, project manager, project management, todo, todo list, task, basecamp, milestone, message, file, comment, client, team, tracking, planning, lists, reporting, project management plugin for wordpress, project manager, project manager plugin for wordpress, wordpress project management
 Requires at least: 4.4
-Tested up to: 5.7.2
+Tested up to: 5.8.1
 Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2 or later
@@ -120,6 +120,13 @@ A. Found any bugs? Please create an [issue](https://github.com/tareq1988/wp-proj
 13. Project Settings -> Email Settings Tab
 
 == Changelog ==
+
+= v2.5.11 - Oct 11, 2021 =
+
+**Fix** Sanitization and data validation issues
+**Fix** Timezone issues in My Calendar
+**Fix** Confirmation text not working while deleting Kanban board
+**Fix** Recurring task undefined issue
 
 = v2.5.10 - July 16, 2021 =
 

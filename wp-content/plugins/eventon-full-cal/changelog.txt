@@ -1,0 +1,236 @@
+Full Cal (FC) addon for EventON Plugin
+====================================
+v 1.1.13 (2021-3-18)
+FIXED: days misaignments
+
+v 1.1.12 (2020-6-5)
+FIXED: jumper months not showing all events in month on load
+FIXED: multiple grids loading for calendar
+FIXED: box border misalignments
+UPDATED: Lightbox styles and colors, minor styles update
+
+v 1.1.11 (2020-1-9)
+FIXED: grid interaction lightbox showing empty box for days with no events
+FIXED: events span across multiple days not showing name
+FIXED: JSON global value gets overridden in the script
+
+v 1.1.10 (2019-12-9)
+FIXED: current month showing empty lightbox
+FIXED: current month button not switching month view correct
+
+v 1.1.9 (2019-11-25)
+FIXED: more text string not translated
+FIXED: jumper month animation issues
+FIXED: disable connecting events style because of other errors
+
+v 1.1.8 (2019-11-19)
+FIXED: admin notice missing error
+FIXED: Days in the calendar month grid not correct
+FIXED: jumper months not switching month grid
+FIXED: Other minor compatibility issues with eventON 2.8
+
+v 1.1.7 (2019-11-12)
+FIXED: moved ajax into a separate class of its own
+FIXED: grid dot creation using JSON data
+FIXED: searching events remove all grid styles
+FIXED: addon initiation method
+FIXED: ajax based load more events cause new day events to not show
+FIXED: day hover tooltip location 
+UPDATED: Calendar to load via ajax method on load
+UPDATED: Event data array to be passed in evofc_daybox_html filter
+UPDATED: Styles for the calendar
+REQ: EventON 2.8
+
+v 1.1.6 (2018-7-24)
+FIXED: grid with event names styles
+
+v 1.1.5 (2018-7-9)
+ADDED: Missing event type options in shortcode generator
+ADDED: when grid ux is set to lightbox hide events showing on load
+ADDED: main evo ajax completed trigger hook
+ADDED: Support for event names in month grid
+FIXED: hover over dates tooltip box getting cut off
+FIXED: ligthbox events list not showing correct layers
+FIXED: hover tooltip not showing correct for end of the month date
+FIXED: Etc_override shortcode not reflecting on hover tooltips
+FIXED: events next to grid not showing right
+UPDATED: calendar resize as a separate function
+
+v 1.1.4 (2017-9-20)
+ADDED: Pluggable function for day box html
+FIXED: Day events hover value not showing a number
+UPDATED: Loader bar animation to be compatible with evo 2.6
+UPDATED: Better hover box styles for event names
+
+v 1.1.3 (2016-12-30)
+FIXED: Minor style issues
+FIXED: Font family update for eventon 2.5
+FIXED: Widget contructor error
+FIXED: focus day styles not showing correct via appearance
+FIXED: PHP 7.1 compatibility
+
+v 1.1.2 (2016-10-10)
+ADDED: Compatibility with all month events
+FIXED: Today grid box special style missing
+UPDATED: Compatibility with checkbox style sort/filtering
+UPDATED: New lightbox code compatibility for eventon 2.4.7
+
+v 1.1.1 (2016-4-7)
+FIXED: loadfullmonths set to no still loads full month when switching month
+
+v 1.1 (2016-3-30)
+ADDED: Ability to show events next to grid using nexttogrid='yes'
+FIXED: When calendar is set to hide fullCal still shows
+FIXED: lightbox events showing events multiple times for double clicks
+FIXED: MORE text in tooltip translation missing
+FIXED: event names hover showing in multiple fullcal on same page
+UPDATED: Compatibility with eventon 2.3.20
+
+v 1.0 (2015-12-10)
+ADDED: Ability to show first 3 event names when hover over date
+ADDED: Option to choose event count & names for hover information
+ADDED: Slightly modified minimal layout design
+FIXED: compatibility with eventon 2.3.13
+FIXED: if load full month of events below set, honor when switching months
+FIXED: grid ux opening as lightbox to be able to close from clicking outside
+
+v 0.31 (2015-8-31)
+FIXED: new JQ Mobile breaking site, rolled back
+
+v 0.30 (2015-8-26)
+FIXED: Compatibility with WP 4.3
+FIXED: Android phone days click not working on first try
+UPDATED: JQuery mobile latest version 1.4.5
+
+v 0.29 (2015-6-18)
+FIXED: not working on widget
+
+v 0.28 (2015-4-22)
+UPDATED: compatibility with go to today button
+UPDATED: compatibility with eventon 2.3.1
+UPDATED: Calendar filter not working 100% 
+FIXED: event color undefined error
+FIXED: error message saying FC is not activate and need eventon
+
+v 0.27 (2015-2-13)
+FIXED: February showing empty week in the grid
+FIXED: Unexpected T_PAAMAYIM_NEKUDOTAYIM on line 116
+
+v 0.26 (2015-1-22)
+FIXED: missing argument on line 238
+UPDATED: Different solution for load fullcal javascript for widget
+
+v 0.25 (2015-1-20)
+ADDED: Heat style event color for event grid new shortcode var heat='yes'
+FIXED: Open event card by default compatibility with lightbox events
+FIXED: Compatibility with eventON 2.2.22
+FIXED: fullcal javascript to load when fullcal widget is called
+FIXED: widget fullcal not showing correct with other calendars
+
+v 0.24 (2014-10-31)
+FIXED: Month jumper not working correct
+
+v 0.23 (2014-9-18)
+FIXED: End of month event not showing correct on grid
+UODATED: Addon check function to be compatible with eventon 2.2.18
+UPDATED: Widget Styles fixed
+
+v0.22 (2014-9-10)
+ADDED: grid_ux new shortcode variable for interaction for click on grid date box
+ADDED: Ability to show all events of month on first load
+FIXED: Other calendars placed after fullCal not working
+FIXED: some days showing less number of events when end date is 1st
+UPDATED: styles and javascript loads for https
+
+v0.21 (2014-6-18)
+UPDATED: Compatibility to eventon 2.2.13
+UPDATED: Month grid not positioning correct on first load
+
+v0.20 (2014- 6-12)
+FIXED: previous month arrow not loading new month days
+
+v0.19 (2014-6-10)
+FIXED: unnecessary alert when clicking a date on calendar
+
+v0.18 (2014-6-7)
+FIXED: deactivation error
+UPDATED mobile tap event on calendar grid date
+
+v0.17 (2014-6-1)
+UPDATED: Compatibility with eventon 2.2.12
+
+v0.16 (2014-5-20)
+FIXED: Slowness in wp-admin
+
+v0.15 (2014-5-13)
+ADDED: dots on each date box to represent number of events on that day
+UPDATED: slow load time and reduce number of queries
+
+v0.14 (2014-4-12)
+ADDED: shortcode variable to go to 1st of month when switching months
+ADDED: Lang variable to shortcode generator
+FIXED: language switching for L2 not working correct
+
+v0.13 (2014-4-4)
+FIXED: Languages other than L1 not working
+
+v0.12 (2014-3-26)
+UPDATED: compatibility with eventon 2.2.9
+
+v0.11 (2014 -3-13)
+FIXED: compatibility with eventON 2.2.8
+UPDATED: grid design layout
+
+v0.10 (2014-3-3)
+FIXED: cal_id not defined error on fullcal widget
+
+v0.9 (2014-2-13)
+FIXED: eventon auto update error for fullCal
+
+FIXED: day name on fullCal widget on FF and IE getting lost
+
+v0.8 (2014-1-30)
+ADDED: classes and update to javascript to only run fullcal AJAX on fullcal calendar
+FIXED: calendar width changing when there are multiple fullcals on page
+FIXED: incorrect event count on days
+FIXED: Events panning across multiple months not showing correct on grid
+
+v0.7 (2014-1-27)
+FIXED: Events starting on last day of the month not showing as days with events
+FIXED: Start of the week issue
+UPDATED: fullcal styles and scripts to load only when needed to improve site speed
+ADDED: Calendar date color customization to eventON settings
+
+NOTE: This version require EventON 2.2.5 or higher
+
+v0.6 (2013 -12
+FIXED: Start of the week issue
+
+v0.5 (2013 -11-30)
+FIXED: widget and added a field to set ID for cal
+
+v0.4 (201311-21)
+FIXED: multiple calendar width issue for the grid
+FIXED: focus day when changing months
+UPDATED: (core) pluggable function to solve widget breaking sidebars
+UPDATED: Compatibility to eventON 2.2
+
+v0.3 (2013-10-9)
+FIXED: Interferance of code with daily view addon
+FIXED: Empty days on calendar grid hover effect removed
+FIXED: widget variables fixed_month and fixed_year not working 
+ADDED: tooltip for number of events for calendar days
+ADDED: new month switching animation - slide months horizontally
+ADDED: event type category shortcode variable support
+ADDED: fixed_day shortcode variable support
+ADDED: event type variable to FullCal widget
+
+
+v0.2 (2013- 8-6)
+ADDED: full grid month style widget is now comes with this addon
+ADDED: Support for fixed month and fixed year - in shortcode variables
+FIXED: Full cal month start day can now be controled by default WP start of the week
+FIXED: Filter issue that was causing error when using more than one filter at a time
+
+v 0.1
+Initial release

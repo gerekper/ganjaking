@@ -11,6 +11,7 @@ if(!defined('ABSPATH')) exit();
 $system_config	= $rsaf->get_system_requirements();
 $current_user	= wp_get_current_user();
 $revslider_valid = get_option('revslider-valid', 'false');
+$show_trustpilot = $rsaf->_truefalse(get_option('revslider-trustpilot', 'true'));
 $latest_version	= get_option('revslider-latest-version', RS_REVISION);
 $stable_version	= get_option('revslider-stable-version', '4.2');
 $latest_version	= ($revslider_valid !== 'true' && version_compare($latest_version, $stable_version, '<')) ? $stable_version : $latest_version;
@@ -127,7 +128,14 @@ $rs_languages	= $rsaf->get_available_languages();
 		</div>
 	</div>
 
-	<div class="div150"></div>
+	<div class="div100"></div>
+	<!--Show Trustpilot Message-->	
+	<div id="register_trustpilot_wrap" data-state="<?php echo ($show_trustpilot) ? '' : 'closed'; ?>">
+		<div class="pli_left"><a id="trustpilotlink" class="purplesmallbutton" href="https://www.trustpilot.com/evaluate/sliderrevolution.com" target="_blank" rel="noopener"><?php _e('Review us on', 'revslider');?><span class="rs_trustpilot_bg"></span></a></div>
+		<div class="pli_right"><h3 class="pli_title"><?php _e('Thank you for using Slider Revolution!', 'revslider');?><span class="thicon"></span></h3></div>
+		<div id="trust_closer"><i class="material-icons">close</i></div>
+	</div>
+
 	<!-- PLUGIN INFORMATIONS -->	
 	<div id="plugin_activation_row" class="plugin_inforow">
 		<!-- PLUGIN UPDATE -->

@@ -143,10 +143,8 @@ class Warranty_Privacy extends WC_Abstract_Privacy {
 		$email         = get_post_meta( $warranty_id, '_email', true );
 		$first_name    = get_post_meta( $warranty_id, '_first_name', true );
 		$last_name     = get_post_meta( $warranty_id, '_last_name', true );
-		$refund_amount = get_post_meta( $warranty_id, '_refund_amount', true );
-		$rma           = get_post_meta( $warranty_id, '_code', true );
 
-		if ( empty( $order_id ) && empty( $email ) && empty( $first_name ) && empty( $last_name ) && empty( $rma ) ) {
+		if ( empty( $order_id ) && empty( $email ) && empty( $first_name ) && empty( $last_name ) ) {
 			return array( false, false, array() );
 		}
 
@@ -154,7 +152,6 @@ class Warranty_Privacy extends WC_Abstract_Privacy {
 		delete_post_meta( $warranty_id, '_email' );
 		delete_post_meta( $warranty_id, '_first_name' );
 		delete_post_meta( $warranty_id, '_last_name' );
-		delete_post_meta( $warranty_id, '_code' );
 
 		return array( true, false, array( __( 'Warranty Order Data Erased.', 'wc_warranty' ) ) );
 	}

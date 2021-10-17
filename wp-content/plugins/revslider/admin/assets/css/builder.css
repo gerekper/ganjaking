@@ -3118,6 +3118,22 @@ li.slide_list_child_element { margin-bottom: 0px }
 .nav_collector .form_inner_header {  background: #3f444a; color: #b7bbc0; }
 
 
+/*******************
+- VALUE SLIDERS -
+*******************/
+.withvalslider { position: relative; display: inline-block;}
+.rs_vswrap {border-radius:4px; height:5px; padding:10px 0px; width:100%; bottom:-2px; position:absolute; display: block; opacity:0; left:0px;box-sizing: border-box;}
+.rs_vsdone { width: 0px; height: 2px; border-radius: 4px; background: #006dd2;position: absolute; left: 0px;top: 10px; }
+.rs_vsrail { width: 100%; pointer-events:none; height:2px; border-radius: 4px; background: #2a2c2f;position: absolute; left: 0px;top: 10px; }
+.rs_vspin { width: 9px; height: 9px; position: absolute; left: -2px;top: 6px; border-radius: 5px; background: #b7bbc0; cursor: pointer}
+
+.withvalslider:hover .rs_vswrap,
+.withvalslider.indrag .rs_vswrap { opacity:1}
+
+.rs_vswrap:hover .rs_vspin,
+.withvalslider.indrag .rs_vspin { background:#fff;}
+
+
 /*******************+******
  - KEN BURN SIMULATION -
 **************************/
@@ -3518,7 +3534,60 @@ i.material-icons.icon_in_dropdown { margin-right: 5px; color: #f82c90;font-size:
 .rs_ale_notinstalled,
 .rs_ale_enabled { background: #006dd2; line-height: 25px; padding: 0px 5px; font-size: 13px; color: #fff; font-weight: 800; position: absolute; top:15px; right:5px; z-index: 15; text-transform: uppercase; border-radius: 4px;}
 .rs_ale_actionneeded { background: #ff0000; line-height: 25px; padding: 0px 5px; font-size: 13px; color: #fff; font-weight: 800; position: absolute; top:15px; right:5px; z-index: 15; text-transform: uppercase; border-radius: 4px;}
+
 .rs_ale_notinstalled {  background: #3f444a; color: #74797d;  }
+
+.rs_lib_premium_wrap  { position: absolute; top:5px; right:5px; z-index:300; width:auto !important; height:auto !important; font-family: "Roboto"}
+
+#rs_premium { background:#2a2c2f;  padding:30px; margin:30px -20px 0px;display:none}
+#rs_premium .rs_lib_premium_red,
+#rs_premium .rs_lib_premium_red_hover,
+#rs_premium .rs_lib_premium_lila { display:inline-block; margin-bottom:20px; padding:0px 8px}
+.rs_premium_content{
+    color: #777c80;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    display: block;
+}
+
+#rs_premium a { color:#777c80; opacity:1; text-decoration: underline;}
+#rs_premium a:hover { color:#fff; opacity:1;}
+.rs_lib_premium_lila,
+.rs_lib_premium_red,
+.rs_lib_premium_red_hover { display:none;background:#ff2021; line-height: 23px; padding: 0px 6px; font-size: 13px; color: #fff; font-weight: 600; position: relative; z-index: 15; text-transform: uppercase; border-radius: 4px;}
+.rs_lib_premium_lila { background: #5c30af; display:block }
+
+.sliderImage.tp_premium,
+.noSliderImage.tp_premium { position:relative}
+.noSliderImage.tp_premium { background:#e3e5e8; padding:15px;}
+.sliderImage.tp_premium .rs_lib_premium_lila,
+.noSliderImage.tp_premium .rs_lib_premium_lila,
+.sliderImage.tp_premium .rs_lib_premium_red,
+.noSliderImage.tp_premium .rs_lib_premium_red { 
+  width:auto !important;
+  height:auto !important;
+  display:inline-block !important;
+  vertical-align:top;
+}
+
+.tp_premium .rs_lib_premium_red { cursor: pointer;}
+
+.noSliderImage.tp_premium .rs_lib_premium_wrap { position:relative; top:auto;right:auto; height:25px !important; vertical-align:top;}
+.rs_n_ac_n .rs_lib_premium_lila { display:none}
+.rs_n_ac_n .rs_lib_premium_red { display:block}
+.rs_n_ac_n .rs_library_element:hover .rs_lib_premium_red,
+.olibrary_item:hover .rs_n_ac_n .rs_lib_premium_red { display:none}
+.rs_n_ac_n .rs_library_element:hover .rs_lib_premium_red_hover,
+.olibrary_item:hover .rs_n_ac_n .rs_lib_premium_red_hover { display:block}
+
+.rs_lib_premium_red_hover,
+.rs_lib_premium_red  {  cursor: pointer; }
+
+.rs_lib_premium_red_hover .material-icons,
+.rs_lib_premium_red  .material-icons { margin-right:5px;  }
+
+.rs_lib_premium_red:hover { filter:brightness(110%);}
 
 .rbm_addon_details_inner { padding:30px 42px 30px;position: relative }
 
@@ -3555,8 +3624,11 @@ i.material-icons.icon_in_dropdown { margin-right: 5px; color: #f82c90;font-size:
 .ale_i_errorbutton i { color: #fff; }
 
 .ale_i_updateaddon.basic_action_coloredbutton { background: #5d36ad; }
+.ale_i_allupdateaddon.basic_action_coloredbutton { background: #5d36ad; }
 
-#check_addon_updates { position: absolute;left: 820px;top: 10px; }
+#check_addon_updates_wrap { position: absolute;left: 820px;top: 10px; }
+#check_addon_updates,
+#process_all_addon_updates { position: relative;display:inline-block;margin-right:10px }
 
 .addonlist_to_update { display: block; font-size: 14px; line-height: 30px; position: relative; }
 .addonlist_to_update_single_status { position: absolute; right: 4px; font-size: 16px; top:7px;}

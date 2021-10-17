@@ -52,7 +52,7 @@ if(!defined('ABSPATH')) exit();
 	<div class="rb-modal-inner">
 		<div class="rb-modal-content">
 			<div id="rbm_addons" class="rb_modal form_inner">
-				<div class="rbm_header"><i class="rbm_symbol material-icons">extension</i><span class="rbm_title"><?php _e('Addons', 'revslider');?></span><i class="rbm_close material-icons">close</i><div id="check_addon_updates" class="basic_action_button autosize"><i class="material-icons">refresh</i><?php _e('Check for Updates', 'revslider');?></div></div>
+				<div class="rbm_header"><i class="rbm_symbol material-icons">extension</i><span class="rbm_title"><?php _e('Addons', 'revslider');?></span><i class="rbm_close material-icons">close</i><div id="check_addon_updates_wrap"><div id="check_addon_updates" class="basic_action_button autosize"><i class="material-icons">refresh</i><?php _e('Check for Updates', 'revslider');?></div><div id="process_all_addon_updates" class="ale_i_allupdateaddon  basic_action_coloredbutton autosize basic_action_button autosize"><i class="material-icons">get_app</i><?php _e('Update All', 'revslider');?></div></div></div>
 				<div id="addon_overviewheader_wrap">
 						<div id="addon_overviewheader" class="addon_overview_header">
 							<div class="rs_fh_left"><input class="flat_input" id="searchaddons" type="text" placeholder="<?php _e('Search Addons...', 'revslider');?>"/></div>
@@ -72,3 +72,70 @@ if(!defined('ABSPATH')) exit();
 		</div>
 	</div>
 </div>
+
+<!--DEACTIVATED WARNING MODAL-->
+<div class="_TPRB_ rb-modal-wrapper" data-modal="rbm_notactive_warning">
+	<div class="rb-modal-inner">
+		<div class="rb-modal-content">
+			<div id="rbm_notactive_warning" class="rb_modal form_inner">
+				<div class="rbm_header"><i class="rbm_close material-icons">close</i></div>	
+				<div class="rbm_content">
+					<div class="mcg_page mcg_selected">
+						<div class="dcenter">							
+							<div class="bigredwarning"><i class="material-icons">error_outline</i></div>
+							<div class="mcg_page_title"><?php _e('Your Slider Revolution license<br>has been deactivated', 'revslider');?></div>
+							<div><a class="simpletext smalllink" target="_blank" rel="noopener" href="https://www.sliderrevolution.com/faq/why-was-my-slider-revolution-license-deactivated/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=deactivatedfaq"><?php _e('Why did this happen?', 'revslider');?></a></div>
+							<div class="div45"></div>
+							<div class="dr_warningbox">
+								<div class="mcg_page_subtitle"><i class="material-icons warningicon">block</i> <?php _e('You no longer have access to Premium features', 'revslider');?></div>
+								<div class="div5"></div>
+								<div class="mcg_page_content"><?php _e('Template & Object Library, Add-Ons, Updates, Ticket Support', 'revslider');?></div>
+							</div>
+							<div class="div10"></div>
+							<div class="dr_warningbox">
+								<div class="mcg_page_subtitle"><i class="material-icons warningicon">visibility_off</i> <?php _e('Your installed Premium templates and addons stopped working', 'revslider');?></div>
+								<div class="div5"></div>
+								<div class="mcg_page_content"><?php _e('Premium templates and addons will no longer display on your website', 'revslider');?></div>
+							</div>
+							<div class="div55"></div>
+							<div class="simpletext"><?php _e('You can restore all Premium features by <a target="_blank" rel="noopener" href="https://www.sliderrevolution.com/manual/quick-setup-register-your-plugin/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=registermanual">registering a license key</a><br>on this Slider Revolution installation.','revslider'); ?></div>
+							<div class="div40"></div>
+							<purplebutton id="pb_closeandregister" style="display:inline-block; margin-right:10px" class="mcg_next_page"><?php _e('Register Licence Key', 'revslider');?></purplebutton>							
+							<a target="_blank" rel="noopener"  href="https://account.sliderrevolution.com/portal/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=members" style="display:inline-block;" class="bluebutton normal mcg_quit_page"><?php _e('Buy License Key', 'revslider');?></a>
+							<div class="div40"></div>
+						</div>						
+					</div>										
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--DEACTIVATED ADDONS WARNING MODAL-->
+<div class="_TPRB_ rb-modal-wrapper" data-modal="rbm_notactiveaddon_warning">
+	<div class="rb-modal-inner">
+		<div class="rb-modal-content">
+			<div id="rbm_notactiveaddon_warning" class="rb_modal form_inner">
+				<div class="rbm_header"><i class="rbm_close material-icons">close</i></div>	
+				<div class="rbm_content">
+					<div class="mcg_page mcg_selected">
+						<div class="dcenter">							
+							<div class="bigyellowwarning"><i class="material-icons">error_outline</i></div>
+							<div class="mcg_page_title"><?php _e('There is a problem with some of your<br>Slider Revolution modules', 'revslider');?></div>
+							<div class="simpletext"><?php _e('These modules are using <a class="smalllink" target="_blank" rel="noopener" href="https://www.sliderrevolution.com/expand-possibilities-with-addons/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=addons">addons</a> which are deactivated or not installed:', 'revslider');?></a></div>
+							<div class="div45"></div>
+							<div id="list_of_deactivated_addons"></div>
+							<div class="div55"></div>
+							<div class="simpletext"><?php _e('Press the button below to install & activate<br>all addons required by your modules.','revslider'); ?></div>
+							<div class="div40"></div>
+							<purplebutton id="naa_install_all" class="mcg_next_page"><?php _e('Fix All Addons', 'revslider');?></purplebutton>							
+							<div class="div40"></div>
+						</div>						
+					</div>										
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

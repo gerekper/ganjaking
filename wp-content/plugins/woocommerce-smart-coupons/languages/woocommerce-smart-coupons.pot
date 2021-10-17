@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the WooCommerce Smart Coupons package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Smart Coupons 4.27.0\n"
+"Project-Id-Version: WooCommerce Smart Coupons 4.29.1\n"
 "Report-Msgid-Bugs-To: https://www.storeapps.org/support/contact-us/\n"
-"POT-Creation-Date: 2021-09-05 19:55:59+00:00\n"
+"POT-Creation-Date: 2021-10-08 07:26:49+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: Mon, 06 Sep 2021 01:25:59 +0530\n"
+"PO-Revision-Date: Fri, 08 Oct 2021 12:56:49 +0530\n"
 "Last-Translator: Ratnakar Dubey <support@storeapps.org>\n"
 "Language-Team: StoreApps <support@storeapps.org>\n"
 
@@ -53,104 +53,104 @@ msgstr ""
 msgid "Coupon creation failed, could not find original product: %d"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:96
+#: includes/class-wc-sc-admin-notifications.php:99
 #: includes/class-wc-sc-admin-welcome.php:197
 msgid "Settings"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:97
+#: includes/class-wc-sc-admin-notifications.php:100
 #: includes/class-wc-sc-admin-pages.php:156
 #: includes/class-wc-sc-admin-pages.php:607
 #: includes/class-wc-sc-admin-welcome.php:223
 msgid "FAQ's"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:98
+#: includes/class-wc-sc-admin-notifications.php:101
 #: includes/class-wc-sc-admin-welcome.php:198
 msgid "Docs"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:99
+#: includes/class-wc-sc-admin-notifications.php:102
 msgid "Support"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:100
+#: includes/class-wc-sc-admin-notifications.php:103
 msgid "Review"
 msgstr ""
 
 #. translators: 1. Coupon type
-#: includes/class-wc-sc-admin-notifications.php:162
+#: includes/class-wc-sc-admin-notifications.php:165
 #: includes/class-wc-sc-background-coupon-importer.php:324
 #: includes/class-wc-sc-background-coupon-importer.php:391
 #: includes/class-wc-smart-coupons.php:4439
 msgid "Important"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:162
+#: includes/class-wc-sc-admin-notifications.php:165
 msgid "Setting \"Enable the use of coupon codes\" is disabled."
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:173
+#: includes/class-wc-sc-admin-notifications.php:176
 msgid "Enable"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:174
+#: includes/class-wc-sc-admin-notifications.php:177
 msgid "it to use"
 msgstr ""
 
-#. #-#-#-#-#  woocommerce-smart-coupons.pot (WooCommerce Smart Coupons 4.27.0)  #-#-#-#-#
+#. #-#-#-#-#  woocommerce-smart-coupons.pot (WooCommerce Smart Coupons 4.29.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: includes/class-wc-sc-admin-notifications.php:174
-#: includes/class-wc-sc-admin-notifications.php:240
-#: includes/class-wc-sc-admin-notifications.php:254
+#: includes/class-wc-sc-admin-notifications.php:177
+#: includes/class-wc-sc-admin-notifications.php:243
+#: includes/class-wc-sc-admin-notifications.php:257
 #: includes/class-wc-sc-settings.php:892 includes/class-wc-sc-settings.php:895
 msgid "WooCommerce Smart Coupons"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:174
+#: includes/class-wc-sc-admin-notifications.php:177
 msgid "features."
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:236
+#: includes/class-wc-sc-admin-notifications.php:239
 msgid "Remind me after a month"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:237
+#: includes/class-wc-sc-admin-notifications.php:240
 #: includes/class-wc-sc-print-coupon.php:275
 msgid "Never show again"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:240
+#: includes/class-wc-sc-admin-notifications.php:243
 msgid ""
 "Awesome, you successfully auto-generated a coupon! Are you having a great "
 "experience with"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:240
+#: includes/class-wc-sc-admin-notifications.php:243
 msgid "so far?"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:240
+#: includes/class-wc-sc-admin-notifications.php:243
 msgid "Please consider"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:240
+#: includes/class-wc-sc-admin-notifications.php:243
 msgid "leaving a review"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:240
+#: includes/class-wc-sc-admin-notifications.php:243
 msgid ""
 "! If things aren't going quite as expected, we're happy to help -- please "
 "reach out to"
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:240
+#: includes/class-wc-sc-admin-notifications.php:243
 msgid "our support team"
 msgstr ""
 
 #. translators: 1: WooCommerce Smart Coupons 2: Link for the Smart Coupons
 #. settings
-#: includes/class-wc-sc-admin-notifications.php:253
+#: includes/class-wc-sc-admin-notifications.php:256
 msgid ""
 "%1$s: You are using a custom coupon style which is planned to be removed "
 "from the plugin in upcoming versions. New, improved styles & colors are "
@@ -159,12 +159,12 @@ msgid ""
 "from %2$s."
 msgstr ""
 
-#: includes/class-wc-sc-admin-notifications.php:263
+#: includes/class-wc-sc-admin-notifications.php:266
 msgid "Smart Coupons settings"
 msgstr ""
 
 #. translators: %s: link to review WooCommerce Smart Coupons
-#: includes/class-wc-sc-admin-notifications.php:301
+#: includes/class-wc-sc-admin-notifications.php:304
 msgid ""
 "Liked WooCommerce Smart Coupons? Leave us a %s. A huge thank you from "
 "WooCommerce & StoreApps in advance!"
@@ -172,8 +172,46 @@ msgstr ""
 
 #. translators: %s: link to submit idea for Smart Coupons on WooCommerce idea
 #. board
-#: includes/class-wc-sc-admin-notifications.php:327
+#: includes/class-wc-sc-admin-notifications.php:330
 msgid "Have a feature request? Submit it on our %s."
+msgstr ""
+
+#. translators: %s: Plugin name
+#: includes/class-wc-sc-admin-notifications.php:416
+msgid "%s database update required"
+msgstr ""
+
+#: includes/class-wc-sc-admin-notifications.php:417
+msgid ""
+"The database update process runs in the background and may take a little "
+"while, so please be patient."
+msgstr ""
+
+#: includes/class-wc-sc-admin-notifications.php:430
+msgid "Update database"
+msgstr ""
+
+#. translators: %s: Plugin name
+#: includes/class-wc-sc-admin-notifications.php:454
+msgid ""
+"%s is updating the database in the background. The database update process "
+"may take a little while, so please be patient."
+msgstr ""
+
+#: includes/class-wc-sc-admin-notifications.php:456
+msgid ""
+"Note: WP CRON has been disabled on your install which may prevent this "
+"update from completing."
+msgstr ""
+
+#: includes/class-wc-sc-admin-notifications.php:458
+msgid "View status"
+msgstr ""
+
+#. translators: %s: Plugin name
+#: includes/class-wc-sc-admin-notifications.php:467
+msgid ""
+"%s database update completed. Thank you for updating to the latest version!"
 msgstr ""
 
 #: includes/class-wc-sc-admin-pages.php:120
@@ -1848,22 +1886,22 @@ msgstr ""
 msgid "Shipping Locations"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-payment-method.php:102
-#: includes/class-wc-sc-coupons-by-payment-method.php:193
+#: includes/class-wc-sc-coupons-by-payment-method.php:103
+#: includes/class-wc-sc-coupons-by-payment-method.php:194
 msgid "Payment methods"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-payment-method.php:103
+#: includes/class-wc-sc-coupons-by-payment-method.php:104
 msgid "No payment methods"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-payment-method.php:113
+#: includes/class-wc-sc-coupons-by-payment-method.php:114
 msgid ""
 "Payment methods that must be selected during checkout for this coupon to be "
 "valid."
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-payment-method.php:177
+#: includes/class-wc-sc-coupons-by-payment-method.php:178
 msgid "This coupon is not valid for selected payment method."
 msgstr ""
 
@@ -1903,19 +1941,19 @@ msgid ""
 msgstr ""
 
 #: includes/class-wc-sc-coupons-by-product-attribute.php:449
-#: includes/class-wc-sc-coupons-by-taxonomy.php:693
+#: includes/class-wc-sc-coupons-by-taxonomy.php:694
 msgid "Sorry, this coupon is not applicable to selected products."
 msgstr ""
 
 #. translators: 1. Singular/plural label for product(s) 2. Excluded product
 #. names
 #: includes/class-wc-sc-coupons-by-product-attribute.php:469
-#: includes/class-wc-sc-coupons-by-taxonomy.php:722
+#: includes/class-wc-sc-coupons-by-taxonomy.php:723
 msgid "Sorry, this coupon is not applicable to the %1$s: %2$s."
 msgstr ""
 
 #: includes/class-wc-sc-coupons-by-product-attribute.php:469
-#: includes/class-wc-sc-coupons-by-taxonomy.php:722
+#: includes/class-wc-sc-coupons-by-taxonomy.php:723
 msgid "product"
 msgid_plural "products"
 msgstr[0] ""
@@ -1929,41 +1967,41 @@ msgstr ""
 msgid "Exclude Attributes"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-shipping-method.php:102
-#: includes/class-wc-sc-coupons-by-shipping-method.php:198
+#: includes/class-wc-sc-coupons-by-shipping-method.php:103
+#: includes/class-wc-sc-coupons-by-shipping-method.php:199
 msgid "Shipping methods"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-shipping-method.php:103
+#: includes/class-wc-sc-coupons-by-shipping-method.php:104
 msgid "No shipping methods"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-shipping-method.php:113
+#: includes/class-wc-sc-coupons-by-shipping-method.php:114
 msgid ""
 "Shipping methods that must be selected during checkout for this coupon to be "
 "valid."
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-shipping-method.php:181
+#: includes/class-wc-sc-coupons-by-shipping-method.php:182
 msgid "This coupon is not valid for selected shipping method."
-msgstr ""
-
-#: includes/class-wc-sc-coupons-by-taxonomy.php:94
-#: includes/class-wc-sc-coupons-by-taxonomy.php:281
-msgid "Include"
 msgstr ""
 
 #: includes/class-wc-sc-coupons-by-taxonomy.php:95
 #: includes/class-wc-sc-coupons-by-taxonomy.php:282
+msgid "Include"
+msgstr ""
+
+#: includes/class-wc-sc-coupons-by-taxonomy.php:96
+#: includes/class-wc-sc-coupons-by-taxonomy.php:283
 msgid "Exclude"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-taxonomy.php:132
-#: includes/class-wc-sc-coupons-by-taxonomy.php:173
+#: includes/class-wc-sc-coupons-by-taxonomy.php:133
+#: includes/class-wc-sc-coupons-by-taxonomy.php:174
 msgid "Taxonomy"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-taxonomy.php:133
+#: includes/class-wc-sc-coupons-by-taxonomy.php:134
 msgid ""
 "Product taxonomies that the coupon will be applicable for, or its "
 "availability in the cart in order for the \"Fixed cart discount\" to be "
@@ -1971,57 +2009,57 @@ msgid ""
 "taxonomies selected here, should be valid, for this coupon to be valid."
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-taxonomy.php:137
-#: includes/class-wc-sc-coupons-by-taxonomy.php:210
+#: includes/class-wc-sc-coupons-by-taxonomy.php:138
+#: includes/class-wc-sc-coupons-by-taxonomy.php:211
 msgid "Add taxonomy restriction"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-taxonomy.php:174
+#: includes/class-wc-sc-coupons-by-taxonomy.php:175
 msgid ""
 "Product taxonomies that the coupon will be applicable for, or its "
 "availability in the cart in order for the \"Fixed cart discount\" to be "
 "applied, based on whether the taxonomies are included or excluded."
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-taxonomy.php:210
+#: includes/class-wc-sc-coupons-by-taxonomy.php:211
 msgid "Remove taxonomy restriction"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-user-role.php:107
+#: includes/class-wc-sc-coupons-by-user-role.php:109
 msgid "Allowed user roles"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-user-role.php:108
-#: includes/class-wc-sc-coupons-by-user-role.php:125
+#: includes/class-wc-sc-coupons-by-user-role.php:110
+#: includes/class-wc-sc-coupons-by-user-role.php:127
 msgid "No user roles"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-user-role.php:119
+#: includes/class-wc-sc-coupons-by-user-role.php:121
 msgid ""
 "Role of the users for whom this coupon is valid. Keep empty if you want this "
 "coupon to be valid for users with any role."
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-user-role.php:124
+#: includes/class-wc-sc-coupons-by-user-role.php:126
 msgid "Exclude user roles"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-user-role.php:136
+#: includes/class-wc-sc-coupons-by-user-role.php:138
 msgid ""
 "Role of the users for whom this coupon is not valid. Keep empty if you want "
 "this coupon to be valid for users with any role."
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-user-role.php:209
-#: includes/class-wc-sc-coupons-by-user-role.php:216
+#: includes/class-wc-sc-coupons-by-user-role.php:211
+#: includes/class-wc-sc-coupons-by-user-role.php:218
 msgid "This coupon is not valid for you."
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-user-role.php:232
+#: includes/class-wc-sc-coupons-by-user-role.php:234
 msgid "User Role"
 msgstr ""
 
-#: includes/class-wc-sc-coupons-by-user-role.php:233
+#: includes/class-wc-sc-coupons-by-user-role.php:235
 msgid "Exclude User Role"
 msgstr ""
 

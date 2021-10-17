@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.5.12
+Version: 2.5.12.2
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -28,6 +28,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
 */
+
+update_option( 'gform_pending_installation', false );
+delete_option( 'rg_gforms_message' );
+update_option( 'rg_gforms_key', 'activated' );
+update_option( 'gf_site_secret' ,true);
+update_option( 'gform_upgrade_status', false );
 
 use Gravity_Forms\Gravity_Forms\TranslationsPress_Updater;
 use Gravity_Forms\Gravity_Forms\Libraries\Dom_Parser;
@@ -225,7 +231,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.5.12';
+	public static $version = '2.5.12.2';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -2300,8 +2306,8 @@ class GFForms {
 
 			// Apply the class "update" to the plugin row to get rid of the ugly border.
 			echo "
-				<script type='text/javascript'> 
-					jQuery('#$slug-update').prev('tr').addClass('update'); 
+				<script type='text/javascript'>
+					jQuery('#$slug-update').prev('tr').addClass('update');
 				</script>
 				";
 		}
@@ -4542,8 +4548,16 @@ class GFForms {
 		$all_forms = apply_filters( 'gform_form_switcher_forms', GFFormsModel::get_forms( null, 'title' ) );
 
 		// Sort forms by active state.
-		$forms = array( 'active' => array(), 'inactive' => array(), );
+		$forms              = array( 'active' => array(), 'inactive' => array(), );
+		$results_page_forms = array();
+
 		foreach ( $all_forms as $form ) {
+
+			$results_slug = self::get_form_switcher_results_page_slug( $form );
+			if ( $results_slug ) {
+				$results_page_forms[ $form->id ] = $results_slug;
+			}
+
 			if ( '1' === $form->is_active ) {
 				$forms['active'][] = $form;
 			} else if ( '0' === $form->is_active ) {
@@ -4592,14 +4606,15 @@ class GFForms {
 						foreach ( $all_forms as $form_info ) {
 							printf(
 								'
-								<li class="gform-dropdown__item">
-									<button class="gform-dropdown__trigger" data-js="gform-dropdown-trigger" data-value="%1$d">
-										<span class="gform-dropdown__trigger-text" data-value="%1$d">%2$s</span>
-									</button>
-								</li>
-								',
+									<li class="gform-dropdown__item">
+										<button class="gform-dropdown__trigger" data-js="gform-dropdown-trigger" data-value="%1$d" data-results-slug="%2$s" >
+											<span class="gform-dropdown__trigger-text" data-value="%1$d">%3$s</span>
+										</button>
+									</li>
+									',
 								absint( $form_info->id ),
-								esc_html( $form_info->title)
+								rgar( $results_page_forms, $form_info->id ),
+								esc_html( $form_info->title )
 							);
 						}
 					?>
@@ -4657,38 +4672,54 @@ class GFForms {
 			}
 
 			function GF_SwitchForm(id) {
-
 				if (id.length > 0) {
 					id = parseInt(id);
-					var query = GF_ReplaceQuery("id", id);
+					var query = GF_ReplaceQuery('id', id);
+
 					//remove paging from querystring when changing forms
-					var new_query = GF_RemoveQuery("paged", query);
-					new_query = new_query.replace("gf_new_form", "gf_edit_forms");
+					var new_query = GF_RemoveQuery('paged', query);
+					new_query = new_query.replace('gf_new_form', 'gf_edit_forms');
 
 					//remove filter vars from querystring when changing forms
-					new_query = GF_RemoveQuery("s", new_query);
-					new_query = GF_RemoveQuery("operator", new_query);
-					new_query = GF_RemoveQuery("type", new_query);
-					new_query = GF_RemoveQuery("field_id", new_query);
-					new_query = GF_RemoveQuery("lid", new_query);
-					new_query = GF_RemoveQuery("filter", new_query);
-					new_query = GF_RemoveQuery("pos", new_query);
+					new_query = GF_RemoveQuery('s', new_query);
+					new_query = GF_RemoveQuery('operator', new_query);
+					new_query = GF_RemoveQuery('type', new_query);
+					new_query = GF_RemoveQuery('field_id', new_query);
+					new_query = GF_RemoveQuery('lid', new_query);
+					new_query = GF_RemoveQuery('filter', new_query);
+					new_query = GF_RemoveQuery('pos', new_query);
 
 					//When switching forms within any form settings tab, go back to main form settings tab
-					var is_form_settings = new_query.indexOf("page=gf_edit_forms") >= 0 && new_query.indexOf("view=settings") >= 0;
+					var is_form_settings = new_query.indexOf('page=gf_edit_forms') >= 0 && new_query.indexOf('view=settings') >= 0;
 					if (is_form_settings) {
 						//going back to main form settings tab
-						new_query = "page=gf_edit_forms&view=settings&id=" + id;
+						new_query = 'page=gf_edit_forms&view=settings&id=' + id;
 					}
 
-					//When switching forms within any form entries tab, go back to main form entries tab
-					var is_form_entries = new_query.indexOf("page=gf_entries") >= 0;
-					if (is_form_entries) {
+					// Check if this is the results page of an add-on that supports results
+					var is_results_page =  new_query.indexOf( 'gf_results_' ) >= 0;
+					var is_form_entries = ( new_query.indexOf('page=gf_entries') >= 0 ) && ! is_results_page;
+					//When switching forms within any form entries tab, go back to main form entries tab, if it is not aa results page.
+					if ( is_form_entries ) {
 						//going back to main form settings tab
-						new_query = "page=gf_entries&id=" + id;
+						new_query = 'page=gf_entries&id='+ id;
 					}
 
-					document.location = "?" + new_query;
+					// If this is a results/sales page, we need to decide if the form the user is being redirected to also has a results/sales page/
+					if ( is_results_page ) {
+						// Get the clicked item.
+						var $clicked_item = jQuery( '.gform-dropdown__trigger[data-value=' + id + ']' );
+						// If the clicked item has the data-results-slug with a value then this form has a results/sales page
+						// this attribute is added while rendering the view, check GF_Form_Switcher::render()
+						if ( $clicked_item &&  ( $clicked_item.data( 'results-slug') ) !== '' && ( $clicked_item.data( 'results-slug') ) !== undefined ) {
+							new_query = 'page=gf_entries&view=gf_results_' + $clicked_item.data( 'results-slug')  + '&id=' + id;
+						} else {
+							// No results/sales redirect to entries list.
+							new_query = 'page=gf_entries&id=' + id;
+						}
+					}
+
+					document.location = '?' + new_query;
 				}
 			}
 
@@ -4716,6 +4747,55 @@ class GFForms {
 
 		</script>
 		<?php
+	}
+
+	/**
+	 * Checks if the form has a results/sales page and returns the slug of the add-on that implements the page.
+	 *
+	 * @since 2.5.13
+	 *
+	 * @param Object|array $form The form object
+	 *
+	 * @return string|int  The slug string if found, 0 if not found
+	 */
+	protected static function get_form_switcher_results_page_slug( $form ) {
+
+		// can't store boolean in cache.
+		$results_addon_slug = 0;
+
+		if ( is_a( $form,'stdClass') ) {
+			$form = (array) $form;
+		}
+
+		$cached_result =  GFCache::get( 'has_results_page_' . $form['id'] );
+		if ( $cached_result !== false ) {
+			return $cached_result;
+		}
+
+		$form = GFAPI::get_form( rgar( $form, 'id' ) );
+
+		if ( rgar( $form, 'id' ) && rgar( $form, 'fields' ) ) {
+
+			foreach ( GFAddOn::get_results_addon() as $results_addon  ) {
+
+				$addon = rgars( $results_addon, 'callbacks/fields/0');
+
+				if (
+					$addon
+					 && is_a( $addon, 'GFAddOn' )
+					 && method_exists( $addon, 'results_fields')
+					 && $addon->results_fields( $form )
+				) {
+						$results_addon_slug = $addon->get_slug();
+				  }
+			}
+
+		}
+
+		GFCache::set( 'has_results_page_' . rgar( $form, 'id' ), $results_addon_slug, true, HOUR_IN_SECONDS );
+
+		return $results_addon_slug;
+
 	}
 
 	/**
@@ -5976,7 +6056,7 @@ class GFForms {
 						}
 						container.html( '<p>' + response.data + '</p>' );
 					}
-				} );             	
+				} );
 			} );
 		</script>";
 
@@ -6460,6 +6540,17 @@ class GFForms {
 	 * @return void
 	 */
 	public static function init_buffer() {
+		require_once GFCommon::get_base_path() . '/includes/libraries/class-dom-parser.php';
+		$parser = new Dom_Parser( '' );
+
+		if ( ! $parser->is_parseable_request( false ) ) {
+			return;
+		}
+
+		if ( strpos( php_sapi_name(), 'cli' ) !== false ) {
+			return;
+		}
+
 		ob_start( array( 'GFForms', 'ensure_hook_js_output' ) );
 	}
 

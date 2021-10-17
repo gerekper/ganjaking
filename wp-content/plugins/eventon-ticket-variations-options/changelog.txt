@@ -1,0 +1,52 @@
+Variations & Options (EVOVO) addon for EventON Plugin
+====================================
+v 0.8 (2020-6-16)
+FIXED: Missing translation text from the frontend
+
+v 0.7 (2020-1-30)
+ADDED: variation data to be displayed in checkout page for additional ticket info
+FIXED: Missing price options description
+FIXED: price options not able to remove once added
+REQ: Tickets 1.7.11
+
+v 0.6 (2019-10-15)
+ADDED: Variation ticket sales stats into sales insight for ticket
+ADDED: Option to hide sold out variations from evantcard
+FIXED: Missing back end translation strings
+REQ: Tickets 1.7.10
+
+v 0.5 (2019-6-28)
+FIXED: booking addon showing stock instead of price incorrectly
+FIXED: price options sold style not showing saved value
+FIXED: multiple variations in cart only reducing stock on one
+FIXED: changing variation type switching stock to max amount incorrectly
+FIXED: when all stock of a variation is purchased set the variation to out of stock
+
+v 0.4 (2019-1-7)
+FIXED: Missing language string on translations
+FIXED: when one variation is out of stock others not showing
+FIXED: when variation type options are using - as values filter it out
+
+v 0.3 (2018-12-11)
+ADDED: price options as separate tickets
+ADDED: Duplicating events to also duplicate correct variations
+ADDED: Price option values to be included in the CSV download of attendees
+FIXED: when options are enabled ticket stock not honored
+FIXED: Currency position not aligning with woocommerce settings
+FIXED: variation types with special characters not showing
+FIXED: variation with all not auto populating all options
+UPDATED: minor layout design updates
+REQ: tickets addon v1.7.5
+
+v 0.2 (2018-7-24)
+ADDED: Member only variations for loggedin users
+ADDED: Missing translations from cart page
+FIXED: Lightbox styles
+FIXED: Price options without stock not validation correct
+FIXED: Variations for seats putting seat stock empty
+FIXED: Variation types with white space not saving correct
+FIXED: return value checking inaccurately
+FIXED: All variations are not showing correctly
+
+v 0.1 (2018-5-10)
+Initial release

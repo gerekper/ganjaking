@@ -56,12 +56,15 @@ class Slack {
         }
 
         $is_admin = $_POST['is_admin'];
-        $parent = pm_get_task( $task['parent_id'] );
-        $parent = $parent['data'];
-        $parent_title = $parent['title'];
-        $parent_url = pm_get_task_url( $parent['project_id'], $parent['task_list']['data']['id'], $parent['id'], $is_admin );
-
-
+        $parent   = pm_get_task( $task['parent_id'] );
+        
+        if ( empty( $parent['data'] ) ) {
+            return;
+        }
+        
+        $parent         = $parent['data'];
+        $parent_title   = $parent['title'];
+        $parent_url     = pm_get_task_url( $parent['project_id'], $parent['task_list']['data']['id'], $parent['id'], $is_admin );
         $task_title     = $task['title'];
         $task_url       = $parent_url;
         $creator_avatar = $task['updater']['data']['avatar_url'];

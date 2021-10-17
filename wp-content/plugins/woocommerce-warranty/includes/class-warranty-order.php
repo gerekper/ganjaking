@@ -26,6 +26,10 @@ class Warranty_Order {
 
             // order status changed
             add_action( 'woocommerce_order_status_changed', array($this, 'order_status_changed'), 10, 4 );
+
+			// Display item warranty.
+			add_action( 'woocommerce_before_order_itemmeta', array( $this, 'render_order_item_warranty' ), 10, 2 );
+			add_action( 'woocommerce_order_item_meta_end', array( $this, 'render_order_item_warranty' ), 10, 2 );
         }
     }
 
@@ -255,6 +259,35 @@ class Warranty_Order {
 
         return apply_filters( 'order_has_warranty', $has_warranty, $order );
     }
+
+	/**
+	 * Display an order item's warranty data
+	 *
+	 * @param int           $item_id
+	 * @param array         $item
+	 * @param object        $object Can be WC_Product or WC_Order.
+	 */
+	public function render_order_item_warranty( $item_id, $item ) {
+		global $post;
+
+		if ( $item['type'] != 'line_item' ) {
+			return;
+		}
+
+		$warranty = warranty_get_order_item_warranty( $item );
+
+		if ( is_callable( array( $item, 'get_order_id' ) ) ) {
+			$order_id = $item->get_order_id();
+		} elseif ( $post ) {
+			$order_id = $post->ID;
+		} elseif ( isset( $_POST['order_id'] ) ) {
+			$order_id = $_POST['order_id'];
+		}
+
+		if ( $warranty && ! empty( $order_id ) ) {
+			include WooCommerce_Warranty::$base_path . '/templates/admin/order-item-warranty.php';
+		}
+	}
 
 }
 

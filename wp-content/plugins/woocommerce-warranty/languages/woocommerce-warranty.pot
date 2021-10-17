@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Warranty Requests 1.9.26\n"
+"Project-Id-Version: WooCommerce Warranty Requests 1.9.30\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-warranty\n"
-"POT-Creation-Date: 2021-07-27 18:10:54+00:00\n"
+"POT-Creation-Date: 2021-10-06 15:00:07+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,50 +14,50 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
 
-#: includes/class-warranty-admin.php:87 includes/class-warranty-admin.php:101
+#: includes/class-warranty-admin.php:139 includes/class-warranty-admin.php:152
 #: includes/class-warranty-privacy.php:68
 msgid "Warranties"
 msgstr ""
 
-#: includes/class-warranty-admin.php:88 includes/class-warranty-admin.php:109
-#: templates/list.php:443
+#: includes/class-warranty-admin.php:140 includes/class-warranty-admin.php:158
+#: templates/list.php:444
 msgid "RMA Requests"
 msgstr ""
 
-#: includes/class-warranty-admin.php:89 includes/class-warranty-admin.php:119
+#: includes/class-warranty-admin.php:141 includes/class-warranty-admin.php:166
 msgid "New Request"
 msgstr ""
 
-#: includes/class-warranty-admin.php:90 includes/class-warranty-admin.php:129
+#: includes/class-warranty-admin.php:142 includes/class-warranty-admin.php:174
 msgid "Manage Warranties"
 msgstr ""
 
-#: includes/class-warranty-admin.php:91 includes/class-warranty-admin.php:139
+#: includes/class-warranty-admin.php:143 includes/class-warranty-admin.php:182
 #: templates/report.php:5
 msgid "Reports"
 msgstr ""
 
-#: includes/class-warranty-admin.php:92 includes/class-warranty-admin.php:149
+#: includes/class-warranty-admin.php:144 includes/class-warranty-admin.php:190
 #: templates/settings/warranty-emails-table.php:23 templates/settings.php:6
 msgid "Settings"
 msgstr ""
 
-#: includes/class-warranty-admin.php:167
+#: includes/class-warranty-admin.php:204
 msgid "Shipping label attached"
 msgstr ""
 
-#: includes/class-warranty-admin.php:202
+#: includes/class-warranty-admin.php:244
 msgid "Do you really want to delete this request?"
 msgstr ""
 
-#: includes/class-warranty-admin.php:336 includes/class-warranty-admin.php:452
+#: includes/class-warranty-admin.php:379 includes/class-warranty-admin.php:497
 #: includes/class-warranty-frontend.php:69
 #: includes/class-warranty-settings.php:343 includes/functions.php:364
 #: templates/admin/product-panel.php:58 templates/admin/product-panel.php:101
-#: templates/manage.php:169 templates/manage.php:212 templates/manage.php:336
-#: templates/manage.php:378 templates/manage.php:503 templates/manage.php:563
+#: templates/manage.php:172 templates/manage.php:227 templates/manage.php:360
+#: templates/manage.php:414 templates/manage.php:547 templates/manage.php:606
 #: templates/settings/addons-table.php:22
-#: templates/settings/addons-table.php:43
+#: templates/settings/addons-table.php:44
 #: templates/settings/categories-table.php:87
 #: templates/settings/categories-table.php:129
 #: templates/settings/categories-table.php:164
@@ -66,14 +66,14 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
-#: includes/class-warranty-admin.php:337 includes/class-warranty-admin.php:453
+#: includes/class-warranty-admin.php:380 includes/class-warranty-admin.php:498
 #: includes/class-warranty-frontend.php:71
 #: includes/class-warranty-settings.php:344 includes/functions.php:366
 #: templates/admin/product-panel.php:59 templates/admin/product-panel.php:102
-#: templates/manage.php:170 templates/manage.php:213 templates/manage.php:337
-#: templates/manage.php:379 templates/manage.php:504 templates/manage.php:564
+#: templates/manage.php:175 templates/manage.php:230 templates/manage.php:363
+#: templates/manage.php:417 templates/manage.php:548 templates/manage.php:607
 #: templates/settings/addons-table.php:23
-#: templates/settings/addons-table.php:44
+#: templates/settings/addons-table.php:45
 #: templates/settings/categories-table.php:88
 #: templates/settings/categories-table.php:130
 #: templates/settings/categories-table.php:165
@@ -82,14 +82,14 @@ msgstr ""
 msgid "Weeks"
 msgstr ""
 
-#: includes/class-warranty-admin.php:338 includes/class-warranty-admin.php:454
+#: includes/class-warranty-admin.php:381 includes/class-warranty-admin.php:499
 #: includes/class-warranty-frontend.php:73
 #: includes/class-warranty-settings.php:345 includes/functions.php:368
 #: templates/admin/product-panel.php:60 templates/admin/product-panel.php:103
-#: templates/manage.php:171 templates/manage.php:214 templates/manage.php:338
-#: templates/manage.php:380 templates/manage.php:505 templates/manage.php:565
+#: templates/manage.php:178 templates/manage.php:233 templates/manage.php:366
+#: templates/manage.php:420 templates/manage.php:549 templates/manage.php:608
 #: templates/settings/addons-table.php:24
-#: templates/settings/addons-table.php:45
+#: templates/settings/addons-table.php:46
 #: templates/settings/categories-table.php:89
 #: templates/settings/categories-table.php:131
 #: templates/settings/categories-table.php:166
@@ -98,14 +98,14 @@ msgstr ""
 msgid "Months"
 msgstr ""
 
-#: includes/class-warranty-admin.php:339 includes/class-warranty-admin.php:455
+#: includes/class-warranty-admin.php:382 includes/class-warranty-admin.php:500
 #: includes/class-warranty-frontend.php:75
 #: includes/class-warranty-settings.php:346 includes/functions.php:370
 #: templates/admin/product-panel.php:61 templates/admin/product-panel.php:104
-#: templates/manage.php:172 templates/manage.php:215 templates/manage.php:339
-#: templates/manage.php:381 templates/manage.php:506 templates/manage.php:566
+#: templates/manage.php:181 templates/manage.php:236 templates/manage.php:369
+#: templates/manage.php:423 templates/manage.php:550 templates/manage.php:609
 #: templates/settings/addons-table.php:25
-#: templates/settings/addons-table.php:46
+#: templates/settings/addons-table.php:47
 #: templates/settings/categories-table.php:90
 #: templates/settings/categories-table.php:132
 #: templates/settings/categories-table.php:167
@@ -114,243 +114,245 @@ msgstr ""
 msgid "Years"
 msgstr ""
 
-#: includes/class-warranty-admin.php:383 includes/class-warranty-admin.php:516
-#: includes/class-warranty-admin.php:528
+#: includes/class-warranty-admin.php:428 includes/class-warranty-admin.php:561
+#: includes/class-warranty-admin.php:573
 #: includes/class-warranty-install.php:131
 #: includes/class-warranty-privacy.php:12
-#: includes/class-warranty-settings.php:298 templates/manage.php:62
+#: includes/class-warranty-settings.php:298 templates/manage.php:64
 #: templates/settings/categories-table.php:7
 msgid "Warranty"
 msgstr ""
 
-#: includes/class-warranty-admin.php:655
+#: includes/class-warranty-admin.php:706
 msgid "Create Warranty Request"
 msgstr ""
 
-#: includes/class-warranty-admin.php:821
+#: includes/class-warranty-admin.php:860
 msgid ""
 "<a href=\"admin.php?page=warranties&s=%s\">RMA (%s)</a> has been created "
 "for %s"
 msgstr ""
 
-#: includes/class-warranty-admin.php:834
+#: includes/class-warranty-admin.php:869
 msgid "Warranty request created"
 msgstr ""
 
-#: includes/class-warranty-admin.php:860
+#: includes/class-warranty-admin.php:895
 msgid "Shipping label uploaded"
 msgstr ""
 
-#: includes/class-warranty-admin.php:875 includes/class-warranty-ajax.php:414
+#: includes/class-warranty-admin.php:910 includes/class-warranty-ajax.php:414
 msgid "Product stock returned"
 msgstr ""
 
-#: includes/class-warranty-admin.php:893 includes/class-warranty-ajax.php:437
+#: includes/class-warranty-admin.php:928 includes/class-warranty-ajax.php:437
 msgid "Item marked as Refunded"
 msgstr ""
 
-#: includes/class-warranty-admin.php:953
+#: includes/class-warranty-admin.php:988
 msgid "Stock returned"
 msgstr ""
 
-#: includes/class-warranty-admin.php:959 templates/list.php:342
+#: includes/class-warranty-admin.php:994 templates/list.php:343
 msgid "Return Stock"
 msgstr ""
 
-#: includes/class-warranty-admin.php:979 templates/list.php:359
+#: includes/class-warranty-admin.php:1017 templates/list.php:360
 msgid "Refund Item"
 msgstr ""
 
-#: includes/class-warranty-admin.php:986 includes/class-warranty-admin.php:1659
-#: templates/list-item-refunds.php:57 templates/list.php:361
+#: includes/class-warranty-admin.php:1028
+#: includes/class-warranty-admin.php:1715 templates/list-item-refunds.php:57
+#: templates/list.php:362
 msgid "Send Coupon"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1025
+#: includes/class-warranty-admin.php:1070
 msgid "Warranty request deleted"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1083
+#: includes/class-warranty-admin.php:1128
 msgid "Store:"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1093
+#: includes/class-warranty-admin.php:1138
 msgid "Customer:"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1262
-#: includes/class-warranty-admin.php:1266
+#: includes/class-warranty-admin.php:1310
+#: includes/class-warranty-admin.php:1314
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: includes/class-warranty-admin.php:1304
+#: includes/class-warranty-admin.php:1351
 msgid "Manage Return"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1322
+#: includes/class-warranty-admin.php:1368
 #: templates/admin/new-warranty-form.php:48 templates/list.php:184
 #: templates/shortcode-request-form.php:70
 msgid "Replacement item"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1323
+#: includes/class-warranty-admin.php:1369
 #: templates/admin/new-warranty-form.php:50 templates/list.php:185
-#: templates/list.php:359 templates/shortcode-request-form.php:72
+#: templates/list.php:360 templates/shortcode-request-form.php:72
 msgid "Refund"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1324
+#: includes/class-warranty-admin.php:1370
 #: templates/admin/new-warranty-form.php:53 templates/list.php:186
 #: templates/shortcode-request-form.php:75
 msgid "Refund as store credit"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1369
+#: includes/class-warranty-admin.php:1411
 msgid "RMA %s"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1375 templates/list.php:57
+#: includes/class-warranty-admin.php:1418 templates/list.php:57
 #: templates/shortcode-order-items.php:104
 msgid "Products"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1379
+#: includes/class-warranty-admin.php:1422
 msgid "%s &times; %d"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1383
+#: includes/class-warranty-admin.php:1426
 msgid "RMA Data"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1386
+#: includes/class-warranty-admin.php:1429
 msgid "Request Type:"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1394
+#: includes/class-warranty-admin.php:1437
 msgid "Refunded:"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1469
+#: includes/class-warranty-admin.php:1512
 #: includes/class.warranty_active_reports_list_table.php:18
 #: includes/class.warranty_completed_reports_list_table.php:18
 msgid "RMA Status"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1473 templates/list-item-details.php:71
+#: includes/class-warranty-admin.php:1516 templates/list-item-details.php:71
 msgid "Return shipping details"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1479
+#: includes/class-warranty-admin.php:1522
 msgid "Download the Shipping Label"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1484 templates/list-item-details.php:83
+#: includes/class-warranty-admin.php:1527 templates/list-item-details.php:83
 msgid "Set Shipping Label"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1484 templates/list-item-details.php:83
+#: includes/class-warranty-admin.php:1527 templates/list-item-details.php:83
 msgid "Select Shipping Label"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1492
+#: includes/class-warranty-admin.php:1535
 msgid "Return Tracking Details"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1502 templates/list-item-details.php:101
+#: includes/class-warranty-admin.php:1546 templates/list-item-details.php:101
 msgid "Tracking information requested from customer"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1511 templates/list-item-details.php:110
+#: includes/class-warranty-admin.php:1556 templates/list-item-details.php:110
 msgid "Request tracking code from the Customer"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1518 templates/list-item-details.php:117
+#: includes/class-warranty-admin.php:1563 templates/list-item-details.php:117
 msgid "Customer Provided Tracking"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1546 includes/functions.php:139
+#: includes/class-warranty-admin.php:1591 includes/functions.php:139
 #: templates/list-item-details.php:146
 msgid "Shipping Provider"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1561
-#: includes/class-warranty-admin.php:1567
+#: includes/class-warranty-admin.php:1606
+#: includes/class-warranty-admin.php:1612
 msgid "Tracking details"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1562
-#: includes/class-warranty-admin.php:1568 templates/list-item-details.php:162
+#: includes/class-warranty-admin.php:1607
+#: includes/class-warranty-admin.php:1613 templates/list-item-details.php:162
 msgid "Enter the shipment tracking number"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1563
-#: includes/class-warranty-admin.php:1569 templates/list-item-details.php:163
+#: includes/class-warranty-admin.php:1608
+#: includes/class-warranty-admin.php:1614 templates/list-item-details.php:163
 #: templates/list-item-details.php:169
 msgid "Shipping Details/Tracking"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1578
+#: includes/class-warranty-admin.php:1623
 msgid "Actions"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1590 templates/list-item-details.php:181
-#: templates/manage.php:229 templates/manage.php:395
+#: includes/class-warranty-admin.php:1635 templates/list-item-details.php:181
+#: templates/manage.php:253 templates/manage.php:440
 #: templates/settings/categories-table.php:147
 msgid "Close"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1593 templates/list-item-details.php:178
+#: includes/class-warranty-admin.php:1638 templates/list-item-details.php:178
 msgid "Print"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1594 templates/list-item-details.php:179
-#: templates/list.php:241 templates/manage.php:230 templates/manage.php:396
-#: templates/manage.php:547 templates/settings/categories-table.php:146
+#: includes/class-warranty-admin.php:1639 templates/list-item-details.php:179
+#: templates/list.php:241 templates/manage.php:254 templates/manage.php:441
+#: templates/manage.php:590 templates/settings/categories-table.php:146
 msgid "Update"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1595 templates/list.php:365
+#: includes/class-warranty-admin.php:1640 templates/list.php:366
 msgid "Delete"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1607
-#: includes/class-warranty-admin.php:1639 templates/list-item-refunds.php:7
+#: includes/class-warranty-admin.php:1653
+#: includes/class-warranty-admin.php:1689 templates/list-item-refunds.php:7
 #: templates/list-item-refunds.php:37
 msgid "Amount refunded:"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1611
-#: includes/class-warranty-admin.php:1643 templates/list-item-refunds.php:11
+#: includes/class-warranty-admin.php:1661
+#: includes/class-warranty-admin.php:1697 templates/list-item-refunds.php:11
 #: templates/list-item-refunds.php:41
 msgid "Item cost:"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1615 templates/list-item-refunds.php:15
+#: includes/class-warranty-admin.php:1669 templates/list-item-refunds.php:15
 msgid "Refund amount:"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1627 templates/list-item-refunds.php:27
+#: includes/class-warranty-admin.php:1679 templates/list-item-refunds.php:27
 msgid "Process Refund"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1647 templates/list-item-refunds.php:45
+#: includes/class-warranty-admin.php:1705 templates/list-item-refunds.php:45
 msgid "Coupon amount:"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1695 includes/class-warranty-cart.php:49
+#: includes/class-warranty-admin.php:1749 includes/class-warranty-cart.php:49
 #: includes/class-warranty-cart.php:316 includes/class-warranty-frontend.php:64
 #: includes/class-warranty-settings.php:322
-#: includes/class.warranty_active_reports_list_table.php:176
-#: includes/class.warranty_completed_reports_list_table.php:176
+#: includes/class.warranty_active_reports_list_table.php:169
+#: includes/class.warranty_completed_reports_list_table.php:169
 #: includes/functions.php:223 includes/updates/update_1.1.php:35
+#: templates/admin/order-item-warranty.php:42
 #: templates/admin/product-panel.php:49 templates/manage.php:152
-#: templates/manage.php:320 templates/manage.php:487
+#: templates/manage.php:342 templates/manage.php:535
 #: templates/settings/categories-table.php:71
 #: templates/variables-panel-list.php:31
 msgid "Lifetime"
 msgstr ""
 
-#: includes/class-warranty-admin.php:1730 includes/class-warranty-cart.php:58
+#: includes/class-warranty-admin.php:1784 includes/class-warranty-cart.php:58
 #: includes/class-warranty-cart.php:68 includes/functions.php:317
 msgid "No warranty"
 msgstr ""
@@ -401,8 +403,8 @@ msgstr ""
 
 #: includes/class-warranty-frontend.php:65
 #: includes/class-warranty-settings.php:308
-#: templates/admin/product-panel.php:31 templates/manage.php:132
-#: templates/manage.php:300 templates/manage.php:467
+#: templates/admin/product-panel.php:31 templates/manage.php:134
+#: templates/manage.php:324 templates/manage.php:519
 #: templates/settings/categories-table.php:51
 #: templates/variables-panel-list.php:14
 msgid "No Warranty"
@@ -614,7 +616,7 @@ msgstr ""
 msgid "RMA code"
 msgstr ""
 
-#: includes/class-warranty-privacy.php:159
+#: includes/class-warranty-privacy.php:156
 msgid "Warranty Order Data Erased."
 msgstr ""
 
@@ -786,42 +788,42 @@ msgid ""
 msgstr ""
 
 #: includes/class-warranty-settings.php:295 templates/manage.php:141
-#: templates/manage.php:309 templates/manage.php:476
+#: templates/manage.php:331 templates/manage.php:526
 #: templates/settings/categories-table.php:60
 msgid "Label"
 msgstr ""
 
-#: includes/class-warranty-settings.php:304 templates/manage.php:129
-#: templates/manage.php:297 templates/manage.php:464
+#: includes/class-warranty-settings.php:304 templates/manage.php:131
+#: templates/manage.php:321 templates/manage.php:516
 #: templates/settings/categories-table.php:48
 msgid "Type"
 msgstr ""
 
 #: includes/class-warranty-settings.php:309
-#: templates/admin/product-panel.php:32 templates/manage.php:133
-#: templates/manage.php:301 templates/manage.php:468
+#: templates/admin/product-panel.php:32 templates/manage.php:135
+#: templates/manage.php:325 templates/manage.php:520
 #: templates/settings/categories-table.php:52
 #: templates/variables-panel-list.php:15
 msgid "Warranty Included"
 msgstr ""
 
 #: includes/class-warranty-settings.php:310
-#: templates/admin/product-panel.php:33 templates/manage.php:134
-#: templates/manage.php:302 templates/manage.php:469
+#: templates/admin/product-panel.php:33 templates/manage.php:136
+#: templates/manage.php:326 templates/manage.php:521
 #: templates/settings/categories-table.php:53
 #: templates/variables-panel-list.php:16
 msgid "Warranty as Add-On"
 msgstr ""
 
 #: includes/class-warranty-settings.php:317 templates/manage.php:161
-#: templates/manage.php:329 templates/manage.php:496
+#: templates/manage.php:351 templates/manage.php:542
 #: templates/settings/categories-table.php:80
 msgid "Length"
 msgstr ""
 
 #: includes/class-warranty-settings.php:321
-#: templates/admin/product-panel.php:50 templates/manage.php:153
-#: templates/manage.php:321 templates/manage.php:488
+#: templates/admin/product-panel.php:50 templates/manage.php:155
+#: templates/manage.php:345 templates/manage.php:536
 #: templates/settings/categories-table.php:72
 #: templates/variables-panel-list.php:32
 msgid "Limited"
@@ -847,7 +849,7 @@ msgstr ""
 msgid "Category Warranties"
 msgstr ""
 
-#: includes/class-warranty-settings.php:383 templates/manage.php:61
+#: includes/class-warranty-settings.php:383 templates/manage.php:63
 msgid "Categories"
 msgstr ""
 
@@ -886,7 +888,7 @@ msgstr ""
 
 #: includes/class.warranty_active_reports_list_table.php:17
 #: includes/class.warranty_completed_reports_list_table.php:17
-#: templates/new.php:44
+#: templates/new.php:39
 msgid "Order ID"
 msgstr ""
 
@@ -903,7 +905,7 @@ msgstr ""
 
 #: includes/class.warranty_active_reports_list_table.php:21
 #: includes/class.warranty_completed_reports_list_table.php:21
-#: templates/manage.php:149 templates/manage.php:317 templates/manage.php:484
+#: templates/manage.php:147 templates/manage.php:337 templates/manage.php:532
 #: templates/settings/categories-table.php:68
 msgid "Validity"
 msgstr ""
@@ -913,17 +915,17 @@ msgstr ""
 msgid "Order Date"
 msgstr ""
 
-#: includes/class.warranty_active_reports_list_table.php:195
-#: includes/class.warranty_completed_reports_list_table.php:195
-#: templates/list.php:408
+#: includes/class.warranty_active_reports_list_table.php:188
+#: includes/class.warranty_completed_reports_list_table.php:188
+#: templates/list.php:409
 msgid "No requests found."
 msgstr ""
 
-#: includes/class.warranty_active_reports_list_table.php:217
-#: includes/class.warranty_active_reports_list_table.php:219
-#: includes/class.warranty_completed_reports_list_table.php:218
-#: includes/class.warranty_completed_reports_list_table.php:220
-#: templates/list.php:455 templates/list.php:457 templates/new.php:28
+#: includes/class.warranty_active_reports_list_table.php:210
+#: includes/class.warranty_active_reports_list_table.php:212
+#: includes/class.warranty_completed_reports_list_table.php:211
+#: includes/class.warranty_completed_reports_list_table.php:213
+#: templates/list.php:456 templates/list.php:458 templates/new.php:23
 msgid "Search"
 msgstr ""
 
@@ -939,8 +941,8 @@ msgstr ""
 msgid "Tracking Code:"
 msgstr ""
 
-#: includes/functions.php:82 includes/functions.php:1375
-#: includes/functions.php:1392
+#: includes/functions.php:82 includes/functions.php:1371
+#: includes/functions.php:1388
 msgid "Track Shipment"
 msgstr ""
 
@@ -1004,15 +1006,15 @@ msgstr ""
 msgid "RMA Request for Order #"
 msgstr ""
 
-#: includes/functions.php:1046
+#: includes/functions.php:1042
 msgid "Item Returned"
 msgstr ""
 
-#: includes/functions.php:1100
+#: includes/functions.php:1096
 msgid "Refund failed"
 msgstr ""
 
-#: includes/functions.php:1352
+#: includes/functions.php:1348
 msgid "<a href=\"%s\">RMA #%d</a> status changed to %s"
 msgstr ""
 
@@ -1058,23 +1060,23 @@ msgstr ""
 msgid "Warranty Duration"
 msgstr ""
 
-#: templates/admin/product-panel.php:69 templates/manage.php:187
-#: templates/manage.php:353 templates/manage.php:520
+#: templates/admin/product-panel.php:69 templates/manage.php:197
+#: templates/manage.php:384 templates/manage.php:563
 #: templates/settings/categories-table.php:104
 #: templates/variables-panel-list.php:52
 msgid "\"No Warranty\" option"
 msgstr ""
 
-#: templates/admin/product-panel.php:77 templates/manage.php:197
-#: templates/manage.php:363 templates/manage.php:530
+#: templates/admin/product-panel.php:77 templates/manage.php:207
+#: templates/manage.php:394 templates/manage.php:573
 #: templates/settings/addons-table.php:7
 #: templates/settings/categories-table.php:114
 #: templates/variables-panel-list.php:59
 msgid "Cost"
 msgstr ""
 
-#: templates/admin/product-panel.php:78 templates/manage.php:198
-#: templates/manage.php:364 templates/manage.php:531
+#: templates/admin/product-panel.php:78 templates/manage.php:208
+#: templates/manage.php:395 templates/manage.php:574
 #: templates/settings/addons-table.php:8
 #: templates/settings/categories-table.php:115
 #: templates/variables-panel-list.php:60
@@ -1121,7 +1123,7 @@ msgstr ""
 msgid "There are no notes yet"
 msgstr ""
 
-#: templates/list-item-notes.php:32
+#: templates/list-item-notes.php:31
 msgid "Delete note"
 msgstr ""
 
@@ -1150,19 +1152,19 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: templates/list.php:318
+#: templates/list.php:319
 msgid "Order %s"
 msgstr ""
 
-#: templates/list.php:321
+#: templates/list.php:322
 msgid "Manage"
 msgstr ""
 
-#: templates/list.php:340
+#: templates/list.php:341
 msgid "Stock Returned"
 msgstr ""
 
-#: templates/list.php:367
+#: templates/list.php:368
 msgid "<strong>%s</strong> by %s on %s"
 msgstr ""
 
@@ -1174,45 +1176,45 @@ msgstr ""
 msgid "Product warranties saved!"
 msgstr ""
 
-#: templates/manage.php:27 templates/manage.php:411
+#: templates/manage.php:27 templates/manage.php:455
 msgid "Select bulk action"
 msgstr ""
 
-#: templates/manage.php:29 templates/manage.php:413
+#: templates/manage.php:29 templates/manage.php:457
 msgid "Bulk Actions"
 msgstr ""
 
-#: templates/manage.php:30 templates/manage.php:90 templates/manage.php:414
+#: templates/manage.php:30 templates/manage.php:92 templates/manage.php:458
 msgid "Edit"
 msgstr ""
 
-#: templates/manage.php:57
+#: templates/manage.php:59
 msgid "ID"
 msgstr ""
 
-#: templates/manage.php:59 templates/shortcode-return-form.php:10
+#: templates/manage.php:61 templates/shortcode-return-form.php:10
 msgid "Name"
 msgstr ""
 
-#: templates/manage.php:60 templates/shortcode-order-items.php:17
+#: templates/manage.php:62 templates/shortcode-order-items.php:17
 msgid "Price"
 msgstr ""
 
-#: templates/manage.php:119 templates/manage.php:287 templates/manage.php:454
+#: templates/manage.php:121 templates/manage.php:311 templates/manage.php:506
 #: templates/settings/categories-table.php:38
 msgid "Warranty Settings"
 msgstr ""
 
-#: templates/manage.php:124 templates/manage.php:292 templates/manage.php:459
+#: templates/manage.php:126 templates/manage.php:316 templates/manage.php:511
 #: templates/settings/categories-table.php:43
 msgid "Default warranty"
 msgstr ""
 
-#: templates/manage.php:437
+#: templates/manage.php:481
 msgid "Products per Page:"
 msgstr ""
 
-#: templates/manage.php:545
+#: templates/manage.php:588
 msgid "Cancel"
 msgstr ""
 
@@ -1220,47 +1222,47 @@ msgstr ""
 msgid "New Warranty Request"
 msgstr ""
 
-#: templates/new.php:8
+#: templates/new.php:10
 msgid "Search for an Order"
 msgstr ""
 
-#: templates/new.php:14 templates/print.php:72
+#: templates/new.php:16 templates/print.php:72
 #: templates/shortcode-return-form.php:21
 msgid "Order Number"
 msgstr ""
 
-#: templates/new.php:15
+#: templates/new.php:17
 msgid "Customer Name or Email"
 msgstr ""
 
-#: templates/new.php:24
+#: templates/new.php:21
 msgid "Search for a customer&hellip;"
 msgstr ""
 
-#: templates/new.php:37
+#: templates/new.php:32
 msgid "No orders found"
 msgstr ""
 
-#: templates/new.php:45 templates/print.php:76
+#: templates/new.php:40 templates/print.php:76
 #: templates/settings/warranty-emails-table.php:95
 #: templates/settings/warranty-emails-table.php:180
 #: templates/settings/warranty-emails-table.php:251
 msgid "Customer"
 msgstr ""
 
-#: templates/new.php:46
+#: templates/new.php:41
 msgid "Order Status"
 msgstr ""
 
-#: templates/new.php:47
+#: templates/new.php:42
 msgid "Order Items"
 msgstr ""
 
-#: templates/new.php:48 templates/print.php:68
+#: templates/new.php:43 templates/print.php:68
 msgid "Date"
 msgstr ""
 
-#: templates/new.php:102
+#: templates/new.php:99
 msgid "Create Request"
 msgstr ""
 
@@ -1499,7 +1501,7 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: templates/shortcode-return-form.php:56
+#: templates/shortcode-return-form.php:59
 msgid ""
 "Please complete the required fields and try submitting again. The following "
 "fields are incomplete:"

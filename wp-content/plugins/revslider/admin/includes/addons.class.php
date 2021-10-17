@@ -51,6 +51,7 @@ class RevSliderAddons extends RevSliderFunctions { //before: Rev_addon_Admin
 	 * get all the addons with information
 	 **/
 	public function get_addon_list(){
+
 		$addons	= get_option('revslider-addons');
 		$addons	= (array)$addons;
 		$addons = array_reverse($addons, true);

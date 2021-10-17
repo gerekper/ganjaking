@@ -1,0 +1,7 @@
+/* Eventon event lists styles */
+/* @version 0.1 */
+.ajde_evcal_calendar.evoEL .calendar_header{min-height: auto}
+.ajde_evcal_calendar.evoEL .eventon_events_list .eventon_list_event{}
+.ajde_evcal_calendar.evoEL #evcal_list.sepmonths{border:none;}
+.ajde_evcal_calendar.evoEL #evcal_list.sepmonths .sep_month_events{    border-right: 1px solid #e5e5e5;}
+.ajde_evcal_calendar.evoEL #eventon_loadbar_section{border-bottom:none;}

@@ -1,0 +1,109 @@
+/* WordPress Widgets */
+	.eventon_widget_settings p.evo_widget_textarea textarea{
+		width: 100%;
+	}
+	#eventon_widget_settings .eventon_widget_top{
+		margin:-1px -15px 0px;
+		background-color:#f3c891;
+		padding:5px 0 0;
+	}
+	.customize-control #eventon_widget_settings .eventon_widget_top{margin:-3px -10px 0;}
+	
+	#eventon_widget_settings .divider{ margin:0; border-bottom:1px solid #dfdfdf;}
+	
+	.evowig em{
+		background-color:#f6efe8;
+		padding:7px 11px;
+		display:block;
+		color:#c3b9af;
+		font: italic 12px 'open sans',arial;
+		line-height:110%;
+	}
+	.evo_wig_item .ajdeToolTip{	right:10px;top:10px;}
+	.evo_wig_item.select_row select{
+		border:none; box-shadow: none
+	}
+	.evo_wig_item.select_row label{
+		padding-left: 10px;
+		font: italic 15px 'open sans',arial;
+	}
+	.evo_wig_item{
+		border-bottom:1px solid #dfdfdf;
+		position:relative;
+	}
+	.evo_widget_outter .evo_widget_terms{
+		max-height: 150px;
+	    overflow-y: scroll;
+	    border-radius: 5px;
+	    border: 1px solid #cecece;
+	    overflow-x: hidden;
+	    padding: 5px;
+	}
+
+	.evowig input{
+		background-color: transparent;
+		border: 0;
+		-webkit-box-sizing: border-box;
+		outline: 0;
+		width: 100%;
+		resize:none;
+		vertical-align:bottom;
+		overflow:hidden;
+		font: italic 15px 'open sans',arial;
+		-webkit-appearance: none;
+		-webkit-border-radius: 0;
+		box-shadow:none;
+		padding:7px 11px;
+	}
+	.evowig input:focus{
+		-webkit-appearance: none;
+		-webkit-border-radius: 0;
+		box-shadow:none
+	}
+	#eventon_widget_settings .evo_wig_item p{
+		padding:6px;margin:0;
+		font: italic 13px 'open sans',arial;
+	}
+	.evo_wug_hid{display:none}
+	#eventon_widget_settings .evo_wig_item p.evowig_chbx{
+		cursor:pointer;
+		background-color:#f3c791;
+		width:46px; height:35px;
+		display:block;
+		float:left;
+		margin-right:8px;
+		margin-bottom:0;
+		padding:0;
+	}
+	#eventon_widget_settings .evo_wig_item:hover p.evowig_chbx:before{
+		background-image:url(../../images/backend_post/checkmark_2.png);
+		background-position:center center;
+		background-repeat:no-repeat;
+		content:"";
+		opacity:0.3;
+		width:100%; height:100%; display:block;
+	}
+	#adminmenuwrap #adminmenu #toplevel_page_eventon a .wp-menu-image:before {
+		font-size: 20px;
+		margin-top: 3px;
+		margin-left: 5px;
+		position: absolute;
+	}
+	.evowig_chbx.selected{
+		background-image:url(../../images/backend_post/checkmark_2.png);
+		background-position:center center;
+		background-repeat:no-repeat;
+	}
+
+	/** added v 2.2.24 */
+	.evo_wig_item.input_checkboxes{padding: 4px;}
+	.evo_wig_item.input_checkboxes input{
+		width: auto;
+		display: inline-block;
+		border:1px solid #C8C8C8;
+		border-radius: 4px;
+	}
+	.evo_wig_item.input_checkboxes span{
+		display: block; padding-bottom: 5px;
+	}
+

@@ -38,24 +38,19 @@ if ( ! defined( 'WPINC' ) ) {
 
 			<div class="sui-box-body sui-content-center sui-spacing-sides--30 sui-spacing-top--0 sui-spacing-bottom--50">
 				<h3 class="sui-box-title sui-lg" id="smush-title-updated-dialog" style="white-space: normal">
-					<?php esc_html_e( 'Preset configurations are here!', 'wp-smushit' ); ?>
+					<?php esc_html_e( 'Update: Manage Your Uploaded Images!', 'wp-smushit' ); ?>
 				</h3>
 
 				<p class="sui-description">
-					<?php esc_html_e( 'You can now save your Smush settings, download them and reapply them on another site in just a few clicks! No more having to repeat setting up Smush on all your new client sites, just upload your config and go.', 'wp-smushit' ); ?>
+					<?php esc_html_e( 'You now have greater control over your images, with new settings to override WordPress Core functionality. Compress uploaded images, backup uploaded images, scale images to a desired threshold, disable scaling altogether, and more.', 'wp-smushit' ); ?>
 				</p>
 
-				<p style="color: #333; text-align: left; margin-bottom: 5px; margin-top: 30px;">
-					<span class="sui-icon-hub sui-md" aria-hidden="true" style="margin-right: 5px;"></span>
-					<span style="font-size: 13px; font-weight: 700;"><?php esc_html_e( 'Apply presets to multiple sites via The Hub', 'wp-smushit' ); ?></span>
-				</p>
-
-				<p class="sui-description" style="text-align: left;">
-					<?php esc_html_e( "If you're a WPMU DEV member, you get it one better - all your configs are automatically uploaded and shared across all your sites, ready to be applied whenever you like from either The Hub or the plugin.", 'wp-smushit' ); ?>
+				<p class="sui-description">
+					<?php esc_html_e( 'Check out these new features in the Bulk Smush settings.', 'wp-smushit' ); ?>
 				</p>
 
 				<a href="<?php echo esc_url( $cta_url ); ?>" class="sui-button" onclick="WP_Smush.onboarding.hideUpgradeModal()">
-					<?php esc_html_e( "Awesome, let's go!", 'wp-smushit' ); ?>
+					<?php esc_html_e( 'Got it', 'wp-smushit' ); ?>
 				</a>
 			</div>
 		</div>

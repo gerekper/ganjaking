@@ -49,7 +49,7 @@ class Date implements Service {
 		$value = $request->get( 'value' );
 
 		if ( $value ) {
-			$date_time = DateTime::createFromFormat( self::FORMAT, $value );
+			$date_time = DateTime::createFromFormat( 'U', ac_helper()->date->strtotime( $value ) );
 
 			$value = $date_time
 				? $date_time->format( $this->date_format )

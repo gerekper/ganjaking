@@ -57,6 +57,7 @@ class Settings {
 		'detection'         => false,
 		'original'          => false,
 		'backup'            => false,
+		'no_scale'          => false,
 		'png_to_jpg'        => false, // works with CDN.
 		'nextgen'           => false,
 		's3'                => false,
@@ -88,7 +89,7 @@ class Settings {
 	 *
 	 * @var array $basic_features
 	 */
-	public static $basic_features = array( 'bulk', 'auto', 'strip_exif', 'resize', 'gutenberg', 'js_builder', 'lazy_load' );
+	public static $basic_features = array( 'bulk', 'auto', 'strip_exif', 'resize', 'original', 'gutenberg', 'js_builder', 'lazy_load' );
 
 	/**
 	 * List of fields in bulk smush form.
@@ -97,7 +98,7 @@ class Settings {
 	 *
 	 * @var array
 	 */
-	private $bulk_fields = array( 'bulk', 'auto', 'lossy', 'strip_exif', 'resize', 'original', 'backup', 'png_to_jpg' );
+	private $bulk_fields = array( 'bulk', 'auto', 'lossy', 'strip_exif', 'resize', 'original', 'backup', 'png_to_jpg', 'no_scale' );
 
 	/**
 	 * List of fields in integration form.
@@ -185,7 +186,34 @@ class Settings {
 		// Reset Settings.
 		add_action( 'wp_ajax_reset_settings', array( $this, 'reset' ) );
 
+		add_filter( 'wp_smush_settings', array( $this, 'remove_unavailable' ) );
+
 		$this->init();
+	}
+
+	/**
+	 * Remove settings that are not available on a specific version of WordPress.
+	 *
+	 * @since 3.9.1
+	 *
+	 * @param array $settings  Current settings.
+	 *
+	 * @return array
+	 */
+	public function remove_unavailable( $settings ) {
+		global $wp_version;
+
+		if ( version_compare( $wp_version, '5.3', '<' ) ) {
+			if ( isset( $this->bulk_fields['no_scale'] ) ) {
+				unset( $this->bulk_fields['no_scale'] );
+			}
+
+			if ( isset( $settings['no_scale'] ) ) {
+				unset( $settings['no_scale'] );
+			}
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -220,9 +248,14 @@ class Settings {
 				'desc'        => esc_html__( 'Photos often store camera settings in the file, i.e., focal length, date, time and location. Removing EXIF data reduces the file size. Note: it does not strip SEO metadata.', 'wp-smushit' ),
 			),
 			'resize'            => array(
-				'label'       => esc_html__( 'Resize my full size images', 'wp-smushit' ),
+				'label'       => esc_html__( 'Resize uploaded images', 'wp-smushit' ),
 				'short_label' => esc_html__( 'Image Resizing', 'wp-smushit' ),
-				'desc'        => esc_html__( 'Detect unnecessarily large oversize images on your pages to reduce their size and decrease load times.', 'wp-smushit' ),
+				'desc'        => esc_html__( 'By default, WordPress will create a scaled version of all images over 2560x2560px and keep the uploaded image as backup. You can define a new resizing threshold here or completely disable the scaling functionality as well.', 'wp-smushit' ),
+			),
+			'no_scale'          => array(
+				'label'       => esc_html__( 'Disable scaled images', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Disable Scaled Images', 'wp-smushit' ),
+				'desc'        => esc_html__( 'Enable this feature to disable automatic resizing of images above the threshold, keeping only your original uploaded images. Note: WordPress excludes PNG images from automatic image resizing. As a result, only uploaded JPEG images are affected by these settings.', 'wp-smushit' ),
 			),
 			'detection'         => array(
 				'label'       => esc_html__( 'Detect and show incorrectly sized images', 'wp-smushit' ),
@@ -230,14 +263,14 @@ class Settings {
 				'desc'        => esc_html__( 'This will add functionality to your website that highlights images that are either too large or too small for their containers.', 'wp-smushit' ),
 			),
 			'original'          => array(
-				'label'       => esc_html__( 'Smush my original full size images', 'wp-smushit' ),
-				'short_label' => esc_html__( 'Original Images', 'wp-smushit' ),
+				'label'       => esc_html__( 'Compress uploaded images', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Uploaded Images', 'wp-smushit' ),
 				'desc'        => esc_html__( 'Choose how you want Smush to handle the original image file when you run a bulk smush.', 'wp-smushit' ),
 			),
 			'backup'            => array(
-				'label'       => esc_html__( 'Store a copy of my full size images', 'wp-smushit' ),
-				'short_label' => esc_html__( 'Backup Original Images', 'wp-smushit' ),
-				'desc'        => esc_html__( 'Save a copy of your original full-size images separately so you can restore them at any point. Note: Keeping a copy of your original files can significantly increase the size of your uploads folder by nearly twice as much.', 'wp-smushit' ),
+				'label'       => esc_html__( 'Backup uploaded images', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Backup Uploaded Images', 'wp-smushit' ),
+				'desc'        => esc_html__( 'Enable this feature to save a copy of your uploaded images so you can restore them at any point. Note: Keeping a copy of uploaded files can significantly increase the size of your uploads folder.', 'wp-smushit' ),
 			),
 			'png_to_jpg'        => array(
 				'label'       => esc_html__( 'Auto-convert PNGs to JPEGs (lossy)', 'wp-smushit' ),
@@ -256,15 +289,8 @@ class Settings {
 			),
 		);
 
-		global $wp_version;
-
-		if ( version_compare( $wp_version, '5.2.999', '>' ) ) {
-			$settings['backup']['label'] = __( 'Store a copy of my small originals', 'wp-smushit' );
-			$settings['backup']['desc']  = __( 'As of WordPress v5.3, full size images above a certain size (2560px by default) will be stored as originals, while a new max sized image will be created. However, if the uploaded image is smaller than the specified size WordPress won’t create a backup for it. Enable this setting to ensure you always have backups of all your image uploads.', 'wp-smushit' );
-		}
-
 		/**
-		 * Allow to add other settings via filtering the variable
+		 * Allow adding other settings via filtering the variable
 		 *
 		 * Like Nextgen and S3 integration
 		 */
@@ -361,18 +387,18 @@ class Settings {
 
 		// Always get global settings if global settings enabled or is in network admin.
 		if ( true === $global || ( is_array( $global ) && is_network_admin() ) ) {
-			$site_settings = get_site_option( WP_SMUSH_PREFIX . 'settings', array() );
+			$site_settings = get_site_option( 'wp-smush-settings', array() );
 		}
 
 		if ( false === $global ) {
-			$site_settings = get_option( WP_SMUSH_PREFIX . 'settings', array() );
+			$site_settings = get_option( 'wp-smush-settings', array() );
 
 			if ( ! is_multisite() ) {
 				$this->settings = $site_settings;
 			}
 
 			// Make sure we're not missing any settings.
-			$global_settings = get_site_option( WP_SMUSH_PREFIX . 'settings', array() );
+			$global_settings = get_site_option( 'wp-smush-settings', array() );
 			$undefined       = array_diff( $global_settings, $site_settings );
 
 			$site_settings = array_merge( $site_settings, $undefined );
@@ -389,8 +415,8 @@ class Settings {
 		// Custom access enabled - combine settings from network with site settings.
 		if ( is_array( $global ) ) {
 			$network_settings = array_diff( $this->modules, $global );
-			$global_settings  = get_site_option( WP_SMUSH_PREFIX . 'settings', array() );
-			$site_settings    = get_option( WP_SMUSH_PREFIX . 'settings', array() );
+			$global_settings  = get_site_option( 'wp-smush-settings', array() );
+			$site_settings    = get_option( 'wp-smush-settings', array() );
 
 			foreach ( $network_settings as $key ) {
 				// Remove values that are network wide from site settings.
@@ -404,7 +430,7 @@ class Settings {
 
 		if ( empty( $site_settings ) ) {
 			$this->settings = $this->defaults;
-			$this->set_setting( WP_SMUSH_PREFIX . 'settings', $this->settings );
+			$this->set_setting( 'wp-smush-settings', $this->settings );
 		} else {
 			$this->settings = wp_parse_args( $site_settings, $this->defaults );
 		}
@@ -425,7 +451,7 @@ class Settings {
 		}
 
 		// Get directly from db.
-		$network_enabled = get_site_option( WP_SMUSH_PREFIX . 'networkwide' );
+		$network_enabled = get_site_option( 'wp-smush-networkwide' );
 		if ( ! isset( $network_enabled ) || false === (bool) $network_enabled ) {
 			return true;
 		}
@@ -454,7 +480,7 @@ class Settings {
 			return true;
 		}
 
-		$access = get_site_option( WP_SMUSH_PREFIX . 'networkwide' );
+		$access = get_site_option( 'wp-smush-networkwide' );
 
 		// Check to if the settings update is network-wide or not ( only if in network admin ).
 		$action = filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING );
@@ -525,7 +551,7 @@ class Settings {
 
 		$this->settings[ $setting ] = $value;
 
-		$this->set_setting( WP_SMUSH_PREFIX . 'settings', $this->settings );
+		$this->set_setting( 'wp-smush-settings', $this->settings );
 	}
 
 	/**
@@ -601,19 +627,19 @@ class Settings {
 			die();
 		}
 
-		delete_site_option( WP_SMUSH_PREFIX . 'networkwide' );
-		delete_site_option( WP_SMUSH_PREFIX . 'hide_smush_welcome' );
-		delete_site_option( WP_SMUSH_PREFIX . 'hide_upgrade_notice' );
-		delete_site_option( WP_SMUSH_PREFIX . 'webp_hide_wizard' );
-		delete_site_option( WP_SMUSH_PREFIX . 'preset_configs' );
-		$this->delete_setting( WP_SMUSH_PREFIX . 'settings' );
-		$this->delete_setting( WP_SMUSH_PREFIX . 'image_sizes' );
-		$this->delete_setting( WP_SMUSH_PREFIX . 'resize_sizes' );
-		$this->delete_setting( WP_SMUSH_PREFIX . 'cdn_status' );
-		$this->delete_setting( WP_SMUSH_PREFIX . 'lazy_load' );
+		delete_site_option( 'wp-smush-networkwide' );
+		delete_site_option( 'wp-smush-hide_smush_welcome' );
+		delete_site_option( 'wp-smush-hide_upgrade_notice' );
+		delete_site_option( 'wp-smush-webp_hide_wizard' );
+		delete_site_option( 'wp-smush-preset_configs' );
+		$this->delete_setting( 'wp-smush-settings' );
+		$this->delete_setting( 'wp-smush-image_sizes' );
+		$this->delete_setting( 'wp-smush-resize_sizes' );
+		$this->delete_setting( 'wp-smush-cdn_status' );
+		$this->delete_setting( 'wp-smush-lazy_load' );
 		$this->delete_setting( 'skip-smush-setup' );
-		$this->delete_setting( WP_SMUSH_PREFIX . 'hide_pagespeed_suggestion' );
-		$this->delete_setting( WP_SMUSH_PREFIX . 'hide-tutorials' );
+		$this->delete_setting( 'wp-smush-hide_pagespeed_suggestion' );
+		$this->delete_setting( 'wp-smush-hide-tutorials' );
 
 		wp_send_json_success();
 	}
@@ -632,7 +658,7 @@ class Settings {
 
 		// Delete S3 alert flag, if S3 option is disabled again.
 		if ( ! isset( $_POST['wp-smush-s3'] ) && isset( $settings['integration']['s3'] ) && $settings['integration']['s3'] ) {
-			delete_site_option( WP_SMUSH_PREFIX . 'hide_s3support_alert' );
+			delete_site_option( 'wp-smush-hide_s3support_alert' );
 		}
 
 		$page = filter_input( INPUT_POST, 'page', FILTER_SANITIZE_STRING );
@@ -717,9 +743,9 @@ class Settings {
 		}
 
 		// Store that we need not redirect again on plugin activation.
-		update_site_option( WP_SMUSH_PREFIX . 'hide_smush_welcome', true );
+		update_site_option( 'wp-smush-hide_smush_welcome', true );
 
-		$this->set_setting( WP_SMUSH_PREFIX . 'settings', $settings );
+		$this->set_setting( 'wp-smush-settings', $settings );
 		wp_send_json_success();
 	}
 
@@ -731,7 +757,7 @@ class Settings {
 	private function parse_bulk_settings() {
 		// Save the selected image sizes.
 		if ( isset( $_POST['wp-smush-auto-image-sizes'] ) && 'all' === $_POST['wp-smush-auto-image-sizes'] ) {
-			$this->delete_setting( WP_SMUSH_PREFIX . 'image_sizes' );
+			$this->delete_setting( 'wp-smush-image_sizes' );
 		} else {
 			if ( ! isset( $_POST['wp-smush-image_sizes'] ) ) {
 				$image_sizes = array();
@@ -739,14 +765,14 @@ class Settings {
 				$image_sizes = array_filter( array_map( 'sanitize_text_field', wp_unslash( $_POST['wp-smush-image_sizes'] ) ) );
 			}
 
-			$this->set_setting( WP_SMUSH_PREFIX . 'image_sizes', $image_sizes );
+			$this->set_setting( 'wp-smush-image_sizes', $image_sizes );
 		}
 
 		// Update Resize width and height settings if set.
 		$resize_sizes['width']  = isset( $_POST['wp-smush-resize_width'] ) ? (int) $_POST['wp-smush-resize_width'] : 0; // Input var ok.
 		$resize_sizes['height'] = isset( $_POST['wp-smush-resize_height'] ) ? (int) $_POST['wp-smush-resize_height'] : 0; // Input var ok.
 
-		$this->set_setting( WP_SMUSH_PREFIX . 'resize_sizes', $resize_sizes );
+		$this->set_setting( 'wp-smush-resize_sizes', $resize_sizes );
 	}
 
 	/**
@@ -769,7 +795,7 @@ class Settings {
 
 			if ( ! is_wp_error( $response ) ) {
 				$response = json_decode( $response['body'] );
-				$this->set_setting( WP_SMUSH_PREFIX . 'cdn_status', $response->data );
+				$this->set_setting( 'wp-smush-cdn_status', $response->data );
 			}
 		}
 	}
@@ -780,7 +806,7 @@ class Settings {
 	 * @since 3.2.0
 	 */
 	private function parse_lazy_load_settings() {
-		$previous_settings = $this->get_setting( WP_SMUSH_PREFIX . 'lazy_load' );
+		$previous_settings = $this->get_setting( 'wp-smush-lazy_load' );
 
 		$args = array(
 			'format'          => array(
@@ -870,7 +896,7 @@ class Settings {
 			$settings['exclude-classes'] = array();
 		}
 
-		$this->set_setting( WP_SMUSH_PREFIX . 'lazy_load', $settings );
+		$this->set_setting( 'wp-smush-lazy_load', $settings );
 	}
 
 	/**
@@ -881,17 +907,17 @@ class Settings {
 	 * @return mixed
 	 */
 	private function parse_access_settings() {
-		$current_value = get_site_option( WP_SMUSH_PREFIX . 'networkwide' );
+		$current_value = get_site_option( 'wp-smush-networkwide' );
 
-		$new_value = filter_input( INPUT_POST, WP_SMUSH_PREFIX . 'subsite-access', FILTER_SANITIZE_STRING );
-		$access    = filter_input( INPUT_POST, WP_SMUSH_PREFIX . 'access', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY );
+		$new_value = filter_input( INPUT_POST, 'wp-smush-subsite-access', FILTER_SANITIZE_STRING );
+		$access    = filter_input( INPUT_POST, 'wp-smush-access', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY );
 
 		if ( 'custom' === $new_value ) {
 			$new_value = $access;
 		}
 
 		if ( $current_value !== $new_value ) {
-			update_site_option( WP_SMUSH_PREFIX . 'networkwide', $new_value );
+			update_site_option( 'wp-smush-networkwide', $new_value );
 		}
 
 		return $new_value;
@@ -950,7 +976,7 @@ class Settings {
 			'noscript'        => false,
 		);
 
-		$this->set_setting( WP_SMUSH_PREFIX . 'lazy_load', $defaults );
+		$this->set_setting( 'wp-smush-lazy_load', $defaults );
 	}
 
 }

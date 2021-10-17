@@ -14,7 +14,7 @@ if ( empty( $warranty['label'] ) ) {
     $warranty['label'] = $product_warranty['label'];
 }
 
-if ( $warranty['type'] == 'addon_warranty' ) {
+if ( 'addon_warranty' == $warranty['type'] ) {
     $addons = $warranty['addons'];
 
     $warranty_index = wc_get_order_item_meta( $item_id, '_item_warranty_selected', true );
@@ -28,8 +28,8 @@ if ( $warranty['type'] == 'addon_warranty' ) {
             $expiry = warranty_get_date( $order_date, $addon['value'], $addon['duration'] );
         }
     }
-} elseif ( $warranty['type'] == 'included_warranty' ) {
-    if ( $warranty['length'] == 'limited' ) {
+} elseif ( 'included_warranty' == $warranty['type']  ) {
+    if ( 'limited' == $warranty['length'] ) {
         $name   = $warranty['label'];
         $value  = $GLOBALS['wc_warranty']->get_warranty_string( $warranty['value'], $warranty['duration'] );
 
@@ -37,7 +37,10 @@ if ( $warranty['type'] == 'addon_warranty' ) {
             $expiry = warranty_get_date( $order_date, $warranty['value'], $warranty['duration'] );
         }
 
-    }
+    } elseif ( 'lifetime' == $warranty['length'] ) {
+		$name   = $warranty['label'];
+		$value  = __('Lifetime', 'wc_warranty');
+	}
 }
 
 if ( !$name || ! $value ) {

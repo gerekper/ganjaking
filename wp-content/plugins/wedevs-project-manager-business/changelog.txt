@@ -1,3 +1,10 @@
+= v2.5.11 - Oct 11, 2021 =
+
+**Fix** Sanitization and data validation issues
+**Fix** Timezone issues in My Calendar
+**Fix** Confirmation text not working while deleting Kanban board
+**Fix** Recurring task undefined issue
+
 = v2.5.10 - July 16, 2021 =
 
 **Update** Info tooltip to remind that Estimation time is mandatory to get sub-task list

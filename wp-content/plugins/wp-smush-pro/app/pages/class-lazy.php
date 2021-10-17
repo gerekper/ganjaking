@@ -67,14 +67,14 @@ class Lazy extends Abstract_Summary_Page implements Interface_Page {
 		$this->view(
 			'lazyload/meta-box',
 			array(
-				'settings' => $this->settings->get_setting( WP_SMUSH_PREFIX . 'lazy_load' ),
-				'cpts'     => get_post_types( // custom post types.
+				'conflicts' => get_transient( 'wp-smush-conflict_check' ),
+				'settings'  => $this->settings->get_setting( 'wp-smush-lazy_load' ),
+				'cpts'      => get_post_types( // custom post types.
 					array(
 						'public'   => true,
 						'_builtin' => false,
 					),
-					'objects',
-					'and'
+					'objects'
 				),
 			)
 		);

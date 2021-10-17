@@ -389,7 +389,7 @@ class GF_Field extends stdClass implements ArrayAccess {
 
 		$field_label = $this->get_field_label( $force_frontend_label, $value );
 		if ( ! in_array( $this->inputType, array( 'calculation', 'singleproduct' ), true ) ) {
-			// Calculation field put a screen reader text in the label so do not escape it.
+			// Calculation and Single Product field add a screen reader text to the label so do not escape it.
 			$field_label = esc_html( $field_label );
 		}
 

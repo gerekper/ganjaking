@@ -15,7 +15,11 @@
 .revaddon-explayer-wrapper {
 	position: relative;
 	display: inline-block;
-    overflow: hidden;
+	/* overflow: hidden; */
+}
+
+.revaddon-explayer-wrapper.animating{
+	overflow: hidden;
 }
 
 .revaddon-explayer rs-layer {

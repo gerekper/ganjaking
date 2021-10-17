@@ -166,7 +166,7 @@ class Settings extends Abstract_Page implements Interface_Page {
 		$this->view(
 			'settings/permissions-meta-box',
 			array(
-				'networkwide' => get_site_option( WP_SMUSH_PREFIX . 'networkwide' ),
+				'networkwide' => get_site_option( 'wp-smush-networkwide' ),
 			)
 		);
 	}

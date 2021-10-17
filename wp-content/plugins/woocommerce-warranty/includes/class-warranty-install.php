@@ -39,10 +39,10 @@ class Warranty_Install {
                 <p class="submit"><a href="<?php echo add_query_arg( 'warranty_update', 'true', admin_url( 'admin.php?page=warranties' ) ); ?>" class="warranty-update-now button-primary"><?php _e( 'Run the updater', 'wc_warranty' ); ?></a></p>
             </div>
             <script type="text/javascript">
-                jQuery('.warranty-update-now').click('click', function(){
-                    var answer = confirm( '<?php _e( 'It is strongly recommended that you backup your database before proceeding. Are you sure you wish to run the updater now?', 'wc_warranty' ); ?>' );
-                    return answer;
-                });
+	            jQuery( '.warranty-update-now' ).click( 'click', function() {
+		            var answer = confirm( '<?php _e( 'It is strongly recommended that you backup your database before proceeding. Are you sure you wish to run the updater now?', 'wc_warranty' ); ?>' );
+		            return answer;
+	            } );
             </script>
         <?php
         }

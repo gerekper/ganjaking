@@ -35,33 +35,36 @@
 
 </form>
 <script type="text/javascript">
-jQuery(document).ready(function($) {
-    $("body").addClass("woocommerce-page woocommerce");
-    $("#warranty_form").submit(function() {
-        var is_error    = false;
-        var fields      = [];
+	jQuery( document ).ready( function( $ ) {
+		$( 'body' ).addClass( 'woocommerce-page woocommerce' );
+		$( '#warranty_form' ).submit( function() {
+			var is_error = false;
+			var fields = [];
 
-        $("#warranty_form").find("input[type=text], input[type=file], textarea, select").each(function() {
-            if ( $(this).hasClass("wfb-field") && $(this).data("required") && ! $(this).val().trim() ) {
-                is_error = true;
+			$( '#warranty_form' )
+				.find( 'input[type=text], input[type=file], textarea, select' )
+				.each( function() {
+					if ( $( this ).hasClass( 'wfb-field' ) && $( this )
+						.data( 'required' ) && !$( this ).val().trim() ) {
+						is_error = true;
 
-                var id = $(this).attr("id") + "-div";
-                var $label = $("#"+id+" label").clone();
-                $label.find('span.required').remove();
-                fields.push( $label.text().trim() );
-            }
-        });
+						var id = $( this ).attr( 'id' ) + '-div';
+						var $label = $( '#' + id + ' label' ).clone();
+						$label.find( 'span.required' ).remove();
+						fields.push( $label.text().trim() );
+					}
+				} );
 
-        if ( is_error ) {
-            var msg = "<?php _e('Please complete the required fields and try submitting again. The following fields are incomplete:', 'wc_warranty'); ?>\n";
+			if ( is_error ) {
+				var msg = "<?php _e( 'Please complete the required fields and try submitting again. The following fields are incomplete:', 'wc_warranty' ); ?>\n";
 
-            for (var i in fields) {
-                msg += "\n\t-"+ fields[i];
-            }
+				for ( var i in fields ) {
+					msg += '\n\t-' + fields[i];
+				}
 
-            alert(msg);
-            return false;
-        }
-    });
-});
+				alert( msg );
+				return false;
+			}
+		} );
+	} );
 </script>

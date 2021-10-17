@@ -336,11 +336,11 @@ class CLI extends WP_CLI_Command {
 		}
 
 		// Additional Backup Check for JPEGs converted from PNG.
-		$pngjpg_savings = get_post_meta( $image_id, WP_SMUSH_PREFIX . 'pngjpg_savings', true );
+		$pngjpg_savings = get_post_meta( $image_id, 'wp-smush-pngjpg_savings', true );
 		if ( ! empty( $pngjpg_savings ) ) {
 
 			// Get the original File path and check if it exists.
-			$backup = get_post_meta( $image_id, WP_SMUSH_PREFIX . 'original_file', true );
+			$backup = get_post_meta( $image_id, 'wp-smush-original_file', true );
 			$backup = Helper::original_file( $backup );
 
 			if ( ! empty( $backup ) && is_file( $backup ) ) {

@@ -61,7 +61,7 @@ $active_tab = (!empty($_GET['tab'])) ? $_GET['tab'] : 'general';
 
 </div>
 <script>
-    jQuery(document).ready(function() {
-        jQuery(".woocommerce-help-tip").tipTip({'attribute': 'data-tip'})
-    });
+	jQuery( document ).ready( function( $ ) {
+		$( '.woocommerce-help-tip' ).tipTip( { 'attribute': 'data-tip' } );
+	} );
 </script>

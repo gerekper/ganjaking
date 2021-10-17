@@ -20,7 +20,7 @@ $this->do_meta_boxes( 'summary' );
 
 ?>
 
-<?php if ( 'smush' === $this->get_slug() && ! apply_filters( 'wpmudev_branding_hide_doc_link', false ) && ! get_option( WP_SMUSH_PREFIX . 'hide-tutorials' ) ) : ?>
+<?php if ( 'smush' === $this->get_slug() && ! apply_filters( 'wpmudev_branding_hide_doc_link', false ) && ! get_option( 'wp-smush-hide-tutorials' ) ) : ?>
 	<div id="smush-dash-tutorials"></div>
 <?php endif; ?>
 

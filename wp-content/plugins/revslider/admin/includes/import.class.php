@@ -582,6 +582,12 @@ class RevSliderSliderImport extends RevSliderSlider {
 		//update slider params
 		$params = $this->get_val($this->slider_data, 'params');
 		
+		//check if we are a premium slider
+		if($this->get_val($params, 'pakps', false) === true && $this->_truefalse(get_option('revslider-valid', 'false')) === false){
+			$wp_filesystem->delete($this->remove_path, true);
+			$this->throw_error(__('Please register your Slider Revolution plugin to import premium templates', 'revslider'));
+		}
+
 		$this->old_slider_id = $this->get_val($this->slider_data, 'id', '');
 		$title = ($this->exists) ? $this->get_title() : $this->get_val($this->slider_data, 'title', 'Slider1');
 		$alias = ($this->exists) ? $this->get_alias() : $this->get_val($this->slider_data, 'alias', 'slider1');
@@ -1612,6 +1618,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 	public function duplicate_template_slider($single_slide){
 		if($this->is_template !== false){ //duplicate the slider now, as we just imported the "template"
 			$mslider = new RevSliderSlider();
+			$mslider->template_slider = true;
 			if($single_slide !== false){ //add now one Slide to the current Slider
 				//change slide_id to correct, as it currently is just a number beginning from 0 as we did not have a correct slide ID yet.
 				$i = 0;

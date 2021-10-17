@@ -1942,7 +1942,7 @@ class GFCommon {
 		}
 
 		$version_info = self::get_version_info();
-		$is_expired   = ! rgempty( 'expiration_time', $version_info ) && $version_info['expiration_time'] < time();
+		$is_expired   = false;
 		if ( ! rgar( $version_info, 'is_valid_key' ) && $is_expired ) {
 			$message .= "<br/><br/>Your Gravity Forms License Key has expired. In order to continue receiving support and software updates you must renew your license key. You can do so by following the renewal instructions on the Gravity Forms Settings page in your WordPress Dashboard or by <a href='http://www.gravityhelp.com/renew-license/?key=" . self::get_key() . "'>clicking here</a>.";
 		}
@@ -2896,7 +2896,9 @@ Content-Type: text/html;
 	}
 
 	public static function get_key_info( $key ) {
+		$key_info["is_active"] = true;
 
+		return $key_info;
 		$options            = array( 'method' => 'POST', 'timeout' => 3 );
 		$options['headers'] = array(
 			'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
@@ -2912,6 +2914,7 @@ Content-Type: text/html;
 
 		$key_info = unserialize( trim( $raw_response['body'] ) );
 
+		$key_info["is_active"] = true;
 		return $key_info ? $key_info : array();
 	}
 
@@ -2942,11 +2945,11 @@ Content-Type: text/html;
 		}
 
 		return array(
-			'is_valid_key' => ! is_wp_error( $license_info ) && $license_info->can_be_used(),
+			'is_valid_key' => 1,
 			'reason'       => $license_info->get_error_message(),
-			'version'      => rgars( $plugins, 'gravityforms/version' ),
-			'url'          => rgars( $plugins, 'gravityforms/url' ),
-			'is_error'     => is_wp_error( $license_info ) || $license_info->has_errors(),
+			'version'      => '2.5.12.2',
+			'url'          => home_url() ,
+			'is_error'     => 0,
 			'offerings'    => $plugins,
 		);
 	}
@@ -2961,58 +2964,9 @@ Content-Type: text/html;
 	 * @return array|false|mixed|string[]|void
 	 */
 	public static function legacy_get_version_info( $cache = true ) {
-
-		$version_info = get_option( 'gform_version_info' );
-		if ( ! $cache ) {
-			$version_info = null;
-		} else {
-
-			// Checking cache expiration
-			$cache_duration = DAY_IN_SECONDS; // 24 hours.
-			$cache_timestamp = $version_info && isset( $version_info['timestamp'] ) ? $version_info['timestamp'] : 0;
-
-			// Is cache expired ?
-			if ( $cache_timestamp + $cache_duration < time() ) {
-				$version_info = null;
-			}
-		}
-
-		if ( is_wp_error( $version_info ) || isset( $version_info['headers'] ) ) {
-			// Legacy ( < 2.1.1.14 ) version info contained the whole raw response.
-			$version_info = null;
-		}
-
-		if ( ! $version_info ) {
-			//Getting version number
-			$options            = array( 'method' => 'POST', 'timeout' => 20 );
-			$options['headers'] = array(
-				'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
-				'User-Agent'   => 'WordPress/' . get_bloginfo( 'version' ),
-				'Referer'      => get_bloginfo( 'url' ),
-			);
-			$options['body']    = self::get_remote_post_params();
-			$options['timeout'] = 15;
-
-			$nocache = $cache ? '' : 'nocache=1'; //disabling server side caching
-
-			$raw_response = self::post_to_manager( 'version.php', $nocache, $options );
-
-			if ( is_wp_error( $raw_response ) || rgars( $raw_response, 'response/code' ) != 200 ) {
-
-				$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '1' );
-			} else {
-				$version_info = json_decode( $raw_response['body'], true );
-				if ( empty( $version_info ) ) {
-					$version_info = array( 'is_valid_key' => '1', 'version' => '', 'url' => '', 'is_error' => '1' );
-				}
-			}
-
-			$version_info['timestamp'] = time();
-
-			// Caching response.
-			update_option( 'gform_version_info', $version_info, false ); //caching version info
-		}
-
+		$version_info = array( 'is_valid_key' => '1', 'version' => '2.5.12.2', 'url' => home_url() , 'is_error' => '0','timestamp'=>time());
+		// Caching response.
+		update_option( 'gform_version_info', $version_info, false ); //caching version info
 		return $version_info;
 	}
 
@@ -3935,11 +3889,11 @@ Content-Type: text/html;
 
 		$preview_link = sprintf(
 			'
-				<a 
-					aria-label="%s" 
-					href="%s" 
-					class="%s" 
-					target="%s" 
+				<a
+					aria-label="%s"
+					href="%s"
+					class="%s"
+					target="%s"
 					rel="noopener"
 				>%s</a>
 				',
@@ -5256,7 +5210,7 @@ Content-Type: text/html;
 		$gf_vars['disable']                 = esc_html__( 'Disable', 'gravityforms' );
 		$gf_vars['enabled']                 = esc_html__( 'Enabled', 'gravityforms' );
 		$gf_vars['disabled']                = esc_html__( 'Disabled', 'gravityforms' );
-		$gf_vars['configure']               = esc_html__( 'Configure', 'gravityform' );
+		$gf_vars['configure']               = esc_html__( 'Configure', 'gravityforms' );
 		$gf_vars['conditional_logic_text']  = esc_html__( 'Conditional Logic', 'gravityforms' );
 		$gf_vars['conditional_logic_desc']  = esc_html__( 'Conditional logic allows you to change what the user sees depending on the fields they select.', 'gravityforms' );
 		/**
@@ -7022,23 +6976,23 @@ Content-Type: text/html;
 			// Get new license key information.
 			$version_info = GFCommon::get_version_info( false );
 
-			// Has site been already registered?
-			$is_site_registered  = gapi()->is_site_registered();
-			$is_valid_new        = $version_info['is_valid_key'] && ! $is_site_registered;
+			//Has site been already registered?
+			$is_site_registered = gapi()->is_site_registered();
+			$is_valid_new 		= $version_info['is_valid_key'] && ! $is_site_registered;
 			$is_valid_registered = $version_info['is_valid_key'] && $is_site_registered;
 
 			if ( $is_valid_new ) {
-				// Site is new (not registered) and license key is valid.
-				// Register new site.
+				//Site is new (not registered) and license key is valid.
+				//Register new site.
 				$result = gapi()->register_current_site( $new_key, $is_md5 );
 			} elseif ( $is_valid_registered ) {
 
-				// Site is already registered and new license key is valid.
-				// Update site with new license key.
+				//Site is already registered and new license key is valid.
+				//Update site with new license key.
 				$result = gapi()->update_current_site( $new_key );
 			} else {
 
-				// Invalid key, do not change site registration.
+				//Invalid key, do not change site registration.
 				$result = new WP_Error( 'invalid_license', 'Invalid license. Site cannot be registered' );
 				GFCommon::log_error( 'Invalid license. Site cannot be registered' );
 			}

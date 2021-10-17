@@ -1,0 +1,61 @@
+/**
+ * Eventon wp-admin CSS for RTL
+ * @version 2.5.4
+ */
+
+.evomb_header p{
+	padding-left: 0;
+	padding-right: 40px;
+}
+.yesno_row span.field_name, .yesno_row label{
+	padding-left: 0;
+	padding-right: 80px;
+}
+.ajde_yn_btn.NO .btn_inner{
+	margin-right: -46px;
+	margin-left: auto;
+}
+
+#evo_new_window_io span{
+	float: right;
+	margin: 0 0 0 5px;
+}
+
+/* events page */
+body.rtl .column-name .evo_item_details{padding-right: 60px;padding-left: 0;}
+body.rtl .evo_date, body.rtl .evcal_date_time, body.rtl .evcal_db_ui{
+	float: right;
+}
+body.rtl #evo_new_window_io span{float: right; margin: 0 0 0 5px;}
+body.rtl span.ajdeToolTip{margin-left: 0;margin-right: 4px;}
+body.rtl #evo_mb label{padding-left: 0; padding-right: 50px}
+body.rtl .yesno_leg_line label{padding-left: 0; padding-right: 50px}
+
+/* yesno button */
+body.rtl .catchHandle{margin-right: 4px;}
+
+/*shortcode generator*/
+body.rtl .ajde_yn_btn_label{padding-left: 0; padding-right: 50px;}
+body.rtl #ajdePOSH_outter .ajdeToolTip{left: 10px; right: auto;}
+body.rtl .ajde_yn_btn.NO .btn_inner{margin-right: -5px}
+body.rtl .ajde_yn_btn .btn_inner{margin-right: -20px}
+body.rtl #ajdePOSH_outter{direction :ltr;}
+body.rtl .ajdePOSH_inner .fieldline{text-align: right;}
+body.rtl .ajdePOSH_inner .fieldline .ajde_yn_btn {right: 5px;}
+body.rtl .ajdePOSH_inner .ajdePOSH_btn {text-align: right;}
+body.rtl .ajdePOSH_inner .ajdeToolTip.L em {right: auto;left: 0px;}
+body.rtl .ajdePOSH_inner .ajdeToolTip.L em:before {right: auto;left: 0px;
+	border-width: 9px 9px 0 0;
+    border-color: #6B6B6B transparent transparent transparent;
+}
+
+/* settings */
+body.rtl .acus_line.acus_radio input[type="radio"] + label span,
+body.rtl .acus_line.acus_checks input[type="checkbox"] + label span{margin:-1px 0 0 4px;}
+body.rtl .row_multicolor .acus_line{float: right;}
+body.rtl #evo_theme_selection .evo_theme{float: right;margin-left: 15px;margin-right: 0;}
+body.rtl #acus_left ul a i.fa{left:auto; right: 5px;}
+body.rtl #acus_left ul a{padding-right: 35px; padding-left: 5px;}
+body.rtl .backender_left #collapse-button .collapse-button-icon{ transform: rotate(-180deg);}
+body.rtl .evoLANG_section_header:before{left: 10px; margin: 0;}
+body.rtl .evoLANG_section_header.open:before{top: 10px;}

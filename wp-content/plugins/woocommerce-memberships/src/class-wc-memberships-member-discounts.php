@@ -1183,8 +1183,16 @@ class WC_Memberships_Member_Discounts {
 
 				if ( ! array_key_exists( $product_id, $this->product_is_on_sale_before_discount ) ) {
 
-					// handles both new WC 3.0+ and older filters
-					$excluded_filters = array(
+					/**
+					 * Filters a list of excluded filters while checking if a discounted product is on sale to avoid infinite loops.
+					 *
+					 * @since 1.22.7
+					 *
+					 * @param string[] $excluded_filters list of WooCommerce filter hooks
+					 * @param \WC_Product $product related product
+					 * @param bool $should_apply_discounts whether discounts should be applied in the current thread
+					 */
+					$excluded_filters = (array) apply_filters( 'wc_memberships_product_is_on_sale_before_discount_excluded_filters', [
 						'woocommerce_product_is_on_sale',
 						'woocommerce_product_get_sale_price',
 						'woocommerce_product_variation_get_sale_price',
@@ -1199,7 +1207,7 @@ class WC_Memberships_Member_Discounts {
 						'woocommerce_variation_prices_price',
 						'woocommerce_variation_prices_regular_price',
 						'woocommerce_subscriptions_product_sale_price',
-					);
+					], $product, $this->should_apply_discounts);
 
 					// Bail out if any of the following conditions applies:
 					// - discounts shouldn't be applied

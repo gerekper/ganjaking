@@ -1,0 +1,21 @@
+/** Visual Composer styles */
+.vc_edit-form-tab .ajde_yn_btn{background-color: #F9CA8D}
+.vc_edit-form-tab .ajde_yn_btn.NO{background-color: #fff}
+
+.vc_el-container .evo-calendar_nav .vc_general.vc_element-icon{background-image: none; top:15px;}
+.vc_el-container .evo-calendar_nav .vc_general.vc_element-icon:before{
+	font-family:'eventon' !important;
+	speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 36px;
+    color: #797979;
+    content:'\e600';
+}
+
+.vc_edit_form_elements .vc_column.wpb_el_type_evoyesno+.vc_column.wpb_el_type_evoyesno{padding-top: 0;}

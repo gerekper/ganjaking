@@ -1,321 +1,273 @@
-jQuery(document).ready(function($) {
-    $(".update-status").click(function() {
-        var id      = $(this).data('request_id');
-        var value   = $("#status_"+ id).val();
+jQuery( document ).ready( function( $ ) {
+	var body = $( 'body' ),
+	    list = $( '#the-list' );
 
-        if ( value ) {
-            var data = {"action": "warranty_update_request_fragment", "type": "change_status", "status": value, "request_id": id};
-            $.ajax({
-                type:"POST",
-                url: ajaxurl,
-                data : data,
-                success : function(response){
-                    if ( response ) {
-                        window.location.href = response;
-                    }
-                }
-            });
-        }
-    });
+	$( '.update-status' ).click( function() {
+		var id = $( this ).data( 'request_id' );
+		var value = $( '#status_' + id ).val();
 
-    $("a.inline-edit").click(function(e) {
-        e.preventDefault();
+		if ( value ) {
+			var data = {
+				'action': 'warranty_update_request_fragment',
+				'type': 'change_status',
+				'status': value,
+				'request_id': id,
+			};
+			$.ajax( {
+				type: 'POST',
+				url: ajaxurl,
+				data: data,
+				success: function( response ) {
+					if ( response ) {
+						window.location.href = response;
+					}
+				},
+			} );
+		}
+	} );
 
-        var req_id = $(this).data("request_id");
-        var tr = $(this).closest("tr");
-        var cloned = $("#inline-edit-"+ req_id).clone();
+	$( 'a.inline-edit' ).click( function( e ) {
+		e.preventDefault();
 
-        $("#the-list tr#inline-edit-"+ req_id).find(".close_tr").click();
+		var req_id = $( this ).data( 'request_id' );
+		var tr = $( this ).closest( 'tr' );
+		var cloned = $( '#inline-edit-' + req_id ).clone();
 
-        cloned
-            .insertAfter(tr)
-            .show();
+		$( '#the-list tr#inline-edit-' + req_id ).find( '.close_tr' ).click();
 
-        $("<tr class='hidden'></tr>").insertBefore(cloned);
+		cloned.insertAfter( tr ).show();
 
-        $("#the-list .tip").tipTip({
-            maxWidth: "400px"
-        });
-    });
+		$( '<tr class=\'hidden\'></tr>' ).insertBefore( cloned );
 
-    $("#the-list").on("click", ".close-form", function(e) {
-        e.preventDefault();
+		$( '#the-list .tip' ).tipTip( {
+			maxWidth: '400px',
+		} );
+	} );
 
-        $(this).parents("div.closeable").hide();
-    });
+	list.on( 'click', '.close-form', function( e ) {
+		e.preventDefault();
 
-    $("#the-list").on("click", ".close_tr", function() {
-        $(this).parents("tr").remove();
-        $("#the-list").find("tr.hidden").remove();
-    });
+		$( this ).parents( 'div.closeable' ).hide();
+	} );
 
-    // RMA Update
-    $("#the-list").on("click", ".rma-update", function() {
-        var      id = $(this).data('id');
-        var request = $("#the-list")
-        var inputs  = request.find("input,textarea,#status_" + id );
-        var data    = $(inputs).serializeArray();
+	list.on( 'click', '.close_tr', function() {
+		$( this ).parents( 'tr' ).remove();
+		list.find( 'tr.hidden' ).remove();
+	} );
 
-        data.push({
-            name: "action",
-            value: "warranty_update_inline"
-        });
-        data.push({
-            name: "id",
-            value: id
-        });
-        data.push({
-            name: "_wpnonce",
-            value: $(this).data("security")
-        });
+	// RMA Update
+	list.on( 'click', '.rma-update', function() {
+		var id = $( this ).data( 'id' );
+		var request = list;
+		var inputs = request.find( 'input,textarea,#status_' + id );
+		var data = $( inputs ).serializeArray();
 
-        request.block({
-            message: null,
-            overlayCSS: {
-                background: '#fff',
-                opacity: 0.6
-            }
-        });
+		data.push( { name: 'action', value: 'warranty_update_inline' } );
+		data.push( { name: 'id', value: id } );
+		data.push( { name: '_wpnonce', value: $( this ).data( 'security' ) } );
 
-        $.post(
-            ajaxurl, data, function(resp) {
-                if ( resp.status == 'OK' ) {
-                    var status_block = $(request).find(".warranty-update-message");
-                    status_block.find("p").html( resp.message );
-                    status_block.show();
-                } else {
-                    alert( resp.message );
-                }
-                request.unblock();
-            }
-        );
+		request.block( {
+			message: null, overlayCSS: {
+				background: '#FFFFFF', opacity: 0.6,
+			},
+		} );
 
-    });
+		$.post( ajaxurl, data, function( resp ) {
+			if ( 'OK' === resp.status ) {
+				var status_block = $( request ).find( '.warranty-update-message' );
+				status_block.find( 'p' ).html( resp.message );
+				status_block.show();
+			} else {
+				alert( resp.message );
+			}
+			request.unblock();
+		} );
 
-    // Uploading files
-    var file_frame;
+	} );
 
-    $("#the-list").on("click", ".rma-upload-button", function( event ) {
-        event.preventDefault();
+	// Uploading files
+	var file_frame;
 
-        var btn = $(this);
+	list.on( 'click', '.rma-upload-button', function( event ) {
+		event.preventDefault();
 
-        // Create the media frame.
-        file_frame = wp.media.frames.file_frame = wp.media({
-            title: $( this ).data( 'uploader_title' ),
-            button: {
-                text: $( this ).data( 'uploader_button_text' ),
-            },
-            multiple: false  // Set to true to allow multiple files to be selected
-        });
+		var btn = $( this );
 
-        // When an image is selected, run a callback.
-        file_frame.on( 'select', function() {
-            // We set multiple to false so only get one image from the uploader
-            attachment = file_frame.state().get('selection').first().toJSON();
+		// Create the media frame.
+		file_frame = wp.media.frames.file_frame = wp.media( {
+			title: $( this ).data( 'uploader_title' ), button: {
+				text: $( this ).data( 'uploader_button_text' ),
+			}, multiple: false,  // Set to true to allow multiple files to be selected
+		} );
 
-            var request_id = btn.data("id");
-            $("#shipping_label_"+ request_id).val( attachment.url );
-            $("#shipping_label_id_"+ request_id).val( attachment.id );
-        });
+		// When an image is selected, run a callback.
+		file_frame.on( 'select', function() {
+			// We set multiple to false so only get one image from the uploader
+			attachment = file_frame.state().get( 'selection' ).first().toJSON();
 
-        // Finally, open the modal
-        file_frame.open();
-    });
+			var request_id = btn.data( 'id' );
+			$( '#shipping_label_' + request_id ).val( attachment.url );
+			$( '#shipping_label_id_' + request_id ).val( attachment.id );
+		} );
 
-    $("#the-list").on("click", "input.request-tracking", function() {
-        var btn = this;
-        var tr = $(this).closest("tr");
-        var td = $(tr).find("td");
-        $( td ).block({
-            message: null,
-            overlayCSS: {
-                background: '#fff',
-                opacity: 0.6
-            }
-        });
+		// Finally, open the modal
+		file_frame.open();
+	} );
 
-        $.post(
-            ajaxurl,
-            {
-                action: "warranty_request_tracking",
-                id: $(this).data("request")
-            },
-            function(resp) {
-                $(".wc-tracking-requested").show();
-                $("#the-list .request-tracking-div").remove();
-                $(td).unblock();
-            }
-        );
-    });
+	list.on( 'click', 'input.request-tracking', function() {
+		var btn = this;
+		var tr = $( this ).closest( 'tr' );
+		var td = $( tr ).find( 'td' );
+		$( td ).block( {
+			message: null, overlayCSS: {
+				background: '#FFFFFF', opacity: 0.6,
+			},
+		} );
 
-    $("#the-list").on("click", ".set-tracking", function() {
-        var btn = this;
-        var tr = $(this).closest("tr");
-        var td = $(tr).find("td");
-        $( td ).block({
-            message: null,
-            overlayCSS: {
-                background: '#fff',
-                opacity: 0.6
-            }
-        });
-        var provider = '';
+		$.post( ajaxurl, {
+			action: 'warranty_request_tracking', id: $( this ).data( 'request' ),
+		}, function( resp ) {
+			$( '.wc-tracking-requested' ).show();
+			$( '#the-list .request-tracking-div' ).remove();
+			$( td ).unblock();
+		} );
+	} );
 
-        if ( $("#the-list select.return_tracking_provider").length > 0 ) {
-            provider = $("#the-list select.return_tracking_provider option:selected").val();
-        }
+	list.on( 'click', '.set-tracking', function() {
+		var btn = this;
+		var tr = $( this ).closest( 'tr' );
+		var td = $( tr ).find( 'td' );
+		$( td ).block( {
+			message: null, overlayCSS: {
+				background: '#fff', opacity: 0.6,
+			},
+		} );
+		var provider = '';
 
-        $.post(
-            ajaxurl,
-            {
-                action: "warranty_set_tracking",
-                tracking: $("#the-list").find(".tracking_code").val(),
-                id: $(this).data("request"),
-                provider: provider
-            },
-            function(resp) {
-                $(".wc-tracking-saved").show();
-                $(td).unblock();
-            }
-        );
-    });
+		if ( $( '#the-list select.return_tracking_provider' ).length > 0 ) {
+			provider = $( '#the-list select.return_tracking_provider option:selected' ).val();
+		}
 
-    $("body").on("click", ".warranty-process-refund", function() {
-        var id          = $(this).data("id");
-        var security    = $(this).data("security");
-        var table       = $("table.toplevel_page_warranties");
-        var tb_window   = $(this).parents("#TB_window");
-        var amount      = tb_window.find("input.amount").val();
+		$.post( ajaxurl, {
+			action: 'warranty_set_tracking',
+			tracking: list.find( '.tracking_code' ).val(),
+			id: $( this ).data( 'request' ),
+			provider: provider,
+		}, function( resp ) {
+			$( '.wc-tracking-saved' ).show();
+			$( td ).unblock();
+		} );
+	} );
 
-        tb_remove();
+	body.on( 'click', '.warranty-process-refund', function() {
+		var id = $( this ).data( 'id' );
+		var security = $( this ).data( 'security' );
+		var table = $( 'table.toplevel_page_warranties' );
+		var tb_window = $( this ).parents( '#TB_window' );
+		var amount = tb_window.find( 'input.amount' ).val();
 
-        table.block({
-            message: null,
-            overlayCSS: {
-                background: '#fff',
-                opacity: 0.6
-            }
-        });
+		tb_remove();
 
-        $.post(
-            ajaxurl,
-            {
-                action: "warranty_refund_item",
-                ajax: true,
-                id: $(this).data("id"),
-                amount: amount,
-                _wpnonce: security
-            },
-            function(resp) {
-                if ( resp.status == 'OK' ) {
-                    window.location.reload();
-                } else {
-                    alert( resp.message );
-                    table.unblock();
-                }
+		table.block( {
+			message: null, overlayCSS: {
+				background: '#fff', opacity: 0.6,
+			},
+		} );
 
-            }
-        )
-    });
+		$.post( ajaxurl, {
+			action: 'warranty_refund_item',
+			ajax: true,
+			id: $( this ).data( 'id' ),
+			amount: amount,
+			_wpnonce: security,
+		}, function( resp ) {
+			if ( 'OK' === resp.status ) {
+				window.location.reload();
+			} else {
+				alert( resp.message );
+				table.unblock();
+			}
 
-    $("body").on("click", ".warranty-process-coupon", function() {
-        var id          = $(this).data("id");
-        var security    = $(this).data("security");
-        var table       = $("table.toplevel_page_warranties");
-        var tb_window   = $(this).parents("#TB_window");
-        var amount      = tb_window.find("input.amount").val();
+		} );
+	} );
 
-        tb_remove();
+	body.on( 'click', '.warranty-process-coupon', function() {
+		var id = $( this ).data( 'id' );
+		var security = $( this ).data( 'security' );
+		var table = $( 'table.toplevel_page_warranties' );
+		var tb_window = $( this ).parents( '#TB_window' );
+		var amount = tb_window.find( 'input.amount' ).val();
 
-        table.block({
-            message: null,
-            overlayCSS: {
-                background: '#fff',
-                opacity: 0.6
-            }
-        });
+		tb_remove();
 
-        $.post(
-            ajaxurl,
-            {
-                action: "warranty_send_coupon",
-                ajax: true,
-                id: $(this).data("id"),
-                amount: amount,
-                _wpnonce: security
-            },
-            function(resp) {
-                if ( resp.status == 'OK' ) {
-                    window.location.reload();
-                } else {
-                    alert( resp.message );
-                    table.unblock();
-                }
+		table.block( {
+			message: null, overlayCSS: {
+				background: '#FFFFFF', opacity: 0.6,
+			},
+		} );
 
-            }
-        )
-    });
+		$.post( ajaxurl, {
+			action: 'warranty_send_coupon',
+			ajax: true,
+			id: $( this ).data( 'id' ),
+			amount: amount,
+			_wpnonce: security,
+		}, function( resp ) {
+			if ( 'OK' === resp.status ) {
+				window.location.reload();
+			} else {
+				alert( resp.message );
+				table.unblock();
+			}
 
-    $("body").on("click", ".add_note", function(e) {
-        e.preventDefault();
-        var container   = $(this).parents(".inline-edit-col");
-        var request     = $(this).data("request");
-        var notes_list  = container.find( "ul.admin-notes" );
-        var note        = $("#admin_note_"+ request).val()
+		} );
+	} );
 
-        if ( note.length == 0 ) {
-            return;
-        }
+	body.on( 'click', '.add_note', function( e ) {
+		e.preventDefault();
+		var container = $( this ).parents( '.inline-edit-col' );
+		var request = $( this ).data( 'request' );
+		var notes_list = container.find( 'ul.admin-notes' );
+		var note = $( '#admin_note_' + request ).val();
 
-        container.block({
-            message: null,
-            overlayCSS: {
-                background: '#fff',
-                opacity: 0.6
-            }
-        });
+		if ( 0 === note.length ) {
+			return;
+		}
 
-        var data = {
-            action: 'warranty_add_note',
-            request: request,
-            note: note
-        };
+		container.block( {
+			message: null, overlayCSS: {
+				background: '#FFFFFF', opacity: 0.6,
+			},
+		} );
 
-        $.post(ajaxurl, data, function(resp) {
-            $(notes_list).html(resp);
-            container.unblock();
-        });
-    });
+		var data = { action: 'warranty_add_note', request: request, note: note };
 
-    $("body").on("click", ".delete_note", function(e) {
-        e.preventDefault();
-        var container   = $(this).parents(".inline-edit-col");
-        var note        = $(this).data("note_id");
-        var request     = $(this).data("request");
-        var notes_list  = container.find( "ul.admin-notes" );
+		$.post( ajaxurl, data, function( resp ) {
+			$( notes_list ).html( resp );
+			container.unblock();
+		} );
+	} );
 
-        container.block({
-            message: null,
-            overlayCSS: {
-                background: '#fff',
-                opacity: 0.6
-            }
-        });
+	body.on( 'click', '.delete_note', function( e ) {
+		e.preventDefault();
+		var container = $( this ).parents( '.inline-edit-col' );
+		var note = $( this ).data( 'note_id' );
+		var request = $( this ).data( 'request' );
+		var notes_list = container.find( 'ul.admin-notes' );
 
-        var data = {
-            action: 'warranty_delete_note',
-            request: request,
-            note_id: note
-        };
+		container.block( {
+			message: null, overlayCSS: {
+				background: '#fff', opacity: 0.6,
+			},
+		} );
 
-        $.post(ajaxurl, data, function(resp) {
-            $(notes_list).html(resp);
-            container.unblock();
-        });
-    });
+		var data = { action: 'warranty_delete_note', request: request, note_id: note };
 
-    $(".tip").tipTip({
-        maxWidth: "400px"
-    });
+		$.post( ajaxurl, data, function( resp ) {
+			$( notes_list ).html( resp );
+			container.unblock();
+		} );
+	} );
+
+	$( '.tip' ).tipTip( { maxWidth: '400px' } );
 });

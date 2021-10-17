@@ -729,6 +729,14 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 						$this->ajax_response_error(__('Deregistration failed!', 'revslider'));
 					}
 				break;
+				case 'close_deregister_popup':
+					update_option('revslider-deregister-popup', 'false');
+					$this->ajax_response_success(__('Saved', 'revslider'));
+				break;
+				case 'deactivate_trustpilot':
+					update_option('revslider-trustpilot', 'false');
+					$this->ajax_response_success(__('Saved', 'revslider'));
+				break;
 				case 'dismiss_dynamic_notice':
 					$ids = $this->get_val($data, 'id', array());
 					$notices_discarded = get_option('revslider-notices-dc', array());
@@ -1179,19 +1187,21 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					$return = array_search($alias,$arrSliders);
 
 					foreach($arrSliders as $sliderony){
-						if( $sliderony->get_alias() == $alias ){
-							$slider_found = $sliderony->get_overview_data();
-							$return = $slider_found["bg"]["src"];
-							$title = $slider_found['title'];
-						}
+						if($sliderony->get_alias() != $alias) continue;
+
+						$slider_found	= $sliderony->get_overview_data();
+						$return			= $this->get_val($slider_found, array('bg', 'src'));
+						$title			= $this->get_val($slider_found, 'title');
+						$premium_state	= $this->get_val($slider_found, 'premium');
+
+						break;
 					}
 
-					if(!$return) $return = "";
+					if(!$return) $return = '';
 
 					if(!empty($title)){
-						$this->ajax_response_data(array('image' => $return, 'title' => $title));
-					}
-					else{
+						$this->ajax_response_data(array('image' => $return, 'title' => $title, 'premium' => $premium_state));
+					}else{
 						$this->ajax_response_error( __('The Slider with the alias "' . $alias . '" is not available!', 'revslider') );
 					}
 
@@ -1548,7 +1558,8 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 							$upd->upgrade_slider_to_latest($slider);
 							$slider->init_by_id($slider_id);
 						}
-
+						global $rs_preview_mode;
+						$rs_preview_mode = true;
 						$content = '[rev_slider alias="' . esc_attr($slider->get_alias()) . '"][/rev_slider]';
 					}elseif(!empty($slider_data)){
 						$_slides = array();

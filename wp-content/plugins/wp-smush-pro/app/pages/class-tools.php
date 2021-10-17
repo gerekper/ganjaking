@@ -66,7 +66,7 @@ class Tools extends Abstract_Page implements Interface_Page {
 			'tools/meta-box',
 			array(
 				'detection'     => $this->settings->get( 'detection' ),
-				'backups_count' => WP_Smush::get_instance()->core()->mod->backup->get_attachments_with_backups(),
+				'backups_count' => count( WP_Smush::get_instance()->core()->mod->backup->get_attachments_with_backups() ),
 			)
 		);
 	}

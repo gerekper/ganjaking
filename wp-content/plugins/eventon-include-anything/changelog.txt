@@ -1,0 +1,4 @@
+Include Anything (IA) addon for EventON Plugin
+====================================
+v 0.1 (2020-12-28)
+Initial release

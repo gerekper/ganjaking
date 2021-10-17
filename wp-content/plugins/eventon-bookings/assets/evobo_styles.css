@@ -1,0 +1,255 @@
+/* evobo styles*/
+
+/* selection style 2 */
+	.evobo_selections .evobo_selection_row{
+		display: block;
+		padding: 10px 0px;
+		position: relative;
+	}	
+	.evobo_selections .evobo_selection_row span{
+		display: inline-block; padding: 5px 15px; border-radius: 25px;
+		cursor: pointer; text-align: center;
+		color:#6b6b6b;
+		text-transform: uppercase;
+	}
+	.evobo_selections .evobo_selection_row span.select.non_select{
+		background-color: #e6e6e6; color:#6b6b6b; cursor: default;
+	}
+	.evobo_selections .evobo_selection_row span:hover{background-color: #d6d6d6; color:#808080;}
+	.evobo_selections .evobo_selection_row span.select{background-color:#f3c991; color:#fff; }
+	
+	.evobo_selections .evobo_selection_row.evobo_slot_selection span{
+		margin-right: 5px;
+	    margin-bottom: 5px;
+	    background-color: #ffffff;
+	    box-shadow: 0px 0px 20px 0 #0000001f;
+	    font-size: 14px;
+	}
+	.evobo_selections .evobo_selection_row.evobo_slot_selection span:hover{background-color: #d6d6d6}
+	.evobo_selections .evobo_selection_row.evobo_slot_selection span em{font-style: normal;}
+	.evobo_selections .evobo_selection_row.evobo_slot_selection span.select{
+		background-color: #82da95; color:#fff;
+	}
+/* fonts */
+	.evobo_main_selection{font-family:'open sans','arial';}
+	.evoGC .evoGC_week span em,
+	.evobo_selections .evobo_selection_row.evobo_slot_selection span,
+	.evobo_main_selection .evobo_section_header,
+	.evoGC .evoGC_header .evoGC_month, .evoGC .evoGC_header .evoGC_year
+	{font-family: 'roboto';}
+/* block preview */
+	.evobo_price_values .evovo_price_options{margin-top: 10px;}
+/* calendar date style mod */
+	.evoGC .evoGC_week span:before{
+		content:"";
+		display:block;
+		padding-top:100%;
+	}
+	.evobo_calendar .evoGC .evoGC_week span.hasslots em{ background-color: #82da95; color:#fff;	}
+	body #evcal_list .evobo_selction_stage_time_qty .tx_wc_notic .evotx_success_msg{display: none;}
+	body #evcal_list .evobo_selction_stage_time_qty .tx_wc_notic .evotx_success_msg.bad{display: block;}
+/* evobo calendar */
+	.evobo_calendar, .evobo_selections{width: 50%;}
+	.evobo_selections{padding-left: 20px;}	
+	.evobo_main_selection{
+		display:flex;
+	}
+	.evobo_main_selection .evobo_section_header{
+		font-weight: normal;
+		font-size: 16px;
+		display: block;
+		margin-bottom: 15px;
+	}
+
+/* evo grid calendar styles */
+	.evoGC{margin-bottom: 20px;
+		background-color: #fff;
+		padding:20px;
+		border-radius:12px;
+		box-shadow: 0px 0px 20px 0 #0000000f
+	}
+	.evoGC .evoGC_header, .evoGC .evoGC_days, .evoGC .evoGC_dates{display: block}
+	.evoGC .evoGC_header{padding-bottom: 20px; display:flex;justify-content:space-between; 
+		border-bottom: 1px solid #e8e8e8;
+		margin-bottom: 15px;
+		-webkit-user-select: none; /* Chrome all / Safari all */
+	  -moz-user-select: none;   /* Firefox all */
+	  -ms-user-select: none;  /* IE 10+ */
+	   user-select: none;
+	}
+	.evoGC .evoGC_header .evoGC_month, .evoGC .evoGC_header .evoGC_year{
+		font-size: 14px;
+		text-transform: uppercase;
+		padding-right: 5px;
+		font-weight: bold;
+	}
+	.evoGC .evoGC_today{
+		text-transform: uppercase;
+		font-size: 12px;
+		border-radius: 5px;
+		background-color: #cecece;color:#fff;
+		padding: 3px 10px;
+		margin-right: 10px;
+		cursor: pointer;
+	}
+	.evoGC .evoGC_today:hover{ opacity: 0.6;}
+	.evoGC .evoGC_header .evoGC_nav{
+		padding-left: 10px;
+		display:flex; align-items: center;
+	}
+	.evoGC .evoGC_header .evoGC_ar{
+		text-align: center;
+	    height: 25px;
+	    width: 25px;
+	    cursor: pointer;
+	    border: 1px solid #c5c5c5;
+	    border-radius: 50%;
+	    color: #c5c5c5;
+	    position: relative;
+	    margin-right: 10px;
+	}
+	.evoGC .evoGC_header .evoGC_ar:hover{
+		color: #c5c5c5;
+	    border-color: #c5c5c5;
+	    background-color: #ededed;
+	}
+	.evoGC .evoGC_header .evoGC_ar i.fa{
+		font-size: 16px;
+	    margin-top: 4px;
+	    position: absolute;
+	    width: auto;
+	    height: 100%;
+	    line-height: 100%!important;
+	    vertical-align: middle;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	}
+	.evoGC .evoGC_days{
+		display:flex;
+		justify-content:space-around;
+		text-transform: uppercase;
+		font-weight: bold; font-size: 14px;
+		margin-bottom: 20px;
+		color: #e4e4e4;
+	}
+
+	.evoGC .evoGC_dates{
+		display:flex;
+		justify-content:flex-start;
+		flex-wrap: wrap;
+		flex-direction:row;
+		flex-grow:88;
+		padding: 0;
+	    margin: 0;
+	    list-style: none;
+	    display: -webkit-box;
+	    display: -moz-box;
+	    display: -ms-flexbox;
+	    display: -webkit-flex;
+	    display: flex;
+	}
+	.evoGC .evoGC_week{
+		flex-basis:100%;
+		display:flex;
+		justify-content:flex-start;
+	}
+	.evoGC .evoGC_week span{
+		flex-basis: calc(100% *1/7);
+		text-align: center;
+		box-sizing:border-box;
+		position: relative;
+		cursor: pointer;
+		border-radius: 50%;
+    	-webkit-border-radius: 50%;
+    	-webkit-transition: all .2s ease;
+	-moz-transition: all .2s ease;
+	-ms-transition: all .2s ease;
+	-o-transition: all .2s ease;
+	transition: all .2s ease;
+	}
+	
+	.evoGC .evoGC_week span em{
+		position: absolute;
+	    margin: 0;
+	    top: 50%;
+	    left: 50%;
+	    width: 40px;
+	    height: 40px;
+	    line-height: 40px;
+	    font-style: normal; font-weight: bold; font-size:14px;
+
+	    transform: translate(-50%, -50%);
+	    -webkit-transform: translate(-50%, -50%);
+	    border-radius: 50%;
+	    -webkit-border-radius: 50%;
+	    color: #a7a7a7;
+	}
+	.evoGC .evoGC_week span i{
+		position: absolute;
+	    margin: 0;
+	    top: 50%;
+	    left: 50%;
+	    width: 44px;
+	    height: 44px;
+	    line-height: 40px;
+	    font-style: normal;
+	    transform: translate(-50%, -50%);
+	    -webkit-transform: translate(-50%, -50%);
+	    border-radius: 50%;
+	}
+	.evotx_hidable_box.trim .evoGC .evoGC_week span i{width: 100%; height: 100%}
+	.evoGC .evoGC_week .evoGC_date.today i{border:2px solid #ffafaf}
+	.evoGC .evoGC_week .evoGC_date:hover i{background-color: #f3f3f3;}
+	.evoGC .evoGC_week .evoGC_date.select i{border:2px solid #616161}
+
+
+
+/* lightbox eventcard */
+	.evo_lightbox_body .evobo_calendar{padding-right:30px }
+	.evo_lightbox_body .evobo_calendar, .evo_lightbox_body .evobo_selections{width: 100%;}
+	.evo_lightbox_body .evobo_selections{padding: 15px 0;}
+	.evo_lightbox_body .evobo_main_selection{flex-direction:column;}
+	.evo_lightbox_body .evoGC .evoGC_week span i{}
+	.evo_lightbox_body .evoGC .evoGC_week span em{
+		width: 40px; height: 40px; line-height: 40px;
+		font-size: inherit; font-style: normal
+	}
+
+/* smaller area */
+	.evobo_main_selection.trim .evobo_calendar, 
+	.evobo_main_selection.trim .evobo_selections{width: 100%;}
+	.evobo_main_selection.trim{flex-direction:column;}
+	.evobo_main_selection.trim .evobo_selections{padding: 15px 0;}
+
+/* responsive */
+@media (max-width: 975px){
+	.evoGC .evoGC_week span em{
+		width: 30px; height: 30px; line-height: 30px;
+		font-size: 14px;
+	}
+	.evoGC .evoGC_week span.today em{line-height:27px }
+}
+@media (max-width: 850px){
+	.evobo_calendar, .evobo_selections{width: 100%;}
+	.evobo_selections{padding: 15px 0;}
+	.evobo_main_selection{flex-direction:column;}
+	.evoGC .evoGC_week span em{
+		width: 40px; height: 40px; line-height: 40px;
+		font-size: inherit;
+	}
+	.evoGC .evoGC_week span.today em{line-height:36px }
+}
+@media (max-width: 550px){
+	.evoGC .evoGC_week span.select{}
+	.evoGC .evoGC_week span em{
+		width: 25px; height: 25px; 
+		line-height: 25px;
+		font-size: 12px;
+		background-color: transparent;
+	}
+	.evoGC .evoGC_week span.today em{
+		border:none;
+		line-height: 25px;
+	}
+}

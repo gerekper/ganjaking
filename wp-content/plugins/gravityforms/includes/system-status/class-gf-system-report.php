@@ -295,7 +295,7 @@ class GF_System_Report {
 
 					echo '<h2>' . esc_html__( 'Upgrading Gravity Forms', 'gravityforms' ) . '</h2>';
 
-					$warning = esc_html__( 'Do not close or navigate away from this page until the upgrade is 100% complete.', 'gravityfroms' );
+					$warning = esc_html__( 'Do not close or navigate away from this page until the upgrade is 100% complete.', 'gravityforms' );
 
 					printf( '<p>%s</p>', $warning );
 					printf( '<p>%s</p>', $message );

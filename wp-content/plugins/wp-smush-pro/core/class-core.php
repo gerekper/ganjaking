@@ -169,7 +169,7 @@ class Core extends Stats {
 		add_action( 'init', array( $this, 'load_integrations' ) );
 
 		// Big image size threshold (WordPress 5.3+).
-		add_filter( 'big_image_size_threshold', array( $this, 'big_image_size_threshold' ), 10, 4 );
+		add_filter( 'big_image_size_threshold', array( $this, 'big_image_size_threshold' ), 10 );
 
 		/**
 		 * Load NextGen Gallery, instantiate the Async class. if hooked too late or early, auto Smush doesn't
@@ -385,7 +385,7 @@ class Core extends Stats {
 	 * @return bool
 	 */
 	public static function check_bulk_limit( $reset = false, $key = 'bulk_sent_count' ) {
-		$transient_name = WP_SMUSH_PREFIX . $key;
+		$transient_name = 'wp-smush-' . $key;
 
 		// If we JUST need to reset the transient.
 		if ( $reset ) {
@@ -525,7 +525,7 @@ class Core extends Stats {
 	 * @param string $key  Database key.
 	 */
 	public static function update_smush_count( $key = 'bulk_sent_count' ) {
-		$transient_name = WP_SMUSH_PREFIX . $key;
+		$transient_name = 'wp-smush-' . $key;
 
 		$bulk_sent_count = get_transient( $transient_name );
 
@@ -544,19 +544,20 @@ class Core extends Stats {
 	 *
 	 * @since 3.3.2
 	 *
-	 * @param int    $threshold      The threshold value in pixels. Default 2560.
-	 * @param array  $imagesize      Indexed array of the image width and height (in that order).
-	 * @param string $file           Full path to the uploaded image file.
-	 * @param int    $attachment_id  Attachment post ID.
+	 * @param int $threshold  The threshold value in pixels. Default 2560.
 	 *
-	 * @return int  New threshold.
+	 * @return int|bool  New threshold. False if scaling is disabled.
 	 */
-	public function big_image_size_threshold( $threshold, $imagesize, $file, $attachment_id ) {
+	public function big_image_size_threshold( $threshold ) {
+		if ( Settings::get_instance()->get( 'no_scale' ) ) {
+			return false;
+		}
+
 		if ( ! Settings::get_instance()->get( 'resize' ) ) {
 			return $threshold;
 		}
 
-		$resize_sizes = Settings::get_instance()->get_setting( WP_SMUSH_PREFIX . 'resize_sizes' );
+		$resize_sizes = Settings::get_instance()->get_setting( 'wp-smush-resize_sizes' );
 		if ( ! $resize_sizes || ! is_array( $resize_sizes ) ) {
 			return $threshold;
 		}

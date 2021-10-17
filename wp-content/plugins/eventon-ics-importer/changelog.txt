@@ -1,0 +1,73 @@
+ICS Importer for EventON Plugin
+====================================
+v 1.1.3 (2020-11-4)
+FIXED: compatibility with eventON 3.0
+FIXED: PHP new version compatibility issue with icalParser.php
+
+v 1.1.2 (2020-7-29)
+ADDED: Option to import past events as well
+FIXED: cron errors on class
+FIXED: ics from fetching past events
+
+v 1.1.1 (2020-7-16)
+FIXED: events not importing as publish
+FIXED: Call to undefined method evoics_cron::record_log() 
+FIXED: manual file upload method giving error on first time use
+
+v 1.1 (2020-6-19)
+ADDED: hover over description to show excerpt of it
+FIXED: remove \ from text
+FIXED: multiline description not capturing
+FIXED: description starting with http: breaking description
+FIXED: a line starting with : not getting recognized
+UPDATED: minor style changes
+UPDATED: ics parsing library
+
+v 1.0.4 (2019-9-20)
+FIXED: sync already imported events not updating event name
+FIXED: ICS time passed with TZID not processing the event time
+FIXED: Ics file description not passing through correct
+
+v 1.0.3 (2019-8-26)
+ADDED: ability to edit date time by clicking on them before processing
+FIXED: Duplicate event imports
+FIXED: Undefined start and end date on ICS file
+FIXED: support for google calendar exported ics all day events
+
+v 1.0.2 (2017-12-19)
+FIXED: setting default UTC timezone when timezone adjusting is disable
+FIXED: cron jobs not recording the importing information correct
+FIXED: Import to support new PHP version
+FIXED: Deselect all not working correct
+
+v 1.0.1 (2017-8-25)
+ADDED: Imported events convert into links with event edit page link
+ADDED: Skipped events count during import
+FIXED: manual link missing error for manual upload types
+FIXED: cron schedule not removing once set to manual syncing
+FIXED: individual fetched events select not working
+FIXED: Status field missing on import processing values
+FIXED: not importing events unless clicked select all
+FIXED: fetching process messages and progress not showing correct
+FIXED: alreasy synced events not getting updated
+FIXED: publish fetched events still saving as draft
+UPDATED: success message layout design
+
+v 1.0 (2017-7-7)
+ADDED: Ability to set schedule imports from ICS file
+ADDED: Ability to import events from an external ICS file URL
+ADDED: Ability cron based auto importing
+ADDED: UID based sync already uploaded events
+ADDED: view past auto scheduled import log
+UPDATED: settings layout placements
+REQUIRE: Eventon 2.5.5
+
+v 0.3 (2017-3-27)
+ADDED: Pluggable hook for skipping fields when saving fields
+FIXED: Location with quotation marks not showing correct
+
+v 0.2 (2016-10-10)
+UPDATED: compatibility with eventon 2.4.7
+
+v 0.1 (2016-8-22)
+Initial release

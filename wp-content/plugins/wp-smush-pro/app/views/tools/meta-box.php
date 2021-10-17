@@ -18,13 +18,10 @@ if ( ! defined( 'WPINC' ) ) {
 do_action( 'wp_smush_render_setting_row', 'detection', $detection );
 
 ?>
-<div class="sui-box-settings-row <?php echo WP_Smush::is_pro() ? '' : 'sui-disabled'; ?>">
+<div class="sui-box-settings-row">
 	<div class="sui-box-settings-col-1">
 		<span class="<?php echo WP_Smush::is_pro() ? 'sui-settings-label' : 'sui-settings-label-with-tag'; ?>">
 			<?php esc_html_e( 'Bulk restore', 'wp-smushit' ); ?>
-			<?php if ( ! WP_Smush::is_pro() ) : ?>
-				<span class="sui-tag sui-tag-pro"><?php esc_html_e( 'Pro', 'wp-smushit' ); ?></span>
-			<?php endif; ?>
 		</span>
 		<span class="sui-description">
 			<?php
@@ -41,7 +38,7 @@ do_action( 'wp_smush_render_setting_row', 'detection', $detection );
 		<span class="sui-description">
 			<?php
 			printf( /* translators: %1$s - a tag, %2$s - closing a tag */
-				wp_kses( 'Note: This feature uses your original image uploads to regenerate thumbnails. If you have “%1$sSmush my original full size images%2$s” enabled, we can still restore your thumbnails, but the quality will reflect your compressed original image. ', 'wp-smushit' ),
+				wp_kses( 'This feature regenerates thumbnails using your original uploaded images. If “%1$sCompress Uploaded Images%2$s” is enabled, your thumbnails can still be regenerated, but the quality will be impacted by the compression of your uploaded images.', 'wp-smushit' ),
 				'<a href="' . esc_url( $this->get_url( 'smush-bulk' ) ) . '#original-label">',
 				'</a>'
 			);
@@ -50,7 +47,7 @@ do_action( 'wp_smush_render_setting_row', 'detection', $detection );
 		<span class="sui-description">
 			<?php
 			printf( /* translators: %1$s - a tag, %2$s - closing a tag */
-				esc_html__( 'Please note, that you need to have “%1$sStore a copy of my small originals%2$s” option enabled to bulk restore the images. ', 'wp-smushit' ),
+				esc_html__( 'Note: “%1$sBackup Uploaded Images%2$s” must be enabled in order to bulk restore your images. ', 'wp-smushit' ),
 				'<a href="' . esc_url( $this->get_url( 'smush-bulk' ) ) . '#backup-label">',
 				'</a>'
 			)

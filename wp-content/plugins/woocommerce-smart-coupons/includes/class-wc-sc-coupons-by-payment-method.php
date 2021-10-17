@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.0.1
+ * @version     1.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,6 +41,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Payment_Method' ) ) {
 			add_filter( 'sc_generate_coupon_meta', array( $this, 'generate_coupon_meta' ), 10, 2 );
 			add_filter( 'wc_sc_process_coupon_meta_value_for_import', array( $this, 'process_coupon_meta_value_for_import' ), 10, 2 );
 			add_filter( 'is_protected_meta', array( $this, 'make_action_meta_protected' ), 10, 3 );
+			add_action( 'wc_sc_new_coupon_generated', array( $this, 'copy_coupon_payment_method_meta' ) );
 		}
 
 		/**
@@ -313,6 +314,21 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Payment_Method' ) ) {
 			}
 
 			return $meta_value;
+		}
+
+		/**
+		 * Function to copy payment method restriction meta in newly generated coupon
+		 *
+		 * @param  array $args The arguments.
+		 */
+		public function copy_coupon_payment_method_meta( $args = array() ) {
+
+			// Copy meta data to new coupon.
+			$this->copy_coupon_meta_data(
+				$args,
+				array( 'wc_sc_payment_method_ids' )
+			);
+
 		}
 
 		/**

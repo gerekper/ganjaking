@@ -1,0 +1,35 @@
+﻿Event API (AP) addon for EventON Plugin
+====================================
+v 1.0.2 (2018-6-12)
+FIXED: eventtop styles
+FIXED: separate events by month not working
+
+V 1.0.1 (2017-10-23)
+FIXED: Event count variable name fix in settings page
+UPDATED: eventon 2.6 styles match
+UPDATED: settings explanations of usage
+
+v 1.0 (2017-5-31)
+ADDED: call to jquery file in the code
+ADDED: support for passing dynamic parameters via API URL
+ADDED: Loading text for external calendar
+ADDED: Support for featured image on the external calendar
+ADDED: Ability to override event type color for events on external calendar
+FIXED: minor style issues
+UPDATED: Addon initiation process to comply with eventon 2.5+
+
+v 0.4 (2017-4-3)
+FIXED: Styles that were missing for certain elements
+FIXED: Open events in same page from API not working
+
+v 0.3 (2017-1-6)
+ADDED: Option to separate events by month names
+
+v 0.2 (2016-8-24)
+ADDED: Support to show single event with event ID
+ADDED: More number of months selection
+FIXED: Number of months option not working for regular API
+UPDATED: Styles for calendar
+
+v 0.1 (2016-6-27)
+Initial release

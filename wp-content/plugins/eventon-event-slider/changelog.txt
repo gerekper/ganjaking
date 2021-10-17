@@ -1,0 +1,69 @@
+Event Slider (SL) addon for EventON Plugin
+====================================
+v 2.0.2 (2021-1-8)
+FIXED: complete slider not clickable due to style issue
+FIXED: missing slide function
+
+v 2.0.1 (2020-6-4)
+FIXED: Microslider background image issues resolved
+FIXED: load styles only on eventon pages causing layout issue
+FIXED: compatibility with eventON 2.8.6
+
+v 2.0 (2020-2-7)
+ADDED: Micro slider with event date and hover event name
+ADDED: up and down arrow bars for vertical slider navigation
+ADDED: ability to select different slider control styles independent of slider type
+ADDED: when a slide is hover, reduce opacity on other slides
+ADDED: multiple vertical slides on vertical slider
+ADDED: Slide styles including event image as background of the slide
+FIXED: completely reconstruct the slider script
+FIXED: slider not showing events issue in some cases
+UPDATED: slider styles for all slider versions
+
+v 1.0.8 (2019-11-25)
+FIXED: shortcode values missing from slider calendar
+FIXED: Javascript related issue on frontend
+
+v 1.0.7 (2019-11-12)
+FIXED: minor styles update
+FIXED: Compatibility with eventON 2.8
+REQ: EventON 2.8
+
+v 1.0.6 (2018-10-18)
+FIXED: Initiation error with eventon class
+
+v 1.0.5 (2018-9-14)
+FIXED: new chrome causing slides to not show
+FIXED: style file to enqueue with version number
+
+v 1.0.4 (2017-4-17)
+FIXED: Minor style update
+FIXED: slider to be default show 1 event instead of 2
+FIXED: vertical slider events not clickable
+FIXED: vertical slider complete area not clickable
+
+v 1.0.3 (2017-3-29)
+ADDED: vertical height customization support for vertical slider
+FIXED: Incorrect shortcode for opening events as single event page
+FIXED: Minor style issues
+UPDATED: Addon initiation process
+
+v 1.0.2 (2017-3-1)
+FIXED: minor style issues
+FIXED: PHP 7.1 conflicts
+FIXED: other calendar ux_val switching to lightbox incorrectly
+
+v 1.0.1 (2017-2-22)
+FIXED: event map settings like marker, zoom level not sync with rest of evo settings
+FIXED: Styles for pager
+
+v 1.0 (2016-11-15)
+ADDED: Mini carasouel type slider
+FIXED: Vertical slider not working correct
+FIXED: Click on events from slider to perform correct ux_val
+
+v 0.2 (2016-7-24)
+ADDED: Support for opening events as single events from slider
+
+v 0.1 (2016-5-26)
+Initial release

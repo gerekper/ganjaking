@@ -1,0 +1,66 @@
+Bookings addon for EventON Plugin
+====================================
+v 1.1.1 (2020-3-3)
+FIXED: minor style changes
+
+v 1.1 (2020-2-19)
+ADDED: Style appearance customization via eventon appearance settings
+FIXED: calendar month switching not working for some users
+FIXED: go to today button for the caledndar not working
+FIXED: booking calendar appear squished in smaller eventcards
+UPDATED: Booking calendar designs and UI improvement
+
+v 1.0.7 (2019-11-12)
+FIXED: If booking ticket show block time instead of event time for customer
+FIXED: Ticket holder details to show only block time
+FIXED: missing translation texts
+FIXED: To hide sold out booking slots on frontend
+FIXED: JSON stringfy issue on month navigation
+FIXED: Compatibility with eventON 2.8
+
+v 1.0.6 (2019-1-18)
+FIXED: booking calendar not appearing sometimes on events
+
+v 1.0.5 (2018-1-7)
+FIXED: Months not showing correct number of days
+FIXED: Calendar styles
+
+v 1.0.4 (2018-12-21)
+FIXED: december last week not splitting up correct in calendar view
+FIXED: booking slot timeformat not adjusting to global values
+
+v 1.0.3 (2018-12-11)
+FIXED: bookable date with HTML start and end separation
+FIXED: evobo script error for other ajax submissions
+FIXED: Event block time to show under checkout additional ticket info
+REQUIRED: Ticket 1.7.7
+
+v 1.0.2 (2018-6-21)
+FIXED: booking slot time showing incorrect for 24hr format
+FIXED: Adjusted for the correct local time
+
+v 1.0.1 (2018-5-29)
+REMOVED: unused settings page
+FIXED: Incorrect label for block form
+FIXED: View attendees not highlighting block
+FIXED: lightbox booking calendar styles
+FIXED: events loaded via ajax not showing booking calendar
+
+v 1.0 (2018-5-10)
+ADDED: Admin variable ticket notification for booking addon
+ADDED: Booking information to show in attendee information
+ADDED: Compatibility with tickets add more items to cart after add to cart
+ADDED: when booking start date changed alter end date
+ADDED: New javascript JSON based calendar based booking date selector
+ADDED: booking data to download attendees CSV file
+ADDED: New backend booking editor
+ADDED: Backend booking editor to also show attendees per each booking slot
+FIXED: Event edit colors to be compatible with eventon 2.6.6
+FIXED: missing price text on final stage
+UPDATED: better javascript based UI for view attendees by time block
+UPDATED: frontend booking layout to load faster
+UPDATED: use new tickets addon pluggable filters to make booking addon leaner
+REQUIRED: Tickets addon 1.7
+
+v 0.1 (2017-11-20)
+Initial release

@@ -1,0 +1,43 @@
+Wishlist for EventON Plugin
+====================================
+v 0.8 (2020-5-5)
+ADDED: shortcode option to show past only, future only events in wishlist manager
+ADDED: shortcode option to set number of months for wishlist manager
+UPDATED: wishlist manager text
+
+v 0.7 (2020-1-30)
+ADDED: wish list count to show in event edit page 
+FIXED: number of months is not working correct
+FIXED: End range time not set correct to 23:59:59
+FIXED: wishlist manager not showing open for wishlist heart
+FIXED: undefined offset error on all events wp-admin page
+FIXED: invalid event ID passing when adding to wishlist
+FIXED: wishlist count not reflecting correct
+FIXED: wish list count for an event not showing correct for all repeats
+
+v 0.6 (2019-11-12)
+FIXED: EventON 2.8 compatibility with ajax based events loading
+FIXED: wp-admin all events page to show likes correct for repeating event
+REQ: EventON 2.8
+
+v 0.5 (2018-12-20)
+FIXED: wish list manager template not loading up for some
+FIXED: when there are no events in wish list to show a message
+FIXED: custom login link support on wishlist manager page
+
+v 0.4 (2018-8-10)
+FIXED: wishlist manager not showing events for some users
+FIXED: past events from wishlist manager not showing
+REQ: eventon 2.6.12 - wp query filters
+
+v 0.3 (2017-12-15)
+ADDED: Likes count on backend all events
+ADDED: Lightbox login form when non-loggedin member trying to add to wishlist
+FIXED: shortcode arg error
+FIXED: wishlist manager page link error
+
+v 0.2 (2017-10-16)
+FIXED: upcoming events not showing in the wish list manager
+
+v 0.1 (2017-6-9)
+Initial Release

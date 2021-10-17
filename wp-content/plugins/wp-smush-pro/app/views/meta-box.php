@@ -34,7 +34,7 @@ if ( ! defined( 'WPINC' ) ) {
 		</div>
 	<?php elseif ( $title ) : ?>
 		<div class="<?php echo esc_attr( $args['box_header_class'] ); ?>">
-			<h3  class="sui-box-title"><?php echo esc_html( $title ); ?></h3>
+			<h3 class="sui-box-title"><?php echo esc_html( $title ); ?></h3>
 		</div>
 	<?php endif; ?>
 
@@ -60,6 +60,10 @@ if ( ! defined( 'WPINC' ) ) {
 		<div class="<?php echo esc_attr( $args['box_footer_class'] ); ?>">
 			<?php $this->view( $orig_id . '/meta-box-footer' ); ?>
 		</div>
+	<?php endif; ?>
+
+	<?php if ( ! WP_Smush::is_pro() && $this->view_exists( $orig_id . '/meta-box-upsell' ) ) : ?>
+		<?php $this->view( $orig_id . '/meta-box-upsell' ); ?>
 	<?php endif; ?>
 
 	<?php // Allows you to output any content within the stats box at the end. ?>

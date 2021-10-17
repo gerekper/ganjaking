@@ -357,7 +357,7 @@ class Dashboard extends Abstract_Page implements Interface_Page {
 	 * @since 3.8.6
 	 */
 	public function lazy_load_meta_box() {
-		$settings = $this->settings->get_setting( WP_SMUSH_PREFIX . 'lazy_load' );
+		$settings = $this->settings->get_setting( 'wp-smush-lazy_load' );
 
 		$args = array(
 			'is_lazy_load' => $this->settings->get( 'lazy_load' ),

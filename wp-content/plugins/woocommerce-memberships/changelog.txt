@@ -1,5 +1,8 @@
 *** WooCommerce Memberships Changelog ***
 
+2021.10.07 - version 1.22.7
+ * Dev - Adds a filter to help third party code handle product discounts when a product is on sale
+
 2021.10.01 - version 1.22.6
  * Fix - When using the `wcm_product_discount` shortcode, ensure that the percentage discount amount is not miscalculated while a member is logged in
 

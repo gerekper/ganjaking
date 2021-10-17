@@ -1,0 +1,122 @@
+﻿Event Seats (ST) addon for EventON Plugin
+====================================
+v 1.0.9 (2020-8-25)
+ADDED: Missing seat number information to additional ticket information at checkout
+ADDED: 1000x800 map area and pluggable filter to add more sizes
+FIXED: round table not showing in frontend
+
+v 1.0.8 (2020-1-29)
+FIXED: transform origin to be center
+FIXED: seat map location when changing screen size
+FIXED: "Your seats will expire in" translation error
+FIXED: lightbox event seat map stretching event window out of view
+FIXED: mobile view map showing outside the area
+
+v 1.0.7 (2019-11-26)
+FIXED: single event page seat map not loading
+FIXED: javascript error from seat map drawing
+
+v 1.0.6 (2019-11-13)
+FIXED: EventON 2.8 compatibility
+
+v 1.0.5 (2019-10-15)
+ADDED: Duplicate events to make all seats available in duplicated event
+ADDED: Seat map editor edit seat to also show attendee details for that seat
+FIXED: tooltip error when opening the seat map
+FIXED: first seat add to cart shows price as zero
+FIXED: unassigned seating seat in cart causing other seats to not go back in stock after timeout
+FIXED: Seat tooltip not showing in correct place on lightbox
+REQ: Tickets v1.7.10
+
+v 1.0.4 (2019-6-28)
+ADDED: dynamic pricing disable for events when seats on
+ADDED: ability to set tooltips as fixed above map
+FIXED: seat new quantity undefined error 
+FIXED: Map redraw undefined error
+FIXED: Missing text domain translations
+FIXED: Tool tip text translations
+FIXED: map zoom not working for standalone event boxes
+FIXED: ticket custom price with gap not reflected correct
+FIXED: currency formatting for seat price
+FIXED: form data error on creating new sections
+FIXED: seat map resizing when window resized
+UPDATED: seat map styles to be more subtle
+
+v 1.0.3 (2018-7-26)
+FIXED: one click adding to cart not saving when event saved again
+FIXED: seat number order note for wc order page
+FIXED: Missing translations
+
+v 1.0.2 (2018-6-21)
+ADDED: Option to enable direct adding seats to cart with one click
+ADDED: Seat expiration timer to cart pages
+ADDED: Option to hide seat expiration timer from all cart pages
+ADDED: Seat manp editor required fields validation
+FIXED: multiple seats added to cart only making one seat unavailable
+UPDATED: to show seat map on load for single event pages
+REQ: EventON 2.6.11
+
+v 1.0.1 (2018-5-29)
+ADDED: Grid lines for seat map editor
+FIXED: Map area changing not working
+FIXED: lightbox seat map not working on properly on load
+
+v 1.0 (2018-5-10)
+ADDED: Seat number to show in event edit attendee information
+ADDED: filters to check if seats can be enabled for event edit meta box
+ADDED: seat expiration countdown timer, with eventon countdown timer addon
+ADDED: unassigned seating sections
+ADDED: Areas of interest with font awesome icons
+ADDED: compatibility with ticket variations and options addon
+ADDED: duplication of seat sections in seat map editor
+ADDED: ability to edit seat section background color and border
+ADDED: ability to set seat color
+ADDED: Ability to zoom and pan the seat map on frontend
+ADDED: Ability to set area of interest shapes style
+ADDED: mobile compatible seat map selector
+ADDED: real time count down timer when seats added to cart
+ADDED: Proper back end translation text domain POT files
+UPDATED: compatiblity with latest event tickets addon
+UPDATED: Seat map editor to support large seating arrangements
+UPDATED: Seat map legends hidden behind easy hover over menu
+REQUIRE: Tickets 1.7
+
+v 0.5 (2017-11-29)
+FIXED: seat map area values not showing correct on frontend
+FIXED: Seats not getting added to cart
+UPDATED: to utilize EVO_Event object
+
+v 0.4 (2017-11-17)
+ADDED: Option to disable accordion seat view on mobile
+FIXED: boolean error result in unavailable seats being able to sell
+FIXED: Correctly restocking seat upon cancel or refunded orders
+FIXED: Cart validation not going through
+FIXED: Custom unique seat number not correctly showing on tooltips
+FIXED: Seat validation against availability not working correct
+UPDATED: New event class compatibility
+
+v 0.3 (2017-10-19)
+ADDED: seat number in checkout page for additional guest names
+ADDED: Accordion effect for mobile seat selection
+ADDED: QR Code addon integration to show seat information in checkin page
+FIXED: some seat sections information input fields not showing up when editing
+FIXED: Missing language text translation
+FIXED: Incorrect currency symbol showing in responsive view
+FIXED: seats getting removed from cart when adding first time
+FIXED: temporarily unavailable seats changign back to available incorrectly
+FIXED: seats remaining in unavailable state - thanks Tex for the fix
+FIXED: seat quantity not updating upon save
+UPDATED: hover over seat name as title in wp-admin
+UPDATED: allow editing auto generated seat number from wp-admin
+UPDATED: wp-admin styles
+UPDATED: Saved Seat number to be used in checkout and emails
+
+v 0.2 (2017-6-2)
+FIXED: Currency symbol not reflecting correct on popup window
+FIXED: Seats lightbox not loading on ajax loaded months
+FIXED: cart seat item to link to event page
+UPDATED: to save each seat section at a time to avoid max input var error
+UPDATED: loading class name changed to avoid conflicts
+
+v 0.1 (2017-5-2)
+Initial release

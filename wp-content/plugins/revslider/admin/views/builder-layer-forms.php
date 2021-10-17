@@ -579,7 +579,9 @@ if(!defined('ABSPATH')) exit();
 						<div class="svglayer_simplecoloring">
 							<div class="div15"></div>
 							<div><label_a><?php _e('SVG Color', 'revslider');?></label_a><input type="text" data-editing="SVG Color" data-mode="single" name="layerSVGColor" id="layerSVGColor" class="my-color-field layerinput easyinit" data-visible="true" data-r="idle.svg.color.#size#.v" value="transparent"></div>
+							<div class="div5"></div>
 							<div><label_a><?php _e('Stroke Color', 'revslider');?></label_a><input type="text" data-editing="Stroke Color" data-mode="single" name="layerStrokeColor" id="layerStrokeColor" class="my-color-field layerinput easyinit" data-visible="true" data-r="idle.svg.strokeColor" value="transparent"></div>
+							<div class="div15"></div>
 							<row class="directrow">
 								<onelong><label_icon class="ui_strokewidth"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px"  data-numeric="true" data-r="idle.svg.strokeWidth" data-min="-1" data-max="500" type="text"></onelong>
 								<oneshort><label_icon class="ui_strokedasharray"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-r="idle.svg.strokeDashArray" type="text"></oneshort>
@@ -588,6 +590,7 @@ if(!defined('ABSPATH')) exit();
 								<onelong><label_icon class="ui_strokedashoffset"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px"  data-numeric="true" data-r="idle.svg.strokeDashOffset" data-min="0" data-max="500" type="text"></onelong>
 								<oneshort></oneshort>
 							</row>
+							<div class="div25"></div>
 							<longoption><label_a><?php _e('Style All Elements', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-evt="SvgSelectAllChanged" data-r="idle.svg.styleAll"></longoption>
 						</div>
 					</div>

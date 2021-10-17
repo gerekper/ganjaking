@@ -1,0 +1,97 @@
+/* admin Styles */
+.evobo_add_block_form p.message {   margin: 0 -30px -30px;}
+.evobo_add_block_form p.information span {
+    display: inline-block;
+    width: 80px;
+}
+.evobo_add_block_form span{display: block;}
+.evobo_add_block_form span.ajdeToolTip{display: inline-block;}
+.evobo_add_block_form span.ajdeToolTip em{background-color: #6B6B6B;border-radius: 0}
+.evobo_add_block_form em{vertical-align: top;}
+.ajde_popup .ajde_popup_text .evobo_add_block_form input{display: inline-block; vertical-align: top; border-radius: 5px; margin-top: 0; width: auto;}
+.ajde_popup .ajde_popup_text .evobo_add_block_form input.full{width: 100%;}
+.evobo_add_block_form p b.event_times, .evobo_add_block_form em{
+	border-radius: 5px;
+	background-color: #e6e6e6;
+	padding: 2px 8px;
+}
+
+
+
+/* lightbox */
+    body.post-type-ajde_events .ui-timepicker-wrapper{z-index: 900000;}
+/* View atendees */
+
+/* new styles */
+  /*--- */  
+    .evoboE_form_container.visible{width: 400px; padding-left: 20px;}
+    .evobo_add_block_form{padding: 0px;margin-left: 20px;}  
+    .evobo_editor{justify-content:center;}
+    .evobo_editor .evoboE_slots{
+        color:#6d6d6d; padding-bottom: 25px;
+    }
+    .evobo_editor .evoboE_slots span{display: block;
+        padding: 5px 10px;
+        border-bottom: 1px solid #e8e8e8;
+        font-size: 16px;
+    }
+    .evobo_editor .evoboE_slots span.slot_actions{
+        display: none;
+        padding: 5px 0px 0px 0px;
+        border:none;
+    }
+    .evobo_editor .evoboE_slots .year,  .evobo_editor .evoboE_slots .month{
+        font-weight: bold;  text-transform: uppercase;
+    }
+    .evobo_editor .evoboE_slots .slot.select{background-color: #bbbbbb;color:#ffffff;}
+    .evobo_editor .evoboE_slots .slot b{
+        font-weight: bold; display:inline-block; width: 40px;
+        position: absolute; left: 10px;
+    }
+    .evobo_editor .evoboE_slots .slot{background-color: #fff;position: relative;padding-left: 50px;}
+    .evobo_editor .evoboE_slots .slot:hover, 
+    .evobo_editor .evoboE_slots .slot.select:hover{background-color: #fff8dd;color:#6d6d6d;}
+    .evobo_editor .evoboE_slots .slot em.time{font-style: normal;}
+    .evobo_editor .evoboE_slots .slot em.edit, .evobo_editor .evoboE_slots .slot em.delete{
+        display: inline-block;
+        text-transform: uppercase;
+        opacity: 0.4;
+        cursor: pointer;
+        border: 1px solid #8a8a8a;
+        border-radius: 50%;
+        width: 20px;
+        text-align: center;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        font-size: 10px; font-style: normal;
+        height: 20px;
+        line-height: 18px;
+        margin-right: 5px; 
+        padding: 0;
+        background-color: transparent;
+    }
+    .evobo_editor .evoboE_slots .slot em.delete{margin-right: 2px;}
+    .evobo_editor .evoboE_slots .slot:hover .slot_actions{display: block;    }
+    .evobo_editor .evoboE_slots .slot em.edit:hover, .evobo_editor .evoboE_slots .slot em.delete:hover{opacity: 1;}
+    
+    .evobo_customers .evotxVA_ticket{padding: 10px 0;}
+
+/* view attendees */
+    .evoboE_top_data{display: block;}
+    .evoboE_top_data .evoboED_top{
+        display:flex; justify-content:space-between;
+        color:#8a8a8a;
+    }
+    .evoboE_top_data .evoboED_top em{font-style: normal;}
+    .evoboE_top_data .evoboED_top b{color:#3d3d3d;font-size: 16px;}
+    .evoboE_top_data .evoboED_bar{
+        border-radius: 5px;
+        background-color: #e8e8e8;
+        display: block;
+        height: 8px;
+        width: 100%;
+        position: relative;
+        margin: 5px 0 20px;
+        overflow: hidden;
+    }
+    .evoboE_top_data .evoboED_bar em{background-color: #ff8f80;position: absolute;height: 100%;}

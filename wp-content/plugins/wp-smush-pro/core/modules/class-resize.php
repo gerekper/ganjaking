@@ -79,7 +79,7 @@ class Resize extends Abstract_Module {
 		// If resizing is enabled.
 		$this->resize_enabled = $this->settings->get( 'resize' );
 
-		$resize_sizes = $this->settings->get_setting( WP_SMUSH_PREFIX . 'resize_sizes', array() );
+		$resize_sizes = $this->settings->get_setting( 'wp-smush-resize_sizes', array() );
 
 		// Resize width and Height.
 		$this->max_w = ! empty( $resize_sizes['width'] ) ? $resize_sizes['width'] : 0;
@@ -93,7 +93,8 @@ class Resize extends Abstract_Module {
 	 */
 	public function maybe_disable_module() {
 		global $wp_version;
-		$this->resize_enabled = version_compare( $wp_version, '5.3.0', '<' );
+
+		$this->resize_enabled = version_compare( $wp_version, '5.3.0', '<' ) || $this->settings->get( 'no_scale' );
 	}
 
 	/**
@@ -142,7 +143,6 @@ class Resize extends Abstract_Module {
 	 * @return bool
 	 */
 	private function check_should_resize( $id = '', $meta = '' ) {
-
 		// If the file doesn't exist, return.
 		if ( ! Helper::file_exists( $id ) ) {
 			return false;
@@ -163,42 +163,12 @@ class Resize extends Abstract_Module {
 			return false;
 		}
 
-		$imagesize = array( $meta['width'], $meta['height'] );
-
-		/**
-		 * Filters the "BIG image" threshold value.
-		 *
-		 * If the original image width or height is above the threshold, it will be scaled down. The threshold is
-		 * used as max width and max height. The scaled down image will be used as the largest available size, including
-		 * the `_wp_attached_file` post meta value.
-		 *
-		 * Returning `false` from the filter callback will disable the scaling.
-		 *
-		 * @since 5.3.0
-		 *
-		 * @param int    $threshold     The threshold value in pixels. Default 2560.
-		 * @param array  $imagesize     {
-		 *     Indexed array of the image width and height in pixels.
-		 *
-		 *     @type int $0 The image width.
-		 *     @type int $1 The image height.
-		 * }
-		 * @param string $file          Full path to the uploaded image file.
-		 * @param int    $id            Attachment post ID.
-		 */
-		$threshold = (int) apply_filters( 'big_image_size_threshold', 2560, $imagesize, $file_path, $id );
-
-		// Resizing is disabled.
-		if ( ! $threshold ) {
-			return false;
-		}
-
 		// Get image mime type.
 		$mime = get_post_mime_type( $id );
 
 		// If GIF is animated, return.
 		if ( 'image/gif' === $mime ) {
-			$animated = get_post_meta( $id, WP_SMUSH_PREFIX . 'animated' );
+			$animated = get_post_meta( $id, 'wp-smush-animated' );
 
 			if ( $animated ) {
 				return false;
@@ -216,7 +186,7 @@ class Resize extends Abstract_Module {
 		$old_width  = $meta['width'];
 		$old_height = $meta['height'];
 
-		$resize_dim = $this->settings->get_setting( WP_SMUSH_PREFIX . 'resize_sizes' );
+		$resize_dim = $this->settings->get_setting( 'wp-smush-resize_sizes' );
 
 		$max_width  = ! empty( $resize_dim['width'] ) ? $resize_dim['width'] : 0;
 		$max_height = ! empty( $resize_dim['height'] ) ? $resize_dim['height'] : 0;
@@ -265,7 +235,7 @@ class Resize extends Abstract_Module {
 
 		// If resize wasn't successful.
 		if ( ! $resize || $resize['filesize'] >= $original_file_size ) {
-			update_post_meta( $id, WP_SMUSH_PREFIX . 'resize_savings', $savings );
+			update_post_meta( $id, 'wp-smush-resize_savings', $savings );
 			return $meta;
 		}
 
@@ -285,7 +255,7 @@ class Resize extends Abstract_Module {
 
 			// Store savings in metadata.
 			if ( ! empty( $savings ) ) {
-				update_post_meta( $id, WP_SMUSH_PREFIX . 'resize_savings', $savings );
+				update_post_meta( $id, 'wp-smush-resize_savings', $savings );
 			}
 
 			$meta['width']  = ! empty( $resize['width'] ) ? $resize['width'] : $meta['width'];

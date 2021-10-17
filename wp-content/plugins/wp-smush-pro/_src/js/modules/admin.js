@@ -1094,4 +1094,12 @@ jQuery(function ($) {
 			false
 		);
 	}
+
+	/**
+	 * Toggle backup notice based on "Compress uploaded images" setting.
+	 * @since 3.9.1
+	 */
+	$( 'input#original' ).on( 'change', function() {
+		$( '#backup-notice' ).toggleClass( 'sui-hidden', $( this ).is(':checked') );
+	} );
 });

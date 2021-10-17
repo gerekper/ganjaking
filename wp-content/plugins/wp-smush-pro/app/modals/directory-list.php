@@ -42,7 +42,7 @@ if ( ! defined( 'WPINC' ) ) {
 			</div>
 
 			<div class="sui-box-footer sui-content-right">
-				<button class="sui-modal-close sui-button sui-button-blue wp-smush-select-dir" disabled id="wp-smush-select-dir">
+				<button class="sui-modal-close sui-button sui-button-blue" disabled id="wp-smush-select-dir">
 					<span class="sui-loading-text"><?php esc_html_e( 'Choose directory', 'wp-smushit' ); ?></span>
 					<span class="sui-icon-loader sui-loading" aria-hidden="true"></span>
 				</button>

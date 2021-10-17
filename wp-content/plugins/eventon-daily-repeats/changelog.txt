@@ -1,0 +1,11 @@
+Daily repeat addon for EventON Plugin
+
+====================================
+v 0.3 (2013 - 8-6)
+TWEAKED: Compatibility
+
+v 0.2 (2013- 6-26)
+FIXED: Compatibilty issues with new eventon version
+
+v 0.1
+Initial release

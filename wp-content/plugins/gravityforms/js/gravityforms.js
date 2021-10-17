@@ -824,6 +824,17 @@ function Currency(currency){
         }
         return d;
     };
+
+	/**
+	 * Returns the currency code if it exists.
+	 *
+	 * @since 2.5.13
+	 *
+	 * @return {string|false}
+	 */
+	this.getCode = function() {
+    	return 'code' in this.currency && this.currency.code !== '' ? this.currency.code : false;
+	}
 }
 
 /**

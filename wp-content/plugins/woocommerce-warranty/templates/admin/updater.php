@@ -54,17 +54,17 @@ if ( isset( $args ) ) {
     <div id="log"></div>
 </div>
 <script>
-    var return_url              = '<?php echo $args['return_url']; ?>';
-    var ajax_endpoint           = '<?php echo $args['ajax_endpoint']; ?>';
-    var ajax_params             = {};
-    var entity_label_singular   = '<?php echo addslashes( $args['entity_label_singular'] ); ?>';
-    var entity_label_plural     = '<?php echo addslashes( $args['entity_label_plural'] ); ?>';
-    var action_label            = '<?php echo addslashes( $args['action_label'] ); ?>';
-    <?php
-    if ( !empty( $_GET['params'] ) ) {
-        foreach ( $_GET['params'] as $key => $value ) {
-            echo "ajax_params.$key = '$value'\n";
-        }
-    }
-    ?>
+	var return_url            = '<?php echo $args['return_url']; ?>',
+	    ajax_endpoint         = '<?php echo $args['ajax_endpoint']; ?>',
+	    ajax_params           = {},
+	    entity_label_singular = '<?php echo addslashes( $args['entity_label_singular'] ); ?>',
+	    entity_label_plural   = '<?php echo addslashes( $args['entity_label_plural'] ); ?>',
+	    action_label          = '<?php echo addslashes( $args['action_label'] ); ?>';
+	<?php
+	if ( ! empty( $_GET['params'] ) ) {
+		foreach ( $_GET['params'] as $key => $value ) {
+			echo "ajax_params.$key = '$value'\n";
+		}
+	}
+	?>
 </script>

@@ -1,0 +1,678 @@
+Tickets (TX) addon for EventON Plugin
+====================================
+v 1.9.4 (2021-5-27)
+FIXED: non permission attendee list download blocked
+FIXED: minor virtual event guest count hide not working
+FIXED: name your price decimal separator , not working
+
+v 1.9.3 (2021-4-29)
+FIXED: my account text translation
+FIXED: virtual event information error on eventcard
+FIXED: has_user_purchased_tickets() function causing errors for some
+FIXED: event location not showing in the cart
+FIXED: ticket saving create duplicate wc products
+FIXED: confirmation email and thank you page not passing lang values
+
+v 1.9.2 (2021-3-18)
+FIXED: compatibility with eventON 3.1.1 utc offset times
+FIXED: name your price still able to add to cart
+FIXED: cart quantity filter to run late
+FIXED: sold out tag to not show when event is over
+FIXED: virtual event infor always visible not sending them in confirmation email
+FIXED: buying a ticket in series not validated correct
+FIXED: repeat event link in email and my account
+REQ: eventon 3.1.2
+
+v 1.9.1 (2021-3-1)
+ADDED: Notice on auto re-stock causing duplicate stocks
+FIXED: after main content moderator asked to purchase ticket
+FIXED: virtual event information not showing in the ticket email
+
+v 1.9 (2021-2-18)
+ADDED: stop selling tickets if the event is cancelled
+ADDED: virtual event plus addon compatibility
+ADDED: actionuser event manager see signed in guests check mark nex to guest name
+FIXED: undefined post_type error
+FIXED: upon add to cart redirect showing confirmation message for too short
+FIXED: correct grammer for Non-ticket order - thanks leland
+FIXED: unable to edit additional ticket holder names
+FIXED: none ticket enabled details showing when user login required
+FIXED: actionuser event manager layout design 
+UPDATED: backend all events woo icon styles
+UPDATED: compatibility with woocommerce 5.0
+COMPATIBILITY: eventON  3.1
+
+v 1.8.8 (2020-12-4)
+ADDED: actionUser event manager disable deleting events when tickets are sold
+FIXED: duplicate events to set new SKU
+FIXED: actionUser tickets event time value not passing to product name
+FIXED: view attendees window not loading content
+
+v 1.8.7 (2020-10-26)
+ADDED: support for tickets inquire before buy field to event submission form
+FIXED: admin event ticket post file end error
+FIXED: Minor styles update for eventcard tickets section
+
+v 1.8.6 (2020-10-7)
+FIXED: name your price, pressing enter key add ticket to cart
+FIXED: name your price formatting for conditional validations
+FIXED: sold individually not working with name your price
+UPDATED: Name your price text instead of price
+
+v 1.8.5 (2020-10-5)
+ADDED: all event tickets posts search to be searchable by ticket id and event name
+FIXED: removed exclamation mark on cart notices
+FIXED: get_metadata_raw() error for older wordpress installs
+FIXED: virtual event return value error
+FIXED: saving ticket values in event edit page not saving them
+FIXED: virtual event options filter available in frontend as well
+
+v 1.8.4 (2020-9-9)
+FIXED: ticket confirmation additional information styles
+
+v 1.8.3 (2020-8-27)
+ADDED: ticket specific virtual event text on eventcard if show after ticket purchase
+ADDED: new EVO_Evo_Tix_CPT() class for handling evo-tix cpt object
+FIXED: ticket additional information visible to customers after purchase when purchasing multiple tickets
+FIXED: virtual event access information link to be clickable
+UPDATED: edit order page ticket layout style
+
+v 1.8.2 (2020-8-7)
+FIXED: corresponding WC product name not changing when event name changed
+
+v 1.8.1 (2020-7-15)
+FIXED: repeating events ticket event time incorrect
+FIXED: sold individually items not adding to cart
+FIXED: add to calendar time incorrect for repeat events
+FIXED: when event is live and past hide virtual event information
+FIXED: ticket confirmation showing wc product name instead of event name
+
+v 1.8 (2020-6-11)
+ADDED: ticket already purchased message for loggedin customers on eventcard
+ADDED: compatibility with virtual events
+ADDED: name your price option
+ADDED: name your price with minimum price
+FIXED: ticket posts being visible to public
+FIXED: inqure message causing function error
+FIXED: minor style updates in event edit ticket section
+FIXED: missing translation strings 
+UPDATED: inquire before buy form styles and layout
+UODATED: simple products add to cart to use new ajax method
+UODATED: layout styles for tickets section
+
+v 1.7.13 (2020-4-6)
+ADDED: Ability to enter information sent via ticket confirmation email to attendees
+FIXED: is required field text not translated in checkout page
+
+v 1.7.12 (2020-3-16)
+FIXED: sprintf translation error in event edit tickets section
+FIXED: additional ticket info text error message not translating
+UPDATED: all events in wp-admin tickets enabled display
+
+v 1.7.11 (2020-1-30)
+ADDED: Filter to support additional ticekt holder information at checkout
+ADDED: repeat intervals for separate stock to show repeat interval index next to date
+ADDED: trumbowyg texteditor for emailing attendees
+FIXED: get_id() on bool error on class-integration-woocommerce.php:975
+FIXED: tax included price for tickets not reflecting correct on event card
+
+v 1.7.10 (2019-10-15)
+ADDED: Ablity to edit the ticket holder names after sale
+ADDED: standalone buy not ticket button via shortcode (beta)
+ADDED: WC compatibility notice
+ADDED: Ability to edit ticket holder additional information as well 
+FIXED: when duplicating event also change sku of new ticket
+FIXED: Ticket quantity not able to go below 1
+FIXED: Default WC variations not selected when first loaded
+FIXED: next available event button to only work when manage stock for repeats active
+FIXED: Next available event button to search for future event with events in stock
+FIXED: Event ticket url in cart does not contain lang value in URL
+UPDATED: ticket frontend styles
+
+v 1.7.9 (2019-6-28)
+ADDED: View attendees to have payment method also shown in the list
+FIXED: check out order details event name to be clickable
+FIXED: ticket variations not showing for sale
+FIXED: trashed WC orders causing event tickets page to not show tickets
+FIXED: WC based variations on load default variation select not working on lightbox events
+UPDATED: sales insight UI design
+UPDATED: sale insight time to be based off current time
+
+v 1.7.8 (2019-3-6)
+ADDED: load evotx settings values using EVO()->cal
+FIXED: Missing translation strings
+FIXED: remaining tickets not showing correct
+FIXED: stop selling events at event end time to change text on event edit
+FIXED: better event over tag conditioning for event top
+FIXED: stop selling tickets using end time and before X minuted not working correct
+FIXED: Cart validation for stop selling before X min
+FIXED: To enqueue styles and scripts via eventon plug
+FIXED: change_ticket_number_status() changing status issues
+
+v 1.7.7 (2018-12-11)
+ADDED: Missing translation text
+ADDED: failed ticket order handling function
+FIXED: inquire success message checkmark styles
+FIXED: Missing translation text for actionUser form for tickets
+FIXED: max ticket stock is not increasing when there is no stock limit
+UPDATED: event time pluggable filter for checkout additional information
+
+v 1.7.6 (2018-11-23)
+FIXED: event instances value passing to ticket holder in cart
+FIXED: multiple instance of same event not storing the attendee name
+FIXED: checkout ticket holder name count not correct for multiple tickets
+FIXED: undefined add to cart notices
+
+v 1.7.5 (2018-10-8)
+ADDED: pluggable filter for ticket confirmation meta box
+FIXED: Confirmation email structure update
+FIXED: variable event language translation missing
+FIXED: eventtop tags filter not returning default value
+UPDATED: Add to cart additional pluggable filters
+
+v 1.7.4 (2018-7-24)
+FIXED: sales insight not loading if orders were trashed
+FIXED: correct order notes when order restocked and reduced
+FIXED: Order status cancelling to properly reduce ticket stock
+FIXED: test link in order page
+FIXED: missing ticket holder title on emails
+FIXED: Add to cart not translating for variable tickets
+UPDATED: pluggable filter to add to calendar link in event ticket email
+
+v 1.7.3 (2018-7-11)
+ADDED: Missing filter for additonal fields  settings
+FIXED: striked regular ticket price showing
+FIXED: Ticket stock getting reduced twice
+FIXED: Missing translation and other translation issues
+
+v 1.7.2 (2018-6-21)
+ADDED: Order status from pending payment to cancel, ticket alteration
+FIXED: Attendees an error for repeating events
+FIXED: error when ticket order was deleted
+FIXED: Lang value passing to cart pages and reflecting translations
+FIXED: Show remaining count for repeat events with separate stock not working
+FIXED: Global WC product not set during event ticket wc product initiation
+FIXED: When tickets on sale striked through price not showing
+UPDATED: Hide lang value from being visible in admin order pages
+
+v 1.7.1 (2018-5-29)
+ADDED: Support for striked through price
+FIXED: ActionUser form several field values not saving
+FIXED: url decoding for wc variable product names in cart and checkout
+FIXED: several text strings not translating
+FIXED: unable to add to cart on ticket addons
+FIXED: Not able to download view attendees as CSV
+FIXED: Address not passing on to view attendees CSV file
+FIXED: do not redirect not hiding the hidden section and leaving success message
+FIXED: Minor styles
+FIXED: Incorrect notice on email override folder.
+FIXED: Disable adding event tikcets from backend
+
+v 1.7 (2018-5-9)
+ADDED: option to set event stop selling tickets time base
+ADDED: New Sales insight visual data for each event
+ADDED: event repeat instance save into order item meta instead of event time
+ADDED: new filters for ticket addons that reduce duplicate filters
+ADDED: javascript trigger on admin when view attendees lightbox loaded
+ADDED: Extended helper class to support more elements for ticket extensions
+ADDED: Ticket holder information to show in order complete WC email
+ADDED: filterable view attendees list on event edit
+ADDED: each ticket to create separate evo-tix entry
+ADDED: Partial order refunds to refund individual event tickets
+ADDED: actionUser guest checkin only if permission allowed
+ADDED: wcid to frontend ticket data row
+ADDED: After added to cart pass values as filter
+ADDED: eventon global language variable passed into ticket order
+ADDED: Ticket language values passed into cart
+FIXED: event time in emails not capitalized
+FIXED: send attendee list email message not stripping slashes and formating html
+FIXED: open view cart and checkout in new window not working
+FIXED: additional guests names validation to check for longer strings
+FIXED: Order details page not showing event name under products purchased
+FIXED: guest list to not include refunded tickets or orders
+FIXED: setting event top tag sold out to hidden also hide event over tag
+UPDATED: Event edit attendee information layout
+UPDATED: Ticket helper class
+UPDATED: cart meta data display layout
+UPDATED: Woocommerce filters into its own file
+UPDATED: layout design for view attendees list
+UPDATED: layout design for ticket holder list on admin and frontend
+UPDATED: Consistent colors for order and ticket status buttons everywhere
+UPDATED: ticket confirmation email to be viewed from wp-admin using debug=true
+
+v 1.6.8 (2018-2-8)
+FIXED: additional guest names field continuly asking for value
+FIXED: event edit meta box styles with new evo 2.6.6 styles
+
+v 1.6.7 (2018-2-7)
+ADDED: Option to control add to cart redirects to cart or checkout
+FIXED: add to cart class names and styles
+FIXED: Stop selling tickets X min before not working
+
+v 1.6.6 (2017-12-6)
+ADDED: Option to assign custom WC Product for event ticket
+FIXED: Custom repeat event tickets showing incorrect event date
+FIXED: Ticket class initiation changes
+FIXED: Global product variable not getting updated on ticket pages causing issues
+
+v 1.6.5 (2017-11-29)
+FIXED: actionUser ticket stats not working
+FIXED: global product getting altered
+FIXED: Settings not populating inquiry email fields correct
+FIXED: ticket event object errors
+
+v 1.6.4 (2017-11-20)
+FIXED: text domain loading not working properly
+UPDATED: Compatibility with eventon 2.6.2
+
+v 1.6.3 (2017-10-23)
+FIXED: meta box error that cause addon not to work
+
+v 1.6.2 (2017-10-19)
+ADDED: More field support for actionUser event submission form
+FIXED: unable to checkin guests from ticket edit page
+FIXED: Compatibility with WC 3.2
+REQUIRE: Eventon 2.6.1
+
+v 1.6.1 (2017-9-25)
+FIXED: added to cart success message text translations
+FIXED: Text domain issues
+UPDATED: POT translations file
+
+v 1.6 (2017-9-13)
+ADDED: Template locator for single ticket section instead of calling file
+ADDED: quantity max limit reached new class append to button
+ADDED: quantity change jquery trigger
+ADDED: support for pluggable download attendee CSV file fields
+ADDED: Tickets meta box to pass event id value in wp-admin
+ADDED: search ticket box to show additional guest name for ticket
+ADDED: ticket price required for actionUser event submission form
+ADDED: support for event time in additional ticket holder names
+ADDED: Option to show next available event
+ADDED: your tickets section on order details page when order is not completed
+ADDED: custom wc ticket product name structure
+FIXED: dynamic styles not calling correct
+FIXED: location name escaping in cart
+FIXED: remaining tickets disable not working
+FIXED: appearance causing errors with admin loading
+FIXED: updating event with ticket to stop updating post author for wc product
+FIXED: actionUser integration tooltip missing
+FIXED: Variable ticket product price not showing on event edit page
+FIXED: confirmation email layout
+FIXED: confirmation email add to calendar showing multiple times
+FIXED: deprecated WC functions
+FIXED: Multiple order additional ticket holder name association incorrect
+FIXED: correct ticket holder name associated in CSV download attendees
+FIXED: saving event ticket as catalog hidden not working
+UPDATED: Meta data for events in cart style changes
+UPDATED:compatibility with actionUser 2.1
+UPDATED: Ticket confirmation email layout update
+UPDATED: SKU to not be used in auto created ticket product title
+DEV: ticket helper class for use for ticket related addons
+
+v 1.5.8 (2017-7-7)
+ADDED: login button when tickets restricted to loggedin users only
+FIXED: Woocommerce version check
+FIXED: Better login only user ticket information on eventcard
+FIXED: SKU fields excaping for blank spaces in field value
+FIXED: actionUser updating event create new wc ticket product
+FIXED: Cart ticket image link correctly to event page
+FIXED: Woocommerce emails order item meta translations
+FIXED: remaining tickets count showing for variable tickets despite not set
+FIXED: variations with no stock for sale show separate message
+
+v 1.5.7 (2017-6-15)
+ADDED: Option to stop using event time in WC Product name
+ADDED: option to always redirect WC product pages to event pages
+FIXED: Missing item quantity in cart issue
+FIXED: shopping cart quantity error for some customers
+FIXED: Ticket product name showing time in order details after order
+FIXED: Completed ticket order meta showing untranslated meta key names
+
+v 1.5.6 (2017-5-25)
+FIXED: add to cart ticket item name link to event page
+FIXED: email attendees list not sending emails
+
+v 1.5.5 (2017-5-15)
+FIXED: Additional ticket holder name compatible with seats addon
+FIXED: Item no longer for sale issue
+FIXED: Add to cart notice minor style changes
+FIXED: Auto redirect after adding to cart issue
+FIXED: enqueue styles and scripts to pass latest version number
+FIXED: Minicart update not working after adding to cart
+
+v 1.5.4 (2017-5-8)
+FIXED: sold individually variable products not adding to cart
+FIXED: additional guest names section not showing for variable items
+
+v 1.5.3 (2017-4-19)
+FIXED: Incorrect ID call on variable item template page
+FIXED: Variable products not showing add to cart section 
+FIXED: view attendees and download CSV on event edit tickets not working
+
+v 1.5.2 (2017-4-10)
+ADDED: Woocommerce version requirement check
+ADDED: pluggable filters for checkout data processing
+FIXED: event tickets page order status error
+FIXED: additional guest names section code error on admin
+FIXED: Non existance WC order causing error on event edit ticket section
+FIXED: deprecated functions in WC compatibility for saving order item meta for tickets
+
+v 1.5.1 (2017-4-5)
+FIXED: Compatibility with WC 3.0
+FIXED: ticket holder names correctly adjusted if not additional names available
+FIXED: hide ticket info on order details page not working
+FIXED: Remaining tickets number not updating after addin to cart
+FIXED: Blank additional ticket holder names showing comma
+FIXED: Repeat events qty able to increase above stock in cart page
+FIXED: Stop selling stock before x minutes code error
+FIXED: cart validation for if tickets enabled for ticket
+
+v 1.5 (2017-3-24)
+ADDED: Option to update the WC product title upon event update
+ADDED: check if ticket sales are enabled for event during checkout
+ADDED: URL encoding for event location passed value
+ADDED: stop selling tickets validation at cart checkout
+ADDED: confirmation email pluggable function for expansion
+ADDED: Ticket product name clickable to event page in cart
+ADDED: New ticket quantity incrementation
+ADDED: Better JQ listeners for ticket variation stages
+ADDED: Option to hide ticket information on order details page
+ADDED: Notice on event ticket meta box for past events and tickets information
+FIXED: Last letter of from name get cut off
+FIXED: simple ticket repeats stock reduction on cancel orders
+FIXED: increase stock from order page not working
+FIXED: same item added to two carts at the same time stock validation
+FIXED: stock status setting to yes not saved on updating 2nd time
+FIXED: unable to remove sales price after its set for event ticket
+FIXED: Couple of text translations via eventon now instead of WC
+FIXED: Missing text translations
+UPDATED: event info under product column in cart page
+UPDATED: event location value passing for add to cart link validation
+UPDATED: UI styles and UX for add to cart section
+UPDATED: eventon addon initiation process
+
+v 1.4.1 (2017-2-16)
+FIXED: Tickets variations not working for lightbox events
+
+v 1.4 (20172-15)
+ADDED: Option to make additional guest names required
+ADDED: Show additional guest names in order details after checkout
+ADDED: Support for concatenated addon styles
+ADDED: Option for event creator to checkin guests from actionUser event manager
+ADDED: Ability to email attendee list from event edit page
+ADDED: Ability to email attendees from event edit page
+ADDED: Support for WC Products addon 
+ADDED: Event end date also added to WC ticket product name
+ADDED: button direct to ticket sales stats via WC
+FIXED: WC product title getting changed upon updates
+FIXED: variable items options not opening
+FIXED: Send ticket email to custom emails not working in new version
+FIXED: view attendees list first repeating instance show all attendees
+FIXED: Guest list showing when there are no guests
+FIXED: Repeating events with separate capacity validation when adding to cart
+FIXED: Event ticket search filter effecting non ticket order search
+UPDATED: Minicart fragments passed to page upon add to cart
+
+v 1.3.9 (2017-1-31)
+FIXED: Checking in attendees not working for some users
+FIXED: no stock quantity can not be increased via arrows
+FIXED: Restrict adding more than max allowed tickets to cart
+FIXED: Resend confirmation not working
+FIXED: Inquery emails not going through
+UPDATED: WC stock management activate when ticket info saved
+
+v 1.3.8 (2017-1-18)
+ADDED: ActionUser fields to have class names
+ADDED: Support for phone number in inquire form
+ADDED: pluggable function support for additional inquire form fields
+FIXED: Action user form field text missing in translations
+FIXED: ActionUser form field saving issue
+UPDATED: Styles for the frontend ticket setcion
+
+v 1.3.7 (2016-11-29)
+FIXED: ActionUser event manager field data correction
+FIXED: quantity passing undefined for some users
+UPDATED: ActionUser event manager HTML elements
+
+v 1.3.6 (2016-11-8)
+FIXED: Inquiry email not sending the email address
+UPDATED: Ticket emails to use HTML evo helper function
+UPDATED: Link to variable pricing guide in documentation 
+
+v 1.3.5 (2016-10-24)
+FIXED: event featured image not appending to an event
+
+v 1.3.4 (2016-10-19)
+ADDED: View attendees list on back end to link to order 
+ADDED: Only see completed orders in lightbox with option to see others
+FIXED: Repeating events not passing time correct to ticket
+FIXED: ticket image removal remove image from WC product
+FIXED: view attendees to show additional ticket holder names
+FIXED: Download attendees CSV to include additional attendee information
+UPDATED: View attendees lightbox styles update
+UPDATED: Search tickets section code update
+UPDATED: settings styles
+
+v 1.3.3 (2016-10-10)
+FIXED: Location name not passing to cart from lightbox eventCard
+FIXED: Missing languge translations for event name in checkout
+FIXED: Applied WC filter to cart url passed to tickets
+UPDATED: Compatibility with eventON 2.4.7
+
+v 1.3.2 (20168-12)
+FIXED: Variable product out of stock items still able to add to cart
+UPDATED: UI Styles for pricing layouts
+
+v 1.3.1 (2016-7-25)
+ADDED: Option to disable additional guest names
+FIXED: Missing translation on addiontional guest list
+
+v 1.3 (2016-6-22)
+ADDED: Guest list for tickets sold option
+ADDED: Support for more fields for actionUser ticket fields
+ADDED: Stats data for simple event tickets on event edit page
+ADDED: Support for admin only notes for event tickets post
+ADDED: Ticket email to contain variation description
+ADDED: Option to stop showing ticket information on thank you page
+ADDED: event ticket image into ticket confirmation email
+ADDED: Intergration with countdown timer addon timer expiration action
+ADDED: Event location also passed into ticket meta
+ADDED: Text translation support for event time and location meta text in tickets
+ADDED: ActionUser Event Manager intergration need AU v 2.0.3
+ADDED: Ability to add ticket holder names for each ticket
+ADDED: Only loggedin users can see calendar - shortcode option
+ADDED: Be able to add ticket orders from backend of the site
+FIXED: https path correction for assets
+FIXED: Stop selling tickets before X minuted not working
+FIXED: Eventtop event over tag to check close selling before x min
+UPDATED: ActionUser intergration as separate class
+UPDATED: actionUser field language translation
+UPDATED: Option to not send ticket confirmation email
+UPDATED: Ticket confirmation email variation data
+UPDATED: In stock ticket count incorrections
+UPDATED: Checkin guests restricted to only completed orders
+UPDATED: Attendee list lightbox layout and styles
+UPDATED: Shortcode generator to have event type taxonomy field upto 5
+UPDATED: New email template location in new eventON 2.4
+REQURIED: EventON 2.4
+
+v 1.2.6 (2016-3-15)
+FIXED: event tickets not saving price for wc causing add to cart errors
+
+v 1.2.5 (2016-3-14)
+FIXED: remaining count show as one
+FIXED: Sales price not saving
+FIXED: If sku is not provided generate random sku
+
+v 1.2.4 (2016-3-9)
+FIXED: Organizer not translating in confirmation email
+FIXED: variable items showing as sold out
+FIXED: new event without stock showing as sold out
+
+v 1.2.3 (2016-3-1)
+FIXED: Remaining tickets count always showing 1 for non repeating event
+
+v 1.2.2 (2016-2-12)
+FIXED: Events showing out of stock incorrectly
+FIXED: Tickets not creating for none payment receive orders
+
+v 1.2.1 (2016-2-8)
+FIXED: Stop sending ticket emails still sending emails
+FIXED: Qty in ticket email not translating
+FIXED: Eventtop tag styles
+
+v 1.2 (2016-2-1)
+ADDED: Terms and condition statement for the ticket email
+ADDED: Catalog visibility option for event tickets settings
+ADDED: Option to open add to cart and check out in new window tab
+ADDED: Initial ticket sent status to ticket and order edit pages in admin
+ADDED: Show sold out tag on event top when event is sold out
+ADDED: Ability to auto re-stock cancelled and refunded order tickets
+ADDED: Primary ticket holder email added to ticket email
+ADDED: CSV attendee list to support billing address and phone number
+ADDED: Ticket Orders submenu in woocommerce to see only ticket orders
+ADDED: pluggable filters to CSV attendee exporter to support additional info
+ADDED: Disable ticket sales section for past events
+ADDED: Event ticket image be set as WC product image as well
+ADDED: Order purchased date to attendee list
+ADDED: validation for inquiries form submission
+ADDED: Event over tag on eventtop for events that are past
+ADDED: Ability to send ticket email to a custom email address
+ADDED: Quick way to find tickets and checkin in tickets settings
+ADDED: Ability to close selling events X minuted before the event start
+FIXED: Better event time on cart items
+FIXED: Repeat interval variable to not pass to cart for non-repeating events
+FIXED: Contact us link in ticket email
+FIXED: Setting location image replace event ticket image
+FIXED: Event ticket resend not working proper in admin
+FIXED: Make sure initial ticket email is sent once
+FIXED: Inquire before buy missing inquirer email address
+FIXED: Attendee list reply on evors ajax url
+FIXED: when no tickets available still showing 0 available
+FIXED: ticket email subject convert special characters to HTML
+FIXED: Validate for complete order before checking-in tickets
+FIXED: Repeat intervals not showing correct remaining tickets
+UPDATED: Legit looking ticket for event tickets
+UPDATED: Changed event ticket creating action hook to woocommerce_pre_payment_complete
+UPDATED: Accurately reduce tickets remainging when added to cart on AJAX
+UPDATED: Compatibility with woocommerce 2.5.1
+
+v 1.1.10 (2015-10-27)
+FIXED: attendees separated for repeating events in view attendees
+FIXED: Correct repeat event ticket count showing
+FIXED: Corect repeat even times in event ticket
+FIXED: Duplicated event ticket times showing different
+FIXED: Capacity for repeating events not limiting order quantity
+FIXED: Ticket holder names coming in as blank
+FIXED: Attributes not showing up for selection in variable items
+TESTED: repeat events capacity reducion 
+NOTE: Require eventon 2.3.11
+
+v 1.1.9 (2015-9-21)
+FIXED: ticket price not showing when creating new ticket via event
+FIXED: Event ticket time not translated correctly
+
+v 1.1.8 (2015-8-31)
+FIXED: Compatibility with Woocommerce version 2.4+
+FIXED: Non-ticket products showing in tickets email
+FIXED: Redirect to cart not working
+FIXED: all events columns not showing correct woo active items
+FIXED: Sales price not working
+FIXED: Missing language translations in ticket email
+FIXED: ticket holder contact info missing in ticket email
+
+v 1.1.7 (2015-8-5)
+FIXED: variable products add to cart on fullcal and dailyview not working
+FIXED: () showing on ticket when SKU is empty
+FIXED: View attendees not working
+FIXED: All events on wp-admin showing woocommerce status wrong
+
+v 1.1.6 (2015-5-20)
+UPDATED: compatibility to eventon 2.3.2
+
+v 1.1.5 (2015-4-2)
+FIXED: Checkout and view cart text translations mixup
+FIXED: Missing translation in tickets view page
+FIXED: Missing ticket section in my accounts page
+
+v 1.1.4 (2015-3-30)
+ADDED: Missing shopping cart translations
+FIXED: End time not showing correct in event ticket
+FIXED: illegal string offset ticket on confirmation email
+
+v 1.1.3 (2015-2-19)
+ADDED: Ability to resend ticket email from ticket and order edit pages
+FIXED: Not sending ticket emails as a guest
+
+v 1.1.2(2015-2-16)
+FIXED: error on sending emails
+FIXED: removed unsupported new event tickets button on wp-admin
+
+v1.1.1 (2015-2-13)
+FIXED: Time of events in tickets error
+FIXED: Ticket image not able to delete from event edit page
+FIXED: Not sending ticket emails
+
+v1.1 (2015-2-10)
+ADDED: Ability to not send ticket emails to customer
+ADDED: Settings link to plugins page
+ADDED: Repeating event ticket capacity management
+ADDED: POT file support for backend text
+ADDED: Ability to copy and customize ticket email
+ADDED: support for event ticket image & caption
+ADDED: Event featured image be copied to woocommerce product
+ADDED: Ability to sort orders in wp-admin by ticket order or not
+ADDED: Ability for customers to inquire questions before buying
+ADDED: All event tickets to show event time in cart
+FIXED: Order notes dissapearance 
+FIXED: view attendees not showing all the attendees
+FIXED: Ticket product to be saved as virtual product
+FIXED: Not to send ticket email for guest order checkouts
+FIXED: Variable tickets not getting added to cart
+FIXED: Correct variable item variations not adding to cart
+FIXED: remaining ticket count be integer
+FIXED: Not to emails for non ticket orders
+UPDATED: Add to cart code solving minor bugs
+UPDATED: New cooler loading icon
+
+v1.0.2 (2014-11-5)
+FIXED: Non repeating events showing incorrect event date on order information
+
+v1.0.1 (2014-10-23)
+FIXED: Minor string offset error
+
+v1.0 (2014-10-21)
+ADDED: Compatibility with our new QR code checkin addon
+ADDED: Edit event button to corresponding WC product edit page
+ADDED: SKU to ticket product title
+ADDED: Ability to check in each ticket for multiple people party
+ADDED: Ability to search tickets by number in wp-admin tickets section
+ADDED: Manage ticket out of stock straight from event edit page
+ADDED: Ability to show tickets to only loggedin users
+ADDED: You can now send confirmation ticket email again to customer
+ADDED: Remining ticket count to show only after certain number
+ADDED: Style color customization for notification bar items
+FIXED: Repeating events to show correct date when added to cart
+FIXED: Price text translation not working
+FIXED: Ticket title to have event date in case multiple events with same title
+FIXED: Orders without logged in customers not recording their names for ticket sale
+FIXED: Redirect to cart option for after adding to cart
+FIXED: Out of stock not showing right
+FIXED: Styles for widget add to cart notification message & responsive styles
+FIXED: Orders over 10 not showing correct quantity
+FIXED: Show remaining not saving as NO
+FIXED: Sold individually items not getting added to cart 
+
+v 0.3 (2014-9-18)
+FIXED: Widget add to cart notification style fix
+FIXED: Add to cart button not working correct for some items
+FIXED: Addon initial check and eventon 2.2.18 up compatibility
+
+v 0.2 (2014-9-4)
+FIXED: Woocommerce installed check not working correct for some
+FIXED: Duplicate events not creating correct event ticket woo product
+FIXED: Remaining tickets still shows when stock status is out of stock
+
+v 0.1 (2014-6-24)
+Initial release

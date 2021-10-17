@@ -1,5 +1,10 @@
 *** Warranty Requests Changelog ***
 
+2021-10-06 - version 1.9.30
+* Add   - Display warranty item meta on email.
+* Tweak - Warranty refund amount and code are not GDPR data.
+* Tweak - Cleanup all Javascript according to WP coding standards.
+
 2021-09-13 - version 1.9.29
 * Fix   - Display Variation details on the Request Warranty Page.
 

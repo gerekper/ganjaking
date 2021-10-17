@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.0
+ * @version     2.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -2186,7 +2186,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 		public function add_generated_coupon_details() {
 			global $post;
 
-			if ( 'shop_order' !== $post->post_type ) {
+			if ( empty( $post->post_type ) || 'shop_order' !== $post->post_type ) {
 				return;
 			}
 

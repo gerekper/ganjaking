@@ -68,7 +68,7 @@ class Lazy extends Abstract_Module {
 			return;
 		}
 
-		$this->options = $this->settings->get_setting( WP_SMUSH_PREFIX . 'lazy_load' );
+		$this->options = $this->settings->get_setting( 'wp-smush-lazy_load' );
 
 		// Enabled without settings? Don't think so... Exit.
 		if ( ! $this->options ) {

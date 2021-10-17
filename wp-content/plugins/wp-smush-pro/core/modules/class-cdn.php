@@ -180,7 +180,7 @@ class CDN extends Abstract_Module {
 			return 'disabled';
 		}
 
-		$cdn = $this->settings->get_setting( WP_SMUSH_PREFIX . 'cdn_status' );
+		$cdn = $this->settings->get_setting( 'wp-smush-cdn_status' );
 
 		if ( ! $cdn ) {
 			return 'disabled';
@@ -253,7 +253,7 @@ class CDN extends Abstract_Module {
 			return;
 		}
 		?>
-		<span class="sui-description sui-toggle-description" id="<?php echo esc_attr( WP_SMUSH_PREFIX . $setting_key . '-desc' ); ?>">
+		<span class="sui-description sui-toggle-description" id="<?php echo esc_attr( 'wp-smush-' . $setting_key . '-desc' ); ?>">
 			<?php
 			switch ( $setting_key ) {
 				case 'webp':
@@ -328,7 +328,7 @@ class CDN extends Abstract_Module {
 			return;
 		}
 
-		$this->status = $this->settings->get_setting( WP_SMUSH_PREFIX . 'cdn_status' );
+		$this->status = $this->settings->get_setting( 'wp-smush-cdn_status' );
 
 		// CDN is not enabled and not active.
 		if ( ! $this->status ) {
@@ -433,7 +433,7 @@ class CDN extends Abstract_Module {
 		$this->settings->set( 'cdn', $enable );
 
 		if ( $enable ) {
-			$status = $this->settings->get_setting( WP_SMUSH_PREFIX . 'cdn_status' );
+			$status = $this->settings->get_setting( 'wp-smush-cdn_status' );
 
 			if ( ! $status ) {
 				$status = WP_Smush::get_instance()->api()->check();
@@ -443,7 +443,7 @@ class CDN extends Abstract_Module {
 					return $data;
 				}
 
-				$this->settings->set_setting( WP_SMUSH_PREFIX . 'cdn_status', $data );
+				$this->settings->set_setting( 'wp-smush-cdn_status', $data );
 			}
 
 			$this->schedule_cron();
@@ -452,7 +452,7 @@ class CDN extends Abstract_Module {
 			do_action( 'wphb_clear_page_cache' );
 		} else {
 			// Remove CDN settings if disabling.
-			$this->settings->delete_setting( WP_SMUSH_PREFIX . 'cdn_status' );
+			$this->settings->delete_setting( 'wp-smush-cdn_status' );
 
 			self::unschedule_cron();
 		}
@@ -531,6 +531,9 @@ class CDN extends Abstract_Module {
 			return $new_image;
 		}
 
+		// Store the original $src to be used later on.
+		$original_src = $src;
+
 		/**
 		 * Filter hook to alter image src at the earliest.
 		 *
@@ -538,9 +541,6 @@ class CDN extends Abstract_Module {
 		 * @param string $image  Image tag.
 		 */
 		$src = apply_filters( 'wp_smush_cdn_before_process_src', $src, $image );
-
-		// Store the original $src to be used later on.
-		$original_src = $src;
 
 		// Make sure this image is inside a supported directory. Try to convert to valid path.
 		$src = $this->is_supported_path( $src );
@@ -907,7 +907,7 @@ class CDN extends Abstract_Module {
 	 * @since 3.1.0
 	 */
 	public function update_stats() {
-		$status = $this->settings->get_setting( WP_SMUSH_PREFIX . 'cdn_status' );
+		$status = $this->settings->get_setting( 'wp-smush-cdn_status' );
 
 		$smush = WP_Smush::get_instance();
 
@@ -924,7 +924,7 @@ class CDN extends Abstract_Module {
 				);
 			}
 
-			$this->settings->set_setting( WP_SMUSH_PREFIX . 'cdn_status', $status );
+			$this->settings->set_setting( 'wp-smush-cdn_status', $status );
 		}
 
 		if ( ! wp_doing_cron() ) {
@@ -1127,7 +1127,7 @@ class CDN extends Abstract_Module {
 		}
 
 		// Check to see if we are resizing the images (can not go over that value).
-		$resize_sizes = $this->settings->get_setting( WP_SMUSH_PREFIX . 'resize_sizes' );
+		$resize_sizes = $this->settings->get_setting( 'wp-smush-resize_sizes' );
 
 		if ( isset( $resize_sizes['width'] ) && $resize_sizes['width'] < $content_width ) {
 			return $resize_sizes['width'];

@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.2.3
+ * @version     1.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,6 +41,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Shipping_Method' ) ) {
 			add_filter( 'sc_generate_coupon_meta', array( $this, 'generate_coupon_meta' ), 10, 2 );
 			add_filter( 'wc_sc_process_coupon_meta_value_for_import', array( $this, 'process_coupon_meta_value_for_import' ), 10, 2 );
 			add_filter( 'is_protected_meta', array( $this, 'make_action_meta_protected' ), 10, 3 );
+			add_action( 'wc_sc_new_coupon_generated', array( $this, 'copy_coupon_shipping_method_meta' ) );
 		}
 
 		/**
@@ -318,6 +319,21 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Shipping_Method' ) ) {
 			}
 
 			return $meta_value;
+		}
+
+		/**
+		 * Function to copy shipping method restriction meta in newly generated coupon
+		 *
+		 * @param  array $args The arguments.
+		 */
+		public function copy_coupon_shipping_method_meta( $args = array() ) {
+
+			// Copy meta data to new coupon.
+			$this->copy_coupon_meta_data(
+				$args,
+				array( 'wc_sc_shipping_method_ids' )
+			);
+
 		}
 
 		/**

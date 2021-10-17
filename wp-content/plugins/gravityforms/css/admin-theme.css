@@ -35,6 +35,19 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
  *
  * ----------------------------------------------------------------------------- */
 
+:root {
+
+	--c-white: #FFFFFF;
+	--c-text-default: #585E6A;
+	--c-label: #686E77;
+	--c-very-light-grey: #F2F3F5;
+	--c-medium-grey: #D0D1D3;
+	--c-sorta-grey: #607382;
+	--c-dark-blue: #2F4054;
+	--c-disabled-border: rgba(32, 32, 46, 0.079);
+
+}
+
 /* Box Shadows */
 
 /* -----------------------------------------------------------------------------
@@ -42,6 +55,14 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
  * Variables: Box Shadow
  *
  * ----------------------------------------------------------------------------- */
+
+:root {
+
+	--bs-datepicker: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.11), 0 0 0.25rem rgba(18, 25, 97, 0.0405344);
+	--bs-datepicker-active-day: 0 0.125rem 0.125rem rgba(58, 58, 87, 0.0596411);
+	--bs-datepicker-disabled-day: 0 0.125rem 0.125rem rgba(58, 58, 87, 0.0596411);
+
+}
 
 /* Font Icons */
 
@@ -53,6 +74,39 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
  *
  * ----------------------------------------------------------------------------- */
 
+:root {
+	--gform-icon--left-arrow: "\e910";
+	--gform-icon--right-arrow: "\e91b";
+	--gform-icon--circle-error: "\e91a";
+	--gform-icon--close-small: "\e905";
+	--gform-icon--info: "\e900";
+	--gform-icon--verified: "\e901";
+	--gform-icon--circle-check: "\e902";
+	--gform-icon--close: "\e903";
+	--gform-icon--close-big: "\e904";
+	--gform-icon--down-arrow: "\e906";
+	--gform-icon--format-bold: "\e907";
+	--gform-icon--format-italic: "\e908";
+	--gform-icon--format-list-bulleted: "\e909";
+	--gform-icon--format-list-numbered: "\e90a";
+	--gform-icon--insert-link: "\e90b";
+	--gform-icon--line: "\e90c";
+	--gform-icon--password-eye: "\e90d";
+	--gform-icon--password-eye-closed: "\e90e";
+	--gform-icon--redo: "\e90f";
+	--gform-icon--schedule: "\e911";
+	--gform-icon--clock: "\e912";
+	--gform-icon--search: "\e913";
+	--gform-icon--star: "\e914";
+	--gform-icon--star-border: "\e915";
+	--gform-icon--star-half: "\e916";
+	--gform-icon--check: "\e917";
+	--gform-icon--undo: "\e918";
+	--gform-icon--unfold-more: "\e919";
+	--gform-icon--create: "\e91c";
+	--gform-icon--cog: "\e91d";
+}
+
 /* Transitions */
 
 /* -----------------------------------------------------------------------------
@@ -60,6 +114,13 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
  * Variables: Transitions
  *
  * ----------------------------------------------------------------------------- */
+
+:root {
+
+	--tr-hover: all .15s ease;
+	--tr-hover-slow: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+
+}
 
 /* Typography */
 
@@ -72,14 +133,26 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 :root {
 
 	/* Font Families */
+	--t-font-family-theme-icons: 'gform-icons-theme';
 
 	/* Font Weights */
+	--t-font-weight-normal: 400;
+	--t-font-weight-medium: 500;
+	--t-font-weight-bold: 600;
 
 	/* Font Sizes */
+	--t-font-size-small: 0.75rem;
+	--t-font-size-base: 0.8125rem;
+	--t-font-size-label: 0.875rem;
+	--t-font-size-large-label: 1.0625rem;
 
 	/* Line Heights */
+	--t-line-height-base: 1.188rem;
+	--t-line-height-label: 1.125rem;
 
 }
+
+/* Media Queries */
 
 /* -----------------------------------------------------------------------------
  *
@@ -199,8 +272,15 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 .gform_wrapper.gravity-theme .left_label .gfield_label, .gform_wrapper.gravity-theme .right_label .gfield_label {
 		width: 30%;
 		margin: 0;
-		padding: 0;
+		padding: 0
 	}
+
+@media (max-width: 640px) {
+
+	.gform_wrapper.gravity-theme .left_label .gfield_label, .gform_wrapper.gravity-theme .right_label .gfield_label {
+			width: 100%
+	}
+		}
 
 .gform_wrapper.gravity-theme .gform_fields.left_label fieldset, .gform_wrapper.gravity-theme .gform_fields.right_label fieldset {
 				clear: both;
@@ -208,23 +288,51 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 
 .gform_wrapper.gravity-theme .gform_fields.left_label fieldset .ginput_container, .gform_wrapper.gravity-theme .gform_fields.right_label fieldset .ginput_container {
 					float: left;
-					width: 70%;
+					width: 70%
 				}
+
+@media (max-width: 640px) {
+
+				.gform_wrapper.gravity-theme .gform_fields.left_label fieldset .ginput_container, .gform_wrapper.gravity-theme .gform_fields.right_label fieldset .ginput_container {
+						width: 100%
+				}
+					}
+
+@media (max-width: 640px) {
+
+				.gform_wrapper.gravity-theme .gform_fields.left_label fieldset > .ginput_complex, .gform_wrapper.gravity-theme .gform_fields.right_label fieldset > .ginput_complex {
+						width: 100%
+				}
+					}
 
 .gform_wrapper.gravity-theme .gform_fields.left_label legend.gfield_label, .gform_wrapper.gravity-theme .gform_fields.right_label legend.gfield_label {
 					display: block;
 					float: left;
 					padding-right: 1em;
-					width: 30%;
+					width: 30%
 				}
+
+@media (max-width: 640px) {
+
+				.gform_wrapper.gravity-theme .gform_fields.left_label legend.gfield_label, .gform_wrapper.gravity-theme .gform_fields.right_label legend.gfield_label {
+						width: 100%
+				}
+					}
 
 .gform_wrapper.gravity-theme .left_label .ginput_complex .ginput_container, .gform_wrapper.gravity-theme .right_label .ginput_complex .ginput_container {
 		width: auto;
 	}
 
 .gform_wrapper.gravity-theme .left_label div.gfield > div:not(.ui-resizable-handle):not(.gfield-admin-icons), .gform_wrapper.gravity-theme .right_label div.gfield > div:not(.ui-resizable-handle):not(.gfield-admin-icons) {
-		width: 70%;
+		width: 70%
 	}
+
+@media (max-width: 640px) {
+
+	.gform_wrapper.gravity-theme .left_label div.gfield > div:not(.ui-resizable-handle):not(.gfield-admin-icons), .gform_wrapper.gravity-theme .right_label div.gfield > div:not(.ui-resizable-handle):not(.gfield-admin-icons) {
+			width: 100%
+	}
+		}
 
 .gform_wrapper.gravity-theme .right_label .gfield_label {
 		text-align: right;
@@ -1292,12 +1400,18 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_date[style*='displa
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) {
 	background: #FFFFFF;
+	background: var(--c-white);
 	border: 0.0625rem solid #D0D1D3;
+	border: 0.0625rem solid var(--c-medium-grey);
 	border-radius: 0.1875rem;
 	box-shadow: 0 0.0625rem 0.25rem rgba(0, 0, 0, 0.11), 0 0 0.25rem rgba(18, 25, 97, 0.0405344);
+	box-shadow: var(--bs-datepicker);
 	color: #607382;
+	color: var(--c-sorta-grey);
 	font-size: 0.8125rem;
+	font-size: var(--t-font-size-base);
 	font-weight: 500;
+	font-weight: var(--t-font-weight-medium);
 	margin-top: 0.3125rem;
 	padding: 1.125rem 0.9375rem;
 	width: auto;
@@ -1331,9 +1445,11 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_date[style*='displa
 			background: none;
 			border: 0;
 			color: #607382;
+			color: var(--c-sorta-grey);
 			cursor: pointer;
 			display: flex;
 			font-family: 'gform-icons-theme' !important;
+			font-family: var(--t-font-family-theme-icons) !important;
 			font-size: 1.5rem;
 			height: 1.875rem;
 			justify-content: center;
@@ -1343,6 +1459,7 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_date[style*='displa
 			top: -0.125rem;
 			text-decoration: none;
 			transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+			transition: var(--tr-hover-slow);
 			width: 1.875rem;
 			-webkit-font-smoothing: antialiased;
 			-moz-osx-font-smoothing: grayscale
@@ -1350,6 +1467,7 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_date[style*='displa
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header .ui-datepicker-prev:focus, .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header .ui-datepicker-prev:hover, .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header .ui-datepicker-next:focus, .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header .ui-datepicker-next:hover {
 				color: #2F4054;
+				color: var(--c-dark-blue);
 			}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header .ui-datepicker-prev .ui-icon, .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header .ui-datepicker-next .ui-icon {
@@ -1370,6 +1488,7 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_date[style*='displa
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header .ui-datepicker-prev:before {
 				content: "\e910";
+				content: var(--gform-icon--left-arrow);
 			}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header .ui-datepicker-next {
@@ -1378,6 +1497,7 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_date[style*='displa
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header .ui-datepicker-next:before {
 				content: "\e91b";
+				content: var(--gform-icon--right-arrow);
 			}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-header select {
@@ -1390,10 +1510,13 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_date[style*='displa
 			border: 0;
 			box-shadow: none;
 			color: #585E6A;
+			color: var(--c-text-default);
 			cursor: pointer;
 			display: inline-block;
 			font-size: 0.875rem;
+			font-size: var(--t-font-size-label);
 			font-weight: 500;
+			font-weight: var(--t-font-weight-medium);
 			height: auto;
 			min-height: 0;
 			padding: 0 1.375rem 0 0;
@@ -1409,14 +1532,18 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_date[style*='displa
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar span, .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar a {
 			font-weight: 400;
+			font-weight: var(--t-font-weight-normal);
 		}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar th span {
 				align-items: center;
 				color: #2F4054;
+				color: var(--c-dark-blue);
 				display: flex;
 				font-size: 0.8125rem;
+				font-size: var(--t-font-size-base);
 				font-weight: 500;
+				font-weight: var(--t-font-weight-medium);
 				height: 2.5rem;
 				justify-content: center;
 				width: 2.5rem;
@@ -1424,6 +1551,7 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_date[style*='displa
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar td {
 			font-size: 0.8125rem;
+			font-size: var(--t-font-size-base);
 			height: 3.125rem;
 			width: 3.125rem;
 		}
@@ -1435,10 +1563,12 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_date[style*='displa
 			border-radius: 100%;
 			box-shadow: none;
 			color: #2F4054;
+			color: var(--c-dark-blue);
 			display: flex;
 			height: 2.5rem;
 			justify-content: center;
 			transition: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
+			transition: var(--tr-hover-slow);
 			text-decoration: none;
 			width: 2.5rem
 		}
@@ -1446,23 +1576,31 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_date[style*='displa
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar .ui-state-default:hover, .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar .ui-state-default:focus {
 				background: none;
 				border-color: #607382;
+				border-color: var(--c-sorta-grey);
 				outline: none;
 			}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar .ui-state-default:active {
 				background: #F2F3F5;
+				background: var(--c-very-light-grey);
 				border-color: #607382;
+				border-color: var(--c-sorta-grey);
 			}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar .ui-datepicker-current-day .ui-state-default {
 				background: #607382;
+				background: var(--c-sorta-grey);
 				border-color: #607382;
+				border-color: var(--c-sorta-grey);
 				box-shadow: 0 0.125rem 0.125rem rgba(58, 58, 87, 0.0596411);
-				color: #FFFFFF
+				box-shadow: var(--bs-datepicker-active-day);
+				color: #FFFFFF;
+				color: var(--c-white)
 			}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar .ui-datepicker-current-day .ui-state-default:hover, .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar .ui-datepicker-current-day .ui-state-default:focus {
 					border-color: #607382;
+					border-color: var(--c-sorta-grey);
 				}
 
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar .ui-state-disabled {
@@ -1472,10 +1610,14 @@ html[dir=rtl] .gform_wrapper.gravity-theme .ginput_container_date[style*='displa
 .gform-theme-datepicker:not(.gform-legacy-datepicker) .ui-datepicker-calendar .ui-state-disabled .ui-state-default {
 				align-items: center;
 				background: #F2F3F5;
+				background: var(--c-very-light-grey);
 				border: 0.0625rem solid rgba(32, 32, 46, 0.079);
+				border: 0.0625rem solid var(--c-disabled-border);
 				border-radius: 100%;
 				box-shadow: 0 0.125rem 0.125rem rgba(58, 58, 87, 0.0596411);
+				box-shadow: var(--bs-datepicker-disabled-day);
 				color: #686E77;
+				color: var(--c-label);
 				cursor: text;
 				display: flex;
 				height: 2.5rem;

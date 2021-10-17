@@ -73,7 +73,7 @@ $api = 'revapi'; // . $slider_id;
 			<!-- MODULE TITLE AND ALIAS AND SHORTCODE SETTINGS-->
 			<div class="form_inner">
 				<div class="form_inner_header"><i class="material-icons">title</i><?php _e('Module Naming', 'revslider');?></div>
-				<div class="collapsable" style="display:block !important">
+				<div id="" class="collapsable" style="display:block !important">
 					<label_a><?php _e('Title', 'revslider');?></label_a><input type="text" id="sr_title" class="sliderinput easyinit" data-r="title" placeholder="<?php _e('Enter a Module name', 'revslider')?>"/><span class="linebreak"></span>
 					<label_a><?php _e('Alias', 'revslider');?></label_a><input type="text" id="sr_alias" data-evt="updateShortCode" class="sliderinput easyinit" data-r="alias" placeholder="<?php _e('enter-a-module-name', 'revslider')?>"/><span class="linebreak"></span>
 					<label_a id="rs_shortcode_label"><?php _e('Shortcode', 'revslider');?></label_a><input readonly type="text" id="sr_shortcode" class="sliderinput easyinit" data-r="shortcode"/><span class="linebreak"></span>
@@ -83,6 +83,7 @@ $api = 'revapi'; // . $slider_id;
 						<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
 						<contenthalf><div class="function_info"><?php _e('Place the shortcode on the page or post where you want to show this module.', 'revslider');?></div></contenthalf>
 					</row>
+					<div id="rs_premium"></div>
 				</div><!-- END OF COLLAPSABLE-->
 			</div><!--END OF MODULE TITLE AND ALIAS AND SHORTCODE SETTINGS -->
 		</div>

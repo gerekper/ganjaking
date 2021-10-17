@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.8.0
+ * @version     2.9.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -4451,6 +4451,15 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		}
 
 		/**
+		 * Function to get plugin's version
+		 */
+		public function get_smart_coupons_version() {
+			$plugin_data = self::get_smart_coupons_plugin_data();
+			return isset( $plugin_data['Version'] ) ? $plugin_data['Version'] : false;
+		}
+
+
+		/**
 		 * Function to get singular/plural name for store credit
 		 */
 		public function define_label_for_store_credit() {
@@ -4648,11 +4657,39 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		}
 
 		/**
-		 * Function to get plugin's version
+		 * Function to copy coupon meta data and save to new coupon.
+		 *
+		 * @param  array $coupon_data  Array of new coupon id and old coupon object.
+		 * @param  array $meta_keys   Meta keys.
 		 */
-		public function get_smart_coupons_version() {
-			$plugin_data = self::get_smart_coupons_plugin_data();
-			return isset( $plugin_data['Version'] ) ? $plugin_data['Version'] : false;
+		public function copy_coupon_meta_data( $coupon_data = array(), $meta_keys = array() ) {
+
+			$new_coupon_id = ( ! empty( $coupon_data['new_coupon_id'] ) ) ? absint( $coupon_data['new_coupon_id'] ) : 0;
+			$coupon        = ( ! empty( $coupon_data['ref_coupon'] ) ) ? $coupon_data['ref_coupon'] : false;
+
+			if ( empty( $new_coupon_id ) || empty( $coupon ) ) {
+				return;
+			}
+
+			if ( ! empty( $new_coupon_id ) && is_array( $meta_keys ) && ! empty( $meta_keys ) ) {
+				// Save each meta to new coupon.
+				foreach ( $meta_keys as $meta_key ) {
+					$update = false;
+					if ( $this->is_wc_gte_30() ) {
+						$meta_value = is_callable( array( $coupon, 'get_meta' ) ) ? $coupon->get_meta( $meta_key ) : '';
+						$update     = true;
+					} else {
+						$old_coupon_id = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
+						if ( ! empty( $old_coupon_id ) ) { // This will confirm that the coupon exists.
+							$meta_value = get_post_meta( $old_coupon_id, $meta_key, true );
+							$update     = true;
+						}
+					}
+					if ( true === $update ) {
+						update_post_meta( $new_coupon_id, $meta_key, $meta_value );
+					}
+				}
+			}
 		}
 
 	}//end class

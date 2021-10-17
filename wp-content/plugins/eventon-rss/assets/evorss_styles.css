@@ -1,0 +1,18 @@
+/** RSS Styles for frontend */
+.ajde_evcal_calendar .evorss_rss_btn{
+	display: inline-block;
+	font: bold 14px arial;
+	display: inline-block;
+	padding: 8px 12px!important;
+	margin-top: 10px;
+	text-transform: uppercase;
+	text-decoration: none;
+	border-radius: 4px;
+	border: none;
+	color: #ffffff;
+	background: #237ebd;
+}
+.ajde_evcal_calendar .evorss_rss_btn:hover{
+	color: #fff;
+	opacity: 0.6
+}

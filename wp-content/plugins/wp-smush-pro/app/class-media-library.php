@@ -191,7 +191,7 @@ class Media_Library extends Abstract_Module {
 	private function query_ignored() {
 		return array(
 			array(
-				'key'     => WP_SMUSH_PREFIX . 'ignore-bulk',
+				'key'     => 'wp-smush-ignore-bulk',
 				'value'   => 'true',
 				'compare' => 'EXISTS',
 			),
@@ -210,7 +210,7 @@ class Media_Library extends Abstract_Module {
 				'compare' => 'NOT EXISTS',
 			),
 			array(
-				'key'     => WP_SMUSH_PREFIX . 'ignore-bulk',
+				'key'     => 'wp-smush-ignore-bulk',
 				'compare' => 'NOT EXISTS',
 			),
 		);
@@ -456,7 +456,7 @@ class Media_Library extends Abstract_Module {
 			return __( 'Smushing in progress...', 'wp-smushit' );
 		}
 
-		if ( 'true' === get_post_meta( $id, WP_SMUSH_PREFIX . 'ignore-bulk', true ) ) {
+		if ( 'true' === get_post_meta( $id, 'wp-smush-ignore-bulk', true ) ) {
 			return __( 'Ignored from auto-smush', 'wp-smushit' );
 		}
 
@@ -509,7 +509,7 @@ class Media_Library extends Abstract_Module {
 		}
 
 		// Skipped.
-		if ( 'true' === get_post_meta( $id, WP_SMUSH_PREFIX . 'ignore-bulk', true ) ) {
+		if ( 'true' === get_post_meta( $id, 'wp-smush-ignore-bulk', true ) ) {
 			$nonce = wp_create_nonce( 'wp-smush-remove-skipped' );
 			return "<a href='#' class='wp-smush-remove-skipped' data-id='{$id}' data-nonce='{$nonce}'>" . __( 'Undo', 'wp-smushit' ) . '</a>';
 		}
@@ -595,7 +595,7 @@ class Media_Library extends Abstract_Module {
 		}
 
 		// This is duplicating a part of scan_images() in class-ajax.php. See detailed description there.
-		$image_sizes = $this->settings->get_setting( WP_SMUSH_PREFIX . 'image_sizes' );
+		$image_sizes = $this->settings->get_setting( 'wp-smush-image_sizes' );
 
 		// Empty means we need to smush all images. So get all sizes of current site.
 		if ( empty( $image_sizes ) ) {
@@ -671,11 +671,11 @@ class Media_Library extends Abstract_Module {
 		}
 
 		// Additional Backup Check for JPEGs converted from PNG.
-		$pngjpg_savings = get_post_meta( $image_id, WP_SMUSH_PREFIX . 'pngjpg_savings', true );
+		$pngjpg_savings = get_post_meta( $image_id, 'wp-smush-pngjpg_savings', true );
 		if ( ! empty( $pngjpg_savings ) ) {
 
 			// Get the original File path and check if it exists.
-			$backup = get_post_meta( $image_id, WP_SMUSH_PREFIX . 'original_file', true );
+			$backup = get_post_meta( $image_id, 'wp-smush-original_file', true );
 			$backup = Helper::original_file( $backup );
 
 			if ( ! empty( $backup ) && is_file( $backup ) ) {
@@ -713,7 +713,7 @@ class Media_Library extends Abstract_Module {
 
 		$html .= "<a href='#' class='wp-smush-send' data-id='{$id}'>{$button_txt}</a>";
 
-		$skipped = get_post_meta( $id, WP_SMUSH_PREFIX . 'ignore-bulk', true );
+		$skipped = get_post_meta( $id, 'wp-smush-ignore-bulk', true );
 		if ( 'true' === $skipped ) {
 			$nonce = wp_create_nonce( 'wp-smush-remove-skipped' );
 			$html .= " | <a href='#' class='wp-smush-remove-skipped' data-id={$id} data-nonce={$nonce}>" . __( 'Show in bulk Smush', 'wp-smushit' ) . '</a>';

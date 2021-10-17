@@ -1,0 +1,195 @@
+/* EVOVO styles*/
+
+.evotx_ticket_purchase_section .evovo_variation_types, 
+.evotx_ticket_purchase_section .evovo_price_options{
+	padding-bottom: 10px;
+	border-radius: 5px;
+	background-color: #fff;
+	margin-bottom: 20px;
+}
+body #evcal_list .evotx_ticket_purchase_section .evovo_variation_types p.evovo_var_types,
+body #evcal_list .evotx_ticket_purchase_section .evovo_price_options p.evovo_price_option,
+.evotx_ticket_purchase_section .evovo_variation_types p.evovo_var_types,
+.evotx_ticket_purchase_section .evovo_price_options p.evovo_price_option
+{
+	padding: 10px; font-size: 14px; font-style: normal;
+	border-bottom: 1px solid #f1f1f1;
+	display:flex;
+	justify-content:space-between;
+}
+body #evcal_list .evotx_ticket_purchase_section .evovo_variation_types p.evovo_var_types:last-child,
+.evotx_ticket_purchase_section .evovo_variation_types p.evovo_var_types:last-child
+{border:none; padding-bottom: 0;}
+.evotx_ticket_purchase_section .evovo_variation_types p.evovo_var_types label{}
+.evotx_ticket_purchase_section .evovo_variation_types p.evovo_var_types select{
+	border-radius: 5px;
+	padding: 2px 5px;
+	margin-left: 8px;
+}
+
+.evoto_ticket_options li, #evcal_list .eventon_list_event .event_description .evoto_ticket_options li{
+	padding-bottom: 0;
+	border-bottom: 1px solid #DCDBDB;
+	display: flex;
+	justify-content: space-between;
+}
+.evoto_totals{display: flex;justify-content: space-between;}
+.evoto_totals span{font-size: 18px;padding: 10px 0;}
+.evoto_ticket_options li p.details .name{
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+}
+.evoto_ticket_options li p.details .other{
+	font-weight: normal;
+	display: block;
+}
+.evoto_ticket_options li p.details .other.price{font-size: 14px;line-height: 1.5; font-style: normal;}
+.evoto_ticket_options li p.details, .evoto_ticket_options li p.soldout{padding: 10px 0;}
+.evoto_ticket_options li p.soldout span{
+    font-style: normal;
+    border-radius: 20px;
+    background-color: #e6e6e6;
+    padding: 4px 12px;
+    margin-top: 5px;
+    display: block;
+}
+.evoTX_wc.tximg .evoTX_wc_section .evoto_ticket_options .evotx_quantity .qty
+{margin-top: 0;}
+
+
+/* price options */
+	.evovo_addremove{
+		border-radius: 20px;
+	    background-color: #3091d4;
+	    color: #fff;
+	    padding: 3px 8px;
+	    text-transform: uppercase;
+	    font-size: 11px;
+	    line-height: 11px;
+	    cursor: pointer;
+	    display:flex; align-items: center;
+	}
+	.evovo_addremove em{display: none;font-style: normal;}
+	.added .evovo_addremove{background-color: #83ca66;	}
+
+	.evovo_addremove:hover{opacity: 0.6;}
+	.evovo_price_option label span{ opacity: 0.7;padding: 0 10px; }
+	.evovo_price_option label span.desc{ display: block;
+    padding: 0;
+    font-style: italic;
+    opacity: 0.5; }
+	body #evcal_list .evotx_ticket_purchase_section .evovo_price_options,
+	.evotx_ticket_purchase_section .evovo_price_options{
+		background-color: transparent; margin-bottom: 3px;
+	}
+	body #evcal_list .evotx_ticket_purchase_section .evovo_price_options p.evovo_price_option,
+	.evotx_ticket_purchase_section .evovo_price_options p.evovo_price_option{
+		background-color: #fbfbfb;
+		border-radius: 5px;
+		width: 100%;
+	}
+	.evovo_price_options p.evovo_price_option label{font-weight: normal;}
+	.evovo_price_options p.evovo_price_option.add em.a{display: block;} 
+	.evovo_price_options p.evovo_price_option.added em.ad{display: block;} 
+	.evovo_price_options p.evovo_price_option.added span:hover em.ad{display: none;} 
+	.evovo_price_options p.evovo_price_option.added span:hover em.rm{display: block;} 
+	.evovo_price_options p.evovo_price_option.added span.evovo_addremove:hover{background-color: #ff7a5c;} 
+	.evovo_price_options p.evovo_price_option.remove em.rm{display: block;} 
+	
+	.evovo_price_option_prices_container, .evovo_price_option_prices_container_extra{background-color: #f1f1f1}
+	body #evcal_list .evovo_price_option_prices_container .evotx_item_price_line,
+	.evovo_price_option_prices_container .evotx_item_price_line,
+	body .evovo_price_option_prices_container_extra .evotx_item_price_line
+	{padding: 10px; font-size: 14px; font-style: normal;}
+	body #evcal_list .evovo_price_option_prices_container .evotx_item_price_line .evotx_label,
+	.evovo_price_option_prices_container .evotx_item_price_line .evotx_label,
+	.evovo_price_option_prices_container_extra .evotx_item_price_line .evotx_label
+	{font-style: italic;}
+	
+	.evovo_price_options .evotx_qty_adjuster b{
+		height: 25px;
+	    width: 25px;
+	    top: 3px;
+	    line-height: 20px;
+	}
+	.evovo_price_options .evotx_qty_adjuster b.plu{top: 4px;line-height: 22px}
+	.evovo_price_options .evotx_qty_adjuster em{}
+	.evovo_price_option_prices_container_extra .evotx_item_price_line .evotx_label em,
+	.evovo_price_option_prices_container .evotx_item_price_line .evotx_label em
+	{opacity: 0.6;margin-left: 5px;}
+
+
+.shop_table .evo_ticket_vos .evovo_spread {justify-content: flex-start;}
+.shop_table .evo_ticket_vos .evovo_spread b {padding-right: 10px;}
+
+/* individually style*/
+	.evotx_quantity.individually .qty em{display: none;}
+	.evoTX_wc_section .evotx_quantity.individually .qty b.evotx_qty_change:before{content:"+";position: relative;}
+	.evoTX_wc_section .evotx_quantity.individually .qty b.evotx_qty_change.reached{background-color: #7dda8d;}
+	.evoTX_wc_section .evotx_quantity.individually .qty b.evotx_qty_change.reached:before{
+		content:"L";
+		font-style: normal;
+		-ms-transform: scaleX(-1) rotate(-45deg);
+	    -webkit-transform: scaleX(-1) rotate(-45deg);
+	    transform: scaleX(-1) rotate(-45deg);
+	    box-sizing: border-box;
+	    position: absolute;
+	    margin: 0 0 0 -5px;
+	    font-family: arial;
+	    font-size: 16px;
+	    font-weight: bold;
+	}
+/* one style */
+	.evotx_quantity.one .qty em{display: none;}
+	.evoTX_wc_section .evotx_quantity.one .qty b.evotx_qty_change{
+		background-color: transparent;
+		border:3px solid #3091d4;
+	}
+	.evoTX_wc_section .evotx_quantity.one .qty b.evotx_qty_change.reached
+	{background-color: #7dda8d;border-color: #7dda8d;}
+	.evoTX_wc_section .evotx_quantity.one .qty b.evotx_qty_change.reached:before
+	{
+		content:"L";
+		font-style: normal;
+		-ms-transform: scaleX(-1) rotate(-45deg);
+	    -webkit-transform: scaleX(-1) rotate(-45deg);
+	    transform: scaleX(-1) rotate(-45deg);
+	    box-sizing: border-box;
+	    position: absolute;
+	    margin: -3px 0 0 -5px;
+	    font-family: arial;
+	    font-size: 16px;
+	    font-weight: bold;
+	}
+
+/* booking styles */
+	.evobo_selction_stage_time_qty .evovo_variation_types{margin-top: 10px;}
+/* cart and wc styles */
+	.evo_ticket_vos{padding-bottom: 5px;}
+		
+	/* order review */
+		#order_review .evo_ticket_vos{
+			border-bottom: 2px solid #ededed;
+		    margin-bottom: 10px;
+		    background-color: #f8f8f8;
+		}
+		#order_review .evo_ticket_vos .evovo_spread, 
+		#order_review .evo_ticket_vos .evovo_left, 
+		#order_review .evo_ticket_vos .evovo_subtitle{padding: 5px 10px 0;}
+		
+	.evo_ticket_vos span, .evo_ticket_vos{display: block;}
+	.evo_ticket_vos .evovo_subtitle{font-size: 14px; font-weight: bold;padding-top: 5px;}
+	.shop_table .evo_ticket_vos .evovo_vt,
+	.shop_table .evo_ticket_vos .evovo_po,
+	.shop_table .evo_ticket_vos .evovo_spread,
+	.shop_table .evo_ticket_vos .evovo_left
+	{
+		display: flex; justify-content:space-between;
+		font-size: 13px; font-style: italic; padding-top: 5px;
+		border-top:1px solid #e6e6e6;
+		margin-top: 5px;
+	}
+	.shop_table .evo_ticket_vos .evovo_left{justify-content:flex-start;}
+	.shop_table .evo_ticket_vos .evovo_left b{padding-right: 10px;}
+	.shop_table .evo_ticket_vos .evovo_po em{padding-left: 5px; font-weight: bold;}

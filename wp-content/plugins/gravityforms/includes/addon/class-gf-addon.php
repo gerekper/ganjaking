@@ -117,6 +117,15 @@ abstract class GFAddOn {
 	private static $_registered_addons = array( 'active' => array(), 'inactive' => array() );
 
 	/**
+	 * Stores instances of the add-ons that implement the results/sales pages.
+	 *
+	 * @since 2.5.13
+	 *
+	 * @var array
+	 */
+	private static $results_addons = [];
+
+	/**
 	 * Class constructor which hooks the instance into the WordPress init action
 	 */
 	function __construct() {
@@ -321,6 +330,8 @@ abstract class GFAddOn {
 			$results_capabilities = rgar( $results_page_config, 'capabilities' );
 			if ( $results_page_config && $this->current_user_can_any( $results_capabilities ) ) {
 				$this->results_page_init( $results_page_config );
+				// Store the configuration as it will be used later to decide which forms have results/sales page.
+				self::$results_addons[] = $this->get_results_page_config();
 			}
 		}
 
@@ -337,6 +348,17 @@ abstract class GFAddOn {
 		add_filter( 'gform_noconflict_styles', array( $this, 'register_noconflict_styles' ) );
 		add_action( 'gform_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10, 2 );
 
+	}
+
+	/**
+	 * Returns instances of the add-ons that implement the results/sales pages.
+	 *
+	 * @since 2.5.13
+	 *
+	 * @return array
+	 */
+	public static function get_results_addon() {
+		return self::$results_addons;
 	}
 
 	/**

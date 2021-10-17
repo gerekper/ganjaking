@@ -1,5 +1,14 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.10.08 - version 4.29.1
+* Fix: Warning: call_user_func() expects parameter 1 to be a valid callback, class 'SA_WC_Compatibility_4_4' does not have a method 'get_smart_coupons_version'
+* Update: POT file
+
+2021.10.08 - version 4.29.0
+* Fix: PHP Notice: Trying to get property 'post_type' of non-object
+* Update: Coupon meta 'Exclude user roles', 'Taxonomy', 'Payment methods', and 'Shipping methods' are not getting copied in auto-generated coupon
+* Update: POT file
+
 2021.10.01 - version 4.28.0
 * New: Tested up to WooCommerce 5.7.1 & WordPress 5.8.1
 * Update: Use transient for auto-cleanup of options that starts with 'sc_applied_coupon_profile_'

@@ -21,8 +21,8 @@ class GF_License_Statuses {
 	const NO_DATA               = 'rest_no_route';
 
 	const USABILITY_VALID       = 'success';
-	const USABILITY_ALLOWED     = 'warning';
-	const USABILITY_NOT_ALLOWED = 'error';
+	const USABILITY_ALLOWED     = 'success';
+	const USABILITY_NOT_ALLOWED = 'success';
 
 	/**
 	 * Get the correct Message for the given code.
