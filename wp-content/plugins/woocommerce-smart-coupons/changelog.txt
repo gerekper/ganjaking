@@ -1,5 +1,11 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.10.01 - version 4.28.0
+* New: Tested up to WooCommerce 5.7.1 & WordPress 5.8.1
+* Update: Use transient for auto-cleanup of options that starts with 'sc_applied_coupon_profile_'
+* Update: Spellchecks
+* Update: POT file
+
 2021.09.06 - version 4.27.0
 * New: Settings in acknowledgement email ('Subject' and 'Heading') to handle texts related to scheduled email
 * New: Option 'wc_sc_auto_apply_coupon_removable' and hook 'wc_sc_is_auto_apply_coupon_removable' to allow removal of auto-apply coupons
@@ -379,7 +385,7 @@
 * New: Save original store credit value in the coupon meta when it is auto-generated
 * New: Copy coupon code action on coupons dashboard
 * New: Get coupon shareable link on coupons dashaboard and edit coupon page
-* Update: Support for performing smart coupons actions on order statuses which are added by 3rd party plugins
+* Update: Support for performing Smart Coupons actions on order statuses which are added by 3rd party plugins
 * Update: Docs, Support & Review links on plugins page
 * Update: Admin Footer text for Smart Coupons pages
 * Tweak: Export button on coupons dashboard

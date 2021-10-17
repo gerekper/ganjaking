@@ -1,5 +1,5 @@
 <?php
-namespace GuzzleHttp;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp;
 
 /**
  * Expands URI templates. Userland implementation of PECL uri_template.

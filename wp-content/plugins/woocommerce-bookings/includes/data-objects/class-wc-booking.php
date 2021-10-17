@@ -307,7 +307,7 @@ class WC_Booking extends WC_Bookings_Data {
 		/**
 		 * Hook: woocommerce_booking_status_changed
 		 *
-		 * @since %VERSION%
+		 * @since 1.15.35
 		 *
 		 * @param string     $from       Previous status.
 		 * @param string     $to         New (current) status.

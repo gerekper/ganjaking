@@ -20,7 +20,7 @@
  *
  * @see     https://docs.woocommerce.com/document/bookings-templates/
  * @author  Automattic
- * @version 1.10.8
+ * @version 1.15.44
  * @since   1.10.8
  */
 
@@ -31,7 +31,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 	<ul class="wc-booking-summary-list">
 		<li>
-			<?php echo esc_html( apply_filters( 'wc_bookings_summary_list_date', $booking_date, $booking->get_start(), $booking->get_end() ) ); ?>
+			<?php echo wp_kses(
+				apply_filters( 'wc_bookings_summary_list_date', $booking_date, $booking->get_start(), $booking->get_end() ),
+				array(
+					'span' => array(
+						'class'         => array(),
+						'data-all-day'  => array(),
+						'data-timezone' => array(),
+					),
+				)
+			); ?>
 			<?php
 			if ( wc_should_convert_timezone( $booking ) ) :
 				/* translators: %s: timezone name */

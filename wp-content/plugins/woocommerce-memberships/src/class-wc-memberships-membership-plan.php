@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -1772,7 +1773,7 @@ class WC_Memberships_Membership_Plan {
 			}
 
 			if ( ! empty( $child_discounts ) ) {
-				$member_discount = wc_memberships_list_items( $child_discounts, 'or' );
+				$member_discount = Strings_Helper::get_human_readable_items_list( $child_discounts, 'or' );
 			}
 
 		} elseif ( ! empty( $member_discount ) && is_numeric( $member_discount ) ) {

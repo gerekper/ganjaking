@@ -68,16 +68,4 @@ class WC_Memberships_Integration_Bookings {
 	}
 
 
-	/**
-	 * Removes the add to cart button for non-purchasable bookable products.
-	 *
-	 * @since 1.6.2
-	 * @deprecated 1.17.2
-	 */
-	public function add_purchaseable_product_to_cart() {
-
-		wc_deprecated_function( __METHOD__, '1.17.2' );
-	}
-
-
 }

@@ -21,7 +21,7 @@ use Google\Model;
 use Google\Http\MediaFileUpload;
 use Google\Exception as GoogleException;
 use Google\Utils\UriTemplate;
-use GuzzleHttp\Psr7\Request;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Request;
 
 /**
  * Implements the actual methods/resources of the discovered Google API using magic function

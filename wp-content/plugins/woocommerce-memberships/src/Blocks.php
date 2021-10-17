@@ -53,7 +53,12 @@ class Blocks {
 	public function __construct() {
 
 		// register the Memberships block category
-		add_filter( 'block_categories', [ $this, 'add_memberships_block_category' ], 9 );
+		if ( version_compare( get_bloginfo( 'version' ), '5.8', '<' ) ) {
+			// @TODO remove this version compare and default to only using 'block_categories_all' when we drop support for WP versions below 5.8
+			add_filter( 'block_categories', [ $this, 'add_memberships_block_category' ], 9 );
+		} else {
+			add_filter( 'block_categories_all', [ $this, 'add_memberships_block_category' ], 9 );
+		}
 
 		// register blocks
 		add_action( 'init', [ $this, 'register_blocks' ] );

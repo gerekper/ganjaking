@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-namespace Google\Auth\Middleware;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Middleware;
 
-use Google\Auth\CacheTrait;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\CacheTrait;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\RequestInterface;
 

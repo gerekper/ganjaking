@@ -17,8 +17,8 @@
 
 namespace Google\AuthHandler;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Client;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
 use Exception;
 
 class AuthHandlerFactory
@@ -32,9 +32,9 @@ class AuthHandlerFactory
   public static function build($cache = null, array $cacheConfig = [])
   {
     $guzzleVersion = null;
-    if (defined('\GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
+    if (defined('\Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
       $guzzleVersion = ClientInterface::MAJOR_VERSION;
-    } elseif (defined('\GuzzleHttp\ClientInterface::VERSION')) {
+    } elseif (defined('\Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface::VERSION')) {
       $guzzleVersion = (int) substr(ClientInterface::VERSION, 0, 1);
     }
 

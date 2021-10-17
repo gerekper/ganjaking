@@ -304,7 +304,7 @@ class Setup_Wizard extends Framework\Admin\Setup_Wizard {
 					<?php $product_ids = $plan->get_product_ids(); ?>
 					<?php foreach ( $product_ids as $product_id ) : ?>
 						<?php if ( $product = wc_get_product( $product_id ) ) : ?>
-							<option value="<?php echo $product_id; ?>" selected><?php echo esc_html( $product->get_formatted_name() ); ?></option>
+							<option value="<?php echo $product_id; ?>" selected><?php echo esc_html( strip_tags( $product->get_formatted_name() ) ); ?></option>
 						<?php endif; ?>
 					<?php endforeach; ?>
 				</select>

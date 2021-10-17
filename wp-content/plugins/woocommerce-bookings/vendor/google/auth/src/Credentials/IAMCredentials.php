@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace Google\Auth\Credentials;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Credentials;
 
 /**
  * Authenticates requests using IAM credentials.

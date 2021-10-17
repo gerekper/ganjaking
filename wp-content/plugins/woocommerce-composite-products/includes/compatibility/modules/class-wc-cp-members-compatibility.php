@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Memberships Integration: Discounts inheritance.
  *
- * @version  6.1.2
+ * @version  8.3.3
  */
 class WC_CP_Members_Compatibility {
 
@@ -90,7 +90,20 @@ class WC_CP_Members_Compatibility {
 			return $discount;
 		}
 
+		$is_memberships_version_gte_1_21_8 = version_compare( WC_Memberships::VERSION, '1.21.7', '>' );
+
+		if ( ! $is_memberships_version_gte_1_21_8 ) {
+			if ( ! self::member_is_logged_in() ) {
+				return $discount;
+			}
+		}
+
 		if ( ! self::$inherit_member_discount ) {
+			return $discount;
+		}
+
+		// Don't recalculate discounts, avoid infinite loops.
+		if ( self::$calculating_inherited_discounts ) {
 			return $discount;
 		}
 
@@ -102,11 +115,13 @@ class WC_CP_Members_Compatibility {
 
 		// If the composite is excluded from member discounts, don't apply any discounts.
 		if ( wc_memberships()->get_member_discounts_instance()->is_product_excluded_from_member_discounts( $composite ) ) {
+			self::$calculating_inherited_discounts = false;
 			return $discount;
 		}
 
 		// If the product itself is excluded from member discounts, don't apply any discounts.
 		if ( wc_memberships()->get_member_discounts_instance()->is_product_excluded_from_member_discounts( $composited_product ) ) {
+			self::$calculating_inherited_discounts = false;
 			return $discount;
 		}
 
@@ -116,11 +131,21 @@ class WC_CP_Members_Compatibility {
 		$discount_rules        = array();
 
 		if ( wc_memberships()->get_member_discounts_instance()->user_has_member_discount( $composite ) ) {
-			$parent_discount_rules = wc_memberships()->get_rules_instance()->get_user_product_purchasing_discount_rules( $member_id, $composite->get_id() );
+			if ( $is_memberships_version_gte_1_21_8 ) {
+				// This function was private up to WooCommerce Memberships v1.21.8. Fallback to legacy code for previous versions to avoid fatal errors.
+				$parent_discount_rules = wc_memberships()->get_member_discounts_instance()->get_user_product_purchasing_discount_rules( $member_id, $composite->get_id() );
+			} else {
+				$parent_discount_rules = wc_memberships()->get_rules_instance()->get_user_product_purchasing_discount_rules( $member_id, $composite->get_id() );
+			}
 		}
 
 		if ( wc_memberships()->get_member_discounts_instance()->user_has_member_discount( $composited_product ) ) {
-			$child_discount_rules = wc_memberships()->get_rules_instance()->get_user_product_purchasing_discount_rules( $member_id, $composited_product->get_id() );
+			if ( $is_memberships_version_gte_1_21_8 ) {
+				// This function was private up to WooCommerce Memberships v1.21.8. Fallback to legacy code for previous versions to avoid fatal errors.
+				$child_discount_rules = wc_memberships()->get_member_discounts_instance()->get_user_product_purchasing_discount_rules( $member_id, $composited_product->get_id() );
+			} else {
+				$child_discount_rules = wc_memberships()->get_rules_instance()->get_user_product_purchasing_discount_rules( $member_id, $composited_product->get_id() );
+			}
 		}
 
 		$discount_rules_merged = array_merge( $parent_discount_rules, $child_discount_rules );

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9a1b7cbde53b6302cfa62c6f84753e0d
+class ComposerStaticInit1e38ccd0a989ed078ad501e69036332a
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -48,7 +48,6 @@ class ComposerStaticInit9a1b7cbde53b6302cfa62c6f84753e0d
         'WPSEO_Premium_Asset_JS_L10n' => __DIR__ . '/../..' . '/classes/premium-asset-js-l10n.php',
         'WPSEO_Premium_Assets' => __DIR__ . '/../..' . '/classes/premium-assets.php',
         'WPSEO_Premium_Expose_Shortlinks' => __DIR__ . '/../..' . '/classes/premium-expose-shortlinks.php',
-        'WPSEO_Premium_Free_Translations' => __DIR__ . '/../..' . '/classes/premium-free-translations.php',
         'WPSEO_Premium_Import_Manager' => __DIR__ . '/../..' . '/classes/premium-import-manager.php',
         'WPSEO_Premium_Javascript_Strings' => __DIR__ . '/../..' . '/classes/premium-javascript-strings.php',
         'WPSEO_Premium_Keyword_Export_Manager' => __DIR__ . '/../..' . '/classes/premium-keyword-export-manager.php',
@@ -163,6 +162,7 @@ class ComposerStaticInit9a1b7cbde53b6302cfa62c6f84753e0d
         'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action' => __DIR__ . '/../..' . '/src/actions/prominent-words/save-action.php',
         'Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action' => __DIR__ . '/../..' . '/src/actions/zapier-action.php',
         'Yoast\\WP\\SEO\\Premium\\Addon_Installer' => __DIR__ . '/../..' . '/src/addon-installer.php',
+        'Yoast\\WP\\SEO\\Premium\\Conditionals\\Algolia_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/algolia-enabled-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Zapier_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/zapier-enabled-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => __DIR__ . '/../..' . '/src/config/badge-group-names.php',
         'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem' => __DIR__ . '/../..' . '/src/config/migrations/20210827093024_AddIndexOnIndexableIdAndStem.php',
@@ -223,9 +223,9 @@ class ComposerStaticInit9a1b7cbde53b6302cfa62c6f84753e0d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9a1b7cbde53b6302cfa62c6f84753e0d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9a1b7cbde53b6302cfa62c6f84753e0d::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9a1b7cbde53b6302cfa62c6f84753e0d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1e38ccd0a989ed078ad501e69036332a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1e38ccd0a989ed078ad501e69036332a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1e38ccd0a989ed078ad501e69036332a::$classMap;
 
         }, null, ClassLoader::class);
     }

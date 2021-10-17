@@ -2,14 +2,14 @@
 
 namespace Google\AuthHandler;
 
-use Google\Auth\CredentialsLoader;
-use Google\Auth\HttpHandler\HttpHandlerFactory;
-use Google\Auth\FetchAuthTokenCache;
-use Google\Auth\Middleware\AuthTokenMiddleware;
-use Google\Auth\Middleware\ScopedAccessTokenMiddleware;
-use Google\Auth\Middleware\SimpleMiddleware;
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\CredentialsLoader;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\FetchAuthTokenCache;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Middleware\AuthTokenMiddleware;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Middleware\ScopedAccessTokenMiddleware;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Middleware\SimpleMiddleware;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Client;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
 /**

@@ -821,7 +821,7 @@ class Products {
 	 *
 	 * @return int[] array of product IDs with member discounts
 	 */
-	private function get_cart_items_with_member_discounts() {
+	private function get_cart_items_with_member_discounts() : array {
 
 		if ( empty( $this->cart_items_with_member_discounts ) ) {
 
@@ -831,8 +831,12 @@ class Products {
 
 				$product_id = isset( $item['variation_id'] ) && $item['variation_id'] ? $item['variation_id'] : $item['product_id'];
 
+				// pass the product instance below so 3rd parties have full access (and context) to the product in cart
+				// when filtering the result in `wc_memberships_exclude_product_from_member_discounts`
+				$product = $item['data'];
+
 				if (      wc_memberships()->get_rules_instance()->product_has_purchasing_discount_rules( $product_id )
-				     && ! wc_memberships()->get_member_discounts_instance()->is_product_excluded_from_member_discounts( $product_id ) ) {
+				     && ! wc_memberships()->get_member_discounts_instance()->is_product_excluded_from_member_discounts( $product ) ) {
 
 					$this->cart_items_with_member_discounts[] = $product_id;
 				}

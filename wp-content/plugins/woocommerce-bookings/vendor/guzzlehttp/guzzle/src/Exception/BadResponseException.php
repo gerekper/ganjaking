@@ -1,5 +1,5 @@
 <?php
-namespace GuzzleHttp\Exception;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;

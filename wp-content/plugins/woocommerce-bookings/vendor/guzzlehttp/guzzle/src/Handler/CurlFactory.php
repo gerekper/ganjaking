@@ -1,12 +1,12 @@
 <?php
-namespace GuzzleHttp\Handler;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler;
 
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Promise\FulfilledPromise;
-use GuzzleHttp\Psr7;
-use GuzzleHttp\Psr7\LazyOpenStream;
-use GuzzleHttp\TransferStats;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\ConnectException;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\RequestException;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\FulfilledPromise;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\LazyOpenStream;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\TransferStats;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -379,7 +379,7 @@ class CurlFactory implements CurlFactoryInterface
         if (isset($options['sink'])) {
             $sink = $options['sink'];
             if (!is_string($sink)) {
-                $sink = \GuzzleHttp\Psr7\stream_for($sink);
+                $sink = \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\stream_for($sink);
             } elseif (!is_dir(dirname($sink))) {
                 // Ensure that the directory exists before failing in curl.
                 throw new \RuntimeException(sprintf(

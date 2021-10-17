@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
@@ -218,7 +219,7 @@ class WC_Memberships_CLI_Membership_Plan extends \WC_Memberships_CLI_Command {
 						if ( 1 === $errors ) {
 							$message = sprintf( 'Product %s is not a valid product.', $error_ids[0] );
 						} else {
-							$message = sprintf( 'Products %s are not valid products.', wc_memberships_list_items( $error_ids, 'and' ) );
+							$message = sprintf( 'Products %s are not valid products.', Strings_Helper::get_human_readable_items_list( $error_ids, 'and' ) );
 						}
 
 						throw new \WC_CLI_Exception( 'woocommerce_memberships_products_not_found', $message );
@@ -508,7 +509,7 @@ class WC_Memberships_CLI_Membership_Plan extends \WC_Memberships_CLI_Command {
 							if ( 1 === $errors ) {
 								$message = sprintf( 'Product %s is not a valid product.', $error_ids[0] );
 							} else {
-								$message = sprintf( 'Products %s are not valid products.', wc_memberships_list_items( $error_ids, 'and' ) );
+								$message = sprintf( 'Products %s are not valid products.', Strings_Helper::get_human_readable_items_list( $error_ids, 'and' ) );
 							}
 
 							throw new \WC_CLI_Exception( 'woocommerce_memberships_products_not_found', $message );

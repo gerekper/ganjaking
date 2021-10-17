@@ -839,7 +839,7 @@ class WC_Memberships_Admin_User_Memberships {
 			if ( ! empty( $keyword ) ) {
 
 				$join_users = true;
-				$keyword    = '%' . $keyword . '%';
+				$keyword    = '%' . $wpdb->esc_like( $keyword ) . '%';
 
 				if ( ! empty( $_GET['post_status'] ) ) {
 					$where_post_status = $wpdb->prepare( "$wpdb->posts.post_status = '%s'", $_GET['post_status'] );

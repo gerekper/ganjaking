@@ -14,6 +14,8 @@ class WC_Bookings_Init {
 	public function __construct() {
 		add_action( 'init', array( $this, 'init_post_types' ), 9 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'booking_form_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'booking_shared_dependencies' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'booking_shared_dependencies' ) );
 		add_filter( 'woocommerce_data_stores', array( $this, 'register_data_stores' ) );
 
 		// Load payment gateway name.
@@ -216,12 +218,23 @@ class WC_Bookings_Init {
 	 * Frontend booking form scripts
 	 */
 	public function booking_form_styles() {
-		global $wp_scripts;
-
-		$jquery_version = isset( $wp_scripts->registered['jquery-ui-core']->ver ) ? $wp_scripts->registered['jquery-ui-core']->ver : '1.11.4';
-
-		wp_enqueue_style( 'jquery-ui-style', '//ajax.googleapis.com/ajax/libs/jqueryui/' . $jquery_version . '/themes/smoothness/jquery-ui.min.css' );
+		wp_enqueue_style( 'jquery-ui-style', WC_BOOKINGS_PLUGIN_URL . '/assets/css/jquery-ui/jquery-ui.min.css', array(), '1.11.4-wc.' . WC_BOOKINGS_VERSION );
 		wp_enqueue_style( 'wc-bookings-styles', WC_BOOKINGS_PLUGIN_URL . '/dist/css/frontend.css', null, WC_BOOKINGS_VERSION );
+	}
+
+	/**
+	 * Register shared dependencies.
+	 *
+	 * @since 1.15.42
+	 */
+	public function booking_shared_dependencies() {
+		if ( version_compare( get_bloginfo( 'version' ), '5.0.0' , '<' ) ) {
+			wp_register_script( 'wc-bookings-moment', WC_BOOKINGS_PLUGIN_URL . '/dist/js/lib/moment-with-locales.js', array(), WC_BOOKINGS_VERSION, true );
+			wp_register_script( 'wc-bookings-moment-timezone', WC_BOOKINGS_PLUGIN_URL . '/dist/js/lib/moment-timezone-with-data.js', array(), WC_BOOKINGS_VERSION, true );
+			wp_register_script( 'wc-bookings-date', false, array( 'wc-bookings-moment', 'wc-bookings-moment-timezone' ) );
+		} else {
+			wp_register_script( 'wc-bookings-date', false, array( 'wp-date' ) );
+		}
 	}
 
 	/**

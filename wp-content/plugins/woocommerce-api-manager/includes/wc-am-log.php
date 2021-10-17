@@ -43,7 +43,7 @@ class WC_AM_Log {
 	public function api_debug_log( $message ) {
 		$logger = wc_get_logger();
 
-		$logger->debug( $message . PHP_EOL, array( 'source' => 'wc-am-api-debug-log' ) );
+		$logger->debug( $message . PHP_EOL, array( 'source' => 'wc-am-api-query-log' ) );
 	}
 
 	/**

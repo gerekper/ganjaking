@@ -137,6 +137,11 @@ class WC_Mix_and_Match_Compatibility {
 			$module_paths['stripe'] = 'modules/class-wc-mnm-stripe-compatibility.php';
 		}
 
+		// Quickview support for "after summary" forms.
+		if ( class_exists( 'WC_Quick_View' ) ) {
+			$module_paths['quick-view'] = 'modules/class-wc-mnm-quick-view-compatibility.php';
+		}
+
 		/**
 		 * 'wc_mnm_compatibility_modules' filter.
 		 *

@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-namespace Google\Auth;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth;
 
-use Google\Auth\Credentials\InsecureCredentials;
-use Google\Auth\Credentials\ServiceAccountCredentials;
-use Google\Auth\Credentials\UserRefreshCredentials;
-use GuzzleHttp\ClientInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Credentials\InsecureCredentials;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Credentials\ServiceAccountCredentials;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Credentials\UserRefreshCredentials;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
 
 /**
  * CredentialsLoader contains the behaviour used to locate and find default
@@ -63,11 +63,11 @@ abstract class CredentialsLoader implements
      */
     private static function getGuzzleMajorVersion()
     {
-        if (defined('GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
+        if (defined('Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
             return ClientInterface::MAJOR_VERSION;
         }
 
-        if (defined('GuzzleHttp\ClientInterface::VERSION')) {
+        if (defined('Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface::VERSION')) {
             return (int) substr(ClientInterface::VERSION, 0, 1);
         }
 
@@ -175,7 +175,7 @@ abstract class CredentialsLoader implements
         callable $tokenCallback = null
     ) {
         if (self::getGuzzleMajorVersion() === 5) {
-            $client = new \GuzzleHttp\Client($httpClientOptions);
+            $client = new \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Client($httpClientOptions);
             $client->setDefaultOption('auth', 'google_auth');
             $subscriber = new Subscriber\AuthTokenSubscriber(
                 $fetcher,
@@ -191,10 +191,10 @@ abstract class CredentialsLoader implements
             $httpHandler,
             $tokenCallback
         );
-        $stack = \GuzzleHttp\HandlerStack::create();
+        $stack = \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\HandlerStack::create();
         $stack->push($middleware);
 
-        return new \GuzzleHttp\Client([
+        return new \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Client([
             'handler' => $stack,
             'auth' => 'google_auth',
         ] + $httpClientOptions);

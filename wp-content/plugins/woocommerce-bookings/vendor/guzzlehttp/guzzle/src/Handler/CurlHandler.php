@@ -1,7 +1,7 @@
 <?php
-namespace GuzzleHttp\Handler;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler;
 
-use GuzzleHttp\Psr7;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
 use Psr\Http\Message\RequestInterface;
 
 /**

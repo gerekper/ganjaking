@@ -23,6 +23,7 @@
 
 use SkyVerge\WooCommerce\Memberships\Data_Stores;
 use SkyVerge\WooCommerce\Memberships\Frontend\Profile_Fields as Profile_Fields_Frontend;
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields\Profile_Field_Definition;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
@@ -972,16 +973,16 @@ class WC_Memberships_AJAX {
 	 *
 	 * @since 1.10.6
 	 *
-	 * @param int[] $product_ids array of product IDs that grant access to a plan upon purchase
+	 * @param int[] $access_product_ids array of product IDs that grant access to a plan upon purchase
 	 * @return int[] array of user IDs
 	 */
-	private function get_users_for_retroactive_access( array $product_ids ) {
+	private function get_users_for_retroactive_access( array $access_product_ids ) {
 		global $wpdb;
 
-		if ( ! empty( $product_ids ) ) {
+		if ( ! empty( $access_product_ids ) ) {
 
 			// get orders that contain an access granting product (or variation) to the given plan
-			$product_ids = implode( ',', array_map( 'absint', $product_ids ) );
+			$product_ids = Strings_Helper::esc_sql_in_ids( $access_product_ids );
 			$order_ids   = $wpdb->get_col(  "
 				SELECT DISTINCT posts.ID
 				FROM {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta,
@@ -996,7 +997,7 @@ class WC_Memberships_AJAX {
 			if ( ! empty( $order_ids ) ) {
 
 				// get user IDs for the found orders
-				$order_ids = implode( ',', array_map( 'absint', $order_ids ) );
+				$order_ids = Strings_Helper::esc_sql_in_ids( $order_ids );
 				$user_ids  = $wpdb->get_col( "
 					SELECT posts_meta.meta_value
 					FROM {$wpdb->prefix}postmeta AS posts_meta
@@ -1006,7 +1007,7 @@ class WC_Memberships_AJAX {
 			}
 		}
 
-		return ! empty( $user_ids ) ? array_unique( array_map( 'absint', array_values( $user_ids ) ) ): array();
+		return ! empty( $user_ids ) ? array_unique( array_map( 'absint', array_values( $user_ids ) ) ) : [];
 	}
 
 

@@ -15,20 +15,20 @@
  * limitations under the License.
  */
 
-namespace Google\Auth\Credentials;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Credentials;
 
-use Google\Auth\CredentialsLoader;
-use Google\Auth\GetQuotaProjectInterface;
-use Google\Auth\HttpHandler\HttpClientCache;
-use Google\Auth\HttpHandler\HttpHandlerFactory;
-use Google\Auth\Iam;
-use Google\Auth\ProjectIdProviderInterface;
-use Google\Auth\SignBlobInterface;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\ServerException;
-use GuzzleHttp\Psr7\Request;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\CredentialsLoader;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\GetQuotaProjectInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpClientCache;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Iam;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\ProjectIdProviderInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\SignBlobInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\ClientException;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\ConnectException;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\RequestException;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\ServerException;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Request;
 use InvalidArgumentException;
 
 /**

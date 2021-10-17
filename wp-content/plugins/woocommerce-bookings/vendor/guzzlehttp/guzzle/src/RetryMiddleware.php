@@ -1,9 +1,9 @@
 <?php
-namespace GuzzleHttp;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp;
 
-use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Promise\RejectedPromise;
-use GuzzleHttp\Psr7;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\PromiseInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\RejectedPromise;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -471,16 +472,16 @@ class WC_Memberships_Grant_Retroactive_Access extends \WC_Memberships_Job_Handle
 	private function get_products_from_orders( $orders, $access_products ) {
 		global $wpdb;
 
-		$products_per_order = array();
+		$products_per_order = [];
 
 		if ( is_numeric( $orders ) ) {
-			$orders = array( $orders );
+			$orders = [ $orders ];
 		}
 
 		if ( is_array( $orders ) && is_array( $access_products ) ) {
 
-			$product_ids = implode( ',', array_unique( array_map( 'absint', $access_products ) ) );
-			$order_ids   = implode( ',', array_unique( array_map( 'absint', $orders ) ) );
+			$product_ids = Strings_Helper::esc_sql_in_ids( (array) $access_products );
+			$order_ids   = Strings_Helper::esc_sql_in_ids( (array) $orders );
 
 			if ( ! empty( $order_ids ) && ! empty( $product_ids ) ) {
 
@@ -504,7 +505,7 @@ class WC_Memberships_Grant_Retroactive_Access extends \WC_Memberships_Job_Handle
 						if ( isset( $result->order_id, $result->product_id ) && is_numeric( $result->order_id ) && is_numeric( $result->product_id ) && (int) $result->product_id > 0 ) {
 
 							if ( ! array_key_exists( (int) $result->order_id, $products_per_order ) ) {
-								$products_per_order[ (int) $result->order_id ] = array();
+								$products_per_order[ (int) $result->order_id ] = [];
 							}
 
 							$products_per_order[ (int) $result->order_id ][] = (int) $result->product_id;

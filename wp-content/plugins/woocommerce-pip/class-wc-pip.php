@@ -35,7 +35,7 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 
 
 	/** string version number */
-	const VERSION = '3.11.3';
+	const VERSION = '3.11.4';
 
 	/** @var WC_PIP single instance of this plugin */
 	protected static $instance;
@@ -108,7 +108,7 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/class-wc-pip-lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-pip-lifecycle.php' );
 
 		$this->lifecycle_handler = new \SkyVerge\WooCommerce\PIP\Lifecycle( $this );
 	}
@@ -135,45 +135,45 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 	public function includes() {
 
 		// template functions
-		require_once( $this->get_plugin_path() . '/includes/wc-pip-template-functions.php' );
+		require_once( $this->get_plugin_path() . '/src/wc-pip-template-functions.php' );
 
 		// abstract class
-		require_once( $this->get_plugin_path() . '/includes/abstract-wc-pip-document.php' );
+		require_once( $this->get_plugin_path() . '/src/abstract-wc-pip-document.php' );
 
 		// invoices
-		require_once( $this->get_plugin_path() . '/includes/class-wc-pip-document-invoice.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-pip-document-invoice.php' );
 
 		// packing lists
-		require_once( $this->get_plugin_path() . '/includes/class-wc-pip-document-packing-list.php' );
-		require_once( $this->get_plugin_path() . '/includes/class-wc-pip-document-pick-list.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-pip-document-packing-list.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-pip-document-pick-list.php' );
 
 		// handler
-		$this->handler = $this->load_class( '/includes/class-wc-pip-handler.php', 'WC_PIP_Handler' );
+		$this->handler = $this->load_class( '/src/class-wc-pip-handler.php', 'WC_PIP_Handler' );
 
 		// print documents
-		$this->print = $this->load_class( '/includes/class-wc-pip-print.php', 'WC_PIP_Print' );
+		$this->print = $this->load_class( '/src/class-wc-pip-print.php', 'WC_PIP_Print' );
 
 		// document emails
-		$this->emails = $this->load_class( '/includes/class-wc-pip-emails.php', 'WC_PIP_Emails' );
+		$this->emails = $this->load_class( '/src/class-wc-pip-emails.php', 'WC_PIP_Emails' );
 
 		if ( is_admin() ) {
 			// admin side
 			$this->admin_includes();
 		} else {
 			// frontend side
-			$this->frontend = $this->load_class( '/includes/frontend/class-wc-pip-frontend.php', 'WC_PIP_Frontend' );
+			$this->frontend = $this->load_class( '/src/frontend/class-wc-pip-frontend.php', 'WC_PIP_Frontend' );
 		}
 
 		// ajax
 		if ( is_ajax() ) {
-			$this->ajax = $this->load_class( '/includes/class-wc-pip-ajax.php', 'WC_PIP_Ajax' );
+			$this->ajax = $this->load_class( '/src/class-wc-pip-ajax.php', 'WC_PIP_Ajax' );
 		}
 
 		// template customizer
-		$this->customizer = $this->load_class( '/includes/admin/class-wc-pip-customizer.php', 'WC_PIP_Customizer' );
+		$this->customizer = $this->load_class( '/src/admin/class-wc-pip-customizer.php', 'WC_PIP_Customizer' );
 
 		// integrations
-		$this->integrations = $this->load_class( '/includes/integrations/class-wc-pip-integrations.php', 'WC_PIP_Integrations' );
+		$this->integrations = $this->load_class( '/src/integrations/class-wc-pip-integrations.php', 'WC_PIP_Integrations' );
 	}
 
 
@@ -185,8 +185,8 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 	private function admin_includes() {
 
 		// load admin classes
-		$this->admin        = $this->load_class( '/includes/admin/class-wc-pip-admin.php', 'WC_PIP_Admin' );
-		$this->orders_admin = $this->load_class( '/includes/admin/class-wc-pip-orders-admin.php', 'WC_PIP_Orders_Admin' );
+		$this->admin        = $this->load_class( '/src/admin/class-wc-pip-admin.php', 'WC_PIP_Admin' );
+		$this->orders_admin = $this->load_class( '/src/admin/class-wc-pip-orders-admin.php', 'WC_PIP_Orders_Admin' );
 	}
 
 
@@ -408,7 +408,7 @@ class WC_PIP extends Framework\SV_WC_Plugin {
 			// Include settings so we can install defaults
 			require_once( WC()->plugin_path() . '/includes/admin/settings/class-wc-settings-page.php' );
 
-			$this->settings = $this->load_class( '/includes/admin/class-wc-pip-settings.php', 'WC_PIP_Settings' );
+			$this->settings = $this->load_class( '/src/admin/class-wc-pip-settings.php', 'WC_PIP_Settings' );
 		}
 
 		return $this->settings;

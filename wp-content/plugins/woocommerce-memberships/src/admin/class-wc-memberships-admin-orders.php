@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -84,7 +85,7 @@ class WC_Memberships_Admin_Orders {
 				if ( 0 === count( $links ) ) {
 					esc_html_e( 'none', 'woocommerce-memberships' );
 				} else {
-					echo wc_memberships_list_items( $links, 'and' );
+					echo Strings_Helper::get_human_readable_items_list( $links, 'and' );
 				}
 
 				?>

@@ -2,9 +2,9 @@
 
 namespace Yoast\WP\SEO\Premium\Integrations\Third_Party;
 
-use Yoast\WP\SEO\Conditionals\No_Conditionals;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
+use Yoast\WP\SEO\Premium\Conditionals\Algolia_Enabled_Conditional;
 use Yoast\WP\SEO\Surfaces\Meta_Surface;
 use Yoast\WP\SEO\Surfaces\Values\Meta;
 
@@ -12,8 +12,6 @@ use Yoast\WP\SEO\Surfaces\Values\Meta;
  * BbPress integration.
  */
 class Algolia implements Integration_Interface {
-
-	use No_Conditionals;
 
 	/**
 	 * The options helper.
@@ -43,6 +41,17 @@ class Algolia implements Integration_Interface {
 	}
 
 	/**
+	 * Returns the conditionals based in which this loadable should be active.
+	 *
+	 * @return array
+	 */
+	public static function get_conditionals() {
+		return [
+			Algolia_Enabled_Conditional::class,
+		];
+	}
+
+	/**
 	 * Initializes the integration.
 	 *
 	 * This is the place to register hooks and filters.
@@ -50,14 +59,12 @@ class Algolia implements Integration_Interface {
 	 * @return void
 	 */
 	public function register_hooks() {
-		if ( $this->options->get( 'algolia_integration_active' ) === true ) {
-			\add_filter( 'algolia_searchable_post_shared_attributes', [ $this, 'add_attributes_post' ], 10, 2 );
-			\add_filter( 'algolia_term_record', [ $this, 'add_attributes_term' ] );
-			\add_filter( 'algolia_user_record', [ $this, 'add_attributes_user' ] );
-			\add_filter( 'algolia_should_index_searchable_post', [ $this, 'blacklist_no_index_posts' ], 10, 2 );
-			\add_filter( 'algolia_should_index_term', [ $this, 'blacklist_no_index_terms' ], 10, 2 );
-			\add_filter( 'algolia_should_index_user', [ $this, 'blacklist_no_index_users' ], 10, 2 );
-		}
+		\add_filter( 'algolia_searchable_post_shared_attributes', [ $this, 'add_attributes_post' ], 10, 2 );
+		\add_filter( 'algolia_term_record', [ $this, 'add_attributes_term' ] );
+		\add_filter( 'algolia_user_record', [ $this, 'add_attributes_user' ] );
+		\add_filter( 'algolia_should_index_searchable_post', [ $this, 'blacklist_no_index_posts' ], 10, 2 );
+		\add_filter( 'algolia_should_index_term', [ $this, 'blacklist_no_index_terms' ], 10, 2 );
+		\add_filter( 'algolia_should_index_user', [ $this, 'blacklist_no_index_users' ], 10, 2 );
 	}
 
 	/**
@@ -69,7 +76,7 @@ class Algolia implements Integration_Interface {
 	 * @return array The attributes Algolia should index.
 	 */
 	public function add_attributes_post( $attributes, $post ) {
-		$meta = $this->meta->for_term( $post->ID );
+		$meta = $this->meta->for_post( $post->ID );
 
 		return $this->add_attributes( $attributes, $meta );
 	}

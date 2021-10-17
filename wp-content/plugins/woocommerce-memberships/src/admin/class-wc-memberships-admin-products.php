@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -45,7 +46,7 @@ class WC_Memberships_Admin_Products {
 		add_action( 'delete_post',  [ $this, 'handle_deleted_product_that_grants_access' ], 20 );
 
 		// duplicate memberships settings for products
-		add_action( 'woocommerce_product_duplicate', array( $this, 'duplicate_product_memberships_data' ), 10, 2 );
+		add_action( 'woocommerce_product_duplicate', [ $this, 'duplicate_product_memberships_data' ], 10, 2 );
 
 		// add additional bulk actions to bulk exclude products from restriction rules or member discounts
 		// TODO when WordPress 4.7 is the minimum required version, this may be updated to use new hooks {FN 2018-11-05}
@@ -93,7 +94,7 @@ class WC_Memberships_Admin_Products {
 					/* translators: Placeholder: %1$s - product name linked to edit screen, %2$s list of membership plan names linked to edit screens */
 					__( 'The product %1$s is currently set to grant membership access to %2$s. When permanently deleted, it will be removed from the list of products that grant access.', 'woocommerce-memberships' ),
 					'<a href="' . get_edit_post_link( $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id() ) . '">' . $product->get_name() . '</a>',
-					wc_memberships_list_items( $affected_plans, 'and' )
+					Strings_Helper::get_human_readable_items_list( $affected_plans, 'and' )
 				)
 			);
 		}
@@ -133,62 +134,73 @@ class WC_Memberships_Admin_Products {
 	 * @since 1.9.0
 	 *
 	 * @param \WC_Product $new_product new product being created
-	 * @param \WP_Post|\WC_Product $old_product old product being cloned
+	 * @param \WC_Product $old_product old product being cloned
 	 */
 	public function duplicate_product_memberships_data( $new_product, $old_product ) {
 
-		$new_product_id        = $new_product->get_id();
-		$old_product_id        = $old_product->get_id();
-		$old_product_post_type = get_post_type( $old_product );
+		/**
+		 * Filters whether should bail out from duplicating product memberships data.
+		 *
+		 * @since 1.22.4
+		 *
+		 * @param bool $duplicate_membership_data default true (duplicate, false will skip duplication of memberships data)
+		 * @param \WC_Product $product old product being cloned
+		 */
+		if ( false === (bool) apply_filters( 'wc_memberships_duplicate_product_memberships_data', true, $old_product ) ) {
+
+			// because `woocommerce_product_duplicate` runs after meta has been copied over, we may need to manually delete any
+			foreach ( $new_product->get_meta_data() as $meta_data ) {
+				if ( isset( $meta_data->key ) && 0 === strpos( $meta_data->key, '_wc_memberships_' ) ) {
+					wc_memberships_delete_content_meta( $new_product, $meta_data->key );
+				}
+			}
+
+			return;
+		}
+
+		$new_product_id = (int) $new_product->get_id();
+		$old_product_id = (int) $old_product->get_id();
+		$post_type      = get_post_type( $old_product->get_id() );
 
 		// get product restriction rules
-		$product_restriction_rules = wc_memberships()->get_rules_instance()->get_rules( array(
+		$product_restriction_rules = wc_memberships()->get_rules_instance()->get_rules( [
 			'rule_type'         => 'product_restriction',
 			'object_id'         => $old_product_id,
 			'content_type'      => 'post_type',
-			'content_type_name' => $old_product_post_type,
+			'content_type_name' => $post_type,
 			'exclude_inherited' => true,
 			'plan_status'       => 'any',
-		) );
+		] );
 
 		// get purchasing discount rules
-		$purchasing_discount_rules = wc_memberships()->get_rules_instance()->get_rules( array(
+		$purchasing_discount_rules = wc_memberships()->get_rules_instance()->get_rules( [
 			'rule_type'         => 'purchasing_discount',
 			'object_id'         => $old_product_id,
 			'content_type'      => 'post_type',
-			'content_type_name' => $old_product_post_type,
+			'content_type_name' => $post_type,
 			'exclude_inherited' => true,
 			'plan_status'       => 'any',
-		) );
+		] );
 
 		$product_rules = array_merge( $product_restriction_rules, $purchasing_discount_rules );
 
 		// duplicate rules
 		if ( ! empty( $product_rules ) ) {
 
-			$all_rules = get_option( 'wc_memberships_rules' );
+			$all_rules = get_option( 'wc_memberships_rules', [] );
 
 			/* @type $product_rules \WC_Memberships_Membership_Plan_Rule[] */
 			foreach ( $product_rules as $rule ) {
 
+				$rule->set_id();
+
 				$new_rule               = $rule->get_raw_data();
-				$new_rule['object_ids'] = array( $new_product_id );
-				$all_rules[]            = $new_rule;
+				$new_rule['object_ids'] = [ $new_product_id ];
+
+				$all_rules[] = $new_rule;
 			}
 
 			update_option( 'wc_memberships_rules', $all_rules );
-		}
-
-		// duplicate custom messages
-		foreach ( array( 'product_viewing_restricted', 'product_purchasing_restricted' ) as $message_type ) {
-
-			if ( $use_custom = wc_memberships_get_content_meta( $old_product, "_wc_memberships_use_custom_{$message_type}_message", true ) ) {
-				wc_memberships_set_content_meta( $new_product, "_wc_memberships_use_custom_{$message_type}_message", $use_custom );
-			}
-
-			if ( $message = wc_memberships_get_content_meta( $old_product, "_wc_memberships_{$message_type}_message", true ) ) {
-				wc_memberships_set_content_meta( $new_product, "_wc_memberships_{$message_type}_message", $message );
-			}
 		}
 
 		$plans = wc_memberships_get_membership_plans();
@@ -199,6 +211,7 @@ class WC_Memberships_Admin_Products {
 			foreach ( $plans as $plan ) {
 
 				if ( $plan->has_product( $old_product_id ) ) {
+
 					// add new product id to product ids
 					$plan->set_product_ids( $new_product_id, true );
 				}

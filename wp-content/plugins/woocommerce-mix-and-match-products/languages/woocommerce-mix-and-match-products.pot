@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Mix and Match Products 1.11.2\n"
+"Project-Id-Version: WooCommerce Mix and Match Products 1.11.3\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n"
-"POT-Creation-Date: 2021-06-14 23:30:32+00:00\n"
+"POT-Creation-Date: 2021-09-21 20:53:23+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -327,11 +327,8 @@ msgid "Unserializing instances of this class is forbidden."
 msgstr ""
 
 #: includes/class-wc-mix-and-match.php:242
-#: woocommerce-mix-and-match-products.php:47
 #. translators: %1$s is opening link to WordPress plugin site. 2$s is closing
 #. link. %3$s is minimum version of WooCommerce.
-#. Translators: %1$s opening <a> tag for link. %2$s closing </a> tag. %3$s
-#. minimum required WooCommerce version number.
 msgid ""
 "<strong>WooCommerce Mix and Match is inactive.</strong> The %1$sWooCommerce "
 "plugin%2$s must be active and at least version %3$s for Mix and Match to "
@@ -734,7 +731,7 @@ msgstr ""
 msgid "Grid"
 msgstr ""
 
-#: includes/compatibility/class-wc-mnm-compatibility.php:162
+#: includes/compatibility/class-wc-mnm-compatibility.php:167
 msgid ""
 "The <strong>WooCommerce Mix and Match: Min/Max Quantities</strong> "
 "mini-extension is now part of <strong>WooCommerce Mix and Match</strong>. "
@@ -742,7 +739,7 @@ msgid ""
 "Quantities</strong> plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-mnm-compatibility.php:167
+#: includes/compatibility/class-wc-mnm-compatibility.php:172
 msgid ""
 "The <strong>WC Mix and Match Grid</strong> mini-extension is now part of "
 "<strong>WooCommerce Mix and Match</strong> and should be deactivated and "
@@ -750,14 +747,14 @@ msgid ""
 "options) for any product you'd like to use it with."
 msgstr ""
 
-#: includes/compatibility/class-wc-mnm-compatibility.php:172
+#: includes/compatibility/class-wc-mnm-compatibility.php:177
 msgid ""
 "The <strong>WC Mix and Match: Per-Item Discount</strong> mini-extension is "
 "now part of <strong>WooCommerce Mix and Match</strong>. Please deactivate "
 "and remove the<strong>WC Mix and Match: Per-Item Discount</strong> plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-mnm-compatibility.php:177
+#: includes/compatibility/class-wc-mnm-compatibility.php:182
 msgid ""
 "The <strong>Mix and Match: Lightbox</strong> mini-extension is now part of "
 "<strong>WooCommerce Mix and Match</strong>. Please deactivate and remove "
@@ -1001,12 +998,21 @@ msgstr ""
 msgid "Reset configuration"
 msgstr ""
 
+#: woocommerce-mix-and-match-products.php:47
+#. Translators: %1$s opening <a> tag for link. %2$s closing </a> tag. %3$s
+#. minimum required WooCommerce version number.
+msgid ""
+"<strong>WooCommerce Mix and Match Products is inactive.</strong> The "
+"%1$sWooCommerce plugin%2$s must be active and at least version %3$s for Mix "
+"and Match to function. Please upgrade or activate WooCommerce."
+msgstr ""
+
 #: woocommerce-mix-and-match-products.php:61
 #. Translators: %1$s link to documentation. %2$s minimum required PHP version
 #. number.
 msgid ""
-"WooCommerce Name Your Price requires at least PHP <strong>%1$s</strong>. "
-"Learn <a href=\"%2$s\">how to update PHP</a>."
+"WooCommerce Mix and Match Products requires at least PHP "
+"<strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
 msgstr ""
 
 #. Plugin URI of the plugin/theme

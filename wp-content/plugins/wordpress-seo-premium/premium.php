@@ -29,7 +29,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	const PLUGIN_VERSION_NAME = '17.2';
+	const PLUGIN_VERSION_NAME = '17.3';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -94,7 +94,6 @@ class WPSEO_Premium {
 			'redirect-export-manager'      => new WPSEO_Premium_Redirect_Export_Manager(),
 			'keyword-export-manager'       => new WPSEO_Premium_Keyword_Export_Manager(),
 			'orphaned-post-filter'         => new WPSEO_Premium_Orphaned_Post_Filter(),
-			'request-free-translations'    => new WPSEO_Premium_Free_Translations(),
 			'expose-javascript-shortlinks' => new WPSEO_Premium_Expose_Shortlinks(),
 			'multi-keyword'                => new WPSEO_Multi_Keyword(),
 			'siblings-block'               => new Siblings_Block( YoastSEO()->classes->get( Indexable_Repository::class ) ),

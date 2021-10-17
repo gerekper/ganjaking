@@ -20,9 +20,9 @@ namespace Google\Http;
 use Google\Client;
 use Google\Http\REST;
 use Google\Service\Exception as GoogleServiceException;
-use GuzzleHttp\Psr7;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Request;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

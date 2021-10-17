@@ -2,7 +2,13 @@
 
 namespace Yoast\WP\SEO\Premium\Routes;
 
+use WP_REST_Response;
+use WPSEO_Meta;
+use WPSEO_Redirect;
+use WPSEO_Redirect_Manager;
+use WPSEO_Taxonomy_Meta;
 use Yoast\WP\SEO\Builders\Indexable_Term_Builder;
+use Yoast\WP\SEO\Helpers\Post_Type_Helper;
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Premium\Actions\Link_Suggestions_Action;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
@@ -46,6 +52,27 @@ class Workouts_Route implements Route_Interface {
 	const LINK_SUGGESTIONS_ROUTE = '/workouts/link_suggestions';
 
 	/**
+	 * Represents a cornerstones route.
+	 *
+	 * @var string
+	 */
+	const CORNERSTONE_DATA_ROUTE = '/workouts/cornerstone_data';
+
+	/**
+	 * Represents an enable cornerstone route.
+	 *
+	 * @var string
+	 */
+	const ENABLE_CORNERSTONE = '/workouts/enable_cornerstone';
+
+	/**
+	 * Represents a most linked route.
+	 *
+	 * @var string
+	 */
+	const MOST_LINKED_ROUTE = '/workouts/most_linked';
+
+	/**
 	 * Represents a last_updated route.
 	 *
 	 * @var string
@@ -59,10 +86,10 @@ class Workouts_Route implements Route_Interface {
 	 */
 	const ALLOWED_CORNERSTONE_STEPS = [
 		'chooseCornerstones',
-		'markCornerstones',
-		'checkCornerstones',
 		'checkLinks',
 		'addLinks',
+		'improved',
+		'skipped',
 	];
 
 	/**
@@ -77,6 +104,7 @@ class Workouts_Route implements Route_Interface {
 		'removed',
 		'noindexed',
 		'improved',
+		'skipped',
 	];
 
 	/**
@@ -101,22 +129,32 @@ class Workouts_Route implements Route_Interface {
 	private $indexable_term_builder;
 
 	/**
+	 * The post type helper.
+	 *
+	 * @var Post_Type_Helper
+	 */
+	private $post_type_helper;
+
+	/**
 	 * Workouts_Route constructor.
 	 *
 	 * @param Indexable_Repository    $indexable_repository    The indexable repository.
 	 * @param Link_Suggestions_Action $link_suggestions_action The link suggestions action.
 	 * @param Indexable_Term_Builder  $indexable_term_builder  The indexable term builder.
+	 * @param Post_Type_Helper        $post_type_helper        The post type helper.
 	 *
 	 * @return void
 	 */
 	public function __construct(
 		Indexable_Repository $indexable_repository,
 		Link_Suggestions_Action $link_suggestions_action,
-		Indexable_Term_Builder $indexable_term_builder
+		Indexable_Term_Builder $indexable_term_builder,
+		Post_Type_Helper $post_type_helper
 	) {
 		$this->indexable_repository    = $indexable_repository;
 		$this->link_suggestions_action = $link_suggestions_action;
 		$this->indexable_term_builder  = $indexable_term_builder;
+		$this->post_type_helper        = $post_type_helper;
 	}
 
 	/**
@@ -241,15 +279,45 @@ class Workouts_Route implements Route_Interface {
 		];
 
 		\register_rest_route( Main::API_V1_NAMESPACE, self::LAST_UPDATED_ROUTE, $last_updated_route );
+
+		$cornerstone_data_route = [
+			[
+				'methods'             => 'GET',
+				'callback'            => [ $this, 'get_cornerstone_data' ],
+				'permission_callback' => $edit_others_posts,
+			],
+		];
+
+		\register_rest_route( Main::API_V1_NAMESPACE, self::CORNERSTONE_DATA_ROUTE, $cornerstone_data_route );
+
+		$enable_cornerstone_route = [
+			[
+				'methods'             => 'POST',
+				'callback'            => [ $this, 'enable_cornerstone' ],
+				'permission_callback' => $edit_others_posts,
+				'args'                => [
+					'object_id' => [
+						'type'     => 'integer',
+						'required' => true,
+					],
+					'object_type' => [
+						'type'     => 'string',
+						'required' => true,
+					],
+				],
+			],
+		];
+
+		\register_rest_route( Main::API_V1_NAMESPACE, self::ENABLE_CORNERSTONE, $enable_cornerstone_route );
 	}
 
 	/**
 	 * Returns the workouts as configured for the site.
 	 *
-	 * @return \WP_REST_Response the configuration of the workouts.
+	 * @return WP_REST_Response the configuration of the workouts.
 	 */
 	public function get_workouts() {
-		return new \WP_REST_Response(
+		return new WP_REST_Response(
 			[ 'json' => \YoastSEO()->helpers->options->get( 'workouts' ) ]
 		);
 	}
@@ -257,9 +325,9 @@ class Workouts_Route implements Route_Interface {
 	/**
 	 * Sets the workout configuration.
 	 *
-	 * @param \WP_Rest_Request $request The request object.
+	 * @param WP_Rest_Request $request The request object.
 	 *
-	 * @return \WP_REST_Response the configuration of the workouts.
+	 * @return WP_REST_Response the configuration of the workouts.
 	 */
 	public function set_workouts( $request ) {
 		$value = [
@@ -267,16 +335,18 @@ class Workouts_Route implements Route_Interface {
 			'orphaned'    => $request['orphaned'],
 		];
 
-		if ( isset( $value['orphaned']['indexablesByStep'] ) && \is_array( $value['orphaned']['indexablesByStep'] ) ) {
-			foreach ( $value['orphaned']['indexablesByStep'] as $step => $indexables ) {
-				if ( $step === 'removed' ) {
-					continue;
+		foreach ( $value as $workout => $data ) {
+			if ( isset( $data['indexablesByStep'] ) && \is_array( $data['indexablesByStep'] ) ) {
+				foreach ( $data['indexablesByStep'] as $step => $indexables ) {
+					if ( $step === 'removed' ) {
+						continue;
+					}
+					$value[ $workout ]['indexablesByStep'][ $step ] = \wp_list_pluck( $indexables, 'id' );
 				}
-				$value['orphaned']['indexablesByStep'][ $step ] = \wp_list_pluck( $indexables, 'id' );
 			}
 		}
 
-		return new \WP_REST_Response(
+		return new WP_REST_Response(
 			[ 'json' => \YoastSEO()->helpers->options->set( 'workouts', $value ) ]
 		);
 	}
@@ -284,29 +354,60 @@ class Workouts_Route implements Route_Interface {
 	/**
 	 * Sets noindex on an indexable.
 	 *
-	 * @param \WP_Rest_Request $request The request object.
+	 * @param WP_Rest_Request $request The request object.
 	 *
-	 * @return \WP_REST_Response the configuration of the workouts.
+	 * @return WP_REST_Response the configuration of the workouts.
 	 */
 	public function noindex( $request ) {
 		if ( $request['object_type'] === 'post' ) {
-			\WPSEO_Meta::set_value( 'meta-robots-noindex', 1, $request['object_id'] );
+			WPSEO_Meta::set_value( 'meta-robots-noindex', 1, $request['object_id'] );
 		}
 		elseif ( $request['object_type'] === 'term' ) {
-			\WPSEO_Taxonomy_Meta::set_value( $request['object_id'], $request['object_sub_type'], 'noindex', 'noindex' );
+			WPSEO_Taxonomy_Meta::set_value( $request['object_id'], $request['object_sub_type'], 'noindex', 'noindex' );
 			// Rebuild the indexable as WPSEO_Taxonomy_Meta does not trigger any actions on which term indexables are rebuild.
 			$indexable = $this->indexable_term_builder->build( $request['object_id'], $this->indexable_repository->find_by_id_and_type( $request['object_id'], $request['object_type'] ) );
 			if ( is_a( $indexable, Indexable::class ) ) {
 				$indexable->save();
 			}
 			else {
-				return new \WP_REST_Response(
+				return new WP_REST_Response(
 					[ 'json' => false ]
 				);
 			}
 		}
 
-		return new \WP_REST_Response(
+		return new WP_REST_Response(
+			[ 'json' => true ]
+		);
+	}
+
+	/**
+	 * Enables cornerstone on an indexable.
+	 *
+	 * @param WP_Rest_Request $request The request object.
+	 *
+	 * @return WP_REST_Response the configuration of the workouts.
+	 */
+	public function enable_cornerstone( $request ) {
+		if ( $request['object_type'] === 'post' ) {
+			WPSEO_Meta::set_value( 'is_cornerstone', 1, $request['object_id'] );
+		}
+		elseif ( $request['object_type'] === 'term' ) {
+			$term = \get_term( $request['object_id'] );
+			WPSEO_Taxonomy_Meta::set_value( $request['object_id'], $term->taxonomy, 'is_cornerstone', '1' );
+			// Rebuild the indexable as WPSEO_Taxonomy_Meta does not trigger any actions on which term indexables are rebuild.
+			$indexable = $this->indexable_term_builder->build( $request['object_id'], $this->indexable_repository->find_by_id_and_type( $request['object_id'], $request['object_type'] ) );
+			if ( is_a( $indexable, Indexable::class ) ) {
+				$indexable->save();
+			}
+			else {
+				return new WP_REST_Response(
+					[ 'json' => false ]
+				);
+			}
+		}
+
+		return new WP_REST_Response(
 			[ 'json' => true ]
 		);
 	}
@@ -314,32 +415,36 @@ class Workouts_Route implements Route_Interface {
 	/**
 	 * Removes an indexable and redirects it.
 	 *
-	 * @param \WP_Rest_Request $request The request object.
+	 * @param WP_Rest_Request $request The request object.
 	 *
-	 * @return \WP_REST_Response the configuration of the workouts.
+	 * @return WP_REST_Response the configuration of the workouts.
 	 */
 	public function remove_redirect( $request ) {
 		if ( $request['object_type'] === 'post' ) {
+			\add_filter( 'Yoast\WP\SEO\enable_notification_post_trash', '__return_false' );
 			\wp_trash_post( $request['object_id'] );
+			\remove_filter( 'Yoast\WP\SEO\enable_notification_post_trash', '__return_false' );
 		}
 		elseif ( $request['object_type'] === 'term' ) {
+			\add_filter( 'Yoast\WP\SEO\enable_notification_term_delete', '__return_false' );
 			\wp_delete_term( $request['object_id'], $request['object_sub_type'] );
+			\remove_filter( 'Yoast\WP\SEO\enable_notification_term_delete', '__return_false' );
 		}
 		else {
-			return new \WP_REST_Response(
+			return new WP_REST_Response(
 				[ 'json' => false ]
 			);
 		}
 
-		$redirect         = new \WPSEO_Redirect(
+		$redirect         = new WPSEO_Redirect(
 			$request['permalink'],
 			$request['redirect_url'],
 			'301',
 			'plain'
 		);
-		$redirect_manager = new \WPSEO_Redirect_Manager( 'plain' );
+		$redirect_manager = new WPSEO_Redirect_Manager( 'plain' );
 		$redirect_manager->create_redirect( $redirect );
-		return new \WP_REST_Response(
+		return new WP_REST_Response(
 			[ 'json' => true ]
 		);
 	}
@@ -347,36 +452,76 @@ class Workouts_Route implements Route_Interface {
 	/**
 	 * Sets noindex on an indexable.
 	 *
-	 * @param \WP_Rest_Request $request The request object.
+	 * @param WP_Rest_Request $request The request object.
 	 *
-	 * @return \WP_REST_Response the configuration of the workouts.
+	 * @return WP_REST_Response the configuration of the workouts.
 	 */
 	public function get_link_suggestions( $request ) {
 		$suggestions = $this->link_suggestions_action->get_indexable_suggestions_for_indexable(
 			$request['indexableId'],
-			5
+			5,
+			false
 		);
 
 		foreach ( $suggestions as $index => $suggestion ) {
 			$suggestions[ $index ]['edit_link'] = ( $suggestion['object_type'] === 'post' ) ? \get_edit_post_link( $suggestion['object_id'] ) : \get_edit_term_link( $suggestion['object_id'] );
 		}
 
-		return new \WP_REST_Response(
+		return new WP_REST_Response(
 			[ 'json' => $suggestions ]
+		);
+	}
+
+	/**
+	 * Gets the cornerstone indexables
+	 *
+	 * @return WP_REST_Response the configuration of the workouts.
+	 */
+	public function get_cornerstone_data() {
+		$cornerstones = $this->indexable_repository->query()
+			->where_raw( '( post_status= \'publish\' OR post_status IS NULL ) AND is_cornerstone = 1' )
+			->where_in( 'object_type', [ 'term', 'post' ] )
+			->where_in( 'object_sub_type', $this->get_public_sub_types() )
+			->order_by_asc( 'breadcrumb_title' )
+			->find_many();
+
+		$cornerstones = \array_map( [ $this->indexable_repository, 'ensure_permalink' ], $cornerstones );
+		$cornerstones = \array_map( [ $this, 'map_subtypes_to_singular_name' ], $cornerstones );
+
+		$most_linked = $this->indexable_repository->query()
+			->where_gt( 'incoming_link_count', 0 )
+			->where_not_null( 'incoming_link_count' )
+			->where_raw( '( post_status = \'publish\' OR post_status IS NULL )' )
+			->where_in( 'object_sub_type', $this->get_public_sub_types() )
+			->where_in( 'object_type', [ 'term', 'post' ] )
+			->where_raw( '( is_robots_noindex = 0 OR is_robots_noindex IS NULL )' )
+			->order_by_desc( 'incoming_link_count' )
+			->limit( 20 )
+			->find_many();
+		$most_linked = \array_map( [ $this->indexable_repository, 'ensure_permalink' ], $most_linked );
+		$most_linked = \array_map( [ $this, 'map_subtypes_to_singular_name' ], $most_linked );
+
+		return new WP_REST_Response(
+			[
+				'json' => [
+					'cornerstones' => $cornerstones,
+					'mostLinked'   => $most_linked,
+				],
+			]
 		);
 	}
 
 	/**
 	 * Gets the last updated for a particular post Id.
 	 *
-	 * @param \WP_Rest_Request $request The request object.
+	 * @param WP_Rest_Request $request The request object.
 	 *
-	 * @return \WP_REST_Response the configuration of the workouts.
+	 * @return WP_REST_Response the configuration of the workouts.
 	 */
 	public function get_last_updated( $request ) {
 		$post = \get_post( $request['postId'] );
 
-		return new \WP_REST_Response(
+		return new WP_REST_Response(
 			[ 'json' => $post->post_modified ]
 		);
 	}
@@ -423,5 +568,41 @@ class Workouts_Route implements Route_Interface {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Maps an array of indexables and replaces the object_sub_type with the singular name of that type.
+	 *
+	 * @param Indexable $indexable An Indexable in array format.
+	 * @return Indexable[] The new array.
+	 */
+	public function map_subtypes_to_singular_name( Indexable $indexable ) {
+		if ( $indexable->object_type === 'post' ) {
+			$post_type_labels           = \get_post_type_labels( \get_post_type_object( \get_post_type( $indexable->object_id ) ) );
+			$indexable->object_sub_type = $post_type_labels->singular_name;
+		}
+		else {
+			$taxonomy_labels            = \get_taxonomy_labels( \get_taxonomy( $indexable->object_sub_type ) );
+			$indexable->object_sub_type = $taxonomy_labels->singular_name;
+		}
+		return $indexable;
+	}
+
+	/**
+	 * Get public sub types.
+	 *
+	 * @return array The subtypes.
+	 */
+	protected function get_public_sub_types() {
+		$object_sub_types = \array_values(
+			\array_merge(
+				$this->post_type_helper->get_public_post_types(),
+				\get_taxonomies( [ 'public' => true ] )
+			)
+		);
+
+		$excluded_post_types = apply_filters( 'wpseo_indexable_excluded_post_types', [ 'attachment' ] );
+		$object_sub_types    = array_diff( $object_sub_types, $excluded_post_types );
+		return $object_sub_types;
 	}
 }

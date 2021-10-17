@@ -350,6 +350,7 @@ class WC_Booking_Cart_Manager {
 					'display' => '',
 				);
 				if ( isset( $cart_item['booking']['time'] ) ) {
+					$cart_item['booking']['date'] = date_i18n( wc_bookings_date_format(), $booking->get_start( 'view', true ) );
 					$cart_item['booking']['time'] = date_i18n( wc_bookings_time_format(), $booking->get_start( 'view', true ) );
 				}
 			}

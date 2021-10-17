@@ -75,10 +75,6 @@ class WC_Bookings_Details_Meta_Box {
 			}
 		}
 
-		if ( $booking->get_start() && $booking->get_end() && $booking->get_start() > $booking->get_end() ) {
-			echo '<div class="error"><p>' . esc_html__( 'This booking has an end date set before the start date.', 'woocommerce-bookings' ) . '</p></div>';
-		}
-
 		if ( ! $product || ( $booking->get_product_id() && ! wc_get_product( $booking->get_product_id() ) ) ) {
 			echo '<div class="error"><p>' . esc_html__( 'It appears the booking product associated with this booking has been removed.', 'woocommerce-bookings' ) . '</p></div>';
 			return;
@@ -171,7 +167,7 @@ class WC_Bookings_Details_Meta_Box {
 						</p>
 
 						<p class="form-field form-field-wide"><label for="booking_date"><?php esc_html_e( 'Date created:', 'woocommerce-bookings' ); ?></label>
-							<input type="text" class="date-picker-field" name="booking_date" id="booking_date" maxlength="10" value="<?php echo esc_attr( date_i18n( 'Y-m-d', $booking->get_date_created() ) ); ?>" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" /> @ <input type="number" class="hour" placeholder="<?php esc_attr_e( 'h', 'woocommerce-bookings' ); ?>" name="booking_date_hour" id="booking_date_hour" maxlength="2" size="2" value="<?php echo esc_attr( date_i18n( 'H', $booking->get_date_created() ) ); ?>" pattern="\-?\d+(\.\d{0,})?" />:<input type="number" class="minute" placeholder="<?php esc_attr_e( 'm', 'woocommerce-bookings' ); ?>" name="booking_date_minute" id="booking_date_minute" maxlength="2" size="2" value="<?php echo esc_attr( date_i18n( 'i', $booking->get_date_created() ) ); ?>" pattern="\-?\d+(\.\d{0,})?" />
+							<input type="text" class="date-picker-field" name="booking_date" id="booking_date" maxlength="10" value="<?php echo esc_attr( date_i18n( 'Y-m-d', $booking->get_date_created() ) ); ?>" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" /> @ <input type="number" class="hour" placeholder="<?php esc_attr_e( 'h', 'woocommerce-bookings' ); ?>" name="booking_date_hour" id="booking_date_hour" maxlength="2" size="2" value="<?php echo esc_attr( date_i18n( 'H', $booking->get_date_created() ) ); ?>" min="0" max="23" />:<input type="number" class="minute" placeholder="<?php esc_attr_e( 'm', 'woocommerce-bookings' ); ?>" name="booking_date_minute" id="booking_date_minute" maxlength="2" size="2" value="<?php echo esc_attr( date_i18n( 'i', $booking->get_date_created() ) ); ?>" min="0" max="59" />
 						</p>
 
 						<p class="form-field form-field-wide">
@@ -550,13 +546,60 @@ class WC_Bookings_Details_Meta_Box {
 		// When that is patched in core we can use the above. For now:
 		self::$saved_meta_box = true;
 
+		$start_date = wc_clean( $_POST['booking_start_date'] );
+		$end_date   = wc_clean( $_POST['booking_end_date'] );
+
+		if ( strtotime( $end_date ) < strtotime( $start_date ) ) {
+			WC_Admin_Notices::add_custom_notice(
+				'bookings_invalid_date_range',
+				'<strong>' . esc_html__( 'Bookings', 'woocommerce-bookings' ) . '</strong> ' . esc_html__( 'Start date cannot be greater than end date.', 'woocommerce-bookings' )
+			);
+			return $post_id;
+		}
+
+		/**
+		 * Server-side validation for start and end dates to check if the format
+		 * is yyyy-mm-dd in case client-side validation fails.
+		 */
+		$is_valid_start_date = DateTime::createFromFormat( 'Y-m-d', $start_date );
+		$is_valid_end_date   = DateTime::createFromFormat( 'Y-m-d', $end_date );
+
+		if ( false === $is_valid_start_date || false === $is_valid_end_date ) {
+			WC_Admin_Notices::add_custom_notice(
+				'bookings_invalid_date_format',
+				'<strong>' . esc_html__( 'Bookings', 'woocommerce-bookings' ) . '</strong> ' . esc_html__( 'Date should be of the format yyyy-mm-dd and cannot be empty.', 'woocommerce-bookings' )
+			);
+
+			return $post_id;
+		}
+
+		if ( WC_Admin_Notices::has_notice( 'bookings_invalid_date_format' ) ) {
+			WC_Admin_Notices::remove_notice( 'bookings_invalid_date_format' );
+		}
+
+		if ( WC_Admin_Notices::has_notice( 'bookings_invalid_date_range' ) ) {
+			WC_Admin_Notices::remove_notice( 'bookings_invalid_date_range' );
+		}
+
+		$booking_start_time = wc_clean( $_POST['booking_start_time'] );
+		$booking_end_time   = wc_clean( $_POST['booking_end_time'] );
+
+		if ( empty( $booking_start_time ) ) {
+			$booking_start_time = '00:00';
+		}
+
+		if ( empty( $booking_end_time ) ) {
+			$booking_end_time = '23:59';
+		}
+
 		// Get booking object.
 		$booking    = new WC_Booking( $post_id );
 		$product_id = wc_clean( $_POST['product_or_resource_id'] ) ?: $booking->get_product_id();
-		$start_date = explode( '-', wc_clean( $_POST['booking_start_date'] ) );
-		$end_date   = explode( '-', wc_clean( $_POST['booking_end_date'] ) );
-		$start_time = explode( ':', wc_clean( $_POST['booking_start_time'] ) );
-		$end_time   = explode( ':', wc_clean( $_POST['booking_end_time'] ) );
+
+		$end_date   = explode( '-', $end_date );
+		$start_date = explode( '-', $start_date );
+		$start_time = explode( ':', $booking_start_time );
+		$end_time   = explode( ':', $booking_end_time );
 		$start      = mktime( $start_time[0], $start_time[1], 0, $start_date[1], $start_date[2], $start_date[0] );
 		$end        = mktime( $end_time[0], $end_time[1], 0, $end_date[1], $end_date[2], $end_date[0] );
 

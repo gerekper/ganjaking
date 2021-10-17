@@ -73,8 +73,7 @@ class WC_Booking_Form {
 		wp_enqueue_script( 'wc-bookings-booking-form', WC_BOOKINGS_PLUGIN_URL . '/dist/frontend.js', array( 'jquery', 'jquery-blockui', 'jquery-ui-datepicker', 'underscore' ), WC_BOOKINGS_VERSION, true );
 		wp_localize_script( 'wc-bookings-booking-form', 'wc_bookings_booking_form', $wc_bookings_booking_form_args );
 		wp_localize_script( 'wc-bookings-booking-form', 'wc_bookings_date_picker_args', $wc_bookings_date_picker_args );
-		wp_enqueue_script( 'wc-bookings-moment', WC_BOOKINGS_PLUGIN_URL . '/dist/js/lib/moment-with-locales.js', array(), WC_BOOKINGS_VERSION, true );
-		wp_enqueue_script( 'wc-bookings-moment-timezone', WC_BOOKINGS_PLUGIN_URL . '/dist/js/lib/moment-timezone-with-data.js', array(), WC_BOOKINGS_VERSION, true );
+		wp_enqueue_script( 'wc-bookings-date' );
 
 		// Variables for JS scripts
 		$booking_form_params = array(
@@ -287,7 +286,7 @@ class WC_Booking_Form {
 			if ( $resource->get_block_cost() && ! $this->product->get_display_cost() ) {
 				$duration      = $this->product->get_duration();
 				$duration_unit = $this->product->get_duration_unit();
-				
+
 				if ( in_array( $duration_unit, array( 'minute', 'hour' ) ) ) {
 					$duration_unit = _n( 'block', 'blocks', $duration, 'woocommerce-bookings' );
 				} else if ( in_array( $duration_unit, array( 'day') ) ) {

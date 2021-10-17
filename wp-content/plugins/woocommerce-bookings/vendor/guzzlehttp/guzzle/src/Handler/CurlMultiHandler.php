@@ -1,9 +1,9 @@
 <?php
-namespace GuzzleHttp\Handler;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler;
 
-use GuzzleHttp\Promise as P;
-use GuzzleHttp\Promise\Promise;
-use GuzzleHttp\Utils;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise as P;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\Promise;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Utils;
 use Psr\Http\Message\RequestInterface;
 
 /**

@@ -12,6 +12,7 @@ use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Premium\Actions\Link_Suggestions_Action;
 use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
+use Yoast\WP\SEO\Premium\Routes\Workouts_Route;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
 /**
@@ -143,116 +144,72 @@ class Workouts_Integration implements Integration_Interface {
 		}
 
 		$this->admin_asset_manager->enqueue_style( 'monorepo' );
-		$cornerstone_guide = $this->shortlinker->build_shortlink( 'https://yoa.st/4el' );
-		$orphaned_guide    = $this->shortlinker->build_shortlink( 'https://yoa.st/4fa' );
-		$workouts_option   = $this->options_helper->get( 'workouts' );
-		$object_sub_types  = \array_values(
-			\array_merge(
-				$this->post_type_helper->get_public_post_types(),
-				\get_taxonomies( [ 'public' => true ] )
-			)
-		);
 
-		$excluded_post_types = apply_filters( 'wpseo_indexable_excluded_post_types', [ 'attachment' ] );
-		$object_sub_types    = array_diff( $object_sub_types, $excluded_post_types );
-		$default_category_id = get_option( 'default_category' );
+		$workouts_option = $this->options_helper->get( 'workouts' );
 
-		$cornerstones = $this->indexable_repository->query()
-			->where_raw( '(post_status=\'publish\' OR post_status IS NULL) AND is_cornerstone=1' )
-			->where_in( 'object_type', [ 'term', 'post' ] )
-			->where_in( 'object_sub_type', $object_sub_types )
-			->order_by_desc( 'incoming_link_count' )
-			->find_many();
-		$cornerstones = \array_map( [ $this->indexable_repository, 'ensure_permalink' ], $cornerstones );
-
-		$improvables = array_slice( $cornerstones, -3, 3, true );
-		$improvables = array_map(
-			function( Indexable $improvable ) {
-				$improvable                = $improvable->as_array();
-				$improvable['suggestions'] = $this->link_suggestions_action->get_indexable_suggestions_for_indexable(
-					$improvable['id'],
-					5
-				);
-				foreach ( $improvable['suggestions'] as $index => $suggestion ) {
-					$improvable['suggestions'][ $index ]['edit_link'] = ( $suggestion['object_type'] === 'post' ) ? \get_edit_post_link( $suggestion['object_id'] ) : \get_edit_term_link( $suggestion['object_id'] );
-				}
-				return $improvable;
-			},
-			$improvables
-		);
-
-		$most_linked = $this->indexable_repository->query()
-			->where_gt( 'incoming_link_count', 0 )
-			->where_not_null( 'incoming_link_count' )
-			->where_raw( '(post_status=\'publish\' OR post_status IS NULL)' )
-			->where_in( 'object_sub_type', $object_sub_types )
-			->where_in( 'object_type', [ 'term', 'post' ] )
-			->order_by_desc( 'incoming_link_count' )
-			->limit( 20 )
-			->find_many();
-		$most_linked = \array_map( [ $this->indexable_repository, 'ensure_permalink' ], $most_linked );
-
-		$indexable_ids_in_orphaned_workout = [ 0 ];
+		$indexable_ids_in_workouts = [ 0 ];
 		if (
 			isset( $workouts_option['orphaned']['indexablesByStep'] ) &&
-			is_array( $workouts_option['orphaned']['indexablesByStep'] )
+			is_array( $workouts_option['orphaned']['indexablesByStep'] ) &&
+			isset( $workouts_option['cornerstone']['indexablesByStep'] ) &&
+			is_array( $workouts_option['cornerstone']['indexablesByStep'] )
 		) {
-			foreach ( $workouts_option['orphaned']['indexablesByStep'] as $step => $indexables ) {
-				if ( $step === 'removed' ) {
-					continue;
-				}
-				foreach ( $indexables as $indexable_id ) {
-					$indexable_ids_in_orphaned_workout[] = $indexable_id;
+			foreach ( [ 'orphaned', 'cornerstone' ] as $workout ) {
+				foreach ( $workouts_option[ $workout ]['indexablesByStep'] as $step => $indexables ) {
+					if ( $step === 'removed' ) {
+						continue;
+					}
+					foreach ( $indexables as $indexable_id ) {
+						$indexable_ids_in_workouts[] = $indexable_id;
+					}
 				}
 			}
 
-			$indexables_in_orphaned_workout = $this->indexable_repository->find_by_ids( $indexable_ids_in_orphaned_workout );
-			foreach ( $workouts_option['orphaned']['indexablesByStep'] as $step => $indexables ) {
-				if ( $step === 'removed' ) {
-					continue;
-				}
-				$workouts_option['orphaned']['indexablesByStep'][ $step ] = \array_values(
-					\array_filter(
-						\array_map(
-							function( $indexable_id ) use ( $indexables_in_orphaned_workout, $default_category_id ) {
-								foreach ( $indexables_in_orphaned_workout as $updated_indexable ) {
-									if ( \is_array( $indexable_id ) ) {
-										$indexable_id = $indexable_id['id'];
-									}
-									if ( (int) $indexable_id === $updated_indexable->id ) {
-										if ( $updated_indexable->post_status !== 'publish' && $updated_indexable->post_status !== null ) {
-											return false;
-										}
-										if ( $updated_indexable->object_id === $default_category_id && $updated_indexable->object_type === 'term' ) {
-											return false;
-										}
-										if ( $updated_indexable->is_robots_noindex ) {
-											return false;
-										}
-										return $updated_indexable;
-									}
-								}
-								return false;
-							},
-							$indexables
-						)
+			$indexables_in_workouts = $this->indexable_repository->find_by_ids( $indexable_ids_in_workouts );
+
+			foreach ( [ 'orphaned', 'cornerstone' ] as $workout ) {
+				$workouts_option[ $workout ]['finishedSteps'] = \array_values(
+					\array_intersect(
+						$workouts_option[ $workout ]['finishedSteps'],
+						[
+							'orphaned'    => Workouts_Route::ALLOWED_ORPHANED_STEPS,
+							'cornerstone' => Workouts_Route::ALLOWED_CORNERSTONE_STEPS,
+						][ $workout ]
 					)
 				);
+				foreach ( $workouts_option[ $workout ]['indexablesByStep'] as $step => $indexables ) {
+					if ( $step === 'removed' ) {
+						continue;
+					}
+					$workouts_option[ $workout ]['indexablesByStep'][ $step ] = \array_values(
+						\array_filter(
+							\array_map(
+								function( $indexable_id ) use ( $indexables_in_workouts ) {
+									foreach ( $indexables_in_workouts as $updated_indexable ) {
+										if ( \is_array( $indexable_id ) ) {
+											$indexable_id = $indexable_id['id'];
+										}
+										if ( (int) $indexable_id === $updated_indexable->id ) {
+											if ( $updated_indexable->post_status !== 'publish' && $updated_indexable->post_status !== null ) {
+												return false;
+											}
+											if ( $updated_indexable->is_robots_noindex ) {
+												return false;
+											}
+											return $updated_indexable;
+										}
+									}
+									return false;
+								},
+								$indexables
+							)
+						)
+					);
+				}
 			}
 		}
 
-		$orphaned = $this->indexable_repository->query()
-			->where_raw( '( incoming_link_count is NULL OR incoming_link_count < 3 )' )
-			->where_raw( '( post_status = \'publish\' OR post_status IS NULL )' )
-			->where_raw( '( is_robots_noindex = FALSE OR is_robots_noindex IS NULL )' )
-			->where_raw( '( object_id != %s OR object_type != \'term\' )', $default_category_id )
-			->where_in( 'object_sub_type', $object_sub_types )
-			->where_in( 'object_type', [ 'term', 'post' ] )
-			->where_not_in( 'id', $indexable_ids_in_orphaned_workout )
-			->order_by_asc( 'created_at' )
-			->limit( 10 )
-			->find_many();
-		$orphaned = \array_map( [ $this->indexable_repository, 'ensure_permalink' ], $orphaned );
+		$orphaned = $this->get_orphaned( $indexable_ids_in_workouts );
 
 		\wp_enqueue_style( 'yoast-seo-premium-workouts' );
 		$premium_localization = new WPSEO_Premium_Asset_JS_L10n();
@@ -262,16 +219,14 @@ class Workouts_Integration implements Integration_Interface {
 			'yoast-seo-premium-workouts',
 			'wpseoWorkoutsData',
 			[
-				'cornerstones'              => \array_map( [ $this, 'map_subtypes_to_singular_name' ], $cornerstones ),
-				'improvables'               => \array_values( $improvables ),
-				'mostLinked'                => \array_map( [ $this, 'map_subtypes_to_singular_name' ], $most_linked ),
-				'cornerstoneGuide'          => $cornerstone_guide,
-				'orphanedGuide'             => $orphaned_guide,
+				'cornerstoneGuide'          => $this->shortlinker->build_shortlink( 'https://yoa.st/4el' ),
+				'orphanedGuide'             => $this->shortlinker->build_shortlink( 'https://yoa.st/4fa' ),
 				'workouts'                  => $workouts_option,
 				'cornerstoneOn'             => $this->options_helper->get( 'enable_cornerstone_content' ),
 				'seoDataOptimizationNeeded' => ! $this->prominent_words_helper->is_indexing_completed(),
 				'orphaned'                  => $orphaned,
 				'homeUrl'                   => \home_url(),
+				'toolsPageUrl'              => \esc_url( \admin_url( 'admin.php?page=wpseo_tools' ) ),
 			]
 		);
 	}
@@ -299,5 +254,45 @@ class Workouts_Integration implements Integration_Interface {
 	 */
 	public function render_target() {
 		echo '<div id="wpseo-workouts-container"></div>';
+	}
+
+	/**
+	 * Retrieves the public indexable sub types.
+	 *
+	 * @return array The sub types.
+	 */
+	protected function get_public_sub_types() {
+		$object_sub_types = \array_values(
+			\array_merge(
+				$this->post_type_helper->get_public_post_types(),
+				\get_taxonomies( [ 'public' => true ] )
+			)
+		);
+
+		$excluded_post_types = apply_filters( 'wpseo_indexable_excluded_post_types', [ 'attachment' ] );
+		$object_sub_types    = array_diff( $object_sub_types, $excluded_post_types );
+		return $object_sub_types;
+	}
+
+	/**
+	 * Gets the orphaned indexables.
+	 *
+	 * @param array   $indexable_ids_in_orphaned_workout The orphaned indexable ids.
+	 * @param integer $limit The limit.
+	 * @return array The orphaned indexables.
+	 */
+	protected function get_orphaned( array $indexable_ids_in_orphaned_workout, $limit = 10 ) {
+		$orphaned = $this->indexable_repository->query()
+			->where_raw( '( incoming_link_count is NULL OR incoming_link_count < 3 )' )
+			->where_raw( '( post_status = \'publish\' OR post_status IS NULL )' )
+			->where_raw( '( is_robots_noindex = FALSE OR is_robots_noindex IS NULL )' )
+			->where_in( 'object_sub_type', $this->get_public_sub_types() )
+			->where_in( 'object_type', [ 'post' ] )
+			->where_not_in( 'id', $indexable_ids_in_orphaned_workout )
+			->order_by_asc( 'created_at' )
+			->limit( $limit )
+			->find_many();
+		$orphaned = \array_map( [ $this->indexable_repository, 'ensure_permalink' ], $orphaned );
+		return $orphaned;
 	}
 }

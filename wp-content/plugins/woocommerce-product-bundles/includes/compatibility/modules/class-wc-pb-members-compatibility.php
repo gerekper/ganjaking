@@ -102,6 +102,11 @@ class WC_PB_Members_Compatibility {
 			return $discount;
 		}
 
+		// Don't recalculate discounts, avoid infinite loops.
+		if ( self::$calculating_inherited_discounts ) {
+			return $discount;
+		}
+
 		// Flag to prevent 'exclude_bundled_product_from_member_discounts' from kicking in.
 		self::$calculating_inherited_discounts = true;
 

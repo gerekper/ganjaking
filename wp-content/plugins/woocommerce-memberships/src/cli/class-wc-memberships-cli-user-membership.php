@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 /**
@@ -161,7 +162,7 @@ class WC_Memberships_CLI_User_Membership extends \WC_Memberships_CLI_Command {
 				if ( $this->is_valid_membership_status( $data['status'] ) ) {
 					$status = $data['status'];
 				} else {
-					throw new \WC_CLI_Exception( 'woocommerce_memberships_invalid_status', sprintf( 'The status "%1$s" is not a valid User Membership status. Please use one of the following: %2$s', $data['status'], wc_memberships_list_items( $this->get_membership_status_keys(), 'or' ) ) );
+					throw new \WC_CLI_Exception( 'woocommerce_memberships_invalid_status', sprintf( 'The status "%1$s" is not a valid User Membership status. Please use one of the following: %2$s', $data['status'], Strings_Helper::get_human_readable_items_list( $this->get_membership_status_keys(), 'or' ) ) );
 				}
 			}
 
@@ -309,7 +310,7 @@ class WC_Memberships_CLI_User_Membership extends \WC_Memberships_CLI_Command {
 				if ( $this->is_valid_membership_status( $data['status'] ) ) {
 					$status = $data['status'];
 				} else {
-					throw new \WC_CLI_Exception( 'woocommerce_memberships_invalid_status', sprintf( 'The status "%1$s" is not a valid User Membership status. Please use one of the following: %2$s', $data['status'], wc_memberships_list_items( $this->get_membership_status_keys(), 'or' ) ) );
+					throw new \WC_CLI_Exception( 'woocommerce_memberships_invalid_status', sprintf( 'The status "%1$s" is not a valid User Membership status. Please use one of the following: %2$s', $data['status'], Strings_Helper::get_human_readable_items_list( $this->get_membership_status_keys(), 'or' ) ) );
 				}
 			}
 

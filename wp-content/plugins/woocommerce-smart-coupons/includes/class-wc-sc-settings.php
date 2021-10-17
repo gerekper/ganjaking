@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.0
+ * @version     1.9.1
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -291,9 +291,9 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 		}
 
 		/**
-		 * Function to get smart coupons admin settings
+		 * Function to get Smart Coupons admin settings
 		 *
-		 * @return array $sc_settings smart coupons admin settings.
+		 * @return array $sc_settings Smart Coupons admin settings.
 		 */
 		public function get_settings() {
 			global $store_credit_label;

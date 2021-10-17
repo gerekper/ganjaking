@@ -1,6 +1,6 @@
 <?php
 
-namespace GuzzleHttp\Promise;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise;
 
 /**
  * Represents a promise that iterates over many promises and invokes

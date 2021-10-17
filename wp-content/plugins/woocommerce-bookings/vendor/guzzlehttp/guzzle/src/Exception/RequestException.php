@@ -1,7 +1,7 @@
 <?php
-namespace GuzzleHttp\Exception;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception;
 
-use GuzzleHttp\Promise\PromiseInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;

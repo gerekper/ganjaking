@@ -35,17 +35,9 @@ use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
  * @param string $conjunction optional, the word to join together the penultimate and last item - use 'and' or 'or', or pass a translatable string alternative
  * @return string e.g. "item1, item2, item3 or item4" -- "item1, item2, item3 and item4"
  */
-function wc_memberships_list_items( $items, $conjunction = '' ) {
+function wc_memberships_list_items( array $items, string $conjunction = '' ) : string {
 
-	if ( ! $conjunction || 'or' === $conjunction ) {
-		$conjunction = __( 'or', 'woocommerce-memberships' );
-	} elseif ( 'and' === $conjunction ) {
-		$conjunction = __( 'and', 'woocommerce-memberships' );
-	}
-
-	array_splice( $items, -2, 2, implode( ' ' . $conjunction . ' ', array_slice( $items, -2, 2 ) ) );
-
-	return implode( ', ', $items );
+	return \SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper::get_human_readable_items_list( $items, $conjunction );
 }
 
 

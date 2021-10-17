@@ -42,12 +42,6 @@ class Sensei extends Courseware {
 	/** @var string course post type */
 	protected $course_post_type = 'course';
 
-	/** @var int original current user ID */
-	private $original_current_user_id;
-
-	/** @var int temporary current user ID */
-	private $temporary_current_user_id;
-
 
 	/**
 	 * Adds action and filter hooks.
@@ -167,63 +161,31 @@ class Sensei extends Courseware {
 	 */
 	protected function has_user_completed_course_prerequisites( int $user_id, int $course_id ) : bool {
 
-		// Since Sensei does not provide allow passing a user ID to the is_prerequisite_complete() check, we need
-		// to temporarily set the current user to the user we need.
-		$this->set_temporary_current_user_id( $user_id );
+		if ( ! is_callable( 'Sensei_Course::is_prerequisite_complete' ) ) {
+			return false;
+		}
 
-		$is_complete = is_callable( 'Sensei_Course::is_prerequisite_complete' ) && \Sensei_Course::is_prerequisite_complete( $course_id );
+		/**
+		 * Since Sensei does not provide allow passing a user ID to
+		 * {@see \Sensei_Course::is_prerequisite_complete()},
+		 * we need to temporarily set the current user to the user we need.
+		 * {@see \get_user_by()} is used to ensure a user for the given ID exists.
+		 */
+		$current_user   = wp_get_current_user();
+		$temporary_user = get_user_by( 'id', $user_id );
 
-		$this->reset_current_user_id();
+		// this shouldn't happen, but better safe than sorry
+		if ( ! $temporary_user || ! $current_user || ! $current_user->ID ) {
+			return false;
+		}
+
+		wp_set_current_user( $temporary_user->ID );
+
+		$is_complete = \Sensei_Course::is_prerequisite_complete( $course_id );
+
+		wp_set_current_user( $current_user->ID );
 
 		return $is_complete;
-	}
-
-
-	/**
-	 * Sets the current user temporarily to the user id given.
-	 *
-	 * @since 1.22.0
-	 *
-	 * @param int $user_id
-	 */
-	private function set_temporary_current_user_id( int $user_id ) {
-
-		$this->temporary_current_user_id = $user_id;
-
-		add_filter( 'determine_current_user', [ $this, 'use_temporary_current_user_id' ] );
-	}
-
-
-	/**
-	 * Resets the current user ID.
-	 *
-	 * @since 1.22.0
-	 */
-	private function reset_current_user_id() {
-
-		$this->temporary_current_user_id = null;
-
-		remove_filter( 'determine_current_user', [ $this, 'use_temporary_current_user_id' ] );
-
-		wp_set_current_user( $this->original_current_user_id );
-	}
-
-
-	/**
-	 * Gets the temporary current user ID.
-	 *
-	 * @internal
-	 *
-	 * @since 1.22.0
-	 *
-	 * @param null $user_id
-	 * @return int|null
-	 */
-	public function use_temporary_current_user_id( $user_id = null ) {
-
-		$this->original_current_user_id = $user_id;
-
-		return $this->temporary_current_user_id;
 	}
 
 
@@ -242,7 +204,14 @@ class Sensei extends Courseware {
 			return;
 		}
 
-		\Sensei_Course_Enrolment::get_course_instance( $course_id )->save_enrolment( $user_id, true );
+		// provides some loose backwards compatibility as the `enrol` method here was updated more recently
+		if ( $course = \Sensei_Course_Enrolment::get_course_instance( $course_id ) ) {
+			if ( is_callable( [ $course, 'enrol' ] ) ) {
+				$course->enrol( $user_id );
+			} else {
+				$course->save_enrolment( $user_id, true );
+			}
+		}
 	}
 
 
@@ -269,6 +238,27 @@ class Sensei extends Courseware {
 		}
 
 		return $courses;
+	}
+
+
+	/**
+	 * Gets the temporary current user ID.
+	 *
+	 * @internal
+	 * @deprecated since 1.22.4
+	 *
+	 * @TODO remove this deprecated method by August 2022 or version 2.0.0 {unfulvio 2021-08-2021}
+	 *
+	 * @since 1.22.0
+	 *
+	 * @param null $user_id
+	 * @return int|null
+	 */
+	public function use_temporary_current_user_id( $user_id = null ) {
+
+		wc_deprecated_function( __METHOD__, '1.22.4', 'wp_set_current_user()' );
+
+		return $user_id;
 	}
 
 

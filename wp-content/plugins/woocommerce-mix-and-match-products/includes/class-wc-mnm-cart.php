@@ -683,7 +683,7 @@ class WC_Mix_and_Match_Cart {
 				}
 
 				// Check stock for stock-managed bundled items when adding to cart. If out of stock, don't proceed.
-				if ( 'add-to-cart' === $context ) {
+				if ( $is_valid && 'add-to-cart' === $context ) {
 					$is_valid = $mnm_stock->validate_stock(
                         array(
 						'context'         => $context,

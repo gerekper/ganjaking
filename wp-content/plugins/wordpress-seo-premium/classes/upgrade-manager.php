@@ -102,6 +102,28 @@ class WPSEO_Upgrade_Manager {
 		if ( version_compare( $version_number, '17.2-RC0', '<' ) ) {
 			add_action( 'init', [ $this, 'upgrade_17_2' ], 12 );
 		}
+
+		if ( version_compare( $version_number, '17.3-RC4', '<' ) ) {
+			add_action( 'init', [ $this, 'upgrade_17_3' ], 12 );
+		}
+	}
+
+	/**
+	 * Clears the first step of the orphaned workout.
+	 *
+	 * @return void
+	 */
+	public function upgrade_17_3() {
+		$workouts_option = WPSEO_Options::get( 'workouts' );
+
+		if (
+			isset( $workouts_option['orphaned'] ) &&
+			isset( $workouts_option['orphaned']['indexablesByStep'] ) &&
+			is_array( $workouts_option['orphaned']['indexablesByStep'] )
+		) {
+			$workouts_option['orphaned']['indexablesByStep']['improveRemove'] = [];
+			WPSEO_Options::set( 'workouts', $workouts_option );
+		}
 	}
 
 	/**

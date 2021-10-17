@@ -1,7 +1,7 @@
 <?php
-namespace GuzzleHttp\Handler;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler;
 
-use GuzzleHttp\Psr7\Response;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -50,8 +50,8 @@ final class EasyHandle
 
         // HTTP-version SP status-code SP reason-phrase
         $startLine = explode(' ', array_shift($this->headers), 3);
-        $headers = \GuzzleHttp\headers_from_lines($this->headers);
-        $normalizedKeys = \GuzzleHttp\normalize_header_keys($headers);
+        $headers = \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\headers_from_lines($this->headers);
+        $normalizedKeys = \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\normalize_header_keys($headers);
 
         if (!empty($this->options['decode_content'])
             && isset($normalizedKeys['content-encoding'])

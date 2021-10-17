@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace Google\Auth\Credentials;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Credentials;
 
 /*
  * The AppIdentityService class is automatically defined on App Engine,
@@ -23,9 +23,9 @@ namespace Google\Auth\Credentials;
  * PHP fatal error in the App Engine environment.
  */
 use google\appengine\api\app_identity\AppIdentityService;
-use Google\Auth\CredentialsLoader;
-use Google\Auth\ProjectIdProviderInterface;
-use Google\Auth\SignBlobInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\CredentialsLoader;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\ProjectIdProviderInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\SignBlobInterface;
 
 /**
  * AppIdentityCredentials supports authorization on Google App Engine.

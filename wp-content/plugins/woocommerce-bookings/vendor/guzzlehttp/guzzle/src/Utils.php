@@ -1,7 +1,7 @@
 <?php
-namespace GuzzleHttp;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp;
 
-use GuzzleHttp\Exception\InvalidArgumentException;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\InvalidArgumentException;
 use Psr\Http\Message\UriInterface;
 use Symfony\Polyfill\Intl\Idn\Idn;
 

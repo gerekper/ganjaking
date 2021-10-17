@@ -253,14 +253,12 @@ class WC_AM_Smart_Cache {
 	 * @param array $data
 	 */
 	public function refresh_cache( $data ) {
-		$trans_hash = '';
-
 		/**
 		 * Triggered by the API.
 		 */
 		if ( ! empty( $data[ 'api_key' ] ) && ! empty( $data[ 'product_id' ] ) ) {
 			// Refresh Product specific Authenticated API cache.
-			$trans_hash = md5( $data[ 'api_key' ] . $data[ 'product_id' ] );
+			$this->delete_api_cache( $data );
 
 			// Refresh Product specific database API Resource cache.
 			if ( ! empty( $data[ 'resources' ] ) ) {
@@ -304,8 +302,11 @@ class WC_AM_Smart_Cache {
 		} elseif ( ! empty( $data[ 'admin_resources' ] ) ) {
 			// Refresh Product specific Authenticated API cache.
 			if ( ! empty( $data[ 'admin_resources' ][ 'api_key' ] ) && ! empty( $data[ 'admin_resources' ][ 'product_id' ] ) ) {
-				// If this is from WC_AM_Order()->clear_database_cache() then $trans_hash will be empty array.
-				$trans_hash = md5( $data[ 'admin_resources' ][ 'api_key' ] . $data[ 'admin_resources' ][ 'product_id' ] );
+				$this->delete_api_cache( array(
+					                         'api_key'    => $data[ 'admin_resources' ][ 'api_key' ],
+					                         'product_id' => $data[ 'admin_resources' ][ 'product_id' ],
+					                         'instance'   => ! empty( $data[ 'admin_resources' ][ 'instance' ] ) ? $data[ 'admin_resources' ][ 'instance' ] : ''
+				                         ) );
 			}
 
 			// $mac           = WC_AM_USER()->get_master_api_key( $data[ 'admin_resources' ][ 'user_id' ] );
@@ -341,22 +342,6 @@ class WC_AM_Smart_Cache {
 				WC_AM_Log()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_api_resources_for_user_id_sort_by_product_title() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e );
 			}
 		}
-
-		// Delete API Cache. Not enough information to refresh cache.
-		if ( ! empty( $trans_hash ) ) {
-			$trans_keys = array(
-				'wc_am_api_status_func_data_' . $trans_hash,
-				'wc_am_api_status_func_top_level_data_' . $trans_hash,
-				'wc_am_api_information_func_response_active_' . $trans_hash,
-				'wc_am_api_information_func_data_active_' . $trans_hash,
-				'wc_am_api_information_func_top_level_data_active_' . $trans_hash,
-				'wc_am_api_update_func_response_active_' . $trans_hash,
-				'wc_am_api_update_func_data_active_' . $trans_hash,
-				'wc_am_api_update_func_top_level_data_active_' . $trans_hash
-			);
-
-			$this->queue_delete_transient( $trans_keys );
-		}
 	}
 
 	/**
@@ -371,14 +356,12 @@ class WC_AM_Smart_Cache {
 	 *
 	 */
 	public function delete_cache( $data, $refresh = false ) {
-		$trans_hash = '';
-
 		/**
 		 * Triggered by the API.
 		 */
 		if ( ! empty( $data[ 'api_key' ] ) && ! empty( $data[ 'product_id' ] ) ) {
 			// Delete Product specific Authenticated API cache.
-			$trans_hash = ! empty( $data[ 'instance' ] ) ? md5( $data[ 'api_key' ] . $data[ 'product_id' ] . $data[ 'instance' ] ) : md5( $data[ 'api_key' ] . $data[ 'product_id' ] );
+			$this->delete_api_cache( $data );
 
 			// Delete Product specific database API Resource cache.
 			if ( ! empty( $data[ 'resources' ] ) ) {
@@ -417,8 +400,12 @@ class WC_AM_Smart_Cache {
 		} elseif ( ! empty( $data[ 'admin_resources' ] ) ) { // From the Order screen API Resource Activations metabox, or My Account screen Activation, delete button.
 			// Delete Product specific Authenticated API cache.
 			if ( ! empty( $data[ 'admin_resources' ][ 'api_key' ] ) && ! empty( $data[ 'admin_resources' ][ 'product_id' ] ) ) {
-				// If this is from WC_AM_Order()->clear_database_cache() then $trans_hash will be empty array.
-				$trans_hash = ! empty( $data[ 'admin_resources' ][ 'instance' ] ) ? md5( $data[ 'admin_resources' ][ 'api_key' ] . $data[ 'admin_resources' ][ 'product_id' ] . $data[ 'admin_resources' ][ 'instance' ] ) : md5( $data[ 'admin_resources' ][ 'api_key' ] . $data[ 'admin_resources' ][ 'product_id' ] );
+				// If this is from WC_AM_Order()->delete_cache() then delete_api_cache() is skipped.
+				$this->delete_api_cache( array(
+					                         'api_key'    => $data[ 'admin_resources' ][ 'api_key' ],
+					                         'product_id' => $data[ 'admin_resources' ][ 'product_id' ],
+					                         'instance'   => ! empty( $data[ 'admin_resources' ][ 'instance' ] ) ? $data[ 'admin_resources' ][ 'instance' ] : ''
+				                         ) );
 			}
 
 			$mac           = WC_AM_USER()->get_master_api_key( $data[ 'admin_resources' ][ 'user_id' ] );
@@ -452,21 +439,47 @@ class WC_AM_Smart_Cache {
 				}
 			}
 		}
+	}
 
-		// Delete API Cache. Not enough information to refresh cache.
-		if ( ! empty( $trans_hash ) ) {
-			$trans_keys = array(
-				'wc_am_api_status_func_data_' . $trans_hash,
-				'wc_am_api_status_func_top_level_data_' . $trans_hash,
-				'wc_am_api_information_func_response_active_' . $trans_hash,
-				'wc_am_api_information_func_data_active_' . $trans_hash,
-				'wc_am_api_information_func_top_level_data_active_' . $trans_hash,
-				'wc_am_api_update_func_response_active_' . $trans_hash,
-				'wc_am_api_update_func_data_active_' . $trans_hash,
-				'wc_am_api_update_func_top_level_data_active_' . $trans_hash
+	/**
+	 * Delete product specific API cache.
+	 *
+	 * @since 2.4.9
+	 *
+	 * @param array $args
+	 */
+	private function delete_api_cache( $args = array() ) {
+		$trans_hash_status = '';
+
+		if ( ! empty( $args[ 'instance' ] ) ) {
+			// Authenticated queries.
+			$trans_hash_status          = md5( $args[ 'api_key' ] . $args[ 'product_id' ] . $args[ 'instance' ] );
+			$trans_hash_info_and_update = md5( $args[ 'api_key' ] . $args[ 'product_id' ] );
+		} else {
+			// Unauthenticated query for information only.
+			$trans_hash_info_and_update = md5( $args[ 'product_id' ] );
+		}
+
+		if ( ! empty( $args[ 'instance' ] ) && ! empty( $trans_hash_status ) ) {
+			$trans_keys_status = array(
+				'wc_am_api_status_func_data_' . $trans_hash_status,
+				'wc_am_api_status_func_top_level_data_' . $trans_hash_status,
 			);
 
-			$this->queue_delete_transient( $trans_keys );
+			$this->queue_delete_transient( $trans_keys_status );
+		}
+
+		if ( ! empty( $trans_hash_info_and_update ) ) {
+			$trans_keys_info_and_update = array(
+				'wc_am_api_information_func_response_active_' . $trans_hash_info_and_update,
+				'wc_am_api_information_func_data_active_' . $trans_hash_info_and_update,
+				'wc_am_api_information_func_top_level_data_active_' . $trans_hash_info_and_update,
+				'wc_am_api_update_func_response_active_' . $trans_hash_info_and_update,
+				'wc_am_api_update_func_data_active_' . $trans_hash_info_and_update,
+				'wc_am_api_update_func_top_level_data_active_' . $trans_hash_info_and_update
+			);
+
+			$this->queue_delete_transient( $trans_keys_info_and_update );
 		}
 	}
 

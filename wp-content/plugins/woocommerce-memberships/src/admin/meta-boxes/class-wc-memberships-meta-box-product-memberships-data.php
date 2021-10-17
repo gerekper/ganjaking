@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -484,7 +485,7 @@ class WC_Memberships_Meta_Box_Product_Memberships_Data extends \WC_Memberships_M
 									<?php foreach ( $variation_grants_access_to_plans as $variation_id => $access_plan ) : ?>
 
 										<?php if ( $variation_product = wc_get_product( $variation_id ) ) : ?>
-											<strong><?php echo esc_html( $variation_product->get_formatted_name() ); ?></strong>: <?php echo wc_memberships_list_items( $variation_grants_access_to_plans, 'and' ); ?>.<br />
+											<strong><?php echo esc_html( $variation_product->get_formatted_name() ); ?></strong>: <?php echo Strings_Helper::get_human_readable_items_list( $variation_grants_access_to_plans, 'and' ); ?>.<br />
 										<?php endif; ?>
 
 									<?php endforeach; ?>

@@ -1,5 +1,5 @@
 <?php
-namespace GuzzleHttp;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp;
 
 /**
  * This class contains a list of built-in Guzzle request options.

@@ -17,13 +17,13 @@
 
 namespace Google\Http;
 
-use Google\Auth\HttpHandler\HttpHandlerFactory;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
 use Google\Client;
 use Google\Task\Runner;
 use Google\Service\Exception as GoogleServiceException;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\Response;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\RequestException;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -89,7 +89,7 @@ class REST
 
       $response = $e->getResponse();
       // specific checking for Guzzle 5: convert to PSR7 response
-      if ($response instanceof \GuzzleHttp\Message\ResponseInterface) {
+      if ($response instanceof \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Message\ResponseInterface) {
         $response = new Response(
             $response->getStatusCode(),
             $response->getHeaders() ?: [],

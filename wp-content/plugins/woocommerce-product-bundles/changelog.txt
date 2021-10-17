@@ -1,5 +1,10 @@
 *** WooCommerce Product Bundles ***
 
+2021.10.01 - version 6.12.5
+* Dev - Added 'bundled_item_reset_variation_image' JS filter to make variation image reset logic for optional bundled items customizable.
+* Fix - Fixed an infinite loop affecting discounts when using Memberships.
+* Fix - Fixed missing notices.
+
 2021.09.24 - version 6.12.4
 * Fix - Fixed incorrect early returns in 'set_notice_option'.
 

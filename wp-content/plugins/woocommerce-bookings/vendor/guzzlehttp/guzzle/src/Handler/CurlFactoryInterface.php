@@ -1,5 +1,5 @@
 <?php
-namespace GuzzleHttp\Handler;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler;
 
 use Psr\Http\Message\RequestInterface;
 

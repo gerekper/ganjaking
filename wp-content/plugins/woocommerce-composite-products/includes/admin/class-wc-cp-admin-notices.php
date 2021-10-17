@@ -200,7 +200,7 @@ class WC_CP_Admin_Notices {
 	public static function output_notices() {
 
 		$saved_notices = get_option( 'wc_cp_meta_box_notices', array() );
-		$notices       = $saved_notices + self::$admin_notices;
+		$notices       = array_merge( self::$admin_notices, $saved_notices );
 
 		if ( ! empty( $notices ) ) {
 

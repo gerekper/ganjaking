@@ -525,9 +525,9 @@ class WC_Points_Rewards_Admin {
 				'id'       => 'wc_points_rewards_earn_points_rounding',
 				'default'  => 'round',
 				'options'  => array(
-					'round' => 'Round to nearest integer',
-					'floor' => 'Always round down',
-					'ceil'  => 'Always round up',
+					'round' => __( 'Round to nearest integer', 'woocommerce-points-and-rewards' ),
+					'floor' => __( 'Always round down', 'woocommerce-points-and-rewards' ),
+					'ceil'  => __( 'Always round up', 'woocommerce-points-and-rewards' ),
 				),
 				'type'     => 'select'
 			),

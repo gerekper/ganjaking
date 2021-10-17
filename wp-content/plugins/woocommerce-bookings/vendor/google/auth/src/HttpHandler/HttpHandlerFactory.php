@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Auth\HttpHandler;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Client;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
 
 class HttpHandlerFactory
 {
@@ -33,9 +33,9 @@ class HttpHandlerFactory
         $client = $client ?: new Client();
 
         $version = null;
-        if (defined('GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
+        if (defined('Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
             $version = ClientInterface::MAJOR_VERSION;
-        } elseif (defined('GuzzleHttp\ClientInterface::VERSION')) {
+        } elseif (defined('Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface::VERSION')) {
             $version = (int) substr(ClientInterface::VERSION, 0, 1);
         }
 

@@ -96,6 +96,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				'filename'     => 'workouts-' . $version . WPSEO_CSSJS_SUFFIX . '.js',
 				'dependencies' => [
 					'clipboard',
+					'lodash',
 					'wp-api-fetch',
 					'wp-a11y',
 					'wp-components',
@@ -107,6 +108,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'react-select',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'yoast-components',
 				],
 			],

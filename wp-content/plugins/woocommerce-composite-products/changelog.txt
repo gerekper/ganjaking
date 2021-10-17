@@ -1,5 +1,9 @@
 *** WooCommerce Composite Products ***
 
+2021.10.04 - version 8.3.3
+* Fix - Fixed missing notices.
+* Tweak - Improved compatibility with Memberships.
+
 2021.09.24 - version 8.3.2
 * Fix - Fixed incorrect early returns in 'set_notice_option'.
 

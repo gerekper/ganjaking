@@ -132,6 +132,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		add_action( 'woocommerce_api_wc_bookings_google_calendar', array( $this, 'oauth_redirect_custom' ) );
 
 		add_action( 'init', array( $this, 'register_booking_update_hooks' ) );
+		add_action( 'woocommerce_booking_in-cart_to_unpaid', array( $this, 'sync_cod_booking' ), 10, 2 );
 
 		add_action( 'woocommerce_before_booking_global_availability_object_save', array( $this, 'sync_global_availability' ) );
 
@@ -430,6 +431,40 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 
 		add_action( 'woocommerce_booking_cancelled', array( $this, 'remove_booking' ) );
 		add_action( 'woocommerce_booking_process_meta', array( $this, 'sync_edited_booking' ) );
+	}
+
+	/**
+	 * Syncs bookings to Google Calendar that are made using COD
+	 * payment method.
+	 *
+	 * @param int        $booking_id Booking id.
+	 * @param WC_Booking $booking    Booking object.
+	 * @see https://github.com/woocommerce/woocommerce-bookings/issues/2755#issuecomment-829304974
+	 */
+	public function sync_cod_booking( $booking_id, $booking ) {
+		/**
+		 * Filter to enable/disable syncing of bookings that are made
+		 * using COD payment method.
+		 *
+		 * @param int        $booking_id Booking id.
+		 * @param WC_Booking $booking    Booking object.
+		 */
+		if ( ! apply_filters( 'woocommerce_booking_sync_cod_bookings', true, $booking_id, $booking ) ) {
+			return;
+		}
+
+		$order = $booking->get_order();
+
+		if ( false === $order ) {
+			return;
+		}
+
+		$payment_method = $order->get_payment_method();
+
+		// Only sync with google calendar if payment method is `COD`.
+		if ( 'cod' === $payment_method ) {
+			$this->sync_booking( $booking_id );
+		}
 	}
 
 	/**
@@ -1073,7 +1108,26 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		);
 
 		$client = $this->get_client();
-		$client->setAccessToken( $access_token );
+
+		try {
+			$client->setAccessToken( $access_token );
+
+			if ( WC_Admin_Notices::has_notice( 'bookings_google_calendar_invalid_token_error' ) ) {
+				WC_Admin_Notices::remove_notice( 'bookings_google_calendar_invalid_token_error' );
+			}
+		} catch( Exception $e ) {
+			$this->log(
+				$e->getMessage(),
+				array(),
+				WC_Log_Levels::ERROR
+			);
+
+			WC_Admin_Notices::add_custom_notice(
+				'bookings_google_calendar_invalid_token_error',
+				'<strong>' . esc_html__( 'Google Calendar', 'woocommerce-bookings' ) . '</strong> ' . $e->getMessage()
+			);
+		}
+
 		unset( $access_token['refresh_token'] ); // unset this since we store it in an option.
 		set_transient( 'wc_bookings_gcalendar_access_token', $access_token, self::TOKEN_TRANSIENT_TIME );
 		update_option( 'wc_bookings_gcalendar_refresh_token', $client->getRefreshToken() );

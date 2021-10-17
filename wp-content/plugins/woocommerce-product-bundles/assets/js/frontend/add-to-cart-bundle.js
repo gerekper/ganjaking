@@ -899,9 +899,11 @@ jQuery.fn.wc_get_bundle_script = function() {
 						bundled_item.$self.find( '.bundled_item_qty_col .quantity' ).addClass( 'quantity_hidden' );
 
 						// Reset image in bundled_product_images div.
-						bundled_item.maybe_add_wc_core_gallery_class();
-						bundled_item.$bundled_item_cart.trigger( 'reset_image' );
-						bundled_item.maybe_remove_wc_core_gallery_class();
+						if ( bundled_item.reset_variation_image() ) {
+							bundled_item.maybe_add_wc_core_gallery_class();
+							bundled_item.$bundled_item_cart.trigger( 'reset_image' );
+							bundled_item.maybe_remove_wc_core_gallery_class();
+						}
 					}
 
 					bundled_item.update_selection_title();
@@ -913,7 +915,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 				.on( 'found_variation', function( event, variation ) {
 
-					bundled_item.variation_id = variation.variation_id.toString();
+					bundled_item.set_variation_id( variation.variation_id );
 
 					var variation_price         = variation.price,
 					    variation_regular_price = variation.regular_price;
@@ -945,7 +947,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 					bundled_item.maybe_remove_wc_core_gallery_class();
 
 					// If the bundled item is optional and not selected, reset the variable product image.
-					if ( bundled_item.is_optional() && ! bundled_item.has_single_variation() && ! bundled_item.$self.find( '.bundled_product_optional_checkbox input' ).is( ':checked' ) ) {
+					if ( bundled_item.reset_variation_image() ) {
 						bundled_item.maybe_add_wc_core_gallery_class();
 						bundled_item.$bundled_item_cart.trigger( 'reset_image' );
 						bundled_item.maybe_remove_wc_core_gallery_class();
@@ -987,7 +989,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 				.on( 'woocommerce_variation_select_change', function( event ) {
 
-					bundled_item.variation_id = '';
+					bundled_item.set_variation_id( '' );
 
 					bundle.price_data.quantities_available[ bundled_item.bundled_item_id ]            = '';
 					bundle.price_data.is_in_stock[ bundled_item.bundled_item_id ]                     = '';
@@ -2189,6 +2191,10 @@ jQuery.fn.wc_get_bundle_script = function() {
 			return this.variation_id;
 		};
 
+		this.set_variation_id = function( value ) {
+			this.variation_id = value.toString();
+		};
+
 		this.get_variation_data = function() {
 			return this.$bundled_item_cart.data( 'product_variations' );
 		};
@@ -2493,6 +2499,14 @@ jQuery.fn.wc_get_bundle_script = function() {
 			}
 
 			return false;
+		};
+
+		this.has_configurable_attributes = function() {
+			return this.$attribute_select_config.length > 0;
+		};
+
+		this.reset_variation_image = function() {
+			return bundle.filters.apply_filters( 'bundled_item_reset_variation_image', [ this.is_optional() && ! this.is_selected() && this.has_configurable_attributes(), this ] );
 		};
 
 		this.is_nyp = function() {

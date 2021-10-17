@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -347,7 +348,7 @@ class WC_Memberships_Meta_Box_Membership_Plan_Data extends \WC_Memberships_Meta_
 						data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-memberships' ); ?>">
 						<?php $products = $membership_plan->get_products(); ?>
 						<?php foreach ( $products as $product_id => $product ) : ?>
-							<option value="<?php echo $product_id; ?>" selected><?php echo esc_html( $product->get_formatted_name() ); ?></option>
+							<option value="<?php echo $product_id; ?>" selected><?php echo esc_html( strip_tags( $product->get_formatted_name() ) ); ?></option>
 						<?php endforeach; ?>
 					</select>
 					<?php echo wc_help_tip( __( 'Leave empty to only allow members you manually assign.', 'woocommerce-memberships' ) ); ?>
@@ -502,7 +503,7 @@ class WC_Memberships_Meta_Box_Membership_Plan_Data extends \WC_Memberships_Meta_
 				<?php printf(
 					/* translators: Placeholder: %s - list of products that are in the trash, linked to their edit screen */
 					_n( 'The product %s is in the trash and may not be purchasable.', 'The products %s are in the trash and may not be purchasable.', count( $trashed_products ), 'woocommerce-memberships'),
-					wc_memberships_list_items( $trashed_products, 'and' )
+					Strings_Helper::get_human_readable_items_list( $trashed_products, 'and' )
 				); ?>
 			</span>
 		    <?php
@@ -845,7 +846,7 @@ class WC_Memberships_Meta_Box_Membership_Plan_Data extends \WC_Memberships_Meta_
 				$items[] = '<a href="' . get_edit_post_link( $post->ID ) . '">' . get_the_title( $post->ID ) . '</a>';
 			}
 
-			$post_links = wc_memberships_list_items( $items, 'and' );
+			$post_links = Strings_Helper::get_human_readable_items_list( $items, 'and' );
 		}
 
 		return $post_links;

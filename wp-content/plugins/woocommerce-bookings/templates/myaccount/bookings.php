@@ -22,13 +22,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$count = 0;
-
 if ( ! empty( $tables ) ) : ?>
 
 	<div class="bookings-my-account-notice"></div>
 
-	<?php foreach ( $tables as $table ) : ?>
+	<?php
+	foreach ( $tables as $table ) :
+		$i = 0;
+		?>
 
 		<h2><?php echo esc_html( $table['header'] ); ?></h2>
 
@@ -45,8 +46,15 @@ if ( ! empty( $tables ) ) : ?>
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ( $table['bookings'] as $booking ) : ?>
-					<?php $count++; ?>
+				<?php
+				foreach ( $table['bookings'] as $booking ) :
+					$i++;
+
+					// Skip bookings which were added to detect pagination.
+					if ( $i > $bookings_per_page ) {
+						break;
+					}
+					?>
 					<tr>
 						<td class="booking-id"><?php echo esc_html( $booking->get_id() ); ?></td>
 						<td class="booked-product">
@@ -83,7 +91,7 @@ if ( ! empty( $tables ) ) : ?>
 				<a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button" href="<?php echo esc_url( wc_get_endpoint_url( 'bookings', $page - 1 ) ); ?>"><?php esc_html_e( 'Previous', 'woocommerce-bookings' ); ?></a>
 			<?php endif; ?>
 
-			<?php if ( $count > $bookings_per_page ) : ?>
+			<?php if ( count( $table['bookings'] ) > $bookings_per_page ) : ?>
 				<a class="woocommerce-button woocommerce-button--next woocommerce-Button woocommerce-Button--next button" href="<?php echo esc_url( wc_get_endpoint_url( 'bookings', $page + 1 ) ); ?>"><?php esc_html_e( 'Next', 'woocommerce-bookings' ); ?></a>
 			<?php endif; ?>
 		</div>

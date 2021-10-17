@@ -871,6 +871,28 @@ class WC_AM_Subscription {
 	}
 
 	/**
+	 * Verifies the user has an active subscription for a specific product.
+	 *
+	 * @since 2.3.9
+	 *
+	 * @param int $user_id
+	 * @param int $product_id
+	 *
+	 * @return bool
+	 */
+	function user_has_active_product_subscription( $user_id, $product_id ) {
+		$subscriptions = wcs_get_users_subscriptions( $user_id );
+
+		foreach ( $subscriptions as $subscription ) {
+			if ( $subscription->has_product( $product_id ) && ( $subscription->has_status( 'active' ) || $subscription->has_status( 'pending-cancel' ) ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Delete expired subscription API Keys and API Key activations.
 	 *
 	 * @since 2.0

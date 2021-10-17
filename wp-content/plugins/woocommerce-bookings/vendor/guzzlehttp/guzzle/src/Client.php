@@ -1,10 +1,10 @@
 <?php
-namespace GuzzleHttp;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp;
 
-use GuzzleHttp\Cookie\CookieJar;
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Promise;
-use GuzzleHttp\Psr7;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Cookie\CookieJar;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\GuzzleException;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;

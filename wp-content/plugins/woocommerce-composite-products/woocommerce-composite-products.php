@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Composite Products
 * Plugin URI: https://woocommerce.com/products/composite-products/
 * Description: Create personalized product kits and configurable products.
-* Version: 8.3.2
+* Version: 8.3.3
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -34,11 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Composite_Products
- * @version  8.3.2
+ * @version  8.3.3
  */
 class WC_Composite_Products {
 
-	public $version  = '8.3.2';
+	public $version  = '8.3.3';
 	public $required = '3.6.0';
 
 	/**

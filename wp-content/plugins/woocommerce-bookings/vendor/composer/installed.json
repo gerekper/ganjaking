@@ -358,7 +358,7 @@
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Google\\Auth\\": "src"
+                "Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Auth\\": "src"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -418,7 +418,7 @@
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "GuzzleHttp\\": "src/"
+                "Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\": "src/"
             },
             "files": [
                 "src/functions_include.php"
@@ -482,7 +482,7 @@
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "GuzzleHttp\\Promise\\": "src/"
+                "Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\Promise\\": "src/"
             },
             "files": [
                 "src/functions_include.php"
@@ -548,7 +548,7 @@
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "GuzzleHttp\\Psr7\\": "src/"
+                "Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\Psr7\\": "src/"
             },
             "files": [
                 "src/functions_include.php"

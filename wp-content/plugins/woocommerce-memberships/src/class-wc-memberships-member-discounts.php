@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -614,19 +615,19 @@ class WC_Memberships_Member_Discounts {
 
 		} else {
 
-			$products = array_map( 'absint', $wpdb->get_col( "
+			$products = $wpdb->get_col( "
 				SELECT p.ID FROM $wpdb->posts p
 				LEFT JOIN $wpdb->postmeta pm
 				ON p.ID = pm.post_id
 				WHERE p.post_type = 'product'
 				AND pm.meta_key = '_wc_memberships_exclude_discounts'
 				AND pm.meta_value = 'yes'
-			" ) );
+			" );
 
 			if ( ! empty( $products ) ) {
 
 				// account for variations of variable products
-				$parents  = '(' . implode( ',', $products ) . ')';
+				$parents  = '(' . Strings_Helper::esc_sql_in_ids( $products ) . ')';
 				$products = array_merge( $products, array_map( 'absint', $wpdb->get_col( "
 					SELECT ID FROM $wpdb->posts
 					WHERE post_parent IN $parents
@@ -1915,13 +1916,14 @@ class WC_Memberships_Member_Discounts {
 
 				$product = is_numeric( $product ) || $product instanceof \WP_Post ? wc_get_product( $product ) : $product;
 				$price   = $product instanceof \WC_Product ? (float) $product->get_price() : 0;
+				$original_price = $this->get_original_price( $price, $product );
 
-				if ( $discount <= 0 || $price <= 0 ) {
+				if ( $discount <= 0 || $original_price <= 0 ) {
 					$percentage = 0;
 				} elseif ( $discount < 1 ) {
-					$percentage = $price / ( 100 / $discount ) * $discount;
+					$percentage = $original_price / ( 100 / $discount ) * $discount;
 				} else {
-					$percentage = ( 100 / $price ) * $discount;
+					$percentage = ( 100 / $original_price ) * $discount;
 				}
 
 				$output = Framework\SV_WC_Helper::number_format( max( 0, $percentage ) ) . '%';

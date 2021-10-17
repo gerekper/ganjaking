@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace Google\Auth;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth;
 
 trait CacheTrait
 {

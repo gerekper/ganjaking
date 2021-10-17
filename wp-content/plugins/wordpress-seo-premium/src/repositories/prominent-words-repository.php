@@ -79,13 +79,14 @@ class Prominent_Words_Repository {
 	/**
 	 * Finds all indexable ids which have prominent words with stems from the list.
 	 *
-	 * @param array $stems The stems of prominent words to search for.
-	 * @param int   $limit The number of indexable ids to return in 1 call.
-	 * @param int   $page  From which page (batch) to begin.
+	 * @param array $stems        The stems of prominent words to search for.
+	 * @param int   $limit        The number of indexable ids to return in 1 call.
+	 * @param int   $page         From which page (batch) to begin.
+	 * @param int[] $excluded_ids The indexable IDs to exclude.
 	 *
 	 * @return array The list of indexable ids.
 	 */
-	public function find_ids_by_stems( $stems, $limit, $page ) {
+	public function find_ids_by_stems( $stems, $limit, $page, $excluded_ids = [] ) {
 		if ( empty( $stems ) ) {
 			return [];
 		}
@@ -104,6 +105,10 @@ class Prominent_Words_Repository {
 			->where_raw( '( i.post_status NOT IN ( \'draft\', \'auto-draft\', \'trash\' ) OR i.post_status IS NULL )' )
 			->limit( $limit )
 			->offset( $offset );
+
+		if ( ! empty( $excluded_ids ) ) {
+			$query = $query->where_not_in( 'id', $excluded_ids );
+		}
 
 		$results = $query->find_array();
 

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.3.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -209,7 +209,7 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 		}
 
 		/**
-		 * Function to add details of discount coming from smart coupons
+		 * Function to add details of discount coming from Smart Coupons
 		 *
 		 * @param array    $total_rows All rows.
 		 * @param WC_Order $order The order object.
@@ -254,7 +254,7 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 		}
 
 		/**
-		 * Function to include discounts from smart coupons in total discount of order
+		 * Function to include discounts from Smart Coupons in total discount of order
 		 *
 		 * @param float    $total_discount Total discount.
 		 * @param WC_Order $order The order object.

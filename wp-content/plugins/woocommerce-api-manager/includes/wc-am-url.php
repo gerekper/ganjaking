@@ -97,24 +97,29 @@ class WC_AM_URL {
 	 *
 	 * @param string $url
 	 *
-	 * @return bool|string
+	 * @return string
 	 */
 	public function format_secure_s3_v4_url( $url ) {
 		if ( ! empty( $url ) ) {
 			try {
-				$url_expire_time   = get_option( 'woocommerce_api_manager_url_expire' );
 				$aws_access_key_id = defined( 'WC_AM_AWS3_ACCESS_KEY_ID' ) ? WC_AM_AWS3_ACCESS_KEY_ID : get_option( 'woocommerce_api_manager_amazon_s3_access_key_id' );
 				$secret_key        = defined( 'WC_AM_AWS3_SECRET_ACCESS_KEY' ) ? WC_AM_AWS3_SECRET_ACCESS_KEY : WC_AM_ENCRYPTION()->decrypt( get_option( 'woocommerce_api_manager_amazon_s3_secret_access_key' ) );
-				$expires           = ! empty( $url_expire_time ) ? $url_expire_time * DAY_IN_SECONDS : 1 * DAY_IN_SECONDS;
-				$aws_region        = get_option( 'woocommerce_api_manager_aws_s3_region' );
-				$timestamp         = new DateTime( 'UTC' ); // Must use UTC (Coordinated Universal Time).
-				$time_text         = $timestamp->format( 'Ymd\THis\Z' );
-				$date_text         = $timestamp->format( 'Ymd' );
-				$parsed_url        = parse_url( $url );
-				$host              = $parsed_url[ 'host' ];
-				$path              = $parsed_url[ 'path' ]; // i.e. /toddlahman/simple-comments/137886/simple-comments.zip
-				$encoded_uri       = str_replace( '%2F', '/', rawurlencode( $path ) );
-				$algorithm         = 'AWS4-HMAC-SHA256';
+
+				if ( empty( $aws_access_key_id ) || empty( $secret_key ) ) {
+					return $url;
+				}
+
+				$url_expire_time = get_option( 'woocommerce_api_manager_url_expire' );
+				$expires         = ! empty( $url_expire_time ) ? $url_expire_time * DAY_IN_SECONDS : 1 * DAY_IN_SECONDS;
+				$aws_region      = get_option( 'woocommerce_api_manager_aws_s3_region' );
+				$timestamp       = new DateTime( 'UTC' ); // Must use UTC (Coordinated Universal Time).
+				$time_text       = $timestamp->format( 'Ymd\THis\Z' );
+				$date_text       = $timestamp->format( 'Ymd' );
+				$parsed_url      = parse_url( $url );
+				$host            = $parsed_url[ 'host' ];
+				$path            = $parsed_url[ 'path' ]; // i.e. /toddlahman/simple-comments/137886/simple-comments.zip
+				$encoded_uri     = str_replace( '%2F', '/', rawurlencode( $path ) );
+				$algorithm       = 'AWS4-HMAC-SHA256';
 				//$timestamp->sub( new DateInterval( 'PT' . 1 * DAY_IN_SECONDS . 'S' ) );
 				//$timestamp->getTimestamp();
 				//$bucket            = explode( '.', $host )[ 0 ];
@@ -161,7 +166,7 @@ class WC_AM_URL {
 			}
 		}
 
-		return '';
+		return $url;
 	}
 
 	/**

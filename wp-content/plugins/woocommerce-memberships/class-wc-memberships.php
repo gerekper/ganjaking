@@ -37,7 +37,7 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 
 
 	/** plugin version number */
-	const VERSION = '1.22.3';
+	const VERSION = '1.22.6';
 
 	/** @var \WC_Memberships single instance of this plugin */
 	protected static $instance;
@@ -241,6 +241,9 @@ class WC_Memberships extends Framework\SV_WC_Plugin  {
 	 * @since 1.0.0
 	 */
 	public function includes() {
+
+		// load helpers
+		require_once( $this->get_plugin_path() . '/src/Helpers/Strings_Helper.php' );
 
 		// load post types
 		require_once( $this->get_plugin_path() . '/src/class-wc-memberships-post-types.php' );

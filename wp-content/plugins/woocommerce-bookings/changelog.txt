@@ -1,5 +1,31 @@
 *** WooCommerce Bookings Changelog ***
 
+2021-10-04 - version 1.15.46
+* Fix - Date correction for bookings that cross days between user's local timezone and site timezone.
+* Tweak - WC 5.7 compatibility.
+
+2021-10-04 - version 1.15.45
+* Add - Bookings made through COD mode of payment are now synced with Google Calendar.
+* Add - New filter `woocommerce_booking_sync_cod_bookings` to enable/disable the COD payment sync with Google Calendar. .
+* Fix - Add unique namespace to more Guzzle functions.
+* Fix - Added validation for start and end dates.
+* Fix - Bring jQuery UI into our codebase instead of loading from a CDN.
+* Fix - Handle Google Calendar connection fatal error in a more human-readable format.
+* Fix - Manually book private products.
+* Fix - Padding of Restrict selectable days table in Availability tab.
+* Fix - Pagination at My Bookings account section.
+* Fix - Restore dropped changelog entry for 1.15.43.
+* Fix - Wrong behavior of "Range of Week" rules.
+* Tweak -  Document since version for `woocommerce_booking_status_changed`.
+* Tweak - WC 5.7 compatibility.
+
+2021-08-24 - version 1.15.44
+* Fix - Add unique namespace to the Guzzle and Google libraries to avoid conflicts.
+* Fix - Build-specific, no changelog entry needed.
+* Fix - Ensure manual orders show the time in customer's timezone, not store timezone.
+* Tweak - WC 5.6 compatibility.
+* Tweak - WP 5.8 compatibility.
+
 2021-07-28 - version 1.15.43
 * Tweak - Introduced a new woocommerce_bookings_filter_time_slots filter to modify availability on a per-product basis.
 

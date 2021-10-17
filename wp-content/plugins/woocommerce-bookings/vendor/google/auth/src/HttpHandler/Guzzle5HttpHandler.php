@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Google\Auth\HttpHandler;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler;
 
 use Exception;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Message\ResponseInterface as Guzzle5ResponseInterface;
-use GuzzleHttp\Promise\Promise;
-use GuzzleHttp\Promise\RejectedPromise;
-use GuzzleHttp\Psr7\Response;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Message\ResponseInterface as Guzzle5ResponseInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\Promise;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\RejectedPromise;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

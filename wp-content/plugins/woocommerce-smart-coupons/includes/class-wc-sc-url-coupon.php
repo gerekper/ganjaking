@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.0
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -199,7 +199,7 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 
 			if ( 0 === $user_id ) {
 				$unique_id               = ( ! empty( $_COOKIE['sc_applied_coupon_profile_id'] ) ) ? wc_clean( wp_unslash( $_COOKIE['sc_applied_coupon_profile_id'] ) ) : ''; // phpcs:ignore
-				$applied_coupon_from_url = ( ! empty( $unique_id ) ) ? get_option( 'sc_applied_coupon_profile_' . $unique_id, array() ) : array();
+				$applied_coupon_from_url = ( ! empty( $unique_id ) ) ? $this->get_applied_coupons_by_guest_user( $unique_id ) : array();
 			} else {
 				$applied_coupon_from_url = get_user_meta( $user_id, 'sc_applied_coupon_from_url', true );
 			}
@@ -217,7 +217,7 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 			}
 
 			if ( 0 === $user_id ) {
-				update_option( 'sc_applied_coupon_profile_' . $unique_id, $applied_coupon_from_url, 'no' );
+				$this->set_applied_coupon_for_guest_user( $unique_id, $applied_coupon_from_url );
 			} else {
 				update_user_meta( $user_id, 'sc_applied_coupon_from_url', $applied_coupon_from_url );
 			}
@@ -276,19 +276,19 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 					$unique_id = wc_clean( wp_unslash( $_COOKIE['sc_applied_coupon_profile_id'] ) ); // phpcs:ignore
 				}
 
-				$applied_coupons = get_option( 'sc_applied_coupon_profile_' . $unique_id, array() );
+				$applied_coupons = $this->get_applied_coupons_by_guest_user( $unique_id );
 
 				foreach ( $coupons_args as $coupon_args ) {
 					$coupon_code = isset( $coupon_args['coupon-code'] ) ? $coupon_args['coupon-code'] : '';
-					if ( ! in_array( $coupon_code, $applied_coupons, true ) ) {
+					if ( is_array( $applied_coupons ) && in_array( $coupon_code, $applied_coupons, true ) ) {
+						$saved_status[ $coupon_code ] = 'already_saved';
+					} else {
 						$applied_coupons[]            = $coupon_code;
 						$saved_status[ $coupon_code ] = 'saved';
-					} else {
-						$saved_status[ $coupon_code ] = 'already_saved';
 					}
 				}
 
-				update_option( 'sc_applied_coupon_profile_' . $unique_id, $applied_coupons, 'no' );
+				$this->set_applied_coupon_for_guest_user( $unique_id, $applied_coupons );
 				wc_setcookie( 'sc_applied_coupon_profile_id', $unique_id, $this->get_cookie_life() );
 			}
 
@@ -343,7 +343,7 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 
 				$unique_id = wc_clean( wp_unslash( $_COOKIE['sc_applied_coupon_profile_id'] ) ); // phpcs:ignore
 
-				$applied_coupons = get_option( 'sc_applied_coupon_profile_' . $unique_id );
+				$applied_coupons = $this->get_applied_coupons_by_guest_user( $unique_id );
 
 				if ( false !== $applied_coupons && is_array( $applied_coupons ) && ! empty( $applied_coupons ) ) {
 
@@ -354,8 +354,8 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 					$saved_coupons = array_merge( $saved_coupons, $applied_coupons );
 					update_user_meta( $user_id, 'sc_applied_coupon_from_url', $saved_coupons );
 					wc_setcookie( 'sc_applied_coupon_profile_id', '' );
+					$this->delete_applied_coupons_of_guest_user( $unique_id );
 					delete_option( 'sc_applied_coupon_profile_' . $unique_id );
-
 				}
 			}
 
@@ -466,6 +466,69 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 
 			return $content;
 
+		}
+
+		/**
+		 * Function to get coupon codes by guest user's unique id.
+		 *
+		 * @param  string $unique_id Unique id for guest user.
+		 *
+		 * @return array.
+		 */
+		public function get_applied_coupons_by_guest_user( $unique_id = '' ) {
+			$key = sprintf( 'sc_applied_coupon_profile_%s', $unique_id );
+
+			// Get coupons from `transient`.
+			$coupons = get_transient( $key );
+			if ( ! empty( $coupons ) && is_array( $coupons ) ) {
+				return $coupons;
+			}
+			// Get coupon from `wp_option`.
+			return get_option( $key, array() );
+		}
+
+		/**
+		 * Function to set applied coupons for guest user.
+		 *
+		 * @param  string $unique_id Unique id for guest user.
+		 * @param  array  $coupons   Array of coupon codes.
+		 *
+		 * @return bool.
+		 */
+		public function set_applied_coupon_for_guest_user( $unique_id = '', $coupons = array() ) {
+
+			if ( ! empty( $unique_id ) && is_array( $coupons ) ) {
+				$key = sprintf( 'sc_applied_coupon_profile_%s', $unique_id );
+
+				if ( empty( $coupons ) ) {
+					return delete_transient( $key );
+				} else {
+					return set_transient(
+						$key,
+						$coupons,
+						apply_filters( 'wc_sc_applied_coupon_by_url_expire_time', MONTH_IN_SECONDS )
+					);
+				}
+			}
+
+			return false;
+		}
+
+		/**
+		 * Function to delete all applied coupons for a guest user.
+		 *
+		 * @param  string $unique_id Unique id for guest user.
+		 *
+		 * @return bool.
+		 */
+		public function delete_applied_coupons_of_guest_user( $unique_id = '' ) {
+
+			if ( ! empty( $unique_id ) ) {
+				$key = sprintf( 'sc_applied_coupon_profile_%s', $unique_id );
+				return delete_transient( $key );
+			}
+
+			return false;
 		}
 
 	}

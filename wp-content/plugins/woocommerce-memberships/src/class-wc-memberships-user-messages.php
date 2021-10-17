@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -754,7 +755,7 @@ class WC_Memberships_User_Messages {
 			// sanity check: by this point we should have accessible products to link...
 			if ( ! empty( $products_links ) ) {
 
-				$products_merge_tag = wc_memberships_list_items( $products_links, 'or' );
+				$products_merge_tag = Strings_Helper::get_human_readable_items_list( $products_links, 'or' );
 
 			// ...however if we don't, then set a fallback:
 			} else {

@@ -73,7 +73,7 @@ class WC_Booking_Order_Manager {
 		add_action( 'woocommerce_bookings_failed_order_expired', array( $this, 'handle_failed_order_scheduled_event' ), 20, 2 );
 
 		// My account Bookings section scripts.
-		// add_action( 'wp_enqueue_scripts', array( $this, 'my_account_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'my_account_scripts' ) );
 	}
 
 	/**
@@ -196,9 +196,14 @@ class WC_Booking_Order_Manager {
 			return;
 		}
 
-		wp_enqueue_script( 'wc-bookings-user-my-account', WC_BOOKINGS_PLUGIN_URL . '/dist/user-my-account.js', array(), WC_BOOKINGS_VERSION, true );
+		wp_enqueue_script( 'wc-bookings-user-my-account', WC_BOOKINGS_PLUGIN_URL . '/dist/user-my-account.js', array( 'wc-bookings-date' ), WC_BOOKINGS_VERSION, true );
+
+		$date_format = apply_filters( 'woocommerce_bookings_date_format', wc_bookings_date_format() );
+		$time_format = apply_filters( 'woocommerce_bookings_time_format', ', ' . wc_bookings_time_format() );
+
 		$my_account_params = array(
 			'timezone_conversion' => 'yes' === WC_Bookings_Timezone_Settings::get( 'use_client_timezone' ),
+			'datetime_format'     => wc_bookings_convert_to_moment_format( $date_format . $time_format ),
 			'timezone_notice'     => __( 'All bookings start and end times except where stated differently are displayed in the following timezone: ', 'woocommerce-bookings' ),
 		);
 
@@ -250,7 +255,7 @@ class WC_Booking_Order_Manager {
 				'date_after'     => current_time( 'timestamp' ),
 				'date_before'    => strtotime( 'tomorrow', current_time( 'timestamp' ) ),
 				'offset'         => ( $current_page - 1 ) * $bookings_per_page,
-				'limit'          => $bookings_per_page,
+				'limit'          => $bookings_per_page + 1, // Increment to detect pagination.
 			) ) );
 
 			$past_bookings = WC_Booking_Data_Store::get_bookings_for_user( $user_id, apply_filters( 'woocommerce_bookings_my_bookings_past_query_args', array(
@@ -258,7 +263,7 @@ class WC_Booking_Order_Manager {
 				'order'          => 'DESC',
 				'date_before'    => current_time( 'timestamp' ),
 				'offset'         => ( $current_page - 1 ) * $bookings_per_page,
-				'limit'          => $bookings_per_page,
+				'limit'          => $bookings_per_page + 1, // Increment to detect pagination.
 			) ) );
 
 			$upcoming_bookings = WC_Booking_Data_Store::get_bookings_for_user( $user_id, apply_filters( 'woocommerce_bookings_my_bookings_upcoming_query_args', array(
@@ -266,7 +271,7 @@ class WC_Booking_Order_Manager {
 				'order'          => 'ASC',
 				'date_after'     => strtotime( 'tomorrow', current_time( 'timestamp' ) ),
 				'offset'         => ( $current_page - 1 ) * $bookings_per_page,
-				'limit'          => $bookings_per_page,
+				'limit'          => $bookings_per_page + 1, // Increment to detect pagination.
 			) ) );
 
 			$tables = array();

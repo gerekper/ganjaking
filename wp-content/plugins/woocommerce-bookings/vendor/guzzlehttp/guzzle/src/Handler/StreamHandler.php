@@ -1,13 +1,13 @@
 <?php
-namespace GuzzleHttp\Handler;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler;
 
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Promise\FulfilledPromise;
-use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Psr7;
-use GuzzleHttp\TransferStats;
-use GuzzleHttp\Utils;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\ConnectException;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\RequestException;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\FulfilledPromise;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\PromiseInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\TransferStats;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -103,7 +103,7 @@ class StreamHandler
         $ver = explode('/', $parts[0])[1];
         $status = $parts[1];
         $reason = isset($parts[2]) ? $parts[2] : null;
-        $headers = \GuzzleHttp\headers_from_lines($hdrs);
+        $headers = \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\headers_from_lines($hdrs);
         list($stream, $headers) = $this->checkDecode($options, $headers, $stream);
         $stream = Psr7\stream_for($stream);
         $sink = $stream;
@@ -158,7 +158,7 @@ class StreamHandler
     {
         // Automatically decode responses when instructed.
         if (!empty($options['decode_content'])) {
-            $normalizedKeys = \GuzzleHttp\normalize_header_keys($headers);
+            $normalizedKeys = \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\normalize_header_keys($headers);
             if (isset($normalizedKeys['content-encoding'])) {
                 $encoding = $headers[$normalizedKeys['content-encoding']];
                 if ($encoding[0] === 'gzip' || $encoding[0] === 'deflate') {

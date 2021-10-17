@@ -37,6 +37,7 @@ class WC_Bookings_Admin {
 		add_filter( 'woocommerce_product_type_query', array( $this, 'maybe_override_product_type' ), 10, 2 );
 
 		add_action( 'before_delete_post', array( $this, 'handle_deleted_bookable_product' ) );
+		add_filter( 'get_booking_products_args', array( $this, 'modify_booking_products_query' ) );
 	}
 
 	public function init() {
@@ -594,7 +595,7 @@ class WC_Bookings_Admin {
 	 * Add admin styles
 	 */
 	public function styles_and_scripts() {
-		global $post, $wp_scripts;
+		global $post;
 
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
@@ -603,15 +604,12 @@ class WC_Bookings_Admin {
 			return;
 		}
 
-		$jquery_version = isset( $wp_scripts->registered['jquery-ui-core']->ver ) ? $wp_scripts->registered['jquery-ui-core']->ver : '1.11.4';
-
-		wp_enqueue_style( 'jquery-ui-style', '//ajax.googleapis.com/ajax/libs/jqueryui/' . $jquery_version . '/themes/smoothness/jquery-ui.min.css' );
+		wp_enqueue_style( 'jquery-ui-style', WC_BOOKINGS_PLUGIN_URL . '/assets/css/jquery-ui/jquery-ui.min.css', array(), '1.11.4-wc.' . WC_BOOKINGS_VERSION );
 		wp_enqueue_style( 'wc_bookings_admin_styles', WC_BOOKINGS_PLUGIN_URL . '/dist/css/admin.css', null, WC_BOOKINGS_VERSION );
 		wp_register_script( 'wc_bookings_admin_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin.js', array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-sortable' ), WC_BOOKINGS_VERSION, true );
 
 		if ( 'wc_booking_page_create_booking' === $screen->id ) {
-			wp_enqueue_script( 'wc-bookings-moment', WC_BOOKINGS_PLUGIN_URL . '/dist/js/lib/moment-with-locales.js', array(), WC_BOOKINGS_VERSION, true );
-			wp_enqueue_script( 'wc-bookings-moment-timezone', WC_BOOKINGS_PLUGIN_URL . '/dist/js/lib/moment-timezone-with-data.js', array(), WC_BOOKINGS_VERSION, true );
+			wp_enqueue_script( 'wc-bookings-date' );
 			wp_register_script( 'wc_bookings_admin_time_picker_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-time-picker.js', null, WC_BOOKINGS_VERSION, true );
 		}
 
@@ -627,6 +625,10 @@ class WC_Bookings_Admin {
 				wp_register_script( 'wc_bookings_admin_store_availability_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-store-availability.js', array( 'wc_bookings_admin_js', 'wp-components', 'wp-element' ), WC_BOOKINGS_VERSION, true );
 				wp_enqueue_style( 'wc_bookings_admin_store_availability_css', WC_BOOKINGS_PLUGIN_URL . '/dist/css/admin-store-availability.css', null, WC_BOOKINGS_VERSION );
 			}
+		}
+
+		if ( 'wc_booking' === $screen->id ) {
+			wp_enqueue_script( 'wc_bookings_admin_edit_booking_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin-edit-booking.js', array( 'jquery' ), WC_BOOKINGS_VERSION, true );
 		}
 
 		$params = array(
@@ -663,6 +665,13 @@ class WC_Bookings_Admin {
 		);
 
 		wp_localize_script( 'wc_bookings_admin_store_availability_js', 'wc_bookings_admin_store_availability_js_params', $params );
+
+		$params = array(
+			'invalid_start_end_date' => __( '"Start and end date" should be of the format yyyy-mm-dd and cannot be empty.', 'woocommerce-bookings' ),
+			'date_range_invalid'     => __( 'Start date cannot be greater than end date.', 'woocommerce-bookings' ),
+		);
+
+		wp_localize_script( 'wc_bookings_admin_edit_booking_js', 'wc_bookings_admin_edit_booking_params', $params );
 	}
 
 	/**
@@ -730,5 +739,37 @@ class WC_Bookings_Admin {
 		}
 
 		WC_Bookings_Tools::unlink_resource( $post_id );
+	}
+
+	/**
+	 * Modifies query to retrieve Private products on the
+	 * Create Booking, Edit Booking and Send Notification
+	 * admin pages.
+	 *
+	 * @param array $args Query args for products
+	 * @see https://github.com/woocommerce/woocommerce-bookings/issues/3090
+	 * @return array
+	 */
+	public function modify_booking_products_query( $args ) {
+		$screen = get_current_screen();
+
+		if ( is_null( $screen ) ) {
+			return $args;
+		}
+
+		$is_booking_create_page    = 'wc_booking_page_create_booking' === $screen->id;
+		$is_send_notification_page = 'wc_booking_page_booking_notification' === $screen->id;
+		$is_booking_edit_page      = 'wc_booking' === $screen->post_type && 'edit' === $screen->parent_base;
+
+		if ( $is_booking_create_page || $is_send_notification_page || $is_booking_edit_page ) {
+			return array_merge(
+				$args,
+				array(
+					'post_status' => array( 'publish', 'private' ),
+				)
+			);
+		}
+
+		return $args;
 	}
 }

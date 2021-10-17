@@ -19,19 +19,19 @@ namespace Google;
 
 use Google\AccessToken\Revoke;
 use Google\AccessToken\Verify;
-use Google\Auth\ApplicationDefaultCredentials;
-use Google\Auth\Cache\MemoryCacheItemPool;
-use Google\Auth\CredentialsLoader;
-use Google\Auth\FetchAuthTokenCache;
-use Google\Auth\HttpHandler\HttpHandlerFactory;
-use Google\Auth\OAuth2;
-use Google\Auth\Credentials\ServiceAccountCredentials;
-use Google\Auth\Credentials\UserRefreshCredentials;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\ApplicationDefaultCredentials;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Cache\MemoryCacheItemPool;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\CredentialsLoader;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\FetchAuthTokenCache;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\OAuth2;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Credentials\ServiceAccountCredentials;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Credentials\UserRefreshCredentials;
 use Google\AuthHandler\AuthHandlerFactory;
 use Google\Http\REST;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Ring\Client\StreamHandler;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Client as GuzzleClient;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Ring\Client\StreamHandler;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Log\LoggerInterface;
@@ -1161,9 +1161,9 @@ class Client
   protected function createDefaultHttpClient()
   {
     $guzzleVersion = null;
-    if (defined('\GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
+    if (defined('\Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
       $guzzleVersion = ClientInterface::MAJOR_VERSION;
-    } elseif (defined('\GuzzleHttp\ClientInterface::VERSION')) {
+    } elseif (defined('\Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface::VERSION')) {
       $guzzleVersion = (int)substr(ClientInterface::VERSION, 0, 1);
     }
 

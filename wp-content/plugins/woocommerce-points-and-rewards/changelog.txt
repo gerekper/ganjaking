@@ -1,5 +1,10 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2021-09-30 - version 1.7.2
+* Fix - Add: Enable automatic translations for the plugin content.
+* Tweak - WC 5.7 compatibility.
+* Tweak - WP 5.8 compatibility.
+
 2021-09-15 - version 1.7.1
 * Fix - When an admin increases a user's points balance all newly added points have a new expiry date.
 * Tweak - WC 5.7 compatibility.

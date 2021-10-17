@@ -1,10 +1,10 @@
 <?php
-namespace GuzzleHttp;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp;
 
-use GuzzleHttp\Handler\CurlHandler;
-use GuzzleHttp\Handler\CurlMultiHandler;
-use GuzzleHttp\Handler\Proxy;
-use GuzzleHttp\Handler\StreamHandler;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler\CurlHandler;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler\CurlMultiHandler;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler\Proxy;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler\StreamHandler;
 
 /**
  * Expands a URI template

@@ -23,6 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Memberships;
 
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -556,7 +557,7 @@ class Restrictions {
 					// maybe add product variations to product results
 					if ( ! empty( $posts['product'] ) ) {
 
-						$parents    = implode( ',', $posts['product'] );
+						$parents    = Strings_Helper::esc_sql_in_ids( (array) $posts['product'] );
 						$variations = $wpdb->get_col( "
 							SELECT p.ID
 							FROM {$wpdb->posts} p

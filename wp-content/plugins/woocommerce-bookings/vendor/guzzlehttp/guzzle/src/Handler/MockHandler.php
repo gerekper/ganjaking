@@ -1,11 +1,11 @@
 <?php
-namespace GuzzleHttp\Handler;
+namespace Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Handler;
 
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Promise\RejectedPromise;
-use GuzzleHttp\TransferStats;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\RequestException;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\HandlerStack;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\PromiseInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\RejectedPromise;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\TransferStats;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -92,7 +92,7 @@ class MockHandler implements \Countable
 
         $response = $response instanceof \Exception
             ? \GuzzleHttp\Promise\rejection_for($response)
-            : \GuzzleHttp\Promise\promise_for($response);
+            : \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\promise_for($response);
 
         return $response->then(
             function ($value) use ($request, $options) {
@@ -140,7 +140,7 @@ class MockHandler implements \Countable
                 $this->queue[] = $value;
             } else {
                 throw new \InvalidArgumentException('Expected a response or '
-                    . 'exception. Found ' . \GuzzleHttp\describe_type($value));
+                    . 'exception. Found ' . \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\describe_type($value));
             }
         }
     }

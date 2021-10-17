@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.0.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -45,6 +45,9 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 
 			// To show 'Connect your store' notice of WC Helper on SC pages.
 			add_filter( 'woocommerce_screen_ids', array( $this, 'add_wc_connect_store_notice_on_sc_pages' ) );
+
+			// Show Database update notices.
+			add_action( 'admin_notices', array( $this, 'admin_db_update_notices' ) );
 
 		}
 
@@ -343,6 +346,136 @@ if ( ! class_exists( 'WC_SC_Admin_Notifications' ) ) {
 			array_push( $screen_ids, 'woocommerce_page_wc-smart-coupons' );
 
 			return $screen_ids;
+		}
+
+		/**
+		 * Function to render admin notice
+		 *
+		 * @param string $type         Notice type.
+		 * @param string $title        Notice title.
+		 * @param string $message      Notice message.
+		 * @param string $action       Notice actions.
+		 * @param bool   $dismissible  Notice dismissible.
+		 * @return void.
+		 */
+		public function show_notice( $type = 'info', $title = '', $message = '', $action = '', $dismissible = false ) {
+			$css_classes = array(
+				'notice',
+				'notice-' . $type,
+			);
+			if ( true === $dismissible ) {
+				$css_classes[] = 'is-dismissible';
+			}
+			?>
+			<div class="<?php echo esc_attr( implode( ' ', $css_classes ) ); ?>">
+				<?php
+				if ( ! empty( $title ) ) {
+					printf( '<p><strong>%s</strong></p>', esc_html( $title ) );
+				}
+				if ( ! empty( $message ) ) {
+					printf( '<p>%s</p>', esc_html( $message ) );
+				}
+				if ( ! empty( $action ) ) {
+					printf( '<p class="submit">%s</p>', wp_kses_post( $action ) );
+				}
+				?>
+			</div>
+			<?php
+		}
+
+		/**
+		 * Function to show database update notice
+		 */
+		public function admin_db_update_notices() {
+			if ( ! class_exists( 'WC_SC_Background_Upgrade' ) ) {
+				include_once 'class-wc-sc-background-upgrade.php';
+			}
+			$wcsc_db       = WC_SC_Background_Upgrade::get_instance();
+			$update_status = $wcsc_db->get_status( '4.28.0' );
+			if ( 'pending' === $update_status ) {
+				// Notice for pending update.
+				$this->db_update_pending_notice();
+			} elseif ( 'processing' === $update_status ) {
+				// Notice for processing update.
+				$this->db_update_processing_notice();
+			} elseif ( 'completed' === $update_status ) {
+				// Notice for completed update.
+				$this->db_update_completed_notice();
+				$wcsc_db->set_status( '4.28.0', 'done' );
+			}
+		}
+
+		/**
+		 * Function to show pending database update notice
+		 */
+		public function db_update_pending_notice() {
+			global $woocommerce_smart_coupon;
+
+			$plugin_version = $woocommerce_smart_coupon->get_smart_coupons_version();
+			/* translators: %s: Plugin name */
+			$title         = sprintf( __( '%s database update required', 'woocommerce-smart-coupons' ), 'WooCommerce Smart Coupons' );
+			$message       = __( 'The database update process runs in the background and may take a little while, so please be patient.', 'woocommerce-smart-coupons' );
+			$update_url    = wp_nonce_url(
+				add_query_arg(
+					array(
+						'page'         => 'wc-settings',
+						'tab'          => 'wc-smart-coupons',
+						'wc_sc_update' => '4.28.0',
+					),
+					admin_url( 'admin.php' )
+				),
+				'wc_sc_db_process',
+				'wc_sc_db_update_nonce'
+			);
+			$action_button = sprintf( '<a href="%1$s" class="button button-primary">%2$s</a>', esc_url( $update_url ), __( 'Update database', 'woocommerce-smart-coupons' ) );
+
+			$this->show_notice( 'warning', $title, $message, $action_button );
+		}
+
+		/**
+		 * Function to show database update processing notice.
+		 */
+		public function db_update_processing_notice() {
+			if ( 'woocommerce_page_wc-status' === $this->get_current_screen_id() && isset( $_GET['tab'] ) && 'action-scheduler' === wc_clean( wp_unslash( $_GET['tab'] ) ) ) { // phpcs:ignore
+				return;
+			}
+
+			$actions_url   = add_query_arg(
+				array(
+					'page'   => 'wc-status',
+					'tab'    => 'action-scheduler',
+					's'      => 'move_applied_coupon_options_to_transient',
+					'status' => 'pending',
+				),
+				admin_url( 'admin.php' )
+			);
+			$cron_disabled = defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON;
+			/* translators: %s: Plugin name */
+			$message = sprintf( __( '%s is updating the database in the background. The database update process may take a little while, so please be patient.', 'woocommerce-smart-coupons' ), 'WooCommerce Smart Coupons' );
+			if ( true === $cron_disabled ) {
+				$message .= '<br>' . __( 'Note: WP CRON has been disabled on your install which may prevent this update from completing.', 'woocommerce-smart-coupons' );
+			}
+			$action_button = sprintf( '<a href="%1$s" class="button button-secondary">%2$s</a>', esc_url( $actions_url ), __( 'View status', 'woocommerce-smart-coupons' ) );
+			$this->show_notice( 'info', '', $message, $action_button );
+		}
+
+		/**
+		 * Function to show database update completed notice.
+		 */
+		public function db_update_completed_notice() {
+			/* translators: %s: Plugin name */
+			$message = sprintf( __( '%s database update completed. Thank you for updating to the latest version!', 'woocommerce-smart-coupons' ), 'WooCommerce Smart Coupons' );
+			$this->show_notice( 'success', '', $message, '', true );
+		}
+
+		/**
+		 * Function to get current screen id.
+		 *
+		 * @return string.
+		 */
+		public function get_current_screen_id() {
+			$screen = get_current_screen();
+			return $screen ? $screen->id : '';
 		}
 
 	}

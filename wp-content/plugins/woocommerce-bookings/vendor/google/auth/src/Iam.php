@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-namespace Google\Auth;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth;
 
-use Google\Auth\HttpHandler\HttpClientCache;
-use Google\Auth\HttpHandler\HttpHandlerFactory;
-use GuzzleHttp\Psr7;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpClientCache;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
 
 /**
  * Tools for using the IAM API.

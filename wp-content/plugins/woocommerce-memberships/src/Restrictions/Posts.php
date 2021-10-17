@@ -23,6 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Memberships\Restrictions;
 
+use SkyVerge\WooCommerce\Memberships\Helpers\Strings_Helper;
 use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
 
 defined( 'ABSPATH' ) or exit;
@@ -1259,7 +1260,7 @@ class Posts {
 		     && wc_memberships()->get_restrictions_instance()->is_restriction_mode( 'hide' ) ) {
 
 			$restricted_post_ids = wc_memberships()->get_restrictions_instance()->get_user_restricted_posts( $post->post_type );
-			$restricted_post_ids = ! empty( $restricted_post_ids ) ? implode( ',', array_filter( array_map( 'absint', $restricted_post_ids ) ) ) : null;
+			$restricted_post_ids = ! empty( $restricted_post_ids ) ? Strings_Helper::esc_sql_in_ids( $restricted_post_ids ) : null;
 
 			if ( ! empty( $restricted_post_ids ) ) {
 

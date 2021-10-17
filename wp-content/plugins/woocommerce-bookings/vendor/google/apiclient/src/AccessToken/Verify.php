@@ -20,12 +20,12 @@ namespace Google\AccessToken;
 
 use Firebase\JWT\ExpiredException as ExpiredExceptionV3;
 use Firebase\JWT\SignatureInvalidException;
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Client;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
 use phpseclib3\Crypt\PublicKeyLoader;
 use phpseclib3\Crypt\RSA\PublicKey;
 use Psr\Cache\CacheItemPoolInterface;
-use Google\Auth\Cache\MemoryCacheItemPool;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Cache\MemoryCacheItemPool;
 use Google\Exception as GoogleException;
 use Stash\Driver\FileSystem;
 use Stash\Pool;

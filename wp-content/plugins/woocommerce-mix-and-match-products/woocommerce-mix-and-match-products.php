@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Mix and Match Products
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-mix-and-match-products/
  * Description: Allow customers to choose products in any combination to fill a "container" of a specific size.
- * Version: 1.11.2
+ * Version: 1.11.3
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com/
  * Woo: 853021:e59883891b7bcd535025486721e4c09f
  * WC requires at least: 3.1.0
- * WC tested up to: 5.4.0
+ * WC tested up to: 5.6.0
  *
  * Text Domain: woocommerce-mix-and-match-products
  * Domain Path: /languages
@@ -44,7 +44,7 @@ function wc_mnm_init() {
 	if ( ! defined( 'WC_VERSION' ) || version_compare( WC_VERSION, $required_woo, '<' ) ) {
 		$notice = sprintf(
 			// Translators: %1$s opening <a> tag for link. %2$s closing </a> tag. %3$s minimum required WooCommerce version number.
-			__( '<strong>WooCommerce Mix and Match is inactive.</strong> The %1$sWooCommerce plugin%2$s must be active and at least version %3$s for Mix and Match to function. Please upgrade or activate WooCommerce.', 'woocommerce-mix-and-match-products' ),
+			__( '<strong>WooCommerce Mix and Match Products is inactive.</strong> The %1$sWooCommerce plugin%2$s must be active and at least version %3$s for Mix and Match to function. Please upgrade or activate WooCommerce.', 'woocommerce-mix-and-match-products' ),
 			'<a href="http://wordpress.org/extend/plugins/woocommerce/">',
 			'</a>',
 			$required_woo
@@ -58,7 +58,7 @@ function wc_mnm_init() {
 	if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), $required_php, '<' ) ) {
 		$notice = sprintf(
 			// Translators: %1$s link to documentation. %2$s minimum required PHP version number.
-			__( 'WooCommerce Name Your Price requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-mix-and-match-products' ),
+			__( 'WooCommerce Mix and Match Products requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-mix-and-match-products' ),
 			$required_php,
 			'https://docs.woocommerce.com/document/how-to-update-your-php-version/'
 		);

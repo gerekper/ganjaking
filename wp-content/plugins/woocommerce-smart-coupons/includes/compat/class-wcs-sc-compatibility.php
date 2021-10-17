@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.0
+ * @version     1.5.1
  * @package     WooCommerce Smart Coupons
  */
 
@@ -750,7 +750,7 @@ if ( ! class_exists( 'WCS_SC_Compatibility' ) ) {
 		}
 
 		/**
-		 * Function to trigger complete payment for renewal if it's paid by smart coupons
+		 * Function to trigger complete payment for renewal if it's paid by Smart Coupons
 		 *
 		 * @param WC_Order $renewal_order Order created on subscription renewal.
 		 * @param WC_Order $original_order Order being used to purchased the subscription.

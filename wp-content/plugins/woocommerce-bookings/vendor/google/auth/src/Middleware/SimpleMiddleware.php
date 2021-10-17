@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-namespace Google\Auth\Middleware;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Middleware;
 
-use GuzzleHttp\Psr7;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
 use Psr\Http\Message\RequestInterface;
 
 /**

@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-namespace Google\Auth\Credentials;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Credentials;
 
-use Google\Auth\CredentialsLoader;
-use Google\Auth\GetQuotaProjectInterface;
-use Google\Auth\OAuth2;
-use Google\Auth\ProjectIdProviderInterface;
-use Google\Auth\ServiceAccountSignerTrait;
-use Google\Auth\SignBlobInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\CredentialsLoader;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\GetQuotaProjectInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\OAuth2;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\ProjectIdProviderInterface;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\ServiceAccountSignerTrait;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\SignBlobInterface;
 
 /**
  * Authenticates requests using Google's Service Account credentials via

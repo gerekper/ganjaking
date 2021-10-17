@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.0
+ * @version     1.5.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -116,7 +116,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 		 * Add Smart coupon shortcode button in TinyMCE
 		 *
 		 * @param array $buttons Existing button.
-		 * @return array $buttons whith smart coupons shortcode button
+		 * @return array $buttons With Smart Coupons shortcode button
 		 */
 		public function smart_coupon_add_tinymce_button( $buttons ) {
 			$buttons[] = 'sc_shortcode_button';

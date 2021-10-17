@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.7.0
+ * @version     2.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -235,7 +235,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			include_once 'class-wc-sc-coupons-by-taxonomy.php';
 			include_once 'class-wc-sc-coupon-message.php';
 			include_once 'class-wc-sc-coupon-categories.php';
-
+			include_once 'class-wc-sc-background-upgrade.php';
 			include_once 'blocks/class-wc-sc-gutenberg-coupon-block.php';
 
 		}
@@ -1913,7 +1913,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		}
 
 		/**
-		 * Function to apply smart coupons discount
+		 * Function to apply Smart Coupons discount
 		 *
 		 * @param  float   $total Cart total.
 		 * @param  WC_Cart $cart Cart object.
@@ -1953,7 +1953,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		}
 
 		/**
-		 * Function to apply smart coupons discount after calculating tax
+		 * Function to apply Smart Coupons discount after calculating tax
 		 *
 		 * @param  WC_Cart $cart Cart object.
 		 */
@@ -4645,6 +4645,14 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				return array();
 			}
 			return $coupon_titles;
+		}
+
+		/**
+		 * Function to get plugin's version
+		 */
+		public function get_smart_coupons_version() {
+			$plugin_data = self::get_smart_coupons_plugin_data();
+			return isset( $plugin_data['Version'] ) ? $plugin_data['Version'] : false;
 		}
 
 	}//end class

@@ -847,7 +847,7 @@ function wc_bookings_available_blocks_html( $bookable_product, $blocks, $interva
 /**
  * Summary of booking data for admin and checkout.
  *
- * @version 1.10.7
+ * @version 1.15.44
  *
  * @param  WC_Booking $booking
  * @param  bool       $is_admin To determine if this is being called in admin or not.
@@ -859,9 +859,20 @@ function wc_bookings_get_summary_list( $booking, $is_admin = false ) {
 
 	$get_local_time = wc_should_convert_timezone( $booking );
 	if ( strtotime( 'midnight', $booking->get_start() ) === strtotime( 'midnight', $booking->get_end() ) ) {
-		$booking_date = sprintf( '%1$s', $booking->get_start_date( null, null, $get_local_time ) );
+		$booking_date = sprintf(
+			'<span class="booking-start-date" data-all-day="%1$s" data-timezone="%2$s">%3$s</span>',
+			$booking->is_all_day() ? 'yes' : 'no',
+			$booking->get_booking_timezone(),
+			$booking->get_start_date( null, null, $get_local_time )
+		);
 	} else {
-		$booking_date = sprintf( '%1$s - %2$s', $booking->get_start_date( null, null, $get_local_time ), $booking->get_end_date( null, null, $get_local_time ) );
+		$booking_date = sprintf(
+			'<span class="booking-start-date" data-all-day="%1$s" data-timezone="%2$s">%3$s</span> - <span class="booking-end-date" data-all-day="%1$s" data-timezone="%2$s">%4$s</span>',
+			$booking->is_all_day() ? 'yes' : 'no',
+			$booking->get_booking_timezone(),
+			$booking->get_start_date( null, null, $get_local_time ),
+			$booking->get_end_date( null, null, $get_local_time )
+		);
 	}
 
 	$template_args = array(

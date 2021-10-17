@@ -108,10 +108,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 
 		<div class="booking-day-restriction">
-			<table class="widefat wc_input_table_wrapper">
-				<tbody>
-					<tr>
-						<td>&nbsp;</td>
+			<div class="day_table_grid">
+				<table class="widefat wc_input_table_wrapper">
+					<tbody>
+						<tr>
 
 			<?php
 				$weekdays = array(
@@ -133,10 +133,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 				}
 			?>
-						<td>&nbsp;</td>
-					</tr>
-				</tbody>
-			</table>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 	</div>

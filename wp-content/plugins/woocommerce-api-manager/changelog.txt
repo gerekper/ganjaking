@@ -4,6 +4,10 @@ REQUIRED: WooCommerce 3.4.
 REQUIRED: PHP 7.0.
 REQUIRED: WooCommerce Subscriptions 2.3, if it is installed and active.
 
+2020.12.23 - version 2.3.9
+ * Tweak: Confirm Amazon S3 constants are set in wp-config.php, or WooCommerce > Settings > API Manager > Amazon S3 settings are set, before modifying Amazon S3 product file URL for secure Amazon S3 access.
+ * Fix: SmartCache was not deleting Information or Update API caches as expected when API Key was deactivated.
+
 2020.12.15 - version 2.3.8
  * Tweak: Clear WC Product cache after Product meta data saved.
 

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.7.0
+ * @version     1.7.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -267,7 +267,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 		}
 
 		/**
-		 * Function to delete smart coupons contribution on removal of coupon
+		 * Function to delete Smart Coupons contribution on removal of coupon
 		 */
 		public function delete_smart_coupons_contribution() {
 

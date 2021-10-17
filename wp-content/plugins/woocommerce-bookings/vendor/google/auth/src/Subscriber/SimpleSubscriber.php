@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-namespace Google\Auth\Subscriber;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Subscriber;
 
-use GuzzleHttp\Event\BeforeEvent;
-use GuzzleHttp\Event\RequestEvents;
-use GuzzleHttp\Event\SubscriberInterface;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Event\BeforeEvent;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Event\RequestEvents;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Event\SubscriberInterface;
 
 /**
  * SimpleSubscriber is a Guzzle Subscriber that implements Google's Simple API

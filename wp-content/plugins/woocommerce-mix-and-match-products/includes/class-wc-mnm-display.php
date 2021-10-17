@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Display
  * @since    1.0.0
- * @version  1.9.3
+ * @version  1.11.3
  */
 
 // Exit if accessed directly.
@@ -137,7 +137,7 @@ class WC_Mix_and_Match_Display {
 
 			$container = $cart_item['data'];
 
-			if ( function_exists( 'is_cart' ) && is_cart() && ! $this->is_cart_widget() ) {
+			if ( function_exists( 'is_cart' ) && is_cart() && ! $this->is_cart_widget() &&  apply_filters( 'wc_mnm_show_edit_it_cart_link', true, $cart_item, $cart_item_key ) ) {
 
 				$edit_in_cart_link = esc_url( add_query_arg( array( 'update-container' => $cart_item_key ), $container->get_permalink( $cart_item ) ) );
 				$edit_in_cart_text = _x( 'Edit', 'edit in cart link text', 'woocommerce-mix-and-match-products' );
