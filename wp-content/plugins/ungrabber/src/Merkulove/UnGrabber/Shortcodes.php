@@ -1,13 +1,14 @@
 <?php
 /**
+ * UnGrabber
  * A most effective way to protect your online content from being copied or grabbed
- * Exclusively on Envato Market: https://1.envato.market/ungrabber
+ * Exclusively on https://1.envato.market/ungrabber
  *
  * @encoding        UTF-8
- * @version         2.0.1
- * @copyright       Copyright (C) 2018 - 2020 Merkulove ( https://merkulov.design/ ). All rights reserved.
+ * @version         3.0.3
+ * @copyright       (C) 2018 - 2021 Merkulove ( https://merkulov.design/ ). All rights reserved.
  * @license         Commercial Software
- * @contributors    Alexander Khmelnitskiy (info@alexander.khmelnitskiy.ua), Dmitry Merkulov (dmitry@merkulov.design)
+ * @contributors    Dmitry Merkulov (dmitry@merkulov.design)
  * @support         help@merkulov.design
  **/
 
@@ -20,15 +21,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Merkulove\UnGrabber as UnGrabber;
+use Merkulove\Ungrabber\Unity\Plugin;
 
 /**
  * SINGLETON: Class used to implement shortcodes.
- *
  * @since 1.0.0
- * @author Alexandr Khmelnytsky (info@alexander.khmelnitskiy.ua)
  **/
-final class Shortcodes {
+final class Shortcodes
+{
 
 	/**
 	 * The one true Shortcodes.
@@ -44,11 +44,11 @@ final class Shortcodes {
 	 * @since 1.0.0
 	 * @access public
 	 **/
-	private function __construct() {
+	private function __construct()
+    {
 
 		/** Initializes plugin shortcodes. */
 		add_action( 'init', [$this, 'shortcodes_init'] );
-
 
 	}
 
@@ -59,7 +59,8 @@ final class Shortcodes {
 	 * @access public
 	 * @return void
 	 **/
-	public function shortcodes_init() {
+	public function shortcodes_init()
+    {
 
 		/** Add shortcode [disable_ungrabber] */
 		add_shortcode( 'disable_ungrabber', [ $this, 'disable_ungrabber_shortcode' ] );
@@ -75,9 +76,8 @@ final class Shortcodes {
 	 **/
 	public function disable_ungrabber_shortcode() {
 
-		wp_enqueue_script( 'mdp-ungrabber-destroyer', UnGrabber::$url . 'js/ungrabber-destroyer' . UnGrabber::$suffix . '.js', [], UnGrabber::$version, true );
+		wp_enqueue_script( 'mdp-ungrabber-destroyer', Plugin::get_url() . 'js/ungrabber-destroyer' . Plugin::get_suffix() . '.js', [], Plugin::get_version(), true );
 
-		return;
 	}
 
 	/**
