@@ -23,10 +23,7 @@ class FeatureFlags extends APIEndpoint {
   /** @var FeatureFlagsController */
   private $featureFlagsController;
 
-  public function __construct(
-    FeaturesController $featuresController,
-    FeatureFlagsController $featureFlags
-  ) {
+  public function __construct(FeaturesController $featuresController, FeatureFlagsController $featureFlags) {
     $this->featuresController = $featuresController;
     $this->featureFlagsController = $featureFlags;
   }

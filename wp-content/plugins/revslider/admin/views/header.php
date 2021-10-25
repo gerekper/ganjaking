@@ -47,7 +47,6 @@ $rs_show_updated = get_option('rs_cache_overlay', RS_REVISION);
 if(version_compare(RS_REVISION, $rs_show_updated, '>')){
     update_option('rs_cache_overlay', RS_REVISION);
 }
-$rs_show_deregister_popup = $rsaf->_truefalse(get_option('revslider-deregister-popup', 'false'));
 
 ?>
 <!-- GLOBAL VARIABLES -->
@@ -110,7 +109,6 @@ $rs_show_deregister_popup = $rsaf->_truefalse(get_option('revslider-deregister-p
 	RVS.ENV.selling			= <?php echo ($rsaf->get_addition('selling') === true) ? 'true' : 'false'; ?>;
 	RVS.ENV.newAddonsAmount = '<?php echo $rs_new_addon_counter; ?>';
 	RVS.ENV.newTemplatesAmount = '<?php echo $rs_new_temp_counter; ?>';
-	RVS.ENV.deregisterPopup	= <?php echo ($rs_show_deregister_popup) ? 'true' : 'false'; ?>;
 	
 	<?php
 	if($rs_slider_update_needed == true){

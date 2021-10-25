@@ -65,10 +65,30 @@ abstract class WC_Booking_Form_Picker {
 		if ( in_array( $unit, array( 'd', 'w', 'y', 'm' ) ) ) {
 			$js_string = "+{$max_date['value']}{$unit}";
 		} elseif ( 'h' === $unit ) {
-			$current_d = date( 'd', current_time( 'timestamp' ) );
-			$max_d     = date( 'd', strtotime( "+{$max_date['value']}{$unit}", current_time( 'timestamp' ) ) );
-			$js_string = '+' . ( $current_d == $max_d ? 0 : 1 ) . 'd';
+			$current_datetime = current_datetime();
+			$max_datetime     = $current_datetime->add( new DateInterval( "PT{$max_date['value']}H" ) );
+
+			if ( $max_datetime ) {
+				// If dates are on same day, we only need to show that day.
+				if ( $current_datetime->format( 'Y-m-d' ) === $max_datetime->format( 'Y-m-d' ) ) {
+					$js_string = '+0d';
+				} else {
+					// Calculate difference between now and our max date.
+					$max_day     = $max_datetime->format( 'd' );
+					$current_day = $current_datetime->format( 'd' );
+
+					if ( $max_day && $current_day ) {
+						$days_between = (int) $max_day - (int) $current_day;
+
+						// If we have a days, use that for our offset.
+						if ( $days_between ) {
+							$js_string = '+'. $days_between . 'd';
+						}
+					}
+				}
+			}
 		}
+
 		return $js_string;
 	}
 

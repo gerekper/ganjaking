@@ -5,6 +5,7 @@ namespace MailOptin\ElementorConnect;
 use Elementor\Controls_Manager;
 use ElementorPro\Modules\Forms\Module;
 use MailOptin\Core\Connections\ConnectionFactory;
+use MailOptin\SendinblueConnect\Connect as SendinblueConnect;
 
 if (strpos(__FILE__, 'mailoptin' . DIRECTORY_SEPARATOR . 'src') !== false) {
     // production url path to assets folder.
@@ -104,7 +105,7 @@ class Init
 
     public static function is_mailoptin_detach_libsodium()
     {
-        return defined('MAILOPTIN_DETACH_LIBSODIUM') || get_option('mo_sendinblue_support_id_flag', false) == 'true';
+        return defined('MAILOPTIN_DETACH_LIBSODIUM') || SendinblueConnect::is_connected();
     }
 
     /**

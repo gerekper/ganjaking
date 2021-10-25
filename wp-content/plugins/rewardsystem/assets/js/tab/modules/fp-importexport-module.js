@@ -2,7 +2,6 @@
  * Import/Export Reward Points - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var RSImpExp = {
         init : function () {
             this.update_start_date() ;

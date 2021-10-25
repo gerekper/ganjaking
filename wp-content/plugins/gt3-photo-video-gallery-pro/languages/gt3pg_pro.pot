@@ -1,0 +1,2931 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: GT3 Photo & Video Gallery - Pro\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: gt3-photo-video-gallery-pro.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+"X-Poedit-SearchPathExcluded-1: src\n"
+
+#: _core_deprecated/modules/caption.php:59
+msgid "Show Caption Text"
+msgstr ""
+
+#: _core_deprecated/modules/caption.php:60
+msgid ""
+"You can show the caption text for the image on the page. This option is not "
+"available for the slider."
+msgstr ""
+
+#: _core_deprecated/modules/caption.php:72
+#: core/elementor/widgets/class-grid.php:108
+#: core/elementor/widgets/class-masonry.php:106
+#: core/vc_modules/module/class-grid.php:116
+#: core/vc_modules/module/class-masonry.php:105
+msgid "Show Captions"
+msgstr ""
+
+#: _core_deprecated/modules/caption.php:78
+#: _core_deprecated/modules/downloads.php:104
+#: _core_deprecated/modules/packery.php:236
+#: _core_deprecated/modules/title.php:67
+#: _core_deprecated/modules/yt_width.php:66
+#: core/elementor/widgets/class-basic.php:95
+#: core/elementor/widgets/class-basic.php:128
+#: core/elementor/widgets/class-basic.php:221
+#: core/elementor/widgets/class-basic.php:236
+#: core/elementor/widgets/class-basic.php:251
+#: core/elementor/widgets/class-basic.php:279
+#: core/elementor/widgets/class-basic.php:294
+#: core/elementor/widgets/class-basic.php:311
+#: core/elementor/widgets/class-basic.php:326
+#: core/elementor/widgets/class-basic.php:341
+#: core/elementor/widgets/class-basic.php:356
+#: core/elementor/widgets/class-basic.php:371
+#: core/elementor/widgets/class-basic.php:385
+#: core/elementor/widgets/class-flow.php:45
+#: core/elementor/widgets/class-fs-slider.php:49
+#: core/elementor/widgets/class-fs-slider.php:64
+#: core/elementor/widgets/class-fs-slider.php:79
+#: core/elementor/widgets/class-fs-slider.php:107
+#: core/elementor/widgets/class-fs-slider.php:122
+#: core/elementor/widgets/class-fs-slider.php:137
+#: core/elementor/widgets/class-fs-slider.php:152
+#: core/elementor/widgets/class-fs-slider.php:167
+#: core/elementor/widgets/class-fs-slider.php:181
+#: core/elementor/widgets/class-fs-slider.php:196
+#: core/elementor/widgets/class-fs-slider.php:213
+#: core/elementor/widgets/class-fs-slider.php:228
+#: core/elementor/widgets/class-fs-slider.php:245
+#: core/elementor/widgets/class-grid.php:63
+#: core/elementor/widgets/class-grid.php:81
+#: core/elementor/widgets/class-grid.php:98
+#: core/elementor/widgets/class-grid.php:112
+#: core/elementor/widgets/class-grid.php:127
+#: core/elementor/widgets/class-grid.php:141
+#: core/elementor/widgets/class-grid.php:155
+#: core/elementor/widgets/class-grid.php:173
+#: core/elementor/widgets/class-grid.php:195
+#: core/elementor/widgets/class-grid.php:210
+#: core/elementor/widgets/class-grid.php:237
+#: core/elementor/widgets/class-grid.php:255
+#: core/elementor/widgets/class-instagram.php:95
+#: core/elementor/widgets/class-instagram.php:118
+#: core/elementor/widgets/class-instagram.php:146
+#: core/elementor/widgets/class-instagram.php:161
+#: core/elementor/widgets/class-instagram.php:183
+#: core/elementor/widgets/class-justified.php:68
+#: core/elementor/widgets/class-justified.php:82
+#: core/elementor/widgets/class-justified.php:97
+#: core/elementor/widgets/class-justified.php:211
+#: core/elementor/widgets/class-masonry.php:64
+#: core/elementor/widgets/class-masonry.php:81
+#: core/elementor/widgets/class-masonry.php:96
+#: core/elementor/widgets/class-masonry.php:110
+#: core/elementor/widgets/class-masonry.php:124
+#: core/elementor/widgets/class-masonry.php:138
+#: core/elementor/widgets/class-masonry.php:152
+#: core/elementor/widgets/class-masonry.php:170
+#: core/elementor/widgets/class-masonry.php:192
+#: core/elementor/widgets/class-masonry.php:207
+#: core/elementor/widgets/class-masonry.php:234
+#: core/elementor/widgets/class-masonry.php:249
+#: core/elementor/widgets/class-packery.php:63
+#: core/elementor/widgets/class-packery.php:80
+#: core/elementor/widgets/class-packery.php:112
+#: core/elementor/widgets/class-packery.php:126
+#: core/elementor/widgets/class-packery.php:140
+#: core/elementor/widgets/class-packery.php:158
+#: core/elementor/widgets/class-packery.php:173
+#: core/elementor/widgets/class-packery.php:200
+#: core/elementor/widgets/class-packery.php:218
+#: core/elementor/widgets/class-slider.php:62
+#: core/elementor/widgets/class-slider.php:77
+#: core/elementor/widgets/class-slider.php:105
+#: core/elementor/widgets/class-slider.php:120
+#: core/elementor/widgets/class-slider.php:137
+#: core/elementor/widgets/class-slider.php:152
+#: core/elementor/widgets/class-slider.php:167
+#: core/elementor/widgets/class-slider.php:182
+#: core/elementor/widgets/class-slider.php:198
+#: core/elementor/widgets/class-slider.php:213
+#: core/elementor/widgets/class-thumbnails.php:53
+#: core/elementor/widgets/class-thumbnails.php:67
+#: core/elementor/widgets/class-thumbnails.php:82
+#: core/elementor/widgets/class-thumbnails.php:97
+#: core/elementor/widgets/class-thumbnails.php:111
+#: core/elementor/widgets/class-thumbnails.php:128
+#: core/elementor/widgets/class-thumbnails.php:146
+#: core/elementor/widgets/class-thumbnails.php:161
+#: core/vc_modules/module/class-flow.php:70
+#: core/vc_modules/module/class-flow.php:94
+#: core/vc_modules/module/class-flow.php:107
+#: core/vc_modules/module/class-fs-slider.php:65
+#: core/vc_modules/module/class-fs-slider.php:78
+#: core/vc_modules/module/class-fs-slider.php:93
+#: core/vc_modules/module/class-fs-slider.php:118
+#: core/vc_modules/module/class-fs-slider.php:131
+#: core/vc_modules/module/class-fs-slider.php:144
+#: core/vc_modules/module/class-fs-slider.php:159
+#: core/vc_modules/module/class-fs-slider.php:172
+#: core/vc_modules/module/class-fs-slider.php:185
+#: core/vc_modules/module/class-fs-slider.php:198
+#: core/vc_modules/module/class-fs-slider.php:215
+#: core/vc_modules/module/class-fs-slider.php:228
+#: core/vc_modules/module/class-fs-slider.php:241
+#: core/vc_modules/module/class-fs-slider.php:254
+#: core/vc_modules/module/class-fs-slider.php:267
+#: core/vc_modules/module/class-fs-slider.php:280
+#: core/vc_modules/module/class-grid.php:79
+#: core/vc_modules/module/class-grid.php:93
+#: core/vc_modules/module/class-grid.php:108
+#: core/vc_modules/module/class-grid.php:121
+#: core/vc_modules/module/class-grid.php:134
+#: core/vc_modules/module/class-grid.php:147
+#: core/vc_modules/module/class-grid.php:160
+#: core/vc_modules/module/class-grid.php:176
+#: core/vc_modules/module/class-grid.php:196
+#: core/vc_modules/module/class-grid.php:209
+#: core/vc_modules/module/class-grid.php:233
+#: core/vc_modules/module/class-grid.php:250
+#: core/vc_modules/module/class-grid.php:300
+#: core/vc_modules/module/class-grid.php:317
+#: core/vc_modules/module/class-grid.php:346
+#: core/vc_modules/module/class-grid.php:363
+#: core/vc_modules/module/class-grid.php:380
+#: core/vc_modules/module/class-grid.php:399
+#: core/vc_modules/module/class-grid.php:416
+#: core/vc_modules/module/class-grid.php:433
+#: core/vc_modules/module/class-grid.php:450
+#: core/vc_modules/module/class-grid.php:467
+#: core/vc_modules/module/class-instagram.php:74
+#: core/vc_modules/module/class-instagram.php:89
+#: core/vc_modules/module/class-instagram.php:103
+#: core/vc_modules/module/class-instagram.php:140
+#: core/vc_modules/module/class-instagram.php:154
+#: core/vc_modules/module/class-justified.php:69
+#: core/vc_modules/module/class-justified.php:81
+#: core/vc_modules/module/class-justified.php:126
+#: core/vc_modules/module/class-justified.php:144
+#: core/vc_modules/module/class-justified.php:161
+#: core/vc_modules/module/class-justified.php:190
+#: core/vc_modules/module/class-justified.php:207
+#: core/vc_modules/module/class-justified.php:226
+#: core/vc_modules/module/class-justified.php:243
+#: core/vc_modules/module/class-justified.php:260
+#: core/vc_modules/module/class-justified.php:277
+#: core/vc_modules/module/class-justified.php:294
+#: core/vc_modules/module/class-kenburns.php:66
+#: core/vc_modules/module/class-kenburns.php:88
+#: core/vc_modules/module/class-masonry.php:69
+#: core/vc_modules/module/class-masonry.php:84
+#: core/vc_modules/module/class-masonry.php:97
+#: core/vc_modules/module/class-masonry.php:110
+#: core/vc_modules/module/class-masonry.php:123
+#: core/vc_modules/module/class-masonry.php:136
+#: core/vc_modules/module/class-masonry.php:149
+#: core/vc_modules/module/class-masonry.php:165
+#: core/vc_modules/module/class-masonry.php:185
+#: core/vc_modules/module/class-masonry.php:198
+#: core/vc_modules/module/class-masonry.php:222
+#: core/vc_modules/module/class-masonry.php:235
+#: core/vc_modules/module/class-masonry.php:285
+#: core/vc_modules/module/class-masonry.php:302
+#: core/vc_modules/module/class-masonry.php:331
+#: core/vc_modules/module/class-masonry.php:348
+#: core/vc_modules/module/class-masonry.php:365
+#: core/vc_modules/module/class-masonry.php:384
+#: core/vc_modules/module/class-masonry.php:401
+#: core/vc_modules/module/class-masonry.php:418
+#: core/vc_modules/module/class-masonry.php:435
+#: core/vc_modules/module/class-masonry.php:452
+#: core/vc_modules/module/class-packery.php:70
+#: core/vc_modules/module/class-packery.php:84
+#: core/vc_modules/module/class-packery.php:99
+#: core/vc_modules/module/class-packery.php:112
+#: core/vc_modules/module/class-packery.php:125
+#: core/vc_modules/module/class-packery.php:141
+#: core/vc_modules/module/class-packery.php:161
+#: core/vc_modules/module/class-packery.php:174
+#: core/vc_modules/module/class-packery.php:198
+#: core/vc_modules/module/class-packery.php:215
+#: core/vc_modules/module/class-packery.php:265
+#: core/vc_modules/module/class-packery.php:281
+#: core/vc_modules/module/class-packery.php:310
+#: core/vc_modules/module/class-packery.php:327
+#: core/vc_modules/module/class-packery.php:344
+#: core/vc_modules/module/class-packery.php:363
+#: core/vc_modules/module/class-packery.php:380
+#: core/vc_modules/module/class-packery.php:397
+#: core/vc_modules/module/class-packery.php:414
+#: core/vc_modules/module/class-packery.php:431
+#: core/vc_modules/module/class-ribbon.php:70
+#: core/vc_modules/module/class-ribbon.php:83
+#: core/vc_modules/module/class-ribbon.php:114
+#: core/vc_modules/module/class-ribbon.php:127
+#: core/vc_modules/module/class-shift.php:70
+#: core/vc_modules/module/class-shift.php:82
+#: core/vc_modules/module/class-shift.php:95
+#: core/vc_modules/module/class-shift.php:133
+#: core/vc_modules/module/class-shift.php:148
+#: core/vc_modules/module/class-slider.php:70
+#: core/vc_modules/module/class-slider.php:83
+#: core/vc_modules/module/class-slider.php:98
+#: core/vc_modules/module/class-slider.php:115
+#: core/vc_modules/module/class-slider.php:140
+#: core/vc_modules/module/class-slider.php:157
+#: core/vc_modules/module/class-slider.php:170
+#: core/vc_modules/module/class-slider.php:185
+#: core/vc_modules/module/class-slider.php:198
+#: core/vc_modules/module/class-slider.php:215
+#: core/vc_modules/module/class-slider.php:232
+#: core/vc_modules/module/class-thumbnails.php:70
+#: core/vc_modules/module/class-thumbnails.php:82
+#: core/vc_modules/module/class-thumbnails.php:95
+#: core/vc_modules/module/class-thumbnails.php:108
+#: core/vc_modules/module/class-thumbnails.php:121
+#: core/vc_modules/module/class-thumbnails.php:136
+#: core/vc_modules/module/class-thumbnails.php:152
+#: core/vc_modules/module/class-thumbnails.php:165
+#: core/vc_modules/module/class-thumbnails.php:180
+#: core/vc_modules/module/class-thumbnails.php:196
+#: core/vc_modules/module/class-thumbnails.php:225
+#: core/vc_modules/module/class-thumbnails.php:242
+#: core/vc_modules/module/class-thumbnails.php:259
+#: core/vc_modules/module/class-thumbnails.php:278
+#: core/vc_modules/module/class-thumbnails.php:295
+#: core/vc_modules/module/class-thumbnails.php:312
+#: core/vc_modules/module/class-thumbnails.php:329
+#: core/vc_modules/module/class-thumbnails.php:346 plugin.php:1077
+#: plugin.php:1108 plugin.php:1129 plugin.php:1143 plugin.php:1158
+#: plugin.php:1184 plugin.php:1197 plugin.php:1217 plugin.php:1232
+msgid "Default"
+msgstr ""
+
+#: _core_deprecated/modules/caption.php:79
+#: _core_deprecated/modules/downloads.php:106
+#: _core_deprecated/modules/title.php:69
+#: _core_deprecated/modules/yt_width.php:68
+#: core/elementor/widgets/class-albums.php:239
+#: core/elementor/widgets/class-albums.php:253
+#: core/elementor/widgets/class-albums.php:270
+#: core/elementor/widgets/class-albums.php:286
+#: core/elementor/widgets/class-albums.php:323
+#: core/elementor/widgets/class-albums.php:336
+#: core/elementor/widgets/class-albums.php:417
+#: core/elementor/widgets/class-basic.php:129
+#: core/elementor/widgets/class-basic.php:222
+#: core/elementor/widgets/class-basic.php:252
+#: core/elementor/widgets/class-basic.php:280
+#: core/elementor/widgets/class-basic.php:312
+#: core/elementor/widgets/class-basic.php:327
+#: core/elementor/widgets/class-basic.php:342
+#: core/elementor/widgets/class-basic.php:357
+#: core/elementor/widgets/class-basic.php:372
+#: core/elementor/widgets/class-basic.php:386
+#: core/elementor/widgets/class-fs-slider.php:50
+#: core/elementor/widgets/class-fs-slider.php:80
+#: core/elementor/widgets/class-fs-slider.php:108
+#: core/elementor/widgets/class-fs-slider.php:123
+#: core/elementor/widgets/class-fs-slider.php:138
+#: core/elementor/widgets/class-fs-slider.php:153
+#: core/elementor/widgets/class-fs-slider.php:168
+#: core/elementor/widgets/class-fs-slider.php:182
+#: core/elementor/widgets/class-fs-slider.php:214
+#: core/elementor/widgets/class-fs-slider.php:229
+#: core/elementor/widgets/class-fs-slider.php:246
+#: core/elementor/widgets/class-grid.php:99
+#: core/elementor/widgets/class-grid.php:113
+#: core/elementor/widgets/class-grid.php:128
+#: core/elementor/widgets/class-grid.php:142
+#: core/elementor/widgets/class-grid.php:196
+#: core/elementor/widgets/class-grid.php:256
+#: core/elementor/widgets/class-instagram.php:147
+#: core/elementor/widgets/class-instagram.php:184
+#: core/elementor/widgets/class-justified.php:69
+#: core/elementor/widgets/class-masonry.php:82
+#: core/elementor/widgets/class-masonry.php:97
+#: core/elementor/widgets/class-masonry.php:111
+#: core/elementor/widgets/class-masonry.php:125
+#: core/elementor/widgets/class-masonry.php:139
+#: core/elementor/widgets/class-masonry.php:193
+#: core/elementor/widgets/class-masonry.php:250
+#: core/elementor/widgets/class-packery.php:113
+#: core/elementor/widgets/class-packery.php:127
+#: core/elementor/widgets/class-packery.php:159
+#: core/elementor/widgets/class-packery.php:219
+#: core/elementor/widgets/class-slider.php:78
+#: core/elementor/widgets/class-slider.php:106
+#: core/elementor/widgets/class-slider.php:138
+#: core/elementor/widgets/class-slider.php:153
+#: core/elementor/widgets/class-slider.php:168
+#: core/elementor/widgets/class-slider.php:183
+#: core/elementor/widgets/class-slider.php:199
+#: core/elementor/widgets/class-slider.php:214
+#: core/elementor/widgets/class-thumbnails.php:54
+#: core/elementor/widgets/class-thumbnails.php:83
+#: core/elementor/widgets/class-thumbnails.php:147
+#: core/elementor/widgets/class-thumbnails.php:162
+#: core/vc_modules/module/class-flow.php:71
+#: core/vc_modules/module/class-flow.php:108
+#: core/vc_modules/module/class-fs-slider.php:66
+#: core/vc_modules/module/class-fs-slider.php:79
+#: core/vc_modules/module/class-fs-slider.php:94
+#: core/vc_modules/module/class-fs-slider.php:119
+#: core/vc_modules/module/class-fs-slider.php:132
+#: core/vc_modules/module/class-fs-slider.php:160
+#: core/vc_modules/module/class-fs-slider.php:173
+#: core/vc_modules/module/class-fs-slider.php:199
+#: core/vc_modules/module/class-fs-slider.php:216
+#: core/vc_modules/module/class-fs-slider.php:229
+#: core/vc_modules/module/class-fs-slider.php:242
+#: core/vc_modules/module/class-fs-slider.php:255
+#: core/vc_modules/module/class-fs-slider.php:268
+#: core/vc_modules/module/class-grid.php:109
+#: core/vc_modules/module/class-grid.php:122
+#: core/vc_modules/module/class-grid.php:135
+#: core/vc_modules/module/class-grid.php:148
+#: core/vc_modules/module/class-grid.php:197
+#: core/vc_modules/module/class-grid.php:251
+#: core/vc_modules/module/class-grid.php:318
+#: core/vc_modules/module/class-grid.php:347
+#: core/vc_modules/module/class-grid.php:364
+#: core/vc_modules/module/class-grid.php:400
+#: core/vc_modules/module/class-grid.php:417
+#: core/vc_modules/module/class-grid.php:434
+#: core/vc_modules/module/class-grid.php:451
+#: core/vc_modules/module/class-grid.php:468
+#: core/vc_modules/module/class-instagram.php:141
+#: core/vc_modules/module/class-instagram.php:155
+#: core/vc_modules/module/class-justified.php:70
+#: core/vc_modules/module/class-justified.php:162
+#: core/vc_modules/module/class-justified.php:191
+#: core/vc_modules/module/class-justified.php:227
+#: core/vc_modules/module/class-justified.php:244
+#: core/vc_modules/module/class-justified.php:261
+#: core/vc_modules/module/class-justified.php:278
+#: core/vc_modules/module/class-justified.php:295
+#: core/vc_modules/module/class-kenburns.php:67
+#: core/vc_modules/module/class-kenburns.php:89
+#: core/vc_modules/module/class-masonry.php:85
+#: core/vc_modules/module/class-masonry.php:98
+#: core/vc_modules/module/class-masonry.php:111
+#: core/vc_modules/module/class-masonry.php:124
+#: core/vc_modules/module/class-masonry.php:137
+#: core/vc_modules/module/class-masonry.php:186
+#: core/vc_modules/module/class-masonry.php:236
+#: core/vc_modules/module/class-masonry.php:303
+#: core/vc_modules/module/class-masonry.php:332
+#: core/vc_modules/module/class-masonry.php:349
+#: core/vc_modules/module/class-masonry.php:385
+#: core/vc_modules/module/class-masonry.php:402
+#: core/vc_modules/module/class-masonry.php:419
+#: core/vc_modules/module/class-masonry.php:436
+#: core/vc_modules/module/class-masonry.php:453
+#: core/vc_modules/module/class-packery.php:100
+#: core/vc_modules/module/class-packery.php:113
+#: core/vc_modules/module/class-packery.php:162
+#: core/vc_modules/module/class-packery.php:216
+#: core/vc_modules/module/class-packery.php:282
+#: core/vc_modules/module/class-packery.php:311
+#: core/vc_modules/module/class-packery.php:328
+#: core/vc_modules/module/class-packery.php:364
+#: core/vc_modules/module/class-packery.php:381
+#: core/vc_modules/module/class-packery.php:398
+#: core/vc_modules/module/class-packery.php:415
+#: core/vc_modules/module/class-packery.php:432
+#: core/vc_modules/module/class-ribbon.php:71
+#: core/vc_modules/module/class-ribbon.php:84
+#: core/vc_modules/module/class-ribbon.php:115
+#: core/vc_modules/module/class-ribbon.php:128
+#: core/vc_modules/module/class-shift.php:71
+#: core/vc_modules/module/class-shift.php:83
+#: core/vc_modules/module/class-shift.php:96
+#: core/vc_modules/module/class-shift.php:149
+#: core/vc_modules/module/class-slider.php:71
+#: core/vc_modules/module/class-slider.php:84
+#: core/vc_modules/module/class-slider.php:116
+#: core/vc_modules/module/class-slider.php:141
+#: core/vc_modules/module/class-slider.php:158
+#: core/vc_modules/module/class-slider.php:186
+#: core/vc_modules/module/class-slider.php:199
+#: core/vc_modules/module/class-slider.php:216
+#: core/vc_modules/module/class-slider.php:233
+#: core/vc_modules/module/class-thumbnails.php:71
+#: core/vc_modules/module/class-thumbnails.php:96
+#: core/vc_modules/module/class-thumbnails.php:153
+#: core/vc_modules/module/class-thumbnails.php:166
+#: core/vc_modules/module/class-thumbnails.php:197
+#: core/vc_modules/module/class-thumbnails.php:226
+#: core/vc_modules/module/class-thumbnails.php:243
+#: core/vc_modules/module/class-thumbnails.php:279
+#: core/vc_modules/module/class-thumbnails.php:296
+#: core/vc_modules/module/class-thumbnails.php:313
+#: core/vc_modules/module/class-thumbnails.php:330
+#: core/vc_modules/module/class-thumbnails.php:347 plugin.php:1079
+#: plugin.php:1110 plugin.php:1145 plugin.php:1160 plugin.php:1186
+#: plugin.php:1199 plugin.php:1234
+msgid "Enabled"
+msgstr ""
+
+#: _core_deprecated/modules/caption.php:80
+#: _core_deprecated/modules/downloads.php:105
+#: _core_deprecated/modules/title.php:68
+#: _core_deprecated/modules/yt_width.php:67
+#: core/elementor/widgets/class-albums.php:240
+#: core/elementor/widgets/class-albums.php:254
+#: core/elementor/widgets/class-albums.php:271
+#: core/elementor/widgets/class-albums.php:287
+#: core/elementor/widgets/class-albums.php:324
+#: core/elementor/widgets/class-albums.php:337
+#: core/elementor/widgets/class-albums.php:418
+#: core/elementor/widgets/class-basic.php:130
+#: core/elementor/widgets/class-basic.php:223
+#: core/elementor/widgets/class-basic.php:253
+#: core/elementor/widgets/class-basic.php:281
+#: core/elementor/widgets/class-basic.php:313
+#: core/elementor/widgets/class-basic.php:328
+#: core/elementor/widgets/class-basic.php:343
+#: core/elementor/widgets/class-basic.php:358
+#: core/elementor/widgets/class-basic.php:373
+#: core/elementor/widgets/class-basic.php:387
+#: core/elementor/widgets/class-fs-slider.php:51
+#: core/elementor/widgets/class-fs-slider.php:81
+#: core/elementor/widgets/class-fs-slider.php:109
+#: core/elementor/widgets/class-fs-slider.php:124
+#: core/elementor/widgets/class-fs-slider.php:139
+#: core/elementor/widgets/class-fs-slider.php:154
+#: core/elementor/widgets/class-fs-slider.php:169
+#: core/elementor/widgets/class-fs-slider.php:183
+#: core/elementor/widgets/class-fs-slider.php:215
+#: core/elementor/widgets/class-fs-slider.php:230
+#: core/elementor/widgets/class-fs-slider.php:247
+#: core/elementor/widgets/class-grid.php:100
+#: core/elementor/widgets/class-grid.php:114
+#: core/elementor/widgets/class-grid.php:129
+#: core/elementor/widgets/class-grid.php:143
+#: core/elementor/widgets/class-grid.php:197
+#: core/elementor/widgets/class-grid.php:257
+#: core/elementor/widgets/class-instagram.php:148
+#: core/elementor/widgets/class-instagram.php:185
+#: core/elementor/widgets/class-justified.php:70
+#: core/elementor/widgets/class-masonry.php:83
+#: core/elementor/widgets/class-masonry.php:98
+#: core/elementor/widgets/class-masonry.php:112
+#: core/elementor/widgets/class-masonry.php:126
+#: core/elementor/widgets/class-masonry.php:140
+#: core/elementor/widgets/class-masonry.php:194
+#: core/elementor/widgets/class-masonry.php:251
+#: core/elementor/widgets/class-packery.php:114
+#: core/elementor/widgets/class-packery.php:128
+#: core/elementor/widgets/class-packery.php:160
+#: core/elementor/widgets/class-packery.php:220
+#: core/elementor/widgets/class-slider.php:79
+#: core/elementor/widgets/class-slider.php:107
+#: core/elementor/widgets/class-slider.php:139
+#: core/elementor/widgets/class-slider.php:154
+#: core/elementor/widgets/class-slider.php:169
+#: core/elementor/widgets/class-slider.php:184
+#: core/elementor/widgets/class-slider.php:200
+#: core/elementor/widgets/class-slider.php:215
+#: core/elementor/widgets/class-thumbnails.php:55
+#: core/elementor/widgets/class-thumbnails.php:84
+#: core/elementor/widgets/class-thumbnails.php:148
+#: core/elementor/widgets/class-thumbnails.php:163
+#: core/vc_modules/module/class-flow.php:72
+#: core/vc_modules/module/class-flow.php:109
+#: core/vc_modules/module/class-fs-slider.php:67
+#: core/vc_modules/module/class-fs-slider.php:80
+#: core/vc_modules/module/class-fs-slider.php:95
+#: core/vc_modules/module/class-fs-slider.php:120
+#: core/vc_modules/module/class-fs-slider.php:133
+#: core/vc_modules/module/class-fs-slider.php:161
+#: core/vc_modules/module/class-fs-slider.php:174
+#: core/vc_modules/module/class-fs-slider.php:200
+#: core/vc_modules/module/class-fs-slider.php:217
+#: core/vc_modules/module/class-fs-slider.php:230
+#: core/vc_modules/module/class-fs-slider.php:243
+#: core/vc_modules/module/class-fs-slider.php:256
+#: core/vc_modules/module/class-fs-slider.php:269
+#: core/vc_modules/module/class-grid.php:110
+#: core/vc_modules/module/class-grid.php:123
+#: core/vc_modules/module/class-grid.php:136
+#: core/vc_modules/module/class-grid.php:149
+#: core/vc_modules/module/class-grid.php:198
+#: core/vc_modules/module/class-grid.php:252
+#: core/vc_modules/module/class-grid.php:319
+#: core/vc_modules/module/class-grid.php:348
+#: core/vc_modules/module/class-grid.php:365
+#: core/vc_modules/module/class-grid.php:401
+#: core/vc_modules/module/class-grid.php:418
+#: core/vc_modules/module/class-grid.php:435
+#: core/vc_modules/module/class-grid.php:452
+#: core/vc_modules/module/class-grid.php:469
+#: core/vc_modules/module/class-instagram.php:142
+#: core/vc_modules/module/class-instagram.php:156
+#: core/vc_modules/module/class-justified.php:71
+#: core/vc_modules/module/class-justified.php:163
+#: core/vc_modules/module/class-justified.php:192
+#: core/vc_modules/module/class-justified.php:228
+#: core/vc_modules/module/class-justified.php:245
+#: core/vc_modules/module/class-justified.php:262
+#: core/vc_modules/module/class-justified.php:279
+#: core/vc_modules/module/class-justified.php:296
+#: core/vc_modules/module/class-kenburns.php:68
+#: core/vc_modules/module/class-kenburns.php:90
+#: core/vc_modules/module/class-masonry.php:86
+#: core/vc_modules/module/class-masonry.php:99
+#: core/vc_modules/module/class-masonry.php:112
+#: core/vc_modules/module/class-masonry.php:125
+#: core/vc_modules/module/class-masonry.php:138
+#: core/vc_modules/module/class-masonry.php:187
+#: core/vc_modules/module/class-masonry.php:237
+#: core/vc_modules/module/class-masonry.php:304
+#: core/vc_modules/module/class-masonry.php:333
+#: core/vc_modules/module/class-masonry.php:350
+#: core/vc_modules/module/class-masonry.php:386
+#: core/vc_modules/module/class-masonry.php:403
+#: core/vc_modules/module/class-masonry.php:420
+#: core/vc_modules/module/class-masonry.php:437
+#: core/vc_modules/module/class-masonry.php:454
+#: core/vc_modules/module/class-packery.php:101
+#: core/vc_modules/module/class-packery.php:114
+#: core/vc_modules/module/class-packery.php:163
+#: core/vc_modules/module/class-packery.php:217
+#: core/vc_modules/module/class-packery.php:283
+#: core/vc_modules/module/class-packery.php:312
+#: core/vc_modules/module/class-packery.php:329
+#: core/vc_modules/module/class-packery.php:365
+#: core/vc_modules/module/class-packery.php:382
+#: core/vc_modules/module/class-packery.php:399
+#: core/vc_modules/module/class-packery.php:416
+#: core/vc_modules/module/class-packery.php:433
+#: core/vc_modules/module/class-ribbon.php:72
+#: core/vc_modules/module/class-ribbon.php:85
+#: core/vc_modules/module/class-ribbon.php:116
+#: core/vc_modules/module/class-ribbon.php:129
+#: core/vc_modules/module/class-shift.php:72
+#: core/vc_modules/module/class-shift.php:84
+#: core/vc_modules/module/class-shift.php:97
+#: core/vc_modules/module/class-shift.php:150
+#: core/vc_modules/module/class-slider.php:72
+#: core/vc_modules/module/class-slider.php:85
+#: core/vc_modules/module/class-slider.php:117
+#: core/vc_modules/module/class-slider.php:142
+#: core/vc_modules/module/class-slider.php:159
+#: core/vc_modules/module/class-slider.php:187
+#: core/vc_modules/module/class-slider.php:200
+#: core/vc_modules/module/class-slider.php:217
+#: core/vc_modules/module/class-slider.php:234
+#: core/vc_modules/module/class-thumbnails.php:72
+#: core/vc_modules/module/class-thumbnails.php:97
+#: core/vc_modules/module/class-thumbnails.php:154
+#: core/vc_modules/module/class-thumbnails.php:167
+#: core/vc_modules/module/class-thumbnails.php:198
+#: core/vc_modules/module/class-thumbnails.php:227
+#: core/vc_modules/module/class-thumbnails.php:244
+#: core/vc_modules/module/class-thumbnails.php:280
+#: core/vc_modules/module/class-thumbnails.php:297
+#: core/vc_modules/module/class-thumbnails.php:314
+#: core/vc_modules/module/class-thumbnails.php:331
+#: core/vc_modules/module/class-thumbnails.php:348 plugin.php:1078
+#: plugin.php:1109 plugin.php:1144 plugin.php:1159 plugin.php:1185
+#: plugin.php:1198 plugin.php:1233
+msgid "Disabled"
+msgstr ""
+
+#: _core_deprecated/modules/deeplink.php:35
+#: core/elementor/widgets/class-basic.php:322
+#: core/vc_modules/module/class-grid.php:411
+#: core/vc_modules/module/class-justified.php:238
+#: core/vc_modules/module/class-masonry.php:396
+#: core/vc_modules/module/class-packery.php:375
+#: core/vc_modules/module/class-thumbnails.php:290
+msgid "Deeplink"
+msgstr ""
+
+#: _core_deprecated/modules/downloads.php:85
+#: _core_deprecated/modules/downloads.php:98
+#: core/elementor/widgets/class-basic.php:352
+#: core/elementor/widgets/class-slider.php:163
+#: core/vc_modules/module/class-grid.php:445
+#: core/vc_modules/module/class-justified.php:272
+#: core/vc_modules/module/class-masonry.php:430
+#: core/vc_modules/module/class-packery.php:409
+#: core/vc_modules/module/class-slider.php:210
+#: core/vc_modules/module/class-thumbnails.php:324
+msgid "Download Image"
+msgstr ""
+
+#: _core_deprecated/modules/downloads.php:86
+msgid ""
+"You can enable/disable the option to download the image in the lightbox and "
+"slider."
+msgstr ""
+
+#: _core_deprecated/modules/packery.php:128
+#: _core_deprecated/modules/packery.php:219 core/cpt/gallery/init.php:373
+#: core/elementor/widgets/class-albums.php:129
+#: core/elementor/widgets/class-packery.php:16
+#: core/vc_modules/module/class-packery.php:21
+#: core/vc_modules/module/class-packery.php:23
+msgid "Packery"
+msgstr ""
+
+#: _core_deprecated/modules/packery.php:228
+#: core/elementor/widgets/class-albums.php:138
+#: core/elementor/widgets/class-packery.php:76
+#: core/vc_modules/module/class-packery.php:65
+msgid "Packery Grid"
+msgstr ""
+
+#: _core_deprecated/modules/packery.php:237
+msgid "Type1"
+msgstr ""
+
+#: _core_deprecated/modules/packery.php:238
+msgid "Type2"
+msgstr ""
+
+#: _core_deprecated/modules/packery.php:239
+msgid "Type3"
+msgstr ""
+
+#: _core_deprecated/modules/packery.php:240
+msgid "Type4"
+msgstr ""
+
+#: _core_deprecated/modules/title.php:48 _core_deprecated/modules/title.php:61
+#: core/elementor/widgets/class-grid.php:94
+#: core/elementor/widgets/class-masonry.php:92
+#: core/vc_modules/module/class-grid.php:103
+#: core/vc_modules/module/class-masonry.php:92
+msgid "Show Image Title"
+msgstr ""
+
+#: _core_deprecated/modules/title.php:49
+msgid ""
+"You can show the image title on the page. This option is not available for "
+"the slider."
+msgstr ""
+
+#: _core_deprecated/modules/yt_width.php:47
+#: _core_deprecated/modules/yt_width.php:60
+#: core/vc_modules/module/class-fs-slider.php:193
+#: core/vc_modules/module/class-grid.php:462
+#: core/vc_modules/module/class-justified.php:289
+#: core/vc_modules/module/class-masonry.php:447
+#: core/vc_modules/module/class-packery.php:426
+#: core/vc_modules/module/class-slider.php:227
+#: core/vc_modules/module/class-thumbnails.php:341
+msgid "YouTube Width"
+msgstr ""
+
+#: _core_deprecated/modules/yt_width.php:48
+msgid "You can enable/disable YouTube max-width."
+msgstr ""
+
+#: core/block/class-albums.php:183
+msgid "photo"
+msgid_plural "photos"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/block/class-albums.php:443
+msgid "Show All"
+msgstr ""
+
+#: core/block/class-albums.php:476 core/block/class-grid.php:272
+#: core/block/class-masonry.php:286 core/block/class-packery.php:303
+msgid "More"
+msgstr ""
+
+#: core/block/class-basic.php:446
+msgid "Select Images in Editor"
+msgstr ""
+
+#: core/class-admin-menu.php:68
+msgid "Need Help?"
+msgstr ""
+
+#: core/class-rest-api.php:326
+msgid "No Title"
+msgstr ""
+
+#: core/class-settings.php:102 core/elementor/widgets/class-basic.php:112
+#: core/elementor/widgets/class-basic.php:113
+msgid "All"
+msgstr ""
+
+#: core/cpt/gallery/init.php:73
+msgid "Galleries"
+msgstr ""
+
+#: core/cpt/gallery/init.php:74
+#, php-format
+msgid "%1$s Gallery"
+msgstr ""
+
+#: core/cpt/gallery/init.php:75 core/cpt/gallery/init.php:76
+#: core/cpt/gallery/init.php:78
+msgid "New Gallery"
+msgstr ""
+
+#: core/cpt/gallery/init.php:77
+#, php-format
+msgid "Edit %1$s Gallery"
+msgstr ""
+
+#: core/cpt/gallery/init.php:79 core/cpt/gallery/init.php:142
+msgid "View Gallery"
+msgstr ""
+
+#: core/cpt/gallery/init.php:80
+msgid "Search Gallery"
+msgstr ""
+
+#: core/cpt/gallery/init.php:81
+msgid "No Galleries Found"
+msgstr ""
+
+#: core/cpt/gallery/init.php:82
+msgid "No Galleries Found in Trash"
+msgstr ""
+
+#: core/cpt/gallery/init.php:83
+msgid "Parent Gallery"
+msgstr ""
+
+#: core/cpt/gallery/init.php:84
+msgid "All Galleries"
+msgstr ""
+
+#: core/cpt/gallery/init.php:85
+msgid "Filter Galleries list"
+msgstr ""
+
+#: core/cpt/gallery/init.php:86
+msgid "Galleries list navigation"
+msgstr ""
+
+#: core/cpt/gallery/init.php:87
+msgid "Galleries list"
+msgstr ""
+
+#: core/cpt/gallery/init.php:93 core/cpt/gallery/init.php:104
+msgid "Categories"
+msgstr ""
+
+#: core/cpt/gallery/init.php:94 core/cpt/gallery/init.php:421
+#: core/elementor/controls/class-query.php:124
+msgid "Category"
+msgstr ""
+
+#: core/cpt/gallery/init.php:95
+msgid "Search Categories"
+msgstr ""
+
+#: core/cpt/gallery/init.php:96
+msgid "All Categories"
+msgstr ""
+
+#: core/cpt/gallery/init.php:97
+msgid "View Category"
+msgstr ""
+
+#: core/cpt/gallery/init.php:98
+msgid "Parent Category"
+msgstr ""
+
+#: core/cpt/gallery/init.php:99
+msgid "Parent Category:"
+msgstr ""
+
+#: core/cpt/gallery/init.php:100
+msgid "Edit Category"
+msgstr ""
+
+#: core/cpt/gallery/init.php:101
+msgid "Update Category"
+msgstr ""
+
+#: core/cpt/gallery/init.php:102
+msgid "Add New Category"
+msgstr ""
+
+#: core/cpt/gallery/init.php:103
+msgid "New Category Name"
+msgstr ""
+
+#: core/cpt/gallery/init.php:128 core/cpt/gallery/init.php:135
+msgid "Preview Gallery"
+msgstr ""
+
+#. translators: Publish box date format, see https://secure.php.net/date
+#: core/cpt/gallery/init.php:147
+msgid "M j, Y @ H:i"
+msgstr ""
+
+#: core/cpt/gallery/init.php:150 core/cpt/gallery/init.php:153
+msgid "Gallery updated."
+msgstr ""
+
+#: core/cpt/gallery/init.php:151
+msgid "Custom field updated."
+msgstr ""
+
+#: core/cpt/gallery/init.php:152
+msgid "Custom field deleted."
+msgstr ""
+
+#. translators: %s: date and time of the revision
+#: core/cpt/gallery/init.php:155
+#, php-format
+msgid "Gallery restored to revision from %s."
+msgstr ""
+
+#: core/cpt/gallery/init.php:156
+msgid "Gallery published."
+msgstr ""
+
+#: core/cpt/gallery/init.php:157
+msgid "Gallery saved."
+msgstr ""
+
+#: core/cpt/gallery/init.php:158
+msgid "Gallery submitted."
+msgstr ""
+
+#: core/cpt/gallery/init.php:159
+#, php-format
+msgid "Gallery scheduled for: %s."
+msgstr ""
+
+#: core/cpt/gallery/init.php:160
+msgid "Gallery draft updated."
+msgstr ""
+
+#: core/cpt/gallery/init.php:171 core/cpt/gallery/init.php:255
+#: core/cpt/gallery/init.php:256
+#, php-format
+msgid "%1$s Galleries"
+msgstr ""
+
+#: core/cpt/gallery/init.php:286 core/cpt/gallery/init.php:287
+#: core/elementor/widgets/class-fs-slider.php:38
+#: core/elementor/widgets/class-grid.php:50
+#: core/elementor/widgets/class-instagram.php:107
+#: core/elementor/widgets/class-masonry.php:51
+#: core/elementor/widgets/class-packery.php:50
+#: core/elementor/widgets/class-slider.php:51
+#: core/elementor/widgets/class-thumbnails.php:42
+#: core/vc_modules/module/class-flow.php:68
+#: core/vc_modules/module/class-flow.php:80
+#: core/vc_modules/module/class-flow.php:92
+#: core/vc_modules/module/class-flow.php:105
+#: core/vc_modules/module/class-flow.php:117
+#: core/vc_modules/module/class-flow.php:126
+#: core/vc_modules/module/class-fs-slider.php:63
+#: core/vc_modules/module/class-fs-slider.php:76
+#: core/vc_modules/module/class-fs-slider.php:91
+#: core/vc_modules/module/class-fs-slider.php:104
+#: core/vc_modules/module/class-fs-slider.php:129
+#: core/vc_modules/module/class-fs-slider.php:142
+#: core/vc_modules/module/class-fs-slider.php:157
+#: core/vc_modules/module/class-fs-slider.php:170
+#: core/vc_modules/module/class-fs-slider.php:183
+#: core/vc_modules/module/class-fs-slider.php:196
+#: core/vc_modules/module/class-fs-slider.php:213
+#: core/vc_modules/module/class-fs-slider.php:226
+#: core/vc_modules/module/class-fs-slider.php:239
+#: core/vc_modules/module/class-fs-slider.php:252
+#: core/vc_modules/module/class-fs-slider.php:265
+#: core/vc_modules/module/class-fs-slider.php:278
+#: core/vc_modules/module/class-fs-slider.php:310
+#: core/vc_modules/module/class-grid.php:77
+#: core/vc_modules/module/class-grid.php:91
+#: core/vc_modules/module/class-grid.php:106
+#: core/vc_modules/module/class-grid.php:119
+#: core/vc_modules/module/class-grid.php:132
+#: core/vc_modules/module/class-grid.php:145
+#: core/vc_modules/module/class-grid.php:158
+#: core/vc_modules/module/class-grid.php:174
+#: core/vc_modules/module/class-grid.php:194
+#: core/vc_modules/module/class-grid.php:207
+#: core/vc_modules/module/class-grid.php:218
+#: core/vc_modules/module/class-grid.php:231
+#: core/vc_modules/module/class-grid.php:248
+#: core/vc_modules/module/class-grid.php:261
+#: core/vc_modules/module/class-grid.php:273
+#: core/vc_modules/module/class-grid.php:285
+#: core/vc_modules/module/class-instagram.php:72
+#: core/vc_modules/module/class-instagram.php:87
+#: core/vc_modules/module/class-instagram.php:101
+#: core/vc_modules/module/class-instagram.php:121
+#: core/vc_modules/module/class-instagram.php:129
+#: core/vc_modules/module/class-instagram.php:138
+#: core/vc_modules/module/class-instagram.php:152
+#: core/vc_modules/module/class-justified.php:67
+#: core/vc_modules/module/class-justified.php:79
+#: core/vc_modules/module/class-justified.php:92
+#: core/vc_modules/module/class-justified.php:100
+#: core/vc_modules/module/class-justified.php:108
+#: core/vc_modules/module/class-justified.php:116
+#: core/vc_modules/module/class-justified.php:124
+#: core/vc_modules/module/class-kenburns.php:64
+#: core/vc_modules/module/class-kenburns.php:77
+#: core/vc_modules/module/class-kenburns.php:86
+#: core/vc_modules/module/class-kenburns.php:99
+#: core/vc_modules/module/class-kenburns.php:108
+#: core/vc_modules/module/class-kenburns.php:117
+#: core/vc_modules/module/class-masonry.php:67
+#: core/vc_modules/module/class-masonry.php:82
+#: core/vc_modules/module/class-masonry.php:95
+#: core/vc_modules/module/class-masonry.php:108
+#: core/vc_modules/module/class-masonry.php:121
+#: core/vc_modules/module/class-masonry.php:134
+#: core/vc_modules/module/class-masonry.php:147
+#: core/vc_modules/module/class-masonry.php:163
+#: core/vc_modules/module/class-masonry.php:183
+#: core/vc_modules/module/class-masonry.php:196
+#: core/vc_modules/module/class-masonry.php:207
+#: core/vc_modules/module/class-masonry.php:220
+#: core/vc_modules/module/class-masonry.php:233
+#: core/vc_modules/module/class-masonry.php:246
+#: core/vc_modules/module/class-masonry.php:258
+#: core/vc_modules/module/class-masonry.php:270
+#: core/vc_modules/module/class-packery.php:68
+#: core/vc_modules/module/class-packery.php:82
+#: core/vc_modules/module/class-packery.php:97
+#: core/vc_modules/module/class-packery.php:110
+#: core/vc_modules/module/class-packery.php:123
+#: core/vc_modules/module/class-packery.php:139
+#: core/vc_modules/module/class-packery.php:159
+#: core/vc_modules/module/class-packery.php:172
+#: core/vc_modules/module/class-packery.php:183
+#: core/vc_modules/module/class-packery.php:196
+#: core/vc_modules/module/class-packery.php:213
+#: core/vc_modules/module/class-packery.php:226
+#: core/vc_modules/module/class-packery.php:238
+#: core/vc_modules/module/class-packery.php:250
+#: core/vc_modules/module/class-ribbon.php:68
+#: core/vc_modules/module/class-ribbon.php:81
+#: core/vc_modules/module/class-ribbon.php:93
+#: core/vc_modules/module/class-ribbon.php:112
+#: core/vc_modules/module/class-shift.php:68
+#: core/vc_modules/module/class-shift.php:80
+#: core/vc_modules/module/class-shift.php:93
+#: core/vc_modules/module/class-shift.php:110
+#: core/vc_modules/module/class-shift.php:122
+#: core/vc_modules/module/class-shift.php:131
+#: core/vc_modules/module/class-shift.php:146
+#: core/vc_modules/module/class-shift.php:172
+#: core/vc_modules/module/class-slider.php:68
+#: core/vc_modules/module/class-slider.php:81
+#: core/vc_modules/module/class-thumbnails.php:68
+#: core/vc_modules/module/class-thumbnails.php:80
+#: core/vc_modules/module/class-thumbnails.php:93
+#: core/vc_modules/module/class-thumbnails.php:106
+#: core/vc_modules/module/class-thumbnails.php:119
+#: core/vc_modules/module/class-thumbnails.php:134
+#: core/vc_modules/module/class-thumbnails.php:150
+#: core/vc_modules/module/class-thumbnails.php:163 plugin.php:212
+msgid "Settings"
+msgstr ""
+
+#: core/cpt/gallery/init.php:321
+msgid "Gallery Settings"
+msgstr ""
+
+#: core/cpt/gallery/init.php:334
+msgid "Gallery Images"
+msgstr ""
+
+#: core/cpt/gallery/init.php:366
+msgid "Gallery Type"
+msgstr ""
+
+#: core/cpt/gallery/init.php:370
+msgid "Defaults"
+msgstr ""
+
+#: core/cpt/gallery/init.php:371 core/elementor/widgets/class-albums.php:128
+#: core/elementor/widgets/class-grid.php:16
+#: core/vc_modules/module/class-grid.php:20
+#: core/vc_modules/module/class-grid.php:22
+msgid "Grid"
+msgstr ""
+
+#: core/cpt/gallery/init.php:372 core/elementor/widgets/class-albums.php:127
+#: core/elementor/widgets/class-masonry.php:16
+#: core/vc_modules/module/class-masonry.php:20
+#: core/vc_modules/module/class-masonry.php:22
+msgid "Masonry"
+msgstr ""
+
+#: core/cpt/gallery/init.php:419
+msgid "Image"
+msgstr ""
+
+#: core/cpt/gallery/init.php:420 core/elementor/controls/class-query.php:86
+#: core/elementor/widgets/class-ribbon.php:128
+#: core/elementor/widgets/class-shift.php:162
+msgid "Title"
+msgstr ""
+
+#: core/cpt/gallery/init.php:422 core/elementor/controls/class-query.php:83
+msgid "Date"
+msgstr ""
+
+#: core/cpt/gallery/init.php:423
+msgid "Count"
+msgstr ""
+
+#: core/cpt/gallery/init.php:453
+msgid "No Image Selected"
+msgstr ""
+
+#: core/cpt/gallery/init.php:580
+msgid "(No Title)"
+msgstr ""
+
+#: core/cpt/gallery/init.php:580
+msgid "image"
+msgid_plural "images"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/cpt/gallery/static/cpt-gallery.js:94
+msgid "Do you really want to remove all images?"
+msgstr ""
+
+#: core/cpt/gallery/static/cpt-gallery.js:295
+#, javascript-format
+msgid "%s file"
+msgid_plural "%s files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/cpt/gallery/static/cpt-gallery.js:295
+msgid "No files"
+msgstr ""
+
+#: core/cpt/gallery/static/cpt-gallery.js:318
+msgid "Select Files"
+msgstr ""
+
+#: core/cpt/gallery/static/cpt-gallery.js:329
+msgid "Select"
+msgstr ""
+
+#: core/cpt/gallery/static/cpt-gallery.js:373
+#: core/elementor/controls/class-gallery.php:53
+msgid "+ Add Media"
+msgstr ""
+
+#: core/cpt/gallery/static/cpt-gallery.js:397
+#: core/elementor/controls/class-gallery.php:54
+msgid "Clear Gallery"
+msgstr ""
+
+#: core/elementor/class-core.php:73 core/elementor/class-core.php:94
+msgid "GT3 Photo & Video Gallery PRO"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:55
+msgid "Post Count"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:59
+msgid "How many teasers to show? Enter number, -1 for All."
+msgstr ""
+
+#: core/elementor/controls/class-query.php:65
+msgid "Ignore Sticky Posts"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:69
+msgid "On"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:70
+msgid "Off"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:80
+msgid "Order By"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:84
+msgid "ID"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:85
+#: core/elementor/controls/class-query.php:144
+msgid "Author"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:87
+msgid "Modified"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:88
+#: core/elementor/widgets/class-justified.php:85
+#: core/vc_modules/module/class-justified.php:83
+msgid "Random"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:89
+msgid "Comment count"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:90
+msgid "Menu order"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:94
+msgid "Select how to sort retrieved posts. More at"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:95
+msgid "WordPress codex page"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:101
+msgid "Order"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:104
+msgid "Ascending"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:105
+msgid "Descending"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:107
+msgid "Designates the ascending or descending order"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:114
+msgid "Individual IDs"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:116
+msgid "Select Individual IDs"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:126
+msgid ""
+"Filter output by custom taxonomies categories, enter category names here"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:134
+msgid "Tags"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:136
+msgid "Filter output by posts tags, enter tag names here"
+msgstr ""
+
+#: core/elementor/controls/class-query.php:146
+msgid "Filter by author name"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:22
+msgid "Albums"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:43
+#: core/elementor/widgets/class-fs-slider.php:27
+#: core/elementor/widgets/class-grid.php:38
+#: core/elementor/widgets/class-instagram.php:37
+#: core/elementor/widgets/class-justified.php:42
+#: core/elementor/widgets/class-masonry.php:38
+#: core/elementor/widgets/class-packery.php:38
+#: core/elementor/widgets/class-shift.php:43
+#: core/elementor/widgets/class-slider.php:40
+#: core/elementor/widgets/class-stripe.php:42
+#: core/elementor/widgets/class-thumbnails.php:31
+#: core/vc_modules/module/class-flow.php:51
+#: core/vc_modules/module/class-fs-slider.php:47
+#: core/vc_modules/module/class-grid.php:61
+#: core/vc_modules/module/class-justified.php:51
+#: core/vc_modules/module/class-kenburns.php:47
+#: core/vc_modules/module/class-masonry.php:51
+#: core/vc_modules/module/class-packery.php:52
+#: core/vc_modules/module/class-ribbon.php:51
+#: core/vc_modules/module/class-shift.php:52
+#: core/vc_modules/module/class-slider.php:52
+#: core/vc_modules/module/class-thumbnails.php:52
+msgid "Images"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:50
+msgid "Query"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:116
+msgid "Album Settings"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:123
+msgid "Album Type"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:142
+#: core/elementor/widgets/class-packery.php:81
+#: core/vc_modules/module/class-packery.php:71
+msgid "Type 1"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:143
+#: core/elementor/widgets/class-packery.php:82
+#: core/vc_modules/module/class-packery.php:72
+msgid "Type 2"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:144
+#: core/elementor/widgets/class-packery.php:83
+#: core/vc_modules/module/class-packery.php:73
+msgid "Type 3"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:145
+#: core/elementor/widgets/class-packery.php:84
+#: core/vc_modules/module/class-packery.php:74
+msgid "Type 4"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:174
+#: core/elementor/widgets/class-grid.php:59
+#: core/elementor/widgets/class-instagram.php:114
+#: core/vc_modules/module/class-grid.php:74
+#: core/vc_modules/module/class-instagram.php:69
+#: core/vc_modules/module/class-instagram.php:84
+msgid "Grid Type"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:178
+#: core/elementor/widgets/class-grid.php:64
+#: core/elementor/widgets/class-instagram.php:119
+#: core/vc_modules/module/class-grid.php:80
+#: core/vc_modules/module/class-instagram.php:75
+msgid "Square"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:179
+#: core/elementor/widgets/class-grid.php:65
+#: core/elementor/widgets/class-instagram.php:120
+#: core/vc_modules/module/class-grid.php:81
+#: core/vc_modules/module/class-instagram.php:76
+msgid "Rectangle 4x3"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:180
+#: core/elementor/widgets/class-grid.php:66
+#: core/elementor/widgets/class-instagram.php:121
+#: core/vc_modules/module/class-grid.php:82
+#: core/vc_modules/module/class-instagram.php:77
+msgid "Rectangle 16x9"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:181
+#: core/elementor/widgets/class-grid.php:67
+#: core/elementor/widgets/class-instagram.php:122
+#: core/vc_modules/module/class-grid.php:83
+#: core/vc_modules/module/class-instagram.php:78
+msgid "Circle"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:235
+msgid "Show Meta"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:249
+msgid "Show Meta Title"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:266
+msgid "Show Meta Count"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:282
+msgid "Show Meta Date"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:299
+msgid "From Settings"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:304
+msgid "Show Meta Date Format"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:319
+#: core/elementor/widgets/class-grid.php:123
+#: core/elementor/widgets/class-masonry.php:120
+#: core/elementor/widgets/class-packery.php:108
+#: core/vc_modules/module/class-grid.php:129
+#: core/vc_modules/module/class-masonry.php:118
+#: core/vc_modules/module/class-packery.php:94
+msgid "Lazy Load"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:332
+#: core/elementor/widgets/class-fs-slider.php:209
+#: core/elementor/widgets/class-grid.php:137
+#: core/elementor/widgets/class-instagram.php:142
+#: core/elementor/widgets/class-masonry.php:134
+#: core/elementor/widgets/class-packery.php:122
+#: core/elementor/widgets/class-slider.php:194
+#: core/elementor/widgets/class-thumbnails.php:157
+#: core/vc_modules/module/class-fs-slider.php:60
+#: core/vc_modules/module/class-grid.php:142
+#: core/vc_modules/module/class-instagram.php:149
+#: core/vc_modules/module/class-masonry.php:131
+#: core/vc_modules/module/class-packery.php:107
+#: core/vc_modules/module/class-slider.php:65
+#: core/vc_modules/module/class-thumbnails.php:160 plugin.php:838
+msgid "Right Click Guard"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:345
+#: core/elementor/widgets/class-grid.php:151
+#: core/elementor/widgets/class-masonry.php:148
+#: core/elementor/widgets/class-packery.php:136
+#: core/elementor/widgets/class-thumbnails.php:107
+#: core/vc_modules/module/class-grid.php:155
+#: core/vc_modules/module/class-justified.php:121
+#: core/vc_modules/module/class-masonry.php:144
+#: core/vc_modules/module/class-packery.php:120
+#: core/vc_modules/module/class-thumbnails.php:116 plugin.php:615
+#: plugin.php:1209
+msgid "Select Image Size"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:349
+#: core/elementor/widgets/class-grid.php:156
+#: core/elementor/widgets/class-justified.php:212
+#: core/elementor/widgets/class-masonry.php:153
+#: core/elementor/widgets/class-packery.php:141
+#: core/elementor/widgets/class-thumbnails.php:129
+#: core/vc_modules/module/class-grid.php:161
+#: core/vc_modules/module/class-justified.php:127
+#: core/vc_modules/module/class-masonry.php:150
+#: core/vc_modules/module/class-packery.php:126
+#: core/vc_modules/module/class-thumbnails.php:137
+msgid "Medium (300px)"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:350
+#: core/elementor/widgets/class-basic.php:295
+#: core/elementor/widgets/class-fs-slider.php:197
+#: core/elementor/widgets/class-grid.php:157
+#: core/elementor/widgets/class-masonry.php:154
+#: core/elementor/widgets/class-packery.php:142
+#: core/elementor/widgets/class-slider.php:121
+#: core/elementor/widgets/class-thumbnails.php:112
+#: core/elementor/widgets/class-thumbnails.php:130
+#: core/vc_modules/module/class-fs-slider.php:145
+#: core/vc_modules/module/class-grid.php:162
+#: core/vc_modules/module/class-grid.php:381
+#: core/vc_modules/module/class-justified.php:128
+#: core/vc_modules/module/class-justified.php:208
+#: core/vc_modules/module/class-masonry.php:151
+#: core/vc_modules/module/class-masonry.php:366
+#: core/vc_modules/module/class-packery.php:127
+#: core/vc_modules/module/class-packery.php:345
+#: core/vc_modules/module/class-slider.php:171
+#: core/vc_modules/module/class-thumbnails.php:122
+#: core/vc_modules/module/class-thumbnails.php:138
+#: core/vc_modules/module/class-thumbnails.php:260
+msgid "Thumbnail (768px)"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:351
+#: core/elementor/widgets/class-basic.php:296
+#: core/elementor/widgets/class-fs-slider.php:198
+#: core/elementor/widgets/class-grid.php:158
+#: core/elementor/widgets/class-justified.php:214
+#: core/elementor/widgets/class-masonry.php:155
+#: core/elementor/widgets/class-packery.php:143
+#: core/elementor/widgets/class-slider.php:122
+#: core/elementor/widgets/class-thumbnails.php:113
+#: core/elementor/widgets/class-thumbnails.php:131
+#: core/vc_modules/module/class-fs-slider.php:146
+#: core/vc_modules/module/class-grid.php:163
+#: core/vc_modules/module/class-grid.php:382
+#: core/vc_modules/module/class-justified.php:129
+#: core/vc_modules/module/class-justified.php:209
+#: core/vc_modules/module/class-masonry.php:152
+#: core/vc_modules/module/class-masonry.php:367
+#: core/vc_modules/module/class-packery.php:128
+#: core/vc_modules/module/class-packery.php:346
+#: core/vc_modules/module/class-slider.php:172
+#: core/vc_modules/module/class-thumbnails.php:123
+#: core/vc_modules/module/class-thumbnails.php:139
+#: core/vc_modules/module/class-thumbnails.php:261
+msgid "Large (1024px)"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:352
+#: core/elementor/widgets/class-basic.php:297
+#: core/elementor/widgets/class-fs-slider.php:199
+#: core/elementor/widgets/class-grid.php:159
+#: core/elementor/widgets/class-justified.php:215
+#: core/elementor/widgets/class-masonry.php:156
+#: core/elementor/widgets/class-packery.php:144
+#: core/elementor/widgets/class-slider.php:123
+#: core/elementor/widgets/class-thumbnails.php:114
+#: core/elementor/widgets/class-thumbnails.php:132
+#: core/vc_modules/module/class-fs-slider.php:147
+#: core/vc_modules/module/class-grid.php:164
+#: core/vc_modules/module/class-grid.php:383
+#: core/vc_modules/module/class-justified.php:130
+#: core/vc_modules/module/class-justified.php:210
+#: core/vc_modules/module/class-masonry.php:153
+#: core/vc_modules/module/class-masonry.php:368
+#: core/vc_modules/module/class-packery.php:129
+#: core/vc_modules/module/class-packery.php:347
+#: core/vc_modules/module/class-slider.php:173
+#: core/vc_modules/module/class-thumbnails.php:124
+#: core/vc_modules/module/class-thumbnails.php:140
+#: core/vc_modules/module/class-thumbnails.php:262 plugin.php:1020
+#: plugin.php:1116 plugin.php:1204
+msgid "Optimized"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:353
+#: core/elementor/widgets/class-basic.php:298
+#: core/elementor/widgets/class-fs-slider.php:200
+#: core/elementor/widgets/class-grid.php:160
+#: core/elementor/widgets/class-masonry.php:157
+#: core/elementor/widgets/class-packery.php:145
+#: core/elementor/widgets/class-slider.php:124
+#: core/elementor/widgets/class-thumbnails.php:115
+#: core/elementor/widgets/class-thumbnails.php:133
+#: core/vc_modules/module/class-fs-slider.php:148
+#: core/vc_modules/module/class-grid.php:165
+#: core/vc_modules/module/class-grid.php:384
+#: core/vc_modules/module/class-justified.php:131
+#: core/vc_modules/module/class-justified.php:211
+#: core/vc_modules/module/class-masonry.php:154
+#: core/vc_modules/module/class-masonry.php:369
+#: core/vc_modules/module/class-packery.php:130
+#: core/vc_modules/module/class-packery.php:348
+#: core/vc_modules/module/class-slider.php:174
+#: core/vc_modules/module/class-thumbnails.php:125
+#: core/vc_modules/module/class-thumbnails.php:141
+#: core/vc_modules/module/class-thumbnails.php:263
+msgid "Full Size"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:362
+#: core/elementor/widgets/class-grid.php:169
+#: core/elementor/widgets/class-instagram.php:157
+#: core/elementor/widgets/class-masonry.php:166
+#: core/vc_modules/module/class-grid.php:171
+#: core/vc_modules/module/class-instagram.php:98
+#: core/vc_modules/module/class-masonry.php:160
+#: core/vc_modules/module/class-packery.php:136
+msgid "Columns"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:366
+#: core/elementor/widgets/class-grid.php:174
+#: core/elementor/widgets/class-instagram.php:162
+#: core/elementor/widgets/class-masonry.php:171
+#: core/vc_modules/module/class-grid.php:177
+#: core/vc_modules/module/class-instagram.php:104
+#: core/vc_modules/module/class-masonry.php:166
+#: core/vc_modules/module/class-packery.php:142
+msgid "1"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:367
+#: core/elementor/widgets/class-grid.php:175
+#: core/elementor/widgets/class-instagram.php:163
+#: core/elementor/widgets/class-masonry.php:172
+#: core/vc_modules/module/class-grid.php:178
+#: core/vc_modules/module/class-instagram.php:105
+#: core/vc_modules/module/class-masonry.php:167
+#: core/vc_modules/module/class-packery.php:143
+msgid "2"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:368
+#: core/elementor/widgets/class-grid.php:176
+#: core/elementor/widgets/class-instagram.php:164
+#: core/elementor/widgets/class-masonry.php:173
+#: core/vc_modules/module/class-grid.php:179
+#: core/vc_modules/module/class-instagram.php:106
+#: core/vc_modules/module/class-masonry.php:168
+#: core/vc_modules/module/class-packery.php:144
+msgid "3"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:369
+#: core/elementor/widgets/class-grid.php:177
+#: core/elementor/widgets/class-instagram.php:165
+#: core/elementor/widgets/class-masonry.php:174
+#: core/vc_modules/module/class-grid.php:180
+#: core/vc_modules/module/class-instagram.php:107
+#: core/vc_modules/module/class-masonry.php:169
+#: core/vc_modules/module/class-packery.php:145
+msgid "4"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:370
+#: core/elementor/widgets/class-grid.php:178
+#: core/elementor/widgets/class-instagram.php:166
+#: core/elementor/widgets/class-masonry.php:175
+#: core/vc_modules/module/class-grid.php:181
+#: core/vc_modules/module/class-instagram.php:108
+#: core/vc_modules/module/class-masonry.php:170
+#: core/vc_modules/module/class-packery.php:146
+msgid "5"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:371
+#: core/elementor/widgets/class-grid.php:179
+#: core/elementor/widgets/class-instagram.php:167
+#: core/elementor/widgets/class-masonry.php:176
+#: core/vc_modules/module/class-grid.php:182
+#: core/vc_modules/module/class-instagram.php:109
+#: core/vc_modules/module/class-masonry.php:171
+#: core/vc_modules/module/class-packery.php:147
+msgid "6"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:372
+#: core/elementor/widgets/class-grid.php:180
+#: core/elementor/widgets/class-instagram.php:168
+#: core/elementor/widgets/class-masonry.php:177
+#: core/vc_modules/module/class-grid.php:183
+#: core/vc_modules/module/class-instagram.php:110
+#: core/vc_modules/module/class-masonry.php:172
+#: core/vc_modules/module/class-packery.php:148
+msgid "7"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:373
+#: core/elementor/widgets/class-grid.php:181
+#: core/elementor/widgets/class-instagram.php:169
+#: core/elementor/widgets/class-masonry.php:178
+#: core/vc_modules/module/class-grid.php:184
+#: core/vc_modules/module/class-instagram.php:111
+#: core/vc_modules/module/class-masonry.php:173
+#: core/vc_modules/module/class-packery.php:149
+msgid "8"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:374
+#: core/elementor/widgets/class-grid.php:182
+#: core/elementor/widgets/class-instagram.php:170
+#: core/elementor/widgets/class-masonry.php:179
+#: core/vc_modules/module/class-grid.php:185
+#: core/vc_modules/module/class-instagram.php:112
+#: core/vc_modules/module/class-masonry.php:174
+#: core/vc_modules/module/class-packery.php:150
+msgid "9"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:386
+#: core/elementor/widgets/class-grid.php:220
+#: core/elementor/widgets/class-instagram.php:131
+#: core/elementor/widgets/class-masonry.php:217
+#: core/elementor/widgets/class-packery.php:183
+#: core/vc_modules/module/class-grid.php:216
+#: core/vc_modules/module/class-instagram.php:119
+#: core/vc_modules/module/class-masonry.php:205
+#: core/vc_modules/module/class-packery.php:181
+msgid "Margin, px"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:396
+#: core/elementor/widgets/class-grid.php:233
+#: core/elementor/widgets/class-masonry.php:230
+#: core/elementor/widgets/class-packery.php:196
+#: core/vc_modules/module/class-grid.php:228
+#: core/vc_modules/module/class-masonry.php:217
+#: core/vc_modules/module/class-packery.php:193
+msgid "Corners Type"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:400
+#: core/elementor/widgets/class-grid.php:238
+#: core/elementor/widgets/class-masonry.php:235
+#: core/elementor/widgets/class-packery.php:201
+#: core/vc_modules/module/class-grid.php:234
+#: core/vc_modules/module/class-masonry.php:223
+#: core/vc_modules/module/class-packery.php:199
+msgid "Standard"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:401
+#: core/elementor/widgets/class-grid.php:239
+#: core/elementor/widgets/class-masonry.php:236
+#: core/elementor/widgets/class-packery.php:202
+#: core/vc_modules/module/class-grid.php:235
+#: core/vc_modules/module/class-masonry.php:224
+#: core/vc_modules/module/class-packery.php:200
+msgid "Rounded"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:413
+#: core/elementor/widgets/class-grid.php:251
+#: core/elementor/widgets/class-masonry.php:245
+#: core/elementor/widgets/class-packery.php:214
+#: core/vc_modules/module/class-grid.php:245
+#: core/vc_modules/module/class-masonry.php:230
+#: core/vc_modules/module/class-packery.php:210
+msgid "Image Border"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:427
+#: core/elementor/widgets/class-grid.php:266
+#: core/elementor/widgets/class-masonry.php:260
+#: core/elementor/widgets/class-packery.php:229
+#: core/vc_modules/module/class-grid.php:258
+#: core/vc_modules/module/class-masonry.php:243
+#: core/vc_modules/module/class-packery.php:223
+msgid "Border Size, px"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:440
+#: core/elementor/widgets/class-grid.php:279
+#: core/elementor/widgets/class-masonry.php:273
+#: core/elementor/widgets/class-packery.php:242
+#: core/vc_modules/module/class-grid.php:270
+#: core/vc_modules/module/class-masonry.php:255
+#: core/vc_modules/module/class-packery.php:235
+msgid "Border Padding, px"
+msgstr ""
+
+#: core/elementor/widgets/class-albums.php:453
+#: core/elementor/widgets/class-grid.php:292
+#: core/elementor/widgets/class-masonry.php:286
+#: core/elementor/widgets/class-packery.php:255
+#: core/vc_modules/module/class-grid.php:282
+#: core/vc_modules/module/class-masonry.php:267
+#: core/vc_modules/module/class-packery.php:247
+msgid "Border Color"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:31
+#: core/vc_modules/module/class-flow.php:32
+#: core/vc_modules/module/class-fs-slider.php:28
+#: core/vc_modules/module/class-grid.php:32
+#: core/vc_modules/module/class-grid.php:42
+#: core/vc_modules/module/class-justified.php:32
+#: core/vc_modules/module/class-kenburns.php:28
+#: core/vc_modules/module/class-masonry.php:32
+#: core/vc_modules/module/class-packery.php:33
+#: core/vc_modules/module/class-ribbon.php:32
+#: core/vc_modules/module/class-shift.php:33
+#: core/vc_modules/module/class-slider.php:33
+#: core/vc_modules/module/class-thumbnails.php:33
+msgid "Media Library (WordPress media library)"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:32
+#: core/vc_modules/module/class-flow.php:33
+#: core/vc_modules/module/class-fs-slider.php:29
+#: core/vc_modules/module/class-grid.php:33
+#: core/vc_modules/module/class-grid.php:43
+#: core/vc_modules/module/class-justified.php:33
+#: core/vc_modules/module/class-kenburns.php:29
+#: core/vc_modules/module/class-masonry.php:33
+#: core/vc_modules/module/class-packery.php:34
+#: core/vc_modules/module/class-ribbon.php:33
+#: core/vc_modules/module/class-shift.php:34
+#: core/vc_modules/module/class-slider.php:34
+#: core/vc_modules/module/class-thumbnails.php:34
+msgid "Galleries (custom post type GT3 Galleries)"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:35
+msgid "Categories (custom post type GT3 Galleries)"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:40
+#: core/elementor/widgets/class-instagram.php:44
+#: core/vc_modules/module/class-flow.php:28
+#: core/vc_modules/module/class-fs-slider.php:24
+#: core/vc_modules/module/class-grid.php:28
+#: core/vc_modules/module/class-grid.php:38
+#: core/vc_modules/module/class-instagram.php:24
+#: core/vc_modules/module/class-justified.php:28
+#: core/vc_modules/module/class-kenburns.php:24
+#: core/vc_modules/module/class-masonry.php:28
+#: core/vc_modules/module/class-packery.php:29
+#: core/vc_modules/module/class-ribbon.php:28
+#: core/vc_modules/module/class-shift.php:29
+#: core/vc_modules/module/class-slider.php:29
+#: core/vc_modules/module/class-thumbnails.php:29
+msgid "Select Source"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:51
+#: core/vc_modules/module/class-flow.php:38
+#: core/vc_modules/module/class-flow.php:42
+#: core/vc_modules/module/class-fs-slider.php:34
+#: core/vc_modules/module/class-fs-slider.php:38
+#: core/vc_modules/module/class-grid.php:48
+#: core/vc_modules/module/class-grid.php:52
+#: core/vc_modules/module/class-justified.php:38
+#: core/vc_modules/module/class-justified.php:42
+#: core/vc_modules/module/class-kenburns.php:34
+#: core/vc_modules/module/class-kenburns.php:38
+#: core/vc_modules/module/class-masonry.php:38
+#: core/vc_modules/module/class-masonry.php:42
+#: core/vc_modules/module/class-packery.php:39
+#: core/vc_modules/module/class-packery.php:43
+#: core/vc_modules/module/class-ribbon.php:38
+#: core/vc_modules/module/class-ribbon.php:42
+#: core/vc_modules/module/class-shift.php:39
+#: core/vc_modules/module/class-shift.php:43
+#: core/vc_modules/module/class-slider.php:39
+#: core/vc_modules/module/class-slider.php:43
+#: core/vc_modules/module/class-thumbnails.php:39
+#: core/vc_modules/module/class-thumbnails.php:43
+msgid "Select Gallery"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:65
+msgid "Select Categories"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:91
+msgid "Use Filter"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:96
+#: core/elementor/widgets/class-basic.php:159
+#: dist/js/admin/cpt-gallery-page.js:1 dist/js/admin/elementor-editor.js:1
+#: dist/js/gutenberg/editor.js:1
+msgid "Yes"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:97
+#: core/elementor/widgets/class-basic.php:160
+msgid "No"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:109
+msgid "All Items Text"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:124
+msgid "Item Count"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:155
+#: core/elementor/widgets/class-basic.php:171
+msgid "Load More"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:169
+msgid "Load More button"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:181
+msgid "First Images"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:195
+msgid "Load Images"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:209
+#: core/vc_modules/module/class-fs-slider.php:116
+#: core/vc_modules/module/class-grid.php:298
+#: core/vc_modules/module/class-grid.php:315
+#: core/vc_modules/module/class-grid.php:332
+#: core/vc_modules/module/class-grid.php:344
+#: core/vc_modules/module/class-grid.php:361
+#: core/vc_modules/module/class-grid.php:378
+#: core/vc_modules/module/class-grid.php:397
+#: core/vc_modules/module/class-grid.php:414
+#: core/vc_modules/module/class-grid.php:431
+#: core/vc_modules/module/class-grid.php:448
+#: core/vc_modules/module/class-grid.php:465
+#: core/vc_modules/module/class-justified.php:142
+#: core/vc_modules/module/class-justified.php:159
+#: core/vc_modules/module/class-justified.php:176
+#: core/vc_modules/module/class-justified.php:188
+#: core/vc_modules/module/class-justified.php:205
+#: core/vc_modules/module/class-justified.php:224
+#: core/vc_modules/module/class-justified.php:241
+#: core/vc_modules/module/class-justified.php:258
+#: core/vc_modules/module/class-justified.php:275
+#: core/vc_modules/module/class-justified.php:292
+#: core/vc_modules/module/class-masonry.php:283
+#: core/vc_modules/module/class-masonry.php:300
+#: core/vc_modules/module/class-masonry.php:317
+#: core/vc_modules/module/class-masonry.php:329
+#: core/vc_modules/module/class-masonry.php:346
+#: core/vc_modules/module/class-masonry.php:363
+#: core/vc_modules/module/class-masonry.php:382
+#: core/vc_modules/module/class-masonry.php:399
+#: core/vc_modules/module/class-masonry.php:416
+#: core/vc_modules/module/class-masonry.php:433
+#: core/vc_modules/module/class-masonry.php:450
+#: core/vc_modules/module/class-packery.php:263
+#: core/vc_modules/module/class-packery.php:279
+#: core/vc_modules/module/class-packery.php:296
+#: core/vc_modules/module/class-packery.php:308
+#: core/vc_modules/module/class-packery.php:325
+#: core/vc_modules/module/class-packery.php:342
+#: core/vc_modules/module/class-packery.php:361
+#: core/vc_modules/module/class-packery.php:378
+#: core/vc_modules/module/class-packery.php:395
+#: core/vc_modules/module/class-packery.php:412
+#: core/vc_modules/module/class-packery.php:429
+#: core/vc_modules/module/class-slider.php:138
+#: core/vc_modules/module/class-thumbnails.php:178
+#: core/vc_modules/module/class-thumbnails.php:194
+#: core/vc_modules/module/class-thumbnails.php:211
+#: core/vc_modules/module/class-thumbnails.php:223
+#: core/vc_modules/module/class-thumbnails.php:240
+#: core/vc_modules/module/class-thumbnails.php:257
+#: core/vc_modules/module/class-thumbnails.php:276
+#: core/vc_modules/module/class-thumbnails.php:293
+#: core/vc_modules/module/class-thumbnails.php:310
+#: core/vc_modules/module/class-thumbnails.php:327
+#: core/vc_modules/module/class-thumbnails.php:344
+msgid "Lightbox Settings"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:217
+#: core/elementor/widgets/class-fs-slider.php:45
+#: core/vc_modules/module/class-fs-slider.php:113
+#: core/vc_modules/module/class-grid.php:341
+#: core/vc_modules/module/class-masonry.php:326
+#: core/vc_modules/module/class-packery.php:305
+#: core/vc_modules/module/class-slider.php:135
+#: core/vc_modules/module/class-thumbnails.php:220
+msgid "External Video Thumb"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:232
+msgid "Lightbox Theme"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:237
+#: core/vc_modules/module/class-grid.php:301
+#: core/vc_modules/module/class-justified.php:145
+#: core/vc_modules/module/class-masonry.php:286
+#: core/vc_modules/module/class-packery.php:266
+#: core/vc_modules/module/class-slider.php:99
+#: core/vc_modules/module/class-thumbnails.php:181
+msgid "Dark"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:238
+#: core/vc_modules/module/class-grid.php:302
+#: core/vc_modules/module/class-justified.php:146
+#: core/vc_modules/module/class-masonry.php:287
+#: core/vc_modules/module/class-packery.php:267
+#: core/vc_modules/module/class-slider.php:100
+#: core/vc_modules/module/class-thumbnails.php:182
+msgid "Light"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:247
+#: core/elementor/widgets/class-flow.php:65
+#: core/elementor/widgets/class-fs-slider.php:75
+#: core/elementor/widgets/class-ribbon.php:90
+#: core/elementor/widgets/class-shift.php:80
+#: core/elementor/widgets/class-slider.php:73
+#: core/vc_modules/module/class-flow.php:65
+#: core/vc_modules/module/class-fs-slider.php:88
+#: core/vc_modules/module/class-grid.php:312
+#: core/vc_modules/module/class-justified.php:156
+#: core/vc_modules/module/class-masonry.php:297
+#: core/vc_modules/module/class-packery.php:276
+#: core/vc_modules/module/class-ribbon.php:122
+#: core/vc_modules/module/class-shift.php:90
+#: core/vc_modules/module/class-slider.php:110
+#: core/vc_modules/module/class-thumbnails.php:191 plugin.php:627
+#: plugin.php:720 plugin.php:1069 plugin.php:1152
+msgid "Autoplay"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:262
+#: core/elementor/widgets/class-slider.php:88
+#: core/vc_modules/module/class-grid.php:329
+#: core/vc_modules/module/class-justified.php:173
+#: core/vc_modules/module/class-masonry.php:314
+#: core/vc_modules/module/class-packery.php:293
+#: core/vc_modules/module/class-ribbon.php:135
+#: core/vc_modules/module/class-shift.php:107
+#: core/vc_modules/module/class-slider.php:123
+#: core/vc_modules/module/class-thumbnails.php:208 plugin.php:1084
+#: plugin.php:1165
+msgid "Autoplay Time (sec.)"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:275
+#: core/elementor/widgets/class-fs-slider.php:103
+#: core/elementor/widgets/class-slider.php:101
+#: core/elementor/widgets/class-thumbnails.php:16
+#: core/vc_modules/module/class-fs-slider.php:126
+#: core/vc_modules/module/class-grid.php:358
+#: core/vc_modules/module/class-justified.php:185
+#: core/vc_modules/module/class-masonry.php:343
+#: core/vc_modules/module/class-packery.php:322
+#: core/vc_modules/module/class-slider.php:152
+#: core/vc_modules/module/class-thumbnails.php:21
+#: core/vc_modules/module/class-thumbnails.php:23
+#: core/vc_modules/module/class-thumbnails.php:237 plugin.php:642
+#: plugin.php:739 plugin.php:1100 plugin.php:1178
+msgid "Thumbnails"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:290
+#: core/elementor/widgets/class-fs-slider.php:192
+#: core/elementor/widgets/class-slider.php:116
+#: core/vc_modules/module/class-fs-slider.php:139
+#: core/vc_modules/module/class-grid.php:375
+#: core/vc_modules/module/class-justified.php:202
+#: core/vc_modules/module/class-masonry.php:360
+#: core/vc_modules/module/class-packery.php:339
+#: core/vc_modules/module/class-slider.php:165
+#: core/vc_modules/module/class-thumbnails.php:254 plugin.php:702
+#: plugin.php:1121
+msgid "Select image size"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:307
+#: core/elementor/widgets/class-fs-slider.php:177
+#: core/elementor/widgets/class-slider.php:133
+#: core/vc_modules/module/class-fs-slider.php:154
+#: core/vc_modules/module/class-grid.php:394
+#: core/vc_modules/module/class-justified.php:221
+#: core/vc_modules/module/class-masonry.php:379
+#: core/vc_modules/module/class-packery.php:358
+#: core/vc_modules/module/class-slider.php:180
+#: core/vc_modules/module/class-thumbnails.php:273 plugin.php:1137
+#: plugin.php:1191
+msgid "Image Scaling"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:337
+#: core/elementor/widgets/class-slider.php:148
+#: core/vc_modules/module/class-fs-slider.php:167
+#: core/vc_modules/module/class-grid.php:428
+#: core/vc_modules/module/class-justified.php:255
+#: core/vc_modules/module/class-masonry.php:413
+#: core/vc_modules/module/class-packery.php:392
+#: core/vc_modules/module/class-slider.php:193
+#: core/vc_modules/module/class-thumbnails.php:307 plugin.php:847
+#: plugin.php:1226
+msgid "Social Links"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:367
+#: core/elementor/widgets/class-fs-slider.php:224
+#: core/elementor/widgets/class-slider.php:178
+msgid "YouTube & Vimeo Width"
+msgstr ""
+
+#: core/elementor/widgets/class-basic.php:381
+msgid "Image Zoom"
+msgstr ""
+
+#: core/elementor/widgets/class-before-after.php:13
+msgid "Before/After"
+msgstr ""
+
+#: core/elementor/widgets/class-before-after.php:37
+msgid "Image Before"
+msgstr ""
+
+#: core/elementor/widgets/class-before-after.php:48
+msgid "Image After"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:16
+#: core/vc_modules/module/class-flow.php:20
+msgid "Flow"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:42
+#: core/vc_modules/module/class-flow.php:89
+msgid "Image Size Ratio"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:46
+#: core/elementor/widgets/class-thumbnails.php:69
+#: core/vc_modules/module/class-flow.php:95
+#: core/vc_modules/module/class-thumbnails.php:84
+msgid "4x3"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:47
+#: core/elementor/widgets/class-thumbnails.php:68
+#: core/vc_modules/module/class-flow.php:96
+#: core/vc_modules/module/class-thumbnails.php:83
+msgid "16x9"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:56
+#: core/elementor/widgets/class-fs-slider.php:118
+#: core/elementor/widgets/class-ribbon.php:42
+#: core/elementor/widgets/class-shift.php:117
+#: core/vc_modules/module/class-flow.php:102
+#: core/vc_modules/module/class-fs-slider.php:210
+#: core/vc_modules/module/class-ribbon.php:65
+msgid "Show Title"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:58
+msgid "Turn ON or OFF titles on slide"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:67
+#: core/elementor/widgets/class-shift.php:82
+msgid "Turn ON or OFF slider autoplay"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:74
+#: core/elementor/widgets/class-kenburns.php:65
+#: core/elementor/widgets/class-shift.php:93
+#: core/vc_modules/module/class-kenburns.php:106
+msgid "Slide Duration"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:76
+msgid "Sets time before change the slide in seconds"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:87
+#: core/elementor/widgets/class-kenburns.php:77
+#: core/elementor/widgets/class-shift.php:107
+#: core/vc_modules/module/class-flow.php:124
+#: core/vc_modules/module/class-kenburns.php:115
+msgid "Transition Time"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:89
+msgid "Sets Transition animation time"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:100
+#: core/elementor/widgets/class-kenburns.php:55
+#: core/elementor/widgets/class-ribbon.php:60
+#: core/elementor/widgets/class-shift.php:150
+#: core/elementor/widgets/class-stripe.php:61
+#: core/vc_modules/module/class-flow.php:115
+#: core/vc_modules/module/class-kenburns.php:97
+#: core/vc_modules/module/class-ribbon.php:91
+#: core/vc_modules/module/class-shift.php:169
+msgid "Module Height"
+msgstr ""
+
+#: core/elementor/widgets/class-flow.php:103
+#, php-format
+msgid "Set module height in px (pixels) . Enter '100%' for full height mode"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:16
+#: core/vc_modules/module/class-fs-slider.php:16
+msgid "FS Slider"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:60
+#: core/vc_modules/module/class-fs-slider.php:180
+msgid "Animation Type"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:65
+#: core/vc_modules/module/class-fs-slider.php:186
+msgid "Slide"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:66
+#: core/vc_modules/module/class-fs-slider.php:187
+msgid "Fade"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:90
+msgid "Autoplay Time (s)"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:133
+#: core/elementor/widgets/class-ribbon.php:51
+#: core/vc_modules/module/class-fs-slider.php:223
+#: core/vc_modules/module/class-ribbon.php:78
+msgid "Show Caption"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:148
+#: core/vc_modules/module/class-fs-slider.php:236
+msgid "Scroll"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:163
+#: core/vc_modules/module/class-fs-slider.php:249
+msgid "Boxed"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:241
+#: core/elementor/widgets/class-grid.php:191
+#: core/elementor/widgets/class-instagram.php:179
+#: core/elementor/widgets/class-masonry.php:188
+#: core/elementor/widgets/class-packery.php:154
+#: core/elementor/widgets/class-slider.php:209
+#: core/elementor/widgets/class-thumbnails.php:142
+#: core/vc_modules/module/class-fs-slider.php:73
+#: core/vc_modules/module/class-grid.php:191
+#: core/vc_modules/module/class-instagram.php:135
+#: core/vc_modules/module/class-kenburns.php:83
+#: core/vc_modules/module/class-masonry.php:180
+#: core/vc_modules/module/class-packery.php:156
+#: core/vc_modules/module/class-slider.php:78
+#: core/vc_modules/module/class-thumbnails.php:147
+msgid "Random Order"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:256
+msgid "Style"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:264
+#: core/vc_modules/module/class-fs-slider.php:262
+msgid "Footer Above Slider"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:272
+msgid "Color"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:279
+#: core/vc_modules/module/class-fs-slider.php:275
+msgid "Border Opacity"
+msgstr ""
+
+#: core/elementor/widgets/class-fs-slider.php:291
+msgid "Border Color Opacity"
+msgstr ""
+
+#: core/elementor/widgets/class-grid.php:77
+#: core/elementor/widgets/class-masonry.php:60
+#: core/elementor/widgets/class-packery.php:59
+#: core/vc_modules/module/class-grid.php:88
+#: core/vc_modules/module/class-masonry.php:64
+#: core/vc_modules/module/class-packery.php:79 dist/js/admin/settings.js:6
+msgid "Link Image To"
+msgstr ""
+
+#: core/elementor/widgets/class-grid.php:82
+#: core/elementor/widgets/class-masonry.php:65
+#: core/elementor/widgets/class-packery.php:64
+#: core/vc_modules/module/class-grid.php:94
+#: core/vc_modules/module/class-masonry.php:70
+#: core/vc_modules/module/class-packery.php:85 dist/js/admin/settings.js:6
+msgid "Attachment Page"
+msgstr ""
+
+#: core/elementor/widgets/class-grid.php:83
+#: core/elementor/widgets/class-masonry.php:66
+#: core/elementor/widgets/class-packery.php:65
+#: core/vc_modules/module/class-grid.php:95
+#: core/vc_modules/module/class-masonry.php:71
+#: core/vc_modules/module/class-packery.php:86 dist/js/admin/settings.js:6
+msgid "File"
+msgstr ""
+
+#: core/elementor/widgets/class-grid.php:84
+#: core/elementor/widgets/class-instagram.php:97
+#: core/elementor/widgets/class-justified.php:64
+#: core/elementor/widgets/class-masonry.php:67
+#: core/elementor/widgets/class-packery.php:66
+#: core/elementor/widgets/class-thumbnails.php:49
+#: core/vc_modules/module/class-grid.php:96
+#: core/vc_modules/module/class-instagram.php:91
+#: core/vc_modules/module/class-justified.php:64
+#: core/vc_modules/module/class-masonry.php:72
+#: core/vc_modules/module/class-packery.php:87
+#: core/vc_modules/module/class-thumbnails.php:65 dist/js/admin/settings.js:6
+msgid "Lightbox"
+msgstr ""
+
+#: core/elementor/widgets/class-grid.php:85
+#: core/elementor/widgets/class-masonry.php:68
+#: core/elementor/widgets/class-packery.php:67
+#: core/vc_modules/module/class-grid.php:97
+#: core/vc_modules/module/class-masonry.php:73
+#: core/vc_modules/module/class-packery.php:88 dist/js/admin/settings.js:6
+msgid "None"
+msgstr ""
+
+#: core/elementor/widgets/class-grid.php:206
+#: core/elementor/widgets/class-masonry.php:203
+#: core/elementor/widgets/class-packery.php:169
+#: core/vc_modules/module/class-grid.php:204
+#: core/vc_modules/module/class-masonry.php:193
+#: core/vc_modules/module/class-packery.php:169
+msgid "Margin"
+msgstr ""
+
+#: core/elementor/widgets/class-grid.php:211
+#: core/elementor/widgets/class-masonry.php:208
+#: core/elementor/widgets/class-packery.php:174
+#: core/vc_modules/module/class-grid.php:210
+#: core/vc_modules/module/class-masonry.php:199
+#: core/vc_modules/module/class-packery.php:175
+msgid "Custom"
+msgstr ""
+
+#: core/elementor/widgets/class-instagram.php:16
+#: core/elementor/widgets/class-instagram.php:96
+#: core/vc_modules/module/class-instagram.php:16
+#: core/vc_modules/module/class-instagram.php:18
+#: core/vc_modules/module/class-instagram.php:90
+msgid "Instagram"
+msgstr ""
+
+#: core/elementor/widgets/class-instagram.php:48
+#: core/elementor/widgets/class-instagram.php:58
+#: core/vc_modules/module/class-instagram.php:28
+#: core/vc_modules/module/class-instagram.php:34
+msgid "Username"
+msgstr ""
+
+#: core/elementor/widgets/class-instagram.php:49
+#: core/elementor/widgets/class-instagram.php:80
+#: core/vc_modules/module/class-instagram.php:29
+#: core/vc_modules/module/class-instagram.php:57
+msgid "Tag"
+msgstr ""
+
+#: core/elementor/widgets/class-instagram.php:69
+#: core/vc_modules/module/class-instagram.php:45
+msgid "User ID"
+msgstr ""
+
+#: core/elementor/widgets/class-instagram.php:91
+msgid "Link To"
+msgstr ""
+
+#: core/elementor/widgets/class-instagram.php:194
+#: core/elementor/widgets/class-justified.php:79
+msgid "Show Images"
+msgstr ""
+
+#: core/elementor/widgets/class-justified.php:13
+#: core/vc_modules/module/class-justified.php:20
+#: core/vc_modules/module/class-justified.php:22
+msgid "Justified"
+msgstr ""
+
+#: core/elementor/widgets/class-justified.php:56
+#: core/elementor/widgets/class-shift.php:54
+#: core/elementor/widgets/class-stripe.php:53
+msgid "Basic"
+msgstr ""
+
+#: core/elementor/widgets/class-justified.php:84
+#: core/vc_modules/module/class-justified.php:82
+msgid "From First To Last"
+msgstr ""
+
+#: core/elementor/widgets/class-justified.php:94
+msgid "Grid Gap"
+msgstr ""
+
+#: core/elementor/widgets/class-justified.php:124
+msgid "Images Height"
+msgstr ""
+
+#: core/elementor/widgets/class-justified.php:152
+msgid "Fade Duration"
+msgstr ""
+
+#: core/elementor/widgets/class-justified.php:153
+msgid "Fade Duration Time"
+msgstr ""
+
+#: core/elementor/widgets/class-justified.php:187
+msgid "Fade Timeout"
+msgstr ""
+
+#: core/elementor/widgets/class-justified.php:188
+msgid "Delay Between Loading Items"
+msgstr ""
+
+#: core/elementor/widgets/class-justified.php:208
+msgid "Choose Image Size"
+msgstr ""
+
+#: core/elementor/widgets/class-justified.php:213
+msgid "Medium Large (768px)"
+msgstr ""
+
+#: core/elementor/widgets/class-justified.php:216 plugin.php:611 plugin.php:698
+#: plugin.php:1131 plugin.php:1219
+msgid "Full"
+msgstr ""
+
+#: core/elementor/widgets/class-kenburns.php:13
+#: core/vc_modules/module/class-kenburns.php:16
+msgid "Kenburns"
+msgstr ""
+
+#: core/elementor/widgets/class-kenburns.php:58
+#: core/elementor/widgets/class-shift.php:153
+#: core/elementor/widgets/class-stripe.php:64
+#: core/vc_modules/module/class-flow.php:118
+#: core/vc_modules/module/class-kenburns.php:100
+#: core/vc_modules/module/class-ribbon.php:94
+#, php-format
+msgid "Set module height in px (pixels). Enter '100%' for full height mode"
+msgstr ""
+
+#: core/elementor/widgets/class-kenburns.php:70
+#: core/elementor/widgets/class-shift.php:95
+msgid "Set the timing of single slides in seconds"
+msgstr ""
+
+#: core/elementor/widgets/class-kenburns.php:82
+msgid "Sets Transition animation time, (ms)"
+msgstr ""
+
+#: core/elementor/widgets/class-masonry.php:77
+#: core/vc_modules/module/class-masonry.php:79
+msgid "Horizontal Order"
+msgstr ""
+
+#: core/elementor/widgets/class-ribbon.php:16
+#: core/vc_modules/module/class-ribbon.php:20
+msgid "Ribbon"
+msgstr ""
+
+#: core/elementor/widgets/class-ribbon.php:44
+msgid "Turn ON or OFF title"
+msgstr ""
+
+#: core/elementor/widgets/class-ribbon.php:53
+msgid "Turn ON or OFF captions"
+msgstr ""
+
+#: core/elementor/widgets/class-ribbon.php:62
+#, php-format
+msgid "Set module height in px (pixels). Enter '100%' for full height mode."
+msgstr ""
+
+#: core/elementor/widgets/class-ribbon.php:82
+#: core/vc_modules/module/class-ribbon.php:109
+#: core/vc_modules/module/class-shift.php:128
+msgid "Controls"
+msgstr ""
+
+#: core/elementor/widgets/class-ribbon.php:98
+msgid "Slide Duration (s)"
+msgstr ""
+
+#: core/elementor/widgets/class-ribbon.php:112
+msgid "Transition Interval (ms)"
+msgstr ""
+
+#: core/elementor/widgets/class-ribbon.php:136
+#: core/elementor/widgets/class-shift.php:188
+msgid "Title Color"
+msgstr ""
+
+#: core/elementor/widgets/class-ribbon.php:157
+msgid "Caption"
+msgstr ""
+
+#: core/elementor/widgets/class-ribbon.php:165
+msgid "Caption Color"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:13
+#: core/vc_modules/module/class-shift.php:21
+#: core/vc_modules/module/class-shift.php:23
+msgid "Shift"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:62
+#: core/vc_modules/module/class-shift.php:65
+msgid "Show Control Buttons"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:64
+msgid "Turn ON or OFF control buttons"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:71
+#: core/vc_modules/module/class-shift.php:77
+msgid "Infinite Scroll"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:73
+msgid ""
+"Turn ON or OFF infinite  scrolling. Autoplay works only when infinite scroll "
+"is ON"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:109
+msgid "Set transition animation time"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:120
+#: core/vc_modules/module/class-shift.php:134
+msgid "Always Show"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:121
+#: core/vc_modules/module/class-shift.php:135
+msgid "Always Hide"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:122
+#: core/vc_modules/module/class-shift.php:136
+msgid "Show on Hover"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:123
+#: core/vc_modules/module/class-shift.php:137
+msgid "Show when slide is expanded"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:132
+#: core/vc_modules/module/class-shift.php:143
+msgid "Expandable slides"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:134
+msgid "Turn ON or OFF expandable slides"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:170
+msgid "Title Width"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:210
+msgid "Description"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:218
+msgid "Description Width"
+msgstr ""
+
+#: core/elementor/widgets/class-shift.php:236
+msgid "Description Color"
+msgstr ""
+
+#: core/elementor/widgets/class-slider.php:18
+#: core/vc_modules/module/class-slider.php:21
+#: core/vc_modules/module/class-slider.php:23 plugin.php:228 plugin.php:1010
+msgid "Slider"
+msgstr ""
+
+#: core/elementor/widgets/class-slider.php:58
+msgid "Slider Theme"
+msgstr ""
+
+#: core/elementor/widgets/class-slider.php:63
+msgid "dark"
+msgstr ""
+
+#: core/elementor/widgets/class-slider.php:64
+msgid "light"
+msgstr ""
+
+#: core/elementor/widgets/class-stripe.php:13
+msgid "Stripe Gallery"
+msgstr ""
+
+#: core/elementor/widgets/class-thumbnails.php:63
+#: core/vc_modules/module/class-thumbnails.php:77
+msgid "Gallery Size"
+msgstr ""
+
+#: core/elementor/widgets/class-thumbnails.php:78
+#: core/vc_modules/module/class-thumbnails.php:90
+msgid "Thumbnails Controls"
+msgstr ""
+
+#: core/elementor/widgets/class-thumbnails.php:93
+#: core/vc_modules/module/class-thumbnails.php:103
+msgid "Thumbnails Size"
+msgstr ""
+
+#: core/elementor/widgets/class-thumbnails.php:98
+#: core/vc_modules/module/class-thumbnails.php:109
+msgid "Auto"
+msgstr ""
+
+#: core/elementor/widgets/class-thumbnails.php:99
+#: core/vc_modules/module/class-thumbnails.php:110
+msgid "Fixed"
+msgstr ""
+
+#: core/elementor/widgets/class-thumbnails.php:124
+#: core/vc_modules/module/class-thumbnails.php:131
+msgid "Select Thumbnails Image Size"
+msgstr ""
+
+#: core/vc_modules/module/class-flow.php:21
+#: core/vc_modules/module/class-fs-slider.php:17
+#: core/vc_modules/module/class-grid.php:21
+#: core/vc_modules/module/class-instagram.php:17
+#: core/vc_modules/module/class-justified.php:21
+#: core/vc_modules/module/class-kenburns.php:17
+#: core/vc_modules/module/class-masonry.php:21
+#: core/vc_modules/module/class-packery.php:22
+#: core/vc_modules/module/class-ribbon.php:21
+#: core/vc_modules/module/class-shift.php:22
+#: core/vc_modules/module/class-slider.php:22
+#: core/vc_modules/module/class-thumbnails.php:22
+msgid "GT3 Galleries"
+msgstr ""
+
+#: core/vc_modules/module/class-flow.php:22
+msgid "Flow Gallery"
+msgstr ""
+
+#: core/vc_modules/module/class-flow.php:55
+#: core/vc_modules/module/class-fs-slider.php:51
+#: core/vc_modules/module/class-grid.php:65
+#: core/vc_modules/module/class-justified.php:54
+#: core/vc_modules/module/class-kenburns.php:51
+#: core/vc_modules/module/class-masonry.php:55
+#: core/vc_modules/module/class-packery.php:56
+#: core/vc_modules/module/class-ribbon.php:55
+#: core/vc_modules/module/class-shift.php:55
+#: core/vc_modules/module/class-slider.php:56
+#: core/vc_modules/module/class-thumbnails.php:56
+msgid "Select images."
+msgstr ""
+
+#: core/vc_modules/module/class-flow.php:77
+msgid "Autoplay Time (s.)"
+msgstr ""
+
+#: core/vc_modules/module/class-flow.php:127
+#: core/vc_modules/module/class-kenburns.php:118
+#: core/vc_modules/module/class-ribbon.php:151
+#: core/vc_modules/module/class-shift.php:123
+msgid "Sets Transition animation time in milliseconds"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:18
+msgid "FussScreen Slider Gallery"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:101
+msgid "Autoplay Time ms.)"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:281
+msgid "0%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:282
+msgid "5%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:283
+msgid "10%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:284
+msgid "15%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:285
+msgid "20%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:286
+msgid "25%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:287
+msgid "30%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:288
+msgid "35%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:289
+msgid "40%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:290
+msgid "45%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:291
+msgid "50%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:292
+msgid "55%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:293
+msgid "60%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:294
+msgid "65%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:295
+msgid "70%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:296
+msgid "75%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:297
+msgid "80%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:298
+msgid "85%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:299
+msgid "90%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:300
+msgid "95%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:301
+msgid "100%"
+msgstr ""
+
+#: core/vc_modules/module/class-fs-slider.php:307
+msgid "Text Color"
+msgstr ""
+
+#: core/vc_modules/module/class-grid.php:295
+#: core/vc_modules/module/class-justified.php:139
+#: core/vc_modules/module/class-masonry.php:280
+#: core/vc_modules/module/class-packery.php:260
+#: core/vc_modules/module/class-slider.php:93
+#: core/vc_modules/module/class-thumbnails.php:175
+msgid "Theme"
+msgstr ""
+
+#: core/vc_modules/module/class-instagram.php:127
+msgid "Show Images (max: 12)"
+msgstr ""
+
+#: core/vc_modules/module/class-justified.php:76
+msgid "Loader"
+msgstr ""
+
+#: core/vc_modules/module/class-justified.php:89
+msgid "Grid Gap (px)"
+msgstr ""
+
+#: core/vc_modules/module/class-justified.php:97
+msgid "Images Height (px.)"
+msgstr ""
+
+#: core/vc_modules/module/class-justified.php:105
+msgid "Fade Duration Time (ms.)"
+msgstr ""
+
+#: core/vc_modules/module/class-justified.php:113
+msgid "Fade Timeout (ms.)"
+msgstr ""
+
+#: core/vc_modules/module/class-kenburns.php:18
+msgid "Kenburns Gallery"
+msgstr ""
+
+#: core/vc_modules/module/class-kenburns.php:61
+msgid "Overlay"
+msgstr ""
+
+#: core/vc_modules/module/class-kenburns.php:74
+msgid "Overlay Background Color"
+msgstr ""
+
+#: core/vc_modules/module/class-kenburns.php:109
+msgid "Set the timing of single slides in milliseconds"
+msgstr ""
+
+#: core/vc_modules/module/class-ribbon.php:22
+msgid "Ribbon Gallery"
+msgstr ""
+
+#: core/vc_modules/module/class-ribbon.php:125
+#: core/vc_modules/module/class-ribbon.php:138
+#: core/vc_modules/module/class-ribbon.php:150
+#: core/vc_modules/module/class-slider.php:96
+#: core/vc_modules/module/class-slider.php:113
+#: core/vc_modules/module/class-slider.php:126
+#: core/vc_modules/module/class-slider.php:155
+#: core/vc_modules/module/class-slider.php:168
+#: core/vc_modules/module/class-slider.php:183
+#: core/vc_modules/module/class-slider.php:196
+#: core/vc_modules/module/class-slider.php:213
+#: core/vc_modules/module/class-slider.php:230
+msgid "Slider Settings"
+msgstr ""
+
+#: core/vc_modules/module/class-ribbon.php:147
+#: core/vc_modules/module/class-shift.php:119
+msgid "Transition Interval (ms.)"
+msgstr ""
+
+#: dist/js/admin/cpt-gallery-page.js:1 dist/js/admin/elementor-editor.js:1
+#: dist/js/gutenberg/editor.js:1
+msgid "Cancel"
+msgstr ""
+
+#: dist/js/admin/cpt-settings.js:6
+msgid "Lightbox Options"
+msgstr ""
+
+#: dist/js/admin/settings.js:6
+msgid "You may use this option to choose where to link your image to."
+msgstr ""
+
+#: plugin.php:68
+#, php-format
+msgid ""
+"GT3 Photo & Video Gallery Pro version requires an update of the Lite version "
+"up to %s to work properly."
+msgstr ""
+
+#: plugin.php:105
+msgid "License"
+msgstr ""
+
+#: plugin.php:114
+msgid "GT3 Photo & Video Gallery Pro version requires license activation. "
+msgstr ""
+
+#: plugin.php:114 plugin.php:399
+msgid "Activate License"
+msgstr ""
+
+#: plugin.php:172
+#, php-format
+msgid ""
+"GT3 Photo & Video Gallery Pro version requires php version %s. You have php "
+"version: %s "
+msgstr ""
+
+#: plugin.php:220
+msgid ""
+"Please enter your video URL: Youtube, Vimeo or Self-Hosted (.mp4, .webm, ."
+"ogg, .ogv)"
+msgstr ""
+
+#: plugin.php:221
+msgid "Open media"
+msgstr ""
+
+#: plugin.php:261 plugin.php:599 plugin.php:689
+msgid "Optimized *"
+msgstr ""
+
+#: plugin.php:345
+msgid "Product License Management"
+msgstr ""
+
+#: plugin.php:346
+msgid ""
+"Enter your license key(s) here to receive updates for the purchased "
+"extension(s)."
+msgstr ""
+
+#: plugin.php:371
+msgid "Enter your license key here"
+msgstr ""
+
+#: plugin.php:377
+msgid "Status:"
+msgstr ""
+
+#: plugin.php:379
+msgid "Active"
+msgstr ""
+
+#: plugin.php:381
+msgid "Inactive"
+msgstr ""
+
+#: plugin.php:387
+#, php-format
+msgid "Expires %s"
+msgstr ""
+
+#: plugin.php:387
+msgid "Lifetime license"
+msgstr ""
+
+#: plugin.php:391
+msgid "Save Changes"
+msgstr ""
+
+#: plugin.php:396
+msgid "Deactivate License"
+msgstr ""
+
+#: plugin.php:610 plugin.php:697 plugin.php:1130 plugin.php:1218
+msgid "Large"
+msgstr ""
+
+#: plugin.php:618 plugin.php:669 plugin.php:706
+msgid ""
+"Not recommended. If the images are not optimized for the web it can lead to "
+"the slow page loading."
+msgstr ""
+
+#: plugin.php:622 plugin.php:676 plugin.php:713
+msgid "* You can get the GT3 Image Optimizer via this link"
+msgstr ""
+
+#: plugin.php:623 plugin.php:677 plugin.php:714
+msgid "https://gt3themes.com/image-optimizer/ "
+msgstr ""
+
+#: plugin.php:638 plugin.php:734
+msgid "Interval (s)"
+msgstr ""
+
+#: plugin.php:646 plugin.php:744
+msgid "Fill entire space with image"
+msgstr ""
+
+#: plugin.php:839
+msgid ""
+"You can enable/disable right-click guard option to protect your images from "
+"downloading."
+msgstr ""
+
+#: plugin.php:848
+msgid ""
+"You can enable/disable the option to share the image in the lightbox and "
+"slider."
+msgstr ""
+
+#: plugin.php:1263
+msgid ""
+"GT3 Photo & Video Gallery Pro version is not working because GT3 Photo & "
+"Video Gallery Lite version has not been activated yet."
+msgstr ""
+
+#: plugin.php:1267
+msgid "Activate Plugin Now"
+msgstr ""
+
+#: plugin.php:1272
+msgid ""
+"GT3 Photo & Video Gallery Pro version is not working because it requires the "
+"GT3 Gallery Lite version installation."
+msgstr ""
+
+#: plugin.php:1274
+msgid "Install Plugin Now"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "GT3 Photo & Video Gallery - Pro"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://gt3themes.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"This is a Pro version of the most popular GT3 Photo & Video Gallery "
+"WordPress plugin. The Pro version comes with premium features which bring "
+"your galleries to the next high quality level."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "GT3 Themes"
+msgstr ""

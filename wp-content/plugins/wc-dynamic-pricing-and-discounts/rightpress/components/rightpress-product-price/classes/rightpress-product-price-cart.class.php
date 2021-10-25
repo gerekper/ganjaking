@@ -14,8 +14,7 @@ final class RightPress_Product_Price_Cart
 {
 
     // Flags
-    private $cart_loaded_from_session               = false;
-    private $refreshing_prepared_cart_item_prices   = false;
+    private $cart_loaded_from_session = false;
 
     // Store cart item price change data in memory
     private $cart_item_price_changes                = array();
@@ -247,11 +246,6 @@ final class RightPress_Product_Price_Cart
 
         $refresh = false;
 
-        // Already refreshing
-        if ($this->refreshing_prepared_cart_item_prices) {
-            return;
-        }
-
         // Get cart
         if ($cart = RightPress_Help::get_wc_cart()) {
 
@@ -268,21 +262,12 @@ final class RightPress_Product_Price_Cart
             // Check if prepared cart item prices need to be refreshed
             if ($refresh) {
 
-                // Set flag
-                $this->refreshing_prepared_cart_item_prices = true;
-
                 // Clear current prepared cart item prices
                 $this->cart_item_price_changes = array();
                 $this->cart_item_price_changes_environment = array();
 
-                // Let plugins know
-                do_action('rightpress_product_price_cart_before_refresh_prepared_cart_item_prices', $cart);
-
                 // Maybe prepare cart item prices
                 $this->maybe_prepare_cart_item_prices($cart);
-
-                // Unset flag
-                $this->refreshing_prepared_cart_item_prices = false;
             }
         }
     }

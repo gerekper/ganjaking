@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Cart_Weight extends RightPress_Condition_Car
     public function get_label()
     {
 
-        return esc_html__('Cart total weight', 'rightpress');
+        return __('Cart total weight', 'rightpress');
     }
 
     /**

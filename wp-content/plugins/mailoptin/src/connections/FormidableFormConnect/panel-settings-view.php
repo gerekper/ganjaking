@@ -2,12 +2,13 @@
 
 use MailOptin\Connections\Init;
 
-$connections            = $this->email_service_providers();
-$mofm_settings          = $this->get_field_name('mofm_settings');
-$integration_field_name = $this->get_field_name('mofm_integration');
-$list_field_name        = $this->get_field_name('mofm_list');
-$tag_field_name         = $this->get_field_name('mofm_tags');
-$mofm_custom_fields     = $this->get_field_name('mofm_custom_fields');
+$connections                = $this->email_service_providers();
+$mofm_settings              = $this->get_field_name('mofm_settings');
+$integration_field_name     = $this->get_field_name('mofm_integration');
+$list_field_name            = $this->get_field_name('mofm_list');
+$tag_field_name             = $this->get_field_name('mofm_tags');
+$mofm_is_double_optin       = $this->get_field_name('mofm_is_double_optin');
+$mofm_custom_fields         = $this->get_field_name('mofm_custom_fields');
 ?>
 <div class="mailoptin_list frm_grid_container">
     <?php if (isset($connections) && $connections) { ?>
@@ -42,6 +43,14 @@ $mofm_custom_fields     = $this->get_field_name('mofm_custom_fields');
                 <?php endif; ?>
             </select>
             </p>
+
+            <?php if(defined('MAILOPTIN_DETACH_LIBSODIUM') && in_array($saved_integration, Init::double_optin_support_connections(true))) { ?>
+                <p class="frm6">
+                    <label for="mofmDoubleOptin"><?php $default_double_optin === false ? esc_html_e('Enable Double Optin', 'mailoptin') : esc_html_e('Disable Double Optin', 'mailoptin') ?></label>
+                    <input type="checkbox" id="mofmDoubleOptin" value="true" name="<?= $mofm_is_double_optin ?>" <?= checked($is_double_optin, "true", false); ?> /> <br />
+                    <span class="description"><?= esc_html__('Double optin requires users to confirm their email address before they are added or subscribed.', 'mailoptin') ?></span>
+                </p>
+            <?php } ?>
 
             <?php if (defined('MAILOPTIN_DETACH_LIBSODIUM') && in_array($saved_integration, Init::select2_tag_connections())) { ?>
                 <p class="frm6">
@@ -100,7 +109,7 @@ $mofm_custom_fields     = $this->get_field_name('mofm_custom_fields');
     if ( ! defined('MAILOPTIN_DETACH_LIBSODIUM')) :
         $upgrade_url   = 'https://mailoptin.io/pricing/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=formidable_forms_builder_settings';
         $learnmore_url = 'https://mailoptin.io/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=formidable_forms_builder_settings';
-        $output        = '<p>' . sprintf(esc_html__('Upgrade to %s to remove the 500 subscribers per month limit, add support for custom field mapping and assign tags to subscribers.', 'mailoptin'), '<strong>MailOptin premium</strong>') . '</p>';
+        $output        = '<p>' . sprintf(esc_html__('Upgrade to %s to remove the 500 subscribers monthly limit, add support for custom field mapping and assign tags to subscribers.', 'mailoptin'), '<strong>MailOptin premium</strong>') . '</p>';
         $output        .= '<p><a href="' . $upgrade_url . '" style="margin-right: 10px;" class="button-primary" target="_blank">' . esc_html__('Upgrade to MailOptin Premium', 'mailoptin') . '</a>';
         $output        .= sprintf(esc_html__('%sLearn more about us%s', 'mailoptin'), '<a href="' . $learnmore_url . '" target="_blank">', '</a>') . '</p>';
 

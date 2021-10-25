@@ -3,7 +3,9 @@
  * Backwards compat.
  *
  * @since 1.2.5
+ * @package woocommerce-splash-popup
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

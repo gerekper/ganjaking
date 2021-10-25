@@ -5,13 +5,13 @@
  *  @package Ultimate Content Box
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Content_Box' ) ) {
+if ( ! class_exists( 'Ult_Content_Box' ) ) {
 		/**
 		 * Function that initializes Ultimate Content Box Module
 		 *
-		 * @class Ultimate_VC_Addons_Content_Box
+		 * @class Ult_Content_Box
 		 */
-	class Ultimate_VC_Addons_Content_Box {
+	class Ult_Content_Box {
 		/**
 		 * Constructor function that constructs default values for the  Ultimate Content Box module.
 		 *
@@ -490,13 +490,13 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Content_Box' ) ) {
 				 * @access public
 				 */
 		public function ult_content_box_scripts() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons_content_box_css', 'content-box' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ult_content_box_css', 'content-box' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons_content_box_js', 'content-box', false, array( 'jquery' ) );
+			Ultimate_VC_Addons::ultimate_register_script( 'ult_content_box_js', 'content-box', false, array( 'jquery' ) );
 		}
 	}
 	// Finally initialize code.
-	new Ultimate_VC_Addons_Content_Box();
+	new Ult_Content_Box();
 	if ( class_exists( 'WPBakeryShortCodesContainer' ) && ! class_exists( 'WPBakeryShortCode_Ult_Content_Box' ) ) {
 				/**
 				 * Function that initializes Ultimate Content Box Module

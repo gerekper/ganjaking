@@ -2,7 +2,6 @@
  * Add/Remove Reward Points Tab
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var AddRemovePointsTabScript = {
         init : function () {
             this.trigger_on_page_load() ;
@@ -68,25 +67,20 @@ jQuery( function ( $ ) {
                 jQuery( '#send_mail_settings' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_email_subject_for_remove' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_email_message_for_remove' ).closest( 'tr' ).hide() ;
-                jQuery( '#rs_remove_point_email_type' ).closest( 'tr' ).hide() ;
-                if( jQuery( '#send_mail_add_remove_settings' ).is( ':checked' ) ) {
+                if ( jQuery( '#send_mail_add_remove_settings' ).is( ':checked' ) ) {
                     jQuery( '#rs_email_subject_message' ).closest( 'tr' ).show() ;
                     jQuery( '#rs_email_message' ).closest( 'tr' ).show() ;
-                    jQuery( '#rs_add_point_email_type' ).closest( 'tr' ).show() ;
                 } else {
                     jQuery( '#rs_email_subject_message' ).closest( 'tr' ).hide() ;
                     jQuery( '#rs_email_message' ).closest( 'tr' ).hide() ;
-                    jQuery( '#rs_add_point_email_type' ).closest( 'tr' ).hide() ;
                 }
                 jQuery( '#send_mail_add_remove_settings' ).click( function () {
                     if ( jQuery( '#send_mail_add_remove_settings' ).is( ':checked' ) ) {
                         jQuery( '#rs_email_subject_message' ).closest( 'tr' ).show() ;
                         jQuery( '#rs_email_message' ).closest( 'tr' ).show() ;
-                        jQuery( '#rs_add_point_email_type' ).closest( 'tr' ).show() ;
                     } else {
                         jQuery( '#rs_email_subject_message' ).closest( 'tr' ).hide() ;
                         jQuery( '#rs_email_message' ).closest( 'tr' ).hide() ;
-                        jQuery( '#rs_add_point_email_type' ).closest( 'tr' ).hide() ;
                     }
                 } ) ;
             } else {
@@ -96,26 +90,21 @@ jQuery( function ( $ ) {
                 jQuery( '#send_mail_add_remove_settings' ).closest( 'tr' ).hide() ;
                 jQuery( '#send_mail_settings' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_email_subject_message' ).closest( 'tr' ).hide() ;
-                jQuery( '#rs_add_point_email_type' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_email_message' ).closest( 'tr' ).hide() ;
                 if ( jQuery( '#send_mail_settings' ).is( ':checked' ) ) {
                     jQuery( '#rs_email_subject_for_remove' ).closest( 'tr' ).show() ;
                     jQuery( '#rs_email_message_for_remove' ).closest( 'tr' ).show() ;
-                    jQuery( '#rs_remove_point_email_type' ).closest( 'tr' ).show() ;
                 } else {
                     jQuery( '#rs_email_subject_for_remove' ).closest( 'tr' ).hide() ;
                     jQuery( '#rs_email_message_for_remove' ).closest( 'tr' ).hide() ;
-                    jQuery( '#rs_remove_point_email_type' ).closest( 'tr' ).hide() ;
                 }
                 jQuery( '#send_mail_settings' ).click( function () {
                     if ( jQuery( '#send_mail_settings' ).is( ':checked' ) ) {
                         jQuery( '#rs_email_subject_for_remove' ).closest( 'tr' ).show() ;
                         jQuery( '#rs_email_message_for_remove' ).closest( 'tr' ).show() ;
-                        jQuery( '#rs_remove_point_email_type' ).closest( 'tr' ).show() ;
                     } else {
                         jQuery( '#rs_email_subject_for_remove' ).closest( 'tr' ).hide() ;
                         jQuery( '#rs_email_message_for_remove' ).closest( 'tr' ).hide() ;
-                        jQuery( '#rs_remove_point_email_type' ).closest( 'tr' ).hide() ;
                     }
                 } ) ;
             }
@@ -210,8 +199,6 @@ jQuery( function ( $ ) {
                     email_message_to_add_points : email_message_to_add_points ,
                     email_subject_to_remove_points : email_subject_to_remove_points ,
                     email_message_to_remove_points : email_message_to_remove_points ,
-                    add_points_email_type : $( '#rs_add_point_email_type' ).val() ,
-                    remove_points_email_type : $( '#rs_remove_point_email_type' ).val() ,
                     points : enteredpoints ,
                     reason : reason ,
                     sumo_security : sumo_security ,

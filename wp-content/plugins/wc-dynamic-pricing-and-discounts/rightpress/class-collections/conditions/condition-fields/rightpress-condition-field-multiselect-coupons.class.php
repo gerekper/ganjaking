@@ -91,7 +91,7 @@ abstract class RightPress_Condition_Field_Multiselect_Coupons extends RightPress
     public function get_placeholder()
     {
 
-        return esc_html__('Select coupons', 'rightpress');
+        return __('Select coupons', 'rightpress');
     }
 
 

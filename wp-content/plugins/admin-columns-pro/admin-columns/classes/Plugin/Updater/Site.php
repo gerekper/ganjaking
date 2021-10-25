@@ -21,8 +21,6 @@ class Site extends Updater {
 	public function __construct( $version_key, Version $version ) {
 		$this->version = $version;
 		$this->storage = new VersionStorage( (string) $version_key );
-
-		// TODO add VersionStorage for previous storage
 	}
 
 	/**

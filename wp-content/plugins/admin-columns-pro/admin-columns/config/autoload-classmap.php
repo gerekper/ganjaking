@@ -270,7 +270,6 @@ return array (
   'AC\\Integration\\Filter\\IsPluginActive' => $dir . '/classes/Integration/Filter/IsPluginActive.php',
   'AC\\Integration\\Filter\\IsPluginNotActive' => $dir . '/classes/Integration/Filter/IsPluginNotActive.php',
   'AC\\Integration\\GravityForms' => $dir . '/classes/Integration/GravityForms.php',
-  'AC\\Integration\\JetEngine' => $dir . '/classes/Integration/JetEngine.php',
   'AC\\Integration\\MetaBox' => $dir . '/classes/Integration/MetaBox.php',
   'AC\\Integration\\NinjaForms' => $dir . '/classes/Integration/NinjaForms.php',
   'AC\\Integration\\Pods' => $dir . '/classes/Integration/Pods.php',

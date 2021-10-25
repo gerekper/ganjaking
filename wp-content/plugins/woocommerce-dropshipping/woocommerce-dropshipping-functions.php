@@ -226,7 +226,7 @@ function woocommerce_dropshippers_mark_as_shipped_callback() {
 
 }
 
-function dropshipper_order_list() {
+function dropshipper_order_list() {	
 
     $base_name = explode('/', plugin_basename(__FILE__));
 
@@ -243,61 +243,40 @@ function dropshipper_order_list() {
     $sid = get_user_meta($uid, 'supplier_id', true);
 
     $term = get_term_by('id', $sid, 'dropship_supplier');
+	
+	
 
     if (!empty($term)) {
 
         $paged = isset($_GET['paged']) ? $_GET['paged'] : 1;
         $post_status = array('wc-processing', 'wc-completed', 'wc-on-hold');
-        $getFromdate = get_option('dateFrom', true);
-        $getTodate = get_option('dateTo', true);
-
-        if ($getFromdate !='1' && $getTodate !='1') {
         
-            $getFromdateIn = $getFromdate;
-            $getTodateIn = $getTodate;
-            // From Date
-            $dateFromExp = explode('-', $getFromdateIn);
-            $Fromyear = $dateFromExp[0];
-            $Frommonth = $dateFromExp[1];
-            $Fromday = $dateFromExp[2];
-            // To date
-            $dateToExp = explode('-', $getTodateIn);
-            $Toyear = $dateToExp[0];
-            $Tomonth = $dateToExp[1];
-            $Today = $dateToExp[2];
-
+        if ( isset ( $_POST['dateFrom'] ) && isset( $_POST['dateTo'] ) ) {
+            $getFromdateIn = $_POST['dateFrom'];
+            $getTodateIn = $_POST['dateTo'];
+			$post_per_page = $_POST['order_per_page'];
+        } else if ( isset ( $_GET['fromDate'] ) && isset( $_GET['toDate'] ) ) {
+            $getFromdateIn = $_GET['fromDate'];
+            $getTodateIn = $_GET['toDate'];
+			$post_per_page = $_GET['perPage'];
         } else {
-
             $getFromdateIn = date('Y-m-d',strtotime("-7 days"));
             $getTodateIn = date('Y-m-d');
-            // From default date
-            $dateFromExp = explode('-', $getFromdateIn);
-            $Fromyear = $dateFromExp[0];
-            $Frommonth = $dateFromExp[1];
-            $Fromday = $dateFromExp[2];
-            // To default date
-            $dateToExp = explode('-', $getTodateIn);
-            $Toyear = $dateToExp[0];
-            $Tomonth = $dateToExp[1];
-            $Today = $dateToExp[2];
+			$post_per_page = 10;
         }
+		
+		$getFromdateInp = strtotime($getFromdateIn);
+		$getFromdateInp = date("Y-m-d",strtotime("-1 day",$getFromdateInp));
+		$getTodateInp = strtotime($getTodateIn);
+		$getTodateInp = date("Y-m-d",strtotime("+1 day",$getTodateInp));
 
         if (isset($_POST['dateFrom']) && isset($_POST['dateTo'])) {
 
             // From Date
             $dateFrom = $_POST['dateFrom'];
-            update_option( 'dateFrom', $dateFrom );
-            $dateFromExp = explode('-', $dateFrom);
-            $Fromyear = $dateFromExp[0];
-            $Frommonth = $dateFromExp[1];
-            $Fromday = $dateFromExp[2];
             // From Date
             $dateTo = $_POST['dateTo'];
-            update_option( 'dateTo', $dateTo );
-            $dateToExp = explode('-', $dateTo);
-            $Toyear = $dateToExp[0];
-            $Tomonth = $dateToExp[1];
-            $Today = $dateToExp[2];
+            //update_option( 'dateTo', $dateTo );
             
             $args = array(
 
@@ -305,22 +284,12 @@ function dropshipper_order_list() {
 
                 'post_status' => $post_status,
 
-                'posts_per_page' => 10,
+                'posts_per_page' => $post_per_page,
 
-                'paged' => $paged,
                 'date_query' => array(
-                        array(
-                            'year'  => $Fromyear,
-                            'month' => $Frommonth,
-                             'day'   => $Fromday,
-                            'compare'   => '>=',
-                        ),
-                        array(
-                            'year'  => $Toyear,
-                            'month' => $Tomonth,
-                             'day'   => $Today,
-                            'compare'   => '<=',
-                        ),
+                        'column' => 'post_date',
+						'after' =>  $getFromdateInp,
+						'before' => $getTodateInp
                     ),
                 'meta_query' => array(
                     array(
@@ -330,27 +299,18 @@ function dropshipper_order_list() {
                 )
             );
 
-        } else {
+        } else {			
 
             $args = array(
 
                 'post_type' => 'shop_order',
                 'post_status' => $post_status,
-                'posts_per_page' => 10,
+                'posts_per_page' => $post_per_page,
                 'paged' => $paged,
                 'date_query' => array(
-                    array(
-                        'year'  => $Fromyear,
-                        'month' => $Frommonth,
-                         'day'   => $Fromday,
-                        'compare'   => '>=',
-                    ),
-                    array(
-                        'year'  => $Toyear,
-                        'month' => $Tomonth,
-                         'day'   => $Today,
-                        'compare'   => '<=',
-                    ),
+                    'column' => 'post_date',
+					'after' =>  $getFromdateInp,
+					'before' => $getTodateInp
                 ),
                 'meta_query' => array(
                     array(
@@ -361,26 +321,22 @@ function dropshipper_order_list() {
             );
         }
         
-        if ($getFromdate !='1' && $getTodate !='1') {
-
-            $getFromdateIn = get_option('dateFrom', true);
-            $getTodateIn = get_option('dateTo', true);
-
-        }
-       
+        //echo '<pre>'; print_r($args); echo '</pre>';
         $the_query = new WP_Query($args);
-    
+		
         echo '<div class="wrap">
 
             <h1>Supplier Orders</h1>
 
-            <form name="Filter" method="POST"> 
+            <form name="Filter" method="POST" action="' . get_site_url() . '/wp-admin/admin.php?page=dropshipper-order-list">
                 <table>
                     <tr>
                         From:
                         <input type="date" name="dateFrom" value="'.$getFromdateIn.'" />
                         To:
                         <input type="date" name="dateTo" value="'.$getTodateIn.'" />
+						Number of items per page:
+						<input type="number" min="5" max="50" name="order_per_page" value="'.$post_per_page.'" style="width: 55px;margin-right: 5px;" /> 		
                         <input type="submit" class="button button-primary" name="submit" value="Filter"/>
                     <tr>
                 </table>
@@ -467,13 +423,13 @@ function dropshipper_order_list() {
 
                             foreach ($items as $item_id => $item) {
 
-                                $ds = wc_dropshipping_get_dropship_supplier_by_product_id(intval($item['product_id'], $term->term_id));
+                                $ds = wc_dropshipping_get_dropship_supplier_by_product_id(intval($item['product_id']));
 
-                                //if( is_array ( $ds && !empty( $ds ) ) ) {
-                                //if ($ds['order_email_addresses'] == $uemail) {
-                                echo '<p>' . $product_name = $item->get_name() . '</p>';
-                                //}
-                                //}
+                                if( is_array ( $ds ) && !empty( $ds ) ) {
+                                    if ($ds['order_email_addresses'] == $uemail) {
+                                        echo '<p>' . $product_name = $item->get_name() . '</p>';
+                                    }
+                                }
                             }
                         }
 
@@ -554,9 +510,12 @@ function dropshipper_order_list() {
 
             echo "<nav class=\"sw-pagination\">";
             $big = 999999999;
+            $link = str_replace($big, '%#%', esc_url(get_pagenum_link($big)));
+            $link = str_replace('#038;', '&', $link);
             echo paginate_links(array(
-               'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-               'format' => '?paged=%#%',
+               'base' => $link,
+               //'format' => '?paged=%#%',
+               'add_args' => array('fromDate'=>$getFromdateIn,'toDate'=>$getTodateIn,'perPage'=>$post_per_page),
                'current' => max(1, $paged),
                'total' => $the_query->max_num_pages
             ));
@@ -626,7 +585,6 @@ function dropshipper_order_list() {
     <textarea name="input-dialog-notes" id="input-dialog-notes" style="width:100%"></textarea>
 
     </div>';
-
 }
 
 if (isset($_GET['success'])) {

@@ -165,17 +165,25 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 			return $this->transient_expand( $availability );
 		}
 
+		$needs_cache_set = false;
 		foreach ( $product_ids as $product_id ) {
 			if ( ! isset( $booking_slots_transient_keys[ $product_id ] ) ) {
 				$booking_slots_transient_keys[ $product_id ] = array();
 			}
 
-			$booking_slots_transient_keys[ $product_id ][] = $transient_name;
+			// Don't store in cache if it already exists there.
+			if ( ! in_array( $transient_name, $booking_slots_transient_keys[ $product_id ] ) ) {
+				$booking_slots_transient_keys[ $product_id ][] = $transient_name;
+				$needs_cache_set = true;
+			}
 		}
 
-		// Give array of keys a long ttl because if it expires we won't be able to flush the keys when needed.
-		// We can't use 0 to never expire because then WordPress will autoload the option on every page.
-		WC_Bookings_Cache::set( 'booking_slots_transient_keys', $booking_slots_transient_keys, YEAR_IN_SECONDS );
+		// Only set cache if existing cached data has changed.
+		if ( $needs_cache_set ) {
+			// Give array of keys a long ttl because if it expires we won't be able to flush the keys when needed.
+			// We can't use 0 to never expire because then WordPress will autoload the option on every page.
+			WC_Bookings_Cache::set( 'booking_slots_transient_keys', $booking_slots_transient_keys, YEAR_IN_SECONDS );
+		}
 
 		// Calculate partially booked/fully booked/unavailable days for each product.
 		$booked_data = array_values( array_map( function( $bookable_product ) use ( $min_date, $max_date, $resource_ids, $get_past_times, $timezone, $hide_unavailable ) {

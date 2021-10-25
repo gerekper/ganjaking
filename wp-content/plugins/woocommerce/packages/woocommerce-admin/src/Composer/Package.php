@@ -24,11 +24,7 @@ class Package {
 	 *
 	 * @var string
 	 */
-<<<<<<< HEAD
-	const VERSION = '2.0.2';
-=======
-	const VERSION = '1.9.0';
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+	const VERSION = '2.3.1';
 
 	/**
 	 * Package active.
@@ -122,6 +118,10 @@ class Package {
 	 * Add deactivation hook for versions of the plugin that don't have the deactivation note.
 	 */
 	public static function on_deactivation() {
+		if ( ! self::is_notes_initialized() ) {
+			return;
+		}
+
 		$update_version = new DeactivatePlugin();
 		$update_version::delete_note();
 	}
@@ -131,6 +131,11 @@ class Package {
 	 * and adds/removes DeactivatePlugin note as necessary.
 	 */
 	public static function check_outdated_wca_plugin() {
+
+		if ( ! self::is_notes_initialized() ) {
+			return;
+		}
+
 		$update_version = new DeactivatePlugin();
 
 		if ( version_compare( WC_ADMIN_VERSION_NUMBER, self::VERSION, '<' ) ) {
@@ -140,5 +145,17 @@ class Package {
 		} else {
 			$update_version::delete_note();
 		}
+	}
+
+	/**
+	 * Checks if notes have been initialized.
+	 */
+	private static function is_notes_initialized() {
+		try {
+			\WC_Data_Store::load( 'admin-note' );
+		} catch ( \Exception $e ) {
+			return false;
+		}
+		return true;
 	}
 }

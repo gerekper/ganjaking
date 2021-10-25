@@ -1,4 +1,6 @@
-define(["jquery"], function ($) {
+import $ from 'jquery';
+
+export default function () {
     window.moFormRecaptchaLoadCallback = function () {
         $('.mo-g-recaptcha').each(function (index, el) {
             var $site_key = $(el).attr('data-sitekey');
@@ -30,4 +32,4 @@ define(["jquery"], function ($) {
             }
         });
     }
-});
+}

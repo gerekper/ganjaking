@@ -8,7 +8,6 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
-use MailPoet\Subscribers\SubscribersCountsController;
 use MailPoetVendor\Doctrine\DBAL\Connection;
 use MailPoetVendor\Doctrine\DBAL\Driver\Statement;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
@@ -17,15 +16,15 @@ class SegmentsSimpleListRepository {
   /** @var EntityManager */
   private $entityManager;
 
-  /** @var SubscribersCountsController */
-  private $subscribersCountsController;
+  /** @var SegmentSubscribersRepository */
+  private $segmentsSubscriberRepository;
 
   public function __construct(
     EntityManager $entityManager,
-    SubscribersCountsController $subscribersCountsController
+    SegmentSubscribersRepository $segmentsSubscriberRepository
   ) {
     $this->entityManager = $entityManager;
-    $this->subscribersCountsController = $subscribersCountsController;
+    $this->segmentsSubscriberRepository = $segmentsSubscriberRepository;
   }
 
   /**
@@ -55,12 +54,11 @@ class SegmentsSimpleListRepository {
    * @return array<array{id: string, name: string, type: string, subscribers: int}>
    */
   public function addVirtualSubscribersWithoutListSegment(array $segments): array {
-    $withoutSegmentStats = $this->subscribersCountsController->getSubscribersWithoutSegmentStatisticsCount();
     $segments[] = [
       'id' => '0',
       'type' => SegmentEntity::TYPE_WITHOUT_LIST,
       'name' => __('Subscribers without a list', 'mailpoet'),
-      'subscribers' => $withoutSegmentStats['all'],
+      'subscribers' => $this->segmentsSubscriberRepository->getSubscribersWithoutSegmentCount(),
     ];
     return $segments;
   }
@@ -118,8 +116,7 @@ class SegmentsSimpleListRepository {
     // Fetch subscribers counts for dynamic segments and correct data types
     foreach ($segments as $key => $segment) {
       if ($segment['type'] === SegmentEntity::TYPE_DYNAMIC) {
-        $statisticsKey = $subscriberGlobalStatus ?: 'all';
-        $segments[$key]['subscribers'] = (int)$this->subscribersCountsController->getSegmentStatisticsCountById($segment['id'])[$statisticsKey];
+        $segments[$key]['subscribers'] = $this->segmentsSubscriberRepository->getSubscribersCount((int)$segment['id'], $subscriberGlobalStatus);
       } else {
         $segments[$key]['subscribers'] = (int)$segment['subscribers'];
       }

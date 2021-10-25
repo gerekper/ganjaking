@@ -486,6 +486,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 					'consent_default_level' => $this->get_option( 'cookie_cookies_group_default', $this->get_default_group_level() ),
 					'consent_accept_level'  => $this->get_option( 'cookie_cookies_group_after_accept', 5 ),
 					'age_enabled'           => $this->get_option( 'age_enabled', 5 ),
+                    'display_cookie_always' => $this->is_cookie_display_always(),
 				)
 			);
 
@@ -632,6 +633,18 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		ct_ultimate_gdpr_render_template( ct_ultimate_gdpr_locate_template( $template, false ), true, $options );
 
 	}
+
+    /**
+     * Check cookie visibility always
+     *
+     * @return bool
+     */
+    public function is_cookie_display_always() {
+        if($this->get_option( 'cookie_display_always' ) ) {
+            return true;
+        }
+    }
+
 
     /**
      * Check  bot/user agent
@@ -1515,6 +1528,13 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
                 'ct-ultimate-gdpr-cookie_tab-1_section-3'
             );
 
+            add_settings_field(
+				'cookie_display_always',
+				esc_html__( 'Always display cookie popup', 'ct-ultimate-gdpr' ),
+				array( $this, 'render_field_cookie_display_always' ),
+				'ct-ultimate-gdpr-cookie',
+				'ct-ultimate-gdpr-cookie_tab-1_section-3'
+			);
 
 			//TAB 2 - SECTION 1 - COOKIE CHECK
 
@@ -1738,6 +1758,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
                 'ct-ultimate-gdpr-cookie_tab-2_section-8'
             );
 			
+            // TAB 2 - SECTION 10 - WITHDRAWAL COOKIE AGREEMENT
             add_settings_field(
                 'cookie_withdrawal_cookies_agreement',
                 esc_html__( 'Heading', 'ct-ultimate-gdpr' ),
@@ -1753,6 +1774,30 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
                 'ct-ultimate-gdpr-cookie',
                 'ct-ultimate-gdpr-cookie_tab-2_section-10'
             );
+
+			add_settings_field(
+				'cookie_withdrawal_cookies_agreement_button_bg_color',
+				esc_html__( 'Button background color', 'ct-ultimate-gdpr' ),
+				array( $this, 'render_field_cookie_withdrawal_cookies_agreement_button_bg_color' ),
+				'ct-ultimate-gdpr-cookie',
+				'ct-ultimate-gdpr-cookie_tab-2_section-10'
+			);
+
+			add_settings_field(
+				'cookie_withdrawal_cookies_agreement_button_text_color',
+				esc_html__( 'Button text color', 'ct-ultimate-gdpr' ),
+				array( $this, 'render_field_cookie_withdrawal_cookies_agreement_button_text_color' ),
+				'ct-ultimate-gdpr-cookie',
+				'ct-ultimate-gdpr-cookie_tab-2_section-10'
+			);
+
+			add_settings_field(
+				'cookie_withdrawal_cookies_agreement_button_border_color',
+				esc_html__( 'Button border color', 'ct-ultimate-gdpr' ),
+				array( $this, 'render_field_cookie_withdrawal_cookies_agreement_button_border_color' ),
+				'ct-ultimate-gdpr-cookie',
+				'ct-ultimate-gdpr-cookie_tab-2_section-10'
+			);
 
 			//TAB 2 - SECTION 6 - CUSTOM STYLE CSS
 
@@ -2247,10 +2292,10 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 
 		?>
 
-        <input type="text" readonly class="button button-primary" name="ct-ultimate-gdpr-cookie-content-language"
-               value="<?php _e( 'Load', 'ct-ultimate-gdpr' ); ?>"/>
+<input type="text" readonly class="button button-primary" name="ct-ultimate-gdpr-cookie-content-language"
+    value="<?php _e( 'Load', 'ct-ultimate-gdpr' ); ?>" />
 
-		<?php
+<?php
 
 	}
 
@@ -3009,6 +3054,66 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		);
 	}
 
+    /**
+	 *
+	 */
+	public function render_field_cookie_withdrawal_cookies_agreement_button_bg_color() {
+
+		$admin       = CT_Ultimate_GDPR::instance()->get_admin_controller();
+		$field_name  = $admin->get_field_name( __FUNCTION__ );
+		$default     = ct_ultimate_gdpr_get_value( $field_name, $this->get_default_options() );
+		$field_value = $admin->get_option_value_escaped( $field_name, '' );
+		$field_value = $field_value ? $field_value : $default;
+
+		printf(
+			"<input class='ct-color-field ct-ultimate-gdpr-field' type='text' id='%s' name='%s' value='%s' />",
+			$admin->get_field_name( __FUNCTION__ ),
+			$admin->get_field_name_prefixed( $field_name ),
+			$field_value
+		);
+
+	}
+
+    /**
+	 *
+	 */
+	public function render_field_cookie_withdrawal_cookies_agreement_button_text_color() {
+
+		$admin       = CT_Ultimate_GDPR::instance()->get_admin_controller();
+		$field_name  = $admin->get_field_name( __FUNCTION__ );
+		$default     = ct_ultimate_gdpr_get_value( $field_name, $this->get_default_options() );
+		$field_value = $admin->get_option_value_escaped( $field_name, '' );
+		$field_value = $field_value ? $field_value : $default;
+
+		printf(
+			"<input class='ct-color-field ct-ultimate-gdpr-field' type='text' id='%s' name='%s' value='%s' />",
+			$admin->get_field_name( __FUNCTION__ ),
+			$admin->get_field_name_prefixed( $field_name ),
+			$field_value
+		);
+
+	}
+
+    /**
+	 *
+	 */
+	public function render_field_cookie_withdrawal_cookies_agreement_button_border_color() {
+
+		$admin       = CT_Ultimate_GDPR::instance()->get_admin_controller();
+		$field_name  = $admin->get_field_name( __FUNCTION__ );
+		$default     = ct_ultimate_gdpr_get_value( $field_name, $this->get_default_options() );
+		$field_value = $admin->get_option_value_escaped( $field_name, '' );
+		$field_value = $field_value ? $field_value : $default;
+
+		printf(
+			"<input class='ct-color-field ct-ultimate-gdpr-field' type='text' id='%s' name='%s' value='%s' />",
+			$admin->get_field_name( __FUNCTION__ ),
+			$admin->get_field_name_prefixed( $field_name ),
+			$field_value
+		);
+
+	}
+
 	/**
 	 *
 	 */
@@ -3233,6 +3338,22 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
         );
 
     }
+
+    /**
+	 *
+	 */
+	public function render_field_cookie_display_always() {
+
+		$admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
+		$field_name = $admin->get_field_name( __FUNCTION__ );
+		printf(
+			"<input class='ct-ultimate-gdpr-field' type='checkbox' id='%s' name='%s' %s />",
+			$admin->get_field_name( __FUNCTION__ ),
+			$admin->get_field_name_prefixed( $field_name ),
+			$admin->get_option_value_escaped( $field_name ) ? 'checked' : ''
+		);
+
+	}
 
 
     /**
@@ -3865,7 +3986,10 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			'cookie_my_account_disclaimer'                     => esc_html__( "Removal of your data will not limit in any way the system functionalities", 'ct-ultimate-gdpr' ),
 			'cookie_withdrawal_cookies_agreement'			   => esc_html__( "Withdrawal Cookie Agreement", 'ct-ultimate-gdpr' ),
 			'cookie_withdrawal_cookies_agreement_description'  => esc_html__( "Decide to block all cookies which we're using. You can change these settings at any time. Learn more about the cookies we use.", 'ct-ultimate-gdpr' ),
-		) );
+            'cookie_withdrawal_cookies_agreement_button_bg_color'        => '#ff7d27',
+            'cookie_withdrawal_cookies_agreement_button_text_color'      => '#ffffff',
+            'cookie_withdrawal_cookies_agreement_button_border_color'    => '#ff7d27',
+            ) );
 
 	}
 

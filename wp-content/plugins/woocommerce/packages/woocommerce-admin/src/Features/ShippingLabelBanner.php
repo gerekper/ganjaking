@@ -25,26 +25,10 @@ class ShippingLabelBanner {
 	 * Constructor
 	 */
 	public function __construct() {
-		add_filter( 'woocommerce_admin_plugins_whitelist', array( $this, 'get_shipping_banner_allowed_plugins' ), 10, 2 );
-
 		if ( ! is_admin() ) {
 			return;
 		}
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 6, 2 );
-	}
-
-	/**
-	 * Gets an array of plugins that can be installed & activated via shipping label prompt.
-	 *
-	 * @param array $plugins Array of plugin slugs to be allowed.
-	 *
-	 * @return array
-	 */
-	public static function get_shipping_banner_allowed_plugins( $plugins ) {
-		$shipping_banner_plugins = array(
-			'woocommerce-services' => 'woocommerce-services/woocommerce-services.php',
-		);
-		return array_merge( $plugins, $shipping_banner_plugins );
 	}
 
 	/**
@@ -151,10 +135,13 @@ class ShippingLabelBanner {
 			Loader::get_file_version( 'css' )
 		);
 
+		$script_assets_filename = Loader::get_script_asset_filename( 'wp-admin-scripts', 'print-shipping-label-banner' );
+		$script_assets          = require WC_ADMIN_ABSPATH . WC_ADMIN_DIST_JS_FOLDER . 'wp-admin-scripts/' . $script_assets_filename;
+
 		wp_enqueue_script(
 			'print-shipping-label-banner',
 			Loader::get_url( 'wp-admin-scripts/print-shipping-label-banner', 'js' ),
-			array( 'wp-i18n', 'wp-data', 'wp-element', 'moment', 'wp-api-fetch', WC_ADMIN_APP ),
+			array_merge( array( WC_ADMIN_APP ), $script_assets ['dependencies'] ),
 			Loader::get_file_version( 'js' ),
 			true
 		);

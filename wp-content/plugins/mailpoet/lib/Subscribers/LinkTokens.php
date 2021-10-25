@@ -13,9 +13,7 @@ class LinkTokens {
   /** @var SubscribersRepository */
   private $subscribersRepository;
 
-  public function __construct(
-    SubscribersRepository $subscribersRepository
-  ) {
+  public function __construct(SubscribersRepository $subscribersRepository) {
     $this->subscribersRepository = $subscribersRepository;
   }
 

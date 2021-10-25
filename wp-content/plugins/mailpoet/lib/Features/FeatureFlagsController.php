@@ -15,10 +15,7 @@ class FeatureFlagsController {
   /** @var FeatureFlagsRepository */
   private $featureFlagsRepository;
 
-  public function __construct(
-    FeaturesController $featuresController,
-    FeatureFlagsRepository $featureFlagsRepository
-  ) {
+  public function __construct(FeaturesController $featuresController, FeatureFlagsRepository $featureFlagsRepository) {
     $this->featuresController = $featuresController;
     $this->featureFlagsRepository = $featureFlagsRepository;
   }

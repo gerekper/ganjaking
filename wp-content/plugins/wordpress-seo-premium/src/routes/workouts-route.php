@@ -8,13 +8,13 @@ use WPSEO_Redirect;
 use WPSEO_Redirect_Manager;
 use WPSEO_Taxonomy_Meta;
 use Yoast\WP\SEO\Builders\Indexable_Term_Builder;
+use Yoast\WP\SEO\Conditionals\No_Conditionals;
 use Yoast\WP\SEO\Helpers\Post_Type_Helper;
+use Yoast\WP\SEO\Main;
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Premium\Actions\Link_Suggestions_Action;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 use Yoast\WP\SEO\Routes\Route_Interface;
-use Yoast\WP\SEO\Conditionals\No_Conditionals;
-use Yoast\WP\SEO\Main;
 
 /**
  * Workouts_Route class.
@@ -142,8 +142,6 @@ class Workouts_Route implements Route_Interface {
 	 * @param Link_Suggestions_Action $link_suggestions_action The link suggestions action.
 	 * @param Indexable_Term_Builder  $indexable_term_builder  The indexable term builder.
 	 * @param Post_Type_Helper        $post_type_helper        The post type helper.
-	 *
-	 * @return void
 	 */
 	public function __construct(
 		Indexable_Repository $indexable_repository,
@@ -163,7 +161,7 @@ class Workouts_Route implements Route_Interface {
 	 * @return void
 	 */
 	public function register_routes() {
-		$edit_others_posts = function() {
+		$edit_others_posts = static function() {
 			return \current_user_can( 'edit_others_posts' );
 		};
 
@@ -366,7 +364,7 @@ class Workouts_Route implements Route_Interface {
 			WPSEO_Taxonomy_Meta::set_value( $request['object_id'], $request['object_sub_type'], 'noindex', 'noindex' );
 			// Rebuild the indexable as WPSEO_Taxonomy_Meta does not trigger any actions on which term indexables are rebuild.
 			$indexable = $this->indexable_term_builder->build( $request['object_id'], $this->indexable_repository->find_by_id_and_type( $request['object_id'], $request['object_type'] ) );
-			if ( is_a( $indexable, Indexable::class ) ) {
+			if ( \is_a( $indexable, Indexable::class ) ) {
 				$indexable->save();
 			}
 			else {
@@ -397,7 +395,7 @@ class Workouts_Route implements Route_Interface {
 			WPSEO_Taxonomy_Meta::set_value( $request['object_id'], $term->taxonomy, 'is_cornerstone', '1' );
 			// Rebuild the indexable as WPSEO_Taxonomy_Meta does not trigger any actions on which term indexables are rebuild.
 			$indexable = $this->indexable_term_builder->build( $request['object_id'], $this->indexable_repository->find_by_id_and_type( $request['object_id'], $request['object_type'] ) );
-			if ( is_a( $indexable, Indexable::class ) ) {
+			if ( \is_a( $indexable, Indexable::class ) ) {
 				$indexable->save();
 			}
 			else {
@@ -559,9 +557,9 @@ class Workouts_Route implements Route_Interface {
 			return false;
 		}
 
-		if ( isset( $workout['finishedSteps'] ) && is_array( $workout['finishedSteps'] ) ) {
+		if ( isset( $workout['finishedSteps'] ) && \is_array( $workout['finishedSteps'] ) ) {
 			foreach ( $workout['finishedSteps'] as $step ) {
-				if ( ! in_array( $step, $allowed_steps, true ) ) {
+				if ( ! \in_array( $step, $allowed_steps, true ) ) {
 					return false;
 				}
 			}
@@ -601,8 +599,8 @@ class Workouts_Route implements Route_Interface {
 			)
 		);
 
-		$excluded_post_types = apply_filters( 'wpseo_indexable_excluded_post_types', [ 'attachment' ] );
-		$object_sub_types    = array_diff( $object_sub_types, $excluded_post_types );
+		$excluded_post_types = \apply_filters( 'wpseo_indexable_excluded_post_types', [ 'attachment' ] );
+		$object_sub_types    = \array_diff( $object_sub_types, $excluded_post_types );
 		return $object_sub_types;
 	}
 }

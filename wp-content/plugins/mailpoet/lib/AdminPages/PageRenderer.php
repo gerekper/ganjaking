@@ -6,7 +6,6 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Renderer;
-use MailPoet\Cron\Workers\SubscribersCountCacheRecalculation;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Features\FeaturesController;
 use MailPoet\Referrals\ReferralDetector;
@@ -33,23 +32,18 @@ class PageRenderer {
   /** @var SegmentsRepository */
   private $segmentRepository;
 
-  /** @var SubscribersCountCacheRecalculation */
-  private $subscribersCountCacheRecalculation;
-
   public function __construct(
     Renderer $renderer,
     FeaturesController $featuresController,
     SettingsController $settings,
     UserFlagsController $userFlags,
-    SegmentsRepository $segmentRepository,
-    SubscribersCountCacheRecalculation $subscribersCountCacheRecalculation
+    SegmentsRepository $segmentRepository
   ) {
     $this->renderer = $renderer;
     $this->featuresController = $featuresController;
     $this->settings = $settings;
     $this->userFlags = $userFlags;
     $this->segmentRepository = $segmentRepository;
-    $this->subscribersCountCacheRecalculation = $subscribersCountCacheRecalculation;
   }
 
   /**
@@ -78,9 +72,6 @@ class PageRenderer {
         && class_exists(DIPanel::class)
       ) {
         DIPanel::init();
-      }
-      if (is_admin() && $this->subscribersCountCacheRecalculation->shouldBeScheduled()) {
-        $this->subscribersCountCacheRecalculation->schedule();
       }
       echo $this->renderer->render($template, $data + $defaults);
     } catch (\Exception $e) {

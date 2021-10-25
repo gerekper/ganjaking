@@ -43,7 +43,7 @@ abstract class RightPress_Condition_Checkout extends RightPress_Condition
     public function get_group_label()
     {
 
-        return esc_html__('Checkout', 'rightpress');
+        return __('Checkout', 'rightpress');
     }
 
 

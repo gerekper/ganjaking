@@ -11,16 +11,16 @@
  *      ),
  *  ),
  *
- * @package Ultimate_VC_Addons_Margin_Param.
+ * @package Ultimate_Margin_Param.
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Margin_Param' ) ) {
+if ( ! class_exists( 'Ultimate_Margin_Param' ) ) {
 	/**
-	 * Class Ultimate_VC_Addons_Margin_Param
+	 * Class Ultimate_Margin_Param
 	 *
-	 * @class Ultimate_VC_Addons_Margin_Param.
+	 * @class Ultimate_Margin_Param.
 	 */
-	class Ultimate_VC_Addons_Margin_Param {
+	class Ultimate_Margin_Param {
 
 		/**
 		 * Initiator __construct.
@@ -57,6 +57,6 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Margin_Param' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_VC_Addons_Margin_Param' ) ) {
-	$ultimate_margin_param = new Ultimate_VC_Addons_Margin_Param();
+if ( class_exists( 'Ultimate_Margin_Param' ) ) {
+	$ultimate_margin_param = new Ultimate_Margin_Param();
 }

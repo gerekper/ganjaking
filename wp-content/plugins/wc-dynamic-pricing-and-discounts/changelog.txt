@@ -1,25 +1,3 @@
-Version 2.4, 4 July 2021
-------------------------------------------------------------------------------------
-* Feature - New promotion tool "Product Banners"
-* Fix - Potential incorrect display price for variable products with "any" attribute
-* Fix - Potential infinite loop in maybe_refresh_prepared_cart_item_prices
-* Fix - "Change display price" sometimes incorrectly affects prices in pricing table
-* Fix - Frontend pricing rule validation allows empty product fields to go through
-* Tweak - Just-in-time rendering of rule panels to improve usability, page load time
-* Tweak - Volume pricing tables for individual variations are now loaded via Ajax
-* Tweak - Option to always display quantity next to "Your Price"
-* Tweak - Option to always display subtotal next to "Your Price"
-* Tweak - Option to display "Your Price" in place of regular WooCommerce price
-* Tweak - Position "Page content - After" no longer available for pricing table
-* Tweak - Other minor bug fixes and improvements
-* Dev - New function rp_wcdpd_get_cart_discount_rules_applied_to_order
-
-Version 2.3.9, 5 July 2020
-------------------------------------------------------------------------------------
-* Fix - Problem with price discount limit functionality under specific conditions
-* Fix - Cart discount amount off by one cent under specific conditions
-* Tweak - Improved shipping method condition compatibility with shipping plugins
-
 Version 2.3.8, 14 April 2020
 ------------------------------------------------------------------------------------
 * Fix - Reverting previous changes that caused issues with sale/regular price display

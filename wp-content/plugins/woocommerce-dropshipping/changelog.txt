@@ -1,5 +1,11 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2021-10-21 - version 3.7
+* PLUGINS-1200 - Fix Suppliers order page filter issue
+* PLUGINS-1204 - Fix Remove product name that is not belong to supplier itself
+* PLUGINS-1208 - Fix Admin menus gone when the plugin is activated in a multiste
+* PLUGINS-1229 - Fix Attach PDF to supplier Email option
+
 2021-09-06 - version 3.6
 * PLUGINS-672 - Supplier role users can't access 3rd party plugin admin functionality.
 * PLUGINS-841 - All prices must work with Woocommerce settings Currency options.

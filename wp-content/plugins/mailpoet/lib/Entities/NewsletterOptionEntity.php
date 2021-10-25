@@ -40,10 +40,7 @@ class NewsletterOptionEntity {
    */
   private $optionField;
 
-  public function __construct(
-    NewsletterEntity $newsletter,
-    NewsletterOptionFieldEntity $optionField
-  ) {
+  public function __construct(NewsletterEntity $newsletter, NewsletterOptionFieldEntity $optionField) {
     $this->newsletter = $newsletter;
     $this->optionField = $optionField;
   }

@@ -1,5 +1,9 @@
 *** Store Credit Changelog ***
 
+2021-10-13 - version 3.9.2
+* Tweak - Tested compatibility up to WC 5.8.
+* Fix - Fixed warning caused by the undefined variable `$found`.
+
 2021-08-11 - version 3.9.1
 * Tweak - Tested compatibility with WC 5.6.
 * Fix - The credit is not updated when passing a coupon code to the function `wc_update_store_credit_used_for_order`.

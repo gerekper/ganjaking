@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Local_Pickup_Plus\Appointments;
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Appointments\Appointment;
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 
 /**
  * Handler for appointment objects associated with orders and shipping items.
@@ -100,65 +100,59 @@ class Appointments {
 
 		$appointments_count_per_start_time = [];
 
-		// TODO: remove if statement when WC 3.6 is the minimum version supported {WV 2020-04-22}
-		if ( function_exists( 'wc_get_is_pending_statuses' ) ) {
-			$order_statuses = array_merge( wc_get_is_paid_statuses(), wc_get_is_pending_statuses(), [ 'on-hold' ] );
-		} else {
-			$order_statuses = array_merge( wc_get_is_paid_statuses(), [ 'pending', 'on-hold' ] );
-		}
-
-		$order_statuses = array_map( function ( $status ) {
-			return "wc-$status";
-		}, $order_statuses );
-
 		// query by time slot
-		$start_time_sql = "
+		$start_time_results = $wpdb->get_results( $wpdb->prepare( "
 			SELECT order_item_id, meta_value
 			FROM {$wpdb->prefix}woocommerce_order_itemmeta
 			WHERE meta_key = '_pickup_appointment_start'
 			AND CAST(meta_value AS UNSIGNED) >= %d
 			AND CAST(meta_value AS UNSIGNED) < %d
-		";
-
-		$start_time_results = $wpdb->get_results( $wpdb->prepare( $start_time_sql, [
-			(int) $start_time,
-			(int) $end_time
-		] ), ARRAY_A );
+		", (int) $start_time, (int) $end_time ), ARRAY_A );
 
 		if ( ! empty( $start_time_results ) ) {
 
-			$start_time_results_ids = array_column( $start_time_results, 'order_item_id' );
+			$start_time_results_ids = Framework\SV_WC_Helper::get_escaped_id_list( array_column( $start_time_results, 'order_item_id' ) );
 
 			// query by location
-			$location_sql = "
+			$location_results = $wpdb->get_col( $wpdb->prepare( "
 				SELECT order_item_id
 				FROM {$wpdb->prefix}woocommerce_order_itemmeta
 				WHERE meta_key = '_pickup_location_id'
 				AND meta_value = %d
-				AND order_item_id IN ( '" . implode( "','", esc_sql( $start_time_results_ids ) ) . "' )
-			";
-
-			$location_results = $wpdb->get_col( $wpdb->prepare( $location_sql, [ $pickup_location_id ] ) );
+				AND order_item_id IN ($start_time_results_ids)
+			", $pickup_location_id ) );
 
 			if ( ! empty( $location_results ) ) {
 
+				// TODO: remove if statement when WC 3.6 is the minimum version supported {WV 2020-04-22}
+				if ( function_exists( 'wc_get_is_pending_statuses' ) ) {
+					$order_statuses = array_merge( wc_get_is_paid_statuses(), wc_get_is_pending_statuses(), [ 'on-hold' ] );
+				} else {
+					$order_statuses = array_merge( wc_get_is_paid_statuses(), [ 'pending', 'on-hold' ] );
+				}
+
+				$order_statuses = array_map( static function ( $status ) {
+					return "wc-$status";
+				}, $order_statuses );
+
+				$order_types = Framework\SV_WC_Helper::get_escaped_string_list( wc_get_order_types() );
+				$order_statuses = Framework\SV_WC_Helper::get_escaped_string_list( $order_statuses );
+				$location_results = Framework\SV_WC_Helper::get_escaped_id_list( $location_results );
+
 				// query by order status
-				$order_status_sql = "
+				$order_status_results = $wpdb->get_col( "
 					SELECT order_item_id
 					FROM {$wpdb->prefix}posts AS posts
 					INNER JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON ( posts.ID = order_items.order_id AND order_items.order_item_type = 'shipping' )
-					WHERE posts.post_type IN ( '" . implode( "','", esc_sql( wc_get_order_types() ) ) . "' )
-					AND posts.post_status IN ( '" . implode( "','", esc_sql( $order_statuses ) ) . "' )
-					AND order_items.order_item_id IN ( '" . implode( "','", esc_sql( $location_results ) ) . "' )
-				";
-
-				$order_status_results = $wpdb->get_col( $order_status_sql );
+					WHERE posts.post_type IN ($order_types)
+					AND posts.post_status IN ($order_statuses)
+					AND order_items.order_item_id IN ($location_results)
+				" );
 
 				/* @var array start times, indexed by order item ID */
 				$appointment_start_times = [];
 
 				foreach ( $start_time_results as $result ) {
-
 					$appointment_start_times[ $result['order_item_id'] ] = $result['meta_value'];
 				}
 
@@ -167,7 +161,6 @@ class Appointments {
 					if ( ! empty ( $start_time = $appointment_start_times[ $result ] ) ) {
 
 						if ( ! isset( $appointments_count_per_start_time[ $start_time ] ) ) {
-
 							$appointments_count_per_start_time[ $start_time ] = 0;
 						}
 

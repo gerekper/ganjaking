@@ -174,7 +174,7 @@ class License {
 	 */
 	public function display_settings_license_key_field_content( $options ) {
 
-	$key  = 'B5E0B5F8DD8689E6ACA49DD6E6E1A930';
+		$key  = '1415b451be1a13c283ba771ea52d38bb';
 		$type = 'Pro';
 		$license  = $options->get_group( 'license' );
 		$is_valid = ! empty( $key ) &&
@@ -189,7 +189,7 @@ class License {
 			<input type="password" id="wp-mail-smtp-setting-license-key"
 				<?php echo ( $options->is_const_defined( 'license', 'key' ) || $is_valid ) ? 'disabled' : ''; ?>
 				value="<?php echo esc_attr( $key ); ?>" name="wp-mail-smtp[license][key]"/>
-			
+		
 
 			<?php
 			// Offer option to deactivate the key.

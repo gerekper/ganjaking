@@ -644,13 +644,7 @@ class Customizer
         $instance->header_settings();
         $instance->content_settings();
         $instance->footer_settings();
-
-        $wp_customize->add_setting($option_prefix . '[send_test_email]', array(
-                'type'      => 'option',
-                'transport' => 'postMessage',
-                'autoload' => false
-            )
-        );
+        $instance->test_email_settings();
     }
 
     /**
@@ -669,19 +663,7 @@ class Customizer
         $instance->content_controls();
         $instance->newsletter_content_control();
         $instance->footer_controls();
-
-        $admin_email = mo_test_admin_email();
-        $wp_customize->add_control(new WP_Customize_Submit_Button_Control(
-                $wp_customize,
-                $option_prefix . '[send_test_email]',
-                array(
-                    'label'       => __('Background Color', 'mailoptin'),
-                    'description' => __("Save any changes first and then click the button to send a test email to $admin_email", 'mailoptin'),
-                    'section'     => $this->campaign_send_email_section_id,
-                    'settings'    => $option_prefix . '[send_test_email]',
-                )
-            )
-        );
+        $instance->test_email_controls();
     }
 
     /**

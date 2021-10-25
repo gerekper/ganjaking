@@ -8,14 +8,12 @@ namespace Automattic\WooCommerce\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
+use \Automattic\WooCommerce\Admin\Features\Features;
 use \Automattic\WooCommerce\Admin\Notes\AddingAndManangingProducts;
 use \Automattic\WooCommerce\Admin\Notes\ChooseNiche;
 use \Automattic\WooCommerce\Admin\Notes\ChoosingTheme;
-<<<<<<< HEAD
 use \Automattic\WooCommerce\Admin\Notes\CustomizingProductCatalog;
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
-use \Automattic\WooCommerce\Admin\Notes\GivingFeedbackNotes;
+use Automattic\WooCommerce\Admin\Notes\FirstDownlaodableProduct;
 use \Automattic\WooCommerce\Admin\Notes\InsightFirstProductAndPayment;
 use \Automattic\WooCommerce\Admin\Notes\MobileApp;
 use \Automattic\WooCommerce\Admin\Notes\NewSalesRecord;
@@ -34,13 +32,11 @@ use \Automattic\WooCommerce\Admin\Notes\RealTimeOrderAlerts;
 use \Automattic\WooCommerce\Admin\RemoteInboxNotifications\DataSourcePoller;
 use \Automattic\WooCommerce\Admin\RemoteInboxNotifications\RemoteInboxNotificationsEngine;
 use \Automattic\WooCommerce\Admin\Notes\MerchantEmailNotifications\MerchantEmailNotifications;
-use \Automattic\WooCommerce\Admin\Loader;
 use \Automattic\WooCommerce\Admin\Notes\InsightFirstSale;
 use \Automattic\WooCommerce\Admin\Notes\NeedSomeInspiration;
 use \Automattic\WooCommerce\Admin\Notes\OnlineClothingStore;
 use \Automattic\WooCommerce\Admin\Notes\FirstProduct;
 use \Automattic\WooCommerce\Admin\Notes\CustomizeStoreWithBlocks;
-use \Automattic\WooCommerce\Admin\Notes\GoogleAdsAndMarketing;
 use \Automattic\WooCommerce\Admin\Notes\TestCheckout;
 use \Automattic\WooCommerce\Admin\Notes\EditProductsOnTheMove;
 use \Automattic\WooCommerce\Admin\Notes\PerformanceOnMobile;
@@ -50,10 +46,8 @@ use \Automattic\WooCommerce\Admin\Notes\NavigationFeedbackFollowUp;
 use \Automattic\WooCommerce\Admin\Notes\FilterByProductVariationsInReports;
 use \Automattic\WooCommerce\Admin\Notes\AddFirstProduct;
 use \Automattic\WooCommerce\Admin\Notes\DrawAttention;
-<<<<<<< HEAD
 use \Automattic\WooCommerce\Admin\Notes\GettingStartedInEcommerceWebinar;
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+use \Automattic\WooCommerce\Admin\Notes\NavigationNudge;
 
 /**
  * Events Class.
@@ -123,7 +117,6 @@ class Events {
 		WooCommercePayments::possibly_add_note();
 		EUVATNumber::possibly_add_note();
 		Marketing::possibly_add_note();
-		GivingFeedbackNotes::possibly_add_note();
 		StartDropshippingBusiness::possibly_add_note();
 		WooCommerceSubscriptions::possibly_add_note();
 		MigrateFromShopify::possibly_add_note();
@@ -135,7 +128,6 @@ class Events {
 		ChooseNiche::possibly_add_note();
 		RealTimeOrderAlerts::possibly_add_note();
 		CustomizeStoreWithBlocks::possibly_add_note();
-		GoogleAdsAndMarketing::possibly_add_note();
 		TestCheckout::possibly_add_note();
 		EditProductsOnTheMove::possibly_add_note();
 		PerformanceOnMobile::possibly_add_note();
@@ -148,11 +140,10 @@ class Events {
 		InsightFirstProductAndPayment::possibly_add_note();
 		AddFirstProduct::possibly_add_note();
 		AddingAndManangingProducts::possibly_add_note();
-<<<<<<< HEAD
 		CustomizingProductCatalog::possibly_add_note();
 		GettingStartedInEcommerceWebinar::possibly_add_note();
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+		FirstDownlaodableProduct::possibly_add_note();
+		NavigationNudge::possibly_add_note();
 	}
 
 	/**
@@ -162,7 +153,7 @@ class Events {
 	 */
 	protected function is_remote_inbox_notifications_enabled() {
 		// Check if the feature flag is disabled.
-		if ( ! Loader::is_feature_enabled( 'remote-inbox-notifications' ) ) {
+		if ( ! Features::is_enabled( 'remote-inbox-notifications' ) ) {
 			return false;
 		}
 
@@ -182,7 +173,7 @@ class Events {
 	 */
 	protected function is_merchant_email_notifications_enabled() {
 		// Check if the feature flag is disabled.
-		if ( 'yes' !== get_option( 'woocommerce_merchant_email_notifications', 'yes' ) ) {
+		if ( 'yes' !== get_option( 'woocommerce_merchant_email_notifications', 'no' ) ) {
 			return false;
 		}
 

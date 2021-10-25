@@ -484,4 +484,5 @@ class WC_Product_Vendors_Commission {
 
 		return $query;
 	}
+
 }

@@ -44,7 +44,7 @@ class Prominent_Words_Repository {
 	 * Finds the prominent words based on a list of indexable ids.
 	 * The method also computes the document frequency of each word and adds it as a separate property on the objects.
 	 *
-	 * @param array<int> $ids The ids of indexables to get prominent words for.
+	 * @param int[] $ids The ids of indexables to get prominent words for.
 	 *
 	 * @return array The list of prominent words items found by indexable ids.
 	 */
@@ -139,7 +139,7 @@ class Prominent_Words_Repository {
 	/**
 	 * Counts the number of documents in which each of the given stems occurs.
 	 *
-	 * @param array<string> $stems The stems of the words for which to find the document frequencies.
+	 * @param string[] $stems The stems of the words for which to find the document frequencies.
 	 *
 	 * @return array The list of stems and their respective document frequencies. Each entry has a 'stem' and a 'document_frequency' parameter.
 	 */

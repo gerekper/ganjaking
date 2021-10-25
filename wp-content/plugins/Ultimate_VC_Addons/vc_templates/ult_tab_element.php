@@ -54,8 +54,8 @@ $ult_tab_element_settings = shortcode_atts(
 	$atts
 );
 
-global $uavc_tabarr;
-	$uavc_tabarr = array();
+global $tabarr;
+	$tabarr = array();
 	do_shortcode( $content );
 
 if ( '' == $ult_tab_element_settings['acttab_background'] ) {
@@ -150,7 +150,7 @@ if ( 'Style_1' == $ult_tab_element_settings['tab_style'] ) {
 	$ult_style = 'ult_tab_style_5';
 	$style     = 'style1';
 }
-foreach ( $uavc_tabarr as $key => $value ) {
+foreach ( $tabarr as $key => $value ) {
 	$icon_value = $value['icon_size'];
 	if ( is_numeric( $icon_value ) ) {
 		$icon_value1[] = $value['icon_size'];
@@ -245,14 +245,14 @@ if ( '' != $ult_tab_element_settings['tab_describe_color'] ) {
 $acord = '';
 
 $array_count   = '';
-$array_count   = count( $uavc_tabarr );
+$array_count   = count( $tabarr );
 $newtab        = '';
 $newtab       .= '<ul class="ult_tabmenu ' . esc_attr( $style ) . ' ' . esc_attr( $tab_style_no ) . '" style="' . esc_attr( $tab_border ) . '">';
 $cnt           = 0;
 $acord        .= '';
 $accontaint    = '';
 $ult_ac_border = '';
-foreach ( $uavc_tabarr as $key => $value ) {
+foreach ( $tabarr as $key => $value ) {
 		$cnt++;
 
 

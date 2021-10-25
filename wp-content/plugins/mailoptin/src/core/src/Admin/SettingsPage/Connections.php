@@ -131,13 +131,14 @@ class Connections extends AbstractSettingsPage
                 <p><a href="%s" target="_blank">WPForms integration</a></p>
                 <p><a href="%s" target="_blank">Ninja Forms integration</a></p>
                 <p><a href="%s" target="_blank">Elementor Forms integration</a></p>
+                <p><a href="%s" target="_blank">Forminator integration</a></p>
                 '),
                     'https://mailoptin.io/article/gravity-forms-mailchimp-aweber-more/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=gravity_forms',
                     'https://mailoptin.io/article/contact-form-7-mailchimp-aweber-more/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=cf7',
                     'https://mailoptin.io/article/wpforms-email-marketing-crm/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=wpforms',
                     'https://mailoptin.io/article/ninja-forms-mailchimp-aweber-more/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=ninja_forms',
-                    'https://mailoptin.io/article/elementor-form-integration/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=elementor_forms'
-
+                    'https://mailoptin.io/article/elementor-form-integration/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=elementor_forms',
+                    'https://mailoptin.io/article/forminator-email-marketing-crm/?utm_source=wp_dashboard&utm_medium=integration_metabox&utm_campaign=forminator'
                 )
             ],
         ];

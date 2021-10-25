@@ -25,6 +25,7 @@ class Elementor extends Action_Base
     {
         unset($element['settings']['mailoptin_connection']);
         unset($element['settings']['mailoptin_connection_list']);
+        unset($element['settings']['mailoptin_double_optin_field']);
         unset($element['settings']['mailoptin_tags_text']);
         unset($element['settings']['mailoptin_tags_select2']);
         unset($element['settings']['mailoptin_fields_map']);
@@ -91,6 +92,22 @@ class Elementor extends Action_Base
         );
 
         if (Init::is_mailoptin_detach_libsodium()) {
+
+            //add double optin
+            $widget->add_control(
+                'mailoptin_double_optin_field',
+                [
+                    'label'             => __('Double Optin', 'mailoptin'),
+                    'type'              => Controls_Manager::SWITCHER,
+                    'condition'         => [
+                        'mailoptin_connection'  =>  \MailOptin\Connections\Init::double_optin_support_connections(true)
+                    ],
+                    'default'           => 'no',
+                    'label_on'          => __('Enabled', 'mailoptin'),
+                    'label_off'         => __('Disabled', 'mailoptin'),
+                    'description'       => esc_html__('Double optin requires users to confirm their email address before they are added or subscribed.', 'mailoptin')
+                ]
+            );
 
             $widget->add_control(
                 'mailoptin_tags_text',
@@ -181,7 +198,7 @@ class Elementor extends Action_Base
                               '</div>
 						<div class="mailoptin-panel-nerd-box-message">' .
                               sprintf(
-                                  __('Upgrade to Premium to assign tags to subscribers, add support custom fields and remove the 500 subscribers per month limit.', 'mailoptin'),
+                                  __('Upgrade to Premium to assign tags to subscribers, add support custom fields and remove the 500 subscribers monthly limit.', 'mailoptin'),
                                   '<strong>',
                                   '</strong>'
                               ) .
@@ -212,7 +229,13 @@ class Elementor extends Action_Base
             $form_tags = $record->get_form_settings('mailoptin_tags_select2');
         }
 
-        $name  = ! empty($first_name) || ! empty($last_name) ? $first_name . ' ' . $last_name : $full_name;
+        // get the default
+        $double_optin = false;
+        if(in_array($connection_service, \MailOptin\Connections\Init::double_optin_support_connections(true))) {
+            $double_optin = $record->get_form_settings('mailoptin_double_optin_field') === "yes";
+        }
+
+        $name  = \MailOptin\Connections\Init::return_name($full_name, $first_name, $last_name);
         $email = isset($POSTed_data['mo_email']) ? $POSTed_data['mo_email'] : $POSTed_data['email'];
 
         $optin_data = new ConversionDataBuilder();
@@ -225,6 +248,7 @@ class Elementor extends Action_Base
         $optin_data->connection_service        = $connection_service;
         $optin_data->connection_email_list     = $connection_email_list;
         $optin_data->is_timestamp_check_active = false;
+        $optin_data->is_double_optin      = $double_optin;
         if (isset($_REQUEST['referrer'])) {
             $optin_data->conversion_page = esc_url_raw($_REQUEST['referrer']);
         }

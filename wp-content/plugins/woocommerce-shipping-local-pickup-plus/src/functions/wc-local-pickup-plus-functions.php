@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 
 require_once( wc_local_pickup_plus()->get_plugin_path() . '/src/functions/wc-local-pickup-plus-pickup-locations-functions.php' );
 require_once( wc_local_pickup_plus()->get_plugin_path() . '/src/functions/wc-local-pickup-plus-product-functions.php' );

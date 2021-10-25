@@ -55,7 +55,7 @@ abstract class RightPress_Condition_Field_Multiselect_Countries extends RightPre
     public function get_placeholder()
     {
 
-        return esc_html__('Select countries', 'rightpress');
+        return __('Select countries', 'rightpress');
     }
 
 

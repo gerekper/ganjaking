@@ -3,6 +3,7 @@
 namespace MailOptin\Core;
 
 use Carbon\Carbon;
+use MailOptin\Libsodium\LibsodiumSettingsPage;
 
 class Cron
 {
@@ -27,9 +28,14 @@ class Cron
         }
     }
 
+    /**
+     * @return bool|int|void
+     */
     public function cleanup_old_leadbank_data()
     {
         if (defined('MAILOPTIN_DETACH_LIBSODIUM')) return;
+
+        if (class_exists('MailOptin\Libsodium\LibsodiumSettingsPage') && LibsodiumSettingsPage::mo_once_active()) return;
 
         global $wpdb;
 

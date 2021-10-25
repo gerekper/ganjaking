@@ -19,10 +19,7 @@ abstract class Response {
   public $status;
   public $meta;
 
-  public function __construct(
-    $status,
-    $meta = []
-  ) {
+  public function __construct($status, $meta = []) {
     $this->status = $status;
     $this->meta = $meta;
   }

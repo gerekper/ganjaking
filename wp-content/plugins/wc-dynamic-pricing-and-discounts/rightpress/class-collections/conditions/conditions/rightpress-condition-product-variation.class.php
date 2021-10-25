@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Product_Variation extends RightPress_Conditi
     public function get_label()
     {
 
-        return esc_html__('Product variation', 'rightpress');
+        return __('Product variation', 'rightpress');
     }
 
     /**

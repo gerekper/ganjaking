@@ -51,21 +51,9 @@ class StatisticsClickEntity {
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\StatisticsWooCommercePurchaseEntity", mappedBy="click", fetch="EXTRA_LAZY")*
-   * @var ArrayCollection<int, StatisticsWooCommercePurchaseEntity>
+   * @var StatisticsWooCommercePurchaseEntity[]|ArrayCollection
    */
   private $wooCommercePurchases;
-
-  /**
-   * @ORM\ManyToOne(targetEntity="MailPoet\Entities\UserAgentEntity")
-   * @var UserAgentEntity|null
-   */
-  private $userAgent;
-
-  /**
-   * @ORM\Column(type="smallint")
-   * @var int
-   */
-  private $userAgentType = 0;
 
   /**
    * @ORM\Column(type="integer")
@@ -155,7 +143,7 @@ class StatisticsClickEntity {
   }
 
   /**
-   * @return ArrayCollection<int, StatisticsWooCommercePurchaseEntity>
+   * @return StatisticsWooCommercePurchaseEntity[]|ArrayCollection
    */
   public function getWooCommercePurchases() {
     return $this->wooCommercePurchases;
@@ -163,21 +151,5 @@ class StatisticsClickEntity {
 
   public function getCount(): int {
     return $this->count;
-  }
-
-  public function getUserAgent(): ?UserAgentEntity {
-    return $this->userAgent;
-  }
-
-  public function setUserAgent(?UserAgentEntity $userAgent): void {
-    $this->userAgent = $userAgent;
-  }
-
-  public function getUserAgentType(): int {
-    return $this->userAgentType;
-  }
-
-  public function setUserAgentType(int $userAgentType): void {
-    $this->userAgentType = $userAgentType;
   }
 }

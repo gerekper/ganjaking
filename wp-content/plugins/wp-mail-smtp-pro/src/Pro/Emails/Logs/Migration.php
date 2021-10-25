@@ -20,7 +20,7 @@ class Migration extends MigrationAbstract {
 	 *
 	 * @since 1.5.0
 	 */
-	const DB_VERSION = 8;
+	const DB_VERSION = 7;
 
 	/**
 	 * Option key where we save the current DB version for Logs functionality.
@@ -259,37 +259,5 @@ class Migration extends MigrationAbstract {
 		if ( $result !== false ) {
 			$this->update_db_ver( 7 );
 		}
-	}
-
-	/**
-	 * Hide CC and BCC columns in email logs table for existing users.
-	 *
-	 * @since 3.1.0
-	 */
-	protected function migrate_to_8() {
-
-		$this->maybe_required_older_migrations( 8 );
-
-		global $wpdb;
-
-		$meta_key = 'managewp-mail-smtp_page_wp-mail-smtp-logscolumnshidden';
-
-		$rows = $wpdb->get_results( "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = '{$meta_key}'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-
-		foreach ( $rows as $row ) {
-			$value = maybe_unserialize( $row->meta_value );
-
-			if ( empty( $value ) || ! is_array( $value ) ) {
-				$value = [];
-			}
-
-			$value[] = 'cc';
-			$value[] = 'bcc';
-
-			update_user_meta( $row->user_id, $meta_key, array_unique( $value ) );
-		}
-
-		// Save the current version to DB.
-		$this->update_db_ver( 8 );
 	}
 }

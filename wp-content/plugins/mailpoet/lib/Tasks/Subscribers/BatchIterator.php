@@ -7,19 +7,13 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Models\ScheduledTaskSubscriber;
 
-/**
- * @implements \Iterator<null, array>
- */
 class BatchIterator implements \Iterator, \Countable {
   private $taskId;
   private $batchSize;
   private $lastProcessedId = 0;
   private $batchLastId;
 
-  public function __construct(
-    $taskId,
-    $batchSize
-  ) {
+  public function __construct($taskId, $batchSize) {
     if ($taskId <= 0) {
       throw new \Exception('Task ID must be greater than zero');
     } elseif ($batchSize <= 0) {

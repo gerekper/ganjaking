@@ -2,7 +2,6 @@
  * Nominee - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var NomineeScripts = {
         init : function () {
             this.trigger_on_page_load() ;
@@ -12,7 +11,6 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_show_hide_nominee_field' , this.show_or_hide_for_nominee_field ) ;
             $( document ).on( 'change' , '#rs_show_hide_nominee_field_shortcode' , this.show_or_hide_for_nominee_field_in_shortcode ) ;
             $( document ).on( 'change' , '#rs_show_hide_nominee_field_in_checkout' , this.show_or_hide_for_nominee_field_in_checkout ) ;
-            $( document ).on( 'click' , '.rs_enable_disable' , this.nominee_module_action ) ;
         } ,
         trigger_on_page_load : function () {
             if ( fp_nominee_module_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
@@ -110,36 +108,14 @@ jQuery( function ( $ ) {
                         jQuery( '#rs_select_users_role_for_nominee_checkout' ).parent().parent().show() ;
                     }
                 } ) ;
-                jQuery('#rs_nominee_selection_in_checkout').parent().parent().show();
             } else {
                 jQuery( '#rs_my_nominee_title_in_checkout' ).parent().parent().hide() ;
                 jQuery( '#rs_select_users_list_for_nominee_in_checkout' ).parent().parent().hide() ;
                 jQuery( '#rs_select_users_role_for_nominee_checkout' ).parent().parent().hide() ;
                 jQuery( '#rs_select_type_of_user_for_nominee_checkout' ).parent().parent().hide() ;
                 jQuery( '#rs_select_type_of_user_for_nominee_name_checkout' ).parent().parent().hide() ;
-                jQuery('#rs_nominee_selection_in_checkout').parent().parent().hide();
             }
         } ,
-        nominee_module_action:function(){
-            var userid = $( this ).attr( 'data-userid' ) ;
-            var checkboxvalue = $( this ).is( ':checked' ) ? 'yes' : 'no' ;
-            var nomineeid = $( this ).attr( 'data-nomineeid' ) ;
-            var dataparam = ( {
-		action : 'action_to_enable_disable_nominee' ,
-		userid : userid ,
-		checkboxvalue : checkboxvalue ,
-		nomineeid : nomineeid,
-                sumo_security : fp_nominee_module_params.fp_nominee_nonce
-		} ) ;
-                
-            $.post( fp_nominee_module_params.ajaxurl , dataparam , function( response ) {
-                if( true == response.success ) {
-                    console.log( response ) ;
-                } else {
-                    alert( response.data.error ) ;
-                }
-            } ) ;
-        },
         block : function ( id ) {
             $( id ).block( {
                 message : null ,

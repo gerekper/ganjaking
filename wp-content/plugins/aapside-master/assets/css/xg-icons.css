@@ -1,0 +1,56 @@
+	/*
+  	Flaticon icon font: Flaticon@
+  	Creation date: 16/10/2019 13:59
+  	*/
+
+@font-face {
+  font-family: "Custom";
+  src: url("../fonts/xg-icon.eot");
+  src: url("../fonts/xg-icon.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/xg-icon.woff2") format("woff2"),
+       url("../fonts/xg-icon.woff") format("woff"),
+       url("../fonts/xg-icon.ttf") format("truetype"),
+       url("../fonts/xg-icon.svg#custom") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "custom";
+    src: url("../fonts/xg-icon.svg#custom") format("svg");
+  }
+}
+.xg-icon-phone-1 {
+  font-weight: 400;
+}
+[class^="xg-icon-"]:before, [class*=" xg-icon-"]:before,
+[class^="xg-icon-"]:after, [class*=" xg-icon-"]:after {
+  font-family: custom;
+  font-style: normal;
+}
+.xg-icon-phone:before { content: "\f100"; }
+.xg-icon-pin:before { content: "\f101"; }
+.xg-icon-mail:before { content: "\f102"; }
+.xg-icon-phone-1:before { content: "\f103"; }
+.xg-icon-download:before { content: "\f104"; }
+.xg-icon-download-1:before { content: "\f105"; }
+.xg-icon-happiness:before { content: "\f106"; }
+.xg-icon-dance:before { content: "\f107"; }
+.xg-icon-customer-review:before { content: "\f108"; }
+.xg-icon-review:before { content: "\f109"; }
+.xg-icon-rating:before { content: "\f10a"; }
+.xg-icon-save:before { content: "\f10b"; }
+.xg-icon-floppy-disk:before { content: "\f10c"; }
+.xg-icon-floppy-disk-1:before { content: "\f10d"; }
+.xg-icon-lock:before { content: "\f10e"; }
+.xg-icon-password:before { content: "\f10f"; }
+.xg-icon-lock-1:before { content: "\f110"; }
+.xg-icon-shield:before { content: "\f111"; }
+.xg-icon-password-1:before { content: "\f112"; }
+.xg-icon-log-out:before { content: "\f113"; }
+.xg-icon-settings:before { content: "\f114"; }
+.xg-icon-customer:before { content: "\f115"; }
+.xg-icon-settings-1:before { content: "\f116"; }
+.xg-icon-settings-2:before { content: "\f117"; }
+.xg-icon-tools:before { content: "\f118"; }

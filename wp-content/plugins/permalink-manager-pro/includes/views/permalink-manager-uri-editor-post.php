@@ -193,7 +193,7 @@ class Permalink_Manager_URI_Editor_Post extends WP_List_Table {
 	* Search box
 	*/
 	public function search_box($text = '', $input_id = '') {
-		$search_query = (!empty($_REQUEST['s'])) ? esc_sql(wp_unslash($_REQUEST['s'])) : "";
+		$search_query = (!empty($_REQUEST['s'])) ? esc_attr($_REQUEST['s']) : "";
 
     $output = "<p class=\"search-box\">";
 		$output .= "<label class=\"screen-reader-text\" for=\"{$input_id}\">{$text}:</label>";

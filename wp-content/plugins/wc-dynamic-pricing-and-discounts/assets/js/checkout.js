@@ -3,12 +3,10 @@
  */
 jQuery(document).ready(function() {
 
-    'use strict';
-
     /**
      * Update on billing email change
      */
-    jQuery('form.checkout input#billing_email').on('change', function() {
+    jQuery('form.checkout input#billing_email').change(function() {
         jQuery('body').trigger('update_checkout');
     }).change();
 
@@ -19,7 +17,7 @@ jQuery(document).ready(function() {
     {
         jQuery('form.checkout input[name="payment_method"]').each(function() {
             if (typeof jQuery(this).data('rp_wcdpd_payment_method_checkout_update') === 'undefined') {
-                jQuery(this).on('change', function() {
+                jQuery(this).change(function() {
                     jQuery('body').trigger('update_checkout');
                 });
                 jQuery(this).data('rp_wcdpd_payment_method_checkout_update', true);

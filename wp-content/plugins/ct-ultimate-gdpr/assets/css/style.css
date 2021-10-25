@@ -1975,8 +1975,8 @@ label[for="ct-ultimate-gdpr-consent-data-access"] {
 }
 
 /*******
-Modal Skin Style 1
-*******/
+  Modal Skin Style 1
+  *******/
 .ct-ultimate-gdpr-cookie-skin-one #ct-ultimate-gdpr-cookie-modal-body h2 {
   font-weight: 500;
   line-height: normal !important;
@@ -2174,8 +2174,8 @@ Modal Skin Style 1
 }
 
 /*******
-Modal Skin Style 2
-*******/
+  Modal Skin Style 2
+  *******/
 .ct-ultimate-gdpr-cookie-skin-two.ct-ultimate-gdpr-cookie-modal-content {
   font-family: open_sans_regular, sans-serif;
 }
@@ -7286,34 +7286,6 @@ Modal Skin Style 2
   color: #808080;
 }
 
-#ct-ultimate-gdpr-block-cookies {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-#ct-ultimate-gdpr-block-cookies .checkbox {
-  width: 8%;
-  padding-top: 10px;
-}
-
-#ct-ultimate-gdpr-block-cookies .description {
-  width: 92%;
-}
-
-#ct-ultimate-gdpr-block-cookies .ct-ultimate-gdpr-cookie-block-btn {
-  width: 100%;
-  text-align: right;
-}
-
-@media (max-width: 566px) {
-  #ct-ultimate-gdpr-block-cookies .ct-ultimate-gdpr-cookie-block-btn {
-    text-align: center;
-  }
-}
-
 /* END FULL PANEL */
 /* BOTTOM & TOP PANEL */
 .ct-ultimate-gdpr-cookie-popup-classic.ct-ultimate-gdpr-cookie-bottomPanel #ct_ultimate-gdpr-cookie-reject, .ct-ultimate-gdpr-cookie-popup-classic.ct-ultimate-gdpr-cookie-topPanel #ct_ultimate-gdpr-cookie-reject {
@@ -7640,3 +7612,49 @@ Modal Skin Style 2
 
 /* END BOTTOM & TOP PANEL */
 /* END COOKIE POPUP */
+/* WITHDRAWAL COOKIE AGREEMENT */
+#ct-ultimate-gdpr-withdrawal-cookie-agreement {
+  border: 1px solid #e6e6e6;
+  padding: 2rem;
+}
+
+#ct-ultimate-gdpr-withdrawal-cookie-agreement h4 {
+  margin-bottom: 1.5rem;
+}
+
+#ct-ultimate-gdpr-withdrawal-cookie-agreement label {
+  position: relative;
+  display: inline-block;
+}
+
+#ct-ultimate-gdpr-withdrawal-cookie-agreement label .ct-ultimate-gdpr-block-cookies-checkbox {
+  position: absolute;
+  left: 25px;
+  top: 0px;
+}
+
+#ct-ultimate-gdpr-withdrawal-cookie-agreement label .description {
+  padding-left: 1rem;
+}
+
+#ct-ultimate-gdpr-withdrawal-cookie-agreement .result-notification {
+  padding: 15px 20px;
+  margin: 15px 0;
+  border: 1px solid #c3e6cb;
+  border-radius: 2px;
+  background-color: #d4edda;
+  color: #155724;
+}
+
+#ct-ultimate-gdpr-withdrawal-cookie-agreement .ct-ultimate-gdpr-cookie-block-btn {
+  margin: 10px 0 0 0;
+  padding: 13px 28px;
+}
+
+@media (max-width: 566px) {
+  #ct-ultimate-gdpr-withdrawal-cookie-agreement .ct-ultimate-gdpr-cookie-block-btn {
+    text-align: center;
+  }
+}
+
+/* END OF WITHDRAWAL COOKIE AGREEMENT */

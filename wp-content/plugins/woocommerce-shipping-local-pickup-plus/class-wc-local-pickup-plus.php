@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Appointments\Appointments;
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Frontend;
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 
 /**
  * WooCommerce Local Pickup Plus main class.
@@ -37,7 +37,7 @@ use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
 class WC_Local_Pickup_Plus extends Framework\SV_WC_Plugin {
 
 
-	const VERSION = '2.9.8';
+	const VERSION = '2.9.10';
 
 	/** shipping method ID */
 	const SHIPPING_METHOD_ID = 'local_pickup_plus';

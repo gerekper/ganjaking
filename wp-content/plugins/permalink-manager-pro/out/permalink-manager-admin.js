@@ -289,8 +289,6 @@ jQuery(document).ready(function() {
 		} else {
 			rel_field_container.addClass('hidden');
 		}
-
-		console.log(is_checked);
 	}).trigger("change");
 
 	/**
@@ -312,72 +310,65 @@ jQuery(document).ready(function() {
 	 * Save permalinks from Gutenberg with AJAX
 	 */
 	jQuery('#permalink-manager .save-row.hidden').removeClass('hidden');
-	jQuery('#permalink-manager').on('click', '#permalink-manager-save-button', function() {
-		pm_reload_gutenberg_uri_editor();
-		return false;
-	});
+	jQuery('#permalink-manager').on('click', '#permalink-manager-save-button', pm_gutenberg_save_uri);
 
-	var pm_reload_pending = false;
-	function pm_reload_gutenberg_uri_editor() {
+	function pm_gutenberg_reload() {
+		var pm_container = jQuery('#permalink-manager.postbox');
+		var pm_post_id = jQuery('input[name="permalink-manager-edit-uri-element-id"]').val();
+
+		jQuery.ajax({
+			type: 'GET',
+			url: permalink_manager.ajax_url + '?action=pm_get_uri_editor',
+			data: {
+				'post_id': pm_post_id
+			},
+			beforeSend: function() {
+				jQuery(pm_container).LoadingOverlay("show", {
+					background  : "rgba(0, 0, 0, 0.1)",
+				});
+			},
+			success: function(html) {
+				jQuery(pm_container).find('.permalink-manager-gutenberg').replaceWith(html);
+				jQuery(pm_container).LoadingOverlay("hide");
+
+				jQuery(pm_container).find('select[name="auto_update_uri"]').trigger("change");
+				pm_help_tooltips();
+      }
+		});
+	}
+
+	function pm_gutenberg_save_uri() {
 		var pm_container = jQuery('#permalink-manager.postbox');
 		var pm_fields = jQuery(pm_container).find("input, select");
-		var pm_data = jQuery(pm_fields).serialize() + '&action=' + 'pm_save_permalink';
 
-		// Do not duplicate AJAX requests
-		if(!pm_reload_pending) {
-			// console.log(pm_data);
+		jQuery.ajax({
+			type: 'POST',
+			url: permalink_manager.ajax_url,
+			data: jQuery(pm_fields).serialize() + '&action=pm_save_permalink',
+			success: pm_gutenberg_reload
+		});
 
-			jQuery.ajax({
-				type: 'POST',
-				url: permalink_manager.ajax_url,
-				data: pm_data,
-				beforeSend: function() {
-					pm_reload_pending = true;
-
-					jQuery(pm_container).LoadingOverlay("show", {
-						background  : "rgba(0, 0, 0, 0.1)",
-					});
-				},
-				success: function(html) {
-					jQuery(pm_container).find('.permalink-manager-gutenberg').replaceWith(html);
-					jQuery(pm_container).LoadingOverlay("hide");
-
-					jQuery(pm_container).find('select[name="auto_update_uri"]').trigger("change");
-					pm_help_tooltips();
-
-					if(wp && wp.data !== 'undefined') {
-						wp.data.dispatch('core/editor').savePost();
-					}
-
-					pm_reload_pending = false;
-	      }
-			});
-		}
+		return false;
 	}
 
 	/**
 	 * Reload the URI Editor in Gutenberg after the post is published or the title/slug is changed
 	 */
 	if(typeof wp !== 'undefined' && typeof wp.data !== 'undefined' && typeof wp.data.select !== 'undefined' && typeof wp.blocks !== 'undefined' && typeof wp.data.subscribe !== 'undefined' && wp.data.select('core/editor') !== 'undefined' && wp.data.select('core/editor') !== null) {
-		wp.data.subscribe(function() {
+		var pm_gutenberg_reload_in_progress = 0;
+
+		const pm_unsubscribe = wp.data.subscribe(function() {
 			var isSavingPost = wp.data.select('core/editor').isSavingPost();
 			var isAutosavingPost = wp.data.select('core/editor').isAutosavingPost();
+			var didPostSaveRequestSucceed =  wp.data.select('core/editor').didPostSaveRequestSucceed();
 
-			if(isSavingPost && !isAutosavingPost) {
-				old_status = wp.data.select('core/editor').getCurrentPostAttribute('status');
-				new_status = wp.data.select('core/editor').getEditedPostAttribute('status');
+			// Wait until the last occurence is called
+			if(isSavingPost && !isAutosavingPost && didPostSaveRequestSucceed) {
+				clearTimeout(pm_gutenberg_reload_in_progress);
 
-				old_title = wp.data.select('core/editor').getCurrentPostAttribute('title');
-				new_title = wp.data.select('core/editor').getEditedPostAttribute('title');
-
-				old_slug = wp.data.select('core/editor').getCurrentPostAttribute('slug');
-				new_slug = wp.data.select('core/editor').getEditedPostAttribute('slug');
-
-				if((old_status !== new_status && new_status == 'publish') || (old_title !== new_title) || (old_slug !== new_slug)) {
-					setTimeout(function() {
-						pm_reload_gutenberg_uri_editor();
-					}, 1500);
-				}
+				pm_gutenberg_reload_in_progress = setTimeout(function(){
+					pm_gutenberg_reload();
+				}, 1500);
 			}
 		});
 	}
@@ -387,11 +378,15 @@ jQuery(document).ready(function() {
 	 */
 	function pm_help_tooltips() {
 		if(jQuery('#permalink-manager .help_tooltip').length > 0) {
-			tippy('#permalink-manager .help_tooltip', {
-				position: 'top-start',
-				arrow: true,
-				theme: 'tippy-pm',
-				distance: 20,
+			jQuery('#permalink-manager .help_tooltip').each(function() {
+				var helpTooltip = this;
+
+				tippy(helpTooltip, {
+					position: 'top-start',
+					arrow: true,
+					content: jQuery(helpTooltip).attr('title'),
+					distance: 20
+				});
 			});
 		}
 	}
@@ -454,7 +449,6 @@ jQuery(document).ready(function() {
 			},
 			success: function(data) {
 				var table_dom = jQuery('#permalink-manager .updated-slugs-table');
-				// console.log(data);
 
 				// Display the table
 				if(data.hasOwnProperty('html')) {

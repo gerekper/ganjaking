@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.6.0
+ * @version     1.7.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -201,7 +201,9 @@ if ( ! class_exists( 'WC_SC_Coupons_By_User_Role' ) ) {
 
 			$current_user = wp_get_current_user();
 
-			if ( is_admin() ) {
+			$post_action = ( ! empty( $_POST['action'] ) ) ? wc_clean( wp_unslash( $_POST['action'] ) ) : ''; // phpcs:ignore
+
+			if ( is_admin() && wp_doing_ajax() && 'woocommerce_add_coupon_discount' === $post_action ) { // This condition will allow the addition of coupon from admin side, in the order even if the user role is not matching.
 				return true;
 			}
 

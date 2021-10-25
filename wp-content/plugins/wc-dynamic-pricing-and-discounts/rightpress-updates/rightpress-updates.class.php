@@ -42,7 +42,7 @@ final class RightPress_Updates_7119279
      */
 
     // Version number
-    private static $rightpress_updates_version = '2.2';
+    private static $rightpress_updates_version = '1.9';
 
     // Object properties
     private $endpoint_url;
@@ -67,7 +67,6 @@ final class RightPress_Updates_7119279
      */
     public static function init($plugin_path, $plugin_version)
     {
-
         new self($plugin_path, $plugin_version);
     }
 
@@ -81,7 +80,6 @@ final class RightPress_Updates_7119279
      */
     public function __construct($plugin_path, $plugin_version)
     {
-
         $this->endpoint_url     = 'http://updates.rightpress.net/';
         $this->plugin_path      = $plugin_path;
         $this->plugin_version   = $plugin_version;
@@ -133,7 +131,6 @@ final class RightPress_Updates_7119279
      */
     public function on_wp_init()
     {
-
         // Intercept Purchase Code submit
         if (isset($_POST['rightpress_updates_purchase_code'])) {
             if (!empty($_POST['rightpress_updates_plugin_slug']) && $_POST['rightpress_updates_plugin_slug'] === $this->plugin_slug) {
@@ -165,7 +162,6 @@ final class RightPress_Updates_7119279
      */
     public function register_plugin($transient)
     {
-
         // Get current version
         if (!empty($transient->checked) && is_array($transient->checked) && isset($transient->checked[$this->plugin_basename])) {
             $current_version = $transient->checked[$this->plugin_basename];
@@ -254,7 +250,6 @@ final class RightPress_Updates_7119279
      */
     public function plugins_api_actions($result, $action, $args)
     {
-
         // Check if it's a call for this plugin
         if (empty($args->slug) || $args->slug !== $this->plugin_slug) {
             return $result;
@@ -277,7 +272,7 @@ final class RightPress_Updates_7119279
 
         // Error occurred
         if (!$response || empty($response->data)) {
-            return new WP_Error('plugins_api_failed', esc_html__('An unexpected error occurred.', 'rightpress-updates'));
+            return new WP_Error('plugins_api_failed', __('An unexpected error occurred.', 'rightpress-updates'));
         }
 
         // Unserialize data object
@@ -285,7 +280,7 @@ final class RightPress_Updates_7119279
 
         // Check if data object looks valid
         if ($action === 'plugin_information' && (!is_object($data) || empty($data->name))) {
-            return new WP_Error('plugins_api_failed', esc_html__('An unexpected error occurred.', 'rightpress-updates'));
+            return new WP_Error('plugins_api_failed', __('An unexpected error occurred.', 'rightpress-updates'));
         }
 
         return $data;
@@ -300,7 +295,6 @@ final class RightPress_Updates_7119279
      */
     public function check_for_update($current_version)
     {
-
         // Format transient key
         $transient_key = 'rightpress_updates_' . $this->plugin_key;
 
@@ -351,7 +345,6 @@ final class RightPress_Updates_7119279
      */
     public function remote_post($action, $args = array())
     {
-
         // Get WordPress version
         global $wp_version;
 
@@ -393,7 +386,6 @@ final class RightPress_Updates_7119279
      */
     public function get_current_plugin_version()
     {
-
         // Load plugin update data
         $update_plugins = get_site_transient('update_plugins');
 
@@ -436,7 +428,6 @@ final class RightPress_Updates_7119279
      */
     public function maybe_add_custom_nag($context, $title, $content, $version)
     {
-
         // Add nag
         if ($this->maybe_add_nag($context, $version)) {
 
@@ -458,7 +449,6 @@ final class RightPress_Updates_7119279
      */
     public function maybe_add_nag($context, $version)
     {
-
         // Get nag key prefix
         $prefix = 'rightpress_' . $context . '_nag_';
 
@@ -495,7 +485,6 @@ final class RightPress_Updates_7119279
      */
     public function remove_nag($context)
     {
-
         delete_site_option('rightpress_' . $context . '_nag_' . $this->plugin_key);
         delete_site_option('rightpress_' . $context . '_nag_t_' . $this->plugin_key);
         delete_site_option('rightpress_' . $context . '_nag_c_' . $this->plugin_key);
@@ -516,7 +505,6 @@ final class RightPress_Updates_7119279
      */
     public function maybe_display_nag()
     {
-
         // Get current plugin version
         $current_version = $this->get_current_plugin_version();
 
@@ -533,12 +521,6 @@ final class RightPress_Updates_7119279
 
                 // Check if new version nag needs to be displayed
                 $is_new_version = version_compare($nag_version, $current_version, '>');
-
-                // Do not print purchase code nag if plugin is bundled with a theme
-                // Note: this must be enabled by theme developers using the filter below
-                if ($context === 'up' && apply_filters(('rightpress_updates_suppress_nags_' . self::$envato_id), false)) {
-                    continue;
-                }
 
                 // Print nag
                 $this->print_nag($context, $nag_version, $is_new_version);
@@ -557,22 +539,21 @@ final class RightPress_Updates_7119279
      */
     public function print_nag($context, $nag_version, $is_new_version)
     {
-
         // Purchase code nag
         if ($context === 'up') {
 
             // Get title
-            $title = esc_html__('Automatic Update Setup', 'rightpress-updates');
+            $title = __('Automatic Update Setup', 'rightpress-updates');
 
             // Main text
             if ($is_new_version) {
-                $text = esc_html__('There is a new version of %s available. To enable automatic updates, enter your CodeCanyon Purchase Code below.', 'rightpress-updates');
+                $text = __('There is a new version of <strong>%s</strong> available. To enable automatic updates, enter your CodeCanyon Purchase Code below.', 'rightpress-updates');
             }
             else {
-                $text = esc_html__('%s supports automatic updates. To receive them, enter your CodeCanyon Purchase Code below.', 'rightpress-updates');
+                $text = __('<strong>%s</strong> supports automatic updates. To receive them, enter your CodeCanyon Purchase Code below.', 'rightpress-updates');
             }
 
-            $content = '<div style="margin-bottom: 0.6em; font-size: 13px;">' . sprintf($text, ('<strong>' . $this->get_plugin_name() . '</strong>')) . '</div>';
+            $content = '<div style="margin-bottom: 0.6em; font-size: 13px;">' . sprintf($text, $this->get_plugin_name()) . '</div>';
 
             // Purchase code validation error
             if (isset($this->nag_error_message) && !empty($this->nag_error_message)) {
@@ -583,23 +564,23 @@ final class RightPress_Updates_7119279
             $content .= '<form method="post" style="margin-bottom: 0.6em;">';
 
             // Field
-            $content .= '<input type="text" name="rightpress_updates_purchase_code" value="' . (isset($this->nag_value) ? $this->nag_value : '') . '" placeholder="' . esc_html__('Purchase Code', 'rightpress-updates') . '" style="width: 50%; margin-right: 10px;">';
+            $content .= '<input type="text" name="rightpress_updates_purchase_code" value="' . (isset($this->nag_value) ? $this->nag_value : '') . '" placeholder="' . __('Purchase Code', 'rightpress-updates') . '" style="width: 50%; margin-right: 10px;">';
 
             // Hidden plugin slug field
             $content .= '<input type="hidden" name="rightpress_updates_plugin_slug" value="' . $this->plugin_slug . '">';
 
             // Button
-            $content .= '<button type="submit" class="button button-primary" title="' . esc_html__('Submit', 'rightpress-updates') . '">' . esc_html__('Submit', 'rightpress-updates') . '</button>';
+            $content .= '<button type="submit" class="button button-primary" title="' . __('Submit', 'rightpress-updates') . '">' . __('Submit', 'rightpress-updates') . '</button>';
 
             // Close form
             $content .= '</form>';
 
             // Format
-            $notes = '<a href="http://url.rightpress.net/purchase-code-help">' . esc_html__('Where do I find my Purchase Code?', 'rightpress-updates') . '</a>';
+            $notes = '<a href="http://url.rightpress.net/purchase-code-help">' . __('Where do I find my Purchase Code?', 'rightpress-updates') . '</a>';
             $notes .= '&nbsp;&nbsp;&nbsp;';
-            $notes .= '<a href="' . add_query_arg(array('rightpress_disable_up_nags' => 'up', 'rightpress_plugin_slug' => $this->plugin_slug)) . '">' . esc_html__('Do not remind me again', 'rightpress-updates') . '</a>';
+            $notes .= '<a href="' . add_query_arg(array('rightpress_disable_up_nags' => 'up', 'rightpress_plugin_slug' => $this->plugin_slug)) . '">' . __('Do not remind me again', 'rightpress-updates') . '</a>';
             $notes .= '&nbsp;&nbsp;&nbsp;';
-            $notes .= '<a href="' . add_query_arg(array('rightpress_nag_dismiss' => 'up', 'rightpress_plugin_slug' => $this->plugin_slug, 'rightpress_nag_version' => $nag_version)) . '">' . esc_html__('Hide This Notice', 'rightpress-updates') . '</a>';
+            $notes .= '<a href="' . add_query_arg(array('rightpress_nag_dismiss' => 'up', 'rightpress_plugin_slug' => $this->plugin_slug, 'rightpress_nag_version' => $nag_version)) . '">' . __('Hide This Notice', 'rightpress-updates') . '</a>';
 
             // Wrap and append notes
             $content .= '<div><small>' . $notes . '</small></div>';
@@ -620,11 +601,8 @@ final class RightPress_Updates_7119279
             $content = sprintf($content, $this->get_plugin_name(), add_query_arg(array('rightpress_nag_dismiss' => $context, 'rightpress_plugin_slug' => $this->plugin_slug, 'rightpress_nag_version' => $nag_version)));
         }
 
-        // Print styles
-        echo '<style>.rightpress-clear-both { clear: both; } .rightpress-updates-update-nag { display: block; text-align: left; background-color: #fff; border-left: 4px solid #ffba00; box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%); } .rightpress-updates-update-nag h3 { margin-top: 0.3em; margin-bottom: 0.6em; }</style>';
-
         // Print nag
-        echo '<div class="rightpress-clear-both"></div><div class="update-nag rightpress-updates-update-nag"><h3>' . $title . '</h3>' . $content . '<div class="rightpress-clear-both"></div></div>';
+        echo '<div class="update-nag" style="display: block;"><h3 style="margin-top: 0.3em; margin-bottom: 0.6em;">' . $title . '</h3>' . $content . '<div style="clear: both;"></div></div>';
     }
 
     /**
@@ -635,7 +613,6 @@ final class RightPress_Updates_7119279
      */
     public function dismiss_nag()
     {
-
         // Check if nag context is set
         if (!empty($_REQUEST['rightpress_nag_dismiss']) && in_array($_REQUEST['rightpress_nag_dismiss'], self::$nag_contexts, true)) {
 
@@ -691,7 +668,6 @@ final class RightPress_Updates_7119279
      */
     public function save_purchase_code($purchase_code)
     {
-
         // Remove white space
         $purchase_code = trim($purchase_code);
 
@@ -700,7 +676,7 @@ final class RightPress_Updates_7119279
 
             // No Purchase Code or invalid format
             if (empty($purchase_code) || !$this->purchase_code_has_valid_format($purchase_code)) {
-                throw new Exception(esc_html__('Purchase Code format is invalid.', 'rightpress-updates'));
+                throw new Exception(__('Purchase Code format is invalid.', 'rightpress-updates'));
             }
 
             // Validate Purchase Code
@@ -708,15 +684,15 @@ final class RightPress_Updates_7119279
 
             // Unable to verify Purchase Code right now (e.g. server is down)
             if ($result === false || $result === 'error') {
-                throw new Exception(esc_html__('Unable to verify Purchase Code right now. Please try again later.', 'rightpress-updates'));
+                throw new Exception(__('Unable to verify Purchase Code right now. Please try again later.', 'rightpress-updates'));
             }
             // Purchase Code is not valid
             else if ($result === 'not_valid') {
-                throw new Exception(esc_html__('Purchase Code is not valid.', 'rightpress-updates'));
+                throw new Exception(__('Purchase Code is not valid.', 'rightpress-updates'));
             }
             // Purchase Code belongs to a different product
             else if ($result === 'bad_product') {
-                throw new Exception(esc_html__('Purchase Code belongs to another product.', 'rightpress-updates'));
+                throw new Exception(__('Purchase Code belongs to another product.', 'rightpress-updates'));
             }
             // Purchase Code is valid - save it
             else if ($result === 'valid') {
@@ -746,7 +722,6 @@ final class RightPress_Updates_7119279
      */
     public function validate_purchase_code($purchase_code)
     {
-
         // Send request to Purchase Code validation service
         $response = $this->remote_post('purchase_code_validation', array(
             'purchase_code' => $purchase_code,
@@ -771,7 +746,6 @@ final class RightPress_Updates_7119279
      */
     public function purchase_code_has_valid_format($purchase_code)
     {
-
         return (bool) preg_match('/[0-9a-zA-Z]{8}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{12}/', $purchase_code);
     }
 
@@ -783,7 +757,6 @@ final class RightPress_Updates_7119279
      */
     public function get_purchase_code()
     {
-
         // Format option key
         $option_key = 'rightpress_up_pc_' . $this->plugin_key;
 
@@ -808,7 +781,6 @@ final class RightPress_Updates_7119279
      */
     public function update_purchase_code($purchase_code)
     {
-
         $this->purchase_code = $purchase_code;
 
         $option_key = 'rightpress_up_pc_' . $this->plugin_key;
@@ -848,7 +820,6 @@ final class RightPress_Updates_7119279
      */
     public function reset_purchase_code()
     {
-
         $this->update_purchase_code('');
     }
 
@@ -860,7 +831,6 @@ final class RightPress_Updates_7119279
      */
     public function get_plugin_slug()
     {
-
         return dirname($this->plugin_basename);
     }
 
@@ -872,7 +842,6 @@ final class RightPress_Updates_7119279
      */
     public function get_plugin_key()
     {
-
         return preg_replace('/[^A-Za-z_]/', '', str_replace('-', '_', substr($this->plugin_slug, 0, 32)));
     }
 
@@ -885,7 +854,6 @@ final class RightPress_Updates_7119279
      */
     public static function get_version_key($version)
     {
-
         return str_replace('.', '_', $version);
     }
 
@@ -897,7 +865,6 @@ final class RightPress_Updates_7119279
      */
     public function get_plugin_name()
     {
-
         $plugin_data = get_plugin_data($this->plugin_path);
         return ((is_array($plugin_data) && !empty($plugin_data['Name'])) ? $plugin_data['Name'] : 'Plugin');
     }
@@ -910,7 +877,6 @@ final class RightPress_Updates_7119279
      */
     public function enqueue_jquery()
     {
-
         wp_enqueue_script('jquery');
     }
 
@@ -923,9 +889,8 @@ final class RightPress_Updates_7119279
      */
     public function display_purchase_code_edit_link($links)
     {
-
         // Format link
-        $link = '<a class="rightpress_up_pc_' . $this->plugin_key . '" style="cursor: pointer; ' . (empty($this->purchase_code) ? 'font-weight: 700;' : '') . '">' . esc_html__('Purchase Code', 'rightpress-updates') . '</a>';
+        $link = '<a class="rightpress_up_pc_' . $this->plugin_key . '" style="cursor: pointer; ' . (empty($this->purchase_code) ? 'font-weight: 700;' : '') . '">' . __('Purchase Code', 'rightpress-updates') . '</a>';
 
         // Open script
         $link .= '<script type="text/javascript" style="display: none;">';
@@ -934,14 +899,12 @@ final class RightPress_Updates_7119279
         $link .= "
             jQuery(document).ready(function() {
 
-                'use strict';
-
                 // Define current purchase code
                 var current_purchase_code = '$this->purchase_code';
 
                 // Bind click action
-                jQuery('.rightpress_up_pc_$this->plugin_key').on('click', function() {
-                    var prompt_text = '" . esc_html__('Enter your Envato Purchase Code to enable automatic updates.', 'rightpress-updates') . "';
+                jQuery('.rightpress_up_pc_$this->plugin_key').click(function() {
+                    var prompt_text = '" . __('Enter your Envato Purchase Code to enable automatic updates.', 'rightpress-updates') . "';
                     handle_purchase_code_change(prompt_text, current_purchase_code);
                 });
 
@@ -968,27 +931,27 @@ final class RightPress_Updates_7119279
 
                             // Purchase code updated
                             if (response.indexOf('rightpress_up_pc_change_valid') > -1) {
-                                alert('" . esc_html__('Purchase Code has been successfully updated.', 'rightpress-updates') . "');
+                                alert('" . __('Purchase Code has been successfully updated.', 'rightpress-updates') . "');
                             }
                             // Purchase code reset
                             else if (response.indexOf('rightpress_up_pc_change_reset') > -1) {
-                                alert('" . esc_html__('Purchase Code has been successfully reset.', 'rightpress-updates') . "');
+                                alert('" . __('Purchase Code has been successfully reset.', 'rightpress-updates') . "');
                             }
                             // Purchase code is not valid
                             else if (response.indexOf('rightpress_up_pc_change_not_valid') > -1) {
-                                var prompt_text = '" . esc_html__('Purchase Code is not valid.', 'rightpress-updates') . " " . esc_html__('Please fix it and try again.', 'rightpress-updates') . "';
+                                var prompt_text = '" . __('Purchase Code is not valid.', 'rightpress-updates') . " " . __('Please fix it and try again.', 'rightpress-updates') . "';
                                 handle_purchase_code_change(prompt_text, new_purchase_code);
                                 return;
                             }
                             // Purchase code is not for this product
                             else if (response.indexOf('rightpress_up_pc_change_bad_product') > -1) {
-                                var prompt_text = '" . esc_html__('Purchase Code belongs to another product.', 'rightpress-updates') . " " . esc_html__('Please change it and try again.', 'rightpress-updates') . "';
+                                var prompt_text = '" . __('Purchase Code belongs to another product.', 'rightpress-updates') . " " . __('Please change it and try again.', 'rightpress-updates') . "';
                                 handle_purchase_code_change(prompt_text, new_purchase_code);
                                 return;
                             }
                             // Error occurred
                             else {
-                                alert('" . esc_html__('Unable to verify Purchase Code right now. Please try again later.', 'rightpress-updates') . "');
+                                alert('" . __('Unable to verify Purchase Code right now. Please try again later.', 'rightpress-updates') . "');
                             }
 
                             // Reload page to start fresh
@@ -1017,7 +980,6 @@ final class RightPress_Updates_7119279
      */
     public function ajax_rightpress_up_pc_change()
     {
-
         // Check if plugin key and new purchase code is set
         if (empty($_POST['plugin_key']) || !isset($_POST['purchase_code'])) {
             echo 'rightpress_up_pc_change_error';
@@ -1078,7 +1040,6 @@ final class RightPress_Updates_7119279
      */
     public function maybe_display_update_note($args)
     {
-
         if (is_array($args)) {
             $args = (object) $args;
         }
@@ -1127,7 +1088,6 @@ final class RightPress_Updates_7119279
      */
     public function get_update_note($args)
     {
-
         // Get plugin information
         $plugin_information = $this->plugins_api_actions(false, 'plugin_information', $args);
 
@@ -1194,7 +1154,6 @@ final class RightPress_Updates_7119279
      */
     public function maybe_display_activation_information_inline($args)
     {
-
         if (is_array($args)) {
             $args = (object) $args;
         }
@@ -1206,14 +1165,13 @@ final class RightPress_Updates_7119279
 
         // Purchase Code is not set
         if (empty($this->purchase_code)) {
-            echo ' <em>' . sprintf(esc_html__('You must enter your Purchase Code %s to enable automatic updates.', 'rightpress-updates'), ('<a class="rightpress_up_pc_' . $this->plugin_key . '" href="#">' . esc_html__('here', 'rightpress-updates') . '</a>')) . ' <a href="http://url.rightpress.net/purchase-code-help">' . esc_html__('Where do I find my Purchase Code?', 'rightpress-updates') . '</a></em>';
+            echo ' <em>' . sprintf(__('You must enter your Purchase Code <a class="rightpress_up_pc_%s" href="#">here</a> to enable automatic updates. <a href="%s">Where do I find my Purchase Code?</a>', 'rightpress-updates'), $this->plugin_key, 'http://url.rightpress.net/purchase-code-help') . '</em>';
         }
         // Support expired
         else if (get_site_option('rightpress_updates_expired_' . $this->plugin_key)) {
-            echo ' <em>' . sprintf(esc_html__('RightPress no longer serves automatic updates as your %s has expired.', 'rightpress-updates'), ('<a href="http://url.rightpress.net/automatic-updates-help">' . __('support subscription', 'rightpress-updates') . '</a>')) . ' ' . sprintf(esc_html__('You can %1$s your support subscription or use %2$s to keep this plugin updated.', 'rightpress-updates'), ('<a href="http://url.rightpress.net/' . self::$envato_id . '-product">' . esc_html__('renew', 'rightpress-updates') . '</a>'), ('<a href="http://url.rightpress.net/updates-help">' . esc_html__('other methods', 'rightpress-updates') . '</a>')) . '</em>';
+            echo ' <em>' . sprintf(__('RightPress no longer serves automatic updates as your <a href="%s">support subscription</a> has expired. You can <a href="%s">renew</a> your support subscription or use <a href="%s">other methods</a> to keep this plugin updated.', 'rightpress-updates'), 'http://url.rightpress.net/automatic-updates-help', ('http://url.rightpress.net/' . self::$envato_id . '-product'), 'http://url.rightpress.net/updates-help') . '</em>';
         }
     }
-
 
 
 

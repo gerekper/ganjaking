@@ -269,7 +269,6 @@ class HandlerList implements \Countable
         }
         return $prev;
     }
-    #[\ReturnTypeWillChange]
     public function count()
     {
         return \count($this->steps[self::INIT]) + \count($this->steps[self::VALIDATE]) + \count($this->steps[self::BUILD]) + \count($this->steps[self::SIGN]) + \count($this->steps[self::ATTEMPT]);

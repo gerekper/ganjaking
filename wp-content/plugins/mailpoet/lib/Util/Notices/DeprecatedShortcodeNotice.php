@@ -16,27 +16,18 @@ class DeprecatedShortcodeNotice {
   const DISMISS_NOTICE_TIMEOUT_SECONDS = 15552000; // 6 months
   const OPTION_NAME = 'dismissed-deprecated-shortcode-notice';
 
-  /** @var WPFunctions */
-  private $wp;
-
-  public function __construct(
-    WPFunctions $wp
-  ) {
-    $this->wp = $wp;
-  }
-
   public function init($shouldDisplay) {
-    if ($shouldDisplay && !$this->wp->getTransient(self::OPTION_NAME) && $this->isUsingDeprecatedShortcode()) {
+    if ($shouldDisplay && $this->isUsingDeprecatedShortcode()) {
       return $this->display();
     }
     return null;
   }
 
   public function isUsingDeprecatedShortcode() {
-    global $wp_filter;// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    global $wp_filter;// phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     $hook = 'mailpoet_newsletter_shortcode';
-    if (empty($wp_filter[$hook])) return false;// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-    $callbacks = $wp_filter[$hook];// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    if (empty($wp_filter[$hook])) return false;// phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    $callbacks = $wp_filter[$hook];// phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     if (empty($callbacks->callbacks) || !is_array($callbacks->callbacks)) return false;
     foreach ($callbacks->callbacks as $callbackByPriority) {
       if (empty($callbackByPriority) || !is_array($callbackByPriority)) continue;
@@ -65,6 +56,6 @@ class DeprecatedShortcodeNotice {
   }
 
   public function disable() {
-    $this->wp->setTransient(self::OPTION_NAME, true, self::DISMISS_NOTICE_TIMEOUT_SECONDS);
+    WPFunctions::get()->setTransient(self::OPTION_NAME, true, self::DISMISS_NOTICE_TIMEOUT_SECONDS);
   }
 }

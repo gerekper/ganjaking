@@ -26,7 +26,7 @@ foreach ( $order->get_items() as $item_id => $item ) :
 		$product_id = ( 'product_variation' === $_product->post_type ) ? $_product->get_parent_id() : $_product->get_id();
 	}
 
-	$pass_shipping |= 'yes' === get_post_meta( $product_id, '_wcpv_product_default_pass_shipping_tax', true );
+	$pass_shipping |= 'yes' === get_post_meta( $product_id, '_wcpv_product_pass_shipping', true );
 	$vendor_id = WC_Product_Vendors_Utils::get_vendor_id_from_product( $product_id );
 
 	// remove the order items that are not from this vendor

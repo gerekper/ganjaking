@@ -5,7 +5,6 @@ namespace WPMailSMTP\Vendor\Aws\Api\Serializer;
 use WPMailSMTP\Vendor\Aws\Api\Service;
 use WPMailSMTP\Vendor\Aws\Api\Shape;
 use WPMailSMTP\Vendor\Aws\Api\TimestampShape;
-use WPMailSMTP\Vendor\Aws\Exception\InvalidJsonException;
 /**
  * Formats the JSON body of a JSON-REST or JSON-RPC operation.
  * @internal
@@ -46,9 +45,6 @@ class JsonBody
         switch ($shape['type']) {
             case 'structure':
                 $data = [];
-                if (isset($shape['document']) && $shape['document']) {
-                    return $value;
-                }
                 foreach ($value as $k => $v) {
                     if ($v !== null && $shape->hasMember($k)) {
                         $valueShape = $shape->getMember($k);

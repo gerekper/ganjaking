@@ -482,11 +482,13 @@ class WC_Booking_Form {
 			$booking_slots_transient_keys[ $this->product->get_id() ] = array();
 		}
 
-		$booking_slots_transient_keys[ $this->product->get_id() ][] = $transient_name;
-
-		// Give array of keys a long ttl because if it expires we won't be able to flush the keys when needed.
-		// We can't use 0 to never expire because then WordPress will autoload the option on every page.
-		WC_Bookings_Cache::set( 'booking_slots_transient_keys', $booking_slots_transient_keys, YEAR_IN_SECONDS );
+		// Don't store in cache if it already exists there.
+		if ( ! in_array( $transient_name, $booking_slots_transient_keys[ $this->product->get_id() ] ) ) {
+			$booking_slots_transient_keys[ $this->product->get_id() ][] = $transient_name;
+			// Give array of keys a long ttl because if it expires we won't be able to flush the keys when needed.
+			// We can't use 0 to never expire because then WordPress will autoload the option on every page.
+			WC_Bookings_Cache::set( 'booking_slots_transient_keys', $booking_slots_transient_keys, YEAR_IN_SECONDS );
+		}
 
 		if ( false === $st_block_html ) {
 			$st_block_html = '';

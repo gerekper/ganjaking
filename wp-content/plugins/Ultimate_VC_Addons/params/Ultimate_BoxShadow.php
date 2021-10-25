@@ -20,16 +20,16 @@
  *           "dependency" => Array("element" => "img_box_shadow_type", "value" => "on" ),
  *     ),
  *
- * @package Ultimate_VC_Addons_BoxShadow.
+ * @package Ultimate_BoxShadow.
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_BoxShadow' ) ) {
+if ( ! class_exists( 'Ultimate_BoxShadow' ) ) {
 	/**
-	 * Ultimate_VC_Addons_BoxShadow.
+	 * Ultimate_BoxShadow.
 	 *
-	 * @class Ultimate_VC_Addons_BoxShadow.
+	 * @class Ultimate_BoxShadow.
 	 */
-	class Ultimate_VC_Addons_BoxShadow {
+	class Ultimate_BoxShadow {
 		/**
 		 *  Initiator.
 		 */
@@ -163,13 +163,13 @@ if ( ! class_exists( 'Ultimate_VC_Addons_BoxShadow' ) ) {
 				if ( 'enable' === $bsf_dev_mode ) {
 					wp_enqueue_style( 'wp-color-picker' );
 
-					wp_register_style( 'ultimate-vc-addons_boxshadow_param_css', UAVC_URL . 'admin/vc_extend/css/vc_param_boxshadow.css', null, ULTIMATE_VERSION );
-					wp_enqueue_style( 'ultimate-vc-addons_boxshadow_param_css' );
+					wp_register_style( 'ultimate_boxshadow_param_css', UAVC_URL . 'admin/vc_extend/css/vc_param_boxshadow.css', null, ULTIMATE_VERSION );
+					wp_enqueue_style( 'ultimate_boxshadow_param_css' );
 				}
 			}
 		}
 	}
 }
-if ( class_exists( 'Ultimate_VC_Addons_BoxShadow' ) ) {
-	$ultimate_boxshadow = new Ultimate_VC_Addons_BoxShadow();
+if ( class_exists( 'Ultimate_BoxShadow' ) ) {
+	$ultimate_boxshadow = new Ultimate_BoxShadow();
 }

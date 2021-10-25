@@ -1,4 +1,4 @@
-/*! fixto - v0.5.0 - 2016-06-16
+/*! fixto - v0.4.0 - 2015-06-08
 * http://github.com/bbarakaci/fixto/*/
 
 
@@ -303,8 +303,7 @@ var fixto = (function ($, window, document) {
         this.parent = parent;
         this.options = {
             className: 'fixto-fixed',
-            top: 0,
-            mindViewport: false
+            top: 0
         };
         this._setOptions(options);
     }
@@ -438,9 +437,19 @@ var fixto = (function ($, window, document) {
                 this._parentBottom -= computedStyle.getFloat(this.parent, 'paddingBottom');
             }
 
-            if (!this.fixed && this._shouldFix()) {
-                this._fix();
-                this._adjust();
+            if (!this.fixed) {
+
+                var childStyles = computedStyle.getAll(this.child);
+
+                if (
+                    this._scrollTop < this._parentBottom &&
+                    this._scrollTop > (this._fullOffset('offsetTop', this.child) - this.options.top - this._mindtop()) &&
+                    this._viewportHeight > (this.child.offsetHeight + computedStyle.toFloat(childStyles.marginTop) + computedStyle.toFloat(childStyles.marginBottom))
+                ) {
+
+                    this._fix();
+                    this._adjust();
+                }
             } else {
                 if (this._scrollTop > this._parentBottom || this._scrollTop < (this._fullOffset('offsetTop', this._ghostNode) - this.options.top - this._mindtop())) {
                     this._unfix();
@@ -448,20 +457,6 @@ var fixto = (function ($, window, document) {
                 }
                 this._adjust();
             }
-        },
-
-        _shouldFix: function() {
-            if (this._scrollTop < this._parentBottom && this._scrollTop > (this._fullOffset('offsetTop', this.child) - this.options.top - this._mindtop())) {
-                if (this.options.mindViewport && !this._isViewportAvailable()) {
-                    return false;
-                }
-                return true;
-            }
-        },
-
-        _isViewportAvailable: function() {
-            var childStyles = computedStyle.getAll(this.child);
-            return this._viewportHeight > (this.child.offsetHeight + computedStyle.toFloat(childStyles.marginTop) + computedStyle.toFloat(childStyles.marginBottom));
         },
 
         _adjust: function _adjust() {
@@ -476,7 +471,11 @@ var fixto = (function ($, window, document) {
                 context = this._getContext();
                 if(context) {
                     // There is a positioning context. Top should be according to the context.
-                    top = Math.abs(context.getBoundingClientRect().top);
+                    if (context.getBoundingClientRect().top > 0) {
+                        top = top - context.getBoundingClientRect().top;
+                    }else{
+                        top = Math.abs(context.getBoundingClientRect().top);
+                    }
                 }
             }
 

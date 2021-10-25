@@ -134,25 +134,25 @@ class NewsletterEntity {
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\NewsletterEntity", mappedBy="parent")
-   * @var ArrayCollection<int, NewsletterEntity>
+   * @var NewsletterEntity[]|ArrayCollection
    */
   private $children;
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\NewsletterSegmentEntity", mappedBy="newsletter", orphanRemoval=true)
-   * @var ArrayCollection<int, NewsletterSegmentEntity>
+   * @var NewsletterSegmentEntity[]|ArrayCollection
    */
   private $newsletterSegments;
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\NewsletterOptionEntity", mappedBy="newsletter", orphanRemoval=true)
-   * @var ArrayCollection<int, NewsletterOptionEntity>
+   * @var NewsletterOptionEntity[]|ArrayCollection
    */
   private $options;
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\SendingQueueEntity", mappedBy="newsletter")
-   * @var ArrayCollection<int, SendingQueueEntity>
+   * @var SendingQueueEntity[]|ArrayCollection
    */
   private $queues;
 
@@ -283,7 +283,7 @@ class NewsletterEntity {
       $task = $queue->getTask();
       if ($task === null) continue;
 
-      $scheduled = new Carbon($task->getScheduledAt());
+      $scheduled = new Carbon($task->getScheduledAt()); // @phpstan-ignore-line - Carbon accepts a instance of DateTimeInterface but that is not mentioned in its phpdoc block causing a PHPStan error in this line.
       if ($scheduled < (new Carbon())->subDays(30)) continue;
 
       if (($status === self::STATUS_DRAFT) && ($task->getStatus() !== ScheduledTaskEntity::STATUS_SCHEDULED)) continue;
@@ -407,21 +407,21 @@ class NewsletterEntity {
   }
 
   /**
-   * @return ArrayCollection<int, NewsletterEntity>
+   * @return NewsletterEntity[]|ArrayCollection
    */
   public function getChildren() {
     return $this->children;
   }
 
   /**
-   * @return ArrayCollection<int, NewsletterSegmentEntity>
+   * @return NewsletterSegmentEntity[]|ArrayCollection
    */
   public function getNewsletterSegments() {
     return $this->newsletterSegments;
   }
 
   /**
-   * @return ArrayCollection<int, NewsletterOptionEntity>
+   * @return NewsletterOptionEntity[]|ArrayCollection
    */
   public function getOptions() {
     return $this->options;
@@ -440,7 +440,7 @@ class NewsletterEntity {
   }
 
   /**
-   * @return ArrayCollection<int, SendingQueueEntity>
+   * @return SendingQueueEntity[]|ArrayCollection
    */
   public function getQueues() {
     return $this->queues;
@@ -456,9 +456,6 @@ class NewsletterEntity {
     return $this->queues->matching($criteria)->first() ?: null;
   }
 
-  /**
-   * @return Collection<int, SendingQueueEntity>
-   */
   private function getUnfinishedQueues(): Collection {
     $criteria = new Criteria();
     $expr = Criteria::expr();
@@ -472,20 +469,5 @@ class NewsletterEntity {
       return null;
     }
     return $body['globalStyles'][$category][$style] ?? null;
-  }
-
-  public function getProcessedAt(): ?DateTimeInterface {
-    $processedAt = null;
-    $queue = $this->getLatestQueue();
-
-    if ($queue instanceof SendingQueueEntity) {
-      $task = $queue->getTask();
-
-      if ($task instanceof ScheduledTaskEntity) {
-        $processedAt = $task->getProcessedAt();
-      }
-    }
-
-    return $processedAt;
   }
 }

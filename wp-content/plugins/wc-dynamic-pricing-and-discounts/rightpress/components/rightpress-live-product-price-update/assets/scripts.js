@@ -4,8 +4,6 @@
 
 jQuery(document).ready(function() {
 
-    'use strict';
-
     /**
      * Initialize live product update
      */

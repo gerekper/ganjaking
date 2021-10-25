@@ -1,31 +1,33 @@
 jQuery(document).ready(function($){
-    
-    var submit = $('.ct-ultimate-gdpr-cookie-modal-btn.save');
-    var checkbox = $('.ct-ultimate-gdpr-block-cookies');
+    var form = $('#ct-ultimate-gdpr-block-cookies');
+    var submit = $('.ct-ultimate-gdpr-cookie-block-btn');
+    var level = $('#ct-ultimate-gdpr-block-cookies .level').val();
+    var checkbox = $('.ct-ultimate-gdpr-block-cookies-checkbox');
+    var notificaton = $('.notification');
+    var check_count = 0;
 
-  
-        checkbox.on('click', function(){
-            if(checkbox.is(':checked')){
-                submit.attr('disabled', false);
-               
-            } else {
-                submit.attr('disabled', true);
-                
-            }
-        })
-  
+    checkbox.on('click', function(){
+      check_count++;
+      submit.attr('disabled', false);
+      if(checkbox.is(':checked')){
+        level = 1;
+      } else {
+        level = 5;
+      }
+    });
 
-    function onSave(e) {
+   
 
+    function Save(e) {
+        
         e.preventDefault();
-        var level = $('#ct-ultimate-gdpr-block-cookies .level').val();
-        document.cookie = 'ct-ultimate-gdpr-cookie=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 
         $.post(ct_ultimate_gdpr_cookie.ajaxurl, {
             "action": "ct_ultimate_gdpr_cookie_consent_give",
             "level": level
         }, function () {
-            if (ct_ultimate_gdpr_cookie.reload) {
+         
+          if (ct_ultimate_gdpr_cookie.reload) {
                 window.location.reload(true);
             }
         }).fail(function () {
@@ -42,10 +44,21 @@ jQuery(document).ready(function($){
 
         });
 
+        if(check_count > 0) {
+          notificaton.after('<p class="result-notification">Successfully submitted!</p>');
+        }
+
+        if(!ct_ultimate_gdpr_cookie.reload){
+          setTimeout(function(){
+            $('.result-notification').remove().fadeIn('slow');
+          },2000);
+        }
+  
 
     }
 
-    submit.bind('click', onSave);
+
+    submit.bind('click', Save);
 
 
 });

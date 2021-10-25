@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Order_Shipping_Method extends RightPress_Con
     public function get_label()
     {
 
-        return esc_html__('Shipping method', 'rightpress');
+        return __('Shipping method', 'rightpress');
     }
 
     /**

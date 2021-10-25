@@ -40,7 +40,7 @@ abstract class RightPress_Condition_Field_Text_Postcode extends RightPress_Condi
      */
     public function get_placeholder()
     {
-        return esc_html__('e.g. 90210, 902**, 90200-90299, SW1A 1AA, NSW 2001', 'rightpress');
+        return __('e.g. 90210, 902**, 90200-90299, SW1A 1AA, NSW 2001', 'rightpress');
     }
 
 

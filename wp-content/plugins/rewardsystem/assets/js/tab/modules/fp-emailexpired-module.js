@@ -2,7 +2,6 @@
  * EmailExpiredModule - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var EmailExpiredModule = {
         init : function ( ) {
             this.default_value_for_templates() ;
@@ -11,10 +10,6 @@ jQuery( function ( $ ) {
             if ( '1' == fp_emailexpired_params.enable_footable ) {
                 $( document ).on( 'change' , '#rs_pagination' , this.pagination_for_template ) ;
                 $( '#rs_email_templates_table_expired' ).footable( ).on( 'click' , '.rs_delete_expired' , this.delete_template ) ;
-            }
-            
-            if ( fp_emailexpired_params.active_template ) {
-                jQuery( '#rs_select_template' ).parent().parent().hide() ;
             }
 
             $( '#rs_email_templates_table_expired' ).on( 'click' , '.rs_expired_mail_active' , this.activate_or_deactivate_emailexpiry_template ) ;

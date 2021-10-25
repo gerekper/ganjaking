@@ -8,8 +8,8 @@ class Permalink_Manager_Gutenberg extends Permalink_Manager_Class {
 	public function __construct() {
 		add_action('enqueue_block_editor_assets', array($this, 'init'));
 
-		// add_action('wp_ajax_pm_get_uri_editor', array($this, 'get_uri_editor'));
-		// add_action('wp_ajax_nopriv_pm_get_uri_editor', array($this, 'get_uri_editor'));
+		add_action('wp_ajax_pm_get_uri_editor', array($this, 'get_uri_editor'));
+		add_action('wp_ajax_nopriv_pm_get_uri_editor', array($this, 'get_uri_editor'));
 	}
 
 	public function init() {
@@ -37,12 +37,16 @@ class Permalink_Manager_Gutenberg extends Permalink_Manager_Class {
 	public function get_uri_editor($post = null) {
 		if(empty($post->ID) && empty($_REQUEST['post_id'])) {
 			return '';
-		} else if(!empty($_REQUEST['post_id'])) {
+		} else if(!empty($_REQUEST['post_id']) && is_numeric($_REQUEST['post_id'])) {
 			$post = get_post($_REQUEST['post_id']);
 		}
 
 		// Display URI Editor
-		echo Permalink_Manager_Admin_Functions::display_uri_box($post, true);
+		echo ($post) ? Permalink_Manager_Admin_Functions::display_uri_box($post, true) : '';
+
+		if(wp_doing_ajax()) {
+			die();
+		}
 	}
 
 }

@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Entities\SegmentEntity;
-use MailPoet\Subscribers\SubscribersCountsController;
+use MailPoet\Segments\SegmentSubscribersRepository;
 use MailPoet\WP\Functions;
 
 class SegmentsResponseBuilder {
@@ -15,15 +15,15 @@ class SegmentsResponseBuilder {
   /** @var Functions */
   private $wp;
 
-  /** @var SubscribersCountsController */
-  private $subscribersCountsController;
+  /** @var SegmentSubscribersRepository */
+  private $segmentSubscriberRepository;
 
   public function __construct(
     Functions $wp,
-    SubscribersCountsController $subscribersCountsController
+    SegmentSubscribersRepository $segmentSubscriberRepository
   ) {
     $this->wp = $wp;
-    $this->subscribersCountsController = $subscribersCountsController;
+    $this->segmentSubscriberRepository = $segmentSubscriberRepository;
   }
 
   public function build(SegmentEntity $segment): array {
@@ -51,7 +51,7 @@ class SegmentsResponseBuilder {
   private function buildListingItem(SegmentEntity $segment): array {
     $data = $this->build($segment);
 
-    $data['subscribers_count'] = $this->subscribersCountsController->getSegmentStatisticsCount($segment);
+    $data['subscribers_count'] = $this->segmentSubscriberRepository->getSubscribersStatisticsCount($segment);
     $data['subscribers_url'] = $this->wp->adminUrl(
       'admin.php?page=mailpoet-subscribers#/filter[segment=' . $segment->getId() . ']'
     );

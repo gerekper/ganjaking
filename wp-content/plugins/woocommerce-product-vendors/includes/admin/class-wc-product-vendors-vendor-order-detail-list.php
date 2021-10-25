@@ -160,6 +160,7 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 				$order          = wc_get_order( $item->order_id );
 				$quantity       = absint( $item->product_quantity );
 				$var_attributes = '';
+				$refund         = '';
 				$sku            = '';
 
 				// check if product is a variable product
@@ -245,16 +246,31 @@ class WC_Product_Vendors_Vendor_Order_Detail_List extends WP_List_Table {
 					$order_item_meta = wc_display_item_meta( $order_item, array( 'echo' => false ) );
 				}
 
+				$refunded_quantity = $order->get_qty_refunded_for_item( intval( $item->order_item_id ) );
+
+				if ( $refunded_quantity ) {
+					$refund = sprintf( __( '<br /><small class="wpcv-refunded">-%s</small>', 'woocommerce-product-vendors' ), absint( $refunded_quantity ) );
+				}
+
 				if ( is_object( $product ) ) {
-					return edit_post_link( $quantity . 'x ' . sanitize_text_field( $item->product_name ), '', '', absint( $item->product_id ) ) . $var_attributes . $sku . $order_item_meta;
+					return edit_post_link( $quantity . 'x ' . sanitize_text_field( $item->product_name ), '', '', absint( $item->product_id ) ) . $var_attributes . $sku . $order_item_meta . $refund;
 				} elseif ( ! empty( $item->product_name ) ) {
-					return $quantity . 'x ' . sanitize_text_field( $item->product_name ) . $order_item_meta;
+					return $quantity . 'x ' . sanitize_text_field( $item->product_name ) . $order_item_meta . $refund;
 				} else {
 					return sprintf( '%s ' . __( 'Product Not Found', 'woocommerce-product-vendors' ), '#' . absint( $item->product_id ) );
 				}
 
 			case 'total_commission_amount' :
-				return wc_price( sanitize_text_field( $item->total_commission_amount ) );
+				$order           = wc_get_order( $item->order_id );
+				$refund          = '';
+				$refunded_amount = $order->get_total_refunded_for_item( intval( $item->order_item_id ) );
+
+				if ( $refunded_amount ) {
+					$refunded_commission = $refunded_amount * $item->product_commission_amount / $item->product_amount;
+					$refund              = sprintf( __( '<br /><small class="wpcv-refunded">-%s</small>', 'woocommerce-product-vendors' ), wc_price( $refunded_commission ) );
+				}
+
+				return wc_price( sanitize_text_field( $item->total_commission_amount ) ) . $refund;
 
 			case 'commission_status' :
 				if ( 'unpaid' === $item->commission_status ) {

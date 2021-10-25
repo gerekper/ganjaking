@@ -48,7 +48,8 @@ foreach ( $pickup_data as $pickup_meta ) {
 	}
 
 	foreach ( $pickup_meta as $label => $value ) {
-		echo wp_strip_all_tags( is_rtl() ? $value . ' :' . $label . ' -' : '- ' . $label . ': ' .  $value );
+		$value = str_replace( '&times;', 'x', $value );
+		echo wp_strip_all_tags( is_rtl() ? $value . ' :' . $label . ' -' : '- ' . $label . ': ' .  $value ) . "\n";
 	}
 
 	$package_number++;

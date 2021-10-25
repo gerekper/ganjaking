@@ -1,32 +1,5 @@
 *** Changelog ***
 
-2021-09-24- version 2.23
-
-* Move reCaptcha to last field in review form of WooCommerce as it looks better.
-
-
-2021-09-08- version 2.22
-
-* Fixed PHP Warning:  Undefined variable $i13_recapcha_v2_lang
-
-
-2021-09-07- version 2.21
-
-* Added new option to enable reCaptcha for WooCommerce order tracking. 
-* Fixed conflict with plugin Memberium Plugin.
-* Delay execution action so that captcha will be last field in WooCommerce registration/login forms.
-
-
-2021-08-08- version 2.20
-
-* Fixed for - When there is multiple forms of registration and login on same page it create problems.
-* Fixed for - When the registration/login forms are in ajax modal popup it wont work. - Added option in signup/login settings for enable ajax signup/login modal box 
-* Tested with WordPress 5.8
-
-2021-07-17- version 2.18
-
-* As Google is blocked in someone countries like china, We need global recaptcha domain use(https://recaptcha.net/) so added settings option use recaptcha.net instead of google.com
-
 2021-07-01- version 2.17
 
 * Added filter for reCaptcha v2 to change language if needed programmatically. To change hl paramter of recaptcha anyone can use this filter - i13_recapchav2_set_lang

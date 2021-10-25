@@ -18,9 +18,7 @@ class Analytics extends APIEndpoint {
     'global' => AccessControl::NO_ACCESS_RESTRICTION,
   ];
 
-  public function __construct(
-    Reporter $reporter
-  ) {
+  public function __construct(Reporter $reporter) {
     $this->reporter = $reporter;
   }
 

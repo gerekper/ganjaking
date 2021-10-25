@@ -16,9 +16,7 @@ class Newsletter implements CategoryInterface {
   /** @var NewslettersRepository */
   private $newslettersRepository;
 
-  public function __construct(
-    NewslettersRepository $newslettersRepository
-  ) {
+  public function __construct(NewslettersRepository $newslettersRepository) {
     $this->newslettersRepository = $newslettersRepository;
   }
 
@@ -63,8 +61,8 @@ class Newsletter implements CategoryInterface {
     // Queries with taxonomies are autodetected as 'is_archive=true' and 'is_home=false'
     // while queries without them end up being 'is_archive=false' and 'is_home=true'.
     // This is to fix that by always enforcing constistent behavior.
-    $query->is_archive = true; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-    $query->is_home = false; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    $query->is_archive = true; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    $query->is_home = false; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
   }
 
   private function getLatestWPPost($postIds) {
@@ -82,7 +80,7 @@ class Newsletter implements CategoryInterface {
       ]
     );
     WPFunctions::get()->removeAction('pre_get_posts', [$this, 'ensureConsistentQueryType'], $filterPriority);
-    return (!empty($posts->posts[0])) && ($posts->posts[0] instanceof \WP_Post) ?
+    return (!empty($posts->posts[0])) ?
       $posts->posts[0]->to_array() :
       false;
   }

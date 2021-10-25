@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Customer_Value_Order_Count extends RightPres
     public function get_label()
     {
 
-        return esc_html__('Order count', 'rightpress');
+        return __('Order count', 'rightpress');
     }
 
     /**

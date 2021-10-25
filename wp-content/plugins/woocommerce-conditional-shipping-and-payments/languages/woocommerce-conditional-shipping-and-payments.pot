@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.9.5\n"
+"Project-Id-Version: WooCommerce Conditional Shipping and Payments 1.10.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
-"POT-Creation-Date: 2021-05-27 16:13:45+00:00\n"
+"POT-Creation-Date: 2021-10-12 14:49:41+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,7 +35,7 @@ msgstr ""
 
 #: includes/abstracts/class-wc-csp-abstract-restriction.php:168
 #: includes/admin/class-wc-csp-admin.php:390
-#: includes/class-wc-csp-conditions.php:320
+#: includes/class-wc-csp-conditions.php:321
 msgid "And"
 msgstr ""
 
@@ -74,8 +74,8 @@ msgstr ""
 
 #: includes/abstracts/class-wc-csp-abstract-restriction.php:261
 #: includes/abstracts/class-wc-csp-abstract-restriction.php:328
-#: includes/class-wc-csp-conditions.php:171
-#: includes/class-wc-csp-conditions.php:316
+#: includes/class-wc-csp-conditions.php:172
+#: includes/class-wc-csp-conditions.php:317
 msgid "Remove"
 msgstr ""
 
@@ -110,69 +110,83 @@ msgid ""
 "once."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:272
+#: includes/admin/class-wc-csp-admin-notices.php:296
 msgid "Your database is being updated in the background."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:282
+#: includes/admin/class-wc-csp-admin-notices.php:306
 msgid "Your database needs to be updated to the latest version."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:287
+#: includes/admin/class-wc-csp-admin-notices.php:311
 msgid "Database update incomplete."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:292
+#: includes/admin/class-wc-csp-admin-notices.php:316
 msgid "WooCommerce Conditional Shipping and Payments Data Update"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:298
+#: includes/admin/class-wc-csp-admin-notices.php:322
 msgid "WooCommerce Conditional Shipping and Payments data update complete."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:330
+#: includes/admin/class-wc-csp-admin-notices.php:352
+#. translators: %1$s: tax settings URL %2$s: product restrictions URL %3$s:
+#. global restrictions URL
+msgid ""
+"<strong>Conditional Shipping and Payments</strong> is now evaluating the "
+"<strong>Cart Subtotal</strong> condition including or excluding tax, "
+"depending on how you have configured WooCommerce to <a "
+"href=\"%1$s\">display prices in the Cart and Checkout pages</a>. If you "
+"have used the <strong>Cart Subtotal</strong> condition to create "
+"Restrictions, and have configured WooCommerce to display Cart/Checkout page "
+"prices excluding tax, then you may need to update the <strong>Cart "
+"Subtotal</strong> condition value in your Restrictions' configuration."
+msgstr ""
+
+#: includes/admin/class-wc-csp-admin-notices.php:383
 msgid "Ready to exclude some payment / shipping options?"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:331
+#: includes/admin/class-wc-csp-admin-notices.php:384
 msgid "Thank you for installing WooCommerce Conditional Shipping and Payments."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:331
+#: includes/admin/class-wc-csp-admin-notices.php:384
 msgid "Let's get started by creating your first restriction!"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:332
+#: includes/admin/class-wc-csp-admin-notices.php:385
 msgid "Let's go!"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:347
+#: includes/admin/class-wc-csp-admin-notices.php:400
 msgid "Run the updater"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:365
+#: includes/admin/class-wc-csp-admin-notices.php:418
 msgid "run the update process manually"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:366
+#: includes/admin/class-wc-csp-admin-notices.php:419
 msgid "&hellip;Taking a while? You may need to %s."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:380
+#: includes/admin/class-wc-csp-admin-notices.php:433
 msgid "get in touch with us"
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:381
+#: includes/admin/class-wc-csp-admin-notices.php:434
 msgid "If this message persists, please restore your database from a backup, or %s."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:413
+#: includes/admin/class-wc-csp-admin-notices.php:470
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: includes/admin/class-wc-csp-admin-notices.php:417
-#: woocommerce-conditional-shipping-and-payments.php:127
-#: woocommerce-conditional-shipping-and-payments.php:136
+#: includes/admin/class-wc-csp-admin-notices.php:474
+#: woocommerce-conditional-shipping-and-payments.php:81
+#: woocommerce-conditional-shipping-and-payments.php:90
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
@@ -351,11 +365,11 @@ msgstr ""
 msgid "Restrict the shipping countries allowed at checkout."
 msgstr ""
 
-#: includes/class-wc-csp-conditions.php:285
+#: includes/class-wc-csp-conditions.php:286
 msgid "Conditions"
 msgstr ""
 
-#: includes/class-wc-csp-conditions.php:331
+#: includes/class-wc-csp-conditions.php:332
 msgid "Add Condition"
 msgstr ""
 
@@ -619,6 +633,79 @@ msgstr ""
 msgid "Select categories&hellip;"
 msgstr ""
 
+#: includes/conditions/class-wc-csp-condition-cart-item-count.php:28
+msgid "Cart Item Count"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-item-count.php:52
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:61
+msgid "make sure that there are no more than %s items in your cart"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-item-count.php:56
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:75
+msgid "make sure that your cart contains at least %s items"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-item-count.php:60
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:88
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:127
+msgid "make sure that your cart contains more than %s items"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-item-count.php:64
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:101
+msgid "make sure that your cart contains less than %s items"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-item-count.php:148
+#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:161
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:161
+#: includes/conditions/class-wc-csp-condition-cart-total.php:154
+#: includes/conditions/class-wc-csp-condition-order-total.php:193
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:286
+#: includes/conditions/class-wc-csp-condition-package-total.php:186
+#: includes/conditions/class-wc-csp-condition-package-weight.php:203
+#: includes/conditions/class-wc-csp-condition-stock-quantity.php:166
+msgid "<"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-item-count.php:149
+#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:162
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:162
+#: includes/conditions/class-wc-csp-condition-cart-total.php:155
+#: includes/conditions/class-wc-csp-condition-order-total.php:194
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:287
+#: includes/conditions/class-wc-csp-condition-package-total.php:187
+#: includes/conditions/class-wc-csp-condition-package-weight.php:204
+#: includes/conditions/class-wc-csp-condition-stock-quantity.php:167
+msgid "<="
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-item-count.php:150
+#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:164
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:164
+#: includes/conditions/class-wc-csp-condition-cart-total.php:157
+#: includes/conditions/class-wc-csp-condition-order-total.php:196
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:288
+#: includes/conditions/class-wc-csp-condition-package-total.php:189
+#: includes/conditions/class-wc-csp-condition-package-weight.php:206
+#: includes/conditions/class-wc-csp-condition-stock-quantity.php:169
+msgid ">="
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-item-count.php:151
+#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:163
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:163
+#: includes/conditions/class-wc-csp-condition-cart-total.php:156
+#: includes/conditions/class-wc-csp-condition-order-total.php:195
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:289
+#: includes/conditions/class-wc-csp-condition-package-total.php:188
+#: includes/conditions/class-wc-csp-condition-package-weight.php:205
+#: includes/conditions/class-wc-csp-condition-stock-quantity.php:168
+msgid ">"
+msgstr ""
+
 #: includes/conditions/class-wc-csp-condition-cart-item-on-sale.php:28
 msgid "Product On Sale"
 msgstr ""
@@ -657,50 +744,6 @@ msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:60
 msgid "increase the quantity of &quot;%1$s&quot; above %2$s"
-msgstr ""
-
-#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:161
-#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:154
-#: includes/conditions/class-wc-csp-condition-cart-total.php:154
-#: includes/conditions/class-wc-csp-condition-order-total.php:193
-#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:254
-#: includes/conditions/class-wc-csp-condition-package-total.php:186
-#: includes/conditions/class-wc-csp-condition-package-weight.php:194
-#: includes/conditions/class-wc-csp-condition-stock-quantity.php:166
-msgid "<"
-msgstr ""
-
-#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:162
-#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:155
-#: includes/conditions/class-wc-csp-condition-cart-total.php:155
-#: includes/conditions/class-wc-csp-condition-order-total.php:194
-#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:255
-#: includes/conditions/class-wc-csp-condition-package-total.php:187
-#: includes/conditions/class-wc-csp-condition-package-weight.php:195
-#: includes/conditions/class-wc-csp-condition-stock-quantity.php:167
-msgid "<="
-msgstr ""
-
-#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:163
-#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:156
-#: includes/conditions/class-wc-csp-condition-cart-total.php:156
-#: includes/conditions/class-wc-csp-condition-order-total.php:195
-#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:257
-#: includes/conditions/class-wc-csp-condition-package-total.php:188
-#: includes/conditions/class-wc-csp-condition-package-weight.php:196
-#: includes/conditions/class-wc-csp-condition-stock-quantity.php:168
-msgid ">"
-msgstr ""
-
-#: includes/conditions/class-wc-csp-condition-cart-item-quantity.php:164
-#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:157
-#: includes/conditions/class-wc-csp-condition-cart-total.php:157
-#: includes/conditions/class-wc-csp-condition-order-total.php:196
-#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:256
-#: includes/conditions/class-wc-csp-condition-package-total.php:189
-#: includes/conditions/class-wc-csp-condition-package-weight.php:197
-#: includes/conditions/class-wc-csp-condition-stock-quantity.php:169
-msgid ">="
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-recurring-item.php:28
@@ -811,6 +854,14 @@ msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-subtotal.php:54
 msgid "decrease your cart subtotal to %s or lower"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:150
+msgid " (incl. tax)"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-cart-subtotal.php:152
+msgid " (excl. tax)"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-cart-total.php:28
@@ -927,24 +978,52 @@ msgstr ""
 msgid "Select roles&hellip;"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-customer.php:28
+#: includes/conditions/class-wc-csp-condition-customer.php:35
 msgid "Customer"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-customer.php:50
-#: includes/conditions/class-wc-csp-condition-customer.php:52
-msgid "use an authorized account"
-msgstr ""
-
-#: includes/conditions/class-wc-csp-condition-customer.php:177
+#: includes/conditions/class-wc-csp-condition-customer.php:40
 msgid "e-mail is"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-customer.php:178
+#: includes/conditions/class-wc-csp-condition-customer.php:43
 msgid "e-mail is not"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-customer.php:183
+#: includes/conditions/class-wc-csp-condition-customer.php:46
+msgid "is returning"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-customer.php:49
+msgid "is new"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-customer.php:71
+#: includes/conditions/class-wc-csp-condition-customer.php:73
+msgid "use an authorized account"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-customer.php:75
+msgid "checkout with an account that you have previously placed orders with"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-customer.php:77
+msgid "checkout with a new customer account"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-customer.php:296
+msgid ""
+"Rule <strong>#%1$s</strong>: Invalid e-mail found (%2$s) and removed from "
+"the <strong>Customer</strong> condition."
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-customer.php:301
+msgid ""
+"Rule <strong>#%1$s</strong>: Invalid e-mails found (%2$s) and removed from "
+"the <strong>Customer</strong> condition."
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-customer.php:384
 msgid "List of e-mails separated by comma."
 msgstr ""
 
@@ -1219,10 +1298,6 @@ msgstr ""
 msgid "make sure that there are no more than %s items in it"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:61
-msgid "make sure that there are no more than %s items in your cart"
-msgstr ""
-
 #: includes/conditions/class-wc-csp-condition-package-item-quantity.php:69
 #: includes/conditions/class-wc-csp-condition-package-item-quantity.php:82
 msgid "make sure there are at least %s items in every shipping package"
@@ -1232,16 +1307,9 @@ msgstr ""
 msgid "make sure it contains at least %s items"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:75
-msgid "make sure that your cart contains at least %s items"
-msgstr ""
-
 #: includes/conditions/class-wc-csp-condition-package-item-quantity.php:84
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:118
 msgid "make sure it contains more than %s items"
-msgstr ""
-
-#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:88
-msgid "make sure that your cart contains more than %s items"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-item-quantity.php:95
@@ -1252,8 +1320,27 @@ msgstr ""
 msgid "make sure it contains less than %s items"
 msgstr ""
 
-#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:101
-msgid "make sure that your cart contains less than %s items"
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:110
+msgid "make sure that there are more than %s items in every shipping package"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:112
+msgid ""
+"make sure that there are either more or fewer than %s items in every "
+"shipping package"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:120
+msgid "make sure it contains either more or fewer than %s items"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:129
+msgid "make sure that your cart contains either more or fewer than %s items"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-item-quantity.php:290
+#: includes/conditions/class-wc-csp-condition-package-weight.php:207
+msgid "="
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-recurring-item.php:47
@@ -1359,19 +1446,19 @@ msgid "Package Weight"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-weight.php:56
-msgid "decrease the total weight of your shipment below %1$s%2$s"
+msgid "decrease the total weight of your shipment below %s"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-weight.php:58
-msgid "decrease its total weight below %1$s%2$s"
+msgid "decrease its total weight below %s"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-weight.php:64
-msgid "increase the total weight of your shipment to %1$s%2$s or higher"
+msgid "increase the total weight of your shipment to %s or higher"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-weight.php:66
-msgid "increase its total weight to %1$s%2$s or higher"
+msgid "increase its total weight to %s or higher"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-weight.php:71
@@ -1388,6 +1475,14 @@ msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-package-weight.php:80
 msgid "increase its total weight above %s"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-weight.php:85
+msgid "make sure that the total weight of your shipment is either above or below %s"
+msgstr ""
+
+#: includes/conditions/class-wc-csp-condition-package-weight.php:87
+msgid "make sure its total weight is either above or below %s"
 msgstr ""
 
 #: includes/conditions/class-wc-csp-condition-shipping-country-state.php:28
@@ -1955,7 +2050,7 @@ msgstr ""
 msgid "Proceed to PayPal"
 msgstr ""
 
-#: woocommerce-conditional-shipping-and-payments.php:244
+#: woocommerce-conditional-shipping-and-payments.php:198
 msgid ""
 "WooCommerce Conditional Shipping and Payments requires at least WooCommerce "
 "<strong>%s</strong>."

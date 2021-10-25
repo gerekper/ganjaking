@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Product_Property_Stock_Quantity extends Righ
     public function get_label()
     {
 
-        return esc_html__('Product stock quantity', 'rightpress');
+        return __('Product stock quantity', 'rightpress');
     }
 
     /**

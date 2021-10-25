@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Composer\\Installers\\AglInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AglInstaller.php',
     'Composer\\Installers\\AimeosInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
     'Composer\\Installers\\AnnotateCmsInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',
@@ -582,6 +583,7 @@ return array(
     'Yoast\\WP\\SEO\\Conditionals\\Feature_Flag_Conditional' => $baseDir . '/src/conditionals/feature-flag-conditional.php',
     'Yoast\\WP\\SEO\\Conditionals\\Front_End_Conditional' => $baseDir . '/src/conditionals/front-end-conditional.php',
     'Yoast\\WP\\SEO\\Conditionals\\Get_Request_Conditional' => $baseDir . '/src/conditionals/get-request-conditional.php',
+    'Yoast\\WP\\SEO\\Conditionals\\Greek_Support_Conditional' => $baseDir . '/src/conditionals/greek-support-conditional.php',
     'Yoast\\WP\\SEO\\Conditionals\\Headless_Rest_Endpoints_Enabled_Conditional' => $baseDir . '/src/conditionals/headless-rest-endpoints-enabled-conditional.php',
     'Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional' => $baseDir . '/src/conditionals/japanese-support-conditional.php',
     'Yoast\\WP\\SEO\\Conditionals\\Jetpack_Conditional' => $baseDir . '/src/conditionals/jetpack-conditional.php',

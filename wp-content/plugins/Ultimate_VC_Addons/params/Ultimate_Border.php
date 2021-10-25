@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_VC_Addons_Border
+ * Class Ultimate_Border
  *
- * @package Ultimate_VC_Addons_Border.
+ * @package Ultimate_Border.
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Border' ) ) {
+if ( ! class_exists( 'Ultimate_Border' ) ) {
 	/**
-	 * Class Ultimate_VC_Addons_Border
+	 * Class Ultimate_Border
 	 *
-	 * @class Ultimate_VC_Addons_Border.
+	 * @class Ultimate_Border.
 	 */
-	class Ultimate_VC_Addons_Border {
+	class Ultimate_Border {
 
 		/**
 		 * Initiator __construct.
@@ -260,21 +260,21 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Border' ) ) {
 		 * @param string $hook Hook.
 		 */
 		public function ultimate_border_param_scripts( $hook ) {
-			wp_register_style( 'ultimate-vc-addons-border-style', UAVC_URL . 'admin/vc_extend/css/ultimate_border.css', null, ULTIMATE_VERSION );
+			wp_register_style( 'ultimate-border-style', UAVC_URL . 'admin/vc_extend/css/ultimate_border.css', null, ULTIMATE_VERSION );
 
 			if ( 'post.php' == $hook || 'post-new.php' == $hook ) {
 				$bsf_dev_mode = bsf_get_option( 'dev_mode' );
 				if ( 'enable' === $bsf_dev_mode ) {
 					wp_enqueue_style( 'wp-color-picker' );
-					wp_enqueue_style( 'ultimate-vc-addons-border-style' );
-					wp_enqueue_style( 'ultimate-vc-addons-chosen-style' );
+					wp_enqueue_style( 'ultimate-border-style' );
+					wp_enqueue_style( 'ultimate-chosen-style' );
 
-					wp_enqueue_script( 'ultimate-vc-addons-chosen-script' );
+					wp_enqueue_script( 'ultimate-chosen-script' );
 				}
 			}
 		}
 	}
 }
-if ( class_exists( 'Ultimate_VC_Addons_Border' ) ) {
-	$ultimate_border = new Ultimate_VC_Addons_Border();
+if ( class_exists( 'Ultimate_Border' ) ) {
+	$ultimate_border = new Ultimate_Border();
 }

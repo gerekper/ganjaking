@@ -71,9 +71,9 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		// 1. Get current section
 		if(isset($_GET['page']) && $_GET['page'] == PERMALINK_MANAGER_PLUGIN_SLUG) {
 			if(isset($_POST['section'])) {
-				$this->active_section = sanitize_text_field($_POST['section']);
+				$this->active_section = sanitize_title_with_dashes($_POST['section']);
 			} else if(isset($_GET['section'])) {
-				$this->active_section = sanitize_text_field($_GET['section']);
+				$this->active_section = sanitize_title_with_dashes($_GET['section']);
 			} else {
 				$sections_names = array_keys($this->sections);
 				$this->active_section = $sections_names[0];
@@ -83,9 +83,9 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		// 2. Get current subsection
 		if($this->active_section && isset($this->sections[$this->active_section]['subsections'])) {
 			if(isset($_POST['subsection'])) {
-				$this->active_subsection = sanitize_text_field($_POST['subsection']);
+				$this->active_subsection = sanitize_title_with_dashes($_POST['subsection']);
 			} else if(isset($_GET['subsection'])) {
-				$this->active_subsection = sanitize_text_field($_GET['subsection']);
+				$this->active_subsection = sanitize_title_with_dashes($_GET['subsection']);
 			} else {
 				$subsections_names = array_keys($this->sections[$this->active_section]['subsections']);
 				$this->active_subsection = $subsections_names[0];
@@ -765,9 +765,25 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 	}
 
 	/**
+	 * Check if URI Editors should be displayed for current user
+	 */
+	public static function current_user_can_edit_uris() {
+		global $permalink_manager_options;
+
+		$edit_uris_cap = (!empty($permalink_manager_options['general']['edit_uris_cap'])) ? $permalink_manager_options['general']['edit_uris_cap'] : 'publish_posts';
+
+		return current_user_can($edit_uris_cap);
+	}
+
+	/**
 	 * "Quick Edit" Box
 	 */
 	public static function quick_edit_column_form($is_taxonomy = false) {
+		// Check the user capabilities
+		if(self::current_user_can_edit_uris() === false) {
+			return;
+		}
+
 		$html = self::generate_option_field('permalink-manager-quick-edit', array('value' => true, 'type' => 'hidden'));
 		$html .= "<fieldset class=\"inline-edit-permalink\">";
 		$html .= sprintf("<legend class=\"inline-edit-legend\">%s</legend>", __("Permalink Manager", "permalink-manager"));
@@ -803,8 +819,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		global $permalink_manager_options, $permalink_manager_uris;
 
 		// Check the user capabilities
-		$edit_uris_cap = (!empty($permalink_manager_options['general']['edit_uris_cap'])) ? $permalink_manager_options['general']['edit_uris_cap'] : 'publish_posts';
-		if(!current_user_can($edit_uris_cap)) {
+		if(self::current_user_can_edit_uris() === false) {
 			return;
 		}
 

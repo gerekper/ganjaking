@@ -1104,10 +1104,6 @@ form.mo-inline {
     font-size: 24px !important;
 }
 
-.drag-and-drop-btn {
-    font-family: 'Open Sans', sans-serif;
-}
-
 .responsive-image img {
     width: 100%;
     height: auto;
@@ -1136,11 +1132,6 @@ form.mo-inline {
 
 .mo-builder-select-active {
     border: 2px solid #098fe2;
-}
-
-.drag-and-drop-btn {
-    position: absolute;
-    right: 0;
 }
 
 .mo-half-meta-inner {

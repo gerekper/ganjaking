@@ -1,5 +1,16 @@
 *** WooCommerce Bookings Changelog ***
 
+2021-10-20 - version 1.15.48
+* Fix - Include `was-in-cart` bookings to database cleanup tool.
+* Tweak - WC 5.8 compatibility.
+* Tweak - WP 5.8 compatibility.
+
+2021-10-05 - version 1.15.47
+* Add - Filter `woocommerce_bookings_product_defaults` to override default attributes for Product Booking.
+* Fix - Ensure timeframe calculations are correct when using hours in the max bookable setting.
+* Fix - Prevent duplication of transient keys.
+* Fix - Revert "Add the jQuery UI styles and images to our codebase".
+
 2021-10-04 - version 1.15.46
 * Fix - Date correction for bookings that cross days between user's local timezone and site timezone.
 * Tweak - WC 5.7 compatibility.

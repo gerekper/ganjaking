@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Conditions class.
  *
  * @class    WC_CSP_Conditions
- * @version  1.9.0
+ * @version  1.10.0
  */
 class WC_CSP_Conditions {
 
@@ -64,6 +64,7 @@ class WC_CSP_Conditions {
 			'WC_CSP_Condition_Order_Status',
 			'WC_CSP_Condition_Date_Time',
 			'WC_CSP_Condition_Stock_Quantity',
+			'WC_CSP_Condition_Cart_Item_Count'
 		) );
 
 		// Load conditions.

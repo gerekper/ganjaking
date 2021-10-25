@@ -22,6 +22,7 @@
       var mailpoet_current_time = <%= json_encode(current_time) %>;
       var mailpoet_schedule_time_of_day = <%= json_encode(schedule_time_of_day) %>;
       var mailpoet_date_display_format = "<%= wp_date_format() %>";
+      var mailpoet_start_of_week = "<%= wp_start_of_week() %>";
       var mailpoet_site_url = "<%= site_url %>";
       var mailpoet_date_storage_format = "Y-m-d";
       var mailpoet_tracking_enabled = <%= json_encode(tracking_enabled) %>;
@@ -32,7 +33,7 @@
       var mailpoet_products = <%= json_encode(products) %>;
 
       var has_mss_key_specified = <%= json_encode(has_mss_key_specified) %>;
-      var mailpoet_account_url = '<%= add_referral_id("https://account.mailpoet.com/?s=" ~ subscriber_count ~ "&email=" ~ current_wp_user.user_email|escape('js')) %>';
+      var mailpoet_account_url = '<%= add_referral_id("https://account.mailpoet.com/?s=" ~ subscriber_count ~ "&email=" ~ current_wp_user.user_email) | escape('js') %>';
       var mailpoet_feature_flags = <%= json_encode(mailpoet_feature_flags) %>;
 
       var mailpoet_woocommerce_automatic_emails = <%= json_encode(automatic_emails) %>;
@@ -139,7 +140,7 @@
     'subject': __('Subject'),
     'status': __('Status'),
     'statsListingActionTitle': __('Statistics'),
-    'statistics': __('Clicked, Opened'),
+    'statistics': __('Opened, Clicked'),
     'lists': __('Lists'),
     'settings': __('Settings'),
     'history': __('History'),
@@ -226,6 +227,7 @@
     'selectFrequency': __('Select a frequency'),
     'postNotificationSubjectLineTip': __("Insert [newsletter:total] to show number of posts, [newsletter:post_title] to show the latest post's title & [newsletter:number] to display the issue number."),
     'activate': __('Activate'),
+    'sendWelcomeEmailWhen': __('Send this Welcome Email when...'),
     'premiumBannerDescription': __('Learn more about your subscribers and optimize your campaigns. See who opened your emails, which links they clicked, and then use the data to make your emails even better. And if you run a WooCommerce store, you’ll also see the revenue earned per email.'),
     'upgradeRequired': __('Upgrade required'),
     'newsletterFreeVersionLimit': __('Congratulations, you now have [subscribersCount] subscribers! Our free version is limited to [subscribersLimit] subscribers. You need to upgrade now to be able to continue using MailPoet.'),
@@ -250,7 +252,7 @@
     'last': _x('last', 'e.g. monthly every last Monday'),
     'next': _x('Next', 'Button label: Next step'),
 
-    'selectEventToSendWelcomeEmail': __('When to send this welcome email?'),
+    'selectEventToSendWelcomeEmail': __('When is this Welcome Email sent?'),
 
     'onSubscriptionToList': __('When someone subscribes to the list...'),
     'onWPUserRegistration': __('When a new WordPress user is added to your site...'),
@@ -291,6 +293,10 @@
     'websiteTimeIs': __("Your website’s time is"),
     'noScheduledDateError': __('Please enter the scheduled date.'),
     'schedule': __('Schedule'),
+
+    'allSendingPausedHeader': __('All sending is currently paused!'),
+    'allSendingPausedBody': __('Your key to send with MailPoet is invalid.'),
+    'allSendingPausedLink': __('Purchase a key'),
 
     'next': __('Next'),
     'previous': __('Previous'),
@@ -333,7 +339,6 @@
     'mailerErrorCode': __('Error code: %$1s'),
     'mailerCheckSettingsNotice': __('Check your [link]sending method settings[/link].'),
     'mailerResumeSendingButton': __('Resume sending'),
-    'mailerResumeSendingAfterUpgradeButton': __('I have upgraded my subscription, resume sending'),
     'confirmEdit': __('Sending is in progress. Do you want to pause sending and edit the newsletter?'),
     'confirmTitle': __('Confirm to proceed'),
     'confirmLabel': __('Confirm'),
@@ -389,16 +394,12 @@
     'statsReplyToAddress': __('Reply-to'),
     'statsTotalSent': __('Sent to'),
     'percentageOpened': _x('opened', 'Percentage of subscribers that opened a newsletter link'),
-    'percentageMachineOpened': _x('machine-opened', 'Percentage of newsletters that were opened by a machine'),
-    'percentageMachineOpenedTooltip': __('A machine-opened email is an email opened by a computer in the background without the user’s explicit request or knowledge. [link]Read more[/link]'),
     'percentageClicked': _x('clicked', 'Percentage of subscribers that clicked a newsletter link'),
     'percentageUnsubscribed': _x('unsubscribed', 'Percentage of subscribers that unsubscribed from a newsletter'),
-    'percentageBounced': _x('bounced', 'Percentage of subscribers that bounced from a newsletter'),
     'readMoreOnStats': __('Read more on stats.'),
     'clickedLinks': __('Clicked Links'),
     'subscriberEngagement': __('Subscriber Engagement'),
     'googleAnalytics': __('GA campaign'),
-    'bounces': _x('Bounces', 'A tab title for the list of bounces (w.wiki/45Qc)'),
 
     'premiumBannerCtaFree': __('Sign Up for Free', 'mailpoet'),
     'topBarLogoTitle': __('Back to section root'),

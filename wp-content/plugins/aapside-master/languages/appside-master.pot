@@ -1,0 +1,306 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Aapside Master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-26 10:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.5.0; wp-5.5.3\n"
+"X-Domain: appside-master"
+
+#: admin/class-menu-page.php:94
+#, php-format
+msgid "%s"
+msgstr ""
+
+#: admin/class-menu-page.php:99
+#, php-format
+msgid "%s Categories"
+msgstr ""
+
+#: admin/class-menu-page.php:62
+msgid "Aapside"
+msgstr ""
+
+#. Name of the plugin
+msgid "Aapside Master"
+msgstr ""
+
+#: admin/class-menu-page.php:61
+msgid "Aapside Page"
+msgstr ""
+
+#: admin/class-custom-post-type.php:91 admin/class-custom-post-type.php:92
+msgid "Add New Footer Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:121 admin/class-custom-post-type.php:122
+msgid "Add New Header Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:58 admin/class-custom-post-type.php:59
+msgid "Add New Mega Menu"
+msgstr ""
+
+#: admin/class-custom-post-type.php:151 admin/class-custom-post-type.php:152
+msgid "Add New Portfolio"
+msgstr ""
+
+#: elementor/widgets/class-price-plan-one-elementor-widget.php:275
+msgid "Button Hover"
+msgstr ""
+
+#: elementor/widgets/class-price-plan-one-elementor-widget.php:246
+msgid "Button Normal"
+msgstr ""
+
+#: admin/class-post-column-customize.php:49
+msgid "Date"
+msgstr ""
+
+#: admin/class-custom-post-type.php:93
+msgid "Edit Footer Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:123
+msgid "Edit Header Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:60
+msgid "Edit Mega Menu"
+msgstr ""
+
+#: admin/class-custom-post-type.php:153
+msgid "Edit Portfolio"
+msgstr ""
+
+#: lib/mega-menu/add-menu-item-custom-fields.php:70
+msgid "Elementor Mega Menu (optional)"
+msgstr ""
+
+#: admin/class-custom-post-type.php:83 admin/class-custom-post-type.php:84
+#: admin/class-custom-post-type.php:88
+msgid "Footer Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:89
+msgid "Footer Builders"
+msgstr ""
+
+#: admin/class-custom-post-type.php:113 admin/class-custom-post-type.php:114
+#: admin/class-custom-post-type.php:118
+msgid "Header Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:119
+msgid "Header Builders"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://themeforest.net/user/ir-tech"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://themeforest.net/user/ir-tech/portfolio"
+msgstr ""
+
+#. Author of the plugin
+msgid "Ir-Tech"
+msgstr ""
+
+#: admin/class-menu-page.php:72
+msgid "License"
+msgstr ""
+
+#: admin/partials/license-page.php:2
+msgid "License Settings"
+msgstr ""
+
+#: admin/class-menu-page.php:118
+msgid "License Your Theme From \"Appside > License\" To Import Demo Data"
+msgstr ""
+
+#: admin/partials/license-page.php:3
+msgid ""
+"License your theme to access theme demo data. without license you can do "
+"everything except import demo data."
+msgstr ""
+
+#: admin/partials/license-page.php:6
+msgid "License Your Theme To Import Demo Data"
+msgstr ""
+
+#: admin/class-custom-post-type.php:50 admin/class-custom-post-type.php:51
+#: admin/class-custom-post-type.php:55
+msgid "Mega Menu"
+msgstr ""
+
+#: admin/class-custom-post-type.php:56
+msgid "Mega Menus"
+msgstr ""
+
+#: lib/mega-menu/add-menu-item-custom-fields.php:95
+msgid "No Mega Menu Founds"
+msgstr ""
+
+#: admin/class-custom-post-type.php:63 admin/class-custom-post-type.php:96
+#: admin/class-custom-post-type.php:126 admin/class-custom-post-type.php:156
+msgid "Not Found"
+msgstr ""
+
+#: admin/class-custom-post-type.php:64 admin/class-custom-post-type.php:97
+#: admin/class-custom-post-type.php:127 admin/class-custom-post-type.php:157
+msgid "Not found in Trash"
+msgstr ""
+
+#: demo-data-import/class-demo-data-import.php:63
+#: demo-data-import/class-demo-data-import.php:70
+#: demo-data-import/class-demo-data-import.php:77
+#: demo-data-import/class-demo-data-import.php:84
+#: demo-data-import/class-demo-data-import.php:91
+#: demo-data-import/class-demo-data-import.php:98
+#: demo-data-import/class-demo-data-import.php:105
+#: demo-data-import/class-demo-data-import.php:112
+#: demo-data-import/class-demo-data-import.php:119
+#: demo-data-import/class-demo-data-import.php:126
+#: demo-data-import/class-demo-data-import.php:133
+#: demo-data-import/class-demo-data-import.php:140
+#: demo-data-import/class-demo-data-import.php:147
+#: demo-data-import/class-demo-data-import.php:154
+#: demo-data-import/class-demo-data-import.php:161
+#: demo-data-import/class-demo-data-import.php:168
+msgid ""
+"Please Give Some Time To Import Theme Demo Data, It May Take 5-10 Minutes, "
+"It Will Download All Theme Data From Server So Be Cool!."
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Plugin to contain short codes, custom post types, Elementor Widgets, Custom "
+"Widget and more of the Aapside theme."
+msgstr ""
+
+#: admin/class-custom-post-type.php:143 admin/class-custom-post-type.php:144
+#: admin/class-custom-post-type.php:148
+msgid "Portfolio"
+msgstr ""
+
+#: admin/class-custom-post-type.php:149
+msgid "Portfolios"
+msgstr ""
+
+#: admin/class-custom-post-type.php:86
+msgctxt "Post Type General Name"
+msgid "Footer Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:116
+msgctxt "Post Type General Name"
+msgid "Header Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:53
+msgctxt "Post Type General Name"
+msgid "Mega Menu"
+msgstr ""
+
+#: admin/class-custom-post-type.php:146
+msgctxt "Post Type General Name"
+msgid "Portfolio"
+msgstr ""
+
+#: admin/class-custom-post-type.php:87
+msgctxt "Post Type Singular Name"
+msgid "Footer Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:117
+msgctxt "Post Type Singular Name"
+msgid "Header Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:54
+msgctxt "Post Type Singular Name"
+msgid "Mega Menu"
+msgstr ""
+
+#: admin/class-custom-post-type.php:147
+msgctxt "Post Type Singular Name"
+msgid "Portfolio"
+msgstr ""
+
+#: admin/partials/license-page.php:18
+msgid "Purchase Code"
+msgstr ""
+
+#: admin/partials/license-page.php:24
+msgid "Save Changes"
+msgstr ""
+
+#: admin/class-custom-post-type.php:95
+msgid "Search Footer Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:125
+msgid "Search Header Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:62
+msgid "Search Mega Menu"
+msgstr ""
+
+#: admin/class-custom-post-type.php:155
+msgid "Search Portfolio"
+msgstr ""
+
+#: lib/mega-menu/add-menu-item-custom-fields.php:98
+msgid "Select Mega Menu"
+msgstr ""
+
+#: admin/class-post-column-customize.php:47
+msgid "Thumbnail"
+msgstr ""
+
+#: admin/class-post-column-customize.php:46
+msgid "Title"
+msgstr ""
+
+#: admin/class-custom-post-type.php:94
+msgid "Update Footer Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:124
+msgid "Update Header Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:61
+msgid "Update Mega Menu"
+msgstr ""
+
+#: admin/class-custom-post-type.php:154
+msgid "Update Portfolio"
+msgstr ""
+
+#: admin/class-custom-post-type.php:90
+msgid "View Footer Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:120
+msgid "View Header Builder"
+msgstr ""
+
+#: admin/class-custom-post-type.php:57
+msgid "View Mega Menu"
+msgstr ""
+
+#: admin/class-custom-post-type.php:150
+msgid "View Portfolio"
+msgstr ""

@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Local_Pickup_Plus\Fields;
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Data_Store\Package_Pickup_Data;
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 
 /**
  * Field component to schedule an appointment for items to be picked up at checkout.

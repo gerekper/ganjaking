@@ -16,6 +16,12 @@ use Yoast\WP\SEO\Repositories\SEO_Links_Repository;
 class Link_Suggestions_Action {
 
 	/**
+	 * The amount of indexables to retrieve in one go
+	 * when generating internal linking suggestions.
+	 */
+	const BATCH_SIZE = 1000;
+
+	/**
 	 * The repository to retrieve prominent words from.
 	 *
 	 * @var Prominent_Words_Repository
@@ -49,12 +55,6 @@ class Link_Suggestions_Action {
 	 * @var WPSEO_Premium_Prominent_Words_Support
 	 */
 	protected $prominent_words_support;
-
-	/**
-	 * The amount of indexables to retrieve in one go
-	 * when generating internal linking suggestions.
-	 */
-	const BATCH_SIZE = 1000;
 
 	/**
 	 * Link_Suggestions_Service constructor.

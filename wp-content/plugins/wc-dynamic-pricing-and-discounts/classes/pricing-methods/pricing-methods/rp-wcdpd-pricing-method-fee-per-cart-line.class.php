@@ -45,7 +45,7 @@ abstract class RP_WCDPD_Pricing_Method_Fee_Per_Cart_Line extends RP_WCDPD_Pricin
      */
     public function get_group_label()
     {
-        return esc_html__('Fee Per Cart Line', 'rp_wcdpd');
+        return __('Fee Per Cart Line', 'rp_wcdpd');
     }
 
 

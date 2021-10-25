@@ -19,9 +19,7 @@ class Installer {
   /** @var SettingsController */
   private $settings;
 
-  public function __construct(
-    $slug
-  ) {
+  public function __construct($slug) {
     $this->slug = $slug;
     $this->settings = SettingsController::getInstance();
   }

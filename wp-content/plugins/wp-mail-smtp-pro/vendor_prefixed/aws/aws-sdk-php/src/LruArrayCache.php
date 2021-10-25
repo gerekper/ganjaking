@@ -62,7 +62,6 @@ class LruArrayCache implements \WPMailSMTP\Vendor\Aws\CacheInterface, \Countable
     {
         unset($this->items[$key]);
     }
-    #[\ReturnTypeWillChange]
     public function count()
     {
         return \count($this->items);

@@ -4,16 +4,16 @@
  *
  * @Module: Single Product view
  * @Since: 1.0
- * @package Ultimate_VC_Addons_WooComposer
+ * @package WooComposer
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_ViewProduct' ) ) {
+if ( ! class_exists( 'WooComposer_ViewProduct' ) ) {
 	/**
-	 * Class that initializes Ultimate_VC_Addons_WooComposer view peoduct
+	 * Class that initializes WooComposer view peoduct
 	 *
-	 * @class Ultimate_VC_Addons_WooComposer_ViewProduct
+	 * @class WooComposer_ViewProduct
 	 */
-	class Ultimate_VC_Addons_WooComposer_ViewProduct {
+	class WooComposer_ViewProduct {
 		/**
 		 * Constructor function that constructs WooComposer view peoduct.
 		 *
@@ -417,5 +417,5 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_ViewProduct' ) ) {
 
 		}
 	}
-	new Ultimate_VC_Addons_WooComposer_ViewProduct();
+	new WooComposer_ViewProduct();
 }

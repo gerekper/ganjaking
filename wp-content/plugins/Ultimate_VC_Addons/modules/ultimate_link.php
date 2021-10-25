@@ -6,13 +6,13 @@
  *  @package UAVC Ultimate Creative link
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_creative_link' ) ) {
+if ( ! class_exists( 'AIO_creative_link' ) ) {
 	/**
 	 * Function that initializes Ultimate Creative link Module
 	 *
-	 * @class Ultimate_VC_Addons_creative_link
+	 * @class AIO_creative_link
 	 */
-	class Ultimate_VC_Addons_creative_link { // @codingStandardsIgnoreLine.
+	class AIO_creative_link { // @codingStandardsIgnoreLine.
 		/**
 		 * Constructor function that constructs default values for the Ultimate Creative link module.
 		 *
@@ -34,9 +34,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons_creative_link' ) ) {
 		 */
 		public function creative_link_scripts() {
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons_cllink', 'creative-link' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ult_cllink', 'creative-link' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-jquery.ult_cllink', 'creative-link', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'jquery.ult_cllink', 'creative-link', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 
 		/**
@@ -642,9 +642,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons_creative_link' ) ) {
 
 	}
 }
-if ( class_exists( 'Ultimate_VC_Addons_creative_link' ) ) {
+if ( class_exists( 'AIO_creative_link' ) ) {
 
-	$AIO_creative_link = new Ultimate_VC_Addons_creative_link();// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+	$AIO_creative_link = new AIO_creative_link();// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 
 }
 if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_ult_createlink' ) ) {

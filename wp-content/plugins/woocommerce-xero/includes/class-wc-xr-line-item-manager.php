@@ -80,15 +80,13 @@ class WC_XR_Line_Item_Manager {
 				}
 
 				// Send Discount?
-				$item_with_discounts = $order->get_item_total( $item, false, false );
 				$item_without_discounts = $order->get_item_subtotal( $item, false, false );
 
 				// Invoice decimal precision.
-				$precision = 'on' === $this->settings->get_option( 'four_decimals' ) ? 4 : 2;
-				$item_discount = round( $item_without_discounts, $precision ) - round( $item_with_discounts, $precision );
+				$precision     = 'on' === $this->settings->get_option( 'four_decimals' ) ? 4 : 2;
+				$item_discount = round( ( $item->get_subtotal() - $item->get_total() ), $precision );
 				if ( 0.001 < abs( $item_discount ) ) {
-					$item_discount_as_percentage = abs( $item_discount / $item_without_discounts ) * 100.0;
-					$line_item->set_discount_rate( $item_discount_as_percentage );
+					$line_item->set_discount_amount( $item_discount );
 				}
 
 				// Set the Unit Amount
@@ -349,7 +347,7 @@ class WC_XR_Line_Item_Manager {
 		if ( count( $line_items ) > 0 ) {
 
 			foreach ( $line_items as $line_item ) {
-				$line_val    = round( $line_item->get_unit_amount(), $precision ) * $line_item->get_quantity() * ( ( 100 - $line_item->get_discount_rate() ) / 100 );
+				$line_val    = round( $line_item->get_unit_amount(), $precision ) * $line_item->get_quantity() - $line_item->get_discount_amount();
 				$line_tax    = round( $line_item->get_tax_amount(), $precision );
 				$line_total += $line_val + $line_tax ;
 			}

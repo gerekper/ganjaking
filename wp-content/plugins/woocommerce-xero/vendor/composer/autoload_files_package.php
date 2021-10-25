@@ -43,15 +43,15 @@ return array(
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php'
 	),
 	'ab46eb6d67dd34a563a7d64ba606d064' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php'
 	),
 	'6bd79e3b52cb0a8addcffec8342d7338' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/functions_include.php'
 	),
 	'03db06424c46ec9698b2e4145737fbe2' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/functions_include.php'
 	),
 );

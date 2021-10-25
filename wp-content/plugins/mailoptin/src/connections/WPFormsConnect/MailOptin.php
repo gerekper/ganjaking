@@ -62,11 +62,28 @@ class MailOptin extends \WPForms_Provider
 
             $name_data = explode('.', $connection['fields']['moName']);
             $name_id   = $name_data[0];
-            $name      = $fields[$name_id]['value'];
+            $name_key  = ! empty($name_data[1]) ? $name_data[1] : 'value';
+            $name      = isset($fields[$name_id][$name_key]) ? $fields[$name_id][$name_key] : '';
+
+            $fname_data = explode('.', $connection['fields']['moFirstName']);
+            $fname_id   = $fname_data[0];
+            $fname_key  = ! empty($fname_data[1]) ? $fname_data[1] : 'value';
+            $fname      = isset($fields[$fname_id][$fname_key]) ? $fields[$fname_id][$fname_key] : '';
+
+            $lname_data = explode('.', $connection['fields']['moLastName']);
+            $lname_id   = $lname_data[0];
+            $lname_key  = ! empty($lname_data[1]) ? $lname_data[1] : 'value';
+            $lname      = isset($fields[$lname_id][$lname_key]) ? $fields[$lname_id][$lname_key] : '';
 
             // Email is required.
             if (empty($email)) {
                 continue;
+            }
+
+            $connection_service = $connection['account_id'];
+            $double_optin = false;
+            if(in_array($connection_service, Init::double_optin_support_connections(true))) {
+                $double_optin = isset($connection['options']['double_optin']) && $connection['options']['double_optin'] === "true";
             }
 
             $optin_data = new ConversionDataBuilder();
@@ -75,15 +92,18 @@ class MailOptin extends \WPForms_Provider
             $optin_data->payload           = [];
             $optin_data->email             = $email;
 
-            if ( ! empty($name)) {
-                $optin_data->name = $name;
+            $fullname = Init::return_name($name, $fname, $lname);
+
+            if ( ! empty($fullname)) {
+                $optin_data->name = $fullname;
             }
 
-            $optin_data->optin_campaign_type       = 'WPForms';
-            $optin_data->connection_service        = $connection['account_id'];
-            $optin_data->connection_email_list     = isset($connection['list_id']) ? $connection['list_id'] : '';
-            $optin_data->is_timestamp_check_active = false;
-            $optin_data->user_agent                = esc_html($_SERVER['HTTP_USER_AGENT']);
+            $optin_data->optin_campaign_type        = 'WPForms';
+            $optin_data->connection_service         = $connection_service;
+            $optin_data->connection_email_list      = isset($connection['list_id']) ? $connection['list_id'] : '';
+            $optin_data->is_timestamp_check_active  = false;
+            $optin_data->is_double_optin            = $double_optin;
+            $optin_data->user_agent                 = esc_html($_SERVER['HTTP_USER_AGENT']);
 
             if (isset($_REQUEST['referrer'])) {
                 $optin_data->conversion_page = esc_url_raw($_REQUEST['referrer']);
@@ -102,7 +122,7 @@ class MailOptin extends \WPForms_Provider
             foreach ($connection['fields'] as $fieldKey => $merge_var) {
 
                 // Don't include Email or Full name fields.
-                if (in_array($fieldKey, ['moEmail', 'moName'])) continue;
+                if (in_array($fieldKey, ['moEmail', 'moName', 'moFirstName', 'moLastName'])) continue;
 
                 // Check if merge var is mapped.
                 if (empty($merge_var)) continue;
@@ -353,11 +373,23 @@ class MailOptin extends \WPForms_Provider
                 'name'       => esc_html__('Full Name', 'mailoptin'),
                 'field_type' => 'text',
                 'tag'        => 'moName',
+            ],
+            [
+                'name'       => esc_html__('First Name', 'mailoptin'),
+                'field_type' => 'text',
+                'tag'        => 'moFirstName',
+            ],
+            [
+                'name'       => esc_html__('Last Name', 'mailoptin'),
+                'field_type' => 'text',
+                'tag'        => 'moLastName',
             ]
         ];
 
         if (in_array($account_id, Init::no_name_mapping_connections())) {
-            unset($provider_fields[1]);
+            unset($provider_fields[1]); // tag => moName
+            unset($provider_fields[2]); // tag => moFirstName
+            unset($provider_fields[3]); // tag => moLastName
         }
 
         if (defined('MAILOPTIN_DETACH_LIBSODIUM')) {
@@ -407,9 +439,42 @@ class MailOptin extends \WPForms_Provider
 
         $account_id = $connection['account_id'];
 
-        $output = '<div class="wpforms-provider-options wpforms-connection-block">';
+        $output = '<div class="wpforms-provider-options wpforms-connection-block wpforms-panel-field wpforms-panel-field-checkbox">';
 
         if (defined('MAILOPTIN_DETACH_LIBSODIUM')) {
+            if(in_array($account_id, Init::double_optin_support_connections(true))) {
+                $output .= '<h4>' . esc_html__('Double Optin', 'mailoptin') . '</h4>';
+
+                $default_double_optin = false;
+                $double_optin_connections = Init::double_optin_support_connections();
+                foreach($double_optin_connections as $key => $value) {
+                    if($account_id === $key) {
+                        $default_double_optin = $value;
+                    }
+                }
+
+                $double_optin_status = esc_html__('Enable Double Optin', 'mailoptin');
+                if($default_double_optin) {
+                    $double_optin_status = esc_html__('Disable Double Optin', 'mailoptin');
+                }
+
+                $output .= sprintf(
+                    '<p>
+				<input id="%s_options_double_optin" type="checkbox" name="providers[%s][%s][options][double_optin]" value="%s" %s>
+				<label for="%s_options_double_optin" class="inline">%s <i class="fa fa-question-circle wpforms-help-tooltip" title="%s"></i></label>
+			</p>',
+                    esc_attr($connection_id),
+                    esc_attr($this->slug),
+                    esc_attr($connection_id),
+                    ! empty($connection['options']['double_optin']) ? esc_attr($connection['options']['double_optin']) : 'true',
+                    ! empty($connection['options']['double_optin']) && esc_attr($connection['options']['double_optin']) == "true" ? 'checked': '',
+                    esc_attr($connection_id),
+                    $double_optin_status,
+                    esc_html__('Double optin requires users to confirm their email address before they are added or subscribed.', 'mailoptin')
+                );
+
+            }
+
 
             if (in_array($account_id, Init::text_tag_connections())) {
 
@@ -469,7 +534,7 @@ class MailOptin extends \WPForms_Provider
             $upgrade_url   = 'https://mailoptin.io/pricing/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=wpforms_builder_settings';
             $learnmore_url = 'https://mailoptin.io/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=wpforms_builder_settings';
             $output        .= '<div class="wpforms-alert wpforms-alert-info">';
-            $output        .= '<p>' . sprintf(esc_html__('Upgrade to %s to remove the 500 subscribers per month limit, add support for custom field mapping and assign tags to subscribers.', 'mailoptin'), '<strong>MailOptin premium</strong>') . '</p>';
+            $output        .= '<p>' . sprintf(esc_html__('Upgrade to %s to remove the 500 subscribers monthly limit, add support for custom field mapping and assign tags to subscribers.', 'mailoptin'), '<strong>MailOptin premium</strong>') . '</p>';
             $output        .= '<p><a href="' . $upgrade_url . '" style="margin-right: 10px;" class="button-primary" target="_blank">' . esc_html__('Upgrade to MailOptin Premium', 'mailoptin') . '</a>';
             $output        .= sprintf(esc_html__('Learn more about our %slead generation and email automation features%s', 'mailoptin'), '<a href="' . $learnmore_url . '" target="_blank">', '</a>') . '</p>';
             $output        .= '</div>';

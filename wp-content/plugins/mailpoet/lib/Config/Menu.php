@@ -99,7 +99,7 @@ class Menu {
            . '|Raleway:400,400i,700,700i'
            . '|Permanent+Marker:400,400i,700,700i'
            . '|Pacifico:400,400i,700,700i';
-          echo '<link href="https://fonts.googleapis.com/css?family=' . $fonts . '" rel="stylesheet">';
+          echo '<!--[if !mso]><link href="https://fonts.googleapis.com/css?family=' . $fonts . '" rel="stylesheet"><![endif]-->';
         });
       }
     }

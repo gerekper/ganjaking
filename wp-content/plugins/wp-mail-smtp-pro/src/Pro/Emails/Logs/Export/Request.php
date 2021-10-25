@@ -66,7 +66,7 @@ class Request {
 		if ( empty( $this->args['request_id'] ) ) {
 			$this->data = $this->get_initial_request_data();
 		} else {
-			$data = get_transient( 'wp_mail_smtp_tools_export_email_logs_request_' . $this->args['request_id'] );
+			$data = get_transient( 'wp-mail-smtp-tools-export-email-logs-request-' . $this->args['request_id'] );
 
 			if ( $this->get_arg( 'step' ) > 1 ) {
 				$data['db_args']['offset'] = $data['db_args']['per_page'] * ( $this->get_arg( 'step' ) - 1 );
@@ -90,7 +90,7 @@ class Request {
 		}
 
 		return set_transient(
-			'wp_mail_smtp_tools_export_email_logs_request_' . $this->get_request_id(),
+			'wp-mail-smtp-tools-export-email-logs-request-' . $this->get_request_id(),
 			$this->data,
 			Export::get_config( 'export', 'request_data_ttl' )
 		);

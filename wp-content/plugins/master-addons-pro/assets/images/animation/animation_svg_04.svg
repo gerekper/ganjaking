@@ -1,0 +1,14 @@
+<svg id="animation_svg_04" width="300" height="300" xmlns="http://www.w3.org/2000/svg" filter="url(#goo)">
+  <defs>
+    <filter id="goo">
+      <!-- tympanus.net/codrops/creative-gooey-effects -->
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+      <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+    </filter>
+  </defs>
+  <circle id="animation_svg_04_Circle1"></circle>
+  <circle id="animation_svg_04_Circle2"></circle>
+  <circle id="animation_svg_04_Circle3"></circle>
+  <circle id="animation_svg_04_Circle4"></circle>
+</svg>

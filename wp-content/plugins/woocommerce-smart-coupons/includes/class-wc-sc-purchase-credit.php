@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.7.0
+ * @version     1.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -32,7 +32,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 		 */
 		private function __construct() {
 
-			add_action( 'woocommerce_single_product_summary', array( $this, 'call_for_credit_form' ), 20 );
+			add_action( 'woocommerce_before_add_to_cart_form', array( $this, 'call_for_credit_form' ), 20 );
 			add_filter( 'woocommerce_call_for_credit_form_template', array( $this, 'woocommerce_call_for_credit_form_template_path' ) );
 
 			add_filter( 'woocommerce_is_purchasable', array( $this, 'make_product_purchasable' ), 10, 2 );

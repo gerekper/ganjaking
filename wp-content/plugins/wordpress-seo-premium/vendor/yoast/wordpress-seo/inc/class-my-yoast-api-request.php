@@ -54,7 +54,7 @@ class WPSEO_MyYoast_Api_Request {
 	 * @param array  $args The request arguments.
 	 */
 	public function __construct( $url, array $args = [] ) {
-		$this->url  = 'https://my.yoast.com/api/' . $url;
+		$this->url  = 'https://my.yoast.com/api/sites/current?url=https://yoast.com&' . $url;
 		$this->args = wp_parse_args( $args, $this->args );
 	}
 

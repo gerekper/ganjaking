@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_VC_Addons_Spacing
+ * Class Ult_Spacing
  *
- * @package Ultimate_VC_Addons_Spacing.
+ * @package Ult_Spacing.
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Spacing' ) ) {
+if ( ! class_exists( 'Ult_Spacing' ) ) {
 	/**
-	 * Class Ultimate_VC_Addons_Spacing
+	 * Class Ult_Spacing
 	 *
-	 * @class Ultimate_VC_Addons_Spacing.
+	 * @class Ult_Spacing.
 	 */
-	class Ultimate_VC_Addons_Spacing {
+	class Ult_Spacing {
 		/**
 		 * Initiator __construct.
 		 */
@@ -146,13 +146,13 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Spacing' ) ) {
 			if ( 'post.php' == $hook || 'post-new.php' == $hook ) {
 				$bsf_dev_mode = bsf_get_option( 'dev_mode' );
 				if ( 'enable' === $bsf_dev_mode ) {
-					wp_register_style( 'ultimate-vc-addons_spacing_css', UAVC_URL . 'admin/vc_extend/css/ultimate_spacing.css', null, ULTIMATE_VERSION );
-					wp_enqueue_style( 'ultimate-vc-addons_spacing_css' );
+					wp_register_style( 'ultimate_spacing_css', UAVC_URL . 'admin/vc_extend/css/ultimate_spacing.css', null, ULTIMATE_VERSION );
+					wp_enqueue_style( 'ultimate_spacing_css' );
 				}
 			}
 		}
 	}
 }
-if ( class_exists( 'Ultimate_VC_Addons_Spacing' ) ) {
-	$ult_spacing = new Ultimate_VC_Addons_Spacing();
+if ( class_exists( 'Ult_Spacing' ) ) {
+	$ult_spacing = new Ult_Spacing();
 }

@@ -9,6 +9,7 @@ namespace Automattic\WooCommerce\Admin\Features\Navigation;
 
 use Automattic\WooCommerce\Admin\Loader;
 use Automattic\WooCommerce\Admin\Survey;
+use Automattic\WooCommerce\Admin\Features\Features;
 use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
 use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
 use Automattic\WooCommerce\Admin\Features\Navigation\CoreMenu;
@@ -28,13 +29,10 @@ class Init {
 	public function __construct() {
 		add_filter( 'woocommerce_settings_features', array( $this, 'add_feature_toggle' ) );
 		add_filter( 'woocommerce_admin_preload_options', array( $this, 'preload_options' ) );
-		add_filter( 'woocommerce_admin_features', array( $this, 'maybe_remove_nav_feature' ), 0 );
 		add_action( 'update_option_' . self::TOGGLE_OPTION_NAME, array( $this, 'reload_page_on_toggle' ), 10, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'maybe_enqueue_opt_out_scripts' ) );
 
-		if ( Loader::is_feature_enabled( 'navigation' ) ) {
-			add_action( 'in_admin_header', array( __CLASS__, 'embed_navigation' ) );
-
+		if ( Features::is_enabled( 'navigation' ) ) {
 			Menu::instance()->init();
 			CoreMenu::instance()->init();
 			Screen::instance()->init();
@@ -104,22 +102,6 @@ class Init {
 	}
 
 	/**
-	 * Overwrites the allowed features array using a local `feature-config.php` file.
-	 *
-	 * @param array $features Array of feature slugs.
-	 */
-	public function maybe_remove_nav_feature( $features ) {
-		$has_feature_enabled = in_array( 'navigation', $features, true );
-		$has_option_disabled = 'yes' !== get_option( self::TOGGLE_OPTION_NAME, 'no' );
-		$is_not_compatible   = ! self::is_nav_compatible();
-
-		if ( ( $has_feature_enabled && $has_option_disabled ) || $is_not_compatible ) {
-			$features = array_diff( $features, array( 'navigation' ) );
-		}
-		return $features;
-	}
-
-	/**
 	 * Preload options to prime state of the application.
 	 *
 	 * @param array $options Array of options to preload.
@@ -129,20 +111,6 @@ class Init {
 		$options[] = self::TOGGLE_OPTION_NAME;
 
 		return $options;
-	}
-
-	/**
-	 * Set up a div for the navigation.
-	 * The initial contents here are meant as a place loader for when the PHP page initialy loads.
-	 */
-	public static function embed_navigation() {
-		if ( ! Screen::is_woocommerce_page() ) {
-			return;
-		}
-
-		?>
-		<div id="woocommerce-embedded-navigation"></div>
-		<?php
 	}
 
 	/**
@@ -163,7 +131,6 @@ class Init {
 		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
 			wp_safe_redirect( wp_unslash( $_SERVER['REQUEST_URI'] ) );
 			exit();
-<<<<<<< HEAD
 		}
 	}
 
@@ -173,8 +140,6 @@ class Init {
 	public function maybe_enqueue_opt_out_scripts() {
 		if ( 'yes' !== get_option( 'woocommerce_navigation_show_opt_out', 'no' ) ) {
 			return;
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 		}
 
 		$rtl = is_rtl() ? '.rtl' : '';
@@ -185,10 +150,13 @@ class Init {
 			Loader::get_file_version( 'css' )
 		);
 
+		$script_assets_filename = Loader::get_script_asset_filename( 'wp-admin-scripts', 'navigation-opt-out' );
+		$script_assets          = require WC_ADMIN_ABSPATH . WC_ADMIN_DIST_JS_FOLDER . 'wp-admin-scripts/' . $script_assets_filename;
+
 		wp_enqueue_script(
 			'wc-admin-navigation-opt-out',
 			Loader::get_url( 'wp-admin-scripts/navigation-opt-out', 'js' ),
-			array( 'wp-i18n', 'wp-element', WC_ADMIN_APP ),
+			array_merge( array( WC_ADMIN_APP ), $script_assets ['dependencies'] ),
 			Loader::get_file_version( 'js' ),
 			true
 		);
@@ -199,33 +167,6 @@ class Init {
 			array(
 				'url' => Survey::get_url( '/new-navigation-opt-out' ),
 			)
-		);
-
-		delete_option( 'woocommerce_navigation_show_opt_out' );
-	}
-
-	/**
-	 * Enqueue the opt out scripts.
-	 */
-	public function maybe_enqueue_opt_out_scripts() {
-		if ( 'yes' !== get_option( 'woocommerce_navigation_show_opt_out', 'no' ) ) {
-			return;
-		}
-
-		$rtl = is_rtl() ? '.rtl' : '';
-		wp_enqueue_style(
-			'wc-admin-navigation-opt-out',
-			Loader::get_url( "navigation-opt-out/style{$rtl}", 'css' ),
-			array( 'wp-components' ),
-			Loader::get_file_version( 'css' )
-		);
-
-		wp_enqueue_script(
-			'wc-admin-navigation-opt-out',
-			Loader::get_url( 'wp-admin-scripts/navigation-opt-out', 'js' ),
-			array( 'wp-i18n', 'wp-element', WC_ADMIN_APP ),
-			Loader::get_file_version( 'js' ),
-			true
 		);
 
 		delete_option( 'woocommerce_navigation_show_opt_out' );

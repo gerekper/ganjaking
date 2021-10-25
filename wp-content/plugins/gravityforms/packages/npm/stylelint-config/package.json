@@ -1,0 +1,34 @@
+{
+  "name": "@gravityforms/stylelint-config",
+  "version": "1.0.3",
+  "description": "Stylelint config for use in Gravity Forms projects.",
+  "author": "Rocketgenius",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "gravityforms",
+    "stylelint"
+  ],
+  "homepage": "https://github.com/gravityforms/gravityforms/tree/HEAD/packages/npm/stylelint-config/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gravityforms/gravityforms.git",
+    "directory": "packages/npm/stylelint-config"
+  },
+  "bugs": {
+    "url": "https://github.com/gravityforms/gravityforms/issues"
+  },
+  "engines": {
+    "node": ">=14.15.0",
+    "npm": ">=6.14.8"
+  },
+  "main": "src/index.js",
+  "scripts": {},
+  "dependencies": {
+    "@wordpress/stylelint-config": "^19.0.3",
+    "stylelint": "^13.12.0",
+    "stylelint-order": "^4.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

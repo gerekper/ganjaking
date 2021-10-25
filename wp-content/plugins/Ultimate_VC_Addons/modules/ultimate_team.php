@@ -6,13 +6,13 @@
  *  @package Team Module
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Team' ) ) {
+if ( ! class_exists( 'Ultimate_Team' ) ) {
 	/**
 	 * Function that initializes Team Module Module
 	 *
-	 * @class Ultimate_VC_Addons_Team
+	 * @class Ultimate_Team
 	 */
-	class Ultimate_VC_Addons_Team {
+	class Ultimate_Team {
 		/**
 		 * Constructor function that constructs default values for the Team Module module.
 		 *
@@ -31,9 +31,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Team' ) ) {
 		 * @method register_team_assets
 		 */
 		public function register_team_assets() {
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-team', 'teams', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-team', 'teams', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-team', 'teams' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-team', 'teams' );
 		}
 		/**
 		 * Function that register styles and scripts for Team Module Module.
@@ -46,7 +46,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Team' ) ) {
 			if ( 'post.php' == $hook || 'post-new.php' == $hook || 'visual-composer_page_vc-roles' == $hook ) {
 				$bsf_dev_mode = bsf_get_option( 'dev_mode' );
 				if ( 'enable' === $bsf_dev_mode ) {
-					wp_enqueue_script( 'ultimate-vc-addons-team-admin', UAVC_URL . 'admin/js/team-admin.js', array( 'jquery' ), ULTIMATE_VERSION, true );
+					wp_enqueue_script( 'ult-team-admin', UAVC_URL . 'admin/js/team-admin.js', array( 'jquery' ), ULTIMATE_VERSION, true );
 				}
 			}
 		}
@@ -1043,7 +1043,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Team' ) ) {
 							array(
 								'type'             => 'text',
 								'param_name'       => 'title_text_typography',
-								'heading'          => __( 'Name Typography', 'ultimate_vc' ),
+								'heading'          => __( '<h4>Name Typography</h4>', 'ultimate_vc' ),
 								'value'            => '',
 								'group'            => 'Typography',
 								'edit_field_class' => 'ult-param-heading-wrapper vc_column vc_col-sm-12',
@@ -1105,7 +1105,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Team' ) ) {
 							array(
 								'type'             => 'text',
 								'param_name'       => 'title_text_typography',
-								'heading'          => __( 'Designation Typography', 'ultimate_vc' ),
+								'heading'          => __( '<h4>Designation Typography</h4>', 'ultimate_vc' ),
 								'value'            => '',
 								'group'            => 'Typography',
 								'edit_field_class' => 'ult-param-heading-wrapper vc_column vc_col-sm-12',
@@ -1167,7 +1167,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Team' ) ) {
 							array(
 								'type'             => 'text',
 								'param_name'       => 'title_text_typography',
-								'heading'          => __( 'Description Typography', 'ultimate_vc' ),
+								'heading'          => __( '<h4>Description Typography</h4>', 'ultimate_vc' ),
 								'value'            => '',
 								'group'            => 'Typography',
 								'edit_field_class' => 'ult-param-heading-wrapper vc_column vc_col-sm-12',
@@ -1298,7 +1298,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Team' ) ) {
 			}
 		}
 	}
-	new Ultimate_VC_Addons_Team();
+	new Ultimate_Team();
 
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ult_Team' ) ) {
 		/**

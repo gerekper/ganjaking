@@ -202,6 +202,7 @@ class Connect extends AbstractMailChimpConnect implements ConnectionInterface
 
         } catch (\Exception $e) {
             self::save_optin_error_log($e->getMessage(), 'mailchimp');
+
             return [];
         }
     }
@@ -305,6 +306,7 @@ class Connect extends AbstractMailChimpConnect implements ConnectionInterface
     {
         return [
             'segment_type'           => apply_filters('mailoptin_customizer_optin_campaign_MailChimpConnect_group_segment_type', 'automatic'),
+            'show_group_label'       => apply_filters('mailoptin_customizer_optin_campaign_MailChimpConnect_group_show_group_label', false),
             'selection_type'         => apply_filters('mailoptin_customizer_optin_campaign_MailChimpConnect_selection_type', 'checkbox'),
             'field_label'            => apply_filters('mailoptin_customizer_optin_campaign_MailChimpConnect_user_input_field_label', __('Select Your Group', 'mailoptin')),
             'segment_area_font'      => apply_filters('mailoptin_customizer_optin_campaign_MailChimpConnect_user_input_segment_area_font', 'Open+Sans'),
@@ -319,7 +321,8 @@ class Connect extends AbstractMailChimpConnect implements ConnectionInterface
 
     /**
      * @param array $settings
-     * @param CustomizerSettings $customizerSettings
+     * @param $all_default_settings
+     * @param $optin_type
      *
      * @return mixed
      */
@@ -332,6 +335,8 @@ class Connect extends AbstractMailChimpConnect implements ConnectionInterface
         $settings['MailChimpConnect_group_segment_type'] = $default_values['segment_type'];
 
         $settings['MailChimpConnect_selection_type'] = $default_values['selection_type'];
+
+        $settings['MailChimpConnect_show_group_label'] = $default_values['show_group_label'];
 
         $settings['MailChimpConnect_user_input_field_label'] = $default_values['field_label'];
 
@@ -431,6 +436,13 @@ class Connect extends AbstractMailChimpConnect implements ConnectionInterface
                     'class'   => 'mc-group-block'
                 ];
             }
+
+            $controls[] = [
+                'field' => 'toggle',
+                'name'  => 'MailChimpConnect_show_group_label',
+                'class' => 'mc-group-block',
+                'label' => __('Show Group Category', 'mailoptin')
+            ];
 
             $controls[] = [
                 'field' => 'text',
@@ -627,12 +639,12 @@ class Connect extends AbstractMailChimpConnect implements ConnectionInterface
                 $choices        = $this->get_integration_data('MailChimpConnect_interests', $integration_data, []);
 
                 $label             = $this->get_integration_data('MailChimpConnect_user_input_field_label', $integration_data, $default_val['field_label']);
+                $show_group_label  = $this->get_integration_data('MailChimpConnect_show_group_label', $integration_data, $default_val['show_group_label']);
                 $selection_type    = $this->get_integration_data('MailChimpConnect_selection_type', $integration_data, $default_val['selection_type']);
                 $display_style     = $this->get_integration_data('MailChimpConnect_segment_display_style', $integration_data, $default_val['display_style']);
                 $display_alignment = $this->get_integration_data('MailChimpConnect_segment_display_alignment', $integration_data, $default_val['display_alignment']);
                 $field_color       = $this->get_integration_data('MailChimpConnect_user_input_field_color', $integration_data, $default_val['field_color']);
                 $field_font        = AbstractOptinForm::_remove_web_safe_font($this->get_integration_data('MailChimpConnect_user_input_segment_area_font', $integration_data, $default_val['segment_area_font']));
-
 
                 if (is_array($choices) && ! empty($choices)) {
 
@@ -650,7 +662,7 @@ class Connect extends AbstractMailChimpConnect implements ConnectionInterface
                     }, []);
 
                     // flatten the multi-dimensional array.
-                    $mc_list_groups_keys = \MailOptin\Core\array_flatten($mc_list_groups_keys);
+                    $mc_list_groups_keys = \MailOptin\Core\array_flatten($mc_list_groups_keys, true);
 
                     // find an intersection otherwise the interests selected in customizer
                     // doesn't belong to the saved list interests.
@@ -667,13 +679,52 @@ class Connect extends AbstractMailChimpConnect implements ConnectionInterface
                     $content = "<div class='mo-mailchimp-interest-container' style='$style'>";
                     $content .= '<div class="mo-mailchimp-interest-label">' . $label . '</div>';
 
-                    foreach ($choices as $key => $value) {
-                        $content .= "<div class='mo-mailchimp-interest-choice-container' style='display:$display_style;'>";
-                        $content .= '<label>';
-                        $content .= "<input type='$selection_type' class='mo-mailchimp-interest-choice' name='mo-mailchimp-interests[]' value='$key'/>";
-                        $content .= "<span class='mo-mailchimp-choice-label'>$value</span>";
-                        $content .= '</label>';
-                        $content .= '</div>';
+                    if ($show_group_label === true) {
+
+                        foreach ($mc_list_groups as $mc_list_group) {
+
+                            if (is_array($mc_list_group['interests']) && ! empty($mc_list_group['interests'])) {
+
+                                $interest_ids = wp_list_pluck($mc_list_group['interests'], 'id');
+
+                                $intersect_result = array_intersect($interest_ids, array_keys($choices));
+
+                                if ( ! empty($intersect_result)) {
+
+                                    $content .= '<div class="mo-mailchimp-interest-category-wrap">';
+                                    $content .= '<div class="mo-mailchimp-interest-category-label">' . $mc_list_group['title'] . '</div>';
+
+                                    foreach ($mc_list_group['interests'] as $interest) {
+
+                                        $interest_id   = $interest['id'];
+                                        $interest_name = $interest['name'];
+
+                                        if (in_array($interest_id, array_keys($choices))) {
+
+                                            $content .= "<div class='mo-mailchimp-interest-choice-container' style='display:$display_style;'>";
+                                            $content .= '<label>';
+                                            $content .= "<input type='$selection_type' class='mo-mailchimp-interest-choice' name='mo-mailchimp-interests[]' value='$interest_id'/>";
+                                            $content .= "<span class='mo-mailchimp-choice-label'>$interest_name</span>";
+                                            $content .= '</label>';
+                                            $content .= '</div>';
+                                        }
+                                    }
+
+                                    $content .= '</div>';
+                                }
+                            }
+                        }
+
+                    } else {
+
+                        foreach ($choices as $key => $value) {
+                            $content .= "<div class='mo-mailchimp-interest-choice-container' style='display:$display_style;'>";
+                            $content .= '<label>';
+                            $content .= "<input type='$selection_type' class='mo-mailchimp-interest-choice' name='mo-mailchimp-interests[]' value='$key'/>";
+                            $content .= "<span class='mo-mailchimp-choice-label'>$value</span>";
+                            $content .= '</label>';
+                            $content .= '</div>';
+                        }
                     }
 
                     $content .= '</div>';
@@ -716,6 +767,11 @@ class Connect extends AbstractMailChimpConnect implements ConnectionInterface
         
         div#$optin_campaign_uuid .mo-mailchimp-interest-label {
                            font-size: 16px;
+                           margin: 5px 0 2px;
+        }
+        
+        div#$optin_campaign_uuid .mo-mailchimp-interest-category-label {
+                           font-size: 14px;
                            margin: 5px 0 2px;
         }
         

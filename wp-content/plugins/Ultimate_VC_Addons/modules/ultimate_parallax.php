@@ -10,13 +10,13 @@ $ultimate_row = get_option( 'ultimate_row' );
 if ( 'enable' != $ultimate_row ) {
 	return false;
 }
-if ( ! class_exists( 'Ultimate_VC_Addons_Parallax' ) ) {
+if ( ! class_exists( 'VC_Ultimate_Parallax' ) ) {
 	/**
 	 * Function that initializes  Ultimate Parallax.
 	 *
-	 * @class Ultimate_VC_Addons_Parallax
+	 * @class VC_Ultimate_Parallax
 	 */
-	class Ultimate_VC_Addons_Parallax {
+	class VC_Ultimate_Parallax {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Parallax.
 		 *
@@ -183,13 +183,13 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Parallax' ) ) {
 				if ( 'enable' != $ultimate_js ) :
 					if ( 'no_bg' == $ult_parallax_settings['bg_type'] && ( '' != $ult_parallax_settings['parallax_content'] || '' != $ult_parallax_settings['fadeout_row'] ) ) { // @codingStandardsIgnoreLine.
 					} elseif ( 'no_bg' != $ult_parallax_settings['bg_type'] && ( '' != $ult_parallax_settings['parallax_content'] || '' != $ult_parallax_settings['fadeout_row'] ) ) {
-						wp_enqueue_script( 'ultimate-vc-addons-appear' );
-						wp_enqueue_script( 'ultimate-vc-addons-row-bg', $js_path . 'ultimate_bg' . $ext . '.js', null, ULTIMATE_VERSION, false );
-						wp_enqueue_script( 'ultimate-vc-addons-custom' );
+						wp_enqueue_script( 'ultimate-appear' );
+						wp_enqueue_script( 'ultimate-row-bg', $js_path . 'ultimate_bg' . $ext . '.js', null, ULTIMATE_VERSION, false );
+						wp_enqueue_script( 'ultimate-custom' );
 					} elseif ( 'no_bg' != $ult_parallax_settings['bg_type'] && ( '' == $ult_parallax_settings['parallax_content'] || '' == $ult_parallax_settings['fadeout_row'] ) ) {
-						wp_enqueue_script( 'ultimate-vc-addons-appear' );
-						wp_enqueue_script( 'ultimate-vc-addons-row-bg', $js_path . 'ultimate_bg' . $ext . '.js', null, ULTIMATE_VERSION, false );
-						wp_enqueue_script( 'ultimate-vc-addons-custom' );
+						wp_enqueue_script( 'ultimate-appear' );
+						wp_enqueue_script( 'ultimate-row-bg', $js_path . 'ultimate_bg' . $ext . '.js', null, ULTIMATE_VERSION, false );
+						wp_enqueue_script( 'ultimate-custom' );
 					}
 				endif;
 
@@ -357,11 +357,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Parallax' ) ) {
 					}
 					if ( 'vcpb-fs-jquery' == $ult_parallax_settings['parallax_style'] || 'vcpb-mlvp-jquery' == $ult_parallax_settings['parallax_style'] ) {
 						if ( 'vcpb-fs-jquery' == $ult_parallax_settings['parallax_style'] ) {
-							wp_enqueue_script( 'ultimate-vc-addons-jquery.shake', $js_path . 'jparallax' . $ext . '.js', null, ULTIMATE_VERSION, false );
+							wp_enqueue_script( 'jquery.shake', $js_path . 'jparallax' . $ext . '.js', null, ULTIMATE_VERSION, false );
 						}
 
 						if ( 'vcpb-mlvp-jquery' == $ult_parallax_settings['parallax_style'] ) {
-							wp_enqueue_script( 'ultimate-vc-addons-jquery.vhparallax', $js_path . 'vhparallax' . $ext . '.js', null, ULTIMATE_VERSION, false );
+							wp_enqueue_script( 'jquery.vhparallax', $js_path . 'vhparallax' . $ext . '.js', null, ULTIMATE_VERSION, false );
 						}
 						$imgs                                 = explode( ',', $ult_parallax_settings['layer_image'] );
 						$ult_parallax_settings['layer_image'] = array();
@@ -374,7 +374,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Parallax' ) ) {
 						$html .= '<div class="upb_bg_img" data-ultimate-bg="' . esc_attr( implode( ',', $bg_imgs ) ) . '" data-ultimate-bg-style="' . esc_attr( $ult_parallax_settings['parallax_style'] ) . '" data-bg-img-repeat="' . esc_attr( $ult_parallax_settings['bg_image_repeat'] ) . '" data-bg-img-size="' . esc_attr( $ult_parallax_settings['bg_image_size'] ) . '" data-bg-img-position="' . esc_attr( $ult_parallax_settings['bg_image_posiiton'] ) . '" data-parallx_sense="' . esc_attr( $ult_parallax_settings['parallax_sense'] ) . '" data-bg-override="' . esc_attr( $ult_parallax_settings['bg_override'] ) . '" data-bg_img_attach="' . esc_attr( $ult_parallax_settings['bg_img_attach'] ) . '" data-upb-overlay-color="' . esc_attr( $ult_parallax_settings['overlay_color'] ) . '" data-upb-bg-animation="' . esc_attr( $ult_parallax_settings['bg_fade'] ) . '" data-fadeout="' . esc_attr( $ult_parallax_settings['fadeout_row'] ) . '" data-fadeout-percentage="' . esc_attr( $ult_parallax_settings['fadeout_start_effect'] ) . '" data-parallax-content="' . esc_attr( $ult_parallax_settings['parallax_content'] ) . '" data-parallax-content-sense="' . esc_attr( $ult_parallax_settings['parallax_content_sense'] ) . '" data-row-effect-mobile-disable="' . esc_attr( $ult_parallax_settings['disable_on_mobile'] ) . '" data-img-parallax-mobile-disable="' . esc_attr( $ult_parallax_settings['disable_on_mobile_img_parallax'] ) . '" data-rtl="' . esc_attr( $rtl ) . '" ' . $commom_data_attributes . ' ' . $overlay . ' ' . $seperator_html . ' ' . $ult_hide_row_data . '></div>';
 					} else {
 						if ( 'vcpb-vz-jquery' == $ult_parallax_settings['parallax_style'] || 'vcpb-hz-jquery' == $ult_parallax_settings['parallax_style'] ) {
-							wp_enqueue_script( 'ultimate-vc-addons-jquery.vhparallax', $js_path . 'vhparallax' . $ext . '.js', null, ULTIMATE_VERSION, false );
+							wp_enqueue_script( 'jquery.vhparallax', $js_path . 'vhparallax' . $ext . '.js', null, ULTIMATE_VERSION, false );
 						}
 
 						if ( $bg_img_id ) {
@@ -434,10 +434,10 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Parallax' ) ) {
 					$html                                 .= '<div class="upb_content_video" data-controls-color="' . esc_attr( $ult_parallax_settings['controls_color'] ) . '" data-controls="' . esc_attr( $ult_parallax_settings['enable_controls'] ) . '" data-viewport-video="' . esc_attr( $enable_viewport_vdo ) . '" data-ultimate-video="' . esc_attr( $ult_parallax_settings['video_url'] ) . '" data-ultimate-video2="' . esc_attr( $ult_parallax_settings['video_url_2'] ) . '" data-ultimate-video-muted="' . esc_attr( $muted ) . '" data-ultimate-video-loop="' . esc_attr( $loop ) . '" data-ultimate-video-poster="' . esc_attr( $v_img ) . '" data-ultimate-video-autoplay="autoplay" data-bg-override="' . esc_attr( $ult_parallax_settings['bg_override'] ) . '" data-upb-overlay-color="' . esc_attr( $ult_parallax_settings['overlay_color'] ) . '" data-upb-bg-animation="' . esc_attr( $ult_parallax_settings['bg_fade'] ) . '" data-fadeout="' . esc_attr( $ult_parallax_settings['fadeout_row'] ) . '" data-fadeout-percentage="' . esc_attr( $ult_parallax_settings['fadeout_start_effect'] ) . '" data-parallax-content="' . esc_attr( $ult_parallax_settings['parallax_content'] ) . '" data-parallax-content-sense="' . esc_attr( $ult_parallax_settings['parallax_content_sense'] ) . '" data-row-effect-mobile-disable="' . esc_attr( $ult_parallax_settings['disable_on_mobile'] ) . '" data-rtl="' . esc_attr( $rtl ) . '" data-img-parallax-mobile-disable="' . esc_attr( $ult_parallax_settings['disable_on_mobile_img_parallax'] ) . '" ' . $commom_data_attributes . ' ' . $overlay . ' ' . $seperator_html . ' ' . $ult_hide_row_data . ' data-video_fixer="' . esc_attr( $ult_parallax_settings['video_fixer'] ) . '"></div>';
 
 					if ( 'display_control' == $ult_parallax_settings['enable_controls'] ) {
-						wp_enqueue_style( 'ultimate-vc-addons-vidcons', UAVC_URL . 'assets/fonts/vidcons.css', null, ULTIMATE_VERSION );
+						wp_enqueue_style( 'ultimate-vidcons', UAVC_URL . 'assets/fonts/vidcons.css', null, ULTIMATE_VERSION );
 					}
 				} elseif ( 'u_iframe' == $ult_parallax_settings['bg_type'] ) {
-					wp_enqueue_script( 'ultimate-vc-addons-jquery.ytplayer', $js_path . 'mb-YTPlayer' . $ext . '.js', null, ULTIMATE_VERSION, false );
+					wp_enqueue_script( 'jquery.ytplayer', $js_path . 'mb-YTPlayer' . $ext . '.js', null, ULTIMATE_VERSION, false );
 					$v_opts = explode( ',', $ult_parallax_settings['video_opts'] );
 					$v_img  = apply_filters( 'ult_get_img_single', $ult_parallax_settings['video_poster'], 'url' );
 					if ( is_array( $v_opts ) ) {
@@ -1777,20 +1777,20 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Parallax' ) ) {
 		 */
 		public function admin_scripts( $hook ) {
 			if ( 'post.php' == $hook || 'post-new.php' == $hook ) {
-				wp_register_script( 'ultimate-vc-addons-colorpicker', UAVC_URL . 'admin/js/jquery-colorpicker.js ', array( 'jquery' ), ULTIMATE_VERSION, false );
-				wp_register_script( 'ultimate-vc-addons-classygradient', UAVC_URL . 'admin/js/jquery-classygradient-min.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+				wp_register_script( 'ult-colorpicker', UAVC_URL . 'admin/js/jquery-colorpicker.js ', array( 'jquery' ), ULTIMATE_VERSION, false );
+				wp_register_script( 'ult-classygradient', UAVC_URL . 'admin/js/jquery-classygradient-min.js', array( 'jquery' ), ULTIMATE_VERSION, false );
 
-				Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-classycolorpicker-style', UAVC_URL . 'admin/css/jquery-colorpicker.css', true );
+				Ultimate_VC_Addons::ultimate_register_style( 'ult-classycolorpicker-style', UAVC_URL . 'admin/css/jquery-colorpicker.css', true );
 
-				Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-classygradient-style', UAVC_URL . 'admin/css/jquery-classygradient-min.css', true );
+				Ultimate_VC_Addons::ultimate_register_style( 'ult-classygradient-style', UAVC_URL . 'admin/css/jquery-classygradient-min.css', true );
 
 				$bsf_dev_mode = bsf_get_option( 'dev_mode' );
 				if ( 'enable' === $bsf_dev_mode ) {
-					wp_enqueue_script( 'ultimate-vc-addons-colorpicker' );
-					wp_enqueue_script( 'ultimate-vc-addons-classygradient' );
+					wp_enqueue_script( 'ult-colorpicker' );
+					wp_enqueue_script( 'ult-classygradient' );
 
-					wp_enqueue_style( 'ultimate-vc-addons-classycolorpicker-style' );
-					wp_enqueue_style( 'ultimate-vc-addons-classygradient-style' );
+					wp_enqueue_style( 'ult-classycolorpicker-style' );
+					wp_enqueue_style( 'ult-classygradient-style' );
 				}
 			}
 		}//end admin_scripts()
@@ -1813,12 +1813,12 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Parallax' ) ) {
 			}
 			$ultimate_css = get_option( 'ultimate_css' );
 			if ( 'enable' != $ultimate_css || 'enable' === $bsf_dev_mode ) {
-				Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-background-style', 'background-style' );
-				wp_enqueue_style( 'ultimate-vc-addons-background-style' );
+				Ultimate_VC_Addons::ultimate_register_style( 'ult-background-style', 'background-style' );
+				wp_enqueue_style( 'ult-background-style' );
 			}
 		} /* end front_scripts */
 	}
-	new Ultimate_VC_Addons_Parallax();
+	new VC_Ultimate_Parallax();
 }
 $ultimate_row = get_option( 'ultimate_row' );
 if ( ( defined( 'WPB_VC_VERSION' ) && ( ! version_compare( WPB_VC_VERSION, '4.4', '>=' ) ) ) && 'enable' == $ultimate_row ) {
@@ -1832,7 +1832,7 @@ if ( ( defined( 'WPB_VC_VERSION' ) && ( ! version_compare( WPB_VC_VERSION, '4.4'
 		 * @access public
 		 */
 		function vc_theme_after_vc_row( $atts, $content = null ) {
-			return Ultimate_VC_Addons_Parallax::parallax_shortcode( $atts, $content );
+			return VC_Ultimate_Parallax::parallax_shortcode( $atts, $content );
 		}
 	}
 }

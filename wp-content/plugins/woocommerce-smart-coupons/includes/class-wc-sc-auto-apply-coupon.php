@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     1.5.0
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -50,6 +50,8 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 			// Action to auto apply coupons.
 			add_action( 'wp_loaded', array( $this, 'auto_apply_coupons' ) );
 			add_action( 'woocommerce_cart_emptied', array( $this, 'reset_auto_applied_coupons_session' ) );
+
+			add_action( 'woocommerce_removed_coupon', array( $this, 'wc_sc_removed_coupon' ) );
 		}
 
 		/**
@@ -296,6 +298,28 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 		}
 
 		/**
+		 * Remove an auto applied coupon from WC session
+		 *
+		 * @since 4.31.0
+		 * @param string $coupon_code Coupon Code.
+		 */
+		public function unset_auto_applied_coupon( $coupon_code = '' ) {
+			if ( ! empty( $coupon_code ) ) {
+				$update  = false;
+				$coupons = $this->get_auto_applied_coupons();
+				// Check if auto applied coupons are not empty.
+				if ( ! empty( $coupons ) && in_array( $coupon_code, $coupons, true ) ) {
+					$coupons = array_diff( $coupons, array( $coupon_code ) );
+					$update  = true;
+				}
+				if ( true === $update && is_object( WC()->session ) && is_callable( array( WC()->session, 'set' ) ) ) {
+					$coupons = array_values( array_filter( $coupons ) );
+					WC()->session->set( 'wc_sc_auto_applied_coupons', $coupons );
+				}
+			}
+		}
+
+		/**
 		 * Reset cart session data.
 		 *
 		 * @since 4.27.0
@@ -303,6 +327,24 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 		public function reset_auto_applied_coupons_session() {
 			if ( is_object( WC()->session ) && is_callable( array( WC()->session, 'set' ) ) ) {
 				WC()->session->set( 'wc_sc_auto_applied_coupons', null );
+			}
+		}
+
+		/**
+		 * Runs after a coupon is removed
+		 *
+		 * @since 4.31.0
+		 * @param string $coupon_code The coupon code.
+		 * @return void
+		 */
+		public function wc_sc_removed_coupon( $coupon_code = '' ) {
+			$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore
+			if ( ! empty( $coupon_code ) && ! empty( $backtrace ) ) {
+				foreach ( $backtrace as $trace ) {
+					if ( ! empty( $trace['function'] ) && 'check_cart_coupons' === $trace['function'] && ! empty( $trace['class'] ) && 'WC_Cart' === $trace['class'] ) { // This condition will make sure that the coupon is removed automatically.
+						$this->unset_auto_applied_coupon( $coupon_code );
+					}
+				}
 			}
 		}
 

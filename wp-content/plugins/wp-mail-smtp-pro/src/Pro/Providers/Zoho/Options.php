@@ -50,7 +50,7 @@ class Options extends OptionsAbstract {
 				'title'       => esc_html__( 'Zoho Mail', 'wp-mail-smtp-pro' ),
 				'description' => sprintf(
 					wp_kses( /* translators: %1$s - URL to Zoho Mail page, %2$s - URL to Zoho Mail documentation page on WP Mail SMTP. */
-						__( '<a href="%1$s" target="_blank" rel="noopener noreferrer">Zoho Mail</a> allows you to create secure email accounts for your business without providing your credit card details. It\'s easy to connect to Zoho Mail using its API. This allows you to send WordPress emails from your Zoho Mail address.<br><br>To get started, read our <a href="%2$s" target="_blank" rel="noopener noreferrer">Zoho Mail documentation</a>.', 'wp-mail-smtp-pro' ),
+						__( 'Send emails using your personal or business <a href="%1$s" target="_blank" rel="noopener noreferrer">Zoho Mail</a> account, all while keeping your login credentials safe.<br><br>Read our <a href="%2$s" target="_blank" rel="noopener noreferrer">Zoho Mail documentation</a> to learn how to configure Zoho Mail and improve your email deliverability.', 'wp-mail-smtp-pro' ),
 						[
 							'br' => [],
 							'a'  => [

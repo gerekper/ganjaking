@@ -1,17 +1,3 @@
-3.19.11 - 22 July 2021
-- Improvement: Compatibility with the WordPress 5.8
-- Fix: Advanced Carousel element not working properly.
-- Fix: The Price Box element is not showing horizontally.
-- Fix: Hotspot module styling options are not applying properly.
-- Fix: Functional code is showing when the interactive banner is used with the Advanced carousel.
-
-3.19.10 - 04 June 2021
-- Improvement: Compatibility with the latest JavaScript and CSS standard rule.
-- Improvement: Added the prefix to all the PHP function and class name to avoid future conflicts.
-- Improvement: Added the prefix to the global variable, script and style handlers.
-- Fix: Fixed the PHP error foreach() argument must be of type array|object.
-- Fix: Fixed the PHP notice undefined index into the google font manager.
-
 3.19.9 - 18 Feb 2021
 - Improvement : Updated the Smooth-scroll library.
 ﻿- Fix : Ultimate Icon conflict issue with Yoast SEO.

@@ -6,13 +6,13 @@
  *  @package Swatch Book
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Swatch_Book' ) ) {
+if ( ! class_exists( 'Ultimate_Swatch_Book' ) ) {
 	/**
 	 * Function that initializes Swatch Book Module
 	 *
-	 * @class Ultimate_VC_Addons_Swatch_Book
+	 * @class Ultimate_Swatch_Book
 	 */
-	class Ultimate_VC_Addons_Swatch_Book {
+	class Ultimate_Swatch_Book {
 		/**
 		 * Class instance.
 		 *
@@ -60,9 +60,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Swatch_Book' ) ) {
 		 * @method register_swatch_assets
 		 */
 		public function register_swatch_assets() {
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-swatchbook-js', 'swatchbook', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'swatchbook-js', 'swatchbook', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-swatchbook-css', 'swatchbook' );
+			Ultimate_VC_Addons::ultimate_register_style( 'swatchbook-css', 'swatchbook' );
 		}
 		/**
 		 * Function that initializes settings of Swatch Book Module.
@@ -838,8 +838,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Swatch_Book' ) ) {
 }
 
 
-global $uavc_ultimate_swatch_book;
-$uavc_ultimate_swatch_book = new Ultimate_VC_Addons_Swatch_Book();
+global $ultimate_swatch_book;
+$ultimate_swatch_book = new Ultimate_Swatch_Book();
 if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
 	if ( ! class_exists( 'WPBakeryShortCode_Swatch_Container' ) ) {
 		/**
@@ -854,8 +854,8 @@ if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
 			 * @access public
 			 */
 			public function content( $atts, $content = null ) {
-				global $uavc_ultimate_swatch_book;
-				return $uavc_ultimate_swatch_book->swatch_ocntainer( $atts, $content );
+				global $ultimate_swatch_book;
+				return $ultimate_swatch_book->swatch_ocntainer( $atts, $content );
 			}
 		}
 	}
@@ -872,8 +872,8 @@ if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
 			 * @access public
 			 */
 			public function content( $atts, $content = null ) {
-				global $uavc_ultimate_swatch_book;
-				return $uavc_ultimate_swatch_book->swatch_item( $atts, $content );
+				global $ultimate_swatch_book;
+				return $ultimate_swatch_book->swatch_item( $atts, $content );
 			}
 		}
 	}

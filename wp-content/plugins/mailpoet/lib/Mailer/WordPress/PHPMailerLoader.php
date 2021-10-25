@@ -22,10 +22,8 @@ class PHPMailerLoader {
     }
     if (is_readable(ABSPATH . WPINC . '/PHPMailer/PHPMailer.php')) {
       // WordPress 5.5+
-      if (!class_exists('PHPMailer\PHPMailer\PHPMailer')) {
-        require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
-        require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
-      }
+      require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
+      require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
       class_alias(\PHPMailer\PHPMailer\PHPMailer::class, 'PHPMailer');
       class_alias(\PHPMailer\PHPMailer\Exception::class, 'phpmailerException');
     } else {

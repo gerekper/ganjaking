@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Date Time Condition.
  *
  * @class    WC_CSP_Condition_Date_Time
- * @version  1.9.0
+ * @version  1.10.0
  */
 class WC_CSP_Condition_Date_Time extends WC_CSP_Package_Condition {
 
@@ -347,7 +347,7 @@ class WC_CSP_Condition_Date_Time extends WC_CSP_Package_Condition {
 			<?php echo in_array( $current_modifier, $modifiers ) ? '' : ' style="display:none;"'; ?>
 		>
 			<input type="text"
-				   class="csp_date_time_input"
+				   class="csp_conditional_values_input"
 				   name="<?php echo in_array( $current_modifier, $modifiers ) ? $value_input_name : ''; ?>"
 				   value="<?php echo in_array( $current_modifier, $modifiers ) ? $values : ''; ?>"
 				   placeholder="<?php echo sprintf( __( 'Enter values from %1$s to %2$s, separated by comma&hellip;', 'woocommerce-conditional-shipping-and-payments' ), min( $this->available_modifiers[ $modifiers[ 0 ] ][ 'range' ] ), max( $this->available_modifiers[ $modifiers[ 0 ] ][ 'range' ] ) ) ?>"
@@ -393,7 +393,7 @@ class WC_CSP_Condition_Date_Time extends WC_CSP_Package_Condition {
 			 data-modifiers="<?php echo implode( ',', $modifiers ); ?>"
 			<?php echo in_array( $current_modifier, $modifiers ) ? '' : ' style="display:none;"'; ?>
 		>
-			<select class="csp_date_time_input multiselect sw-select2"
+			<select class="csp_conditional_values_input multiselect sw-select2"
 					name="<?php echo in_array( $current_modifier, $modifiers ) ? $value_input_name : ''; ?>"
 					multiple="multiple" data-placeholder="<?php echo $placeholder; ?>">
 				<?php

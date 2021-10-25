@@ -33,14 +33,14 @@ if ( ! function_exists( 'bsf_update_option' ) ) {
 		return update_option( 'bsf_options', $bsf_options );
 	}
 }
-if ( ! function_exists( 'uavc_hex2rgb' ) ) {
+if ( ! function_exists( 'ultimate_hex2rgb' ) ) {
 	/**
 	 * Ultimate_hex2rgb.
 	 *
 	 * @param string $hex Hex.
 	 * @param string $opacity Opacity.
 	 */
-	function uavc_hex2rgb( $hex, $opacity = 1 ) {
+	function ultimate_hex2rgb( $hex, $opacity = 1 ) {
 		$hex = str_replace( '#', '', $hex );
 		if ( 33 == strlen( $hex ) ) {
 			$r = hexdec( substr( $hex, 0, 1 ) . substr( $hex, 0, 1 ) );
@@ -80,7 +80,7 @@ function get_ultimate_vc_responsive_media_css( $args ) {
 	return $content;
 }
 
-if ( ! function_exists( 'uavc_img_single_init' ) ) {
+if ( ! function_exists( 'ult_img_single_init' ) ) {
 	/**
 	 * Ult_img_single_init.
 	 *
@@ -88,7 +88,7 @@ if ( ! function_exists( 'uavc_img_single_init' ) ) {
 	 * @param string $data Data.
 	 * @param string $size Size.
 	 */
-	function uavc_img_single_init( $content = null, $data = '', $size = 'full' ) {
+	function ult_img_single_init( $content = null, $data = '', $size = 'full' ) {
 
 		$final = '';
 
@@ -150,13 +150,13 @@ if ( ! function_exists( 'uavc_img_single_init' ) ) {
 
 								// Second - Priority for URL - get {image from url}.
 								if ( isset( $mainarr['url'] ) ) {
-									$final = uavc_get_url( $mainarr['url'] );
+									$final = ult_get_url( $mainarr['url'] );
 								}
 							}
 						} else {
 							// Second - Priority for URL - get {image from url}.
 							if ( isset( $mainarr['url'] ) ) {
-								$final = uavc_get_url( $mainarr['url'] );
+								$final = ult_get_url( $mainarr['url'] );
 							}
 						}
 						break;
@@ -177,7 +177,7 @@ if ( ! function_exists( 'uavc_img_single_init' ) ) {
 						break;
 
 					case 'sizes':
-						$img_size = uavc_get_image_squere_size( $img_id, $img_size );
+						$img_size = getimagesqueresize( $img_id, $img_size );
 
 						$img   = wpb_getImageBySize(
 							array(
@@ -200,16 +200,16 @@ if ( ! function_exists( 'uavc_img_single_init' ) ) {
 
 		return $final;
 	}
-	add_filter( 'ult_get_img_single', 'uavc_img_single_init', 10, 3 );
+	add_filter( 'ult_get_img_single', 'ult_img_single_init', 10, 3 );
 }
 
-if ( ! function_exists( 'uavc_get_url' ) ) {
+if ( ! function_exists( 'ult_get_url' ) ) {
 	/**
 	 * Ult_get_url.
 	 *
 	 * @param string $img Img.
 	 */
-	function uavc_get_url( $img ) {
+	function ult_get_url( $img ) {
 		if ( isset( $img ) && ! empty( $img ) ) {
 			return $img;
 		}
@@ -217,14 +217,14 @@ if ( ! function_exists( 'uavc_get_url' ) ) {
 }
 
 // USE THIS CODE TO SUPPORT CUSTOM SIZE OPTION.
-if ( ! function_exists( 'uavc_get_image_squere_size' ) ) {
+if ( ! function_exists( 'getimagesqueresize' ) ) {
 	/**
 	 * GetImageSquereSize.
 	 *
 	 * @param string $img_id Image ID.
 	 * @param string $img_size Image Size.
 	 */
-	function uavc_get_image_squere_size( $img_id, $img_size ) {
+	function getimagesqueresize( $img_id, $img_size ) {
 		if ( preg_match_all( '/(\d+)x(\d+)/', $img_size, $sizes ) ) {
 			$exact_size = array(
 				'width'  => isset( $sizes[1][0] ) ? $sizes[1][0] : '0',
@@ -249,14 +249,14 @@ if ( ! function_exists( 'uavc_get_image_squere_size' ) ) {
 }
 
 /* Ultimate Box Shadow */
-if ( ! function_exists( 'uavc_get_box_shadow' ) ) {
+if ( ! function_exists( 'ultimate_get_box_shadow' ) ) {
 	/**
 	 * GetImageSquereSize.
 	 *
 	 * @param string $content Content.
 	 * @param string $data Image Data.
 	 */
-	function uavc_get_box_shadow( $content = null, $data = '' ) {
+	function ultimate_get_box_shadow( $content = null, $data = '' ) {
 		// e.g.    horizontal:14px|vertical:20px|blur:30px|spread:40px|color:#81d742|style:inset|.
 		$final = '';
 
@@ -310,5 +310,5 @@ if ( ! function_exists( 'uavc_get_box_shadow' ) ) {
 		return $final;
 	}
 
-	add_filter( 'ultimate_getboxshadow', 'uavc_get_box_shadow', 10, 3 );
+	add_filter( 'ultimate_getboxshadow', 'ultimate_get_box_shadow', 10, 3 );
 }

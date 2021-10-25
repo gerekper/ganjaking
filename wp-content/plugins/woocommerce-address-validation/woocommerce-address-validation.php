@@ -6,11 +6,11 @@
  * Description: Adds Address Validation and Postcode Lookup to WooCommerce via Loqate, SmartyStreets, and more!
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 2.8.0
+ * Version: 2.8.1
  * Text Domain: woocommerce-address-validation
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2013-2021, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,28 +18,15 @@
  * @package     WC-Address-Validation
  * @author      SkyVerge
  * @category    Integration
- * @copyright   Copyright (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 182775:d65b52fcfbf887386516007aed10451d
  * WC requires at least: 3.5
- * WC tested up to: 4.7.1
+ * WC tested up to: 5.8.0
  */
 
 defined( 'ABSPATH' ) or exit;
-
-// Required functions
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'woo-includes/woo-functions.php' );
-}
-
-// Plugin updates
-woothemes_queue_update( plugin_basename( __FILE__ ), 'd65b52fcfbf887386516007aed10451d', '182775' );
-
-// WC active check
-if ( ! is_woocommerce_active() ) {
-	return;
-}
 
 /**
  * Address Validation loader.

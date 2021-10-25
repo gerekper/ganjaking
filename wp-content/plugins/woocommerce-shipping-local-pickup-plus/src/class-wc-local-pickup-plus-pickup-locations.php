@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 
 /**
  * Local Pickup Locations handler class.
@@ -332,12 +332,12 @@ class WC_Local_Pickup_Plus_Pickup_Locations {
 		global $wpdb;
 
 		$location_ids = array();
-		$title        = $address->get_name();
-		$country      = $address->get_country();
-		$state        = $address->get_state();
-		$city         = $address->get_city();
-		$address_1    = $address->get_address_line_1();
-		$postcode     = $address->get_postcode();
+		$title        = $wpdb->esc_like( $address->get_name() );
+		$country      = $wpdb->esc_like( $address->get_country() );
+		$state        = $wpdb->esc_like( $address->get_state() );
+		$city         = $wpdb->esc_like( $address->get_city() );
+		$address_1    = $wpdb->esc_like( $address->get_address_line_1() );
+		$postcode     = $wpdb->esc_like( $address->get_postcode() );
 		$table        = $wpdb->prefix . 'woocommerce_pickup_locations_geodata';
 
 		if ( '' === $country ) {
@@ -441,10 +441,12 @@ class WC_Local_Pickup_Plus_Pickup_Locations {
 				";
 			}
 
+			$search_term = $wpdb->esc_like( $search_term );
+
 			if ( 'any' === $which_part ) {
-				$results = $wpdb->get_results( $wpdb->prepare( "{$query}", "{$search_term}%", "{$search_term}%", "{$search_term}%", "{$search_term}%", "{$search_term}%", "{$search_term}%" ), ARRAY_A );
+				$results = $wpdb->get_results( $wpdb->prepare( $query, "{$search_term}%", "{$search_term}%", "{$search_term}%", "{$search_term}%", "{$search_term}%", "{$search_term}%" ), ARRAY_A );
 			} else {
-				$results = $wpdb->get_results( $wpdb->prepare( "{$query}", "{$search_term}%" ), ARRAY_A );
+				$results = $wpdb->get_results( $wpdb->prepare( $query, "{$search_term}%" ), ARRAY_A );
 			}
 
 			if ( ! empty( $results ) ) {

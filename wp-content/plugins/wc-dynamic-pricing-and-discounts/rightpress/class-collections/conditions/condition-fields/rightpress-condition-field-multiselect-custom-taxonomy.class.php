@@ -102,7 +102,7 @@ abstract class RightPress_Condition_Field_Multiselect_Custom_Taxonomy extends Ri
     public function get_placeholder()
     {
 
-        return esc_html__('Select taxonomy terms', 'rightpress');
+        return __('Select taxonomy terms', 'rightpress');
     }
 
 

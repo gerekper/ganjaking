@@ -117,8 +117,9 @@ class PostsEmailDigest extends AbstractTriggers
 
     /**
      * @param $email_campaign_id
-     * @param $carbon_today
      * @param Carbon $schedule_hour
+     *
+     * @param $digest_type
      *
      * @return bool
      */
@@ -130,6 +131,7 @@ class PostsEmailDigest extends AbstractTriggers
         $last_processed_at = EmailCampaignMeta::get_meta_data($email_campaign_id, 'last_processed_at');
 
         if ( ! empty($last_processed_at)) {
+
             $last_processed_at_carbon_instance = $this->carbon_set_week_start_end(
                 Carbon::createFromFormat('Y-m-d H:i:s', $this->last_processed_at($email_campaign_id), $timezone)
             );

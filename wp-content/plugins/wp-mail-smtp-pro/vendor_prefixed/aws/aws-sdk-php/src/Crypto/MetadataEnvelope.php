@@ -7,6 +7,7 @@ use ArrayAccess;
 use IteratorAggregate;
 use InvalidArgumentException;
 use JsonSerializable;
+use WPMailSMTP\Vendor\ReturnTypeWillChange;
 /**
  * Stores encryption metadata for reading and writing.
  *
@@ -41,7 +42,7 @@ class MetadataEnvelope implements \ArrayAccess, \IteratorAggregate, \JsonSeriali
         }
         $this->data[$name] = $value;
     }
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->data;

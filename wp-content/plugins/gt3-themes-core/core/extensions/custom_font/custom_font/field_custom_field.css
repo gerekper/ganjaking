@@ -1,0 +1,76 @@
+.redux-main .redux-option-image{
+	margin-top: 0px;
+	padding: 0px;
+}
+.redux_upload_file_name{
+	display: block;
+	font-size: 13px;
+	line-height: 15px;
+	padding-bottom: 5px;
+}
+
+.redux-container-custom_font .redux-slides-accordion-group{
+	border: 2px solid #dddddd;
+	border-radius: 5px;
+	padding: 10px 20px;
+	margin-bottom: 15px;
+}
+.redux-container-custom_font .redux_upload_file_name{
+	display: inline-block;
+    padding-bottom: 0;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.redux-container-custom_font .redux_upload_file_name:not(:empty):before,
+.redux-container-custom_font .redux_upload_file_name:not(:empty):after{
+	content: '(';
+	display: inline-block;
+	vertical-align: baseline;
+	padding: 0 5px;
+}
+.redux-container-custom_font .redux_upload_file_name:not(:empty):after{
+	content: ')';
+}
+.redux-container-custom_font .redux-slides-header{
+	display: inline-block;
+	vertical-align: middle;
+}
+.redux-container-custom_font .redux-slides-accordion-group h3{
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 1.6em;
+    margin-top: -5px;
+    margin-bottom: 0;
+}
+.redux-container-custom_font .redux_slides_add_remove,
+.redux-container-custom_font .redux-slides-list{
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 7px;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+.redux-container-custom_font .redux_slides_add_remove:first-child(){
+	margin-top: 20px;
+}
+.redux-container-custom_font .screenshot{
+	margin: 15px 0 0;
+}
+.redux-container-custom_font .screenshot .redux-slides-image,
+.redux-container-custom_font .screenshot .redux-option-image{
+	height: 32px;
+}
+.redux-container-custom_font .screenshot .of-uploaded-image{
+	width: 24px;
+	display: inline-block;
+}
+
+.typography-all-styles{
+	clear: both;
+}
+.redux-main .redux-typography-container .select_wrapper.typography-all-styles,
+.redux-main .redux-typography-container .select_wrapper.typography-all-styles .redux-typography{
+	height: auto !important;
+}

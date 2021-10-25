@@ -1,701 +1,476 @@
-( function ( jQuery ) {
-	jQuery( document ).ready( function () {
-		const width = jQuery( window ).width();
-		if ( width > 300 && width < 768 ) {
-			var bshadow = 'inset 0px -200px 0px 0px ';
-			var bshadow2 = ' inset 0px 200px 0px 0px ';
-		} else if ( width > 768 && width < 1015 ) {
-			var bshadow = 'inset 0px -200px 0px 0px ';
-			var bshadow2 = ' inset 0px 200px 0px 0px ';
-		} else {
-			var bshadow = 'inset -200px 0 0 0 ';
-			var bshadow2 = 'inset 200px 0 0 0';
-		}
+(function(jQuery) {
+    jQuery(document).ready(function(){
 
-		/*--- bt1 ----*/
-		jQuery( document ).on( 'mouseenter', '.ult_dual1', function () {
-			var style = jQuery( this )
-				.find( '.ult-dual-btn-1' )
-				.attr( 'class' );
-			const arr = style.split( ' ' );
-			var style = arr[ 1 ] + arr[ 2 ];
+        var width=jQuery( window ).width();
+        if(width>300 && width <768)
+        {
+        var bshadow="inset 0px -200px 0px 0px ";
+        var bshadow2=" inset 0px 200px 0px 0px ";
+        }      
+        else if( width>768 && width<1015){
+        var bshadow="inset 0px -200px 0px 0px ";
+        var bshadow2=" inset 0px 200px 0px 0px ";
+        }
+        else{
+        var bshadow="inset -200px 0 0 0 ";
+        var bshadow2="inset 200px 0 0 0";
+        }
+ 
+        /*--- bt1 ----*/
+        jQuery(document).on("mouseenter", ".ult_dual1", function() {
 
-			if ( style == 'Style1' ) {
-				var bghover = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'bghovercolor' );
-				jQuery( this )[ 0 ].style.setProperty(
-					'background-color',
-					bghover,
-					'important'
-				);
+            var style=jQuery(this).find('.ult-dual-btn-1').attr('class');
+            var arr=style.split(" ");
+            var style=arr[1]+arr[2];
+
+            if(style=='Style1')
+            {
+            var bghover = jQuery(this).find('.ult-dual-btn-1').data('bghovercolor');
+			jQuery(this)[0].style.setProperty( 'background-color', bghover, 'important' );
+            }
+            if(style=='Style2')
+            {
+            var bghover = jQuery(this).find('.ult-dual-btn-1').data('bghovercolor');
+            }
+
+            if(style=='Style3')
+            {
+            var bghover = jQuery(this).find('.ult-dual-btn-1').data('bghovercolor');
+            jQuery(this).css({'box-shadow':' inset 0 0 20px 50px '+bghover})
+            }
+
+            if(style!='undefined')
+            {
+            var iconhover = jQuery(this).find('.ult-dual-btn-1').data('icon_hover_color');
+            jQuery(this).find('.ult-dual-btn-1').find('.aio-icon').css({'color':iconhover});
+
+            var iconbghover = jQuery(this).find('.ult-dual-btn-1').data('iconbghovercolor');
+            jQuery(this).find('.ult-dual-btn-1').find('.aio-icon').css({'background':iconbghover});
+
+            var iconborderhover = jQuery(this).find('.ult-dual-btn-1').data('iconhoverborder');
+            jQuery(this).find('.ult-dual-btn-1').find('.aio-icon').css({'border-color':iconborderhover});
+
+            //for image hover
+            jQuery(this).find('.ult-dual-btn-1').find('.aio-icon-img').css({'background':iconbghover});
+            jQuery(this).find('.ult-dual-btn-1').find('.aio-icon-img').css({'border-color':iconborderhover});
+
+            var titlehover = jQuery(this).find('.ult-dual-btn-1').data('texthovercolor');
+            jQuery(this).find('.ult-dual-btn-1').find('.ult-dual-button-title').css({'color':titlehover});
+            }
+        });
+
+        jQuery(document).on("mouseleave", ".ult_dual1", function() {
+
+            var style1=jQuery(this).find('.ult-dual-btn-1').attr('class');
+            var arr=style1.split(" ");
+            var style1=arr[1]+arr[2];
+
+            if(style1=='Style1'){
+            var bgcolor = jQuery(this).find('.ult-dual-btn-1').data('bgcolor');
+            jQuery(this)[0].style.setProperty( 'background-color', bgcolor, 'important' );
+            }
+
+            if(style1=='Style2')
+            {
+            var bgcolor = jQuery(this).find('.ult-dual-btn-1').data('bgcolor');
+            }
+            if(style1=='Style3')
+            {
+            var bgcolor = jQuery(this).find('.ult-dual-btn-1').data('bgcolor');
+            jQuery(this).css({'box-shadow':'inset 0px 0 0 0 '+bgcolor});
+            }
+            if(style1!='undefined')
+            {
+            var iconcolor = jQuery(this).find('.ult-dual-btn-1').data('icon_color');
+            jQuery(this).find('.ult-dual-btn-1').find('.aio-icon').css({'color':iconcolor});
+
+            var titlecolor = jQuery(this).find('.ult-dual-btn-1').data('textcolor');
+            jQuery(this).find('.ult-dual-btn-1').find('.ult-dual-button-title').css({'color':titlecolor});
+
+            var iconbgcolor = jQuery(this).find('.ult-dual-btn-1').data('iconbgcolor');
+            jQuery(this).find('.ult-dual-btn-1').find('.aio-icon').css({'background':iconbgcolor});
+
+            var iconbordercolor = jQuery(this).find('.ult-dual-btn-1').data('iconborder');
+            jQuery(this).find('.ult-dual-btn-1').find('.aio-icon').css({'border-color':iconbordercolor});
+
+            //for image hover
+            jQuery(this).find('.ult-dual-btn-1').find('.aio-icon-img').css({'background':iconbgcolor});
+            jQuery(this).find('.ult-dual-btn-1').find('.aio-icon-img').css({'border-color':iconbordercolor});
+
+            }
+        });
+
+        /*--- bt2 ----*/
+        jQuery(document).on("mouseenter", ".ult_dual2", function() {
+
+            var style1=jQuery(this).find('.ult-dual-btn-2').attr('class');
+            var arr=style1.split(" ");
+            var style1=arr[1]+arr[2];
+
+            if(style1=='Style1'){
+            var bghover = jQuery(this).find('.ult-dual-btn-2').data('bghovercolor');
+			jQuery(this)[0].style.setProperty( 'background-color', bghover, 'important' );
+
+            }
+
+            if(style1=='Style2')
+            {
+            var bghover = jQuery(this).find('.ult-dual-btn-2').data('bghovercolor');
+            }
+            if(style1=='Style3')
+            {
+            var bghover = jQuery(this).find('.ult-dual-btn-2').data('bghovercolor');
+            jQuery(this).css({'box-shadow':' inset 0 0 20px 50px '+bghover});
+            }
+
+            if(style1!='undefined')
+            {
+            var iconhover = jQuery(this).find('.ult-dual-btn-2').data('icon_hover_color');
+            jQuery(this).find('.ult-dual-btn-2').find('.aio-icon').css({'color':iconhover});
+
+            var titlehover = jQuery(this).find('.ult-dual-btn-2').data('texthovercolor');
+
+            jQuery(this).find('.ult-dual-btn-2').find('.ult-dual-button-title').css({'color':titlehover});
+
+            var iconbghover = jQuery(this).find('.ult-dual-btn-2').data('iconbghovercolor');
+            jQuery(this).find('.ult-dual-btn-2').find('.aio-icon').css({'background':iconbghover});
+
+            var iconborderhover = jQuery(this).find('.ult-dual-btn-2').data('iconhoverborder');
+            jQuery(this).find('.ult-dual-btn-2').find('.aio-icon').css({'border-color':iconborderhover});
+
+            //for image hover
+            jQuery(this).find('.ult-dual-btn-2').find('.aio-icon-img').css({'background':iconbghover});
+            jQuery(this).find('.ult-dual-btn-2').find('.aio-icon-img').css({'border-color':iconborderhover});
+
+            }
+        });
+
+        jQuery(document).on("mouseleave", ".ult_dual2", function() {
+            var style1=jQuery(this).find('.ult-dual-btn-2').attr('class');
+            var arr=style1.split(" ");
+            var style1=arr[1]+arr[2];
+            if(style1=='Style1'){
+
+            var bgcolor = jQuery(this).find('.ult-dual-btn-2').data('bgcolor');
+            jQuery(this)[0].style.setProperty( 'background-color', bgcolor, 'important' );
+            }
+
+            if(style1=='Style2')
+            {
+            var bgcolor = jQuery(this).find('.ult-dual-btn-2').data('bgcolor');
+
+            }
+
+            if(style1=='Style3')
+            {
+            var bgcolor = jQuery(this).find('.ult-dual-btn-2').data('bghovercolor');
+            jQuery(this).css({'box-shadow':' inset 0 0 0 0 '+bgcolor});
+            }
+
+            if(style1!='undefined')
+            {
+            var iconcolor = jQuery(this).find('.ult-dual-btn-2').data('icon_color');
+            jQuery(this).find('.ult-dual-btn-2').find('.aio-icon').css({'color':iconcolor});
+
+            var titlecolor = jQuery(this).find('.ult-dual-btn-2').data('textcolor');
+            jQuery(this).find('.ult-dual-btn-2').find('.ult-dual-button-title').css({'color':titlecolor});
+
+            var iconbgcolor = jQuery(this).find('.ult-dual-btn-2').data('iconbgcolor');
+            jQuery(this).find('.ult-dual-btn-2').find('.aio-icon').css({'background':iconbgcolor});
+
+            var iconbordercolor = jQuery(this).find('.ult-dual-btn-2').data('iconborder');
+            jQuery(this).find('.ult-dual-btn-2').find('.aio-icon').css({'border-color':iconbordercolor});
+
+            //for image hover
+            jQuery(this).find('.ult-dual-btn-2').find('.aio-icon-img').css({'background':iconbgcolor});
+            jQuery(this).find('.ult-dual-btn-2').find('.aio-icon-img').css({'border-color':iconbordercolor});
+
+            }
+        });
+    });
+        /*---for button----*/
+
+        jQuery(document).on("mouseenter", ".ult_main_dualbtn", function() {
+            var mainhoverborder = jQuery(this).data('bhcolor');
+        });
+
+        jQuery(document).on("mouseleave", ".ult_main_dualbtn", function() {
+            var mainborder = jQuery(this).data('bcolor');
+        });
+
+}( jQuery ));
+
+    jQuery(document).ready(function(e){
+        jQuery( ".ult_main_dualbtn" ).each(function( index ) {
+
+			var ht1=jQuery(this).find('.ult_dual1').outerHeight();
+			ht1=parseInt(ht1);
+
+			var ht2=jQuery(this).find('.ult_dual2').outerHeight();
+			ht2=parseInt(ht2);
+
+			if(ht1>ht2)
+			{
+				jQuery(this).find('.ult_dual2').css({'height':ht1});
+				jQuery(this).find('.ult_dual1').css({'height':ht1});
+
 			}
-			if ( style == 'Style2' ) {
-				var bghover = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'bghovercolor' );
+			else if(ht1<ht2)
+			{
+				jQuery(this).find('.ult_dual1').css({'height':ht2});
+				jQuery(this).find('.ult_dual2').css({'height':ht2});
+
 			}
+			else if(ht1==ht2)
+			{
+				jQuery(this).find('.ult_dual1').css({'height':ht2});
+				jQuery(this).find('.ult_dual2').css({'height':ht2});
 
-			if ( style == 'Style3' ) {
-				var bghover = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'bghovercolor' );
-				jQuery( this ).css( {
-					'box-shadow': ' inset 0 0 20px 50px ' + bghover,
-				} );
 			}
+    	});
+        jQuery( document ).on( "ult-expandable", function( e, selector ) {
+            jQuery(selector).find(".ult_dual_button" ).each(function ( index ) {
 
-			if ( style != 'undefined' ) {
-				const iconhover = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'icon_hover_color' );
-				jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.find( '.aio-icon' )
-					.css( { color: iconhover } );
+                jQuery(this).find('.ult_dual1').css('height', 'auto');
+                jQuery(this).find('.ult_dual2').css('height', 'auto');
+                
+                var ht1=jQuery(this).find('.ult_dual1').outerHeight();
+                ht1=parseInt(ht1);
 
-				const iconbghover = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'iconbghovercolor' );
-				jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.find( '.aio-icon' )
-					.css( { background: iconbghover } );
+                var ht2=jQuery(this).find('.ult_dual2').outerHeight();
+                ht2=parseInt(ht2);
 
-				const iconborderhover = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'iconhoverborder' );
-				jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.find( '.aio-icon' )
-					.css( { 'border-color': iconborderhover } );
+                if(ht1>ht2)
+                {
+                    jQuery(this).find('.ult_dual2').css({'height':ht1});
+                    jQuery(this).find('.ult_dual1').css({'height':ht1});
 
-				//for image hover
-				jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.find( '.aio-icon-img' )
-					.css( { background: iconbghover } );
-				jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.find( '.aio-icon-img' )
-					.css( { 'border-color': iconborderhover } );
+                }
+                else if(ht1<ht2)
+                {
+                    jQuery(this).find('.ult_dual1').css({'height':ht2});
+                    jQuery(this).find('.ult_dual2').css({'height':ht2});
 
-				const titlehover = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'texthovercolor' );
-				jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.find( '.ult-dual-button-title' )
-					.css( { color: titlehover } );
-			}
-		} );
+                }
+                else if(ht1==ht2)
+                {
+                    jQuery(this).find('.ult_dual1').css({'height':ht2});
+                    jQuery(this).find('.ult_dual2').css({'height':ht2});
 
-		jQuery( document ).on( 'mouseleave', '.ult_dual1', function () {
-			var style1 = jQuery( this )
-				.find( '.ult-dual-btn-1' )
-				.attr( 'class' );
-			const arr = style1.split( ' ' );
-			var style1 = arr[ 1 ] + arr[ 2 ];
+                }
+            });
+        });
+        jQuery( document ).on( "ultAdvancedTabClickedDualBtn", function( e, selector ) {
+            jQuery(selector).find(".ult_dual_button" ).each(function ( index ) {
 
-			if ( style1 == 'Style1' ) {
-				var bgcolor = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'bgcolor' );
-				jQuery( this )[ 0 ].style.setProperty(
-					'background-color',
-					bgcolor,
-					'important'
-				);
-			}
+                jQuery(this).find('.ult_dual1').css('height', 'auto');
+                jQuery(this).find('.ult_dual2').css('height', 'auto');
+                
+                var ht1=jQuery(this).find('.ult_dual1').outerHeight();
+                ht1=parseInt(ht1);
 
-			if ( style1 == 'Style2' ) {
-				var bgcolor = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'bgcolor' );
-			}
-			if ( style1 == 'Style3' ) {
-				var bgcolor = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'bgcolor' );
-				jQuery( this ).css( {
-					'box-shadow': 'inset 0px 0 0 0 ' + bgcolor,
-				} );
-			}
-			if ( style1 != 'undefined' ) {
-				const iconcolor = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'icon_color' );
-				jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.find( '.aio-icon' )
-					.css( { color: iconcolor } );
+                var ht2=jQuery(this).find('.ult_dual2').outerHeight();
+                ht2=parseInt(ht2);
 
-				const titlecolor = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'textcolor' );
-				jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.find( '.ult-dual-button-title' )
-					.css( { color: titlecolor } );
+                if(ht1>ht2)
+                {
+                    jQuery(this).find('.ult_dual2').css({'height':ht1});
+                    jQuery(this).find('.ult_dual1').css({'height':ht1});
 
-				const iconbgcolor = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'iconbgcolor' );
-				jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.find( '.aio-icon' )
-					.css( { background: iconbgcolor } );
+                }
+                else if(ht1<ht2)
+                {
+                    jQuery(this).find('.ult_dual1').css({'height':ht2});
+                    jQuery(this).find('.ult_dual2').css({'height':ht2});
 
-				const iconbordercolor = jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.data( 'iconborder' );
-				jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.find( '.aio-icon' )
-					.css( { 'border-color': iconbordercolor } );
+                }
+                else if(ht1==ht2)
+                {
+                    jQuery(this).find('.ult_dual1').css({'height':ht2});
+                    jQuery(this).find('.ult_dual2').css({'height':ht2});
 
-				//for image hover
-				jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.find( '.aio-icon-img' )
-					.css( { background: iconbgcolor } );
-				jQuery( this )
-					.find( '.ult-dual-btn-1' )
-					.find( '.aio-icon-img' )
-					.css( { 'border-color': iconbordercolor } );
-			}
-		} );
+                }
+            });
+        });
+    });
 
-		/*--- bt2 ----*/
-		jQuery( document ).on( 'mouseenter', '.ult_dual2', function () {
-			var style1 = jQuery( this )
-				.find( '.ult-dual-btn-2' )
-				.attr( 'class' );
-			const arr = style1.split( ' ' );
-			var style1 = arr[ 1 ] + arr[ 2 ];
 
-			if ( style1 == 'Style1' ) {
-				var bghover = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'bghovercolor' );
-				jQuery( this )[ 0 ].style.setProperty(
-					'background-color',
-					bghover,
-					'important'
-				);
-			}
+    function recallme(){
+        jQuery( ".ult_dual_button" ).each(function( index ) {
+             var id=jQuery(this).attr("id");
+             var response=jQuery(this).data("response");
+             if(response=='undefined' || response==''){
+                response='on';
+             }
 
-			if ( style1 == 'Style2' ) {
-				var bghover = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'bghovercolor' );
-			}
-			if ( style1 == 'Style3' ) {
-				var bghover = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'bghovercolor' );
-				jQuery( this ).css( {
-					'box-shadow': ' inset 0 0 20px 50px ' + bghover,
-				} );
-			}
+             var rtl_right = 'right';
+              if ( jQuery( 'body' ).hasClass('rtl') ) {
+                var rtl_right = 'left';
+             }
 
-			if ( style1 != 'undefined' ) {
-				const iconhover = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'icon_hover_color' );
-				jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.find( '.aio-icon' )
-					.css( { color: iconhover } );
+             var rtl_left = 'left';
+              if ( jQuery( 'body' ).hasClass('rtl') ) {
+                var rtl_left = 'right';
+             }
 
-				const titlehover = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'texthovercolor' );
+                if(response=="on")
+                {
+                   var style =id;
+                   style = document.createElement('style');
+                   style.type = 'text/css';
+                   style.innerHTML = "@media(min-width:300px) and (max-width:768px) {"+"#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper { margin: 0px;float: none;position: relative}.ult_main_dualbtn { display: inline-block}.ult_dualbutton-wrapper { display: block }"+"#"+id+".ult_dual_button .middle-text {top: 100%;right: 50%}"+"#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:first-child .ult_ivan_button { border-bottom-right-radius: 0!important; border-bottom-left-radius: 0!important; border-top-right-radius: inherit; border-bottom: 0px!important;}"+"#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:last-child .ult_ivan_button { border-top-left-radius: 0!important;border-top-right-radius: 0!important}}@media(min-width:0px) and (max-width:0px) {"+"#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper { float: left; position: relative}.ult_dual1 {     border-right: none!important } .ult_dualbutton-wrapper {display: block}"+"#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:first-child .ult_ivan_button { border-top-right-radius: 0!important;  border-bottom-right-radius: 0!important}"+"#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:last-child .ult_ivan_button { border-top-left-radius: 0!important;  border-bottom-left-radius: 0!important  }}@media(min-width:768px) and (max-width:970px) { "+"#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper { margin: -4px; float: none; position: relative }.ult_dualbutton-wrapper { display: block} "+"#"+id+".ult_dual_button .middle-text { top: 100%; right: 50% }"+"#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:first-child .ult_ivan_button { border-bottom-right-radius: 0!important; border-bottom-left-radius: 0!important; border-top-right-radius: inherit }"+"#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:last-child .ult_ivan_button {     border-top-left-radius: 0!important;   border-top-right-radius: 0!important  }}@media(min-width:970px){ "+"#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:first-child .ult_ivan_button { border-top-"+ rtl_right +"-radius: 0!important; border-bottom-"+ rtl_right +"-radius: 0!important}"+"#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:last-child .ult_ivan_button { border-top-"+ rtl_left +"-radius: 0!important; border-bottom-"+ rtl_left +"-radius: 0!important }"+"#"+id+".ult_dual_button .ult_dual1 { border-"+ rtl_right +": none!important}}";
+                   document.getElementsByTagName('head')[0].appendChild(style);
+                   document.getElementsByTagName('head')[0].appendChild(style);
 
-				jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.find( '.ult-dual-button-title' )
-					.css( { color: titlehover } );
+                   var width=jQuery( window ).width();
+				   var b1w = jQuery(this).find('.ult_dual1').outerWidth();
+				   var b2w = jQuery(this).find('.ult_dual2').outerWidth();
+                    if(width>300 && width <=768)
+                    {
+                    var bshadow="inset 0px -"+b1w+"px 0px 0px ";
+                    var bshadow2=" inset 0px "+b2w+"px 0px 0px ";
+                    }                 
+                    else if( width>768 && width<1015){
+                    var bshadow="inset 0px -"+b1w+"px 0px 0px ";
+                    var bshadow2=" inset 0px "+b2w+"px 0px 0px ";
+                    }
+                    else{
+                    var bshadow="inset -"+b1w+"px 0 0 0 ";
+                    var bshadow2="inset "+b2w+"px 0 0 0";
+                    }
 
-				const iconbghover = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'iconbghovercolor' );
-				jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.find( '.aio-icon' )
-					.css( { background: iconbghover } );
+                    //change box shaddow of button1
+                   jQuery("#"+id).find(".ult_dual1").mouseenter(function(){
 
-				const iconborderhover = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'iconhoverborder' );
-				jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.find( '.aio-icon' )
-					.css( { 'border-color': iconborderhover } );
+                    var style=jQuery(this).find('.ult-dual-btn-1').attr('class');
+                    var arr=style.split(" ");
+                    var style=arr[1]+arr[2];
 
-				//for image hover
-				jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.find( '.aio-icon-img' )
-					.css( { background: iconbghover } );
-				jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.find( '.aio-icon-img' )
-					.css( { 'border-color': iconborderhover } );
-			}
-		} );
+                      if(style=='Style2')
+                        {
+                        var bghover = jQuery(this).find('.ult-dual-btn-1').data('bghovercolor');
+                        jQuery(this).css({'box-shadow':bshadow+bghover})
+                        }
 
-		jQuery( document ).on( 'mouseleave', '.ult_dual2', function () {
-			var style1 = jQuery( this )
-				.find( '.ult-dual-btn-2' )
-				.attr( 'class' );
-			const arr = style1.split( ' ' );
-			var style1 = arr[ 1 ] + arr[ 2 ];
-			if ( style1 == 'Style1' ) {
-				var bgcolor = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'bgcolor' );
-				jQuery( this )[ 0 ].style.setProperty(
-					'background-color',
-					bgcolor,
-					'important'
-				);
-			}
+                    });
 
-			if ( style1 == 'Style2' ) {
-				var bgcolor = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'bgcolor' );
-			}
+                    jQuery("#"+id).find(".ult_dual1").mouseleave(function(){
+                        var style=jQuery(this).find('.ult-dual-btn-1').attr('class');
+                        var arr=style.split(" ");
+                        var style=arr[1]+arr[2];
 
-			if ( style1 == 'Style3' ) {
-				var bgcolor = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'bghovercolor' );
-				jQuery( this ).css( {
-					'box-shadow': ' inset 0 0 0 0 ' + bgcolor,
-				} );
-			}
+                         if(style=='Style2')
+                            {
+                            var bgcolor = jQuery(this).find('.ult-dual-btn-1').data('bgcolor');
+                            jQuery(this).css({'box-shadow':'inset 0px 0 0 0 '+bgcolor});
 
-			if ( style1 != 'undefined' ) {
-				const iconcolor = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'icon_color' );
-				jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.find( '.aio-icon' )
-					.css( { color: iconcolor } );
+                            }
+                    });
 
-				const titlecolor = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'textcolor' );
-				jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.find( '.ult-dual-button-title' )
-					.css( { color: titlecolor } );
+                 //change box shaddow of button2
 
-				const iconbgcolor = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'iconbgcolor' );
-				jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.find( '.aio-icon' )
-					.css( { background: iconbgcolor } );
+                   jQuery("#"+id).find(".ult_dual2").mouseenter(function(){
+                        var style1=jQuery(this).find('.ult-dual-btn-2').attr('class');
+                        var arr=style1.split(" ");
+                        var style1=arr[1]+arr[2];
+                        if(style1=='Style2')
+                            {
+                            var bghover = jQuery(this).find('.ult-dual-btn-2').data('bghovercolor');
+                             jQuery(this).css({'box-shadow':bshadow2+' '+bghover});
+                            }
 
-				const iconbordercolor = jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.data( 'iconborder' );
-				jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.find( '.aio-icon' )
-					.css( { 'border-color': iconbordercolor } );
+                    });
 
-				//for image hover
-				jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.find( '.aio-icon-img' )
-					.css( { background: iconbgcolor } );
-				jQuery( this )
-					.find( '.ult-dual-btn-2' )
-					.find( '.aio-icon-img' )
-					.css( { 'border-color': iconbordercolor } );
-			}
-		} );
-	} );
-	/*---for button----*/
+                  jQuery("#"+id).find(".ult_dual2").mouseleave(function(){
+                    var style1=jQuery(this).find('.ult-dual-btn-2').attr('class');
+                    var arr=style1.split(" ");
+                    var style1=arr[1]+arr[2];
 
-	jQuery( document ).on( 'mouseenter', '.ult_main_dualbtn', function () {
-		const mainhoverborder = jQuery( this ).data( 'bhcolor' );
-	} );
+                    if(style1=='Style2')
+                    {
+                    var bgcolor = jQuery(this).find('.ult-dual-btn-2').data('bgcolor');
+                    jQuery(this).css({'box-shadow':'inset 0px 0 0 0 '+bgcolor});
 
-	jQuery( document ).on( 'mouseleave', '.ult_main_dualbtn', function () {
-		const mainborder = jQuery( this ).data( 'bcolor' );
-	} );
-} )( jQuery );
+                    }
+                });
 
-jQuery( document ).ready( function ( e ) {
-	jQuery( '.ult_main_dualbtn' ).each( function ( index ) {
-		let ht1 = jQuery( this ).find( '.ult_dual1' ).outerHeight();
-		ht1 = parseInt( ht1 );
+                }
+                else{
+                   var style =id;
+                   style = document.createElement('style');
+                   style.type = 'text/css';
+                   style.innerHTML = "#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:first-child .ult_ivan_button { border-top-right-radius: 0!important; border-bottom-right-radius: 0!important }"+"#"+id+".ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:last-child .ult_ivan_button { border-top-left-radius: 0!important; border-bottom-left-radius: 0!important }"+"#"+id+".ult_dual_button .ult_dual1 { border-right: none!important}";
+                   document.getElementsByTagName('head')[0].appendChild(style);
 
-		let ht2 = jQuery( this ).find( '.ult_dual2' ).outerHeight();
-		ht2 = parseInt( ht2 );
+                   document.getElementsByTagName('head')[0].appendChild(style);
 
-		if ( ht1 > ht2 ) {
-			jQuery( this ).find( '.ult_dual2' ).css( { height: ht1 } );
-			jQuery( this ).find( '.ult_dual1' ).css( { height: ht1 } );
-		} else if ( ht1 < ht2 ) {
-			jQuery( this ).find( '.ult_dual1' ).css( { height: ht2 } );
-			jQuery( this ).find( '.ult_dual2' ).css( { height: ht2 } );
-		} else if ( ht1 == ht2 ) {
-			jQuery( this ).find( '.ult_dual1' ).css( { height: ht2 } );
-			jQuery( this ).find( '.ult_dual2' ).css( { height: ht2 } );
-		}
-	} );
-	jQuery( document ).on( 'ult-expandable', function ( e, selector ) {
-		jQuery( selector )
-			.find( '.ult_dual_button' )
-			.each( function ( index ) {
-				jQuery( this ).find( '.ult_dual1' ).css( 'height', 'auto' );
-				jQuery( this ).find( '.ult_dual2' ).css( 'height', 'auto' );
+                //change box shaddow of button1
 
-				let ht1 = jQuery( this ).find( '.ult_dual1' ).outerHeight();
-				ht1 = parseInt( ht1 );
+                    jQuery("#"+id).find(".ult_dual1").mouseenter(function(){
 
-				let ht2 = jQuery( this ).find( '.ult_dual2' ).outerHeight();
-				ht2 = parseInt( ht2 );
+                    var style=jQuery(this).find('.ult-dual-btn-1').attr('class');
+                    var arr=style.split(" ");
+                    var style=arr[1]+arr[2];
 
-				if ( ht1 > ht2 ) {
-					jQuery( this ).find( '.ult_dual2' ).css( { height: ht1 } );
-					jQuery( this ).find( '.ult_dual1' ).css( { height: ht1 } );
-				} else if ( ht1 < ht2 ) {
-					jQuery( this ).find( '.ult_dual1' ).css( { height: ht2 } );
-					jQuery( this ).find( '.ult_dual2' ).css( { height: ht2 } );
-				} else if ( ht1 == ht2 ) {
-					jQuery( this ).find( '.ult_dual1' ).css( { height: ht2 } );
-					jQuery( this ).find( '.ult_dual2' ).css( { height: ht2 } );
-				}
-			} );
-	} );
-	jQuery( document ).on(
-		'ultAdvancedTabClickedDualBtn',
-		function ( e, selector ) {
-			jQuery( selector )
-				.find( '.ult_dual_button' )
-				.each( function ( index ) {
-					jQuery( this ).find( '.ult_dual1' ).css( 'height', 'auto' );
-					jQuery( this ).find( '.ult_dual2' ).css( 'height', 'auto' );
+					var wd = jQuery(this).outerWidth();
 
-					let ht1 = jQuery( this ).find( '.ult_dual1' ).outerHeight();
-					ht1 = parseInt( ht1 );
+                      if(style=='Style2')
+                        {
+                        var bshadow="inset -"+wd+"px 0 0 0 ";
+                        var bghover = jQuery(this).find('.ult-dual-btn-1').data('bghovercolor');
+                        jQuery(this).css({'box-shadow':bshadow+bghover})
+                        }
 
-					let ht2 = jQuery( this ).find( '.ult_dual2' ).outerHeight();
-					ht2 = parseInt( ht2 );
+                });
+                     jQuery("#"+id).find(".ult_dual1").mouseleave(function(){
+                    var style=jQuery(this).find('.ult-dual-btn-1').attr('class');
+                    var arr=style.split(" ");
+                    var style=arr[1]+arr[2];
 
-					if ( ht1 > ht2 ) {
-						jQuery( this )
-							.find( '.ult_dual2' )
-							.css( { height: ht1 } );
-						jQuery( this )
-							.find( '.ult_dual1' )
-							.css( { height: ht1 } );
-					} else if ( ht1 < ht2 ) {
-						jQuery( this )
-							.find( '.ult_dual1' )
-							.css( { height: ht2 } );
-						jQuery( this )
-							.find( '.ult_dual2' )
-							.css( { height: ht2 } );
-					} else if ( ht1 == ht2 ) {
-						jQuery( this )
-							.find( '.ult_dual1' )
-							.css( { height: ht2 } );
-						jQuery( this )
-							.find( '.ult_dual2' )
-							.css( { height: ht2 } );
-					}
-				} );
-		}
-	);
-} );
+                     if(style=='Style2')
+                        {
+                        var bgcolor = jQuery(this).find('.ult-dual-btn-1').data('bgcolor');
+                        jQuery(this).css({'box-shadow':'inset 0px 0 0 0 '+bgcolor});
 
-function recallme() {
-	jQuery( '.ult_dual_button' ).each( function ( index ) {
-		const id = jQuery( this ).attr( 'id' );
-		let response = jQuery( this ).data( 'response' );
-		if ( response == 'undefined' || response == '' ) {
-			response = 'on';
-		}
+                        }
+                });
+                 //change box shaddow of button2
 
-		var rtl_right = 'right';
-		if ( jQuery( 'body' ).hasClass( 'rtl' ) ) {
-			var rtl_right = 'left';
-		}
+               jQuery("#"+id).find(".ult_dual2").mouseenter(function(){
+                    var style1=jQuery(this).find('.ult-dual-btn-2').attr('class');
+                    var arr=style1.split(" ");
+                    var style1=arr[1]+arr[2];
+					var wd = jQuery(this).outerWidth();
+                    if(style1=='Style2')
+                        {
+                        var bshadow2="inset "+wd+"px 0 0 0";
+                        var bghover = jQuery(this).find('.ult-dual-btn-2').data('bghovercolor');
+                        jQuery(this).css({'box-shadow':bshadow2+bghover});
+                        }
 
-		var rtl_left = 'left';
-		if ( jQuery( 'body' ).hasClass( 'rtl' ) ) {
-			var rtl_left = 'right';
-		}
+                });
 
-		if ( response == 'on' ) {
-			var style = id;
-			style = document.createElement( 'style' );
-			style.type = 'text/css';
-			style.innerHTML =
-				'@media(min-width:300px) and (max-width:768px) {' +
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper { margin: 0px;float: none;position: relative}.ult_main_dualbtn { display: inline-block}.ult_dualbutton-wrapper { display: block }' +
-				'#' +
-				id +
-				'.ult_dual_button .middle-text {top: 100%;right: 50%}' +
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:first-child .ult_ivan_button { border-bottom-right-radius: 0!important; border-bottom-left-radius: 0!important; border-top-right-radius: inherit; border-bottom: 0px!important;}' +
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:last-child .ult_ivan_button { border-top-left-radius: 0!important;border-top-right-radius: 0!important}}@media(min-width:0px) and (max-width:0px) {' +
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper { float: left; position: relative}.ult_dual1 {     border-right: none!important } .ult_dualbutton-wrapper {display: block}' +
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:first-child .ult_ivan_button { border-top-right-radius: 0!important;  border-bottom-right-radius: 0!important}' +
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:last-child .ult_ivan_button { border-top-left-radius: 0!important;  border-bottom-left-radius: 0!important  }}@media(min-width:768px) and (max-width:970px) { ' +
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper { margin: -4px; float: none; position: relative }.ult_dualbutton-wrapper { display: block} ' +
-				'#' +
-				id +
-				'.ult_dual_button .middle-text { top: 100%; right: 50% }' +
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:first-child .ult_ivan_button { border-bottom-right-radius: 0!important; border-bottom-left-radius: 0!important; border-top-right-radius: inherit }' +
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:last-child .ult_ivan_button {     border-top-left-radius: 0!important;   border-top-right-radius: 0!important  }}@media(min-width:970px){ ' +
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:first-child .ult_ivan_button { border-top-' +
-				rtl_right +
-				'-radius: 0!important; border-bottom-' +
-				rtl_right +
-				'-radius: 0!important}' +
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:last-child .ult_ivan_button { border-top-' +
-				rtl_left +
-				'-radius: 0!important; border-bottom-' +
-				rtl_left +
-				'-radius: 0!important }' +
-				'#' +
-				id +
-				'.ult_dual_button .ult_dual1 { border-' +
-				rtl_right +
-				': none!important}}';
-			document.getElementsByTagName( 'head' )[ 0 ].appendChild( style );
-			document.getElementsByTagName( 'head' )[ 0 ].appendChild( style );
+                  jQuery("#"+id).find(".ult_dual2").mouseleave(function(){
+                    var style1=jQuery(this).find('.ult-dual-btn-2').attr('class');
+                    var arr=style1.split(" ");
+                    var style1=arr[1]+arr[2];
 
-			const width = jQuery( window ).width();
-			const b1w = jQuery( this ).find( '.ult_dual1' ).outerWidth();
-			const b2w = jQuery( this ).find( '.ult_dual2' ).outerWidth();
-			if ( width > 300 && width <= 768 ) {
-				var bshadow = 'inset 0px -' + b1w + 'px 0px 0px ';
-				var bshadow2 = ' inset 0px ' + b2w + 'px 0px 0px ';
-			} else if ( width > 768 && width < 1015 ) {
-				var bshadow = 'inset 0px -' + b1w + 'px 0px 0px ';
-				var bshadow2 = ' inset 0px ' + b2w + 'px 0px 0px ';
-			} else {
-				var bshadow = 'inset -' + b1w + 'px 0 0 0 ';
-				var bshadow2 = 'inset ' + b2w + 'px 0 0 0';
-			}
+                    if(style1=='Style2')
+                    {
+                    var bgcolor = jQuery(this).find('.ult-dual-btn-2').data('bgcolor');
+                    jQuery(this).css({'box-shadow':'inset 0px 0 0 0 '+bgcolor});
 
-			//change box shaddow of button1
-			jQuery( '#' + id )
-				.find( '.ult_dual1' )
-				.mouseenter( function () {
-					var style = jQuery( this )
-						.find( '.ult-dual-btn-1' )
-						.attr( 'class' );
-					const arr = style.split( ' ' );
-					var style = arr[ 1 ] + arr[ 2 ];
+                    }
+                });
 
-					if ( style == 'Style2' ) {
-						const bghover = jQuery( this )
-							.find( '.ult-dual-btn-1' )
-							.data( 'bghovercolor' );
-						jQuery( this ).css( {
-							'box-shadow': bshadow + bghover,
-						} );
-					}
-				} );
-
-			jQuery( '#' + id )
-				.find( '.ult_dual1' )
-				.mouseleave( function () {
-					var style = jQuery( this )
-						.find( '.ult-dual-btn-1' )
-						.attr( 'class' );
-					const arr = style.split( ' ' );
-					var style = arr[ 1 ] + arr[ 2 ];
-
-					if ( style == 'Style2' ) {
-						const bgcolor = jQuery( this )
-							.find( '.ult-dual-btn-1' )
-							.data( 'bgcolor' );
-						jQuery( this ).css( {
-							'box-shadow': 'inset 0px 0 0 0 ' + bgcolor,
-						} );
-					}
-				} );
-
-			//change box shaddow of button2
-
-			jQuery( '#' + id )
-				.find( '.ult_dual2' )
-				.mouseenter( function () {
-					var style1 = jQuery( this )
-						.find( '.ult-dual-btn-2' )
-						.attr( 'class' );
-					const arr = style1.split( ' ' );
-					var style1 = arr[ 1 ] + arr[ 2 ];
-					if ( style1 == 'Style2' ) {
-						const bghover = jQuery( this )
-							.find( '.ult-dual-btn-2' )
-							.data( 'bghovercolor' );
-						jQuery( this ).css( {
-							'box-shadow': bshadow2 + ' ' + bghover,
-						} );
-					}
-				} );
-
-			jQuery( '#' + id )
-				.find( '.ult_dual2' )
-				.mouseleave( function () {
-					var style1 = jQuery( this )
-						.find( '.ult-dual-btn-2' )
-						.attr( 'class' );
-					const arr = style1.split( ' ' );
-					var style1 = arr[ 1 ] + arr[ 2 ];
-
-					if ( style1 == 'Style2' ) {
-						const bgcolor = jQuery( this )
-							.find( '.ult-dual-btn-2' )
-							.data( 'bgcolor' );
-						jQuery( this ).css( {
-							'box-shadow': 'inset 0px 0 0 0 ' + bgcolor,
-						} );
-					}
-				} );
-		} else {
-			var style = id;
-			style = document.createElement( 'style' );
-			style.type = 'text/css';
-			style.innerHTML =
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:first-child .ult_ivan_button { border-top-right-radius: 0!important; border-bottom-right-radius: 0!important }' +
-				'#' +
-				id +
-				'.ult_dual_button .ulitmate_dual_buttons .ult_dualbutton-wrapper:last-child .ult_ivan_button { border-top-left-radius: 0!important; border-bottom-left-radius: 0!important }' +
-				'#' +
-				id +
-				'.ult_dual_button .ult_dual1 { border-right: none!important}';
-			document.getElementsByTagName( 'head' )[ 0 ].appendChild( style );
-
-			document.getElementsByTagName( 'head' )[ 0 ].appendChild( style );
-
-			//change box shaddow of button1
-
-			jQuery( '#' + id )
-				.find( '.ult_dual1' )
-				.mouseenter( function () {
-					var style = jQuery( this )
-						.find( '.ult-dual-btn-1' )
-						.attr( 'class' );
-					const arr = style.split( ' ' );
-					var style = arr[ 1 ] + arr[ 2 ];
-
-					const wd = jQuery( this ).outerWidth();
-
-					if ( style == 'Style2' ) {
-						const bshadow = 'inset -' + wd + 'px 0 0 0 ';
-						const bghover = jQuery( this )
-							.find( '.ult-dual-btn-1' )
-							.data( 'bghovercolor' );
-						jQuery( this ).css( {
-							'box-shadow': bshadow + bghover,
-						} );
-					}
-				} );
-			jQuery( '#' + id )
-				.find( '.ult_dual1' )
-				.mouseleave( function () {
-					var style = jQuery( this )
-						.find( '.ult-dual-btn-1' )
-						.attr( 'class' );
-					const arr = style.split( ' ' );
-					var style = arr[ 1 ] + arr[ 2 ];
-
-					if ( style == 'Style2' ) {
-						const bgcolor = jQuery( this )
-							.find( '.ult-dual-btn-1' )
-							.data( 'bgcolor' );
-						jQuery( this ).css( {
-							'box-shadow': 'inset 0px 0 0 0 ' + bgcolor,
-						} );
-					}
-				} );
-			//change box shaddow of button2
-
-			jQuery( '#' + id )
-				.find( '.ult_dual2' )
-				.mouseenter( function () {
-					var style1 = jQuery( this )
-						.find( '.ult-dual-btn-2' )
-						.attr( 'class' );
-					const arr = style1.split( ' ' );
-					var style1 = arr[ 1 ] + arr[ 2 ];
-					const wd = jQuery( this ).outerWidth();
-					if ( style1 == 'Style2' ) {
-						const bshadow2 = 'inset ' + wd + 'px 0 0 0';
-						const bghover = jQuery( this )
-							.find( '.ult-dual-btn-2' )
-							.data( 'bghovercolor' );
-						jQuery( this ).css( {
-							'box-shadow': bshadow2 + bghover,
-						} );
-					}
-				} );
-
-			jQuery( '#' + id )
-				.find( '.ult_dual2' )
-				.mouseleave( function () {
-					var style1 = jQuery( this )
-						.find( '.ult-dual-btn-2' )
-						.attr( 'class' );
-					const arr = style1.split( ' ' );
-					var style1 = arr[ 1 ] + arr[ 2 ];
-
-					if ( style1 == 'Style2' ) {
-						const bgcolor = jQuery( this )
-							.find( '.ult-dual-btn-2' )
-							.data( 'bgcolor' );
-						jQuery( this ).css( {
-							'box-shadow': 'inset 0px 0 0 0 ' + bgcolor,
-						} );
-					}
-				} );
-		}
-	} );
-}
+                }
+          });
+    }
 
 //responsive media query for button
-jQuery( document ).ready( function ( p ) {
-	recallme();
-	jQuery( window ).on( 'load', function () {
-		recallme();
-	} );
-} );
+jQuery(document).ready(function(p){
+  recallme();
+    jQuery( window ).on('load',function() {
+        recallme();
+    });
+});

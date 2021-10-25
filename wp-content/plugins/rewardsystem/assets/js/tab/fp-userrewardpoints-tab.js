@@ -2,7 +2,6 @@
  * User Reward Points Tab
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var UserRewardPointsTabScript = {
         init : function () {
             this.trigger_on_page_load() ;

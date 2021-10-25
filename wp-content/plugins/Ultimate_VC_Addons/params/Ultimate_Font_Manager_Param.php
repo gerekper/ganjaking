@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_VC_Addons_Font_Manager_Param
+ * Class Ultimate_Font_Manager_Param
  *
- * @package Ultimate_VC_Addons_Font_Manager_Param.
+ * @package Ultimate_Font_Manager_Param.
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Font_Manager_Param' ) ) {
+if ( ! class_exists( 'Ultimate_Font_Manager_Param' ) ) {
 	/**
-	 * Class Ultimate_VC_Addons_Font_Manager_Param
+	 * Class Ultimate_Font_Manager_Param
 	 *
-	 * @class Ultimate_VC_Addons_Font_Manager_Param.
+	 * @class Ultimate_Font_Manager_Param.
 	 */
-	class Ultimate_VC_Addons_Font_Manager_Param {
+	class Ultimate_Font_Manager_Param {
 		/**
 		 * Initiator.
 		 */
@@ -70,6 +70,6 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Font_Manager_Param' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_VC_Addons_Font_Manager_Param' ) ) {
-	$ultimate_font_manager_param = new Ultimate_VC_Addons_Font_Manager_Param();
+if ( class_exists( 'Ultimate_Font_Manager_Param' ) ) {
+	$ultimate_font_manager_param = new Ultimate_Font_Manager_Param();
 }

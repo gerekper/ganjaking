@@ -33,7 +33,12 @@ class Subscription extends AbstractDripConnect
 
         $setting = $this->get_integration_data('DripConnect_enable_double_optin');
 
-        $val = $setting === true;
+        //external forms
+        if($optin_campaign_id == 0) {
+            $setting = $this->extras['is_double_optin'];
+        }
+
+        $val = ($setting === true);
 
         return apply_filters('mo_connections_drip_is_double_optin', $val, $optin_campaign_id);
     }

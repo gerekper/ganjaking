@@ -1,6 +1,6 @@
 
 jQuery( function ( $ ) {
-    'use strict' ;
+
     var FPFrontendScripts = {
         init : function ( ) {
             if ( frontendscripts_params.enqueue_footable === '1' ) {
@@ -12,7 +12,7 @@ jQuery( function ( $ ) {
             $( ".sk_failure_msg_for_pointsurl" ).fadeOut( 10000 ) ;
             $( '.woocommerce_booking_variations' ).hide() ;
             $( '#value_variable_product' ).hide() ;
-            $( '.rs-minimum-quantity-error-variable' ).hide();
+            $( '.gift_icon' ).hide() ;
             $( document ).on( 'change' , 'input, wcva_attribute_radio' , this.message_for_variations ) ;
             $( document ).on( 'click' , '.share_wrapper' , this.fb_share ) ;
             $( document ).on( 'click' , '#refgeneratenow' , this.generated_referral_link ) ;
@@ -41,8 +41,6 @@ jQuery( function ( $ ) {
                 $( '.variableshopmessage' ).next( 'br' ).show() ;
                 $( '.variableshopmessage' ).show( ) ;
             }
-            
-            $( '.displaymessage' ).parent().hide() ;
         } ,
         table_as_footable : function ( ) {
             jQuery( '.my_reward_table' ).footable( ).bind( 'footable_filtering' , function ( e ) {
@@ -67,14 +65,7 @@ jQuery( function ( $ ) {
 
             // Footable for Shortcode 'rs_points_earned_in_a_specific_duration'.
             jQuery( '.rs_points_earned_in_specific_duration' ).footable() ;
-            
-            jQuery( '.list_of_orders' ).footable() ;
-            jQuery( '#change-page-sizesss' ).change( function ( e ) {
-                e.preventDefault() ;
-                var pageSize = jQuery( this ).val() ;
-                jQuery( '.footable' ).data( 'page-size' , pageSize ) ;
-                jQuery( '.footable' ).trigger( 'footable_initialized' ) ;
-	    } ) ;
+
         } ,
         display_social_icons_reward_table : function ( ) {
             jQuery( '.rs_social_buttons .fb-share-button span' ).css( "width" , "60px" ) ;
@@ -196,7 +187,6 @@ jQuery( function ( $ ) {
                 $( '#value_variable_product' ).hide() ;
                 $( '#buy_Point_value_variable_product' ).hide() ;
                 $( '.rs_variable_earn_messages' ).hide() ;
-                $( '.rs-minimum-quantity-error-variable' ).hide();
                 if ( frontendscripts_params.variable_product_earnmessage === 'no' ) {
                     $( '.variableshopmessage' ).hide( ) ;
                     $( '.variableshopmessage' ).next( 'br' ).hide() ;
@@ -341,12 +331,6 @@ jQuery( function ( $ ) {
                                         $( '.variableshopmessage' ).html( '<br>' + response.data.buymsg + '</br>' ) ;
                                     }
                                 }
-                            }
-                            
-                            if(response.data.min_quantity_error_message){
-                                $( '.rs-minimum-quantity-error-variable' ).show();
-                                $( '.rs-minimum-quantity-error-variable' ).addClass("woocommerce-error");
-                                $( '.rs-minimum-quantity-error-variable' ).html( response.data.min_quantity_error_message ) ;
                             }
                         } else {
                             $( '.variableshopmessage' ).hide() ;

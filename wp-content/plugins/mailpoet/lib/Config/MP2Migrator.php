@@ -5,9 +5,8 @@ namespace MailPoet\Config;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Entities\FormEntity;
-use MailPoet\Form\FormsRepository;
 use MailPoet\Models\CustomField;
+use MailPoet\Models\Form;
 use MailPoet\Models\MappingToExternalEntities;
 use MailPoet\Models\Segment;
 use MailPoet\Models\Subscriber;
@@ -32,9 +31,6 @@ class MP2Migrator {
   /** @var Activator */
   private $activator;
 
-  /** @var FormsRepository */
-  private $formsRepository;
-
   private $logFile;
   public $logFileUrl;
   public $progressbar;
@@ -49,11 +45,7 @@ class MP2Migrator {
   private $mp2UserTable;
   private $mp2UserListTable;
 
-  public function __construct(
-    SettingsController $settings,
-    FormsRepository $formsRepository,
-    Activator $activator
-  ) {
+  public function __construct(SettingsController $settings, Activator $activator) {
     $this->defineMP2Tables();
     $logFilename = 'mp2migration.log';
     $this->logFile = Env::$tempPath . '/' . $logFilename;
@@ -61,7 +53,6 @@ class MP2Migrator {
     $this->progressbar = new ProgressBar('mp2migration');
     $this->settings = $settings;
     $this->activator = $activator;
-    $this->formsRepository = $formsRepository;
   }
 
   private function defineMP2Tables() {
@@ -834,11 +825,12 @@ class MP2Migrator {
 
       if (is_array($forms)) {
         foreach ($forms as $form) {
-          $this->importForm($form);
-          $importedFormsCount++;
+          $newForm = $this->importForm($form);
+          if (!empty($newForm)) {
+            $importedFormsCount++;
+          }
         }
       }
-      $this->formsRepository->flush();
       $this->progressbar->incrementCurrentCount($formsCount);
     } while (($forms != null) && ($formsCount > 0));
 
@@ -873,6 +865,7 @@ class MP2Migrator {
    * Import a form
    *
    * @param array $formData Form data
+   * @return Form
    */
   private function importForm($formData) {
     $serializedData = base64_decode($formData['data']);
@@ -923,13 +916,13 @@ class MP2Migrator {
       ];
     }
 
-    $form = new FormEntity($formData['name']);
-    $form->setBody($mp3FormBody);
-    $form->setSettings($mp3FormSettings);
-
-    $this->formsRepository->persist($form);
-
+    $form = Form::createOrUpdate([
+      'name' => $formData['name'],
+      'body' => $mp3FormBody,
+      'settings' => $mp3FormSettings,
+    ]);
     $this->settings->set('last_imported_form_id', $formData['form_id']);
+    return $form;
   }
 
   /**

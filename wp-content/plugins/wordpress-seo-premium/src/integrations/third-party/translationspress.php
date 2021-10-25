@@ -1,6 +1,9 @@
 <?php
+
 namespace Yoast\WP\SEO\Integrations\Third_Party;
 
+use DateTime;
+use stdClass;
 use Yoast\WP\SEO\Conditionals\No_Conditionals;
 use Yoast\WP\SEO\Helpers\Date_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
@@ -36,7 +39,7 @@ class TranslationsPress implements Integration_Interface {
 	/**
 	 * The array to cache our addition to the `site_transient_update_plugins` filter.
 	 *
-	 * @var null|array
+	 * @var array|null
 	 */
 	protected $cached_translations;
 
@@ -98,15 +101,15 @@ class TranslationsPress implements Integration_Interface {
 	 */
 	public function site_transient_update_plugins( $value ) {
 		if ( ! $value ) {
-			$value = new \stdClass();
+			$value = new stdClass();
 		}
 
 		if ( ! isset( $value->translations ) ) {
 			$value->translations = [];
 		}
 
-		if ( is_array( $this->cached_translations ) ) {
-			$value->translations = array_merge( $value->translations, $this->cached_translations );
+		if ( \is_array( $this->cached_translations ) ) {
+			$value->translations = \array_merge( $value->translations, $this->cached_translations );
 			return $value;
 		}
 
@@ -126,8 +129,8 @@ class TranslationsPress implements Integration_Interface {
 			}
 
 			if ( isset( $installed_translations[ $this->slug ][ $translation['language'] ] ) && $translation['updated'] ) {
-				$local  = new \DateTime( $installed_translations[ $this->slug ][ $translation['language'] ]['PO-Revision-Date'] );
-				$remote = new \DateTime( $translation['updated'] );
+				$local  = new DateTime( $installed_translations[ $this->slug ][ $translation['language'] ]['PO-Revision-Date'] );
+				$remote = new DateTime( $translation['updated'] );
 
 				if ( $local >= $remote ) {
 					continue;

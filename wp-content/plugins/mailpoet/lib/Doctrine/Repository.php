@@ -16,10 +16,10 @@ abstract class Repository {
   /** @var EntityManager */
   protected $entityManager;
 
-  /** @var ClassMetadata<object> */
+  /** @var ClassMetadata */
   protected $classMetadata;
 
-  /** @var DoctrineEntityRepository<T> */
+  /** @var DoctrineEntityRepository */
   protected $doctrineRepository;
 
   /** @var string[] */

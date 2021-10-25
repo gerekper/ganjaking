@@ -1,5 +1,12 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2021.10.12 - version 1.10.0
+* Important - Updated 'Cart Subtotal' condition to include or exclude tax based on the 'Display prices during cart and checkout' option.
+* Feature - Introduced 'Cart Item Count' condition for global Payment Gateway Restrictions.
+* Feature - Introduced 'Customer > is returning' and 'Customer > is new' modifiers.
+* Fix - Updated string parameters in 'Package Weight' Condition notices.
+* Fix - Fixed issue with capitalized 'Customer > e-mail is' condition values.
+
 2021.05.27 - version 1.9.5
 * Fix - Prevent debug option notices from rendering in other settings pages/sections.
 * Fix - Keep 'Save' button visible when after removing all global restrictions.
@@ -193,7 +200,7 @@
 * Fix - Shipping Country, Shipping Postcode and Coupon Code conditions now work correctly in Payment Gateway restrictions when paying for a pending-payment order.
 
 2018.06.04 - version 1.3.5
-* Fix - Shipping class conditions did not always work as expected when using the "all" and "not all" modifiers. Fixed.
+* Fix - Shipping class conditions did not always work as expected when using the 'all' and 'not all' modifiers. Fixed.
 
 2018.05.24 - version 1.3.4
 * Tweak - Added a section in the WordPress Privacy Policy Guide to let store owners know that Conditional Shipping and Payments does not collect, store or share personal data.

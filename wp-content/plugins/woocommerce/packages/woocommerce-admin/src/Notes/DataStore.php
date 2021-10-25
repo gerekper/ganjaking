@@ -109,6 +109,7 @@ class DataStore extends \WC_Data_Store_WP implements \WC_Object_Data_Store_Inter
 			$note->set_date_created( $note_row->date_created );
 			$note->set_date_reminder( $note_row->date_reminder );
 			$note->set_is_snoozable( $note_row->is_snoozable );
+			$note->set_is_deleted( (bool) $note_row->is_deleted );
 			$note->set_layout( $note_row->layout );
 			$note->set_image( $note_row->image );
 			$this->read_actions( $note );
@@ -214,7 +215,7 @@ class DataStore extends \WC_Data_Store_WP implements \WC_Object_Data_Store_Inter
 
 		$db_actions = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT action_id, name, label, query, status, is_primary, actioned_text
+				"SELECT action_id, name, label, query, status, is_primary, actioned_text, nonce_action, nonce_name
 				FROM {$wpdb->prefix}wc_admin_note_actions
 				WHERE note_id = %d",
 				$note->get_id()
@@ -233,6 +234,8 @@ class DataStore extends \WC_Data_Store_WP implements \WC_Object_Data_Store_Inter
 					'status'        => $action->status,
 					'primary'       => (bool) $action->is_primary,
 					'actioned_text' => $action->actioned_text,
+					'nonce_action'  => $action->nonce_action,
+					'nonce_name'    => $action->nonce_name,
 				);
 			}
 		}
@@ -290,6 +293,8 @@ class DataStore extends \WC_Data_Store_WP implements \WC_Object_Data_Store_Inter
 				'status'        => $action->status,
 				'is_primary'    => $action->primary,
 				'actioned_text' => $action->actioned_text,
+				'nonce_action'  => $action->nonce_action,
+				'nonce_name'    => $action->nonce_name,
 			);
 
 			$data_format = array(
@@ -299,6 +304,8 @@ class DataStore extends \WC_Data_Store_WP implements \WC_Object_Data_Store_Inter
 				'%s',
 				'%s',
 				'%d',
+				'%s',
+				'%s',
 				'%s',
 			);
 

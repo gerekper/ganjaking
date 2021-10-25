@@ -1,6 +1,10 @@
 *** WooCommerce Account Funds ***
 
-2021-09-91 - version 2.5.3
+2021-10-20 - version 2.5.4
+* Tweak - Added plugin info to the WooCommerce System Status Report.
+* Tweak - Tested compatibility with WC 5.8.
+
+2021-09-01 - version 2.5.3
 * Tweak - Tested compatibility up to WC 5.7.
 
 2021-07-20 - version 2.5.2

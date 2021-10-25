@@ -52,9 +52,11 @@ class WC_XR_Line_Item {
 	private $is_digital_good = false;
 
 	/**
-	 * @var float
+	 * Line item discount ammount.
+	 *
+	 * @var float $discount_amount Discount ammount.
 	 */
-	private $discount_rate = 0;
+	private $discount_amount = 0;
 
 	/**
 	 * @var WC_XR_Settings
@@ -190,17 +192,45 @@ class WC_XR_Line_Item {
 	}
 
 	/**
+	 * @version 1.7.38
+	 * 
 	 * @return float
 	 */
 	public function get_discount_rate() {
-		return apply_filters( 'woocommerce_xero_line_item_discount_rate', $this->discount_rate, $this );
+		$precision     = 'on' === $this->settings->get_option( 'four_decimals' ) ? 4 : 2;
+		$discount_rate = round( $this->discount_amount / ( $this->unit_amount * $this->quantity ), $precision );
+
+		return apply_filters( 'woocommerce_xero_line_item_discount_rate', $discount_rate, $this );
 	}
 
 	/**
+	 * Get the discount amount of current line item.
+	 * @since 1.7.38
+	 * 
+	 * @return float
+	 */
+	public function get_discount_amount() {
+		return apply_filters( 'woocommerce_xero_line_item_discount_amount', $this->discount_amount, $this );
+	}
+
+	/**
+	 * @version 1.7.38
+	 * 
 	 * @param float $discount_rate
 	 */
 	public function set_discount_rate( $discount_rate ) {
-		$this->discount_rate = round( floatval( $discount_rate ), 4 );
+		wc_deprecated_function( __METHOD__, '1.7.38' );
+	}
+
+	/**
+	 * Set the discount amount of current line item.
+	 * 
+	 * @since 1.7.38
+	 *
+	 * @param float $discount_amount Discount ammount.
+	 */
+	public function set_discount_amount( $discount_amount ) {
+		$this->discount_amount = round( floatval( $discount_amount ), 4 );
 	}
 
 	/**
@@ -399,16 +429,19 @@ class WC_XR_Line_Item {
 	 *
 	 * Only AU, NZ and GB have report tax types
 	 *
-	 * OUTPUT: 		Line item's report tax type should be income (and therefore output taxed)
-	 * 				Output taxes are ad valorem tax charged on the selling price of taxable items
-	 * 				Note: Shipping (esp flat rate) is treated as income by some merchants
-	 * INPUT:		Line item's report tax type should be expense (and therefore input taxed)
-	 * 				Input taxes are taxes charged on services (e.g. shipping) which a business consumes/uses in its operations
+	 * OUTPUT:    Line item's report tax type should be income (and therefore output taxed)
+	 *            Output taxes are ad valorem tax charged on the selling price of taxable items
+	 *            Note: Shipping (esp flat rate) is treated as income by some merchants
+	 * INPUT:     Line item's report tax type should be expense (and therefore input taxed)
+	 *            Input taxes are taxes charged on services (e.g. shipping) which a business
+	 *            consumes/uses in its operations
+	 * MOSSSALES: Line item's report tax type should be MOSS sales. MOSS sales aren't included in
+	 *            the VAT return in Xero, as they need to be reported separately in a VAT MOSS return
 	 *
 	 * @since 1.7.7
-	 * @version 1.7.7
+	 * @version 1.7.39
 	 *
-	 * @return string	(empty) | OUTPUT | INPUT
+	 * @return string (empty) | OUTPUT | INPUT | MOSSSALES
 	 */
 	protected function get_report_tax_type_for_base_country() {
 		$tax_rate = $this->get_tax_rate();
@@ -422,6 +455,16 @@ class WC_XR_Line_Item {
 				$treat_shipping_as = $this->settings->get_option( 'treat_shipping_as' );
 				$report_tax_type = ( 'income' === $treat_shipping_as ) ? 'OUTPUT' : 'INPUT';
 			}
+		}
+
+		// Support the MOSSSALES tax type
+		// Note this relies on the tax rate label having "moss" in it
+		if (
+			! $is_shipping_line_item &&
+			! empty( $tax_rate['label'] ) &&
+			false !== strpos( strtolower( $tax_rate['label'] ), 'moss' )
+		) {
+			$report_tax_type = 'MOSSSALES';
 		}
 
 		return $report_tax_type;
@@ -528,9 +571,9 @@ class WC_XR_Line_Item {
 		$xml .= '<TaxAmount>' . $this->get_tax_amount() . '</TaxAmount>';
 
 		// Discount?
-		$discount_rate = $this->get_discount_rate();
-		if ( 0.001 < abs( $discount_rate ) ) {
-			$xml .= '<DiscountRate>' . $discount_rate . '</DiscountRate>';
+		$discount_amount = $this->get_discount_amount();
+		if ( 0.001 < abs( $discount_amount ) ) {
+			$xml .= '<DiscountAmount>' . $discount_amount . '</DiscountAmount>';
 		}
 
 		$xml .= '</LineItem>';

@@ -8,7 +8,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: Yoast SEO
- * Version:     17.3
+ * Version:     17.4
  * Plugin URI:  https://yoa.st/1uj
  * Description: The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more.
  * Author:      Team Yoast
@@ -41,14 +41,6 @@ if ( ! function_exists( 'add_filter' ) ) {
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit();
 }
-
-/* Disable automatic updates */
-add_filter( 'site_transient_update_plugins', function( $value ) {
-    if ( is_object( $value ) && isset( $value->response ) && isset( $value->response['wordpress-seo/wp-seo.php'] ) && isset( $value->response['wordpress-seo/wp-seo.php']->package ) ){
-        $value->response['wordpress-seo/wp-seo.php']->package = "";
-    }
-    return $value;
-} );
 
 if ( ! defined( 'WPSEO_FILE' ) ) {
 	define( 'WPSEO_FILE', __FILE__ );

@@ -45,7 +45,7 @@ abstract class RP_WCDPD_Method_Product_Pricing_Quantity_Group extends RP_WCDPD_M
      */
     public function get_group_label()
     {
-        return esc_html__('Group', 'rp_wcdpd');
+        return __('Group', 'rp_wcdpd');
     }
 
     /**
@@ -206,7 +206,7 @@ abstract class RP_WCDPD_Method_Product_Pricing_Quantity_Group extends RP_WCDPD_M
         $quantities = array();
 
         // Get Quantities Based On method
-        $based_on = $rule['quantities_based_on'];
+        $based_on = $rule['group_quantities_based_on'];
 
         // Filter out cart items that are not affected by this rule so we don't count them
         $cart_items = RP_WCDPD_Product_Pricing::filter_items_by_rules($cart_items, array($rule));
@@ -235,19 +235,19 @@ abstract class RP_WCDPD_Method_Product_Pricing_Quantity_Group extends RP_WCDPD_M
 
                 // Each individual product
                 // Each individual variation (variation not specified)
-                if ($based_on === 'individual__product' || ($based_on === 'individual__variation' && empty($cart_item['variation_id']))) {
+                if ($based_on === 'group_product' || ($based_on === 'group_variation' && empty($cart_item['variation_id']))) {
                     $quantities[$group_product_key][$product_id][$cart_item_key] = $quantity;
                 }
                 // Each individual variation (variation specified)
-                else if ($based_on === 'individual__variation') {
+                else if ($based_on === 'group_variation') {
                     $quantities[$group_product_key][$cart_item['variation_id']][$cart_item_key] = $quantity;
                 }
                 //  Each individual cart line item
-                else if ($based_on === 'individual__configuration') {
+                else if ($based_on === 'group_configuration') {
                     $quantities[$group_product_key][$cart_item_key][$cart_item_key] = $quantity;
                 }
                 // Each individual category
-                else if ($based_on === 'cumulative__categories') {
+                else if ($based_on === 'group_category') {
 
                     // Get category ids
                     $categories = RightPress_Help::get_wc_product_category_ids_from_product_ids(array($product_id));
@@ -263,7 +263,7 @@ abstract class RP_WCDPD_Method_Product_Pricing_Quantity_Group extends RP_WCDPD_M
                     }
                 }
                 // All quantities added up
-                else if ($based_on === 'cumulative__all') {
+                else if ($based_on === 'group_all') {
                     $quantities[$group_product_key]['_all'][$cart_item_key] = $quantity;
                 }
             }

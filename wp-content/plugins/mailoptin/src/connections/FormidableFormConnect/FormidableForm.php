@@ -51,9 +51,10 @@ class FormidableForm extends FrmFormAction
     {
         $post_content = $form_action->post_content;
 
-        $saved_integration = moVar($post_content, 'mofm_integration');
-        $saved_list        = moVar($post_content, 'mofm_list');
-        $saved_tags        = moVar($post_content, 'mofm_tags');
+        $saved_integration      = moVar($post_content, 'mofm_integration');
+        $saved_list             = moVar($post_content, 'mofm_list');
+        $saved_tags             = moVar($post_content, 'mofm_tags');
+        $is_double_optin        = moVar($post_content, 'mofm_is_double_optin');
 
         $lists = [];
         if ( ! empty($saved_integration) && $saved_integration != 'leadbank') {
@@ -69,12 +70,16 @@ class FormidableForm extends FrmFormAction
         }
 
         $custom_fields = [
-            'moEmail' => esc_html__('Email Address', 'mailoptin'),
-            'moName'  => esc_html__('Full Name', 'mailoptin'),
+            'moEmail'     => esc_html__('Email Address', 'mailoptin'),
+            'moName'      => esc_html__('Full Name', 'mailoptin'),
+            'moFirstName' => esc_html__('First Name', 'mailoptin'),
+            'moLastName'  => esc_html__('Last Name', 'mailoptin'),
         ];
 
         if (in_array($saved_integration, Init::no_name_mapping_connections())) {
             unset($custom_fields['moName']);
+            unset($custom_fields['moFirstName']);
+            unset($custom_fields['moLastName']);
         }
 
         $form_fields = FrmField::getAll('fi.form_id=' . (int)$args['form']->id . " and fi.type not in ('break', 'divider', 'end_divider', 'html', 'captcha', 'form')", 'field_order');
@@ -89,6 +94,16 @@ class FormidableForm extends FrmFormAction
                     if (is_array($cfields) && ! empty($cfields)) {
                         $custom_fields += $cfields;
                     }
+                }
+            }
+        }
+
+        $default_double_optin = false;
+        if(! empty($saved_integration) && defined('MAILOPTIN_DETACH_LIBSODIUM')) {
+            $double_optin_connections = Init::double_optin_support_connections();
+            foreach($double_optin_connections as $key => $value) {
+                if($saved_integration === $key) {
+                    $default_double_optin = $value;
                 }
             }
         }
@@ -136,19 +151,30 @@ class FormidableForm extends FrmFormAction
 
         $field_mapping = moVar($settings, 'mofm_custom_fields');
 
+        $name       = moVar($postdata, 'moName');
+        $first_name = moVar($postdata, 'moFirstName');
+        $last_name  = moVar($postdata, 'moLastName');
+        $connection_service = moVar($settings, 'mofm_integration');
+
+        $double_optin = false;
+        if(in_array($connection_service, Init::double_optin_support_connections(true))) {
+            $double_optin = moVar($settings, 'mofm_is_double_optin') === "true";
+        }
+
         $optin_data = new ConversionDataBuilder();
         // since it's non mailoptin form, set it to zero.
         $optin_data->optin_campaign_id   = 0;
         $optin_data->payload             = $postdata;
-        $optin_data->name                = $postdata['moName'];
+        $optin_data->name                = Init::return_name($name, $first_name, $last_name);
         $optin_data->email               = $postdata['moEmail'];
         $optin_data->optin_campaign_type = esc_html__('Formidable Forms', 'mailoptin');
 
-        $optin_data->connection_service    = moVar($settings, 'mofm_integration');
+        $optin_data->connection_service    = $connection_service;
         $optin_data->connection_email_list = moVar($settings, 'mofm_list');
 
         $optin_data->user_agent                = esc_html($_SERVER['HTTP_USER_AGENT']);
         $optin_data->is_timestamp_check_active = false;
+        $optin_data->is_double_optin      = $double_optin;
 
         if (isset($_REQUEST['referrer'])) {
             $optin_data->conversion_page = esc_url_raw($_REQUEST['referrer']);
@@ -156,7 +182,7 @@ class FormidableForm extends FrmFormAction
 
         $optin_data->form_tags = moVar($settings, 'mofm_tags');
         foreach ($field_mapping as $key => $fm_form_tag) {
-            if (in_array($key, ['moEmail', 'moName'])) continue;
+            if (in_array($key, ['moEmail', 'moName', 'moFirstName', 'moLastName'])) continue;
             $field_value = moVar($postdata, $key);
 
             if ( ! empty($field_value)) {
@@ -166,7 +192,6 @@ class FormidableForm extends FrmFormAction
 
         AjaxHandler::do_optin_conversion($optin_data);
     }
-
 
     private static function get_field_values_for_mailoptin($entry, $settings, $vars)
     {

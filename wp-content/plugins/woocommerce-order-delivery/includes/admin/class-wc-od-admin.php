@@ -36,6 +36,7 @@ if ( ! class_exists( 'WC_OD_Admin', false ) ) {
 		public function includes() {
 			include_once 'wc-od-admin-functions.php';
 			include_once 'class-wc-od-admin-notices.php';
+			include_once 'class-wc-od-admin-system-status.php';
 			include_once 'wc-od-admin-init.php';
 
 			if ( defined( 'DOING_AJAX' ) ) {

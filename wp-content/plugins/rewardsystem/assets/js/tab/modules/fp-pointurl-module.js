@@ -2,7 +2,6 @@
  * PointURL - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var PointURLModule = {
         init : function () {
             this.trigger_on_load() ;
@@ -31,8 +30,8 @@ jQuery( function ( $ ) {
             }
         } ,
         generate_point_url : function () {
+            PointURLModule.block( '.form-table' ) ;
             if ( $( '#rs_point_for_url' ).val() != '' && $( '#rs_label_for_site_url' ).val() != '' ) {
-                PointURLModule.block( '.form-table' ) ;
                 var data = ( {
                     action : 'generatepointurl' ,
                     name : $( '#rs_label_for_site_url' ).val() ,

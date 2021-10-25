@@ -45,7 +45,7 @@ class PreviewPage {
   public function renderPage(int $formId, string $formType, string $editorUrl): string {
     $this->assetsController->setupFormPreviewDependencies();
     $formData = $this->fetchFormData($formId);
-    if (!$formData instanceof FormEntity) {
+    if (!is_array($formData)) {
       return '';
     }
     return $this->templateRenderer->render(
@@ -65,41 +65,45 @@ class PreviewPage {
     return __('Sample page to preview your form', 'mailpoet');
   }
 
-  private function fetchFormData(int $id): ?FormEntity {
+  /**
+   * @return array|null
+   */
+  private function fetchFormData(int $id) {
     $formData = $this->wp->getTransient(self::PREVIEW_DATA_TRANSIENT_PREFIX . $id);
     if (is_array($formData)) {
-      $form = new FormEntity($formData['name']);
-      $form->setId($formData['id'] ?? 0);
-      $form->setBody($formData['body']);
-      $form->setSettings($formData['settings']);
-      $form->setStyles($formData['styles']);
-      $form->setStatus($formData['status']);
-      return $form;
+      return $formData;
     }
-    return $this->formRepository->findOneById($id);
+    $form = $this->formRepository->findOneById($id);
+    if ($form) {
+      return [
+        'body' => $form->getBody(),
+        'styles' => $form->getStyles(),
+        'settings' => $form->getSettings(),
+      ];
+    }
+    return null;
   }
 
-  private function getFormContent(FormEntity $form, int $formId, string $formDisplayType, string $editorUrl): string {
-    $settings = $form->getSettings();
+  private function getFormContent(array $formData, int $formId, string $formDisplayType, string $editorUrl): string {
     $htmlId = 'mailpoet_form_preview_' . $formId;
     $templateData = [
       'is_preview' => true,
       'editor_url' => $editorUrl,
       'form_html_id' => $htmlId,
       'form_id' => $formId,
-      'form_success_message' => $settings['success_message'] ?? null,
+      'form_success_message' => $formData['settings']['success_message'] ?? null,
       'form_type' => $formDisplayType,
-      'close_button_icon' => $settings['close_button'] ?? 'classic',
-      'styles' => $this->formRenderer->renderStyles($form, '#' . $htmlId, $formDisplayType),
-      'html' => $this->formRenderer->renderHTML($form),
+      'close_button_icon' => $formData['settings']['close_button'] ?? 'classic',
+      'styles' => $this->formRenderer->renderStyles($formData, '#' . $htmlId, $formDisplayType),
+      'html' => $this->formRenderer->renderHTML($formData),
       'success' => false,
       'error' => false,
       'delay' => 1,
-      'position' => $settings['form_placement'][$formDisplayType]['position'] ?? '',
-      'animation' => $settings['form_placement'][$formDisplayType]['animation'] ?? '',
-      'fontFamily' => $settings['font_family'] ?? '',
+      'position' => $formData['settings']['form_placement'][$formDisplayType]['position'] ?? '',
+      'animation' => $formData['settings']['form_placement'][$formDisplayType]['animation'] ?? '',
+      'fontFamily' => $formData['settings']['font_family'] ?? '',
     ];
-    $formPosition = $settings['form_placement'][$formDisplayType]['position'] ?? '';
+    $formPosition = $formData['settings']['form_placement'][$formDisplayType]['position'] ?? '';
     if (!$formPosition && $formDisplayType === FormEntity::DISPLAY_TYPE_FIXED_BAR) {
       $formPosition = 'top';
     }

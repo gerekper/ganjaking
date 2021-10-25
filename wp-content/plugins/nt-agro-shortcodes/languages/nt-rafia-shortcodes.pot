@@ -1,0 +1,76 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Klb Shortcode\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-07 06:56+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: \n"
+"Language-Team: KlbTheme <berbatx13@gmail.com>\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Loco-Source-Locale: tr_TR\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;esc_html__;esc_html_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Loco-Parser: loco_parse_po"
+
+#: ../inc/klb-shortcode.php:124
+msgid "Copy Coupon"
+msgstr ""
+
+#: ../inc/klb-shortcode.php:160
+msgid "% OFF"
+msgstr ""
+
+#: ../inc/klb-shortcode.php:207
+msgid "Copy text"
+msgstr ""
+
+#: ../inc/klb-shortcode.php:683
+msgid "%"
+msgstr ""
+
+#: ../taxonomy/product_cat.php:14 ../taxonomy/product_cat.php:40
+msgid "Category Icon"
+msgstr ""
+
+#: ../taxonomy/store_taxonomy.php:50 ../taxonomy/store_taxonomy.php:82
+msgid "Thumbnail"
+msgstr ""
+
+#: ../taxonomy/store_taxonomy.php:55 ../taxonomy/store_taxonomy.php:88
+msgid "Upload image"
+msgstr ""
+
+#: ../taxonomy/store_taxonomy.php:334
+msgid "rates"
+msgstr ""
+
+#: ../widgets/popular_posts.php:7
+msgid "Display the popular posts"
+msgstr ""
+
+#: ../widgets/popular_posts.php:9
+msgid "Froday Popular Posts"
+msgstr ""
+
+#: ../widgets/popular_posts.php:86 ../widgets/seller_single_product.php:79
+msgid "Title:"
+msgstr ""
+
+#: ../widgets/popular_posts.php:91
+msgid "Number of items to show:"
+msgstr ""
+
+#: ../widgets/seller_single_product.php:7
+msgid "Only Detail Page: Display about seller."
+msgstr ""
+
+#: ../widgets/seller_single_product.php:9
+msgid "Froday About Seller"
+msgstr ""

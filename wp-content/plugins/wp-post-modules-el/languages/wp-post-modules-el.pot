@@ -1,0 +1,2310 @@
+# Copyright (C) 2017 WP Post Modules
+# This file is distributed under the same license as the WP Post Modules package.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Post Modules for Elementor v1.8.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-post-modules\n"
+"POT-Creation-Date: 2021-05-22 11:09+0530\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
+"_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 2.0.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../includes/BFI_Thumb.php:145
+msgid ""
+"The server does not have ImageMagick or GD installed and/or enabled! Any of "
+"these libraries are required for WordPress to be able to resize images. "
+"Please contact your server administrator to enable this before continuing."
+msgstr ""
+
+#: ../includes/BFI_Thumb.php:273
+msgid "Image rotate failed."
+msgstr ""
+
+#: ../includes/BFI_Thumb.php:296
+msgid "Image opacity change failed."
+msgstr ""
+
+#: ../includes/BFI_Thumb.php:383
+msgid "Image color change failed."
+msgstr ""
+
+#: ../includes/BFI_Thumb.php:400
+msgid "Image grayscale failed."
+msgstr ""
+
+#: ../includes/BFI_Thumb.php:417
+msgid "Image negate failed."
+msgstr ""
+
+#: ../includes/widget-wppm.php:37
+msgid "WP Post Modules"
+msgstr ""
+
+#: ../includes/widget-wppm.php:116
+msgid "Original"
+msgstr ""
+
+#: ../includes/widget-wppm.php:117
+msgid "Large"
+msgstr ""
+
+#: ../includes/widget-wppm.php:118
+msgid "Medium"
+msgstr ""
+
+#: ../includes/widget-wppm.php:119
+msgid "Thumbnail"
+msgstr ""
+
+#: ../includes/widget-wppm.php:132
+msgid "Query"
+msgstr ""
+
+#: ../includes/widget-wppm.php:139
+msgid "Show data from"
+msgstr ""
+
+#: ../includes/widget-wppm.php:150
+msgid "Number of Posts"
+msgstr ""
+
+#: ../includes/widget-wppm.php:162
+msgid "Filter by Taxonomy"
+msgstr ""
+
+#: ../includes/widget-wppm.php:173
+msgid "Select Terms"
+msgstr ""
+
+#: ../includes/widget-wppm.php:184
+msgid "Include only these Post/Page IDs"
+msgstr ""
+
+#: ../includes/widget-wppm.php:186
+msgid ""
+"Provide numeric IDs of pages or posts, separated by comma. E.g. 12,34,156,259"
+msgstr ""
+
+#: ../includes/widget-wppm.php:193
+msgid "Exclude these Post/Page IDs"
+msgstr ""
+
+#: ../includes/widget-wppm.php:195
+msgid ""
+"Provide numeric IDs of pages or posts, separated by comma. E.g. "
+"12,34,156,259. Important: Use either include or exclude feature. Both do not "
+"work together."
+msgstr ""
+
+#: ../includes/widget-wppm.php:202
+msgid "Filter by User"
+msgstr ""
+
+#: ../includes/widget-wppm.php:212
+msgid "Offset"
+msgstr ""
+
+#: ../includes/widget-wppm.php:218
+msgid ""
+"Provide an offset number. E.g. 2. Offset is used to skip a particular number "
+"of posts from loop."
+msgstr ""
+
+#: ../includes/widget-wppm.php:225
+msgid "Order"
+msgstr ""
+
+#: ../includes/widget-wppm.php:228
+msgid "Descending"
+msgstr ""
+
+#: ../includes/widget-wppm.php:229
+msgid "Ascending"
+msgstr ""
+
+#: ../includes/widget-wppm.php:238
+msgid "Order by"
+msgstr ""
+
+#: ../includes/widget-wppm.php:241 ../includes/widget-wppm.php:1932
+#: ../includes/widget-wppm.php:2175
+msgid "None"
+msgstr ""
+
+#: ../includes/widget-wppm.php:242
+msgid "ID"
+msgstr ""
+
+#: ../includes/widget-wppm.php:243
+msgid "Author"
+msgstr ""
+
+#: ../includes/widget-wppm.php:244 ../includes/widget-wppm.php:2191
+msgid "Title"
+msgstr ""
+
+#: ../includes/widget-wppm.php:245
+msgid "Name"
+msgstr ""
+
+#: ../includes/widget-wppm.php:246
+msgid "Post Type"
+msgstr ""
+
+#: ../includes/widget-wppm.php:247
+msgid "Date"
+msgstr ""
+
+#: ../includes/widget-wppm.php:248
+msgid "Meta Value"
+msgstr ""
+
+#: ../includes/widget-wppm.php:249
+msgid "Meta Value Num"
+msgstr ""
+
+#: ../includes/widget-wppm.php:250
+msgid "Last Modified"
+msgstr ""
+
+#: ../includes/widget-wppm.php:251
+msgid "Parent ID"
+msgstr ""
+
+#: ../includes/widget-wppm.php:252
+msgid "Random"
+msgstr ""
+
+#: ../includes/widget-wppm.php:253
+msgid "Comment Count"
+msgstr ""
+
+#: ../includes/widget-wppm.php:254
+msgid "Menu Order"
+msgstr ""
+
+#: ../includes/widget-wppm.php:255
+msgid "Post In"
+msgstr ""
+
+#: ../includes/widget-wppm.php:256 ../includes/widget-wppm.php:2911
+msgid "Post Views"
+msgstr ""
+
+#: ../includes/widget-wppm.php:265
+msgid "Show from specific meta key"
+msgstr ""
+
+#: ../includes/widget-wppm.php:267
+msgid "Provide a meta key for posts. E.g. price"
+msgstr ""
+
+#: ../includes/widget-wppm.php:275
+msgid "Multiple Taxonomy Relation"
+msgstr ""
+
+#: ../includes/widget-wppm.php:278
+msgid "OR"
+msgstr ""
+
+#: ../includes/widget-wppm.php:279 ../includes/widget-wppm.php:294
+msgid "AND"
+msgstr ""
+
+#: ../includes/widget-wppm.php:282
+msgid "Choose a taxonomy relation when multiple taxonomies are selected."
+msgstr ""
+
+#: ../includes/widget-wppm.php:289
+msgid "Operator relation for multiple terms"
+msgstr ""
+
+#: ../includes/widget-wppm.php:292
+msgid "IN"
+msgstr ""
+
+#: ../includes/widget-wppm.php:293
+msgid "NOT IN"
+msgstr ""
+
+#: ../includes/widget-wppm.php:297
+msgid "Choose an operator relation between multiple terms of same taxonomy."
+msgstr ""
+
+#: ../includes/widget-wppm.php:304
+msgid "Year"
+msgstr ""
+
+#: ../includes/widget-wppm.php:306
+msgid "Filter posts by year. 4 digit year (e.g. 2011)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:313
+msgid "Month"
+msgstr ""
+
+#: ../includes/widget-wppm.php:315
+msgid "Filter posts by month number (from 1 to 12)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:322
+msgid "Week"
+msgstr ""
+
+#: ../includes/widget-wppm.php:324
+msgid "Filter posts by week of the year (from 0 to 53)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:331
+msgid "Day"
+msgstr ""
+
+#: ../includes/widget-wppm.php:333
+msgid "Filter posts by day of the month (from 1 to 31)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:340
+msgid "Before (Date)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:342
+msgid "Date to retrieve posts before. E.g. January 1st, 2013"
+msgstr ""
+
+#: ../includes/widget-wppm.php:349
+msgid "After (Date)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:351
+msgid "Date to retrieve posts after. E.g. January 1st, 2013"
+msgstr ""
+
+#: ../includes/widget-wppm.php:358
+msgid "Filter by Search term"
+msgstr ""
+
+#: ../includes/widget-wppm.php:360
+msgid ""
+"Filter posts by search term. Prepend with hyphen to exclude a term. E.g. "
+"Pillow -sofa will show all results for pillow but not sofa."
+msgstr ""
+
+#: ../includes/widget-wppm.php:368
+msgid "Ignore Sticky Posts"
+msgstr ""
+
+#: ../includes/widget-wppm.php:370 ../includes/widget-wppm.php:382
+#: ../includes/widget-wppm.php:395 ../includes/widget-wppm.php:418
+#: ../includes/widget-wppm.php:441 ../includes/widget-wppm.php:953
+#: ../includes/widget-wppm.php:1045 ../includes/widget-wppm.php:1060
+#: ../includes/widget-wppm.php:1208 ../includes/widget-wppm.php:1270
+#: ../includes/widget-wppm.php:1554 ../includes/widget-wppm.php:1882
+#: ../includes/widget-wppm.php:1945 ../includes/widget-wppm.php:1984
+#: ../includes/widget-wppm.php:1999 ../includes/widget-wppm.php:2027
+#: ../includes/widget-wppm.php:2040 ../includes/widget-wppm.php:2054
+#: ../includes/widget-wppm.php:2078 ../includes/widget-wppm.php:2359
+#: ../includes/widget-wppm.php:2407 ../includes/widget-wppm.php:2535
+#: ../includes/widget-wppm.php:2590 ../includes/widget-wppm.php:2751
+#: ../includes/widget-wppm.php:2866 ../includes/widget-wppm.php:2878
+#: ../includes/widget-wppm.php:2901 ../includes/widget-wppm.php:2913
+#: ../includes/widget-wppm.php:2926 ../includes/widget-wppm.php:3004
+#: ../includes/widget-wppm.php:3037 ../includes/widget-wppm.php:3137
+#: ../includes/widget-wppm.php:3246 ../includes/widget-wppm.php:3328
+#: ../includes/widget-wppm.php:3519 ../includes/widget-wppm.php:3565
+#: ../includes/widget-wppm.php:3699 ../includes/widget-wppm.php:3783
+#: ../includes/widget-wppm.php:3827 ../includes/widget-wppm.php:3841
+#: ../includes/widget-wppm.php:3855 ../includes/widget-wppm.php:3869
+msgid "On"
+msgstr ""
+
+#: ../includes/widget-wppm.php:371 ../includes/widget-wppm.php:383
+#: ../includes/widget-wppm.php:396 ../includes/widget-wppm.php:419
+#: ../includes/widget-wppm.php:442 ../includes/widget-wppm.php:954
+#: ../includes/widget-wppm.php:1046 ../includes/widget-wppm.php:1061
+#: ../includes/widget-wppm.php:1209 ../includes/widget-wppm.php:1271
+#: ../includes/widget-wppm.php:1555 ../includes/widget-wppm.php:1883
+#: ../includes/widget-wppm.php:1946 ../includes/widget-wppm.php:1985
+#: ../includes/widget-wppm.php:2000 ../includes/widget-wppm.php:2028
+#: ../includes/widget-wppm.php:2041 ../includes/widget-wppm.php:2055
+#: ../includes/widget-wppm.php:2079 ../includes/widget-wppm.php:2360
+#: ../includes/widget-wppm.php:2408 ../includes/widget-wppm.php:2536
+#: ../includes/widget-wppm.php:2591 ../includes/widget-wppm.php:2752
+#: ../includes/widget-wppm.php:2867 ../includes/widget-wppm.php:2879
+#: ../includes/widget-wppm.php:2902 ../includes/widget-wppm.php:2914
+#: ../includes/widget-wppm.php:2927 ../includes/widget-wppm.php:3005
+#: ../includes/widget-wppm.php:3038 ../includes/widget-wppm.php:3138
+#: ../includes/widget-wppm.php:3247 ../includes/widget-wppm.php:3329
+#: ../includes/widget-wppm.php:3520 ../includes/widget-wppm.php:3566
+#: ../includes/widget-wppm.php:3700 ../includes/widget-wppm.php:3784
+#: ../includes/widget-wppm.php:3828 ../includes/widget-wppm.php:3842
+#: ../includes/widget-wppm.php:3856 ../includes/widget-wppm.php:3870
+msgid "Off"
+msgstr ""
+
+#: ../includes/widget-wppm.php:372 ../includes/widget-wppm.php:384
+#: ../includes/widget-wppm.php:397 ../includes/widget-wppm.php:420
+#: ../includes/widget-wppm.php:443 ../includes/widget-wppm.php:955
+#: ../includes/widget-wppm.php:1047 ../includes/widget-wppm.php:1062
+#: ../includes/widget-wppm.php:1210 ../includes/widget-wppm.php:1272
+#: ../includes/widget-wppm.php:1286 ../includes/widget-wppm.php:1556
+#: ../includes/widget-wppm.php:1884 ../includes/widget-wppm.php:1947
+#: ../includes/widget-wppm.php:1986 ../includes/widget-wppm.php:2001
+#: ../includes/widget-wppm.php:2029 ../includes/widget-wppm.php:2042
+#: ../includes/widget-wppm.php:2056 ../includes/widget-wppm.php:2080
+#: ../includes/widget-wppm.php:2361 ../includes/widget-wppm.php:2409
+#: ../includes/widget-wppm.php:2537 ../includes/widget-wppm.php:2593
+#: ../includes/widget-wppm.php:2753 ../includes/widget-wppm.php:2868
+#: ../includes/widget-wppm.php:2880 ../includes/widget-wppm.php:2903
+#: ../includes/widget-wppm.php:2915 ../includes/widget-wppm.php:2928
+#: ../includes/widget-wppm.php:3006 ../includes/widget-wppm.php:3039
+#: ../includes/widget-wppm.php:3139 ../includes/widget-wppm.php:3248
+#: ../includes/widget-wppm.php:3330 ../includes/widget-wppm.php:3521
+#: ../includes/widget-wppm.php:3567 ../includes/widget-wppm.php:3701
+#: ../includes/widget-wppm.php:3785 ../includes/widget-wppm.php:3829
+#: ../includes/widget-wppm.php:3843 ../includes/widget-wppm.php:3857
+#: ../includes/widget-wppm.php:3871
+msgid "true"
+msgstr ""
+
+#: ../includes/widget-wppm.php:380
+msgid "Single Post Term filtering"
+msgstr ""
+
+#: ../includes/widget-wppm.php:385
+msgid ""
+"Automatically show posts from similar terms on single post. NOTE: This "
+"option is useful when you are using the module as shortcode using Elementor "
+"Pro or <a href=\"https://wordpress.org/plugins/anywhere-elementor/"
+"\">Anywhere Elementor</a> Plugin."
+msgstr ""
+
+#: ../includes/widget-wppm.php:393
+msgid "Author archive filtering"
+msgstr ""
+
+#: ../includes/widget-wppm.php:398
+msgid ""
+"Automatically show posts from same author when on author archive page. NOTE: "
+"This option is useful when you are using the module as shortcode using "
+"Elementor Pro or <a href=\"https://wordpress.org/plugins/anywhere-elementor/"
+"\">Anywhere Elementor</a> Plugin."
+msgstr ""
+
+#: ../includes/widget-wppm.php:405
+msgid "Restrict to Taxonomy"
+msgstr ""
+
+#: ../includes/widget-wppm.php:407
+msgid ""
+"Provide taxonomy names, separated by comma; to which posts shall be "
+"restricted when on single post. E.g. category, product"
+msgstr ""
+
+#: ../includes/widget-wppm.php:416
+msgid "Hide current single post"
+msgstr ""
+
+#: ../includes/widget-wppm.php:421
+msgid "Hide current post from post module when on single post."
+msgstr ""
+
+#: ../includes/widget-wppm.php:431
+msgid "Schema"
+msgstr ""
+
+#: ../includes/widget-wppm.php:439
+msgid "Enable Schema"
+msgstr ""
+
+#: ../includes/widget-wppm.php:444
+msgid ""
+"Upon enabling this option, you can set schema type and properties for post "
+"elements. Schema properties can be found on schema.org website."
+msgstr ""
+
+#: ../includes/widget-wppm.php:451
+msgid "Post item container type"
+msgstr ""
+
+#: ../includes/widget-wppm.php:454
+msgid ""
+"The parent schema type of post item. E.g. Recipe, or NutritionInformation"
+msgstr ""
+
+#: ../includes/widget-wppm.php:462
+msgid "Post item container property"
+msgstr ""
+
+#: ../includes/widget-wppm.php:465
+msgid "The parent schema property of post item. E.g. nutrition"
+msgstr ""
+
+#: ../includes/widget-wppm.php:473
+msgid "Post title property"
+msgstr ""
+
+#: ../includes/widget-wppm.php:476
+msgid "The schema property of post title. E.g. name"
+msgstr ""
+
+#: ../includes/widget-wppm.php:484
+msgid "Post excerpt property"
+msgstr ""
+
+#: ../includes/widget-wppm.php:487
+msgid "The schema property of post excerpt. E.g. description"
+msgstr ""
+
+#: ../includes/widget-wppm.php:495
+msgid "Post creation date property"
+msgstr ""
+
+#: ../includes/widget-wppm.php:498
+msgid "The schema property of post creation date. E.g. productionDate"
+msgstr ""
+
+#: ../includes/widget-wppm.php:506
+msgid "Post modified date property"
+msgstr ""
+
+#: ../includes/widget-wppm.php:509
+msgid "The schema property of post creation date. E.g. releaseDate"
+msgstr ""
+
+#: ../includes/widget-wppm.php:517
+msgid "Post publisher type"
+msgstr ""
+
+#: ../includes/widget-wppm.php:520
+msgid "The schema type of publisher. E.g. Person, or Organization"
+msgstr ""
+
+#: ../includes/widget-wppm.php:528
+msgid "Post Publisher property"
+msgstr ""
+
+#: ../includes/widget-wppm.php:531
+msgid "The schema property of publisher. E.g. parent, or funder"
+msgstr ""
+
+#: ../includes/widget-wppm.php:539
+msgid "Post Publisher name"
+msgstr ""
+
+#: ../includes/widget-wppm.php:542
+msgid ""
+"The name of post publisher. If Organization, your site name is taken as "
+"default value. E.g. John Doe"
+msgstr ""
+
+#: ../includes/widget-wppm.php:550
+msgid "Post Publisher logo"
+msgstr ""
+
+#: ../includes/widget-wppm.php:554
+msgid ""
+"The logo of publisher. In most cases, it will be your site logo, or can be a "
+"custom logo of your Organizatin."
+msgstr ""
+
+#: ../includes/widget-wppm.php:562
+msgid "Author container type"
+msgstr ""
+
+#: ../includes/widget-wppm.php:565
+msgid "The schema type of post Author. E.g. Person, or Brand"
+msgstr ""
+
+#: ../includes/widget-wppm.php:573
+msgid "Author container property"
+msgstr ""
+
+#: ../includes/widget-wppm.php:576
+msgid "The schema property of post Author. E.g. alumni"
+msgstr ""
+
+#: ../includes/widget-wppm.php:584
+msgid "Author name property"
+msgstr ""
+
+#: ../includes/widget-wppm.php:587
+msgid "The schema property of post Author. E.g. alternateName"
+msgstr ""
+
+#: ../includes/widget-wppm.php:595
+msgid "Author avatar property"
+msgstr ""
+
+#: ../includes/widget-wppm.php:598
+msgid "The schema property of Author avatar. E.g. image"
+msgstr ""
+
+#: ../includes/widget-wppm.php:606
+msgid "Post categories property"
+msgstr ""
+
+#: ../includes/widget-wppm.php:609
+msgid "The schema property of post categories. E.g. genre"
+msgstr ""
+
+#: ../includes/widget-wppm.php:617
+msgid "Post comments count property"
+msgstr ""
+
+#: ../includes/widget-wppm.php:620
+msgid "The schema property of comment count. E.g. upvoteCount"
+msgstr ""
+
+#: ../includes/widget-wppm.php:628
+msgid "Post comments URL property"
+msgstr ""
+
+#: ../includes/widget-wppm.php:631
+msgid "The schema property of comments URL. E.g. replyToUrl"
+msgstr ""
+
+#: ../includes/widget-wppm.php:640
+msgid "Advertisements"
+msgstr ""
+
+#: ../includes/widget-wppm.php:647
+msgid "Show advertisement after every xx posts"
+msgstr ""
+
+#: ../includes/widget-wppm.php:653
+msgid ""
+"For example, if this number is 3, advertisements will be inserted after "
+"every multiple of 3 posts -- 3,6,9,12 and so on."
+msgstr ""
+
+#: ../includes/widget-wppm.php:661
+msgid "Add advertisements"
+msgstr ""
+
+#: ../includes/widget-wppm.php:666
+msgid "Advertisement Code"
+msgstr ""
+
+#: ../includes/widget-wppm.php:668
+msgid ""
+"Provide advertisement code. It can be Google ad code or any similar code for "
+"advertisements."
+msgstr ""
+
+#: ../includes/widget-wppm.php:672
+msgid ""
+"Add advertisements to be inserted between posts. You can add any number of "
+"advertisements. The markup can contain HTML, iframe code, Google ad code, "
+"YouTube video embed, etc."
+msgstr ""
+
+#: ../includes/widget-wppm.php:681
+msgid "Display"
+msgstr ""
+
+#: ../includes/widget-wppm.php:690
+msgid "Template Style"
+msgstr ""
+
+#: ../includes/widget-wppm.php:694
+msgid "Grid"
+msgstr ""
+
+#: ../includes/widget-wppm.php:695
+msgid "List"
+msgstr ""
+
+#: ../includes/widget-wppm.php:696
+msgid "Tile"
+msgstr ""
+
+#: ../includes/widget-wppm.php:697
+msgid "Ticker (Marquee)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:698
+msgid "Bullet List"
+msgstr ""
+
+#: ../includes/widget-wppm.php:707
+msgid "Ticker title length"
+msgstr ""
+
+#: ../includes/widget-wppm.php:713
+msgid ""
+"The length in words at which post titles shall be trimmed in ticker. E.g. 10"
+msgstr ""
+
+#: ../includes/widget-wppm.php:721
+msgid "Ticker animation duration"
+msgstr ""
+
+#: ../includes/widget-wppm.php:727
+msgid "Animation duration (in ms) for ticker post titles."
+msgstr ""
+
+#: ../includes/widget-wppm.php:735
+msgid "Ticker label"
+msgstr ""
+
+#: ../includes/widget-wppm.php:737 ../includes/widget-wppm.php:4136
+#: ../wp-post-modules-el.php:354
+msgid "Breaking News"
+msgstr ""
+
+#: ../includes/widget-wppm.php:738
+msgid "Provide a text label for the ticker. E.g. Latest Posts"
+msgstr ""
+
+#: ../includes/widget-wppm.php:746
+msgid "Label Padding"
+msgstr ""
+
+#: ../includes/widget-wppm.php:759
+msgid "Ticker Content Padding"
+msgstr ""
+
+#: ../includes/widget-wppm.php:765
+msgid "Note: Only top and bottom padding will be applied."
+msgstr ""
+
+#: ../includes/widget-wppm.php:774
+msgid "Ticker label Typography"
+msgstr ""
+
+#: ../includes/widget-wppm.php:784
+msgid "Ticker label background"
+msgstr ""
+
+#: ../includes/widget-wppm.php:794
+msgid "Ticker label foreground color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:804
+msgid "Ticker body background"
+msgstr ""
+
+#: ../includes/widget-wppm.php:814
+msgid "Sub Style"
+msgstr ""
+
+#: ../includes/widget-wppm.php:818
+msgid "Big image + Title"
+msgstr ""
+
+#: ../includes/widget-wppm.php:819
+msgid "Title + Big image"
+msgstr ""
+
+#: ../includes/widget-wppm.php:820
+msgid "Title + Small image left"
+msgstr ""
+
+#: ../includes/widget-wppm.php:821
+msgid "Title + Small image right"
+msgstr ""
+
+#: ../includes/widget-wppm.php:825
+msgid "Select a sub style for grid temmplate."
+msgstr ""
+
+#: ../includes/widget-wppm.php:833
+msgid "Columns"
+msgstr ""
+
+#: ../includes/widget-wppm.php:844
+msgid "Number of columns to show per row. E.g. 3"
+msgstr ""
+
+#: ../includes/widget-wppm.php:859
+msgid "Column Spacing (Horiz)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:898
+msgid "Select horizontal space between columns of post module."
+msgstr ""
+
+#: ../includes/widget-wppm.php:906
+msgid "Column Spacing (Vert)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:942
+msgid "Select vertical space between columns of post module."
+msgstr ""
+
+#: ../includes/widget-wppm.php:951
+msgid "Equal Height Columns"
+msgstr ""
+
+#: ../includes/widget-wppm.php:957
+msgid "Enable equal height on grid columns."
+msgstr ""
+
+#: ../includes/widget-wppm.php:965
+msgid "Image Alignment"
+msgstr ""
+
+#: ../includes/widget-wppm.php:969 ../includes/widget-wppm.php:2132
+#: ../includes/widget-wppm.php:2294 ../includes/widget-wppm.php:2459
+#: ../includes/widget-wppm.php:2565 ../includes/widget-wppm.php:3365
+msgid "Left"
+msgstr ""
+
+#: ../includes/widget-wppm.php:973 ../includes/widget-wppm.php:2141
+#: ../includes/widget-wppm.php:2303 ../includes/widget-wppm.php:2468
+#: ../includes/widget-wppm.php:2574 ../includes/widget-wppm.php:3373
+msgid "Right"
+msgstr ""
+
+#: ../includes/widget-wppm.php:988
+msgid "Image Margin"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1001
+msgid "Image Padding"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1014
+msgid "Image and Content ratio (%)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1034 ../includes/widget-wppm.php:1090
+msgid "Select image width (in %) when image and content are inline."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1043
+msgid "List Collapse (Tablet)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1049
+msgid "Use this option to collapse image and content for tablet view."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1058
+msgid "List Collapse (Mobile)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1064
+msgid "Use this option to collapse image and content for mobile view."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1072
+msgid "Image and content ratio (%)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1098
+msgid "Post Container Options"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1108
+msgid "Content Background"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1120 ../includes/widget-wppm.php:1828
+msgid "Content Padding"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1126
+msgid "Padding for the post container."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1134 ../includes/widget-wppm.php:1854
+msgid "Content Border Radius"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1140
+msgid "Border radius for the post container."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1149
+msgid "Content Box Shadow (Normal)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1162
+msgid "Box Shadow Hover"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1174
+msgid "Hover Animation"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1177
+msgid "- Select -"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1178
+msgid "Fade In"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1179
+msgid "Rotate"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1180
+msgid "Zoom In"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1181
+msgid "Zoom & Fade"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1182
+msgid "Zoom & Rotate"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1183
+msgid "Rotate & Fade"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1187
+msgid "Hover effect on each post item."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1195
+msgid "Border Options"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1206
+msgid "Side border"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1221
+msgid "Side Border Width"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1243
+msgid "Select width for side border."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1254
+msgid "Side Border Color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1268
+msgid "Bottom border"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1282
+msgid "Hide last item border"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1284
+msgid "Yes"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1285
+msgid "No"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1289
+msgid "Check to disable last item border."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1296
+msgid "Bottom Border Width"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1318
+msgid "Select a bottom border width."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1329
+msgid "Bottom Border Color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1342
+msgid "Border Spacing"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1365
+msgid "Select a gap width between content and border."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1376
+msgid "Separate list items by"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1380
+msgid "Content Border"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1381
+msgid "Full Border"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1385
+msgid "Choose how to separate each list item."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1393
+msgid "Content Position"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1397 ../includes/widget-wppm.php:1722
+msgid "Default"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1398 ../includes/widget-wppm.php:1723
+msgid "Top"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1399 ../includes/widget-wppm.php:1724
+msgid "Middle"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1400 ../includes/widget-wppm.php:1725
+msgid "Bottom"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1413
+msgid "List Spacing"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1447
+msgid "Select space between list items."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1456
+msgid "Bullet Spacing"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1490
+msgid "Select space between bullet and list items."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1498
+msgid "Bullet Size"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1532
+msgid "Select bullet size."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1540
+msgid "Bullet Color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1543
+msgid "Choose bullet color."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1552
+msgid "Enable Post Count"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1557
+msgid ""
+"This will add number count before post snippet. Generally used to show "
+"trending posts."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1565
+msgid "Count Color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1578
+msgid "Count Typography"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1588
+msgid "Count Spacing"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1622
+msgid "Select spacing between counter and content."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1632
+msgid "Overlay Content"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1644 ../includes/widget-wppm.php:2612
+msgid "Normal"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1661 ../includes/widget-wppm.php:2642
+msgid "Hover"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1676
+msgid "Transition Duration"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1701
+msgid "Show Content"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1705
+msgid "Always"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1706
+msgid "On Hover"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1707
+msgid "Never"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1711
+msgid "Select content visibility."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1719
+msgid "Content position"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1736
+msgid "Content Width"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1782
+msgid "Content Height"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1841
+msgid "Content Margin"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1860
+msgid "Select border radius for overlay content."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1869
+msgid "Images"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1879
+msgid "Post thumbnail"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1880
+msgid "Whether to show post thumbnails."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1892
+msgid "Image Source"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1895
+msgid "Featured Image"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1896 ../includes/widget-wppm.php:2223
+#: ../includes/widget-wppm.php:2373
+msgid "Meta Box"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1897 ../includes/widget-wppm.php:2224
+#: ../includes/widget-wppm.php:2374
+msgid "Custom Field"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1900 ../includes/widget-wppm.php:2227
+msgid "Select source for the title text"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1907 ../includes/widget-wppm.php:2234
+#: ../includes/widget-wppm.php:2394
+msgid "Meta box key name"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1909 ../includes/widget-wppm.php:2236
+#: ../includes/widget-wppm.php:2396
+msgid "Provide key name of meta box or options panel. E.g. my_theme_meta_box"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1917 ../includes/widget-wppm.php:2244
+#: ../includes/widget-wppm.php:2418
+msgid "Custom field key name"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1919 ../includes/widget-wppm.php:2246
+msgid "Provide custom field key name. E.g. my_title"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1927
+msgid "Image link"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1930
+msgid "Permalink"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1931
+msgid "Media File"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1943
+msgid "Lightbox"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1955
+msgid "Image Width"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1960
+msgid "Image width in px (without unit). E.g. 600"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1968
+msgid "Image Height"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1973
+msgid "Image height in px (without unit). E.g. 400"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1982
+msgid "Enable BFI Thumb"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1987
+msgid ""
+"If enabled, images will be resized on-the-fly. If not, you can use <a href="
+"\"https://wordpress.org/plugins/otf-regenerate-thumbnails/\" target=\"_blank"
+"\">OTF Regenerate Thumbnails</a> plugin for generating image sizes as "
+"specified in these options."
+msgstr ""
+
+#: ../includes/widget-wppm.php:1996
+msgid "Hard Crop Images"
+msgstr ""
+
+#: ../includes/widget-wppm.php:1997
+msgid "Whether to hard crop images. Requires BFI to be enabled."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2009
+msgid "Image Quality"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2015
+msgid "Image quality in range 1 to 100. E.g. 75. *Requires BFI to be enabled."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2024
+msgid "Convert images to grayscale"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2025
+msgid "*Requires BFI to be enabled."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2038
+msgid "Enable video embeds"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2043
+msgid "The first video placed in post content will be shown."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2052
+msgid "Post format icon"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2063
+msgid "Select image Size"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2067
+msgid ""
+"Select an image size. This setting will override custom image sizes and hard "
+"cropping."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2076
+msgid "Post thumbnail captions"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2087
+msgid "Caption Margin"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2101
+msgid "Caption Typography"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2109
+msgid "Caption text color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2118
+msgid "Caption background color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2127
+msgid "Caption Align"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2128
+msgid "* Not applicable to Tile display style"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2136 ../includes/widget-wppm.php:2298
+#: ../includes/widget-wppm.php:2463 ../includes/widget-wppm.php:2569
+#: ../includes/widget-wppm.php:3369
+msgid "Center"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2146 ../includes/widget-wppm.php:2308
+#: ../includes/widget-wppm.php:2473
+msgid "Justified"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2159
+msgid "Image border radius"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2172
+msgid "Image Effect"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2176
+msgid "ZoomIn"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2177
+msgid "ZoomOut"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2178
+msgid "ZoomInRotate"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2179
+msgid "FadeOut"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2182
+msgid "Select image effect on hover."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2200
+msgid "Title tag"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2203 ../includes/widget-wppm.php:2431
+msgid "h1"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2204 ../includes/widget-wppm.php:2432
+msgid "h2"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2205 ../includes/widget-wppm.php:2433
+msgid "h3"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2206 ../includes/widget-wppm.php:2434
+msgid "h4"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2207 ../includes/widget-wppm.php:2435
+msgid "h5"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2208 ../includes/widget-wppm.php:2436
+msgid "h6"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2209 ../includes/widget-wppm.php:2437
+msgid "p"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2212
+msgid "Select html tag for post title."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2219
+msgid "Title Source"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2222
+msgid "Post Title"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2254
+msgid "Title heading color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2257
+msgid "Choose color for title heading"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2264
+msgid "Title heading hover color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2267
+msgid "Choose hover color for title heading"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2290
+msgid "Title Align"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2321
+msgid "Title length"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2326
+msgid "Provide a word length to which the title shall be trimmed. E.g. 8"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2333
+msgid "Title Margin"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2339
+msgid "Select margin for post title."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2347
+msgid "Excerpt"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2357
+msgid "Post excerpt"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2368
+msgid "Post text source"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2371
+msgid "Excerpt (trimmed)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2372
+msgid "Content (with allowed tags)"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2377
+msgid ""
+"Select a source for post text. If chosen Excerpt, text will be stripped from "
+"custom excerpt or content. If chosen as Content, text is trimmed from post "
+"content with allowed tags."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2384
+msgid "Allowed tags for post text"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2386
+msgid ""
+"Provide allowed tags for post text when stripped from content. E.g. p,a,"
+"strong,br,span,div"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2405
+msgid "Retain content formatting from source"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2410
+msgid "Enabling this option will retain p and br tags coming from source."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2420
+msgid "Provide custom field key name. E.g. my_content"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2428
+msgid "Post text tag"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2438
+msgid "span"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2439
+msgid "div"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2442
+msgid "Select html tag for post text."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2455
+msgid "Text Align"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2486
+msgid "Post excerpt color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2495
+msgid "Post text length"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2501
+msgid "Post text length in words. E.g. 10"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2508
+msgid "Excerpt Margin"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2514
+msgid "Select margin for post excerpt."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2523
+msgid "Post Meta"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2533
+msgid "Category links"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2544
+msgid "Links limit"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2547
+msgid "Limit category links to."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2559
+msgid "Post Meta align"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2560
+msgid ""
+"* Not applicable when two columns are shown in post meta. i.e Cat links + "
+"Review stars. Or date meta + comments."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2588
+msgid "More links dropdown"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2592
+msgid ""
+"Whether to show a more categories dropdown if there are more categories to "
+"display than the specified limit."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2600
+msgid "Category Link Colors"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2620
+msgid "Category links color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2630
+msgid "Category links background"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2650
+msgid "Category links hover color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2660
+msgid "Category links hover background"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2674
+msgid "Cat links Typography"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2684
+msgid "Links Padding"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2697
+msgid "Links Margin"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2710
+msgid "Links row z-index"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2722 ../includes/widget-wppm.php:2849
+msgid "Border radius"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2735
+msgid "Cat links row margin"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2749 ../includes/widget-wppm.php:2770
+msgid "Readmore link"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2760
+msgid "Readmore text"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2762 ../includes/widget-wppm.php:4034
+#: ../includes/wppm.functions.php:75 ../wp-post-modules-el.php:259
+msgid "Read more"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2781
+msgid "Readmore link Typography"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2791
+msgid "Readmore link color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2794
+msgid "Choose foreground color for readmore link"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2802
+msgid "Readmore link hover color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2805
+msgid "Choose foreground hover color for readmore link"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2813
+msgid "Readmore link background color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2816
+msgid "Choose background color for readmore link"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2824
+msgid "Readmore link background hover color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2827
+msgid "Choose background hover color for readmore link"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2835
+msgid "Link Padding"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2841
+msgid "Select padding for readmore link."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2855
+msgid "Select border radius for readmore link."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2864
+msgid "Author link"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2876
+msgid "Post date"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2887
+msgid "Date Format"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2891
+msgid "Use a valid date format for showing date. E.g. F j, Y."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2899
+msgid "Comments link"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2916
+msgid "Requires Post Views Counter Plugin."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2924
+msgid "Reviews"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2929
+msgid "Requires WP Review Plugin."
+msgstr ""
+
+#: ../includes/widget-wppm.php:2937
+msgid "Review text typography"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2947
+msgid "Review Stars Size"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2977
+msgid "Stars background color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:2989
+msgid "Stars front color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3002
+msgid "Author Avatar"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3014
+msgid "Avatar Size"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3035
+msgid "Avatar Position Absolute"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3048
+msgid "Avatar Offset Left"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3078
+msgid "Avatar Offset Top"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3108
+msgid "Avatar border radius"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3121
+msgid "Avatar Margin"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3135
+msgid "Custom Post Meta"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3147
+msgid "Custom meta format"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3149
+#, php-format
+msgid ""
+"Use %1$s, %2$s, %3$s, %4$s, %5$s and %6$s for Author, Date, Updated date, "
+"Categories, Comments, and Permalink respectively. E.g. Posted by %1$s in %2$s"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3151
+#, php-format
+msgid "By %1$s in %4$s"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3159
+msgid "Custom Meta Position"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3162
+msgid "Before Title"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3163
+msgid "After Title"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3164
+msgid "After Excerpt"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3168
+msgid "Select position for meta placement."
+msgstr ""
+
+#: ../includes/widget-wppm.php:3177
+msgid "Post Meta text and links"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3187
+msgid "Post Meta Typography"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3196
+msgid "Post meta links color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3202
+msgid "Choose foreground color for post meta links."
+msgstr ""
+
+#: ../includes/widget-wppm.php:3209
+msgid "Post meta links hover color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3212
+msgid "Choose foreground hover color for post meta links."
+msgstr ""
+
+#: ../includes/widget-wppm.php:3219
+msgid "Post Meta Margin"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3225
+msgid "Select margin for post meta."
+msgstr ""
+
+#: ../includes/widget-wppm.php:3234
+msgid "Social"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3244
+msgid "Enable social sharing for post modules"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3255
+msgid "Share style"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3258
+msgid "Popup"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3259
+msgid "Inline"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3262
+msgid "Select a style for social sharing buttons"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3269
+msgid "Social sharing buttons"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3272 ../includes/wppm.functions.php:433
+#: ../includes/wppm.functions.php:579 ../includes/wppm.functions.php:774
+msgid "Twitter"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3273 ../includes/wppm.functions.php:437
+#: ../includes/wppm.functions.php:583 ../includes/wppm.functions.php:778
+msgid "Facebook"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3274 ../includes/wppm.functions.php:442
+#: ../includes/wppm.functions.php:588 ../includes/wppm.functions.php:783
+msgid "Whatsapp"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3275 ../includes/wppm.functions.php:593
+msgid "Google Plus"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3276 ../includes/wppm.functions.php:451
+#: ../includes/wppm.functions.php:597 ../includes/wppm.functions.php:788
+msgid "LinkedIn"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3278 ../includes/wppm.functions.php:460
+#: ../includes/wppm.functions.php:606 ../includes/wppm.functions.php:797
+msgid "Pinterest"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3279
+msgid "VK Ontakte"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3280 ../includes/wppm.functions.php:469
+#: ../includes/wppm.functions.php:641 ../includes/wppm.functions.php:836
+msgid "Reddit"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3281
+msgid "Digg"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3282 ../includes/wppm.functions.php:637
+#: ../includes/wppm.functions.php:832
+msgid "Tumblr"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3283 ../includes/wppm.functions.php:648
+#: ../includes/wppm.functions.php:843
+msgid "Stumbleupon"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3284 ../includes/wppm.functions.php:656
+#: ../includes/wppm.functions.php:851
+msgid "Yahoo"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3285
+msgid "GetPocket"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3286 ../includes/wppm.functions.php:670
+#: ../includes/wppm.functions.php:865
+msgid "Skype"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3287 ../includes/wppm.functions.php:678
+#: ../includes/wppm.functions.php:873
+msgid "Telegram"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3288 ../includes/wppm.functions.php:685
+#: ../includes/wppm.functions.php:880
+msgid "Xing"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3289
+msgid "Ren Ren"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3290
+msgid "E Mail"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3293
+msgid ""
+"Select social share buttons. Use Ctrl + Select or Command + select for "
+"mutiple selection."
+msgstr ""
+
+#: ../includes/widget-wppm.php:3301
+msgid "Links outer margin"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3316
+msgid "Ajax Options"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3326
+msgid "Enable ajax navigation on post module"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3331
+msgid "This will add next/prev ajax navigation for loading more posts"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3339
+msgid "Navigation Position"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3343
+msgid "Above"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3347
+msgid "Below"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3361
+msgid "Navigation Align"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3387
+msgid "Navigation row margin"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3400
+msgid "Nav button text color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3412
+msgid "Nav button text hover color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3424
+msgid "Nav button text background color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3436
+msgid "Nav button text background hover color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3448
+msgid "Nav arrow size"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3490
+msgid "Nav Button Padding"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3503
+msgid "Nav button border radius"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3517
+msgid "Show ajax navigation status"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3529
+msgid "Ajax navigation status text"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3531
+msgid ""
+"Provide nav status text in format %current% of %total%. The %current% and "
+"%total% will be replaced by current page and total page number. E.g. Showing "
+"%current% out of %total% pages"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3540
+msgid "Status text typography"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3550
+msgid "Nav status color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3563
+msgid "Enable ajax loadmore on post module"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3568
+msgid ""
+"This will add a loadmore button at the end of posts. Important: Use this "
+"option only if ajax navigation is not enabled. Both options will not work "
+"together."
+msgstr ""
+
+#: ../includes/widget-wppm.php:3576
+msgid "Loadmore button text"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3578 ../includes/widget-wppm.php:4118
+#: ../wp-post-modules-el.php:336
+msgid "Load more"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3579
+msgid "Provide custom text for the loadmore button"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3588
+msgid "Loadmore Button Typography"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3598
+msgid "Button text color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3610
+msgid "Button text hover color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3622
+msgid "Button text background color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3634
+msgid "Button text background hover color"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3646
+msgid "Button Padding"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3659
+msgid "Button Margin"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3672
+msgid "Button border radius"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3687
+msgid "Slider Options"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3697
+msgid "Enable Slider for this template"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3709
+msgid "Slides per view"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3728
+msgid "Provide number of slides to show per viewport. E.g. 3"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3737
+msgid "Slides Spacing"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3756
+msgid "Choose space between each slide (in px). E.g. 10"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3765
+msgid "Stage Padding"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3772
+msgid "The left and right padding style (in px) onto stage wrapper"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3781
+msgid "Auto Play"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3786
+msgid "Whether to start slider auotmatically?"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3794
+msgid "Autoplay Timeout"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3801
+msgid "Time (in miliseconds), for how long slides should stay visible."
+msgstr ""
+
+#: ../includes/widget-wppm.php:3809
+msgid "Animation Speed"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3816
+msgid "Provide animation speed (in miliseconds). E.g. 300"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3825
+msgid "Auto Height"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3830
+msgid "Whether to enable dynamic smooth height for slider?"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3839
+msgid "Loop Animation"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3844
+msgid "Whether to loop slides infinitely?"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3853
+msgid "Prev / Next Buttons"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3858
+msgid "Whether to show prev/next buttons?"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3867
+msgid "Dots Navigation"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3872
+msgid "Whether to show dots navigation?"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3880
+msgid "Dots Size"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3914
+msgid "Select dot size."
+msgstr ""
+
+#: ../includes/widget-wppm.php:3922
+msgid "Dots Spacing"
+msgstr ""
+
+#: ../includes/widget-wppm.php:3956
+msgid "Select spacing between dots."
+msgstr ""
+
+#: ../includes/widget-wppm.php:4393 ../wp-post-modules-el.php:579
+msgid ""
+"No posts found matching your criteria. Please modify Query parameters to "
+"show posts."
+msgstr ""
+
+#: ../includes/wppm-templates/bullet-list.php:61
+#: ../includes/wppm-templates/grid.php:173
+#: ../includes/wppm-templates/list.php:162
+#: ../includes/wppm-templates/tile.php:166
+msgid "Prev"
+msgstr ""
+
+#: ../includes/wppm-templates/bullet-list.php:62
+#: ../includes/wppm-templates/grid.php:174
+#: ../includes/wppm-templates/list.php:163
+#: ../includes/wppm-templates/tile.php:167
+msgid "Next"
+msgstr ""
+
+#: ../includes/wppm.functions.php:109
+#, php-format
+msgctxt "human time difference. E.g. 10 days ago"
+msgid "%s ago"
+msgstr ""
+
+#: ../includes/wppm.functions.php:132
+#, php-format
+msgctxt "more count for category list"
+msgid "+ %d more"
+msgstr ""
+
+#: ../includes/wppm.functions.php:162
+#, php-format
+msgid "More posts by %s"
+msgstr ""
+
+#: ../includes/wppm.functions.php:191
+msgctxt "Used before post author name."
+msgid "Author"
+msgstr ""
+
+#: ../includes/wppm.functions.php:204 ../includes/wppm.functions.php:510
+#, php-format
+msgid "Comment on %s"
+msgstr ""
+
+#: ../includes/wppm.functions.php:424 ../includes/wppm.functions.php:722
+#: ../includes/wppm.functions.php:729 ../includes/wppm.functions.php:919
+#: ../includes/wppm.functions.php:926
+msgid "Share this post"
+msgstr ""
+
+#: ../includes/wppm.functions.php:433 ../includes/wppm.functions.php:579
+#: ../includes/wppm.functions.php:774
+msgid "Share on twitter"
+msgstr ""
+
+#: ../includes/wppm.functions.php:437 ../includes/wppm.functions.php:583
+#: ../includes/wppm.functions.php:778
+msgid "Share on facebook"
+msgstr ""
+
+#: ../includes/wppm.functions.php:442
+msgid "Share on Whatsapp"
+msgstr ""
+
+#: ../includes/wppm.functions.php:447 ../includes/wppm.functions.php:593
+msgid "Share on Google+"
+msgstr ""
+
+#: ../includes/wppm.functions.php:447
+msgid "Google+"
+msgstr ""
+
+#: ../includes/wppm.functions.php:451 ../includes/wppm.functions.php:597
+#: ../includes/wppm.functions.php:788
+msgid "Share on LinkedIn"
+msgstr ""
+
+#: ../includes/wppm.functions.php:459 ../includes/wppm.functions.php:605
+#: ../includes/wppm.functions.php:796
+msgid "Pin it"
+msgstr ""
+
+#: ../includes/wppm.functions.php:465 ../includes/wppm.functions.php:611
+#: ../includes/wppm.functions.php:802
+msgid "Share via VK"
+msgstr ""
+
+#: ../includes/wppm.functions.php:465 ../includes/wppm.functions.php:611
+#: ../includes/wppm.functions.php:802
+msgid "VKOntakte"
+msgstr ""
+
+#: ../includes/wppm.functions.php:469
+msgid "Share on Reddit"
+msgstr ""
+
+#: ../includes/wppm.functions.php:473 ../includes/wppm.functions.php:619
+#: ../includes/wppm.functions.php:810
+msgid "Email this"
+msgstr ""
+
+#: ../includes/wppm.functions.php:473 ../includes/wppm.functions.php:619
+#: ../includes/wppm.functions.php:810
+msgid "Email"
+msgstr ""
+
+#: ../includes/wppm.functions.php:515
+msgctxt "category items separator"
+msgid ", "
+msgstr ""
+
+#: ../includes/wppm.functions.php:615 ../includes/wppm.functions.php:806
+msgid "Share on LINE"
+msgstr ""
+
+#: ../includes/wppm.functions.php:615
+msgid "LINE"
+msgstr ""
+
+#: ../includes/wppm.functions.php:624 ../includes/wppm.functions.php:814
+msgid "Print"
+msgstr ""
+
+#: ../includes/wppm.functions.php:628 ../includes/wppm.functions.php:822
+#: ../includes/wppm.functions.php:823
+msgid "Digg it"
+msgstr ""
+
+#: ../includes/wppm.functions.php:636 ../includes/wppm.functions.php:831
+msgid "Share on tumblr"
+msgstr ""
+
+#: ../includes/wppm.functions.php:647 ../includes/wppm.functions.php:842
+msgid "Share on Stumbleupon"
+msgstr ""
+
+#: ../includes/wppm.functions.php:655 ../includes/wppm.functions.php:850
+msgid "Send via Yahoo"
+msgstr ""
+
+#: ../includes/wppm.functions.php:662 ../includes/wppm.functions.php:857
+msgid "Share on Getpocket"
+msgstr ""
+
+#: ../includes/wppm.functions.php:663 ../includes/wppm.functions.php:858
+msgid "Getpocket"
+msgstr ""
+
+#: ../includes/wppm.functions.php:669 ../includes/wppm.functions.php:864
+msgid "Share on Skype"
+msgstr ""
+
+#: ../includes/wppm.functions.php:677 ../includes/wppm.functions.php:872
+msgid "Share on Telegran"
+msgstr ""
+
+#: ../includes/wppm.functions.php:684 ../includes/wppm.functions.php:879
+msgid "Share on Xing"
+msgstr ""
+
+#: ../includes/wppm.functions.php:693 ../includes/wppm.functions.php:888
+msgid "Share on RenRen"
+msgstr ""
+
+#: ../includes/wppm.functions.php:694 ../includes/wppm.functions.php:889
+msgid "RenRen"
+msgstr ""
+
+#: ../includes/wppm.functions.php:730 ../includes/wppm.functions.php:927
+msgid "Close"
+msgstr ""
+
+#: ../includes/wppm.functions.php:731 ../includes/wppm.functions.php:928
+msgid "Close sharing box"
+msgstr ""
+
+#: ../includes/wppm.functions.php:806
+msgid "Line"
+msgstr ""
+
+#: ../wp-post-modules-el.php:62
+msgid "Not allowed."
+msgstr ""
+
+#: ../wp-post-modules-el.php:71
+msgid "Unserializing forbidden."
+msgstr ""
+
+#: ../wp-post-modules-el.php:160
+msgid "<a href=\"%url%\">The content</a> could not be loaded."
+msgstr ""

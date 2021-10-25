@@ -1,14 +1,11 @@
 # Changelog
 ======
-<<<<<<< HEAD
 1.0.4
 ======
 - NEW:	Support for agency licenses
 - NEW:	Remove google font loading
 
 ======
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 1.0.3
 ======
 - NEW:	Remove license option

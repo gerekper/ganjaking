@@ -48,11 +48,7 @@ class GivingFeedbackNotes {
 		$note->add_action(
 			'share-feedback',
 			__( 'Share feedback', 'woocommerce' ),
-<<<<<<< HEAD
 			Survey::get_url( '/store-setup-survey' )
-=======
-			'https://automattic.survey.fm/store-setup-survey'
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 		);
 		return $note;
 	}

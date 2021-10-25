@@ -85,7 +85,7 @@ class Helper {
 	 *
 	 * @param int $attachment_id  Attachment ID.
 	 *
-	 * @return bool|string
+	 * @return bool|false|string
 	 */
 	public static function get_attached_file( $attachment_id ) {
 		if ( empty( $attachment_id ) ) {
@@ -94,16 +94,9 @@ class Helper {
 
 		do_action( 'smush_s3_integration_fetch_file' );
 
-		if ( function_exists( 'wp_get_original_image_path' ) ) {
-			$file_path = wp_get_original_image_path( $attachment_id );
-			if ( ! empty( $file_path ) && strpos( $file_path, 's3' ) !== false ) {
-				$file_path = wp_get_original_image_path( $attachment_id, true );
-			}
-		} else {
-			$file_path = get_attached_file( $attachment_id );
-			if ( ! empty( $file_path ) && strpos( $file_path, 's3' ) !== false ) {
-				$file_path = get_attached_file( $attachment_id, true );
-			}
+		$file_path = get_attached_file( $attachment_id );
+		if ( ! empty( $file_path ) && strpos( $file_path, 's3' ) !== false ) {
+			$file_path = get_attached_file( $attachment_id, true );
 		}
 
 		// Turn the filter off again. We'll call this method when we want the file to be downloaded.
@@ -132,7 +125,7 @@ class Helper {
 			return $savings;
 		}
 
-		$pngjpg_savings = get_post_meta( $attachment_id, 'wp-smush-pngjpg_savings', true );
+		$pngjpg_savings = get_post_meta( $attachment_id, WP_SMUSH_PREFIX . 'pngjpg_savings', true );
 		if ( empty( $pngjpg_savings ) || ! is_array( $pngjpg_savings ) ) {
 			return $savings;
 		}
@@ -370,7 +363,7 @@ class Helper {
 		}
 
 		if ( $count > 1 ) {
-			update_post_meta( $id, 'wp-smush-animated', true );
+			update_post_meta( $id, WP_SMUSH_PREFIX . 'animated', true );
 		}
 	}
 
@@ -407,27 +400,5 @@ class Helper {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Get upsell URL.
-	 *
-	 * @since 3.9.1
-	 *
-	 * @param string $utm_campaign  Campaing string.
-	 *
-	 * @return string
-	 */
-	public static function get_url( $utm_campaign = '' ) {
-		$upgrade_url = 'https://wpmudev.com/project/wp-smush-pro/';
-
-		return add_query_arg(
-			array(
-				'utm_source'   => 'smush',
-				'utm_medium'   => 'plugin',
-				'utm_campaign' => $utm_campaign,
-			),
-			$upgrade_url
-		);
 	}
 }

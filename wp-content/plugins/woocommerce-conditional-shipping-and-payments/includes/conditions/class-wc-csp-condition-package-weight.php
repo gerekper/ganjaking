@@ -53,31 +53,38 @@ class WC_CSP_Condition_Package_Weight extends WC_CSP_Package_Condition {
 		if ( $this->modifier_is( $data[ 'modifier' ], array( 'gte', 'min' ) ) ) {
 
 			if ( 1 === $package_count ) {
-				$message = sprintf( __( 'decrease the total weight of your shipment below %1$s%2$s', 'woocommerce-conditional-shipping-and-payments' ), $data[ 'value' ], get_option( 'woocommerce_weight_unit' ) );
+				$message = sprintf( __( 'decrease the total weight of your shipment below %s', 'woocommerce-conditional-shipping-and-payments' ), wc_format_weight ( $data[ 'value' ]) );
 			} else {
-				$message = sprintf( __( 'decrease its total weight below %1$s%2$s', 'woocommerce-conditional-shipping-and-payments' ), $data[ 'value' ], get_option( 'woocommerce_weight_unit' ) );
+				$message = sprintf( __( 'decrease its total weight below %s', 'woocommerce-conditional-shipping-and-payments' ), wc_format_weight ( $data[ 'value' ]) );
 			}
 
 		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lt', 'max' ) ) ) {
 
 			if ( 1 === $package_count ) {
-				$message = sprintf( __( 'increase the total weight of your shipment to %1$s%2$s or higher', 'woocommerce-conditional-shipping-and-payments' ), $data[ 'value' ], get_option( 'woocommerce_weight_unit' ) );
+				$message = sprintf( __( 'increase the total weight of your shipment to %s or higher', 'woocommerce-conditional-shipping-and-payments' ), wc_format_weight ( $data[ 'value' ]) );
 			} else {
-				$message = sprintf( __( 'increase its total weight to %1$s%2$s or higher', 'woocommerce-conditional-shipping-and-payments' ), $data[ 'value' ], get_option( 'woocommerce_weight_unit' ) );
+				$message = sprintf( __( 'increase its total weight to %s or higher', 'woocommerce-conditional-shipping-and-payments' ), wc_format_weight ( $data[ 'value' ]) );
 			}
 		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'gt' ) ) ) {
 
 			if ( 1 === $package_count ) {
-				$message = sprintf( __( 'decrease the total weight of your shipment to %s or lower', 'woocommerce-conditional-shipping-and-payments' ), wc_price( $data[ 'value' ] ) );
+				$message = sprintf( __( 'decrease the total weight of your shipment to %s or lower', 'woocommerce-conditional-shipping-and-payments' ), wc_format_weight ( $data[ 'value' ]) );
 			} else {
-				$message = sprintf( __( 'decrease its total weight to %s or lower', 'woocommerce-conditional-shipping-and-payments' ), wc_price( $data[ 'value' ] ) );
+				$message = sprintf( __( 'decrease its total weight to %s or lower', 'woocommerce-conditional-shipping-and-payments' ), wc_format_weight ( $data[ 'value' ]) );
 			}
 		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lte' ) ) ) {
 
 			if ( 1 === $package_count ) {
-				$message = sprintf( __( 'increase the total weight of your shipment above %s', 'woocommerce-conditional-shipping-and-payments' ), wc_price( $data[ 'value' ] ) );
+				$message = sprintf( __( 'increase the total weight of your shipment above %s', 'woocommerce-conditional-shipping-and-payments' ), wc_format_weight ( $data[ 'value' ]) );
 			} else {
-				$message = sprintf( __( 'increase its total weight above %s', 'woocommerce-conditional-shipping-and-payments' ), wc_price( $data[ 'value' ] ) );
+				$message = sprintf( __( 'increase its total weight above %s', 'woocommerce-conditional-shipping-and-payments' ), wc_format_weight ( $data[ 'value' ]) );
+			}
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'eq' ) ) ) {
+
+			if ( 1 === $package_count ) {
+				$message = sprintf( __( 'make sure that the total weight of your shipment is either above or below %s', 'woocommerce-conditional-shipping-and-payments' ), wc_format_weight ( $data[ 'value' ]) );
+			} else {
+				$message = sprintf( __( 'make sure its total weight is either above or below %s', 'woocommerce-conditional-shipping-and-payments' ), wc_format_weight ( $data[ 'value' ]) );
 			}
 		}
 
@@ -123,9 +130,11 @@ class WC_CSP_Condition_Package_Weight extends WC_CSP_Package_Condition {
 			return true;
 		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lt', 'max' ) ) && $data[ 'value' ] > $pkg_weight ) {
 			return true;
-		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lte' ) ) && wc_format_decimal( $data[ 'value' ] ) >= $pkg_weight ) {
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lte' ) ) && $data[ 'value' ] >= $pkg_weight ) {
 			return true;
-		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'gt' ) ) && wc_format_decimal( $data[ 'value' ] ) < $pkg_weight ) {
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'gt' ) ) && $data[ 'value' ] < $pkg_weight ) {
+			return true;
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'eq' ) ) && $data[ 'value' ] == $pkg_weight ) {
 			return true;
 		}
 
@@ -195,6 +204,7 @@ class WC_CSP_Condition_Package_Weight extends WC_CSP_Package_Condition {
 						<option value="lte" <?php selected( $modifier, 'lte', true ) ?>><?php echo __( '<=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 						<option value="gt" <?php selected( $modifier, 'gt', true ) ?>><?php echo __( '>', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 						<option value="gte" <?php selected( $modifier, 'gte', true ) ?>><?php echo __( '>=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="eq" <?php selected( $modifier, 'eq', true ) ?>><?php echo __( '=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 
 					</select>
 				</div>

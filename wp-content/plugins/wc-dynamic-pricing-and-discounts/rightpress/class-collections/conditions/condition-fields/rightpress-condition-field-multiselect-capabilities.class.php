@@ -56,7 +56,7 @@ abstract class RightPress_Condition_Field_Multiselect_Capabilities extends Right
     public function get_placeholder()
     {
 
-        return esc_html__('Select user capabilities', 'rightpress');
+        return __('Select user capabilities', 'rightpress');
     }
 
 

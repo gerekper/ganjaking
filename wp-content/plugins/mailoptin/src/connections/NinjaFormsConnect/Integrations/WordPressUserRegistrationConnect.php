@@ -37,18 +37,31 @@ class WordPressUserRegistrationConnect extends \NF_Abstracts_ActionNewsletter
         $list_id = moVar($action_settings, 'newsletter_list');
 
         $optin_data = new ConversionDataBuilder();
+
+        $name = moVar($action_settings, 'moName');
+        $first_name = moVar($action_settings, 'moFirstName');
+        $last_name = moVar($action_settings, 'moLastName');
+        $is_double_optin = moVar($action_settings, 'moDoubleOptin');
+        $connection_service = $this->connection;
+
+        $double_optin = false;
+        if(in_array($connection_service, Init::double_optin_support_connections(true))) {
+            $double_optin = $is_double_optin === "1";
+        }
+
         // since it's non mailoptin form, set it to zero.
         $optin_data->optin_campaign_id   = 0;
         $optin_data->payload             = $action_settings;
-        $optin_data->name                = moVar($action_settings, 'moName');
+        $optin_data->name                = Init::return_name($name, $first_name, $last_name);
         $optin_data->email               = moVar($action_settings, 'moEmail');
         $optin_data->optin_campaign_type = esc_html__('Ninja Forms', 'mailoptin');
 
-        $optin_data->connection_service    = $this->connection;
+        $optin_data->connection_service    = $connection_service;
         $optin_data->connection_email_list = $list_id;
 
         $optin_data->user_agent                = esc_html($_SERVER['HTTP_USER_AGENT']);
         $optin_data->is_timestamp_check_active = false;
+        $optin_data->is_double_optin      = $double_optin;
 
         if (isset($_REQUEST['referrer'])) {
             $optin_data->conversion_page = esc_url_raw($_REQUEST['referrer']);
@@ -98,6 +111,14 @@ class WordPressUserRegistrationConnect extends \NF_Abstracts_ActionNewsletter
             $nf_fields[] = [
                 'value' => 'moName',
                 'label' => esc_html__('Full Name', 'mailoptin')
+            ];
+            $nf_fields[] = [
+                'value' => 'moFirstName',
+                'label' => esc_html__('First Name', 'mailoptin')
+            ];
+            $nf_fields[] = [
+                'value' => 'moLastName',
+                'label' => esc_html__('Last Name', 'mailoptin')
             ];
         }
 
@@ -149,7 +170,7 @@ class WordPressUserRegistrationConnect extends \NF_Abstracts_ActionNewsletter
             $learnmore_url = 'https://mailoptin.io/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=ninja_forms_builder_settings';
 
             $output = '<div style="background-color: #d9edf7;border: 1px solid #bce8f1;box-sizing: border-box;color: #31708f;outline: 0;padding: 5px 10px">';
-            $output .= '<p>' . sprintf(esc_html__('Upgrade to %s to remove the 500 subscribers per month limit, add support for custom field mapping and assign tags to subscribers.', 'mailoptin'), '<strong>MailOptin premium</strong>') . '</p>';
+            $output .= '<p>' . sprintf(esc_html__('Upgrade to %s to remove the 500 subscribers monthly, add support for custom field mapping and assign tags to subscribers.', 'mailoptin'), '<strong>MailOptin premium</strong>') . '</p>';
             $output .= '<p><a href="' . $upgrade_url . '" style="margin-right: 10px;" class="button-primary" target="_blank">' . esc_html__('Upgrade to MailOptin Premium', 'mailoptin') . '</a>';
             $output .= sprintf(esc_html__('%sLearn more about us%s', 'mailoptin'), '<a href="' . $learnmore_url . '" target="_blank">', '</a>') . '</p>';
             $output .= '</div>';
@@ -164,6 +185,29 @@ class WordPressUserRegistrationConnect extends \NF_Abstracts_ActionNewsletter
 
             return;
         };
+
+        if(in_array($this->connection, Init::double_optin_support_connections(true))) {
+            $default_double_optin = false;
+            $double_optin_connections = Init::double_optin_support_connections();
+            foreach($double_optin_connections as $key => $value) {
+                if($this->connection === $key) {
+                    $default_double_optin = $value;
+                }
+            }
+
+            $double_optin_status = esc_html__('Enable Double Optin', 'mailoptin');
+            if($default_double_optin) {
+                $double_optin_status = esc_html__('Disable Double Optin', 'mailoptin');
+            }
+
+            $this->_settings['moDoubleOptin'] = array(
+                'name'              => 'moDoubleOptin',
+                'type'              => 'toggle',
+                'label'             => $double_optin_status,
+                'group'             => 'primary',
+                'width'             => 'full'
+            );
+        }
 
         if (in_array($this->connection, Init::select2_tag_connections()) && method_exists($instance, 'get_tags')) {
 

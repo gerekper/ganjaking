@@ -4,7 +4,6 @@ namespace WPMailSMTP\Pro\Emails\Logs\Export;
 
 use WP_Error;
 use WPMailSMTP\Uploads;
-use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Vendor\Goodby\CSV\Export\Standard\CsvFileObject;
 use WPMailSMTP\Vendor\XLSXWriter;
 
@@ -130,7 +129,7 @@ class File {
 	 *
 	 * @return true|WP_Error
 	 */
-	public function write_eml( $request ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	public function write_eml( $request ) {
 
 		$export_file = $this->get_tmp_filename( $request->get_request_id() );
 
@@ -159,11 +158,6 @@ class File {
 						$zip_open
 					)
 				);
-			}
-
-			// Include polyfill if mbstring PHP extension is not enabled.
-			if ( ! function_exists( 'mb_substr' ) ) {
-				Helpers::include_mbstring_polyfill();
 			}
 
 			foreach ( $data->get_content() as $value ) {

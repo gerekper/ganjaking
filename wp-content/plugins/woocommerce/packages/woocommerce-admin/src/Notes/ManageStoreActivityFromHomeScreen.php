@@ -38,13 +38,10 @@ class ManageStoreActivityFromHomeScreen {
 	 */
 	public static function get_note() {
 		$installed_version = get_option( 'woocommerce_admin_version' );
-<<<<<<< HEAD
 		// the value can be in 1.9.0-rc.3 format for RC or BETA releases
 		// get the version without -rc.3.
 		$version_segments  = explode( '-', $installed_version );
 		$installed_version = $version_segments[0];
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 		if ( ! version_compare( $installed_version, '1.9.0', '=' ) ) {
 			return;
 		}

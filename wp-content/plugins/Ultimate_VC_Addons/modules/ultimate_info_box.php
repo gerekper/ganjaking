@@ -3,16 +3,16 @@
  * Add-on Name: Info Box
  * Add-on URI: https://www.brainstormforce.com
  *
- * @package Ultimate_VC_Addons_Icons_Box.
+ * @package AIO_Icons_Box.
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Icons_Box' ) ) {
+if ( ! class_exists( 'AIO_Icons_Box' ) ) {
 	/**
-	 * Class Ultimate_VC_Addons_Icons_Box.
+	 * Class AIO_Icons_Box.
 	 *
-	 * @class Ultimate_VC_Addons_Icons_Box.
+	 * @class AIO_Icons_Box.
 	 */
-	class Ultimate_VC_Addons_Icons_Box {
+	class AIO_Icons_Box {
 		/**
 		 * Constructor function that constructs default values for the Ultimate_List_Icon.
 		 *
@@ -880,12 +880,12 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Icons_Box' ) ) {
 		/** Icon Box Scripts.
 		 */
 		public function icon_box_scripts() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-info-box-style', 'info-box' );
+			Ultimate_VC_Addons::ultimate_register_style( 'info-box-style', 'info-box' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-info_box_js', 'info-box' );
+			Ultimate_VC_Addons::ultimate_register_script( 'info_box_js', 'info-box' );
 		}
 	}//end class
 }
-if ( class_exists( 'Ultimate_VC_Addons_Icons_Box' ) ) {
-	$aio_icons_box = new Ultimate_VC_Addons_Icons_Box();
+if ( class_exists( 'AIO_Icons_Box' ) ) {
+	$aio_icons_box = new AIO_Icons_Box();
 }

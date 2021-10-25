@@ -1155,323 +1155,323 @@ return array(
 		'path'    => $vendorDir . '/firebase/php-jwt/src/JWT.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\FnStream' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/FnStream.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\UriNormalizer' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/UriNormalizer.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\MessageTrait' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/MessageTrait.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\MimeType' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/MimeType.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\CachingStream' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/CachingStream.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\PumpStream' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/PumpStream.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\NoSeekStream' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/NoSeekStream.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\Response' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Response.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\InflateStream' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/InflateStream.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\StreamWrapper' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/StreamWrapper.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\Stream' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Stream.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\Request' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Request.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\Header' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Header.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\DroppingStream' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/DroppingStream.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\LazyOpenStream' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/LazyOpenStream.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\BufferStream' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/BufferStream.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\Uri' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Uri.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\StreamDecoratorTrait' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/StreamDecoratorTrait.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\UploadedFile' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/UploadedFile.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\Utils' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Utils.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\Query' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Query.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\AppendStream' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/AppendStream.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\UriResolver' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/UriResolver.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\LimitStream' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/LimitStream.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\ServerRequest' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/ServerRequest.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\Message' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Message.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\MultipartStream' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/MultipartStream.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Psr7\\Rfc7230' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/psr7/src/Rfc7230.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\PromiseInterface' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/PromiseInterface.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\CancellationException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/CancellationException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\TaskQueue' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/TaskQueue.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\Each' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/Each.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\Promise' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/Promise.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\PromisorInterface' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/PromisorInterface.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\RejectionException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/RejectionException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\Create' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/Create.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\Coroutine' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/Coroutine.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\RejectedPromise' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/RejectedPromise.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\Is' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/Is.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\Utils' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/Utils.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\EachPromise' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/EachPromise.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\AggregateException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/AggregateException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\FulfilledPromise' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/FulfilledPromise.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Promise\\TaskQueueInterface' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/promises/src/TaskQueueInterface.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Handler\\EasyHandle' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/EasyHandle.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Handler\\CurlFactory' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/CurlFactory.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Handler\\CurlMultiHandler' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/CurlMultiHandler.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Handler\\CurlHandler' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/CurlHandler.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Handler\\MockHandler' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/MockHandler.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Handler\\Proxy' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/Proxy.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Handler\\StreamHandler' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/StreamHandler.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Handler\\CurlFactoryInterface' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Handler/CurlFactoryInterface.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\UriTemplate' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/UriTemplate.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\RedirectMiddleware' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/RedirectMiddleware.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\TransferStats' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/TransferStats.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Pool' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Pool.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\HandlerStack' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/HandlerStack.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\RequestOptions' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/RequestOptions.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\ClientInterface' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/ClientInterface.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\PrepareBodyMiddleware' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/PrepareBodyMiddleware.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Utils' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Utils.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Cookie\\SessionCookieJar' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Cookie/SessionCookieJar.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Cookie\\CookieJarInterface' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Cookie/CookieJarInterface.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Cookie\\SetCookie' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Cookie/SetCookie.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Cookie\\FileCookieJar' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Cookie/FileCookieJar.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Cookie\\CookieJar' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Cookie/CookieJar.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Middleware' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Middleware.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\RetryMiddleware' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/RetryMiddleware.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\MessageFormatter' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/MessageFormatter.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Exception\\SeekException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/SeekException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Exception\\TransferException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/TransferException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Exception\\ServerException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/ServerException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Exception\\ClientException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/ClientException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Exception\\GuzzleException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/GuzzleException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Exception\\BadResponseException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/BadResponseException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Exception\\TooManyRedirectsException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/TooManyRedirectsException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Exception\\InvalidArgumentException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/InvalidArgumentException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Exception\\ConnectException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/ConnectException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Exception\\RequestException' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Exception/RequestException.php'
 	),
 	'Automattic\\WooCommerce\\Xero\\Vendor\\GuzzleHttp\\Client' => array(
-		'version' => 'dev-fix/239',
+		'version' => '9999999-dev',
 		'path'    => $vendorDir . '/guzzlehttp/guzzle/src/Client.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\AutoloadGenerator' => array(

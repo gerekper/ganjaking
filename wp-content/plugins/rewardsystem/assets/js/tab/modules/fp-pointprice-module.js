@@ -2,7 +2,6 @@
  * Points Price - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var PointsPriceModule = {
         init : function () {
             this.trigger_on_page_load() ;
@@ -87,7 +86,7 @@ jQuery( function ( $ ) {
             if ( jQuery( '#rs_enable_disable_point_priceing' ).val() == '2' ) {
                 jQuery( '#rs_pricing_type_global_level' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_sufix_prefix_point_price_label' ).parent().parent().hide() ;
-                jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;              
+                jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;
                 jQuery( '#rs_label_for_point_value' ).parent().parent().hide() ;
                 jQuery( '#rs_local_enable_disable_point_price_for_product' ).parent().parent().hide() ;
                 jQuery( '#rs_global_point_price_type' ).parent().parent().hide() ;
@@ -100,46 +99,46 @@ jQuery( function ( $ ) {
                 if ( jQuery( '#rs_local_enable_disable_point_price_for_product' ).val() == '2' ) {
                     jQuery( '#rs_pricing_type_global_level' ).closest( 'tr' ).hide() ;
                     jQuery( '#rs_global_point_price_type' ).parent().parent().hide() ;
-                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;                   
+                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;
                 } else {
                     jQuery( '#rs_pricing_type_global_level' ).closest( 'tr' ).show() ;
                     if ( jQuery( '#rs_pricing_type_global_level' ).val() == '1' ) {
                         jQuery( '#rs_global_point_price_type' ).parent().parent().show() ;
                         if ( jQuery( '#rs_global_point_price_type' ).val() == '2' ) {
-                            jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;                            
+                            jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;
                         } else {
-                            jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;                           
+                            jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;
                         }
                         jQuery( '#rs_global_point_price_type' ).change( function () {
                             if ( jQuery( '#rs_global_point_price_type' ).val() == '2' ) {
-                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;                               
+                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;
                             } else {
-                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;                              
+                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;
                             }
                         } ) ;
                     } else {
                         jQuery( '#rs_global_point_price_type' ).parent().parent().hide() ;
-                        jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;                        
+                        jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;
                     }
 
                     jQuery( '#rs_pricing_type_global_level' ).change( function () {
                         if ( jQuery( '#rs_pricing_type_global_level' ).val() == '1' ) {
                             jQuery( '#rs_global_point_price_type' ).parent().parent().show() ;
                             if ( jQuery( '#rs_global_point_price_type' ).val() == '2' ) {
-                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;                               
+                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;
                             } else {
-                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;                                
+                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;
                             }
                             jQuery( '#rs_global_point_price_type' ).change( function () {
                                 if ( jQuery( '#rs_global_point_price_type' ).val() == '2' ) {
-                                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;                                   
+                                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;
                                 } else {
-                                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;                                    
+                                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;
                                 }
                             } ) ;
                         } else {
                             jQuery( '#rs_global_point_price_type' ).parent().parent().hide() ;
-                            jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;                           
+                            jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;
                         }
                     } ) ;
                 }
@@ -147,47 +146,47 @@ jQuery( function ( $ ) {
                     if ( jQuery( '#rs_local_enable_disable_point_price_for_product' ).val() == '2' ) {
                         jQuery( '#rs_pricing_type_global_level' ).closest( 'tr' ).hide() ;
                         jQuery( '#rs_global_point_price_type' ).parent().parent().hide() ;
-                        jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;                        
+                        jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;
                     } else {
                         jQuery( '#rs_global_point_price_type' ).parent().parent().show() ;
                         jQuery( '#rs_pricing_type_global_level' ).closest( 'tr' ).show() ;
                         if ( jQuery( '#rs_pricing_type_global_level' ).val() == '1' ) {
                             jQuery( '#rs_global_point_price_type' ).parent().parent().show() ;
                             if ( jQuery( '#rs_global_point_price_type' ).val() == '2' ) {
-                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;                               
+                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;
                             } else {
-                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;                                
+                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;
                             }
                             jQuery( '#rs_global_point_price_type' ).change( function () {
                                 if ( jQuery( '#rs_global_point_price_type' ).val() == '2' ) {
-                                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;                                    
+                                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;
                                 } else {
-                                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;                                   
+                                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;
                                 }
                             } ) ;
                         } else {
                             jQuery( '#rs_global_point_price_type' ).parent().parent().hide() ;
-                            jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;                            
+                            jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;
                         }
 
                         jQuery( '#rs_pricing_type_global_level' ).change( function () {
                             if ( jQuery( '#rs_pricing_type_global_level' ).val() == '1' ) {
                                 jQuery( '#rs_global_point_price_type' ).parent().parent().show() ;
                                 if ( jQuery( '#rs_global_point_price_type' ).val() == '2' ) {
-                                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;                                   
+                                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;
                                 } else {
-                                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;                                   
+                                    jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;
                                 }
                                 jQuery( '#rs_global_point_price_type' ).change( function () {
                                     if ( jQuery( '#rs_global_point_price_type' ).val() == '2' ) {
-                                        jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;                                        
+                                        jQuery( '#rs_local_price_points_for_product' ).parent().parent().hide() ;
                                     } else {
-                                        jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;                                        
+                                        jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;
                                     }
                                 } ) ;
                             } else {
                                 jQuery( '#rs_global_point_price_type' ).parent().parent().hide() ;
-                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;                                
+                                jQuery( '#rs_local_price_points_for_product' ).parent().parent().show() ;
                             }
                         } ) ;
                     }

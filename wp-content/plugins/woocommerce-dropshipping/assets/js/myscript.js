@@ -121,16 +121,25 @@ jQuery(document).ready(function($) {
 	});
 	
 	$('.miscellaneous_packing_slip_options_master_checkbox').click(function () {
-	   if($(this).is(':checked')){
+		if($(this).is(':checked')){
+			if(document.getElementById("email_order_note").value == ''){
+				document.getElementById("email_order_note").value = "Please see the attached PDF. Thank you!";
+			}
+		}else{
+			document.getElementById("email_order_note").value = "";
+		}
+	   /*if($(this).is(':checked')){
+		  $('.miscellaneous_packing_slip_options_checkbox_false').removeAttr("disabled");
 		  $('.miscellaneous_packing_slip_options_checkbox').removeAttr("disabled");	
 		  $('.miscellaneous_packing_slip_options_checkbox').prop('checked', true);
 		  $('.inner-toggle').show();
 	   }else{
 		  $('.inner-toggle').hide(); 
+		  $('.miscellaneous_packing_slip_options_checkbox_false').attr("disabled", true);
 		  $('.miscellaneous_packing_slip_options_checkbox').attr("disabled", true);
 		  $('.miscellaneous_packing_slip_options_checkbox').prop('checked', false);
-	   }
-	   
+		  $('.miscellaneous_packing_slip_options_checkbox').removeProp( "luggageCode" );
+	   }*/
 	});
 	
 	$('.miscellaneous_packing_slip_options_checkbox').click(function () {
@@ -141,6 +150,14 @@ jQuery(document).ready(function($) {
 		  $('.'+dataId).hide(); 
 	   }
 	   
+	});
+	
+	$('#show_logo').click(function (){
+	   if($('#show_logo').is(':checked')){
+		  $('.show_logo').show();
+	   }else{
+		  $('.show_logo').hide(); 
+	   }
 	});
 	
 });

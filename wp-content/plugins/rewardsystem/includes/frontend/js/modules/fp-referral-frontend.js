@@ -2,7 +2,6 @@
  * Referral - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var RSReferralFrontend = {
         init : function ( ) {
             if ( '1' == fp_referral_frontend_params.enqueue_footable) {

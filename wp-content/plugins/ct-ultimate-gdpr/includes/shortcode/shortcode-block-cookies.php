@@ -16,25 +16,36 @@ class CT_Ultimate_GDPR_Shortcode_Block_Cookies {
         
         $title = $options['cookie_withdrawal_cookies_agreement'];
         $content = $options['cookie_withdrawal_cookies_agreement_description'];
+        $bg_color = $options['cookie_withdrawal_cookies_agreement_button_bg_color'];
+        $text_color = $options['cookie_withdrawal_cookies_agreement_button_text_color'];
+        $border_color = $options['cookie_withdrawal_cookies_agreement_button_border_color'];
+
 
     ?>
+<div id="ct-ultimate-gdpr-withdrawal-cookie-agreement">
     <h4><?php echo $title; ?></h4>
-
-    <form id="ct-ultimate-gdpr-block-cookies">
+    <form id="ct-ultimate-gdpr-block-cookies" action="#">
         <div class="ct-ultimate-gdpr-cookie checkbox">
-            <label for="ct-ultimate-gdpr-block-cookies">
-                <input type="checkbox" name="ct-ultimate-gdpr-block-cookies" class="ct-ultimate-gdpr-block-cookies">
+            <label for="blockCookies" class="ct-ultimate-gdpr-block-cookies">
+                <input type="checkbox" name="ct-ultimate-gdpr-block-cookies" id="blockCookies"
+                    class="ct-ultimate-gdpr-block-cookies-checkbox"
+                    <?php echo (CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL == apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0)) ? 'checked' : ''; ?>>
+                <p class="description"><?php echo $content; ?></p>
             </label>
         </div>
-        <div class="ct-ultimate-gdpr-cookie description">
-            <p><?php echo $content; ?></p>
-        </div>
-        <div class="ct-ultimate-gdpr-cookie-block-btn">
-            <input type="hidden" name="level" class="level" value="1"/>
-            <input type="submit" name="ct-ultimate-gdpr-block-cookies-submit" value="<?php echo esc_html__( "Save", 'ct-ultimate-gdpr' ); ?>" class="ct-ultimate-gdpr-cookie-modal-btn button" disabled>
-        </div>
+
+        <input type="hidden" name="level" class="level"
+            value="<?php echo (CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL == apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0)) ? CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL : CT_Ultimate_GDPR_Model_Group::LEVEL_TARGETTING; ?>" />
+        <input type="submit" name="ct-ultimate-gdpr-block-cookies-submit"
+            value="<?php echo esc_html__( "Save", 'ct-ultimate-gdpr' ); ?>"
+            style="background-color:<?php echo esc_attr($bg_color); ?>; color: <?php echo esc_attr($text_color); ?> ;border:1px solid <?php echo esc_attr($border_color); ?>;"
+            class="ct-ultimate-gdpr-cookie-block-btn button btn ct-btn" disabled>
+
     </form>
-    <?php }
+    <div class="notification"></div>
+
+</div>
+<?php }
 
     public function assets()
     {

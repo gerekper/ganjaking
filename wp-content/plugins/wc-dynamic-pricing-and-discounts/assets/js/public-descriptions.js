@@ -3,8 +3,6 @@
  */
 jQuery(document).ready(function() {
 
-    'use strict';
-
     function set_up_public_descriptions()
     {
         jQuery.each(['product-pricing', 'cart-discounts', 'checkout-fees'], function(i, context) {
@@ -38,18 +36,22 @@ jQuery(document).ready(function() {
                     html += '<li>' + description + '</li>';
                 });
 
-                // Mouse enter
-                span.on('mouseenter', function() {
-                    jQuery('<p class="rp_wcdpd_public_description_tip"></p>').html('<ul>' + html + '</ul>').appendTo('body').fadeIn('slow');
-                });
+                // On hover
+                span.hover(
 
-                // Mouse leave
-                span.on('mouseleave', function() {
-                    jQuery('.rp_wcdpd_public_description_tip').remove();
-                });
+                    // Hover in
+                    function() {
+                        jQuery('<p class="rp_wcdpd_public_description_tip"></p>').html('<ul>' + html + '</ul>').appendTo('body').fadeIn('slow');
+                    },
+
+                    // Hover out
+                    function() {
+                        jQuery('.rp_wcdpd_public_description_tip').remove();
+                    }
+                );
 
                 // On mouse move
-                span.on('mousemove', function(e) {
+                span.mousemove(function(e) {
 
                     // Position tip
                     jQuery('.rp_wcdpd_public_description_tip').css({

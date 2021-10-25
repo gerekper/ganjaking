@@ -1,0 +1,23 @@
+.elementor-add-new-section .ma-el-add-section-btn {    
+    color: #fff;
+    margin-right: 4px;
+    margin-left: 4px;
+    display: inherit;
+    padding: 0;
+    line-height: 40px;
+    cursor: pointer;
+}
+.elementor-add-new-section .jltma-editor-icon{
+	background: url('../../images/ma-editor-icon.svg')left center no-repeat;
+	background-size: contain;
+    color: #fff;
+    box-shadow: none;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+    position: inherit;
+    cursor: pointer;
+}
+.ma-el-add-section-btn{
+    order:0;
+}

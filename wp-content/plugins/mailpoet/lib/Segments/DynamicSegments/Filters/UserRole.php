@@ -18,9 +18,7 @@ class UserRole implements Filter {
   /** @var EntityManager */
   private $entityManager;
 
-  public function __construct(
-    EntityManager $entityManager
-  ) {
+  public function __construct(EntityManager $entityManager) {
     $this->entityManager = $entityManager;
   }
 

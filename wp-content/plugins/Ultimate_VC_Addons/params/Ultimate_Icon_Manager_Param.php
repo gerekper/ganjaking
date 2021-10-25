@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_VC_Addons_Icon_Manager_Param
+ * Class Ultimate_Icon_Manager_Param
  *
- * @package Ultimate_VC_Addons_Icon_Manager_Param.
+ * @package Ultimate_Icon_Manager_Param.
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Icon_Manager_Param' ) ) {
+if ( ! class_exists( 'Ultimate_Icon_Manager_Param' ) ) {
 	/**
-	 * Class Ultimate_VC_Addons_Icon_Manager_Param
+	 * Class Ultimate_Icon_Manager_Param
 	 *
-	 * @class Ultimate_VC_Addons_Icon_Manager_Param.
+	 * @class Ultimate_Icon_Manager_Param.
 	 */
-	class Ultimate_VC_Addons_Icon_Manager_Param {
+	class Ultimate_Icon_Manager_Param {
 		/**
 		 * Initiator __construct.
 		 */
@@ -39,7 +39,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Icon_Manager_Param' ) ) {
 			$GLOBALS['pid'] = $GLOBALS['pid'] + 1;
 			$pcnt           = $GLOBALS['pid'];
 
-			$aio_icon_manager = new Ultimate_VC_Addons_Icon_Manager();
+			$aio_icon_manager = new AIO_Icon_Manager();
 			$font_manager     = $aio_icon_manager->get_font_manager( $pcnt );
 			$dependency       = '';
 
@@ -124,6 +124,6 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Icon_Manager_Param' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_VC_Addons_Icon_Manager_Param' ) ) {
-	$ultimate_icon_manager_param = new Ultimate_VC_Addons_Icon_Manager_Param();
+if ( class_exists( 'Ultimate_Icon_Manager_Param' ) ) {
+	$ultimate_icon_manager_param = new Ultimate_Icon_Manager_Param();
 }

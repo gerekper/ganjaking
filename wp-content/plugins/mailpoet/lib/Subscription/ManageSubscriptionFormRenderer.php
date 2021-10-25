@@ -115,7 +115,7 @@ class ManageSubscriptionFormRenderer {
 
     if ($subscriber->isWPUser() || $subscriber->isWooCommerceUser()) {
       $wpCurrentUser = $this->wp->wpGetCurrentUser();
-      if ($wpCurrentUser->user_email === $subscriber->email) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      if ($wpCurrentUser->user_email === $subscriber->email) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
         $templateData['editEmailInfo'] = Helpers::replaceLinkTags(
           __('[link]Edit your profile[/link] to update your email.', 'mailpoet'),
           $this->wp->getEditProfileUrl(),

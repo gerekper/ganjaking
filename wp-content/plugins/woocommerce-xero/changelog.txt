@@ -1,5 +1,17 @@
 *** Xero Integration ***
 
+2021-10-20 - version 1.7.40
+* Tweak - WC 5.8 compatibility.
+* Tweak - WP 5.8 compatibility.
+
+2021-10-04 - version 1.7.39
+* Fix - Allow spaces in paths when prefixing vendor namespaces.
+* Fix - Ensure the MOSS Sales tax type is matched correctly for shops that use it.
+* Fix - Fix: Xero line item discount amount.
+* Fix - Set discount amount instead of discount rate to prevent order total mismatch between WooCommerce and Xero.
+* Fix - add unique namespace to the Guzzle library to avoid conflicts.
+* Tweak - WC 5.7 compatibility.
+
 2021-07-27 - version 1.7.38
 * Fix - Add unique namespace to the Guzzle library to avoid conflicts.
 

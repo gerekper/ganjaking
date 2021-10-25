@@ -29,9 +29,7 @@ class PurchasedInCategory {
   /** @var AutomaticEmailsRepository */
   private $repository;
 
-  public function __construct(
-    WCHelper $woocommerceHelper = null
-  ) {
+  public function __construct(WCHelper $woocommerceHelper = null) {
     if ($woocommerceHelper === null) {
       $woocommerceHelper = new WCHelper();
     }
@@ -87,7 +85,7 @@ class PurchasedInCategory {
 
     return array_map(function($category) {
       return [
-        'id' => $category->term_id, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+        'id' => $category->term_id, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
         'name' => $category->name,
       ];
     }, $allCategories);

@@ -155,15 +155,17 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			}
 
 			// Exclude draft posts
-			/*$exclude_drafts = apply_filters('permalink_manager_exclude_drafts', false);
-			if($exclude_drafts !== false) {
+			$exclude_drafts = (isset($permalink_manager_options['general']['ignore_drafts'])) ? $permalink_manager_options['general']['ignore_drafts'] : false;
+			$exclude_drafts = apply_filters('permalink_manager_exclude_drafts', $exclude_drafts);
+
+			if($exclude_drafts) {
 				$post_ids = $wpdb->get_col("SELECT DISTINCT ID FROM {$wpdb->posts} AS p WHERE p.post_status = 'draft' ORDER BY ID DESC");
 				if(!empty($post_ids)) {
 					foreach($post_ids as $post_id) {
 						unset($permalink_manager_uris[$post_id]);
 					}
 				}
-			}*/
+			}
 
 			// Flip array for better performance
 			$all_uris = array_flip($all_uris);
@@ -505,7 +507,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 
 			// 2B. Count post pages
 			$post_content = (!empty($post->post_content)) ? $post->post_content : '';
-			$num_pages = (is_home() || is_archive()) ? $wp_query->max_num_pages : substr_count(strtolower($post_content), '<!--nextpage-->') + 1;
+			$num_pages = (is_home() || is_archive() || is_search()) ? $wp_query->max_num_pages : substr_count(strtolower($post_content), '<!--nextpage-->') + 1;
 
 			$is_404 = ($current_page > 1 && ($current_page > $num_pages)) ? true : false;
 		}

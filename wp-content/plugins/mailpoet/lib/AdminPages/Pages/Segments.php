@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\AdminPages\PageRenderer;
 use MailPoet\API\JSON\ResponseBuilders\CustomFieldsResponseBuilder;
-use MailPoet\Cache\TransientCache;
 use MailPoet\Config\ServicesChecker;
 use MailPoet\CustomFields\CustomFieldsRepository;
 use MailPoet\Entities\DynamicSegmentFilterData;
@@ -20,7 +19,6 @@ use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
 use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 use MailPoet\WP\AutocompletePostListLoader as WPPostListLoader;
 use MailPoet\WP\Functions as WPFunctions;
-use MailPoetVendor\Carbon\Carbon;
 
 class Segments {
   /** @var PageRenderer */
@@ -56,9 +54,6 @@ class Segments {
   /** @var CustomFieldsResponseBuilder */
   private $customFieldsResponseBuilder;
 
-  /** @var TransientCache */
-  private $transientCache;
-
   public function __construct(
     PageRenderer $pageRenderer,
     PageLimit $listingPageLimit,
@@ -70,8 +65,7 @@ class Segments {
     SettingsController $settings,
     CustomFieldsRepository $customFieldsRepository,
     CustomFieldsResponseBuilder $customFieldsResponseBuilder,
-    SegmentDependencyValidator $segmentDependencyValidator,
-    TransientCache $transientCache
+    SegmentDependencyValidator $segmentDependencyValidator
   ) {
     $this->pageRenderer = $pageRenderer;
     $this->listingPageLimit = $listingPageLimit;
@@ -84,7 +78,6 @@ class Segments {
     $this->segmentDependencyValidator = $segmentDependencyValidator;
     $this->customFieldsRepository = $customFieldsRepository;
     $this->customFieldsResponseBuilder = $customFieldsResponseBuilder;
-    $this->transientCache = $transientCache;
   }
 
   public function render() {
@@ -133,9 +126,7 @@ class Segments {
     $wooCurrencySymbol = $this->woocommerceHelper->isWooCommerceActive() ? $this->woocommerceHelper->getWoocommerceCurrencySymbol() : '';
     $data['woocommerce_currency_symbol'] = html_entity_decode($wooCurrencySymbol);
     $data['tracking_enabled'] = $this->settings->get('tracking.enabled');
-    $subscribersCacheCreatedAt = $this->transientCache->getOldestCreatedAt(TransientCache::SUBSCRIBERS_STATISTICS_COUNT_KEY);
-    $subscribersCacheCreatedAt = $subscribersCacheCreatedAt ?: Carbon::now();
-    $data['subscribers_counts_cache_created_at'] = $subscribersCacheCreatedAt->format('Y-m-d\TH:i:sO');
+
     $this->pageRenderer->displayPage('segments.html', $data);
   }
 }

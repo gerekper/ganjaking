@@ -145,7 +145,7 @@ final class RightPress_Product_Price_Test
             $variation_id   = $product->is_type('variation') ? $product->get_id() : 0;
 
             // Load cart item data - may be added by other plugins
-            $cart_item_data = (array) apply_filters('woocommerce_add_cart_item_data', $cart_item_data, $product_id, $variation_id, $quantity);
+            $cart_item_data = (array) apply_filters('woocommerce_add_cart_item_data', $cart_item_data, $product_id, $variation_id);
 
             // Allow our plugins to split cart item into multiple cart items
             $extra_cart_items = apply_filters('rightpress_product_price_test_simulate_add_to_cart_extra_items', array(), $product_id, $variation_id, $cart_item_data, $quantity);
@@ -167,7 +167,7 @@ final class RightPress_Product_Price_Test
             foreach ($extra_cart_items as $extra_cart_item) {
                 $cart_items_to_add[] = array(
                     'quantity'          => $extra_cart_item['quantity'],
-                    'cart_item_data'    => (array) apply_filters('woocommerce_add_cart_item_data', $extra_cart_item['cart_item_data'], $product_id, $variation_id, $quantity),
+                    'cart_item_data'    => (array) apply_filters('woocommerce_add_cart_item_data', $extra_cart_item['cart_item_data'], $product_id, $variation_id),
                 );
             }
 
@@ -345,55 +345,7 @@ final class RightPress_Product_Price_Test
         $instance->is_test = false;
     }
 
-    /**
-     * Get price data for Ajax tools
-     *
-     * Note: This method sets running_custom_calculations flag and does not unset it since Ajax calls are expected
-     * to only do one specific task which requires this flag to be set
-     *
-     * @access public
-     * @param array $cart_item_data
-     * @param bool $return_empty_changes
-     * @return array|null|false
-     */
-    public static function get_price_data_for_ajax_tools($cart_item_data = array(), $return_empty_changes = false)
-    {
 
-        // Set flag
-        RightPress_Product_Price::start_running_custom_calculations();
-
-        // Get request data
-        $request_data = RightPress_Product_Price::get_request_data_for_ajax_tools();
-
-        // Load product object
-        $object_id = !empty($request_data['variation_id']) ? $request_data['variation_id'] : $request_data['product_id'];
-        $product = wc_get_product($object_id);
-
-        // Unable to load product object
-        if (!$product) {
-            return false;
-        }
-
-        // Unable to determine variation for variable product
-        if ($product->get_type() === 'variable') {
-            return false;
-        }
-
-        // Product is available for purchase
-        if ($product->get_price('edit') !== '') {
-
-            // Get cart item data
-            $cart_item_data = apply_filters('rightpress_product_price_test_cart_item_data', $cart_item_data, $product, $request_data);
-
-            // Run product price test and return results
-            return RightPress_Product_Price_Test::run($product, $request_data['quantity'], $request_data['variation_attributes'], true, $return_empty_changes, $cart_item_data);
-        }
-        // Product is not available for purchase (price is not set in WooCommerce product settings)
-        else {
-
-            return null;
-        }
-    }
 
 
 

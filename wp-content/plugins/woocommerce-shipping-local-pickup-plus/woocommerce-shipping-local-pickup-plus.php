@@ -6,7 +6,7 @@
  * Description: A shipping plugin for WooCommerce that allows the store operator to define local pickup locations, which the customer can then choose from when making a purchase.
  * Author: SkyVerge
  * Author URI: http://woocommerce.com
- * Version: 2.9.8
+ * Version: 2.9.10
  * Text Domain: woocommerce-shipping-local-pickup-plus
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 18696:4d6fbe9e8968a669d11cec40b85a0caa
  * WC requires at least: 3.5
- * WC tested up to: 5.6.0
+ * WC tested up to: 5.8.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -46,7 +46,7 @@ class WC_Local_Pickup_Plus_Loader {
 	const MINIMUM_WC_VERSION = '3.5';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.5.0';
+	const FRAMEWORK_VERSION = '5.10.9';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Local Pickup Plus';

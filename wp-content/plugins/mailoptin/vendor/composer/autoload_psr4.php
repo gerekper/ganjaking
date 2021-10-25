@@ -42,6 +42,7 @@ return array(
     'MailOptin\\GravityFormsConnect\\' => array($baseDir . '/src/connections/GravityFormsConnect'),
     'MailOptin\\GetResponseConnect\\' => array($baseDir . '/src/connections/GetResponseConnect'),
     'MailOptin\\GEMConnect\\' => array($baseDir . '/src/connections/GEMConnect'),
+    'MailOptin\\ForminatorFormConnect\\' => array($baseDir . '/src/connections/ForminatorFormConnect'),
     'MailOptin\\FormidableFormConnect\\' => array($baseDir . '/src/connections/FormidableFormConnect'),
     'MailOptin\\FluentCRMConnect\\' => array($baseDir . '/src/connections/FluentCRMConnect'),
     'MailOptin\\FacebookCustomAudienceConnect\\' => array($baseDir . '/src/connections/FacebookCustomAudienceConnect'),

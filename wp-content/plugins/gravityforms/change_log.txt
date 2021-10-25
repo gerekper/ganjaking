@@ -1,18 +1,22 @@
-### 2.5.12.2
+### 2.5.14 | 2021-10-21
+- Fixed an issue which causes No Conflict mode to break Media Uploads for some WYSIWYG editors.
+- Reverted required indicator for hidden labels change made in 2.5.13 which introduced UI issues.
+
+
+### 2.5.13 | 2021-10-19
+- Added security enhancements.
 - Added support for Visibility settings for the HTML Field.
+- Fixed an issue where the required indicator is not displayed if the field label is hidden.
 - Fixed a PHP notice on the WordPress 5.8+ Appearance > Widgets page.
 - Fixed an issue with the Radio Buttons field on the entry detail edit page where the other input is disabled resulting in the loss of the other value on entry update.
-- Fixed an issue that caused fields with float values for IDs to break the conditional logic flyout.
+- Fixed an issue that caused fields with float values for IDs to break the conditional logic flyout modal.
 - Fixed the display of left-aligned labels in order to allow them to stack on smaller screen sizes.
-
-### 2.5.12.1
-- Fixed an issue with the sales page displaying duplicate months when viewed at the last days of the month
-- Added security enhancements
+- Fixed an issue with the sales page displaying duplicate months when viewed on the last days of the month.
 - Fixed an issue where the form switcher redirects the user to the entries list page instead of the results page.
-- Fixed issues in the Settings API that prevents dependencies from working on nested fields and sections without IDs.
 - Fixed an issue where the tooltip for a date/time settings field does not display correctly.
 - Fixed an issue that causes Unit Tests to fail to output any feedback due to output buffering.
 - Fixed two instances of an incorrect text domain for translatable strings.
+- API: Fixed issues in the Settings API that prevents dependencies from working on nested fields and sections without IDs.
 
 ### 2.5.12 | 2021-10-01
 - Fixed an issue with the address field merge tag when selecting the option to use the values from a previous address field

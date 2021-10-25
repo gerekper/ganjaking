@@ -68,7 +68,9 @@ class Subscription extends AbstractOntraportConnect
 
             $response = $this->ontraportInstance()->add_subscriber($data);
 
-            if (is_array($response) && isset($response['id'])) {
+            if (is_array($response) && (isset($response['id']) || isset($response['attrs']['id']))) {
+
+                $contact_id = isset($response['id']) ? $response['id'] : $response['attrs']['id'];
 
                 if (isset($this->extras['mo-acceptance']) && $this->extras['mo-acceptance'] == 'yes') {
                     $gdpr_tag = apply_filters('mo_connections_ontraport_acceptance_tag', 'GDPR');
@@ -88,7 +90,7 @@ class Subscription extends AbstractOntraportConnect
 
                 if ( ! empty($subscriber_tags)) {
                     try {
-                        $this->ontraportInstance()->add_tags($response['id'], $subscriber_tags);
+                        $this->ontraportInstance()->add_tags($contact_id, $subscriber_tags);
                     } catch (\Exception $e) {
                     }
                 }

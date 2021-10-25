@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Splash Popup
  * Plugin URI: https://woocommerce.com/products/woocommerce-splash-popup/
  * Description: Allows store owners to display a lightbox popup on their web site containing page content based on whether the user is logged in or not, and whether the user is a customer or not. Once hidden the popup remains hidden via cookie.
- * Version: 1.2.20
+ * Version: 1.3.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.0
@@ -17,7 +17,11 @@
  * @package woocommerce-splash-popup
  */
 
-define( 'WC_SPLASH_POPUP_VERSION', '1.2.20' ); // WRCS: DEFINED_VERSION.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+define( 'WC_SPLASH_POPUP_VERSION', '1.3.0' ); // WRCS: DEFINED_VERSION.
 
 // Plugin init hook.
 add_action( 'plugins_loaded', 'wc_splash_popup_init' );
@@ -28,7 +32,7 @@ add_action( 'plugins_loaded', 'wc_splash_popup_init' );
 function wc_splash_popup_init() {
 
 	/**
-	 * Localisation
+	 * Localization.
 	 */
 	load_plugin_textdomain( 'wc_splash', false, dirname( plugin_basename( __FILE__ ) ) . '/' );
 
@@ -37,11 +41,14 @@ function wc_splash_popup_init() {
 		return;
 	}
 
-	WC_Splash();
+	wc_splash();
 }
 
 /**
  * Plugin page links
+ *
+ * @param array $links Array of existing links.
+ * @return array New links.
  */
 function wc_splash_popup_plugin_links( $links ) {
 	$settings_url = add_query_arg(
@@ -53,8 +60,8 @@ function wc_splash_popup_plugin_links( $links ) {
 	);
 
 	$plugin_links = array(
-		'<a href="https://woocommerce.com/support/">' . __( 'Support', 'wc_splash' ) . '</a>',
-		'<a href="https://docs.woocommerce.com/document/woocommerce-splash-popup">' . __( 'Docs', 'wc_splash' ) . '</a>',
+		'<a href="https://woocommerce.com/support/">' . esc_html__( 'Support', 'wc_splash' ) . '</a>',
+		'<a href="https://docs.woocommerce.com/document/woocommerce-splash-popup">' . esc_html__( 'Docs', 'wc_splash' ) . '</a>',
 		sprintf( '<a href="%1$s">%2$s</a>', esc_url( $settings_url ), esc_html__( 'Settings', 'wc_splash' ) ),
 	);
 
@@ -76,15 +83,15 @@ function wc_splash_popup_woocommerce_deactivated() {
  *
  * @return instance of WC_Splash
  */
-function WC_Splash() {
+function wc_splash() {
 	return WC_Splash::instance();
 }
 
-/**
- * WC_Splash class
- */
 if ( ! class_exists( 'WC_Splash' ) ) {
 
+	/**
+	 * WC_Splash class
+	 */
 	class WC_Splash {
 		/**
 		 * WC_Splash The single instance of WC_Splash.
@@ -92,21 +99,20 @@ if ( ! class_exists( 'WC_Splash' ) ) {
 		 * @var object
 		 * @since 1.0.0
 		 */
-		private static $_instance = null;
+		private static $instance = null;
 
+		/**
+		 * Constructor.
+		 */
 		public function __construct() {
 			// Hooks.
-			add_action( 'wp' , array( $this, 'setup_wc_splash' ) , 20 );
+			add_action( 'wp', array( $this, 'setup_wc_splash' ), 20 );
 
-			$this->current_tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'general';
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$this->current_tab = isset( $_GET['tab'] ) ? wc_clean( wp_unslash( $_GET['tab'] ) ) : 'general';
 
 			// Use a high priority, to make sure this happens after the default tabs are registered.
-			if ( version_compare( '3.0.0', WC_VERSION, '<=' ) ) {
-				add_action( 'woocommerce_settings_tabs_array', array( $this, 'register_settings_tab' ), 30 );
-			} else {
-				// Cater to older versions of WooCommerce.
-				add_action( 'woocommerce_settings_tabs', array( $this, 'on_add_tab' ), 30 );
-			}
+			add_action( 'woocommerce_settings_tabs_array', array( $this, 'register_settings_tab' ), 30 );
 
 			// Add the settings fields to each tab.
 			add_action( 'woocommerce_splash_options_settings', array( $this, 'add_settings_fields' ), 10 );
@@ -132,31 +138,25 @@ if ( ! class_exists( 'WC_Splash' ) ) {
 		 * @return Main WC_Splash instance
 		 */
 		public static function instance() {
-			if ( is_null( self::$_instance ) ) {
-				self::$_instance = new self();
+			if ( is_null( self::$instance ) ) {
+				self::$instance = new self();
 			}
-			return self::$_instance;
+			return self::$instance;
 		} // End instance()
 
-		/* ----------------------------------------------------------------------------------- */
-		/* Admin Tabs */
-		/* ----------------------------------------------------------------------------------- */
-
-		public function register_settings_tab ( $tabs ) {
-			$tabs['wc_splash'] = __( 'Splash Popup', 'wc_splash' );
+		/**
+		 * Add settings tab.
+		 *
+		 * @param array $tabs List of tabs.
+		 * @return array New list of tabs.
+		 */
+		public function register_settings_tab( $tabs ) {
+			$tabs['wc_splash'] = esc_html__( 'Splash Popup', 'wc_splash' );
 			return $tabs;
 		}
 
-		public function on_add_tab() {
-			$class = 'nav-tab';
-			if ( 'wc_splash' === $this->current_tab ) {
-				$class .= ' nav-tab-active';
-			}
-			echo '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=wc_splash' ) . '" class="' . $class . '">' .  __( 'Splash Popup', 'wc_splash' ) . '</a>';
-		}
-
 		/**
-		 * settings_tab_action()
+		 * Splash popup settings tab handler.
 		 *
 		 * Do this when viewing our custom settings tab(s). One function for all tabs.
 		 */
@@ -173,8 +173,6 @@ if ( ! class_exists( 'WC_Splash' ) ) {
 		}
 
 		/**
-		 * add_settings_fields()
-		 *
 		 * Add settings fields for each tab.
 		 */
 		public function add_settings_fields() {
@@ -183,89 +181,90 @@ if ( ! class_exists( 'WC_Splash' ) ) {
 			// Load the prepared form fields.
 			$this->init_form_fields();
 
-			if ( is_array( $this->fields ) ) :
-				foreach ( $this->fields as $k => $v ) :
-					$woocommerce_settings[$k] = $v;
-				endforeach;
-			endif;
+			if ( is_array( $this->fields ) ) {
+				foreach ( $this->fields as $k => $v ) {
+					$woocommerce_settings[ $k ] = $v;
+				}
+			}
 		}
 
 		/**
-		 * get_tab_in_view()
+		 * Get the tab currently in view/processing.
 		 *
-		 * Get the tab current in view/processing.
+		 * @param string $current_filter Current tab being ran.
+		 * @param string $filter_base This text will be removed from the filter name.
+		 * @return string
 		 */
 		public function get_tab_in_view( $current_filter, $filter_base ) {
 			return str_replace( $filter_base, '', $current_filter );
 		}
 
 		/**
-		 * init_form_fields()
-		 *
 		 * Prepare form fields to be used in the various tabs.
 		 */
 		public function init_form_fields() {
 
 			// Define settings.
-			$this->fields['wc_splash'] = apply_filters( 'woocommerce_wc_splash_settings_fields', array(
+			$this->fields['wc_splash'] = apply_filters(
+				'woocommerce_wc_splash_settings_fields',
 				array(
-					'name' => __( 'Splash Popup Options', 'wc_splash' ),
-					'type' => 'title',
-					'id'   => 'wc_splash_options'
-				),
-				array(
-					'title'    => __( 'Logged Out Users See', 'wc_splash' ),
-					'desc'     => __( 'The content of this page will be displayed in your splash popup to logged out users.', 'wc_splash' ),
-					'id'       => 'wc_splash_page_content_logged_out',
-					'type'     => 'single_select_page',
-					'default'  => '',
-					'class'    => 'chosen_select_nostd',
-					'css'      => 'min-width:300px;',
-					'desc_tip' => true
-				),
-				array(
-					'title'    => __( 'Logged In Users See', 'wc_splash' ),
-					'desc'     => __( 'The content of this page will be displayed in your splash popup to logged in users.', 'wc_splash' ),
-					'id'       => 'wc_splash_page_content_logged_in',
-					'type'     => 'single_select_page',
-					'default'  => '',
-					'class'    => 'chosen_select_nostd',
-					'css'      => 'min-width:300px;',
-					'desc_tip' => true
-				),
-				array(
-					'title'    => __( 'Logged In Customers See', 'wc_splash' ),
-					'desc'     => __( 'The content of this page will be displayed in your splash popup to logged in customers.', 'wc_splash' ),
-					'id'       => 'wc_splash_page_content_logged_in_customer',
-					'type'     => 'single_select_page',
-					'default'  => '',
-					'class'    => 'chosen_select_nostd',
-					'css'      => 'min-width:300px;',
-					'desc_tip' => true
-				),
-				array(
-					'name'    => __( 'Cookie Expiration (days)', 'wc_splash' ),
-					'desc'    => __( 'Define how many consecutive days the popup will stay hidden for once closed.', 'wc_splash' ),
-					'id'      => 'wc_splash_expiration',
-					'default' => '30',
-					'type'    => 'number',
-				),
-				array(
-					'name' => __( 'Force Display', 'wc_splash' ),
-					'desc' => __( 'Force the pop up to display regardless of the cookie (only recommended for testing purposes).', 'wc_splash' ),
-					'id'   => 'wc_splash_force_display',
-					'type' => 'checkbox',
-				),
-				array(
-					'type' => 'sectionend',
-					'id'   => 'wc_splash_options'
-				),
-			) );
+					array(
+						'name' => esc_html__( 'Splash Popup Options', 'wc_splash' ),
+						'type' => 'title',
+						'id'   => 'wc_splash_options',
+					),
+					array(
+						'title'    => esc_html__( 'Logged Out Users See', 'wc_splash' ),
+						'desc'     => esc_html__( 'The content of this page will be displayed in your splash popup to logged out users.', 'wc_splash' ),
+						'id'       => 'wc_splash_page_content_logged_out',
+						'type'     => 'single_select_page',
+						'default'  => '',
+						'class'    => 'chosen_select_nostd',
+						'css'      => 'min-width:300px;',
+						'desc_tip' => true,
+					),
+					array(
+						'title'    => esc_html__( 'Logged In Users See', 'wc_splash' ),
+						'desc'     => esc_html__( 'The content of this page will be displayed in your splash popup to logged in users.', 'wc_splash' ),
+						'id'       => 'wc_splash_page_content_logged_in',
+						'type'     => 'single_select_page',
+						'default'  => '',
+						'class'    => 'chosen_select_nostd',
+						'css'      => 'min-width:300px;',
+						'desc_tip' => true,
+					),
+					array(
+						'title'    => esc_html__( 'Logged In Customers See', 'wc_splash' ),
+						'desc'     => esc_html__( 'The content of this page will be displayed in your splash popup to logged in customers.', 'wc_splash' ),
+						'id'       => 'wc_splash_page_content_logged_in_customer',
+						'type'     => 'single_select_page',
+						'default'  => '',
+						'class'    => 'chosen_select_nostd',
+						'css'      => 'min-width:300px;',
+						'desc_tip' => true,
+					),
+					array(
+						'name'    => esc_html__( 'Cookie Expiration (days)', 'wc_splash' ),
+						'desc'    => esc_html__( 'Define how many consecutive days the popup will stay hidden for once closed.', 'wc_splash' ),
+						'id'      => 'wc_splash_expiration',
+						'default' => '30',
+						'type'    => 'number',
+					),
+					array(
+						'name' => esc_html__( 'Force Display', 'wc_splash' ),
+						'desc' => esc_html__( 'Force the pop up to display regardless of the cookie (only recommended for testing purposes).', 'wc_splash' ),
+						'id'   => 'wc_splash_force_display',
+						'type' => 'checkbox',
+					),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'wc_splash_options',
+					),
+				)
+			);
 		}
 
 		/**
-		 * save_settings()
-		 *
 		 * Save settings in a single field in the database for each tab's fields (one field per tab).
 		 */
 		public function save_settings() {
@@ -279,24 +278,19 @@ if ( ! class_exists( 'WC_Splash' ) ) {
 			woocommerce_update_options( $woocommerce_settings[ $current_tab ] );
 		}
 
-		/*-----------------------------------------------------------------------------------*/
-		/* Class Functions */
-		/*-----------------------------------------------------------------------------------*/
-
 		/**
-		 * setup_wc_splash function.
-		 *
-		 * @return void
+		 * Initialize hooks.
 		 */
 		public function setup_wc_splash() {
 			add_action( 'wp_enqueue_scripts', array( $this, 'wc_splash_scripts' ) );
-			$is_xhr = ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && 'xmlhttprequest' === strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] );
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$is_xhr = ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && 'xmlhttprequest' === strtolower( wp_unslash( $_SERVER['HTTP_X_REQUESTED_WITH'] ) );
 
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( ! wp_doing_ajax() && empty( $_GET['wc-ajax'] ) && ! $is_xhr ) {
 				add_action( 'wp_footer', array( $this, 'wc_splash_content' ) );
 			}
 		}
-
 
 		/**
 		 * Get the id of the page to display in the popup.
@@ -306,12 +300,16 @@ if ( ! class_exists( 'WC_Splash' ) ) {
 		public function get_content_id() {
 			$content_id = '';
 			// Customer orders query.
-			$customer_orders = get_posts( array(
-				'meta_key'    => '_customer_user',
-				'meta_value'  => get_current_user_id(),
-				'post_type'   => 'shop_order',
-				'post_status' => array( 'wc-processing', 'wc-completed' ),
-			) );
+			$customer_orders = get_posts(
+				array(
+					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+					'meta_key'    => '_customer_user',
+					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+					'meta_value'  => get_current_user_id(),
+					'post_type'   => 'shop_order',
+					'post_status' => array( 'wc-processing', 'wc-completed' ),
+				)
+			);
 
 			$logged_out_content         = get_option( 'wc_splash_page_content_logged_out' );
 			$logged_in_content          = get_option( 'wc_splash_page_content_logged_in' );
@@ -332,7 +330,7 @@ if ( ! class_exists( 'WC_Splash' ) ) {
 		}
 
 		/**
-		 * wc_splash_scripts function.
+		 * Enqueue scripts and styles.
 		 *
 		 * @return void
 		 */
@@ -352,7 +350,7 @@ if ( ! class_exists( 'WC_Splash' ) ) {
 			wp_enqueue_script( 'jquery-cookie', plugins_url( '/assets/js/jquery.cookie.min.js', __FILE__ ), array( 'jquery' ), WC_SPLASH_POPUP_VERSION, true );
 			wp_enqueue_style( 'splash-styles', plugins_url( '/assets/css/style.css', __FILE__ ), array(), WC_SPLASH_POPUP_VERSION );
 
-			if ( ! isset( $expiration ) || $expiration == '' ) {
+			if ( ! isset( $expiration ) || '' === $expiration ) {
 				$expiration = 30;
 			}
 
@@ -421,16 +419,13 @@ if ( ! class_exists( 'WC_Splash' ) ) {
 		}
 
 		/**
-		 * wc_splash_content function.
-		 *
-		 * @return void
+		 * Content of the popup.
 		 */
 		public function wc_splash_content() {
-			$current_user      = wp_get_current_user();
-			$content_id        = $this->get_content_id();
-			$_COOKIE['splash'] = 'open';
-			$splash_cookie     = $_COOKIE['splash'];
-			$forcecookie       = get_option( 'wc_splash_force_display' );
+			$current_user  = wp_get_current_user();
+			$content_id    = $this->get_content_id();
+			$splash_cookie = isset( $_COOKIE['splash'] ) ? wc_clean( wp_unslash( $_COOKIE['splash'] ) ) : 'open';
+			$forcecookie   = get_option( 'wc_splash_force_display' );
 
 			if ( ( 'open' === $splash_cookie || 'yes' === $forcecookie ) && ! empty( $content_id ) ) {
 				$post = get_page( $content_id );
@@ -438,17 +433,27 @@ if ( ! class_exists( 'WC_Splash' ) ) {
 				?>
 				<section id="splash-content" class="splash-content">
 					<?php
-						if ( ! is_user_logged_in() ) {
-							echo '<h1 class="splash-title">' . apply_filters( 'the_title', get_the_title( $content_id ) ) . '</h1>';
-						} else {
-							echo '<h1 class="splash-title">' . __( 'Welcome back ', 'wc_splash' ) . $current_user->display_name . '</h1>';
-						}
+					if ( ! is_user_logged_in() ) {
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo '<h1 class="splash-title">' . apply_filters( 'the_title', get_the_title( $content_id ) ) . '</h1>';
+					} else {
+						echo '<h1 class="splash-title">' . esc_html__( 'Welcome back ', 'wc_splash' ) . esc_html( $current_user->display_name ) . '</h1>';
+					}
 						add_filter( 'woocommerce_currency_symbol', array( $this, 'maybe_replace_currency_symbol' ), 10, 2 );
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo '<div class="splash-content">' . apply_filters( 'the_content', $post->post_content ) . '</div>';
 						remove_filter( 'woocommerce_currency_symbol', array( $this, 'maybe_replace_currency_symbol' ), 10 );
 					?>
 				</section>
-				<a href="#splash-content" title="" class="<?php if ( $forcecookie == 'yes' ) { ?>force-reveal-splash<?php } else { ?>reveal-splash <?php } ?>"></a>
+				<a href="#splash-content" title="" class="
+				<?php
+				if ( 'yes' === $forcecookie ) {
+					?>
+					force-reveal-splash
+					<?php
+				} else {
+					?>
+					reveal-splash <?php } ?>"></a>
 				<?php
 			}
 		}

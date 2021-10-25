@@ -239,10 +239,6 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 
 			// Reload URI Editor & clean post cache
 			clean_post_cache($element_id);
-			$element = get_post($element_id);
-			$html = Permalink_Manager_Admin_Functions::display_uri_box($element, true);
-
-			echo $html;
 			die();
 		}
 	}

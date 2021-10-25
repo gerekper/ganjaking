@@ -3,8 +3,8 @@
  */
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useCheckoutAddress } from '@woocommerce/base-hooks';
 import { CheckoutProvider } from '@woocommerce/base-context';
+import { useCheckoutAddress } from '@woocommerce/base-context/hooks';
 
 /**
  * Internal dependencies
@@ -149,6 +149,9 @@ describe( 'AddressForm Component', () => {
 
 		// Verify state input has been removed.
 		expect( screen.queryByText( stateRegExp ) ).not.toBeInTheDocument();
+
+		inputAddress( tertiaryAddress );
+
 		// Verify postal code input label changed.
 		expect( screen.getByLabelText( /Postal code/ ) ).toBeInTheDocument();
 	} );

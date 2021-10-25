@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Purchase_History_Value_Product_Categories ex
     public function get_label()
     {
 
-        return esc_html__('Value purchased - Categories', 'rightpress');
+        return __('Value purchased - Categories', 'rightpress');
     }
 
 

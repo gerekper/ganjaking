@@ -95,8 +95,7 @@ class SubscriberSubscribeController {
       throw new UnexpectedValueException($e->getMessage());
     }
 
-    $segmentIds = $this->getSegmentIds($form, $data['segments'] ?? []);
-    unset($data['segments']);
+    $segmentIds = $this->getSegmentIds($form, $data);
 
     $meta = $this->validateCaptcha($captchaSettings, $data);
     if (isset($meta['error'])) {
@@ -219,7 +218,8 @@ class SubscriberSubscribeController {
     return $meta;
   }
 
-  private function getSegmentIds(FormEntity $form, array $segmentIds): array {
+  private function getSegmentIds(FormEntity $form, array $data): array {
+    $segmentIds = !empty($data['segments']) ? (array)$data['segments'] : [];
 
     // If form contains segment selection blocks allow only segments ids configured in those blocks
     $segmentBlocksSegmentIds = $form->getSegmentBlocksSegmentIds();

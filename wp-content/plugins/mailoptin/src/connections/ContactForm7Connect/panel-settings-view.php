@@ -52,6 +52,18 @@ use function MailOptin\Core\moVar;
                 </td>
             </tr>
 
+            <?php if (defined('MAILOPTIN_DETACH_LIBSODIUM') && in_array($saved_integration, Init::double_optin_support_connections(true))) : ?>
+                <tr>
+                    <th scope="row">
+                        <label for="mocf7DoubleOptin"><?= $default_double_optin === false ? esc_html__('Enable Double Optin', 'mailoptin') : esc_html__('Disable Double Optin', 'mailoptin') ?></label>
+                    </th>
+                    <td>
+                        <input id="mocf7DoubleOptin" type="checkbox" value="true" name="mocf7_settings[is_double_optin]" <?= checked($saved_double_optin, "true", false); ?> />
+                        <span class="description"><?= esc_html__('Double optin requires users to confirm their email address before they are added or subscribed.', 'mailoptin') ?></span>
+                    </td>
+                </tr>
+            <?php endif; ?>
+
             <?php if (defined('MAILOPTIN_DETACH_LIBSODIUM') && in_array($saved_integration, Init::select2_tag_connections())) : ?>
                 <tr>
                     <th scope="row">
@@ -126,7 +138,7 @@ use function MailOptin\Core\moVar;
     <?php if ( ! defined('MAILOPTIN_DETACH_LIBSODIUM')) :
         $upgrade_url = 'https://mailoptin.io/pricing/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=cf7_builder_settings';
         $learnmore_url = 'https://mailoptin.io/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=cf7_builder_settings';
-        $output = '<p>' . sprintf(esc_html__('Upgrade to %s to remove the 500 subscribers per month limit, add support for custom field mapping and assign tags to subscribers.', 'mailoptin'), '<strong>MailOptin premium</strong>') . '</p>';
+        $output = '<p>' . sprintf(esc_html__('Upgrade to %s to remove the 500 subscribers monthly, add support for custom field mapping and assign tags to subscribers.', 'mailoptin'), '<strong>MailOptin premium</strong>') . '</p>';
         $output .= '<p><a href="' . $upgrade_url . '" style="margin-right: 10px;" class="button-primary" target="_blank">' . esc_html__('Upgrade to MailOptin Premium', 'mailoptin') . '</a>';
         $output .= sprintf(esc_html__('%sLearn more about us%s', 'mailoptin'), '<a href="' . $learnmore_url . '" target="_blank">', '</a>') . '</p>';
         ?>

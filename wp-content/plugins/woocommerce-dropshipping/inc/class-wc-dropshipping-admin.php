@@ -52,7 +52,9 @@ class WC_Dropshipping_Admin
         
         public function unset_menus_dropshipper( $menu_order ) {
             global $menu;
-            if (current_user_can('dropshipper')) {
+	    global $current_user;
+	    $user_roles = $current_user->roles;
+            if ( in_array('dropshipper',$user_roles) ) {
                 $hMenu = $menu;
                 foreach ($hMenu as $nMenuIndex => $hMenuItem) { //print_r($hMenuItem); echo '<br>';
                     if ( $hMenuItem[2] == 'dropshipper-order-list' || $hMenuItem[2] == 'profile.php' ) {
@@ -65,7 +67,9 @@ class WC_Dropshipping_Admin
         
         public function remove_jetpack_menu() {
             if( class_exists( 'Jetpack' ) ) {
-                if (current_user_can('dropshipper')) {
+                global $current_user;
+		$user_roles = $current_user->roles;
+		if ( in_array('dropshipper',$user_roles) ) {
                     remove_menu_page( 'jetpack' );
                 }
             }
@@ -161,8 +165,8 @@ class WC_Dropshipping_Admin
 			wp_enqueue_script("jquery-ui-core");
 			wp_enqueue_script("jquery-tiptip");
 			wp_enqueue_script("jquery-ui-dialog");
-      wp_enqueue_style( 'wp-color-picker' );
-			wp_enqueue_script( 'wp-color-picker');
+			wp_enqueue_style("wp-color-picker");
+			wp_enqueue_script("wp-color-picker");
 			wp_enqueue_script('my-great-script', plugins_url() . '/' . $base_name[0] . '/assets/js/myscript.js', array('jquery'), '1.0.1', true);
 		}
 	}
@@ -282,9 +286,9 @@ class WC_Dropshipping_Admin
 				<input type="text" size="40" name="account_number" value="' . $data['account_number'] . '" />
 				<p>Your store&apos;s account number with this supplier. Leave blank if you don&apos;t have an account number</p>
 			</div>
-			<div class="form-field term-order_email_addresses-wrap">
+			<div class="form-field form-required term-order_email_addresses-wrap">
 				<label for="order_email_addresses" >Email Addresses</label>
-				<input type="text" size="40" name="order_email_addresses" value="' . $data['order_email_addresses'] . '" required />
+				<input type="text" size="40" name="order_email_addresses" value="' . $data['order_email_addresses'] . '" aria-required="true" required />
 				<p>When a customer purchases a product from you, the supplier will be sent an notification via email. List the supplier&apos;s email addresses that should be notified when a new order is placed.<p>
 			</div>';
 	}

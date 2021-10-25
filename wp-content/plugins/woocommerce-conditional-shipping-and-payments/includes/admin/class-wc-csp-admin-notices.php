@@ -49,8 +49,17 @@ class WC_CSP_Admin_Notices {
 	 * @var array
 	 */
 	private static $maintenance_notice_types = array(
-		'update'  => 'update_notice',
-		'welcome' => 'welcome_notice'
+		'update'        => 'update_notice',
+		'welcome'       => 'welcome_notice',
+		'cart_subtotal' => 'cart_subtotal_notice'
+	);
+
+	/**
+	 * Array of one-time maintenance notice types - name => callback.
+	 * @var array
+	 */
+	private static $one_time_maintenance_notice_types = array(
+		'cart_subtotal' => 'cart_subtotal_notice'
 	);
 
 	/**
@@ -59,9 +68,8 @@ class WC_CSP_Admin_Notices {
 	public static function init() {
 
 		self::$maintenance_notices = get_option( 'wc_csp_maintenance_notices', array() );
-
-		self::$dismissed_notices = get_user_meta( get_current_user_id(), 'wc_csp_dismissed_notices', true );
-		self::$dismissed_notices = empty( self::$dismissed_notices ) ? array() : self::$dismissed_notices;
+		self::$dismissed_notices   = get_user_meta( get_current_user_id(), 'wc_csp_dismissed_notices', true );
+		self::$dismissed_notices   = empty( self::$dismissed_notices ) ? array() : self::$dismissed_notices;
 
 		// Show meta box notices.
 		add_action( 'admin_notices', array( __CLASS__, 'output_notices' ) );
@@ -238,6 +246,22 @@ class WC_CSP_Admin_Notices {
 	}
 
 	/**
+	 * Add a one-time maintenance notice to be displayed.
+	 *
+	 * @param  string  $notice_name
+	 */
+	public static function add_one_time_maintenance_notice( $notice_name ) {
+
+		// Add if not already there and not added at some point in the past.
+		if ( ! self::is_maintenance_notice_visible( $notice_name ) && ! self::is_dismissible_notice_dismissed( $notice_name ) ) {
+			self::$maintenance_notices = array_merge( self::$maintenance_notices, array( $notice_name ) );
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Remove a maintenance notice.
 	 *
 	 * @param  string  $notice_name
@@ -298,6 +322,35 @@ class WC_CSP_Admin_Notices {
 			$notice = __( 'WooCommerce Conditional Shipping and Payments data update complete.', 'woocommerce-conditional-shipping-and-payments' );
 			self::add_notice( $notice, array( 'type' => 'native', 'dismiss_class' => 'update' ) );
 		}
+	}
+
+	/**
+	 * Add 'cart_subtotal' maintenance notice.
+	 */
+	public static function cart_subtotal_notice() {
+
+		if ( ! class_exists( 'WC_CSP_Condition_Cart_Subtotal' ) ) {
+			return;
+		}
+
+		$screen          = get_current_screen();
+		$screen_id       = $screen ? $screen->id : '';
+		$show_on_screens = array(
+			'dashboard',
+			'plugins',
+		);
+
+		// Onboarding notices should only show on the main dashboard, and on the plugins screen.
+		if ( ! in_array( $screen_id, $show_on_screens, true ) ) {
+			return;
+		}
+
+		$admin_url   = admin_url();
+		$tax_setting = $admin_url . 'admin.php?page=wc-settings&tab=tax';
+
+		/* translators: %1$s: tax settings URL %2$s: product restrictions URL %3$s: global restrictions URL */
+		$notice = sprintf( __( '<strong>Conditional Shipping and Payments</strong> is now evaluating the <strong>Cart Subtotal</strong> condition including or excluding tax, depending on how you have configured WooCommerce to <a href="%1$s">display prices in the Cart and Checkout pages</a>. If you have used the <strong>Cart Subtotal</strong> condition to create Restrictions, and have configured WooCommerce to display Cart/Checkout page prices excluding tax, then you may need to update the <strong>Cart Subtotal</strong> condition value in your Restrictions\' configuration.', 'woocommerce-conditional-shipping-and-payments' ), $tax_setting );
+		self::add_notice( $notice, array( 'type' => 'info', 'dismiss_class' => 'cart_subtotal' ) );
 	}
 
 	/**
@@ -389,7 +442,11 @@ class WC_CSP_Admin_Notices {
 	 * @param  string  $notice
 	 */
 	public static function dismiss_notice( $notice ) {
-		if ( isset( self::$maintenance_notice_types[ $notice ] ) ) {
+		if ( isset( self::$one_time_maintenance_notice_types[ $notice ] ) ) {
+			$removed_maintenance_notice = self::remove_maintenance_notice( $notice );
+			$removed_dismissible_notice = self::remove_dismissible_notice( $notice );
+			return $removed_maintenance_notice && $removed_dismissible_notice;
+		} elseif ( isset( self::$maintenance_notice_types[ $notice ] ) ) {
 			return self::remove_maintenance_notice( $notice );
 		} else {
 			return self::remove_dismissible_notice( $notice );

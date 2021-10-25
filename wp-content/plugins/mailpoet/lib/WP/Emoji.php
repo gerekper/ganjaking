@@ -11,9 +11,7 @@ class Emoji {
   /** @var WPFunctions */
   private $wp;
 
-  public function __construct(
-    WPFunctions $wp = null
-  ) {
+  public function __construct(WPFunctions $wp = null) {
     if ($wp === null) {
       $wp = new WPFunctions();
     }

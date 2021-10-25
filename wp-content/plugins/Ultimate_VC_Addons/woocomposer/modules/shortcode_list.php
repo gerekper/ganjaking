@@ -4,16 +4,16 @@
  *
  * @Module: List view
  * @Since: 1.0
- *  @package Ultimate_VC_Addons_WooComposer
+ *  @package WooComposer
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_ViewList' ) ) {
+if ( ! class_exists( 'WooComposer_ViewList' ) ) {
 	/**
-	 * Function that initializes Ultimate_VC_Addons_WooComposer View List
+	 * Function that initializes WooComposer View List
 	 *
-	 * @class Ultimate_VC_Addons_WooComposer_ViewList
+	 * @class WooComposer_ViewList
 	 */
-	class Ultimate_VC_Addons_WooComposer_ViewList {
+	class WooComposer_ViewList {
 		/**
 		 * Constructor function that constructs default values for the woocomposer init grid.
 		 *
@@ -416,7 +416,7 @@ if ( 'top_rated_products' == $display_type ) {
 		}//end woocomposer_list_shortcode()
 
 	}
-	new Ultimate_VC_Addons_WooComposer_ViewList();
+	new WooComposer_ViewList();
 }
 if ( class_exists( 'WPBakeryShortCode' ) ) {
 	/**

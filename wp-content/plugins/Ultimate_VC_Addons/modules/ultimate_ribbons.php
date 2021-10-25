@@ -6,13 +6,13 @@
  * @package Ultimate Ribbon
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Ribbons' ) ) {
+if ( ! class_exists( 'Ultimate_Ribbons' ) ) {
 	/**
 	 * Function that initializes Ultimate Ribbon Module
 	 *
-	 * @class Ultimate_VC_Addons_Ribbons
+	 * @class Ultimate_Headings
 	 */
-	class Ultimate_VC_Addons_Ribbons {
+	class Ultimate_Ribbons {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Ribbon module.
 		 *
@@ -33,7 +33,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Ribbons' ) ) {
 		 */
 		public function register_ribbons_module_assets() {
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-ribbons-style', 'ribbon_module' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-ribbons-style', 'ribbon_module' );
 		}//end register_ribbons_module_assets()
 
 		/**
@@ -493,7 +493,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Ribbons' ) ) {
 			return $output;
 		}
 	}//end class
-	new Ultimate_VC_Addons_Ribbons();
+	new Ultimate_Ribbons();
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Ribbon' ) ) {
 		/**
 		 * Function that checks if the class is exists or not.

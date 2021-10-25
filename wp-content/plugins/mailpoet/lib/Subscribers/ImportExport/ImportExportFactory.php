@@ -21,9 +21,7 @@ class ImportExportFactory {
   /** @var SegmentsSimpleListRepository */
   private $segmentsListRepository;
 
-  public function __construct(
-    $action = null
-  ) {
+  public function __construct($action = null) {
     $this->action = $action;
     $this->segmentsListRepository = ContainerWrapper::getInstance()->get(SegmentsSimpleListRepository::class);
   }
@@ -99,8 +97,7 @@ class ImportExportFactory {
 
   public function formatFieldsForSelect2(
     $subscriberFields,
-    $subscriberCustomFields
-  ) {
+    $subscriberCustomFields) {
     $actions = ($this->action === 'import') ?
       [
         [

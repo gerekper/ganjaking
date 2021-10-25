@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Local_Pickup_Plus\Fields;
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Data_Store\Cart_Item_Pickup_Data;
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 
 /**
  * Field component to select a pickup location for a cart item.

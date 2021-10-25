@@ -37,7 +37,7 @@ use WPMailSMTP\Vendor\SendinBlue\Client\ObjectSerializer;
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
  */
-class RequestSMSRecipientExport implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInterface, \ArrayAccess
+class RequestSmsRecipientExport implements \WPMailSMTP\Vendor\SendinBlue\Client\Model\ModelInterface, \ArrayAccess
 {
     const DISCRIMINATOR = null;
     /**

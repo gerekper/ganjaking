@@ -6,13 +6,13 @@
  *  @package Range Slider
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
+if ( ! class_exists( 'Ultimate_Range_Slider' ) ) {
 	/**
 	 * Function that initializes Range Slider Module
 	 *
-	 * @class Ultimate_VC_Addons_Range_Slider
+	 * @class Ultimate_Range_Slider
 	 */
-	class Ultimate_VC_Addons_Range_Slider {
+	class Ultimate_Range_Slider {
 		/**
 		 * Constructor function that constructs default values for the Range Slider module.
 		 *
@@ -273,7 +273,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 							array(
 								'type'             => 'text',
 								'param_name'       => 'title_typography',
-								'heading'          => __( 'Slider Content', 'ultimate_vc' ),
+								'heading'          => __( '<h4>Slider Content</h4>', 'ultimate_vc' ),
 								'value'            => '',
 								'edit_field_class' => 'ult-param-heading-wrapper vc_column vc_col-sm-12',
 							),
@@ -315,7 +315,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 							array(
 								'type'             => 'text',
 								'param_name'       => 'title_typography',
-								'heading'          => __( 'Slider Bar Color', 'ultimate_vc' ),
+								'heading'          => __( '<h4>Slider Bar Color</h4>', 'ultimate_vc' ),
 								'value'            => '',
 								'edit_field_class' => 'ult-param-heading-wrapper vc_column vc_col-sm-12',
 							),
@@ -330,7 +330,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 							array(
 								'type'             => 'text',
 								'param_name'       => 'title_typography',
-								'heading'          => __( 'Slider Bar Width', 'ultimate_vc' ),
+								'heading'          => __( '<h4>Slider Bar Width</h4>', 'ultimate_vc' ),
 								'value'            => '',
 								'edit_field_class' => 'ult-param-heading-wrapper vc_column vc_col-sm-12',
 							),
@@ -347,7 +347,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 							array(
 								'type'             => 'text',
 								'param_name'       => 'title_typography',
-								'heading'          => __( 'Extra Class', 'ultimate_vc' ),
+								'heading'          => __( '<h4>Extra Class</h4>', 'ultimate_vc' ),
 								'value'            => '',
 								'edit_field_class' => 'ult-param-heading-wrapper vc_column vc_col-sm-12',
 							),
@@ -360,7 +360,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 							array(
 								'type'             => 'text',
 								'param_name'       => 'title_typography',
-								'heading'          => __( 'Title Box', 'ultimate_vc' ),
+								'heading'          => __( '<h4>Title Box</h4>', 'ultimate_vc' ),
 								'value'            => '',
 								'edit_field_class' => 'ult-param-heading-wrapper vc_column vc_col-sm-12',
 								'group'            => 'Title Box',
@@ -460,7 +460,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 							array(
 								'type'             => 'text',
 								'param_name'       => 'title_typography',
-								'heading'          => __( 'Description Design Setting', 'ultimate_vc' ),
+								'heading'          => __( '<h4>Description Design Setting</h4>', 'ultimate_vc' ),
 								'value'            => '',
 								'group'            => 'Description',
 								'edit_field_class' => 'ult-param-heading-wrapper vc_column vc_col-sm-12',
@@ -529,7 +529,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 							array(
 								'type'             => 'text',
 								'param_name'       => 'title_typography',
-								'heading'          => __( 'For Title', 'ultimate_vc' ),
+								'heading'          => __( '<h4>For Title</h4>', 'ultimate_vc' ),
 								'value'            => '',
 								'group'            => 'Typography',
 								'edit_field_class' => 'ult-param-heading-wrapper vc_column vc_col-sm-12',
@@ -582,7 +582,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 							array(
 								'type'             => 'text',
 								'param_name'       => 'title_typography',
-								'heading'          => __( 'For Description', 'ultimate_vc' ),
+								'heading'          => __( '<h4>For Description</h4>', 'ultimate_vc' ),
 								'value'            => '',
 								'group'            => 'Typography',
 								'edit_field_class' => 'ult-param-heading-wrapper vc_column vc_col-sm-12',
@@ -644,17 +644,17 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Range_Slider' ) ) {
 		 */
 		public function range_slider_scripts() {
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons_range_slider_css', 'range-slider' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ult_range_slider_css', 'range-slider' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons_range_slider_js', 'range-slider', false, array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-mouse', 'jquery-ui-slider' ), ULTIMATE_VERSION, true );
+			Ultimate_VC_Addons::ultimate_register_script( 'ult_range_slider_js', 'range-slider', false, array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-mouse', 'jquery-ui-slider' ), ULTIMATE_VERSION, true );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons_ui_touch_punch', 'range-slider-touch-punch', false, array( 'jquery', 'jquery-ui-widget', 'jquery-ui-mouse' ), ULTIMATE_VERSION, true );
+			Ultimate_VC_Addons::ultimate_register_script( 'ult_ui_touch_punch', 'range-slider-touch-punch', false, array( 'jquery', 'jquery-ui-widget', 'jquery-ui-mouse' ), ULTIMATE_VERSION, true );
 
 			// jquery.ui.labeledslider.
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons_range_tick', 'jquery-ui-labeledslider', false, array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-slider' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ult_range_tick', 'jquery-ui-labeledslider', false, array( 'jquery', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-slider' ), ULTIMATE_VERSION, false );
 		}
 	}
-	new Ultimate_VC_Addons_Range_Slider();
+	new Ultimate_Range_Slider();
 
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ult_Range_Slider' ) ) {
 		/**

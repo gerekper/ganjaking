@@ -180,8 +180,8 @@ class Pages {
       );
     }
 
-    // Send new subscriber notification only when status changes to subscribed or there are unconfirmed data to avoid spamming
-    if ($originalStatus !== Subscriber::STATUS_SUBSCRIBED || $subscriberData !== null) {
+    // Send new subscriber notification only when status changes to subscribed to avoid spamming
+    if ($originalStatus !== Subscriber::STATUS_SUBSCRIBED) {
       $this->newSubscriberNotificationSender->send($this->subscriber, $subscriberSegments);
     }
 
@@ -217,7 +217,7 @@ class Pages {
     global $post;
 
     if (
-      ($post->post_title !== $this->wp->__('MailPoet Page', 'mailpoet')) // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      ($post->post_title !== $this->wp->__('MailPoet Page', 'mailpoet')) // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
       ||
       ($pageTitle !== $this->wp->singlePostTitle('', false))
     ) {
@@ -392,7 +392,7 @@ class Pages {
       return '';
     }
     $queueId = isset($this->data['queueId']) ? (int)$this->data['queueId'] : null;
-    $subscriberEntity = $this->subscriber ? $this->subscribersRepository->findOneById($this->subscriber->id) : null;
+    $subscriberEntity = $this->subscribersRepository->findOneById($this->subscriber->id);
     $unsubscribeUrl = $this->subscriptionUrlFactory->getUnsubscribeUrl($subscriberEntity, $queueId);
     $templateData = [
       'unsubscribeUrl' => $unsubscribeUrl,

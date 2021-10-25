@@ -94,38 +94,35 @@ class Attachment {
 	 *
 	 * @since 2.9.0
 	 *
-	 * @param string  $original_attachment      The original attachment file path or content.
-	 * @param int     $email_log_id             The email log ID.
-	 * @param string  $original_attachment_name The original attachment file name.
-	 * @param boolean $is_string_attachment     Whether string attachment or not.
+	 * @param string $original_attachment_path The original attachment file path.
+	 * @param int    $email_log_id             The email log ID.
+	 * @param string $original_attachment_name The original attachment file name.
 	 *
 	 * @return bool
 	 */
-	public function add( $original_attachment, $email_log_id, $original_attachment_name = '', $is_string_attachment = false ) {
+	public function add( $original_attachment_path, $email_log_id, $original_attachment_name = '' ) {
 
-		$original_attachment_content = $this->get_attachment_file_content( $original_attachment, $is_string_attachment );
-
-		if ( $original_attachment_content === false ) {
+		if ( ! file_exists( $original_attachment_path ) ) {
 			return false;
 		}
 
-		$this->hash = sanitize_key( md5( $original_attachment_content ) );
+		if ( $original_attachment_name === '' ) {
+			$original_attachment_name = wp_basename( $original_attachment_path );
+		}
+
+		$original_attachment_name = sanitize_file_name( $original_attachment_name );
+
+		$this->original_filename = $original_attachment_name;
+		$this->hash              = sanitize_key( md5_file( $original_attachment_path ) );
 
 		if ( empty( $this->hash ) ) {
 			return false;
 		}
 
-		if ( ! $is_string_attachment && $original_attachment_name === '' ) {
-			$original_attachment_name = wp_basename( $original_attachment );
-		}
-
-		$original_attachment_name = sanitize_file_name( $original_attachment_name );
-		$this->original_filename  = $original_attachment_name;
-
 		$existing_attachment = $this->attachment_exists( $this->hash );
 
 		if ( empty( $existing_attachment ) ) {
-			$this->path = $this->store_file( $original_attachment_content, $original_attachment_name );
+			$this->path = $this->store_file( $original_attachment_path );
 			$this->id   = $this->create( $this->path, $this->hash );
 		} else {
 			$this->path = $existing_attachment['path'];
@@ -136,7 +133,7 @@ class Attachment {
 			return false;
 		}
 
-		return $this->connect_to_email_log( $email_log_id, $this->id, $original_attachment_name );
+		return $this->connect_to_email_log( $email_log_id, $this->id, $original_attachment_path, $original_attachment_name );
 	}
 
 	/**
@@ -211,7 +208,7 @@ class Attachment {
 				return 'dashicons-format-image';
 
 			case 'pdf':
-				return 'wp-mail-smtp-dashicons-pdf-gray';
+				return 'dashicons-pdf';
 
 			case 'zip':
 			case 'tar':
@@ -226,39 +223,19 @@ class Attachment {
 	}
 
 	/**
-	 * Get the attachment's file content.
-	 *
-	 * @since 3.1.0
-	 *
-	 * @param string  $attachment           The attachment file path or content.
-	 * @param boolean $is_string_attachment Whether string attachment or not.
-	 *
-	 * @return string|false
-	 */
-	protected function get_attachment_file_content( $attachment, $is_string_attachment ) {
-
-		if ( ! $is_string_attachment ) {
-			if ( ! file_exists( $attachment ) ) {
-				return false;
-			}
-
-			$attachment = file_get_contents( $attachment );
-		}
-
-		return $attachment;
-	}
-
-	/**
 	 * Store the original attachment to the plugin's uploads folder.
 	 *
 	 * @since 2.9.0
 	 *
-	 * @param string $original_file_content The attachment's original file content.
-	 * @param string $original_filename     The attachment's original file name.
+	 * @param string $original_file_path The attachment's original file path.
 	 *
 	 * @return false|string
 	 */
-	protected function store_file( $original_file_content, $original_filename ) {
+	protected function store_file( $original_file_path ) {
+
+		if ( ! file_exists( $original_file_path ) ) {
+			return false;
+		}
 
 		$this->folder_name = sanitize_key( uniqid() );
 
@@ -275,11 +252,11 @@ class Attachment {
 			Uploads::create_index_html_file( Attachments::get_root_uploads_directory() );
 		}
 
-		$file_extension = pathinfo( $original_filename, PATHINFO_EXTENSION );
+		$file_extension = pathinfo( $original_file_path, PATHINFO_EXTENSION );
 		$this->filename = wp_unique_filename( $upload_folder, wp_generate_password( 32, false, false ) . '.' . $file_extension );
 		$upload_path    = trailingslashit( $upload_folder ) . $this->filename;
 
-		if ( file_put_contents( $upload_path, $original_file_content ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_file_put_contents
+		if ( copy( $original_file_path, $upload_path ) ) {
 			$this->path = $upload_path;
 
 			return $upload_path;
@@ -363,13 +340,18 @@ class Attachment {
 	 *
 	 * @param int    $email_log_id             The Email Log ID.
 	 * @param int    $attachment_id            The Attachment ID.
+	 * @param string $original_attachment_path The original attachment file path.
 	 * @param string $original_attachment_name The original attachment file name.
 	 *
 	 * @return bool
 	 */
-	protected function connect_to_email_log( $email_log_id, $attachment_id, $original_attachment_name ) {
+	protected function connect_to_email_log( $email_log_id, $attachment_id, $original_attachment_path, $original_attachment_name = '' ) {
 
 		global $wpdb;
+
+		if ( $original_attachment_name === '' ) {
+			$original_attachment_name = wp_basename( $original_attachment_path );
+		}
 
 		$attachments_db_table = Attachments::get_email_attachments_table_name();
 

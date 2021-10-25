@@ -55,7 +55,7 @@ abstract class RightPress_Condition_Field_Multiselect_Product_Tags extends Right
     public function get_placeholder()
     {
 
-        return esc_html__('Select product tags', 'rightpress');
+        return __('Select product tags', 'rightpress');
     }
 
 

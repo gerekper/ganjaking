@@ -106,6 +106,19 @@ class WPSEO_Upgrade_Manager {
 		if ( version_compare( $version_number, '17.3-RC4', '<' ) ) {
 			add_action( 'init', [ $this, 'upgrade_17_3' ], 12 );
 		}
+
+		if ( version_compare( $version_number, '17.4-RC0', '<' ) ) {
+			add_action( 'init', [ $this, 'upgrade_17_4' ], 12 );
+		}
+	}
+
+	/**
+	 * Schedules the cleanup integration if it's no already scheduled.
+	 *
+	 * @return void
+	 */
+	public function upgrade_17_4() {
+		$this->retrigger_cleanup();
 	}
 
 	/**
@@ -116,10 +129,9 @@ class WPSEO_Upgrade_Manager {
 	public function upgrade_17_3() {
 		$workouts_option = WPSEO_Options::get( 'workouts' );
 
-		if (
-			isset( $workouts_option['orphaned'] ) &&
-			isset( $workouts_option['orphaned']['indexablesByStep'] ) &&
-			is_array( $workouts_option['orphaned']['indexablesByStep'] )
+		if ( isset( $workouts_option['orphaned'] )
+			&& isset( $workouts_option['orphaned']['indexablesByStep'] )
+			&& is_array( $workouts_option['orphaned']['indexablesByStep'] )
 		) {
 			$workouts_option['orphaned']['indexablesByStep']['improveRemove'] = [];
 			WPSEO_Options::set( 'workouts', $workouts_option );
@@ -132,6 +144,15 @@ class WPSEO_Upgrade_Manager {
 	 * @return void
 	 */
 	public function upgrade_17_2() {
+		$this->retrigger_cleanup();
+	}
+
+	/**
+	 * Re-triggers the cleanup of old things from the database.
+	 *
+	 * @return void
+	 */
+	protected function retrigger_cleanup() {
 		// If Yoast SEO hasn't been upgraded to 17.2 the cleanup integration has not been implemented in the current way.
 		if ( ! \defined( '\Yoast\WP\SEO\Integrations\Cleanup_Integration::START_HOOK' ) ) {
 			return;
@@ -242,6 +263,7 @@ class WPSEO_Upgrade_Manager {
 		if ( $this->should_retry_upgrade_31() ) {
 			if ( $immediately ) {
 				WPSEO_Redirect_Upgrade::upgrade_3_1();
+
 				return;
 			}
 			add_action( 'wp', [ 'WPSEO_Redirect_Upgrade', 'upgrade_3_1' ], 12 );

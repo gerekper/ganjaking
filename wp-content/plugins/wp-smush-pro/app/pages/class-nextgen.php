@@ -52,6 +52,7 @@ class Nextgen extends Abstract_Page {
 			)
 		);
 
+		$class = WP_Smush::is_pro() ? 'bulk-smush-wrapper wp-smush-pro-install' : 'bulk-smush-wrapper';
 		$this->add_meta_box(
 			'bulk',
 			__( 'Bulk Smush', 'wp-smushit' ),
@@ -60,7 +61,7 @@ class Nextgen extends Abstract_Page {
 			null,
 			'bulk',
 			array(
-				'box_class' => 'sui-box bulk-smush-wrapper',
+				'box_class' => "sui-box {$class}",
 			)
 		);
 	}

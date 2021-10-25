@@ -21,9 +21,7 @@ class ViewInBrowser {
   /** @var ViewInBrowserController */
   private $viewInBrowserController;
 
-  public function __construct(
-    ViewInBrowserController $viewInBrowserController
-  ) {
+  public function __construct(ViewInBrowserController $viewInBrowserController) {
     $this->viewInBrowserController = $viewInBrowserController;
   }
 
@@ -43,9 +41,9 @@ class ViewInBrowser {
   }
 
   private function abort() {
-    global $wp_query;// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    global $wp_query;// phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     WPFunctions::get()->statusHeader(404);
-    $wp_query->set_404();// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    $wp_query->set_404();// phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     exit;
   }
 }

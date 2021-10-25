@@ -1,5 +1,18 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.10.22 - version 4.31.0
+* Fix: Auto apply coupons once removed automatically, not reapplying again even if it’s valid
+* Update: POT file
+
+2021.10.15 - version 4.30.0
+* New: Tested up to WooCommerce 5.8.0
+* Fix: Ignoring user role restrictions when the product is getting added to cart from frontend via AJAX
+* Fix: Discount coupon getting visible on all variations of a product even though the coupon is associated with a single variation
+* Fix: The amount field in 'Purchase credit of any amount' is not showing when set up using Elementor or Astra theme
+* Fix: Uncaught ArgumentCountError: Too few arguments to function WC_Smart_Coupons::is_smart_coupon_valid(), 2 passed and exactly 3 expected [WooCommerce 3.1.2 or lower]
+* Update: Spellcheck 'Woocommerce'
+* Update: POT file
+
 2021.10.08 - version 4.29.1
 * Fix: Warning: call_user_func() expects parameter 1 to be a valid callback, class 'SA_WC_Compatibility_4_4' does not have a method 'get_smart_coupons_version'
 * Update: POT file

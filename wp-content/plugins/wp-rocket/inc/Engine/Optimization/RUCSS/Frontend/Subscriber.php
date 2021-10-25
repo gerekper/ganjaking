@@ -67,7 +67,11 @@ class Subscriber implements Subscriber_Interface {
 	 * @return bool
 	 */
 	public function maybe_disable_preload_fonts( $value ): bool {
-		if ( $this->used_css->is_allowed() ) {
+		if (
+			$this->used_css->is_allowed()
+			&&
+			! $this->used_css->cpcss_enabled()
+		) {
 			return true;
 		}
 

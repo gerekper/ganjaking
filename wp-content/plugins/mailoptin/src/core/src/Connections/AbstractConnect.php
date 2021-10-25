@@ -9,6 +9,7 @@ use MailOptin\Core\Repositories\AbstractCampaignLogMeta;
 use MailOptin\Core\Repositories\EmailCampaignRepository;
 use MailOptin\Core\Repositories\OptinCampaignsRepository;
 use function MailOptin\Core\is_valid_data;
+use function MailOptin\Core\moVar;
 
 abstract class AbstractConnect
 {
@@ -390,20 +391,24 @@ $footer_content";
 
         $names = explode(' ', $name);
 
-        $data[] = isset($names[0]) ? trim($names[0]) : '';
-        $data[] = isset($names[1]) ? trim($names[1]) : '';
+        if (isset($names[0])) {
+            $data[] = trim($names[0]);
+            unset($names[0]);
+        }
+
+        $data[] = implode(' ', $names);
 
         return $data;
     }
 
     public function get_first_name()
     {
-        return self::get_first_last_names($this->name)[0];
+        return moVar(self::get_first_last_names($this->name), 0, '');
     }
 
     public function get_last_name()
     {
-        return self::get_first_last_names($this->name)[1];
+        return moVar(self::get_first_last_names($this->name), 1, '');
     }
 
     /**

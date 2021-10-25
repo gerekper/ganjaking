@@ -45,7 +45,7 @@ abstract class RP_WCDPD_Pricing_Method_Discount_Per_Cart_Item extends RP_WCDPD_P
      */
     public function get_group_label()
     {
-        return esc_html__('Discount Per Cart Item', 'rp_wcdpd');
+        return __('Discount Per Cart Item', 'rp_wcdpd');
     }
 
 

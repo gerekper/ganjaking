@@ -677,8 +677,8 @@ abstract class RightPress_Plugin_Settings extends RightPress_Settings implements
         // Register
         add_submenu_page(
             apply_filters(($this->get_plugin_private_prefix() . 'parent_menu_key'), $this->parent_menu_key),
-            esc_html__('Settings', 'rightpress'),
-            esc_html__('Settings', 'rightpress'),
+            __('Settings', 'rightpress'),
+            __('Settings', 'rightpress'),
             $this->get_capability(),
             $this->get_settings_key(),
             array($this, 'print_settings_page')
@@ -862,18 +862,18 @@ abstract class RightPress_Plugin_Settings extends RightPress_Settings implements
 
         // Pass labels to JavaScript
         wp_localize_script('rightpress-plugin-settings', 'rightpress_plugin_settings_labels', array(
-            'select2_tags_placeholder'   => esc_html__('Add values', 'rightpress'),
-            'select2_tags_no_results'    => esc_html__('Start typing...', 'rightpress'),
+            'select2_tags_placeholder'   => __('Add values', 'rightpress'),
+            'select2_tags_no_results'    => __('Start typing...', 'rightpress'),
         ));
 
         // Pass data to validation script
         wp_localize_script('rightpress-plugin-settings-validation', 'rightpress_plugin_settings_validation', array(
             'error_messages' => array(
-                'generic_error' => esc_html__('Error: Please fix this element.', 'rightpress'),
-                'is_required'   => esc_html__('Value is required.', 'rightpress'),
-                'is_whole'      => esc_html__('Value must be a whole number.', 'rightpress'),
-                'is_natural'    => esc_html__('Value must be positive.', 'rightpress'),
-                'min'           => esc_html__('Value must be greater than or equal to {{value}}.', 'rightpress'),
+                'generic_error' => __('Error: Please fix this element.', 'rightpress'),
+                'is_required'   => __('Value is required.', 'rightpress'),
+                'is_whole'      => __('Value must be a whole number.', 'rightpress'),
+                'is_natural'    => __('Value must be positive.', 'rightpress'),
+                'min'           => __('Value must be greater than or equal to {{value}}.', 'rightpress'),
             ),
         ));
     }
@@ -1255,7 +1255,7 @@ abstract class RightPress_Plugin_Settings extends RightPress_Settings implements
         }
         // Request came from unknown page
         else {
-            $errors->add('rightpress_plugin_settings_sanitization_incorrect_page', esc_html__('Unable to validate settings.', 'rightpress'));
+            $errors->add('rightpress_plugin_settings_sanitization_incorrect_page', __('Unable to validate settings.', 'rightpress'));
         }
 
         // Display errors or success notice
@@ -1279,7 +1279,7 @@ abstract class RightPress_Plugin_Settings extends RightPress_Settings implements
                 add_settings_error(
                     $this->get_notice_key(),
                     $this->get_settings_key() . '_updated',
-                    esc_html__('Settings updated.', 'rightpress'),
+                    __('Settings updated.', 'rightpress'),
                     'updated'
                 );
             }
@@ -1624,21 +1624,21 @@ abstract class RightPress_Plugin_Settings extends RightPress_Settings implements
             // Add import and export section with settings
             $structure[$this->import_export_tab_key]['children']['import_export'] = array(
 
-                'title' => esc_html__('Import & Export', 'rightpress'),
+                'title' => __('Import & Export', 'rightpress'),
 
                 'children' => array(
 
                     'settings_import' => array(
                         'type'      => 'file',
-                        'title'     => esc_html__('Import settings', 'rightpress'),
+                        'title'     => __('Import settings', 'rightpress'),
                         'stored'    => false,
-                        'hint'      => esc_html__('Warning! Importing settings will irrecoverably overwrite your existing settings.', 'rightpress'),
+                        'hint'      => __('Warning! Importing settings will irrecoverably overwrite your existing settings.', 'rightpress'),
                     ),
 
                     'settings_export' => array(
                         'type'          => 'link',
-                        'title'         => esc_html__('Export settings', 'rightpress'),
-                        'link_label'    => esc_html__('Click here to export', 'rightpress'),
+                        'title'         => __('Export settings', 'rightpress'),
+                        'link_label'    => __('Click here to export', 'rightpress'),
                         'link_url'      => admin_url('?' . $this->get_settings_key() . '_export=1'),
                         'stored'        => false,
                     ),
@@ -1754,7 +1754,7 @@ abstract class RightPress_Plugin_Settings extends RightPress_Settings implements
             add_settings_error(
                 $this->get_notice_key(),
                 $this->get_settings_key() . '_updated',
-                esc_html__('Settings were successfully imported.', 'rightpress'),
+                __('Settings were successfully imported.', 'rightpress'),
                 'updated'
             );
         }
@@ -1766,17 +1766,17 @@ abstract class RightPress_Plugin_Settings extends RightPress_Settings implements
 
                 // Invalid file
                 case 'rightpress_plugin_settings_import_invalid_file':
-                    $message = esc_html__('Error: Uploaded settings file is invalid. It might be corrupted or truncated.', 'rightpress');
+                    $message = __('Error: Uploaded settings file is invalid. It might be corrupted or truncated.', 'rightpress');
                     break;
 
                 // Invalid plugin
                 case 'rightpress_plugin_settings_import_wrong_plugin':
-                    $message = esc_html__('Error: Uploaded file contains settings for a different plugin. Please check your file and try again.', 'rightpress');
+                    $message = __('Error: Uploaded file contains settings for a different plugin. Please check your file and try again.', 'rightpress');
                     break;
 
                 // Generic error
                 default:
-                    $message = esc_html__('Error: There was an error processing uploaded settings file. Please try again.', 'rightpress');
+                    $message = __('Error: There was an error processing uploaded settings file. Please try again.', 'rightpress');
                     break;
             }
 

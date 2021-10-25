@@ -3,19 +3,19 @@
  * Add-on Name: Advanced Tab.
  * Add-on URI: http://dev.brainstormforce.com
  *
- * @package Ultimate_VC_Addons_TAB_ELEMENT.
+ * @package ULT_TAB_ELEMENT.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-if ( ! class_exists( 'Ultimate_VC_Addons_TAB_ELEMENT' ) ) {
+if ( ! class_exists( 'ULT_TAB_ELEMENT' ) ) {
 	/**
-	 * Ultimate_VC_Addons_TAB_ELEMENT.
+	 * ULT_TAB_ELEMENT.
 	 *
-	 * @class Ultimate_VC_Addons_TAB_ELEMENT.
+	 * @class ULT_TAB_ELEMENT.
 	 */
-	class Ultimate_VC_Addons_TAB_ELEMENT {
+	class ULT_TAB_ELEMENT {
 
 		/**
 		 * Initiator
@@ -56,9 +56,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons_TAB_ELEMENT' ) ) {
 				$atts
 			);
 
-					global $uavc_tabarr;
+					global $tabarr;
 
-					$uavc_tabarr[] = array(
+					$tabarr[] = array(
 						'title'               => $ult_ultimate_single_tab_settings['title'],
 						'tab_id'              => $ult_ultimate_single_tab_settings['tab_id'],
 						'font_icons_position' => $ult_ultimate_single_tab_settings['font_icons_position'],
@@ -159,8 +159,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons_TAB_ELEMENT' ) ) {
 				$atts
 			);
 
-			global $uavc_tabarr;
-			$uavc_tabarr = array();
+			global $tabarr;
+			$tabarr = array();
 			do_shortcode( $content );
 
 			/*-----------default settings------------*/
@@ -265,7 +265,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_TAB_ELEMENT' ) ) {
 				$ult_style = 'ult_tab_style_6';
 				$style     = 'style1';
 			}
-			foreach ( $uavc_tabarr as $key => $value ) {
+			foreach ( $tabarr as $key => $value ) {
 				$icon_value = $value['icon_size'];
 				if ( is_numeric( $icon_value ) ) {
 					$icon_value1[] = $value['icon_size'];
@@ -372,7 +372,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_TAB_ELEMENT' ) ) {
 			}
 			$acord       = '';
 			$array_count = '';
-			$array_count = count( $uavc_tabarr );
+			$array_count = count( $tabarr );
 			$newtab      = '';
 			$newtab     .= '<ul id=' . esc_attr( $advanced_tabs_id ) . ' class="ult_tabmenu ' . esc_attr( $style ) . ' ' . esc_attr( $tab_style_no ) . '" style="' . esc_attr( $tab_border ) . '">';
 			$cnt         = 0;
@@ -380,7 +380,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_TAB_ELEMENT' ) ) {
 			$acord        .= '';
 			$accontaint    = '';
 			$ult_ac_border = '';
-			foreach ( $uavc_tabarr as $key => $value ) {
+			foreach ( $tabarr as $key => $value ) {
 					$cnt++;
 
 				$icon_position = $ult_advanced_tab_settings['font_icons_position'];
@@ -1125,7 +1125,7 @@ data-activetitle="' . esc_attr( $ult_advanced_tab_settings['acttab_title'] ) . '
 
 								array(
 									'type'       => 'text',
-									'heading'    => __( 'Title Settings' ),
+									'heading'    => __( '<h2>Title Settings</h2>' ),
 									'param_name' => 'main_title_typograpy',
 									'group'      => 'Typography',
 								),
@@ -1175,7 +1175,7 @@ data-activetitle="' . esc_attr( $ult_advanced_tab_settings['acttab_title'] ) . '
 
 					array(
 						'type'       => 'text',
-						'heading'    => __( 'Container Description' ),
+						'heading'    => __( '<h2>Container Description </h2>' ),
 						'param_name' => 'main_desc_typograpy',
 						'group'      => 'Typography',
 					),
@@ -1318,12 +1318,12 @@ data-activetitle="' . esc_attr( $ult_advanced_tab_settings['acttab_title'] ) . '
 	 */
 	function ultimate_tabs() {
 
-		Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons_tabs', 'tabs' );
-		Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons_tabs_acordian', 'tabs-accordion' );
+		Ultimate_VC_Addons::ultimate_register_style( 'ult_tabs', 'tabs' );
+		Ultimate_VC_Addons::ultimate_register_style( 'ult_tabs_acordian', 'tabs-accordion' );
 
-		Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons_tabs_acordian_js', 'tabs-accordion', false, array( 'jquery' ), ULTIMATE_VERSION, true );
+		Ultimate_VC_Addons::ultimate_register_script( 'ult_tabs_acordian_js', 'tabs-accordion', false, array( 'jquery' ), ULTIMATE_VERSION, true );
 
-		Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons_tabs_rotate', 'tabs', false, array( 'jquery' ), ULTIMATE_VERSION, true );
+		Ultimate_VC_Addons::ultimate_register_script( 'ult_tabs_rotate', 'tabs', false, array( 'jquery' ), ULTIMATE_VERSION, true );
 	}
 	/**
 	 * Ultimate_tabs_admin.
@@ -1334,17 +1334,17 @@ data-activetitle="' . esc_attr( $ult_advanced_tab_settings['acttab_title'] ) . '
 		if ( 'post' !== $screen_id ) {
 			return false;
 		}
-		wp_register_script( 'ultimate-vc-addons-tab-js-1', UAVC_URL . 'admin/vc_extend/js/ult_tab_admin_enqueue_js.js', array( 'jquery' ), ULTIMATE_VERSION, true );
-		wp_register_script( 'ultimate-vc-addons-tab-js-2', UAVC_URL . 'admin/vc_extend/js/single_element_js.js', array( 'jquery' ), ULTIMATE_VERSION, true );
+		wp_register_script( 'tab-js-1', UAVC_URL . 'admin/vc_extend/js/ult_tab_admin_enqueue_js.js', array( 'jquery' ), ULTIMATE_VERSION, true );
+		wp_register_script( 'tab-js-2', UAVC_URL . 'admin/vc_extend/js/single_element_js.js', array( 'jquery' ), ULTIMATE_VERSION, true );
 
-		wp_enqueue_script( 'ultimate-vc-addons-tab-js-1' );
-		wp_enqueue_script( 'ultimate-vc-addons-tab-js-2' );
+		wp_enqueue_script( 'tab-js-1' );
+		wp_enqueue_script( 'tab-js-2' );
 	}
 }
 
-if ( class_exists( 'Ultimate_VC_Addons_TAB_ELEMENT' ) ) {
+if ( class_exists( 'ULT_TAB_ELEMENT' ) ) {
 
-	$ult_tab_element = new Ultimate_VC_Addons_TAB_ELEMENT();
+	$ult_tab_element = new ULT_TAB_ELEMENT();
 
 }
 

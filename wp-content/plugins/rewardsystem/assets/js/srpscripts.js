@@ -1,6 +1,6 @@
 
 jQuery( function ( $ ) {
-    'use strict' ;
+
     var SRPScripts = {
         init : function () {
             $( document ).on( 'click' , '#rs_enable_earn_points_for_user' , this.allow_user_to_earn_points ) ;

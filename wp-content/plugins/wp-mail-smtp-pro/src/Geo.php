@@ -100,12 +100,7 @@ class Geo {
 			}
 		}
 
-		$request = wp_remote_get(
-			'https://tools.keycdn.com/geo.json?host=' . $ip,
-			[
-				'user-agent' => 'keycdn-tools:' . get_home_url(),
-			]
-		);
+		$request = wp_remote_get( 'https://tools.keycdn.com/geo.json?host=' . $ip );
 
 		if ( ! is_wp_error( $request ) ) {
 

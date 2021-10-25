@@ -45,7 +45,7 @@ abstract class RP_WCDPD_Method_Product_Pricing_Other extends RP_WCDPD_Method_Pro
      */
     public function get_group_label()
     {
-        return esc_html__('Other', 'rp_wcdpd');
+        return __('Other', 'rp_wcdpd');
     }
 
     /**

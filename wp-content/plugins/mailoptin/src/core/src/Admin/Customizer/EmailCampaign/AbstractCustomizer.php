@@ -4,6 +4,7 @@ namespace MailOptin\Core\Admin\Customizer\EmailCampaign;
 
 use MailOptin\Core\Admin\Customizer\CustomControls\EmailContentBuilder;
 use MailOptin\Core\Repositories\EmailCampaignRepository;
+use function MailOptin\Core\mo_test_admin_email;
 
 /**
  * Main aim is to serve as a unify store for all template customizer default settings.
@@ -495,6 +496,8 @@ HTML;
 {{company_address_2}}
 {{company_city}}, {{company_state}} {{company_zip}}.
 {{company_country}}.", $this->customizer_defaults, $this->email_campaign_type, $this->email_campaign_class);
+
+        $defaults['send_test_email_input']         = apply_filters('mailoptin_send_test_email_input_default', mo_test_admin_email(), $this->customizer_defaults, $this->email_campaign_type, $this->email_campaign_class);
 
         return apply_filters('mailoptin_template_customizer_defaults', $defaults, $this->customizer_defaults, $this->email_campaign_type, $this->email_campaign_class);
     }

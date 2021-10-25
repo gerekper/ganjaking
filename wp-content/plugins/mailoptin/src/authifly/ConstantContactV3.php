@@ -215,9 +215,9 @@ class ConstantContactV3 extends OAuth2
 
         $footer_required_fields = ['organization_name', 'address_line1', 'country_code'];
 
-        if (is_array($payload['email_campaign_activities'])) {
+        if (is_array($payload['email_campaign_activities'][0])) {
             foreach ($required_fields as $required_field) {
-                if ( ! in_array($required_field, array_keys($payload['email_campaign_activities']))) :
+                if ( ! in_array($required_field, array_keys($payload['email_campaign_activities'][0]))) :
                     throw new InvalidArgumentException(sprintf('%s required field is missing', $required_field));
                     break;
                 endif;

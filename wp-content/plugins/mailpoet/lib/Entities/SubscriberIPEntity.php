@@ -29,9 +29,7 @@ class SubscriberIPEntity {
    */
   private $createdAt;
 
-  public function __construct(
-    string $ip
-  ) {
+  public function __construct(string $ip) {
     $this->ip = $ip;
     $this->createdAt = new Carbon();
   }

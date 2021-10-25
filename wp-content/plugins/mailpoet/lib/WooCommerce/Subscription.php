@@ -5,13 +5,11 @@ namespace MailPoet\WooCommerce;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Entities\StatisticsUnsubscribeEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Models\Segment;
 use MailPoet\Models\Subscriber;
 use MailPoet\Models\SubscriberSegment;
 use MailPoet\Settings\SettingsController;
-use MailPoet\Statistics\Track\Unsubscribes;
 use MailPoet\Subscribers\ConfirmationEmailMailer;
 use MailPoet\Subscribers\Source;
 use MailPoet\Subscribers\SubscribersRepository;
@@ -20,7 +18,6 @@ use MailPoet\WP\Functions as WPFunctions;
 
 class Subscription {
   const CHECKOUT_OPTIN_INPUT_NAME = 'mailpoet_woocommerce_checkout_optin';
-  const CHECKOUT_OPTIN_PRESENCE_CHECK_INPUT_NAME = 'mailpoet_woocommerce_checkout_optin_present';
   const OPTIN_ENABLED_SETTING_NAME = 'woocommerce.optin_on_checkout.enabled';
   const OPTIN_SEGMENTS_SETTING_NAME = 'woocommerce.optin_on_checkout.segments';
   const OPTIN_MESSAGE_SETTING_NAME = 'woocommerce.optin_on_checkout.message';
@@ -40,23 +37,18 @@ class Subscription {
   /** @var SubscribersRepository */
   private $subscribersRepository;
 
-  /** @var Unsubscribes */
-  private $unsubscribesTracker;
-
   public function __construct(
     SettingsController $settings,
     ConfirmationEmailMailer $confirmationEmailMailer,
     WPFunctions $wp,
     Helper $wcHelper,
-    SubscribersRepository $subscribersRepository,
-    Unsubscribes $unsubscribesTracker
+    SubscribersRepository $subscribersRepository
   ) {
     $this->settings = $settings;
     $this->wp = $wp;
     $this->wcHelper = $wcHelper;
     $this->confirmationEmailMailer = $confirmationEmailMailer;
     $this->subscribersRepository = $subscribersRepository;
-    $this->unsubscribesTracker = $unsubscribesTracker;
   }
 
   public function extendWooCommerceCheckoutForm() {
@@ -74,9 +66,6 @@ class Subscription {
       $labelString
     );
     echo $template;
-    if ($template) {
-      echo $this->getSubscriptionPresenceCheckField();
-    }
   }
 
   private function getSubscriptionField($inputName, $checked, $labelString) {
@@ -85,38 +74,10 @@ class Subscription {
       [
         'type' => 'checkbox',
         'label' => $this->wp->escHtml($labelString),
-        'input_class' => ['woocommerce-form__input', 'woocommerce-form__input-checkbox', 'input-checkbox'],
-        'label_class' => ['woocommerce-form__label', 'woocommerce-form__label-for-checkbox', 'checkbox'],
         'custom_attributes' => ['data-automation-id' => 'woo-commerce-subscription-opt-in'],
-        'return' => true,
       ],
       $checked ? '1' : '0'
     );
-  }
-
-  private function getSubscriptionPresenceCheckField() {
-    $field = $this->wcHelper->woocommerceFormField(
-      self::CHECKOUT_OPTIN_PRESENCE_CHECK_INPUT_NAME,
-      [
-        'type' => 'hidden',
-        'return' => true,
-      ],
-      1
-    );
-    if ($field) {
-      return $field;
-    }
-    // Workaround for older WooCommerce versions (below 4.6.0) that don't support hidden fields
-    // We can remove it after we drop support of older WooCommerce
-    $field = $this->wcHelper->woocommerceFormField(
-      self::CHECKOUT_OPTIN_PRESENCE_CHECK_INPUT_NAME,
-      [
-        'type' => 'text',
-        'return' => true,
-      ],
-      1
-    );
-    return str_replace('type="text', 'type="hidden"', $field);
   }
 
   private function isCurrentUserSubscribed() {
@@ -149,15 +110,14 @@ class Subscription {
     $checkoutOptinEnabled = (bool)$this->settings->get(self::OPTIN_ENABLED_SETTING_NAME);
     $wcSegment = Segment::getWooCommerceSegment();
     $moreSegmentsToSubscribe = (array)$this->settings->get(self::OPTIN_SEGMENTS_SETTING_NAME, []);
+
     if (!$checkoutOptinEnabled || empty($_POST[self::CHECKOUT_OPTIN_INPUT_NAME])) {
       // Opt-in is disabled or checkbox is unchecked
       SubscriberSegment::unsubscribeFromSegments(
         $subscriber,
         [$wcSegment->id]
       );
-      if ($checkoutOptinEnabled) {
-        $this->updateSubscriberStatus($subscriber);
-      }
+      $this->updateSubscriberStatus($subscriber);
       return false;
     }
     $subscriber->source = Source::WOOCOMMERCE_CHECKOUT;
@@ -198,12 +158,10 @@ class Subscription {
   }
 
   private function updateSubscriberStatus(Subscriber $subscriber) {
-    $ss = Subscriber::findOne($subscriber->id);
-    $segmentsCount = $ss->segments()->count();
+    $segmentsCount = $subscriber->segments()->count();
     if (!$segmentsCount) {
       $subscriber->status = Subscriber::STATUS_UNSUBSCRIBED;
       $subscriber->save();
-      $this->unsubscribesTracker->track($subscriber->id, StatisticsUnsubscribeEntity::SOURCE_ORDER_CHECKOUT);
     }
   }
 }

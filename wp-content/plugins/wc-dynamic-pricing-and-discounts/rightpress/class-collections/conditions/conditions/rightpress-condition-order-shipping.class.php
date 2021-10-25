@@ -42,7 +42,7 @@ abstract class RightPress_Condition_Order_Shipping extends RightPress_Condition
     public function get_group_label()
     {
 
-        return esc_html__('Shipping', 'rightpress');
+        return __('Shipping', 'rightpress');
     }
 
 

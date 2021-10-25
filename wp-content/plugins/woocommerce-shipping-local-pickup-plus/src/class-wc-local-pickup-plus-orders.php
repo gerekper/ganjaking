@@ -24,7 +24,7 @@
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Appointments\Appointment;
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 
 /**
  * Handler of pickup location data for WooCommerce orders.
@@ -203,7 +203,7 @@ class WC_Local_Pickup_Plus_Orders {
 	 *
 	 * @since 2.7.0
 	 *
-	 * @param int[] $order_items_ids array of order item IDs
+	 * @param int[] $order_item_ids array of order item IDs
 	 * @return int[]
 	 */
 	private function get_order_ids_by_order_item_ids( $order_item_ids ) {
@@ -211,16 +211,15 @@ class WC_Local_Pickup_Plus_Orders {
 
 		$order_ids = [];
 
-		$order_item_ids = '(' . implode( ',', $order_item_ids ) . ')';
-		$order_items    = $wpdb->prefix . 'woocommerce_order_items';
-		$order_results  = $wpdb->get_results( "
+		$in_order_items    = Framework\SV_WC_Helper::get_escaped_id_list( $order_item_ids );
+		$order_items_table = $wpdb->prefix . 'woocommerce_order_items';
+		$order_results     = $wpdb->get_results("
 			SELECT order_id
-			FROM {$order_items}
-			WHERE order_item_id IN {$order_item_ids}
+			FROM {$order_items_table}
+			WHERE order_item_id IN ($in_order_items)
 		", ARRAY_N );
 
 		if ( ! empty ( $order_results ) ) {
-
 			foreach ( $order_results as $orders ) {
 				foreach ( $orders as $order_id ) {
 					if ( is_numeric( $order_id ) ) {
@@ -257,14 +256,13 @@ class WC_Local_Pickup_Plus_Orders {
 
 		if ( is_int( $pickup_location_id ) && $pickup_location_id > 0 ) {
 
-			$order_itemmeta     = $wpdb->prefix . 'woocommerce_order_itemmeta';
-			$pickup_location_id = (int) $_GET['_pickup_location'];
-			$item_results       = $wpdb->get_results( "
+			$order_item_meta_table = $wpdb->prefix . 'woocommerce_order_itemmeta';
+			$item_results          = $wpdb->get_results( $wpdb->prepare( "
 				SELECT order_item_id
-				FROM {$order_itemmeta}
+				FROM {$order_item_meta_table}
 				WHERE meta_key = '_pickup_location_id'
-				AND meta_value = {$pickup_location_id}
-			", ARRAY_N );
+				AND meta_value = %d
+			", (int) $_GET['_pickup_location'] ), ARRAY_N );
 
 			if ( ! empty( $item_results ) ) {
 

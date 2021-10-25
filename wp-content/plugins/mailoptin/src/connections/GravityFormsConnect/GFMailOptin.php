@@ -157,20 +157,30 @@ class GFMailOptin extends \GFFeedAddOn
         $saved_integration = $this->get_setting('mailoptinSelectIntegration');
 
         $field_map = [
-            'moEmail' => [
+            'moEmail'     => [
                 'name'       => 'moEmail',
                 'label'      => esc_html__('Email Address', 'mailoptin'),
                 'required'   => true,
                 'field_type' => ['email', 'hidden'],
             ],
-            'moName'  => [
+            'moName'      => [
                 'name'  => 'moName',
                 'label' => esc_html__('Full Name', 'mailoptin')
+            ],
+            'moFirstName' => [
+                'name'  => 'moFirstName',
+                'label' => esc_html__('First Name', 'mailoptin')
+            ],
+            'moLastName'  => [
+                'name'  => 'moLastName',
+                'label' => esc_html__('Last Name', 'mailoptin')
             ],
         ];
 
         if (in_array($saved_integration, Init::no_name_mapping_connections())) {
             unset($field_map['moName']);
+            unset($field_map['moFirstName']);
+            unset($field_map['moLastName']);
         }
 
         $saved_list = $this->get_setting('mailoptinSelectList');
@@ -301,6 +311,40 @@ class GFMailOptin extends \GFFeedAddOn
         return [];
     }
 
+    public function gf_double_optin_settings()
+    {
+        $saved_integration = $this->get_setting('mailoptinSelectIntegration');
+
+        if(empty($saved_integration)) return false;
+
+        $is_double_optin = false;
+        $double_optin_connections = Init::double_optin_support_connections();
+        foreach($double_optin_connections as $key => $value) {
+            if($saved_integration === $key) {
+                $is_double_optin = $value;
+            }
+        }
+
+        $options = [
+            [
+                'label' => ($is_double_optin === false) ? esc_html__('Enable Double Optin', 'mailoptin') : esc_html__('Disable Double Optin', 'mailoptin'),
+                'name' => 'mailoptinDoubleOptin',
+            ]
+        ];
+
+        if (in_array($saved_integration, Init::double_optin_support_connections(true))) {
+            return [
+                'name'          => 'mailoptinDoubleOptin',
+                'label'         => esc_html__('Double Optin', 'mailoptin'),
+                'type'          => 'checkbox',
+                'choices'       => $options,
+                'tooltip'       => esc_html__('Double optin requires users to confirm their email address before they are added or subscribed.', 'mailoptin'),
+            ];
+        }
+
+        return [];
+    }
+
     public function gf_lead_tag_settings()
     {
         $saved_integration = $this->get_setting('mailoptinSelectIntegration');
@@ -370,7 +414,7 @@ class GFMailOptin extends \GFFeedAddOn
         <?php
         $upgrade_url   = 'https://mailoptin.io/pricing/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=gravity_forms_builder_settings';
         $learnmore_url = 'https://mailoptin.io/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=gravity_forms_builder_settings';
-        $output        = '<p>' . sprintf(esc_html__('Upgrade to %s to remove the 500 subscribers per month limit, add support for custom field mapping and assign tags to subscribers.', 'mailoptin'), '<strong>MailOptin premium</strong>') . '</p>';
+        $output        = '<p>' . sprintf(esc_html__('Upgrade to %s to remove the 500 subscribers monthly, add support for custom field mapping and assign tags to subscribers.', 'mailoptin'), '<strong>MailOptin premium</strong>') . '</p>';
         $output        .= '<p><a href="' . $upgrade_url . '" style="margin-right: 10px;" class="button-primary" target="_blank">' . esc_html__('Upgrade to MailOptin Premium', 'mailoptin') . '</a>';
         $output        .= sprintf(esc_html__('%sLearn more about us%s', 'mailoptin'), '<a href="' . $learnmore_url . '" target="_blank">', '</a>') . '</p>';
 
@@ -401,6 +445,12 @@ class GFMailOptin extends \GFFeedAddOn
                 'onchange'   => 'jQuery(this).parents("form").submit();',
             ];
         }
+
+        if(defined('MAILOPTIN_DETACH_LIBSODIUM')) {
+            $double_optin_settings = $this->gf_double_optin_settings();
+        }
+
+        if(!empty($double_optin_settings)) $fields[] = $double_optin_settings;
 
         $fields[] = [
             'name'      => 'mappedFields',
@@ -498,19 +548,31 @@ class GFMailOptin extends \GFFeedAddOn
             $payload[$name] = $this->get_field_value($form, $entry, $field_id);
         }
 
+        $connection_service = rgars($feed, 'meta/mailoptinSelectIntegration');
+        $double_optin = false;
+        if(in_array($connection_service, Init::double_optin_support_connections(true))) {
+            $double_optin = rgars($feed, 'meta/mailoptinDoubleOptin') === "1";
+        }
+
+
         $optin_data = new ConversionDataBuilder();
+
+        $name       = $this->get_field_value($form, $entry, $field_map['moName']);
+        $first_name = $this->get_field_value($form, $entry, $field_map['moFirstName']);
+        $last_name  = $this->get_field_value($form, $entry, $field_map['moLastName']);
 
         $optin_data->optin_campaign_id   = 0; // since it's non mailoptin form, set it to zero.
         $optin_data->payload             = $payload;
-        $optin_data->name                = $this->get_field_value($form, $entry, $field_map['moName']);
+        $optin_data->name                = Init::return_name($name, $first_name, $last_name);
         $optin_data->email               = $email;
         $optin_data->optin_campaign_type = esc_html__('Gravity Forms', 'mailoptin');
 
-        $optin_data->connection_service    = rgars($feed, 'meta/mailoptinSelectIntegration');
+        $optin_data->connection_service    = $connection_service;
         $optin_data->connection_email_list = rgars($feed, 'meta/mailoptinSelectList');
 
         $optin_data->user_agent                = esc_html($_SERVER['HTTP_USER_AGENT']);
         $optin_data->is_timestamp_check_active = false;
+        $optin_data->is_double_optin      = $double_optin;
 
         if (isset($_REQUEST['referrer'])) {
             $optin_data->conversion_page = esc_url_raw($_REQUEST['referrer']);
@@ -526,7 +588,7 @@ class GFMailOptin extends \GFFeedAddOn
                 continue;
             }
 
-            if (in_array($name, ['moEmail', 'moName'])) continue;
+            if (in_array($name, ['moEmail', 'moName', 'moFirstName', 'moLastName'])) continue;
 
             $field_value = $this->get_field_value($form, $entry, $field_id);
 

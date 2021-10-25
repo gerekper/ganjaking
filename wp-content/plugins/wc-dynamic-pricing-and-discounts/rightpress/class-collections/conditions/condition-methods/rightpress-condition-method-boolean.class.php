@@ -42,8 +42,8 @@ abstract class RightPress_Condition_Method_Boolean extends RightPress_Condition_
     {
 
         return array(
-            'yes'   => esc_html__('yes', 'rightpress'),
-            'no'    => esc_html__('no', 'rightpress'),
+            'yes'   => __('yes', 'rightpress'),
+            'no'    => __('no', 'rightpress'),
         );
     }
 

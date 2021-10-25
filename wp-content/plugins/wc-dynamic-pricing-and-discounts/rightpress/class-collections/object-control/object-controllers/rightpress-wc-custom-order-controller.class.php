@@ -147,7 +147,7 @@ abstract class RightPress_WC_Custom_Order_Controller implements RightPress_WC_Cu
         $class      = get_called_class();
         $instance   = $class::get_instance();
 
-        return RightPress_Help::prefix(array_keys($instance->get_custom_order_statuses()), 'wc-');
+        return preg_filter('/^/', 'wc-', array_keys($instance->get_custom_order_statuses()));
     }
 
     /**

@@ -5,13 +5,13 @@
  *  @package Ultimate Animation
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Animation' ) ) {
+if ( ! class_exists( 'Ultimate_Animation' ) ) {
 	/**
 	 * Function that initializes Ultimate Animation Module
 	 *
-	 * @class Ultimate_VC_Addons_Animation
+	 * @class Ultimate_Animation
 	 */
-	class Ultimate_VC_Addons_Animation {
+	class Ultimate_Animation {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Animation module.
 		 *
@@ -195,7 +195,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Animation' ) ) {
 
 	}
 	// Instantiate the class.
-	new Ultimate_VC_Addons_Animation();
+	new Ultimate_Animation();
 	if ( class_exists( 'WPBakeryShortCodesContainer' ) && ! class_exists( 'WPBakeryShortCode_Ult_Animation_Block' ) ) {
 		/**
 		 * Function that initializes Ultimate Animation Module

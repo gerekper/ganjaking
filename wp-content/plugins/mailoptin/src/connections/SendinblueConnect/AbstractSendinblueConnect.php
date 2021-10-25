@@ -9,10 +9,10 @@ use MailOptin\Core\Repositories\OptinCampaignsRepository;
 
 class AbstractSendinblueConnect extends AbstractConnect
 {
-    /** @var \MailOptin\Core\PluginSettings\Settings */
+    /** @var Settings */
     protected $plugin_settings;
 
-    /** @var \MailOptin\Core\PluginSettings\Connections */
+    /** @var Connections */
     protected $connections_settings;
 
     protected $api_key;
@@ -28,6 +28,8 @@ class AbstractSendinblueConnect extends AbstractConnect
 
     /**
      * Is Constant Contact successfully connected to?
+     *
+     * @param bool $return_error
      *
      * @return bool
      */

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
-"POT-Creation-Date: 2021-09-28 08:56:30+00:00\n"
+"POT-Creation-Date: 2021-09-20 13:47:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -240,8 +240,8 @@ msgid "An error occurred while saving data."
 msgstr ""
 
 #: mp3/lib/API/JSON/v1/Forms.php:93 mp3/lib/API/JSON/v1/Forms.php:111
-#: mp3/lib/API/JSON/v1/Forms.php:256 mp3/lib/API/JSON/v1/Forms.php:272
-#: mp3/lib/API/JSON/v1/Forms.php:286 mp3/lib/API/JSON/v1/Forms.php:308
+#: mp3/lib/API/JSON/v1/Forms.php:271 mp3/lib/API/JSON/v1/Forms.php:287
+#: mp3/lib/API/JSON/v1/Forms.php:301 mp3/lib/API/JSON/v1/Forms.php:323
 msgid "This form does not exist."
 msgstr ""
 
@@ -253,15 +253,15 @@ msgstr ""
 msgid "Invalid status. Allowed values are (%1$s), you specified %2$s"
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Forms.php:167
+#: mp3/lib/API/JSON/v1/Forms.php:182
 msgid "New form"
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Forms.php:207
+#: mp3/lib/API/JSON/v1/Forms.php:222
 msgid "Only administrator can edit forms containing Custom HTML block."
 msgstr ""
 
-#: mp3/lib/API/JSON/v1/Forms.php:299
+#: mp3/lib/API/JSON/v1/Forms.php:314
 msgid "Duplicating form failed."
 msgstr ""
 
@@ -701,89 +701,89 @@ msgid ""
 "[link] Knowledge Base article [/link] for steps how to resolve it."
 msgstr ""
 
-#: mp3/lib/Config/MP2Migrator.php:187
+#: mp3/lib/Config/MP2Migrator.php:181
 msgid "Start import"
 msgstr ""
 
-#: mp3/lib/Config/MP2Migrator.php:206
+#: mp3/lib/Config/MP2Migrator.php:200
 msgid "Import complete"
 msgstr ""
 
-#: mp3/lib/Config/MP2Migrator.php:211
+#: mp3/lib/Config/MP2Migrator.php:205
 msgid "End import"
 msgstr ""
 
-#: mp3/lib/Config/MP2Migrator.php:235
+#: mp3/lib/Config/MP2Migrator.php:229
 msgid "MailPoet data erased"
 msgstr ""
 
-#: mp3/lib/Config/MP2Migrator.php:273
+#: mp3/lib/Config/MP2Migrator.php:267
 msgid "Import stopped by user"
 msgstr ""
 
-#: mp3/lib/Config/MP2Migrator.php:305
+#: mp3/lib/Config/MP2Migrator.php:299
 msgid "MailPoet 2 data found:"
 msgstr ""
 
-#: mp3/lib/Config/MP2Migrator.php:310
+#: mp3/lib/Config/MP2Migrator.php:304
 msgid "%d subscribers list"
 msgid_plural "%d subscribers lists"
 msgstr[0] ""
 msgstr[1] ""
 
-#: mp3/lib/Config/MP2Migrator.php:315
+#: mp3/lib/Config/MP2Migrator.php:309
 msgid "%d subscriber"
 msgid_plural "%d subscribers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: mp3/lib/Config/MP2Migrator.php:320
+#: mp3/lib/Config/MP2Migrator.php:314
 msgid "%d form"
 msgid_plural "%d forms"
 msgstr[0] ""
 msgstr[1] ""
 
-#: mp3/lib/Config/MP2Migrator.php:337
+#: mp3/lib/Config/MP2Migrator.php:331
 msgid "Importing segments..."
 msgstr ""
 
-#: mp3/lib/Config/MP2Migrator.php:358
+#: mp3/lib/Config/MP2Migrator.php:352
 msgid "%d segment imported"
 msgid_plural "%d segments imported"
 msgstr[0] ""
 msgstr[1] ""
 
-#: mp3/lib/Config/MP2Migrator.php:426
+#: mp3/lib/Config/MP2Migrator.php:420
 msgid "Importing custom fields..."
 msgstr ""
 
-#: mp3/lib/Config/MP2Migrator.php:436
+#: mp3/lib/Config/MP2Migrator.php:430
 msgid "%d custom field imported"
 msgid_plural "%d custom fields imported"
 msgstr[0] ""
 msgstr[1] ""
 
-#: mp3/lib/Config/MP2Migrator.php:574
+#: mp3/lib/Config/MP2Migrator.php:568
 msgid "Importing subscribers..."
 msgstr ""
 
-#: mp3/lib/Config/MP2Migrator.php:596
+#: mp3/lib/Config/MP2Migrator.php:590
 msgid "%d subscriber imported"
 msgid_plural "%d subscribers imported"
 msgstr[0] ""
 msgstr[1] ""
 
-#: mp3/lib/Config/MP2Migrator.php:824
+#: mp3/lib/Config/MP2Migrator.php:818
 msgid "Importing forms..."
 msgstr ""
 
-#: mp3/lib/Config/MP2Migrator.php:842
+#: mp3/lib/Config/MP2Migrator.php:837
 msgid "%d form imported"
 msgid_plural "%d forms imported"
 msgstr[0] ""
 msgstr[1] ""
 
-#: mp3/lib/Config/MP2Migrator.php:1106
+#: mp3/lib/Config/MP2Migrator.php:1102
 msgid "Settings imported"
 msgstr ""
 
@@ -2154,7 +2154,7 @@ msgid ""
 "fix this issue."
 msgstr ""
 
-#: mp3/lib/Config/ServicesChecker.php:41 mp3/views/layout.html:118
+#: mp3/lib/Config/ServicesChecker.php:41 mp3/views/layout.html:116
 msgid "All sending is currently paused!"
 msgstr ""
 
@@ -2162,7 +2162,7 @@ msgstr ""
 msgid "Your key to send with MailPoet is invalid."
 msgstr ""
 
-#: mp3/lib/Config/ServicesChecker.php:47 mp3/views/layout.html:120
+#: mp3/lib/Config/ServicesChecker.php:47 mp3/views/layout.html:118
 msgid "Purchase a key"
 msgstr ""
 
@@ -2378,77 +2378,79 @@ msgstr ""
 msgid "Month (January, February,...)"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:117 mp3/views/layout.html:124
+#: mp3/lib/Form/Block/Date.php:117 mp3/views/layout.html:122
 #: mp3/views/subscribers/importExport/import.html:60
 msgid "January"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:117 mp3/views/layout.html:125
+#: mp3/lib/Form/Block/Date.php:117 mp3/views/layout.html:123
 #: mp3/views/subscribers/importExport/import.html:61
 msgid "February"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:117 mp3/views/layout.html:126
+#: mp3/lib/Form/Block/Date.php:117 mp3/views/layout.html:124
 #: mp3/views/subscribers/importExport/import.html:62
 msgid "March"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:117 mp3/views/layout.html:127
+#: mp3/lib/Form/Block/Date.php:117 mp3/views/layout.html:125
 #: mp3/views/subscribers/importExport/import.html:63
 msgid "April"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:118 mp3/views/layout.html:128
-#: mp3/views/layout.html:140 mp3/views/subscribers/importExport/import.html:64
+#: mp3/lib/Form/Block/Date.php:118 mp3/views/layout.html:126
+#: mp3/views/layout.html:138 mp3/views/subscribers/importExport/import.html:64
 msgid "May"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:118 mp3/views/layout.html:129
+#: mp3/lib/Form/Block/Date.php:118 mp3/views/layout.html:127
 #: mp3/views/subscribers/importExport/import.html:65
 msgid "June"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:118 mp3/views/layout.html:130
+#: mp3/lib/Form/Block/Date.php:118 mp3/views/layout.html:128
 #: mp3/views/subscribers/importExport/import.html:66
 msgid "July"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:118 mp3/views/layout.html:131
+#: mp3/lib/Form/Block/Date.php:118 mp3/views/layout.html:129
 #: mp3/views/subscribers/importExport/import.html:67
 msgid "August"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:118 mp3/views/layout.html:132
+#: mp3/lib/Form/Block/Date.php:118 mp3/views/layout.html:130
 #: mp3/views/subscribers/importExport/import.html:68
 msgid "September"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:119 mp3/views/layout.html:133
+#: mp3/lib/Form/Block/Date.php:119 mp3/views/layout.html:131
 #: mp3/views/subscribers/importExport/import.html:69
 msgid "October"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:119 mp3/views/layout.html:134
+#: mp3/lib/Form/Block/Date.php:119 mp3/views/layout.html:132
 #: mp3/views/subscribers/importExport/import.html:70
 msgid "November"
 msgstr ""
 
-#: mp3/lib/Form/Block/Date.php:119 mp3/views/layout.html:135
+#: mp3/lib/Form/Block/Date.php:119 mp3/views/layout.html:133
 #: mp3/views/subscribers/importExport/import.html:71
 msgid "December"
 msgstr ""
 
-#: mp3/lib/Form/FormMessageController.php:26
+#: mp3/lib/Form/FormFactory.php:49 mp3/lib/Form/FormMessageController.php:26
 #: mp3/lib/Form/FormMessageController.php:28
-#: mp3/lib/Form/FormMessageController.php:44
+#: mp3/lib/Form/FormMessageController.php:44 mp3/lib/Models/Form.php:122
+#: mp3/lib/Models/Form.php:130 mp3/lib/Models/Form.php:132
 #: mp3/tests/integration/Form/FormMessageControllerTest.php:27
 #: mp3/tests/integration/Form/FormMessageControllerTest.php:35
 #: mp3/tests/integration/Form/FormMessageControllerTest.php:52
 msgid "Check your inbox or spam folder to confirm your subscription."
 msgstr ""
 
-#: mp3/lib/Form/FormMessageController.php:27
-#: mp3/lib/Form/FormMessageController.php:46
+#: mp3/lib/Form/FormFactory.php:51 mp3/lib/Form/FormMessageController.php:27
+#: mp3/lib/Form/FormMessageController.php:46 mp3/lib/Models/Form.php:124
+#: mp3/lib/Models/Form.php:131
 #: mp3/tests/integration/Form/FormMessageControllerTest.php:29
 #: mp3/tests/integration/Form/FormMessageControllerTest.php:44
 msgid "You’ve been successfully subscribed to our newsletter!"
@@ -2461,7 +2463,7 @@ msgid "Copy of %s"
 msgstr ""
 
 #: mp3/lib/Form/Listing/FormListingRepository.php:31
-#: mp3/lib/Models/DynamicSegment.php:63
+#: mp3/lib/Models/DynamicSegment.php:63 mp3/lib/Models/Form.php:101
 #: mp3/lib/Models/ScheduledTaskSubscriber.php:110
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:106
 #: mp3/lib/Segments/SegmentListingRepository.php:94
@@ -2470,7 +2472,7 @@ msgid "All"
 msgstr ""
 
 #: mp3/lib/Form/Listing/FormListingRepository.php:36
-#: mp3/lib/Models/DynamicSegment.php:68
+#: mp3/lib/Models/DynamicSegment.php:68 mp3/lib/Models/Form.php:106
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:173
 #: mp3/lib/Segments/SegmentListingRepository.php:99
 #: mp3/lib/Subscribers/SubscriberListingRepository.php:222
@@ -2483,7 +2485,7 @@ msgstr ""
 msgid "Sample page to preview your form"
 msgstr ""
 
-#: mp3/lib/Form/Renderer.php:81
+#: mp3/lib/Form/Renderer.php:82
 msgid "Please leave this field empty"
 msgstr ""
 
@@ -2501,31 +2503,31 @@ msgstr ""
 msgid "Subscribe!"
 msgstr ""
 
-#: mp3/lib/Form/Util/Export.php:61
+#: mp3/lib/Form/Util/Export.php:59
 msgid "BEGIN Scripts: you should place them in the header of your theme"
 msgstr ""
 
-#: mp3/lib/Form/Util/Export.php:93
+#: mp3/lib/Form/Util/Export.php:91
 msgid "END Scripts"
 msgstr ""
 
-#: mp3/lib/Form/Widget.php:30
+#: mp3/lib/Form/Widget.php:28
 msgid "MailPoet 3 Form"
 msgstr ""
 
-#: mp3/lib/Form/Widget.php:31
+#: mp3/lib/Form/Widget.php:29
 msgid "Add a newsletter subscription form"
 msgstr ""
 
-#: mp3/lib/Form/Widget.php:113
+#: mp3/lib/Form/Widget.php:110
 msgid "Subscribe to Our Newsletter"
 msgstr ""
 
-#: mp3/lib/Form/Widget.php:128
+#: mp3/lib/Form/Widget.php:125
 msgid "Title:"
 msgstr ""
 
-#: mp3/lib/Form/Widget.php:149
+#: mp3/lib/Form/Widget.php:146
 #: mp3/lib/PostEditorBlocks/SubscriptionFormBlock.php:58
 msgid "Create a new form"
 msgstr ""
@@ -2569,7 +2571,7 @@ msgstr ""
 #: mp3/lib/Mailer/Methods/ErrorMappers/AmazonSESMapper.php:33
 #: mp3/lib/Mailer/Methods/ErrorMappers/BlacklistErrorMapperTrait.php:11
 #: mp3/lib/Mailer/Methods/ErrorMappers/PHPMailMapper.php:27
-#: mp3/lib/Mailer/Methods/ErrorMappers/SMTPMapper.php:48
+#: mp3/lib/Mailer/Methods/ErrorMappers/SMTPMapper.php:41
 #: mp3/lib/Mailer/Methods/ErrorMappers/SendGridMapper.php:19
 msgid "%s has returned an unknown error."
 msgstr ""
@@ -2711,7 +2713,7 @@ msgstr ""
 
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:132
 #: mp3/lib/Newsletter/Listing/NewsletterListingRepository.php:147
-#: mp3/views/layout.html:115
+#: mp3/views/layout.html:113
 msgid "Sent"
 msgstr ""
 
@@ -3192,23 +3194,23 @@ msgstr ""
 msgid "Please specify a valid form ID."
 msgstr ""
 
-#: mp3/lib/Subscription/CaptchaRenderer.php:47
+#: mp3/lib/Subscription/CaptchaRenderer.php:41
 msgid "Confirm you’re not a robot"
 msgstr ""
 
-#: mp3/lib/Subscription/CaptchaRenderer.php:57
+#: mp3/lib/Subscription/CaptchaRenderer.php:51
 msgid "Type in the characters you see in the picture above:"
 msgstr ""
 
-#: mp3/lib/Subscription/CaptchaRenderer.php:71
+#: mp3/lib/Subscription/CaptchaRenderer.php:65
 msgid "Subscribe"
 msgstr ""
 
-#: mp3/lib/Subscription/CaptchaRenderer.php:119
+#: mp3/lib/Subscription/CaptchaRenderer.php:114
 msgid "Click to refresh the CAPTCHA"
 msgstr ""
 
-#: mp3/lib/Subscription/CaptchaRenderer.php:138
+#: mp3/lib/Subscription/CaptchaRenderer.php:132
 msgid ""
 "The characters you entered did not match the CAPTCHA image. Please try "
 "again with this new image."
@@ -3219,7 +3221,7 @@ msgid "Yes, please add me to your mailing list."
 msgstr ""
 
 #: mp3/lib/Subscription/ManageSubscriptionFormRenderer.php:82
-#: mp3/views/layout.html:103
+#: mp3/views/layout.html:101
 #: mp3/views/newsletter/templates/components/save.hbs:4
 #: mp3/views/newsletter/templates/components/save.hbs:24
 #: mp3/views/segments.html:88 mp3/views/subscribers/subscribers.html:139
@@ -3935,7 +3937,7 @@ msgstr ""
 msgid "Your stats are in!"
 msgstr ""
 
-#: mp3/views/emails/statsNotification.html:65 mp3/views/layout.html:93
+#: mp3/views/emails/statsNotification.html:65 mp3/views/layout.html:91
 msgid "Congratulations, you now have more than [subscribersLimit] subscribers!"
 msgstr ""
 
@@ -4787,259 +4789,259 @@ msgstr ""
 msgid "%sSet up%s MailPoet and start sending."
 msgstr ""
 
-#: mp3/views/layout.html:85
+#: mp3/views/layout.html:83
 msgid ""
 "An error has happened while performing a request, the server has responded "
 "with response code %d"
 msgstr ""
 
-#: mp3/views/layout.html:86
+#: mp3/views/layout.html:84
 msgid ""
 "An error has happened while performing a request, the server request has "
 "timed out after %d seconds"
 msgstr ""
 
-#: mp3/views/layout.html:90
+#: mp3/views/layout.html:88
 msgid "Sending has been resumed."
 msgstr ""
 
-#: mp3/views/layout.html:91 mp3/views/newsletters.html:96
+#: mp3/views/layout.html:89 mp3/views/newsletters.html:96
 msgid "Dismiss this notice."
 msgstr ""
 
-#: mp3/views/layout.html:94
+#: mp3/views/layout.html:92
 msgid "Our free version is limited to [subscribersLimit] subscribers."
 msgstr ""
 
-#: mp3/views/layout.html:95
+#: mp3/views/layout.html:93
 msgid "Your plan is limited to [subscribersLimit] subscribers."
 msgstr ""
 
-#: mp3/views/layout.html:96
+#: mp3/views/layout.html:94
 msgid "You need to upgrade now to be able to continue using MailPoet."
 msgstr ""
 
-#: mp3/views/layout.html:97
+#: mp3/views/layout.html:95
 msgid ""
 "If you do not send emails to your WordPress Users list, you can "
 "[link]disable it[/link] to lower your number of subscribers."
 msgstr ""
 
-#: mp3/views/layout.html:98 mp3/views/subscribers/subscribers.html:147
+#: mp3/views/layout.html:96 mp3/views/subscribers/subscribers.html:147
 msgid "Upgrade Now"
 msgstr ""
 
-#: mp3/views/layout.html:99
+#: mp3/views/layout.html:97
 msgid "I’ve upgraded my subscription, refresh subscriber limit"
 msgstr ""
 
-#: mp3/views/layout.html:101
+#: mp3/views/layout.html:99
 msgid "It’s time to set your default FROM address!"
 msgstr ""
 
-#: mp3/views/layout.html:102
+#: mp3/views/layout.html:100
 msgid ""
 "Set one of [link]your authorized email addresses[/link] as the default FROM "
 "email for your MailPoet emails."
 msgstr ""
 
-#: mp3/views/layout.html:104
+#: mp3/views/layout.html:102
 msgid ""
 "Excellent. Your authorized email was saved. You can change it in the "
 "[link]Basics tab of the MailPoet settings[/link]."
 msgstr ""
 
-#: mp3/views/layout.html:105
+#: mp3/views/layout.html:103
 msgid "Can’t use this email yet! [link]Please authorize it first[/link]."
 msgstr ""
 
-#: mp3/views/layout.html:106
+#: mp3/views/layout.html:104
 msgid "An error occured when saving FROM email address."
 msgstr ""
 
-#: mp3/views/layout.html:109
+#: mp3/views/layout.html:107
 msgid ""
 "[username], did you know that hundreds of WordPress users read the reviews "
 "on the plugin repository? They’re also a source of inspiration for our team."
 msgstr ""
 
-#: mp3/views/layout.html:113
+#: mp3/views/layout.html:111
 msgid "Not now"
 msgstr ""
 
-#: mp3/views/layout.html:116
+#: mp3/views/layout.html:114
 msgid "Not sent yet!"
 msgstr ""
 
-#: mp3/views/layout.html:119
+#: mp3/views/layout.html:117
 msgid "Your [link]API key[/link] to send with MailPoet is invalid."
 msgstr ""
 
-#: mp3/views/layout.html:122 mp3/views/newsletter/editor.html:373
+#: mp3/views/layout.html:120 mp3/views/newsletter/editor.html:373
 msgid "Close"
 msgstr ""
 
-#: mp3/views/layout.html:123
+#: mp3/views/layout.html:121
 msgid "Today"
 msgstr ""
 
-#: mp3/views/layout.html:136
+#: mp3/views/layout.html:134
 msgid "Jan"
 msgstr ""
 
-#: mp3/views/layout.html:137
+#: mp3/views/layout.html:135
 msgid "Feb"
 msgstr ""
 
-#: mp3/views/layout.html:138
+#: mp3/views/layout.html:136
 msgid "Mar"
 msgstr ""
 
-#: mp3/views/layout.html:139
+#: mp3/views/layout.html:137
 msgid "Apr"
 msgstr ""
 
-#: mp3/views/layout.html:141
+#: mp3/views/layout.html:139
 msgid "Jun"
 msgstr ""
 
-#: mp3/views/layout.html:142
+#: mp3/views/layout.html:140
 msgid "Jul"
 msgstr ""
 
-#: mp3/views/layout.html:143
+#: mp3/views/layout.html:141
 msgid "Aug"
 msgstr ""
 
-#: mp3/views/layout.html:144
+#: mp3/views/layout.html:142
 msgid "Sep"
 msgstr ""
 
-#: mp3/views/layout.html:145
+#: mp3/views/layout.html:143
 msgid "Oct"
 msgstr ""
 
-#: mp3/views/layout.html:146
+#: mp3/views/layout.html:144
 msgid "Nov"
 msgstr ""
 
-#: mp3/views/layout.html:147
+#: mp3/views/layout.html:145
 msgid "Dec"
 msgstr ""
 
-#: mp3/views/layout.html:148
+#: mp3/views/layout.html:146
 msgid "Sun"
 msgstr ""
 
-#: mp3/views/layout.html:149
+#: mp3/views/layout.html:147
 msgid "Mon"
 msgstr ""
 
-#: mp3/views/layout.html:150
+#: mp3/views/layout.html:148
 msgid "Tue"
 msgstr ""
 
-#: mp3/views/layout.html:151
+#: mp3/views/layout.html:149
 msgid "Wed"
 msgstr ""
 
-#: mp3/views/layout.html:152
+#: mp3/views/layout.html:150
 msgid "Thu"
 msgstr ""
 
-#: mp3/views/layout.html:153
+#: mp3/views/layout.html:151
 msgid "Fri"
 msgstr ""
 
-#: mp3/views/layout.html:154
+#: mp3/views/layout.html:152
 msgid "Sat"
 msgstr ""
 
-#: mp3/views/layout.html:196
+#: mp3/views/layout.html:195
 msgid ""
 "Want to give feedback to the MailPoet team? Contact us here. Please provide "
 "as much information as possible!"
 msgstr ""
 
-#: mp3/views/layout.html:213 mp3/views/layout.html:224
+#: mp3/views/layout.html:212 mp3/views/layout.html:223
 msgid "This value seems to be invalid."
 msgstr ""
 
-#: mp3/views/layout.html:215
+#: mp3/views/layout.html:214
 msgid "This value should be a valid email."
 msgstr ""
 
-#: mp3/views/layout.html:216
+#: mp3/views/layout.html:215
 msgid "This value should be a valid url."
 msgstr ""
 
-#: mp3/views/layout.html:217
+#: mp3/views/layout.html:216
 msgid "This value should be a valid number."
 msgstr ""
 
-#: mp3/views/layout.html:218
+#: mp3/views/layout.html:217
 msgid "This value should be a valid integer."
 msgstr ""
 
-#: mp3/views/layout.html:219
+#: mp3/views/layout.html:218
 msgid "This value should be digits."
 msgstr ""
 
-#: mp3/views/layout.html:220
+#: mp3/views/layout.html:219
 msgid "This value should be alphanumeric."
 msgstr ""
 
-#: mp3/views/layout.html:222
+#: mp3/views/layout.html:221
 msgid "This value should not be blank."
 msgstr ""
 
-#: mp3/views/layout.html:223
+#: mp3/views/layout.html:222
 msgid "This value is required."
 msgstr ""
 
-#: mp3/views/layout.html:225
+#: mp3/views/layout.html:224
 msgid "This value should be greater than or equal to %s."
 msgstr ""
 
-#: mp3/views/layout.html:226
+#: mp3/views/layout.html:225
 msgid "This value should be lower than or equal to %s."
 msgstr ""
 
-#: mp3/views/layout.html:227
+#: mp3/views/layout.html:226
 msgid "This value should be between %s and %s."
 msgstr ""
 
-#: mp3/views/layout.html:228
+#: mp3/views/layout.html:227
 msgid "This value is too short. It should have %s characters or more."
 msgstr ""
 
-#: mp3/views/layout.html:229
+#: mp3/views/layout.html:228
 msgid "This value is too long. It should have %s characters or fewer."
 msgstr ""
 
-#: mp3/views/layout.html:230
+#: mp3/views/layout.html:229
 msgid ""
 "This value length is invalid. It should be between %s and %s characters "
 "long."
 msgstr ""
 
-#: mp3/views/layout.html:231
+#: mp3/views/layout.html:230
 msgid "You must select at least %s choices."
 msgstr ""
 
-#: mp3/views/layout.html:232
+#: mp3/views/layout.html:231
 msgid "You must select %s choices or fewer."
 msgstr ""
 
-#: mp3/views/layout.html:233
+#: mp3/views/layout.html:232
 msgid "You must select between %s and %s choices."
 msgstr ""
 
-#: mp3/views/layout.html:234
+#: mp3/views/layout.html:233
 msgid "This value should be the same."
 msgstr ""
 
-#: mp3/views/layout.html:110
+#: mp3/views/layout.html:108
 msgid ""
 "You’ve been using MailPoet for [days] day now, and we would love to read "
 "your own review."
@@ -5049,7 +5051,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: mp3/views/layout.html:111
+#: mp3/views/layout.html:109
 msgid ""
 "You’ve been using MailPoet for [months] month now, and we would love to "
 "read your own review."
@@ -10035,7 +10037,7 @@ msgctxt "Text in a web form. First line of \"10% off, especially for you.\""
 msgid "10% off,"
 msgstr ""
 
-#: mp3/lib/Form/Widget.php:142 mp3/views/form/editor.html:210
+#: mp3/lib/Form/Widget.php:139 mp3/views/form/editor.html:210
 #: mp3/views/forms.html:80
 msgctxt "fallback for forms without a name in a form list"
 msgid "no name"
@@ -10601,7 +10603,7 @@ msgctxt "Text of a link to email preview page."
 msgid "Preview"
 msgstr ""
 
-#: mp3/views/layout.html:87
+#: mp3/views/layout.html:85
 msgctxt ""
 "In the last step, before sending a newsletter. URL: "
 "?page=mailpoet-newsletters#/send/2"
@@ -10610,7 +10612,7 @@ msgid ""
 "address."
 msgstr ""
 
-#: mp3/views/layout.html:88
+#: mp3/views/layout.html:86
 msgctxt ""
 "In the last step, before sending a newsletter. URL: "
 "?page=mailpoet-newsletters#/send/2"
@@ -10619,49 +10621,49 @@ msgid ""
 "<em>Reply-to</em> field below."
 msgstr ""
 
-#: mp3/views/layout.html:108
+#: mp3/views/layout.html:106
 msgctxt ""
 "After a user gives us positive feedback via the NPS poll, we ask them to "
 "review our plugin on WordPress.org."
 msgid "Thank you! Time to tell the world?"
 msgstr ""
 
-#: mp3/views/layout.html:112
+#: mp3/views/layout.html:110
 msgctxt "Review our plugin on WordPress.org."
 msgid "Rate us now"
 msgstr ""
 
-#: mp3/views/layout.html:155
+#: mp3/views/layout.html:153
 msgctxt "Sunday - one letter abbreviation"
 msgid "S"
 msgstr ""
 
-#: mp3/views/layout.html:156
+#: mp3/views/layout.html:154
 msgctxt "Monday - one letter abbreviation"
 msgid "M"
 msgstr ""
 
-#: mp3/views/layout.html:157
+#: mp3/views/layout.html:155
 msgctxt "Tuesday - one letter abbreviation"
 msgid "T"
 msgstr ""
 
-#: mp3/views/layout.html:158
+#: mp3/views/layout.html:156
 msgctxt "Wednesday - one letter abbreviation"
 msgid "W"
 msgstr ""
 
-#: mp3/views/layout.html:159
+#: mp3/views/layout.html:157
 msgctxt "Thursday - one letter abbreviation"
 msgid "T"
 msgstr ""
 
-#: mp3/views/layout.html:160
+#: mp3/views/layout.html:158
 msgctxt "Friday - one letter abbreviation"
 msgid "F"
 msgstr ""
 
-#: mp3/views/layout.html:161
+#: mp3/views/layout.html:159
 msgctxt "Saturday - one letter abbreviation"
 msgid "S"
 msgstr ""

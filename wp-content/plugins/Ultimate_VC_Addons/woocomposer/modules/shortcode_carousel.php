@@ -4,16 +4,16 @@
  *
  * @Module: List view
  * @Since: 1.0
- * @package Ultimate_VC_Addons_WooComposer
+ * @package WooComposer
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_ViewCarousel' ) ) {
+if ( ! class_exists( 'WooComposer_ViewCarousel' ) ) {
 	/**
-	 * Class that initializes Ultimate_VC_Addons_WooComposer View Carousel
+	 * Class that initializes WooComposer View Carousel
 	 *
-	 * @class Ultimate_VC_Addons_WooComposer_ViewCarousel
+	 * @class WooComposer_ViewCarousel
 	 */
-	class Ultimate_VC_Addons_WooComposer_ViewCarousel {
+	class WooComposer_ViewCarousel {
 		/**
 		 * Constructor function that constructs View Carousel.
 		 *
@@ -573,5 +573,5 @@ if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer_ViewCarousel' ) ) {
 
 		} // end woo_composer_carousel
 	}
-	new Ultimate_VC_Addons_WooComposer_ViewCarousel();
+	new WooComposer_ViewCarousel();
 }

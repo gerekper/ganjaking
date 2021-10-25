@@ -1,0 +1,37 @@
+{
+  "name": "@gravityforms/request",
+  "version": "1.0.3",
+  "description": "Utility to make WordPress REST API requests. It's a wrapper around window.fetch.",
+  "author": "Rocketgenius",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "gravityforms",
+    "javascript",
+    "fetch"
+  ],
+  "homepage": "https://github.com/gravityforms/gravityforms/tree/HEAD/packages/npm/request/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gravityforms/gravityforms.git",
+    "directory": "packages/npm/request"
+  },
+  "bugs": {
+    "url": "https://github.com/gravityforms/gravityforms/issues"
+  },
+  "engines": {
+    "node": ">=14.15.0",
+    "npm": ">=6.14.8"
+  },
+  "main": "src/request.js",
+  "scripts": {},
+  "dependencies": {
+    "find-config": "^1.0.0",
+    "lodash": "^4.17.15",
+    "query-string": "^6.9.0",
+    "ramda": "^0.27.1",
+    "underscore.string": "^3.3.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

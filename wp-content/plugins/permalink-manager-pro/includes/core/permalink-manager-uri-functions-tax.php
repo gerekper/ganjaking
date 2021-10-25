@@ -495,7 +495,7 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 
 		// Stop the hook (if needed)
 		if(!empty($term->taxonomy)) {
-			$show_uri_editor = apply_filters("permalink_manager_hide_uri_editor_term_{$term->taxonomy}", true, $term);
+			$show_uri_editor = apply_filters("permalink_manager_show_uri_editor_term_{$term->taxonomy}", true, $term);
 
 			if(!$show_uri_editor) { return; }
 		}
@@ -571,7 +571,7 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 		if(empty($this_term->taxonomy) || Permalink_Manager_Helper_Functions::is_term_excluded($this_term)) { return; }
 
 		// Stop the hook (if needed)
-		$allow_update_term = apply_filters("permalink_manager_update_term_uri_{$this_term->taxonomy}", true);
+		$allow_update_term = apply_filters("permalink_manager_update_term_uri_{$this_term->taxonomy}", true, $this_term);
 		if(!$allow_update_term) { return; }
 
 		// Get auto-update URI setting (if empty use global setting)

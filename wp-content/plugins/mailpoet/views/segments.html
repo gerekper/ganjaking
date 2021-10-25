@@ -33,7 +33,6 @@
     var mailpoet_woocommerce_currency_symbol = <%= json_encode(woocommerce_currency_symbol)  %>;
     var mailpoet_woocommerce_countries = <%= json_encode(woocommerce_countries)  %>;
     var mailpoet_tracking_enabled = <%= json_encode(tracking_enabled) %>;
-    var mailpoet_subscribers_counts_cache_created_at = <%= json_encode(subscribers_counts_cache_created_at) %>;
 
   </script>
 <% endblock %>
@@ -98,6 +97,9 @@
     'pageOutOf': __('of'),
     'numberOfItemsSingular': __('1 item'),
     'numberOfItemsMultiple': __('%$1d items'),
+    'allSendingPausedHeader': __('All sending is currently paused!'),
+    'allSendingPausedBody': __('Your key to send with MailPoet is invalid.'),
+    'allSendingPausedLink': __('Purchase a key'),
 
     'segmentDescriptionTip': __('This text box is for your own use and is never shown to your subscribers.'),
     'backToList': __('Back'),
@@ -140,9 +142,7 @@
     'selectUserRolePlaceholder': __('Select user role'),
     'selectCustomFieldPlaceholder': __('Select custom field'),
     'emailActionOpened': _x('opened', 'Dynamic segment creation: when newsletter was opened'),
-    'emailActionMachineOpened': _x('machine-opened', 'Dynamic segment creation: list of all subscribers that opened the newsletter automatically in the background'),
     'emailActionOpensAbsoluteCount': __('# of opens'),
-    'emailActionMachineOpensAbsoluteCount': __('# of machine-opens'),
     'emailActionOpens': __('opens'),
     'emailActionDays': __('days'),
     'emailActionOpensSentence': _x('{condition} {opens} opens', 'The result will be "more than 20 opens"'),
@@ -225,10 +225,5 @@
     'anyConditions': _x('<strong>Any</strong> of the following conditions', 'Dynamic segment creation: The user can select join between condition when he has more than one'),
     'filterConnectAnd': _x('and', 'Dynamic segment creation: The user can see logical operator between condition when has more than one'),
     'filterConnectOr': _x('or', 'Dynamic segment creation: The user can see logical operator between condition when has more than one'),
-
-    'subscribersCountWereCalculated': __('Lists and Segments subscribers counts were calculated'),
-    'subscribersMinutesAgo': __('minutes ago'),
-    'recalculateNow': __('Recalculate now'),
-    'privacyProtectionNotice': __('Due to email privacy protections, some opens may not be tracked. Consider using a different engagement metric.'),
   }) %>
 <% endblock %>

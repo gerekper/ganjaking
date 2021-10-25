@@ -104,6 +104,7 @@ class Base
         NewPublishPost::get_instance();
         PostsEmailDigest::get_instance();
         Newsletter::get_instance();
+        Misc::get_instance();
 
         FrontEndOutput::get_instance();
         InPost::get_instance();
@@ -143,8 +144,6 @@ class Base
         AdminNotices::get_instance();
         ConversionExport::get_instance();
         ProUpgrade::get_instance();
-
-        Misc::get_instance();
 
         do_action('mailoptin_admin_hooks');
     }

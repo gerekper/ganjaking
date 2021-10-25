@@ -1,0 +1,1 @@
+.elementor-widget-toggle .elementor-tab-title.add_question_marker:before{content:attr(data-question_marker);display:inline-block;min-width:2em;height:2em;line-height:2;text-align:center;background:#e4e4e4;float:left;margin-top:-.5em;margin-bottom:-.5em;margin-right:15px;border-radius:4px;transition:all .3s}

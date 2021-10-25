@@ -1,0 +1,112 @@
+.ma-el-icon {
+  color: #e0e1e3;
+}
+
+#elementor-panel #elementor-panel-header-title span.ma-el-badge:after,
+#elementor-panel .elementor-control-title span.ma-el-badge:after,
+#elementor-panel .elementor-section-title span.ma-el-badge:after {
+  content: "MA";
+  background-color: #fff;
+  color: #d30c5c;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 30px;
+  padding: 2px 3px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+#elementor-panel .elementor-control-title span.ma-el-badge:after,
+#elementor-panel .elementor-section-title span.ma-el-badge:after {
+  background-color: #e0e6ec;
+  color: #50565d;
+}
+
+.jltma-editor-doc-links {
+  font-size: 12px;
+}
+.jltma-editor-doc-links a {
+  color: #999 !important;
+  display: inline-block;
+  line-height: 1.2;
+  padding-left: 10px;
+  position: relative;
+}
+.jltma-editor-doc-links a:hover {
+  color: #cf0c5d !important;
+}
+.jltma-editor-doc-links a:before {
+  content: "»";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Tabs Section Identifier */
+
+/*div[class*="elementor-control-ma_el"]:before{
+    content: 'Master Addons';
+    letter-spacing: 0.1em;
+    color: #aaa;
+}
+div[class*="elementor-control-ma_"]:before {
+    position: absolute;
+    top: 13px;
+    right: 8px;
+    text-transform: uppercase;
+    font-size: 9px;
+    padding: 2px 2px 1px;
+    border: 1px solid #ddd;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: #aaa;
+}
+*/
+
+/* Master Custom Breakpoint */
+
+body:not(.elementor-device-desktop) div#elementor-preview-responsive-wrapper:before {
+  color: #d40e5c;
+  content: "Elementor Breakpoint Extender by Master Addons";
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  bottom: 30px;
+  left: 30px;
+  position: absolute;
+}
+.master-cbp-device-landscape {
+  transform: rotate(90deg);
+}
+.elementor-panel .elementor-panel-footer-sub-menu-item {
+  padding: 3px 0;
+}
+
+#elementor-panel-footer-responsive .elementor-panel-footer-sub-menu {
+  overflow-y: auto;
+  height: 400px;
+  max-height: 30vh;
+}
+
+.elementor-panel-footer-sub-menu-item i.master-cbp-device {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+}
+
+.elementor-responsive-switcher i.master-cbp-device {
+  width: 20px;
+  height: 20px;
+}
+
+#elementor-panel-footer-responsive .tooltip-target[class*="eicon-device-"] {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+}
+
+/* overlapping the device popup */
+.elementor-control-responsive-switchers .elementor-control-responsive-switchers__holder {
+  top: 50% !important;
+  bottom: auto !important;
+  transform: translateY(-50%) !important;
+}

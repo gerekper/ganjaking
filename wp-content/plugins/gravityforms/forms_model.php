@@ -5876,7 +5876,7 @@ class GFFormsModel {
 			"  SELECT n.entry_id, n.id, n.user_id, n.date_created, n.value, n.note_type, n.sub_type, ifnull(u.display_name,n.user_name) as user_name, u.user_email
 												FROM $notes_table n
 												LEFT OUTER JOIN $wpdb->users u ON n.user_id = u.id
-												$where
+												$where 
 												$orderby"
 		);
 	}
@@ -6101,6 +6101,41 @@ class GFFormsModel {
 	 * @param string $new_key Gravity Forms license key to be saved.
 	 */
 	public static function save_key( $new_key ) {
+
+		$new_key      = trim( $new_key );
+		$new_key_md5  = md5( $new_key );
+		$previous_key = get_option( 'rg_gforms_key' );
+
+		/**
+		 * @var License\GF_License_API_Connector $license_connector
+		 */
+		$license_connector = GFForms::get_service_container()->get( License\GF_License_Service_Provider::LICENSE_API_CONNECTOR );
+		$license_connector->clear_cache_for_key( $new_key_md5 );
+
+		// Delete gform_version_info so GF will ping version.php to send site record update.
+		delete_option( 'gform_version_info' );
+
+		if ( empty( $new_key ) ) {
+
+			delete_option( 'rg_gforms_key' );
+
+			// Unlink the site with the license key on Gravity API.
+			$license_connector->update_site_registration( '' );
+
+		} elseif ( $previous_key != $new_key ) {
+			update_option( 'rg_gforms_key', $new_key_md5 );
+
+			// Updating site registration with Gravity Server.
+			$result = $license_connector->update_site_registration( $new_key_md5, true );
+
+			// New key is invalid, revert to old key.
+			if ( ! $result->can_be_used() ) {
+				update_option( 'rg_gforms_key', $previous_key );
+			}
+		} else {
+			// Updating site registration with Gravity Server.
+			$license_connector->update_site_registration( $new_key_md5, true );
+		}
 
 	}
 

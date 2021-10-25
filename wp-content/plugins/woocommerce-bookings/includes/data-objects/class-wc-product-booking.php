@@ -72,7 +72,18 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 * @param int|WC_Product|object $product Product to init.
 	 */
 	public function __construct( $product = 0 ) {
-		$this->data = array_merge( $this->data, $this->defaults );
+		/**
+		 * Override default attributes for Product Booking.
+		 * 
+		 * @since 1.15.46
+		 * 
+		 * @param array $defaults Default values to init new Product.
+		 * @param int|WC_Product|object $product Product to init.
+		 * 
+		 * @see WC_Product_Booking::defaults
+		 */
+		$defaults   = apply_filters( 'woocommerce_bookings_product_defaults', $this->defaults, $product );
+		$this->data = array_merge( $this->data, $defaults );
 		parent::__construct( $product );
 	}
 

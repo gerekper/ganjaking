@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '4d93806923495d3b327d3c6d45cff06346ccb717',
+    'reference' => '49ebe54612d1a0c19bf4e3cc55edab116d5dccbc',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '4d93806923495d3b327d3c6d45cff06346ccb717',
+      'reference' => '49ebe54612d1a0c19bf4e3cc55edab116d5dccbc',
     ),
     'collizo4sky/persist-admin-notices-dismissal' => 
     array (
@@ -31,12 +31,12 @@
     ),
     'composer/installers' => 
     array (
-      'pretty_version' => 'v1.10.0',
-      'version' => '1.10.0.0',
+      'pretty_version' => 'v1.11.0',
+      'version' => '1.11.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d',
+      'reference' => 'ae03311f45dfe194412081526be2e003960df74b',
     ),
     'deliciousbrains/wp-background-processing' => 
     array (
@@ -83,13 +83,8 @@
     ),
     'mailoptin/authifly' => 
     array (
-<<<<<<< HEAD
-      'pretty_version' => '0.2.1617692439',
-      'version' => '0.2.1617692439.0',
-=======
-      'pretty_version' => '0.2.1614346377',
-      'version' => '0.2.1614346377.0',
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+      'pretty_version' => '0.2.1623337519',
+      'version' => '0.2.1623337519.0',
       'aliases' => 
       array (
       ),
@@ -97,13 +92,8 @@
     ),
     'mailoptin/connections' => 
     array (
-<<<<<<< HEAD
-      'pretty_version' => '0.2.1617692482',
-      'version' => '0.2.1617692482.0',
-=======
-      'pretty_version' => '0.2.1614367867',
-      'version' => '0.2.1614367867.0',
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+      'pretty_version' => '0.2.1623337577',
+      'version' => '0.2.1623337577.0',
       'aliases' => 
       array (
       ),
@@ -111,21 +101,12 @@
     ),
     'mailoptin/core' => 
     array (
-<<<<<<< HEAD
-      'pretty_version' => '0.1.0-alpha.1617713129',
-      'version' => '0.1.0.0-alpha1617713129',
+      'pretty_version' => '0.1.0-alpha.1623337568',
+      'version' => '0.1.0.0-alpha1623337568',
       'aliases' => 
       array (
       ),
-      'reference' => 'afa0e11c29b512cdc5f7586bd6fd0b1a78453976',
-=======
-      'pretty_version' => '0.1.0-alpha.1614367861',
-      'version' => '0.1.0.0-alpha1614367861',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '114e717c6fe57a222064c9f9af0f36a1b4c1c5ce',
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+      'reference' => '018b6de207eb15f6005050895ba957cd35a476b9',
     ),
     'nesbot/carbon' => 
     array (

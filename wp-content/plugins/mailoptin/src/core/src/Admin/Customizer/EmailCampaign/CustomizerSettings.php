@@ -597,4 +597,25 @@ class CustomizerSettings extends AbstractCustomizer
             $this->wp_customize->add_setting($this->option_prefix . '[' . $id . ']', $args);
         }
     }
+
+    public function test_email_settings()
+    {
+        $send_test_email_args = apply_filters(
+            "mailoptin_send_test_email_settings", array(
+                'send_test_email' => array(
+                        'type'      => 'option',
+                        'transport' => 'postMessage',
+                ),
+                'send_test_email_input' => array(
+                    'default'   => $this->customizer_defaults['send_test_email_input'],
+                    'type'      => 'option',
+                    'transport' => 'postMessage',
+                )
+        ));
+
+        foreach ($send_test_email_args as $id => $args) {
+            $args['autoload'] = false;
+            $this->wp_customize->add_setting($this->option_prefix . '[' . $id . ']', $args);
+        }
+    }
 }

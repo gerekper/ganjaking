@@ -3,7 +3,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$timezone = ! empty( $vendor_data['timezone'] ) ? sanitize_text_field( $vendor_data['timezone'] ) : '';
+$timezone        = ! empty( $vendor_data['timezone'] ) ? sanitize_text_field( $vendor_data['timezone'] ) : '';
+$shipping_method = $order->get_shipping_method();
+
+if ( ! $shipping_method ) {
+	$shipping_method = __( 'N/A', 'woocommerce-product-vendors' );
+}
+
 ?>
 <div class="wrap">
 	<div id="poststuff">
@@ -35,7 +41,12 @@ $timezone = ! empty( $vendor_data['timezone'] ) ? sanitize_text_field( $vendor_d
 
 										<p class="form-field form-field-wide wc-order-status"><label for="order_status"><?php esc_html_e( 'Order status:', 'woocommerce-product-vendors' ) ?></label>
 
-										<span class="wcpv-order-status-<?php echo esc_attr( $order->get_status() ); ?>"><?php echo esc_html( WC_Product_Vendors_Utils::format_order_status( $order->get_status() ) ); ?></span></p>
+											<?php $status = WC_Product_Vendors_Utils::get_vendor_order_status( $order, $vendor_data['term_id'] ); ?>
+
+											<span class="wcpv-order-status-<?php echo esc_attr( $status ); ?>">
+												<?php echo esc_html( WC_Product_Vendors_Utils::format_order_status( $status ) ); ?>
+											</span>
+										</p>
 									</div><!-- .order_data_column -->
 
 									<div class="order_data_column">
@@ -90,6 +101,10 @@ $timezone = ! empty( $vendor_data['timezone'] ) ? sanitize_text_field( $vendor_d
 											}
 											?>
 										</div>
+										<p>
+											<strong><?php esc_html_e( 'Shipping method:', 'woocommerce-product-vendors' ); ?></strong>
+											<?php esc_html_e( $shipping_method ); ?>
+										</p>
 									</div><!-- .order_data_column -->
 
 									<?php do_action( 'wcpv_vendor_order_detail_order_data_column', $order ); ?>

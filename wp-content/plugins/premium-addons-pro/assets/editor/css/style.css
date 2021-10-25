@@ -1,0 +1,110 @@
+@font-face {
+    font-family: "pa-pro-elements";
+    src: url("../fonts/pa-pro-elements.eot?o1mct9");
+    src: url("../fonts/pa-pro-elements.eot?o1mct9#iefix") format("embedded-opentype"),
+        url("../fonts/pa-pro-elements.ttf?o1mct9") format("truetype"),
+        url("../fonts/pa-pro-elements.woff?o1mct9") format("woff"),
+        url("../fonts/pa-pro-elements.svg?o1mct9#pa-pro-elements") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="pa-pro-"],
+[class*=" pa-pro-"] {
+    font-family: "pa-pro-elements" !important;
+}
+.pa-pro-trust-reviews:before {
+    content: "\e900";
+}
+.pa-pro-yelp-reviews:before {
+    content: "\e91d";
+}
+.pa-pro-behance-feed:before {
+    content: "\e901";
+}
+.pa-pro-charts:before {
+    content: "\e902";
+}
+.pa-pro-content-switcher:before {
+    content: "\e904";
+}
+.pa-pro-facebook-feed:before {
+    content: "\e905";
+}
+.pa-pro-facebook-reviews:before {
+    content: "\e906";
+}
+.pa-pro-flip-box:before {
+    content: "\e907";
+}
+.pa-pro-floating-block:before {
+    content: "\e906";
+}
+.pa-pro-google-reviews:before {
+    content: "\e908";
+}
+.pa-pro-horizontal-scroll:before {
+    content: "\e90a";
+}
+.pa-pro-hot-spot:before {
+    content: "\e90b";
+}
+.pa-pro-icon-box:before {
+    content: "\e90c";
+}
+.pa-pro-ihover:before {
+    content: "\e90d";
+}
+.pa-pro-image-accordion:before {
+    content: "\e90e";
+}
+.pa-pro-image-comparison:before {
+    content: "\e90f";
+}
+.pa-pro-image-layers:before {
+    content: "\e910";
+}
+.pa-pro-instagram-feed:before {
+    content: "\e911";
+}
+.pa-pro-magic-section:before {
+    content: "\e912";
+}
+.pa-pro-messenger-chat:before {
+    content: "\e913";
+}
+.pa-pro-multi-scroll:before {
+    content: "\e914";
+}
+.pa-pro-notification-bar:before {
+    content: "\e915";
+}
+.pa-pro-preview-window:before {
+    content: "\e916";
+}
+.pa-pro-separator:before {
+    content: "\e917";
+}
+.pa-pro-table:before {
+    content: "\e918";
+}
+.pa-pro-tabs:before {
+    content: "\e919";
+}
+.pa-pro-twitter-feed:before {
+    content: "\e91a";
+}
+.pa-pro-unfold:before {
+    content: "\e91b";
+}
+.pa-pro-whatsapp:before {
+    content: "\e91c";
+}
+.pa-pro-color-transition:before {
+    content: "\e903";
+}
+.editor-pa-img {
+    max-width: 50px;
+    max-height: 50px;
+    vertical-align: middle;
+}

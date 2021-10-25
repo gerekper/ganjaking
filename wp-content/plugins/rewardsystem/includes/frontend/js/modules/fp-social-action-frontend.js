@@ -2,14 +2,9 @@
  * Social Reward Points - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var SocialActionScripts = {
         init : function ( ) {
-            
-            if('1' == fp_social_action_params.is_tooltip_enqueued){
-                this.tooltip_for_social_icons() ;
-            }
-            
+            this.tooltip_for_social_icons() ;
             this.initialize_fb_buttons( ) ;
             this.initialize_twitter_buttons( ) ;
             this.initialize_vk_button() ;
@@ -166,9 +161,9 @@ jQuery( function ( $ ) {
                         }
                     } ) ;
         } ,
-        fb_like_button : function( ) {
-            if( fp_social_action_params.showfblike == '1' && fp_social_action_params.fblike_point > 0 ) {
-                var page_like_callback = function( url , html_element ) {
+        fb_like_button : function ( ) {
+            if ( fp_social_action_params.showfblike == '1' ) {
+                var page_like_callback = function ( url , html_element ) {
                     SocialActionScripts.award_social_points( 'fblikecallback' , fp_social_action_params.fb_like , 'on' , fp_social_action_params.allowfblike , 'post_or_page_unlike' ) ;
                 } ;
                 var page_unlike_callback = function ( url , html_element ) {
@@ -180,7 +175,7 @@ jQuery( function ( $ ) {
         } ,
         fb_share_button : function ( evt ) {
             evt.preventDefault( ) ;
-            if( fp_social_action_params.showfbshare == '1' && fp_social_action_params.fbshare_point > 0 ) {
+            if ( fp_social_action_params.showfbshare == '1' ) {
                 var post_title = fp_social_action_params.post_title ;
                 var post_desc = fp_social_action_params.post_desc ;
                 var post_image = fp_social_action_params.post_image ;
@@ -209,9 +204,9 @@ jQuery( function ( $ ) {
         custom_fbshare_button : function () {
             SocialActionScripts.award_social_points( 'fbsharecallback' , fp_social_action_params.fb_share , 'on' , fp_social_action_params.allowfbshare , 'post_or_page_unshare' ) ;
         } ,
-        twitter_tweet_button : function( ) {
-            if( fp_social_action_params.showtweet == '1' && fp_social_action_params.tweet_point > 0 ) {
-                twttr.events.bind( 'tweet' , function( event ) {
+        twitter_tweet_button : function ( ) {
+            if ( fp_social_action_params.showtweet == '1' ) {
+                twttr.events.bind( 'tweet' , function ( event ) {
                     SocialActionScripts.award_social_points( 'twittertweetcallback' , fp_social_action_params.twitter_tweet , 'on' , fp_social_action_params.allowtweet , 'tweeted' ) ;
                 } ) ;
             }
@@ -219,9 +214,9 @@ jQuery( function ( $ ) {
         custom_tweet_button : function ( ) {
             SocialActionScripts.award_social_points( 'twittertweetcallback' , fp_social_action_params.twitter_tweet , 'on' , fp_social_action_params.allowtweet , 'tweeted' ) ;
         } ,
-        twitter_follow_button : function( ) {
-            if( fp_social_action_params.showtwitterfollow == '1' && fp_social_action_params.tweet_follow_point > 0 ) {
-                twttr.events.bind( 'follow' , function( event ) {
+        twitter_follow_button : function ( ) {
+            if ( fp_social_action_params.showtwitterfollow == '1' ) {
+                twttr.events.bind( 'follow' , function ( event ) {
                     SocialActionScripts.award_social_points( 'twitterfollowcallback' , fp_social_action_params.twitter_follow , 'on' , fp_social_action_params.allowfollow , 'followed' ) ;
                 } ) ;
             }
@@ -232,7 +227,7 @@ jQuery( function ( $ ) {
         instagram_follow_button : function ( ) {
             if ( fp_social_action_params.showinstagram == '1' && fp_social_action_params.instagram_button_type == '1' ) {
 
-                if( fp_social_action_params.instagram_profile_name !== '' && fp_social_action_params.instagram_points > 0 ) {
+                if ( fp_social_action_params.instagram_profile_name !== '' ) {
 
                     if ( fp_social_action_params.type == 'product' ) {
                         var instagram_button = document.querySelector( '.instagram_button' ) ;
@@ -251,8 +246,8 @@ jQuery( function ( $ ) {
         custom_instagram_button : function () {
             SocialActionScripts.award_social_points( 'instagramcallback' , fp_social_action_params.instagram_follow , 'on' , fp_social_action_params.allowinstagramfollow , 'instagramfollowed' ) ;
         } ,
-        vk_like_button : function() {
-            if( fp_social_action_params.showvk == '1' && fp_social_action_params.vkappid !== '' && fp_social_action_params.vk_points > 0 ) {
+        vk_like_button : function () {
+            if ( fp_social_action_params.showvk == '1' && fp_social_action_params.vkappid !== '' ) {
                 VK.init( {
                     apiId : fp_social_action_params.vkappid ,
                     onlyWidgets : true
@@ -269,23 +264,23 @@ jQuery( function ( $ ) {
         custom_vklike_button : function () {
             SocialActionScripts.award_social_points( 'vklikecallback' , fp_social_action_params.vk_like , 'on' , fp_social_action_params.allowvklike , 'vkliked' ) ;
         } ,
-        gplus_share_button : function() {
-            if( fp_social_action_params.showgplus == '1' && 0 < fp_social_action_params.google_share_points ) {
+        gplus_share_button : function () {
+            if ( fp_social_action_params.showgplus == '1' ) {
                 SocialActionScripts.award_social_points( 'gpluscallback' , fp_social_action_params.gplus_share , 'on' , fp_social_action_params.allowgplus , 'gplusshared' ) ;
             }
         } ,
         custom_gplus_button : function ( ) {
             SocialActionScripts.award_social_points( 'gpluscallback' , fp_social_action_params.gplus_share , 'on' , fp_social_action_params.allowgplus , 'gplusshared' ) ;
         } ,
-        ok_share_button : function( ) {
-            if( fp_social_action_params.showok == '1' && fp_social_action_params.ok_share_points > 0 ) {
-                if( window.addEventListener ) {
+        ok_share_button : function ( ) {
+            if ( fp_social_action_params.showok == '1' ) {
+                if ( window.addEventListener ) {
                     window.addEventListener( 'message' , onShare , false ) ;
                 } else {
                     window.attachEvent( 'onmessage' , onShare ) ;
                 }
                 function onShare( e ) {
-                    var args = 'object' == typeof e.data ? e.data.split( "$" ) :[];
+                    var args = e.data.split( "$" ) ;
                     if ( args[0] == "ok_shared" ) {
                         SocialActionScripts.award_social_points( 'okrucallback' , fp_social_action_params.okru_share , 'on' , fp_social_action_params.allowokru , 'okrushared' ) ;
                     }

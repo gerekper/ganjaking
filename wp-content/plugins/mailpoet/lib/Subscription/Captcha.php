@@ -50,12 +50,8 @@ class Captcha {
       return false;
     }
 
-    $subscriptionCaptchaRecipientLimit = $this->wp->applyFilters('mailpoet_subscription_captcha_recipient_limit', 0);
-    if ($subscriptionCaptchaRecipientLimit === 0) {
-      return true;
-    }
-
-    // Check limits per recipient if enabled
+    // Check limits per recipient
+    $subscriptionCaptchaRecipientLimit = $this->wp->applyFilters('mailpoet_subscription_captcha_recipient_limit', 1);
     if ($subscriberEmail) {
       $subscriber = Subscriber::where('email', $subscriberEmail)->findOne();
       if ($subscriber instanceof Subscriber

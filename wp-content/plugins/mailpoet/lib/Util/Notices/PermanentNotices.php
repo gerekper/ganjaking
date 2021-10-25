@@ -41,9 +41,7 @@ class PermanentNotices {
   /** @var EmailWithInvalidSegmentNotice */
   private $emailWithInvalidListNotice;
 
-  public function __construct(
-    WPFunctions $wp
-  ) {
+  public function __construct(WPFunctions $wp) {
     $this->wp = $wp;
     $this->phpVersionWarnings = new PHPVersionWarnings();
     $this->afterMigrationNotice = new AfterMigrationNotice();
@@ -52,7 +50,7 @@ class PermanentNotices {
     $this->inactiveSubscribersNotice = new InactiveSubscribersNotice(SettingsController::getInstance(), $wp);
     $this->blackFridayNotice = new BlackFridayNotice();
     $this->headersAlreadySentNotice = new HeadersAlreadySentNotice(SettingsController::getInstance(), $wp);
-    $this->deprecatedShortcodeNotice = new DeprecatedShortcodeNotice($wp);
+    $this->deprecatedShortcodeNotice = new DeprecatedShortcodeNotice();
     $this->emailWithInvalidListNotice = new EmailWithInvalidSegmentNotice($wp);
   }
 

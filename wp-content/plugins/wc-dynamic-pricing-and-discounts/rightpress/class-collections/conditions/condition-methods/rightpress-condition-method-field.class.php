@@ -42,20 +42,20 @@ abstract class RightPress_Condition_Method_Field extends RightPress_Condition_Me
     {
 
         return array(
-            'is_empty'          => esc_html__('is empty', 'rightpress'),
-            'is_not_empty'      => esc_html__('is not empty', 'rightpress'),
-            'contains'          => esc_html__('contains', 'rightpress'),
-            'does_not_contain'  => esc_html__('does not contain', 'rightpress'),
-            'begins_with'       => esc_html__('begins with', 'rightpress'),
-            'ends_with'         => esc_html__('ends with', 'rightpress'),
-            'equals'            => esc_html__('equals', 'rightpress'),
-            'does_not_equal'    => esc_html__('does not equal', 'rightpress'),
-            'less_than'         => esc_html__('less than', 'rightpress'),
-            'less_or_equal_to'  => esc_html__('less or equal to', 'rightpress'),
-            'more_than'         => esc_html__('more than', 'rightpress'),
-            'more_or_equal'     => esc_html__('more or equal to', 'rightpress'),
-            'is_checked'        => esc_html__('is checked', 'rightpress'),
-            'is_not_checked'    => esc_html__('is not checked', 'rightpress'),
+            'is_empty'          => __('is empty', 'rightpress'),
+            'is_not_empty'      => __('is not empty', 'rightpress'),
+            'contains'          => __('contains', 'rightpress'),
+            'does_not_contain'  => __('does not contain', 'rightpress'),
+            'begins_with'       => __('begins with', 'rightpress'),
+            'ends_with'         => __('ends with', 'rightpress'),
+            'equals'            => __('equals', 'rightpress'),
+            'does_not_equal'    => __('does not equal', 'rightpress'),
+            'less_than'         => __('less than', 'rightpress'),
+            'less_or_equal_to'  => __('less or equal to', 'rightpress'),
+            'more_than'         => __('more than', 'rightpress'),
+            'more_or_equal'     => __('more or equal to', 'rightpress'),
+            'is_checked'        => __('is checked', 'rightpress'),
+            'is_not_checked'    => __('is not checked', 'rightpress'),
         );
     }
 

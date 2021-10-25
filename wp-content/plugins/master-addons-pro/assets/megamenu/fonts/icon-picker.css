@@ -1,0 +1,98 @@
+/* Icon Picker */
+
+.icon-picker-container {
+	position: absolute;
+	width: 550px;
+	height: 290px;
+	font-size: 14px;
+	background-color:#fff;
+	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	padding: 5px;
+	box-sizing: border-box;
+	z-index: 9999;
+}
+
+	.icon-picker-container ul {
+		margin: 0;
+		padding: 0;
+		margin-bottom: 10px;
+	}
+
+		.icon-picker-container ul li a span {
+			width: 20px;
+			height: 20px;
+			font-size: 20px;
+			display: block;
+			text-align: left;
+		}
+
+		.icon-picker-container ul li {
+			display: inline-block;
+			margin: 5px;
+			float: left;
+		}
+
+			.icon-picker-container ul li a {
+				display: block;
+				text-decoration: none;
+				color:#373737;
+				padding: 6px 10px;
+				border: 1px solid #eee;
+			}
+
+				.icon-picker-container ul li a:hover {
+					border-color:#999;
+					background: #efefef;
+				}
+
+	.icon-picker-control {
+		height:32px;
+		height:64px;
+	}
+
+		.icon-picker-control a {
+			padding:5px;
+			text-decoration: none;
+			line-height: 32px;
+			width:25px;
+		}
+
+			.icon-picker-control a span {
+				display: inline;
+				vertical-align: middle;
+			}
+
+		.icon-picker-control input {
+			width:200px;
+		}
+		.icon-picker-control p {
+			text-align: left;
+			margin: 0;
+			padding: 3px 10px;
+		}
+		.icon-picker-control select {
+			margin: 0 auto;
+			display: inline-block;
+			width: auto;
+		}
+	
+	/* DIV Button with Preview */	
+	div.button.icon-picker {
+		font-size: 24px;
+		height: 45px;
+		width: 45px;
+		margin: 0;
+		padding: 0;
+		line-height: 45px;
+		text-align: center;
+	}
+.icon-picker-close{
+    float:right;
+    display:inline-block;
+    padding:2px;
+    background:#ccc;
+    cursor:pointer;
+    font-weight: 600;
+}

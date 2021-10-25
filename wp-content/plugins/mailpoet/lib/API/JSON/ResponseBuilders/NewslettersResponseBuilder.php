@@ -93,7 +93,6 @@ class NewslettersResponseBuilder {
           ->where('tasks.status', SendingQueue::STATUS_SCHEDULED)
           ->count();
       }
-
       if ($relation === self::RELATION_STATISTICS) {
         $data['statistics'] = $this->newslettersStatsRepository->getStatistics($newsletter)->asArray();
       }

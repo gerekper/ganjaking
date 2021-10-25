@@ -10,14 +10,14 @@ use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Models\ModelValidator;
 use MailPoet\Models\Segment;
+use MailPoet\Models\StatisticsClicks;
+use MailPoet\Models\StatisticsOpens;
 use MailPoet\Models\Subscriber;
 use MailPoet\Models\SubscriberSegment;
 use MailPoet\Newsletter\Scheduler\WelcomeScheduler;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\ConfirmationEmailMailer;
 use MailPoet\Subscribers\Source;
-use MailPoet\WooCommerce\Helper as WooCommerceHelper;
-use MailPoet\WooCommerce\Subscription as WooCommerceSubscription;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Idiorm\ORM;
@@ -30,17 +30,9 @@ class WP {
   /** @var WelcomeScheduler */
   private $welcomeScheduler;
 
-  /** @var WooCommerceHelper */
-  private $wooHelper;
-
-  public function __construct(
-    WPFunctions $wp,
-    WelcomeScheduler $welcomeScheduler,
-    WooCommerceHelper $wooHelper
-  ) {
+  public function __construct(WPFunctions $wp, WelcomeScheduler $welcomeScheduler) {
     $this->wp = $wp;
     $this->welcomeScheduler = $welcomeScheduler;
-    $this->wooHelper = $wooHelper;
   }
 
   public function synchronizeUser($wpUserId, $oldWpUserData = false) {
@@ -73,13 +65,13 @@ class WP {
 
     // find subscriber by email when is false
     if (!$subscriber) {
-      $subscriber = Subscriber::where('email', $wpUser->user_email)->findOne(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      $subscriber = Subscriber::where('email', $wpUser->user_email)->findOne(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     }
     // get first name & last name
-    $firstName = $wpUser->first_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-    $lastName = $wpUser->last_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-    if (empty($wpUser->first_name) && empty($wpUser->last_name)) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-      $firstName = $wpUser->display_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    $firstName = $wpUser->first_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    $lastName = $wpUser->last_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    if (empty($wpUser->first_name) && empty($wpUser->last_name)) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+      $firstName = $wpUser->display_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     }
     $signupConfirmationEnabled = SettingsController::getInstance()->get('signup_confirmation.enabled');
     $status = $signupConfirmationEnabled ? Subscriber::STATUS_UNCONFIRMED : Subscriber::STATUS_SUBSCRIBED;
@@ -87,18 +79,10 @@ class WP {
     if (isset($_POST['mailpoet']['subscribe_on_register_active']) && (bool)$_POST['mailpoet']['subscribe_on_register_active'] === true) {
       $status = SubscriberEntity::STATUS_UNSUBSCRIBED;
     }
-
-    // we want to mark a new subscriber as unsubscribed when the checkbox on Woo checkout is unchecked
-    if (isset($_POST[WooCommerceSubscription::CHECKOUT_OPTIN_PRESENCE_CHECK_INPUT_NAME])
-      && !isset($_POST[WooCommerceSubscription::CHECKOUT_OPTIN_INPUT_NAME])
-    ) {
-      $status = SubscriberEntity::STATUS_UNSUBSCRIBED;
-    }
-
     // subscriber data
     $data = [
       'wp_user_id' => $wpUser->ID,
-      'email' => $wpUser->user_email, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      'email' => $wpUser->user_email, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
       'first_name' => $firstName,
       'last_name' => $lastName,
       'status' => $status,
@@ -120,10 +104,8 @@ class WP {
         return $segment['type'] !== SegmentEntity::TYPE_WP_USERS && $segment['deleted_at'] === null;
       });
     }
-    $isWooCustomer = $this->wooHelper->isWooCommerceActive() && in_array('customer', $wpUser->roles ?? [], true);
     // When WP Segment is disabled force trashed state and unconfirmed status for new WPUsers without active segment
-    // or who are not WooCommerce customers at the same time since customers are added to the WooCommerce list
-    if ($addingNewUserToDisabledWPSegment && !$otherActiveSegments && !$isWooCustomer) {
+    if ($addingNewUserToDisabledWPSegment && !$otherActiveSegments) {
       $data['deleted_at'] = Carbon::createFromTimestamp($this->wp->currentTime('timestamp'));
       $data['status'] = SubscriberEntity::STATUS_UNCONFIRMED;
     }
@@ -175,6 +157,7 @@ class WP {
     $this->updateFirstNameIfMissing();
     $this->insertUsersToSegment();
     $this->removeOrphanedSubscribers();
+    $this->markSpammyWordpressUsersAsUnconfirmed();
 
     return true;
   }
@@ -310,5 +293,31 @@ class WP {
       ->findResultSet()
       ->set('wp_user_id', null)
       ->delete();
+  }
+
+  private function markSpammyWordpressUsersAsUnconfirmed() {
+    global $wpdb;
+    $query = '
+      UPDATE %s as subscribers
+      LEFT JOIN %s as clicks ON subscribers.id=clicks.subscriber_id
+      LEFT JOIN %s as opens ON subscribers.id=opens.subscriber_id
+      JOIN %s as usermeta ON usermeta.user_id=subscribers.wp_user_id AND usermeta.meta_key = "default_password_nag" AND usermeta.meta_value = "1"
+      SET `status` = "unconfirmed"
+      WHERE `wp_user_id` IS NOT NULL AND `status` = "subscribed" AND `confirmed_at` IS NULL AND clicks.id IS NULL AND opens.id IS NULL
+    ';
+    $wpdb->query(sprintf($query, Subscriber::$_table, StatisticsClicks::$_table, StatisticsOpens::$_table, $wpdb->usermeta));
+
+
+    $columnExists = $wpdb->query(sprintf('SHOW COLUMNS FROM `%s` LIKE "user_status"', $wpdb->users));
+    if ($columnExists) {
+      $query = '
+      UPDATE %s as subscribers
+      JOIN %s as users ON users.ID=subscribers.wp_user_id
+      SET `status` = "unconfirmed"
+      WHERE `status` = "subscribed" AND users.user_status = 2
+    ';
+      $wpdb->query(sprintf($query, Subscriber::$_table, $wpdb->users));
+    }
+
   }
 }

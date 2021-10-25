@@ -68,22 +68,10 @@ export class RevSliderImage extends Component {
 
   // Renders the different states of the image (loading, loaded and no image)
   render() {  
-    let premium;
-    if(this.state.response && this.state.response.premium !== ""){
-      premium = this.state.response.premium ? ' tp_premium' : '';
-    }
-    else {
-      premium = '';
-    }
-
-    let badge = RVS.ENV.activated ? <div class="rs_lib_premium_wrap"><div class="rs_lib_premium_lila">PREMIUM TEMPLATE</div></div> : <div class="rs_lib_premium_wrap"><div class="rs_lib_premium_red"><i class="material-icons">visibility_off</i>REGISTER LICENSE TO UNLOCK</div></div>;
-    if(premium == '') badge = '';
-
     //Image Loaded
     if(this.state.response && this.state.response.image !== ""){
       return [
-        <div className={"sliderImage" + premium}>
-            {badge}
+        <div className="sliderImage">
             <div style={{ backgroundImage : 'url(' +  this.state.response.image +')'}}></div>
         </div>   
       ]
@@ -92,12 +80,12 @@ export class RevSliderImage extends Component {
       //Image Loading
       if(!this.state.response)
         return  [ 
-          <div className={"sliderImageLoading" + premium}></div>
+          <div className="sliderImageLoading"></div>
         ]
       //No Image
       else {
         return  [ 
-          <div className={"noSliderImage" + premium}>{badge}</div> 
+          <div className="noSliderImage"></div> 
         ]
       }
     }

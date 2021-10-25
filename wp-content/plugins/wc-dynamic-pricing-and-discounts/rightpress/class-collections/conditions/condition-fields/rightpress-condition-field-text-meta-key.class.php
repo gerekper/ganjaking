@@ -40,7 +40,7 @@ abstract class RightPress_Condition_Field_Text_Meta_Key extends RightPress_Condi
      */
     public function get_placeholder()
     {
-        return esc_html__('meta field key', 'rightpress');
+        return __('meta field key', 'rightpress');
     }
 
 

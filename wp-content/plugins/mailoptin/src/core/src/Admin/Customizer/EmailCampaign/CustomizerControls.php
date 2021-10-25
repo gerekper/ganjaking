@@ -17,6 +17,8 @@ use MailOptin\Core\Admin\Customizer\CustomControls\WP_Customize_Toggle_Control;
 use MailOptin\Core\Admin\Customizer\CustomControls\WP_Customize_View_Tags_Shortcode_Content;
 use MailOptin\Core\Repositories\ConnectionsRepository;
 use MailOptin\Core\Repositories\EmailCampaignRepository as ER;
+use function MailOptin\Core\mo_test_admin_email;
+use MailOptin\Core\Admin\Customizer\CustomControls\WP_Customize_Submit_Button_Control;
 
 class CustomizerControls
 {
@@ -948,6 +950,47 @@ HTML;
                 $this->wp_customize->add_control($this->option_prefix . '[' . $id . ']', $args);
             }
         }
+    }
+
+    public function test_email_controls()
+    {
+        $send_test_email_control_args = apply_filters(
+            "mailoptin_send_test_email_controls",
+            array(
+                'send_test_email_input' => apply_filters('mailoptin_send_test_email_text_args',
+                    array(
+                        'label'    => __('Send Test Email To', 'mailoptin'),
+                        'type'     => 'text',
+                        'section'  => $this->customizerClassInstance->campaign_send_email_section_id,
+                        'settings' => $this->option_prefix . '[send_test_email_input]',
+                        'priority' => 10
+                    )
+                ),
+                'send_test_email'       => new WP_Customize_Submit_Button_Control(
+                    $this->wp_customize,
+                    $this->option_prefix . '[send_test_email]',
+                    array(
+                        'label'       => __('Background Color', 'mailoptin'),
+                        'description' => __("Save any changes first and then click the button to send the test email. If empty, it will be sent to " . mo_test_admin_email(), 'mailoptin'),
+                        'section'     => $this->customizerClassInstance->campaign_send_email_section_id,
+                        'settings'    => $this->option_prefix . '[send_test_email]',
+                        'priority'    => 20
+                    )
+                ),
+            ),
+            $this->wp_customize,
+            $this->option_prefix,
+            $this->customizerClassInstance
+        );
+
+        foreach ($send_test_email_control_args as $id => $args) {
+            if (is_object($args)) {
+                $this->wp_customize->add_control($args);
+            } else {
+                $this->wp_customize->add_control($this->option_prefix . '[' . $id . ']', $args);
+            }
+        }
+
     }
 
     public function page_controls()

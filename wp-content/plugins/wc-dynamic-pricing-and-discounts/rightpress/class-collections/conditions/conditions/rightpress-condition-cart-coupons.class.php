@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Cart_Coupons extends RightPress_Condition_Ca
     public function get_label()
     {
 
-        return esc_html__('Coupons applied', 'rightpress');
+        return __('Coupons applied', 'rightpress');
     }
 
     /**

@@ -11,11 +11,9 @@ use MailPoet\Entities\StatisticsNewsletterEntity;
 use MailPoet\Entities\StatisticsOpenEntity;
 use MailPoet\Entities\StatisticsWooCommercePurchaseEntity;
 use MailPoet\Entities\SubscriberEntity;
-use MailPoet\Entities\UserAgentEntity;
 use MailPoet\Newsletter\Statistics\WooCommerceRevenue;
 use MailPoet\WooCommerce\Helper as WCHelper;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
-use MailPoetVendor\Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends Repository<SubscriberEntity>
@@ -25,10 +23,7 @@ class SubscriberStatisticsRepository extends Repository {
   /** @var WCHelper */
   private $wcHelper;
 
-  public function __construct(
-    EntityManager $entityManager,
-    WCHelper $wcHelper
-  ) {
+  public function __construct(EntityManager $entityManager, WCHelper $wcHelper) {
     parent::__construct($entityManager);
     $this->wcHelper = $wcHelper;
   }
@@ -41,46 +36,31 @@ class SubscriberStatisticsRepository extends Repository {
     return new SubscriberStatistics(
       $this->getStatisticsClickCount($subscriber),
       $this->getStatisticsOpenCount($subscriber),
-      $this->getStatisticsMachineOpenCount($subscriber),
       $this->getTotalSentCount($subscriber),
       $this->getWooCommerceRevenue($subscriber)
     );
   }
 
   private function getStatisticsClickCount(SubscriberEntity $subscriber): int {
-    return (int)$this->getStatisticsCountQuery(StatisticsClickEntity::class, $subscriber)
-      ->getQuery()
-      ->getSingleScalarResult();
+    return $this->getStatisticsCount(StatisticsClickEntity::class, $subscriber);
   }
 
   private function getStatisticsOpenCount(SubscriberEntity $subscriber): int {
-    return (int)$this->getStatisticsCountQuery(StatisticsOpenEntity::class, $subscriber)
-      ->andWhere('(stats.userAgentType = :userAgentType) OR (stats.userAgentType IS NULL)')
-      ->setParameter('userAgentType', UserAgentEntity::USER_AGENT_TYPE_HUMAN)
-      ->getQuery()
-      ->getSingleScalarResult();
-  }
-
-  private function getStatisticsMachineOpenCount(SubscriberEntity $subscriber): int {
-    return (int)$this->getStatisticsCountQuery(StatisticsOpenEntity::class, $subscriber)
-      ->andWhere('(stats.userAgentType = :userAgentType)')
-      ->setParameter('userAgentType', UserAgentEntity::USER_AGENT_TYPE_MACHINE)
-      ->getQuery()
-      ->getSingleScalarResult();
+    return $this->getStatisticsCount(StatisticsOpenEntity::class, $subscriber);
   }
 
   private function getTotalSentCount(SubscriberEntity $subscriber): int {
-    return $this->getStatisticsCountQuery(StatisticsNewsletterEntity::class, $subscriber)
-      ->getQuery()
-      ->getSingleScalarResult();
+    return $this->getStatisticsCount(StatisticsNewsletterEntity::class, $subscriber);
   }
 
-  private function getStatisticsCountQuery(string $entityName, SubscriberEntity $subscriber): QueryBuilder {
-    return $this->entityManager->createQueryBuilder()
+  private function getStatisticsCount($entityName, SubscriberEntity $subscriber): int {
+    return (int)$this->entityManager->createQueryBuilder()
       ->select('COUNT(DISTINCT stats.newsletter) as cnt')
       ->from($entityName, 'stats')
       ->where('stats.subscriber = :subscriber')
-      ->setParameter('subscriber', $subscriber);
+      ->setParameter('subscriber', $subscriber)
+      ->getQuery()
+      ->getSingleScalarResult();
   }
 
   private function getWooCommerceRevenue(SubscriberEntity $subscriber) {

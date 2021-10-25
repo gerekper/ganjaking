@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Config\Env;
 use MailPoet\Entities\NewsletterEntity;
-use MailPoet\InvalidStateException;
 use MailPoet\Models\Newsletter;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Renderer\EscapeHelper as EHelper;
@@ -67,13 +66,11 @@ class Renderer {
    * @return NewsletterEntity|null
    */
   private function getNewsletter($newsletter) {
+    if ($newsletter instanceof NewsletterEntity) return $newsletter;
     if ($newsletter instanceof Newsletter) {
-      return $this->newslettersRepository->findOneById($newsletter->id);
+      $newsletterId = $newsletter->id;
     }
-    if (!$newsletter instanceof NewsletterEntity) {
-      throw new InvalidStateException();
-    }
-    return $newsletter;
+    return $this->newslettersRepository->findOneById($newsletterId);
   }
 
   public function render($newsletter, SendingTask $sendingTask = null, $type = false) {
@@ -181,11 +178,6 @@ class Renderer {
           $selector = '.mailpoet_content-wrapper';
           break;
       }
-
-      if (!is_array($style)) {
-        continue;
-      }
-
       $css .= StylesHelper::setStyle($style, $selector);
     }
     return $css;
@@ -228,12 +220,9 @@ class Renderer {
     foreach ($templateDom->query('img') as $image) {
       $image->src = str_replace(' ', '%20', $image->src);
     }
-    // because tburry/pquery contains a bug and replaces the opening non mso condition incorrectly we have to replace the opening tag with correct value
-    $template = $templateDom->__toString();
-    $template = str_replace('<!--[if !mso]><![endif]-->', '<!--[if !mso]><!-- -->', $template);
     $template = WPFunctions::get()->applyFilters(
       self::FILTER_POST_PROCESS,
-      $template
+      $templateDom->__toString()
     );
     return $template;
   }

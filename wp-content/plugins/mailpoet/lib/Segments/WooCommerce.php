@@ -92,14 +92,15 @@ class WooCommerce {
           'is_woocommerce_user' => 1,
         ];
         if (!empty($newCustomer)) {
+          $data['status'] = Subscriber::STATUS_SUBSCRIBED;
           $data['source'] = Source::WOOCOMMERCE_USER;
         }
         $data['id'] = $subscriber->id();
-        if ($wpUser->first_name) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-          $data['first_name'] = $wpUser->first_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+        if ($wpUser->first_name) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+          $data['first_name'] = $wpUser->first_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
         }
-        if ($wpUser->last_name) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-          $data['last_name'] = $wpUser->last_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+        if ($wpUser->last_name) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+          $data['last_name'] = $wpUser->last_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
         }
         $subscriber = Subscriber::createOrUpdate($data);
         if ($subscriber->getErrors() === false && $subscriber->id > 0) {
@@ -135,8 +136,8 @@ class WooCommerce {
       ->findOne();
 
     if ($subscriber !== false) {
-      $firstName = $wcOrder->get_billing_first_name(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-      $lastName = $wcOrder->get_billing_last_name(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      $firstName = $wcOrder->get_billing_first_name(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+      $lastName = $wcOrder->get_billing_last_name(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
       if ($firstName) {
         $subscriber->firstName = $firstName;
       }
@@ -180,11 +181,11 @@ class WooCommerce {
     $mailpoetEmailColumn = $wpdb->get_row(
       'SHOW FULL COLUMNS FROM ' . MP_SUBSCRIBERS_TABLE . ' WHERE Field = "email"'
     );
-    $this->mailpoetEmailCollation = $mailpoetEmailColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    $this->mailpoetEmailCollation = $mailpoetEmailColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     $wpPostmetaValueColumn = $wpdb->get_row(
       'SHOW FULL COLUMNS FROM ' . $wpdb->postmeta . ' WHERE Field = "meta_value"'
     );
-    $this->wpPostmetaValueCollation = $wpPostmetaValueColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    $this->wpPostmetaValueCollation = $wpPostmetaValueColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
   }
 
   private function needsCollationChange(): bool {

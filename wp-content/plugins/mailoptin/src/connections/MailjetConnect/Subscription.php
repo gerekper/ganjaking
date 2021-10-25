@@ -108,6 +108,22 @@ class Subscription extends AbstractMailjetConnect
         return true;
     }
 
+
+    public function is_double_optin() {
+        $optin_campaign_id = absint($this->extras['optin_campaign_id']);
+
+        $setting = $this->get_integration_data('MailjetConnect_enable_double_optin');
+
+        //external forms
+        if($optin_campaign_id == 0) {
+            $setting = $this->extras['is_double_optin'];
+        }
+
+        $val = ($setting === true);
+
+        return apply_filters('mo_connections_mailjet_is_double_optin', $val, $optin_campaign_id);
+    }
+
     /**
      * @return mixed
      */
@@ -176,7 +192,7 @@ class Subscription extends AbstractMailjetConnect
 
             $lead_data = array_filter($lead_data, [$this, 'data_filter']);
 
-            if ($this->get_integration_data('MailjetConnect_enable_double_optin') && ! $this->is_user_exist()) {
+            if ($this->is_double_optin() && ! $this->is_user_exist()) {
 
                 $this->send_confirmation_email();
 

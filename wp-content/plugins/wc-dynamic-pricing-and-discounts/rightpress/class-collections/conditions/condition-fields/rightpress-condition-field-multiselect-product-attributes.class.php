@@ -88,7 +88,7 @@ abstract class RightPress_Condition_Field_Multiselect_Product_Attributes extends
     public function get_placeholder()
     {
 
-        return esc_html__('Select product attributes', 'rightpress');
+        return __('Select product attributes', 'rightpress');
     }
 
 

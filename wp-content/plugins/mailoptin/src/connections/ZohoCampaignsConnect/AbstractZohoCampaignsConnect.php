@@ -106,9 +106,9 @@ class AbstractZohoCampaignsConnect extends AbstractConnect
                         'zoho.access_token'    => $result['data']['access_token'],
                         'zoho.expires_at'      => $expires_at,
                         'zoho.location'        => $result['data']['location'],
-                        'zoho.refresh_token'   => $this->refresh_token,
-                        'zoho.api_domain'      => $this->api_domain,
-                        'zoho.accounts_server' => $this->accounts_server,
+                        'zoho.refresh_token'   => $refresh_token,
+                        'zoho.api_domain'      => $api_domain,
+                        'zoho.accounts_server' => $accounts_server,
                     ]));
 
                 $instance->apiBaseUrl = sprintf('https://campaigns.zoho.%s/api/v1.1/', $this->parse_location($result['data']['location']));

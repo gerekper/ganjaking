@@ -63,9 +63,6 @@ class Connect extends AbstractSendinblueConnect implements ConnectionInterface
 
     /**
      * @param $controls
-     * @param $optin_campaign_id
-     * @param $index
-     * @param $saved_values
      *
      * @return array
      */

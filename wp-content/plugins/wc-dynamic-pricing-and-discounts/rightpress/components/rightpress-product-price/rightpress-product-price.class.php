@@ -19,9 +19,6 @@ final class RightPress_Product_Price
     // Save references to products for access to price caches
     private $reference_products = array();
 
-    // Flag to indicate that system is processing custom price calculations and calls to get_price() should not be routed to price change handlers
-    private $running_custom_calculations = false;
-
     /**
      * Constructor
      *
@@ -67,52 +64,6 @@ final class RightPress_Product_Price
 
         // This class calls other classes directly from constructor so we load it last
         require_once __DIR__ . '/classes/rightpress-product-price-router.class.php';
-    }
-
-
-    /**
-     * =================================================================================================================
-     * FLAGS
-     * =================================================================================================================
-     */
-
-    /**
-     * Set running custom calculations flag
-     *
-     * @access public
-     * @return void
-     */
-    public static function start_running_custom_calculations()
-    {
-
-        $instance = RightPress_Product_Price::get_instance();
-        $instance->running_custom_calculations = true;
-    }
-
-    /**
-     * Unset running custom calculations flag
-     *
-     * @access public
-     * @return void
-     */
-    public static function stop_running_custom_calculations()
-    {
-
-        $instance = RightPress_Product_Price::get_instance();
-        $instance->running_custom_calculations = false;
-    }
-
-    /**
-     * Check if system is processing custom price calculations and calls to get_price() should not be routed to price change handlers
-     *
-     * @access public
-     * @return bool
-     */
-    public static function is_running_custom_calculations()
-    {
-
-        $instance = RightPress_Product_Price::get_instance();
-        return $instance->running_custom_calculations;
     }
 
     /**
@@ -410,22 +361,6 @@ final class RightPress_Product_Price
         }
 
         return $result;
-    }
-
-    /**
-     * Get request data for Ajax tools
-     *
-     * @access public
-     * @return array
-     */
-    public static function get_request_data_for_ajax_tools()
-    {
-
-        // Allow plugins to extract their own data from request
-        $custom_keys = apply_filters('rightpress_product_price_live_update_custom_keys', array('rightpress_complete_input_list'));
-
-        // Extract request data
-        return RightPress_Help::get_product_page_ajax_request_data($custom_keys);
     }
 
 

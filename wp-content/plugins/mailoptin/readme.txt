@@ -1,16 +1,11 @@
 ﻿=== MailOptin - Popup, Optin Form & Email Newsletters for Mailchimp, HubSpot, AWeber ===
 Contributors: properfraction, collizo4sky
 Donate link: https://mailoptin.io/pricing/
-Tags: popup, popup maker, newsletter, mailchimp, contact form, aweber, popups, constant contact, campaignmonitor, campaign monitor, convertkit, forms, infusionsoft, contact form, wpforms, wpform, cf7, contact form 7, ninja forms, formidable forms, gravity forms, activecampaign, drip, sendy, hubspot, mailerlite, sendinblue, klaviyo, mailjet, ontraport, constantcontact, jilt, vertical response, cleverreach, zoho, sendgrid, zoho crm, zoho campaigns, moosend, godaddy, getgist, sendlane, myemma, fluentcrm, mailster, getresponse, sendfox, wemail, autoresponder, wpml, woocommerce, lightbox, modal, emailoctopus, pop up, email, exit intent, user registration, ninja form
+Tags: popup, popup maker, newsletter, mailchimp, contact form, aweber, popups, constant contact, campaignmonitor, campaign monitor, convertkit, forms, infusionsoft, contact form, wpforms, wpform, cf7, contact form 7, ninja forms, formidable forms, gravity forms, forminator, activecampaign, drip, sendy, hubspot, mailerlite, sendinblue, klaviyo, mailjet, ontraport, constantcontact, jilt, vertical response, cleverreach, zoho, sendgrid, zoho crm, zoho campaigns, moosend, godaddy, getgist, sendlane, myemma, fluentcrm, mailster, getresponse, sendfox, wemail, autoresponder, wpml, woocommerce, lightbox, modal, emailoctopus, pop up, email, exit intent, user registration, ninja form
 Requires at least: 4.6
 Requires PHP: 5.6
-<<<<<<< HEAD
 Tested up to: 5.7
-Stable tag: 1.2.35.3
-=======
-Tested up to: 5.6
-Stable tag: 1.2.35.0
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+Stable tag: 1.2.36.3
 License: GPL-2.0+
 
 Create popups, optin forms to get email newsletter subscribers via an easy form builder and popup maker. Mailchimp, ConvertKit, Infusionsoft, ActiveCampaign, Campaign Monitor, Constant Contact & more.
@@ -19,7 +14,7 @@ Create popups, optin forms to get email newsletter subscribers via an easy form 
 
 = Popups, Email Newsletter, User Registration & Form Builder =
 
-MailOptin is a form builder for creating popups, subscribe forms, user registration form and sending email newsletters.
+[MailOptin](https://mailoptin.io/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) is a form builder for creating popups, subscribe forms, user registration form and sending email newsletters.
 
 Displays signup forms, targeted messages and call-to-actions across your website with popups (lightbox or modal), in-post subscription form, notification bars, slide-in (or scroll box), sidebar widget.
 
@@ -66,7 +61,7 @@ MailOptin integrates with WordPress user system so you can [create custom user r
 
 = Integration with Form Plugins =
 
-MailOptin integrates with [Gravity Forms](https://mailoptin.io/article/gravity-forms-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Contact Form 7](https://mailoptin.io/article/contact-form-7-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Ninja Forms](https://mailoptin.io/article/ninja-forms-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [WPForms](https://mailoptin.io/article/wpforms-email-marketing-crm/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Formidable Forms](https://mailoptin.io/article/formidable-forms-email-marketing-crm/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and [Elementor forms](https://mailoptin.io/article/elementor-form-integration/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) so you can capture and save leads to your email marketing software and CRMs.
+MailOptin integrates with [Gravity Forms](https://mailoptin.io/article/gravity-forms-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Contact Form 7](https://mailoptin.io/article/contact-form-7-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Ninja Forms](https://mailoptin.io/article/ninja-forms-mailchimp-aweber-more/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [WPForms](https://mailoptin.io/article/wpforms-email-marketing-crm/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Formidable Forms](https://mailoptin.io/article/formidable-forms-email-marketing-crm/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion), [Forminator](https://mailoptin.io/article/forminator-email-marketing-crm/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) and [Elementor forms](https://mailoptin.io/article/elementor-form-integration/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion) so you can capture and save leads to your email marketing software and CRMs.
 
 = Intuitive Form & Template Builder =
 
@@ -112,7 +107,7 @@ The [Device Targeting](https://mailoptin.io/device-targeting-wordpress/?utm_sour
 
 = Other great features include but not limited to: =
 
-* **Custom Fields** Add extra fields to your optin form to capture additional data from subscribers.
+* **Custom Fields:** Add extra fields to your optin form to capture additional data from subscribers.
 * **Optin Campaign Schedule:** Allows you to specify a start and end date when an optin campaign is scheduled for display.
 * **Advance Analytics:** Get important metrics to improve your lead-generation strategy and make data-driven decisions to increase your revenue.
 * **Custom CSS:** An advance customization feature that allows you to customize your optin campaigns with your CSS styles.
@@ -172,28 +167,23 @@ Yes, MailOptin has full translation and localization support. All .mo and .po tr
 
 == Changelog ==
 
-<<<<<<< HEAD
-= 1.2.35.3 =
-* Fixed slider not working in email dnd builder.
-* Improved email template for outlook.
+= 1.2.36.3 =
+* Fixed bug where plus (+) in post content was replaced with space.
+* Fixed bug where Sendinblue Elementor integration forces DOI.
 
-= 1.2.35.2 =
-* Fixed security issue in our Elementor integration.
-* Extra security hardening.
+= 1.2.36.2 =
+* Fixed multiple PHP error notices and improved PHP 8 support.
 
-= 1.2.35.1 =
-* Added double-optin support to CleverReach integration.
-* Fixed settings page conflict Analytify.
-* Fixed issues with Firefox browser.
+= 1.2.36.1 =
+* Fixed bug where leads where accidentally deleted.
+* Forminator integration bug fixes.
 
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
-= 1.2.35.0 =
-* Added CleverReach integration.
-* Increased moosend email list number to 1k.
-* Switched to mailoptin handle for localization js script.
-* Do not set pageview cookie in lite or when mailoptin_enable_init_js_cookies filter is false.
-* Fixed: preg_replace_callback() Compilation failed: invalid range in character class at offset.
-* Removed code from Exception trigger in abstractConnect.
+= 1.2.36.0 =
+* Added Forminator integration.
+* Fixed bug where our Gutenberg integration broke the editor.
+* Added option to send test email to custom email addresses.
+* Fixed issue where {{date}} wasn’t getting parsed in email campaigns.
+* Fixed the splitting of multiples names into firstname and lastnames.
+* Fixed Zoho Campaigns token refresh not working.
 
 See the [changelog file](https://plugins.svn.wordpress.org/mailoptin/trunk/changelog.txt) for full change log information.

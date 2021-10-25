@@ -135,3 +135,33 @@ function wc_od_admin_time_frame_field( $field ) {
 
 	echo '</p>';
 }
+
+/**
+ * Gets the checkout location choices to use them in a select field.
+ *
+ * @since 1.9.4
+ *
+ * @return array
+ */
+function wc_od_get_checkout_location_choices() {
+	/**
+	 * Filters the checkout location choices.
+	 *
+	 * @since 1.9.4
+	 *
+	 * @param array $choices The checkout location choices.
+	 */
+	return apply_filters(
+		'wc_od_checkout_location_choices',
+		array(
+			'before_customer_details' => __( 'Before customer details', 'woocommerce-order-delivery' ),
+			'before_billing'          => __( 'Before billing details', 'woocommerce-order-delivery' ),
+			'after_billing'           => __( 'After billing details', 'woocommerce-order-delivery' ),
+			'before_order_notes'      => __( 'Before order notes', 'woocommerce-order-delivery' ),
+			'after_order_notes'       => __( 'After order notes', 'woocommerce-order-delivery' ),
+			'after_additional_fields' => __( 'After additional fields', 'woocommerce-order-delivery' ),
+			'after_order_review'      => __( 'Between order review and payments', 'woocommerce-order-delivery' ),
+			'after_customer_details'  => __( 'After customer details', 'woocommerce-order-delivery' ),
+		)
+	);
+}

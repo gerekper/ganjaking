@@ -1,0 +1,27 @@
+/* Base */
+.elementor-section {
+    z-index: 1;
+}
+img {
+    vertical-align: top;
+    outline: none !important;
+    max-width: 100%;
+    height: auto;
+    user-select: none;
+}
+.isotope_item {
+    opacity: 1;
+}
+.isotope_item.loading{
+    opacity: 0;
+}
+.elementor-element-gt3_portfolio_archive {
+    margin-bottom: 50px;
+}
+.archive .isotope_wrapper {
+    margin-right: -30px;
+}
+.archive .isotope_wrapper .isotope_item {
+    padding-right: 30px;
+    padding-bottom: 30px;
+}

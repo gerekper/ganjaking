@@ -34,12 +34,12 @@ final class RightPress_Help
         $template_path = self::get_template_path($template, $plugin_path, $plugin_name, $custom_path);
 
         // Check if template exists
-	    if (!file_exists($template_path)) {
+	if (!file_exists($template_path)) {
 
             // Add admin debug notice
             _doing_it_wrong(__FUNCTION__, sprintf('<code>%s</code> does not exist.', $template_path), get_bloginfo('version'));
             return;
-	    }
+	}
 
         // Include template
         include $template_path;
@@ -574,8 +574,8 @@ final class RightPress_Help
      */
     public static function shorten_text($text, $max_chars)
     {
-        if (mb_strlen($text) > ($max_chars + 3)) {
-            return mb_substr($text, 0, $max_chars) . '...';
+        if (strlen($text) > ($max_chars + 3)) {
+            return substr($text, 0, $max_chars) . '...';
         }
 
         return $text;
@@ -828,7 +828,7 @@ final class RightPress_Help
         $title_to_display = !empty($title) ? $title : '#' . $id;
 
         // Maybe shorten title
-        if ($max_chars !== null && mb_strlen($title_to_display) > ($max_chars + 3)) {
+        if ($max_chars !== null && strlen($title_to_display) > ($max_chars + 3)) {
             $link_title = $title_to_display;
             $title_to_display = RightPress_Help::shorten_text($title_to_display, $max_chars);
         }
@@ -1140,12 +1140,6 @@ final class RightPress_Help
             }
         }
 
-        // Use WordPress method as a fallback
-        if (RightPress_Help::wp_version_gte('5.3')) {
-            return wp_timezone_string();
-        }
-
-        // Return UTC if everything fails
         return 'UTC';
     }
 
@@ -1886,9 +1880,7 @@ final class RightPress_Help
 
                     // Check if this term has been selected
                     foreach ($selected as $attribute_key => $selected_term_slug) {
-                        // Note: Fix for WCDPD issue #410 - not 100% sure if this won't have effect elsewhere
-                        // if (RightPress_Help::string_ends_with_substring($attribute_key, $term->taxonomy) && ($selected_term_slug === $term->slug || $selected_term_slug === '')) {
-                        if (RightPress_Help::string_ends_with_substring($attribute_key, $term->taxonomy) && $selected_term_slug === $term->slug) {
+                        if (RightPress_Help::string_ends_with_substring($attribute_key, $term->taxonomy) && ($selected_term_slug === $term->slug || $selected_term_slug === '')) {
                             $attribute_ids[] = $term->term_id;
                         }
                     }
@@ -3072,7 +3064,7 @@ final class RightPress_Help
         if (wc_tax_enabled()) {
 
             // Add Standard class
-            $tax_classes['standard'] = esc_html__('Standard Rate', 'woocommerce');
+            $tax_classes['standard'] = __('Standard Rate', 'woocommerce');
 
             // Iterate over tax class names
             foreach (WC_Tax::get_tax_classes() as $tax_class_name) {
@@ -3487,77 +3479,8 @@ final class RightPress_Help
     }
 
     /**
-     * Inject or enqueue script depending on whether or not it's possible to use WordPress enqueuing functions
-     *
-     * @access public
-     * @param string $handle
-     * @param string $url
-     * @param array $deps
-     * @param string|bool|null $version
-     * @param bool $in_footer
-     * @param array $vars
-     * @param string|null $vars_name
-     * @return void
-     */
-    public static function enqueue_or_inject_script($handle, $url, $deps = array(), $version = false, $in_footer = false, $vars = array(), $vars_name = null)
-    {
-
-        // Enqueue in a regular fashion
-        if (!is_ajax()) {
-
-            // Enqueue main script
-            wp_enqueue_script($handle, $url, $deps, $version, $in_footer);
-
-            // Pass variables
-            if (!empty($vars)) {
-                wp_localize_script($handle, ($vars_name ? $vars_name : (str_replace('-', '_', $handle) . '_vars')), $vars);
-            }
-        }
-        // Inject via JavaScript
-        else {
-            RightPress_Help::inject_script($handle, $url, $deps, $version, $in_footer, $vars, $vars_name);
-        }
-    }
-
-    /**
-     * Inject script when it's not possible to use WordPress enqueuing functions
-     *
-     * Note: Currently $deps and $in_footer are not handled
-     *
-     * @access public
-     * @param string $handle
-     * @param string $url
-     * @param array $deps
-     * @param string|bool|null $version
-     * @param bool $in_footer
-     * @param array $vars
-     * @param string|null $vars_name
-     * @return void
-     */
-    public static function inject_script($handle, $url, $deps = array(), $version = false, $in_footer = false, $vars = array(), $vars_name = null)
-    {
-
-        // Write out vars
-        if (!empty($vars)) {
-            echo '<script type="text/javascript">var ' . ($vars_name ? $vars_name : (str_replace('-', '_', $handle) . '_vars')) . ' = ' . json_encode($vars) . ';</script>';
-        }
-
-        // Get version
-        if ($version === false) {
-            $version = get_bloginfo('version');
-        }
-
-        // Maybe append version number to url
-        if ($version) {
-            $url .= ('?ver=' . $version);
-        }
-
-        // Inject script
-        echo '<script type="text/javascript" src="' . $url . '"></script>';
-    }
-
-    /**
-     * Inject or enqueue stylesheet depending on whether or not it's possible to use WordPress enqueuing functions
+     * Inject or enqueue stylesheet depending on wether or not it's too late
+     * to print them in the head section
      *
      * @access public
      * @param string $handle
@@ -3571,14 +3494,14 @@ final class RightPress_Help
         if (!did_action('wp_print_styles')) {
             wp_enqueue_style($handle, $url, array(), $version);
         }
-        // Inject via JavaScript
+        // Inject via Javascript
         else {
             RightPress_Help::inject_stylesheet($handle, $url, $version);
         }
     }
 
     /**
-     * Inject stylesheet when it's not possible to use WordPress enqueuing functions
+     * Inject stylesheet into head section from within body
      *
      * @access public
      * @param string $handle
@@ -3593,32 +3516,10 @@ final class RightPress_Help
             $url .= '?ver=' . $version;
         }
 
-        $script_id = str_replace('-', '_', $handle) . '_injector';
+        $script_id = $handle . '-injector';
 
-        // Open script element
-        $script = "<script type='text/javascript' style='display: none;' id='{$script_id}'>";
-
-        // Condition
-        $script .= "if (!document.getElementById('{$handle}')) {";
-
-        // Build element
-        $script .= "var {$script_id} = document.createElement('link');";
-        $script .= "{$script_id}.setAttribute('type', 'text/css');";
-        $script .= "{$script_id}.setAttribute('rel', 'stylesheet');";
-        $script .= "{$script_id}.setAttribute('id', '{$handle}');";
-        $script .= "{$script_id}.setAttribute('href', '{$url}');";
-
-        // Append element
-        $script .= "document.head.appendChild({$script_id});";
-
-        // Condition closure and script removal
-        $script .= "} document.getElementById('{$script_id}').remove();";
-
-        // Close script element
-        $script .= "</script>";
-
-        // Output script
-        echo $script;
+        $script = "jQuery('<link>').appendTo('head').attr({type: 'text/css', rel: 'stylesheet', id: '{$handle}'}).attr('href', '{$url}');";
+        echo '<script type="text/javascript" style="display: none;" id="' . $script_id . '"> if (!document.getElementById("' . $handle . '")) { ' . $script . ' } jQuery("#' . $script_id . '").remove(); </script>';
     }
 
     /**
@@ -3730,7 +3631,7 @@ final class RightPress_Help
     {
         $message .= ' Backtrace: ' . wp_debug_backtrace_summary();
         do_action('doing_it_wrong_run', $function, $message, $version);
-        error_log(sprintf(esc_html__('%1$s was called incorrectly. %2$s. Since version %3$s.'), $function, $message, $version));
+        error_log(sprintf(__('%1$s was called incorrectly. %2$s. Since version %3$s.'), $function, $message, $version));
     }
 
     /**
@@ -4208,59 +4109,7 @@ final class RightPress_Help
     }
 
     /**
-     * Add prefix to string or list of strings
-     *
-     * @access public
-     * @param string|array $value
-     * @param string $prefix
-     * @return string|array
-     */
-    public static function prefix($value, $prefix)
-    {
-
-        return preg_filter('/^/', $prefix, $value);
-    }
-
-    /**
-     * Remove prefix from string or list of strings
-     *
-     * @access public
-     * @param string|array $value
-     * @param string $prefix
-     * @return string|array
-     */
-    public static function unprefix($value, $prefix)
-    {
-
-        // Check if value is array
-        $is_array = is_array($value);
-
-        // Convert string value to array
-        $value = (array) $value;
-
-        // Iterate over value elements
-        foreach ($value as $index => $string) {
-
-            // Check if string contains prefix
-            if (substr($string, 0, strlen($prefix)) === $prefix) {
-
-                // Unprefix string
-                $value[$index] = substr($string, strlen($prefix));
-            }
-        }
-
-        // Maybe extract string value
-        if (!$is_array) {
-            $value = array_pop($value);
-        }
-
-        return $value;
-    }
-
-    /**
      * Remove prefix from string
-     *
-     * Legacy alias for unprefix()
      *
      * @access public
      * @param string $string
@@ -4270,7 +4119,14 @@ final class RightPress_Help
     public static function unprefix_string($string, $prefix)
     {
 
-        return RightPress_Help::unprefix($string, $prefix);
+        // Check if string contains prefix
+        if (substr($string, 0, strlen($prefix)) === $prefix) {
+
+            // Unprefix string
+            $string = substr($string, strlen($prefix));
+        }
+
+        return $string;
     }
 
     /**

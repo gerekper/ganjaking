@@ -1,5 +1,16 @@
 *** Product Vendors Changelog ***
 
+2021-10-20 - version 2.1.57
+* Fix - Added validation for default product cost and handling fee fields.
+* Fix - Show refunded quantity in the vendor order details.
+* Fix - Show shipping method name in the order email and dashboard if shipping is passed to vendor.
+* Tweak - WC 5.8 compatibility.
+* Tweak - WP 5.8 compatibility.
+
+2021-08-10 - version 2.1.56
+* Fix - Show refunded quantity in the vendor order details.
+* Fix - Show shipping method name in the order email and dashboard if shipping is passed to vendor.
+
 2021-07-14 - version 2.1.55
 * Add - New action on Vendor Profile screen, `wcpv_vendor_settings_render_additional_fields`, to enable other plugins to add additional settings fields.
 * Fix - Ensure array key exists before we try using it.

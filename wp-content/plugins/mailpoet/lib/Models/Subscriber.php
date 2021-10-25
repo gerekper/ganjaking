@@ -171,7 +171,7 @@ class Subscriber extends Model {
       ->whereNull('deleted_at')
       ->count();
     $subscribersWithoutSegmentLabel = sprintf(
-      __('Subscribers without a list (%s)', 'mailpoet'),
+      WPFunctions::get()->__('Subscribers without a list (%s)', 'mailpoet'),
       number_format($subscribersWithoutSegment)
     );
 

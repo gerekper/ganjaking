@@ -453,8 +453,23 @@ class WC_Product_Vendors_Order {
 	 * @return float
 	 */
 	public function get_fee( $fee, $total ) {
-		if ( strstr( $fee, '%' ) ) {
+		/**
+		 * $fee can either be an integer, float or a string limited
+		 * to percentage as '5.25%'. Returns 0 otherise.
+		 */
+		if ( ! is_scalar( $fee ) ) {
+			return 0;
+		}
+
+		/**
+		 * $total must be a number.
+		 */
+		if ( is_numeric( $total ) && strstr( $fee, '%' ) ) {
 			$fee = ( $total / 100 ) * str_replace( '%', '', $fee );
+		}
+
+		if ( ! is_numeric( $fee ) ) {
+			return 0;
 		}
 
 		return $fee;
@@ -487,4 +502,5 @@ class WC_Product_Vendors_Order {
 	public function payment_complete( $order_id ) {
 		WC_Product_Vendors_Utils::clear_reports_transients();
 	}
+
 }

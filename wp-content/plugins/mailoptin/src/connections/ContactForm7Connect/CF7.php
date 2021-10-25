@@ -49,19 +49,32 @@ class CF7
 
         $field_mapping = moVar($mocf7_settings, 'custom_fields');
 
+        $name = $posted_data[moVar($field_mapping, 'moName')];
+        $first_name = $posted_data[moVar($field_mapping, 'moFirstName')];
+        $last_name = $posted_data[moVar($field_mapping, 'moLastName')];
+        $connection_service = moVar($mocf7_settings, 'integration');
+
+        $double_optin = false;
+        if(in_array($connection_service, Init::double_optin_support_connections(true))) {
+            $double_optin = moVar($mocf7_settings, 'is_double_optin') === "true";
+        }
+
         $optin_data = new ConversionDataBuilder();
         // since it's non mailoptin form, set it to zero.
         $optin_data->optin_campaign_id   = 0;
         $optin_data->payload             = $posted_data;
-        $optin_data->name                = $posted_data[moVar($field_mapping, 'moName')];
+
+        //check if the full name moName is empty, else join both the first name and last name
+        $optin_data->name                = Init::return_name($name, $first_name, $last_name);
         $optin_data->email               = $posted_data[moVar($field_mapping, 'moEmail')];
         $optin_data->optin_campaign_type = esc_html__('Contact Form 7', 'mailoptin');
 
-        $optin_data->connection_service    = moVar($mocf7_settings, 'integration');
+        $optin_data->connection_service    = $connection_service;
         $optin_data->connection_email_list = moVar($mocf7_settings, 'list');
 
         $optin_data->user_agent                = esc_html($_SERVER['HTTP_USER_AGENT']);
         $optin_data->is_timestamp_check_active = false;
+        $optin_data->is_double_optin      = $double_optin;
 
         if (isset($_REQUEST['referrer'])) {
             $optin_data->conversion_page = esc_url_raw($_REQUEST['referrer']);
@@ -70,7 +83,7 @@ class CF7
         $optin_data->form_tags = moVar($mocf7_settings, 'tags');
 
         foreach ($field_mapping as $key => $cf7_form_tag) {
-            if (in_array($key, ['moEmail', 'moName'])) continue;
+            if (in_array($key, ['moEmail', 'moName', 'moFirstName', 'moLastName'])) continue;
             $field_value = moVar($posted_data, $cf7_form_tag);
 
             if ( ! empty($field_value)) {
@@ -130,6 +143,7 @@ class CF7
         $saved_integration        = moVar($mocf7_settings, 'integration');
         $saved_list               = moVar($mocf7_settings, 'list');
         $saved_tags               = moVar($mocf7_settings, 'tags');
+        $saved_double_optin       = moVar($mocf7_settings, 'is_double_optin');
         $mapped_custom_fields     = moVar($mocf7_settings, 'custom_fields');
 
         $tags = [];
@@ -148,10 +162,14 @@ class CF7
         $custom_fields = [
             'moEmail' => esc_html__('Email Address', 'mailoptin'),
             'moName'  => esc_html__('Full Name', 'mailoptin'),
+            'moFirstName'  => esc_html__('First Name', 'mailoptin'),
+            'moLastName'  => esc_html__('Last Name', 'mailoptin'),
         ];
 
         if (in_array($saved_integration, Init::no_name_mapping_connections())) {
             unset($custom_fields['moName']);
+            unset($custom_fields['moFirstName']);
+            unset($custom_fields['moLastName']);
         }
 
         if ( ! empty($saved_integration) && $saved_integration != 'leadbank') {
@@ -164,6 +182,16 @@ class CF7
                     if (is_array($cfields) && ! empty($cfields)) {
                         $custom_fields += $cfields;
                     }
+                }
+            }
+        }
+
+        $default_double_optin = false;
+        if(! empty($saved_integration) && defined('MAILOPTIN_DETACH_LIBSODIUM')) {
+            $double_optin_connections = Init::double_optin_support_connections();
+            foreach($double_optin_connections as $key => $value) {
+                if($saved_integration === $key) {
+                    $default_double_optin = $value;
                 }
             }
         }

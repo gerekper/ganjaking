@@ -208,10 +208,9 @@ class Import {
       }
       if (in_array($column, ['confirmed_ip', 'subscribed_ip'], true)) {
         $data = array_map(
-          function($index, $ip) use($validator) {
+          function($index, $ip) use(&$invalidRecords, $validator) {
             if (!$validator->validateIPAddress($ip)) {
-              // if invalid or empty, we allow the import but remove the IP
-              return null;
+              $invalidRecords[] = $index;
             }
             return $ip;
           }, array_keys($data), $data

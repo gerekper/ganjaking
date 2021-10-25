@@ -43,7 +43,7 @@ abstract class RightPress_Condition_Purchase_History extends RightPress_Conditio
     public function get_group_label()
     {
 
-        return esc_html__('Purchase History', 'rightpress');
+        return __('Purchase History', 'rightpress');
     }
 
     /**

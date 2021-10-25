@@ -42,10 +42,10 @@ abstract class RightPress_Condition_Method_Numeric extends RightPress_Condition_
     {
 
         return array(
-            'at_least'      => esc_html__('at least', 'rightpress'),
-            'more_than'     => esc_html__('more than', 'rightpress'),
-            'not_more_than' => esc_html__('not more than', 'rightpress'),
-            'less_than'     => esc_html__('less than', 'rightpress'),
+            'at_least'      => __('at least', 'rightpress'),
+            'more_than'     => __('more than', 'rightpress'),
+            'not_more_than' => __('not more than', 'rightpress'),
+            'less_than'     => __('less than', 'rightpress'),
         );
     }
 

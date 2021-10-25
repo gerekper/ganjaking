@@ -42,7 +42,7 @@ abstract class RightPress_Condition_Custom_Taxonomy extends RightPress_Condition
     public function get_group_label()
     {
 
-        return esc_html__('Custom Taxonomy', 'rightpress');
+        return __('Custom Taxonomy', 'rightpress');
     }
 
     /**

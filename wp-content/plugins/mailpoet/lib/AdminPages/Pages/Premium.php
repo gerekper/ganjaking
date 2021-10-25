@@ -19,11 +19,7 @@ class Premium {
   /** @var SubscribersFeature */
   private $subscribersFeature;
 
-  public function __construct(
-    PageRenderer $pageRenderer,
-    WPFunctions $wp,
-    SubscribersFeature $subscribersFeature
-  ) {
+  public function __construct(PageRenderer $pageRenderer, WPFunctions $wp, SubscribersFeature $subscribersFeature) {
     $this->pageRenderer = $pageRenderer;
     $this->wp = $wp;
     $this->subscribersFeature = $subscribersFeature;

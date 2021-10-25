@@ -2,7 +2,6 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs\Tracking\Events\Injectable;
 
-use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking;
 
 /**
@@ -65,11 +64,6 @@ class ClickLinkEvent extends AbstractInjectableEvent {
 		$should_encode = apply_filters( 'wp_mail_smtp_pro_emails_logs_tracking_events_injectable_click_link_event_inject_encode_content', $should_encode );
 
 		if ( $should_encode ) {
-
-			// Include polyfill if mbstring PHP extension is not enabled.
-			if ( ! function_exists( 'mb_convert_encoding' ) ) {
-				Helpers::include_mbstring_polyfill();
-			}
 
 			// Convert non-ascii code into html-readable stuff.
 			$encoded_html = mb_convert_encoding( $html, 'HTML-ENTITIES', 'auto' );

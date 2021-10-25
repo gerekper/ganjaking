@@ -4,8 +4,6 @@
 
 jQuery(document).ready(function() {
 
-    'use strict';
-
     /**
      * Track duplicate actions
      */
@@ -41,7 +39,7 @@ jQuery(document).ready(function() {
     /**
      * Send serialized copy of data on submit in case we hit the max_input_vars limit
      */
-    jQuery('form').has('.rp_wcdpd_settings').last().on('submit', function(e) {
+    jQuery('form').has('.rp_wcdpd_settings').last().submit(function(e) {
         var form_data = jQuery(this).serialize();
         jQuery(this).find('input[name="rp_wcdpd_settings_serialized"]').remove();
         jQuery(this).prepend('<input type="hidden" name="rp_wcdpd_settings_serialized" />');
@@ -56,12 +54,12 @@ jQuery(document).ready(function() {
     {
 
         // Rule selection method
-        jQuery('.rp_wcdpd_settings select.rp_wcdpd_rule_selection_method').on('change', function() {
+        jQuery('.rp_wcdpd_settings select.rp_wcdpd_rule_selection_method').change(function() {
             update_row_state_color_coding(row);
         });
 
         // Rule exclusivity
-        row.find('.rp_wcdpd_field_exclusivity').on('change', function() {
+        row.find('.rp_wcdpd_field_exclusivity').change(function() {
             update_row_state_color_coding(row);
         });
 
@@ -106,6 +104,17 @@ jQuery(document).ready(function() {
 
                 // Set up row
                 set_up_parent(jQuery(this), key, config);
+
+                // Set up header update
+                var selectors = [];
+
+                jQuery.each(['title', 'note', 'pricing_method', 'pricing_value', 'group_pricing_method', 'group_pricing_value', 'bogo_pricing_method', 'bogo_pricing_value', 'bogo_purchase_quantity', 'bogo_receive_quantity'], function(index, selector) {
+                    selectors.push('#rp_wcdpd_' + key + ' .rp_wcdpd_' + key + '_field_' + selector);
+                });
+
+                jQuery('body').on('keyup change', selectors.join(), null, function() {
+                    fix_row_header(jQuery(this), key);
+                });
             });
         });
     }
@@ -115,7 +124,6 @@ jQuery(document).ready(function() {
      */
     function set_up_parent(container, key, config)
     {
-
         // No rows configured yet?
         if (config.length === 0) {
             add_no_rows_notice(container, key);
@@ -130,13 +138,115 @@ jQuery(document).ready(function() {
 
             // Refresh accordion
             refresh_accordion(key);
+
+            // Fix field identifiers
+            fix_rows(key);
+
+            // Fix field values
+            fix_parent_values(key, false);
+
+            // Row identifier
+            var i = 0;
+
+            // Iterate over rows
+            jQuery('#rp_wcdpd_' + key + ' #rp_wcdpd_rule_wrapper .rp_wcdpd_row').each(function() {
+
+                var row = jQuery(this);
+
+                // Row header fix
+                fix_row_header(row, key);
+
+                // Toggle product pricing specific settings areas
+                if (key === 'product_pricing') {
+                    toggle_product_pricing_settings(row.find('.rp_wcdpd_product_pricing_field_method'), key);
+                }
+                else {
+                    toggle_cart_item_settings(row.find('.rp_wcdpd_' + key + '_field_pricing_method'), key);
+                    fix_row_header(row, key);
+                }
+
+                // Initial condition fix
+                jQuery.each(['bogo_product_condition', 'product_condition', 'condition'], function(index, alias) {
+
+                    // Condition identifier
+                    var j = 0;
+
+                    // Iterate over conditions
+                    row.find('.rp_wcdpd_' + alias).each(function() {
+
+                        var condition = jQuery(this);
+                        var skip_condition = false;
+
+                        // Condition is disabled or no longer exists
+                        jQuery.each(['_disabled', '_disabled_taxonomy', '_non_existent', '_non_existent_taxonomy'], function(flag_index, flag_type) {
+                            if (typeof config[i][alias + 's'][j][flag_type] !== 'undefined') {
+                                condition.find('.rp_wcdpd_condition_content, .rp_wcdpd_product_condition_content').html(get_template('condition' + flag_type));
+                                skip_condition = true;
+                            }
+                        });
+
+                        // Skip to next condition as current one is disabled
+                        if (skip_condition) {
+                            j++;
+                            return true;
+                        }
+
+                        // Fields
+                        fix_condition(key, alias, jQuery(this));
+
+                        // Field identifiers
+                        fix_child_element(key, (alias + 's'), jQuery(this), i, j);
+
+                        // Field values
+                        fix_child_values(key, false, alias, row, i, jQuery(this), j);
+
+                        // Fix meta and coupon conditions (correct values were not present when it was first run)
+                        toggle_condition_fields(key, alias, jQuery(this), jQuery(this).find('.rp_wcdpd_' + key + '_' + alias + '_type').val());
+
+                        // Increment condition identifier
+                        j++;
+                    });
+                });
+
+                // Initial group product fix
+                var j = 0;
+
+                row.find('.rp_wcdpd_group_product').each(function() {
+
+                    var group_product = jQuery(this);
+                    var skip_group_product = false;
+
+                    // Group product condition  is disabled or no longer exists
+                    jQuery.each(['_disabled', '_disabled_taxonomy', '_non_existent', '_non_existent_taxonomy'], function(flag_index, flag_type) {
+                        if (typeof config[i]['group_products'][j][flag_type] !== 'undefined') {
+                            group_product.find('.rp_wcdpd_group_product_content').html(get_template('condition' + flag_type));
+                            skip_group_product = true;
+                        }
+                    });
+
+                    // Skip to next group product condition as current one is disabled
+                    if (skip_group_product) {
+                        j++;
+                        return true;
+                    }
+
+                    // Fix group product
+                    fix_group_product(key, jQuery(this));
+
+                    // Increment group product condition identifier
+                    j++;
+                });
+
+                // Increment row identifier
+                i++;
+            });
         }
 
         // Render add row button
         append(container, 'add_row')
 
         // Bind click action
-        jQuery('#rp_wcdpd_add_row button').on('click', function() {
+        jQuery('#rp_wcdpd_add_row button').click(function() {
             jQuery(this).prop('disabled', true);
             add_row(key, false);
             refresh_accordion(key);
@@ -165,7 +275,6 @@ jQuery(document).ready(function() {
      */
     function add_wrapper(key)
     {
-
         // Make sure we don't have one yet before proceeding
         if (jQuery('#rp_wcdpd_' + key + ' #rp_wcdpd_rule_wrapper').length === 0) {
 
@@ -181,10 +290,7 @@ jQuery(document).ready(function() {
                 icons: false,
                 collapsible: true,
                 heightStyle: 'content',
-                active: false,
-                beforeActivate: function(event, ui) {
-                    panel_activating(key, event, ui);
-                }
+                active: false
             }).sortable({
                 handle: '.rp_wcdpd_row_sort_handle',
                 axis:   'y',
@@ -204,28 +310,10 @@ jQuery(document).ready(function() {
     }
 
     /**
-     * Handle panel activation
-     */
-    function panel_activating(key, event, ui)
-    {
-
-        // Check if panel needs rendering
-        if (ui.newPanel.has('.rp_wcdpd_loading_data').length) {
-
-            // Select row
-            var row = ui.newPanel.closest('.rp_wcdpd_row');
-
-            // Add row content
-            add_row_content(key, row);
-        }
-    }
-
-    /**
      * Add one row
      */
     function add_row(key, config)
     {
-
         var selector = '#rp_wcdpd_' + key + ' #rp_wcdpd_rule_wrapper';
 
         // Add wrapper
@@ -241,168 +329,48 @@ jQuery(document).ready(function() {
         var row = jQuery(selector).children().last();
         var row_key = jQuery(selector).children().length - 1;
 
-        // Set initial config data
-        row.data('rp_wcdpd_initial_config', config);
-
         // Fix identifiers, values and visibility
-        fix_rows(key);
-        fix_parent_values(key, row, row_key, config);
-
-        // Fix row headers
-        fix_row_header(row, key, config);
-
-        // Add duplicate event handler
-        add_duplicate_event_handler(key, row);
-
-        // Handle delete action
-        jQuery('#rp_wcdpd_' + key + ' .rp_wcdpd_row_remove_handle').last().on('click', function() {
-            remove_row(key, jQuery(this).closest('.rp_wcdpd_row'));
-        });
-
-        // Exclude field in header from activating panel change
-        row.find('.rp_wcdpd_field_exclusivity').on('click', function() {
-            event.stopPropagation();
-            return false;
-        });
-    }
-
-    /**
-     * Add row content
-     */
-    function add_row_content(key, row)
-    {
-
-        // Get row key
-        var row_key = row.index();
-
-        // Get initial config
-        var config = typeof row.data('rp_wcdpd_initial_config') !== 'undefined' ? row.data('rp_wcdpd_initial_config') : false;
-
-        // Do not override potentially new exclusivity setting
-        if (config) {
-            if (typeof config.exclusivity !== 'undefined' && row.find('#rp_wcdpd_' + key + '_exclusivity_' + row_key).length) {
-
-                // Get value front field
-                var exclusivity_value = row.find('#rp_wcdpd_' + key + '_exclusivity_' + row_key).val();
-
-                // Values do not match - use one from field
-                if (config.exclusivity !== exclusivity_value) {
-                    config.exclusivity = exclusivity_value;
-                }
-            }
+        if (config === false) {
+            fix_rows(key);
+            fix_parent_values(key, true, row, row_key);
         }
-
-        // Add template content
-        row.find('.rp_wcdpd_row_content').html(get_template('row_content'));
 
         // Set up child elements
         jQuery.each(rp_wcdpd_elements[key].children, function(type) {
             set_up(key, type + 's', row, row_key, config);
         });
 
-        // Fix field identifiers
-        fix_rows(key);
+        // Add duplicate event handler
+        add_duplicate_event_handler(key, row);
 
-        // Fix field values
-        fix_parent_values(key, row, row_key, config);
+        // Handle delete action
+        jQuery('#rp_wcdpd_' + key + ' .rp_wcdpd_row_remove_handle').last().click(function() {
+            remove_row(key, jQuery(this).closest('.rp_wcdpd_row'));
+        });
 
         // Display correct settings area for product pricing rules
-        if (key === 'product_pricing') {
-            row.find('.rp_wcdpd_product_pricing_field_method').last().on('change', function () {
-                toggle_product_pricing_settings(jQuery(this), key);
-            });
-            toggle_product_pricing_settings(row.find('.rp_wcdpd_product_pricing_field_method').last(), key);
+        jQuery('#rp_wcdpd_product_pricing .rp_wcdpd_product_pricing_field_method').last().on('change', function() {
+            toggle_product_pricing_settings(jQuery(this), key);
+        });
+        if (config === false) {
+            toggle_product_pricing_settings(jQuery('#rp_wcdpd_product_pricing .rp_wcdpd_product_pricing_field_method').last(), key);
         }
+
         // Show or hide cart item settings for cart discount and checkout fee rules
-        else {
+        if (key === 'cart_discounts' || key === 'checkout_fees') {
             row.find('.rp_wcdpd_' + key + '_field_pricing_method').on('change', function() {
                 toggle_cart_item_settings(jQuery(this), key);
             });
-            toggle_cart_item_settings(row.find('.rp_wcdpd_' + key + '_field_pricing_method'), key);
-            fix_row_header(row, key, false);
+            if (config === false) {
+                toggle_cart_item_settings(row.find('.rp_wcdpd_' + key + '_field_pricing_method'), key);
+                fix_row_header(row, key);
+            }
         }
 
-        // Initial condition fix
-        jQuery.each(['bogo_product_condition', 'product_condition', 'condition'], function(index, alias) {
-
-            // Condition identifier
-            var j = 0;
-
-            // Iterate over conditions
-            row.find('.rp_wcdpd_' + alias).each(function() {
-
-                var condition = jQuery(this);
-                var skip_condition = false;
-
-                // Condition is disabled or no longer exists
-                jQuery.each(['_disabled', '_disabled_taxonomy', '_non_existent', '_non_existent_taxonomy'], function(flag_index, flag_type) {
-                    if (typeof config[alias + 's'][j][flag_type] !== 'undefined') {
-                        condition.find('.rp_wcdpd_condition_content, .rp_wcdpd_product_condition_content').html(get_template('condition' + flag_type));
-                        skip_condition = true;
-                    }
-                });
-
-                // Skip to next condition as current one is disabled
-                if (skip_condition) {
-                    j++;
-                    return true;
-                }
-
-                // Fields
-                fix_condition(key, alias, jQuery(this));
-
-                // Field identifiers
-                fix_child_element(key, (alias + 's'), jQuery(this), row_key, j);
-
-                // Field values
-                fix_child_values(key, alias, row, row_key, jQuery(this), j, config);
-
-                // Fix meta and coupon conditions (correct values were not present when it was first run)
-                toggle_condition_fields(key, alias, jQuery(this), jQuery(this).find('.rp_wcdpd_' + key + '_' + alias + '_type').val());
-
-                // Increment condition identifier
-                j++;
-            });
-        });
-
-        // Initial group product fix
-        var j = 0;
-
-        row.find('.rp_wcdpd_group_product').each(function() {
-
-            var group_product = jQuery(this);
-            var skip_group_product = false;
-
-            // Group product condition  is disabled or no longer exists
-            jQuery.each(['_disabled', '_disabled_taxonomy', '_non_existent', '_non_existent_taxonomy'], function(flag_index, flag_type) {
-                if (typeof config['group_products'][j][flag_type] !== 'undefined') {
-                    group_product.find('.rp_wcdpd_group_product_content').html(get_template('condition' + flag_type));
-                    skip_group_product = true;
-                }
-            });
-
-            // Skip to next group product condition as current one is disabled
-            if (skip_group_product) {
-                j++;
-                return true;
-            }
-
-            // Fix group product
-            fix_group_product(key, jQuery(this));
-
-            // Increment group product condition identifier
-            j++;
-        });
-
-        // Set up header update
-        var selectors = [];
-
-        jQuery.each(['title', 'note', 'pricing_method', 'pricing_value', 'group_pricing_method', 'group_pricing_value', 'bogo_pricing_method', 'bogo_pricing_value', 'bogo_purchase_quantity', 'bogo_receive_quantity'], function(index, selector) {
-            selectors.push('#rp_wcdpd_' + key + '_' + selector + '_' + row_key);
-        });
-
-        jQuery('body').on('keyup change', selectors.join(), null, function() {
-            fix_row_header(jQuery(this), key, false);
+        // Exclude field in header from activating panel change
+        row.find('.rp_wcdpd_field_exclusivity').on('click', function() {
+            event.stopPropagation();
+            return false;
         });
 
         // Focus on first important field
@@ -451,14 +419,8 @@ jQuery(document).ready(function() {
      */
     function duplicate_row(key, row)
     {
-
         // Select wrapper
         var wrapper = row.closest('#rp_wcdpd_rule_wrapper');
-
-        // Add row content if not added yet
-        if (row.find('.rp_wcdpd_product_pricing_unchanged').length) {
-            add_row_content(key, row);
-        }
 
         // Get original row and row key
         var original_row = row;
@@ -497,8 +459,7 @@ jQuery(document).ready(function() {
                 });
 
                 if (current_options.length > 0) {
-                    name_parts[0] = name_parts[0] + '_multiselect_option_labels';
-                    jQuery.rightpress.add_nested_object_value(config, name_parts, current_options);
+                    jQuery.rightpress.add_nested_object_value(multiselect_options, name_parts, current_options);
                 }
             }
         });
@@ -508,6 +469,55 @@ jQuery(document).ready(function() {
 
         // Refresh accordion
         refresh_accordion(key);
+
+        // Fix field identifiers
+        fix_rows(key);
+
+        // Select new row
+        var row = wrapper.children().last();
+
+        // Convert config mockup to full config mockup
+        var top_level_config = {};
+        jQuery.rightpress.add_nested_object_value(top_level_config, [key, row_key], config);
+        var top_level_multiselect_options = {};
+        jQuery.rightpress.add_nested_object_value(top_level_multiselect_options, [key, row_key], multiselect_options);
+
+        // Fix field values
+        fix_parent_values(key, false, row, row_key, top_level_config, top_level_multiselect_options);
+
+        // Initial condition fix
+        jQuery.each(['bogo_product_condition', 'product_condition', 'condition'], function(index, alias) {
+
+            // Iterate over conditions
+            row.find('.rp_wcdpd_' + alias).each(function() {
+
+                // Fix condition
+                fix_condition(key, alias, jQuery(this));
+
+                // Fix condition field values
+                fix_child_values(key, false, alias, row, row_key, jQuery(this), jQuery(this).index(), top_level_config, top_level_multiselect_options);
+
+                // Fix condition again after adding values
+                fix_condition(key, alias, jQuery(this));
+            });
+        });
+
+        // Initial group product fix
+        row.find('.rp_wcdpd_group_product').each(function() {
+            fix_group_product(key, jQuery(this));
+        });
+
+        // Row header fix
+        fix_row_header(row, key);
+
+        // Other fixes
+        if (key === 'product_pricing') {
+            toggle_product_pricing_settings(row.find('.rp_wcdpd_product_pricing_field_method').last(), key);
+        }
+        else if (key === 'cart_discounts' || key === 'checkout_fees') {
+            toggle_cart_item_settings(row.find('.rp_wcdpd_' + key + '_field_pricing_method'), key);
+            fix_row_header(row, key);
+        }
     }
 
     /**
@@ -638,8 +648,11 @@ jQuery(document).ready(function() {
     /**
      * Fix parent field values
      */
-    function fix_parent_values(key, row, row_key, config)
+    function fix_parent_values(key, is_new, row, row_key, config_override, multiselect_options_override)
     {
+        // Maybe override configuration values
+        var config = typeof config_override !== 'undefined' ? config_override : rp_wcdpd_config;
+        var multiselect_options = typeof multiselect_options_override !== 'undefined' ? multiselect_options_override : rp_wcdpd_multiselect_options;
 
         // Row identifier
         var i = typeof row_key !== 'undefined' ? row_key : 0;
@@ -655,23 +668,17 @@ jQuery(document).ready(function() {
             // Iterate over all field elements of this row except child elements
             jQuery(this).find('input:not(.rp_wcdpd_child_element_field), select:not(.rp_wcdpd_child_element_field)').each(function() {
 
-                // Skip "unchanged" flag field
-                if (jQuery(this).hasClass('rp_wcdpd_' + key + '_unchanged')) {
-                    return;
-                }
-
                 // Get field key
                 var field_key = jQuery(this).prop('id').replace(new RegExp('^rp_wcdpd_' + key + '_'), '').replace(/(_\d+)?$/, '');
 
                 // Select options in select fields
                 if (jQuery(this).is('select')) {
-                    if (config !== false && jQuery.rightpress.object_key_check(config, field_key) && config[field_key]) {
+                    if (!is_new && config !== false && jQuery.rightpress.object_key_check(config, key, i, field_key) && config[key][i][field_key]) {
                         if (jQuery.rightpress.field_is_multiselect(jQuery(this))) {
-
-                            if (jQuery.rightpress.object_key_check(config, (field_key + '_multiselect_option_labels')) && typeof config[(field_key + '_multiselect_option_labels')] === 'object') {
-                                for (var k = 0; k < config[field_key].length; k++) {
-                                    var all_options = config[(field_key + '_multiselect_option_labels')];
-                                    var current_option_key = config[field_key][k];
+                            if (jQuery.rightpress.object_key_check(multiselect_options, key, i, field_key) && typeof multiselect_options[key][i][field_key] === 'object') {
+                                for (var k = 0; k < config[key][i][field_key].length; k++) {
+                                    var all_options = multiselect_options[key][i][field_key];
+                                    var current_option_key = config[key][i][field_key][k];
 
                                     for (var l = 0; l < all_options.length; l++) {
                                         if (jQuery.rightpress.object_key_check(all_options, l, 'id') && all_options[l]['id'] == current_option_key) {
@@ -683,15 +690,15 @@ jQuery(document).ready(function() {
                             }
                         }
                         else {
-                            jQuery(this).val(config[field_key]);
+                            jQuery(this).val(config[key][i][field_key]);
                         }
                     }
                 }
 
                 // Add value for text input fields
                 else if (jQuery(this).is('input')) {
-                    if (config !== false && jQuery.rightpress.object_key_check(config, field_key)) {
-                        jQuery(this).prop('value', config[field_key]);
+                    if (!is_new && config !== false && jQuery.rightpress.object_key_check(config, key, i, field_key)) {
+                        jQuery(this).prop('value', config[key][i][field_key]);
                     }
                     else {
                         jQuery(this).removeAttr('value');
@@ -710,9 +717,11 @@ jQuery(document).ready(function() {
             });
 
             // Fix child values
-            jQuery.each(rp_wcdpd_elements[key].children, function(type) {
-                fix_child_values(key, type, row, i, null, null, config);
-            });
+            if (!is_new) {
+                jQuery.each(rp_wcdpd_elements[key].children, function(type) {
+                    fix_child_values(key, false, type, row, i, null, null, config_override, multiselect_options_override);
+                });
+            }
 
             // Increment row identifier
             i++;
@@ -724,7 +733,6 @@ jQuery(document).ready(function() {
      */
     function set_up(key, type, row, row_key, config)
     {
-
         var type_singular = type.replace(/s$/, '');
 
         // No existing children of given type
@@ -740,7 +748,7 @@ jQuery(document).ready(function() {
         }
 
         // Bind click action
-        row.find('.rp_wcdpd_add_' + type_singular + ' button').on('click', function() {
+        row.find('.rp_wcdpd_add_' + type_singular + ' button').click(function() {
             jQuery(this).prop('disabled', true);
             add(key, type_singular, row, row_key, false);
             jQuery(this).prop('disabled', false);
@@ -770,7 +778,6 @@ jQuery(document).ready(function() {
      */
     function add(key, type, row, row_key, config)
     {
-
         // Add wrapper
         add_child_wrapper(key, type, row);
 
@@ -789,11 +796,10 @@ jQuery(document).ready(function() {
 
             // Fix fields
             fix_rows(key);
-            fix_child_values(key, type, row, row_key, child_row, child_row_key, config);
+            fix_child_values(key, true, type, row, row_key, child_row, child_row_key);
 
             // Fix condition
             jQuery.each(['bogo_product_condition', 'product_condition', 'condition'], function(index, alias) {
-
                 if (type === alias) {
 
                     // Fix condition fields
@@ -803,7 +809,7 @@ jQuery(document).ready(function() {
                     fix_child_element(key, (alias + 's'), child_row, row_key, child_row_key);
 
                     // Fix condition field values
-                    fix_child_values(key, alias, row, row_key, child_row, child_row_key, config);
+                    fix_child_values(key, true, alias, row, row_key, child_row, child_row_key);
                 }
             });
 
@@ -817,7 +823,7 @@ jQuery(document).ready(function() {
         }
 
         // Handle delete action
-        row.find('.rp_wcdpd_' + type + '_remove_handle').last().on('click', function() {
+        row.find('.rp_wcdpd_' + type + '_remove_handle').last().click(function() {
             remove(key, type, jQuery(this).closest('.rp_wcdpd_' + type));
         });
 
@@ -842,6 +848,7 @@ jQuery(document).ready(function() {
             else if (type === 'group_product') {
                 focus_selector = '.rp_wcdpd_' + key + '_group_product_quantity:enabled';
             }
+
 
             if (focus_selector !== null) {
                 child_row.find(focus_selector).focus();
@@ -872,8 +879,11 @@ jQuery(document).ready(function() {
     /**
      * Fix child field values
      */
-    function fix_child_values(key, type, row, row_key, child_row, child_row_key, config)
+    function fix_child_values(key, is_new, type, row, row_key, child_row, child_row_key, config_override, multiselect_options_override)
     {
+        // Maybe override configuration values
+        var config = typeof config_override !== 'undefined' ? config_override : rp_wcdpd_config;
+        var multiselect_options = typeof multiselect_options_override !== 'undefined' ? multiselect_options_override : rp_wcdpd_multiselect_options;
 
         var type_plural = type + 's';
 
@@ -895,17 +905,16 @@ jQuery(document).ready(function() {
 
                 // Select options in select fields
                 if (jQuery(this).is('select')) {
-                    if (config !== false && jQuery.rightpress.object_key_check(config, type_plural, j, field_key) && config[type_plural][j][field_key]) {
+                    if (!is_new && config !== false && jQuery.rightpress.object_key_check(config, key, i, type_plural, j, field_key) && config[key][i][type_plural][j][field_key]) {
                         if (jQuery.rightpress.field_is_multiselect(jQuery(this))) {
+                            if (jQuery.rightpress.object_key_check(multiselect_options, key, i, type_plural, j) && typeof multiselect_options[key][i][type_plural][j][field_key] === 'object') {
 
-                            if (jQuery.rightpress.object_key_check(config, (type_plural + '_multiselect_option_labels'), j) && typeof config[(type_plural + '_multiselect_option_labels')][j][field_key] === 'object') {
-
-                                var all_options = config[(type_plural + '_multiselect_option_labels')][j][field_key];
+                                var all_options = multiselect_options[key][i][type_plural][j][field_key];
                                 var multiselect_options_html = '';
 
-                                for (var k = 0; k < config[type_plural][j][field_key].length; k++) {
+                                for (var k = 0; k < config[key][i][type_plural][j][field_key].length; k++) {
 
-                                    var current_option_key = config[type_plural][j][field_key][k];
+                                    var current_option_key = config[key][i][type_plural][j][field_key][k];
 
                                     for (var l = 0; l < all_options.length; l++) {
                                         if (jQuery.rightpress.object_key_check(all_options, l, 'id') && all_options[l]['id'] == current_option_key) {
@@ -920,15 +929,15 @@ jQuery(document).ready(function() {
                             }
                         }
                         else {
-                            jQuery(this).val(config[type_plural][j][field_key]);
+                            jQuery(this).val(config[key][i][type_plural][j][field_key]);
                         }
                     }
                 }
 
                 // Add value for text input fields
                 else if (typeof jQuery(this).prop('value') !== 'undefined' /*&& jQuery(this).prop('value') === '{value}'*/) {
-                    if (config !== false && jQuery.rightpress.object_key_check(config, type_plural, j, field_key)) {
-                        jQuery(this).prop('value', config[type_plural][j][field_key]);
+                    if (!is_new && config !== false && jQuery.rightpress.object_key_check(config, key, i, type_plural, j, field_key)) {
+                        jQuery(this).prop('value', config[key][i][type_plural][j][field_key]);
                     }
                     else {
                         jQuery(this).removeAttr('value');
@@ -1001,7 +1010,7 @@ jQuery(document).ready(function() {
         var condition_type = element.find('.rp_wcdpd_' + key + '_' + alias + '_type').val();
 
         // Condition type
-        element.find('.rp_wcdpd_' + key + '_' + alias + '_type').on('change', function() {
+        element.find('.rp_wcdpd_' + key + '_' + alias + '_type').change(function() {
             condition_type = element.find('.rp_wcdpd_' + key + '_' + alias + '_type').val();
             toggle_condition_fields(key, alias, element, condition_type);
         });
@@ -1030,16 +1039,16 @@ jQuery(document).ready(function() {
             fix_child_element(key, (alias + 's'), element, row.index(), element.index());
 
             // Field values
-            fix_child_values(key, alias, row, row.index(), element, element.index(), false)
+            fix_child_values(key, true, alias, row, row.index(), element, element.index());
 
             // Fix meta field condition
-            element.find('.rp_wcdpd_' + key + '_' + alias + '_method').on('change', function() {
+            element.find('.rp_wcdpd_' + key + '_' + alias + '_method').change(function() {
                 condition_type = element.find('.rp_wcdpd_' + key + '_' + alias + '_type').val();
                 fix_meta_field_condition(key, alias, element, condition_type);
             });
 
             // Fix coupons applied condition
-            element.find('.rp_wcdpd_' + key + '_' + alias + '_method').on('change', function() {
+            element.find('.rp_wcdpd_' + key + '_' + alias + '_method').change(function() {
                 condition_type = element.find('.rp_wcdpd_' + key + '_' + alias + '_type').val();
                 fix_coupons_applied_condition(key, alias, element, condition_type);
             });
@@ -1124,7 +1133,7 @@ jQuery(document).ready(function() {
     function fix_group_product(key, element)
     {
         // Product condition type
-        element.find('.rp_wcdpd_' + key + '_group_product_type').on('change', function() {
+        element.find('.rp_wcdpd_' + key + '_group_product_type').change(function() {
             toggle_group_product_items_field(key, element);
         });
         toggle_group_product_items_field(key, element);
@@ -1228,94 +1237,40 @@ jQuery(document).ready(function() {
     /**
      * Fix row header
      */
-    function fix_row_header(element, key, config)
+    function fix_row_header(element, key)
     {
-
-        // Reference row
-        var row = element.hasClass('.rp_wcdpd_row') ? element : element.closest('.rp_wcdpd_row');
-
-        /**
-         * TITLE
-         */
-
-        // Get title placeholder
-        var title = rp_wcdpd.labels.row_note_placeholder;
-
-        // Get selector
-        var selector = key === 'product_pricing' ? 'note' : 'title';
-
-        // Get title from config
-        if (config) {
-
-            // Check if config has value
-            if (typeof config[selector] !== 'undefined' && config[selector] !== '') {
-
-                // Set title from config
-                title = config[selector];
-            }
-        }
-        // Get title from field
-        else {
-
-            var title_from_field = row.find('.rp_wcdpd_' + key + '_field_' + selector).val();
-
-            // Check if field has value
-            if (title_from_field !== 'undefined' && title_from_field !== '') {
-
-                // Set title from field
-                title = title_from_field;
-            }
+        // Ensure element is row
+        if (!element.hasClass('.rp_wcdpd_row')) {
+            element = element.closest('.rp_wcdpd_row');
         }
 
-        // Set title
-        row.find('.rp_wcdpd_row_title_title').html(title).css('display', 'inline-block');
+        // Get title and note selectors
+        var note_selector = '.rp_wcdpd_' + key + '_field_note';
+        var title_selector = (key === 'product_pricing' ? note_selector : '.rp_wcdpd_' + key + '_field_title');
 
-        /**
-         * NOTE
-         */
+        // Title
+        var title = element.find(title_selector).val();
 
-        // Check rule type is not product pricing
+        if (title !== 'undefined') {
+            title = (title !== '' ? title : rp_wcdpd.labels.row_note_placeholder);
+            element.find('.rp_wcdpd_row_title_title').html(title).css('display', 'inline-block');
+        }
+
+        // Note
         if (key !== 'product_pricing') {
 
-            // Set note to empty string
-            var note = '';
+            var note = element.find('.rp_wcdpd_' + key + '_field_note').val();
 
-            // Get note from config
-            if (config) {
-
-                // Check if config has value
-                if (typeof config.note !== 'undefined' && config.note !== '') {
-
-                    // Set note from config
-                    note = config.note;
-                }
+            if (note !== 'undefined') {
+                element.find('.rp_wcdpd_row_title_note').html(note).css('display', (note === '' ? 'none' : 'inline-block'));
             }
-            // Get note from field
-            else {
-
-                var note_from_field = row.find('.rp_wcdpd_' + key + '_field_note').val();
-
-                // Check if field has value
-                if (note_from_field !== 'undefined' && note_from_field !== '') {
-
-                    // Set note from field
-                    note = note_from_field;
-                }
-            }
-
-            // Set note
-            row.find('.rp_wcdpd_row_title_note').html(note).css('display', (note === '' ? 'none' : 'inline-block'));
         }
-
-        /**
-         * METHOD
-         */
 
         // Display method
         if (key === 'product_pricing') {
 
             // Get method key
-            var method_key = config ? config.method : row.find('.rp_wcdpd_product_pricing_field_method').val();
+            var method_key = element.find('.rp_wcdpd_product_pricing_field_method').val();
 
             // Check if method is BOGO
             var is_bogo = ['bogo', 'bogo_xx'].indexOf(method_key) !== -1;
@@ -1323,8 +1278,8 @@ jQuery(document).ready(function() {
 
             // Get BOGO quantities
             if (is_bogo || is_bogo_repeat) {
-                var bogo_purchase = config ? config.bogo_purchase_quantity : row.find('.rp_wcdpd_product_pricing_field_bogo_purchase_quantity').val();
-                var bogo_receive = config ? config.bogo_receive_quantity : row.find('.rp_wcdpd_product_pricing_field_bogo_receive_quantity').val();
+                var bogo_purchase = element.find('.rp_wcdpd_product_pricing_field_bogo_purchase_quantity').val();
+                var bogo_receive = element.find('.rp_wcdpd_product_pricing_field_bogo_receive_quantity').val();
             }
 
             // Get method text
@@ -1333,47 +1288,35 @@ jQuery(document).ready(function() {
                 var method_text = rp_wcdpd[property_key].replace('{{x}}', bogo_purchase).replace('{{y}}', bogo_receive);
             }
             else {
-                var method_text = rp_wcdpd.product_pricing_method_titles[method_key];
+                var method_text = element.find('.rp_wcdpd_product_pricing_field_method option:selected').text();
             }
 
             // Display method text
-            row.find('.rp_wcdpd_row_title_method').html(method_text).css('display', 'inline-block');
+            element.find('.rp_wcdpd_row_title_method').html(method_text).css('display', 'inline-block');
         }
 
-        /**
-         * PRICING
-         */
+        // Display pricing
+        jQuery(['pricing', 'group_pricing', 'bogo_pricing']).each(function(index, selector) {
+            if (element.find('.rp_wcdpd_' + key + '_field_' + selector + '_method:enabled').length) {
 
-        // Get method key
-        var method_key = config ? config.method : row.find('.rp_wcdpd_' + key + '_field_method').val();
+                // Get pricing settings
+                var pricing_method = element.find('.rp_wcdpd_' + key + '_field_' + selector + '_method:enabled').val();
+                var pricing_value = element.find('.rp_wcdpd_' + key + '_field_' + selector + '_value:enabled').val();
 
-        // Select selector
-        if (['bogo', 'bogo_repeat', 'bogo_xx', 'bogo_xx_repeat'].indexOf(method_key) !== -1) {
-            var selector = 'bogo_pricing';
-        }
-        else if (['group', 'group_repeat'].indexOf(method_key) !== -1) {
-            var selector = 'group_pricing';
-        }
-        else {
-            var selector = 'pricing';
-        }
-
-        // Get pricing settings
-        var pricing_method = config ? config[selector + '_method'] : row.find('.rp_wcdpd_' + key + '_field_' + selector + '_method:enabled').val();
-        var pricing_value = config ? config[selector + '_value'] : row.find('.rp_wcdpd_' + key + '_field_' + selector + '_value:enabled').val();
-
-        // Both values are set
-        if (typeof pricing_method !== 'undefined' && pricing_method !== '' && typeof pricing_value !== 'undefined' && pricing_value !== '' && jQuery.isNumeric(pricing_value)) {
-            var pricing_string = format_pricing_string(pricing_method, pricing_value);
-            row.find('.rp_wcdpd_row_title_pricing').html(pricing_string).css('display', 'inline-block');
-        }
-        // At least one value is not set
-        else {
-            row.find('.rp_wcdpd_row_title_pricing').html('').css('display', 'none');
-        }
+                // Both values are set
+                if (typeof pricing_method !== 'undefined' && pricing_method !== '' && typeof pricing_value !== 'undefined' && pricing_value !== '' && jQuery.isNumeric(pricing_value)) {
+                    var pricing_string = format_pricing_string(pricing_method, pricing_value);
+                    element.find('.rp_wcdpd_row_title_pricing').html(pricing_string).css('display', 'inline-block');
+                }
+                // At least one value is not set
+                else {
+                    element.find('.rp_wcdpd_row_title_pricing').html('').css('display', 'none');
+                }
+            }
+        });
 
         // Set up row state color coding
-        set_up_row_state_color_coding(row);
+        set_up_row_state_color_coding(element);
     }
 
     /**
@@ -1564,7 +1507,7 @@ jQuery(document).ready(function() {
         }
 
         // Fix row header
-        fix_row_header(row, key, false);
+        fix_row_header(row, key);
     }
 
     /**
@@ -1670,7 +1613,7 @@ jQuery(document).ready(function() {
     /**
      * Toggle discount/fee value input
      */
-    jQuery('.rp_wcdpd_setting_total_limit').on('change', function() {
+    jQuery('.rp_wcdpd_setting_total_limit').change(function() {
         var display = jQuery(this).val() !== '0';
         jQuery('.rp_wcdpd_setting_total_limit_value').prop('disabled', !display).css('display', (display ? 'inline-block' : 'none'));
     }).change();

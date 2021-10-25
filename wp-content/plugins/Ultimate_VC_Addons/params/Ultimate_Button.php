@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_VC_Addons_Button_Param
+ * Class Ultimate_Button_Param
  *
- * @package Ultimate_VC_Addons_Button_Param.
+ * @package Ultimate_Button_Param.
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Button_Param' ) ) {
+if ( ! class_exists( 'Ultimate_Button_Param' ) ) {
 	/**
-	 * Class Ultimate_VC_Addons_Button_Param
+	 * Class Ultimate_Button_Param
 	 *
-	 * @class Ultimate_VC_Addons_Button_Param.
+	 * @class Ultimate_Button_Param.
 	 */
-	class Ultimate_VC_Addons_Button_Param {
+	class Ultimate_Button_Param {
 		/**
 		 * Initiator.
 		 */
@@ -85,6 +85,6 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Button_Param' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_VC_Addons_Button_Param' ) ) {
-	$ultimate_button_param = new Ultimate_VC_Addons_Button_Param();
+if ( class_exists( 'Ultimate_Button_Param' ) ) {
+	$ultimate_button_param = new Ultimate_Button_Param();
 }

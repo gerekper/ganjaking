@@ -26,6 +26,7 @@ class AdminNotices
             add_action('admin_notices', array($this, 'show_woocommerce_features'));
             add_action('admin_notices', array($this, 'show_wpforms_features'));
             add_action('admin_notices', array($this, 'show_cf7_features'));
+            add_action('admin_notices', array($this, 'show_forminator_features'));
             add_action('admin_notices', array($this, 'show_ninja_forms_features'));
             add_action('admin_notices', array($this, 'show_gravity_forms_features'));
 
@@ -251,6 +252,25 @@ class AdminNotices
             '<a href="' . $upgrade_url . '" target="_blank">', '</a>'
         );
         echo '<div data-dismissible="show_cf7_features-forever" class="notice notice-info is-dismissible">';
+        echo "<p>$notice</p>";
+        echo '</div>';
+    }
+
+    public function show_forminator_features()
+    {
+        if ( ! $this->is_admin_notice_show()) return;
+
+        if ( ! PAnD::is_admin_notice_active('show_forminator_features-forever')) {
+            return;
+        }
+
+        if ( ! class_exists('Forminator')) return;
+
+        $upgrade_url = 'https://mailoptin.io/article/forminator-email-marketing-crm/?utm_source=wp_dashboard&utm_medium=upgrade&utm_campaign=forminator_admin_notice';
+        $notice      = sprintf(__('Did you know with MailOptin, you can connect Forminator to major email marketing software such as Mailchimp, Constant Contact, MailerLite, ActiveCampaign, ConvertKit? %sLearn more%s', 'mailoptin'),
+            '<a href="' . $upgrade_url . '" target="_blank">', '</a>'
+        );
+        echo '<div data-dismissible="show_forminator_features-forever" class="notice notice-info is-dismissible">';
         echo "<p>$notice</p>";
         echo '</div>';
     }

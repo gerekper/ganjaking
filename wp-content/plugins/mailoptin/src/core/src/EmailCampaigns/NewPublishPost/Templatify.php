@@ -86,10 +86,10 @@ class Templatify implements TemplatifyInterface
         }
 
         return $this->replace_footer_placeholder_tags(
-        // we found out urlendcode was been done especially to the url part. previously we were doing
-        // str_replace(['%5B', '%5D', '%7B', '%7D'], ['[', ']', '{', '}'], $content) going forward
-        // urldecode is the best way.
-            urldecode($content)
+        // we found out urlencode was been done especially to the url part. previously we were doing
+        // str_replace(['%5B', '%5D', '%7B', '%7D'], ['[', ']', '{', '}'], $content) and then used urldecode($content)
+        // which caused + in content to be replaced with space. now back to using str_replace
+            str_replace(['%5B', '%5D', '%7B', '%7D'], ['[', ']', '{', '}'], $content)
         );
     }
 }

@@ -6,7 +6,7 @@ defined('ABSPATH') || exit;
 /**
  * Version Control
  */
-$version = '1023';
+$version = '1019';
 
 global $rightpress_version;
 
@@ -15,16 +15,16 @@ if (!$rightpress_version || $rightpress_version < $version) {
 }
 
 // Check if class has already been loaded
-if (!class_exists('RightPress_Loader_1023')) {
+if (!class_exists('RightPress_Loader_1019')) {
 
     /**
      * Main Loader Class
      *
-     * @class RightPress_Loader_1023
+     * @class RightPress_Loader_1019
      * @package RightPress
      * @author RightPress
      */
-    final class RightPress_Loader_1023
+    final class RightPress_Loader_1019
     {
 
         /**

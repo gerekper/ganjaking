@@ -1,4 +1,6 @@
-define(["jquery"], function ($) {
+import $ from 'jquery';
+
+export default function mcGroupsValidation() {
     $(document.body).on('mo_validate_optin_form_fields', function (e, mailoptin_optin, $optin_css_id, optin_js_config) {
         var choices_obj = $('#' + $optin_css_id).find('.mo-mailchimp-interest-choice');
         if (choices_obj.length === 0) return;
@@ -12,4 +14,4 @@ define(["jquery"], function ($) {
             return false;
         }
     });
-});
+}

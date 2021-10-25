@@ -1,0 +1,73 @@
+### 2.5-beta-1.4
+- Added cosmetic tweaks to the form editor.
+- Updated design of progress bar, added new design options.
+- Differentiated secondary buttons from primary buttons and improved styling for secondary buttons.
+- Updated toggle animations on settings pages.
+- Updated database column widths to be compatible with MySQL 8.0.17+.
+
+### 2.5-beta-1.3
+- Fixed some RTL issues in the form editor.
+- Fixed success message when form settings are saved.
+- Fixed valid and invalid feedback markers on text fields.
+- API: Fixed radio button choices with icons not appearing on the same line.
+
+### 2.5-beta-1.2
+- Added accessibility enhancements to the credit card field and the Post Custom Field.
+- Added cosmetic tweaks.
+- Fixed a conflict between the form switcher and other Select2 instances on the page.
+- Fixed an issue with support for custom form settings.
+
+
+### 2.5-beta-1.1
+- Added the gform_selectwoo script to the list of no conflict scripts. Credit: the team at Gravity PDF.
+- Added cosmetic tweaks.
+- Updated third-party scripts dependent on core scripts to use the defer attribute.
+- Fixed an issue with the form editor which doesn't allow fields to be dragged into a column on the first row of fields.
+- Fixed an issue with forms rendered in the WordPress dashboard; init scripts are now rendered in the admin footer.
+- API: fixed issues with the field map setting and the checkbox and select setting.
+
+### 2.5-beta-1
+- Added security enhancements.
+- Added gform_confirmation_settings_fields filter to modify confirmation settings fields to replace deprecated gform_confirmation_ui_settings filter.
+- Added gform_editor_sidebar_panels filter and gform_editor_sidebar_panel_content action to add custom panels to the form editor sidebar.
+- Added gform_field_settings_tabs filter and gform_field_settings_tab_content action to add custom field settings tabs.
+- Added gform_form_settings_fields filter to modify form settings fields to replace deprecated gform_form_settings filter.
+- Added gform_notification_settings_fields filter to modify form settings fields to replace deprecated gform_notification_ui_settings filter.
+- Added gform_frontend_pages_evaluated javascript action fires after the page conditional logic on the form has been evaluated, allowing further actions to be performed.
+- Added gform_frontend_page_visible javascript action fires after a page step turns visible, allowing further actions to be performed.
+- Added gform_frontend_page_hidden javascript action fires after a page step turns hidden, allowing further actions to be performed.
+- Added support for TranslationsPress to manage translations for Gravity Forms core and add-ons. Translation files will be delivered via the WordPress translation updates system.
+- Added accessibility enhancements for the Post Tags field.
+- Added alternative text to the Post Image field.
+- Added specified format to the Date Field and Date Picker.
+- Added the accessibility warning when "Enhanced User Interface" is enabled.
+- Added a fall back for an empty label. The placeholder or description can be used when no field label is set.
+- Added a new field property "errors" to store field setting errors.
+- Added support for putting fields into columns inside the form editor.
+- Added the list of validation errors to the top of the form. Each validation error links to the respective field.
+- Added a form setting to control the required field indicator.
+- Added a message to the top of the form to explain the meaning of the required fields indicator. This is not displayed when the indicator is set to "Required".
+- Added a notice to the top of the form clarifying the meaning of the required field indicator.
+- Added gform_required_legend filter to customize the required field indicator notice.
+- Added the {created_by} merge tag to display information about the user who created the entry. Credit: the team at Gravity PDF.
+- Added the {date_created} merge tag to display the date an entry was created. Credit: the team at Gravity PDF.
+- Added the {date_updated} merge tag to display the date an entry was last updated. Formatted using the same modifiers as {date_created}. Credit: the team at Gravity PDF.
+- Added the {payment_date} merge tag to display the date the payment was received. Formatted using the same modifiers as {date_created}. Credit: the team at Gravity PDF.
+- Added the autocomplete field settings to the following fields: Single-Line Text, Drop-Down, Number, Name, Phone, Address, Email. Further details: https://docs.gravityforms.com/accessibility-for-developers/#autocomplete
+- Updated the database schema to accommodate IPV6 addresses
+- Updated the Checkbox field to use a button element for Select All toggle.
+- Updated the heading structure to improve accessibility.
+- Updated multi-input fields to use the fieldset tag.
+- Updated the markup to help screen readers announce the confirmation message when the form is embedded with AJAX.
+- Updated the Calculation field to announce the updated price.
+- Updated the Forms icon to use our new logo.
+- Updated the Post image field to display the allowed file extensions.
+- Updated the File Upload field to display the allowed files extensions, the maximum number of allowed fields, and maximum file sizes.
+- Updated the delete file button in the File Upload field to a trash button. It is now a button element instead of an image.
+- Updated the Time field to provide the required format as a placeholder.
+- Updated the progress bar and submit button to react more appropriately to conditional logic.
+- Updated the Gravity Forms scripts to use the defer attribute.
+- Updated the default value of the gform_init_scripts_footer filter from false to true. Init scripts are now outputted in the footer and are triggered on the DOMContentLoaded event.
+- Removed the gform_notification_validation filter.
+- API: Added the Gravity Forms Settings API.
+- AF: Updated the Add-On Settings API to use the new Gravity Forms Settings API. Some changes to custom settings may be required.

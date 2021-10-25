@@ -19,9 +19,7 @@ class UserFlagsController {
   /** @var UserFlagsRepository */
   private $userFlagsRepository;
 
-  public function __construct(
-    UserFlagsRepository $userFlagsRepository
-  ) {
+  public function __construct(UserFlagsRepository $userFlagsRepository) {
     $this->defaults = [
       'last_announcement_seen' => false,
       'editor_tutorial_seen' => false,

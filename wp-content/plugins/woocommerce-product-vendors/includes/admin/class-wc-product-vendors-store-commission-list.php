@@ -494,6 +494,7 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 
 				$var_attributes = '';
 				$sku = '';
+				$refund = '';
 
 				$product = wc_get_product( absint( $item->product_id ) );
 
@@ -578,15 +579,29 @@ class WC_Product_Vendors_Store_Admin_Commission_List extends WP_List_Table {
 					$sku = sprintf( __( '%1$s %2$s: %s', 'woocommerce-product-vendors' ), '<br />', 'SKU', $product->get_sku() );
 				}
 
+				$refunded_quantity = $order->get_qty_refunded_for_item( intval( $item->order_item_id ) );
+
+				if ( $refunded_quantity ) {
+					$refund = sprintf( __( '<br /><small class="wpcv-refunded">-%s</small>', 'woocommerce-product-vendors' ), absint( $refunded_quantity ) );
+				}
+
 				if ( is_object( $product ) ) {
-					return edit_post_link( $quantity . 'x ' . sanitize_text_field( $item->product_name ), '', '', absint( $item->product_id ) ) . $var_attributes . $sku;
+					return edit_post_link( $quantity . 'x ' . sanitize_text_field( $item->product_name ), '', '', absint( $item->product_id ) ) . $var_attributes . $sku . $refund;
 
 				} elseif ( ! empty( $item->product_name ) ) {
-					return $quantity . 'x ' . sanitize_text_field( $item->product_name );
+					return $quantity . 'x ' . sanitize_text_field( $item->product_name ) . $refund;
 				}
 
 			case 'total_commission_amount' :
-				return wc_price( sanitize_text_field( $item->total_commission_amount ) );
+				$refund          = '';
+				$refunded_amount = $order->get_total_refunded_for_item( intval( $item->order_item_id ) );
+
+				if ( $refunded_amount ) {
+					$refunded_commission = $refunded_amount * $item->product_commission_amount / $item->product_amount;
+					$refund              = sprintf( __( '<br /><small class="wpcv-refunded">-%s</small>', 'woocommerce-product-vendors' ), wc_price( $refunded_commission ) );
+				}
+
+				return wc_price( sanitize_text_field( $item->total_commission_amount ) ) . $refund;
 
 			case 'commission_status' :
 				$status = __( 'N/A', 'woocommerce-product-vendors' );

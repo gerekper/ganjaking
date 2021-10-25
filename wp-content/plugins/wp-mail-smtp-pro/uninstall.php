@@ -99,10 +99,6 @@ if ( is_multisite() ) {
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_transient\_timeout\_wp\_mail\_smtp\_%'" ); // phpcs:ignore WordPress.DB
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_site\_transient\_timeout\_wp\_mail\_smtp\_%'" ); // phpcs:ignore WordPress.DB
 
-		// Delete debug events table.
-		$debug_events_table = \WPMailSMTP\Admin\DebugEvents\DebugEvents::get_table_name();
-		$wpdb->query( "DROP TABLE IF EXISTS $debug_events_table;" ); // phpcs:ignore WordPress.DB
-
 		/*
 		 * Delete network site product announcements.
 		 */
@@ -115,18 +111,15 @@ if ( is_multisite() ) {
 		}
 
 		/*
-		 * Cleanup network site data for Pro plugin only.
+		 * Delete network site Logs for Pro plugin only.
 		 */
 		if (
 			function_exists( 'wp_mail_smtp' ) &&
 			is_readable( wp_mail_smtp()->plugin_path . '/src/Pro/Pro.php' )
 		) {
-
-			// Delete logs table.
 			$table = \WPMailSMTP\Pro\Emails\Logs\Logs::get_table_name();
 			$wpdb->query( "DROP TABLE IF EXISTS $table;" ); // phpcs:ignore WordPress.DB
 
-			// Delete attachments tables.
 			$attachment_files_table = \WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments::get_attachment_files_table_name();
 			$wpdb->query( "DROP TABLE IF EXISTS $attachment_files_table;" ); // phpcs:ignore WordPress.DB
 
@@ -135,13 +128,6 @@ if ( is_multisite() ) {
 
 			// Delete all attachments if any.
 			( new \WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments() )->delete_all_attachments();
-
-			// Delete tracking tables.
-			$tracking_events_table = \WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking::get_events_table_name();
-			$wpdb->query( "DROP TABLE IF EXISTS $tracking_events_table;" ); // phpcs:ignore WordPress.DB
-
-			$tracking_links_table = \WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking::get_links_table_name();
-			$wpdb->query( "DROP TABLE IF EXISTS $tracking_links_table;" ); // phpcs:ignore WordPress.DB
 		}
 
 		/*
@@ -182,10 +168,6 @@ if ( is_multisite() ) {
 	$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_transient\_timeout\_wp\_mail\_smtp\_%'" ); // phpcs:ignore WordPress.DB
 	$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_site\_transient\_timeout\_wp\_mail\_smtp\_%'" ); // phpcs:ignore WordPress.DB
 
-	// Delete debug events table.
-	$debug_events_table = \WPMailSMTP\Admin\DebugEvents\DebugEvents::get_table_name();
-	$wpdb->query( "DROP TABLE IF EXISTS $debug_events_table;" ); // phpcs:ignore WordPress.DB
-
 	/*
 	 * Remove product announcements.
 	 */
@@ -197,18 +179,15 @@ if ( is_multisite() ) {
 	}
 
 	/*
-	 * Cleanup data for Pro plugin only.
+	 * Logs for Pro plugin only.
 	 */
 	if (
 		function_exists( 'wp_mail_smtp' ) &&
 		is_readable( wp_mail_smtp()->plugin_path . '/src/Pro/Pro.php' )
 	) {
-
-		// Delete logs table.
 		$table = \WPMailSMTP\Pro\Emails\Logs\Logs::get_table_name();
 		$wpdb->query( "DROP TABLE IF EXISTS $table;" ); // phpcs:ignore WordPress.DB
 
-		// Delete attachments tables.
 		$attachment_files_table = \WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments::get_attachment_files_table_name();
 		$wpdb->query( "DROP TABLE IF EXISTS $attachment_files_table;" ); // phpcs:ignore WordPress.DB
 
@@ -217,13 +196,6 @@ if ( is_multisite() ) {
 
 		// Delete all attachments if any.
 		( new \WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments() )->delete_all_attachments();
-
-		// Delete tracking tables.
-		$tracking_events_table = \WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking::get_events_table_name();
-		$wpdb->query( "DROP TABLE IF EXISTS $tracking_events_table;" ); // phpcs:ignore WordPress.DB
-
-		$tracking_links_table = \WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking::get_links_table_name();
-		$wpdb->query( "DROP TABLE IF EXISTS $tracking_links_table;" ); // phpcs:ignore WordPress.DB
 	}
 
 	/*

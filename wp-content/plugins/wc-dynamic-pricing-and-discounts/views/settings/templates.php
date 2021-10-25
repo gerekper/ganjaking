@@ -16,14 +16,14 @@ if (!defined('ABSPATH')) {
 
     <!-- NO RULES CONFIGURED -->
     <div id="rp_wcdpd_no_rows_template">
-        <div id="rp_wcdpd_no_rows"><?php esc_html_e('No rules configured.', 'rp_wcdpd'); ?></div>
+        <div id="rp_wcdpd_no_rows"><?php _e('No rules configured.', 'rp_wcdpd'); ?></div>
     </div>
 
     <!-- ADD RULE BUTTON -->
     <div id="rp_wcdpd_add_row_template">
         <div id="rp_wcdpd_add_row">
-            <button type="button" class="button" value="<?php esc_html_e('Add Rule', 'rp_wcdpd'); ?>">
-                <?php esc_html_e('Add Rule', 'rp_wcdpd'); ?>
+            <button type="button" class="button" value="<?php _e('Add Rule', 'rp_wcdpd'); ?>">
+                <?php _e('Add Rule', 'rp_wcdpd'); ?>
             </button>
         </div>
     </div>
@@ -57,299 +57,296 @@ if (!defined('ABSPATH')) {
                     'data-rp-wcdpd-validation'  => 'required',
                 ), false); ?>
 
+            </div>
+
+            <div class="rp_wcdpd_row_content">
+
                 <?php RightPress_Forms::hidden(array(
                     'id'        => 'rp_wcdpd_' . $current_tab . '_uid_{i}',
                     'name'      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][uid]',
                 ), false); ?>
 
-            </div>
+                <div class="rp_wcdpd_row_content_first_row">
 
-            <div class="rp_wcdpd_row_content">
-
-                <div class="rp_wcdpd_loading_data"><?php esc_html_e('Loading data...', 'rp_wcdpd'); ?></div>
-
-                <?php RightPress_Forms::hidden(array(
-                    'id'        => 'rp_wcdpd_' . $current_tab . '_unchanged_{i}',
-                    'class'     => 'rp_wcdpd_' . $current_tab . '_unchanged',
-                    'name'      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][unchanged]',
-                    'value'     => '1',
-                ), false); ?>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- ROW CONTENT -->
-    <div id="rp_wcdpd_row_content_template">
-
-        <div class="rp_wcdpd_row_content_first_row">
-
-            <?php if ($current_tab === 'product_pricing'): ?>
-                <div class="rp_wcdpd_field rp_wcdpd_field_double rp_wcdpd_no_left_margin">
-                    <?php RightPress_Forms::grouped_select(array(
-                        'id'                        => 'rp_wcdpd_' . $current_tab . '_method_{i}',
-                        'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][method]',
-                        'class'                     => 'rp_wcdpd_' . $current_tab . '_field_method',
-                        'options'                   => RP_WCDPD_Settings::get_product_pricing_methods_for_display(),
-                        'label'                     => esc_html__('Method', 'rp_wcdpd'),
-                        'data-rp-wcdpd-validation'  => 'required',
-                    ), false); ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if (in_array($current_tab, array('cart_discounts', 'checkout_fees'), true)): ?>
-                <div class="rp_wcdpd_field rp_wcdpd_field_double rp_wcdpd_no_left_margin">
-                    <?php RightPress_Forms::text(array(
-                        'id'                        => 'rp_wcdpd_' . $current_tab . '_title_{i}',
-                        'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][title]',
-                        'class'                     => 'rp_wcdpd_' . $current_tab . '_field_title',
-                        'label'                     => esc_html__('Title', 'rp_wcdpd') . ' <span class="rp_wcdpd_settings_label_extra">- ' . esc_html__('Public', 'rp_wcdpd') . '</span>',
-                        'data-rp-wcdpd-validation'  => 'required',
-                    )); ?>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($current_tab === 'product_pricing'): ?>
-                <div class="rp_wcdpd_field rp_wcdpd_field_single rp_wcdpd_if rp_wcdpd_if_bulk rp_wcdpd_if_tiered rp_wcdpd_if_group rp_wcdpd_if_group_repeat rp_wcdpd_if_bogo rp_wcdpd_if_bogo_repeat rp_wcdpd_if_bogo_xx rp_wcdpd_if_bogo_xx_repeat">
-                    <?php RightPress_Forms::grouped_select(array(
-                        'id'                        => 'rp_wcdpd_' . $current_tab . '_quantities_based_on_{i}',
-                        'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][quantities_based_on]',
-                        'class'                     => 'rp_wcdpd_' . $current_tab . '_field_quantities_based_on',
-                        'options'                   => RP_WCDPD_Settings::get_quantities_based_on_methods_for_display(),
-                        'label'                     => esc_html__('Quantities', 'rp_wcdpd'),
-                        'data-rp-wcdpd-validation'  => 'required',
-                    ), true); ?>
-                </div>
-            <?php endif; ?>
-
-            <div class="rp_wcdpd_field rp_wcdpd_field_double">
-                <?php RightPress_Forms::text(array(
-                    'id'        => 'rp_wcdpd_' . $current_tab . '_note_{i}',
-                    'name'      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][note]',
-                    'class'     => 'rp_wcdpd_' . $current_tab . '_field_note',
-                    'label'     => esc_html__('Note', 'rp_wcdpd') . ' <span class="rp_wcdpd_settings_label_extra">- ' . esc_html__('Private', 'rp_wcdpd') . '</span>',
-                )); ?>
-            </div>
-
-            <div class="rp_wcdpd_clear_both"></div>
-
-        </div>
-
-        <div class="rp_wcdpd_row_content_public_description rp_wcdpd_if rp_wcdpd_if_simple rp_wcdpd_if_bulk rp_wcdpd_if_tiered rp_wcdpd_if_group rp_wcdpd_if_group_repeat rp_wcdpd_if_bogo rp_wcdpd_if_bogo_repeat rp_wcdpd_if_bogo_xx rp_wcdpd_if_bogo_xx_repeat">
-
-            <div class="rp_wcdpd_field rp_wcdpd_field_full">
-                <?php RightPress_Forms::text(array(
-                    'id'        => 'rp_wcdpd_' . $current_tab . '_public_note_{i}',
-                    'name'      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][public_note]',
-                    'class'     => 'rp_wcdpd_' . $current_tab . '_field_public_note',
-                    'label'     => esc_html__('Description', 'rp_wcdpd') . ' <span class="rp_wcdpd_settings_label_extra">- ' . esc_html__('Public', 'rp_wcdpd') . '</span>',
-                )); ?>
-            </div>
-
-            <div class="rp_wcdpd_clear_both"></div>
-
-        </div>
-
-        <?php if ($current_tab === 'product_pricing'): ?>
-
-            <div class="rp_wcdpd_row_content_product_pricing_row rp_wcdpd_row_content_product_pricing_bogo_row rp_wcdpd_if rp_wcdpd_if_bogo rp_wcdpd_if_bogo_repeat rp_wcdpd_if_bogo_xx rp_wcdpd_if_bogo_xx_repeat" style="display: none;">
-                <div class="rp_wcdpd_field rp_wcdpd_field_full">
-                    <label><?php esc_html_e('Quantities & Discount', 'rp_wcdpd'); ?></label>
-                    <div class="rp_wcdpd_inner_wrapper">
-
-                        <div class="rp_wcdpd_field rp_wcdpd_field_single rp_wcdpd_no_left_margin">
-                            <?php RightPress_Forms::number(array(
-                                'id'                        => 'rp_wcdpd_' . $current_tab . '_bogo_purchase_quantity_{i}',
-                                'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][bogo_purchase_quantity]',
-                                'class'                     => 'rp_wcdpd_' . $current_tab . '_field_bogo_purchase_quantity',
-                                'placeholder'               => esc_html__('Quantity', 'rp_wcdpd'),
-                                'label'                     => esc_html__('Buy', 'rp_wcdpd') . ' <span class="rp_wcdpd_settings_label_extra">- ' . esc_html__('At Full Price', 'rp_wcdpd') . '</span>',
-                                'disabled'                  => 'disabled',
-                                'data-rp-wcdpd-validation'  => 'required,number_min_1,number_whole',
-                            )); ?>
-                        </div>
-                        <div class="rp_wcdpd_field rp_wcdpd_field_single">
-                            <?php RightPress_Forms::number(array(
-                                'id'                        => 'rp_wcdpd_' . $current_tab . '_bogo_receive_quantity_{i}',
-                                'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][bogo_receive_quantity]',
-                                'class'                     => 'rp_wcdpd_' . $current_tab . '_field_bogo_receive_quantity',
-                                'placeholder'               => esc_html__('Quantity', 'rp_wcdpd'),
-                                'label'                     => esc_html__('Get', 'rp_wcdpd') . ' <span class="rp_wcdpd_settings_label_extra">- ' . esc_html__('Discounted', 'rp_wcdpd') . '</span>',
-                                'disabled'                  => 'disabled',
-                                'data-rp-wcdpd-validation'  => 'required,number_min_1,number_whole',
-                            )); ?>
-                        </div>
-
-                        <div class="rp_wcdpd_field rp_wcdpd_field_single">
+                    <?php if ($current_tab === 'product_pricing'): ?>
+                        <div class="rp_wcdpd_field rp_wcdpd_field_double rp_wcdpd_no_left_margin">
                             <?php RightPress_Forms::grouped_select(array(
-                                'id'                        => 'rp_wcdpd_' . $current_tab . '_bogo_pricing_method_{i}',
-                                'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][bogo_pricing_method]',
-                                'class'                     => 'rp_wcdpd_' . $current_tab . '_field_bogo_pricing_method',
-                                'options'                   => RP_WCDPD_Pricing::get_pricing_methods_for_display('product_pricing_bogo'),
-                                'label'                     => esc_html__('Discount', 'rp_wcdpd'),
-                                'disabled'                  => 'disabled',
+                                'id'                        => 'rp_wcdpd_' . $current_tab . '_method_{i}',
+                                'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][method]',
+                                'class'                     => 'rp_wcdpd_' . $current_tab . '_field_method',
+                                'options'                   => RP_WCDPD_Settings::get_product_pricing_methods_for_display(),
+                                'label'                     => __('Method', 'rp_wcdpd'),
+                                'data-rp-wcdpd-validation'  => 'required',
+                            ), false); ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (in_array($current_tab, array('cart_discounts', 'checkout_fees'), true)): ?>
+                        <div class="rp_wcdpd_field rp_wcdpd_field_double rp_wcdpd_no_left_margin">
+                        <?php RightPress_Forms::text(array(
+                            'id'                        => 'rp_wcdpd_' . $current_tab . '_title_{i}',
+                            'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][title]',
+                            'class'                     => 'rp_wcdpd_' . $current_tab . '_field_title',
+                            'label'                     => __('Title', 'rp_wcdpd') . ' <span class="rp_wcdpd_settings_label_extra">- ' . __('Public', 'rp_wcdpd') . '</span>',
+                            'data-rp-wcdpd-validation'  => 'required',
+                        )); ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($current_tab === 'product_pricing'): ?>
+                        <div class="rp_wcdpd_field rp_wcdpd_field_single rp_wcdpd_if rp_wcdpd_if_bulk rp_wcdpd_if_tiered rp_wcdpd_if_bogo rp_wcdpd_if_bogo_repeat rp_wcdpd_if_bogo_xx rp_wcdpd_if_bogo_xx_repeat">
+                            <?php RightPress_Forms::grouped_select(array(
+                                'id'                        => 'rp_wcdpd_' . $current_tab . '_quantities_based_on_{i}',
+                                'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][quantities_based_on]',
+                                'class'                     => 'rp_wcdpd_' . $current_tab . '_field_quantities_based_on',
+                                'options'                   => RP_WCDPD_Settings::get_quantities_based_on_methods_for_display(),
+                                'label'                     => __('Quantities Based On', 'rp_wcdpd'),
                                 'data-rp-wcdpd-validation'  => 'required',
                             ), true); ?>
                         </div>
-                        <div class="rp_wcdpd_field rp_wcdpd_field_single">
-                            <?php RightPress_Forms::decimal(array(
-                                'id'                        => 'rp_wcdpd_' . $current_tab . '_bogo_pricing_value_{i}',
-                                'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][bogo_pricing_value]',
-                                'class'                     => 'rp_wcdpd_' . $current_tab . '_field_bogo_pricing_value',
-                                'placeholder'               => '0.00',
-                                'label'                     => '&nbsp;',
-                                'disabled'                  => 'disabled',
-                                'data-rp-wcdpd-validation'  => 'required,number_min_0',
+                        <div class="rp_wcdpd_field rp_wcdpd_field_single rp_wcdpd_if rp_wcdpd_if_group rp_wcdpd_if_group_repeat">
+                            <?php RightPress_Forms::select(array(
+                                'id'                        => 'rp_wcdpd_' . $current_tab . '_group_quantities_based_on_{i}',
+                                'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][group_quantities_based_on]',
+                                'class'                     => 'rp_wcdpd_' . $current_tab . '_field_group_quantities_based_on',
+                                'options'                   => RP_WCDPD_Settings::get_group_quantities_based_on_methods_for_display(),
+                                'label'                     => __('Quantities Based On', 'rp_wcdpd'),
+                                'data-rp-wcdpd-validation'  => 'required',
                             )); ?>
                         </div>
+                    <?php endif; ?>
 
-                        <div class="rp_wcdpd_clear_both"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="rp_wcdpd_row_content_product_pricing_row rp_wcdpd_row_content_child_row rp_wcdpd_row_content_quantity_ranges_row rp_wcdpd_if rp_wcdpd_if_bulk rp_wcdpd_if_tiered" style="display: none;">
-                <div class="rp_wcdpd_field rp_wcdpd_field_full">
-                    <label><?php esc_html_e('Quantity Ranges', 'rp_wcdpd'); ?></label>
-                    <div class="rp_wcdpd_inner_wrapper">
-                        <div class="rp_wcdpd_add_quantity_range rp_wcdpd_add_child_element">
-                            <button type="button" class="button" value="<?php esc_html_e('Add Range', 'rp_wcdpd'); ?>">
-                                <?php esc_html_e('Add Range', 'rp_wcdpd'); ?>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        <?php endif; ?>
-
-        <div class="rp_wcdpd_row_content_product_pricing_row rp_wcdpd_row_content_pricing_row <?php echo ($current_tab === 'product_pricing' ? 'rp_wcdpd_if rp_wcdpd_if_simple' : ''); ?>">
-            <div class="rp_wcdpd_field rp_wcdpd_field_full">
-                <label><?php echo RP_WCDPD_Pricing::get_pricing_settings_label($current_tab); ?></label>
-                <div class="rp_wcdpd_inner_wrapper">
-
-                    <div class="rp_wcdpd_field rp_wcdpd_field_double rp_wcdpd_no_left_margin">
-                        <?php RightPress_Forms::grouped_select(array(
-                            'id'                        => 'rp_wcdpd_' . $current_tab . '_pricing_method_{i}',
-                            'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][pricing_method]',
-                            'class'                     => 'rp_wcdpd_' . $current_tab . '_field_pricing_method',
-                            'options'                   => RP_WCDPD_Pricing::get_pricing_methods_for_display($current_tab . '_simple'),
-                            'data-rp-wcdpd-validation'  => 'required',
-                        ), true); ?>
-                    </div>
                     <div class="rp_wcdpd_field rp_wcdpd_field_double">
-                        <?php RightPress_Forms::decimal(array(
-                            'id'                        => 'rp_wcdpd_' . $current_tab . '_pricing_value_{i}',
-                            'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][pricing_value]',
-                            'class'                     => 'rp_wcdpd_' . $current_tab . '_field_pricing_value',
-                            'placeholder'               => '0.00',
-                            'data-rp-wcdpd-validation'  => 'required,number_min_0',
+                        <?php RightPress_Forms::text(array(
+                            'id'        => 'rp_wcdpd_' . $current_tab . '_note_{i}',
+                            'name'      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][note]',
+                            'class'     => 'rp_wcdpd_' . $current_tab . '_field_note',
+                            'label'     => __('Note', 'rp_wcdpd') . ' <span class="rp_wcdpd_settings_label_extra">- ' . __('Private', 'rp_wcdpd') . '</span>',
                         )); ?>
                     </div>
 
-                    <div class="rp_wcdpd_clear_both"></div>
+                    <div style="clear: both;"></div>
 
                 </div>
-                <div class="rp_wcdpd_clear_both"></div>
-            </div>
-            <div class="rp_wcdpd_clear_both"></div>
-        </div>
 
-        <?php if ($current_tab === 'product_pricing'): ?>
+                <div class="rp_wcdpd_row_content_public_description rp_wcdpd_if rp_wcdpd_if_simple rp_wcdpd_if_bulk rp_wcdpd_if_tiered rp_wcdpd_if_group rp_wcdpd_if_group_repeat rp_wcdpd_if_bogo rp_wcdpd_if_bogo_repeat rp_wcdpd_if_bogo_xx rp_wcdpd_if_bogo_xx_repeat">
 
-            <div class="rp_wcdpd_row_content_product_pricing_row rp_wcdpd_row_content_pricing_row <?php echo ($current_tab === 'product_pricing' ? 'rp_wcdpd_if rp_wcdpd_if_group rp_wcdpd_if_group_repeat' : ''); ?>">
-                <div class="rp_wcdpd_field rp_wcdpd_field_full">
-                    <label><?php echo RP_WCDPD_Pricing::get_pricing_settings_label($current_tab); ?></label>
-                    <div class="rp_wcdpd_inner_wrapper">
-
-                        <div class="rp_wcdpd_field rp_wcdpd_field_double rp_wcdpd_no_left_margin">
-                            <?php RightPress_Forms::grouped_select(array(
-                                'id'                        => 'rp_wcdpd_' . $current_tab . '_group_pricing_method_{i}',
-                                'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][group_pricing_method]',
-                                'class'                     => 'rp_wcdpd_' . $current_tab . '_field_group_pricing_method',
-                                'options'                   => RP_WCDPD_Pricing::get_pricing_methods_for_display('product_pricing_group'),
-                                'data-rp-wcdpd-validation'  => 'required',
-                            ), true); ?>
-                        </div>
-                        <div class="rp_wcdpd_field rp_wcdpd_field_double">
-                            <?php RightPress_Forms::decimal(array(
-                                'id'                        => 'rp_wcdpd_' . $current_tab . '_group_pricing_value_{i}',
-                                'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][group_pricing_value]',
-                                'class'                     => 'rp_wcdpd_' . $current_tab . '_field_group_pricing_value',
-                                'placeholder'               => '0.00',
-                                'data-rp-wcdpd-validation'  => 'required,number_min_0',
-                            )); ?>
-                        </div>
-
-                        <div class="rp_wcdpd_clear_both"></div>
-
+                    <div class="rp_wcdpd_field rp_wcdpd_field_full">
+                        <?php RightPress_Forms::text(array(
+                            'id'        => 'rp_wcdpd_' . $current_tab . '_public_note_{i}',
+                            'name'      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][public_note]',
+                            'class'     => 'rp_wcdpd_' . $current_tab . '_field_public_note',
+                            'label'     => __('Description', 'rp_wcdpd') . ' <span class="rp_wcdpd_settings_label_extra">- ' . __('Public', 'rp_wcdpd') . '</span>',
+                        )); ?>
                     </div>
-                </div>
-            </div>
 
-            <div class="rp_wcdpd_row_content_product_pricing_row rp_wcdpd_row_content_product_pricing_group_row rp_wcdpd_row_content_child_row rp_wcdpd_row_content_group_products_row rp_wcdpd_if rp_wcdpd_if_group rp_wcdpd_if_group_repeat" style="display: none;">
-                <div class="rp_wcdpd_field rp_wcdpd_field_full">
-                    <label><?php esc_html_e('Product Group', 'rp_wcdpd'); ?></label>
-                    <div class="rp_wcdpd_inner_wrapper">
-                        <div class="rp_wcdpd_add_group_product rp_wcdpd_add_child_element">
-                            <button type="button" class="button" value="<?php esc_html_e('Add Product', 'rp_wcdpd'); ?>">
-                                <?php esc_html_e('Add Product', 'rp_wcdpd'); ?>
-                            </button>
+                    <div style="clear: both;"></div>
+
+                </div>
+
+                <?php if ($current_tab === 'product_pricing'): ?>
+
+                    <div class="rp_wcdpd_row_content_product_pricing_row rp_wcdpd_row_content_product_pricing_bogo_row rp_wcdpd_if rp_wcdpd_if_bogo rp_wcdpd_if_bogo_repeat rp_wcdpd_if_bogo_xx rp_wcdpd_if_bogo_xx_repeat" style="display: none;">
+                        <div class="rp_wcdpd_field rp_wcdpd_field_full">
+                            <label><?php _e('Quantities & Discount', 'rp_wcdpd'); ?></label>
+                            <div class="rp_wcdpd_inner_wrapper">
+
+                                <div class="rp_wcdpd_field rp_wcdpd_field_single rp_wcdpd_no_left_margin">
+                                    <?php RightPress_Forms::number(array(
+                                        'id'                        => 'rp_wcdpd_' . $current_tab . '_bogo_purchase_quantity_{i}',
+                                        'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][bogo_purchase_quantity]',
+                                        'class'                     => 'rp_wcdpd_' . $current_tab . '_field_bogo_purchase_quantity',
+                                        'placeholder'               => __('Quantity', 'rp_wcdpd'),
+                                        'label'                     => __('Buy', 'rp_wcdpd') . ' <span class="rp_wcdpd_settings_label_extra">- ' . __('At Full Price', 'rp_wcdpd') . '</span>',
+                                        'disabled'                  => 'disabled',
+                                        'data-rp-wcdpd-validation'  => 'required,number_min_1,number_whole',
+                                    )); ?>
+                                </div>
+                                <div class="rp_wcdpd_field rp_wcdpd_field_single">
+                                    <?php RightPress_Forms::number(array(
+                                        'id'                        => 'rp_wcdpd_' . $current_tab . '_bogo_receive_quantity_{i}',
+                                        'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][bogo_receive_quantity]',
+                                        'class'                     => 'rp_wcdpd_' . $current_tab . '_field_bogo_receive_quantity',
+                                        'placeholder'               => __('Quantity', 'rp_wcdpd'),
+                                        'label'                     => __('Get', 'rp_wcdpd') . ' <span class="rp_wcdpd_settings_label_extra">- ' . __('Discounted', 'rp_wcdpd') . '</span>',
+                                        'disabled'                  => 'disabled',
+                                        'data-rp-wcdpd-validation'  => 'required,number_min_1,number_whole',
+                                    )); ?>
+                                </div>
+
+                                <div class="rp_wcdpd_field rp_wcdpd_field_single">
+                                    <?php RightPress_Forms::grouped_select(array(
+                                        'id'                        => 'rp_wcdpd_' . $current_tab . '_bogo_pricing_method_{i}',
+                                        'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][bogo_pricing_method]',
+                                        'class'                     => 'rp_wcdpd_' . $current_tab . '_field_bogo_pricing_method',
+                                        'options'                   => RP_WCDPD_Pricing::get_pricing_methods_for_display('product_pricing_bogo'),
+                                        'label'                     => __('Discount', 'rp_wcdpd'),
+                                        'disabled'                  => 'disabled',
+                                        'data-rp-wcdpd-validation'  => 'required',
+                                    ), true); ?>
+                                </div>
+                                <div class="rp_wcdpd_field rp_wcdpd_field_single">
+                                    <?php RightPress_Forms::decimal(array(
+                                        'id'                        => 'rp_wcdpd_' . $current_tab . '_bogo_pricing_value_{i}',
+                                        'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][bogo_pricing_value]',
+                                        'class'                     => 'rp_wcdpd_' . $current_tab . '_field_bogo_pricing_value',
+                                        'placeholder'               => '0.00',
+                                        'label'                     => '&nbsp;',
+                                        'disabled'                  => 'disabled',
+                                        'data-rp-wcdpd-validation'  => 'required,number_min_0',
+                                    )); ?>
+                                </div>
+
+                                <div style="clear: both;"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-        <?php endif; ?>
+                    <div class="rp_wcdpd_row_content_product_pricing_row rp_wcdpd_row_content_child_row rp_wcdpd_row_content_quantity_ranges_row rp_wcdpd_if rp_wcdpd_if_bulk rp_wcdpd_if_tiered" style="display: none;">
+                        <div class="rp_wcdpd_field rp_wcdpd_field_full">
+                            <label><?php _e('Quantity Ranges', 'rp_wcdpd'); ?></label>
+                            <div class="rp_wcdpd_inner_wrapper">
+                                <div class="rp_wcdpd_add_quantity_range rp_wcdpd_add_child_element">
+                                    <button type="button" class="button" value="<?php _e('Add Range', 'rp_wcdpd'); ?>">
+                                        <?php _e('Add Range', 'rp_wcdpd'); ?>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="rp_wcdpd_row_content_child_row rp_wcdpd_row_content_product_conditions_row rp_wcdpd_if rp_wcdpd_if_simple rp_wcdpd_if_bulk rp_wcdpd_if_tiered rp_wcdpd_if_bogo rp_wcdpd_if_bogo_repeat rp_wcdpd_if_bogo_xx rp_wcdpd_if_bogo_xx_repeat rp_wcdpd_if_exclude rp_wcdpd_if_restrict_purchase" style="display: none;">
-            <div class="rp_wcdpd_field rp_wcdpd_field_full">
-                <?php if ($current_tab !== 'product_pricing'): ?>
-                    <label><?php esc_html_e('Items', 'rp_wcdpd'); ?></label>
-                <?php else: ?>
-                    <label class="rp_wcdpd_if rp_wcdpd_if_simple rp_wcdpd_if_bulk rp_wcdpd_if_tiered rp_wcdpd_if_bogo_xx rp_wcdpd_if_bogo_xx_repeat rp_wcdpd_if_exclude rp_wcdpd_if_restrict_purchase" style="display: none;"><?php esc_html_e('Products', 'rp_wcdpd'); ?></label>
-                    <label class="rp_wcdpd_if rp_wcdpd_if_bogo rp_wcdpd_if_bogo_repeat" style="display: none;"><?php esc_html_e('Products - Buy', 'rp_wcdpd'); ?></label>
                 <?php endif; ?>
 
-                <div class="rp_wcdpd_inner_wrapper">
-                    <div class="rp_wcdpd_add_product_condition rp_wcdpd_add_child_element">
-                        <button type="button" class="button" value="<?php esc_html_e('Add Product', 'rp_wcdpd'); ?>">
-                            <?php esc_html_e('Add Product', 'rp_wcdpd'); ?>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="rp_wcdpd_clear_both"></div>
-        </div>
+                <div class="rp_wcdpd_row_content_product_pricing_row rp_wcdpd_row_content_pricing_row <?php echo ($current_tab === 'product_pricing' ? 'rp_wcdpd_if rp_wcdpd_if_simple' : ''); ?>">
+                    <div class="rp_wcdpd_field rp_wcdpd_field_full">
+                        <label><?php echo RP_WCDPD_Pricing::get_pricing_settings_label($current_tab); ?></label>
+                        <div class="rp_wcdpd_inner_wrapper">
 
-        <?php if ($current_tab === 'product_pricing'): ?>
-            <div class="rp_wcdpd_row_content_child_row rp_wcdpd_row_content_bogo_product_conditions_row rp_wcdpd_if   rp_wcdpd_if_bogo rp_wcdpd_if_bogo_repeat" style="display: none;">
-                <div class="rp_wcdpd_field rp_wcdpd_field_full">
-                    <label><?php esc_html_e('Products - Get', 'rp_wcdpd'); ?></label>
-                    <div class="rp_wcdpd_inner_wrapper">
-                        <div class="rp_wcdpd_add_bogo_product_condition rp_wcdpd_add_child_element">
-                            <button type="button" class="button" value="<?php esc_html_e('Add Product', 'rp_wcdpd'); ?>">
-                                <?php esc_html_e('Add Product', 'rp_wcdpd'); ?>
-                            </button>
+                            <div class="rp_wcdpd_field rp_wcdpd_field_double rp_wcdpd_no_left_margin">
+                                <?php RightPress_Forms::grouped_select(array(
+                                    'id'                        => 'rp_wcdpd_' . $current_tab . '_pricing_method_{i}',
+                                    'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][pricing_method]',
+                                    'class'                     => 'rp_wcdpd_' . $current_tab . '_field_pricing_method',
+                                    'options'                   => RP_WCDPD_Pricing::get_pricing_methods_for_display($current_tab . '_simple'),
+                                    'data-rp-wcdpd-validation'  => 'required',
+                                ), true); ?>
+                            </div>
+                            <div class="rp_wcdpd_field rp_wcdpd_field_double">
+                                <?php RightPress_Forms::decimal(array(
+                                    'id'                        => 'rp_wcdpd_' . $current_tab . '_pricing_value_{i}',
+                                    'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][pricing_value]',
+                                    'class'                     => 'rp_wcdpd_' . $current_tab . '_field_pricing_value',
+                                    'placeholder'               => '0.00',
+                                    'data-rp-wcdpd-validation'  => 'required,number_min_0',
+                                )); ?>
+                            </div>
+
+                            <div style="clear: both;"></div>
+
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+
+                <?php if ($current_tab === 'product_pricing'): ?>
+
+                    <div class="rp_wcdpd_row_content_product_pricing_row rp_wcdpd_row_content_pricing_row <?php echo ($current_tab === 'product_pricing' ? 'rp_wcdpd_if rp_wcdpd_if_group rp_wcdpd_if_group_repeat' : ''); ?>">
+                        <div class="rp_wcdpd_field rp_wcdpd_field_full">
+                            <label><?php echo RP_WCDPD_Pricing::get_pricing_settings_label($current_tab); ?></label>
+                            <div class="rp_wcdpd_inner_wrapper">
+
+                                    <div class="rp_wcdpd_field rp_wcdpd_field_double rp_wcdpd_no_left_margin">
+                                        <?php RightPress_Forms::grouped_select(array(
+                                            'id'                        => 'rp_wcdpd_' . $current_tab . '_group_pricing_method_{i}',
+                                            'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][group_pricing_method]',
+                                            'class'                     => 'rp_wcdpd_' . $current_tab . '_field_group_pricing_method',
+                                            'options'                   => RP_WCDPD_Pricing::get_pricing_methods_for_display('product_pricing_group'),
+                                            'data-rp-wcdpd-validation'  => 'required',
+                                        ), true); ?>
+                                    </div>
+                                    <div class="rp_wcdpd_field rp_wcdpd_field_double">
+                                        <?php RightPress_Forms::decimal(array(
+                                            'id'                        => 'rp_wcdpd_' . $current_tab . '_group_pricing_value_{i}',
+                                            'name'                      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][group_pricing_value]',
+                                            'class'                     => 'rp_wcdpd_' . $current_tab . '_field_group_pricing_value',
+                                            'placeholder'               => '0.00',
+                                            'data-rp-wcdpd-validation'  => 'required,number_min_0',
+                                        )); ?>
+                                    </div>
+
+                                <div style="clear: both;"></div>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="rp_wcdpd_clear_both"></div>
-            </div>
-        <?php endif; ?>
 
-        <div class="rp_wcdpd_row_content_child_row rp_wcdpd_row_content_conditions_row">
-            <div class="rp_wcdpd_field rp_wcdpd_field_full">
-                <label><?php esc_html_e('Conditions', 'rp_wcdpd'); ?></label>
-                <div class="rp_wcdpd_inner_wrapper">
-                    <div class="rp_wcdpd_add_condition rp_wcdpd_add_child_element">
-                        <button type="button" class="button" value="<?php esc_html_e('Add Condition', 'rp_wcdpd'); ?>">
-                            <?php esc_html_e('Add Condition', 'rp_wcdpd'); ?>
-                        </button>
+                    <div class="rp_wcdpd_row_content_product_pricing_row rp_wcdpd_row_content_product_pricing_group_row rp_wcdpd_row_content_child_row rp_wcdpd_row_content_group_products_row rp_wcdpd_if rp_wcdpd_if_group rp_wcdpd_if_group_repeat" style="display: none;">
+                        <div class="rp_wcdpd_field rp_wcdpd_field_full">
+                            <label><?php _e('Product Group', 'rp_wcdpd'); ?></label>
+                            <div class="rp_wcdpd_inner_wrapper">
+                                <div class="rp_wcdpd_add_group_product rp_wcdpd_add_child_element">
+                                    <button type="button" class="button" value="<?php _e('Add Product', 'rp_wcdpd'); ?>">
+                                        <?php _e('Add Product', 'rp_wcdpd'); ?>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                <?php endif; ?>
+
+                <div class="rp_wcdpd_row_content_child_row rp_wcdpd_row_content_product_conditions_row rp_wcdpd_if rp_wcdpd_if_simple rp_wcdpd_if_bulk rp_wcdpd_if_tiered rp_wcdpd_if_bogo rp_wcdpd_if_bogo_repeat rp_wcdpd_if_bogo_xx rp_wcdpd_if_bogo_xx_repeat rp_wcdpd_if_exclude rp_wcdpd_if_restrict_purchase" style="display: none;">
+                    <div class="rp_wcdpd_field rp_wcdpd_field_full">
+                        <?php if ($current_tab !== 'product_pricing'): ?>
+                            <label><?php _e('Items', 'rp_wcdpd'); ?></label>
+                        <?php else: ?>
+                            <label class="rp_wcdpd_if rp_wcdpd_if_simple rp_wcdpd_if_bulk rp_wcdpd_if_tiered rp_wcdpd_if_bogo_xx rp_wcdpd_if_bogo_xx_repeat rp_wcdpd_if_exclude rp_wcdpd_if_restrict_purchase" style="display: none;"><?php _e('Products', 'rp_wcdpd'); ?></label>
+                            <label class="rp_wcdpd_if rp_wcdpd_if_bogo rp_wcdpd_if_bogo_repeat" style="display: none;"><?php _e('Products - Buy', 'rp_wcdpd'); ?></label>
+                        <?php endif; ?>
+
+                        <div class="rp_wcdpd_inner_wrapper">
+                            <div class="rp_wcdpd_add_product_condition rp_wcdpd_add_child_element">
+                                <button type="button" class="button" value="<?php _e('Add Product', 'rp_wcdpd'); ?>">
+                                    <?php _e('Add Product', 'rp_wcdpd'); ?>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
                 </div>
+
+                <?php if ($current_tab === 'product_pricing'): ?>
+                    <div class="rp_wcdpd_row_content_child_row rp_wcdpd_row_content_bogo_product_conditions_row rp_wcdpd_if   rp_wcdpd_if_bogo rp_wcdpd_if_bogo_repeat" style="display: none;">
+                        <div class="rp_wcdpd_field rp_wcdpd_field_full">
+                            <label><?php _e('Products - Get', 'rp_wcdpd'); ?></label>
+                            <div class="rp_wcdpd_inner_wrapper">
+                                <div class="rp_wcdpd_add_bogo_product_condition rp_wcdpd_add_child_element">
+                                    <button type="button" class="button" value="<?php _e('Add Product', 'rp_wcdpd'); ?>">
+                                        <?php _e('Add Product', 'rp_wcdpd'); ?>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                <?php endif; ?>
+
+                <div class="rp_wcdpd_row_content_child_row rp_wcdpd_row_content_conditions_row">
+                    <div class="rp_wcdpd_field rp_wcdpd_field_full">
+                        <label><?php _e('Conditions', 'rp_wcdpd'); ?></label>
+                        <div class="rp_wcdpd_inner_wrapper">
+                            <div class="rp_wcdpd_add_condition rp_wcdpd_add_child_element">
+                                <button type="button" class="button" value="<?php _e('Add Condition', 'rp_wcdpd'); ?>">
+                                    <?php _e('Add Condition', 'rp_wcdpd'); ?>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+
             </div>
-            <div class="rp_wcdpd_clear_both"></div>
         </div>
     </div>
 
@@ -357,9 +354,9 @@ if (!defined('ABSPATH')) {
     <div id="rp_wcdpd_no_product_conditions_template">
         <div class="rp_wcdpd_no_product_conditions rp_wcdpd_no_child_elements">
             <?php if ($current_tab === 'product_pricing'): ?>
-                <?php esc_html_e('Applies to all products.', 'rp_wcdpd') ?>
+                <?php _e('Applies to all products.', 'rp_wcdpd') ?>
             <?php else: ?>
-                <?php esc_html_e('Applies to all items.', 'rp_wcdpd') ?>
+                <?php _e('Applies to all items.', 'rp_wcdpd') ?>
             <?php endif; ?>
         </div>
     </div>
@@ -397,7 +394,7 @@ if (!defined('ABSPATH')) {
                     'name'      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][product_conditions][{j}][uid]',
                 ), false); ?>
 
-                <div class="rp_wcdpd_clear_both"></div>
+                <div style="clear: both;"></div>
             </div>
 
             <div class="rp_wcdpd_product_condition_remove rp_wcdpd_child_element_remove">
@@ -405,7 +402,7 @@ if (!defined('ABSPATH')) {
                     <span class="dashicons dashicons-no-alt"></span>
                 </div>
             </div>
-            <div class="rp_wcdpd_clear_both"></div>
+            <div style="clear: both;"></div>
         </div>
     </div>
 
@@ -432,7 +429,7 @@ if (!defined('ABSPATH')) {
 
                     <?php RP_WCDPD_Controller_Conditions::display_fields($current_tab, $combined_key, 'after', 'product_condition'); ?>
 
-                    <div class="rp_wcdpd_clear_both"></div>
+                    <div style="clear: both;"></div>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -443,7 +440,7 @@ if (!defined('ABSPATH')) {
         <!-- NO BOGO PRODUCT CONDITIONS -->
         <div id="rp_wcdpd_no_bogo_product_conditions_template">
             <div class="rp_wcdpd_no_bogo_product_conditions rp_wcdpd_no_child_elements">
-                <?php esc_html_e('Applies to all products.', 'rp_wcdpd') ?>
+                <?php _e('Applies to all products.', 'rp_wcdpd') ?>
             </div>
         </div>
 
@@ -480,7 +477,7 @@ if (!defined('ABSPATH')) {
                         'name'      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][bogo_product_conditions][{j}][uid]',
                     ), false); ?>
 
-                    <div class="rp_wcdpd_clear_both"></div>
+                    <div style="clear: both;"></div>
                 </div>
 
                 <div class="rp_wcdpd_bogo_product_condition_remove rp_wcdpd_child_element_remove">
@@ -488,7 +485,7 @@ if (!defined('ABSPATH')) {
                         <span class="dashicons dashicons-no-alt"></span>
                     </div>
                 </div>
-                <div class="rp_wcdpd_clear_both"></div>
+                <div style="clear: both;"></div>
             </div>
         </div>
 
@@ -515,7 +512,7 @@ if (!defined('ABSPATH')) {
 
                         <?php RP_WCDPD_Controller_Conditions::display_fields($current_tab, $combined_key, 'after', 'bogo_product_condition'); ?>
 
-                        <div class="rp_wcdpd_clear_both"></div>
+                        <div style="clear: both;"></div>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -525,7 +522,7 @@ if (!defined('ABSPATH')) {
 
     <!-- NO CONDITIONS -->
     <div id="rp_wcdpd_no_conditions_template">
-        <div class="rp_wcdpd_no_conditions rp_wcdpd_no_child_elements"><?php esc_html_e('Applies in all cases.', 'rp_wcdpd'); ?></div>
+        <div class="rp_wcdpd_no_conditions rp_wcdpd_no_child_elements"><?php _e('Applies in all cases.', 'rp_wcdpd'); ?></div>
     </div>
 
     <!-- CONDITIONS WRAPPER -->
@@ -561,7 +558,7 @@ if (!defined('ABSPATH')) {
                     'name'      => 'rp_wcdpd_settings[' . $current_tab . '][{i}][conditions][{j}][uid]',
                 ), false); ?>
 
-                <div class="rp_wcdpd_clear_both"></div>
+                <div style="clear: both;"></div>
             </div>
 
             <div class="rp_wcdpd_condition_remove rp_wcdpd_child_element_remove">
@@ -569,7 +566,7 @@ if (!defined('ABSPATH')) {
                     <span class="dashicons dashicons-no-alt"></span>
                 </div>
             </div>
-            <div class="rp_wcdpd_clear_both"></div>
+            <div style="clear: both;"></div>
         </div>
     </div>
 
@@ -596,7 +593,7 @@ if (!defined('ABSPATH')) {
 
                     <?php RP_WCDPD_Controller_Conditions::display_fields($current_tab, $combined_key, 'after'); ?>
 
-                    <div class="rp_wcdpd_clear_both"></div>
+                    <div style="clear: both;"></div>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -606,7 +603,7 @@ if (!defined('ABSPATH')) {
     <div id="rp_wcdpd_condition_disabled_template">
         <div class="rp_wcdpd_condition_disabled">
             <div class="rp_wcdpd_condition_disabled_text">
-                <?php esc_html_e('Condition type was disabled. Enable it or delete this placeholder after reviewing your settings.', 'rp_wcdpd'); ?>
+                <?php _e('Condition type was disabled. Enable it or delete this placeholder after reviewing your settings.', 'rp_wcdpd'); ?>
             </div>
         </div>
     </div>
@@ -615,7 +612,7 @@ if (!defined('ABSPATH')) {
     <div id="rp_wcdpd_condition_disabled_taxonomy_template">
         <div class="rp_wcdpd_condition_disabled_taxonomy">
             <div class="rp_wcdpd_condition_disabled_taxonomy_text">
-                <?php esc_html_e('Custom taxonomy condition was disabled. Enable it or delete this placeholder after reviewing your settings.', 'rp_wcdpd'); ?>
+                <?php _e('Custom taxonomy condition was disabled. Enable it or delete this placeholder after reviewing your settings.', 'rp_wcdpd'); ?>
             </div>
         </div>
     </div>
@@ -624,7 +621,7 @@ if (!defined('ABSPATH')) {
     <div id="rp_wcdpd_condition_non_existent_template">
         <div class="rp_wcdpd_condition_non_existent">
             <div class="rp_wcdpd_condition_non_existent_text">
-                <?php esc_html_e('Condition type no longer exists. Delete this placeholder after reviewing your settings.', 'rp_wcdpd'); ?>
+                <?php _e('Condition type no longer exists. Delete this placeholder after reviewing your settings.', 'rp_wcdpd'); ?>
             </div>
         </div>
     </div>
@@ -633,7 +630,7 @@ if (!defined('ABSPATH')) {
     <div id="rp_wcdpd_condition_non_existent_taxonomy_template">
         <div class="rp_wcdpd_condition_non_existent_taxonomy">
             <div class="rp_wcdpd_condition_non_existent_taxonomy_text">
-                <?php esc_html_e('Custom taxonomy no longer exists. Delete this placeholder after reviewing your settings.', 'rp_wcdpd'); ?>
+                <?php _e('Custom taxonomy no longer exists. Delete this placeholder after reviewing your settings.', 'rp_wcdpd'); ?>
             </div>
         </div>
     </div>
@@ -642,7 +639,7 @@ if (!defined('ABSPATH')) {
 
         <!-- NO QUANTITY RANGES -->
         <div id="rp_wcdpd_no_quantity_ranges_template">
-            <div class="rp_wcdpd_no_quantity_ranges rp_wcdpd_no_child_elements"><?php esc_html_e('No quantity ranges.', 'rp_wcdpd'); ?></div>
+            <div class="rp_wcdpd_no_quantity_ranges rp_wcdpd_no_child_elements"><?php _e('No quantity ranges.', 'rp_wcdpd'); ?></div>
         </div>
 
         <!-- QUANTITY RANGES WRAPPER -->
@@ -667,7 +664,7 @@ if (!defined('ABSPATH')) {
                                 'id'                        => 'rp_wcdpd_product_pricing_quantity_ranges_{i}_from_{j}',
                                 'name'                      => 'rp_wcdpd_settings[product_pricing][{i}][quantity_ranges][{j}][from]',
                                 'class'                     => 'rp_wcdpd_product_pricing_quantity_range_from rp_wcdpd_child_element_field',
-                                'placeholder'               => esc_html__('From', 'rp_wcdpd'),
+                                'placeholder'               => __('From', 'rp_wcdpd'),
                                 'data-rp-wcdpd-validation'  => 'required,number_min_1,number_whole',
                             )); ?>
                         </div>
@@ -679,7 +676,7 @@ if (!defined('ABSPATH')) {
                                 'id'                        => 'rp_wcdpd_product_pricing_quantity_ranges_{i}_to_{j}',
                                 'name'                      => 'rp_wcdpd_settings[product_pricing][{i}][quantity_ranges][{j}][to]',
                                 'class'                     => 'rp_wcdpd_product_pricing_quantity_range_to rp_wcdpd_child_element_field',
-                                'placeholder'               => esc_html__('To - No limit', 'rp_wcdpd'),
+                                'placeholder'               => __('To - No limit', 'rp_wcdpd'),
                                 'data-rp-wcdpd-validation'  => 'number_min_1,number_whole',
                             )); ?>
                         </div>
@@ -714,7 +711,7 @@ if (!defined('ABSPATH')) {
                         'name'      => 'rp_wcdpd_settings[product_pricing][{i}][quantity_ranges][{j}][uid]',
                     ), false); ?>
 
-                    <div class="rp_wcdpd_clear_both"></div>
+                    <div style="clear: both;"></div>
 
                 </div>
 
@@ -723,13 +720,13 @@ if (!defined('ABSPATH')) {
                         <span class="dashicons dashicons-no-alt"></span>
                     </div>
                 </div>
-                <div class="rp_wcdpd_clear_both"></div>
+                <div style="clear: both;"></div>
             </div>
         </div>
 
         <!-- NO GROUP PRODUCTS -->
         <div id="rp_wcdpd_no_group_products_template">
-            <div class="rp_wcdpd_no_group_products rp_wcdpd_no_child_elements"><?php esc_html_e('No products in group.', 'rp_wcdpd'); ?></div>
+            <div class="rp_wcdpd_no_group_products rp_wcdpd_no_child_elements"><?php _e('No products in group.', 'rp_wcdpd'); ?></div>
         </div>
 
         <!-- GROUP PRODUCTS WRAPPER -->
@@ -788,7 +785,7 @@ if (!defined('ABSPATH')) {
 
                                 <?php RP_WCDPD_Controller_Conditions::display_fields($current_tab, $combined_key, 'after', 'group_product'); ?>
 
-                                <div class="rp_wcdpd_clear_both"></div>
+                                <div style="clear: both;"></div>
                             </div>
                         <?php endforeach; ?>
                     <?php endforeach; ?>
@@ -798,7 +795,7 @@ if (!defined('ABSPATH')) {
                         'name'      => 'rp_wcdpd_settings[product_pricing][{i}][group_products][{j}][uid]',
                     ), false); ?>
 
-                    <div class="rp_wcdpd_clear_both"></div>
+                    <div style="clear: both;"></div>
 
                 </div>
 
@@ -807,7 +804,7 @@ if (!defined('ABSPATH')) {
                         <span class="dashicons dashicons-no-alt"></span>
                     </div>
                 </div>
-                <div class="rp_wcdpd_clear_both"></div>
+                <div style="clear: both;"></div>
 
             </div>
         </div>

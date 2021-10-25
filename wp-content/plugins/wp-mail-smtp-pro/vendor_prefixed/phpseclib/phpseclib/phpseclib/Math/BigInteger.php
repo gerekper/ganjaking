@@ -37,7 +37,7 @@ use WPMailSMTP\Vendor\phpseclib3\Exception\BadConfigurationException;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  public
  */
-class BigInteger
+class BigInteger implements \Serializable
 {
     /**
      * Main Engine
@@ -63,22 +63,6 @@ class BigInteger
      * @var object
      */
     private $value;
-    /**
-     * Mode independent value used for serialization.
-     *
-     * @see self::__sleep()
-     * @see self::__wakeup()
-     * @var string
-     */
-    private $hex;
-    /**
-     * Precision (used only for serialization)
-     *
-     * @see self::__sleep()
-     * @see self::__wakeup()
-     * @var int
-     */
-    private $precision;
     /**
      * Sets engine type.
      *
@@ -360,37 +344,38 @@ class BigInteger
      *
      * Will be called, automatically, when serialize() is called on a BigInteger object.
      *
-     * __sleep() / __wakeup() have been around since PHP 4.0
+     * phpseclib 1.0 serialized strings look like this:
+     * O:15:"Math_BigInteger":1:{s:3:"hex";s:18:"00ab54a98ceb1f0ad2";}
      *
-     * \Serializable was introduced in PHP 5.1 and deprecated in PHP 8.1:
-     * https://wiki.php.net/rfc/phase_out_serializable
-     *
-     * __serialize() / __unserialize() were introduced in PHP 7.4:
-     * https://wiki.php.net/rfc/custom_object_serialization
+     * phpseclib 3.0 serialized strings look like this:
+     * C:25:"phpseclib\Math\BigInteger":42:{a:1:{s:3:"hex";s:18:"00ab54a98ceb1f0ad2";}}
      *
      * @return string
      */
-    public function __sleep()
+    public function serialize()
     {
-        $this->hex = $this->toHex(\true);
-        $vars = ['hex'];
-        if ($this->getPrecision() > 0) {
-            $vars[] = 'precision';
+        $val = ['hex' => $this->toHex(\true)];
+        $precision = $this->value->getPrecision();
+        if ($precision > 0) {
+            $val['precision'] = $precision;
         }
-        return $vars;
+        return \serialize($val);
     }
     /**
      * Serialize
      *
      * Will be called, automatically, when unserialize() is called on a BigInteger object.
+     *
+     * @param string $serialized
      */
-    public function __wakeup()
+    public function unserialize($serialized)
     {
-        $temp = new static($this->hex, -16);
+        $r = \unserialize($serialized);
+        $temp = new static($r['hex'], -16);
         $this->value = $temp->value;
-        if ($this->precision > 0) {
+        if (isset($r['precision'])) {
             // recalculate $this->bitmask
-            $this->setPrecision($this->precision);
+            $this->setPrecision($r['precision']);
         }
     }
     /**

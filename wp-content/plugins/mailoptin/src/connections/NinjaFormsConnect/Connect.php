@@ -75,7 +75,9 @@ class Connect
         // using file_exists instead of $wp_filesystem own to remove the overhead of loading wp file system
         if ( ! file_exists($filename)) {
 
-            if (false === ($wp_filesystem = $this->setup_file_system())) return false;
+            if (false === ($wp_filesystem = $this->setup_file_system())) {
+                return false;
+            }
 
             if (false === ($class_file_content = $wp_filesystem->get_contents(dirname(__FILE__) . '/MoNinjaConnect.php'))) {
                 AbstractConnect::save_optin_error_log($key . ' Failed to read connect class', 'ninjaforms');

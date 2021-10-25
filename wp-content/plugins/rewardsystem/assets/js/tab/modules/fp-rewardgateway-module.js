@@ -2,7 +2,6 @@
  * Reward GateWay - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var RewardGatewayScripts = {
         init : function () {
             this.trigger_on_page_load() ;
@@ -10,19 +9,6 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_show_hide_reward_points_gateway' , this.show_or_hide_for_visibility ) ;
         } ,
         trigger_on_page_load : function () {
-            if ( jQuery( "#woocommerce_reward_gateway_rs_subscription_based_payment_option" ).is( ":checked" ) ) {
-                jQuery( "#woocommerce_reward_gateway_rs_force_auto_r_manual_subscription_payment" ).closest( 'tr' ).show() ;
-            } else {
-                jQuery( "#woocommerce_reward_gateway_rs_force_auto_r_manual_subscription_payment" ).closest( 'tr' ).hide() ;
-            }
-
-            jQuery( "#woocommerce_reward_gateway_rs_subscription_based_payment_option" ).change( function () {
-                if ( this.checked ) {
-                    jQuery( "#woocommerce_reward_gateway_rs_force_auto_r_manual_subscription_payment" ).closest( 'tr' ).show() ;
-                } else {
-                    jQuery( "#woocommerce_reward_gateway_rs_force_auto_r_manual_subscription_payment" ).closest( 'tr' ).hide() ;
-                }
-            } ) ;
             if ( fp_reward_gateway_module_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
                 $( '#rs_select_category_for_purchase_using_points' ).chosen() ;
                 $( '#rs_select_category_to_hide_gateway' ).chosen() ;

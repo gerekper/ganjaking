@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Pickup_Locations\Pickup_Location as Pickup_Location;
 
 /**
@@ -134,7 +134,10 @@ class WC_Local_Pickup_Plus_Pickup_Location {
 			wc_local_pickup_plus()->check_tables();
 
 			$table  = "{$wpdb->prefix}woocommerce_pickup_locations_geodata";
-			$exists = $wpdb->get_row( " SELECT * from {$table} WHERE post_id = {$this->id} " );
+			$exists = $wpdb->get_row( $wpdb->prepare( "
+				SELECT * from {$table}
+ 				WHERE post_id = %d
+ 			", (int) $this->id ) );
 		}
 
 		return ! empty( $exists );

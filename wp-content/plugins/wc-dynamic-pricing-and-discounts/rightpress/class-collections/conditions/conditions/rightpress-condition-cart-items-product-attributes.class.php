@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Cart_Items_Product_Attributes extends RightP
     public function get_label()
     {
 
-        return esc_html__('Cart items - Attributes', 'rightpress');
+        return __('Cart items - Attributes', 'rightpress');
     }
 
     /**

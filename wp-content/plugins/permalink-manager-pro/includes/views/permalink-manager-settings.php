@@ -206,7 +206,7 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 						'type' => 'single_checkbox',
 						'label' => __('"Primary category" support', 'permalink-manager'),
 						'input_class' => '',
-						'description' => __('If enabled, Permalink Manager will use the "primary category" for the default post permalinks.<br />Works with: <strong>Yoast SEO, The SEO Framework, RankMath and SEOPress</strong> breadcrumbs.', 'permalink-manager')
+						'description' => __('If enabled, Permalink Manager will use the "primary category" for the default post permalinks.<br />Works with: <strong>Yoast SEO, The SEO Framework, RankMath and SEOPress</strong>.', 'permalink-manager')
 					),
 				)
 			),

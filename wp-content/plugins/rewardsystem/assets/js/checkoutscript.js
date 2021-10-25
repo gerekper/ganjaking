@@ -1,5 +1,5 @@
 jQuery( function ( $ ) {
-    'use strict' ;
+
     var wc_checkout_coupons = {
         init : function () {
             $( document.body ).on( 'click' , '.woocommerce-remove-coupon' , this.remove_coupon ) ;

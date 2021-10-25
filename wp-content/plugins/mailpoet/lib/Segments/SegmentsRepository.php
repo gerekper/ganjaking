@@ -11,7 +11,6 @@ use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
-use MailPoet\Form\FormsRepository;
 use MailPoet\Newsletter\Segment\NewsletterSegmentRepository;
 use MailPoet\NotFoundException;
 use MailPoet\WP\Functions as WPFunctions;
@@ -27,17 +26,12 @@ class SegmentsRepository extends Repository {
   /** @var NewsletterSegmentRepository */
   private $newsletterSegmentRepository;
 
-  /** @var FormsRepository */
-  private $formsRepository;
-
   public function __construct(
     EntityManager $entityManager,
-    NewsletterSegmentRepository $newsletterSegmentRepository,
-    FormsRepository $formsRepository
+    NewsletterSegmentRepository $newsletterSegmentRepository
   ) {
     parent::__construct($entityManager);
     $this->newsletterSegmentRepository = $newsletterSegmentRepository;
-    $this->formsRepository = $formsRepository;
   }
 
   protected function getEntityClassName() {
@@ -120,10 +114,8 @@ class SegmentsRepository extends Repository {
     // We want to remove redundant filters before update
     while ($segment->getDynamicFilters()->count() > count($filtersData)) {
       $filterEntity = $segment->getDynamicFilters()->last();
-      if ($filterEntity) {
-        $segment->getDynamicFilters()->removeElement($filterEntity);
-        $this->entityManager->remove($filterEntity);
-      }
+      $segment->getDynamicFilters()->removeElement($filterEntity);
+      $this->entityManager->remove($filterEntity);
     }
     foreach ($filtersData as $key => $filterData) {
       if ($filterData instanceof DynamicSegmentFilterData) {
@@ -180,14 +172,8 @@ class SegmentsRepository extends Repository {
   }
 
   public function bulkTrash(array $ids, string $type = SegmentEntity::TYPE_DEFAULT): int {
-    $activelyUsedInNewsletters = $this->newsletterSegmentRepository->getSubjectsOfActivelyUsedEmailsForSegments($ids);
-    $activelyUsedInForms = $this->formsRepository->getNamesOfFormsForSegments();
-    $activelyUsed = array_unique(array_merge(array_keys($activelyUsedInNewsletters), array_keys($activelyUsedInForms)));
-    $ids = array_diff($ids, $activelyUsed);
-    return $this->updateDeletedAt($ids, new Carbon(), $type);
-  }
-
-  public function doTrash(array $ids, string $type = SegmentEntity::TYPE_DEFAULT): int {
+    $activelyUsed = $this->newsletterSegmentRepository->getSubjectsOfActivelyUsedEmailsForSegments($ids);
+    $ids = array_diff($ids, array_keys($activelyUsed));
     return $this->updateDeletedAt($ids, new Carbon(), $type);
   }
 

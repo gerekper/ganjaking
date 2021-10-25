@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 
 /**
  * Pickup Locations Admin class.
@@ -526,9 +526,9 @@ class WC_Local_Pickup_Plus_Pickup_Locations_Admin {
 
 		if ( $this->is_search() ) {
 
-			$keyword   = $_GET['s'];
+			$keyword   = $wpdb->esc_like( $_GET['s'] );
 			$pieces    = '';
-			$meta_keys = array(
+			$meta_keys = [
 				'_pickup_location_phone',
 				'_pickup_location_address_country',
 				'_pickup_location_address_state',
@@ -536,7 +536,7 @@ class WC_Local_Pickup_Plus_Pickup_Locations_Admin {
 				'_pickup_location_address_postcode',
 				'_pickup_location_address_address_1',
 				'_pickup_location_address_address_2',
-			);
+			];
 
 			foreach ( $meta_keys as $meta_key ) {
 				$pieces .= " OR (({$wpdb->postmeta}.meta_key = '{$meta_key}') AND ({$wpdb->postmeta}.meta_value LIKE '%{$keyword}%'))";

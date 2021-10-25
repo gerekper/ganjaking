@@ -6,13 +6,13 @@
  *  @package Highlight Box
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Highlight_Box' ) ) {
+if ( ! class_exists( 'Ultimate_Highlight_Box' ) ) {
 	/**
 	 * Function that initializes Highlight Box Module
 	 *
-	 * @class Ultimate_VC_Addons_Highlight_Box
+	 * @class Ultimate_Highlight_Box
 	 */
-	class Ultimate_VC_Addons_Highlight_Box {
+	class Ultimate_Highlight_Box {
 		/**
 		 * Constructor function that constructs default values for the Highlight Box module.
 		 *
@@ -31,9 +31,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Highlight_Box' ) ) {
 		 * @method register_cta_assets
 		 */
 		public function register_cta_assets() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-ctaction-style', 'highlight-box' );
+			Ultimate_VC_Addons::ultimate_register_style( 'utl-ctaction-style', 'highlight-box' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-ctaction-script', 'highlight-box', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'utl-ctaction-script', 'highlight-box', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 		/**
 		 * Function that initializes settings of Highlight Box Module.
@@ -616,8 +616,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Highlight_Box' ) ) {
 		}
 	}
 }
-if ( class_exists( 'Ultimate_VC_Addons_Highlight_Box' ) ) {
-	$ultimate_highlight_box = new Ultimate_VC_Addons_Highlight_Box();
+if ( class_exists( 'Ultimate_Highlight_Box' ) ) {
+	$ultimate_highlight_box = new Ultimate_Highlight_Box();
 }
 
 if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Ctation' ) ) {

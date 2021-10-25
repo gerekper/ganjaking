@@ -8,7 +8,6 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\WP\Functions;
 
 class CustomFonts {
-  const FONT_CHUNK_SIZE = 25;
   const FONTS = [
     'Abril FatFace',
     'Alegreya',
@@ -77,28 +76,21 @@ class CustomFonts {
   /** @var Functions */
   private $wp;
 
-  public function __construct(
-    Functions $wp
-  ) {
+  public function __construct(Functions $wp) {
     $this->wp = $wp;
   }
 
   public function enqueueStyle() {
     $displayCustomFonts = $this->wp->applyFilters('mailpoet_display_custom_fonts', true);
     if ($displayCustomFonts) {
-      // Due to a conflict with the WooCommerce Payments plugin, we need to load custom fonts in more requests.
-      // When we load all custom fonts in one request, a form from WC Payments isn't displayed correctly.
-      // It looks that the larger file size overloads the Stripe SDK.
-      foreach (array_chunk(self::FONTS, self::FONT_CHUNK_SIZE) as $key => $fonts) {
-        $this->wp->wpEnqueueStyle('mailpoet_custom_fonts_' . $key, $this->generateLink($fonts));
-      }
+      $this->wp->wpEnqueueStyle('mailpoet_custom_fonts', $this->generateLink());
     }
   }
 
-  private function generateLink(array $fonts): string {
+  private function generateLink(): string {
     $fonts = array_map(function ($fontName) {
       return urlencode($fontName) . ':400,400i,700,700i';
-    }, $fonts);
+    }, self::FONTS);
     $fonts = implode('|', $fonts);
     return 'https://fonts.googleapis.com/css?family=' . $fonts;
   }

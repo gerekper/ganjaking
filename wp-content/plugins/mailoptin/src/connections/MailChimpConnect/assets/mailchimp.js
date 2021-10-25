@@ -41,6 +41,7 @@
             $('div.MailChimpConnect_segment_display_alignment', parent).slideDown();
             $('div.MailChimpConnect_segment_required', parent).slideDown();
             $('div.MailChimpConnect_segment_required_error', parent).slideDown();
+            $('div.MailChimpConnect_show_group_label', parent).slideDown();
             $('div.MailChimpConnect_user_input_field_label', parent).slideDown();
         }
         else {
@@ -51,6 +52,7 @@
             $('div.MailChimpConnect_segment_display_alignment', parent).slideUp();
             $('div.MailChimpConnect_segment_required', parent).slideUp();
             $('div.MailChimpConnect_segment_required_error', parent).slideUp();
+            $('div.MailChimpConnect_show_group_label', parent).slideUp();
             $('div.MailChimpConnect_user_input_field_label', parent).slideUp();
         }
     };
@@ -71,7 +73,7 @@
 
         $(document).on(
             'change',
-            '[name="MailChimpConnect_group_segment_type"],[name="MailChimpConnect_user_input_field_label"],[name="MailChimpConnect_selection_type"],[name="MailChimpConnect_user_input_segment_area_font"],[name="MailChimpConnect_segment_display_alignment"],[name="MailChimpConnect_interests[]"],[name="MailChimpConnect_segment_display_style"],[name="MailChimpConnect_user_input_field_color"]',
+            '[name="MailChimpConnect_group_segment_type"],[name="MailChimpConnect_user_input_field_label"],[name="MailChimpConnect_selection_type"],[name="MailChimpConnect_user_input_segment_area_font"],[name="MailChimpConnect_segment_display_alignment"],[name="MailChimpConnect_interests[]"],[name="MailChimpConnect_segment_display_style"],[name="MailChimpConnect_user_input_field_color"],[name="MailChimpConnect_show_group_label"]',
             function () {
                 api.previewer.refresh();
             }

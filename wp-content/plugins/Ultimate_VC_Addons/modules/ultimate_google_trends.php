@@ -6,13 +6,13 @@
  *  @package Ultimate Google Trends
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Google_Trends' ) ) {
+if ( ! class_exists( 'Ultimate_Google_Trends' ) ) {
 	/**
 	 * Function that initializes Ultimate Google Trends Module
 	 *
-	 * @class Ultimate_VC_Addons_Google_Trends
+	 * @class Ultimate_Google_Trends
 	 */
-	class Ultimate_VC_Addons_Google_Trends {
+	class Ultimate_Google_Trends {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Google Trends module.
 		 *
@@ -243,7 +243,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Trends' ) ) {
 			return $output;
 		}
 	}
-	new Ultimate_VC_Addons_Google_Trends();
+	new Ultimate_Google_Trends();
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Google_Trends' ) ) {
 		/**
 		 * Function that checks if the class is exists or not.

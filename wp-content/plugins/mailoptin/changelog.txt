@@ -1,6 +1,29 @@
 ﻿== Changelog ==
 
-<<<<<<< HEAD
+= 1.2.36.3 =
+* Fixed bug where plus (+) in post content was replaced with space.
+* Fixed bug where Sendinblue Elementor integration forces DOI.
+
+= 1.2.36.2 =
+* Fixed multiple PHP error notices and improved PHP 8 support.
+
+= 1.2.36.1 =
+* Fixed bug where leads where accidentally deleted.
+* Forminator integration bug fixes.
+
+= 1.2.36.0 =
+* Added Forminator integration.
+* Fixed bug where our Gutenberg integration broke the editor.
+* Added option to send test email to custom email addresses.
+* Fixed issue where {{date}} wasn’t getting parsed in email campaigns.
+* Fixed the splitting of multiples names into firstname and lastnames.
+* Fixed Zoho Campaigns token refresh not working.
+
+= 1.2.35.4 =
+* Fixed issue where names with more than two words wasn't correctly synced to ESP.
+* Fix potential issue where {{date}} wasn’t getting parsed in email campaigns.
+* Fixed issue where Elementor field mapping wasn't working for Sendinblue.
+
 = 1.2.35.3 =
 * Fixed slider not working in email dnd builder.
 * Improved email template for outlook.
@@ -14,8 +37,6 @@
 * Fixed settings page conflict Analytify.
 * Fixed issues with Firefox browser.
 
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 = 1.2.35.0 =
 * Added CleverReach integration.
 * Increased moosend email list number to 1k.

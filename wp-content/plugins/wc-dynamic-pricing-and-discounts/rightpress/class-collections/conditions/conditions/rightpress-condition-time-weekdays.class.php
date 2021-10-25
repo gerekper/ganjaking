@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Time_Weekdays extends RightPress_Condition_T
     public function get_label()
     {
 
-        return esc_html__('Days of week', 'rightpress');
+        return __('Days of week', 'rightpress');
     }
 
     /**

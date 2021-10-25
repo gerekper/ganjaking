@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Purchase_History_Quantity_Product_Attributes
     public function get_label()
     {
 
-        return esc_html__('Quantity purchased - Attributes', 'rightpress');
+        return __('Quantity purchased - Attributes', 'rightpress');
     }
 
 

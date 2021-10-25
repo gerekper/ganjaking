@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Product_Property_Regular_Price extends Right
     public function get_label()
     {
 
-        return esc_html__('Product regular price', 'rightpress');
+        return __('Product regular price', 'rightpress');
     }
 
     /**

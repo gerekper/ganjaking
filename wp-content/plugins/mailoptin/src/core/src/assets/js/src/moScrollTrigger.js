@@ -1,4 +1,6 @@
-define(["jquery"], function ($) {
+import $ from 'jquery';
+
+export default function () {
     var winheight, docheight, trackLength, throttlescroll;
 
     function getmeasurements() {
@@ -29,4 +31,4 @@ define(["jquery"], function ($) {
             });
         }
     }
-});
+}

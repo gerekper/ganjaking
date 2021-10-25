@@ -16,9 +16,7 @@ class PostContentManager {
   /** @var WooCommerceHelper */
   private $woocommerceHelper;
 
-  public function __construct(
-    WooCommerceHelper $woocommerceHelper = null
-  ) {
+  public function __construct(WooCommerceHelper $woocommerceHelper = null) {
     $wp = new WPFunctions;
     $this->maxExcerptLength = $wp->applyFilters('mailpoet_newsletter_post_excerpt_length', $this->maxExcerptLength);
     $this->woocommerceHelper = $woocommerceHelper ?: new WooCommerceHelper();
@@ -28,19 +26,19 @@ class PostContentManager {
     if ($displayType === 'titleOnly') {
       return '';
     }
-    if ($this->woocommerceHelper->isWooCommerceActive() && $post->post_type === 'product') { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    if ($this->woocommerceHelper->isWooCommerceActive() && $post->post_type === 'product') { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
       $product = $this->woocommerceHelper->wcGetProduct($post->ID);
       if ($product) {
         return $this->getContentForProduct($product, $displayType);
       }
     }
     if ($displayType === 'excerpt') {
-      if (!empty($post->post_excerpt)) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-        return self::stripShortCodes($post->post_excerpt); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      if (!empty($post->post_excerpt)) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+        return self::stripShortCodes($post->post_excerpt); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
       }
-      return $this->generateExcerpt($post->post_content); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      return $this->generateExcerpt($post->post_content); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     }
-    return self::stripShortCodes($post->post_content); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    return self::stripShortCodes($post->post_content); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
   }
 
   public function filterContent($content, $displayType, $withPostClass = true) {

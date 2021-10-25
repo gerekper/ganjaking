@@ -42,7 +42,7 @@ abstract class RightPress_Condition_Order extends RightPress_Condition
     public function get_group_label()
     {
 
-        return esc_html__('Order', 'rightpress');
+        return __('Order', 'rightpress');
     }
 
 

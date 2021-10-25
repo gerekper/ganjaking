@@ -13,7 +13,7 @@
  * Plugin Name:       Smush Pro
  * Plugin URI:        http://wpmudev.com/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.9.1
+ * Version:           3.9.0
  * Author:            WPMU DEV
  * Author URI:        https://wpmudev.com/
  * License:           GPLv2
@@ -47,17 +47,17 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.9.1' );
+	define( 'WP_SMUSH_VERSION', '3.9.0' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
-	define( 'WP_SHARED_UI_VERSION', 'sui-2-11-0' );
+	define( 'WP_SHARED_UI_VERSION', 'sui-2-10-8' );
 }
 if ( ! defined( 'WP_SMUSH_BASENAME' ) ) {
 	define( 'WP_SMUSH_BASENAME', plugin_basename( __FILE__ ) );
 }
 if ( ! defined( 'WP_SMUSH_API' ) ) {
-	define( 'WP_SMUSH_API', 'https://smushpro.wpmudev.com/1.0/' );
+	define( 'WP_SMUSH_API', 'https://smushpro.wpmudev.org/1.0/' );
 }
 if ( ! defined( 'WP_SMUSH_UA' ) ) {
 	define( 'WP_SMUSH_UA', 'WP Smush/' . WP_SMUSH_VERSION . '; ' . network_home_url() );
@@ -73,6 +73,9 @@ if ( ! defined( 'WP_SMUSH_MAX_BYTES' ) ) {
 }
 if ( ! defined( 'WP_SMUSH_PREMIUM_MAX_BYTES' ) ) {
 	define( 'WP_SMUSH_PREMIUM_MAX_BYTES', 32000000 );
+}
+if ( ! defined( 'WP_SMUSH_PREFIX' ) ) {
+	define( 'WP_SMUSH_PREFIX', 'wp-smush-' );
 }
 if ( ! defined( 'WP_SMUSH_TIMEOUT' ) ) {
 	define( 'WP_SMUSH_TIMEOUT', 150 );
@@ -455,9 +458,8 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 
 			$api_auth = get_site_option( 'wp_smush_api_auth' );
 
-			// Check if we need to revalidate.
-			if ( ! $api_auth || empty( $api_auth ) || ! is_array( $api_auth ) || empty( $api_auth[ $api_key ] ) ) {
-				$api_auth   = array();
+			// Check if need to revalidate.
+			if ( ! $api_auth || empty( $api_auth ) || empty( $api_auth[ $api_key ] ) ) {
 				$revalidate = true;
 			} else {
 				$last_checked = $api_auth[ $api_key ]['timestamp'];
@@ -471,7 +473,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 				}
 			}
 
-			// If we are supposed to validate API, update the results in options table.
+			// If we are suppose to validate API, update the results in options table.
 			if ( $revalidate || $manual ) {
 				if ( empty( $api_auth[ $api_key ] ) ) {
 					// For api key resets.
@@ -497,7 +499,7 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 					$result = json_decode( wp_remote_retrieve_body( $request ) );
 					if ( ! empty( $result->success ) && $result->success ) {
 						$valid = 'valid';
-						update_site_option( 'wp-smush-cdn_status', $result->data );
+						update_site_option( WP_SMUSH_PREFIX . 'cdn_status', $result->data );
 					} else {
 						$valid = 'invalid';
 					}

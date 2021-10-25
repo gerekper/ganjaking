@@ -1,0 +1,707 @@
+.gt3_register_container{
+    max-width: 500px;
+}
+.gt3_register_container .regular-text{
+    height: 40px !important;
+    padding: 5px 15px !important;
+    width: 342px !important;
+    margin-bottom: 10px !important;
+    border: 2px solid #BDC3C7;
+    border-radius: 4px;
+    float: left;
+}
+.gt3_register_container .regular-text[readonly="readonly"]{
+    background-color: #DADFE1;
+}
+.gt3_register_container .gt3_register__buttons{
+    float: left;
+    position: relative;
+}
+.gt3_register_container .gt3_register__check,
+.gt3_register_container .gt3_register__deregister,
+.gt3_register_container .gt3_register__submit,
+.gt3_account_submit,
+.gt3_account_submit_success_button{
+    display: inline-block;
+    width: 150px;
+    height: 40px;
+    border: 2px solid;
+    font-size: 14px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    text-decoration: none;
+    text-align: center;
+    line-height: 36px;
+    font-weight: 500;
+    border-radius: 4px;
+    margin-left: 5px;
+    background-color: #22A7F0;
+    border-color: #22A7F0;
+    color: #fff;
+}
+.gt3_account_submit_success_button{
+    display: block;
+    margin-left: auto;
+    width: 100px;
+    margin-bottom: 5px;
+    margin-top: -8px;
+    cursor: pointer;
+}
+input.gt3_account{
+    width: 257px !important;
+}
+.gt3_register__popup input.gt3_account{
+    width: 310px !important;
+}
+.gt3_account_submit{
+    width: 184px;
+    padding: 0 2px;
+    margin-left: 0;
+    float: right;
+    color: #ffffff !important;
+}
+.gt3_register__buttons .gt3_activation_refresh{
+    position: absolute;
+    width: 30px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    top: 50%;
+    margin-top: -20px;
+    right: -35px;
+    background-color: transparent !important;
+}
+.gt3_register__buttons .gt3_activation_refresh i,
+.gt3_register__buttons .gt3_activation_refresh i:before{
+    line-height: inherit;
+}
+.gt3_register_container .gt3_register__buttons > a:hover,
+.gt3_account_submit:hover{
+    border-color: #4183D7;
+    background-color: #4183D7
+}
+.gt3_register_container .gt3_register__deregister{
+    display: none;
+}
+.gt3_register_container.gt3_register_active .gt3_register__deregister{
+    display: inline-block;
+}
+.gt3_register_container.gt3_register_active .gt3_register__submit{
+    display: none;
+}
+.gt3_register__process{
+    position: relative;
+    z-index: 1;
+    padding: 20px 60px 20px 25px;
+    margin-top: 15px;
+    background: #ECF0F1;
+    max-width: 500px;
+    box-sizing: border-box;
+    font-weight: 500;
+    font-size: 16px;
+    border: 2px solid #BDC3C7;
+    overflow: hidden;
+    clear: both;
+    border-radius: 4px;
+}
+.gt3_register__process:before{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    margin-top: -400px;
+    margin-left: -400px;
+    width: 800px;
+    height: 800px;
+    border-radius: 800px;
+    transform: scale(0);
+    background: #BDC3C7;
+    opacity: 0;
+    transition: transform 0.4s linear, opacity 0.2s linear;
+    will-change: transform;
+}
+.gt3_register__process.msg_clear:before{
+    background: #ffffff;
+    transition: transform 0s linear, opacity 0s linear;
+}
+.gt3_register__process.msg_clear{
+    color: transparent;
+}
+.gt3_register__process.msg_clear .gt3_circle_loader{
+    opacity: 0;
+}
+
+.gt3_register__process.msg_success:before{
+    background: #71c341;
+}
+.gt3_register__process.msg_error:before{
+    background: #D91E18;
+}
+.gt3_register__process.msg_notice:before{
+    background: #3498DB;
+}
+
+
+.gt3_register__process.animation_done:before{
+    transform: scale(1);
+    opacity: 1;
+}
+.gt3_register__process:after{
+    content: "\f110";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    margin-top: -17px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border: 2px solid;
+    border-radius: 30px;
+    text-align: center;
+}
+.gt3_register__process.animation_begin:after{
+    animation: spin 2s linear infinite;
+}
+.gt3_register__process.animation_done:after{
+    content: "\f00c";
+    color: #ffffff;
+}
+.gt3_register__process.animation_done{
+    color: #ffffff;
+}
+.gt3_register__process.animation_done.msg_success{
+    border-color: #71c341;
+    color: #ffffff;
+}
+.gt3_register__process.animation_done.msg_error{
+    border-color: #D91E18;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.gt3_info_container{
+    clear: both;
+    position: relative;
+    padding: 20px 25px 20px 65px;
+    margin-top: 15px;
+    background: #d54e21;
+    color: #ffffff;
+    max-width: 500px;
+    box-sizing: border-box;
+    font-weight: 400;
+    line-height: 21px;
+    font-size: 13px;
+    border: 2px solid #d54e21;
+    overflow: hidden;
+    clear: both;
+    border-radius: 4px;
+}
+.gt3_info_container--no_icon{
+    padding: 20px 25px;
+}
+.gt3_info_container.gt3_info_container--no_icon:after{
+    display: none;
+}
+.gt3_support_container{
+    background: #71c341;
+    border-color: #71c341;
+}
+
+.gt3_info_container a{
+    color: inherit;
+    font-weight: 500;
+}
+
+.gt3_info_container:after{
+    content: "\f348";
+    display: inline-block;
+    font: normal normal normal 14px/1 dashicons;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    margin-top: -17px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 33px;
+    /*border: 2px solid;
+    border-radius: 30px;*/
+    text-align: center;
+}
+
+.gt3_register__popup{
+    position: fixed;
+    top: 30px;
+    bottom: 0;
+    left: 150px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    text-align: center;
+    transition: opacity 0.2s linear;
+    will-change: opacity;
+}
+.gt3_register__popup:before{
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    height: 100%;
+}
+.gt3_register__popup_container{
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    padding: 0 30px;
+    box-sizing: border-box;
+    background: #fff;
+    width: 560px;
+    z-index: 2;
+    box-shadow: 0 0.75em 4em 0 rgb(0, 0, 0);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.gt3_register__popup.popup_start{
+    opacity: 1;
+    visibility: visible;
+}
+
+.gt3_account_submit_container{
+    background: #fafafa;
+    border-color: #EEEEEE;
+    color: inherit;
+}
+
+.gt3_register__popup_container .gt3_info_container{
+    display: none;
+    border: none;
+    color: inherit;
+    background: transparent;
+    margin-left: -30px;
+    margin-right: -30px;
+    max-width: none;
+    padding-top: 0;
+    text-align: left;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.gt3_register__popup_sepparator{
+    -js-display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+.gt3_register__popup_sepparator span{
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+}
+.gt3_register__popup_sepparator:before,
+.gt3_register__popup_sepparator:after{
+    content: '';
+    -webkit-flex: 1 1 0;
+    -ms-flex: 1 1 0;
+    flex: 1 1 0;
+    border-top: 1px solid #BDC3C7;
+    margin: 1px 10px 0;
+}
+.gt3_register__popup_sepparator:before{
+    margin-right: 10px;
+}
+.gt3_register__popup_sepparator:after{
+    margin-left: 10px;
+}
+.gt3_register__key .key{
+    text-decoration: underline;
+}
+
+.gt3_account_submit_container p{
+    margin-top: 15px !important;
+}
+.gt3_account_submit_container ul{
+    list-style-type: disc;
+    margin-left: 1.3em;
+    margin-bottom: 25px;
+}
+
+
+.gt3_register__popup_container .gt3_register__process:after{
+    display: none;
+}
+.gt3_register__popup_container .gt3_register__process{
+    border: none;
+    margin-top: 0;
+    margin-left: -30px;
+    margin-right: -30px;
+    padding: 100px 25px 25px;
+    width: inherit;
+    max-width: none;
+    border-radius: 9px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.gt3_register__popup_close{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1000000;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+.gt3_register__popup_close:hover{
+    opacity: 1;
+}
+.gt3_register__process.animation_begin + .gt3_register__popup_close{
+    display: none;
+}
+
+
+
+
+/* checkmarks animations */
+
+.gt3_circle_loader {
+    border: 2px solid #BDC3C7;
+    border-left-color: #000000;
+    animation-name: loader-spin;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -30px;
+}
+
+.gt3_circle_loader,
+.gt3_circle_loader:after {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+.gt3_register__process.animation_done .gt3_circle_loader{
+  -webkit-animation: none;
+  animation: none;
+  border-color: #ffffff;
+  transition: border 500ms ease-out;
+}
+
+.gt3_circle_loader__checkmark {
+  display: none;
+}
+.gt3_register__process.animation_done .gt3_circle_loader__checkmark{
+    display: block;
+}
+.gt3_register__process.msg_success .gt3_circle_loader__checkmark:after {
+  animation-duration: 800ms;
+  animation-timing-function: ease;
+  animation-name: checkmark;
+  transform: scaleX(-1) rotate(135deg);
+}
+.gt3_register__process.msg_success .gt3_circle_loader__checkmark:after {
+    opacity: 1;
+    height: 26px;
+    width: 15px;
+    transform-origin: left top;
+    border-right: 4px solid #ffffff;
+    border-top: 4px solid #ffffff;
+    content: '';
+    left: 15px;
+    top: 32px;
+    position: absolute;
+}
+.gt3_register__process.msg_error .gt3_circle_loader__checkmark:before,
+.gt3_register__process.msg_error .gt3_circle_loader__checkmark:after{
+    animation-duration: 600ms;
+    animation-timing-function: ease;
+    animation-name: error;
+    transform: scaleX(-1) rotate(135deg);
+}
+.gt3_register__process.msg_error .gt3_circle_loader__checkmark:before{
+    animation-duration: 800ms;
+    top: 16px !important;
+    left: 18px !important;
+    animation-name: error_delayed;
+    transform: scaleX(-1) rotate(45deg);
+}
+
+.gt3_register__process.msg_error .gt3_circle_loader__checkmark:after,
+.gt3_register__process.msg_error .gt3_circle_loader__checkmark:before{
+    opacity: 1;
+    height: 40px;
+    width: 0px;
+    transform-origin: left top;
+    border-right: 4px solid #ffffff;
+    content: '';
+    left: 15px;
+    top: 44px;
+    position: absolute;
+}
+
+
+
+
+.gt3_register__process.msg_notice .gt3_circle_loader__checkmark:before,
+.gt3_register__process.msg_notice .gt3_circle_loader__checkmark:after{
+    animation-duration: 600ms;
+    animation-timing-function: ease;
+    animation-name: info;
+    transform: scaleX(-1);
+    left: calc(50% + 2px) !important;
+}
+.gt3_register__process.msg_notice .gt3_circle_loader__checkmark:after{
+    height: 4px !important;
+    bottom: 43px !important;
+    animation-name: info_delayed;
+}
+.gt3_register__process.msg_notice .gt3_circle_loader__checkmark:before{
+    animation-duration: 800ms;
+    bottom: 14px !important;
+}
+
+.gt3_register__process.msg_notice .gt3_circle_loader__checkmark:after,
+.gt3_register__process.msg_notice .gt3_circle_loader__checkmark:before{
+    opacity: 1;
+    height: 25px;
+    width: 0px;
+    transform-origin: left top;
+    border-right: 4px solid #ffffff;
+    content: '';
+    left: 15px;
+    bottom: 44px;
+    position: absolute;
+}
+
+
+
+
+@keyframes loader-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes checkmark {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 1;
+  }
+  20% {
+    height: 0;
+    width: 15px;
+    opacity: 1;
+  }
+  40% {
+    height: 26px;
+    width: 15px;
+    opacity: 1;
+  }
+  100% {
+    height: 26px;
+    width: 15px;
+    opacity: 1;
+  }
+}
+
+@keyframes error {
+  0% {
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    height: 40px;
+    opacity: 1;
+  }
+}
+@keyframes error_delayed {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  30% {
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    height: 40px;
+    opacity: 1;
+  }
+}
+
+@keyframes info {
+  0% {
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    height: 25px;
+    opacity: 1;
+  }
+}
+@keyframes info_delayed {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  90% {
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    height: 4px;
+    opacity: 1;
+  }
+}
+/* end checkmarks animations */
+
+/**/
+.admin_mix-container{
+    position: relative;
+}
+.gt3_register_popup{
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.gt3_register_popup.active{
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+}
+.gt3_register_popup__message{
+    position: absolute;
+    width: 500px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -250px;
+    background: #d54e21;
+    color: #ffffff;
+    padding: 15px 18px 15px 75px;
+    box-sizing: border-box;
+    font-size: 1.4em;
+    font-weight: 500;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    transform: translateY(20px);
+    -webkit-transform: translateY(20px);
+    -moz-transform: translateY(20px);
+    -ms-transform: translateY(20px);
+}
+.gt3_register_popup.active .gt3_register_popup__message{
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+}
+.gt3_register_popup__message p{
+    font-size: inherit;
+}
+.gt3_register_popup__message > i{
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    margin-top: -22px;
+    font-size: 25px;
+    line-height: 40px;
+    width: 40px;
+    text-align: center;
+}
+.gt3_register_popup__close{
+    position: absolute;
+    cursor: pointer;
+    font: normal normal normal 14px/1 dashicons;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    display: inline-block;    
+}
+.gt3_register_popup__close:before{
+    content: "\f335";
+}
+.theme_settings_submit_cont input[disabled="disabled"]{
+    pointer-events: none;
+}
+.size-45:before{
+    width: 45px;
+    height: 45px;
+    font-size: 45px;
+}
+.gt3_product_activation_title + .notice.notice-error{
+    display: none;
+}
+
+
+.gt3_register_container .gt3_register__check,
+.gt3_register_container .gt3_register__submit,
+.gt3_register_container .gt3_register__deregister,
+.gt3_register_container .gt3_activation_refresh {
+    display: none;
+}
+
+.gt3_register_container[data-step="1"] .gt3_register__check {
+	display: inline-block;
+}
+.redux-container .form-table>tbody>tr>th:empty {
+    width: auto;
+}

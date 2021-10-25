@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Conditional Shipping and Payments
 * Plugin URI: https://woocommerce.com/products/woocommerce-conditional-shipping-and-payments
 * Description: Exclude shipping methods, payment gateways and shipping destinations using conditional logic.
-* Version: 1.9.5
+* Version: 1.10.0
 * Author: SomewhereWarm
 * Author URI: https://somewherewarm.com/
 *
@@ -13,10 +13,10 @@
 * Domain Path: /languages/
 *
 * Requires at least: 4.1
-* Tested up to: 5.7
+* Tested up to: 5.8
 *
 * WC requires at least: 2.6
-* WC tested up to: 5.3
+* WC tested up to: 5.7
 *
 * Copyright: © 2017-2021 SomewhereWarm SMPC.
 * License: GNU General Public License v3.0
@@ -29,54 +29,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * # WooCommerce Conditional Shipping and Payments
- *
- *
- * A small API for creating Restrictions (see the WC_CSP_Restriction abstract class and the WC_CSP_Restrictions loader class). Restrictions classes are loaded in the WC_CSP_Restrictions class via the 'woocommerce_csp_restrictions' filter.
- * Restrictions, which extend the WC_Settings_API class through WC_CSP_Restriction, may declare the existence of 'global' or 'product' fields and support for multiple rule instances.
- * The included restrictions all support multiple global and product-based definitions.
- *
- * Global restrictions are defined from WooCommerce->Settings->Restrictions, while product-level restrictions are created in a new "Restrictions" product metabox tab.
- *
- * Restrictions may implement 4 types of validation interfaces that fire on the i) add-to-cart, ii) cart check, iii) update cart, or iv) checkout validation action hooks. Additionally, restrictions themselves may hook into whatever WC property they need to modify, if necessary.
- * The 'validation_types' property of the WC_CSP_Restriction abstract class declares the validation interfaces supported by a restriction.
- *
- * If the restriction needs to hook itself into 'woocommerce_add_to_cart_validation', 'woocommerce_check_cart_items', 'woocommerce_update_cart_validation', or 'woocommerce_after_checkout_validation',
- * it must declare support for the 'add-to-cart', 'cart', 'cart-update', or 'checkout' validation types and implement the 'WC_CSP_Add_To_Cart_Restriction', 'WC_CSP_Cart_Restriction', 'WC_CSP_Update_Cart_Restriction', or 'WC_CSP_Checkout_Restriction' interfaces.
- *
- * The included restrictions all support the 'checkout' validation type only, and implement the 'WC_CSP_Checkout_Restriction' interface only.
- *
- *
- * ## Restrictions
- *
- * The extension includes 3 checkout restriction types:
- *
- *
- * 1) Shipping Country
- *
- * Restrict the allowed checkout shipping countries via global rules or rules defined at product level.
- * Excluded shipping countries can still be selected during checkout. However, selecting an excluded shipping country triggers a notice, while attempting to complete the order results in an error message.
- *
- *
- * 2) Payment Gateway
- *
- * Restrict the checkout payment gateways via global rules or rules defined at product level.
-  * Excluded payment gateways can be removed completely from the checkout gateways list, or displayed as usual and trigger an error message if selected when attempting to complete the order.
- *
- *
- * 3) Shipping Method
- *
- * Restrict the checkout shipping methods via global rules or rules defined at product level.
-  * Excluded shipping methods can be removed completely from the checkout methods list(s) at package level, or displayed as usual and trigger an error message if selected when attempting to complete the order.
- *
- * ## Conditions
- *
- * Conditions are used as the building blocks for restriction rules.
- * An exclusion rule (restriction instance) is in effect only if all defined conditions in it match (AND).
- * Multiple restriction instances can be added to implement OR-related rules.
- *
  * @class    WC_Conditional_Shipping_Payments
- * @version  1.9.4
+ * @version  1.10.0
  */
 
 if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
@@ -84,7 +38,7 @@ if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
 class WC_Conditional_Shipping_Payments {
 
 	/* Plugin version */
-	const VERSION = '1.9.5';
+	const VERSION = '1.10.0';
 
 	/* Required WC version */
 	const REQ_WC_VERSION = '2.6.0';
@@ -346,6 +300,11 @@ class WC_Conditional_Shipping_Payments {
 			WC_CSP_Admin_Notices::add_maintenance_notice( 'welcome' );
 
 		} elseif ( version_compare( $version, self::VERSION, '<' ) ) {
+
+			// The Cart Subtotal condition was introduced @ 1.9.0 and updated @ 1.10.0.
+			if ( version_compare( $version, '1.9.0', '>=' ) && version_compare( $version, '1.10.0', '<' ) && wc_tax_enabled() ) {
+				WC_CSP_Admin_Notices::add_one_time_maintenance_notice( 'cart_subtotal' );
+			}
 
 			update_option( 'wc_csp_version', self::VERSION );
 

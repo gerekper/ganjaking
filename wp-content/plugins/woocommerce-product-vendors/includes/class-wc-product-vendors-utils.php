@@ -1423,6 +1423,9 @@ class WC_Product_Vendors_Utils {
 			case 'refunded':
 				$order_status = __( 'Refunded', 'woocommerce-product-vendors' );
 				break;
+			case 'partial-refunded':
+				$order_status = __( 'Partial Refunded', 'woocommerce-product-vendors' );
+				break;
 			case 'failed':
 				$order_status = __( 'Failed', 'woocommerce-product-vendors' );
 				break;
@@ -1463,5 +1466,50 @@ class WC_Product_Vendors_Utils {
 			return $wcpv_shipping->is_enabled();
 		}
 		return false;
+	}
+
+	/**
+	 * Modify status display on the vendor's screen.
+	 * 
+	 * @param WC_Order $order     Order object.
+	 * @param int      $vendor_id Vendor ID.
+	 * 
+	 * @return string
+	 */
+	public static function get_vendor_order_status( $order, $vendor_id ) {
+		$status = $order->get_status();
+		$refunds = $order->get_refunds();
+
+		// Bail if the parent order is fully refunded.
+		if ( 'refunded' === $status ) {
+			return $status;
+		}
+
+		// Bail if the parent order doesn't have any refund.
+		if ( 0 === count( $refunds ) ) {
+			return $status;
+		}
+
+		$total_qty = 0;
+		$total_qty_refunded = 0;
+
+		foreach ( $order->get_items() as $item ) {
+			if( $vendor_id !== WC_Product_Vendors_Utils::get_vendor_id_from_product( $item->get_product_id() ) ) {
+				continue;
+			}
+			$total_qty += $item->get_quantity();
+			$total_qty_refunded += $order->get_qty_refunded_for_item( $item->get_id() );
+		}
+
+		// Bail the parent order doesn't have any refund linked to this vendor items.
+		if ( $total_qty_refunded === 0 ) {
+			return $status;
+		}
+
+		if ( absint( $total_qty_refunded ) === $total_qty ) {
+			return 'refunded';
+		}
+
+		return 'partial-refunded';
 	}
 }

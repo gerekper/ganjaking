@@ -1,0 +1,266 @@
+
+.gform_debug .hovering,
+.gform_debug .spacer {
+	border-style: dashed;
+	border-color: #f00 !important;
+}
+
+.gform_debug .gfield:after,
+.gform_debug button:after {
+	content: attr( data-groupId );
+	font-family: monospace;
+	font-size: 14px;
+	text-align: center;
+	width: 100%;
+	display: block;
+}
+
+#indicator {
+	position: absolute;
+	height: 4px;
+	width: 100%;
+	background-color: #007cba;
+	border-radius: 3px;
+}
+
+.gform_editor {
+	padding: 4rem 3rem 8rem;
+	line-height: 1.5;
+}
+
+.gform_editor .gform_hidden label,
+.gform_editor .gform_hidden {
+	display: block;
+}
+
+.gform_editor .gform_hidden {
+	opacity: 0.6;
+}
+
+.gform_editor .gform_hidden .ui-resizable-handle {
+	display: none !important;
+}
+
+#gform_fields {
+	position: relative;
+	grid-column-gap: 1rem;
+}
+
+#gform_fields .gfield {
+	margin: 0;
+}
+
+#no-fields {
+	background: #FFFFFF;
+	border: 1px dashed #CACACA;
+	box-sizing: border-box;
+	border-radius: 5px;
+	/* min-height: 384px; */
+	grid-column: 1 / -1;
+	margin: 0;
+}
+
+#no-fields:after {
+	content: "Simply drag and drop the fields or elements you want in this form.";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 28px;
+	text-align: center;
+	color: #32373D;
+	display: block;
+	padding: 271px 0 50px;
+	background: url(../images/no-fields-icon.svg) no-repeat center 27px;
+}
+
+#no-fields.ready {
+	border-color: #22A753;
+}
+
+#no-fields.hovering:after {
+	opacity: 0.25;
+}
+
+.gfield {
+	padding: 1rem;
+	margin: 0;
+	grid-column: 1 / -1;
+	font-size: 1rem;
+	position: relative;
+	border-radius: 1px;
+	border: 1px solid transparent;
+	/* jQuery UI Resizable doesn't work well with border-box */
+	box-sizing: content-box !important;
+}
+
+.gfield.field_selected {
+	border-color: transparent;
+}
+
+/*.gform_fields:not(.resizing) .gfield:hover:not(.field_selected):before,*/
+.gfield.field_selected:not(.placeholder):not(.ui-draggable-dragging):before {
+	content: '';
+	position: absolute;
+	width: 4px;
+	background-color: #ddd;
+	bottom: 5px;
+	top: 5px;
+	left: 0;
+}
+
+.gfield:focus {
+	outline: 0;
+}
+
+.dragging .gfield:not(.clone):not(.placeholder):not(.spacer) {
+	border-color: rgba( 0, 0, 0, 0.1 );
+	border-radius: 5px;
+}
+
+.gfield.ui-draggable-dragging {
+	border: 0;
+	background: transparent;
+}
+
+.spacer {
+	padding: 1rem 0;
+}
+
+.spacer:after {
+	content: '';
+}
+
+/* Will be overridden inline. */
+.gfield.custom {
+	grid-column: span 1;
+}
+
+.ui-sortable-helper {
+	opacity: 0.5;
+}
+
+.gfield .ui-resizable-e {
+	right: -14px;
+	cursor: ew-resize;
+	top: 5px;
+	bottom: 5px;
+	opacity: 0;
+	width: 4px;
+	background-color: #007cba;
+	border-radius: 3px;
+	pointer-events: none;
+}
+
+.gpage .ui-resizable-handle,
+.gsection .ui-resizable-handle {
+	display: none !important;
+}
+
+.gfield.field_selected:not(.ui-draggable-dragging):not(.placeholder) .ui-resizable-e,
+.ui-resizable-resizing .ui-resizable-e {
+	opacity: 1.0;
+	pointer-events: initial;
+}
+
+.gf-drag-handle {
+	position: absolute;
+	left: -1rem;
+	top: -1rem;
+	height: 1rem;
+	width: 1rem;
+	background-color: #000;
+}
+
+.gfield-admin-icons {
+	display: flex;
+	opacity: 0;
+	position: absolute;
+	top: calc((2.4rem + 2px) * -1);
+	left: -1px;
+	border-radius: 3px;
+	flex-direction: row;
+	border: 1px solid #B5BCC0;
+	box-shadow: 1px 2px 7px rgba(58, 58, 87, 0.11);
+	pointer-events: none;
+}
+
+.gfield.field_selected:not(.placeholder) .gfield-admin-icons {
+	pointer-events: initial;
+	opacity: 1;
+}
+
+.gfield-admin-icons .gfield-field-action {
+	width: 2.4rem;
+	height: 2.4rem;
+	background-color: #fff;
+	display: block;
+	font-size: 0;
+	border: 0;
+	border-left: 1px solid #B5BCC0;
+	text-align: center;
+	line-height: 2.4rem;
+	cursor: pointer;
+}
+
+.gfield-admin-icons .gfield-drag:hover path {
+	fill: #627AFC;
+}
+
+.ui-draggable-dragging .gfield-admin-icons .gfield-drag {
+	background-color: #131313;
+}
+
+.gfield-admin-icons .gfield-drag:active path {
+	fill: #fff;
+}
+
+.gfield-admin-icons .gfield-edit:hover path {
+	fill: #627AFC;
+	stroke: #627AFC;
+}
+
+.gfield-admin-icons .gfield-duplicate:hover rect {
+	fill: #627AFC;
+}
+
+.gfield-admin-icons .gfield-delete:hover path {
+	fill: #627AFC;
+	stroke: #627AFC;
+}
+
+.gfield-admin-icons .gfield-field-action:first-child {
+	border-left: 0;
+	border-radius: 3px 0 0 3px;
+}
+
+.gfield-admin-icons .gfield-field-action:last-child {
+	border-radius: 0 3px 3px 0;
+}
+
+.gfield-admin-icons .gfield-drag {
+	cursor: grab;
+}
+
+.gfield-admin-icons .gfield-field-action svg {
+	vertical-align: middle;
+}
+
+.gform_editor_status {
+	position: fixed;
+	background: #32373C;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+	border-radius: 4px;
+	padding: 16px 24px;
+	color: #fff;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 13px;
+	line-height: 18px;
+	bottom: 98px;
+	z-index: 99;
+}
+
+.gform_editor_status a {
+	color: #fff;
+	margin-left: 6px;
+}

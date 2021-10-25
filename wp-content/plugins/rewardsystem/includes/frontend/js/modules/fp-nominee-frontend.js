@@ -2,7 +2,6 @@
  * Nominee - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var RSNomineeModule = {
         init : function () {
             this.trigger_on_page_load() ;

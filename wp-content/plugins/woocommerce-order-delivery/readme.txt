@@ -3,11 +3,11 @@ Contributors: woocommerce, themesquad
 Tags: woocommerce, delivery, date
 Requires at least: 4.4
 Tested up to: 5.8
-Stable tag: 1.9.3
+Stable tag: 1.9.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.0
-WC tested up to: 5.7
+WC tested up to: 5.8
 Woo: 976514:beaa91b8098712860ec7335d3dca61c0
 
 Choose a delivery date during checkout for the order.

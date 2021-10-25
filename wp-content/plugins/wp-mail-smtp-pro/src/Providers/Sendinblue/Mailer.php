@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Providers\Sendinblue;
 
 use WPMailSMTP\Admin\DebugEvents\DebugEvents;
+use WPMailSMTP\Debug;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Providers\MailerAbstract;
 use WPMailSMTP\Vendor\SendinBlue\Client\ApiException;
@@ -245,7 +246,7 @@ class Mailer extends MailerAbstract {
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param array $attachments The array of attachments data.
+	 * @param array $attachments
 	 */
 	public function set_attachments( $attachments ) {
 
@@ -254,23 +255,33 @@ class Mailer extends MailerAbstract {
 		}
 
 		foreach ( $attachments as $attachment ) {
+			$file = false;
 
-			$ext = pathinfo( $attachment[1], PATHINFO_EXTENSION );
+			/*
+			 * We are not using WP_Filesystem API as we can't reliably work with it.
+			 * It is not always available, same as credentials for FTP.
+			 */
+			try {
+				if ( is_file( $attachment[0] ) && is_readable( $attachment[0] ) ) {
+					$ext = pathinfo( $attachment[0], PATHINFO_EXTENSION );
 
-			if ( ! in_array( $ext, $this->allowed_attach_ext, true ) ) {
-				continue;
+					if ( in_array( $ext, $this->allowed_attach_ext, true ) ) {
+						$file = file_get_contents( $attachment[0] ); // phpcs:ignore
+					}
+				}
 			}
-
-			$file = $this->get_attachment_file_content( $attachment );
+			catch ( \Exception $e ) {
+				$file = false;
+			}
 
 			if ( $file === false ) {
 				continue;
 			}
 
-			$this->body['attachment'][] = [
+			$this->body['attachment'][] = array(
 				'name'    => $attachment[2],
-				'content' => base64_encode( $file ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
-			];
+				'content' => base64_encode( $file ),
+			);
 		}
 	}
 
@@ -313,8 +324,14 @@ class Mailer extends MailerAbstract {
 			}
 
 			$this->error_message = $message;
+
+			Debug::set( 'Mailer: Sendinblue' . PHP_EOL . $message );
 		} catch ( \Exception $e ) {
 			$this->error_message = $e->getMessage();
+
+			Debug::set( 'Mailer: Sendinblue' . PHP_EOL . $e->getMessage() );
+
+			return;
 		}
 	}
 
@@ -355,8 +372,12 @@ class Mailer extends MailerAbstract {
 			$is_sent = $this->response->valid();
 		}
 
-		/** This filter is documented in src/Providers/MailerAbstract.php. */
-		return apply_filters( 'wp_mail_smtp_providers_mailer_is_email_sent', $is_sent, $this->mailer );
+		// Clear debug messages if email is successfully sent.
+		if ( $is_sent ) {
+			Debug::clear();
+		}
+
+		return $is_sent;
 	}
 
 	/**

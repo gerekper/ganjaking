@@ -9,7 +9,6 @@ use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Segments\SegmentDependencyValidator;
 use MailPoet\Segments\SegmentSubscribersRepository;
-use MailPoet\Subscribers\SubscribersCountsController;
 use MailPoet\WP\Functions;
 
 class DynamicSegmentsResponseBuilder {
@@ -27,21 +26,16 @@ class DynamicSegmentsResponseBuilder {
   /** @var SegmentDependencyValidator */
   private $segmentDependencyValidator;
 
-  /** @var SubscribersCountsController */
-  private $subscribersCountsController;
-
   public function __construct(
     Functions $wp,
     SegmentSubscribersRepository $segmentSubscriberRepository,
     SegmentsResponseBuilder $segmentsResponseBuilder,
-    SegmentDependencyValidator $segmentDependencyValidator,
-    SubscribersCountsController $subscribersCountsController
+    SegmentDependencyValidator $segmentDependencyValidator
   ) {
     $this->segmentsResponseBuilder = $segmentsResponseBuilder;
     $this->segmentSubscriberRepository = $segmentSubscriberRepository;
     $this->wp = $wp;
     $this->segmentDependencyValidator = $segmentDependencyValidator;
-    $this->subscribersCountsController = $subscribersCountsController;
   }
 
   public function build(SegmentEntity $segmentEntity) {
@@ -89,9 +83,8 @@ class DynamicSegmentsResponseBuilder {
       'admin.php?page=mailpoet-subscribers#/filter[segment=' . $segment->getId() . ']'
     );
 
-    $segmentStatisticsCount = $this->subscribersCountsController->getSegmentStatisticsCount($segment);
-    $data['count_all'] = $segmentStatisticsCount['all'];
-    $data['count_subscribed'] = $segmentStatisticsCount[SubscriberEntity::STATUS_SUBSCRIBED];
+    $data['count_all'] = $this->segmentSubscriberRepository->getSubscribersCount((int)$segment->getId());
+    $data['count_subscribed'] = $this->segmentSubscriberRepository->getSubscribersCount((int)$segment->getId(), SubscriberEntity::STATUS_SUBSCRIBED);
     return $data;
   }
 }

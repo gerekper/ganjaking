@@ -70,15 +70,21 @@ class SendCampaign extends AbstractInfusionsoftConnect
                 }
             }
 
-            $payload = apply_filters('mailoptin_infusionsoft_email_campaign_settings', [
-                'contacts'      => $contacts,
-                'html_content'  => base64_encode($this->content_html),
-                'plain_content' => base64_encode($this->content_text),
-                "subject"       => $this->campaign_subject,
-                "user_id"       => absint($user_id)
-            ]);
+            // {"message":"Only 1000 Contact Ids can be sent to with a single request."}.
+            $chunks = array_chunk($contacts, 980);
 
-            $this->infusionsoftInstance()->sendEmail($payload);
+            foreach ($chunks as $chunk) {
+
+                $payload = apply_filters('mailoptin_infusionsoft_email_campaign_settings', [
+                    'contacts'      => $chunk,
+                    'html_content'  => base64_encode($this->content_html),
+                    'plain_content' => base64_encode($this->content_text),
+                    "subject"       => $this->campaign_subject,
+                    "user_id"       => absint($user_id)
+                ]);
+
+                $this->infusionsoftInstance()->sendEmail($payload);
+            }
 
             return parent::ajax_success();
 

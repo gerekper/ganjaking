@@ -1,5 +1,10 @@
 *** Advanced Notifications Changelog ***
 
+2021-10-21 - version 1.2.33
+* Chore - Bump WP & WC version support.
+* Fix   - Sending a new order email when the order status is from pending to on-hold.
+* Tweak - Add filter for each 'woocommerce_order_status_*_to_*' action hook.
+
 2021-07-27 - version 1.2.32
 * Fix - "Include Order Totals" only works for "All Purchases" trigger.
 

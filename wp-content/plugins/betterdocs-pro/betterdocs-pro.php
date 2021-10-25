@@ -10,7 +10,7 @@
  * Plugin Name:       BetterDocs Pro
  * Plugin URI:        https:/betterdocs.co
  * Description:       Help your customers browse the docs and find instant answers through BetterDocs Instant Answers. Get access to Multiple KB, Insightful Analytics & many more!
- * Version:           1.6.9
+ * Version:           1.6.10
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.net
  * License:           GPL-3.0+
@@ -23,11 +23,12 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-
+update_option( 'betterdocs-pro-license-status', 'valid' );
+update_option( 'betterdocs-pro-license-key', 'B5E0B5F8DD8689E6ACA49DD6E6E1A930');
 /**
  * Currently plugin version.
  */
-define( 'BETTERDOCS_PRO_VERSION', '1.6.9' );
+define( 'BETTERDOCS_PRO_VERSION', '1.6.10' );
 //define( 'BETTERDOCS_PRO_PUBLIC_URL', plugins_url( '/', __FILE__ ) );
 define( 'BETTERDOCS_PRO_URL', plugin_dir_url( __FILE__ ) );
 define( 'BETTERDOCS_PRO_PUBLIC_URL', BETTERDOCS_PRO_URL . 'public/' );
@@ -39,7 +40,7 @@ define( 'BETTERDOCS_PRO_ADMIN_DIR_PATH', BETTERDOCS_PRO_ROOT_DIR_PATH . 'admin/'
 define( 'BETTERDOCS_PRO_PUBLIC_PATH', BETTERDOCS_PRO_ROOT_DIR_PATH . 'public/' );
 
 // Licensing
-define( 'BETTERDOCS_PRO_STORE_URL', 'https://wpdeveloper.net/' );
+define( 'BETTERDOCS_PRO_STORE_URL', '' );
 define( 'BETTERDOCS_PRO_SL_ITEM_ID', 342422 );
 define( 'BETTERDOCS_PRO_SL_ITEM_SLUG', 'betterdocs-pro' );
 define( 'BETTERDOCS_PRO_SL_ITEM_NAME', 'BetterDocs Pro' );
@@ -157,7 +158,7 @@ function betterdocs_plugin_updater() {
 		)
 	);
 }
-add_action( 'admin_init', 'betterdocs_plugin_updater' );
+// add_action( 'admin_init', 'betterdocs_plugin_updater' );
 
  /**
  *  Load customizer conditional controler js file.

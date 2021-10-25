@@ -10,9 +10,7 @@ class PostListTransformer {
   private $args;
   private $transformer;
 
-  public function __construct(
-    $args
-  ) {
+  public function __construct($args) {
     $this->args = $args;
     $this->transformer = new PostTransformer($args);
   }

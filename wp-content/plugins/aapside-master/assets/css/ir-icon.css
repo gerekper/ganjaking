@@ -1,0 +1,98 @@
+
+@font-face {
+  font-family: "iricon";
+  src: url("../fonts/ir-icon.eot");
+  src: url("../fonts/ir-icon.eot?#iefix") format("embedded-opentype"),
+       url("../fonts/ir-icon.woff2") format("woff2"),
+       url("../fonts/ir-icon.woff") format("woff"),
+       url("../fonts/ir-icon.ttf") format("truetype"),
+       url("../fonts/ir-icon.svg#iricon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "iricon";
+    src: url("../fonts/ir-icon.svg#iricon") format("svg");
+  }
+}
+
+[class^="iricon-"]:before, [class*=" iricon-"]:before,
+[class^="iricon-"]:after, [class*=" iricon-"]:after {
+  font-family: "iricon";
+  font-size: inherit;
+  font-style: normal;
+}
+
+.iricon-user:before { content: "\f100"; }
+.iricon-cloud:before { content: "\f101"; }
+.iricon-cloud-computing:before { content: "\f102"; }
+.iricon-share:before { content: "\f103"; }
+.iricon-suitcase:before { content: "\f104"; }
+.iricon-suitcase-1:before { content: "\f105";}
+.iricon-luggage:before { content: "\f106"; }
+.iricon-auto-update:before { content: "\f107"; }
+.iricon-suitcase-2:before { content: "\f108"; }
+.iricon-tourist:before { content: "\f109"; }
+.iricon-journey:before { content: "\f10a"; }
+.iricon-luggage-1:before { content: "\f10b"; }
+.iricon-shopping-bag:before { content: "\f10c"; }
+.iricon-airplane:before { content: "\f10d"; }
+.iricon-booking:before { content: "\f10e"; }
+.iricon-plane:before { content: "\f10f"; }
+.iricon-itinerary:before { content: "\f110"; }
+.iricon-purse:before { content: "\f111"; }
+.iricon-save-money:before { content: "\f112"; }
+.iricon-money-bag:before { content: "\f113"; }
+.iricon-sunbed:before { content: "\f114"; }
+.iricon-beach:before { content: "\f115"; }
+.iricon-sex-on-the-beach:before { content: "\f116"; }
+.iricon-coconuts:before { content: "\f117"; }
+.iricon-bell:before { content: "\f118"; }
+.iricon-communications:before { content: "\f119"; }
+.iricon-interface:before { content: "\f11a"; }
+.iricon-web:before { content: "\f11b"; }
+.iricon-communications-1:before { content: "\f11c"; }
+.iricon-signs:before { content: "\f11d"; }
+.iricon-multimedia:before { content: "\f11e"; }
+.iricon-technology:before { content: "\f11f"; }
+.iricon-interface-1:before { content: "\f120"; }
+.iricon-technology-1:before { content: "\f121"; }
+.iricon-business:before { content: "\f122"; }
+.iricon-communications-2:before { content: "\f123"; }
+.iricon-home:before { content: "\f124"; }
+.iricon-interface-2:before { content: "\f125"; }
+.iricon-computer:before { content: "\f126"; }
+.iricon-lock:before { content: "\f127"; }
+.iricon-paper-plane:before { content: "\f128"; }
+.iricon-delivery:before { content: "\f129"; }
+.iricon-speed:before { content: "\f12a"; }
+.iricon-positive-vote:before { content: "\f12b"; }
+.iricon-computer-screen:before { content: "\f12c"; }
+.iricon-copy:before { content: "\f12d"; }
+.iricon-shopping-cart:before { content: "\f12e"; }
+.iricon-shopping-bag-1:before { content: "\f12f"; }
+.iricon-cart:before { content: "\f130"; }
+.iricon-shopping-cart-1:before { content: "\f131"; }
+.iricon-discount-voucher:before { content: "\f132"; }
+.iricon-price-tag:before { content: "\f133"; }
+.iricon-price-tag-1:before { content: "\f134"; }
+.iricon-student:before { content: "\f135"; }
+.iricon-teacher:before { content: "\f136"; }
+.iricon-teacher-1:before { content: "\f137"; }
+.iricon-couple:before { content: "\f138"; }
+.iricon-chef:before { content: "\f139"; }
+.iricon-cooking:before { content: "\f13a"; }
+.iricon-chef-1:before { content: "\f13b"; }
+.iricon-chef-2:before { content: "\f13c"; }
+.iricon-bicycle:before { content: "\f13d"; }
+.iricon-scooters:before { content: "\f13e"; }
+.iricon-bike:before { content: "\f13f"; }
+.iricon-tray:before { content: "\f140"; }
+.iricon-meal:before { content: "\f141"; }
+.iricon-cutlery-1:before { content: "\f142"; }
+.iricon-cutlery:before { content: "\f143"; }
+.iricon-ice-cream:before { content: "\f144"; }
+.iricon-ice-cream-1:before { content: "\f145"; }
+.iricon-man:before { content: "\f146"; }

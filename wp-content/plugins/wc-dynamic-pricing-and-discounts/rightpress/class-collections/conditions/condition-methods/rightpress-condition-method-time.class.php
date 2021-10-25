@@ -42,8 +42,8 @@ abstract class RightPress_Condition_Method_Time extends RightPress_Condition_Met
     {
 
         return array(
-            'from'  => esc_html__('from', 'rightpress'),
-            'to'    => esc_html__('to', 'rightpress'),
+            'from'  => __('from', 'rightpress'),
+            'to'    => __('to', 'rightpress'),
         );
     }
 

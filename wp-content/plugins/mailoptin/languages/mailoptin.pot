@@ -2,15 +2,9 @@
 # This file is distributed under the same license as the MailOptin - Lite package.
 msgid ""
 msgstr ""
-<<<<<<< HEAD
-"Project-Id-Version: MailOptin - Lite 1.2.35.3\n"
+"Project-Id-Version: MailOptin - Lite 1.2.36.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
-"POT-Creation-Date: 2021-04-06 12:50:23+00:00\n"
-=======
-"Project-Id-Version: MailOptin - Lite 1.2.35.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
-"POT-Creation-Date: 2021-02-26 19:41:21+00:00\n"
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+"POT-Creation-Date: 2021-06-10 15:17:08+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -82,31 +76,33 @@ msgstr ""
 
 #: src/connections/ActiveCampaignConnect/Connect.php:248
 #: src/connections/CleverReachConnect/Connect.php:195
-#: src/connections/ContactForm7Connect/CF7.php:115
+#: src/connections/ContactForm7Connect/CF7.php:128
 #: src/connections/ContactForm7Connect/panel-settings-view.php:47
 #: src/connections/EmmaConnect/Connect.php:58
-#: src/connections/FormidableFormConnect/panel-settings-view.php:36
-#: src/connections/FormidableFormConnect/panel-settings-view.php:85
+#: src/connections/FormidableFormConnect/panel-settings-view.php:37
+#: src/connections/FormidableFormConnect/panel-settings-view.php:94
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:229
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:217
 #: src/connections/GetResponseConnect/ConnectSettingsPage.php:79
-#: src/connections/GravityFormsConnect/GFMailOptin.php:247
-#: src/connections/GravityFormsConnect/GFMailOptin.php:282
+#: src/connections/GravityFormsConnect/GFMailOptin.php:257
+#: src/connections/GravityFormsConnect/GFMailOptin.php:292
 #: src/connections/InfusionsoftConnect/Connect.php:125
 #: src/connections/InfusionsoftConnect/Connect.php:173
 #: src/connections/InfusionsoftConnect/Connect.php:187
 #: src/connections/JiltConnect/Connect.php:78
 #: src/connections/JiltConnect/Connect.php:116
-#: src/connections/MailChimpConnect/Connect.php:561
+#: src/connections/MailChimpConnect/Connect.php:573
 #: src/connections/SendGridConnect/ConnectSettingsPage.php:32
 #: src/connections/SendGridConnect/ConnectSettingsPage.php:69
 #: src/connections/SendinblueConnect/ConnectSettingsPage.php:61
 #: src/connections/ZohoCRMConnect/Connect.php:97
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/SettingsFields.php:37
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Integration_Repeater_Control.php:527
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:134
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:914
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:136
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:916
 #: src/core/src/Admin/SettingsPage/AddEmailCampaign.php:78
 #: src/core/src/Admin/SettingsPage/Email_Campaign_List.php:396
-#: src/core/src/AjaxHandler.php:1171
+#: src/core/src/AjaxHandler.php:1178
 #: src/core/src/OptinForms/AbstractOptinTheme.php:1110
 #: src/core/src/OptinForms/AbstractOptinTheme.php:1134
 #: src/core/src/OptinForms/AbstractOptinTheme.php:1147
@@ -128,6 +124,7 @@ msgstr ""
 #: src/connections/EmailOctopusConnect/ConnectSettingsPage.php:20
 #: src/connections/EmmaConnect/ConnectSettingsPage.php:19
 #: src/connections/FacebookCustomAudienceConnect/ConnectSettingsPage.php:40
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:177
 #: src/connections/GEMConnect/ConnectSettingsPage.php:20
 #: src/connections/GetResponseConnect/ConnectSettingsPage.php:42
 #: src/connections/HubspotConnect/ConnectSettingsPage.php:31
@@ -248,13 +245,8 @@ msgstr ""
 #: src/connections/AweberConnect/Subscription.php:108
 #: src/connections/CampaignMonitorConnect/Subscription.php:77
 #: src/connections/CampaignMonitorConnect/Subscription.php:82
-<<<<<<< HEAD
 #: src/connections/CleverReachConnect/Subscription.php:103
 #: src/connections/CleverReachConnect/Subscription.php:108
-=======
-#: src/connections/CleverReachConnect/Subscription.php:88
-#: src/connections/CleverReachConnect/Subscription.php:93
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: src/connections/ConvertFoxConnect/Subscription.php:135
 #: src/connections/ConvertFoxConnect/Subscription.php:140
 #: src/connections/ConvertKitConnect/Subscription.php:81
@@ -263,15 +255,15 @@ msgstr ""
 #: src/connections/CtctConnect/Subscription.php:47
 #: src/connections/Ctctv3Connect/Subscription.php:105
 #: src/connections/Ctctv3Connect/Subscription.php:110
-#: src/connections/DripConnect/Subscription.php:110
 #: src/connections/DripConnect/Subscription.php:115
+#: src/connections/DripConnect/Subscription.php:120
 #: src/connections/EmailOctopusConnect/Subscription.php:95
 #: src/connections/EmailOctopusConnect/Subscription.php:100
 #: src/connections/EmmaConnect/Subscription.php:91
 #: src/connections/EmmaConnect/Subscription.php:97
 #: src/connections/FacebookCustomAudienceConnect/Subscription.php:47
 #: src/connections/FacebookCustomAudienceConnect/Subscription.php:52
-#: src/connections/FluentCRMConnect/Subscription.php:107
+#: src/connections/FluentCRMConnect/Subscription.php:112
 #: src/connections/GEMConnect/Subscription.php:78
 #: src/connections/GEMConnect/Subscription.php:83
 #: src/connections/GetResponseConnect/Subscription.php:103
@@ -284,24 +276,24 @@ msgstr ""
 #: src/connections/JiltConnect/Subscription.php:81
 #: src/connections/KlaviyoConnect/Subscription.php:94
 #: src/connections/KlaviyoConnect/Subscription.php:99
-#: src/connections/MailChimpConnect/Subscription.php:229
-#: src/connections/MailChimpConnect/Subscription.php:234
+#: src/connections/MailChimpConnect/Subscription.php:252
+#: src/connections/MailChimpConnect/Subscription.php:257
 #: src/connections/MailPoetConnect/Subscription.php:118
 #: src/connections/MailerliteConnect/Subscription.php:84
 #: src/connections/MailerliteConnect/Subscription.php:95
 #: src/connections/MailjetConnect/Connect.php:68
-#: src/connections/MailjetConnect/Subscription.php:116
-#: src/connections/MailsterConnect/Subscription.php:95
+#: src/connections/MailjetConnect/Subscription.php:132
+#: src/connections/MailsterConnect/Subscription.php:100
 #: src/connections/MoosendConnect/Subscription.php:63
-#: src/connections/OntraportConnect/Subscription.php:99
-#: src/connections/OntraportConnect/Subscription.php:105
+#: src/connections/OntraportConnect/Subscription.php:101
+#: src/connections/OntraportConnect/Subscription.php:107
 #: src/connections/SendFoxConnect/Subscription.php:47
 #: src/connections/SendFoxConnect/Subscription.php:53
 #: src/connections/SendGridConnect/Subscription.php:83
 #: src/connections/SendGridConnect/Subscription.php:89
-#: src/connections/SendinblueConnect/Subscription.php:61
-#: src/connections/SendinblueConnect/Subscription.php:163
-#: src/connections/SendinblueConnect/Subscription.php:168
+#: src/connections/SendinblueConnect/Subscription.php:68
+#: src/connections/SendinblueConnect/Subscription.php:170
+#: src/connections/SendinblueConnect/Subscription.php:175
 #: src/connections/SendlaneConnect/Subscription.php:79
 #: src/connections/SendlaneConnect/Subscription.php:85
 #: src/connections/SendyConnect/Subscription.php:79
@@ -442,16 +434,11 @@ msgstr ""
 msgid "CleverReach access token not found."
 msgstr ""
 
-<<<<<<< HEAD
 #: src/connections/CleverReachConnect/Connect.php:53
-=======
-#: src/connections/CleverReachConnect/Connect.php:54
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 #: src/connections/CleverReachConnect/ConnectSettingsPage.php:52
 msgid "CleverReach"
 msgstr ""
 
-<<<<<<< HEAD
 #: src/connections/CleverReachConnect/Connect.php:92
 msgid "First Name Field"
 msgstr ""
@@ -461,111 +448,82 @@ msgid "Last Name Field"
 msgstr ""
 
 #: src/connections/CleverReachConnect/Connect.php:117
-=======
-#: src/connections/CleverReachConnect/Connect.php:91
-msgid "First Name Field"
-msgstr ""
-
-#: src/connections/CleverReachConnect/Connect.php:98
-msgid "Last Name Field"
-msgstr ""
-
-#: src/connections/CleverReachConnect/Connect.php:119
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
-#: src/connections/ContactForm7Connect/panel-settings-view.php:58
-#: src/connections/ContactForm7Connect/panel-settings-view.php:74
-#: src/connections/ElementorConnect/Elementor.php:98
-#: src/connections/ElementorConnect/Elementor.php:111
-<<<<<<< HEAD
+#: src/connections/ContactForm7Connect/panel-settings-view.php:70
+#: src/connections/ContactForm7Connect/panel-settings-view.php:86
+#: src/connections/ElementorConnect/Elementor.php:115
+#: src/connections/ElementorConnect/Elementor.php:128
 #: src/connections/FluentCRMConnect/Connect.php:177
-=======
-#: src/connections/FluentCRMConnect/Connect.php:178
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
-#: src/connections/FormidableFormConnect/panel-settings-view.php:48
-#: src/connections/FormidableFormConnect/panel-settings-view.php:64
-#: src/connections/GravityFormsConnect/GFMailOptin.php:333
-#: src/connections/GravityFormsConnect/GFMailOptin.php:347
-#: src/connections/MailChimpConnect/Connect.php:372
+#: src/connections/FormidableFormConnect/panel-settings-view.php:57
+#: src/connections/FormidableFormConnect/panel-settings-view.php:73
+#: src/connections/GravityFormsConnect/GFMailOptin.php:377
+#: src/connections/GravityFormsConnect/GFMailOptin.php:391
+#: src/connections/MailChimpConnect/Connect.php:377
 #: src/connections/NinjaFormsConnect/Connect.php:33
-#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:189
-#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:189
-#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:191
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:191
-#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:191
-#: src/connections/WPFormsConnect/MailOptin.php:424
-#: src/connections/WPFormsConnect/MailOptin.php:454
+#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/FluentCRMConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:235
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:235
+#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:235
+#: src/connections/WPFormsConnect/MailOptin.php:489
+#: src/connections/WPFormsConnect/MailOptin.php:519
 #: src/connections/WeMailConnect/Connect.php:60
 #: src/connections/ZohoCRMConnect/Connect.php:165
 msgid "Tags"
 msgstr ""
 
-<<<<<<< HEAD
 #: src/connections/CleverReachConnect/Connect.php:118
-=======
-#: src/connections/CleverReachConnect/Connect.php:120
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
-#: src/connections/ContactForm7Connect/panel-settings-view.php:78
-#: src/connections/FormidableFormConnect/panel-settings-view.php:67
+#: src/connections/ContactForm7Connect/panel-settings-view.php:90
+#: src/connections/FormidableFormConnect/panel-settings-view.php:76
 msgid "Enter a comma-separated list of tags to assign to subscribers."
 msgstr ""
 
-<<<<<<< HEAD
 #: src/connections/CleverReachConnect/Connect.php:127
 msgid ""
 "Select the %sCleverReach Form%s to use for sending double opt-in emails."
 msgstr ""
 
 #: src/connections/CleverReachConnect/Connect.php:136
-=======
-#: src/connections/CleverReachConnect/Connect.php:126
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgid ""
 "Click the \"Advanced\" link below to map the first and last name fields."
 msgstr ""
 
-<<<<<<< HEAD
 #: src/connections/CleverReachConnect/Connect.php:142
 msgid ""
 "Upgrade to %sMailOptin Premium%s to enable double optin, map custom fields "
 "and assign tags to subscribers."
-=======
-#: src/connections/CleverReachConnect/Connect.php:132
-msgid ""
-"Upgrade to %sMailOptin Premium%s to map custom fields and assign tags to "
-"leads"
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 msgstr ""
 
 #: src/connections/CleverReachConnect/ConnectSettingsPage.php:34
@@ -582,66 +540,168 @@ msgstr ""
 msgid "CleverReach Connection"
 msgstr ""
 
-#: src/connections/ContactForm7Connect/CF7.php:58
+#: src/connections/ContactForm7Connect/CF7.php:70
 msgid "Contact Form 7"
 msgstr ""
 
-#: src/connections/ContactForm7Connect/CF7.php:99
-#: src/connections/ElementorConnect/Elementor.php:41
-#: src/connections/FormidableFormConnect/FormidableForm.php:104
-#: src/connections/GravityFormsConnect/GFMailOptin.php:233
+#: src/connections/ContactForm7Connect/CF7.php:112
+#: src/connections/ElementorConnect/Elementor.php:42
+#: src/connections/FormidableFormConnect/FormidableForm.php:119
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:229
+#: src/connections/GravityFormsConnect/GFMailOptin.php:243
 #: src/connections/LeadBankConnect/Connect.php:50
 msgid "MailOptin Leads"
 msgstr ""
 
-#: src/connections/ContactForm7Connect/CF7.php:149
-#: src/connections/FormidableFormConnect/FormidableForm.php:72
+#: src/connections/ContactForm7Connect/CF7.php:163
+#: src/connections/FormidableFormConnect/FormidableForm.php:73
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:383
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:371
+#: src/connections/ForminatorFormConnect/panel-quiz-settings-view.php:11
+#: src/connections/ForminatorFormConnect/panel-settings-view.php:11
 #: src/connections/GravityFormsConnect/GFMailOptin.php:162
 msgid "Email Address"
 msgstr ""
 
-#: src/connections/ContactForm7Connect/CF7.php:150
-#: src/connections/FormidableFormConnect/FormidableForm.php:73
+#: src/connections/ContactForm7Connect/CF7.php:164
+#: src/connections/FormidableFormConnect/FormidableForm.php:74
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:384
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:372
 #: src/connections/GravityFormsConnect/GFMailOptin.php:168
-#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:99
-#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:99
-#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:100
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:100
-#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:100
-#: src/connections/WPFormsConnect/MailOptin.php:353
+#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/FluentCRMConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:113
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:113
+#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:113
+#: src/connections/WPFormsConnect/MailOptin.php:373
 msgid "Full Name"
+msgstr ""
+
+#: src/connections/ContactForm7Connect/CF7.php:165
+#: src/connections/FormidableFormConnect/FormidableForm.php:75
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:385
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:373
+#: src/connections/GravityFormsConnect/GFMailOptin.php:172
+#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/FluentCRMConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:117
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:117
+#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:117
+#: src/connections/WPFormsConnect/MailOptin.php:378
+msgid "First Name"
+msgstr ""
+
+#: src/connections/ContactForm7Connect/CF7.php:166
+#: src/connections/FormidableFormConnect/FormidableForm.php:76
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:386
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:374
+#: src/connections/GravityFormsConnect/GFMailOptin.php:176
+#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/FluentCRMConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:121
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:121
+#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:121
+#: src/connections/WPFormsConnect/MailOptin.php:383
+msgid "Last Name"
 msgstr ""
 
 #: src/connections/ContactForm7Connect/IntegrationsListing.php:33
@@ -654,180 +714,300 @@ msgid ""
 msgstr ""
 
 #: src/connections/ContactForm7Connect/IntegrationsListing.php:37
-#: src/connections/GravityFormsConnect/GFMailOptin.php:580
+#: src/connections/GravityFormsConnect/GFMailOptin.php:642
 msgid "MailOptin Integration"
 msgstr ""
 
 #: src/connections/ContactForm7Connect/IntegrationsListing.php:44
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:319
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:307
 msgid "Setup Integration"
 msgstr ""
 
 #: src/connections/ContactForm7Connect/panel-settings-view.php:28
-#: src/connections/FormidableFormConnect/panel-settings-view.php:15
-#: src/connections/GravityFormsConnect/GFMailOptin.php:456
-#: src/connections/WPFormsConnect/MailOptin.php:308
+#: src/connections/FormidableFormConnect/panel-settings-view.php:16
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:89
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:93
+#: src/connections/GravityFormsConnect/GFMailOptin.php:506
+#: src/connections/WPFormsConnect/MailOptin.php:328
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:666
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Integration_Repeater_Control.php:552
 msgid "Select Integration"
 msgstr ""
 
 #: src/connections/ContactForm7Connect/panel-settings-view.php:43
-#: src/connections/FormidableFormConnect/panel-settings-view.php:33
-#: src/connections/GravityFormsConnect/GFMailOptin.php:392
+#: src/connections/FormidableFormConnect/panel-settings-view.php:34
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:227
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:215
+#: src/connections/GravityFormsConnect/GFMailOptin.php:436
 msgid "Select List"
 msgstr ""
 
-#: src/connections/ContactForm7Connect/panel-settings-view.php:66
-#: src/connections/FormidableFormConnect/panel-settings-view.php:57
-#: src/connections/WPFormsConnect/MailOptin.php:455
+#: src/connections/ContactForm7Connect/panel-settings-view.php:58
+#: src/connections/DripConnect/Connect.php:117
+#: src/connections/FormidableFormConnect/panel-settings-view.php:49
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:245
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:233
+#: src/connections/GravityFormsConnect/GFMailOptin.php:330
+#: src/connections/MailjetConnect/Connect.php:135
+#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/FluentCRMConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:198
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:198
+#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:198
+#: src/connections/SendinblueConnect/Connect.php:74
+#: src/connections/WPFormsConnect/MailOptin.php:456
+msgid "Enable Double Optin"
+msgstr ""
+
+#: src/connections/ContactForm7Connect/panel-settings-view.php:58
+#: src/connections/FluentCRMConnect/Connect.php:184
+#: src/connections/FormidableFormConnect/panel-settings-view.php:49
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:247
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:235
+#: src/connections/GravityFormsConnect/GFMailOptin.php:330
+#: src/connections/MailChimpConnect/Connect.php:386
+#: src/connections/MailsterConnect/Connect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/FluentCRMConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:200
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:200
+#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:200
+#: src/connections/WPFormsConnect/MailOptin.php:458
+msgid "Disable Double Optin"
+msgstr ""
+
+#: src/connections/ContactForm7Connect/panel-settings-view.php:62
+#: src/connections/ElementorConnect/Elementor.php:108
+#: src/connections/FluentCRMConnect/Connect.php:185
+#: src/connections/FormidableFormConnect/panel-settings-view.php:51
+#: src/connections/GravityFormsConnect/GFMailOptin.php:341
+#: src/connections/MailsterConnect/Connect.php:176
+#: src/connections/WPFormsConnect/MailOptin.php:473
+msgid ""
+"Double optin requires users to confirm their email address before they are "
+"added or subscribed."
+msgstr ""
+
+#: src/connections/ContactForm7Connect/panel-settings-view.php:78
+#: src/connections/FormidableFormConnect/panel-settings-view.php:66
+#: src/connections/WPFormsConnect/MailOptin.php:520
 msgid "Select tags to assign to subscribers."
 msgstr ""
 
-#: src/connections/ContactForm7Connect/panel-settings-view.php:87
-#: src/connections/ElementorConnect/Elementor.php:126
+#: src/connections/ContactForm7Connect/panel-settings-view.php:99
+#: src/connections/ElementorConnect/Elementor.php:143
 msgid "Field Mapping"
 msgstr ""
 
-#: src/connections/ContactForm7Connect/panel-settings-view.php:113
+#: src/connections/ContactForm7Connect/panel-settings-view.php:125
 msgid "Require Acceptance"
 msgstr ""
 
-#: src/connections/ContactForm7Connect/panel-settings-view.php:121
+#: src/connections/ContactForm7Connect/panel-settings-view.php:133
 msgid ""
 "Select acceptance field that must be checked before this integration is "
 "processed. This is optional."
 msgstr ""
 
-#: src/connections/ContactForm7Connect/panel-settings-view.php:129
-#: src/connections/FormidableFormConnect/panel-settings-view.php:103
-#: src/connections/GravityFormsConnect/GFMailOptin.php:373
-#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:150
-#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:150
-#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:152
-#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:152
-#: src/connections/WPFormsConnect/MailOptin.php:472
+#: src/connections/ContactForm7Connect/panel-settings-view.php:141
+#: src/connections/GravityFormsConnect/GFMailOptin.php:417
+#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/FluentCRMConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:173
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:173
+#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:173
 msgid ""
-"Upgrade to %s to remove the 500 subscribers per month limit, add support for "
-"custom field mapping and assign tags to subscribers."
+"Upgrade to %s to remove the 500 subscribers monthly, add support for custom "
+"field mapping and assign tags to subscribers."
 msgstr ""
 
-#: src/connections/ContactForm7Connect/panel-settings-view.php:130
-#: src/connections/FormidableFormConnect/panel-settings-view.php:104
-#: src/connections/GravityFormsConnect/GFMailOptin.php:374
-#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:151
-#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:151
-#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:153
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:153
-#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:153
-#: src/connections/WPFormsConnect/MailOptin.php:473
+#: src/connections/ContactForm7Connect/panel-settings-view.php:142
+#: src/connections/FormidableFormConnect/panel-settings-view.php:113
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:147
+#: src/connections/GravityFormsConnect/GFMailOptin.php:418
+#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/FluentCRMConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:174
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:174
+#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:174
+#: src/connections/WPFormsConnect/MailOptin.php:538
 msgid "Upgrade to MailOptin Premium"
 msgstr ""
 
-#: src/connections/ContactForm7Connect/panel-settings-view.php:131
-#: src/connections/FormidableFormConnect/panel-settings-view.php:105
-#: src/connections/GravityFormsConnect/GFMailOptin.php:375
-#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:152
-#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:154
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:154
-#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:154
+#: src/connections/ContactForm7Connect/panel-settings-view.php:143
+#: src/connections/FormidableFormConnect/panel-settings-view.php:114
+#: src/connections/GravityFormsConnect/GFMailOptin.php:419
+#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/FluentCRMConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:175
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:175
+#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:175
 msgid "%sLearn more about us%s"
 msgstr ""
 
@@ -949,7 +1129,7 @@ msgid "Job Title"
 msgstr ""
 
 #: src/connections/Ctctv3Connect/Connect.php:87
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:764
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:766
 msgid "Company Name"
 msgstr ""
 
@@ -1068,12 +1248,6 @@ msgid ""
 "field ID. %sLearn more%s"
 msgstr ""
 
-#: src/connections/DripConnect/Connect.php:117
-#: src/connections/MailjetConnect/Connect.php:135
-#: src/connections/SendinblueConnect/Connect.php:77
-msgid "Enable Double Optin"
-msgstr ""
-
 #: src/connections/DripConnect/Connect.php:118
 msgid ""
 "Double optin requires users to confirm their email address before being "
@@ -1114,50 +1288,64 @@ msgid ""
 msgstr ""
 
 #: src/connections/ElementorConnect/Elementor.php:16
-#: src/connections/ElementorConnect/Elementor.php:65
+#: src/connections/ElementorConnect/Elementor.php:66
 #: src/connections/FormidableFormConnect/FormidableForm.php:31
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:26
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:30
 #: src/core/src/OptinForms/SidebarWidgets.php:20
 msgid "MailOptin"
 msgstr ""
 
-#: src/connections/ElementorConnect/Elementor.php:75
+#: src/connections/ElementorConnect/Elementor.php:76
 msgid "Select Email Service"
 msgstr ""
 
-#: src/connections/ElementorConnect/Elementor.php:84
+#: src/connections/ElementorConnect/Elementor.php:85
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Integration_Repeater_Control.php:553
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:240
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:304
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:239
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:306
 msgid "Select Email List"
 msgstr ""
 
-#: src/connections/ElementorConnect/Elementor.php:104
+#: src/connections/ElementorConnect/Elementor.php:100
+#: src/connections/GravityFormsConnect/GFMailOptin.php:338
+#: src/connections/WPFormsConnect/MailOptin.php:446
+msgid "Double Optin"
+msgstr ""
+
+#: src/connections/ElementorConnect/Elementor.php:106
+msgid "Enabled"
+msgstr ""
+
+#: src/connections/ElementorConnect/Elementor.php:107
+msgid "Disabled"
+msgstr ""
+
+#: src/connections/ElementorConnect/Elementor.php:121
 #: src/connections/SendlaneConnect/Connect.php:61
-#: src/connections/WPFormsConnect/MailOptin.php:425
+#: src/connections/WPFormsConnect/MailOptin.php:490
 #: src/connections/WeMailConnect/Connect.php:61
 msgid "Enter comma-separated list of tags to assign to subscribers."
 msgstr ""
 
-#: src/connections/ElementorConnect/Elementor.php:119
+#: src/connections/ElementorConnect/Elementor.php:136
 msgid "Select tags that will be assigned to subscribers."
 msgstr ""
 
-#: src/connections/ElementorConnect/Elementor.php:180
+#: src/connections/ElementorConnect/Elementor.php:197
 msgid "Upgrade to Premium"
 msgstr ""
 
-#: src/connections/ElementorConnect/Elementor.php:184
+#: src/connections/ElementorConnect/Elementor.php:201
 msgid ""
 "Upgrade to Premium to assign tags to subscribers, add support custom fields "
-"and remove the 500 subscribers per month limit."
+"and remove the 500 subscribers monthly limit."
 msgstr ""
 
-#: src/connections/ElementorConnect/Elementor.php:190
+#: src/connections/ElementorConnect/Elementor.php:207
 msgid "Go Premium Now"
 msgstr ""
 
-#: src/connections/ElementorConnect/Elementor.php:224
+#: src/connections/ElementorConnect/Elementor.php:247
 msgid "Elementor Form"
 msgstr ""
 
@@ -1360,9 +1548,9 @@ msgid "Create new custom audience"
 msgstr ""
 
 #: src/connections/FacebookCustomAudienceConnect/create-audience-tmpl.php:9
-#: src/connections/GravityFormsConnect/GFMailOptin.php:444
-#: src/connections/GravityFormsConnect/GFMailOptin.php:450
-#: src/connections/GravityFormsConnect/GFMailOptin.php:579
+#: src/connections/GravityFormsConnect/GFMailOptin.php:494
+#: src/connections/GravityFormsConnect/GFMailOptin.php:500
+#: src/connections/GravityFormsConnect/GFMailOptin.php:641
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:152
 #: src/core/src/Admin/SettingsPage/Email_Campaign_List.php:317
 #: src/core/src/Admin/SettingsPage/Newsletter_List.php:45
@@ -1387,7 +1575,7 @@ msgstr ""
 
 #: src/connections/FacebookCustomAudienceConnect/create-audience-tmpl.php:20
 #: src/core/src/Admin/SettingsPage/OptinCampaigns.php:191
-#: src/core/src/AjaxHandler.php:456
+#: src/core/src/AjaxHandler.php:458
 msgid "An error occurred. Please try again."
 msgstr ""
 
@@ -1458,25 +1646,218 @@ msgstr ""
 msgid "Select tags to assign to leads."
 msgstr ""
 
-#: src/connections/FluentCRMConnect/Connect.php:184
-#: src/connections/MailChimpConnect/Connect.php:381
-#: src/connections/MailsterConnect/Connect.php:175
-msgid "Disable Double Optin"
-msgstr ""
-
-#: src/connections/FluentCRMConnect/Connect.php:185
-#: src/connections/MailsterConnect/Connect.php:176
-msgid ""
-"Double optin requires users to confirm their email address before they are "
-"added or subscribed."
-msgstr ""
-
-#: src/connections/FormidableFormConnect/FormidableForm.php:145
+#: src/connections/FormidableFormConnect/FormidableForm.php:170
 msgid "Formidable Forms"
 msgstr ""
 
-#: src/connections/FormidableFormConnect/panel-settings-view.php:26
+#: src/connections/FormidableFormConnect/panel-settings-view.php:27
 msgid "No MailOptin integration found"
+msgstr ""
+
+#: src/connections/FormidableFormConnect/panel-settings-view.php:112
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:146
+#: src/connections/WPFormsConnect/MailOptin.php:537
+msgid ""
+"Upgrade to %s to remove the 500 subscribers monthly limit, add support for "
+"custom field mapping and assign tags to subscribers."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:31
+msgid ""
+"The update to your settings for this form failed, check the form input and "
+"try again."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:115
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:308
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:466
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:119
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:296
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:454
+msgid "Deactivate"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:117
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:310
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:468
+msgid "Deactivate MailOptin from this Form."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:122
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:315
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:126
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:303
+msgid "Next"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:126
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:130
+msgid "Choose Integration"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:127
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:131
+msgid "Select the integration to set up."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:259
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:247
+msgid "Select Tags"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:274
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:262
+msgid "Tags (Enter a comma-separated list of tags to assign to subscribers.)"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:320
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:308
+msgid "Choose the list you want to send form data to."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:474
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:462
+#: src/core/src/AjaxHandler.php:1212
+msgid "Save"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:482
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:470
+msgid "is activated successfully."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:488
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:476
+msgid "Assign Fields"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionFormSettingsPage.php:489
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:477
+msgid ""
+"Lastly, match up your form fields with your campaign fields to make sure "
+"we're sending data to the right place."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:34
+msgid ""
+"The update to your settings for this quiz failed, check the quiz input and "
+"try again."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:121
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:298
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:456
+msgid "Deactivate MailOptin from this Quiz."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:542
+msgid "Quiz Name"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:548
+msgid "Correct Answers"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:549
+msgid "Total Answers"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/ConnectionQuizSettingsPage.php:551
+msgid "Result Answer"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:81
+msgid "Get awesome by your form"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:82
+msgid ""
+"Sorry but we failed to activate MailOptin integration, don't hesitate to "
+"contact us"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:83
+msgid ""
+"Sorry but we failed to deactivate MailOptin integration, please try again"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:85
+msgid ""
+"Sorry, we failed to update settings, please check your form and try again"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:129
+msgid "No Email Provider is Connected"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:173
+msgid "Connect Now"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:175
+msgid "No Integration Connected to MailOptin"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:182
+msgid "%1$s with Forminator"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:206
+msgid "Please connect an Email Service Provider"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:282
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:326
+msgid "MailOptin addon not connected."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:287
+msgid "Form settings instance is not valid Forminator MailOptin Form Addon."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:295
+msgid "Form settings is not yet completed."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:331
+msgid "Quiz settings instance is not valid Forminator MailOptin Quiz Addon."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FFMailOptin.php:339
+msgid "Quiz settings is not yet completed."
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FormHook.php:41
+#: src/connections/ForminatorFormConnect/QuizHook.php:38
+msgid ""
+"MailOptin failed to process submitted data. Please check your form and try "
+"again"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/FormHook.php:74
+msgid "Forminator Form"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/QuizHook.php:94
+msgid "Forminator Quiz"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/panel-quiz-settings-view.php:4
+#: src/connections/ForminatorFormConnect/panel-settings-view.php:4
+msgid "Field"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/panel-quiz-settings-view.php:5
+#: src/connections/ForminatorFormConnect/panel-settings-view.php:5
+msgid "Forminator Field"
+msgstr ""
+
+#: src/connections/ForminatorFormConnect/panel-quiz-settings-view.php:17
+#: src/connections/ForminatorFormConnect/panel-quiz-settings-view.php:40
+#: src/connections/ForminatorFormConnect/panel-settings-view.php:17
+#: src/connections/ForminatorFormConnect/panel-settings-view.php:40
+#: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Divider.php:53
+msgid "None"
 msgstr ""
 
 #: src/connections/GEMConnect/AbstractGEMConnect.php:80
@@ -1615,62 +1996,62 @@ msgid ""
 "when payment is received."
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:213
+#: src/connections/GravityFormsConnect/GFMailOptin.php:223
 msgid "Feed Settings"
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:338
+#: src/connections/GravityFormsConnect/GFMailOptin.php:382
 msgid "Select tags to assign to subscribers or leads."
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:349
+#: src/connections/GravityFormsConnect/GFMailOptin.php:393
 msgid "Enter a comma-separated list of tags to assign to subscribers."
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:396
+#: src/connections/GravityFormsConnect/GFMailOptin.php:440
 msgid "Please ensure you have an email list created to continue."
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:399
+#: src/connections/GravityFormsConnect/GFMailOptin.php:443
 msgid ""
 "Select the email list or segment you would like to add your contacts to."
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:407
+#: src/connections/GravityFormsConnect/GFMailOptin.php:457
 msgid "Map Fields"
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:420
-#: src/connections/GravityFormsConnect/GFMailOptin.php:424
+#: src/connections/GravityFormsConnect/GFMailOptin.php:470
+#: src/connections/GravityFormsConnect/GFMailOptin.php:474
 msgid "Conditional Logic"
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:425
+#: src/connections/GravityFormsConnect/GFMailOptin.php:475
 msgid ""
 "When conditional logic is enabled, this integration will only be processed "
 "when the conditions are met. When disabled all form submissions will be "
 "exported."
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:451
+#: src/connections/GravityFormsConnect/GFMailOptin.php:501
 msgid "Enter a feed name to uniquely identify this setup."
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:461
+#: src/connections/GravityFormsConnect/GFMailOptin.php:511
 msgid ""
 "%sConnect MailOptin first%s to your email marketing marketing software or "
 "CRM to continue setup."
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:490
+#: src/connections/GravityFormsConnect/GFMailOptin.php:540
 msgid "A valid Email address must be provided."
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:507
+#: src/connections/GravityFormsConnect/GFMailOptin.php:568
 msgid "Gravity Forms"
 msgstr ""
 
-#: src/connections/GravityFormsConnect/GFMailOptin.php:541
+#: src/connections/GravityFormsConnect/GFMailOptin.php:603
 msgid "Unable to add subscriber via MailOptin: "
 msgstr ""
 
@@ -2084,143 +2465,147 @@ msgstr ""
 msgid "Mailchimp"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:309
+#: src/connections/MailChimpConnect/Connect.php:311
 msgid "Select Your Group"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:316
+#: src/connections/MailChimpConnect/Connect.php:318
 msgid "You did not select any group"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:374
+#: src/connections/MailChimpConnect/Connect.php:379
 msgid "Comma-separated list of tags to assign to a new subscriber in MailChimp"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:382
-#: src/connections/SendinblueConnect/Connect.php:78
+#: src/connections/MailChimpConnect/Connect.php:387
+#: src/connections/SendinblueConnect/Connect.php:75
 msgid ""
 "Double optin requires users to confirm their email address before they are "
 "added or subscribed (recommended)."
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:387
+#: src/connections/MailChimpConnect/Connect.php:392
 msgid "Group Segmentation"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:394
+#: src/connections/MailChimpConnect/Connect.php:399
 msgid "Automatic"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:395
+#: src/connections/MailChimpConnect/Connect.php:400
 msgid "User Input"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:398
+#: src/connections/MailChimpConnect/Connect.php:403
 msgid "Segmentation Method"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:399
+#: src/connections/MailChimpConnect/Connect.php:404
 msgid "Select how Segmentation is performed."
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:406
+#: src/connections/MailChimpConnect/Connect.php:411
 msgid "Checkboxes"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:407
+#: src/connections/MailChimpConnect/Connect.php:412
 msgid "Radio Buttons"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:410
+#: src/connections/MailChimpConnect/Connect.php:415
 msgid "Choice Type"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:411
+#: src/connections/MailChimpConnect/Connect.php:416
 msgid "Choose how users will select groups to subscribe to."
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:423
+#: src/connections/MailChimpConnect/Connect.php:428
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Integration_Repeater_Control.php:294
 msgid "No MailChimp group found. Try selecting another email list."
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:439
+#: src/connections/MailChimpConnect/Connect.php:444
+msgid "Show Group Category"
+msgstr ""
+
+#: src/connections/MailChimpConnect/Connect.php:451
 msgid "Field Label"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:446
+#: src/connections/MailChimpConnect/Connect.php:458
 msgid "Field Color"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:453
+#: src/connections/MailChimpConnect/Connect.php:465
 msgid "Field Font"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:460
+#: src/connections/MailChimpConnect/Connect.php:472
 msgid "Inline"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:461
+#: src/connections/MailChimpConnect/Connect.php:473
 msgid "Block"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:464
+#: src/connections/MailChimpConnect/Connect.php:476
 msgid "Display Style"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:471
+#: src/connections/MailChimpConnect/Connect.php:483
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Button.php:81
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Image.php:64
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/SettingsFields.php:172
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:633
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1347
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1371
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1390
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1414
 msgid "Left"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:472
+#: src/connections/MailChimpConnect/Connect.php:484
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Button.php:83
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Image.php:66
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:634
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1348
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1372
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1391
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1415
 msgid "Center"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:473
+#: src/connections/MailChimpConnect/Connect.php:485
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Button.php:82
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Image.php:65
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/SettingsFields.php:164
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:635
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1349
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1373
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1392
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1416
 msgid "Right"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:476
+#: src/connections/MailChimpConnect/Connect.php:488
 msgid "Display Alignment"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:483
+#: src/connections/MailChimpConnect/Connect.php:495
 msgid "Group Selection Required?"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:484
+#: src/connections/MailChimpConnect/Connect.php:496
 msgid ""
 "Toggle ON if you want visitors to select at least one group before they are "
 "subscribed."
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:491
+#: src/connections/MailChimpConnect/Connect.php:503
 msgid "Group Selection Error"
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:492
+#: src/connections/MailChimpConnect/Connect.php:504
 msgid ""
 "Error message displayed when a visitor failed to select at least a group."
 msgstr ""
 
-#: src/connections/MailChimpConnect/Connect.php:758
+#: src/connections/MailChimpConnect/Connect.php:814
 msgid "No Mailchimp group found. Try selecting another email list."
 msgstr ""
 
@@ -2337,7 +2722,7 @@ msgid "Last Name Property"
 msgstr ""
 
 #: src/connections/MailjetConnect/Connect.php:205
-#: src/connections/SendinblueConnect/Connect.php:106
+#: src/connections/SendinblueConnect/Connect.php:103
 msgid ""
 "If subscribers last names are missing, change this to the correct attribute "
 "name. %sLearn more%s"
@@ -2394,123 +2779,126 @@ msgstr ""
 msgid "%sHere's how to find your api key%s"
 msgstr ""
 
-#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:45
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:45
-#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:45
+#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/FluentCRMConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:57
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:57
+#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:57
 msgid "Ninja Forms"
 msgstr ""
 
-#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:94
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:94
-#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:94
+#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/FluentCRMConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:107
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:107
+#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:107
 msgid "Email %srequired%s"
 msgstr ""
 
-#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:192
-#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:192
-#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:194
-#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:194
-#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:194
+#: src/connections/NinjaFormsConnect/Integrations/ActiveCampaignConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/AweberConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/CampaignMonitorConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/CleverReachConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/ConvertFoxConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/ConvertKitConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/CtctConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/Ctctv3Connect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/DripConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/EmailOctopusConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/EmmaConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/FacebookCustomAudienceConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/FluentCRMConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/GEMConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/GetResponseConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/HubspotConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/InfusionsoftConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/JiltConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/KlaviyoConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/MailChimpConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/MailPoetConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/MailerliteConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/MailjetConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/MailsterConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/MoosendConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/OntraportConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/RegisteredUsersConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/SendFoxConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/SendGridConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/SendinblueConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/SendlaneConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/SendyConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/VerticalResponseConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/WeMailConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/WordPressUserRegistrationConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCRMConnect.php:238
+#: src/connections/NinjaFormsConnect/Integrations/ZohoCampaignsConnect.php:238
+#: src/connections/NinjaFormsConnect/MoNinjaConnect.php:238
 msgid "Comma-separated list of tags to assign to leads"
 msgstr ""
 
@@ -2650,25 +3038,25 @@ msgid ""
 "newsletters to your SendGrid Email Marketing contacts."
 msgstr ""
 
-#: src/connections/SendinblueConnect/AbstractSendinblueConnect.php:125
+#: src/connections/SendinblueConnect/AbstractSendinblueConnect.php:127
 msgid "Sendinblue API Key not found."
 msgstr ""
 
-#: src/connections/SendinblueConnect/Connect.php:95
+#: src/connections/SendinblueConnect/Connect.php:92
 msgid "First Name Attribute"
 msgstr ""
 
-#: src/connections/SendinblueConnect/Connect.php:97
+#: src/connections/SendinblueConnect/Connect.php:94
 msgid ""
 "If subscribers first names are missing, change this to the correct attribute "
 "name. %sLearn more%s"
 msgstr ""
 
-#: src/connections/SendinblueConnect/Connect.php:104
+#: src/connections/SendinblueConnect/Connect.php:101
 msgid "Last Name Attribute"
 msgstr ""
 
-#: src/connections/SendinblueConnect/Connect.php:148
+#: src/connections/SendinblueConnect/Connect.php:145
 msgid "Sendinblue"
 msgstr ""
 
@@ -2910,46 +3298,46 @@ msgstr ""
 msgid "VerticalResponse Connection"
 msgstr ""
 
-#: src/connections/WPFormsConnect/MailOptin.php:165
+#: src/connections/WPFormsConnect/MailOptin.php:185
 msgid "Error: select an integration"
 msgstr ""
 
-#: src/connections/WPFormsConnect/MailOptin.php:219
-#: src/connections/WPFormsConnect/MailOptin.php:320
+#: src/connections/WPFormsConnect/MailOptin.php:239
+#: src/connections/WPFormsConnect/MailOptin.php:340
 msgid "Add New Integration"
 msgstr ""
 
-#: src/connections/WPFormsConnect/MailOptin.php:231
+#: src/connections/WPFormsConnect/MailOptin.php:251
 msgid "Connect"
 msgstr ""
 
-#: src/connections/WPFormsConnect/MailOptin.php:278
+#: src/connections/WPFormsConnect/MailOptin.php:298
 msgid "API list error: No lists"
 msgstr ""
 
-#: src/connections/WPFormsConnect/MailOptin.php:281
+#: src/connections/WPFormsConnect/MailOptin.php:301
 msgid "MailOptin error: %s"
 msgstr ""
 
-#: src/connections/WPFormsConnect/MailOptin.php:347
+#: src/connections/WPFormsConnect/MailOptin.php:367
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:220
 msgid "Email"
 msgstr ""
 
-#: src/connections/WPFormsConnect/MailOptin.php:416
-#: src/connections/WPFormsConnect/MailOptin.php:435
+#: src/connections/WPFormsConnect/MailOptin.php:481
+#: src/connections/WPFormsConnect/MailOptin.php:500
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:662
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:667
 msgid "Options"
 msgstr ""
 
-#: src/connections/WPFormsConnect/MailOptin.php:440
+#: src/connections/WPFormsConnect/MailOptin.php:505
 msgid ""
 "Lead tagging disabled because no tag was found. Consider creating one in "
 "your CRM or email service provider and try again."
 msgstr ""
 
-#: src/connections/WPFormsConnect/MailOptin.php:474
+#: src/connections/WPFormsConnect/MailOptin.php:539
 msgid "Learn more about our %slead generation and email automation features%s"
 msgstr ""
 
@@ -3094,31 +3482,31 @@ msgstr ""
 msgid "ZohoCampaigns Connection"
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:66
+#: src/core/src/Admin/AdminNotices.php:67
 msgid "Optin campaigns cache successfully cleared."
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:84
+#: src/core/src/Admin/AdminNotices.php:85
 msgid "There was an error fetching email campaign template dependency."
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:102
+#: src/core/src/Admin/AdminNotices.php:103
 msgid ""
 "There was an error fetching optin dependency. Try again or select another "
 "template."
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:118
+#: src/core/src/Admin/AdminNotices.php:119
 msgid "Email campaigned resent."
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:138
+#: src/core/src/Admin/AdminNotices.php:139
 msgid ""
 "MailOptin branding is now included on all optin forms unless you explicitly "
 "disabled it at \"Configuration\" panel in form builder. %sLearn more%s"
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:180
+#: src/core/src/Admin/AdminNotices.php:181
 msgid ""
 "Hey, I noticed you have been using MailOptin for at least 7 days now - "
 "that's awesome! Could you please do me a BIG favor and give it a %1$s5-star "
@@ -3126,53 +3514,60 @@ msgid ""
 "motivation - thanks!"
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:184
+#: src/core/src/Admin/AdminNotices.php:185
 msgid "Sure! I'd love to give a review"
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:186
+#: src/core/src/Admin/AdminNotices.php:187
 msgid "Dimiss Forever"
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:212
+#: src/core/src/Admin/AdminNotices.php:213
 msgid ""
 "Upgrade to %s now to create multiple email automation with advance targeting "
 "and option to send directly to your email list subscribers."
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:213
+#: src/core/src/Admin/AdminNotices.php:214
 msgid "MailOptin premium"
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:231
+#: src/core/src/Admin/AdminNotices.php:232
 msgid ""
 "Did you know you can display targeted messages and optin forms across your "
 "WooCommerce store and also automatically send email alert of new products to "
 "your subscribers and customers? %sLearn more%s"
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:250
+#: src/core/src/Admin/AdminNotices.php:251
 msgid ""
 "Did you know with MailOptin, you can connect Contact Form 7 to major email "
 "marketing software such as Mailchimp, AWeber, Campaign Monitor, MailerLite, "
 "ActiveCampaign? %sLearn more%s"
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:269
+#: src/core/src/Admin/AdminNotices.php:270
+msgid ""
+"Did you know with MailOptin, you can connect Forminator to major email "
+"marketing software such as Mailchimp, Constant Contact, MailerLite, "
+"ActiveCampaign, ConvertKit? %sLearn more%s"
+msgstr ""
+
+#: src/core/src/Admin/AdminNotices.php:289
 msgid ""
 "Did you know with MailOptin, you can connect Ninja Forms to major email "
 "marketing software such as Mailchimp, AWeber, Campaign Monitor, MailerLite, "
 "ActiveCampaign? %sLearn more%s"
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:288
+#: src/core/src/Admin/AdminNotices.php:308
 msgid ""
 "Did you know with MailOptin, you can connect Gravity Forms to your email "
 "marketing software and CRM including Mailchimp, Sendinblue, MailerLite, "
 "Ontraport, GetResponse? %sLearn more%s"
 msgstr ""
 
-#: src/core/src/Admin/AdminNotices.php:307
+#: src/core/src/Admin/AdminNotices.php:327
 msgid ""
 "Did you know with MailOptin, you can connect WPForms to major email "
 "marketing software such as Mailchimp, ConvertKit, MailerLite, HubSpot, "
@@ -3181,11 +3576,11 @@ msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/AbstractElement.php:40
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Button.php:61
-#: src/core/src/Admin/Customizer/EmailCampaign/Customizer.php:678
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:962
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1100
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1220
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1500
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:973
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1005
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1143
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1263
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1543
 #: src/core/src/Admin/Customizer/OptinForm/CustomizerControls.php:195
 msgid "Background Color"
 msgstr ""
@@ -3358,10 +3753,6 @@ msgstr ""
 msgid "Border Style"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Divider.php:53
-msgid "None"
-msgstr ""
-
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Divider.php:54
 msgid "Solid"
 msgstr ""
@@ -3434,7 +3825,7 @@ msgid "Embed a list of posts."
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:49
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:219
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:221
 msgid "Select Post Type"
 msgstr ""
 
@@ -3451,30 +3842,30 @@ msgid "Post Content Length"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:72
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:212
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:214
 msgid ""
 "Number of words to limit the post content to. Set to \"0\" for full post "
 "content."
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:80
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1253
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1296
 msgid "Post Meta Data"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:83
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1257
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1300
 msgid "Author"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:84
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:606
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1259
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1302
 msgid "Date"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:85
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1258
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1301
 msgid "Categories"
 msgstr ""
 
@@ -3483,12 +3874,12 @@ msgid "Read More Link Text"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:96
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1290
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1333
 msgid "Remove Featured Image"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:101
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1279
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1322
 msgid "Remove Post Content"
 msgstr ""
 
@@ -3497,12 +3888,12 @@ msgid "Remove Read More Link"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:111
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1300
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1343
 msgid "Fallback Featured Image"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Posts.php:116
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1231
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1274
 msgid "Post Title Color"
 msgstr ""
 
@@ -4013,11 +4404,7 @@ msgid "reCAPTCHA v3"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:614
-<<<<<<< HEAD
-#: src/core/src/RegisterScripts.php:281
-=======
-#: src/core/src/RegisterScripts.php:264
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+#: src/core/src/RegisterScripts.php:275
 msgid "Field %s"
 msgstr ""
 
@@ -4193,27 +4580,23 @@ msgstr ""
 msgid "Select Linked Store"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:239
-msgid "Select Group List"
-msgstr ""
-
-#: src/core/src/Admin/Customizer/EmailCampaign/AbstractCustomizer.php:37
+#: src/core/src/Admin/Customizer/EmailCampaign/AbstractCustomizer.php:38
 msgid "Round up of Latest Posts"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/AbstractCustomizer.php:462
+#: src/core/src/Admin/Customizer/EmailCampaign/AbstractCustomizer.php:463
 msgid "View this email in your browser"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/AbstractCustomizer.php:481
+#: src/core/src/Admin/Customizer/EmailCampaign/AbstractCustomizer.php:482
 msgid "Read more"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/AbstractCustomizer.php:489
+#: src/core/src/Admin/Customizer/EmailCampaign/AbstractCustomizer.php:490
 msgid "If you do not want to receive emails from us, you can"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/AbstractCustomizer.php:490
+#: src/core/src/Admin/Customizer/EmailCampaign/AbstractCustomizer.php:491
 msgid "unsubscribe"
 msgstr ""
 
@@ -4259,7 +4642,7 @@ msgid "Newsletter Content"
 msgstr ""
 
 #: src/core/src/Admin/Customizer/EmailCampaign/Customizer.php:416
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:100
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:104
 #: src/core/src/Admin/SettingsPage/AddNewEmail.php:69
 #: src/core/src/Admin/SettingsPage/EmailCampaigns.php:89
 msgid "Email Automation"
@@ -4302,469 +4685,473 @@ msgstr ""
 msgid "Send Test Email"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:113
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:115
 msgid "Available placeholders for use in subject line:%s %s %s %s"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:115
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:117
 msgid "title of new published post."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:117
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:119
 msgid ""
 "date post was published. Accept PHP date format like so {{date format=\"l jS"
 "\"}}"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:157
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:159
 msgid "Automation Title"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:167
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:462
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:169
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:464
 #: src/core/src/Admin/SettingsPage/AddNewsletter.php:33
 msgid "Email Subject"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:170
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:172
 msgid "Enter a subject for the email."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:182
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:184
 msgid "Maximum Number of Posts"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:193
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:195
 msgid "Content Type"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:198
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:559
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:200
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:561
 msgid "Post Content"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:199
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:570
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:201
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:572
 msgid "Post Excerpt"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:209
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:211
 msgid "Content Length"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:222
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:224
 msgid "WordPress Posts"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:223
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:225
 msgid ""
 "By default, automation works with WordPress posts. To make it work with a "
 "custom post type instead? Select one."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:241
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:243
 msgid "Restrict to Post Categories"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:242
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:244
 msgid "Only include posts that has either of the selected categories."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:255
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:257
 msgid "Restrict to Post Tags"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:256
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:258
 msgid "Only include posts that has either of the selected tags."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:269
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:271
 msgid "Restrict to Post Authors"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:270
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:272
 msgid "Only include posts that are published by selected authors."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:282
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:284
 msgid "Recipient"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:293
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:295
 msgid "Select Connection"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:297
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:299
 msgid "Choose the email service or connection that newsletter will be sent to."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:308
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:310
 msgid "Email list that newsletter will be sent to."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:316
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:318
 msgid "Schedule"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:328
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:330
 msgid "Send Immediately"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:331
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:333
 msgid "Enable to send newsletter immediately after a post is published."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:340
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:342
 msgid "Send Email"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:354
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:356
 msgid "When should we send?"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:404
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:406
 msgid ""
 "Upgrade to %sMailOptin Pro%s to support custom post types and restrict by "
 "post categories, tags, authors and custom taxonomies."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:428
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:430
 msgid ""
 "%sUpgrade your MailOptin plan%s to send email campaigns directly to your "
 "list in Mailchimp, Campaign Monitor, AWeber, Constant Contact, Drip, "
 "MailerLite, ActiveCampaign etc."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:537
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:539
 msgid "Post Tags"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:548
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:550
 msgid "Post Title"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:581
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:583
 msgid "Feature Image"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:584
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:586
 msgid "HTML image of post's featured image."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:593
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:595
 msgid "Feature Image URL"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:597
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:599
 msgid ""
 "URL of post's featured image. You can specify a default image if a post "
 "doesn't have feature image like so %s"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:607
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:609
 msgid "Post URL"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:618
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:620
 msgid "Post Categories"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:622
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:624
 msgid ""
 "Comma-separated list of post categories. Set \"link\" attribute to false to "
 "remove the link."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:630
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:632
 msgid "Post Taxonomy Terms"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:634
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:636
 msgid ""
 "Comma-separated list of post terms of a taxonomy. Set \"tax\" attribute to "
 "the taxonomy name. Set \"link\" attribute to false to remove the link."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:642
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:644
 msgid "Post Date"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:647
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:649
 msgid ""
 "Publish date of the post in your local time set in WordPress. You can "
 "customize or format the date like so %s[post-date format=\"F j, Y, g:i a\"]%s"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:657
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:659
 msgid "Post Date in GMT"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:662
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:664
 msgid ""
 "Publish date of the post in GMT/UTC. You can customize or format the date "
 "like so %s[post-date format=\"F j, Y, g:i a\"]%s"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:672
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:674
 msgid "Post Meta Value"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:676
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:678
 msgid "Post meta value of a certain \"meta_key\"."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:684
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:686
 msgid "Post ID"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:695
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:697
 msgid "Author Name"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:698
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:700
 msgid "Set \"link\" attribute to false to remove the link to author's website."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:707
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:709
 msgid "Author Website"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:718
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:720
 msgid "Author Email Address"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:729
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:731
 msgid "Campaign Tags"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:740
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:742
 msgid "Unsubscribe URL"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:744
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:746
 msgid "URL to unsubscribe. This must be in your email template."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:752
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:754
 msgid "Web Version URL"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:756
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:758
 msgid "URL to the web version."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:769
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:771
 msgid ""
 "Your company name as defined in <a target=\"_blank\" href=\"%s\">settings</a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:779
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:781
 msgid "Company Address"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:784
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:786
 msgid ""
 "Your company address as defined in <a target=\"_blank\" href=\"%s"
 "\">settings</a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:794
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:796
 msgid "Company Address 2"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:799
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:801
 msgid ""
 "Company address 2 defined in <a target=\"_blank\" href=\"%s\">settings</a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:809
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:811
 msgid "Company City"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:814
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:816
 msgid ""
 "Your company city as defined in <a target=\"_blank\" href=\"%s\">settings</a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:824
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:826
 msgid "Company State"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:829
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:831
 msgid ""
 "Your company state as defined in <a target=\"_blank\" href=\"%s\">settings</"
 "a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:839
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:841
 msgid "Company Zip Code"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:844
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:846
 msgid ""
 "Zip or postal code as defined in <a target=\"_blank\" href=\"%s\">settings</"
 "a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:854
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:856
 msgid "Company Country"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:859
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:861
 msgid ""
 "Your company country defined in <a target=\"_blank\" href=\"%s\">settings</a>"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:923
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:925
 msgid "Preview Post"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:926
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:928
 msgid "Select a post to use as preview"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:977
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:962
+msgid "Send Test Email To"
+msgstr ""
+
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1020
 msgid ""
 "Upgrade to %sMailOptin Premium%s to access the Custom CSS feature that will "
 "allow you customize this template to your heart content."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1003
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1046
 msgid "Content Background Color"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1015
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1058
 msgid "Content Text Color"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1066
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1109
 msgid "Remove Header"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1078
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1121
 msgid "Logo"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1084
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1089
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1127
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1132
 msgid "Select Logo"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1085
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1128
 msgid "Change Logo"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1086
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1129
 msgid "Default"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1087
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1130
 msgid "Remove"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1088
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1131
 msgid "No logo selected"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1090
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1133
 msgid "Choose Logo"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1111
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1242
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1511
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1154
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1285
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1554
 msgid "Text Color"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1120
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1163
 msgid "Header Text"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1121
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1164
 msgid "This is used when template logo is not set."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1130
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1173
 msgid "Web Version Link Label"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1141
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1184
 msgid "Web Version Link Color"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1198
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1241
 msgid "Before Main Content"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1209
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1252
 msgid "After Main Content"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1269
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1312
 msgid "Remove Title & Image Link to Post"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1303
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1346
 msgid "Enter URL of an image to use when a post lacks a feature image."
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1311
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1354
 msgid "Title Font Size"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1328
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1371
 msgid "Body Font Size"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1342
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1385
 msgid "Content Alignment"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1357
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1400
 msgid "Remove Read More Button"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1366
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1409
 msgid "Read More Button Alignment"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1381
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1424
 msgid "Read More Button Background Color"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1391
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1434
 msgid "Read More Button Text Color"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1398
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1441
 msgid "Read More Button Label"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1488
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1531
 msgid "Remove Footer"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1522
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1565
 msgid "Footer Font Size"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1537
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1580
 msgid "Copyright Line"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1546
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1589
 msgid "Mailing Address"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1555
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1598
 msgid "Unsubscribe Line"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1564
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1607
 msgid "Unsubscribe Link Label"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1576
+#: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:1619
 msgid "Unsubscribe Link Color"
 msgstr ""
 
@@ -4889,7 +5276,7 @@ msgstr ""
 
 #: src/core/src/Admin/Customizer/OptinForm/Customizer.php:759
 #: src/core/src/Admin/SettingsPage/Connections.php:50
-#: src/core/src/Admin/SettingsPage/Connections.php:173
+#: src/core/src/Admin/SettingsPage/Connections.php:174
 msgid "Integrations"
 msgstr ""
 
@@ -5469,82 +5856,82 @@ msgid ""
 "ignored when you use MailOptin's block."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:25
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:29
 msgid "MailOptin WordPress Plugin"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:46
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:147
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:50
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:151
 msgid "Documentation"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:50
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:54
 msgid "Request Support"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:101
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:105
 msgid "Broadcasts"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:102
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:106
 msgid "Logs"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:117
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:121
 msgid "Unlimited number of optin conversion."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:118
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:122
 msgid "More optin types e.g slide-in & top bar."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:119
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:123
 msgid "More newsletters type e.g email digest."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:120
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:124
 msgid "Ton of premium optin and email templates."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:121
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:125
 msgid "Optin triggers e.g Exit Intent, Scroll etc."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:122
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:126
 msgid "Actionable reporting & insights."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:123
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:127
 msgid "Leads - conversion backup."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:124
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:128
 msgid "Wow your visitors with DisplayEffects."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:125
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:129
 msgid "Page level targeting."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:126
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:130
 msgid "And lots more."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:139
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:143
 msgid "For support, %sreach out to us%s."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:146
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:150
 msgid "Visit the %s for guidance."
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:167
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:171
 msgid ""
 "Is this plugin useful for you? Leave a positive review on the plugin's <a "
 "href=\"%s\" target=\"_blank\">WordPress listing</a>"
 msgstr ""
 
-#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:178
+#: src/core/src/Admin/SettingsPage/AbstractSettingsPage.php:182
 msgid "<a href=\"%s\" target=\"_blank\">Share your thoughts on Twitter</a>"
 msgstr ""
 
@@ -5841,6 +6228,8 @@ msgid ""
 "a></p>\n"
 "                <p><a href=\"%s\" target=\"_blank\">Elementor Forms "
 "integration</a></p>\n"
+"                <p><a href=\"%s\" target=\"_blank\">Forminator integration</"
+"a></p>\n"
 "                "
 msgstr ""
 
@@ -5861,7 +6250,7 @@ msgid "User Agent"
 msgstr ""
 
 #: src/core/src/Admin/SettingsPage/ConversionExport.php:48
-#: src/core/src/Functions/functions.php:447
+#: src/core/src/Functions/functions.php:454
 msgid "Conversion Page"
 msgstr ""
 
@@ -6010,23 +6399,13 @@ msgstr ""
 msgid "Upgrade to %s for %s support"
 msgstr ""
 
-<<<<<<< HEAD
 #: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:387
-#: src/core/src/RegisterScripts.php:277
+#: src/core/src/RegisterScripts.php:271
 msgid "Pause Test"
 msgstr ""
 
 #: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:390
-#: src/core/src/RegisterScripts.php:276
-=======
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:394
-#: src/core/src/RegisterScripts.php:260
-msgid "Pause Test"
-msgstr ""
-
-#: src/core/src/Admin/SettingsPage/OptinCampaign_List.php:397
-#: src/core/src/RegisterScripts.php:259
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+#: src/core/src/RegisterScripts.php:270
 msgid "Start Test"
 msgstr ""
 
@@ -6332,130 +6711,126 @@ msgstr ""
 msgid "Zip / Postal code"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:278 src/core/src/AjaxHandler.php:478
-#: src/core/src/AjaxHandler.php:516
+#: src/core/src/AjaxHandler.php:280 src/core/src/AjaxHandler.php:480
+#: src/core/src/AjaxHandler.php:518
 #: src/core/src/OptinForms/AbstractOptinForm.php:1262
 msgid "Unexpected error. Please try again."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:313
+#: src/core/src/AjaxHandler.php:315
 msgid "Optin campaign with similar variant name exist already."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:424
+#: src/core/src/AjaxHandler.php:426
 msgid "Select a Winner"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:427
+#: src/core/src/AjaxHandler.php:429
 msgid "Optin Name"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:430
+#: src/core/src/AjaxHandler.php:432
 msgid "Conversion Rate"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:444
+#: src/core/src/AjaxHandler.php:446
 msgid "Warning: selecting a winner will delete the other A/B test variants."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:449
+#: src/core/src/AjaxHandler.php:451
 msgid "Cancel"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:486
+#: src/core/src/AjaxHandler.php:488
 msgid "Optin campaign with similar name exist already."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:526
+#: src/core/src/AjaxHandler.php:528
 msgid "Upgrade to %s to create multiple email campaigns"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:533
+#: src/core/src/AjaxHandler.php:535
 msgid "Email campaign with similar name exist already."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:722
+#: src/core/src/AjaxHandler.php:724
 msgid "No email provider or list has been set for this optin. %sSee fix here%s"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:758 src/core/src/AjaxHandler.php:780
+#: src/core/src/AjaxHandler.php:760 src/core/src/AjaxHandler.php:782
 #: src/core/src/OptinForms/AbstractOptinForm.php:1267
 msgid "Your submission has been flagged as potential spam."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:768
+#: src/core/src/AjaxHandler.php:770
 msgid "Email address is invalid. Try again."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1019
+#: src/core/src/AjaxHandler.php:1026
 msgid "Error log successfully deleted"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1024
+#: src/core/src/AjaxHandler.php:1031
 msgid "This will delete the error log forever. Press OK to confirm"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1025
+#: src/core/src/AjaxHandler.php:1032
 msgid "Delete Error Log"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1155
+#: src/core/src/AjaxHandler.php:1162
 msgid ""
 "Error: No integration field found. Select a list first if you haven't and "
 "try again."
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1159
+#: src/core/src/AjaxHandler.php:1166
 msgid "Map integration fields to form custom fields"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1174
+#: src/core/src/AjaxHandler.php:1181
 msgid "Form Fields"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1188
+#: src/core/src/AjaxHandler.php:1195
 msgid "System Fields"
 msgstr ""
 
-#: src/core/src/AjaxHandler.php:1205
-msgid "Save"
-msgstr ""
-
-#: src/core/src/Connections/AbstractConnect.php:190
+#: src/core/src/Connections/AbstractConnect.php:191
 msgid "The email campaign \"%s\" had the following error \"%s\"."
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:198
+#: src/core/src/Connections/AbstractConnect.php:199
 msgid "Warning! \"%s\" Email Campaign Is Not Working"
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:245
+#: src/core/src/Connections/AbstractConnect.php:246
 msgid "%sView Error Log%s"
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:309
+#: src/core/src/Connections/AbstractConnect.php:310
 msgid "Use the coupon %s on checkout to save 20%% off MailOptin premium (%s)"
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:311
+#: src/core/src/Connections/AbstractConnect.php:312
 msgid "Get 20%% Discount Now (%s)"
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:326
+#: src/core/src/Connections/AbstractConnect.php:327
 msgid "Warning! \"%s\" Optin Campaign Is Not Working"
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:335
+#: src/core/src/Connections/AbstractConnect.php:336
 msgid ""
 "The optin campaign \"%s\" is failing to convert leads due to the following "
 "error \"%s\"."
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:342
+#: src/core/src/Connections/AbstractConnect.php:343
 msgid "This e-mail was sent by %s plugin on %s (%s)"
 msgstr ""
 
-#: src/core/src/Connections/AbstractConnect.php:366
+#: src/core/src/Connections/AbstractConnect.php:367
 msgid ""
 "The optin campaign \"%s\" is failing to convert leads due to the following "
 "error \"%s\". %6$s -- %6$sThis e-mail was sent by %s plugin on %s (%s)"
@@ -7719,15 +8094,15 @@ msgstr ""
 msgid "Activate"
 msgstr ""
 
-#: src/core/src/Functions/functions.php:444
+#: src/core/src/Functions/functions.php:451
 msgid "IP Address"
 msgstr ""
 
-#: src/core/src/Functions/functions.php:445
+#: src/core/src/Functions/functions.php:452
 msgid "Optin Campaign Name"
 msgstr ""
 
-#: src/core/src/Functions/functions.php:446
+#: src/core/src/Functions/functions.php:453
 msgid "Referrer URL"
 msgstr ""
 
@@ -7928,45 +8303,25 @@ msgid ""
 "activated. Please create one first. %s "
 msgstr ""
 
-<<<<<<< HEAD
-#: src/core/src/RegisterScripts.php:278
+#: src/core/src/RegisterScripts.php:272
 msgid "Type to search"
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:279
+#: src/core/src/RegisterScripts.php:273
 msgid "Are you sure you?"
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:280
-=======
-#: src/core/src/RegisterScripts.php:261
-msgid "Type to search"
-msgstr ""
-
-#: src/core/src/RegisterScripts.php:262
-msgid "Are you sure you?"
-msgstr ""
-
-#: src/core/src/RegisterScripts.php:263
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+#: src/core/src/RegisterScripts.php:274
 msgid ""
 "Are you sure you want to do this? Clicking OK will delete all your optin "
 "analytics records."
 msgstr ""
 
-<<<<<<< HEAD
-#: src/core/src/RegisterScripts.php:283
+#: src/core/src/RegisterScripts.php:277
 msgid "Title is required."
 msgstr ""
 
-#: src/core/src/RegisterScripts.php:306
-=======
-#: src/core/src/RegisterScripts.php:266
-msgid "Title is required."
-msgstr ""
-
-#: src/core/src/RegisterScripts.php:289
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+#: src/core/src/RegisterScripts.php:300
 msgid "Disable MailOptin new post notification for this post."
 msgstr ""
 
@@ -7990,15 +8345,9 @@ msgstr ""
 msgid "MailOptin - Lite"
 msgstr ""
 
-<<<<<<< HEAD
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.35.3)  #-#-#-#-#
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.36.3)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.35.3)  #-#-#-#-#
-=======
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.35.0)  #-#-#-#-#
-#. Plugin URI of the plugin/theme
-#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.35.0)  #-#-#-#-#
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+#. #-#-#-#-#  mailoptin.pot (MailOptin - Lite 1.2.36.3)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "https://mailoptin.io"
 msgstr ""

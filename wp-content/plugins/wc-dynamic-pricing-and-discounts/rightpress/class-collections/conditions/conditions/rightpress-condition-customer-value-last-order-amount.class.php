@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Customer_Value_Last_Order_Amount extends Rig
     public function get_label()
     {
 
-        return esc_html__('Spent - Last order', 'rightpress');
+        return __('Spent - Last order', 'rightpress');
     }
 
     /**

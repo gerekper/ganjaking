@@ -142,6 +142,8 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		add_action( 'untrashed_post', array( $this, 'sync_untrashed_booking' ) );
 		add_action( 'wc-booking-poll-google-cal', array( $this, 'poll_google_calendar_events' ) );
 		add_action( 'init', array( $this, 'maybe_schedule_poller' ) );
+		add_action( 'init', array( $this, 'maybe_schedule_deleted_events_cleanup' ) );
+		add_action( 'woocommerce_bookings_cleanup_deleted_events', array( $this, 'cleanup_deleted_events' ) );
 
 		add_action( 'woocommerce_bookings_update_google_client', array( $this, 'maybe_enable_legacy_integration' ), 1, 5 );
 
@@ -196,6 +198,17 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 */
 	protected function get_sync_preference() {
 		return $this->get_option( 'sync_preference' );
+	}
+
+	/**
+	 * Returns true if event deletion is preferred when the
+	 * corresponding store availability is deleted, false
+	 * otherwise.
+	 *
+	 * @return boolean
+	 */
+	protected function is_event_deletion_preferred() {
+		return 'yes' === $this->get_option( 'event_deletion_preference' );
 	}
 
 	/**
@@ -417,6 +430,49 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			as_unschedule_all_actions( 'wc-booking-poll-google-cal' );
 			as_schedule_recurring_action( time(), $poll_interval_seconds, 'wc-booking-poll-google-cal', array(), 'bookings' );
 		}
+	}
+
+	/**
+	 * Schedule a recurring Action Scheduler every 6 months to cleanup
+	 * the option `woocommerce_bookings_cleanup_deleted_events` which
+	 * stores an array of deleted options.
+	 */
+	public function maybe_schedule_deleted_events_cleanup() {
+		/**
+		 * Return if Google events should be deleted with Global
+		 * availability.
+		 */
+		if ( $this->is_event_deletion_preferred() ) {
+			return;
+		}
+
+		if ( false === as_next_scheduled_action( 'woocommerce_bookings_cleanup_deleted_events' ) ) {
+			as_schedule_recurring_action( time(), MONTH_IN_SECONDS, 'woocommerce_bookings_cleanup_deleted_events' );
+		}
+	}
+
+	/**
+	 * Deletes deleted events before 'today' from option `woocommerce_bookings_deleted_global_availability`.
+	 * 'today' is the day when this method is scheduled to run.
+	 */
+	public function cleanup_deleted_events() {
+		$deleted_availabilities = get_option( 'woocommerce_bookings_deleted_global_availability', array() );
+
+		if ( empty( $deleted_availabilities ) ) {
+			return;
+		}
+
+		$timezone    = new DateTimeZone( wc_booking_get_timezone_string() );
+		$todays_date = new WC_DateTime( 'now', $timezone );
+		$todays_date = $todays_date->date( 'Y-m-d' );
+
+		foreach ( $deleted_availabilities as $event_id => $event_end_date ) {
+			if ( $event_end_date < $todays_date ) {
+				unset( $deleted_availabilities[ $event_id ] );
+			}
+		}
+
+		update_option( 'woocommerce_bookings_deleted_global_availability', $deleted_availabilities );
 	}
 
 	/**
@@ -718,7 +774,17 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 
 			$events = $this->get_events();
 
+			$deleted_availabilities = get_option( 'woocommerce_bookings_deleted_global_availability', array() );
+
 			foreach ( $events as $event ) {
+				/**
+				 * If a global store availability was deleted once, then prevent
+				 * the event from being imported from Google calendar once again.
+				 */
+				if ( isset( $deleted_availabilities[ $event['id'] ] ) ) {
+					continue;
+				}
+
 				$availabilities = $global_availability_data_store->get_all(
 					array(
 						array(
@@ -832,6 +898,13 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 				'desc_tip'      => true,
 				'default'       => 'one_way',
 				'display_check' => array( $this, 'display_connection_settings' ),
+			),
+			'event_deletion_preference' => array(
+				'title'       => __( 'Deletion Preference', 'woocommerce-bookings' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Delete Events from Google Calendar', 'woocommerce-bookings' ),
+				'default'     => 'no',
+				'description' => __( 'Check this to delete an event from Google Calendar when the corresponding store availability is deleted.', 'woocommerce-bookings' ),
 			),
 			'debug'           => array(
 				'title'       => __( 'Debug Log', 'woocommerce-bookings' ),
@@ -1530,6 +1603,41 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 * @param WC_Global_Availability $availability Availability to delete.
 	 */
 	public function delete_global_availability( WC_Global_Availability $availability ) {
+		/**
+		 * Prevents deletion of an event from Google calendar whenever the
+		 * corresponding store availability is deleted.
+		 */
+		if ( ! $this->is_event_deletion_preferred() ) {
+			// Get event IDs of all deleted global store availabilities.
+			$deleted_availabilities = get_option( 'woocommerce_bookings_deleted_global_availability', array() );
+			if ( ! isset( $deleted_availabilities[ $availability->get_gcal_event_id() ] ) ) {
+
+				/**
+				 * We store the event IDs of all the global store availabilities
+				 * that are deleted from WC but don't want it to be deleted from
+				 * Google Calendar. We later refer to this to prevent re-importing
+				 * deleted events from GC again.
+				 *
+				 */
+				$range_type = $availability->get_range_type();
+
+				if ( 'custom' === $range_type ) {
+					$event_end_date = $availability->get_to_range();
+				} else if ( 'custom:daterange' === $range_type ) {
+					$event_end_date = $availability->get_to_date();
+				}
+
+				/**
+				 * This option can grow indefinitely. This is why we store
+				 * the event IDs along with the event end date, so that the
+				 * Action Scheduler can clean up old events.
+				 */
+				$deleted_availabilities[ $availability->get_gcal_event_id() ] = $event_end_date;
+				update_option( 'woocommerce_bookings_deleted_global_availability', $deleted_availabilities, 'no' );
+			}
+			return;
+		}
+
 		$this->maybe_init_service();
 
 		if ( $availability->get_gcal_event_id() ) {

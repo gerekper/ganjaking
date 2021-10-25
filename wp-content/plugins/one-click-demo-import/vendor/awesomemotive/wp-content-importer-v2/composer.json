@@ -1,0 +1,25 @@
+{
+  "name": "awesomemotive/wp-content-importer-v2",
+  "description": "Improved WP content importer used in OCDI plugin.",
+  "keywords": ["wp", "wordpress", "awesomemotive", "theme", "import", "content"],
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name":  "Gregor Capuder",
+      "email": "capuderg@gmail.com"
+    },
+    {
+      "name":  "Primoz Cigler",
+      "email": "primoz@proteusnet.com"
+    },
+    {
+      "name"     : "Humanmade contributors",
+      "homepage" : "https://github.com/humanmade/WordPress-Importer/graphs/contributors"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "AwesomeMotive\\WPContentImporter2\\": "src/"
+    }
+  }
+}

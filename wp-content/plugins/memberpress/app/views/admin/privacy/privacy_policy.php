@@ -21,8 +21,7 @@
 
 <h3>What we collect and store</h3>
 <p>
-  When you subscribe with us, we'll ask you to provide an email address. We'll use this information for purposes, such as, to:
-</p>
+When you subscribe with us, we'll ask you to provide an email address. We'll use this information for purposes, such as, to:
 <ul>
   <li>
     &mdash; Send you information about your account and subscriptions. This may include payment receipts, password reset emails, and payment reminders.
@@ -30,7 +29,7 @@
   <li>
     &mdash; Create your membership account
   </li>
-</ul>
+</p>
 
 <h2>How long we retain your data</h2>
 <p>
@@ -40,13 +39,12 @@
 <h2>Who on our team has access</h2>
 <p>
   Members of our team have access to the information you provide us. For example, site Owner/Administrators can access:
-</p>
-<ul>
-  <li>
-    &mdash; Order information such as your membership subscriptions, payment dates and amounts, and username / email address.
-  </li>
-</ul>
-<p>
+  <ul>
+    <li>
+      &mdash; Order information such as your membership subscriptions, payment dates and amounts, and username / email address.
+    </li>
+  </ul>
+
   Any additional information added in your Member Profile can also be visible to the Administrator(s).
 </p>
 

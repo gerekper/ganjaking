@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Order_Items_Products extends RightPress_Cond
     public function get_label()
     {
 
-        return esc_html__('Order items - Products', 'rightpress');
+        return __('Order items - Products', 'rightpress');
     }
 
     /**

@@ -53,7 +53,7 @@ class SendCampaign extends AbstractMoosendConnect
 
             $campaign_title = $this->get_email_campaign_campaign_title($this->email_campaign_id);
 
-            $home_url = defined('W3GUY_LOCAL') ? 'http://d40973e4.ngrok.io/' : home_url();
+            $home_url = defined('W3GUY_LOCAL') ? 'http://828d011e9b9f.ngrok.io' : home_url();
 
             $created_campaign = $this->moosend_instance()->create_campaign(
                 $list_id,

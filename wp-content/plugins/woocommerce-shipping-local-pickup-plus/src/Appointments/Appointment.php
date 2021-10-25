@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\Local_Pickup_Plus\Appointments;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 
 /**
  * An appointment stores a record of the choices made at checkout by a user who chose to pickup their order.

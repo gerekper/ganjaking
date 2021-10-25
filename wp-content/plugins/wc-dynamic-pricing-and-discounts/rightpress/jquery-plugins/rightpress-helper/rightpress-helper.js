@@ -4,8 +4,6 @@
 
 (function () {
 
-    'use strict';
-
     /**
      * Register functions
      */

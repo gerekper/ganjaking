@@ -61,6 +61,9 @@ class APIClass
     }
 
     /**
+     * @param $endpoint
+     * @param array $args
+     *
      * @return array
      * @throws \Exception
      */

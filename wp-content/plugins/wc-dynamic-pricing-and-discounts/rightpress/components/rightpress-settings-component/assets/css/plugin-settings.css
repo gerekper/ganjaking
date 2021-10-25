@@ -135,9 +135,6 @@
     width: 40px;
     height: 40px;
 }
-.rightpress-plugin-settings-preloader-header {
-    font-weight: 700;
-}
 
 .rightpress-plugin-settings-validation-error {
     background: #666666 !important;
@@ -163,10 +160,4 @@
     left: 15px !important;
     border-color: #666666 transparent !important;
     border-width: 0 10px 10px !important;
-}
-
-.rightpress-plugin-settings-notices-fix {
-    padding: 0 !important;
-    margin: 0 !important;
-    height: 0 !important;
 }

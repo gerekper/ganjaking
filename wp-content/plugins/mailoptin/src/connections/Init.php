@@ -19,6 +19,39 @@ class Init
         return ['CleverReachConnect'];
     }
 
+    public static function double_optin_support_connections($only_keys = false)
+    {
+        //True means double optin is enabled, and false means double optin is disabled by default
+        $double_optin_connections = ['DripConnect' => false, 'FluentCRMConnect' => true, 'MailChimpConnect' => true, 'MailjetConnect' => false, 'MailsterConnect' => true, 'SendinblueConnect' => false];
+
+        if($only_keys) {
+            return array_keys($double_optin_connections);
+        }
+
+        return $double_optin_connections;
+    }
+
+    public static function return_name($name, $first_name, $last_name)
+    {
+        if (empty($name)) {
+
+            if ( ! empty($first_name)) {
+
+                if ( ! empty($last_name)) {
+                    return $first_name . ' ' . $last_name;
+                }
+
+                return $first_name;
+            }
+
+            if ( ! empty($last_name)) {
+                return $last_name;
+            }
+        }
+
+        return $name;
+    }
+
     public static function init()
     {
         \MailOptin\RegisteredUsersConnect\Connect::get_instance(); // should always come first before any connect.
@@ -65,6 +98,7 @@ class Init
         \MailOptin\LeadBankConnect\Connect::get_instance();
         \MailOptin\FacebookCustomAudienceConnect\Connect::get_instance();
         \MailOptin\FormidableFormConnect\Connect::get_instance();
+        \MailOptin\ForminatorFormConnect\Connect::get_instance();
         GoogleAnalytics::get_instance();
     }
 }

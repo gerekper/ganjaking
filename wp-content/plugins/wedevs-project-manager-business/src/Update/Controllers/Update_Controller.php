@@ -17,18 +17,24 @@ class Update_Controller {
   		$updates = new update( pm_pro_config( 'app.plan' ) );
 
         $data = array(
-            'license' => '1415b451be1a13c283ba771ea52d38bb',
-            'status'  => 'valid',
-            'message' => 'success'
+            'license' => $updates->get_license_key(),
+            'status'  => $updates->get_license_status(),
+            'message' => ''
         );
 
-       
-            $update = '01 jan,2030';
+        if ( isset( $data['status']->update ) ) {
+            $update = strtotime( $data['status']->update );
             $expired = false;
 
-           
+            if ( time() > $update ) {
+                $string  = __( 'has been expired %s ago', 'pm-pro' );
+                $expired = true;
+            } else {
+                $string = __( 'will expire in %s', 'pm-pro' );
+            }
+
             $data['message'] = sprintf( __( 'Your license %s (%s).', 'pm-pro' ), sprintf( $string, human_time_diff( $update, time() ) ), date( 'F j, Y', $update ) );
-        
+        }
 
         wp_send_json_success( $data );
     }
@@ -38,20 +44,57 @@ class Update_Controller {
 		$updates = new update( pm_pro_config( 'app.plan' ) );
 
         $license_option     = $updates->option;
-        $license_status_key = '1415b451be1a13c283ba771ea52d38bb';
-        $email              = 'hello@example.com';
-        $key                = '1415b451be1a13c283ba771ea52d38bb';
+        $license_status_key = $updates->license_status;
+        $email              = $request->get_param( 'email' );
+        $key                = $request->get_param( 'key' );
 
-      
+        if ( empty( $email ) ) {
+            wp_send_json_error( __( 'Please enter your email address', 'wedevs-updater' ) );
+        }
 
-        update_option( $license_option, array('email' => $email, 'key' => $key) );
+        if ( empty( $key ) ) {
+            wp_send_json_error( __( 'Please enter your valid license key', 'wedevs-updater' ) );
+        }
+
+        update_option( $license_option, array('email' => $_REQUEST['email'], 'key' => $_REQUEST['key']) );
         delete_transient( $license_option );
 
-        $license_status = 'valid';
+        $license_status = get_option( $license_status_key );
 
-        
-         wp_send_json_success( $license_status );
-   
+        if ( !isset( $license_status->activated ) || $license_status->activated != true ) {
+            $response = $updates->activation( 'activation' );
+
+            if ( $response && isset( $response->activated ) && $response->activated ) {
+                update_option( $license_status_key, $response );
+
+                $update = strtotime( $response->update );
+                $expired = false;
+
+                if ( time() > $update ) {
+                    $greeting = __( 'Opps! license invalid. ', 'wedevs-updater' );
+                    $string   = __( 'has been expired %s ago', 'wedevs-updater' );
+                    $expired  = true;
+                } else {
+                    $greeting = __( 'Congrats! License activated successfully. ', 'wedevs-updater' );
+                    $string   = __( 'will expire in %s', 'wedevs-updater' );
+                }
+
+                $message = sprintf( '%s Your license %s (%s).', $greeting, sprintf( $string, human_time_diff( $update, time() ) ), date( 'F j, Y', strtotime( $response->update ) ) );
+
+                if ( $expired ) {
+                    $message .= sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wedevs.com/account/', __( 'Renew License', 'wedevs-updater' ) );
+                }
+
+                wp_send_json_success( array( 'data' => $response, 'message' => $message ) );
+            }
+
+            wp_send_json_success( array( 'data' => $response, 'message' => __( 'Invalid license', 'wedevs-updater' ) ) );
+
+        } else {
+            wp_send_json_success( $license_status );
+        }
+
+        wp_send_json_error( __( 'Something went wrong', 'wedevs-updater' ) );
     }
 
     public function delete_license() {
@@ -78,7 +121,14 @@ class Update_Controller {
         $update   = wp_remote_retrieve_body( $response );
         $update   = json_decode( $update );
 
-      
+        if ( ! empty( $update->reset ) && $update->reset ) {
+            $license_option     = $updates->option;
+            $license_status_key = $updates->license_status;
+
+            delete_option( $license_option );
+            delete_transient( $license_option );
+            delete_option( $license_status_key );
+        }
 
         wp_send_json_success( __( 'License successfully deactivated', 'wedevs-updater' ) );
     }

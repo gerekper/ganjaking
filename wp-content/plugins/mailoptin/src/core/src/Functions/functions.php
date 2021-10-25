@@ -188,17 +188,23 @@ function plugin_settings()
     return Settings::instance();
 }
 
-function array_flatten($array)
+function array_flatten($zarray, $ignore_index = false)
 {
-    if ( ! is_array($array)) {
-        return false;
-    }
-    $result = array();
-    foreach ($array as $key => $value) {
+    if ( ! is_array($zarray)) return false;
+
+    $result = [];
+
+    foreach ($zarray as $key => $value) {
+
         if (is_array($value)) {
-            // we are not doing array_merge here because we wanna keep array keys.
-            // PS: The + operator is not an addition, it's a union. If the keys don't overlap then all is good.
-            $result = $result + array_flatten($value);
+
+            if ($ignore_index) {
+                $result = array_merge($result, array_flatten($value));
+            } else {
+                // we are not doing array_merge here because we wanna keep array keys.
+                // PS: The + operator is not an addition, it's a union. If the keys don't overlap then all is good.
+                $result = $result + array_flatten($value);
+            }
         } else {
             $result[$key] = $value;
         }
@@ -326,7 +332,8 @@ function emogrify($content)
         // version 3.1.0 'cos it's PHP 5.6 and higher.
         $content = CssInliner::fromHtml($content)->inlineCss('')->render();
 
-    } catch (\Exception $e) {}
+    } catch (\Exception $e) {
+    }
 
     return $content;
 }

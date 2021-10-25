@@ -437,7 +437,7 @@ jQuery( function($) {
 					var $row          = $( row ),
 					    row_modifiers = $row.attr( 'data-modifiers' ).split( ',' ),
 					    matched       = $.inArray( modifier_value, row_modifiers ),
-					    field         = $row.find( '.csp_date_time_input' );
+					    field         = $row.find( '.csp_conditional_values_input' );
 
 					$row.hide();
 					field.attr( 'name', '' );

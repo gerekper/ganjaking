@@ -100,6 +100,36 @@ class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Package_Condition {
 			} else {
 				$message = sprintf( __( 'make sure that your cart contains less than %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
 			}
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'eq' ) ) ) {
+
+			if ( $package_count > 1 ) {
+
+				if ( isset( $args[ 'restriction_data' ][ 'restriction_id' ] ) && 'payment_gateways' === $args[ 'restriction_data' ][ 'restriction_id' ] ) {
+
+					if ( $condition_value === 1 ) {
+						$message = sprintf( __( 'make sure that there are more than %s items in every shipping package', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+					} else {
+						$message = sprintf( __( 'make sure that there are either more or fewer than %s items in every shipping package', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+					}
+
+				} else {
+
+					if ( $condition_value === 1 ) {
+						$message = sprintf( __( 'make sure it contains more than %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+					} else {
+						$message = sprintf( __( 'make sure it contains either more or fewer than %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+					}
+
+				}
+			} else {
+
+				if ( $condition_value === 1 ) {
+					$message = sprintf( __( 'make sure that your cart contains more than %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+				} else {
+					$message = sprintf( __( 'make sure that your cart contains either more or fewer than %s items', 'woocommerce-conditional-shipping-and-payments' ), $condition_value );
+				}
+	
+			}
 		}
 
 		return $message;
@@ -166,7 +196,9 @@ class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Package_Condition {
 			$is_matching = true;
 		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'lte' ) ) && $limit >= $total_quantity ) {
 			$is_matching = true;
-		} 
+		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'eq' ) ) && $limit === $total_quantity ) {
+			$is_matching = true;
+		}
 
 		return $is_matching;
 	}
@@ -255,6 +287,7 @@ class WC_CSP_Condition_Package_Item_Quantity extends WC_CSP_Package_Condition {
 						<option value="lte" <?php selected( $modifier, 'lte', true ) ?>><?php echo __( '<=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 						<option value="gte" <?php selected( $modifier, 'gte', true ) ?>><?php echo __( '>=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 						<option value="gt" <?php selected( $modifier, 'gt', true ) ?>><?php echo __( '>', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="eq" <?php selected( $modifier, 'eq', true ) ?>><?php echo __( '=', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>

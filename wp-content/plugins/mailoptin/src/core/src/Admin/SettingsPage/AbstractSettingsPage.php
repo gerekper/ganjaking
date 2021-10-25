@@ -18,16 +18,20 @@ abstract class AbstractSettingsPage
         add_action('admin_menu', array($this, 'register_core_menu'));
     }
 
+    private function getMenuIcon()
+    {
+        return 'data:image/svg+xml;base64,' . base64_encode('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 11.16 11.16"  shape-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" xmlns:v="https://vecta.io/nano"><path d="M.92.79V.8h0 .01l3.11 3.03 1.5 1.44L10.18.8c.04-.04.09-.07.15-.09.17-.07.36-.02.5.1.08.09.14.2.14.32v8.55c0 .44-.36.8-.8.8H.99c-.44 0-.8-.36-.8-.8V1.11h0c0-.24.2-.43.43-.43.12 0 .22.04.3.11zM2.3 5.14c-.3-.64.27-1.27.91-1.17.14.02.28.08.4.18l1.93 1.87 4.53-4.37c.05-.05.12-.08.19-.08a.28.28 0 0 1 .28.28v1.64L6.18 7.81c-.11.09-.21.17-.32.22-.21.12-.39.14-.62.03-.1-.04-.19-.11-.3-.19l-2.4-2.38a1.37 1.37 0 0 1-.24-.35z" fill="#a6aaad"/></svg>');
+    }
+
     public function register_core_menu()
     {
-
         add_menu_page(
             __('MailOptin WordPress Plugin', 'mailoptin'),
             __('MailOptin', 'mailoptin'),
             \MailOptin\Core\get_capability(),
             MAILOPTIN_SETTINGS_SETTINGS_SLUG,
             '',
-            MAILOPTIN_ASSETS_URL . 'images/admin-icon.svg'
+            $this->getMenuIcon()
         );
 
         add_filter('admin_body_class', array($this, 'add_admin_body_class'));

@@ -5,13 +5,13 @@
  *  @package Ultimate Fancy Text
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
+if ( ! class_exists( 'Ultimate_FancyText' ) ) {
 	/**
 	 * Function that initializes Ultimate Fancy Text Module
 	 *
-	 * @class Ultimate_VC_Addons_FancyText
+	 * @class Ultimate_FancyText
 	 */
-	class Ultimate_VC_Addons_FancyText {
+	class Ultimate_FancyText {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Fancy Text module.
 		 *
@@ -31,11 +31,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 		 * @access public
 		 */
 		public function register_fancytext_assets() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-fancytext-style', 'fancytext' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-fancytext-style', 'fancytext' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-typed-js', 'typed', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-typed-js', 'typed', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-easy-ticker-js', 'easy-ticker', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-easy-ticker-js', 'easy-ticker', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 		/**
 		 * Function to intialize the fancy text module
@@ -688,7 +688,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 			}
 			if ( 'ticker' == $ult_ft_settings['fancytext_effect'] || 'ticker-down' == $ult_ft_settings['fancytext_effect'] ) {
 				if ( 'enable' != $ultimate_js ) {
-					wp_enqueue_script( 'ultimate-vc-addons-easy-ticker-js' );
+					wp_enqueue_script( 'ultimate-easy-ticker-js' );
 				}
 				if ( '' != $ult_ft_settings['strings_font_size'] ) {
 					$inherit_font_size = 'ultimate-fancy-text-inherit';
@@ -717,7 +717,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 					$output .= '</ul></div>';
 			} else {
 				if ( 'enable' != $ultimate_js ) {
-					wp_enqueue_script( 'ultimate-vc-addons-typed-js' );
+					wp_enqueue_script( 'ultimate-typed-js' );
 				}
 				if ( 'true' != $ult_ft_settings['typewriter_loop'] ) {
 					$ult_ft_settings['typewriter_loop'] = 'false';
@@ -799,7 +799,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_FancyText' ) ) {
 			return $output;
 		}
 	} // end class.
-	new Ultimate_VC_Addons_FancyText();
+	new Ultimate_FancyText();
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Fancytext' ) ) {
 		/**
 		 * Function that initializes Ultimate Fancy text Module

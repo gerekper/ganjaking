@@ -7,12 +7,7 @@ namespace Automattic\WooCommerce\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-<<<<<<< HEAD
 use \Automattic\WooCommerce\Admin\Notes\LearnMoreAboutVariableProducts;
-=======
-use \Automattic\WooCommerce\Admin\Notes\ChoosingTheme;
-use \Automattic\WooCommerce\Admin\Notes\InsightFirstProductAndPayment;
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 use \Automattic\WooCommerce\Admin\Notes\Notes;
 use \Automattic\WooCommerce\Admin\Notes\OrderMilestones;
 use \Automattic\WooCommerce\Admin\Notes\WooSubscriptionsNotes;
@@ -27,6 +22,7 @@ use \Automattic\WooCommerce\Admin\Notes\SellingOnlineCourses;
 use \Automattic\WooCommerce\Admin\Notes\MerchantEmailNotifications\MerchantEmailNotifications;
 use \Automattic\WooCommerce\Admin\Notes\WelcomeToWooCommerceForStoreUsers;
 use \Automattic\WooCommerce\Admin\Notes\ManageStoreActivityFromHomeScreen;
+use \Automattic\WooCommerce\Admin\Notes\NavigationNudge;
 
 /**
  * Feature plugin main class.
@@ -65,6 +61,10 @@ class FeaturePlugin {
 	 * Init the feature plugin, only if we can detect both Gutenberg and WooCommerce.
 	 */
 	public function init() {
+		// Load the page controller functions file first to prevent fatal errors when disabling WooCommerce Admin.
+		$this->define_constants();
+		require_once WC_ADMIN_ABSPATH . '/includes/page-controller-functions.php';
+
 		/**
 		 * Filter allowing WooCommerce Admin to be disabled.
 		 *
@@ -74,12 +74,9 @@ class FeaturePlugin {
 			return;
 		}
 
-		$this->define_constants();
-
 		require_once WC_ADMIN_ABSPATH . '/src/Notes/DeprecatedNotes.php';
 		require_once WC_ADMIN_ABSPATH . '/includes/core-functions.php';
 		require_once WC_ADMIN_ABSPATH . '/includes/feature-config.php';
-		require_once WC_ADMIN_ABSPATH . '/includes/page-controller-functions.php';
 		require_once WC_ADMIN_ABSPATH . '/includes/wc-admin-update-functions.php';
 
 		register_activation_hook( WC_ADMIN_PLUGIN_FILE, array( $this, 'on_activation' ) );
@@ -159,11 +156,7 @@ class FeaturePlugin {
 		$this->define( 'WC_ADMIN_PLUGIN_FILE', WC_ADMIN_ABSPATH . 'woocommerce-admin.php' );
 		// WARNING: Do not directly edit this version number constant.
 		// It is updated as part of the prebuild process from the package.json value.
-<<<<<<< HEAD
-		$this->define( 'WC_ADMIN_VERSION_NUMBER', '2.0.2' );
-=======
-		$this->define( 'WC_ADMIN_VERSION_NUMBER', '1.9.0' );
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
+		$this->define( 'WC_ADMIN_VERSION_NUMBER', '2.3.1' );
 	}
 
 	/**
@@ -183,6 +176,7 @@ class FeaturePlugin {
 		Events::instance()->init();
 		API\Init::instance();
 		ReportExporter::init();
+		PluginsInstaller::init();
 
 		// CRUD classes.
 		Notes::init();
@@ -201,12 +195,10 @@ class FeaturePlugin {
 		new SetUpAdditionalPaymentTypes();
 		new TestCheckout();
 		new SellingOnlineCourses();
-<<<<<<< HEAD
 		new LearnMoreAboutVariableProducts();
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 		new WelcomeToWooCommerceForStoreUsers();
 		new ManageStoreActivityFromHomeScreen();
+		new NavigationNudge();
 
 		// Initialize RemoteInboxNotificationsEngine.
 		RemoteInboxNotificationsEngine::init();
@@ -232,8 +224,8 @@ class FeaturePlugin {
 	protected function get_dependency_errors() {
 		$errors                      = array();
 		$wordpress_version           = get_bloginfo( 'version' );
-		$minimum_wordpress_version   = '5.3';
-		$minimum_woocommerce_version = '3.6';
+		$minimum_wordpress_version   = '5.4';
+		$minimum_woocommerce_version = '4.8';
 		$wordpress_minimum_met       = version_compare( $wordpress_version, $minimum_wordpress_version, '>=' );
 		$woocommerce_minimum_met     = class_exists( 'WooCommerce' ) && version_compare( WC_VERSION, $minimum_woocommerce_version, '>=' );
 

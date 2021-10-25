@@ -20,9 +20,9 @@ $icon_margin_left      = '';
 
 extract( shortcode_atts( $this->predefined_atts, $atts ) ); //phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 
-global $uavc_tabarr;
+global $tabarr;
 
-$uavc_tabarr[] = array(
+$tabarr[] = array(
 	'title'               => $ult_title,
 	'tab_id'              => $tab_id,
 	'font_icons_position' => $font_icons_position,

@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
                     <?php RP_WCDPD_Settings::print_settings_field($current_tab . '_total_limit'); ?>
                     <?php RP_WCDPD_Settings::print_settings_field($current_tab . '_total_limit_value'); ?>
                 </div>
-                <div class="rp_wcdpd_clear_both"></div>
+                <div style="reset: both;"></div>
             </div>
 
             <div id="rp_wcdpd_<?php echo $current_tab; ?>" class="rp_wcdpd_rules"></div>

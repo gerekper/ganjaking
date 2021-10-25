@@ -409,16 +409,7 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 						'type'     => 'select',
 						'desc_tip' => true,
 						'default'  => WC_OD()->settings()->get_default( 'checkout_location' ),
-						'options'  => array(
-							'before_customer_details' => __( 'Before customer details', 'woocommerce-order-delivery' ),
-							'before_billing'          => __( 'Before billing details', 'woocommerce-order-delivery' ),
-							'after_billing'           => __( 'After billing details', 'woocommerce-order-delivery' ),
-							'before_order_notes'      => __( 'Before order notes', 'woocommerce-order-delivery' ),
-							'after_order_notes'       => __( 'After order notes', 'woocommerce-order-delivery' ),
-							'after_additional_fields' => __( 'After additional fields', 'woocommerce-order-delivery' ),
-							'after_order_review'      => __( 'Between order review and payments', 'woocommerce-order-delivery' ),
-							'after_customer_details'  => __( 'After customer details', 'woocommerce-order-delivery' ),
-						),
+						'options'  => wc_od_get_checkout_location_choices(),
 					),
 
 					array(

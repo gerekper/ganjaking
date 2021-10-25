@@ -1,0 +1,439 @@
+	/*
+  	Oxo-icon icon font: Oxo-icon
+  	Creation date: 25/08/2019 15:18
+  	*/
+	
+	@font-face {
+	    font-family: "Oxo-icon";
+	    src: url("../fonts/Oxo-icon.eot");
+	    src: url("../fonts/Oxo-icon.eot?#iefix") format("embedded-opentype"), url("../fonts/Oxo-icon.woff2") format("woff2"), url("../fonts/Oxo-icon.woff") format("woff"), url("../fonts/Oxo-icon.ttf") format("truetype"), url("../fonts/Oxo-icon.svg#Oxo-icon") format("svg");
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+	    @font-face {
+	        font-family: "Oxo-icon";
+	        src: url("../fonts/Oxo-icon.svg#Oxo-icon") format("svg");
+	    }
+	}
+	
+	[class^="oxo-icon-"]:before,
+	[class*=" oxo-icon-"]:before,
+	[class^="oxo-icon-"]:after,
+	[class*=" oxo-icon-"]:after {
+	    font-family: Oxo-icon;
+	    font-style: normal;
+	}
+	
+	.oxo-icon-right-quotation-mark:before {
+	    content: "\f100";
+	}
+	
+	.oxo-icon-quote-left:before {
+	    content: "\f101";
+	}
+	
+	.oxo-icon-android-logo:before {
+	    content: "\f102";
+	}
+	
+	.oxo-icon-speedometer:before {
+	    content: "\f103";
+	}
+	
+	.oxo-icon-left-quote:before {
+	    content: "\f104";
+	}
+	
+	.oxo-icon-user:before {
+	    content: "\f105";
+	}
+	
+	.oxo-icon-bar-chart:before {
+	    content: "\f106";
+	}
+	
+	.oxo-icon-speech-bubble:before {
+	    content: "\f107";
+	}
+	
+	.oxo-icon-pencil:before {
+	    content: "\f108";
+	}
+	
+	.oxo-icon-user-1:before {
+	    content: "\f109";
+	}
+	
+	.oxo-icon-trash:before {
+	    content: "\f10a";
+	}
+	
+	.oxo-icon-clock:before {
+	    content: "\f10b";
+	}
+	
+	.oxo-icon-mouse:before {
+	    content: "\f10c";
+	}
+	
+	.oxo-icon-folder:before {
+	    content: "\f10d";
+	}
+	
+	.oxo-icon-volume:before {
+	    content: "\f10e";
+	}
+	
+	.oxo-icon-sitemap:before {
+	    content: "\f10f";
+	}
+	
+	.oxo-icon-shuffle:before {
+	    content: "\f110";
+	}
+	
+	.oxo-icon-levels:before {
+	    content: "\f111";
+	}
+	
+	.oxo-icon-screen:before {
+	    content: "\f112";
+	}
+	
+	.oxo-icon-switch:before {
+	    content: "\f113";
+	}
+	
+	.oxo-icon-sledge:before {
+	    content: "\f114";
+	}
+	
+	.oxo-icon-basketball:before {
+	    content: "\f115";
+	}
+	
+	.oxo-icon-cloud-computing:before {
+	    content: "\f116";
+	}
+	
+	.oxo-icon-next:before {
+	    content: "\f117";
+	}
+	
+	.oxo-icon-speech-bubble-1:before {
+	    content: "\f118";
+	}
+	
+	.oxo-icon-upload:before {
+	    content: "\f119";
+	}
+	
+	.oxo-icon-upload-1:before {
+	    content: "\f11a";
+	}
+	
+	.oxo-icon-power-button:before {
+	    content: "\f11b";
+	}
+	
+	.oxo-icon-download:before {
+	    content: "\f11c";
+	}
+	
+	.oxo-icon-upload-2:before {
+	    content: "\f11d";
+	}
+	
+	.oxo-icon-switch-1:before {
+	    content: "\f11e";
+	}
+	
+	.oxo-icon-mail:before {
+	    content: "\f11f";
+	}
+	
+	.oxo-icon-mail-1:before {
+	    content: "\f120";
+	}
+	
+	.oxo-icon-computer:before {
+	    content: "\f121";
+	}
+	
+	.oxo-icon-computer-1:before {
+	    content: "\f122";
+	}
+	
+	.oxo-icon-tools-and-utensils:before {
+	    content: "\f123";
+	}
+	
+	.oxo-icon-pin:before {
+	    content: "\f124";
+	}
+	
+	.oxo-icon-stars:before {
+	    content: "\f125";
+	}
+	
+	.oxo-icon-monitor:before {
+	    content: "\f126";
+	}
+	
+	.oxo-icon-notepad:before {
+	    content: "\f127";
+	}
+	
+	.oxo-icon-clipboards:before {
+	    content: "\f128";
+	}
+	
+	.oxo-icon-clipboards-1:before {
+	    content: "\f129";
+	}
+	
+	.oxo-icon-padlock:before {
+	    content: "\f12a";
+	}
+	
+	.oxo-icon-android:before {
+	    content: "\f12b";
+	}
+	
+	.oxo-icon-placeholder:before {
+	    content: "\f12c";
+	}
+	
+	.oxo-icon-clean:before {
+	    content: "\f12d";
+	}
+	
+	.oxo-icon-plane:before {
+	    content: "\f12e";
+	}
+	
+	.oxo-icon-apple:before {
+	    content: "\f12f";
+	}
+	
+	.oxo-icon-padlock-1:before {
+	    content: "\f130";
+	}
+	
+	.oxo-icon-followers:before {
+	    content: "\f131";
+	}
+	
+	.oxo-icon-loupe:before {
+	    content: "\f132";
+	}
+	
+	.oxo-icon-collaboration:before {
+	    content: "\f133";
+	}
+	
+	.oxo-icon-shopping-cart:before {
+	    content: "\f134";
+	}
+	
+	.oxo-icon-email:before {
+	    content: "\f135";
+	}
+	
+	.oxo-icon-pills:before {
+	    content: "\f136";
+	}
+	
+	.oxo-icon-padlock-2:before {
+	    content: "\f137";
+	}
+	
+	.oxo-icon-notification:before {
+	    content: "\f138";
+	}
+	
+	.oxo-icon-prescription:before {
+	    content: "\f139";
+	}
+	
+	.oxo-icon-share:before {
+	    content: "\f13a";
+	}
+	
+	.oxo-icon-email-1:before {
+	    content: "\f13b";
+	}
+	
+	.oxo-icon-paper-plane:before {
+	    content: "\f13c";
+	}
+	
+	.oxo-icon-smartphone:before {
+	    content: "\f13d";
+	}
+	
+	.oxo-icon-graduation-hat:before {
+	    content: "\f13e";
+	}
+	
+	.oxo-icon-heart-beat:before {
+	    content: "\f13f";
+	}
+	
+	.oxo-icon-call:before {
+	    content: "\f140";
+	}
+	
+	.oxo-icon-attach:before {
+	    content: "\f141";
+	}
+	
+	.oxo-icon-cardiology:before {
+	    content: "\f142";
+	}
+	
+	.oxo-icon-bell-ring:before {
+	    content: "\f143";
+	}
+	
+	.oxo-icon-air-freight:before {
+	    content: "\f144";
+	}
+	
+	.oxo-icon-search:before {
+	    content: "\f145";
+	}
+	
+	.oxo-icon-edit:before {
+	    content: "\f146";
+	}
+	
+	.oxo-icon-privacy:before {
+	    content: "\f147";
+	}
+	
+	.oxo-icon-shopping-cart-1:before {
+	    content: "\f148";
+	}
+	
+	.oxo-icon-speedometer-1:before {
+	    content: "\f149";
+	}
+	
+	.oxo-icon-clipboard:before {
+	    content: "\f14a";
+	}
+	
+	.oxo-icon-apple-1:before {
+	    content: "\f14b";
+	}
+	
+	.oxo-icon-gallery:before {
+	    content: "\f14c";
+	}
+	
+	.oxo-icon-save-money:before {
+	    content: "\f14d";
+	}
+	
+	.oxo-icon-share-1:before {
+	    content: "\f14e";
+	}
+	
+	.oxo-icon-star:before {
+	    content: "\f14f";
+	}
+	
+	.oxo-icon-hotel:before {
+	    content: "\f150";
+	}
+	
+	.oxo-icon-clock-1:before {
+	    content: "\f151";
+	}
+	
+	.oxo-icon-export:before {
+	    content: "\f152";
+	}
+	
+	.oxo-icon-notification-1:before {
+	    content: "\f153";
+	}
+	
+	.oxo-icon-smartphone-1:before {
+	    content: "\f154";
+	}
+	
+	.oxo-icon-fast-delivery:before {
+	    content: "\f155";
+	}
+	
+	.oxo-icon-mobile:before {
+	    content: "\f156";
+	}
+	
+	.oxo-icon-contract:before {
+	    content: "\f157";
+	}
+	
+	.oxo-icon-accounting:before {
+	    content: "\f158";
+	}
+	
+	.oxo-icon-notebook:before {
+	    content: "\f159";
+	}
+	
+	.oxo-icon-verify:before {
+	    content: "\f15a";
+	}
+	
+	.oxo-icon-feedback:before {
+	    content: "\f15b";
+	}
+	
+	.oxo-icon-sticky-notes:before {
+	    content: "\f15c";
+	}
+	
+	.oxo-icon-favourite:before {
+	    content: "\f15d";
+	}
+	
+	.oxo-icon-graduate:before {
+	    content: "\f15e";
+	}
+	
+	.oxo-icon-student:before {
+	    content: "\f15f";
+	}
+	
+	.oxo-icon-send:before {
+	    content: "\f160";
+	}
+	
+	.oxo-icon-greeting:before {
+	    content: "\f161";
+	}
+	
+	.oxo-icon-graduated:before {
+	    content: "\f162";
+	}
+	
+	.oxo-icon-open:before {
+	    content: "\f163";
+	}
+	
+	.oxo-icon-monitor-1:before {
+	    content: "\f164";
+	}
+	
+	.oxo-icon-notification-2:before {
+	    content: "\f165";
+	}
+	
+	.oxo-icon-notifications:before {
+	    content: "\f166";
+	}

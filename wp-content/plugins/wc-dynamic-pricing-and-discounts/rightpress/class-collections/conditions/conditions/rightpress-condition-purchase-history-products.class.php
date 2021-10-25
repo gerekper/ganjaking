@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Purchase_History_Products extends RightPress
     public function get_label()
     {
 
-        return esc_html__('Purchased - Products', 'rightpress');
+        return __('Purchased - Products', 'rightpress');
     }
 
     /**

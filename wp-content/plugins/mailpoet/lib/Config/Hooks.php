@@ -80,7 +80,6 @@ class Hooks {
     $this->setupWPUsers();
     $this->setupWooCommerceUsers();
     $this->setupWooCommercePurchases();
-    $this->setupWooCommerceSubscriberEngagement();
     $this->setupImageSize();
     $this->setupListing();
     $this->setupSubscriptionEvents();
@@ -325,14 +324,6 @@ class Hooks {
         1
       );
     }
-  }
-
-  public function setupWooCommerceSubscriberEngagement() {
-    $this->wp->addAction(
-      'woocommerce_new_order',
-      [$this->hooksWooCommerce, 'updateSubscriberEngagement'],
-      7
-    );
   }
 
   public function setupImageSize() {

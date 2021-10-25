@@ -583,6 +583,7 @@ abstract class PHP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines
      */
     protected function normalize(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP $result)
     {
+        unset($result->reduce);
         $result->precision = $this->precision;
         $result->bitmask = $this->bitmask;
         $value =& $result->value;

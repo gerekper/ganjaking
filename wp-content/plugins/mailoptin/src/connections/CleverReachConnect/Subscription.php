@@ -50,30 +50,27 @@ class Subscription extends AbstractCleverReachConnect
 
             $group_id = $this->list_id;
 
-            $lead_tags = $this->get_integration_data('CleverReachConnect_lead_tags');
+            $lead_tags = $this->get_integration_tags('CleverReachConnect_lead_tags');
 
             if ( ! empty($lead_tags)) {
                 $subscriber_data['tags'] = array_map('trim', explode(',', $lead_tags));
             }
 
-<<<<<<< HEAD
             $subscription_form = $this->get_integration_data('CleverReachConnect_form');
 
             $doi_data = [];
 
-            if( ! empty($subscription_form)) {
-                $ip_address = get_ip_address();
-                $doi_data['email'] = $this->email;
+            if ( ! empty($subscription_form)) {
+                $ip_address          = get_ip_address();
+                $doi_data['email']   = $this->email;
                 $doi_data['form_id'] = absint($subscription_form);
                 $doi_data['doidata'] = [
-                    'user_ip'               => !empty($ip_address) ? $ip_address : '127.0.0.1',
-                    'referer'               => $this->extras['referrer'],
-                    'user_agent'            => $this->extras['user_agent']
+                    'user_ip'    => ! empty($ip_address) ? $ip_address : '127.0.0.1',
+                    'referer'    => $this->extras['referrer'],
+                    'user_agent' => $this->extras['user_agent']
                 ];
             }
 
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
             $custom_field_mappings = $this->form_custom_field_mappings();
 
             if ( ! empty($custom_field_mappings)) {
@@ -97,11 +94,7 @@ class Subscription extends AbstractCleverReachConnect
                 }
             }
 
-<<<<<<< HEAD
             $response = $this->cleverreachInstance()->addSubscriber($group_id, $this->email, array_filter($subscriber_data, [$this, 'data_filter']), $doi_data);
-=======
-            $response = $this->cleverreachInstance()->addSubscriber($group_id, $this->email, array_filter($subscriber_data, [$this, 'data_filter']));
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 
             if (isset($response->id) && ! empty($response->id)) {
                 return parent::ajax_success();
@@ -115,9 +108,9 @@ class Subscription extends AbstractCleverReachConnect
             return parent::ajax_failure(__('There was an error saving your contact. Please try again.', 'mailoptin'));
         }
     }
-<<<<<<< HEAD
 
-    public function get_subscriber_details($group_id, $pool_id) {
+    public function get_subscriber_details($group_id, $pool_id)
+    {
 
         try {
 
@@ -128,6 +121,4 @@ class Subscription extends AbstractCleverReachConnect
             return false;
         }
     }
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 }

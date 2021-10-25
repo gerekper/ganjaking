@@ -79,7 +79,7 @@ msgstr ""
 msgid "+ Add set"
 msgstr ""
 
-#: admin-columns-pro/classes/Check/Activation.php:131
+#: admin-columns-pro/classes/Check/Activation.php:132
 msgid "details & pricing"
 msgstr ""
 
@@ -102,12 +102,6 @@ msgstr ""
 #: admin-columns-pro/classes/Check/Expired.php:175
 msgid "My Account Page"
 msgstr ""
-
-#: admin-columns-pro/classes/Check/RecommendedAddons.php:71
-msgid "We recommend installing this integration add-on:"
-msgid_plural "We recommend installing these integration add-ons:"
-msgstr[0] ""
-msgstr[1] ""
 
 #: admin-columns-pro/classes/Check/Renewal.php:246
 msgid "Renew your license"
@@ -153,11 +147,11 @@ msgstr ""
 msgid "Past dates"
 msgstr ""
 
-#: admin-columns-pro/classes/Filtering/Model.php:171, ac-addon-woocommerce/classes/Filtering/Product/Thumb.php:12, ac-addon-woocommerce/classes/Filtering/ShopOrder/Refunds.php:13, ac-addon-woocommerce/classes/Search/ShopOrder/Refunds.php:22
+#: admin-columns-pro/classes/Filtering/Model.php:171, ac-addon-woocommerce/classes/Filtering/Product/Thumb.php:12
 msgid "Without %s"
 msgstr ""
 
-#: admin-columns-pro/classes/Filtering/Model.php:172, ac-addon-woocommerce/classes/Filtering/Product/Thumb.php:13, ac-addon-woocommerce/classes/Filtering/ShopOrder/Refunds.php:14, ac-addon-woocommerce/classes/Search/ShopOrder/Refunds.php:23
+#: admin-columns-pro/classes/Filtering/Model.php:172, ac-addon-woocommerce/classes/Filtering/Product/Thumb.php:13
 msgid "Has %s"
 msgstr ""
 
@@ -325,7 +319,7 @@ msgstr ""
 msgid "Enter name"
 msgstr ""
 
-#: admin-columns-pro/templates/admin/create-list-screen.php:38, admin-columns-pro/templates/table/segment-modal.php:28, admin-columns-pro/templates/table/segment-modal.php:29, admin-columns-pro/classes/ThirdParty/Polylang/Column/Language.php:26
+#: admin-columns-pro/templates/admin/create-list-screen.php:38, admin-columns-pro/templates/table/segment-modal.php:28, admin-columns-pro/templates/table/segment-modal.php:29
 msgid "Instructions"
 msgstr ""
 
@@ -474,7 +468,7 @@ msgid "Enter your license code"
 msgstr ""
 
 #: admin-columns-pro/templates/admin/section-license.php:66
-msgid "Activate"
+msgid "Update license"
 msgstr ""
 
 #: admin-columns-pro/templates/admin/section-license.php:69
@@ -555,6 +549,10 @@ msgstr ""
 
 #: admin-columns-pro/templates/table/tooltip-saved-filters.php:10
 msgid "The %s segments are available to all users."
+msgstr ""
+
+#: ac-addon-acf/classes/Column.php:29
+msgid "Advanced Custom Fields"
 msgstr ""
 
 #: ac-addon-events-calendar/classes/TableScreen.php:100
@@ -657,23 +655,15 @@ msgstr ""
 msgid "View Variations"
 msgstr ""
 
-#: admin-columns-pro/classes/Admin/Section/AddonStatus.php:49
-msgid "Network Enable"
-msgstr ""
-
-#: admin-columns-pro/classes/Admin/Section/AddonStatus.php:69
-msgid "Enable"
-msgstr ""
-
-#: admin-columns-pro/classes/Admin/Section/License.php:96
+#: admin-columns-pro/classes/Admin/Section/License.php:94
 msgid "License"
 msgstr ""
 
-#: admin-columns-pro/classes/Admin/Section/LicenseNetworkMessage.php:50
+#: admin-columns-pro/classes/Admin/Section/LicenseNetworkMessage.php:26
 msgid "Updates"
 msgstr ""
 
-#: admin-columns-pro/classes/Admin/Section/LicenseNetworkMessage.php:51
+#: admin-columns-pro/classes/Admin/Section/LicenseNetworkMessage.php:27
 msgid "Enter your license code to receive automatic updates."
 msgstr ""
 
@@ -689,11 +679,11 @@ msgstr ""
 msgid "Post Type"
 msgstr ""
 
-#: admin-columns-pro/classes/Column/CustomField/EditingModelFactory.php:36, ac-addon-acf/classes/Editing/ModelViewFactory.php:40, ac-addon-pods/classes/Filtering/TrueFalse.php:39, ac-addon-types/classes/Search/Checkbox.php:28, admin-columns-pro/classes/Editing/Service/User/RichEditing.php:20, admin-columns-pro/classes/Editing/Service/User/ShowToolbar.php:19, admin-columns-pro/classes/Filtering/Model/CustomField/Checkmark.php:13, admin-columns-pro/classes/Search/Comparison/Comment/HasReplies.php:41, admin-columns-pro/classes/Search/Comparison/Comment/IsReply.php:41, admin-columns-pro/classes/Search/Comparison/Meta/Checkmark.php:29, ac-addon-acf/classes/Filtering/Model/Toggle.php:39, ac-addon-events-calendar/classes/Search/Event/Featured.php:32, ac-addon-events-calendar/classes/Search/Event/Sticky.php:28, ac-addon-woocommerce/classes/Search/Comment/ProductReview.php:45, ac-addon-woocommerce/classes/Search/Product/LowOnStock.php:46, ac-addon-woocommerce/classes/Search/ProductVariation/Enabled.php:28
+#: admin-columns-pro/classes/Column/CustomField/EditingModelFactory.php:36, ac-addon-acf/classes/Editing/TrueFalse.php:14, ac-addon-acf/classes/Filtering/TrueFalse.php:39, ac-addon-pods/classes/Filtering/TrueFalse.php:39, ac-addon-types/classes/Search/Checkbox.php:28, admin-columns-pro/classes/Editing/Service/User/RichEditing.php:20, admin-columns-pro/classes/Editing/Service/User/ShowToolbar.php:19, admin-columns-pro/classes/Filtering/Model/CustomField/Checkmark.php:13, admin-columns-pro/classes/Search/Comparison/Comment/HasReplies.php:41, admin-columns-pro/classes/Search/Comparison/Comment/IsReply.php:41, admin-columns-pro/classes/Search/Comparison/Meta/Checkmark.php:29, ac-addon-events-calendar/classes/Search/Event/Featured.php:32, ac-addon-events-calendar/classes/Search/Event/Sticky.php:28, ac-addon-woocommerce/classes/Search/Comment/ProductReview.php:45, ac-addon-woocommerce/classes/Search/Product/LowOnStock.php:46, ac-addon-woocommerce/classes/Search/ProductVariation/Enabled.php:28
 msgid "False"
 msgstr ""
 
-#: admin-columns-pro/classes/Column/CustomField/EditingModelFactory.php:37, ac-addon-acf/classes/Editing/ModelViewFactory.php:41, ac-addon-pods/classes/Filtering/TrueFalse.php:42, ac-addon-types/classes/Search/Checkbox.php:27, admin-columns-pro/classes/Editing/Service/User/RichEditing.php:19, admin-columns-pro/classes/Editing/Service/User/ShowToolbar.php:18, admin-columns-pro/classes/Filtering/Model/CustomField/Checkmark.php:12, admin-columns-pro/classes/Search/Comparison/Comment/HasReplies.php:40, admin-columns-pro/classes/Search/Comparison/Comment/IsReply.php:40, admin-columns-pro/classes/Search/Comparison/Meta/Checkmark.php:28, ac-addon-acf/classes/Filtering/Model/Toggle.php:42, ac-addon-events-calendar/classes/Search/Event/Featured.php:33, ac-addon-events-calendar/classes/Search/Event/Sticky.php:27, ac-addon-woocommerce/classes/Search/Comment/ProductReview.php:44, ac-addon-woocommerce/classes/Search/Product/LowOnStock.php:45, ac-addon-woocommerce/classes/Search/ProductVariation/Enabled.php:29
+#: admin-columns-pro/classes/Column/CustomField/EditingModelFactory.php:37, ac-addon-acf/classes/Editing/TrueFalse.php:15, ac-addon-acf/classes/Filtering/TrueFalse.php:42, ac-addon-pods/classes/Filtering/TrueFalse.php:42, ac-addon-types/classes/Search/Checkbox.php:27, admin-columns-pro/classes/Editing/Service/User/RichEditing.php:19, admin-columns-pro/classes/Editing/Service/User/ShowToolbar.php:18, admin-columns-pro/classes/Filtering/Model/CustomField/Checkmark.php:12, admin-columns-pro/classes/Search/Comparison/Comment/HasReplies.php:40, admin-columns-pro/classes/Search/Comparison/Comment/IsReply.php:40, admin-columns-pro/classes/Search/Comparison/Meta/Checkmark.php:28, ac-addon-events-calendar/classes/Search/Event/Featured.php:33, ac-addon-events-calendar/classes/Search/Event/Sticky.php:27, ac-addon-woocommerce/classes/Search/Comment/ProductReview.php:44, ac-addon-woocommerce/classes/Search/Product/LowOnStock.php:45, ac-addon-woocommerce/classes/Search/ProductVariation/Enabled.php:29
 msgid "True"
 msgstr ""
 
@@ -759,10 +749,6 @@ msgstr ""
 
 #: admin-columns-pro/classes/Column/Post/GutenbergBlocks.php:15
 msgid "Gutenberg Blocks"
-msgstr ""
-
-#: admin-columns-pro/classes/Column/Post/HasTerm.php:13
-msgid "Has Term"
 msgstr ""
 
 #: admin-columns-pro/classes/Column/Post/Images.php:17
@@ -939,27 +925,27 @@ msgstr[1] ""
 msgid "Quick Add"
 msgstr ""
 
-#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:91
+#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:74
 msgid "License is not active."
 msgstr ""
 
-#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:91
+#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:74
 msgid "Enter your license key on <a href=\"%s\">the settings page</a>."
 msgstr ""
 
-#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:110
+#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:106
 msgid "Install failed."
 msgstr ""
 
-#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:121
+#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:113
 msgid "Installed"
 msgstr ""
 
-#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:125
+#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:117
 msgid "Network Active"
 msgstr ""
 
-#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:126, admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:87
+#: admin-columns-pro/classes/RequestHandler/Ajax/AddonInstaller.php:118, admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:87
 msgid "Active"
 msgstr ""
 
@@ -1019,7 +1005,7 @@ msgstr ""
 msgid "Post"
 msgstr ""
 
-#: admin-columns-pro/classes/Settings/Column/FeaturedImage.php:72, admin-columns-pro/classes/Settings/Column/Gutenberg.php:30, ac-addon-buddypress/classes/Settings/Group.php:56, ac-addon-events-calendar/classes/Settings/OrganizerDisplay.php:74, ac-addon-woocommerce/classes/Settings/Address.php:36, ac-addon-woocommerce/classes/Settings/DateType.php:40, admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:25, ac-addon-acf/classes/Settings/Column/FlexibleContent.php:32, ac-addon-acf/classes/Settings/Column/RepeaterDisplay.php:45, ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:38, ac-addon-woocommerce/classes/Settings/ShopCoupon/Limit.php:34, ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:33, ac-addon-woocommerce/classes/Settings/ShopOrder/Notes.php:37, ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:30, ac-addon-woocommerce/classes/Settings/User/AddressType.php:51, ac-addon-woocommerce/classes/Settings/User/Country.php:50, ac-addon-woocommerce/classes/Settings/User/Order.php:49, ac-addon-woocommerce/classes/Settings/User/Products.php:35, ac-addon-woocommerce/classes/Settings/User/Ratings.php:33
+#: admin-columns-pro/classes/Settings/Column/FeaturedImage.php:72, admin-columns-pro/classes/Settings/Column/Gutenberg.php:30, ac-addon-acf/classes/Setting/FlexibleContent.php:32, ac-addon-acf/classes/Setting/RepeaterDisplay.php:46, ac-addon-buddypress/classes/Settings/Group.php:56, ac-addon-woocommerce/classes/Settings/Address.php:36, ac-addon-woocommerce/classes/Settings/DateType.php:40, admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:25, ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:38, ac-addon-woocommerce/classes/Settings/ShopCoupon/Limit.php:34, ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:33, ac-addon-woocommerce/classes/Settings/ShopOrder/Notes.php:37, ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:30, ac-addon-woocommerce/classes/Settings/User/AddressType.php:51, ac-addon-woocommerce/classes/Settings/User/Country.php:50, ac-addon-woocommerce/classes/Settings/User/Order.php:49, ac-addon-woocommerce/classes/Settings/User/Products.php:35, ac-addon-woocommerce/classes/Settings/User/Ratings.php:33
 msgid "Display"
 msgstr ""
 
@@ -1041,14 +1027,6 @@ msgstr ""
 
 #: admin-columns-pro/classes/Settings/Column/Gutenberg.php:26
 msgid "Block Structure"
-msgstr ""
-
-#: admin-columns-pro/classes/Settings/Column/Term.php:44
-msgid "No terms available."
-msgstr ""
-
-#: admin-columns-pro/classes/Settings/Column/Term.php:49
-msgid "Term"
 msgstr ""
 
 #: admin-columns-pro/classes/Settings/Column/User.php:15
@@ -1219,8 +1197,72 @@ msgstr ""
 msgid "How to create a filtered segment"
 msgstr ""
 
-#: ac-addon-acf/classes/Column/Deprecated.php:12
-msgid "Advanced Custom Fields"
+#: ac-addon-acf/classes/Field/File.php:31
+msgid "Invalid attachment"
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/Date.php:24
+msgid "ACF Date Format"
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/Date.php:30, ac-addon-acf/classes/Setting/Time.php:30
+msgid "%s uses the %s from it's field settings."
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/Date.php:30, ac-addon-acf/classes/Setting/Time.php:30, admin-columns-pro/classes/Settings/Column/NetworkSite/Plugins.php:25
+msgid "Display Format"
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/Field.php:33, ac-addon-buddypress/classes/Settings/Profile.php:29, ac-addon-pods/classes/Setting/Field.php:30, ac-addon-types/classes/Settings/Field.php:31
+msgid "No %s fields available."
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/Field.php:41, ac-addon-buddypress/classes/Settings/Profile.php:35, ac-addon-pods/classes/Setting/Field.php:40, ac-addon-types/classes/Settings/Field.php:37
+msgid "Field"
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/Field.php:91
+msgid "The previous selected option %s no longer exists."
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/FlexibleContent.php:27
+msgid "Layout Type Count"
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/FlexibleContent.php:28
+msgid "Layout Structure"
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/Oembed.php:39
+msgid "Display format"
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/RepeaterDisplay.php:41, ac-addon-acf/classes/Setting/Subfield.php:33
+msgid "Subfield"
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/RepeaterDisplay.php:42
+msgid "Number of Rows"
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/Subfield.php:28
+msgid "No %s subfields available."
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/Subfield.php:34
+msgid "Select a repeater sub field."
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/Time.php:24
+msgid "ACF Time Format"
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/Unsupported.php:31
+msgid "This ACF field is not supported"
+msgstr ""
+
+#: ac-addon-acf/classes/Setting/Unsupported.php:35
+msgid "This specific ACF field type is not supported in this integration. Although the column may work, it could lead to unexpected behavior. Sorting, Filtering and Inline Editing are disabled for this field."
 msgstr ""
 
 #: ac-addon-buddypress/classes/ListScreen/Group.php:19
@@ -1247,16 +1289,8 @@ msgstr ""
 msgid "Link To"
 msgstr ""
 
-#: ac-addon-buddypress/classes/Settings/Profile.php:29, ac-addon-pods/classes/Setting/Field.php:30, ac-addon-types/classes/Settings/Field.php:31
-msgid "No %s fields available."
-msgstr ""
-
 #: ac-addon-buddypress/classes/Settings/Profile.php:29
 msgid "BuddyPress"
-msgstr ""
-
-#: ac-addon-buddypress/classes/Settings/Profile.php:35, ac-addon-pods/classes/Setting/Field.php:40, ac-addon-types/classes/Settings/Field.php:37
-msgid "Field"
 msgstr ""
 
 #: ac-addon-buddypress/classes/Settings/Profile.php:36, ac-addon-types/classes/Settings/Field.php:38
@@ -1299,18 +1333,6 @@ msgstr ""
 msgid "Past Events"
 msgstr ""
 
-#: ac-addon-events-calendar/classes/Settings/OrganizerDisplay.php:85, ac-addon-events-calendar/classes/Settings/Venue.php:31, ac-addon-events-calendar/classes/Column/Organizer/Phone.php:14, ac-addon-events-calendar/classes/Column/Venue/Phone.php:14
-msgid "Phone"
-msgstr ""
-
-#: ac-addon-events-calendar/classes/Settings/OrganizerDisplay.php:86, ac-addon-events-calendar/classes/Settings/OrganizerLink.php:9, ac-addon-events-calendar/classes/Column/Organizer/Email.php:16
-msgid "Email"
-msgstr ""
-
-#: ac-addon-events-calendar/classes/Settings/OrganizerDisplay.php:87, ac-addon-events-calendar/classes/Settings/OrganizerLink.php:10, ac-addon-events-calendar/classes/Settings/Venue.php:33, ac-addon-events-calendar/classes/Column/Organizer/Website.php:15, ac-addon-events-calendar/classes/Column/Venue/Website.php:15
-msgid "Website"
-msgstr ""
-
 #: ac-addon-events-calendar/classes/Settings/ShowEventDate.php:24
 msgid "Show Event Date"
 msgstr ""
@@ -1339,6 +1361,14 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
+#: ac-addon-events-calendar/classes/Settings/Venue.php:31, ac-addon-events-calendar/classes/Column/Organizer/Phone.php:14, ac-addon-events-calendar/classes/Column/Venue/Phone.php:14
+msgid "Phone"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Settings/Venue.php:33, ac-addon-events-calendar/classes/Column/Organizer/Website.php:15, ac-addon-events-calendar/classes/Column/Venue/Website.php:15
+msgid "Website"
+msgstr ""
+
 #: ac-addon-events-calendar/classes/Settings/Venue.php:34
 msgid "ZIP"
 msgstr ""
@@ -1347,7 +1377,7 @@ msgstr ""
 msgid "Create your first %s field."
 msgstr ""
 
-#: ac-addon-pods/classes/Setting/Field.php:89
+#: ac-addon-pods/classes/Setting/Field.php:89, ac-addon-acf/classes/Free/Setting/Field.php:29
 msgid "empty label"
 msgstr ""
 
@@ -1809,10 +1839,6 @@ msgstr ""
 msgid "List"
 msgstr ""
 
-#: admin-columns-pro/classes/Settings/Column/NetworkSite/Plugins.php:25, ac-addon-acf/classes/Settings/Column/Date.php:32, ac-addon-acf/classes/Settings/Column/Time.php:31
-msgid "Display Format"
-msgstr ""
-
 #: admin-columns-pro/classes/Settings/Column/NetworkSite/PluginsInclude.php:23
 msgid "Include network plugins"
 msgstr ""
@@ -1861,14 +1887,6 @@ msgstr ""
 msgid "Network Enabled"
 msgstr ""
 
-#: admin-columns-pro/classes/Settings/Column/Post/TaxonomyTerm.php:55
-msgid "No taxonomies available."
-msgstr ""
-
-#: admin-columns-pro/classes/Settings/Column/Post/TaxonomyTerm.php:61
-msgid "Taxonomy"
-msgstr ""
-
 #: admin-columns-pro/classes/Settings/ListScreen/HideOnScreen/BulkActions.php:10
 msgid "Bulk Actions"
 msgstr ""
@@ -1899,10 +1917,6 @@ msgstr ""
 
 #: admin-columns-pro/classes/Sorting/Admin/Section/ResetSorting.php:21
 msgid "Reset the sorting preference for all users."
-msgstr ""
-
-#: admin-columns-pro/classes/ThirdParty/Polylang/Column/Language.php:14
-msgid "Polylang Language"
 msgstr ""
 
 #: admin-columns-pro/classes/ThirdParty/YoastSeo/Column/IsIndexed.php:28
@@ -1939,42 +1953,6 @@ msgstr ""
 
 #: admin-columns-pro/classes/ThirdParty/YoastSeo/Search/IsIndexed.php:35
 msgid "Default for Post Type"
-msgstr ""
-
-#: ac-addon-acf/classes/Settings/Column/Date.php:26
-msgid "ACF Date Format"
-msgstr ""
-
-#: ac-addon-acf/classes/Settings/Column/Date.php:32, ac-addon-acf/classes/Settings/Column/Time.php:31
-msgid "%s uses the %s from it's field settings."
-msgstr ""
-
-#: ac-addon-acf/classes/Settings/Column/FlexibleContent.php:27
-msgid "Layout Type Count"
-msgstr ""
-
-#: ac-addon-acf/classes/Settings/Column/FlexibleContent.php:28
-msgid "Layout Structure"
-msgstr ""
-
-#: ac-addon-acf/classes/Settings/Column/Oembed.php:39
-msgid "Display format"
-msgstr ""
-
-#: ac-addon-acf/classes/Settings/Column/RepeaterDisplay.php:40, ac-addon-acf/classes/Settings/Column/RepeaterSubField.php:43
-msgid "Sub Field"
-msgstr ""
-
-#: ac-addon-acf/classes/Settings/Column/RepeaterDisplay.php:41
-msgid "Number of Rows"
-msgstr ""
-
-#: ac-addon-acf/classes/Settings/Column/Time.php:25
-msgid "ACF Time Format"
-msgstr ""
-
-#: ac-addon-acf/classes/Value/Formatter/File.php:18
-msgid "Invalid attachment"
 msgstr ""
 
 #: ac-addon-buddypress/classes/Column/Group/Avatar.php:11
@@ -2035,6 +2013,10 @@ msgstr ""
 
 #: ac-addon-events-calendar/classes/Column/Event/Website.php:14
 msgid "Event Website"
+msgstr ""
+
+#: ac-addon-events-calendar/classes/Column/Organizer/Email.php:16
+msgid "Email"
 msgstr ""
 
 #: ac-addon-events-calendar/classes/Column/Venue/PostalCode.php:14
@@ -2275,10 +2257,6 @@ msgstr ""
 msgid "Order Number"
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Column/ShopOrder/PaidAmount.php:15
-msgid "Paid Amount"
-msgstr ""
-
 #: ac-addon-woocommerce/classes/Column/ShopOrder/PaymentMethod.php:16, ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterSubscriptionPayment.php:12
 msgid "Payment Method"
 msgstr ""
@@ -2300,18 +2278,6 @@ msgid "%d item"
 msgid_plural "%d items"
 msgstr[0] ""
 msgstr[1] ""
-
-#: ac-addon-woocommerce/classes/Column/ShopOrder/Refunds.php:17, ac-addon-woocommerce/classes/Filtering/ShopOrder/Refunds.php:13, ac-addon-woocommerce/classes/Filtering/ShopOrder/Refunds.php:14, ac-addon-woocommerce/classes/Search/ShopOrder/Refunds.php:22, ac-addon-woocommerce/classes/Search/ShopOrder/Refunds.php:23, ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:41
-msgid "Refunds"
-msgstr ""
-
-#: ac-addon-woocommerce/classes/Column/ShopOrder/Shipping.php:17, ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:39
-msgid "Shipping Costs"
-msgstr ""
-
-#: ac-addon-woocommerce/classes/Column/ShopOrder/Tax.php:15, ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:40
-msgid "Tax"
-msgstr ""
 
 #: ac-addon-woocommerce/classes/Column/ShopOrder/Totals.php:24
 msgid "Totals"
@@ -2353,7 +2319,7 @@ msgstr ""
 msgid "Total Sales"
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Editing/Product/Attributes.php:56
+#: ac-addon-woocommerce/classes/Editing/Product/Attributes.php:73
 msgid "Non existing attribute."
 msgstr ""
 
@@ -2580,6 +2546,18 @@ msgstr ""
 
 #: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:38
 msgid "Subtotal"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:39
+msgid "Shipping Costs"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:40
+msgid "Tax"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:41
+msgid "Refunds"
 msgstr ""
 
 #: ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:42

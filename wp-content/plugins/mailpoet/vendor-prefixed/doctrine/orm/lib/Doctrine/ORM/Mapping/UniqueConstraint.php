@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Doctrine\ORM\Mapping; if (!defined('ABSPATH')) exit; use Attribute; use MailPoetVendor\Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor; final class UniqueConstraint implements Annotation { public $name; public $columns; public $fields; public $options; public function __construct(?string $name = null, ?array $columns = null, ?array $fields = null, ?array $options = null) { $this->name = $name; $this->columns = $columns; $this->fields = $fields; $this->options = $options; } } 
+ namespace MailPoetVendor\Doctrine\ORM\Mapping; if (!defined('ABSPATH')) exit; final class UniqueConstraint implements \MailPoetVendor\Doctrine\ORM\Mapping\Annotation { public $name; public $columns; public $options; } 

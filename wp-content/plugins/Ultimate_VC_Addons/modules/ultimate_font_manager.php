@@ -40,13 +40,13 @@
 			);
 			enquque_ultimate_google_fonts($args);
 */
-if ( ! class_exists( 'Ultimate_VC_Addons_Google_Font_Manager' ) ) {
+if ( ! class_exists( 'Ultimate_Google_Font_Manager' ) ) {
 	/**
 	 * Function that initializes  Ultimate Parallax.
 	 *
-	 * @class Ultimate_VC_Addons_Google_Font_Manager
+	 * @class Ultimate_Google_Font_Manager
 	 */
-	class Ultimate_VC_Addons_Google_Font_Manager {
+	class Ultimate_Google_Font_Manager {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Parallax.
 		 *
@@ -77,7 +77,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Font_Manager' ) ) {
 					__( 'Google Font Manager', 'ultimate_vc' ),
 					__( 'Google Fonts', 'ultimate_vc' ),
 					'administrator',
-					'Ultimate_VC_Addons_Font_Manager',
+					'Ultimate_Font_Manager',
 					array( $this, 'ultimate_font_manager_dashboard' )
 				);
 			} else {
@@ -99,10 +99,10 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Font_Manager' ) ) {
 		 * @access public
 		 */
 		public function admin_google_font_scripts() {
-			wp_register_script( 'ultimate-vc-addons-google-fonts-script', UAVC_URL . 'admin/js/google-fonts-admin.js', array( 'jquery' ), ULTIMATE_VERSION, false );
-			wp_enqueue_script( 'ultimate-vc-addons-google-fonts-script' );
+			wp_register_script( 'ultimate-google-fonts-script', UAVC_URL . 'admin/js/google-fonts-admin.js', array( 'jquery' ), ULTIMATE_VERSION, false );
+			wp_enqueue_script( 'ultimate-google-fonts-script' );
 			wp_localize_script(
-				'ultimate-vc-addons-google-fonts-script',
+				'ultimate-google-fonts-script',
 				'uavc',
 				array(
 					'google_font_nonce'   => wp_create_nonce( 'uavc-google-font-nonce' ),
@@ -113,9 +113,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Font_Manager' ) ) {
 				)
 			);
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-google-fonts-style', UAVC_URL . 'admin/css/google-fonts-admin.css', true );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-google-fonts-style', UAVC_URL . 'admin/css/google-fonts-admin.css', true );
 
-			wp_enqueue_style( 'ultimate-vc-addons-google-fonts-style' );
+			wp_enqueue_style( 'ultimate-google-fonts-style' );
 		}
 		/**
 		 * Enqueue Google font.
@@ -194,8 +194,8 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Font_Manager' ) ) {
 
 				$font_api_call = $link . $subset_string;
 
-				wp_register_style( 'ultimate-vc-addons-selected-google-fonts-style', $font_api_call, array(), null );// @codingStandardsIgnoreLine.
-				wp_enqueue_style( 'ultimate-vc-addons-selected-google-fonts-style' );
+				wp_register_style( 'ultimate-selected-google-fonts-style', $font_api_call, array(), null );// @codingStandardsIgnoreLine.
+				wp_enqueue_style( 'ultimate-selected-google-fonts-style' );
 			}
 		}
 		/**
@@ -335,7 +335,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Font_Manager' ) ) {
 			} catch ( Exception $e ) {
 				$error = true;
 			}
-			if ( true == $error || ! empty( $fonts ) ) {
+			if ( true == $error || 0 == count( $fonts ) ) {
 				$error = false;
 				try {
 					$fonts = wp_remote_get( $filename = 'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyD_6TR2RyX2VRf8bABDRXCcVqdMXB5FQvs' ); // @codingStandardsIgnoreLine.
@@ -610,7 +610,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Google_Font_Manager' ) ) {
 
 	}
 	// Instantiate the Google Font Manager.
-	new Ultimate_VC_Addons_Google_Font_Manager();
+	new Ultimate_Google_Font_Manager();
 }
 if ( ! function_exists( 'enquque_ultimate_google_fonts' ) ) {
 	/**
@@ -683,11 +683,11 @@ if ( ! function_exists( 'enquque_ultimate_google_fonts' ) ) {
 						}
 						$link = 'https://fonts.googleapis.com/css?family=' . $font_call . $subset_call;
 
-						if ( ! wp_script_is( 'ultimate-vc-addons-' . $eq_name, 'registered' ) ) {
-							wp_register_style( 'ultimate-vc-addons-' . $eq_name, $link );// @codingStandardsIgnoreLine.
-							wp_enqueue_style( 'ultimate-vc-addons-' . $eq_name );
-						} elseif ( wp_script_is( 'ultimate-vc-addons-' . $eq_name, 'registered' ) ) {
-							wp_enqueue_style( 'ultimate-vc-addons-' . $eq_name );
+						if ( ! wp_script_is( 'ultimate-' . $eq_name, 'registered' ) ) {
+							wp_register_style( 'ultimate-' . $eq_name, $link );// @codingStandardsIgnoreLine.
+							wp_enqueue_style( 'ultimate-' . $eq_name );
+						} elseif ( wp_script_is( 'ultimate-' . $eq_name, 'registered' ) ) {
+							wp_enqueue_style( 'ultimate-' . $eq_name );
 						}
 					}
 				} else // font is without varients.
@@ -696,11 +696,11 @@ if ( ! function_exists( 'enquque_ultimate_google_fonts' ) ) {
 					$link    = 'https://fonts.googleapis.com/css?family=' . $eq_name;
 
 					if ( '' != $eq_name ) {
-						if ( ! wp_script_is( 'ultimate-vc-addons-' . $eq_name, 'registered' ) ) {
-							wp_register_style( 'ultimate-vc-addons-' . $eq_name, $link );// @codingStandardsIgnoreLine.
-							wp_enqueue_style( 'ultimate-vc-addons-' . $eq_name );
-						} elseif ( wp_script_is( 'ultimate-vc-addons-' . $eq_name, 'registered' ) ) {
-							wp_enqueue_style( 'ultimate-vc-addons-' . $eq_name );
+						if ( ! wp_script_is( 'ultimate-' . $eq_name, 'registered' ) ) {
+							wp_register_style( 'ultimate-' . $eq_name, $link );// @codingStandardsIgnoreLine.
+							wp_enqueue_style( 'ultimate-' . $eq_name );
+						} elseif ( wp_script_is( 'ultimate-' . $eq_name, 'registered' ) ) {
+							wp_enqueue_style( 'ultimate-' . $eq_name );
 						}
 					}
 				}
@@ -903,7 +903,7 @@ if ( ! function_exists( 'enquque_ultimate_google_fonts_optimzed' ) ) {
 			$font_api_call = $link . $subset_string;
 
 			if ( $font_count > 0 ) {
-				wp_enqueue_style( 'ultimate-vc-addons-google-fonts', $font_api_call, array(), null );// @codingStandardsIgnoreLine.
+				wp_enqueue_style( 'ultimate-google-fonts', $font_api_call, array(), null );// @codingStandardsIgnoreLine.
 			}
 		}
 	}

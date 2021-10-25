@@ -83,31 +83,30 @@ class Track {
 
   public function _processTrackData($data) {
     $data = (object)$this->links->transformUrlDataObject($data);
-    if (empty($data->queue_id) || // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-      empty($data->subscriber_id) || // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-      empty($data->subscriber_token) // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    if (empty($data->queue_id) || // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+      empty($data->subscriber_id) || // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+      empty($data->subscriber_token) // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     ) {
       return false;
     }
-    $data->queue = $this->sendingQueuesRepository->findOneById($data->queue_id);// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-    $data->subscriber = $this->subscribersRepository->findOneById($data->subscriber_id); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-    $data->newsletter = (isset($data->newsletter_id)) ? $this->newslettersRepository->findOneById($data->newsletter_id) : null; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    $data->queue = $this->sendingQueuesRepository->findOneById($data->queue_id);// phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    $data->subscriber = $this->subscribersRepository->findOneById($data->subscriber_id); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    $data->newsletter = (isset($data->newsletter_id)) ? $this->newslettersRepository->findOneById($data->newsletter_id) : null; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     if (!$data->newsletter && ($data->queue instanceof SendingQueueEntity)) {
       $data->newsletter = $data->queue->getNewsletter();
     }
-    if (!empty($data->link_hash)) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    if (!empty($data->link_hash)) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
       $data->link = $this->newsletterLinkRepository->findOneBy([
-        'hash' => $data->link_hash, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-        'queue' => $data->queue_id, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+        'hash' => $data->link_hash, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+        'queue' => $data->queue_id, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
       ]);
     }
-    $data->userAgent = $_SERVER['HTTP_USER_AGENT'] ?? null;
     return $this->_validateTrackData($data);
   }
 
   public function _validateTrackData($data) {
     if (!$data->subscriber || !$data->queue || !$data->newsletter) return false;
-    $subscriberTokenMatch = $this->linkTokens->verifyToken($data->subscriber, $data->subscriber_token); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    $subscriberTokenMatch = $this->linkTokens->verifyToken($data->subscriber, $data->subscriber_token); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
     if (!$subscriberTokenMatch) {
       $this->terminate(403);
     }

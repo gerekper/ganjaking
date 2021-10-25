@@ -25,7 +25,7 @@ namespace SkyVerge\WooCommerce\Local_Pickup_Plus\Data_Store;
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 
 /**
  * Pickup data storage component.

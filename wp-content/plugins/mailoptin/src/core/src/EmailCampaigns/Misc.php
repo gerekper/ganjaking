@@ -17,7 +17,7 @@ class Misc
                 return date(sanitize_text_field($atts['format']));
             }
 
-            return '';
+            return date('l jS');
         });
     }
 

@@ -52,17 +52,11 @@ class ImportExportRepository {
   /** @var FilterHandler */
   private $filterHandler;
 
-  public function __construct(
-    EntityManager $entityManager,
-    FilterHandler $filterHandler
-  ) {
+  public function __construct(EntityManager $entityManager, FilterHandler $filterHandler) {
     $this->entityManager = $entityManager;
     $this->filterHandler = $filterHandler;
   }
 
-  /**
-   * @return ClassMetadata<object>
-   */
   protected function getClassMetadata(string $className): ClassMetadata {
     return $this->entityManager->getClassMetadata($className);
   }
@@ -238,7 +232,7 @@ class ImportExportRepository {
       ->from($customFieldsTable)
       ->execute();
 
-    $customFields = $customFields->fetchAll();
+    $customFields = $customFields instanceof Statement ? $customFields->fetchAll() : [];
 
     foreach ($customFields as $customField) {
       $customFieldId = "customFieldId{$customField['id']}";

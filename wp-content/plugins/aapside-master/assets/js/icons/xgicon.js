@@ -1,0 +1,30 @@
+{
+    "icons":
+    [
+        "phone",
+        "pin",
+        "mail",
+        "phone-1",
+        "download",
+        "download-1",
+        "happiness",
+        "dance",
+        "customer-review",
+        "review",
+        "rating",
+        "save",
+        "floppy-disk",
+        "floppy-disk-1",
+        "lock",
+        "password",
+        "lock-1",
+        "shield",
+        "password-1",
+        "log-out",
+        "settings",
+        "customer",
+        "settings-1",
+        "settings-2",
+        "tools"
+    ]
+}

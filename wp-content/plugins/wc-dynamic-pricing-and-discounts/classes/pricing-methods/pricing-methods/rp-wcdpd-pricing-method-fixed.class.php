@@ -45,7 +45,7 @@ abstract class RP_WCDPD_Pricing_Method_Fixed extends RP_WCDPD_Pricing_Method
      */
     public function get_group_label()
     {
-        return esc_html__('Price', 'rp_wcdpd');
+        return __('Price', 'rp_wcdpd');
     }
 
 

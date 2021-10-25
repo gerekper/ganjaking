@@ -64,6 +64,7 @@ function wc_store_credit_apply_before_tax( $the_order = null ) {
 	}
 
 	$cache_key = 'wc_store_credit_apply_before_tax_order_' . $order->get_id();
+	$found     = false;
 
 	// Get the cached result. The $found parameter disambiguates a return of false.
 	$before_tax = wp_cache_get( $cache_key, 'store_credit', false, $found );

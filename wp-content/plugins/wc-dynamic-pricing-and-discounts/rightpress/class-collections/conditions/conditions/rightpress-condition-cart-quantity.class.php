@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Cart_Quantity extends RightPress_Condition_C
     public function get_label()
     {
 
-        return esc_html__('Cart total quantity', 'rightpress');
+        return __('Cart total quantity', 'rightpress');
     }
 
     /**

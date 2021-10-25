@@ -29,7 +29,7 @@ class BetterDocs_Multiple_Kb
 			add_filter('betterdocs_category_rewrite', array(__CLASS__, 'doc_category_rewrite'));
 			add_filter('post_type_link', array(__CLASS__, 'docs_show_permalinks'), 1, 3);
 			add_filter('betterdocs_doc_permalink_default', array(__CLASS__, 'doc_permalink_default'), 10, 3);
-			add_filter('nav_menu_link_attributes', array(__CLASS__, 'doc_category_nav_menu_permalink'), 10, 3);
+			add_filter('nav_menu_link_attributes', array(__CLASS__, 'doc_category_nav_menu_permalink'), 10, 2);
 			add_action('betterdocs_cat_template_multikb', array(__CLASS__, 'get_multiple_kb'));
 			add_action('betterdocs_postcount', array(__CLASS__, 'postcount'), 10, 6);
 			add_action('betterdocs_category_list_shortcode', array(__CLASS__, 'category_list_shortcode'), 10, 1);
@@ -408,8 +408,8 @@ class BetterDocs_Multiple_Kb
 	public static function list_tax_query($tax_query, $multiple_kb, $tax_slug, $kb_slug)
 	{
 		global $wp_query;
-		$kb_slug = $kb_slug ? $kb_slug : self::kb_slug();
 		$knowledge_base = isset($wp_query->query['knowledge_base']) ? $wp_query->query['knowledge_base'] : '';
+
 		if ($multiple_kb == true && $knowledge_base != 'non-knowledgebase') {
 			$taxes = array('knowledge_base', 'doc_category');
 			$tax_map = array();
@@ -424,11 +424,11 @@ class BetterDocs_Multiple_Kb
 				'relation' => 'AND'
 			);
 
-			if (array_key_exists('knowledge_base', $tax_map) && !empty($tax_map['knowledge_base'][$kb_slug])) {
+			if (array_key_exists('knowledge_base', $tax_map) && !empty($tax_map['knowledge_base'][$knowledge_base])) {
 				$tax_query['tax_query'][] = array(
 					'taxonomy' => 'knowledge_base',
 					'field' => 'term_taxonomy_id',
-					'terms' => array($tax_map['knowledge_base'][$kb_slug]),
+					'terms' => array($tax_map['knowledge_base'][$knowledge_base]),
 					'operator' => 'IN',
 					'include_children'  => false,
 				);
@@ -486,10 +486,7 @@ class BetterDocs_Multiple_Kb
 		$kb_slug = '';
 		$object = get_queried_object();
 		if (is_singular('docs')) {
-			$kbterms = get_the_terms(get_the_ID(), 'knowledge_base');
-			if ($kbterms) {
-				$kb_slug = $kbterms[0]->slug;
-			}
+		    $kb_slug = isset($wp_query->query['knowledge_base']) ? $wp_query->query['knowledge_base'] : '';
 		} elseif (is_tax('doc_category')) {
 			$kb_slug = self::doc_category_kb_slug($object->term_id);
 		} elseif (is_tax('knowledge_base')) {
@@ -535,7 +532,7 @@ class BetterDocs_Multiple_Kb
 		return $term_permalink;
 	}
 
-	public static function doc_category_nav_menu_permalink($atts, $item, $args)
+	public static function doc_category_nav_menu_permalink($atts, $item)
 	{
 		if ($item->type == 'taxonomy' && $item->object == 'doc_category') {
 			$atts['href'] = self::doc_category_permalink($atts['href'], $item->object_id);
@@ -996,7 +993,7 @@ class BetterDocs_Multiple_Kb
 
 	static function srarch_footer() {
         $kb_slug = BetterDocs_Multiple_Kb::kb_slug();
-	    echo '<input type="hidden" id="betterdocs-search-kbslug" value="'.esc_attr($kb_slug).'" class="betterdocs-search-submit">';
+	    echo '<input type="hidden" value="'.esc_attr($kb_slug).'" class="betterdocs-search-kbslug betterdocs-search-submit">';
     }
 
     static function live_search_tax_query($tax_query, $post) {

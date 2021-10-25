@@ -112,8 +112,7 @@ class SubscriberActions {
       $this->confirmationEmailMailer->sendConfirmationEmailOnce($subscriberModel);
     }
 
-    // We want to send the notification on subscribe only when signupConfirmation is disabled
-    if ($signupConfirmationEnabled === false && $subscriber->getStatus() === SubscriberEntity::STATUS_SUBSCRIBED && $subscriberModel) {
+    if ($subscriber->getStatus() === SubscriberEntity::STATUS_SUBSCRIBED && $subscriberModel) {
       $this->newSubscriberNotificationMailer->send($subscriberModel, Segment::whereIn('id', $segmentIds)->findMany());
 
       $this->welcomeScheduler->scheduleSubscriberWelcomeNotification(

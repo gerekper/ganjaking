@@ -2,13 +2,13 @@
  * Action Reward Points - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var ActionModule = {
         init : function () {
             this.trigger_on_page_load() ;
             this.show_or_hide_for_enable_signup() ;
             this.show_or_hide_for_enable_customreg_fields() ;
             this.show_or_hide_for_enable_social_acc_linking() ;
+            this.show_or_hide_for_enable_product_review() ;
             this.show_or_hide_for_enable_blog_post_creation() ;
             this.show_or_hide_for_enable_blog_post_comment() ;
             this.show_or_hide_for_enable_product_creation() ;
@@ -18,8 +18,6 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_reward_success_msg() ;
             this.show_or_hide_for_waitlist_subscription() ;
             this.show_or_hide_for_waitlist_converstion() ;
-            this.comment_product_review() ;
-            this.show_or_hide_for_enable_product_review() ;
             $( document ).on( 'change' , '#_rs_enable_signup' , this.enable_signup ) ;
             $( document ).on( 'change' , '#rs_enable_points_for_cus_field_reg' , this.enable_customreg_fields ) ;
             $( document ).on( 'change' , '#rs_enable_for_social_account_linking' , this.enable_social_acc_linking ) ;
@@ -41,7 +39,6 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '.rs_search_custom_field' , this.get_selected_field_type ) ;
             $( document ).on( 'click' , '.add' , this.add_rule_for_coupon_usage_reward ) ;
             $( document ).on( 'click' , '.remove' , this.remove_rule_for_coupon_usage_reward ) ;
-            $( document ).on( 'click' , '#rs_reward_for_comment_product_review' , this.comment_product_review ) ;
         } ,
         enable_signup : function () {
             ActionModule.show_or_hide_for_enable_signup() ;
@@ -93,23 +90,16 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_email_message_account_signup' ).closest( 'tr' ).hide() ;
             }
         } ,
-        comment_product_review : function( ) {
-            if( jQuery( '#rs_reward_for_comment_product_review' ).is( ':checked' ) == true ) {
-                jQuery( '#rs_product_review_limit_in_days' ).closest( 'tr' ).show( ) ;
-            } else {
-                jQuery( '#rs_product_review_limit_in_days' ).closest( 'tr' ).hide( ) ;
-            }
+        enable_customreg_fields : function () {
+            ActionModule.show_or_hide_for_enable_customreg_fields() ;
         } ,
-        enable_customreg_fields : function( ) {
-            ActionModule.show_or_hide_for_enable_customreg_fields( ) ;
-        } ,
-        show_or_hide_for_enable_customreg_fields : function( ) {
-            if( jQuery( '#rs_enable_points_for_cus_field_reg' ).is( ':checked' ) == true ) {
-                jQuery( '.rs_rule_creation_for_custom_reg_field' ).parent( ).show( ) ;
-                jQuery( '#rs_send_mail_cus_field_reg' ).closest( 'tr' ).show( ) ;
-                if( jQuery( '#rs_send_mail_cus_field_reg' ).is( ':checked' ) == true ) {
-                    jQuery( '#rs_email_subject_cus_field_reg' ).closest( 'tr' ).show( ) ;
-                    jQuery( '#rs_email_message_cus_field_reg' ).closest( 'tr' ).show( ) ;
+        show_or_hide_for_enable_customreg_fields : function () {
+            if ( jQuery( '#rs_enable_points_for_cus_field_reg' ).is( ':checked' ) == true ) {
+                jQuery( '.rs_rule_creation_for_custom_reg_field' ).parent().show() ;
+                jQuery( '#rs_send_mail_cus_field_reg' ).closest( 'tr' ).show() ;
+                if ( jQuery( '#rs_send_mail_cus_field_reg' ).is( ':checked' ) == true ) {
+                    jQuery( '#rs_email_subject_cus_field_reg' ).closest( 'tr' ).show() ;
+                    jQuery( '#rs_email_message_cus_field_reg' ).closest( 'tr' ).show() ;
                 } else {
                     jQuery( '#rs_email_subject_cus_field_reg' ).closest( 'tr' ).hide() ;
                     jQuery( '#rs_email_message_cus_field_reg' ).closest( 'tr' ).hide() ;
@@ -171,7 +161,6 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_reward_product_review' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_restrict_reward_product_review' ).closest( 'tr' ).show() ;
                 jQuery( '#rs_reward_for_comment_product_review' ).closest( 'tr' ).show() ;
-                ActionModule.comment_product_review();
                 jQuery( '#rs_send_mail_product_review' ).closest( 'tr' ).show() ;
                 if ( jQuery( '#rs_send_mail_product_review' ).is( ':checked' ) == true ) {
                     jQuery( '#rs_email_subject_product_review' ).closest( 'tr' ).show() ;
@@ -195,7 +184,6 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_reward_product_review' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_restrict_reward_product_review' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_reward_for_comment_product_review' ).closest( 'tr' ).hide() ;
-                jQuery( '#rs_product_review_limit_in_days' ).closest( 'tr' ).hide( ) ;
                 jQuery( '#rs_send_mail_product_review' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_email_subject_product_review' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_email_message_product_review' ).closest( 'tr' ).hide() ;
@@ -397,12 +385,6 @@ jQuery( function ( $ ) {
             this.toggle_bp_post_create_action( '#rs_enable_points_for_bp_post_create' ) ;
             this.toggle_bp_page_comment_action( '#rs_enable_points_for_bp_postcomment' ) ;
             this.toggle_bp_group_create_action( '#rs_enable_points_for_bp_group_create' ) ;
-            
-            if ( fp_action_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
-                $( '.coupon_code_points_selected' ).chosen() ;
-            } else {
-                $( '.coupon_code_points_selected' ).select2() ;
-            }
         } ,
 
         toggle_bp_post_create : function ( event ) {

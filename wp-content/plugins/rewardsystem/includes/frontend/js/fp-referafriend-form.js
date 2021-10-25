@@ -1,5 +1,5 @@
 jQuery( function ( $ ) {
-    'use strict' ;
+
     function checkemail( email ) {
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/ ;
         return regex.test( email ) ;
@@ -34,7 +34,6 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_friend_email' ).parent().find( '.rs_notification' ).html( '' ) ;
             }
             var emailArray = friendemail.split( "," ) ;
-            var i;
             for ( i = 0 ; i <= ( emailArray.length - 1 ) ; i ++ ) {
                 if ( checkemail( emailArray[i] ) ) {
                     //Do what ever with the email.
@@ -92,18 +91,10 @@ jQuery( function ( $ ) {
                     jQuery( ".rs_notification_final" ).css( "display" , "block" ) ;
                     jQuery( '.rs_notification_final' ).html( fp_referafriend_from_params.successmessage ) ;
                     jQuery( '.rs_notification_final' ).fadeOut( 6000 ) ;
-                    RSReferAFriend.unblock( '#rs_refer_a_friend_form' ) ;
                 } else {
-                    if( 'referred_email_error' == response.data.error ) {
-                        jQuery( '#rs_friend_email' ).css( 'border' , '2px solid red' ) ;
-                        jQuery( '#rs_friend_email' ).parent().find( '.rs_notification' ).css( 'color' , 'red' ) ;
-                        jQuery( '#rs_friend_email' ).parent().find( '.rs_notification' ).html( fp_referafriend_from_params.referredemail_already_occured_error ).css( 'color' , 'red' ) ;
-                    } else {
-                        window.alert( response.data.error ) ;
-                    }
-                    
-                    RSReferAFriend.unblock( '#rs_refer_a_friend_form' ) ;
+                    window.alert( response.data.error ) ;
                 }
+                RSReferAFriend.unblock( '#rs_refer_a_friend_form' ) ;
             } ) ;
         } ,
         block : function ( id ) {

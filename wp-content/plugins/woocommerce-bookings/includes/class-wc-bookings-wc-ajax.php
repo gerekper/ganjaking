@@ -57,15 +57,23 @@ class WC_Bookings_WC_Ajax {
 			$product_ids = WC_Data_Store::load( 'product-booking' )->get_bookable_product_ids();
 		}
 
+		$needs_cache_set = false;
 		foreach ( $product_ids as $product_id ) {
 			if ( ! isset( $booking_slots_transient_keys[ $product_id ] ) ) {
 				$booking_slots_transient_keys[ $product_id ] = array();
 			}
 
-			$booking_slots_transient_keys[ $product_id ][] = $transient_name;
+			// Don't store in cache if it already exists there.
+			if ( ! in_array( $transient_name, $booking_slots_transient_keys[ $product_id ] ) ) {
+				$booking_slots_transient_keys[ $product_id ][] = $transient_name;
+				$needs_cache_set = true;
+			}
 		}
 
-		WC_Bookings_Cache::set( 'booking_slots_transient_keys', $booking_slots_transient_keys, YEAR_IN_SECONDS );
+		// Only set cache if existing cached data has changed.
+		if ( $needs_cache_set ) {
+			WC_Bookings_Cache::set( 'booking_slots_transient_keys', $booking_slots_transient_keys, YEAR_IN_SECONDS );
+		}
 
 		$products = array_filter( array_map( function( $product_id ) {
 			return get_wc_product_booking( $product_id );

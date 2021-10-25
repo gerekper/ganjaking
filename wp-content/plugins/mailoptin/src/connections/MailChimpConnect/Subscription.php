@@ -37,7 +37,14 @@ class Subscription extends AbstractMailChimpConnect
     {
         $setting = $this->get_integration_data('MailChimpConnect_disable_double_optin');
 
-        $val = $setting !== true;
+        $optin_campaign_id = absint($this->extras['optin_campaign_id']);
+
+        //external forms
+        if($optin_campaign_id == 0) {
+            $setting = $this->extras['is_double_optin'];
+        }
+
+        $val = ($setting !== true);
 
         return apply_filters('mo_connections_mailchimp_is_double_optin', $val, $this->optin_campaign_id);
     }
@@ -207,17 +214,33 @@ class Subscription extends AbstractMailChimpConnect
                 'ip_signup'     => \MailOptin\Core\get_ip_address()
             ];
 
-            $lead_tags = $this->get_integration_tags('MailChimpConnect_lead_tags');
-
-            if ( ! empty($lead_tags)) {
-                $parameters['tags'] = array_map('trim', explode(',', $lead_tags));
-            }
-
             $parameters = apply_filters('mo_connections_mailchimp_subscription_parameters', array_filter($parameters, [$this, 'data_filter']), $this);
 
             $response = $this->mc_list_instance()->addOrUpdateMember($this->list_id, $this->email, $parameters);
 
             if (is_object($response) && in_array($response->status, ['subscribed', 'pending'])) {
+
+                $lead_tags = $this->get_integration_tags('MailChimpConnect_lead_tags');
+
+                if ( ! empty($lead_tags)) {
+
+                    $lead_tags = array_map(function ($tag) {
+                        return array(
+                            'name'   => trim($tag),
+                            'status' => 'active',
+                        );
+                    },
+                        explode(',', $lead_tags)
+                    );
+
+                    $this->mc_list_instance()->request(
+                        'POST',
+                        '/lists/{list_id}/members/{subscriber_hash}/tags',
+                        ['list_id' => $this->list_id, 'subscriber_hash' => md5(strtolower($this->email))],
+                        ['tags' => $lead_tags]
+                    );
+
+                }
 
                 if (isset($this->extras['mo-acceptance']) && $this->extras['mo-acceptance'] == 'yes') {
                     $this->update_gdpr_permission();

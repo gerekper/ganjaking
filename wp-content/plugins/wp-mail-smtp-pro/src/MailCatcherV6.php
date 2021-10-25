@@ -36,7 +36,7 @@ class MailCatcherV6 extends \PHPMailer\PHPMailer\PHPMailer implements MailCatche
 	 *
 	 * @return bool
 	 */
-	public function send() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	public function send() { // phpcs:ignore
 
 		$options     = new Options();
 		$mail_mailer = sanitize_key( $options->get( 'mail', 'mailer' ) );
@@ -65,7 +65,7 @@ class MailCatcherV6 extends \PHPMailer\PHPMailer\PHPMailer implements MailCatche
 		}
 
 		// Define a custom header, that will be used to identify the plugin and the mailer.
-		$this->XMailer = 'WPMailSMTP/Mailer/' . $mail_mailer . ' ' . WPMS_PLUGIN_VER; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$this->XMailer = 'WPMailSMTP/Mailer/' . $mail_mailer . ' ' . WPMS_PLUGIN_VER; // phpcs:ignore
 
 		// Use the default PHPMailer, as we inject our settings there for certain providers.
 		if (
@@ -110,7 +110,7 @@ class MailCatcherV6 extends \PHPMailer\PHPMailer\PHPMailer implements MailCatche
 
 				return $post_send;
 			} catch ( \PHPMailer\PHPMailer\Exception $e ) {
-				$this->mailHeader = ''; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$this->mailHeader = ''; // phpcs:ignore
 				$this->setError( $e->getMessage() );
 
 				// Set the debug error, but not for default PHP mailer.
@@ -130,7 +130,7 @@ class MailCatcherV6 extends \PHPMailer\PHPMailer\PHPMailer implements MailCatche
 		}
 
 		// We need this so that the PHPMailer class will correctly prepare all the headers.
-		$this->Mailer = 'mail'; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$this->Mailer = 'mail'; // phpcs:ignore
 
 		/**
 		 * Fires before email pre send.
@@ -165,28 +165,6 @@ class MailCatcherV6 extends \PHPMailer\PHPMailer\PHPMailer implements MailCatche
 		$mailer->send();
 
 		$is_sent = $mailer->is_email_sent();
-
-		if ( ! $is_sent ) {
-			$error = $mailer->get_response_error();
-
-			if ( ! empty( $error ) ) {
-
-				// Add mailer to the beginning and save to display later.
-				$message = 'Mailer: ' . esc_html( wp_mail_smtp()->get_providers()->get_options( $mailer->get_mailer_name() )->get_title() ) . "\r\n";
-
-				$conflicts = new Conflicts();
-
-				if ( $conflicts->is_detected() ) {
-					$message .= 'Conflicts: ' . esc_html( $conflicts->get_conflict_name() ) . "\r\n";
-				}
-
-				Debug::set( $message . $error );
-			}
-		} else {
-
-			// Clear debug messages if email is successfully sent.
-			Debug::clear();
-		}
 
 		/**
 		 * Fires after email send.

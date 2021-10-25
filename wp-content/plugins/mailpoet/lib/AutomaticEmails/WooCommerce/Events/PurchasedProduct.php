@@ -31,9 +31,7 @@ class PurchasedProduct {
   /** @var AutomaticEmailsRepository */
   private $repository;
 
-  public function __construct(
-    WCHelper $helper = null
-  ) {
+  public function __construct(WCHelper $helper = null) {
     if ($helper === null) {
       $helper = new WCHelper();
     }
@@ -99,7 +97,7 @@ class PurchasedProduct {
     $woocommerceProducts = array_map(function($product) {
       return [
         'id' => $product->ID,
-        'name' => $product->post_title, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+        'name' => $product->post_title, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
       ];
     }, $woocommerceProducts);
     return $woocommerceProducts;

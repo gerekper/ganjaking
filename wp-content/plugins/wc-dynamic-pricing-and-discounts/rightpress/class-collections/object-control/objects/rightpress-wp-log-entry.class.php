@@ -239,8 +239,8 @@ abstract class RightPress_WP_Log_Entry extends RightPress_WP_Custom_Post_Object
         $value = $this->sanitize_int($value, 'actor_id');
 
         // No such user
-        if ($value !== null && !get_userdata($value)) {
-            throw new RightPress_Exception($this->get_controller()->prefix_error_code('invalid_actor_id'), esc_html__('Invalid log entry actor id.', 'rightpress'));
+        if (!get_userdata($value)) {
+            throw new RightPress_Exception($this->get_controller()->prefix_error_code('invalid_actor_id'), __('Invalid log entry actor id.', 'rightpress'));
         }
 
         // Return sanitized value
@@ -264,7 +264,7 @@ abstract class RightPress_WP_Log_Entry extends RightPress_WP_Custom_Post_Object
 
         // Event type is not defined
         if (!isset($event_types[$value])) {
-            throw new RightPress_Exception($this->get_controller()->prefix_error_code('invalid_event_type'), esc_html__('Invalid log entry event type.', 'rightpress'));
+            throw new RightPress_Exception($this->get_controller()->prefix_error_code('invalid_event_type'), __('Invalid log entry event type.', 'rightpress'));
         }
 
         // Return sanitized value
@@ -384,12 +384,12 @@ abstract class RightPress_WP_Log_Entry extends RightPress_WP_Custom_Post_Object
         // Get actual error message if possible
         if ($error = error_get_last()) {
             if (in_array($error['type'], array(E_ERROR, E_PARSE, E_COMPILE_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR))) {
-                $error_details = sprintf(esc_html__('PHP Fatal error %s in %s on line %s.', 'rightpress'), $error['message'], $error['file'], $error['line']);
+                $error_details = sprintf(__('PHP Fatal error %s in %s on line %s.', 'rightpress'), $error['message'], $error['file'], $error['line']);
             }
         }
 
         // Add notes
-        $this->add_note(esc_html__('Execution ended prematurely.', 'rightpress') . (!$error_details ? (' ' . esc_html__('Reason unknown.', 'rightpress')) : ''));
+        $this->add_note(__('Execution ended prematurely.', 'rightpress') . (!$error_details ? (' ' . __('Reason unknown.', 'rightpress')) : ''));
 
         // Add error message
         if ($error_details) {
@@ -468,7 +468,7 @@ abstract class RightPress_WP_Log_Entry extends RightPress_WP_Custom_Post_Object
 
         // Get note if it was not passed in
         if ($note === null) {
-            $note = $is_own_exception ? $exception->getMessage() : esc_html__('Unexpected error occurred.', 'rightpress');
+            $note = $is_own_exception ? $exception->getMessage() : __('Unexpected error occurred.', 'rightpress');
         }
 
         // Add note to log entry
@@ -535,12 +535,12 @@ abstract class RightPress_WP_Log_Entry extends RightPress_WP_Custom_Post_Object
             }
             // No such user
             else {
-                $name = sprintf(esc_html__('user #%d', 'rightpress'), $this->get_actor_id());
+                $name = sprintf(__('user #%d', 'rightpress'), $this->get_actor_id());
             }
         }
         // Actor is system
         else {
-            $name = esc_html__('system', 'rightpress');
+            $name = __('system', 'rightpress');
         }
 
         return apply_filters($this->get_controller()->prefix_public_hook('actor_name'), $name, $this);
@@ -567,7 +567,7 @@ abstract class RightPress_WP_Log_Entry extends RightPress_WP_Custom_Post_Object
             if (get_user_by('id', $this->get_actor_id())) {
 
                 // Add link to user profile
-                $formatted_actor_name = '<a href="' . esc_url(add_query_arg('user_id', $this->get_actor_id(), admin_url('user-edit.php'))) . '" title="' . esc_attr__('User profile', 'rightpress') . '">' . $formatted_actor_name . '</a>';
+                $formatted_actor_name = '<a href="' . esc_url(add_query_arg('user_id', $this->get_actor_id(), admin_url('user-edit.php'))) . '" title="' . __('User profile', 'rightpress') . '">' . $formatted_actor_name . '</a>';
             }
         }
 

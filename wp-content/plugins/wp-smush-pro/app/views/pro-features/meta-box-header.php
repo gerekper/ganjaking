@@ -14,9 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 
 <h3 class="sui-box-title">
-	<span class="sui-icon-smush" aria-hidden="true"></span>
+	<i class="sui-icon-smush" aria-hidden="true"></i>
 	<?php echo esc_html( $title ); ?>
-	<span class="sui-tag sui-tag-pro">
-		<?php esc_html_e( 'Pro', 'wp-smushit' ); ?>
-	</span>
+	<span class="sui-tag sui-tag-pro">Pro</span>
 </h3>

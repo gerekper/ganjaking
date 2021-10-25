@@ -26,7 +26,7 @@ namespace SkyVerge\WooCommerce\Local_Pickup_Plus\Pickup_Locations\Pickup_Locatio
 defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Appointments\Appointment;
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Appointments\Timezones;
 
 /**

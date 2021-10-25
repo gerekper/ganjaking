@@ -327,7 +327,7 @@ class SinglePage extends PageAbstract {
 						<?php
 						if ( Email::STATUS_DELIVERED === $email->get_status() ) {
 							$label        = '<strong>' . esc_html__( 'Delivered', 'wp-mail-smtp-pro' ) . '</strong>';
-							$icon_classes = 'wp-mail-smtp-dashicons-yes-alt-green status delivered';
+							$icon_classes = 'status dashicons dashicons-yes-alt delivered';
 						} elseif ( Email::STATUS_SENT === $email->get_status() ) {
 							$label        = '<strong>' . esc_html__( 'Sent', 'wp-mail-smtp-pro' ) . '</strong>';
 							$icon_classes = 'status dot sent';

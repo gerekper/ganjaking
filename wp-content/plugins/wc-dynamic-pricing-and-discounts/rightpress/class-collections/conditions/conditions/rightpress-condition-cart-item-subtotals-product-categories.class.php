@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Cart_Item_Subtotals_Product_Categories exten
     public function get_label()
     {
 
-        return esc_html__('Cart item subtotal - Categories', 'rightpress');
+        return __('Cart item subtotal - Categories', 'rightpress');
     }
 
 

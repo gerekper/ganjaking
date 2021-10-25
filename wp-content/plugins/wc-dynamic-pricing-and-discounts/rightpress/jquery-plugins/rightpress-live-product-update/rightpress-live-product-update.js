@@ -4,8 +4,6 @@
 
 (function () {
 
-    'use strict';
-
     /**
      * Delay helper
      */

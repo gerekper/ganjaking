@@ -66,7 +66,10 @@ class WC_Bookings_Tools {
 
 		$args = array(
 			'post_type'   => 'wc_booking',
-			'post_status' => 'in-cart',
+			'post_status' => array(
+				'in-cart',
+				'was-in-cart',
+			),
 			'date_query'  => array(
 				array(
 					'column' => 'post_date_gmt',

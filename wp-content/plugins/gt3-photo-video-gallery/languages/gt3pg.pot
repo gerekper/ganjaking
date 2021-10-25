@@ -1,0 +1,2090 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: GT3 Photo & Video Gallery - Lite\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: gt3-photo-video-gallery.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+
+#: core/actions.php:45 src/deprecated/admin/editor/blocks/GT3/edit.js:287
+#: src/deprecated/admin/editor/blocks/GT3/index.js:29
+msgid "GT3 Photo & Video Gallery"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:10
+msgid "Gallery Style"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:11
+msgid "You can select different types to display images thumbnails."
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:16
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:171
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:83
+#: src/admin/settings/adminPanelsOptions/grid/gridType.js:32
+#: src/admin/settings_/adminPanelsOptions/gridType.js:34
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:83
+msgid "Square"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:17
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:172
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:84
+msgid "Rectangle"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:18
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:173
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:86
+#: src/admin/settings/adminPanelsOptions/grid/gridType.js:35
+#: src/admin/settings_/adminPanelsOptions/gridType.js:37
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:85
+msgid "Circle"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:19
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:174
+#: src/admin/settings/left-panel/index.js:138
+#: src/admin/settings_/left-panel/index.js:163
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:86
+msgid "Masonry"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:26
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:9
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:92
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:86
+#: src/admin/settings/adminPanelsOptions/instagram/linkTo.js:25
+#: src/admin/settings/adminPanelsOptions/isotope/linkTo.js:28
+#: src/admin/settings/right-panel/settings/masonry.js:41
+#: src/admin/settings/right-panel/settings/packery.js:84
+#: src/admin/settings_/adminPanelsOptions/linkTo.js:29
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:121
+msgid "Link Image To"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:27
+#: src/admin/settings/adminPanelsOptions/instagram/linkTo.js:26
+#: src/admin/settings/adminPanelsOptions/isotope/linkTo.js:29
+#: src/admin/settings/adminPanelsOptions/packery/packery.js:28
+#: src/admin/settings/adminPanelsOptions/slider/index.js:39
+#: src/admin/settings/right-panel/settings/masonry.js:42
+#: src/admin/settings/right-panel/settings/packery.js:44
+#: src/admin/settings/right-panel/settings/packery.js:85
+#: src/admin/settings_/adminPanelsOptions/linkTo.js:30
+#: src/admin/settings_/adminPanelsOptions/packery.js:28
+#: src/admin/settings_/adminPanelsOptions/slider.js:40
+msgid "You may use this option to choose where to link your image to."
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:33
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:18
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:95
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:89
+#: src/admin/settings/adminPanelsOptions/isotope/linkTo.js:35
+#: src/admin/settings/right-panel/settings/masonry.js:47
+#: src/admin/settings/right-panel/settings/packery.js:90
+#: src/admin/settings_/adminPanelsOptions/linkTo.js:36
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:124
+msgid "Attachment Page"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:38
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:19
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:96
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:90
+#: src/admin/settings/adminPanelsOptions/isotope/linkTo.js:36
+#: src/admin/settings/right-panel/settings/masonry.js:48
+#: src/admin/settings/right-panel/settings/packery.js:91
+#: src/admin/settings_/adminPanelsOptions/linkTo.js:37
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:125
+msgid "File"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:43
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:20
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:97
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:91
+#: src/admin/settings/adminPanelsOptions/basic/lightbox.js:22
+#: src/admin/settings/adminPanelsOptions/instagram/linkTo.js:33
+#: src/admin/settings/adminPanelsOptions/isotope/linkTo.js:37
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_Lightbox.js:24
+#: src/admin/settings/right-panel/settings/masonry.js:49
+#: src/admin/settings/right-panel/settings/packery.js:92
+#: src/admin/settings/right-panel/settings/thumbnails.js:49
+#: src/admin/settings_/adminPanelsOptions/linkTo.js:38
+#: src/admin/settings_/adminPanelsOptions/thumbnails_Lightbox.js:27
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:126
+msgid "Lightbox"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:48
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:21
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:98
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:92
+#: src/admin/settings/adminPanelsOptions/instagram/linkTo.js:34
+#: src/admin/settings/adminPanelsOptions/isotope/linkTo.js:38
+#: src/admin/settings/right-panel/settings/masonry.js:50
+#: src/admin/settings/right-panel/settings/packery.js:93
+#: src/admin/settings_/adminPanelsOptions/linkTo.js:39
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:127
+msgid "None"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:57
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:28
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:163
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:105
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:99
+#: src/admin/settings/adminPanelsOptions/basic/imageSize.js:29
+#: src/admin/settings/adminPanelsOptions/imageSize.js:29
+#: src/admin/settings/adminPanelsOptions/justified/imageSize.js:29
+#: src/admin/settings/right-panel/settings/masonry.js:78
+#: src/admin/settings/right-panel/settings/packery.js:101
+#: src/admin/settings/right-panel/settings/thumbnails.js:84
+#: src/admin/settings_/adminPanelsOptions/imageSize.js:29
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:273
+msgid "Image Size"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:58
+#: src/admin/settings/adminPanelsOptions/basic/imageSize.js:30
+#: src/admin/settings/adminPanelsOptions/imageSize.js:30
+#: src/admin/settings/adminPanelsOptions/justified/imageSize.js:30
+#: src/admin/settings/right-panel/settings/masonry.js:79
+#: src/admin/settings/right-panel/settings/packery.js:102
+#: src/admin/settings/right-panel/settings/thumbnails.js:85
+#: src/admin/settings_/adminPanelsOptions/imageSize.js:30
+msgid "Please select the proper image size to display in the content."
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:66
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:41
+#: core/actions/image_size_names_choose.php:9
+msgid "Thumbnail"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:67
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:42
+#: core/actions/image_size_names_choose.php:10
+msgid "Medium"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:68
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:43
+#: core/actions/image_size_names_choose.php:12
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:86
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:168
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:376
+msgid "Large"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:69
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:44
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:170
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:112
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:106
+#: src/admin/settings/adminPanelsOptions/basic/imageSize.js:40
+#: src/admin/settings/adminPanelsOptions/fsslider/index.js:48
+#: src/admin/settings/adminPanelsOptions/imageSize.js:40
+#: src/admin/settings/adminPanelsOptions/justified/imageSize.js:40
+#: src/admin/settings/adminPanelsOptions/lightboxOptions.js:47
+#: src/admin/settings/adminPanelsOptions/slider/index.js:49
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_thumbnailsImageSize.js:39
+#: src/admin/settings/right-panel/settings/masonry.js:88
+#: src/admin/settings/right-panel/settings/packery.js:111
+#: src/admin/settings/right-panel/settings/thumbnails.js:94
+#: src/admin/settings/right-panel/settings/thumbnails.js:119
+#: src/admin/settings_/adminPanelsOptions/fsSlider.js:48
+#: src/admin/settings_/adminPanelsOptions/imageSize.js:40
+#: src/admin/settings_/adminPanelsOptions/lightboxOptions.js:47
+#: src/admin/settings_/adminPanelsOptions/slider.js:50
+#: src/admin/settings_/adminPanelsOptions/thumbnails_thumbnailsImageSize.js:39
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:279
+msgid "Full Size"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:82
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:58
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:80
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:125
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:118
+#: src/admin/settings/adminPanelsOptions/isotope/columns.js:28
+#: src/admin/settings/right-panel/settings/masonry.js:102
+#: src/admin/settings_/adminPanelsOptions/columns.js:28
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:286
+msgid "Columns"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:83
+#: src/admin/settings/adminPanelsOptions/isotope/columns.js:29
+#: src/admin/settings/right-panel/settings/masonry.js:103
+#: src/admin/settings_/adminPanelsOptions/columns.js:29
+msgid "You have an option to display from one up to nine image columns."
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:100
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:101
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:116
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:142
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:135
+#: src/admin/settings/adminPanelsOptions/basic/random.js:26
+#: src/admin/settings_/adminPanelsOptions/random.js:26
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:304
+msgid "Random Order"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:101
+#: src/admin/settings/adminPanelsOptions/basic/random.js:27
+#: src/admin/settings_/adminPanelsOptions/random.js:27
+msgid "Display the images by default or randomly."
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:108
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:147
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:161
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:154
+#: src/admin/settings/adminPanelsOptions/isotope/margin.js:27
+#: src/admin/settings/right-panel/settings/masonry.js:117
+#: src/admin/settings/right-panel/settings/packery.js:125
+#: src/admin/settings_/adminPanelsOptions/margin.js:27
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:324
+msgid "Margin, px"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:109
+#: core/actions/gt3_admin_mix_tabs_controls.php:145
+#: src/admin/settings/adminPanelsOptions/border/borderSize.js:28
+#: src/admin/settings/adminPanelsOptions/isotope/margin.js:28
+#: src/admin/settings/adminPanelsOptions/justified/gap.js:27
+#: src/admin/settings/right-panel/settings/masonry.js:118
+#: src/admin/settings/right-panel/settings/masonry.js:160
+#: src/admin/settings/right-panel/settings/packery.js:126
+#: src/admin/settings/right-panel/settings/packery.js:168
+#: src/admin/settings_/adminPanelsOptions/borderSize.js:28
+#: src/admin/settings_/adminPanelsOptions/margin.js:28
+msgid "You can add margins to the images. Please note that they are in pixels."
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:121
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:180
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:168
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:161
+#: src/admin/settings/adminPanelsOptions/isotope/cornersType.js:25
+#: src/admin/settings/right-panel/settings/masonry.js:132
+#: src/admin/settings/right-panel/settings/packery.js:140
+#: src/admin/settings_/adminPanelsOptions/cornersType.js:25
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:415
+msgid "Corners Type"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:122
+msgid "You can choose either right angle or rounded individually."
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:127
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:189
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:171
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:164
+#: src/admin/settings/adminPanelsOptions/isotope/cornersType.js:32
+#: src/admin/settings/right-panel/settings/masonry.js:138
+#: src/admin/settings/right-panel/settings/packery.js:146
+#: src/admin/settings_/adminPanelsOptions/cornersType.js:32
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:418
+msgid "Standard"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:128
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:190
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:172
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:165
+#: src/admin/settings/adminPanelsOptions/isotope/cornersType.js:33
+#: src/admin/settings/right-panel/settings/masonry.js:139
+#: src/admin/settings/right-panel/settings/packery.js:147
+#: src/admin/settings_/adminPanelsOptions/cornersType.js:33
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:419
+msgid "Rounded"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:135
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:196
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:179
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:172
+#: src/admin/settings/adminPanelsOptions/border/borderType.js:31
+#: src/admin/settings/right-panel/settings/masonry.js:147
+#: src/admin/settings/right-panel/settings/packery.js:155
+#: src/admin/settings_/adminPanelsOptions/borderType.js:31
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:426
+msgid "Image Border"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:136
+#: src/admin/settings/adminPanelsOptions/border/borderType.js:32
+#: src/admin/settings/right-panel/settings/masonry.js:148
+#: src/admin/settings/right-panel/settings/packery.js:156
+#: src/admin/settings_/adminPanelsOptions/borderType.js:32
+msgid "You can either display or hide the image border."
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:144
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:212
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:191
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:184
+#: src/admin/settings/adminPanelsOptions/border/borderSize.js:27
+#: src/admin/settings/right-panel/settings/masonry.js:159
+#: src/admin/settings/right-panel/settings/packery.js:167
+#: src/admin/settings_/adminPanelsOptions/borderSize.js:27
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:438
+msgid "Border Size, px"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:158
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:227
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:199
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:192
+#: src/admin/settings/adminPanelsOptions/border/borderPadding.js:27
+#: src/admin/settings/right-panel/settings/masonry.js:174
+#: src/admin/settings/right-panel/settings/packery.js:182
+#: src/admin/settings_/adminPanelsOptions/borderPadding.js:27
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:446
+msgid "Border Padding, px"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:159
+#: src/admin/settings/adminPanelsOptions/border/borderPadding.js:28
+#: src/admin/settings/right-panel/settings/masonry.js:175
+#: src/admin/settings/right-panel/settings/packery.js:183
+#: src/admin/settings_/adminPanelsOptions/borderPadding.js:28
+msgid "Add border padding to the image in pixels."
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:172
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:242
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:213
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:206
+#: src/admin/settings/adminPanelsOptions/border/borderColor.js:33
+#: src/admin/settings/right-panel/settings/masonry.js:189
+#: src/admin/settings/right-panel/settings/packery.js:197
+#: src/admin/settings_/adminPanelsOptions/borderColor.js:33
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:460
+msgid "Border Color"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:173
+#: src/admin/settings/adminPanelsOptions/border/borderColor.js:34
+#: src/admin/settings/right-panel/settings/masonry.js:190
+#: src/admin/settings/right-panel/settings/packery.js:198
+#: src/admin/settings_/adminPanelsOptions/borderColor.js:34
+msgid "Select the desired border color."
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:184
+#: src/admin/settings/adminPanelsOptions/customCss.js:27
+#: src/admin/settings_/adminPanelsOptions/customCss.js:27
+msgid "Custom CSS"
+msgstr ""
+
+#: core/actions/gt3_admin_mix_tabs_controls.php:185
+#: src/admin/settings/adminPanelsOptions/customCss.js:28
+#: src/admin/settings_/adminPanelsOptions/customCss.js:28
+msgid "You can add custom CSS to the gallery."
+msgstr ""
+
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:17
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:36
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:88
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:124
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:140
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:170
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:188
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:204
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:76
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:86
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:96
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:106
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:116
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:133
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:165
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:82
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:94
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:107
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:127
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:144
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:154
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:170
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:181
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:88
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:101
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:120
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:137
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:147
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:163
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:174
+#: src/admin/gutenberg/editor/components/LoadMore.js:31
+#: src/admin/gutenberg/editor/components/LoadMore.js:48
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:48
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:65
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:85
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:112
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:132
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:152
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:172
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:82
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:123
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:140
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:157
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:167
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:183
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:196
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:207
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:218
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:230
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:242
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:252
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:262
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:275
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:288
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:306
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:317
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:348
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:365
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:375
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:390
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:404
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:417
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:428
+msgid "Default"
+msgstr ""
+
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:125
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:145
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:138
+#: src/admin/gutenberg/editor/components/QueryControl.js:320
+#: src/admin/settings/adminPanelsOptions/justified/loader.js:35
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:307
+#: src/deprecated/admin/editor/components/QueryControl.js:321
+msgid "Random"
+msgstr ""
+
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:126
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:146
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:139
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:308
+msgid "Ordered"
+msgstr ""
+
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:132
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:152
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:145
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:315
+msgid "Margin"
+msgstr ""
+
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:141
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:155
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:148
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:318
+msgid "Custom"
+msgstr ""
+
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:162
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:335
+msgid "Thumbnail Type"
+msgstr ""
+
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:205
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:182
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:175
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:429
+msgid "On"
+msgstr ""
+
+#: core/actions/gt3_before_admin_panel_tabs_controls.php:206
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:183
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:176
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:430
+msgid "Off"
+msgstr ""
+
+#: core/actions/gt3pg_add_gallery_template.php:61
+msgid "GT3 Photo & Video Gallery Settings"
+msgstr ""
+
+#: core/actions/gt3pg_attachment_field_credit.php:9
+msgid "Lite version supports only Youtube and Vimeo"
+msgstr ""
+
+#: core/actions/gt3pg_attachment_field_credit.php:11
+msgid "Video Url"
+msgstr ""
+
+#: core/actions/gt3pg_attachment_field_credit.php:17
+msgid "External Link"
+msgstr ""
+
+#: core/actions/image_size_names_choose.php:11
+msgid "Medium-large"
+msgstr ""
+
+#: core/block/class-basic.php:245
+msgid "Select Images in Editor"
+msgstr ""
+
+#: core/class/GT3_EDD_SL_Plugin_Updater.php:204
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+
+#: core/class/GT3_EDD_SL_Plugin_Updater.php:212
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+
+#: core/class/GT3_EDD_SL_Plugin_Updater.php:430
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: core/class/GT3_EDD_SL_Plugin_Updater.php:430
+msgid "Error"
+msgstr ""
+
+#: core/class/gt3pg_updater.php:107
+msgid "Enter valid license key for automatic updates."
+msgstr ""
+
+#: core/class/gt3pg_updater.php:157
+msgid "An error occurred, please try again. "
+msgstr ""
+
+#: core/class/gt3pg_updater.php:164
+#, php-format
+msgid "Your license key expired on %s."
+msgstr ""
+
+#: core/class/gt3pg_updater.php:169
+msgid "Your license key has been disabled."
+msgstr ""
+
+#: core/class/gt3pg_updater.php:172
+msgid "Invalid license."
+msgstr ""
+
+#: core/class/gt3pg_updater.php:176
+msgid "Your license is not active for this URL."
+msgstr ""
+
+#: core/class/gt3pg_updater.php:179
+#, php-format
+msgid "This appears to be an invalid license key for %s."
+msgstr ""
+
+#: core/class/gt3pg_updater.php:182
+msgid "Your license key has reached its activation limit."
+msgstr ""
+
+#: core/class/gt3pg_updater.php:185
+msgid "Product not found."
+msgstr ""
+
+#: core/class/gt3pg_updater.php:188 core/class/gt3pg_updater.php:226
+msgid "An error occurred, please try again."
+msgstr ""
+
+#: dist/js/admin/settings.js:50
+#: src/admin/settings/adminPanelsOptions/kenburns/overlayState.js:24
+msgid "Overlay"
+msgstr ""
+
+#: dist/js/admin/settings.js:50
+#: src/admin/settings/adminPanelsOptions/kenburns/overlayState.js:25
+msgid "Turn ON or OFF slides color overlay."
+msgstr ""
+
+#: plugin.php:131
+msgid "Support Forum"
+msgstr ""
+
+#: plugin.php:132 rate.php:19
+msgid "Rate"
+msgstr ""
+
+#: plugin.php:157 src/admin/settings/left-panel/index.js:219
+#: src/admin/settings_/left-panel/index.js:195
+msgid "Settings"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/help/description.js:2
+msgid "GT3 Photo & Video Gallery - Carousel"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/help/title.js:2
+msgid "GT3 Gallery Carousel"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/index.js:36
+#: src/admin/gutenberg/editor/blocks/grid/index.js:36
+#: src/admin/gutenberg/editor/blocks/masonry/index.js:37
+#: src/deprecated/admin/editor/blocks/GT3/index.js:33
+msgid "layout"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/index.js:37
+#: src/admin/gutenberg/editor/blocks/grid/index.js:37
+#: src/admin/gutenberg/editor/blocks/masonry/index.js:38
+#: src/deprecated/admin/editor/blocks/GT3/index.js:34
+msgid "gallery"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/index.js:38
+#: src/admin/gutenberg/editor/blocks/grid/index.js:38
+#: src/admin/gutenberg/editor/blocks/masonry/index.js:39
+#: src/deprecated/admin/editor/blocks/GT3/index.js:35
+msgid "photo"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:71
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:77
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:83
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:117
+msgid "Main Settings"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:74
+msgid "Infinite"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:77
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:87
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:97
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:107
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:117
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:134
+#: src/admin/gutenberg/editor/components/LoadMore.js:32
+#: src/admin/gutenberg/editor/components/LoadMore.js:49
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:49
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:113
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:133
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:153
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:173
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:141
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:158
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:184
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:197
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:208
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:219
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:231
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:243
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:253
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:263
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:349
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:366
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:391
+msgid "Disabled"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:78
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:88
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:98
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:108
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:118
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:135
+#: src/admin/gutenberg/editor/components/LoadMore.js:33
+#: src/admin/gutenberg/editor/components/LoadMore.js:50
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:50
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:114
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:134
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:154
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:174
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:142
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:159
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:185
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:198
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:209
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:220
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:232
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:244
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:254
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:264
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:350
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:367
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:392
+msgid "Enabled"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:84
+msgid "Arrows"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:94
+msgid "Dots"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:104
+msgid "Center Mode"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:114
+msgid "Variable Width"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:124
+msgid "Speed (ms)"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:131
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:46
+#: src/admin/settings/adminPanelsOptions/basic/autoplay.js:23
+#: src/admin/settings/adminPanelsOptions/shift/autoplay.js:23
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:138
+msgid "Autoplay"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:141
+msgid "slidesToShow"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:148
+msgid "slidesToScroll"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:155
+msgid "Autoplay Time (ms)"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:166
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:108
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:102
+#: src/admin/settings/adminPanelsOptions/basic/imageSize.js:36
+#: src/admin/settings/adminPanelsOptions/fsslider/index.js:44
+#: src/admin/settings/adminPanelsOptions/imageSize.js:36
+#: src/admin/settings/adminPanelsOptions/justified/imageSize.js:36
+#: src/admin/settings/adminPanelsOptions/lightboxOptions.js:43
+#: src/admin/settings/adminPanelsOptions/slider/index.js:45
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_thumbnailsImageSize.js:35
+#: src/admin/settings/right-panel/settings/masonry.js:84
+#: src/admin/settings/right-panel/settings/packery.js:107
+#: src/admin/settings/right-panel/settings/thumbnails.js:90
+#: src/admin/settings/right-panel/settings/thumbnails.js:115
+#: src/admin/settings_/adminPanelsOptions/fsSlider.js:44
+#: src/admin/settings_/adminPanelsOptions/imageSize.js:36
+#: src/admin/settings_/adminPanelsOptions/lightboxOptions.js:43
+#: src/admin/settings_/adminPanelsOptions/slider.js:46
+#: src/admin/settings_/adminPanelsOptions/thumbnails_thumbnailsImageSize.js:35
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:276
+msgid "Thumbnail (768px)"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:167
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:109
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:103
+#: src/admin/settings/adminPanelsOptions/basic/imageSize.js:37
+#: src/admin/settings/adminPanelsOptions/fsslider/index.js:45
+#: src/admin/settings/adminPanelsOptions/imageSize.js:37
+#: src/admin/settings/adminPanelsOptions/justified/imageSize.js:37
+#: src/admin/settings/adminPanelsOptions/lightboxOptions.js:44
+#: src/admin/settings/adminPanelsOptions/slider/index.js:46
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_thumbnailsImageSize.js:36
+#: src/admin/settings/right-panel/settings/masonry.js:85
+#: src/admin/settings/right-panel/settings/packery.js:108
+#: src/admin/settings/right-panel/settings/thumbnails.js:91
+#: src/admin/settings/right-panel/settings/thumbnails.js:116
+#: src/admin/settings_/adminPanelsOptions/fsSlider.js:45
+#: src/admin/settings_/adminPanelsOptions/imageSize.js:37
+#: src/admin/settings_/adminPanelsOptions/lightboxOptions.js:44
+#: src/admin/settings_/adminPanelsOptions/slider.js:47
+#: src/admin/settings_/adminPanelsOptions/thumbnails_thumbnailsImageSize.js:36
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:277
+msgid "Medium (300px)"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:168
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:110
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:104
+#: src/admin/settings/adminPanelsOptions/basic/imageSize.js:38
+#: src/admin/settings/adminPanelsOptions/fsslider/index.js:46
+#: src/admin/settings/adminPanelsOptions/imageSize.js:38
+#: src/admin/settings/adminPanelsOptions/justified/imageSize.js:38
+#: src/admin/settings/adminPanelsOptions/lightboxOptions.js:45
+#: src/admin/settings/adminPanelsOptions/slider/index.js:47
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_thumbnailsImageSize.js:37
+#: src/admin/settings/right-panel/settings/masonry.js:86
+#: src/admin/settings/right-panel/settings/packery.js:109
+#: src/admin/settings/right-panel/settings/thumbnails.js:92
+#: src/admin/settings/right-panel/settings/thumbnails.js:117
+#: src/admin/settings_/adminPanelsOptions/fsSlider.js:46
+#: src/admin/settings_/adminPanelsOptions/imageSize.js:38
+#: src/admin/settings_/adminPanelsOptions/lightboxOptions.js:45
+#: src/admin/settings_/adminPanelsOptions/slider.js:48
+#: src/admin/settings_/adminPanelsOptions/thumbnails_thumbnailsImageSize.js:37
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:278
+msgid "Large (1024px)"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:169
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:111
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:105
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:87
+#: src/admin/settings/adminPanelsOptions/basic/imageSize.js:39
+#: src/admin/settings/adminPanelsOptions/fsslider/index.js:47
+#: src/admin/settings/adminPanelsOptions/imageSize.js:39
+#: src/admin/settings/adminPanelsOptions/justified/imageSize.js:39
+#: src/admin/settings/adminPanelsOptions/lightboxOptions.js:46
+#: src/admin/settings/adminPanelsOptions/slider/index.js:48
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_thumbnailsImageSize.js:38
+#: src/admin/settings/right-panel/settings/masonry.js:87
+#: src/admin/settings/right-panel/settings/packery.js:110
+#: src/admin/settings/right-panel/settings/thumbnails.js:93
+#: src/admin/settings/right-panel/settings/thumbnails.js:118
+#: src/admin/settings_/adminPanelsOptions/fsSlider.js:47
+#: src/admin/settings_/adminPanelsOptions/imageSize.js:39
+#: src/admin/settings_/adminPanelsOptions/lightboxOptions.js:46
+#: src/admin/settings_/adminPanelsOptions/slider.js:49
+#: src/admin/settings_/adminPanelsOptions/thumbnails_thumbnailsImageSize.js:38
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:170
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:378
+msgid "Optimized"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:176
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:118
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:112
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:94
+#: src/admin/settings/adminPanelsOptions/basic/imageSize.js:46
+#: src/admin/settings/adminPanelsOptions/fsslider/index.js:54
+#: src/admin/settings/adminPanelsOptions/imageSize.js:46
+#: src/admin/settings/adminPanelsOptions/justified/imageSize.js:46
+#: src/admin/settings/adminPanelsOptions/lightboxOptions.js:53
+#: src/admin/settings/adminPanelsOptions/slider/index.js:55
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_thumbnailsImageSize.js:45
+#: src/admin/settings/right-panel/settings/masonry.js:94
+#: src/admin/settings/right-panel/settings/packery.js:117
+#: src/admin/settings/right-panel/settings/thumbnails.js:100
+#: src/admin/settings/right-panel/settings/thumbnails.js:125
+#: src/admin/settings_/adminPanelsOptions/fsSlider.js:54
+#: src/admin/settings_/adminPanelsOptions/imageSize.js:46
+#: src/admin/settings_/adminPanelsOptions/lightboxOptions.js:53
+#: src/admin/settings_/adminPanelsOptions/slider.js:56
+#: src/admin/settings_/adminPanelsOptions/thumbnails_thumbnailsImageSize.js:45
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:176
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:384
+#: views/gt3pg_plugin_options.php:22
+msgid "It requires GT3 Image Optimizer plugin"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/carousel/inspector.js:178
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:120
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:114
+msgid ""
+"Not recommended. If the images are not optimized for the web it can lead to "
+"the slow page loading."
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/help/description.js:2
+msgid "GT3 Photo & Video Gallery - Grid"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/help/title.js:2
+msgid "GT3 Gallery Grid"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:80
+#: src/admin/settings/adminPanelsOptions/grid/gridType.js:25
+#: src/admin/settings_/adminPanelsOptions/gridType.js:27
+msgid "Grid Type"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:84
+#: src/admin/settings/adminPanelsOptions/grid/gridType.js:33
+#: src/admin/settings_/adminPanelsOptions/gridType.js:35
+msgid "Rectangle 4x3"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:85
+#: src/admin/settings/adminPanelsOptions/grid/gridType.js:34
+#: src/admin/settings_/adminPanelsOptions/gridType.js:36
+msgid "Rectangle 16x9"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:128
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:121
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:289
+msgid "1"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:129
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:122
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:290
+msgid "2"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:130
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:123
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:291
+msgid "3"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:131
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:124
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:292
+msgid "4"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:132
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:125
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:293
+msgid "5"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:133
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:126
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:294
+msgid "6"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:134
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:127
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:295
+msgid "7"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:135
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:128
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:296
+msgid "8"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:136
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:129
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:297
+msgid "9"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/grid/inspector.js:207
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:200
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:454
+msgid "Color Settings"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/masonry/help/description.js:2
+msgid "GT3 Photo & Video Gallery - Masonry"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/masonry/help/title.js:2
+msgid "GT3 Gallery Masonry"
+msgstr ""
+
+#: src/admin/gutenberg/editor/blocks/masonry/inspector.js:64
+#: src/admin/gutenberg/editor/components/GalleryImages.js:32
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:97
+msgid "Gallery Images"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:60
+#: src/deprecated/admin/editor/components/Animation.js:60
+msgid "No Animation"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:62
+#: src/deprecated/admin/editor/components/Animation.js:62
+msgid "Attention Seekers"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:64
+#: src/deprecated/admin/editor/components/Animation.js:64
+msgid "Bounce"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:65
+#: src/deprecated/admin/editor/components/Animation.js:65
+msgid "Flash"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:66
+#: src/deprecated/admin/editor/components/Animation.js:66
+msgid "Head Shake"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:67
+#: src/deprecated/admin/editor/components/Animation.js:67
+msgid "Heart Beat"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:68
+#: src/deprecated/admin/editor/components/Animation.js:68
+msgid "Jello"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:69
+#: src/deprecated/admin/editor/components/Animation.js:69
+msgid "Pulse"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:70
+#: src/deprecated/admin/editor/components/Animation.js:70
+msgid "Rubber Band"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:71
+#: src/deprecated/admin/editor/components/Animation.js:71
+msgid "Shake"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:72
+#: src/deprecated/admin/editor/components/Animation.js:72
+msgid "Swing"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:73
+#: src/deprecated/admin/editor/components/Animation.js:73
+msgid "Tada"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:74
+#: src/deprecated/admin/editor/components/Animation.js:74
+msgid "Wobble"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:78
+#: src/deprecated/admin/editor/components/Animation.js:78
+msgid "Bouncing"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:80
+#: src/deprecated/admin/editor/components/Animation.js:80
+msgid "Bounce In"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:81
+#: src/deprecated/admin/editor/components/Animation.js:81
+msgid "Bounce In Down"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:82
+#: src/deprecated/admin/editor/components/Animation.js:82
+msgid "Bounce In Left"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:83
+#: src/deprecated/admin/editor/components/Animation.js:83
+msgid "Bounce In Right"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:84
+#: src/deprecated/admin/editor/components/Animation.js:84
+msgid "Bounce In Up"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:88
+#: src/deprecated/admin/editor/components/Animation.js:88
+msgid "Fading"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:90
+#: src/deprecated/admin/editor/components/Animation.js:90
+msgid "Fade In"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:91
+#: src/deprecated/admin/editor/components/Animation.js:91
+msgid "Fade In Down"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:92
+#: src/deprecated/admin/editor/components/Animation.js:92
+msgid "Fade In DownBig"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:93
+#: src/deprecated/admin/editor/components/Animation.js:93
+msgid "Fade In Left"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:94
+#: src/deprecated/admin/editor/components/Animation.js:94
+msgid "Fade In LeftBig"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:95
+#: src/deprecated/admin/editor/components/Animation.js:95
+msgid "Fade In Right"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:96
+#: src/deprecated/admin/editor/components/Animation.js:96
+msgid "Fade In RightBig"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:97
+#: src/deprecated/admin/editor/components/Animation.js:97
+msgid "Fade In Up"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:98
+#: src/deprecated/admin/editor/components/Animation.js:98
+msgid "Fade In UpBig"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:102
+#: src/deprecated/admin/editor/components/Animation.js:102
+msgid "Flippers"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:104
+#: src/deprecated/admin/editor/components/Animation.js:104
+msgid "Flip"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:105
+#: src/deprecated/admin/editor/components/Animation.js:105
+msgid "Flip In X"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:106
+#: src/deprecated/admin/editor/components/Animation.js:106
+msgid "Flip In Y"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:110
+#: src/deprecated/admin/editor/components/Animation.js:110
+msgid "Rotating"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:112
+#: src/deprecated/admin/editor/components/Animation.js:112
+msgid "Rotate In"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:113
+#: src/deprecated/admin/editor/components/Animation.js:113
+msgid "Rotate In Down Left"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:114
+#: src/deprecated/admin/editor/components/Animation.js:114
+msgid "Rotate In Down Right"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:115
+#: src/deprecated/admin/editor/components/Animation.js:115
+msgid "Rotate In Up Left"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:116
+#: src/deprecated/admin/editor/components/Animation.js:116
+msgid "Rotate In Up Right"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:120
+#: src/deprecated/admin/editor/components/Animation.js:120
+msgid "Zoom"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:122
+#: src/deprecated/admin/editor/components/Animation.js:122
+msgid "Zoom In"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:123
+#: src/deprecated/admin/editor/components/Animation.js:123
+msgid "Zoom In Down"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:124
+#: src/deprecated/admin/editor/components/Animation.js:124
+msgid "Zoom In Left"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:125
+#: src/deprecated/admin/editor/components/Animation.js:125
+msgid "Zoom In Right"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:126
+#: src/deprecated/admin/editor/components/Animation.js:126
+msgid "Zoom In Up"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:130
+#: src/deprecated/admin/editor/components/Animation.js:130
+msgid "Sliding"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:132
+#: src/deprecated/admin/editor/components/Animation.js:132
+msgid "Slide In Down"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:133
+#: src/deprecated/admin/editor/components/Animation.js:133
+msgid "Slide In Left"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:134
+#: src/deprecated/admin/editor/components/Animation.js:134
+msgid "Slide In Right"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:135
+#: src/deprecated/admin/editor/components/Animation.js:135
+msgid "Slide In Up"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:139
+#: src/deprecated/admin/editor/components/Animation.js:139
+msgid "Specials"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:141
+#: src/deprecated/admin/editor/components/Animation.js:141
+msgid "Jack In The Box"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:142
+#: src/deprecated/admin/editor/components/Animation.js:142
+msgid "Light Speed In"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:143
+#: src/deprecated/admin/editor/components/Animation.js:143
+msgid "Roll In"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:151
+#: src/deprecated/admin/editor/components/Animation.js:151
+msgid "Animations"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:166
+#: src/deprecated/admin/editor/components/Animation.js:166
+msgid "Infinite Animation"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:172
+#: src/deprecated/admin/editor/components/Animation.js:172
+msgid "Animation delay"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:175
+#: src/deprecated/admin/editor/components/Animation.js:175
+msgid "No Delay"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:176
+#: src/deprecated/admin/editor/components/Animation.js:176
+msgid "1 second"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:177
+#: src/deprecated/admin/editor/components/Animation.js:177
+msgid "2 seconds"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:178
+#: src/deprecated/admin/editor/components/Animation.js:178
+msgid "3 seconds"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:179
+#: src/deprecated/admin/editor/components/Animation.js:179
+msgid "4 seconds"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:180
+#: src/deprecated/admin/editor/components/Animation.js:180
+msgid "5 seconds"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:186
+#: src/deprecated/admin/editor/components/Animation.js:186
+msgid "Animation Speed"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:189
+#: src/deprecated/admin/editor/components/Animation.js:189
+msgid "Slower"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:190
+#: src/deprecated/admin/editor/components/Animation.js:190
+msgid "Slow"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:191
+#: src/deprecated/admin/editor/components/Animation.js:191
+msgid "Normal"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:192
+#: src/deprecated/admin/editor/components/Animation.js:192
+msgid "Fast"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Animation.js:193
+#: src/deprecated/admin/editor/components/Animation.js:193
+msgid "Faster"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Gallery/MediaButton.js:16
+#: src/deprecated/admin/editor/components/Gallery/MediaButton.js:16
+msgid "Select Files"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Gallery/MediaButton.js:27
+#: src/deprecated/admin/editor/components/Gallery/MediaButton.js:27
+msgid "Select"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Gallery/MediaButton.js:66
+#: src/deprecated/admin/editor/components/Gallery/MediaButton.js:66
+msgid "+ Add Media"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Gallery/MediaClearButton.js:12
+#: src/deprecated/admin/editor/components/Gallery/MediaClearButton.js:12
+msgid "Clear Gallery"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Gallery/MediaController.js:60
+#: src/deprecated/admin/editor/components/Gallery/MediaController.js:60
+msgid "Are you really want remove all images?"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/Gallery/MediaStatus.js:20
+#: src/deprecated/admin/editor/components/Gallery/MediaStatus.js:20
+#, javascript-format
+msgid "%s file"
+msgid_plural "%s files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/admin/gutenberg/editor/components/Gallery/MediaStatus.js:20
+#: src/deprecated/admin/editor/components/Gallery/MediaStatus.js:20
+msgid "No files"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/ImageControl.js:84
+#: src/deprecated/admin/editor/components/ImageControl.js:84
+msgid "Select a file from your library."
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/ImageControl.js:88
+#: src/admin/gutenberg/editor/components/ImageControl.js:94
+#: src/deprecated/admin/editor/components/ImageControl.js:88
+#: src/deprecated/admin/editor/components/ImageControl.js:94
+msgid "Add Image"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/ImageControl.js:111
+#: src/deprecated/admin/editor/components/ImageControl.js:111
+msgid "Remove Image"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/ImageControl.js:118
+#: src/deprecated/admin/editor/components/ImageControl.js:118
+msgid "Change Image"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/LoadMore.js:29
+msgid "Use Filter"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/LoadMore.js:46
+msgid "Load More"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/LoadMore.js:64
+msgid "First Images"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:315
+#: src/deprecated/admin/editor/components/QueryControl.js:316
+msgid "Date"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:316
+#: src/deprecated/admin/editor/components/QueryControl.js:317
+msgid "ID"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:317
+#: src/deprecated/admin/editor/components/QueryControl.js:318
+msgid "Author"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:318
+#: src/deprecated/admin/editor/components/QueryControl.js:319
+msgid "Title"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:319
+#: src/deprecated/admin/editor/components/QueryControl.js:320
+msgid "Modified"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:321
+#: src/deprecated/admin/editor/components/QueryControl.js:322
+msgid "Comment count"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:322
+#: src/deprecated/admin/editor/components/QueryControl.js:323
+msgid "Menu order"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:326
+#: src/deprecated/admin/editor/components/QueryControl.js:327
+msgid "Ascending"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:327
+#: src/deprecated/admin/editor/components/QueryControl.js:328
+msgid "Descending"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:334
+#: src/deprecated/admin/editor/components/QueryControl.js:335
+msgid "Post Count"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:340
+#: src/deprecated/admin/editor/components/QueryControl.js:341
+msgid "How many teasers to show? Enter number, -1 for All."
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:350
+#: src/deprecated/admin/editor/components/QueryControl.js:350
+msgid "Order By"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:355
+#: src/deprecated/admin/editor/components/QueryControl.js:355
+msgid "Select how to sort retrieved posts. More at"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:357
+#: src/deprecated/admin/editor/components/QueryControl.js:357
+msgid "WordPress codex page"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:362
+#: src/deprecated/admin/editor/components/QueryControl.js:362
+msgid "Order"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:366
+#: src/deprecated/admin/editor/components/QueryControl.js:366
+msgid "Designates the ascending or descending order"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:370
+#: src/deprecated/admin/editor/components/QueryControl.js:370
+msgid "Posts"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:371
+#: src/deprecated/admin/editor/components/QueryControl.js:371
+msgid "Filter output by custom Post, enter post names here"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:419
+#: src/deprecated/admin/editor/components/QueryControl.js:419
+msgid "Note: if selected Custom Posts - other settings will be disabled"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:426
+#: src/deprecated/admin/editor/components/QueryControl.js:426
+msgid "Category"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:427
+#: src/deprecated/admin/editor/components/QueryControl.js:427
+msgid ""
+"Filter output by custom taxonomies categories, enter category names here"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:471
+#: src/deprecated/admin/editor/components/QueryControl.js:471
+msgid "Tags"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:472
+#: src/deprecated/admin/editor/components/QueryControl.js:472
+msgid "Filter output by custom Tags, enter tags names here"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:517
+#: src/deprecated/admin/editor/components/QueryControl.js:517
+msgid "Users"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/QueryControl.js:518
+#: src/deprecated/admin/editor/components/QueryControl.js:518
+msgid "Filter output by custom Users, enter users names here"
+msgstr ""
+
+#: src/admin/gutenberg/editor/components/ServerSideRender.js:117
+msgid "Block rendered as empty."
+msgstr ""
+
+#. translators: %s: error message describing the problem
+#: src/admin/gutenberg/editor/components/ServerSideRender.js:130
+#, javascript-format
+msgid "Error loading block: %s"
+msgstr ""
+
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:63
+msgid "Theme"
+msgstr ""
+
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:66
+#: src/admin/settings/adminPanelsOptions/lightboxTheme.js:35
+#: src/admin/settings_/adminPanelsOptions/lightboxTheme.js:35
+msgid "Dark"
+msgstr ""
+
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:67
+#: src/admin/settings/adminPanelsOptions/lightboxTheme.js:36
+#: src/admin/settings_/adminPanelsOptions/lightboxTheme.js:36
+msgid "Light"
+msgstr ""
+
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:83
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:165
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:373
+msgid "Select image size"
+msgstr ""
+
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:88
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:169
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:377
+msgid "Full"
+msgstr ""
+
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:110
+#: src/admin/settings/adminPanelsOptions/shift/showTitle.js:23
+msgid "Show Title"
+msgstr ""
+
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:130
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:216
+msgid "Deeplink"
+msgstr ""
+
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:150
+#: src/admin/settings/adminPanelsOptions/lightboxOptions.js:95
+#: src/admin/settings_/adminPanelsOptions/lightboxOptions.js:95
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:250
+msgid "Download Image"
+msgstr ""
+
+#: src/admin/gutenberg/editor/help/inspector/lightbox.js:170
+msgid "Image Zoom"
+msgstr ""
+
+#: src/admin/gutenberg/editor/inspector.js:26
+#: src/deprecated/admin/editor/inspector.js:26
+msgid "Animation"
+msgstr ""
+
+#: src/admin/gutenberg/editor/inspector.js:37
+#: src/deprecated/admin/editor/inspector.js:37
+msgid "Advanced"
+msgstr ""
+
+#: src/admin/gutenberg/editor/inspector.js:40
+#: src/deprecated/admin/editor/inspector.js:40
+msgid "Additional CSS Class"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/basic/autoplay.js:24
+msgid "You can enable or disable Autoplay."
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/basic/interval.js:25
+#: src/admin/settings/adminPanelsOptions/slider/index.js:103
+#: src/admin/settings_/adminPanelsOptions/slider.js:104
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:148
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:356
+msgid "Autoplay Time (sec.)"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/basic/lazyLoad.js:26
+#: src/admin/settings_/adminPanelsOptions/lazyLoad.js:26
+msgid "Lazy Load"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/basic/lazyLoad.js:27
+#: src/admin/settings_/adminPanelsOptions/lazyLoad.js:27
+msgid "You can enable/disable Lazy Load."
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/basic/lightbox.js:23
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_Lightbox.js:25
+#: src/admin/settings/right-panel/settings/thumbnails.js:50
+#: src/admin/settings_/adminPanelsOptions/thumbnails_Lightbox.js:28
+msgid "You can enable or disable Lightbox"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/basic/rightClick.js:26
+#: src/admin/settings_/adminPanelsOptions/rightClick.js:26
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:228
+msgid "Right Click Guard"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/basic/rightClick.js:27
+#: src/admin/settings_/adminPanelsOptions/rightClick.js:27
+msgid ""
+"You can enable/disable right-click guard option to protect your image from "
+"downloading."
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/fsslider/index.js:37
+#: src/admin/settings/adminPanelsOptions/slider/index.js:38
+#: src/admin/settings_/adminPanelsOptions/fsSlider.js:37
+#: src/admin/settings_/adminPanelsOptions/slider.js:39
+msgid "Slider Options"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/fsslider/index.js:66
+#: src/admin/settings/adminPanelsOptions/lightboxOptions.js:65
+#: src/admin/settings/adminPanelsOptions/slider/index.js:67
+#: src/admin/settings/left-panel/index.js:162
+#: src/admin/settings_/adminPanelsOptions/fsSlider.js:66
+#: src/admin/settings_/adminPanelsOptions/lightboxOptions.js:65
+#: src/admin/settings_/adminPanelsOptions/slider.js:68
+#: src/admin/settings_/left-panel/index.js:179
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:155
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:363
+msgid "Thumbnails"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/fsslider/index.js:76
+#: src/admin/settings/adminPanelsOptions/lightboxOptions.js:75
+#: src/admin/settings/adminPanelsOptions/slider/index.js:77
+#: src/admin/settings_/adminPanelsOptions/fsSlider.js:76
+#: src/admin/settings_/adminPanelsOptions/lightboxOptions.js:75
+#: src/admin/settings_/adminPanelsOptions/slider.js:78
+msgid "Show Caption"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/fsslider/index.js:86
+#: src/admin/settings_/adminPanelsOptions/fsSlider.js:86
+msgid "Boxed"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/grid/gridType.js:26
+#: src/admin/settings_/adminPanelsOptions/gridType.js:28
+msgid "Select Default Grid Type"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/instagram/linkTo.js:32
+msgid "Instagram"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/instagram/source.js:25
+msgid "Source"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/instagram/source.js:32
+msgid "Username"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/instagram/source.js:33
+msgid "Tag"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/isotope/cornersType.js:26
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_thumbnailsSize.js:29
+#: src/admin/settings/right-panel/settings/masonry.js:133
+#: src/admin/settings/right-panel/settings/packery.js:141
+#: src/admin/settings/right-panel/settings/thumbnails.js:70
+#: src/admin/settings_/adminPanelsOptions/cornersType.js:26
+#: src/admin/settings_/adminPanelsOptions/thumbnails_thumbnailsSize.js:29
+msgid "You can choose either right angel or rounded invidually."
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/isotope/showCaption.js:26
+#: src/admin/settings/right-panel/settings/masonry.js:68
+#: src/admin/settings_/adminPanelsOptions/showCaption.js:26
+msgid "Show Caption Text"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/isotope/showCaption.js:27
+#: src/admin/settings/right-panel/settings/masonry.js:69
+#: src/admin/settings_/adminPanelsOptions/showCaption.js:27
+msgid ""
+"You can show the caption text for image on the page. This option is not "
+"available for the slider. "
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/isotope/showTitle.js:26
+#: src/admin/settings/right-panel/settings/masonry.js:58
+#: src/admin/settings_/adminPanelsOptions/showTitle.js:26
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:194
+msgid "Show Image Title"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/isotope/showTitle.js:27
+#: src/admin/settings/right-panel/settings/masonry.js:59
+#: src/admin/settings_/adminPanelsOptions/showTitle.js:27
+msgid ""
+"You can show the image title on the page. This option is not available for "
+"the slider."
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/justified/fadeDelay.js:27
+msgid "Fade Timeout"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/justified/fadeDelay.js:28
+msgid "Delay Between Loading Items"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/justified/fadeDuration.js:27
+msgid "Fade Duration (ms)"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/justified/fadeDuration.js:28
+msgid "Fade Duration Time"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/justified/gap.js:26
+msgid "Grid Gap (px)"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/justified/height.js:26
+msgid "Mininal Image Height (px)"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/justified/loader.js:27
+msgid "Show Images"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/justified/loader.js:34
+msgid "From First To Last"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/kenburns/moduleHeight.js:26
+#: src/admin/settings/adminPanelsOptions/shift/moduleHeight.js:25
+msgid "Module Height"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/kenburns/moduleHeight.js:27
+#: src/admin/settings/adminPanelsOptions/shift/moduleHeight.js:26
+msgid "Set module height in px (pixels). Enter '100%' for full height mode"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/kenburns/overlayBg.js:32
+msgid "Overlay Color"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/kenburns/transitionTime.js:24
+#: src/admin/settings/adminPanelsOptions/shift/transitionTime.js:25
+msgid "Transition Time (ms)"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/kenburns/transitionTime.js:25
+msgid "Sets Transition animation time"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/lightbox.js:15
+#: src/admin/settings_/adminPanelsOptions/lightbox.js:29
+msgid "Lightbox Options"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/lightboxOptions.js:85
+#: src/admin/settings_/adminPanelsOptions/lightboxOptions.js:85
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:181
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:388
+msgid "Image Scaling"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/lightboxTheme.js:28
+#: src/admin/settings_/adminPanelsOptions/lightboxTheme.js:28
+msgid "Lightbox Theme"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/lightboxTheme.js:29
+#: src/admin/settings_/adminPanelsOptions/lightboxTheme.js:29
+msgid "Select Default Lightbox Theme"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/packery/packery.js:27
+#: src/admin/settings/right-panel/settings/packery.js:43
+#: src/admin/settings_/adminPanelsOptions/packery.js:27
+msgid "Packery Type:"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/shift/controls.js:23
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_Controls.js:23
+#: src/admin/settings/right-panel/settings/thumbnails.js:59
+#: src/admin/settings_/adminPanelsOptions/thumbnails_Controls.js:25
+msgid "Controls"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/shift/controls.js:24
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_Controls.js:24
+#: src/admin/settings/right-panel/settings/thumbnails.js:60
+#: src/admin/settings_/adminPanelsOptions/thumbnails_Controls.js:26
+msgid "You can either display or hide the controls."
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/shift/expandable.js:23
+msgid "Expandable slides"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/shift/expandable.js:24
+msgid "Turn ON or OFF expandable slides"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/shift/infinityScroll.js:23
+msgid "Infinite Scroll"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/shift/infinityScroll.js:24
+msgid ""
+"Turn ON or OFF infinite  scrolling. Autoplay works only when infinite scroll "
+"is ON."
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/shift/showTitle.js:24
+msgid "You can show the image title on the page."
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/shift/transitionTime.js:26
+msgid "Sets Transition animation time in milliseconds"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/slider/index.js:87
+#: src/admin/settings_/adminPanelsOptions/slider.js:88
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:260
+msgid "YouTube Width"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/slider/index.js:97
+#: src/admin/settings_/adminPanelsOptions/slider.js:98
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:240
+msgid "Social Links"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_Size.js:24
+#: src/admin/settings/right-panel/settings/thumbnails.js:34
+#: src/admin/settings_/adminPanelsOptions/thumbnails_Size.js:25
+msgid "Thumbnails Size"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_Size.js:25
+#: src/admin/settings/right-panel/settings/thumbnails.js:35
+#: src/admin/settings_/adminPanelsOptions/thumbnails_Size.js:26
+msgid "You can choose Thumbnails Size."
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_Size.js:31
+#: src/admin/settings/right-panel/settings/thumbnails.js:40
+#: src/admin/settings_/adminPanelsOptions/thumbnails_Size.js:32
+msgid "16x9"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_Size.js:32
+#: src/admin/settings/right-panel/settings/thumbnails.js:41
+#: src/admin/settings_/adminPanelsOptions/thumbnails_Size.js:33
+msgid "4x3"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_thumbnailsImageSize.js:28
+#: src/admin/settings/right-panel/settings/thumbnails.js:108
+#: src/admin/settings_/adminPanelsOptions/thumbnails_thumbnailsImageSize.js:28
+msgid "Thumbnails Image Size"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_thumbnailsImageSize.js:29
+#: src/admin/settings/right-panel/settings/thumbnails.js:109
+#: src/admin/settings_/adminPanelsOptions/thumbnails_thumbnailsImageSize.js:29
+msgid ""
+"Please select the proper thumbnails image size to display in the content."
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_thumbnailsSize.js:28
+#: src/admin/settings/right-panel/settings/thumbnails.js:69
+#: src/admin/settings_/adminPanelsOptions/thumbnails_thumbnailsSize.js:28
+msgid "Thumbnails Type"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_thumbnailsSize.js:35
+#: src/admin/settings/right-panel/settings/thumbnails.js:75
+#: src/admin/settings_/adminPanelsOptions/thumbnails_thumbnailsSize.js:35
+msgid "Auto"
+msgstr ""
+
+#: src/admin/settings/adminPanelsOptions/thumbnails/thumbnails_thumbnailsSize.js:36
+#: src/admin/settings/right-panel/settings/thumbnails.js:76
+#: src/admin/settings_/adminPanelsOptions/thumbnails_thumbnailsSize.js:36
+msgid "Fixed"
+msgstr ""
+
+#: src/admin/settings/controls.js:94 src/admin/settings_/controls.js:89
+msgid "Saved"
+msgstr ""
+
+#: src/admin/settings/controls.js:99 src/admin/settings_/controls.js:94
+msgid "DONE! You've successfully saved the changes."
+msgstr ""
+
+#: src/admin/settings/controls.js:125 src/admin/settings_/controls.js:120
+msgid "NO"
+msgstr ""
+
+#: src/admin/settings/controls.js:133 src/admin/settings_/controls.js:128
+#: views/gt3pg_plugin_options.php:99 views/gt3pg_plugin_options.php:147
+msgid "Save Settings"
+msgstr ""
+
+#: src/admin/settings/index.js:121 src/admin/settings_/index.js:163
+msgid "Warning"
+msgstr ""
+
+#: src/admin/settings/left-panel/index.js:122
+#: src/admin/settings_/left-panel/index.js:155
+msgid "Grid"
+msgstr ""
+
+#: src/admin/settings/left-panel/index.js:130
+#: src/admin/settings_/left-panel/index.js:171
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:90
+msgid "Packery"
+msgstr ""
+
+#: src/admin/settings/left-panel/index.js:146
+#: src/admin/settings_/left-panel/index.js:187
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:89
+msgid "Slider"
+msgstr ""
+
+#: src/admin/settings/left-panel/index.js:226
+#: src/admin/settings_/left-panel/index.js:202
+msgid "WordPress Themes"
+msgstr ""
+
+#: src/deprecated/admin/editor/blocks/GT3/index.js:29
+msgid "GT3 Photo & Video Gallery (Deprecated)"
+msgstr ""
+
+#: src/deprecated/admin/editor/blocks/GT3/index.js:31
+msgid "GT3 Photo & Video Gallery Pro"
+msgstr ""
+
+#: src/deprecated/admin/editor/blocks/GT3/index.js:31
+msgid "GT3 Photo & Video Gallery Lite"
+msgstr ""
+
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:135
+msgid "Lightbox Settings"
+msgstr ""
+
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:205
+msgid "Show Captions"
+msgstr ""
+
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:343
+msgid "Slider Settings"
+msgstr ""
+
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:346
+msgid "Slider Autoplay"
+msgstr ""
+
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:402
+msgid "Packery Grid"
+msgstr ""
+
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:405
+msgid "Type1"
+msgstr ""
+
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:406
+msgid "Type2"
+msgstr ""
+
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:407
+msgid "Type3"
+msgstr ""
+
+#: src/deprecated/admin/editor/blocks/GT3/inspector.js:408
+msgid "Type4"
+msgstr ""
+
+#: views/gt3pg_plugin_options.php:33
+msgid "Need Help?"
+msgstr ""
+
+#: views/gt3pg_plugin_options.php:89
+msgid ""
+"This plugin lets you extend the functionality of the default WordPress "
+"gallery. To make the changes, please use the settings below. Once you've "
+"chosen the right parameters, please click <strong>\"Save Settings\"</strong> "
+"button."
+msgstr ""
+
+#: views/gt3pg_plugin_options.php:97 views/gt3pg_plugin_options.php:145
+msgid "Reset Settings"
+msgstr ""
+
+#: views/gt3pg_plugin_options.php:124
+msgid "How to Use Gallery. Video Tutorial."
+msgstr ""
+
+#: views/gt3pg_plugin_options.php:125
+msgid ""
+"Please watch this short video tutorial to see how to use our GT3 photo & "
+"video gallery."
+msgstr ""
+
+#: views/gt3pg_plugin_options.php:130
+msgid "Premium Photography WordPress Themes"
+msgstr ""
+
+#: views/gt3pg_plugin_options.php:131
+msgid ""
+"Check out our professionally developed Photo and Video WordPress themes. "
+"Easy way to build your awesome website."
+msgstr ""
+
+#: views/gt3pg_plugin_options.php:135
+msgid "View Demo"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "GT3 Photo & Video Gallery - Lite"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://gt3themes.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"This powerful plugin lets you extend the functionality of the default "
+"WordPress gallery. You can easily customize the look and feel of the photo "
+"or video gallery."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "GT3 Photo Gallery"
+msgstr ""

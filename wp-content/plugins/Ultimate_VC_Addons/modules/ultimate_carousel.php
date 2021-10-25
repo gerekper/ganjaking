@@ -2,16 +2,16 @@
 /**
  *  UAVC Ultimate Carousel module file
  *
- *  @package Ultimate_VC_Addons_Carousel
+ *  @package Ultimate_Carousel
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Carousel' ) ) {
+if ( ! class_exists( 'Ultimate_Carousel' ) ) {
 	/**
-	 * Function that initializes Ultimate Buttons Module
+	 * Constructor function that constructs default values for the Ultimate Carousel module.
 	 *
-	 * @class Ultimate_VC_Addons_Carousel
+	 * @method __construct
 	 */
-	class Ultimate_VC_Addons_Carousel {
+	class Ultimate_Carousel {
 		/**
 		 * Constructor function that constructs default values for the Ultimate Carousel module.
 		 *
@@ -54,11 +54,11 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Carousel' ) ) {
 		 */
 		public function ultimate_front_scripts() {
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-slick', 'slick', false, array( 'jquery' ), ULTIMATE_VERSION, false );
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-slick-custom', 'slick-custom', false, array( 'jquery', 'ultimate-vc-addons-slick' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ult-slick', 'slick', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ult-slick-custom', 'slick-custom', false, array( 'jquery', 'ult-slick' ), ULTIMATE_VERSION, false );
 
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-slick', 'slick' );
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-icons', UAVC_URL . 'assets/css/icons.css', true );
+			Ultimate_VC_Addons::ultimate_register_style( 'ult-slick', 'slick' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ult-icons', UAVC_URL . 'assets/css/icons.css', true );
 		}
 		/**
 		 * Function for button admin script
@@ -69,7 +69,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Carousel' ) ) {
 		 */
 		public function ultimate_admin_scripts( $hook ) {
 			if ( 'post.php' == $hook || 'post-new.php' == $hook ) {
-				wp_enqueue_style( 'ultimate-vc-addons-icons', UAVC_URL . 'assets/css/icons.css', null, ULTIMATE_VERSION, 'all' );
+				wp_enqueue_style( 'ult-icons', UAVC_URL . 'assets/css/icons.css', null, ULTIMATE_VERSION, 'all' );
 			}
 		}
 		/**
@@ -873,7 +873,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Carousel' ) ) {
 		}
 	}
 
-	new Ultimate_VC_Addons_Carousel();
+	new Ultimate_Carousel();
 	if ( class_exists( 'WPBakeryShortCodesContainer' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Carousel' ) ) {
 		/**
 		 * Function that initializes Ultimate Animation Module
@@ -898,16 +898,14 @@ if ( ! function_exists( 'ultimate_override_shortcodes' ) ) {
 		$_shortcode_tags = $shortcode_tags;
 		// Add any shortcode tags that we shouldn't touch here.
 		$disabled_tags = array( '' );
-		if ( is_array( $shortcode_tags ) || is_object( $shortcode_tags ) ) {
-			foreach ( $shortcode_tags as $tag => $cb ) {
-				if ( in_array( $tag, $disabled_tags, true ) ) {
-					continue;
-				}
-				// Overwrite the callback function.
-				$shortcode_tags[ $tag ]            = 'ultimate_wrap_shortcode_in_div'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-				$_shortcode_tags['ult_item_space'] = $ult_uc_settings['item_space'];
-				$_shortcode_tags['item_animation'] = $ult_uc_settings['item_animation'];
+		foreach ( $shortcode_tags as $tag => $cb ) {
+			if ( in_array( $tag, $disabled_tags, true ) ) {
+				continue;
 			}
+			// Overwrite the callback function.
+			$shortcode_tags[ $tag ]            = 'ultimate_wrap_shortcode_in_div'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+			$_shortcode_tags['ult_item_space'] = $ult_uc_settings['item_space'];
+			$_shortcode_tags['item_animation'] = $ult_uc_settings['item_animation'];
 		}
 	}
 }

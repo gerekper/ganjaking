@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Cart_Item_Subtotals_Product_Shipping_Classes
     public function get_label()
     {
 
-        return esc_html__('Cart item subtotal - Shipping classes', 'rightpress');
+        return __('Cart item subtotal - Shipping classes', 'rightpress');
     }
 
 

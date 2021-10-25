@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '0c132b3e01862c44442f47c4919698707d7556f3',
+    'reference' => '37c40a0d07875ddb15832ed679f1e0de74e31432',
     'name' => 'yoast/wordpress-seo-premium',
   ),
   'versions' => 
@@ -182,12 +182,12 @@ private static $installed = array (
     ),
     'php-parallel-lint/php-parallel-lint' => 
     array (
-      'pretty_version' => 'v1.3.0',
-      'version' => '1.3.0.0',
+      'pretty_version' => 'v1.3.1',
+      'version' => '1.3.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '772a954e5f119f6f5871d015b23eabed8cbdadfb',
+      'reference' => '761f3806e30239b5fcd90a0a45d41dc2138de192',
     ),
     'phpcompatibility/php-compatibility' => 
     array (
@@ -209,12 +209,12 @@ private static $installed = array (
     ),
     'phpcompatibility/phpcompatibility-wp' => 
     array (
-      'pretty_version' => '2.1.1',
-      'version' => '2.1.1.0',
+      'pretty_version' => '2.1.2',
+      'version' => '2.1.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b7dc0cd7a8f767ccac5e7637550ea1c50a67b09e',
+      'reference' => 'a792ab623069f0ce971b2417edef8d9632e32f75',
     ),
     'phpdocumentor/reflection-common' => 
     array (
@@ -572,12 +572,12 @@ private static $installed = array (
     ),
     'yoast/wordpress-seo' => 
     array (
-      'pretty_version' => '17.3',
-      'version' => '17.3.0.0',
+      'pretty_version' => '17.4',
+      'version' => '17.4.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '71353e912a3ed264ff39e0bc3929bac8d8a31edc',
+      'reference' => '5299718ce3125a32bf111788881bf3c4f1d3f224',
     ),
     'yoast/wordpress-seo-premium' => 
     array (
@@ -586,7 +586,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '0c132b3e01862c44442f47c4919698707d7556f3',
+      'reference' => '37c40a0d07875ddb15832ed679f1e0de74e31432',
     ),
     'yoast/wp-test-utils' => 
     array (
@@ -599,12 +599,12 @@ private static $installed = array (
     ),
     'yoast/yoastcs' => 
     array (
-      'pretty_version' => '2.1.0',
-      'version' => '2.1.0.0',
+      'pretty_version' => '2.2.0',
+      'version' => '2.2.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8cc5cb79b950588f05a45d68c3849ccfcfef6298',
+      'reference' => '0b82e890bda80571fe054166ef2535cb9cb54a13',
     ),
   ),
 );

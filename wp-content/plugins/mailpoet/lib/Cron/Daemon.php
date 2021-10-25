@@ -77,7 +77,5 @@ class Daemon {
     yield $this->workersFactory->createStatsNotificationsWorkerForAutomatedEmails();
     yield $this->workersFactory->createSubscriberLinkTokensWorker();
     yield $this->workersFactory->createSubscribersEngagementScoreWorker();
-    yield $this->workersFactory->createSubscribersLastEngagementWorker();
-    yield $this->workersFactory->createSubscribersCountCacheRecalculationWorker();
   }
 }

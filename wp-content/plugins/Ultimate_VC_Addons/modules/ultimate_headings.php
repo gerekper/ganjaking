@@ -6,13 +6,13 @@
  *  @package Ultimate Headings
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Headings' ) ) {
+if ( ! class_exists( 'Ultimate_Headings' ) ) {
 	/**
 	 * Function that initializes Ultimate Heading Module
 	 *
-	 * @class Ultimate_VC_Addons_Headings
+	 * @class Ultimate_Headings
 	 */
-	class Ultimate_VC_Addons_Headings {
+	class Ultimate_Headings {
 		/**
 		 * Class instance.
 		 *
@@ -38,9 +38,9 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Headings' ) ) {
 		 * @method register_headings_assets
 		 */
 		public function register_headings_assets() {
-			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-vc-addons-headings-style', 'headings' );
+			Ultimate_VC_Addons::ultimate_register_style( 'ultimate-headings-style', 'headings' );
 
-			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-vc-addons-headings-script', 'headings', false, array( 'jquery' ), ULTIMATE_VERSION, false );
+			Ultimate_VC_Addons::ultimate_register_script( 'ultimate-headings-script', 'headings', false, array( 'jquery' ), ULTIMATE_VERSION, false );
 		}
 		/**
 		 * Function that initializes settings of Ultimate Heading Module.
@@ -855,7 +855,7 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Headings' ) ) {
 			return $ult_heading_settings['spacer'];
 		}
 	} // end class.
-	new Ultimate_VC_Addons_Headings();
+	new Ultimate_Headings();
 	if ( class_exists( 'WPBakeryShortCode' ) && ! class_exists( 'WPBakeryShortCode_Ultimate_Heading' ) ) {
 		/**
 		 * Function that checks if the class is exists or not.

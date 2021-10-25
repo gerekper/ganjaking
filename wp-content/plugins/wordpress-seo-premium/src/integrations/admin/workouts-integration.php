@@ -109,8 +109,8 @@ class Workouts_Integration implements Integration_Interface {
 	 * {@inheritDoc}
 	 */
 	public function register_hooks() {
-		add_filter( 'wpseo_submenu_pages', [ $this, 'add_submenu_page' ], 8 );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+		\add_filter( 'wpseo_submenu_pages', [ $this, 'add_submenu_page' ], 8 );
+		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 	}
 
 	/**
@@ -148,11 +148,10 @@ class Workouts_Integration implements Integration_Interface {
 		$workouts_option = $this->options_helper->get( 'workouts' );
 
 		$indexable_ids_in_workouts = [ 0 ];
-		if (
-			isset( $workouts_option['orphaned']['indexablesByStep'] ) &&
-			is_array( $workouts_option['orphaned']['indexablesByStep'] ) &&
-			isset( $workouts_option['cornerstone']['indexablesByStep'] ) &&
-			is_array( $workouts_option['cornerstone']['indexablesByStep'] )
+		if ( isset( $workouts_option['orphaned']['indexablesByStep'] )
+			&& \is_array( $workouts_option['orphaned']['indexablesByStep'] )
+			&& isset( $workouts_option['cornerstone']['indexablesByStep'] )
+			&& \is_array( $workouts_option['cornerstone']['indexablesByStep'] )
 		) {
 			foreach ( [ 'orphaned', 'cornerstone' ] as $workout ) {
 				foreach ( $workouts_option[ $workout ]['indexablesByStep'] as $step => $indexables ) {
@@ -184,7 +183,7 @@ class Workouts_Integration implements Integration_Interface {
 					$workouts_option[ $workout ]['indexablesByStep'][ $step ] = \array_values(
 						\array_filter(
 							\array_map(
-								function( $indexable_id ) use ( $indexables_in_workouts ) {
+								static function( $indexable_id ) use ( $indexables_in_workouts ) {
 									foreach ( $indexables_in_workouts as $updated_indexable ) {
 										if ( \is_array( $indexable_id ) ) {
 											$indexable_id = $indexable_id['id'];
@@ -269,16 +268,16 @@ class Workouts_Integration implements Integration_Interface {
 			)
 		);
 
-		$excluded_post_types = apply_filters( 'wpseo_indexable_excluded_post_types', [ 'attachment' ] );
-		$object_sub_types    = array_diff( $object_sub_types, $excluded_post_types );
+		$excluded_post_types = \apply_filters( 'wpseo_indexable_excluded_post_types', [ 'attachment' ] );
+		$object_sub_types    = \array_diff( $object_sub_types, $excluded_post_types );
 		return $object_sub_types;
 	}
 
 	/**
 	 * Gets the orphaned indexables.
 	 *
-	 * @param array   $indexable_ids_in_orphaned_workout The orphaned indexable ids.
-	 * @param integer $limit The limit.
+	 * @param array $indexable_ids_in_orphaned_workout The orphaned indexable ids.
+	 * @param int   $limit                             The limit.
 	 * @return array The orphaned indexables.
 	 */
 	protected function get_orphaned( array $indexable_ids_in_orphaned_workout, $limit = 10 ) {

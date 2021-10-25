@@ -9,9 +9,7 @@ class Html {
   /** @var BlockRendererHelper */
   private $rendererHelper;
 
-  public function __construct(
-    BlockRendererHelper $rendererHelper
-  ) {
+  public function __construct(BlockRendererHelper $rendererHelper) {
     $this->rendererHelper = $rendererHelper;
   }
 

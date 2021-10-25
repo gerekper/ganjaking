@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Product_Other_WC_Coupons_Applied extends Rig
     public function get_label()
     {
 
-        return esc_html__('Coupons applied', 'rightpress');
+        return __('Coupons applied', 'rightpress');
     }
 
     /**

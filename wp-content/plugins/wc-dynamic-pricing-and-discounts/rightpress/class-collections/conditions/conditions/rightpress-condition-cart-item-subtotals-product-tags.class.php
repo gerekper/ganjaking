@@ -48,7 +48,7 @@ abstract class RightPress_Condition_Cart_Item_Subtotals_Product_Tags extends Rig
     public function get_label()
     {
 
-        return esc_html__('Cart item subtotal - Tags', 'rightpress');
+        return __('Cart item subtotal - Tags', 'rightpress');
     }
 
 

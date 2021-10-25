@@ -1,17 +1,17 @@
 # Copyright (C) 2021 WooCommerce
-# This file is distributed under the same license as the WooCommerce Bookings plugin.
+# This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Bookings 1.15.46\n"
+"Project-Id-Version: WooCommerce Bookings 1.15.48\n"
 "Report-Msgid-Bugs-To: https://docs.woocommerce.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-04T21:12:27+00:00\n"
+"POT-Creation-Date: 2021-10-20T12:50:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: woocommerce-bookings\n"
 
 #. Plugin Name of the plugin
@@ -180,10 +180,10 @@ msgid "Costs"
 msgstr ""
 
 #: includes/admin/class-wc-bookings-admin.php:374
-#: includes/admin/class-wc-bookings-admin.php:652
+#: includes/admin/class-wc-bookings-admin.php:654
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:255
-#: includes/class-wc-bookings-google-calendar-connection.php:1326
+#: includes/class-wc-bookings-google-calendar-connection.php:1399
 #: includes/wc-bookings-functions.php:1120
 msgid "Persons"
 msgstr ""
@@ -215,65 +215,65 @@ msgstr ""
 msgid "Bookable product"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:635
+#: includes/admin/class-wc-bookings-admin.php:637
 msgid "Are you sure you want to remove this person type?"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:638
+#: includes/admin/class-wc-bookings-admin.php:640
 msgid "Are you sure you want to remove this resource?"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:641
+#: includes/admin/class-wc-bookings-admin.php:643
 msgid "minutes"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:642
+#: includes/admin/class-wc-bookings-admin.php:644
 msgid "hours"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:643
+#: includes/admin/class-wc-bookings-admin.php:645
 msgid "days"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:644
+#: includes/admin/class-wc-bookings-admin.php:646
 msgid "Enter a name for the new resource"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:649
+#: includes/admin/class-wc-bookings-admin.php:651
 msgid "View details"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:650
+#: includes/admin/class-wc-bookings-admin.php:652
 #: includes/admin/views/html-create-booking-page.php:18
 msgid "Customer"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:651
+#: includes/admin/class-wc-bookings-admin.php:653
 msgid "Resource"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:670
+#: includes/admin/class-wc-bookings-admin.php:672
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:671
+#: includes/admin/class-wc-bookings-admin.php:673
 #: includes/admin/class-wc-bookings-details-meta-box.php:555
 msgid "Start date cannot be greater than end date."
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:687
+#: includes/admin/class-wc-bookings-admin.php:689
 msgid "Has persons"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:688
+#: includes/admin/class-wc-bookings-admin.php:690
 msgid "Enable this if this bookable product can be booked by a customer defined number of persons."
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:694
+#: includes/admin/class-wc-bookings-admin.php:696
 msgid "Has resources"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-admin.php:695
+#: includes/admin/class-wc-bookings-admin.php:697
 msgid "Enable this if this bookable product has multiple bookable resources, for example room types or instructors."
 msgstr ""
 
@@ -459,6 +459,7 @@ msgstr ""
 #: templates/myaccount/bookings.php:42
 #: templates/myaccount/my-bookings.php:33
 #: assets/js/components/store-availability-popover/index.js:41
+#: dist/admin-store-availability.js:1
 msgid "Start Date"
 msgstr ""
 
@@ -466,6 +467,7 @@ msgstr ""
 #: templates/myaccount/bookings.php:43
 #: templates/myaccount/my-bookings.php:34
 #: assets/js/components/store-availability-popover/index.js:45
+#: dist/admin-store-availability.js:1
 msgid "End Date"
 msgstr ""
 
@@ -710,7 +712,7 @@ msgstr ""
 #: includes/admin/class-wc-bookings-menus.php:71
 #: includes/admin/views/html-calendar-day.php:2
 #: includes/admin/views/html-calendar-month.php:2
-#: includes/class-wc-bookings-google-calendar-connection.php:816
+#: includes/class-wc-bookings-google-calendar-connection.php:882
 #: woocommerce-bookings.php:174
 msgid "Calendar"
 msgstr ""
@@ -727,31 +729,31 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-menus.php:133
+#: includes/admin/class-wc-bookings-menus.php:137
 msgid "Please choose a product"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-menus.php:137
+#: includes/admin/class-wc-bookings-menus.php:141
 msgid "Please enter a message"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-menus.php:141
+#: includes/admin/class-wc-bookings-menus.php:145
 msgid "Please enter a subject"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-menus.php:163
+#: includes/admin/class-wc-bookings-menus.php:167
 msgid "Notification sent successfully"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-menus.php:197
+#: includes/admin/class-wc-bookings-menus.php:201
 msgid "Store Availability"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-menus.php:221
+#: includes/admin/class-wc-bookings-menus.php:225
 msgid "Timezones"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-menus.php:227
+#: includes/admin/class-wc-bookings-menus.php:231
 msgid "Calendar Connection"
 msgstr ""
 
@@ -988,7 +990,7 @@ msgid "Save/update the booking"
 msgstr ""
 
 #. translators: %s: Number of posts that have expired
-#: includes/admin/class-wc-bookings-tools.php:90
+#: includes/admin/class-wc-bookings-tools.php:93
 msgid "Removed %s expired In Cart booking(s)."
 msgstr ""
 
@@ -1661,7 +1663,7 @@ msgid "Past availability are hidden from this list."
 msgstr ""
 
 #: includes/admin/views/html-classic-availability-settings.php:190
-#: includes/class-wc-bookings-google-calendar-connection.php:316
+#: includes/class-wc-bookings-google-calendar-connection.php:329
 #: includes/class-wc-bookings-timezone-settings.php:213
 msgid "Save Changes"
 msgstr ""
@@ -2148,32 +2150,32 @@ msgid "Start time"
 msgstr ""
 
 #. translators: 1: quantity available
-#: includes/booking-form/class-wc-booking-form.php:505
-#: includes/booking-form/class-wc-booking-form.php:663
+#: includes/booking-form/class-wc-booking-form.php:507
+#: includes/booking-form/class-wc-booking-form.php:665
 msgid "%d left"
 msgid_plural "%d left"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: booking duration in minutes
-#: includes/booking-form/class-wc-booking-form.php:586
+#: includes/booking-form/class-wc-booking-form.php:588
 msgid "%d Minute"
 msgid_plural "%d Minutes"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: booking duration in hours
-#: includes/booking-form/class-wc-booking-form.php:590
+#: includes/booking-form/class-wc-booking-form.php:592
 msgid "%d Hour"
 msgid_plural "%d Hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/booking-form/class-wc-booking-form.php:619
+#: includes/booking-form/class-wc-booking-form.php:621
 msgid "Ends"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:621
+#: includes/booking-form/class-wc-booking-form.php:623
 msgid "End time"
 msgstr ""
 
@@ -2259,141 +2261,153 @@ msgstr ""
 msgid "The duration of this booking must be at least %s days."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:300
+#: includes/class-wc-bookings-google-calendar-connection.php:313
 msgid "Settings saved."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:782
-#: includes/class-wc-bookings-google-calendar-connection.php:807
+#: includes/class-wc-bookings-google-calendar-connection.php:848
+#: includes/class-wc-bookings-google-calendar-connection.php:873
 msgid "Authorization"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:786
+#: includes/class-wc-bookings-google-calendar-connection.php:852
 msgid "Connect with a custom Google Calendar App"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:791
+#: includes/class-wc-bookings-google-calendar-connection.php:857
 msgid "Client ID"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:793
+#: includes/class-wc-bookings-google-calendar-connection.php:859
 msgid "Enter the Google Client ID associated with your Calendar API app."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:799
+#: includes/class-wc-bookings-google-calendar-connection.php:865
 msgid "Client Secret"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:801
+#: includes/class-wc-bookings-google-calendar-connection.php:867
 msgid "Enter the Google Client Secret associated with your Calendar API app."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:811
+#: includes/class-wc-bookings-google-calendar-connection.php:877
 msgid "Connected Calendar Settings"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:818
+#: includes/class-wc-bookings-google-calendar-connection.php:884
 msgid "Select your Calendar."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:826
+#: includes/class-wc-bookings-google-calendar-connection.php:892
 msgid "Sync Preference"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:828
+#: includes/class-wc-bookings-google-calendar-connection.php:894
 msgid "Sync both ways - between Store and Google"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:829
+#: includes/class-wc-bookings-google-calendar-connection.php:895
 msgid "Sync one way - from Store to Google"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:831
+#: includes/class-wc-bookings-google-calendar-connection.php:897
 msgid "Manage the sync flow between your Store calendar and Google calendar."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:837
+#: includes/class-wc-bookings-google-calendar-connection.php:903
+msgid "Deletion Preference"
+msgstr ""
+
+#: includes/class-wc-bookings-google-calendar-connection.php:905
+msgid "Delete Events from Google Calendar"
+msgstr ""
+
+#: includes/class-wc-bookings-google-calendar-connection.php:907
+msgid "Check this to delete an event from Google Calendar when the corresponding store availability is deleted."
+msgstr ""
+
+#: includes/class-wc-bookings-google-calendar-connection.php:910
 msgid "Debug Log"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:839
+#: includes/class-wc-bookings-google-calendar-connection.php:912
 msgid "Enable logging"
 msgstr ""
 
 #. translators: 1: log file path
-#: includes/class-wc-bookings-google-calendar-connection.php:842
+#: includes/class-wc-bookings-google-calendar-connection.php:915
 msgid "Log Google Calendar events, such as API requests, inside %s"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:912
+#: includes/class-wc-bookings-google-calendar-connection.php:985
 msgid "Please fill out all required fields from above and save changes."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:914
+#: includes/class-wc-bookings-google-calendar-connection.php:987
 msgid "Connect with custom Google app"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:916
-#: includes/class-wc-bookings-google-calendar-connection.php:1012
+#: includes/class-wc-bookings-google-calendar-connection.php:989
+#: includes/class-wc-bookings-google-calendar-connection.php:1085
 msgid "Successfully authenticated."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:917
-#: includes/class-wc-bookings-google-calendar-connection.php:1013
+#: includes/class-wc-bookings-google-calendar-connection.php:990
+#: includes/class-wc-bookings-google-calendar-connection.php:1086
 msgid "Disconnect"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:932
+#: includes/class-wc-bookings-google-calendar-connection.php:1005
 msgid "Select a calendar from the list"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1008
+#: includes/class-wc-bookings-google-calendar-connection.php:1081
 msgid "Connect with Google"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1025
+#: includes/class-wc-bookings-google-calendar-connection.php:1098
 msgid "To sync with Google Calendar using an app provided by WooCommerce.com, click the \"Connect with Google\" button below to authorize access to your Google calendar."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1056
-#: includes/class-wc-bookings-google-calendar-connection.php:1058
-#: includes/class-wc-bookings-google-calendar-connection.php:1061
-#: includes/class-wc-bookings-google-calendar-connection.php:1127
-#: includes/class-wc-bookings-google-calendar-connection.php:1138
-#: includes/class-wc-bookings-google-calendar-connection.php:1158
+#: includes/class-wc-bookings-google-calendar-connection.php:1129
+#: includes/class-wc-bookings-google-calendar-connection.php:1131
+#: includes/class-wc-bookings-google-calendar-connection.php:1134
+#: includes/class-wc-bookings-google-calendar-connection.php:1200
+#: includes/class-wc-bookings-google-calendar-connection.php:1211
+#: includes/class-wc-bookings-google-calendar-connection.php:1231
 msgid "Google Calendar"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1056
+#: includes/class-wc-bookings-google-calendar-connection.php:1129
 msgid "Account disconnected successfully!"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1058
+#: includes/class-wc-bookings-google-calendar-connection.php:1131
 msgid "Failed to disconnect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1061
+#: includes/class-wc-bookings-google-calendar-connection.php:1134
 msgid "Account not properly connected, reset successfully!"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1093
-#: includes/class-wc-bookings-google-calendar-connection.php:1196
+#: includes/class-wc-bookings-google-calendar-connection.php:1166
+#: includes/class-wc-bookings-google-calendar-connection.php:1269
 msgid "Permission denied!"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1138
+#: includes/class-wc-bookings-google-calendar-connection.php:1211
 msgid "Account connected successfully!"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1158
+#: includes/class-wc-bookings-google-calendar-connection.php:1231
 msgid "Failed to connect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1244
+#: includes/class-wc-bookings-google-calendar-connection.php:1317
 msgid "Invalid request!"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1324
+#: includes/class-wc-bookings-google-calendar-connection.php:1397
 #: templates/emails/admin-booking-cancelled.php:37
 #: templates/emails/admin-new-booking.php:60
 #: templates/emails/customer-booking-cancelled.php:44
@@ -2404,7 +2418,7 @@ msgstr ""
 msgid "Booking ID"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1325
+#: includes/class-wc-bookings-google-calendar-connection.php:1398
 #: includes/wc-bookings-functions.php:67
 #: templates/emails/admin-booking-cancelled.php:47
 #: templates/emails/admin-new-booking.php:70
@@ -2417,11 +2431,11 @@ msgid "Booking Type"
 msgstr ""
 
 #. translators: %s URL to edit booking
-#: includes/class-wc-bookings-google-calendar-connection.php:1341
+#: includes/class-wc-bookings-google-calendar-connection.php:1414
 msgid "NOTE: this event cannot be edited in Google Calendar. If you need to make changes, <a href=\"%s\" target=\"_blank\">please edit this booking in WooCommerce</a>."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1371
+#: includes/class-wc-bookings-google-calendar-connection.php:1444
 #: includes/class-wc-bookings-init.php:88
 #: includes/class-wc-bookings-init.php:91
 msgid "Booking"
@@ -2716,108 +2730,108 @@ msgctxt "Guest string with name from booking order in brackets"
 msgid "%s (Guest)"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:85
+#: includes/data-objects/class-wc-product-booking.php:96
 msgid "Check Availability"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:85
+#: includes/data-objects/class-wc-product-booking.php:96
 msgid "Book now"
 msgstr ""
 
 #. translators: 1: display price
-#: includes/data-objects/class-wc-product-booking.php:137
+#: includes/data-objects/class-wc-product-booking.php:148
 msgid "From: %s"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:142
+#: includes/data-objects/class-wc-product-booking.php:153
 msgid "Free"
 msgstr ""
 
 #. translators: 1: available quantity
-#: includes/data-objects/class-wc-product-booking.php:1546
+#: includes/data-objects/class-wc-product-booking.php:1557
 msgid "There is a maximum of %d place remaining"
 msgid_plural "There are a maximum of %d places remaining"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: available quantity 2: booking block date
-#: includes/data-objects/class-wc-product-booking.php:1552
-#: includes/data-objects/class-wc-product-booking.php:1559
+#: includes/data-objects/class-wc-product-booking.php:1563
+#: includes/data-objects/class-wc-product-booking.php:1570
 msgid "There is a maximum of %1$d place remaining on %2$s"
 msgid_plural "There are a maximum of %1$d places remaining on %2$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/data-objects/class-wc-product-booking.php:2141
+#: includes/data-objects/class-wc-product-booking.php:2152
 msgid "This block cannot be booked."
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2263
+#: includes/data-objects/class-wc-product-booking.php:2274
 msgid "Please choose a resource type"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2274
+#: includes/data-objects/class-wc-product-booking.php:2285
 msgid "Duration is required - please enter a duration greater than zero"
 msgstr ""
 
 #. translators: 1: maximum duration
-#: includes/data-objects/class-wc-product-booking.php:2278
+#: includes/data-objects/class-wc-product-booking.php:2289
 msgid "The maximum duration is %d"
 msgstr ""
 
 #. translators: 1: minimum duration
-#: includes/data-objects/class-wc-product-booking.php:2282
+#: includes/data-objects/class-wc-product-booking.php:2293
 msgid "The minimum duration is %d"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2288
+#: includes/data-objects/class-wc-product-booking.php:2299
 msgid "Date is required - please choose one above"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2291
+#: includes/data-objects/class-wc-product-booking.php:2302
 msgid "Time is required - please choose one above"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2294
-#: includes/data-objects/class-wc-product-booking.php:2297
+#: includes/data-objects/class-wc-product-booking.php:2305
+#: includes/data-objects/class-wc-product-booking.php:2308
 msgid "You must choose a future date and time."
 msgstr ""
 
 #. translators: 1: minimum date
-#: includes/data-objects/class-wc-product-booking.php:2315
+#: includes/data-objects/class-wc-product-booking.php:2326
 msgid "The earliest booking possible is currently %s."
 msgstr ""
 
 #. translators: 1: maximum date
-#: includes/data-objects/class-wc-product-booking.php:2324
+#: includes/data-objects/class-wc-product-booking.php:2335
 msgid "The latest booking possible is currently %s."
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2333
+#: includes/data-objects/class-wc-product-booking.php:2344
 msgid "Sorry, bookings cannot start on this day."
 msgstr ""
 
 #. translators: 1: maximum persons
-#: includes/data-objects/class-wc-product-booking.php:2343
+#: includes/data-objects/class-wc-product-booking.php:2354
 msgid "The maximum persons per group is %d"
 msgstr ""
 
 #. translators: 1: minimum persons
-#: includes/data-objects/class-wc-product-booking.php:2347
+#: includes/data-objects/class-wc-product-booking.php:2358
 msgid "The minimum persons per group is %d"
 msgstr ""
 
 #. translators: 1: person name 2: maximum persons
-#: includes/data-objects/class-wc-product-booking.php:2356
+#: includes/data-objects/class-wc-product-booking.php:2367
 msgid "The maximum %1$s per group is %2$d"
 msgstr ""
 
 #. translators: 1: person name 2: minimum persons
-#: includes/data-objects/class-wc-product-booking.php:2362
+#: includes/data-objects/class-wc-product-booking.php:2373
 msgid "The minimum %1$s per group is %2$d"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2381
+#: includes/data-objects/class-wc-product-booking.php:2392
 msgid "Sorry, the selected block is not available"
 msgstr ""
 
@@ -3479,6 +3493,7 @@ msgstr ""
 #: templates/myaccount/bookings.php:79
 #: templates/myaccount/my-bookings.php:62
 #: assets/js/components/store-availability-popover/index.js:79
+#: dist/admin-store-availability.js:1
 msgid "Cancel"
 msgstr ""
 
@@ -3566,59 +3581,73 @@ msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Prod
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:39
+#: dist/admin-store-availability.js:1
 msgid "Edit Availability"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:43
+#: dist/admin-store-availability.js:1
 msgid "Add end date"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:49
+#: dist/admin-store-availability.js:1
 msgid "Time"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:51
+#: dist/admin-store-availability.js:1
 msgid "Available all day"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:52
+#: dist/admin-store-availability.js:1
 msgid "Available at specific hours"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:58
+#: dist/admin-store-availability.js:1
 msgid "Frequency"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:60
+#: dist/admin-store-availability.js:1
 msgid "Does not repeat"
 msgstr ""
 
 #. translators: %s: day of week
 #: assets/js/components/store-availability-popover/index.js:62
+#: dist/admin-store-availability.js:1
 msgid "Every %s"
 msgstr ""
 
 #. translators: %s: day of year
 #: assets/js/components/store-availability-popover/index.js:64
+#: dist/admin-store-availability.js:1
 msgid "Anually on %s"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:65
+#: dist/admin-store-availability.js:1
 msgid "On specific days of the week"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:66
+#: dist/admin-store-availability.js:1
 msgid "On specific dates"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:71
+#: dist/admin-store-availability.js:1
 msgid "Repeats on:"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:80
+#: dist/admin-store-availability.js:1
 msgid "Apply"
 msgstr ""
 
 #: assets/js/components/store-availability-popover/index.js:186
+#: dist/admin-store-availability.js:1
 msgid "Add more times"
 msgstr ""

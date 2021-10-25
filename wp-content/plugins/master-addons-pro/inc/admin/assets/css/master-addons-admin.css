@@ -1,0 +1,1474 @@
+/*
+* Master Addons for Elementor by Jewel Theme < Liton Arefin >
+* All Admin CSS
+* Admin Settings and Welcome Page CSS
+*/
+
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+/* Column Width */
+
+.four-col,.three-col {
+    display: flex;
+    max-width: 100%;
+    width: 100%;
+}
+.col{
+    flex: 1;
+    margin-right:2%;
+}
+.four-col .col{
+    width: 23%;
+}
+.three-col .col{
+    width: 32%;
+}
+.three-col .col:last-child,
+.four-col .col:last-child {
+    flex: 1;
+    margin-right: 0 !important;
+}
+.master_addons_contents .parent {
+    display: flex;
+    flex-wrap: wrap;
+}
+.master_addons_contents .parent .left_column {
+    flex: 0 0 70%;
+    max-width: 70%;
+}
+.master_addons_contents .parent .left_column pre {
+    padding-right: 45px;
+}
+.master_addons_contents .parent .right_column {
+    flex: 0 0 30%;
+    max-width: 30%;
+}
+.master_addons_contents #changelogs .parent .left_column {
+    flex: 0 0 75%;
+    max-width: 75%;
+}
+.master_addons_contents #changelogs .parent .right_column {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+/* End of Columns */
+
+.black{
+    color: #32373c !important;
+}
+.textcenter{
+    text-align: center;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.alice-green-bg {
+    background-color: #e4f1f9;
+}
+
+
+/* Responsive Youtube Video*/
+.embed-container {
+    height: 0;
+    max-width: 100%;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+}
+
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+    top: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+
+/* Intro Wrapper */
+
+.master_addons .wrappper.about-wrap {
+    margin: 20px 20px 15px 0px;
+    max-width: 100%;
+}
+.master_addons .intro_wrapper {
+    background-color: #6814cd;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+.master_addons .intro_wrapper header {
+    padding: 1.5625rem 10rem 1.5625rem 1.875rem;
+}
+.master_addons .header .ma_el_logo{
+    cursor: pointer;
+    float: left;
+}
+.master_addons .header .ma_el_logo .wp-badge{
+    width:75px;
+}
+.svg .wp-badge.welcome__logo {
+    background: url('../icons/white-logo.png')left center no-repeat;
+    background-size: contain;
+    color: #fff;
+    box-shadow: none;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+    position: inherit;
+    cursor: pointer;
+}
+.master_addons .about-wrap h1 {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    top: 10px;
+    left: 10px;
+}
+.master_addons small{
+    font-size: 14px;
+    font-style: italic;
+}
+.master_addons .header .about-text {
+    clear: both;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    left: 48px;
+    top: -15px;
+    margin: 0;
+    position: relative;
+}
+.master_addons .about-wrap .about-text {
+    color: #fff;
+}
+.main_heading{
+    font-size: 45px !important;
+}
+
+.feature_content img {
+    max-width: 120px;
+}
+
+/* Addons Save Button */
+
+.master-addons-el-dashboard-header-wrapper {
+    top: 42px;
+    right: 30px;
+    position: absolute;
+}
+.master-addons-el-btn {
+    background: #f7f7fa;
+    border: none;
+    border-radius: 3rem;
+    box-shadow: none;
+    color: #90a4ae;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 45px;
+    position: relative;
+    padding: 0 25px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition: all 200ms ease-out;
+    -webkit-transition: all 200ms ease-out;
+}
+.master-addons-el-save-btn-wrap .master-addons-el-btn.master-addons-el-save-now,
+.master-addons-el-dashboard-header-wrapper .master-addons-el-btn.master-addons-el-save-now{
+  background: -moz-linear-gradient( 0deg, rgb(153,41,234) 0%, rgb(245, 102, 64) 100%);
+  background: -webkit-linear-gradient( 0deg, rgb(153,41,234) 0%, rgb(245, 102, 64) 100%);
+  background: -ms-linear-gradient( 0deg, rgb(153,41,234) 0%, rgb(245, 102, 64) 100%);
+  color: #fff;
+}
+.master-addons-el-btn:hover,
+.master-addons-el-btn:focus {
+    color: #6814cd;
+    transform: translateY(-2px);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+}
+
+/* System Info */
+.jltma-system-info .api-forms td:first-child {
+    width: 40%;
+}
+.jltma-system-info .api-forms{
+    padding:0 !important;
+}
+.jltma-system-info .api-forms table{
+    margin-bottom: 0 !important;
+}
+.jltma-system-info .api-settings-element{
+    padding: 0 30px 50px !important;
+}
+.jltma-system-info .api-forms tr td span{
+    font-size: 15px;
+    width: 20px;
+    height: 18px;
+    margin-right: 8px;
+    vertical-align: middle;
+    border-radius: 2px;
+}
+.jltma-system-info .api-forms tr td span i{
+    line-height: 25px;
+}
+.jltma-system-info .api-forms .jltma-valid{
+    background: #9bc865;
+    color: #fff;
+}
+.jltma-system-info .api-forms .jltma-invalid {
+    background: red;
+    color: #fff;
+}
+
+/* White Label */
+.jltma-disabled {
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.jltma-pro-badge {
+    position: absolute;
+    z-index: 333;
+    text-align: center;
+    padding-left: 36%;
+    font-size: 100px !important;
+    padding-top: 3%;
+}
+
+#jltma_white_label .jltma-white-label-notice {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(200, 200, 200, 0.65);
+    -js-display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.jltma-white-label-notice-content {
+    background-color: #fff;
+    box-shadow: 0px 0px 50px rgba(0,0,0,0.13);
+    position: absolute;
+    top: 150px;
+    left: 300px;
+    width: 530px;
+    padding: 32px;
+    padding-bottom: 50px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    text-align: center;
+    z-index: 2;
+}
+
+.jltma-white-label-notice-logo img {
+    height: 100px;
+    width: 100px;
+    padding: 10px;
+    padding-top: 10px;
+}
+
+.jltma-white-label-notice-content h2,
+.jltma-swal-head {
+    display: inline-block;
+    font-size: 23px;
+    color: #252c59;
+    font-weight: 900;
+    font-family: "Red Hat Display";
+    text-align: center;
+    max-width: 350px;
+    line-height: 1;
+    margin: 0;
+    margin-bottom: 18px;
+}
+
+.jltma-white-label-notice-content h2 span {
+    color: #6814cd;
+    text-transform: uppercase;
+}
+
+.jltma-white-label-notice-content p {
+    font-size: 13px;
+    color: #474747;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 18px;
+}
+.jltma-white-label-notice-content em{
+    font-size:13px;
+    color: red;
+}
+.jltma-white-label-notice-content a.jltma-get-pro {
+    display: inline-block;
+    width: 120px;
+    padding: 5px 15px !important;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+
+
+/* Tabs and Contents */
+
+.master_addons .wp-tab-panel{
+    border: none;
+    background-color: inherit;
+    max-height: inherit;
+    min-width: 100%;
+    width: 100%;
+    padding:0;
+}
+.master_addons .wp-tab-bar.master_addons_navbar {
+    margin: 15px 0 0;
+}
+.master_addons .master_addons_navbar.wp-tab-bar li {
+    background-color: transparent;
+    border: none;
+    line-height: 1;
+    margin: 0 5px 0 0;
+    padding: 0;
+}
+.master_addons .master_addons_navbar.wp-tab-bar li a,
+.master_addons .master_addons_navbar.wp-tab-bar a.nav-upgrade-pro {
+    background-color: #f7f7fa;
+    border-top: 4px solid transparent;
+    color: #393c3f;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 700;
+    padding: .875rem 1.875rem 1.2rem;
+}
+.master_addons .master_addons_navbar.wp-tab-bar a.nav-upgrade-pro{
+    background-color: #6814cd;
+    color: #fff;
+    text-transform: uppercase;
+}
+.master_addons .master_addons_navbar.wp-tab-bar li a:focus,
+.master_addons .master_addons_navbar.wp-tab-bar li a:visited,
+.master_addons .master_addons_navbar.wp-tab-bar li a:active,
+.master_addons .master_addons_navbar.wp-tab-bar a.nav-upgrade-pro:focus,
+.master_addons .master_addons_navbar.wp-tab-bar a.nav-upgrade-pro:visited,
+.master_addons .master_addons_navbar.wp-tab-bar a.nav-upgrade-pro:active{
+    box-shadow: none;
+    outline: 0;
+}
+.master_addons .master_addons_navbar.wp-tab-bar li.wp-tab-active a {
+    background-color: #fff;
+    border-top-color: #6814cd;
+    color: #6814cd;
+}
+
+.master_addons_contents {
+    background-color: #fff;
+    padding: 2rem 1.5rem 1.5rem;
+}
+
+/* Addons Feature */
+
+.master_addons_feature {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin: 0;
+    position: relative;
+}
+/* .master_addons_feature.jltma-center-align {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+} */
+.master-addons-dashboard-tab .master_addons_feature h3 {
+    color: #393c3f;
+    display: inline-block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 20px 0 16px;
+    padding-left: 7.5px;
+    width: 100%;
+}
+.master_addons_features .master_addons_feature .col {
+    flex: 1 0 24.5%;
+    max-width: 24.5%;
+    margin: 0;
+    padding: 0 7.5px 15px;
+}
+.master-addons-dashboard-filter {
+    display: inline-block;
+    margin: 5px 0 35px;
+    width: 100%;
+}
+.master-addons-dashboard-filter .filter-left {
+    float: left;
+}
+.master_addons .master-addons-dashboard-filter button {
+    border: none;
+    border-radius: 5px;
+    box-shadow: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 45px;
+    padding: 0 20px;
+    text-transform: uppercase;
+}
+.master-addons-dashboard-filter button:focus,
+.master-addons-dashboard-filter button:active,
+.master-addons-dashboard-filter button:visited {
+    box-shadow: none;
+    outline: 0;
+}
+.master-addons-dashboard-filter .addons-enable-all {
+  background-image: -webkit-linear-gradient(bottom left, rgb(43,147,194) 0%, rgb(13,166,235) 100%);
+  background-image: -o-linear-gradient(bottom left, rgb(43,147,194) 0%, rgb(13,166,235) 100%);
+  background-image: linear-gradient(to top right, rgb(43,147,194) 0%, rgb(13,166,235) 100%);
+}
+.master-addons-dashboard-filter .addons-disable-all {
+  background-image: -webkit-linear-gradient(bottom left, rgb(248,54,0) 0%, rgba(239,102,35,0.99608) 100%);
+  background-image: -o-linear-gradient(bottom left, rgb(248,54,0) 0%, rgba(239,102,35,0.99608) 100%);
+  background-image: linear-gradient(to top right, rgb(248,54,0) 0%, rgba(239,102,35,0.99608) 100%);
+}
+.master-addons-dashboard-filter .filter-right {
+    float: right;
+}
+.master-addons-dashboard-filter .master-addons-filter a{
+    background-color: #f1f1f1;
+    border: 1px solid #efeff5;
+    box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+    border-radius: 5px;
+    color: #90a4ae;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 43px;
+    margin-right: 5px;
+    max-width: 100%;
+    padding: 15px 20px;
+    width: 100%;
+    text-decoration: none;
+
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.master-addons-dashboard-filter .master-addons-filter a.active{
+    background-color: #fff;
+    border: 1px solid #efeff5;
+    color:#6814cd;
+}
+.master-addons-dashboard-filter .master-addons-filter::-ms-expand {
+    display: none;
+}
+.master-addons-dashboard-filter .master-addons-filter:focus {
+    border-color: #90a4ae;
+    box-shadow: none;
+    color: #90a4ae;
+    outline: none;
+}
+.master-addons-dashboard-filter .master-addons-filter option {
+    font-weight:normal;
+    padding: 15px;
+}
+
+/* Addons */
+
+.master-addons-dashboard-checkbox-content {
+    background: #fff;
+    border: 1px solid #efeff5;
+    border-radius: 5px;
+    color: #393c3f;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 15px 20px 17px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Addons Title */
+
+.master_addons_features .master-addons-el-title {
+    float: left;
+    margin-top: 5px;
+}
+.master_addons_features .master-addons-el-title-content {
+    color: #393c3f;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 500;
+    margin-right: 6px;
+}
+
+/* Tooltips Info for All Addons */
+
+.master_addons_features .ma-el-tooltip {
+    display: inline-block;
+    vertical-align: top;
+}
+.master_addons_features .ma-el-tooltip-item {
+    float: left;
+    position: relative;
+}
+.master_addons_features .ma-el-tooltip-item i {
+    color: #90a4ae;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    padding: 3px 4px;
+
+    transition: all 0.3s ease;
+}
+.master_addons_features .ma-el-tooltip-item i:hover {
+    color: #393c3f;
+}
+.master_addons_features .ma-el-tooltip{
+    transition: all .3s ease;
+}
+.master_addons_features .ma-el-tooltip-item {
+    position: relative;
+}
+.master_addons_features .ma-el-tooltip-item .ma-el-tooltip-text {
+    background-color: #393c3f;
+    border-radius: 5px;
+    box-shadow: none;
+    color: #efeff5;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4.5px 12px;
+    position: absolute;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 99999;
+
+    transition: all 0.25s cubic-bezier(0, 0, 0.2, 1);
+}
+.master_addons_features .ma-el-tooltip-item:hover .ma-el-tooltip-text {
+    opacity: 1;
+    visibility: visible;
+}
+.master_addons_features .ma-el-tooltip-item .ma-el-tooltip-text a {
+    color: #efeff5;
+    text-decoration: none;
+}
+.master_addons_features .ma-el-tooltip-item .ma-el-tooltip-text:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+.master_addons_features .ma-el-tooltip-item .ma-el-tooltip-content:hover {
+    box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.13);
+}
+.master_addons_features .ma-el-tooltip-item.tooltip-top .ma-el-tooltip-content:hover ~ .ma-el-tooltip-text {
+    -webkit-transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
+    visibility: visible;
+    opacity: 1;
+}
+.master_addons_features .ma-el-tooltip-item.tooltip-top .ma-el-tooltip-text {
+    bottom: 10px;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, -15px, 0);
+    transform: translate3d(-50%, -15px, 0);
+    text-align: center;
+}
+.master_addons_features .ma-el-tooltip-item.tooltip-top .ma-el-tooltip-text:after {
+    bottom: -0.5em;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
+    border-width: 0.5em 0.5em 0 0.5em;
+    border-color: #393c3f transparent transparent transparent;
+}
+
+/* Addons Switch */
+
+.master_addons_features .master_addons_feature_switchbox {
+    flex: 1;
+    margin-top: -1px;
+}
+.master_addons_features .switch-primary>.switch-input:checked~.switch-label {
+  background-image: -moz-linear-gradient( 0deg, rgb(153,41,234) 0%, rgb(88,8,251) 100%) !important;
+  background-image: -webkit-linear-gradient( 0deg, rgb(153,41,234) 0%, rgb(88,8,251) 100%) !important;
+  background-image: -ms-linear-gradient( 0deg, rgb(153,41,234) 0%, rgb(88,8,251) 100%) !important;
+  border-color: transparent;
+}
+.master_addons_features .switch-primary>.switch-input:checked~.switch-handle {
+    color: #560ab2;
+}
+.master_addons_features .switch.switch-text .switch-label::before,
+.master_addons_features .switch.switch-text .switch-label::after {
+    display: none;
+}
+.master_addons_features .switch.switch-text .switch-input:checked~.switch-handle {
+    left: 25px;
+}
+.master_addons_features .switch.switch-text .switch-label {
+    background-color: #eceff4;
+    border: 2px solid #e8e8ec;
+}
+.master_addons_features .switch.switch-text .switch-handle {
+    left: 3px;
+}
+.master-addons-dashboard-checkbox .switch.switch-text {
+    float: right;
+    margin-left: 10px;
+}
+
+/* Addons Ribbon */
+
+/* Ribbon colors */
+
+.ribbon{
+    color: #fff;
+    border-radius: 15px;
+    height: 50px;
+    width: 88px;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.new{
+    background: #F70505;
+}
+.hot{
+    background: #F2DB05;
+    color: red;
+}
+.pro{
+    background: #007200;
+}
+.coming{
+    background: #B6BAC9;
+    font-size: 10px;
+    padding: 5px 4px;
+}
+.trending{
+    background: #465cad;
+    font-size: 10px;
+    padding: 5px 4px;
+}
+.popular{
+    background: #05EFF7;
+    font-size: 10px;
+    padding: 5px 4px;
+}
+.master-addons-features-ribbon {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.master-addons-features-ribbon .pro-ribbon {
+    background-image: -moz-linear-gradient( 0deg, rgb(223,29,198) 0%, rgb(106,20,209) 100%);
+    background-image: -webkit-linear-gradient( 0deg, rgb(223,29,198) 0%, rgb(106,20,209) 100%);
+    background-image: -ms-linear-gradient( 0deg, rgb(223,29,198) 0%, rgb(106,20,209) 100%);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 600;
+    position: absolute;
+    width: 50px;
+    top: -1px;
+    right: -18px;
+    text-align: center;
+    text-transform: uppercase;
+    z-index: 2;
+
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+}
+
+/* Addons Support */
+
+.master_addons_feature .parent {
+    padding-top: 1.75rem;
+}
+.left_column .left_block {
+    padding-right: 15px;
+}
+.left_column .left_block button {
+    background-image: -moz-linear-gradient( 0deg, rgb(153,41,234) 0%, rgb(88,8,251) 100%);
+    background-image: -webkit-linear-gradient( 0deg, rgb(153,41,234) 0%, rgb(88,8,251) 100%);
+    background-image: -ms-linear-gradient( 0deg, rgb(153,41,234) 0%, rgb(88,8,251) 100%);
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+.master-addons-supports-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -7.5px;
+}
+.master-addons-supports-list li {
+    flex: 0 0 50%;
+    max-width: 50%;
+    list-style: none;
+    margin: 0;
+    padding: 0 7.5px 15px;
+}
+.master-addons-supports-list li:hover{
+    cursor: pointer;
+}
+.master-addons-supports-list .addons-supports-list-content {
+    border: 1px solid #efeff5;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 7px 1.25rem;
+}
+.master-addons-supports-list a {
+    color: #393c3f;
+    font-size: 14px;
+    font-weight: 600;
+    float: left;
+    padding: 13px 0;
+    text-decoration: none;
+}
+.master-addons-supports-list a span {
+    color: #3b5998;
+}
+.addons-supports-list-icon {
+    flex: 1;
+}
+.master-addons-supports-list li img {
+    float: right;
+    max-height: 44px;
+    max-width: 100%;
+    width: 35px;
+}
+
+/* Review */
+
+.master-addons-star-review {
+    border: 1px solid #efeff5;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 1.875rem 1.25rem;
+}
+.review-content-left {
+    max-width: 70px;
+    margin-right: 20px;
+}
+.review-content-right {
+    flex: 1;
+}
+.review-content-right h4 {
+    font-size: 1.125rem;
+    margin: -2px 0 13px;
+}
+.master_addons .review-content-right p,
+.master_addons .master-addons-faq-content p {
+    color: #546e7a;
+    line-height: 23px;
+    margin: 0 0 1.75rem;
+}
+
+/* Faq */
+
+.master-addons-support-faq {
+    border: 1px solid #efeff5;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 0 1.25rem;
+}
+.master-addons-faq-content {
+    border-bottom: 1px solid #efeff5;
+    padding: 1.45rem 0;
+}
+.master-addons-faq-content h4 {
+    color: #6814cd;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 10px;
+}
+.master_addons .master-addons-faq-content p {
+    margin-bottom: 0;
+}
+.master-addons-support-faq button.read-more {
+    margin: 1.875rem 0;
+}
+
+/* Support Sidebar */
+
+.master-addons-banner {
+    border-radius: 5px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    position: relative;
+}
+.master-addons-banner-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    padding: 1.875rem;
+    position: absolute;
+}
+.master-addons-banner-content h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1.25;
+    margin: 0 0 30px;
+    text-align: center;
+}
+.master-addons-banner-content h3 span {
+    display: block;
+}
+.master-addons-banner-content button {
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: none;
+    color: #6814cd;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 45px;
+    padding: 0 1.875rem;
+    text-transform: uppercase;
+}
+.master-addons-right-column-widget {
+    border: 1px solid #efeff5;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 1.25rem;
+}
+.master-addons-right-column-widget .icon-image {
+    max-width: 42px;
+}
+.master-addons-right-column-widget h4 {
+    color: #393c3f;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 11px 0 8px;
+}
+.master_addons .master-addons-right-column-widget p {
+    color: #546e7a;
+    font-size: 14px;
+    line-height: 23px;
+    margin: 0 0 25px;
+}
+.master_addons_feature button,
+.master_addons_feature a.jltma-get-pro {
+    background-image: -moz-linear-gradient( 0deg, rgb(223,29,198) 0%, rgb(106,20,209) 100%);
+    background-image: -webkit-linear-gradient( 0deg, rgb(223,29,198) 0%, rgb(106,20,209) 100%);
+    background-image: -ms-linear-gradient( 0deg, rgb(223,29,198) 0%, rgb(106,20,209) 100%);
+    border: none;
+    border-radius: 5px;
+    box-shadow: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 35px;
+    padding: 0 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.master_addons_feature a.jltma-get-pro:hover{
+    background-image: -moz-linear-gradient(0deg, rgb(106, 20, 209) 0%, rgb(223, 29, 198) 100%);
+    background-image: -webkit-linear-gradient(0deg, rgb(106, 20, 209) 0%, rgb(223, 29, 198) 100%);
+    background-image: -ms-linear-gradient(0deg, rgb(106, 20, 209) 0%, rgb(223, 29, 198) 100%);
+}
+.master_addons_feature button:hover,
+.master_addons_feature button:focus,
+.master_addons_feature button:active,
+.master_addons_feature button:visited,
+.master-addons-supports-list a:hover,
+.master-addons-supports-list a:focus,
+.master-addons-supports-list a:active,
+.master-addons-supports-list a:visited {
+    border: none;
+    box-shadow: none;
+    outline: 0;
+}
+
+/* API Settings */
+
+.wp-tab-panel> h3 {
+    margin-left: 7.5px;
+}
+.api-settings-element {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 7.5px;
+}
+.api-settings-element h3 {
+    color: #393c3f;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+.api-settings-element .api-forms {
+    background-color: #fff;
+    border: 1px solid #efeff5;
+    border-radius: 5px;
+    padding: 1.875rem 1.25rem;
+}
+.api-settings-element .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.875rem;
+}
+.api-settings-element .api-forms label {
+    color: #393c3f;
+    font-size: 14px;
+    font-weight: 600;
+    flex: 0 0 35%;
+    max-width: 35%;
+    padding-right: 10px;
+}
+.api-settings-element .api-forms input {
+    background-color: #fcfcff;
+    border: 1px solid #ededf2;
+    border-radius: 3rem;
+    color: #393c3f;
+    font-size: 14px;
+    font-weight: 600;
+    float: right;
+    flex: 0 0 65%;
+    max-width: 65%;
+    line-height: 23px;
+    margin: 0;
+    padding: 10px 20px;
+}
+.api-settings-element .api-forms input[type="checkbox"] {
+    flex:inherit;
+}
+.api-settings-element .form-control:focus,
+.api-settings-element .form-control:active,
+.api-settings-element .form-control:visited {
+    border-color: #ededf2;
+    box-shadow: none;
+    outline: 0;
+}
+.master_addons .api-settings-element p {
+    color: #546e7a;
+    font-size: 13px;
+    font-style: italic;
+    margin: 0;
+}
+.master_addons .api-settings-element p a {
+    color: #6814cd;
+    text-decoration: underline;
+}
+
+
+/* Responsive Styles */
+
+@media (max-width: 1170px) {
+    .master_addons_contents {
+        padding: 1.5rem 1.125rem 1.25rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .master_addons .master_addons_navbar.wp-tab-bar li a {
+        font-size: 15px;
+        padding: .75rem 1.25rem 1rem;
+    }
+    .master_addons_contents {
+        padding: 20px 15px;
+    }
+    .master-addons-dashboard-checkbox-content {
+        padding: 10px;
+        position: relative;
+    }
+    .master_addons_features .master-addons-el-title {
+        display: inline-block;
+        float: none;
+        padding-right: 3.75rem;
+        width: 100%;
+    }
+    .master_addons_features .ma-el-tooltip {
+        display: block;
+        margin-top: 7px;
+    }
+    .master_addons_feature_switchbox {
+        top: 50%;
+        right: 10px;
+        position: absolute;
+
+        transform: translate(0, -50%);
+    }
+}
+
+@media (max-width: 992px) {
+    .master_addons .master_addons_navbar.wp-tab-bar li a {
+        font-size: 14px;
+    }
+    .master-addons-dashboard-tab .master_addons_feature h3 {
+        font-size: 1.125rem;
+        margin: 10px 0 11px;
+    }
+    .master-addons-banner-content {
+        padding: 15px;
+    }
+    .master-addons-banner-content h3 {
+        font-size: 1.25rem;
+        margin: 0 0 15px;
+    }
+    .master-addons-supports-list .addons-supports-list-content {
+        display: block;
+    }
+    .master-addons-supports-list a,
+    .addons-supports-list-icon {
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+    }
+    .master-addons-supports-list li img {
+        float: none;
+    }
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+    .master_addons .wrappper.about-wrap {
+        margin: 20px 15px;
+    }
+    .master_addons .intro_wrapper header {
+        display: inline-block;
+        padding: 1.25rem 1.25rem 5.5rem;
+        width: 100%;
+    }
+    .master_addons .header .about-text {
+        padding-left: 0;
+        position: inherit;
+    }
+    .master-addons-el-dashboard-header-wrapper {
+        top: 140px;
+        right: inherit;
+        left: 20px;
+    }
+    .master_addons .master_addons_navbar.wp-tab-bar li {
+        margin-right: 3px;
+        margin-bottom: 3px;
+    }
+    .master_addons .master_addons_navbar.wp-tab-bar li a,
+    .master_addons .master_addons_navbar.wp-tab-bar a.nav-upgrade-pro {
+        padding: .75rem 1rem 1rem;
+    }
+    .master_addons_feature .parent {
+        padding-top: 0;
+    }
+    .master_addons_contents .parent .left_column,
+    .master_addons_contents .parent .right_column {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    .left_column .left_block {
+        padding-right: 0;
+    }
+    .master-addons-star-review {
+        display: inline-block;
+        padding: 15px;
+    }
+    .review-content-right {
+        display: block;
+        margin-top: 1.25rem;
+    }
+    .master-addons-supports-list .addons-supports-list-content {
+        padding: 7px 15px;
+    }
+    .master-addons-support-faq {
+        padding: 0 15px;
+    }
+    .api-settings-element {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .master_addons_contents .parent .left_column pre {
+        padding-right: 0;
+    }
+    .inner_content {
+        padding: 15px;
+    }
+    .sidebar_title {
+        font-size: 1.125rem;
+        padding: 15px;
+    }
+    .master_addons .about-wrap h1 {
+        font-size: 1.25rem;
+        margin: 10px 0 .6em;
+    }
+    .theme-browser .theme .theme-name {
+        height: auto !important;
+    }
+}
+
+@media (max-width: 767px) and (orientation: landscape) {
+    .master_addons .intro_wrapper header {
+        display: inline-block;
+        padding: 1.25rem 1.25rem 5.5rem;
+        width: 100%;
+    }
+    .master-addons-el-dashboard-header-wrapper {
+        top: 110px;
+        right: inherit;
+        left: 65px;
+    }
+    .master_addons_features .master_addons_feature .col {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    .master_addons_feature button {
+        font-size: 11px;
+        padding: 0 10px;
+    }
+    .master_addons .wp-tab-bar.master_addons_navbar {
+        display: inline-block;
+        width: 100%;
+    }
+    .master_addons .master_addons_navbar.wp-tab-bar li {
+        float: left;
+        margin-right: 3px;
+    }
+    .master_addons .master_addons_navbar.wp-tab-bar li a,
+    .master_addons .master_addons_navbar.wp-tab-bar a.nav-upgrade-pro {
+        padding: .75rem 10px 1rem;
+    }
+    .master_addons .about-wrap h1 {
+        font-size: 1.5rem;
+        margin: 10px 0 .6em;
+    }
+    .theme-browser .theme .theme-name {
+        height: auto !important;
+    }
+}
+
+@media (max-width: 640px) and (orientation: portrait) {
+    .master_addons_features .master_addons_feature .col {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .api-settings-element .api-forms {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 640px) and (orientation: landscape) {
+    .api-settings-element {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .api-settings-element .api-forms  {
+        padding: 15px;
+    }
+    .master-addons-banner-content h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+    .master_addons_feature button {
+        line-height: 30px;
+    }
+}
+@media (max-width: 568px) and (orientation: landscape) {
+    .master_addons_contents .parent .left_column,
+    .master_addons_contents .parent .right_column {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    .master_addons_contents .parent .left_block {
+        padding-right: 0;
+    }
+    .master-addons-banner-content {
+        display: block;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@media (max-width: 413px) {
+    .master_addons .master-addons-dashboard-filter button {
+        padding: 0 15px;
+    }
+    .master-addons-dashboard-filter .filter-right {
+        float: left;
+        margin-top: 15px;
+    }
+    .api-settings-element .api-forms label,
+    .api-settings-element .api-forms input,
+    .master-addons-supports-list li {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .api-settings-element .api-forms input {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 320px) and (orientation: portrait) {
+    .master_addons .intro_wrapper .ma_logo {
+        max-width: 160px;
+        margin-right: 7px;
+    }
+}
+
+.swal2-confirm:focus, .master-addons-el-btn:focus{
+    outline:none;
+}
+#addons .sub-heading{
+    padding-left:10px;
+}
+.feature_content .left_block{
+    float: left;
+    width: 50%;
+}
+.feature_content .right_block{
+    float: right;
+    width: 50%;
+}
+.master_addons p {
+    color: #78909c;
+    font-size: 15px;
+    line-height: 22px;
+    margin: 0 7.5px 15px;
+    /* max-width: 840px; */
+}
+.master_addons #changelogs pre{
+    overflow-x:hidden;
+}
+#changelogs .left_column ul {
+    white-space: break-spaces;
+}
+
+/* Demo List Columns */
+.master_addons_demos{
+    height: 250px;
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
+}
+.master_addons_demos li{
+    padding: 5px 0;
+}
+.master_addons_demos li a{
+    font-size: 15px;
+    text-decoration: none;
+}
+
+
+/* Sidebar */
+
+.sidebar_title{
+    background: #6814cd;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+    margin:0 !important;
+}
+.sidebar_title .dashicons{
+    padding: 5px 20px;
+}
+.inner_content{
+    padding: 30px 40px;
+    border-bottom: solid 1px #e3e3e4;
+    margin: 0;
+    list-style: none;
+    background: #487eb0;
+}
+.inner_content p{
+    color: #fff;
+}
+.inner_content .master_addons_button,
+.inner_content .master_addons_button:hover,
+.inner_content .master_addons_button:active
+.inner_content .master_addons_button:visited,
+.inner_content .master_addons_button:focus{
+    width: 100%;
+    text-align: center;
+    line-height: 46px;
+    margin-top: 10px;
+    background: #e8156e;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: none;
+    transition: .3s ease;
+    text-shadow: none !important;
+    text-transform: uppercase;
+}
+
+/* Free Themes */
+.theme-browser .theme .theme-name{
+    font-size: 15px;
+    font-weight: 600;
+    height: 18px;
+    margin: 0;
+    padding: 15px;
+    text-align: left;
+    box-shadow: inset 0 1px 0 rgba(0,0,0,.1);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background: #fff;
+    background: rgba(255,255,255,.65);
+}
+
+/* Accordion */
+.ui-accordion-content-active {
+    height: auto !important;
+}
+.ui-accordion .ui-accordion-header:focus {
+    outline: 0 !important;
+}
+.ui-accordion .ui-accordion-header {
+    background-color: #2351db;
+    background-image: none;
+    color: #fff;
+    padding: 8px 45px 8px 15px;
+    position: relative;
+}
+.ui-accordion-header-active {
+    background-color: #fff;
+    color: #2351db;
+}
+.ui-accordion-header .ui-icon {
+    background-image: none !important;
+    position: relative;
+}
+.ui-accordion-header:before {
+    content: "\f343";
+    width: 40px;
+    height: 40px;
+    font-family: dashicons;
+    font-size: 18px;
+    line-height: 1;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -20px;
+    line-height: 40px;
+    text-align: center;
+}
+.ui-accordion-header-active:before {
+    content: "\f347";
+}
+
+/* Third Party Plugin */
+.thrd-party-plgin-dnld{
+    display: inline-block;
+    margin-left: 5px;
+    padding: 2px 2px 0px;
+    color: #FFFFFF;
+    background-color: #6814cd;
+    border-radius: 3px;
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 700;
+    text-decoration: none;
+}
+.thrd-party-plgin-dnld i.dashicons{
+    width: 15px;
+    height: 15px;
+    font-size: 15px;
+}
+.thrd-party-plgin-dnld-active {
+    background-color: #e61414;
+}
+a.thrd-party-plgin-dnld:focus,
+a.thrd-party-plgin-dnld:hover,
+a.thrd-party-plgin-dnld:active,
+a.thrd-party-plgin-dnld i:focus,
+a.thrd-party-plgin-dnld i:hover,
+a.thrd-party-plgin-dnld i:active{
+    color: #e2e2e2;
+}
+.thrd-party-plgin-dnld:focus,
+.thrd-party-plgin-dnld:visited,
+.thrd-party-plgin-dnld:active{
+    box-shadow: none;
+    outline: 0;
+}
+.swal2-container.fade.in {
+    opacity: 1;
+}
+.jltma-logo-handler {
+    max-width: 200px;
+    position: relative;
+}
+a.form-control.jltma-wl-plugin-logo {
+    height: auto;
+    padding: 0;
+    padding: 5px 14px 15px 15px;
+    text-decoration: none;
+}
+a.form-control.jltma-wl-plugin-logo i {
+    float: left;
+    font-size: 2rem;
+    height: auto;
+    width: auto;
+    margin-top: 4px;
+}
+a.form-control.jltma-wl-plugin-logo span {
+    display: inline-block;
+    margin: 0.5rem 0 0 .25rem;
+}
+a.form-control.jltma-wl-plugin-logo img {
+    padding: 10px 1px 0px 0px;
+}
+.jltma-remove-button {
+    background-color: red;
+    border-radius: 3rem;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    height: 20px;
+    width: 20px;
+    top: 0;
+    right: 0;
+    position: absolute;
+}
+.jltma-remove-button:hover {
+    color: #fff;
+    text-decoration: none;
+}

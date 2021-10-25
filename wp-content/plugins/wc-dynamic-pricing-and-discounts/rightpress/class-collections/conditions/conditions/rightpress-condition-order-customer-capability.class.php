@@ -46,7 +46,7 @@ abstract class RightPress_Condition_Order_Customer_Capability extends RightPress
     public function get_label()
     {
 
-        return esc_html__('User capability', 'rightpress');
+        return __('User capability', 'rightpress');
     }
 
     /**

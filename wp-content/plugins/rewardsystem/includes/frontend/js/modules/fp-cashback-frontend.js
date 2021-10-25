@@ -2,7 +2,6 @@
  * Cashback - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var $form = $( 'form.encashing_form' ) ;
     var RSCashbackFrontend = {
         init : function ( ) {
@@ -17,14 +16,10 @@ jQuery( function ( $ ) {
             var $this = $( event.currentTarget ) ,
                     $encash_currency = 0 ;
             if ( $this.val() ) {
-                var points_value = fp_cashback_action_params.conversionrate ;
-                var amount_value = fp_cashback_action_params.conversionvalue ;
-                var conversionrate = $this.val() / points_value ;
-                var currency_converted_value = conversionrate * amount_value ;
                 var $user_role_percent = fp_cashback_action_params.user_role_percentage ;
-                var $encash_currency = $.isNumeric( $this.val() ) ? ( parseFloat( $user_role_percent ) / 100 ) * currency_converted_value : 0 ;
+                var $encash_currency = $.isNumeric( $this.val() ) ? ( parseFloat( $user_role_percent ) / 100 ) * $this.val( ) : 0 ;
             }
-            $form.find( '#rs_encash_currency_value' ).val( $encash_currency.toFixed(2) ) ;
+            $form.find( '#rs_encash_currency_value' ).val( $encash_currency ) ;
         } ,
         hide_err_msgs : function () {
             $( "#points_empty_error" ).hide() ;
@@ -138,7 +133,7 @@ jQuery( function ( $ ) {
                 jQuery( ".rs_encash_custom_payment_option_value" ).show() ;
                 var selectedpaymentmethod = 'encash_through_custom_payment' ;
                 var custom_payment_details = jQuery( "#rs_encash_custom_payment_option_value" ).val() ;
-                if ( custom_payment_details.trim() == "" ) {
+                if ( custom_payment_details == "" ) {
                     jQuery( "#paypal_custom_option_empty_error" ).fadeIn().delay( 5000 ).fadeOut() ;
                     return false ;
                 } else {
@@ -165,7 +160,7 @@ jQuery( function ( $ ) {
                 } else if ( selectedpaymentmethod == 'encash_through_custom_payment' ) {
                     var custom_payment_details = jQuery( "#rs_encash_custom_payment_option_value" ).val() ;
                     jQuery( ".rs_encash_custom_payment_option_value" ).show() ;
-                    if ( custom_payment_details.trim() == "" ) {
+                    if ( custom_payment_details == "" ) {
                         jQuery( "#paypal_custom_option_empty_error" ).fadeIn().delay( 5000 ).fadeOut() ;
                         return false ;
                     } else {

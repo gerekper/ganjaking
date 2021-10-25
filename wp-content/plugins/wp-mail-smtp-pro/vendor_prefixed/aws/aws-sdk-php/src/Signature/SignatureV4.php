@@ -19,7 +19,7 @@ class SignatureV4 implements \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface
     /** @var string */
     private $service;
     /** @var string */
-    protected $region;
+    private $region;
     /** @var bool */
     private $unsigned;
     /**

@@ -143,7 +143,7 @@ class Attachments {
 			}
 
 			$attachment = new Attachment();
-			$attachment->add( $attachment_item[0], $email_log_id, $attachment_item[2], $attachment_item[5] );
+			$attachment->add( $attachment_item[0], $email_log_id, $attachment_item[2] );
 		}
 	}
 

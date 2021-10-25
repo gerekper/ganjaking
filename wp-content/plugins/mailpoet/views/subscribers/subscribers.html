@@ -27,7 +27,6 @@
     var mailpoet_subscribers_count = <%= subscriber_count %>;
     var mailpoet_has_premium_support = <%= has_premium_support ? 'true' : 'false' %>;
     var mailpoet_premium_link = <%= json_encode(link_premium) %>;
-    var mailpoet_subscribers_counts_cache_created_at = <%= json_encode(subscribers_counts_cache_created_at) %>;
   </script>
 <% endblock %>
 
@@ -56,8 +55,6 @@
     'moveToTrash': __('Move to trash'),
     'deletePermanently': __('Delete Permanently'),
     'showMoreDetails': __('Show more details'),
-    'lastEngagement': __('Last engagement'),
-    'never': _x('never', 'when was the last time the subscriber engaged with the website?'),
 
     'previousPage': __('Previous page'),
     'firstPage': __('First page'),
@@ -119,12 +116,13 @@
     'listsToWhichSubscriberWasSubscribed': __('Lists to which the subscriber was subscribed.'),
     'WPUsersSegment': __('WordPress Users'),
     'WPUserEditNotice': __('This subscriber is a registered WordPress user. [link]Edit his/her profile[/link] to change his/her email.'),
+    'allSendingPausedHeader': __('All sending is currently paused!'),
+    'allSendingPausedBody': __('Your key to send with MailPoet is invalid.'),
+    'allSendingPausedLink': __('Purchase a key'),
     'statsListingActionTitle': __('Statistics'),
     'statsHeading': _x('Stats: %s', 'This is a heading for the subscribers statistics page example: "Stats: mailpoet@example.com"'),
     'statsSentEmail': __('Sent email'),
     'statsOpened': __('Opened'),
-    'statsMachineOpened': _x('Machine-opened', 'Percentage of newsletters that were opened by a machine'),
-    'statsMachineOpenedTooltip': __('A machine-opened email is an email opened by a computer in the background without the user’s explicit request or knowledge. [link]Read more[/link]'),
     'statsClicked': __('Clicked'),
     'statsNotClicked': __('Not opened'),
     'openedEmailsHeading': __('Opened emails'),
@@ -161,10 +159,6 @@
     'averageBadgeTooltip': __('Something to improve.'),
     'tooltipAverage': __('Read 20% or fewer of sent emails'),
     'engagementScoreDescription': __('Average percent of emails subscribers read in the last year'),
-
-    'subscribersCountWereCalculated': __('Lists and Segments subscribers counts were calculated'),
-    'subscribersMinutesAgo': __('minutes ago'),
-    'recalculateNow': __('Recalculate now'),
   }) %>
 <% endblock %>
 

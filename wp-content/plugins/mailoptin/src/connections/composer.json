@@ -49,6 +49,7 @@
       "MailOptin\\PolylangConnect\\": "PolylangConnect/",
       "MailOptin\\WPMLConnect\\": "WPMLConnect/",
       "MailOptin\\FormidableFormConnect\\": "FormidableFormConnect/",
+      "MailOptin\\ForminatorFormConnect\\": "ForminatorFormConnect/",
       "MailOptin\\FacebookCustomAudienceConnect\\": "FacebookCustomAudienceConnect/",
       "MailOptin\\Connections\\": "./"
     },

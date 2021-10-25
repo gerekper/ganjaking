@@ -8,11 +8,11 @@
 if ( ! defined( 'WOOCOMPOSER_VERSION' ) ) {
 	define( 'WOOCOMPOSER_VERSION', '1.0' );
 }
-if ( ! class_exists( 'Ultimate_VC_Addons_WooComposer' ) ) {
+if ( ! class_exists( 'WooComposer' ) ) {
 	/**
 	 * Woocomposer.
 	 */
-	class Ultimate_VC_Addons_WooComposer {
+	class WooComposer {
 		/**
 		 * Module_dir.
 		 *
@@ -248,10 +248,10 @@ if ( is_object( $catobj ) ) {
 				if ( defined( 'WOOCOMMERCE_VERSION' ) && version_compare( '2.1.0', WOOCOMMERCE_VERSION, '<' ) ) {
 					$bsf_dev_mode = bsf_get_option( 'dev_mode' );
 					if ( 'enable' === $bsf_dev_mode ) {
-						wp_register_style( 'ultimate-vc-addons-woocomposer-admin', plugins_url( 'admin/css/admin.css', __FILE__ ), null, WOOCOMPOSER_VERSION );
-						wp_register_style( 'ultimate-vc-addons-woocomposer-select2-bootstrap', plugins_url( 'admin/css/select2-bootstrap.css', __FILE__ ), null, WOOCOMPOSER_VERSION );
-						wp_register_style( 'ultimate-vc-addons-woocomposer-select2', plugins_url( 'admin/css/select2.css', __FILE__ ), null, WOOCOMPOSER_VERSION );
-						wp_enqueue_style( 'ultimate-vc-addons-woocomposer-admin' );
+						wp_register_style( 'woocomposer-admin', plugins_url( 'admin/css/admin.css', __FILE__ ), null, WOOCOMPOSER_VERSION );
+						wp_register_style( 'woocomposer-select2-bootstrap', plugins_url( 'admin/css/select2-bootstrap.css', __FILE__ ), null, WOOCOMPOSER_VERSION );
+						wp_register_style( 'woocomposer-select2', plugins_url( 'admin/css/select2.css', __FILE__ ), null, WOOCOMPOSER_VERSION );
+						wp_enqueue_style( 'woocomposer-admin' );
 					}
 				}
 			}
@@ -274,38 +274,38 @@ if ( is_object( $catobj ) ) {
 						}
 					}
 
-					wp_register_script( 'ultimate-vc-addons-woocomposer-unveil', plugins_url( 'assets/js/unveil.js', __FILE__ ), array( 'jquery' ), WOOCOMPOSER_VERSION, true );
-					wp_register_script( 'ultimate-vc-addons-woocomposer-slick', plugins_url( 'assets/js/slick.js', __FILE__ ), array( 'jquery' ), WOOCOMPOSER_VERSION, true );
-					wp_register_script( 'ultimate-vc-addons-woocomposer-js', plugins_url( 'assets/js/custom.js', __FILE__ ), array( 'jquery', 'ultimate-vc-addons-woocomposer-slick' ), WOOCOMPOSER_VERSION, true );
+					wp_register_script( 'woocomposer-unveil', plugins_url( 'assets/js/unveil.js', __FILE__ ), array( 'jquery' ), WOOCOMPOSER_VERSION, true );
+					wp_register_script( 'woocomposer-slick', plugins_url( 'assets/js/slick.js', __FILE__ ), array( 'jquery' ), WOOCOMPOSER_VERSION, true );
+					wp_register_script( 'woocomposer-js', plugins_url( 'assets/js/custom.js', __FILE__ ), array( 'jquery', 'woocomposer-slick' ), WOOCOMPOSER_VERSION, true );
 
-					wp_register_style( 'ultimate-vc-addons-woocomposer-front', plugins_url( 'assets/css/style.css', __FILE__ ), array(), WOOCOMPOSER_VERSION );
-					wp_register_style( 'ultimate-vc-addons-woocomposer-front-wooicon', plugins_url( 'assets/css/wooicon.css', __FILE__ ), array(), WOOCOMPOSER_VERSION );
-					wp_register_style( 'ultimate-vc-addons-woocomposer-front-slick', plugins_url( 'assets/css/slick.css', __FILE__ ), array(), WOOCOMPOSER_VERSION );
-					wp_register_style( 'ultimate-vc-addons-woocomposer-animate', plugins_url( 'assets/css/animate.min.css', __FILE__ ), array(), WOOCOMPOSER_VERSION );
+					wp_register_style( 'woocomposer-front', plugins_url( 'assets/css/style.css', __FILE__ ), array(), WOOCOMPOSER_VERSION );
+					wp_register_style( 'woocomposer-front-wooicon', plugins_url( 'assets/css/wooicon.css', __FILE__ ), array(), WOOCOMPOSER_VERSION );
+					wp_register_style( 'woocomposer-front-slick', plugins_url( 'assets/css/slick.css', __FILE__ ), array(), WOOCOMPOSER_VERSION );
+					wp_register_style( 'woocomposer-animate', plugins_url( 'assets/css/animate.min.css', __FILE__ ), array(), WOOCOMPOSER_VERSION );
 
-					wp_register_script( 'ultimate-vc-addons-woocomposer-script', plugins_url( 'assets/js/woocomposer.min.js', __FILE__ ), array( 'jquery' ), WOOCOMPOSER_VERSION, true );
-					wp_register_style( 'ultimate-vc-addons-woocomposer-style', plugins_url( 'assets/css/woocomposer.min.css', __FILE__ ), array(), WOOCOMPOSER_VERSION );
+					wp_register_script( 'woocomposer-script', plugins_url( 'assets/js/woocomposer.min.js', __FILE__ ), array( 'jquery' ), WOOCOMPOSER_VERSION, true );
+					wp_register_style( 'woocomposer-style', plugins_url( 'assets/css/woocomposer.min.css', __FILE__ ), array(), WOOCOMPOSER_VERSION );
 
 					if ( defined( 'WOOCOMMERCE_VERSION' ) && version_compare( '2.1.0', WOOCOMMERCE_VERSION, '<' ) && 0 !== $count ) {
 						$ultimate_css = get_option( 'ultimate_css' );
 						$bsf_dev_mode = bsf_get_option( 'dev_mode' );
 						if ( 'enable' == $ultimate_css && 'enable' !== $bsf_dev_mode ) {
-							wp_enqueue_style( 'ultimate-vc-addons-woocomposer-style' );
+							wp_enqueue_style( 'woocomposer-style' );
 						} else {
-							wp_enqueue_style( 'ultimate-vc-addons-woocomposer-front' );
-							wp_enqueue_style( 'ultimate-vc-addons-woocomposer-front-wooicon' );
-							wp_enqueue_style( 'ultimate-vc-addons-woocomposer-front-slick' );
-							wp_enqueue_style( 'ultimate-vc-addons-woocomposer-animate' );
+							wp_enqueue_style( 'woocomposer-front' );
+							wp_enqueue_style( 'woocomposer-front-wooicon' );
+							wp_enqueue_style( 'woocomposer-front-slick' );
+							wp_enqueue_style( 'woocomposer-animate' );
 						}
 
 						$ultimate_js = get_option( 'ultimate_js' );
 						wp_enqueue_script( 'jquery' );
 						if ( 'enable' == $ultimate_js ) {
-							wp_enqueue_script( 'ultimate-vc-addons-woocomposer-script' );
+							wp_enqueue_script( 'woocomposer-script' );
 						} else {
-							wp_enqueue_script( 'ultimate-vc-addons-woocomposer-unveil' );
-							wp_enqueue_script( 'ultimate-vc-addons-woocomposer-slick' );
-							wp_enqueue_script( 'ultimate-vc-addons-woocomposer-js' );
+							wp_enqueue_script( 'woocomposer-unveil' );
+							wp_enqueue_script( 'woocomposer-slick' );
+							wp_enqueue_script( 'woocomposer-js' );
 						}
 					}
 				}
@@ -313,7 +313,7 @@ if ( is_object( $catobj ) ) {
 		}//end front_scripts()
 
 	}
-	new Ultimate_VC_Addons_WooComposer();
+	new WooComposer();
 	add_action( 'admin_init', 'init_woocomposer' );
 	/**
 	 * Init_woocomposer.

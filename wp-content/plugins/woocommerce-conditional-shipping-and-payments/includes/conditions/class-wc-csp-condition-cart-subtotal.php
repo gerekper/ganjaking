@@ -76,7 +76,7 @@ class WC_CSP_Condition_Cart_Subtotal extends WC_CSP_Condition {
 		$cart_subtotal     = WC_CSP_Core_Compatibility::is_wc_version_gte( '3.2' ) ? WC()->cart->get_subtotal() : WC()->cart->subtotal_ex_tax;
 		$cart_subtotal_tax = WC_CSP_Core_Compatibility::is_wc_version_gte( '3.2' ) ? WC()->cart->get_subtotal_tax() : WC()->cart->subtotal - WC()->cart->subtotal_ex_tax ;
 
-		$cart_subtotal_tax = apply_filters( 'woocommerce_csp_cart_subtotal_condition_incl_tax', true, $data, $args ) ? $cart_subtotal_tax : 0.0;
+		$cart_subtotal_tax = apply_filters( 'woocommerce_csp_cart_subtotal_condition_incl_tax', 'incl' === get_option( 'woocommerce_tax_display_cart' ), $data, $args ) ? $cart_subtotal_tax : 0.0;
 		$cart_subtotal     += $cart_subtotal_tax;
 
 		if ( $this->modifier_is( $data[ 'modifier' ], array( 'gte', 'min' ) ) && wc_format_decimal( $data[ 'value' ] ) <= $cart_subtotal ) {
@@ -128,6 +128,7 @@ class WC_CSP_Condition_Cart_Subtotal extends WC_CSP_Condition {
 
 		$modifier   = 'lt';
 		$cart_total = '';
+		$suffix     = get_woocommerce_currency_symbol();
 
 		if ( ! empty( $condition_data[ 'modifier' ] ) ) {
 			$modifier = $condition_data[ 'modifier' ];
@@ -145,6 +146,12 @@ class WC_CSP_Condition_Cart_Subtotal extends WC_CSP_Condition {
 			$cart_total = wc_format_localized_price( $condition_data[ 'value' ] );
 		}
 
+		if ( 'incl' === get_option( 'woocommerce_tax_display_cart' ) ) {
+			$suffix .= __( ' (incl. tax)', 'woocommerce-conditional-shipping-and-payments' );
+		} else {
+			$suffix .= __( ' (excl. tax)', 'woocommerce-conditional-shipping-and-payments' );
+		}
+
 		?>
 		<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>" />
 		<div class="condition_row_inner">
@@ -160,8 +167,8 @@ class WC_CSP_Condition_Cart_Subtotal extends WC_CSP_Condition {
 			</div>
 			<div class="condition_value">
 				<input type="text" class="wc_input_price short" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value]" value="<?php echo $cart_total; ?>" placeholder="" step="any" min="0"/>
-				<span class="condition_value--suffix">
-					<?php echo get_woocommerce_currency_symbol() ?>
+				<span class="condition_value--suffix tips" data-tip="<?php esc_attr_e( sprintf( __( 'Calculated %s tax, for consistency with how WooCommerce is currently configured to display prices in the Cart and Checkout pages. Can be controlled under <strong>WooCommerce > Settings > Tax > Display Prices During Cart and Checkout</strong>.', 'woocommerce-conditional-shipping-and-payments' ), 'incl' === get_option( 'woocommerce_tax_display_cart' ) ? 'including' : 'excluding' ) ); ?>">
+					<?php echo $suffix ?>
 				</span>
 			</div>
 		</div>

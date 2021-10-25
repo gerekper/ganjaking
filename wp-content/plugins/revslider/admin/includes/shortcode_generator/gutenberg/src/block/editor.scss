@@ -1,0 +1,164 @@
+
+div.revslider_block {
+  background: url(images/rs6_logo_2x.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  line-height: 32px; }
+
+div.revslider_block .components-text-control__input {
+  display: none; }
+
+div.revslider_block span {
+  font-weight: 700;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  font-size: 16px; }
+
+div.revslider_block .slider_slug {
+  float: left; }
+
+div.revslider_block .slider_edit_button {
+  float: right; 
+}
+
+div.revslider_block .slider_editor_button {
+  float: right; 
+  margin-left: 10px;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: top;
+  line-height: 26px;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga'; 
+  border-color: #5e35b1;
+  background: #5e35b1;
+  color: #fff;
+}
+
+div.revslider_block .slider_edit_button, div.revslider_block .slider_editor_button, div.revslider_block .slider_edit_button:focus , div.revslider_block .slider_editor_button:focus, div.revslider_block .slider_edit_button:active , div.revslider_block .slider_editor_button:active, div.revslider_block .slider_edit_button:active:enabled , div.revslider_block .slider_editor_button:active:enabled{
+  border-color: #5e35b1;
+  background: #5e35b1;
+  color: #fff;
+}
+
+div.revslider_block .slider_edit_button:hover, div.revslider_block .slider_editor_button:hover{
+  filter: brightness(120%);
+  border-color: #5e35b1;
+  background: #5e35b1;
+  color: #fff;
+}
+
+[data-type="themepunch/revslider"] .editor-block-list__block-edit:before {
+  outline: 1px solid rgba(145, 151, 162, 0.25) !important; }
+
+.editor-block-list-item-themepunch-revslider svg,
+.components-panel__body.edit-post-block-sidebar__panel svg.dashicons-update {
+  width: 24px;
+  height: 24px; }
+
+.editor-block-list-item-themepunch-revslider .editor-block-types-list__item-title {
+  padding: 4px 1px 4px 1px; }
+
+.sliderBar{
+  padding-left: 160px;
+}
+.sliderImage{
+  background: #e3e5e8;
+  text-align: center;
+  line-height: 0;
+  margin-top: 20px;
+}
+
+.sliderImage div {
+  width: 267px;
+  height:150px;
+  background-repeat: no-repeat; 
+  background-position: 50% 50%; 
+  background-size: cover;
+  margin: 0 auto;
+}
+
+.showSilderImage {
+  float: right; 
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: top;
+  line-height: 26px;
+  /*font-size: 16px;*/
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-feature-settings: 'liga';
+          font-feature-settings: 'liga'; 
+}
+
+.hideSilderImage{
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: top;
+  line-height: 26px;
+  /*font-size: 16px;*/
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-feature-settings: 'liga';
+          font-feature-settings: 'liga'; 
+}
+
+.showHideButtons span, .optimizerButtons span {
+  line-height: 28px;
+}
+
+.optimizerOpen {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: top;
+  line-height: 26px;
+  /*font-size: 16px;*/
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-feature-settings: 'liga';
+          font-feature-settings: 'liga'; 
+}
+
+.wp-block[data-type="themepunch/revslider"] .editor-block-toolbar > .components-toolbar svg {
+  color: inherit!important;
+}

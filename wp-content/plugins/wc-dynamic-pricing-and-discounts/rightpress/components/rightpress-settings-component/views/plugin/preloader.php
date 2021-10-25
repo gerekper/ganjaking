@@ -17,11 +17,11 @@ defined('ABSPATH') || exit;
         </p>
 
         <p class="rightpress-plugin-settings-preloader-header">
-            <?php esc_html_e('User Interface Loading', 'rightpress'); ?>
+            <?php _e('<strong>User Interface Loading</strong>', 'rightpress'); ?>
         </p>
 
         <p class="rightpress-plugin-settings-preloader-text">
-            <?php printf(esc_html__('This plugin uses a JavaScript-driven user interface. If this notice does not disappear within a few seconds, you should check Console for any JavaScript errors or get in touch with %s.', 'rightpress'), ('<a href="http://url.rightpress.net/support-site">' . esc_html__('RightPress Support', 'rightpress') . '</a>')); ?><br>
+            <?php printf(__('This plugin uses a JavaScript-driven user interface. If this notice does not disappear within a few seconds, you should check Console for any JavaScript errors or get in touch with <a href="%s">RightPress Support</a>.', 'rightpress'), 'http://url.rightpress.net/support-site'); ?><br>
         </p>
 
         <?php do_action(($this->get_plugin_private_prefix() . 'settings_after_preloader_content')); ?>

@@ -38,22 +38,22 @@ final class RightPress_Conditions_Timeframes
 
                 // Current
                 'current' => array(
-                    'label'     => esc_html__('Current', 'rightpress'),
+                    'label'     => __('Current', 'rightpress'),
                     'children'  => array(
                         'current_day'   => array(
-                            'label' => esc_html__('current day', 'rightpress'),
+                            'label' => __('current day', 'rightpress'),
                             'value' => 'midnight',
                         ),
                         'current_week'   => array(
-                            'label' => esc_html__('current week', 'rightpress'),
+                            'label' => __('current week', 'rightpress'),
                             'value' => RightPress_Conditions_Timeframes::get_current_week_value(),
                         ),
                         'current_month'   => array(
-                            'label' => esc_html__('current month', 'rightpress'),
+                            'label' => __('current month', 'rightpress'),
                             'value' => 'midnight first day of this month',
                         ),
                         'current_year'   => array(
-                            'label' => esc_html__('current year', 'rightpress'),
+                            'label' => __('current year', 'rightpress'),
                             'value' => 'midnight first day of january',
                         ),
                     ),
@@ -61,25 +61,25 @@ final class RightPress_Conditions_Timeframes
 
                 // Days
                 'days' => array(
-                    'label'     => esc_html__('Days', 'rightpress'),
+                    'label'     => __('Days', 'rightpress'),
                     'children'  => array(),
                 ),
 
                 // Weeks
                 'weeks' => array(
-                    'label'     => esc_html__('Weeks', 'rightpress'),
+                    'label'     => __('Weeks', 'rightpress'),
                     'children'  => array(),
                 ),
 
                 // Months
                 'months' => array(
-                    'label'     => esc_html__('Months', 'rightpress'),
+                    'label'     => __('Months', 'rightpress'),
                     'children'  => array(),
                 ),
 
                 // Years
                 'years' => array(
-                    'label'     => esc_html__('Years', 'rightpress'),
+                    'label'     => __('Years', 'rightpress'),
                     'children'  => array(),
                 ),
             );

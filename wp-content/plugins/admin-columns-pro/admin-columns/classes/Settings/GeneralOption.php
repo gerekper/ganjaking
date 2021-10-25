@@ -12,10 +12,4 @@ class GeneralOption extends Storage\Option {
 		parent::__construct( self::NAME );
 	}
 
-	public function get( array $args = [] ) {
-		$option = parent::get( $args );
-
-		return is_array( $option ) ? $option : [];
-	}
-
 }

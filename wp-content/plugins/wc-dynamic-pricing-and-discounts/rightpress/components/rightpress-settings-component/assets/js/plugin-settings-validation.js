@@ -4,8 +4,6 @@
 
 jQuery(document).ready(function() {
 
-    'use strict';
-
     /**
      * Input validation methods
      *
@@ -16,38 +14,7 @@ jQuery(document).ready(function() {
 
         // Is required
         is_required: function (input) {
-
-            // Get value
-            var value = input.val();
-
-            // Set default to false
-            var is_valid = false;
-
-            // Value is set
-            if (typeof value !== 'undefined') {
-
-                // Value is array
-                if (Array.isArray(value)) {
-
-                    // Array must contain at least one element
-                    is_valid = value.length > 0;
-                }
-                // Value is string
-                else if (typeof value === 'string') {
-
-                    // Value must not be empty string
-                    is_valid = (value !== '');
-                }
-                // Other values - not really expecting anything here, are we?
-                else {
-
-                    // Value must cast to boolean true
-                    is_valid = !!value;
-                }
-            }
-
-            // Maybe return error message
-            return is_valid ? null : rightpress_plugin_settings_validation.error_messages.is_required;
+            return input.val() ? null : rightpress_plugin_settings_validation.error_messages.is_required;
         },
 
         // Is whole
@@ -74,7 +41,7 @@ jQuery(document).ready(function() {
     /**
      * Form submit handler
      */
-    jQuery('form:has(.rightpress-plugin-settings-has-validation)').on('submit', function(e) {
+    jQuery('form:has(.rightpress-plugin-settings-has-validation)').submit(function(e) {
 
         var is_valid = true;
 
@@ -157,7 +124,6 @@ if (is_valid) {
 TODO: Fix this
 function validate_panel(key, form, panel)
 {
-
     var is_valid = true;
 
     // Validate product pricing
@@ -205,7 +171,6 @@ function validate_panel(key, form, panel)
 TODO: Fix this
 function validate_product_pricing(key, form, panel)
 {
-
     var is_valid = true;
 
     // Get product pricing method
@@ -235,7 +200,6 @@ function validate_product_pricing(key, form, panel)
 TODO: Fix this
 function validate_quantity_ranges(key, form, panel)
 {
-
     var is_valid = true;
 
     // Get quantity ranges
@@ -328,7 +292,6 @@ function validate_quantity_ranges(key, form, panel)
 /*
 function validate_group_products(key, form, panel)
 {
-
     var is_valid = true;
 
     // Get group products
@@ -350,7 +313,6 @@ function validate_group_products(key, form, panel)
      */
     function validate_input(input)
     {
-
         var is_valid = true;
 
         // Get input validation rules
@@ -365,12 +327,7 @@ function validate_group_products(key, form, panel)
             // Check if error message was returned which indicates validation failure
             // TODO: Maybe come up with better solution than null|error_message ?
             if (error_message !== null) {
-
-                // Get element to set error on
-                var error_element = typeof input.data('select2') !== 'undefined' ? input.next('.select2') : input;
-
-                // Set error and return false
-                set_error(error_element, error_message);
+                set_error(input, error_message);
                 is_valid = false;
                 return false;
             }
@@ -384,7 +341,6 @@ function validate_group_products(key, form, panel)
      */
     function set_error(element, message)
     {
-
         // Get message
         if (typeof message === 'undefined' || message === null) {
             message = rightpress_plugin_settings_validation.error_messages.generic_error;
@@ -399,7 +355,6 @@ function validate_group_products(key, form, panel)
      */
     function display_error(element)
     {
-
         // Get message
         var message = element.data('rightpress-plugin-settings-validation-error');
 
@@ -439,7 +394,6 @@ function validate_group_products(key, form, panel)
      */
     function remove_tooltip(event)
     {
-
         // Get args
         var element = event.data.element;
         var removal_selectors = event.data.removal_selectors;
@@ -455,6 +409,8 @@ function validate_group_products(key, form, panel)
         // Remove event listeners
         removal_selectors.off('click keyup change', remove_tooltip);
     }
+
+
 
 
 

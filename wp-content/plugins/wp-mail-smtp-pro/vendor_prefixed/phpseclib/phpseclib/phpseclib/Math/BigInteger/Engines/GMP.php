@@ -447,6 +447,7 @@ class GMP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\Engine
      */
     protected function normalize(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\GMP $result)
     {
+        unset($result->reduce);
         $result->precision = $this->precision;
         $result->bitmask = $this->bitmask;
         if ($result->bitmask !== \false) {
@@ -599,9 +600,10 @@ class GMP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\Engine
     public function createRecurringModuloFunction()
     {
         $temp = $this->value;
-        return function (\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\GMP $x) use($temp) {
+        $this->reduce = function (\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\GMP $x) use($temp) {
             return new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\GMP($x->value % $temp);
         };
+        return $this->reduce;
     }
     /**
      * Scan for 1 and right shift by that amount

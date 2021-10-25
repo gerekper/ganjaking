@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6e89fcbfa415c5c94cbfe070214665f9
+class ComposerStaticInitf374111f8fa229ee70340a70d4500966
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -598,6 +598,7 @@ class ComposerStaticInit6e89fcbfa415c5c94cbfe070214665f9
         'Yoast\\WP\\SEO\\Conditionals\\Feature_Flag_Conditional' => __DIR__ . '/../..' . '/src/conditionals/feature-flag-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Front_End_Conditional' => __DIR__ . '/../..' . '/src/conditionals/front-end-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Get_Request_Conditional' => __DIR__ . '/../..' . '/src/conditionals/get-request-conditional.php',
+        'Yoast\\WP\\SEO\\Conditionals\\Greek_Support_Conditional' => __DIR__ . '/../..' . '/src/conditionals/greek-support-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Headless_Rest_Endpoints_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/headless-rest-endpoints-enabled-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional' => __DIR__ . '/../..' . '/src/conditionals/japanese-support-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Jetpack_Conditional' => __DIR__ . '/../..' . '/src/conditionals/jetpack-conditional.php',
@@ -952,9 +953,9 @@ class ComposerStaticInit6e89fcbfa415c5c94cbfe070214665f9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6e89fcbfa415c5c94cbfe070214665f9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6e89fcbfa415c5c94cbfe070214665f9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6e89fcbfa415c5c94cbfe070214665f9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf374111f8fa229ee70340a70d4500966::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf374111f8fa229ee70340a70d4500966::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf374111f8fa229ee70340a70d4500966::$classMap;
 
         }, null, ClassLoader::class);
     }

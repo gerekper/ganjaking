@@ -11,16 +11,16 @@
  *  3] Dots
  *  Use param_name = dots_icon
  *
- * @package Ultimate_VC_Addons_Navigation.
+ * @package Ultimate_Navigation.
  * */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_Navigation' ) ) {
+if ( ! class_exists( 'Ultimate_Navigation' ) ) {
 	/**
-	 * Class Ultimate_VC_Addons_Navigation
+	 * Class Ultimate_Navigation
 	 *
-	 * @class Ultimate_VC_Addons_Navigation.
+	 * @class Ultimate_Navigation.
 	 */
-	class Ultimate_VC_Addons_Navigation {
+	class Ultimate_Navigation {
 		/**
 		 * Initiator __construct.
 		 */
@@ -115,6 +115,6 @@ if ( ! class_exists( 'Ultimate_VC_Addons_Navigation' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_VC_Addons_Navigation' ) ) {
-	$ultimate_navigation = new Ultimate_VC_Addons_Navigation();
+if ( class_exists( 'Ultimate_Navigation' ) ) {
+	$ultimate_navigation = new Ultimate_Navigation();
 }

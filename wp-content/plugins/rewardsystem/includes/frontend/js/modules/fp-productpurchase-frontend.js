@@ -2,7 +2,6 @@
  * Product Purcahse - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var RSProductPurchaseFrontend = {
         init : function () {
             this.trigger_on_page_load() ;

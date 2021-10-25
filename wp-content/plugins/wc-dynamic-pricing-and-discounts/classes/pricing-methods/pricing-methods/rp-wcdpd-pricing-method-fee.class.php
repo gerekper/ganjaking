@@ -45,7 +45,7 @@ abstract class RP_WCDPD_Pricing_Method_Fee extends RP_WCDPD_Pricing_Method
      */
     public function get_group_label()
     {
-        return esc_html__('Fee', 'rp_wcdpd');
+        return __('Fee', 'rp_wcdpd');
     }
 
     /**

@@ -17,6 +17,6 @@ if (!defined('ABSPATH')) {
 </div>
 
 <!-- Modal -->
-<div class="rp_wcdpd_modal rp_wcdpd_modal_horizontal">
+<div class="rp_wcdpd_modal" style="min-width: 400px;">
     <?php RightPress_Help::include_extension_template('promotion-volume-pricing-table', 'horizontal', RP_WCDPD_PLUGIN_PATH, RP_WCDPD_PLUGIN_KEY, array('title' => $title, 'data' => $data)); ?>
 </div>

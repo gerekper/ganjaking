@@ -2,7 +2,6 @@
  * Gift Voucher - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var GiftVoucherModule = {
         init : function ( ) {
             this.show_or_hide_for_enable_voucher_code_settings( ) ;

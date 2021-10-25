@@ -49,7 +49,7 @@ abstract class RightPress_Condition_Field_Text extends RightPress_Condition_Fiel
      */
     public function get_placeholder()
     {
-        return esc_html__('value', 'rightpress');
+        return __('value', 'rightpress');
     }
 
     /**

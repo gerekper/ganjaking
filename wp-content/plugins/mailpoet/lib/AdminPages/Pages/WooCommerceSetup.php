@@ -16,10 +16,7 @@ class WooCommerceSetup {
   /** @var WPFunctions */
   private $wp;
 
-  public function __construct(
-    PageRenderer $pageRenderer,
-    WPFunctions $wp
-  ) {
+  public function __construct(PageRenderer $pageRenderer, WPFunctions $wp) {
     $this->pageRenderer = $pageRenderer;
     $this->wp = $wp;
   }

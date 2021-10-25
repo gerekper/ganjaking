@@ -4,9 +4,9 @@
  *
  * @since 3.0
  * @package WP_Smush
+ *
+ * @var string $upgrade_url  Upgrade URL.
  */
-
-use Smush\Core\Helper;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -20,25 +20,27 @@ if ( ! defined( 'WPINC' ) ) {
 		alt="<?php esc_html_e( 'Smush CDN', 'wp-smushit' ); ?>">
 
 	<p>
-		<?php esc_html_e( 'Multiply the speed and savings! Upload huge images and the Smush CDN will perfectly resize the files, safely convert to a Next-Gen format (WebP), and delivers them directly to your visitors from our blazing-fast multi-location globe servers.', 'wp-smushit' ); ?>
+		<?php
+		esc_html_e(
+			'Multiply the speed and savings! Upload huge images and the Smush CDN will perfectly resize the files, safely convert to a Next-Gen format (WebP), and delivers them directly to your visitors from our blazing-fast multi-location globe servers.',
+			'wp-smushit'
+		);
+		?>
 	</p>
 
-	<ol class="sui-upsell-list">
-		<li>
-			<span class="sui-icon-check sui-sm" aria-hidden="true"></span>
-			<?php esc_html_e( 'Fix Google PageSpeeds ‘properly size images’ suggestion', 'wp-smushit' ); ?>
+	<ul class="smush-pro-features">
+		<li class="smush-pro-feature-row">
+			<div class="smush-pro-feature-title"><?php esc_html_e( 'Fix Google PageSpeeds ‘properly size images’ suggestion', 'wp-smushit' ); ?></div>
 		</li>
-		<li>
-			<span class="sui-icon-check sui-sm" aria-hidden="true"></span>
-			<?php esc_html_e( 'WebP conversion with CDN', 'wp-smushit' ); ?>
+		<li class="smush-pro-feature-row">
+			<div class="smush-pro-feature-title"><?php esc_html_e( 'WebP conversion with CDN', 'wp-smushit' ); ?></div>
 		</li>
-		<li>
-			<span class="sui-icon-check sui-sm" aria-hidden="true"></span>
-			<?php esc_html_e( 'Serve background images from the CDN', 'wp-smushit' ); ?>
+		<li class="smush-pro-feature-row">
+			<div class="smush-pro-feature-title"><?php esc_html_e( 'Serve background images from the CDN', 'wp-smushit' ); ?></div>
 		</li>
-	</ol>
+	</ul>
 
-	<a href="<?php echo esc_url( Helper::get_url( 'smush_cdn_upgrade_button' ) ); ?>" class="sui-button sui-button-purple sui-margin-top" target="_blank">
+	<a href="<?php echo esc_url( $upgrade_url ); ?>" class="sui-button sui-button-purple" target="_blank">
 		<?php esc_html_e( 'Try CDN for free', 'wp-smushit' ); ?>
 	</a>
 </div>

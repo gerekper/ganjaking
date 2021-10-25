@@ -42,8 +42,8 @@ abstract class RightPress_Condition_Method_List extends RightPress_Condition_Met
     {
 
         return array(
-            'in_list'       => esc_html__('in list', 'rightpress'),
-            'not_in_list'   => esc_html__('not in list', 'rightpress'),
+            'in_list'       => __('in list', 'rightpress'),
+            'not_in_list'   => __('not in list', 'rightpress'),
         );
     }
 

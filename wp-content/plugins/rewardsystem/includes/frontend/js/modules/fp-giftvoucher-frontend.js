@@ -2,7 +2,6 @@
  * GiftVocuher - Module
  */
 jQuery( function ( $ ) {
-    'use strict' ;
     var RSGiftVoucherFrontend = {
         init : function () {
             $( document ).on( 'click' , '.rs_gift_voucher_submit_button' , this.redeemgiftvoucher ) ;

@@ -24,7 +24,6 @@ use WPMailSMTP\Vendor\Google\Auth\Credentials\ServiceAccountCredentials;
 use WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpClientCache;
 use WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
 use WPMailSMTP\Vendor\Google\Auth\Middleware\AuthTokenMiddleware;
-use WPMailSMTP\Vendor\Google\Auth\Middleware\ProxyAuthTokenMiddleware;
 use WPMailSMTP\Vendor\Google\Auth\Subscriber\AuthTokenSubscriber;
 use WPMailSMTP\Vendor\GuzzleHttp\Client;
 use InvalidArgumentException;
@@ -113,8 +112,12 @@ class ApplicationDefaultCredentials
         return new \WPMailSMTP\Vendor\Google\Auth\Middleware\AuthTokenMiddleware($creds, $httpHandler);
     }
     /**
-     * Obtains the default FetchAuthTokenInterface implementation to use
-     * in this environment.
+     * Obtains an AuthTokenMiddleware which will fetch an access token to use in
+     * the Authorization header. The middleware is configured with the default
+     * FetchAuthTokenInterface implementation to use in this environment.
+     *
+     * If supplied, $scope is used to in creating the credentials instance if
+     * this does not fallback to the Compute Engine defaults.
      *
      * @param string|array $scope the scope of the access request, expressed
      *        either as an Array or as a space-delimited String.
@@ -181,27 +184,6 @@ class ApplicationDefaultCredentials
     {
         $creds = self::getIdTokenCredentials($targetAudience, $httpHandler, $cacheConfig, $cache);
         return new \WPMailSMTP\Vendor\Google\Auth\Middleware\AuthTokenMiddleware($creds, $httpHandler);
-    }
-    /**
-     * Obtains an ProxyAuthTokenMiddleware which will fetch an ID token to use in the
-     * Authorization header. The middleware is configured with the default
-     * FetchAuthTokenInterface implementation to use in this environment.
-     *
-     * If supplied, $targetAudience is used to set the "aud" on the resulting
-     * ID token.
-     *
-     * @param string $targetAudience The audience for the ID token.
-     * @param callable $httpHandler callback which delivers psr7 request
-     * @param array $cacheConfig configuration for the cache when it's present
-     * @param CacheItemPoolInterface $cache A cache implementation, may be
-     *        provided if you have one already available for use.
-     * @return ProxyAuthTokenMiddleware
-     * @throws DomainException if no implementation can be obtained.
-     */
-    public static function getProxyIdTokenMiddleware($targetAudience, callable $httpHandler = null, array $cacheConfig = null, \WPMailSMTP\Vendor\Psr\Cache\CacheItemPoolInterface $cache = null)
-    {
-        $creds = self::getIdTokenCredentials($targetAudience, $httpHandler, $cacheConfig, $cache);
-        return new \WPMailSMTP\Vendor\Google\Auth\Middleware\ProxyAuthTokenMiddleware($creds, $httpHandler);
     }
     /**
      * Obtains the default FetchAuthTokenInterface implementation to use

