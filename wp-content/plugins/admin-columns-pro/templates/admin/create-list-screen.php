@@ -1,5 +1,6 @@
 <?php
 
+use AC\Form\Element;
 use ACP\RequestHandler\ListScreenCreate;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,6 +33,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<input name="title" id="new_listscreen_name" class="name" data-value="" placeholder="<?= __( 'Enter name', 'codepress-admin-columns' ); ?>" value="" type="text">
 				</div>
 			</div>
+			<div class="row template">
+				<?php
+				$toggle = new Element\Toggle( 'clone_current', __( 'Copy current settings', 'codepress-admin-columns' ), true, 1 );
+				echo $toggle->render()
+				?>
+			</div>
+
 			<div class="row actions">
 
 				<a class="instructions ac-pointer" rel="layout-help" data-pos="left" data-width="305" data-noclick="1">

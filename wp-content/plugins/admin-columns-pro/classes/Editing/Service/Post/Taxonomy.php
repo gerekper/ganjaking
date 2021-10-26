@@ -71,6 +71,7 @@ class Taxonomy implements Service, PaginatedOptions {
 		}
 
 		$params = $request->get( 'value' );
+
 		if ( ! isset( $params['method'] ) ) {
 			$params = [
 				'method' => 'replace',
@@ -78,7 +79,7 @@ class Taxonomy implements Service, PaginatedOptions {
 			];
 		}
 
-		$term_ids = array_filter( (array) $params['value'] );
+		$term_ids = array_map( 'absint', array_unique( array_filter( (array) $params['value'] ) ) );
 
 		switch ( $params['method'] ) {
 			case 'add':

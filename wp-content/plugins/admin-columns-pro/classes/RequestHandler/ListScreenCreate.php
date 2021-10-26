@@ -87,10 +87,18 @@ class ListScreenCreate implements Registrable {
 					return;
 				}
 
+				$settings = [];
+				$preferences = [];
+
+				if ( $this->request->get( 'clone_current' ) === '1' ) {
+					$settings = $current_list_screen->get_settings();
+					$preferences = $current_list_screen->get_preferences();
+				}
+
 				$list_screen->set_layout_id( ListScreenId::generate()->get_id() )
 				            ->set_title( $title )
-				            ->set_settings( $current_list_screen->get_settings() )
-				            ->set_preferences( $current_list_screen->get_preferences() );
+				            ->set_settings( $settings )
+				            ->set_preferences( $preferences );
 
 				$this->storage->save( $list_screen );
 

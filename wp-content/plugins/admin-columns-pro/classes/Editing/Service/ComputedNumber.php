@@ -75,7 +75,7 @@ class ComputedNumber implements Editing\Service {
 					: $compute_value;
 		}
 
-		if ( ! $args[ self::ARG_ALLOW_NEGATIVE ] && $value < 0 && $input_value !== '' ) {
+		if ( isset( $args[ self::ARG_ALLOW_NEGATIVE ] ) && ! $args[ self::ARG_ALLOW_NEGATIVE ] && $value < 0 && $input_value !== '' ) {
 			$value = 0;
 		}
 

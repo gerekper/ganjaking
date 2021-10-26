@@ -5,11 +5,11 @@
 # Lukas Huggenberg, 2019
 # Mark Howells-Mead <permanent.tourist@gmail.com>, 2020
 # Steffen Dressler <steffen@gourami.de>, 2021
-# Tobias Schutter <info@codepress.nl>, 2016
+# Tobias Schutter <info@codepress.nl>, 2016,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns Pro\n"
-"PO-Revision-Date: 2021-03-14 19:02+0000\n"
+"PO-Revision-Date: 2021-09-29 05:33+0000\n"
 "Last-Translator: Tobias Schutter <info@codepress.nl>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/codepress/admin-columns-pro/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -917,7 +917,7 @@ msgstr "deaktiviert"
 #: admin-columns-pro/classes/Editing/Admin/HideOnScreen/BulkEdit.php10,
 #: admin-columns-pro/classes/Editing/Asset/Script/Table.php:98
 msgid "Bulk Edit"
-msgstr "Maßenbearbeitung"
+msgstr "Massenbearbeitung"
 
 #: admin-columns-pro/classes/Editing/Model/CustomField.php:44
 msgid ""
@@ -935,7 +935,7 @@ msgstr "Mehrfachbearbeitung aktivieren"
 
 #: admin-columns-pro/classes/Editing/Settings/BulkEditing.php:57
 msgid "Bulk Editing"
-msgstr "Maßenbearbeitung"
+msgstr "Massenbearbeitung"
 
 #: admin-columns-pro/classes/Editing/Settings/Content.php35,
 #: admin-columns-pro/classes/Editing/Settings/Excerpt.php:35

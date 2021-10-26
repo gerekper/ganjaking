@@ -1,5 +1,28 @@
 == Changelog ==
 
+= 5.6.2 =
+Release Date: October 26th, 2021
+
+* [Added] When creating a new column set, you can now choose to copy the settings or start with the default columns
+* [Fixed] Activation button was not always enabled when entering the license
+* [Fixed] Colspan for Quick Edit and Bulk Edit (Quick Actions) is now correct when Sticky Headers is active
+* [Fixed] Removing terms in Bulk Edit did not work correctly
+* [Fixed] It was not possible to enter negative numbers in Editing for numeric custom fields
+* [Updated] Admin Columns Core changes ( 4.4.3 )
+* [Improved] The Menu Order column has no restrictions anymore
+
+= 5.6.1 =
+Release Date: October 12th, 2021
+
+* [Added] JetEngine integration added
+* [Fixed] Bulk Editing for the date picker did not work properly
+* [Fixed] WooCommerce manual product sorting is now excluded as a Sorting preference in order to get unexpected behavior when switching back to the default product view
+* [Fixed] More flexible date parsing for Editing in conjunction with the hook `acp/editing/save_value`
+* [Improved] Bulk Edit for the User Role column does now allow to add and remove roles instead of only replacing the value
+* [Updated] Admin Columns Core changes ( 4.4.2 )
+* [Fixed] The setting to hide the 'Edit Columns' button did not always store the settings
+* [Improved] Do not force showing notices with the hidden classes
+
 = 5.6 =
 Release Date: September 21st, 2021
 
