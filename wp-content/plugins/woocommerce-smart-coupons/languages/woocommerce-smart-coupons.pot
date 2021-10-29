@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the WooCommerce Smart Coupons package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Smart Coupons 4.31.0\n"
+"Project-Id-Version: WooCommerce Smart Coupons 4.32.0\n"
 "Report-Msgid-Bugs-To: https://www.storeapps.org/support/contact-us/\n"
-"POT-Creation-Date: 2021-10-22 06:26:02+00:00\n"
+"POT-Creation-Date: 2021-10-26 07:33:02+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: Fri, 22 Oct 2021 11:56:02 +0530\n"
+"PO-Revision-Date: Tue, 26 Oct 2021 13:03:02 +0530\n"
 "Last-Translator: Ratnakar Dubey <support@storeapps.org>\n"
 "Language-Team: StoreApps <support@storeapps.org>\n"
 
@@ -82,7 +82,7 @@ msgstr ""
 #: includes/class-wc-sc-admin-notifications.php:165
 #: includes/class-wc-sc-background-coupon-importer.php:324
 #: includes/class-wc-sc-background-coupon-importer.php:391
-#: includes/class-wc-smart-coupons.php:4439
+#: includes/class-wc-smart-coupons.php:4465
 msgid "Important"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "it to use"
 msgstr ""
 
-#. #-#-#-#-#  woocommerce-smart-coupons.pot (WooCommerce Smart Coupons 4.31.0)  #-#-#-#-#
+#. #-#-#-#-#  woocommerce-smart-coupons.pot (WooCommerce Smart Coupons 4.32.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: includes/class-wc-sc-admin-notifications.php:177
 #: includes/class-wc-sc-admin-notifications.php:243
@@ -285,7 +285,7 @@ msgid "Import"
 msgstr ""
 
 #: includes/class-wc-sc-admin-pages.php:203
-#: includes/class-wc-smart-coupons.php:3305
+#: includes/class-wc-smart-coupons.php:3331
 msgid "Export"
 msgstr ""
 
@@ -1387,7 +1387,7 @@ msgstr ""
 
 #: includes/class-wc-sc-coupon-categories.php:100
 #: includes/class-wc-sc-coupon-categories.php:159
-#: includes/class-wc-smart-coupons.php:3309
+#: includes/class-wc-smart-coupons.php:3335
 msgid "Manage coupon categories"
 msgstr ""
 
@@ -1412,7 +1412,7 @@ msgid "You can also apply multiple coupon codes via a single URL. For example:"
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:303
-#: includes/class-wc-smart-coupons.php:3699
+#: includes/class-wc-smart-coupons.php:3725
 msgid "Coupon expiry time"
 msgstr ""
 
@@ -1427,7 +1427,7 @@ msgid ""
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:319
-#: includes/class-wc-smart-coupons.php:3695
+#: includes/class-wc-smart-coupons.php:3721
 msgid "Max discount"
 msgstr ""
 
@@ -1440,8 +1440,8 @@ msgid "The maximum discount this coupon can give on a cart."
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:334
-#: includes/class-wc-smart-coupons.php:3694
-#: includes/class-wc-smart-coupons.php:4064
+#: includes/class-wc-smart-coupons.php:3720
+#: includes/class-wc-smart-coupons.php:4090
 msgid "For new user only?"
 msgstr ""
 
@@ -1578,68 +1578,68 @@ msgid ""
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:704
-#: includes/class-wc-smart-coupons.php:4169
+#: includes/class-wc-smart-coupons.php:4195
 msgctxt "enhanced select"
 msgid "One result is available, press enter to select it."
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:705
-#: includes/class-wc-smart-coupons.php:4170
+#: includes/class-wc-smart-coupons.php:4196
 msgctxt "enhanced select"
 msgid "%qty% results are available, use up and down arrow keys to navigate."
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:706
-#: includes/class-wc-smart-coupons.php:4171
+#: includes/class-wc-smart-coupons.php:4197
 msgctxt "enhanced select"
 msgid "No matches found"
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:707
 #: includes/class-wc-sc-coupon-fields.php:715
-#: includes/class-wc-smart-coupons.php:4180
+#: includes/class-wc-smart-coupons.php:4206
 msgctxt "enhanced select"
 msgid "Searching&hellip;"
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:708
-#: includes/class-wc-smart-coupons.php:4173
+#: includes/class-wc-smart-coupons.php:4199
 msgctxt "enhanced select"
 msgid "Please enter 1 or more characters"
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:709
-#: includes/class-wc-smart-coupons.php:4174
+#: includes/class-wc-smart-coupons.php:4200
 msgctxt "enhanced select"
 msgid "Please enter %qty% or more characters"
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:710
-#: includes/class-wc-smart-coupons.php:4175
+#: includes/class-wc-smart-coupons.php:4201
 msgctxt "enhanced select"
 msgid "Please delete 1 character"
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:711
-#: includes/class-wc-smart-coupons.php:4176
+#: includes/class-wc-smart-coupons.php:4202
 msgctxt "enhanced select"
 msgid "Please delete %qty% characters"
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:712
-#: includes/class-wc-smart-coupons.php:4177
+#: includes/class-wc-smart-coupons.php:4203
 msgctxt "enhanced select"
 msgid "You can only select 1 item"
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:713
-#: includes/class-wc-smart-coupons.php:4178
+#: includes/class-wc-smart-coupons.php:4204
 msgctxt "enhanced select"
 msgid "You can only select %qty% items"
 msgstr ""
 
 #: includes/class-wc-sc-coupon-fields.php:714
-#: includes/class-wc-smart-coupons.php:4179
+#: includes/class-wc-smart-coupons.php:4205
 msgctxt "enhanced select"
 msgid "Loading more results&hellip;"
 msgstr ""
@@ -2067,7 +2067,7 @@ msgstr ""
 #: includes/class-wc-sc-display-coupons.php:873
 #: includes/class-wc-sc-display-coupons.php:2026
 #: includes/class-wc-sc-shortcode.php:479
-#: includes/class-wc-smart-coupons.php:3931 templates/combined-email.php:124
+#: includes/class-wc-smart-coupons.php:3957 templates/combined-email.php:124
 #: templates/email.php:121 templates/print-coupons-default.php:138
 msgid " & "
 msgstr ""
@@ -2076,7 +2076,7 @@ msgstr ""
 #: includes/class-wc-sc-display-coupons.php:875
 #: includes/class-wc-sc-display-coupons.php:2028
 #: includes/class-wc-sc-shortcode.php:481
-#: includes/class-wc-smart-coupons.php:3933 templates/combined-email.php:126
+#: includes/class-wc-smart-coupons.php:3959 templates/combined-email.php:126
 #: templates/email.php:123 templates/plain/combined-email.php:91
 #: templates/plain/email.php:86 templates/print-coupons-default.php:140
 msgid "Free Shipping"
@@ -2086,7 +2086,7 @@ msgstr ""
 #: includes/class-wc-sc-display-coupons.php:889
 #: includes/class-wc-sc-display-coupons.php:2057
 #: includes/class-wc-sc-shortcode.php:510
-#: includes/class-wc-smart-coupons.php:3960
+#: includes/class-wc-smart-coupons.php:3986
 #: includes/emails/class-wc-sc-email-coupon.php:173
 #: templates/combined-email.php:155 templates/email.php:152
 #: templates/plain/combined-email.php:123 templates/plain/email.php:118
@@ -2434,12 +2434,12 @@ msgid "Removed User Personal Data"
 msgstr ""
 
 #: includes/class-wc-sc-privacy.php:555
-#: includes/class-wc-smart-coupons.php:4035
+#: includes/class-wc-smart-coupons.php:4061
 msgid "Coupon Code"
 msgstr ""
 
 #: includes/class-wc-sc-privacy.php:558
-#: includes/class-wc-smart-coupons.php:4047
+#: includes/class-wc-smart-coupons.php:4073
 msgid "Coupon Amount"
 msgstr ""
 
@@ -3293,208 +3293,208 @@ msgstr ""
 msgid "Use code: %s"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:2489
+#: includes/class-wc-smart-coupons.php:2515
 msgid "WooCommerce Smart Coupons Cache"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:2490
+#: includes/class-wc-smart-coupons.php:2516
 msgid "Clear Smart Coupons Cache"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:2491
+#: includes/class-wc-smart-coupons.php:2517
 msgid "This tool will clear the cache created by WooCommerce Smart Coupons."
 msgstr ""
 
 #. translators: The coupon code
-#: includes/class-wc-smart-coupons.php:2534
+#: includes/class-wc-smart-coupons.php:2560
 msgid "Coupon %s is valid for a new user only, hence removed."
 msgstr ""
 
 #. translators: The coupon code
-#: includes/class-wc-smart-coupons.php:2593
+#: includes/class-wc-smart-coupons.php:2619
 msgid "Coupon removed. There is no credit remaining in %s."
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:2631
+#: includes/class-wc-smart-coupons.php:2657
 msgid "This coupon is valid for the first order only."
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:3292
+#: includes/class-wc-smart-coupons.php:3318
 msgid "Please select at least one coupon to print."
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:3307
+#: includes/class-wc-smart-coupons.php:3333
 msgid "Print selected coupons"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:3307
+#: includes/class-wc-smart-coupons.php:3333
 msgid "Print"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:3686
+#: includes/class-wc-smart-coupons.php:3712
 msgid "Coupon Validity"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:3687
+#: includes/class-wc-smart-coupons.php:3713
 msgid "Validity Suffix"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:3688
+#: includes/class-wc-smart-coupons.php:3714
 msgid "Auto Generate Coupon"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:3689
+#: includes/class-wc-smart-coupons.php:3715
 msgid "Coupon Title Prefix"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:3690
+#: includes/class-wc-smart-coupons.php:3716
 msgid "Coupon Title Suffix"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:3691
+#: includes/class-wc-smart-coupons.php:3717
 msgid "Is Pick Price of Product"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:3692
+#: includes/class-wc-smart-coupons.php:3718
 msgid "Disable Email Restriction"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:3693
+#: includes/class-wc-smart-coupons.php:3719
 msgid "Coupon Is Visible Storewide"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4036
+#: includes/class-wc-smart-coupons.php:4062
 msgid "Post Excerpt"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4037
+#: includes/class-wc-smart-coupons.php:4063
 msgid "Post Status"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4038
+#: includes/class-wc-smart-coupons.php:4064
 msgid "Post Parent"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4039
+#: includes/class-wc-smart-coupons.php:4065
 msgid "Menu Order"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4040
+#: includes/class-wc-smart-coupons.php:4066
 msgid "Post Date"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4046
+#: includes/class-wc-smart-coupons.php:4072
 msgid "Discount Type"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4048
+#: includes/class-wc-smart-coupons.php:4074
 msgid "Free shipping"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4049
+#: includes/class-wc-smart-coupons.php:4075
 msgid "Expiry date"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4050
+#: includes/class-wc-smart-coupons.php:4076
 msgid "Minimum Spend"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4051
+#: includes/class-wc-smart-coupons.php:4077
 msgid "Maximum Spend"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4052
+#: includes/class-wc-smart-coupons.php:4078
 msgid "Individual USe"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4053
+#: includes/class-wc-smart-coupons.php:4079
 msgid "Exclude Sale Items"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4054
+#: includes/class-wc-smart-coupons.php:4080
 msgid "Product IDs"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4055
+#: includes/class-wc-smart-coupons.php:4081
 msgid "Exclude product IDs"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4056
+#: includes/class-wc-smart-coupons.php:4082
 msgid "Product categories"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4057
+#: includes/class-wc-smart-coupons.php:4083
 msgid "Exclude Product categories"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4058
+#: includes/class-wc-smart-coupons.php:4084
 msgid "Customer Email"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4059
+#: includes/class-wc-smart-coupons.php:4085
 msgid "Usage Limit"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4060
+#: includes/class-wc-smart-coupons.php:4086
 msgid "Usage Limit Per User"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4061
+#: includes/class-wc-smart-coupons.php:4087
 msgid "Limit Usage to X Items"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4062
+#: includes/class-wc-smart-coupons.php:4088
 msgid "Usage Count"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4063
+#: includes/class-wc-smart-coupons.php:4089
 msgid "Used By"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4172
+#: includes/class-wc-smart-coupons.php:4198
 msgctxt "enhanced select"
 msgid "Loading failed"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4310
+#: includes/class-wc-smart-coupons.php:4336
 msgid "Style 1"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4311
+#: includes/class-wc-smart-coupons.php:4337
 msgid "Style 2"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4312
+#: includes/class-wc-smart-coupons.php:4338
 msgid "Style 3"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4313
+#: includes/class-wc-smart-coupons.php:4339
 msgid "Style 4"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4314
+#: includes/class-wc-smart-coupons.php:4340
 msgid "Style 5"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4315
+#: includes/class-wc-smart-coupons.php:4341
 msgid "Style 6"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4316
+#: includes/class-wc-smart-coupons.php:4342
 msgid "Custom Style"
 msgstr ""
 
 #. translators: File path
-#: includes/class-wc-smart-coupons.php:4347
-#: includes/class-wc-smart-coupons.php:4355
+#: includes/class-wc-smart-coupons.php:4373
+#: includes/class-wc-smart-coupons.php:4381
 msgid "File not found %s"
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4439
+#: includes/class-wc-smart-coupons.php:4465
 msgid "is active but it will only work with WooCommerce 3.0.0+."
 msgstr ""
 
-#: includes/class-wc-smart-coupons.php:4439
+#: includes/class-wc-smart-coupons.php:4465
 msgid "Please update WooCommerce to the latest version"
 msgstr ""
 

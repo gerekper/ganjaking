@@ -62,15 +62,21 @@ class WC_Product_Addons_Cart_Ajax {
 			$including = wc_get_price_including_tax( $product, array( 'price' => $add_on_total_raw ) );
 		}
 
+		// Get the product price excluding and including taxes, then filter them.
+		$product_price_excl = wc_get_price_excluding_tax( $product, array( 'qty' => $qty ) );
+		$product_price_incl = wc_get_price_including_tax( $product, array( 'qty' => $qty ) );
+		$product_price_excl = apply_filters( 'woocommerce_product_addons_ajax_get_product_price_excluding_tax', $product_price_excl, $qty, $product );
+		$product_price_incl = apply_filters( 'woocommerce_product_addons_ajax_get_product_price_including_tax', $product_price_incl, $qty, $product );
+
 		// Apply filters for excluding and including addons cost.
-		$add_on_total_excl = apply_filters( 'woocommerce_product_addons_get_addon_price_excluding_tax', $excluding, $product );
-		$add_on_total_incl = apply_filters( 'woocommerce_product_addons_get_addon_price_including_tax', $including, $product );
+		$add_on_total_excl  = apply_filters( 'woocommerce_product_addons_get_addon_price_excluding_tax', $excluding, $product );
+		$add_on_total_incl  = apply_filters( 'woocommerce_product_addons_get_addon_price_including_tax', $including, $product );
 
 		wp_send_json(
 			array(
 				'result'              => 'SUCCESS',
-				'price_including_tax' => wc_round_tax_total( wc_get_price_including_tax( $product, array( 'qty' => $qty ) ) + $add_on_total_incl ),
-				'price_excluding_tax' => wc_round_tax_total( wc_get_price_excluding_tax( $product, array( 'qty' => $qty ) ) + $add_on_total_excl ),
+				'price_including_tax' => wc_round_tax_total( $product_price_incl + $add_on_total_incl ),
+				'price_excluding_tax' => wc_round_tax_total( $product_price_excl + $add_on_total_excl ),
 			)
 		);
 	}

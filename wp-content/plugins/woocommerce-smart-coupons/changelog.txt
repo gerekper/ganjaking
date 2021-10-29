@@ -1,5 +1,9 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.10.26 - version 4.32.0
+* Fix: Incorrect discount calculation when cart is having Product Bundles & max discount is set in the coupon
+* Update: POT file
+
 2021.10.22 - version 4.31.0
 * Fix: Auto apply coupons once removed automatically, not reapplying again even if it’s valid
 * Update: POT file

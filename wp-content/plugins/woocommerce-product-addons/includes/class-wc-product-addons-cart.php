@@ -242,7 +242,13 @@ class WC_Product_Addons_Cart {
 					$addon['value'] = $addon['price'];
 				}
 
-				$item->add_meta_data( $key, $addon['value'] );
+				$meta_data = [
+					'key'   => $key,
+					'value' => $addon['value'],
+				];
+				$meta_data = apply_filters( 'woocommerce_product_addons_order_line_item_meta', $meta_data, $addon, $item, $values );
+
+				$item->add_meta_data( $meta_data['key'], $meta_data['value'] );
 			}
 		}
 	}
@@ -501,18 +507,25 @@ class WC_Product_Addons_Cart {
 				}
 			}
 
-			$cart_item_data['data']->set_price( $price );
+			$updated_product_prices = [
+				'price'         => $price,
+				'regular_price' => $regular_price,
+				'sale_price'    => $sale_price,
+			];
+			$updated_product_prices = apply_filters( 'woocommerce_product_addons_update_product_price', $updated_product_prices, $cart_item_data, $prices );
+
+			$cart_item_data['data']->set_price( $updated_product_prices['price'] );
 
 			// Only update regular price if it was defined.
 			$has_regular_price = is_numeric( $cart_item_data['data']->get_regular_price( 'edit' ) );
 			if ( $has_regular_price ) {
-				$cart_item_data['data']->set_regular_price( $regular_price );
+				$cart_item_data['data']->set_regular_price( $updated_product_prices['regular_price'] );
 			}
 
 			// Only update sale price if it was defined.
 			$has_sale_price = is_numeric( $cart_item_data['data']->get_sale_price( 'edit' ) );
 			if ( $has_sale_price ) {
-				$cart_item_data['data']->set_sale_price( $sale_price );
+				$cart_item_data['data']->set_sale_price( $updated_product_prices['sale_price'] );
 			}
 		}
 
@@ -607,11 +620,12 @@ class WC_Product_Addons_Cart {
 					$name .= ' (' . WC()->cart->get_product_price( $_product ) . ')';
 				}
 
-				$other_data[] = array(
+				$addon_data = array(
 					'name'    => $name,
 					'value'   => $addon['value'],
 					'display' => isset( $addon['display'] ) ? $addon['display'] : '',
 				);
+				$other_data[] = apply_filters( 'woocommerce_product_addons_get_item_data', $addon_data, $addon, $cart_item );
 			}
 		}
 

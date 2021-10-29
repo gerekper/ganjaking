@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.9.2
+ * @version     2.9.3
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -2037,6 +2037,28 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		}
 
 		/**
+		 * Function to calculate total cart contents.
+		 * skip the product if the product is a bundled product.
+		 *
+		 * @since 4.32.0
+		 * @return int
+		 */
+		public function get_cart_contents_count() {
+			$total_product = 0;
+			$cart_data     = ( isset( WC()->cart ) && is_callable( array( WC()->cart, 'get_cart' ) ) ) ? WC()->cart->get_cart() : array();
+			if ( ! empty( $cart_data ) ) {
+				foreach ( $cart_data as $data ) {
+					// Skip bundled products.
+					if ( isset( $data['stamp'] ) && isset( $data['bundled_by'] ) ) {
+						continue;
+					}
+					$total_product++;
+				}
+			}
+			return $total_product;
+		}
+
+		/**
 		 * Get coupon discount amount for percentage type coupon.
 		 *
 		 * @param  float      $discount Amount this coupon has discounted.
@@ -2086,7 +2108,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 							$max_discount_session[ $coupon_id ]           = array();
 							$max_discount_session_start                   = true;
 							$max_discount_session[ $coupon_id ]['amount'] = $max_discount;
-							$max_discount_session[ $coupon_id ]['count']  = ( isset( WC()->cart ) && is_callable( array( WC()->cart, 'get_cart' ) ) ) ? count( WC()->cart->get_cart() ) : 0;
+							$max_discount_session[ $coupon_id ]['count']  = $this->get_cart_contents_count();
 						}
 
 						if ( true === $is_restricted ) {
@@ -2102,9 +2124,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 									$items_to_validate = $wc_discounts->items;
 								}
 								if ( ! empty( $items_to_validate ) && is_array( $items_to_validate ) ) {
-									if ( true === $max_discount_session_start ) {
-										$max_discount_session[ $coupon_id ]['count'] = count( $items_to_validate );
-									}
+									$valid_product_count = 0;
 									foreach ( $items_to_validate as $item ) {
 										$item_to_apply = clone $item; // Clone the item so changes to wc_discounts item do not affect the originals.
 
@@ -2116,11 +2136,18 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 											continue;
 										}
 
+										// Increment if the product is not a bundled product.
+										$valid_product_count = ( isset( $item_to_apply->object['stamp'] ) && isset( $item_to_apply->object['bundled_by'] ) ) ? $valid_product_count : $valid_product_count + 1;
+
 										if ( true === $inc_tax ) {
 											$cart_items_subtotal += $item_to_apply->object['line_subtotal'] + $item_to_apply->object['line_subtotal_tax'];
 										} else {
 											$cart_items_subtotal += $item_to_apply->object['line_subtotal'];
 										}
+									}
+
+									if ( true === $max_discount_session_start ) {
+										$max_discount_session[ $coupon_id ]['count'] = $valid_product_count;
 									}
 								}
 							}
@@ -2153,8 +2180,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 							$is_round_max_discount = $max_discount_amount < $discount;
 
-							$discount = min( $max_discount_amount, $discount );
-
+							$discount                                      = min( $max_discount_amount, $discount );
 							$max_discount_session[ $coupon_id ]['amount'] -= $discount;
 							$max_discount_session[ $coupon_id ]['count']--;
 
