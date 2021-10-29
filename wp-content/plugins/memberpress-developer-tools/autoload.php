@@ -1,10 +1,6 @@
 <?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
 // Autoload all the requisite classes
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function mpdt_autoloader($class_name) {
   // Only load MemberPress DT classes here
   if(preg_match('/^Mpdt.+$/', $class_name)) {

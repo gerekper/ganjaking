@@ -1,10 +1,6 @@
 <?php
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprUsersCtrl extends MeprBaseCtrl {
   public function load_hooks() {
     // Admin User Profile login meta box
@@ -390,7 +386,7 @@ class MeprUsersCtrl extends MeprBaseCtrl {
       if( 'file' == $line->field_type && ( !isset($_FILES[$line->field_key]) || empty($_FILES[$line->field_key]['tmp_name']) ) ){
         // If file is required and file does not exist
         $file = get_user_meta(get_current_user_id(), $line->field_key, true);
-        $file_headers = @get_headers($file);
+        $file_headers = $file ? @get_headers($file) : [];
         if($line->required && false == strpos($file_headers[0], '200 OK')){
           $errs[] = sprintf(__('%s is required.', 'memberpress'), stripslashes($line->field_name));
         }

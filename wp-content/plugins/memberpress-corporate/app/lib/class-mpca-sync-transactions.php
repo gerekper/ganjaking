@@ -1,9 +1,5 @@
 <?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MPCA_Sync_Transactions {
   // Used to set a given transaction as a corporate_account parent transaction
   // We're using SQL here to avoid calling store() ... as there are some hooks

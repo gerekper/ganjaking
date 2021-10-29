@@ -1,9 +1,5 @@
 <?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprQuadernoIntegration {
   public function __construct() {
     add_filter('mepr_stripe_payment_args',              array($this, 'stripe_payment_args'), 10, 2);
@@ -21,7 +17,10 @@ class MeprQuadernoIntegration {
 
     if(!isset($args['metadata']) || !is_array($args['metadata'])) { $args['metadata'] = array(); }
 
-    $args['metadata']['tax_rate']       = $txn->tax_rate;
+    if(isset($txn->tax_rate) && $txn->tax_rate > 0) {
+      $args['metadata']['tax_rate'] = $txn->tax_rate;
+    }
+
     $args['metadata']['vat_number']     = get_user_meta($usr->ID, 'mepr_vat_number', true);
     $args['metadata']['invoice_email']  = $usr->user_email;
 

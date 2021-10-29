@@ -6,10 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * This class handles the registrations and enqueues for MemberPress blocks
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprBlocksCtrl extends MeprBaseCtrl {
 
   public function load_hooks() {

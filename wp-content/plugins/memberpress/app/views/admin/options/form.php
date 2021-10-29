@@ -3,8 +3,11 @@
 <div class="wrap">
   <h2><?php _e('Settings', 'memberpress'); ?><a href="http://memberpress.helpscoutdocs.com/" class="add-new-h2" target="_blank"><?php _e('User Manual', 'memberpress'); ?></a></h2>
 
-  <?php MeprView::render('/admin/errors', get_defined_vars()); ?>
-  <?php MeprHooks::do_action( 'mepr_before_options_form' ); ?>
+  <?php
+    MeprHooks::do_action( 'mepr_admin_overview_before_table' );
+    MeprView::render('/admin/errors', get_defined_vars());
+    MeprHooks::do_action( 'mepr_before_options_form' );
+  ?>
 
   <form name="mepr_options_form" id="mepr_options_form" class="mepr-form" method="post" action="<?php echo parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); ?>" enctype="multipart/form-data">
     <input type="hidden" name="action" value="process-form">
@@ -155,6 +158,7 @@
           <?php wp_editor($mepr_options->unauthorized_message, $mepr_options->unauthorized_message_str); ?>
         </div>
       </div>
+      <?php MeprHooks::do_action('mepr_display_pages_options'); ?>
     </div>
 
     <div id="accounts" class="mepr-options-hidden-pane">
@@ -373,6 +377,7 @@
         <?php wp_editor($mepr_options->custom_message, $mepr_options->custom_message_str); ?>
         <p class="description"><?php _e('This text will appear below the navigation on the Account Page.', 'memberpress'); ?></p>
       </div>
+      <?php MeprHooks::do_action('mepr_display_account_options'); ?>
     </div>
 
     <div id="fields" class="mepr-options-hidden-pane">
@@ -499,6 +504,7 @@
         <label for="<?php echo $mepr_options->mail_send_from_email_str; ?>"><?php _e('From Email:', 'memberpress'); ?>&nbsp;</label>
         <input type="text" id="<?php echo $mepr_options->mail_send_from_email_str; ?>" name="<?php echo $mepr_options->mail_send_from_email_str; ?>" class="regular-text" value="<?php echo stripslashes($mepr_options->mail_send_from_email); ?>" />
       </div>
+      <?php MeprHooks::do_action('mepr_display_emails_options'); ?>
     </div>
 
     <div id="marketing" class="mepr-options-hidden-pane">
@@ -520,6 +526,7 @@
       <div class="mepr-options-pane">
         <?php MeprHooks::do_action('mepr_display_autoresponders'); ?>
       </div>
+      <?php MeprHooks::do_action('mepr_display_marketing_options'); ?>
     </div>
 
     <div id="info" class="mepr-options-hidden-pane">

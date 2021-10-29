@@ -52,10 +52,6 @@ function mpaws_can_use_sdk() {
 
 define( 'MPAWS_CAN_USE_SDK', mpaws_can_use_sdk() );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MpawsAppController {
   public $memberpress_active;
 

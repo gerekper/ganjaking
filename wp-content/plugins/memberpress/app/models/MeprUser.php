@@ -1,10 +1,6 @@
 <?php
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprUser extends MeprBaseModel {
   public static $id_str           = 'ID';
   public static $first_name_str   = 'first_name';
@@ -958,6 +954,7 @@ class MeprUser extends MeprBaseModel {
 
   public static function validate_login($params, $errors) {
     extract($params);
+    $log = stripcslashes($log); //necessary to allow apostrophes in email addresses. Yeah, I didn't know that was a thing either.
 
     if(empty($log)) {
       $errors[] = __('Username must not be blank', 'memberpress');
@@ -1389,11 +1386,11 @@ class MeprUser extends MeprBaseModel {
     // To update pricing terms string with AJAX, we need to send the POST address
     // This only runs when running AJAX, that's the only place the two actions are set
     if( isset($_POST['action']) && ($_POST['action'] == "mepr_update_price_string" || $_POST['action'] == "mepr_update_spc_invoice_table") ){
-      $one      = sanitize_text_field($_POST['mepr_address_one']);
-      $city     = sanitize_text_field($_POST['mepr_address_city']);
-      $state    = sanitize_text_field($_POST['mepr_address_state']);
-      $country  = sanitize_text_field($_POST['mepr_address_country']);
-      $postcode = sanitize_text_field($_POST['mepr_address_zip']);
+      $one      = isset($_POST['mepr_address_one']) ? sanitize_text_field($_POST['mepr_address_one']) : '';
+      $city     = isset($_POST['mepr_address_city']) ? sanitize_text_field($_POST['mepr_address_city']) : '';
+      $state    = isset($_POST['mepr_address_state']) ? sanitize_text_field($_POST['mepr_address_state']) : '';
+      $country  = isset($_POST['mepr_address_country']) ? sanitize_text_field($_POST['mepr_address_country']) : '';
+      $postcode = isset($_POST['mepr_address_zip']) ? sanitize_text_field($_POST['mepr_address_zip']) : '';
     }
 
     return (!empty($country) && !empty($postcode) && !empty($state) && !empty($city) && !empty($one));
@@ -2552,11 +2549,6 @@ class MeprUser extends MeprBaseModel {
                )
           FROM {$mepr_db->transactions} AS t
          WHERE t.user_id = u.ID
-           AND (
-             t.expires_at > %s
-             OR t.expires_at = %s
-             OR t.expires_at IS NULL
-           )
            AND ( (
                 t.txn_type IN (%s,%s,%s,%s)
                 AND t.status=%s
@@ -2566,8 +2558,6 @@ class MeprUser extends MeprBaseModel {
              )
            )
       )",
-      MeprUtils::db_now(),
-      MeprUtils::db_lifetime(),
       MeprTransaction::$payment_str,
       MeprTransaction::$sub_account_str,
       MeprTransaction::$woo_txn_str,

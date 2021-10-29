@@ -1,0 +1,2842 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Affiliate Royale 1.4.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/affiliate-royale\n"
+"POT-Creation-Date: 2016-05-16 17:27:03+00:00\n"
+"PO-Revision-Date: 2016-11-24 09:05-0900\n"
+"Language-Team: LANGUAGE\n"
+"Language: zxx\n"
+"Plural-Forms: nplurals=2; plural=n!=1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Loco-Source-Locale: ru_RU\n"
+"X-Loco-Parser: loco_parse_po\n"
+"X-Generator: Poedit 1.8.11\n"
+"Last-Translator: \n"
+
+#. Plugin Name of the plugin/theme
+#: app/controllers/WafpAppController.php:61
+#: app/controllers/WafpAppController.php:62
+msgid "Affiliate Royale"
+msgstr "Плагин Affiliate Royale "
+
+#: app/controllers/WafpAppController.php:69
+#: app/controllers/WafpAppController.php:70
+#: app/controllers/WafpReportsController.php:6
+msgid "Reports"
+msgstr "Отчеты"
+
+#: app/controllers/WafpAppController.php:76
+#: app/controllers/WafpAppController.php:77 app/views/affiliates/list.php:5
+msgid "Affiliates"
+msgstr "Партнеры"
+
+#: app/controllers/WafpAppController.php:83
+#: app/controllers/WafpAppController.php:84 app/views/payments/owed.php:89
+#: app/views/shared/flot_chart.php:3 app/views/wafp-dashboard/stats.php:6
+#: app/views/wafp-dashboard/stats.php:116 app/views/wafp-reports/stats.php:5
+#: app/views/wafp-reports/stats.php:115 app/views/wafp-reports/top.php:8
+msgid "Clicks"
+msgstr "Переходы"
+
+#: app/controllers/WafpAppController.php:90
+#: app/controllers/WafpAppController.php:91
+#: app/views/wafp-dashboard/stats.php:118 app/views/wafp-reports/stats.php:117
+#: app/views/wafp-reports/top.php:9
+msgid "Transactions"
+msgstr "Транзакции"
+
+#: app/controllers/WafpAppController.php:97
+#: app/controllers/WafpAppController.php:98 app/models/WafpSubscription.php:15
+msgid "Subscriptions"
+msgstr "Подписки"
+
+#: app/controllers/WafpAppController.php:104
+#: app/controllers/WafpAppController.php:105
+msgid "Payments"
+msgstr "Платежи"
+
+#: app/controllers/WafpAppController.php:111
+#: app/controllers/WafpAppController.php:112
+#: app/helpers/WafpDashboardHelper.php:103 app/views/wafp-links/list.php:3
+msgid "Links &amp; Banners"
+msgstr "Ссылки и баннеры"
+
+#: app/controllers/WafpAppController.php:118
+#: app/controllers/WafpAppController.php:119 app/views/payments/owed.php:8
+msgid "Pay Affiliates"
+msgstr "Выплаты партнерам"
+
+#: app/controllers/WafpAppController.php:125
+#: app/controllers/WafpAppController.php:126 app/views/wafp-options/form.php:3
+msgid "Options"
+msgstr "Выбор"
+
+#: app/controllers/WafpAppController.php:136
+#: app/controllers/WafpAppController.php:137 app/views/update/ui.php:4
+msgid "Activate"
+msgstr "Активировать"
+
+#: app/controllers/WafpAppController.php:401 app/views/transactions/edit.php:43
+msgid "Commission Level"
+msgstr "Уровень комиссии"
+
+#: app/controllers/WafpAppController.php:402 app/lib/WafpClicksTable.php:25
+#: app/lib/WafpPaymentsTable.php:26 app/lib/WafpSubscriptionsTable.php:26
+#: app/lib/WafpTransactionsTable.php:25 app/views/payments/owed.php:16
+#: app/views/payments/receipt.php:7 app/views/shared/leaderboard_display.php:6
+#: app/views/transactions/edit.php:51 app/views/transactions/row.php:89
+#: app/views/wafp-options/memberpress_coupon_meta_box.php:8
+#: app/views/wafp-reports/top.php:7
+msgid "Affiliate"
+msgstr "Партнер"
+
+#: app/controllers/WafpAppController.php:403 app/views/transactions/edit.php:59
+msgid "Commission Type"
+msgstr "Тип комиссии"
+
+#: app/controllers/WafpAppController.php:405
+msgid "Percentage"
+msgstr "Процент"
+
+#: app/controllers/WafpAppController.php:406
+msgid "Fixed Amount"
+msgstr "Фиксированная сумма"
+
+#: app/controllers/WafpAppController.php:407
+#: app/lib/WafpTransactionsTable.php:31
+#: app/views/wafp-dashboard/payments.php:13
+msgid "Commission"
+msgstr "Комиссия"
+
+#: app/controllers/WafpAuthorizeController.php:143
+#: app/controllers/WafpPayPalController.php:107
+msgid "Subscription Payment"
+msgstr "Оплата подписки"
+
+#: app/controllers/WafpAuthorizeController.php:143
+#: app/controllers/WafpPayPalController.php:107
+msgid "Standard Payment"
+msgstr "Стандартная оплата"
+
+#. translators: In this string, %s is the Blog Name/Title
+#: app/controllers/WafpAuthorizeController.php:270
+msgid "[%s] Authorize.Net Debug Email"
+msgstr "Сервис Authorize.Net на [%s]: отладка электронных писем"
+
+#: app/controllers/WafpAweberController.php:30
+msgid "AWeber Signup Integration"
+msgstr "Интеграция подписки в AWeber"
+
+#: app/controllers/WafpAweberController.php:33
+msgid "AWeber List Name"
+msgstr "Наименование списка AWeber"
+
+#: app/controllers/WafpAweberController.php:35
+msgid ""
+"Enter the AWeber mailing list name that you want users signed up for when "
+"they sign up for Affiliate Royale."
+msgstr ""
+"Ввод наименования списка адресатов AWeber, на который подписывается "
+"пользователь при регистрации в плагине Affiliate Royale"
+
+#: app/controllers/WafpAweberController.php:38
+#: app/controllers/WafpGetResponseController.php:34
+#: app/controllers/WafpMailChimpController.php:42
+msgid "Signup Checkbox Label"
+msgstr "Иконка флажка регистрации"
+
+#: app/controllers/WafpAweberController.php:40
+msgid ""
+"This is the text that will display on the signup page next to your mailing "
+"list opt-out checkbox."
+msgstr ""
+"Текст, который отображается на странице регистрации на список адресатов с "
+"флажком \"отписаться\""
+
+#: app/controllers/WafpAweberController.php:77
+msgid "Sign Up for the %s Newsletter"
+msgstr "Подписаться на новостную рассылку %"
+
+#: app/controllers/WafpAweberController.php:83
+#: app/controllers/WafpGetResponseController.php:69
+#: app/controllers/WafpMailChimpController.php:78
+msgid "We Respect Your Privacy"
+msgstr "Мы уважительно относимся к Вашей личной информации"
+
+#: app/controllers/WafpAweberController.php:111
+msgid "You're Almost Done - Activate Your Newsletter Subscription!"
+msgstr "Вы почти у цели - активировать подписку на новостную рассылку!"
+
+#: app/controllers/WafpAweberController.php:112
+msgid ""
+"You've just been sent an email that contains a <strong>confirm link</strong>."
+msgstr ""
+"На Ваш электронный адрес было отправлено письмо с <strong>confirm link</"
+"strong>"
+
+#: app/controllers/WafpAweberController.php:113
+msgid ""
+"In order to activate your subscription, check your email and click on the "
+"link in that email.\n"
+"           You will not receive your subscription until you <strong>click "
+"that link to activate it</strong>."
+msgstr ""
+"Для активации подписки проверьте электронный почтовый ящик и перейдите по "
+"ссылке в письме. \n"
+"           Материалы подписки не доставляются до активации <strong>click "
+"that link to activate it</strong>."
+
+#: app/controllers/WafpAweberController.php:115
+msgid ""
+"If you don't see that email in your inbox shortly, fill out the form again "
+"to have another copy of it sent to you."
+msgstr ""
+"Если Вы не получили письмо, заполните форму снова и мы вышлем Вам запрос еще "
+"раз. "
+
+#: app/controllers/WafpDigLabsStripePaymentsController.php:21
+#: app/controllers/WafpDigLabsStripePaymentsController.php:32
+msgid "DigLabs Stripe Payment"
+msgstr "Оплата картой с помощью сервиса DigLabs"
+
+#: app/controllers/WafpDigLabsStripePaymentsController.php:21
+#: app/models/WafpSubscription.php:16
+msgid "Subscription"
+msgstr "Подписка"
+
+#: app/controllers/WafpECommerceController.php:39
+msgid "E-Commerce Purchase"
+msgstr "Покупка через электронную коммерцию"
+
+#: app/controllers/WafpEasyDigitalDownloadsController.php:54
+msgid "EDD Purchase"
+msgstr "Покупка через сервис EDD"
+
+#: app/controllers/WafpGetResponseController.php:21
+msgid "GetResponse Signup Integration"
+msgstr "Интеграция регистрации через плагин GetResponse"
+
+#: app/controllers/WafpGetResponseController.php:24
+msgid "GetResponse API Key"
+msgstr "Ключ API плагина GetResponse"
+
+#: app/controllers/WafpGetResponseController.php:29
+msgid "GetResponse Campaign Token"
+msgstr "Маркер кампании плагина GetResponse"
+
+#: app/controllers/WafpGetResponseController.php:37
+#: app/controllers/WafpMailChimpController.php:45
+msgid ""
+"This is the text that will display on the signup page next to your mailing "
+"list opt-in checkbox."
+msgstr ""
+"Текст, который отображается на странице регистрации на список адресатов с "
+"флажком \"отписаться\""
+
+#: app/controllers/WafpGetResponseController.php:61
+#: app/controllers/WafpMailChimpController.php:70
+msgid "Sign Up for our newsletter"
+msgstr "Подписаться на новостную рассылку"
+
+#: app/controllers/WafpJigoshopController.php:46
+msgid "Jigoshop Purchase"
+msgstr "Покупка через плагин Jigoshop"
+
+#: app/controllers/WafpMailChimpController.php:22
+msgid "MailChimp Signup Integration"
+msgstr "Интеграция регистрации сервиса MailChimp"
+
+#: app/controllers/WafpMailChimpController.php:25
+msgid "MailChimp API Key"
+msgstr "Ключ API сервиса MailChimp"
+
+#: app/controllers/WafpMailChimpController.php:28
+msgid "You can find your API key under your Account settings at MailChimp.com."
+msgstr "Ключ API находится в настройках Вашей учетной записи на MailChimp.com"
+
+#: app/controllers/WafpMailChimpController.php:31
+msgid "MailChimp List ID"
+msgstr "Обозначение списка MailChimp"
+
+#: app/controllers/WafpMailChimpController.php:34
+msgid "You can find your List ID under your list's settings."
+msgstr "Обозначение списка находится в настройках списка"
+
+#: app/controllers/WafpMailChimpController.php:38
+msgid "Enable Double Opt-in"
+msgstr "Включить подтверждение подписки на рассылку"
+
+#: app/controllers/WafpMailChimpController.php:39
+msgid ""
+"Members will have to click a confirmation link in an email before being "
+"added to your list."
+msgstr ""
+"Участник должен пройти по ссылке подтверждения, прежде чем он будет добавлен "
+"в ваш список."
+
+#: app/controllers/WafpMarketPressController.php:56
+msgid "MarketPress Purchase"
+msgstr "Покупка с помощью плагина MarketPress"
+
+#: app/controllers/WafpMemberPressController.php:76
+msgid "Affiliate Royale Commissions"
+msgstr "Комиссия плагина Affiliate Royale"
+
+#: app/controllers/WafpMemberPressController.php:140
+msgid "%s Commission Group"
+msgstr "Группа комиссии %"
+
+#: app/controllers/WafpMemberPressController.php:176
+#: app/controllers/WafpUsersController.php:453
+#: app/helpers/WafpOptionsHelper.php:14
+msgid "None"
+msgstr "Не обозначено"
+
+#: app/controllers/WafpMemberPressController.php:187
+msgid "Products"
+msgstr "Продукция"
+
+#: app/controllers/WafpMemberPressController.php:216
+msgid "Associate Affiliate"
+msgstr "Младший партнер"
+
+#: app/controllers/WafpOptionsController.php:73
+#: app/views/wafp-options/form.php:64
+msgid "Level %d:"
+msgstr "Уровень %d:"
+
+#: app/controllers/WafpPayPalController.php:21
+#: app/views/wafp-options/paypal_integration.php:10
+#: app/views/wafp-options/wishlist_integration.php:10
+msgid "Make Sure You Uncheck \"Save Button at PayPal\" in Step 2"
+msgstr ""
+"Убедитесь. что снято выделение с пункта \"Сохранить кнопку на PayPal\"  в "
+"шаге 2"
+
+#: app/controllers/WafpPayPalController.php:22
+#: app/views/wafp-options/paypal_integration.php:11
+msgid ""
+"Make Sure \"Add advanced variables\" is checked in Step 3 and add the "
+"following text into the \"Advanced Variables\" text area:"
+msgstr ""
+"Убедитесь, что выделен пункт \"Добавить дополнительные переменные\" в шаге "
+"3, и вставьте следующее в текстовую область подпункта \"Дополнительные "
+"переменные\" "
+
+#: app/controllers/WafpPayPalController.php:25
+#: app/views/wafp-options/paypal_integration.php:14
+#: app/views/wafp-options/wishlist_integration.php:14
+msgid "Click \"Create Button\""
+msgstr "Нажать \"Создать кнопку\""
+
+#: app/controllers/WafpPayPalController.php:26
+#: app/views/wafp-options/paypal_integration.php:15
+#: app/views/wafp-options/wishlist_integration.php:15
+msgid "Click \"Remove code protection\""
+msgstr "Нажать \"Снять защиту кода\""
+
+#. translators: In this string, %s is the Blog Name/Title
+#: app/controllers/WafpPayPalController.php:266
+msgid "[%s] PayPal Debug Email"
+msgstr "Сервис Paypal на [%s]: отладка электронных писем"
+
+#: app/controllers/WafpShoppController.php:68
+#: app/controllers/WafpShoppController.php:77
+msgid "Shopp Purchase"
+msgstr "Покупка через плагин Shopp"
+
+#: app/controllers/WafpSubscriptionsController.php:17
+#: app/controllers/WafpTransactionsController.php:255
+#: app/controllers/WafpTransactionsController.php:267
+#: app/controllers/WafpUpdateController.php:397
+msgid "You do not have access."
+msgstr "У Вас нет доступа"
+
+#: app/controllers/WafpSubscriptionsController.php:20
+msgid "Could not delete subscription"
+msgstr "Подписка не удалена"
+
+#: app/controllers/WafpSubscriptionsController.php:30
+msgid "This Subscription cannot be deleted."
+msgstr "Нет возможности удалить подписку"
+
+#: app/controllers/WafpTransactionsController.php:59
+msgid "Affiliate referrer must not be empty"
+msgstr "Ссылающийся домен партнера не может быть незаполненной"
+
+#: app/controllers/WafpTransactionsController.php:64
+msgid "Affiliate referrer must be a valid, wordpress user"
+msgstr ""
+"Ссылающимся доменом партнера может только действующий пользователь Wordpress"
+
+#: app/controllers/WafpTransactionsController.php:67
+msgid "Product name must not be empty"
+msgstr "Наименование продукции не может быть незаполненным"
+
+#: app/controllers/WafpTransactionsController.php:70
+msgid "Unique Order ID must not be empty"
+msgstr "Уникальное обозначение заказа не может быть незаполненным"
+
+#: app/controllers/WafpTransactionsController.php:73
+msgid "Amount must not be empty"
+msgstr "Сумма не может быть незаполненной"
+
+#: app/controllers/WafpTransactionsController.php:76
+msgid "Amount must be formatted #.##"
+msgstr "Сумма должна соответствовать формату: #.##"
+
+#: app/controllers/WafpTransactionsController.php:79
+msgid "Refund Amount must not be empty"
+msgstr "Сумма возврата не может быть незаполненной"
+
+#: app/controllers/WafpTransactionsController.php:82
+msgid "Refund amount must be formatted #.##"
+msgstr "Сумма возврата должна соответствовать формату: #.##"
+
+#: app/controllers/WafpTransactionsController.php:97
+msgid "Commission Levels within a transaction must be unique"
+msgstr "Уровень комиссий в транзакции должен быть уникальным"
+
+#: app/controllers/WafpTransactionsController.php:100
+msgid "Commission levels must be numbers"
+msgstr "Уровень комиссии должен отображаться числом"
+
+#: app/controllers/WafpTransactionsController.php:103
+msgid "Commission level must be a number greater than zero"
+msgstr "Уровень комиссии должен отображаться числом, более 0"
+
+#: app/controllers/WafpTransactionsController.php:106
+msgid "Commission level cannot be empty"
+msgstr "Уровень комиссии не может быть незаполненным"
+
+#: app/controllers/WafpTransactionsController.php:109
+msgid "Commission must not be empty"
+msgstr "Комиссия не может быть незаполненной"
+
+#: app/controllers/WafpTransactionsController.php:112
+msgid "Commission must be formatted #.##"
+msgstr "Комиссия должна соответствовать формату: #.##"
+
+#: app/controllers/WafpTransactionsController.php:131
+msgid "There was an error creating your affiliate transaction."
+msgstr "Ошибка в создании транзакции партнера"
+
+#: app/controllers/WafpTransactionsController.php:137
+msgid "Your transaction was created successfully"
+msgstr "Транзакция создана успешно"
+
+#: app/controllers/WafpTransactionsController.php:224
+msgid "Your transaction was updated successfully"
+msgstr "Транзакция успешно обновлена"
+
+#: app/controllers/WafpTransactionsController.php:258
+msgid "Could not delete transaction"
+msgstr "Транзакция не удалена"
+
+#: app/controllers/WafpTransactionsController.php:270
+msgid "Could not delete commission"
+msgstr "Комиссия не удалена"
+
+# Недостаточно контекта для перевода. Может быть, "чего дрейфуешь", "чего сомневаешься", "чего подсматриваешь"
+#: app/controllers/WafpUpdateController.php:46
+msgid "Why you creepin'?"
+msgstr "Чего дрейфуешь?"
+
+#: app/controllers/WafpUpdateController.php:234
+msgid "Check for Update"
+msgstr "Проверить на наличие обновлений"
+
+#: app/controllers/WafpUpdateController.php:317
+msgid "Membership"
+msgstr "Членство"
+
+#: app/controllers/WafpUpdateController.php:318
+msgid "Membership Software"
+msgstr "Членское программное обеспечение"
+
+#: app/controllers/WafpUpdateController.php:319
+msgid "Members"
+msgstr "Члены"
+
+#: app/controllers/WafpUpdateController.php:320
+#: app/views/wafp-dashboard/payments.php:15
+msgid "Payment"
+msgstr "Оплата"
+
+#: app/controllers/WafpUpdateController.php:321
+msgid "Protection"
+msgstr "Защита"
+
+#: app/controllers/WafpUpdateController.php:322
+msgid "Rule"
+msgstr "Правило"
+
+#: app/controllers/WafpUpdateController.php:323
+msgid "Lock"
+msgstr "Блокировка"
+
+#: app/controllers/WafpUpdateController.php:324
+msgid "Access"
+msgstr "Доступ"
+
+#: app/controllers/WafpUpdateController.php:325
+msgid "Community"
+msgstr "Сообщество"
+
+#: app/controllers/WafpUpdateController.php:326
+msgid "Admin"
+msgstr "Администратор"
+
+#: app/controllers/WafpUpdateController.php:327
+msgid "Pages"
+msgstr "Страницы"
+
+#: app/controllers/WafpUpdateController.php:328
+msgid "Posts"
+msgstr "Сообщения"
+
+#: app/controllers/WafpUpdateController.php:329
+msgid "Plugin"
+msgstr "Плагин"
+
+#: app/controllers/WafpUpdateController.php:331
+msgid ""
+"You can access in-depth information about Affiliate Royale at %1$sthe "
+"Affiliate Royale User Manual%2$s."
+msgstr ""
+"Подробная информация о плагине Affiliate Royale находится %1$sthe Affiliate "
+"Royale User Manual%2$s."
+
+#: app/controllers/WafpUpdateController.php:331
+msgid "No Additional information right now"
+msgstr "В настоящий момент нет дополнительной информации"
+
+#: app/controllers/WafpUpdateController.php:358
+msgid "You had an HTTP error connecting to Caseproof's Mothership API"
+msgstr "Ошибка HTTP доступа к API модуля Caseproof Mothership"
+
+#: app/controllers/WafpUpdateController.php:369
+msgid "Your License Key was invalid"
+msgstr "Ключ лицензии недействителен"
+
+#: app/controllers/WafpUpdateController.php:400
+msgid "Edge updates couldn't be updated."
+msgstr "Обновления Edge не установлены "
+
+#: app/controllers/WafpUsersController.php:81
+msgid "Login failed. Please double check your username and password."
+msgstr "Ошибка входа. Просьба проверить имя пользователя и пароль"
+
+#: app/controllers/WafpUsersController.php:434
+msgid "Is Affiliate"
+msgstr "является партнером"
+
+#: app/controllers/WafpUsersController.php:435
+#: app/views/wafp-users/admin_profile.php:54
+msgid "Affiliate Referrer"
+msgstr "Ссылающийся домен партнера"
+
+#: app/controllers/WafpUsersController.php:459 app/models/WafpUser.php:940
+msgid "Yes"
+msgstr "Да"
+
+#: app/controllers/WafpUsersController.php:459 app/models/WafpUser.php:940
+msgid "No"
+msgstr "Нет"
+
+#: app/controllers/WafpUsersController.php:473
+msgid "Message Sent"
+msgstr "Сообщение отправлено"
+
+#: app/controllers/WafpUsersController.php:476
+msgid "Unauthorized to resend message"
+msgstr "Недостаточно прав для повторной отправки сообщения"
+
+#: app/controllers/WafpUsersController.php:479
+msgid "Cannot resend message"
+msgstr "Сообщение не было повторно отправлено"
+
+#: app/controllers/WafpWooCommerceController.php:86
+#: app/controllers/WafpWooCommerceController.php:88
+msgid "Woo Commerce Purchase"
+msgstr "Покупка через плагин Woo Commerce"
+
+#: app/helpers/WafpAppHelper.php:95
+msgid "Never"
+msgstr "Никогда"
+
+#: app/helpers/WafpAppHelper.php:121
+msgid "Commissions (%s)"
+msgstr "Комиссии (%s)"
+
+#: app/helpers/WafpAppHelper.php:126 app/views/payments/owed.php:22
+#: app/views/transactions/edit.php:72 app/views/transactions/row.php:90
+#: app/views/wafp-dashboard/stats.php:119 app/views/wafp-reports/stats.php:118
+msgid "Commissions"
+msgstr "Комиссии"
+
+#: app/helpers/WafpAppHelper.php:134
+msgid "Level %s"
+msgstr "Уровни %s"
+
+#: app/helpers/WafpDashboardHelper.php:17
+msgid "Affiliate: <b>%s</b>"
+msgstr "Партнер: <b>%s</b>"
+
+#: app/helpers/WafpDashboardHelper.php:17
+msgid "info"
+msgstr "информация"
+
+#: app/helpers/WafpDashboardHelper.php:26 app/views/transactions/row.php:88
+#: app/views/wafp-dashboard/payments.php:12
+msgid "Level"
+msgstr "Уровень"
+
+#: app/helpers/WafpDashboardHelper.php:29 app/views/payments/owed.php:17
+#: app/views/payments/receipt.php:8
+msgid "Name"
+msgstr "Наименование"
+
+#: app/helpers/WafpDashboardHelper.php:32
+msgid "Affiliate?"
+msgstr "Партнер?"
+
+#: app/helpers/WafpDashboardHelper.php:35
+#: app/views/wafp-dashboard/referrals.php:8
+msgid "Id"
+msgstr "Обозначение"
+
+#: app/helpers/WafpDashboardHelper.php:38 app/lib/WafpAffiliatesTable.php:24
+#: app/views/shared/login_form.php:4 app/views/wafp-dashboard/referrals.php:12
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: app/helpers/WafpDashboardHelper.php:41 app/lib/WafpAffiliatesTable.php:33
+#: app/lib/WafpClicksTable.php:28 app/lib/WafpTransactionsTable.php:32
+msgid "Referrer"
+msgstr "Ссылающийся домен"
+
+#: app/helpers/WafpDashboardHelper.php:44
+#: app/views/wafp-dashboard/referrals.php:16
+msgid "Email"
+msgstr "Электронная почта"
+
+#: app/helpers/WafpDashboardHelper.php:47 app/views/payments/owed.php:89
+#: app/views/shared/flot_chart.php:5 app/views/wafp-dashboard/stats.php:8
+#: app/views/wafp-reports/stats.php:7 app/views/wafp-reports/top.php:10
+msgid "Sales"
+msgstr "Продажи"
+
+#: app/helpers/WafpDashboardHelper.php:50
+msgid "Field"
+msgstr "Поле"
+
+#: app/helpers/WafpDashboardHelper.php:98
+msgid "Home"
+msgstr "Домой"
+
+#: app/helpers/WafpDashboardHelper.php:99
+msgid "Stats"
+msgstr "Статистика"
+
+#: app/helpers/WafpDashboardHelper.php:100
+msgid "Payment History"
+msgstr "История платежей"
+
+#: app/helpers/WafpDashboardHelper.php:101
+msgid "Account"
+msgstr "Учетная запись"
+
+#: app/helpers/WafpDashboardHelper.php:106
+msgid "Referrals"
+msgstr "Рекомендации"
+
+#: app/helpers/WafpDashboardHelper.php:114
+msgid "Logout"
+msgstr "Завершение работы"
+
+#: app/helpers/WafpOptionsHelper.php:17
+msgid "- Auto Create New Page -"
+msgstr "- Автоматическое создание новой страницы -"
+
+#: app/helpers/WafpOptionsHelper.php:37 app/views/transactions/row.php:72
+msgid "Edit"
+msgstr "Редактировать"
+
+#: app/helpers/WafpOptionsHelper.php:39
+msgid "View"
+msgstr "Просматривать"
+
+#: app/helpers/WafpOptionsHelper.php:46 app/views/wafp-options/form.php:320
+msgid "PayPal"
+msgstr "сервис PayPal"
+
+#: app/helpers/WafpOptionsHelper.php:47 app/views/wafp-options/form.php:236
+msgid "Other"
+msgstr "Другое"
+
+#: app/lib/WafpAffiliatesTable.php:25 app/views/shared/signup_form.php:6
+#: app/views/wafp-dashboard/account.php:11
+msgid "First Name"
+msgstr "Имя"
+
+#: app/lib/WafpAffiliatesTable.php:26 app/views/shared/signup_form.php:10
+#: app/views/wafp-dashboard/account.php:15
+msgid "Last Name"
+msgstr "Фамилия"
+
+#: app/lib/WafpAffiliatesTable.php:27
+msgid "ID"
+msgstr "Обозначение"
+
+#: app/lib/WafpAffiliatesTable.php:28
+msgid "MTD Clicks"
+msgstr "Щелчки мышью с начала месяца"
+
+#: app/lib/WafpAffiliatesTable.php:29
+msgid "YTD Clicks"
+msgstr "Щелчки мышью с начала года"
+
+#: app/lib/WafpAffiliatesTable.php:30
+msgid "MTD Commissions"
+msgstr "Комиссия с начала месяца"
+
+#: app/lib/WafpAffiliatesTable.php:31
+msgid "YTD Commissions"
+msgstr "Комиссия с начала года"
+
+#: app/lib/WafpAffiliatesTable.php:32
+msgid "Signup Date"
+msgstr "Дата регистрации"
+
+#: app/lib/WafpClicksTable.php:24 app/lib/WafpPaymentsTable.php:24
+#: app/lib/WafpTransactionsTable.php:24
+msgid "Time"
+msgstr "Время"
+
+#: app/lib/WafpClicksTable.php:26
+msgid "URL"
+msgstr "адрес URL"
+
+#: app/lib/WafpClicksTable.php:27
+msgid "IP"
+msgstr "адрес IP"
+
+# Недостаточно контекста, также может быть "Значение"
+#: app/lib/WafpPaymentsTable.php:25
+msgid "Amount"
+msgstr "Сумма"
+
+#: app/lib/WafpSubscriptionsTable.php:24
+msgid "Start Date"
+msgstr "Дата начала"
+
+#: app/lib/WafpSubscriptionsTable.php:25
+msgid "Subscription ID"
+msgstr "Обозначение подписки"
+
+#: app/lib/WafpSubscriptionsTable.php:27
+msgid "Subscription Type"
+msgstr "Тип подписки"
+
+#: app/lib/WafpTransactionsTable.php:26
+msgid "Invoice"
+msgstr "Счет-фактура"
+
+#: app/lib/WafpTransactionsTable.php:27
+msgid "Product"
+msgstr "Продукция"
+
+#: app/lib/WafpTransactionsTable.php:30 app/views/wafp-dashboard/stats.php:121
+#: app/views/wafp-reports/stats.php:120 app/views/wafp-reports/top.php:12
+msgid "Total"
+msgstr "Итого"
+
+#: app/lib/WafpTransactionsTable.php:33
+msgid "Actions"
+msgstr "Действия"
+
+#: app/models/WafpClick.php:134
+msgid "Unknown"
+msgstr "Неизвестно"
+
+#: app/models/WafpLink.php:121
+msgid "Target URL can't be blank"
+msgstr "Целевой адрес URL не может быть незаполнен"
+
+#: app/models/WafpLink.php:126
+msgid "Target URL must be a valid URL"
+msgstr "Целевой адрес URL должен быть действующим адресом URL"
+
+#: app/models/WafpLink.php:131
+msgid "The slug must be unique to this link"
+msgstr "Служебное поле для данной ссылки должно быть уникальным"
+
+#: app/models/WafpLink.php:238
+msgid "Affiliate Link"
+msgstr "Ссылка на партнера"
+
+#: app/models/WafpOptions.php:172
+msgid "Welcome to the Affiliate Program on {$site_name}!"
+msgstr "Добро пожаловать в партнерскую программу {$site_name}!"
+
+#: app/models/WafpOptions.php:194
+msgid "** Affiliate Sale"
+msgstr "** Распродажа партнера"
+
+#: app/models/WafpOptions.php:222
+msgid "** Affiliate Commission"
+msgstr "** Комиссия партнера"
+
+#: app/models/WafpOptions.php:339
+msgid "Welcome to %s's Affiliate Program."
+msgstr "Добро пожаловать в партнерскую программу %s."
+
+#: app/models/WafpOptions.php:411
+msgid "Your Payment Integration Must Not Be Blank."
+msgstr "Интеграция оплаты не может быть незаполненной"
+
+#: app/models/WafpOptions.php:414
+msgid "The Commission Amount Must Not Be Blank."
+msgstr "Сумма комиссии не может быть незаполненной"
+
+#: app/models/WafpOptions.php:420
+msgid "The commission amount in level %d must be a number."
+msgstr "Сумма комиссии в уровне %d должна быть выражена в цифрах"
+
+#: app/models/WafpOptions.php:422
+msgid ""
+"The commission amount in level %d is a percentage so it must be a number "
+"from 0 to 100."
+msgstr ""
+"Сумма комиссии в уровне %d  является процентом, следовательно, должна "
+"использоваться цифра от 0 до 100. "
+
+#: app/models/WafpOptions.php:439
+msgid "One or more of your paypal email addresses is not a valid email."
+msgstr "Один или более электронных адресов paypal недействительны. "
+
+#: app/models/WafpOptions.php:454
+msgid "One or more of the PayPal source IPN source is not a valid ip address."
+msgstr ""
+"Одно или более исходных сообщений IPN от PayPal не имеет действительного IP "
+"адреса"
+
+#: app/models/WafpOptions.php:467
+msgid "One or more of the PayPal destination IPN URLs is not a valid URL."
+msgstr ""
+"Одно или более целевых сообщений IPN от PayPal не имеет действительного URL "
+"адреса"
+
+#: app/models/WafpSubscription.php:17
+msgid "Add New Subscription"
+msgstr "Добавить новую подписку"
+
+#: app/models/WafpSubscription.php:18
+msgid "Edit Subscription"
+msgstr "Редактировать подписку"
+
+#: app/models/WafpSubscription.php:19
+msgid "New Subscription"
+msgstr "Новая подписка"
+
+#: app/models/WafpSubscription.php:20
+msgid "View Subscription"
+msgstr "Просмотреть подписку"
+
+#: app/models/WafpSubscription.php:21
+msgid "Search Subscription"
+msgstr "Искать подписку"
+
+#: app/models/WafpSubscription.php:22
+msgid "No Subscription found"
+msgstr "Подписка не найдена"
+
+#: app/models/WafpSubscription.php:23
+msgid "No Subscription found in Trash"
+msgstr "В корзине нет подписок"
+
+#: app/models/WafpSubscription.php:24
+msgid "Parent Subscription:"
+msgstr "Материнская подписка"
+
+#. translators: In this string, %s is the Blog Name/Title
+#: app/models/WafpUser.php:377
+msgid "[%s] New Affiliate Signup"
+msgstr "Регистрация нового партнера [%s]"
+
+#. translators: In this string, %1$s is the blog's name/title, %2$s is the
+#. user's real name, %3$s is the user's username and %4$s is the user's email
+#: app/models/WafpUser.php:380
+msgid ""
+"A new user just joined your Affiliate Program at %1$s!\n"
+"\n"
+"Name: %2$s\n"
+"Username: %3$s\n"
+"E-Mail: %4$s"
+msgstr ""
+"Новый пользователь присоединился к партнерской программе %1$s!\n"
+"\n"
+"ФИО: %2$s\n"
+"Имя пользователя: %3$s\n"
+"Электронная почта: %4$s"
+
+#: app/models/WafpUser.php:398
+msgid "*** The password you created at signup ***"
+msgstr "*** Пароль, созданный при регистрации***"
+
+#. translators: In this string, %s is the Blog Name/Title
+#: app/models/WafpUser.php:436
+msgid "[%s] Affiliate Password Reset"
+msgstr "Сброс пароля у партнера [%s] "
+
+#. translators: In this string, %1$s is the user's username, %2$s is the blog's
+#. name/title, %3$s is the blog's url, %4$s the reset password link
+#: app/models/WafpUser.php:439
+msgid ""
+"Someone requested to reset your password for %1$s on the Affiliate Program "
+"at %2$s at %3$s\n"
+"\n"
+"To reset your password visit the following address, otherwise just ignore "
+"this email and nothing will happen.\n"
+"\n"
+"%4$s"
+msgstr ""
+"Кто-то запросил сброс пароля для %1$s в партнерской программе %2$s at %3$s\n"
+"\n"
+"Для сброса пароля пройдите по следующему адресу или же игнорируйте это "
+"письмо - никаких действий не последует.\n"
+"\n"
+"%4$s"
+
+#. translators: In this string, %s is the Blog Name/Title
+#: app/models/WafpUser.php:464
+msgid "[%s] Affiliate Password Lost/Changed"
+msgstr "Потеря/замена пароля в партнерском блоге [%s] "
+
+#. translators: In this string, %1$s is the user's username
+#: app/models/WafpUser.php:467
+msgid "Affiliate Password Lost and Changed for user: %1$s"
+msgstr "Потеря и замена пароля в партнерском блоге для пользователя %1$s"
+
+#. translators: In this string, %s is the Blog Name/Title
+#: app/models/WafpUser.php:480
+msgid "[%s] Your new Affiliate Password"
+msgstr "Новый пароль в партнерском блоге [%s] "
+
+#. translators: In this string, %1$s is the user's first name, %2$s is the
+#. blog's name/title, %3$s is the user's username, %4$s is the user's password,
+#. and %5$s is the blog's URL...
+#: app/models/WafpUser.php:483
+msgid ""
+"%1$s,\n"
+"\n"
+"Your Affiliate Password was successfully reset on %2$s!\n"
+"\n"
+"Username: %3$s\n"
+"Password: %4$s\n"
+"\n"
+"You can login here: %5$s"
+msgstr ""
+"%1$s,\n"
+"\n"
+"Пароль в партнерском блоге был успешно сброшен %2$s!\n"
+"\n"
+"Имя пользователя: %3$s\n"
+"Пароль: %4$s\n"
+"\n"
+"Для входа: %5$s"
+
+#: app/models/WafpUser.php:521
+msgid "User Override"
+msgstr "Отмена решения пользователя"
+
+#: app/models/WafpUser.php:524
+msgid "Global"
+msgstr "Всемирный"
+
+#: app/models/WafpUser.php:778
+msgid "Robots not allowed"
+msgstr "Роботам вход воспрещен"
+
+#: app/models/WafpUser.php:781 app/models/WafpUser.php:836
+msgid "Username must not be blank"
+msgstr "Имя пользователя не может быть незаполненным"
+
+#: app/models/WafpUser.php:784
+msgid "Username must only contain letters, numbers and/or underscores"
+msgstr ""
+"Имя пользователя может содержать только буквы, цифры и/или знак нижнего "
+"подчеркивания"
+
+#: app/models/WafpUser.php:787
+msgid "Username is Already Taken."
+msgstr "Имя пользователя уже занято"
+
+#: app/models/WafpUser.php:790
+msgid ""
+"PayPal email address is required and must be a real and properly formatted "
+"email address"
+msgstr ""
+"Требуется электронная почта учетной записи PayPal; почта должна быть "
+"действительной и представлена в соответствующем формате "
+
+#: app/models/WafpUser.php:793
+msgid "Email must be a real and properly formatted email address"
+msgstr ""
+"Электронная почта должна быть действительной и представлена в "
+"соответствующем формате "
+
+#: app/models/WafpUser.php:796
+msgid "Email Address has already been used by another user."
+msgstr "Данная электронная почта уже использовалась другим пользователем"
+
+#: app/models/WafpUser.php:799 app/models/WafpUser.php:867
+msgid "You must enter a Password."
+msgstr "Требуется пароль"
+
+#: app/models/WafpUser.php:802 app/models/WafpUser.php:870
+msgid "You must enter a Password Confirmation."
+msgstr "Требуется подтверждение пароля"
+
+#: app/models/WafpUser.php:805 app/models/WafpUser.php:873
+msgid "Your Password and Password Confirmation don't match."
+msgstr "Пароль и подтверждение пароля не совпадают"
+
+#: app/models/WafpUser.php:808
+msgid "You must enter an Address"
+msgstr "Введите адрес"
+
+#: app/models/WafpUser.php:811
+msgid "You must enter a City"
+msgstr "Введите город"
+
+#: app/models/WafpUser.php:814
+msgid "You must enter a State/Province"
+msgstr "Введите штат/провинцию (США)"
+
+#: app/models/WafpUser.php:817
+msgid "You must enter a Zip/Postal Code"
+msgstr "Введите индекс"
+
+#: app/models/WafpUser.php:820
+msgid "You must enter a Country"
+msgstr "Введите страну"
+
+#: app/models/WafpUser.php:823
+msgid "You must be a human to signup for this site"
+msgstr "Регистрация доступна только реальным людям"
+
+#: app/models/WafpUser.php:826
+msgid "You must agree to the Affiliate Signup Agreement"
+msgstr "Требуется подтвердить Соглашение о регистрации партнера"
+
+#: app/models/WafpUser.php:839
+msgid "Username was not found"
+msgstr "Имя пользователя не найдено"
+
+#: app/models/WafpUser.php:849
+msgid "You must enter a Username or Email"
+msgstr "Требуется ввести имя пользователя или электронную почту"
+
+#: app/models/WafpUser.php:856
+msgid "That Username or Email wasn't found."
+msgstr "Данное имя пользователя или электронная почта не найдены"
+
+#: app/models/WafpUser.php:889
+msgid "You must fill out the tax ID field before you can begin promoting"
+msgstr ""
+"Для начала продвижения требуется заполнить поле с номером налогоплательщика "
+"(США)"
+
+#: app/models/WafpUser.php:892
+msgid "You must enter your PayPal Email before you can begin promoting"
+msgstr ""
+"Для начала продвижения требуется ввести электронный адрес учетной записи "
+"PayPal"
+
+#: app/views/clicks/list.php:4
+msgid "Clicks referred by affiliates"
+msgstr "Нажатия мышью по ссылкам от партнеров"
+
+#: app/views/payments/list.php:4
+msgid "Payments made to affiliates"
+msgstr "Платежа в пользу партнеров"
+
+#: app/views/payments/owed.php:12 app/views/wafp-dashboard/stats.php:4
+#: app/views/wafp-reports/stats.php:3 app/views/wafp-reports/top.php:3
+msgid "Select the period you want to view"
+msgstr "Выбрать период для просмотра"
+
+#: app/views/payments/owed.php:12 app/views/update/edge_updates.php:3
+#: app/views/wafp-dashboard/stats.php:4 app/views/wafp-reports/stats.php:3
+#: app/views/wafp-reports/top.php:3 app/views/wafp-users/admin_profile.php:108
+msgid "Loading..."
+msgstr "Загрузка"
+
+#: app/views/payments/owed.php:18
+msgid "Status"
+msgstr "Статус"
+
+#: app/views/payments/owed.php:20 app/views/payments/receipt.php:9
+#: app/views/wafp-dashboard/account.php:21
+msgid "PayPal Email"
+msgstr "Электронный адрес учетной записи PayPal"
+
+#: app/views/payments/owed.php:23 app/views/wafp-dashboard/stats.php:120
+#: app/views/wafp-reports/stats.php:119
+msgid "Corrections"
+msgstr "Корректировки"
+
+#: app/views/payments/owed.php:24
+msgid "To Payout"
+msgstr "К выплате"
+
+#: app/views/payments/owed.php:25 app/views/payments/receipt.php:10
+#: app/views/wafp-dashboard/payments.php:17
+msgid "Paid"
+msgstr "Оплачено"
+
+#: app/views/payments/owed.php:33
+msgid "No Payments are due for this period."
+msgstr "Нет платежей к оплате в данный период"
+
+#: app/views/payments/owed.php:65
+msgid "Not Affiliate"
+msgstr "Не партнер"
+
+#: app/views/payments/owed.php:68
+msgid "Blocked"
+msgstr "Заблокировано"
+
+#: app/views/payments/owed.php:71
+msgid "No PayPal Email"
+msgstr "Нет электронного адреса учетной записи PayPal"
+
+#: app/views/payments/owed.php:74
+msgid "Below Minimum"
+msgstr "Ниже минимума"
+
+#: app/views/payments/owed.php:77
+msgid "Eligible"
+msgstr "Соответствующий критериям "
+
+#: app/views/payments/owed.php:93 app/views/payments/receipt.php:24
+msgid "none"
+msgstr "Нет"
+
+#: app/views/payments/owed.php:105
+msgid "Mark Checked Commissions as Paid"
+msgstr "Обозначить отмеченные комиссии как оплаченные"
+
+#: app/views/payments/owed.php:112
+msgid "Previous Payments"
+msgstr "Предыдущие платежи"
+
+#: app/views/payments/owed.php:119
+msgid "Next Payments"
+msgstr "Будущие платежи"
+
+#: app/views/payments/receipt.php:3
+msgid "Affiliate Commission Summary"
+msgstr "Резюме комиссий партнера"
+
+#: app/views/payments/receipt.php:31
+msgid "Download PayPal Mass Payment File"
+msgstr "Загрузить файл массовой оплаты Paypal"
+
+#: app/views/payments/receipt.php:37
+msgid "Newer Clicks"
+msgstr "Более новые нажатия мышью"
+
+#: app/views/payments/receipt.php:44
+msgid "Older Clicks"
+msgstr "Более старые нажатия мышью"
+
+#: app/views/shared/already_logged_in.php:7
+msgid "You're already logged in. %1$sLogout.%2$s"
+msgstr "Вы уже осуществили вход.  %1$sLogout.%2$s"
+
+#: app/views/shared/errors.php:7
+msgid "ERROR"
+msgstr "ОШИБКА"
+
+#: app/views/shared/flot_chart.php:4 app/views/wafp-dashboard/stats.php:7
+#: app/views/wafp-dashboard/stats.php:117 app/views/wafp-reports/stats.php:6
+#: app/views/wafp-reports/stats.php:116
+msgid "Uniques"
+msgstr "Уникальные"
+
+#: app/views/shared/leaderboard_display.php:10
+msgid "Sales Referred"
+msgstr "Продажи по ссылкам"
+
+#: app/views/shared/leaderboard_display.php:32
+msgid "No data available"
+msgstr "Нет данных"
+
+#: app/views/shared/login_form.php:6 app/views/wafp-users/reset_password.php:5
+msgid "Password"
+msgstr "Пароль"
+
+#: app/views/shared/login_form.php:8
+msgid "Remember Me"
+msgstr "Запомнить"
+
+#: app/views/shared/login_form.php:11
+msgid "Log In"
+msgstr "Вход"
+
+#: app/views/shared/login_form.php:18
+msgid "Register"
+msgstr "Регистрация"
+
+#: app/views/shared/login_form.php:19
+msgid "Lost Password?"
+msgstr "Утерян пароль?"
+
+#: app/views/shared/must_configure.php:3
+msgid "Your Affiliate Program must be configured. Go to the %s to set it up."
+msgstr ""
+"Партнерская программа требует конфигурации. Пройдите на  %s  для настройки"
+
+#: app/views/shared/must_configure.php:3
+msgid "Affiliate Program Page"
+msgstr "Страница партнерской программы"
+
+#: app/views/shared/no_registration.php:2
+msgid "Registration is currently not allowed on this site."
+msgstr "В настоящий момент на данном сайте не разрешена регистрация"
+
+#: app/views/shared/signup_form.php:14
+msgid "Choose a Username"
+msgstr "Выбрать имя пользователя"
+
+#: app/views/shared/signup_form.php:18
+msgid "E-mail"
+msgstr "Электронная почта"
+
+#: app/views/shared/signup_form.php:25 app/views/wafp-dashboard/account.php:28
+msgid "Address Line 1"
+msgstr "Адрес, строка 1"
+
+#: app/views/shared/signup_form.php:29 app/views/wafp-dashboard/account.php:32
+msgid "Address Line 2"
+msgstr "Адрес, строка 2"
+
+#: app/views/shared/signup_form.php:33 app/views/wafp-dashboard/account.php:36
+#: app/views/wafp-users/admin_profile.php:17
+msgid "City"
+msgstr "Город"
+
+#: app/views/shared/signup_form.php:37 app/views/wafp-dashboard/account.php:40
+msgid "State/Province"
+msgstr "Штат/провинция (США)"
+
+#: app/views/shared/signup_form.php:41 app/views/wafp-dashboard/account.php:44
+msgid "Zip/Postal Code"
+msgstr "Индекс"
+
+#: app/views/shared/signup_form.php:45 app/views/wafp-dashboard/account.php:48
+#: app/views/wafp-users/admin_profile.php:29
+msgid "Country"
+msgstr "Страна"
+
+#: app/views/shared/signup_form.php:53 app/views/wafp-dashboard/account.php:55
+#: app/views/wafp-users/admin_profile.php:41
+msgid "SSN / Tax ID"
+msgstr "Номер социального страхования / Номер налогоплательщика (США)"
+
+#: app/views/shared/signup_form.php:54
+msgid "US Residents (###-##-#### or ##-#######)"
+msgstr "Резиденты США (###-##-#### или ##-#######)"
+
+#: app/views/shared/signup_form.php:57
+msgid "International Tax ID"
+msgstr "Международный номер налогоплательщика"
+
+#: app/views/shared/signup_form.php:58 app/views/wafp-dashboard/account.php:60
+msgid "Non-US Residents"
+msgstr "Не-резиденты США"
+
+#: app/views/shared/signup_form.php:65
+msgid "PayPal E-mail"
+msgstr "Электронный адрес учетной записи PayPal"
+
+#: app/views/shared/signup_form.php:73
+msgid "Create a Password"
+msgstr "Создать пароль"
+
+#: app/views/shared/signup_form.php:77
+#: app/views/wafp-users/reset_password.php:9
+msgid "Password Confirmation"
+msgstr "Подтвердить пароль"
+
+#: app/views/shared/signup_form.php:87
+msgid "I agree to the %1$sAffiliate Sign-up Agreement%2$s."
+msgstr ""
+"Подтверждение Соглашения о регистрации партнера %1$sAffiliate Sign-up "
+"Agreement%2$s."
+
+#: app/views/shared/signup_form.php:102
+msgid "Sign Up"
+msgstr "Подписаться"
+
+#: app/views/shared/table-controls.php:3
+msgid "Search ..."
+msgstr "Поиск ..."
+
+#: app/views/shared/table-controls.php:5
+msgid "Display"
+msgstr "Отобразить"
+
+#: app/views/shared/table-controls.php:12
+msgid "entries"
+msgstr "вводов"
+
+#: app/views/shared/unauthorized.php:2
+msgid ""
+"You're unauthorized to view this page. Why don't you %1$sLogin%2$s and try "
+"again."
+msgstr ""
+"У вас нет прав доступа для просмотра данной страницы. Почему бы Вам не войти "
+"%1$sLogin%2$s и попытаться снова  "
+
+#: app/views/shared/unknown_error.php:2
+msgid "An Unknown Error Occurred"
+msgstr "Произошла неизвестная ошибка"
+
+#: app/views/shared/wp_cant_register.php:3
+msgid ""
+"Your WordPress registration settings do not currently allow user "
+"registrations.. Go to the %s to enable registrations."
+msgstr ""
+"Текущие настройки WordPress не предусматривают регистрацию пользователей. "
+"Перейдите %s  для разрешения регистрации. "
+
+#: app/views/shared/wp_cant_register.php:3
+msgid "General Wordpress Settings Page"
+msgstr "Страница общих настроек WordPress"
+
+#: app/views/subscriptions/list.php:4
+msgid "Subscriptions referred by affiliates"
+msgstr "Подписки по ссылкам от партнеров"
+
+#: app/views/subscriptions/row.php:46
+msgid "Delete this Subscription."
+msgstr "Удалить данную подписку"
+
+#: app/views/transactions/_form.php:4
+msgid "Affiliate*:"
+msgstr "Партнер*:"
+
+#: app/views/transactions/_form.php:8
+msgid "The affiliate who referred this transaction."
+msgstr "Партнер, который сделал ссылку на данную транзакцию. "
+
+#: app/views/transactions/_form.php:13
+msgid "Customer Name (optional):"
+msgstr "Имя клиента (необязательно):"
+
+#: app/views/transactions/_form.php:16
+msgid "The Customer's Full Name. Not required."
+msgstr "Полное имя клиента. Не требуется."
+
+#: app/views/transactions/_form.php:21
+msgid "Customer Email (optional):"
+msgstr "Электронная почта клиента (необязательно):"
+
+#: app/views/transactions/_form.php:24
+msgid "The Customer's Email Address. Not required."
+msgstr "Электронная почта клиента. Не требуется."
+
+#: app/views/transactions/_form.php:29
+msgid "Product*:"
+msgstr "Продукция*:"
+
+#: app/views/transactions/_form.php:32
+msgid "The product that was purchased"
+msgstr "Приобретенная продукция"
+
+#: app/views/transactions/_form.php:37
+msgid "Unique Order ID*:"
+msgstr "Уникальное обозначение заказа*:"
+
+#: app/views/transactions/_form.php:40
+msgid "The unique order id of this transaction."
+msgstr "Уникальное обозначение заказа для данной транзакции."
+
+#: app/views/transactions/_form.php:45
+msgid "Amount*:"
+msgstr "Сумма*:"
+
+#: app/views/transactions/_form.php:49
+msgid "The sale amount of this transaction"
+msgstr "Сумма продажи для данной транзакции"
+
+#: app/views/transactions/_form.php:54
+msgid "Refund Amount*:"
+msgstr "Сумма возврата*:"
+
+#: app/views/transactions/_form.php:58
+msgid "The refund amount of this transaction"
+msgstr "Сумма возврата для данной транзакции"
+
+#: app/views/transactions/edit.php:5
+msgid "Edit Transaction"
+msgstr "Редактировать транзакцию"
+
+#: app/views/transactions/edit.php:17
+msgid "Transaction ID:"
+msgstr "Обозначение транзакции:"
+
+#: app/views/transactions/edit.php:18
+msgid "Created:"
+msgstr "Создано:"
+
+#: app/views/transactions/edit.php:23
+msgid "Edit Commission Payouts"
+msgstr "Редактировать выплаты комиссии"
+
+#: app/views/transactions/edit.php:33
+msgid "Payed on %s"
+msgstr "Оплачено в пользу %s"
+
+#: app/views/transactions/edit.php:63 app/views/wafp-options/form.php:54
+#: app/views/wafp-options/memberpress_product_meta_box.php:13
+#: app/views/wafp-users/admin_profile.php:83
+msgid "Percentages"
+msgstr "Проценты"
+
+#: app/views/transactions/edit.php:64 app/views/wafp-options/form.php:55
+#: app/views/wafp-options/memberpress_product_meta_box.php:14
+#: app/views/wafp-users/admin_profile.php:84
+msgid "Fixed Amounts"
+msgstr "Фиксированные суммы"
+
+#: app/views/transactions/edit.php:80 app/views/transactions/row.php:92
+msgid "Correction Amount"
+msgstr "Скорректированная сумма"
+
+#: app/views/transactions/edit.php:84 app/views/transactions/row.php:91
+msgid "Commission Amount"
+msgstr "Сумма комиссии"
+
+#: app/views/transactions/edit.php:97
+msgid "Update"
+msgstr "Обновить"
+
+#: app/views/transactions/list.php:4
+msgid "Transactions referred by Affiliates"
+msgstr "Транзакции по ссылкам от партнеров"
+
+#: app/views/transactions/new.php:5
+msgid "Add New Affiliate Transaction"
+msgstr "Добавить новую транзакцию партнера"
+
+#: app/views/transactions/new.php:10
+msgid ""
+"Creating a new transaction here will calculate and record commissions based "
+"on the affiliate selected. Also, any commission notification emails that are "
+"enabled will be sent out."
+msgstr ""
+"Создание новой транзакции приведет к расчету и записи комиссий для "
+"выбранного партнера. Также, любые включенные уведомления о комиссиях будут "
+"рассылаться по электронной почте."
+
+#: app/views/transactions/new.php:19
+msgid "Create"
+msgstr "Создать"
+
+#: app/views/transactions/row.php:72 app/views/wafp-links/list.php:16
+msgid "Info"
+msgstr "Информация"
+
+#: app/views/transactions/row.php:72
+msgid "Delete this Transaction."
+msgstr "Удалить данную транзакцию"
+
+#: app/views/transactions/row.php:72
+msgid "Delete"
+msgstr "Удалить"
+
+#: app/views/transactions/row.php:84
+msgid "Commission Payouts"
+msgstr "Выплата комиссий"
+
+#: app/views/update/activation_warning.php:3
+msgid "Error with AFFILIATE_ROYALE_LICENSE_KEY: %s"
+msgstr "Ошибка с лицензионным ключом AFFILIATE_ROYALE_LICENSE_KEY: %s"
+
+#: app/views/update/activation_warning.php:5
+msgid ""
+"<b>Affiliate Royale hasn't been activated yet.</b> Go to the Affiliate "
+"Royale %1$sactivation page%2$s to activate it."
+msgstr ""
+"<b> Плагин Affiliate Royale еще не активирован.</b> Для активации Affiliate "
+"Royale перейдите %1$sactivation page%2$s."
+
+#: app/views/update/edge_updates.php:3
+msgid ""
+"Include Affiliate Royale edge (development) releases in automatic updates "
+"(not recommended for production websites)"
+msgstr ""
+"Включить релизы edge (разработки) для плагина Affiliate Royale в "
+"автоматические обновления (не рекомендовано для сайтов в продуктиве)."
+
+#: app/views/update/ui.php:8
+msgid ""
+"You must have a License Key to enable automatic updates for Affiliate Royale."
+"<br/><br/>If you don't have a license please go to %1$s or %2$s to get one."
+"<br/><br/>If you don't have a license you can login at %3$s or %4$s to "
+"manage your licenses and site activations."
+msgstr ""
+"Для включения автоматических обновления плагина Affiliate Royale необходим "
+"лицензионный ключ. <br/><br/> Если нет лицензии, просьба перейти  %1$s or "
+"%2$s для приобретения таковой. Если у вас нет лицензии, войдите %3$s или "
+"перейдите к управлению лицензиями и активациями сайтов. "
+
+#: app/views/update/ui.php:14
+msgid "Enter Your Affiliate Royale or MemberPress License Key:"
+msgstr "Ввести лицензионный ключ плагина Affiliate Royale или MemberPress"
+
+#: app/views/update/ui.php:21
+msgid "Activate License Key on %s"
+msgstr "Активировать лицензионный ключ для %s"
+
+#: app/views/update/ui.php:26
+msgid "Active License Key Information:"
+msgstr "Доступная информация по лицензионному ключу"
+
+#: app/views/update/ui.php:29
+msgid "License Key:"
+msgstr "Лицензионный ключ:"
+
+#: app/views/update/ui.php:33
+msgid "Status:"
+msgstr "Статус:"
+
+#: app/views/update/ui.php:34
+msgid "<b>Active on %s</b>"
+msgstr "<b>Активен на %s</b>"
+
+#: app/views/update/ui.php:37
+msgid "Product:"
+msgstr "Продукция:"
+
+#: app/views/update/ui.php:41
+msgid "Activations:"
+msgstr "Активации:"
+
+#: app/views/update/ui.php:45
+msgid ""
+"Are you sure? Automatic updates of Affiliate Royale will not be available on "
+"%s if this License Key is deactivated."
+msgstr ""
+"Вы уверены? Автоматические обновления плагина Affiliate Royale на %s  будут "
+"недоступны при деактивации лицензионного ключа"
+
+#: app/views/update/ui.php:45
+msgid "Deactivate License Key on %s"
+msgstr "Деактивировать лицензионный ключ"
+
+#: app/views/wafp-dashboard/account.php:4
+msgid "Your account was successfully saved!"
+msgstr "Ваша учетная запись успешно сохранена!"
+
+#: app/views/wafp-dashboard/account.php:6
+msgid "Affiliate Profile"
+msgstr "Профиль партнера"
+
+#: app/views/wafp-dashboard/account.php:56
+msgid "US Residents"
+msgstr "Резиденты США"
+
+#: app/views/wafp-dashboard/account.php:59
+msgid "Intern'l Tax ID"
+msgstr "Международный номер налогоплательщика"
+
+#: app/views/wafp-dashboard/account.php:67
+msgid "Save Profile"
+msgstr "Сохранить профиль"
+
+#: app/views/wafp-dashboard/become.php:2
+msgid ""
+"Only affiliates can access this page. If you would like to become an "
+"affiliate, please click the button below:"
+msgstr ""
+"Доступ к данной странице разрешен только партнерам. Если Вы хотите стать "
+"партнером, нажмите на кнопку ниже:"
+
+#: app/views/wafp-dashboard/become.php:4
+msgid ""
+"By clicking the button below, you agree to the %1$sAffiliate Sign-up "
+"Agreement%2$s."
+msgstr ""
+"Нажимая на кнопку ниже, Вы соглашаетесь с Соглашением о регистрации "
+"партнера  %1$sAffiliate Sign-up Agreement%2$s"
+
+#: app/views/wafp-dashboard/become.php:11
+msgid "Become an Affiliate"
+msgstr "Стать партнером"
+
+#: app/views/wafp-dashboard/blocked.php:1
+msgid "Your Affiliate Account Has Been Blocked"
+msgstr "Ваша учетная запись партнера была заблокирована"
+
+#: app/views/wafp-dashboard/home.php:2
+msgid "My Affiliate Dashboard"
+msgstr "Мой отчет о состоянии для партнеров "
+
+#: app/views/wafp-dashboard/home.php:10
+msgid "Quick Stats"
+msgstr "Быстрая статистика"
+
+#: app/views/wafp-dashboard/home.php:13
+msgid "Clicks Referred: %d"
+msgstr "Нажатия мышью по ссылкам:%d"
+
+#: app/views/wafp-dashboard/home.php:14
+msgid "Sales Referred: %s"
+msgstr "Продажи по ссылкам:%s"
+
+#: app/views/wafp-dashboard/home.php:15
+msgid "Revenues from Referred Sales: %s"
+msgstr "Прибыль с продаж по ссылкам: %s"
+
+#: app/views/wafp-dashboard/home.php:16
+msgid "Commissions from Referred Sales: %s"
+msgstr "Комиссии с продаж по ссылкам: %s"
+
+#: app/views/wafp-dashboard/links.php:2
+msgid "My Links &amp; Banners"
+msgstr "Ссылки и баннеры"
+
+#: app/views/wafp-dashboard/links.php:11
+msgid "Target URL:"
+msgstr "Целевой адрес URL"
+
+#: app/views/wafp-dashboard/links.php:15 app/views/wafp-dashboard/links.php:17
+msgid "Code:"
+msgstr "Код:"
+
+#: app/views/wafp-dashboard/links.php:21
+msgid "Preview:"
+msgstr "Предварительный просмотр:"
+
+#: app/views/wafp-dashboard/links.php:36
+msgid "Additional Info:"
+msgstr "Дополнительная информация:"
+
+#: app/views/wafp-dashboard/memberpress-coupons.php:2
+msgid "My Coupons"
+msgstr "Мои купоны:"
+
+#: app/views/wafp-dashboard/memberpress-coupons.php:8
+msgid "Coupon Code"
+msgstr "Код купона"
+
+#: app/views/wafp-dashboard/memberpress-coupons.php:11
+msgid "Valid Products"
+msgstr "Действующая продукция"
+
+#: app/views/wafp-dashboard/nav.php:14
+msgid "My Affiliate link:"
+msgstr "Моя ссылка партнера:"
+
+#: app/views/wafp-dashboard/payments.php:2
+msgid "My Payment History"
+msgstr "Моя история платежей:"
+
+#: app/views/wafp-dashboard/payments.php:4
+msgid "Your Current Balance"
+msgstr "Ваш текущий баланс: "
+
+#: app/views/wafp-dashboard/payments.php:5
+msgid "Amount Paid To Date"
+msgstr "Сумма оплаченная к настоящему моменту"
+
+#: app/views/wafp-dashboard/payments.php:10
+#: app/views/wafp-dashboard/stats.php:115 app/views/wafp-reports/stats.php:114
+msgid "Date"
+msgstr "Дата"
+
+#: app/views/wafp-dashboard/payments.php:11
+msgid "Sale"
+msgstr "Продажа"
+
+#: app/views/wafp-dashboard/payments.php:14
+msgid "Correction"
+msgstr "Корректировка"
+
+#: app/views/wafp-dashboard/payments.php:16
+msgid "Owed"
+msgstr "К оплате"
+
+#: app/views/wafp-dashboard/payments.php:27
+msgid "PAYMENT"
+msgstr "ОПЛАТА"
+
+#: app/views/wafp-dashboard/payments.php:33
+msgid "PAID"
+msgstr "ОПЛАЧЕНО"
+
+#: app/views/wafp-dashboard/payments.php:39
+msgid "PENDING"
+msgstr "В ПРОЦЕССЕ ОБРАБОТКИ"
+
+#: app/views/wafp-dashboard/referrals.php:4
+msgid "Affiliate Referrer:"
+msgstr "Ссылающийся домен партнера:"
+
+#: app/views/wafp-dashboard/referrals.php:23
+msgid "Affiliate Referrals:"
+msgstr "Рекомендации партнера:"
+
+#: app/views/wafp-dashboard/referrals.php:25
+msgid "Sorry, you haven't had any referrals yet."
+msgstr "Извините, вам не дали рекомендаций"
+
+#: app/views/wafp-dashboard/referrals.php:28
+msgid "Download as CSV"
+msgstr "Загрузить как CSV"
+
+#: app/views/wafp-dashboard/stats.php:3
+msgid "My Stats"
+msgstr "Моя статистика"
+
+#: app/views/wafp-dashboard/stats.php:166 app/views/wafp-reports/stats.php:159
+msgid "Totals"
+msgstr "Итого"
+
+#: app/views/wafp-integration/form.php:3
+msgid "Affiliate Program: Integration"
+msgstr "Партнерская программа: Интеграция"
+
+#: app/views/wafp-integration/form.php:5
+msgid "Tracking Pixel"
+msgstr "Пиксель слежения"
+
+#: app/views/wafp-integration/form.php:8
+msgid ""
+"Copy this code and paste it onto your product's website. You should also add "
+"code to dynamically set the \"amount\", \"payment_id\" and \"affiliate_id"
+"\" (affiliate_id only needs to be set if your payment system pushes this "
+"across as a post back url) variables."
+msgstr ""
+"Скопируйте код и вставьте его на сайт с продукцией. Также код следует "
+"добавить к динамически устанавливаемым переменным \"сумма\", \"обозначение "
+"платежа\" и \"обозначение партнера\" (обозначение партнера необходимо, "
+"только если система оплаты переносит данный процесс как обратную передачу "
+"URL)"
+
+#: app/views/wafp-links/links_saved.php:2
+msgid "Links and Banners saved."
+msgstr "Ссылки и баннеры сохранены"
+
+#: app/views/wafp-links/list.php:4
+msgid ""
+"To create a banner just hit \"Add New\" enter a Target URL and hit \"Update "
+"Links &amp; Banners.\" To create a simple link just hit \"Add New,\" enter a "
+"Target URL &amp; an image file and then hit \"Update Links &amp; Banners.\""
+msgstr ""
+"Для создания баннера нажать \"Добавить новый\", ввести целевой адрес URL и "
+"нажать \"Обновить ссылки и баннеры\". Для создания просто ссылки нажать "
+"\"Добавить новый\", ввести целевой адрес URL &amp; добавить файл с "
+"изображение, а затем нажать \"Обновить ссылки и баннеры\"."
+
+#: app/views/wafp-links/list.php:12
+msgid "Link Type"
+msgstr "Тип ссылки"
+
+#: app/views/wafp-links/list.php:13
+msgid "Target URL"
+msgstr "Целевой адрес URL"
+
+#: app/views/wafp-links/list.php:14
+msgid "Slug"
+msgstr "Служебное поле"
+
+#: app/views/wafp-links/list.php:15
+msgid "Text/Image"
+msgstr "Текст/изображение"
+
+#: app/views/wafp-links/list.php:42 app/views/wafp-links/list.php:77
+msgid "Choose..."
+msgstr "Выбрать... "
+
+#: app/views/wafp-links/list.php:44 app/views/wafp-links/list.php:79
+msgid "Enter an URL or choose an image for the banner."
+msgstr "Ввести адрес URL или выбрать изображение баннера."
+
+#: app/views/wafp-links/list.php:49 app/views/wafp-links/list.php:72
+msgid "Enter a link description for your URL."
+msgstr "Ввести описание ссылки для адреса URL"
+
+#: app/views/wafp-links/list.php:54
+msgid "Are you sure you want to delete this link?"
+msgstr "Вы уверены, что хотите удалить данную ссылку?"
+
+#: app/views/wafp-links/list.php:59
+msgid "Text"
+msgstr "Текст"
+
+#: app/views/wafp-links/list.php:59
+msgid "Banner"
+msgstr "Баннер"
+
+#: app/views/wafp-links/list.php:62
+msgid "Default link"
+msgstr "Ссылка по умолчанию"
+
+#: app/views/wafp-links/list.php:91
+msgid "Default affiliate link:"
+msgstr "Ссылка на партнера по умолчанию:"
+
+#: app/views/wafp-links/list.php:95
+msgid "Standard (%s)"
+msgstr "Стандарт  (%s)"
+
+#: app/views/wafp-links/list.php:103
+msgid "Custom Standard Link Redirection"
+msgstr "Настраиваемое стандартное перенаправление ссылки"
+
+#: app/views/wafp-links/list.php:105
+msgid ""
+"This will override the default behavior of the standard link (%s) so it will "
+"redirect to a custom url rather than it's default behavior to just track and "
+"then pass-through."
+msgstr ""
+"Отмена действия по умолчанию стандартной ссылки (%s): перенаправление на "
+"настраиваемый адрес url вместо стандартных действий по отслеживанию и "
+"передаче. "
+
+#: app/views/wafp-links/list.php:107
+msgid "Standard Link Redirect URL:"
+msgstr "Стандартное перенаправление ссылки на адрес URL"
+
+#: app/views/wafp-links/list.php:107
+msgid "The Standard Link Redirect URL must be a properly formatted URL"
+msgstr ""
+"Стандартное перенаправление ссылки на URL должно содержать адрес URL в "
+"соответствующем формате"
+
+#: app/views/wafp-links/list.php:111
+msgid "Update Links &amp; Banners"
+msgstr "Обновить ссылки и баннеры"
+
+#: app/views/wafp-options/authorize_config.php:7
+msgid "Process silent posts with cron"
+msgstr "Обрабатывать проводки без участия пользователя с помощью планировщика"
+
+#: app/views/wafp-options/authorize_config.php:18
+msgid "Debug mode"
+msgstr "Режим отладки"
+
+#: app/views/wafp-options/authorize_integration.php:4
+msgid ""
+"Setting up Affiliate Royale and Authorize.Net ARB to work together involves "
+"configuring Authorize's Silent Post URL and MD5 Hash. Here are the steps "
+"you'll need to follow:"
+msgstr ""
+"Настройка плагинов Affiliate Roayle и Authorize.net ARB подразумевает "
+"конфигурацию адреса URL проводки без участия пользователя от Authorize с "
+"алгоритмом хеширования MD5. Необходимо выполнить следующие шаги:"
+
+#: app/views/wafp-options/authorize_integration.php:5
+msgid "Put a Tracking Code on your Payment Thank You Pages:"
+msgstr "Разместите код слежения на страницу \"Благодарим за оплату\":"
+
+#: app/views/wafp-options/authorize_integration.php:7
+msgid ""
+"You'll want to fill in a value for prod_id which can be the name of the "
+"product and the subscr_id which is the subscription id for the new ARB "
+"subscription."
+msgstr ""
+"Необходимо заполнить значения prod_id, где можно ввести наименование "
+"продукции, и subscr_id, что обозначает новую ARB подписку. "
+
+#: app/views/wafp-options/authorize_integration.php:10
+msgid "Configure the Silent Post URL:"
+msgstr "Конфигурация адреса URL проводки без участия пользователя "
+
+#: app/views/wafp-options/authorize_integration.php:12
+msgid ""
+"The Silent Post URL sends data back to Affiliate Royale about each "
+"transaction made through Authorize.Net:"
+msgstr ""
+"Адрес URL проводки без участия пользователя отсылает данные в плагин "
+"Affiliate Royale о каждой транзакции, проведенной через Authorize.Net"
+
+#: app/views/wafp-options/authorize_integration.php:14
+#: app/views/wafp-options/authorize_integration.php:25
+msgid "Log on to the Merchant Interface at https://account.authorize.net"
+msgstr "Войдите в интерфейса клиента по адресу: https://account.authorize.net"
+
+#: app/views/wafp-options/authorize_integration.php:15
+#: app/views/wafp-options/authorize_integration.php:26
+msgid "Click Settings under Account in the main menu on the left"
+msgstr "Выберите в главном меню слева пункт Учетная запись, подпункт Настройки"
+
+#: app/views/wafp-options/authorize_integration.php:16
+msgid "Click Silent Post URL in the Transaction Format Settings section"
+msgstr ""
+"Выберете адрес URL проводки без участия пользователя в разделе Настройки "
+"формата транзакции"
+
+#: app/views/wafp-options/authorize_integration.php:17
+msgid "Enter the following URL"
+msgstr "Введите адрес URL"
+
+#: app/views/wafp-options/authorize_integration.php:18
+#: app/views/wafp-options/authorize_integration.php:29
+msgid "Click Submit"
+msgstr "Нажмите \"Отправить\""
+
+#: app/views/wafp-options/authorize_integration.php:21
+msgid "Configure the MD5 Hash:"
+msgstr "Конфигурация алгоритма хеширования MD5"
+
+#: app/views/wafp-options/authorize_integration.php:23
+msgid ""
+"The MD5 Hash feature allows you to authenticate that transaction responses "
+"are securely received from Authorize.Net."
+msgstr ""
+"Алгоритм хеширования MD5 позволяет проверить подлинность транзакций, "
+"полученных от Authorize.Net"
+
+#: app/views/wafp-options/authorize_integration.php:27
+msgid "Click MD5-Hash in the Security Settings section"
+msgstr "Выберете алгоритм хеширования MS5 в разделе Настройки безопасности"
+
+#: app/views/wafp-options/authorize_integration.php:28
+msgid ""
+"Enter the following value into the \"New Hash Value\" and \"Confirm Hash "
+"Value\" fields:"
+msgstr ""
+"Введите следующие значения в поля \"Новое значение хеширования\" и "
+"\"Подтвердить значение хеширования\":"
+
+#: app/views/wafp-options/authorize_integration.php:29
+msgid "Note: the MD5 Hash value is not displayed on the screen once submitted."
+msgstr ""
+"Примечание: значение хеширования MD5 не отображается на экране после ввода. "
+
+#: app/views/wafp-options/cart66_integration.php:4
+msgid ""
+"Affiliate Royale automatically integrates with Cart66 Lite and Cart66 "
+"Pro ... so there's no additional configuration!"
+msgstr ""
+"Плагин Affiliate Royale автоматически интегрируется с Cart66 Lite и Cart66 "
+"Pro... таким образом, не нужна дополнительная конфигурация!"
+
+#: app/views/wafp-options/cart66_integration.php:5
+msgid "Note:"
+msgstr "Примечание: "
+
+#: app/views/wafp-options/cart66_integration.php:5
+msgid ""
+"This \"Zero Config\" integration with Cart66 only works with Cart66 version "
+"1.3.2 and above"
+msgstr ""
+"Такая интеграция с Cart66 по принципу \"нулевой конфигурации\" доступна "
+"только для версии Cart66 1.3.2 и выше "
+
+#: app/views/wafp-options/diglabs_stripe_payments_integration.php:4
+msgid ""
+"Affiliate Royale automatically integrates with DigLabs Stripe Payments ... "
+"so there's no additional configuration!"
+msgstr ""
+"Плагин Affiliate Royale автоматически интегрируется с сервисом оплаты картой "
+"DigLabs ... таким образом, не нужна дополнительная конфигурация!"
+
+#: app/views/wafp-options/easy_digital_downloads_integration.php:4
+msgid ""
+"Affiliate Royale automatically integrates with Easy Digital Downloads ... so "
+"there's no additional configuration!"
+msgstr ""
+"Плагин Affiliate Royale автоматически интегрируется с сервисом Easy Digital "
+"Downloads... таким образом, не нужна дополнительная конфигурация!"
+
+#: app/views/wafp-options/ecommerce_integration.php:4
+msgid ""
+"Affiliate Royale automatically integrates with WP E-Commerce ... so there's "
+"no additional configuration!"
+msgstr ""
+"Плагин Affiliate Royale автоматически интегрируется с сервисом электронной "
+"коммерции WP E-Commerce ... таким образом, не нужна дополнительная "
+"конфигурация!"
+
+#: app/views/wafp-options/form.php:4
+msgid "User Manual"
+msgstr "Руководство пользователя"
+
+#: app/views/wafp-options/form.php:25 app/views/wafp-options/form.php:493
+msgid "Update Options"
+msgstr "Опции обновления"
+
+#: app/views/wafp-options/form.php:30
+msgid "Affiliate Program Pages"
+msgstr "Страницы партнерской программы"
+
+#: app/views/wafp-options/form.php:32
+msgid "Affiliate Pages"
+msgstr "Страницы партнеров"
+
+#: app/views/wafp-options/form.php:33
+msgid "Configure the WordPress pages you will use for your Affiliate Program."
+msgstr ""
+"Конфигурация страниц WordPress для использования в партнерской программе"
+
+#: app/views/wafp-options/form.php:36
+msgid "Affiliate Dashboard Page*:"
+msgstr "Страница отчета о состоянии для партнеров*:"
+
+#: app/views/wafp-options/form.php:37
+msgid "Affiliate Dashboard"
+msgstr "Отчет о состоянии для партнеров "
+
+#: app/views/wafp-options/form.php:40
+msgid "Affiliate Signup Page*:"
+msgstr "Страница регистрации партнера*:"
+
+#: app/views/wafp-options/form.php:41
+msgid "Affiliate Signup"
+msgstr "Регистрация партнера"
+
+#: app/views/wafp-options/form.php:44
+msgid "Affiliate Login Page*:"
+msgstr "Страница входа партнера*:"
+
+#: app/views/wafp-options/form.php:45
+msgid "Affiliate Login"
+msgstr "Вход партнера"
+
+#: app/views/wafp-options/form.php:50
+msgid "Commission Settings"
+msgstr "Настройка комиссии"
+
+#: app/views/wafp-options/form.php:52
+#: app/views/wafp-options/memberpress_product_meta_box.php:11
+#: app/views/wafp-users/admin_profile.php:81
+msgid "Commission Type:"
+msgstr "Тип комиссии:"
+
+#: app/views/wafp-options/form.php:58
+msgid "Commission Levels"
+msgstr "Уровни комиссии"
+
+#: app/views/wafp-options/form.php:59
+msgid ""
+"Configure what percentage or fixed amount you want to pay your affiliates "
+"per sale."
+msgstr ""
+"Конфигурация процента или фиксированной суммы для оплаты партнерам за одну "
+"продажу"
+
+#: app/views/wafp-options/form.php:68
+#: app/views/wafp-options/memberpress_product_meta_box.php:19
+#: app/views/wafp-users/admin_profile.php:90
+msgid "add level"
+msgstr "добавить уровень"
+
+#: app/views/wafp-options/form.php:68
+#: app/views/wafp-options/memberpress_product_meta_box.php:20
+#: app/views/wafp-users/admin_profile.php:91
+msgid "remove level"
+msgstr "удалить уровень"
+
+#: app/views/wafp-options/form.php:70
+msgid "Recurring Comissions"
+msgstr "Повторяющиеся комисии"
+
+#: app/views/wafp-options/form.php:71
+msgid "Pay commissions on recurring transactions."
+msgstr "Оплатить комиссии по повторяющимся транзакциям"
+
+#: app/views/wafp-options/form.php:73
+msgid "Minimum Payout"
+msgstr "Минимальная выплата"
+
+#: app/views/wafp-options/form.php:77
+msgid "Dashboard Settings"
+msgstr "Настройка отчета о состоянии для партнеров "
+
+#: app/views/wafp-options/form.php:79
+msgid "Welcome Message"
+msgstr "Приветственное сообщение"
+
+#: app/views/wafp-options/form.php:80
+msgid ""
+"This is the customized message your affiliates will see on their Affiliate "
+"Dashboard welcome page."
+msgstr ""
+"Данное персональное сообщение отображается партнерам на приветственной "
+"странице Отчета о состоянии для партнеров "
+
+#: app/views/wafp-options/form.php:90
+msgid "Dashboard Options"
+msgstr "Опции отчета о состоянии для партнеров "
+
+#: app/views/wafp-options/form.php:91
+msgid "Show Affiliates their referral information?"
+msgstr "Показать партнерам информацию о рекомендациях?"
+
+#: app/views/wafp-options/form.php:93
+msgid "Custom Nav Pages"
+msgstr "Персонализированные страницы навигации "
+
+#: app/views/wafp-options/form.php:95
+msgid "add page"
+msgstr "Добавить страницу"
+
+#: app/views/wafp-options/form.php:96
+msgid "remove page"
+msgstr "удалить страницу"
+
+#: app/views/wafp-options/form.php:101 app/views/wafp-users/admin_profile.php:2
+msgid "Affiliate Settings"
+msgstr "Настройка партнера"
+
+#: app/views/wafp-options/form.php:103
+msgid "Affiliate Payment Method"
+msgstr "Метод оплаты партнеру"
+
+#: app/views/wafp-options/form.php:104
+msgid "What method will you use to pay your affiliates?"
+msgstr "Каким методом Вы бы хотели производить оплату партнерам?"
+
+#: app/views/wafp-options/form.php:105
+msgid "Pay Affiliates With"
+msgstr "Производить оплату партнерам с помощью"
+
+#: app/views/wafp-options/form.php:107
+msgid "Affiliate Registration"
+msgstr "Регистрация партнера"
+
+#: app/views/wafp-options/form.php:108
+msgid "Additional affiliate registration settings"
+msgstr "Дополнительные настройки регистрации партнеров"
+
+#: app/views/wafp-options/form.php:109
+msgid "Collect address information from your affiliates?"
+msgstr "Собрать информацию по адресам с партнеров?"
+
+#: app/views/wafp-options/form.php:110
+msgid "Collect Tax ID #'s from your affiliates?"
+msgstr "Собрать информацию о номере налогоплательщика #'s с партнеров?"
+
+#: app/views/wafp-options/form.php:111
+msgid "Force required fields to be completed before promoting?"
+msgstr "Требовать заполнения обязательных полей перед продвижением?"
+
+#: app/views/wafp-options/form.php:112
+msgid "Automatically make each new user an Affiliate?"
+msgstr ""
+"Автоматически переводить каждого нового пользователя в статус партнера? "
+
+#: app/views/wafp-options/form.php:114
+msgid "Affiliate Signup Agreement"
+msgstr "Соглашение о регистрации партнера"
+
+#: app/views/wafp-options/form.php:116
+msgid "Enable The Affiliate Signup Agreement"
+msgstr "Включить Соглашение о регистрации партнера"
+
+#: app/views/wafp-options/form.php:120
+msgid "Affiliate Cookie Settings"
+msgstr "Настройка \"куки\" партнера"
+
+#: app/views/wafp-options/form.php:121
+msgid "Expire Cookie After"
+msgstr "\"Куки\" теряет силу после"
+
+#: app/views/wafp-options/form.php:121
+msgid "Days"
+msgstr "дней"
+
+#: app/views/wafp-options/form.php:123
+msgid "Affiliate Link Settings"
+msgstr "Настройка ссылки партнера"
+
+#: app/views/wafp-options/form.php:124
+msgid "Enable Pretty Affiliate Links"
+msgstr "Включить плагин маскировки ссылок партнеров Pretty Links"
+
+#: app/views/wafp-options/form.php:127
+msgid "Payment Integration"
+msgstr "Интеграция оплаты"
+
+#: app/views/wafp-options/form.php:129
+msgid "What system(s) do you use to accept payments?"
+msgstr "Какой системой (-мами) Вы пользуетесь для принятия платежей?"
+
+#: app/views/wafp-options/form.php:130
+msgid "You Accept Payments Via"
+msgstr "Вы принимаете платежи через"
+
+#: app/views/wafp-options/form.php:239 app/views/wafp-options/form.php:253
+#: app/views/wafp-options/form.php:267 app/views/wafp-options/form.php:281
+#: app/views/wafp-options/form.php:295 app/views/wafp-options/form.php:309
+#: app/views/wafp-options/form.php:323 app/views/wafp-options/form.php:339
+#: app/views/wafp-options/form.php:353 app/views/wafp-options/form.php:367
+#: app/views/wafp-options/form.php:381 app/views/wafp-options/form.php:395
+#: app/views/wafp-options/form.php:409 app/views/wafp-options/form.php:425
+msgid "Integration Instructions"
+msgstr "Инструкции по интеграции"
+
+#: app/views/wafp-options/form.php:250
+msgid "Easy Digital Downloads"
+msgstr "Сервис Easy Digital Downloads"
+
+#: app/views/wafp-options/form.php:264
+msgid "Jigoshop"
+msgstr "Плагин Jigoshop"
+
+#: app/views/wafp-options/form.php:278
+msgid "MarketPress"
+msgstr "Плагин MarketPress"
+
+#: app/views/wafp-options/form.php:292
+msgid "Memberpress"
+msgstr "Плагин Mamberpress"
+
+#: app/views/wafp-options/form.php:306
+msgid "Super Stripe"
+msgstr "Сервис Super Stripe"
+
+#: app/views/wafp-options/form.php:324 app/views/wafp-options/form.php:410
+msgid "Show Config Options"
+msgstr "Показать опции конфигурации"
+
+#: app/views/wafp-options/form.php:336
+msgid "Wishlist Member + PayPal"
+msgstr "член Wishlist + PayPal"
+
+#: app/views/wafp-options/form.php:350
+msgid "Shopp Plugin"
+msgstr "Плагин Shopp"
+
+#: app/views/wafp-options/form.php:364
+msgid "WooCommerce"
+msgstr "Сервис WooCommerce"
+
+#: app/views/wafp-options/form.php:378
+msgid "DigLabs Stripe Payments"
+msgstr "Оплата картой с помощью сервиса DigLabs"
+
+#: app/views/wafp-options/form.php:392
+msgid "Cart66 Plugin"
+msgstr "Плагин Cart66"
+
+#: app/views/wafp-options/form.php:406
+msgid "Authorize.Net ARB"
+msgstr "Плагин Authorize.Net ARB"
+
+#: app/views/wafp-options/form.php:422
+msgid "WP E-Commerce"
+msgstr "Сервис электронной коммерции WP E-Commerce"
+
+#: app/views/wafp-options/form.php:438
+msgid "Email Notifications"
+msgstr "Уведомления по электронной почте"
+
+#: app/views/wafp-options/form.php:440
+msgid "Affiliate Welcome Email"
+msgstr "Приветственное письмо партнеру"
+
+#: app/views/wafp-options/form.php:441
+msgid "Send Welcome Email"
+msgstr "Отправить приветственное письмо"
+
+#: app/views/wafp-options/form.php:444
+msgid "Welcome Email Subject"
+msgstr "Тема приветственного письма"
+
+#: app/views/wafp-options/form.php:448
+msgid "Welcome Email Body"
+msgstr "Текст приветственного письма"
+
+#: app/views/wafp-options/form.php:452
+msgid "Admin Commission Notification Email"
+msgstr "Уведомление администратора по электронной почте о комиссии"
+
+#: app/views/wafp-options/form.php:453
+msgid "Send Admin Email"
+msgstr "Отправить письмо администратору"
+
+#: app/views/wafp-options/form.php:456
+msgid "Admin Email Subject"
+msgstr "Тема письма администратору"
+
+#: app/views/wafp-options/form.php:460
+msgid "Admin Email Body"
+msgstr "Текст письма администратору"
+
+#: app/views/wafp-options/form.php:464
+msgid "Affiliate Commission Notification Email"
+msgstr "Уведомление партнера по электронной почте о комиссии"
+
+#: app/views/wafp-options/form.php:465
+msgid "Send Affiliate Email"
+msgstr "Отправить письмо партнеру"
+
+#: app/views/wafp-options/form.php:468
+msgid "Affiliate Email Subject"
+msgstr "Тема письма партнера"
+
+#: app/views/wafp-options/form.php:472
+msgid "Affiliate Email Body"
+msgstr "Текст письма партнера"
+
+#: app/views/wafp-options/form.php:478
+msgid "International Settings"
+msgstr "Международные настройски"
+
+#: app/views/wafp-options/form.php:480
+msgid "Currency Settings"
+msgstr "Настройка валют"
+
+#: app/views/wafp-options/form.php:481
+msgid ""
+"Customize the display and type of the currency your affiliate program will "
+"use"
+msgstr ""
+"Персонализация отображения и типа валюты для использования в партнерской "
+"программе"
+
+#: app/views/wafp-options/form.php:482
+msgid "Currency Code:"
+msgstr "Код валюты:"
+
+#: app/views/wafp-options/form.php:483
+msgid "Currency Symbol:"
+msgstr "Символ валюты:"
+
+#: app/views/wafp-options/form.php:484
+msgid "Currency Format:"
+msgstr "Формат валюты:"
+
+#: app/views/wafp-options/general_integration.php:4
+msgid ""
+"You can configure Affiliate Royale to work with most Shopping Carts and "
+"payment systems with the use of a tracking pixel"
+msgstr ""
+"Конфигурация плагина Affiliate Royale для работы с основными корзинами и "
+"системами оплаты с помощью следящего пикселя"
+
+#: app/views/wafp-options/general_integration.php:6
+msgid "If your \"Thank You\" page is on a page on this website:"
+msgstr ""
+"Если страница \"Спасибо\" располагается на одной из страниц данного сайта:"
+
+#: app/views/wafp-options/general_integration.php:7
+msgid ""
+"You can just use the Affiliate Royale shortcode to pass static values like "
+"so. <b>Note:</b> this method should only be used for tracking manual or "
+"offline commissions. When you use static values like this you have to omit "
+"the order_id. Since the order_id must be unique, Affiliate Royale "
+"automatically creates a unique order_id for you -- this means that you'll "
+"want to probably disable the \"Affiliate Commission Notification\" and "
+"prevent your thank you page from being refreshed when using this method. "
+"This is because Affiliate Royale will track each page load as a new "
+"affiliate transaction."
+msgstr ""
+"Использовать короткий код плагина Affiliate Royale для передачи статичных "
+"значений следующим образом. <b>Примечание:</b> такой метод следует "
+"использовать для отслеживания комиссий оффлайн или вручную. При "
+"использовании статичных значений следует избегать order_id. Так как order_id "
+"должна иметь уникальное значение, плагин Affiliate Royale автоматически "
+"присваивает уникальное значение order_id за вас -- таким образом, скорее "
+"всего имеет смысл отключить уведомление о комиссии партнера и не допускать "
+"обновление страницы \"Спасибо\" при использовании данного метода. Это "
+"необходимо потому, что плагин Affiliate Royale отслеживает каждую загрузку "
+"страницы как новую транзакцию партнеру."
+
+#: app/views/wafp-options/general_integration.php:9
+msgid ""
+"Or, you can tell the Affiliate Royale shortcode to read in GET / POST "
+"variables. For instance if your shopping cart redirects users to this thank "
+"you page 'http://example.com/thank-you/?"
+"awesome_amount=100.00&sweet_order_id=175FJS3H&prod_id=Awesome+Cool+Product' "
+"then you'd want the following shortcode installed:"
+msgstr ""
+"Или можно запросить короткий код плагина Affiliate Royale прочитывать "
+"переменные GET / POST. Например, если корзина перенаправляет пользователя на "
+"страницу \"Спасибо\"  по адресу http://example.com/thank-you/?"
+"awesome_amount=100.00&sweet_order_id=175FJS3H&prod_id=Awesome+Cool"
+"+Product' , то следует установить следующий короткий код: "
+
+#: app/views/wafp-options/general_integration.php:11
+msgid ""
+"If your \"Thank You\" page is on another website, part of a customized theme "
+"on this site or a page on this site outside of WordPress:"
+msgstr ""
+"Если страница \"Спасибо\" располагается на другом сайте, части "
+"персонализированной темы на данном сайте или странице на сайте за пределами "
+"WordPress: "
+
+#: app/views/wafp-options/general_integration.php:12
+msgid ""
+"In this case you can use the Affiliate Royale tracking pixel to pass static "
+"values like so. <b>Note:</b> as with the shortcode, this method should only "
+"be used for tracking manual or offline commissions. When you use static "
+"values like this you have to omit the order_id. Since the order_id must be "
+"unique, Affiliate Royale automatically creates a unique order_id for you -- "
+"this means that you'll want to probably disable the \"Affiliate Commission "
+"Notification\" and prevent your thank you page from being refreshed when "
+"using this method. This is because Affiliate Royale will track each page "
+"load as a new affiliate transaction."
+msgstr ""
+"В таком случае можно использовать следящий пиксель плагина Affiliate Royale "
+"для передачи статичных значений следующим образом. <b>Примечание:</b> также "
+"как и с коротким кодом, данный метод следует использовать для отслеживания "
+"комиссий оффлайн или вручную. При использовании статичных значений следует "
+"избегать order_id. Так как order_id должна иметь уникальное значение, плагин "
+"Affiliate Royale автоматически присваивает уникальное значение order_id за "
+"вас -- таким образом, скорее всего имеет смысл отключить уведомление о "
+"комиссии партнера и не допускать обновление страницы \"Спасибо\" при "
+"использовании данного метода. Это необходимо потому, что плагин Affiliate "
+"Royale отслеживает каждую загрузку страницы как новую транзакцию партнеру."
+
+#: app/views/wafp-options/general_integration.php:14
+msgid ""
+"Or, you can tell the Affiliate Royale tracking pixel to read in GET / POST "
+"variables if your tracking pixel is on a PHP page. For instance if your "
+"shopping cart redirects users to this thank you page 'http://examplecart.com/"
+"thank-you.php?awesome_amount=100.00&sweet_order_id=175FJS3H&prod_id=Awesome"
+"+Cool+Product' then you'd want the following shortcode installed:"
+msgstr ""
+"Или можно запросить следящий пиксель плагина Affiliate Royale прочитывать "
+"переменные GET / POST, если следящий пиксель расположен на странице PHP. "
+"Например, если корзина перенаправляет пользователя на страницу \"Спасибо\"  "
+"по адресу 'http://examplecart.com/thank-you.php?"
+"awesome_amount=100.00&sweet_order_id=175FJS3H&prod_id=Awesome+Cool"
+"+Product' , то следует установить следующий короткий код: "
+
+#: app/views/wafp-options/general_integration.php:17
+msgid "More Information:"
+msgstr "Дополнительная информация:"
+
+#: app/views/wafp-options/general_integration.php:18
+msgid ""
+"For instructions on integrating Affiliate Royale with your specific Shopping "
+"Cart or Payment Gateway can be found <a href=\"http://affiliateroyale.com/"
+"user-manual/generic-integration-options/\">here</a>."
+msgstr ""
+"Инструкции по интеграции плагина Affiliate Royale с конкретной корзиной или "
+"методом оплаты находятся здесь: <a href=\"http://affiliateroyale.com/user-"
+"manual/generic-integration-options/\">here</a>. "
+
+#: app/views/wafp-options/jigoshop_integration.php:4
+msgid ""
+"Affiliate Royale automatically integrates with Jigoshop ... so there's no "
+"additional configuration!"
+msgstr ""
+"Плагин Affiliate Royale автоматически интегрируется с плагином Jigoshop ... "
+"таким образом, не нужна дополнительная конфигурация!"
+
+#: app/views/wafp-options/marketpress_integration.php:4
+msgid ""
+"Affiliate Royale automatically integrates with MarketPress ... so there's no "
+"additional configuration!"
+msgstr ""
+"Плагин Affiliate Royale автоматически интегрируется с плагином "
+"MarketPress ... таким образом, не нужна дополнительная конфигурация!"
+
+#: app/views/wafp-options/memberpress_coupon_meta_box.php:5
+msgid "Associate an Affiliate"
+msgstr "Присоединить партнера"
+
+#: app/views/wafp-options/memberpress_integration.php:4
+msgid ""
+"Affiliate Royale automatically integrates with Memberpress ... so there's no "
+"additional configuration!"
+msgstr ""
+"Плагин Affiliate Royale автоматически интегрируется с плагином "
+"Memberpress ... таким образом, не нужна дополнительная конфигурация!"
+
+#: app/views/wafp-options/memberpress_product_meta_box.php:5
+msgid "Enable Commission Group"
+msgstr "Включить группу комиссий"
+
+#: app/views/wafp-options/memberpress_product_meta_box.php:17
+#: app/views/wafp-users/admin_profile.php:88
+msgid "Commission Levels:"
+msgstr "Уровни комиссий"
+
+#: app/views/wafp-options/memberpress_product_meta_box.php:23
+#: app/views/wafp-users/admin_profile.php:95
+msgid "Recurring Commissions:"
+msgstr "Повторяющиеся комиссии"
+
+#: app/views/wafp-options/memberpress_product_meta_box.php:26
+#: app/views/wafp-users/admin_profile.php:98
+msgid "Pay Recurring Commissions"
+msgstr "Оплатить повторяющиеся комиссии"
+
+#: app/views/wafp-options/options_saved.php:2
+msgid "Options saved."
+msgstr "Опции сохранены"
+
+#: app/views/wafp-options/paypal_config.php:4
+msgid "Valid PayPal Email Addresses (recommended)"
+msgstr "Действующие электронные адреса учетных записей PayPal (рекомендовано)"
+
+#: app/views/wafp-options/paypal_config.php:6
+msgid ""
+"This is a list of valid paypal email addresses that IPN requests can be "
+"recieved from. If this is left blank then any valid IPN request will be "
+"recorded as a transaction. It is recommended that you enter all the paypal "
+"email addresses (comma separated) that could be used to send IPN requests to "
+"your affiliate commission tracker to prevent fraud."
+msgstr ""
+"Список действующих электронных адресов учетных записей PayPal, с которых "
+"разрешено получать сообщения IPN. Если данное поле оставить незаполненным, "
+"то любое действующее сообщение IPN будет записано как транзакция. Для "
+"предотвращения мошенничества, рекомендуется ввести все электронные адреса "
+"учетных записей PayPal (через точку с запятой), которые могут использоваться "
+"для отправки запросов IPN. "
+
+#: app/views/wafp-options/paypal_config.php:7
+msgid "Use PayPal Sandbox"
+msgstr "Использовать систему PayPal Sandbox"
+
+#: app/views/wafp-options/paypal_config.php:8
+msgid "Recieve IPN Requests from hosts other than PayPal:"
+msgstr "Получать запросы IPN с хост-узлов, отличных от PayPal"
+
+#: app/views/wafp-options/paypal_config.php:10
+msgid ""
+"Please enter the IP Addresses, separated by commas, of hosts authorized for "
+"Affiliate Royale to receive IPN requests from. If this is left blank then "
+"only IPN requests coming directly from PayPal will be recorded."
+msgstr ""
+"Просьба ввести IP адреса (через точку с запятой) всех хост-узлов, c которых "
+"плагин Affiliate Roayle может получать запросы IPN. Если данное поле "
+"оставить незаполненным, то записываются только сообщения IPN, полученные "
+"непосредственно от PayPal "
+
+#: app/views/wafp-options/paypal_config.php:11
+msgid "Forward IPN Requests to additional URLs:"
+msgstr "Пересылать запросы IPN на дополнительные адреса URL:"
+
+#: app/views/wafp-options/paypal_config.php:13
+msgid ""
+"Please enter URLs to forward IPN requests to. Each URL should be on its own "
+"line. If this is left blank then IPN requests will not be forwarded."
+msgstr ""
+"Просьба ввести адреса URL для пересылки запросов IPN. Каждый адрес URL "
+"должен находиться на отдельной строке. Если оставить данное поле "
+"незаполненным, то запросы IPN не будут пересылаться."
+
+#: app/views/wafp-options/paypal_integration.php:4
+msgid ""
+"Here are the steps you'll need to follow to integrate Affiliate Royale with "
+"PayPal"
+msgstr ""
+"Ниже указаны шаги для интеграции плагина Affiliate Royale с системой Paypal"
+
+#: app/views/wafp-options/paypal_integration.php:5
+#: app/views/wafp-options/wishlist_integration.php:5
+msgid "To create your payment button:"
+msgstr "Для создания кнопки оплатить:"
+
+#: app/views/wafp-options/paypal_integration.php:7
+#: app/views/wafp-options/wishlist_integration.php:7
+msgid "Log Into Your PayPal Account"
+msgstr "Войдите в учетную запись PayPal"
+
+#: app/views/wafp-options/paypal_integration.php:8
+#: app/views/wafp-options/wishlist_integration.php:8
+msgid "Go to \"Merchant Services\" -> \"Create Buttons\""
+msgstr "Перейдите в \"Сервисы клиента\" -> \"Создать кнопку\""
+
+#: app/views/wafp-options/paypal_integration.php:9
+#: app/views/wafp-options/wishlist_integration.php:9
+msgid "Create either a \"Buy Now\" or \"Subscribe\" Button"
+msgstr "Создайте кнопку либо \"Купить сейчас\", либо \"Подписаться\""
+
+#: app/views/wafp-options/paypal_integration.php:16
+#: app/views/wafp-options/wishlist_integration.php:16
+msgid ""
+"Now you can copy your button's code and paste it somewhere on this site. "
+"Note: the button must reside on this site in a page or post in order for the "
+"affiliate tracking to work properly."
+msgstr ""
+"Теперь можно скопировать код кнопки и вставить на сайт. Примечание: для "
+"корректной работы отслеживания партнеров, кнопка должна располагаться на "
+"данном сайте на странице или в сообщении"
+
+#: app/views/wafp-options/paypal_integration.php:17
+msgid ""
+"Lastly you'll need to edit the HTML you copied onto your page and replace "
+"<b>&lt;input type=\"hidden\" name=\"custom\" value=\"[wafp_custom_args]\"&gt;"
+"</b> with just <b>[wafp_custom_args]</b> and <b>&lt;input type=\"hidden\" "
+"name=\"notify_url\" value=\"[wafp_ipn]\"&gt;</b> with just <b>[wafp_ipn]</"
+"b>. This is required to get around a change made to shortcode processing in "
+"WordPress 4.2.3 and later."
+msgstr ""
+"В завершении, необходимо отредактировать HTML, который Вы скопировали на "
+"страницу и заменить <b>&lt;input type=\"hidden\" name=\"custom\" value="
+"\"[wafp_custom_args]\"&gt;</b> на <b>[wafp_custom_args]</b> и <b>&lt;input "
+"type=\"hidden\" name=\"notify_url\" value=\"[wafp_ipn]\"&gt;</b> на "
+"<b>[wafp_ipn]</b>. Это требуется для обхода изменений в коротком коде "
+"обработки на WordPress 4.2.3 и более поздних версиях."
+
+#: app/views/wafp-options/paypal_integration.php:19
+#: app/views/wafp-options/wishlist_integration.php:19
+msgid ""
+"(Optional) Setup Affiliate Royale to automatically record refunds and "
+"process recurring payments:"
+msgstr ""
+"(Дополнительно) Настройка плагина Affiliate Royale для автоматической записи "
+"возвратов и обработки повторяющихся платежей: "
+
+#: app/views/wafp-options/paypal_integration.php:21
+#: app/views/wafp-options/wishlist_integration.php:21
+msgid ""
+"Go to \"My Account\" -> \"Profile\" -> \"Instant Payment Notification "
+"Preferences\" in PayPal"
+msgstr ""
+"Перейти в \"Моя учетная запись\" -> \"Профиль\" -> \"Параметры уведомления о "
+"мгновенных платежах\" в PayPal"
+
+#: app/views/wafp-options/paypal_integration.php:22
+#: app/views/wafp-options/wishlist_integration.php:22
+msgid "Make sure IPN is enabled"
+msgstr "Убедитесь, что включен IPN"
+
+#: app/views/wafp-options/paypal_integration.php:23
+#: app/views/wafp-options/wishlist_integration.php:23
+msgid ""
+"Paste the following URL into the Notification URL text field and hit save:"
+msgstr ""
+"Вставьте следующий адрес URL в поле текста уведомления URL и нажмите "
+"сохранить"
+
+#: app/views/wafp-options/shopp_integration.php:4
+msgid ""
+"Affiliate Royale automatically integrates with Shopp ... so there's no "
+"additional configuration!"
+msgstr ""
+"Плагин Affiliate Royale автоматически интегрируется с плагином Shopp ... "
+"таким образом, не нужна дополнительная конфигурация!"
+
+#: app/views/wafp-options/super_stripe_integration.php:4
+msgid ""
+"Affiliate Royale automatically integrates with Super Stripe ... so there's "
+"no additional configuration!"
+msgstr ""
+"Плагин Affiliate Royale автоматически интегрируется с сервисом Super "
+"Stripe ... таким образом, не нужна дополнительная конфигурация!"
+
+#: app/views/wafp-options/wishlist_integration.php:4
+msgid ""
+"Here are the steps you'll need to follow to integrate Affiliate Royale with "
+"Wishlist Member when its using PayPal to process payments"
+msgstr ""
+"Ниже указаны шаги для интеграции плагина Affiliate Royale с членом Wishlist, "
+"если для платежей используется система Paypal"
+
+#: app/views/wafp-options/wishlist_integration.php:11
+msgid ""
+"Make Sure \"Add advanced variables\" is checked in Step 3 and add the "
+"following text into the \"Advanced Variables\" text area underneath your "
+"custom variables for Wishlist Member:"
+msgstr ""
+"Убедитесь, что выделен пункт \"Добавить дополнительные переменные\" в шаге "
+"3, и вставьте следующее в текстовую область подпункта \"Дополнительные "
+"переменные\" под персонализированными переменными члена Wishlist"
+
+#: app/views/wafp-options/wishlist_integration.php:17
+msgid ""
+"Lastly you'll need to edit the HTML you copied onto your page and replace "
+"<b>&lt;input type=\"hidden\" name=\"custom\" value=\"[wafp_custom_args]\"&gt;"
+"</b> with just <b>[wafp_custom_args]</b>. This is required to get around a "
+"change made to shortcode processing in WordPress 4.2.3 and later."
+msgstr ""
+"В завершении, необходимо отредактировать HTML, который Вы скопировали на "
+"страницу и заменить <b>&lt;input type=\"hidden\" name=\"custom\" value="
+"\"[wafp_custom_args]\"&gt;</b>  на<b>[wafp_custom_args]</b>. Это требуется "
+"для обхода изменений в коротком коде обработки на WordPress 4.2.3 и более "
+"поздних версиях."
+
+#: app/views/wafp-options/woocommerce_integration.php:4
+msgid ""
+"Affiliate Royale automatically integrates with WooCommerce ... so there's no "
+"additional configuration!"
+msgstr ""
+"Плагин Affiliate Royale автоматически интегрируется с плагином "
+"WooCommerce ... таким образом, не нужна дополнительная конфигурация!"
+
+#: app/views/wafp-reports/nav.php:3
+msgid "Affiliate Stats"
+msgstr "Статистика партнера"
+
+#: app/views/wafp-reports/nav.php:4
+msgid "Top Referrers"
+msgstr "Первое место среди ссылающихся доменов "
+
+#: app/views/wafp-reports/top.php:11
+msgid "Refunds"
+msgstr "Возвраты"
+
+#: app/views/wafp-reports/top.php:38
+msgid "Next Page"
+msgstr "Следующая страница"
+
+#: app/views/wafp-reports/top.php:45
+msgid "Prev Page"
+msgstr "Предыдущая страница"
+
+#: app/views/wafp-reports/weekly_stats.php:4
+msgid "Your 7 day Affiliate activity:"
+msgstr "Деятельность Ваших партнеров за последние 7 дней"
+
+#: app/views/wafp-reports/weekly_stats.php:11
+msgid "View More Affiliate Royale Reports"
+msgstr "Просмотреть другие отчеты плагина  Affiliate Royale"
+
+#: app/views/wafp-users/admin_profile.php:9
+msgid "Address 1"
+msgstr "Адрес, строка 1"
+
+#: app/views/wafp-users/admin_profile.php:13
+msgid "Address 2"
+msgstr "Адрес, строка 2"
+
+#: app/views/wafp-users/admin_profile.php:21
+msgid "State"
+msgstr "Штат (США)"
+
+#: app/views/wafp-users/admin_profile.php:25
+msgid "Zip"
+msgstr "Индекс"
+
+#: app/views/wafp-users/admin_profile.php:45
+msgid "Int'l Tax ID"
+msgstr "Международный номер налогоплательщика"
+
+#: app/views/wafp-users/admin_profile.php:54
+msgid "(login name)"
+msgstr "(наименование входа)"
+
+#: app/views/wafp-users/admin_profile.php:58
+msgid "User is an Affiliate"
+msgstr "Пользователь является партнером"
+
+#: app/views/wafp-users/admin_profile.php:59
+msgid "Is this user an Affiliate?"
+msgstr "Данный пользователь является партнером?"
+
+#: app/views/wafp-users/admin_profile.php:62
+msgid "User is Blocked"
+msgstr "Пользователь заблокирован"
+
+#: app/views/wafp-users/admin_profile.php:65
+msgid "Is this user blocked?"
+msgstr "Пользователь заблокирован?"
+
+#: app/views/wafp-users/admin_profile.php:67
+msgid "Affiliate Blocked Message:"
+msgstr "Сообщение о блокировке партнера"
+
+#: app/views/wafp-users/admin_profile.php:73
+msgid "Commission Override"
+msgstr "Отмена комиссии"
+
+#: app/views/wafp-users/admin_profile.php:74
+msgid "Enable Commission Override for this User."
+msgstr "Включить отмену комиссии для данного пользователя"
+
+#: app/views/wafp-users/admin_profile.php:108
+msgid "Resend Affiliate Program Welcome Email"
+msgstr "Отослать повторно приветственное письмо партнерской программы"
+
+#: app/views/wafp-users/forgot_password.php:2
+msgid "Request a Password Reset"
+msgstr "Запросить сброс пароля"
+
+#: app/views/wafp-users/forgot_password.php:5
+msgid "Enter Your Username or Email Address"
+msgstr "Введите имя пользователя или адрес электронной почты"
+
+#: app/views/wafp-users/forgot_password.php:9
+msgid "Request Password Reset"
+msgstr "Запросить сброс пароля"
+
+#: app/views/wafp-users/forgot_password_requested.php:2
+msgid "Successfully requested password reset"
+msgstr "Успешный запрос сброса пароля"
+
+#: app/views/wafp-users/forgot_password_requested.php:3
+msgid ""
+"Please click on the confirmation link that was just sent to your email "
+"address."
+msgstr ""
+"Просьба перейти по ссылке подтверждения, которая только что была отправлена "
+"на Ваш адрес электронной почты"
+
+#: app/views/wafp-users/reset_password.php:2
+msgid "Enter your new password"
+msgstr "Введите новый пароль"
+
+#: app/views/wafp-users/reset_password.php:13
+msgid "Reset Password"
+msgstr "Сбросить пароль"
+
+#: app/views/wafp-users/reset_password_thankyou.php:2
+msgid "Password successfully reset"
+msgstr "Пароль сброшен успешно"
+
+#: app/views/wafp-users/reset_password_thankyou.php:3
+msgid "Your new password has been emailed to you."
+msgstr "Новый пароль был отправлен Вам по электронной почте"
+
+#: app/views/wafp-users/signup_thankyou.php:2
+msgid "Thanks for Registering for %s!"
+msgstr "Благодарим за регистрацию на  %s"
+
+#: app/views/wafp-users/signup_thankyou.php:3
+msgid ""
+"You should shortly receive a confirmation email with your login information."
+msgstr ""
+"В ближайшее время на Ваш электронный адрес будет направлено подтверждение с "
+"информацией по входу в систему"
+
+#: app/views/wafp-users/signup_thankyou.php:4
+msgid "Login to your Affiliate Dashboard"
+msgstr "Вход в Отчет о состоянии для партнеров "
+
+#: script/i18n/pomo/sample/app.php:56
+msgid "Welcome %s!"
+msgstr "Добро пожаловать на %s!"
+
+#: script/i18n/pomo/sample/app.php:60
+msgid "A string with low priority!"
+msgstr "Ветка с низким приоритетом!"
+
+#: script/i18n/pomo/sample/app.php:62
+msgid "Bye\n"
+msgstr "Пока\n"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.affiliateroyale.com"
+msgstr "Адрес: http://www.affiliateroyale.com"
+
+#. Description of the plugin/theme
+msgid ""
+"A complete Affiliate Program plugin for WordPress. Use it to start an "
+"Affiliate Program for your products to dramatically increase traffic, "
+"attention and sales."
+msgstr ""
+"Полный плагин Affiliate Program для WordPress. Начните использовать "
+"партнерскую программу для Вашей продукции для значительного увеличения "
+"трафика, внимания и продаж."
+
+#. Author of the plugin/theme
+msgid "Caseproof, LLC"
+msgstr "Компания Caseproof, LLC"

@@ -1,5 +1,5 @@
 jQuery(function ($) {
-  $('.mepr-sister-plugin-step-button button').click(function () {
+  $('.mepr-sister-plugin-step-button button').on('click', function () {
     var $button = $(this),
       $step = $button.closest('.mepr-sister-plugin-step'),
       $plugin = $button.closest('.mepr-sister-plugin'),
@@ -25,7 +25,8 @@ jQuery(function ($) {
       action: action,
       _ajax_nonce: MeprSisterPlugin.nonce,
       plugin: plugin,
-      type: 'plugin'
+      type: 'plugin',
+      config: config
     };
 
     var handleError = function (message) {
@@ -60,7 +61,7 @@ jQuery(function ($) {
 
           $step.removeClass('mepr-sister-plugin-step-current')
             .next().addClass('mepr-sister-plugin-step-current')
-            .find('.mepr-sister-plugin-step-button').html(config.step_2_button_html);
+            .find('.mepr-sister-plugin-step-button').html(config.next_step_button_html);
         }
       }
     })
@@ -75,5 +76,19 @@ jQuery(function ($) {
         $step.find('.mepr-sister-plugin-message').remove();
       }, 3000);
     });
+  });
+
+  $('.mepr-sister-plugin').each(function () {
+    var $plugin = $(this),
+      config = $plugin.data('config');
+
+    if(config && config.auto_install) {
+      var $button = $plugin.find('.mepr-sister-plugin-auto-installer').trigger('click'),
+        $step = $button.closest('.mepr-sister-plugin-step');
+
+      if($step.length && typeof $step[0]['scrollIntoView'] == 'function') {
+        $step[0].scrollIntoView();
+      }
+    }
   });
 });

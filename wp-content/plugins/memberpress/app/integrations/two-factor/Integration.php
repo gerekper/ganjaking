@@ -1,14 +1,24 @@
 <?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprTwoFactorIntegration {
   public function __construct() {
     add_action('template_redirect', [$this, 'enqueue_twofactor_scripts']);
     add_action('mepr_account_nav_content', [$this, 'add_two_factor_nav_content']);
     add_action('mepr_account_nav', [$this, 'add_two_factor_nav']);
+    add_action('mepr_buddypress_integration_setup_menus', [$this, 'add_two_factor_nav_buddypress']);
+    add_action('init', [$this, 'two_factor_totp_delete'], 11);
+  }
+
+  public function two_factor_totp_delete() {
+    if(isset($_GET['two_factor_action']) && $_GET['two_factor_action'] == 'totp-delete') {
+      $mepr_options = MeprOptions::fetch();
+      $account_url = $mepr_options->account_page_url();
+      $delim = MeprAppCtrl::get_param_delimiter_char($account_url);
+
+      //Delete the usermeta for the secret key, then redirect to the account page page
+      delete_user_meta( get_current_user_id(), Two_Factor_Totp::SECRET_META_KEY );
+      \MeprUtils::wp_redirect($account_url . $delim . 'action=2fa');
+    }
   }
 
   public function enqueue_twofactor_scripts() {
@@ -19,6 +29,35 @@ class MeprTwoFactorIntegration {
         Two_Factor_FIDO_U2F_Admin::enqueue_assets('profile.php');
       }
     }
+  }
+
+  public function add_two_factor_nav_buddypress($main_slug) {
+    if(defined('TWO_FACTOR_DIR')) {
+      global $bp;
+      bp_core_new_subnav_item(
+        array(
+          'name' => _x('Two Factor Authentication', 'ui', 'memberpress-buddypress', 'memberpress'),
+          'slug' => 'mp-two-factor-auth',
+          'parent_url' => $bp->loggedin_user->domain . $main_slug . '/',
+          'parent_slug' => $main_slug,
+          'screen_function' => array($this, 'bbpress_twofactor_nav'),
+          'position' => 20,
+          'user_has_access' => bp_is_my_profile(),
+          'site_admin_only' => false,
+          'item_css_id' => 'mepr-bp-two-factor-auth'
+        )
+      );
+    }
+  }
+
+  public function bbpress_twofactor_nav() {
+    add_action('bp_template_content', array($this, 'bbpress_twofactor_content'));
+
+    //Enqueue the account page scripts here yo
+    $acct_ctrl = new MeprAccountCtrl();
+    $acct_ctrl->enqueue_scripts(true);
+
+    bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
   }
 
   public function add_two_factor_nav() {
@@ -35,11 +74,28 @@ class MeprTwoFactorIntegration {
     }
   }
 
-  public function add_two_factor_nav_content($action) {
+  public function add_two_factor_nav_content($action = null) {
     if ($action !== '2fa') {
       return null;
     }
 
+    if(defined('TWO_FACTOR_DIR')) {
+      $user = MeprUtils::get_currentuserinfo();
+
+      if ( ! empty( $_POST ) ) {
+        $this->user_two_factor_options_update( $user->ID );
+        echo '<p>' . __('Settings Have been saved!', 'memberpress') . '</p>';
+      } else {
+        echo '<form action="" method="post">';
+        $wp_user = get_user_by( 'id', $user->ID );
+        $this->user_two_factor_options( $wp_user );
+        echo '<input type="submit" value="' . __('SAVE OPTIONS', 'memberpress'). '"/>';
+        echo '</form>';
+      }
+    }
+  }
+
+  public function bbpress_twofactor_content() {
     if(defined('TWO_FACTOR_DIR')) {
       $user = MeprUtils::get_currentuserinfo();
 
@@ -86,6 +142,11 @@ class MeprTwoFactorIntegration {
       $new_provider = isset( $_POST[ Two_Factor_Core::PROVIDER_USER_META_KEY ] ) ? $_POST[ Two_Factor_Core::PROVIDER_USER_META_KEY ] : '';
       if ( ! empty( $new_provider ) && in_array( $new_provider, $enabled_providers, true ) ) {
         update_user_meta( $user_id, Two_Factor_Core::PROVIDER_USER_META_KEY, $new_provider );
+
+        if ($new_provider == Two_Factor_Totp::class) { //This class has a seperate update function that we need to call, none of the other providers appear to
+          $totp = Two_Factor_Core::get_providers()[Two_Factor_Totp::class];
+          $totp->user_two_factor_options_update($user_id);
+        }
       }
     }
   }

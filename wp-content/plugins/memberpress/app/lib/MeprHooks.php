@@ -2,10 +2,6 @@
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
 /** Helper methods for working with hooks in MemberPress */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprHooks {
   public static function do_action($tag, $arg='') {
     return self::call(__FUNCTION__, $tag, func_get_args());

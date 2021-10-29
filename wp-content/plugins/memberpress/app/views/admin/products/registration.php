@@ -51,7 +51,7 @@
     <div id="mepr-product-thank-you-area">
       <div class="mepr-product-adv-item">
         <input type="radio" name="<?php echo MeprProduct::$thank_you_page_type_str; ?>" id="<?php echo MeprProduct::$thank_you_page_type_str; ?>_message" value="message" <?php checked(in_array($product->thank_you_page_type, array('message', ''))); ?> />
-        <label for="<?php echo MeprProduct::$thank_you_page_type_str; ?>"><?php _e('Enable custom thank you message', 'memberpress'); ?></label>
+        <label for="<?php echo MeprProduct::$thank_you_page_type_str; ?>_message"><?php _e('Enable custom thank you message', 'memberpress'); ?></label>
         <?php
           MeprAppHelper::info_tooltip('mepr-product-custom-thank-you-message',
                                       __('Enable Custom Thank You Message', 'memberpress'),
@@ -63,7 +63,7 @@
       </div>
       <div class="mepr-product-adv-item">
         <input type="radio" name="<?php echo MeprProduct::$thank_you_page_type_str; ?>" id="<?php echo MeprProduct::$thank_you_page_type_str; ?>_page" value="page" <?php checked($product->thank_you_page_type, 'page') ?> />
-        <label for="<?php echo MeprProduct::$thank_you_page_type_str; ?>"><?php _e('Enable custom thank you page', 'memberpress'); ?></label>
+        <label for="<?php echo MeprProduct::$thank_you_page_type_str; ?>_page"><?php _e('Enable custom thank you page', 'memberpress'); ?></label>
         <?php
           MeprAppHelper::info_tooltip('mepr-product-custom-thank-you-page',
                                       __('Enable Custom Thank You Page', 'memberpress'),

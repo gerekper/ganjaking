@@ -3,10 +3,6 @@ if(!defined('ABSPATH')) { die('You are not allowed to call this page directly.')
 
 // TODO - maybe - way to put existing member into a "held for approval" mode - another button on the members column BIG MAYBE
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MpmmaAppCtrl {
   public function __construct() {
     $this->load_hooks();

@@ -1,10 +1,6 @@
 <?php
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
   /** Used in the view to identify the gateway */
   public function __construct() {
@@ -1096,7 +1092,7 @@ class MeprPayPalStandardGateway extends MeprBasePayPalGateway {
       }
     }
 
-    if ($txn) {
+    if (isset($txn->id) && $txn->id) {
       $sub      = $txn->subscription();
       $product  = new MeprProduct($txn->product_id);
 

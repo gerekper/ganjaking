@@ -3,10 +3,6 @@
 /** This will pick up some of the hook based events, more in-depth
   * processing of certain events and event cleanup maintenance tasks.
   */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprEventsCtrl extends MeprBaseCtrl {
   public function load_hooks() {
     add_action('user_register', array($this, 'user_register'));

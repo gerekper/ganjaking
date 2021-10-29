@@ -1,10 +1,6 @@
 <?php
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprCoupon extends MeprCptModel {
   public static $use_on_upgrades_str  = '_mepr_coupons_use_on_upgrades';
   public static $should_start_str     = '_mepr_coupons_should_start';
@@ -165,7 +161,7 @@ class MeprCoupon extends MeprCptModel {
       }
     }
 
-    return true; // If we made it here, the coupon is good
+    return apply_filters('mepr_coupon_is_valid', true); // If we made it here, the coupon is good
   }
 
   //Hmmm...maybe this method should be moved to the Coupon Ctrl instead

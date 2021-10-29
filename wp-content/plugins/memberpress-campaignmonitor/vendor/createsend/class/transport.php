@@ -34,10 +34,6 @@ function CS_REST_TRANSPORT_can_use_raw_socket($requires_ssl) {
 
     return false;
 }   
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class CS_REST_BaseTransport {
     
     var $_log;

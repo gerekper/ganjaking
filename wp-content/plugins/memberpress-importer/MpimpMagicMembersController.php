@@ -6,10 +6,6 @@ error_reporting(E_ALL);
 chdir(dirname(__FILE__));
 require_once('../../../wp-load.php');
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MpimpMagicMembersController {
   // No need to migrate users & groups
 

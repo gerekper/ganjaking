@@ -12,10 +12,6 @@
  *   // view template
  *   <?php echo $helper->subscription_header_html($p, $s) ?>
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MPCA_Admin_Helper {
   public function subscription_header_html($sub) {
     $html = '';

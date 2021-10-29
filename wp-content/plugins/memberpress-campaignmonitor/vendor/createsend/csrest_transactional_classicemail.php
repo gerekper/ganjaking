@@ -7,10 +7,6 @@ require_once dirname(__FILE__).'/class/base_classes.php';
  *
  */
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class CS_REST_Transactional_ClassicEmail extends CS_REST_Wrapper_Base {
 
     /**

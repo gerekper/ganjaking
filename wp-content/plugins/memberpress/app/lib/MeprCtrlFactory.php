@@ -4,10 +4,6 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
 /** Controllers in MemberPress are all singletons, so we can
   * use this factory to churn out objects for us.
   */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprCtrlFactory {
   public static function fetch($class, $args=array()) {
     static $objs;

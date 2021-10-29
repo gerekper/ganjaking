@@ -12,10 +12,6 @@ function CS_REST_SERIALISATION_get_available($log) {
         return new CS_REST_ServicesJsonSerialiser($log);
     }    
 }
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class CS_REST_BaseSerialiser {
 
     var $_log;

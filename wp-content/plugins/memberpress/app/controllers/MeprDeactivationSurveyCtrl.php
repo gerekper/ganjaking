@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class MeprDeactivationSurveyCtrl extends MeprBaseCtrl {
   public function load_hooks() {
     if(apply_filters('mepr_deactivation_survey_skip', $this->is_dev_url())) {
