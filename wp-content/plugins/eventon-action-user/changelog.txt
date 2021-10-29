@@ -1,5 +1,12 @@
 ActionUser (AU) addon for EventON Plugin
 ====================================
+v 2.2.3 (2020-10-26)
+ADDED: additional virtual event fields 
+ADDED: health guidelines fields
+FIXED: submission form rows styles getting overridden
+UPDATED: form fields to use eventon elements  
+UPDATED: form field styles
+
 v 2.2.2 (2020-9-17)
 FIXED: unnecessary timepicker loading
 FIXED: Compatibility with eventON 2.9

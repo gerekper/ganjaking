@@ -132,13 +132,14 @@ class WooCommerce_Product_Search {
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-controller.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-guardian.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-indexer.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-product-processor.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-term-processor.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-worker.php';
-			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service.php';
+			if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+				require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service.php';
+			} else {
+				require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-service-v2.php';
+			}
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-hit.php';
 			require_once WOO_PS_CORE_LIB . '/class-woocommerce-product-search-utility.php';
-			require_once WOO_PS_BLOCKS_LIB . '/class-blocks.php';
 		}
 
 		if ( !empty( $_REQUEST['ixmbd'] ) ) {
@@ -183,9 +184,6 @@ class WooCommerce_Product_Search {
 
 		}
 
-		if ( apply_filters( 'woocommerce_product_search_avoid_redirect_canonical_loops', true ) ) {
-			add_filter( 'redirect_canonical', array( __CLASS__, 'redirect_canonical' ), PHP_INT_MAX, 2 );
-		}
 	}
 
 	/**
@@ -211,26 +209,6 @@ class WooCommerce_Product_Search {
 				exit;
 			}
 		}
-	}
-
-	/**
-	 * Determine whether a redirect should proceed and avoid redirect-loops caused by WordPress' redirect_canonical().
-	 *
-	 * @since 3.8.0
-	 *
-	 * @param string $redirect_url
-	 * @param string $requested_url
-	 *
-	 * @return string|boolean
-	 */
-	public static function redirect_canonical( $redirect_url, $requested_url ) {
-
-		if ( is_string( $redirect_url ) && is_string( $requested_url ) ) {
-			if ( strcmp( urldecode( $redirect_url ), urldecode( $requested_url ) === 0 ) ) {
-				$redirect_url = false;
-			}
-		}
-		return $redirect_url;
 	}
 
 	public static function wp_print_scripts() {
@@ -275,7 +253,6 @@ class WooCommerce_Product_Search {
 				WooCommerce_Product_Search_Service::MAX_PRICE,
 				WooCommerce_Product_Search_Service::ON_SALE,
 				WooCommerce_Product_Search_Service::RATING,
-				WooCommerce_Product_Search_Service::IN_STOCK,
 
 				'ixwpss',
 				'ixwpst',
@@ -432,7 +409,6 @@ class WooCommerce_Product_Search {
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-attribute.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-price.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-sale.php';
-			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-stock.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-rating.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-reset.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-widget.php';
@@ -442,7 +418,6 @@ class WooCommerce_Product_Search {
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-attribute-widget.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-price-widget.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-sale-widget.php';
-			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-stock-widget.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-rating-widget.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-filter-reset-widget.php';
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-term-node.php';
@@ -452,7 +427,6 @@ class WooCommerce_Product_Search {
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-thumbnail.php';
 			if ( is_admin() ) {
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin.php';
-				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-navigation.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-product.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-taxonomy.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-notice.php';

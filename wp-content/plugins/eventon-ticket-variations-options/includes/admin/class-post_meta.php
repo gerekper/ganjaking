@@ -48,14 +48,23 @@ class evovo_meta_boxes{
 			<tr class='innersection' id='evovo_section' style='display:<?php echo evo_meta_yesno($epmv,'_evovo_activate','yes','','none' );?>'>
 				<td style='padding:20px 25px;' colspan='2'>
 					
-					<div id='evovo_options_selection' style='display:block'>
-						<div class='evovo_vos_container_event'>
+					<div id='evovo_options_selection' style='display:block' >
+						<div class='evovo_vos_container_event evovo_vos_container' data-eid='<?php echo $EVENT->ID;?>' data-wcid='<?php echo $wooproduct_id;?>' data-pid='<?php echo $EVENT->ID;?>' data-pt='event'>
 							<?php
 							$VO = new EVOVO_Var_opts($EVENT, $wooproduct_id);
 							echo $VO->get_all_vos_html('', 'event');
 							?>		
 						</div>
 						
+						<p class='yesno_leg_line ' >
+							<?php echo eventon_html_yesnobtn(array(
+								'id'=>		'_evovo_var_sep_sold',
+								'var'=>		$EVENT->get_prop('_evovo_var_sep_sold'), 
+								'input'=>	true,
+								'label'=>	__('Sell Variations as separate ticket (Only when you have single variation type)','evovo'),
+								'guide'=>	__('This will allow customers to add each variation type to cart as separate tickets, this is only available when there is only single variation type. When this is enabled price options will not display.','evovo')
+							)); ?>
+						</p>
 						<p class='yesno_leg_line ' >
 							<?php echo eventon_html_yesnobtn(array(
 								'id'=>		'_evovo_po_sep_sold',

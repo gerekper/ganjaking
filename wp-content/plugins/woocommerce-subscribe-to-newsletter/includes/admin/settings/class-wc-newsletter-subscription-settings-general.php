@@ -131,10 +131,7 @@ class WC_Newsletter_Subscription_Settings_General extends WC_Newsletter_Subscrip
 						'title'    => _x( 'Checkout location', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
 						'desc_tip' => _x( 'Choose the location of the subscription field in the checkout form.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
 						'default'  => 'after_terms',
-						'options'  => array(
-							'after_terms'   => __( 'After the Terms and Conditions', 'woocommerce-subscribe-to-newsletter' ),
-							'after_billing' => __( 'After billing details', 'woocommerce-subscribe-to-newsletter' ),
-						),
+						'options'  => wc_newsletter_subscription_get_checkout_location_choices(),
 					),
 					'woocommerce_newsletter_order_statuses' => array(
 						'type'     => 'multiselect',

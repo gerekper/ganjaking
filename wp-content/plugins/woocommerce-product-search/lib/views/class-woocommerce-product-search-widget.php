@@ -119,12 +119,11 @@ class WooCommerce_Product_Search_Widget extends WP_Widget {
 		$output .= WooCommerce_Product_Search_Field::woocommerce_product_search( $instance );
 		$output .= $after_widget;
 
-		if ( isset( $args['widget_id'] ) ) {
-			$cache[$args['widget_id']] = $output;
-			wps_cache_set( self::$cache_id, $cache, self::$cache_group );
-		}
-
 		echo $output;
+
+		$cache[$args['widget_id']] = $output;
+		wps_cache_set( self::$cache_id, $cache, self::$cache_group );
+
 	}
 
 	/**
@@ -148,13 +147,13 @@ class WooCommerce_Product_Search_Widget extends WP_Widget {
 			$settings['title'] = trim( strip_tags( $new_instance['title'] ) );
 		}
 
-		$settings['query_title'] = woocommerce_product_search_input_yn( $new_instance['query_title'] );
-		$settings['excerpt']     = woocommerce_product_search_input_yn( $new_instance['excerpt'] );
-		$settings['content']     = woocommerce_product_search_input_yn( $new_instance['content'] );
-		$settings['categories']  = woocommerce_product_search_input_yn( $new_instance['categories'] );
-		$settings['attributes']  = woocommerce_product_search_input_yn( $new_instance['attributes'] );
-		$settings['tags']        = woocommerce_product_search_input_yn( $new_instance['tags'] );
-		$settings['sku']         = woocommerce_product_search_input_yn( $new_instance['sku'] );
+		$settings['query_title'] = !empty( $new_instance['query_title'] ) ? 'yes' : 'no';
+		$settings['excerpt']     = !empty( $new_instance['excerpt'] ) ? 'yes' : 'no';
+		$settings['content']     = !empty( $new_instance['content'] ) ? 'yes' : 'no';
+		$settings['categories']  = !empty( $new_instance['categories'] ) ? 'yes' : 'no';
+		$settings['attributes']  = !empty( $new_instance['attributes'] ) ? 'yes' : 'no';
+		$settings['tags']        = !empty( $new_instance['tags'] ) ? 'yes' : 'no';
+		$settings['sku']         = !empty( $new_instance['sku'] ) ? 'yes' : 'no';
 
 		$settings['order']    = !empty( $new_instance['order'] ) ? $new_instance['order'] : 'DESC';
 		$settings['order_by'] = isset( $new_instance['order_by'] ) ? $new_instance['order_by'] : 'date';
@@ -164,22 +163,22 @@ class WooCommerce_Product_Search_Widget extends WP_Widget {
 			$limit = WooCommerce_Product_Search_Service::DEFAULT_LIMIT;
 		}
 		$settings['limit'] = $limit;
-		$settings['show_more'] = woocommerce_product_search_input_yn( $new_instance['show_more'] );
+		$settings['show_more'] = !empty( $new_instance['show_more'] ) ? 'yes' : 'no';
 
-		$settings['category_results'] = woocommerce_product_search_input_yn( $new_instance['category_results'] );
+		$settings['category_results'] = !empty( $new_instance['category_results'] ) ? 'yes' : 'no';
 		$category_limit = !empty( $new_instance['category_limit'] ) ? intval( $new_instance['category_limit'] ) : WooCommerce_Product_Search_Service::DEFAULT_CATEGORY_LIMIT;
 		if ( $category_limit < 0 ) {
 			$category_limit = WooCommerce_Product_Search_Service::DEFAULT_CATEGORY_LIMIT;
 		}
 		$settings['category_limit'] = $category_limit;
 
-		$settings['product_thumbnails'] = woocommerce_product_search_input_yn( $new_instance['product_thumbnails'] );
+		$settings['product_thumbnails'] = !empty( $new_instance['product_thumbnails'] ) ? 'yes' : 'no';
 
-		$settings['show_description'] = woocommerce_product_search_input_yn( $new_instance['show_description'] );
+		$settings['show_description'] = !empty( $new_instance['show_description'] ) ? 'yes' : 'no';
 
-		$settings['show_price'] = woocommerce_product_search_input_yn( $new_instance['show_price'] );
+		$settings['show_price'] = !empty( $new_instance['show_price'] ) ? 'yes' : 'no';
 
-		$settings['show_add_to_cart'] = woocommerce_product_search_input_yn( $new_instance['show_add_to_cart'] );
+		$settings['show_add_to_cart'] = !empty( $new_instance['show_add_to_cart'] ) ? 'yes' : 'no';
 
 		$delay = !empty( $new_instance['delay'] ) ? intval( $new_instance['delay'] ) : WooCommerce_Product_Search::DEFAULT_DELAY;
 		if ( $delay < WooCommerce_Product_Search::MIN_DELAY ) {
@@ -193,24 +192,24 @@ class WooCommerce_Product_Search_Widget extends WP_Widget {
 		}
 		$settings['characters'] = $characters;
 
-		$settings['show_clear'] = woocommerce_product_search_input_yn( $new_instance['show_clear'] );
+		$settings['show_clear'] = !empty( $new_instance['show_clear'] ) ? 'yes' : 'no';
 
 		$placeholder = !empty( $new_instance['placeholder'] ) ? trim( strip_tags( $new_instance['placeholder'] ) ) : '';
 		$settings['placeholder'] = $placeholder;
 
-		$settings['dynamic_focus'] = woocommerce_product_search_input_yn( $new_instance['dynamic_focus'] );
-		$settings['floating']      = woocommerce_product_search_input_yn( $new_instance['floating'] );
-		$settings['inhibit_enter'] = woocommerce_product_search_input_yn( $new_instance['inhibit_enter'] );
-		$settings['submit_button'] = woocommerce_product_search_input_yn( $new_instance['submit_button'] );
+		$settings['dynamic_focus'] = !empty( $new_instance['dynamic_focus'] ) ? 'yes' : 'no';
+		$settings['floating']      = !empty( $new_instance['floating'] ) ? 'yes' : 'no';
+		$settings['inhibit_enter'] = !empty( $new_instance['inhibit_enter'] ) ? 'yes' : 'no';
+		$settings['submit_button'] = !empty( $new_instance['submit_button'] ) ? 'yes' : 'no';
 		$submit_button_label       = !empty( $new_instance['submit_button_label'] ) ? strip_tags( $new_instance['submit_button_label'] ) : '';
 		$settings['submit_button_label'] = $submit_button_label;
-		$settings['navigable']     = woocommerce_product_search_input_yn( $new_instance['navigable'] );
+		$settings['navigable']     = !empty( $new_instance['navigable'] ) ? 'yes' : 'no';
 		$no_results                = !empty( $new_instance['no_results'] ) ? trim( strip_tags( $new_instance['no_results'] ) ) : '';
 		$settings['no_results']    = $no_results;
 		$settings['height']        = !empty( $new_instance['height'] ) ? WooCommerce_Product_Search_Utility::get_css_unit( $new_instance['height'] ) : '';
 
 		if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
-			$settings['wpml']   = woocommerce_product_search_input_yn( $new_instance['wpml'] );
+			$settings['wpml']   = !empty( $new_instance['wpml'] ) ? 'yes' : 'no';
 		}
 
 		$this->cache_delete();

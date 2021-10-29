@@ -83,7 +83,7 @@ jQuery(document).ready(function($){
             if(Current_outofstock){
                 SECTION.find('.evotx_add_to_cart_bottom').addClass('outofstock');
                 SECTION.find('.evovo_price_options').hide();
-                $('body').trigger('evotx_ticket_msg',[EVOROW,'bad','tvo1']);
+                $('body').trigger('evotx_ticket_msg',[EVOROW,'bad','tvo1', false]);
             }else{
                 SECTION.find('.evotx_add_to_cart_bottom').removeClass('outofstock').show();
                 SECTION.find('.evovo_price_options').show();
@@ -127,6 +127,56 @@ jQuery(document).ready(function($){
         
     });
 
+// Individual Variations
+    $('body').on('click','.evovo_var_types_ind .evovo_addremove',function(){
+        calculate_var_price( $(this) );         
+    }); 
+
+    function calculate_var_price(SPAN){
+        SPAN = $(SPAN);
+        P = SPAN.closest('p');
+        SECTION = SPAN.closest('.evotx_ticket_purchase_section');
+        DATA = SECTION.find('.evotx_data').data('evovo_data');
+        DATA_vt = DATA['v'];
+
+        DATA['prices'] = SECTION.find('.price.tx_price_line input').data('prices');
+        if( DATA['prices'] == '' ) DATA['prices'] = {};
+
+        var total_var_price = 0;
+
+        // all selected variation types
+        SECTION.find('.evovo_var_types_ind').each(function(){
+            QTY = $(this).find('input').val(); 
+            vid = $(this).data('vid');
+            DATA.prices[ vid ] = {};
+
+            if( QTY == '0' || QTY === undefined) return true; 
+            
+            DATA.prices[ vid ]['price'] = DATA_vt[vid].regular_price;
+            DATA.prices[ vid ]['qty'] = QTY;
+            DATA.prices[ vid ]['variations'] = DATA_vt[vid]['variations'];
+            DATA.prices[ vid ]['type'] = 'ind_variation';
+
+            total_var_price += DATA_vt[vid].regular_price * QTY;
+
+        });
+
+        // console.log(DATA);
+        SECTION.find('.evotx_data').data('evovo_data',DATA);
+        SECTION.find('.price.tx_price_line span.value').html( get_format_price(total_var_price, SECTION) );
+        SECTION.find('.price.tx_price_line input').data('prices', DATA.prices );   
+
+        $('body').trigger('evotx_calculate_total', [SECTION]);  
+
+    }
+
+// maximum quantity override
+    $('body').on('evotx_before_qty_changed',function(event, MAX, OBJ){
+
+        console.log(MAX);
+        return;
+    });
+
 // Price options
     $('body').on('click','.evovo_price_option .evovo_addremove',function(){
         if(!$(this).hasClass('evotx_qty_change')) calculate_price_options( $(this) );         
@@ -151,7 +201,8 @@ jQuery(document).ready(function($){
         DATA = SECTION.find('.evotx_data').data('evovo_data');
         DATA_po = DATA.po;
 
-        DATA['pot'] = {};
+        DATA['prices'] = SECTION.find('.price.tx_price_line input').data('prices');
+        if( DATA['prices'] == '' ) DATA['prices'] = {};
         QTY = 0;
 
         // add or remove
@@ -165,6 +216,7 @@ jQuery(document).ready(function($){
             }
         }
         HTML = HTML_extra = '';
+
         // all selected price options
         if( pOptions.find('p.evovo_price_option').length > 0){
             pOptions.find('p.evovo_price_option').each(function(){
@@ -173,28 +225,32 @@ jQuery(document).ready(function($){
                 po_id = $(this).data('poid');
                 if( po_id === undefined) return true;
 
-                QTY = $(this).find('input').val();  
-                 
-                if( QTY == '0') return true;         
+                DATA.prices[ po_id ] = {};
 
-                DATA.pot[ po_id ] = {};
-                DATA.pot[ po_id ]['price'] = DATA_po[po_id].regular_price;
-                DATA.pot[ po_id ]['qty'] = QTY;
-                DATA.pot[ po_id ]['pt'] = ('pricing_type' in DATA_po[po_id]) ? DATA_po[po_id].pricing_type:'include';
+                QTY = parseInt($(this).find('input').val()); 
+                 
+                if( QTY < 1) return true;  
+
+                DATA.prices[ po_id ]['type'] = 'price_option';// identify this price option add
+                DATA.prices[ po_id ]['price'] = DATA_po[po_id].regular_price;
+                DATA.prices[ po_id ]['qty'] = QTY;
+                DATA.prices[ po_id ]['pt'] = ('pricing_type' in DATA_po[po_id]) ? DATA_po[po_id].pricing_type:'include';
 
                 total_price = DATA_po[po_id].regular_price * QTY;
                 formatted_total_price = get_format_price( total_price, SECTION);
 
                 code = "<p class='evotx_item_price_line'><span class='evotx_label'>"+ DATA_po[po_id].name + "<em>"+ (QTY>1? 'x'+QTY:'') +"</em></span><span class='value'>" + formatted_total_price + "</span></p>";
             
-                ( DATA.pot[ po_id ]['pt'] == 'extra') ? HTML_extra += code : HTML += code;
+                ( DATA.prices[ po_id ]['pt'] == 'extra') ? HTML_extra += code : HTML += code;
             });
         }
+
+        //console.log(DATA);
 
         SECTION.find('.evovo_price_option_prices_container').html(HTML);
         SECTION.find('.evovo_price_option_prices_container_extra').html(HTML_extra);
         SECTION.find('.evotx_data').data('evovo_data',DATA);        
-        SECTION.find('.price.tx_price_line input').data('prices',DATA.pot);   
+        SECTION.find('.price.tx_price_line input').data('prices',DATA.prices);   
 
         $('body').trigger('evotx_calculate_total', [SECTION]);    
     }

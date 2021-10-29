@@ -1,18 +1,5 @@
 Tickets (TX) addon for EventON Plugin
 ====================================
-v 1.9.4 (2021-5-27)
-FIXED: non permission attendee list download blocked
-FIXED: minor virtual event guest count hide not working
-FIXED: name your price decimal separator , not working
-
-v 1.9.3 (2021-4-29)
-FIXED: my account text translation
-FIXED: virtual event information error on eventcard
-FIXED: has_user_purchased_tickets() function causing errors for some
-FIXED: event location not showing in the cart
-FIXED: ticket saving create duplicate wc products
-FIXED: confirmation email and thank you page not passing lang values
-
 v 1.9.2 (2021-3-18)
 FIXED: compatibility with eventON 3.1.1 utc offset times
 FIXED: name your price still able to add to cart

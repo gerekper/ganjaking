@@ -78,17 +78,11 @@ class evotx_event extends EVO_Event{
 		// hook for ticket addons
 		$plug = apply_filters('evotx_add_ticket_to_cart_before',false, $this,$DATA);
 		if($plug !== false){	return $plug;	}
-
-
-		// load location information
-			$loc_data = $this->get_location_data();
-			$location_name = isset($loc_data) && isset($loc_data['location_name']) ? $loc_data['location_name']: '';
 		
 		// gather cart item data before adding to cart
 			$_cart_item_data_array = array(
 					'evotx_event_id_wc'			=> $this->ID,
 					'evotx_repeat_interval_wc'	=> $this->ri,
-					'evotx_elocation'			=> $location_name,
 					'evotx_lang'				=> (isset($event_data['l'])? $event_data['l']: 'L1')
 				);
 
@@ -299,9 +293,9 @@ class evotx_event extends EVO_Event{
 			foreach($TT->posts as $P){
 
 				$order_id = get_post_meta($P->ID, '_orderid',true);
-				$order_st = get_post_status( $order_id);
-				
-				if($order_st != 'wc-completed') continue;
+				$order = wc_get_order( $order_id );
+
+				if($order->get_status() != 'completed') continue;
 
 				$bought = true;
 			}

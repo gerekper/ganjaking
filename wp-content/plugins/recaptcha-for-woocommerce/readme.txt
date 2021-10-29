@@ -2,9 +2,9 @@
 Contributors:nik00726
 Tags:Recaptcha
 Requires at least:3.0
-Tested up to:5.7.2
-Version:2.17
-Stable tag:2.17
+Tested up to:5.8.1
+Version:2.24
+Stable tag:2.24
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,42 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.24 =
+
+* Fixed pay for an order captcha not showing when not enabled for login/guest captcha.
+* Separated captcha option for cart request button captcha and product page request button captcha
+
+
+= 2.23 =
+
+* Move reCaptcha to last field in review form of WooCommerce as it looks better.
+
+
+= 2.22 =
+
+* Fixed PHP Warning:  Undefined variable $i13_recapcha_v2_lang
+
+
+= 2.21 =
+
+* Added new option to enable reCaptcha for WooCommerce order tracking. 
+* Fixed conflict with plugin Memberium Plugin.
+* Delay execution action so that captcha will be last field in WooCommerce registration/login forms.
+
+
+
+= 2.20 =
+
+* Fixed for - When there is multiple forms of registration and login on same page it create problems.
+* Fixed for - When the registration/login forms are in ajax modal popup it wont work. - Added option in signup/login settings for enable ajax signup/login modal box 
+* Tested with WordPress 5.8
+
+
+= 2.18 =
+
+* As Google is blocked in someone countries like china, We need global recaptcha domain use(https://recaptcha.net/) so added settings option use recaptcha.net instead of google.com
+
 
 = 2.17 =
 

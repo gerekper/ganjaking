@@ -42,7 +42,6 @@ class evotx_front{
 		add_shortcode('evotx_btn', array($this,'ticket_button'));
 		add_filter('evo_frontend_lightbox', array($this, 'ligthbox'),10,1);
 
-		//print_r( get_post_meta(1,'aa',true));
 
 	}
 
@@ -55,7 +54,7 @@ class evotx_front{
 				if($event_id) {
 					$event_url = get_permalink($event_id);
 					if($event_url !== false) {
-						wp_redirect($event_url, 301);
+						wp_redirect($event_url);
 						exit();
 					}
 				}

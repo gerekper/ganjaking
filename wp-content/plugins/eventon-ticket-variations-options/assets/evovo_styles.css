@@ -1,21 +1,28 @@
 /* EVOVO styles*/
 
 .evotx_ticket_purchase_section .evovo_variation_types, 
+.evotx_ticket_purchase_section .evovo_variation_types_ind,
 .evotx_ticket_purchase_section .evovo_price_options{
 	padding-bottom: 10px;
 	border-radius: 5px;
 	background-color: #fff;
 	margin-bottom: 20px;
 }
+.evotx_ticket_purchase_section .evovo_variation_types_ind{padding:0;}
 body #evcal_list .evotx_ticket_purchase_section .evovo_variation_types p.evovo_var_types,
 body #evcal_list .evotx_ticket_purchase_section .evovo_price_options p.evovo_price_option,
 .evotx_ticket_purchase_section .evovo_variation_types p.evovo_var_types,
-.evotx_ticket_purchase_section .evovo_price_options p.evovo_price_option
+.evotx_ticket_purchase_section .evovo_price_options p.evovo_price_option,
+.evotx_ticket_purchase_section .evovo_variation_types_ind p
 {
 	padding: 10px; font-size: 14px; font-style: normal;
 	border-bottom: 1px solid #f1f1f1;
 	display:flex;
 	justify-content:space-between;
+}
+
+.evotx_ticket_purchase_section .evovo_variation_types_ind .evovo_var_types_ind{
+	padding:15px 10px;
 }
 body #evcal_list .evotx_ticket_purchase_section .evovo_variation_types p.evovo_var_types:last-child,
 .evotx_ticket_purchase_section .evovo_variation_types p.evovo_var_types:last-child
@@ -23,7 +30,7 @@ body #evcal_list .evotx_ticket_purchase_section .evovo_variation_types p.evovo_v
 .evotx_ticket_purchase_section .evovo_variation_types p.evovo_var_types label{}
 .evotx_ticket_purchase_section .evovo_variation_types p.evovo_var_types select{
 	border-radius: 5px;
-	padding: 2px 5px;
+	padding: 2px 20px 2px 5px;
 	margin-left: 8px;
 }
 
@@ -166,7 +173,11 @@ body #evcal_list .evotx_ticket_purchase_section .evovo_variation_types p.evovo_v
 /* booking styles */
 	.evobo_selction_stage_time_qty .evovo_variation_types{margin-top: 10px;}
 /* cart and wc styles */
-	.evo_ticket_vos{padding-bottom: 5px;}
+	.evo_ticket_vos{padding-bottom: 5px;
+		background-color: #f1f1f1;
+	    padding: 5px 10px;
+	    border-radius: 10px;
+	}
 		
 	/* order review */
 		#order_review .evo_ticket_vos{
@@ -176,7 +187,7 @@ body #evcal_list .evotx_ticket_purchase_section .evovo_variation_types p.evovo_v
 		}
 		#order_review .evo_ticket_vos .evovo_spread, 
 		#order_review .evo_ticket_vos .evovo_left, 
-		#order_review .evo_ticket_vos .evovo_subtitle{padding: 5px 10px 0;}
+		#order_review .evo_ticket_vos .evovo_subtitle{    flex-direction: column;}
 		
 	.evo_ticket_vos span, .evo_ticket_vos{display: block;}
 	.evo_ticket_vos .evovo_subtitle{font-size: 14px; font-weight: bold;padding-top: 5px;}
@@ -186,10 +197,10 @@ body #evcal_list .evotx_ticket_purchase_section .evovo_variation_types p.evovo_v
 	.shop_table .evo_ticket_vos .evovo_left
 	{
 		display: flex; justify-content:space-between;
-		font-size: 13px; font-style: italic; padding-top: 5px;
-		border-top:1px solid #e6e6e6;
+		font-size: 13px; font-style: italic;	border-top:1px solid #e6e6e6;
 		margin-top: 5px;
 	}
+	.shop_table .evo_ticket_vos .evovo_spread{border:none;}
 	.shop_table .evo_ticket_vos .evovo_left{justify-content:flex-start;}
 	.shop_table .evo_ticket_vos .evovo_left b{padding-right: 10px;}
 	.shop_table .evo_ticket_vos .evovo_po em{padding-left: 5px; font-weight: bold;}

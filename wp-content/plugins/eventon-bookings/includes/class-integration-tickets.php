@@ -55,6 +55,8 @@ class EVOBO_Tickets_Int{
 
 			ob_start();
 
+			$data = $BLOCKS->event->get_data();
+			
 			$select_year = $select_month = $select_date = '';
 			$current_time = current_time('timestamp');
 
@@ -68,28 +70,52 @@ class EVOBO_Tickets_Int{
 				'l'=> $EVOLANG				
 			);
 
-			$cal_dataset = array(
-				'sow'=> get_option('start_of_week'),
-				'cty'=> date('Y',$current_time),
-				'ctm'=> date('n',$current_time),
-				'ctd'=> date('j',$current_time),
-				'm'=> 	$EVO_Cal->get_all_months('L1'),
-				'df'=> 	$EVO_Cal->get_all_days('L1','full',true),
-				'd3'=> 	$EVO_Cal->get_all_days('L1','three',true),
-				'd1'=> 	$EVO_Cal->get_all_days('L1','one',true),
-				't1'=> __( evo_lang('Select a date')),
-				't2'=> __( evo_lang('Select an available time slot')),
-				't3'=> __( evo_lang('No available slots, please try another date!')),
-				't4'=> __( evo_lang('Today')),
-			);
+			$style = $event->get_prop('_evobo_style');
+			if(!$style) $style = 'def';
 
 
+			//$style = 'def';
 			?>
-			<div class='tx_single evobo_booking_section'>
-				<div class='evobo_main_selection evotx_hidable_box'>
-					<div class='evobo_calendar' data-dataset='<?php echo json_encode($cal_dataset);?>' ></div>
-					<div class='evobo_slots' data-json='<?php echo $BLOCKS->get_json_booking_slots();?>' data-dataset='<?php echo json_encode($dataset);?>'></div>
-					<div class='evobo_selections'></div>
+			<div class='tx_single evobo_booking_section <?php echo $style;?>' data-s='<?php echo $style;?>'>
+				<div class='evobo_main_selection evotx_hidable_box evotx_hidable_section'>
+					<?php					
+
+
+					if($style == 'slot'):
+						$cal_dataset = array(					
+							'hide_end'=> $event->check_yn('_evobo_hide_end'),		
+							't2'=> __( evo_lang('Select an available time slot')),
+							't3'=> __( evo_lang('No available slots, please try another date!')),
+							't3n'=> __( evo_lang('There are no available time slots at the moment!')),
+						);
+					?>
+						<div class='evobo_selections' data-dataset='<?php echo json_encode($cal_dataset);?>' ></div>					
+					<?php else:
+
+						$lang = EVO()->lang;
+
+						$cal_dataset = array(
+							'sow'=> get_option('start_of_week'),
+							'cty'=> date('Y',$current_time),
+							'ctm'=> date('n',$current_time),
+							'ctd'=> date('j',$current_time),
+							'hide_end'=> $event->check_yn('_evobo_hide_end'),
+							'm'=> 	$EVO_Cal->get_all_months( $lang ),
+							'df'=> 	$EVO_Cal->get_all_days( $lang ,'full',true),
+							'd3'=> 	$EVO_Cal->get_all_days( $lang ,'three',true),
+							'd1'=> 	$EVO_Cal->get_all_days( $lang ,'one',true),
+							't1'=> __( evo_lang('Select a date')),
+							't2'=> __( evo_lang('Select an available time slot')),
+							't3'=> __( evo_lang('No available slots, please try another date!')),
+							't3n'=> __( evo_lang('There are no available time slots at the moment!')),
+							't4'=> __( evo_lang('Today')),
+						);
+					?>
+						<div class='evobo_calendar' data-dataset='<?php echo json_encode($cal_dataset);?>' ></div>
+						<div class='evobo_selections'></div>
+					<?php endif;?>
+					<div class='evobo_slots' data-json='<?php echo $BLOCKS->get_frontend_block_json();?>' data-dataset='<?php echo json_encode($dataset);?>'></div>
+					
 				</div>
 				<?php /* this is where price info & added to cart msg will go */?>
 				<div class="evobo_price_values evobo_style1" style='display:none'></div>	
@@ -123,8 +149,19 @@ class EVOBO_Tickets_Int{
 					$cart_item_data['evobo_price'] = $BLOCKS->get_item_prop('price');	
 
 					// get proper block time
-					$block_time = $BLOCKS->get_block_time_string($booking_index);
-					$cart_item_data['evobo_block_time'] = $block_time;
+						// if hide end time
+						if( $BLOCKS->event->check_yn('_evobo_hide_end')){
+							$block_time = $BLOCKS->get_block_time_string($booking_index, 'start');
+						}else{
+							$block_time = $BLOCKS->get_block_time_string($booking_index);
+						}
+						
+						$cart_item_data['evobo_block_time'] = $block_time;
+
+					// block duration
+						if( $BLOCKS->event->check_yn('_evobo_show_dur')){
+							$cart_item_data['evobo_block_duration'] = $BLOCKS->get_block_duration($booking_index);
+						}
 				}
 			}
 
@@ -151,20 +188,35 @@ class EVOBO_Tickets_Int{
 				unset($data['event_time']); // get rid of the event time
 				$data['block_data'] = array(evo_lang('Block Time'), $values['evobo_block_time']);
 			}
+
+			// block duration
+			if(isset($values['evobo_block_duration'])){
+				$data['block_dur'] = array(evo_lang('Duration'), $values['evobo_block_duration']);
+			}
 			return $data;
 		}
 
-		function cart_item_quantity($product_quantity, $cart_item_key, $cart_item ){
-	   		if(empty($cart_item['evobo_price']) ) return $product_quantity;
+		function cart_item_quantity($bool, $_product, $cart_item_key, $cart_item ){
+			
+			if(empty($cart_item['evobo_price']) ) return $bool;
+
+			// 1.3.1 moved to leave quantity uneditable at chart for better stock management
+			return $cart_item['quantity'];
+
+			//print_r($cart_item);
 	   		
 	   		$BLOCKS = new EVOBO_Blocks( $cart_item['evotx_event_id_wc'], $cart_item['product_id']);
-	   		
+	   		$block_stock = $BLOCKS->has_stock($cart_item['evobo_index']);
+
 	   		$product_quantity = woocommerce_quantity_input( array(
 				'input_name'  => "cart[{$cart_item_key}][qty]",
 				'input_value' => $cart_item['quantity'],
-				'max_value'   => $BLOCKS->has_stock($cart_item['evobo_index']),
+				'max_value'   => $block_stock? $block_stock: $cart_item['quantity'],
 				'min_value'   => '0',
-			), '', false );
+			), $_product, false );
+
+
+	   		//return $block_stock? $block_stock: $cart_item['quantity'];
 
 			return $product_quantity;   		
 	   	}
@@ -188,11 +240,15 @@ class EVOBO_Tickets_Int{
 	// CHECKOUT
 		// add custom data as meta data to order item	    
 			function order_item_meta_update_new($item, $cart_item_key, $values, $order){
-				if(isset($values['evobo_block_time']) ){	  
-					$item->add_meta_data('Block-Time', $values['evobo_block_time'],true);
-		        }		
-		        if(isset($values['evobo_index']) )
-		        	$item->add_meta_data('_ticket_block_index', $values['evobo_index'],true);
+
+				foreach( array(
+					'evobo_block_time'=> 'Block-Time',
+					'evobo_block_duration'=> 'Duration',
+					'evobo_index'=> '_ticket_block_index',
+				) as $k=>$v){
+					if( isset($values[ $k ]) )
+						$item->add_meta_data( $v , $values[ $k ],true);
+				}
 			}
 
 		// remove custom data if item removed from cart
@@ -221,6 +277,7 @@ class EVOBO_Tickets_Int{
 		function tix_meta_values($array, $item){
 			if(!empty($item['Block-Time'])) $array['Block-Time'] = $item['Block-Time']; // @deprecating
 			if(!empty($item['Block-Time'])) $array['_block_time'] = $item['Block-Time'];
+			if(!empty($item['Duration'])) $array['_duration'] = $item['Duration'];
 			if(!empty($item['_ticket_block_index'])) $array['_ticket_block_index'] = $item['_ticket_block_index'];
 
 			return $array;
@@ -280,12 +337,19 @@ class EVOBO_Tickets_Int{
 
 		// show ticket booking information for evo-tix cpt
 		function evo_tix_table_row($post_id, $ticketItem_meta){
-			if(!empty($ticketItem_meta['Block-Time'])): ?>
+
+			foreach( array(
+				'_block_time'=> evo_lang('Booking Slot Time'),
+				'_duration'=> evo_lang('Duration'),
+			) as $k=>$v){
+
+				if(!empty($ticketItem_meta[ $k ])): ?>
 			
-			<tr><td><?php _e('Block Time','eventon');?>: </td>
-			<td><?php echo $ticketItem_meta['Block-Time'][0];?></td></tr>
+				<tr><td><?php echo $v;?>: </td>
+				<td><?php echo $ticketItem_meta[ $k ][0];?></td></tr>
 
 			<?php endif;
+			}				
 		}
 
 		function view_attendees($array, $event_id){
@@ -294,10 +358,12 @@ class EVOBO_Tickets_Int{
 			$evo_tix_id = $array['id'];
 
 			$BT = get_post_meta($evo_tix_id, 'Block-Time',true);
+			$dur = get_post_meta($evo_tix_id, '_duration',true);
 			
 			if(!$BT) return $array;
 
 			$array['oD']['block_time'] = $BT;
+			if($dur) $array['oD']['duration'] = $dur;
 			unset($array['oD']['event_time']);
 
 			$bi = get_post_meta($evo_tix_id, '_ticket_block_index',true);
@@ -308,6 +374,7 @@ class EVOBO_Tickets_Int{
 		function hide_order_item_metafields($array){
 			$array[] = '_ticket_block_index';
 			$array[] = '_block_time';
+			$array[] = '_duration';
 			return $array;
 		}
 
@@ -316,8 +383,7 @@ class EVOBO_Tickets_Int{
 				?>
 				<div class='evotxsi_row sales_by_booking_slots'>
 					<h2><?php _e('Sales by booking slots','evotx');?></h2>	
-					<h3><?php _e('Top 3 countries where customers have placed orders from','evotx');?></h3>			
-					
+					<h3><?php _e('Top 3 countries where customers have placed orders from','evotx');?></h3>	
 				</div>
 				
 				<?php
@@ -325,14 +391,20 @@ class EVOBO_Tickets_Int{
 
 	// Show booking information for confirmation ticket email
 		function tix_confirmation_email($ticket_item_id, $ticket_pmv, $styles,$ticket_number, $tix_holder_index,$event_id){
-			if(!empty($ticket_pmv['Block-Time'])):
-				$Block_time = 	$ticket_pmv['Block-Time'][0] ;
-			?>			
-			<div>
-				<p style="<?php echo $styles['005'].$styles['pb5'].$styles['pt10'];?>"><?php echo $Block_time;?></p>
-				<p style="<?php echo $styles['004'].$styles['pb5'];?>"><?php echo evo_lang( 'Block Information');?></p>
-			</div>		
-			<?php endif;
+			
+			foreach( array(
+				'_block_time'=> evo_lang('Block Information'),
+				'_duration'=> evo_lang('Duration'),
+			) as $k=>$v){
+				if(!empty($ticket_pmv[ $k ])):
+					?>			
+				<div>
+					<p style="<?php echo $styles['005'].$styles['pb5'].$styles['pt10'];?>"><?php echo $ticket_pmv[ $k ][0]; ?></p>
+					<p style="<?php echo $styles['004'].$styles['pb5'];?>"><?php echo $v;?></p>
+				</div>
+				<?php endif;
+			}
+
 		}
 }
 new EVOBO_Tickets_Int();

@@ -23,10 +23,6 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( !class_exists( 'WC_Admin_Report' ) ) {
-	require_once WC()->plugin_path() . '/includes/admin/reports/class-wc-admin-report.php';
-}
-
 /**
  * Report on searches.
  */

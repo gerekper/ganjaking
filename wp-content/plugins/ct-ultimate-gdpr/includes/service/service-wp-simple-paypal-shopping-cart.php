@@ -118,12 +118,12 @@ class CT_Ultimate_GDPR_Service_WP_Simple_Paypal_Shopping_Cart extends CT_Ultimat
 	 */
 	public function add_option_fields() {
 
-//		add_settings_section(
-//			'ct-ultimate-gdpr-services-wpsimplepaypalshoppingcart_accordion-20', // ID
-//			esc_html( $this->get_name() ), // Title
-//			null, // callback
-//			$this->front_controller->find_controller('services')->get_id() // Page
-//		);
+		add_settings_section(
+			'ct-ultimate-gdpr-services-wpsimplepaypalshoppingcart_accordion-20', // ID
+			esc_html( $this->get_name() ), // Title
+			null, // callback
+			$this->front_controller->find_controller('services')->get_id() // Page
+		);
 
 
 		// services

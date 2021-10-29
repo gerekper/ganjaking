@@ -112,17 +112,17 @@
     },
     {
         "name": "composer/installers",
-        "version": "v1.12.0",
-        "version_normalized": "1.12.0.0",
+        "version": "v1.11.0",
+        "version_normalized": "1.11.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/composer/installers.git",
-            "reference": "d20a64ed3c94748397ff5973488761b22f6d3f19"
+            "reference": "ae03311f45dfe194412081526be2e003960df74b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/composer/installers/zipball/d20a64ed3c94748397ff5973488761b22f6d3f19",
-            "reference": "d20a64ed3c94748397ff5973488761b22f6d3f19",
+            "url": "https://api.github.com/repos/composer/installers/zipball/ae03311f45dfe194412081526be2e003960df74b",
+            "reference": "ae03311f45dfe194412081526be2e003960df74b",
             "shasum": ""
         },
         "require": {
@@ -140,7 +140,7 @@
             "symfony/phpunit-bridge": "^4.2 || ^5",
             "symfony/process": "^2.3"
         },
-        "time": "2021-09-13T08:19:44+00:00",
+        "time": "2021-04-28T06:42:17+00:00",
         "type": "composer-plugin",
         "extra": {
             "class": "Composer\\Installers\\Plugin",
@@ -223,7 +223,6 @@
             "modx",
             "moodle",
             "osclass",
-            "pantheon",
             "phpbb",
             "piwik",
             "ppi",

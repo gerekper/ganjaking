@@ -8,9 +8,16 @@ class EVOVO_BO{
 	public function __construct(){
 		if( !class_exists('EVOBO_Blocks')) return false;
 		if(is_admin()){
-			add_action('evobo_new_block_form', array($this, 'new_block_form'), 10, 2);
-			add_action('evovo_save_vo_before_echo', array($this, 'save_block_variation'), 10, 4);
+			add_action('evobo_new_block_form', array($this, 'new_block_form'), 10, 3);
+			add_action('evovo_save_vo_before_save', array($this, 'generate_vo_for_booking'), 10, 4);
 			add_action('evobo_admin_booking_slot_data',array($this, 'edit_event_booking_block_data'), 10, 2);
+			add_filter('evobo_save_booking_block_data', array($this, 'save_booking_block'),10,3);
+
+			add_action('evobo_auto_generator_form', array($this, 'autogen_form'),10,1);
+			add_action('evobo_autogen_after_saved', array($this, 'autogen_slot'),10,3);
+
+			add_action('evobo_delete_all_blocks', array($this, 'delete_all'),10,1);
+			add_action('evobo_delete_single_blocks', array($this, 'delete_single'),10,2);
 		}
 
 		// front end 
@@ -37,6 +44,8 @@ class EVOVO_BO{
 
 			// check for variations for the block
 			$VOs = new EVOVO_Var_opts($BLOCKS->event, $BLOCKS->wcid,'variation');
+
+			if( !$VOs->is_vo()) return $boolean;
 							
 			$evotx_data = array();
 			$evotx_data['event_data']['booking_index'] = $block_index;
@@ -74,63 +83,159 @@ class EVOVO_BO{
 			}
 
 	// ADMIN
-		// append variations section to booking block form
-			function new_block_form( $EVENT, $block_index){
+		// auto generator form
+			public function autogen_form($BLOCKS){
+				
+				if( !$BLOCKS->event->check_yn('_evovo_activate')) return false;
 
-				if(!$EVENT->check_yn('_evovo_activate')) return false;
-				if( empty($block_index)) return false;		
-
-				$have_VOs = false; $buttons = '';
+				$VO = new EVOVO_Var_opts($BLOCKS->event, (int)$_POST['wcid']);
 
 				echo "<div id='evovo_ext_section'>";
-				echo "<div class='evovo_vos_container_booking'>";
 
-				$VO = new EVOVO_Var_opts($EVENT, $_POST['wcid']);
-				echo $VO->get_all_vos_html($block_index, 'booking',true);
-				
+					echo "<div class='evovo_vos_container_booking evovo_vos_container' data-pt='booking'></div>";
+
+					?><p class='evovo_booking_actions' ><?php	
+						echo $VO->get_vos_action_btn_html('', 'booking', true, false); 
+					?></p><?php
+					
+					echo "<div class='evovo_all_vo_data' data-all_vo_data=''></div>";
+
 				echo "</div>";
-
-				?><p class='evovo_booking_actions' ><?php	echo $VO->get_vos_action_btn_html($block_index, 'booking', true); ?></p><?php
-
-				echo "</div>";
-
-
 			}
 
-		// save/ update booking block variation
-			function save_block_variation($html, $vo_id, $json, $EVENT){
+			// save vo values for each booking block generated auto
+			public function autogen_slot($slots, $BLOCKS, $P){
+
+				if( !isset($P['all_vo_data'])) return;
+
+				$all_vo_data = $P['all_vo_data'];
 				
-				if( !isset($json['parent_type'])) return false;
-				if( !isset($json['parent_id'])) return false;
-				if( $json['parent_type'] != 'booking') return false;
+				$VO = new EVOVO_Var_opts($BLOCKS->event);
 
+				$new_vo_data = array('variation'=> array(),'option'=> array());
 
-				// save VO for the booking block
-				$booking_index = $json['parent_id'];
+				// for each method load all existing vo data for the event
+				foreach( $new_vo_data as $method=>$data){
 
-				$BLOCKS = new EVOBO_Blocks( $EVENT, $json['wcid']);
+					// set existing data
+					$VO->set_new_method( $method);
+					$new_vo_data[ $method ] = $VO->dataset;
+				}
 
-				$BLOCKS->save_block_prop($booking_index, 'vo_id', $vo_id);
+				$x = 1;
+
+				// run through all auto generated slots
+				foreach($slots as $booking_id){
+					foreach( array('variation', 'option') as $method){
+						if(isset($all_vo_data[ $method ]) && is_array( $all_vo_data[ $method ] )){
+							foreach( $all_vo_data[ $method ] as $vo_id=>$data){
+								unset($data['event_id']);
+								unset($data['save']);
+								unset($data['wcid']);
+								unset($data['vo_id']);
+								unset($data['all_vo_data']);
+
+								$data['parent_id'] = $booking_id;
+								$data['parent_type'] = 'booking';
+
+								
+								$new_vo_data[$method][ $vo_id. $x ] = $data;
+								$x++;
+							}
+						}
+					}
+				}
+
+				// for each method save new vo data to event
+				foreach( array('variation', 'option') as $method){
+					if(!is_array( $new_vo_data[ $method ] )) continue;
+					if( count($new_vo_data[ $method ]) == 0) continue;
+					$VO->method = $method;
+
+					$BLOCKS->event->set_prop('_evovo_'. $method, $new_vo_data[ $method ]);
+				}
+			}
+
+		// append variations section to booking block form
+			function new_block_form( $EVENT, $block_index, $post){
+
+				if(!$EVENT->check_yn('_evovo_activate')) return false;
+
+				$form_type = isset( $post['type'])? $post['type']:'new';
+				
+				$have_VOs = false; $buttons = '';
+
+				$VO = new EVOVO_Var_opts($EVENT, $post['wcid']);
+				$all_vo_data = $VO->get_all_vo_data_for_parent( $block_index, 'booking',true);	
+
+				//print_r($all_vo_data);		
+				
+				echo "<div id='evovo_ext_section'>";
+				echo "<div class='evovo_vos_container_booking evovo_vos_container' data-pid='{$block_index}' data-pt='booking' data-eid='". $EVENT->ID ."' data-wcid='".$post['wcid']."'>";
+				
+				// get saved vo data
+				if( $form_type != 'new')
+					echo $VO->get_all_vos_html($block_index, 'booking',true, $all_vo_data);
+				
+				echo "</div>";
+
+				?><p class='evovo_booking_actions' ><?php	
+					echo $VO->get_vos_action_btn_html($block_index, 'booking', true, false); 
+				?></p><?php
+
+				// print all vo data 				
+				echo "<div class='evovo_all_vo_data' data-all_vo_data='". json_encode($all_vo_data)."'></div>";
+
+				echo "</div>";
+			}
+		
+		// Create VO for booking parent item
+			function generate_vo_for_booking( $vo_data, $all_vo_data, $EVENT, $VO ){
+				
+				if( !isset($vo_data['parent_type'])) return false;
+				if( !isset($vo_data['parent_id']) || empty($vo_data['parent_id'])) return false;
+				if( $vo_data['parent_type'] != 'booking') return false;
+				//if( isset($vo_data['save']) && $vo_data['save'] != 'no') return false;
+
+				$booking_index = $vo_data['parent_id'];
+				
+				$html = $VO->get_all_vos_html( $booking_index, 'booking',true, $all_vo_data);
+
+				echo json_encode( array(
+					'html'=>	$html, 
+					'msg'=> 	'New Booking block variation created!',
+					'status'=>	'good',
+					'all_vo_data' => 	$all_vo_data
+				));exit;	
+
+				// this will stop from vo ajax completing			
+			}
+
+		// save booking block
+			public function save_booking_block($post, $index, $BLOCKS){
+				
+				if(!isset($post['all_vo_data'])) return $post;
+				if(!is_array($post['all_vo_data'])) return $post;
 
 				$VO = new EVOVO_Var_opts($BLOCKS->event);
 
+				// save booking vo_data to event's vo data array'
+				$vo_id ='';
+				$vo_id = $VO->save_parent_vo_data($index, 'booking', $post['all_vo_data']);	
+
 				// for variations update block capacity
-				if(isset($json['method']) && $json['method'] == 'variation'){
-					$VO = new EVOVO_Var_opts($BLOCKS->event, '', 'variation');
-					$s = $VO->get_total_stock_for_method($booking_index, 'booking');
+					if( isset($post['all_vo_data']['variation'])){
+						$VO->set_new_method( 'variation');
+						
+						$s = $VO->get_total_stock_for_method($index, 'booking');
 
-					if($s)
-						$BLOCKS->save_block_prop($booking_index, 'capacity', $s);
-				}
+						if($s)	$BLOCKS->save_block_prop($index, 'capacity', $s);
+					}
 
-				$html = $VO->get_all_vos_html($booking_index, 'booking',true);
-				
-				echo json_encode( array(
-					'html'=>	$html, 
-					'msg'=> 	'New Booking block variation added!',
-					'status'=>	'good',
-				));exit;
+				unset($post['all_vo_data']);
+				$post['vo_id'] = $vo_id;
 
+				return $post;
 			}
 
 		// Edit event booking row data
@@ -153,6 +258,18 @@ class EVOVO_BO{
 					<span class="ebobo_po" style='padding-left:10px'><i class='fa fa-plug' title='<?php _e('Has Price Options','eventon');?>'></i></span>
 					<?php
 				}
+			}
+
+		// DELETE parents and delete vos
+			public function delete_all($BLOCKS){
+				$VO = new EVOVO_Var_opts($BLOCKS->event);
+
+				$VO->delete_allitems_for_parent('', 'booking');
+			}
+			public function delete_single($block_index, $BLOCKS){
+				$VO = new EVOVO_Var_opts($BLOCKS->event);
+
+				$VO->delete_allitems_for_parent($block_index, 'booking');
 			}
 
 }

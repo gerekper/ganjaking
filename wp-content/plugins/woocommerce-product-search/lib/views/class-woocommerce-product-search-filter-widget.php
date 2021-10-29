@@ -56,22 +56,7 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 	 */
 	public static function init() {
 		add_action( 'widgets_init', array( __CLASS__, 'widgets_init' ) );
-		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ) );
 		self::$the_name = __( 'Product Filter &ndash; Search', 'woocommerce-product-search' );
-	}
-
-	/**
-	 * Script collector.
-	 *
-	 * @since 4.0.0
-	 */
-	public static function admin_enqueue_scripts() {
-		global $pagenow;
-		if ( 'widgets.php' == $pagenow || 'customize.php' == $pagenow ) {
-			if ( ! wp_script_is( 'wps-admin-widgets' ) ) {
-				wp_enqueue_script( 'wps-admin-widgets', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/admin-widgets.js' : '/js/admin-widgets.min.js' ), array( 'jquery' ), WOO_PS_PLUGIN_VERSION, true );
-			}
-		}
 	}
 
 	/**
@@ -169,17 +154,17 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		$settings['heading_class']      = !empty( $new_instance['heading_class'] ) ? trim( $new_instance['heading_class'] ) : '';
 		$settings['heading_id']         = !empty( $new_instance['heading_id'] ) ? trim( $new_instance['heading_id'] ) : '';
 		$settings['heading_element']    = !empty( $new_instance['heading_element'] ) ? trim( $new_instance['heading_element'] ) : '';
-		$settings['show_heading']       = woocommerce_product_search_input_yn( $new_instance['show_heading'] );
+		$settings['show_heading']       = !empty( $new_instance['show_heading'] ) ? 'yes' : 'no';
 
-		$settings['query_title'] = woocommerce_product_search_input_yn( $new_instance['query_title'] );
-		$settings['excerpt']     = woocommerce_product_search_input_yn( $new_instance['excerpt'] );
-		$settings['content']     = woocommerce_product_search_input_yn( $new_instance['content'] );
-		$settings['categories']  = woocommerce_product_search_input_yn( $new_instance['categories'] );
-		$settings['attributes']  = woocommerce_product_search_input_yn( $new_instance['attributes'] );
-		$settings['tags']        = woocommerce_product_search_input_yn( $new_instance['tags'] );
-		$settings['sku']         = woocommerce_product_search_input_yn( $new_instance['sku'] );
+		$settings['query_title'] = !empty( $new_instance['query_title'] ) ? 'yes' : 'no';
+		$settings['excerpt']     = !empty( $new_instance['excerpt'] ) ? 'yes' : 'no';
+		$settings['content']     = !empty( $new_instance['content'] ) ? 'yes' : 'no';
+		$settings['categories']  = !empty( $new_instance['categories'] ) ? 'yes' : 'no';
+		$settings['attributes']  = !empty( $new_instance['attributes'] ) ? 'yes' : 'no';
+		$settings['tags']        = !empty( $new_instance['tags'] ) ? 'yes' : 'no';
+		$settings['sku']         = !empty( $new_instance['sku'] ) ? 'yes' : 'no';
 
-		$settings['shop_only']   = woocommerce_product_search_input_yn( $new_instance['shop_only'] );
+		$settings['shop_only'] = !empty( $new_instance['shop_only'] ) ? 'yes' : 'no';
 
 		$settings['order']    = !empty( $new_instance['order'] ) ? $new_instance['order'] : '';
 		if ( empty( $settings['order'] ) ) {
@@ -203,14 +188,18 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		$settings['characters'] = $characters;
 
 		$settings['placeholder']         = isset( $new_instance['placeholder'] ) ? trim( strip_tags( $new_instance['placeholder'] ) ) : __( 'Search', 'woocommerce-product-search' );
-		$settings['show_clear']          = woocommerce_product_search_input_yn( $new_instance['show_clear'] );
-		$settings['submit_button']       = woocommerce_product_search_input_yn( $new_instance['submit_button'] );
+		$settings['show_clear']          = !empty( $new_instance['show_clear'] ) ? 'yes' : 'no';
+		$settings['submit_button']       = !empty( $new_instance['submit_button'] ) ? 'yes' : 'no';
 		$settings['submit_button_label'] = isset( $new_instance['submit_button_label'] ) ? strip_tags( $new_instance['submit_button_label'] ) : __( 'Search', 'woocommerce-product-search' );
 
-		$settings['update_address_bar']    = woocommerce_product_search_input_yn( $new_instance['update_address_bar'] );
-		$settings['update_document_title'] = woocommerce_product_search_input_yn( $new_instance['update_document_title'] );
+		if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
+			$settings['wpml']   = !empty( $new_instance['wpml'] ) ? 'yes' : 'no';
+		}
 
-		$settings['unpage_url']            = woocommerce_product_search_input_yn( $new_instance['unpage_url'] );
+		$settings['update_address_bar']    = !empty( $new_instance['update_address_bar'] ) ? 'yes' : 'no';
+		$settings['update_document_title'] = !empty( $new_instance['update_document_title'] ) ? 'yes' : 'no';
+		$settings['use_shop_url']          = !empty( $new_instance['use_shop_url'] ) ? 'yes' : 'no';
+		$settings['unpage_url']            = !empty( $new_instance['unpage_url'] ) ? 'yes' : 'no';
 
 		$containers = array(
 			'breadcrumb_container'      => '.woocommerce-breadcrumb',
@@ -494,6 +483,20 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		echo '</label>';
 		echo '</p>';
 
+		$use_shop_url = isset( $instance['use_shop_url'] ) ? $instance['use_shop_url'] : 'no';
+		echo '<p>';
+		echo sprintf( '<label title="%s">', esc_attr( __( 'Link to the shop page instead of the same page.', 'woocommerce-product-search' ) ) );
+		printf(
+			'<input type="checkbox" id="%s" name="%s" %s />',
+			esc_attr( $this->get_field_id( 'use_shop_url' ) ),
+			esc_attr( $this->get_field_name( 'use_shop_url' ) ),
+			$use_shop_url== 'yes' ? ' checked="checked" ' : ''
+		);
+		echo ' ';
+		echo esc_html( __( 'Use the Shop URL', 'woocommerce-product-search' ) );
+		echo '</label>';
+		echo '</p>';
+
 		$unpage_url = isset( $instance['unpage_url'] ) ? $instance['unpage_url'] : 'yes';
 		echo '<p>';
 		echo sprintf( '<label title="%s">', esc_attr( __( 'Go to page one of results when filters are applied.', 'woocommerce-product-search' ) ) );
@@ -507,6 +510,25 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		echo esc_html( __( 'Page One', 'woocommerce-product-search' ) );
 		echo '</label>';
 		echo '</p>';
+
+		if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
+			echo '<h4>';
+			esc_html_e( 'WPML', 'woocommerce-product-search' );
+			echo'</h4>';
+			$wpml = isset( $instance['wpml'] ) ? $instance['wpml'] : 'no';
+			echo '<p>';
+			echo sprintf( '<label title="%s">', esc_attr( __( 'Filter search results based on the current language.', 'woocommerce-product-search' ) ) );
+			printf(
+				'<input type="checkbox" id="%s" name="%s" %s />',
+				esc_attr( $this->get_field_id( 'wpml' ) ),
+				esc_attr( $this->get_field_name( 'wpml' ) ),
+				$wpml == 'yes' ? ' checked="checked" ' : ''
+			);
+			echo ' ';
+			echo esc_html( __( 'WMPL Language Filter', 'woocommerce-product-search' ) );
+			echo '</label>';
+			echo '</p>';
+		}
 
 		echo '<h4>';
 		esc_html_e( 'Heading', 'woocommerce-product-search' );
@@ -650,18 +672,16 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 		echo '</p>';
 		echo '</div>';
 
-		$inline_script = '';
-
-		$inline_script .= 'if ( typeof jQuery !== "undefined" ) {';
-		$inline_script .= sprintf( 'jQuery("#%s").css("display","none");', esc_attr( $target_id ) );
-		$inline_script .= sprintf( 'jQuery(document).on( "click", "#%s", function() {', esc_attr( $trigger_id ) );
-		$inline_script .= sprintf( 'jQuery("#%s").toggle();', esc_attr( $target_id ) );
-		$inline_script .= '});';
-		$inline_script .= '}';
-
-		$inline_script = woocommerce_product_search_safex( $inline_script );
-		self::admin_enqueue_scripts();
-		wp_add_inline_script( 'wps-admin-widgets', $inline_script );
+		echo '<script type="text/javascript">';
+		echo 'document.addEventListener( "DOMContentLoaded", function() {';
+		echo 'if ( typeof jQuery !== "undefined" ) {';
+		printf( 'jQuery("#%s").css("display","none");', esc_attr( $target_id ) );
+		printf( 'jQuery(document).on( "click", "#%s", function() {', esc_attr( $trigger_id ) );
+		printf( 'jQuery("#%s").toggle();', esc_attr( $target_id ) );
+		echo '});';
+		echo '}';
+		echo '} );';
+		echo '</script>';
 	}
 
 	public function get_default_instance() {
@@ -683,9 +703,9 @@ class WooCommerce_Product_Search_Filter_Widget extends WP_Widget {
 			'submit_button_label' => __( 'Search', 'woocommerce-product-search' ),
 			'update_address_bar' => true,
 			'update_document_title' => false,
-
+			'use_shop_url' => false,
 			'unpage_url' => true,
-
+			'wpml' => false,
 			'show_heading' => false,
 			'heading' => '',
 			'heading_id' => '',

@@ -84,53 +84,7 @@ var wps_price_slider = {};
 					}
 				}
 			} );
-
-			if ( 'ontouchstart' in document ) {
-				$( slider ).find( '.ui-slider-handle' ).on( 'touchstart', function( event ) {
-					wps_price_slider.asMouseEvent( event, 'mouseover' );
-					wps_price_slider.asMouseEvent( event, 'mousemove' );
-					wps_price_slider.asMouseEvent( event, 'mousedown' );
-				} );
-				$( slider ).find( '.ui-slider-handle' ).on( 'touchmove', function( event ) {
-					wps_price_slider.asMouseEvent( event, 'mousemove' );
-				} );
-				$( slider ).find( '.ui-slider-handle' ).on( 'touchend', function( event ) {
-					wps_price_slider.asMouseEvent( event, 'mouseup' );
-					wps_price_slider.asMouseEvent( event, 'mouseout' );
-					wps_price_slider.asMouseEvent( event, 'mouseclick' );
-				} );
-			}
 		}
-	};
-
-	wps_price_slider.asMouseEvent = function( event, type ) {
-
-		if ( event.originalEvent.touches.length > 1 ) {
-			return;
-		}
-		event.preventDefault();
-		var touch = event.originalEvent.changedTouches[0],
-			mouseEvent = document.createEvent( 'MouseEvents' );
-
-		mouseEvent.initMouseEvent(
-			type, // event type
-			true, // bubbles
-			true, // cancelable
-			window, // view
-			1, // detail
-			touch.screenX, // screenX
-			touch.screenY, // screenY
-			touch.clientX, // clientX
-			touch.clientY, // clientY
-			false, // ctrlKey
-			false, // altKey
-			false, // shiftKey
-			false, // metaKey
-			0, // button
-			null // relatedTarget
-		);
-
-		event.target.dispatchEvent( mouseEvent );
 	};
 
 	wps_price_slider.updateForm = function( query, container, args, href ) {
@@ -231,7 +185,6 @@ var wps_price_slider = {};
 			$( form ).find( 'input[name="ixwpse"]' ).remove();
 			$( form ).find( 'input[name="on_sale"]' ).remove();
 			$( form ).find( 'input[name="rating"]' ).remove();
-			$( form ).find( 'input[name="in_stock"]' ).remove(); // @since 3.8.0
 
 			var params = href.substring( href.indexOf( '?' ) + 1 );
 			var hash = params.indexOf( '#' );
@@ -257,8 +210,7 @@ var wps_price_slider = {};
 							key.indexOf( 'ixwpsf' ) === 0 ||
 							key === 'ixwpse' || // @since 2.19.0
 							key === 'on_sale' || // @since 2.19.0
-							key === 'rating' || // @since 2.20.0
-							key === 'in_stock' // @since 3.8.0
+							key === 'rating' // @since 2.20.0
 						) // (*)
 					) {
 						var field = $( form ).find( 'input[name="' + key + '"]' );

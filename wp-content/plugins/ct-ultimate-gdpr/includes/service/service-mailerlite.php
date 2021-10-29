@@ -69,7 +69,23 @@
 				null, // callback
 				$this->front_controller->find_controller('services')->get_id() // Page
 			);
-
+			
+			add_settings_field(
+				"services_{$this->get_id()}_service_name", // ID
+				sprintf( esc_html__( "[%s] Name", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
+				array( $this, "render_name_field" ), // Callback
+				$this->front_controller->find_controller('services')->get_id(), // Page
+				'ct-ultimate-gdpr-services-mailerlite_accordion-mailerlite' // Section
+			);
+			
+			add_settings_field(
+				"services_{$this->get_id()}_description", // ID
+				sprintf( esc_html__( "[%s] Description", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
+				array( $this, "render_description_field" ), // Callback
+				$this->front_controller->find_controller('services')->get_id(), // Page
+				'ct-ultimate-gdpr-services-mailerlite_accordion-mailerlite'
+			);
+			
 			add_settings_field(
 				'services_mailerlite_consent_field', // ID
 				sprintf(

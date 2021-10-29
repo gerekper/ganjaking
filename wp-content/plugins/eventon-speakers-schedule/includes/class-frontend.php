@@ -69,7 +69,7 @@ class evoss_front{
 					$img_url = EVOSS()->assets_path.'speaker.jpg';
 					if(!empty($termmeta['evo_spk_img'])){
 						$img_url = wp_get_attachment_image_src($termmeta['evo_spk_img'],'medium');
-						$img_url = $img_url[0];
+						$img_url = isset($img_url[0])? $img_url[0]: '';
 					}
 					?>					
 						<li class="evospk_box">
@@ -147,7 +147,7 @@ class evoss_front{
 					<span class='evcal_evdata_icons'><i class='fa ".get_eventON_icon('evcal__evosch_001', 'fa-calendar-check-o',$helpers['evOPT'] )."'></i></span>
 					<div class='evcal_evdata_cell'>";
 				echo "<h3 class='evo_h3'>".eventon_get_custom_language($opt, 'evoss_002','Schedule')."</h3>";				
-				//print_r($blocks);
+				
 
 				if($blocks){
 					$nav = '';
@@ -166,6 +166,8 @@ class evoss_front{
 						$block = $blocks[$day_];
 
 						if(count($block)==1) continue;
+
+						// day count number strip from saved blocks array
 						$day = (int)substr($day_, 1);
 
 						if(isset($block[0])) 
@@ -179,8 +181,22 @@ class evoss_front{
 							if($key==0) continue;
 
 							// first item on the date
-							if($count ==1){
-								$content .= "<li class='date'>". date_i18n(get_option( 'date_format' ),strtotime($block[0]))."</li>";
+							if($count ==1){	
+
+								$dd = DateTime::createFromFormat( 
+									get_option( 'date_format' ),
+									$block[0],
+									new DateTimeZone('UTC')
+								);
+
+								$inside = '';
+								if($dd ){
+									$inside = $dd->format( get_option( 'date_format' ) );
+								}else{
+									$inside = $block[0];
+								}
+
+								$content .= "<li class='date'>". $inside . "</li>";
 							}
 
 							$content .= "<li>";

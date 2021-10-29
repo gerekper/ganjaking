@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Ultimate GDPR & CCPA
  * Description: Complete General Data Protection Regulation compliance toolkit plugin for WordPress.
- * Version: 3.1
+ * Version: 2.8
  * Author URI: https://www.createit.pl
  * Author: CreateIT
  */
@@ -223,7 +223,6 @@ class CT_Ultimate_GDPR {
 		new CT_Ultimate_GDPR_Shortcode_Privacy_Center();
 		new CT_Ultimate_GDPR_Shortcode_Privacy_Policy();
 		new CT_Ultimate_GDPR_Shortcode_Protection();
-		new CT_Ultimate_GDPR_Shortcode_Block_Cookies();
 	}
 
 	/**

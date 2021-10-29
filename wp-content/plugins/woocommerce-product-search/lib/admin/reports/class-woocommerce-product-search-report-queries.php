@@ -42,8 +42,6 @@ class WooCommerce_Product_Search_Report_Queries extends WP_List_Table {
 
 	private $per_page = self::PER_PAGE_DEFAULT;
 
-	private $base_url = null;
-
 	/**
 	 * Constructor.
 	 */
@@ -65,7 +63,6 @@ class WooCommerce_Product_Search_Report_Queries extends WP_List_Table {
 			}
 		}
 		$this->per_page = $per_page;
-		$this->base_url = WooCommerce_Product_Search_Admin_Navigation::get_report_url( 'queries' );
 	}
 
 	public function no_items() {
@@ -460,16 +457,16 @@ class WooCommerce_Product_Search_Report_Queries extends WP_List_Table {
 
 			echo '&emsp;';
 
-			printf( '<input type="hidden" name="page" value="%s"/>', !empty( $_REQUEST['page'] ) ? esc_attr( $_REQUEST['page'] ) : '' );
-			printf( '<input type="hidden" name="tab" value="%s"/>', !empty( $_REQUEST['tab'] ) ? esc_attr( $_REQUEST['tab'] ) : '' );
-			printf( '<input type="hidden" name="report" value="%s"/>', !empty( $_REQUEST['report'] ) ? esc_attr( $_REQUEST['report'] ) : '' );
+			printf( '<input type="hidden" name="page" value="%s"/>', esc_attr( $_REQUEST['page'] ) );
+			printf( '<input type="hidden" name="tab" value="%s"/>', esc_attr( $_REQUEST['tab'] ) );
+			printf( '<input type="hidden" name="report" value="%s"/>', esc_attr( $_REQUEST['report'] ) );
 			submit_button( esc_html__( 'Filter', 'woocommerce-product-search' ), '', 'filter_action', false, array( 'id' => 'post-query-submit' ) );
 
 			echo '&ensp;';
 
 			printf(
 				'<a style="display:inline-block;vertical-align:middle" href="%s">%s</a>',
-				esc_url( wp_nonce_url( add_query_arg( array( 'per_page' => self::PER_PAGE_DEFAULT ), $this->base_url ), 'bulk-queries' ) ),
+				esc_url( wp_nonce_url( add_query_arg( array( 'per_page' => self::PER_PAGE_DEFAULT ), admin_url( 'admin.php?page=wc-reports&tab=search&report=queries' ) ), 'bulk-queries' ) ),
 				esc_html__( 'Clear', 'woocommerce-product-search' )
 			);
 		}

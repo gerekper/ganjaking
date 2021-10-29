@@ -89,14 +89,20 @@ class evoau_admin{
 					array('id'=>'evoau_a0', 'name'=>'Background Color','type'=>'color', 'default'=>'ffffff'),
 					array('id'=>'evoau_a1', 'name'=>'Border Color','type'=>'color', 'default'=>'d9d7d7'),
 					array('id'=>'evoau_a2', 'name'=>'Field Label Color','type'=>'color', 'default'=>'808080'),
-					array('id'=>'evoau_a3', 'name'=>'Headers Text Color','type'=>'color', 'default'=>'808080'),
-					array('id'=>'evoau_a4', 'name'=>'Field Row Background Color (Hover)','type'=>'color', 'default'=>'F9F9F9')					
+					array('id'=>'evoau_a3', 'name'=>'Headers Text Color','type'=>'color', 'default'=>'808080')				
 				)
 			);
 			$new[] = array('id'=>'evoau_a1','type'=>'fontation','name'=>'Location & Organizer Buttons',
 				'variations'=>array(
 					array('id'=>'evoau_lo1', 'name'=>'Background Color','type'=>'color', 'default'=>'237ebd'),
 					array('id'=>'evoau_lo2', 'name'=>'Font Color','type'=>'color', 'default'=>'ffffff'),
+				)
+			);
+			$new[] = array('id'=>'evoau_a1','type'=>'fontation','name'=>'Date Time Picker',
+				'variations'=>array(
+					array('id'=>'evoau_dtp1', 'name'=>'Date Background Color','type'=>'color', 'default'=>'f5c485'),
+					array('id'=>'evoau_dtp2', 'name'=>'Time Background Color','type'=>'color', 'default'=>'f9d29f'),
+					array('id'=>'evoau_dtp3', 'name'=>'AM/PM Background Color','type'=>'color', 'default'=>'ffebd1'),
 				)
 			);
 			$new[] = array('id'=>'evoau','type'=>'hiddensection_close','name'=>'ActionUser Styles');
@@ -141,13 +147,14 @@ class evoau_admin{
 					array(
 						'item'=>'body .evoau_submission_form h2, body .evoau_submission_form h3',
 						'css'=>'color:#$', 'var'=>'evoau_a3',	'default'=>'808080'
-					),array(
+					),
+					array(
 						'item'=>'body .evoau_submission_form p label',
 						'css'=>'color:#$', 'var'=>'evoau_a2',	'default'=>'808080'
-					),array(
-						'item'=>'body .evoau_submission_form .evoau_table .row:hover',
-						'css'=>'background-color:#$', 'var'=>'evoau_a4',	'default'=>'F9F9F9'
-					)
+					),
+					array('item'=>'.evoau_submission_form .row p input.evoau_dpicker','css'=>'background-color:#$', 'var'=>'evoau_dtp1',	'default'=>'f5c485'),
+					array('item'=>'.evoau_submission_form .evoau_time_edit .time_select select','css'=>'background-color:#$', 'var'=>'evoau_dtp2',	'default'=>'f9d29f'),
+					array('item'=>'.evoau_submission_form .evoau_time_edit .time_select select.ampm_sel','css'=>'background-color:#$', 'var'=>'evoau_dtp3',	'default'=>'ffebd1'),
 				);
 
 				return (is_array($_existen))? array_merge($_existen, $new): $_existen;

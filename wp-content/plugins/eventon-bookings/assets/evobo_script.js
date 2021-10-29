@@ -31,8 +31,10 @@ jQuery(document).ready(function($){
         };
         var settings = $.extend({}, defaults, options);
 
+        var evobo_section = $el.closest('.evobo_booking_section');
         var eventRow = $el.closest('.evorow');
         var C = $el.siblings('.evobo_calendar');
+        var TS = $el.siblings('.evobo_selections');
         var mainSEL = $el.closest('.evobo_main_selection');
         var CalDATA = C.data('dataset');
         var slotsDATA = $el.data('json');
@@ -40,56 +42,113 @@ jQuery(document).ready(function($){
         var _today = new Date();
         var __today = moment();
 
+        var style = evobo_section.data('s');
+
         $( window ).resize(function() {
             var w = mainSEL.width();
-            if(w<650) mainSEL.addClass('trim');
+            if(w< 650){
+                mainSEL.addClass('trim');
+            }else{
+                mainSEL.removeClass('trim');
+            }
         });
         
         works = {
-            drawCal: function(){                
+            drawCal: function(){              
                 
                 var HTML = '';
                 
-                var y = parseInt(CalDATA.cty);
-                var mm = parseInt(CalDATA.ctm);
-                m = mm -1; // 0-11
-                sow = CalDATA.sow; // start of the week 0-6
+                // calendar view
+                if(style == 'def'){
+                    var y = parseInt(CalDATA.cty);
+                    var mm = parseInt(CalDATA.ctm);
+                    m = mm -1; // 0-11
+                    sow = CalDATA.sow; // start of the week 0-6
 
-                HTML += "<div class='evoGC'>";
-                
-                // calendar header
-                HTML += works.getCalHeader( y, mm );
-
-                // Day of week
-                    HTML += '<span class="evoGC_days">';
-                    for(i=0; i<7; i++){
-                        sow_ = parseInt(sow)+i;
-                        sow_ = sow_>6? sow_-7: sow_;
-
-                        HTML += "<span class='"+ sow_+"'>"+ CalDATA.d1[ sow_ ] +"</span>";
-                    }
-                    HTML += '</span>';
-                
-                HTML += '<span class="evoGC_dates">';                   
-
-                    HTML += works.getCalDates( y, mm );
+                    HTML += "<div class='evoGC'>";
                     
-                HTML += '</span>';
-                HTML += '</div>';
+                    // calendar header
+                    HTML += works.getCalHeader( y, mm );
 
-                // set select data at start
-                selectDate['y'] = _today.getFullYear();
-                selectDate['m'] = _today.getMonth();
-                selectDate['d'] = _today.getMonth();
-                
-                 // header
-                HTML = '<span class="evobo_section_header">'+CalDATA.t1+'</span>'+ HTML;
-               
-                C.html( HTML );
+                    // Day of week
+                        HTML += '<span class="evoGC_days">';
+                        for(i=0; i<7; i++){
+                            sow_ = parseInt(sow)+i;
+                            sow_ = sow_>6? sow_-7: sow_;
 
-                // resize
-                var w = mainSEL.width();
-                if(w<650) mainSEL.addClass('trim');
+                            HTML += "<span class='"+ sow_+"'>"+ CalDATA.d1[ sow_ ] +"</span>";
+                        }
+                        HTML += '</span>';
+                    
+                    HTML += '<span class="evoGC_dates">';                   
+
+                        HTML += works.getCalDates( y, mm );
+                        
+                    HTML += '</span>';
+                    HTML += '</div>';
+
+                    // set select data at start
+                    selectDate['y'] = _today.getFullYear();
+                    selectDate['m'] = _today.getMonth();
+                    selectDate['d'] = _today.getMonth();
+                    
+                     // header
+                    HTML = '<span class="evobo_section_header">'+CalDATA.t1+'</span>'+ HTML;
+                   
+                    C.html( HTML );
+
+                    // resize
+                    var w = mainSEL.width();
+                    if( mainSEL.is(':visible') && w<650 ) mainSEL.addClass('trim');
+
+                // time slot view
+                }else{
+
+                    CalDATA = TS.data('dataset');
+
+                    if( slotsDATA != '') HTML += '<span class="evobo_section_header">'+ CalDATA.t2+'</span>';
+                    HTML += "<div class='evobo_slot_selection evobo_selection_row'>";
+
+                    if( slotsDATA == ''){
+                        HTML += "<p>" + CalDATA.t3n + '</p>';
+                    }else{
+                        $.each(slotsDATA, function(year, months){
+                            $.each(months, function(month, days){
+                                
+                                month_name = days['name'];
+                                HTML += '<span class="month">'+month_name+ ', '+ year +'</span>';
+                                
+                                $.each(days, function(date, slots){
+                                    IND = 1;
+                                    if( date == 'name') return true;
+
+                                    HTML += '<div class="date">';
+                                    HTML += '<b class="day">' + date + " <i>"+ slots['day']+"</i></b>";
+                                    HTML += "<span class='line_slots'>";
+
+                                    $.each(slots, function(booking_index, BD){
+                                        if( booking_index == 'day') return true;
+                                        var a_class = ('a' in BD && Object.keys(BD.a).length>0)? 'has':'';
+
+                                        // show/hide end time for booking blocks
+                                        var time__ = BD.times.split(' - ');
+                                        var times__ = CalDATA.hide_end ? time__[0]: BD.times;
+
+                                        HTML += '<span class="slot '+a_class+'" data-val="'+ BD.index +'">'+ times__ +'</span>';
+                                        IND++;
+                                    });
+                                    HTML += "</span>";
+                                    HTML += "</div>";
+                                });
+                            });
+                        });
+                    }
+
+                    HTML += '</div>';
+
+                    TS.html( HTML );
+
+                }
 
             },
             getCalHeader:function(y, mm){
@@ -215,7 +274,11 @@ jQuery(document).ready(function($){
                                     if(booking_index == 'day') return true;
 
                                     time__ = times.times.split(' - ');
-                                    HTML += '<span class="" data-val="'+times.index+'"><em class="start">'+ time__[0]+'</em><em class="end"> - '+ time__[1] +'</em></span>';
+
+                                    end_time = CalDATA.hide_end ? '' :
+                                        '<em class="end"> - '+ time__[1] +'</em>';
+
+                                    HTML += '<span class="slot" data-val="'+times.index+'"><em class="start">'+ time__[0]+'</em>'+ end_time +'</span>';
                                 });
                                 HTML += '</div>';
                             }
@@ -250,10 +313,10 @@ jQuery(document).ready(function($){
                 });
 
                 // click on a timeslot
-                eventRow.on('click','.evobo_slot_selection span',function(){
+                eventRow.on('click','.evobo_slot_selection span.slot',function(){
                     var SPAN = $(this);
                     
-                    SPAN.parent().find('span').removeClass('select');
+                    TS.find('.slot').removeClass('select');
                     SPAN.addClass('select');
                     
                     var ajaxdataa = { };
@@ -303,6 +366,11 @@ jQuery(document).ready(function($){
         }
     }
 
+    // load booking cal after the event is slide down
+    $('body').on('evo_slidedown_eventcard_complete', function(){
+        load_evobo_calendar();
+    });
+
     $('body').on('evolightbox_end', function(){
         if($('body').find('.evobo_slots').length>0){
             $('body').find('.evobo_slots').each(function(){
@@ -310,10 +378,6 @@ jQuery(document).ready(function($){
             });
         }
     });
-
-
-
-
 
     function __hasVal(obj, key){
         return obj.hasOwnProperty(key);

@@ -153,14 +153,14 @@ class WooCommerce_Product_Search_Filter_Tag_Widget extends WP_Widget {
 		$settings['heading_class']      = !empty( $new_instance['heading_class'] ) ? trim( $new_instance['heading_class'] ) : '';
 		$settings['heading_id']         = !empty( $new_instance['heading_id'] ) ? trim( $new_instance['heading_id'] ) : '';
 		$settings['heading_element']    = !empty( $new_instance['heading_element'] ) ? trim( $new_instance['heading_element'] ) : '';
-		$settings['show_heading']       = woocommerce_product_search_input_yn( $new_instance['show_heading'] );
-		$settings['toggle']             = woocommerce_product_search_input_yn( $new_instance['toggle'] );
-		$settings['toggle_widget']      = woocommerce_product_search_input_yn( $new_instance['toggle_widget'] );
+		$settings['show_heading']       = !empty( $new_instance['show_heading'] ) ? 'yes' : 'no';
+		$settings['toggle']             = !empty( $new_instance['toggle'] ) ? 'yes' : 'no';
+		$settings['toggle_widget']      = !empty( $new_instance['toggle_widget'] ) ? 'yes' : 'no';
 
-		$settings['show_thumbnails'] = woocommerce_product_search_input_yn( $new_instance['show_thumbnails'] );
-		$settings['show_names']      = woocommerce_product_search_input_yn( $new_instance['show_names'] );
+		$settings['show_thumbnails'] = !empty( $new_instance['show_thumbnails'] ) ? 'yes' : 'no';
+		$settings['show_names']      = !empty( $new_instance['show_names'] ) ? 'yes' : 'no';
 
-		$settings['shop_only'] = woocommerce_product_search_input_yn( $new_instance['shop_only'] );
+		$settings['shop_only'] = !empty( $new_instance['shop_only'] ) ? 'yes' : 'no';
 
 		$style = !empty( $new_instance['style'] ) ? $new_instance['style'] : 'inline';
 		switch( $style ) {
@@ -181,10 +181,10 @@ class WooCommerce_Product_Search_Filter_Tag_Widget extends WP_Widget {
 		$settings['order']   = !empty( $new_instance['order'] ) ? $new_instance['order'] : 'ASC';
 		$settings['orderby'] = !empty( $new_instance['orderby'] ) ? $new_instance['orderby'] : 'name';
 
-		$settings['filter']       = woocommerce_product_search_input_yn( $new_instance['filter'] );
-		$settings['hide_empty']   = woocommerce_product_search_input_yn( $new_instance['hide_empty'] );
-		$settings['multiple']     = woocommerce_product_search_input_yn( $new_instance['multiple'] );
-		$settings['show_count']   = woocommerce_product_search_input_yn( $new_instance['show_count'] );
+		$settings['filter']       = !empty( $new_instance['filter'] ) ? 'yes' : 'no';
+		$settings['hide_empty']   = !empty( $new_instance['hide_empty'] ) ? 'yes' : 'no';
+		$settings['multiple']     = !empty( $new_instance['multiple'] ) ? 'yes' : 'no';
+		$settings['show_count']   = !empty( $new_instance['show_count'] ) ? 'yes' : 'no';
 
 		$show = !empty( $new_instance['show'] ) ? $new_instance['show'] : 'set';
 		switch( $show ) {

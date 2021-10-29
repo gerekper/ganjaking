@@ -88,10 +88,6 @@ foreach($args['tickets'] as $ticket_number):
 		$TIX_CPT = new EVO_Evo_Tix_CPT($ticket_item_id);
 		$repeat_interval = $TIX_CPT->get_repeat_interval();
 
-	// adjust the evo lang value based on item language @+ 1.9.3		
-		$lang = $TIX_CPT->get_order_item_lang();
-		evo_set_global_lang($lang);
-
 
 	$EVENT = new EVO_Event( $event_id,'', $repeat_interval);
 	$e_pmv = $EVENT->get_data();
@@ -203,7 +199,7 @@ foreach($args['tickets'] as $ticket_number):
 					foreach(apply_filters('evotx_confirmation_email_data_ar', array(
 						array(
 							'data'=>	$_this_ticket['n'],
-							'label'=>	evo_lang_get( 'evoTX_004', 'Primary Ticket Holder','',$eo2),
+							'label'=>	evo_lang_get( 'evoTX_004', 'Ticket Holder\'s Name','',$eo2),
 							'type'=>	'normal'
 						),array(
 							'data'=>	$location,

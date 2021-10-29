@@ -17,9 +17,7 @@ class evotx_admin_ajax{
 		);
 		foreach ( $ajax_events as $ajax_event => $class ) {
 			add_action( 'wp_ajax_'.  $ajax_event, array( $this, $class ) );
-
-			$nopriv_class = method_exists($this, 'nopriv_'. $class )? 'nopriv_'. $class: $class;
-			add_action( 'wp_ajax_nopriv_'.  $ajax_event, array( $this, $nopriv_class ) );
+			add_action( 'wp_ajax_nopriv_'.  $ajax_event, array( $this, $class ) );
 		}
 	}
 
@@ -137,14 +135,12 @@ class evotx_admin_ajax{
 		}
 
 // Download csv list of attendees
-	function nopriv_generate_csv(){
-		echo "You do not have permission!";exit;
-	}
 	function generate_csv(){
 
 		$e_id = (int)$_REQUEST['e_id'];
 		$EVENT = new EVO_Event($e_id);
 		$EVENT->get_event_post();
+
 
 		header('Content-Encoding: UTF-8');
 		header("Content-type: text/csv");

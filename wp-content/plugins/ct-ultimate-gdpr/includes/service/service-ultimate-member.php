@@ -73,6 +73,14 @@ class CT_Ultimate_GDPR_Service_Ultimate_Member extends CT_Ultimate_GDPR_Service_
 		);
 
 		add_settings_field(
+			"services_{$this->get_id()}_description", // ID
+			sprintf( esc_html__( "[%s] Description", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
+			array( $this, "render_description_field" ), // Callback
+			$this->front_controller->find_controller('services')->get_id(), // Page
+			'ct-ultimate-gdpr-services-ultimate-member_accordion-ultimate-member'// Section
+		);
+
+		add_settings_field(
 			'services_ultimate_member_consent_field', // ID
 			esc_html__( "Inject consent checkbox to all forms", 'ct-ultimate-gdpr' ),
 			array( $this, 'render_field_services_ultimate_member_consent_field' ), // Callback

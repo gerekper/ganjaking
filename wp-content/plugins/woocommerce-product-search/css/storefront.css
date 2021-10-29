@@ -84,7 +84,3 @@
 .storefront-handheld-footer-bar li.search.active > a:before {
 	content: "\f010";
 }
-
-body.theme-storefront .star-rating {
-	font-weight: 900; /* Storefront only imports the fa-solid-900 font-face */
-}

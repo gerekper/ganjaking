@@ -213,47 +213,15 @@ class evotx_tix{
 		function get_data_from_ticket_number($TN){
 			$TN = explode('-', $TN);
 			$output = array();
-			$output['evotix_id'] = (int)$TN[0];
-			$output['order_id'] = (int)$TN[1];
-			$output['wcid'] = (int)$TN[2];
+			$output['evotix_id'] = $TN[0];
+			$output['order_id'] = $TN[1];
+			$output['wcid'] = $TN[2];
 			if(strpos($TN[2], 'T')!== false){
 				$T = explode('T', $TN[2]);
 				$output['wcid'] = $T[0];
 			}
 			return $output;
 		}
-
-// Validate ticket number exists
-// Added 1.9.4
-	public function validate_ticket_number($TN){
-		$tn_data = $this->get_data_from_ticket_number($TN);
-
-		$HELP = new evo_helper();
-
-		// check if event ticket post exists
-		$evotix_id = $HELP->post_exist( $tn_data['evotix_id'] );
-		if(!$evotix_id) return false;
-
-		// get saved ticket number on post meta
-		$TIX_CPT = new EVO_Evo_Tix_CPT( $tn_data['evotix_id'] );
-		$saved_tn = $TIX_CPT->get_ticket_number();
-
-		if($saved_tn != $TN ) return false;
-
-		// check if order post exists with order ID
-		$or = $HELP->post_exist( $tn_data['order_id'] );
-		if(!$or) return false;
-
-		// check if WC product ID matches
-		$check_wcid = get_post_meta( $tn_data['evotix_id'], 'wcid',true);
-
-		if(!$check_wcid) return false;
-
-		if( $check_wcid != $tn_data['wcid']) return false;
-
-		return true;
-
-	}
 
 // Ticket status related
 	function get_ticket_numbers_by_evotix($evotix_id, $return_type = 'array'){

@@ -371,33 +371,39 @@ function wc_newsletter_subscription_provider_supports( $feature ) {
 }
 
 /**
- * Gets if the newsletter provider has a list set.
- *
- * @since 2.9.0
- *
- * @return bool
- */
-function wc_newsletter_subscription_provider_has_list() {
-	$list = wc_newsletter_subscription_get_provider_list();
-
-	return ( ! empty( $list ) );
-}
-
-/**
- * Gets provider list if it's defined.
+ * Gets the provider's list.
  *
  * @since 3.0.0
+ * @since 3.3.3 Added parameter `$provider`.
  *
+ * @param WC_Newsletter_Subscription_Provider $provider Optional. Provider instance. Default null.
  * @return mixed
  */
-function wc_newsletter_subscription_get_provider_list() {
-	$provider = wc_newsletter_subscription_get_provider();
+function wc_newsletter_subscription_get_provider_list( $provider = null ) {
+	if ( ! $provider ) {
+		$provider = wc_newsletter_subscription_get_provider();
+	}
 
 	if ( $provider instanceof WC_Newsletter_Subscription_Provider ) {
 		return get_option( 'woocommerce_' . $provider->get_id() . '_list' );
 	}
 
 	return false;
+}
+
+/**
+ * Gets if the provider has a list set.
+ *
+ * @since 2.9.0
+ * @since 3.3.3 Added parameter `$provider`.
+ *
+ * @param WC_Newsletter_Subscription_Provider $provider Optional. Provider instance. Default null.
+ * @return bool
+ */
+function wc_newsletter_subscription_provider_has_list( $provider = null ) {
+	$list = wc_newsletter_subscription_get_provider_list( $provider );
+
+	return ( ! empty( $list ) );
 }
 
 /**
@@ -421,4 +427,28 @@ function wc_newsletter_subscription_disconnect_provider() {
 	}
 
 	return true;
+}
+
+/**
+ * Gets the checkout location choices to use them in a select field.
+ *
+ * @since 3.3.3
+ *
+ * @return array
+ */
+function wc_newsletter_subscription_get_checkout_location_choices() {
+	/**
+	 * Filters the checkout location choices.
+	 *
+	 * @since 3.3.3
+	 *
+	 * @param array $choices The checkout location choices.
+	 */
+	return apply_filters(
+		'wc_newsletter_subscription_checkout_location_choices',
+		array(
+			'after_terms'   => __( 'After the Terms and Conditions', 'woocommerce-subscribe-to-newsletter' ),
+			'after_billing' => __( 'After billing details', 'woocommerce-subscribe-to-newsletter' ),
+		)
+	);
 }

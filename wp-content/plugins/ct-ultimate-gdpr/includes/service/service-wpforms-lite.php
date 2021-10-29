@@ -62,6 +62,22 @@ class CT_Ultimate_GDPR_Service_WPForms_Lite extends CT_Ultimate_GDPR_Service_Abs
 
 
         add_settings_field(
+            "services_{$this->get_id()}_service_name", // ID
+            sprintf( esc_html__( "[%s] Name", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
+            array( $this, "render_name_field" ), // Callback
+            $this->front_controller->find_controller('services')->get_id(), // Page
+            'ct-ultimate-gdpr-services-wpforms_lite_accordion-23' // Section
+        );
+
+        add_settings_field(
+            "services_{$this->get_id()}_description", // ID
+            sprintf( esc_html__( "[%s] Description", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
+            array( $this, "render_description_field" ), // Callback
+            $this->front_controller->find_controller('services')->get_id(), // Page
+            'ct-ultimate-gdpr-services-wpforms_lite_accordion-23'
+        );
+
+        add_settings_field(
             'services_wpforms_lite_consent_field', // ID
             sprintf(
                 esc_html__( "[%s] Inject consent checkbox to all forms", 'ct-ultimate-gdpr' ),

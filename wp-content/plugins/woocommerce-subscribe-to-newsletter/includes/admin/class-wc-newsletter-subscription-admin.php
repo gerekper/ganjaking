@@ -38,6 +38,7 @@ class WC_Newsletter_Subscription_Admin {
 	public function includes() {
 		include_once 'wc-newsletter-subscription-admin-functions.php';
 		include_once 'class-wc-newsletter-subscription-admin-notices.php';
+		include_once 'class-wc-newsletter-subscription-admin-system-status.php';
 
 		// 'current_screen' is not triggered in AJAX requests.
 		if ( wc_newsletter_subscription_is_request( 'ajax' ) ) {

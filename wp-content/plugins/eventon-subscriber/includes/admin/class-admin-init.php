@@ -533,7 +533,7 @@ class evosb_admin{
 						foreach($all_terms as $_tax=>$_terms){
 							
 							// check if email in list and tax value is not empty for subscriber
-							if( in_array($pmv['email'][0], $__emails_list) 	|| empty($pmv[$_tax]) )
+							if( isset($pmv['email'][0]) && in_array($pmv['email'][0], $__emails_list) 	|| empty($pmv[$_tax]) )
 								continue;							
 
 							// event term for this tax
@@ -549,7 +549,7 @@ class evosb_admin{
 
 							if( 
 								(!empty( $intersect)&& count($intersect)>0 )	
-								|| ($subscriber_term[0]=='all' && $all_terms[$_tax][0] != 'no' )
+								|| (isset($subscriber_term[0]) && $subscriber_term[0]=='all' && isset($all_terms[$_tax][0]) && $all_terms[$_tax][0] != 'no' )
 								|| $all_terms[$_tax][0] =='all'
 							){
 								$__emails_list[] = urldecode($pmv['email'][0]);

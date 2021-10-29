@@ -111,7 +111,6 @@ class WPS_WC_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		}
 
 		$post_types    = $include_variations ? array( 'product', 'product_variation' ) : array( 'product' );
-
 		$type_join     = '';
 		$type_where    = '';
 		$status_where  = '';

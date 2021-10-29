@@ -78,6 +78,16 @@ class EVOAU_Lang{
 			array('label'=>'This is a virtual (online) event','var'=>1),
 			array('label'=>'Virtual Event URL','var'=>1),
 			array('label'=>'Event access Pass Information','var'=>1),
+			array('label'=>'Optional Embed Event Video Code','var'=>1),
+
+			// health
+			array('label'=>'Add Health Guidelines for this Event','var'=>1),
+			array('label'=>'Face masks required','var'=>1),
+			array('label'=>'Temperate will be checked at entrance','var'=>1),
+			array('label'=>'Physical distance maintained event','var'=>1),
+			array('label'=>'Event area sanitized before event','var'=>1),
+			array('label'=>'Event is held outside','var'=>1),
+			array('label'=>'Other additional health guidelines','var'=>1),
 			
 			array('label'=>'Your Full Name','name'=>'evoAUL_fn','legend'=>''),
 			array('label'=>'Your Email Address','name'=>'evoAUL_ea','legend'=>''),

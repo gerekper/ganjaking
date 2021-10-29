@@ -1,7 +1,7 @@
 <?php
 /**
  * Action User settings page
- * @version 0.2
+ * @version 2.2.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -176,13 +176,7 @@ function content(){
 
 								array('id'=>'evoau_form_nonce','type'=>'yesno','name'=>'Disable checking form nonce upon submission','legend'=>'If your form submissions throws a bad nonce error you can enable this to skip nonce checking.'),
 								array('id'=>'evoau_eventdetails_textarea','type'=>'yesno','name'=>'Use basic textarea for event details box instead of WYSIWYG editor','legend'=>'If your theme have styles interfering with all WYSIWYG editors across site, this will switch event details to a basic text box instead of WYSIWYG editor.'),
-								array('id'=>'evoau_post_status','type'=>'dropdown','name'=>'Submitted event\'s default post status','width'=>'full',
-										'options'=>array(
-											'draft'=>'Draft',
-											'publish'=>'Publish',
-											'private'=>'Private'),
-										'legend'=>'This will be override if the submitter have the user permission to publish events'
-										),
+								
 								array(
 									'id'=>'evoau_dis_permis_status',
 									'type'=>'yesno',
@@ -275,6 +269,15 @@ function content(){
 							'fields'=>array(
 								array('id'=>'evoau_hide_repeats','type'=>'yesno','name'=>__('Hide repeating event fields from frontend form','eventon') ),
 
+								array('id'=>'evoau_post_status','type'=>'dropdown','name'=>'Submitted event\'s default post status','width'=>'full',
+									'options'=>array(
+										'draft'=>'Draft',
+										'publish'=>'Publish',
+										'private'=>'Private'),
+									'legend'=>'This will be override if the submitter have the user permission to publish events'
+									),
+
+								
 								array(
 									'id'=>'evoau001','type'=>'subheader',
 									'name'=>'Event Organizer Fields'
@@ -338,6 +341,12 @@ function content(){
 
 								array('id'=>'evoau_notsubmitterAP','type'=>'yesno','name'=>'Notify submitter when their event is approved (if submitter email present) '.$dis_approval_notice,'afterstatement'=>'evoau_notsubmitterAP','legend'=>'If you set the submitted events to be saved as drafts, you can use this message notifications to let them know when their event is approved'),
 								array('id'=>'evoau_notsubmitterAP','type'=>'begin_afterstatement'),
+
+									/*array('id'=>'evoau_notif_edits','type'=>'yesno','name'=>__('Notify submitter if editted events approved','eventon'),
+										'legend'=>"If published events are editted to draft, enabling this will notify submitter when editted event is approved"
+									),
+									*/
+
 									array('id'=>'evoau_ntf_pub_from','type'=>'text','name'=>'From eg. My Name &lt;myname@domain.com&gt; - Default will use admin email from this website', 'default'=>$this->adminEmail),
 									array('id'=>'evoau_ntf_pub_subject','type'=>'text','name'=>'Email Subject line','default'=>'We have approved your event!'),
 									array('id'=>'evoau_ntf_pub_msg','type'=>'textarea','name'=>'Message body','default'=>'Thank you for submitting your event and we have approved it!'),
@@ -541,9 +550,7 @@ function content(){
 	
 }// content
 	function fields_array(){
-		global $eventon_au;
-
-		$FIELDS = $eventon_au->frontend->au_form_fields('additional');
+		$FIELDS = EVOAU()->frontend->au_form_fields('additional');
 
 		foreach($FIELDS as $F=>$V){			
 			$FF[$F]= !empty($V[6])?$V[6]:$V[0];

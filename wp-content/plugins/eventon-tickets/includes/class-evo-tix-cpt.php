@@ -1,7 +1,7 @@
 <?php
 /**
  * evo-tix post type object
- * @version 1.9.3
+ * @version 1.7.6
  */
 
 class EVO_Evo_Tix_CPT{
@@ -41,20 +41,6 @@ class EVO_Evo_Tix_CPT{
 	}
 	public function get_order_id(){
 		return $this->get_prop('_orderid');
-	}
-	public function get_order_item_id(){
-		return $this->get_prop('_order_item_id');
-	}
-
-	public function get_order_item_lang(){
-		$item_id = $this->get_order_item_id();
-
-		if($item_id){
-			$lang = wc_get_order_item_meta( $item_id, '_evo_lang', true);
-			if($lang) return $lang;
-		}
-
-		return EVO()->lang;
 	}
 	
 }

@@ -2,9 +2,10 @@
 /**
  * Backwards compat.
  *
- *
  * @since 1.2.7
+ * @package WooCommerce Sale Flash Pro
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

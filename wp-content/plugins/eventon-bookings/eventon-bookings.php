@@ -4,10 +4,10 @@
  * Plugin URI: http://www.myeventon.com/addons/bookings
  * Description: Sell event tickets as time slot based bookings or appointments
  * Author: Ashan Jay
- * Version: 1.1.1
+ * Version: 1.3.1
  * Author URI: http://www.ashanjay.com/
  * Requires at least: 5.0
- * Tested up to: 5.3
+ * Tested up to: 5.7
  * 
  * Text Domain: evobo
  * Domain Path: /lang/
@@ -16,9 +16,9 @@
 
 class eventon_bo{
 	
-	public $version='1.1.1';
-	public $eventon_version = '2.8'; 
-	public $evotx_version = '1.7.7';
+	public $version='1.3.1';
+	public $eventon_version = '3.1'; 
+	public $evotx_version = '1.8';
 	public $name = 'Bookings';
 
 	public $addon_data = array();
@@ -90,6 +90,7 @@ class eventon_bo{
 
 			include_once( 'includes/class-integration-tickets.php' );	
 			include_once( 'includes/class-integration-qrcode.php' );	
+			include_once( 'includes/class-integration-seats.php' );	
 			include_once( 'includes/class-booking_blocks.php' );	
 			include_once( 'includes/class-functions.php' );	
 			include_once( 'includes/class-frontend.php' );	

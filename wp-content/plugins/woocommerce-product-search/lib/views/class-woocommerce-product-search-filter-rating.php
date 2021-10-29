@@ -109,21 +109,6 @@ class WooCommerce_Product_Search_Filter_Rating {
 	}
 
 	/**
-	 * Instance ID.
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return string
-	 */
-	private static function get_n() {
-		$n = self::$instances;
-		if ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) {
-			$n .= '-' . md5( rand() );
-		}
-		return $n;
-	}
-
-	/**
 	 * Renders the rating filter.
 	 *
 	 * @param array $atts
@@ -139,26 +124,26 @@ class WooCommerce_Product_Search_Filter_Rating {
 				'container_class'     => '',
 				'container_id'        => null,
 				'filter'              => 'yes',
-				'has_rating_only'     => 'yes',
+				'has_rating_only'    => 'yes',
 				'heading'             => null,
 				'heading_class'       => null,
 				'heading_element'     => 'div',
 				'heading_id'          => null,
-				'shop_only'           => 'no',
 				'show_heading'        => 'yes',
 
+				'use_shop_url'        => 'no'
 			),
 			$atts
 		);
 
-		$n               = self::get_n();
+		$n               = self::$instances;
 		$container_class = '';
 		$container_id    = sprintf( 'product-search-filter-rating-%d', $n );
 		$heading_class   = 'product-search-filter-rating-heading product-search-filter-extras-heading';
 		$heading_id      = sprintf( 'product-search-filter-rating-heading-%d', $n );
 		$containers      = array();
 
-		if ( $atts['heading'] === null || $atts['heading'] === '' ) {
+		if ( $atts['heading'] === null ) {
 			$atts['heading']  = _x( 'Rating', 'product filter rating heading', 'woocommerce-product-search' );
 		}
 
@@ -174,9 +159,8 @@ class WooCommerce_Product_Search_Filter_Rating {
 					case 'filter' :
 					case 'has_rating_only' :
 
-					case 'shop_only' :
 					case 'show_heading' :
-
+					case 'use_shop_url' :
 						$value = strtolower( $value );
 						$value = $value == 'true' || $value == 'yes' || $value == '1';
 						break;
@@ -206,10 +190,6 @@ class WooCommerce_Product_Search_Filter_Rating {
 			if ( $is_param ) {
 				$params[$key] = $value;
 			}
-		}
-
-		if ( $params['shop_only'] && !woocommerce_product_search_is_shop() ) {
-			return '';
 		}
 
 		if ( !empty( $containers['container_class'] ) ) {
@@ -261,6 +241,19 @@ class WooCommerce_Product_Search_Filter_Rating {
 		$current_url = remove_query_arg( array( 'ixwpse', 'rating', 'paged' ), $current_url );
 		$href        = $current_url;
 		$add_post_type = false;
+		if ( isset( $params['use_shop_url'] ) && $params['use_shop_url'] ) {
+
+			$href = get_permalink( wc_get_page_id( 'shop' ) );
+			if ( !$href ) {
+				$query_post_type = self::get_query_arg( $current_url, 'post_type' );
+
+				if ( $query_post_type !== 'product' ) {
+
+					$href = add_query_arg( array( 'post_type' => 'product' ), trailingslashit( home_url() ) );
+					$add_post_type = true;
+				}
+			}
+		}
 
 		$rating_field_id = 'product-search-filter-rating-' . $n;
 		$form_id          = 'product-search-filter-rating-form-' . $n;

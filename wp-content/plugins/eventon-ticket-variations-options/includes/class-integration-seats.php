@@ -8,7 +8,7 @@ class EVOVO_Seats{
 		if( !class_exists('EVO_seats')) return false;
 		if(is_admin()){
 			add_action('evost_admin_formfields', array($this, 'form'), 10, 3);
-			add_action('evovo_save_vo_before_echo', array($this, 'save_block_variation'), 10, 4);
+			add_action('evovo_save_vo_before_echo', array($this, 'save_block_variation'), 10, 3);
 			add_filter('evovo_variations_form_fields', array($this, 'new_v_form'), 10, 2);
 		}
 
@@ -165,7 +165,7 @@ class EVOVO_Seats{
 			if(!$VO->is_vo()) return false;
 
 			echo "<div id='evovo_ext_section'>";
-			echo "<div class='evovo_vos_container_seat'>";
+			echo "<div class='evovo_vos_container_seat evovo_vos_container' data-pid='' data-pt='seat'>";
 
 			$VO = new EVOVO_Var_opts($SEATS->event, $form_data['wcid']);
 			echo $VO->get_all_vos_html($form_data['section_id'], 'seat',true);
@@ -179,11 +179,13 @@ class EVOVO_Seats{
 		}
 
 		// save/ update booking block variation
-			function save_block_variation($html, $vo_id, $json, $EVENT){
+			function save_block_variation($vo_data, $EVENT, $json){
 				
 				if( !isset($json['parent_type'])) return false;
 				if( !isset($json['parent_id'])) return false;
 				if( $json['parent_type'] != 'seat') return false;
+
+				$vo_id = $vo_data['vo_id'];
 
 
 				// save VO for the booking block

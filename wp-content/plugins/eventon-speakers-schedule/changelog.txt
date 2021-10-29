@@ -1,5 +1,19 @@
 ﻿Event Speakers and schedule (SS) addon for EventON Plugin
 ====================================
+v 1.0.3 (2020-10-26)
+FIXED: image url not validated for loading
+FIXED: speaker flex wrap style - thanks Patrick R.
+FIXED: schedule saved in certain date format not showing date correct on eventcard
+UPDATED: minor eventcard styles refresh
+
+v 1.0.2 (2020-6-22)
+FIXED: schedule sorting not working
+FIXED: speaker image not centered
+
+v 1.0.1 (2020-6-19)
+ADDED: Ability to add custom day number for days
+FIXED: compatibility with font awesome 5.12 library
+
 v 1.0 (2018-12-11)
 ADDED: Speaker to have URL field that open in new window
 ADDED: Ability to sort the schedule blocks in order

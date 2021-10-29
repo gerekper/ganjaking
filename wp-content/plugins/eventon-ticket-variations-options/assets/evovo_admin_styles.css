@@ -57,27 +57,43 @@ ul.evovo_variations_int li:before
     position: absolute;
     top: 50%;
     left: 8px;
-    width: 0.7em;
-    height: 0.125em;
-    border-top: 0.375em double #a0a0a0;
-    border-bottom: 0.125em solid #a0a0a0;
-    margin-top: -0.3em;
+    margin-top: -5px;
     cursor: move;
+    box-sizing: border-box;
+    position: absolute;
+    /* left: 0; */
+    /* top: 0.25em; */
+    width: 1em;
+    height: 0.15em;
+    background: white;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
 }
 #evovo_options_selection ul li,
 ul.evovo_variations_int li
 {
     display: flex; justify-content:space-between;
     position: relative;
-	border-bottom: 1px solid #929292;
+	border-bottom: 1px solid #30b3dc;
     margin: 0;
     padding: 7px 80px 7px 30px;
     position: relative;
     background-color: #7a7a7a; color:#fff;
 }
-#evovo_options_selection ul li:last-child, 
-ul.evovo_variations_int li:last-child
-{border:none;}
+    
+#evovo_options_selection ul.evovo_variations_int.evovo_variation_type li,
+ul.evovo_variations_int.evovo_variation_type li
+    {background-color: #56ce70;}
+
+#evovo_options_selection ul.evovo_variations_int.evovo_variation li,
+ul.evovo_variations_int.evovo_variation li
+    {background-color: #2fc6f5;}
+
+#evovo_options_selection ul.evovo_variations_int.evovo_option li,
+ul.evovo_variations_int.evovo_option li
+    {background-color: #2ca0f3;}
+
+#evovo_options_selection ul li:last-child, ul.evovo_variations_int li:last-child{border:none;}
+
 #evovo_options_selection ul li dd{
 	display: inline-block;
     margin: 0px;

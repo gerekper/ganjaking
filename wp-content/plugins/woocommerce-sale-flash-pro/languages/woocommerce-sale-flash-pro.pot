@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Sale Flash Pro 1.2.20\n"
+"Project-Id-Version: WooCommerce Sale Flash Pro 1.2.21\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-sale-flash-pro\n"
-"POT-Creation-Date: 2021-02-11 15:42:34+00:00\n"
+"POT-Creation-Date: 2021-10-26 13:21:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,80 +14,86 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
 
-#: woocommerce-sale-flash-pro.php:31
+#: woocommerce-sale-flash-pro.php:37
 #. translators: %s WC download URL link.
 msgid ""
 "Sale Flash Pro requires WooCommerce to be installed and active. You can "
 "download %s here."
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:45 woocommerce-sale-flash-pro.php:215
+#: woocommerce-sale-flash-pro.php:68 woocommerce-sale-flash-pro.php:227
 msgid "Sale flash type"
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:46
-msgid ""
-"<strong>25% off!</strong> vs <strong>&pound;20 off!</strong>. Can be "
-"overridden by editing products."
+#: woocommerce-sale-flash-pro.php:69
+msgid "How sale flashes are displayed. Can be overridden by editing products."
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:51 woocommerce-sale-flash-pro.php:218
-msgid "Default"
+#: woocommerce-sale-flash-pro.php:74
+msgid "Percent e.g. 25% off!"
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:52 woocommerce-sale-flash-pro.php:219
-msgid "Percent"
+#: woocommerce-sale-flash-pro.php:75
+msgid "Amount e.g. &pound;25 off!"
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:53 woocommerce-sale-flash-pro.php:220
-msgid "Amount"
-msgstr ""
-
-#: woocommerce-sale-flash-pro.php:57
+#: woocommerce-sale-flash-pro.php:79
 msgid "Sale flash price"
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:58
+#: woocommerce-sale-flash-pro.php:80
 msgid "Show original price?"
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:64
+#: woocommerce-sale-flash-pro.php:86
 msgid "Enable for variations"
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:65
+#: woocommerce-sale-flash-pro.php:87
 msgid "Show sale flashes for variable products e.g. Up to 40% off!"
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:148
+#: woocommerce-sale-flash-pro.php:163
 #. translators: 1: discount price
 msgid "up to %s%% off!"
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:154
+#: woocommerce-sale-flash-pro.php:167
 #. translators: 1: discount price
 msgid "up to %s off!"
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:172
+#: woocommerce-sale-flash-pro.php:175
 #. translators: 1: discount price
 msgid "%s%% off!"
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:180
+#: woocommerce-sale-flash-pro.php:183
 #. translators: 1: discount price
 msgid "%s off!"
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:216
+#: woocommerce-sale-flash-pro.php:228
 msgid "Choose a sale flash style for this product."
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:226
+#: woocommerce-sale-flash-pro.php:230
+msgid "Default"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:231
+msgid "Percent"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:232
+msgid "Amount"
+msgstr ""
+
+#: woocommerce-sale-flash-pro.php:239
 msgid "Hide sale flash"
 msgstr ""
 
-#: woocommerce-sale-flash-pro.php:227
+#: woocommerce-sale-flash-pro.php:240
 msgid "Hide the sale flash for this product."
 msgstr ""
 

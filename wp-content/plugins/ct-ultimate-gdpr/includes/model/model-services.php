@@ -115,7 +115,6 @@ class CT_Ultimate_GDPR_Model_Services {
 				'CT_Ultimate_GDPR_Service_CF7DB',
 				'CT_Ultimate_GDPR_Service_WPForms_Lite',
 				'CT_Ultimate_GDPR_Service_Contact_Form_7',
-				'CT_Ultimate_GDPR_Service_Yikes_Inc_Easy_Mailchimp_Extender',
 				'CT_Ultimate_GDPR_Service_CT_Waitlist',
 				'CT_Ultimate_GDPR_Service_Custom_Facebook_Feed',
 				'CT_Ultimate_GDPR_Service_Eform',
@@ -158,7 +157,6 @@ class CT_Ultimate_GDPR_Model_Services {
 				'CT_Ultimate_GDPR_Service_Formcraft_Form_Builder',
 				'CT_Ultimate_GDPR_Service_Youtube',
 				'CT_Ultimate_GDPR_Service_Post_SMTP',
-				'CT_Ultimate_GDPR_Service_Akismet',
 			)
 		);
 

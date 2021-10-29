@@ -5,7 +5,7 @@
 
 class evovo_lang{
 	function __construct(){
-		add_filter('eventon_settings_lang_tab_content', array($this,'language_additions'), 10, 1);
+		add_filter('eventon_settings_lang_tab_content', array($this,'language_additions'), 13, 1);
 	}
 	function language_additions($_existen){
 		$new_ar = array(

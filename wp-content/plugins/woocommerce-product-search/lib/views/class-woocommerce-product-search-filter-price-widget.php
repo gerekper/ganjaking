@@ -123,10 +123,6 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 		if ( !empty( $title ) ) {
 			$output .= $before_title . $title . $after_title;
 		}
-
-		if ( !isset( $instance['version'] ) ) {
-			$instance['filter'] = 'yes';
-		}
 		$output .= WooCommerce_Product_Search_Filter_Price::render( $instance );
 		$output .= $after_widget;
 
@@ -156,13 +152,13 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 		$settings['heading_class']      = !empty( $new_instance['heading_class'] ) ? trim( $new_instance['heading_class'] ) : '';
 		$settings['heading_id']         = !empty( $new_instance['heading_id'] ) ? trim( $new_instance['heading_id'] ) : '';
 		$settings['heading_element']    = !empty( $new_instance['heading_element'] ) ? trim( $new_instance['heading_element'] ) : '';
-		$settings['show_heading']       = woocommerce_product_search_input_yn( $new_instance['show_heading'] );
+		$settings['show_heading']       = !empty( $new_instance['show_heading'] ) ? 'yes' : 'no';
 
-		$settings['filter']        = woocommerce_product_search_input_yn( $new_instance['filter'] );
+		$settings['filter']        = !empty( $new_instance['filter'] ) ? 'yes' : 'no';
+		$settings['use_shop_url']  = !empty( $new_instance['use_shop_url'] ) ? 'yes' : 'no';
+		$settings['submit_button'] = !empty( $new_instance['submit_button'] ) ? 'yes' : 'no';
 
-		$settings['submit_button'] = woocommerce_product_search_input_yn( $new_instance['submit_button'] );
-
-		$settings['shop_only'] = woocommerce_product_search_input_yn( $new_instance['shop_only'] );
+		$settings['shop_only'] = !empty( $new_instance['shop_only'] ) ? 'yes' : 'no';
 
 		$delay = !empty( $new_instance['delay'] ) ? intval( $new_instance['delay'] ) : WooCommerce_Product_Search::DEFAULT_DELAY;
 		if ( $delay < WooCommerce_Product_Search::MIN_DELAY ) {
@@ -170,13 +166,13 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 		}
 		$settings['delay'] = $delay;
 
-		$settings['slider']               = woocommerce_product_search_input_yn( $new_instance['slider'] );
-		$settings['fields']               = woocommerce_product_search_input_yn( $new_instance['fields'] );
+		$settings['slider']               = !empty( $new_instance['slider'] ) ? 'yes' : 'no';
+		$settings['fields']               = !empty( $new_instance['fields'] ) ? 'yes' : 'no';
 		$settings['submit_button_label']  = isset( $new_instance['submit_button_label'] ) ? strip_tags( $new_instance['submit_button_label'] ) : __( 'Go', 'woocommerce-product-search' );
 		$settings['min_placeholder']      = isset( $new_instance['min_placeholder'] ) ? strip_tags( $new_instance['min_placeholder'] ) : __( 'Min', 'woocommerce-product-search' );
 		$settings['max_placeholder']      = isset( $new_instance['max_placeholder'] ) ? strip_tags( $new_instance['max_placeholder'] ) : __( 'Max', 'woocommerce-product-search' );
-		$settings['show_currency_symbol'] = woocommerce_product_search_input_yn( $new_instance['show_currency_symbol'] );
-		$settings['show_clear']           = woocommerce_product_search_input_yn( $new_instance['show_clear'] );
+		$settings['show_currency_symbol'] = !empty( $new_instance['show_currency_symbol'] ) ? 'yes' : 'no';
+		$settings['show_clear']           = !empty( $new_instance['show_clear'] ) ? 'yes' : 'no';
 
 		$container_id = !empty( $new_instance['container_id'] ) ? trim( $new_instance['container_id'] ) : '';
 		if ( strlen( $container_id ) > 0 ) {
@@ -191,8 +187,6 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 		} else {
 			unset( $settings['container_class'] );
 		}
-
-		$settings['version'] = WOO_PS_PLUGIN_VERSION;
 
 		$this->cache_delete();
 
@@ -400,17 +394,17 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 		echo '</label>';
 		echo '</p>';
 
-		$filter = isset( $instance['version'] ) && isset( $instance['filter'] ) ? $instance['filter'] : 'yes';
+		$use_shop_url = isset( $instance['use_shop_url'] ) ? $instance['use_shop_url'] : 'no';
 		echo '<p>';
-		echo sprintf( '<label title="%s">', esc_attr( __( 'Activate live filtering.', 'woocommerce-product-search' ) ) );
+		echo sprintf( '<label title="%s">', esc_attr( __( 'Link to the shop page instead of the same page.', 'woocommerce-product-search' ) ) );
 		printf(
 			'<input type="checkbox" id="%s" name="%s" %s />',
-			$this->get_field_id( 'filter' ),
-			$this->get_field_name( 'filter' ),
-			$filter == 'yes' ? ' checked="checked" ' : ''
+			esc_attr( $this->get_field_id( 'use_shop_url' ) ),
+			esc_attr( $this->get_field_name( 'use_shop_url' ) ),
+			$use_shop_url== 'yes' ? ' checked="checked" ' : ''
 		);
 		echo ' ';
-		echo esc_html( __( 'Filter', 'woocommerce-product-search' ) );
+		echo esc_html( __( 'Use the Shop URL', 'woocommerce-product-search' ) );
 		echo '</label>';
 		echo '</p>';
 
@@ -487,13 +481,12 @@ class WooCommerce_Product_Search_Filter_Price_Widget extends WP_Widget {
 			'show_clear' => true,
 			'submit_button' => false,
 			'submit_button_label' => __( 'Go', 'woocommerce-product-search' ),
-
+			'use_shop_url' => false,
 			'heading_id' => '',
 			'heading_class' => '',
 			'heading_element' => '',
 			'slider' => true,
-			'fields' => true,
-			'filter' => true
+			'fields' => true
 		);
 	}
 }

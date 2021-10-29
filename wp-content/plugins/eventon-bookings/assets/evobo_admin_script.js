@@ -4,48 +4,91 @@
  */
 jQuery(document).ready(function($){
 
+	const text_1 = 'Total Blocks';
 
 // BOOKING EDITOR
-	function draw_editor(){
-		DATA_ = $('body').find('.evobo_admin_data');
-		DATA = DATA_.data('json');
+	function draw_editor(json){
 		HTML = '';
 
-		//console.log( DATA );
+		var DS = $('body').find('.evobo_admin_data').data('dataset');
 
-		$.each(DATA, function(year, months){
-			HTML += '<span class="year">'+year+'</span>';  
+		if(json && json != ''){
 
+			HTML += "<span class='editor_header'><em class='evobo_editor_tal'>" + $(json).length + ' '+ text_1+ "</em> <em class='icon'><i class='evobo_editor_view_sel fa fa-bars select'></i><i class='evobo_editor_view_sel  fa fa-columns'></i></em></span>";
+		}
+
+		var slots_count = 0;
+		$.each(json, function(year, months){
 			$.each(months, function(month, days){
 				
 				month_name = days['name'];
-				HTML += '<span class="month">'+month_name+'</span>';
+				HTML += '<span class="month">'+month_name+ ', '+ year +'</span>';
 				
-				$.each(days, function(day, slots){
+				$.each(days, function(date, slots){
 					IND = 1;
-					if( day == 'name') return true;
+					if( date == 'name') return true;
 
-					$.each(slots, function(booking_index, times){
+					HTML += '<div class="date">';
+					HTML += '<b class="day">' + date + " <i>"+ slots['day']+"</i></b>";
+					HTML += "<span class='line_slots'>";
+
+					$.each(slots, function(booking_index, BD){
 
 						if( booking_index == 'day') return true;
-						
-						HTML += '<span class="slot" data-bid="'+ times.index +'"><b>'+ (IND == 1? day:'') +'</b><em class="time">'+times.times+'</em>';
-						HTML += '<span class="slot_actions"><em class="delete evobo_delete_slot">x</em> <em class="edit evobo_edit_slot"><i class="fa fa-pencil"></i></em><em class="edit evobo_view_attendees"><i class="fa fa-user"></i></em></span>';
-						HTML +='</span>';
+
+						var a_class = ('a' in BD && BD.a !== undefined && BD.a != null ) ? 
+							'has':'';
+
+						HTML += '<span class="line '+a_class+'" data-bid="'+ BD.index +'"><em class="slot evobo_slot" >'+BD.times+'</em><span class="other">';
+
+						HTML += '<span><b>'+BD.c+'</b> <i>'+DS.t.left+'</i></span>';
+						HTML += '<span><b>'+BD.p+'</b></span>';
+
+						if( a_class != ''){
+							HTML += '<span><b>'+ (Object.keys(BD.a).length ) +'</b> <i>'+ DS.t.attendees +'</i></span>';
+							$.each(BD.a, function(tid, AD){
+
+							});
+						} 
+
+						HTML += '<i class="del evobo_delete_slot" data-bid="'+ BD.index +'">x</i>';
+						HTML += '<i class="edit evobo_edit_slot fa fa-pencil" data-bid="'+ BD.index +'"></i>';
+
+						HTML +='</span></span>';
 						IND++;
+						slots_count++;
 					});
+					HTML += "</span>";
+					HTML += "</div>";
 				});
 			});
         });
 
 		$('.evobo_lightbox').find('.evoboE_slots').html( HTML );
+		$('.evobo_lightbox').find('.evobo_editor_tal').html(slots_count +" "+ text_1);
 		$('.evobo_lightbox').find('.evoboE_slots').sortable({	
-			items: '.slot',		
-            update: function(event, ui){
-            	change_blocks_list();
-			}
+			items: '.line',		
+            update: function(event, ui){ 	change_blocks_list();		}
 		});
 	}
+
+	// selecting different view styles
+		$('body').on('click','.evobo_editor_view_sel',function(){
+			if($(this).hasClass('select') ) return;
+
+			$(this).addClass('select');
+			$(this).siblings().removeClass('select');
+
+			const slots = $(this).closest('.evoboE_slots');
+
+			if( $(this).hasClass('fa-bars')){
+				slots.removeClass('compact');
+				slots.find('.line .other').show();
+			}else{
+				slots.addClass('compact');
+				slots.find('.line .other').hide();
+			}
+		});
 
 // Bookings
 	// date and time picker
@@ -71,12 +114,79 @@ jQuery(document).ready(function($){
 				success:function(data){
 					if(data.status=='good'){	
 						$('.evobo_lightbox').find('.ajde_popup_text').html( data.content);
-						draw_editor(  );
+						draw_editor( data.block_json );
 					}else{}
 				},complete:function(){
 					$('.evobo_lightbox.ajde_admin_lightbox ').find('.ajde_popup_text').removeClass( 'loading');
 				}
 			});	
+		});
+
+	// generate time slots form
+		$('body').on('click','.evobo_slot_generator',function(){
+			ds = _get_dataset();
+
+			var ajaxdataa = { };
+				ajaxdataa['action']='evobo_load_generator';
+				ajaxdataa['eid']=  ds.eid;
+				ajaxdataa['wcid']=  ds.wcid;
+
+			$.ajax({
+				beforeSend: function(){ $('.evobo_lightbox_2').find('.ajde_popup_text').addClass( 'loading');	},	
+				type: 'POST',
+				url:evobo_admin_ajax_script.ajaxurl,
+				data: ajaxdataa,
+				dataType:'json',
+				success:function(data){
+					if(data.status=='good'){
+						$('.evobo_lightbox_2').find('.ajde_popup_text').html( data.content);
+					}
+				},complete:function(){
+					$('.evobo_lightbox_2').find('.ajde_popup_text').removeClass( 'loading');
+				}
+			});	
+		});
+	// generate blocks
+		$('body').on('click','.evobo_generate_slots', function(){
+			var F = $(this).closest('.evobo_form');
+
+			var ajaxdataa = {};
+			F.find('input').each(function(){
+				if($(this).val() !=='') ajaxdataa[ $(this).attr('name')] = encodeURIComponent( $(this).val() );
+			});
+			F.find('select').each(function(){
+				if($(this).val() !=='') ajaxdataa[ $(this).attr('name')] = encodeURIComponent( $(this).val() );
+			});
+
+			ds = _get_dataset();
+			ajaxdataa['action']='evobo_generate_slots';
+			ajaxdataa['eid'] = ds.eid;
+			ajaxdataa['wcid'] = ds.wcid;
+			ajaxdataa['all_vo_data'] = F.find('.evovo_all_vo_data').data('all_vo_data');
+
+			$('body').trigger('ajde_lightbox_hide_msg',['evobo_lightbox_2']);
+
+			if( !('event_start_date' in ajaxdataa) ){
+				$('body').trigger('ajde_lightbox_show_msg',['Missing required fields!', 'evobo_lightbox_2','bad']);
+			}else{
+				$.ajax({
+					beforeSend: function(){ 
+						$('.evobo_lightbox_2').find('.ajde_popup_text').addClass( 'loading');
+					},					
+					url:	evobo_admin_ajax_script.ajaxurl,
+					data: 	ajaxdataa,	dataType:'json', type: 	'POST',
+					success:function(data){	
+						if( data.json){
+							draw_editor(data.json);
+						}
+						
+						$('body').find('.evoboE_form_container').html('');
+						$('body').trigger('ajde_lightbox_show_msg',[data.msg , 'evobo_lightbox_2','good', false, true]);
+					},complete:function(){ 	
+						$('.evobo_lightbox_2').find('.ajde_popup_text').removeClass( 'loading');
+					}
+				});
+			}
 		});
 	
 	// Add new Time Slot
@@ -85,44 +195,43 @@ jQuery(document).ready(function($){
 		});
 
 	// Edit time slot
+		$('body').on('click', '.evobo_slot', function(){
+			get_form( 'edit',$(this));
+		});
 		$('body').on('click', '.evobo_edit_slot', function(){
 			get_form( 'edit',$(this));
 		});
-		$('body').on('click','a.evobo_cancel_form',function(){
-			_close_form();
-		});	
 	// delete time slot
 		$('body').on('click', '.evobo_delete_slot', function(){
 			_delete_timeslot( $(this));
+		});
+	// delete all time slot
+		$('body').on('click', '.evobo_slot_delete_all', function(){
+
+			var yes = confirm( $(this).data('t') );
+			if( yes == true){
+				delete_allslots( $(this));
+			} 
 		});
 
 	//view attendees
 		$('body').on('click','.evobo_view_attendees',function(){
 			ds = _get_dataset();
-			O = $(this);
-			O.closest('.evoboE_slots').find('.slot').removeClass('select');
-			O.closest('span.slot').addClass('select');
-
 			ajaxdataa = {};
-			ajaxdataa['action']='evobo_get_attendees';
+			ajaxdataa['action']='evobo_view_all_attendees';
 			ajaxdataa['eid'] = ds.eid;
 			ajaxdataa['wcid'] = ds.wcid;
-			ajaxdataa['index'] = O.closest('.slot').data('bid');
 			$.ajax({
-				beforeSend: function(){
-					$('.evobo_lightbox').find('.ajde_popup_text').addClass( 'loading');
-				},
+				beforeSend: function(){	$('.evobo_lightbox_2').find('.ajde_popup_text').addClass( 'loading');},
 				type: 'POST',
 				url:evobo_admin_ajax_script.ajaxurl,
 				data: ajaxdataa,
 				dataType:'json',
 				success:function(data){
 					if(data.status=='good'){
-						_show_form( data.content);
+						$('.evobo_lightbox_2').find('.ajde_popup_text').html( data.content);
 					}
-				},complete:function(){
-					$('.evobo_lightbox.ajde_admin_lightbox ').find('.ajde_popup_text').removeClass( 'loading');
-				}
+				},complete:function(){	$('.evobo_lightbox_2').find('.ajde_popup_text').removeClass( 'loading');	}
 			});			
 		});
 		$('body').on('click','.evoboE_hide_form',function(){
@@ -137,9 +246,11 @@ jQuery(document).ready(function($){
 
 	// get the booking block form
 		function get_form( type, O){
+			// open lightbox
+			$('body').trigger('evo_open_admin_lightbox',['evobo_lightbox_2']);
+
 			ds = _get_dataset();
-			O.closest('.evoboE_slots').find('.slot').removeClass('select');
-			O.closest('span.slot').addClass('select');
+			
 
 			var ajaxdataa = { };
 				ajaxdataa['action']='evobo_get_form';
@@ -147,12 +258,16 @@ jQuery(document).ready(function($){
 				ajaxdataa['eid']=  ds.eid;
 				ajaxdataa['wcid']=  ds.wcid;
 
-			if(type == 'edit')	
-				ajaxdataa['index']=  O.closest('.slot').data('bid');
+			if(type == 'edit'){
+				O.closest('.evoboE_slots').find('.slot').removeClass('select');
+				O.closest('span.slot').addClass('select');
+				ajaxdataa['index']=  O.closest('.line').data('bid');
+			}	
+				
 
 			$.ajax({
 				beforeSend: function(){
-					$('.evobo_lightbox').find('.ajde_popup_text').addClass( 'loading');
+					$('.evobo_lightbox_2').find('.ajde_popup_text').addClass( 'loading');
 				},
 				type: 'POST',
 				url:evobo_admin_ajax_script.ajaxurl,
@@ -160,65 +275,26 @@ jQuery(document).ready(function($){
 				dataType:'json',
 				success:function(data){
 					if(data.status=='good'){
-						$('.evobo_lightbox').find('.evoboE_form_container').html( data.content);
-						process_date_time_picker( ds.tf, ds.dfj );
+						$('.evobo_lightbox_2').find('.ajde_popup_text').html( data.content);
 					}
 				},complete:function(){
-					$('.evobo_lightbox.ajde_admin_lightbox ').find('.ajde_popup_text').removeClass( 'loading');
+					$('.evobo_lightbox_2').find('.ajde_popup_text').removeClass( 'loading');
 				}
 			});	
 		}
-	
-	// process date and timer picker
-		function process_date_time_picker(tf, df){
-			$('.evobo_lightbox').find('input[name=sd]').datepicker({
-				dateFormat: df,
-				beforeShow: function(input, inst) {
-			       $('#ui-datepicker-div').removeClass(function() {
-			           return $('input').get(0).id; 
-			       });
-			       $('#ui-datepicker-div').addClass('booking_datepicker');
-			   	},
-				numberOfMonths: 2,
-				onClose: function( selectedDate , obj) {
 
-					// update end time
-					ENDdateOBJ = $('.evobo_lightbox').find('input[name=ed]');
-					ENDdateOBJ.datepicker( "option", "minDate", selectedDate );
-					ENDdateOBJ.addClass('test');
-
-			    }
-				//minDate: data.other.min_date,
-				//maxDate: data.other.max_date
-			});
-			$('.evobo_lightbox').find('input[name=ed]').datepicker({
-				dateFormat: df,
-				beforeShow: function(input, inst) {
-			       $('#ui-datepicker-div').removeClass(function() {
-			           return $('input').get(0).id; 
-			       });
-			       $('#ui-datepicker-div').addClass('booking_datepicker');
-			   	},
-				numberOfMonths: 2,
-				//minDate: data.other.min_date,
-				//maxDate: data.other.max_date
-			});
-			$('.evobo_lightbox').find('input.evobo_time_selection').timepicker({'step': 10,'timeFormat':tf});
-		}
-
-	// save new time based pricing blcok
+	// save booking block data
 		$('body').on('click','.evobo_form_submission',function(){
 			BTN = $(this);
 			OBJ = BTN.closest('.evobo_add_block_form');
 			UL = $('body').find('ul.evobo_blocks_list');
 
 			OBJ.find('.message').hide();
+			$('body').trigger('ajde_lightbox_hide_msg',['evobo_lightbox_2']);
 
 			if(
-				OBJ.find('input[name=sd]').val() &&
-				OBJ.find('input[name=st]').val() &&
-				OBJ.find('input[name=ed]').val() &&
-				OBJ.find('input[name=et]').val() &&
+				OBJ.find('input[name=event_start_date_x]').val() &&
+				OBJ.find('input[name=event_end_date_x]').val() &&
 				( (BTN.data('type') == 'tbp' && OBJ.find('input[name=p]').val() ) || (BTN.data('type') != 'tbp'))
 			){
 
@@ -230,41 +306,37 @@ jQuery(document).ready(function($){
 				OBJ.find('input').each(function(){
 					if($(this).val() !=='') ajaxdataa[ $(this).attr('name')] = encodeURIComponent( $(this).val() );
 				});
-
-				// if saving edits
-				if(BTN.data('type')=='edit'){
-					index = BTN.data('index');
-				}
+				OBJ.find('select').each(function(){
+					if($(this).val() !=='') ajaxdataa[ $(this).attr('name')] = encodeURIComponent( $(this).val() );
+				});
 
 				ajaxdataa['action']='evobo_save_booking_block';
-				ajaxdataa['index'] = index;
+				ajaxdataa['index'] = BTN.data('bid');
 				ajaxdataa['eid'] = ds.eid;
 				ajaxdataa['wcid'] = ds.wcid;
 				ajaxdataa['type'] = BTN.data('type');
-				ajaxdataa['date_format'] = ds.df;
-				ajaxdataa['time_format'] = ds.tf;
+				ajaxdataa['all_vo_data'] = OBJ.find('.evovo_all_vo_data').data('all_vo_data');
 				
 				$.ajax({
 					beforeSend: function(){ 
-						$('.evobo_lightbox').find('.ajde_popup_text').addClass( 'loading');
+						$('.evobo_lightbox_2').find('.ajde_popup_text').addClass( 'loading');
 					},					
 					url:	evobo_admin_ajax_script.ajaxurl,
 					data: 	ajaxdataa,	dataType:'json', type: 	'POST',
 					success:function(data){						
-						if( data.json){
-							_update_slots_json( data.json );
-							draw_editor();
-						}
-						
+						if( data.json) draw_editor(data.json );						
 						$('body').find('.evoboE_form_container').html('');
-						$('body').trigger('ajde_lightbox_show_msg',[data.msg , 'evobo_lightbox','good', true, true]);
+						$('body').trigger('ajde_lightbox_show_msg',[data.msg , 'evobo_lightbox_2','good', true, true]);
+
+						// calculate total booking blocks and update ticket stock
+						$('#exotc_cap input').val( data.all_block_capacity);
 
 					},complete:function(){ 	
-						$('.evobo_lightbox').find('.ajde_popup_text').removeClass( 'loading');
+						$('.evobo_lightbox_2').find('.ajde_popup_text').removeClass( 'loading');
 					}
 				});				
 			}else{
-				$('body').trigger('ajde_lightbox_show_msg',['Missing required fields!', 'evobo_lightbox','bad']);
+				$('body').trigger('ajde_lightbox_show_msg',['Missing required fields!', 'evobo_lightbox_2','bad']);				
 			}
 		});
 	
@@ -276,7 +348,7 @@ jQuery(document).ready(function($){
 			ajaxdataa[index] = {};
 			ds = _get_dataset();		
 
-			$('.evobo_lightbox').find('span.slot').each(function(imte){
+			$('.evobo_lightbox').find('span.line').each(function(imte){
 				if( $(this).data('bid') === undefined) return true;
 				ajaxdataa[index][imte] = $(this).data('bid');
 			});		
@@ -292,10 +364,7 @@ jQuery(document).ready(function($){
 				url:	evobo_admin_ajax_script.ajaxurl,
 				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
 				success:function(data){
-					if( data.json){
-						_update_slots_json( data.json );
-						draw_editor();
-					}
+					if( data.json) draw_editor(data.json);
 					$('body').trigger('ajde_lightbox_show_msg',[data.msg , 'evobo_lightbox','good', true, true]);
 				},complete:function(){ 	
 					$('.evobo_lightbox.ajde_admin_lightbox ').find('.ajde_popup_text').removeClass( 'loading');
@@ -310,27 +379,94 @@ jQuery(document).ready(function($){
 			ds = _get_dataset();		
 
 			ajaxdataa['action']='evobo_delete_block';
-			ajaxdataa['index'] = OBJ.closest('.slot').data('bid');
+			ajaxdataa['index'] = OBJ.data('bid');
 			ajaxdataa['eid'] = ds.eid;
 			ajaxdataa['wcid'] = ds.wcid;
 			
 			$.ajax({
-				beforeSend: function(){ 
-					$('.evobo_lightbox').find('.ajde_popup_text').addClass( 'loading');
-				},					
+				beforeSend: function(){ $('.evobo_lightbox').find('.ajde_popup_text').addClass( 'loading');	},
 				url:	evobo_admin_ajax_script.ajaxurl,
 				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
 				success:function(data){
 					if( data.json){
-						_update_slots_json( data.json );
-						draw_editor();
+						 draw_editor(data.json);
+					}else{
+						$('body').find('.evoboE_slots').html('');
 					}
 					$('body').trigger('ajde_lightbox_show_msg',[data.msg , 'evobo_lightbox','good', true, true]);
 				},complete:function(){ 	
-					$('.evobo_lightbox.ajde_admin_lightbox ').find('.ajde_popup_text').removeClass( 'loading');
+					$('.evobo_lightbox').find('.ajde_popup_text').removeClass( 'loading');
 				}
 			});
 		}
+
+	// delete all slots
+		function delete_allslots( OBJ ){
+			var ajaxdataa = {};	
+			ds = _get_dataset();		
+
+			ajaxdataa['action']='evobo_delete_all';
+			ajaxdataa['eid'] = ds.eid;
+			ajaxdataa['wcid'] = ds.wcid;
+			
+			$.ajax({
+				beforeSend: function(){ $('.evobo_lightbox').find('.ajde_popup_text').addClass( 'loading');	},
+				url:	evobo_admin_ajax_script.ajaxurl,
+				data: 	ajaxdataa,	dataType:'json', type: 	'POST',
+				success:function(data){
+					if( data.json) draw_editor(data.json);
+					$('body').find('.evoboE_slots').html('');
+					$('body').trigger('ajde_lightbox_show_msg',[data.msg , 'evobo_lightbox','good', true, true]);
+				},complete:function(){ 	
+					$('.evobo_lightbox').find('.ajde_popup_text').removeClass( 'loading');
+				}
+			});
+		}
+
+// Evo VO integration
+	$('body').on('evovo_admin_voform_submitted',function(event, data, BTN){
+		var new_stock = 0;
+		if( 'all_vo_data' in data){
+			if( 'variation' in data.all_vo_data){
+				$.each(data.all_vo_data.variation, function(ind, itm){
+					new_stock += parseInt(itm.stock);
+				});
+			}
+		}
+
+		if( new_stock >0){
+			$('body').find('.evobo_add_block_form').find('input[name="capacity"]').val( new_stock );
+		}
+
+		console.log(new_stock);
+	});
+
+// Seating integration
+	// apply blocks to seats
+		$('body').on('click','.evobo_apply_toseats',function(){
+			var DS = $('body').find('.evobo_admin_data').data('dataset');
+
+			OBJ = $(this);
+			var ajaxdataa = { };
+				ajaxdataa['action']='evobo_apply_seats';
+				ajaxdataa['data']=  DS;
+
+			$.ajax({
+				beforeSend: function(){
+					$('.evobo_lightbox').find('.ajde_popup_text').addClass( 'loading');
+				},
+				type: 'POST',
+				url:evobo_admin_ajax_script.ajaxurl,
+				data: ajaxdataa,
+				dataType:'json',
+				success:function(data){
+					$('body').trigger('ajde_lightbox_show_msg',[data.msg , 'evobo_lightbox',data.status, false, true]);
+					
+				},complete:function(){
+					$('.evobo_lightbox.ajde_admin_lightbox ').find('.ajde_popup_text').removeClass( 'loading');
+				}
+			});	
+		});
 
 // SUPPORTIVE
 	function _close_form(){
@@ -340,10 +476,6 @@ jQuery(document).ready(function($){
 	}
 	function _show_form(data){
 		$('.evobo_lightbox').find('.evoboE_form_container').html( data ).addClass('visible');
-	}
-	function _update_slots_json( data){
-		D = $('body').find('.evobo_admin_data');
-		D.data('json', data);
 	}
 
 });

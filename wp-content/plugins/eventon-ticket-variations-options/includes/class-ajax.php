@@ -1,6 +1,7 @@
 <?php
 /**
  * AJAX
+ * not using anymore
  */
 class evovo_ajax{
 	public function __construct(){

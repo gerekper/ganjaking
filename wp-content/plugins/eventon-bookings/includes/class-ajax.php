@@ -36,17 +36,47 @@ class evobo_ajax{
 		$has_stock = $BLOCKS->has_stock();
 
 		$Helper = new evotx_helper();
+		$EVO_Help = new evo_helper();
+
 
 		ob_start();
-		if($has_stock){			
+	
+
+		if($has_stock){		
+
+			// check if block is in cart already
+				$blocks_in_cart = $BLOCKS->get_blocks_in_cart();				
+
+				if( $blocks_in_cart >= $has_stock){
+					echo json_encode(array(
+						'content'=> evo_lang('Can not add more! You have already added all the available spaces to your cart!'),			
+						'status'=>'good'
+					)); exit;
+				}
+
 			?>
 
-			<div class="evobo_selction_stage_time_qty evotx_hidable_box">	
+			<div class="evobo_selction_stage_time_qty evotx_hidable_box evotx_hidable_section">	
 				<p class='evobo_selected_slot evotx_ticket_other_data_line'>
 					<span class="label"><?php evo_lang_e('Your selected time');?></span>	
-					<span class="value"><?php echo date($BLOCKS->date_format.' '.$BLOCKS->time_format, $BLOCKS->get_item_prop('start')).' - '.date($BLOCKS->date_format.' '.$BLOCKS->time_format, $BLOCKS->get_item_prop('end'));?></span>
+					<span class="value"><?php 
+						echo date($BLOCKS->date_format.' '.$BLOCKS->time_format, $BLOCKS->get_item_prop('start'));
+						echo $BLOCKS->event->check_yn('_evobo_hide_end' )? '':
+							' - '.date($BLOCKS->date_format.' '.$BLOCKS->time_format, $BLOCKS->get_item_prop('end'));
+					?></span>
 				</p>
 
+				<?php 
+				// show duration of the slot
+				if($BLOCKS->event->check_yn('_evobo_show_dur')):
+					$duration = $BLOCKS->get_block_duration();
+				?>
+					<p class='evobo_selected_slot evotx_ticket_other_data_line'>
+						<span class="label"><?php evo_lang_e('Duration');?></span>	
+						<span class="value"><?php echo $duration;?></span>
+					</p>
+
+				<?php endif;?>
 				<?php 
 
 				//pluggability
@@ -55,10 +85,12 @@ class evobo_ajax{
 				
 
 				// base price 
-					$base_price = apply_filters('evobo_base_price',  $BLOCKS->get_item_prop('price'), $BLOCKS);
+					$_price = $BLOCKS->get_item_price();
+					$base_price = apply_filters('evobo_base_price',  $_price, $BLOCKS);
 
 				// capacity
-					$capacity = apply_filters('evobo_base_capacity',$BLOCKS->get_item_prop('capacity') , $BLOCKS );
+					$_cap = $BLOCKS->get_item_prop('capacity') - $blocks_in_cart;
+					$capacity = apply_filters('evobo_base_capacity', $_cap, $BLOCKS );
 
 				echo "<div class='evotx_add_to_cart_bottom ". (!$capacity? 'outofstock':'') ."'>";
 					$Helper->base_price_html( $base_price );

@@ -148,7 +148,6 @@ class EVOTX_WC{
 
 	// CART INIT
 		// add ticket item data from AJAX to session
-		// deprecating
 			function add_item_data($cart_item_data,$product_id){	        
 		        
 		        if( !empty($_REQUEST['add-to-cart']) &&	$_REQUEST['add-to-cart'] == $product_id && 
@@ -281,7 +280,7 @@ class EVOTX_WC{
 
 	            // show other ticket item meta data in cart
 	            	foreach( apply_filters('evotx_ticket_item_meta_data', array(
-	            		'event_time' => array($this->lang('Event Time'), $ticket_time ),
+	            		'event_time' => array($this->langX('Event Time','evoTX_005a'), $ticket_time ),
 	            		'event_location' => (isset($values['evotx_elocation'])? array($this->langX('Event Location','evoTX_005c'), stripslashes($values['evotx_elocation']) ):''),
 	            	), $values, $EVENT) as $field=>$val){
 	            		if(empty($val)) continue;
@@ -704,7 +703,7 @@ class EVOTX_WC{
 		        	$output.= "<div class='evotx_ticket_additional_info'><p class='evo_event_information'>";
 		        	$output .= "<span style='display:block'><b>". evo_lang('Event Name').':</b> '. get_the_title($event_id) . $variation_text."</span>";
 		        	
-		        	$output .= "<span style='display:block'><b>". evo_lang('Event Time').':</b> '.apply_filters('evotx_cart_add_field_eventtime', $event_time, $values) ."</span>";
+		        	$output .= "<span style='display:block'><b>". evo_lang_get('evoTX_005a','Event Time').':</b> '.apply_filters('evotx_cart_add_field_eventtime', $event_time, $values) ."</span>";
 
 		        	$output = apply_filters('evotx_checkout_addnames_other_vars', $output, $values, $EVENT);
 		        	
@@ -928,7 +927,7 @@ class EVOTX_WC{
 					?>
 					<h2><?php echo evo_lang_get('evoTX_014','Your event Tickets','',EVOTX()->opt2);?></h2>
 					<p><?php evo_lang_e('Once the order is processed your event tickets will show here or at my account!');?></p>
-					<p><a href='<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>' class='evcal_btn'><?php evo_lang_e('My Account');?></a></p>
+					<p><a href='<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>' class='evcal_btn'>My Account</a></p>
 					<?php
 				}	
 
@@ -994,25 +993,18 @@ class EVOTX_WC{
 
 	// FORMAT ticekt item meta date
 		function ordermeta_display($output, $obj){
-			$output = str_replace('Event Time', $this->lang('Event Time'), $output);
+			$output = str_replace('Event Time', $this->langX('Event Time','evoTX_005a'), $output);
 			$output = str_replace('Event Location', $this->langX('Event Location','evoTX_005c'), $output);
 			return $output;
 		}
 		function order_item_meta($html, $item, $args){
-			//print_r($item);
-
-			// set the language for order item
-				$lang = $item->get_meta('_evo_lang');
-				$lang = $lang ? $lang : 'L1';
-				if( EVO()->lang != $lang) evo_set_global_lang($lang);
-
 			$html = $this->_format_ticket_item_meta($html);							
 			return $html;
 		}
 
 		function _format_ticket_item_meta($html){
 			foreach(apply_filters('evotx_order_item_meta_slug_replace',array(
-				'Event-Time'=>$this->lang('Event Time'),
+				'Event-Time'=>$this->langX('Event Time','evoTX_005a'),
 				'Event-Location'=>$this->langX('Event Location','evoTX_005c'),
 			)) as $slug=>$name){
 
@@ -1049,12 +1041,10 @@ class EVOTX_WC{
 			foreach($array as $index=>$field){
 				if( isset($field['label'])){
 					if( strpos($field['label'], 'Event-Time') !== false){
-						$updated_array[$index]['label'] = str_replace('Event-Time', 
-							$this->lang('Event Time') , $field['label']);						
+						$updated_array[$index]['label'] = str_replace('Event-Time', $this->langX('Event Time','evoTX_005a') , $field['label']);						
 					}
 					if( strpos($field['label'], 'Event-Location') !== false){
-						$updated_array[$index]['label'] = str_replace('Event-Location', 
-							$this->langX('Event Location','evoTX_005c') , $field['label']);						
+						$updated_array[$index]['label'] = str_replace('Event-Location', $this->langX('Event Location','evoTX_005a') , $field['label']);						
 					}
 				}
 			}

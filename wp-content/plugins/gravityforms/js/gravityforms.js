@@ -3315,9 +3315,14 @@ jQuery( document ).on( 'submit.gravityforms', '.gform_wrapper form', function( e
             if ( ! token ) {
                 // Execute the invisible captcha.
                 grecaptcha.execute($reCaptcha.data('widget-id'));
-                // Once the reCaptcha is triggered, set gf_submitting to true, so the form could be submitted if the
+
+                // Once the reCaptcha is triggered, set gf_submitting to false, so the form could be submitted if the
                 // reCaptcha modal is closed (by clicking on the area out of the modal or the reCaptcha response expires)
-                window['gf_submitting_' + formID] = false;
+  				// do it after 4 seconds to reduce chance of multiple clicks when modal is not displayed
+                setTimeout( function() {
+                	window['gf_submitting_' + formID] = false;
+                }, 4000);
+
                 event.preventDefault();
             }
         }

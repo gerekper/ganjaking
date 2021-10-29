@@ -30,7 +30,7 @@ jQuery(document).ready(function ($) {
         const cookieValue = getCookie('ct-ultimate-gdpr-age');
         const cookieObject = cookieValue ? JSON.parse(atob(decodeURIComponent(cookieValue))) : {};
 
-        reloadPageIfFromBackButtonInBrowser(cookieObject);
+        reloadPageIfFromBackButtonInBrowser(cookieObject)
 
         if (!cookieObject.date) {
             return false;
@@ -60,7 +60,7 @@ jQuery(document).ready(function ($) {
 
             const consent_expire_time = ct_ultimate_gdpr_age.consent_expire_time;
             const consent_time = ct_ultimate_gdpr_age.consent_time;
-            var content = {
+            let content = {
                 'date'               : date,
                 'consent_expire_time': consent_expire_time,
                 'consent_time'       : consent_time
@@ -78,8 +78,6 @@ jQuery(document).ready(function ($) {
 
     function onAccept() {
 
-		jQuery('#ct-ultimate-gdpr-age-accept').attr('disabled', false);
-		
         const dateInputValue =
                   $("[name='ct-ultimate-gdpr-age-date-of-birth-month']").val()
                   + '/'
@@ -133,20 +131,15 @@ jQuery(document).ready(function ($) {
 
     }
 
-	$('#ct-ultimate-gdpr-age-accept').attr('style','cursor: pointer !important');    
-	$('#ct-ultimate-gdpr-age-accept').bind('click', onAccept);
-	$('body').on('click touchstart', '#ct-ultimate-gdpr-age-accept', onAccept);
-	
-	
+    $('#ct-ultimate-gdpr-age-accept').bind('click', onAccept);
+
     $(window).on('load', function () {
-        
+
         const consentCookieValue = getCookie('ct-ultimate-gdpr-age');
 
         if (consentCookieValue) {
             hidePopup();
         }
-
-        
 
     });
 
@@ -165,16 +158,19 @@ jQuery(document).ready(function ($) {
  * @param cookieObject
  */
 function reloadPageIfFromBackButtonInBrowser (cookieObject) {
-
     if (cookieObject && window.performance) {
-        var navigationEntries = PerformanceEntry.entryType;
-        if (navigationEntries === 'back_forward') {
+        let navigationEntries = window.performance.getEntriesByType(
+          'navigation')
+        if (navigationEntries[0].type === 'back_forward') {
             window.location.reload(true)
-        } 
-      
+        }
     }
 
-    if (cookieObject && window.performance && window.performance.navigation && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
+    if (cookieObject
+      && window.performance
+      && window.performance.navigation
+      && window.performance.navigation.type ===
+      window.performance.navigation.TYPE_BACK_FORWARD) {
         window.location.reload(true)
     }
 }

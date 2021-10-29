@@ -158,12 +158,13 @@ class WooCommerce_Product_Search_Filter_Rating_Widget extends WP_Widget {
 		$settings['heading_class']      = !empty( $new_instance['heading_class'] ) ? trim( $new_instance['heading_class'] ) : '';
 		$settings['heading_id']         = !empty( $new_instance['heading_id'] ) ? trim( $new_instance['heading_id'] ) : '';
 		$settings['heading_element']    = !empty( $new_instance['heading_element'] ) ? trim( $new_instance['heading_element'] ) : '';
-		$settings['show_heading']       = woocommerce_product_search_input_yn( $new_instance['show_heading'] );
+		$settings['show_heading']       = !empty( $new_instance['show_heading'] ) ? 'yes' : 'no';
 
-		$settings['filter']        = woocommerce_product_search_input_yn( $new_instance['filter'] );
+		$settings['filter']        = !empty( $new_instance['filter'] ) ? 'yes' : 'no';
+		$settings['use_shop_url']  = !empty( $new_instance['use_shop_url'] ) ? 'yes' : 'no';
 
-		$settings['shop_only']       = woocommerce_product_search_input_yn( $new_instance['shop_only'] );
-		$settings['has_rating_only'] = woocommerce_product_search_input_yn( $new_instance['has_rating_only'] );
+		$settings['shop_only']        = !empty( $new_instance['shop_only'] ) ? 'yes' : 'no';
+		$settings['has_rating_only'] = !empty( $new_instance['has_rating_only'] ) ? 'yes' : 'no';
 
 		$container_id = !empty( $new_instance['container_id'] ) ? trim( $new_instance['container_id'] ) : '';
 		if ( strlen( $container_id ) > 0 ) {
@@ -265,6 +266,20 @@ class WooCommerce_Product_Search_Filter_Rating_Widget extends WP_Widget {
 		echo esc_html( __( 'Show only if any products have a rating', 'woocommerce-product-search' ) );
 		echo '</label>';
 
+		$use_shop_url = isset( $instance['use_shop_url'] ) ? $instance['use_shop_url'] : 'no';
+		echo '<p>';
+		echo sprintf( '<label title="%s">', esc_attr( __( 'Link to the shop page instead of the same page.', 'woocommerce-product-search' ) ) );
+		printf(
+			'<input type="checkbox" id="%s" name="%s" %s />',
+			esc_attr( $this->get_field_id( 'use_shop_url' ) ),
+			esc_attr( $this->get_field_name( 'use_shop_url' ) ),
+			$use_shop_url== 'yes' ? ' checked="checked" ' : ''
+		);
+		echo ' ';
+		echo esc_html( __( 'Use the Shop URL', 'woocommerce-product-search' ) );
+		echo '</label>';
+		echo '</p>';
+
 		$filter = isset( $instance['filter'] ) ? $instance['filter'] : 'yes';
 		echo '<p>';
 		echo sprintf( '<label title="%s">', esc_attr( __( 'Activate live filtering.', 'woocommerce-product-search' ) ) );
@@ -348,6 +363,7 @@ class WooCommerce_Product_Search_Filter_Rating_Widget extends WP_Widget {
 			'shop_only'           => true,
 			'has_rating_only'     => true,
 
+			'use_shop_url'        => false,
 			'heading_id'          => '',
 			'heading_class'       => '',
 			'heading_element'     => ''

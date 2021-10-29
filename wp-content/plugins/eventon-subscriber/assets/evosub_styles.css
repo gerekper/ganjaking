@@ -85,7 +85,7 @@
 			max-width: 400px;
 			margin: 70px auto;
 			background-color: #fff;
-			border-radius: 5px;
+			border-radius: 12px;
 			text-align: center;
 			padding: 20px;
 		}
@@ -111,15 +111,17 @@
 		#evoSUB_form .form .formIn button{
 			background: #78aabc;
 			color: #fff;
-			border-radius: 5px;
+			border-radius: 25px;
 			display: inline-block;
 			border:none;
 			font-size: 16px;
 			-webkit-box-sizing: border-box;
     		-moz-box-sizing: border-box;
     		box-sizing: border-box;
-    		padding: 11px 24px 10px;
+    		padding: 5px 20px;
 		}
+		#evoSUB_form .form .formIn button:focus{outline: none}
+		#evoSUB_form .evosub_form{padding-bottom: 10px;}
 
 		#evoSUB_form .form .formIn .categories{
 			text-align: left;
@@ -142,9 +144,7 @@
 			background-color: #D7D7D7
 		}
 		#evoSUB_form .form .formIn .cat_selection{text-align: left;}
-		#evoSUB_form .form .formIn .cat_selection span{
-			display: block;			
-		}
+		#evoSUB_form .form .formIn .cat_selection span{	display: block;	padding:5px 0;}
 		#evoSUB_form .form .formIn .cat_selection input{
 			margin-right: 10px;
 		}
@@ -168,8 +168,7 @@
 			position: relative;			
 		}
 		#evoSUB_form .form .formIn .cat_selection .cat_sel_in{
-			max-height: 100px;
-			overflow: auto;
+			max-height: 150px;overflow: auto;
 		}
 		#evoSUB_form .form_footer{
 			background-color: #F0F0F0;

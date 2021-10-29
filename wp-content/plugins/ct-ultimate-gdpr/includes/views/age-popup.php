@@ -174,8 +174,8 @@ $attr_array  = array(
             <input name="ct-ultimate-gdpr-age-date-of-birth-day" type="number" max="31" value="<?php echo esc_attr($day_placeholder); ?>" class="ct-gdpr-input ct-gdpr-input-number ct-gdpr-input-day">
 
             <input name="ct-ultimate-gdpr-age-date-of-birth-year" type="number" max="<?php echo date('Y'); ?>" value="<?php echo esc_attr($year_placeholder); ?>" class="ct-gdpr-input ct-gdpr-input-number ct-gdpr-input-year">
-	
-			<a href="javascript:void(0)"
+
+            <button
                 id="ct-ultimate-gdpr-age-accept"
                 class="ct-gdpr-button ct-gdpr-popup-age__submit js-ct-gdpr-age-Accept"
                 <?php if ($options['age_box_style'] == 'none') : ?>
@@ -183,18 +183,7 @@ $attr_array  = array(
                 <?php endif; ?>
             >
                 <?php echo wp_kses_post($options['age_popup_label_accept']); ?>
-            </a>
-			
-            <!--<button
-                id="ct-ultimate-gdpr-age-accept"
-                class="ct-gdpr-button ct-gdpr-popup-age__submit js-ct-gdpr-age-Accept"
-                <?php if ($options['age_box_style'] == 'none') : ?>
-                    style="<?php if ($options['age_button_shape'] == 'rounded') echo 'border-radius: 25px'; ?>; background-color: <?php echo esc_attr($options['age_button_bg_color']); ?>; color: <?php echo esc_attr($options['age_button_text_color']); ?>;"
-                <?php endif; ?>
-            >
-                <?php echo wp_kses_post($options['age_popup_label_accept']); ?>
-            </button>-->
-			
+            </button>
         </div>
     </div>
         <?php if ($options['age_box_style'] == 'none') : ?>

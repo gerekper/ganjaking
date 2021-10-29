@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.5.14
+Version: 2.5.14.1
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -230,7 +230,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.5.14';
+	public static $version = '2.5.14.1';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -2714,28 +2714,41 @@ class GFForms {
 		}
 
 		// Append hooks to a form being output in a widget or elsewhere that isn't page content.
-		add_filter( 'gform_get_form_filter', function( $form_string ) {
-			$is_gf_ajax = ! empty( rgpost( 'gform_ajax' ) );
-			$doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
+		add_filter( 'gform_get_form_filter', array( 'GFForms', 'maybe_prepend_hooks_js_script'), $prio );
+		add_filter( 'gform_get_form_confirmation_filter', array( 'GFForms', 'maybe_prepend_hooks_js_script'), $prio );
+	}
 
-			if ( $doing_ajax || $is_gf_ajax ) {
-				return $form_string;
-			}
+	 /**
+	 * Determines if context requires the hooks javascript to be written to the page and prepends
+	 * it to the form string if so
+	 * @param $form_string string String containing the form markup.
+	 *
+	 * @since 2.5.14
+	 *
+	 * @return string Returns the original form string, or the form string prepended with the hooks scripts.
+	 */
+	public static function maybe_prepend_hooks_js_script( $form_string ) {
 
-			$needed = GFCommon::requires_gf_hooks_javascript();
+		$is_gf_ajax = ! empty( rgpost( 'gform_ajax' ) );
+		$doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
 
-			if ( ! $needed ) {
-				return $form_string;
-			}
+		if ( $doing_ajax || $is_gf_ajax ) {
+			return $form_string;
+		}
 
-			$scripts = GFCommon::get_hooks_javascript_code();
+		$needed = GFCommon::requires_gf_hooks_javascript();
 
-			if ( empty( $scripts ) ) {
-				return $form_string;
-			}
+		if ( ! $needed ) {
+			return $form_string;
+		}
 
-			return '<script type="text/javascript">' . $scripts . '</script>' . $form_string;
-		}, $prio );
+		$scripts = GFCommon::get_hooks_javascript_code();
+
+		if ( empty( $scripts ) ) {
+			return $form_string;
+		}
+
+		return '<script type="text/javascript">' . $scripts . '</script>' . $form_string;
 	}
 
 	/**

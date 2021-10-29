@@ -102,7 +102,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 	 * Adds actions.
 	 */
 	public static function init() {
-		add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
+		add_action( 'admin_init', array( __CLASS__,'admin_init' ) );
 	}
 
 	/**
@@ -190,10 +190,6 @@ class WooCommerce_Product_Search_Admin_Notice {
 
 		global $woocommerce_product_search_welcome;
 
-		if ( isset( $atts['force'] ) && $atts['force'] ) {
-			unset( $woocommerce_product_search_welcome );
-		}
-
 		if ( !isset( $woocommerce_product_search_welcome ) ) {
 			$woocommerce_product_search_welcome = true;
 		} else {
@@ -212,7 +208,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 		$output .= '<style type="text/css">';
 		$output .= 'div.updated.wps-welcome {';
 		$output .= sprintf( 'background: url(%s) #fff no-repeat 8px 8px;', WOO_PS_PLUGIN_URL . '/images/woocommerce-product-search.png' );
-		$output .= 'padding-left: 80px ! important;';
+		$output .= 'padding-left: 76px ! important;';
 		$output .= 'background-size: 64px 64px;';
 		$output .= 'border-color: #cc99c2 !important;';
 		$output .= 'padding-bottom: 1em;';
@@ -225,7 +221,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 			$output .= sprintf( '<div class="%s">', esc_attr( $class ) );
 		}
 
-		$output .= '<h2 style="font-size: 2em; margin: 18px 0; line-height: 36px;">';
+		$output .= '<h2 style="font-size: 2em;">';
 		$output .= __( 'Welcome to WooCommerce Product Search', 'woocommerce-product-search' );
 		$output .= '</h2>';
 		$output .= '<p style="font-size: 1.62em;">';
@@ -299,7 +295,7 @@ class WooCommerce_Product_Search_Admin_Notice {
 		$output .= '</tr>';
 		$output .= '</table>';
 
-		$output .= '<h2 style="font-size: 1.5em; margin: 18px 0;">';
+		$output .= '<h2>';
 		$output .= esc_html__( 'Getting started &hellip;', 'woocommerce-product-search' );
 		$output .= '</h2>';
 
@@ -341,28 +337,10 @@ class WooCommerce_Product_Search_Admin_Notice {
 
 		$output .= '<li>';
 		$output .= '<p>';
-		$output .= sprintf(
-				/* translators: %s are automatically generated HTML elements which must be present */
-				esc_html__(
-					'Add live search and filters to your shop, using the %sblocks%s, %swidgets%s and %sshortcodes%s that come exclusively with the search engine.',
-					'woocommerce-product-search'
-				),
-				sprintf( '<a href="%s">', esc_url( 'https://docs.woocommerce.com/document/woocommerce-product-search/blocks/' ) ),
-				'</a>',
-				sprintf( '<a href="%s">', esc_url( 'https://docs.woocommerce.com/document/woocommerce-product-search/widgets/ ' ) ),
-				'</a>',
-				sprintf( '<a href="%s">', esc_url( 'https://docs.woocommerce.com/document/woocommerce-product-search/shortcodes/' ) ),
-				'</a>'
-		);
-		$output .= '</p>';
-		$output .= '</li>';
-
-		$output .= '<li>';
-		$output .= '<p>';
 		$output .= wp_kses(
 			sprintf(
 				__( 'Live search statistics are available in the <a href="%s">Search</a> section of the reports.', 'woocommerce-product-search' ),
-				esc_url(  WooCommerce_Product_Search_Admin_Navigation::get_report_url( 'searches' ) )
+				esc_url( admin_url( 'admin.php?page=wc-reports&tab=search' ) )
 			),
 			array( 'a' => array( 'href' => array(), 'class' => array() ) )
 		);
@@ -387,22 +365,20 @@ class WooCommerce_Product_Search_Admin_Notice {
 		$output .= '</p>';
 		$output .= '</li>';
 
-		if ( WooCommerce_Product_Search_Admin::uses_classic_widgets() ) {
-			$output .= '<li>';
-			$output .= '<p>';
-			$output .= '<strong>';
-			$output .= __( 'Shall we make it easy for your customers and add live filters to your shop pages right now?', 'woocommerce-product-search' );
-			$output .= '</strong>';
-			$output .= '</p>';
-			$output .= '<p>';
-			$output .= sprintf(
-				'<a class="button button-primary" href="%s">%s</a>',
-				esc_url( WooCommerce_Product_Search_Admin::get_admin_section_url( WooCommerce_Product_Search_Admin::SECTION_ASSISTANT ) ),
-				__( 'Run the Assistant', 'woocommerce-product-search' )
-			);
-			$output .= '</p>';
-			$output .= '</li>';
-		}
+		$output .= '<li>';
+		$output .= '<p>';
+		$output .= '<strong>';
+		$output .= __( 'Shall we make it easy for your customers and add live filters to your shop pages right now?', 'woocommerce-product-search' );
+		$output .= '</strong>';
+		$output .= '</p>';
+		$output .= '<p>';
+		$output .= sprintf(
+			'<a class="button button-primary" href="%s">%s</a>',
+			esc_url( WooCommerce_Product_Search_Admin::get_admin_section_url( WooCommerce_Product_Search_Admin::SECTION_ASSISTANT ) ),
+			__( 'Run the Assistant', 'woocommerce-product-search' )
+		);
+		$output .= '</p>';
+		$output .= '</li>';
 
 		$output .= '<li>';
 		$output .= '<p>';

@@ -1,5 +1,9 @@
 *** Subscribe to Newsletter Changelog ***
 
+2021-10-27 - version 3.3.3
+* Tweak - Added plugin info to the WooCommerce System Status Report.
+* Tweak - Tested compatibility up to WC 5.9.
+
 2021-08-02 - version 3.3.2
 * Fix - Fixed JS error on refreshing the provider's lists field and the provider doesn't have defined lists.
 * Fix - Fixed JS error on the settings page when there is no provider selected yet.

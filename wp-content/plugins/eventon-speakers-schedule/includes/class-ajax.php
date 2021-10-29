@@ -21,6 +21,7 @@ class EVOSS_ajax{
 			}
 	}
 
+// Speakers
 	// add new speaker via backend
 		function evoss_new_speaker(){
 			global $evo_speak;
@@ -214,6 +215,10 @@ class EVOSS_ajax{
 
 			$key = empty($_POST['key'])? uniqid(): $_POST['key'];
 			$day = $_POST['day'];
+			$alt_day = (isset($_POST['evo_sch_alt_day']) && $_POST['evo_sch_alt_day'] != 'na') ? $_POST['evo_sch_alt_day']: false;
+
+			// override day number with alternative day name
+			if($alt_day) $day = $alt_day;
 
 			$data = $pass = array();
 			foreach($evo_speak->functions->schedule_fields() as $field=>$val){

@@ -1,0 +1,110 @@
+Sync (SY) addon for EventON Plugin
+====================================
+v 1.2.3 (2018-12-20)
+FIXED: sync already imported events to update event name as well
+FIXED: Settings page not showing correct section on load
+FIXED: apostrophe not passing through
+FIXED: multiple google calendar profiles not auto loading events
+
+v 1.2.2 (2018-7-25)
+ADDED: ability to disable duplicate event name check before fetching
+FIXED: fetched events object error for gcal fetching
+UPDATED: google api steps
+UPDATED: Facebook notice
+
+v 1.2.1 (2018-3-26)
+ADDED: post exists to avoid duplicate event creation for syncing
+ADDED: pre process fetched events to meet eventon data structure needs for auto sync
+ADDED: behind the scene recording auto sync activities
+FIXED: when no data returned from source keep loading
+FIXED: error catching when end time not passed for facebook events
+FIXED: incorrect times when saving fetched facebook events
+FIXED: undefined end time not validating during process
+FIXED: repeating event data not saving on auto sync
+
+v 1.2 (2018-2-19)
+ADDED: support for ticket uri and repeating event data
+ADDED: ticket uri to be used as learn more link
+ADDED: support for organizer for facebook events
+ADDED: option to enable delete events from site when deleted on google cal
+FIXED: use event end date to assess past or future event
+FIXED: apostrophe in facebook name not saving correct
+UPDATED: sync addon class initiating using instance method
+
+v 1.1.3 (2017-11-29)
+FIXED: already synced events message error
+FIXED: Locaiton with ' not passing correct
+FIXED: Fetched image not assigned to events
+FIXED: undefined term issue
+UPDATED: cron sync already imported events function conditions
+
+v 1.1.2 (2017-9-18)
+FIXED: Imported events not enabling generate map from address
+FIXED: already set cron schedules not removing once sync set to manual
+
+v 1.1.1 (2017-6-19)
+FIXED: fetched events not saving as publish posts
+UPDATED: notice whether already imported event will sync or not
+
+v 1.1 (2017-5-30)
+ADDED: AJAX based facebook and google event fetching
+ADDED: AJAX based importing events into site
+ADDED: Ability to assign event type or event type 2 for imported events separately
+ADDED: Ablity to set custom offset time for imported events
+ADDED: Upto 5 google calendar profiles with pluggable filters to expand
+ADDED: Schedule driven fetching events
+ADDED: Ability to run scheduled fetching manually
+FIXED: Facebook events with no location name not creating location maps
+FIXED: Select and deselect all to not use already synced
+FIXED: Facebook only fetching maximum 25 events
+FIXED: Correctly linking to imported events
+FIXED: All day events correctly saving into events
+FIXED: Previously imported events to be compatible with new imports
+FIXED: Google calendar all day events fetch on correct dates
+UPDATED: settings information for both facebook and google with guided information
+UPDATED: settings UI layout improvement
+
+v 1.0.2 (2016-10-18)
+FIXED: Compatibility with eventon 2.4.7 locations
+FIXED: Google cal event details sync when details are deleted
+
+v 1.0.1 (2016-
+FIXED: Location not generating the google map after import
+UPDATED: Location taxonomy saving function
+
+v 1.0 (2016-5-19) 
+ADDED: Support for better event location data from facebook
+ADDED: Other fetched information column to see all the data fetched before export
+ADDED: Option to not fetch images
+ADDED: Ability to set default event type for fetched events
+ADDED: Support for more than one google calendar fetching
+ADDED: Support for google calendar all day events
+ADDED: Option to adjust fetched time according to timezone provided
+ADDED: Ability to click and edit fetched event times before commiting to process
+ADDED: Ability to select all deselect all fields from fetched fields
+FIXED: Event detail changes reflect on update to fetched events
+FIXED: Styles and scripts not loading on admin pages when https called
+FIXED: Events with no time causing error during fetching
+FIXED: Minor style issues and updates
+UPDATED: Event Locations be saved into location taxnomies
+
+v 0.6 (2015-10-29)
+FIXED: facebook import not going through
+
+v 0.5 (2015-10-19)
+FIXED: Google calendar saving incorrect time
+
+v 0.4 (2015-8-9)
+FIXED: Facebook not fetching events due to outdated is_date_only
+
+v 0.3 (2015-6-10)
+ADDED: Php requirement notice
+ADDED: facebook fetching error messages
+UPDATED: Settings instructions and tooltips
+FIXED: Google calendar only pulling 7 events
+
+v 0.2 (2015-6-5)
+FIXED: Sync tab not showing for some users to perform the sync
+
+v0.1 (2015-5-26)
+Initial release

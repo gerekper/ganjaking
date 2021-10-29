@@ -54,8 +54,8 @@ class EVOTX_Virtual_Events{
 				),
 				array(
 					'type'=>'yesno_btn',
-					'id'=>		'_vir_hide_tcount', 
-					'value'=>		$EVENT->get_prop('_vir_hide_tcount'),
+					'id'=>		'_vir_hide_rsvpcount', 
+					'value'=>		$EVENT->get_prop('_vir_hide_rsvpcount'),
 					'input'=>	true,
 					'label'=> 	__('Hide ticket guest count and checked-in count', 'evotx'),
 					'tooltip'=> __('This will hide guest count and checked-in guest count next to live now button.','evotx'),
@@ -100,10 +100,6 @@ class EVOTX_Virtual_Events{
 
 // FRONT
 	public function initial_setup($EV){
-
-		$this->tx_go = false;
-		$this->user_has_tickets = false;
-		$this->can_sell_tickets = false;
 
 		if( !$EV->EVENT->check_yn('evotx_tix')) return false;
 

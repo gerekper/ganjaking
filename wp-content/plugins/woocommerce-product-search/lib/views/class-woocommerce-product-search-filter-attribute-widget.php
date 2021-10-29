@@ -56,22 +56,7 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 	 */
 	public static function init() {
 		add_action( 'widgets_init', array( __CLASS__, 'widgets_init' ) );
-		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ) );
 		self::$the_name = __( 'Product Filter &ndash; Attributes', 'woocommerce-product-search' );
-	}
-
-	/**
-	 * Script collector.
-	 *
-	 * @since 4.0.0
-	 */
-	public static function admin_enqueue_scripts() {
-		global $pagenow;
-		if ( 'widgets.php' == $pagenow || 'customize.php' == $pagenow ) {
-			if ( ! wp_script_is( 'wps-admin-widgets' ) ) {
-				wp_enqueue_script( 'wps-admin-widgets', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/admin-widgets.js' : '/js/admin-widgets.min.js' ), array( 'jquery' ), WOO_PS_PLUGIN_VERSION, true );
-			}
-		}
 	}
 
 	/**
@@ -170,16 +155,16 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 		$settings['heading_class']      = !empty( $new_instance['heading_class'] ) ? trim( $new_instance['heading_class'] ) : '';
 		$settings['heading_id']         = !empty( $new_instance['heading_id'] ) ? trim( $new_instance['heading_id'] ) : '';
 		$settings['heading_element']    = !empty( $new_instance['heading_element'] ) ? trim( $new_instance['heading_element'] ) : '';
-		$settings['show_heading']       = woocommerce_product_search_input_yn( $new_instance['show_heading'] );
-		$settings['toggle']             = woocommerce_product_search_input_yn( $new_instance['toggle'] );
-		$settings['toggle_widget']      = woocommerce_product_search_input_yn( $new_instance['toggle_widget'] );
+		$settings['show_heading']       = !empty( $new_instance['show_heading'] ) ? 'yes' : 'no';
+		$settings['toggle']             = !empty( $new_instance['toggle'] ) ? 'yes' : 'no';
+		$settings['toggle_widget']      = !empty( $new_instance['toggle_widget'] ) ? 'yes' : 'no';
 
-		$settings['show_selected_thumbnails'] = woocommerce_product_search_input_yn( $new_instance['show_selected_thumbnails'] );
+		$settings['show_selected_thumbnails'] = !empty( $new_instance['show_selected_thumbnails'] ) ? 'yes' : 'no';
 
-		$settings['show_thumbnails'] = woocommerce_product_search_input_yn( $new_instance['show_thumbnails'] );
-		$settings['show_names']      = woocommerce_product_search_input_yn( $new_instance['show_names'] );
+		$settings['show_thumbnails'] = !empty( $new_instance['show_thumbnails'] ) ? 'yes' : 'no';
+		$settings['show_names']      = !empty( $new_instance['show_names'] ) ? 'yes' : 'no';
 
-		$settings['shop_only'] = woocommerce_product_search_input_yn( $new_instance['shop_only'] );
+		$settings['shop_only'] = !empty( $new_instance['shop_only'] ) ? 'yes' : 'no';
 
 		$style = !empty( $new_instance['style'] ) ? $new_instance['style'] : 'list';
 		switch( $style ) {
@@ -216,10 +201,10 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 		$settings['order']   = !empty( $new_instance['order'] ) ? $new_instance['order'] : 'ASC';
 		$settings['orderby'] = !empty( $new_instance['orderby'] ) ? $new_instance['orderby'] : 'name';
 
-		$settings['filter']       = woocommerce_product_search_input_yn( $new_instance['filter'] );
-		$settings['hide_empty']   = woocommerce_product_search_input_yn( $new_instance['hide_empty'] );
-		$settings['multiple']     = woocommerce_product_search_input_yn( $new_instance['multiple'] );
-		$settings['show_count']   = woocommerce_product_search_input_yn( $new_instance['show_count'] );
+		$settings['filter']       = !empty( $new_instance['filter'] ) ? 'yes' : 'no';
+		$settings['hide_empty']   = !empty( $new_instance['hide_empty'] ) ? 'yes' : 'no';
+		$settings['multiple']     = !empty( $new_instance['multiple'] ) ? 'yes' : 'no';
+		$settings['show_count']   = !empty( $new_instance['show_count'] ) ? 'yes' : 'no';
 
 		$show = !empty( $new_instance['show'] ) ? $new_instance['show'] : 'set';
 		switch( $show ) {
@@ -369,7 +354,7 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 
 		$style = isset( $instance['style'] ) ? $instance['style'] : 'list';
 		echo '<p>';
-		echo sprintf( '<label title="%s">', esc_attr( __( 'How attributes should be displayed.', 'woocommerce-product-search' ) ) );
+		echo sprintf( '<label title="%s">', esc_attr( __( 'Display the categories as a list or inline.', 'woocommerce-product-search' ) ) );
 		echo esc_html__( 'Style', 'woocommerce-product-search' );
 		echo ' ';
 		printf(
@@ -445,10 +430,10 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 		echo '</p>';
 		echo '</div>';
 
-		$inline_script = '';
-
-		$inline_script .= 'if ( typeof jQuery !== "undefined" ) {';
-		$inline_script .= sprintf(
+		echo '<script type="text/javascript">';
+		echo 'document.addEventListener( "DOMContentLoaded", function() {';
+		echo 'if ( typeof jQuery !== "undefined" ) {';
+		printf(
 			'jQuery( document ).on( "change", ".%s", function( e ) {' .
 				'var checkbox = jQuery( ".%s" );' .
 				'if ( jQuery( this ).is( ":checked" ) ) {' .
@@ -463,11 +448,9 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 			'wps-show-selected-thumbnails-' . $wps_show_thumbnails_count,
 			'wps-show-thumbnails-' . $wps_show_thumbnails_count
 		);
-		$inline_script .= '}';
-
-		$inline_script = woocommerce_product_search_safex( $inline_script );
-		self::admin_enqueue_scripts();
-		wp_add_inline_script( 'wps-admin-widgets', $inline_script );
+		echo '}';
+		echo '} );';
+		echo '</script>';
 
 		$show_count= isset( $instance['show_count'] ) ? $instance['show_count'] : 'no';
 		echo '<p>';
@@ -847,13 +830,14 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 
 		echo '</div>';
 
-		$inline_script = '';
 		global $woocommerce_product_search_filter_attribute_widget_settings;
 		if ( !isset( $woocommerce_product_search_filter_attribute_widget_settings ) ) {
 			$woocommerce_product_search_filter_attribute_widget_settings = true;
 
-			$inline_script .= 'if ( typeof jQuery !== "undefined" ) {';
-			$inline_script .= sprintf(
+			echo '<script type="text/javascript">';
+			echo 'document.addEventListener( "DOMContentLoaded", function() {';
+			echo 'if ( typeof jQuery !== "undefined" ) {';
+			printf(
 				'jQuery( document ).on( "change", ".woocommerce-product-search-filter-attribute-widget-style", function( e ) {' .
 					'var select_only_containers = jQuery( this ).closest( ".woocommerce-product-search-filter-attribute-widget-settings" ).find( ".woocommerce-product-search-filter-attribute-widget-style-select-only" ),' .
 					'select_excluded_containers = jQuery( this ).closest( ".woocommerce-product-search-filter-attribute-widget-settings" ).find( ".woocommerce-product-search-filter-attribute-widget-style-select-excluded" );' .
@@ -883,17 +867,18 @@ class WooCommerce_Product_Search_Filter_Attribute_Widget extends WP_Widget {
 				'jQuery( "#%s" ).trigger( "change" );',
 				esc_attr( $this->get_field_id( 'style' ) )
 			);
-			$inline_script .= '}';
-
+			echo '}';
+			echo '} );';
+			echo '</script>';
 		}
 
-		$inline_script .= 'if ( typeof jQuery !== "undefined" ) {';
-		$inline_script .= printf( 'jQuery( "#%s" ).trigger( "change" );', esc_attr( $this->get_field_id( 'style' ) ) );
-		$inline_script .= '}';
-
-		$inline_script = woocommerce_product_search_safex( $inline_script );
-		self::admin_enqueue_scripts();
-		wp_add_inline_script( 'wps-admin-widgets', $inline_script );
+		echo '<script type="text/javascript">';
+		echo 'document.addEventListener( "DOMContentLoaded", function() {';
+		echo 'if ( typeof jQuery !== "undefined" ) {';
+		printf( 'jQuery( "#%s" ).trigger( "change" );', esc_attr( $this->get_field_id( 'style' ) ) );
+		echo '}';
+		echo '} );';
+		echo '</script>';
 	}
 
 	public function get_default_instance() {

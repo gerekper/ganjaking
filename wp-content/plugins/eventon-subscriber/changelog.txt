@@ -1,5 +1,12 @@
 Subscriber (SB) addon for EventON Plugin
 ====================================
+v 1.3.6 (2020-12-11)
+FIXED: language translations not working
+
+v 1.3.5 (2020-10-27)
+FIXED: event type categories not showing in the form
+FIXED: minor styles update
+
 v 1.3.4 (2020-9-21)
 ADDED: settings option to show all category terms in subscription form
 FIXED: loading scripts and styles over ssl

@@ -703,11 +703,10 @@ class EVOTX_post_meta_boxes{
 						</table>
 						<?php if($woo_product_id):?>
 							<p class='actions'>
-								<a class='button_evo edit' href='<?php echo get_edit_post_link($woo_product_id);?>'  title='<?php _e('Further Edit ticket product from woocommerce product page','evotx');?>'> <?php _e('Further Edit','evotx');?>: <?php echo $woo_product_id;?></a> <i style=''><?php _e('Learn More','evotx');?>: <a style='' href='http://www.myeventon.com/documentation/set-variable-prices-tickets/' target='_blank'><?php _e('How to add variable price tickets','evotx');?></a></i>
+								<a class='button_evo edit' href='<?php echo get_edit_post_link($woo_product_id);?>'  title='<?php _e('Further Edit ticket product from woocommerce product page','evotx');?>'> <?php _e('Further Edit','evotx');?></a> <i style=''><?php _e('Learn More','evotx');?>: <a style='' href='http://www.myeventon.com/documentation/set-variable-prices-tickets/' target='_blank'><?php _e('How to add variable price tickets','evotx');?></a></i>
 							</p>
 								
 							<p class='actions'>
-
 								<a class='button_evo ajde_popup_trig evotx_manual_wc_prod'  data-popc='evotx_manual_wc_product' data-eid='<?php echo $event_id;?>' data-wcid='<?php echo $woo_product_id;?>'><?php _e('Assign Different WC Product as Ticket Product','evotx');?></a>
 							</p>
 						<?php endif;?>
@@ -835,53 +834,30 @@ class EVOTX_post_meta_boxes{
 
 			global $evotx_admin, $evotx;
 
-			$create_new = false;
-
 			// if allowing woocommerce ticketing
 			if(!empty($_POST['evotx_tix']) && $_POST['evotx_tix']=='yes'){
-
-				
 				// check if woocommerce product id exist
-				if(isset($_POST['tx_woocommerce_product_id']) && !empty($_POST['tx_woocommerce_product_id'])){
-					
-					$wcid = (int)$_POST['tx_woocommerce_product_id'];
+				if(isset($_POST['tx_woocommerce_product_id'])){
 
-					$post_exists = $evotx_admin->post_exist($wcid);
+					$post_exists = $evotx_admin->post_exist($_POST['tx_woocommerce_product_id']);
 
 					// make sure woocommerce stock management is turned on
 						update_option('woocommerce_manage_stock','yes');
-								
-					
-					if($post_exists){
-						$evotx_admin->update_woocommerce_product($wcid, $post_id);
+										
+					// add new
+					if(!$post_exists){
+						$wcid = $evotx->functions->add_new_woocommerce_product($post_id);
 					}else{
-						$create_new = true;	
-					}						
+						$wcid = (int)$_POST['tx_woocommerce_product_id'];
+						$evotx_admin->update_woocommerce_product($wcid, $post_id);
+					}	
+
+					$this->save_stock_status($wcid);
 					
-				}else{					
-
-					// check if wc prod association already made
-						$post_wc = get_post_meta($post_id, 'tx_woocommerce_product_id',true);
-						
-						if($post_wc){
-							$wcid = (int)$post_wc;
-							$post_exists = $evotx_admin->post_exist($wcid);
-
-							if($post_exists){
-								
-								$evotx_admin->update_woocommerce_product($wcid, $post_id);
-							
-							}else{	$create_new = true;	}
-
-						}else{	$create_new = true;	}					
+				// if there isnt a woo product associated to this - add new one
+				}else{
+					$evotx->functions->add_new_woocommerce_product($post_id);
 				}
-			}
-
-
-			// create new wc associate post
-			if($create_new){
-				$wcid = $evotx->functions->add_new_woocommerce_product($post_id);
-				$this->save_stock_status($wcid);
 			}
 
 			foreach(apply_filters('evotx_save_eventedit_page', array(

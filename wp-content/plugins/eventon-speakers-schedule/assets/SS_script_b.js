@@ -184,38 +184,40 @@ jQuery(document).ready(function($){
 	$('.ajde_popup_text').find('.evossh_etime').timepicker({'step': 5});
 
 	// sortable schedule list
-		$('body').find('.evosch_oneday_schedule').each(function(){
-			$(this).sortable({
-				update:function( event, ui){
-					FORM = $(this).closest('form');
-					BOX = $(this).closest('.evosch_blocks_list');
-					var ajaxdataa = { };
-					ajaxdataa['action']='evoss_save_schedule_order';
-					ajaxdataa['eventid'] = FORM.find('input#post_ID').val();
+		_run_sortable_schedules();
+		function _run_sortable_schedules(){
+			$('body').find('.evosch_oneday_schedule').each(function(){
+				$(this).sortable({
+					update:function( event, ui){
+						var FORM = $(this).closest('form');
+						var BOX = $(this).closest('.evosch_blocks_list');
+						var ajaxdataa = { };
+						ajaxdataa['action']='evoss_save_schedule_order';
+						ajaxdataa['eventid'] = BOX.data('eventid');
 
-					var BLS = {};
-					BOX.find('li.evosch_block').each(function(i){
-						if( !( $(this).data('day') in BLS )) BLS[ $(this).data('day')] = {};
+						var BLS = {};
+						BOX.find('li.evosch_block').each(function(i){
+							if( !( $(this).data('day') in BLS )) BLS[ $(this).data('day')] = {};
+							BLS[ $(this).data('day')][i] = $(this).attr('id');
+						});
 
-						BLS[ $(this).data('day')][i] = $(this).attr('id');
-					});
+						ajaxdataa['order'] = BLS;
 
-					ajaxdataa['order'] = BLS;
+						$.ajax({
+							beforeSend: function(){BOX.addClass('loading');},
+							type: 	'POST',
+							url: 	evoss_ajax_script.evoss_ajaxurl,
+							data: 	ajaxdataa,
+							dataType:'json',
+							success:function(data){
 
-					$.ajax({
-						beforeSend: function(){BOX.addClass('loading');},
-						type: 	'POST',
-						url: 	evoss_ajax_script.evoss_ajaxurl,
-						data: 	ajaxdataa,
-						dataType:'json',
-						success:function(data){
-
-						},
-						complete:function(){	BOX.removeClass('loading');	}
-					});
-				}
+							},
+							complete:function(){	BOX.removeClass('loading');	}
+						});
+					}
+				});
 			});
-		});
+		}
 
 	// new
 		$('body').on('click','.evoss_add_new_schedule',function(){
@@ -260,6 +262,8 @@ jQuery(document).ready(function($){
 							},2000);
 							// show success message
 							$('body').trigger('ajde_lightbox_show_msg',['Successfully Processed!','evosch_new_block']);
+							
+							_run_sortable_schedules();
 						}else{
 							$('body').trigger('ajde_lightbox_show_msg',[data.status,'evosch_new_block','bad']);
 						}
@@ -282,7 +286,7 @@ jQuery(document).ready(function($){
 				FORM.find('.evoss_add_new_schedule').attr('data-key','');
 			}
 		});
-	// remove speaker from event
+	// remove schedule from list
 		$('.evosch_blocks_list').on('click','em',function(event){
 			event.preventDefault();
 			event.stopPropagation();
@@ -306,8 +310,7 @@ jQuery(document).ready(function($){
 				success:function(data){
 					if(data.status=='good'){
 						BOX.find('.evosch_blocks_list').html(data.content);
-					}else{
-						//BOX.find('.evo_tax_msg').html( data.status).show();
+						_run_sortable_schedules();
 					}
 				},complete:function(){	BOX.removeClass('loading');	}
 			});
@@ -348,7 +351,6 @@ jQuery(document).ready(function($){
 		});
 	// open add new form
 		$('.evosch_open_schedule_form').on('click',function(event, param){
-
 			if(param=='forced') return true;
 
 			OBJ = $(this);

@@ -1,5 +1,45 @@
 Bookings addon for EventON Plugin
 ====================================
+v 1.3.1 (2021-6-2)
+FIXED: end time not working on timeslot view
+FIXED: validate users can not add more than available blocks to cart by manipulation
+FIXED: hide empty blocks on frontend not working
+FIXED: front end calendar lang value not passing correctly
+FIXED: calendar resizing for unopen booking calendars
+FIXED: blocks in the cart quantity to be uneditable
+FIXED: updating block stock to update ticket stock as well
+
+v 1.3 (2021-2-18)
+ADDED: Delete all time slots button on block edtior
+ADDED: sanitize_text_field for XSS vulnerability
+ADDED: booking editor compact view
+ADDED: booking editor auto generator slots within time range for selected date range
+ADDED: option to hide end time for booking slot
+ADDED: option to show duration of booking slot on front end
+ADDED: booking block manager edit button when hover over block
+FIXED: booking slot month/day names not using translated text
+FIXED: missing block time text string in cart
+FIXED: booking editor when no slots 
+FIXED: booking editor sunday name not showing
+FIXED: auto generator duration 0 minute option
+FIXED: nomenclature clarification to blocks instead of slots
+
+v 1.2.2 (2020-9-7)
+FIXED: Minor admin post errror
+FIXED: add new booking slot time reverting to 1970
+
+v 1.2.1 (2020-6-12)
+FIXED: Minor style issues resolved
+FIXED: options not working in event edit page
+
+v 1.2 (2020-6-11)
+ADDED: timeslot view for frontend
+ADDED: option to choose calendar or timeslot view for frontend
+FIXED: slidedown eventcard not showing booking calendar
+FIXED: correct text domain in text translations on wp-admin side
+FIXED: after adding to cart calendar not hiding
+REQ: eventON 1.8
+
 v 1.1.1 (2020-3-3)
 FIXED: minor style changes
 

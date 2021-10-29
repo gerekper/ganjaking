@@ -301,10 +301,9 @@ class evosb_front{
 	// Subscriber page
 		// global language for subscriber page
 			public function set_language(){
-				global $eventon;
-
+				
 				$lang = !empty($_REQUEST['lang'])? $_REQUEST['lang']: 'L1';
-				$this->lang = $eventon->lang = $lang; // set the language for this class as well
+				$this->lang = EVO()->lang = $lang; // set the language for this class as well
 
 				return $lang;
 			}
@@ -497,19 +496,19 @@ class evosb_front{
 						for($x=1; $x<evo_get_ett_count($this->evoOpt)+1; $x++){
 							$ab = ($x==1)? '':'_'.$x;							
 							if(in_array('event_type'.$ab, $_saved_fields)){
-								$tax_name = $this->lang('evcal_lang_et'.$x,$event_type_names[$x]);
+								$tax_name = $this->lang_get('evcal_lang_et'.$x,$event_type_names[$x]);
 								echo $this->_html_tax_section_subcriber_page($subscriber_pmv, 'event_type'.$ab, $tax_name);
 							}
 						}
 
 					// location 
 						if(in_array('location', $_saved_fields)){
-							$tax_name = $this->lang('evcal_lang_evloc','Event Location');
+							$tax_name = $this->lang_get('evcal_lang_evloc','Event Location');
 							echo $this->_html_tax_section_subcriber_page($subscriber_pmv, 'event_location',$tax_name);
 						}
 					// Organizer 
 						if(in_array('organizer', $_saved_fields)){
-							$tax_name = $this->lang('evcal_lang_evorg','Event Organizer');
+							$tax_name = $this->lang_get('evcal_lang_evorg','Event Organizer');
 							echo $this->_html_tax_section_subcriber_page($subscriber_pmv, 'event_organizer',$tax_name);
 						}
 
@@ -558,7 +557,7 @@ class evosb_front{
 
 						$lang = !empty($_REQUEST['lang'])? $_REQUEST['lang']: 'L1';
 
-						$_text_all = $this->lang('evcal_lang_all','All', $lang);
+						$_text_all = $this->lang_get('evcal_lang_all','All', $lang);
 
 
 						//pretty terms view
@@ -568,7 +567,7 @@ class evosb_front{
 							foreach($terms as $term){
 								// find actual term name for saved values
 								if(in_array($term->term_id,$thisterms)){
-									$term_name = $this->lang('evolang_'.$tax.'_'.$term->term_id, $term->name);
+									$term_name = $this->lang_get('evolang_'.$tax.'_'.$term->term_id, $term->name);
 									$pretty_terms.= $term_name.', ';
 								}
 							}
@@ -591,7 +590,7 @@ class evosb_front{
 											in_array($term->term_id, $thisterms)) || 
 											$_term_checked=='all'
 										)? 'checked="checked"':'';
-										$term_name = $this->lang( 'evolang_'.$tax.'_'.$term->term_id,$term->name, $lang);
+										$term_name = $this->lang_get( 'evolang_'.$tax.'_'.$term->term_id,$term->name, $lang);
 
 								?>
 									<span><input data-id='<?php echo $term->term_id;?>' data-name='<?php echo $term_name;?>' type="checkbox" <?php echo $checked;?>/><?php echo $term_name;?></span>
@@ -607,10 +606,11 @@ class evosb_front{
 				}
 		
 	// get language text translated
-		function lang($var, $default, $lang=''){
+		function lang_get($var, $default, $lang=''){
 			$lang = !empty($this->lang)? $this->lang: 
 				(!empty($lang)? $lang: 'L1');
-			return eventon_get_custom_language($this->evoOpt2, $var, $default, $lang);
+
+			return evo_lang_get($var, $default, $lang );
 		}
 	// Subscriber on front-end calendar footer
 		function sub_to_footer($args){			
@@ -625,7 +625,7 @@ class evosb_front{
 					$this->lang = (!empty($args['lang']))? $args['lang']:'L1';
 
 					$this->print_scripts_on=true;				
-					echo '<a class="evosub_subscriber_btn evcal_btn"><em class="fa fa-envelope-o"></em> '. $this->lang('evoSUB_001','Subscribe to this calendar').'</a>';
+					echo '<a class="evosub_subscriber_btn evcal_btn"><em class="fa fa-envelope-o"></em> '. $this->lang_get('evoSUB_001','Subscribe to this calendar').'</a>';
 				endif;
 			}
 		}
@@ -638,7 +638,8 @@ class evosb_front{
 			if(!$only_logged || ($only_logged && is_user_logged_in())):
 
 				$this->lang = (!empty($atts['lang']))? $atts['lang']:'L1';
-				$buttonText = !empty($atts['btn_txt'])? $atts['btn_txt']: $this->lang('evoSUB_001','Subscribe to this calendar');
+				$buttonText = !empty($atts['btn_txt'])? $atts['btn_txt']: 
+					$this->lang_get('evoSUB_001','Subscribe to this calendar');
 
 				$this->print_scripts_on=true;	
 				$this->enque_script();			
@@ -659,19 +660,19 @@ class evosb_front{
 				<div class="form">
 				<a id="evoSUB_close">X</a>
 					<div class='formIn '>						
-						<h3><?php echo $this->lang('evoSUB_001','Subscribe to this calendar');?></h3>
-						<p><?php echo $this->lang('evoSUB_002','Please subscribe to receive email updates about our awesome events!');?></p>							
+						<h3><?php echo $this->lang_get('evoSUB_001','Subscribe to this calendar');?></h3>
+						<p><?php echo $this->lang_get('evoSUB_002','Please subscribe to receive email updates about our awesome events!');?></p>							
 						<?php 
 							// show all taxonomy types that are active
 							$this->_html_additional_form_fields();
 						?>
-						<p><button id='evosub_submit_button'><?php echo $this->lang('evoSUB_005','Subscribe');?></button></p>
+						<p><button id='evosub_submit_button'><?php echo $this->lang_get('evoSUB_005','Subscribe');?></button></p>
 					</div>
-					<div class="formMsg" style='display:none' ><p><b></b><?php echo $this->lang('evoSUB_006','Thank you for subscribing to our calendar!');?></p>
+					<div class="formMsg" style='display:none' ><p><b></b><?php echo $this->lang_get('evoSUB_006','Thank you for subscribing to our calendar!');?></p>
 					<?php
 						// verification message if needed via settings
 						if(!empty($this->evoOpt_sb['evosb_003']) && $this->evoOpt_sb['evosb_003']=='yes'){
-							echo "<p>".$this->lang('evoSUB_007','We have sent you a verification email, please verify your email address.')."</p>";
+							echo "<p>".$this->lang_get('evoSUB_007','We have sent you a verification email, please verify your email address.')."</p>";
 						}
 					?>
 					</div>
@@ -679,10 +680,10 @@ class evosb_front{
 						$_a_target= 'target="_blank"';
 					?>
 					<div class='form_footer'>
-						<p><?php echo $this->lang('evoSUB_002e','By subscribing, you agree with');?> <?php if(!empty($this->evoOpt_sb['evosb_1_004'])):?><a <?php echo $_a_target;?> href='<?php echo $this->evoOpt_sb['evosb_1_004'];?>'><?php echo $this->lang('evoSUB_002f','Terms of Use');?></a><?php endif; if(!empty($this->evoOpt_sb['evosb_1_003'])):?> <a <?php echo $_a_target;?> href="<?php echo $this->evoOpt_sb['evosb_1_003'];?>"><?php echo $this->lang('evoSUB_002g','Privacy Policy');?></a><?php endif;?></p>
+						<p><?php echo $this->lang_get('evoSUB_002e','By subscribing, you agree with');?> <?php if(!empty($this->evoOpt_sb['evosb_1_004'])):?><a <?php echo $_a_target;?> href='<?php echo $this->evoOpt_sb['evosb_1_004'];?>'><?php echo $this->lang_get('evoSUB_002f','Terms of Use');?></a><?php endif; if(!empty($this->evoOpt_sb['evosb_1_003'])):?> <a <?php echo $_a_target;?> href="<?php echo $this->evoOpt_sb['evosb_1_003'];?>"><?php echo $this->lang_get('evoSUB_002g','Privacy Policy');?></a><?php endif;?></p>
 					</div>
 					<?php endif;?>
-					<div id='form_text' style='display:none' data-all='<?php echo $this->lang('evcal_lang_all','All');?>'></div>
+					<div id='form_text' style='display:none' data-all='<?php echo $this->lang_get('evcal_lang_all','All');?>'></div>
 				</div>
 			</div>
 			<div id="evoSUB_bg" style='display:none'></div>
@@ -708,10 +709,10 @@ class evosb_front{
 							
 				// name
 					if(in_array('name', $_saved_fields))
-						echo "<p><input class='field' data-name='name' type='text' placeholder='".$this->lang('evoSUB_002a','Your Name')."'/></p>";
+						echo "<p><input class='field' data-name='name' type='text' placeholder='".$this->lang_get('evoSUB_002a','Your Name')."'/></p>";
 
 				// email -- required field
-					echo "<p><input type='text' data-name='email' class='field req' placeholder='".$this->lang('evoSUB_002b','Your Email Address')."'/></p>";
+					echo "<p><input type='text' data-name='email' class='field req' placeholder='".$this->lang_get('evoSUB_002b','Your Email Address')."'/></p>";
 
 				// event type tax
 					for($x=1; $x<evo_get_ett_count($this->evoOpt)+1; $x++){
@@ -723,18 +724,18 @@ class evosb_front{
 
 				// location 
 					if(in_array('location', $_saved_fields)){
-						echo $this->_html_taxonomy_section('event_location',$this->lang('evcal_lang_evloc','Event Location'));
+						echo $this->_html_taxonomy_section('event_location',$this->lang_get('evcal_lang_evloc','Event Location'));
 					}
 				// Organizer 
 					if(in_array('organizer', $_saved_fields)){
-						echo $this->_html_taxonomy_section('event_organizer',$this->lang('evcal_lang_evorg','Event Organizer'));
+						echo $this->_html_taxonomy_section('event_organizer',$this->lang_get('evcal_lang_evorg','Event Organizer'));
 					}
 
 			}else{
-				echo "<p><input type='text' data-name='email' class='field' placeholder='".$this->lang('evoSUB_002b','Your Email Address')."'/></p>";
+				echo "<p><input type='text' data-name='email' class='field' placeholder='".$this->lang_get('evoSUB_002b','Your Email Address')."'/></p>";
 			}
 
-			echo "<p style='display:none' class='evosub_msg' data-str1='".$this->lang('evoSUB_003','Required field missing!')."' data-str2='".$this->lang('evoSUB_004','Invalid Email address')."' data-email_exist='".$this->lang('evoSUB_004a','Email Address Exists Already!')."' data-no_cpt='".$this->lang('evoSUB_004b','Could not create subscriber, try later!')."'>Error</p>";
+			echo "<p style='display:none' class='evosub_msg' data-str1='".$this->lang_get('evoSUB_003','Required field missing!')."' data-str2='".$this->lang_get('evoSUB_004','Invalid Email address')."' data-email_exist='".$this->lang_get('evoSUB_004a','Email Address Exists Already!')."' data-no_cpt='".$this->lang_get('evoSUB_004b','Could not create subscriber, try later!')."'>Error</p>";
 			echo "</div>";
 
 			echo ob_get_clean();
@@ -746,9 +747,11 @@ class evosb_front{
 
 			$terms = $this->get_tax_terms($tax);
 
+			
 			if($terms):
 			ob_start();
-				$_text_all = $this->lang('evcal_lang_all','All');
+				$_text_all = $this->lang_get('evcal_lang_all','All');
+
 			?>
 				<div class="evoETT_section">
 					<p class='categories' data-name='<?php echo $tax;?>'><?php echo $tax_name;?><span value='all' data-name='<?php echo $tax;?>' class=''><?php echo $_text_all;?></span>
@@ -760,7 +763,7 @@ class evosb_front{
 						<?php
 							// each tax term
 							foreach($terms as $term):	
-								$term_name = $this->lang('evolang_'.$tax.'_'.$term->term_id, $term->name);
+								$term_name = $this->lang_get('evolang_'.$tax.'_'.$term->term_id, $term->name);
 						?>
 							<span><input data-id='<?php echo $term->term_id;?>' data-name='<?php echo $term_name;?>' type="checkbox" checked="checked"/><?php echo $term_name;?></span>
 						<?php endforeach;?>	
@@ -776,20 +779,23 @@ class evosb_front{
 
 		function get_tax_terms($tax){
 
+
 			EVO()->cal->set_cur('evcal_sb');
 
 			$hide_empty = true;
-
+			
 			// enable show all terms if selected via settings
 			if(
-				( $tax = 'event_location' && EVO()->cal->check_yn('evosb_show_loc') ) ||
-				( $tax = 'event_organizer' && EVO()->cal->check_yn('evosb_show_org') ) ||
+				( $tax == 'event_location' && EVO()->cal->check_yn('evosb_show_loc') ) ||
+				( $tax == 'event_organizer' && EVO()->cal->check_yn('evosb_show_org') ) ||
 				( strpos($tax, 'event_type') !== false && EVO()->cal->check_yn('evosb_show_cat') ) 
 			){
 				$hide_empty = false;
 			}
 
-			$terms = get_terms($tax, array(
+
+			$terms = get_terms( array(
+				'taxonomy'=> $tax,
 				'orderby'=>'name',
 				'hide_empty'=> $hide_empty,
 			));

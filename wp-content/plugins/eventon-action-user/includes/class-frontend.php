@@ -1,7 +1,7 @@
 <?php
 /*
  *	ActionUser front-end
- *	@version 	2.0.11
+ *	@version 	2.2.3
  */
 
 class evoau_frontend{
@@ -193,6 +193,7 @@ class evoau_frontend{
 					'event_org_link'=>array('Event Organizer Link', 'evcal_org_exlink', 'text','','evoAUL_eol'),	
 				'learnmorelink'=>array('Learn More Link', 'evcal_lmlink', 'learnmore','','evoAUL_lml'),	
 				'virtual'=>array('Virtual Event Details', '_virtual', 'virtual','',''),	
+				'health'=>array('Health Guidelines', '_health', 'health','',''),	
 			);
 
 			// event type categories
@@ -348,10 +349,15 @@ class evoau_frontend{
 			// PLUG before saving event meta data
 				do_action('eventonau_before_save_form_submissions', $created_event_id, $this->formtype);
 
+			// Event is created
 			if($created_event_id){	
+
+				$EVENT = new EVO_Event( $created_event_id );
+
+
 				$is_user_logged_in = is_user_logged_in();
 
-				// saved field valy
+				// saved field values
 				$saved_fields = (!empty($this->evoau_opt['evoau_fields']) && is_array($this->evoau_opt['evoau_fields']) && count($this->evoau_opt['evoau_fields'])>0)? $this->evoau_opt['evoau_fields']: false;	
 
 
@@ -433,6 +439,7 @@ class evoau_frontend{
 				
 				// initial
 					$image_set = false;
+					$edata = array();
 
 				// create custom meta fields and assign taxonomies			
 					foreach($this->au_form_fields('savefields') as $field=>$fn){
@@ -511,17 +518,48 @@ class evoau_frontend{
 
 						// virtual
 							if( $field == 'virtual'){
-								foreach(array('_vir_url','_vir_pass','_virtual_type') as $F){
+								foreach(array(
+									'_vir_url',
+									'_vir_pass',
+									'_virtual_type',
+									'_vir_show',
+									'_vir_hide',
+									'_vir_nohiding',
+									'_vir_after_content',
+									'_vir_after_content_when'
+								) as $F){
 									if( empty($_POST[ $F ])) continue;
-									$this->create_custom_fields($created_event_id, $F, $_POST[$F]);
+									$EVENT->set_prop( $F, sanitize_text_field($_POST[$F]) );
 								}
+							}
+
+						// health
+							if( $field == 'health'){
+								
+								foreach(array(
+									'_health_mask',
+									'_health_temp',
+									'_health_pdis',
+									'_health_san',
+									'_health_out',
+									'_health_other',
+								) as $F){
+									if( empty($_POST[ '_edata'][$F] )) continue;
+									$EVENT->set_eprop($F, sanitize_text_field($_POST[ '_edata'][$F]), false, false);
+								}
+								
 							}
 
 						// event status
 							if( $field == '_status'){
-								foreach(array('_cancel_reason','_movedonline_reason','_postponed_reason','_rescheduled_reason',) as $F){
+								foreach(array(
+									'_cancel_reason',
+									'_movedonline_reason',
+									'_postponed_reason',
+									'_rescheduled_reason'
+								) as $F){
 									if( empty($_POST[ $F ])) continue;
-									$this->create_custom_fields($created_event_id, $F, $_POST[$F]);
+									$EVENT->set_prop( $F, sanitize_text_field($_POST[$F]) );
 								}
 							}
 
@@ -689,6 +727,9 @@ class evoau_frontend{
 						if( !empty($this->evoau_opt['evoar_re_addon']) && $this->evoau_opt['evoar_re_addon']=='yes' ){
 							$this->create_custom_fields($created_event_id, 'event_review', 'yes');
 						}
+
+				// save edata 
+					$EVENT->save_eprops();
 
 
 				// PLUGGABLE eventon addon intergration

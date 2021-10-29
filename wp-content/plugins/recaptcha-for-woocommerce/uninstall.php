@@ -115,7 +115,24 @@ $options_installed = array(
 				'i13_recapcha_woo_review_score_threshold_v3',
 				'i13_recapcha_woo_review_method_action_v3',
 				'i13_recaptcha_login_recpacha_for_req_btn',
-				'i13_recaptcha_v3_login_recpacha_for_req_btn'
+				'i13_recaptcha_v3_login_recpacha_for_req_btn',
+				'i13_recapcha_domain',
+								'i13_recapcha_using_ajax_registration_v2',
+								'i13_recapcha_using_ajax_registration_v3',
+								'i13_recapcha_using_ajax_login_v2',
+								'i13_recapcha_using_ajax_login_v3',
+								'i13_recapcha_enable_on_woo_tracking',
+								'i13_recapcha_woo_tracking_title',
+								'i13_recapcha_hide_label_woo_tracking',
+								'i13_recapcha_woo_tracking_theme',
+								'i13_recapcha_woo_tracking_size',
+								'i13_recapcha_disable_submitbtn_woo_tracking',
+								'i13_recapcha_woo_tracking_score_threshold_v3',
+								'i13_recapcha_woo_tracking_method_action_v3',
+								'i13_recapcha_wp_disable_submit_token_generation_v3_woo_tracking',
+																'i13_recaptcha_v3_login_recpacha_for_req_btn_cart_page',
+																'i13_recaptcha_login_recpacha_for_req_btn_cart_page',
+																
 
 );
 

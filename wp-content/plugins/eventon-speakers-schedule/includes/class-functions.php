@@ -94,10 +94,41 @@ class evoss_functions{
 
 		$blocks = !empty($epmv['_sch_blocks'])? unserialize($epmv['_sch_blocks'][0]): array();
 
-		$blocks[$day][0]=$data['evo_sch_date'];
-		$blocks[$day][$key]=$data;
+		$blocks[$day][0] = $data['evo_sch_date'];
+		$blocks[$day][$key] = $data;
+
+		// remove existing duplications
+		$blocks = $this->remove_duplicated_blocks($blocks, $key , $day);
+
+		// remove empty blocks 
+		$blocks = $this->remove_empty_block_days( $blocks);
+			
+		//print_r($blocks);
 		
 		update_post_meta($eventid, '_sch_blocks', $blocks);
+		return $blocks;
+	}
+
+	function remove_duplicated_blocks($blocks, $key, $day ){
+		$count = 0;
+		foreach($blocks as $d=>$dd){
+			foreach($dd as $k=>$v){
+				if( $k == 0 ) continue;
+				if( $k == $key && $d == $day){ 
+					$count++;
+				}elseif($k == $key){
+					unset($blocks[$d][$k]);
+				}
+			}
+		}
+		return $blocks;
+	}
+	// remove block days without any schedule from the array
+	function remove_empty_block_days($blocks){
+		foreach($blocks as $d=>$dd){
+			if( count($dd) >1) continue;
+			unset($blocks[$d]);
+		}
 		return $blocks;
 	}
 	function delete_schedule($eventid, $day, $key, $epmv=''){
@@ -187,18 +218,40 @@ class evoss_functions{
 				$label = $var[1].$required;
 
 				if($field=='evo_sch_date'):
-					?>
-					<p>
-						<select class='evoss_field <?php echo $var[0];?>' name="<?php echo $field;?>"><?php
-						$count = 1;
 
-						foreach($this->eventdates($epmv) as $date){
-							$selected = (!empty($day) && 'd'.$count==$day)? 'selected="selected"':'';
-							echo "<option data-date='d{$count}' value='{$date}' {$selected}>Day ".$count.': '.$date."</option>";
-							$count++;
-						}
-						?></select>
-						<label for='<?php echo $field;?>'><?php echo $label;?></label>
+					$inbetween_days = $this->eventdates($epmv);
+
+					?>
+					<p class='schedule_date' style='display:flex'>
+						<span class='_sch_date' style='padding-right: 5px;'>
+								<select class='evoss_field <?php echo $var[0];?>' name="<?php echo $field;?>"><?php
+								$count = 1;
+
+								foreach( $inbetween_days as $date){
+									$selected = (!empty($day) && 'd'.$count==$day)? 'selected="selected"':'';
+									echo "<option data-date='d{$count}' value='{$date}' {$selected}>Day ".$count.': '.$date."</option>";
+									$count++;
+								}
+								?>							
+							</select>
+							<label for='<?php echo $field;?>'><?php echo $label;?></label>
+						</span>
+						<span class="_sch_day">
+							<select class='evoss_field' name='evo_sch_alt_day'>
+								<option value='na'>--</option>
+								<?php 
+								$c = 1;
+								foreach( $inbetween_days as $date){
+									$selected = (!empty($day) && 'd'.$c==$day)? 'selected="selected"':'';
+									echo "<option value='d{$c}' {$selected}>Day ".$c."</option>";
+									$c++;
+								}
+								?>
+							</select>
+							<label ><?php _e('Alternative Day Number','evoss')?></label>
+						</span>
+
+						
 					</p>
 					<?php
 				elseif($field=='evo_sch_desc'):
@@ -272,12 +325,14 @@ class evoss_functions{
 			}else{
 				if($start[0] == $end[0]){
 					$output[] = date($date_format, $epmv['evcal_srow'][0]);
-				}else{
+				}else{					
 					$count = 0;
-					for($x=$start[0]; $x<=$end[0]; $x++){
-						$date = strtotime("+".$count." day", $epmv['evcal_srow'][0] );
-						$output[] = date($date_format, $date);
-						$count++;
+					$x = $epmv['evcal_srow'][0];
+					while( $x <= $epmv['evcal_erow'][0] ){
+
+						$output[] = date($date_format, $x);
+						$x += 86400;
+						$count ++;
 					}
 				}
 			}

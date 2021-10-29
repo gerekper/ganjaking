@@ -53,12 +53,6 @@ class WooCommerce_Product_Search_Compat {
 			}
 		}
 
-		if ( class_exists( 'woocommerce_wpml' ) ) {
-			if ( apply_filters( 'woocommerce_product_search_compat', true, 'plugin', 'woocommerce-multilingual' ) ) {
-				require_once WOO_PS_COMPAT_LIB . '/class-woocommerce-product-search-compat-wpml.php';
-			}
-		}
-
 		$theme = wp_get_theme();
 		if ( $theme instanceof WP_Theme ) {
 			if ( $theme->exists() ) {
