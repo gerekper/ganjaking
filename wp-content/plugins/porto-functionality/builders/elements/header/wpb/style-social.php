@@ -39,6 +39,15 @@ if ( ! empty( $atts['icon_border_spacing'] ) ) {
 	}
 	echo 'width:' . esc_html( $atts['icon_border_spacing'] ) . ';height:' . esc_html( $atts['icon_border_spacing'] ) . ';';
 }
+if ( ! empty( $atts['spacing'] ) ) {
+	$unit = trim( preg_replace( '/[0-9.]/', '', $atts['spacing'] ) );
+	if ( ! $unit ) {
+		$atts['spacing'] = (float) $atts['spacing'] / 2 . 'px';
+	} else {
+		$atts['spacing'] = (float) str_replace( $unit, '', $atts['spacing'] ) / 2 . $unit;
+	}
+	echo 'margin-left:' . esc_html( $atts['spacing'] ) . ';margin-right:' . esc_html( $atts['spacing'] ) . ';';
+}
 if ( ! empty( $atts['box_shadow'] ) ) {
 	$data = porto_get_box_shadow( $atts['box_shadow'], 'css' );
 	if ( strpos( $data, 'none' ) !== false || strpos( $data, ':;' ) !== false ) {

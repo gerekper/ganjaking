@@ -69,6 +69,22 @@ class Porto_Elementor_HB_Search_Form_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'popup_pos',
+			array(
+				'type'        => Controls_Manager::SELECT,
+				'label'       => __( 'Popup Position', 'porto-functionality' ),
+				'description' => __( 'This works for only "Popup 1" and "Popup 2" and "Form" search layout on mobile. You can change search layout using Porto -> Theme Options -> Header -> Search Form -> Search Layout.', 'porto-functionality' ),
+				'options'     => array(
+					''       => __( 'Default', 'porto-functionality' ),
+					'left'   => __( 'Left', 'porto-functionality' ),
+					'center' => __( 'Center', 'porto-functionality' ),
+					'right'  => __( 'Right', 'porto-functionality' ),
+				),
+				'default'     => '',
+			)
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -273,7 +289,15 @@ class Porto_Elementor_HB_Search_Form_Widget extends \Elementor\Widget_Base {
 				$backup_placeholder                   = $porto_settings['search-placeholder'];
 				$porto_settings['search-placeholder'] = $settings['placeholder_text'];
 			}
-			porto_header_elements( array( (object) array( 'search-form' => '' ) ) );
+
+			$el_cls = '';
+			if ( ! empty( $settings['popup_pos'] ) ) {
+				if ( 'simple' == $porto_settings['search-layout'] || 'large' == $porto_settings['search-layout'] || 'advanced' == $porto_settings['search-layout'] ) {
+					$el_cls = 'search-popup-' . $settings['popup_pos'];
+				}
+			}
+
+			porto_header_elements( array( (object) array( 'search-form' => '' ) ), $el_cls );
 			$porto_settings['search-cats']        = $backup_cat_filter;
 			$porto_settings['search-cats-mobile'] = $backup_cat_filter_mobile;
 			if ( ! empty( $settings['placeholder_text'] ) ) {

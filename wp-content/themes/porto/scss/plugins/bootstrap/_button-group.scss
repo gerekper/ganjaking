@@ -1,42 +1,32 @@
-// stylelint-disable selector-no-qualifying-type
-
 // Make the div behave like a button
 .btn-group,
 .btn-group-vertical {
   position: relative;
-  display: -webkit-inline-flex; display: -ms-inline-flexbox; display: inline-flex;
+  display: inline-flex;
   vertical-align: middle; // match .btn alignment given font-size hack above
 
   > .btn {
     position: relative;
-    -webkit-flex: 0 1 auto; -ms-flex: 0 1 auto; flex: 0 1 auto;
-
-    // Bring the hover, focused, and "active" buttons to the front to overlay
-    // the borders properly
-    @include hover {
-      z-index: 1;
-    }
-    &:focus,
-    &:active,
-    &.active {
-      z-index: 1;
-    }
+    flex: 1 1 auto;
   }
 
-  // Prevent double borders when buttons are next to each other
-  .btn + .btn,
-  .btn + .btn-group,
-  .btn-group + .btn,
-  .btn-group + .btn-group {
-    margin-left: -$btn-border-width;
+  // Bring the hover, focused, and "active" buttons to the front to overlay
+  // the borders properly
+  > .btn-check:checked + .btn,
+  > .btn-check:focus + .btn,
+  > .btn:hover,
+  > .btn:focus,
+  > .btn:active,
+  > .btn.active {
+    z-index: 1;
   }
 }
 
 // Optional: Group multiple button groups together for a toolbar
 .btn-toolbar {
-  display: -webkit-flex; display: -ms-flexbox; display: flex;
-  -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap;
-  -webkit-justify-content: flex-start; -ms-flex-pack: start; justify-content: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 
   .input-group {
     width: auto;
@@ -44,19 +34,26 @@
 }
 
 .btn-group {
-  > .btn:first-child {
-    margin-left: 0;
+  // Prevent double borders when buttons are next to each other
+  > .btn:not(:first-child),
+  > .btn-group:not(:first-child) {
+    margin-left: -$btn-border-width;
   }
 
   // Reset rounded corners
   > .btn:not(:last-child):not(.dropdown-toggle),
   > .btn-group:not(:last-child) > .btn {
-    @include border-right-radius(0);
+    @include border-end-radius(0);
   }
 
-  > .btn:not(:first-child),
+  // The left radius should be 0 if the button is:
+  // - the "third or more" child
+  // - the second child and the previous element isn't `.btn-check` (making it the first child visually)
+  // - part of a btn-group which isn't the first child
+  > .btn:nth-child(n + 3),
+  > :not(.btn-check) + .btn,
   > .btn-group:not(:first-child) > .btn {
-    @include border-left-radius(0);
+    @include border-start-radius(0);
   }
 }
 
@@ -78,11 +75,11 @@
 
   &::after,
   .dropup &::after,
-  .dropright &::after {
+  .dropend &::after {
     margin-left: 0;
   }
 
-  .dropleft &::before {
+  .dropstart &::before {
     margin-right: 0;
   }
 }
@@ -115,21 +112,18 @@
 //
 
 .btn-group-vertical {
-  -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column;
-  -webkit-align-items: flex-start; -ms-flex-align: start; align-items: flex-start;
-  -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 
-  .btn,
-  .btn-group {
+  > .btn,
+  > .btn-group {
     width: 100%;
   }
 
-  > .btn + .btn,
-  > .btn + .btn-group,
-  > .btn-group + .btn,
-  > .btn-group + .btn-group {
+  > .btn:not(:first-child),
+  > .btn-group:not(:first-child) {
     margin-top: -$btn-border-width;
-    margin-left: 0;
   }
 
   // Reset rounded corners
@@ -138,35 +132,8 @@
     @include border-bottom-radius(0);
   }
 
-  > .btn:not(:first-child),
+  > .btn ~ .btn,
   > .btn-group:not(:first-child) > .btn {
     @include border-top-radius(0);
-  }
-}
-
-
-// Checkbox and radio options
-//
-// In order to support the browser's form validation feedback, powered by the
-// `required` attribute, we have to "hide" the inputs via `clip`. We cannot use
-// `display: none;` or `visibility: hidden;` as that also hides the popover.
-// Simply visually hiding the inputs via `opacity` would leave them clickable in
-// certain cases which is prevented by using `clip` and `pointer-events`.
-// This way, we ensure a DOM element is visible to position the popover from.
-//
-// See https://github.com/twbs/bootstrap/pull/12794 and
-// https://github.com/twbs/bootstrap/pull/14559 for more information.
-
-.btn-group-toggle {
-  > .btn,
-  > .btn-group > .btn {
-    margin-bottom: 0; // Override default `<label>` value
-
-    input[type="radio"],
-    input[type="checkbox"] {
-      position: absolute;
-      clip: rect(0, 0, 0, 0);
-      pointer-events: none;
-    }
   }
 }

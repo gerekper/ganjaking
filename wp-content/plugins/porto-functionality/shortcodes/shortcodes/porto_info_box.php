@@ -2,16 +2,17 @@
 // Porto Info Box
 add_action( 'vc_after_init', 'porto_load_info_box_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_info_box_shortcode() {
 
 	$animation_type = porto_vc_animation_type();
 	$custom_class   = porto_vc_custom_class();
 
-	$animation_type['group'] = '';
+	$animation_type1    = porto_vc_animation_type();
+	$animation_duration = porto_vc_animation_duration();
+	$animation_delay    = porto_vc_animation_delay();
+
+	$animation_type1['param_name'] = 'animation_type1';
+	$animation_type['group']       = '';
 
 	vc_map(
 		array(
@@ -148,7 +149,7 @@ function porto_load_info_box_shortcode() {
 						'element' => 'icon_style',
 						'value'   => array( 'circle', 'circle_img', 'square', 'advanced' ),
 					),
-					'std'         => '#ffffff',
+					'std'         => '',
 				),
 				array(
 					'type'        => 'dropdown',
@@ -206,6 +207,10 @@ function porto_load_info_box_shortcode() {
 					'min'        => 1,
 					'max'        => 500,
 					'suffix'     => 'px',
+					'dependency'  => array(
+						'element' => 'icon_style',
+						'value'   => array( 'none', 'circle', 'circle_img', 'advanced' ),
+					),
 				),
 				array(
 					'type'        => 'number',
@@ -295,7 +300,9 @@ function porto_load_info_box_shortcode() {
 					'value'       => array(
 						__( 'No Effect', 'porto-functionality' ) => 'style_1',
 						__( 'Icon Zoom', 'porto-functionality' ) => 'style_2',
-						__( 'Icon Bounce Up', 'porto-functionality' ) => 'style_3',
+						__( 'Icon Slide Up', 'porto-functionality' ) => 'style_3',
+						__( 'Icon Slide Left', 'porto-functionality' ) => 'hover-icon-left',
+						__( 'Icon Slide Right', 'porto-functionality' ) => 'hover-icon-right',
 					),
 					'description' => __( 'Select the type of effct you want on hover', 'porto-functionality' ),
 				),
@@ -312,6 +319,30 @@ function porto_load_info_box_shortcode() {
 						__( 'Icon at Top', 'porto-functionality' ) => 'top',
 					),
 					'description' => __( 'Select icon position. Icon box style will be changed according to the icon position.', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_button_group',
+					'heading'    => __( 'Horizontal Alignment', 'porto-functionality' ),
+					'param_name' => 'h_align',
+					'value'      => array(
+						'left'   => array(
+							'title' => esc_html__( 'Left', 'porto-functionality' ),
+							'icon'  => 'fas fa-align-left',
+						),
+						'center' => array(
+							'title' => esc_html__( 'Center', 'porto-functionality' ),
+							'icon'  => 'fas fa-align-center',
+						),
+						'right'  => array(
+							'title' => esc_html__( 'Right', 'porto-functionality' ),
+							'icon'  => 'fas fa-align-right',
+						),
+					),
+					'std'        => 'center',
+					'dependency' => array(
+						'element' => 'pos',
+						'value'   => array( 'top' ),
+					),
 				),
 				$custom_class,
 				array(
@@ -336,72 +367,13 @@ function porto_load_info_box_shortcode() {
 					'group'       => 'Style',
 				),
 				array(
-					'type'       => 'checkbox',
-					'heading'    => __( 'Use theme default font family?', 'porto-functionality' ),
-					'param_name' => 'title_use_theme_fonts',
-					'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-					'std'        => 'yes',
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Typography', 'porto-functionality' ),
+					'param_name' => 'title_font_porto_typography',
 					'group'      => 'Style',
-					'class'      => '',
-				),
-				array(
-					'type'       => 'google_fonts',
-					'param_name' => 'title_google_font',
-					'settings'   => array(
-						'fields' => array(
-							'font_family_description' => __( 'Select Font Family.', 'porto-functionality' ),
-							'font_style_description'  => __( 'Select Font Style.', 'porto-functionality' ),
-						),
+					'selectors'  => array(
+						'{{WRAPPER}} .porto-sicon-title',
 					),
-					'dependency' => array(
-						'element'            => 'title_use_theme_fonts',
-						'value_not_equal_to' => 'yes',
-					),
-					'group'      => 'Style',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Font weight', 'porto-functionality' ),
-					'param_name' => 'title_font_style',
-					'value'      => '',
-					'group'      => 'Style',
-				),
-				array(
-					'type'       => 'textfield',
-					'class'      => '',
-					'heading'    => __( 'Font size', 'porto-functionality' ),
-					'param_name' => 'title_font_size',
-					'unit'       => 'px',
-					'media'      => array(
-						'Desktop'          => '',
-						'Tablet'           => '',
-						'Tablet Portrait'  => '',
-						'Mobile Landscape' => '',
-						'Mobile'           => '',
-					),
-					'group'      => 'Style',
-				),
-				array(
-					'type'       => 'textfield',
-					'class'      => '',
-					'heading'    => __( 'Line Height', 'porto-functionality' ),
-					'param_name' => 'title_font_line_height',
-					'unit'       => 'px',
-					'media'      => array(
-						'Desktop'          => '',
-						'Tablet'           => '',
-						'Tablet Portrait'  => '',
-						'Mobile Landscape' => '',
-						'Mobile'           => '',
-					),
-					'group'      => 'Style',
-				),
-				array(
-					'type'       => 'textfield',
-					'class'      => '',
-					'heading'    => __( 'Letter Spacing', 'porto-functionality' ),
-					'param_name' => 'title_font_letter_spacing',
-					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'colorpicker',
@@ -418,48 +390,13 @@ function porto_load_info_box_shortcode() {
 					'edit_field_class' => 'no-top-margin vc_column vc_col-sm-12',
 				),
 				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Font Weight', 'porto-functionality' ),
-					'param_name' => 'subtitle_font_style',
-					'value'      => '',
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Typography', 'porto-functionality' ),
+					'param_name' => 'subtitle_font_porto_typography',
 					'group'      => 'Style',
-				),
-				array(
-					'type'       => 'textfield',
-					'class'      => '',
-					'heading'    => __( 'Font size', 'porto-functionality' ),
-					'param_name' => 'subtitle_font_size',
-					'unit'       => 'px',
-					'media'      => array(
-						'Desktop'          => '',
-						'Tablet'           => '',
-						'Tablet Portrait'  => '',
-						'Mobile Landscape' => '',
-						'Mobile'           => '',
+					'selectors'  => array(
+						'{{WRAPPER}} .porto-sicon-header p',
 					),
-					'group'      => 'Style',
-				),
-				array(
-					'type'       => 'textfield',
-					'class'      => '',
-					'heading'    => __( 'Line Height', 'porto-functionality' ),
-					'param_name' => 'subtitle_font_line_height',
-					'unit'       => 'px',
-					'media'      => array(
-						'Desktop'          => '',
-						'Tablet'           => '',
-						'Tablet Portrait'  => '',
-						'Mobile Landscape' => '',
-						'Mobile'           => '',
-					),
-					'group'      => 'Style',
-				),
-				array(
-					'type'       => 'textfield',
-					'class'      => '',
-					'heading'    => __( 'Letter Spacing', 'porto-functionality' ),
-					'param_name' => 'subtitle_font_letter_spacing',
-					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'colorpicker',
@@ -474,72 +411,13 @@ function porto_load_info_box_shortcode() {
 					'group'      => 'Style',
 				),
 				array(
-					'type'       => 'checkbox',
-					'heading'    => __( 'Use theme default font family?', 'porto-functionality' ),
-					'param_name' => 'desc_use_theme_fonts',
-					'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-					'std'        => 'yes',
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Typography', 'porto-functionality' ),
+					'param_name' => 'desc_font_porto_typography',
 					'group'      => 'Style',
-					'class'      => '',
-				),
-				array(
-					'type'       => 'google_fonts',
-					'param_name' => 'desc_google_font',
-					'settings'   => array(
-						'fields' => array(
-							'font_family_description' => __( 'Select Font Family.', 'porto-functionality' ),
-							'font_style_description'  => __( 'Select Font Style.', 'porto-functionality' ),
-						),
+					'selectors'  => array(
+						'{{WRAPPER}} .porto-sicon-description',
 					),
-					'dependency' => array(
-						'element'            => 'desc_use_theme_fonts',
-						'value_not_equal_to' => 'yes',
-					),
-					'group'      => 'Style',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Font Weight', 'porto-functionality' ),
-					'param_name' => 'desc_font_style',
-					'value'      => '',
-					'group'      => 'Style',
-				),
-				array(
-					'type'       => 'textfield',
-					'class'      => '',
-					'heading'    => __( 'Font size', 'porto-functionality' ),
-					'param_name' => 'desc_font_size',
-					'unit'       => 'px',
-					'media'      => array(
-						'Desktop'          => '',
-						'Tablet'           => '',
-						'Tablet Portrait'  => '',
-						'Mobile Landscape' => '',
-						'Mobile'           => '',
-					),
-					'group'      => 'Style',
-				),
-				array(
-					'type'       => 'textfield',
-					'class'      => '',
-					'heading'    => __( 'Line Height', 'porto-functionality' ),
-					'param_name' => 'desc_font_line_height',
-					'unit'       => 'px',
-					'media'      => array(
-						'Desktop'          => '',
-						'Tablet'           => '',
-						'Tablet Portrait'  => '',
-						'Mobile Landscape' => '',
-						'Mobile'           => '',
-					),
-					'group'      => 'Style',
-				),
-				array(
-					'type'       => 'textfield',
-					'class'      => '',
-					'heading'    => __( 'Letter Spacing', 'porto-functionality' ),
-					'param_name' => 'desc_font_letter_spacing',
-					'group'      => 'Style',
 				),
 				array(
 					'type'       => 'colorpicker',
@@ -555,7 +433,7 @@ function porto_load_info_box_shortcode() {
 				),
 				array(
 					'type'       => 'textfield',
-					'heading'    => __( 'Icon Margin Right', 'porto-functionality' ),
+					'heading'    => __( 'Spacing between Icon and Title', 'porto-functionality' ),
 					'param_name' => 'icon_margin_right',
 					'group'      => 'Style',
 				),
@@ -578,6 +456,9 @@ function porto_load_info_box_shortcode() {
 					'group'            => __( 'Design ', 'porto-functionality' ),
 					'edit_field_class' => 'vc_col-sm-12 vc_column no-vc-background no-vc-border creative_link_css_editor',
 				),
+				$animation_type1,
+				$animation_duration,
+				$animation_delay,
 			),
 		)
 	);

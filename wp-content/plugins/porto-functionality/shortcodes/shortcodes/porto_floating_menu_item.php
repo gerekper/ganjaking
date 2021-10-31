@@ -3,10 +3,6 @@
 // Porto Experience Timeline Item
 add_action( 'vc_after_init', 'porto_load_floating_menu_item_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_floating_menu_item_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -15,12 +11,13 @@ function porto_load_floating_menu_item_shortcode() {
 
 	vc_map(
 		array(
-			'name'     => __( 'Floating Menu Item', 'porto-functionality' ),
-			'base'     => 'porto_floating_menu_item',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'fas fa-ellipsis-v',
-			'as_child' => array( 'only' => 'porto_floating_menu_container' ),
-			'params'   => array(
+			'name'        => __( 'Floating Menu Item', 'porto-functionality' ),
+			'base'        => 'porto_floating_menu_item',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Show menu with floating', 'porto-functionality' ),
+			'icon'        => 'fas fa-ellipsis-v',
+			'as_child'    => array( 'only' => 'porto_floating_menu_container' ),
+			'params'      => array(
 				array(
 					'type'        => 'iconpicker',
 					'heading'     => __( 'Icon', 'porto-functionality' ),

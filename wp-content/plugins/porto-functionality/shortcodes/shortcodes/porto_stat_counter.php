@@ -2,10 +2,6 @@
 // Porto Stat Counter
 add_action( 'vc_after_init', 'porto_load_stat_counter_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_stat_counter_shortcode() {
 
 	$animation_type     = porto_vc_animation_type();
@@ -217,9 +213,9 @@ function porto_load_stat_counter_shortcode() {
 					'heading'     => __( 'Icon Position', 'porto-functionality' ),
 					'param_name'  => 'icon_position',
 					'value'       => array(
-						__( 'Top', 'porto-functionality' )   => 'top',
+						__( 'Top', 'porto-functionality' ) => 'top',
 						__( 'Right', 'porto-functionality' ) => 'right',
-						__( 'Left', 'porto-functionality' )  => 'left',
+						__( 'Left', 'porto-functionality' ) => 'left',
 					),
 					'description' => __( 'Enter Position of Icon', 'porto-functionality' ),
 				),
@@ -295,47 +291,13 @@ function porto_load_stat_counter_shortcode() {
 					'group'      => 'Typography',
 				),
 				array(
-					'type'       => 'checkbox',
-					'heading'    => __( 'Use theme default font family?', 'porto-functionality' ),
-					'param_name' => 'title_use_theme_fonts',
-					'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-					'std'        => 'yes',
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Typography', 'porto-functionality' ),
+					'param_name' => 'title_font_porto_typography',
 					'group'      => 'Typography',
-					'class'      => '',
-				),
-				array(
-					'type'       => 'google_fonts',
-					'param_name' => 'title_google_font',
-					'settings'   => array(
-						'fields' => array(
-							'font_family_description' => __( 'Select Font Family.', 'porto-functionality' ),
-							'font_style_description'  => __( 'Select Font Style.', 'porto-functionality' ),
-						),
+					'selectors'  => array(
+						'{{WRAPPER}} .stats-text',
 					),
-					'dependency' => array(
-						'element'            => 'title_use_theme_fonts',
-						'value_not_equal_to' => 'yes',
-					),
-					'group'      => 'Typography',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Font Weight', 'porto-functionality' ),
-					'param_name' => 'title_font_style',
-					'value'      => '',
-					'group'      => 'Typography',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Font size', 'porto-functionality' ),
-					'param_name' => 'title_font_size',
-					'group'      => 'Typography',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Line Height', 'porto-functionality' ),
-					'param_name' => 'title_font_line_height',
-					'group'      => 'Typography',
 				),
 				array(
 					'type'        => 'colorpicker',
@@ -352,47 +314,13 @@ function porto_load_stat_counter_shortcode() {
 					'group'      => 'Typography',
 				),
 				array(
-					'type'       => 'checkbox',
-					'heading'    => __( 'Use theme default font family?', 'porto-functionality' ),
-					'param_name' => 'desc_use_theme_fonts',
-					'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-					'std'        => 'yes',
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Typography', 'porto-functionality' ),
+					'param_name' => 'desc_font_porto_typography',
 					'group'      => 'Typography',
-					'class'      => '',
-				),
-				array(
-					'type'       => 'google_fonts',
-					'param_name' => 'desc_google_font',
-					'settings'   => array(
-						'fields' => array(
-							'font_family_description' => __( 'Select Font Family.', 'porto-functionality' ),
-							'font_style_description'  => __( 'Select Font Style.', 'porto-functionality' ),
-						),
+					'selectors'  => array(
+						'{{WRAPPER}} .stats-number',
 					),
-					'dependency' => array(
-						'element'            => 'desc_use_theme_fonts',
-						'value_not_equal_to' => 'yes',
-					),
-					'group'      => 'Typography',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Font Weight', 'porto-functionality' ),
-					'param_name' => 'desc_font_style',
-					'value'      => '',
-					'group'      => 'Typography',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Font size', 'porto-functionality' ),
-					'param_name' => 'desc_font_size',
-					'group'      => 'Typography',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Line Height', 'porto-functionality' ),
-					'param_name' => 'desc_font_line_height',
-					'group'      => 'Typography',
 				),
 				array(
 					'type'        => 'colorpicker',
@@ -408,47 +336,13 @@ function porto_load_stat_counter_shortcode() {
 					'group'      => 'Typography',
 				),
 				array(
-					'type'       => 'checkbox',
-					'heading'    => __( 'Use theme default font family?', 'porto-functionality' ),
-					'param_name' => 'suf_pref_use_theme_fonts',
-					'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-					'std'        => 'yes',
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Typography', 'porto-functionality' ),
+					'param_name' => 'suf_pref_font_porto_typography',
 					'group'      => 'Typography',
-					'class'      => '',
-				),
-				array(
-					'type'       => 'google_fonts',
-					'param_name' => 'suf_pref_google_font',
-					'settings'   => array(
-						'fields' => array(
-							'font_family_description' => __( 'Select Font Family.', 'porto-functionality' ),
-							'font_style_description'  => __( 'Select Font Style.', 'porto-functionality' ),
-						),
+					'selectors'  => array(
+						'{{WRAPPER}}.stats-block .counter_prefix, {{WRAPPER}}.stats-block .counter_suffix',
 					),
-					'dependency' => array(
-						'element'            => 'suf_pref_use_theme_fonts',
-						'value_not_equal_to' => 'yes',
-					),
-					'group'      => 'Typography',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Font Weight', 'porto-functionality' ),
-					'param_name' => 'suf_pref_font_style',
-					'value'      => '',
-					'group'      => 'Typography',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Font size', 'porto-functionality' ),
-					'param_name' => 'suf_pref_font_size',
-					'group'      => 'Typography',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Line Height', 'porto-functionality' ),
-					'param_name' => 'suf_pref_line_height',
-					'group'      => 'Typography',
 				),
 				array(
 					'type'        => 'colorpicker',

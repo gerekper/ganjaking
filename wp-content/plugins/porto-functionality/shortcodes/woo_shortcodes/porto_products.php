@@ -13,10 +13,6 @@ if ( function_exists( 'register_block_type' ) ) {
 add_shortcode( 'porto_products', 'porto_shortcode_products' );
 add_action( 'vc_after_init', 'porto_load_products_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_shortcode_products( $atts, $content = null ) {
 	ob_start();
 	if ( $template = porto_shortcode_woo_template( 'porto_products' ) ) {
@@ -30,8 +26,16 @@ function porto_load_products_shortcode() {
 	$animation_duration = porto_vc_animation_duration();
 	$animation_delay    = porto_vc_animation_delay();
 	$custom_class       = porto_vc_custom_class();
-	$order_by_values    = porto_vc_woo_order_by();
 	$order_way_values   = porto_vc_woo_order_way();
+
+	$status_values = array(
+		__( 'All', 'porto-functionality' )             => '',
+		__( 'Recently Viewed', 'porto-functionality' ) => 'viewed',
+	);
+	global $porto_settings;
+	if ( ! empty( $porto_settings['woo-pre-order'] ) ) {
+		$status_values[ __( 'Pre-Order', 'porto-functionality' ) ] = 'pre_order';
+	}
 
 	// woocommerce products
 	vc_map(
@@ -74,6 +78,17 @@ function porto_load_products_shortcode() {
 							'not_empty' => true,
 						),
 					),
+				),
+				array(
+					array(
+						'type'        => 'dropdown',
+						'heading'     => __( 'Status', 'porto-functionality' ),
+						'param_name'  => 'status',
+						'value'       => $status_values,
+						'admin_label' => true,
+					),
+				),
+				array(
 					array(
 						'type'        => 'dropdown',
 						'heading'     => __( 'View mode', 'porto-functionality' ),
@@ -175,20 +190,15 @@ function porto_load_products_shortcode() {
 						'admin_label' => true,
 					),
 					array(
-						'type'       => 'checkbox',
+						'type'       => 'porto_multiselect',
 						'heading'    => __( 'Show Sort by', 'porto-functionality' ),
 						'param_name' => 'show_sort',
-						'value'      => array(
-							__( 'All', 'porto-functionality' ) => 'all',
-							__( 'Popular', 'porto-functionality' ) => 'popular',
-							__( 'Date', 'porto-functionality' ) => 'date',
-							__( 'Rating', 'porto-functionality' ) => 'rating',
-							__( 'On Sale', 'porto-functionality' ) => 'onsale',
-						),
+						'std'        => '',
+						'value'      => porto_woo_sort_by(),
 					),
 					array(
 						'type'       => 'textfield',
-						'heading'    => __( 'Title for "Sort by Popular"', 'woocommerce' ),
+						'heading'    => __( 'Title for "Sort by Popular"', 'porto-functionality' ),
 						'param_name' => 'show_sales_title',
 						'dependency' => array(
 							'element' => 'show_sort',
@@ -197,7 +207,7 @@ function porto_load_products_shortcode() {
 					),
 					array(
 						'type'       => 'textfield',
-						'heading'    => __( 'Title for "Sort by Date"', 'woocommerce' ),
+						'heading'    => __( 'Title for "Sort by Date"', 'porto-functionality' ),
 						'param_name' => 'show_new_title',
 						'dependency' => array(
 							'element' => 'show_sort',
@@ -206,7 +216,7 @@ function porto_load_products_shortcode() {
 					),
 					array(
 						'type'       => 'textfield',
-						'heading'    => __( 'Title for "Sort by Rating"', 'woocommerce' ),
+						'heading'    => __( 'Title for "Sort by Rating"', 'porto-functionality' ),
 						'param_name' => 'show_rating_title',
 						'dependency' => array(
 							'element' => 'show_sort',
@@ -215,7 +225,7 @@ function porto_load_products_shortcode() {
 					),
 					array(
 						'type'       => 'textfield',
-						'heading'    => __( 'Title for "On Sale"', 'woocommerce' ),
+						'heading'    => __( 'Title for "On Sale"', 'porto-functionality' ),
 						'param_name' => 'show_onsale_title',
 						'dependency' => array(
 							'element' => 'show_sort',
@@ -231,7 +241,7 @@ function porto_load_products_shortcode() {
 					),
 					array(
 						'type'        => 'dropdown',
-						'heading'     => __( 'Filter Style', 'js_composer' ),
+						'heading'     => __( 'Filter Style', 'porto-functionality' ),
 						'param_name'  => 'filter_style',
 						'value'       => array(
 							__( 'Vertical', 'porto-functionality' )   => '',
@@ -240,20 +250,175 @@ function porto_load_products_shortcode() {
 						'description' => __( 'This field is used only when using "sort by" or "category filter".', 'porto-functionality' ),
 					),
 					array(
-						'type'        => 'dropdown',
+						'type'        => 'autocomplete',
 						'heading'     => __( 'Order by', 'js_composer' ),
 						'param_name'  => 'orderby',
-						'value'       => $order_by_values,
-						/* translators: %s: Wordpress codex page */
-						'description' => sprintf( __( 'Select how to sort retrieved products. More at %s.', 'js_composer' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						'settings'    => array(
+							'multiple' => true,
+							'sortable' => true,
+							'groups'   => true,
+						),                      /* translators: %s: Wordpress codex page */
+						'description' => sprintf( __( 'Values: id, date, menu order, title, random, raing, popularity and so on. Select how to sort retrieved products. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
 					),
 					array(
-						'type'        => 'dropdown',
-						'heading'     => __( 'Order way', 'js_composer' ),
-						'param_name'  => 'order',
-						'value'       => $order_way_values,
+						'type'        => 'porto_button_group',
+						'heading'     => __( 'Order way for Date', 'porto-functionality' ),
+						'param_name'  => 'order_date',
 						/* translators: %s: Wordpress codex page */
 						'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						'value'       => array(
+							'DESC' => array(
+								'title' => esc_html__( 'Descending', 'porto-functionality' ),
+							),
+							'ASC'  => array(
+								'title' => esc_html__( 'Ascending', 'porto-functionality' ),
+							),
+						),
+						'dependency'  => array(
+							'element' => 'orderby',
+							'value'   => 'date',
+						),
+						'std'         => 'DESC',
+					),
+					array(
+						'type'        => 'porto_button_group',
+						'heading'     => __( 'Order way for ID', 'porto-functionality' ),
+						'param_name'  => 'order_id',
+						/* translators: %s: Wordpress codex page */
+						'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						'value'       => array(
+							'DESC' => array(
+								'title' => esc_html__( 'Descending', 'porto-functionality' ),
+							),
+							'ASC'  => array(
+								'title' => esc_html__( 'Ascending', 'porto-functionality' ),
+							),
+						),
+						'dependency'  => array(
+							'element' => 'orderby',
+							'value'   => 'id',
+						),
+						'std'         => 'DESC',
+					),
+					array(
+						'type'        => 'porto_button_group',
+						'heading'     => __( 'Order way for Title', 'porto-functionality' ),
+						'param_name'  => 'order_title',
+						/* translators: %s: Wordpress codex page */
+						'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						'value'       => array(
+							'DESC' => array(
+								'title' => esc_html__( 'Descending', 'porto-functionality' ),
+							),
+							'ASC'  => array(
+								'title' => esc_html__( 'Ascending', 'porto-functionality' ),
+							),
+						),
+						'dependency'  => array(
+							'element' => 'orderby',
+							'value'   => 'title',
+						),
+						'std'         => 'DESC',
+					),
+					array(
+						'type'        => 'porto_button_group',
+						'heading'     => __( 'Order way for Random', 'porto-functionality' ),
+						'param_name'  => 'order_rand',
+						/* translators: %s: Wordpress codex page */
+						'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						'value'       => array(
+							'DESC' => array(
+								'title' => esc_html__( 'Descending', 'porto-functionality' ),
+							),
+							'ASC'  => array(
+								'title' => esc_html__( 'Ascending', 'porto-functionality' ),
+							),
+						),
+						'dependency'  => array(
+							'element' => 'orderby',
+							'value'   => 'rand',
+						),
+						'std'         => 'DESC',
+					),
+					array(
+						'type'        => 'porto_button_group',
+						'heading'     => __( 'Order way for Menu Order', 'porto-functionality' ),
+						'param_name'  => 'order_menu_order',
+						/* translators: %s: Wordpress codex page */
+						'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						'value'       => array(
+							'DESC' => array(
+								'title' => esc_html__( 'Descending', 'porto-functionality' ),
+							),
+							'ASC'  => array(
+								'title' => esc_html__( 'Ascending', 'porto-functionality' ),
+							),
+						),
+						'dependency'  => array(
+							'element' => 'orderby',
+							'value'   => 'menu_order',
+						),
+						'std'         => 'DESC',
+					),
+					array(
+						'type'        => 'porto_button_group',
+						'heading'     => __( 'Order way for Price', 'porto-functionality' ),
+						'param_name'  => 'order_price',
+						/* translators: %s: Wordpress codex page */
+						'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						'value'       => array(
+							'DESC' => array(
+								'title' => esc_html__( 'Descending', 'porto-functionality' ),
+							),
+							'ASC'  => array(
+								'title' => esc_html__( 'Ascending', 'porto-functionality' ),
+							),
+						),
+						'dependency'  => array(
+							'element' => 'orderby',
+							'value'   => 'price',
+						),
+						'std'         => 'DESC',
+					),
+					array(
+						'type'        => 'porto_button_group',
+						'heading'     => __( 'Order way for Popularity', 'porto-functionality' ),
+						'param_name'  => 'order_popularity',
+						/* translators: %s: Wordpress codex page */
+						'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						'value'       => array(
+							'DESC' => array(
+								'title' => esc_html__( 'Descending', 'porto-functionality' ),
+							),
+							'ASC'  => array(
+								'title' => esc_html__( 'Ascending', 'porto-functionality' ),
+							),
+						),
+						'dependency'  => array(
+							'element' => 'orderby',
+							'value'   => 'popularity',
+						),
+						'std'         => 'DESC',
+					),
+					array(
+						'type'        => 'porto_button_group',
+						'heading'     => __( 'Order way for Rating', 'porto-functionality' ),
+						'param_name'  => 'order_rating',
+						/* translators: %s: Wordpress codex page */
+						'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'js_composer' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+						'value'       => array(
+							'DESC' => array(
+								'title' => esc_html__( 'Descending', 'porto-functionality' ),
+							),
+							'ASC'  => array(
+								'title' => esc_html__( 'Ascending', 'porto-functionality' ),
+							),
+						),
+						'dependency'  => array(
+							'element' => 'orderby',
+							'value'   => 'rating',
+						),
+						'std'         => 'DESC',
 					),
 					array(
 						'type'        => 'autocomplete',
@@ -326,6 +491,45 @@ function porto_load_products_shortcode() {
 	add_filter( 'vc_autocomplete_porto_products_ids_render', 'porto_shortcode_products_ids_render', 10, 1 ); // Render exact product. Must return an array (label,value)
 	//For param: ID default value filter
 	add_filter( 'vc_form_fields_render_field_porto_products_ids_param_value', 'porto_shortcode_products_ids_param_value', 10, 4 ); // Defines default value for param if not provided. Takes from other param value.
+
+	// add_filter( 'vc_autocomplete_porto_products_orderby_callback',  );
+	add_filter(
+		'vc_autocomplete_porto_products_orderby_render',
+		function( $query ) {
+			$options         = array();
+			$order_by_values = porto_vc_woo_order_by();
+			if ( count( $order_by_values ) ) {
+				foreach ( $order_by_values as $key => $value ) {
+					if ( ! empty( $value ) && false !== strpos( $value, $query['value'] ) ) {
+						$options = array(
+							'label' => $key,
+							'value' => $value,
+						);
+						break;
+					}
+				}
+			}
+			return $options;
+		}
+	);
+	add_filter(
+		'vc_autocomplete_porto_products_orderby_callback',
+		function( $query ) {
+			$options         = array();
+			$order_by_values = porto_vc_woo_order_by();
+			if ( count( $order_by_values ) ) {
+				foreach ( $order_by_values as $key => $value ) {
+					if ( false !== strpos( $value, $query ) ) {
+						$options[] = array(
+							'label' => $key,
+							'value' => $value,
+						);
+					}
+				}
+			}
+			return $options;
+		}
+	);
 
 	if ( ! class_exists( 'WPBakeryShortCode_Porto_Products' ) ) {
 		class WPBakeryShortCode_Porto_Products extends WPBakeryShortCode {

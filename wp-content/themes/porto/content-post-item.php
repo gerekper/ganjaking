@@ -70,50 +70,10 @@ if ( $post_style && 'style-3' == $post_style ) {
 	</a></h4>
 	<?php endif; ?>
 	<?php echo porto_get_excerpt( $excerpt_length, false ); ?> <a href="<?php the_permalink(); ?>" class="btn <?php echo esc_attr( $porto_post_btn_style ? $porto_post_btn_style : $porto_settings['post-related-btn-style'] ); ?> <?php echo esc_attr( $porto_post_btn_color ? $porto_post_btn_color : $porto_settings['post-related-btn-color'] ); ?> <?php echo esc_attr( $porto_post_btn_size ? $porto_post_btn_size : $porto_settings['post-related-btn-size'] ); ?> m-t-md m-b-md"><?php esc_html_e( 'Read More', 'porto' ); ?></a> </div>
-<?php } elseif ( 'style-2' == $post_style ) { ?>
-
-	<?php
-	$post_meta = '';
-
-	$post_meta .= '<div class="post-meta">';
-
-	if ( in_array( 'date', $porto_settings['post-metas'] ) ) {
-		$post_meta .= '<span class="meta-date"><i class="far fa-calendar-alt"></i>' . get_the_date() . '</span>';
-	}
-
-	if ( in_array( 'author', $porto_settings['post-metas'] ) ) {
-		$post_meta .= '<span class="meta-author"><i class="far fa-user"></i> <span>' . esc_html__( 'By ', 'porto' ) . '</span>' . get_the_author_posts_link() . '</span>';
-	}
-
-	$cats_list = get_the_category_list( ', ' );
-	if ( $cats_list && in_array( 'cats', $porto_settings['post-metas'] ) ) {
-		$post_meta .= '<span class="meta-cats"><i class="far fa-folder"></i>' . porto_filter_output( $cats_list ) . '</span>';
-	}
-
-	$tags_list = get_the_tag_list( '', ', ' );
-	if ( $tags_list && in_array( 'tags', $porto_settings['post-metas'] ) ) {
-		$post_meta .= '<span class="meta-tags"><i class="far fa-envelope"></i>' . porto_filter_output( $tags_list ) . '</span>';
-	}
-	if ( in_array( 'comments', $porto_settings['post-metas'] ) ) {
-		$post_meta .= '<span class="meta-comments"><i class="far fa-comments"></i>' . get_comments_popup_link( __( '0 Comments', 'porto' ), __( '1 Comment', 'porto' ), '% ' . __( 'Comments', 'porto' ) ) . '</span>';
-	}
-
-	if ( function_exists( 'Post_Views_Counter' ) && 'manual' == Post_Views_Counter()->options['display']['position'] && in_array( 'post', (array) Post_Views_Counter()->options['general']['post_types_count'] ) ) {
-		$post_count = do_shortcode( '[post-views]' );
-		if ( $post_count ) {
-			$post_meta .= $post_count;
-		}
-	}
-
-	if ( in_array( 'like', $porto_settings['post-metas'] ) ) {
-		$post_meta .= '<span class="meta-like">' . porto_blog_like() . '</span>';
-	}
-
-	$post_meta .= '</div>';
-
+<?php
+} elseif ( 'style-2' == $post_style ) {
 	$post_share = get_post_meta( $post->ID, 'post_share', true );
 	?>
-
 
 <div class="post-item style-2<?php echo ( 'without-icon' == $porto_settings['post-title-style'] ) ? ' post-title-simple' : ''; ?>">
 	<?php if ( $attachment && $attachment_related ) : ?>
@@ -125,10 +85,17 @@ if ( $post_style && 'style-3' == $post_style ) {
 	<?php endif; ?>
 	<div class="post-recent-main">
 	<!-- Post meta before content -->
-	<?php
+<?php
 	if ( 'before' === $porto_settings['post-meta-position'] ) {
-		echo porto_filter_output( $post_meta );}
-	?>
+		get_template_part(
+			'views/posts/single/meta',
+			null,
+			array(
+				'show_date' => true,
+			)
+		);
+	}
+?>
 	<div class="post-recent-content"> 
 		<h5> <a class="text-<?php echo 'dark' == $porto_settings['css-type'] ? 'light' : 'dark'; ?>" href="<?php the_permalink(); ?>">
 		<?php the_title(); ?>
@@ -136,22 +103,29 @@ if ( $post_style && 'style-3' == $post_style ) {
 		<?php echo porto_get_excerpt( $excerpt_length, false ); ?>
 	</div>
 	<!-- Post meta after content -->
-	<?php
+<?php
 	if ( 'before' !== $porto_settings['post-meta-position'] ) {
-		echo porto_filter_output( $post_meta );}
-	?>
+		get_template_part(
+			'views/posts/single/meta',
+			null,
+			array(
+				'show_date' => true,
+			)
+		);
+	}
+?>
 	</div>
 </div>
 <?php } elseif ( 'style-4' == $post_style ) { ?>
-<div class="post-item style-4<?php echo 'without-icon' == $porto_settings['post-title-style'] ? ' post-title-simple' : ''; ?>"> <span class="thumb-info thumb-info-side-image thumb-info-no-zoom">
+<div class="post-item style-4<?php echo 'without-icon' == $porto_settings['post-title-style'] ? ' post-title-simple' : ''; ?>"> <div class="thumb-info thumb-info-side-image thumb-info-no-zoom">
 	<?php if ( $attachment && $attachment_related ) : ?>
-	<a href="<?php the_permalink(); ?>"> <span class="post-image thumb-info-side-image-wrapper"> <img class="img-responsive" width="<?php echo esc_attr( $attachment_related['width'] ); ?>" height="<?php echo esc_attr( $attachment_related['height'] ); ?>" src="<?php echo esc_url( $attachment_related['src'] ); ?>" alt="<?php echo esc_attr( $attachment_related['alt'] ); ?>" />
+	<a href="<?php the_permalink(); ?>"> <span class="post-image thumb-info-side-image-wrapper"> <img class="img-responsive porto-skip-lz" width="<?php echo esc_attr( $attachment_related['width'] ); ?>" height="<?php echo esc_attr( $attachment_related['height'] ); ?>" src="<?php echo esc_url( $attachment_related['src'] ); ?>" alt="<?php echo esc_attr( $attachment_related['alt'] ); ?>" />
 		<?php if ( $porto_settings['post-zoom'] ) : ?>
 	<span class="zoom" data-src="<?php echo esc_url( $attachment['src'] ); ?>" data-title="<?php echo esc_attr( $attachment['caption'] ); ?>"><i class="fas fa-search"></i></span>
 	<?php endif; ?>
 	</span> </a>
 	<?php endif; ?>
-	<span class="thumb-info-caption"> <span class="thumb-info-caption-text"> <a class="post-title" href="<?php the_permalink(); ?>">
+	<div class="thumb-info-caption"> <div class="thumb-info-caption-text"> <a class="post-title" href="<?php the_permalink(); ?>">
 			<h2 class="m-b-sm m-t-xs">
 			<?php the_title(); ?>
 			</h2>
@@ -226,7 +200,7 @@ if ( $post_style && 'style-3' == $post_style ) {
 		?>
 		</div>
 		<?php echo porto_get_excerpt( $excerpt_length, true, true ); ?>
-	</span> </span> </span>
+	</div> </div> </div>
 </div>
 <?php } elseif ( 'style-5' == $post_style ) { ?>
 <div class="post-item style-5<?php echo 'without-icon' == $porto_settings['post-title-style'] ? ' post-title-simple' : ''; ?>">

@@ -29,7 +29,7 @@ global $porto_settings, $porto_layout;
 
 					// show welcome message
 					if ( $porto_settings['welcome-msg'] ) {
-						echo '<span class="welcome-msg">' . do_shortcode( $porto_settings['welcome-msg'] ) . '</span>';
+						echo '<div class="welcome-msg">' . do_shortcode( $porto_settings['welcome-msg'] ) . '</div>';
 					}
 					?>
 				</div>
@@ -91,7 +91,7 @@ global $porto_settings, $porto_layout;
 
 				// show mobile toggle
 				?>
-				<a class="mobile-toggle"><i class="fas fa-bars"></i></a>
+				<a class="mobile-toggle" href="#"><i class="fas fa-bars"></i></a>
 				<?php
 				if ( $porto_settings['show-header-top'] || $porto_settings['show-sticky-minicart'] ) {
 					// show minicart

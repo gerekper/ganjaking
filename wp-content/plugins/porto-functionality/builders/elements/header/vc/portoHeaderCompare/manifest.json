@@ -1,0 +1,22 @@
+{
+	"elements": {
+		"portoHeaderCompare": {
+			"settings": {
+				"name": "Porto Header Compare",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-hb.jpg",
+				"metaDescription": "Porto VC element to display compare icon in header"
+			},
+			"phpFiles": [
+				"PortoCompareController.php"
+			]
+		}
+	},
+	"categories": {
+		"Icon": {
+			"elements": [
+				"portoHeaderCompare"
+			]
+		}
+	}
+}

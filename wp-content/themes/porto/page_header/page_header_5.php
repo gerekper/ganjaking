@@ -28,7 +28,7 @@ if ( isset( $is_shortcode ) ) {
 		<?php
 		porto_breadcrumbs_filter();
 		?>
-		<div class="text-right<?php echo ! $hide_title ? '' : ' d-none', $breadcrumbs ? ' col-lg-6' : ' col-lg-12'; ?>">
+		<div class="text-end<?php echo ! $hide_title ? '' : ' d-none', $breadcrumbs ? ' col-lg-6' : ' col-lg-12'; ?>">
 			<h1 class="page-title<?php echo ! $sub_title ? '' : ' b-none'; ?>"><?php echo porto_strip_script_tags( $title ); ?></h1>
 			<?php
 			if ( $sub_title ) :

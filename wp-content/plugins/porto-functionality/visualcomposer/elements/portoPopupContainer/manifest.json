@@ -1,0 +1,18 @@
+{
+	"elements": {
+		"portoPopupContainer": {
+			"settings": {
+				"name": "Popup Container",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-image.jpg"
+			}
+		}
+	},
+	"categories": {
+		"Section": {
+			"elements": [
+				"portoPopupContainer"
+			]
+		}
+	}
+}

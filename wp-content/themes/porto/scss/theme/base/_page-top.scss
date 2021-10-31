@@ -19,6 +19,7 @@
 
     .breadcrumbs-wrap {
         font-size: 0.75rem;
+        position: relative;
     }
     .breadcrumbs-prefix {
         margin-#{$right}: 10px;
@@ -70,7 +71,6 @@
         position: relative;
         letter-spacing: -.05em;
         text-transform: none;
-        position: relative;
         z-index: 2;
         @media #{$screen-medium} {
             font-size: 2em;

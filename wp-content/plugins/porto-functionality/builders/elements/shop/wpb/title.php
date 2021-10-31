@@ -5,6 +5,7 @@ extract(
 		array(
 			'font_size'   => '',
 			'font_weight' => '',
+			'text_transform' => '',
 			'line_height' => '',
 			'ls'          => '',
 			'color'       => '',
@@ -24,6 +25,9 @@ if ( $font_size ) {
 }
 if ( ! empty( $font_weight ) ) {
 	$inline_style .= 'font-weight:' . esc_html( $font_weight ) . ';';
+}
+if ( ! empty( $text_transform ) ) {
+	$inline_style .= 'text-transform:' . esc_html( $text_transform ) . ';';
 }
 if ( $line_height ) {
 	$unit = trim( preg_replace( '/[0-9.]/', '', $line_height ) );

@@ -1,0 +1,69 @@
+/* Layouts */
+.ccols-xl-2 > * {
+	flex: 0 0 auto;
+	width: 50%;
+}
+.ccols-xl-3 > * {
+	flex: 0 0 auto;
+	width: 33.3333%;
+}
+.ccols-xl-4 > * {
+	flex: 0 0 auto;
+	width: 25%;
+}
+.ccols-xl-5 > * {
+	flex: 0 0 auto;
+	width: 20%;
+}
+.ccols-xl-6 > * {
+	flex: 0 0 auto;
+	width: 16.6666%;
+}
+.ccols-xl-7 > * {
+	flex: 0 0 auto;
+	width: 14.2857%;
+}
+.ccols-xl-8 > * {
+	flex: 0 0 auto;
+	width: 12.5%;
+}
+.ccols-xl-9 > * {
+	flex: 0 0 auto;
+	width: 11.1111%;
+}
+.ccols-xl-10 > * {
+	flex: 0 0 auto;
+	width: 10%;
+}
+.shop_table.wishlist_table .add-links {
+	flex-direction: row;
+}
+.shop_table.wishlist_table .quickview {
+	margin-#{$right}: 10px;
+	margin-bottom: 0;
+}
+
+.col-xl-4 {
+	flex: 0 0 auto;
+	width: 33.3333%
+}
+.col-xl-8 {
+	flex: 0 0 auto;
+	width: 66.6666%
+}
+.col-xl-12 {
+	flex: 0 0 auto;
+	width: 100%;
+}
+
+.text-xl-start {
+	text-align: $left !important;
+}
+
+.text-xl-end {
+	text-align: $right !important;
+}
+
+@media (min-width: 1600px) {
+	.wp-block, .container { max-width: var(--porto-container-width, 1200px); }
+}

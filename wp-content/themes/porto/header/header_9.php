@@ -60,7 +60,7 @@ global $porto_settings, $porto_layout;
 	<div class="header-main">
 		<div class="container header-row">
 			<div class="header-left">
-				<a class="mobile-toggle"><i class="fas fa-bars"></i></a>
+				<a class="mobile-toggle" href="#"><i class="fas fa-bars"></i></a>
 				<?php
 				// show logo
 				echo porto_logo();

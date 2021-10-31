@@ -1,0 +1,76 @@
+@if $elementId != false {
+	.single-meta-$elementId {
+		@if $metaSpacing != false {
+			.product_meta span+span {
+				@if $spType == block {
+					margin-top: $(metaSpacing)px;
+				}
+				@if $spType == inline {
+					margin-left: $(metaSpacing)px;
+				}				
+			}
+		}
+		&.show-divider {
+			.product_meta>*:not(:last-child):after {
+				@if $dividerStyle != false {
+					content: '';
+					border-style: $dividerStyle;
+					border-width: 0;
+				}
+				@if $dividerWeight != false {
+					@if $spType == inline {
+						border-left-width: $(dividerWeight)px;
+						margin-left: 5px;
+					}
+				}
+				@if $dividerWeightV != false {
+					@if $spType == block {
+						display: block;
+						border-top-width: $(dividerWeightV)px;
+					}
+				}
+				@if $dividerColor != false {
+					border-color: $dividerColor;
+				}
+				@if $dividerSpacing != false {
+					@if $spType == inline {
+						margin: 0 $(dividerSpacing)px 0 calc( $(dividerSpacing)px + 4px );
+					}
+					@if $spType == block {
+						margin: $(dividerSpacing)px 0;
+					}
+				}
+			}
+
+		}
+
+		@if $spType != false {
+			@if $spType == block {
+				.product_meta > * {
+					display: $spType;
+				}
+			}
+
+		}
+		@if $spLinkColor != false {
+			a {
+				color: $spLinkColor;
+			}
+		}
+		
+		.product_meta {
+			@if $fontSize != false {
+				font-size: $fontSize;
+			}
+			@if $lineHeight != false {
+				line-height: $lineHeight;
+			}
+			@if $letterSpacing != false {
+				letter-spacing: $letterSpacing;
+			}
+			@if $spTextColor != false {
+				color: $spTextColor;
+			}
+		}
+	}
+}

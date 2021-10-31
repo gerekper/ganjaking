@@ -150,7 +150,7 @@ if ( $count ) :
 	endif;
 	?>
 	<article <?php post_class( $post_class ); ?>>
-		<?php porto_render_rich_snippets(); ?>
+		<?php porto_render_rich_snippets( 'h3' ); ?>
 		<a class="portfolio-link" href="<?php
 		if ( $portfolio_show_link_zoom ) {
 			foreach ( $featured_images as $featured_image ) {

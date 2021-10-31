@@ -63,7 +63,7 @@ $porto_woo_version = porto_get_woo_version_number();
 												if ( ! $product_permalink ) {
 													echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', esc_html( $_product->get_name() ), $cart_item, $cart_item_key ) . '&nbsp;' );
 												} else {
-													echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s" class="text-v-dark font-weight-medium">%s</a>', $_product->get_permalink( $cart_item ), esc_html( $_product->get_name() ) ), $cart_item, $cart_item_key ) );
+													echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', $_product->get_permalink( $cart_item ), esc_html( $_product->get_name() ) ), $cart_item, $cart_item_key ) );
 												}
 
 												do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );

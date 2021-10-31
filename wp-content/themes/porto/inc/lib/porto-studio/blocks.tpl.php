@@ -59,7 +59,7 @@ if ( porto_is_ajax() ) {
 			<div class="block" data-template_name="<?php echo function_exists( 'vc_slugify' ) ? esc_attr( vc_slugify( $block['t'] ) ) : sanitize_title( $block['t'] ); ?>">
 				<img <?php echo ! $is_ajax ? 'data-original' : 'src'; ?>="<?php echo esc_url( isset( $block['img'] ) ? $block['img'] : '//sw-themes.com/porto_dummy/wp-content/uploads/studio/' . ( (int) $block['ID'] ) . '.jpg' ); ?>" alt="<?php echo esc_attr( $block['t'] ); ?>"<?php echo isset( $block['w'] ) && $block['w'] ? ' width="' . intval( $block['w'] ) . '"' : '', isset( $block['h'] ) && $block['h'] ? ' height="' . intval( $block['h'] ) . '"' : ''; ?>>
 				<div class="block-actions">
-					<a href="<?php echo esc_url( $block['u'] ); ?>" class="btn btn-dark" target="_blank"><i class="fas fa-search-plus"></i><?php esc_html_e( 'Preview', 'porto' ); ?></a>
+					<a href="<?php echo esc_url( $block['u'] ); ?>" class="btn btn-dark" target="_blank" rel="noopener noreferrer"><i class="fas fa-search-plus"></i><?php esc_html_e( 'Preview', 'porto' ); ?></a>
 					<?php if ( ( function_exists( 'Porto' ) && Porto()->is_registered() || get_option( 'porto_registered' ) ) ) : ?>
 						<button class="btn btn-primary import" data-id="<?php echo esc_attr( $block['ID'] ); ?>"><i class="fas fa-download"></i><?php esc_html_e( 'Import', 'porto' ); ?></button>
 					<?php endif; ?>

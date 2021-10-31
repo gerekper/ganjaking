@@ -3,10 +3,6 @@
 // Porto Sticky
 add_action( 'vc_after_init', 'porto_load_sticky_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_sticky_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -18,6 +14,7 @@ function porto_load_sticky_shortcode() {
 			'name'            => 'Porto ' . __( 'Sticky', 'porto-functionality' ),
 			'base'            => 'porto_sticky',
 			'category'        => __( 'Porto', 'porto-functionality' ),
+			'description'     => __( 'Stick any elements especially images or text', 'porto-functionality' ),
 			'icon'            => 'fas fa-compress',
 			'as_parent'       => array( 'except' => 'porto_sticky' ),
 			'content_element' => true,
@@ -26,10 +23,11 @@ function porto_load_sticky_shortcode() {
 			'js_view'         => 'VcColumnView',
 			'params'          => array(
 				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Container Selector', 'porto-functionality' ),
-					'param_name' => 'container_selector',
-					'value'      => '',
+					'type'        => 'textfield',
+					'heading'     => __( 'Container Selector', 'porto-functionality' ),
+					'description' => esc_html__( 'Closest parent element which contains sticky and background elements.', 'porto-functionality' ),
+					'param_name'  => 'container_selector',
+					'value'       => '',
 				),
 				array(
 					'type'        => 'textfield',

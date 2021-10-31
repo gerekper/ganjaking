@@ -1,10 +1,8 @@
 <?php
-if ( ! is_singular() && ! isset( $_GET['post'] ) && ! isset( $_GET['post_id'] ) ) {
+if ( ( ! is_singular() && ! isset( $_GET['post'] ) && ! isset( $_GET['post_id'] ) ) && empty( $is_page_layout ) ) {
 	return;
 }
-	$post_id      = is_singular() ? get_the_ID() : ( isset( $_GET['post'] ) ? (int) $_GET['post'] : (int) $_GET['post_id'] );
-	$builder_type = get_post_meta( $post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, true );
-if ( ! $builder_type || ! in_array( $builder_type, array( 'header', 'footer', 'shop', 'product' ) ) ) {
+if ( ! $builder_type || ! in_array( $builder_type, array( 'header', 'footer', 'shop', 'product', 'popup', 'block' ) ) ) {
 	return;
 }
 
@@ -134,6 +132,6 @@ if ( empty( $conditions ) ) {
 			<a href="#" class="btn btn-quaternary btn-sm btn-add-condition"><i class="fas fa-plus"></i> <?php esc_html_e( 'New Condition', 'porto-functionaltiy' ); ?></a>
 		</div>
 		<button type="button" class="btn btn-primary save-condition"><?php esc_html_e( 'Save &amp; Close', 'porto-functionaltiy' ); ?></button>
-		<?php wp_nonce_field( 'porto-builder-condition-nonce' ); ?>
+		<?php empty( $is_page_layout ) ? wp_nonce_field( 'porto-builder-condition-nonce' ) : wp_nonce_field( 'porto-page-layouts-nonce' ); ?>
 	</form>
 </div>

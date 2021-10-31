@@ -1,0 +1,22 @@
+{
+	"elements": {
+		"portoCircularBar": {
+			"settings": {
+				"name": "Porto Circular Bar",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-image.jpg",
+				"metaDescription": "Show visually progress of work."
+			},
+			"phpFiles": [
+				"PortoCircularController.php"
+			]
+		}
+	},
+	"categories": {
+		"Charts": {
+			"elements": [
+				"portoCircularBar"
+			]
+		}
+	}
+}

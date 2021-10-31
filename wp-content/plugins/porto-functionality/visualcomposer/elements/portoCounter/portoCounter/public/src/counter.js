@@ -6,12 +6,16 @@
     }
 
     var initCounter = function(obj) {
-      var endNum = parseFloat($(obj).find('.stats-number').attr('data-counter-value')),
-        Num = ($(obj).find('.stats-number').attr('data-counter-value'))+' ',
-        speed = parseInt($(obj).find('.stats-number').attr('data-speed')),
-        ID = $(obj).find('.stats-number').attr('data-id'),
-        sep = $(obj).find('.stats-number').attr('data-separator'),
-        dec = $(obj).find('.stats-number').attr('data-decimal'),
+      if (typeof obj == 'undefined') {
+          obj = this;
+      }
+      var $obj = jQuery(obj),
+        endNum = parseFloat($obj.find('.stats-number').attr('data-counter-value')),
+        Num = ($obj.find('.stats-number').attr('data-counter-value'))+' ',
+        speed = parseInt($obj.find('.stats-number').attr('data-speed')),
+        ID = $obj.find('.stats-number').attr('data-id'),
+        sep = $obj.find('.stats-number').attr('data-separator'),
+        dec = $obj.find('.stats-number').attr('data-decimal'),
         dec_count = Num.split(".");
       if (dec_count[1]) {
         dec_count = dec_count[1].length-1;
@@ -49,18 +53,14 @@
     } else {
       $stats = $elements.find( '.stats-block' );
     }
-    $stats.each(function() {
-      if (window.theme && theme.appear) {
-        theme.appear(this, function() {
-          initCounter(this);
-        }, {
-          accX: 0,
-          accY: -150
+
+    if (window.theme && theme.intObs) {
+        theme.intObs(jQuery.makeArray($stats), initCounter, -50);
+    } else {
+        $stats.each(function() {
+            initCounter(this);
         });
-      } else {
-        initCounter(this);
-      }
-    });
+    }
   }
   vcv.on('ready', function (action, id, options) {
     var updateAttrs = ['counter_value', 'counter_sep', 'counter_decimal', 'counter_prefix', 'counter_suffix', 'speed'],

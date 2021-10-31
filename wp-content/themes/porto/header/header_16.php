@@ -87,7 +87,7 @@ global $porto_settings, $porto_layout;
 
 				// show mobile toggle
 				?>
-				<a class="mobile-toggle"><i class="fas fa-bars"></i></a>
+				<a class="mobile-toggle" href="#"><i class="fas fa-bars"></i></a>
 				<div id="main-menu"
 				<?php
 				if ( $porto_settings['show-header-top'] ) {

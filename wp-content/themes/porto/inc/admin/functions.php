@@ -566,14 +566,14 @@ if ( ! function_exists( 'porto_header_builder_presets' ) ) :
 				'elements'   => array(
 					'top_left'           => '[{"contact":""}]',
 					'top_right'          => '[{"social":""}]',
-					'main_left'          => '[{"html":"<div class=\"feature-box feature-box-style-2 align-items-center\">\n\t<div class=\"feature-box-icon font-size-sm\">\n\t\t<i class=\"far fa-clock\"></i>\n\t</div>\n\t<div class=\"feature-box-info pl-2\">\n\t\t<p class=\"pb-0 font-weight-semibold font-size-sm mb-0\">MON - FRI: 10:00 - 18:00<br>SAT - SUN: 10:00 - 14:00</p>\n\t</div>\n</div>"}]',
+					'main_left'          => '[{"html":"<div class=\"feature-box feature-box-style-2 align-items-center\">\n\t<div class=\"feature-box-icon font-size-sm\">\n\t\t<i class=\"far fa-clock\"></i>\n\t</div>\n\t<div class=\"feature-box-info ps-2\">\n\t\t<p class=\"pb-0 font-weight-semibold font-size-sm mb-0\">MON - FRI: 10:00 - 18:00<br>SAT - SUN: 10:00 - 14:00</p>\n\t</div>\n</div>"}]',
 					'main_center'        => '[{"logo":""}]',
-					'main_right'         => '[{"html":"<div class=\"feature-box reverse-allres feature-box-style-2 align-items-center\">\n\t<div class=\"feature-box-icon font-size-sm\">\n\t\t<i class=\"fab fa-whatsapp\"></i>\n\t</div>\n\t<div class=\"feature-box-info pr-2 mt-1\">\n\t\t<p class=\"mb-0 font-weight-semibold font-size-sm\">(123) 456-7890<br>(123) 456-7891</p>\n\t</div>\n</div>"}]',
+					'main_right'         => '[{"html":"<div class=\"feature-box reverse-allres feature-box-style-2 align-items-center\">\n\t<div class=\"feature-box-icon font-size-sm\">\n\t\t<i class=\"fab fa-whatsapp\"></i>\n\t</div>\n\t<div class=\"feature-box-info pe-2 mt-1\">\n\t\t<p class=\"mb-0 font-weight-semibold font-size-sm\">(123) 456-7890<br>(123) 456-7891</p>\n\t</div>\n</div>"}]',
 					'bottom_center'      => '[{"main-menu":""}]',
 					'mobile_top_left'    => '[{"contact":""}]',
 					'mobile_top_right'   => '[{"social":""}]',
 					'mobile_main_center' => '[{"logo":""}]',
-					'mobile_main_right'  => '[{"html":"<div class=\"feature-box reverse-allres feature-box-style-2 align-items-center\">\n\t<div class=\"feature-box-icon font-size-sm\">\n\t\t<i class=\"fab fa-whatsapp\"></i>\n\t</div>\n\t<div class=\"feature-box-info pr-2 mt-1\">\n\t\t<p class=\"mb-0 font-weight-semibold font-size-sm\">(123) 456-7890<br>(123) 456-7891</p>\n\t</div>\n</div>"},{"menu-icon":""}]',
+					'mobile_main_right'  => '[{"html":"<div class=\"feature-box reverse-allres feature-box-style-2 align-items-center\">\n\t<div class=\"feature-box-icon font-size-sm\">\n\t\t<i class=\"fab fa-whatsapp\"></i>\n\t</div>\n\t<div class=\"feature-box-info pe-2 mt-1\">\n\t\t<p class=\"mb-0 font-weight-semibold font-size-sm\">(123) 456-7890<br>(123) 456-7891</p>\n\t</div>\n</div>"},{"menu-icon":""}]',
 				),
 				'custom_css' => '#header .feature-box p { line-height: 1.5; }@media (min-width: 992px) { .header-bottom { border-top: 1px solid rgba(0, 0, 0, .08); } }',
 				'options'    => array(

@@ -240,7 +240,7 @@ class Porto_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 					data-name="menu-item-icon[<?php echo esc_attr( $item_id ); ?>]"
 					value="<?php echo esc_attr( $item->icon ); ?>" />
 			<?php /* translators: $1: opening A tag which has link to the FontAwesome icons page $2: closing A tag */ ?>
-			<span><?php printf( esc_html__( 'Input icon class. You can see %1$sFont Awesome Icons in here%2$s. For example: fas fa-user', 'porto' ), '<a target="_blank" href="http://fortawesome.github.io/Font-Awesome/icons/">', '</a>' ); ?></span>
+			<span><?php printf( esc_html__( 'Input icon class. You can see %1$sFont Awesome Icons in here%2$s. For example: fas fa-user', 'porto' ), '<a target="_blank" href="http://fortawesome.github.io/Font-Awesome/icons/" rel="noopener noreferrer">', '</a>' ); ?></span>
 		</label>
 	</p>
 	<p class="description">
@@ -1161,6 +1161,10 @@ if ( ! class_exists( 'porto_sidebar_navwalker' ) ) {
 			if ( 0 == $depth && $args->has_children ) {
 				$item_output .= '<span class="arrow"></span>';
 			}
+			global $porto_settings;
+			if ( 1 == $depth && $args->has_children && isset( $porto_settings['side-menu-type'] ) && 'accordion' == $porto_settings['side-menu-type'] ) {
+				$item_output .= '<span class="arrow"></span>';
+			}
 
 			if ( 0 == $depth && $args->has_children ) {
 				global $porto_settings_optimize;
@@ -1308,7 +1312,7 @@ if ( ! function_exists( 'porto_action_lazyload_menu' ) ) :
 		if ( isset( $_POST['action'] ) && 'porto_lazyload_menu' == $_POST['action'] && isset( $_POST['menu_type'] ) /*&& wp_verify_nonce( $_POST['nonce'], 'porto-nonce' )*/) {
 			// phpcs:disable WordPress.Security.NonceVerification.NoNonceVerification
 			global $porto_settings_optimize, $porto_layout;
-			$on_pageload = ( 'pageload' == $porto_settings_optimize['lazyload_menu'] );
+			$on_pageload = ( isset( $porto_settings_optimize['lazyload_menu'] ) && 'pageload' == $porto_settings_optimize['lazyload_menu'] );
 			echo '<div class="menu-lazyload">';
 			$porto_settings_optimize['lazyload_menu'] = '';
 

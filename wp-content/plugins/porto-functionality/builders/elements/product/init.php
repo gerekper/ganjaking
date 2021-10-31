@@ -10,10 +10,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
 
 class PortoCustomProduct {
 
@@ -60,7 +56,7 @@ class PortoCustomProduct {
 		if ( defined( 'WPB_VC_VERSION' ) || defined( 'VCV_VERSION' ) ) {
 			add_action(
 				'template_redirect',
-				function() {
+				function () {
 					$should_add_shortcodes = false;
 					if ( ( is_singular( PortoBuilders::BUILDER_SLUG ) && 'product' == get_post_meta( get_the_ID(), PortoBuilders::BUILDER_TAXONOMY_SLUG, true ) ) || ! empty( $_GET['vcv-ajax'] ) || ( function_exists( 'porto_is_ajax' ) && porto_is_ajax() && ! empty( $_GET[ PortoBuilders::BUILDER_SLUG ] ) ) ) {
 						$should_add_shortcodes = true;
@@ -83,7 +79,7 @@ class PortoCustomProduct {
 
 			add_action(
 				'admin_init',
-				function() {
+				function () {
 					$should_add_shortcodes = false;
 					if ( wp_doing_ajax() && isset( $_REQUEST['action'] ) && 'vc_save' == $_REQUEST['action'] ) {
 						$should_add_shortcodes = true;
@@ -100,19 +96,17 @@ class PortoCustomProduct {
 			);
 		}
 
+		add_action( 'save_post', array( $this, 'add_shortcodes_css' ), 100, 2 );
+
 		if ( defined( 'WPB_VC_VERSION' ) ) {
 			if ( is_admin() || ( function_exists( 'vc_is_inline' ) && vc_is_inline() ) ) {
 				add_action( 'vc_after_init', array( $this, 'load_custom_product_shortcodes' ) );
-			}
-
-			if ( is_admin() ) {
-				add_action( 'save_post', array( $this, 'add_shortcodes_css' ), 99, 2 );
 			}
 		}
 
 		add_action(
 			'wp',
-			function() {
+			function () {
 				if ( is_singular( PortoBuilders::BUILDER_SLUG ) ) {
 					$terms = wp_get_post_terms( get_the_ID(), PortoBuilders::BUILDER_TAXONOMY_SLUG, array( 'fields' => 'names' ) );
 					if ( ! empty( $terms ) && 'product' == $terms[0] ) {
@@ -129,7 +123,7 @@ class PortoCustomProduct {
 			if ( is_admin() && isset( $_GET['action'] ) && 'elementor' === $_GET['action'] ) {
 				add_action(
 					'elementor/elements/categories_registered',
-					function( $self ) {
+					function ( $self ) {
 						$self->add_category(
 							'custom-product',
 							array(
@@ -146,6 +140,332 @@ class PortoCustomProduct {
 		if ( defined( 'VCV_VERSION' ) ) {
 			add_action( 'vcv:api', array( $this, 'vc_custom_product_shortcodes' ), 9 );
 		}
+
+		/**
+		 * Enqueue styles and scripts for single product gutenberg blocks
+		 *
+		 * @since 6.1
+		 */
+		if ( is_admin() ) {
+			$load_blocks = false;
+			if ( ( PortoBuilders::BUILDER_SLUG ) && isset( $_REQUEST['post'] ) && 'product' == get_post_meta( $_REQUEST['post'], PortoBuilders::BUILDER_TAXONOMY_SLUG, true ) ) {
+				$load_blocks = true;
+			}
+			if ( $load_blocks ) {
+				add_action(
+					'enqueue_block_editor_assets',
+					function () {
+						wp_enqueue_script( 'porto_single_product_blocks', PORTO_FUNC_URL . 'builders/elements/product/gutenberg/blocks.min.js', array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-data'/*, 'wp-editor'*/ ), PORTO_VERSION, true );
+					},
+					1000
+				);
+				add_filter(
+					'block_categories_all',
+					function ( $categories ) {
+						return array_merge(
+							$categories,
+							array(
+								array(
+									'slug'  => 'porto-single-product',
+									'title' => __( 'Porto Single Product Blocks', 'porto-functionality' ),
+									'icon'  => '',
+								),
+							)
+						);
+					},
+					11,
+					1
+				);
+			}
+		}
+
+		$gutenberg_attr = array(
+			'image'         => array(
+				'style' => array(
+					'type' => 'string',
+				),
+			),
+			'title'         => array(
+				'font_family'    => array(
+					'type' => 'string',
+				),
+				'font_size'      => array(
+					'type' => 'string',
+				),
+				'font_weight'    => array(
+					'type' => 'integer',
+				),
+				'text_transform' => array(
+					'type' => 'string',
+				),
+				'line_height'    => array(
+					'type' => 'string',
+				),
+				'letter_spacing' => array(
+					'type' => 'string',
+				),
+				'color'          => array(
+					'type' => 'string',
+				),
+				'el_class'       => array(
+					'type' => 'string',
+				),
+			),
+			'excerpt'       => array(
+				'font_size'   => array(
+					'type' => 'string',
+				),
+				'font_weight' => array(
+					'type' => 'integer',
+				),
+				'line_height' => array(
+					'type' => 'string',
+				),
+				'ls'          => array(
+					'type' => 'string',
+				),
+				'color'       => array(
+					'type' => 'string',
+				),
+			),
+			'price'         => array(
+				'font_family'         => array(
+					'type' => 'string',
+				),
+				'font_size'           => array(
+					'type' => 'string',
+				),
+				'font_weight'         => array(
+					'type' => 'integer',
+				),
+				'text_transform'      => array(
+					'type' => 'string',
+				),
+				'line_height'         => array(
+					'type' => 'string',
+				),
+				'letter_spacing'      => array(
+					'type' => 'string',
+				),
+				'color'               => array(
+					'type' => 'string',
+				),
+				'sale_font_family'    => array(
+					'type' => 'string',
+				),
+				'sale_font_size'      => array(
+					'type' => 'string',
+				),
+				'sale_font_weight'    => array(
+					'type' => 'integer',
+				),
+				'sale_text_transform' => array(
+					'type' => 'string',
+				),
+				'sale_line_height'    => array(
+					'type' => 'string',
+				),
+				'sale_letter_spacing' => array(
+					'type' => 'string',
+				),
+				'sale_color'          => array(
+					'type' => 'string',
+				),
+			),
+			'rating'        => array(
+				'font_size' => array(
+					'type' => 'string',
+				),
+				'bgcolor'   => array(
+					'type' => 'string',
+				),
+				'color'     => array(
+					'type' => 'string',
+				),
+			),
+			'actions'       => array(
+				'action' => array(
+					'type' => 'string',
+				),
+			),
+			'add_to_cart'   => array(),
+			'meta'          => array(),
+			'next_prev_nav' => array(),
+			'description'   => array(),
+			'tabs'          => array(
+				'style' => array(
+					'type' => 'string',
+				),
+			),
+			'upsell'        => array(
+				'title'              => array(
+					'type' => 'string',
+				),
+				'title_border_style' => array(
+					'type' => 'string',
+				),
+				'view'               => array(
+					'type'    => 'string',
+					'default' => 'grid',
+				),
+				'status'             => array(
+					'type' => 'string',
+				),
+				'count'              => array(
+					'type' => 'integer',
+				),
+				'orderby'            => array(
+					'type'    => 'string',
+					'default' => 'title',
+				),
+				'order'              => array(
+					'type'    => 'string',
+					'default' => 'asc',
+				),
+				'columns'            => array(
+					'type' => 'integer',
+				),
+				'columns_mobile'     => array(
+					'type' => 'string',
+				),
+				'column_width'       => array(
+					'type' => 'string',
+				),
+				'grid_layout'        => array(
+					'type' => 'integer',
+				),
+				'grid_height'        => array(
+					'type' => 'string',
+				),
+				'spacing'            => array(
+					'type' => 'integer',
+				),
+				'addlinks_pos'       => array(
+					'type' => 'string',
+				),
+				'navigation'         => array(
+					'type' => 'boolean',
+				),
+				'show_nav_hover'     => array(
+					'type' => 'boolean',
+				),
+				'pagination'         => array(
+					'type' => 'boolean',
+				),
+				'nav_pos'            => array(
+					'type' => 'string',
+				),
+				'nav_pos2'           => array(
+					'type' => 'string',
+				),
+				'nav_type'           => array(
+					'type' => 'string',
+				),
+				'dots_pos'           => array(
+					'type' => 'string',
+				),
+				'category_filter'    => array(
+					'type' => 'boolean',
+				),
+				'pagination_style'   => array(
+					'type' => 'string',
+				),
+			),
+			'related'       => array(
+				'title'              => array(
+					'type' => 'string',
+				),
+				'title_border_style' => array(
+					'type' => 'string',
+				),
+				'view'               => array(
+					'type'    => 'string',
+					'default' => 'grid',
+				),
+				'status'             => array(
+					'type' => 'string',
+				),
+				'count'              => array(
+					'type' => 'integer',
+				),
+				'orderby'            => array(
+					'type'    => 'string',
+					'default' => 'title',
+				),
+				'order'              => array(
+					'type'    => 'string',
+					'default' => 'asc',
+				),
+				'columns'            => array(
+					'type' => 'integer',
+				),
+				'columns_mobile'     => array(
+					'type' => 'string',
+				),
+				'column_width'       => array(
+					'type' => 'string',
+				),
+				'grid_layout'        => array(
+					'type' => 'integer',
+				),
+				'grid_height'        => array(
+					'type' => 'string',
+				),
+				'spacing'            => array(
+					'type' => 'integer',
+				),
+				'addlinks_pos'       => array(
+					'type' => 'string',
+				),
+				'navigation'         => array(
+					'type' => 'boolean',
+				),
+				'show_nav_hover'     => array(
+					'type' => 'boolean',
+				),
+				'pagination'         => array(
+					'type' => 'boolean',
+				),
+				'nav_pos'            => array(
+					'type' => 'string',
+				),
+				'nav_pos2'           => array(
+					'type' => 'string',
+				),
+				'nav_type'           => array(
+					'type' => 'string',
+				),
+				'dots_pos'           => array(
+					'type' => 'string',
+				),
+				'category_filter'    => array(
+					'type' => 'boolean',
+				),
+				'pagination_style'   => array(
+					'type' => 'string',
+				),
+			),
+		);
+
+		foreach ( $gutenberg_attr as $shortcode => $attr ) {
+			register_block_type(
+				'porto-single-product/porto-sp-' . str_replace( '_', '-', $shortcode ),
+				array(
+					'editor_script'   => 'porto_single_product_blocks',
+					'render_callback' => array( $this, 'shortcode_single_product_' . $shortcode ),
+					'attributes'      => $attr,
+				)
+			);
+		}
+
+		/* init google structured data */
+		add_action(
+			'init',
+			function() {
+				remove_action( 'woocommerce_single_product_summary', array( WC()->structured_data, 'generate_product_data' ), 60 );
+				add_action( 'woocommerce_after_single_product', array( WC()->structured_data, 'generate_product_data' ), 60 );
+			}
+		);
 	}
 
 	public function filter_body_class( $classes ) {
@@ -172,7 +492,8 @@ class PortoCustomProduct {
 	}
 
 	private function restore_global_product_variable() {
-		if ( ! $this->edit_product && ( is_singular( PortoBuilders::BUILDER_SLUG ) || ( wp_doing_ajax() && isset( $_REQUEST['action'] ) && 'elementor_ajax' == $_REQUEST['action'] ) ) ) {
+		if ( ! $this->edit_product && ( is_singular( PortoBuilders::BUILDER_SLUG ) || ( isset( $_REQUEST['context'] ) && 'edit' == $_REQUEST['context'] ) || ( wp_doing_ajax() && isset( $_REQUEST['action'] ) && 'elementor_ajax' == $_REQUEST['action'] ) ) ) {
+
 			$query = new WP_Query(
 				array(
 					'post_type'           => 'product',
@@ -226,9 +547,9 @@ class PortoCustomProduct {
 		}
 		ob_start();
 		echo '<div class="product-layout-image' . ( $style ? ' product-layout-' . esc_attr( $style ) : '' ) . '">';
-			echo '<div class="summary-before">';
-				woocommerce_show_product_sale_flash();
-			echo '</div>';
+		echo '<div class="summary-before">';
+		woocommerce_show_product_sale_flash();
+		echo '</div>';
 		global $porto_product_layout;
 		$porto_product_layout = $style;
 
@@ -261,20 +582,24 @@ class PortoCustomProduct {
 		extract(
 			shortcode_atts(
 				array(
-					'font_size'   => '',
-					'font_weight' => '',
-					'color'       => '',
-					'el_class'    => '',
+					'font_family'    => '',
+					'font_size'      => '',
+					'font_weight'    => '',
+					'text_transform' => '',
+					'line_height'    => '',
+					'letter_spacing' => '',
+					'color'          => '',
+					'el_class'       => '',
 				),
 				$atts
 			)
 		);
 
 		global $porto_settings;
-
-		$result .= '<h2 class="product_title entry-title' . ( ! $porto_settings['product-nav'] ? '' : ' show-product-nav' ) . ( $el_class ? ' ' . esc_attr( trim( $el_class ) ) : '' ) . '">';
-		$result .= esc_html( get_the_title() );
-		$result .= '</h2>';
+		$el_class = ! empty( $atts['className'] ) ? $atts['className'] : $el_class;
+		$result  .= '<h2 class="product_title entry-title' . ( ! $porto_settings['product-nav'] ? '' : ' show-product-nav' ) . ( $el_class ? ' ' . esc_attr( trim( $el_class ) ) : '' ) . '">';
+		$result  .= esc_html( get_the_title() );
+		$result  .= '</h2>';
 
 		$this->reset_global_product_variable();
 
@@ -312,7 +637,6 @@ class PortoCustomProduct {
 				$atts
 			)
 		);
-
 		if ( 'woocommerce_single_product_summary' == $action && defined( 'ELEMENTOR_VERSION' ) ) {
 			if ( ! has_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title' ) ) {
 				add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
@@ -423,7 +747,7 @@ class PortoCustomProduct {
 
 		ob_start();
 		echo '<div class="product-summary-wrap">';
-		if ( defined( 'ELEMENTOR_VERSION' ) && ! wp_doing_ajax() ) {
+		if ( ( defined( 'ELEMENTOR_VERSION' ) || function_exists( 'register_block_type' ) ) && ! wp_doing_ajax() ) {
 			if ( ! has_action( 'woocommerce_simple_add_to_cart', 'woocommerce_simple_add_to_cart' ) ) {
 				add_action( 'woocommerce_simple_add_to_cart', 'woocommerce_simple_add_to_cart', 30 );
 			}
@@ -527,7 +851,7 @@ class PortoCustomProduct {
 		$args = array(
 			'posts_per_page' => empty( $atts['count'] ) ? $porto_settings['product-upsells-count'] : $atts['count'],
 			'columns'        => $columns,
-			'orderby'        => empty( $atts['orderby'] ) ? 'rand' : $atts['orderby'], // @codingStandardsIgnoreLine.
+	  		'orderby'        => empty( $atts['orderby'] ) ? 'rand' : $atts['orderby'], // @codingStandardsIgnoreLine.
 		);
 
 		$args     = apply_filters( 'porto_woocommerce_upsell_display_args', $args );
@@ -580,7 +904,7 @@ class PortoCustomProduct {
 		$args = array(
 			'posts_per_page' => empty( $atts['count'] ) ? $porto_settings['product-related-count'] : $atts['count'],
 			'columns'        => $columns,
-			'orderby'        => empty( $atts['orderby'] ) ? 'rand' : $atts['orderby'], // @codingStandardsIgnoreLine.
+	  'orderby'        => empty( $atts['orderby'] ) ? 'rand' : $atts['orderby'], // @codingStandardsIgnoreLine.
 		);
 
 		$args     = apply_filters( 'woocommerce_related_products_args', $args );
@@ -600,7 +924,7 @@ class PortoCustomProduct {
 		ob_start();
 
 		echo '<div class="related products">';
-		$heading = apply_filters( 'woocommerce_product_related_products_heading', __( 'Related Products', 'woocommerce' ) );
+		$heading = apply_filters( 'woocommerce_product_related_products_heading', __( 'Related products', 'woocommerce' ) );
 		if ( $heading ) {
 			echo '<h2 class="slider-title">' . esc_html( $heading ) . '</h2>';
 		}
@@ -1077,7 +1401,6 @@ class PortoCustomProduct {
 			)
 		);
 	}
-
 	public function add_shortcodes_css( $post_id, $post ) {
 		if ( ! $post || ! isset( $post->post_type ) || PortoBuilders::BUILDER_SLUG != $post->post_type || ! $post->post_content || 'product' != get_post_meta( $post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, true ) ) {
 			return;
@@ -1086,18 +1409,48 @@ class PortoCustomProduct {
 			return;
 		}
 
-		ob_start();
-		$css = '';
-		preg_match_all( '/' . get_shortcode_regex( array( 'porto_single_product_title', 'porto_single_product_price', 'porto_single_product_excerpt', 'porto_single_product_rating' ) ) . '/', $post->post_content, $shortcodes );
-		foreach ( $shortcodes[2] as $index => $tag ) {
-			$atts = shortcode_parse_atts( trim( $shortcodes[3][ $index ] ) );
-			include PORTO_BUILDERS_PATH . '/elements/product/wpb/style-' . str_replace( array( 'porto_single_product_', '_' ), array( '', '-' ), $tag ) . '.php';
+		if ( defined( 'WPB_VC_VERSION' ) && false !== strpos( $post->post_content, '[porto_single_product_' ) ) {
+			ob_start();
+			$css = '';
+			preg_match_all( '/' . get_shortcode_regex( array( 'porto_single_product_title', 'porto_single_product_price', 'porto_single_product_excerpt', 'porto_single_product_rating' ) ) . '/', $post->post_content, $shortcodes );
+			foreach ( $shortcodes[2] as $index => $tag ) {
+				$atts = shortcode_parse_atts( trim( $shortcodes[3][ $index ] ) );
+				include PORTO_BUILDERS_PATH . '/elements/product/wpb/style-' . str_replace( array( 'porto_single_product_', '_' ), array( '', '-' ), $tag ) . '.php';
+			}
+			$css = ob_get_clean();
+			if ( $css ) {
+				update_post_meta( $post_id, 'porto_builder_css', wp_strip_all_tags( $css ) );
+			} else {
+				delete_post_meta( $post_id, 'porto_builder_css' );
+			}
+		} elseif ( false !== strpos( $post->post_content, '<!-- wp:porto-single-product' ) ) { // Gutenberg editor
+			$blocks = parse_blocks( $post->post_content );
+			if ( ! empty( $blocks ) ) {
+				ob_start();
+				$css = '';
+				$this->include_style( $blocks );
+
+				$css = ob_get_clean();
+				if ( $css ) {
+					update_post_meta( $post_id, 'porto_builder_css', wp_strip_all_tags( $css ) );
+				} else {
+					delete_post_meta( $post_id, 'porto_builder_css' );
+				}
+			}
 		}
-		$css = ob_get_clean();
-		if ( $css ) {
-			update_post_meta( $post_id, 'porto_builder_css', wp_strip_all_tags( $css ) );
-		} else {
-			delete_post_meta( $post_id, 'porto_builder_css' );
+	}
+	private function include_style( $blocks ) {
+		if ( empty( $blocks ) ) {
+			return;
+		}
+		foreach ( $blocks as $block ) {
+			if ( ! empty( $block['blockName'] ) && in_array( $block['blockName'], array( 'porto-single-product/porto-sp-title', 'porto-single-product/porto-sp-price', 'porto-single-product/porto-sp-excerpt', 'porto-single-product/porto-sp-rating' ) ) ) {
+				$atts = empty( $block['attrs'] ) ? array() : $block['attrs'];
+				include PORTO_BUILDERS_PATH . '/elements/product/wpb/style-' . str_replace( 'porto-single-product/porto-sp-', '', $block['blockName'] ) . '.php';
+			}
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$this->include_style( $block['innerBlocks'] );
+			}
 		}
 	}
 

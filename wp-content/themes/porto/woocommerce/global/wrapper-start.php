@@ -14,4 +14,4 @@ if ( 'widewidth' === $porto_layout && ( ! porto_is_product() || ! isset( $porto_
 	$extra_class_escaped .= ' m-b-lg m-t';
 }
 ?>
-<div id="primary" class="content-area"><main id="content" class="site-main<?php echo ! $extra_class_escaped ? '' : $extra_class_escaped; ?>" role="main">
+<div id="primary" class="content-area"><main id="content" class="site-main<?php echo ! $extra_class_escaped ? '' : $extra_class_escaped; ?>">

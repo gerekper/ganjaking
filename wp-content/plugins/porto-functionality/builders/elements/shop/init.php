@@ -51,10 +51,9 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 
 			if ( defined( 'WPB_VC_VERSION' ) ) {
 				add_action( 'vc_after_init', array( $this, 'load_wpb_map_elements' ) );
-
-				if ( is_admin() ) {
-					add_action( 'save_post', array( $this, 'add_wpb_shortcodes_css' ), 99, 2 );
-				}
+			}
+			if ( is_admin() ) {
+				add_action( 'save_post', array( $this, 'add_shortcodes_css' ), 99, 2 );
 			}
 
 			if ( defined( 'WPB_VC_VERSION' ) || defined( 'VCV_VERSION' ) ) {
@@ -96,7 +95,7 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 					add_action(
 						'vcv:api',
 						function( $api ) {
-							if ( function_exists( 'porto_is_vc_preview' ) && porto_is_vc_preview() ) {
+							if ( function_exists( 'porto_is_vc_preview' ) && porto_is_vc_preview() && isset( $_GET['vcv-source-id'] ) ) {
 								$post_id = $_GET['vcv-source-id'];
 								$terms   = wp_get_post_terms( $post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, array( 'fields' => 'names' ) );
 								if ( isset( $terms[0] ) && 'shop' == $terms[0] ) {
@@ -120,6 +119,8 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 					);
 				}
 			}
+
+			$this->add_gutenberg_elements();
 		}
 
 		public function add_elementor_elements( $self ) {
@@ -585,28 +586,453 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 		}
 
 		/**
-		 * Save shortcode css to post meta
+		 * Save shortcode css to post meta in WPBakery & Gutenberg editor
+		 *
+		 * @since 6.1.0
 		 */
-		public function add_wpb_shortcodes_css( $post_id, $post ) {
+		public function add_shortcodes_css( $post_id, $post ) {
 			if ( ! $post || ! isset( $post->post_type ) || PortoBuilders::BUILDER_SLUG != $post->post_type || ! $post->post_content || 'shop' != get_post_meta( $post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, true ) ) {
 				return;
 			}
 			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 				return;
 			}
+
+			if ( defined( 'WPB_VC_VERSION' ) && false !== strpos( $post->post_content, '[porto_sb_' ) ) {
+				ob_start();
+				$css = '';
+				preg_match_all( '/' . get_shortcode_regex( array( 'porto_sb_description', 'porto_sb_products' ) ) . '/', $post->post_content, $shortcodes );
+				foreach ( $shortcodes[2] as $index => $tag ) {
+					$atts = shortcode_parse_atts( trim( $shortcodes[3][ $index ] ) );
+					include PORTO_BUILDERS_PATH . '/elements/shop/wpb/style-' . str_replace( array( 'porto_sb_', '_' ), array( '', '-' ), $tag ) . '.php';
+				}
+				$css = ob_get_clean();
+				if ( $css ) {
+					update_post_meta( $post_id, 'porto_builder_css', wp_strip_all_tags( $css ) );
+				} else {
+					delete_post_meta( $post_id, 'porto_builder_css' );
+				}
+			} elseif ( false !== strpos( $post->post_content, '<!-- wp:porto-sb' ) ) { // Gutenberg editor
+				$blocks = parse_blocks( $post->post_content );
+				if ( ! empty( $blocks ) ) {
+					ob_start();
+					$css = '';
+					$this->include_style( $blocks );
+					$css = ob_get_clean();
+					if ( $css ) {
+						update_post_meta( $post_id, 'porto_builder_css', wp_strip_all_tags( $css ) );
+					} else {
+						delete_post_meta( $post_id, 'porto_builder_css' );
+					}
+				}
+			}
+		}
+
+		private function include_style( $blocks ) {
+			if ( empty( $blocks ) ) {
+				return;
+			}
+			foreach ( $blocks as $block ) {
+				if ( ! empty( $block['blockName'] ) && in_array( $block['blockName'], array( 'porto-sb/porto-products', 'porto-sb/porto-description' ) ) ) {
+					$atts = empty( $block['attrs'] ) ? array() : $block['attrs'];
+					include PORTO_BUILDERS_PATH . '/elements/shop/wpb/style-' . str_replace( 'porto-sb/porto-', '', $block['blockName'] ) . '.php';
+				}
+				if ( ! empty( $block['innerBlocks'] ) ) {
+					$this->include_style( $block['innerBlocks'] );
+				}
+			}
+		}
+
+		/**
+		 * Load gutenberg shop builder blocks
+		 *
+		 * @since 6.1.0
+		 */
+		private function add_gutenberg_elements() {
+
+			$load_blocks = false;
+			if ( is_admin() ) {
+				if ( ( PortoBuilders::BUILDER_SLUG ) && isset( $_REQUEST['post'] ) && 'shop' == get_post_meta( $_REQUEST['post'], PortoBuilders::BUILDER_TAXONOMY_SLUG, true ) ) {
+					$load_blocks = true;
+				}
+			}
+
+			if ( $load_blocks ) {
+				add_action(
+					'enqueue_block_editor_assets',
+					function () {
+						wp_enqueue_script( 'porto-sb-blocks', PORTO_FUNC_URL . 'builders/elements/shop/gutenberg/blocks.min.js', array( 'porto_blocks' ), PORTO_SHORTCODES_VERSION, true );
+					},
+					999
+				);
+				add_filter(
+					'block_categories_all',
+					function ( $categories ) {
+						return array_merge(
+							$categories,
+							array(
+								array(
+									'slug'  => 'porto-sb',
+									'title' => __( 'Porto Shop Blocks', 'porto-functionality' ),
+									'icon'  => '',
+								),
+							)
+						);
+					},
+					11,
+					1
+				);
+			}
+
+			register_block_type(
+				'porto-sb/porto-products',
+				array(
+					'attributes'      => array(
+						'view'                 => array(
+							'type'    => 'string',
+							'default' => 'grid',
+						),
+						'grid_layout'          => array(
+							'type'    => 'integer',
+							'default' => 1,
+						),
+						'grid_height'          => array(
+							'type'    => 'string',
+							'default' => '600px',
+						),
+						'spacing'              => array(
+							'type' => 'integer',
+						),
+						'columns'              => array(
+							'type'    => 'integer',
+							'default' => 4,
+						),
+						'columns_mobile'       => array(
+							'type' => 'integer',
+						),
+						'addlinks_pos'         => array(
+							'type' => 'string',
+						),
+						'overlay_bg_opacity'   => array(
+							'type'    => 'integer',
+							'default' => 30,
+						),
+						'image_size'           => array(
+							'type'    => 'string',
+							'default' => '',
+						),
+						'navigation'           => array(
+							'type'    => 'boolean',
+							'default' => true,
+						),
+						'nav_pos'              => array(
+							'type'    => 'string',
+							'default' => '',
+						),
+						'nav_pos2'             => array(
+							'type' => 'string',
+						),
+						'nav_type'             => array(
+							'type' => 'string',
+						),
+						'show_nav_hover'       => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+						'pagination'           => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+						'dots_pos'             => array(
+							'type' => 'string',
+						),
+						'dots_style'           => array(
+							'type' => 'string',
+						),
+						'autoplay'             => array(
+							'type'    => 'boolean',
+							'default' => false,
+						),
+						'autoplay_timeout'     => array(
+							'type'    => 'integer',
+							'default' => 5000,
+						),
+						'title_google_font'    => array(
+							'type' => 'string',
+						),
+						'title_font_size'      => array(
+							'type' => 'string',
+						),
+						'title_font_weight'    => array(
+							'type' => 'integer',
+						),
+						'title_text_transform' => array(
+							'type' => 'string',
+						),
+						'title_line_height'    => array(
+							'type' => 'string',
+						),
+						'title_ls'             => array(
+							'type' => 'string',
+						),
+						'title_color'          => array(
+							'type'    => 'string',
+							'default' => '',
+						),
+						'price_font_size'      => array(
+							'type' => 'string',
+						),
+						'price_font_weight'    => array(
+							'type' => 'integer',
+						),
+						'price_line_height'    => array(
+							'type' => 'string',
+						),
+						'price_ls'             => array(
+							'type' => 'string',
+						),
+						'price_color'          => array(
+							'type' => 'string',
+						),
+					),
+					'editor_script'   => 'porto-sb-blocks',
+					'render_callback' => array(
+						$this,
+						'gutenberg_sb_products',
+					),
+				)
+			);
+
+			$shop_blocks = array(
+				'toolbox',
+				'sort',
+				'count',
+				'toggle',
+				'filter',
+			);
+			foreach ( $shop_blocks as $block ) {
+				register_block_type(
+					'porto-sb/porto-' . $block,
+					array(
+						'attributes'      => array(),
+						'editor_script'   => 'porto-sb-blocks',
+						'render_callback' => array(
+							$this,
+							'gutenberg_sb_' . $block,
+						),
+					)
+				);
+			}
+
+			register_block_type(
+				'porto-sb/porto-actions',
+				array(
+					'attributes'      => array(
+						'action' => array(
+							'type'    => 'string',
+							'default' => 'woocommerce_before_shop_loop',
+						),
+					),
+					'editor_script'   => 'porto-sb-blocks',
+					'render_callback' => array(
+						$this,
+						'gutenberg_sb_actions',
+					),
+				)
+			);
+
+			register_block_type(
+				'porto-sb/porto-title',
+				array(
+					'attributes'      => array(
+						'font_size'      => array(
+							'type' => 'string',
+						),
+						'font_weight'    => array(
+							'type' => 'integer',
+						),
+						'text_transform' => array(
+							'type' => 'string',
+						),
+						'line_height'    => array(
+							'type' => 'string',
+						),
+						'ls'             => array(
+							'type' => 'string',
+						),
+						'color'          => array(
+							'type'    => 'string',
+							'default' => '',
+						),
+					),
+					'editor_script'   => 'porto-sb-blocks',
+					'render_callback' => array(
+						$this,
+						'gutenberg_sb_title',
+					),
+				)
+			);
+
+			register_block_type(
+				'porto-sb/porto-description',
+				array(
+					'attributes'      => array(
+						'font_size'   => array(
+							'type' => 'string',
+						),
+						'font_weight' => array(
+							'type' => 'integer',
+						),
+						'line_height' => array(
+							'type' => 'string',
+						),
+						'ls'          => array(
+							'type' => 'string',
+						),
+						'color'       => array(
+							'type'    => 'string',
+							'default' => '',
+						),
+					),
+					'editor_script'   => 'porto-sb-blocks',
+					'render_callback' => array(
+						$this,
+						'gutenberg_sb_description',
+					),
+				)
+			);
+		}
+
+		/**
+		 * display products in gutenberg shop builder
+		 *
+		 * @since 6.1.0
+		 */
+		public function gutenberg_sb_products( $atts ) {
 			ob_start();
-			$css = '';
-			preg_match_all( '/' . get_shortcode_regex( array( 'porto_sb_description', 'porto_sb_products' ) ) . '/', $post->post_content, $shortcodes );
-			foreach ( $shortcodes[2] as $index => $tag ) {
-				$atts = shortcode_parse_atts( trim( $shortcodes[3][ $index ] ) );
-				include PORTO_BUILDERS_PATH . '/elements/shop/wpb/style-' . str_replace( array( 'porto_sb_', '_' ), array( '', '-' ), $tag ) . '.php';
-			}
-			$css = ob_get_clean();
-			if ( $css ) {
-				update_post_meta( $post_id, 'porto_builder_css', wp_strip_all_tags( $css ) );
+			$el_class = isset( $atts['className'] ) ? trim( $atts['className'] ) : '';
+			if ( wp_is_json_request() && isset( $_REQUEST['context'] ) && 'edit' == $_REQUEST['context'] ) {
+				if ( $template = porto_shortcode_woo_template( 'porto_products' ) ) {
+					echo '<div class="archive-products">';
+					include $template;
+					echo '</div>';
+				}
 			} else {
-				delete_post_meta( $post_id, 'porto_builder_css' );
+				include PORTO_BUILDERS_PATH . '/elements/shop/wpb/products.php';
 			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * display tool box in gutenberg shop builder
+		 *
+		 * @since 6.1.0
+		 */
+		public function gutenberg_sb_toolbox( $atts, $content = null ) {
+			ob_start();
+			if ( isset( $atts['className'] ) ) {
+				$atts['el_class'] = $atts['className'];
+				unset( $atts['className'] );
+			}
+			include PORTO_BUILDERS_PATH . '/elements/shop/wpb/toolbox.php';
+			return ob_get_clean();
+		}
+
+		/**
+		 * display sort by in gutenberg shop builder
+		 *
+		 * @since 6.1.0
+		 */
+		public function gutenberg_sb_sort( $atts ) {
+			ob_start();
+			if ( isset( $atts['className'] ) ) {
+				$atts['el_class'] = $atts['className'];
+				unset( $atts['className'] );
+			}
+			include PORTO_BUILDERS_PATH . '/elements/shop/wpb/sort.php';
+			return ob_get_clean();
+		}
+
+		/**
+		 * display count per page in gutenberg shop builder
+		 *
+		 * @since 6.1.0
+		 */
+		public function gutenberg_sb_count( $atts ) {
+			ob_start();
+			if ( isset( $atts['className'] ) ) {
+				$atts['el_class'] = $atts['className'];
+				unset( $atts['className'] );
+			}
+			include PORTO_BUILDERS_PATH . '/elements/shop/wpb/count.php';
+			return ob_get_clean();
+		}
+
+		/**
+		 * display grid/list toggle in gutenberg shop builder
+		 *
+		 * @since 6.1.0
+		 */
+		public function gutenberg_sb_toggle( $atts ) {
+			ob_start();
+			if ( isset( $atts['className'] ) ) {
+				$atts['el_class'] = $atts['className'];
+				unset( $atts['className'] );
+			}
+			include PORTO_BUILDERS_PATH . '/elements/shop/wpb/toggle.php';
+			return ob_get_clean();
+		}
+
+		/**
+		 * display filter toggle in gutenberg shop builder
+		 *
+		 * @since 6.1.0
+		 */
+		public function gutenberg_sb_filter( $atts ) {
+			ob_start();
+			include PORTO_BUILDERS_PATH . '/elements/shop/wpb/filter.php';
+			return ob_get_clean();
+		}
+
+		/**
+		 * display hooks in gutenberg shop builder
+		 *
+		 * @since 6.1.0
+		 */
+		public function gutenberg_sb_actions( $atts ) {
+			ob_start();
+			include PORTO_BUILDERS_PATH . '/elements/shop/wpb/actions.php';
+			return ob_get_clean();
+		}
+
+		/**
+		 * display archive title in gutenberg shop builder
+		 *
+		 * @since 6.1.0
+		 */
+		public function gutenberg_sb_title( $atts ) {
+			ob_start();
+			if ( isset( $atts['className'] ) ) {
+				$atts['el_class'] = $atts['className'];
+				unset( $atts['className'] );
+			}
+			include PORTO_BUILDERS_PATH . '/elements/shop/wpb/title.php';
+			return ob_get_clean();
+		}
+
+		/**
+		 * display archive description in gutenberg shop builder
+		 *
+		 * @since 6.1.0
+		 */
+		public function gutenberg_sb_description( $atts ) {
+			ob_start();
+			if ( isset( $atts['className'] ) ) {
+				$atts['el_class'] = $atts['className'];
+				unset( $atts['className'] );
+			}
+			include PORTO_BUILDERS_PATH . '/elements/shop/wpb/description.php';
+			return ob_get_clean();
 		}
 	}
 endif;

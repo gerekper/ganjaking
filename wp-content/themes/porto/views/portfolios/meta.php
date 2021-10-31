@@ -21,7 +21,7 @@ if ( ( in_array( 'link', $porto_settings['portfolio-metas'] ) && $portfolio_link
 				<p>
 				<?php echo esc_html( $portfolio_client ); ?>
 				<?php if ( $portfolio_client_link ) : ?>
-					 - <a href="<?php echo esc_url( $portfolio_client_link ); ?>" target="_blank"><i class="fas fa-external-link-alt"></i> <?php echo esc_url( $portfolio_client_link ); ?></a>
+					 - <a href="<?php echo esc_url( $portfolio_client_link ); ?>" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> <?php echo esc_url( $portfolio_client_link ); ?></a>
 				<?php endif; ?>
 				</p>
 			</li>
@@ -49,7 +49,7 @@ if ( ( in_array( 'link', $porto_settings['portfolio-metas'] ) && $portfolio_link
 			<li>
 				<?php /* translators: portfolio title */ ?>
 				<h5><i class="fas fa-caret-right"></i><?php printf( esc_html__( '%s URL', 'porto' ), $portfolio_name ); ?>:</h5>
-				<p><a href="<?php echo esc_url( $portfolio_link ); ?>" target="_blank"><?php echo esc_html( $portfolio_link ); ?></a></p>
+				<p><a href="<?php echo esc_url( $portfolio_link ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $portfolio_link ); ?></a></p>
 			</li>
 		<?php
 		endif;

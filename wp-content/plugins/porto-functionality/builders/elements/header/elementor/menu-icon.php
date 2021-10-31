@@ -120,6 +120,6 @@ class Porto_Elementor_HB_Menu_Icon_Widget extends \Elementor\Widget_Base {
 				$custom_icon = $settings['icon_cl']['value'];
 			}
 		}
-		echo apply_filters( 'porto_header_builder_mobile_toggle', '<a class="mobile-toggle' . ( empty( $settings['bg_color'] ) ? ' pl-0' : '' ) . '"><i class="' . esc_attr( $custom_icon ) . '"></i></a>' );
+		echo apply_filters( 'porto_header_builder_mobile_toggle', '<a class="mobile-toggle' . ( empty( $settings['bg_color'] ) ? ' ps-0' : '' ) . '"><i class="' . esc_attr( $custom_icon ) . '"></i></a>' );
 	}
 }

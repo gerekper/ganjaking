@@ -8,22 +8,47 @@ if ( function_exists( 'register_block_type' ) ) {
 			'render_callback' => function( $atts, $content = null ) {
 				$atts = shortcode_atts(
 					array(
-						'add_container'  => '',
-						'bg_color'       => '',
-						'bg_img'         => '',
-						'bg_img_url'     => '',
-						'bg_repeat'      => '',
-						'bg_pos'         => '',
-						'bg_size'        => '',
-						'parallax_speed' => '',
-						'bg_video'       => '',
-						'tag'            => 'section',
-						'align'          => '',
-						'className'      => '',
+						'add_container'         => '',
+						'bg_color'              => '',
+						'bg_img'                => '',
+						'bg_img_url'            => '',
+						'bg_repeat'             => '',
+						'bg_pos'                => '',
+						'bg_size'               => '',
+						'parallax_speed'        => '',
+						'bg_video'              => '',
+						'tag'                   => 'section',
+						'align'                 => '',
+						'top_divider_type'      => '',
+						'top_divider_custom'    => '',
+						'top_divider_color'     => '',
+						'top_divider_height'    => '',
+						'top_divider_flip'      => '',
+						'top_divider_invert'    => '',
+						'top_divider_class'     => '',
+						'bottom_divider_type'   => '',
+						'bottom_divider_custom' => '',
+						'bottom_divider_color'  => '',
+						'bottom_divider_height' => '',
+						'bottom_divider_flip'   => '',
+						'bottom_divider_invert' => '',
+						'bottom_divider_class'  => '',
+						'className'             => '',
 					),
 					$atts
 				);
+				if( 'none' == $atts['top_divider_type'] ) {
+					$atts['top_divider_type'] = '';
+				}
+				if( 'none' == $atts['bottom_divider_type'] ) {
+					$atts['bottom_divider_type'] = '';
+				}
 				$classes = array( 'vc_section', 'porto-section' );
+
+				if( ! ( empty( $atts['top_divider_type'] ) && empty( $atts['bottom_divider_type'] ) ) ) {
+					$classes[] = 'section-with-shape-divider';
+				}
+
 				$attrs   = '';
 				$style   = '';
 				if ( $atts['bg_video'] ) {
@@ -67,6 +92,37 @@ if ( function_exists( 'register_block_type' ) ) {
 					$classes[] = trim( $atts['className'] );
 				}
 				$output = '<' . esc_html( $atts['tag'] ) . ' class="' . esc_attr( implode( ' ', $classes ) ) . '"' . $attrs . '>';
+
+				if( ! empty( $atts['top_divider_type'] ) ) {
+					$top_divider_attr = array(
+						'shape-divider',
+					);
+					if( ! empty( $atts['top_divider_class'] ) ) {
+						$top_divider_attr[] = $atts['top_divider_class'];
+					}
+					if( ! empty( $atts['top_divider_invert'] ) && ! empty( $atts['top_divider_flip'] ) ) {
+						$top_divider_attr[] = 'shape-divider-reverse-xy';		
+					} elseif( ! empty( $atts['top_divider_invert'] ) ) {
+						$top_divider_attr[] = 'shape-divider-reverse-x';
+					} elseif( ! empty( $atts['top_divider_flip'] ) ) {
+						$top_divider_attr[] = 'shape-divider-reverse-y';
+					}
+					if ( ! empty( $atts['top_divider_height'] ) ) {
+						$unit = preg_replace( '/[0-9.]/', '', $atts['top_divider_height'] );
+						if ( ! $unit ) {
+							$atts['top_divider_height'] .= 'px';
+						}
+					}
+
+					$output .= '<div class="' . implode( ' ', $top_divider_attr ) . '" style="' . ( empty( $atts['top_divider_color'] ) ? '' : 'fill:' . $atts['top_divider_color'] . ';'  ) . ( empty( $atts['top_divider_height'] ) ? '' : 'height:' . $atts['top_divider_height'] . ';'  ) .'">';
+					if( 'custom' == $atts['top_divider_type'] ) {
+						$output .= $atts['top_divider_custom'];
+					} else {
+						$output .= porto_sh_commons( 'shape_divider' )[$atts['top_divider_type']];
+					}
+					$output .= '</div>';
+				}
+
 				if ( $atts['add_container'] ) {
 					$output .= '<div class="container">';
 				}
@@ -74,6 +130,38 @@ if ( function_exists( 'register_block_type' ) ) {
 				if ( $atts['add_container'] ) {
 					$output .= '</div>';
 				}
+
+
+				if( ! empty( $atts['bottom_divider_type'] ) ) {
+					$bottom_divider_attr = array(
+						'shape-divider shape-divider-bottom',
+					);
+					if( ! empty( $atts['bottom_divider_class'] ) ) {
+						$bottom_divider_attr[] = $atts['bottom_divider_class'];
+					}
+					if( ! empty( $atts['bottom_divider_invert'] ) && ! empty( $atts['bottom_divider_flip'] ) ) {
+						$bottom_divider_attr[] = 'shape-divider-reverse-xy';		
+					} elseif( ! empty( $atts['bottom_divider_invert'] ) ) {
+						$bottom_divider_attr[] = 'shape-divider-reverse-x';
+					} elseif( ! empty( $atts['bottom_divider_flip'] ) ) {
+						$bottom_divider_attr[] = 'shape-divider-reverse-y';
+					}
+					if ( ! empty( $atts['bottom_divider_height'] ) ) {
+						$unit = preg_replace( '/[0-9.]/', '', $atts['bottom_divider_height'] );
+						if ( ! $unit ) {
+							$atts['bottom_divider_height'] .= 'px';
+						}
+					}
+
+					$output .= '<div class="' . implode( ' ', $bottom_divider_attr ) . '" style="' . ( empty( $atts['bottom_divider_color'] ) ? '' : 'fill:' . $atts['bottom_divider_color'] . ';'  ) . ( empty( $atts['bottom_divider_height'] ) ? '' : 'height:' . $atts['bottom_divider_height'] . ';'  ) .'">';
+					if( 'custom' == $atts['bottom_divider_type'] ) {
+						$output .= $atts['bottom_divider_custom'];
+					} else {
+						$output .= porto_sh_commons( 'shape_divider' )[$atts['bottom_divider_type']];
+					}
+					$output .= '</div>';
+				}
+
 				$output .= '</' . esc_html( $atts['tag'] ) . '>';
 
 				return $output;
@@ -85,10 +173,6 @@ if ( function_exists( 'register_block_type' ) ) {
 // Porto Section
 add_action( 'vc_after_init', 'porto_load_section_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_section_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -99,13 +183,18 @@ function porto_load_section_shortcode() {
 		array(
 			'name'            => 'Porto ' . __( 'Section', 'porto-functionality' ),
 			'base'            => 'porto_section',
+			'is_container' => true,
 			'category'        => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Group multiple rows in porto section.', 'porto-functionality' ),
 			'icon'            => 'far fa-file',
-			'as_parent'       => array( 'except' => 'porto_section' ),
-			'content_element' => true,
-			'controls'        => 'full',
-			//'is_container' => true,
-			'js_view'         => 'VcColumnView',
+			'show_settings_on_create' => false,
+			'as_parent'       => array(
+				'only' => 'vc_row',
+			),
+			'as_child' => array(
+				'only' => '', // Only root
+			),
+			'js_view'         => 'VcSectionView',
 			'params'          => array(
 				array(
 					'type'        => 'textfield',

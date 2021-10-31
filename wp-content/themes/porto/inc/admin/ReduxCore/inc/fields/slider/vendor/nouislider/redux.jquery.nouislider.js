@@ -124,7 +124,7 @@
 
 			// Allow the passing of an unwrapped function.
 			// Leaves other code a more comprehensible.
-			if( !$.isArray( functions ) ){
+			if( !Array.isArray( functions ) ){
 				functions = [ functions ];
 			}
 
@@ -881,7 +881,7 @@
 					 'r': true
 					,'t': function(q,o,w){
 						if( o['handles'] === 1 ){
-							if( $.isArray(q) ){
+							if( Array.isArray(q) ){
 								q = q[0];
 							}
 							q = parseFloat(q);
@@ -1002,7 +1002,7 @@
 				 */
 				,'slide': {
 					 't': function(q){
-						return $.isFunction(q);
+						return typeof q === 'function';
 					}
 				}
 				/*	Set.
@@ -1011,7 +1011,7 @@
 				 */
 				,'set': {
 					 't': function(q){
-						return $.isFunction(q);
+						return typeof q === 'function';
 					}
 				}
 				/*	Block.
@@ -1020,7 +1020,7 @@
 				 */
 				,'block': {
 					 't': function(q){
-						return $.isFunction(q);
+						return typeof q === 'function';
 					}
 				}
 				/*	Step.
@@ -1264,7 +1264,7 @@
 
 			// If the value is to be set to a number, which is valid
 			// when using a one-handle slider, wrap it in an array.
-			if( !$.isArray(args) ){
+			if( !Array.isArray(args) ){
 				args = [args];
 			}
 

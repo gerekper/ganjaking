@@ -102,9 +102,9 @@ jQuery(document).ready(function($) {
     if (hasSelectiveRefresh) {
 
         wp.customize.preview.bind('active', function() {
-            theme.requestFrame(function() {
+            setTimeout(function() {
                 $('head > style#porto-style-inline-css').removeAttr('title');
-            });
+            }, 100);
         });
 
         wp.customize.selectiveRefresh.bind('partial-content-rendered', function (placement) {
@@ -155,15 +155,19 @@ jQuery(document).ready(function($) {
                 placement.container.find('.porto-carousel:not(.manual)').each(function() {
                     var $this = $(this),
                         pluginOptions = $this.data('plugin-options');
-                    $this.themeCarousel(pluginOptions);
+                    $this.on('initialized.owl.carousel refreshed.owl.carousel', function(e) {
+                        if ( $this.find( '.owl-item.cloned' ).length ) {
+                            $this.find('.porto-lazyload:not(.lazy-load-loaded)').themePluginLazyLoad({}).data('__lazyload');
+                        }
+                    }).themeCarousel(pluginOptions);
                 });
-                placement.container.find('.porto-lazyload').themePluginLazyLoad({effect: 'fadeIn', effect_speed: 400});
-                if (placement.container.find('.porto-lazyload').closest('.owl-carousel').length) {
-                    placement.container.find('.porto-lazyload').closest('.owl-carousel').on('changed.owl.carousel', function() {
-                        $(this).find('.porto-lazyload:not(.lazy-load-loaded)').trigger('appear');
-                    });
-                }
-                placement.container.find('[data-tooltip]').tooltip();
+                placement.container.find('.porto-lazyload').filter( function () {
+                    if ( $( this ).data( '__lazyload' ) || ( $( this ).closest( '.owl-carousel' ).length && $( this ).closest( '.owl-carousel' ).find( '.owl-item.cloned' ).length ) ) {
+                        return false;
+                    }
+                    return true;
+                } ).themePluginLazyLoad( { effect: 'fadeIn', effect_speed: 400 } );
+                placement.container.find('[data-bs-tooltip]').tooltip();
             } else if (('archive-product' == placement.partial.id || 'single-product' == placement.partial.id || 'single-product-related' == placement.partial.id || 'single-product-upsells' == placement.partial.id) && placement.container.length) {
                 //theme.refreshVCContent(placement.container);
                 porto_init();
@@ -302,6 +306,12 @@ jQuery(document).ready(function($) {
         target: '.product .labels .onsale',
         text: 'Sale Label',
         elementID: 'porto_settings[sale-color]',
+        pos: 'bottom',
+        type: 'control'
+    }, {
+        target: '.product .labels .onnew',
+        text: 'New Label',
+        elementID: 'porto_settings[new-bgc]',
         pos: 'bottom',
         type: 'control'
     }, {
@@ -662,6 +672,71 @@ jQuery(document).ready(function($) {
             });
         });
     });
+
+    // css vars
+    var varsStyleObj = document.getElementById('porto-plugins-inline-css');
+    if (varsStyleObj && typeof porto_cp_vars != 'undefined' && porto_cp_vars.css_vars) {
+        var varsStyles = null;
+        for (var i = 0; i < document.styleSheets.length; i++){
+            if (varsStyleObj === document.styleSheets[i].ownerNode) {
+                varsStyles = document.styleSheets[i];
+                break;
+            }
+        }
+        if (varsStyles) {
+            var vars = JSON.parse(porto_cp_vars.css_vars);
+            Object.keys(vars).map(function(k) {
+                var lines = vars[ k ],
+                    varsRuleStyles = '';
+                for (var i = 0; i < varsStyles.rules.length; i++) {
+                    if (varsStyles.rules[i].selectorText == k) {
+                        varsRuleStyles = varsStyles.rules[i].style;
+                        break;
+                    }
+                }
+                if (!varsRuleStyles) {
+                    return;
+                }
+                lines.forEach(function(line) {
+                    var option_name = line[0];
+                    wp.customize('porto_settings[' + option_name + ']', function(e) {
+                        e.bind(function(value) {
+                            var unit = '';
+                            if (line.length >= 2 && line[1]) {
+                                unit = line[1];
+                            }
+                            if (line.length === 3 && 'typography' == line[2]) {
+                                var var_name = option_name.replace('-font', ''),
+                                    typography_vars = {'font-family': 'ff', 'font-weight': 'fw', 'font-size': 'fs', 'line-height': 'lh', 'letter-spacing': 'ls', 'color': 'color'};
+                                Object.keys(typography_vars).map(function(tv) {
+                                    var ab_name = typography_vars[ tv ],
+                                        propery_line = '--porto-' + var_name + '-' + ab_name;
+                                    varsRuleStyles.setProperty(propery_line, value[tv] + unit);
+                                });
+                            } else {
+                                varsRuleStyles.setProperty('--porto-' + option_name, value + unit);
+
+                                if ('grid-gutter-width' == option_name) {
+                                    varsRuleStyles.setProperty('--porto-column-spacing', (value / 2) + unit);
+                                } else if ('skin-color' == option_name) {
+                                    varsRuleStyles.setProperty('--porto-skin-dark-5', getLighten(value, -5));
+                                    varsRuleStyles.setProperty('--porto-skin-dark-10', getLighten(value, -10));
+                                    varsRuleStyles.setProperty('--porto-skin-dark-20', getLighten(value, -20));
+                                }
+                            }
+                        });
+                    });
+                });
+            });
+            wp.customize('porto_header_builder[custom_css]', function(e) {
+                e.bind(function(value) {
+                    appendStyle('porto_header_builder[custom_css]', value);
+                })
+            });
+        }
+    }
+    // end css vars
+
     var bgGradientOptions = {'body-bg-gcolor': 'body', 'header-wrap-bg-gcolor': '.header-wrapper', 'header-bg-gcolor': '#header .header-main', 'content-bg-gcolor': '#main', 'content-bottom-bg-gcolor': '#main .content-bottom-wrapper', 'breadcrumbs-bg-gcolor': '.page-top', 'footer-bg-gcolor': '#footer', 'footer-main-bg-gcolor': '#footer .footer-main', 'footer-top-bg-gcolor': '.footer-top', 'footer-bottom-bg-gcolor': '#footer .footer-bottom'};
     $.each(bgGradientOptions, function(option_id, css_selector) {
         wp.customize('porto_settings[' + option_id + ']', function(e) {
@@ -1331,6 +1406,34 @@ jQuery(document).ready(function($) {
             appendStyle('porto_settings[switcher-link-color]', css);
         });
     });
+
+    wp.customize('porto_settings[account-dropdown-bg-color]', function(e) {
+        e.bind(function(value) {
+            var css = ( value ? '#header .account-dropdown > li.menu-item > a {background-color:' + value + '}' : '' );
+            appendStyle('porto_settings[account-dropdown-bg-color]', css);
+        });
+    });
+
+    wp.customize('porto_settings[account-dropdown-hbg-color]', function(e) {
+        e.bind(function(value) {
+            var css = ( value ? '#header .account-dropdown .narrow ul.sub-menu {background-color:' + value + '}' : '' );
+            appendStyle('porto_settings[account-dropdown-hbg-color]', css);
+        });
+    });
+
+    wp.customize('porto_settings[account-dropdown-link-color]', function(e) {
+        e.bind(function(value) {
+            var css = '';
+            if (value && value['regular']) {
+                css += '#header .account-dropdown > li.menu-item:before, #header .account-dropdown > li.menu-item > a { color: ' + value['regular'] + ' }';
+            }
+            if (value && value['hover']) {
+                css += '#header .account-dropdown .narrow li.menu-item > a { color: ' + value['hover'] + ' }';
+            }
+            appendStyle('porto_settings[account-dropdown-link-color]', css);
+        });
+    });
+
     wp.customize('porto_settings[searchform-border-color]', function(e) {
         e.bind(function(value) {
             var css = '', opacity = wp.customize.instance('porto_settings[searchform-opacity]').get().replace('%', '');
@@ -1379,14 +1482,10 @@ jQuery(document).ready(function($) {
             appendStyle('porto_settings[sticky-searchform-popup-border-color]', css );
         });
     });
-    wp.customize('porto_settings[sticky-searchform-toggle-text-color]', function(e) {
+    wp.customize('porto_settings[sticky-searchform-toggle-color]', function(e) {
         e.bind(function(value) {
-            appendStyle('porto_settings[sticky-searchform-toggle-text-color]', ( value ? '#header.sticky-header .searchform-popup .search-toggle { color: ' + value + '}' : '' ) );
-        });
-    });
-    wp.customize('porto_settings[sticky-searchform-toggle-hover-color]', function(e) {
-        e.bind(function(value) {
-            appendStyle('porto_settings[sticky-searchform-toggle-hover-color]', ( value ? '#header.sticky-header .searchform-popup .search-toggle:hover { color: ' + value + '}' : '' ) );
+            appendStyle('porto_settings[sticky-searchform-toggle-text-color]', ( value && value['regular'] ? '#header.sticky-header .searchform-popup .search-toggle { color: ' + value['regular'] + '}' : '' ) );
+            appendStyle('porto_settings[sticky-searchform-toggle-hover-color]', ( value && value['hover'] ? '#header.sticky-header .searchform-popup .search-toggle:hover { color: ' + value['hover'] + '}' : '' ) );
         });
     });
     wp.customize('porto_settings[minicart-icon-color]', function(e) {
@@ -1683,6 +1782,11 @@ jQuery(document).ready(function($) {
             $('ul.products li.product-col .labels .onhot, .single-product .labels .onhot').text(value);
         });
     });
+    wp.customize('porto_settings[product-new-label]', function(e) {
+        e.bind(function(value) {
+            $('ul.products li.product-col .labels .onnew, .single-product .labels .onnew').text(value);
+        });
+    });
     wp.customize('porto_settings[product-thumbs-count]', function(e) {
         e.bind(function(value) {
             theme.product_thumbs_count = (value ? parseInt(value) : 4);
@@ -1761,4 +1865,95 @@ jQuery(document).ready(function($) {
         });
     });
 
+
+    function getHSL(color) {
+        color = Number.parseInt(color.slice(1), 16);
+        var $blue = color % 256;
+        color /= 256;
+        var $green = color % 256;
+        var $red = color = color / 256;
+
+        var $min = Math.min($red, $green, $blue);
+        var $max = Math.max($red, $green, $blue);
+
+        var $l = $min + $max;
+        var $d = Number($max - $min);
+        var $h = 0;
+        var $s = 0;
+
+        if ($d) {
+            if ($l < 255) {
+                $s = $d / $l;
+            } else {
+                $s = $d / (510 - $l);
+            }
+
+            if ($red == $max) {
+                $h = 60 * ($green - $blue) / $d;
+            } else if ($green == $max) {
+                $h = 60 * ($blue - $red) / $d + 120;
+            } else if ($blue == $max) {
+                $h = 60 * ($red - $green) / $d + 240;
+            }
+        }
+
+        return [($h + 360) % 360, ($s * 100), $l / 5.1];
+    }
+
+    function hueToRGB( $m1, $m2, $h ) {
+        if ( $h < 0 ) {
+            $h += 1;
+        } else if ( $h > 1 ) {
+            $h -= 1;
+        }
+
+        if ( $h * 6 < 1 ) {
+            return $m1 + ( $m2 - $m1 ) * $h * 6;
+        }
+
+        if ( $h * 2 < 1 ) {
+            return $m2;
+        }
+
+        if ( $h * 3 < 2 ) {
+            return $m1 + ( $m2 - $m1 ) * ( 2 / 3 - $h ) * 6;
+        }
+
+        return $m1;
+    }
+
+    function getRGB($hue, $saturation, $lightness) {
+        if ( $hue < 0 ) {
+            $hue += 360;
+        }
+
+        var $h = $hue / 360;
+        var $s = Math.min( 100, Math.max( 0, $saturation ) ) / 100;
+        var $l = Math.min( 100, Math.max( 0, $lightness ) ) / 100;
+
+        var $m2 = $l <= 0.5 ? $l * ( $s + 1 ) : $l + $s - $l * $s;
+        var $m1 = $l * 2 - $m2;
+
+        var $r = hueToRGB( $m1, $m2, $h + 1 / 3 ) * 255;
+        var $g = hueToRGB( $m1, $m2, $h ) * 255;
+        var $b = hueToRGB( $m1, $m2, $h - 1 / 3 ) * 255;
+
+        var $out = [ Math.ceil( $r ), Math.ceil( $g ), Math.ceil( $b ) ];
+
+        return $out;
+    }
+
+    function adjustHsl( $color, $amount ) {
+        var $hsl = getHSL($color);
+        $hsl[2] += $amount;
+        var $out = getRGB( $hsl[0], $hsl[1], $hsl[2] );
+        return 'rgb(' + $out[0] + ',' + $out[1] + ',' + $out[2] + ')';
+    }
+
+    function getLighten( $color, $amount ) {
+        if ( ! $color || 'transparent' == $color ) {
+            return 'transparent';
+        }
+        return adjustHsl( $color, $amount );
+    }
 });

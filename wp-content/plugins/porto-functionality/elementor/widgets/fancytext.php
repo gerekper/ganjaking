@@ -20,15 +20,19 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Fancy Text', 'porto-functionality' );
+		return __( 'Porto Fancy Text', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'fancy', 'text', 'words', 'rotator', 'rotate' );
+	}
+
+	public function get_icon() {
+		return 'eicon-text-field';
 	}
 
 	public function get_script_depends() {
@@ -162,7 +166,7 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'fancy_text_typography',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Fancy Text Typograhy', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .word-rotator-items',
 			)
@@ -191,7 +195,7 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'fancy_prefsuf_text_typography',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Prefix Suffix Typograhy', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .word-rotate-prefix, {{WRAPPER}} .word-rotate-suffix',
 			)
@@ -229,7 +233,7 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function _content_template() {
+	protected function content_template() {
 		?>
 		<#
 			view.addRenderAttribute( 'wrapper', 'class', 'word-rotator ' + settings.animation_effect );

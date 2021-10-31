@@ -20,15 +20,19 @@ class Porto_Elementor_Blog_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Blog', 'porto-functionality' );
+		return __( 'Porto Blog', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'blog', 'posts', 'article' );
+	}
+
+	public function get_icon() {
+		return 'eicon-posts-grid';
 	}
 
 	public function get_script_depends() {
@@ -189,18 +193,24 @@ class Porto_Elementor_Blog_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'cats',
 			array(
-				'type'        => Controls_Manager::TEXT,
+				'type'        => 'porto_ajaxselect2',
 				'label'       => __( 'Category IDs or slugs', 'porto-functionality' ),
 				'description' => __( 'comma separated list of category ids or slugs', 'porto-functionality' ),
+				'options'     => 'category',
+				'multiple'    => true,
+				'label_block' => true,
 			)
 		);
 
 		$this->add_control(
 			'post_in',
 			array(
-				'type'        => Controls_Manager::TEXT,
+				'type'        => 'porto_ajaxselect2',
 				'label'       => __( 'Post IDs', 'porto-functionality' ),
 				'description' => __( 'comma separated list of post ids', 'porto-functionality' ),
+				'options'     => 'post',
+				'multiple'    => true,
+				'label_block' => true,
 			)
 		);
 
@@ -307,6 +317,17 @@ class Porto_Elementor_Blog_Widget extends \Elementor\Widget_Base {
 			$this->add_control( $key, $opt );
 		}
 
+		$this->add_control(
+			'margin',
+			array(
+				'type'  => Controls_Manager::NUMBER,
+				'label' => __( 'Spacing between items (px)', 'porto-functionality' ),
+				'condition' => array(
+					'post_layout' => 'slider',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 	}
 
@@ -314,6 +335,12 @@ class Porto_Elementor_Blog_Widget extends \Elementor\Widget_Base {
 		$atts = $this->get_settings_for_display();
 
 		if ( $template = porto_shortcode_template( 'porto_blog' ) ) {
+			if ( ! empty( $atts['cats'] ) && is_array( $atts['cats'] ) ) {
+				$atts['cats'] = implode( ',', $atts['cats'] );
+			}
+			if ( ! empty( $atts['post_in'] ) && is_array( $atts['post_in'] ) ) {
+				$atts['post_in'] = implode( ',', $atts['post_in'] );
+			}
 			include $template;
 		}
 	}

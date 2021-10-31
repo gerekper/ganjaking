@@ -193,7 +193,7 @@ if ( ! class_exists( 'ReduxFramework' ) ) {
 			}
 
 			if ( empty( $this->args['footer_credit'] ) ) {
-				$this->args['footer_credit'] = '<span id="footer-thankyou">' . sprintf( __( 'Options panel created using %1$s', 'redux-framework' ), '<a href="' . esc_url( $this->framework_url ) . '" target="_blank">' . esc_html__( 'Redux Framework', 'redux-framework' ) . '</a> v' . self::$_version ) . '</span>';
+				$this->args['footer_credit'] = '<span id="footer-thankyou">' . sprintf( __( 'Options panel created using %1$s', 'redux-framework' ), '<a href="' . esc_url( $this->framework_url ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Redux Framework', 'redux-framework' ) . '</a> v' . self::$_version ) . '</span>';
 			}
 
 			if ( empty( $this->args['menu_title'] ) ) {
@@ -889,7 +889,8 @@ if ( ! class_exists( 'ReduxFramework' ) ) {
 					} elseif ( $type == 'terms' || $type == 'term' ) {
 						$taxonomies = $args['taxonomies'];
 						unset( $args['taxonomies'] );
-						$terms = get_terms( $taxonomies, $args ); // this will get nothing
+						$args['taxonomy'] = $taxonomies;
+						$terms = get_terms( $args ); // this will get nothing
 						if ( ! empty( $terms ) && ! is_a( $terms, 'WP_Error' ) ) {
 							foreach ( $terms as $term ) {
 								$data[ $term->term_id ] = $term->name;

@@ -19,6 +19,10 @@ if ( $social_share ) {
 		$social_links_adv_pos = false;
 	}
 
+	if ( ! empty( $porto_settings['member-social-nofollow'] ) ) {
+		$target .= ' rel="nofollow"';
+	}
+
 	$share_facebook   = get_post_meta( $member_id, 'member_facebook', true );
 	$share_twitter    = get_post_meta( $member_id, 'member_twitter', true );
 	$share_linkedin   = get_post_meta( $member_id, 'member_linkedin', true );
@@ -39,46 +43,51 @@ if ( $social_share ) {
 			$share_links .= '<div class="member-share-links share-links">';
 
 		if ( $share_facebook ) :
-			$share_links .= '<a href="' . esc_url( $share_facebook ) . '"' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'Facebook', 'porto' ) . '" class="share-facebook">' . esc_html__( 'Facebook', 'porto' ) . '</a>';
+			$share_links .= '<a href="' . esc_url( $share_facebook ) . '"' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'Facebook', 'porto' ) . '" class="share-facebook">' . esc_html__( 'Facebook', 'porto' ) . '</a>';
 			endif;
+
+		if ( ! empty( $porto_settings['member-social-target'] ) && empty( $porto_settings['member-social-nofollow'] ) ) {
+			$target .= ' rel="noopener noreferrer"';
+		}
+
 		if ( $share_twitter ) :
-			$share_links .= '<a href="' . esc_url( $share_twitter ) . '"' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'Twitter', 'porto' ) . '" class="share-twitter">' . esc_html__( 'Twitter', 'porto' ) . '</a>';
+			$share_links .= '<a href="' . esc_url( $share_twitter ) . '"' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'Twitter', 'porto' ) . '" class="share-twitter">' . esc_html__( 'Twitter', 'porto' ) . '</a>';
 				endif;
 		if ( $share_linkedin ) :
-			$share_links .= '<a href="' . esc_url( $share_linkedin ) . '" ' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'LinkedIn', 'porto' ) . '" class="share-linkedin">' . esc_html__( 'LinkedIn', 'porto' ) . '</a>';
+			$share_links .= '<a href="' . esc_url( $share_linkedin ) . '" ' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'LinkedIn', 'porto' ) . '" class="share-linkedin">' . esc_html__( 'LinkedIn', 'porto' ) . '</a>';
 				endif;
 		if ( $share_googleplus ) :
-			$share_links .= '<a href="' . esc_url( $share_googleplus ) . '"' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'Google +', 'porto' ) . '" class="share-googleplus">' . esc_html__( 'Google +', 'porto' ) . '</a>';
+			$share_links .= '<a href="' . esc_url( $share_googleplus ) . '"' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'Google +', 'porto' ) . '" class="share-googleplus">' . esc_html__( 'Google +', 'porto' ) . '</a>';
 				endif;
 		if ( $share_pinterest ) :
-			$share_links .= '<a href="' . esc_url( $share_pinterest ) . '"' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'Pinterest', 'porto' ) . '" class="share-pinterest">' . esc_html__( 'Pinterest', 'porto' ) . '</a>';
+			$share_links .= '<a href="' . esc_url( $share_pinterest ) . '"' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'Pinterest', 'porto' ) . '" class="share-pinterest">' . esc_html__( 'Pinterest', 'porto' ) . '</a>';
 				endif;
 		if ( $share_email ) :
-			$share_links .= '<a href="mailto:' . esc_attr( $share_email ) . '"' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'Email', 'porto' ) . '" class="share-email">' . esc_html( $share_email ) . '</a>';
+			$share_links .= '<a href="mailto:' . esc_attr( $share_email ) . '"' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'Email', 'porto' ) . '" class="share-email">' . esc_html( $share_email ) . '</a>';
 				endif;
 		if ( $share_vk ) :
-			$share_links .= '<a  href="' . esc_url( $share_vk ) . '"' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'VK', 'porto' ) . '" class="share-vk">' . esc_html__( 'VK', 'porto' ) . '</a>';
+			$share_links .= '<a  href="' . esc_url( $share_vk ) . '"' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'VK', 'porto' ) . '" class="share-vk">' . esc_html__( 'VK', 'porto' ) . '</a>';
 				endif;
 		if ( $share_xing ) :
-			$share_links .= '<a  href="' . esc_url( $share_xing ) . '"' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'Xing', 'porto' ) . '" class="share-xing">' . esc_html__( 'Xing', 'porto' ) . '</a>';
+			$share_links .= '<a  href="' . esc_url( $share_xing ) . '"' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'Xing', 'porto' ) . '" class="share-xing">' . esc_html__( 'Xing', 'porto' ) . '</a>';
 				endif;
 		if ( $share_tumblr ) :
-			$share_links .= '<a  href="' . esc_url( $share_tumblr ) . '"' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'Tumblr', 'porto' ) . '" class="share-tumblr">' . esc_html__( 'Tumblr', 'porto' ) . '</a>';
+			$share_links .= '<a  href="' . esc_url( $share_tumblr ) . '"' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'Tumblr', 'porto' ) . '" class="share-tumblr">' . esc_html__( 'Tumblr', 'porto' ) . '</a>';
 				endif;
 		if ( $share_reddit ) :
-			$share_links .= '<a  href="' . esc_url( $share_reddit ) . '"' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'Reddit', 'porto' ) . '" class="share-reddit">' . esc_html__( 'Reddit', 'porto' ) . '</a>';
+			$share_links .= '<a  href="' . esc_url( $share_reddit ) . '"' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'Reddit', 'porto' ) . '" class="share-reddit">' . esc_html__( 'Reddit', 'porto' ) . '</a>';
 				endif;
 		if ( $share_vimeo ) :
-			$share_links .= '<a  href="' . esc_url( $share_vimeo ) . '"' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'Vimeo', 'porto' ) . '" class="share-vimeo">' . esc_html__( 'Vimeo', 'porto' ) . '</a>';
+			$share_links .= '<a  href="' . esc_url( $share_vimeo ) . '"' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'Vimeo', 'porto' ) . '" class="share-vimeo">' . esc_html__( 'Vimeo', 'porto' ) . '</a>';
 				endif;
 		if ( $share_instagram ) :
-			$share_links .= '<a  href="' . esc_url( $share_instagram ) . '"' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'Instagram', 'porto' ) . '" class="share-instagram">' . esc_html__( 'Instagram', 'porto' ) . '</a>';
+			$share_links .= '<a  href="' . esc_url( $share_instagram ) . '"' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'Instagram', 'porto' ) . '" class="share-instagram">' . esc_html__( 'Instagram', 'porto' ) . '</a>';
 				endif;
 		if ( $share_whatsapp ) :
-			$share_links .= '<a href="whatsapp://send?text=' . esc_attr( $share_whatsapp ) . '"' . $target . ' data-tooltip data-placement="bottom" title="' . esc_attr__( 'WhatsApp', 'porto' ) . '" class="share-whatsapp" style="display:none">' . esc_html__( 'WhatsApp', 'porto' ) . '</a>';
+			$share_links .= '<a href="whatsapp://send?text=' . esc_attr( $share_whatsapp ) . '"' . $target . ' data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'WhatsApp', 'porto' ) . '" class="share-whatsapp" style="display:none">' . esc_html__( 'WhatsApp', 'porto' ) . '</a>';
 				endif;
 		if ( $share_phone ) :
-			$share_links .= '<div data-tooltip data-placement="bottom" title="' . esc_attr__( 'Phone', 'porto' ) . '" class="share-phone"><i class="Simple-Line-Icons-call-out"></i>' . esc_html( $share_phone ) . '</div>';
+			$share_links .= '<div data-bs-tooltip data-bs-placement="bottom" title="' . esc_attr__( 'Phone', 'porto' ) . '" class="share-phone"><i class="Simple-Line-Icons-call-out"></i>' . esc_html( $share_phone ) . '</div>';
 				endif;
 			$share_links .= '</div>';
 		endif;
@@ -154,6 +163,7 @@ if ( $social_share ) {
 			<?php endif; ?>
 			<?php
 			if ( 'video' == $slideshow_type && $video_code ) :
+				wp_enqueue_script( 'jquery-fitvids' );
 				?>
 				<div class="member-image single">
 					<div class="img-thumbnail fit-video">

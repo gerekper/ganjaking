@@ -1,16 +1,59 @@
 <?php
 
 // Porto Widget Woo Products
+if ( function_exists( 'register_block_type' ) ) {
+	register_block_type(
+		'porto/porto-products-widget',
+		array(
+			'attributes'      => array(
+				'title'       => array(
+					'type' => 'string',
+				),
+				'show'        => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'number'      => array(
+					'type'    => 'integer',
+					'default' => 5,
+				),
+				'orderby'     => array(
+					'type'    => 'string',
+					'default' => 'date',
+				),
+				'order'       => array(
+					'type'    => 'string',
+					'default' => 'DESC',
+				),
+				'hide_free'   => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'show_hidden' => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+			),
+			'editor_script'   => 'porto_blocks',
+			'render_callback' => 'porto_shortcode_widget_woo_products',
+		)
+	);
+}
+
 add_shortcode( 'porto_widget_woo_products', 'porto_shortcode_widget_woo_products' );
 add_action( 'vc_after_init', 'porto_load_widget_woo_products_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_shortcode_widget_woo_products( $atts, $content = null ) {
 	ob_start();
-	if ( $template = porto_shortcode_woo_template( 'porto_widget_woo_products' ) ) {
+	if ( isset( $atts['show'] ) && 'recent_view' == $atts['show'] ) {
+		if ( $template = porto_shortcode_woo_template( 'porto_widget_woo_recently_viewed' ) ) {
+			include $template;
+		}
+	} elseif ( isset( $atts['show'] ) && 'top_rated' == $atts['show'] ) {
+		if ( $template = porto_shortcode_woo_template( 'porto_widget_woo_top_rated_products' ) ) {
+			include $template;
+		}
+	} elseif ( $template = porto_shortcode_woo_template( 'porto_widget_woo_products' ) ) {
 		include $template;
 	}
 	return ob_get_clean();
@@ -22,6 +65,16 @@ function porto_load_widget_woo_products_shortcode() {
 	$animation_delay    = porto_vc_animation_delay();
 	$custom_class       = porto_vc_custom_class();
 
+	global $porto_settings;
+	$status_values = array(
+		__( 'All products', 'woocommerce' )      => '',
+		__( 'Featured products', 'woocommerce' ) => 'featured',
+		__( 'On-sale products', 'woocommerce' )  => 'onsale',
+	);
+	if ( ! empty( $porto_settings['woo-pre-order'] ) ) {
+		$status_values[ __( 'Pre-Order', 'porto-functionality' ) ] = 'pre-order';
+	}
+
 	// woocommerce products widget
 	vc_map(
 		array(
@@ -30,7 +83,7 @@ function porto_load_widget_woo_products_shortcode() {
 			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce Widgets', 'porto-functionality' ),
 			'class'       => 'wpb_vc_wp_widget',
-			'description' => __( 'Display a list of your products on your site.', 'woocommerce' ),
+			'description' => __( 'Display a list of your products on your site.', 'porto-functionality' ),
 			'params'      => array(
 				array(
 					'type'        => 'textfield',
@@ -48,11 +101,7 @@ function porto_load_widget_woo_products_shortcode() {
 					'type'        => 'dropdown',
 					'heading'     => __( 'Show', 'woocommerce' ),
 					'param_name'  => 'show',
-					'value'       => array(
-						__( 'All Products', 'woocommerce' )      => '',
-						__( 'Featured Products', 'woocommerce' ) => 'featured',
-						__( 'On-sale Products', 'woocommerce' )  => 'onsale',
-					),
+					'value'       => $status_values,
 					'admin_label' => true,
 				),
 				array(

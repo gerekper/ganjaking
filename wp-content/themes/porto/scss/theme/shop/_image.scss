@@ -25,7 +25,7 @@
     }
 
 	.viewcart {
-		font-size: 1.8em;
+		font-size: 1.25rem;
 		border-radius: 50%;
 		position: absolute;
 		top: 0; bottom: 0;
@@ -41,33 +41,8 @@
 		@include transition($transition);
 
 		&:before {
-			font-family: "Simple-Line-Icons" !important;
-			font-style: normal !important;
-			font-weight: normal !important;
-			font-variant: normal !important;
-			text-transform: none !important;
-			speak: none;
+			font-family: "Simple-Line-Icons";
 			content: "\e04e";
-			font-size: .9em;
-			vertical-align: top;
-		}
-
-		&.viewcart2:before {
-			font-family: "Porto" !important;
-			content: "\e87f";
-			vertical-align: baseline;
-		}
-
-		&.viewcart3:before {
-			font-family: "Simple-Line-Icons" !important;
-			content: "\e04e";
-			vertical-align: baseline;
-			font-size: 1.1em;
-		}
-		&.viewcart4:before {
-			font-family: "Simple-Line-Icons" !important;
-			content: "\e035";
-			vertical-align: baseline;
 		}
 
 		&:hover {
@@ -88,7 +63,8 @@
         text-align: center;
 
         .onhot,
-        .onsale {
+        .onsale,
+        .onnew {
             padding: 5px 11px;
             margin-bottom: 5px;
         }
@@ -99,6 +75,10 @@
 
         .onsale {
             background: $sale-bg;
+        }
+
+        .onnew {
+            @include background(linear-gradient(135deg, var(--porto-new-bgc, #08c) 0, var(--porto-new-bgc, #0169fe) 80%));
         }
 
         .tooltip {

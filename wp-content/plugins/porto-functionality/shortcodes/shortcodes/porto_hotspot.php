@@ -1,12 +1,77 @@
 <?php
 
-// Porto Concept
-add_action( 'vc_after_init', 'porto_load_hotspot_shortcode' );
-
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+// Porto Hotspot
+if ( function_exists( 'register_block_type' ) ) {
+	register_block_type(
+		'porto/porto-hotspot',
+		array(
+			'attributes'      => array(
+				'type' => array(
+					'type' => 'string',
+					'default' => 'html',
+				),
+				'content' => array(
+					'type' => 'string',
+					'default' => '',
+				),
+				'id' => array(
+					'type' => 'integer',
+				),
+				'addlinks_pos' => array(
+					'type' => 'string',
+					'default' => '',
+				),
+				'block' => array(
+					'type' => 'integer',
+				),
+				'icon' => array(
+					'type' => 'string',
+					'default' => ''
+				),
+				'pos' => array(
+					'type' => 'string',
+					'default' => 'right'
+				),
+				'x' => array(
+					'type' => 'integer',
+				),
+				'y' => array(
+					'type' => 'integer',
+				),
+				'size' => array(
+					'type' => 'string',
+				),
+				'icon_size' => array(
+					'type' => 'string',
+				),
+				'color' => array(
+					'type' => 'string',
+				),
+				'bg_color' => array(
+					'type' => 'string',
+				),
+				'el_class' => array(
+					'type' => 'string',
+				),
+			),
+			'editor_script'   => 'porto_blocks',
+			'render_callback' => 'porto_shortcode_hotspot',
+		)
+	);
 }
 
+function porto_shortcode_hotspot( $atts, $content = null ) {
+	ob_start();
+	if ( $template = porto_shortcode_template( 'porto_hotspot' ) ) {
+		if ( isset( $atts['className'] ) ) {
+			$atts['el_class'] = $atts['className'];
+		}
+		include $template;
+	}
+	return ob_get_clean();
+}
+
+add_action( 'vc_after_init', 'porto_load_hotspot_shortcode' );
 function porto_load_hotspot_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -157,9 +222,16 @@ function porto_load_hotspot_shortcode() {
 					'step'       => 1,
 				),
 				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Spot Size', 'porto-functionality' ),
-					'param_name' => 'size',
+					'type'        => 'textfield',
+					'heading'     => __( 'Spot Size', 'porto-functionality' ),
+					'description' => __('Enter value including any valid CSS unit, ex: 30px.', 'porto-functionality'),
+					'param_name'  => 'size',
+				),
+				array(
+					'type'        => 'textfield',
+					'heading'     => __( 'Icon Size', 'porto-functionality' ),
+					'description' => __('Enter value including any valid CSS unit, ex: 30px.', 'porto-functionality'),
+					'param_name'  => 'icon_size',
 				),
 				array(
 					'type'       => 'colorpicker',

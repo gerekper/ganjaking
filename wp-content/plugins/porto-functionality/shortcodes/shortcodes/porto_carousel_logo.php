@@ -3,22 +3,19 @@
 
 add_action( 'vc_after_init', 'porto_load_carousel_logo_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_carousel_logo_shortcode() {
 
 	$custom_class = porto_vc_custom_class();
 
 	vc_map(
 		array(
-			'name'     => __( 'Porto Carousel Logo', 'porto-functionality' ),
-			'base'     => 'porto_carousel_logo',
-			'class'    => 'porto_carousel_logo',
-			'icon'     => 'far fa-circle',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'params'   => array(
+			'name'        => __( 'Porto Carousel Logo', 'porto-functionality' ),
+			'base'        => 'porto_carousel_logo',
+			'class'       => 'porto_carousel_logo',
+			'icon'        => 'far fa-circle',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Display your partners with a simple logo slider', 'porto-functionality' ),
+			'params'      => array(
 				array(
 					'type'       => 'attach_image',
 					'heading'    => __( 'Logo', 'porto-functionality' ),

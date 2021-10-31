@@ -27,7 +27,7 @@ if ( class_exists('Woocommerce') && ( is_cart() || is_checkout() ) && $woo_bread
 			</li>
 			<li class="<?php echo is_order_received_page() ? esc_attr( 'current' ) : esc_attr( 'disable' ); ?>">
 				<i class="delimiter delimiter-2"></i>
-				<a href="#"><?php esc_html_e( 'Order Complete', 'porto' ); ?></a>
+				<a href="#" class="nolink"><?php esc_html_e( 'Order Complete', 'porto' ); ?></a>
 			</li>
 		</ul>
 	</div>

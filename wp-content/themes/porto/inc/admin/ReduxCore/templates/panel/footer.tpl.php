@@ -32,7 +32,7 @@ if ( isset( $this->parent->args['share_icons'] ) ) {
 			unset( $link['link'] );
 		}
 		?>
-					<a href="<?php echo esc_url( $link['url'] ); ?>" title="<?php echo esc_attr( $link['title'] ); ?>" target="_blank">
+					<a href="<?php echo esc_url( $link['url'] ); ?>" title="<?php echo esc_attr( $link['title'] ); ?>" target="_blank" rel="noopener noreferrer">
 				<?php if ( isset( $link['icon'] ) && ! empty( $link['icon'] ) ) : ?>
 						<i class="<?php
 						if ( strpos( $link['icon'], 'el-icon' ) !== false && strpos( $link['icon'], 'el ' ) === false ) {

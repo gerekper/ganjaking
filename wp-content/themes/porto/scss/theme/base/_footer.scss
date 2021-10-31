@@ -51,7 +51,6 @@
 
         &:before {
             content: "";
-            display: block;
             height: 0;
             position: absolute;
             top: 0;
@@ -63,7 +62,7 @@
     }
 
     .footer-main > .container {
-        padding-top: 5rem;
+        padding-top: 4.75rem;
         padding-bottom: 2.4rem;
     }
 
@@ -88,7 +87,7 @@
         }
     }
     .footer-bottom {
-        padding: 15px 0;
+        padding: 22px 0;
         font-size: 0.9em;
 
         .container {
@@ -121,7 +120,7 @@
     }
 
     .widget-title {
-        margin-bottom: 15px;
+        margin-bottom: 1rem;
         font-size: 1em;
 
         &,

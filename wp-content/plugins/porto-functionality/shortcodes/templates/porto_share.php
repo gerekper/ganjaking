@@ -1,7 +1,7 @@
 <?php
 
 if ( is_singular() ) {
-	if ( 'block' == get_post_type() ) {
+	if ( 'porto_builder' == get_post_type() ) {
 		global $post;
 		$post_backup = $post;
 		wp_reset_postdata();

@@ -1,0 +1,61 @@
+@if ($toggleSize != false || $toggleColor != false) {
+	#header.header-builder .searchform button,
+	#header.header-builder .searchform-popup .search-toggle {
+		@if $toggleSize != false {
+			font-size: $(toggleSize);
+		}
+		@if $toggleColor != false {
+			color: $(toggleColor);
+		}
+	}
+}
+
+@if $toggleHoverColor != false {
+	#header.header-builder .searchform button:hover,
+	#header.header-builder .searchform-popup .search-toggle:hover {
+		color: $(toggleHoverColor);
+	}
+}
+
+@if $inputSize != false {
+	#header.header-builder .searchform input, #header.header-builder .searchform.searchform-cats input {
+		width: $(inputSize);
+	}
+}
+
+@if $height != false {
+	#header.header-builder .searchform input, #header.header-builder .searchform select, #header.header-builder .searchform .selectric .label, #header.header-builder .searchform button {
+		height: $(height);line-height: $(height);
+	}
+}
+
+@if ($borderWidth != false || $borderColor != false) {
+	#header.header-builder .searchform {
+		@if $borderWidth != false {
+			border-width: $(borderWidth)px;
+		}
+		@if $borderColor != false {
+			border-color: $(borderColor);
+		}
+	}
+
+	@if $borderColor != false {
+		#header.header-builder .searchform-popup .search-toggle:after {
+			border-bottom-color: $(borderColor);
+		}
+	}
+}
+
+@if $borderRadius != false {
+	#header.header-builder .searchform { border-radius: $(borderRadius); }
+	#header.header-builder .searchform input { border-radius: $(borderRadius) 0 0 $(borderRadius); }
+	#header.header-builder .searchform button { border-radius: 0 $(borderRadius) $(borderRadius) 0; }
+	.rtl #header .searchform input { border-radius: 0 $(borderRadius) $(borderRadius) 0; }
+	.rtl #header .searchform button { border-radius: $(borderRadius) 0 0 $(borderRadius); }
+}
+
+@if $dividerColor != false {
+	#header.header-builder .searchform input, #header.header-builder .searchform select, #header.header-builder .searchform .selectric, #header.header-builder .searchform .selectric-hover .selectric, #header.header-builder .searchform .selectric-open .selectric, #header.header-builder .searchform .autocomplete-suggestions, #header.header-builder .searchform .selectric-items {
+		border-color: $(dividerColor);
+	}
+}

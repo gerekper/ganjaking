@@ -8,11 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Porto builders libarary
  *
  * @since 6.0
- */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
+ */
 class PortoBuilders {
 
 	const BUILDER_SLUG = 'porto_builder';
@@ -37,13 +33,46 @@ class PortoBuilders {
 				$porto_settings_optimize = array();
 			}
 		}
-
+		if( ! is_admin() && ( isset( $_REQUEST['elementor-preview'] ) || ( defined( 'WPB_VC_VERSION' ) && isset( $_REQUEST[ 'vc_editable' ] ) ) ) ) {
+			add_filter( 'body_class', function( $classes ) {
+				global $post;
+				if ( $post && 'popup' == get_post_meta( (int) $post->ID, self::BUILDER_TAXONOMY_SLUG, true ) ) {
+					$classes[] = 'porto-popup-template';
+				}
+				return $classes;
+			});
+			//WPB Frontend Builder
+			if( isset( $_REQUEST[ 'vc_editable' ] ) ) {
+				add_action( 'wp_enqueue_scripts', function() {
+					global $post;
+					if ( $post && 'popup' == get_post_meta( (int) $post->ID, self::BUILDER_TAXONOMY_SLUG, true ) ) {
+						ob_start();
+						$popup_width = empty( get_post_meta( (int) $post->ID, 'popup_width', true ) ) ? '740px' : (int) get_post_meta( (int) $post->ID, 'popup_width', true ) . 'px';
+						?>
+						.page-wrapper {
+							position: absolute;
+							max-width: <?php echo porto_strip_script_tags( $popup_width );?>;
+							width: 100%;
+							left: 50%;
+							top: 50%;
+							transform: translate(-50%,-50%);
+							z-index: 9999;
+							background: #fff;
+						}
+						<?php
+						$style = ob_get_clean();
+						wp_add_inline_style( 'porto-theme', $style );
+					}
+				}, 1001 );
+			}
+		}
 		$this->builder_types = array(
 			'block'   => __( 'Block', 'porto-functionality' ),
 			'header'  => __( 'Header', 'porto-functionality' ),
 			'footer'  => __( 'Footer', 'porto-functionality' ),
 			'product' => __( 'Single Product', 'porto-functionality' ),
 			'shop'    => __( 'Product Archive', 'porto-functionality' ),
+			'popup'   => __( 'Popup', 'porto-functionality' ),
 		);
 
 		if ( ! empty( $porto_settings_optimize['disabled_pbs'] ) && is_array( $porto_settings_optimize['disabled_pbs'] ) ) {
@@ -80,6 +109,9 @@ class PortoBuilders {
 				'admin_footer',
 				function() {
 					include_once PORTO_BUILDERS_PATH . 'views/popup_content.php';
+					if ( function_exists( 'vc_is_inline' ) && vc_is_inline() ) {
+						include_once PORTO_BUILDERS_PATH . 'views/edit_area.tpl.php';
+					}
 				}
 			);
 
@@ -88,6 +120,7 @@ class PortoBuilders {
 				function() {
 					$load_search_lib = false;
 					if ( 'post.php' == $GLOBALS['pagenow'] && ( ( isset( $_REQUEST['post'] ) && self::BUILDER_SLUG == get_post_type( $_REQUEST['post'] ) ) || ( isset( $_REQUEST['post_id'] ) && self::BUILDER_SLUG == get_post_type( $_REQUEST['post_id'] ) ) ) ) {
+
 						if ( isset( $_REQUEST['post'] ) ) {
 							$post_id = $_REQUEST['post'];
 						} else {
@@ -107,11 +140,126 @@ class PortoBuilders {
 				}
 			);
 		}
-
+		if ( ! empty( $_REQUEST['post'] ) && ! empty( get_post_meta( $_REQUEST['post'], PortoBuilders::BUILDER_TAXONOMY_SLUG, true ) ) ) {
+			add_filter(
+				'porto_builder',
+				function( $vars ) {
+					$vars['builder_type'] = get_post_meta( $_REQUEST['post'], PortoBuilders::BUILDER_TAXONOMY_SLUG, true );
+					return $vars;
+				}
+			);
+		}
 		// register builder elements
 		add_action(
 			'plugins_loaded',
 			function() {
+				if ( is_admin() && defined( 'WPB_VC_VERSION' ) && ( ! empty( $_REQUEST['post'] ) || ! empty( $_REQUEST['post_id'] ) ) ) {
+					$post_id = -1;
+					if ( ! empty( $_REQUEST['post'] ) ) {
+						$post_id = $_REQUEST['post'];
+					} else {
+						$post_id = $_REQUEST['post_id'];
+					}
+
+					$builder_type = get_post_meta( $post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, true );
+
+					if ( 'header' == $builder_type || 'footer' == $builder_type ) {
+						global $vc_row_layouts;
+
+						$vc_row_layouts = array(
+							array(
+								'cells'      => 'flex1_flexauto',
+								'mask'       => '215',
+								'title'      => 'flex-1 + flex-auto',
+								'icon_class' => 'flex-1_flex-auto',
+							),
+							array(
+								'cells'      => 'flex1_flexauto_flex1',
+								'mask'       => '216',
+								'title'      => 'flex-1 + flex-auto + flex-1',
+								'icon_class' => 'flex-1_flex-auto_flex-1',
+							),
+							array(
+								'cells'      => 'flexauto_flex1_flexauto',
+								'mask'       => '217',
+								'title'      => 'flex-auto + flex-1 + flex-auto',
+								'icon_class' => 'flex-auto_flex-1_flex-auto',
+							),
+							array(
+								'cells'      => '11',
+								'mask'       => '12',
+								'title'      => '1/1',
+								'icon_class' => '1-1',
+							),
+							array(
+								'cells'      => '12_12',
+								'mask'       => '26',
+								'title'      => '1/2 + 1/2',
+								'icon_class' => '1-2_1-2',
+							),
+							array(
+								'cells'      => '23_13',
+								'mask'       => '29',
+								'title'      => '2/3 + 1/3',
+								'icon_class' => '2-3_1-3',
+							),
+							array(
+								'cells'      => '13_13_13',
+								'mask'       => '312',
+								'title'      => '1/3 + 1/3 + 1/3',
+								'icon_class' => '1-3_1-3_1-3',
+							),
+							array(
+								'cells'      => '14_14_14_14',
+								'mask'       => '420',
+								'title'      => '1/4 + 1/4 + 1/4 + 1/4',
+								'icon_class' => '1-4_1-4_1-4_1-4',
+							),
+							array(
+								'cells'      => '14_34',
+								'mask'       => '212',
+								'title'      => '1/4 + 3/4',
+								'icon_class' => '1-4_3-4',
+							),
+							array(
+								'cells'      => '14_12_14',
+								'mask'       => '313',
+								'title'      => '1/4 + 1/2 + 1/4',
+								'icon_class' => '1-4_1-2_1-4',
+							),
+							array(
+								'cells'      => '56_16',
+								'mask'       => '218',
+								'title'      => '5/6 + 1/6',
+								'icon_class' => '5-6_1-6',
+							),
+							array(
+								'cells'      => '16_16_16_16_16_16',
+								'mask'       => '642',
+								'title'      => '1/6 + 1/6 + 1/6 + 1/6 + 1/6 + 1/6',
+								'icon_class' => '1-6_1-6_1-6_1-6_1-6_1-6',
+							),
+							array(
+								'cells'      => '16_23_16',
+								'mask'       => '319',
+								'title'      => '1/6 + 4/6 + 1/6',
+								'icon_class' => '1-6_2-3_1-6',
+							),
+							array(
+								'cells'      => '16_16_16_12',
+								'mask'       => '424',
+								'title'      => '1/6 + 1/6 + 1/6 + 1/2',
+								'icon_class' => '1-6_1-6_1-6_1-2',
+							),
+							array(
+								'cells'      => '15_15_15_15_15',
+								'mask'       => '530',
+								'title'      => '1/5 + 1/5 + 1/5 + 1/5 + 1/5',
+								'icon_class' => 'l_15_15_15_15_15',
+							),
+						);
+					}
+				}
 				if ( array_key_exists( 'header', $this->builder_types ) ) {
 					require_once PORTO_BUILDERS_PATH . 'elements/header/init.php';
 				}
@@ -127,6 +275,10 @@ class PortoBuilders {
 				}
 			}
 		);
+
+		// save edit area size
+		add_action( 'wp_ajax_vc_save', array( $this, 'save_custom_panel_options' ), 9 );
+		add_action( 'save_post', array( $this, 'save_custom_panel_options' ), 1 );
 	}
 
 	/**
@@ -185,6 +337,7 @@ class PortoBuilders {
 			'exclude_from_search'  => true,
 			'capability_type'      => 'post',
 			'hierarchical'         => false,
+			'show_in_rest'         => true,
 			'supports'             => array(
 				'title',
 				'thumbnail',
@@ -216,6 +369,7 @@ class PortoBuilders {
 			'rewrite'           => false,
 			'public'            => false,
 			'label'             => __( 'Type', 'porto-functionality' ),
+			'show_in_rest'      => true,
 		);
 		register_taxonomy( self::BUILDER_TAXONOMY_SLUG, self::BUILDER_SLUG, $args );
 	}
@@ -275,12 +429,85 @@ class PortoBuilders {
 	}
 
 	public function admin_column_header( $defaults ) {
+		$defaults['condition'] = __( 'Applied Conditions', 'porto-functionality' );
 		$defaults['shortcode'] = __( 'Shortcode', 'porto-functionality' );
 		return $defaults;
 	}
 
 	public function admin_column_content( $column_name, $post_id ) {
-		if ( 'shortcode' === $column_name ) {
+		if ( 'condition' === $column_name ) {
+			$conditions = get_post_meta( $post_id, '_porto_builder_conditions', true );
+			if ( ! empty( $conditions ) ) {
+				$names = array(
+					'archive/date'   => __( 'Date Archive', 'porto-functionaltiy' ),
+					'archive/author' => __( 'Author Archive', 'porto-functionaltiy' ),
+					'archive/search' => __( 'Search Results', 'porto-functionaltiy' ),
+					'single/page'    => __( 'Pages', 'porto-functionaltiy' ),
+					'single/404'     => __( '404 Page', 'porto-functionaltiy' ),
+				);
+				$_post_types = get_post_types( array( 'show_in_nav_menus' => true ), 'objects' );
+				$post_types  = array();
+				foreach ( $_post_types as $post_type => $object ) {
+					$post_types[ $post_type ] = $object->labels->singular_name;
+				}
+				$post_types = apply_filters( 'porto_builder_post_types', $post_types );
+
+				foreach ( $conditions as $index => $condition ) {
+					if ( $index ) {
+						echo '<br>';
+					}
+					if ( isset( $condition[0] ) && empty( $condition[0] ) ) {
+						esc_html_e( 'All', 'porto-functionaltiy' );
+						continue;
+					}/* elseif ( ! empty( $condition[0] ) ) {
+						if ( 'single' == $condition[0] ) {
+							esc_html_e( 'Single', 'porto-functionaltiy' );
+						} else {
+							esc_html_e( 'Archive', 'porto-functionaltiy' );
+						}
+					}*/
+
+					if ( ! empty( $condition[1] ) ) {
+						if ( isset( $names[ $condition[1] ] ) ) {
+							echo esc_html( $names[ $condition[1] ] );
+						} elseif ( 0 === strpos( $condition[1], 'archive/' ) ) {
+							$post_type = str_replace( 'archive/', '', $condition[1] );
+							if ( isset( $post_types[ $post_type ] ) ) {
+								printf( esc_html__( '%s Archive', 'porto-functionaltiy' ), esc_html( $post_types[ $post_type ] ) );
+							}
+						} elseif ( 0 === strpos( $condition[1], 'single/' ) ) {
+							$post_type = str_replace( 'single/', '', $condition[1] );
+							if ( isset( $post_types[ $post_type ] ) ) {
+								printf( esc_html__( 'All %s pages', 'porto-functionaltiy' ), esc_html( $post_types[ $post_type ] ) );
+							}
+						} elseif ( 0 === strpos( $condition[1], 'taxonomy/' ) ) {
+							$tax_name = str_replace( 'taxonomy/', '', $condition[1] );
+							$tax      = get_taxonomy( $tax_name );
+							if ( $tax && ! empty( $tax->object_type ) && isset( $tax->label ) ) {
+								if ( isset( $condition[0] ) && 'single' === $condition[0] ) {
+									if ( ! empty( $condition[2] ) && ! empty( $condition[3] ) ) {
+										printf( esc_html__( 'All %s pages of "%s"', 'porto-functionaltiy' ), ucfirst( $tax->object_type[0] ), esc_html( $condition[3] ) );
+									} else {
+										printf( esc_html__( 'All %s pages which have any %s', 'porto-functionaltiy' ), ucfirst( $tax->object_type[0] ), $tax->labels->singular_name );
+									}
+								} elseif ( isset( $condition[0] ) && 'archive' === $condition[0] ) {
+									if ( ! empty( $condition[2] ) && ! empty( $condition[3] ) ) {
+										printf( esc_html__( '"%s" %s', 'porto-functionaltiy' ), esc_html( $condition[3] ), esc_html( $tax->label ) );
+									} else {
+										printf( esc_html__( 'All %s', 'porto-functionaltiy' ), esc_html( $tax->label ) );
+									}
+								}
+							}
+						}
+					}
+
+					/*if ( ! empty( $condition[2] ) && ! empty( $condition[3] ) ) {
+						echo ' -> ';
+						echo $condition[3];
+					}*/
+				}
+			}
+		} elseif ( 'shortcode' === $column_name ) {
 			$shortcode = sprintf( '[porto_block id="%d"]', $post_id );
 			printf( '<input class="porto-input-shortcode" type="text" readonly="readonly" onfocus="this.select()" value="%s" />', esc_attr( $shortcode ) );
 		}
@@ -325,7 +552,7 @@ class PortoBuilders {
 			return true;
 		} elseif ( 'post.php' == $GLOBALS['pagenow'] && ( isset( $_GET['post'] ) || ! empty( $_REQUEST['post_ID'] ) ) ) {
 			if ( isset( $_GET['post'] ) ) {
-				$post      = get_post( intval( $_GET['post'] ) );
+				$post = get_post( intval( $_GET['post'] ) );
 				if ( ! $post ) {
 					return false;
 				}
@@ -361,6 +588,31 @@ class PortoBuilders {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * save_custom_panel_options
+	 *
+	 * saves custom panel options on ajax save event
+	 * - edit area size
+	 *
+	 * @since 6.1.0
+	 */
+	public function save_custom_panel_options( $post_id ) {
+		if ( isset( $post_id ) && is_numeric( $post_id ) ) { // post save
+			// save edit area size
+			if ( ! empty( $_POST['porto_edit_area_width'] ) ) {
+				update_post_meta( $post_id, 'porto_edit_area_width', esc_attr( $_POST['porto_edit_area_width'] ) );
+			}
+		} else { // ajax save
+			$post_id = intval( vc_post_param( 'post_id' ) );
+			vc_user_access()->checkAdminNonce()->validateDie()->wpAny( 'edit_posts', 'edit_pages' )->validateDie()->canEdit( $post_id )->validateDie();
+			// save edit area size
+			$edit_area_width = vc_post_param( 'porto_edit_area_width' );
+			if ( $post_id > 0 && ! empty( $edit_area_width ) ) {
+				update_post_meta( $post_id, 'porto_edit_area_width', esc_attr( $edit_area_width ) );
+			}
+		}
 	}
 }
 

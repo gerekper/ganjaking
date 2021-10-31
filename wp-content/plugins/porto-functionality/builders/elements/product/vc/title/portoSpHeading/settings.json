@@ -1,0 +1,226 @@
+{
+	"text_transform": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "none",
+		"options": {
+			"label": "Text Transform",
+			"values": [
+				{
+					"label": "Inherit",
+					"value": "inherit"
+				},
+				{
+					"label": "None",
+					"value": "none"
+				},
+				{
+					"label": "Capitalize",
+					"value": "capitalize"
+				},
+				{
+					"label": "Uppercase",
+					"value": "uppercase"
+				},
+				{
+					"label": "Lowercase",
+					"value": "lowercase"
+				}
+			]
+		}
+	},
+	"use_theme_fonts": {
+		"type": "toggle",
+		"access": "public",
+		"value": false,
+		"options": {
+			"label": "Use Custom Font family"
+		}
+	},
+	"title_font": {
+		"type": "googleFonts",
+		"access": "public",
+		"value": {
+			"fontFamily": "",
+			"fontStyle": {
+				"weight": "",
+				"style": ""
+			},
+			"status": "active"
+		},
+		"options": {
+			"label": "",
+			"onChange": {
+				"rules": {
+					"use_theme_fonts": {
+						"rule": "toggle"
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"font_size": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Font size"
+		}
+	},
+	"font_weight": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Font weight",
+			"values": [
+				{
+					"label": "Default",
+					"value": ""
+				},
+				{
+					"label": "200",
+					"value": "200"
+				},
+				{
+					"label": "300",
+					"value": "300"
+				},
+				{
+					"label": "400",
+					"value": "400"
+				},
+				{
+					"label": "500",
+					"value": "500"
+				},
+				{
+					"label": "600",
+					"value": "600"
+				},
+				{
+					"label": "700",
+					"value": "700"
+				},
+				{
+					"label": "800",
+					"value": "800"
+				},
+				{
+					"label": "900",
+					"value": "900"
+				}
+			]
+		}
+	},
+	"line_height": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Line height"
+		}
+	},
+	"letter_spacing": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Letter spacing"
+		}
+	},
+	"color": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Color"
+		}
+	},
+	"alignment": {
+		"type": "buttonGroup",
+		"access": "public",
+		"value": "left",
+		"options": {
+			"label": "Text Align",
+			"values": [
+				{
+					"label": "Left",
+					"value": "left",
+					"icon": "vcv-ui-icon-attribute-alignment-left"
+				},
+				{
+					"label": "Center",
+					"value": "center",
+					"icon": "vcv-ui-icon-attribute-alignment-center"
+				},
+				{
+					"label": "Right",
+					"value": "right",
+					"icon": "vcv-ui-icon-attribute-alignment-right"
+				}
+			]
+		}
+	},
+	"el_class": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Extra class name",
+			"description": "Add an extra class name to the element and refer to it from Custom CSS option."
+		}
+	},
+	"designOptions": {
+		"type": "designOptions",
+		"access": "public",
+		"value": {},
+		"options": {
+			"label": "Design Options"
+		}
+	},
+	"editFormTab1": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"use_theme_fonts",
+			"title_font",
+			"font_size",
+			"font_weight",
+			"text_transform",
+			"line_height",
+			"letter_spacing",
+			"color",
+			"alignment",
+			"el_class"
+		],
+		"options": {
+			"label": "Heading"
+		}
+	},
+	"metaEditFormTabs": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"editFormTab1",
+			"designOptions"
+		]
+	},
+	"relatedTo": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"General"
+		]
+	},
+	"tag": {
+		"access": "protected",
+		"type": "string",
+		"value": "portoSpHeading"
+	}
+}

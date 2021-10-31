@@ -20,15 +20,19 @@ class Porto_Elementor_Members_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Members', 'porto-functionality' );
+		return __( 'Porto Members', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'member', 'person', 'author' );
+	}
+
+	public function get_icon() {
+		return 'eicon-person';
 	}
 
 	public function get_script_depends() {
@@ -150,18 +154,24 @@ class Porto_Elementor_Members_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'cats',
 			array(
-				'type'        => Controls_Manager::TEXT,
+				'type'        => 'porto_ajaxselect2',
 				'label'       => __( 'Category IDs', 'porto-functionality' ),
 				'description' => __( 'comma separated list of category ids', 'porto-functionality' ),
+				'options'     => 'member_cat',
+				'multiple'    => true,
+				'label_block' => true,
 			)
 		);
 
 		$this->add_control(
 			'post_in',
 			array(
-				'type'        => Controls_Manager::TEXT,
+				'type'        => 'porto_ajaxselect2',
 				'label'       => __( 'Member IDs', 'porto-functionality' ),
 				'description' => __( 'comma separated list of member ids', 'porto-functionality' ),
+				'options'     => 'member',
+				'multiple'    => true,
+				'label_block' => true,
 			)
 		);
 
@@ -237,6 +247,12 @@ class Porto_Elementor_Members_Widget extends \Elementor\Widget_Base {
 		$atts = $this->get_settings_for_display();
 
 		if ( $template = porto_shortcode_template( 'porto_members' ) ) {
+			if ( ! empty( $atts['cats'] ) && is_array( $atts['cats'] ) ) {
+				$atts['cats'] = implode( ',', $atts['cats'] );
+			}
+			if ( ! empty( $atts['post_in'] ) && is_array( $atts['post_in'] ) ) {
+				$atts['post_in'] = implode( ',', $atts['post_in'] );
+			}
 			include $template;
 		}
 	}

@@ -10,6 +10,7 @@
 			'shape'               => '',
 			'icon_pos'            => 'left',
 			'icon_cls'            => '',
+			'hover_effect'        => '',
 			'align'               => '',
 			'show_arrow'          => '',
 			'floating_start_pos'  => '',
@@ -48,6 +49,10 @@
 			if ( 'right' == $settings['icon_pos'] ) {
 				$btn_classes .= ' btn-icon-right';
 			}
+		}
+
+		if ( ! empty( $settings['hover_effect'] ) ) {
+			$btn_classes .= ' ' . trim( $settings['hover_effect'] );
 		}
 
 		if ( $settings['className'] ) {

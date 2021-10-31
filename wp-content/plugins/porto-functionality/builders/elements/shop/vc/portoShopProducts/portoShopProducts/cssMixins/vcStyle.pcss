@@ -1,0 +1,44 @@
+@if $elementId != false {
+	.shop-products-$elementId {
+		ul.products .woocommerce-loop-product__title {
+			@if $pt_text_transform != false {
+				text-transform: $pt_text_transform;
+			}
+			@if $pt_font_size != false {
+				font-size: $pt_font_size;
+			}
+			@if $pt_font_weight != false {
+				font-weight: $pt_font_weight;
+			}
+			@if $pt_line_height != false {
+				line-height: $pt_line_height;
+			}
+			@if $pt_letter_spacing != false {
+				letter-spacing: $pt_letter_spacing;
+			}			
+			@if $pt_color != false {
+				color: $pt_color;
+			}					
+		}
+		ul.products li .price {
+			@if $pr_text_transform != false {
+				text-transform: $pr_text_transform;
+			}
+			@if $pr_font_size != false {
+				font-size: $pr_font_size;
+			}
+			@if $pr_font_weight != false {
+				font-weight: $pr_font_weight;
+			}
+			@if $pr_line_height != false {
+				line-height: $pr_line_height;
+			}
+			@if $pr_letter_spacing != false {
+				letter-spacing: $pr_letter_spacing;
+			}			
+			@if $pr_color != false {
+				color: $pr_color;
+			}			
+		}
+	}
+}

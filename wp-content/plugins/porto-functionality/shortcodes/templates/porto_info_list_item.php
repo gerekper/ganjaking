@@ -30,7 +30,7 @@ if ( $desc_font_size ) {
 	$style .= 'font-size: ' . esc_attr( $desc_font_size ) . 'px;';
 }
 if ( $style ) {
-	$style .= ' style="' . $style . '"';
+	$style = ' style="' . $style . '"';
 }
 
 $html  = '';

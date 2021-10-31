@@ -6,6 +6,8 @@ $video_code = get_post_meta( get_the_ID(), 'video_code', true );
 if ( ! $video_code ) {
 	return;
 }
+
+wp_enqueue_script( 'jquery-fitvids' );
 ?>
 	<div class="post-image single">
 		<div class="img-thumbnail fit-video">

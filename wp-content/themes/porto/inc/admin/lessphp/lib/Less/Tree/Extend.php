@@ -18,7 +18,6 @@ class Less_Tree_Extend extends Less_Tree {
 	public $type = 'Extend';
 	public $ruleset;
 
-
 	public $object_id;
 	public $parent_ids = array();
 
@@ -26,24 +25,29 @@ class Less_Tree_Extend extends Less_Tree {
 	 * @param integer $index
 	 */
 	public function __construct( $selector, $option, $index ) {
-		static $i       = 0;
+		static $i = 0;
 		$this->selector = $selector;
-		$this->option   = $option;
-		$this->index    = $index;
+		$this->option = $option;
+		$this->index = $index;
 
 		switch ( $option ) {
-			case 'all':
+			case "all":
 				$this->allowBefore = true;
-				$this->allowAfter  = true;
-				break;
+				$this->allowAfter = true;
+			break;
 			default:
 				$this->allowBefore = false;
-				$this->allowAfter  = false;
-				break;
+				$this->allowAfter = false;
+			break;
 		}
 
-		$this->object_id  = $i++;
-		$this->parent_ids = array( $this->object_id );
+		// This must use a string (instead of int) so that array_merge()
+		// preserves keys on arrays that use IDs in their keys.
+		$this->object_id = 'id_' . $i++;
+
+		$this->parent_ids = array(
+			$this->object_id => true
+		);
 	}
 
 	public function accept( $visitor ) {
@@ -52,7 +56,7 @@ class Less_Tree_Extend extends Less_Tree {
 
 	public function compile( $env ) {
 		Less_Parser::$has_extends = true;
-		$this->selector           = $this->selector->compile( $env );
+		$this->selector = $this->selector->compile( $env );
 		return $this;
 		// return new Less_Tree_Extend( $this->selector->compile($env), $this->option, $this->index);
 	}
@@ -61,13 +65,13 @@ class Less_Tree_Extend extends Less_Tree {
 		$selfElements = array();
 
 		for ( $i = 0, $selectors_len = count( $selectors ); $i < $selectors_len; $i++ ) {
-			$selectorElements = $selectors[ $i ]->elements;
+			$selectorElements = $selectors[$i]->elements;
 			// duplicate the logic in genCSS function inside the selector node.
 			// future TODO - move both logics into the selector joiner visitor
-			if ( $i && $selectorElements && $selectorElements[0]->combinator === '' ) {
+			if ( $i && $selectorElements && $selectorElements[0]->combinator === "" ) {
 				$selectorElements[0]->combinator = ' ';
 			}
-			$selfElements = array_merge( $selfElements, $selectors[ $i ]->elements );
+			$selfElements = array_merge( $selfElements, $selectors[$i]->elements );
 		}
 
 		$this->selfSelectors = array( new Less_Tree_Selector( $selfElements ) );

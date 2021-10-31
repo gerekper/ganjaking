@@ -3,10 +3,6 @@
 // Porto History
 add_action( 'vc_after_init', 'porto_load_history_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_history_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -15,11 +11,12 @@ function porto_load_history_shortcode() {
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'History', 'porto-functionality' ),
-			'base'     => 'porto_history',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'fas fa-history',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'History', 'porto-functionality' ),
+			'base'        => 'porto_history',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Show history with image and text field by year', 'porto-functionality' ),
+			'icon'        => 'fas fa-history',
+			'params'      => array(
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Year', 'porto-functionality' ),

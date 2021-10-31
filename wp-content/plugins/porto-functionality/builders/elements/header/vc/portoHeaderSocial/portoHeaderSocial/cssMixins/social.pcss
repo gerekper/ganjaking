@@ -1,0 +1,41 @@
+#header.header-builder .share-links > a {
+	@if $iconSize != false {
+		font-size: $(iconSize);
+	}
+	@if $iconColor != false {
+		color: $(iconColor);
+	}
+	@if $iconBorderStyle != false {
+		border-style: $(iconBorderStyle);
+	}
+	@if $iconBorderColor != false {
+		border-color: $(iconBorderColor);
+	}
+	@if $iconBorderSize != false {
+		border-width: $(iconBorderSize)px;
+	}
+	@if $iconBorderRadius != false {
+		border-radius: $(iconBorderRadius)px;
+	}
+	@if $iconWidth != false {
+		width: $(iconWidth);
+		height: $(iconWidth);
+	}
+}
+
+@if ($iconHoverColor != false || $iconHoverBgColor != false) {
+	#header.header-builder .share-links > a:hover {
+		@if $iconHoverColor != false {
+			color: $(iconHoverColor);
+		}
+		@if $iconHoverBgColor != false {
+			background-color: $(iconHoverBgColor);
+		}
+	}
+}
+
+@if $iconBgColor != false {
+	#header.header-builder .share-links > a:not(:hover) {
+		background-color: $(iconBgColor);
+	}
+}

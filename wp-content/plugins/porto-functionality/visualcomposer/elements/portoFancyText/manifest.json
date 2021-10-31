@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoFancyText": {
+      "settings": {
+        "name": "Porto Fancy Text (Word Rotator)",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-fancy-text.jpg",
+        "metaDescription": "Porto VC element to display fancy lines with animation effects."
+      }
+    }
+  },
+  "categories": {
+    "Feature": {
+      "elements": [
+        "portoFancyText"
+      ]
+    }
+  }
+}

@@ -271,12 +271,12 @@
 
                 // '' is used to push values into the array "array[]"
                 if ( nextKey === '' ) {
-                    if ( f.isUndefined( o[key] ) || !$.isArray( o[key] ) ) {
+                    if ( f.isUndefined( o[key] ) || !Array.isArray( o[key] ) ) {
                         o[key] = []; // define (or override) as array to push values
                     }
                 } else {
                     if ( opts.useIntKeysAsArrayIndex && f.isValidArrayIndex( nextKey ) ) { // if 1, 2, 3 ... then use an array, where nextKey is the index
-                        if ( f.isUndefined( o[key] ) || !$.isArray( o[key] ) ) {
+                        if ( f.isUndefined( o[key] ) || !Array.isArray( o[key] ) ) {
                             o[key] = []; // define (or override) as array, to insert values using int keys as array indexes
                         }
                     } else { // for anything else, use an object, where nextKey is going to be the attribute name

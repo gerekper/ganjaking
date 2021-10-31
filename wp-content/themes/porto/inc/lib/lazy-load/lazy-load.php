@@ -103,7 +103,7 @@ if ( ! class_exists( 'Porto_LazyLoad_Images' ) ) :
 			add_filter( 'porto_lazy_load_images', array( __CLASS__, 'add_image_placeholders' ), 9999 );
 			add_filter( 'woocommerce_single_product_image_thumbnail_html', array( __CLASS__, 'add_image_placeholders' ), 9999 );
 
-			wp_enqueue_script( 'jquery-lazyload' );
+			wp_enqueue_script( 'lazyload' );
 		}
 		static function add_scripts() {
 
@@ -127,7 +127,7 @@ if ( ! class_exists( 'Porto_LazyLoad_Images' ) ) :
 			global $porto_settings;
 
 			foreach ( $matches[0] as $img_html ) {
-				if ( false !== strpos( $img_html, 'data-oi' ) || false !== strpos( $img_html, 'data-original' ) || false !== strpos( $img_html, 'data-src' ) || preg_match( "/src=['\"]data:image/is", $img_html ) || false !== strpos( $img_html, 'rev-slidebg' ) ) {
+				if ( false !== strpos( $img_html, 'data-oi' ) || false !== strpos( $img_html, 'data-original' ) || false !== strpos( $img_html, 'data-src' ) || preg_match( "/src=['\"]data:image/is", $img_html ) || false !== strpos( $img_html, 'rev-slidebg' ) || false !== strpos( $img_html, 'porto-skip-lz' ) ) {
 					continue;
 				}
 

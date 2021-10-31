@@ -20,15 +20,19 @@ class Porto_Elementor_Events_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Events', 'porto-functionality' );
+		return __( 'Porto Events', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'event', 'posts' );
+	}
+
+	public function get_icon() {
+		return 'eicon-time-line';
 	}
 
 	public function get_script_depends() {

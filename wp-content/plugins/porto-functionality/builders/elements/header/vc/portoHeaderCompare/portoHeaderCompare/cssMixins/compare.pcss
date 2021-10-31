@@ -1,0 +1,10 @@
+@if ($fontSize != false || $color != false) {
+	#header.header-builder .yith-woocompare-open {
+		@if $fontSize != false {
+			font-size: $(fontSize);
+		}
+		@if $color != false {
+			color: $(color);
+		}
+	}
+}

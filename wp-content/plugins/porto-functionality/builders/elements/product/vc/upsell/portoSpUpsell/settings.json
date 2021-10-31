@@ -1,0 +1,983 @@
+{
+	"orderby": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "date",
+		"options": {
+			"label": "Order by",
+			"values": [
+				{
+					"label": "Date",
+					"value": "date"
+				},
+				{
+					"label": "Price",
+					"value": "price"
+				},
+				{
+					"label": "Rating",
+					"value": "rating"
+				},
+				{
+					"label": "Total Sales",
+					"value": "total_sales"
+				},
+				{
+					"label": "Popularity",
+					"value": "popularity"
+				},
+				{
+					"label": "ID",
+					"value": "id"
+				},
+				{
+					"label": "Title",
+					"value": "title"
+				},
+				{
+					"label": "Random",
+					"value": "rand"
+				},
+				{
+					"label": "Menu order",
+					"value": "menu_order"
+				}
+			]
+		}
+	},
+	"order1": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "DESC",
+		"options": {
+			"label": "Order",
+			"values": [
+				{
+					"label": "Descending",
+					"value": "DESC"
+				},
+				{
+					"label": "Ascending",
+					"value": "ASC"
+				}
+			]
+		}
+	},
+	"view": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "grid",
+		"options": {
+			"label": "View",
+			"values": [
+				{
+					"label": "Grid",
+					"value": "grid"
+				},
+				{
+					"label": "Grid - Divider Line",
+					"value": "divider"
+				},
+				{
+					"label": "Grid - Creative",
+					"value": "creative"
+				},
+				{
+					"label": "List",
+					"value": "list"
+				},
+				{
+					"label": "Slider",
+					"value": "products-slider"
+				}
+			]
+		}
+	},
+	"grid_layout": {
+		"type": "buttonGroup",
+		"access": "public",
+		"value": "1",
+		"options": {
+			"label": "View",
+			"values": [
+				{
+					"label": "grid-layout-1",
+					"value": "1",
+					"icon": "cg-1 creative-img"
+				},
+				{
+					"label": "grid-layout-2",
+					"value": "2",
+					"icon": "cg-2 creative-img"
+				},
+				{
+					"label": "grid-layout-3",
+					"value": "3",
+					"icon": "cg-3 creative-img"
+				},
+				{
+					"label": "grid-layout-4",
+					"value": "4",
+					"icon": "cg-4 creative-img"
+				},
+				{
+					"label": "grid-layout-5",
+					"value": "5",
+					"icon": "cg-5 creative-img"
+				},
+				{
+					"label": "grid-layout-6",
+					"value": "6",
+					"icon": "cg-6 creative-img"
+				},
+				{
+					"label": "grid-layout-7",
+					"value": "7",
+					"icon": "cg-7 creative-img"
+				},
+				{
+					"label": "grid-layout-8",
+					"value": "8",
+					"icon": "cg-8 creative-img"
+				},
+				{
+					"label": "grid-layout-9",
+					"value": "9",
+					"icon": "cg-9 creative-img"
+				},
+				{
+					"label": "grid-layout-10",
+					"value": "10",
+					"icon": "cg-10 creative-img"
+				},
+				{
+					"label": "grid-layout-11",
+					"value": "11",
+					"icon": "cg-11 creative-img"
+				},
+				{
+					"label": "grid-layout-12",
+					"value": "12",
+					"icon": "cg-12 creative-img"
+				},
+				{
+					"label": "grid-layout-13",
+					"value": "13",
+					"icon": "cg-13 creative-img"
+				},
+				{
+					"label": "grid-layout-14",
+					"value": "14",
+					"icon": "cg-14 creative-img"
+				}
+			],
+			"onChange": {
+				"rules": {
+					"view": {
+						"rule": "value",
+						"options": {
+							"value": "creative"
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"grid_height": {
+		"type": "number",
+		"access": "public",
+		"value": "600",
+		"options": {
+			"label": "Grid Height (px)",
+			"onChange": {
+				"rules": {
+					"view": {
+						"rule": "value",
+						"options": {
+							"value": "creative"
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"spacing": {
+		"type": "number",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Column Spacing (px)",
+			"description": "Leave blank if you use theme default value.",
+			"min": 0,
+			"max": 100,
+			"onChange": {
+				"rules": {
+					"view": {
+						"rule": "valueIn",
+						"options": {
+							"values": [
+								"grid",
+								"creative",
+								"products-slider"
+							]
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"columns": {
+		"type": "number",
+		"access": "public",
+		"value": 4,
+		"options": {
+			"label": "Columns",
+			"min": 1,
+			"max": 8,
+			"onChange": {
+				"rules": {
+					"view": {
+						"rule": "valueIn",
+						"options": {
+							"values": [
+								"grid",
+								"divider",
+								"products-slider"
+							]
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"columns_mobile": {
+		"type": "number",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Columns on mobile ( <= 575px )",
+			"min": 1,
+			"max": 3,
+			"onChange": {
+				"rules": {
+					"view": {
+						"rule": "valueIn",
+						"options": {
+							"values": [
+								"grid",
+								"divider",
+								"list",
+								"products-slider"
+							]
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"column_width": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "1",
+		"options": {
+			"label": "Column Width",
+			"values": [
+				{
+					"label": "Default",
+					"value": ""
+				},
+				{
+					"label": "1/1 of content width",
+					"value": "1"
+				},
+				{
+					"label": "1/2 of content width",
+					"value": "2"
+				},
+				{
+					"label": "1/3 of content width",
+					"value": "3"
+				},
+				{
+					"label": "1/4 of content width",
+					"value": "4"
+				},
+				{
+					"label": "1/5 of content width",
+					"value": "5"
+				},
+				{
+					"label": "1/6 of content width",
+					"value": "6"
+				},
+				{
+					"label": "1/7 of content width",
+					"value": "7"
+				},
+				{
+					"label": "1/8 of content width",
+					"value": "8"
+				}
+			],
+			"onChange": {
+				"rules": {
+					"view": {
+						"rule": "valueIn",
+						"options": {
+							"values": [
+								"grid",
+								"divider",
+								"products-slider"
+							]
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"pagination_style": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Pagination Style",
+			"values": [
+				{
+					"label": "No pagination",
+					"value": ""
+				},
+				{
+					"label": "Default",
+					"value": "default"
+				},
+				{
+					"label": "Load more",
+					"value": "load_more"
+				}
+			],
+			"onChange": {
+				"rules": {
+					"view": {
+						"rule": "valueIn",
+						"options": {
+							"values": [
+								"grid",
+								"divider",
+								"list"
+							]
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"addlinks_pos": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Product Layout",
+			"description": "Select position of add to cart, add to wishlist, quickview.",
+			"global": "portoProductLayouts"
+		}
+	},
+	"show_sort": {
+		"type": "checkbox",
+		"access": "public",
+		"value": [],
+		"options": {
+			"label": "Show Sort by",
+			"values": [
+				{
+					"label": "All",
+					"value": "all"
+				},
+				{
+					"label": "Popular",
+					"value": "popular"
+				},
+				{
+					"label": "Date",
+					"value": "date"
+				},
+				{
+					"label": "Rating",
+					"value": "rating"
+				}
+			]
+		}
+	},
+	"show_sales_title": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Title for \"Sort by Popular\"",
+			"onChange": {
+				"rules": {
+					"show_sort": {
+						"rule": "valueContains",
+						"options": {
+							"value": "popular"
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"show_new_title": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Title for \"Sort by Date\"",
+			"onChange": {
+				"rules": {
+					"show_sort": {
+						"rule": "valueContains",
+						"options": {
+							"value": "date"
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"show_rating_title": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Title for \"Sort by Rating\"",
+			"onChange": {
+				"rules": {
+					"show_sort": {
+						"rule": "valueContains",
+						"options": {
+							"value": "rating"
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"category_filter": {
+		"type": "toggle",
+		"access": "public",
+		"value": false,
+		"options": {
+			"label": "Show category filter"
+		}
+	},
+	"filter_style": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Filter Style",
+			"description": "This field is used only when using \"sort by\" or \"category filter\".",
+			"values": [
+				{
+					"label": "Vertical",
+					"value": ""
+				},
+				{
+					"label": "Horizontal",
+					"value": "horizontal"
+				}
+			]
+		}
+	},
+	"use_simple": {
+		"type": "toggle",
+		"access": "public",
+		"value": false,
+		"options": {
+			"label": "Use simple layout?",
+			"description": "If you check this option, it will display product title and price only."
+		}
+	},
+	"overlay_bg_opacity": {
+		"type": "number",
+		"access": "public",
+		"value": 30,
+		"options": {
+			"label": "Overlay Background Opacity (%)",
+			"min": 0,
+			"max": 100,
+			"onChange": {
+				"rules": {
+					"addlinks_pos": {
+						"rule": "valueIn",
+						"options": {
+							"values": [
+								"onimage2",
+								"onimage3"
+							]
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"image_size": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Image Size",
+			"global": "portoImageSizes",
+			"onChange": {
+				"rules": {
+					"view": {
+						"rule": "valueIn",
+						"options": {
+							"values": [
+								"products-slider",
+								"grid",
+								"divider",
+								"list"
+							]
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"navigation": {
+		"type": "toggle",
+		"access": "public",
+		"value": true,
+		"options": {
+			"label": "Show Slider Navigation"
+		}
+	},
+	"nav_pos": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Nav Position",
+			"values": [
+				{
+					"label": "Middle",
+					"value": ""
+				},
+				{
+					"label": "Middle of Images",
+					"value": "nav-center-images-only"
+				},
+				{
+					"label": "Top",
+					"value": "show-nav-title"
+				},
+				{
+					"label": "Bottom",
+					"value": "nav-bottom"
+				}
+			],
+			"onChange": {
+				"rules": {
+					"navigation": {
+						"rule": "value",
+						"options": {
+							"value": true
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"nav_pos2": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Nav Inside/Outside?",
+			"values": [
+				{
+					"label": "Default",
+					"value": ""
+				},
+				{
+					"label": "Inside",
+					"value": "nav-pos-inside"
+				},
+				{
+					"label": "Outside",
+					"value": "nav-pos-outside"
+				}
+			],
+			"onChange": {
+				"rules": {
+					"navigation": {
+						"rule": "value",
+						"options": {
+							"value": true
+						}
+					},
+					"nav_pos": {
+						"rule": "valueIn",
+						"options": {
+							"values": [
+								"",
+								"nav-center-images-only"
+							]
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"nav_type": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Nav Type",
+			"global": "portoCarouselNavTypes",
+			"onChange": {
+				"rules": {
+					"navigation": {
+						"rule": "value",
+						"options": {
+							"value": true
+						}
+					},
+					"nav_pos": {
+						"rule": "valueIn",
+						"options": {
+							"values": [
+								"",
+								"nav-bottom",
+								"nav-center-images-only"
+							]
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"show_nav_hover": {
+		"type": "toggle",
+		"access": "public",
+		"value": false,
+		"options": {
+			"label": "Show Nav on Hover",
+			"onChange": {
+				"rules": {
+					"navigation": {
+						"rule": "value",
+						"options": {
+							"value": true
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"pagination": {
+		"type": "toggle",
+		"access": "public",
+		"value": false,
+		"options": {
+			"label": "Show Slider Pagination"
+		}
+	},
+	"dots_pos": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Dots Position",
+			"values": [
+				{
+					"label": "Bottom",
+					"value": ""
+				},
+				{
+					"label": "Top right",
+					"value": "show-dots-title-right"
+				}
+			],
+			"onChange": {
+				"rules": {
+					"pagination": {
+						"rule": "value",
+						"options": {
+							"value": true
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"dots_style": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Dots Style",
+			"values": [
+				{
+					"label": "Default",
+					"value": ""
+				},
+				{
+					"label": "Circle inner dot",
+					"value": "dots-style-1"
+				}
+			],
+			"onChange": {
+				"rules": {
+					"pagination": {
+						"rule": "value",
+						"options": {
+							"value": true
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"autoplay": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Auto Play",
+			"values": [
+				{
+					"label": "Theme Options",
+					"value": ""
+				},
+				{
+					"label": "Yes",
+					"value": "yes"
+				},
+				{
+					"label": "No",
+					"value": "no"
+				}
+			]
+		}
+	},
+	"autoplay_timeout": {
+		"type": "number",
+		"access": "public",
+		"value": 5000,
+		"options": {
+			"label": "Auto Play Timeout (ms)",
+			"min": 1000,
+			"step": 500,
+			"max": 10000,
+			"onChange": {
+				"rules": {
+					"autoplay": {
+						"rule": "value",
+						"options": {
+							"value": "yes"
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"designOptions": {
+		"type": "designOptions",
+		"access": "public",
+		"value": {},
+		"options": {
+			"label": "Design Options"
+		}
+	},
+	"editFormTab1": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"orderby",
+			"order1",
+			"view",
+			"grid_layout",
+			"grid_height",
+			"spacing",
+			"columns",
+			"columns_mobile",
+			"column_width",
+			"pagination_style",
+			"addlinks_pos",
+			"show_sort",
+			"show_sales_title",
+			"show_new_title",
+			"show_rating_title",
+			"category_filter",
+			"filter_style",
+			"use_simple",
+			"overlay_bg_opacity",
+			"image_size",
+			"el_class"
+		],
+		"options": {
+			"label": "Products Layout"
+		}
+	},
+	"editFormTab2": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"navigation",
+			"nav_pos",
+			"nav_pos2",
+			"nav_type",
+			"show_nav_hover",
+			"pagination",
+			"dots_pos",
+			"dots_style",
+			"autoplay",
+			"autoplay_timeout"
+		],
+		"options": {
+			"label": "Slider Options",
+			"onChange": {
+				"rules": {
+					"view": {
+						"rule": "value",
+						"options": {
+							"value": "products-slider"
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"metaEditFormTabs": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"editFormTab1",
+			"editFormTab2",
+			"designOptions"
+		]
+	},
+	"relatedTo": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"General"
+		]
+	},
+	"el_class": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Extra class name",
+			"description": "Add an extra class name to the element and refer to it from Custom CSS option."
+		}
+	},
+	"tag": {
+		"access": "protected",
+		"type": "string",
+		"value": "portoSpUpsell"
+	}
+}

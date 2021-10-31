@@ -20,7 +20,8 @@
 
 .add-links {
     .add_to_cart_button,
-    .add_to_cart_read_more {
+	.add_to_cart_read_more,
+	.yith-compare {
         background: transparent;
         padding: 0 .625rem;
         font-size: .75rem;
@@ -36,6 +37,17 @@
             position: relative;
             float: $left;
         }
+	}
+	
+	.yith-compare:before {
+		content: "\e810";
+		font-family: 'porto';
+	}
+    .yith-compare.added::before {
+        content: "\f00c";
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        line-height: 36px;
     }
 
     .add_to_cart_button {
@@ -59,7 +71,8 @@
 
     .add_to_cart_button,
     .add_to_cart_read_more,
-    .quickview {
+	.quickview,
+	.yith-compare {
         height: 36px;
         line-height: 34px;
         min-width: 36px;
@@ -103,11 +116,10 @@
         content: '\e889';
     }
 
-    .yith-wcwl-wishlistaddedbrowse,
-    .yith-wcwl-wishlistexistsbrowse {
-        a:before {
-            content: '\e88a';
-        }
+    .yith-wcwl-wishlistaddedbrowse a:before,
+    .yith-wcwl-wishlistexistsbrowse a:before,
+    .delete_item:before {
+        content: '\e88a';
     }
 
     + .clear,
@@ -156,14 +168,16 @@ li.product-outimage_aq_onimage .add-links .quickview {
     }
 }
 
-.single-add-to-cart.single-product .single_add_to_cart_button::before {
-    content: none;
-}
+.single-add-to-cart .type-product .single_add_to_cart_button{
+    &:before {
+        content: none;
+    }
 
-.single-add-to-cart .single_add_to_cart_button::after {
-    content: "\f00c";
-    margin-#{$left}: 10px;
-    font-size: 16px;
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
+    &:after {
+        content: "\f00c";
+        margin-#{$left}: 10px;
+        font-size: 16px;
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
 }

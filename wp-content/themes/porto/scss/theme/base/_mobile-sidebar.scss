@@ -13,7 +13,7 @@
     text-decoration: none;
     border: 1px solid;
     border-#{$left}-width: 0;
-    @include transition(all .2s ease-in-out);
+    @include transition(.2s ease-in-out);
 
     i {
         &:before {
@@ -22,7 +22,7 @@
     }
 
     &:hover {
-        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
     }
 }
 .sidebar-overlay {

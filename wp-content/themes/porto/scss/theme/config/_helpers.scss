@@ -19,3 +19,10 @@
 		color: $color;
 	}
 }
+
+@media (max-width: 991px) {
+	.px-gutter {
+		padding-left: var(--porto-res-spacing, 20px) !important;
+		padding-right: var(--porto-res-spacing, 20px) !important
+	}
+}

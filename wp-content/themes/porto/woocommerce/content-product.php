@@ -93,6 +93,11 @@ if ( isset( $porto_settings['catalog-enable'] ) && $porto_settings['catalog-enab
 			<?php do_action( 'porto_woocommerce_loop_links_on_image' ); ?>
 		</div>
 	<?php endif; ?>
+	<?php
+	if ( isset( $woocommerce_loop['addlinks_pos'] ) && ( 'default' == $woocommerce_loop['addlinks_pos'] || 'outimage' == $woocommerce_loop['addlinks_pos'] || 'onhover' == $woocommerce_loop['addlinks_pos'] || 'onimage' == $woocommerce_loop['addlinks_pos'] ) ) {
+		do_action( 'porto_template_compare', ' on-image' );
+	}
+	?>
 	</div>
 
 	<div class="product-content">

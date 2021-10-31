@@ -1,0 +1,84 @@
+{
+	"hookActions": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "woocommerce_single_product_summary",
+		"options": {
+			"label": "Gallery Type",
+			"values": [
+				{
+					"label": "woocommerce_before_single_product_summary",
+					"value": "woocommerce_before_single_product_summary"
+				},
+				{
+					"label": "woocommerce_single_product_summary",
+					"value": "woocommerce_single_product_summary"
+				},
+				{
+					"label": "woocommerce_after_single_product_summary",
+					"value": "woocommerce_after_single_product_summary"
+				},
+				{
+					"label": "porto_woocommerce_before_single_product_summary",
+					"value": "porto_woocommerce_before_single_product_summary"
+				},
+				{
+					"label": "porto_woocommerce_single_product_summary2",
+					"value": "porto_woocommerce_single_product_summary2"
+				},
+				{
+					"label": "woocommerce_share",
+					"value": "woocommerce_share"
+				}
+			]
+		}
+	},
+	"designOptions": {
+		"type": "designOptions",
+		"access": "public",
+		"value": {},
+		"options": {
+			"label": "Design Options"
+		}
+	},
+	"editFormTab1": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"hookActions",
+			"el_class"
+		],
+		"options": {
+			"label": "General"
+		}
+	},
+	"metaEditFormTabs": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"editFormTab1",
+			"designOptions"
+		]
+	},
+	"relatedTo": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"General"
+		]
+	},
+	"el_class": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Extra class name",
+			"description": "Add an extra class name to the element and refer to it from Custom CSS option."
+		}
+	},
+	"tag": {
+		"access": "protected",
+		"type": "string",
+		"value": "portoSpActions"
+	}
+}

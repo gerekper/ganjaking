@@ -26,10 +26,9 @@ class Less_Visitor_joinSelector extends Less_Visitor {
 	}
 
 	public function visitRuleset( $rulesetNode ) {
-
 		$paths = array();
 
-		if ( ! $rulesetNode->root ) {
+		if ( !$rulesetNode->root ) {
 			$selectors = array();
 
 			if ( $rulesetNode->selectors && $rulesetNode->selectors ) {
@@ -40,12 +39,12 @@ class Less_Visitor_joinSelector extends Less_Visitor {
 				}
 			}
 
-			if ( ! $selectors ) {
+			if ( !$selectors ) {
 				$rulesetNode->selectors = null;
-				$rulesetNode->rules     = null;
+				$rulesetNode->rules = null;
 			} else {
 				$context = end( $this->contexts ); // $context = $this->contexts[ count($this->contexts) - 1];
-				$paths   = $rulesetNode->joinSelectors( $context, $selectors );
+				$paths = $rulesetNode->joinSelectors( $context, $selectors );
 			}
 
 			$rulesetNode->paths = $paths;
@@ -61,10 +60,9 @@ class Less_Visitor_joinSelector extends Less_Visitor {
 	public function visitMedia( $mediaNode ) {
 		$context = end( $this->contexts ); // $context = $this->contexts[ count($this->contexts) - 1];
 
-		if ( ! count( $context ) || ( is_object( $context[0] ) && $context[0]->multiMedia ) ) {
+		if ( !count( $context ) || ( is_object( $context[0] ) && $context[0]->multiMedia ) ) {
 			$mediaNode->rules[0]->root = true;
 		}
 	}
 
 }
-

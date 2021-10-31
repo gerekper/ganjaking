@@ -213,23 +213,20 @@
 	.process-step-circle {
 		display: -ms-flexbox;
 		display: flex;
-		-ms-flex-pack: center;
+		flex: 0 0 auto;
 		justify-content: center;
+		width: 60px;
 		height: 60px;
 		text-align: center;
-		width: 60px;
-		flex: 60px 0 0;
-		border: 2px solid #ccc;
+		border: 2px solid var(--porto-skin-color, #ccc);
 		border-radius: 50%;
-		-ms-flex-align: center;
 		align-items: center;
 		position: relative;
-		background: none;
-		transition: all 0.2s ease-in-out;
+		transition: .2s;
 		margin: side-values(5px 15px 0 0);
 		font-size: 1.6em;
 		letter-spacing: -1px;
-		color: $color-black;
+		color: var(--porto-dark-color, $color-black);
 		&:before,
 		&:after {
 			content: '';

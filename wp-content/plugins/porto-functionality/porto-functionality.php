@@ -3,7 +3,7 @@
 Plugin Name: Porto Theme - Functionality
 Plugin URI: http://themeforest.net/user/p-themes
 Description: Adds functionality such as Shortcodes, Post Types and Widgets to Porto Theme
-Version: 2.0.5
+Version: 2.2.1
 Author: P-Themes
 Author URI: http://themeforest.net/user/p-themes
 License: GPL2
@@ -13,10 +13,6 @@ Text Domain: porto-functionality
 // don't load directly
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
-}
-
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
 }
 
 class Porto_Functionality {
@@ -35,7 +31,7 @@ class Porto_Functionality {
 		// Load text domain
 		add_action( 'plugins_loaded', array( $this, 'load' ) );
 
-		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'init', array( $this, 'init' ), 20 );
 
 		add_action( 'redux/page/porto_settings/enqueue', array( $this, 'fix_redux_styles' ) );
 
@@ -106,7 +102,9 @@ class Porto_Functionality {
 		add_filter( 'script_loader_tag', array( $this, 'script_add_async_attribute' ), 10, 2 );
 
 		// fix yith woocommerce ajax navigation issue
-		add_filter( 'the_post', array( $this, 'woocommerce_yith_ajax_filter' ), 16, 2 );
+		if ( defined( 'YITH_WCAN' ) ) {
+			add_filter( 'the_post', array( $this, 'woocommerce_yith_ajax_filter' ), 16, 2 );
+		}
 
 		if ( class_exists( 'WC_Vendors' ) ) {
 			global $porto_settings;
@@ -116,12 +114,14 @@ class Porto_Functionality {
 		}
 
 		add_filter( 'dynamic_sidebar_params', array( $this, 'add_classes_to_subscription_widget' ) );
+
+		if ( is_admin() ) {
+			require_once( PORTO_BUILDERS_PATH . 'lib/class-block-check.php' );
+		}
 	}
 
 	public function woocommerce_yith_ajax_filter( $posts, $query = false ) {
-		if ( defined( 'YITH_WCAN' ) ) {
-			remove_filter( 'the_posts', array( YITH_WCAN()->frontend, 'the_posts' ), 15 );
-		}
+		remove_filter( 'the_posts', array( YITH_WCAN()->frontend, 'the_posts' ), 15 );
 		return $posts;
 	}
 

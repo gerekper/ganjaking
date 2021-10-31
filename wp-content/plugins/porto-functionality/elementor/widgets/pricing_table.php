@@ -20,15 +20,19 @@ class Porto_Elementor_Pricing_Table_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Pricing Table', 'porto-functionality' );
+		return __( 'Porto Pricing Table', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'pricing table', 'price', 'box', 'price box' );
+	}
+
+	public function get_icon() {
+		return 'eicon-price-table';
 	}
 
 	protected function _register_controls() {
@@ -333,7 +337,7 @@ class Porto_Elementor_Pricing_Table_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function _content_template() {
+	protected function content_template() {
 		?>
 		<#
 			view.addRenderAttribute( 'wrapper', 'class', 'pricing-table' );

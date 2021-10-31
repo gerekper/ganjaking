@@ -16,21 +16,19 @@ class Less_Tree {
 		return $output->toString();
 	}
 
-
 	/**
 	 * Generate CSS by adding it to the output object
 	 *
 	 * @param Less_Output $output The output
 	 * @return void
 	 */
-	public function genCSS( $output ) {}
-
+	public function genCSS( $output ) {
+	}
 
 	/**
 	 * @param Less_Tree_Ruleset[] $rules
 	 */
 	public static function outputRuleset( $output, $rules ) {
-
 		$ruleCnt = count( $rules );
 		Less_Environment::$tabLevel++;
 
@@ -38,7 +36,7 @@ class Less_Tree {
 		if ( Less_Parser::$options['compress'] ) {
 			$output->add( '{' );
 			for ( $i = 0; $i < $ruleCnt; $i++ ) {
-				$rules[ $i ]->genCSS( $output );
+				$rules[$i]->genCSS( $output );
 			}
 
 			$output->add( '}' );
@@ -47,21 +45,21 @@ class Less_Tree {
 		}
 
 		// Non-compressed
-		$tabSetStr  = "\n" . str_repeat( Less_Parser::$options['indentation'], Less_Environment::$tabLevel - 1 );
-		$tabRuleStr = $tabSetStr . Less_Parser::$options['indentation'];
+		$tabSetStr = "\n".str_repeat( Less_Parser::$options['indentation'], Less_Environment::$tabLevel - 1 );
+		$tabRuleStr = $tabSetStr.Less_Parser::$options['indentation'];
 
-		$output->add( ' {' );
+		$output->add( " {" );
 		for ( $i = 0; $i < $ruleCnt; $i++ ) {
 			$output->add( $tabRuleStr );
-			$rules[ $i ]->genCSS( $output );
+			$rules[$i]->genCSS( $output );
 		}
 		Less_Environment::$tabLevel--;
-		$output->add( $tabSetStr . '}' );
+		$output->add( $tabSetStr.'}' );
 
 	}
 
-	public function accept( $visitor ) {}
-
+	public function accept( $visitor ) {
+	}
 
 	public static function ReferencedArray( $rules ) {
 		foreach ( $rules as $rule ) {
@@ -71,14 +69,12 @@ class Less_Tree {
 		}
 	}
 
-
 	/**
 	 * Requires php 5.3+
 	 */
 	public static function __set_state( $args ) {
-
 		$class = get_called_class();
-		$obj   = new $class( null, null, null, null );
+		$obj = new $class( null, null, null, null );
 		foreach ( $args as $key => $val ) {
 			$obj->$key = $val;
 		}

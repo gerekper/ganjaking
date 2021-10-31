@@ -12,7 +12,7 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 3.4.4
+ * @version 5.6.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -50,6 +50,9 @@ $show_shipping = ! wc_ship_to_billing_address_only() && $order->needs_shipping_a
 			<h3 class="woocommerce-column__title account-sub-title mb-1"><?php esc_html_e( 'Shipping Address', 'woocommerce' ); ?></h3>
 			<address class="font-size-md">
 				<?php echo wp_kses_post( $order->get_formatted_shipping_address( esc_html__( 'N/A', 'woocommerce' ) ) ); ?>
+				<?php if ( method_exists( $order, 'get_shipping_phone' ) && $order->get_shipping_phone() ) : ?>
+					<p class="woocommerce-customer-details--phone"><?php echo esc_html( $order->get_shipping_phone() ); ?></p>
+				<?php endif; ?>
 			</address>
 		</div><!-- /.col-2 -->
 
@@ -58,5 +61,5 @@ $show_shipping = ! wc_ship_to_billing_address_only() && $order->needs_shipping_a
 	<?php endif; ?>
 	<div class="porto-separator"><hr class="separator-line  align_center"></div>
 	<?php do_action( 'woocommerce_order_details_after_customer_details', $order ); ?>
-	<a href="<?php echo esc_url( wc_get_account_endpoint_url( 'orders' ) ); ?>" class="woocommerce-button button wc-action-btn mt-3 px-4"><i class="vc_btn3-icon fas fa-arrow-left pr-2"></i> <?php esc_html_e( 'Back To List', 'porto' ); ?></a>
+	<a href="<?php echo esc_url( wc_get_account_endpoint_url( 'orders' ) ); ?>" class="woocommerce-button button wc-action-btn mt-3 px-4"><i class="vc_btn3-icon fas fa-arrow-left pe-2"></i> <?php esc_html_e( 'Back To List', 'porto' ); ?></a>
 </section>

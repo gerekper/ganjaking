@@ -39,7 +39,7 @@ $el_class = porto_shortcode_extract_class( $el_class );
 $hw_attrs = $alt_text = '';
 if ( $image_size ) {
 	$hw_size = explode( 'x', $image_size );
-	if ( count( $hw_size ) === 2 ) {
+	if ( count( $hw_size ) === 2 && is_numeric( $hw_size[0] ) ) {
 		$hw_attrs   = ' width="' . esc_attr( $hw_size[0] ) . '" height="' . esc_attr( $hw_size[1] ) . '"';
 		$image_size = '';
 	}
@@ -49,8 +49,8 @@ if ( ! $image_url && $image_id ) {
 	$image_url = wp_get_attachment_image_src( $image_id, $image_size ? $image_size : 'full' );
 	if ( $image_url && isset( $image_url[0] ) ) {
 		$alt_text  = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
-		$image_url = $image_url[0];
 		$hw_attrs  = ' width="' . esc_attr( $image_url[1] ) . '" height="' . esc_attr( $image_url[2] ) . '"';
+		$image_url = $image_url[0];
 	}
 }
 
@@ -133,7 +133,7 @@ if ( $image_url ) {
 				$view_class = 'thumb-info-side-image thumb-info-side-image-right thumb-info-no-zoom thumb-info-centered-icons';
 				break;
 		}
-		$output .= '<span class="thumb-info' . ( $align ? ' align-' . $align : '' ) . ( $hover_bg ? ' thumb-info-' . $hover_bg : '' ) . ( $hover_img ? ' thumb-info-' . $hover_img : '' ) . ( $centered_icons ? ' thumb-info-centered-icons' : '' ) . ( $view_class ? ' ' . $view_class : '' ) . ( $noborders ? ' thumb-info-no-borders' : '' ) . ( $boxshadow ? ' thumb-info-box-shadow' : '' ) . '">';
+		$output .= '<div class="thumb-info' . ( $align ? ' align-' . $align : '' ) . ( $hover_bg ? ' thumb-info-' . $hover_bg : '' ) . ( $hover_img ? ' thumb-info-' . $hover_img : '' ) . ( $centered_icons ? ' thumb-info-centered-icons' : '' ) . ( $view_class ? ' ' . $view_class : '' ) . ( $noborders ? ' thumb-info-no-borders' : '' ) . ( $boxshadow ? ' thumb-info-box-shadow' : '' ) . '">';
 		if ( $use_link && ! $centered_icons ) {
 			$output .= '<a ' . $attributes . '>';
 		}
@@ -304,9 +304,9 @@ if ( $image_url ) {
 				}
 			}
 
-			$output .= '<span class="thumb-info-caption">';
+			$output .= '<div class="thumb-info-caption">';
 			if ( $content || ( 'side-image' === $view_type || 'side-image-right' === $view_type ) && ( $title || $sub_title ) ) {
-				$output .= '<span class="thumb-info-caption-text">';
+				$output .= '<div class="thumb-info-caption-text">';
 				if ( ( 'side-image' === $view_type || 'side-image-right' === $view_type ) && ( $title || $date || $sub_title ) ) {
 					if ( $use_link && $centered_icons ) {
 						$output .= '<a ' . $attributes . '>';
@@ -330,17 +330,17 @@ if ( $image_url ) {
 					$output .= $socials_html;
 					$output .= '</span>';
 				}
-				$output .= '</span>';
+				$output .= '</div>';
 			}
 			if ( $socials_html && ! ( ( 'side-image' === $view_type || 'side-image-right' === $view_type ) && ( $title || $date || $sub_title ) ) ) {
 				$output .= '<span class="thumb-info-social-icons">';
 				$output .= $socials_html;
 				$output .= '</span>';
 			}
-			$output .= '</span>';
+			$output .= '</div>';
 		}
 
-		$output .= '</span>';
+		$output .= '</div>';
 	}
 
 	$output .= '</div>';

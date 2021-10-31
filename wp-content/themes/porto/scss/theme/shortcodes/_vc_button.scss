@@ -24,12 +24,13 @@
 .vc_btn3.vc_btn3-icon-left,
 .vc_btn3.vc_btn3-icon-right {
     .vc_btn3-icon {
-        display: inline;
+        display: inline-block;
         position: static;
         font-size: inherit;
-        line-height: inherit;
         height: auto;
         transform: none;
+        line-height: 1;
+        vertical-align: middle
     }
 }
 

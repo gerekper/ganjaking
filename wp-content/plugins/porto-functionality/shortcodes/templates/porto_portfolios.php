@@ -299,7 +299,7 @@ if ( $posts->have_posts() ) {
 			$unit               = trim( str_replace( $grid_height_number, '', $grid_height ) );
 			porto_creative_grid_style( $porto_grid_layout, $grid_height_number, $wrapper_id, $spacing || 0 === $spacing || '0' === $spacing ? $spacing : false, true, $unit, 'article.portfolio' );
 
-			$container_attrs .= 'data-plugin-masonry data-plugin-options="' . esc_attr( json_encode( array( 'itemSelector' => '.portfolio', 'animationEngine' => 'best-available', 'masonry' => array( 'columnWidth' => '.grid-col-sizer' ) ) ) ) . '"';
+			$container_attrs .= ' data-plugin-masonry data-plugin-options="' . esc_attr( json_encode( array( 'itemSelector' => '.portfolio', 'animationEngine' => 'best-available', 'masonry' => array( 'columnWidth' => '.grid-col-sizer' ) ) ) ) . '"';
 		}
 		?>
 		<div class="<?php echo implode( ' ', $classes ); ?>"<?php echo porto_filter_output( $container_attrs ); ?>>
@@ -351,7 +351,7 @@ if ( $posts->have_posts() ) {
 			foreach ( $featured_images as $featured_image ) {
 				$attachment_id = $featured_image['attachment_id'];
 				if ( $attachment_id ) {
-					$attachment_thumb             = porto_get_attachment( $attachment_id, 'widget-thumb-medium' );
+					$attachment_thumb             = porto_get_attachment( $attachment_id, 'thumbnail' );
 					$porto_portfolio_thumbs_html .= '<span><img src="' . esc_url( $attachment_thumb['src'] ) . '" alt="' . esc_attr( $attachment_thumb['alt'] ) . '" ></span>';
 				}
 				break;

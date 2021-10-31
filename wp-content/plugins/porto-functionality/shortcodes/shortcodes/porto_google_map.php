@@ -4,10 +4,6 @@ add_action( 'wp_enqueue_scripts', 'porto_google_map_script', 1 );
 add_action( 'vc_after_init', 'porto_load_google_map_shortcode' );
 add_action( 'save_post', 'porto_check_google_map_shortcode', 10, 1 );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_check_google_map_shortcode( $post_id ) {
 	if ( ! function_exists( 'get_current_screen' ) ) {
 		return;
@@ -127,10 +123,10 @@ function porto_load_google_map_shortcode() {
 				),
 				array(
 					'type'       => 'checkbox',
-					'heading'    => '',
+					'heading'    => __( 'Disable map zoom on mouse wheel scroll', 'porto-functionality' ),
 					'param_name' => 'scrollwheel',
 					'value'      => array(
-						__( 'Disable map zoom on mouse wheel scroll', 'porto-functionality' ) => 'disable',
+						'' => 'disable',
 					),
 					'group'      => 'General Settings',
 				),

@@ -3,10 +3,6 @@
 // Porto Experience Timeline Container
 add_action( 'vc_after_init', 'porto_load_experience_timeline_container_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_experience_timeline_container_shortcode() {
 	$custom_class = porto_vc_custom_class();
 
@@ -15,6 +11,7 @@ function porto_load_experience_timeline_container_shortcode() {
 			'name'                    => 'Porto ' . __( 'Experience Timeline Container', 'porto-functionality' ),
 			'base'                    => 'porto_experience_timeline_container',
 			'category'                => __( 'Porto', 'porto-functionality' ),
+			'description'             => __( 'Show events or posts by timeline layouts', 'porto-functionality' ),
 			'icon'                    => 'fas fa-list-ul',
 			'as_parent'               => array( 'only' => 'porto_experience_timeline_item' ),
 			'content_element'         => true,

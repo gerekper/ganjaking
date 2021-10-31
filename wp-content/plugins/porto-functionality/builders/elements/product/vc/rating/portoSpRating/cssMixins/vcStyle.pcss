@@ -1,0 +1,49 @@
+@if $elementId != false {
+	.single-rating-$elementId {
+		.woocommerce-product-rating .star-rating {
+			@if $starSize != false {
+				font-size: $(starSize)px;
+			}
+			@if $starSpacing != false {
+				letter-spacing: $(starSpacing)px;
+			}
+			&::before {
+				@if $spRatingColor != false {
+					color: $spRatingColor;
+				}
+			}
+			span::before{
+				@if $spUnMarkColor != false {
+					color: $spUnMarkColor;
+				}
+			}
+		}
+		.review-link {
+			@if $reviewFontSize != false {
+				font-size: $reviewFontSize;
+			}
+			@if $reviewFontWeight != false {
+				font-weight: $reviewFontWeight;
+			}
+			@if $reviewLineHeight != false {
+				line-height: $reviewLineHeight;
+			}
+			@if $reviewLetterSpacing != false {
+				letter-spacing: $reviewLetterSpacing;
+			}
+			@if $reviewColor != false {
+				color: $reviewColor;
+			}
+		}
+		&.hide-review {
+			.review-link {
+				display: none;
+			}
+		}
+		&.hide-underline {
+			.woocommerce-product-rating::after {
+				content: none;
+			}
+		}
+	}
+}

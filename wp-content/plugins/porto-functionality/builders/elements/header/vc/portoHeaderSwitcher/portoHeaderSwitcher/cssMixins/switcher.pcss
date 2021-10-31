@@ -1,0 +1,28 @@
+@if ($fontSize != false || $fontWeight != false || $textTransform != false || $lineHeight != false || $letterSpacing != false || $color != false) {
+	#header .porto-hb-$selector .porto-view-switcher > li.menu-item > a {
+		@if $fontSize != false {
+			font-size: $(fontSize);
+		}
+		@if $fontWeight != false {
+			font-weight: $(fontWeight);
+		}
+		@if $textTransform != false {
+			text-transform: $(textTransform);
+		}
+		@if $lineHeight != false {
+			line-height: $(lineHeight);
+		}
+		@if $letterSpacing != false {
+			letter-spacing: $(letterSpacing);
+		}
+		@if $color != false {
+			color: $(color);
+		}
+	}
+}
+
+@if $hoverColor != false {
+	#header .porto-hb-$selector .porto-view-switcher > li.menu-item:hover > a {
+		color: $(hoverColor);
+	}
+}

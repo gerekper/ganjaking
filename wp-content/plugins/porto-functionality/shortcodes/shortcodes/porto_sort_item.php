@@ -3,10 +3,6 @@
 // Porto Sort Item
 add_action( 'vc_after_init', 'porto_load_sort_item_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_sort_item_shortcode() {
 	$custom_class = porto_vc_custom_class();
 
@@ -15,6 +11,7 @@ function porto_load_sort_item_shortcode() {
 			'name'            => 'Porto ' . __( 'Sort Item', 'porto-functionality' ),
 			'base'            => 'porto_sort_item',
 			'category'        => __( 'Porto', 'porto-functionality' ),
+			'description'     => __( 'We can sort of any elements', 'porto-functionality' ),
 			'icon'            => 'porto_vc_sort_item',
 			'as_parent'       => array( 'except' => 'porto_sort_item' ),
 			'as_child'        => array( 'only' => 'porto_sort_container' ),

@@ -107,11 +107,34 @@
                     }
                 });
             }
+
+            if( window.innerWidth < 992 ) {
+                $('html').removeClass('overflow-hidden');
+                $(window).on('scroll', function(){
+
+                    var index = 0;
+                    $('.section-wrapper').each(function(){
+                        if( $(this).offset().top <= $(window).scrollTop() + 50 ) {
+                            $('.section-scroll-dots-navigation > ul > li').removeClass('active');
+                            $('.section-scroll-dots-navigation > ul > li').eq( index ).addClass('active');
+
+                            self.$header.trigger( 'porto_section_scroll_scrolled', [index] );
+                        }
+
+                        index++;
+                    });
+                    
+                });
+            }
+
             var process_scroll = function(e) {
                 if ($('.porto-popup-menu.opened').length) {
                     return;
                 }
                 if ( 'mouse' == e.pointerType ) {
+                    return;
+                }
+                if ( window.innerWidth < 992 ) {
                     return;
                 }
                 var wheelDirection = null;
@@ -394,7 +417,8 @@
         updateSectionsHeight: function() {
             var self = this;
 
-            $('.section-scroll').each(function(){
+            $('.section-scroll').each(function() {
+                $(this).css( 'height', '' );
                 if( $(this).outerHeight() < ( window.innerHeight + 3 ) ) {
                     $(this).css({ height: '100vh' });
                 } else {
@@ -553,8 +577,18 @@
             });
 
             $(document).ready(function(){
-                $(window).smartresize(function(){
-                    self.updateSectionsHeight();
+                var resizeTrigger = null;
+                $(window).smartresize(function() {
+                    if ( resizeTrigger ) {
+                        clearTimeout( resizeTrigger );
+                    }
+                    resizeTrigger = setTimeout(function() {
+                        self.updateSectionsHeight();
+                    }, 300);
+
+                    if ( window.innerWidth < 992 ) {
+                        $('html').removeClass('overflow-hidden');
+                    }
                 });
             });
 

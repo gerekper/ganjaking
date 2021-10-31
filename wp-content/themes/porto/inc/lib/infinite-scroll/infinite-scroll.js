@@ -88,7 +88,10 @@
                         }
                         var $posts = $(posts);
                         if ($posts.find('.porto-lazyload:not(.lazy-load-loaded)').length) {
-                            $posts.find('.porto-lazyload:not(.lazy-load-loaded)').trigger('appear');
+                            var ins = $posts.find('.porto-lazyload:not(.lazy-load-loaded)').themePluginLazyLoad({}).data('__lazyload');
+                            if (ins && ins.loadAndDestroy) {
+                                ins.loadAndDestroy();
+                            }
                         }
                         theme.refreshVCContent($posts);
                         porto_init();
@@ -144,7 +147,7 @@
                             $this.isotope('layout');
                         }, 50);
                     }
-                    $posts.waitForImages(function() {
+                    $posts.imagesLoaded(function() {
                         self.resize();
                     });
                 }
@@ -194,7 +197,7 @@
                                 $this.isotope('layout');
                             }, 50);
                         }
-                        $posts.waitForImages(function() {
+                        $posts.imagesLoaded(function() {
                             self.resize();
                         });
                     }
@@ -216,7 +219,7 @@
                             $this.isotope('layout');
                         }, 50);
                     }
-                    $posts.waitForImages(function() {
+                    $posts.imagesLoaded(function() {
                         self.resize();
                     });
                 }
@@ -275,7 +278,7 @@
         _binding_load_more: function porto_load_more_binding(binding) {
             var instance = this;
             if ('unbind' === binding) {
-                (this.options.binder).unbind('smartscroll.infscr.' + instance.options.infid);
+                (this.options.binder).off('smartscroll.infscr.' + instance.options.infid);
             } else {
                 $(document).off('click', '.pagination.load-more .next', theme.PostsInfinite.btnAction).on('click', '.pagination.load-more .next', instance, theme.PostsInfinite.btnAction);
             }

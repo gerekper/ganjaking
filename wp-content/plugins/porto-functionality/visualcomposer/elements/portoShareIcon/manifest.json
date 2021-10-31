@@ -1,0 +1,22 @@
+{
+	"elements": {
+		"portoShareIcon": {
+			"settings": {
+				"name": "Porto Share Icon",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-image.jpg",
+				"metaDescription": "Small icons of the most popular social networks with original colors on hover."
+			},
+			"phpFiles": [
+				"PortoShareController.php"
+			]
+		}
+	},
+	"categories": {
+		"Social": {
+			"elements": [
+				"portoShareIcon"
+			]
+		}
+	}
+}

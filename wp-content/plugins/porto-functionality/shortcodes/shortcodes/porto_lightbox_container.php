@@ -3,10 +3,6 @@
 // Porto Lightbox Container
 add_action( 'vc_after_init', 'porto_load_lightbox_container_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_lightbox_container_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -18,6 +14,7 @@ function porto_load_lightbox_container_shortcode() {
 			'name'         => 'Porto ' . __( 'Lightbox Container', 'porto-functionality' ),
 			'base'         => 'porto_lightbox_container',
 			'category'     => __( 'Porto', 'porto-functionality' ),
+			'description'  => __( 'Display the lightbox', 'porto-functionality' ),
 			'icon'         => 'fas fa-external-link-alt',
 			'is_container' => true,
 			'js_view'      => 'VcColumnView',

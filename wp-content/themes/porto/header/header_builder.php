@@ -127,7 +127,7 @@ if ( is_customize_preview() && porto_get_wrapper_type() != 'boxed' && 'boxed' ==
 				}
 				if ( ! empty( $mobile_elements ) && ! $mobile_col_use_same ) {
 					echo '<div class="header-col visible-for-sm header-' . $column . '">';
-						porto_header_elements( $mobile_elements );
+						porto_header_elements( $mobile_elements, '', true );
 					echo '</div>';
 				}
 			}

@@ -3,11 +3,12 @@ global $porto_settings, $page_share;
 
 $post_layout  = 'modern';
 $show_format  = $porto_settings['post-format'] && get_post_format();
-
-$columns = $porto_settings['grid-columns'];
-
 $post_class   = array();
+$columns      = $porto_settings['grid-columns'];
 $post_class[] = 'post post-' . $post_layout;
+if ( ! $show_format ) {
+	$post_class[] = 'hide-post-date';
+}
 
 if ( ! isset( $image_size ) ) {
 	$image_size = 'blog-large';
@@ -16,9 +17,7 @@ if ( ! isset( $image_size ) ) {
 if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 	$post_class[] = 'post-title-simple';
 }
-if ( ! $show_format ) {
-	$post_class[] = 'hide-post-date';
-}
+
 if ( isset( $el_class ) ) {
 	$post_class[] = esc_attr( $el_class );
 }
@@ -76,20 +75,20 @@ $share = get_post_meta( get_the_ID(), 'post_share', true );
 
 <article <?php post_class( $post_class ); ?>>
 <?php
-	if ( is_sticky() && is_home() && ! is_paged() ) {
-		printf( '<span class="sticky-post">%s</span>', esc_html__( 'Featured', 'porto' ) );
-	}
+if ( is_sticky() && is_home() && ! is_paged() ) {
+	printf( '<span class="sticky-post">%s</span>', esc_html__( 'Featured', 'porto' ) );
+}
 		// Post Slideshow
 		$slideshow_type = get_post_meta( get_the_ID(), 'slideshow_type', true );
-	if ( ! $slideshow_type ) {
-		$slideshow_type = 'images';
-	}
+if ( ! $slideshow_type ) {
+	$slideshow_type = 'images';
+}
 		$args = array();
-	if ( 'images' == $slideshow_type ) {
-		$args['image_size'] = $image_size;
-	}
+if ( 'images' == $slideshow_type ) {
+	$args['image_size'] = $image_size;
+}
 		porto_get_template_part( 'views/posts/post-media/' . $slideshow_type, null, $args );
-	?>
+?>
 
 	<?php if ( $show_format ) : ?>
 		<div class="post-date">
@@ -103,7 +102,10 @@ $share = get_post_meta( get_the_ID(), 'post_share', true );
 
 		<h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 		<?php
-		echo porto_filter_output( $post_meta );
+		// Post meta before content
+		if ( 'before' === $porto_settings['post-meta-position'] ) {
+			echo porto_filter_output( $post_meta );
+		}
 		porto_render_rich_snippets( false );
 		if ( $porto_settings['blog-excerpt'] ) {
 			echo ! $porto_settings['post-link'] ? '' : '<a href="' . get_the_permalink() . '">';
@@ -131,6 +133,12 @@ $share = get_post_meta( get_the_ID(), 'post_share', true );
 			</div>
 		<?php endif; ?>
 	</div>
+
+	<!-- Post meta after content -->
+	<?php
+	if ( 'before' !== $porto_settings['post-meta-position'] ) {
+		echo porto_filter_output( $post_meta );}
+	?>
 
 	<div class="clearfix">
 		<a class="btn-readmore" href="<?php echo esc_url( apply_filters( 'the_permalink', get_permalink() ) ); ?>"><?php esc_html_e( 'Read more +', 'porto' ); ?></a>

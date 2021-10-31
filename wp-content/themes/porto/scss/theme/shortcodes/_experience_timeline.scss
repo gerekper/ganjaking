@@ -9,9 +9,8 @@ section.exp-timeline {
 	.timeline-bar {
 		position: absolute;
 		width: 3px;
-		#{$left}: -2.5%;
+		#{$left}: -30px;
 		z-index: 0;
-		margin-#{$left}: -7px;
 	}
 	.timeline-box {
 		border: 0 !important;
@@ -27,13 +26,14 @@ section.exp-timeline {
 			-ms-flex-wrap: wrap; flex-wrap: wrap;
 			&:before {
 				top: 50%;
-				#{$left}: -2.5%;
+				#{$left}: -32.5px;
 				transform: translateY(-50%);
 			}
 			&:after {
 				top: 50%;
 				border: none;
 				transform: translateY(-50%) rotate(45deg);
+				#{$left}: -7px
 			}
 		}
 		.experience-info, .experience-description {
@@ -46,7 +46,6 @@ section.exp-timeline {
 				font-size: 11px;
 			}
 			.from, .to {
-				display: inline-block;
 				width: 50%;
 				float: $left;
 				text-transform: uppercase;
@@ -71,25 +70,6 @@ section.exp-timeline {
 	}
 }
 
-@media (max-width: 991px) {
-	section.exp-timeline {
-		.timeline-bar {
-			#{$left}: -4.1%;
-		}
-		.timeline-box {
-			&:before, &:after {
-				display: block !important;
-			}
-			&.right {
-				float: $right;
-				&:before {
-					#{$left}: -3.4%;
-				}
-			}
-		}
-	}
-}
-
 @media (max-width: 767px) {
 	section.exp-timeline {
 		width: 100%;
@@ -101,6 +81,15 @@ section.exp-timeline {
 			&:before, &:after {
 				display: none !important;
 			}
+		}
+	}
+}
+
+@media (max-width: 575px) {
+	section.exp-timeline {
+		.experience-info,
+		.experience-description {
+			width: 100%;
 		}
 	}
 }

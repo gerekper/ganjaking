@@ -1,8 +1,4 @@
 /* Forms */
-form label {
-    font-weight: normal;
-}
-
 textarea {
     resize: vertical;
 }
@@ -175,10 +171,6 @@ fieldset {
             margin: 0 0 -10px !important;
         }
     }
-}
-
-.form-group {
-    direction: if-ltr(ltr, rtl);
 }
 
 body {

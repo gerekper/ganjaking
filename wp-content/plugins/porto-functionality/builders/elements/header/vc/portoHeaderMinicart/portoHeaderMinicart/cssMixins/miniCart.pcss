@@ -1,0 +1,61 @@
+@if $iconSize != false {
+	#mini-cart .minicart-icon { font-size: $(iconSize) }
+}
+
+@if $iconColor != false {
+	.header-builder #mini-cart .cart-subtotal, .header-builder #mini-cart .minicart-icon { color: $(iconColor) }
+}
+
+@if (($type == 'minicart-inline' || $type == 'minicart-text') && ($textFontSize != false || $textFontWeight != false || $textTransform != false || $textLineHeight != false || $textLs != false || $textColor != false)) {
+	.header-builder #mini-cart .cart-subtotal {
+		@if $textFontSize != false {
+			font-size: $(textFontSize);
+		}
+		@if $textFontWeight != false {
+			font-weight: $(textFontWeight);
+		}
+		@if $textTransform != false {
+			text-transform: $(textTransform);
+		}
+		@if $textLineHeight != false {
+			line-height: $(textLineHeight);
+		}
+		@if $textLs != false {
+			letter-spacing: $(textLs);
+		}
+		@if $textColor != false {
+			color: $(textColor);
+		}
+	}
+}
+
+@if ($iconMl != false || $iconMr != false) {
+	#mini-cart .cart-icon {
+		@if $iconMl != false {
+			margin-left: $(iconMl);
+		}
+		@if $iconMr != false {
+			margin-right: $(iconMr);
+		}
+	}
+}
+
+@if (($type == 'minicart-inline' || $type == 'minicart-text') && ($priceFontSize != false || $priceFontWeight != false || $priceLineHeight != false || $priceLs != false || $priceColor != false)) {
+	#mini-cart .cart-price {
+		@if $priceFontSize != false {
+			font-size: $(priceFontSize);
+		}
+		@if $priceFontWeight != false {
+			font-weight: $(priceFontWeight);
+		}
+		@if $priceLineHeight != false {
+			line-height: $(priceLineHeight);
+		}
+		@if $priceLs != false {
+			letter-spacing: $(priceLs);
+		}
+		@if $priceColor != false {
+			color: $(priceColor);
+		}
+	}
+}

@@ -1,0 +1,169 @@
+{
+	"spacing": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Nav Spacing",
+			"min": 0,
+			"max": 100,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "spacing"
+			}
+		}
+	},
+	"spArrowColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Arrow Color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "spArrowColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"spBorderColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Border Color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "spBorderColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"spHoverArrowColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Hover Arrow Color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "spHoverArrowColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"spHoverBorderColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Hover Border Color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "spHoverBorderColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"size": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Nav Size",
+			"min": 1,
+			"max": 100,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "size"
+			}
+		}
+	},
+	"lineHeight": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "LineHeight",
+			"min": 1,
+			"max": 100,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "lineHeight"
+			}
+		}
+	},
+	"arrowSize": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Arrow Size",
+			"min": 1,
+			"max": 100,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "arrowSize"
+			}
+		}
+	},
+	"designOptions": {
+		"type": "designOptions",
+		"access": "public",
+		"value": {},
+		"options": {
+			"label": "Design Options"
+		}
+	},
+	"editFormTab1": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"spacing",
+			"spArrowColor",
+			"spBorderColor",
+			"spHoverArrowColor",
+			"spHoverBorderColor",
+			"size",
+			"lineHeight",
+			"arrowSize",
+			"el_class"
+		],
+		"options": {
+			"label": "General"
+		}
+	},
+	"metaEditFormTabs": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"editFormTab1",
+			"designOptions"
+		]
+	},
+	"relatedTo": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"General"
+		]
+	},
+	"el_class": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Extra class name",
+			"description": "Add an extra class name to the element and refer to it from Custom CSS option."
+		}
+	},
+	"tag": {
+		"access": "protected",
+		"type": "string",
+		"value": "portoSpNav"
+	}
+}

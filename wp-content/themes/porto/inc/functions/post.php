@@ -502,7 +502,7 @@ function porto_comment_form_defaults( $defaults ) {
 				)
 			);
 		} else {
-			$defaults['class_submit'] = 'btn btn-modern';
+			$defaults['class_submit'] = 'btn btn-modern btn-primary';
 		}
 	}
 

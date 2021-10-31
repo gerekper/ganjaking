@@ -166,7 +166,7 @@ if ( $marker_lat && $marker_lng ) {
 		$output .= "}
 		catch(e){};
 		google.maps.event.trigger(map_$id, 'resize');
-		$(window).resize(function(){
+		$(window).on('resize', function(){
 			google.maps.event.trigger(map_$id, 'resize');
 			if(map_$id!=null) {
 				map_$id.setCenter(coordinate_$id);

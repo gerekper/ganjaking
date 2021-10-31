@@ -6,6 +6,8 @@ extract(
 			'animation_type'     => '',
 			'animation_duration' => 1000,
 			'animation_delay'    => 0,
+			'is_half'            => '',
+			'is_full_md'         => '',
 			'el_class'           => '',
 		),
 		$atts
@@ -14,7 +16,24 @@ extract(
 
 $el_class = porto_shortcode_extract_class( $el_class );
 
-$output = '<div class="porto-container container ' . esc_attr( $el_class ) . '"';
+$cls = '';
+if ( ! empty( $is_half ) ) {
+	$cls = 'col-half-section half-container';
+	if ( ! empty( $is_full_md ) ) {
+		$cls .= ' col-fullwidth-md';
+	}
+} else {
+	$cls = 'porto-container container';
+}
+if ( $animation_type ) {
+	$cls .= ' appear-animation';
+}
+if ( $el_class ) {
+	$cls .= ' ' . esc_attr( trim( $el_class ) );
+}
+
+
+$output = '<div class="' . $cls . '"';
 if ( $animation_type ) {
 	$output .= ' data-appear-animation="' . esc_attr( $animation_type ) . '"';
 	if ( $animation_delay ) {

@@ -3,10 +3,6 @@
 // Porto Image Frame
 add_action( 'vc_after_init', 'porto_load_image_frame_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_image_frame_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -15,11 +11,12 @@ function porto_load_image_frame_shortcode() {
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Image Frame', 'porto-functionality' ),
-			'base'     => 'porto_image_frame',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'far fa-image',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Image Frame', 'porto-functionality' ),
+			'base'        => 'porto_image_frame',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'A single image with caption', 'porto-functionality' ),
+			'icon'        => 'far fa-image',
+			'params'      => array(
 				array(
 					'type'       => 'dropdown',
 					'heading'    => __( 'Type', 'porto-functionality' ),

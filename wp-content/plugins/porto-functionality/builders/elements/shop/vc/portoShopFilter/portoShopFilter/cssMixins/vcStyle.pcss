@@ -1,0 +1,20 @@
+@if $elementId != false {
+	.shop-filter-$elementId .porto-product-filters .widget-title,
+	.shop-filter-$elementId .widget>ul {
+		@if $selectFontSize != false {
+			font-size: $selectFontSize !important;
+		}
+		@if $selectFontWeight != false {
+			font-weight: $selectFontWeight;
+		}
+		@if $selectLineHeight != false {
+			line-height: $selectLineHeight;
+		}
+		@if $selectLetterSpacing != false {
+			letter-spacing: $selectLetterSpacing;
+		}
+		@if $selectColor != false {
+			color: $selectColor;
+		}
+	}
+}

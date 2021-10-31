@@ -1,0 +1,10 @@
+@if ($fontSize != false || $color != false) {
+	#header.header-builder .my-wishlist {
+		@if $fontSize != false {
+			font-size: $(fontSize);
+		}
+		@if $color != false {
+			color: $(color);
+		}
+	}
+}

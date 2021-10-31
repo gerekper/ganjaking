@@ -8,7 +8,7 @@
  */
 class Less_Visitor {
 
-	protected $methods       = array();
+	protected $methods = array();
 	protected $_visitFnCache = array();
 
 	public function __construct() {
@@ -17,9 +17,8 @@ class Less_Visitor {
 	}
 
 	public function visitObj( $node ) {
-
-		$funcName = 'visit' . $node->type;
-		if ( isset( $this->_visitFnCache[ $funcName ] ) ) {
+		$funcName = 'visit'.$node->type;
+		if ( isset( $this->_visitFnCache[$funcName] ) ) {
 
 			$visitDeeper = true;
 			$this->$funcName( $node, $visitDeeper );
@@ -28,10 +27,11 @@ class Less_Visitor {
 				$node->accept( $this );
 			}
 
-			$funcName = $funcName . 'Out';
-			if ( isset( $this->_visitFnCache[ $funcName ] ) ) {
+			$funcName = $funcName . "Out";
+			if ( isset( $this->_visitFnCache[$funcName] ) ) {
 				$this->$funcName( $node );
 			}
+
 		} else {
 			$node->accept( $this );
 		}
@@ -40,9 +40,7 @@ class Less_Visitor {
 	}
 
 	public function visitArray( $nodes ) {
-
-		array_map( array( $this, 'visitObj' ), $nodes );
+		array_map( array( $this,'visitObj' ), $nodes );
 		return $nodes;
 	}
 }
-

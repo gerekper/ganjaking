@@ -3,10 +3,6 @@
 // Porto Map Section
 add_action( 'vc_after_init', 'porto_load_map_section_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_map_section_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -18,6 +14,7 @@ function porto_load_map_section_shortcode() {
 			'name'            => 'Porto ' . __( 'Map Section', 'porto-functionality' ),
 			'base'            => 'porto_map_section',
 			'category'        => __( 'Porto', 'porto-functionality' ),
+			'description'     => __( 'Display the world map', 'porto-functionality' ),
 			'icon'            => 'porto_vc_map_section',
 			'as_parent'       => array( 'except' => 'porto_map_section' ),
 			'content_element' => true,

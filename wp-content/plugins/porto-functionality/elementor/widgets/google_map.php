@@ -20,15 +20,19 @@ class Porto_Elementor_Google_Map_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Google Map', 'porto-functionality' );
+		return __( 'Porto Google Map', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'google', 'map', 'location' );
+	}
+
+	public function get_icon() {
+		return 'eicon-google-maps';
 	}
 
 	public function get_script_depends() {
@@ -333,6 +337,9 @@ class Porto_Elementor_Google_Map_Widget extends \Elementor\Widget_Base {
 			$content = $atts['content'];
 			if ( ! empty( $atts['width'] ) ) {
 				$atts['width'] .= '%';
+			}
+			if ( is_array( $atts['icon_img'] ) && ! empty( $atts['icon_img']['id'] ) ) {
+				$atts['icon_img']  = (int) $atts['icon_img']['id'];
 			}
 			include $template;
 		}

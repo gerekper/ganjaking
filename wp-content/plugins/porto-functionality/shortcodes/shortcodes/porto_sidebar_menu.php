@@ -1,17 +1,50 @@
 <?php
 // Porto Sidebar Menu
+if ( function_exists( 'register_block_type' ) ) {
+	register_block_type(
+		'porto/porto-sidebar-menu',
+		array(
+			'attributes'      => array(
+				'title'    => array(
+					'type' => 'string',
+				),
+				'nav_menu' => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'el_class' => array(
+					'type' => 'string',
+				),
+			),
+			'editor_script'   => 'porto_blocks',
+			'render_callback' => 'porto_shortcode_sidebar_menu',
+		)
+	);
+}
 
 add_action( 'vc_after_init', 'porto_load_sidebar_menu_shortcode' );
-
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+
+function porto_shortcode_sidebar_menu( $atts, $content = null ) {
+	ob_start();
+	if ( $template = porto_shortcode_template( 'porto_sidebar_menu' ) ) {
+		if ( isset( $atts['className'] ) ) {
+			$atts['el_class'] = $atts['className'];
+		}
+		include $template;
+	}
+	return ob_get_clean();
 }
 
 function porto_load_sidebar_menu_shortcode() {
 
 	$custom_class = porto_vc_custom_class();
 	$custom_menus = array();
-	$menus        = get_terms( array( 'taxonomy' => 'nav_menu', 'hide_empty' => false ) );
+	$menus        = get_terms(
+		array(
+			'taxonomy'   => 'nav_menu',
+			'hide_empty' => false,
+		)
+	);
 	if ( is_array( $menus ) && ! empty( $menus ) ) {
 		foreach ( $menus as $single_menu ) {
 			if ( is_object( $single_menu ) && isset( $single_menu->name, $single_menu->term_id ) ) {

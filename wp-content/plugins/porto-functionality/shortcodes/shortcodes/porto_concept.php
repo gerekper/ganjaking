@@ -3,10 +3,6 @@
 // Porto Concept
 add_action( 'vc_after_init', 'porto_load_concept_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_concept_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -15,11 +11,12 @@ function porto_load_concept_shortcode() {
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Concept', 'porto-functionality' ),
-			'base'     => 'porto_concept',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'fas fa-smog',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Concept', 'porto-functionality' ),
+			'base'        => 'porto_concept',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Show your concept image with cloud', 'porto-functionality' ),
+			'icon'        => 'fas fa-smog',
+			'params'      => array(
 				array(
 					'type'       => 'label',
 					'heading'    => __( 'Block 1', 'porto-functionality' ) . ': ' . __( 'Input Image URL or Select Image.', 'porto-functionality' ),

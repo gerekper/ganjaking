@@ -19,14 +19,14 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 	<div class="portfolio-title<?php echo ( 'widewidth' === $porto_layout ? ' container m-t-lg' : '' ); ?>">
 		<div class="row m-b-xl">
 			<div class="portfolio-nav-all col-lg-1">
-				<a title="<?php esc_attr_e( 'Back to list', 'porto' ); ?>" data-tooltip href="<?php echo get_post_type_archive_link( 'portfolio' ); ?>"><i class="fas fa-th"></i></a>
+				<a title="<?php esc_attr_e( 'Back to list', 'porto' ); ?>" data-bs-tooltip href="<?php echo get_post_type_archive_link( 'portfolio' ); ?>"><i class="fas fa-th"></i></a>
 			</div>
 			<div class="col-lg-10 text-center">
 				<h2 class="entry-title shorter"><?php the_title(); ?></h2>
 			</div>
 			<div class="portfolio-nav col-lg-1">
-				<?php previous_post_link( '%link', '<div data-tooltip title="' . esc_attr__( 'Previous', 'porto' ) . '" class="portfolio-nav-prev"><i class="fa"></i></div>' ); ?>
-				<?php next_post_link( '%link', '<div data-tooltip title="' . esc_attr__( 'Next', 'porto' ) . '" class="portfolio-nav-next"><i class="fa"></i></div>' ); ?>
+				<?php previous_post_link( '%link', '<div data-bs-tooltip title="' . esc_attr__( 'Previous', 'porto' ) . '" class="portfolio-nav-prev"><i class="fa"></i></div>' ); ?>
+				<?php next_post_link( '%link', '<div data-bs-tooltip title="' . esc_attr__( 'Next', 'porto' ) . '" class="portfolio-nav-next"><i class="fa"></i></div>' ); ?>
 			</div>
 		</div>
 	</div>
@@ -105,6 +105,7 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 		if ( 'video' == $slideshow_type ) {
 			$video_code = get_post_meta( $post->ID, 'video_code', true );
 			if ( $video_code ) {
+				wp_enqueue_script( 'jquery-fitvids' );
 				?>
 				<div class="portfolio-image single">
 					<div class="img-thumbnail fit-video img-thumbnail-no-borders">

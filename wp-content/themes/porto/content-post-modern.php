@@ -45,41 +45,19 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 		<?php if ( $porto_settings['post-title'] ) : ?>
 			<h2 class="entry-title"><?php the_title(); ?></h2>
 		<?php endif; ?>
-		<?php porto_render_rich_snippets( false ); ?>
-		<div class="post-meta">
-			<?php
-			if ( in_array( 'author', $porto_settings['post-metas'] ) ) :
-				?>
-				<span class="meta-author"><?php the_author_posts_link(); ?></span><?php endif; ?>
-			<?php
-			$cats_list = get_the_category_list( ', ' );
-			if ( $cats_list && in_array( 'cats', $porto_settings['post-metas'] ) ) :
-				?>
-				<span class="meta-cats"><?php echo porto_filter_output( $cats_list ); ?></span>
-			<?php endif; ?>
-			<?php
-			$tags_list = get_the_tag_list( '', ', ' );
-			if ( $tags_list && in_array( 'tags', $porto_settings['post-metas'] ) ) :
-				?>
-				<span class="meta-tags"><?php echo porto_filter_output( $tags_list ); ?></span>
-			<?php endif; ?>
-			<?php
-			if ( in_array( 'comments', $porto_settings['post-metas'] ) ) :
-				?>
-				<span class="meta-comments"><?php comments_popup_link( __( '0 Comments', 'porto' ), __( '1 Comment', 'porto' ), '% ' . __( 'Comments', 'porto' ) ); ?></span><?php endif; ?>
-
-			<?php if ( in_array( 'like', $porto_settings['post-metas'] ) ) : ?>
-				<span class="meta-like">
-					<?php echo porto_blog_like(); ?>
-				</span>
-			<?php endif; ?>
-
-			<?php
-			if ( function_exists( 'Post_Views_Counter' ) && 'manual' == Post_Views_Counter()->options['display']['position'] && in_array( 'post', (array) Post_Views_Counter()->options['general']['post_types_count'] ) ) {
-				echo do_shortcode( '[post-views]' );
+		<?php
+			porto_render_rich_snippets( false );
+			if ( 'after' !== $porto_settings['post-meta-position'] ) {
+				get_template_part(
+					'views/posts/single/meta',
+					null,
+					array(
+						'hide_icon' => true,
+						'hide_by'   => true,
+					)
+				);
 			}
-			?>
-		</div>
+		?>
 
 		<div class="entry-content">
 			<?php
@@ -94,6 +72,20 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 					'separator'   => '<span class="screen-reader-text">, </span>',
 				)
 			);
+			?>
+
+			<!-- Post meta after content -->
+			<?php
+				if ( 'after' === $porto_settings['post-meta-position'] ) {
+					get_template_part(
+						'views/posts/single/meta',
+						null,
+						array(
+							'hide_icon' => true,
+							'hide_by'   => true,
+						)
+					);
+				}
 			?>
 		</div>
 

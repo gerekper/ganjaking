@@ -62,7 +62,7 @@ input.submit.btn-lg, input.btn.btn-lg[type="submit"], input.button.btn-lg[type="
 .button,
 input.submit,
 input[type="submit"] {
-    @include transition (all .1s);
+    transition: color .15s, background-color .15s, border-color .15s, box-shadow .15s;
     cursor: pointer;
 }
 
@@ -115,6 +115,10 @@ button {
 }
 
 /* Icons    */
+.btn-icon {
+    display: inline-flex;
+    align-items: center
+}
 .btn-icon i {
     margin-#{$right}: 10px;
 }
@@ -275,4 +279,32 @@ button {
 
 .btn.btn-full-rounded {
     border-radius: 2em;
+}
+
+.btn-gray {
+    background-color: #eee;
+    &:hover {
+        background-color: #f4f4f4;
+    }
+}
+
+/* Icon Hover effects */
+.btn {
+    i {
+        display: inline-block;
+        transition: transform .25s linear;
+        line-height: 1;
+    }
+    &.hover-icon-zoom i {
+        transform: scale(1.15, 1.15);
+    }
+    &.hover-icon-up i {
+        transform: translateY(-4px);
+    }
+    &.hover-icon-left:hover i {
+        transform: translateX(-6px);
+    }
+    &.hover-icon-right:hover i {
+        transform: translateX(6px);
+    }
 }

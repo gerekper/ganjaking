@@ -87,6 +87,9 @@ if ( $ajax_load ) {
 }
 
 $carousel_class .= ' has-ccols ccols-1';
+if ( ! empty( $items ) ) {
+	$carousel_class .= ' ccols-xl-' . (int) $items;
+}
 if ( $items_desktop ) {
 	$carousel_class .= ' ccols-lg-' . (int) $items_desktop;
 }
@@ -207,7 +210,7 @@ if ( $posts->have_posts() ) {
 
 	<?php
 
-	$output           .= ob_get_clean();
+	$output           .= str_replace( '<div class="member-slide"></div>', '', ob_get_clean() );
 	$porto_member_view = $porto_member_overview = $porto_member_socials = $porto_member_ajax_load = $porto_member_ajax_modal = '';
 	$output           .= '</div>';
 	echo porto_filter_output( $output );

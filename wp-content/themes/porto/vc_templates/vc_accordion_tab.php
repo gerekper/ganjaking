@@ -43,7 +43,7 @@ if ( ! $show_icon ) {
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'card card-default', $this->settings['base'] );
 $output   .= '<div' . ( isset( $el_id ) && ! empty( $el_id ) ? ' id="' . esc_attr( $el_id ) . '"' : '' ) . ' class="' . esc_attr( $css_class ) . '">';
 $output   .= '<div class="card-header"><h4 class="card-title m-0">';
-$output   .= '<a class="accordion-toggle" data-toggle="collapse" href="#' . $col_id . '">';
+$output   .= '<a class="accordion-toggle" data-bs-toggle="collapse" href="#' . $col_id . '">';
 if ( $icon_class ) {
 	$output .= '<i class="' . esc_attr( $icon_class ) . '">';
 	if ( 'icon-image' == $icon_class && $icon_image ) {

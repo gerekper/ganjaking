@@ -41,23 +41,21 @@ img {
         bottom: 4px;
         cursor: pointer;
         color: #fff;
-        display: block;
         height: 30px;
-        padding: 0;
         position: absolute;
         #{$right}: 4px;
         text-align: center;
         width: 30px;
         opacity: 0;
-        @include transition(all .1s);
+        transition: opacity .1s, background-color .1s;
         z-index: 1000;
         i {
             font-size: 14px;
-            line-height: 28px;
+            line-height: 30px;
         }
     }
     .link {
-        @include transition (all .3s);
+        transition: .3s;
         color: #fff;
         display: inline-block;
         font-size: 25px;

@@ -84,6 +84,21 @@ if ( ! empty( $items ) ) {
 $options['lg'] = (int) $items_desktop;
 $options['md'] = (int) $items_tablets;
 $options['sm'] = (int) $items_mobile;
+
+$carousel_class .= ' has-ccols ccols-1';
+if ( ! empty( $items ) ) {
+	$carousel_class .= ' ccols-xl-' . (int) $items;
+}
+if ( $items_desktop ) {
+	$carousel_class .= ' ccols-lg-' . (int) $items_desktop;
+}
+if ( $items_tablets ) {
+	$carousel_class .= ' ccols-md-' . (int) $items_tablets;
+}
+if ( $items_mobile ) {
+	$carousel_class .= ' ccols-sm-' . (int) $items_mobile;
+}
+
 if ( $ajax_load ) {
 	$options['loop'] = false;
 }

@@ -58,7 +58,7 @@ if ( 'grid' === $porto_product_layout ) {
 
 	if ( $attachment_id ) {
 
-		$image_link = wp_get_attachment_url( $attachment_id );
+		$image_link = wp_get_attachment_image_url( $attachment_id, 'full' );
 
 		$html .= '<div class="' . esc_attr( $product_image_classes ) . '"><div class="inner">';
 		$html .= wp_get_attachment_image(
@@ -87,7 +87,7 @@ if ( 'grid' === $porto_product_layout ) {
 	if ( $attachment_ids ) {
 		foreach ( $attachment_ids as $attachment_id ) {
 
-			$image_link = wp_get_attachment_url( $attachment_id );
+			$image_link = wp_get_attachment_image_url( $attachment_id, 'full' );
 
 			if ( ! $image_link ) {
 				continue;

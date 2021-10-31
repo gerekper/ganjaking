@@ -20,21 +20,25 @@ class Porto_Elementor_Sidebar_Menu_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Sidebar Menu', 'porto-functionality' );
+		return __( 'Porto Sidebar Menu', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'sidebar', 'menu', 'navigation', 'vertical' );
 	}
 
+	public function get_icon() {
+		return 'eicon-navigation-vertical';
+	}
+
 	protected function _register_controls() {
 
 		$custom_menus = array();
-		$menus        = get_terms( 'nav_menu', array( 'hide_empty' => false ) );
+		$menus        = get_terms( array( 'taxonomy' => 'nav_menu', 'hide_empty' => false ) );
 		if ( is_array( $menus ) && ! empty( $menus ) ) {
 			foreach ( $menus as $single_menu ) {
 				if ( is_object( $single_menu ) && isset( $single_menu->name, $single_menu->term_id ) ) {

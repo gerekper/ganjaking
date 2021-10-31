@@ -76,7 +76,7 @@ if ( ! class_exists( 'Redux_CDN' ) ) {
 						if ( ! self::is_enqueued( $handle, 'enqueued', $is_script ) ) {
 							$msg = __( 'Please wait a few minutes, then try refreshing the page. Unable to load some remotely hosted scripts.', 'redux-framework' );
 							if ( self::$_parent->args['dev_mode'] ) {
-								$msg = sprintf( __( 'If you are developing offline, please download and install the <a href="%s" target="_blank">Redux Vendor Support</a> plugin/extension to bypass the our CDN and avoid this warning', 'redux-framework' ), 'https://github.com/reduxframework/redux-vendor-support' );
+								$msg = sprintf( __( 'If you are developing offline, please download and install the <a href="%s" target="_blank" rel="noopener noreferrer">Redux Vendor Support</a> plugin/extension to bypass the our CDN and avoid this warning', 'redux-framework' ), 'https://github.com/reduxframework/redux-vendor-support' );
 							}
 
 							$msg = '<strong>' . esc_html__( 'Redux Framework Warning', 'redux-framework' ) . '</strong><br/>' . sprintf( __( '%s CDN unavailable.  Some controls may not render properly.', 'redux-framework' ), $handle ) . '  ' . $msg;

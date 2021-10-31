@@ -1,0 +1,50 @@
+@if $elementId != false {
+	.shop-count-$elementId 
+	{
+		label {
+			@if $despFontSize != false {
+				font-size: $despFontSize;
+			}
+			@if $despFontWeight != false {
+				font-weight: $despFontWeight;
+			}
+			@if $despLineHeight != false {
+				line-height: $despLineHeight;
+			}
+			@if $despLetterSpacing != false {
+				letter-spacing: $despLetterSpacing;
+			}
+			@if $descriptionColor != false {
+				color: $descriptionColor;
+			}
+		}
+		select {
+			@if $selectFontSize != false {
+				font-size: $selectFontSize;
+			}
+			@if $selectFontWeight != false {
+				font-weight: $selectFontWeight;
+			}
+			@if $selectLineHeight != false {
+				line-height: $selectLineHeight;
+			}
+			@if $selectLetterSpacing != false {
+				letter-spacing: $selectLetterSpacing;
+			}
+			@if $selectColor != false {
+				color: $selectColor;
+			}
+		}
+	}
+}
+
+body.rtl .shop-count-$elementId label {
+	@if $spacing != false {
+		margin-left: $(spacing)px;
+	}
+}
+body:not(.rtl) .shop-count-$elementId label {
+	@if $spacing != false {
+		margin-right: $(spacing)px;
+	}
+}

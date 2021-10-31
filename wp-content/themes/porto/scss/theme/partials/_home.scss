@@ -274,6 +274,7 @@ body {
     position: relative;
     padding: 35px 0;
     text-align: $left;
+    letter-spacing: -.5px;
 
     p {
         color: #999;
@@ -281,6 +282,7 @@ body {
         font-size: 1.12em;
         font-weight: 300;
         max-width: 800px;
+        letter-spacing: inherit;
 
         strong {
             color: #fff;

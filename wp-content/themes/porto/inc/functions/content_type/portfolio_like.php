@@ -15,7 +15,7 @@ function porto_ajax_portfolio_like() {
 			setcookie( 'porto_like_' . $portfolio_id, $portfolio_id, time() * 20, '/' );
 			update_post_meta( $portfolio_id, 'like_count', $like_count );
 		}
-		echo '<span class="portfolio-liked linked" title="' . esc_attr__( 'Already Liked', 'porto' ) . '" data-tooltip><i class="fas fa-heart"></i>' . $like_count . '</span>';
+		echo '<span class="portfolio-liked linked" title="' . esc_attr__( 'Already Liked', 'porto' ) . '" data-bs-tooltip><i class="fas fa-heart"></i>' . $like_count . '</span>';
 	}
 
 	// phpcs: enable
@@ -29,9 +29,9 @@ function porto_portfolio_like() {
 	$like_count   = get_post_meta( $portfolio_id, 'like_count', true );
 
 	if ( $like_count && isset( $_COOKIE[ 'porto_like_' . $portfolio_id ] ) ) {
-		$output = '<span class="portfolio-liked linked" title="' . esc_attr__( 'Already liked', 'porto' ) . '" data-tooltip><i class="fas fa-heart"></i>' . $like_count . '</span>';
+		$output = '<span class="portfolio-liked linked" title="' . esc_attr__( 'Already liked', 'porto' ) . '" data-bs-tooltip><i class="fas fa-heart"></i>' . $like_count . '</span>';
 	} else {
-		$output = '<span class="portfolio-like" title="' . esc_attr__( 'Like', 'porto' ) . '" data-tooltip data-id="' . $portfolio_id . '"><i class="fas fa-heart"></i>' . ( $like_count ? $like_count : '0' ) . '</span>';
+		$output = '<span class="portfolio-like" title="' . esc_attr__( 'Like', 'porto' ) . '" data-bs-tooltip data-id="' . $portfolio_id . '"><i class="fas fa-heart"></i>' . ( $like_count ? $like_count : '0' ) . '</span>';
 	}
 
 	return $output;

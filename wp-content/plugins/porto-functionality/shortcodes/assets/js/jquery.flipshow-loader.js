@@ -3,7 +3,7 @@ jQuery(document).ready(function($) {
     /*
      Circle Slider
      */
-    if ($.isFunction($.fn.flipshow) && window.Modernizr) {
+    if ($.fn.flipshow && window.Modernizr) {
         var circleContainer = $('.concept-slideshow');
 
         if (circleContainer.get(0)) {

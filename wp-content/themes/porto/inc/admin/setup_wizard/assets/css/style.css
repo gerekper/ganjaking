@@ -2,7 +2,7 @@
 .wrap { margin: 30px 30px 0 12px }
 .porto-setup-wizard { font: 400 14px/1.6 Poppins, 'Lucida Grande', sans-serif; color: #777; background: #fff }
 .porto-setup-wizard *, .porto-setup-wizard *:before, .porto-setup-wizard *:after { box-sizing: border-box }
-.porto-setup-wizard h1, .porto-setup-wizard h2, .porto-setup-wizard h3, .porto-setup-wizard h4 { color: #32373c; margin: 0 0 .5em; letter-spacing: -.05em; font-weight: 700; line-height: 1.1 }
+.porto-setup-wizard h2, .porto-setup-wizard h3, .porto-setup-wizard h4 { color: #32373c; margin: 0 0 .5em; letter-spacing: -.05em; font-weight: 700; line-height: 1.1 }
 .porto-setup-wizard h5, .porto-setup-wizard h6 { margin: 0 0 .5em; font-weight: 400 }
 .porto-setup-wizard label { color: #32373c; font-weight: 600 }
 .porto-setup-wizard h1 { font-size: 1.5rem }
@@ -16,8 +16,8 @@
 a { color: #08c }
 p { margin: 0 0 1.25rem; line-height: 1.8 }
 .divider { border-top: 1px solid #e7e7e7; margin: 1.875rem 0; }
-.mr-2 { margin-right: .5rem }
-.ml-2 { margin-left: .5rem }
+.me-2 { margin-right: .5rem }
+.ms-2 { margin-left: .5rem }
 .mb-0 { margin-bottom: 0 }
 .mb-1 { margin-bottom: .25rem }
 .mb-2 { margin-bottom: .5rem }
@@ -86,7 +86,7 @@ p { margin: 0 0 1.25rem; line-height: 1.8 }
 #theme-install-demos .theme img { display: block; width: 100%; height: auto; box-shadow: 0 0 20px rgba(0, 0, 0, .08) }
 #theme-install-demos .theme-name { font-size: .875rem; text-align: center; padding: 1rem .25rem; margin-bottom: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
 #theme-install-demos .theme-name small { font-size: 80%; font-weight: 600 }
-.porto-install-demo { font-size: .8125rem; padding-bottom: 40px; background: #fff; padding: 1.25rem; max-width: 20rem; margin-left: auto; margin-right: auto; }
+.porto-install-demo { font-size: .8125rem; background: #fff; padding: 1.25rem; max-width: 20rem; margin-left: auto; margin-right: auto; }
 #porto-install-options label { display: block; margin-bottom: 8px; }
 .porto-install-demo img { max-width: 100%; height: auto; }
 .porto-install-demo .btn { width: 100% }
@@ -119,6 +119,24 @@ p { margin: 0 0 1.25rem; line-height: 1.8 }
 .message-section .d-flex > div { text-align: center }
 #current-logo img { vertical-align: middle; max-height: 340px; max-width: 340px; padding: 1.5rem; margin-bottom: 0; margin-right: 15px; border: 1px solid #e3e3e3; background: #fafafa; border-radius: 4px; }
 
+/* Remove demo contents */
+.porto-remove-demo {
+	font-size: .8125rem;
+	background: #fff;
+	padding: 1.5rem 1.25rem 1rem;
+	max-width: 20rem;
+	margin: 0 auto;
+}
+.porto-remove-demo label {
+	display: inline-block;
+	width: 49%;
+	margin-bottom: .625rem;
+}
+.porto-remove-demo .btn {
+	width: 100%;
+	margin-top: .5rem
+}
+
 /* Others */
 h5.system-status { font-weight: 700 }
 h5.system-status strong { color: #5ca86f; font-weight: inherit }
@@ -128,6 +146,55 @@ h5.system-status.error strong { color: #c50707 }
 .porto-setup-wizard .porto-setup-next-steps a { font-style: normal; }
 .porto-setup-wizard .porto-setup-next-steps .status { color: #32373c }
 .porto-notice { border: 1px solid #ccd0d4; border-left-width: 4px; border-left-color: #ffb900; box-shadow: 0 1px 1px rgba(0,0,0,.04); padding: 1px 12px }
+.porto-table {
+	width: 100%;
+	text-align: left;
+	border-spacing: 0
+}
+.porto-table th, .porto-table td {
+	padding: 15px 20px;
+	vertical-align: middle;
+}
+.porto-table th {
+	color: #222529;
+	border-bottom: 1px solid #e8e8e8
+}
+.porto-table p {
+	margin-bottom: 0
+}
+.porto-table tr:nth-child(2n) td {
+	background-color: #f6f7f9; 
+}
+
+.porto-table .btn {
+	margin-bottom: 0
+}
+
+.has-badge .theme-screenshot {
+	position: relative;
+}
+.has-badge .theme-screenshot:after {
+	content: 'New';
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	border-radius: 2px;
+	line-height: 22px;
+	font-size:  9px;
+	font-weight: 600;
+	text-transform: uppercase;
+	padding: 0 .5rem;
+	background: linear-gradient(135deg, #0088cc 0%, #0169fe 80%);
+	color: #fff;
+}
+.badge-updated .theme-screenshot:after {
+	content: 'Updated';
+	background: #36c57a;
+}
+.badge-e-added .theme-screenshot:after {
+	content: 'Elementor Added';
+	background: #2baab1;
+}
 
 /* Responsive */
 @media (max-width: 1199px) {

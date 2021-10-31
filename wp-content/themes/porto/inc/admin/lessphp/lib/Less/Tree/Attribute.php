@@ -14,25 +14,23 @@ class Less_Tree_Attribute extends Less_Tree {
 	public $type = 'Attribute';
 
 	public function __construct( $key, $op, $value ) {
-		$this->key   = $key;
-		$this->op    = $op;
+		$this->key = $key;
+		$this->op = $op;
 		$this->value = $value;
 	}
 
 	public function compile( $env ) {
-
 		$key_obj = is_object( $this->key );
 		$val_obj = is_object( $this->value );
 
-		if ( ! $key_obj && ! $val_obj ) {
+		if ( !$key_obj && !$val_obj ) {
 			return $this;
 		}
 
 		return new Less_Tree_Attribute(
 			$key_obj ? $this->key->compile( $env ) : $this->key,
 			$this->op,
-			$val_obj ? $this->value->compile( $env ) : $this->value
-		);
+			$val_obj ? $this->value->compile( $env ) : $this->value );
 	}
 
 	/**

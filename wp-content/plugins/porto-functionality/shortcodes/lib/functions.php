@@ -523,6 +523,12 @@ if ( ! function_exists( 'porto_sh_commons' ) ) {
 				return Porto_ShSharedLibrary::getImageSizes();
 			case 'masonry_layouts':
 				return Porto_ShSharedLibrary::getMasonryLayouts();
+			case 'easing_methods':
+				return Porto_ShSharedLibrary::getEasingMethods();
+			case 'divider_type':
+				return Porto_ShSharedLibrary::getDividerType();
+			case 'shape_divider':
+				return Porto_ShSharedLibrary::getShapeDivider();
 			default:
 				return array();
 		}
@@ -530,7 +536,7 @@ if ( ! function_exists( 'porto_sh_commons' ) ) {
 }
 
 function porto_vc_woo_order_by() {
-	return array(
+	$result = array(
 		'',
 		esc_html__( 'Date', 'porto-functionality' )       => 'date',
 		esc_html__( 'ID', 'porto-functionality' )         => 'id',
@@ -539,8 +545,24 @@ function porto_vc_woo_order_by() {
 		esc_html__( 'Random', 'porto-functionality' )     => 'rand',
 		esc_html__( 'Price', 'porto-functionality' )      => 'price',
 		esc_html__( 'Popularity', 'porto-functionality' ) => 'popularity',
-		esc_html__( 'Rating', 'porto-functionality' )     => 'rating',
 	);
+	if ( wc_review_ratings_enabled() ) {
+		$result[ esc_html__( 'Rating', 'porto-functionality' ) ] = 'rating';
+	}
+	return $result;
+}
+
+function porto_woo_sort_by() {
+	$result = array(
+		__( 'All', 'porto-functionality' )     => 'all',
+		__( 'Popular', 'porto-functionality' ) => 'popular',
+		__( 'Date', 'porto-functionality' )    => 'date',
+		__( 'On Sale', 'porto-functionality' ) => 'onsale',
+	);
+	if ( wc_review_ratings_enabled() ) {
+		$result[ __( 'Rating', 'porto-functionality' ) ] = 'rating';
+	}
+	return $result;
 }
 
 function porto_vc_order_by() {
@@ -1022,14 +1044,90 @@ if ( ! class_exists( 'Porto_ShSharedLibrary' ) ) {
 			);
 		}
 
+		public static function getEasingMethods() {
+			return array(
+				__( 'easingSinusoidalIn', 'porto-functionality' )     => 'easingSinusoidalIn',
+				__( 'easingSinusoidalOut', 'porto-functionality' )    => 'easingSinusoidalOut',
+				__( 'easingSinusoidalInOut', 'porto-functionality' )  => 'easingSinusoidalInOut',
+				__( 'easingQuadraticIn', 'porto-functionality' )      => 'easingQuadraticIn',
+				__( 'easingQuadraticOut', 'porto-functionality' )     => 'easingQuadraticOut',
+				__( 'easingQuadraticInOut', 'porto-functionality' )   => 'easingQuadraticInOut',
+				__( 'easingCubicIn', 'porto-functionality' )          => 'easingCubicIn',
+				__( 'easingCubicOut', 'porto-functionality' )         => 'easingCubicOut',
+				__( 'easingCubicInOut', 'porto-functionality' )       => 'easingCubicInOut',
+				__( 'easingQuarticIn', 'porto-functionality' )        => 'easingQuarticIn',
+				__( 'easingQuarticOut', 'porto-functionality' )       => 'easingQuarticOut',
+				__( 'easingQuarticInOut', 'porto-functionality' )     => 'easingQuarticInOut',
+				__( 'easingQuinticIn', 'porto-functionality' )        => 'easingQuinticIn',
+				__( 'easingQuinticOut', 'porto-functionality' )       => 'easingQuinticOut',
+				__( 'easingQuinticInOut', 'porto-functionality' )     => 'easingQuinticInOut',
+				__( 'easingExponentialIn', 'porto-functionality' )    => 'easingExponentialIn',
+				__( 'easingExponentialOut', 'porto-functionality' )   => 'easingExponentialOut',
+				__( 'easingExponentialInOut', 'porto-functionality' ) => 'easingExponentialInOut',
+				__( 'easingCircularIn', 'porto-functionality' )       => 'easingCircularIn',
+				__( 'easingCircularOut', 'porto-functionality' )      => 'easingCircularOut',
+				__( 'easingCircularInOut', 'porto-functionality' )    => 'easingCircularInOut',
+				__( 'easingBackIn', 'porto-functionality' )           => 'easingBackIn',
+				__( 'easingBackOut', 'porto-functionality' )          => 'easingBackOut',
+				__( 'easingBackInOut', 'porto-functionality' )        => 'easingBackInOut',
+			);
+		}
+
+		public static function getShapeDivider() {
+			return array(
+				'triangle'        => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><path d="M500,98.9L0,6.1V0h1000v6.1L500,98.9z"></path></svg>',
+				'slant'           => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 L0 0 L100 0 Z"></path></svg>',
+				'bigtriangle'     => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><path d="M738,99l262-93V0H0v5.6L738,99z"></path></svg>',
+				'split'           => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 20" preserveAspectRatio="none"><path d="M0,0v3c0,0,393.8,0,483.4,0c9.2,0,16.6,7.4,16.6,16.6c0-9.1,7.4-16.6,16.6-16.6C606.2,3,1000,3,1000,3V0H0z"></path></svg>',
+				'curved'          => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 C 60 0 75 0 100 100 Z"></path></svg>',
+				'big-half-circle' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" ><path d="M0 100 C40 0 60 0 100 100 Z"></path></svg>',
+				'clouds'          => '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M-5 100 Q 0 20 5 100 Z"></path><path d="M0 100 Q 5 0 10 100"></path><path d="M5 100 Q 10 30 15 100"></path><path d="M10 100 Q 15 10 20 100"></path> <path d="M15 100 Q 20 30 25 100"></path><path d="M20 100 Q 25 -10 30 100"></path><path d="M25 100 Q 30 10 35 100"></path><path d="M30 100 Q 35 30 40 100"></path><path d="M35 100 Q 40 10 45 100"></path><path d="M40 100 Q 45 50 50 100"></path><path d="M45 100 Q 50 20 55 100"></path><path d="M50 100 Q 55 40 60 100"></path><path d="M55 100 Q 60 60 65 100"></path><path d="M60 100 Q 65 50 70 100"></path><path d="M65 100 Q 70 20 75 100"></path><path d="M70 100 Q 75 45 80 100"></path><path d="M75 100 Q 80 30 85 100"></path><path d="M80 100 Q 85 20 90 100"></path><path d="M85 100 Q 90 50 95 100"></path><path d="M90 100 Q 95 25 100 100"></path><path d="M95 100 Q 100 15 105 100 Z"></path></svg>',
+				'horizon'         => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 1024 178" preserveAspectRatio="none"><path d="M1024 177.371H0V.219l507.699 133.939L1024 .219v177.152z" opacity="0.12"></path><path d="M1024 177.781H0V39.438l507.699 94.925L1024 39.438v138.343z" opacity="0.18"></path><path d="M1024 177.781H0v-67.892l507.699 24.474L1024 109.889v67.892z" opacity="0.24"></path><path d="M1024 177.781H0v-3.891l507.699-39.526L1024 173.889v3.892z"></path></svg>',
+				'waves'           => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 54 1024 162" preserveAspectRatio="none"><path class="st3" d="M1024.1 54.368c-4 .2-8 .4-11.9.7-206.5 15.1-227.9 124.4-434.5 141.6-184.9 15.5-226.3-41.1-404.9-21.3-64 7.2-121.9 20.8-172.7 37.9v3.044h1024V54.368z"></path></svg>',
+				'waves_opacity'   => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 216" preserveAspectRatio="none"><path d="M1024.1 1.068c-19.4-.5-38.7-1.6-57.7-.3-206.6 15-248.5 126.6-455 143.8-184.8 15.5-285.7-60.9-464.3-41.3-16.9 1.8-32.5 4.4-47.1 7.6l.1 105.2h1024v-215z" opacity="0.12"></path><path d="M1024.1 20.068c-30.2-1.6-59.6-1.6-86.8.4-206.6 15.1-197.3 122.6-403.9 139.8-184.9 15.5-278.5-58.2-457.1-38.4-28.3 3.2-53.5 8.2-76.2 14.6v79.744h1024V20.068z" opacity="0.18"></path><path d="M1024.1 46.668c-22.2-.3-43.8.2-64.2 1.7-206.6 15-197.8 112.5-404.4 129.7-184.8 15.5-226.8-51.1-405.4-31.3-54.8 6-104.9 18.3-150 33.7v35.744h1024V46.668z" style="opacity="0.24"></path><path d="M1024.1 54.368c-4 .2-8 .4-11.9.7-206.5 15.1-227.9 124.4-434.5 141.6-184.9 15.5-226.3-41.1-404.9-21.3-64 7.2-121.9 20.8-172.7 37.9v3.044h1024V54.368z"></path></svg>',
+				'waves_brush'     => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 283.5 27.8" preserveAspectRatio="none"><path d="M283.5,9.7c0,0-7.3,4.3-14,4.6c-6.8,0.3-12.6,0-20.9-1.5c-11.3-2-33.1-10.1-44.7-5.7 s-12.1,4.6-18,7.4c-6.6,3.2-20,9.6-36.6,9.3C131.6,23.5,99.5,7.2,86.3,8c-1.4,0.1-6.6,0.8-10.5,2c-3.8,1.2-9.4,3.8-17,4.7 c-3.2,0.4-8.3,1.1-14.2,0.9c-1.5-0.1-6.3-0.4-12-1.6c-5.7-1.2-11-3.1-15.8-3.7C6.5,9.2,0,10.8,0,10.8V0h283.5V9.7z M260.8,11.3 c-0.7-1-2-0.4-4.3-0.4c-2.3,0-6.1-1.2-5.8-1.1c0.3,0.1,3.1,1.5,6,1.9C259.7,12.2,261.4,12.3,260.8,11.3z M242.4,8.6 c0,0-2.4-0.2-5.6-0.9c-3.2-0.8-10.3-2.8-15.1-3.5c-8.2-1.1-15.8,0-15.1,0.1c0.8,0.1,9.6-0.6,17.6,1.1c3.3,0.7,9.3,2.2,12.4,2.7 C239.9,8.7,242.4,8.6,242.4,8.6z M185.2,8.5c1.7-0.7-13.3,4.7-18.5,6.1c-2.1,0.6-6.2,1.6-10,2c-3.9,0.4-8.9,0.4-8.8,0.5 c0,0.2,5.8,0.8,11.2,0c5.4-0.8,5.2-1.1,7.6-1.6C170.5,14.7,183.5,9.2,185.2,8.5z M199.1,6.9c0.2,0-0.8-0.4-4.8,1.1 c-4,1.5-6.7,3.5-6.9,3.7c-0.2,0.1,3.5-1.8,6.6-3C197,7.5,199,6.9,199.1,6.9z M283,6c-0.1,0.1-1.9,1.1-4.8,2.5s-6.9,2.8-6.7,2.7 c0.2,0,3.5-0.6,7.4-2.5C282.8,6.8,283.1,5.9,283,6z M31.3,11.6c0.1-0.2-1.9-0.2-4.5-1.2s-5.4-1.6-7.8-2C15,7.6,7.3,8.5,7.7,8.6 C8,8.7,15.9,8.3,20.2,9.3c2.2,0.5,2.4,0.5,5.7,1.6S31.2,11.9,31.3,11.6z M73,9.2c0.4-0.1,3.5-1.6,8.4-2.6c4.9-1.1,8.9-0.5,8.9-0.8 c0-0.3-1-0.9-6.2-0.3S72.6,9.3,73,9.2z M71.6,6.7C71.8,6.8,75,5.4,77.3,5c2.3-0.3,1.9-0.5,1.9-0.6c0-0.1-1.1-0.2-2.7,0.2 C74.8,5.1,71.4,6.6,71.6,6.7z M93.6,4.4c0.1,0.2,3.5,0.8,5.6,1.8c2.1,1,1.8,0.6,1.9,0.5c0.1-0.1-0.8-0.8-2.4-1.3 C97.1,4.8,93.5,4.2,93.6,4.4z M65.4,11.1c-0.1,0.3,0.3,0.5,1.9-0.2s2.6-1.3,2.2-1.2s-0.9,0.4-2.5,0.8C65.3,10.9,65.5,10.8,65.4,11.1 z M34.5,12.4c-0.2,0,2.1,0.8,3.3,0.9c1.2,0.1,2,0.1,2-0.2c0-0.3-0.1-0.5-1.6-0.4C36.6,12.8,34.7,12.4,34.5,12.4z M152.2,21.1 c-0.1,0.1-2.4-0.3-7.5-0.3c-5,0-13.6-2.4-17.2-3.5c-3.6-1.1,10,3.9,16.5,4.1C150.5,21.6,152.3,21,152.2,21.1z"></path><path d="M269.6,18c-0.1-0.1-4.6,0.3-7.2,0c-7.3-0.7-17-3.2-16.6-2.9c0.4,0.3,13.7,3.1,17,3.3 C267.7,18.8,269.7,18,269.6,18z"></path><path d="M227.4,9.8c-0.2-0.1-4.5-1-9.5-1.2c-5-0.2-12.7,0.6-12.3,0.5c0.3-0.1,5.9-1.8,13.3-1.2 S227.6,9.9,227.4,9.8z"></path><path d="M204.5,13.4c-0.1-0.1,2-1,3.2-1.1c1.2-0.1,2,0,2,0.3c0,0.3-0.1,0.5-1.6,0.4 C206.4,12.9,204.6,13.5,204.5,13.4z"></path><path d="M201,10.6c0-0.1-4.4,1.2-6.3,2.2c-1.9,0.9-6.2,3.1-6.1,3.1c0.1,0.1,4.2-1.6,6.3-2.6 S201,10.7,201,10.6z"></path><path d="M154.5,26.7c-0.1-0.1-4.6,0.3-7.2,0c-7.3-0.7-17-3.2-16.6-2.9c0.4,0.3,13.7,3.1,17,3.3 C152.6,27.5,154.6,26.8,154.5,26.7z"></path><path d="M41.9,19.3c0,0,1.2-0.3,2.9-0.1c1.7,0.2,5.8,0.9,8.2,0.7c4.2-0.4,7.4-2.7,7-2.6 c-0.4,0-4.3,2.2-8.6,1.9c-1.8-0.1-5.1-0.5-6.7-0.4S41.9,19.3,41.9,19.3z"></path><path d="M75.5,12.6c0.2,0.1,2-0.8,4.3-1.1c2.3-0.2,2.1-0.3,2.1-0.5c0-0.1-1.8-0.4-3.4,0 C76.9,11.5,75.3,12.5,75.5,12.6z"></path><path d="M15.6,13.2c0-0.1,4.3,0,6.7,0.5c2.4,0.5,5,1.9,5,2c0,0.1-2.7-0.8-5.1-1.4 C19.9,13.7,15.7,13.3,15.6,13.2z"></path></svg>',
+				'hills'           => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 74 1024 107" preserveAspectRatio="none"><path d="M0 182.086h1024v-77.312c-49.05 20.07-120.525 42.394-193.229 42.086-128.922-.512-159.846-72.294-255.795-72.294-89.088 0-134.656 80.179-245.043 82.022S169.063 99.346 49.971 97.401C32.768 97.094 16.077 99.244 0 103.135v78.951z"></path></svg>',
+				'hills_opacity'   => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 1024 182" preserveAspectRatio="none"><path d="M0 182.086h1024V41.593c-28.058-21.504-60.109-37.581-97.075-37.581-112.845 0-198.144 93.798-289.792 93.798S437.658 6.777 351.846 6.777s-142.234 82.125-238.49 82.125c-63.078 0-75.776-31.744-113.357-53.658L0 182.086z" opacity="0.12"></path><path d="M1024 181.062v-75.878c-39.731 15.872-80.794 27.341-117.658 25.805-110.387-4.506-191.795-109.773-325.53-116.224-109.158-5.12-344.166 120.115-429.466 166.298H1024v-.001z" opacity="0.18"></path><path d="M0 182.086h1024V90.028C966.451 59.103 907.059 16.3 824.115 15.071 690.278 13.023 665.19 102.93 482.099 102.93S202.138-1.62 74.24.019C46.49.326 21.811 4.217 0 9.849v172.237z" opacity="0.24"></path><path d="M0 182.086h1024V80.505c-37.171 19.558-80.691 35.328-139.571 36.25-151.142 2.355-141.619-28.57-298.496-29.184s-138.854 47.002-305.459 43.725C132.813 128.428 91.238 44.563 0 28.179v153.907z" opacity="0.3"></path><path d="M0 182.086h1024v-77.312c-49.05 20.07-120.525 42.394-193.229 42.086-128.922-.512-159.846-72.294-255.795-72.294-89.088 0-134.656 80.179-245.043 82.022S169.063 99.346 49.971 97.401C32.768 97.094 16.077 99.244 0 103.135v78.951z"></path></svg>',
+				'zigzag'          => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 5.8" preserveAspectRatio="none"><path d="M5.4.4l5.4 5.3L16.5.4l5.4 5.3L27.5.4 33 5.7 38.6.4l5.5 5.4h.1L49.9.4l5.4 5.3L60.9.4l5.5 5.3L72 .4l5.5 5.3L83.1.4l5.4 5.3L94.1.4l5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3L161 .4l5.4 5.3L172 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3L261 .4l5.4 5.3L272 .4l5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3L361 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.6-5.4 5.5 5.3L461 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1L550 .4l5.4 5.3L561 .4l5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2L650 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2L750 .4l5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.4h.2L850 .4l5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.4h.2l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.7-5.4 5.4 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.5 5.4h.1l5.6-5.4 5.5 5.3 5.6-5.3 5.5 5.3 5.6-5.3 5.4 5.3 5.7-5.3 5.4 5.3 5.6-5.3 5.5 5.4V0H-.2v5.8z"></path></svg>',
+				'book'            => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><path d="M194,99c186.7,0.7,305-78.3,306-97.2c1,18.9,119.3,97.9,306,97.2c114.3-0.3,194,0.3,194,0.3s0-91.7,0-100c0,0,0,0,0-0 L0,0v99.3C0,99.3,79.7,98.7,194,99z"></path></svg>',
+				'arrow'           => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 10" preserveAspectRatio="none"><path d="M350,10L340,0h20L350,10z"></path></svg>',
+			);
+		}
+
+		public static function getDividerType() {
+			return array(
+				__( 'None', 'porto-functionality' )        => 'none',
+				__( 'Triangle', 'porto-functionality' )    => 'triangle',
+				__( 'Slant', 'porto-functionality' )       => 'slant',
+				__( 'Triangle Asymmetrical', 'porto-functionality' ) => 'bigtriangle',
+				__( 'Split', 'porto-functionality' )       => 'split',
+				__( 'Curved', 'porto-functionality' )      => 'curved',
+				__( 'Big Half Circle', 'porto-functionality' ) => 'big-half-circle',
+				__( 'Clouds', 'porto-functionality' )      => 'clouds',
+				__( 'Horizon', 'porto-functionality' )     => 'horizon',
+				__( 'Waves', 'porto-functionality' )       => 'waves',
+				__( 'Waves Opacity', 'porto-functionality' ) => 'waves_opacity',
+				__( 'Waves Brush', 'porto-functionality' ) => 'waves_brush',
+				__( 'Hills', 'porto-functionality' )       => 'hills',
+				__( 'Hills Opacity', 'porto-functionality' ) => 'hills_opacity',
+				__( 'Zigzag', 'porto-functionality' )      => 'zigzag',
+				__( 'Book', 'porto-functionality' )        => 'book',
+				__( 'Arrow', 'porto-functionality' )       => 'arrow',
+				__( 'Custom', 'porto-functionality' )      => 'custom',
+			);
+		}
+
 		public static function getImageSizes() {
 			global $_wp_additional_image_sizes;
 
-			$sizes = array( __( 'Default', 'porto-functionality' ) => '', __( 'Full', 'porto-functionality' ) => 'full' );
+			$sizes = array(
+				__( 'Default', 'porto-functionality' ) => '',
+				__( 'Full', 'porto-functionality' )    => 'full',
+			);
 
 			foreach ( get_intermediate_image_sizes() as $_size ) {
 				if ( in_array( $_size, array( 'thumbnail', 'medium', 'medium_large', 'large' ) ) ) {
-					$sizes[  $_size . ' ( ' . get_option( "{$_size}_size_w" ) . 'x' . get_option( "{$_size}_size_h" ) . ( get_option( "{$_size}_crop" ) ? '' : ', false' ) . ' )' ] = $_size;
+					$sizes[ $_size . ' ( ' . get_option( "{$_size}_size_w" ) . 'x' . get_option( "{$_size}_size_h" ) . ( get_option( "{$_size}_crop" ) ? '' : ', false' ) . ' )' ] = $_size;
 				} elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
 					$sizes[ $_size . ' ( ' . $_wp_additional_image_sizes[ $_size ]['width'] . 'x' . $_wp_additional_image_sizes[ $_size ]['height'] . ( $_wp_additional_image_sizes[ $_size ]['crop'] ? '' : ', false' ) . ' )' ] = $_size;
 				}
@@ -1639,6 +1737,8 @@ if ( ! function_exists( 'vc_iconpicker_type_porto' ) ) {
 			array( 'porto-icon-map-location' => 'Map Location (pin)' ),
 			array( 'porto-icon-phone-call' => 'Calling Phone' ),
 			array( 'porto-icon-tablet' => 'Tablet' ),
+			array( 'porto-icon-callin' => 'Phone, Call in' ),
+			array( 'porto-icon-atmark' => 'Email, Address, At' ),
 		);
 
 		return array_merge( $icons, $porto_icons );
@@ -1794,6 +1894,7 @@ if ( ! function_exists( 'porto_vc_iconpicker_type_fontawesome5' ) ) {
 					array( 'fab fa-facebook-f' => 'Facebook F(social network)' ),
 					array( 'fab fa-telegram-plane' => 'Telegram Plane' ),
 					array( 'fab fa-youtube-square' => 'YouTube Square(video, film)' ),
+					array( 'fab fa-tripadvisor' => 'TripAdvisor' ),
 				),
 			);
 		} else {
@@ -4453,6 +4554,662 @@ if ( function_exists( 'vc_add_shortcode_param' ) ) {
 	}
 	vc_add_shortcode_param( 'porto_boxshadow', 'porto_boxshadow_callback', plugins_url( '../assets/js/box-shadow-param.js', __FILE__ ) );
 	vc_add_shortcode_param( 'porto_image_select', 'porto_image_select_callback', plugins_url( '../assets/js/porto-image-select-param.js', __FILE__ ) );
+	/**
+	 * Adds WPB typography param
+	 *
+	 * @since 6.1.0
+	 *
+	 */
+	vc_add_shortcode_param( 'porto_typography', 'porto_typography_callback', plugins_url( '../assets/js/typography-param.js', __FILE__ ) );
+	vc_add_shortcode_param( 'porto_dimension', 'porto_dimension_callback', plugins_url( '../assets/js/dimension-param.js', __FILE__ ) );
+	vc_add_shortcode_param( 'porto_button_group', 'porto_button_group_callback', plugins_url( '../assets/js/button-group-param.js', __FILE__ ) );
+	vc_add_shortcode_param( 'porto_number', 'porto_number_callback', plugins_url( '../assets/js/number-param.js', __FILE__ ) );
+	vc_add_shortcode_param( 'porto_multiselect', 'porto_multiselect_callback' );
+}
+
+/**
+ * Porto Multi Select
+ *
+ * adds multi select control for element option
+ * follow below example of porto_multiselect control
+ *
+ * array(
+ *      'type'       => 'porto_multiselect',
+ *      'heading'    => esc_html__( 'Show Information', 'porto-functionality' ),
+ *      'param_name' => 'show_info',
+ *      'value'      => array(
+ *          esc_html__( 'Category', 'porto-functionality' ) => 'category',
+ *          esc_html__( 'Label', 'porto-functionality' )    => 'label',
+ *          esc_html__( 'Price', 'porto-functionality' )    => 'price',
+ *          esc_html__( 'Rating', 'porto-functionality' )   => 'rating',
+ *          esc_html__( 'Attribute', 'porto-functionality' ) => 'attribute',
+ *          esc_html__( 'Add To Cart', 'porto-functionality' ) => 'addtocart',
+ *          esc_html__( 'Compare', 'porto-functionality' )  => 'compare',
+ *          esc_html__( 'Quickview', 'porto-functionality' ) => 'quickview',
+ *          esc_html__( 'Wishlist', 'porto-functionality' ) => 'wishlist',
+ *          esc_html__( 'Short Description', 'porto-functionality' ) => 'short_desc',
+ *      ),
+ *      'dependency' => array(
+ *          'element'            => 'follow_theme_option',
+ *          'value_not_equal_to' => 'yes',
+ *      ),
+ * ),
+ *
+ *
+ * @since 6.1.0
+ *
+ * @param object $settings
+ * @param string $value
+ *
+ * @return string
+ */
+function porto_multiselect_callback( $settings, $value ) {
+	$param_name = isset( $settings['param_name'] ) ? $settings['param_name'] : '';
+	$type       = isset( $settings['type'] ) ? $settings['type'] : '';
+	$class      = 'porto-wpb-multiselect-container';
+
+	if ( empty( $value ) ) {
+		$value = array();
+	} elseif ( ! is_array( $value ) ) {
+		$value = explode( ',', $value );
+	}
+
+	$output .= '<select name="' . esc_attr( $settings['param_name'] ) . '" class="porto-multiselect-container wpb_vc_param_value wpb-input wpb-select ' . esc_attr( $settings['param_name'] ) . ' ' . esc_attr( $type ) . '" value="' . esc_attr( $value ) . '"  multiple="true">';
+
+	if ( ! empty( $settings['value'] ) ) {
+		foreach ( $settings['value'] as $option_label => $option_value ) {
+			$selected            = '';
+			$option_value_string = (string) $option_value;
+			if ( ! empty( $value ) && in_array( $option_value_string, $value ) ) {
+				$selected = 'selected="selected"';
+			}
+			$option_class = str_replace( '#', 'hash-', $option_value );
+			$output      .= '<option class="' . esc_attr( $option_class ) . '" value="' . esc_attr( $option_value ) . '" ' . $selected . '>' . htmlspecialchars( $option_label ) . '</option>';
+		}
+	}
+	$output .= '</select>';
+
+	return $output;
+}
+
+/**
+ * Porto WPBakery Number Callback
+ *
+ * follow below example of porto_number control
+ *
+ * array(
+ *      'type'        => 'porto_number',
+ *      'heading'     => __( 'Icon Spacing', 'porto-functionality' ),
+ *      'param_name'  => 'icon_space',
+ *      'responsive'  => false,
+ *
+ *      ================================
+ *      'units'       => array(
+ *          'px',
+ *          'rem',
+ *          'em',
+ *          '%',
+ *      ),
+ *      ============= OR ===============
+ *      'with_units'  => true / false, // Check values including valid CSS unit.
+ *      ================================
+ *
+ *      'dependency'  => array(
+ *          'element' => 'show_icon',
+ *          'not_empty'   => true,
+ *      ),
+ *      'selectors'   => array(
+ *          '{{WRAPPER}}.btn' => 'font-size: {{VALUE}}{{UNIT}};',
+ *      ),
+ *      'group'       => 'Icon',
+ * ),
+ *
+ * @since 6.1.0
+ *
+ * @param object $settings
+ * @param string $value
+ *
+ * @return string
+ */
+function porto_number_callback( $settings, $value ) {
+	$param_name    = isset( $settings['param_name'] ) ? $settings['param_name'] : '';
+	$type          = isset( $settings['type'] ) ? $settings['type'] : '';
+	$is_responsive = isset( $settings['responsive'] ) ? $settings['responsive'] : false;
+	$units         = isset( $settings['units'] ) ? $settings['units'] : array();
+	$with_unit     = isset( $settings['with_units'] ) ? $settings['with_units'] : false;
+	$class         = 'porto-wpb-number-container';
+
+	if ( $is_responsive ) {
+		$class .= ' porto-responsive-control';
+	}
+	if ( ! empty( $value ) ) {
+		$responsive_value = json_decode( $value, true );
+	} else {
+		if ( isset( $_REQUEST['params']['items'] ) ) {
+			$responsive_value['xl'] = $_REQUEST['params']['items'];
+		}
+		if ( isset( $_REQUEST['params']['items_lg'] ) ) {
+			$responsive_value['lg'] = $_REQUEST['params']['items_lg'];
+		}
+		if ( isset( $_REQUEST['params']['items_md'] ) ) {
+			$responsive_value['md'] = $_REQUEST['params']['items_md'];
+		}
+		if ( isset( $_REQUEST['params']['items_sm'] ) ) {
+			$responsive_value['sm'] = $_REQUEST['params']['items_sm'];
+		}
+		if ( isset( $_REQUEST['params']['items_xs'] ) ) {
+			$responsive_value['xs'] = $_REQUEST['params']['items_xs'];
+		}
+	}
+	$saved_unit = ! empty( $responsive_value['unit'] ) ? $responsive_value['unit'] : '';
+	$output     = '<div class="' . esc_attr( $class ) . '">';
+
+	if ( ! empty( $units ) ) {
+		ob_start();
+		?>
+		<input type="number"
+			class="porto-wpb-number"
+			value="<?php echo esc_attr( $responsive_value['xl'] ); ?>"
+			data-xl="<?php echo ( isset( $responsive_value['xl'] ) ? esc_attr( $responsive_value['xl'] ) : '' ); ?>"
+			data-lg="<?php echo ( isset( $responsive_value['lg'] ) ? esc_attr( $responsive_value['lg'] ) : '' ); ?>"
+			data-md="<?php echo ( isset( $responsive_value['md'] ) ? esc_attr( $responsive_value['md'] ) : '' ); ?>"
+			data-sm="<?php echo ( isset( $responsive_value['sm'] ) ? esc_attr( $responsive_value['sm'] ) : '' ); ?>"
+			data-xs="<?php echo ( isset( $responsive_value['xs'] ) ? esc_attr( $responsive_value['xs'] ) : '' ); ?>"
+			data-unit="<?php echo ( isset( $responsive_value['unit'] ) ? esc_attr( $responsive_value['unit'] ) : '' ); ?>"
+			/>
+		<select class="porto-wpb-units">
+			<?php foreach ( $units as $unit ) { ?>
+				<option value="<?php echo esc_attr( $unit ); ?>" <?php echo esc_attr( $unit == $saved_unit ? 'selected' : '' ); ?>><?php echo esc_html( $unit ); ?></option>
+			<?php } ?>
+		</select>
+		<?php
+		$output .= ob_get_clean();
+	} else {
+		ob_start();
+		if ( $is_responsive ) {
+			?>
+		<input type="<?php echo esc_attr( $with_unit ? 'text' : 'number' ); ?>"
+			class="porto-wpb-number"
+			value="<?php echo esc_attr( $responsive_value['xl'] ); ?>"
+			data-xl="<?php echo ( isset( $responsive_value['xl'] ) ? esc_attr( $responsive_value['xl'] ) : '' ); ?>"
+			data-lg="<?php echo ( isset( $responsive_value['lg'] ) ? esc_attr( $responsive_value['lg'] ) : '' ); ?>"
+			data-md="<?php echo ( isset( $responsive_value['md'] ) ? esc_attr( $responsive_value['md'] ) : '' ); ?>"
+			data-sm="<?php echo ( isset( $responsive_value['sm'] ) ? esc_attr( $responsive_value['sm'] ) : '' ); ?>"
+			data-xs="<?php echo ( isset( $responsive_value['xs'] ) ? esc_attr( $responsive_value['xs'] ) : '' ); ?>"
+			data-unit="<?php echo ( isset( $responsive_value['unit'] ) ? esc_attr( $responsive_value['unit'] ) : '' ); ?>"
+			/>
+			<?php
+		} else {
+			?>
+			<input type="<?php echo esc_attr( $with_unit ? 'text' : 'number' ); ?>"
+			class="porto-wpb-number simple-value"
+			value="<?php echo esc_html( $value ); ?>"
+			/>
+			<?php
+		}
+		$output .= ob_get_clean();
+	}
+
+	if ( $is_responsive ) {
+		ob_start();
+		?>
+		<div class="porto-responsive-dropdown">
+			<a class="porto-responsive-toggle" title="Toggle Responsive Option"><i class="vc-composer-icon vc-c-icon-layout_default"></i></a>
+			<ul class="porto-responsive-span">
+				<li data-width="xl" title=">= 1200px" class="active" data-size="100%"><i class="vc-composer-icon vc-c-icon-layout_default"></i></li>
+				<li data-width="lg" title=">= 992px" data-size="1024px"><i class="vc-composer-icon vc-c-icon-layout_landscape-tablets"></i></li>
+				<li data-width="md" title=">= 768px" data-size="768px"><i class="vc-composer-icon vc-c-icon-layout_portrait-tablets"></i></li>
+				<li data-width="sm" title=">= 576px" data-size="480px"><i class="vc-composer-icon vc-c-icon-layout_landscape-smartphones"></i></li>
+				<li data-width="xs" title="< 576px" data-size="320px"><i class="vc-composer-icon vc-c-icon-layout_portrait-smartphones"></i></li>
+			</ul>
+		</div>
+		<?php
+		$output .= ob_get_clean();
+	}
+
+	$output .= '</div>';
+	$output .= '<input type="hidden" name="' . esc_attr( $param_name ) . '" class="wpb_vc_param_value ' . esc_attr( $settings['param_name'] ) . ' ' . esc_attr( $type ) . '_field" value="' . esc_attr( $value ) . '" ' . ' />';
+	return $output;
+}
+
+/**
+ * Porto WPBakery Dimension Callback
+ *
+ * adds dimension control for element option
+ * follow below example of porto_dimension control
+ *
+ * array(
+ *      'type'        => 'porto_dimension',
+ *      'heading'     => __( 'Buttton Padding', 'porto-functionality' ),
+ *      'param_name'  => 'btn_padding',
+ *      'responsive'  => true,
+ *      'value'       => '',
+ *      'group'       => 'General',
+ *      'selectors'   => array(
+ *          '{{WRAPPER}}.btn' => 'padding-top: {{TOP}};padding-right: {{RIGHT}};padding-bottom: {{BOTTOM}};padding-left: {{LEFT}};',
+ *      )
+ * )
+ *
+ * @since 6.1.0
+ *
+ * @param object $settings
+ * @param string $value
+ *
+ * @return string
+ */
+function porto_dimension_callback( $settings, $value ) {
+	$param_name    = isset( $settings['param_name'] ) ? $settings['param_name'] : '';
+	$type          = isset( $settings['type'] ) ? $settings['type'] : '';
+	$is_responsive = isset( $settings['responsive'] ) ? $settings['responsive'] : false;
+	$units         = isset( $settings['units'] ) ? $settings['units'] : array();
+	$class         = 'porto-wpb-dimension-container';
+
+	if ( $is_responsive ) {
+		$class .= ' porto-responsive-control';
+	}
+
+	$responsive_value = json_decode( $value, true );
+	$saved_unit       = ! empty( $responsive_value['unit'] ) ? $responsive_value['unit'] : '';
+	$output           = '<div class="' . esc_attr( $class ) . '">';
+	$dimensions       = array(
+		'top'    => esc_html__( 'Top', 'porto-functionality' ),
+		'right'  => esc_html__( 'Right', 'porto-functionality' ),
+		'bottom' => esc_html__( 'Bottom', 'porto-functionality' ),
+		'left'   => esc_html__( 'Left', 'porto-functionality' ),
+	);
+
+	foreach ( $dimensions as $dimension => $label ) {
+		ob_start();
+		$dimension_class = 'porto-wpb-dimension-wrap ' . $dimension;
+		?>
+		<div class="<?php echo esc_attr( $dimension_class ); ?>">
+		<input type="text"
+			class="porto-wpb-dimension"
+			value="<?php echo esc_attr( $responsive_value[ $dimension ]['xl'] ); ?>"
+			data-xl="<?php echo ( isset( $responsive_value[ $dimension ]['xl'] ) ? esc_attr( $responsive_value[ $dimension ]['xl'] ) : '' ); ?>"
+			data-lg="<?php echo ( isset( $responsive_value[ $dimension ]['lg'] ) ? esc_attr( $responsive_value[ $dimension ]['lg'] ) : '' ); ?>"
+			data-md="<?php echo ( isset( $responsive_value[ $dimension ]['md'] ) ? esc_attr( $responsive_value[ $dimension ]['md'] ) : '' ); ?>"
+			data-sm="<?php echo ( isset( $responsive_value[ $dimension ]['sm'] ) ? esc_attr( $responsive_value[ $dimension ]['sm'] ) : '' ); ?>"
+			data-xs="<?php echo ( isset( $responsive_value[ $dimension ]['xs'] ) ? esc_attr( $responsive_value[ $dimension ]['xs'] ) : '' ); ?>"
+			/>
+		<label><?php echo esc_html( $label ); ?></label>
+		</div>
+		<?php
+		$output .= ob_get_clean();
+	}
+
+	if ( $is_responsive ) {
+		ob_start();
+		?>
+		<div class="porto-responsive-dropdown">
+			<a class="porto-responsive-toggle" title="Toggle Responsive Option"><i class="vc-composer-icon vc-c-icon-layout_default"></i></a>
+			<ul class="porto-responsive-span">
+				<li data-width="xl" title=">= 1200px" class="active" data-size="100%"><i class="vc-composer-icon vc-c-icon-layout_default"></i></li>
+				<li data-width="lg" title=">= 992px" data-size="1024px"><i class="vc-composer-icon vc-c-icon-layout_landscape-tablets"></i></li>
+				<li data-width="md" title=">= 768px" data-size="768px"><i class="vc-composer-icon vc-c-icon-layout_portrait-tablets"></i></li>
+				<li data-width="sm" title=">= 576px" data-size="480px"><i class="vc-composer-icon vc-c-icon-layout_landscape-smartphones"></i></li>
+				<li data-width="xs" title="< 576px" data-size="320px"><i class="vc-composer-icon vc-c-icon-layout_portrait-smartphones"></i></li>
+			</ul>
+		</div>
+		<?php
+		$output .= ob_get_clean();
+	}
+
+	$output .= '</div>';
+	$output .= '<input type="hidden" name="' . esc_attr( $param_name ) . '" class="wpb_vc_param_value ' . esc_attr( $settings['param_name'] ) . ' ' . esc_attr( $type ) . '_field" value="' . esc_attr( $value ) . '" ' . ' />';
+	return $output;
+}
+
+/**
+ * Porto WPBakery ButtonGroup Callback
+ *
+ * adds button-choose control supporting label, icon and image
+ * follow below example of porto_button_group control
+ * order of options' priority is 'image' > 'color' > 'icon' > 'label'
+ *
+ * if all type options are omited, it will automatically change to label type
+ * and 'title' option will be worked as 'lable' option
+ *
+ * array(
+ *      'type'        => 'porto_button_group',
+ *      'heading'     => __( 'Alignment', 'porto-functionality' ),
+ *      'param_name'  => 'button_align',
+ *      'value'       => array(
+ *          'left' => array(
+ *              'title' => esc_html__( 'Left', 'porto-functionality' ), // tooltip text
+ *              'color' => '#26c',
+ *              'icon'  => 'fas fa-align-left',
+ *              'label' => esc_html__( 'Left', 'porto-functionality' ),
+ *          ),
+ *          'center' => array(
+ *              'title' => esc_html__( 'Center', 'porto-functionality' ), // tooltip text
+ *              'color' => '#d26e4b',
+ *              'icon'  => 'fas fa-align-center',
+ *              'label' => esc_html__( 'Center', 'porto-functionality' ),
+ *          ),
+ *          'right' => array(
+ *              'title' => esc_html__( 'Right', 'porto-functionality' ), // tooltip text
+ *              'color' => '#a8c26e',
+ *              'icon'  => 'fas fa-align-right',
+ *              'label' => esc_html__( 'Right', 'porto-functionality' ),
+ *          ),
+ *          'inline' => array(
+ *              'title' => esc_html__( 'Inline', 'porto-functionality' ), // tooltip text
+ *              'color' => '#fff',
+ *              'icon'  => 'fas fa-arrows-alt-h',
+ *              'label' => esc_html__( 'Inline', 'porto-functionality' ),
+ *          )
+ *      ),
+ *      'std' => 'left',
+ *      'description' => '',
+ *      'group'       => 'General',
+ *  ),
+ *
+ * @since 6.1.0
+ *
+ * @param object $settings
+ * @param string $value
+ *
+ * @return string
+ */
+function porto_button_group_callback( $settings, $value ) {
+	$param_name    = isset( $settings['param_name'] ) ? $settings['param_name'] : '';
+	$type          = isset( $settings['type'] ) ? $settings['type'] : '';
+	$values        = isset( $settings['value'] ) ? $settings['value'] : array();
+	$is_responsive = isset( $settings['responsive'] ) ? $settings['responsive'] : false;
+	$button_width  = isset( $settings['button_width'] ) ? $settings['button_width'] : '';
+
+	$class = 'porto-wpb-button-group';
+	$attr  = '';
+
+	if ( empty( $values ) ) {
+		return;
+	}
+
+	if ( is_array( $value ) ) { // if std value does not exist
+		$value = array_keys( $values )[0];
+	}
+
+	if ( '/' == $value ) {
+		$value = '';
+	}
+
+	if ( $is_responsive ) {
+		$class .= ' porto-responsive-control';
+		$attr  .= "data-width='xl'";
+
+		if ( null == json_decode( $value, true ) ) {
+			$value = array( 'xl' => $value );
+		} else {
+			$value = json_decode( $value, true );
+		}
+	}
+
+	$keys = array_keys( $values[ array_keys( $values )[0] ] );
+	if ( in_array( 'image', $keys ) ) {
+		$class .= ' image-button';
+	} elseif ( in_array( 'color', $keys ) ) {
+		$class .= ' color-button';
+	} elseif ( in_array( 'icon', $keys ) ) {
+		$class .= ' icon-button';
+	} elseif ( in_array( 'label', $keys ) ) {
+		$class .= ' label-button';
+	}
+
+	$class .= ' ' . $value;
+
+	$output  = '';
+	$output .= '<div class="' . esc_attr( $class ) . '"' . ( $attr ? ' ' . $attr : '' ) . '>';
+
+	$output .= '<ul class="options-wrapper">';
+	foreach ( $values as $key => $options ) {
+		$label  = '';
+		$style  = '';
+		$o_keys = array_keys( $options );
+
+		if ( in_array( 'image', $o_keys ) ) {
+			$label = '<img src="' . esc_url( $options['image'] ) . '" />';
+		} elseif ( in_array( 'color', $o_keys ) ) {
+			$style = 'background-color: ' . esc_attr( $options['color'] );
+		} elseif ( in_array( 'icon', $o_keys ) ) {
+			$label = '<i class="' . esc_attr( $options['icon'] ) . '"></i>';
+		} elseif ( in_array( 'label', $o_keys ) ) {
+			$label = esc_html( $options['label'] );
+		} else {
+			$label = esc_html( $options['title'] );
+		}
+
+		if ( $button_width ) {
+			$style .= 'width: ' . $button_width . 'px;';
+		}
+
+		$output .= '<li attr-value="' . esc_attr( $key ) . '"' . ( ( is_array( $value ) ? $value['xl'] : $value ) == $key ? ' class="active"' : '' ) . ' title="' . esc_attr( $options['title'] ) . '"' . ( $style ? ' style="' . $style . '"' : '' ) . '>' . $label . '</li>';
+	}
+	$output .= '</ul>';
+
+	if ( $is_responsive ) {
+		ob_start();
+		?>
+		<div class="porto-responsive-dropdown">
+			<a class="porto-responsive-toggle" title="Toggle Responsive Option"><i class="vc-composer-icon vc-c-icon-layout_default"></i></a>
+			<ul class="porto-responsive-span">
+				<li data-width="xl" title=">= 1200px" class="active" data-size="100%"><i class="vc-composer-icon vc-c-icon-layout_default"></i></li>
+				<li data-width="lg" title=">= 992px" data-size="1024px"><i class="vc-composer-icon vc-c-icon-layout_landscape-tablets"></i></li>
+				<li data-width="md" title=">= 768px" data-size="768px"><i class="vc-composer-icon vc-c-icon-layout_portrait-tablets"></i></li>
+				<li data-width="sm" title=">= 576px" data-size="480px"><i class="vc-composer-icon vc-c-icon-layout_landscape-smartphones"></i></li>
+				<li data-width="xs" title="< 576px" data-size="320px"><i class="vc-composer-icon vc-c-icon-layout_portrait-smartphones"></i></li>
+			</ul>
+		</div>
+		<?php
+		$output .= ob_get_clean();
+	}
+
+	$output .= '</div>';
+	$output .= '<input type="hidden" name="' . esc_attr( $param_name ) . '" class="wpb_vc_param_value ' . esc_attr( $settings['param_name'] ) . ' ' . esc_attr( $type ) . '_field" value="' . ( is_array( $value ) ? json_encode( $value ) : $value ) . '" />';
+	return $output;
+}
+
+/**
+ * WPB Typography Param Callback
+ *
+ * array(
+ *      'type'       => 'porto_typography',
+ *      'heading'    => __( 'Button Typography', 'porto-functionality' ),
+ *      'param_name' => 'btn_font',
+ *      'group'      => 'Style',
+ *      'selectors'  => array(
+ *          '{{WRAPPER}}.btn'
+ *      )
+ * ),
+ *
+ *
+ * @since 6.1.0
+ * @param array             $settings Settings for typography param
+ * @param array|string|bool $value    Value of param
+ * @return string
+ */
+function porto_typography_callback( $settings, $value ) {
+	$param_name = isset( $settings['param_name'] ) ? $settings['param_name'] : '';
+	$type       = isset( $settings['type'] ) ? $settings['type'] : '';
+	$prefix     = substr( $param_name, 0, strrpos( $param_name, 'porto_typography' ) );
+	if ( empty( $prefix ) ) {
+		$prefix = '';
+	}
+	$class      = 'porto-wpb-typography-container';
+	$typography = array(
+		'family'  => 'Default',
+		'variant' => 'Default',
+	);
+	if ( ! empty( $value ) ) {
+		$typography = json_decode( $value, true );
+	} else {
+		if ( ! empty( $_REQUEST['params'][ $prefix . 'size' ] ) ) {
+			$typography['font_size'] = $_REQUEST['params'][ $prefix . 'size' ];
+		}
+		if ( ! empty( $_REQUEST['params'][ $prefix . 'font_size' ] ) ) {
+			$typography['font_size'] = $_REQUEST['params'][ $prefix . 'font_size' ];
+		}
+		if ( ! empty( $_REQUEST['params'][ $prefix . 'letter_spacing' ] ) ) {
+			$typography['letter_spacing'] = $_REQUEST['params'][ $prefix . 'letter_spacing' ];
+		}
+		if ( ! empty( $_REQUEST['params'][ $prefix . 'line_height' ] ) ) {
+			$typography['line_height'] = $_REQUEST['params'][ $prefix . 'line_height' ];
+		}
+		if ( ! empty( $_REQUEST['params'][ substr( $prefix, 0, strlen( $prefix ) - 5 ) . 'line_height' ] ) ) {
+			$typography['line_height'] = $_REQUEST['params'][ substr( $prefix, 0, strlen( $prefix ) - 5 ) . 'line_height' ];
+		}
+		if ( ! empty( $_REQUEST['params'][ $prefix . 'style' ] ) ) {
+			$typography['variant'] = $_REQUEST['params'][ $prefix . 'style' ];
+		}
+		if ( ! empty( $_REQUEST['params'][ $prefix . 'font_style' ] ) ) {
+			$typography['variant'] = $_REQUEST['params'][ $prefix . 'font_style' ];
+		}
+		if ( ! empty( $_REQUEST['params'][ $prefix . 'font_weight' ] ) ) {
+			$typography['variant'] = $_REQUEST['params'][ $prefix . 'font_weight' ];
+		}
+		if ( ! empty( $typography['variant'] ) && 400 == (int) $typography['variant'] ) {
+			$typography['variant'] = 'regular';
+		}
+		if ( isset( $_REQUEST['params'][ $prefix . 'font' ] ) ) {
+			if ( empty( $typography['variant'] ) ) {
+				$typography['variant'] = 'Default';
+			}
+			$family                 = $_REQUEST['params'][ $prefix . 'font' ];
+			$fonts_data             = porto_sc_parse_google_font( $family );
+			$typography['family']   = $fonts_data['values']['font_family'];
+			$typography['variant'] .= $fonts_data['values']['font_style'];
+		}
+		if ( isset( $_REQUEST['params'][ substr( $prefix, 0, strlen( $prefix ) - 5 ) . 'google_font' ] ) ) {
+			if ( empty( $typography['variant'] ) ) {
+				$typography['variant'] = 'Default';
+			}
+			$family                 = $_REQUEST['params'][ substr( $prefix, 0, strlen( $prefix ) - 5 ) . 'google_font' ];
+			$fonts_data             = porto_sc_parse_google_font( $family );
+			$typography['family']   = $fonts_data['values']['font_family'];
+			$typography['variant'] .= $fonts_data['values']['font_style'];
+		}
+	}
+
+	$text_transform = array(
+		'none'       => esc_html__( 'None', 'porto-functionality' ),
+		'lowercase'  => esc_html__( 'Lowercase', 'porto-functionality' ),
+		'uppercase'  => esc_html__( 'Uppercase', 'porto-functionality' ),
+		'capitalize' => esc_html__( 'Capitalize', 'porto-functionality' ),
+		'inherit'    => esc_html__( 'Inherit', 'porto-functionality' ),
+	);
+	if ( function_exists( 'porto_include_google_font' ) ) {
+		$fonts         = array_merge( porto_include_google_font(), array( 'Inherit', 'Default' ) );
+		$font_variants = array(
+			'100',
+			'100italic',
+			'200',
+			'200italic',
+			'300',
+			'300italic',
+			'500',
+			'500italic',
+			'600',
+			'600italic',
+			'700',
+			'700italic',
+			'800',
+			'800italic',
+			'900',
+			'900italic',
+			'italic',
+			'regular',
+			'Default',
+		);
+	}
+
+	$output = '<div class="' . esc_attr( $class ) . '">';
+	ob_start();
+	?>
+
+	<div class="porto-wpb-typography-toggle">
+		<p><?php echo esc_html__( ! empty( $typography ) ? 'Family: ' . $typography['family'] . ' | Variant: ' . $typography['variant'] . ' | Size: ' . $typography['font_size'] : 'Default' ); ?></p>
+	</div>
+	<div class="porto-wpb-typography-controls" style="display: none;">
+		<div class="porto-wpb-typoraphy-form">
+			<div class="wpb_element_label"><?php esc_html_e( 'Font Family', 'porto-functionality' ); ?></div>
+			<div class="porto-vc-font-family-container">
+				<select class="porto-vc-font-family">
+					<?php
+					if ( ! empty( $fonts ) ) {
+						foreach ( $fonts as $font_data ) :
+							$is_active = false;
+							if ( $font_data == $typography['family'] ) {
+								$is_active = true;
+							}
+							?>
+							<option value="<?php echo esc_attr( $font_data ); ?>"
+								<?php echo esc_attr( $is_active ? 'selected' : '' ); ?>><?php echo esc_html( $font_data ); ?></option>
+							<?php
+						endforeach;
+					}
+					?>
+				</select>
+			</div>
+			<p style="padding: 0 .5em;">If you want to use other Google font, please add it in Theme Options -> Skin -> Typography -> Custom Font.</p>
+		</div>
+		<div class="porto-wpb-typoraphy-form">
+			<div class="wpb_element_label"><?php esc_html_e( 'Font Variants', 'porto-functionality' ); ?></div>
+			<div class="porto-vc-font-variants-container">
+				<select class="porto-vc-font-variants">
+					<?php
+					if ( ! empty( $font_variants ) ) {
+						foreach ( $font_variants as $variant ) :
+							?>
+							<option value="<?php echo esc_attr( $variant ); ?>"
+							<?php echo esc_attr( $variant == $typography['variant'] ? 'selected' : '' ); ?>><?php echo esc_html( $variant ); ?></option>
+							<?php
+						endforeach;
+					}
+					?>
+				</select>
+			</div>
+		</div>
+		<div class="porto-wpb-typoraphy-form cols-2">
+			<div class="wpb_element_label"><?php esc_html_e( 'Font Size', 'porto-functionality' ); ?></div>
+			<div class="porto-vc-font-size-container">
+				<input type="string" name="font-size" class="porto-vc-font-size" value="<?php echo esc_attr( $typography['font_size'] ); ?>" />
+			</div>
+		</div>
+		<div class="porto-wpb-typoraphy-form cols-2">
+			<div class="wpb_element_label"><?php esc_html_e( 'Line Height', 'porto-functionality' ); ?></div>
+			<div class="porto-vc-line-height-container">
+				<input type="string" name="line-height" class="porto-vc-line-height" value="<?php echo esc_attr( $typography['line_height'] ); ?>"  />
+			</div>
+		</div>
+		<div class="porto-wpb-typoraphy-form cols-2">
+			<div class="wpb_element_label"><?php esc_html_e( 'Letter Spacing', 'porto-functionality' ); ?></div>
+			<div class="porto-vc-letter-spacing-container">
+				<input type="string" name="letter-spacing" class="porto-vc-letter-spacing" value="<?php echo esc_attr( $typography['letter_spacing'] ); ?>"  />
+			</div>
+		</div>
+		<div class="porto-wpb-typoraphy-form cols-2">
+			<div class="wpb_element_label"><?php esc_html_e( 'Text Transform', 'porto-functionality' ); ?></div>
+			<div class="porto-vc-text-transform-container">
+				<select type="string" name="text-transform" class="porto-vc-text-transform">
+					<?php
+					foreach ( $text_transform as $key => $label ) {
+						?>
+						<option value="<?php echo esc_attr( $key ); ?>" <?php echo esc_attr( $key == $typography['text_transform'] ? 'selected' : '' ); ?>><?php echo esc_html( $label ); ?></option>
+						<?php
+					}
+					?>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<?php
+	$output .= ob_get_clean();
+	$output .= '</div>';
+	$output .= '<input type="hidden" name="' . esc_attr( $param_name ) . '" class="wpb_vc_param_value ' . esc_attr( $settings['param_name'] ) . ' ' . esc_attr( $type ) . '_field" value="' . esc_attr( $value ) . '" ' . ' />';
+
+	return $output;
+
 }
 function porto_param_heading_callback( $settings, $value ) {
 	$dependency = '';
@@ -4748,140 +5505,590 @@ if ( ! function_exists( 'porto_creative_grid_layout' ) ) :
 	function porto_creative_grid_layout( $layout ) {
 		if ( '1' == $layout ) {
 			return array(
-				array( 'height' => '1', 'width' => '1-2', 'width_md' => '1', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-masonry-small' ),
+				array(
+					'height'   => '1',
+					'width'    => '1-2',
+					'width_md' => '1',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry-small',
+				),
 			);
 		}
 		if ( '2' == $layout ) {
 			return array(
-				array( 'height' => '2-3', 'width' => '1-2', 'width_md' => '1', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1-3', 'width' => '1-2', 'width_md' => '1', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-masonry-small' ),
+				array(
+					'height'   => '2-3',
+					'width'    => '1-2',
+					'width_md' => '1',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-3',
+					'width'    => '1-2',
+					'width_md' => '1',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry-small',
+				),
 			);
 		}
 		if ( '3' == $layout ) {
 			return array(
-				array( 'height' => '1', 'width' => '1-2', 'width_md' => '1', 'size' => 'large' ),
-				array( 'height' => '1', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-masonry-small' ),
+				array(
+					'height'   => '1',
+					'width'    => '1-2',
+					'width_md' => '1',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry-small',
+				),
 			);
 		}
 		if ( '4' == $layout ) {
 			return array(
-				array( 'height' => '1-2', 'width' => '1-3', 'width_md' => '1', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1-2', 'width' => '5-12', 'width_md' => '1', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1-2', 'width' => '1-3', 'width_md' => '1', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1-2', 'width' => '5-12', 'width_md' => '1', 'size' => 'blog-masonry-small' ),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-3',
+					'width_md' => '1',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '5-12',
+					'width_md' => '1',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-3',
+					'width_md' => '1',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '5-12',
+					'width_md' => '1',
+					'size'     => 'blog-masonry-small',
+				),
 			);
 		}
 		if ( '5' == $layout ) {
 			return array(
-				array( 'height' => '1', 'width' => '2-5', 'width_md' => '1', 'width_lg' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1', 'width' => '1-5', 'width_md' => '1-2', 'width_lg' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '1-5', 'width_md' => '1-2', 'width_lg' => '1-2', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'width' => '1-5', 'width_md' => '1-2', 'width_lg' => '1-2', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'width' => '1-5', 'width_md' => '1-2', 'width_lg' => '1-2', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'width' => '1-5', 'width_md' => '1-2', 'width_lg' => '1-2', 'size' => 'medium' ),
+				array(
+					'height'   => '1',
+					'width'    => '2-5',
+					'width_md' => '1',
+					'width_lg' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1',
+					'width'    => '1-5',
+					'width_md' => '1-2',
+					'width_lg' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-5',
+					'width_md' => '1-2',
+					'width_lg' => '1-2',
+					'size'     => 'medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-5',
+					'width_md' => '1-2',
+					'width_lg' => '1-2',
+					'size'     => 'medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-5',
+					'width_md' => '1-2',
+					'width_lg' => '1-2',
+					'size'     => 'medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-5',
+					'width_md' => '1-2',
+					'width_lg' => '1-2',
+					'size'     => 'medium',
+				),
 			);
 		}
 		if ( '6' == $layout ) {
 			return array(
-				array( 'height' => '2-3', 'width' => '1-2', 'width_md' => '1', 'width_lg' => '1-2', 'size' => 'large' ),
-				array( 'height' => '2-3', 'width' => '1-4', 'width_md' => '1-2', 'width_lg' => '1-2', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1', 'width' => '1-4', 'width_md' => '1-2', 'width_lg' => '1-2', 'size' => 'blog-masonry' ),
-				array( 'height' => '1-3', 'width' => '1-4', 'width_md' => '1-2', 'width_lg' => '1-2', 'size' => 'blog-grid-small' ),
-				array( 'height' => '1-3', 'width' => '1-4', 'width_md' => '1-2', 'width_lg' => '1-2', 'size' => 'blog-grid-small' ),
-				array( 'height' => '1-3', 'width' => '1-4', 'width_md' => '1-2', 'width_lg' => '1-2', 'size' => 'blog-grid-small' ),
+				array(
+					'height'   => '2-3',
+					'width'    => '1-2',
+					'width_md' => '1',
+					'width_lg' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '2-3',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'width_lg' => '1-2',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'width_lg' => '1-2',
+					'size'     => 'blog-masonry',
+				),
+				array(
+					'height'   => '1-3',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'width_lg' => '1-2',
+					'size'     => 'blog-grid-small',
+				),
+				array(
+					'height'   => '1-3',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'width_lg' => '1-2',
+					'size'     => 'blog-grid-small',
+				),
+				array(
+					'height'   => '1-3',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'width_lg' => '1-2',
+					'size'     => 'blog-grid-small',
+				),
 			);
 		}
 		if ( '7' == $layout ) {
 			return array(
-				array( 'height' => '1', 'width' => '1-2', 'width_md' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '1-2', 'width_md' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-medium' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-medium' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-medium' ),
-				array( 'height' => '1-2', 'width' => '1-2', 'width_md' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-medium' ),
-				array( 'height' => '1-2', 'width' => '1-2', 'width_md' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1', 'width' => '1-2', 'width_md' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '1-2', 'width_md' => '1-2', 'size' => 'large' ),
+				array(
+					'height'   => '1',
+					'width'    => '1-2',
+					'width_md' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-2',
+					'width_md' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-2',
+					'width_md' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-2',
+					'width_md' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1',
+					'width'    => '1-2',
+					'width_md' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-2',
+					'width_md' => '1-2',
+					'size'     => 'large',
+				),
 			);
 		}
 		if ( '8' == $layout ) {
 			return array(
-				array( 'height' => '1', 'width' => '1-3', 'width_md' => '1-2', 'size' => 'blog-masonry' ),
-				array( 'height' => '1-2', 'width' => '1-3', 'width_md' => '1-2', 'size' => 'blog-masonry' ),
-				array( 'height' => '1', 'width' => '1-3', 'width_md' => '1-2', 'size' => 'blog-masonry' ),
-				array( 'height' => '1-2', 'width' => '1-3', 'width_md' => '1-2', 'size' => 'blog-masonry' ),
-				array( 'height' => '1-2', 'width' => '1-6', 'width_md' => '1-2', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'width' => '1-3', 'width_md' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '1-3', 'width_md' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '1-6', 'width_md' => '1-2', 'size' => 'medium' ),
+				array(
+					'height'   => '1',
+					'width'    => '1-3',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-3',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry',
+				),
+				array(
+					'height'   => '1',
+					'width'    => '1-3',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-3',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-6',
+					'width_md' => '1-2',
+					'size'     => 'medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-3',
+					'width_md' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-3',
+					'width_md' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-6',
+					'width_md' => '1-2',
+					'size'     => 'medium',
+				),
 			);
 		}
 		if ( '9' == $layout ) {
 			return array(
-				array( 'height' => '1', 'width' => '2-5', 'width_md' => '1', 'width_lg' => '2-3', 'size' => 'blog-masonry' ),
-				array( 'height' => '1-2', 'height_md' => '1-2', 'width' => '1-5', 'width_md' => '1-2', 'width_lg' => '1-3', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'height_md' => '1-2', 'width' => '1-5', 'width_md' => '1-2', 'width_lg' => '1-3', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'height_md' => '1-2', 'width' => '1-5', 'width_md' => '1-2', 'width_lg' => '1-3', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'height_md' => '1-2', 'width' => '1-5', 'width_md' => '1-2', 'width_lg' => '1-3', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'height_md' => '1-2', 'width' => '1-5', 'width_md' => '1-2', 'width_lg' => '1-3', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'height_md' => '1-2', 'width' => '1-5', 'width_md' => '1-2', 'width_lg' => '1-3', 'size' => 'medium' ),
+				array(
+					'height'   => '1',
+					'width'    => '2-5',
+					'width_md' => '1',
+					'width_lg' => '2-3',
+					'size'     => 'blog-masonry',
+				),
+				array(
+					'height'    => '1-2',
+					'height_md' => '1-2',
+					'width'     => '1-5',
+					'width_md'  => '1-2',
+					'width_lg'  => '1-3',
+					'size'      => 'medium',
+				),
+				array(
+					'height'    => '1-2',
+					'height_md' => '1-2',
+					'width'     => '1-5',
+					'width_md'  => '1-2',
+					'width_lg'  => '1-3',
+					'size'      => 'medium',
+				),
+				array(
+					'height'    => '1-2',
+					'height_md' => '1-2',
+					'width'     => '1-5',
+					'width_md'  => '1-2',
+					'width_lg'  => '1-3',
+					'size'      => 'medium',
+				),
+				array(
+					'height'    => '1-2',
+					'height_md' => '1-2',
+					'width'     => '1-5',
+					'width_md'  => '1-2',
+					'width_lg'  => '1-3',
+					'size'      => 'medium',
+				),
+				array(
+					'height'    => '1-2',
+					'height_md' => '1-2',
+					'width'     => '1-5',
+					'width_md'  => '1-2',
+					'width_lg'  => '1-3',
+					'size'      => 'medium',
+				),
+				array(
+					'height'    => '1-2',
+					'height_md' => '1-2',
+					'width'     => '1-5',
+					'width_md'  => '1-2',
+					'width_lg'  => '1-3',
+					'size'      => 'medium',
+				),
 			);
 		}
 		if ( '10' == $layout ) {
 			return array(
-				array( 'height' => '1-2', 'height_md' => '1-2', 'width' => '2-3', 'width_md' => '1', 'size' => 'blog-grid' ),
-				array( 'height' => '1', 'height_md' => '1', 'width' => '1-3', 'width_md' => '1-2', 'size' => 'blog-masonry' ),
-				array( 'height' => '1-2', 'height_md' => '1-2', 'width' => '1-3', 'width_md' => '1-2', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'height_md' => '1-2', 'width' => '1-3', 'width_md' => '1-2', 'size' => 'medium' ),
+				array(
+					'height'    => '1-2',
+					'height_md' => '1-2',
+					'width'     => '2-3',
+					'width_md'  => '1',
+					'size'      => 'blog-grid',
+				),
+				array(
+					'height'    => '1',
+					'height_md' => '1',
+					'width'     => '1-3',
+					'width_md'  => '1-2',
+					'size'      => 'blog-masonry',
+				),
+				array(
+					'height'    => '1-2',
+					'height_md' => '1-2',
+					'width'     => '1-3',
+					'width_md'  => '1-2',
+					'size'      => 'medium',
+				),
+				array(
+					'height'    => '1-2',
+					'height_md' => '1-2',
+					'width'     => '1-3',
+					'width_md'  => '1-2',
+					'size'      => 'medium',
+				),
 			);
 		}
 		if ( '11' == $layout ) {
 			return array(
-				array( 'height' => '1', 'width' => '1-2', 'width_md' => '1', 'size' => 'blog-masonry' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-masonry-small' ),
+				array(
+					'height'   => '1',
+					'width'    => '1-2',
+					'width_md' => '1',
+					'size'     => 'blog-masonry',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'blog-masonry-small',
+				),
 			);
 		}
 		if ( '12' == $layout ) {
 			return array(
-				array( 'height' => '1', 'width' => '5-12', 'width_md' => '1', 'width_lg' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1', 'width' => '3-12', 'width_md' => '1-2', 'width_lg' => '1-2', 'size' => 'large' ),
-				array( 'height' => '1-2', 'width' => '2-12', 'width_md' => '1-2', 'width_lg' => '1-4', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'width' => '2-12', 'width_md' => '1-2', 'width_lg' => '1-4', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'width' => '2-12', 'width_md' => '1-2', 'width_lg' => '1-4', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'width' => '2-12', 'width_md' => '1-2', 'width_lg' => '1-4', 'size' => 'medium' ),
+				array(
+					'height'   => '1',
+					'width'    => '5-12',
+					'width_md' => '1',
+					'width_lg' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1',
+					'width'    => '3-12',
+					'width_md' => '1-2',
+					'width_lg' => '1-2',
+					'size'     => 'large',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '2-12',
+					'width_md' => '1-2',
+					'width_lg' => '1-4',
+					'size'     => 'medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '2-12',
+					'width_md' => '1-2',
+					'width_lg' => '1-4',
+					'size'     => 'medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '2-12',
+					'width_md' => '1-2',
+					'width_lg' => '1-4',
+					'size'     => 'medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '2-12',
+					'width_md' => '1-2',
+					'width_lg' => '1-4',
+					'size'     => 'medium',
+				),
 			);
 		}
 		if ( '13' == $layout ) {
 			return array(
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-3', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'width' => '1-2', 'width_md' => '2-3', 'size' => 'blog-masonry' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '5-12', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'width' => '1-3', 'width_md' => '7-12', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1-2', 'width' => '1-4', 'width_md' => '1-3', 'size' => 'medium' ),
-				array( 'height' => '1-2', 'width' => '5-12', 'width_md' => '2-3', 'size' => 'blog-masonry' ),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-3',
+					'size'     => 'medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-2',
+					'width_md' => '2-3',
+					'size'     => 'blog-masonry',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '5-12',
+					'size'     => 'medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-3',
+					'width_md' => '7-12',
+					'size'     => 'blog-masonry-small',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '1-4',
+					'width_md' => '1-3',
+					'size'     => 'medium',
+				),
+				array(
+					'height'   => '1-2',
+					'width'    => '5-12',
+					'width_md' => '2-3',
+					'size'     => 'blog-masonry',
+				),
 			);
 		}
 		if ( '14' == $layout ) {
 			return array(
-				array( 'height' => '3-5', 'height_md' => '3-5', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '1', 'height_md' => '4-5', 'width' => '1-2', 'width_md' => '1-2', 'size' => 'blog-masonry' ),
-				array( 'height' => '2-5', 'height_md' => '2-5', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'medium' ),
-				array( 'height' => '3-5', 'height_md' => '3-5', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'blog-masonry-small' ),
-				array( 'height' => '2-5', 'height_md' => '2-5', 'width' => '1-4', 'width_md' => '1-2', 'size' => 'medium' ),
+				array(
+					'height'    => '3-5',
+					'height_md' => '3-5',
+					'width'     => '1-4',
+					'width_md'  => '1-2',
+					'size'      => 'blog-masonry-small',
+				),
+				array(
+					'height'    => '1',
+					'height_md' => '4-5',
+					'width'     => '1-2',
+					'width_md'  => '1-2',
+					'size'      => 'blog-masonry',
+				),
+				array(
+					'height'    => '2-5',
+					'height_md' => '2-5',
+					'width'     => '1-4',
+					'width_md'  => '1-2',
+					'size'      => 'medium',
+				),
+				array(
+					'height'    => '3-5',
+					'height_md' => '3-5',
+					'width'     => '1-4',
+					'width_md'  => '1-2',
+					'size'      => 'blog-masonry-small',
+				),
+				array(
+					'height'    => '2-5',
+					'height_md' => '2-5',
+					'width'     => '1-4',
+					'width_md'  => '1-2',
+					'size'      => 'medium',
+				),
 			);
 		}
 		return apply_filters( 'porto_creative_grid_layouts', false, $layout );
@@ -4892,15 +6099,51 @@ if ( ! function_exists( 'porto_creative_masonry_layout' ) ) :
 	function porto_creative_masonry_layout( $layout ) {
 		if ( '1' == $layout ) {
 			return array(
-				array( 'width' => '1-4', 'width_md' => '1-2', 'size' => 'medium' ),
-				array( 'width' => '1-4', 'width_md' => '1-2', 'size' => 'medium' ),
-				array( 'width' => '1-4', 'width_md' => '1-2', 'size' => 'medium' ),
-				array( 'width' => '1-4', 'width_md' => '1-2', 'size' => 'medium' ),
-				array( 'width' => '1-2', 'width_md' => '1', 'size' => 'large' ),
-				array( 'width' => '1-4', 'width_md' => '1-2', 'size' => 'medium' ),
-				array( 'width' => '1-4', 'width_md' => '1-2', 'size' => 'medium' ),
-				array( 'width' => '1-4', 'width_md' => '1-2', 'size' => 'medium' ),
-				array( 'width' => '1-4', 'width_md' => '1-2', 'size' => 'medium' ),
+				array(
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'medium',
+				),
+				array(
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'medium',
+				),
+				array(
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'medium',
+				),
+				array(
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'medium',
+				),
+				array(
+					'width'    => '1-2',
+					'width_md' => '1',
+					'size'     => 'large',
+				),
+				array(
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'medium',
+				),
+				array(
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'medium',
+				),
+				array(
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'medium',
+				),
+				array(
+					'width'    => '1-4',
+					'width_md' => '1-2',
+					'size'     => 'medium',
+				),
 			);
 		}
 		return false;
@@ -4956,7 +6199,7 @@ if ( ! function_exists( 'porto_creative_grid_style' ) ) :
 				$width_number = (int) $width_arr[0];
 			}
 			$max_width = floor( $width_number * 1000000 ) / 10000;
-			echo esc_html( $selector ) . ' .grid-col-' . esc_html( $width ) . '{ flex: 0 0 ' . $max_width . '%; width: ' . $max_width . '%; }';
+			echo esc_html( $selector ) . ' .grid-col-' . esc_html( $width ) . '{ flex: 0 0 auto; width: ' . $max_width . '%; }';
 		}
 		echo esc_html( $selector ) . ' .grid-col-sizer { flex: 0 0 ' . ( floor( 1000000 / $max_col ) / 10000 ) . '%; width: ' . ( floor( 1000000 / $max_col ) / 10000 ) . '% }';
 		foreach ( $heights as $height ) {
@@ -4984,7 +6227,7 @@ if ( ! function_exists( 'porto_creative_grid_style' ) ) :
 						$width_number = (int) $width_arr[0];
 					}
 					$max_width = floor( $width_number * 1000000 ) / 10000;
-					echo esc_html( $selector ) . ' .grid-col-lg-' . esc_html( $grid['width_lg'] ) . '{ flex: 0 0 ' . $max_width . '%; width: ' . $max_width . '%; }';
+					echo esc_html( $selector ) . ' .grid-col-lg-' . esc_html( $grid['width_lg'] ) . '{ flex: 0 0 auto; width: ' . $max_width . '%; }';
 					$widths_lg[] = $grid['width_lg'];
 				}
 			}
@@ -5005,7 +6248,7 @@ if ( ! function_exists( 'porto_creative_grid_style' ) ) :
 				$width_number = (int) $width_arr[0];
 			}
 			$max_width = floor( $width_number * 1000000 ) / 10000;
-			echo esc_html( $selector ) . ' .grid-col-md-' . esc_html( $width[1] ) . '{ flex: 0 0 ' . $max_width . '%; width: ' . $max_width . '%; }';
+			echo esc_html( $selector ) . ' .grid-col-md-' . esc_html( $width[1] ) . '{ flex: 0 0 auto; width: ' . $max_width . '%; }';
 		}
 		echo esc_html( $selector ) . ' .grid-col-sizer { flex: 0 0 ' . ( floor( 1000000 / $max_col ) / 10000 ) . '%; width: ' . ( floor( 1000000 / $max_col ) / 10000 ) . '% }';
 		foreach ( $heights as $index => $height ) {
@@ -5034,7 +6277,7 @@ if ( ! function_exists( 'porto_creative_grid_style' ) ) :
 			echo '}';
 		}
 		echo '@media (max-width: 480px) {';
-			echo esc_html( $selector ) . ' ' . $item_selector . ' { flex: 0 0 100%; width: 100%; }';
+			echo esc_html( $selector ) . ' ' . $item_selector . ' { flex: 0 0 auto; width: 100%; }';
 		echo '}';
 		if ( false !== $spacing && '' !== $spacing ) {
 			echo esc_html( $selector ) . ' .grid-creative { margin-left: -' . ( (int) $spacing / 2 ) . 'px; margin-right: -' . ( (int) $spacing / 2 ) . 'px; width: calc(100% + ' . intval( $spacing ) . esc_html( $unit ) . ') }';
@@ -5252,5 +6495,45 @@ if ( ! function_exists( 'porto_shortcode_add_floating_options' ) ) :
 			);
 		}
 		return ' data-plugin-float-element data-plugin-options="' . esc_attr( json_encode( $floating_options ) ) . '"';
+	}
+endif;
+
+if ( ! function_exists( 'porto_elementor_if_dom_optimization' ) ) :
+
+	function porto_elementor_if_dom_optimization() {
+		if ( ! defined( 'ELEMENTOR_VERSION' ) ) {
+			return false;
+		}
+		if ( version_compare( ELEMENTOR_VERSION, '3.1.0', '>=' ) ) {
+			return \Elementor\Plugin::$instance->experiments->is_feature_active( 'e_dom_optimization' );
+		} elseif ( version_compare( ELEMENTOR_VERSION, '3.0', '>=' ) ) {
+			return ( ! \Elementor\Plugin::instance()->get_legacy_mode( 'elementWrappers' ) );
+		}
+		return false;
+	}
+endif;
+
+if ( ! function_exists( 'porto_get_mpx_options' ) ) :
+	function porto_get_mpx_options( $atts ) {
+		$mpx_opts      = array();
+		$mpx_attr_html = '';
+		if ( 'yes' == $atts['mouse_parallax'] ) {
+			if ( 'yes' == $atts['mouse_parallax_inverse'] ) {
+				$mpx_opts['invertX'] = true;
+				$mpx_opts['invertY'] = true;
+			} else {
+				$mpx_opts['invertX'] = false;
+				$mpx_opts['invertY'] = false;
+			}
+
+			wp_enqueue_script( 'jquery-parallax' );
+			$mpx_opts = array(
+				'data-plugin'         => 'mouse-parallax',
+				'data-options'        => json_encode( $mpx_opts ),
+				'data-floating-depth' => empty( $atts['mouse_parallax_speed']['size'] ) ? 0.5 : floatval( $atts['mouse_parallax_speed']['size'] ),
+			);
+		}
+
+		return $mpx_opts;
 	}
 endif;

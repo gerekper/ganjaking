@@ -21,6 +21,13 @@ if ( defined( 'ELEMENTOR_VERSION' ) ) {
 }
 
 /**
+ * Include WPSEO Compatibility class
+ */
+if ( defined( 'WPSEO_VERSION' ) ) {
+	include_once PORTO_PLUGINS . '/compatibility/class-porto-wpseo-compatibility.php';
+}
+
+/**
  * Initialize TGM plugins
  */
 if ( current_user_can( 'manage_options' ) ) {
@@ -31,15 +38,6 @@ if ( current_user_can( 'manage_options' ) ) {
 		 * If the source is NOT from the .org repo, then source is also required.
 		 */
 		protected $plugins = array(
-			array(
-				'name'      => 'Porto Functionality',
-				'slug'      => 'porto-functionality',
-				'source'    => PORTO_PLUGINS . '/porto-functionality.zip',
-				'required'  => true,
-				'version'   => '2.0.5',
-				'url'       => 'porto-functionality/porto-functionality.php',
-				'image_url' => PORTO_PLUGINS_URI . '/images/porto_functionality.png',
-			),
 			array(
 				'name'      => 'Elementor',
 				'slug'      => 'elementor',
@@ -55,18 +53,18 @@ if ( current_user_can( 'manage_options' ) ) {
 				'image_url' => PORTO_PLUGINS_URI . '/images/visualcomposer.png',
 			),
 			array(
+				'name'      => 'WooCommerce',
+				'slug'      => 'woocommerce',
+				'required'  => false,
+				'url'       => 'woocommerce/woocommerce.php',
+				'image_url' => PORTO_PLUGINS_URI . '/images/woocommerce.png',
+			),
+			array(
 				'name'      => 'Contact Form 7',
 				'slug'      => 'contact-form-7',
 				'required'  => false,
 				'url'       => 'contact-form-7/wp-contact-form-7.php',
 				'image_url' => PORTO_PLUGINS_URI . '/images/contact_form_7.png',
-			),
-			array(
-				'name'      => 'Woocommerce',
-				'slug'      => 'woocommerce',
-				'required'  => false,
-				'url'       => 'woocommerce/woocommerce.php',
-				'image_url' => PORTO_PLUGINS_URI . '/images/woocommerce.png',
 			),
 			array(
 				'name'      => 'Dynamic Featured Image',
@@ -84,7 +82,15 @@ if ( current_user_can( 'manage_options' ) ) {
 				'visibility' => 'hidden',
 			),
 			array(
-				'name'       => 'Instagram Slider Widget',
+				'name'       => 'WPForms Lite',
+				'slug'       => 'wpforms-lite',
+				'required'   => false,
+				'url'        => 'wpforms-lite/wpforms.php',
+				'image_url'  => PORTO_PLUGINS_URI . '/images/sullie-vc.png',
+				'visibility' => 'hidden',
+			),
+			array(
+				'name'       => 'Social Slider Feed',
 				'slug'       => 'instagram-slider-widget',
 				'required'   => false,
 				'url'        => 'instagram-slider-widget/instaram_slider.php',
@@ -125,11 +131,43 @@ if ( current_user_can( 'manage_options' ) ) {
 				'visibility' => 'hidden',
 			),
 			array(
+				'name'       => 'YITH WooCommerce Compare',
+				'slug'       => 'yith-woocommerce-compare',
+				'required'   => false,
+				'url'        => 'yith-woocommerce-compare/init.php',
+				'image_url'  => PORTO_PLUGINS_URI . '/images/yithemes-icon.png',
+				'visibility' => 'hidden',
+			),
+			array(
 				'name'       => 'Dokan',
 				'slug'       => 'dokan-lite',
 				'required'   => false,
 				'url'        => 'dokan-lite/dokan.php',
 				'image_url'  => PORTO_PLUGINS_URI . '/images/dokan-logo.png',
+				'visibility' => 'hidden',
+			),
+			array(
+				'name'       => 'WCFM - WooCommerce Multivendor Marketplace',
+				'slug'       => 'wc-multivendor-marketplace',
+				'required'   => false,
+				'url'        => 'wc-multivendor-marketplace/wc-multivendor-marketplace.php',
+				'image_url'  => PORTO_PLUGINS_URI . '/images/wcfmmp.png',
+				'visibility' => 'hidden',
+			),
+			array(
+				'name'       => 'WCFM - WooCommerce Frontend Manager',
+				'slug'       => 'wc-frontend-manager',
+				'required'   => false,
+				'url'        => 'wc-frontend-manager/wc_frontend_manager.php',
+				'image_url'  => PORTO_PLUGINS_URI . '/images/wcfmmp.png',
+				'visibility' => 'hidden',
+			),
+			array(
+				'name'       => 'Customizer Search',
+				'slug'       => 'customizer-search',
+				'required'   => false,
+				'url'        => 'customizer-search/customizer-search.php',
+				'image_url'  => PORTO_PLUGINS_URI . '/images/plugins.png',
 				'visibility' => 'hidden',
 			),
 			array(
@@ -252,7 +290,7 @@ if ( current_user_can( 'manage_options' ) ) {
 		public function get_plugins_list() {
 			// get transient
 			$plugins = get_site_transient( 'porto_plugins' );
-			if ( ! $plugins ) {
+			if ( false === $plugins && function_exists( 'Porto' ) && Porto()->is_registered() ) {
 				$plugins = $this->update_plugins_list();
 			}
 			if ( ! $plugins ) {
@@ -265,20 +303,30 @@ if ( current_user_can( 'manage_options' ) ) {
 
 			require_once PORTO_PLUGINS . '/importer/importer-api.php';
 			$importer_api = new Porto_Importer_API();
-			$plugins      = $importer_api->get_response( 'plugins_version' );
-			if ( is_wp_error( $plugins ) || ! $plugins ) {
+			$args         = $importer_api->generate_args( false );
+			$url          = $importer_api->get_url( 'plugins_version' );
+			if ( isset( $args['code'] ) ) {
+				$url = add_query_arg( 'code', $args['code'], $url );
+			}
+			$plugins = $importer_api->get_response( $url );
+			if ( ! $plugins || is_wp_error( $plugins ) ) {
+				if ( is_wp_error( $plugins ) ) {
+					set_transient( 'porto_purchase_code_error_msg', $plugins->get_error_message(), HOUR_IN_SECONDS * 24 * 7 );
+				}
+				set_site_transient( 'porto_plugins', array(), HOUR_IN_SECONDS * 24 * 7 );
 				return false;
 			}
-
-			$args = $importer_api->generate_args( false );
+			delete_transient( 'porto_purchase_code_error_msg' );
+			setcookie( 'porto_dismiss_code_error_msg', '', time() - 3600 );
 
 			foreach ( $plugins as $key => $plugin ) {
 				$args['plugin']               = $plugin['slug'];
 				$plugins[ $key ]['source']    = add_query_arg( $args, $importer_api->get_url( 'plugins' ) );
 				$plugins[ $key ]['image_url'] = PORTO_PLUGINS_URI . '/images/' . $args['plugin'] . '.png';
 			}
+
 			// set transient
-			set_site_transient( 'porto_plugins', $plugins, 4 * 24 * HOUR_IN_SECONDS );
+			set_site_transient( 'porto_plugins', $plugins, 7 * 24 * HOUR_IN_SECONDS );
 			return $plugins;
 		}
 

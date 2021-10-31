@@ -20,15 +20,19 @@ class Porto_Elementor_Recent_Posts_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Recent Posts', 'porto-functionality' );
+		return __( 'Porto Recent Posts', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'blog', 'posts', 'article', 'slider', 'carousel' );
+	}
+
+	public function get_icon() {
+		return 'eicon-posts-carousel';
 	}
 
 	public function get_script_depends() {
@@ -172,8 +176,11 @@ class Porto_Elementor_Recent_Posts_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'cats',
 			array(
-				'type'  => Controls_Manager::TEXT,
-				'label' => __( 'Category IDs', 'porto-functionality' ),
+				'type'        => 'porto_ajaxselect2',
+				'label'       => __( 'Category IDs', 'porto-functionality' ),
+				'options'     => 'category',
+				'multiple'    => true,
+				'label_block' => true,
 			)
 		);
 
@@ -306,6 +313,9 @@ class Porto_Elementor_Recent_Posts_Widget extends \Elementor\Widget_Base {
 		}
 
 		if ( $template = porto_shortcode_template( 'porto_recent_posts' ) ) {
+			if ( ! empty( $atts['cats'] ) && is_array( $atts['cats'] ) ) {
+				$atts['cats'] = implode( ',', $atts['cats'] );
+			}
 			include $template;
 		}
 	}

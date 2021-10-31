@@ -1,0 +1,648 @@
+{
+  "type": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "minicart-arrow-alt",
+    "options": {
+      "label": "Mini Cart Type",
+      "description": "If you have any trouble with this setting, please use Porto -> Theme Options -> Header -> Mini Cart Type instead.",
+      "values": [
+        {
+          "label": "Theme Options",
+          "value": ""
+        },
+        {
+          "label": "Simple",
+          "value": "simple"
+        },
+        {
+          "label": "Arrow Alt",
+          "value": "minicart-arrow-alt"
+        },
+        {
+          "label": "Text",
+          "value": "minicart-inline"
+        },
+        {
+          "label": "Icon & Text",
+          "value": "minicart-text"
+        }
+      ],
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "type",
+        "namePattern": "[a-f-]+"
+      }
+    }
+  },
+  "content_type": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Content Type",
+      "values": [
+        {
+          "label": "Default",
+          "value": ""
+        },
+        {
+          "label": "Off Canvas",
+          "value": "offcanvas"
+        }
+      ]
+    }
+  },
+  "icon_cl": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Custom Icon Class"
+    }
+  },
+  "cart_text": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Mini Cart Text",
+      "description": "If you have any trouble with this setting, please use Porto -> Theme Options -> Header -> Mini Cart Text instead.",
+      "onChange": {
+        "rules": {
+          "type": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "minicart-inline",
+                "minicart-text"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "icon_size": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Size",
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "iconSize",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "icon_color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Color",
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "iconColor",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "icon_ml": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Margin Left",
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "iconMl",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "icon_mr": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Margin Right",
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "iconMr",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "text_font_size": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Text Font Size",
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "textFontSize",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "type": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "minicart-inline",
+                "minicart-text"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "text_font_weight": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Text Font Weight",
+      "values": [
+        {
+          "label": "Default",
+          "value": ""
+        },
+        {
+          "label": "200",
+          "value": "200"
+        },
+        {
+          "label": "300",
+          "value": "300"
+        },
+        {
+          "label": "400",
+          "value": "400"
+        },
+        {
+          "label": "500",
+          "value": "500"
+        },
+        {
+          "label": "600",
+          "value": "600"
+        },
+        {
+          "label": "700",
+          "value": "700"
+        },
+        {
+          "label": "800",
+          "value": "800"
+        },
+        {
+          "label": "900",
+          "value": "900"
+        }
+      ],
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "textFontWeight",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "type": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "minicart-inline",
+                "minicart-text"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "text_transform": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Text Transform",
+      "values": [
+        {
+          "label": "Default",
+          "value": ""
+        },
+        {
+          "label": "None",
+          "value": "none"
+        },
+        {
+          "label": "Uppercase",
+          "value": "uppercase"
+        },
+        {
+          "label": "Capitalize",
+          "value": "capitalize"
+        },
+        {
+          "label": "Lowercase",
+          "value": "lowercase"
+        }
+      ],
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "textTransform",
+        "namePattern": "[a-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "type": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "minicart-inline",
+                "minicart-text"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "text_line_height": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Text Line Height",
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "textLineHeight",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "type": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "minicart-inline",
+                "minicart-text"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "text_ls": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Text Letter Spacing",
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "textLs",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "type": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "minicart-inline",
+                "minicart-text"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "text_color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Text Color",
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "textColor",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "type": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "minicart-inline",
+                "minicart-text"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "price_font_size": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Price Font Size",
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "priceFontSize",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "type": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "minicart-inline",
+                "minicart-text"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "price_font_weight": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Price Font Weight",
+      "values": [
+        {
+          "label": "Default",
+          "value": ""
+        },
+        {
+          "label": "200",
+          "value": "200"
+        },
+        {
+          "label": "300",
+          "value": "300"
+        },
+        {
+          "label": "400",
+          "value": "400"
+        },
+        {
+          "label": "500",
+          "value": "500"
+        },
+        {
+          "label": "600",
+          "value": "600"
+        },
+        {
+          "label": "700",
+          "value": "700"
+        },
+        {
+          "label": "800",
+          "value": "800"
+        },
+        {
+          "label": "900",
+          "value": "900"
+        }
+      ],
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "priceFontWeight",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "type": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "minicart-inline",
+                "minicart-text"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "price_line_height": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Price Line Height",
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "priceLineHeight",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "type": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "minicart-inline",
+                "minicart-text"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "price_ls": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Price Letter Spacing",
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "priceLs",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "type": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "minicart-inline",
+                "minicart-text"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "price_color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Price Color",
+      "cssMixin": {
+        "mixin": "miniCart",
+        "property": "priceColor",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "type": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "minicart-inline",
+                "minicart-text"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "el_class": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Extra class name",
+      "description": "Add an extra class name to the element and refer to it from Custom CSS option."
+    }
+  },
+  "designOptions": {
+    "type": "designOptions",
+    "access": "public",
+    "value": {},
+    "options": {
+      "label": "Design Options"
+    }
+  },
+  "editFormTab1": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "type",
+      "content_type",
+      "icon_cl",
+      "cart_text",
+      "icon_size",
+      "icon_color",
+      "icon_ml",
+      "icon_mr",
+      "text_font_size",
+      "text_font_weight",
+      "text_transform",
+      "text_line_height",
+      "text_ls",
+      "text_color",
+      "price_font_size",
+      "price_font_weight",
+      "price_line_height",
+      "price_ls",
+      "price_color",
+      "el_class"
+    ],
+    "options": {
+      "label": "Mini Cart"
+    }
+  },
+  "metaEditFormTabs": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "editFormTab1",
+      "designOptions"
+    ]
+  },
+  "relatedTo": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "General"
+    ]
+  },
+  "tag": {
+    "access": "protected",
+    "type": "string",
+    "value": "portoHeaderMinicart"
+  }
+}

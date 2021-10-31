@@ -50,7 +50,7 @@ $featured_images = porto_get_featured_images();
 				<?php
 				$microdata = porto_get_meta_value( 'page_microdata' );
 				if ( $porto_settings['rich-snippets'] && 'no' !== $microdata && ( 'yes' === $microdata || ( 'yes' !== $microdata && $porto_settings['page-microdata'] ) ) ) {
-					porto_render_rich_snippets();
+					porto_render_rich_snippets( 'h2' );
 				}
 				?>
 

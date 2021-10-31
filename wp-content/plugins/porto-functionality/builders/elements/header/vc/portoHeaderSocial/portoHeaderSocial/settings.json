@@ -1,0 +1,224 @@
+{
+  "icon_size": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Size",
+      "cssMixin": {
+        "mixin": "social",
+        "property": "iconSize",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "icon_color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Color",
+      "cssMixin": {
+        "mixin": "social",
+        "property": "iconColor",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "icon_hover_color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Hover Color",
+      "cssMixin": {
+        "mixin": "social",
+        "property": "iconHoverColor",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "icon_color_bg": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Background Color",
+      "cssMixin": {
+        "mixin": "social",
+        "property": "iconBgColor",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "icon_hover_color_bg": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Hover Background Color",
+      "cssMixin": {
+        "mixin": "social",
+        "property": "iconHoverBgColor",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "icon_border_style": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "none",
+    "options": {
+      "label": "Icon Border Style",
+      "values": [
+        {
+          "label": "None",
+          "value": ""
+        },
+        {
+          "label": "Solid",
+          "value": "solid"
+        },
+        {
+          "label": "Dashed",
+          "value": "dashed"
+        },
+        {
+          "label": "Dotted",
+          "value": "dotted"
+        },
+        {
+          "label": "Double",
+          "value": "double"
+        },
+        {
+          "label": "Inset",
+          "value": "inset"
+        },
+        {
+          "label": "Outset",
+          "value": "outset"
+        }
+      ],
+      "cssMixin": {
+        "mixin": "social",
+        "property": "iconBorderStyle",
+        "namePattern": "[a-f]+"
+      }
+    }
+  },
+  "icon_color_border": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Border Color",
+      "cssMixin": {
+        "mixin": "social",
+        "property": "iconBorderColor",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "icon_border_size": {
+    "type": "number",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Border Width (px)",
+      "description": "Thickness of the border.",
+      "min": 1,
+      "max": 10,
+      "cssMixin": {
+        "mixin": "social",
+        "property": "iconBorderSize",
+        "namePattern": "[\\d]+"
+      }
+    }
+  },
+  "icon_border_radius": {
+    "type": "number",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Border Radius (px)",
+      "min": 1,
+      "max": 200,
+      "cssMixin": {
+        "mixin": "social",
+        "property": "iconBorderRadius",
+        "namePattern": "[\\d]+"
+      }
+    }
+  },
+  "icon_border_spacing": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Width",
+      "cssMixin": {
+        "mixin": "social",
+        "property": "iconWidth",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "el_class": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Extra class name",
+      "description": "Add an extra class name to the element and refer to it from Custom CSS option."
+    }
+  },
+  "designOptions": {
+    "type": "designOptions",
+    "access": "public",
+    "value": {},
+    "options": {
+      "label": "Design Options"
+    }
+  },
+  "editFormTab1": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "icon_size",
+      "icon_color",
+      "icon_hover_color",
+      "icon_color_bg",
+      "icon_hover_color_bg",
+      "icon_border_style",
+      "icon_color_border",
+      "icon_border_size",
+      "icon_border_radius",
+      "icon_border_spacing",
+      "el_class"
+    ],
+    "options": {
+      "label": "Social Icons"
+    }
+  },
+  "metaEditFormTabs": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "editFormTab1",
+      "designOptions"
+    ]
+  },
+  "relatedTo": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "General"
+    ]
+  },
+  "tag": {
+    "access": "protected",
+    "type": "string",
+    "value": "portoHeaderSocial"
+  }
+}

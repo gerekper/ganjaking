@@ -55,9 +55,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $this WPBakeryShortCode_VC_Column
  */
 $parallax_speed_bg = $parallax_speed_video = $parallax = $parallax_image = $video_bg = $video_bg_url = $video_bg_parallax = '';
-$el_id  = '';
-$output = '';
-$atts   = vc_map_get_attributes( $this->getShortcode(), $atts );
+$el_id             = '';
+$output            = '';
+$is_half           = '';
+$atts              = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
 $width = wpb_translateColumnWidthToSpan( $width );
@@ -327,7 +328,21 @@ if ( $is_sticky ) {
 	$output .= '<div class="vc_column-inner' . ( $use_inner_col ? ' ' . esc_attr( trim( $vc_css ) ) : '' ) . '" data-plugin-sticky data-plugin-options="' . esc_attr( $options ) . '">';
 }
 
-$output .= '<div class="wpb_wrapper' . ( $is_sticky ? '' : ' vc_column-inner' . ( $use_inner_col ? ' ' . esc_attr( trim( $vc_css ) ) : '' ) ) . '">';
+$el_cls = '';
+if ( ! empty( $is_half ) ) {
+	$el_cls .= ' col-half-section';
+	if ( ! empty( $is_half_right ) ) {
+		$el_cls .= ' col-half-section-right';
+	}
+	if ( $width && ( false !== strpos( $width, 'vc_col-sm-12' ) || false !== strpos( $width, 'vc_col-md-12' ) ) ) {
+		$el_cls .= ' col-fullwidth-md';
+	}
+	if ( ! empty( $half_css ) ) {
+		$el_cls .= ' ' . esc_attr( trim( $half_css ) );
+	}
+}
+
+$output .= '<div class="wpb_wrapper' . ( $is_sticky ? '' : ' vc_column-inner' . ( $use_inner_col ? ' ' . esc_attr( trim( $vc_css ) ) : '' ) ) . $el_cls . '">';
 $output .= wpb_js_remove_wpautop( $content );
 $output .= '</div>';
 

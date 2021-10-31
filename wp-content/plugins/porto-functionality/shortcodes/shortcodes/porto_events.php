@@ -2,18 +2,15 @@
 // Porto Events
 add_action( 'vc_after_init', 'porto_load_events_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_events_shortcode() {
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Events', 'porto-functionality' ),
-			'base'     => 'porto_events',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto-sc Simple-Line-Icons-event',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Events', 'porto-functionality' ),
+			'base'        => 'porto_events',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Show events by beautiful layouts as portfolio', 'porto-functionality' ),
+			'icon'        => 'porto-sc Simple-Line-Icons-event',
+			'params'      => array(
 				array(
 					'type'       => 'dropdown',
 					'heading'    => __( 'Event Type', 'porto-functionality' ),

@@ -2,7 +2,7 @@
 extract(
 	shortcode_atts(
 		array(
-			'breadcrumbs_type'         => '1',
+			'breadcrumbs_type'         => '',
 			'page_title'               => '',
 			'page_sub_title'           => '',
 			'hide_breadcrumb'          => '',
@@ -20,6 +20,11 @@ extract(
 		$atts
 	)
 );
+
+if ( empty( $breadcrumbs_type ) ) {
+	global $porto_settings;
+	$breadcrumbs_type = $porto_settings['breadcrumbs-type'];
+}
 
 $el_class = porto_shortcode_extract_class( $el_class );
 echo '<div class="page-top page-header-' . esc_attr( $breadcrumbs_type ) . ( $el_class ? ' ' . esc_attr( $el_class ) : '' ) . '"';

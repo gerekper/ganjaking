@@ -177,7 +177,7 @@ ul.fc-slides li {
   transform: rotateY(-180deg);
 }
 
-.fc-slideshow img {
+.fc-slideshow img, .elementor .fc-slideshow img {
   border-radius: 50%;
 }
 

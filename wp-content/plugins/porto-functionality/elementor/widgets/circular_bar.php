@@ -20,15 +20,19 @@ class Porto_Elementor_Circular_Bar_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Circular Bar', 'porto-functionality' );
+		return __( 'Porto Circular Bar', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'circular', 'bar', 'pie', 'chart' );
+	}
+
+	public function get_icon() {
+		return 'eicon-counter-circle';
 	}
 
 	public function get_script_depends() {
@@ -210,7 +214,7 @@ class Porto_Elementor_Circular_Bar_Widget extends \Elementor\Widget_Base {
 		include PORTO_DIR . '/vc_templates/vc_pie.php';
 	}
 
-	protected function _content_template() {
+	protected function content_template() {
 		global $porto_settings;
 		?>
 		<#

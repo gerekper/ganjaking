@@ -3,10 +3,6 @@
 // Porto Feature Box
 add_action( 'vc_after_init', 'porto_load_feature_box_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_feature_box_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -18,6 +14,7 @@ function porto_load_feature_box_shortcode() {
 			'name'            => 'Porto ' . __( 'Feature Box', 'porto-functionality' ),
 			'base'            => 'porto_feature_box',
 			'category'        => __( 'Porto', 'porto-functionality' ),
+			'description'     => __( 'Show boxes with icon and description', 'porto-functionality' ),
 			'icon'            => 'far fa-check-circle',
 			'as_parent'       => array( 'except' => 'porto_feature_box' ),
 			'content_element' => true,

@@ -807,6 +807,26 @@ if ( ! function_exists( 'porto_is_product' ) ) :
 	}
 endif;
 
+if ( ! function_exists( 'porto_is_shop' ) ) :
+	function porto_is_shop() {
+		$result = false;
+		if ( class_exists( 'Woocommerce' ) && is_shop() ) {
+			$result = true;
+			if ( class_exists( 'WCFMmp' ) ) {
+				if ( function_exists( 'wcfm_get_option' ) ) {
+					$wcfm_store_url = wcfm_get_option( 'wcfm_store_url', 'store' );
+				} else {
+					$wcfm_store_url = get_option( 'wcfm_store_url', 'store' );
+				}
+				if ( ! empty( $wcfm_store_url ) && ! empty( get_query_var( $wcfm_store_url ) ) ) {
+					$result = false;
+				}
+			}
+		}
+		return apply_filters( 'porto_is_shop', $result );
+	}
+endif;
+
 if ( ! function_exists( 'porto_is_elementor_preview' ) ) :
 	function porto_is_elementor_preview() {
 		if ( ! defined( 'ELEMENTOR_VERSION' ) ) {
@@ -824,7 +844,7 @@ if ( ! function_exists( 'porto_is_vc_preview' ) ) :
 		if ( ! defined( 'VCV_VERSION' ) || ! current_user_can( 'edit_posts' ) ) {
 			return false;
 		}
-		if ( ( is_admin() && isset( $_REQUEST['vcv-action'] ) && 'frontend' == $_REQUEST['vcv-action'] && isset( $_REQUEST['vcv-source-id'] ) ) || ( ! is_admin() && isset( $_REQUEST['vcv-source-id'] ) ) ) {
+		if ( ( is_admin() && isset( $_REQUEST['vcv-action'] ) && 'frontend' == $_REQUEST['vcv-action'] ) || ( ! is_admin() && isset( $_REQUEST['vcv-source-id'] ) ) ) {
 			return true;
 		}
 		return false;
@@ -854,21 +874,28 @@ if ( ! function_exists( 'porto_output_tagged_content' ) ) :
 		if ( ! $content ) {
 			return '';
 		}
-		add_filter( 'wp_kses_allowed_html', 'porto_custom_wpkses_post_tags', 10, 2 );
-		$content = wp_kses_post( $content );
-		remove_filter( 'wp_kses_allowed_html', 'porto_custom_wpkses_post_tags', 10, 2 );
 		if ( ! defined( 'ELEMENTOR_VERSION' ) ) {
-			return apply_filters( 'the_content', $content );
+			return apply_filters( 'the_content', wp_kses_post( $content ) );
 		} else {
-			$content = do_shortcode( $content );
+			add_filter( 'wp_kses_allowed_html', 'porto_custom_wpkses_post_tags', 10, 2 );
+			$content = do_shortcode( wp_kses_post( $content ) );
+			remove_filter( 'wp_kses_allowed_html', 'porto_custom_wpkses_post_tags', 10, 2 );
 			return function_exists( 'porto_shortcode_format_content' ) ? porto_shortcode_format_content( $content ) : $content;
 		}
 	}
 endif;
 
 if ( ! function_exists( 'porto_config_value' ) ) :
-	function porto_config_value( $value ) {
-		return isset( $value ) ? $value : 0;
+	function porto_config_value( $value, $unit = '' ) {
+		$result = isset( $value ) ? $value : 0;
+		if ( empty( $unit ) || empty( $result ) ) {
+			return esc_html( $result );
+		}
+		$o_unit = trim( preg_replace( '/[0-9.-]/', '', $result ) );
+		if ( ! $o_unit ) {
+			$result .= $unit;
+		}
+		return esc_html( $result );
 	}
 endif;
 
@@ -889,133 +916,169 @@ if ( ! function_exists( 'porto_is_gutenberg' ) ) :
 endif;
 
 if ( ! function_exists( 'porto_check_using_elementor_style' ) ) :
+	/**
+	 * @deprecated 6.1.0 - use porto_check_using_page_builder_block instead
+	 */
 	function porto_check_using_elementor_style() {
-		if ( ! defined( 'ELEMENTOR_VERSION' ) ) {
-			return false;
-		}
-
-		$header_id = porto_check_builder_condition( 'header' );
-		$footer_id = porto_check_builder_condition( 'footer' );
-		if ( get_theme_mod( 'elementor_edited', false ) || $header_id || $footer_id ) {
-			return true;
-		}
-
-		if ( is_home() && get_theme_mod( 'elementor_blog_edited', false ) ) {
-			return true;
-		}
-
-		$elementor_sidebars = get_theme_mod( 'elementor_sidebars', array() );
-		if ( ! empty( $elementor_sidebars ) ) {
-			global $porto_layout, $porto_sidebar, $porto_sidebar2;
-			foreach ( $elementor_sidebars as $sidebar_id => $widgets ) {
-				if ( ! empty( $widgets ) && ( 0 === strpos( $sidebar_id, 'footer-' ) || 0 === strpos( $sidebar_id, 'content-bottom-' ) ) ) {
-					return true;
-				}
-			}
-
-			if (
-				( in_array( $porto_layout, porto_options_both_sidebars() ) && ( ! empty( $elementor_sidebars[ $porto_sidebar ] ) || ! empty( $elementor_sidebars[ $porto_sidebar2 ] ) ) ) ||
-				( in_array( $porto_layout, porto_options_sidebars() ) && ! empty( $elementor_sidebars[ $porto_sidebar ] ) )
-				) {
-				return true;
-			}
-		}
-
-		if ( class_exists( 'Woocommerce' ) && ( ( ( is_shop() || is_product_category() || is_product_tag() ) && porto_check_builder_condition( 'shop' ) ) || ( is_product() && porto_check_builder_condition( 'product' ) ) ) ) {
-			return true;
-		}
-
-		if ( is_singular() ) {
-			$elementor_blocks = get_theme_mod( 'elementor_blocks_post_types', array() );
-			if ( ! empty( $elementor_blocks ) ) {
-				foreach ( $elementor_blocks as $post_type ) {
-					if ( is_singular( $post_type ) ) {
-						return true;
-					}
-				}
-			}
-		}
-
-		if ( porto_get_meta_value( '_porto_use_elementor_blocks' ) ) {
-			return true;
-		}
 		return false;
 	}
 endif;
 
 if ( ! function_exists( 'porto_check_using_vc_style' ) ) :
+	/**
+	 * @deprecated 6.1.0 - use porto_check_using_page_builder_block instead
+	 */
 	function porto_check_using_vc_style() {
-		if ( ! defined( 'VCV_VERSION' ) ) {
+		return false;
+	}
+endif;
+
+if ( ! function_exists( 'porto_check_using_page_builder_block' ) ) :
+	/**
+	 * check if any elementor or visual composer block is used in the page
+	 *
+	 * @param $page_builder: el: Elemenetor, vc: Visual Composer
+	 */
+	function porto_check_using_page_builder_block( $page_builder = 'el' ) {
+		if ( 'vc' === $page_builder && ! defined( 'VCV_VERSION' ) ) {
+			return false;
+		}
+		if ( 'el' === $page_builder && ! defined( 'ELEMENTOR_VERSION' ) ) {
 			return false;
 		}
 
-		$result = get_theme_mod( '_vc_blocks_header', array() );
-		$result = array_merge( $result, get_theme_mod( '_vc_blocks', array() ) );
-
-		$header_id = porto_check_builder_condition( 'header' );
-		$footer_id = porto_check_builder_condition( 'footer' );
-		if ( $header_id ) {
-			$result[] = $header_id;
+		$used_blocks = get_theme_mod( '_used_blocks', array() );
+		if ( ! isset( $used_blocks[ $page_builder ] ) ) {
+			$used_blocks[ $page_builder ] = array();
 		}
-		if ( $footer_id ) {
-			$result[] = $footer_id;
-		}
+		$used_blocks = $used_blocks[ $page_builder ];
 
-		if ( is_home() ) {
-			$result = array_merge( $result, get_theme_mod( '_vc_blocks_blog', array() ) );
+		$result = ! empty( $used_blocks['header'] ) ? $used_blocks['header'] : array();
+		if ( ! empty( $used_blocks['all'] ) ) {
+			if ( 'breadcrumbs' == $page_builder ) {
+				return $used_blocks['all'];
+			}
+			$result = array_merge( $result, $used_blocks['all'] );
 		}
 
-		$vc_blocks_menus = get_theme_mod( '_vc_blocks_menu', array() );
-		if ( ! empty( $vc_blocks_menus ) ) {
-			foreach ( $vc_blocks_menus as $menu_id => $block_ids ) {
+		if ( 'breadcrumbs' != $page_builder ) {
+			$header_id = porto_check_builder_condition( 'header' );
+			$footer_id = porto_check_builder_condition( 'footer' );
+			if ( $header_id ) {
+				if ( 'el' === $page_builder && get_post_meta( $header_id, '_elementor_edit_mode', true ) && get_post_meta( $header_id, '_elementor_data', true ) ) {
+					$result[] = $header_id;
+				} elseif ( 'vc' === $page_builder && 'fe' == get_post_meta( $header_id, 'vcv-be-editor', true ) && get_post_meta( $header_id, 'vcvSourceCssFileUrl', true ) ) {
+					$result[] = $header_id;
+				}
+			}
+			if ( $footer_id ) {
+				if ( 'el' === $page_builder && get_post_meta( $footer_id, '_elementor_edit_mode', true ) && get_post_meta( $footer_id, '_elementor_data', true ) ) {
+					$result[] = $footer_id;
+				} elseif ( 'vc' === $page_builder && 'fe' == get_post_meta( $footer_id, 'vcv-be-editor', true ) && get_post_meta( $footer_id, 'vcvSourceCssFileUrl', true ) ) {
+					$result[] = $footer_id;
+				}
+			}
+		}
+
+		if ( is_home() && ! empty( $used_blocks['blog'] ) ) {
+			if ( 'breadcrumbs' == $page_builder ) {
+				return $used_blocks['blog'];
+			}
+			$result = array_merge( $result, $used_blocks['blog'] );
+		}
+
+		if ( ! empty( $used_blocks['menu'] ) ) {
+			foreach ( $used_blocks['menu'] as $menu_id => $block_ids ) {
 				if ( ! empty( $block_ids ) ) {
+					if ( 'breadcrumbs' == $page_builder ) {
+						return $block_ids;
+					}
 					$result = array_merge( $result, $block_ids );
 				}
 			}
 		}
 
-		$vc_sidebars = get_theme_mod( '_vc_blocks_sidebar', array() );
-		if ( ! empty( $vc_sidebars ) ) {
+		if ( ! empty( $used_blocks['sidebar'] ) ) {
 			global $porto_layout, $porto_sidebar, $porto_sidebar2;
-			foreach ( $vc_sidebars as $sidebar_id => $block_ids ) {
+			foreach ( $used_blocks['sidebar'] as $sidebar_id => $block_ids ) {
 				if ( ! empty( $block_ids ) && ( 0 === strpos( $sidebar_id, 'footer-' ) || 0 === strpos( $sidebar_id, 'content-bottom-' ) ) ) {
+					if ( 'breadcrumbs' == $page_builder ) {
+						return $block_ids;
+					}
 					$result = array_merge( $result, $block_ids );
 				}
 			}
 
-			if ( in_array( $porto_layout, porto_options_both_sidebars() ) && ( ! empty( $vc_sidebars[ $porto_sidebar ] ) || ! empty( $vc_sidebars[ $porto_sidebar2 ] ) ) ) {
-				$result = array_merge( $result, $vc_sidebars[ $porto_sidebar2 ] );
+			if ( in_array( $porto_layout, porto_options_both_sidebars() ) && ( ! empty( $used_blocks['sidebar'][ $porto_sidebar ] ) || ! empty( $used_blocks['sidebar'][ $porto_sidebar2 ] ) ) ) {
+				if ( 'breadcrumbs' == $page_builder ) {
+					return $used_blocks['sidebar'][ $porto_sidebar2 ];
+				}
+				$result = array_merge( $result, $used_blocks['sidebar'][ $porto_sidebar2 ] );
 			}
-			if ( in_array( $porto_layout, porto_options_sidebars() ) && ! empty( $vc_sidebars[ $porto_sidebar ] ) ) {
-				$result = array_merge( $result, $vc_sidebars[ $porto_sidebar ] );
+			if ( in_array( $porto_layout, porto_options_sidebars() ) && ! empty( $used_blocks['sidebar'][ $porto_sidebar ] ) ) {
+				if ( 'breadcrumbs' == $page_builder ) {
+					return $used_blocks['sidebar'][ $porto_sidebar ];
+				}
+				$result = array_merge( $result, $used_blocks['sidebar'][ $porto_sidebar ] );
 			}
 		}
 
 		if ( is_singular( 'product' ) ) {
-			$result     = array_merge( $result, get_theme_mod( '_vc_blocks_product', array() ) );
-			$product_id = porto_check_builder_condition( 'product' );
-			if ( $product_id ) {
-				$result[] = $product_id;
+			if ( ! empty( $used_blocks['product'] ) ) {
+				if ( 'breadcrumbs' == $page_builder ) {
+					return $used_blocks['product'];
+				}
+				$result = array_merge( $result, $used_blocks['product'] );
+			}
+
+			if ( 'breadcrumbs' != $page_builder ) {
+				$product_id = porto_check_builder_condition( 'product' );
+				if ( $product_id ) {
+					if ( 'el' === $page_builder && get_post_meta( $product_id, '_elementor_edit_mode', true ) && get_post_meta( $product_id, '_elementor_data', true ) ) {
+						$result[] = $product_id;
+					} elseif ( 'vc' === $page_builder && 'fe' == get_post_meta( $product_id, 'vcv-be-editor', true ) && get_post_meta( $product_id, 'vcvSourceCssFileUrl', true ) ) {
+						$result[] = $product_id;
+					}
+				}
 			}
 		}
-		if ( class_exists( 'Woocommerce' ) && ( is_shop() || is_product_category() || is_product_tag() ) ) {
+		if ( 'breadcrumbs' != $page_builder && class_exists( 'Woocommerce' ) && ( is_shop() || is_product_category() || is_product_tag() ) ) {
 			$shop_id = porto_check_builder_condition( 'shop' );
 			if ( $shop_id ) {
-				$result[] = $shop_id;
+				if ( 'el' === $page_builder && get_post_meta( $shop_id, '_elementor_edit_mode', true ) && get_post_meta( $shop_id, '_elementor_data', true ) ) {
+					$result[] = $shop_id;
+				} elseif ( 'vc' === $page_builder && 'fe' == get_post_meta( $shop_id, 'vcv-be-editor', true ) && get_post_meta( $shop_id, 'vcvSourceCssFileUrl', true ) ) {
+					$result[] = $shop_id;
+				}
 			}
 		}
 
 		if ( is_singular() ) {
-			$vc_blocks = get_post_meta( get_the_ID(), '_porto_vc_blocks_c', true );
-			if ( ! empty( $vc_blocks ) && is_array( $vc_blocks ) ) {
-				$result = array_merge( $result, $vc_blocks );
+			$post_id = get_the_ID();
+			if ( isset( $used_blocks['post'] ) && ! empty( $used_blocks['post'][ $post_id ] ) ) {
+				if ( 'breadcrumbs' == $page_builder ) {
+					return $used_blocks['post'][ $post_id ];
+				}
+				$result = array_merge( $result, $used_blocks['post'][ $post_id ] );
+			}
+			if ( isset( $used_blocks['post_c'] ) && ! empty( $used_blocks['post_c'][ $post_id ] ) ) {
+				if ( 'breadcrumbs' == $page_builder ) {
+					return $used_blocks['post_c'][ $post_id ];
+				}
+				$result = array_merge( $result, $used_blocks['post_c'][ $post_id ] );
+			}
+		} else {
+			$term_id_type = porto_get_id_type();
+			if ( $term_id_type ) {
+				if ( isset( $used_blocks[ $term_id_type[1] ] ) && ! empty( $used_blocks[ $term_id_type[1] ][ $term_id_type[0] ] ) ) {
+					if ( 'breadcrumbs' == $page_builder ) {
+						return $used_blocks[ $term_id_type[1] ][ $term_id_type[0] ];
+					}
+					$result = array_merge( $result, $used_blocks[ $term_id_type[1] ][ $term_id_type[0] ] );
+				}
 			}
 		}
 
-		$vc_blocks = porto_get_meta_value( '_porto_vc_blocks' );
-		if ( ! empty( $vc_blocks ) && is_array( $vc_blocks ) ) {
-			$result = array_merge( $result, $vc_blocks );
-		}
 		return array_unique( $result, SORT_NUMERIC );
 	}
 endif;
@@ -1069,9 +1132,9 @@ if ( ! function_exists( 'porto_check_builder_condition' ) ) :
 				}
 			}
 		} elseif ( is_archive() ) {
-			$quired_obj = get_queried_object();
-			if ( $quired_obj && property_exists( $quired_obj, 'term_id' ) ) {
-				$term_id    = $quired_obj->term_id;
+			$queried_obj = get_queried_object();
+			if ( $queried_obj && property_exists( $queried_obj, 'term_id' ) ) {
+				$term_id    = $queried_obj->term_id;
 				$builder_id = get_term_meta( $term_id, '_porto_builder_' . $location, true );
 				if ( $builder_id && get_post( $builder_id ) ) {
 					$porto_settings['conditions'][ $location ] = (int) $builder_id;
@@ -1102,10 +1165,23 @@ if ( ! function_exists( 'porto_check_builder_condition' ) ) :
 					if ( ! $object_id || ( false === strpos( $c, 'single/' ) && false === strpos( $c, 'taxonomy/' ) && false === strpos( $c, 'archive/' ) ) || ! get_post( $object_id ) ) {
 						continue;
 					}
-					$c = str_replace( 'taxonomy/', '', $c );
+
+					if ( false === strpos( $c, 'single/' ) ) {
+						$c = str_replace( 'taxonomy/', '', $c );
+					}
+
 					if ( 0 === strpos( $c, 'single/' ) ) {
 						$c = str_replace( 'single/', '', $c );
-						if ( is_singular( $c ) ) {
+						if ( 0 === strpos( $c, 'taxonomy/' ) ) {
+							$c = str_replace( 'taxonomy/', '', $c );
+							if ( is_singular() ) {
+								$terms = wp_get_post_terms( get_the_ID(), $c, array( 'fields' => 'names' ) );
+								if ( ! empty( $terms ) ) {
+									$porto_settings['conditions'][ $location ] = (int) $object_id;
+									return (int) $object_id;
+								}
+							}
+						} elseif ( is_singular( $c ) ) {
 							$porto_settings['conditions'][ $location ] = (int) $object_id;
 							return (int) $object_id;
 						}
@@ -1122,12 +1198,6 @@ if ( ! function_exists( 'porto_check_builder_condition' ) ) :
 						$c = str_replace( 'archive/', '', $c );
 						$f = 'is_porto_' . $c . 's_page';
 						if ( ( function_exists( $f ) && $f() ) || is_post_type_archive( $c ) ) {
-							$porto_settings['conditions'][ $location ] = (int) $object_id;
-							return (int) $object_id;
-						}
-					} elseif ( is_singular() ) {
-						$terms = wp_get_post_terms( get_the_ID(), $c, array( 'fields' => 'names' ) );
-						if ( ! empty( $terms ) ) {
 							$porto_settings['conditions'][ $location ] = (int) $object_id;
 							return (int) $object_id;
 						}

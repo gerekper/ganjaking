@@ -19,9 +19,9 @@ class Less_Tree_Anonymous extends Less_Tree {
 	 * @param boolean $mapLines
 	 */
 	public function __construct( $value, $index = null, $currentFileInfo = null, $mapLines = null ) {
-		$this->value           = $value;
-		$this->index           = $index;
-		$this->mapLines        = $mapLines;
+		$this->value = $value;
+		$this->index = $index;
+		$this->mapLines = $mapLines;
 		$this->currentFileInfo = $currentFileInfo;
 	}
 
@@ -30,11 +30,11 @@ class Less_Tree_Anonymous extends Less_Tree {
 	}
 
 	public function compare( $x ) {
-		if ( ! is_object( $x ) ) {
+		if ( !is_object( $x ) ) {
 			return -1;
 		}
 
-		$left  = $this->toCSS();
+		$left = $this->toCSS();
 		$right = $x->toCSS();
 
 		if ( $left === $right ) {

@@ -216,6 +216,16 @@
 					});
 				}
 			});
+		} else if (typeof elementorFrontend != 'undefined') {
+			elementorFrontend.on('components:init', function() {
+				elementorFrontend.hooks.addAction('frontend/element_ready/porto_360_degree_image_viewer.default', function ($obj) {
+					var productToursWrapper = $obj.find('.cd-product-viewer-wrapper');
+					console.log(productToursWrapper.length);
+					productToursWrapper.each(function(){
+						new productViewer($(this));
+					});
+				});
+			});
 		}
 	});
 

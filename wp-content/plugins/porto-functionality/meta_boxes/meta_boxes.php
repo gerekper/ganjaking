@@ -14,10 +14,6 @@ require_once( PORTO_META_BOXES_PATH . 'block.php' );
 require_once( PORTO_META_BOXES_PATH . 'event.php' );
 
 // Get Meta Tabs
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_get_meta_tabs( $meta_fields ) {
 	$meta_tabs   = array();
 	$general_tab = array( 'general', __( 'General', 'porto-functionality' ) );
@@ -274,7 +270,46 @@ function porto_show_meta_field( $meta_field ) {
 		</div>
 		<?php
 	endif;
-
+	if ( 'video' == $type ) : // attach video
+		?>
+		<div class="metabox" <?php echo porto_filter_output( $required ); ?>>
+			<h3><?php echo esc_html( $title ); ?></h3>
+			<div class="metainner">
+				<div class="box-option">
+					<div class="attach_video" id="<?php echo esc_attr( $name ); ?>_thumb">
+						<?php if ( $meta_value ) : ?>
+							<video controls autoplay loop src="<?php echo wp_get_attachment_url( (int) $meta_value ); ?>" ></video>
+						<?php endif; ?>
+					</div>
+					<input value="<?php echo stripslashes( $meta_value ); ?>" type="hidden" name="<?php echo esc_attr( $name ); ?>"  id="<?php echo esc_attr( $name ); ?>" size="50%" />
+					<br/>
+					<input class="button_attach_video button" data-id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Attach Video', 'porto-functionality' ); ?>" />
+					<input class="button_remove_video button" data-id="<?php echo esc_attr( $name ); ?>" type="button" value="<?php esc_attr_e( 'Remove Video', 'porto-functionality' ); ?>" />
+					<label>
+					<?php if ( $desc ) : ?>
+						<p class="description">
+						<?php
+							echo wp_kses(
+								$desc,
+								array(
+									'em'     => array(),
+									'i'      => array(),
+									'strong' => array(),
+									'a'      => array(
+										'class' => array(),
+										'href'  => array(),
+									),
+								)
+							);
+						?>
+						</p>
+					<?php endif; ?>
+					</label>
+				</div>
+			</div>
+		</div>
+		<?php
+	endif;
 	if ( 'editor' == $type ) : // editor
 		?>
 		<div class="metabox" <?php echo porto_filter_output( $required ); ?>>
@@ -661,7 +696,7 @@ function porto_edit_tax_meta_field( $tag, $taxonomy, $meta_field, $woocommerce =
 	if ( 'text' == $type ) : // text
 		?>
 		<tr class="form-field<?php echo ! $tab ? '"' : ' porto-tab-row" data-tab="' . esc_attr( $tab ) . '"'; ?>" <?php echo porto_filter_output( $required ); ?>>
-			<th scope="row" valign="top"<?php echo ! $tab ? '' : 'class="text-right"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
+			<th scope="row" valign="top"<?php echo ! $tab ? '' : 'class="text-end"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
 			<td>
 				<input type="text" id="<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo stripslashes( $meta_value ); ?>" size="50%" />
 				<?php
@@ -692,7 +727,7 @@ function porto_edit_tax_meta_field( $tag, $taxonomy, $meta_field, $woocommerce =
 	if ( 'select' == $type ) : // select
 		?>
 		<tr class="form-field<?php echo ! $tab ? '"' : ' porto-tab-row" data-tab="' . esc_attr( $tab ) . '"'; ?> <?php echo porto_filter_output( $required ); ?>>
-			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-right"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
+			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-end"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
 			<td>
 				<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $name ); ?>">
 					<?php if ( ! is_array( $options ) || ! in_array( '', array_keys( $options ) ) ) : ?>
@@ -736,7 +771,7 @@ function porto_edit_tax_meta_field( $tag, $taxonomy, $meta_field, $woocommerce =
 	if ( 'upload' == $type ) : // upload image
 		?>
 		<tr class="form-field<?php echo ! $tab ? '"' : ' porto-tab-row" data-tab="' . esc_attr( $tab ) . '"'; ?> <?php echo porto_filter_output( $required ); ?>>
-			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-right"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
+			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-end"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
 			<td>
 					<input style="margin-bottom:5px;" value="<?php echo stripslashes( $meta_value ); ?>" type="text" name="<?php echo esc_attr( $name ); ?>"  id="<?php echo esc_attr( $name ); ?>" size="50%" />
 					<br/>
@@ -770,7 +805,7 @@ function porto_edit_tax_meta_field( $tag, $taxonomy, $meta_field, $woocommerce =
 	if ( 'attach' == $type ) : // attach image
 		?>
 		<tr class="form-field<?php echo ! $tab ? '"' : ' porto-tab-row" data-tab="' . esc_attr( $tab ) . '"'; ?> <?php echo porto_filter_output( $required ); ?>>
-		<th scope="row" valign="top"<?php echo ! $tab ? '' : 'class="text-right"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
+		<th scope="row" valign="top"<?php echo ! $tab ? '' : 'class="text-end"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
 		<td>
 			<div class="attach_image" id="<?php echo esc_attr( $name ); ?>_thumb">
 				<?php
@@ -843,11 +878,9 @@ function porto_edit_tax_meta_field( $tag, $taxonomy, $meta_field, $woocommerce =
 	if ( 'textarea' == $type ) : // textarea
 		?>
 		<tr class="form-field<?php echo ! $tab ? '"' : ' porto-tab-row" data-tab="' . esc_attr( $tab ) . '"'; ?> <?php echo porto_filter_output( $required ); ?>>
-			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-right"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
+			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-end"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
 			<td>
-			<?php if ( $meta_value ) : ?>
-				<textarea id="<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>"><?php echo wp_kses_post( $meta_value ); ?></textarea>
-			<?php endif; ?>
+			<textarea id="<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>"><?php echo ! $meta_value ? '' : wp_kses_post( $meta_value ); ?></textarea>
 				<?php
 				if ( $desc ) :
 					?>
@@ -876,7 +909,7 @@ function porto_edit_tax_meta_field( $tag, $taxonomy, $meta_field, $woocommerce =
 	if ( ( 'radio' == $type ) && ( ! empty( $options ) ) ) : // radio buttons
 		?>
 		<tr class="form-field<?php echo ! $tab ? '"' : ' porto-tab-row" data-tab="' . esc_attr( $tab ) . '"'; ?> <?php echo porto_filter_output( $required ); ?>>
-			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-right"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
+			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-end"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
 			<td>
 				<?php foreach ( $options as $key => $value ) : ?>
 					<input style="display:inline-block; width:auto;" type="radio" id="<?php echo esc_attr( $name ); ?>_<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $name ); ?>"  value="<?php echo esc_attr( $key ); ?>"
@@ -918,7 +951,7 @@ function porto_edit_tax_meta_field( $tag, $taxonomy, $meta_field, $woocommerce =
 		}
 		?>
 		<tr class="form-field<?php echo ! $tab ? '"' : ' porto-tab-row" data-tab="' . esc_attr( $tab ) . '"'; ?> <?php echo porto_filter_output( $required ); ?>>
-			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-right"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
+			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-end"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
 			<td>
 				<label><input style="display:inline-block; width:auto;" type="checkbox" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $name ); ?>" <?php echo porto_filter_output( $checked ); ?> /> 
 				<?php
@@ -944,7 +977,7 @@ function porto_edit_tax_meta_field( $tag, $taxonomy, $meta_field, $woocommerce =
 	if ( ( 'multi_checkbox' == $type ) && ( ! empty( $options ) ) ) : // radio buttons
 		?>
 		<tr class="form-field<?php echo ! $tab ? '"' : ' porto-tab-row" data-tab="' . esc_attr( $tab ) . '"'; ?> <?php echo porto_filter_output( $required ); ?>>
-			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-right"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
+			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-end"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
 			<td>
 				<?php foreach ( $options as $key => $value ) : ?>
 					<input style="display:inline-block; width:auto;" type="checkbox" id="<?php echo esc_attr( $name ); ?>_<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $name ); ?>[]" value="<?php echo esc_attr( $key ); ?>" <?php echo ( ( isset( $meta_value ) && in_array( $key, explode( ',', $meta_value ) ) ) ? ' checked="checked"' : '' ); ?>/>
@@ -978,7 +1011,7 @@ function porto_edit_tax_meta_field( $tag, $taxonomy, $meta_field, $woocommerce =
 	if ( 'color' == $type ) : // color
 		?>
 		<tr class="form-field<?php echo ! $tab ? '"' : ' porto-tab-row" data-tab="' . esc_attr( $tab ) . '"'; ?> <?php echo porto_filter_output( $required ); ?>>
-			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-right"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
+			<th scope="row" valign="top"<?php echo ! $tab ? '' : ' class="text-end"'; ?>><label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $title ); ?></label></th>
 			<td class="porto-meta-color">
 				<input type="text" id="<?php echo esc_attr( $name ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo stripslashes( $meta_value ); ?>" size="50%" class="porto-color-field" />
 				<label class="porto-transparency-check" for="<?php echo esc_attr( $name ); ?>-transparency"><input type="checkbox" value="1" id="<?php echo esc_attr( $name ); ?>-transparency" class="checkbox porto-color-transparency"<?php echo 'transparent' == $meta_value ? ' checked="checked"' : ''; ?>><?php esc_html_e( 'Transparent', 'porto-functionality' ); ?></label>

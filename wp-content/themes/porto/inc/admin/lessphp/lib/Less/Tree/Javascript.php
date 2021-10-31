@@ -18,9 +18,9 @@ class Less_Tree_Javascript extends Less_Tree {
 	 * @param boolean $escaped
 	 */
 	public function __construct( $string, $index, $escaped ) {
-		$this->escaped    = $escaped;
+		$this->escaped = $escaped;
 		$this->expression = $string;
-		$this->index      = $index;
+		$this->index = $index;
 	}
 
 	public function compile() {

@@ -109,8 +109,12 @@ class Porto_Elementor_HB_Wishlist_Widget extends \Elementor\Widget_Base {
 					$icon_cl = $settings['icon_cl']['value'];
 				}
 			}
-			$wc_count = yith_wcwl_count_products();
-			echo '<a href="' . esc_url( YITH_WCWL()->get_wishlist_url() ) . '"' . ' title="' . esc_attr__( 'Wishlist', 'porto' ) . '" class="my-wishlist"><i class="' . esc_attr( $icon_cl ) . '"></i><span class="wishlist-count">' . intval( $wc_count ) . '</span></a>';
+			if ( function_exists( 'porto_wishlist' ) ) {
+				echo porto_wishlist( '', $icon_cl );
+			} else {
+				$wc_count = yith_wcwl_count_products();
+				echo '<a href="' . esc_url( YITH_WCWL()->get_wishlist_url() ) . '"' . ' title="' . esc_attr__( 'Wishlist', 'porto' ) . '" class="my-wishlist"><i class="' . esc_attr( $icon_cl ) . '"></i><span class="wishlist-count">' . intval( $wc_count ) . '</span></a>';
+			}
 		}
 	}
 }

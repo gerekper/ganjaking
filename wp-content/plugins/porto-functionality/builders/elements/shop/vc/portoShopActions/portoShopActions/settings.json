@@ -1,0 +1,68 @@
+{
+	"hookActions": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "woocommerce_before_shop_loop",
+		"options": {
+			"label": "Hook Type",
+			"values": [
+				{
+					"label": "woocommerce_before_shop_loop",
+					"value": "woocommerce_before_shop_loop"
+				},
+				{
+					"label": "woocommerce_after_shop_loop",
+					"value": "woocommerce_after_shop_loop"
+				}
+			]
+		}
+	},
+	"designOptions": {
+		"type": "designOptions",
+		"access": "public",
+		"value": {},
+		"options": {
+			"label": "Design Options"
+		}
+	},
+	"editFormTab1": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"hookActions",
+			"el_class"
+		],
+		"options": {
+			"label": "General"
+		}
+	},
+	"metaEditFormTabs": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"editFormTab1",
+			"designOptions"
+		]
+	},
+	"relatedTo": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"General"
+		]
+	},
+	"el_class": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Extra class name",
+			"description": "Add an extra class name to the element and refer to it from Custom CSS option."
+		}
+	},
+	"tag": {
+		"access": "protected",
+		"type": "string",
+		"value": "portoShopActions"
+	}
+}

@@ -2,21 +2,18 @@
 
 // Porto Section Scroll
 add_action( 'vc_after_init', 'porto_load_section_scroll_shortcode' );
-
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
 
 function porto_load_section_scroll_shortcode() {
 	$custom_class = porto_vc_custom_class();
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Section Scroll', 'porto-functionality' ),
-			'base'     => 'porto_section_scroll',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'fas fa-arrows-alt-v',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Section Scroll', 'porto-functionality' ),
+			'base'        => 'porto_section_scroll',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'You can see next or prev section with only one scroll and dots', 'porto-functionality' ),
+			'icon'        => 'fas fa-arrows-alt-v',
+			'params'      => array(
 				array(
 					'type'       => 'checkbox',
 					'heading'    => __( 'Show Dots Navigation', 'porto-functionality' ),

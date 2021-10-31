@@ -658,6 +658,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 				$id = wp_insert_category( $data );
 				if ( ! is_wp_error( $id ) && $id > 0 ) {
 					if ( isset( $cat['term_id'] ) ) {
+						do_action( 'porto_importer_insert_term', $id, (int) $cat['term_id'] );
 						$this->processed_terms[ intval( $cat['term_id'] ) ] = $id;
 					}
 					update_option( 'porto_import_processed_terms', $this->processed_terms );
@@ -718,6 +719,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 				$id = wp_insert_term( wp_slash( $tag['tag_name'] ), 'post_tag', $args );
 				if ( ! is_wp_error( $id ) ) {
 					if ( isset( $tag['term_id'] ) ) {
+						do_action( 'porto_importer_insert_term', $id['term_id'], (int) $tag['term_id'] );
 						$this->processed_terms[ intval( $tag['term_id'] ) ] = $id['term_id'];
 					}
 					update_option( 'porto_import_processed_terms', $this->processed_terms );
@@ -776,6 +778,8 @@ if ( class_exists( 'WP_Importer' ) ) {
 							}
 						}
 
+						do_action( 'porto_importer_update_term', (int) $term_id, (int) $term['term_id'] );
+
 						continue;
 					}
 
@@ -798,6 +802,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 					$id = wp_insert_term( wp_slash( $term['term_name'] ), $term['term_taxonomy'], $args );
 					if ( ! is_wp_error( $id ) ) {
 						if ( isset( $term['term_id'] ) ) {
+							do_action( 'porto_importer_insert_term', $id['term_id'], (int) $term['term_id'] );
 							$this->processed_terms[ intval( $term['term_id'] ) ] = $id['term_id'];
 						}
 						update_option( 'porto_import_processed_terms', $this->processed_terms );
@@ -1021,6 +1026,9 @@ if ( class_exists( 'WP_Importer' ) ) {
 						return;
 					}
 					$demo = ( isset( $_POST['demo'] ) && $_POST['demo'] ) ? $_POST['demo'] : 'landing';
+
+					do_action( 'porto_importer_update_post', $post_id, $post['post_id'], $postdata );
+
 					if ( false !== strpos( $demo, 'elementor-' ) ) {
 						delete_post_meta( $post_id, '_elementor_css' );
 					} elseif ( false !== strpos( $demo, 'vc-' ) ) {
@@ -1252,6 +1260,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 			if ( ! empty( $post['postmeta'] ) ) {
 				$is_vc_post     = false;
 				$has_vc_content = false;
+				$builder_cds    = false;
 				foreach ( $post['postmeta'] as $meta ) {
 					$key   = apply_filters( 'import_post_meta_key', $meta['key'], $post_id, $post );
 					$value = false;
@@ -1294,36 +1303,31 @@ if ( class_exists( 'WP_Importer' ) ) {
 
 						// save template display conditions
 						if ( '_porto_builder_conditions' == $key && $value && defined( 'PORTO_BUILDERS_PATH' ) ) {
-							require_once PORTO_BUILDERS_PATH . 'lib/class-condition.php';
-							$cls = new Porto_Builder_Condition();
-							if ( isset( $_POST['post_id'] ) ) {
-								$post_id_backup = $_POST['post_id'];
-							}
-							$_POST['post_id']     = $post_id;
-							$_POST['type']        = array();
-							$_POST['object_type'] = array();
-							$_POST['object_id']   = array();
-							$_POST['object_name'] = array();
-							foreach ( $value as $index => $condition ) {
-								if ( ! is_array( $condition ) ) {
-									continue;
-								}
-								$_POST['type'][]        = $condition[0];
-								$_POST['object_type'][] = $condition[1];
-								$_POST['object_id'][]   = $condition[2];
-								$_POST['object_name'][] = $condition[3];
-							}
-							$cls->save_condition( true );
-							if ( isset( $post_id_backup ) ) {
-								$_POST['post_id'] = $post_id_backup;
-							} else {
-								unset( $_POST['post_id'] );
-							}
-							unset( $_POST['type'], $_POST['object_type'], $_POST['object_id'], $_POST['object_name'] );
+							$builder_cds = $value;
 						}
 					}
 				}
 
+				// reset builder conditions
+				if ( $builder_cds && is_array( $builder_cds ) ) {
+					require_once PORTO_BUILDERS_PATH . 'lib/class-condition.php';
+					$cls = new Porto_Builder_Condition();
+					$_POST['type']        = array();
+					$_POST['object_type'] = array();
+					$_POST['object_id']   = array();
+					$_POST['object_name'] = array();
+					foreach ( $builder_cds as $index => $condition ) {
+						if ( ! is_array( $condition ) ) {
+							continue;
+						}
+						$_POST['type'][]        = $condition[0];
+						$_POST['object_type'][] = $condition[1];
+						$_POST['object_id'][]   = $condition[2];
+						$_POST['object_name'][] = $condition[3];
+					}
+					$cls->save_condition( true, (int) $post_id );
+					unset( $_POST['type'], $_POST['object_type'], $_POST['object_id'], $_POST['object_name'] );
+				}
 
 				// regenerate Visual Composer css
 				if ( defined( 'VCV_VERSION' ) && $is_vc_post && $has_vc_content ) {
@@ -1350,9 +1354,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 					$value[ $key ] = $this->vcv_update_urls( $v );
 				}
 			} else {
-				if ( defined( 'PORTO_SHORTCODES_URL' ) ) {
-					$value = str_replace( 'PORTO_FUNC_URI', str_replace( '/shortcodes/', '', PORTO_SHORTCODES_URL ), $value );
-				}
+				$value = str_replace( 'PORTO_FUNC_URI', str_replace( '/shortcodes/', '', PORTO_SHORTCODES_URL ), $value );
 				$value = str_replace( 'PORTO_PLUGINS_URI', esc_url( plugins_url() ), $value );
 				$value = str_replace( 'PORTO_URI', esc_url( PORTO_URI . '/' ), $value );
 			}
@@ -1474,6 +1476,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 
 			$id = wp_update_nav_menu_item( $menu_id, 0, $args );
 			if ( $id && ! is_wp_error( $id ) ) {
+				do_action( 'porto_importer_insert_nav_menu_item', (int) $id );
 				$this->processed_menu_items[ intval( $item['post_id'] ) ] = (int) $id;
 			}
 		}
@@ -1525,6 +1528,8 @@ if ( class_exists( 'WP_Importer' ) ) {
 			}
 			$post_id = wp_insert_attachment( $post, $upload['file'] );
 			wp_update_attachment_metadata( $post_id, wp_generate_attachment_metadata( $post_id, $upload['file'] ) );
+
+			do_action( 'porto_importer_insert_attachment', $post_id, isset( $post['import_id'] ) ? $post['import_id'] : false );
 
 			// remap resized image URLs, works by stripping the extension and remapping the URL stub.
 			if ( preg_match( '!^image/!', $info['type'] ) ) {

@@ -136,6 +136,14 @@
         //&:hover { color: #fff; background: lighten(#3c8a38, 10%); }
         &:before { content: $fa-var-whatsapp; }
     }
+    .share-wechat {
+        background: #7bb22e;
+        &:before { content: $fa-var-weixin; }
+    }
+    .share-tiktok {
+        background: #010101;
+        &:before { content: $fa-var-tiktok; }
+    }
     &.default-skin {
         a {
             color: #fff !important;
@@ -199,6 +207,12 @@
         }
         .share-whatsapp {
             background: #3c8a38 !important;
+        }
+        .share-wechat {
+            background: #7bb22e !important;
+        }
+        .share-tiktok {
+            background: #010101 !important;
         }
     }
 }

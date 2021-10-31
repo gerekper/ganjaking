@@ -1,0 +1,47 @@
+@if $elementId != false {
+	.single-price-$elementId {
+		p.price {
+			@if $spNormalColor != false {
+				color: $spNormalColor;
+			}
+			@if $normalFontSize != false {
+				font-size: $normalFontSize;
+			}
+			@if $normalFontWeight != false {
+				font-weight: $normalFontWeight;
+			}
+			@if $normalLineHeight != false {
+				line-height: $normalLineHeight;
+			}
+			@if $normalLetterSpacing != false {
+				letter-spacing: $normalLetterSpacing;
+			}
+			del {
+				@if $spPriceColor != false {
+					color: $spPriceColor;
+				}
+				@if $oldFontSize != false {
+					font-size: $oldFontSize;
+				}
+				@if $oldFontWeight != false {
+					font-weight: $oldFontWeight;
+				}
+				@if $oldLineHeight != false {
+					line-height: $oldLineHeight;
+				}
+				@if $oldLetterSpacing != false {
+					letter-spacing: $oldLetterSpacing;
+				}
+			}
+		}
+	}
+	@if $betweenSpacing != false {
+		.single-price-$elementId del {
+			margin-right: $(betweenSpacing)px;
+		}
+		body.rtl .single-price-$elementId del {
+			margin-left: $(betweenSpacing)px;
+		}
+	}
+
+}

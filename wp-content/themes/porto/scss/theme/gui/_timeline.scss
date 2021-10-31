@@ -65,33 +65,34 @@ section.timeline {
         }
     }
     .timeline-box {
-        margin: 20px 3% 10px;
+        margin: 20px 22px 10px;
         padding: 18px;
-        width: 44%;
+        width: calc(50% - 44px);
         float: $left;
         margin-bottom: 30px;
+        &:before {
+            background: var(--porto-skin-color, #08c);
+            box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--porto-skin-color, #08c);
+        }
         &.left {
             clear: both;
             &:before {
-                border-radius: 50%;
                 content: "";
-                display: block;
-                height: 7px;
-                margin-#{$right}: -9px;
-                #{$right}: -6%;
+                border-radius: 50%;
+                height: 8px;
+                width: 8px;
                 position: absolute;
+                #{$right}: -27px;
                 top: 22px;
-                width: 7px;
             }
             &:after {
-                transform: rotate(45deg);
                 content: "";
-                display: block;
+                transform: rotate(45deg);
+                width: 14px;
                 height: 14px;
                 position: absolute;
                 #{$right}: -8px;
                 top: 20px;
-                width: 14px;
                 z-index: 0;
             }
         }
@@ -100,21 +101,18 @@ section.timeline {
             float: $right;
             margin-top: 40px;
             &:before {
-                border-radius: 50%;
                 content: "";
-                display: block;
-                height: 7px;
-                margin-#{$left}: -9px;
-                #{$left}: -6%;
+                border-radius: 50%;
+                height: 8px;
+                #{$left}: -27px;
                 position: absolute;
                 top: 32px;
-                width: 7px;
+                width: 8px;
             }
             &:after {
+                content: "";
                 transform: rotate(45deg);
                 #{$left}: -8px;
-                content: "";
-                display: block;
                 height: 14px;
                 position: absolute;
                 top: 30px;

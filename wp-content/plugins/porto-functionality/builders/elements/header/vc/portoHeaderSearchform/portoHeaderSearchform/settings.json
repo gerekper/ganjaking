@@ -1,0 +1,254 @@
+{
+  "placeholder_text": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Placeholder Text"
+    }
+  },
+  "category_filter": {
+    "type": "toggle",
+    "access": "public",
+    "value": false,
+    "options": {
+      "label": "Show category filter"
+    }
+  },
+  "category_filter_mobile": {
+    "type": "toggle",
+    "access": "public",
+    "value": false,
+    "options": {
+      "label": "Show Categories on Mobile",
+      "onChange": {
+        "rules": {
+          "category_filter": {
+            "rule": "toggle"
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "popup_pos": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Popup Position",
+      "description": "This works for only \"Popup 1\" and \"Popup 2\" and \"Form\" search layout on mobile. You can change search layout using Porto -> Theme Options -> Header -> Search Form -> Search Layout.",
+      "values": [
+        {
+          "label": "Default",
+          "value": ""
+        },
+        {
+          "label": "Left",
+          "value": "left"
+        },
+        {
+          "label": "Center",
+          "value": "center"
+        },
+        {
+          "label": "Right",
+          "value": "right"
+        }
+      ]
+    }
+  },
+  "el_class": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Extra class name",
+      "description": "Add an extra class name to the element and refer to it from Custom CSS option."
+    }
+  },
+  "toggle_size": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Search Icon Size",
+      "cssMixin": {
+        "mixin": "searchForm",
+        "property": "toggleSize",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "toggle_color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Search Icon Color",
+      "cssMixin": {
+        "mixin": "searchForm",
+        "property": "toggleColor",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "toggle_hover_color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Search Icon Hover Color",
+      "cssMixin": {
+        "mixin": "searchForm",
+        "property": "toggleHoverColor",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "input_size": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Input Box Width",
+      "cssMixin": {
+        "mixin": "searchForm",
+        "property": "inputSize",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "height": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Height",
+      "cssMixin": {
+        "mixin": "searchForm",
+        "property": "height",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "border_width": {
+    "type": "number",
+    "access": "public",
+    "value": "1",
+    "options": {
+      "label": "Border Width (px)",
+      "min": 0,
+      "max": 16,
+      "cssMixin": {
+        "mixin": "searchForm",
+        "property": "borderWidth",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "border_color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Border Color",
+      "cssMixin": {
+        "mixin": "searchForm",
+        "property": "borderColor",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "border_radius": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Border Radius",
+      "cssMixin": {
+        "mixin": "searchForm",
+        "property": "borderRadius",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "divider_color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Divider Color",
+      "cssMixin": {
+        "mixin": "searchForm",
+        "property": "dividerColor",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "designOptions": {
+    "type": "designOptions",
+    "access": "public",
+    "value": {},
+    "options": {
+      "label": "Design Options"
+    }
+  },
+  "editFormTab1": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "placeholder_text",
+      "category_filter",
+      "category_filter_mobile",
+      "popup_pos",
+      "el_class"
+    ],
+    "options": {
+      "label": "Search Form Layout"
+    }
+  },
+  "editFormTab2": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "toggle_size",
+      "toggle_color",
+      "toggle_hover_color",
+      "input_size",
+      "height",
+      "border_width",
+      "border_color",
+      "border_radius",
+      "divider_color"
+    ],
+    "options": {
+      "label": "Search Form Style"
+    }
+  },
+  "metaEditFormTabs": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "editFormTab1",
+      "editFormTab2",
+      "designOptions"
+    ]
+  },
+  "relatedTo": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "General"
+    ]
+  },
+  "tag": {
+    "access": "protected",
+    "type": "string",
+    "value": "portoHeaderSearchform"
+  }
+}

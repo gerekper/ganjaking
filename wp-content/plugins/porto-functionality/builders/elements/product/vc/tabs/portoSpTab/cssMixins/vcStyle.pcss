@@ -1,0 +1,87 @@
+@if $elementId != false {
+	.single-tab-$elementId {
+		@if $tabType == vertical {
+			h2.resp-accordion {
+				@if $linkFontSize != false {
+					font-size: $linkFontSize;
+				}
+				@if $linkFontWeight != false {
+					font-weight: $linkFontWeight;
+				}
+				@if $linkLineHeight != false {
+					line-height: $linkLineHeight;
+				}
+				@if $linkLetterSpacing != false {
+					letter-spacing: $linkLetterSpacing;
+				}
+				@if $linkPadding != false {
+					padding-top: $(linkPadding)px !important;
+					padding-bottom: $(linkPadding)px !important;
+				}
+				@if $linkColor != false {
+					color: $linkColor !important;
+				}
+				@if $underlineColor != false {
+					border-color: $underlineColor !important;
+				}
+                &.resp-tab-active,
+				&:hover {
+					@if $underlineHoverColor != false {
+						border-color: $underlineHoverColor !important;
+					}
+					@if $linkHoverColor != false {
+						color: $linkHoverColor !important;
+					}
+				}
+			}
+		}
+		.resp-tabs-list li {
+			@if $linkFontSize != false {
+				font-size: $linkFontSize;
+			}
+			@if $linkFontWeight != false {
+				font-weight: $linkFontWeight;
+			}
+			@if $linkLineHeight != false {
+				line-height: $linkLineHeight;
+			}
+			@if $linkLetterSpacing != false {
+				letter-spacing: $linkLetterSpacing;
+			}
+			@if $linkColor != false {
+				color: $linkColor !important;
+			}
+			@if $underlineColor != false {
+				border-color: $underlineColor !important;
+			}
+			@if $linkPadding != false {
+				padding: $(linkPadding)px 0 !important;
+			}
+			&.resp-tab-active,
+			&:hover {
+				@if $underlineHoverColor != false {
+					border-color: $underlineHoverColor !important;
+				}
+				@if $linkHoverColor != false {
+					color: $linkHoverColor !important;
+				}
+			}
+		}
+		.tab-content {
+			@if $contentPadding != false {
+				padding: $(contentPadding)px 0;
+			}
+		}
+	}
+}
+
+body.rtl .single-tab-$elementId .resp-tabs-list li {
+	@if $spacing != false {
+		margin-left: $(spacing)px;
+	}
+}
+body:not(.rtl) .single-tab-$elementId .resp-tabs-list li {
+	@if $spacing != false {
+		margin-right: $(spacing)px;
+	}
+}

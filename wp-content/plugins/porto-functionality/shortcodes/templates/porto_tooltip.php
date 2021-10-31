@@ -60,16 +60,16 @@ if ( 'btn' == $type || 'btn-link' == $type ) {
 		$btn_class .= ' btn-default';
 	}
 	if ( 'btn' == $type ) {
-		$output .= ' <button type="button" data-toggle="tooltip" title="' . esc_attr( $tooltip_text ) . '" data-placement="' . esc_attr( $tooltip_position ) . '" class="' . esc_attr( $btn_class ) . '">';
+		$output .= ' <button type="button" data-toggle="tooltip" title="' . esc_attr( $tooltip_text ) . '" data-bs-placement="' . esc_attr( $tooltip_position ) . '" class="' . esc_attr( $btn_class ) . '">';
 		$output .= $text;
 		$output .= '</button> ';
 	} else {
-		$output .= ' <a href="' . ( ! $link ? 'javascript:;' : esc_url( $link ) ) . '" data-toggle="tooltip" title="' . esc_attr( $tooltip_text ) . '" data-placement="' . esc_attr( $tooltip_position ) . '" class="' . esc_attr( $btn_class ) . '">';
+		$output .= ' <a href="' . ( ! $link ? 'javascript:;' : esc_url( $link ) ) . '" data-toggle="tooltip" title="' . esc_attr( $tooltip_text ) . '" data-bs-placement="' . esc_attr( $tooltip_position ) . '" class="' . esc_attr( $btn_class ) . '">';
 		$output .= $text;
 		$output .= '</a> ';
 	}
 } else {
-	$output .= ' <a href="' . ( ! $link ? 'javascript:;' : esc_url( $link ) ) . '" data-toggle="tooltip" title="' . esc_attr( $tooltip_text ) . '" data-placement="' . esc_attr( $tooltip_position ) . '">';
+	$output .= ' <a href="' . ( ! $link ? 'javascript:;' : esc_url( $link ) ) . '" data-toggle="tooltip" title="' . esc_attr( $tooltip_text ) . '" data-bs-placement="' . esc_attr( $tooltip_position ) . '">';
 	$output .= $text;
 	$output .= '</a> ';
 }

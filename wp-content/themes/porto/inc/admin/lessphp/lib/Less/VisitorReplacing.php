@@ -9,23 +9,23 @@
 class Less_VisitorReplacing extends Less_Visitor {
 
 	public function visitObj( $node ) {
-
-		$funcName = 'visit' . $node->type;
-		if ( isset( $this->_visitFnCache[ $funcName ] ) ) {
+		$funcName = 'visit'.$node->type;
+		if ( isset( $this->_visitFnCache[$funcName] ) ) {
 
 			$visitDeeper = true;
-			$node        = $this->$funcName( $node, $visitDeeper );
+			$node = $this->$funcName( $node, $visitDeeper );
 
 			if ( $node ) {
 				if ( $visitDeeper && is_object( $node ) ) {
 					$node->accept( $this );
 				}
 
-				$funcName = $funcName . 'Out';
-				if ( isset( $this->_visitFnCache[ $funcName ] ) ) {
+				$funcName = $funcName . "Out";
+				if ( isset( $this->_visitFnCache[$funcName] ) ) {
 					$this->$funcName( $node );
 				}
 			}
+
 		} else {
 			$node->accept( $this );
 		}
@@ -34,7 +34,6 @@ class Less_VisitorReplacing extends Less_Visitor {
 	}
 
 	public function visitArray( $nodes ) {
-
 		$newNodes = array();
 		foreach ( $nodes as $node ) {
 			$evald = $this->visitObj( $node );
@@ -50,9 +49,8 @@ class Less_VisitorReplacing extends Less_Visitor {
 	}
 
 	public function flatten( $arr, &$out ) {
-
 		foreach ( $arr as $item ) {
-			if ( ! is_array( $item ) ) {
+			if ( !is_array( $item ) ) {
 				$out[] = $item;
 				continue;
 			}
@@ -70,5 +68,3 @@ class Less_VisitorReplacing extends Less_Visitor {
 	}
 
 }
-
-

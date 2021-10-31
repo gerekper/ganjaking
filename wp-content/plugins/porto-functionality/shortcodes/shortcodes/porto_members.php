@@ -1,11 +1,91 @@
 <?php
 
 // Porto Members
-add_action( 'vc_after_init', 'porto_load_members_shortcode' );
+if ( function_exists( 'register_block_type' ) ) {
+	register_block_type(
+		'porto/porto-members',
+		array(
+			'attributes'      => array(
+				'title'              => array(
+					'type' => 'string',
+				),
+				'style'              => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'columns'            => array(
+					'type'    => 'integer',
+					'default' => 4,
+				),
+				'view'               => array(
+					'type'    => 'string',
+					'default' => 'classic',
+				),
+				'hover_image_effect' => array(
+					'type'    => 'string',
+					'default' => 'zoom',
+				),
+				'overview'           => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
+				'socials'            => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
+				'role'               => array(
+					'type' => 'boolean',
+				),
+				'cats'               => array(
+					'type' => 'string',
+				),
+				'post_in'            => array(
+					'type' => 'string',
+				),
+				'number'             => array(
+					'type'    => 'integer',
+					'default' => 8,
+				),
+				'view_more'          => array(
+					'type' => 'boolean',
+				),
+				'view_more_class'    => array(
+					'type' => 'string',
+				),
+				'pagination'         => array(
+					'type' => 'boolean',
+				),
+				'filter'             => array(
+					'type' => 'boolean',
+				),
+				'ajax_load'          => array(
+					'type' => 'boolean',
+				),
+				'ajax_modal'         => array(
+					'type' => 'boolean',
+				),
+				'el_class'           => array(
+					'type' => 'string',
+				),
+			),
+			'editor_script'   => 'porto_blocks',
+			'render_callback' => 'porto_shortcode_members',
+		)
+	);
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+	function porto_shortcode_members( $atts, $content = null ) {
+		ob_start();
+		if ( $template = porto_shortcode_template( 'porto_members' ) ) {
+			if ( isset( $atts['className'] ) ) {
+				$atts['el_class'] = $atts['className'];
+			}
+			include $template;
+		}
+		return ob_get_clean();
+	}
 }
+
+add_action( 'vc_after_init', 'porto_load_members_shortcode' );
 
 function porto_load_members_shortcode() {
 	$animation_type     = porto_vc_animation_type();
@@ -15,11 +95,12 @@ function porto_load_members_shortcode() {
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Members', 'porto-functionality' ),
-			'base'     => 'porto_members',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'far fa-user',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Members', 'porto-functionality' ),
+			'base'        => 'porto_members',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Show members by beautiful layout. e.g. masonry, slider, grid and so on', 'porto-functionality' ),
+			'icon'        => 'far fa-user',
+			'params'      => array(
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Title', 'porto-functionality' ),

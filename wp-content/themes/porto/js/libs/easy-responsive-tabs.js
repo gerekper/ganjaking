@@ -18,7 +18,7 @@
             var historyApi = !!(window.history && history.replaceState);
 
             //Events
-            $(this).bind('tabactivate', function(e, currentTab) {
+            $(this).on('tabactivate', function(e, currentTab) {
                 if(typeof options.activate === 'function') {
                     options.activate.call(currentTab, e)
                 }
@@ -113,7 +113,7 @@
                 $respTabs.find("[role=tab]").each(function () {
 
                     var $currentTab = $(this);
-                    $currentTab.click(function () {
+                    $currentTab.on('click', function () {
 
                         var $currentTab = $(this);
                         var $tabAria = $currentTab.attr('aria-controls');
@@ -162,7 +162,7 @@
                 });
 
                 //Window resize function
-                $(window).resize(function () {
+                $(window).on('resize', function () {
                     $respTabs.find('.resp-accordion-closed').removeAttr('style');
                 });
             });

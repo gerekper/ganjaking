@@ -204,7 +204,7 @@ class Porto_Elementor_HB_Mini_Cart_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'      => 'text_font',
-				'scheme'    => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'    => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'     => __( 'Text Typograhy', 'porto-functionality' ),
 				'selector'  => '#mini-cart .cart-subtotal',
 				'condition' => array(
@@ -232,7 +232,7 @@ class Porto_Elementor_HB_Mini_Cart_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'      => 'price_font',
-				'scheme'    => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'    => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'     => __( 'Price Typograhy', 'porto-functionality' ),
 				'selector'  => '#mini-cart .cart-price',
 				'condition' => array(

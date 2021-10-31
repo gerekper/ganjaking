@@ -1,0 +1,39 @@
+@if $elementId != false {
+	.single-nav-$elementId {
+		.product-link {
+			@if $spBorderColor != false {
+				border-color: $spBorderColor;
+			}
+			@if $spArrowColor != false {
+				color: $spArrowColor;
+			}
+			@if $size != false {
+				width: $(size)px;
+				height: $(size)px;
+				border-radius: 50%;
+			}
+			@if $lineHeight != false {
+				line-height: $(lineHeight)px;
+			}
+			@if $arrowSize != false {
+				font-size: $(arrowSize)px;
+			}
+		}
+		.product-prev,
+		.product-next {
+			@if $spacing != false {
+				margin-left: $(spacing)px;
+			}
+			&:hover {
+				.product-link {
+					@if $spHoverBorderColor != false {
+						border-color: $spHoverBorderColor;
+					}
+					@if $spHoverArrowColor != false {
+						color: $spHoverArrowColor;
+					}					
+				}
+			}
+		}
+	}
+}

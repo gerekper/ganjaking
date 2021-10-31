@@ -33,6 +33,12 @@ $a_class = '';
 if ( '' !== $el_class ) {
 	$tmp_class = explode( ' ', strtolower( $el_class ) );
 	$tmp_class = str_replace( '.', '', $tmp_class );
+	if ( in_array( 'prettyphoto', $tmp_class, true ) ) {
+		wp_enqueue_script( 'prettyphoto' );
+		wp_enqueue_style( 'prettyphoto' );
+		$a_class .= ' prettyphoto';
+		$el_class = str_ireplace( 'prettyphoto', '', $el_class );
+	}
 
 	if ( in_array( 'pull-right', $tmp_class, true ) && '' !== $href ) {
 		$a_class .= ' pull-right';

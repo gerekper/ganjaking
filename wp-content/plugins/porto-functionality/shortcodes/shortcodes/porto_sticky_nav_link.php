@@ -3,21 +3,18 @@
 // Porto Sticky Nav Link
 add_action( 'vc_after_init', 'porto_load_sticky_nav_link_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_sticky_nav_link_shortcode() {
 	$custom_class = porto_vc_custom_class();
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Sticky Nav Link', 'porto-functionality' ),
-			'base'     => 'porto_sticky_nav_link',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'porto_vc_sticky_nav_link',
-			'as_child' => array( 'only' => 'porto_sticky_nav' ),
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Sticky Nav Link', 'porto-functionality' ),
+			'base'        => 'porto_sticky_nav_link',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Stick navigation', 'porto-functionality' ),
+			'icon'        => 'porto_vc_sticky_nav_link',
+			'as_child'    => array( 'only' => 'porto_sticky_nav' ),
+			'params'      => array(
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Label', 'porto-functionality' ),

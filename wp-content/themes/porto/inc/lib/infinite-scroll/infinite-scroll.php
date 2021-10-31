@@ -136,7 +136,7 @@ if ( ! class_exists( 'Porto_Infinite_Scroll' ) ) :
 				if ( class_exists( 'Woocommerce' ) ) {
 					$required = array( 'porto-woocommerce-theme' );
 				} else {
-					$required = array( 'porto-theme' );
+					$required = array( 'imagesloaded', 'porto-theme' );
 				}
 				wp_enqueue_script( 'jquery-infinite-scroll', PORTO_URI . '/js/libs/jquery.infinite-scroll.min.js', $required, '2.1.0', true );
 				wp_enqueue_script( 'porto-infinite-scroll', PORTO_LIB_URI . '/infinite-scroll/infinite-scroll.min.js', array( 'jquery-infinite-scroll' ), PORTO_VERSION, true );

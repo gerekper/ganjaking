@@ -1,0 +1,128 @@
+{
+  "icon_cl": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Custom Icon Class"
+    }
+  },
+  "icon_size": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Size",
+      "cssMixin": {
+        "mixin": "menuicon",
+        "property": "iconSize",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "pl": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Padding Left",
+      "cssMixin": {
+        "mixin": "menuicon",
+        "property": "pl",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "pr": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Padding Right",
+      "cssMixin": {
+        "mixin": "menuicon",
+        "property": "pr",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "bg_color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Background Color",
+      "cssMixin": {
+        "mixin": "menuicon",
+        "property": "bgColor",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Color",
+      "cssMixin": {
+        "mixin": "menuicon",
+        "property": "color",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "el_class": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Extra class name",
+      "description": "Add an extra class name to the element and refer to it from Custom CSS option."
+    }
+  },
+  "designOptions": {
+    "type": "designOptions",
+    "access": "public",
+    "value": {},
+    "options": {
+      "label": "Design Options"
+    }
+  },
+  "editFormTab1": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "icon_cl",
+      "icon_size",
+      "pl",
+      "pr",
+      "bg_color",
+      "color",
+      "el_class"
+    ],
+    "options": {
+      "label": "Mobile Menu Icon"
+    }
+  },
+  "metaEditFormTabs": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "editFormTab1",
+      "designOptions"
+    ]
+  },
+  "relatedTo": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "General"
+    ]
+  },
+  "tag": {
+    "access": "protected",
+    "type": "string",
+    "value": "portoHeaderMenuicon"
+  }
+}

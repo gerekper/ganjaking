@@ -31,8 +31,8 @@
 
     $.fn.imagesLoaded = function( callback ) {
         var $this = this,
-            deferred = $.isFunction($.Deferred) ? $.Deferred() : 0,
-            hasNotify = $.isFunction(deferred.notify),
+            deferred = typeof $.Deferred === 'function' ? $.Deferred() : 0,
+            hasNotify = (typeof deferred.notify === 'function'),
             $images = $this.find('img').add( $this.filter('img') ),
             loaded = [],
             proper = [],
@@ -61,7 +61,7 @@
                 }
             }
 
-            if ( $.isFunction( callback ) ) {
+            if ( typeof callback === 'function' ) {
                 callback.call( $this, $images, $proper, $broken );
             }
         }
@@ -97,7 +97,7 @@
             // call doneLoading and clean listeners if all images are loaded
             if ( $images.length === loaded.length ) {
                 setTimeout( doneLoading );
-                $images.unbind( '.imagesLoaded', imgLoadedHandler );
+                $images.off( '.imagesLoaded', imgLoadedHandler );
             }
         }
 
@@ -105,7 +105,7 @@
         if ( !$images.length ) {
             doneLoading();
         } else {
-            $images.bind( 'load.imagesLoaded error.imagesLoaded', imgLoadedHandler )
+            $images.on( 'load.imagesLoaded error.imagesLoaded', imgLoadedHandler )
             .each( function( i, el ) {
                 var src = el.src;
 
@@ -342,7 +342,7 @@
                     "attempted to call method '" + options + "'" );
                     return;
                 }
-                if ( !$.isFunction( instance[options] ) || options.charAt(0) === "_" ) {
+                if ( typeof instance[options] !== 'function' || options.charAt(0) === "_" ) {
                     logError( "no such method '" + options + "' for flipshow instance" );
                     return;
                 }

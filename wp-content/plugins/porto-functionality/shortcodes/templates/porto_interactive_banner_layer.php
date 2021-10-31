@@ -80,26 +80,39 @@ if ( 50 === (int) $vertical ) {
 	$inline_styles .= 'bottom:' . ( 100 - $vertical ) . '%;';
 }
 
+$need_animation_tag = $animation_type && ( 50 === (int) $horizontal || 50 === (int) $vertical ) && ! in_array( $animation_type, array( 'fadeIn' ) );
+
+$attrs = '';
+if ( $animation_type ) {
+	$attrs .= ' data-appear-animation="' . esc_attr( $animation_type ) . '"';
+	if ( $animation_delay ) {
+		$attrs .= ' data-appear-animation-delay="' . esc_attr( $animation_delay ) . '"';
+	}
+	if ( $animation_duration && 1000 != $animation_duration ) {
+		$attrs .= ' data-appear-animation-duration="' . esc_attr( $animation_duration ) . '"';
+	}
+	
+}
+
 $output = '<div class="' . esc_attr( $classes ) . '"';
+if ( $animation_type && ! $need_animation_tag ) {
+	$output .= $attrs;
+}
 if ( $inline_styles ) {
 	$output .= ' style="' . esc_attr( $inline_styles ) . '"';
 }
 $output .= '>';
 
-if ( $animation_type ) {
-	$output .= '<div data-appear-animation="' . esc_attr( $animation_type ) . '"';
-	if ( $animation_delay ) {
-		$output .= ' data-appear-animation-delay="' . esc_attr( $animation_delay ) . '"';
-	}
-	if ( $animation_duration && 1000 != $animation_duration ) {
-		$output .= ' data-appear-animation-duration="' . esc_attr( $animation_duration ) . '"';
-	}
+
+if ( $need_animation_tag ) {
+	$output .= '<div';
+	$output .= $attrs;
 	$output .= '>';
 }
 
 $output .= do_shortcode( $content );
 
-if ( $animation_type ) {
+if ( $need_animation_tag ) {
 	$output .= '</div>';
 }
 

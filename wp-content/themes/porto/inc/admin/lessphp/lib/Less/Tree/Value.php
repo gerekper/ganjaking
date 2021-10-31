@@ -20,9 +20,8 @@ class Less_Tree_Value extends Less_Tree {
 	}
 
 	public function compile( $env ) {
-
 		$ret = array();
-		$i   = 0;
+		$i = 0;
 		foreach ( $this->value as $i => $v ) {
 			$ret[] = $v->compile( $env );
 		}
@@ -38,7 +37,7 @@ class Less_Tree_Value extends Less_Tree {
 	function genCSS( $output ) {
 		$len = count( $this->value );
 		for ( $i = 0; $i < $len; $i++ ) {
-			$this->value[ $i ]->genCSS( $output );
+			$this->value[$i]->genCSS( $output );
 			if ( $i + 1 < $len ) {
 				$output->add( Less_Environment::$_outputMap[','] );
 			}

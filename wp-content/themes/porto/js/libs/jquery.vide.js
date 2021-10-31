@@ -344,7 +344,6 @@
       transform: 'translate(-' + position.x + ', -' + position.y + ')',
 
       // Disable visibility, while loading
-      visibility: 'hidden',
       opacity: 0
     })
 
@@ -356,7 +355,6 @@
     // Make it visible, when it's already playing
     .one('playing.' + PLUGIN_NAME, function() {
       $video.css({
-        visibility: 'visible',
         opacity: 1
       });
       $wrapper.css('background-image', 'none');

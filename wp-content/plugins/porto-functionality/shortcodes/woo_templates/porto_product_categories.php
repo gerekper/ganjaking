@@ -37,6 +37,7 @@ extract(
 			'show_nav_hover'     => false,
 			'pagination'         => 0,
 			'dots_pos'           => '',
+			'dots_style'         => '',
 			'stage_padding'      => '',
 			'autoplay'           => '',
 			'autoplay_timeout'   => 5000,
@@ -125,8 +126,13 @@ if ( $navigation ) {
 	}
 }
 
-if ( $pagination && $dots_pos ) {
-	$wrapper_class .= ' ' . $dots_pos;
+if ( $pagination ) {
+	if ( $dots_pos ) {
+		$wrapper_class .= ' ' . $dots_pos;
+	}
+	if ( $dots_style ) {
+		$wrapper_class .= ' ' . $dots_style;
+	}
 }
 
 if ( $wrapper_class ) {
@@ -196,6 +202,6 @@ if ( 'products-slider' == $view ) {
 
 $output .= '</div>';
 
-unset( $GLOBALS['porto_woocommerce_loop'] );
+	unset( $GLOBALS['porto_woocommerce_loop'] );
 
 echo porto_filter_output( $output );

@@ -20,15 +20,19 @@ class Porto_Elementor_Faqs_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Faqs', 'porto-functionality' );
+		return __( 'Porto Faqs', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'faqs', 'posts' );
+	}
+
+	public function get_icon() {
+		return 'eicon-help-o';
 	}
 
 	public function get_script_depends() {
@@ -58,18 +62,24 @@ class Porto_Elementor_Faqs_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'cats',
 			array(
-				'type'        => Controls_Manager::TEXT,
+				'type'        => 'porto_ajaxselect2',
 				'label'       => __( 'Category IDs', 'porto-functionality' ),
 				'description' => __( 'comma separated list of category ids', 'porto-functionality' ),
+				'options'     => 'faq_cat',
+				'multiple'    => true,
+				'label_block' => true,
 			)
 		);
 
 		$this->add_control(
 			'post_in',
 			array(
-				'type'        => Controls_Manager::TEXT,
+				'type'        => 'porto_ajaxselect2',
 				'label'       => __( 'FAQ IDs', 'porto-functionality' ),
 				'description' => __( 'comma separated list of faq ids', 'porto-functionality' ),
+				'options'     => 'faq',
+				'multiple'    => true,
+				'label_block' => true,
 			)
 		);
 
@@ -125,6 +135,12 @@ class Porto_Elementor_Faqs_Widget extends \Elementor\Widget_Base {
 		$atts = $this->get_settings_for_display();
 
 		if ( $template = porto_shortcode_template( 'porto_faqs' ) ) {
+			if ( ! empty( $atts['cats'] ) && is_array( $atts['cats'] ) ) {
+				$atts['cats'] = implode( ',', $atts['cats'] );
+			}
+			if ( ! empty( $atts['post_in'] ) && is_array( $atts['post_in'] ) ) {
+				$atts['post_in'] = implode( ',', $atts['post_in'] );
+			}
 			include $template;
 		}
 	}

@@ -147,8 +147,8 @@ class Porto_Elementor_Compatibility {
 					$changed                                 = true;
 				}
 
-				if ( ! isset( $general_settings['viewport_lg'] ) || '992' != $general_settings['viewport_lg'] || '992' != get_option( 'elementor_viewport_lg', '1025' ) ) {
-					$general_settings['viewport_lg'] = '992';
+				if ( ! isset( $general_settings['viewport_tablet'] ) || '992' != $general_settings['viewport_tablet'] || '992' != get_option( 'elementor_viewport_lg', '1025' ) ) {
+					$general_settings['viewport_tablet'] = '992';
 					update_option( 'elementor_viewport_lg', '992' );
 					$changed = true;
 				}

@@ -20,6 +20,7 @@ ul {
             padding: 0;
             display: block;
             flex: 0 0 100%;
+            width: auto;
             position: relative;
             a {
                 @include transition (background .1s);

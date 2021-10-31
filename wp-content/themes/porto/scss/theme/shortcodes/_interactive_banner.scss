@@ -12,7 +12,6 @@
 
     > img {
         width: 100%;
-        transition: opacity .35s;
         border: none;
         padding: 0;
         margin: 0;
@@ -24,23 +23,11 @@
             visibility: hidden;
         }
     }
-    .video-overlay {
-        display: none;
-    }
-    &.section-video {
-        padding: 0;
-        max-width: 100%;
-        min-width: auto;
-    }
-
     &.has-parallax-bg {
         > img {
             opacity: 0;
             width: 66%;
         }
-    }
-    video {
-        object-fit: cover
     }
 }
 .porto-ibanner-layer {
@@ -58,7 +45,7 @@
 }
 .porto-ibanner .porto-ibanner-desc {
     padding: 15px;
-    color: #fff;
+    /*color: #fff;*/
     font-size: 1em;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -111,6 +98,24 @@
 }
 
 /* hover effect */
+
+
+.porto-ibe-effect-1:before,.porto-ibe-effect-1:after { content: ''; position: absolute; opacity: 1; z-index: 2; }
+.porto-ibe-effect-1:before { background: rgba(255,255,255,0.3); bottom: 0; left: 50%; right: 51%; top: 0 }
+.porto-ibe-effect-1:after { bottom: 50%; left: 0; right: 0; top: 50% }
+.porto-ibe-effect-1:hover:before,.porto-ibe-effect-1:hover:after { left: 0; right: 0; opacity: 0; transition: 0.5s linear }
+.porto-ibe-effect-2,.porto-ibe-effect-3 { overflow: hidden; position: relative }
+.porto-ibe-effect-2:before,.porto-ibe-effect-2:after { content: ''; position: absolute; background: rgba(255,255,255,0.6); height: 100%; left: 0; opacity: 0.4; top: 0; transition: 0.9s; width: 100%; z-index: 2; }
+.porto-ibe-effect-2:before { transform: translate(105%,0%) }
+.porto-ibe-effect-2:after { transform: translate(-105%,0%) }
+.porto-ibe-effect-2:hover:before,.porto-ibe-effect-2:hover:after { opacity: 0; transform: none }
+.porto-ibe-effect-3:before { content: ''; position: absolute; top: 0; left: 50%; width: 120%; height: 60px; background: rgba(255,255,255,0.1); transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-150%,0); transition: 0.5s linear; backface-visibility: hidden; z-index: 2; }
+.porto-ibe-effect-3:hover:before { top: 100%; left: -100%; transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,200%,0) }
+.porto-ibe-effect-4:before,.porto-ibe-effect-4:after { content: ''; position: absolute; background: rgba(255,255,255,0.1); opacity: 1; transition: 0.5s; z-index: 2; }
+.porto-ibe-effect-4:before { bottom: 0; left: 50%; right: 51%; top: 0 }
+.porto-ibe-effect-4:after { bottom: 50%; left: 0; right: 0; top: 50% }
+.porto-ibe-effect-4:hover:before,.porto-ibe-effect-4:hover:after { left: 0; right: 0; top: 0; bottom: 0; opacity: 0.5 }
+
 .porto-ibe-zoom:hover > img {
     transform: scale(1.08, 1.08);
 }
@@ -134,6 +139,7 @@
 }
 .porto-ibe-overlay:before {
     content: '';
+    display: block;
     position: absolute;
     left: 0;
     top: 0;
@@ -260,4 +266,80 @@
     > *:last-child {
         margin-bottom: 0;
     }
+}
+
+/* Kenburns Effect and Particle Effect */
+
+.banner-effect-wrapper {
+    overflow: hidden;
+    z-index: 1;
+}
+
+.banner-effect,
+.banner-effect-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0
+}
+
+@keyframes kenBurnsToRight {
+    0% { transform: scale(1.2) }
+    to { transform: scale(1) }
+}
+
+.kenBurnsToRight { animation-name: kenBurnsToRight; animation-timing-function: linear; transform-origin: right }
+
+@keyframes kenBurnsToLeft { 
+    0% { transform: scale(1.2) }
+    to { transform: scale(1) }
+}
+
+.kenBurnsToLeft { animation-name: kenBurnsToLeft; animation-timing-function: linear; transform-origin: left }
+
+.kenBurnsToLeftTop { animation-name: kenBurnsToLeft; animation-timing-function: linear; transform-origin: left top }
+
+.kenBurnsToRightTop { animation-name: kenBurnsToRight; animation-timing-function: linear; transform-origin: right top }
+
+.particle-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden
+}
+
+.snowfall {
+    background-image: url(#{$theme_uri}/images/effects/s1.png),url(#{$theme_uri}/images/effects/s2.png),url(#{$theme_uri}/images/effects/s3.png);
+    animation: snow 10s linear infinite;
+    z-index: 1
+}
+
+@keyframes snow {
+    0% { background-position: 0px 0px,0px 0px,0px 0px }
+    50% { background-position: 500px 500px,100px 300px,-200px 250px }
+    to { background-position: 400px 800px,300px 600px,-200px 400px }
+}
+
+.effect-snow {
+    background-image: url(#{$theme_uri}/images/effects/s4.png),url(#{$theme_uri}/images/effects/s5.png);
+    animation: snowsecond 20s linear infinite
+}
+
+@keyframes snowsecond {
+    0% { background-position: 0px 0px,0px 0px,0px 0px }
+    to { background-position: 500px 1000px,400px 400px,300px 300px }
+}
+
+.sparkle {
+    background-image: url(#{$theme_uri}/images/effects/sparkle1.png),url(#{$theme_uri}/images/effects/sparkle2.png);
+    animation: sparkle 60s linear infinite
+}
+
+@keyframes sparkle {
+    0% { background-position: 0px 0px,0px 0px,0px 0px }
+    to { background-position: -500px -1000px,-400px -400px,300px 300px }
 }

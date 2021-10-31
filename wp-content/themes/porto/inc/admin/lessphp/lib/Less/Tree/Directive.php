@@ -17,19 +17,18 @@ class Less_Tree_Directive extends Less_Tree {
 	public $debugInfo;
 	public $type = 'Directive';
 
-	public function __construct( $name, $value = null, $rules, $index = null, $currentFileInfo = null, $debugInfo = null ) {
-		$this->name  = $name;
+	public function __construct( $name, $value = null, $rules = null, $index = null, $currentFileInfo = null, $debugInfo = null ) {
+		$this->name = $name;
 		$this->value = $value;
 		if ( $rules ) {
-			$this->rules               = $rules;
+			$this->rules = $rules;
 			$this->rules->allowImports = true;
 		}
 
-		$this->index           = $index;
+		$this->index = $index;
 		$this->currentFileInfo = $currentFileInfo;
-		$this->debugInfo       = $debugInfo;
+		$this->debugInfo = $debugInfo;
 	}
-
 
 	public function accept( $visitor ) {
 		if ( $this->rules ) {
@@ -39,7 +38,6 @@ class Less_Tree_Directive extends Less_Tree {
 			$this->value = $visitor->visitObj( $this->value );
 		}
 	}
-
 
 	/**
 	 * @see Less_Tree::genCSS
@@ -60,7 +58,6 @@ class Less_Tree_Directive extends Less_Tree {
 	}
 
 	public function compile( $env ) {
-
 		$value = $this->value;
 		$rules = $this->rules;
 		if ( $value ) {
@@ -68,13 +65,12 @@ class Less_Tree_Directive extends Less_Tree {
 		}
 
 		if ( $rules ) {
-			$rules       = $rules->compile( $env );
+			$rules = $rules->compile( $env );
 			$rules->root = true;
 		}
 
 		return new Less_Tree_Directive( $this->name, $value, $rules, $this->index, $this->currentFileInfo, $this->debugInfo );
 	}
-
 
 	public function variable( $name ) {
 		if ( $this->rules ) {
@@ -89,6 +85,7 @@ class Less_Tree_Directive extends Less_Tree {
 	}
 
 	// rulesets: function () { if (this.rules) return tree.Ruleset.prototype.rulesets.apply(this.rules); },
+
 	public function markReferenced() {
 		$this->isReferenced = true;
 		if ( $this->rules ) {

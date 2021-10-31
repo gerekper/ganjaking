@@ -16,10 +16,10 @@ class Less_Tree_Condition extends Less_Tree {
 	public $type = 'Condition';
 
 	public function __construct( $op, $l, $r, $i = 0, $negate = false ) {
-		$this->op     = trim( $op );
+		$this->op = trim( $op );
 		$this->lvalue = $l;
 		$this->rvalue = $r;
-		$this->index  = $i;
+		$this->index = $i;
 		$this->negate = $negate;
 	}
 
@@ -35,11 +35,11 @@ class Less_Tree_Condition extends Less_Tree {
 		switch ( $this->op ) {
 			case 'and':
 				$result = $a && $b;
-				break;
+			break;
 
 			case 'or':
 				$result = $a || $b;
-				break;
+			break;
 
 			default:
 				if ( Less_Parser::is_method( $a, 'compare' ) ) {
@@ -52,21 +52,21 @@ class Less_Tree_Condition extends Less_Tree {
 
 				switch ( $result ) {
 					case -1:
-						$result = $this->op === '<' || $this->op === '=<' || $this->op === '<=';
-						break;
+					$result = $this->op === '<' || $this->op === '=<' || $this->op === '<=';
+					break;
 
-					case 0:
-						$result = $this->op === '=' || $this->op === '>=' || $this->op === '=<' || $this->op === '<=';
-						break;
+					case  0:
+					$result = $this->op === '=' || $this->op === '>=' || $this->op === '=<' || $this->op === '<=';
+					break;
 
-					case 1:
-						$result = $this->op === '>' || $this->op === '>=';
-						break;
+					case  1:
+					$result = $this->op === '>' || $this->op === '>=';
+					break;
 				}
-				break;
+			break;
 		}
 
-		return $this->negate ? ! $result : $result;
+		return $this->negate ? !$result : $result;
 	}
 
 }

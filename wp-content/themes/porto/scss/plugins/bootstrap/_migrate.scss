@@ -1,0 +1,55 @@
+/**
+ * Added by Porto
+ *
+ * @since 6.2.0
+ */
+
+/* layouts */
+.vc_column_container {
+  position: relative
+}
+
+/* forms */
+.form-group {
+	margin-bottom: 1rem
+}
+
+.font-weight-normal {
+    font-weight: 400 !important
+}
+
+/* utilities */
+@each $breakpoint in map-keys($grid-breakpoints) {
+
+  // Generate media query if needed
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .float#{$infix}-left  { float: left !important; }
+    .float#{$infix}-right { float: right !important; }
+
+    .text#{$infix}-left   { text-align: left !important; }
+    .text#{$infix}-right  { text-align: right !important; }
+
+    // Margin and Padding
+    @each $prop, $abbrev in (margin: m, padding: p) {
+      @each $size, $length in $spacers {
+
+        .#{$abbrev}r#{$infix}-#{$size} {
+          #{$prop}-right: $length !important;
+        }
+        .#{$abbrev}l#{$infix}-#{$size} {
+          #{$prop}-left: $length !important;
+        }
+      }
+    }
+
+    // Some special margin utils
+    .mr#{$infix}-auto {
+      margin-right: auto !important;
+    }
+    .ml#{$infix}-auto {
+      margin-left: auto !important;
+    }
+  }
+}

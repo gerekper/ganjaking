@@ -42,6 +42,7 @@ extract(
 			'dots_style'         => '',
 			'autoplay'           => '',
 			'autoplay_timeout'   => 5000,
+			'margin'             => '',
 		),
 		$atts
 	)
@@ -215,9 +216,14 @@ if ( $posts->have_posts() ) {
 				}
 			}
 
-			$options          = array( 'themeConfig' => true );
-			$options['items'] = (int) $columns;
-			$options['lg']    = (int) $columns;
+			$options           = array( 'themeConfig' => true );
+			$options['items']  = (int) $columns;
+			$options['lg']     = (int) $columns;
+			if ( '0' == $margin || ! empty( $margin ) ) {
+				$options['margin'] = (int) $margin;
+			} else {
+				$options['margin'] = (int) $porto_settings['grid-gutter-width'];
+			}
 			switch ( $columns ) {
 				case '1':
 					$no_spacing       = true;
@@ -252,12 +258,17 @@ if ( $posts->have_posts() ) {
 			$options['dots']  = $pagination ? true : false;
 			$container_attrs .= ' data-plugin-options="' . esc_attr( json_encode( $options ) ) . '"';
 
-			$post_layout        = 'grid';
 			$porto_blog_columns = 1;
+		}
+
+		if ( 'slider' != $post_layout ) {
+			$container_class .= ' row';
+		} else {
+			$post_layout = 'grid';
 		}
 		?>
 		<div class="blog-posts posts-<?php echo esc_attr( $post_layout ); ?><?php echo ! empty( $post_style ) ? ' blog-posts-' . esc_attr( $post_style ) : '', $no_spacing ? ' blog-posts-no_margin' : ''; ?>">
-			<div class="posts-container row<?php echo esc_attr( $container_class ); ?>"<?php echo porto_filter_output( $container_attrs ); ?>>
+			<div class="posts-container<?php echo esc_attr( $container_class ); ?>"<?php echo porto_filter_output( $container_attrs ); ?>>
 		<?php
 	} else {
 		?>

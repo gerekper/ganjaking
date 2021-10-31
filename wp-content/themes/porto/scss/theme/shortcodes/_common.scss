@@ -63,3 +63,38 @@ span.middle-text div {
 .porto-modal-trigger {
     cursor: pointer;
 }
+
+/* Animated Letters */
+[data-plugin-animated-letters] {
+    opacity: 0;
+    visibility: hidden;
+}
+
+[data-plugin-animated-letters].initialized {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Animated Letters - Type Writer Effect */
+@keyframes typeWriterFlash {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.letters-wrapper + .typeWriter:last-child {
+    position: relative;
+    padding-right: 4px;
+}
+
+.letters-wrapper + .typeWriter:last-child:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 2px;
+    background: #212121;
+    animation-name: typeWriterFlash;
+    animation-iteration-count: infinite;
+    animation-duration: 600ms;
+}

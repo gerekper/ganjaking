@@ -12,12 +12,12 @@ if ( $item_cats ) :
 endif;
 ?>
 
-<article <?php post_class( $post_class ); ?>>
+<div <?php post_class( $post_class ); ?>>
 	<section class="toggle">
 		<label><?php the_title(); ?></label>
 		<div class="toggle-content">
 		<?php
-			porto_render_rich_snippets();
+			porto_render_rich_snippets( 'h3' );
 			porto_the_content();
 			wp_link_pages(
 				array(
@@ -32,4 +32,4 @@ endif;
 			?>
 		</div>
 	</section>
-</article>
+</div>

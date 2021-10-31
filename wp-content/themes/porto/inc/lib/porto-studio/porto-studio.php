@@ -28,7 +28,7 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 		/**
 		 * block update period
 		 */
-		private $update_period = HOUR_IN_SECONDS * 24 * 30; // a month
+		private $update_period = HOUR_IN_SECONDS * 24 * 14; // two weeks
 
 		/**
 		 * Page Builder Type
@@ -54,6 +54,8 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 
 			if ( wp_doing_ajax() && isset( $_POST['type'] ) ) {
 				$this->page_type = sanitize_text_field( $_POST['type'] );
+			} elseif ( function_exists( 'get_current_screen' ) && get_current_screen() && get_current_screen()->is_block_editor() ) {
+				$this->page_type = 'g';
 			}
 			add_action( 'wp_ajax_porto_studio_import', array( $this, 'import' ) );
 			add_action( 'wp_ajax_nopriv_porto_studio_import', array( $this, 'import' ) );
@@ -65,12 +67,6 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 			add_action( 'wp_ajax_nopriv_porto_studio_save', array( $this, 'update_custom_meta_fields_in_fronteditor' ) );
 
 			if ( 'post.php' == $GLOBALS['pagenow'] || 'post-new.php' == $GLOBALS['pagenow'] ) {
-				if ( defined( 'WPB_VC_VERSION' ) && ! porto_is_elementor_preview() ) {
-					add_filter( 'vc_nav_controls', array( $this, 'add_studio_control' ) );
-					add_filter( 'vc_nav_front_controls', array( $this, 'add_studio_control' ) );
-					add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ), 1001 );
-					add_action( 'admin_footer', array( $this, 'get_page_content' ) );
-				}
 				if ( porto_is_elementor_preview() ) {
 					add_action( 'elementor/editor/footer', array( $this, 'elementor_get_page_content' ) );
 					add_action(
@@ -85,8 +81,24 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 				} elseif ( porto_is_vc_preview() ) {
 					add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ), 1001 );
 					add_action( 'admin_footer', array( $this, 'vc_get_page_content' ) );
+				} else {
+					if ( defined( 'WPB_VC_VERSION' ) ) {
+						add_filter( 'vc_nav_controls', array( $this, 'add_studio_control' ) );
+						add_filter( 'vc_nav_front_controls', array( $this, 'add_studio_control' ) );
+						if ( vc_is_inline() ) {
+							add_filter( 'vc_nav_controls', array( $this, 'add_edit_area_control' ) );
+							add_filter( 'vc_nav_front_controls', array( $this, 'add_edit_area_control' ) );
+						}
+					}
+					add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ), 1001 );
+					add_action( 'admin_footer', array( $this, 'get_page_content' ) );
 				}
 			}
+		}
+
+		public function add_edit_area_control( $list ) {
+			$list[] = array( 'porto_editor_area', '<li><a href="javascript:;" class="vc_icon-btn porto-editor-area-button" id="porto-editor-area-button" title="' . esc_html__( 'Porto Editor Area', 'porto' ) . '"><i class="vc-composer-icon fas fa-arrows-alt-h"></i></a></li>' );
+			return $list;
 		}
 
 		public function add_studio_control( $list ) {
@@ -97,9 +109,8 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 		public function enqueue() {
 			wp_enqueue_style( 'jquery-magnific-popup', PORTO_CSS . '/magnific-popup.min.css', false, '1.1.0', 'all' );
 			wp_enqueue_style( 'porto-studio-fonts', '//fonts.googleapis.com/css?family=Open+Sans%3A400%2C600%2C700&ver=5.2.1' );
-			wp_enqueue_script( 'jquery-magnific-popup', PORTO_JS . '/libs/jquery.magnific-popup.min.js', array( 'jquery' ), '1.1.0', true );
-			wp_enqueue_script( 'jquery-waitforimages', PORTO_JS . '/libs/jquery.waitforimages.min.js', array( 'jquery' ), '2.0.2', true );
-			wp_enqueue_script( 'isotope', PORTO_JS . '/libs/isotope.pkgd.min.js', array( 'jquery' ), '3.0.1', true );
+			wp_enqueue_script( 'jquery-magnific-popup', PORTO_JS . '/libs/jquery.magnific-popup.min.js', array( 'jquery-core' ), '1.1.0', true );
+			wp_enqueue_script( 'isotope', PORTO_JS . '/libs/isotope.pkgd.min.js', array( 'jquery-core', 'imagesloaded' ), '3.0.1', true );
 
 			$post_id = false;
 			if ( is_singular() ) {
@@ -190,6 +201,8 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 				$transient_key = 'porto_blocks_e';
 			} elseif ( 'c' == $this->page_type ) {
 				$transient_key = 'porto_blocks_c';
+			} elseif ( 'g' == $this->page_type ) {
+				$transient_key = 'porto_blocks_g';
 			} else {
 				$transient_key = 'porto_blocks';
 			}
@@ -358,6 +371,9 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 					$importer->fetch_attachments = true;
 
 					if ( $is_attachment ) {
+
+						add_filter( 'upload_mimes', array( $this, 'enable_svg_import' ), 99 );
+
 						foreach ( $posts as $old_id => $image_url ) {
 							$post_data = array(
 								'post_title'   => substr( $image_url, strrpos( $image_url, '/' ) + 1, -4 ),
@@ -422,6 +438,8 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 				$transient_key = 'porto_block_categories_e';
 			} elseif ( 'c' == $this->page_type ) {
 				$transient_key = 'porto_block_categories_c';
+			} elseif ( 'g' == $this->page_type ) {
+				$transient_key = 'porto_block_categories_g';
 			} else {
 				$transient_key = 'porto_block_categories';
 			}
@@ -438,12 +456,13 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 				}
 				set_site_transient( $transient_key, $block_categories, $this->update_period );
 			}
-
 			// get blocks
 			if ( 'e' == $this->page_type ) {
 				$transient_key = 'porto_blocks_e';
 			} elseif ( 'c' == $this->page_type ) {
 				$transient_key = 'porto_blocks_c';
+			} elseif ( 'g' == $this->page_type ) {
+				$transient_key = 'porto_blocks_g';
 			} else {
 				$transient_key = 'porto_blocks';
 			}
@@ -504,7 +523,7 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 				}
 			}
 
-			if ( is_array( $block_categories ) && ! empty( $latest_blocks ) ) {
+			if ( is_array( $block_categories ) /*&& ! empty( $latest_blocks )*/ ) {
 				porto_get_template_part(
 					'inc/lib/porto-studio/blocks.tpl',
 					null,
@@ -596,6 +615,11 @@ if ( ! class_exists( 'Porto_Studio' ) ) :
 				}
 				wp_send_json_success();
 			}
+		}
+
+		public function enable_svg_import( $mimes ) {
+			$mimes['svg'] = 'image/svg+xml';
+			return $mimes;
 		}
 	}
 

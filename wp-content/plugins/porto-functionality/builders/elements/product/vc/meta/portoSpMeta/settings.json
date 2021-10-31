@@ -1,0 +1,365 @@
+{
+	"spType": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "inline",
+		"options": {
+			"label": "Meta Direction",
+			"values": [
+				{
+					"label": "Vertical",
+					"value": "block"
+				},
+				{
+					"label": "Horizontal",
+					"value": "inline"
+				}
+			],
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "spType"
+			}
+		}
+	},
+	"spAlign": {
+		"type": "buttonGroup",
+		"access": "public",
+		"value": "left",
+		"options": {
+			"label": "Alignment",
+			"values": [
+				{
+					"label": "Left",
+					"value": "left",
+					"icon": "vcv-ui-icon-attribute-alignment-left"
+				},
+				{
+					"label": "Center",
+					"value": "center",
+					"icon": "vcv-ui-icon-attribute-alignment-center"
+				},
+				{
+					"label": "Right",
+					"value": "right",
+					"icon": "vcv-ui-icon-attribute-alignment-right"
+				}
+			]
+		}
+	},
+	"metaSpacing": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Meta Spacing",
+			"min": 0,
+			"max": 100,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "metaSpacing"
+			}
+		}
+	},
+	"spLinkColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Link Color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "spLinkColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"spTextColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Text Color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "spTextColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"divider": {
+		"type": "toggle",
+		"access": "public",
+		"value": false,
+		"options": {
+			"label": "Divider"
+		}
+	},
+	"dividerStyle": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "solid",
+		"options": {
+			"label": "Border Style",
+			"values": [
+				{
+					"label": "Solid",
+					"value": "solid"
+				},
+				{
+					"label": "Double",
+					"value": "double"
+				},
+				{
+					"label": "Dotted",
+					"value": "dotted"
+				},
+				{
+					"label": "Dashed",
+					"value": "dashed"
+				}
+			],
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "dividerStyle"
+			},
+			"onChange": {
+				"rules": {
+					"divider": {
+						"rule": "toggle"
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"dividerWeightV": {
+		"type": "range",
+		"access": "public",
+		"value": 1,
+		"options": {
+			"label": "Weight",
+			"min": 1,
+			"max": 20,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "dividerWeightV"
+			},
+			"onChange": {
+				"rules": {
+					"divider": {
+						"rule": "toggle"
+					},
+					"spType": {
+						"rule": "value",
+						"options": {
+							"value": "block"
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"dividerWeight": {
+		"type": "range",
+		"access": "public",
+		"value": 1,
+		"options": {
+			"label": "Weight",
+			"min": 1,
+			"max": 20,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "dividerWeight"
+			},
+			"onChange": {
+				"rules": {
+					"divider": {
+						"rule": "toggle"
+					},
+					"spType": {
+						"rule": "value",
+						"options": {
+							"value": "inline"
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"dividerSpacing": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Divider Spacing",
+			"min": 0,
+			"max": 100,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "dividerSpacing"
+			},
+			"onChange": {
+				"rules": {
+					"divider": {
+						"rule": "toggle"
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"dividerColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Divider Color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "dividerColor",
+				"namePattern": "[\\da-f]+"
+			},
+			"onChange": {
+				"rules": {
+					"divider": {
+						"rule": "toggle"
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"fontSize": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Font size",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "fontSize"
+			}
+		}
+	},
+	"lineHeight": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Line height",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "lineHeight"
+			}
+		}
+	},
+	"letterSpacing": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Letter spacing",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "letterSpacing"
+			}
+		}
+	},
+	"designOptions": {
+		"type": "designOptions",
+		"access": "public",
+		"value": {},
+		"options": {
+			"label": "Design Options"
+		}
+	},
+	"editFormTab1": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"spType",
+			"spAlign",
+			"metaSpacing",
+			"divider",
+			"dividerStyle",
+			"dividerWeightV",
+			"dividerWeight",
+			"dividerSpacing",
+			"dividerColor",
+			"spLinkColor",
+			"spTextColor",
+			"el_class"
+		],
+		"options": {
+			"label": "Gernal"
+		}
+	},
+	"editFormTab2": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"fontSize",
+			"letterSpacing",
+			"lineHeight"
+		],
+		"options": {
+			"label": "Font Style"
+		}
+	},
+	"metaEditFormTabs": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"editFormTab1",
+			"editFormTab2",
+			"designOptions"
+		]
+	},
+	"relatedTo": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"General"
+		]
+	},
+	"el_class": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Extra class name",
+			"description": "Add an extra class name to the element and refer to it from Custom CSS option."
+		}
+	},
+	"tag": {
+		"access": "protected",
+		"type": "string",
+		"value": "portoSpMeta"
+	}
+}

@@ -98,7 +98,7 @@ global $porto_settings, $porto_layout;
 
 				// show mobile toggle
 				?>
-				<a class="mobile-toggle"><i class="fas fa-bars"></i></a>
+				<a class="mobile-toggle" href="#"><i class="fas fa-bars"></i></a>
 				<?php
 				if ( $porto_settings['show-header-top'] || $porto_settings['show-sticky-minicart'] ) {
 					// show minicart

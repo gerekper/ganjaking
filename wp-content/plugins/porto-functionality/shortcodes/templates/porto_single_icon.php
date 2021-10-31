@@ -52,7 +52,7 @@ if ( $icon_link ) {
 	if ( is_array( $icon_link ) && isset( $icon_link['url'] ) ) {
 		$url          = $icon_link['url'];
 		$target       = isset( $icon_link['is_external'] ) && 'on' == $icon_link['is_external'] ? ' target="_blank"' : '';
-		$rel          = isset( $icon_link['nofollow'] ) && 'on' == $icon_link['nofollow'] ? ' rel="nofollow"' : '';
+		$rel          = isset( $icon_link['nofollow'] ) && 'on' == $icon_link['nofollow'] ? ' rel="nofollow' . ( $target ? ' noopener noreferrer' : '' ) . '"' : ( $target ? ' rel="noopener noreferrer"' : '' );
 		$link_prefix .= '<a href = "' . esc_url( $url ) . '"' . $target . $rel . '>';
 		$link_sufix  .= '</a>';
 	} elseif ( function_exists( 'vc_build_link' ) ) {

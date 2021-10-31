@@ -1,0 +1,19 @@
+@if ($iconSize != false || $pl != false || $pr != false || $bgColor != false || $color != false) {
+	#header.header-builder .mobile-toggle {
+		@if $iconSize != false {
+			font-size: $(iconSize);
+		}
+		@if $pl != false {
+			padding-left: $(pl);
+		}
+		@if $pr != false {
+			padding-right: $(pr);
+		}
+		@if $bgColor != false {
+			background-color: $(bgColor);
+		}
+		@if $color != false {
+			color: $(color);
+		}
+	}
+}

@@ -1,0 +1,179 @@
+{
+	"sbAlign": {
+		"type": "buttonGroup",
+		"access": "public",
+		"value": "left",
+		"options": {
+			"label": "Alignment",
+			"values": [
+				{
+					"label": "Left",
+					"value": "left",
+					"icon": "vcv-ui-icon-attribute-alignment-left"
+				},
+				{
+					"label": "Center",
+					"value": "center",
+					"icon": "vcv-ui-icon-attribute-alignment-center"
+				},
+				{
+					"label": "Right",
+					"value": "right",
+					"icon": "vcv-ui-icon-attribute-alignment-right"
+				}
+			]
+		}
+	},
+	"descriptionColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "descriptionColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"despFontSize": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Font size",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "despFontSize"
+			}
+		}
+	},
+	"despFontWeight": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Font weight",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "despFontWeight"
+			},
+			"values": [
+				{
+					"label": "Default",
+					"value": ""
+				},
+				{
+					"label": "200",
+					"value": "200"
+				},
+				{
+					"label": "300",
+					"value": "300"
+				},
+				{
+					"label": "400",
+					"value": "400"
+				},
+				{
+					"label": "500",
+					"value": "500"
+				},
+				{
+					"label": "600",
+					"value": "600"
+				},
+				{
+					"label": "700",
+					"value": "700"
+				},
+				{
+					"label": "800",
+					"value": "800"
+				},
+				{
+					"label": "900",
+					"value": "900"
+				}
+			]
+		}
+	},
+	"despLineHeight": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Line height",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "despLineHeight"
+			}
+		}
+	},
+	"despLetterSpacing": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Letter spacing",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "despLetterSpacing"
+			}
+		}
+	},
+	"designOptions": {
+		"type": "designOptions",
+		"access": "public",
+		"value": {},
+		"options": {
+			"label": "Design Options"
+		}
+	},
+	"editFormTab1": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"sbAlign",
+			"descriptionColor",
+			"despFontSize",
+			"despFontWeight",
+			"despLineHeight",
+			"despLetterSpacing",
+			"el_class"
+		],
+		"options": {
+			"label": "General"
+		}
+	},
+	"metaEditFormTabs": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"editFormTab1",
+			"designOptions"
+		]
+	},
+	"relatedTo": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"General"
+		]
+	},
+	"el_class": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Extra class name",
+			"description": "Add an extra class name to the element and refer to it from Custom CSS option."
+		}
+	},
+	"tag": {
+		"access": "protected",
+		"type": "string",
+		"value": "portoShopResult"
+	}
+}

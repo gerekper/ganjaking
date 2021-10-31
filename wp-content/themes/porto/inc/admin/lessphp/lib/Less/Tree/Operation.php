@@ -17,7 +17,7 @@ class Less_Tree_Operation extends Less_Tree {
 	 * @param string $op
 	 */
 	public function __construct( $op, $operands, $isSpaced = false ) {
-		$this->op       = trim( $op );
+		$this->op = trim( $op );
 		$this->operands = $operands;
 		$this->isSpaced = $isSpaced;
 	}
@@ -40,8 +40,8 @@ class Less_Tree_Operation extends Less_Tree {
 
 			}
 
-			if ( ! method_exists( $a, 'operate' ) ) {
-				throw new Less_Exception_Compiler( 'Operation on an invalid type' );
+			if ( !method_exists( $a, 'operate' ) ) {
+				throw new Less_Exception_Compiler( "Operation on an invalid type" );
 			}
 
 			return $a->operate( $this->op, $b );
@@ -50,14 +50,13 @@ class Less_Tree_Operation extends Less_Tree {
 		return new Less_Tree_Operation( $this->op, array( $a, $b ), $this->isSpaced );
 	}
 
-
 	/**
 	 * @see Less_Tree::genCSS
 	 */
 	public function genCSS( $output ) {
 		$this->operands[0]->genCSS( $output );
 		if ( $this->isSpaced ) {
-			$output->add( ' ' );
+			$output->add( " " );
 		}
 		$output->add( $this->op );
 		if ( $this->isSpaced ) {

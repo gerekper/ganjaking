@@ -1,27 +1,36 @@
 <?php
 $atts = shortcode_atts(
 	array(
-		'title'              => '',
-		'font_size'          => '',
-		'font_weight'        => '',
-		'line_height'        => '',
-		'letter_spacing'     => '',
-		'color'              => '',
-		'tag'                => 'h2',
-		'link'               => '',
-		'alignment'          => '',
-		'show_border'        => '',
-		'border_width'       => '',
-		'border_color'       => '',
-		'animation_type'     => '',
-		'animation_duration' => 1000,
-		'animation_delay'    => 0,
-		'className'          => '',
+		'title'                => '',
+		'font_family'          => '',
+		'font_size'            => '',
+		'font_weight'          => '',
+		'text_transform'       => '',
+		'line_height'          => '',
+		'letter_spacing'       => '',
+		'color'                => '',
+		'tag'                  => 'h2',
+		'link'                 => '',
+		'alignment'            => '',
+		'show_border'          => '',
+		'border_width'         => '',
+		'border_color'         => '',
+		'enable_typewriter'    => false,
+		'typewriter_animation' => 'fadeIn',
+		'typewriter_delay'     => 0,
+		'typewriter_width'     => 0,
+		'animation_type'       => '',
+		'animation_duration'   => 1000,
+		'animation_delay'      => 0,
+		'className'            => '',
 	),
 	$atts
 );
 
 $style_inline = '';
+if ( ! empty( $atts['font_family'] ) ) {
+	$style_inline .= 'font-family:' . $atts['font_family'] . ';';
+}
 if ( $atts['font_size'] ) {
 	$unit = preg_replace( '/[0-9.]/', '', $atts['font_size'] );
 	if ( ! $unit ) {
@@ -31,6 +40,9 @@ if ( $atts['font_size'] ) {
 }
 if ( $atts['font_weight'] ) {
 	$style_inline .= 'font-weight:' . intval( $atts['font_weight'] ) . ';';
+}
+if ( ! empty( $atts['text_transform'] ) ) {
+	$style_inline .= 'text-transform:' . $atts['text_transform'] . ';';
 }
 if ( $atts['line_height'] ) {
 	$unit = preg_replace( '/[0-9.]/', '', $atts['line_height'] );
@@ -76,9 +88,28 @@ if ( $atts['animation_type'] ) {
 		$animation_attrs .= ' data-appear-animation-duration="' . esc_attr( $atts['animation_duration'] ) . '"';
 	}
 }
+
+$type_plugin = '';
+if ( ! empty( $atts['enable_typewriter'] ) ) {
+	$typewriter_options = array(
+		'startDelay'     => 0,
+		'minWindowWidth' => 0,
+	);
+	if ( ! empty( $atts['typewriter_delay'] ) ) {
+		$typewriter_options['startDelay'] = (int) $atts['typewriter_delay'];
+	}
+	if ( ! empty( $atts['typewriter_width'] ) ) {
+		$typewriter_options['minWindowWidth'] = (int) $atts['typewriter_width'];
+	}
+	if ( ! empty( $atts['typewriter_animation'] ) ) {
+		$typewriter_options['animationName'] = $atts['typewriter_animation'];
+	}
+	$type_plugin .= ' data-plugin-animated-letters data-plugin-options="' . esc_attr( json_encode( $typewriter_options ) ) . '"';
+}
+
 $result = '';
 
-$result .= '<' . esc_html( $atts['tag'] ) . ' class="porto-heading' . ( $atts['show_border'] ? ' has-border border-' . esc_attr( $atts['show_border'] ) : '' ) . ( $atts['className'] ? ' ' . esc_attr( trim( $atts['className'] ) ) : '' ) . '" style="' . esc_attr( $style_inline ) . '"' . $animation_attrs . '>';
+$result .= '<' . esc_html( $atts['tag'] ) . ' class="porto-heading' . ( $atts['show_border'] ? ' has-border border-' . esc_attr( $atts['show_border'] ) : '' ) . ( $atts['className'] ? ' ' . esc_attr( trim( $atts['className'] ) ) : '' ) . '" style="' . esc_attr( $style_inline ) . '"' . $animation_attrs . $type_plugin . '>';
 if ( $atts['link'] ) {
 	$result .= '<a href="' . esc_url( $atts['link'] ) . '">';
 }

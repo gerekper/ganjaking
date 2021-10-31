@@ -1,0 +1,19 @@
+@if $elementId != false {
+	.shop-result-$elementId .woocommerce-result-count {
+		@if $despFontSize != false {
+			font-size: $despFontSize;
+		}
+		@if $despFontWeight != false {
+			font-weight: $despFontWeight;
+		}
+		@if $despLineHeight != false {
+			line-height: $despLineHeight;
+		}
+		@if $despLetterSpacing != false {
+			letter-spacing: $despLetterSpacing;
+		}
+		@if $descriptionColor != false {
+			color: $descriptionColor;
+		}
+	}
+}

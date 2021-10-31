@@ -1,10 +1,146 @@
 <?php
 // Porto Portfolios
-add_action( 'vc_after_init', 'porto_load_portfolios_shortcode' );
+if ( function_exists( 'register_block_type' ) ) {
+	register_block_type(
+		'porto/porto-portfolios',
+		array(
+			'attributes'      => array(
+				'title'                => array(
+					'type' => 'string',
+				),
+				'portfolio_layout'     => array(
+					'type'    => 'string',
+					'default' => 'timeline',
+				),
+				'grid_layout'          => array(
+					'type'    => 'integer',
+					'default' => 1,
+				),
+				'grid_height'          => array(
+					'type'    => 'string',
+					'default' => '600px',
+				),
+				'spacing'              => array(
+					'type' => 'integer',
+				),
+				'masonry_layout'       => array(
+					'type'    => 'integer',
+					'default' => 1,
+				),
+				'content_animation'    => array(
+					'type' => 'string',
+				),
+				'columns'              => array(
+					'type'    => 'integer',
+					'default' => 3,
+				),
+				'view'                 => array(
+					'type'    => 'string',
+					'default' => 'classic',
+				),
+				'info_view'            => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'info_color_2'         => array(
+					'type' => 'string',
+				),
+				'custom_portfolios'    => array(
+					'type' => 'string',
+				),
+				'info_color2'          => array(
+					'type' => 'string',
+				),
+				'info_view_type_style' => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'image_size'           => array(
+					'type' => 'string',
+				),
+				'thumb_bg'             => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'thumb_image'          => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'image_counter'        => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'show_lightbox_icon'   => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'cats'                 => array(
+					'type' => 'string',
+				),
+				'post_in'              => array(
+					'type' => 'string',
+				),
+				'orderby'              => array(
+					'type' => 'string',
+				),
+				'order'                => array(
+					'type' => 'string',
+				),
+				'slider'               => array(
+					'type' => 'string',
+				),
+				'number'               => array(
+					'type'    => 'integer',
+					'default' => 8,
+				),
+				'excerpt_length'       => array(
+					'type' => 'integer',
+				),
+				'load_more_posts'      => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'view_more'            => array(
+					'type' => 'boolean',
+				),
+				'view_more_class'      => array(
+					'type' => 'string',
+				),
+				'filter'               => array(
+					'type' => 'boolean',
+				),
+				'filter_style'         => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'ajax_load'            => array(
+					'type' => 'boolean',
+				),
+				'ajax_modal'           => array(
+					'type' => 'boolean',
+				),
+				'el_class'             => array(
+					'type' => 'string',
+				),
+			),
+			'editor_script'   => 'porto_blocks',
+			'render_callback' => 'porto_shortcode_portfolios',
+		)
+	);
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+	function porto_shortcode_portfolios( $atts, $content = null ) {
+		ob_start();
+		if ( $template = porto_shortcode_template( 'porto_portfolios' ) ) {
+			if ( isset( $atts['className'] ) ) {
+				$atts['el_class'] = $atts['className'];
+			}
+			include $template;
+		}
+		return ob_get_clean();
+	}
 }
+
+add_action( 'vc_after_init', 'porto_load_portfolios_shortcode' );
 
 function porto_load_portfolios_shortcode() {
 	$animation_type     = porto_vc_animation_type();
@@ -16,11 +152,12 @@ function porto_load_portfolios_shortcode() {
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Portfolios', 'porto-functionality' ),
-			'base'     => 'porto_portfolios',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'fas fa-desktop',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Portfolios', 'porto-functionality' ),
+			'base'        => 'porto_portfolios',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Show portfolios by beautiful layouts. e.g. masonry, slider, grid and so on', 'porto-functionality' ),
+			'icon'        => 'fas fa-desktop',
+			'params'      => array(
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Title', 'porto-functionality' ),

@@ -144,7 +144,7 @@ if ( empty( $wp_filesystem ) ) {
 				<p class="mb-0"><em><i class="fas fa-info-circle"></i> Do not worry if you are unable to update your server configuration due to hosting limit, you can use "Alternative Import" method in Demo Content import page.</em></p>
 			</li>
 
-			<li class="info">php.ini values are shown above. Real values may vary, please check your limits using <a target="_blank" href="http://php.net/manual/en/function.phpinfo.php">php_info()</a></li>
+			<li class="info">php.ini values are shown above. Real values may vary, please check your limits using <a target="_blank" href="http://php.net/manual/en/function.phpinfo.php" rel="noopener noreferrer">php_info()</a></li>
 		<?php endif; ?>
 
 	</ul>

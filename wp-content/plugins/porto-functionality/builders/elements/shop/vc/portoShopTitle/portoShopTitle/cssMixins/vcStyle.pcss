@@ -1,0 +1,19 @@
+@if $elementId != false {
+	.shop-title-$elementId .entry-title {
+		@if $titleFontSize != false {
+			font-size: $titleFontSize;
+		}
+		@if $titleFontWeight != false {
+			font-weight: $titleFontWeight;
+		}
+		@if $titleLineHeight != false {
+			line-height: $titleLineHeight;
+		}
+		@if $titleLetterSpacing != false {
+			letter-spacing: $titleLetterSpacing;
+		}
+		@if $titleColor != false {
+			color: $titleColor;
+		}
+	}
+}

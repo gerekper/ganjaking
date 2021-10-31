@@ -1,7 +1,8 @@
 <?php
-
 /**
  * Builder Condition
+ *
+ * @since 6.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,11 +13,17 @@ if ( ! class_exists( 'Porto_Builder_Condition' ) ) :
 
 	class Porto_Builder_Condition {
 
+		protected $post_id;
+
+		protected $builder_type;
+
 		/**
 		 * Constructor
 		 */
-		public function __construct() {
-
+		public function __construct( $is_page_layout = false ) {
+			if ( $is_page_layout ) {
+				return;
+			}
 			if ( defined( 'ELEMENTOR_VERSION' ) && function_exists( 'porto_is_elementor_preview' ) && porto_is_elementor_preview() ) {
 				add_action( 'elementor/editor/footer', array( $this, 'builder_condition_template' ) );
 				add_action( 'elementor/editor/after_enqueue_styles', array( $this, 'enqueue' ), 30 );
@@ -40,6 +47,14 @@ if ( ! class_exists( 'Porto_Builder_Condition' ) ) :
 		 * Enqueue needed scripts
 		 */
 		public function enqueue() {
+			$this->post_id = is_singular() ? get_the_ID() : ( isset( $_GET['post'] ) ? (int) $_GET['post'] : ( isset( $_GET['post_id'] ) ? (int) $_GET['post_id'] : false ) );
+			if ( ! $this->post_id ) {
+				return;
+			}
+			$this->builder_type = get_post_meta( $this->post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, true );
+			if ( ! $this->builder_type ) {
+				return;
+			}
 			do_action( 'porto_builder_condition_pre_enqueue' );
 			if ( defined( 'ELEMENTOR_VERSION' ) || defined( 'VCV_VERSION' ) ) {
 				wp_dequeue_script( 'porto-builder-admin' );
@@ -49,19 +64,30 @@ if ( ! class_exists( 'Porto_Builder_Condition' ) ) :
 			wp_localize_script(
 				'porto-builder-condition',
 				'porto_builder_condition',
-				array(
-					'nonce' => wp_create_nonce( 'porto-builder-condition-nonce' ),
+				apply_filters(
+					'porto_builder',
+					array(
+						'nonce' => wp_create_nonce( 'porto-builder-condition-nonce' ),
+						'list_url' => esc_url( admin_url( 'edit.php?post_type=' . PortoBuilders::BUILDER_SLUG . '&' . PortoBuilders::BUILDER_TAXONOMY_SLUG . '=' . $this->builder_type ) ),
+						'i18n' => array(
+							'display_condition' => esc_html__( 'Display Conditions', 'porto-functionality' ),
+							'back_to_list'      => esc_html__( 'Back To List', 'porto-functionality' ),
+						),
+					)
 				)
 			);
 		}
 
 		public function builder_condition_template() {
+			$post_id      = $this->post_id;
+			$builder_type = $this->builder_type;
 			include_once PORTO_BUILDERS_PATH . 'views/condition_template.php';
 		}
 
-		public function ajax_search() {
-			check_ajax_referer( 'porto-builder-condition-nonce', 'nonce' );
-
+		public function ajax_search( $direct_call = false ) {
+			if ( ! $direct_call ) {
+				check_ajax_referer( 'porto-builder-condition-nonce', 'nonce' );
+			}
 			$query      = sanitize_text_field( $_REQUEST['query'] );
 			$type_query = '';
 			$type       = '';
@@ -127,20 +153,29 @@ if ( ! class_exists( 'Porto_Builder_Condition' ) ) :
 			wp_send_json( array( 'suggestions' => $response ) );
 		}
 
-		public function save_condition( $direct_call = false ) {
-			if ( ! $direct_call ) {
+		public function save_condition( $direct_call = false, $post_id = false ) {
+			if ( $direct_call ) {
+				if ( ! $post_id ) {
+					return false;
+				}
+			} else {
 				check_ajax_referer( 'porto-builder-condition-nonce' );
-			}
-			if ( empty( $_POST['post_id'] ) ) {
-				wp_send_json_error();
+				if ( empty( $_POST['post_id'] ) ) {
+					wp_send_json_error();
+					return;
+				}
+				$post_id = (int) $_POST['post_id'];
 			}
 
 			$conditions   = array();
-			$post_id      = (int) $_POST['post_id'];
 			$builder_type = get_post_meta( $post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, true );
 
-			if ( empty( $builder_type ) ) {
+			if ( empty( $builder_type ) && ! $direct_call ) {
 				wp_send_json_error();
+			}
+
+			if ( ! empty( $_POST['data_part'] ) && 'block' == $builder_type ) {
+				$builder_type .= '_' . $_POST['data_part'];
 			}
 
 			/* remove old conditions */
@@ -183,8 +218,12 @@ if ( ! class_exists( 'Porto_Builder_Condition' ) ) :
 								}
 							}
 						} elseif ( ! empty( $condition[1] ) ) {
-							if ( isset( $builder_conditions[ $builder_type ][ $condition[1] ] ) && $post_id === (int) $builder_conditions[ $builder_type ][ $condition[1] ] ) {
-								unset( $builder_conditions[ $builder_type ][ $condition[1] ] );
+							$o_type = $condition[1];
+							if ( 'single' == $type && false === strpos( $o_type, 'single/' ) ) {
+								$o_type = 'single/' . $o_type;
+							}
+							if ( isset( $builder_conditions[ $builder_type ][ $o_type ] ) && $post_id === (int) $builder_conditions[ $builder_type ][ $o_type ] ) {
+								unset( $builder_conditions[ $builder_type ][ $o_type ] );
 							}
 						} else {
 							if ( isset( $builder_conditions[ $builder_type ][ $type ] ) && $post_id === (int) $builder_conditions[ $builder_type ][ $type ] ) {
@@ -229,7 +268,11 @@ if ( ! class_exists( 'Porto_Builder_Condition' ) ) :
 							$object_type = $type . '/' . $builder_type;
 						}
 						if ( $object_type ) {
-							$builder_conditions[ $builder_type ][ $object_type ] = $post_id;
+							if ( 'single' == $type && false === strpos( $object_type, 'single/' ) ) {
+								$builder_conditions[ $builder_type ][ 'single/' . $object_type ] = $post_id;
+							} else {
+								$builder_conditions[ $builder_type ][ $object_type ] = $post_id;
+							}
 						} elseif ( $type ) {
 							$builder_conditions[ $builder_type ][ $type ] = $post_id;
 						} else {
@@ -238,6 +281,13 @@ if ( ! class_exists( 'Porto_Builder_Condition' ) ) :
 						set_theme_mod( 'builder_conditions', $builder_conditions );
 					}
 					$conditions[] = array( $type, $object_type, $object_id, $object_name );
+				}
+			}
+			if ( false !== strpos( $builder_type, 'block' ) ) {
+				if ( count( $conditions ) ) {
+					update_post_meta( $post_id, '_porto_block_pos', $builder_type );
+				} else {
+					delete_post_meta( $post_id, '_porto_block_pos' );
 				}
 			}
 			update_post_meta( $post_id, '_porto_builder_conditions', $conditions );

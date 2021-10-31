@@ -8,8 +8,8 @@
 /* Porto WPBakery Elements */
 .mce-i-porto,
 .block-editor-block-icon:empty,
-.block-editor-block-icon > .dashicons-porto {
-	background: url(../images/shortcodes.png) no-repeat center center !important;
+.dashicons-porto {
+	background: url(../images/favicon-blue.svg) no-repeat center center !important;
 }
 .editor-block-icon svg { background: #fff; }
 

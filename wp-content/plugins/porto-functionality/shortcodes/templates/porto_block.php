@@ -64,12 +64,13 @@ if ( $id || $name ) {
 	}
 
 	if ( $post_id ) {
-		$post_id = (int) $post_id;
+		$post_id     = (int) $post_id;
+		$before_html = '';
 		// Add edit link for admins.
-		if ( current_user_can( 'edit_pages' ) && defined( 'PORTO_VERSION' ) && ! is_customize_preview() && (
+		if ( current_user_can( 'edit_pages' ) && ! is_customize_preview() && (
 				( ! function_exists( 'vc_is_inline' ) || ! vc_is_inline() ) &&
-				( ! porto_is_elementor_preview() ) &&
-				( ! porto_is_vc_preview() )
+				( ! function_exists( 'porto_is_elementor_preview' ) || ! porto_is_elementor_preview() ) &&
+				( ! function_exists( 'porto_is_vc_preview' ) || ! porto_is_vc_preview() )
 				) ) {
 			if ( defined( 'VCV_VERSION' ) && 'fe' == get_post_meta( $post_id, 'vcv-be-editor', true ) ) {
 				$edit_link = admin_url( 'post.php?post=' . $post_id . '&action=edit&vcv-action=frontend&vcv-source-id=' . $post_id );
@@ -83,7 +84,7 @@ if ( $id || $name ) {
 				$builder_type = __( 'Template', 'porto' );
 			}
 			/* translators: template name */
-			echo '<div class="pb-edit-link" data-title="' . sprintf( esc_html__( 'Edit %s: %s', 'porto' ), esc_attr( $builder_type ), esc_attr( get_the_title( $post_id ) ) ) . '" data-link="' . esc_url( $edit_link ) . '"></div>';
+			$before_html = '<div class="pb-edit-link" data-title="' . sprintf( esc_html__( 'Edit %s: %s', 'porto' ), esc_attr( $builder_type ), esc_attr( get_the_title( $post_id ) ) ) . '" data-link="' . esc_url( $edit_link ) . '"></div>';
 		}
 
 		$the_post = get_post( $post_id, null, 'display' );
@@ -106,11 +107,13 @@ if ( $id || $name ) {
 				wp_enqueue_style( 'elementor-icons' );
 				wp_enqueue_style( 'elementor-animations' );
 				wp_enqueue_style( 'elementor-frontend' );
+				do_action( 'elementor/frontend/after_enqueue_styles' );
 			}
 			$css_file               = new Elementor\Core\Files\CSS\Post( $post_id );
 			$shortcodes_custom_css .= $css_file->get_content();
 
-			$post_content = '<div class="porto-block' . ( function_exists( 'porto_is_elementor_preview' ) && porto_is_elementor_preview() && is_single( $post_id ) ? '" data-el_cls="elementor elementor-' . intval( $post_id ) : ' elementor elementor-' . intval( $post_id ) ) . '">';
+			$post_content  = $before_html;
+			$post_content .= '<div class="porto-block' . ( function_exists( 'porto_is_elementor_preview' ) && porto_is_elementor_preview() && is_single( $post_id ) ? '" data-el_cls="elementor elementor-' . intval( $post_id ) : ' elementor elementor-' . intval( $post_id ) ) . '">';
 			if ( 'fluid' == $inner_container ) {
 				$post_content .= '<div class="container-fluid">';
 			}
@@ -156,6 +159,7 @@ if ( $id || $name ) {
 				wp_enqueue_script( 'googleapis' );
 			}
 			if ( stripos( $post_content, '[porto_concept ' ) ) {
+				wp_enqueue_script( 'modernizr' );
 				wp_enqueue_style( 'jquery-flipshow' );
 			}
 
@@ -524,7 +528,7 @@ if ( $id || $name ) {
 			}
 
 			$shortcodes_custom_css .= get_post_meta( $post_id, '_wpb_shortcodes_custom_css', true );
-			if ( $shortcodes_custom_css ) {
+			if ( $shortcodes_custom_css && defined( 'WPB_VC_VERSION' ) ) {
 				global $porto_settings_optimize;
 				if ( isset( $porto_settings_optimize['lazyload'] ) && $porto_settings_optimize['lazyload'] && ( ! function_exists( 'vc_is_inline' ) || ! vc_is_inline() ) ) {
 					preg_match_all( '/\.vc_custom_([^{]*)[^}]*((background-image):[^}]*|(background):[^}]*url\([^}]*)}/', $shortcodes_custom_css, $matches );
@@ -551,6 +555,7 @@ if ( $id || $name ) {
 				$post_content = do_shortcode( $post_content );
 			}
 
+			$output .= $before_html;
 			$output .= '<div class="porto-block' . ( $el_class ? esc_attr( $el_class ) : '' ) . '"';
 			if ( $animation_type ) {
 				$output .= ' data-appear-animation="' . esc_attr( $animation_type ) . '"';
@@ -568,6 +573,9 @@ if ( $id || $name ) {
 			}
 		}
 
+		if ( defined( 'WPB_VC_VERSION' ) ) {
+			$shortcodes_custom_css .= get_post_meta( $post_id, '_wpb_post_custom_css', true );
+		}
 		$shortcodes_custom_css .= get_post_meta( $post_id, 'custom_css', true );
 		if ( $shortcodes_custom_css ) {
 			$output .= '<style>';

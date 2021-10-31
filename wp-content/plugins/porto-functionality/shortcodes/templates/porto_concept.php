@@ -34,6 +34,7 @@ extract(
 	)
 );
 
+wp_enqueue_script( 'modernizr' );
 wp_enqueue_script( 'jquery-flipshow' );
 wp_enqueue_script( 'porto_shortcodes_flipshow_loader_js' );
 

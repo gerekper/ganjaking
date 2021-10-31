@@ -68,13 +68,6 @@ body a {
     font-weight: 200;
 }
 
-.overflow-hidden {
-    overflow: hidden;
-}
-.overflow-visible {
-    overflow: visible;
-}
-
 .inverted {
     color: #FFF;
     display: inline-block;
@@ -471,6 +464,9 @@ blockquote {
 .opacity-6 {
     opacity: .6;
 }
+.opacity-7 {
+    opacity: .7;
+}
 .opacity-8 {
     opacity: .8;
 }
@@ -503,4 +499,15 @@ blockquote {
         bottom: auto;
         transform: rotateX(180deg);
     }
+}
+
+.fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    right: 0;
+    bottom:0;
+    padding:0 !important;
+    margin:0 !important
 }

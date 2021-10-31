@@ -75,7 +75,7 @@ global $porto_settings, $porto_layout;
 					?>
 					</div>
 					<?php // show mobile toggle ?>
-					<a class="mobile-toggle"><i class="fas fa-bars"></i></a>
+					<a class="mobile-toggle" href="#"><i class="fas fa-bars"></i></a>
 					<div class="block-nowrap">
 					<?php
 						// show search form

@@ -99,11 +99,11 @@ body {
     }
 }
 
-
-.vc_row {
-    .vc_column_container > .wpb_wrapper.vc_column-inner {
-        padding: 0;
-    }
+.vc_column_container > .vc_column-inner {
+    padding: 0;
+}
+.vc_row .vc_column_container > .wpb_wrapper.vc_column-inner {
+    padding-top: 0;
 }
 
 /* Visual Composer Alert */
@@ -139,29 +139,6 @@ body {
 
 /* Visual Composer Others */
 
-/* Ultimate Addon Others */
-.upb_row_bg {
-    min-height: 0 !important;
-}
-
-.video-cover {
-    .upb_video-bg {
-        left: 0 !important;
-    }
-    .upb_video-src {
-        position: absolute;
-        left: 49% !important;
-        top: 49% !important;
-        transform: translate(-49%, -50%);
-
-    }
-}
-
-.upb_bg_overlay,
-.upb_bg_overlay_pattern {
-    -webkit-backface-visibility: hidden;
-    -webkit-transform: translate3d(0px, 0px, 0px);
-}
 
 /* Nivo Slider */
 .wpb_gallery .theme-default {

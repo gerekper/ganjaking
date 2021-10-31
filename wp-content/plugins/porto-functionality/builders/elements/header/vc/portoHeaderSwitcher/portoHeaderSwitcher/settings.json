@@ -1,0 +1,226 @@
+{
+  "type": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Type",
+      "values": [
+        {
+          "label": "Language Switcher",
+          "value": "language-switcher"
+        },
+        {
+          "label": "Currency Switcher",
+          "value": "currency-switcher"
+        }
+      ]
+    }
+  },
+  "font_size": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Font Size",
+      "cssMixin": {
+        "mixin": "switcher",
+        "property": "fontSize",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "font_weight": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Font Weight",
+      "values": [
+        {
+          "label": "Default",
+          "value": ""
+        },
+        {
+          "label": "200",
+          "value": "200"
+        },
+        {
+          "label": "300",
+          "value": "300"
+        },
+        {
+          "label": "400",
+          "value": "400"
+        },
+        {
+          "label": "500",
+          "value": "500"
+        },
+        {
+          "label": "600",
+          "value": "600"
+        },
+        {
+          "label": "700",
+          "value": "700"
+        },
+        {
+          "label": "800",
+          "value": "800"
+        },
+        {
+          "label": "900",
+          "value": "900"
+        }
+      ],
+      "cssMixin": {
+        "mixin": "switcher",
+        "property": "fontWeight",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "text_transform": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Text Transform",
+      "values": [
+        {
+          "label": "Default",
+          "value": ""
+        },
+        {
+          "label": "None",
+          "value": "none"
+        },
+        {
+          "label": "Uppercase",
+          "value": "uppercase"
+        },
+        {
+          "label": "Capitalize",
+          "value": "capitalize"
+        },
+        {
+          "label": "Lowercase",
+          "value": "lowercase"
+        }
+      ],
+      "cssMixin": {
+        "mixin": "switcher",
+        "property": "textTransform",
+        "namePattern": "[a-f]+"
+      }
+    }
+  },
+  "line_height": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Line Height",
+      "cssMixin": {
+        "mixin": "switcher",
+        "property": "lineHeight",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "letter_spacing": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Letter Spacing",
+      "cssMixin": {
+        "mixin": "switcher",
+        "property": "letterSpacing",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Color",
+      "cssMixin": {
+        "mixin": "switcher",
+        "property": "color",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "hover_color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Hover Color",
+      "cssMixin": {
+        "mixin": "switcher",
+        "property": "hoverColor",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "el_class": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Extra class name",
+      "description": "Add an extra class name to the element and refer to it from Custom CSS option."
+    }
+  },
+  "designOptions": {
+    "type": "designOptions",
+    "access": "public",
+    "value": {},
+    "options": {
+      "label": "Design Options"
+    }
+  },
+  "editFormTab1": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "type",
+      "font_size",
+      "font_weight",
+      "text_transform",
+      "line_height",
+      "letter_spacing",
+      "color",
+      "hover_color",
+      "el_class"
+    ],
+    "options": {
+      "label": "Language/Currency Switcher"
+    }
+  },
+  "metaEditFormTabs": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "editFormTab1",
+      "designOptions"
+    ]
+  },
+  "relatedTo": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "General"
+    ]
+  },
+  "tag": {
+    "access": "protected",
+    "type": "string",
+    "value": "portoHeaderSwitcher"
+  }
+}

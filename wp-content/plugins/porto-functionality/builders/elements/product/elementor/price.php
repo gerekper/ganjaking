@@ -44,7 +44,7 @@ class Porto_Elementor_CP_Price_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'price_font',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Typograhy', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .price',
 			)

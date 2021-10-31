@@ -45,7 +45,7 @@
         classList = 'Input Items Open Disabled TempShow HideSelect Wrapper Hover Responsive Above Scroll Group GroupLabel',
         bindSufix = '.sl',
         defaults = {
-            onChange: function(elm) { $(elm).change(); },
+            onChange: function(elm) { $(elm).trigger('change'); },
             maxHeight: 300,
             keySearchTimeout: 500,
             arrowButtonMarkup: '<b class="button">&#x25be;</b>',
@@ -111,7 +111,7 @@
                 var elm = scope.element,
                     func = scope.options['on' + fn];
 
-                if ( $.isFunction(func) )
+                if ( typeof func === 'function' )
                     func.call(elm, elm, scope);
 
                 if ( hooks[fn] ) {
@@ -216,7 +216,7 @@
                                 $children = $elm.children();
 
                             _$li += _utils.format('<ul class="{1}"><li class="{2}">{3}</li>',
-                                $.trim([_this.classes.group, groupDisabled ? 'disabled' : '', $elm.prop('class')].join(' ')),
+                                [_this.classes.group, groupDisabled ? 'disabled' : '', $elm.prop('class')].join(' ').trim(),
                                 _this.classes.grouplabel,
                                 $elm.prop('label')
                             );
@@ -248,8 +248,8 @@
 
                             _$li += _utils.format('<li data-index="{1}" class="{2}">{3}</li>',
                                 currIndex,
-                                $.trim([currIndex == currValue ? 'selected' : '', currIndex == optionsLength - 1 ? 'last' : '', selectDisabled ? 'disabled' : ''].join(' ')),
-                                $.isFunction(itemBuilder) ? itemBuilder(_this.items[currIndex], $elm, currIndex) : _utils.format(itemBuilder, _this.items[currIndex])
+                                [currIndex == currValue ? 'selected' : '', currIndex == optionsLength - 1 ? 'last' : '', selectDisabled ? 'disabled' : ''].join(' ').trim(),
+                                typeof itemBuilder === 'function' ? itemBuilder(_this.items[currIndex], $elm, currIndex) : _utils.format(itemBuilder, _this.items[currIndex])
                             );
 
                             currIndex++;
@@ -259,7 +259,7 @@
                     $items.append( $itemsScroll.html(_$li + '</ul>') );
 
                     $label.html(
-                        $.isFunction(labelBuilder) ? labelBuilder(_this.items[currValue]) : _utils.format(labelBuilder, _this.items[currValue])
+                        typeof labelBuilder === 'function' ? labelBuilder(_this.items[currValue]) : _utils.format(labelBuilder, _this.items[currValue])
                     )
                 }
 
@@ -502,7 +502,7 @@
 
                     // Change label text
                     $label.html(
-                        $.isFunction(labelBuilder) ? labelBuilder(_this.items[selected]) : _utils.format(labelBuilder, _this.items[selected])
+                        typeof labelBuilder === 'function' ? labelBuilder(_this.items[selected]) : _utils.format(labelBuilder, _this.items[selected])
                     )
 
                     _utils.triggerCallback('Change', _this);

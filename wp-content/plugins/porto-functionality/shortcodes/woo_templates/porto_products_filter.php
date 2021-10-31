@@ -141,7 +141,9 @@ foreach ( $filter_areas as $index => $area ) {
 		if ( ! taxonomy_exists( $taxonomy ) ) {
 			continue;
 		}
-		$get_terms_args = array();
+		$get_terms_args = array(
+			'taxonomy' => $taxonomy,
+		);
 		if ( $hide_empty ) {
 			$get_terms_args['hide_empty'] = '1';
 		}
@@ -163,7 +165,7 @@ foreach ( $filter_areas as $index => $area ) {
 				break;
 		}
 
-		$terms = get_terms( $taxonomy, $get_terms_args );
+		$terms = get_terms( $get_terms_args );
 
 		if ( 0 === count( $terms ) ) {
 			continue;

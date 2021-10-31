@@ -28,12 +28,17 @@ extract(
 		$atts
 	)
 );
-$el_class = porto_shortcode_extract_class( $el_class );
+$el_class  = porto_shortcode_extract_class( $el_class );
+$img_attrs = '';
 if ( ! $photo_url && $photo_id ) {
-	$photo_url = wp_get_attachment_thumb_url( $photo_id );
+	$image = wp_get_attachment_image_src( $photo_id, 'thumbnail' );
+	if ( $image ) {
+		$photo_url  = $image[0];
+		$img_attrs .= ' width="' . absint( $image[1] ) . '" height="' . absint( $image[2] ) . '"';
+	}
 }
 $porto_url = str_replace( array( 'http:', 'https:' ), '', $photo_url );
-$output    = '<div class="porto-testimonial wpb_content_element ' . $el_class . '"';
+$output    = '<div class="porto-testimonial wpb_content_element ' . ( $animation_type ? 'appear-animation ' : '' ) . $el_class . '"';
 if ( $animation_type ) {
 	$output .= ' data-appear-animation="' . esc_attr( $animation_type ) . '"';
 	if ( $animation_delay ) {
@@ -47,15 +52,16 @@ $output .= '>';
 if ( 'transparent' == $view ) {
 	$output .= '<div class="testimonial' . ( $style ? ' ' . $style : '' ) . ' testimonial-with-quotes' . ( 'white' == $color ? ' testimonial-light' : '' ) . ( $remove_border ? ' testimonial-no-borders' : '' ) . '">';
 	if ( $photo_url ) {
-		$output .= '<img class="img-responsive img-circle" src="' . esc_url( $porto_url ) . '" alt="' . esc_attr( $name ) . '">';
+		$output .= '<img class="img-responsive img-circle" src="' . esc_url( $porto_url ) . '" alt="' . esc_attr( $name ) . '"' . $img_attrs . '>';
 	}
 	$output .= '<blockquote class="testimonial-carousel' . ( $color ? ' ' . esc_attr( $color ) : '' ) . '"' . ( $quote_color ? ' style="color:' . esc_attr( $quote_color ) . '"' : '' ) . '>';
 	$output .= '<p>' . do_shortcode( $content ? $content : $quote ) . '</p>';
 	$output .= '</blockquote>';
+	$output .= '<div class="testimonial-author"><p>';
 	if ( $author_url ) {
 		$output .= '<a href="' . esc_url( $author_url ) . '">';
 	}
-	$output .= '<div class="testimonial-author"><p><strong' . ( $name_color ? ' style="color:' . esc_attr( $name_color ) . '"' : '' ) . '>' . esc_html( $name ) . '</strong>';
+	$output .= '<strong' . ( $name_color ? ' style="color:' . esc_attr( $name_color ) . '"' : '' ) . '>' . esc_html( $name ) . '</strong>';
 	if ( $author_url ) {
 		$output .= '</a>';
 	}
@@ -76,13 +82,13 @@ if ( 'transparent' == $view ) {
 		$output           .= '<div class="row m-b-md p-b-md">';
 			$content_class = 'col-lg-12';
 	if ( $photo_url ) {
-		$output       .= '<div class="col-8 col-md-4 col-lg-2 center p-t-lg">';
-			$output   .= '<img src="' . esc_url( $porto_url ) . '" alt="' . esc_attr( $name ) . '" class="img-responsive custom-rounded-image">';
+		$output       .= '<div class="col-8 col-md-4 col-lg-2 p-t-lg">';
+			$output   .= '<img src="' . esc_url( $porto_url ) . '" alt="' . esc_attr( $name ) . '" class="img-responsive custom-rounded-image"' . $img_attrs . '>';
 		$output       .= '</div>';
 		$content_class = 'col-lg-10';
 	}
 			$output             .= '<div class="col-12 col-md-12 ' . $content_class . '">';
-				$output         .= '<div class="testimonial' . ( $style ? ' ' . $style : '' ) . ' testimonial-with-quotes' . ( 'white' == $color ? ' testimonial-light' : '' ) . ( $remove_border ? ' testimonial-no-borders' : '' ) . ' m-b-none">';
+				$output         .= '<div class="testimonial testimonial-advance testimonial-with-quotes' . ( 'white' == $color ? ' testimonial-light' : '' ) . ( $remove_border ? ' testimonial-no-borders' : '' ) . ' m-b-none">';
 					$output     .= '<blockquote class="p-b-sm"' . ( $quote_color ? ' style="color:' . esc_attr( $quote_color ) . '"' : '' ) . '>';
 						$output .= '<p>' . do_shortcode( $content ? $content : $quote ) . '</p>';
 					$output     .= '</blockquote>';
@@ -117,14 +123,14 @@ if ( 'transparent' == $view ) {
 			case 'testimonial-style-2':
 			case 'testimonial-style-5':
 			case 'testimonial-style-6':
-				$output .= '<img class="img-responsive img-circle" src="' . esc_url( $photo_url ) . '" alt="' . esc_attr( $name ) . '">';
+				$output .= '<img class="img-responsive img-circle" src="' . esc_url( $photo_url ) . '" alt="' . esc_attr( $name ) . '"' . $img_attrs . '>';
 				break;
 			case 'testimonial-style-3':
 			case 'testimonial-style-4':
-				$output .= '<div class="testimonial-author-thumbnail"><img class="img-responsive img-circle" src="' . esc_url( $photo_url ) . '" alt="' . esc_attr( $name ) . '"></div>';
+				$output .= '<div class="testimonial-author-thumbnail"><img class="img-responsive img-circle" src="' . esc_url( $photo_url ) . '" alt="' . esc_attr( $name ) . '"' . $img_attrs . '></div>';
 				break;
 			default:
-				$output .= '<div class="testimonial-author-thumbnail"><img src="' . esc_url( $photo_url ) . '" alt="' . esc_attr( $name ) . '" class="img-circle"></div>';
+				$output .= '<div class="testimonial-author-thumbnail"><img src="' . esc_url( $photo_url ) . '" alt="' . esc_attr( $name ) . '" class="img-circle"' . $img_attrs . '></div>';
 				break;
 		}
 	}
@@ -141,7 +147,7 @@ if ( 'transparent' == $view ) {
 
 	if ( 'default2' === $view ) {
 		if ( ! $remove_bg ) {
-			$output .= '<div class="testimonial-arrow-down"></div>';
+			$output .= '<div class="testimonial-arrow-down reversed"></div>';
 		}
 		$output .= '<blockquote' . ( $quote_color ? ' style="color:' . esc_attr( $quote_color ) . '"' : '' ) . '>';
 		$output .= '<p>' . do_shortcode( $content ? $content : $quote ) . '</p>';

@@ -6,6 +6,11 @@
  */
 
 require_once( PORTO_FUNCTIONS . '/general.php' );
+
+if ( defined( 'WPB_VC_VERSION' ) ) {
+	require_once PORTO_FUNCTIONS . '/wpb-elements.php';
+}
+
 require_once( PORTO_FUNCTIONS . '/shortcodes.php' );
 require_once( PORTO_FUNCTIONS . '/widgets.php' );
 require_once( PORTO_FUNCTIONS . '/post.php' );
@@ -28,3 +33,5 @@ require_once( PORTO_FUNCTIONS . '/layout.php' );
 require_once( PORTO_FUNCTIONS . '/html_block.php' );
 
 require_once( PORTO_FUNCTIONS . '/class-dynamic-style.php' );
+
+require_once( PORTO_FUNCTIONS . '/class-performance.php' );

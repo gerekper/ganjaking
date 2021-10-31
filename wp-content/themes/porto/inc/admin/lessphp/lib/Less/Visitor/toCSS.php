@@ -50,14 +50,14 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 		$mediaNode->accept( $this );
 		$visitDeeper = false;
 
-		if ( ! $mediaNode->rules ) {
+		if ( !$mediaNode->rules ) {
 			return array();
 		}
 		return $mediaNode;
 	}
 
 	public function visitDirective( $directiveNode ) {
-		if ( isset( $directiveNode->currentFileInfo['reference'] ) && ( ! property_exists( $directiveNode, 'isReferenced' ) || ! $directiveNode->isReferenced ) ) {
+		if ( isset( $directiveNode->currentFileInfo['reference'] ) && ( !property_exists( $directiveNode, 'isReferenced' ) || !$directiveNode->isReferenced ) ) {
 			return array();
 		}
 		if ( $directiveNode->name === '@charset' ) {
@@ -67,10 +67,11 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 			if ( isset( $this->charset ) && $this->charset ) {
 
 				// if( $directiveNode->debugInfo ){
-				// $comment = new Less_Tree_Comment('/* ' . str_replace("\n",'',$directiveNode->toCSS())." */\n");
-				// $comment->debugInfo = $directiveNode->debugInfo;
-				// return $this->visit($comment);
-				// }
+				//	$comment = new Less_Tree_Comment('/* ' . str_replace("\n",'',$directiveNode->toCSS())." */\n");
+				//	$comment->debugInfo = $directiveNode->debugInfo;
+				//	return $this->visit($comment);
+				//}
+
 				return array();
 			}
 			$this->charset = true;
@@ -79,22 +80,19 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 	}
 
 	public function checkPropertiesInRoot( $rulesetNode ) {
-
-		if ( ! $rulesetNode->firstRoot ) {
+		if ( !$rulesetNode->firstRoot ) {
 			return;
 		}
 
 		foreach ( $rulesetNode->rules as $ruleNode ) {
-			if ( $ruleNode instanceof Less_Tree_Rule && ! $ruleNode->variable ) {
-				$msg = 'properties must be inside selector blocks, they cannot be in the root. Index ' . $ruleNode->index . ( $ruleNode->currentFileInfo ? ( ' Filename: ' . $ruleNode->currentFileInfo['filename'] ) : null );
+			if ( $ruleNode instanceof Less_Tree_Rule && !$ruleNode->variable ) {
+				$msg = "properties must be inside selector blocks, they cannot be in the root. Index ".$ruleNode->index.( $ruleNode->currentFileInfo ? ( ' Filename: '.$ruleNode->currentFileInfo['filename'] ) : null );
 				throw new Less_Exception_Compiler( $msg );
 			}
 		}
 	}
 
-
 	public function visitRuleset( $rulesetNode, &$visitDeeper ) {
-
 		$visitDeeper = false;
 
 		$this->checkPropertiesInRoot( $rulesetNode );
@@ -103,13 +101,13 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 			return $this->visitRulesetRoot( $rulesetNode );
 		}
 
-		$rulesets           = array();
+		$rulesets = array();
 		$rulesetNode->paths = $this->visitRulesetPaths( $rulesetNode );
 
 		// Compile rules and rulesets
 		$nodeRuleCnt = $rulesetNode->rules ? count( $rulesetNode->rules ) : 0;
 		for ( $i = 0; $i < $nodeRuleCnt; ) {
-			$rule = $rulesetNode->rules[ $i ];
+			$rule = $rulesetNode->rules[$i];
 
 			if ( property_exists( $rule, 'rules' ) ) {
 				// visit because we are moving them out from being a child
@@ -139,6 +137,7 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 					array_splice( $rulesets, 0, 0, array( $rulesetNode ) );
 				}
 			}
+
 		}
 
 		if ( count( $rulesets ) === 1 ) {
@@ -146,7 +145,6 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 		}
 		return $rulesets;
 	}
-
 
 	/**
 	 * Helper function for visitiRuleset
@@ -161,14 +159,12 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 		return array();
 	}
 
-
 	/**
 	 * Helper function for visitRuleset()
 	 *
 	 * @return array
 	 */
 	private function visitRulesetPaths( $rulesetNode ) {
-
 		$paths = array();
 		foreach ( $rulesetNode->paths as $p ) {
 			if ( $p[0]->elements[0]->combinator === ' ' ) {
@@ -190,16 +186,16 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 		// remove duplicates
 		$ruleCache = array();
 		for ( $i = count( $rules ) - 1; $i >= 0; $i-- ) {
-			$rule = $rules[ $i ];
+			$rule = $rules[$i];
 			if ( $rule instanceof Less_Tree_Rule || $rule instanceof Less_Tree_NameValue ) {
 
-				if ( ! isset( $ruleCache[ $rule->name ] ) ) {
-					$ruleCache[ $rule->name ] = $rule;
+				if ( !isset( $ruleCache[$rule->name] ) ) {
+					$ruleCache[$rule->name] = $rule;
 				} else {
-					$ruleList =& $ruleCache[ $rule->name ];
+					$ruleList =& $ruleCache[$rule->name];
 
 					if ( $ruleList instanceof Less_Tree_Rule || $ruleList instanceof Less_Tree_NameValue ) {
-						$ruleList = $ruleCache[ $rule->name ] = array( $ruleCache[ $rule->name ]->toCSS() );
+						$ruleList = $ruleCache[$rule->name] = array( $ruleCache[$rule->name]->toCSS() );
 					}
 
 					$ruleCSS = $rule->toCSS();
@@ -217,9 +213,10 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 		$groups = array();
 
 		// obj($rules);
+
 		$rules_len = count( $rules );
 		for ( $i = 0; $i < $rules_len; $i++ ) {
-			$rule = $rules[ $i ];
+			$rule = $rules[$i];
 
 			if ( ( $rule instanceof Less_Tree_Rule ) && $rule->merge ) {
 
@@ -228,24 +225,24 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 					$key .= ',!';
 				}
 
-				if ( ! isset( $groups[ $key ] ) ) {
-					$groups[ $key ] = array();
+				if ( !isset( $groups[$key] ) ) {
+					$groups[$key] = array();
 				} else {
 					array_splice( $rules, $i--, 1 );
 					$rules_len--;
 				}
 
-				$groups[ $key ][] = $rule;
+				$groups[$key][] = $rule;
 			}
 		}
 
 		foreach ( $groups as $parts ) {
 
 			if ( count( $parts ) > 1 ) {
-				$rule            = $parts[0];
-				$spacedGroups    = array();
+				$rule = $parts[0];
+				$spacedGroups = array();
 				$lastSpacedGroup = array();
-				$parts_mapped    = array();
+				$parts_mapped = array();
 				foreach ( $parts as $p ) {
 					if ( $p->merge === '+' ) {
 						if ( $lastSpacedGroup ) {
@@ -257,7 +254,7 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 				}
 
 				$spacedGroups[] = self::toExpression( $lastSpacedGroup );
-				$rule->value    = self::toValue( $spacedGroups );
+				$rule->value = self::toValue( $spacedGroups );
 			}
 		}
 
@@ -273,6 +270,7 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 
 	public static function toValue( $values ) {
 		// return new Less_Tree_Value($values); ??
+
 		$mapped = array();
 		foreach ( $values as $p ) {
 			$mapped[] = $p;
@@ -280,4 +278,3 @@ class Less_Visitor_toCSS extends Less_VisitorReplacing {
 		return new Less_Tree_Value( $mapped );
 	}
 }
-

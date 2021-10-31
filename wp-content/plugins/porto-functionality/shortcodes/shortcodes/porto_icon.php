@@ -3,10 +3,6 @@
 
 add_action( 'vc_after_init', 'porto_load_icon_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_icon_shortcode() {
 
 	$animation_type     = porto_vc_animation_type();
@@ -235,15 +231,27 @@ function porto_load_icon_shortcode() {
 				),
 				$animation_type,
 				array(
-					'type'       => 'dropdown',
-					'class'      => '',
+					'type'       => 'porto_button_group',
 					'heading'    => __( 'Alignment', 'porto-functionality' ),
 					'param_name' => 'icon_align',
 					'value'      => array(
-						__( 'Center', 'porto-functionality' ) => 'center',
-						__( 'Left', 'porto-functionality' )   => 'left',
-						__( 'Right', 'porto-functionality' )  => 'right',
+						''       => array(
+							'title' => esc_html__( 'Default', 'porto-functionality' ),
+						),
+						'left'   => array(
+							'title' => esc_html__( 'Left', 'porto-functionality' ),
+							'icon'  => 'fas fa-align-left',
+						),
+						'center' => array(
+							'title' => esc_html__( 'Center', 'porto-functionality' ),
+							'icon'  => 'fas fa-align-center',
+						),
+						'right'  => array(
+							'title' => esc_html__( 'Right', 'porto-functionality' ),
+							'icon'  => 'fas fa-align-right',
+						),
 					),
+					'std'        => '',
 				),
 				$custom_class,
 				array(

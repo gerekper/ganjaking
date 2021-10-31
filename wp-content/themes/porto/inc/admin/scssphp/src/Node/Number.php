@@ -2,18 +2,18 @@
 /**
  * SCSSPHP
  *
- * @copyright 2012-2018 Leaf Corcoran
+ * @copyright 2012-2020 Leaf Corcoran
  *
  * @license http://opensource.org/licenses/MIT MIT
  *
- * @link http://leafo.github.io/scssphp
+ * @link http://scssphp.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp\Node;
+namespace ScssPhp\ScssPhp\Node;
 
-use Leafo\ScssPhp\Compiler;
-use Leafo\ScssPhp\Node;
-use Leafo\ScssPhp\Type;
+use ScssPhp\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Node;
+use ScssPhp\ScssPhp\Type;
 
 /**
  * Dimension + optional units
@@ -26,299 +26,365 @@ use Leafo\ScssPhp\Type;
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class Number extends Node implements \ArrayAccess {
+class Number extends Node implements \ArrayAccess
+{
+    /**
+     * @var integer
+     */
+    public static $precision = 10;
 
-	/**
-	 * @var integer
-	 */
-	public static $precision = 10;
+    /**
+     * @see http://www.w3.org/TR/2012/WD-css3-values-20120308/
+     *
+     * @var array
+     */
+    protected static $unitTable = [
+        'in' => [
+            'in' => 1,
+            'pc' => 6,
+            'pt' => 72,
+            'px' => 96,
+            'cm' => 2.54,
+            'mm' => 25.4,
+            'q'  => 101.6,
+        ],
+        'turn' => [
+            'deg'  => 360,
+            'grad' => 400,
+            'rad'  => 6.28318530717958647692528676, // 2 * M_PI
+            'turn' => 1,
+        ],
+        's' => [
+            's'  => 1,
+            'ms' => 1000,
+        ],
+        'Hz' => [
+            'Hz'  => 1,
+            'kHz' => 0.001,
+        ],
+        'dpi' => [
+            'dpi'  => 1,
+            'dpcm' => 1/2.54,
+            'dppx' => 1/96,
+        ],
+    ];
 
-	/**
-	 * @see http://www.w3.org/TR/2012/WD-css3-values-20120308/
-	 *
-	 * @var array
-	 */
-	protected static $unitTable = [
-		'in'   => [
-			'in' => 1,
-			'pc' => 6,
-			'pt' => 72,
-			'px' => 96,
-			'cm' => 2.54,
-			'mm' => 25.4,
-			'q'  => 101.6,
-		],
-		'turn' => [
-			'deg'  => 360,
-			'grad' => 400,
-			'rad'  => 6.28318530717958647692528676, // 2 * M_PI
-			'turn' => 1,
-		],
-		's'    => [
-			's'  => 1,
-			'ms' => 1000,
-		],
-		'Hz'   => [
-			'Hz'  => 1,
-			'kHz' => 0.001,
-		],
-		'dpi'  => [
-			'dpi'  => 1,
-			'dpcm' => 2.54,
-			'dppx' => 96,
-		],
-	];
+    /**
+     * @var integer|float
+     */
+    public $dimension;
 
-	/**
-	 * @var integer|float
-	 */
-	public $dimension;
+    /**
+     * @var array
+     */
+    public $units;
 
-	/**
-	 * @var array
-	 */
-	public $units;
+    /**
+     * Initialize number
+     *
+     * @param mixed $dimension
+     * @param mixed $initialUnit
+     */
+    public function __construct($dimension, $initialUnit)
+    {
+        $this->type      = Type::T_NUMBER;
+        $this->dimension = $dimension;
+        $this->units     = \is_array($initialUnit)
+            ? $initialUnit
+            : ($initialUnit ? [$initialUnit => 1]
+                            : []);
+    }
 
-	/**
-	 * Initialize number
-	 *
-	 * @param mixed $dimension
-	 * @param mixed $initialUnit
-	 */
-	public function __construct( $dimension, $initialUnit ) {
-		$this->type      = Type::T_NUMBER;
-		$this->dimension = $dimension;
-		$this->units     = is_array( $initialUnit )
-			? $initialUnit
-			: ( $initialUnit ? [ $initialUnit => 1 ]
-							: [] );
-	}
+    /**
+     * Coerce number to target units
+     *
+     * @param array $units
+     *
+     * @return \ScssPhp\ScssPhp\Node\Number
+     */
+    public function coerce($units)
+    {
+        if ($this->unitless()) {
+            return new Number($this->dimension, $units);
+        }
 
-	/**
-	 * Coerce number to target units
-	 *
-	 * @param array $units
-	 *
-	 * @return \Leafo\ScssPhp\Node\Number
-	 */
-	public function coerce( $units ) {
-		if ( $this->unitless() ) {
-			return new Number( $this->dimension, $units );
-		}
+        $dimension = $this->dimension;
 
-		$dimension = $this->dimension;
+        if (\count($units)) {
+            $baseUnit = array_keys($units);
+            $baseUnit = reset($baseUnit);
+            $baseUnit = $this->findBaseUnit($baseUnit);
+            if ($baseUnit && isset(static::$unitTable[$baseUnit])) {
+                foreach (static::$unitTable[$baseUnit] as $unit => $conv) {
+                    $from       = isset($this->units[$unit]) ? $this->units[$unit] : 0;
+                    $to         = isset($units[$unit]) ? $units[$unit] : 0;
+                    $factor     = pow($conv, $from - $to);
+                    $dimension /= $factor;
+                }
+            }
+        }
 
-		foreach ( static::$unitTable['in'] as $unit => $conv ) {
-			$from       = isset( $this->units[ $unit ] ) ? $this->units[ $unit ] : 0;
-			$to         = isset( $units[ $unit ] ) ? $units[ $unit ] : 0;
-			$factor     = pow( $conv, $from - $to );
-			$dimension /= $factor;
-		}
+        return new Number($dimension, $units);
+    }
 
-		return new Number( $dimension, $units );
-	}
+    /**
+     * Normalize number
+     *
+     * @return \ScssPhp\ScssPhp\Node\Number
+     */
+    public function normalize()
+    {
+        $dimension = $this->dimension;
+        $units     = [];
 
-	/**
-	 * Normalize number
-	 *
-	 * @return \Leafo\ScssPhp\Node\Number
-	 */
-	public function normalize() {
-		$dimension = $this->dimension;
-		$units     = [];
+        $this->normalizeUnits($dimension, $units);
 
-		$this->normalizeUnits( $dimension, $units, 'in' );
+        return new Number($dimension, $units);
+    }
 
-		return new Number( $dimension, $units );
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetExists($offset)
+    {
+        if ($offset === -3) {
+            return ! \is_null($this->sourceColumn);
+        }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function offsetExists( $offset ) {
-		if ( $offset === -3 ) {
-			return $this->sourceColumn !== null;
-		}
+        if ($offset === -2) {
+            return ! \is_null($this->sourceLine);
+        }
 
-		if ( $offset === -2 ) {
-			return $this->sourceLine !== null;
-		}
+        if ($offset === -1 ||
+            $offset === 0 ||
+            $offset === 1 ||
+            $offset === 2
+        ) {
+            return true;
+        }
 
-		if ( $offset === -1
-			|| $offset === 0
-			|| $offset === 1
-			|| $offset === 2
-		) {
-			return true;
-		}
+        return false;
+    }
 
-		return false;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetGet($offset)
+    {
+        switch ($offset) {
+            case -3:
+                return $this->sourceColumn;
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function offsetGet( $offset ) {
-		switch ( $offset ) {
-			case -3:
-				return $this->sourceColumn;
+            case -2:
+                return $this->sourceLine;
 
-			case -2:
-				return $this->sourceLine;
+            case -1:
+                return $this->sourceIndex;
 
-			case -1:
-				return $this->sourceIndex;
+            case 0:
+                return $this->type;
 
-			case 0:
-				return $this->type;
+            case 1:
+                return $this->dimension;
 
-			case 1:
-				return $this->dimension;
+            case 2:
+                return $this->units;
+        }
+    }
 
-			case 2:
-				return $this->units;
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetSet($offset, $value)
+    {
+        if ($offset === 1) {
+            $this->dimension = $value;
+        } elseif ($offset === 2) {
+            $this->units = $value;
+        } elseif ($offset == -1) {
+            $this->sourceIndex = $value;
+        } elseif ($offset == -2) {
+            $this->sourceLine = $value;
+        } elseif ($offset == -3) {
+            $this->sourceColumn = $value;
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function offsetSet( $offset, $value ) {
-		if ( $offset === 1 ) {
-			$this->dimension = $value;
-		} elseif ( $offset === 2 ) {
-			$this->units = $value;
-		} elseif ( $offset == -1 ) {
-			$this->sourceIndex = $value;
-		} elseif ( $offset == -2 ) {
-			$this->sourceLine = $value;
-		} elseif ( $offset == -3 ) {
-			$this->sourceColumn = $value;
-		}
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetUnset($offset)
+    {
+        if ($offset === 1) {
+            $this->dimension = null;
+        } elseif ($offset === 2) {
+            $this->units = null;
+        } elseif ($offset === -1) {
+            $this->sourceIndex = null;
+        } elseif ($offset === -2) {
+            $this->sourceLine = null;
+        } elseif ($offset === -3) {
+            $this->sourceColumn = null;
+        }
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function offsetUnset( $offset ) {
-		if ( $offset === 1 ) {
-			$this->dimension = null;
-		} elseif ( $offset === 2 ) {
-			$this->units = null;
-		} elseif ( $offset === -1 ) {
-			$this->sourceIndex = null;
-		} elseif ( $offset === -2 ) {
-			$this->sourceLine = null;
-		} elseif ( $offset === -3 ) {
-			$this->sourceColumn = null;
-		}
-	}
+    /**
+     * Returns true if the number is unitless
+     *
+     * @return boolean
+     */
+    public function unitless()
+    {
+        return ! array_sum($this->units);
+    }
 
-	/**
-	 * Returns true if the number is unitless
-	 *
-	 * @return boolean
-	 */
-	public function unitless() {
-		return ! array_sum( $this->units );
-	}
+    /**
+     * Test if a number can be normalized in a base unit
+     * ie if its units are homogeneous
+     *
+     * @return boolean
+     */
+    public function isNormalizable()
+    {
+        if ($this->unitless()) {
+            return false;
+        }
 
-	/**
-	 * Returns unit(s) as the product of numerator units divided by the product of denominator units
-	 *
-	 * @return string
-	 */
-	public function unitStr() {
-		 $numerators  = [];
-		$denominators = [];
+        $baseUnit = null;
 
-		foreach ( $this->units as $unit => $unitSize ) {
-			if ( $unitSize > 0 ) {
-				$numerators = array_pad( $numerators, count( $numerators ) + $unitSize, $unit );
-				continue;
-			}
+        foreach ($this->units as $unit => $exp) {
+            $b = $this->findBaseUnit($unit);
 
-			if ( $unitSize < 0 ) {
-				$denominators = array_pad( $denominators, count( $denominators ) + $unitSize, $unit );
-				continue;
-			}
-		}
+            if (\is_null($baseUnit)) {
+                $baseUnit = $b;
+            }
 
-		return implode( '*', $numerators ) . ( count( $denominators ) ? '/' . implode( '*', $denominators ) : '' );
-	}
+            if (\is_null($b) or $b !== $baseUnit) {
+                return false;
+            }
+        }
 
-	/**
-	 * Output number
-	 *
-	 * @param \Leafo\ScssPhp\Compiler $compiler
-	 *
-	 * @return string
-	 */
-	public function output( Compiler $compiler = null ) {
-		$dimension = round( $this->dimension, static::$precision );
+        return $baseUnit;
+    }
 
-		$units = array_filter(
-			$this->units,
-			function ( $unitSize ) {
-				return $unitSize;
-			}
-		);
+    /**
+     * Returns unit(s) as the product of numerator units divided by the product of denominator units
+     *
+     * @return string
+     */
+    public function unitStr()
+    {
+        $numerators   = [];
+        $denominators = [];
 
-		if ( count( $units ) > 1 && array_sum( $units ) === 0 ) {
-			$dimension = $this->dimension;
-			$units     = [];
+        foreach ($this->units as $unit => $unitSize) {
+            if ($unitSize > 0) {
+                $numerators = array_pad($numerators, \count($numerators) + $unitSize, $unit);
+                continue;
+            }
 
-			$this->normalizeUnits( $dimension, $units, 'in' );
+            if ($unitSize < 0) {
+                $denominators = array_pad($denominators, \count($denominators) - $unitSize, $unit);
+                continue;
+            }
+        }
 
-			$dimension = round( $dimension, static::$precision );
-			$units     = array_filter(
-				$units,
-				function ( $unitSize ) {
-					return $unitSize;
-				}
-			);
-		}
+        return implode('*', $numerators) . (\count($denominators) ? '/' . implode('*', $denominators) : '');
+    }
 
-		$unitSize = array_sum( $units );
+    /**
+     * Output number
+     *
+     * @param \ScssPhp\ScssPhp\Compiler $compiler
+     *
+     * @return string
+     */
+    public function output(Compiler $compiler = null)
+    {
+        $dimension = round($this->dimension, static::$precision);
 
-		if ( $compiler && ( $unitSize > 1 || $unitSize < 0 || count( $units ) > 1 ) ) {
-			$compiler->throwError( (string) $dimension . $this->unitStr() . " isn't a valid CSS value." );
-		}
+        $units = array_filter($this->units, function ($unitSize) {
+            return $unitSize;
+        });
 
-		reset( $units );
-		$unit      = key( $units );
-		$dimension = number_format( $dimension, static::$precision, '.', '' );
+        if (\count($units) > 1 && array_sum($units) === 0) {
+            $dimension = $this->dimension;
+            $units     = [];
 
-		return ( static::$precision ? rtrim( rtrim( $dimension, '0' ), '.' ) : $dimension ) . $unit;
-	}
+            $this->normalizeUnits($dimension, $units);
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function __toString() {
-		return $this->output();
-	}
+            $dimension = round($dimension, static::$precision);
+            $units     = array_filter($units, function ($unitSize) {
+                return $unitSize;
+            });
+        }
 
-	/**
-	 * Normalize units
-	 *
-	 * @param integer|float $dimension
-	 * @param array         $units
-	 * @param string        $baseUnit
-	 */
-	private function normalizeUnits( &$dimension, &$units, $baseUnit = 'in' ) {
-		$dimension = $this->dimension;
-		$units     = [];
+        $unitSize = array_sum($units);
 
-		foreach ( $this->units as $unit => $exp ) {
-			if ( isset( static::$unitTable[ $baseUnit ][ $unit ] ) ) {
-				$factor = pow( static::$unitTable[ $baseUnit ][ $unit ], $exp );
+        if ($compiler && ($unitSize > 1 || $unitSize < 0 || \count($units) > 1)) {
+            $this->units = $units;
+            $unit = $this->unitStr();
+        } else {
+            reset($units);
+            $unit = key($units);
+        }
 
-				$unit       = $baseUnit;
-				$dimension /= $factor;
-			}
+        $dimension = number_format($dimension, static::$precision, '.', '');
 
-			$units[ $unit ] = $exp + ( isset( $units[ $unit ] ) ? $units[ $unit ] : 0 );
-		}
-	}
+        return (static::$precision ? rtrim(rtrim($dimension, '0'), '.') : $dimension) . $unit;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __toString()
+    {
+        return $this->output();
+    }
+
+    /**
+     * Normalize units
+     *
+     * @param integer|float $dimension
+     * @param array         $units
+     * @param string        $baseUnit
+     */
+    private function normalizeUnits(&$dimension, &$units, $baseUnit = null)
+    {
+        $dimension = $this->dimension;
+        $units     = [];
+
+        foreach ($this->units as $unit => $exp) {
+            if (! $baseUnit) {
+                $baseUnit = $this->findBaseUnit($unit);
+            }
+
+            if ($baseUnit && isset(static::$unitTable[$baseUnit][$unit])) {
+                $factor = pow(static::$unitTable[$baseUnit][$unit], $exp);
+
+                $unit = $baseUnit;
+                $dimension /= $factor;
+            }
+
+            $units[$unit] = $exp + (isset($units[$unit]) ? $units[$unit] : 0);
+        }
+    }
+
+    /**
+     * Find the base unit family for a given unit
+     *
+     * @param string $unit
+     *
+     * @return string|null
+     */
+    private function findBaseUnit($unit)
+    {
+        foreach (static::$unitTable as $baseUnit => $unitVariants) {
+            if (isset($unitVariants[$unit])) {
+                return $baseUnit;
+            }
+        }
+
+        return null;
+    }
 }

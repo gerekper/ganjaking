@@ -1,0 +1,215 @@
+{
+	"imageType": {
+		"type": "dropdown",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Gallery Type",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "imageType"
+			},
+			"values": [
+				{
+					"label": "Default",
+					"value": ""
+				},
+				{
+					"label": "Extended",
+					"value": "extended"
+				},
+				{
+					"label": "Grid Images",
+					"value": "grid"
+				},
+				{
+					"label": "Thumbs on Image",
+					"value": "full_width"
+				},
+				{
+					"label": "List Images",
+					"value": "sticky_info"
+				},
+				{
+					"label": "Left Thumbs 1",
+					"value": "transparent"
+				},
+				{
+					"label": "Left Thumbs 2",
+					"value": "centered_vertical_zoom"
+				}
+			]
+		}
+	},
+	"thumbnailWidth": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Thumbnail Width",
+			"min": 1,
+			"max": 90,
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "thumbnailWidth"
+			},
+			"onChange": {
+				"rules": {
+					"imageType": {
+						"rule": "value",
+						"options": {
+							"value": "transparent"
+						}
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"imgBorderWidth": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Product Image Border Width",
+			"min": 0,
+			"max": 100,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "imgBorderWidth",
+				"namePattern": "[\\d]+"
+			}
+		}
+	},
+	"imgBorderColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Product Image Border Color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "imgBorderColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"thumbnailBorderWidth": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Thumbnail Image Border Width",
+			"min": 0,
+			"max": 100,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "thumbnailBorderWidth",
+				"namePattern": "[\\d]+"
+			}
+		}
+	},
+	"thumbnailBorderColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Thumbnail Image Border Color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "thumbnailBorderColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"thumbnailBorderActiveWidth": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Thumbnail Image Active Border Width",
+			"min": 0,
+			"max": 100,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "thumbnailBorderActiveWidth",
+				"namePattern": "[\\d]+"
+			}
+		}
+	},
+	"thumbnailActiveColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Thumbnail Image Active Color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "thumbnailActiveColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"designOptions": {
+		"type": "designOptions",
+		"access": "public",
+		"value": {},
+		"options": {
+			"label": "Design Options"
+		}
+	},
+	"editFormTab1": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"imageType",
+			"thumbnailWidth",
+			"imgBorderWidth",
+			"imgBorderColor",
+			"thumbnailBorderWidth",
+			"thumbnailBorderColor",
+			"thumbnailBorderActiveWidth",
+			"thumbnailActiveColor",
+			"el_class"
+		],
+		"options": {
+			"label": "General"
+		}
+	},
+	"metaEditFormTabs": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"editFormTab1",
+			"designOptions"
+		]
+	},
+	"relatedTo": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"General"
+		]
+	},
+	"el_class": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Extra class name",
+			"description": "Add an extra class name to the element and refer to it from Custom CSS option."
+		}
+	},
+	"tag": {
+		"access": "protected",
+		"type": "string",
+		"value": "portoSpImage"
+	}
+}

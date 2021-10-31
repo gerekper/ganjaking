@@ -30,10 +30,14 @@
     .testimonial-arrow-down {
         border-#{$left}: 11px solid transparent;
         border-#{$right}: 11px solid transparent;
-        border-top: 8px solid #CCC;
+        border-top: 8px solid var(--porto-skin-light-5, #ccc);
         height: 0;
         margin: side-values(0 0 0 40px);
         width: 0;
+        &.reversed {
+            border-top: none;
+            border-bottom: 8px solid var(--porto-skin-light-5, #ccc);
+        }
     }
 
     .testimonial-author {
@@ -341,7 +345,27 @@
     box-shadow: none;
 }
 
-/* Advance */
+/* Advanced style */
+.testimonial.testimonial-advance {
+    text-align: $left;
+    blockquote {
+        &:before {
+            line-height: .75;
+            #{$left}: 0
+        }
+        padding-#{$left}: 0;
+        padding-right: 1rem;
+        p {
+            padding: 0;
+        }
+    }
+
+    .testimonial-author {
+        p {
+            text-align: inherit
+        }
+    }
+}
 
 .custom-rounded-image {
 	border-radius: 100%;

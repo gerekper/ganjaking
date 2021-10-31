@@ -189,7 +189,7 @@ if ( $posts->have_posts() ) {
 			?>
 			</div>
 		<?php else : ?>
-			<div class="member-row row <?php echo function_exists( 'porto_generate_column_classes' ) ? porto_generate_column_classes( $columns ) : ''; ?>">
+			<div class="member-row row <?php echo function_exists( 'porto_generate_column_classes' ) ? 'ccols-wrap ' . porto_generate_column_classes( $columns ) : ''; ?>">
 			<?php
 			while ( $posts->have_posts() ) {
 				$posts->the_post();

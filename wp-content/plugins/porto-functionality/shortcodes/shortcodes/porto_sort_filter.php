@@ -3,21 +3,18 @@
 // Porto Sort Filter
 add_action( 'vc_after_init', 'porto_load_sort_filter_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_sort_filter_shortcode() {
 	$custom_class = porto_vc_custom_class();
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Sort Filter', 'porto-functionality' ),
-			'base'     => 'porto_sort_filter',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'fas fa-filter',
-			'as_child' => array( 'only' => 'porto_sort_filters' ),
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Sort Filter', 'porto-functionality' ),
+			'base'        => 'porto_sort_filter',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'We can sort of any elements', 'porto-functionality' ),
+			'icon'        => 'fas fa-filter',
+			'as_child'    => array( 'only' => 'porto_sort_filters' ),
+			'params'      => array(
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Label', 'porto-functionality' ),

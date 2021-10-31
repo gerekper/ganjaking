@@ -3,10 +3,6 @@
 // Porto FAQs
 add_action( 'vc_after_init', 'porto_load_faqs_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_faqs_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -15,11 +11,12 @@ function porto_load_faqs_shortcode() {
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'FAQs', 'porto-functionality' ),
-			'base'     => 'porto_faqs',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'fas fa-question-circle',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'FAQs', 'porto-functionality' ),
+			'base'        => 'porto_faqs',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Show faqs with accordion', 'porto-functionality' ),
+			'icon'        => 'fas fa-question-circle',
+			'params'      => array(
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Title', 'porto-functionality' ),

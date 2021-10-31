@@ -26,4 +26,3 @@ class Less_Tree_UnicodeDescriptor extends Less_Tree {
 		return $this;
 	}
 }
-

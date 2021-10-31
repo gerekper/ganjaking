@@ -38,6 +38,11 @@ preg_match_all( '/vc_tab([^\]]+)/i', $content, $matches, PREG_OFFSET_CAPTURE );
 
 $ul_class = '';
 switch ( $position ) {
+	case 'top-left':
+		if ( 'tabs-simple' == $type ) {
+			$ul_class .= ' justify-content-start';
+		}
+		break;
 	case 'top-right':
 		$ul_class .= ' justify-content-end';
 		break;
@@ -148,7 +153,7 @@ foreach ( $tabs as $tab ) {
 
 	if ( $tab_title ) {
 		$tab_id    = 'tab-' . ( $tab_id ? $tab_id : sanitize_title( $tab_title ) );
-		$tabs_nav .= '<li class="nav-item"><a href="#' . esc_attr( $tab_id ) . '" id="' . esc_attr( $tab_id ) . '-title" class="nav-link" data-toggle="tab">';
+		$tabs_nav .= '<li class="nav-item"><a href="#' . esc_attr( $tab_id ) . '" id="' . esc_attr( $tab_id ) . '-title" class="nav-link" data-bs-toggle="tab">';
 		$tab_id   .= '-title';
 		if ( $show_icon && $icon_class ) {
 			if ( 'tabs-simple' == $type ) {

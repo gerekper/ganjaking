@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoPageHeader": {
+      "settings": {
+        "name": "Porto Page Header",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-porto-page-header.jpg",
+        "metaDescription": "Display the custom page header."
+      }
+    }
+  },
+  "categories": {
+    "Misc": {
+      "elements": [
+        "portoPageHeader"
+      ]
+    }
+  }
+}

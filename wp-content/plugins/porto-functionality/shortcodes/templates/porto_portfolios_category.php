@@ -136,7 +136,7 @@ switch ( $category_layout ) {
 						$output .= '<span class="thumb-info ' . $classes . '"><span class="thumb-info-wrapper m-none">';
 
 			if ( $cat_img_url ) {
-				$output .= '<div class="background-image" style="background-image: url(' . esc_url( $cat_img_url ) . ')"></div>';
+				$output .= '<span class="background-image" style="background-image: url(' . esc_url( $cat_img_url ) . ')"></span>';
 			}
 
 			if ( ! $info_view ) { // Basic
@@ -180,6 +180,7 @@ switch ( $category_layout ) {
 		break;
 
 	case 'parallax':
+			wp_enqueue_script( 'skrollr' );
 			$parallax_options = array( 'speed' => 1.5 );
 
 			$output .= '<div class="' . esc_attr( $el_class ) . '">';
@@ -197,7 +198,7 @@ switch ( $category_layout ) {
 
 			$output .= '<a href="' . get_term_link( $cat_id ) . '" class="text-decoration-none">';
 
-				$output     .= '<section class="portfolio-parallax parallax thumb-info section section-text-light section-parallax m-none ' . $classes . '" data-plugin-parallax data-plugin-options=' . json_encode( $parallax_options ) . ' data-image-src="' . $cat_img_url . '">';
+				$output     .= '<section class="portfolio-parallax parallax thumb-info section section-text-light section-parallax m-none ' . $classes . '" data-plugin-parallax data-plugin-options="' . esc_attr( json_encode( $parallax_options ) ) . '" data-image-src="' . $cat_img_url . '">';
 					$output .= '<div class="container-fluid">';
 
 			if ( ! $info_view ) { // Basic

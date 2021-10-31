@@ -90,7 +90,7 @@ switch ( $source ) {
 		$img = wpb_getImageBySize(
 			array(
 				'attach_id'  => $img_id,
-				'thumb_size' => $img_size,
+				'thumb_size' => strtolower( $img_size ),
 				'class'      => 'vc_single_image-img',
 			)
 		);
@@ -151,24 +151,19 @@ switch ( $onclick ) {
 			$link = $custom_src;
 		} else {
 			$link = wp_get_attachment_image_src( $img_id, 'large' );
-			$link = $link[0];
+			if ( isset( $link[0] ) ) {
+				$link = $link[0];
+			}
 		}
 
 		break;
 
 	case 'link_image':
+		wp_enqueue_script( 'prettyphoto' );
+		wp_enqueue_style( 'prettyphoto' );
 
-		if ( wp_script_is( 'lightbox2', 'registered' ) || wp_script_is( 'lightbox2', 'enqueued' ) ) {
-			wp_enqueue_script( 'lightbox2' );
-			wp_enqueue_style( 'lightbox2' );
-			$a_attrs['class']         = '';
-			$a_attrs['data-lightbox'] = 'lightbox[rel-' . get_the_ID() . '-' . wp_rand() . ']';
-		} else {
-			wp_enqueue_script( 'prettyphoto' );
-			wp_enqueue_style( 'prettyphoto' );
-			$a_attrs['class']    = 'prettyphoto';
-			$a_attrs['data-rel'] = 'prettyPhoto[rel-' . get_the_ID() . '-' . wp_rand() . ']';
-		}
+		$a_attrs['class'] = 'prettyphoto';
+		$a_attrs['data-rel']   = 'prettyPhoto[rel-' . get_the_ID() . '-' . wp_rand() . ']';
 
 		// backward compatibility
 		if ( ! porto_has_class( 'prettyphoto', $el_class ) && 'external_link' === $source ) {
@@ -246,7 +241,7 @@ $css_class        = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to
 
 $wrapper_attributes = '';
 if ( $animation_type ) {
-	$wrapper_attributes .= 'data-appear-animation="' . esc_attr( $animation_type ) . '"';
+	$wrapper_attributes .= ' data-appear-animation="' . esc_attr( $animation_type ) . '"';
 	if ( $animation_delay ) {
 		$wrapper_attributes .= ' data-appear-animation-delay="' . esc_attr( $animation_delay ) . '"';
 	}

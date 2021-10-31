@@ -11,7 +11,7 @@ class Less_SourceMap_Generator extends Less_Configurable {
 	/**
 	 * What version of source map does the generator generate?
 	 */
-	const VERSION = 3;
+	private const VERSION = 3;
 
 	/**
 	 * Array of default options
@@ -19,28 +19,28 @@ class Less_SourceMap_Generator extends Less_Configurable {
 	 * @var array
 	 */
 	protected $defaultOptions = array(
-		// an optional source root, useful for relocating source files
-		// on a server or removing repeated values in the 'sources' entry.
-		// This value is prepended to the individual entries in the 'source' field.
-		'sourceRoot'        => '',
+			// an optional source root, useful for relocating source files
+			// on a server or removing repeated values in the 'sources' entry.
+			// This value is prepended to the individual entries in the 'source' field.
+			'sourceRoot'			=> '',
 
-		// an optional name of the generated code that this source map is associated with.
-		'sourceMapFilename' => null,
+			// an optional name of the generated code that this source map is associated with.
+			'sourceMapFilename'		=> null,
 
-		// url of the map
-		'sourceMapURL'      => null,
+			// url of the map
+			'sourceMapURL'			=> null,
 
-		// absolute path to a file to write the map to
-		'sourceMapWriteTo'  => null,
+			// absolute path to a file to write the map to
+			'sourceMapWriteTo'		=> null,
 
-		// output source contents?
-		'outputSourceFiles' => false,
+			// output source contents?
+			'outputSourceFiles'		=> false,
 
-		// base path for filename normalization
-		'sourceMapRootpath' => '',
+			// base path for filename normalization
+			'sourceMapRootpath'		=> '',
 
-		// base path for filename normalization
-		'sourceMapBasepath' => '',
+			// base path for filename normalization
+			'sourceMapBasepath'   => ''
 	);
 
 	/**
@@ -76,19 +76,19 @@ class Less_SourceMap_Generator extends Less_Configurable {
 	 *
 	 * @var array
 	 */
-	protected $sources     = array();
+	protected $sources = array();
 	protected $source_keys = array();
 
 	/**
 	 * Constructor
 	 *
 	 * @param Less_Tree_Ruleset $root The root node
-	 * @param array             $options Array of options
+	 * @param array $options Array of options
 	 */
 	public function __construct( Less_Tree_Ruleset $root, $contentsMap, $options = array() ) {
-		$this->root        = $root;
+		$this->root = $root;
 		$this->contentsMap = $contentsMap;
-		$this->encoder     = new Less_SourceMap_Base64VLQ();
+		$this->encoder = new Less_SourceMap_Base64VLQ();
 
 		$this->SetOptions( $options );
 
@@ -107,12 +107,12 @@ class Less_SourceMap_Generator extends Less_Configurable {
 		// catch the output
 		$this->root->genCSS( $output );
 
-		$sourceMapUrl      = $this->getOption( 'sourceMapURL' );
-		$sourceMapFilename = $this->getOption( 'sourceMapFilename' );
-		$sourceMapContent  = $this->generateJson();
-		$sourceMapWriteTo  = $this->getOption( 'sourceMapWriteTo' );
+		$sourceMapUrl				= $this->getOption( 'sourceMapURL' );
+		$sourceMapFilename			= $this->getOption( 'sourceMapFilename' );
+		$sourceMapContent			= $this->generateJson();
+		$sourceMapWriteTo			= $this->getOption( 'sourceMapWriteTo' );
 
-		if ( ! $sourceMapUrl && $sourceMapFilename ) {
+		if ( !$sourceMapUrl && $sourceMapFilename ) {
 			$sourceMapUrl = $this->normalizeFilename( $sourceMapFilename );
 		}
 
@@ -122,7 +122,7 @@ class Less_SourceMap_Generator extends Less_Configurable {
 		}
 
 		// inline the map
-		if ( ! $sourceMapUrl ) {
+		if ( !$sourceMapUrl ) {
 			$sourceMapUrl = sprintf( 'data:application/json,%s', Less_Functions::encodeURIComponent( $sourceMapContent ) );
 		}
 
@@ -143,21 +143,12 @@ class Less_SourceMap_Generator extends Less_Configurable {
 	protected function saveMap( $file, $content ) {
 		$dir = dirname( $file );
 		// directory does not exist
-		if ( ! is_dir( $dir ) ) {
+		if ( !is_dir( $dir ) ) {
 			// FIXME: create the dir automatically?
 			throw new Exception( sprintf( 'The directory "%s" does not exist. Cannot save the source map.', $dir ) );
 		}
-
-		// filesystem
-		global $wp_filesystem;
-		// Initialize the WordPress filesystem, no more using file_put_contents function
-		if ( empty( $wp_filesystem ) ) {
-			require_once ABSPATH . '/wp-admin/includes/file.php';
-			WP_Filesystem();
-		}
-
 		// FIXME: proper saving, with dir write check!
-		if ( ! $wp_filesystem->put_contents( $file, $content, FS_CHMOD_FILE ) ) {
+		if ( file_put_contents( $file, $content ) === false ) {
 			throw new Exception( sprintf( 'Cannot save the source map to "%s"', $file ) );
 		}
 		return true;
@@ -170,14 +161,13 @@ class Less_SourceMap_Generator extends Less_Configurable {
 	 * @return string
 	 */
 	protected function normalizeFilename( $filename ) {
-
 		$filename = $this->fixWindowsPath( $filename );
 
 		$rootpath = $this->getOption( 'sourceMapRootpath' );
 		$basePath = $this->getOption( 'sourceMapBasepath' );
 
 		// "Trim" the 'sourceMapBasepath' from the output filename.
-		if ( strpos( $filename, $basePath ) === 0 ) {
+		if ( is_string( $basePath ) && strpos( $filename, $basePath ) === 0 ) {
 			$filename = substr( $filename, strlen( $basePath ) );
 		}
 
@@ -196,21 +186,19 @@ class Less_SourceMap_Generator extends Less_Configurable {
 	 * @param integer $generatedColumn The column number in generated file
 	 * @param integer $originalLine The line number in original file
 	 * @param integer $originalColumn The column number in original file
-	 * @param string  $sourceFile The original source file
+	 * @param string $sourceFile The original source file
 	 */
 	public function addMapping( $generatedLine, $generatedColumn, $originalLine, $originalColumn, $fileInfo ) {
-
 		$this->mappings[] = array(
-			'generated_line'   => $generatedLine,
+			'generated_line' => $generatedLine,
 			'generated_column' => $generatedColumn,
-			'original_line'    => $originalLine,
-			'original_column'  => $originalColumn,
-			'source_file'      => $fileInfo['currentUri'],
+			'original_line' => $originalLine,
+			'original_column' => $originalColumn,
+			'source_file' => $fileInfo['currentUri']
 		);
 
-		$this->sources[ $fileInfo['currentUri'] ] = $fileInfo['filename'];
+		$this->sources[$fileInfo['currentUri']] = $fileInfo['filename'];
 	}
-
 
 	/**
 	 * Generates the JSON source map
@@ -219,9 +207,8 @@ class Less_SourceMap_Generator extends Less_Configurable {
 	 * @see https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit#
 	 */
 	protected function generateJson() {
-
 		$sourceMap = array();
-		$mappings  = $this->generateMappings();
+		$mappings = $this->generateMappings();
 
 		// File version (always the first entry in the object) and must be a positive integer.
 		$sourceMap['version'] = self::VERSION;
@@ -275,17 +262,8 @@ class Less_SourceMap_Generator extends Less_Configurable {
 			return;
 		}
 		$content = array();
-
-		// filesystem
-		global $wp_filesystem;
-		// Initialize the WordPress filesystem, no more using file_put_contents function
-		if ( empty( $wp_filesystem ) ) {
-			require_once ABSPATH . '/wp-admin/includes/file.php';
-			WP_Filesystem();
-		}
-
 		foreach ( $this->sources as $sourceFile ) {
-			$content[] = $wp_filesystem->get_contents( $sourceFile );
+			$content[] = file_get_contents( $sourceFile );
 		}
 		return $content;
 	}
@@ -296,8 +274,7 @@ class Less_SourceMap_Generator extends Less_Configurable {
 	 * @return string
 	 */
 	public function generateMappings() {
-
-		if ( ! count( $this->mappings ) ) {
+		if ( !count( $this->mappings ) ) {
 			return '';
 		}
 
@@ -306,7 +283,7 @@ class Less_SourceMap_Generator extends Less_Configurable {
 		// group mappings by generated line number.
 		$groupedMap = $groupedMapEncoded = array();
 		foreach ( $this->mappings as $m ) {
-			$groupedMap[ $m['generated_line'] ][] = $m;
+			$groupedMap[$m['generated_line']][] = $m;
 		}
 		ksort( $groupedMap );
 
@@ -317,25 +294,25 @@ class Less_SourceMap_Generator extends Less_Configurable {
 				$groupedMapEncoded[] = ';';
 			}
 
-			$lineMapEncoded      = array();
+			$lineMapEncoded = array();
 			$lastGeneratedColumn = 0;
 
 			foreach ( $line_map as $m ) {
-				$mapEncoded          = $this->encoder->encode( $m['generated_column'] - $lastGeneratedColumn );
+				$mapEncoded = $this->encoder->encode( $m['generated_column'] - $lastGeneratedColumn );
 				$lastGeneratedColumn = $m['generated_column'];
 
 				// find the index
 				if ( $m['source_file'] ) {
 					$index = $this->findFileIndex( $m['source_file'] );
 					if ( $index !== false ) {
-						$mapEncoded       .= $this->encoder->encode( $index - $lastOriginalIndex );
+						$mapEncoded .= $this->encoder->encode( $index - $lastOriginalIndex );
 						$lastOriginalIndex = $index;
 
 						// lines are stored 0-based in SourceMap spec version 3
-						$mapEncoded      .= $this->encoder->encode( $m['original_line'] - 1 - $lastOriginalLine );
+						$mapEncoded .= $this->encoder->encode( $m['original_line'] - 1 - $lastOriginalLine );
 						$lastOriginalLine = $m['original_line'] - 1;
 
-						$mapEncoded        .= $this->encoder->encode( $m['original_column'] - $lastOriginalColumn );
+						$mapEncoded .= $this->encoder->encode( $m['original_column'] - $lastOriginalColumn );
 						$lastOriginalColumn = $m['original_column'];
 					}
 				}
@@ -356,18 +333,17 @@ class Less_SourceMap_Generator extends Less_Configurable {
 	 * @return integer|false
 	 */
 	protected function findFileIndex( $filename ) {
-		return $this->source_keys[ $filename ];
+		return $this->source_keys[$filename];
 	}
 
 	/**
 	 * fix windows paths
-	 *
-	 * @param  string $path
+	 * @param string $path
 	 * @return string
 	 */
 	public function fixWindowsPath( $path, $addEndSlash = false ) {
 		$slash = ( $addEndSlash ) ? '/' : '';
-		if ( ! empty( $path ) ) {
+		if ( !empty( $path ) ) {
 			$path = str_replace( '\\', '/', $path );
 			$path = rtrim( $path, '/' ) . $slash;
 		}

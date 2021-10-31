@@ -15,8 +15,8 @@ class Less_Tree_Comment extends Less_Tree {
 	public $type = 'Comment';
 
 	public function __construct( $value, $silent, $index = null, $currentFileInfo = null ) {
-		$this->value           = $value;
-		$this->silent          = ! ! $silent;
+		$this->value = $value;
+		$this->silent = !!$silent;
 		$this->currentFileInfo = $currentFileInfo;
 	}
 
@@ -25,8 +25,8 @@ class Less_Tree_Comment extends Less_Tree {
 	 */
 	public function genCSS( $output ) {
 		// if( $this->debugInfo ){
-			// $output->add( tree.debugInfo($env, $this), $this->currentFileInfo, $this->index);
-		// }
+			//$output->add( tree.debugInfo($env, $this), $this->currentFileInfo, $this->index);
+		//}
 		$output->add( trim( $this->value ) );// TODO shouldn't need to trim, we shouldn't grab the \n
 	}
 
@@ -35,8 +35,8 @@ class Less_Tree_Comment extends Less_Tree {
 	}
 
 	public function isSilent() {
-		$isReference  = ( $this->currentFileInfo && isset( $this->currentFileInfo['reference'] ) && ( ! isset( $this->isReferenced ) || ! $this->isReferenced ) );
-		$isCompressed = Less_Parser::$options['compress'] && ! preg_match( '/^\/\*!/', $this->value );
+		$isReference = ( $this->currentFileInfo && isset( $this->currentFileInfo['reference'] ) && ( !isset( $this->isReferenced ) || !$this->isReferenced ) );
+		$isCompressed = Less_Parser::$options['compress'] && !preg_match( '/^\/\*!/', $this->value );
 		return $this->silent || $isReference || $isCompressed;
 	}
 

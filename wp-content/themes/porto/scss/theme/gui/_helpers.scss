@@ -53,17 +53,6 @@
 
 // TEXT OTHERS
 // -----------------------------------------------------------------------------
-.text-uppercase {
-    text-transform: uppercase;
-}
-
-.text-lowercase {
-    text-transform: lowercase;
-}
-
-.text-capitalize {
-    text-transform: capitalize;
-}
 
 /* Close */
 .mfp-close,
@@ -237,7 +226,9 @@
         opacity: 0;
     }
 }
-
+.popup-builder .mfp-content {
+	position: static;
+}
 /* Popup Block */
 .dialog {
     padding: 20px 25px;

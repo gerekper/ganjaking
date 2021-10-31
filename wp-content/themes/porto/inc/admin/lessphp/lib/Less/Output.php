@@ -18,10 +18,10 @@ class Less_Output {
 	/**
 	 * Adds a chunk to the stack
 	 *
-	 * @param string        $chunk The chunk to output
+	 * @param string $chunk The chunk to output
 	 * @param Less_FileInfo $fileInfo The file information
-	 * @param integer       $index The index
-	 * @param mixed         $mapLines
+	 * @param integer $index The index
+	 * @param mixed $mapLines
 	 */
 	public function add( $chunk, $fileInfo = null, $index = 0, $mapLines = null ) {
 		$this->strs[] = $chunk;
@@ -35,7 +35,6 @@ class Less_Output {
 	public function isEmpty() {
 		return count( $this->strs ) === 0;
 	}
-
 
 	/**
 	 * Converts the output to string

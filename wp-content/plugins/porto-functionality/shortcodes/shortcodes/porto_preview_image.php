@@ -3,20 +3,17 @@
 // Porto Preview Image
 add_action( 'vc_after_init', 'porto_load_preview_image_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_preview_image_shortcode() {
 	$custom_class = porto_vc_custom_class();
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Preview Image', 'porto-functionality' ),
-			'base'     => 'porto_preview_image',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'fas fa-camera',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Preview Image', 'porto-functionality' ),
+			'base'        => 'porto_preview_image',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Show preview images with loading frame', 'porto-functionality' ),
+			'icon'        => 'fas fa-camera',
+			'params'      => array(
 				array(
 					'type'        => 'vc_link',
 					'heading'     => __( 'URL (Link)', 'porto-functionality' ),

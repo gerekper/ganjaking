@@ -2,57 +2,78 @@
 /**
  * SCSSPHP
  *
- * @copyright 2012-2018 Leaf Corcoran
+ * @copyright 2012-2020 Leaf Corcoran
  *
  * @license http://opensource.org/licenses/MIT MIT
  *
- * @link http://leafo.github.io/scssphp
+ * @link http://scssphp.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp\Formatter;
+namespace ScssPhp\ScssPhp\Formatter;
 
-use Leafo\ScssPhp\Formatter;
-use Leafo\ScssPhp\Formatter\OutputBlock;
+use ScssPhp\ScssPhp\Formatter;
+use ScssPhp\ScssPhp\Formatter\OutputBlock;
 
 /**
  * Crunched formatter
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class Crunched extends Formatter {
+class Crunched extends Formatter
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct()
+    {
+        $this->indentLevel = 0;
+        $this->indentChar = '  ';
+        $this->break = '';
+        $this->open = '{';
+        $this->close = '}';
+        $this->tagSeparator = ',';
+        $this->assignSeparator = ':';
+        $this->keepSemicolons = false;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function __construct() {
-		 $this->indentLevel    = 0;
-		$this->indentChar      = '  ';
-		$this->break           = '';
-		$this->open            = '{';
-		$this->close           = '}';
-		$this->tagSeparator    = ',';
-		$this->assignSeparator = ':';
-		$this->keepSemicolons  = false;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function blockLines(OutputBlock $block)
+    {
+        $inner = $this->indentStr();
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function blockLines( OutputBlock $block ) {
-		$inner = $this->indentStr();
+        $glue = $this->break . $inner;
 
-		$glue = $this->break . $inner;
+        foreach ($block->lines as $index => $line) {
+            if (substr($line, 0, 2) === '/*') {
+                unset($block->lines[$index]);
+            }
+        }
 
-		foreach ( $block->lines as $index => $line ) {
-			if ( substr( $line, 0, 2 ) === '/*' ) {
-				unset( $block->lines[ $index ] );
-			}
-		}
+        $this->write($inner . implode($glue, $block->lines));
 
-		$this->write( $inner . implode( $glue, $block->lines ) );
+        if (! empty($block->children)) {
+            $this->write($this->break);
+        }
+    }
 
-		if ( ! empty( $block->children ) ) {
-			$this->write( $this->break );
-		}
-	}
+    /**
+     * Output block selectors
+     *
+     * @param \ScssPhp\ScssPhp\Formatter\OutputBlock $block
+     */
+    protected function blockSelectors(OutputBlock $block)
+    {
+        $inner = $this->indentStr();
+
+        $this->write(
+            $inner
+            . implode(
+                $this->tagSeparator,
+                str_replace([' > ', ' + ', ' ~ '], ['>', '+', '~'], $block->selectors)
+            )
+            . $this->open . $this->break
+        );
+    }
 }

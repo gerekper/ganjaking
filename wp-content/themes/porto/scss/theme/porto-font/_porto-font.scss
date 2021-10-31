@@ -2,12 +2,12 @@ $porto-font-path: "../fonts/porto-font" !default;
 
 @font-face {
   font-family: 'porto';
-  src: url('#{$porto-font-path}/porto.eot?9562728');
-  src: url('#{$porto-font-path}/porto.eot?9562728#iefix') format('embedded-opentype'),
-       url('#{$porto-font-path}/porto.woff2?9562728') format('woff2'),
-       url('#{$porto-font-path}/porto.woff?9562728') format('woff'),
-       url('#{$porto-font-path}/porto.ttf?9562728') format('truetype'),
-       url('#{$porto-font-path}/porto.svg?9562728#porto') format('svg');
+  src: url('#{$porto-font-path}/porto.eot');
+  src: url('#{$porto-font-path}/porto.eot?#iefix') format('embedded-opentype'),
+       url('#{$porto-font-path}/porto.woff2') format('woff2'),
+       url('#{$porto-font-path}/porto.woff') format('woff'),
+       url('#{$porto-font-path}/porto.ttf') format('truetype'),
+       url('#{$porto-font-path}/porto.svg#porto') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -698,4 +698,10 @@ $porto-font-path: "../fonts/porto-font" !default;
 }
 .porto-icon-check:before {
   content: "\f87b";
+}
+.porto-icon-callin:before {
+  content: '\e924';
+}
+.porto-icon-atmark:before {
+  content: '\e925';
 }

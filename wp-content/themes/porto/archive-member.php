@@ -107,7 +107,7 @@
 			}
 			?>
 
-			<div class="member-row members-container row <?php echo porto_generate_column_classes( $member_columns ); ?>">
+			<div class="member-row members-container row ccols-wrap <?php echo porto_generate_column_classes( $member_columns ); ?>">
 			<?php
 			while ( have_posts() ) {
 				the_post();

@@ -34,9 +34,14 @@ if ( $title ) {
 }
 	$output .= '<div class="sidebar-menu-wrap">';
 
-	ob_start();
+$nav_menu_html_escaped = '';
 if ( $nav_menu ) {
-	$args = array(
+	global $porto_settings_optimize;
+	if ( ! empty( $porto_settings_optimize['lazyload_menu'] ) ) {
+		$optimize_backup = $porto_settings_optimize['lazyload_menu'];
+		$porto_settings_optimize['lazyload_menu'] = '';
+	}
+	$args                  = array(
 		'container'   => '',
 		'menu_class'  => 'sidebar-menu',
 		'before'      => '',
@@ -46,11 +51,18 @@ if ( $nav_menu ) {
 		'fallback_cb' => false,
 		'walker'      => new porto_sidebar_navwalker,
 		'menu'        => $nav_menu,
+		'echo'        => false,
 	);
-	wp_nav_menu( $args );
-}
+	$nav_menu_html_escaped = wp_nav_menu( $args );
 
-	$output .= str_replace( '&nbsp;', '', ob_get_clean() );
+	if ( isset( $optimize_backup ) ) {
+		$porto_settings_optimize['lazyload_menu'] = $optimize_backup;
+	}
+}
+if ( ! $nav_menu_html_escaped ) {
+	$nav_menu_html_escaped = esc_html__( 'Please select a valid menu to display.', 'porto-functionality' );
+}
+$output .= $nav_menu_html_escaped;
 
 	$output .= '</div>';
 

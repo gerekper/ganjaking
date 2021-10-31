@@ -27,6 +27,8 @@ if ( ! class_exists( 'Porto_Pre_Order_Admin' ) ) :
 				add_action( 'woocommerce_product_after_variable_attributes', array( $this, 'add_pre_order_fields' ), 10, 3 );
 				add_action( 'woocommerce_process_product_meta', array( $this, 'save_pre_order_fields' ), 10, 1 );
 				add_action( 'woocommerce_save_product_variation', array( $this, 'save_pre_order_fields' ), 10, 2 );
+
+				add_action( 'woocommerce_ajax_save_product_variations', array( $this, 'save_parent_pre_order' ) );
 			}
 
 			// view pre-orders on admin orders list
@@ -89,6 +91,10 @@ if ( ! class_exists( 'Porto_Pre_Order_Admin' ) ) :
 			}
 			update_post_meta( $post_id, '_porto_pre_order', $pre_order );
 			update_post_meta( $post_id, '_porto_pre_order_date', sanitize_title( $pre_order_date ) );
+		}
+
+		public function save_parent_pre_order( $post_id ) {
+			update_post_meta( $post_id, '_porto_variation_pre_order', isset( $_POST['_porto_pre_order'] ) ? 'yes' : '' );
 		}
 
 		public function add_pre_ordered_in_orders( $views ) {

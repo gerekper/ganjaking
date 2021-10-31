@@ -1,10 +1,6 @@
 <?php
 
 // Meta Fields
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_product_meta_fields() {
 	global $porto_settings;
 
@@ -123,6 +119,7 @@ function porto_add_product_meta_boxes() {
 	if ( function_exists( 'add_meta_box' ) && $screen && 'post' == $screen->base && 'product' == $screen->id ) {
 		add_meta_box( 'product-meta-box', __( 'Product Options', 'porto-functionality' ), 'porto_product_meta_box', 'product', 'normal', 'high' );
 		add_meta_box( 'view-meta-box', __( 'View Options', 'porto-functionality' ), 'porto_product_view_meta_box', 'product', 'normal', 'low' );
+		add_meta_box( 'video-meta-box', __( 'Porto Video Thumbnail', 'porto-functionality' ), 'porto_product_video_meta_box', 'product', 'side', 'low' );
 		if ( $porto_settings['show-content-type-skin'] ) {
 			add_meta_box( 'skin-meta-box', __( 'Skin Options', 'porto-functionality' ), 'porto_product_skin_meta_box', 'product', 'normal', 'low' );
 		}
@@ -155,6 +152,7 @@ function porto_save_product_meta_values( $post_id ) {
 		porto_save_meta_value( $post_id, porto_product_meta_fields() );
 		porto_save_meta_value( $post_id, porto_product_view_meta_fields() );
 		porto_save_meta_value( $post_id, porto_product_skin_meta_fields() );
+		porto_save_meta_value( $post_id, porto_product_video_meta_box( false ) );
 	}
 }
 
@@ -389,5 +387,36 @@ function porto_delete_product_extra_attribute_values( $term_id, $tt_id, $taxonom
 				delete_term_meta( $term_id, 'label_value' );
 			}
 		}
+	}
+}
+
+// Video Thumbnail
+/**
+ * Adds video for product thumbnail
+ *
+ * @since 6.1
+ */
+if ( ! function_exists( 'porto_product_video_meta_box' ) ) {
+	function porto_product_video_meta_box( $show_box = true ) {
+		$meta_fields = array(
+			'video_post_image' => array(
+				'title'   => esc_html__( 'Video from Library', 'porto-functionality' ),
+				'name'    => 'porto_product_video_thumbnails',
+				'type'    => 'video',
+				'default' => false,
+			),
+			'video_url'        => array(
+				'title'   => esc_html__( 'Video Source (Video shortcode, Youtube url or Vimeo url)', 'porto-functionality' ),
+				'name'    => 'porto_product_video_thumbnail_shortcode',
+				'type'    => 'textarea',
+				'rows'    => 5,
+				'default' => '',
+				'desc'    => esc_html__( 'ex. [video src="url.mp4" poster="image.jpg"], https://www.youtube.com/watch?v=MDx7RBlSq1A or https://vimeo.com/75230326', 'porto-functionality' ),
+			),
+		);
+		if ( $show_box ) {
+			porto_show_meta_box( $meta_fields );
+		}
+		return $meta_fields;
 	}
 }

@@ -196,7 +196,7 @@ if ( $show_products && ! empty( $terms ) ) {
 							'order'               => $category_order,
 						)
 					);
-					$output          .= '<h4 class="cat-title dropdown-toggle' . ( $child_categories ? ' has-sub-cat' : '' ) . '" data-display="static" data-toggle="dropdown" aria-expanded="false"><span>' . esc_html( $term_cat->name ) . '</span></h4>';
+					$output          .= '<h4 class="cat-title dropdown-toggle' . ( $child_categories ? ' has-sub-cat' : '' ) . '" data-display="static" data-bs-toggle="dropdown" aria-expanded="false"><span>' . esc_html( $term_cat->name ) . '</span></h4>';
 		if ( $child_categories ) {
 			$output .= '<ul class="dropdown-menu ' . $subcategory_class . '">' . $child_categories . '</ul>';
 		}

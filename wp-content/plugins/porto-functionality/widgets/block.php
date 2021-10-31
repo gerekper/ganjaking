@@ -5,10 +5,6 @@ function porto_block_load_widgets() {
 	register_widget( 'Porto_Block_Widget' );
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Porto_Block_Widget extends WP_Widget {
 
 	public function __construct() {
@@ -24,14 +20,7 @@ class Porto_Block_Widget extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		if ( ! empty( $args ) ) {
-			extract( $args );
-		} else {
-			$before_widget = '';
-			$after_widget  = '';
-			$before_title  = '';
-			$after_title   = '';
-		}
+		extract( $args );
 
 		$title = '';
 		if ( isset( $instance['title'] ) ) {

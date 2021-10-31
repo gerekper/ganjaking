@@ -3,10 +3,6 @@
 // Porto Price Box
 add_action( 'vc_after_init', 'porto_load_price_box_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_price_box_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -15,12 +11,13 @@ function porto_load_price_box_shortcode() {
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Price Box', 'porto-functionality' ),
-			'base'     => 'porto_price_box',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'fas fa-dollar-sign',
-			'as_child' => array( 'only' => 'porto_price_boxes' ),
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Price Box', 'porto-functionality' ),
+			'base'        => 'porto_price_box',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Simple filled or outline pricing table to display price of your product or service', 'porto-functionality' ),
+			'icon'        => 'fas fa-dollar-sign',
+			'as_child'    => array( 'only' => 'porto_price_boxes' ),
+			'params'      => array(
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Title', 'porto-functionality' ),
@@ -177,7 +174,7 @@ function porto_load_price_box_shortcode() {
 					'heading'    => __( 'Button Position', 'porto-functionality' ),
 					'param_name' => 'btn_pos',
 					'value'      => array(
-						__( 'Top', 'porto-functionality' )    => '',
+						__( 'Top', 'porto-functionality' ) => '',
 						__( 'Bottom', 'porto-functionality' ) => 'bottom',
 					),
 					'dependency' => array(

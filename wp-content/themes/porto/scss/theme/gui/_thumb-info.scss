@@ -170,6 +170,10 @@
         }
     }
 
+    .owl-item.active {
+        z-index: 1;
+    }
+
     &.thumb-info-no-zoom {
         img {
             @include transition(none);
@@ -689,7 +693,7 @@
         left: 50%;
         z-index: 2;
         @include transform(translate3d(-50%, -50%, 0));
-        @include transition (all .3s);
+        transition: .3s;
         width: 2%;
     }
     &:hover {
@@ -700,6 +704,9 @@
             opacity: 1;
             width: 8%;
         }
+    }
+    .container-fluid {
+        position: static;
     }
 }
 .portfolio-parallax.hidden-plus {
@@ -721,7 +728,7 @@
     }
     img {
         @include transform(translate3d(-2%, -2%, 0) scale(1.2));
-        @include transition(5s);
+        transition: 5s;
     }
     transition: box-shadow .3s;
     .thumb-info-plus {

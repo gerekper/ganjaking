@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Call
  *
@@ -17,9 +16,9 @@ class Less_Tree_Call extends Less_Tree {
 	public $type = 'Call';
 
 	public function __construct( $name, $args, $index, $currentFileInfo = null ) {
-		$this->name            = $name;
-		$this->args            = $args;
-		$this->index           = $index;
+		$this->name = $name;
+		$this->args = $args;
+		$this->index = $index;
 		$this->currentFileInfo = $currentFileInfo;
 	}
 
@@ -48,20 +47,20 @@ class Less_Tree_Call extends Less_Tree {
 		$nameLC = strtolower( $this->name );
 		switch ( $nameLC ) {
 			case '%':
-				$nameLC = '_percent';
-				break;
+			$nameLC = '_percent';
+			break;
 
 			case 'get-unit':
-				$nameLC = 'getunit';
-				break;
+			$nameLC = 'getunit';
+			break;
 
 			case 'data-uri':
-				$nameLC = 'datauri';
-				break;
+			$nameLC = 'datauri';
+			break;
 
 			case 'svg-gradient':
-				$nameLC = 'svggradient';
-				break;
+			$nameLC = 'svggradient';
+			break;
 		}
 
 		$result = null;
@@ -73,17 +72,17 @@ class Less_Tree_Call extends Less_Tree {
 			if ( method_exists( 'Less_Functions', $nameLC ) ) { // 1.
 				try {
 
-					$func   = new Less_Functions( $env, $this->currentFileInfo );
-					$result = call_user_func_array( array( $func, $nameLC ), $args );
+					$func = new Less_Functions( $env, $this->currentFileInfo );
+					$result = call_user_func_array( array( $func,$nameLC ), $args );
 
 				} catch ( Exception $e ) {
-					throw new Less_Exception_Compiler( 'error evaluating function `' . $this->name . '` ' . $e->getMessage() . ' index: ' . $this->index );
+					throw new Less_Exception_Compiler( 'error evaluating function `' . $this->name . '` '.$e->getMessage().' index: '. $this->index );
 				}
-			} elseif ( isset( $env->functions[ $nameLC ] ) && is_callable( $env->functions[ $nameLC ] ) ) {
+			} elseif ( isset( $env->functions[$nameLC] ) && is_callable( $env->functions[$nameLC] ) ) {
 				try {
-					$result = call_user_func_array( $env->functions[ $nameLC ], $args );
+					$result = call_user_func_array( $env->functions[$nameLC], $args );
 				} catch ( Exception $e ) {
-					throw new Less_Exception_Compiler( 'error evaluating function `' . $this->name . '` ' . $e->getMessage() . ' index: ' . $this->index );
+					throw new Less_Exception_Compiler( 'error evaluating function `' . $this->name . '` '.$e->getMessage().' index: '. $this->index );
 				}
 			}
 		}
@@ -99,11 +98,10 @@ class Less_Tree_Call extends Less_Tree {
 	 * @see Less_Tree::genCSS
 	 */
 	public function genCSS( $output ) {
-
 		$output->add( $this->name . '(', $this->currentFileInfo, $this->index );
 		$args_len = count( $this->args );
 		for ( $i = 0; $i < $args_len; $i++ ) {
-			$this->args[ $i ]->genCSS( $output );
+			$this->args[$i]->genCSS( $output );
 			if ( $i + 1 < $args_len ) {
 				$output->add( ', ' );
 			}
@@ -112,8 +110,8 @@ class Less_Tree_Call extends Less_Tree {
 		$output->add( ')' );
 	}
 
-
 	// public function toCSS(){
-	// return $this->compile()->toCSS();
-	// }
+	//    return $this->compile()->toCSS();
+	//}
+
 }

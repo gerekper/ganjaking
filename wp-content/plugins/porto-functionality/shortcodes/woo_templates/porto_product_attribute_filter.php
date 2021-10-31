@@ -23,7 +23,9 @@ if ( ! taxonomy_exists( $taxonomy ) ) {
 	return;
 }
 
-$get_terms_args = array();
+$get_terms_args = array(
+	'taxonomy' => $taxonomy,
+);
 if ( $hide_empty ) {
 	$get_terms_args['hide_empty'] = '1';
 }
@@ -45,7 +47,7 @@ switch ( $orderby ) {
 		break;
 }
 
-$terms = get_terms( $taxonomy, $get_terms_args );
+$terms = get_terms( $get_terms_args );
 
 if ( 0 === count( $terms ) ) {
 	return;
@@ -96,7 +98,7 @@ if ( 'list' == $display_type ) {
 	echo '</form>';
 	wc_enqueue_js(
 		"
-			jQuery( '.porto_dropdown_product_attributes' ).change( function() {
+			jQuery( '.porto_dropdown_product_attributes' ).on('change', function() {
 				if ( jQuery(this).val() != '' ) {
 					var this_page = jQuery(this).find('option:selected').data('url');
 					location.href = this_page;

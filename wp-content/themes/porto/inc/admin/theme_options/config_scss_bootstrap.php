@@ -4,6 +4,14 @@
 	$b                     = porto_check_theme_options();
 	$porto_settings        = $porto_settings_backup;
 	$dark                  = 'dark' == $b['css-type'];
+
+	if ( (int) $b['container-width'] >= 1360 ) {
+		$xl  = 1140;
+		$xxl = (int) $b['container-width'];
+	} else {
+		$xl  = (int) $b['container-width'];
+		$xxl = 1360;
+	}
 ?>
 
 $grid-breakpoints: (
@@ -11,14 +19,16 @@ $grid-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: <?php echo (int) $b['container-width'] + (int) $b['grid-gutter-width']; ?>px
+  xl: <?php echo (int) $xl + (int) $b['grid-gutter-width']; ?>px,
+  xxl: <?php echo (int) $xxl + (int) $b['grid-gutter-width'] * 2; ?>px
 ) !default;
 
 $container-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
-  xl: <?php echo (int) $b['container-width']; ?>px
+  xl: <?php echo (int) $xl; ?>px,
+  xxl: <?php echo (int) $b['container-width']; ?>px
 ) !default;
 
 $grid-gutter-width:           <?php echo (int) $b['grid-gutter-width']; ?>px !default;
@@ -46,6 +56,8 @@ $color-darken-1: darken($color-dark-1, 2%);
 $dark-bg: $dark;
 $dark-default-text: #808697;
 
+$link-decoration: none;
+
 <?php if ( $dark ) : ?>
 	$body-bg: $color-dark-3 !default;
 
@@ -62,7 +74,9 @@ $dark-default-text: #808697;
 	$component-active-bg:       $primary !default;
 
 	// Tables
-	$table-accent-bg:               $color-dark-3 !default;
+	$table-color:                   $gray-darker !default;
+	$table-striped-bg:              $color-dark-3 !default;
+	$table-striped-color:           $gray-darker !default;
 	$table-hover-bg:                $color-dark-2 !default;
 	$table-active-bg:               $table-hover-bg !default;
 	$table-border-color:            $color-dark-3 !default;
@@ -74,6 +88,9 @@ $dark-default-text: #808697;
 	$input-border-color:             $color-dark-3 !default;
 	$input-focus-border-color:       $color-dark-4 !default;
 	$input-placeholder-color:        #999 !default;
+	$form-check-input-border:        1px solid rgba(#fff, .25) !default;
+	$form-switch-color:              rgba(#fff, .25) !default;
+	$form-range-thumb-box-shadow:    0 .1rem .25rem rgba(#fff, .1) !default;
 
 	// Dropdowns
 	$dropdown-bg:                    $color-dark-3 !default;
@@ -122,13 +139,6 @@ $dark-default-text: #808697;
 	$card-cap-bg: $color-dark-4 !default;
 	$card-border-color:          $color-dark-3 !default;
 
-	// Breadcrumbs
-	$breadcrumb-bg:                 $color-dark-4 !default;
-
-	//  Close
-	$close-color:                 #fff !default;
-	$close-text-shadow:           none !default;
-
 	//  Code
 	$code-bg:                     $color-dark-3 !default;
 	$kbd-color:                   #000 !default;
@@ -144,7 +154,7 @@ $dark-default-text: #808697;
 	$gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
 	// Tables
-	$table-accent-bg:               #f9f9f9 !default;
+	$table-striped-bg:              #f9f9f9 !default;
 	$table-hover-bg:                #f5f5f5 !default;
 	$table-active-bg:               $table-hover-bg !default;
 	$table-border-color:            #ddd !default;
@@ -190,19 +200,17 @@ $dark-default-text: #808697;
 	$list-group-action-color:       #555 !default;
 	$list-group-action-active-color:#333 !default;
 
-	//  Close
-	$close-text-shadow:           none !default;
 
 <?php endif; ?>
 
 <?php if ( $b['border-radius'] ) : ?>
 	$border-radius:               .25rem !default;
-	$border-radius-lg:            .3rem !default;
 	$border-radius-sm:            .2rem !default;
+	$border-radius-lg:            .3rem !default;
 <?php else : ?>
 	$border-radius:               0 !default;
-	$border-radius-lg:            0 !default;
 	$border-radius-sm:            0 !default;
+	$border-radius-lg:            0 !default;
 <?php endif; ?>
 
 // Image thumbnails

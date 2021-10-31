@@ -86,7 +86,7 @@ $porto_woo_version = porto_get_woo_version_number();
 						</small></p>
 					<?php endif; ?>
 					<div class="wc-proceed-to-checkout">
-						<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="btn btn-v-dark w-100 m-t-lg py-3"><?php esc_html_e( 'Proceed to checkout', 'porto' ); ?><i class="vc_btn3-icon fas fa-arrow-right pl-3"></i></a>
+						<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="btn btn-v-dark w-100 m-t-lg py-3"><?php esc_html_e( 'Proceed to checkout', 'porto' ); ?><i class="vc_btn3-icon fas fa-arrow-right ps-3"></i></a>
 					</div>
 				</div>
 			</div>

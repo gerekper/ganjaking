@@ -255,16 +255,16 @@
 	"mainmenu-toplevel-alink-color":"#ffffff",
 	"mainmenu-toplevel-abg-color":"#0088cc",
 	"mainmenu-toplevel-padding1":{
-		"padding-top":0,
-		"padding-bottom":0,
-		"padding-left":0,
-		"padding-right":0
+		"padding-top":10,
+		"padding-bottom":10,
+		"padding-left":16,
+		"padding-right":16
 	},
 	"mainmenu-toplevel-padding2":{
-		"padding-top":0,
-		"padding-bottom":0,
-		"padding-left":0,
-		"padding-right":0
+		"padding-top":9,
+		"padding-bottom":9,
+		"padding-left":14,
+		"padding-right":14
 	},
 	"mainmenu-popup-border":"",
 	"mainmenu-popup-border-color":"#0088cc",
@@ -342,6 +342,20 @@
 		"regular":"#777777",
 		"hover":"#777777"
 	},
+	"show-account-dropdown": false,
+	"account-dropdown-font":{
+		"google":true,
+		"font-weight":"400",
+		"font-family":"Open Sans",
+		"font-size":"11px",
+		"line-height":"16.5px"
+	},
+	"account-dropdown-bg-color":"transparent",
+	"account-dropdown-hbg-color":"#ffffff",
+	"account-dropdown-link-color":{
+		"regular":"#777777",
+		"hover":"#777777"
+	},
 	"searchform-bg-color":"#ffffff",
 	"searchform-border-color":"#eeeeee",
 	"searchform-popup-border-color":"#cccccc",
@@ -388,7 +402,6 @@
 	"header-social-instagram":"",
 	"header-social-skype":"",
 	"header-social-linkedin":"",
-	"header-social-googleplus":"",
 	"header-social-vk":"",
 	"header-social-xing":"",
 	"header-social-tumblr":"",
@@ -398,6 +411,8 @@
 	"header-social-yelp":"",
 	"header-social-flickr":"",
 	"header-social-whatsapp":"",
+	"header-social-wechat":"",
+	"header-social-tiktok":"",
 	"show-searchform":true,
 	"search-layout":"simple",
 	"search-type":"",
@@ -536,6 +551,7 @@
 	"product-price":true,
 	"product-wishlist":true,
 	"product-quickview":true,
+	"product-compare":true,
 	"product-quickview-label":"",
 	"product-single-layout":"right-sidebar",
 	"product-single-content-layout":"default",
@@ -552,9 +568,7 @@
 	"product-upsells":true,
 	"product-upsells-count":"10",
 	"product-upsells-cols":"4",
-	"product-hot":true,
 	"product-hot-label":"",
-	"product-sale":true,
 	"product-sale-label":"",
 	"product-sale-percent":true,
 	"product-stock":true,

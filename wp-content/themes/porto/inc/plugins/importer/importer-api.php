@@ -12,15 +12,15 @@ class Porto_Importer_API {
 	protected $path_demo = '';
 
 	protected $url = array(
-		'changelog'        => 'https://sw-themes.com/activation/porto_wp/download/changelog.php',
-		'theme_version'    => 'https://sw-themes.com/activation/porto_wp/download/theme_version.php',
-		'theme'            => 'https://sw-themes.com/activation/porto_wp/download/theme.php',
-		'plugins_version'  => 'https://sw-themes.com/activation/porto_wp/download/plugins_version.php',
-		'plugins'          => 'https://sw-themes.com/activation/porto_wp/download/plugins.php',
-		'demos'            => 'https://sw-themes.com/activation/porto_wp/download/demos.php',
-		'blocks'           => 'https://sw-themes.com/activation/porto_wp/download/blocks.php',
-		'block_categories' => 'https://sw-themes.com/activation/porto_wp/download/block_categories.php',
-		'blocks_content'   => 'https://sw-themes.com/activation/porto_wp/download/block_content.php',
+		'changelog'        => PORTO_API_URL . 'download/changelog.php',
+		'theme_version'    => PORTO_API_URL . 'download/theme_version.php',
+		'theme'            => PORTO_API_URL . 'download/theme.php',
+		'plugins_version'  => PORTO_API_URL . 'download/plugins_version.php',
+		'plugins'          => PORTO_API_URL . 'download/plugins.php',
+		'demos'            => PORTO_API_URL . 'download/demos.php',
+		'blocks'           => PORTO_API_URL . 'download/blocks.php',
+		'block_categories' => PORTO_API_URL . 'download/block_categories.php',
+		'blocks_content'   => PORTO_API_URL . 'download/block_content.php',
 	);
 
 	public function __construct( $demo = false ) {
@@ -35,10 +35,24 @@ class Porto_Importer_API {
 		} else {
 			$this->code = get_option( 'envato_purchase_code_9207399' );
 		}
+
+		add_filter( 'http_request_args', array( $this, 'http_request_args' ), 10, 2 );
 	}
 
 	public function get_url( $id ) {
 		return isset( $this->url[ $id ] ) ? $this->url[ $id ] : false;
+	}
+
+	public function http_request_args( $parsed_args = [], $url = '' ) {
+		if ( false === strpos( $url, PORTO_API_URL ) ) {
+			return $parsed_args;
+		}
+		if ( ! isset( $parsed_args['headers'] ) || ! is_array( $parsed_args['headers'] ) ) {
+			$parsed_args['headers'] = array();
+		}
+		$parsed_args['headers']['Referer'] = site_url();
+
+		return $parsed_args;
 	}
 
 	/**
@@ -84,8 +98,8 @@ class Porto_Importer_API {
 	public function get_response( $target, $args = array(), $data_type = 'json' ) {
 
 		$defaults = array(
-			'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . network_site_url(),
-			'timeout'    => 30,
+			'user-agent' => 'Porto/' . PORTO_VERSION,
+			'timeout'    => 60,
 		);
 		$args     = wp_parse_args( $args, $defaults );
 
@@ -93,7 +107,7 @@ class Porto_Importer_API {
 		if ( ! $url ) {
 			$url = $target;
 		}
-		$response = wp_remote_get( $url, $args );
+		$response = wp_remote_get( esc_url_raw( $url ), $args );
 
 		if ( is_wp_error( $response ) ) {
 			return $response;
@@ -114,15 +128,8 @@ class Porto_Importer_API {
 	}
 
 	public function generate_args( $ish = true ) {
-		preg_match( '/[a-z0-9\-]{1,63}\.[a-z\.]{2,6}$/', parse_url( site_url(), PHP_URL_HOST ), $_domain_tld );
-		if ( isset( $_domain_tld[0] ) ) {
-			$domain = $_domain_tld[0];
-		} else {
-			$domain = parse_url( site_url(), PHP_URL_HOST );
-		}
 		$args = array(
-			'code'   => $this->code,
-			'domain' => $domain,
+			'code' => $this->code,
 		);
 
 		if ( $this->is_localhost() ) {
@@ -151,11 +158,11 @@ class Porto_Importer_API {
 		$url = add_query_arg( $args, $url );
 
 		$args = array(
-			'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . network_site_url(),
+			'user-agent' => 'Porto/' . PORTO_VERSION,
 			'timeout'    => 60,
 		);
 
-		$response = wp_remote_get( $url, $args );
+		$response = wp_remote_get( esc_url_raw( $url ), $args );
 
 		if ( is_wp_error( $response ) ) {
 			return $response;

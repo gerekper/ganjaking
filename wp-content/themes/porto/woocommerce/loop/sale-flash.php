@@ -12,14 +12,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $post, $product, $porto_settings;
 
 $labels = '';
-if ( $porto_settings['product-hot'] ) {
+
+// display hot label
+if ( ! empty( $porto_settings['product-hot'] ) || ( ! empty( $porto_settings['product-labels'] ) && in_array( 'hot', $porto_settings['product-labels'] ) ) ) {
 	$featured = $product->is_featured();
 	if ( $featured ) {
 		$hot_html = '<div class="onhot">' . ( ( isset( $porto_settings['product-hot-label'] ) && $porto_settings['product-hot-label'] ) ? esc_html( $porto_settings['product-hot-label'] ) : __( 'Hot', 'porto' ) ) . '</div>';
 		$labels  .= $hot_html;
 	}
 }
-if ( $porto_settings['product-sale'] ) {
+
+// display sale label
+if ( ! empty( $porto_settings['product-sale'] ) || ( ! empty( $porto_settings['product-labels'] ) && in_array( 'sale', $porto_settings['product-labels'] ) ) ) {
 	if ( $product->is_on_sale() ) {
 		$percentage = 0;
 		$reg_p      = floatval( $product->get_regular_price() );
@@ -35,6 +39,12 @@ if ( $porto_settings['product-sale'] ) {
 		}
 		$labels .= $sales_html;
 	}
+}
+
+// display new label
+$new_period = empty( $porto_settings['product-new-days'] ) ? 7 : (int) $porto_settings['product-new-days'];
+if ( ! empty( $porto_settings['product-labels'] ) && in_array( 'new', $porto_settings['product-labels'] ) && strtotime( $product->get_date_created() ) > strtotime( '-' . $new_period . ' day' ) ) {
+	$labels .= '<label class="onnew">' . ( empty( $porto_settings['product-new-label'] ) ? esc_html__( 'New', 'porto' ) : esc_html( $porto_settings['product-new-label'] ) ) . '</label>';
 }
 
 if ( $labels ) {

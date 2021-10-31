@@ -5,10 +5,6 @@ function porto_follow_us_load_widgets() {
 	register_widget( 'Porto_Follow_Us_Widget' );
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Porto_Follow_Us_Widget extends WP_Widget {
 
 	public function __construct() {
@@ -39,7 +35,6 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 		$instagram       = isset( $instance['instagram'] ) ? $instance['instagram'] : '';
 		$skype           = isset( $instance['skype'] ) ? $instance['skype'] : '';
 		$linkedin        = isset( $instance['linkedin'] ) ? $instance['linkedin'] : '';
-		$googleplus      = isset( $instance['googleplus'] ) ? $instance['googleplus'] : '';
 		$vk              = isset( $instance['vk'] ) ? $instance['vk'] : '';
 		$xing            = isset( $instance['xing'] ) ? $instance['xing'] : '';
 		$tumblr          = isset( $instance['tumblr'] ) ? $instance['tumblr'] : '';
@@ -49,12 +44,14 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 		$yelp            = isset( $instance['yelp'] ) ? $instance['yelp'] : '';
 		$flickr          = isset( $instance['flickr'] ) ? $instance['flickr'] : '';
 		$whatsapp        = isset( $instance['whatsapp'] ) ? $instance['whatsapp'] : '';
+		$wechat          = isset( $instance['wechat'] ) ? $instance['wechat'] : '';
+		$tiktok          = isset( $instance['tiktok'] ) ? $instance['tiktok'] : '';
 		$follow_after    = isset( $instance['follow_after'] ) ? $instance['follow_after'] : '';
 
 		if ( $nofollow ) {
-			$nofollow_escaped = ' rel="nofollow"';
+			$nofollow_escaped = ' rel="nofollow noopener noreferrer"';
 		} else {
-			$nofollow_escaped = '';
+			$nofollow_escaped = ' rel="noopener noreferrer"';
 		}
 
 		echo porto_filter_output( $before_widget );
@@ -72,7 +69,7 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 			$class_escaped .= ' default-skin';
 		}
 		if ( ! $disable_tooltip ) {
-			$tooltip_escaped = 'data-toggle="tooltip" data-placement="bottom" ';
+			$tooltip_escaped = 'data-toggle="tooltip" data-bs-placement="bottom" ';
 		}
 		?>
 		<div class="<?php echo $class_escaped; ?>">
@@ -129,12 +126,6 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 				<?php
 			endif;
 
-			if ( $googleplus ) :
-				?>
-				<a href="<?php echo esc_url( $googleplus ); ?>" <?php echo $nofollow_escaped; ?> target="_blank" <?php echo $tooltip_escaped; ?>title="<?php esc_attr_e( 'Google +', 'porto-functionality' ); ?>" class="share-googleplus"><?php esc_html_e( 'Google +', 'porto-functionality' ); ?></a>
-				<?php
-			endif;
-
 			if ( $vk ) :
 				?>
 				<a href="<?php echo esc_url( $vk ); ?>" <?php echo $nofollow_escaped; ?> target="_blank" <?php echo $tooltip_escaped; ?>title="<?php esc_attr_e( 'VK', 'porto-functionality' ); ?>" class="share-vk"><?php esc_html_e( 'VK', 'porto-functionality' ); ?></a>
@@ -188,6 +179,18 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 				<a href="whatsapp://send?text=<?php echo esc_attr( $whatsapp ); ?>" <?php echo $nofollow_escaped; ?> target="_blank" <?php echo $tooltip_escaped; ?>title="<?php esc_attr_e( 'WhatsApp', 'porto-functionality' ); ?>" class="share-whatsapp" style="display:none"><?php esc_html_e( 'WhatsApp', 'porto-functionality' ); ?></a>
 				<?php
 			endif;
+
+			if ( $wechat ) :
+				?>
+				<a href="<?php echo esc_url( $wechat ); ?>" <?php echo $nofollow_escaped; ?> target="_blank" <?php echo $tooltip_escaped; ?>title="<?php esc_attr_e( 'WeChat', 'porto-functionality' ); ?>" class="share-wechat"><?php esc_html_e( 'WeChat', 'porto-functionality' ); ?></a>
+				<?php
+			endif;
+
+			if ( $tiktok ) :
+				?>
+				<a href="<?php echo esc_url( $tiktok ); ?>" <?php echo $nofollow_escaped; ?> target="_blank" <?php echo $tooltip_escaped; ?>title="<?php esc_attr_e( 'Tiktok', 'porto-functionality' ); ?>" class="share-tiktok"><?php esc_html_e( 'Tiktok', 'porto-functionality' ); ?></a>
+				<?php
+			endif;
 			?>
 			<?php
 			if ( $follow_after ) :
@@ -203,39 +206,44 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['title']           = strip_tags( $new_instance['title'] );
-		$instance['nofollow']        = $new_instance['nofollow'];
+		$instance['title']    = strip_tags( $new_instance['title'] );
+		$instance['nofollow'] = $new_instance['nofollow'];
 		if ( isset( $new_instance['default_skin'] ) ) {
 			$instance['default_skin'] = $new_instance['default_skin'];
 		} else {
 			$instance['default_skin'] = '';
 		}
 		if ( isset( $new_instance['disable_br'] ) ) {
-			$instance['disable_br']      = $new_instance['disable_br'];
+			$instance['disable_br'] = $new_instance['disable_br'];
 		}
 		if ( isset( $new_instance['disable_tooltip'] ) ) {
 			$instance['disable_tooltip'] = $new_instance['disable_tooltip'];
 		}
-		$instance['follow_before']   = $new_instance['follow_before'];
-		$instance['facebook']        = $new_instance['facebook'];
-		$instance['twitter']         = $new_instance['twitter'];
-		$instance['rss']             = $new_instance['rss'];
-		$instance['pinterest']       = $new_instance['pinterest'];
-		$instance['youtube']         = $new_instance['youtube'];
-		$instance['instagram']       = $new_instance['instagram'];
-		$instance['skype']           = $new_instance['skype'];
-		$instance['linkedin']        = $new_instance['linkedin'];
-		$instance['googleplus']      = $new_instance['googleplus'];
-		$instance['vk']              = $new_instance['vk'];
-		$instance['xing']            = $new_instance['xing'];
-		$instance['tumblr']          = $new_instance['tumblr'];
-		$instance['reddit']          = $new_instance['reddit'];
-		$instance['vimeo']           = $new_instance['vimeo'];
-		$instance['telegram']        = $new_instance['telegram'];
-		$instance['yelp']            = $new_instance['yelp'];
-		$instance['flickr']          = $new_instance['flickr'];
-		$instance['whatsapp']        = $new_instance['whatsapp'];
-		$instance['follow_after']    = $new_instance['follow_after'];
+		$instance['follow_before'] = $new_instance['follow_before'];
+		$instance['facebook']      = $new_instance['facebook'];
+		$instance['twitter']       = $new_instance['twitter'];
+		$instance['rss']           = $new_instance['rss'];
+		$instance['pinterest']     = $new_instance['pinterest'];
+		$instance['youtube']       = $new_instance['youtube'];
+		$instance['instagram']     = $new_instance['instagram'];
+		$instance['skype']         = $new_instance['skype'];
+		$instance['linkedin']      = $new_instance['linkedin'];
+		$instance['vk']            = $new_instance['vk'];
+		$instance['xing']          = $new_instance['xing'];
+		$instance['tumblr']        = $new_instance['tumblr'];
+		$instance['reddit']        = $new_instance['reddit'];
+		$instance['vimeo']         = $new_instance['vimeo'];
+		$instance['telegram']      = $new_instance['telegram'];
+		$instance['yelp']          = $new_instance['yelp'];
+		$instance['flickr']        = $new_instance['flickr'];
+		$instance['whatsapp']      = $new_instance['whatsapp'];
+		$instance['follow_after']  = $new_instance['follow_after'];
+		if ( isset( $new_instance['wechat'] ) ) {
+			$instance['wechat'] = $new_instance['wechat'];
+		}
+		if ( isset( $new_instance['tiktok'] ) ) {
+			$instance['tiktok'] = $new_instance['tiktok'];
+		}
 
 		return $instance;
 	}
@@ -256,7 +264,6 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 			'instagram'       => '',
 			'skype'           => '',
 			'linkedin'        => '',
-			'googleplus'      => '',
 			'vk'              => '',
 			'xing'            => '',
 			'tumblr'          => '',
@@ -266,6 +273,8 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 			'yelp'            => '',
 			'flickr'          => '',
 			'whatsapp'        => '',
+			'wechat'          => '',
+			'tiktok'          => '',
 			'follow_after'    => '',
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
@@ -294,7 +303,7 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 		</p>
 
 		<p>
-			<input class="checkbox" type="checkbox" <?php checked( $instance['default_skin'], 'on' ); ?> id="<?php echo esc_attr( $this->get_field_id( 'default_skin' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'default_skin' ) ); ?>" />
+			<input class="checkbox" type="checkbox" <?php checked( $instance['default_skin'], 'on' ); ?> id="<?php echo esc_attr( $this->get_field_id( 'default_skin' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'default_skin' ) ); ?>" value="on" />
 			<label for="<?php echo esc_attr( $this->get_field_id( 'default_skin' ) ); ?>"><?php esc_html_e( 'Use default skin', 'porto-functionality' ); ?></label>
 		</p>
 
@@ -362,13 +371,6 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 		</p>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'googleplus' ) ); ?>">
-				<strong><?php esc_html_e( 'Google +', 'porto-functionality' ); ?>:</strong>
-				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'googleplus' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'googleplus' ) ); ?>" value="<?php echo isset( $instance['googleplus'] ) ? esc_attr( $instance['googleplus'] ) : ''; ?>" />
-			</label>
-		</p>
-
-		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'vk' ) ); ?>">
 				<strong><?php esc_html_e( 'VK', 'porto-functionality' ); ?>:</strong>
 				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'vk' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'vk' ) ); ?>" value="<?php echo isset( $instance['vk'] ) ? esc_attr( $instance['vk'] ) : ''; ?>" />
@@ -428,6 +430,20 @@ class Porto_Follow_Us_Widget extends WP_Widget {
 			<label for="<?php echo esc_attr( $this->get_field_id( 'whatsapp' ) ); ?>">
 				<strong><?php esc_html_e( 'WhatsApp', 'porto-functionality' ); ?>:</strong>
 				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'whatsapp' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'whatsapp' ) ); ?>" value="<?php echo isset( $instance['whatsapp'] ) ? esc_attr( $instance['whatsapp'] ) : ''; ?>" />
+			</label>
+		</p>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'wechat' ) ); ?>">
+				<strong><?php esc_html_e( 'WeChat', 'porto-functionality' ); ?>:</strong>
+				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'wechat' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'wechat' ) ); ?>" value="<?php echo isset( $instance['wechat'] ) ? esc_attr( $instance['wechat'] ) : ''; ?>" />
+			</label>
+		</p>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'tiktok' ) ); ?>">
+				<strong><?php esc_html_e( 'Tiktok', 'porto-functionality' ); ?>:</strong>
+				<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'tiktok' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'tiktok' ) ); ?>" value="<?php echo isset( $instance['tiktok'] ) ? esc_attr( $instance['tiktok'] ) : ''; ?>" />
 			</label>
 		</p>
 

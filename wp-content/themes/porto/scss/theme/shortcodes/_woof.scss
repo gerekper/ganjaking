@@ -1,0 +1,29 @@
+.woof_list label {
+	margin-bottom: 0;
+}
+div.woof_info_popup {
+	width: 300px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	padding: 10px 20px;
+	background: #fff;
+    color: #222529;
+	font-family: 'Poppins',sans-serif;
+    font-size: 20px;
+	box-shadow: 0 0 5px;
+	text-align: center;
+}
+.woof_products_top_panel {
+	margin-top: 15px;
+	.woof_products_top_panel_ul {
+		display: flex;
+		align-items: center;
+	}
+}
+.woof_reset_button_2,
+.woof_reset_search_form {
+	&:focus {
+		outline: none;
+	}
+}

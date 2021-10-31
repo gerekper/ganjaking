@@ -40,13 +40,12 @@ class Less_Tree_Dimension extends Less_Tree {
 	 * @see Less_Tree::genCSS
 	 */
 	public function genCSS( $output ) {
-
-		if ( Less_Parser::$options['strictUnits'] && ! $this->unit->isSingular() ) {
-			throw new Less_Exception_Compiler( 'Multiple units in dimension. Correct the units or use the unit function. Bad unit: ' . $this->unit->toString() );
+		if ( Less_Parser::$options['strictUnits'] && !$this->unit->isSingular() ) {
+			throw new Less_Exception_Compiler( "Multiple units in dimension. Correct the units or use the unit function. Bad unit: ".$this->unit->toString() );
 		}
 
-		$value    = Less_Functions::fround( $this->value );
-		$strValue = (string) $value;
+		$value = Less_Functions::fround( $this->value );
+		$strValue = (string)$value;
 
 		if ( $value !== 0 && $value < 0.000001 && $value > -0.000001 ) {
 			// would be output 1e-6 etc.
@@ -83,16 +82,15 @@ class Less_Tree_Dimension extends Less_Tree {
 	 * @param string $op
 	 */
 	public function operate( $op, $other ) {
-
 		$value = Less_Functions::operate( $op, $this->value, $other->value );
-		$unit  = clone $this->unit;
+		$unit = clone $this->unit;
 
 		if ( $op === '+' || $op === '-' ) {
 
-			if ( ! $unit->numerator && ! $unit->denominator ) {
-				$unit->numerator   = $other->unit->numerator;
+			if ( !$unit->numerator && !$unit->denominator ) {
+				$unit->numerator = $other->unit->numerator;
 				$unit->denominator = $other->unit->denominator;
-			} elseif ( ! $other->unit->numerator && ! $other->unit->denominator ) {
+			} elseif ( !$other->unit->numerator && !$other->unit->denominator ) {
 				// do nothing
 			} else {
 				$other = $other->convertTo( $this->unit->usedUnits() );
@@ -104,13 +102,13 @@ class Less_Tree_Dimension extends Less_Tree {
 				$value = Less_Functions::operate( $op, $this->value, $other->value );
 			}
 		} elseif ( $op === '*' ) {
-			$unit->numerator   = array_merge( $unit->numerator, $other->unit->numerator );
+			$unit->numerator = array_merge( $unit->numerator, $other->unit->numerator );
 			$unit->denominator = array_merge( $unit->denominator, $other->unit->denominator );
 			sort( $unit->numerator );
 			sort( $unit->denominator );
 			$unit->cancel();
 		} elseif ( $op === '/' ) {
-			$unit->numerator   = array_merge( $unit->numerator, $other->unit->denominator );
+			$unit->numerator = array_merge( $unit->numerator, $other->unit->denominator );
 			$unit->denominator = array_merge( $unit->denominator, $other->unit->numerator );
 			sort( $unit->numerator );
 			sort( $unit->denominator );
@@ -148,23 +146,17 @@ class Less_Tree_Dimension extends Less_Tree {
 	}
 
 	public function unify() {
-		return $this->convertTo(
-			array(
-				'length'   => 'px',
-				'duration' => 's',
-				'angle'    => 'rad',
-			)
-		);
+		return $this->convertTo( array( 'length' => 'px', 'duration' => 's', 'angle' => 'rad' ) );
 	}
 
 	public function convertTo( $conversions ) {
 		$value = $this->value;
-		$unit  = clone $this->unit;
+		$unit = clone $this->unit;
 
 		if ( is_string( $conversions ) ) {
 			$derivedConversions = array();
 			foreach ( Less_Tree_UnitConversions::$groups as $i ) {
-				if ( isset( Less_Tree_UnitConversions::${$i}[ $conversions ] ) ) {
+				if ( isset( Less_Tree_UnitConversions::${$i}[$conversions] ) ) {
 					$derivedConversions = array( $i => $conversions );
 				}
 			}
@@ -176,26 +168,26 @@ class Less_Tree_Dimension extends Less_Tree {
 
 			// numerator
 			foreach ( $unit->numerator as $i => $atomicUnit ) {
-				$atomicUnit = $unit->numerator[ $i ];
-				if ( ! isset( $group[ $atomicUnit ] ) ) {
+				$atomicUnit = $unit->numerator[$i];
+				if ( !isset( $group[$atomicUnit] ) ) {
 					continue;
 				}
 
-				$value = $value * ( $group[ $atomicUnit ] / $group[ $targetUnit ] );
+				$value = $value * ( $group[$atomicUnit] / $group[$targetUnit] );
 
-				$unit->numerator[ $i ] = $targetUnit;
+				$unit->numerator[$i] = $targetUnit;
 			}
 
 			// denominator
 			foreach ( $unit->denominator as $i => $atomicUnit ) {
-				$atomicUnit = $unit->denominator[ $i ];
-				if ( ! isset( $group[ $atomicUnit ] ) ) {
+				$atomicUnit = $unit->denominator[$i];
+				if ( !isset( $group[$atomicUnit] ) ) {
 					continue;
 				}
 
-				$value = $value / ( $group[ $atomicUnit ] / $group[ $targetUnit ] );
+				$value = $value / ( $group[$atomicUnit] / $group[$targetUnit] );
 
-				$unit->denominator[ $i ] = $targetUnit;
+				$unit->denominator[$i] = $targetUnit;
 			}
 		}
 

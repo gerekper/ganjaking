@@ -58,7 +58,7 @@ if ( vc_shortcode_custom_css_has_property( $css, array( 'border', 'background' )
 	$css_classes[] = 'vc_row-has-fill';
 }
 
-if ( ! empty( $atts['gap'] ) ) {
+if ( ! empty( $atts['gap'] ) && empty( $no_padding ) ) {
 	$css_classes[] = 'vc_column-gap-' . $atts['gap'];
 }
 
@@ -94,7 +94,9 @@ if ( isset( $porto_settings_optimize['lazyload'] ) && $porto_settings_optimize['
 }
 
 if ( isset( $wrap_container ) && $wrap_container ) {
-	$css_classes[] = 'mx-0';
+	$css_classes[] = 'mx-0 porto-inner-container';
+} elseif ( ! empty( $rtl_reverse ) && is_rtl() ) {
+	$css_classes[] = 'flex-row-reverse';
 }
 
 $css_class            = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( array_unique( $css_classes ) ) ), $this->settings['base'], $atts ) );
@@ -110,7 +112,6 @@ if ( $animation_type ) {
 	}
 }
 
-
 $output .= '<div ' . implode( ' ', $wrapper_attributes ) . '>';
 if ( isset( $wrap_container ) && $wrap_container ) {
 	$align_items_cls_arr = array(
@@ -118,7 +119,7 @@ if ( isset( $wrap_container ) && $wrap_container ) {
 		'top'    => 'align-items-start',
 		'bottom' => 'align-items-end',
 	);
-	$output             .= '<div class="porto-wrap-container container"><div class="row' . ( $content_placement ? ' ' . $align_items_cls_arr[ $content_placement ] : '' ) . ( ! empty( $atts['gap'] ) ? ' vc_column-gap-' . esc_attr( $atts['gap'] ) : '' ) . '">';
+	$output             .= '<div class="porto-wrap-container container"><div class="row' . ( empty( $atts['gap'] ) || ! vc_is_inline() ? '' : ' vc_row' ) . ( $content_placement ? ' ' . $align_items_cls_arr[ $content_placement ] : '' ) . ( ! empty( $atts['gap'] ) && empty( $no_padding ) ? ' vc_column-gap-' . esc_attr( $atts['gap'] ) : '' ) . ( ! empty( $rtl_reverse ) && is_rtl() ? ' flex-row-reverse' : '' ) . '">';
 }
 
 if ( $is_sticky ) {

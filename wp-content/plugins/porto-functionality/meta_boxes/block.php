@@ -1,22 +1,20 @@
 <?php
 
 // Meta Fields
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_block_meta_fields() {
 	$fields = array();
 	global $post;
 
-	if ( $post && $post->ID && 'porto_builder' == $post->post_type && 'block' != get_post_meta( $post->ID, 'porto_builder_type', true ) ) {
+	$builder_type = get_post_meta( $post->ID, 'porto_builder_type', true );
+
+	if ( $post && $post->ID && 'porto_builder' == $post->post_type && 'block' != $builder_type ) {
 		$fields['condition'] = array(
 			'name'  => 'condition',
 			'title' => __( 'Display Condition', 'porto-functionality' ),
 			'type'  => 'button',
 			'value' => __( 'Set Condition', 'porto-functionality' ),
 		);
-		if ( 'header' == get_post_meta( $post->ID, 'porto_builder_type', true ) ) {
+		if ( 'header' == $builder_type ) {
 			$fields['header_type'] = array(
 				'name'    => 'header_type',
 				'title'   => __( 'Header Type', 'porto-functionality' ),
@@ -26,6 +24,35 @@ function porto_block_meta_fields() {
 					''     => __( 'Default', 'porto-functionality' ),
 					'side' => __( 'Side Header', 'porto-functionality' ),
 				),
+			);
+		} elseif ( 'product' == $builder_type ) {
+			$fields['disable_sticky_sidebar'] = array(
+				'name'    => 'disable_sticky_sidebar',
+				'title'   => __( 'Disable Sticky Sidebar', 'porto-functionality' ),
+				'type'    => 'checkbox',
+			);
+		} elseif ( 'popup' == $builder_type && ( ! defined( 'VCV_VERSION' ) && ! defined( 'ELEMENTOR_VERSION' ) ) ) {
+			$fields['popup_width']     = array(
+				'name'    => 'popup_width',
+				'title'   => __( 'Popup Width (px)', 'porto-functionality' ),
+				'type'    => 'text',
+				'default' => '740',
+			);
+			$fields['popup_animation'] = array(
+				'name'    => 'popup_animation',
+				'title'   => __( 'Popup Animation', 'porto-functionality' ),
+				'type'    => 'select',
+				'default' => 'mfp-fade',
+				'options' => array(
+					'mfp-fade'       => __( 'Fade', 'porto-functionality' ),
+					'my-mfp-zoom-in' => __( 'Zoom in', 'porto-functionality' ),
+				),
+			);
+			$fields['load_duration']   = array(
+				'name'    => 'load_duration',
+				'title'   => __( 'Popup Load Time (ms)', 'porto-functionality' ),
+				'type'    => 'text',
+				'default' => '4000',
 			);
 		}
 	}

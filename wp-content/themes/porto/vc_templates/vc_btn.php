@@ -90,6 +90,21 @@ $colors = array(
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
+$sc = WPBMap::getShortCode( 'vc_btn' );
+if ( ! empty( $sc['params'] ) && class_exists( 'PortoShortcodesClass' ) ) {
+	foreach ( $atts as $key => $item ) {
+		if ( in_array( $key, array( 'btn_icon_size', 'btn_icon_spacing' ) ) ) {
+			$atts[ $key ] = str_replace( '"', '``', $item );
+		}
+	}
+	$shortcode_class = ' wpb_custom_' . PortoShortcodesClass::get_global_hashcode( $atts, 'vc_btn', $sc['params'] );
+	if ( empty( $el_cls ) ) {
+		$el_cls = $shortcode_class;
+	} else {
+		$el_cls .= ' ' . $shortcode_class;
+	}
+}
+
 //parse link
 $link     = ( '||' === $link ) ? '' : $link;
 $link     = vc_build_link( $link );
@@ -140,6 +155,10 @@ if ( isset( $el_cls ) && $el_cls ) {
 if ( 'true' === $add_icon ) {
 	$button_classes[] = 'vc_btn3-icon-' . $i_align;
 	vc_icon_element_fonts_enqueue( $i_type );
+
+	if ( ! empty( $hover_effect ) ) {
+		$button_classes[] = $hover_effect;
+	}
 
 	if ( isset( ${'i_icon_' . $i_type} ) ) {
 		if ( 'pixelicons' === $i_type ) {
@@ -237,14 +256,18 @@ if ( ! ( $contextual || 'custom' !== $skin ) ) {
 		$gradient_css_hover[] = 'background-position: 100% 0';
 
 		$uid = uniqid();
-		echo '<style>.vc_btn3-style-' . esc_html( $style ) . '.vc_btn-gradient-btn-' . $uid . ':hover,.vc_btn3-style-' . esc_html( $style ) . '.vc_btn-gradient-btn-' . $uid . ':focus{' . esc_html( implode(
-			';',
-			$gradient_css_hover
-		) ) . ';' . '} ';
-		echo '.vc_btn3-style-' . esc_html( $style ) . '.vc_btn-gradient-btn-' . $uid . '{' . esc_html( implode(
-			';',
-			$gradient_css
-		) ) . ';' . '}</style>';
+		echo '<style>.vc_btn3-style-' . esc_html( $style ) . '.vc_btn-gradient-btn-' . $uid . ':hover,.vc_btn3-style-' . esc_html( $style ) . '.vc_btn-gradient-btn-' . $uid . ':focus{' . esc_html(
+			implode(
+				';',
+				$gradient_css_hover
+			)
+		) . ';' . '} ';
+		echo '.vc_btn3-style-' . esc_html( $style ) . '.vc_btn-gradient-btn-' . $uid . '{' . esc_html(
+			implode(
+				';',
+				$gradient_css
+			)
+		) . ';' . '}</style>';
 		$button_classes[] = 'vc_btn-gradient-btn-' . $uid;
 		$attributes[]     = 'data-vc-gradient-1="' . esc_attr( $gradient_color_1 ) . '"';
 		$attributes[]     = 'data-vc-gradient-2="' . esc_attr( $gradient_color_2 ) . '"';
@@ -266,7 +289,10 @@ if ( $animation_type ) {
 		$attributes[] = ' data-appear-animation-duration="' . esc_attr( $animation_duration ) . '"';
 	}
 } elseif ( $floating_start_pos && $floating_speed ) {
-	$floating_options = array( 'startPos' => $floating_start_pos, 'speed' => $floating_speed );
+	$floating_options = array(
+		'startPos' => $floating_start_pos,
+		'speed'    => $floating_speed,
+	);
 	if ( $floating_transition ) {
 		$floating_options['transition'] = true;
 	} else {
@@ -343,7 +369,7 @@ if ( $button_classes ) {
 		$button_html     .= '<span class="icon-wrapper"><i class="fas fa-chevron-right"></i></span>';
 	}
 	$button_classes = esc_attr( apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $button_classes ) ), $this->settings['base'], $atts ) );
-	$attributes[]   = 'class="' . trim( $button_classes ) . '"';
+	$attributes[]   = 'class="' . esc_attr( trim( $button_classes ) ) . '"';
 
 	if ( 'custom' === $style ) {
 		if ( $custom_background ) {

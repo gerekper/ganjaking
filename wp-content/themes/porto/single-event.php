@@ -100,7 +100,7 @@ tick_sep_size="desktop:17px;"]'
 							<span class="event-date d-none"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $event_start_date ) ); ?><time datetime="<?php echo esc_attr( get_the_date( 'Y-m-d', get_the_ID() ) ); ?>"><?php echo esc_html( $event_start_time ); ?></time></span>
 						<?php endif; ?>
 						<h2 class="font-weight-bold text-color-dark m-b-none"><?php the_title(); ?></h2>
-						<span class="custom-event-infos">
+						<div class="custom-event-infos">
 							<ul class="m-b-md">
 							<?php if ( isset( $event_start_time ) && $event_start_time ) : ?>
 								<li> <i class="far fa-clock"></i> <?php echo esc_html( $event_start_time ); ?> </li>
@@ -109,10 +109,10 @@ tick_sep_size="desktop:17px;"]'
 								<li class="text-uppercase"> <i class="fas fa-map-marker-alt"></i> <?php echo wp_kses_post( $event_location ); ?></li>
 							<?php endif; ?>
 							</ul>
-						</span>
+						</div>
 						<?php the_content(); ?>
 						<?php if ( $event_link ) : ?>
-							<a href="<?php echo esc_url( $event_link ); ?>" class="btn btn-primary btn-preview" target="_blank"><?php esc_html_e( 'Live Preview', 'porto' ); ?></a>
+							<a href="<?php echo esc_url( $event_link ); ?>" class="btn btn-primary btn-preview" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Live Preview', 'porto' ); ?></a>
 						<?php endif; ?>
 					</div>
 				</article>

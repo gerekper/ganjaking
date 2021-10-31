@@ -5,10 +5,6 @@ function porto_contact_info_load_widgets() {
 	register_widget( 'Porto_Contact_Info_Widget' );
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Porto_Contact_Info_Widget extends WP_Widget {
 
 	public function __construct() {
@@ -93,7 +89,9 @@ class Porto_Contact_Info_Widget extends WP_Widget {
 		$instance['working']        = $new_instance['working'];
 		$instance['contact_after']  = $new_instance['contact_after'];
 		$instance['view']           = $new_instance['view'];
-		$instance['icon']           = $new_instance['icon'];
+		if ( isset( $new_instance['icon'] ) ) {
+			$instance['icon'] = $new_instance['icon'];
+		}
 
 		return $instance;
 	}

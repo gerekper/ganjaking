@@ -58,7 +58,7 @@ class Porto_Elementor_HB_Switcher_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'switcher_font',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Top Level Typograhy', 'porto-functionality' ),
 				'selector' => '#header .elementor-element-{{ID}} .porto-view-switcher > li.menu-item > a',
 			)

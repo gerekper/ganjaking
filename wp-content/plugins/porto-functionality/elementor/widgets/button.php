@@ -20,15 +20,19 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Button', 'porto-functionality' );
+		return __( 'Porto Button', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'button', 'btn', 'link' );
+	}
+
+	public function get_icon() {
+		return 'eicon-button';
 	}
 
 	protected function _register_controls() {
@@ -158,6 +162,26 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'hover_effect',
+			array(
+				'type'        => Controls_Manager::SELECT,
+				'label'       => __( 'Select Hover Effect type', 'porto-functionality' ),
+				'description' => __( 'Select the type of effct you want on hover', 'porto-functionality' ),
+				'options'     => array(
+					''                 => __( 'No Effect', 'porto-functionality' ),
+					'hover-icon-zoom'  => __( 'Icon Zoom', 'porto-functionality' ),
+					'hover-icon-up'    => __( 'Icon Slide Up', 'porto-functionality' ),
+					'hover-icon-left'  => __( 'Icon Slide Left', 'porto-functionality' ),
+					'hover-icon-right' => __( 'Icon Slide Right', 'porto-functionality' ),
+				),
+				'default'     => '',
+				'condition'   => array(
+					'icon_cls[value]!' => '',
+				),
+			)
+		);
+
+		$this->add_control(
 			'show_arrow',
 			array(
 				'type'  => Controls_Manager::SWITCHER,
@@ -210,7 +234,7 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'btn_typograhy',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Typograhy', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .btn',
 			)
@@ -294,6 +318,82 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
+		$left  = is_rtl() ? 'right' : 'left';
+		$right = is_rtl() ? 'left' : 'right';
+
+		$this->add_control(
+			'icon_size',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => __( 'Icon Size', 'porto-functionality' ),
+				'range'      => array(
+					'px'  => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 72,
+					),
+					'rem' => array(
+						'step' => 0.1,
+						'min'  => 0,
+						'max'  => 5,
+					),
+					'em'  => array(
+						'step' => 0.1,
+						'min'  => 0,
+						'max'  => 5,
+					),
+				),
+				'size_units' => array(
+					'px',
+					'rem',
+					'em',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .btn-icon i' => 'font-size: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'icon_cls[value]!' => '',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'spacing',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => __( 'Spacing between text and icon', 'porto-functionality' ),
+				'range'      => array(
+					'px'  => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 32,
+					),
+					'rem' => array(
+						'step' => 0.1,
+						'min'  => 0,
+						'max'  => 2,
+					),
+					'em'  => array(
+						'step' => 0.1,
+						'min'  => 0,
+						'max'  => 2,
+					),
+				),
+				'size_units' => array(
+					'px',
+					'rem',
+					'em',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .btn-icon-right i' => 'margin-' . $left . ': {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .btn-icon-left i' => 'margin-' . $right . ': {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array(
+					'icon_cls[value]!' => '',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 
 		$this->start_controls_section(
@@ -322,7 +422,7 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function _content_template() {
+	protected function content_template() {
 		?>
 		<#
 			let btn_classes = ' btn-' + escape( settings.size );
@@ -346,6 +446,10 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 				if ( 'right' == settings.icon_pos ) {
 					btn_classes += ' btn-icon-right';
 				}
+			}
+
+			if ( settings.hover_effect ) {
+				btn_classes += ' ' + settings.hover_effect;
 			}
 
 			view.addInlineEditingAttributes( 'title' );

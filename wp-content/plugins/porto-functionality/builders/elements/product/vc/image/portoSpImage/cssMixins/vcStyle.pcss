@@ -1,0 +1,92 @@
+@if $elementId != false {
+	.single-image-$elementId {
+		.product-images .img-thumbnail .inner {
+			@if $imgBorderWidth != false {
+				border-width: $(imgBorderWidth)px;
+			}
+			@if $imgBorderColor != false {
+				border-color: $imgBorderColor;
+			}
+		}
+		.product-thumbs-slider .img-thumbnail {
+			@if $thumbnailBorderWidth != false {
+				border-width: $(thumbnailBorderWidth)px;
+			}
+			@if $thumbnailBorderColor != false {
+				border-color: $thumbnailBorderColor;
+			}
+		}
+		.product-thumbs-slider .owl-item.selected .img-thumbnail, 
+		.product-thumbs-slider.owl-carousel .owl-item:hover .img-thumbnail {
+			@if $thumbnailActiveColor != false {
+				border-color: $thumbnailActiveColor;
+			}
+			@if $thumbnailBorderActiveWidth != false {
+				border-width: $(thumbnailBorderActiveWidth)px;
+			}			
+		}
+		@if $imageType == full_width {
+			.product-layout-full_width .product-thumbnails .img-thumbnail {
+				@if $thumbnailBorderWidth != false {
+					border-width: $(thumbnailBorderWidth)px;
+				}
+				@if $thumbnailBorderColor != false {
+					border-color: $thumbnailBorderColor;
+				}
+				&.selected {
+					@if $thumbnailActiveColor != false {
+						border-color: $thumbnailActiveColor;
+					}
+					@if $thumbnailBorderActiveWidth != false {
+						border-width: $(thumbnailBorderActiveWidth)px;
+					}
+				}
+			}
+		}
+		@if $imageType == transparent {
+			.product-thumbs-vertical-slider .img-thumbnail img {
+				@if $thumbnailBorderWidth != false {
+					border-width: $(thumbnailBorderWidth)px;
+				}
+				@if $thumbnailBorderColor != false {
+					border-color: $thumbnailBorderColor;
+				}
+			}
+			.product-thumbs-vertical-slider .img-thumbnail.slick-current img {
+				@if $thumbnailActiveColor != false {
+					border-color: $thumbnailActiveColor;
+				}
+				@if $thumbnailBorderActiveWidth != false {
+					border-width: $(thumbnailBorderActiveWidth)px;
+				}
+			}
+			@if $thumbnailWidth != false {
+				.product-layout-transparent .product-thumbnails {
+					width: $(thumbnailWidth)%;
+				}
+				.product-layout-transparent .product-images {
+					width: calc(100% - $(thumbnailWidth)%);
+				}
+			}
+			
+		}
+		@if $imageType == centered_vertical_zoom {
+			.product-layout-centered_vertical_zoom .product-thumbnails .img-thumbnail {
+				@if $thumbnailBorderWidth != false {
+					border-width: $(thumbnailBorderWidth)px;
+				}
+				@if $thumbnailBorderColor != false {
+					border-color: $thumbnailBorderColor;
+				}
+			}
+			.product-layout-centered_vertical_zoom .product-thumbnails-inner .img-thumbnail.selected {
+				@if $thumbnailActiveColor != false {
+					border-color: $thumbnailActiveColor;
+				}
+				@if $thumbnailBorderActiveWidth != false {
+					border-width: $(thumbnailBorderActiveWidth)px;
+				}
+			}
+		}
+	}
+}

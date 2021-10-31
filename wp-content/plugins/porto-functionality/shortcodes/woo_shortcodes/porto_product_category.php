@@ -4,13 +4,12 @@
 add_shortcode( 'porto_product_category', 'porto_shortcode_product_category' );
 add_action( 'vc_after_init', 'porto_load_product_category_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_shortcode_product_category( $atts, $content = null ) {
 	ob_start();
 	if ( $template = porto_shortcode_woo_template( 'porto_products' ) ) {
+		if ( ! is_array( $atts ) ) {
+			$atts = array();
+		}
 		$atts['shortcode'] = 'product_category';
 		include $template;
 	}
@@ -24,6 +23,8 @@ function porto_load_product_category_shortcode() {
 	$custom_class       = porto_vc_custom_class();
 	$order_by_values    = porto_vc_woo_order_by();
 	$order_way_values   = porto_vc_woo_order_way();
+	$sort_by_values     = porto_woo_sort_by();
+	unset( $sort_by_values[ __( 'On Sale', 'porto-functionality' ) ] );
 
 	// woocommerce product category
 	vc_map(
@@ -153,28 +154,25 @@ function porto_load_product_category_shortcode() {
 						'value'      => porto_sh_commons( 'products_column_width' ),
 					),
 					array(
-						'type'       => 'checkbox',
+						'type'       => 'porto_multiselect',
 						'heading'    => __( 'Show Sort by', 'porto-functionality' ),
 						'param_name' => 'show_sort',
-						'value'      => array(
-							__( 'All', 'porto-functionality' ) => 'all',
-							__( 'Popular', 'porto-functionality' ) => 'popular',
-							__( 'Date', 'porto-functionality' ) => 'date',
-							__( 'Rating', 'porto-functionality' ) => 'rating',
-						),
+						'std'        => '',
+						'value'      => $sort_by_values,
 					),
 					array(
 						'type'       => 'textfield',
-						'heading'    => __( 'Title for "Sort by Popular"', 'woocommerce' ),
+						'heading'    => __( 'Title for "Sort by Popular"', 'porto-functionality' ),
 						'param_name' => 'show_sales_title',
 						'dependency' => array(
 							'element' => 'show_sort',
 							'value'   => 'popular',
 						),
+						'std'        => '',
 					),
 					array(
 						'type'       => 'textfield',
-						'heading'    => __( 'Title for "Sort by Date"', 'woocommerce' ),
+						'heading'    => __( 'Title for "Sort by Date"', 'porto-functionality' ),
 						'param_name' => 'show_new_title',
 						'dependency' => array(
 							'element' => 'show_sort',
@@ -183,7 +181,7 @@ function porto_load_product_category_shortcode() {
 					),
 					array(
 						'type'       => 'textfield',
-						'heading'    => __( 'Title for "Sort by Rating"', 'woocommerce' ),
+						'heading'    => __( 'Title for "Sort by Rating"', 'porto-functionality' ),
 						'param_name' => 'show_rating_title',
 						'dependency' => array(
 							'element' => 'show_sort',
@@ -199,7 +197,7 @@ function porto_load_product_category_shortcode() {
 					),
 					array(
 						'type'        => 'dropdown',
-						'heading'     => __( 'Filter Style', 'js_composer' ),
+						'heading'     => __( 'Filter Style', 'porto-functionality' ),
 						'param_name'  => 'filter_style',
 						'value'       => array(
 							__( 'Vertical', 'porto-functionality' )   => '',
@@ -227,7 +225,7 @@ function porto_load_product_category_shortcode() {
 						'type'        => 'textfield',
 						'heading'     => __( 'Category', 'js_composer' ),
 						'param_name'  => 'category',
-						'description' => __( 'Please input category ID or slug.', 'js_composer' ),
+						'description' => __( 'Please input category ID or slug.', 'porto-functionality' ),
 						'admin_label' => true,
 					),
 					array(

@@ -9,7 +9,7 @@ class Porto_Admin {
 
 	private $_checkedPurchaseCode;
 
-	private $activation_url = 'https://sw-themes.com/activation/porto_wp/verify_purchase.php';
+	private $activation_url = PORTO_API_URL . 'verify_purchase.php';
 
 	public function __construct() {
 		if ( is_admin_bar_showing() ) {
@@ -42,6 +42,7 @@ class Porto_Admin {
 			$porto_parent_menu_title = '<span class="ab-icon"></span><span class="ab-label">Porto</span>';
 			$this->add_wp_toolbar_menu_item( $porto_parent_menu_title, false, admin_url( 'admin.php?page=porto' ), array( 'class' => 'porto-menu' ), 'porto' );
 			$this->add_wp_toolbar_menu_item( __( 'Dashboard', 'porto' ), 'porto', admin_url( 'admin.php?page=porto' ), array(), 'porto-dashboard' );
+			$this->add_wp_toolbar_menu_item( __( 'Page Layouts', 'porto' ), 'porto', admin_url( 'admin.php?page=porto-page-layouts' ) );
 			if ( get_theme_mod( 'theme_options_use_new_style', false ) ) {
 				$this->add_wp_toolbar_menu_item( __( 'Theme Options', 'porto' ), 'porto', admin_url( 'customize.php' ) );
 				$this->add_wp_toolbar_menu_item( __( 'Advanced Options', 'porto' ), 'porto', admin_url( 'themes.php?page=porto_settings' ) );
@@ -51,6 +52,7 @@ class Porto_Admin {
 			// add wizard menus
 			$this->add_wp_toolbar_menu_item( __( 'Setup Wizard', 'porto' ), 'porto', admin_url( 'admin.php?page=porto-setup-wizard' ) );
 			$this->add_wp_toolbar_menu_item( __( 'Speed Optimize Wizard', 'porto' ), 'porto', admin_url( 'admin.php?page=porto-speed-optimize-wizard' ) );
+			$this->add_wp_toolbar_menu_item( __( 'Tools', 'porto' ), 'porto', admin_url( 'admin.php?page=porto-tools' ) );
 
 			if ( post_type_exists( 'porto_builder' ) ) {
 				$this->add_wp_toolbar_menu_item( __( 'Templates Builder', 'porto' ), 'porto', admin_url( 'edit.php?post_type=porto_builder' ) );
@@ -128,24 +130,22 @@ class Porto_Admin {
 			$code_confirm = $this->get_purchase_code();
 
 			if ( isset( $_POST['action'] ) && ! empty( $_POST['action'] ) ) {
-				preg_match( '/[a-z0-9\-]{1,63}\.[a-z\.]{2,6}$/', parse_url( site_url(), PHP_URL_HOST ), $_domain_tld );
-				if ( isset( $_domain_tld[0] ) ) {
-					$domain = $_domain_tld[0];
-				} else {
-					$domain = parse_url( site_url(), PHP_URL_HOST );
-				}
 				if ( ! $code || $code != $code_confirm ) {
 					if ( $code_confirm ) {
-						$result = $this->curl_purchase_code( $code_confirm, '', 'remove' );
+						$result = $this->curl_purchase_code( $code_confirm, 'remove' );
 					}
 					if ( 'unregister' === $_POST['action'] && $result && isset( $result['result'] ) && 3 === (int) $result['result'] ) {
 						$this->_checkedPurchaseCode = 'unregister';
 						$this->set_purchase_code( '' );
+						delete_transient( 'porto_purchase_code_error_msg' );
+						if ( isset( $_COOKIE['porto_dismiss_code_error_msg'] ) ) {
+							setcookie( 'porto_dismiss_code_error_msg', '', time() - 3600 );
+						}
 						return $this->_checkedPurchaseCode;
 					}
 				}
 				if ( $code ) {
-					$result = $this->curl_purchase_code( $code, $domain, 'add' );
+					$result = $this->curl_purchase_code( $code, 'add' );
 					if ( ! $result ) {
 						$this->_checkedPurchaseCode = 'invalid';
 						$code_confirm               = '';
@@ -170,14 +170,17 @@ class Porto_Admin {
 		return $this->_checkedPurchaseCode;
 	}
 
-	public function curl_purchase_code( $code, $domain, $act ) {
+	public function curl_purchase_code( $code, $act ) {
 		require_once PORTO_PLUGINS . '/importer/importer-api.php';
 		$importer_api = new Porto_Importer_API();
 
-		$result = $importer_api->get_response( $this->activation_url . "?item=9207399&code=$code&domain=$domain&siteurl=" . urlencode( site_url() ) . "&act=$act" . ( $importer_api->is_localhost() ? '&local=true' : '' ) );
+		$result = $importer_api->get_response( $this->activation_url . "?item=9207399&code=$code&act=$act" );
 
-		if ( ! $result || is_wp_error( $result ) ) {
+		if ( ! $result ) {
 			return false;
+		}
+		if ( is_wp_error( $result ) ) {
+			return array( 'message' => $result->get_error_message() );
 		}
 		return $result;
 	}
@@ -258,9 +261,7 @@ class Porto_Admin {
 				return new WP_Error( 'not_registerd', __( 'Please <a href="admin.php?page=porto">register</a> Porto theme to get access to pre-built demo websites and auto updates.', 'porto' ) );
 			}
 			$code   = $this->get_purchase_code();
-			$domain = $importer_api->generate_args();
-			$domain = $domain['domain'];
-			$result = $this->curl_purchase_code( $code, $domain, 'add' );
+			$result = $this->curl_purchase_code( $code, 'add' );
 			if ( ! isset( $result['result'] ) || 1 !== (int) $result['result'] ) {
 				$message = isset( $result['message'] ) ? $result['message'] : __( 'Purchase Code is not valid or could not connect to the API server! Please try again later.', 'porto' );
 				return new WP_Error( 'purchase_code_invalid', esc_html( $message ) );
@@ -279,7 +280,7 @@ class Porto_Admin {
 			if ( version_compare( PORTO_VERSION, $new_version, '<' ) ) {
 				$url         = $importer_api->get_url( 'changelog' );
 				$checkbox_id = md5( wp_get_theme( $theme_template )->get( 'Name' ) );
-				wp_add_inline_script( 'porto-admin', 'if (jQuery(\'#checkbox_' . $checkbox_id . '\').length) {jQuery(\'#checkbox_' . $checkbox_id . '\').closest(\'tr\').children().last().append(\'<a href="' . esc_url( $url ) . '" target="_blank">' . esc_js( __( 'View Details', 'porto' ) ) . '</a>\');}' );
+				wp_add_inline_script( 'porto-admin', 'if (jQuery(\'#checkbox_' . $checkbox_id . '\').length) {jQuery(\'#checkbox_' . $checkbox_id . '\').closest(\'tr\').children().last().append(\'<a href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer">' . esc_js( __( 'View Details', 'porto' ) ) . '</a>\');}' );
 			}
 		}
 	}
@@ -295,6 +296,8 @@ class Porto_Admin {
 		delete_site_transient( 'update_themes' );
 		unset( $_COOKIE['porto_dismiss_activate_msg'] );
 		setcookie( 'porto_dismiss_activate_msg', null, -1, '/' );
+		delete_transient( 'porto_purchase_code_error_msg' );
+		setcookie( 'porto_dismiss_code_error_msg', '', time() - 3600 );
 	}
 }
 
@@ -363,8 +366,8 @@ if ( is_admin() && ( ! function_exists( 'vc_is_inline' ) || ! vc_is_inline() ) &
 					'admin_notices',
 					function() { ?>
 				<div class="notice notice-error" style="position: relative;">
-					<p>Please <a href="admin.php?page=porto">register</a> porto theme to get access to pre-built demo websites and auto updates.</p>
-					<p><strong>Important!</strong> One <a target="_blank" href="https://themeforest.net/licenses/standard">standard license</a> is valid for only <strong>1 website</strong>. Running multiple websites on a single license is a copyright violation.</p>
+					<p>Please <a href="admin.php?page=porto">register</a> Porto theme to get access to pre-built demo websites and auto updates.</p>
+					<p><strong>Important!</strong> One <a target="_blank" href="https://themeforest.net/licenses/standard" rel="noopener noreferrer">standard license</a> is valid for only <strong>1 website</strong>. Running multiple websites on a single license is a copyright violation.</p>
 					<button type="button" class="notice-dismiss porto-notice-dismiss"><span class="screen-reader-text"><?php esc_html__( 'Dismiss this notice.', 'porto' ); ?></span></button>
 				</div>
 				<script>
@@ -415,7 +418,9 @@ if ( is_admin() && ( ! function_exists( 'vc_is_inline' ) || ! vc_is_inline() ) &
 
 	// Add Advanced Options
 	if ( ! is_customize_preview() ) {
+		require_once PORTO_ADMIN . '/admin_pages/class-page-layouts.php';
 		require PORTO_ADMIN . '/setup_wizard/setup_wizard.php';
 		require PORTO_ADMIN . '/setup_wizard/speed_optimize_wizard.php';
+		require_once PORTO_ADMIN . '/admin_pages/class-tools.php';
 	}
 }

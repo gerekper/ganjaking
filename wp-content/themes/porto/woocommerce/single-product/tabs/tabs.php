@@ -25,10 +25,17 @@ $rand = porto_generate_rand( 8 );
 
 wp_enqueue_script( 'easy-responsive-tabs' );
 
-if ( ! empty( $product_tabs ) || ! empty( $custom_tabs_title ) || $global_tab_title ) : ?>
+if ( ! empty( $product_tabs ) || ! empty( $custom_tabs_title ) || $global_tab_title ) :
+	$skeleton_lazyload = ! empty( $porto_settings['skeleton_lazyload_product_desc'] );
+	?>
 
-	<div class="woocommerce-tabs woocommerce-tabs-<?php echo esc_attr( $rand ); ?> resp-htabs" id="product-tab">
-		<ul class="resp-tabs-list">
+	<div class="woocommerce-tabs woocommerce-tabs-<?php echo esc_attr( $rand ), ! $skeleton_lazyload ? '' : ' skeleton-loading'; ?> resp-htabs" id="product-tab">
+	<?php
+	if ( $skeleton_lazyload ) {
+		ob_start();
+	}
+	?>
+		<ul class="resp-tabs-list" role="tablist">
 			<?php
 			$i = 0;
 			foreach ( $product_tabs as $key => $product_tab ) :
@@ -148,6 +155,15 @@ if ( ! empty( $product_tabs ) || ! empty( $custom_tabs_title ) || $global_tab_ti
 				});
 			});
 		</script>
+		<?php
+		if ( $skeleton_lazyload ) :
+			$post_content = ob_get_clean();
+			?>
+			<script type="text/template"><?php echo json_encode( $post_content ); ?></script>
+		<?php endif; ?>
 	</div>
 
+	<?php if ( $skeleton_lazyload ) : ?>
+		<div class="tab-content skeleton-body"></div>
+	<?php endif; ?>
 <?php endif; ?>

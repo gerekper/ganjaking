@@ -3,10 +3,6 @@
 // Porto Content Box
 add_action( 'vc_after_init', 'porto_load_content_box_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_content_box_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -18,6 +14,7 @@ function porto_load_content_box_shortcode() {
 			'name'            => 'Porto ' . __( 'Content Box', 'porto-functionality' ),
 			'base'            => 'porto_content_box',
 			'category'        => __( 'Porto', 'porto-functionality' ),
+			'description'     => __( 'Contain your any elements as you mind', 'porto-functionality' ),
 			'icon'            => 'far fa-newspaper',
 			'as_parent'       => array( 'except' => 'porto_content_box' ),
 			'content_element' => true,

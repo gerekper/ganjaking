@@ -31,8 +31,8 @@ extract(
 			'counter_decimal'          => '.',
 			'icon_position'            => 'top',
 			'speed'                    => '3',
-			'font_size_title'          => '18',
-			'font_size_counter'        => '28',
+			'font_size_title'          => '',
+			'font_size_counter'        => '',
 			'counter_color_txt'        => '',
 			'title_font'               => '',
 			'title_use_theme_fonts'    => '',
@@ -81,6 +81,14 @@ if ( $className ) {
 		$el_class = $className;
 	}
 }
+if ( ! empty( $shortcode_class ) ) {
+	if ( empty( $el_class ) ) {
+		$el_class = $shortcode_class;
+	} else {
+		$el_class .= ' ' . $shortcode_class;
+	}
+}
+
 
 if ( defined( 'VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG' ) && $css_stat_counter ) {
 	$css_stat_counter = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $css_stat_counter, ' ' ), 'stat_counter', $atts );
@@ -94,63 +102,67 @@ if ( $icon || $icon_img ) {
 }
 
 /* title */
-if ( ( ! isset( $atts['title_use_theme_fonts'] ) || 'yes' !== $atts['title_use_theme_fonts'] ) && $title_google_font ) {
-	$google_fonts_data = porto_sc_parse_google_font( $title_google_font );
-	$styles            = porto_sc_google_font_styles( $google_fonts_data );
-	$title_style      .= esc_attr( $styles );
-} elseif ( $title_font ) {
-	$title_style .= 'font-family:\'' . esc_attr( $title_font ) . '\';';
-}
-if ( $title_font_style ) {
-	$title_style .= 'font-weight:' . esc_attr( $title_font_style ) . ';';
-}
-if ( $title_font_size || ( isset( $atts['title_google_font_style_font_size'] ) && ! empty( isset( $atts['title_google_font_style_font_size']['size'] ) ) ) ) {
-	$font_size_title = '';
+if ( empty( $atts['title_font_porto_typography'] ) ) {
+	if ( ( ! isset( $atts['title_use_theme_fonts'] ) || 'yes' !== $atts['title_use_theme_fonts'] ) && $title_google_font ) {
+		$google_fonts_data = porto_sc_parse_google_font( $title_google_font );
+		$styles            = porto_sc_google_font_styles( $google_fonts_data );
+		$title_style      .= esc_attr( $styles );
+	} elseif ( $title_font ) {
+		$title_style .= 'font-family:\'' . esc_attr( $title_font ) . '\';';
+	}
+	if ( $title_font_style ) {
+		$title_style .= 'font-weight:' . esc_attr( $title_font_style ) . ';';
+	}
+	if ( $title_font_size || ( isset( $atts['title_google_font_style_font_size'] ) && ! empty( isset( $atts['title_google_font_style_font_size']['size'] ) ) ) ) {
+		$font_size_title = '';
+	}
+
+	if ( $title_font_size ) {
+		$unit = trim( preg_replace( '/[0-9.]/', '', $title_font_size ) );
+		if ( ! $unit ) {
+			$title_font_size .= 'px';
+		}
+		$title_style .= 'font-size:' . esc_attr( $title_font_size ) . ';';
+	}
+	if ( $title_font_line_height ) {
+		$unit = trim( preg_replace( '/[0-9.]/', '', $title_font_line_height ) );
+		if ( ! $unit && (int) $title_font_line_height > 3 ) {
+			$title_font_line_height .= 'px';
+		}
+		$title_style .= 'line-height:' . esc_attr( $title_font_line_height ) . ';';
+	}
 }
 
-if ( $title_font_size ) {
-	$unit = trim( preg_replace( '/[0-9.]/', '', $title_font_size ) );
-	if ( ! $unit ) {
-		$title_font_size .= 'px';
+if ( empty( $atts['desc_font_porto_typography'] ) ) {
+	if ( ( ! isset( $atts['desc_use_theme_fonts'] ) || 'yes' !== $atts['desc_use_theme_fonts'] ) && $desc_google_font ) {
+		$google_fonts_data1 = porto_sc_parse_google_font( $desc_google_font );
+		$styles             = porto_sc_google_font_styles( $google_fonts_data1 );
+		$desc_style        .= esc_attr( $styles );
+	} elseif ( $desc_font ) {
+		$desc_style .= 'font-family:\'' . esc_attr( $desc_font ) . '\';';
 	}
-	$title_style .= 'font-size:' . esc_attr( $title_font_size ) . ';';
-}
-if ( $title_font_line_height ) {
-	$unit = trim( preg_replace( '/[0-9.]/', '', $title_font_line_height ) );
-	if ( ! $unit && (int) $title_font_line_height > 3 ) {
-		$title_font_line_height .= 'px';
+	if ( $desc_font_style ) {
+		$desc_style .= 'font-weight:' . esc_attr( $desc_font_style ) . ';';
 	}
-	$title_style .= 'line-height:' . esc_attr( $title_font_line_height ) . ';';
-}
 
-if ( ( ! isset( $atts['desc_use_theme_fonts'] ) || 'yes' !== $atts['desc_use_theme_fonts'] ) && $desc_google_font ) {
-	$google_fonts_data1 = porto_sc_parse_google_font( $desc_google_font );
-	$styles             = porto_sc_google_font_styles( $google_fonts_data1 );
-	$desc_style        .= esc_attr( $styles );
-} elseif ( $desc_font ) {
-	$desc_style .= 'font-family:\'' . esc_attr( $desc_font ) . '\';';
-}
-if ( $desc_font_style ) {
-	$desc_style .= 'font-weight:' . esc_attr( $desc_font_style ) . ';';
-}
-
-if ( $desc_font_size || $suf_pref_font_size || ( isset( $atts['desc_google_font_style_font_size'] ) && ! empty( isset( $atts['desc_google_font_style_font_size']['size'] ) ) ) || ( isset( $atts['suf_pref_google_font_style_font_size'] ) && ! empty( isset( $atts['suf_pref_google_font_style_font_size']['size'] ) ) ) ) {
-	$font_size_counter = '';
-}
-
-if ( $desc_font_size ) {
-	$unit = trim( preg_replace( '/[0-9.]/', '', $desc_font_size ) );
-	if ( ! $unit ) {
-		$desc_font_size .= 'px';
+	if ( $desc_font_size || $suf_pref_font_size || ( isset( $atts['desc_google_font_style_font_size'] ) && ! empty( isset( $atts['desc_google_font_style_font_size']['size'] ) ) ) || ( isset( $atts['suf_pref_google_font_style_font_size'] ) && ! empty( isset( $atts['suf_pref_google_font_style_font_size']['size'] ) ) ) ) {
+		$font_size_counter = '';
 	}
-	$desc_style .= 'font-size:' . esc_attr( $desc_font_size ) . ';';
-}
-if ( $desc_font_line_height ) {
-	$unit = trim( preg_replace( '/[0-9.]/', '', $desc_font_line_height ) );
-	if ( ! $unit && (int) $desc_font_line_height > 3 ) {
-		$desc_font_line_height .= 'px';
+
+	if ( $desc_font_size ) {
+		$unit = trim( preg_replace( '/[0-9.]/', '', $desc_font_size ) );
+		if ( ! $unit ) {
+			$desc_font_size .= 'px';
+		}
+		$desc_style .= 'font-size:' . esc_attr( $desc_font_size ) . ';';
 	}
-	$desc_style .= 'line-height:' . esc_attr( $desc_font_line_height ) . ';';
+	if ( $desc_font_line_height ) {
+		$unit = trim( preg_replace( '/[0-9.]/', '', $desc_font_line_height ) );
+		if ( ! $unit && (int) $desc_font_line_height > 3 ) {
+			$desc_font_line_height .= 'px';
+		}
+		$desc_style .= 'line-height:' . esc_attr( $desc_font_line_height ) . ';';
+	}
 }
 if ( $desc_font_color || $counter_color_txt ) {
 	$desc_style .= 'color:' . esc_attr( $desc_font_color ? $desc_font_color : $counter_color_txt ) . ';';
@@ -172,16 +184,17 @@ if ( $font_size_title ) {
 	$title_style .= 'font-size:' . esc_attr( $font_size_title ) . 'px;';
 }
 
-
-if ( ( ! isset( $atts['suf_pref_use_theme_fonts'] ) || 'yes' !== $atts['suf_pref_use_theme_fonts'] ) && $suf_pref_google_font ) {
-	$google_fonts_data2 = porto_sc_parse_google_font( $suf_pref_google_font );
-	$styles             = porto_sc_google_font_styles( $google_fonts_data2 );
-	$suf_pref_style    .= esc_attr( $styles );
-} elseif ( $suf_pref_font ) {
-	$suf_pref_style .= 'font-family:\'' . esc_attr( $suf_pref_font ) . '\';';
-}
-if ( $suf_pref_font_style ) {
-	$suf_pref_style .= 'font-weight:' . esc_attr( $suf_pref_font_style ) . ';';
+if ( empty( $atts['suf_pref_font_porto_typography'] ) ) {
+	if ( ( ! isset( $atts['suf_pref_use_theme_fonts'] ) || 'yes' !== $atts['suf_pref_use_theme_fonts'] ) && $suf_pref_google_font ) {
+		$google_fonts_data2 = porto_sc_parse_google_font( $suf_pref_google_font );
+		$styles             = porto_sc_google_font_styles( $google_fonts_data2 );
+		$suf_pref_style    .= esc_attr( $styles );
+	} elseif ( $suf_pref_font ) {
+		$suf_pref_style .= 'font-family:\'' . esc_attr( $suf_pref_font ) . '\';';
+	}
+	if ( $suf_pref_font_style ) {
+		$suf_pref_style .= 'font-weight:' . esc_attr( $suf_pref_font_style ) . ';';
+	}
 }
 
 // enqueue google fonts
@@ -198,20 +211,21 @@ if ( isset( $google_fonts_data2 ) && $google_fonts_data2 ) {
 if ( ! empty( $google_fonts_arr ) ) {
 	porto_sc_enqueue_google_fonts( $google_fonts_arr );
 }
-
-if ( $suf_pref_font_size ) {
-	$unit = trim( preg_replace( '/[0-9.]/', '', $suf_pref_font_size ) );
-	if ( ! $unit ) {
-		$suf_pref_font_size .= 'px';
+if ( empty( $atts['suf_pref_font_porto_typography'] ) ) {
+	if ( $suf_pref_font_size ) {
+		$unit = trim( preg_replace( '/[0-9.]/', '', $suf_pref_font_size ) );
+		if ( ! $unit ) {
+			$suf_pref_font_size .= 'px';
+		}
+		$suf_pref_style .= 'font-size:' . esc_attr( $suf_pref_font_size ) . ';';
 	}
-	$suf_pref_style .= 'font-size:' . esc_attr( $suf_pref_font_size ) . ';';
-}
-if ( $suf_pref_line_height ) {
-	$unit = trim( preg_replace( '/[0-9.]/', '', $suf_pref_line_height ) );
-	if ( ! $unit && (int) $suf_pref_line_height > 3 ) {
-		$suf_pref_line_height .= 'px';
+	if ( $suf_pref_line_height ) {
+		$unit = trim( preg_replace( '/[0-9.]/', '', $suf_pref_line_height ) );
+		if ( ! $unit && (int) $suf_pref_line_height > 3 ) {
+			$suf_pref_line_height .= 'px';
+		}
+		$suf_pref_style .= 'line-height:' . esc_attr( $suf_pref_line_height ) . ';';
 	}
-	$suf_pref_style .= 'line-height:' . esc_attr( $suf_pref_line_height ) . ';';
 }
 if ( $suf_pref_font_color ) {
 	$suf_pref_style .= 'color:' . esc_attr( $suf_pref_font_color );
@@ -248,11 +262,11 @@ if ( '' !== $counter_suffix ) {
 }
 
 		$title_attrs_escaped = ' style="' . esc_attr( $title_style ) . '"';
-		if ( isset( $title_attrs ) ) {
-			$title_attrs_escaped = $title_attrs . $title_attrs_escaped;
-		} else {
-			$title_attrs_escaped = 'class="stats-text"' . $title_attrs_escaped;
-		}
+if ( isset( $title_attrs ) ) {
+	$title_attrs_escaped = $title_attrs . $title_attrs_escaped;
+} else {
+	$title_attrs_escaped = 'class="stats-text"' . $title_attrs_escaped;
+}
 		$output .= '<div ' . $title_attrs_escaped . '>' . porto_strip_script_tags( $counter_title ) . '</div>';
 	$output     .= '</div>';
 if ( 'right' == $icon_position && $stats_icon ) {

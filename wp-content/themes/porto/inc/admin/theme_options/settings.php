@@ -8,17 +8,12 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 		public $sections = array();
 		public $theme;
 		public $ReduxFramework;
+		private $css_var_selectors = array();
 		public function __construct() {
 			if ( ! class_exists( 'ReduxFramework' ) ) {
 				return;
 			}
-			// This is needed. Bah WordPress bugs.  ;)
-			if ( true == Redux_Helpers::isTheme( __FILE__ ) ) {
-				$this->initSettings();
-			} else {
-				add_action( 'plugins_loaded', array( $this, 'initSettings' ), 10 );
-			}
-
+			$this->initSettings();
 		}
 
 		public function initSettings() {
@@ -94,47 +89,8 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 					),
 					true
 				);
-				$header_builders = porto_get_post_type_items(
-					'porto_builder',
-					array(
-						'meta_query' => array(
-							array(
-								'key'   => 'porto_builder_type',
-								'value' => 'header',
-							),
-						),
-					),
-					false
-				);
-				$footer_builders = porto_get_post_type_items(
-					'porto_builder',
-					array(
-						'meta_query' => array(
-							array(
-								'key'   => 'porto_builder_type',
-								'value' => 'footer',
-							),
-						),
-					),
-					false
-				);
-				$shop_builders   = porto_get_post_type_items(
-					'porto_builder',
-					array(
-						'meta_query' => array(
-							array(
-								'key'   => 'porto_builder_type',
-								'value' => 'shop',
-							),
-						),
-					),
-					false
-				);
 			} else {
 				$product_layouts = array();
-				$header_builders = array();
-				$footer_builders = array();
-				$shop_builders   = array();
 			}
 
 			$options_style = get_theme_mod( 'theme_options_use_new_style', false );
@@ -311,19 +267,18 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'off'     => __( 'No', 'porto' ),
 					),
 					array(
-						'id'         => 'show-skeleton-screen',
-						'type'       => 'button_set',
-						'title'      => __( 'Show Skeleton Screens', 'porto' ),
-						'desc'       => __( 'This will show skeleton screens during page load for the selected pages.', 'porto' ),
-						'multi'      => true,
-						'options'    => array(
+						'id'      => 'show-skeleton-screen',
+						'type'    => 'button_set',
+						'title'   => __( 'Show Skeleton Screens', 'porto' ),
+						'desc'    => __( 'This will show skeleton screens during page load for the selected pages.', 'porto' ),
+						'multi'   => true,
+						'options' => array(
 							'shop'      => __( 'Shop Pages', 'porto' ),
 							'product'   => __( 'Product Page', 'porto' ),
 							'quickview' => __( 'Product Quickview', 'porto' ),
 							'blog'      => __( 'Blog Pages', 'porto' ),
 						),
-						'default'    => array(),
-						'customizer' => false,
+						'default' => array(),
 					),
 				),
 			);
@@ -654,6 +609,9 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'  => '#0088cc',
 						'validate' => 'color',
 						'compiler' => true,
+						'selector' => array(
+							'node' => ':root',
+						),
 					),
 					array(
 						'id'       => 'skin-color-inverse',
@@ -662,6 +620,9 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'  => '#ffffff',
 						'validate' => 'color',
 						'compiler' => true,
+						'selector' => array(
+							'node' => ':root',
+						),
 					),
 					array(
 						'id'       => 'secondary-color',
@@ -670,6 +631,9 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'  => '#e36159',
 						'validate' => 'color',
 						'compiler' => true,
+						'selector' => array(
+							'node' => ':root',
+						),
 					),
 					array(
 						'id'       => 'secondary-color-inverse',
@@ -686,6 +650,9 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'  => '#2baab1',
 						'validate' => 'color',
 						'compiler' => true,
+						'selector' => array(
+							'node' => ':root',
+						),
 					),
 					array(
 						'id'       => 'tertiary-color-inverse',
@@ -702,6 +669,9 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'  => '#383f48',
 						'validate' => 'color',
 						'compiler' => true,
+						'selector' => array(
+							'node' => ':root',
+						),
 					),
 					array(
 						'id'       => 'quaternary-color-inverse',
@@ -718,6 +688,9 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'  => '#212529',
 						'validate' => 'color',
 						'compiler' => true,
+						'selector' => array(
+							'node' => ':root',
+						),
 					),
 					array(
 						'id'       => 'dark-color-inverse',
@@ -734,6 +707,9 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'  => '#ffffff',
 						'validate' => 'color',
 						'compiler' => true,
+						'selector' => array(
+							'node' => ':root',
+						),
 					),
 					array(
 						'id'       => 'light-color-inverse',
@@ -796,6 +772,10 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'subtitle' => 'Controls the overall site width. 960 - 1920',
 						'default'  => '1140',
 						'compiler' => true,
+						'selector' => array(
+							'node' => '.container, .wp-block, .col-half-section',
+							'unit' => 'px',
+						),
 					),
 					array(
 						'id'       => 'grid-gutter-width',
@@ -810,6 +790,10 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						),
 						'default'  => '30',
 						'compiler' => true,
+						'selector' => array(
+							'node' => ':root',
+							'unit' => 'px',
+						),
 					),
 					array(
 						'id'       => 'border-radius',
@@ -865,7 +849,7 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'type'    => 'switch',
 						'title'   => __( 'Enable Web Font Loader for Google Fonts', 'porto' ),
 						/* translators: $1: opening A tag which has link to the Google PageSpeed Insights $2: closing A tag */
-						'desc'    => sprintf( esc_html__( 'By using this option, you can increase page speed about 4 percent in %1$sGoogle PageSpeed Insights%2$s for both of mobile and desktop.', 'porto' ), '<a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank">', '</a>' ),
+						'desc'    => sprintf( esc_html__( 'By using this option, you can increase page speed about 4 percent in %1$sGoogle PageSpeed Insights%2$s for both of mobile and desktop.', 'porto' ), '<a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener noreferrer">', '</a>' ),
 						'default' => true,
 						'on'      => __( 'Yes', 'porto' ),
 						'off'     => __( 'No', 'porto' ),
@@ -889,6 +873,9 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'font-size'      => '14px',
 							'line-height'    => '24px',
 							'letter-spacing' => '0',
+						),
+						'selector'       => array(
+							'node' => ':root',
 						),
 					),
 					array(
@@ -941,11 +928,14 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'        => array(
 							'color'          => '',
 							'google'         => true,
-							'font-weight'    => '400',
+							'font-weight'    => '700',
 							'font-family'    => 'Open Sans',
 							'font-size'      => '36px',
 							'line-height'    => '44px',
 							'letter-spacing' => '',
+						),
+						'selector'       => array(
+							'node' => 'h1',
 						),
 					),
 					array(
@@ -960,11 +950,14 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'        => array(
 							'color'          => '',
 							'google'         => true,
-							'font-weight'    => '400',
+							'font-weight'    => '700',
 							'font-family'    => 'Open Sans',
 							'font-size'      => '30px',
 							'line-height'    => '40px',
 							'letter-spacing' => '',
+						),
+						'selector'       => array(
+							'node' => 'h2',
 						),
 					),
 					array(
@@ -979,11 +972,14 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'        => array(
 							'color'          => '',
 							'google'         => true,
-							'font-weight'    => '400',
+							'font-weight'    => '700',
 							'font-family'    => 'Open Sans',
 							'font-size'      => '25px',
 							'line-height'    => '32px',
 							'letter-spacing' => '',
+						),
+						'selector'       => array(
+							'node' => 'h3',
 						),
 					),
 					array(
@@ -998,11 +994,14 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'        => array(
 							'color'          => '',
 							'google'         => true,
-							'font-weight'    => '400',
+							'font-weight'    => '700',
 							'font-family'    => 'Open Sans',
 							'font-size'      => '20px',
 							'line-height'    => '27px',
 							'letter-spacing' => '',
+						),
+						'selector'       => array(
+							'node' => 'h4',
 						),
 					),
 					array(
@@ -1017,11 +1016,14 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'        => array(
 							'color'          => '',
 							'google'         => true,
-							'font-weight'    => '400',
+							'font-weight'    => '700',
 							'font-family'    => 'Open Sans',
 							'font-size'      => '14px',
 							'line-height'    => '18px',
 							'letter-spacing' => '',
+						),
+						'selector'       => array(
+							'node' => 'h5',
 						),
 					),
 					array(
@@ -1036,11 +1038,14 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 						'default'        => array(
 							'color'          => '',
 							'google'         => true,
-							'font-weight'    => '400',
+							'font-weight'    => '700',
 							'font-family'    => 'Open Sans',
 							'font-size'      => '14px',
 							'line-height'    => '18px',
 							'letter-spacing' => '',
+						),
+						'selector'       => array(
+							'node' => 'h6',
 						),
 					),
 					array(
@@ -1834,6 +1839,9 @@ if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
 							'letter-spacing' => '0',
 						),
 						'transport'      => 'refresh',
+						'selector'       => array(
+							'node' => '.main-sidebar-menu',
+						),
 					),
 					array(
 						'id'       => 'menu-text-transform',
@@ -2708,18 +2716,10 @@ Menu Custom Content',
 						'validate' => 'color',
 					),
 					array(
-						'id'       => 'sticky-searchform-toggle-text-color',
-						'type'     => 'color',
-						'title'    => __( 'Toggle Text Color', 'porto' ),
-						'default'  => '',
-						'validate' => 'color',
-					),
-					array(
-						'id'       => 'sticky-searchform-toggle-hover-color',
-						'type'     => 'color',
-						'title'    => __( 'Toggle Hover Color', 'porto' ),
-						'default'  => '',
-						'validate' => 'color',
+						'id'     => 'sticky-searchform-toggle-color',
+						'type'   => 'link_color',
+						'title'  => __( 'Toggle Text Color', 'porto' ),
+						'active' => false,
 					),
 				),
 			);
@@ -2831,6 +2831,9 @@ Menu Custom Content',
 						'subtitle' => __( 'Add to cart, Wishlist and Quick View Color on archive page', 'porto' ),
 						'default'  => '#333333',
 						'validate' => 'color',
+						'selector' => array(
+							'node' => '.add-links, .yith-wcwl-add-to-wishlist',
+						),
 					),
 					array(
 						'id'       => 'shop-add-links-bg-color',
@@ -2839,6 +2842,9 @@ Menu Custom Content',
 						'subtitle' => __( 'Add to cart, Wishlist and Quick View Background Color on archive page', 'porto' ),
 						'default'  => '#ffffff',
 						'validate' => 'color',
+						'selector' => array(
+							'node' => '.add-links, .yith-wcwl-add-to-wishlist',
+						),
 					),
 					array(
 						'id'       => 'shop-add-links-border-color',
@@ -2847,6 +2853,9 @@ Menu Custom Content',
 						'subtitle' => __( 'Add to cart, Wishlist and Quick View Border Color on archive page', 'porto' ),
 						'default'  => '#dddddd',
 						'validate' => 'color',
+						'selector' => array(
+							'node' => '.add-links, .yith-wcwl-add-to-wishlist',
+						),
 					),
 					array(
 						'id'       => 'wishlist-color',
@@ -2891,6 +2900,16 @@ Menu Custom Content',
 						'validate' => 'color',
 					),
 					array(
+						'id'       => 'new-bgc',
+						'type'     => 'color',
+						'title'    => __( 'New Label Bg Color', 'porto' ),
+						'default'  => '',
+						'validate' => 'color',
+						'selector' => array(
+							'node' => '.onnew',
+						),
+					),
+					array(
 						'id'          => 'add-to-cart-font',
 						'type'        => 'typography',
 						'title'       => __( 'Add to Cart Font', 'porto' ),
@@ -2908,6 +2927,105 @@ Menu Custom Content',
 							'font-family' => 'Open Sans',
 						),
 						'transport'   => 'refresh',
+					),
+				),
+			);
+			$this->sections[] = array(
+				'icon_class' => 'icon',
+				'subsection' => true,
+				'title'      => __( 'Form Style', 'porto' ),
+				'transport'  => 'postMessage',
+				'fields'     => array(
+					array(
+						'id'       => 'form-ih',
+						'type'     => 'text',
+						'title'    => 'The Height of input and select box',
+						'subtitle' => __( 'Enter value including any valid CSS unit, ex: 30px.', 'porto' ),
+						'default'  => '',
+					),
+					array(
+						'id'       => 'form-fs',
+						'type'     => 'text',
+						'title'    => 'Form Font Size',
+						'subtitle' => __( 'Inputs the font size of form and form fields.', 'porto' ),
+						'default'  => '',
+					),
+					array(
+						'id'       => 'form-color',
+						'type'     => 'color',
+						'title'    => 'Form Text Color',
+						'subtitle' => __( 'Controls the color of the form and form fields.', 'porto' ),
+						'default'  => '',
+						'validate' => 'color',
+					),
+					array(
+						'id'       => 'form-field-bgc',
+						'type'     => 'color',
+						'title'    => 'Form Field Background Color',
+						'subtitle' => __( 'Controls the background color of form fields such as input and select boxes.', 'porto' ),
+						'default'  => '',
+						'validate' => 'color',
+					),
+					array(
+						'id'       => 'form-field-bw',
+						'type'     => 'spacing',
+						'mode'     => 'border',
+						'title'    => __( 'Form Field Border Width (px)', 'porto' ),
+						'subtitle' => __( 'Controls the border size of the form fields such as input and select boxes.', 'porto' ),
+						'units'    => 'px',
+					),
+					array(
+						'id'       => 'form-field-bc',
+						'type'     => 'color',
+						'title'    => __( 'Form Field Border Color', 'porto' ),
+						'subtitle' => __( 'Controls the border color of form fields such as input and select boxes.', 'porto' ),
+						'default'  => '',
+						'validate' => 'color',
+					),
+					array(
+						'id'       => 'form-field-bcf',
+						'type'     => 'color',
+						'title'    => __( 'Form Field Border Color on Focus', 'porto' ),
+						'subtitle' => __( 'Controls the border color of form fields such as input and select boxes on focus status.', 'porto' ),
+						'default'  => '',
+						'validate' => 'color',
+					),
+					array(
+						'id'       => 'form-br',
+						'type'     => 'text',
+						'title'    => __( 'Form Border Radius', 'porto' ),
+						'subtitle' => __( 'Controls the border radius of form fields such as input, select boxes and buttons. Enter value including any valid CSS unit, ex: 30px.', 'porto' ),
+					),
+				),
+			);
+			$this->sections[] = array(
+				'icon_class' => 'icon',
+				'subsection' => true,
+				'title'      => __( 'Sidebar Style', 'porto' ),
+				'transport'  => 'postMessage',
+				'fields'     => array(
+					array(
+						'id'       => 'sidebar-bw',
+						'type'     => 'text',
+						'title'    => __( 'Sidebar Border Width', 'porto' ),
+						'subtitle' => __( 'Controls the border size of the sidebar.', 'porto' ),
+					),
+					array(
+						'id'       => 'sidebar-bc',
+						'type'     => 'color',
+						'title'    => __( 'Sidebar Border Color', 'porto' ),
+						'subtitle' => __( 'Controls the border color of the sidebar.', 'porto' ),
+						'default'  => '',
+						'validate' => 'color',
+						'required' => array( 'sidebar-bw', '!=', '' ),
+					),
+					array(
+						'id'       => 'sidebar-pd',
+						'type'     => 'spacing',
+						'mode'     => 'padding',
+						'title'    => __( 'Sidebar Padding (px)', 'porto' ),
+						'subtitle' => __( 'Controls the padding of the sidebar.', 'porto' ),
+						'units'    => 'px',
 					),
 				),
 			);
@@ -3057,11 +3175,19 @@ Menu Custom Content',
 							'type'     => 'button_set',
 							'title'    => __( 'Mini Cart Content Type', 'porto' ),
 							'options'  => array(
-								''         => __( 'Popup', 'porto' ),
-								'offcanvs' => __( 'Off Canvas', 'porto' ),
+								''          => __( 'Popup', 'porto' ),
+								'offcanvas' => __( 'Off Canvas', 'porto' ),
 							),
 							'default'  => '',
 							'required' => array( 'minicart-type', 'equals', array( 'simple', 'minicart-arrow-alt', 'minicart-inline' ) ),
+						),
+						array(
+							'id'       => 'wl-offcanvas',
+							'type'     => 'switch',
+							'title'    => __( 'Show Off Canvas Wishlist', 'porto' ),
+							'default'  => false,
+							'on'       => __( 'Yes', 'porto' ),
+							'off'      => __( 'No', 'porto' ),
 						),
 						array(
 							'id'       => 'welcome-msg',
@@ -3109,6 +3235,67 @@ Menu Custom Content',
 							'type'     => 'textarea',
 							'title'    => __( 'Tooltip Content', 'porto' ),
 							'required' => array( 'show-header-tooltip', 'equals', true ),
+						),
+						array(
+							'id'        => 'show-account-dropdown',
+							'type'      => 'switch',
+							'title'     => __( 'Show Account Dropdown', 'porto' ),
+							'subtitle'  => __( 'When user is logged in, Menu that is located in Account Menu will be shown.', 'porto' ),
+							'default'   => false,
+							'on'        => __( 'Yes', 'porto' ),
+							'off'       => __( 'No', 'porto' ),
+							'transport' => 'refresh',
+						),
+						array(
+							'id'             => 'account-dropdown-font',
+							'type'           => 'typography',
+							'title'          => __( 'Account Dropdown Font', 'porto' ),
+							'subtitle'       => __( 'Controls the typography for account dropdown menu.', 'porto' ),
+							'google'         => true,
+							'subsets'        => false,
+							'font-style'     => false,
+							'text-align'     => false,
+							'color'          => false,
+							'letter-spacing' => true,
+							'compiler'       => true,
+							'default'        => array(
+								'google'      => true,
+								'font-weight' => '400',
+								'font-family' => 'Open Sans',
+								'font-size'   => '11px',
+								'line-height' => '16.5px',
+							),
+							'required'       => array( 'show-account-dropdown', 'equals', true ),
+						),
+						array(
+							'id'       => 'account-dropdown-bg-color',
+							'type'     => 'color',
+							'title'    => __( 'Background Color', 'porto' ),
+							'subtitle' => __( 'Controls the background color for account dropdown.', 'porto' ),
+							'default'  => 'transparent',
+							'validate' => 'color',
+							'required' => array( 'show-account-dropdown', 'equals', true ),
+						),
+						array(
+							'id'       => 'account-dropdown-hbg-color',
+							'type'     => 'color',
+							'title'    => __( 'Hover Background Color', 'porto' ),
+							'subtitle' => __( 'Controls the background color for account dropdown on hover.', 'porto' ),
+							'default'  => '#ffffff',
+							'validate' => 'color',
+							'required' => array( 'show-account-dropdown', 'equals', true ),
+						),
+						array(
+							'id'       => 'account-dropdown-link-color',
+							'type'     => 'link_color',
+							'active'   => false,
+							'title'    => __( 'Link Color', 'porto' ),
+							'default'  => array(
+								'regular' => '#777777',
+								'hover'   => '#777777',
+							),
+							'desc'     => __( 'Regular is the color of top level link and hover is the color of sub menu items.', 'porto' ),
+							'required' => array( 'show-account-dropdown', 'equals', true ),
 						),
 					),
 				),
@@ -3335,12 +3522,6 @@ Menu Custom Content',
 						'required' => array( 'show-header-socials', 'equals', true ),
 					),
 					array(
-						'id'       => 'header-social-googleplus',
-						'type'     => 'text',
-						'title'    => __( 'Google Plus', 'porto' ),
-						'required' => array( 'show-header-socials', 'equals', true ),
-					),
-					array(
 						'id'       => 'header-social-vk',
 						'type'     => 'text',
 						'title'    => __( 'VK', 'porto' ),
@@ -3393,6 +3574,18 @@ Menu Custom Content',
 						'type'     => 'text',
 						'title'    => __( 'WhatsApp', 'porto' ),
 						'desc'     => __( 'Only For Mobile', 'porto' ),
+						'required' => array( 'show-header-socials', 'equals', true ),
+					),
+					array(
+						'id'       => 'header-social-wechat',
+						'type'     => 'text',
+						'title'    => __( 'WeChat', 'porto' ),
+						'required' => array( 'show-header-socials', 'equals', true ),
+					),
+					array(
+						'id'       => 'header-social-tiktok',
+						'type'     => 'text',
+						'title'    => __( 'Tiktok', 'porto' ),
 						'required' => array( 'show-header-socials', 'equals', true ),
 					),
 				),
@@ -4176,10 +4369,11 @@ Menu Custom Content',
 							),
 						),
 						array(
-							'id'      => 'footer-ribbon',
-							'type'    => 'text',
-							'title'   => __( 'Ribbon Text', 'porto' ),
-							'default' => '',
+							'id'          => 'footer-ribbon',
+							'type'        => 'text',
+							'description' => __( 'Please input ribbon text which is displayed at the top and left of the footer container if you want.', 'porto' ),
+							'title'       => __( 'Ribbon Text', 'porto' ),
+							'default'     => '',
 						),
 						array(
 							'id'      => 'footer-copyright',
@@ -4200,12 +4394,13 @@ Menu Custom Content',
 							'default' => 'left',
 						),
 						array(
-							'id'      => 'footer-payments',
-							'type'    => 'switch',
-							'title'   => __( 'Show Payments Logos', 'porto' ),
-							'default' => false,
-							'on'      => __( 'Yes', 'porto' ),
-							'off'     => __( 'No', 'porto' ),
+							'id'       => 'footer-payments',
+							'type'     => 'switch',
+							'title'    => __( 'Show Payments Logos', 'porto' ),
+							'subtitle' => __( 'Controls if show payment icons at the bottom of the footer.', 'porto' ),
+							'default'  => false,
+							'on'       => __( 'Yes', 'porto' ),
+							'off'      => __( 'No', 'porto' ),
 						),
 						array(
 							'id'       => 'footer-payments-image',
@@ -4233,12 +4428,13 @@ Menu Custom Content',
 							'default'  => '',
 						),
 						array(
-							'id'      => 'show-footer-tooltip',
-							'type'    => 'switch',
-							'title'   => __( 'Show Tooltip', 'porto' ),
-							'default' => false,
-							'on'      => __( 'Yes', 'porto' ),
-							'off'     => __( 'No', 'porto' ),
+							'id'       => 'show-footer-tooltip',
+							'type'     => 'switch',
+							'title'    => __( 'Show Tooltip', 'porto' ),
+							'subtitle' => __( 'Controls if show tooltip with exclamation mark and tooltip contents on click at the top and right of footer.', 'porto' ),
+							'default'  => false,
+							'on'       => __( 'Yes', 'porto' ),
+							'off'      => __( 'No', 'porto' ),
 						),
 						array(
 							'id'       => 'footer-tooltip',
@@ -4356,8 +4552,10 @@ Menu Custom Content',
 							'id'      => 'post-meta-position',
 							'type'    => 'button_set',
 							'title'   => __( 'Meta Position', 'porto' ),
+							'desc'    => __( 'This doesn\'t work for some single post layouts including "Full Alt" and "Woocommerce".' , 'porto' ),
 							'options' => array(
-								''       => __( 'After content', 'porto' ),
+								''       => __( 'Default', 'porto' ),
+								'after'  => __( 'After content', 'porto' ),
 								'before' => __( 'Before content', 'porto' ),
 							),
 							'default' => '',
@@ -5958,6 +6156,14 @@ Menu Custom Content',
 							'on'      => __( 'Yes', 'porto' ),
 							'off'     => __( 'No', 'porto' ),
 						),
+						array(
+							'id'      => 'member-social-nofollow',
+							'type'    => 'switch',
+							'title'   => __( 'Add rel="nofollow" to social links', 'porto' ),
+							'default' => false,
+							'on'      => __( 'Yes', 'porto' ),
+							'off'     => __( 'No', 'porto' ),
+						),
 					),
 				),
 				$options_style,
@@ -6473,8 +6679,11 @@ Menu Custom Content',
 							'id'        => 'woo-show-default-page-header',
 							'type'      => 'switch',
 							'title'     => __( 'Show Progressive Page header in Cart and Checkout page', 'porto' ),
-							'subtitle'  => __( 'Select "Yes" to use progressive page header which displays three steps: shopping cart
-checkout and order complete.', 'porto' ),
+							'subtitle'  => __(
+								'Select "Yes" to use progressive page header which displays three steps: shopping cart
+checkout and order complete.',
+								'porto'
+							),
 							'default'   => true,
 							'on'        => __( 'Yes', 'porto' ),
 							'off'       => __( 'No', 'porto' ),
@@ -6499,46 +6708,58 @@ checkout and order complete.', 'porto' ),
 							'off'      => __( 'No', 'porto' ),
 						),
 						array(
-							'id'      => 'product-hot',
-							'type'    => 'switch',
-							'title'   => __( 'Show "Hot" Label', 'porto' ),
-							'desc'    => __( 'This will be displayed in the featured product.', 'porto' ),
-							'default' => true,
-							'on'      => __( 'Yes', 'porto' ),
-							'off'     => __( 'No', 'porto' ),
+							'id'      => 'product-labels',
+							'type'    => 'button_set',
+							'title'   => __( 'Select labels to display', 'porto' ),
+							'multi'   => true,
+							'default' => array( 'hot', 'sale' ),
+							'options' => array(
+								'hot'  => __( 'Hot', 'porto' ),
+								'sale' => __( 'Sale', 'porto' ),
+								'new'  => __( 'New', 'porto' ),
+							),
 						),
 						array(
 							'id'       => 'product-hot-label',
 							'type'     => 'text',
-							'required' => array( 'product-hot', 'equals', true ),
+							'required' => array( 'product-labels', 'contains', 'hot' ),
 							'title'    => __( '"Hot" Text', 'porto' ),
+							'desc'     => __( 'This will be displayed in the featured product.', 'porto' ),
 							'default'  => '',
-						),
-						array(
-							'id'      => 'product-sale',
-							'type'    => 'switch',
-							'title'   => __( 'Show "Sale" Label', 'porto' ),
-							'desc'    => __( 'This will be displayed in the product on sale.', 'porto' ),
-							'default' => true,
-							'on'      => __( 'Yes', 'porto' ),
-							'off'     => __( 'No', 'porto' ),
 						),
 						array(
 							'id'       => 'product-sale-label',
 							'type'     => 'text',
-							'required' => array( 'product-sale', 'equals', true ),
+							'required' => array( 'product-labels', 'contains', 'sale' ),
 							'title'    => __( '"Sale" Text', 'porto' ),
+							'desc'     => __( 'This will be displayed in the product on sale.', 'porto' ),
 							'default'  => '',
 						),
 						array(
 							'id'       => 'product-sale-percent',
 							'type'     => 'switch',
-							'required' => array( 'product-sale', 'equals', true ),
+							'required' => array( 'product-labels', 'contains', 'sale' ),
 							'title'    => __( 'Show Saved Sale Price Percentage', 'porto' ),
 							'subtitle' => __( 'Select "No" to display "Sale" text instead of sale percentage.', 'porto' ),
 							'default'  => true,
 							'on'       => __( 'Yes', 'porto' ),
 							'off'      => __( 'No', 'porto' ),
+						),
+						array(
+							'id'       => 'product-new-label',
+							'type'     => 'text',
+							'required' => array( 'product-labels', 'contains', 'new' ),
+							'title'    => __( 'New Product Label', 'porto' ),
+							'default'  => '',
+						),
+						array(
+							'id'        => 'product-new-days',
+							'type'      => 'slider',
+							'title'     => __( 'New Product Period (days)', 'porto' ),
+							'required'  => array( 'product-labels', 'contains', 'new' ),
+							'default'   => 7,
+							'min'       => 1,
+							'max'       => 100,
 						),
 						array(
 							'id'        => 'product-show-price-role',
@@ -6548,6 +6769,74 @@ checkout and order complete.', 'porto' ),
 							'default'   => array(),
 							'options'   => $all_roles,
 							'transport' => 'refresh',
+						),
+						array(
+							'id'          => 'woo-sales-popup',
+							'type'        => 'select',
+							'title'       => __( 'Sales Popup Content', 'porto' ),
+							'description' => __( 'Select which products you want to show in sales popup.', 'porto' ),
+							'default'     => '',
+							'options'     => array(
+								''         => __( 'Do not show', 'porto' ),
+								'real'     => __( 'Recent sale products', 'porto' ),
+								'popular'  => __( 'Popular products', 'porto' ),
+								'rating'   => __( 'Top rated products', 'porto' ),
+								'sale'     => __( 'Sale products', 'porto' ),
+								'featured' => __( 'Featured products', 'porto' ),
+								'recent'   => __( 'Recent products', 'porto' ),
+							),
+							'transport'   => 'refresh',
+						),
+						array(
+							'id'        => 'woo-sales-popup-title',
+							'type'      => 'text',
+							'title'     => __( 'Popup Title', 'porto' ),
+							'default'   => __( 'Someone just purchased', 'porto' ),
+							'required'  => array( 'woo-sales-popup', 'not', '' ),
+							'transport' => 'refresh',
+						),
+						array(
+							'id'        => 'woo-sales-popup-count',
+							'type'      => 'slider',
+							'title'     => __( 'Products Count', 'porto' ),
+							'required'  => array( 'woo-sales-popup', 'not', '' ),
+							'default'   => 10,
+							'min'       => 1,
+							'max'       => 30,
+							'transport' => 'refresh',
+						),
+						array(
+							'id'          => 'woo-sales-popup-start-delay',
+							'type'        => 'slider',
+							'title'       => __( 'Start Delay(seconds)', 'porto' ),
+							'description' => __( 'Change delay time to show the first popup after page loading.', 'porto' ),
+							'required'    => array( 'woo-sales-popup', 'not', '' ),
+							'default'     => 10,
+							'min'         => 1,
+							'max'         => 30,
+							'transport'   => 'refresh',
+						),
+						array(
+							'id'          => 'woo-sales-popup-interval',
+							'type'        => 'slider',
+							'title'       => __( 'Interval(seconds)', 'porto' ),
+							'description' => __( 'Change duration between popups. Each sales popup will be disappeared after 4 seconds.', 'porto' ),
+							'required'    => array( 'woo-sales-popup', 'not', '' ),
+							'default'     => 60,
+							'min'         => 1,
+							'max'         => 600,
+							'transport'   => 'refresh',
+						),
+						array(
+							'id'          => 'woo-sales-popup-mobile',
+							'type'        => 'switch',
+							'title'       => __( 'Enable on Mobile', 'porto' ),
+							'description' => __( 'Do you want to enable sales popup on mobile?', 'porto' ),
+							'required'    => array( 'woo-sales-popup', 'not', '' ),
+							'default'     => true,
+							'on'          => __( 'Yes', 'porto' ),
+							'off'         => __( 'No', 'porto' ),
+							'transport'   => 'refresh',
 						),
 						array(
 							'id'        => 'woo-pre-order',
@@ -6884,6 +7173,23 @@ checkout and order complete.', 'porto' ),
 						'title'     => __( '"Quick View" Text', 'porto' ),
 						'default'   => '',
 						'transport' => 'postMessage',
+					),
+					array(
+						'id'        => 'product-compare',
+						'type'      => 'switch',
+						'title'     => __( 'Show Compare', 'porto' ),
+						'default'   => true,
+						'on'        => __( 'Yes', 'porto' ),
+						'off'       => __( 'No', 'porto' ),
+						'transport' => 'postMessage',
+					),
+					array(
+						'id'        => 'product-compare-title',
+						'type'      => 'text',
+						'title'     => __( 'Compare Popup Title', 'porto' ),
+						'default'   => __( 'You just added to compare list.', 'porto' ),
+						'required'  => array( 'product-compare', 'not', false ),
+						'transport' => 'refresh',
 					),
 				),
 			);
@@ -7415,7 +7721,7 @@ checkout and order complete.', 'porto' ),
 						'id'      => 'reg-form-info',
 						'type'    => 'button_set',
 						'title'   => __( 'Registration Fields', 'porto' ),
-						'desc'    => __( 'If select "Full Info", extra fields such as first name, last name and password confirmation are added in registration form.' ),
+						'desc'    => __( 'If select "Full Info", extra fields such as first name, last name and password confirmation are added in registration form.', 'porto' ),
 						'multi'   => false,
 						'options' => array(
 							'full'  => __( 'Full Info', 'porto' ),
@@ -7854,7 +8160,7 @@ checkout and order complete.', 'porto' ),
 						'id'      => 'slider-autoheight',
 						'type'    => 'switch',
 						'title'   => __( 'Auto Height', 'porto' ),
-						'default' => true,
+						'default' => false,
 						'on'      => __( 'Yes', 'porto' ),
 						'off'     => __( 'No', 'porto' ),
 					),
@@ -7914,7 +8220,8 @@ checkout and order complete.', 'porto' ),
 		public function setArguments() {
 			$theme = wp_get_theme(); // For use with some settings. Not necessary.
 
-			$header_html = '<a class="porto-theme-link" href="' . esc_url( admin_url( 'admin.php?page=porto' ) ) . '">' . esc_html__( 'Dashboard', 'porto' ) . '</a>';
+			$header_html  = '<a class="porto-theme-link" href="' . esc_url( admin_url( 'admin.php?page=porto' ) ) . '">' . esc_html__( 'Dashboard', 'porto' ) . '</a>';
+			$header_html .= '<a class="porto-theme-link" href="' . esc_url( admin_url( 'admin.php?page=porto-page-layouts' ) ) . '">' . esc_html__( 'Page Layouts', 'porto' ) . '</a>';
 			if ( get_theme_mod( 'theme_options_use_new_style', false ) ) {
 				$menu_title   = esc_html__( 'Advanced Options', 'porto' );
 				$header_html .= '<a class="porto-theme-link" href="' . esc_url( admin_url( 'customize.php' ) ) . '">' . __( 'Theme Options', 'porto' ) . '</a>';
@@ -7923,7 +8230,7 @@ checkout and order complete.', 'porto' ),
 				$header_html .= '<a class="porto-theme-link active nolink" href="' . esc_url( admin_url( 'themes.php?page=porto_settings' ) ) . '">' . $menu_title . '</a>';
 			}
 
-			$header_html .= '<a class="porto-theme-link" href="' . esc_url( admin_url( 'admin.php?page=porto-setup-wizard' ) ) . '">' . esc_html__( 'Setup Wizard', 'porto' ) . '</a><a class="porto-theme-link porto-theme-link-last" href="' . esc_url( admin_url( 'admin.php?page=porto-speed-optimize-wizard' ) ) . '">' . esc_html__( 'Speed Optimize Wizard', 'porto' ) . '</a>';
+			$header_html .= '<a class="porto-theme-link" href="' . esc_url( admin_url( 'admin.php?page=porto-setup-wizard' ) ) . '">' . esc_html__( 'Setup Wizard', 'porto' ) . '</a><a class="porto-theme-link" href="' . esc_url( admin_url( 'admin.php?page=porto-speed-optimize-wizard' ) ) . '">' . esc_html__( 'Speed Optimize Wizard', 'porto' ) . '</a><a class="porto-theme-link porto-theme-link-last" href="' . esc_url( admin_url( 'admin.php?page=porto-tools' ) ) . '">' . esc_html__( 'Tools', 'porto' ) . '</a>';
 
 			if ( ! get_theme_mod( 'theme_options_use_new_style', false ) ) {
 				$header_html .= '<a href="#" class="porto-theme-link switch-live-option-panel">' . esc_html__( 'Live Option Panel', 'porto' ) . '</a>';
@@ -8008,6 +8315,51 @@ checkout and order complete.', 'porto' ),
 					$v = str_replace( '-', '_', $this->args['opt_name'] );
 				}
 			}
+		}
+
+		/**
+		 * generates css variables 
+		 *
+		 * @since 6.2.0
+		 */
+		public function get_css_vars() {
+			if ( ! empty( $this->css_var_selectors ) ) {
+				return $this->css_var_selectors;
+			}
+			if ( isset( $this->sections ) ) {
+				foreach ( $this->sections as $sk => $section ) {
+					if ( isset( $section['fields'] ) ) {
+						foreach ( $section['fields'] as $k => $field ) {
+							if ( empty( $field['id'] ) && empty( $field['type'] ) ) {
+								continue;
+							}
+							if ( empty( $field['selector'] ) ) {
+								continue;
+							}
+
+							if ( ! isset( $this->css_var_selectors[ $field['selector']['node'] ] ) ) {
+								$this->css_var_selectors[ $field['selector']['node'] ] = array();
+							}
+
+							$arr = array( $field['id'] );
+							if ( 'typography' == $field['type'] ) {
+								$arr[] = '';
+								$arr[] = 'typography';
+							} else {
+								if ( isset( $field['selector']['unit'] ) ) {
+									$arr[] = $field['selector']['unit'];
+								}
+								if ( isset( $field['selector']['type'] ) ) {
+									$arr[] = $field['selector']['type'];
+								}
+							}
+							$this->css_var_selectors[ $field['selector']['node'] ][] = $arr;
+						}
+					}
+				}
+			}
+
+			return $this->css_var_selectors;
 		}
 	}
 	global $reduxPortoSettings;

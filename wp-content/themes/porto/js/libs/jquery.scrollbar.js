@@ -76,7 +76,7 @@
             browser.scroll = getBrowserScrollSize();
             updateScrollbars();
 
-            $(window).resize(function () {
+            $(window).on('resize', function () {
                 var forceUpdate = false;
                 if (browser.scroll && (browser.scroll.height || browser.scroll.width)) {
                     var scroll = getBrowserScrollSize();
@@ -132,7 +132,7 @@
 
             $(document).add('body').off(this.namespace);
 
-            if ($.isFunction(this.options.onDestroy)){
+            if (typeof this.options.onDestroy === 'function'){
                 this.options.onDestroy.apply(this, [this.container]);
             }
         },
@@ -179,7 +179,7 @@
                 });
 
                 c.on('scroll' + namespace, function (event) {
-                    if ($.isFunction(o.onScroll)) {
+                    if (typeof o.onScroll === 'function') {
                         o.onScroll.call(S, {
                             "maxScroll": s.y.maxScrollOffset,
                             "scroll": c.scrollTop(),
@@ -233,7 +233,7 @@
                         });
                     }
                 }
-                if ($.isFunction(o.onInit)){
+                if (typeof o.onInit === 'function'){
                     o.onInit.apply(this, [c]);
                 }
             } else {
@@ -424,7 +424,7 @@
             this._updateScroll('x', this.scrollx);
             this._updateScroll('y', this.scrolly);
 
-            if ($.isFunction(o.onUpdate)){
+            if (typeof o.onUpdate === 'function'){
                 o.onUpdate.apply(this, [c]);
             }
 

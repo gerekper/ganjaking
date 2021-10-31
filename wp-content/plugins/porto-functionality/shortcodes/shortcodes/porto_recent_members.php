@@ -1,11 +1,131 @@
 <?php
 
 // Porto Recent Members
-add_action( 'vc_after_init', 'porto_load_recent_members_shortcode' );
+if ( function_exists( 'register_block_type' ) ) {
+	register_block_type(
+		'porto/porto-recent-members',
+		array(
+			'attributes'      => array(
+				'title'              => array(
+					'type' => 'string',
+				),
+				'view'               => array(
+					'type'    => 'string',
+					'default' => 'classic',
+				),
+				'hover_image_effect' => array(
+					'type'    => 'string',
+					'default' => 'zoom',
+				),
+				'overview'           => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
+				'socials'            => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
+				'socials_style'      => array(
+					'type'    => 'boolean',
+					'default' => true,
+				),
+				'spacing'            => array(
+					'type' => 'integer',
+				),
+				'items'              => array(
+					'type' => 'integer',
+				),
+				'items_desktop'      => array(
+					'type'    => 'integer',
+					'default' => 4,
+				),
+				'items_tablets'      => array(
+					'type'    => 'integer',
+					'default' => 3,
+				),
+				'items_mobile'       => array(
+					'type'    => 'integer',
+					'default' => 2,
+				),
+				'items_row'          => array(
+					'type'    => 'integer',
+					'default' => 1,
+				),
+				'cats'               => array(
+					'type' => 'string',
+				),
+				'number'             => array(
+					'type'    => 'integer',
+					'default' => 8,
+				),
+				'ajax_load'          => array(
+					'type' => 'boolean',
+				),
+				'ajax_modal'         => array(
+					'type' => 'boolean',
+				),
+				'slider_config'      => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'show_nav'           => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'show_nav_hover'     => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'nav_pos'            => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'nav_pos2'           => array(
+					'type' => 'string',
+				),
+				'nav_type'           => array(
+					'type' => 'string',
+				),
+				'show_dots'          => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'dots_pos'           => array(
+					'type' => 'string',
+				),
+				'dots_style'         => array(
+					'type' => 'string',
+				),
+				'autoplay'           => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'autoplay_timeout'   => array(
+					'type'    => 'integer',
+					'default' => 5000,
+				),
+				'el_class'           => array(
+					'type' => 'string',
+				),
+			),
+			'editor_script'   => 'porto_blocks',
+			'render_callback' => 'porto_shortcode_recent_members',
+		)
+	);
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+	function porto_shortcode_recent_members( $atts, $content = null ) {
+		ob_start();
+		if ( $template = porto_shortcode_template( 'porto_recent_members' ) ) {
+			if ( isset( $atts['className'] ) ) {
+				$atts['el_class'] = $atts['className'];
+			}
+			include $template;
+		}
+		return ob_get_clean();
+	}
 }
+
+add_action( 'vc_after_init', 'porto_load_recent_members_shortcode' );
 
 function porto_load_recent_members_shortcode() {
 	$animation_type     = porto_vc_animation_type();
@@ -15,11 +135,12 @@ function porto_load_recent_members_shortcode() {
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Recent Members', 'porto-functionality' ),
-			'base'     => 'porto_recent_members',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'fas fa-users',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Recent Members', 'porto-functionality' ),
+			'base'        => 'porto_recent_members',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Show members by slider', 'porto-functionality' ),
+			'icon'        => 'fas fa-users',
+			'params'      => array(
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Title', 'porto-functionality' ),

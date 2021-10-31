@@ -1,0 +1,51 @@
+/* yith wishlist pro compatibility */
+.yith-wcwl-dropdown {
+    font-size: .875rem;
+    text-align: $left;
+    a {
+        text-indent: 0;
+        width: auto !important;
+        opacity: 1 !important;
+        vertical-align: baseline;
+        line-height: inherit;
+        height: auto;
+        border: none !important;
+        background: none !important;
+        color: inherit !important;
+        overflow: visible !important;
+        &:hover {
+            color: initial !important
+        }
+    }
+
+    .add_to_wishlist:before {
+        content: none !important
+    }
+    .yes-js .product-outimage_aq_onimage &,
+    .yes-js .product-onimage &,
+    .yes-js .product-onimage2 &,
+    .yes-js .product-onimage3 &,
+    .yes-js .product-wq_onimage & {
+        #{$right}: 0
+    }
+    .yes-js .product-awq_onimage & {
+        #{$left}: -80px;
+    }
+}
+.yes-js .product-onimage .product-image {
+    position: static
+}
+.yith-wcwl-add-button.with-dropdown {
+    padding: 0;
+    min-height: 2rem;
+    .product-onimage3 & {
+        z-index: 4 !important
+    }
+}
+.yes-js .yith-wcwl-add-button ul.yith-wcwl-dropdown {
+    top: 100%
+}
+.yith-wcwl-add-button ul.yith-wcwl-dropdown li:before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}

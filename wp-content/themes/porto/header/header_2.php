@@ -61,7 +61,7 @@ global $porto_settings, $porto_layout;
 			</div>
 			<div class="header-center">
 				<div id="main-menu">
-					<a class="mobile-toggle"><i class="fas fa-bars"></i></a>
+					<a class="mobile-toggle" href="#"><i class="fas fa-bars"></i></a>
 					<?php
 					// show main menu
 					echo porto_main_menu();

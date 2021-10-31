@@ -2,16 +2,16 @@
 /**
  * SCSSPHP
  *
- * @copyright 2012-2018 Leaf Corcoran
+ * @copyright 2012-2020 Leaf Corcoran
  *
  * @license http://opensource.org/licenses/MIT MIT
  *
- * @link http://leafo.github.io/scssphp
+ * @link http://scssphp.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp\SourceMap;
+namespace ScssPhp\ScssPhp\SourceMap;
 
-use Leafo\ScssPhp\Exception\CompilerException;
+use ScssPhp\ScssPhp\Exception\CompilerException;
 
 /**
  * Source Map Generator
@@ -21,324 +21,328 @@ use Leafo\ScssPhp\Exception\CompilerException;
  * @author Josh Schmidt <oyejorge@gmail.com>
  * @author Nicolas FRANÇOIS <nicolas.francois@frog-labs.com>
  */
-class SourceMapGenerator {
+class SourceMapGenerator
+{
+    /**
+     * What version of source map does the generator generate?
+     */
+    const VERSION = 3;
 
-	/**
-	 * What version of source map does the generator generate?
-	 */
-	const VERSION = 3;
+    /**
+     * Array of default options
+     *
+     * @var array
+     */
+    protected $defaultOptions = [
+        // an optional source root, useful for relocating source files
+        // on a server or removing repeated values in the 'sources' entry.
+        // This value is prepended to the individual entries in the 'source' field.
+        'sourceRoot' => '',
 
-	/**
-	 * Array of default options
-	 *
-	 * @var array
-	 */
-	protected $defaultOptions = array(
-		// an optional source root, useful for relocating source files
-		// on a server or removing repeated values in the 'sources' entry.
-		// This value is prepended to the individual entries in the 'source' field.
-		'sourceRoot'        => '',
+        // an optional name of the generated code that this source map is associated with.
+        'sourceMapFilename' => null,
 
-		// an optional name of the generated code that this source map is associated with.
-		'sourceMapFilename' => null,
+        // url of the map
+        'sourceMapURL' => null,
 
-		// url of the map
-		'sourceMapURL'      => null,
+        // absolute path to a file to write the map to
+        'sourceMapWriteTo' => null,
 
-		// absolute path to a file to write the map to
-		'sourceMapWriteTo'  => null,
+        // output source contents?
+        'outputSourceFiles' => false,
 
-		// output source contents?
-		'outputSourceFiles' => false,
+        // base path for filename normalization
+        'sourceMapRootpath' => '',
 
-		// base path for filename normalization
-		'sourceMapRootpath' => '',
+        // base path for filename normalization
+        'sourceMapBasepath' => ''
+    ];
 
-		// base path for filename normalization
-		'sourceMapBasepath' => '',
-	);
+    /**
+     * The base64 VLQ encoder
+     *
+     * @var \ScssPhp\ScssPhp\SourceMap\Base64VLQ
+     */
+    protected $encoder;
 
-	/**
-	 * The base64 VLQ encoder
-	 *
-	 * @var \Leafo\ScssPhp\SourceMap\Base64VLQEncoder
-	 */
-	protected $encoder;
+    /**
+     * Array of mappings
+     *
+     * @var array
+     */
+    protected $mappings = [];
 
-	/**
-	 * Array of mappings
-	 *
-	 * @var array
-	 */
-	protected $mappings = array();
+    /**
+     * Array of contents map
+     *
+     * @var array
+     */
+    protected $contentsMap = [];
 
-	/**
-	 * Array of contents map
-	 *
-	 * @var array
-	 */
-	protected $contentsMap = array();
+    /**
+     * File to content map
+     *
+     * @var array
+     */
+    protected $sources = [];
+    protected $sourceKeys = [];
 
-	/**
-	 * File to content map
-	 *
-	 * @var array
-	 */
-	protected $sources     = array();
-	protected $source_keys = array();
+    /**
+     * @var array
+     */
+    private $options;
 
-	/**
-	 * @var array
-	 */
-	private $options;
+    public function __construct(array $options = [])
+    {
+        $this->options = array_merge($this->defaultOptions, $options);
+        $this->encoder = new Base64VLQ();
+    }
 
-	public function __construct( array $options = [] ) {
-		$this->options = array_merge( $this->defaultOptions, $options );
-		$this->encoder = new Base64VLQEncoder();
-	}
+    /**
+     * Adds a mapping
+     *
+     * @param integer $generatedLine   The line number in generated file
+     * @param integer $generatedColumn The column number in generated file
+     * @param integer $originalLine    The line number in original file
+     * @param integer $originalColumn  The column number in original file
+     * @param string  $sourceFile      The original source file
+     */
+    public function addMapping($generatedLine, $generatedColumn, $originalLine, $originalColumn, $sourceFile)
+    {
+        $this->mappings[] = [
+            'generated_line'   => $generatedLine,
+            'generated_column' => $generatedColumn,
+            'original_line'    => $originalLine,
+            'original_column'  => $originalColumn,
+            'source_file'      => $sourceFile
+        ];
 
-	/**
-	 * Adds a mapping
-	 *
-	 * @param integer $generatedLine   The line number in generated file
-	 * @param integer $generatedColumn The column number in generated file
-	 * @param integer $originalLine    The line number in original file
-	 * @param integer $originalColumn  The column number in original file
-	 * @param string  $sourceFile      The original source file
-	 */
-	public function addMapping( $generatedLine, $generatedColumn, $originalLine, $originalColumn, $sourceFile ) {
-		$this->mappings[] = array(
-			'generated_line'   => $generatedLine,
-			'generated_column' => $generatedColumn,
-			'original_line'    => $originalLine,
-			'original_column'  => $originalColumn,
-			'source_file'      => $sourceFile,
-		);
+        $this->sources[$sourceFile] = $sourceFile;
+    }
 
-		$this->sources[ $sourceFile ] = $sourceFile;
-	}
+    /**
+     * Saves the source map to a file
+     *
+     * @param string $content The content to write
+     *
+     * @return string
+     *
+     * @throws \ScssPhp\ScssPhp\Exception\CompilerException If the file could not be saved
+     */
+    public function saveMap($content)
+    {
+        $file = $this->options['sourceMapWriteTo'];
+        $dir  = \dirname($file);
 
-	/**
-	 * Saves the source map to a file
-	 *
-	 * @param string $file    The absolute path to a file
-	 * @param string $content The content to write
-	 *
-	 * @throws \Leafo\ScssPhp\Exception\CompilerException If the file could not be saved
-	 */
-	public function saveMap( $content ) {
-		$file = $this->options['sourceMapWriteTo'];
-		$dir  = dirname( $file );
+        // directory does not exist
+        if (! is_dir($dir)) {
+            // FIXME: create the dir automatically?
+            throw new CompilerException(
+                sprintf('The directory "%s" does not exist. Cannot save the source map.', $dir)
+            );
+        }
 
-		// directory does not exist
-		if ( ! is_dir( $dir ) ) {
-			// FIXME: create the dir automatically?
-			throw new CompilerException( sprintf( 'The directory "%s" does not exist. Cannot save the source map.', $dir ) );
-		}
+        // FIXME: proper saving, with dir write check!
+        if (file_put_contents($file, $content) === false) {
+            throw new CompilerException(sprintf('Cannot save the source map to "%s"', $file));
+        }
 
-		// filesystem
-		global $wp_filesystem;
-		// Initialize the WordPress filesystem, no more using file_put_contents function
-		if ( empty( $wp_filesystem ) ) {
-			require_once ABSPATH . '/wp-admin/includes/file.php';
-			WP_Filesystem();
-		}
+        return $this->options['sourceMapURL'];
+    }
 
-		// FIXME: proper saving, with dir write check!
-		if ( ! $wp_filesystem->put_contents( $file, $content, FS_CHMOD_FILE ) ) {
-			throw new CompilerException( sprintf( 'Cannot save the source map to "%s"', $file ) );
-		}
+    /**
+     * Generates the JSON source map
+     *
+     * @return string
+     *
+     * @see https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit#
+     */
+    public function generateJson()
+    {
+        $sourceMap = [];
+        $mappings  = $this->generateMappings();
 
-		return $this->options['sourceMapURL'];
-	}
+        // File version (always the first entry in the object) and must be a positive integer.
+        $sourceMap['version'] = self::VERSION;
 
-	/**
-	 * Generates the JSON source map
-	 *
-	 * @return string
-	 *
-	 * @see https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit#
-	 */
-	public function generateJson() {
-		$sourceMap = array();
-		$mappings  = $this->generateMappings();
+        // An optional name of the generated code that this source map is associated with.
+        $file = $this->options['sourceMapFilename'];
 
-		// File version (always the first entry in the object) and must be a positive integer.
-		$sourceMap['version'] = self::VERSION;
+        if ($file) {
+            $sourceMap['file'] = $file;
+        }
 
-		// An optional name of the generated code that this source map is associated with.
-		$file = $this->options['sourceMapFilename'];
+        // An optional source root, useful for relocating source files on a server or removing repeated values in the
+        // 'sources' entry. This value is prepended to the individual entries in the 'source' field.
+        $root = $this->options['sourceRoot'];
 
-		if ( $file ) {
-			$sourceMap['file'] = $file;
-		}
+        if ($root) {
+            $sourceMap['sourceRoot'] = $root;
+        }
 
-		// An optional source root, useful for relocating source files on a server or removing repeated values in the
-		// 'sources' entry. This value is prepended to the individual entries in the 'source' field.
-		$root = $this->options['sourceRoot'];
+        // A list of original sources used by the 'mappings' entry.
+        $sourceMap['sources'] = [];
 
-		if ( $root ) {
-			$sourceMap['sourceRoot'] = $root;
-		}
+        foreach ($this->sources as $sourceUri => $sourceFilename) {
+            $sourceMap['sources'][] = $this->normalizeFilename($sourceFilename);
+        }
 
-		// A list of original sources used by the 'mappings' entry.
-		$sourceMap['sources'] = array();
+        // A list of symbol names used by the 'mappings' entry.
+        $sourceMap['names'] = [];
 
-		foreach ( $this->sources as $source_uri => $source_filename ) {
-			$sourceMap['sources'][] = $this->normalizeFilename( $source_filename );
-		}
+        // A string with the encoded mapping data.
+        $sourceMap['mappings'] = $mappings;
 
-		// A list of symbol names used by the 'mappings' entry.
-		$sourceMap['names'] = array();
+        if ($this->options['outputSourceFiles']) {
+            // An optional list of source content, useful when the 'source' can't be hosted.
+            // The contents are listed in the same order as the sources above.
+            // 'null' may be used if some original sources should be retrieved by name.
+            $sourceMap['sourcesContent'] = $this->getSourcesContent();
+        }
 
-		// A string with the encoded mapping data.
-		$sourceMap['mappings'] = $mappings;
+        // less.js compat fixes
+        if (\count($sourceMap['sources']) && empty($sourceMap['sourceRoot'])) {
+            unset($sourceMap['sourceRoot']);
+        }
 
-		if ( $this->options['outputSourceFiles'] ) {
-			// An optional list of source content, useful when the 'source' can't be hosted.
-			// The contents are listed in the same order as the sources above.
-			// 'null' may be used if some original sources should be retrieved by name.
-			$sourceMap['sourcesContent'] = $this->getSourcesContent();
-		}
+        return json_encode($sourceMap, JSON_UNESCAPED_SLASHES);
+    }
 
-		// less.js compat fixes
-		if ( count( $sourceMap['sources'] ) && empty( $sourceMap['sourceRoot'] ) ) {
-			unset( $sourceMap['sourceRoot'] );
-		}
+    /**
+     * Returns the sources contents
+     *
+     * @return array|null
+     */
+    protected function getSourcesContent()
+    {
+        if (empty($this->sources)) {
+            return null;
+        }
 
-		return json_encode( $sourceMap );
-	}
+        $content = [];
 
-	/**
-	 * Returns the sources contents
-	 *
-	 * @return array|null
-	 */
-	protected function getSourcesContent() {
-		if ( empty( $this->sources ) ) {
-			return null;
-		}
+        foreach ($this->sources as $sourceFile) {
+            $content[] = file_get_contents($sourceFile);
+        }
 
-		$content = array();
+        return $content;
+    }
 
-		// filesystem
-		global $wp_filesystem;
-		// Initialize the WordPress filesystem, no more using file_put_contents function
-		if ( empty( $wp_filesystem ) ) {
-			require_once ABSPATH . '/wp-admin/includes/file.php';
-			WP_Filesystem();
-		}
+    /**
+     * Generates the mappings string
+     *
+     * @return string
+     */
+    public function generateMappings()
+    {
+        if (! \count($this->mappings)) {
+            return '';
+        }
 
-		foreach ( $this->sources as $sourceFile ) {
-			$content[] = $wp_filesystem->get_contents( $sourceFile );
-		}
+        $this->sourceKeys = array_flip(array_keys($this->sources));
 
-		return $content;
-	}
+        // group mappings by generated line number.
+        $groupedMap = $groupedMapEncoded = [];
 
-	/**
-	 * Generates the mappings string
-	 *
-	 * @return string
-	 */
-	public function generateMappings() {
-		if ( ! count( $this->mappings ) ) {
-			return '';
-		}
+        foreach ($this->mappings as $m) {
+            $groupedMap[$m['generated_line']][] = $m;
+        }
 
-		$this->source_keys = array_flip( array_keys( $this->sources ) );
+        ksort($groupedMap);
 
-		// group mappings by generated line number.
-		$groupedMap = $groupedMapEncoded = array();
+        $lastGeneratedLine = $lastOriginalIndex = $lastOriginalLine = $lastOriginalColumn = 0;
 
-		foreach ( $this->mappings as $m ) {
-			$groupedMap[ $m['generated_line'] ][] = $m;
-		}
+        foreach ($groupedMap as $lineNumber => $lineMap) {
+            while (++$lastGeneratedLine < $lineNumber) {
+                $groupedMapEncoded[] = ';';
+            }
 
-		ksort( $groupedMap );
-		$lastGeneratedLine = $lastOriginalIndex = $lastOriginalLine = $lastOriginalColumn = 0;
+            $lineMapEncoded = [];
+            $lastGeneratedColumn = 0;
 
-		foreach ( $groupedMap as $lineNumber => $line_map ) {
-			while ( ++$lastGeneratedLine < $lineNumber ) {
-				$groupedMapEncoded[] = ';';
-			}
+            foreach ($lineMap as $m) {
+                $mapEncoded = $this->encoder->encode($m['generated_column'] - $lastGeneratedColumn);
+                $lastGeneratedColumn = $m['generated_column'];
 
-			$lineMapEncoded      = array();
-			$lastGeneratedColumn = 0;
+                // find the index
+                if ($m['source_file']) {
+                    $index = $this->findFileIndex($m['source_file']);
 
-			foreach ( $line_map as $m ) {
-				$mapEncoded          = $this->encoder->encode( $m['generated_column'] - $lastGeneratedColumn );
-				$lastGeneratedColumn = $m['generated_column'];
+                    if ($index !== false) {
+                        $mapEncoded .= $this->encoder->encode($index - $lastOriginalIndex);
+                        $lastOriginalIndex = $index;
+                        // lines are stored 0-based in SourceMap spec version 3
+                        $mapEncoded .= $this->encoder->encode($m['original_line'] - 1 - $lastOriginalLine);
+                        $lastOriginalLine = $m['original_line'] - 1;
+                        $mapEncoded .= $this->encoder->encode($m['original_column'] - $lastOriginalColumn);
+                        $lastOriginalColumn = $m['original_column'];
+                    }
+                }
 
-				// find the index
-				if ( $m['source_file'] ) {
-					$index = $this->findFileIndex( $m['source_file'] );
+                $lineMapEncoded[] = $mapEncoded;
+            }
 
-					if ( $index !== false ) {
-						$mapEncoded       .= $this->encoder->encode( $index - $lastOriginalIndex );
-						$lastOriginalIndex = $index;
-						// lines are stored 0-based in SourceMap spec version 3
-						$mapEncoded        .= $this->encoder->encode( $m['original_line'] - 1 - $lastOriginalLine );
-						$lastOriginalLine   = $m['original_line'] - 1;
-						$mapEncoded        .= $this->encoder->encode( $m['original_column'] - $lastOriginalColumn );
-						$lastOriginalColumn = $m['original_column'];
-					}
-				}
+            $groupedMapEncoded[] = implode(',', $lineMapEncoded) . ';';
+        }
 
-				$lineMapEncoded[] = $mapEncoded;
-			}
+        return rtrim(implode($groupedMapEncoded), ';');
+    }
 
-			$groupedMapEncoded[] = implode( ',', $lineMapEncoded ) . ';';
-		}
+    /**
+     * Finds the index for the filename
+     *
+     * @param string $filename
+     *
+     * @return integer|false
+     */
+    protected function findFileIndex($filename)
+    {
+        return $this->sourceKeys[$filename];
+    }
 
-		return rtrim( implode( $groupedMapEncoded ), ';' );
-	}
+    /**
+     * Normalize filename
+     *
+     * @param string $filename
+     *
+     * @return string
+     */
+    protected function normalizeFilename($filename)
+    {
+        $filename = $this->fixWindowsPath($filename);
+        $rootpath = $this->options['sourceMapRootpath'];
+        $basePath = $this->options['sourceMapBasepath'];
 
-	/**
-	 * Finds the index for the filename
-	 *
-	 * @param string $filename
-	 *
-	 * @return integer|false
-	 */
-	protected function findFileIndex( $filename ) {
-		return $this->source_keys[ $filename ];
-	}
+        // "Trim" the 'sourceMapBasepath' from the output filename.
+        if (\strlen($basePath) && strpos($filename, $basePath) === 0) {
+            $filename = substr($filename, \strlen($basePath));
+        }
 
-	protected function normalizeFilename( $filename ) {
-		$filename = $this->fixWindowsPath( $filename );
-		$rootpath = $this->options['sourceMapRootpath'];
-		$basePath = $this->options['sourceMapBasepath'];
+        // Remove extra leading path separators.
+        if (strpos($filename, '\\') === 0 || strpos($filename, '/') === 0) {
+            $filename = substr($filename, 1);
+        }
 
-		// "Trim" the 'sourceMapBasepath' from the output filename.
-		if ( strpos( $filename, $basePath ) === 0 ) {
-			$filename = substr( $filename, strlen( $basePath ) );
-		}
+        return $rootpath . $filename;
+    }
 
-		// Remove extra leading path separators.
-		if ( strpos( $filename, '\\' ) === 0 || strpos( $filename, '/' ) === 0 ) {
-			$filename = substr( $filename, 1 );
-		}
+    /**
+     * Fix windows paths
+     *
+     * @param string  $path
+     * @param boolean $addEndSlash
+     *
+     * @return string
+     */
+    public function fixWindowsPath($path, $addEndSlash = false)
+    {
+        $slash = ($addEndSlash) ? '/' : '';
 
-		return $rootpath . $filename;
-	}
+        if (! empty($path)) {
+            $path = str_replace('\\', '/', $path);
+            $path = rtrim($path, '/') . $slash;
+        }
 
-	/**
-	 * Fix windows paths
-	 *
-	 * @param string  $path
-	 * @param boolean $addEndSlash
-	 *
-	 * @return string
-	 */
-	public function fixWindowsPath( $path, $addEndSlash = false ) {
-		$slash = ( $addEndSlash ) ? '/' : '';
-
-		if ( ! empty( $path ) ) {
-			$path = str_replace( '\\', '/', $path );
-			$path = rtrim( $path, '/' ) . $slash;
-		}
-
-		return $path;
-	}
+        return $path;
+    }
 }

@@ -79,7 +79,7 @@ $formatted_destination    = str_replace( '<br/>', ', ', $formatted_destination )
 	<?php endif; ?>
 <?php else : ?>
 	<tr class="woocommerce-shipping-totals shipping">
-		<td colspan="2" class="text-left" data-title="<?php echo esc_attr( $package_name ); ?>">
+		<td colspan="2" class="text-start" data-title="<?php echo esc_attr( $package_name ); ?>">
 			<h4 class="m-b-sm" ><?php echo wp_kses_post( $package_name ); ?></h4>
 			<?php if ( $available_methods ) : ?>
 				<ul id="shipping_method" class="woocommerce-shipping-methods">

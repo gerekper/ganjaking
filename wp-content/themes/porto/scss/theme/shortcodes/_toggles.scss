@@ -1,6 +1,6 @@
 /* Toggles */
 .toggle {
-    padding: 0 0 5px 0;
+    padding: 0 0 10px 0;
     position: relative;
     clear: both;
     > {
@@ -14,15 +14,15 @@
             z-index: 2;
         }
         label {
-            @include transition (all .15s ease-out);
-            padding: side-values(12px 20px 12px 10px);
+            transition: .15s ease-out;
+            padding: side-values(12px 20px 12px 15px);
             border-#{$left}: 3px solid #CCC;
             display: block;
             font-size: 1.1em;
             min-height: 20px;
             position: relative;
             cursor: pointer;
-            font-weight: 400;
+            font-weight: 600;
             &:-moz-selection {
                 background: none;
             }
@@ -30,13 +30,19 @@
                 background: none;
             }
             &:before {
-                border: 6px solid transparent;
-                border-#{$left}-color: inherit;
-                #{$right}: 4px;
                 content: '';
-                margin-top: -6px;
                 position: absolute;
-                top: 50%;
+                top: calc(50% + 1px);
+                #{$right}: 14px;
+                border-top: 1px solid;
+                border-right: 1px solid;
+                border-color: inherit;
+                width: 8px;
+                height: 8px;
+                transition: transform .3s, top .3s;
+                -webkit-backface-visibility: hidden;
+                transform: rotate(-45deg) translate3d(0, -50%, 0);
+                transform-origin: 35%;
             }
             + p {
                 color: #999;
@@ -59,30 +65,19 @@
         }
         .toggle-content {
             display: none;
-            padding-bottom: 5px;
+            padding: 10px 0;
 
-            @media #{$screen-medium} {
-                padding-#{$left}: 0;
-            }
-
-            .porto-toggles & {
-                padding-#{$left}: 0;
-            }
-
-            > p {
-                margin-bottom: 0;
-                padding: 10px 0;
+            > p:last-child {
+                margin-bottom: 0
             }
         }
     }
     &.active {
         > label {
-            border-color: #CCC;
             &:before {
-                border: 6px solid transparent;
-                border-top-color: #FFF;
-                margin-top: -3px;
-                #{$right}: 10px;
+                top: calc(50% - 8px);
+                transform: rotate(135deg);
+                border-color: #fff
             }
         }
         > p {
@@ -146,13 +141,15 @@
                 margin-bottom: auto;
                 top: 0;
                 bottom: 0;
-                height: 21px;
+                height: 22px;
                 font-size: 14px;
                 font-family: 'Font Awesome 5 Free'; font-weight: 900;
                 content: $fa-var-plus;
                 z-index: 2;
                 color: #FFF;
                 font-size: 8px;
+                width: auto;
+                transform: none;
             }
         }
         &.active > label {

@@ -21,6 +21,10 @@ extract(
 if ( ! $atts ) {
 	$atts = array();
 }
+if ( 'pre_order' == $show ) {
+	$show          = '';
+	$atts['order'] = 'pre_order' . $order;
+}
 $atts['show'] = $show;
 if ( ! $title ) {
 	$atts['title'] = '';

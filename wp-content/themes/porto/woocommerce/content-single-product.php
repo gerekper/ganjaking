@@ -28,13 +28,19 @@ $skeleton_lazyload = apply_filters( 'porto_skeleton_lazyload', ! empty( $porto_s
 if ( $skeleton_lazyload && ( ( function_exists( 'vc_is_inline' ) && vc_is_inline() ) || porto_is_elementor_preview() ) ) {
 	$skeleton_lazyload = false;
 }
+if ( $skeleton_lazyload ) {
+	$porto_settings['skeleton_lazyload'] = true;
+	if ( apply_filters( 'porto_skeleton_lazyload_product_desc_only', class_exists( 'WeDevs_Dokan' ) || class_exists( 'WCFM' ) || class_exists( 'Uni_Cpo' ) ) ) {
+		$porto_settings['skeleton_lazyload_product_desc'] = true;
+		$skeleton_lazyload                                = false;
+	}
+}
 ?>
 
 <div id="product-<?php the_ID(); ?>" class="<?php echo esc_attr( $post_class ), ! $skeleton_lazyload ? '' : ' skeleton-loading'; ?>">
 <?php
 if ( $skeleton_lazyload ) {
 	ob_start();
-	$porto_settings['skeleton_lazyload'] = true;
 }
 ?>
 
@@ -186,6 +192,7 @@ if ( $skeleton_lazyload ) :
 	<script type="text/template"><?php echo json_encode( $post_content ); ?></script>
 <?php endif; ?>
 </div><!-- #product-<?php the_ID(); ?> -->
+
 <?php if ( $skeleton_lazyload ) : ?>
 	<?php
 	if ( ! isset( $summary_before_classes ) ) {

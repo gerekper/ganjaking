@@ -1,0 +1,494 @@
+{
+  "location": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Location",
+      "values": [
+        {
+          "label": "Select a location",
+          "value": ""
+        },
+        {
+          "label": "Main Menu",
+          "value": "main-menu"
+        },
+        {
+          "label": "Secondary Menu",
+          "value": "secondary-menu"
+        },
+        {
+          "label": "Main Toggle Menu",
+          "value": "main-toggle-menu"
+        },
+        {
+          "label": "Top Navigation",
+          "value": "nav-top"
+        }
+      ],
+      "cssMixin": {
+        "mixin": "topnav",
+        "property": "location",
+        "namePattern": "[a-f-]+"
+      }
+    }
+  },
+  "font_size": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Font Size",
+      "cssMixin": {
+        "mixin": "topnav",
+        "property": "fontSize",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "location": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "nav-top",
+                "main-toggle-menu"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "font_weight": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Font Weight",
+      "values": [
+        {
+          "label": "Default",
+          "value": ""
+        },
+        {
+          "label": "200",
+          "value": "200"
+        },
+        {
+          "label": "300",
+          "value": "300"
+        },
+        {
+          "label": "400",
+          "value": "400"
+        },
+        {
+          "label": "500",
+          "value": "500"
+        },
+        {
+          "label": "600",
+          "value": "600"
+        },
+        {
+          "label": "700",
+          "value": "700"
+        },
+        {
+          "label": "800",
+          "value": "800"
+        },
+        {
+          "label": "900",
+          "value": "900"
+        }
+      ],
+      "cssMixin": {
+        "mixin": "topnav",
+        "property": "fontWeight",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "location": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "nav-top",
+                "main-toggle-menu"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "text_transform": {
+    "type": "dropdown",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Text Transform",
+      "values": [
+        {
+          "label": "Default",
+          "value": ""
+        },
+        {
+          "label": "None",
+          "value": "none"
+        },
+        {
+          "label": "Uppercase",
+          "value": "uppercase"
+        },
+        {
+          "label": "Capitalize",
+          "value": "capitalize"
+        },
+        {
+          "label": "Lowercase",
+          "value": "lowercase"
+        }
+      ],
+      "cssMixin": {
+        "mixin": "topnav",
+        "property": "textTransform",
+        "namePattern": "[a-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "location": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "nav-top",
+                "main-toggle-menu"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "line_height": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Line Height",
+      "cssMixin": {
+        "mixin": "topnav",
+        "property": "lineHeight",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "location": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "nav-top",
+                "main-toggle-menu"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "letter_spacing": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Letter Spacing",
+      "cssMixin": {
+        "mixin": "topnav",
+        "property": "letterSpacing",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "location": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "nav-top",
+                "main-toggle-menu"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "padding": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Left/Right Padding",
+      "cssMixin": {
+        "mixin": "topnav",
+        "property": "padding",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "location": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "nav-top",
+                "main-toggle-menu"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Color",
+      "cssMixin": {
+        "mixin": "topnav",
+        "property": "color",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "location": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "nav-top",
+                "main-toggle-menu"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "hover_color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Hover Color",
+      "cssMixin": {
+        "mixin": "topnav",
+        "property": "hoverColor",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "location": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "nav-top",
+                "main-toggle-menu"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "bgcolor": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Background Color",
+      "cssMixin": {
+        "mixin": "topnav",
+        "property": "bgcolor",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "location": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "main-toggle-menu"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "hover_bgcolor": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Top Level Hover Background Color",
+      "cssMixin": {
+        "mixin": "topnav",
+        "property": "hoverBgcolor",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "location": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "main-toggle-menu"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "popup_width": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Popup Width",
+      "cssMixin": {
+        "mixin": "topnav",
+        "property": "popupWidth",
+        "namePattern": "[\\da-f]+"
+      },
+      "onChange": {
+        "rules": {
+          "location": {
+            "rule": "valueIn",
+            "options": {
+              "values": [
+                "main-toggle-menu"
+              ]
+            }
+          }
+        },
+        "actions": [
+          {
+            "action": "toggleVisibility"
+          }
+        ]
+      }
+    }
+  },
+  "el_class": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Extra class name",
+      "description": "Add an extra class name to the element and refer to it from Custom CSS option."
+    }
+  },
+  "designOptions": {
+    "type": "designOptions",
+    "access": "public",
+    "value": {},
+    "options": {
+      "label": "Design Options"
+    }
+  },
+  "editFormTab1": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "location",
+      "font_size",
+      "font_weight",
+      "text_transform",
+      "line_height",
+      "letter_spacing",
+      "padding",
+      "color",
+      "hover_color",
+      "bgcolor",
+      "hover_bgcolor",
+      "popup_width",
+      "el_class"
+    ],
+    "options": {
+      "label": "Navigation"
+    }
+  },
+  "metaEditFormTabs": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "editFormTab1",
+      "designOptions"
+    ]
+  },
+  "relatedTo": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "General"
+    ]
+  },
+  "tag": {
+    "access": "protected",
+    "type": "string",
+    "value": "portoHeaderMenu"
+  }
+}

@@ -212,8 +212,9 @@ class sidebar_generator {
 			}
 			function add_sidebar_link(){
 				var sidebar_name = prompt("Sidebar Name:","");
-				//alert(sidebar_name);
-				add_sidebar(sidebar_name);
+				if (null !== sidebar_name) {
+					add_sidebar(sidebar_name);
+				}
 			}
 		</script>
 		<div class="wrap">

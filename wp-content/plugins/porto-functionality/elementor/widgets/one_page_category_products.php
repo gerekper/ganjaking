@@ -20,15 +20,19 @@ class Porto_Elementor_One_Page_Category_Products_Widget extends \Elementor\Widge
 	}
 
 	public function get_title() {
-		return __( 'One Page Category Products', 'porto-functionality' );
+		return __( 'Porto One Page Category Products', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'products', 'one-page', 'category', 'one page', 'woocommerce' );
+	}
+
+	public function get_icon() {
+		return 'eicon-products-archive';
 	}
 
 	public function get_script_depends() {

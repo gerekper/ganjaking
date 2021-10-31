@@ -13,7 +13,7 @@ class Less_Tree_Assignment extends Less_Tree {
 	public $type = 'Assignment';
 
 	public function __construct( $key, $val ) {
-		$this->key   = $key;
+		$this->key = $key;
 		$this->value = $val;
 	}
 

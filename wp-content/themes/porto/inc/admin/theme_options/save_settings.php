@@ -27,6 +27,49 @@ if ( is_admin() ) {
 				settings_errors( 'porto_admin_theme_options' );
 			}
 		}
+
+		$code_error_msg = get_transient( 'porto_purchase_code_error_msg' );
+		if ( $code_error_msg && ( empty( $_COOKIE['porto_dismiss_code_error_msg'] ) || PORTO_VERSION != $_COOKIE['porto_dismiss_code_error_msg'] ) ) {
+			?>
+			<div class="notice notice-error" style="position: relative;">
+				<p>
+					<strong><?php esc_html_e( 'Porto notice:', 'porto' ); ?></strong>
+					<?php
+						echo wp_kses(
+							$code_error_msg,
+							array(
+								'a' => array(
+									'href'   => array(),
+									'target' => array(),
+								),
+							)
+						);
+					?>
+				</p>
+				<button type="button" class="notice-dismiss porto-notice-dismiss"><span class="screen-reader-text"><?php esc_html__( 'Dismiss this notice.', 'porto' ); ?></span></button>
+			</div>
+			<script>
+				(function($) {
+					var setCookie = function (name, value, exdays) {
+						var exdate = new Date();
+						exdate.setDate(exdate.getDate() + exdays);
+						var val = encodeURIComponent(value) + ((null === exdays) ? "" : "; expires=" + exdate.toUTCString());
+						document.cookie = name + "=" + val;
+					};
+					$(document).on('click.porto-notice-dismiss', '.porto-notice-dismiss', function(e) {
+						e.preventDefault();
+						var $el = $(this).closest('.notice');
+						$el.fadeTo( 100, 0, function() {
+							$el.slideUp( 100, function() {
+								$el.remove();
+							});
+						});
+						setCookie('porto_dismiss_code_error_msg', '<?php echo PORTO_VERSION; ?>', 7);
+					});
+				})(window.jQuery);
+			</script>
+			<?php
+		}
 	}
 
 	function porto_update_theme_options_status( $plugin_options, $changed_values ) {
@@ -266,36 +309,32 @@ function porto_compile_css( $process = null ) {
 		} catch ( Exception $e ) {
 		}
 	} elseif ( 'bootstrap_rtl' === $process ) {
-		// Compile SCSS files
-		if ( ! class_exists( 'scssc' ) ) {
-			require_once PORTO_ADMIN . '/scssphp/scss.inc.php';
-		}
-		// config file
-		ob_start();
-		require PORTO_ADMIN . '/theme_options/config_scss_bootstrap.php';
-		$_config_css = ob_get_clean();
+		porto_compile_css( 'bootstrap' );
+		$filename = $style_path . '/bootstrap.css';
 
-		$scss = new scssc();
-		$scss->setImportPaths( $template_dir . '/scss' );
-		if ( isset( $porto_settings_optimize['minify_css'] ) && $porto_settings_optimize['minify_css'] ) {
-			$scss->setFormatter( 'scss_formatter_crunched' );
-		} else {
-			$scss->setFormatter( 'scss_formatter' );
-		}
-		try {
-			// bootstrap styles
-			ob_start();
-			$optimize_suffix = '';
-			if ( isset( $porto_settings_optimize['optimize_bootstrap'] ) && $porto_settings_optimize['optimize_bootstrap'] ) {
-				$optimize_suffix = '.optimized';
+		spl_autoload_register(
+			function( $class ) {
+				if ( false === strpos( $class, 'Sabberworm\CSS' ) ) {
+					return;
+				}
+				$file = PORTO_ADMIN . '/rtlcss/' . strtr( $class, '\\', '/' ) . '.php';
+				if ( file_exists( $file ) ) {
+					require $file;
+					return true;
+				}
 			}
-			echo '' . $scss->compile( '$rtl: 1; $dir: rtl !default; @import "plugins/directional"; ' . $_config_css . ' @import "plugins/bootstrap/bootstrap' . $optimize_suffix . '";' );
-			$_config_css = ob_get_clean();
+		);
 
+		try {
+			// RTL CSS
+			require_once PORTO_ADMIN . '/rtlcss/RTLCSS.php';
+			$parser = new \Sabberworm\CSS\Parser( $wp_filesystem->get_contents( $filename ) );
+			$tree   = $parser->parse();
+			$rtlcss = new MoodleHQ\RTLCSS\RTLCSS( $tree );
+			$rtlcss->flip();
 			$filename = $style_path . '/bootstrap_rtl.css';
 			porto_check_file_write_permission( $filename );
-
-			$wp_filesystem->put_contents( $filename, $_config_css, FS_CHMOD_FILE );
+			$wp_filesystem->put_contents( $filename, $tree->render(), FS_CHMOD_FILE );
 			update_option( 'porto_bootstrap_rtl_style', true );
 		} catch ( Exception $e ) {
 		}

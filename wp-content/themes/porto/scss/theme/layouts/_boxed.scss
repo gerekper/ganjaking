@@ -86,11 +86,7 @@ body.boxed {
 
     #header {
         &.sticky-header {
-            .header-main.sticky {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
+            .header-main.sticky,
             .main-menu-wrap {
                 margin-left: auto;
                 margin-right: auto;
@@ -98,15 +94,8 @@ body.boxed {
         }
     }
 
-    .fixed-header {
-        #header {
-            position: absolute;
-        }
-    }
-
-    .footer-wrapper {
-        &.fixed {
-            position: absolute;
-        }
+    .fixed-header #header,
+    .footer-wrapper.fixed {
+        position: absolute;
     }
 }

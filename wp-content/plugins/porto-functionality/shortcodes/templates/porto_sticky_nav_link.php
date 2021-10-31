@@ -3,6 +3,7 @@ $output = $label = $link = $icon = $skin = $link_color = $link_bg_color = $link_
 extract(
 	shortcode_atts(
 		array(
+			'_id'             => '',
 			'label'           => '',
 			'link'            => '',
 			'show_icon'       => false,
@@ -63,6 +64,10 @@ if ( $label ) {
 			.porto-sticky-nav .nav-pills > li.<?php echo $sc_class_escaped; ?>.active > a { background-color: <?php echo esc_html( $link_abg_color ); ?> !important; }<?php endif; ?>
 		</style>
 		<?php
+	}
+
+	if ( ! empty( $_id ) ) {
+		$el_class = trim( $el_class . ' ' . 'elementor-repeater-item-' . $_id );
 	}
 
 	$output = '<li class="' . esc_attr( $el_class ) . '">';

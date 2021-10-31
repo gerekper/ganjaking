@@ -60,7 +60,7 @@ class Porto_Elementor_HB_Menu_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'      => 'top_nav_font',
-				'scheme'    => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'    => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'     => __( 'Top Level Typograhy', 'porto-functionality' ),
 				'selector'  => '#header .top-links > li.menu-item > a',
 				'condition' => array(
@@ -73,7 +73,7 @@ class Porto_Elementor_HB_Menu_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'      => 'top_nav_font2',
-				'scheme'    => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'    => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'     => __( 'Top Level Typograhy', 'porto-functionality' ),
 				'selector'  => '.elementor-element-{{ID}} #main-toggle-menu .menu-title',
 				'condition' => array(

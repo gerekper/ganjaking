@@ -108,7 +108,7 @@ if ( isset( $porto_woocommerce_loop['product_categories_show_sub_cats'] ) && $po
 <?php if ( $whole_link ) : ?>
 	<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>">
 <?php endif; ?>
-		<span class="thumb-info <?php echo ! $view_type ? '' : ' align-center'; ?>">
+		<div class="thumb-info <?php echo ! $view_type ? '' : ' align-center'; ?>">
 		<?php if ( ! $whole_link ) : ?>
 			<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>">
 		<?php endif; ?>
@@ -116,7 +116,7 @@ if ( isset( $porto_woocommerce_loop['product_categories_show_sub_cats'] ) && $po
 				<?php do_action( 'porto_woocommerce_before_subcategory_title', $category ); ?>
 				<i class="<?php echo esc_attr( $category_icon ); ?>"></i>
 			<?php elseif ( ! isset( $porto_woocommerce_loop['product_categories_media_type'] ) || 'none' != $porto_woocommerce_loop['product_categories_media_type'] ) : ?>
-				<span class="thumb-info-wrapper<?php echo ! $view_type ? '' : ' tf-none'; ?>">
+				<div class="thumb-info-wrapper<?php echo ! $view_type ? '' : ' tf-none'; ?>">
 					<?php
 					/**
 					 * woocommerce_before_subcategory_title hook.
@@ -125,14 +125,14 @@ if ( isset( $porto_woocommerce_loop['product_categories_show_sub_cats'] ) && $po
 					 */
 					do_action( 'woocommerce_before_subcategory_title', $category );
 					?>
-				</span>
+				</div>
 			<?php endif; ?>
 			<?php if ( ! $whole_link ) : ?>
 				</a>
 			<?php endif; ?>
 			<?php if ( 'category-pos-outside' != $view_type ) : ?>
-				<span class="thumb-info-wrap">
-					<span class="thumb-info-title">
+				<div class="thumb-info-wrap">
+					<div class="thumb-info-title">
 					<?php
 					if ( isset( $porto_woocommerce_loop['product_categories_show_sub_cats'] ) && $porto_woocommerce_loop['product_categories_show_sub_cats'] ) {
 						$list_args = array(
@@ -168,12 +168,12 @@ if ( isset( $porto_woocommerce_loop['product_categories_show_sub_cats'] ) && $po
 						endif;
 						?>
 						<?php if ( isset( $porto_woocommerce_loop['product_categories_show_featured'] ) && $porto_woocommerce_loop['product_categories_show_featured'] ) : ?>
-							<span class="btn"><?php esc_html_e( 'View All Products', 'porto' ); ?><i class="fas fa-long-arrow-alt-right ml-2"></i></span>
+							<span class="btn"><?php esc_html_e( 'View All Products', 'porto' ); ?><i class="fas fa-long-arrow-alt-right ms-2"></i></span>
 						<?php endif; ?>
-					</span>
-				</span>
+					</div>
+				</div>
 			<?php endif; ?>
-		</span>
+		</div>
 <?php if ( $whole_link ) : ?>
 	</a>
 <?php endif; ?>

@@ -1,0 +1,11 @@
+#header.header-builder .porto-hb-divider-$selector {
+	@if $width != false {
+		border-left-width: $(width);
+	}
+	@if $height != false {
+		height: $(height);
+	}
+	@if $color != false {
+		border-left-color: $(color);
+	}
+}

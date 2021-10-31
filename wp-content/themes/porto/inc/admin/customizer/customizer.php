@@ -32,6 +32,16 @@ function porto_customizer_live_scripts() {
 	wp_enqueue_script( 'porto-customizer-preview-js', PORTO_JS . '/admin/customizer-preview.min.js', null, PORTO_VERSION, 'all' );
 
 	if ( get_theme_mod( 'theme_options_use_new_style', false ) ) {
+		global $reduxPortoSettings;
+		$css_vars = $reduxPortoSettings->get_css_vars();
+		wp_localize_script(
+			'porto-customizer-preview-js',
+			'porto_cp_vars',
+			array(
+				'css_vars' => json_encode( $css_vars ),
+			)
+		);
+
 		wp_enqueue_style( 'porto-customizer-preview-css', PORTO_CSS . '/customizer-preview.css', false, PORTO_VERSION, 'all' );
 
 		global $porto_settings;

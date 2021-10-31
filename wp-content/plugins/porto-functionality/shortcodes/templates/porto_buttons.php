@@ -49,6 +49,10 @@ $el_class         = $css_btn_design = '';
 $el_class        .= ' ';
 $uniqid           = uniqid();
 
+if ( ! empty( $shortcode_class ) ) {
+	$el_class .= $shortcode_class . ' ';
+}
+
 $vc_version    = ( defined( 'WPB_VC_VERSION' ) ) ? WPB_VC_VERSION : 0;
 $is_vc_49_plus = ( version_compare( 4.9, $vc_version, '<=' ) ) ? 'porto-adjust-bottom-margin' : '';
 
@@ -69,31 +73,33 @@ if ( $btn_link && function_exists( 'vc_build_link' ) ) {
 		$link_attrs .= ' ' . $link_title . ' ' . $rel . ' href = "' . esc_url( $url ) . '" ' . $target;
 	}
 }
-if ( ( ! isset( $atts['btn_font_use_theme_fonts'] ) || 'yes' !== $atts['btn_font_use_theme_fonts'] ) && $btn_font ) {
-	$google_fonts_data = porto_sc_parse_google_font( $btn_font );
-	$styles            = porto_sc_google_font_styles( $google_fonts_data );
-	$btn_style_inline .= esc_attr( $styles );
-	porto_sc_enqueue_google_fonts( array( $google_fonts_data ) );
-} elseif ( $btn_font_family ) {
-	$btn_style_inline .= 'font-family:\'' . esc_attr( $btn_font_family ) . '\';';
-}
-if ( $btn_font_style ) {
-	$btn_style_inline .= 'font-weight:' . esc_attr( $btn_font_style ) . ';';
-}
+if ( empty( $atts['btn_porto_typography'] ) ) {
+	if ( ( ! isset( $atts['btn_font_use_theme_fonts'] ) || 'yes' !== $atts['btn_font_use_theme_fonts'] ) && $btn_font ) {
+		$google_fonts_data = porto_sc_parse_google_font( $btn_font );
+		$styles            = porto_sc_google_font_styles( $google_fonts_data );
+		$btn_style_inline .= esc_attr( $styles );
+		porto_sc_enqueue_google_fonts( array( $google_fonts_data ) );
+	} elseif ( $btn_font_family ) {
+		$btn_style_inline .= 'font-family:\'' . esc_attr( $btn_font_family ) . '\';';
+	}
+	if ( $btn_font_style ) {
+		$btn_style_inline .= 'font-weight:' . esc_attr( $btn_font_style ) . ';';
+	}
 
-if ( $btn_font_size ) {
-	$unit = trim( preg_replace( '/[0-9.]/', '', $btn_font_size ) );
-	if ( ! $unit ) {
-		$btn_font_size .= 'px';
+	if ( $btn_font_size ) {
+		$unit = trim( preg_replace( '/[0-9.]/', '', $btn_font_size ) );
+		if ( ! $unit ) {
+			$btn_font_size .= 'px';
+		}
+		$btn_style_inline .= 'font-size:' . esc_attr( $btn_font_size ) . ';';
 	}
-	$btn_style_inline .= 'font-size:' . esc_attr( $btn_font_size ) . ';';
-}
-if ( $btn_line_height && ( 'porto-btn-custom' != $btn_size || ! $btn_height ) ) {
-	$unit = trim( preg_replace( '/[0-9.]/', '', $btn_line_height ) );
-	if ( ! $unit && (int) $btn_line_height > 3 ) {
-		$btn_line_height .= 'px';
+	if ( $btn_line_height && ( 'porto-btn-custom' != $btn_size || ! $btn_height ) ) {
+		$unit = trim( preg_replace( '/[0-9.]/', '', $btn_line_height ) );
+		if ( ! $unit && (int) $btn_line_height > 3 ) {
+			$btn_line_height .= 'px';
+		}
+		$btn_style_inline .= 'line-height:' . esc_attr( $btn_line_height ) . ';';
 	}
-	$btn_style_inline .= 'line-height:' . esc_attr( $btn_line_height ) . ';';
 }
 
 $style .= $btn_style_inline;

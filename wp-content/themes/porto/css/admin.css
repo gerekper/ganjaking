@@ -98,7 +98,7 @@ body {
 	background-color: #fff;
 }
 
-.form-table th.text-right {
+.form-table th.text-end {
 	text-align: right;
 }
 
@@ -407,8 +407,8 @@ body.ebsp-mf-shown.wp-admin .mfp-wrap {
 }
 .redux-container-image_select img[src$=".svg"],
 #customize-controls .redux-container-image_select img[src$=".svg"] {
-	max-width: 116px;
-	width: 100% !important;
+	width: 116px !important;
+	/*width: 100% !important;*/
 }
 label.redux-image-select { text-align: center }
 .redux-image-select br + span {
@@ -765,7 +765,193 @@ h2.resp-accordion:first-child {
 	color:#dc3232;
 	line-height:1.4;
 }
-
+.page-layouts .layout-box {
+    padding: 0 10px 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    max-width: 376.5px;
+}
+.page-layouts .layout-header {
+	display: flex;
+	margin: 0 -10px;
+    padding: 19px 20px;
+	background: #01abec;
+	color: #fff;
+	font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    border-radius: 4px 4px 0 0;
+    transition: background .2s,color .2s;
+}
+.page-layouts .layout-header a {
+    width: 21px;
+    line-height: 21px;
+    text-align: center;
+    opacity: 0.8;
+    color: #fff;
+    transition: opacity .2s,transform .2s;
+}
+.page-layouts .layout-header .back {
+    font-size: 15px;
+    width: 0;
+    overflow: hidden;
+    opacity: 1;
+    transition: width .2s,margin .2s;
+    box-shadow: none;
+    outline: none;
+}
+.page-layouts .layout-header input {
+    border: none;
+    color: inherit;
+    background: none;
+    font-size: inherit;
+    height: auto;
+    line-height: inherit;
+    min-height: 0;
+    padding: 0;
+    flex: 1;
+	max-width: 545px;
+    min-width: 0;
+}
+.layout.porto-layout {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    cursor: auto;
+    margin-top: 10px;
+    padding: 45px 15px 15px;
+    border-radius: 4px;
+    overflow: hidden;
+    font-size: 13px;
+    background: #e1e1e1;
+}
+.porto-layout p { 
+	margin: 0; 
+}
+.layout.porto-layout .layout-part {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 42px;
+    padding: 2px;
+    background: #f8f8f8;
+    color: #666;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-bottom: 1px solid #e1e1e1;
+    z-index: 1;
+    box-sizing: border-box;
+}
+.layout.porto-layout .popup-builder {
+	margin-top: -32px;
+	background: transparent !important;
+}
+.layout.porto-layout .layout-part:hover, .layout.porto-layout .set {
+    background: #eee;
+}
+.layout.porto-layout .content-wrapper {
+    display: flex;
+    width: 100%;
+}
+.layout.porto-layout .content {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 3;
+}
+.porto-layout .content .content-inner-top-block {
+	border-right: 1px solid #e1e1e1;
+	border-bottom: 1px dashed #ff7272;
+}
+.porto-layout .content .content-inner-bottom-block {
+	border-right: 1px solid #e1e1e1;
+}
+.porto-layout .content .product-archive {
+	border: 1px dashed #ff7272;
+	border-top-width: 0;
+}
+.content .single-product {
+	border-left: 1px dashed #ff7272;
+    border-right: 1px dashed #ff7272;
+}
+.layout.porto-layout .right-sidebar {
+	flex: 1;
+	height: 168px;
+}
+.page-layouts .part-options {
+    background: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 57px;
+    bottom: 0;
+    z-index: 1;
+    transition: transform 0.2s;
+    transform: translateX(100%);
+    padding: 10px;
+    margin: 10px;
+    overflow-y: auto;
+}
+.page-layouts .open-options .back {
+    width: auto;
+    margin-right: 10px;
+}
+.rtl .page-layouts .open-options .back {
+	margin-left: 10px;
+	margin-right: 0;
+}
+.page-layouts .open-options .part-options {
+    transform: none;
+}
+.page-layouts .part-options select {
+    width: 80%;
+    padding: 0.2em 1em;
+    height: auto;
+    margin-right: 20px;
+    font-size: 13px;
+}
+.page-layouts .part-options label {
+	display: inline-block;
+    margin-bottom: 5px;
+    cursor: auto;
+}
+.page-layouts .part-options .option {
+    position: relative;
+    margin-bottom: 15px;
+}
+.part-options .option.preset {
+	display: none;
+}
+.page-layouts .add-new-layout {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 40px;
+	border: 2px dashed #d5dadf;
+}
+.page-layouts .add-new-layout a {
+	font-size: 14px;
+	text-decoration: none;
+}
+.layout-action { 
+	float: right; 
+	line-height: 34px;
+}
+.layout-action + .layout-action {
+	margin-right: 5px;
+}
+.layout-action, .add-new-layout a {
+	color: #444;
+	box-shadow: none !important;
+	outline: none !important;
+}
+.layout-action:hover, .add-new-layout a:hover {
+	color: #08c;
+}
 /* Core Styles */
 .wpb_vc_row_inner.wpb_sortable {
 	margin-top: 15px;
@@ -1389,6 +1575,7 @@ h2.resp-accordion:first-child {
 .mfp-fade.mfp-wrap.mfp-ready .mfp-content { opacity: 1; }
 .mfp-fade.mfp-wrap.mfp-removing .mfp-content { opacity: 0; }
 .vc_navbar .vc_icon-btn.porto-studio-editor-button { width: auto; padding: .5rem; line-height: 2rem; height: 3rem; width: 3rem; text-decoration: none; color: #fff; font-size: 16px; text-indent: -9999px; background: url(../images/porto-lab-icon.svg) center 14px no-repeat; background-size: 18px; }
+#porto-editor-area-button i { font-family: "Font Awesome 5 Free" !important; }
 .blocks-wrapper { position: relative; background: #fff; min-height: 100vh; font-family: 'Open Sans'; color: #777; line-height: 1.8; -webkit-backface-visibility: hidden; }
 .blocks-wrapper * { box-sizing: border-box; }
 .blocks-wrapper img { max-width: 100%; }
@@ -1430,7 +1617,7 @@ h2.resp-accordion:first-child {
 .blocks-wrapper .demo-filter.active { transform: translateY(0); }
 .blocks-wrapper .demo-filter-trigger { position: absolute; top: 100%; right: 50px; padding: 2px 15px 6px; background-color: inherit; text-decoration: none; color: #333; border-radius: 0 0 4px 4px; font-size: .8em; font-weight: 700; text-transform: uppercase; outline: none; }
 .blocks-wrapper .demo-filter-trigger i { font-size: .9em; }
-.blocks-wrapper .demo-filter .btn { border-radius: 2em; text-transform: uppercase; padding: 0.9em 2em; font-size: .85em; line-height: 1em; font-weight: 600; }
+.blocks-wrapper .demo-filter .btn { border-radius: 2em; text-transform: uppercase; padding: 0.9em 2em; font-size: .85em; line-height: 1em; font-weight: 600; outline: none }
 .blocks-wrapper .demo-filter select { min-width: 200px; height: 2.75em; width: auto; border-radius: 3px; box-shadow: none; padding-left: 10px; margin: 0 10px 0 0; font-size: .9em; }
 @media (max-width: 1500px) {
 	.blocks-wrapper .category-list { width: 250px; }
@@ -1472,13 +1659,20 @@ h2.resp-accordion:first-child {
 .elementor-control-type-image_choose .elementor-control-input-wrapper { width: 100% !important }
 .elementor-control-type-image_choose .elementor-choices .elementor-choices-label { width: 32%; margin-top: 2%; border: 2px solid #e7e7e7; padding: 2px; border-radius: 2px }
 .elementor-control-type-image_choose .elementor-choices input:checked+.elementor-choices-label { border-color: #08c; background: none }
-#porto-elementor-panel-porto-studio i, #vce-porto-studio-trigger i { display: inline-block; background: url(../images/porto-lab-icon.svg) no-repeat;
-	background-size: contain; background-position: center; text-align: left; width: 24px; height: 16px; vertical-align: middle; opacity: .65; transition: opacity .3s }
-#porto-elementor-panel-porto-studio:hover i { opacity: .9 }
+#porto-elementor-panel-porto-studio i, #vce-porto-studio-trigger i, #gutenberg-porto-studio-trigger i { display: inline-block; background: url(../images/porto-lab-icon.svg) no-repeat;
+	background-size: contain; background-position: center; text-align: left; width: 24px; height: 16px; vertical-align: middle; opacity: .8; transition: opacity .3s }
+#porto-elementor-panel-porto-studio:hover i, #gutenberg-porto-studio-trigger:hover i { opacity: .95 }
 #porto-elementor-panel-porto-studio i:before, #vce-porto-studio-trigger i:before { content: '!'; display: inline-block; vertical-align: middle; font-size: 1.2em; color: #fff; animation: porto-fade-in 2s infinite linear }
 .elementor-control-type-select2 .elementor-control-input-wrapper { min-width: 150px }
 #elementor-preview-responsive-wrapper.mobile-width { min-width: 320px; width: 320px; }
+/* Mouse Parallax */
+.elementor-panel .elementor-panel-navigation .elementor-tab-control-porto_custom_tab a { display: flex; flex-direction: column }
+.elementor-panel .elementor-panel-navigation .elementor-tab-control-porto_custom_tab a:before {
+	content: "\f192"; display: block; font-family: "Font Awesome 5 Free"; font-size: 18px; font-weight: 600;
+}
 
+/* gutenberg */
+#gutenberg-porto-studio-trigger { display: flex; align-items: center; justify-content: center; background: #08c; border-radius: 2px; cursor: pointer; width: 32px; height: 32px; text-align: center; line-height: 30px; margin: 0 6px; }
 
 /* vc styles */
 #vce-porto-studio-trigger i { opacity: .9; width: 30px; height: 22px; }

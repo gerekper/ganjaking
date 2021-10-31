@@ -2,10 +2,6 @@
 // Porto Schedule Timeline Container
 add_action( 'vc_after_init', 'porto_load_schedule_timeline_container_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_schedule_timeline_container_shortcode() {
 	$custom_class = porto_vc_custom_class();
 	vc_map(
@@ -13,6 +9,7 @@ function porto_load_schedule_timeline_container_shortcode() {
 			'name'            => 'Porto ' . __( 'Schedule Timeline Container', 'porto-functionality' ),
 			'base'            => 'porto_schedule_timeline_container',
 			'category'        => __( 'Porto', 'porto-functionality' ),
+			'description'     => __( 'Show schedules by beautiful timeline', 'porto-functionality' ),
 			'icon'            => 'far fa-calendar',
 			'as_parent'       => array( 'only' => 'porto_schedule_timeline_item' ),
 			'content_element' => true,

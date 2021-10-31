@@ -170,8 +170,13 @@ h5.portfolio-details-title {
     }
 }
 
-.single-portfolio .related-portfolios {
-    padding: 5rem 0 4rem;
+.single-portfolio {
+    .thumb-gallery-detail.owl-carousel {
+        margin-bottom: 10px;
+    }
+    .related-portfolios {
+        padding: 5rem 0 4rem;
+    }
 }
 .related-portfolios {
 
@@ -183,6 +188,10 @@ h5.portfolio-details-title {
     }
 }
 
+.row > .portfolio-carousel {
+    width: 100%;
+    padding: 0;
+}
 .portfolio-carousel {
     .portfolio-item {
         margin: 0 15px 5px;
@@ -881,4 +890,11 @@ html.gecko {
             margin-#{$left}: 8px;
         }
     }
+}
+
+.porto-grid-item .porto-portfolios {
+    margin-bottom: 0
+}
+.porto-grid-item .portfolio-row .portfolio {
+    padding-bottom: 0
 }

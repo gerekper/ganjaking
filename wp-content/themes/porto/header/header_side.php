@@ -60,7 +60,7 @@ global $porto_settings, $porto_layout;
 					echo porto_filter_output( $sidebar_menu );
 				endif;
 				?>
-				<a class="mobile-toggle"><i class="fas fa-bars"></i></a>
+				<a class="mobile-toggle" href="#"><i class="fas fa-bars"></i></a>
 
 				<div class="d-xl-none d-lg-none inline-block">
 					<?php echo porto_filter_output( $minicart ); ?>

@@ -14,7 +14,6 @@
             text-decoration: none;
             text-align: $left;
             position: relative;
-            outline: medium none;
             margin-top: 0;
             margin-bottom: 0;
             font-family: inherit;
@@ -28,6 +27,9 @@
             > .avatar {
                 /*display: none;*/
                 margin-#{$right}: .5rem;
+                @if $rtl == 1 {
+                    float: right;
+                }
             }
             > .avatar img {
                 margin-top: -5px;
@@ -50,7 +52,6 @@
                 position: absolute;
                 display: block;
                 #{$left}: 100%;
-                opacity: 0;
                 border: 0;
                 padding-#{$left}: 10px;
                 background: transparent;
@@ -77,7 +78,7 @@
                     width: 182px;
                     height: 136px;
                     min-height: 0;
-                    @include transition(all 5s linear 0s);
+                    @include transition(5s linear 0s);
 
                     &.fixed-image {
                         background-position: $left top;
@@ -523,13 +524,27 @@
         > a:after {
             display: inline-block;
             content: '\e81c';
-            /*content: $fa-var-angle-down;*/
             font-family: "porto";
-            font-weight: normal;
-            /*font-size: .8333em;*/
+            font-weight: 400;
             font-size: 1em;
             margin: side-values(0 0 0 5px);
             line-height: 1;
+        }
+    }
+}
+
+.mega-menu .narrow {
+    .sub-menu.pos-left ul.sub-menu {
+        #{$right}: 100%;
+        #{$left}: auto;
+    }
+}
+
+.sub-menu.pos-left li.menu-item-has-children:hover {
+    > a {
+        &:before {
+            margin-#{$right}: 6px;
+            content: if-ltr($fa-var-chevron-left, $fa-var-chevron-right);
         }
     }
 }

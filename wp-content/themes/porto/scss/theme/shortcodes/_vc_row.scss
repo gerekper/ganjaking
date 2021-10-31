@@ -8,6 +8,9 @@
     position: relative;
     overflow: hidden;
     min-width: 100%;
+    > div:first-child {
+        padding: 0
+    }
 }
 .section-video.skrollable {
     position: absolute;

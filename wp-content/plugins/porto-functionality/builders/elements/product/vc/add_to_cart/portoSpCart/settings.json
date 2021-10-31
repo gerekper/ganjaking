@@ -1,0 +1,357 @@
+{
+	"fontSize": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Font size",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "fontSize"
+			}
+		}
+	},
+	"lineHeight": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Line height",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "lineHeight"
+			}
+		}
+	},
+	"letterSpacing": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Letter spacing",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "letterSpacing"
+			}
+		}
+	},
+	"titleColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Button Title color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "titleColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"borderColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Button Title color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "borderColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"backgroundColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Button Background color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "backgroundColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"toggleCustomHover": {
+		"type": "toggle",
+		"access": "public",
+		"value": false,
+		"options": {
+			"label": "Custom hover colors"
+		}
+	},
+	"hoverTitleColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Title hover color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "hoverTitleColor",
+				"namePattern": "[\\da-f]+"
+			},
+			"onChange": {
+				"rules": {
+					"toggleCustomHover": {
+						"rule": "toggle"
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"hoverBorderColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Title hover color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "hoverBorderColor",
+				"namePattern": "[\\da-f]+"
+			},
+			"onChange": {
+				"rules": {
+					"toggleCustomHover": {
+						"rule": "toggle"
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"hoverBackgroundColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Background hover color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "hoverBackgroundColor",
+				"namePattern": "[\\da-f]+"
+			},
+			"onChange": {
+				"rules": {
+					"toggleCustomHover": {
+						"rule": "toggle"
+					}
+				},
+				"actions": [
+					{
+						"action": "toggleVisibility"
+					}
+				]
+			}
+		}
+	},
+	"qtySpacing": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Qty Spacing",
+			"min": 0,
+			"max": 100,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "qtySpacing",
+				"namePattern": "[\\d]+"
+			}
+		}
+	},
+	"qtySize": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Qty Size",
+			"min": 1,
+			"max": 100,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "qtySize",
+				"namePattern": "[\\d]+"
+			}
+		}
+	},
+	"variationWidth": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Variation Width",
+			"min": 1,
+			"max": 100,
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "variationWidth",
+				"namePattern": "[\\d]+"
+			}
+		}
+	},
+	"variationSpacing": {
+		"type": "range",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Variation Spacing",
+			"min": 0,
+			"max": 300,
+			"measurement": "px",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "variationSpacing",
+				"namePattern": "[\\d]+"
+			}
+		}
+	},
+	"labelFontSize": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Label Font size",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "labelFontSize"
+			}
+		}
+	},
+	"labelLineHeight": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Label Line height",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "labelLineHeight"
+			}
+		}
+	},
+	"labelLetterSpacing": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Label Letter spacing",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "labelLetterSpacing"
+			}
+		}
+	},
+	"labelColor": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Label Color",
+			"cssMixin": {
+				"mixin": "vcStyle",
+				"property": "labelColor",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"designOptions": {
+		"type": "designOptions",
+		"access": "public",
+		"value": {},
+		"options": {
+			"label": "Design Options"
+		}
+	},
+	"editFormTab1": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"fontSize",
+			"lineHeight",
+			"letterSpacing",
+			"titleColor",
+			"borderColor",
+			"backgroundColor",
+			"toggleCustomHover",
+			"hoverTitleColor",
+			"hoverBorderColor",
+			"hoverBackgroundColor",
+			"el_class"
+		],
+		"options": {
+			"label": "Button Style"
+		}
+	},
+	"editFormTab2": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"qtySpacing",
+			"qtyLabelSpacing"
+		],
+		"options": {
+			"label": "Qty Style"
+		}
+	},
+	"editFormTab3": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"variationWidth",
+			"variationSpacing",
+			"labelFontSize",
+			"labelLineHeight",
+			"labelLetterSpacing",
+			"labelColor"
+		],
+		"options": {
+			"label": "Variation Style"
+		}
+	},
+	"metaEditFormTabs": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"editFormTab1",
+			"editFormTab2",
+			"editFormTab3",
+			"designOptions"
+		]
+	},
+	"relatedTo": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"General"
+		]
+	},
+	"el_class": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Extra class name",
+			"description": "Add an extra class name to the element and refer to it from Custom CSS option."
+		}
+	},
+	"tag": {
+		"access": "protected",
+		"type": "string",
+		"value": "portoSpCart"
+	}
+}

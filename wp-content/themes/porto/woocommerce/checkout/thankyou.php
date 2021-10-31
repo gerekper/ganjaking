@@ -39,7 +39,7 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php else : ?>
 
-			<p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received line-height-md text-center text-v-dark"><i class="fas fa-check mr-2"></i><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
+			<p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received line-height-md text-center text-v-dark"><i class="fas fa-check me-2"></i><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', esc_html__( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
 
 			<div class="d-flex flex-wrap order-info m-b-xl m-t-xs pt-3 w-100">
 				<div class="woocommerce-order-overview__order order order-item">

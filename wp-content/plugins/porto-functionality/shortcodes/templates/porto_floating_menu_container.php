@@ -16,7 +16,7 @@ $el_class = porto_shortcode_extract_class( $el_class );
 $output                         .= '<div class="floating-menu ' . esc_attr( $el_class ) . '">';
 	$output                     .= '<div class="floating-menu-body">';
 		$output                 .= '<div class="floating-menu-row">';
-			$output             .= '<button class="btn floating-menu-btn-collapse-nav" data-toggle="collapse" data-target=".floating-menu-nav-main">';
+			$output             .= '<button class="btn floating-menu-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".floating-menu-nav-main">';
 				$output         .= '<i class="fas fa-bars"></i>';
 			$output             .= '</button>';
 			$output             .= '<div class="floating-menu-nav-main collapse">';
@@ -48,7 +48,7 @@ jQuery(document).ready(function($) {
 			var self  = this,
 				divisor = 0;
 
-			$(window).scroll(function() {
+			$(window).on('scroll', function() {
 				var scrollPercent = 100 * $(window).scrollTop() / ($(document).height() - $(window).height()),
 					st = $(this).scrollTop(),
 					divisor = $(document).height() / $(window).height();

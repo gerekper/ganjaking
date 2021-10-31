@@ -90,6 +90,15 @@ if ( ! class_exists( 'Porto_Dynamic_Style' ) ) :
 				}
 				$result = true;
 
+				// compile css vars
+				ob_start();
+				require PORTO_ADMIN . '/theme_options/config_css_vars.php';
+				$css      = ob_get_clean();
+				$filename = $style_path . '/theme_css_vars.css';
+				porto_check_file_write_permission( $filename );
+				$wp_filesystem->put_contents( $filename, $this->minify_css( $css ), FS_CHMOD_FILE );
+
+				// compile dynamic style
 				foreach ( $rtl_arr as $rtl_arr_value ) {
 					ob_start();
 					include PORTO_DIR . '/style.php';
@@ -161,6 +170,10 @@ if ( ! class_exists( 'Porto_Dynamic_Style' ) ) :
 				if ( $css ) {
 					wp_add_inline_style( 'porto-style', $this->minify_css( $css ) );
 				}
+			} else {
+				ob_start();
+				require PORTO_ADMIN . '/theme_options/config_css_vars.php';
+				wp_add_inline_style( 'porto-plugins', wp_strip_all_tags( ob_get_clean() ) );
 			}
 		}
 
@@ -332,6 +345,10 @@ if ( ! class_exists( 'Porto_Dynamic_Style' ) ) :
 		}
 
 		public function activated_compile( $plugin_uri ) {
+			if ( 'elementor-pro/elementor-pro.php' === $plugin_uri ) {
+				set_transient( 'porto_need_compile_dynamic_css', true, 60 );
+				return;
+			}
 			if ( class_exists( 'PortoTGMPlugins' ) ) {
 				$plugins_obj = new PortoTGMPlugins();
 				$plugins     = $plugins_obj->get_plugins_list();

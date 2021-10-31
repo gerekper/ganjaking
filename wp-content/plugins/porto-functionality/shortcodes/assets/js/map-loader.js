@@ -68,7 +68,7 @@ jQuery(document).ready(function(){
     jQuery(window).on('load', function(){
         resize_porto_map();
     });
-    jQuery(window).resize(function(){
+    jQuery(window).on('resize', function(){
         resize_porto_map();
     });
     jQuery('.ui-tabs').on('tabsactivate', function(event, ui) {

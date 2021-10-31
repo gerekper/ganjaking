@@ -183,11 +183,11 @@ h2.resp-accordion {
     margin: 0;
     text-align: $left;
 
-    &.text-left {
+    &.text-left, &.text-start {
         text-align: $left;
     }
 
-    &.text-right {
+    &.text-right, &.text-end {
         text-align: $right;
     }
 
@@ -428,6 +428,7 @@ h2.resp-accordion {
     .nav-tabs {
         margin: 0 auto;
         text-align: center;
+        justify-content: center;
     }
 }
 
@@ -474,13 +475,16 @@ h2.resp-accordion {
             margin-#{$left}: 0;
             margin-bottom: $spacement-lg;
             text-align: center;
-            .nav-link, .nav-link:hover, .nav-link:focus {
+            .nav-link {
                 padding: 15px 30px;
                 background: none;
-                border: 0;
-                border-bottom: 3px solid;
                 border-radius: 0;
                 font-size: 16px;
+
+                &, &:hover, &:focus {
+                    border: 0;
+                    border-bottom: 3px solid;
+                }
             }
         }
     }

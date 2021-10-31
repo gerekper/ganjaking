@@ -20,15 +20,19 @@ class Porto_Elementor_Hotspot_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Hotspot', 'porto-functionality' );
+		return __( 'Porto Hotspot', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'spot', 'product', 'block', 'html' );
+	}
+
+	public function get_icon() {
+		return 'eicon-image-hotspot';
 	}
 
 	protected function _register_controls() {
@@ -68,9 +72,11 @@ class Porto_Elementor_Hotspot_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'pid',
 			array(
-				'type'        => Controls_Manager::TEXT,
+				'type'        => 'porto_ajaxselect2',
 				'label'       => __( 'Product', 'porto-functionality' ),
 				'description' => __( 'Please input a product id or slug.', 'porto-functionality' ),
+				'options'     => 'product',
+				'label_block' => true,
 				'condition'   => array(
 					'ctype' => 'product',
 				),
@@ -93,9 +99,11 @@ class Porto_Elementor_Hotspot_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'block',
 			array(
-				'type'      => Controls_Manager::TEXT,
-				'label'     => __( 'Block ID or Slug', 'porto-functionality' ),
-				'condition' => array(
+				'type'        => 'porto_ajaxselect2',
+				'label'       => __( 'Block ID or Slug', 'porto-functionality' ),
+				'options'     => 'porto_builder',
+				'label_block' => true,
+				'condition'   => array(
 					'ctype' => 'block',
 				),
 			)
@@ -204,7 +212,43 @@ class Porto_Elementor_Hotspot_Widget extends \Elementor\Widget_Base {
 					'unit' => 'px',
 				),
 				'selectors'  => array(
-					'.elementor-element-{{ID}} .porto-hotspot' => 'width: {{SIZE}}{{UNIT}};height: {{SIZE}}{{UNIT}};line-height: {{SIZE}}{{UNIT}};',
+					'.elementor-element-{{ID}} .porto-hotspot' => 'width: {{SIZE}}{{UNIT}};height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'icon_size1',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => __( 'Icon Size', 'porto-functionality' ),
+				'range'      => array(
+					'em'   => array(
+						'step' => 0.1,
+						'min'  => 0.1,
+						'max'  => 5,
+					),
+					'px'  => array(
+						'step' => 1,
+						'min'  => 1,
+						'max'  => 100,
+					),
+					'rem' => array(
+						'step' => 0.1,
+						'min'  => 0.1,
+						'max'  => 5,
+					),
+				),
+				'size_units' => array(
+					'em',
+					'px',
+					'rem',
+				),
+				'default'    => array(
+					'unit' => 'px',
+				),
+				'selectors'  => array(
+					'.elementor-element-{{ID}} .porto-hotspot-icon' => 'font-size: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);

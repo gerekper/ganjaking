@@ -460,6 +460,13 @@
     opacity: 0;
 }
 
+.word-rotate-prefix {
+    margin-#{$right}: .375rem;
+}
+.word-rotate-suffix {
+    margin-#{$left}: .375rem;
+}
+
 .no-csstransitions .word-rotator.rotate-3 .active i {
     opacity: 1;
 }

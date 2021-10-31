@@ -54,7 +54,7 @@ if ( 'full_width' === $porto_product_layout || 'centered_vertical_zoom' === $por
 	if ( $attachment_ids ) {
 		foreach ( $attachment_ids as $attachment_id ) {
 
-			$image_link = wp_get_attachment_url( $attachment_id );
+			$image_link = wp_get_attachment_image_url( $attachment_id, 'full' );
 
 			if ( ! $image_link ) {
 				continue;
@@ -73,6 +73,7 @@ if ( 'full_width' === $porto_product_layout || 'centered_vertical_zoom' === $por
 
 		}
 	}
+	$html .= apply_filters( 'porto_single_product_after_thumbnails', '' );
 
 	$html .= '</div>';
 

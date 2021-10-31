@@ -13,13 +13,12 @@ if ( function_exists( 'register_block_type' ) ) {
 add_shortcode( 'porto_product_categories', 'porto_shortcode_product_categories' );
 add_action( 'vc_after_init', 'porto_load_product_categories_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_shortcode_product_categories( $atts, $content = null ) {
 	ob_start();
 	if ( $template = porto_shortcode_woo_template( 'porto_product_categories' ) ) {
+		if ( isset( $atts['className'] ) ) {
+			$atts['el_class'] = $atts['className'];
+		}
 		include $template;
 	}
 	return ob_get_clean();

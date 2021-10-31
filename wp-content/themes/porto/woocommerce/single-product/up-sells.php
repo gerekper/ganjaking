@@ -34,6 +34,7 @@ $products = new WP_Query( $args );
 
 if ( $products->have_posts() ) :
 	global $porto_woocommerce_loop;
+
 	$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-upsells-cols'] ) ? $porto_settings['product-upsells-cols'] : $porto_settings['product-cols'];
 
 	if ( ! $porto_woocommerce_loop['columns'] ) {

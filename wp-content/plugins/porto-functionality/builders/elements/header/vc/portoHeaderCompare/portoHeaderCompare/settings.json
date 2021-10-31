@@ -1,0 +1,86 @@
+{
+	"icon_cl": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Custom Icon Class"
+		}
+	},
+	"font_size": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Font Size",
+			"cssMixin": {
+				"mixin": "compare",
+				"property": "fontSize",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"color": {
+		"type": "color",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Icon Color",
+			"cssMixin": {
+				"mixin": "compare",
+				"property": "color",
+				"namePattern": "[\\da-f]+"
+			}
+		}
+	},
+	"el_class": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Extra class name",
+			"description": "Add an extra class name to the element and refer to it from Custom CSS option."
+		}
+	},
+	"designOptions": {
+		"type": "designOptions",
+		"access": "public",
+		"value": {},
+		"options": {
+			"label": "Design Options"
+		}
+	},
+	"editFormTab1": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"icon_cl",
+			"font_size",
+			"color",
+			"el_class"
+		],
+		"options": {
+			"label": "compare Icon"
+		}
+	},
+	"metaEditFormTabs": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"editFormTab1",
+			"designOptions"
+		]
+	},
+	"relatedTo": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"General"
+		]
+	},
+	"tag": {
+		"access": "protected",
+		"type": "string",
+		"value": "portoHeaderCompare"
+	}
+}

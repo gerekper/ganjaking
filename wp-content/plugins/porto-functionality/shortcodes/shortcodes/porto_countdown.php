@@ -3,10 +3,6 @@
 
 add_action( 'vc_after_init', 'porto_load_countdown_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_countdown_shortcode() {
 
 	$animation_type     = porto_vc_animation_type();
@@ -55,10 +51,10 @@ function porto_load_countdown_shortcode() {
 					'group'      => 'General Settings',
 				),
 				array(
-					'type'       => 'checkbox',
-					'class'      => '',
+					'type'       => 'porto_multiselect',
 					'heading'    => __( 'Select Time Units To Display In Countdown Timer', 'porto-functionality' ),
 					'param_name' => 'countdown_opts',
+					'std'        => '',
 					'value'      => array(
 						__( 'Years', 'porto-functionality' )  => 'syear',
 						__( 'Months', 'porto-functionality' ) => 'smonth',
@@ -69,6 +65,16 @@ function porto_load_countdown_shortcode() {
 						__( 'Seconds', 'porto-functionality' ) => 'ssec',
 					),
 					'group'      => 'General Settings',
+				),
+				array(
+					'type'       => 'porto_dimension',
+					'heading'    => __( 'Each Countdown Section Padding', 'porto-functionality' ),
+					'param_name' => 'section_padding',
+					'value'      => '',
+					'group'      => 'General Settings',
+					'selectors'  => array(
+						'{{WRAPPER}}.porto_countdown .porto_countdown-section' => 'padding-top: {{TOP}};padding-right: {{RIGHT}};padding-bottom: {{BOTTOM}};padding-left: {{LEFT}};',
+					),
 				),
 				$custom_class,
 				array(

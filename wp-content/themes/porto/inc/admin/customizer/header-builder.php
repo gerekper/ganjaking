@@ -48,6 +48,7 @@ class Porto_Header_Builder {
 			'language-switcher' => __( 'Language Switcher', 'porto' ),
 			'myaccount'         => __( 'My Account', 'porto' ),
 			'wishlist'          => __( 'Wishlist', 'porto' ),
+			'compare'           => __( 'Compare', 'porto' ),
 			'porto_block'       => __( 'Porto Block', 'porto' ),
 			'html'              => __( 'HTML', 'porto' ),
 			'row'               => __( 'Row', 'porto' ),
@@ -681,7 +682,7 @@ class Porto_Header_Builder {
 					<a href="#" class="preview-mobile"></a>
 				</div>
 				<div class="actions">
-					<a href="https://youtu.be/pk2W281QUa8" class="button" target="_blank"><?php esc_html_e( 'Tutorial', 'porto' ); ?></a>
+					<a href="https://youtu.be/pk2W281QUa8" class="button" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Tutorial', 'porto' ); ?></a>
 					<a href="#" class="button button-clear"><?php esc_html_e( 'Clear All', 'porto' ); ?></a>
 					<a href="#" class="button button-close"><?php esc_html_e( 'Close', 'porto' ); ?></a>
 				</div>

@@ -245,7 +245,7 @@ class Porto_Elementor_SB_Products_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_google_font_style',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Product Title Typograhy', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .woocommerce-loop-product__title',
 			)
@@ -266,7 +266,7 @@ class Porto_Elementor_SB_Products_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'price_google_font_style',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Price Typograhy', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .price',
 			)

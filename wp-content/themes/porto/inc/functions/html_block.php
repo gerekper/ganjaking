@@ -21,6 +21,10 @@ if ( ! function_exists( 'porto_add_html_before_wrapper' ) ) :
 			echo do_shortcode( $porto_settings['html-top'] );
 			echo '</div>';
 		}
+		$block_id = porto_check_builder_condition( 'block_top-block' );
+		if ( ! empty( $block_id ) ) {
+			echo do_shortcode( "[porto_block name=\"{$block_id}\"]" );
+		}
 	}
 endif;
 
@@ -31,6 +35,10 @@ if ( ! function_exists( 'porto_add_html_before_banner' ) ) :
 			echo '<div class="porto-html-block porto-block-html-banner">';
 			echo do_shortcode( $porto_settings['html-banner'] );
 			echo '</div>';
+		}
+		$block_id = porto_check_builder_condition( 'block_banner-block' );
+		if ( ! empty( $block_id ) ) {
+			echo do_shortcode( "[porto_block name=\"{$block_id}\"]" );
 		}
 	}
 endif;
@@ -43,6 +51,10 @@ if ( ! function_exists( 'porto_add_html_before_content_top' ) ) :
 			echo do_shortcode( $porto_settings['html-content-top'] );
 			echo '</div>';
 		}
+		$block_id = porto_check_builder_condition( 'block_content-top-block' );
+		if ( ! empty( $block_id ) ) {
+			echo do_shortcode( "[porto_block name=\"{$block_id}\"]" );
+		}
 	}
 endif;
 
@@ -54,6 +66,10 @@ if ( ! function_exists( 'porto_add_html_content_inner_top' ) ) :
 			echo do_shortcode( $porto_settings['html-content-inner-top'] );
 			echo '</div>';
 		}
+		$block_id = porto_check_builder_condition( 'block_content-inner-top-block' );
+		if ( ! empty( $block_id ) ) {
+			echo do_shortcode( "[porto_block name=\"{$block_id}\"]" );
+		}
 	}
 endif;
 
@@ -64,6 +80,10 @@ if ( ! function_exists( 'porto_add_html_before_content_inner_bottom' ) ) :
 			echo '<div class="porto-html-block porto-block-html-content-inner-bottom">';
 			echo do_shortcode( $porto_settings['html-content-inner-bottom'] );
 			echo '</div>';
+		}
+		$block_id = porto_check_builder_condition( 'block_content-inner-bottom-block' );
+		if ( ! empty( $block_id ) ) {
+			echo do_shortcode( "[porto_block name=\"{$block_id}\"]" );
 		}
 	}
 endif;
@@ -82,6 +102,11 @@ if ( ! function_exists( 'porto_add_html_before_content_bottom' ) ) :
 				echo do_shortcode( '[porto_block name="' . esc_attr( trim( $block ) ) . '"]' );
 			}
 		}
+
+		$block_id = porto_check_builder_condition( 'block_content-bottom-block' );
+		if ( ! empty( $block_id ) ) {
+			echo do_shortcode( "[porto_block name=\"{$block_id}\"]" );
+		}
 	}
 endif;
 
@@ -92,6 +117,10 @@ if ( ! function_exists( 'porto_add_html_after_wrapper' ) ) :
 			echo '<div class="porto-html-block porto-block-html-bottom">';
 			echo do_shortcode( $porto_settings['html-bottom'] );
 			echo '</div>';
+		}
+		$block_id = porto_check_builder_condition( 'block_bottom-block' );
+		if ( ! empty( $block_id ) ) {
+			echo do_shortcode( "[porto_block name=\"{$block_id}\"]" );
 		}
 	}
 endif;

@@ -20,15 +20,19 @@ class Porto_Elementor_Recent_Members_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Recent Members', 'porto-functionality' );
+		return __( 'Porto Recent Members', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'recent member', 'person', 'author', 'carousel', 'slider' );
+	}
+
+	public function get_icon() {
+		return 'eicon-carousel';
 	}
 
 	public function get_script_depends() {
@@ -174,9 +178,12 @@ class Porto_Elementor_Recent_Members_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'cats',
 			array(
-				'type'        => Controls_Manager::TEXT,
+				'type'        => 'porto_ajaxselect2',
 				'label'       => __( 'Category IDs', 'porto-functionality' ),
 				'description' => __( 'comma separated list of category ids', 'porto-functionality' ),
+				'options'     => 'member_cat',
+				'multiple'    => true,
+				'label_block' => true,
 			)
 		);
 
@@ -281,6 +288,9 @@ class Porto_Elementor_Recent_Members_Widget extends \Elementor\Widget_Base {
 		$atts = $this->get_settings_for_display();
 
 		if ( $template = porto_shortcode_template( 'porto_recent_members' ) ) {
+			if ( ! empty( $atts['cats'] ) && is_array( $atts['cats'] ) ) {
+				$atts['cats'] = implode( ',', $atts['cats'] );
+			}
 			include $template;
 		}
 	}

@@ -16,8 +16,8 @@ class Less_Tree_Negative extends Less_Tree {
 	}
 
 	// function accept($visitor) {
-	// $this->value = $visitor->visit($this->value);
-	// }
+	//	$this->value = $visitor->visit($this->value);
+	//}
 
 	/**
 	 * @see Less_Tree::genCSS

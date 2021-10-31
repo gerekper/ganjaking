@@ -3,15 +3,11 @@
 .porto-sicon-box .img-icon {
     transition: transform .2s linear;
 }
-.porto-sicon-header .porto-sicon-title {
+.porto-sicon-title {
     margin: 3px 0;
 }
-.default-icon .porto-sicon-header .porto-sicon-title:not(:last-child) {
+.default-icon .porto-sicon-title:not(:last-child) {
     margin: 0 0 3px;
-}
-.porto-sicon-header h3.porto-sicon-title {
-    font-size: 16px;
-    line-height: 1.2em
 }
 .porto-sicon-header > p:last-child {
     margin-bottom: 0;
@@ -35,6 +31,9 @@ a.porto-sicon-box-link {
     border: none;
     display: block
 }
+.porto-sicon-box-link:hover > .porto-sicon-title {
+    color: inherit
+}
 .porto-sicon-box.default-icon {
     display: -ms-flexbox; display: flex;
     -ms-flex-align: center; align-items: center;
@@ -49,8 +48,6 @@ a.porto-sicon-box-link {
 .default-icon .porto-sicon-default .porto-sicon-img {
     margin-#{$right}: 15px;
 }
-.top-icon .porto-icon,
-.top-icon .porto-sicon-img,
 .top-icon .porto-sicon-header,
 .top-icon .porto-sicon-description {
     display: block;
@@ -87,9 +84,9 @@ a.porto-sicon-box-link {
 .porto-sicon-box.top-icon {
     text-align: center
 }
-.porto-sicon-box .porto-just-icon-wrapper {
+/*.porto-sicon-box .porto-just-icon-wrapper {
     line-height: 1em;
-}
+}*/
 
 .right-icon .porto-sicon-right .porto-icon,
 .right-icon .porto-sicon-right .porto-sicon-img {
@@ -123,7 +120,7 @@ a.porto-sicon-box-link {
     vertical-align: middle;
     width: 100%
 }
-.heading-right-icon .porto-sicon-header h3.porto-sicon-title,
+.heading-right-icon .porto-sicon-header,
 .heading-right-icon .porto-sicon-description,
 .heading-right-icon .porto-sicon-description * {
     text-align: $right;
@@ -134,28 +131,27 @@ html {
         .porto-just-icon-wrapper {
             margin-bottom: 15px;
         }
-        .porto-sicon-header h3.porto-sicon-title {
+        h3.porto-sicon-title {
             margin-top: 0;
         }
-        .porto-sicon-header h2.porto-sicon-title {
+        h2.porto-sicon-title {
             margin-top: 0;
         }
     }
-    .porto-sicon-header h3.porto-sicon-title {
-        font-size: 1.4em;
-        font-weight: 400;
-        text-transform: none;
+}
+h3.porto-sicon-title {
+    font-size: 1.4em;
+    font-weight: 400;
+    text-transform: none;
+    line-height: 1.2;
+    small {
+        font-size: 75%;
+        display: block;
+        margin: 2px 0 4px;
     }
-    h3.porto-sicon-title {
-        small {
-            font-size: 75%;
-            display: block;
-            margin: 2px 0 4px;
-        }
-    }
-    .porto-sicon-read {
-        margin-top: 10px;
-    }
+}
+.porto-sicon-read {
+    margin-top: 10px;
 }
 
 .info-box-small,
@@ -174,19 +170,19 @@ html {
     }*/
 }
 .porto-sicon-box.top-icon.text-left,
-.porto-sicon-box.bottom-icon.text-left {
-    .porto-just-icon-wrapper,
+.porto-sicon-box.bottom-icon.text-left,
+.porto-sicon-box.top-icon.text-start,
+.porto-sicon-box.bottom-icon.text-start {
     .porto-sicon-header,
-    .porto-sicon-img,
     .porto-sicon-description {
         text-align: $left !important;
     }
 }
 .porto-sicon-box.top-icon.text-right,
-.porto-sicon-box.bottom-icon.text-right {
-    .porto-just-icon-wrapper,
+.porto-sicon-box.bottom-icon.text-right,
+.porto-sicon-box.top-icon.text-end,
+.porto-sicon-box.bottom-icon.text-end {
     .porto-sicon-header,
-    .porto-sicon-img,
     .porto-sicon-description {
         text-align: $right !important;
     }
@@ -199,9 +195,23 @@ html {
     &.style_3:hover .porto-icon, &.style_3:hover .img-icon {
         transform: translateY(-4px);
     }
+    &.hover-icon-left:hover {
+        .porto-icon, .img-icon {
+            transform: translateX(-6px);
+        }
+    }
+    &.hover-icon-right:hover {
+        .porto-icon, .img-icon {
+            transform: translateX(6px);
+        }
+    }
+
+    .porto-icon, .porto-sicon-img {
+        vertical-align: middle
+    }
 
     &.featured-icon {
-        .porto-sicon-header h3.porto-sicon-title {
+        h3.porto-sicon-title {
             font-weight: $font-weight-semibold;
         }
 

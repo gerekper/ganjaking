@@ -20,15 +20,19 @@ class Porto_Elementor_Modal_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Modal Dialog Box', 'porto-functionality' );
+		return __( 'Porto Modal Dialog Box', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'modal', 'dialog', 'popup box', 'overlay box' );
+	}
+
+	public function get_icon() {
+		return 'eicon-lightbox-expand';
 	}
 
 	protected function _register_controls() {

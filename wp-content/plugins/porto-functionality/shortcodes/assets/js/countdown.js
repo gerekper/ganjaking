@@ -192,7 +192,7 @@
       return;
     }
       elem.html(this._generateHTML(inst)).toggleClass(this._rtlClass, inst.options.isRTL);
-    if ($.isFunction(inst.options.onTick)) {
+    if (typeof inst.options.onTick === 'function') {
       var periods = inst._hold != 'lap' ? inst._periods :
         this._calculatePeriods(inst, inst._show, inst.options.significant, new Date());
       if (inst.options.tickInterval == 1 ||
@@ -207,7 +207,7 @@
       inst._expiring = true;
         if (this._hasElem(elem[0]) || inst.options.alwaysExpire) {
           this._removeElem(elem[0]);
-        if ($.isFunction(inst.options.onExpiry)) {
+        if (typeof inst.options.onExpiry === 'function') {
             inst.options.onExpiry.apply(elem[0], []);
         }
         if (inst.options.expiryText) {
@@ -266,7 +266,7 @@
       now = new Date();
     }
     else {
-      var serverResult = ($.isFunction(inst.options.serverSync) ?
+      var serverResult = (typeof inst.options.serverSync === 'function' ?
           inst.options.serverSync.apply(elem[0], []) : null);
       now = new Date();
       serverOffset = (serverResult ? now.getTime() - serverResult.getTime() : 0);

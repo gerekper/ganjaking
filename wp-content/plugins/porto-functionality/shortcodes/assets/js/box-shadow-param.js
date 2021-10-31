@@ -95,7 +95,7 @@
         var t = $(element);
 
           //  Add dependency for none box shadow'
-          t.find('.porto-bs-select').change(function(event) {
+          t.find('.porto-bs-select').on('change', function(event) {
             var s = $(this).val();
             
             if(typeof s != 'undefined' && s != null) {

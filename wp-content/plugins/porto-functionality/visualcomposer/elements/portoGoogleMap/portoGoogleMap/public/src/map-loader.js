@@ -31,6 +31,7 @@
       var styles = decodeURIComponent( (attrs.map_style + '').replace(/%(?![\da-f]{2})/gi, function () {
         return '%25'
       }) );
+      styles = JSON.parse(styles);
       styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
     }
 

@@ -3,10 +3,6 @@
 
 add_action( 'vc_after_init', 'porto_load_buttons_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_buttons_shortcode() {
 
 	$animation_type        = porto_vc_animation_type();
@@ -265,46 +261,13 @@ function porto_load_buttons_shortcode() {
 					'edit_field_class' => 'vc_col-sm-12 vc_column no-vc-background no-vc-border creative_link_css_editor',
 				),
 				array(
-					'type'       => 'checkbox',
-					'heading'    => __( 'Use theme default font family?', 'porto-functionality' ),
-					'param_name' => 'btn_font_use_theme_fonts',
-					'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-					'std'        => 'yes',
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Typography', 'porto-functionality' ),
+					'param_name' => 'btn_porto_typography',
 					'group'      => 'Typography',
-					'class'      => '',
-				),
-				array(
-					'type'       => 'google_fonts',
-					'param_name' => 'btn_font',
-					'settings'   => array(
-						'fields' => array(
-							'font_family_description' => __( 'Select Font Family.', 'porto-functionality' ),
-							'font_style_description'  => __( 'Select Font Style.', 'porto-functionality' ),
-						),
+					'selectors'  => array(
+						'{{WRAPPER}}.porto-btn',
 					),
-					'dependency' => array(
-						'element'            => 'btn_font_use_theme_fonts',
-						'value_not_equal_to' => 'yes',
-					),
-					'group'      => 'Typography',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Font Weight', 'porto-functionality' ),
-					'param_name' => 'btn_font_style',
-					'group'      => 'Typography',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Font size', 'porto-functionality' ),
-					'param_name' => 'btn_font_size',
-					'group'      => 'Typography',
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Line Height', 'porto-functionality' ),
-					'param_name' => 'btn_line_height',
-					'group'      => 'Typography',
 				),
 				$animation_type,
 				$animation_duration,

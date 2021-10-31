@@ -3,10 +3,6 @@
 // Porto Blockquote
 add_action( 'vc_after_init', 'porto_load_blockquote_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_blockquote_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -15,11 +11,12 @@ function porto_load_blockquote_shortcode() {
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Blockquote', 'porto-functionality' ),
-			'base'     => 'porto_blockquote',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'fas fa-quote-left',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Blockquote', 'porto-functionality' ),
+			'base'        => 'porto_blockquote',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Show blockquote with border', 'porto-functionality' ),
+			'icon'        => 'fas fa-quote-left',
+			'params'      => array(
 				array(
 					'type'        => 'textarea_html',
 					'heading'     => __( 'Quote', 'porto-functionality' ),

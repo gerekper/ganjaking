@@ -1,0 +1,75 @@
+{
+	"sbAlign": {
+		"type": "buttonGroup",
+		"access": "public",
+		"value": "left",
+		"options": {
+			"label": "Alignment",
+			"values": [
+				{
+					"label": "Left",
+					"value": "left",
+					"icon": "vcv-ui-icon-attribute-alignment-left"
+				},
+				{
+					"label": "Center",
+					"value": "center",
+					"icon": "vcv-ui-icon-attribute-alignment-center"
+				},
+				{
+					"label": "Right",
+					"value": "right",
+					"icon": "vcv-ui-icon-attribute-alignment-right"
+				}
+			]
+		}
+	},
+	"designOptions": {
+		"type": "designOptions",
+		"access": "public",
+		"value": {},
+		"options": {
+			"label": "Design Options"
+		}
+	},
+	"editFormTab1": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"sbAlign",
+			"el_class"
+		],
+		"options": {
+			"label": "General"
+		}
+	},
+	"metaEditFormTabs": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"editFormTab1",
+			"designOptions"
+		]
+	},
+	"relatedTo": {
+		"type": "group",
+		"access": "protected",
+		"value": [
+			"General"
+		]
+	},
+	"el_class": {
+		"type": "string",
+		"access": "public",
+		"value": "",
+		"options": {
+			"label": "Extra class name",
+			"description": "Add an extra class name to the element and refer to it from Custom CSS option."
+		}
+	},
+	"tag": {
+		"access": "protected",
+		"type": "string",
+		"value": "portoShopToggle"
+	}
+}

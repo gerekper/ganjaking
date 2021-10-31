@@ -56,7 +56,7 @@ if ( $size ) {
 	if ( ! $unit ) {
 		$size .= 'px';
 	}
-	$inline_style .= 'width:' . esc_attr( $size ) . ';height:' . esc_attr( $size ) . ';line-height:' . esc_attr( $size ) . ';';
+	$inline_style .= 'width:' . esc_attr( $size ) . ';height:' . esc_attr( $size ) . ';';
 }
 if ( $bg_color ) {
 	$inline_style .= 'background-color:' . esc_attr( $bg_color ) . ';';
@@ -95,7 +95,7 @@ if ( $inline_style ) {
 <?php if ( empty( $inner_content_only ) ) : ?>
 <div class="porto-hotspot pos-<?php echo esc_attr( $pos ), ! $el_class ? '' : ' ' . esc_attr( $el_class ); ?>"<?php echo porto_filter_output( $attrs ); ?>>
 <?php endif; ?>
-	<i class="<?php echo esc_attr( $icon ); ?>"<?php echo porto_filter_output( $icon_inline_style ); ?>></i>
+	<i class="porto-hotspot-icon <?php echo esc_attr( $icon ); ?>"<?php echo porto_filter_output( $icon_inline_style ); ?>></i>
 	<div class="popup-wrap">
 	<?php
 	if ( 'html' == $type && $content ) {

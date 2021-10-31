@@ -1,11 +1,130 @@
 <?php
 
 // Porto Recent Portfolios
-add_action( 'vc_after_init', 'porto_load_recent_portfolios_shortcode' );
+if ( function_exists( 'register_block_type' ) ) {
+	register_block_type(
+		'porto/porto-recent-portfolios',
+		array(
+			'attributes'      => array(
+				'title' => array(
+					'type' => 'string',
+				),
+				'view' => array(
+					'type' => 'string',
+					'default' => 'classic',
+				),
+				'info_view' => array(
+					'type' => 'string',
+					'default' => '',
+				),
+				'image_size' => array(
+					'type' => 'string',
+				),
+				'thumb_bg' => array(
+					'type' => 'string',
+					'default' => '',
+				),
+				'thumb_image' => array(
+					'type' => 'string',
+					'default' => ''
+				),
+				'ajax_load' => array(
+					'type' => 'boolean',
+				),
+				'ajax_modal' => array(
+					'type' => 'boolean',
+				),
+				'number' => array(
+					'type' => 'integer',
+					'default' => 8,
+				),
+				'cats' => array(
+					'type' => 'string',
+				),
+				'post_in' => array(
+					'type' => 'string',
+				),
+				'items' => array(
+					'type' => 'integer',
+				),
+				'items_desktop' => array(
+					'type' => 'integer',
+					'default' => 4,
+				),
+				'items_tablets' => array(
+					'type' => 'integer',
+					'default' => 3,
+				),
+				'items_mobile' => array(
+					'type' => 'integer',
+					'default' => 2,
+				),
+				'items_row' => array(
+					'type' => 'integer',
+					'default' => 1,
+				),
+				'slider_config' => array(
+					'type' => 'boolean',
+					'default' => false,
+				),
+				'show_nav' => array(
+					'type' => 'boolean',
+					'default' => false,
+				),
+				'show_nav_hover' => array(
+					'type' => 'boolean',
+					'default' => false,
+				),
+				'nav_pos' => array(
+					'type' => 'string',
+					'default' => '',
+				),
+				'nav_pos2' => array(
+					'type' => 'string',
+				),
+				'nav_type' => array(
+					'type' => 'string',
+				),
+				'show_dots' => array(
+					'type' => 'boolean',
+					'default' => false,
+				),
+				'dots_pos' => array(
+					'type' => 'string',
+				),
+				'dots_style' => array(
+					'type' => 'string',
+				),
+				'autoplay' => array(
+					'type' => 'boolean',
+					'default' => false,
+				),
+				'autoplay_timeout' => array(
+					'type' => 'integer',
+					'default' => 5000,
+				),
+				'el_class'             => array(
+					'type' => 'string',
+				),
+			),
+			'editor_script'   => 'porto_blocks',
+			'render_callback' => 'porto_shortcode_recent_portfolios',
+		)
+	);
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
+	function porto_shortcode_recent_portfolios( $atts, $content = null ) {
+		ob_start();
+		if ( $template = porto_shortcode_template( 'porto_recent_portfolios' ) ) {
+			if ( isset( $atts['className'] ) ) {
+				$atts['el_class'] = $atts['className'];
+			}
+			include $template;
+		}
+		return ob_get_clean();
+	}
 }
+
+add_action( 'vc_after_init', 'porto_load_recent_portfolios_shortcode' );
 
 function porto_load_recent_portfolios_shortcode() {
 	$animation_type     = porto_vc_animation_type();
@@ -15,11 +134,12 @@ function porto_load_recent_portfolios_shortcode() {
 
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Recent Portfolios', 'porto-functionality' ),
-			'base'     => 'porto_recent_portfolios',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'far fa-images',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Recent Portfolios', 'porto-functionality' ),
+			'base'        => 'porto_recent_portfolios',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Show portfolios by slider', 'porto-functionality' ),
+			'icon'        => 'far fa-images',
+			'params'      => array(
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Title', 'porto-functionality' ),

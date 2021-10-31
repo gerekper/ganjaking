@@ -20,15 +20,19 @@ class Porto_Elementor_Portfolios_Category_Widget extends \Elementor\Widget_Base 
 	}
 
 	public function get_title() {
-		return __( 'Portfolio Categories', 'porto-functionality' );
+		return __( 'Porto Portfolio Categories', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'portfolio', 'posts', 'category', 'categories' );
+	}
+
+	public function get_icon() {
+		return 'eicon-folder-o';
 	}
 
 	public function get_script_depends() {
@@ -136,9 +140,12 @@ class Porto_Elementor_Portfolios_Category_Widget extends \Elementor\Widget_Base 
 		$this->add_control(
 			'cat_in',
 			array(
-				'type'        => Controls_Manager::TEXT,
+				'type'        => 'porto_ajaxselect2',
 				'label'       => __( 'Category IDs', 'porto-functionality' ),
 				'description' => __( 'comma separated list of category ids', 'porto-functionality' ),
+				'options'     => 'portfolio_cat',
+				'multiple'    => true,
+				'label_block' => true,
 			)
 		);
 
@@ -177,6 +184,9 @@ class Porto_Elementor_Portfolios_Category_Widget extends \Elementor\Widget_Base 
 	protected function render() {
 		if ( $template = porto_shortcode_template( 'porto_portfolios_category' ) ) {
 			$atts = $this->get_settings_for_display();
+			if ( ! empty( $atts['cat_in'] ) && is_array( $atts['cat_in'] ) ) {
+				$atts['cat_in'] = implode( ',', $atts['cat_in'] );
+			}
 			include $template;
 		}
 	}

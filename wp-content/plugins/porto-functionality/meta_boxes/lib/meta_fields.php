@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_ct_default_view_meta_fields() {
 
 	global $porto_settings;
@@ -48,7 +44,7 @@ function porto_ct_default_view_meta_fields() {
 		'breadcrumbs'          => array(
 			'name'  => 'breadcrumbs',
 			'title' => __( 'Breadcrumbs', 'porto-functionality' ),
-			'desc'  => __( 'Hide breadcrumbs', 'porto-functionality' ),
+			'desc'  => __( 'Do not Show', 'porto-functionality' ),
 			'type'  => 'checkbox',
 		),
 		// Breadcrumb Type
@@ -67,7 +63,7 @@ function porto_ct_default_view_meta_fields() {
 		'page_title'           => array(
 			'name'  => 'page_title',
 			'title' => __( 'Page Title', 'porto-functionality' ),
-			'desc'  => __( 'Hide page title', 'porto-functionality' ),
+			'desc'  => __( 'Do not Show', 'porto-functionality' ),
 			'type'  => 'checkbox',
 		),
 		// Page Sub Title
@@ -84,7 +80,7 @@ function porto_ct_default_view_meta_fields() {
 		'header'               => array(
 			'name'  => 'header',
 			'title' => __( 'Header', 'porto-functionality' ),
-			'desc'  => __( 'Hide header', 'porto-functionality' ),
+			'desc'  => __( 'Do not Show', 'porto-functionality' ),
 			'type'  => 'checkbox',
 		),
 		// Sticky Header
@@ -115,7 +111,7 @@ function porto_ct_default_view_meta_fields() {
 		'footer'               => array(
 			'name'  => 'footer',
 			'title' => __( 'Footer', 'porto-functionality' ),
-			'desc'  => __( 'Hide footer', 'porto-functionality' ),
+			'desc'  => __( 'Do not Show', 'porto-functionality' ),
 			'type'  => 'checkbox',
 		),
 		// Footer View

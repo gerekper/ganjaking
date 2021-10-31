@@ -364,23 +364,23 @@
             }
         });
 
-        $('.header-builder-header .preview-desktop').click(function(e) {
+        $('.header-builder-header .preview-desktop').on('click', function(e) {
             e.preventDefault();
             $('.devices .preview-desktop').click();
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
         });
-        $('.header-builder-header .preview-mobile').click(function(e) {
+        $('.header-builder-header .preview-mobile').on('click', function(e) {
             e.preventDefault();
             $('.devices .preview-tablet').click();
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
         });
-        $('.header-builder-header .button-close').click(function(e) {
+        $('.header-builder-header .button-close').on('click', function(e) {
             e.preventDefault();
             $('#sub-accordion-section-porto_header_layouts .customize-section-back').click();
         });
-        $('.header-builder-header .button-clear').click(function(e) {
+        $('.header-builder-header .button-clear').on('click', function(e) {
             e.preventDefault();
             $('.header-builder-wrapper .header-builder').each(function() {
                 var $this = $(this);

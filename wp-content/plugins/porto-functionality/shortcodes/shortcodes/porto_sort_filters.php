@@ -3,10 +3,6 @@
 // Porto Sort Filters
 add_action( 'vc_after_init', 'porto_load_sort_filters_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_sort_filters_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -18,6 +14,7 @@ function porto_load_sort_filters_shortcode() {
 			'name'            => 'Porto ' . __( 'Sort Filters', 'porto-functionality' ),
 			'base'            => 'porto_sort_filters',
 			'category'        => __( 'Porto', 'porto-functionality' ),
+			'description'     => __( 'We can sort of any elements', 'porto-functionality' ),
 			'icon'            => 'fas fa-filter',
 			'as_parent'       => array( 'only' => 'porto_sort_filter' ),
 			'content_element' => true,

@@ -37,7 +37,7 @@ $member_options = get_metadata( $term->taxonomy, $term->term_id, 'member_options
 				</div>
 			<?php endif; ?>
 
-			<div class="member-row members-container row <?php echo porto_generate_column_classes( $porto_settings['member-columns'] ); ?>">
+			<div class="member-row members-container row ccols-wrap <?php echo porto_generate_column_classes( $porto_settings['member-columns'] ); ?>">
 				<?php
 				while ( have_posts() ) {
 					the_post();

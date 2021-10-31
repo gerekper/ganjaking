@@ -174,9 +174,9 @@ if ( $count ) :
 	$carousel_options         = array(
 		'items'        => 1,
 		'margin'       => 0,
-		'loop'         => true,
-		'dots'         => false,
-		'nav'          => true,
+		'loop'         => false,
+		'dots'         => true,
+		'nav'          => false,
 		'stagePadding' => 0,
 	);
 	$featured_images_all      = porto_get_featured_images();
@@ -186,7 +186,7 @@ if ( $count ) :
 
 	?>
 	<article <?php post_class( $post_class ); ?>>
-		<?php porto_render_rich_snippets(); ?>
+		<?php porto_render_rich_snippets( 'h3' ); ?>
 		<div class="portfolio-item <?php echo esc_attr( $portfolio_view ); ?>">
 			<?php if ( isset( $show_counter ) && ( $show_counter ) ) : ?>
 				<span class="thumb-info-icons position-style-2 text-color-light">
@@ -217,7 +217,7 @@ if ( $count ) :
 				<span class="thumb-info <?php echo esc_attr( $class ); ?>">
 					<span class="thumb-info-wrapper">
 						<?php if ( in_array( $portfolio_id, $portfolio_slider_ids_arr ) && ! $porto_settings['portfolio-archive-link-zoom'] ) : ?>
-							<div class="porto-carousel owl-carousel m-b-none owl-theme show-nav-hover" data-plugin-options='<?php echo json_encode( $carousel_options ); ?>'>
+							<div class="porto-carousel owl-carousel m-b-none owl-theme nav-inside" data-plugin-options='<?php echo json_encode( $carousel_options ); ?>'>
 							<?php
 							$featured_images           = $featured_images_all;
 							$portfolio_show_all_images = true;
@@ -239,7 +239,7 @@ if ( $count ) :
 									<img class="img-responsive" width="<?php echo esc_attr( $attachment['width'] ); ?>" height="<?php echo esc_attr( $attachment['height'] ); ?>" src="<?php echo esc_url( $attachment['src'] ); ?>" alt="<?php echo esc_attr( $attachment['alt'] ); ?>" />
 									<?php
 									if ( $porto_settings['portfolio-archive-img-lightbox-thumb'] && $attachment_id ) {
-										$attachment_thumb             = porto_get_attachment( $attachment_id, 'widget-thumb-medium' );
+										$attachment_thumb             = porto_get_attachment( $attachment_id, 'thumbnail' );
 										$porto_portfolio_thumbs_html .= '<span><img src="' . esc_url( $attachment_thumb['src'] ) . '" alt="' . esc_attr( $attachment_thumb['alt'] ) . '" ></span>';
 									}
 									if ( ! $portfolio_show_all_images ) {

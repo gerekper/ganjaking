@@ -15,10 +15,10 @@ class Less_Tree_Alpha extends Less_Tree {
 	}
 
 	// function accept( $visitor ){
-	// $this->value = $visitor->visit( $this->value );
-	// }
-	public function compile( $env ) {
+	//	$this->value = $visitor->visit( $this->value );
+	//}
 
+	public function compile( $env ) {
 		if ( is_object( $this->value ) ) {
 			$this->value = $this->value->compile( $env );
 		}
@@ -30,8 +30,7 @@ class Less_Tree_Alpha extends Less_Tree {
 	 * @see Less_Tree::genCSS
 	 */
 	public function genCSS( $output ) {
-
-		$output->add( 'alpha(opacity=' );
+		$output->add( "alpha(opacity=" );
 
 		if ( is_string( $this->value ) ) {
 			$output->add( $this->value );
@@ -43,8 +42,7 @@ class Less_Tree_Alpha extends Less_Tree {
 	}
 
 	public function toCSS() {
-		return 'alpha(opacity=' . ( is_string( $this->value ) ? $this->value : $this->value->toCSS() ) . ')';
+		return "alpha(opacity=" . ( is_string( $this->value ) ? $this->value : $this->value->toCSS() ) . ")";
 	}
-
 
 }

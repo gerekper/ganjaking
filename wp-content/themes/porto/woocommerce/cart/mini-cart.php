@@ -2,7 +2,7 @@
 /**
  * Mini-cart
  *
- * @version     3.7.0
+ * @version     5.2.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -18,7 +18,7 @@ $has_items = ( ! WC()->cart->is_empty() );
 <?php
 	if ( empty( $porto_settings['minicart-content'] ) ) {
 		$items = sizeof( WC()->cart->get_cart() );
-		echo '<div class="total-count text-v-dark">';
+		echo '<div class="total-count text-v-dark clearfix">';
 			/* translators: %s: Items count */
 			echo '<span>' . sprintf( esc_html( _n( '%d ITEM', '%d ITEMS', $items, 'porto' ) ), $items ) . '</span>';
 			echo '<a class="text-v-dark pull-right" href="' . esc_url( wc_get_cart_url() ) . '">' . esc_html__( 'VIEW CART', 'porto' ) . '</a>';
@@ -43,7 +43,7 @@ $has_items = ( ! WC()->cart->is_empty() );
 				$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
 
 				?>
-					<li class="woocommerce-mini-cart-item <?php echo esc_attr( apply_filters( 'woocommerce_mini_cart_item_class', 'mini_cart_item', $cart_item, $cart_item_key ) ); ?>">
+					<li class="woocommerce-mini-cart-item<?php echo ! empty( $cart_item['variation_id'] ) ? ' porto-variation-' . absint( $cart_item['variation_id'] ) : '', ' ' . esc_attr( apply_filters( 'woocommerce_mini_cart_item_class', 'mini_cart_item', $cart_item, $cart_item_key ) ); ?>">
 						<div class="product-image"><div class="inner">
 					<?php if ( ! $_product->is_visible() ) : ?>
 							<?php echo str_replace( array( 'http:', 'https:' ), '', $thumbnail ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -54,11 +54,11 @@ $has_items = ( ! WC()->cart->is_empty() );
 						<?php endif; ?>
 						</div></div>
 						<div class="product-details">
-						<?php if ( ! $_product->is_visible() ) { ?>
-							<?php echo porto_filter_output( $product_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<?php if ( ! $_product->is_visible() || empty( $product_permalink ) ) { ?>
+							<?php echo wp_kses_post( $product_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						<?php } else { ?>
 							<a href="<?php echo esc_url( $product_permalink ); ?>" class="text-v-dark">
-								<?php echo porto_filter_output( $product_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								<?php echo wp_kses_post( $product_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</a>
 						<?php } ?>
 						<?php do_action( 'porto_woocommerce_minicart_after_product_name', $_product ); ?>

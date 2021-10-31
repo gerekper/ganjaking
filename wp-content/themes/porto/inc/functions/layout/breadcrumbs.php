@@ -33,7 +33,7 @@ function porto_breadcrumbs() {
 	}
 
 	// breadcrumbs start wrap
-	$output .= '<ul class="breadcrumb"' . ( isset( $porto_settings['rich-snippets'] ) && $porto_settings['rich-snippets'] ? ' itemscope itemtype="http://schema.org/BreadcrumbList"' : '' ) . '>';
+	$output .= '<ul class="breadcrumb"' . ( isset( $porto_settings['rich-snippets'] ) && $porto_settings['rich-snippets'] ? ' itemscope itemtype="https://schema.org/BreadcrumbList"' : '' ) . '>';
 
 	// add home link
 	if ( ! is_front_page() ) {
@@ -179,21 +179,25 @@ function porto_breadcrumbs_link( $title, $link = '' ) {
 	$microdata_itemscope = $microdata_url = $microdata_title = $microdata_position = $separator_markup = '';
 	$microdata_itemscope = ( ! is_front_page() && 'Home' == $title ) ? ' class="home"' : '';
 	if ( $microdata ) {
-		$microdata_itemscope .= ' itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"';
-		$microdata_url        = 'itemtype="http://schema.org/Thing" itemprop="item"';
+		$microdata_itemscope .= ' itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"';
+		$microdata_url        = 'itemscope itemtype="https://schema.org/Thing" itemprop="item"';
 		$microdata_title      = 'itemprop="name"';
 		$microdata_position   = '<meta itemprop="position" content="' . Porto_Breadcrumbs_Link_Position::$position . '" />';
 		Porto_Breadcrumbs_Link_Position::$position++;
 	}
 
-	$output    = sprintf( '<span %s>%s</span>%s', $microdata_title, $title, $microdata_position );
+	$output    = sprintf( '<span %s>%s</span>', $microdata_title, $title );
 	$delimiter = '';
 	if ( $link ) {
-		$output    = sprintf( '<a %s href="%s"%s>%s</a>', $microdata_url, esc_url( $link ), ( 'Home' == $title ) ? ' title="' . esc_attr__( 'Go to Home Page', 'porto' ) . '"' : '', $output );
+		if ( $microdata ) {
+			$microdata_url = 'itemprop="item"';
+		}
+		$output    = sprintf( '<a %s href="%s"%s>%s</a>%s', $microdata_url, esc_url( $link ), ( 'Home' == $title ) ? ' title="' . esc_attr__( 'Go to Home Page', 'porto' ) . '"' : '', $output, $microdata_position );
 		$delimiter = '<i class="delimiter' . ( $porto_settings['breadcrumbs-delimiter'] ? ' ' . esc_attr( $porto_settings['breadcrumbs-delimiter'] ) : '' ) . '"></i>';
 		$before    = sprintf( '<li%s>', $microdata_itemscope );
 	} else {
 		//$before = '<li>';
+		$output     .= $microdata_position;
 		$current_url = esc_url( home_url( add_query_arg( array() ) ) );
 		$output     .= sprintf( '<meta %s content="%s">', $microdata_url, $current_url );
 		$before      = sprintf( '<li%s>', $microdata_itemscope );
@@ -211,18 +215,20 @@ function porto_breadcrumbs_simple_link( $title, $link = '' ) {
 	$microdata_itemscope = $microdata_url = $microdata_title = $microdata_position = $separator_markup = '';
 
 	if ( $microdata ) {
-		$microdata_itemscope               = 'itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"';
-		$microdata_url                     = 'itemtype="http://schema.org/Thing" itemprop="item"';
+		$microdata_itemscope               = 'itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"';
+		$microdata_url                     = 'itemprop="item"';
 		$microdata_title                   = 'itemprop="name"';
 		static $porto_breadcrumbs_position = 1;
 		$microdata_position                = '<meta itemprop="position" content="' . Porto_Breadcrumbs_Link_Position::$position . '" />';
 		Porto_Breadcrumbs_Link_Position::$position++;
 	}
 
-	$output = sprintf( '<span %s>%s</span>%s', $microdata_title, $title, $microdata_position );
+	$output = sprintf( '<span %s>%s</span>', $microdata_title, $title );
 
 	if ( $link ) {
-		$output = sprintf( '<a %s href="%s" >%s</a>', $microdata_url, $link, $output );
+		$output = sprintf( '<a %s href="%s">%s</a>%s', $microdata_url, $link, $output, $microdata_position );
+	} else {
+		$output .= $microdata_position;
 	}
 
 	$before = sprintf( '<span %s>', $microdata_itemscope );

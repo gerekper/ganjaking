@@ -1,0 +1,74 @@
+@if $elementId != false {
+	.single-cart-$elementId {
+		.single_add_to_cart_button {
+			@if $fontSize != false {
+				font-size: $fontSize;
+			}
+			@if $lineHeight != false {
+				line-height: $lineHeight;
+			}
+			@if $letterSpacing != false {
+				letter-spacing: $letterSpacing;
+			}
+			@if $backgroundColor != false {
+				background-color: $backgroundColor;
+			}
+            @if $borderColor != false {
+				border-color: $borderColor;
+			}
+			@if $titleColor != false {
+				color: $titleColor;
+			}
+		}
+		.single_variation_wrap, .single-product .cart:not(.variations_form) {
+			@if $variationSpacing != false {
+				margin-top: $(variationSpacing)px;
+			}
+		}
+		&.toggle-hover {
+			.single_add_to_cart_button:hover {
+				@if $hoverBackgroundColor != false {
+					background-color: $hoverBackgroundColor;
+				}
+				@if $hoverBorderColor != false {
+					border-color: $hoverBorderColor;
+				}
+				@if $hoverTitleColor != false {
+					color: $hoverTitleColor;
+				}
+			}
+		}
+		.product-summary-wrap .quantity .qty {
+			@if $qtySize != false {
+				font-size: $(qtySize)px;
+			}
+		}
+		.variations .label {
+			@if $variationWidth != false {
+				width: $(variationWidth)%;
+			}
+			@if $labelFontSize != false {
+				font-size: $labelFontSize;
+			}
+			@if $labelLineHeight != false {
+				line-height: $labelLineHeight;
+			}
+			@if $labelLetterSpacing != false {
+				letter-spacing: $labelLetterSpacing;
+			}
+			@if $labelColor != false {
+				color: $labelColor;
+			}
+		}
+	}
+	.single-product:not(.rtl) .product-summary-wrap .quantity {
+		@if $qtySpacing != false {
+			margin-right: $(qtySpacing)px;
+		}
+	}
+	.single-product.rtl .product-summary-wrap .quantity {
+		@if $qtySpacing != false {
+			margin-left: $(qtySpacing)px;
+		}
+	}
+}

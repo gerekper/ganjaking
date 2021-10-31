@@ -20,15 +20,19 @@ class Porto_Elementor_Recent_Portfolios_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Recent Portfolios', 'porto-functionality' );
+		return __( 'Porto Recent Portfolios', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'portfolio', 'article', 'slider', 'carousel' );
+	}
+
+	public function get_icon() {
+		return 'eicon-slider-album';
 	}
 
 	public function get_script_depends() {
@@ -97,10 +101,10 @@ class Porto_Elementor_Recent_Portfolios_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'image_size',
 			array(
-				'type'      => Controls_Manager::SELECT,
-				'label'     => __( 'Image Size', 'porto-functionality' ),
-				'options'   => array_combine( array_values( porto_sh_commons( 'image_sizes' ) ), array_keys( porto_sh_commons( 'image_sizes' ) ) ),
-				'default'   => '',
+				'type'    => Controls_Manager::SELECT,
+				'label'   => __( 'Image Size', 'porto-functionality' ),
+				'options' => array_combine( array_values( porto_sh_commons( 'image_sizes' ) ), array_keys( porto_sh_commons( 'image_sizes' ) ) ),
+				'default' => '',
 			)
 		);
 
@@ -164,17 +168,23 @@ class Porto_Elementor_Recent_Portfolios_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'cats',
 			array(
-				'type'  => Controls_Manager::TEXT,
-				'label' => __( 'Category IDs', 'porto-functionality' ),
+				'type'        => 'porto_ajaxselect2',
+				'label'       => __( 'Category IDs', 'porto-functionality' ),
+				'options'     => 'portfolio_cat',
+				'multiple'    => true,
+				'label_block' => true,
 			)
 		);
 
 		$this->add_control(
 			'post_in',
 			array(
-				'type'        => Controls_Manager::TEXT,
+				'type'        => 'porto_ajaxselect2',
 				'label'       => __( 'Portfolio IDs', 'porto-functionality' ),
 				'description' => __( 'comma separated list of portfolio ids', 'porto-functionality' ),
+				'options'     => 'portfolio',
+				'multiple'    => true,
+				'label_block' => true,
 			)
 		);
 
@@ -264,6 +274,12 @@ class Porto_Elementor_Recent_Portfolios_Widget extends \Elementor\Widget_Base {
 		}
 
 		if ( $template = porto_shortcode_template( 'porto_recent_portfolios' ) ) {
+			if ( ! empty( $atts['cats'] ) && is_array( $atts['cats'] ) ) {
+				$atts['cats'] = implode( ',', $atts['cats'] );
+			}
+			if ( ! empty( $atts['post_in'] ) && is_array( $atts['post_in'] ) ) {
+				$atts['post_in'] = implode( ',', $atts['post_in'] );
+			}
 			include $template;
 		}
 	}

@@ -2,13 +2,12 @@
 /**
  * Pay for order form
  *
- * @version     3.4.0
+ * @version     5.2.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$porto_woo_version = porto_get_woo_version_number();
-$totals            = $order->get_order_item_totals(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
+$totals = $order->get_order_item_totals(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 ?>
 
 <div class="featured-box align-left">
@@ -34,14 +33,14 @@ $totals            = $order->get_order_item_totals(); // phpcs:ignore WordPress.
 							<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_order_item_class', 'order_item', $item, $order ) ); ?>">
 								<td class="product-name">
 									<?php
-									echo apply_filters( 'woocommerce_order_item_name', esc_html( $item['name'] ), $item, false ); // @codingStandardsIgnoreLine
+									echo wp_kses_post( apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, false ) );
 
 									do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order, false );
-									$order->display_item_meta( $item );
+									wc_display_item_meta( $item );
 									do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order, false );
 									?>
 								</td>
-								<td class="product-quantity"><?php echo apply_filters( 'woocommerce_order_item_quantity_html', ' <strong class="product-quantity">' . sprintf( '&times; %s', esc_html( $item['qty'] ) ) . '</strong>', $item ); ?></td><?php // @codingStandardsIgnoreLine ?>
+								<td class="product-quantity"><?php echo apply_filters( 'woocommerce_order_item_quantity_html', ' <strong class="product-quantity">' . sprintf( '&times;&nbsp;%s', esc_html( $item->get_quantity() ) ) . '</strong>', $item ); ?></td><?php // @codingStandardsIgnoreLine ?>
 								<td class="product-subtotal"><?php echo porto_filter_output( $order->get_formatted_line_subtotal( $item ) ); ?></td><?php // @codingStandardsIgnoreLine ?>
 							</tr>
 						<?php endforeach; ?>
@@ -62,69 +61,30 @@ $totals            = $order->get_order_item_totals(); // phpcs:ignore WordPress.
 			<div id="payment">
 				<?php if ( $order->needs_payment() ) : ?>
 				<ul class="wc_payment_methods payment_methods methods">
-					<?php if ( version_compare( $porto_woo_version, '2.5', '<' ) ) : ?>
-						<?php
-						if ( $available_gateways = WC()->payment_gateways->get_available_payment_gateways() ) {
-							// Chosen Method
-							if ( sizeof( $available_gateways ) ) {
-								current( $available_gateways )->set_current();
-							}
-
-							foreach ( $available_gateways as $gateway ) {
-								?>
-								<li class="payment_method_<?php echo esc_attr( $gateway->id ); ?>">
-									<input id="payment_method_<?php echo esc_attr( $gateway->id ); ?>" type="radio" class="input-radio" name="payment_method" value="<?php echo esc_attr( $gateway->id ); ?>" <?php checked( $gateway->chosen, true ); ?> data-order_button_text="<?php echo esc_attr( $gateway->order_button_text ); ?>" />
-									<label for="payment_method_<?php echo esc_attr( $gateway->id ); ?>"><?php echo porto_filter_output( $gateway->get_title() ); ?> <?php echo porto_filter_output( $gateway->get_icon() ); ?></label>
-									<?php
-									if ( $gateway->has_fields() || $gateway->get_description() ) {
-										echo '<div class="payment_box payment_method_' . porto_filter_output( $gateway->id ) . '" style="display:none;">';
-										$gateway->payment_fields();
-										echo '</div>';
-									}
-									?>
-								</li>
-								<?php
-							}
-						} else {
-							echo '<li>' . esc_html__( 'Sorry, it seems that there are no available payment methods for your location. Please contact us if you require assistance or wish to make alternate arrangements.', 'woocommerce' ) . '</li>';
+					<?php
+					if ( ! empty( $available_gateways ) ) {
+						foreach ( $available_gateways as $gateway ) {
+							wc_get_template( 'checkout/payment-method.php', array( 'gateway' => $gateway ) );
 						}
-						?>
-					<?php else : ?>
-						<?php
-						if ( ! empty( $available_gateways ) ) {
-							foreach ( $available_gateways as $gateway ) {
-								wc_get_template( 'checkout/payment-method.php', array( 'gateway' => $gateway ) );
-							}
-						} else {
-							echo '<li>' . apply_filters( 'woocommerce_no_available_payment_methods_message', esc_html__( 'Sorry, it seems that there are no available payment methods for your location. Please contact us if you require assistance or wish to make alternate arrangements.', 'woocommerce' ) ) . '</li>'; // @codingStandardsIgnoreLine
-						}
-						?>
-					<?php endif; ?>
+					} else {
+						echo '<li>' . apply_filters( 'woocommerce_no_available_payment_methods_message', esc_html__( 'Sorry, it seems that there are no available payment methods for your location. Please contact us if you require assistance or wish to make alternate arrangements.', 'woocommerce' ) ) . '</li>'; // @codingStandardsIgnoreLine
+					}
+					?>
 				</ul>
 				<?php endif; ?>
 
 				<div class="form-row">
-					<?php if ( version_compare( $porto_woo_version, '2.5', '<' ) ) : ?>
-						<?php wp_nonce_field( 'woocommerce-pay' ); ?>
-						<?php
-						$pay_order_button_text = apply_filters( 'woocommerce_pay_order_button_text', __( 'Pay for order', 'woocommerce' ) );
+					<input type="hidden" name="woocommerce_pay" value="1" />
 
-						echo apply_filters( 'woocommerce_pay_order_button_html', '<button type="submit" class="button alt" id="place_order" value="' . esc_attr( $pay_order_button_text ) . '" data-value="' . esc_attr( $pay_order_button_text ) . '"'. esc_html( $pay_order_button_text ) .'</button>' ); // @codingStandardsIgnoreLine
-						?>
-						<input type="hidden" name="woocommerce_pay" value="1" />
-					<?php else : ?>
-						<input type="hidden" name="woocommerce_pay" value="1" />
+					<?php wc_get_template( 'checkout/terms.php' ); ?>
 
-						<?php wc_get_template( 'checkout/terms.php' ); ?>
+					<?php do_action( 'woocommerce_pay_order_before_submit' ); ?>
 
-						<?php do_action( 'woocommerce_pay_order_before_submit' ); ?>
+					<?php echo apply_filters( 'woocommerce_pay_order_button_html', '<button type="submit" class="button alt" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">'. esc_html( $order_button_text ) .'</button>' ); // @codingStandardsIgnoreLine ?>
 
-						<?php echo apply_filters( 'woocommerce_pay_order_button_html', '<button type="submit" class="button alt" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '">'. esc_html( $order_button_text ) .'</button>' ); // @codingStandardsIgnoreLine ?>
+					<?php do_action( 'woocommerce_pay_order_after_submit' ); ?>
 
-						<?php do_action( 'woocommerce_pay_order_after_submit' ); ?>
-
-						<?php wp_nonce_field( 'woocommerce-pay', 'woocommerce-pay-nonce' ); ?>
-					<?php endif; ?>
+					<?php wp_nonce_field( 'woocommerce-pay', 'woocommerce-pay-nonce' ); ?>
 				</div>
 			</div>
 		</form>

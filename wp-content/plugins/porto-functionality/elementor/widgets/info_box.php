@@ -20,15 +20,19 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Info Box', 'porto-functionality' );
+		return __( 'Porto Info Box', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'icon', 'info box', 'image box', 'icon box' );
+	}
+
+	public function get_icon() {
+		return 'eicon-info-box';
 	}
 
 	protected function _register_controls() {
@@ -399,9 +403,11 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 				'type'        => Controls_Manager::SELECT,
 				'label'       => __( 'Select Hover Effect type', 'porto-functionality' ),
 				'options'     => array(
-					'style_1' => __( 'No Effect', 'porto-functionality' ),
-					'style_2' => __( 'Icon Zoom', 'porto-functionality' ),
-					'style_3' => __( 'Icon Bounce Up', 'porto-functionality' ),
+					'style_1'          => __( 'No Effect', 'porto-functionality' ),
+					'style_2'          => __( 'Icon Zoom', 'porto-functionality' ),
+					'style_3'          => __( 'Icon Slide Up', 'porto-functionality' ),
+					'hover-icon-left'  => __( 'Icon Slide Left', 'porto-functionality' ),
+					'hover-icon-right' => __( 'Icon Slide Right', 'porto-functionality' ),
 				),
 				'default'     => 'style_1',
 				'description' => __( 'Select the type of effct you want on hover', 'porto-functionality' ),
@@ -474,7 +480,7 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_google_font_style',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Title Typograhy', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .porto-sicon-title',
 			)
@@ -495,7 +501,7 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'sub_title_google_font_style',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Sub Title Typograhy', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .porto-sicon-header p',
 			)
@@ -516,7 +522,7 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'desc_google_font_style',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Description Typograhy', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .porto-sicon-description',
 			)
@@ -559,6 +565,36 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 				),
 				'selectors'  => array(
 					'{{WRAPPER}} .porto-just-icon-wrapper' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_margin_left',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => __( 'Icon Margin Left', 'porto-functionality' ),
+				'range'      => array(
+					'px'  => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 100,
+					),
+					'rem' => array(
+						'step' => 0.1,
+						'min'  => 0,
+						'max'  => 10,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+				),
+				'size_units' => array(
+					'px',
+					'rem',
+				),
+				'selectors'  => array(
+					'{{WRAPPER}} .porto-icon, {{WRAPPER}} .porto-sicon-img' => 'margin-' . ( is_rtl() ? 'right' : 'left' ) . ': {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -680,6 +716,9 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 			if ( isset( $atts['img_width'] ) && is_array( $atts['img_width'] ) ) {
 				$atts['img_width'] = $atts['img_width']['size'];
 			}
+		} elseif ( is_array( $atts['icon_img'] ) && empty( $atts['icon_img']['id'] ) ) {
+			$atts['icon_img']  = '';
+			$atts['img_width'] = '';
 		} else {
 			$atts['img_width'] = '';
 		}
@@ -704,14 +743,14 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function _content_template() {
+	protected function content_template() {
 		?>
 		<#
 			if ( settings.icon_img_url && ! settings.icon_img.url ) {
 				settings.icon_img.url = settings.icon_img_url;
 			}
 			view.addRenderAttribute( 'wrapper', 'class', 'porto-sicon-box' );
-			if ( 'top' == settings.pos && 'center' != settings.h_align ) {
+			if ( 'top' == settings.pos && 'center' != settings.h_align && settings.h_align ) {
 				view.addRenderAttribute( 'wrapper', 'class', 'text-' + settings.h_align );
 			}
 			if ( settings.hover_effect ) {

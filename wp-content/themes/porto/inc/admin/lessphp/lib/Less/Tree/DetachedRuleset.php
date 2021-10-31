@@ -14,7 +14,7 @@ class Less_Tree_DetachedRuleset extends Less_Tree {
 
 	public function __construct( $ruleset, $frames = null ) {
 		$this->ruleset = $ruleset;
-		$this->frames  = $frames;
+		$this->frames = $frames;
 	}
 
 	public function accept( $visitor ) {
@@ -37,4 +37,3 @@ class Less_Tree_DetachedRuleset extends Less_Tree {
 		return $this->ruleset->compile( $env );
 	}
 }
-

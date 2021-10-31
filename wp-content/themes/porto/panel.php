@@ -16,7 +16,7 @@ if ( 'overlay' == $porto_settings['menu-type'] ) {
 <div class="panel-overlay"></div>
 <div id="side-nav-panel" class="<?php echo ( isset( $porto_settings['mobile-panel-pos'] ) && $porto_settings['mobile-panel-pos'] ) ? $porto_settings['mobile-panel-pos'] : ''; ?>">
 	<a href="#" class="side-nav-panel-close"><i class="fas fa-times"></i></a>
-<?php if ( empty( $porto_settings_optimize['lazyload_menu'] ) ) : ?>
+<?php if ( ( isset( $_POST['action'] ) && 'porto_lazyload_menu' == $_POST['action'] ) || empty( $porto_settings_optimize['lazyload_menu'] ) ) : ?>
 	<?php
 	if ( '7' == $header_type || '8' == $header_type || ( isset( $porto_settings['mobile-panel-add-switcher'] ) && $porto_settings['mobile-panel-add-switcher'] ) ) {
 		// show currency and view switcher
@@ -54,6 +54,6 @@ if ( 'overlay' == $porto_settings['menu-type'] ) {
 	echo porto_header_socials();
 	?>
 <?php else : ?>
-	<div class="skeleton-body"></div>
+	<div class="skeleton-body porto-ajax-loading"><i class="porto-loading-icon"></i></div>
 <?php endif; ?>
 </div>

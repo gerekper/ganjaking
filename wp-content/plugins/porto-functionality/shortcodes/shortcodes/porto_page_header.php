@@ -2,20 +2,28 @@
 
 // Porto Page Header
 add_action( 'vc_after_init', 'porto_load_page_header_shortcode' );
-add_action( 'save_post', 'porto_check_page_header_shortcode', 10, 1 );
+add_action( 'save_post', 'porto_check_page_header_shortcode', 10, 2 );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
-function porto_check_page_header_shortcode( $post_id ) {
-	if ( ! function_exists( 'get_current_screen' ) ) {
+function porto_check_page_header_shortcode( $post_id, $post = false ) {
+	if ( isset( $_POST['action'] ) && 'elementor_ajax' == $_POST['action'] ) {
 		return;
 	}
-	$screen = get_current_screen();
-	if ( $screen && 'post' == $screen->base && isset( $_POST['content'] ) ) {
-		if ( stripos( $_POST['content'], '[porto_page_header ' ) !== false ) {
-			preg_match( '/\[porto_page_header\sbreadcrumbs_type=([^ ]*)([^]]*)\]/', $_POST['content'], $matches );
+	$post_content = '';
+	if ( defined( 'VCV_VERSION' ) && wp_doing_ajax() && isset( $_REQUEST['action'] ) && 'vcv-admin-ajax' == $_REQUEST['action'] && isset( $_REQUEST['vcv-admin-ajax'] ) && isset( $_REQUEST['vcv-zip'] ) && false !== $post && $post->post_content ) {
+		$post_content = $post->post_content;
+	} else {
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return;
+		}
+		$screen = get_current_screen();
+		if ( $screen && 'post' == $screen->base && isset( $_POST['content'] ) ) {
+			$post_content = $_POST['content'];
+		}
+	}
+
+	if ( $post_content ) {
+		if ( stripos( $post_content, '[porto_page_header ' ) !== false ) {
+			preg_match( '/\[porto_page_header\sbreadcrumbs_type=([^ ]*)([^]]*)\]/', $post_content, $matches );
 			$breadcrumbs_type = '1';
 			if ( isset( $matches[1] ) ) {
 				$breadcrumbs_type = str_replace( array( '\\', '"' ), '', $matches[1] );
@@ -36,17 +44,19 @@ function porto_load_page_header_shortcode() {
 	vc_map(
 		array(
 			/* translators: %s: Theme name */
-			'name'     => sprintf( __( '%s Page Header', 'porto-functionality' ), 'Porto' ),
-			'base'     => 'porto_page_header',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'fas fa-link',
-			'controls' => 'full',
-			'params'   => array(
+			'name'        => sprintf( __( '%s Page Header', 'porto-functionality' ), 'Porto' ),
+			'base'        => 'porto_page_header',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Display the custom page header', 'porto-functionality' ),
+			'icon'        => 'fas fa-link',
+			'controls'    => 'full',
+			'params'      => array(
 				array(
 					'type'        => 'dropdown',
 					'heading'     => __( 'Breadcrumbs Type', 'porto-functionality' ),
 					'param_name'  => 'breadcrumbs_type',
 					'value'       => array(
+						__( 'Theme Options', 'porto-functionality' ) => '',
 						__( 'Type 1', 'porto-functionality' ) => '1',
 						__( 'Type 2', 'porto-functionality' ) => '2',
 						__( 'Type 3', 'porto-functionality' ) => '3',
@@ -73,9 +83,9 @@ function porto_load_page_header_shortcode() {
 					'admin_label' => true,
 				),
 				array(
-					'type'        => 'checkbox',
-					'param_name'  => 'hide_breadcrumb',
-					'value'       => array(
+					'type'       => 'checkbox',
+					'param_name' => 'hide_breadcrumb',
+					'value'      => array(
 						__( 'Hide Breadcrumbs', 'porto-functionality' ) => 'yes',
 					),
 				),

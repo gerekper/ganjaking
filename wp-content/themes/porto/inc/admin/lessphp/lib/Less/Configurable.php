@@ -22,7 +22,6 @@ abstract class Less_Configurable {
 	 */
 	protected $defaultOptions = array();
 
-
 	/**
 	 * Set options
 	 *
@@ -31,12 +30,12 @@ abstract class Less_Configurable {
 	 *
 	 * @throws Exception
 	 * @param array|object $options
+	 *
 	 */
 	public function setOptions( $options ) {
-		$options       = array_intersect_key( $options, $this->defaultOptions );
+		$options = array_intersect_key( $options, $this->defaultOptions );
 		$this->options = array_merge( $this->defaultOptions, $this->options, $options );
 	}
-
 
 	/**
 	 * Get an option value by name
@@ -44,25 +43,24 @@ abstract class Less_Configurable {
 	 * If the option is empty or not set a NULL value will be returned.
 	 *
 	 * @param string $name
-	 * @param mixed  $default Default value if confiuration of $name is not present
+	 * @param mixed $default Default value if confiuration of $name is not present
 	 * @return mixed
 	 */
 	public function getOption( $name, $default = null ) {
-		if ( isset( $this->options[ $name ] ) ) {
-			return $this->options[ $name ];
+		if ( isset( $this->options[$name] ) ) {
+			return $this->options[$name];
 		}
 		return $default;
 	}
-
 
 	/**
 	 * Set an option
 	 *
 	 * @param string $name
-	 * @param mixed  $value
+	 * @param mixed $value
 	 */
 	public function setOption( $name, $value ) {
-		$this->options[ $name ] = $value;
+		$this->options[$name] = $value;
 	}
 
 }

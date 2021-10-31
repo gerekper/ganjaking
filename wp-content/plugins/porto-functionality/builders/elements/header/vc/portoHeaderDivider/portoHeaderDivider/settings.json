@@ -1,0 +1,91 @@
+{
+  "width": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Width",
+      "cssMixin": {
+        "mixin": "divider",
+        "property": "width",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "height": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Height",
+      "cssMixin": {
+        "mixin": "divider",
+        "property": "height",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "color": {
+    "type": "color",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Icon Color",
+      "cssMixin": {
+        "mixin": "divider",
+        "property": "color",
+        "namePattern": "[\\da-f]+"
+      }
+    }
+  },
+  "el_class": {
+    "type": "string",
+    "access": "public",
+    "value": "",
+    "options": {
+      "label": "Extra class name",
+      "description": "Add an extra class name to the element and refer to it from Custom CSS option."
+    }
+  },
+  "designOptions": {
+    "type": "designOptions",
+    "access": "public",
+    "value": {},
+    "options": {
+      "label": "Design Options"
+    }
+  },
+  "editFormTab1": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "width",
+      "height",
+      "color",
+      "el_class"
+    ],
+    "options": {
+      "label": "Vertical Separator"
+    }
+  },
+  "metaEditFormTabs": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "editFormTab1",
+      "designOptions"
+    ]
+  },
+  "relatedTo": {
+    "type": "group",
+    "access": "protected",
+    "value": [
+      "General"
+    ]
+  },
+  "tag": {
+    "access": "protected",
+    "type": "string",
+    "value": "portoHeaderDivider"
+  }
+}

@@ -53,8 +53,8 @@ if ( isset( $event_start_time ) && $event_start_time ) {
 			<img src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" class="img-responsive" /> </a> 
 		</span> 
 	<?php endif; ?>
-	<span class="thumb-info-caption"> 
-		<span class="custom-thumb-info-wrapper-box center"> 
+	<div class="thumb-info-caption"> 
+		<div class="custom-thumb-info-wrapper-box center"> 
 			<?php if ( $has_event_date && $show_count_down ) : ?>
 					<?php
 					echo do_shortcode(
@@ -71,14 +71,12 @@ string_hours2="Hrs"
 string_minutes="Min" 
 string_minutes2="Mins" 
 string_seconds="Sec" 
-string_seconds2="Secs" 
-tick_size="desktop:17px;" 
-tick_sep_size="desktop:17px;"]'
+string_seconds2="Secs"]'
 					);
 					?>
 			<?php endif; ?>
-		</span> 
-		<span class="custom-event-infos">
+		</div> 
+		<div class="custom-event-infos">
 			<ul>
 				<?php if ( isset( $event_start_time ) && $event_start_time ) : ?>
 					<li> <i class="far fa-clock"></i> <?php echo esc_html( $event_start_time ); ?> </li>
@@ -87,9 +85,9 @@ tick_sep_size="desktop:17px;"]'
 					<li class="text-uppercase"> <i class="fas fa-map-marker-alt"></i> <?php echo porto_strip_script_tags( $event_location ); ?></li>
 				<?php endif; ?>
 			</ul>
-		</span>
+		</div>
 
-		<span class="thumb-info-caption-text">
+		<div class="thumb-info-caption-text">
 			<span class="event-date d-none"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $event_start_date ) ); ?></span>
 			<h4 class="font-weight-bold mb-sm"> <a href="<?php the_permalink(); ?>" class="text-decoration-none custom-secondary-font text-color-dark"> <?php the_title(); ?> </a> </h4>
 			<?php
@@ -103,6 +101,6 @@ tick_sep_size="desktop:17px;"]'
 				<?php /* translators: $1: Event Singular Name */ ?>
 				<div><a class="read-more" href="<?php the_permalink(); ?>"><?php printf( esc_html__( 'View %s', 'porto' ), $porto_settings['event-singular-name'] ? esc_html( $porto_settings['event-singular-name'] ) : esc_html__( 'Event', 'porto' ) ); ?></a></div>
 			<?php endif; ?>
-		</span>
-	</span>
+		</div>
+	</div>
 </article>

@@ -20,15 +20,19 @@ class Porto_Elementor_Products_Filter_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Products Filter', 'porto-functionality' );
+		return __( 'Porto Products Filter', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'products', 'filter', 'select', 'price', 'category', 'attribute', 'woocommerce' );
+	}
+
+	public function get_icon() {
+		return 'eicon-filter';
 	}
 
 	protected function _register_controls() {

@@ -60,7 +60,7 @@ $output .= ob_get_clean();
 $output .= '</div>';
 
 if ( 2 !== (int) $columns && 'grid' == $view ) {
-	$output = str_replace( '<ul class="product_list_widget has-ccols ccols-2">', '<ul class="product_list_widget ' . esc_attr( function_exists( 'porto_generate_column_classes' ) ? porto_generate_column_classes( $columns ) : '' ) . '">', $output );
+	$output = str_replace( '<ul class="product_list_widget has-ccols ccols-2">', '<ul class="product_list_widget has-ccols ' . esc_attr( function_exists( 'porto_generate_column_classes' ) ? porto_generate_column_classes( $columns ) : '' ) . '">', $output );
 } elseif ( 'products-slider' == $view ) {
 	if ( function_exists( 'porto_generate_column_classes' ) ) {
 		$options = porto_generate_column_classes( $columns, true );

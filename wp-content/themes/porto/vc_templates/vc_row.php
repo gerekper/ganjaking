@@ -96,10 +96,13 @@ if ( 'yes' === $disable_element ) {
 	}
 }
 
-if ( ! $wrap_container && ! empty( $atts['gap'] ) ) {
+if ( ! $wrap_container && ! empty( $atts['gap'] ) && empty( $no_padding ) ) {
 	$css_classes[] = 'vc_column-gap-' . $atts['gap'];
 }
 
+if ( ! empty( $is_main_header ) ) {
+	$css_classes[] = 'header-main';
+}
 if ( $parallax && $parallax_image ) {
 	if ( $is_section ) {
 		$css_classes[] .= 'section';
@@ -374,6 +377,8 @@ if ( ! $parallax && $has_video_bg ) {
 }
 if ( $wrap_container ) {
 	$css_classes[] = 'porto-inner-container';
+} elseif ( is_rtl() && ! empty( $rtl_reverse ) ) {
+	$css_classes[] = 'flex-row-reverse';
 }
 
 // lazy load background image
@@ -421,7 +426,7 @@ if ( $wrap_container ) {
 		'top'    => 'align-items-start',
 		'bottom' => 'align-items-end',
 	);
-	$output             .= '<div class="porto-wrap-container container"><div class="row' . ( $content_placement ? ' ' . $align_items_cls_arr[ $content_placement ] : '' ) . ( ! empty( $atts['gap'] ) ? ' vc_column-gap-' . esc_attr( $atts['gap'] ) : '' ) . '">';
+	$output             .= '<div class="porto-wrap-container container"><div class="row' . ( empty( $atts['gap'] ) || ! vc_is_inline() ? '' : ' vc_row' ) . ( $content_placement ? ' ' . $align_items_cls_arr[ $content_placement ] : '' ) . ( ! empty( $atts['gap'] ) && empty( $no_padding ) ? ' vc_column-gap-' . esc_attr( $atts['gap'] ) : '' ) . ( ! empty( $rtl_reverse ) && is_rtl() ? ' flex-row-reverse' : '' ) . '">';
 }
 
 if ( $is_sticky ) {

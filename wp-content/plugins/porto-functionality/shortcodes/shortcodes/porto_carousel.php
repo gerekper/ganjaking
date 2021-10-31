@@ -3,10 +3,6 @@
 // Porto Carousel
 add_action( 'vc_after_init', 'porto_load_carousel_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_carousel_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -18,6 +14,7 @@ function porto_load_carousel_shortcode() {
 			'name'            => 'Porto ' . __( 'Carousel', 'porto-functionality' ),
 			'base'            => 'porto_carousel',
 			'category'        => __( 'Porto', 'porto-functionality' ),
+			'description'     => __( 'A multiple page slider', 'porto-functionality' ),
 			'icon'            => 'fas fa-ellipsis-h',
 			'as_parent'       => array( 'except' => 'porto_carousel' ),
 			'content_element' => true,
@@ -72,34 +69,10 @@ function porto_load_carousel_shortcode() {
 					),
 				),
 				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Items on Large Desktop', 'porto-functionality' ),
-					'param_name' => 'items',
-					'value'      => 6,
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Items on Desktop', 'porto-functionality' ),
-					'param_name' => 'items_lg',
-					'value'      => 4,
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Items on Tablet', 'porto-functionality' ),
-					'param_name' => 'items_md',
-					'value'      => 3,
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Items on Mobile', 'porto-functionality' ),
-					'param_name' => 'items_sm',
-					'value'      => 2,
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Items on Mini', 'porto-functionality' ),
-					'param_name' => 'items_xs',
-					'value'      => 1,
+					'type'       => 'porto_number',
+					'heading'    => __( 'Items', 'porto-functionality' ),
+					'param_name' => 'items_responsive',
+					'responsive' => true,
 				),
 				array(
 					'type'       => 'checkbox',

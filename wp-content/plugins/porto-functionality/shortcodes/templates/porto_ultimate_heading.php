@@ -16,6 +16,7 @@ if ( ! function_exists( 'porto_ultimate_heading_spacer' ) ) {
 				'main_heading_font_family'     => '',
 				'main_heading_font_size'       => '',
 				'main_heading_font_weight'     => '',
+				'main_heading_text_transform'  => '',
 				'main_heading_line_height'     => '',
 				'main_heading_letter_spacing'  => '',
 				'main_heading_color'           => '',
@@ -36,6 +37,10 @@ if ( ! function_exists( 'porto_ultimate_heading_spacer' ) ) {
 				'line_color'                   => '#ccc',
 				'alignment'                    => 'center',
 				'spacer_margin_bottom'         => '',
+				'enable_typewriter'            => false,
+				'typewriter_animation'         => 'fadeIn',
+				'typewriter_delay'             => 0,
+				'typewriter_width'             => 0,
 				'heading_tag'                  => '',
 				'animation_type'               => '',
 				'animation_duration'           => '',
@@ -56,6 +61,30 @@ if ( ! function_exists( 'porto_ultimate_heading_spacer' ) ) {
 		}
 	}
 
+	if ( ! empty( $shortcode_class ) ) {
+		if ( empty( $el_class ) ) {
+			$el_class = $shortcode_class;
+		} else {
+			$el_class .= ' ' . $shortcode_class;
+		}
+	}
+	$type_plugin = '';
+	if ( ! empty( $enable_typewriter ) ) {
+		$typewriter_options = array(
+			'startDelay'     => 0,
+			'minWindowWidth' => 0,
+		);
+		if ( ! empty( $typewriter_delay ) ) {
+			$typewriter_options['startDelay'] = (int) $typewriter_delay;
+		}
+		if ( ! empty( $typewriter_width ) ) {
+			$typewriter_options['minWindowWidth'] = (int) $typewriter_width;
+		}
+		if ( ! empty( $typewriter_animation ) ) {
+			$typewriter_options['animationName'] = $typewriter_animation;
+		}
+		$type_plugin .= ' data-plugin-animated-letters data-plugin-options="' . esc_attr( json_encode( $typewriter_options ) ) . '"';
+	}
 	if ( is_array( $line_height ) && isset( $line_height['size'] ) ) {
 		$line_height = $line_height['size'];
 	}
@@ -67,15 +96,17 @@ if ( ! function_exists( 'porto_ultimate_heading_spacer' ) ) {
 	if ( '' == $heading_tag ) {
 		$heading_tag = 'h2';
 	}
-	if ( ( ! isset( $atts['main_heading_use_theme_fonts'] ) || 'yes' !== $atts['main_heading_use_theme_fonts'] ) && $main_heading_font ) {
-		$google_fonts_data          = porto_sc_parse_google_font( $main_heading_font );
-		$styles                     = porto_sc_google_font_styles( $google_fonts_data );
-		$main_heading_style_inline .= esc_attr( $styles );
-	} elseif ( $main_heading_font_family ) {
-		$main_heading_style_inline .= 'font-family:' . esc_attr( $main_heading_font_family ) . ';';
-	}
-	if ( $main_heading_font_weight ) {
-		$main_heading_style_inline .= 'font-weight:' . esc_attr( $main_heading_font_weight ) . ';';
+	if ( empty( $atts['main_heading_porto_typography'] ) ) {
+		if ( ( ! isset( $atts['main_heading_use_theme_fonts'] ) || 'yes' !== $atts['main_heading_use_theme_fonts'] ) && $main_heading_font ) {
+			$google_fonts_data          = porto_sc_parse_google_font( $main_heading_font );
+			$styles                     = porto_sc_google_font_styles( $google_fonts_data );
+			$main_heading_style_inline .= esc_attr( $styles );
+		} elseif ( $main_heading_font_family ) {
+			$main_heading_style_inline .= 'font-family:' . esc_attr( $main_heading_font_family ) . ';';
+		}
+		if ( $main_heading_font_weight ) {
+			$main_heading_style_inline .= 'font-weight:' . esc_attr( $main_heading_font_weight ) . ';';
+		}
 	}
 	if ( $main_heading_color ) {
 		$main_heading_style_inline .= 'color:' . esc_attr( $main_heading_color ) . ';';
@@ -88,12 +119,14 @@ if ( ! function_exists( 'porto_ultimate_heading_spacer' ) ) {
 		$main_heading_style_inline .= 'margin-bottom: ' . esc_attr( $main_heading_margin_bottom ) . ';';
 	}
 
-	if ( ( ! isset( $atts['sub_heading_use_theme_fonts'] ) || 'yes' !== $atts['sub_heading_use_theme_fonts'] ) && $sub_heading_font ) {
-		$google_fonts_data1        = porto_sc_parse_google_font( $sub_heading_font );
-		$styles                    = porto_sc_google_font_styles( $google_fonts_data1 );
-		$sub_heading_style_inline .= esc_attr( $styles );
-	} elseif ( $sub_heading_font_family ) {
-		$sub_heading_style_inline .= 'font-family: ' . esc_attr( $sub_heading_font_family ) . ';';
+	if ( empty( $atts['sub_heading_porto_typography'] ) ) {
+		if ( ( ! isset( $atts['sub_heading_use_theme_fonts'] ) || 'yes' !== $atts['sub_heading_use_theme_fonts'] ) && $sub_heading_font ) {
+			$google_fonts_data1        = porto_sc_parse_google_font( $sub_heading_font );
+			$styles                    = porto_sc_google_font_styles( $google_fonts_data1 );
+			$sub_heading_style_inline .= esc_attr( $styles );
+		} elseif ( $sub_heading_font_family ) {
+			$sub_heading_style_inline .= 'font-family: ' . esc_attr( $sub_heading_font_family ) . ';';
+		}
 	}
 
 	// enqueue google fonts
@@ -107,9 +140,10 @@ if ( ! function_exists( 'porto_ultimate_heading_spacer' ) ) {
 	if ( ! empty( $google_fonts_arr ) ) {
 		porto_sc_enqueue_google_fonts( $google_fonts_arr );
 	}
-
-	if ( $sub_heading_font_weight ) {
-		$sub_heading_style_inline .= 'font-weight:' . esc_attr( $sub_heading_font_weight ) . ';';
+	if ( empty( $atts['sub_heading_porto_typography'] ) ) {
+		if ( $sub_heading_font_weight ) {
+			$sub_heading_style_inline .= 'font-weight:' . esc_attr( $sub_heading_font_weight ) . ';';
+		}
 	}
 	if ( $sub_heading_color ) {
 		$sub_heading_style_inline .= 'color: ' . esc_attr( $sub_heading_color ) . ';';
@@ -160,41 +194,46 @@ if ( ! function_exists( 'porto_ultimate_heading_spacer' ) ) {
 		}
 		$icon_inline = '<img src="' . esc_url( $icon_inline ) . '" class="ultimate-headings-icon-image" alt="' . esc_attr( $alt ) . '" style="' . esc_attr( $spacer_inline ) . '"/>';
 	}
-
-	if ( $main_heading_font_size ) {
-		$unit = trim( preg_replace( '/[0-9.]/', '', $main_heading_font_size ) );
-		if ( ! $unit ) {
-			$main_heading_font_size .= 'px';
+	if ( empty( $atts['main_heading_porto_typography'] ) ) {
+		if ( $main_heading_font_size ) {
+			$unit = trim( preg_replace( '/[0-9.]/', '', $main_heading_font_size ) );
+			if ( ! $unit ) {
+				$main_heading_font_size .= 'px';
+			}
+			$main_heading_style_inline .= 'font-size:' . $main_heading_font_size . ';';
 		}
-		$main_heading_style_inline .= 'font-size:' . esc_attr( $main_heading_font_size ) . ';';
-	}
-	if ( $main_heading_line_height ) {
-		$unit = trim( preg_replace( '/[0-9.]/', '', $main_heading_line_height ) );
-		if ( ! $unit && (int) $main_heading_line_height > 3 ) {
-			$main_heading_line_height .= 'px';
+		if ( $main_heading_text_transform ) {
+			$main_heading_style_inline .= 'text-transform:' . $main_heading_text_transform . ';';
 		}
-		$main_heading_style_inline .= 'line-height:' . esc_attr( $main_heading_line_height ) . ';';
-	}
-	if ( $main_heading_letter_spacing ) {
-		$main_heading_style_inline .= 'letter-spacing:' . esc_attr( $main_heading_letter_spacing ) . ';';
-	}
-
-	if ( $sub_heading_font_size ) {
-		$unit = trim( preg_replace( '/[0-9.]/', '', $sub_heading_font_size ) );
-		if ( ! $unit ) {
-			$sub_heading_font_size .= 'px';
+		if ( $main_heading_line_height ) {
+			$unit = trim( preg_replace( '/[0-9.]/', '', $main_heading_line_height ) );
+			if ( ! $unit && (int) $main_heading_line_height > 3 ) {
+				$main_heading_line_height .= 'px';
+			}
+			$main_heading_style_inline .= 'line-height:' . $main_heading_line_height . ';';
 		}
-		$sub_heading_style_inline .= 'font-size:' . esc_attr( $sub_heading_font_size ) . ';';
-	}
-	if ( $sub_heading_line_height ) {
-		$unit = trim( preg_replace( '/[0-9.]/', '', $sub_heading_line_height ) );
-		if ( ! $unit && (int) $sub_heading_line_height > 3 ) {
-			$sub_heading_line_height .= 'px';
+		if ( $main_heading_letter_spacing ) {
+			$main_heading_style_inline .= 'letter-spacing:' . $main_heading_letter_spacing . ';';
 		}
-		$sub_heading_style_inline .= 'line-height:' . esc_attr( $sub_heading_line_height ) . ';';
 	}
-	if ( $sub_heading_letter_spacing ) {
-		$sub_heading_style_inline .= 'letter-spacing:' . esc_attr( $sub_heading_letter_spacing ) . ';';
+	if ( empty( $atts['sub_heading_porto_typography'] ) ) {
+		if ( $sub_heading_font_size ) {
+			$unit = trim( preg_replace( '/[0-9.]/', '', $sub_heading_font_size ) );
+			if ( ! $unit ) {
+				$sub_heading_font_size .= 'px';
+			}
+			$sub_heading_style_inline .= 'font-size:' . $sub_heading_font_size . ';';
+		}
+		if ( $sub_heading_line_height ) {
+			$unit = trim( preg_replace( '/[0-9.]/', '', $sub_heading_line_height ) );
+			if ( ! $unit && (int) $sub_heading_line_height > 3 ) {
+				$sub_heading_line_height .= 'px';
+			}
+			$sub_heading_style_inline .= 'line-height:' . $sub_heading_line_height . ';';
+		}
+		if ( $sub_heading_letter_spacing ) {
+			$sub_heading_style_inline .= 'letter-spacing:' . $sub_heading_letter_spacing . ';';
+		}
 	}
 
 	if ( is_rtl() && 'left' === $alignment ) {
@@ -225,7 +264,7 @@ if ( ! function_exists( 'porto_ultimate_heading_spacer' ) ) {
 		if ( $main_heading_style_inline ) {
 			$main_heading_attrs_escaped .= ' style="' . esc_attr( $main_heading_style_inline ) . '"';
 		}
-		$output .= '<div class="porto-u-main-heading"><' . esc_html( $heading_tag ) . $main_heading_attrs_escaped . '>' . wp_kses_post( $main_heading ) . '</' . esc_html( $heading_tag ) . '></div>';
+		$output .= '<div class="porto-u-main-heading"><' . esc_html( $heading_tag ) . ' ' . trim( $type_plugin ) . ' ' . $main_heading_attrs_escaped . '>' . wp_kses_post( $main_heading ) . '</' . esc_html( $heading_tag ) . '></div>';
 	}
 	if ( 'middle' == $spacer_position && 'no_spacer' != $spacer ) {
 		$output .= porto_ultimate_heading_spacer( $wrapper_class, $wrapper_style, $icon_inline );

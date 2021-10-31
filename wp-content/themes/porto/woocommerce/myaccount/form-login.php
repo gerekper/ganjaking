@@ -71,7 +71,7 @@ function print_porto_social_login() {
 				<div class="u-column1 col-1">
 
 			<?php endif; ?>
-					<form class="woocommerce-form woocommerce-form-login login <?php echo false === $lightbox && 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ? 'pr-lg-4 pr-0' : ''; ?>" method="post">
+					<form class="woocommerce-form woocommerce-form-login login <?php echo false === $lightbox && 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ? 'pr-lg-4 pe-0' : ''; ?>" method="post">
 						<h3 class="account-sub-title mb-2 font-weight-bold text-capitalize text-v-dark"><?php esc_html_e( 'Login', 'woocommerce' ); ?></h3>
 						<?php do_action( 'woocommerce_login_form_start' ); ?>
 						<?php if ( true == $lightbox ) : ?>
@@ -126,7 +126,7 @@ function print_porto_social_login() {
 
 				</div>
 				<div class="u-column2 col-2">
-					<form method="post" class="woocommerce-form woocommerce-form-register register pl-lg-4 pr-0" <?php do_action( 'woocommerce_register_form_tag' ); ?> >
+					<form method="post" class="woocommerce-form woocommerce-form-register register pl-lg-4 pe-0" <?php do_action( 'woocommerce_register_form_tag' ); ?> >
 						<h3 class="account-sub-title mb-2 font-weight-bold"><?php esc_html_e( 'Register', 'woocommerce' ); ?></h3>
 						<?php do_action( 'woocommerce_register_form_start' ); ?>
 

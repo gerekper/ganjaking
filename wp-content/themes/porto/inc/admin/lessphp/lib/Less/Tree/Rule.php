@@ -22,14 +22,14 @@ class Less_Tree_Rule extends Less_Tree {
 	 * @param string $important
 	 */
 	public function __construct( $name, $value = null, $important = null, $merge = null, $index = null, $currentFileInfo = null, $inline = false ) {
-		$this->name            = $name;
-		$this->value           = ( $value instanceof Less_Tree_Value || $value instanceof Less_Tree_Ruleset ) ? $value : new Less_Tree_Value( array( $value ) );
-		$this->important       = $important ? ' ' . trim( $important ) : '';
-		$this->merge           = $merge;
-		$this->index           = $index;
+		$this->name = $name;
+		$this->value = ( $value instanceof Less_Tree_Value || $value instanceof Less_Tree_Ruleset ) ? $value : new Less_Tree_Value( array( $value ) );
+		$this->important = $important ? ' ' . trim( $important ) : '';
+		$this->merge = $merge;
+		$this->index = $index;
 		$this->currentFileInfo = $currentFileInfo;
-		$this->inline          = $inline;
-		$this->variable        = ( is_string( $name ) && $name[0] === '@' );
+		$this->inline = $inline;
+		$this->variable = ( is_string( $name ) && $name[0] === '@' );
 	}
 
 	public function accept( $visitor ) {
@@ -40,21 +40,19 @@ class Less_Tree_Rule extends Less_Tree {
 	 * @see Less_Tree::genCSS
 	 */
 	public function genCSS( $output ) {
-
 		$output->add( $this->name . Less_Environment::$_outputMap[': '], $this->currentFileInfo, $this->index );
-		try {
+		try{
 			$this->value->genCSS( $output );
 
-		} catch ( Less_Exception_Parser $e ) {
-			$e->index       = $this->index;
+		}catch ( Less_Exception_Parser $e ) {
+			$e->index = $this->index;
 			$e->currentFile = $this->currentFileInfo;
 			throw $e;
 		}
-		$output->add( $this->important . ( ( $this->inline || ( Less_Environment::$lastRule && Less_Parser::$options['compress'] ) ) ? '' : ';' ), $this->currentFileInfo, $this->index );
+		$output->add( $this->important . ( ( $this->inline || ( Less_Environment::$lastRule && Less_Parser::$options['compress'] ) ) ? "" : ";" ), $this->currentFileInfo, $this->index );
 	}
 
 	public function compile( $env ) {
-
 		$name = $this->name;
 		if ( is_array( $name ) ) {
 			// expand 'primitive' name directly to get
@@ -67,27 +65,28 @@ class Less_Tree_Rule extends Less_Tree {
 		}
 
 		$strictMathBypass = Less_Parser::$options['strictMath'];
-		if ( $name === 'font' && ! Less_Parser::$options['strictMath'] ) {
+		if ( $name === "font" && !Less_Parser::$options['strictMath'] ) {
 			Less_Parser::$options['strictMath'] = true;
 		}
 
 		try {
 			$evaldValue = $this->value->compile( $env );
 
-			if ( ! $this->variable && $evaldValue->type === 'DetachedRuleset' ) {
-				throw new Less_Exception_Compiler( 'Rulesets cannot be evaluated on a property.', null, $this->index, $this->currentFileInfo );
+			if ( !$this->variable && $evaldValue->type === "DetachedRuleset" ) {
+				throw new Less_Exception_Compiler( "Rulesets cannot be evaluated on a property.", null, $this->index, $this->currentFileInfo );
 			}
 
 			if ( Less_Environment::$mixin_stack ) {
 				$return = new Less_Tree_Rule( $name, $evaldValue, $this->important, $this->merge, $this->index, $this->currentFileInfo, $this->inline );
 			} else {
-				$this->name  = $name;
+				$this->name = $name;
 				$this->value = $evaldValue;
-				$return      = $this;
+				$return = $this;
 			}
-		} catch ( Less_Exception_Parser $e ) {
-			if ( ! is_numeric( $e->index ) ) {
-				$e->index       = $this->index;
+
+		}catch ( Less_Exception_Parser $e ) {
+			if ( !is_numeric( $e->index ) ) {
+				$e->index = $this->index;
 				$e->currentFile = $this->currentFileInfo;
 			}
 			throw $e;
@@ -97,7 +96,6 @@ class Less_Tree_Rule extends Less_Tree {
 
 		return $return;
 	}
-
 
 	public function CompileName( $env, $name ) {
 		$output = new Less_Output();

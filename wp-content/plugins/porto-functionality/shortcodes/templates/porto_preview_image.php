@@ -29,7 +29,7 @@ if ( ! $image_url && $image_id ) {
 $image_url = str_replace( array( 'http:', 'https:' ), '', $image_url );
 
 if ( $image_url ) {
-	wp_enqueue_script( 'jquery-lazyload' );
+	wp_enqueue_script( 'lazyload' );
 
 	$output = '<div class="porto-preview-image ' . esc_attr( $el_class ) . '">';
 

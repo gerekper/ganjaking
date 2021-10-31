@@ -631,6 +631,17 @@ article {
     }
 }
 
+.post-item.style-4 {
+    .thumb-info-side-image {
+        @media (max-width: 480px) {
+            .thumb-info-side-image-wrapper {
+                display: inline-block;
+                float: none
+            }
+        }
+    }
+}
+
 .post-item-small {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -731,15 +742,13 @@ article {
             display: -ms-flexbox; display: flex;
             -ms-flex-align: center; align-items: center;
             .post-image {
-                max-width: 34%;
-                -ms-flex: 0 0 34%;
-                flex: 0 0 34%;
+                flex: 0 0 auto;
+                width: 34%;
                 margin-bottom: 0;
             }
             .post-item-content {
-                 -ms-flex: 0 0 66%;
-                flex: 0 0 66%;
-                max-width: 66%;
+                flex: 0 0 auto;
+                width: 66%;
                 padding-#{$left}: 4%;
             }
         }

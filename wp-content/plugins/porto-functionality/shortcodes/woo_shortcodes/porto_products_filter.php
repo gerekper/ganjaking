@@ -3,10 +3,6 @@
 // Porto Widget Woo Products
 add_shortcode( 'porto_products_filter', 'porto_shortcode_products_filter' );
 add_action( 'vc_after_init', 'porto_load_shortcode_products_filter' );
-
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
 
 function porto_shortcode_products_filter( $atts, $content = null ) {
 	ob_start();
@@ -40,9 +36,10 @@ function porto_load_shortcode_products_filter() {
 			'description' => __( 'Display a list of select boxes to filter products by category, price or attributes.', 'porto-functionality' ),
 			'params'      => array(
 				array(
-					'type'        => 'checkbox',
+					'type'        => 'porto_multiselect',
 					'heading'     => __( 'Filter Areas', 'porto-functionality' ),
 					'param_name'  => 'filter_areas',
+					'std'         => '',
 					'value'       => array_merge(
 						array(
 							__( 'Category', 'porto-functionality' ) => 'category',
@@ -81,8 +78,8 @@ function porto_load_shortcode_products_filter() {
 					'heading'    => __( 'Display type', 'woocommerce' ),
 					'param_name' => 'display_type',
 					'value'      => array(
-						__( 'Dropdown', 'woocommerce' )   => '',
-						__( 'List', 'woocommerce' )       => 'list',
+						__( 'Dropdown', 'woocommerce' ) => '',
+						__( 'List', 'woocommerce' )     => 'list',
 					),
 				),
 				array(

@@ -1,0 +1,19 @@
+@if $elementId != false {
+	.single-excerpt-$elementId {
+		@if $excerptFontSize != false {
+			font-size: $excerptFontSize;
+		}
+		@if $excerptFontWeight != false {
+			font-weight: $excerptFontWeight;
+		}
+		@if $excerptLineHeight != false {
+			line-height: $excerptLineHeight;
+		}
+		@if $excerptLetterSpacing != false {
+			letter-spacing: $excerptLetterSpacing;
+		}
+		@if $spExcerptColor != false {
+			color: $spExcerptColor;
+		}
+	}
+}

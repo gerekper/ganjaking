@@ -1,0 +1,80 @@
+/* Generals */
+.editor-styles-wrapper {
+	overflow-x: hidden;
+	box-sizing: border-box;
+	ul, ol {
+		box-sizing: inherit
+	}
+}
+body .editor-styles-wrapper {
+	font: var(--porto-body-fs, 14px)/var(--porto-body-lh, 1.7142) var(--porto-body-ff), sans-serif;
+	font-weight: var(--porto-body-fw, 400);
+	letter-spacing: var(--porto-body-ls, normal);
+	color: var(--porto-body-color, #777);
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+body .editor-styles-wrapper h1, body .editor-styles-wrapper h2, body .editor-styles-wrapper h3, body .editor-styles-wrapper h4, body .editor-styles-wrapper h5, body .editor-styles-wrapper h6 {
+	margin-top: 0;
+	margin-bottom: 1rem
+}
+
+body .editor-styles-wrapper h1 {
+	font: var(--porto-h1-fs, 36px)/var(--porto-h1-lh, 1.4) var(--porto-h1-ff, var(--porto-body-ff)), sans-serif;
+	font-weight: var(--porto-h1-fw, 700);
+	color: var(--porto-h1-color, #222529);
+}
+body .editor-styles-wrapper h2 {
+	font: var(--porto-h2-fs, 36px)/var(--porto-h2-lh, 1.4) var(--porto-h2-ff, var(--porto-body-ff)), sans-serif;
+	font-weight: var(--porto-h2-fw, 700);
+	color: var(--porto-h2-color, #222529);
+}
+body .editor-styles-wrapper h3 {
+	font: var(--porto-h3-fs, 36px)/var(--porto-h3-lh, 1.4) var(--porto-h3-ff, var(--porto-body-ff)), sans-serif;
+	font-weight: var(--porto-h3-fw, 700);
+	color: var(--porto-h3-color, #222529);
+}
+body .editor-styles-wrapper h4 {
+	font: var(--porto-h4-fs, 36px)/var(--porto-h4-lh, 1.4) var(--porto-h4-ff, var(--porto-body-ff)), sans-serif;
+	font-weight: var(--porto-h4-fw, 700);
+	color: var(--porto-h4-color, #222529);
+}
+body .editor-styles-wrapper h5 {
+	font: var(--porto-h5-fs, 36px)/var(--porto-h5-lh, 1.4) var(--porto-h5-ff, var(--porto-body-ff)), sans-serif;
+	font-weight: var(--porto-h5-fw, 700);
+	color: var(--porto-h5-color, #222529);
+}
+body .editor-styles-wrapper h6 {
+	font: var(--porto-h6-fs, 36px)/var(--porto-h6-lh, 1.4) var(--porto-h6-ff, var(--porto-body-ff)), sans-serif;
+	font-weight: var(--porto-h6-fw, 700);
+	color: var(--porto-h6-color, #222529);
+}
+body .editor-styles-wrapper p {
+	margin-top: 0;
+	margin-bottom: 1em;
+}
+
+.porto-column, .pricing-table-classic.spaced [class*="col-lg-"], ul.products .product-col, .grid-creative > .post, .vc_section {
+	padding-left: var(--porto-column-spacing, 10px);
+	padding-right: var(--porto-column-spacing, 10px);
+}
+
+/* colors */
+.background-color-primary { background-color: var(--porto-skin-color) !important }
+.background-color-secondary { background-color: var(--porto-secondary-color) !important }
+.background-color-tertiary { background-color: var(--porto-tertiary-color) !important }
+.background-color-quaternary { background-color: var(--porto-quaternary-color) !important }
+.background-color-dark { background-color: var(--porto-dark-color) !important }
+.background-color-light { background-color: var(--porto-light-color) !important }
+
+.text-color-primary, .heading-primary { color: var(--porto-skin-color) !important }
+.text-color-secondary, .heading-secondary { color: var(--porto-secondary-color) !important }
+.text-color-tertiary, .heading-tertiary { color: var(--porto-tertiary-color) !important }
+.text-color-quaternary { color: var(--porto-quaternary-color) !important }
+.text-color-dark, .heading-dark { color: var(--porto-dark-color) !important }
+.text-color-light, .heading-light { color: var(--porto-light-color) !important }
+
+.editor-styles-wrapper a { color: var(--porto-skin-color); text-decoration: none; pointer-events: none; }
+.editor-styles-wrapper .iris-palette { pointer-events: auto }
+

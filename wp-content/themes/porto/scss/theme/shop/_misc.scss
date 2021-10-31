@@ -48,7 +48,7 @@
     li:before {
         content: "\f071";
         margin-#{$right}: 0.5rem;
-        color: var(--danger);
+        color: var(--bs-danger);
         font-size: 23px;
         font-family: 'Font Awesome 5 Free';
         font-weight: 900;
@@ -59,7 +59,7 @@
     color: #6d1a17;
     &:before {
         content: "\f071";
-        color: var(--danger);
+        color: var(--bs-danger);
     }
 }
 .woocommerce-message, .dokan-message {
@@ -80,6 +80,14 @@
 }
 
 /* Shop Table */
+dl.variation {
+    margin-bottom: 0;
+    font-size: .625rem;
+    text-transform: uppercase;
+    p {
+        font-size: inherit
+    }
+}
 .shop_table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -87,18 +95,12 @@
     margin-bottom: 1em;
 
     a { 
-        color: #777; 
+        color: inherit; /*#777; */
         text-decoration: none;
     }
 
     a:not(.button):hover { 
-        color: var(--primary);
-    }
-
-    dl.variation {
-        margin-bottom: 0;
-        font-size: .625rem;
-        text-transform: uppercase;
+        color: var(--bs-primary);
     }
 
     dt, dd {
@@ -108,7 +110,7 @@
     }
 
     dd p {
-        font-size: inherit;
+        font-size: inherit
     }
 
     th {
@@ -150,7 +152,7 @@
     &.responsive {
         @media #{$screen-medium} {
             border: 1px solid #e7e7e7;
-            border-top: 4px solid var(--primary);
+            border-top: 4px solid var(--bs-primary);
             box-shadow: 0 2px 4px 0px rgba(0,0,0,0.05);
             thead {
                 display: none;

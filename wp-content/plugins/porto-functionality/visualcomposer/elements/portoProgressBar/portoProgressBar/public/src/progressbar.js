@@ -6,23 +6,24 @@
     if (typeof $elements == "undefined") {
         $elements = $(".porto-vc-progressbar");
     }
-    $elements.each(function() {
-      if (window.theme && theme.appear) {
-        theme.appear(this, function() {
-          var $el = $(this).find('.progress-bar'),
-            obj = $el.get(0),
-            delay = ($el.attr('data-appear-animation-delay') ? $el.attr('data-appear-animation-delay') : 0);
-          if (delay) {
-            obj.style.transitionDelay = delay + 'ms';
-          }
-          obj.style.width = $el.attr('data-appear-progress-animation');
-          $el.find('.progress-bar-tooltip').css('transition-delay', Number(delay) + 500 + 'ms').css('opacity', 1);
-        }, {
-          accX: 0,
-          accY: -120
-        });
-      }
-    });
+    if (window.theme && window.theme.intObs) {
+      theme.intObs(jQuery.makeArray($elements), function() {
+        var obj = this.get(0).querySelector('.progress-bar');
+        if (!obj) {
+          return;
+        }
+        var delay = obj.getAttribute('data-appear-animation-delay');
+        if (delay) {
+          obj.style.transitionDelay = delay + 'ms';
+        }
+        obj.style.width = obj.getAttribute('data-appear-progress-animation');
+        var tooltipObj = obj.querySelector('.progress-bar-tooltip');
+        if (tooltipObj) {
+          tooltipObj.style.transitionDelay = Number(delay) + 500 + 'ms';
+          tooltipObj.style.opacity = 1;
+        }
+      }, -80);
+    }
   };
 
   vcv.on('ready', function (action, id, options) {

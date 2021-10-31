@@ -1012,7 +1012,7 @@
    * @returns {Array.<String>} - The invalidated parts.
    */
   Owl.prototype.invalidate = function(part) {
-    if ($.type(part) === 'string') {
+    if (typeof part === 'string') {
       this._invalidated[part] = true;
       this.is('valid') && this.leave('valid');
     }
@@ -2083,7 +2083,7 @@
     // Autoresize the height of the carousel when window is resized
     // When carousel has images, the height is dependent on the width
     // and should also change on resize
-    $(window).resize(function() {
+    $(window).on('resize', function() {
       if (refThis._core.settings.autoHeight) {
         if (refThis._intervalId != null) {
           clearTimeout(refThis._intervalId);

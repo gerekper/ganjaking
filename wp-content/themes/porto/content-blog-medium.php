@@ -39,7 +39,7 @@ if ( in_array( 'like', $porto_settings['post-metas'] ) ) {
 	$post_meta .= '<span class="meta-like">' . porto_blog_like() . '</span>';
 }
 
-	$post_meta .= '<span class="d-block float-sm-right mt-3 mt-sm-0"><a class="btn btn-xs btn-default text-xs text-uppercase" href="' . esc_url( apply_filters( 'the_permalink', get_permalink() ) ) . '">' . esc_html__( 'Read more...', 'porto' ) . '</a></span>';
+	$post_meta .= '<span class="d-block float-sm-end mt-3 mt-sm-0"><a class="btn btn-xs btn-default text-xs text-uppercase" href="' . esc_url( apply_filters( 'the_permalink', get_permalink() ) ) . '">' . esc_html__( 'Read more...', 'porto' ) . '</a></span>';
 $post_meta     .= '</div>';
 
 ?>

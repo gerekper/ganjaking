@@ -49,7 +49,7 @@ if ( typeof Object.create !== 'function' ) {
                 self.refresh( 1 );
 
                 //Create the image swap from the gallery 
-                $('#'+self.options.gallery + ' a').click( function(e) { 
+                $('#'+self.options.gallery + ' a').on('click', function(e) { 
                     //Set a class on the currently active gallery image
                     if(self.options.galleryActiveClass){
                         $('#'+self.options.gallery + ' a').removeClass(self.options.galleryActiveClass);
@@ -229,7 +229,7 @@ if ( typeof Object.create !== 'function' ) {
                 if(self.options.zoomType != "inner") {
                     self.zoomLens = $("<div class='zoomLens' style='" + self.lensStyle + self.lensRound +"'>&nbsp;</div>")
                     .appendTo(self.zoomContainer)
-                    .click(function () {
+                    .on('click', function () {
                         self.$elem.trigger('click');
                     });
 
@@ -241,7 +241,7 @@ if ( typeof Object.create !== 'function' ) {
                         //if tint enabled - set an image to show over the tint
                         self.zoomTintImage = $('<img style="position: absolute; left: 0px; top: 0px; max-width: none; width: '+self.nzWidth+'px; height: '+self.nzHeight+'px;" src="'+self.imageSrc+'">')
                         .appendTo(self.zoomLens)
-                        .click(function () {
+                        .on('click', function () {
                             self.$elem.trigger('click');
                         });
                     }
@@ -251,13 +251,13 @@ if ( typeof Object.create !== 'function' ) {
                 if(isNaN(self.options.zoomWindowPosition)){
                     self.zoomWindow = $("<div style='z-index:999;left:"+(self.windowOffsetLeft)+"px;top:"+(self.windowOffsetTop)+"px;" + self.zoomWindowStyle + "' class='zoomWindow'>&nbsp;</div>")
                     .appendTo(self.$container)
-                    .click(function () {
+                    .on('click', function () {
                         self.$elem.trigger('click');
                     });
                 }else{
                     self.zoomWindow = $("<div style='z-index:999;left:"+(self.windowOffsetLeft)+"px;top:"+(self.windowOffsetTop)+"px;" + self.zoomWindowStyle + "' class='zoomWindow'>&nbsp;</div>")
                     .appendTo(self.zoomContainer)
-                    .click(function () {
+                    .on('click', function () {
                         self.$elem.trigger('click');
                     });
                 }
@@ -280,13 +280,13 @@ if ( typeof Object.create !== 'function' ) {
 
                 /*-------------------END THE ZOOM WINDOW AND LENS----------------------------------*/
                 //touch events
-                self.$elem.bind('touchmove', function(e){
+                self.$elem.on('touchmove', function(e){
                     e.preventDefault();
                     var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];  
                     self.setPosition(touch);
                 });
 
-                self.zoomContainer.bind('touchmove', function(e){ 
+                self.zoomContainer.on('touchmove', function(e){ 
                     if(self.options.zoomType == "inner") {
                         self.showHideWindow("show");
                     }
@@ -295,26 +295,26 @@ if ( typeof Object.create !== 'function' ) {
                     self.setPosition(touch);
                 });
 
-                self.zoomContainer.bind('touchend', function(e){
+                self.zoomContainer.on('touchend', function(e){
                     self.showHideWindow("hide");
                     if(self.options.showLens) {self.showHideLens("hide");}
                     if(self.options.tint && self.options.zoomType != "inner") {self.showHideTint("hide");}
                 });
 
-                self.$elem.bind('touchend', function(e){
+                self.$elem.on('touchend', function(e){
                     self.showHideWindow("hide");
                     if(self.options.showLens) {self.showHideLens("hide");}
                     if(self.options.tint && self.options.zoomType != "inner") {self.showHideTint("hide");}
                 });
 
                 if(self.options.showLens) {
-                    self.zoomLens.bind('touchmove', function(e){
+                    self.zoomLens.on('touchmove', function(e){
                         e.preventDefault();
                         var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];  
                         self.setPosition(touch);
                     });
 
-                    self.zoomLens.bind('touchend', function(e){ 
+                    self.zoomLens.on('touchend', function(e){ 
                         self.showHideWindow("hide");
                         if(self.options.showLens) {self.showHideLens("hide");}
                         if(self.options.tint && self.options.zoomType != "inner") {self.showHideTint("hide");}
@@ -322,7 +322,7 @@ if ( typeof Object.create !== 'function' ) {
                 }
 
                 //Needed to work in IE
-                self.$elem.bind('mousemove', function(e){
+                self.$elem.on('mousemove', function(e){
                     if(self.overWindow == false){self.setElements("show");}
                     //make sure on orientation change the setposition is not fired
                     if(self.lastX !== e.clientX || self.lastY !== e.clientY){
@@ -333,7 +333,7 @@ if ( typeof Object.create !== 'function' ) {
                     self.lastY = e.clientY;
                 });
 
-                self.zoomContainer.bind('mousemove', function(e){ 
+                self.zoomContainer.on('mousemove', function(e){ 
                     if(self.overWindow == false){self.setElements("show");}
                     //make sure on orientation change the setposition is not fired 
                     if(self.lastX !== e.clientX || self.lastY !== e.clientY){
@@ -345,7 +345,7 @@ if ( typeof Object.create !== 'function' ) {
                 });
 
                 if(self.options.zoomType != "inner") {
-                    self.zoomLens.bind('mousemove', function(e){
+                    self.zoomLens.on('mousemove', function(e){
                         //make sure on orientation change the setposition is not fired
                         if(self.lastX !== e.clientX || self.lastY !== e.clientY){
                             self.setPosition(e);
@@ -357,7 +357,7 @@ if ( typeof Object.create !== 'function' ) {
                 }
 
                 if(self.options.tint && self.options.zoomType != "inner") {
-                    self.zoomTint.bind('mousemove', function(e){ 
+                    self.zoomTint.on('mousemove', function(e){ 
                         //make sure on orientation change the setposition is not fired
                         if(self.lastX !== e.clientX || self.lastY !== e.clientY){
                             self.setPosition(e);
@@ -369,7 +369,7 @@ if ( typeof Object.create !== 'function' ) {
                 }
 
                 if(self.options.zoomType == "inner") {
-                    self.zoomWindow.bind('mousemove', function(e) {
+                    self.zoomWindow.on('mousemove', function(e) {
                         //self.overWindow = true;
                         //make sure on orientation change the setposition is not fired
                         if(self.lastX !== e.clientX || self.lastY !== e.clientY){
@@ -382,9 +382,9 @@ if ( typeof Object.create !== 'function' ) {
                 }
 
                 // lensFadeOut: 500,  zoomTintFadeIn
-                self.zoomContainer.add(self.$elem).mouseenter(function(){
+                self.zoomContainer.add(self.$elem).on('mouseenter', function(){
                     if(self.overWindow == false){self.setElements("show");} 
-                }).mouseleave(function(){
+                }).on('mouseleave', function(){
                     if(!self.scrollLock){
                         self.setElements("hide");
                     }
@@ -392,10 +392,10 @@ if ( typeof Object.create !== 'function' ) {
 
                 //end ove image
                 if(self.options.zoomType != "inner") {
-                    self.zoomWindow.mouseenter(function(){
+                    self.zoomWindow.on('mouseenter', function(){
                         self.overWindow = true;
                         self.setElements("hide");
-                    }).mouseleave(function(){
+                    }).on('mouseleave', function(){
                         self.overWindow = false;
                     });
                 }
@@ -418,7 +418,7 @@ if ( typeof Object.create !== 'function' ) {
                 }
 
                 if(self.options.scrollZoom){
-                    self.zoomContainer.add(self.$elem).bind('mousewheel DOMMouseScroll MozMousePixelScroll', function(e){
+                    self.zoomContainer.add(self.$elem).on('mousewheel DOMMouseScroll MozMousePixelScroll', function(e){
 //                      in IE there is issue with firing of mouseleave - So check whether still scrolling
 //                      and on mouseleave check if scrolllock
                         self.scrollLock = true;

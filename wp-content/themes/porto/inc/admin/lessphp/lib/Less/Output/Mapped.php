@@ -39,66 +39,66 @@ class Less_Output_Mapped extends Less_Output {
 	/**
 	 * Constructor
 	 *
-	 * @param array                    $contentsMap Array of filename to contents map
+	 * @param array $contentsMap Array of filename to contents map
 	 * @param Less_SourceMap_Generator $generator
 	 */
 	public function __construct( array $contentsMap, $generator ) {
 		$this->contentsMap = $contentsMap;
-		$this->generator   = $generator;
+		$this->generator = $generator;
 	}
 
 	/**
 	 * Adds a chunk to the stack
 	 * The $index for less.php may be different from less.js since less.php does not chunkify inputs
 	 *
-	 * @param string  $chunk
-	 * @param string  $fileInfo
+	 * @param string $chunk
+	 * @param string $fileInfo
 	 * @param integer $index
-	 * @param mixed   $mapLines
+	 * @param mixed $mapLines
 	 */
 	public function add( $chunk, $fileInfo = null, $index = 0, $mapLines = null ) {
-
 		// ignore adding empty strings
 		if ( $chunk === '' ) {
 			return;
 		}
 
-		$sourceLines   = array();
+		$sourceLines = array();
 		$sourceColumns = ' ';
 
 		if ( $fileInfo ) {
 
 			$url = $fileInfo['currentUri'];
 
-			if ( isset( $this->contentsMap[ $url ] ) ) {
-				$inputSource   = substr( $this->contentsMap[ $url ], 0, $index );
-				$sourceLines   = explode( "\n", $inputSource );
+			if ( isset( $this->contentsMap[$url] ) ) {
+				$inputSource = substr( $this->contentsMap[$url], 0, $index );
+				$sourceLines = explode( "\n", $inputSource );
 				$sourceColumns = end( $sourceLines );
 			} else {
-				throw new Exception( 'Filename ' . $url . ' not in contentsMap' );
+				throw new Exception( 'Filename '.$url.' not in contentsMap' );
 			}
+
 		}
 
-		$lines   = explode( "\n", $chunk );
+		$lines = explode( "\n", $chunk );
 		$columns = end( $lines );
 
 		if ( $fileInfo ) {
 
-			if ( ! $mapLines ) {
+			if ( !$mapLines ) {
 				$this->generator->addMapping(
-					$this->lineNumber + 1,                  // generated_line
-					$this->column,                          // generated_column
-					count( $sourceLines ),                    // original_line
-					strlen( $sourceColumns ),                 // original_column
-					$fileInfo
+						$this->lineNumber + 1,					// generated_line
+						$this->column,							// generated_column
+						count( $sourceLines ),					// original_line
+						strlen( $sourceColumns ),					// original_column
+						$fileInfo
 				);
 			} else {
 				for ( $i = 0, $count = count( $lines ); $i < $count; $i++ ) {
 					$this->generator->addMapping(
-						$this->lineNumber + $i + 1,             // generated_line
-						$i === 0 ? $this->column : 0,           // generated_column
-						count( $sourceLines ) + $i,               // original_line
-						$i === 0 ? strlen( $sourceColumns ) : 0,  // original_column
+						$this->lineNumber + $i + 1,				// generated_line
+						$i === 0 ? $this->column : 0,			// generated_column
+						count( $sourceLines ) + $i,				// original_line
+						$i === 0 ? strlen( $sourceColumns ) : 0, 	// original_column
 						$fileInfo
 					);
 				}
@@ -109,7 +109,7 @@ class Less_Output_Mapped extends Less_Output {
 			$this->column += strlen( $columns );
 		} else {
 			$this->lineNumber += count( $lines ) - 1;
-			$this->column      = strlen( $columns );
+			$this->column = strlen( $columns );
 		}
 
 		// add only chunk

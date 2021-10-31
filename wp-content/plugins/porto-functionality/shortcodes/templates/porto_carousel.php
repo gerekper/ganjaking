@@ -7,6 +7,15 @@ if ( ! empty( $atts['nav_pos2'] ) && empty( $atts['nav_pos'] ) ) {
 }
 
 $output = $stage_padding = $margin = $autoplay = $autoplay_timeout = $autoplay_hover_pause = $items = $items_lg = $items_md = $items_sm = $items_xs = $show_nav = $show_nav_hover = $nav_pos = $nav_type = $show_dots = $dots_pos = $dots_align = $animate_in = $animate_out = $loop = $center = $video = $lazyload = $merge = $mergeFit = $mergeFit_lg = $mergeFit_md = $mergeFit_sm = $animation_type = $animation_duration = $animation_delay = $el_class = '';
+
+if ( ! empty( $atts['items_responsive'] ) ) {
+	$atts['items_responsive'] = json_decode( str_replace( '``', '"', $atts['items_responsive'] ), true );
+	$atts['items']            = empty( $atts['items_responsive']['xl'] ) ? 6 : $atts['items_responsive']['xl'];
+	$atts['items_lg']         = empty( $atts['items_responsive']['lg'] ) ? min( 4, $atts['items'] ) : $atts['items_responsive']['lg'];
+	$atts['items_md']         = empty( $atts['items_responsive']['md'] ) ? min( 3, $atts['items_lg'] ) : $atts['items_responsive']['md'];
+	$atts['items_sm']         = empty( $atts['items_responsive']['sm'] ) ? min( 2, $atts['items_md'] ) : $atts['items_responsive']['sm'];
+	$atts['items_xs']         = empty( $atts['items_responsive']['xs'] ) ? min( 1, $atts['items_sm'] ) : $atts['items_responsive']['xs'];
+}
 extract(
 	shortcode_atts(
 		array(

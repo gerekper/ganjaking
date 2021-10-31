@@ -115,10 +115,10 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 				'handler' => array( $this, 'porto_speed_optimize_wizard_revslider_save' ),
 			);
 
-			$this->steps['lazyload'] = array(
-				'name'    => esc_html__( 'Lazy Load', 'porto' ),
-				'view'    => array( $this, 'porto_speed_optimize_wizard_lazyload' ),
-				'handler' => array( $this, 'porto_speed_optimize_wizard_lazyload_save' ),
+			$this->steps['performance'] = array(
+				'name'    => esc_html__( 'Performance', 'porto' ),
+				'view'    => array( $this, 'porto_speed_optimize_wizard_performance' ),
+				'handler' => array( $this, 'porto_speed_optimize_wizard_performance_save' ),
 			);
 
 			$this->steps['general'] = array(
@@ -239,25 +239,18 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 				<h1 class="screen-reader-text"><?php esc_html_e( 'Speed Optimize Wizard', 'porto' ); ?></h1>
 			</div>
 			<div class="porto-setup-wizard porto-speed-optimize-wizard wrap">
-				<h2 class="porto-admin-nav">
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto' ) ); ?>"><?php esc_html_e( 'Dashboard', 'porto' ); ?></a>
-					<a href="<?php echo esc_url( admin_url( 'themes.php?page=porto_settings' ) ); ?>"><?php esc_html_e( 'Theme Options', 'porto' ); ?></a>
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto-setup-wizard' ) ); ?>"><?php esc_html_e( 'Setup Wizard', 'porto' ); ?></a>
-					<a href="#" class="active nolink"><?php esc_html_e( 'Speed Optimize Wizard', 'porto' ); ?></a>
-				</h2>
-				<header class="porto-setup-wizard-header d-flex justify-between">
-					<div class="header-left">
-						<h2><?php esc_html_e( 'Speed Optimize Wizard', 'porto' ); ?></h2>
-						<h6><?php esc_html_e( 'This Speed Optimize Wizard is introduced to optimize all resources that are unnecessary for your site content.', 'porto' ); ?></h6>
-					</div>
-					<div class="header-right">
-						<div class="porto-logo">
-							<img src="<?php echo PORTO_URI . '/images/logo/logo_white_small.png'; ?>" alt="">
-							<span class="version"><?php printf( esc_html__( 'version %s', 'porto' ), PORTO_VERSION ); ?></span>
-						</div>
-					</div>
-				</header>
-				<?php $this->setup_wizard_steps(); ?>
+			<?php
+				porto_get_template_part(
+					'inc/admin/admin_pages/header',
+					null,
+					array(
+						'active_item' => 'optimize_wizard',
+						'title'       => __( 'Speed Optimize Wizard', 'porto' ),
+						'subtitle'    => __( 'This Speed Optimize Wizard is introduced to optimize all resources that are unnecessary for your site content.', 'porto' ),
+					)
+				);
+				$this->setup_wizard_steps();
+			?>
 				<main>
 					<aside class="<?php echo ! $this->step ? '' : $this->step; ?>"></aside>
 					<section>
@@ -282,8 +275,8 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 			<p class="lead" style="font-size: 14px;"><?php esc_html_e( 'This Speed Optimize Wizard is introduced to optimize all resources that are unnecessary for your site content. We experienced many customers asking to remove unused resources as customers use certain feature from bunch of Porto features. Each steps have enough description about how it works. Some options may occur some conflicts if your site is still in development progress, we recommend you to enable all options once site development is completed.', 'porto' ); ?></p>
 			<p class="light"><em><i class="fas fa-info-circle"></i> <?php esc_html_e( 'No time right now?', 'porto' ); ?></em> <?php esc_html_e( "If you don't want to go through the wizard, you can skip and return to the WordPress dashboard. Come back anytime if you change your mind!", 'porto' ); ?></p>
 			<p class="porto-setup-actions step">
-				<a href="<?php echo esc_url( wp_get_referer() && ! strpos( wp_get_referer(), 'update.php' ) ? wp_get_referer() : admin_url( '' ) ); ?>" class="btn btn-borders"><i class="fas fa-chevron-left mr-2"></i><?php esc_html_e( 'Not right now', 'porto' ); ?></a>
-				<a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="btn btn-primary button-next"><?php esc_html_e( "Let's Go!", 'porto' ); ?><i class="fas fa-chevron-right ml-2"></i></a>
+				<a href="<?php echo esc_url( wp_get_referer() && ! strpos( wp_get_referer(), 'update.php' ) ? wp_get_referer() : admin_url( '' ) ); ?>" class="btn btn-borders"><i class="fas fa-chevron-left me-2"></i><?php esc_html_e( 'Not right now', 'porto' ); ?></a>
+				<a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="btn btn-primary button-next"><?php esc_html_e( "Let's Go!", 'porto' ); ?><i class="fas fa-chevron-right ms-2"></i></a>
 			</p>
 			<?php
 		}
@@ -330,7 +323,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 				<ul class="shortcode_list"></ul>
 				<p class="porto-setup-actions step">
 					<a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="btn btn-dark button-next"><?php esc_html_e( 'Skip this step', 'porto' ); ?></a>
-					<button type="submit" name="save_step" class="btn btn-primary button-next" disabled="disabled" value="<?php esc_attr_e( 'Compile & Continue', 'porto' ); ?>"><?php esc_html_e( 'Compile & Continue', 'porto' ); ?><i class="fas fa-chevron-right ml-2"></i></button>
+					<button type="submit" name="save_step" class="btn btn-primary button-next" disabled="disabled" value="<?php esc_attr_e( 'Compile & Continue', 'porto' ); ?>"><?php esc_html_e( 'Compile & Continue', 'porto' ); ?><i class="fas fa-chevron-right ms-2"></i></button>
 					<?php wp_nonce_field( 'porto-speed-optimize' ); ?>
 				</p>
 			</form>
@@ -440,7 +433,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 				<p></p>
 				<p class="porto-setup-actions step">
 					<a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="btn btn-dark button-next"><?php esc_html_e( 'Skip this step', 'porto' ); ?></a>
-					<button type="submit" name="save_step" class="btn btn-primary button-next" value="<?php esc_attr_e( 'Save & Continue', 'porto' ); ?>"><?php esc_html_e( 'Save & Continue', 'porto' ); ?><i class="fas fa-chevron-right ml-2"></i></button>
+					<button type="submit" name="save_step" class="btn btn-primary button-next" value="<?php esc_attr_e( 'Save & Continue', 'porto' ); ?>"><?php esc_html_e( 'Save & Continue', 'porto' ); ?><i class="fas fa-chevron-right ms-2"></i></button>
 					<?php wp_nonce_field( 'porto-speed-optimize' ); ?>
 				</p>
 			</form>
@@ -474,7 +467,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 		public function porto_speed_optimize_wizard_general() {
 			global $porto_settings_optimize, $porto_settings;
 			?>
-			<h2><?php esc_html_e( 'General', 'porto' ); ?></h2>
+			<h2><?php esc_html_e( 'Other Minify', 'porto' ); ?></h2>
 			<p class="lead"><?php esc_html_e( 'This will help you to set up general optimization settings such as follows.', 'porto' ); ?></p>
 			<form action="" method="post">
 				<ul>
@@ -487,10 +480,10 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 					<li>
 						<label class="checkbox checkbox-inline">
 							<?php /* translators: $1: opening A tag which has link to the Google Webfont loader docs $2: closing A tag */ ?>
-							<input type="checkbox" value="true" name="google_webfont" <?php echo isset( $porto_settings['google-webfont-loader'] ) ? checked( $porto_settings['google-webfont-loader'], true, false ) : ''; ?>> <?php printf( esc_html__( 'Enable %1$sWeb Font Loader%2$s for Google Fonts', 'porto' ), '<a href="https://developers.google.com/fonts/docs/webfont_loader" target="_blank">', '</a>' ); ?>
+							<input type="checkbox" value="true" name="google_webfont" <?php echo isset( $porto_settings['google-webfont-loader'] ) ? checked( $porto_settings['google-webfont-loader'], true, false ) : ''; ?>> <?php printf( esc_html__( 'Enable %1$sWeb Font Loader%2$s for Google Fonts', 'porto' ), '<a href="https://developers.google.com/fonts/docs/webfont_loader" target="_blank" rel="noopener noreferrer">', '</a>' ); ?>
 						</label>
 						<?php /* translators: $1: opening A tag which has link to the Google PageSpeed Insights $2: closing A tag */ ?>
-						<p><?php printf( esc_html__( 'By using this option, you can increase page speed about 4 percent in %1$sGoogle PageSpeed Insights%2$s for both of mobile and desktop.', 'porto' ), '<a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank">', '</a>' ); ?></p>
+						<p><?php printf( esc_html__( 'By using this option, you can increase page speed about 4 percent in %1$sGoogle PageSpeed Insights%2$s for both of mobile and desktop.', 'porto' ), '<a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener noreferrer">', '</a>' ); ?></p>
 					</li>
 					<li>
 						<label class="checkbox checkbox-inline">
@@ -509,6 +502,18 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 							<input type="checkbox" value="true" name="optimize_gutenberg" <?php echo isset( $porto_settings_optimize['optimize_gutenberg'] ) ? checked( $porto_settings_optimize['optimize_gutenberg'], true, false ) : ''; ?>> <?php esc_html_e( 'Dequeue Gutenberg block syle', 'porto' ); ?>
 						</label>
 						<p><?php esc_html_e( 'By using this option, Gutenberg block styles will not be enqueued if they were not used in the site. This will reduce around 150KB ~ 200KB of page size.', 'porto' ); ?></p>
+					</li>
+					<li>
+						<label class="checkbox checkbox-inline">
+							<input type="checkbox" value="true" name="optimize_emojis" <?php echo isset( $porto_settings_optimize['optimize_emojis'] ) ? checked( $porto_settings_optimize['optimize_emojis'], true, false ) : ''; ?>> <?php esc_html_e( 'Dequeue Emojis Script', 'porto' ); ?>
+						</label>
+						<p><?php esc_html_e( 'By using this option, you can remove WordPress\' emojis script.', 'porto' ); ?></p>
+					</li>
+					<li>
+						<label class="checkbox checkbox-inline">
+							<input type="checkbox" value="true" name="optimize_migrate" <?php echo isset( $porto_settings_optimize['optimize_migrate'] ) ? checked( $porto_settings_optimize['optimize_migrate'], true, false ) : ''; ?>> <?php esc_html_e( 'Disable jQuery Migrate Script', 'porto' ); ?>
+						</label>
+						<p><?php esc_html_e( 'By using this option, you can disable jQuery migrate script. Please use this option if you are not using any deprecated jQuery code.', 'porto' ); ?></p>
 					</li>
 					<li>
 						<h4><?php esc_html_e( 'Disable Unused Content Types', 'porto' ); ?></h4>
@@ -551,7 +556,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 				</ul>
 				<p class="porto-setup-actions step">
 					<a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="btn btn-dark button-next"><?php esc_html_e( 'Skip this step', 'porto' ); ?></a>
-					<button type="submit" name="save_step" class="btn btn-primary button-next" value="<?php esc_attr_e( 'Compile & Continue', 'porto' ); ?>"><?php esc_html_e( 'Compile & Continue', 'porto' ); ?><i class="fas fa-chevron-right ml-2"></i></button>
+					<button type="submit" name="save_step" class="btn btn-primary button-next" value="<?php esc_attr_e( 'Compile & Continue', 'porto' ); ?>"><?php esc_html_e( 'Compile & Continue', 'porto' ); ?><i class="fas fa-chevron-right ms-2"></i></button>
 					<?php wp_nonce_field( 'porto-speed-optimize' ); ?>
 				</p>
 			</form>
@@ -664,6 +669,18 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 				$porto_settings_optimize['optimize_gutenberg'] = false;
 			}
 
+			// check emojis and jQuery migrate
+			if ( isset( $_POST['optimize_emojis'] ) && 'true' == $_POST['optimize_emojis'] ) {
+				$porto_settings_optimize['optimize_emojis'] = true;
+			} else {
+				$porto_settings_optimize['optimize_emojis'] = false;
+			}
+			if ( isset( $_POST['optimize_migrate'] ) && 'true' == $_POST['optimize_migrate'] ) {
+				$porto_settings_optimize['optimize_migrate'] = true;
+			} else {
+				$porto_settings_optimize['optimize_migrate'] = false;
+			}
+
 			update_option( 'porto_settings_optimize', $porto_settings_optimize );
 
 			wp_redirect( esc_url_raw( $this->get_next_step_link() ) );
@@ -673,40 +690,86 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 		/**
 		 * Lazy Load Images Step
 		 */
-		public function porto_speed_optimize_wizard_lazyload() {
+		public function porto_speed_optimize_wizard_performance() {
 			global $porto_settings_optimize;
 			?>
-			<h2><?php esc_html_e( 'Lazy Load', 'porto' ); ?></h2>
-			<p class="lead"><?php esc_html_e( 'Enable lazy loading images and menu.', 'porto' ); ?></p>
+			<h2><?php esc_html_e( 'Performance', 'porto' ); ?></h2>
+			<p class="lead"><?php esc_html_e( 'Controls several performance options.', 'porto' ); ?></p>
 			<form action="" method="post">
+				<label><?php esc_html_e( 'WordPress JPG Quality', 'porto' ); ?></label>
+				<input type="number" name="jpg_quality" placeholder="82" value="<?php echo isset( $porto_settings_optimize['jpg_quality'] ) ? esc_attr( $porto_settings_optimize['jpg_quality'] ) : ''; ?>" min="1" max="100">
+				<p>
+					<?php esc_html_e( 'This option controls the quality of the generated images by WordPress. Please use Regenerate Thumbnails to regenerate image files after changing this value.', 'porto' ); ?>
+				</p>
+
+				<label><?php esc_html_e( 'WordPress Max Image Size (width or height)', 'porto' ); ?></label>
+				<input type="number" name="max_image_size" placeholder="2560" value="<?php echo isset( $porto_settings_optimize['max_image_size'] ) ? esc_attr( $porto_settings_optimize['max_image_size'] ) : ''; ?>" min="0" max="30000">
+				<p>
+					<?php esc_html_e( 'This option sets the threshold for image width or height. Please use "0" value to disable the threshold.', 'porto' ); ?>
+				</p>
+
 				<label class="checkbox checkbox-inline">
 					<input type="checkbox" value="true" name="lazyload" <?php echo isset( $porto_settings_optimize['lazyload'] ) ? checked( $porto_settings_optimize['lazyload'], true, false ) : ''; ?>> <?php esc_html_e( 'Lazy Load Images', 'porto' ); ?>
 				</label>
 				<p><em><i class="fas fa-info-circle"></i></em> <?php esc_html_e( 'Use with caution! Disable this option if you have any compability problems.', 'porto' ); ?></p>
 				<label><?php esc_html_e( 'Lazy Load Sub Menus', 'porto' ); ?></label>
 				<p>
-					<label class="radio radio-inline mr-2">
+					<label class="radio radio-inline me-2">
 						<input type="radio" name="lazyload_menu" value="" <?php echo checked( ! isset( $porto_settings_optimize['lazyload_menu'] ) || ! $porto_settings_optimize['lazyload_menu'], true, false ); ?>><?php esc_html_e( 'Disable', 'porto' ); ?>
 					</label>
-					<label class="radio radio-inline mr-2">
+					<label class="radio radio-inline me-2">
 						<input type="radio" name="lazyload_menu" value="pageload" <?php echo checked( isset( $porto_settings_optimize['lazyload_menu'] ) && 'pageload' == $porto_settings_optimize['lazyload_menu'], true, false ); ?>><?php esc_html_e( 'After Page Loading', 'porto' ); ?>
 					</label>
 					<label class="radio radio-inline">
 						<input type="radio" name="lazyload_menu" value="firsthover" <?php echo checked( isset( $porto_settings_optimize['lazyload_menu'] ) && 'firsthover' == $porto_settings_optimize['lazyload_menu'], true, false ); ?>><?php esc_html_e( 'On First Hover', 'porto' ); ?>
 					</label>
 				</p>
+				<label><?php esc_html_e( 'Preload Icon Fonts', 'porto' ); ?></label>
+				<p style="margin-bottom: .5rem">
+					<?php /* translators: Google Page Speed url */ ?>
+					<?php printf( esc_html__( 'This improves page load time as the browser caches preloaded resources so they are available immediately when needed. By using this option, you can increase page speed about 1 ~ 4 percent in %1$sGoogle PageSpeed Insights%2$s for both of mobile and desktop.', 'porto' ), '<a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener noreferrer">', '</a>' ); ?>
+				</p>
+				<p>
+					<label class="checkbox checkbox-inline">
+						<input type="checkbox" value="porto" name="preload_fonts[]" <?php echo isset( $porto_settings_optimize['preload'] ) ? checked( in_array( 'porto', $porto_settings_optimize['preload'] ), true, false ) : ''; ?>> Porto
+					</label>&nbsp;
+					<label class="checkbox checkbox-inline">
+						<input type="checkbox" value="fas" name="preload_fonts[]" <?php echo isset( $porto_settings_optimize['preload'] ) ? checked( in_array( 'fas', $porto_settings_optimize['preload'] ), true, false ) : ''; ?>> <?php esc_html_e( 'Font Awesome 5 Solid', 'porto' ); ?>
+					</label>&nbsp;
+					<label class="checkbox checkbox-inline">
+						<input type="checkbox" value="far" name="preload_fonts[]" <?php echo isset( $porto_settings_optimize['preload'] ) ? checked( in_array( 'far', $porto_settings_optimize['preload'] ), true, false ) : ''; ?>> <?php esc_html_e( 'Font Awesome 5 Regular', 'porto' ); ?>
+					</label>&nbsp;
+					<label class="checkbox checkbox-inline">
+						<input type="checkbox" value="fab" name="preload_fonts[]" <?php echo isset( $porto_settings_optimize['preload'] ) ? checked( in_array( 'fab', $porto_settings_optimize['preload'] ), true, false ) : ''; ?>> <?php esc_html_e( 'Font Awesome 5 Brands', 'porto' ); ?>
+					</label>&nbsp;
+					<label class="checkbox checkbox-inline">
+						<input type="checkbox" value="sli" name="preload_fonts[]" <?php echo isset( $porto_settings_optimize['preload'] ) ? checked( in_array( 'sli', $porto_settings_optimize['preload'] ), true, false ) : ''; ?>> <?php esc_html_e( 'Simple Line Icons', 'porto' ); ?>
+					</label>&nbsp;
+					<br>
+					<br>
+					<label><?php esc_html_e( 'Please input other resources that will be pre loaded. Ex. https://www.portotheme.com/wordpress/porto/wp-content/themes/porto-child/fonts/custom.woff2.', 'porto' ); ?></label>
+					<textarea class="form-control input-text" name="preload_fonts_custom" style="width: 100%; margin-top: .5rem" rows="4" value="<?php echo isset( $porto_settings_optimize['preload_custom'] ) ? esc_attr( $porto_settings_optimize['preload_custom'] ) : ''; ?>"><?php echo isset( $porto_settings_optimize['preload_custom'] ) ? esc_html( $porto_settings_optimize['preload_custom'] ) : ''; ?></textarea>
+				</p>
 				<p class="porto-setup-actions step">
 					<a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="btn btn-dark button-next"><?php esc_html_e( 'Skip this step', 'porto' ); ?></a>
-					<button type="submit" name="save_step" class="btn btn-primary button-next" value="<?php esc_attr_e( 'Save & Continue', 'porto' ); ?>"><?php esc_html_e( 'Save & Continue', 'porto' ); ?><i class="fas fa-chevron-right ml-2"></i></button>
+					<button type="submit" name="save_step" class="btn btn-primary button-next" value="<?php esc_attr_e( 'Save & Continue', 'porto' ); ?>"><?php esc_html_e( 'Save & Continue', 'porto' ); ?><i class="fas fa-chevron-right ms-2"></i></button>
 					<?php wp_nonce_field( 'porto-speed-optimize' ); ?>
 				</p>
 			</form>
 			<?php
 		}
 
-		public function porto_speed_optimize_wizard_lazyload_save() {
+		public function porto_speed_optimize_wizard_performance_save() {
 			check_admin_referer( 'porto-speed-optimize' );
 			global $porto_settings_optimize;
+
+			if ( isset( $_POST['jpg_quality'] ) ) {
+				$porto_settings_optimize['jpg_quality'] = sanitize_text_field( $_POST['jpg_quality'] );
+			}
+			if ( isset( $_POST['max_image_size'] ) ) {
+				$porto_settings_optimize['max_image_size'] = sanitize_text_field( $_POST['max_image_size'] );
+			}
+
 			if ( isset( $_POST['lazyload'] ) && 'true' == $_POST['lazyload'] ) {
 				$porto_settings_optimize['lazyload'] = true;
 			} else {
@@ -720,6 +783,16 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 			if ( isset( $_POST['lazyload_menu'] ) ) {
 				$porto_settings_optimize['lazyload_menu'] = sanitize_title( $_POST['lazyload_menu'] );
 			}
+
+			if ( isset( $_POST['preload_fonts'] ) ) {
+				$porto_settings_optimize['preload'] = array_map( 'sanitize_text_field', $_POST['preload_fonts'] );
+			} else {
+				unset( $porto_settings_optimize['preload'] );
+			}
+			if ( isset( $_POST['preload_fonts_custom'] ) ) {
+				$porto_settings_optimize['preload_custom'] = sanitize_textarea_field( $_POST['preload_fonts_custom'] );
+			}
+
 			update_option( 'porto_settings_optimize', $porto_settings_optimize );
 			if ( $need_compile ) {
 				do_action( 'porto_admin_save_theme_settings' );
@@ -761,7 +834,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 							}
 							?>
 							<?php /* translators: %s: Plugin url and name */ ?>
-							<?php printf( __( $key . ' <a href="%s" target="_blank">%s</a>', 'porto' ), 'https://wordpress.org/plugins/' . esc_attr( $slug ) . '/', $plugin['name'] ); ?>
+							<?php printf( __( $key . ' <a href="%s" target="_blank" rel="noopener noreferrer">%s</a>', 'porto' ), 'https://wordpress.org/plugins/' . esc_attr( $slug ) . '/', $plugin['name'] ); ?>
 							<span></span>
 						</label>
 						<div class="spinner"></div>
@@ -774,14 +847,14 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 			<?php } ?>
 				<ul>
 					<li class="howto">
-						<a href="https://gtmetrix.com/leverage-browser-caching.html" target="_blank"><?php esc_html_e( 'How to enable leverage browser  caching.', 'porto' ); ?></a>
+						<a href="https://gtmetrix.com/leverage-browser-caching.html" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'How to enable leverage browser  caching.', 'porto' ); ?></a>
 						<p>Page load times can be significantly improved by asking visitors to save and reuse the files included in your website.</p>
 					</li>
 				</ul>
 
 				<p class="porto-setup-actions step">
 					<?php if ( count( $plugins['all'] ) ) : ?>
-						<a href="#" class="btn-primary btn button-next" data-callback="install_plugins"><?php esc_html_e( 'Install Plugins', 'porto' ); ?><i class="fas fa-chevron-right ml-2"></i></a>
+						<a href="#" class="btn-primary btn button-next" data-callback="install_plugins"><?php esc_html_e( 'Install Plugins', 'porto' ); ?><i class="fas fa-chevron-right ms-2"></i></a>
 					<?php endif; ?>
 					<?php wp_nonce_field( 'porto-setup' ); ?>
 					<a class="btn btn-borders" href="<?php echo esc_url( home_url() ); ?>"><?php esc_html_e( 'View your new website!', 'porto' ); ?></a>
@@ -1109,6 +1182,16 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 							}
 							if ( ! in_array( $shortcode, $used ) && ( stripos( $content, '[' . $shortcode . ' ' ) !== false || stripos( $content, 'wp:porto/' . str_replace( '_', '-', $shortcode ) ) !== false ) ) {
 								$used[] = $shortcode;
+
+								// check half container
+								if ( 'porto_container' == $shortcode ) {
+									$shortcode1 = 'porto_half_container';
+									$attr_text  = 'is_half="true"';
+									$attr_text1 = '"is_half":true';
+									if ( preg_match( '/\[' . $shortcode1 . '\s[^]]*' . $attr_text . '[^]]*\]/', $content ) || preg_match( '/wp:porto\/' . str_replace( '_', '-', $shortcode1 ) . '\s[^>]*' . $attr_text1 . '[^>]*\>/', $content ) ) {
+										$used[] = $shortcode1;
+									}
+								}
 							}
 						}
 						$shortcode_list = array_diff( $shortcode_list, $used );
@@ -1136,22 +1219,31 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 						'porto_countdown',
 						'porto_google_map',
 						'porto_hotspot',
+						'porto_steps',
 					);
 					$widgets = array_diff( $widgets, $used );
 					foreach ( $widgets as $widget ) {
 						$post_ids = $wpdb->get_col( 'SELECT post_id FROM ' . $wpdb->postmeta . ' as meta left join ' . $wpdb->posts . ' as posts on meta.post_id = posts.ID WHERE posts.post_type not in ("revision", "attachment") AND posts.post_status = "publish" and meta_key = "_elementor_data" and meta_value LIKE \'%"widgetType":"' . $widget . '"%\' LIMIT 1' );
 						if ( ! empty( $post_ids ) ) {
-							$used[] = $widget;
+							if ( 'porto_steps' == $widget ) {
+								$used[] = 'porto_schedule_timeline_item';
+							} else {
+								$used[] = $widget;
+							}
 						}
 					}
 
 					$params = array(
-						'porto_interactive_banner'       => array( 'as_param' => 'banner' ),
-						'porto_interactive_banner_layer' => array( 'as_banner_layer' => 'yes' ),
-						'porto_grid_container'           => array( 'as_param' => 'creative' ),
-						'porto_grid_item'                => array( 'as_param' => 'grid_item' ),
+						array( 'porto_interactive_banner', array( 'as_param' => 'banner' ) ),
+						array( 'porto_interactive_banner_layer', array( 'as_banner_layer' => 'yes' ) ),
+						array( 'porto_grid_container', array( 'as_param' => 'creative' ) ),
+						array( 'porto_grid_item', array( 'as_param' => 'grid_item' ) ),
+						array( 'porto_interactive_banner', array( 'as_banner_layer' => 'banner' ) ),
+						array( 'porto_interactive_banner_layer', array( 'as_banner_layer' => 'banner' ) ),
 					);
-					foreach ( $params as $key => $param_arr ) {
+					foreach ( $params as $p ) {
+						$key       = $p[0];
+						$param_arr = $p[1];
 						if ( in_array( $key, $used ) ) {
 							continue;
 						}
@@ -1179,6 +1271,7 @@ if ( ! class_exists( 'Porto_Speed_Optimize_Wizard' ) ) {
 						'porto_ultimate_heading'         => 'porto-u-heading',
 						'vc_progress_bar'                => 'porto-vc-progressbar',
 						'vc_tabs'                        => 'vce-tab tabs',
+						'porto_fancytext'                => 'word-rotator ',
 					);
 					foreach ( $widgets as $widget => $cls ) {
 						if ( in_array( $widget, $used ) ) {

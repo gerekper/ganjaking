@@ -144,7 +144,6 @@
         margin-#{$left}: -11px;
         margin-#{$right}: 6px;
         font-size: .45rem;
-        opacity: .7;
         vertical-align: middle;
     }
     &:hover:before {
@@ -551,4 +550,9 @@
 
 .widget-recent-portfolios .portfolio-item {
     margin-bottom: 1rem
+}
+.wp-block-search .wp-block-search__button {
+    &:hover, &:active {
+        color: #fff;
+    }
 }

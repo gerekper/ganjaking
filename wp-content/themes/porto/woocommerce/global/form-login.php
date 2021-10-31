@@ -51,7 +51,7 @@ if ( is_user_logged_in() ) {
 					<?php esc_html_e( 'Remember me', 'porto' ); ?>
 				</label>
 			</div>
-			<p class="lost_password d-inline-block ml-3">
+			<p class="lost_password d-inline-block ms-3">
 				<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Lost your password?', 'porto' ); ?></a>
 			</p>
 

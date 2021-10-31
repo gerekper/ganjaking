@@ -2,10 +2,6 @@
 // Porto interactive_banner
 add_action( 'vc_after_init', 'porto_load_interactive_banner_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_interactive_banner_shortcode() {
 
 	$animation_type     = porto_vc_animation_type();
@@ -49,13 +45,21 @@ function porto_load_interactive_banner_shortcode() {
 				),
 				array(
 					'type'        => 'textfield',
-					'heading'     => __( 'Video Banner Url', 'porto-functionality' ),
+					'heading'     => __( 'Video Banner Url (mp4, ogg, webm, Youtube or Vimeo url)', 'porto-functionality' ),
 					'param_name'  => 'banner_video',
-					'dependency'  => array(
-						'element' => 'banner_image',
-						'value'   => array( '' ),
+					'description' => __( 'Banner Image is used as a poster.', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'checkbox',
+					'param_name' => 'enable_sound',
+					'heading'    => __( 'Enable Sound?', 'porto-functionality' ),
+					'value'      => array(
+						__( 'Enable Sound?', 'porto-functionality' ) => 'yes',
 					),
-					'description' => __( 'Please input mp4 video url.', 'porto-functionality' ),
+					'dependency'  => array(
+						'element'   => 'banner_video',
+						'not_empty' => true,
+					),
 				),
 				array(
 					'type'       => 'colorpicker',
@@ -76,9 +80,10 @@ function porto_load_interactive_banner_shortcode() {
 					'param_name' => 'min_height',
 				),
 				array(
-					'type'        => 'checkbox',
-					'param_name'  => 'add_container',
-					'value'       => array(
+					'type'       => 'checkbox',
+					'param_name' => 'add_container',
+					'heading'    => __( 'Add Container', 'porto-functionality' ),
+					'value'      => array(
 						__( 'Add Container', 'porto-functionality' ) => 'yes',
 					),
 				),
@@ -87,6 +92,40 @@ function porto_load_interactive_banner_shortcode() {
 					'heading'     => __( 'Parallax', 'porto-functionality' ),
 					'param_name'  => 'parallax',
 					'description' => __( 'Enter parallax speed ratio if you want to use parallax effect. (Note: Default value is 1.5, min value is 1. Leave empty if you don\'t want.)', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'dropdown',
+					'heading'    => esc_html__( 'Banner Effect', 'porto-functionality' ),
+					'param_name' => 'banner_effect',
+					'value'      => array(
+						esc_html__( 'None', 'porto-functionality' ) => 'none',
+						esc_html__( 'kenBurnsToRight', 'porto-functionality' ) => 'kenBurnsToRight',
+						esc_html__( 'kenBurnsToLeft', 'porto-functionality' ) => 'kenBurnsToLeft',
+						esc_html__( 'kenBurnsToLeftTop', 'porto-functionality' ) => 'kenBurnsToLeftTop',
+						esc_html__( 'kenBurnsToRightTop', 'porto-functionality' ) => 'kenBurnsToRightTop',
+					),
+					'std'        => 'none',
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => esc_html__( 'Banner Effect Duration(s)', 'porto-functionality' ),
+					'param_name' => 'effect_duration',
+					'std'        => '30',
+					'dependency' => array(
+						'element' => 'banner_effect',
+						'value_not_equal_to' => 'none',
+					),
+				),
+				array(
+					'type'       => 'dropdown',
+					'heading'    => esc_html__( 'Particle Effect', 'porto-functionality' ),
+					'param_name' => 'particle_effect',
+					'value'      => array(
+						esc_html__( 'None', 'porto-functionality' )     => '',
+						esc_html__( 'Snowfall', 'porto-functionality' ) => 'snowfall',
+						esc_html__( 'Sparkle', 'porto-functionality' )  => 'sparkle',
+					),
+					'std'        => '',
 				),
 				array(
 					'type'        => 'textfield',
@@ -108,7 +147,6 @@ function porto_load_interactive_banner_shortcode() {
 					'group'       => 'Deprecated',
 				),
 				$custom_class,
-
 				array(
 					'type'       => 'dropdown',
 					'class'      => '',
@@ -121,6 +159,10 @@ function porto_load_interactive_banner_shortcode() {
 						__( 'Content Fade Out', 'porto-functionality' ) => 'fadeout',
 						__( 'Add Overlay', 'porto-functionality' ) => 'overlay',
 						__( 'Add Box Shadow', 'porto-functionality' ) => 'boxshadow',
+						__( 'Effect 1', 'porto-functionality' ) => 'effect-1',
+						__( 'Effect 2', 'porto-functionality' ) => 'effect-2',
+						__( 'Effect 3', 'porto-functionality' ) => 'effect-3',
+						__( 'Effect 4', 'porto-functionality' ) => 'effect-4',
 					),
 					'group'      => 'Hover',
 				),

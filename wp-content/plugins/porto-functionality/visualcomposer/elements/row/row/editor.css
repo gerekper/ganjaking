@@ -1,0 +1,15 @@
+/* ----------------------------------------------
+ * Row
+ * ---------------------------------------------- */
+ .vce-col {
+	min-width: 10%;
+ }
+
+
+.vce-col.vce-col--md-flex-1:nth-last-child(2) .vce-col-content {
+	justify-content: flex-end;
+}
+
+.vce-col.vce-col--md-flex-1:nth-child(3):not(:nth-last-child(2)) .vce-col-content {
+	justify-content: center;
+}

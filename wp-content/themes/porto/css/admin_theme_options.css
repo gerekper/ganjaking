@@ -78,8 +78,8 @@
 .wp-admin .redux-sidebar .redux-group-menu li.activeChild.hasSubSections .active a:after,
 .wp-admin .redux-sidebar .redux-group-menu li.active.hasSubSections a:after { border-width: 10px 8px; margin-top: -10px; z-index: 1 }
 
-.redux-group-tab[data-rel="18"] tr, .redux-group-tab[data-rel="18"] td { display: block; }
-.redux-group-tab[data-rel="18"] td { margin-top: -30px; }
+.redux-group-tab[data-rel="20"] tr, .redux-group-tab[data-rel="20"] td { display: block; }
+.redux-group-tab[data-rel="20"] td { margin-top: -30px; }
 .form-table th { vertical-align: middle;  }
 
 .rtl .redux-container .button, .rtl .redux-container .button-primary, .rtl .redux-container .button-secondary { margin-right: 0; margin-left: .75rem }

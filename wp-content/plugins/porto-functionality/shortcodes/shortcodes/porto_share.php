@@ -14,7 +14,7 @@ function porto_load_share_shortcode() {
 			'class'                   => 'porto_share',
 			'icon'                    => 'fas fa-share-alt',
 			'category'                => __( 'Porto', 'porto-functionality' ),
-			'description'             => __( 'Display share links', 'porto-functionality' ),
+			'description'             => __( 'Display social share links', 'porto-functionality' ),
 			'show_settings_on_create' => false,
 		)
 	);

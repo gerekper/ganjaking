@@ -102,10 +102,11 @@ $post_meta .= '</div>';
 
 	<!-- Post meta after content -->
 	<?php
-	if ( 'before' !== $porto_settings['post-meta-position'] ) {
-		echo porto_filter_output( $post_meta );}
+		if ( 'before' !== $porto_settings['post-meta-position'] ) {
+			echo porto_filter_output( $post_meta );
+		}
 	?>
 
-	<a class="btn btn-xs btn-primary text-xs text-uppercase float-sm-right mt-1" href="<?php echo esc_url( apply_filters( 'the_permalink', get_permalink() ) ); ?>"><?php esc_html_e( 'Read more...', 'porto' ); ?></a>
+	<a class="btn btn-xs btn-primary text-xs text-uppercase float-sm-end mt-1" href="<?php echo esc_url( apply_filters( 'the_permalink', get_permalink() ) ); ?>"><?php esc_html_e( 'Read more...', 'porto' ); ?></a>
 
 </article>

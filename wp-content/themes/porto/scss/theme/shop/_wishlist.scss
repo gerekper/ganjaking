@@ -10,6 +10,7 @@
     .add-links {
         display: flex;
         flex-direction: column;
+        flex-wrap: wrap;
         .add_to_cart_button::before {
             content: none;
         }
@@ -69,17 +70,29 @@
 .woocommerce table.wishlist_table {
     font-size: 100%;
 
-    .add_to_cart.button, .add_to_cart_read_more.button {
+    .add_to_cart.button, .add_to_cart_read_more.button, .yith-compare {
         display: inline-block !important;
         min-width: 160px;
     }
-    .add_to_cart.button, .add_to_cart_read_more.button, .quickview {
+    .add_to_cart.button, .add_to_cart_read_more.button, .quickview, .yith-compare {
         height: 42px;
         width: auto;
         padding: 0 25px!important;
         font-size: 13px;
         line-height: 42px;
         text-indent: 0;
+    }
+    .yith-compare {
+        min-width: 1px;
+        margin-top: 5px !important;
+        padding: 0 15px !important;
+        font-weight: 700;
+        &::before {
+            float: none;
+        }
+        &.added::before {
+            line-height: 42px;
+        }
     }
 
     .quickview {
@@ -112,7 +125,7 @@ p.wishlist-empty, table.wishlist_table tbody td.wishlist-empty {
 .woocommerce #content table.shop_table.wishlist_table.cart a.remove,
 .shop_table.cart-table a.remove.remove-product {
     top: -10px;
-    right: -10px;
+    #{$right}: -10px;
     &:hover {
         background: #fff;
     }
@@ -146,6 +159,7 @@ p.wishlist-empty, table.wishlist_table tbody td.wishlist-empty {
 }
 
 .woocommerce .wishlist-title a.btn,
+.wishlist_table .button,
 .woocommerce .hidden-title-form a.btn,
 .woocommerce .hidden-title-form input[type="submit"] {
     color: #fff;
@@ -158,18 +172,20 @@ p.wishlist-empty, table.wishlist_table tbody td.wishlist-empty {
     margin: 0 !important
 }
 
-#header .my-wishlist, #header .my-account {
+#header .my-wishlist, #header .my-account, #header .yith-woocompare-open {
     display: inline-block;
     padding: 0 .125rem;
     font-size: 24px;
     vertical-align: middle
 }
 
-#header .my-wishlist {
+#header .my-wishlist,
+#header .yith-woocompare-open {
     position: relative;
-    .wishlist-count {
-        #{$right}: -.25rem;
-    }
+}
+#header .my-wishlist .wishlist-count,
+#header .yith-woocompare-open .compare-count {
+    #{$right}: -.25rem;
 }
 
 .wishlist_table tr td.product-thumbnail > div,
@@ -182,4 +198,58 @@ p.wishlist-empty, table.wishlist_table tbody td.wishlist-empty {
 
 .wishlist_table tr td.product-thumbnail a {
     max-width: none
+}
+
+.wishlist-popup {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 300px;
+    #{$right}: 0;
+    z-index: 1003;
+    padding: 1.5rem 1.25rem;
+    box-shadow: 0 5px 8px rgba(0,0,0,.15);
+    font-size: .8125rem;
+    text-align: $left;
+    transform: translateX(105%);
+    transition: transform .35s;
+
+    .minicart-opened & {
+        transform: translateX(0);
+    }
+
+    .product_list_widget {
+        margin: 0 0 1.25rem;
+
+        li {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid #e7e7e7
+        }
+    }
+
+    .product-details {
+        padding-#{$right}: 1rem;
+        position: static;
+
+        a {
+            font-weight: 500
+        }
+
+        .amount {
+            font-size: .8125rem;
+            font-weight: 400;
+        }
+    }
+
+    .remove_from_wishlist.remove {
+        top: 10px;
+        #{$right}: -8px;
+        cursor: pointer;
+    }
+
+    .btn {
+        letter-spacing: .25em;
+        padding: .8125rem 0;
+        border-radius: 2px
+    }
 }

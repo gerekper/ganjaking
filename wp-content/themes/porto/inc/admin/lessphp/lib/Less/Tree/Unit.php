@@ -8,15 +8,15 @@
  */
 class Less_Tree_Unit extends Less_Tree {
 
-	var $numerator   = array();
+	var $numerator = array();
 	var $denominator = array();
 	public $backupUnit;
 	public $type = 'Unit';
 
 	public function __construct( $numerator = array(), $denominator = array(), $backupUnit = null ) {
-		$this->numerator   = $numerator;
+		$this->numerator = $numerator;
 		$this->denominator = $denominator;
-		$this->backupUnit  = $backupUnit;
+		$this->backupUnit = $backupUnit;
 	}
 
 	public function __clone() {
@@ -26,12 +26,11 @@ class Less_Tree_Unit extends Less_Tree {
 	 * @see Less_Tree::genCSS
 	 */
 	public function genCSS( $output ) {
-
 		if ( $this->numerator ) {
 			$output->add( $this->numerator[0] );
 		} elseif ( $this->denominator ) {
 			$output->add( $this->denominator[0] );
-		} elseif ( ! Less_Parser::$options['strictUnits'] && $this->backupUnit ) {
+		} elseif ( !Less_Parser::$options['strictUnits'] && $this->backupUnit ) {
 			$output->add( $this->backupUnit );
 			return;
 		}
@@ -40,7 +39,7 @@ class Less_Tree_Unit extends Less_Tree {
 	public function toString() {
 		$returnStr = implode( '*', $this->numerator );
 		foreach ( $this->denominator as $d ) {
-			$returnStr .= '/' . $d;
+			$returnStr .= '/'.$d;
 		}
 		return $returnStr;
 	}
@@ -48,7 +47,6 @@ class Less_Tree_Unit extends Less_Tree {
 	public function __toString() {
 		return $this->toString();
 	}
-
 
 	/**
 	 * @param Less_Tree_Unit $other
@@ -63,21 +61,20 @@ class Less_Tree_Unit extends Less_Tree {
 
 	public function isLength() {
 		$css = $this->toCSS();
-		return ! ! preg_match( '/px|em|%|in|cm|mm|pc|pt|ex/', $css );
+		return !!preg_match( '/px|em|%|in|cm|mm|pc|pt|ex/', $css );
 	}
 
 	public function isAngle() {
-		return isset( Less_Tree_UnitConversions::$angle[ $this->toCSS() ] );
+		return isset( Less_Tree_UnitConversions::$angle[$this->toCSS()] );
 	}
 
 	public function isEmpty() {
-		return ! $this->numerator && ! $this->denominator;
+		return !$this->numerator && !$this->denominator;
 	}
 
 	public function isSingular() {
-		return count( $this->numerator ) <= 1 && ! $this->denominator;
+		return count( $this->numerator ) <= 1 && !$this->denominator;
 	}
-
 
 	public function usedUnits() {
 		$result = array();
@@ -86,14 +83,14 @@ class Less_Tree_Unit extends Less_Tree {
 			$group = Less_Tree_UnitConversions::${$groupName};
 
 			foreach ( $this->numerator as $atomicUnit ) {
-				if ( isset( $group[ $atomicUnit ] ) && ! isset( $result[ $groupName ] ) ) {
-					$result[ $groupName ] = $atomicUnit;
+				if ( isset( $group[$atomicUnit] ) && !isset( $result[$groupName] ) ) {
+					$result[$groupName] = $atomicUnit;
 				}
 			}
 
 			foreach ( $this->denominator as $atomicUnit ) {
-				if ( isset( $group[ $atomicUnit ] ) && ! isset( $result[ $groupName ] ) ) {
-					$result[ $groupName ] = $atomicUnit;
+				if ( isset( $group[$atomicUnit] ) && !isset( $result[$groupName] ) ) {
+					$result[$groupName] = $atomicUnit;
 				}
 			}
 		}
@@ -103,23 +100,23 @@ class Less_Tree_Unit extends Less_Tree {
 
 	public function cancel() {
 		$counter = array();
-		$backup  = null;
+		$backup = null;
 
 		foreach ( $this->numerator as $atomicUnit ) {
-			if ( ! $backup ) {
+			if ( !$backup ) {
 				$backup = $atomicUnit;
 			}
-			$counter[ $atomicUnit ] = ( isset( $counter[ $atomicUnit ] ) ? $counter[ $atomicUnit ] : 0 ) + 1;
+			$counter[$atomicUnit] = ( isset( $counter[$atomicUnit] ) ? $counter[$atomicUnit] : 0 ) + 1;
 		}
 
 		foreach ( $this->denominator as $atomicUnit ) {
-			if ( ! $backup ) {
+			if ( !$backup ) {
 				$backup = $atomicUnit;
 			}
-			$counter[ $atomicUnit ] = ( isset( $counter[ $atomicUnit ] ) ? $counter[ $atomicUnit ] : 0 ) - 1;
+			$counter[$atomicUnit] = ( isset( $counter[$atomicUnit] ) ? $counter[$atomicUnit] : 0 ) - 1;
 		}
 
-		$this->numerator   = array();
+		$this->numerator = array();
 		$this->denominator = array();
 
 		foreach ( $counter as $atomicUnit => $count ) {
@@ -134,7 +131,7 @@ class Less_Tree_Unit extends Less_Tree {
 			}
 		}
 
-		if ( ! $this->numerator && ! $this->denominator && $backup ) {
+		if ( !$this->numerator && !$this->denominator && $backup ) {
 			$this->backupUnit = $backup;
 		}
 
@@ -142,6 +139,4 @@ class Less_Tree_Unit extends Less_Tree {
 		sort( $this->denominator );
 	}
 
-
 }
-

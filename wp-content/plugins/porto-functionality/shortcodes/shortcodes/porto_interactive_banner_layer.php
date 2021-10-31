@@ -1,10 +1,6 @@
 <?php
 // Porto Interactive Banner Layer
 add_action( 'vc_after_init', 'porto_load_interactive_banner_layer_shortcode' );
-
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
 
 function porto_load_interactive_banner_layer_shortcode() {
 
@@ -19,12 +15,13 @@ function porto_load_interactive_banner_layer_shortcode() {
 			'base'                    => 'porto_interactive_banner_layer',
 			'icon'                    => 'far fa-address-card',
 			'category'                => __( 'Porto', 'porto-functionality' ),
+			'description'             => __( 'Displays the interactive banner image with Information', 'porto-functionality' ),
 			'as_child'                => array( 'only' => 'porto_interactive_banner' ),
 			'as_parent'               => array( 'except' => 'porto_interactive_banner,porto_interactive_banner_layer' ),
 			'controls'                => 'full',
 			'show_settings_on_create' => true,
 			'js_view'                 => 'VcColumnView',
-			'params'   => array(
+			'params'                  => array(
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Width', 'porto-functionality' ),
@@ -32,9 +29,9 @@ function porto_load_interactive_banner_layer_shortcode() {
 					'description' => __( 'For example: 50%, 100px, 100rem, 50vw, etc.', 'porto-functionality' ),
 				),
 				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Height', 'porto-functionality' ),
-					'param_name' => 'height',
+					'type'        => 'textfield',
+					'heading'     => __( 'Height', 'porto-functionality' ),
+					'param_name'  => 'height',
 					'description' => __( 'For example: 50%, 100px, 100rem, 50vw, etc.', 'porto-functionality' ),
 				),
 				array(

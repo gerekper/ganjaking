@@ -67,16 +67,16 @@ if ( 'btn' == $type || 'btn-link' == $type ) {
 		$btn_class .= ' btn-default';
 	}
 	if ( 'btn' == $type ) {
-		$output .= ' <button type="button" data-toggle="popover" title="' . esc_attr( $popover_title ) . '" data-content="' . esc_attr( $popover_text ) . '" data-placement="' . esc_attr( $popover_position ) . '" class="' . esc_attr( $btn_class ) . '" data-trigger="' . esc_attr( $popover_trigger ) . '">';
+		$output .= ' <button type="button" data-toggle="popover" title="' . esc_attr( $popover_title ) . '" data-bs-content="' . esc_attr( $popover_text ) . '" data-bs-placement="' . esc_attr( $popover_position ) . '" class="' . esc_attr( $btn_class ) . '" data-trigger="' . esc_attr( $popover_trigger ) . '">';
 		$output .= wp_kses_post( $text );
 		$output .= '</button> ';
 	} else {
-		$output .= ' <a href="' . ( ! $link ? 'javascript:;' : esc_url( $link ) ) . '" data-toggle="popover" title="' . esc_attr( $popover_title ) . '" data-content="' . esc_attr( $popover_text ) . '" data-placement="' . esc_attr( $popover_position ) . '" class="' . esc_attr( $btn_class ) . '" data-trigger="' . esc_attr( $popover_trigger ) . '">';
+		$output .= ' <a href="' . ( ! $link ? 'javascript:;' : esc_url( $link ) ) . '" data-toggle="popover" title="' . esc_attr( $popover_title ) . '" data-bs-content="' . esc_attr( $popover_text ) . '" data-bs-placement="' . esc_attr( $popover_position ) . '" class="' . esc_attr( $btn_class ) . '" data-trigger="' . esc_attr( $popover_trigger ) . '">';
 		$output .= wp_kses_post( $text );
 		$output .= '</a> ';
 	}
 } else {
-	$output .= ' <a href="' . ( ! $link ? 'javascript:;' : esc_url( $link ) ) . '" data-toggle="popover" title="' . esc_attr( $popover_title ) . '" data-content="' . esc_attr( $popover_text ) . '" data-placement="' . esc_attr( $popover_position ) . '" data-trigger="' . esc_attr( $popover_trigger ) . '">';
+	$output .= ' <a href="' . ( ! $link ? 'javascript:;' : esc_url( $link ) ) . '" data-toggle="popover" title="' . esc_attr( $popover_title ) . '" data-bs-content="' . esc_attr( $popover_text ) . '" data-bs-placement="' . esc_attr( $popover_position ) . '" data-trigger="' . esc_attr( $popover_trigger ) . '">';
 	$output .= wp_kses_post( $text );
 	$output .= '</a> ';
 }

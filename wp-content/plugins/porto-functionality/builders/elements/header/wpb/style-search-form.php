@@ -4,6 +4,29 @@ if ( empty( $atts ) ) {
 	return;
 }
 
+if ( ! empty( $atts['popup_pos'] ) ) {
+	global $porto_settings;
+	$popup_style = '';
+	if ( 'left' == $atts['popup_pos'] ) {
+		$popup_style .= 'left: auto; right: -1.5rem';
+	} elseif ( 'center' == $atts['popup_pos'] ) {
+		$popup_style .= 'left: 50%; right: auto; transform: translateX(-50%)';
+	} elseif ( 'right' == $atts['popup_pos'] ) {
+		$popup_style .= 'left: -1.5rem; right: auto';
+	}
+	if ( 'simple' == $porto_settings['search-layout'] || 'large' == $porto_settings['search-layout'] ) {
+		echo '#header .search-popup .searchform {';
+		echo porto_filter_output( $popup_style );
+		echo '}';
+	} elseif ( 'advanced' == $porto_settings['search-layout'] ) {
+		echo '@media (max-width: 991px) {';
+		echo '#header .searchform {';
+		echo porto_filter_output( $popup_style );
+		echo '}';
+		echo '}';
+	}
+}
+
 if ( ! empty( $atts['toggle_size'] ) || ! empty( $atts['toggle_color'] ) ) {
 	echo '#header .searchform button, #header .searchform-popup .search-toggle {';
 	if ( ! empty( $atts['toggle_size'] ) ) {

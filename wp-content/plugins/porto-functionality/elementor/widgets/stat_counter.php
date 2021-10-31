@@ -20,15 +20,19 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Counter', 'porto-functionality' );
+		return __( 'Porto Counter', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'icon', 'counter', 'statistics', 'up' );
+	}
+
+	public function get_icon() {
+		return 'eicon-counter';
 	}
 
 	protected function _register_controls() {
@@ -409,7 +413,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'title_google_font_style',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Counter Title Typograhy', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .stats-text',
 			)
@@ -431,7 +435,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'desc_google_font_style',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Counter Value Typograhy', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .stats-number',
 			)
@@ -453,7 +457,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'suf_pref_google_font_style',
-				'scheme'   => Elementor\Scheme_Typography::TYPOGRAPHY_1,
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
 				'label'    => __( 'Counter suffix-prefix Typograhy', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .counter_prefix, {{WRAPPER}} .counter_suffix',
 			)
@@ -539,7 +543,12 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 		$atts = $this->get_settings_for_display();
 
 		if ( isset( $atts['icon_cl'] ) && isset( $atts['icon_cl']['value'] ) ) {
-			$atts['icon'] = $atts['icon_cl']['value'];
+			if ( isset( $atts['icon_cl']['library'] ) && isset( $atts['icon_cl']['value']['id'] ) ) {
+				$atts['icon_type'] = $atts['icon_cl']['library'];
+				$atts['icon']      = $atts['icon_cl']['value']['id'];
+			} else {
+				$atts['icon'] = $atts['icon_cl']['value'];
+			}
 		}
 
 		$atts['img_width']           = '';
@@ -564,7 +573,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function _content_template() {
+	protected function content_template() {
 		?>
 		<#
 			view.addRenderAttribute( 'wrapper', 'class', 'stats-block stats-' + settings.icon_position );

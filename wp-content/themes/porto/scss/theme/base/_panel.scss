@@ -3,6 +3,7 @@
     display: none;
     transition: transform .2s ease-in-out;
     padding-bottom: 15px;
+    position: relative;
 
     .header-builder-p & {
         padding-top: 15px;
@@ -12,6 +13,7 @@
 
     .mobile-nav-wrap {
         padding: 0 !important;
+        min-height: 6rem;
         &::-webkit-scrollbar {
             width: 5px;
         }
@@ -75,8 +77,11 @@
     .accordion-menu {
         display: block;
         font-size: .8571em;
+
         li.menu-item.active > a,
-        > li.menu-item.active > .arrow{ color: #fff; }
+        li.menu-item.active > .arrow{
+            color: #fff
+        }
         .arrow {
             background: none !important;
             #{$right}: 5px;
@@ -128,6 +133,11 @@
     max-height: 50vh;
     overflow-x: hidden;
     overflow-y: auto;
+    transition: max-height 1.2s;
+}
+
+#nav-panel .skeleton-body {
+    max-height: 6rem;
 }
 
 /* Side navigation */

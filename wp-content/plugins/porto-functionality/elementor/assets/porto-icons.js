@@ -159,5 +159,7 @@
 "long-arrow-alt",
 "map-location",
 "phone-call",
-"tablet"
+"tablet",
+"callin",
+"atmark"
 ]}

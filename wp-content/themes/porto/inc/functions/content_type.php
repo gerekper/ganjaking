@@ -2,6 +2,36 @@
 require_once( PORTO_FUNCTIONS . '/content_type/portfolio_like.php' );
 require_once( PORTO_FUNCTIONS . '/content_type/blog_like.php' );
 require_once( PORTO_FUNCTIONS . '/content_type/meta_values.php' );
+
+function porto_get_id_type() {
+	if ( is_archive() ) {
+		if ( function_exists( 'is_shop' ) && is_shop() && ! is_product_category() ) {
+			return array( wc_get_page_id( 'shop' ), 'post' );
+		} elseif ( function_exists( 'is_porto_portfolios_page' ) && is_porto_portfolios_page() && ( $archive_page = porto_portfolios_page_id() ) ) {
+			return array( $archive_page, 'post' );
+		} elseif ( function_exists( 'is_porto_members_page' ) && is_porto_members_page() && ( $archive_page = porto_members_page_id() ) ) {
+			return array( $archive_page, 'post' );
+		} elseif ( function_exists( 'is_porto_faqs_page' ) && is_porto_faqs_page() && ( $archive_page = porto_faqs_page_id() ) ) {
+			return array( $archive_page, 'post' );
+		} elseif ( function_exists( 'is_porto_events_page' ) && is_porto_events_page() && ( $archive_page = porto_events_page_id() ) ) {
+			return array( $archive_page, 'post' );
+		} else {
+			$term = get_queried_object();
+			if ( $term && isset( $term->taxonomy ) && isset( $term->term_id ) ) {
+				return array( $term->term_id, 'term' );
+			}
+		}
+	} elseif ( is_singular() ) {
+		return array( get_the_ID(), 'post' );
+	} elseif ( is_home() ) {
+		$blog_id = get_option( 'page_for_posts' );
+		if ( $blog_id ) {
+			return array( $blog_id, 'post' );
+		}
+	}
+	return false;
+}
+
 function porto_get_meta_value( $meta_key, $boolean = false ) {
 	global $wp_query, $porto_settings;
 	$value = '';
@@ -11,7 +41,7 @@ function porto_get_meta_value( $meta_key, $boolean = false ) {
 			$value = get_metadata( 'category', $cat->term_id, $meta_key, true );
 		}
 	} elseif ( is_archive() ) {
-		if ( function_exists( 'is_shop' ) && is_shop() && ! is_product_category() ) {
+		if ( function_exists( 'porto_is_shop' ) && porto_is_shop() && ! is_product_category() ) {
 			$value = get_post_meta( wc_get_page_id( 'shop' ), $meta_key, true );
 		} elseif ( function_exists( 'is_porto_portfolios_page' ) && is_porto_portfolios_page() && ( $archive_page = porto_portfolios_page_id() ) ) {
 			$value = get_post_meta( $archive_page, $meta_key, true );
@@ -112,7 +142,7 @@ function porto_meta_layout() {
 			}
 		}
 	} elseif ( is_archive() || is_search() ) {
-		if ( function_exists( 'is_shop' ) && is_shop() && ! is_product_category() ) {
+		if ( function_exists( 'porto_is_shop' ) && porto_is_shop() && ! is_product_category() ) {
 			if ( $default ) {
 				$value    = $porto_settings['product-archive-layout'];
 				$sidebar  = 'woo-category-sidebar';
@@ -207,8 +237,10 @@ function porto_meta_layout() {
 						$sidebar2 = get_metadata( $term->taxonomy, $term->term_id, 'sidebar2', true );
 					}
 				} else /*if (is_tag())*/ {
-					$value   = $porto_settings['post-archive-layout'];
-					$sidebar = 'blog-sidebar';
+					if ( ! ( function_exists( 'is_shop' ) && is_shop() ) ) {
+						$value   = $porto_settings['post-archive-layout'];
+						$sidebar = 'blog-sidebar';
+					}
 				}
 			}
 		}
@@ -386,6 +418,11 @@ function porto_meta_sticky_sidebar() {
 	}
 	if ( is_404() ) {
 		$value = false;
+	} elseif ( $value && is_singular( 'product' ) ) {
+		$builder_id = porto_check_builder_condition( 'product' );
+		if ( $builder_id && get_post_meta( $builder_id, 'disable_sticky_sidebar', true ) ) {
+			$value = false;
+		}
 	}
 	return apply_filters( 'porto_meta_sticky_sidebar', $value );
 }

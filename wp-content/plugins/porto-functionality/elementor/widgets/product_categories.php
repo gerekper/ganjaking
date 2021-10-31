@@ -20,15 +20,19 @@ class Porto_Elementor_Product_Categories_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_title() {
-		return __( 'Product Categories', 'porto-functionality' );
+		return __( 'Porto Product Categories', 'porto-functionality' );
 	}
 
 	public function get_categories() {
-		return array( 'theme-elements' );
+		return array( 'porto-elements' );
 	}
 
 	public function get_keywords() {
 		return array( 'product categories', 'shop', 'woocommerce' );
+	}
+
+	public function get_icon() {
+		return 'eicon-product-categories';
 	}
 
 	public function get_script_depends() {
@@ -67,17 +71,22 @@ class Porto_Elementor_Product_Categories_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'parent',
 			array(
-				'type'  => Controls_Manager::TEXT,
-				'label' => __( 'Parent Category ID', 'porto-functionality' ),
+				'type'        => 'porto_ajaxselect2',
+				'label'       => __( 'Parent Category ID', 'porto-functionality' ),
+				'options'     => 'product_cat',
+				'label_block' => true,
 			)
 		);
 
 		$this->add_control(
 			'ids',
 			array(
-				'type'        => Controls_Manager::TEXT,
+				'type'        => 'porto_ajaxselect2',
 				'label'       => __( 'Category IDs', 'porto-functionality' ),
 				'description' => __( 'comma separated list of category ids', 'porto-functionality' ),
+				'multiple'    => 'true',
+				'options'     => 'product_cat',
+				'label_block' => true,
 			)
 		);
 
@@ -397,6 +406,12 @@ class Porto_Elementor_Product_Categories_Widget extends \Elementor\Widget_Base {
 		$atts = $this->get_settings_for_display();
 
 		if ( $template = porto_shortcode_woo_template( 'porto_product_categories' ) ) {
+			if ( ! empty( $atts['parent'] ) && is_array( $atts['parent'] ) ) {
+				$atts['parent'] = implode( ',', $atts['parent'] );
+			}
+			if ( ! empty( $atts['ids'] ) && is_array( $atts['ids'] ) ) {
+				$atts['ids'] = implode( ',', $atts['ids'] );
+			}
 			include $template;
 		}
 	}

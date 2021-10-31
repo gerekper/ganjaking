@@ -2,10 +2,6 @@
 // Porto Testimonial
 add_action( 'vc_after_init', 'porto_load_testimonial_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_testimonial_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -13,11 +9,12 @@ function porto_load_testimonial_shortcode() {
 	$custom_class       = porto_vc_custom_class();
 	vc_map(
 		array(
-			'name'     => 'Porto ' . __( 'Testimonial', 'porto-functionality' ),
-			'base'     => 'porto_testimonial',
-			'category' => __( 'Porto', 'porto-functionality' ),
-			'icon'     => 'far fa-comments',
-			'params'   => array(
+			'name'        => 'Porto ' . __( 'Testimonial', 'porto-functionality' ),
+			'base'        => 'porto_testimonial',
+			'category'    => __( 'Porto', 'porto-functionality' ),
+			'description' => __( 'Add testimonials to your site to share what customers are saying about services', 'porto-functionality' ),
+			'icon'        => 'far fa-comments',
+			'params'      => array(
 				array(
 					'type'       => 'textfield',
 					'heading'    => __( 'Name', 'porto-functionality' ),

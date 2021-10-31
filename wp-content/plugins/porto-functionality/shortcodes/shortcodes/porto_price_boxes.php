@@ -3,10 +3,6 @@
 // Porto Price Boxes
 add_action( 'vc_after_init', 'porto_load_price_boxes_shortcode' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function porto_load_price_boxes_shortcode() {
 	$animation_type     = porto_vc_animation_type();
 	$animation_duration = porto_vc_animation_duration();
@@ -18,6 +14,7 @@ function porto_load_price_boxes_shortcode() {
 			'name'            => 'Porto ' . __( 'Price Boxes', 'porto-functionality' ),
 			'base'            => 'porto_price_boxes',
 			'category'        => __( 'Porto', 'porto-functionality' ),
+			'description'     => __( 'Simple filled or outline pricing table to display prices of your products or services', 'porto-functionality' ),
 			'icon'            => 'fas fa-dollar-sign',
 			'as_parent'       => array( 'only' => 'porto_price_box' ),
 			'content_element' => true,

@@ -42,6 +42,13 @@ extract(
 
 wp_enqueue_script( 'countdown' );
 wp_enqueue_script( 'porto_shortcodes_countdown_loader_js' );
+if ( ! empty( $shortcode_class ) ) {
+	if ( empty( $el_class ) ) {
+		$el_class = $shortcode_class;
+	} else {
+		$el_class .= ' ' . $shortcode_class;
+	}
+}
 
 $count_frmt    = $labels = $countdown_design_style = '';
 $labels        = $string_years2 . ',' . $string_months2 . ',' . $string_weeks2 . ',' . $string_days2 . ',' . $string_hours2 . ',' . $string_minutes2 . ',' . $string_seconds2;

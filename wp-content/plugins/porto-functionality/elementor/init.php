@@ -32,6 +32,14 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 			'google_map',
 			'portfolios_category',
 			'hotspot',
+			'floating',
+			'page_header',
+			'social_icons',
+			'image_comparison',
+			'image_gallery',
+			'360degree_image_viewer',
+			'steps',
+			'sticky_nav',
 		);
 
 		private $woo_widgets = array(
@@ -47,6 +55,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 			'porto_sidebar',
 			'porto_sidebar2',
 			'porto_header_type',
+			'porto_disable_sticky_sidebar',
 			'porto_container',
 			'porto_custom_css',
 			'porto_custom_js_body',
@@ -60,13 +69,37 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 				return;
 			}
 
+			// Include Partials
+			// Mouse parallax
+			include_once 'partials/addon.php';
+
+			// register categories
+			add_action(
+				'elementor/elements/categories_registered',
+				function( $self ) {
+					$self->add_category(
+						'porto-elements',
+						array(
+							'title'  => esc_html__( 'Porto', 'porto-functionality' ),
+							'active' => true,
+						)
+					);
+				}
+			);
+
 			// register custom section element
 			add_action(
 				'elementor/elements/elements_registered',
 				function() {
+					include_once dirname( PORTO_META_BOXES_PATH ) . '/elementor/tabs/porto-elementor-custom-tabs.php';
+
 					include_once dirname( PORTO_META_BOXES_PATH ) . '/elementor/elements/porto_section.php';
 					Elementor\Plugin::$instance->elements_manager->unregister_element_type( 'section' );
 					Elementor\Plugin::$instance->elements_manager->register_element_type( new Porto_Elementor_Section() );
+
+					include_once dirname( PORTO_META_BOXES_PATH ) . '/elementor/elements/porto_column.php';
+					Elementor\Plugin::$instance->elements_manager->unregister_element_type( 'column' );
+					Elementor\Plugin::$instance->elements_manager->register_element_type( new Porto_Elementor_Column() );
 				}
 			);
 
@@ -77,218 +110,15 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 			// register custom controls
 			add_action( 'elementor/controls/controls_registered', array( $this, 'register_custom_control' ), 10, 1 );
 
+			// register rest apis
+			require_once( dirname( PORTO_META_BOXES_PATH ) . '/elementor/restapi/ajaxselect2.php' );
+
 			if ( is_admin() ) {
-				add_action(
-					'sidebar_admin_setup',
-					function() {
-						if ( ! wp_doing_ajax() || ! isset( $_POST['id_base'] ) || ! isset( $_POST['widget-id'] ) ) {
-							return;
-						}
-						$id_base    = wp_unslash( $_POST['id_base'] );
-						$widget_id  = wp_unslash( $_POST['widget-id'] );
-						$settings   = isset( $_POST[ 'widget-' . $id_base ] ) && is_array( $_POST[ 'widget-' . $id_base ] ) ? $_POST[ 'widget-' . $id_base ] : false;
-						$sidebar_id = $_POST['sidebar'];
-						$sidebars   = get_option( 'sidebars_widgets' );
-						$sidebar    = isset( $sidebars[ $sidebar_id ] ) ? $sidebars[ $sidebar_id ] : array();
-						if ( 'block-widget' != $id_base || ! $settings ) {
-							return;
-						}
-
-						$block_widgets      = get_option( 'widget_block-widget', array() );
-						$elementor_sidebars = get_theme_mod( 'elementor_sidebars', array() );
-						$block_slugs        = array();
-
-						global $wp_registered_widgets;
-						if ( isset( $_POST['delete_widget'] ) && $_POST['delete_widget'] && isset( $wp_registered_widgets[ $widget_id ] ) && isset( $elementor_sidebars[ $sidebar_id ] ) && is_array( $elementor_sidebars[ $sidebar_id ] ) ) {
-							unset( $sidebar[ $widget_id ] );
-						} else {
-							foreach ( $settings as $widget_number => $widget_settings ) {
-								if ( is_array( $widget_settings ) ) {
-									foreach ( $widget_settings as $key => $val ) {
-										if ( 'name' == $key ) {
-											$block_slugs[ $widget_id ] = $val;
-											break;
-										}
-									}
-								}
-							}
-						}
-
-						$elementor_sidebars[ $sidebar_id ] = array();
-
-						foreach ( $sidebar as $widget ) {
-							$widget_type = trim( substr( $widget, 0, strrpos( $widget, '-' ) ) );
-							$widget_id   = str_replace( 'block-widget-', '', $widget );
-							if ( 'block-widget' == $widget_type && ! empty( $block_widgets[ $widget_id ] ) && ! empty( $block_widgets[ $widget_id ]['name'] ) && empty( $block_slugs[ $widget ] ) ) {
-								$block_slugs[ $widget ] = $block_widgets[ $widget_id ]['name'];
-							}
-						}
-
-						if ( ! empty( $block_slugs ) ) {
-							foreach ( $block_slugs as $widget_id => $slug ) {
-								$blocks = new WP_Query(
-									array(
-										'name'      => sanitize_text_field( $slug ),
-										'post_type' => 'porto_builder',
-									)
-								);
-								if ( $blocks->have_posts() ) {
-									$blocks->the_post();
-									if ( get_post_meta( get_the_ID(), '_elementor_edit_mode', true ) && get_post_meta( get_the_ID(), '_elementor_data', true ) ) {
-										$elementor_sidebars[ sanitize_text_field( $sidebar_id ) ][] = sanitize_text_field( $widget_id );
-									}
-									wp_reset_postdata();
-								}
-							}
-						}
-
-						if ( empty( $elementor_sidebars[ $sidebar_id ] ) ) {
-							unset( $elementor_sidebars[ $sidebar_id ] );
-						}
-
-						set_theme_mod( 'elementor_sidebars', $elementor_sidebars );
-					}
-				);
-
-				add_action( 'save_post', array( $this, 'update_flag_use_elementor_blocks' ), 10, 2 );
-				add_action( 'edit_term', array( $this, 'update_term_meta_fields' ), 10, 3 );
-				add_action( 'delete_post', array( $this, 'delete_post_meta_fields' ) );
-				add_action( 'delete_term', array( $this, 'delete_term_meta_fields' ), 10, 3 );
-
-				add_action(
-					'redux/options/porto_settings/saved',
-					function( $options, $changed ) {
-						if ( ! defined( 'ELEMENTOR_VERSION' ) ) {
-							return;
-						}
-
-						$html_blocks   = array( 'top', 'banner', 'content-top', 'content-inner-top', 'content-inner-bottom', 'content-bottom', 'bottom' );
-						$block_changed = false;
-						foreach ( $html_blocks as $b ) {
-							if ( isset( $changed[ 'html-' . $b ] ) ) {
-								$block_changed = true;
-								break;
-							}
-						}
-
-						$blog_blocks        = array( 'blog-content_top', 'blog-content_inner_top', 'blog-content_inner_bottom', 'blog-content_bottom' );
-						$blog_block_changed = false;
-						foreach ( $blog_blocks as $b ) {
-							if ( isset( $changed[ $b ] ) ) {
-								$blog_block_changed = true;
-								break;
-							}
-						}
-
-						if ( ! $block_changed && ! $blog_block_changed && ! isset( $changed['product-content_bottom'] ) && ! isset( $changed['product-tab-block'] ) && ! isset( $changed['product-single-content-layout'] ) && ! isset( $changed['product-single-content-builder'] ) ) {
-							return;
-						}
-
-						$old_flag = get_theme_mod( 'elementor_edited', false );
-
-						if ( $block_changed ) {
-							$block_slugs      = array();
-							foreach ( $html_blocks as $b ) {
-								if ( ! empty( $options[ 'html-' . $b ] ) && preg_match( '/\[porto_block\s[^]]*(id|name)="([^"]*)"/', $options[ 'html-' . $b ], $matches ) && isset( $matches[2] ) && $matches[2] ) {
-									$block_slugs[] = trim( $matches[2] );
-								}
-							}
-
-							if ( ! empty( $block_slugs ) ) {
-								global $wpdb;
-								foreach ( $block_slugs as $s ) {
-									$where   = is_numeric( $s ) ? 'ID' : 'post_name';
-									$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'porto_builder' AND $where = %s", sanitize_text_field( $s ) ) );
-									if ( $post_id && get_post_meta( $post_id, '_elementor_edit_mode', true ) && get_post_meta( $post_id, '_elementor_data', true ) ) {
-										$old_flag = true;
-										break;
-									}
-								}
-							}
-
-							set_theme_mod( 'elementor_edited', $old_flag );
-						}
-
-						if ( $blog_block_changed ) {
-							$elementor_edited = false;
-							$block_slugs      = array();
-							foreach ( $blog_blocks as $b ) {
-								if ( ! empty( $options[ $b ] ) ) {
-									$arr = explode( ',', $options[ $b ] );
-									foreach ( $arr as $a ) {
-										$a = trim( $a );
-										if ( $a && ! in_array( $a, $block_slugs ) ) {
-											$block_slugs[] = $a;
-										}
-									}
-								}
-							}
-
-							if ( ! empty( $block_slugs ) ) {
-								global $wpdb;
-								foreach ( $block_slugs as $s ) {
-									$where   = is_numeric( $s ) ? 'ID' : 'post_name';
-									$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'porto_builder' AND $where = %s", sanitize_text_field( $s ) ) );
-									if ( $post_id && get_post_meta( $post_id, '_elementor_edit_mode', true ) && get_post_meta( $post_id, '_elementor_data', true ) ) {
-										$elementor_edited = true;
-										break;
-									}
-								}
-							}
-							set_theme_mod( 'elementor_blog_edited', $elementor_edited );
-						}
-
-						$types = get_theme_mod( 'elementor_blocks_post_types', array() );
-						foreach ( $types as $index => $type ) {
-							if ( 'product' == $type ) {
-								unset( $types[ $index ] );
-								break;
-							}
-						}
-						if ( 'builder' == $options['product-single-content-layout'] && ! empty( $options['product-single-content-builder'] ) ) {
-							global $wpdb;
-							$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'porto_builder' AND post_name = %s", $options['product-single-content-builder'] ) );
-							if ( $post_id && get_post_meta( $post_id, '_elementor_edit_mode', true ) ) {
-								$types[] = 'product';
-							}
-						}
-
-						if ( ! in_array( 'product', $types ) ) {
-							$block_slugs = array();
-							if ( ! empty( $options['product-content_bottom'] ) ) {
-								$block_slugs = array_merge( $block_slugs, explode( ',', $options['product-content_bottom'] ) );
-							}
-							if ( ! empty( $options['product-tab-block'] ) ) {
-								$block_slugs = array_merge( $block_slugs, explode( ',', $options['product-tab-block'] ) );
-							}
-							foreach ( $block_slugs as $slug ) {
-								$blocks = new WP_Query(
-									array(
-										'name'      => sanitize_text_field( trim( $slug ) ),
-										'post_type' => 'porto_builder',
-									)
-								);
-
-								if ( $blocks->have_posts() ) {
-									$blocks->the_post();
-									if ( get_post_meta( get_the_ID(), '_elementor_edit_mode', true ) && get_post_meta( get_the_ID(), '_elementor_data', true ) ) {
-										$types[] = 'product';
-										wp_reset_postdata();
-										break;
-									}
-									wp_reset_postdata();
-								}
-							}
-						}
-						set_theme_mod( 'elementor_blocks_post_types', $types );
-					},
-					11,
-					2
-				);
-
 				add_action(
 					'elementor/editor/after_enqueue_scripts',
 					function() {
+						wp_enqueue_style( 'font-awesome', PORTO_CSS . '/font-awesome.min.css', false, PORTO_VERSION, 'all' );
+
 						wp_enqueue_script( 'porto-elementor-admin', plugin_dir_url( __FILE__ ) . 'assets/admin.js', array( 'elementor-editor' ), PORTO_SHORTCODES_VERSION, true );
 					}
 				);
@@ -359,18 +189,29 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 						)
 					);
 
-					if ( 'porto_builder' == $document->get_post()->post_type && $document->get_post()->ID && 'header' == get_post_meta( $document->get_post()->ID, 'porto_builder_type', true ) ) {
-						$document->add_control(
-							'porto_header_type',
-							array(
-								'type'    => Elementor\Controls_Manager::SELECT,
-								'label'   => __( 'Header Type', 'porto-functionality' ),
-								'options' => array(
-									''     => __( 'Default', 'porto-functionality' ),
-									'side' => __( 'Side Header', 'porto-functionality' ),
-								),
-							)
-						);
+					if ( 'porto_builder' == $document->get_post()->post_type && $document->get_post()->ID ) {
+						$builder_type = get_post_meta( $document->get_post()->ID, 'porto_builder_type', true );
+						if ( 'header' == $builder_type ) {
+							$document->add_control(
+								'porto_header_type',
+								array(
+									'type'    => Elementor\Controls_Manager::SELECT,
+									'label'   => __( 'Header Type', 'porto-functionality' ),
+									'options' => array(
+										''     => __( 'Default', 'porto-functionality' ),
+										'side' => __( 'Side Header', 'porto-functionality' ),
+									),
+								)
+							);
+						} elseif ( 'product' == $builder_type ) {
+							$document->add_control(
+								'porto_disable_sticky_sidebar',
+								array(
+									'type'  => Elementor\Controls_Manager::SWITCHER,
+									'label' => __( 'Disable Sticky Sidebar', 'porto-functionality' ),
+								)
+							);
+						}
 					}
 
 					if ( 'porto_builder' == $document->get_post()->post_type ) {
@@ -403,7 +244,6 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 								'type'      => Elementor\Controls_Manager::SELECT,
 								'label'     => __( 'Layout', 'porto-functionality' ),
 								'options'   => porto_ct_layouts(),
-								'default'   => 'right-sidebar',
 								'condition' => array(
 									'porto_default' => 'yes',
 								),
@@ -451,6 +291,110 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 					);
 
 					$document->end_controls_section();
+
+					// Porto Editor Area
+					if ( 'porto_builder' == $document->get_post()->post_type ) {
+						$document->start_controls_section(
+							'porto_edit_area',
+							array(
+								'label' => esc_html__( 'Porto Editor Area', 'porto-functionality' ),
+								'tab'   => Elementor\Controls_Manager::TAB_SETTINGS,
+							)
+						);
+
+							$document->add_control(
+								'porto_edit_area_width',
+								array(
+									'label'       => esc_html__( 'Edit Area Width', 'porto-functionality' ),
+									'description' => esc_html__( "Control edit area width for this template's usage.", 'porto-functionality' ),
+									'type'        => Elementor\Controls_Manager::SLIDER,
+									'size_units'  => array(
+										'px',
+										'%',
+										'vw',
+									),
+									'range'       => array(
+										'px' => array(
+											'step' => 1,
+											'min'  => 100,
+											'max'  => 500,
+										),
+										'%'  => array(
+											'step' => 1,
+											'min'  => 0,
+											'max'  => 100,
+										),
+										'vw' => array(
+											'step' => 1,
+											'min'  => 0,
+											'max'  => 100,
+										),
+									),
+									'separator'   => 'after',
+								)
+							);
+
+						$document->end_controls_section();
+					}
+
+					if ( 'porto_builder' == $document->get_post()->post_type && $document->get_post()->ID && 'popup' == get_post_meta( $document->get_post()->ID, 'porto_builder_type', true ) ) {
+
+						$document->start_controls_section(
+							'porto_popup_settings',
+							array(
+								'label' => esc_html__( 'Porto Popup Settings', 'porto-functionality' ),
+								'tab'   => Elementor\Controls_Manager::TAB_SETTINGS,
+							)
+						);
+						$document->add_control(
+							'popup_width',
+							array(
+								'type'    => Elementor\Controls_Manager::NUMBER,
+								'label'   => esc_html__( 'Popup Width (px)', 'porto-functionality' ),
+								'default' => 740,
+							)
+						);
+
+						$document->add_control(
+							'popup_animation',
+							array(
+								'type'    => Elementor\Controls_Manager::SELECT,
+								'label'   => esc_html__( 'Popup Animation', 'porto-functionality' ),
+								'options' => array(
+									'mfp-fade'       => __( 'Fade', 'porto-functionality' ),
+									'my-mfp-zoom-in' => __( 'Zoom in', 'porto-functionality' ),
+								),
+								'default' => 'mfp-fade',
+							)
+						);
+
+						$document->add_control(
+							'load_duration',
+							array(
+								'type'    => Elementor\Controls_Manager::NUMBER,
+								'label'   => esc_html__( 'Load Duration (ms)', 'porto-functionality' ),
+								'default' => 4000,
+							)
+						);
+
+						$document->add_control(
+							'popup_pos_horizontal',
+							array(
+								'label'   => esc_html__( 'Horizontal Offset (%)', 'porto-functionality' ),
+								'type'    => Elementor\Controls_Manager::NUMBER,
+								'default' => 50,
+							)
+						);
+						$document->add_control(
+							'popup_pos_vertical',
+							array(
+								'label'   => esc_html__( 'Vertical Offset (%)', 'porto-functionality' ),
+								'type'    => Elementor\Controls_Manager::NUMBER,
+								'default' => 50,
+							)
+						);
+						$document->end_controls_section();
+					}
 				}
 			);
 
@@ -470,11 +414,30 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 								$val         = porto_strip_script_tags( $data['settings'][ $meta ] );
 								if ( 'porto_default' == $meta && 'yes' == $val ) {
 									$val = 'default';
+								} elseif ( 'porto_disable_sticky_sidebar' == $meta && 'yes' == $val ) {
+									$val = 'disable_sticky_sidebar';
 								}
 
 								update_post_meta( $post_id, str_replace( 'porto_', '', $meta ), wp_slash( $val ) );
 							} else {
 								delete_post_meta( $post_id, str_replace( 'porto_', '', $meta ) );
+							}
+						}
+
+						// Popup
+						if ( isset( $post_id ) && 'popup' == get_post_meta( $post_id, 'porto_builder_type', true ) ) {
+							$popup_options                  = array();
+							$popup_options['width']         = wp_slash( '' != $data['settings']['popup_width'] ? $data['settings']['popup_width'] : 740 );
+							$popup_options['animation']     = ! empty( $data['settings']['popup_animation'] ) ? wp_slash( $data['settings']['popup_animation'] ) : 'mfp-fade';
+							$popup_options['load_duration'] = wp_slash( '' != $data['settings']['load_duration'] ? $data['settings']['load_duration'] : 4000 );
+
+							$popup_options['horizontal'] = wp_slash( isset( $data['settings']['popup_pos_horizontal'] ) ? $data['settings']['popup_pos_horizontal'] : 50 );
+							$popup_options['vertical']   = wp_slash( isset( $data['settings']['popup_pos_vertical'] ) ? $data['settings']['popup_pos_vertical'] : 50 );
+
+							if ( empty( $popup_options ) ) {
+								delete_post_meta( $post_id, 'popup_options' );
+							} else {
+								update_post_meta( $post_id, 'popup_options', wp_slash( $popup_options ) );
 							}
 						}
 					},
@@ -484,10 +447,40 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 				add_action(
 					'elementor/document/after_save',
 					function( $self, $data ) {
+						$post_id = absint( $_REQUEST['editor_post_id'] );
+
+						// save used blocks
+						if ( ! empty( $data['elements'] ) ) {
+							// check breadcrumbs element
+							$elements_str = json_encode( $data['elements'] );
+							preg_match( '/"breadcrumbs_type":"([^"]*)"/', $elements_str, $matches );
+							if ( ! empty( $matches ) && isset( $matches[1] ) ) {
+								update_post_meta( $post_id, 'porto_page_header_shortcode_type', (int) $matches[1] );
+							} else {
+								delete_post_meta( $post_id, 'porto_page_header_shortcode_type' );
+							}
+							// end check breadcrumbs element
+
+							$block_slugs = $this->get_elementor_object_by_id( $data['elements'] );
+							$used_blocks = get_theme_mod( '_used_blocks', array() );
+							if ( ! isset( $used_blocks['el'] ) ) {
+								$used_blocks['el'] = array();
+							}
+							if ( ! isset( $used_blocks['el']['post_c'] ) ) {
+								$used_blocks['el']['post_c'] = array();
+							}
+							if ( ! empty( $block_slugs ) ) {
+								$used_blocks['el']['post_c'][ $post_id ] = array_map( 'intval', $block_slugs );
+							} else {
+								unset( $used_blocks['el']['post_c'][ $post_id ] );
+							}
+							set_theme_mod( '_used_blocks', $used_blocks );
+						}
+
 						if ( current_user_can( 'unfiltered_html' ) || empty( $data['settings'] ) || empty( $_REQUEST['editor_post_id'] ) ) {
 							return;
 						}
-						$post_id = absint( $_REQUEST['editor_post_id'] );
+
 						if ( ! empty( $data['settings']['porto_custom_css'] ) ) {
 							$elementor_settings = get_post_meta( $post_id, '_elementor_page_settings', true );
 							if ( is_array( $elementor_settings ) ) {
@@ -517,6 +510,8 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 						$val = get_post_meta( $post_id, str_replace( 'porto_', '', $meta ), true );
 						if ( 'porto_default' == $meta && 'default' == $val ) {
 							$val = 'yes';
+						} elseif ( 'porto_disable_sticky_sidebar' == $meta && 'disable_sticky_sidebar' == $val ) {
+							$val = 'yes';
 						}
 						$config['settings']['settings'][ $meta ] = $val;
 					}
@@ -529,79 +524,13 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 			add_filter( 'elementor/icons_manager/additional_tabs', array( $this, 'add_porto_icons' ), 10, 1 );
 		}
 
-		public function update_term_meta_fields( $term_id, $tt_id, $taxonomy ) {
-			$this->update_flag_use_elementor_blocks( $term_id, false, true, $taxonomy );
-		}
-
-		public function update_flag_use_elementor_blocks( $post_id, $post = false, $is_term = false, $taxonomy = false ) {
-			if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-				return;
-			}
-
-			if ( ( isset( $_REQUEST['action'] ) && 'elementor' == $_REQUEST['action'] ) || isset( $_REQUEST['elementor-preview'] ) ) {
-				return;
-			}
-
-			$block_slugs = array();
-			if ( isset( $_POST['banner_type'] ) && 'banner_block' == $_POST['banner_type'] && ! empty( $_POST['banner_block'] ) ) {
-				$block_slugs[] = trim( $_POST['banner_block'] );
-			}
-			$blocks_fields = array( 'content_top', 'content_inner_top', 'content_inner_bottom', 'content_bottom', 'product_custom_block' );
-			foreach ( $blocks_fields as $field ) {
-				if ( ! empty( $_POST[ $field ] ) ) {
-					$arr = explode( ',', $_POST[ $field ] );
-					if ( ! empty( $arr ) ) {
-						foreach ( $arr as $a ) {
-							$a = trim( $a );
-							if ( $a ) {
-								$block_slugs[] = $a;
-							}
-						}
-					}
-				}
-			}
-
-			if ( ! empty( $block_slugs ) ) {
-				foreach ( $block_slugs as $slug ) {
-					$blocks = new WP_Query(
-						array(
-							'name'      => sanitize_text_field( $slug ),
-							'post_type' => 'porto_builder',
-						)
-					);
-
-					if ( $blocks->have_posts() ) {
-						$blocks->the_post();
-						if ( get_post_meta( get_the_ID(), '_elementor_edit_mode', true ) && get_post_meta( get_the_ID(), '_elementor_data', true ) ) {
-							wp_reset_postdata();
-							if ( $is_term ) {
-								update_metadata( $taxonomy, $post_id, '_porto_use_elementor_blocks', true );
-							} else {
-								update_post_meta( $post_id, '_porto_use_elementor_blocks', true );
-							}
-							return;
-						}
-						wp_reset_postdata();
-					}
-				}
-			}
-			if ( $is_term ) {
-				delete_metadata( $taxonomy, $post_id, '_porto_use_elementor_blocks' );
-			} else {
-				delete_post_meta( $post_id, '_porto_use_elementor_blocks' );
-			}
-		}
-
-		public function delete_post_meta_fields( $post_id ) {
-			delete_post_meta( $post_id, '_porto_use_elementor_blocks' );
-		}
-
-		public function delete_term_meta_fields( $term_id, $tt_id, $taxonomy ) {
-			delete_metadata( $taxonomy, $term_id, '_porto_use_elementor_blocks' );
-		}
-
 		// Register Elementor widgets
 		public function register_elementor_widgets( $self ) {
+			include_once dirname( PORTO_META_BOXES_PATH ) . '/elementor/tabs/porto-elementor-custom-tabs.php';
+			$self->unregister_widget_type( 'common' );
+			include_once dirname( PORTO_META_BOXES_PATH ) . '/elementor/widgets/common.php';
+			$self->register_widget_type( new Porto_Elementor_Common_Widget( array(), array( 'widget_name' => 'common' ) ) );
+			
 			foreach ( $this->widgets as $widget ) {
 				include dirname( PORTO_META_BOXES_PATH ) . '/elementor/widgets/' . $widget . '.php';
 				$class_name = 'Porto_Elementor_' . ucfirst( $widget ) . '_Widget';
@@ -618,6 +547,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 
 		public function load_elementor_widgets_js() {
 			if ( ( isset( $_REQUEST['action'] ) && 'elementor' == $_REQUEST['action'] ) || isset( $_REQUEST['elementor-preview'] ) ) {
+
 				wp_register_script( 'porto-elementor-widgets-js', plugin_dir_url( __FILE__ ) . 'assets/elementor.js', array( 'jquery' ), PORTO_SHORTCODES_VERSION, true );
 
 				$masonry_layouts  = porto_sh_commons( 'masonry_layouts' );
@@ -639,6 +569,7 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 				$admin_vars = array(
 					'creative_layouts' => $creative_layouts,
 					'gmt_offset'       => get_option( 'gmt_offset' ),
+					'js_assets_url' => defined( 'PORTO_VERSION' ) ? PORTO_JS : '',
 				);
 				global $porto_settings;
 				if ( ! empty( $porto_settings ) ) {
@@ -654,11 +585,12 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 		}
 
 		public function register_custom_control( $self ) {
-			$controls = array( 'image_choose' );
+			$controls = array( 'image_choose', 'porto_ajaxselect2' );
 
 			foreach ( $controls as $control ) {
-				include_once dirname( PORTO_META_BOXES_PATH ) . '/elementor/controls/control-' . $control . '.php';
-				$class_name = 'Porto_Control_' . ucfirst( $control );
+				$file_name = str_replace( 'porto_', '', $control );
+				include_once dirname( PORTO_META_BOXES_PATH ) . '/elementor/controls/control-' . $file_name . '.php';
+				$class_name = 'Porto_Control_' . ucfirst( $file_name );
 				$self->register_control( $control, new $class_name( array(), array( 'control_name' => $class_name ) ) );
 			}
 		}
@@ -686,6 +618,38 @@ if ( ! class_exists( 'Porto_Elementor_Init' ) ) :
 				'native'        => false,
 			);
 			return $icons;
+		}
+
+		/**
+		 * get block ids in shortcode and block widgets from the elementor data
+		 */
+		private function get_elementor_object_by_id( $objects ) {
+			$result = array();
+
+			$block_slugs = array();
+			foreach ( $objects as $object ) {
+				if ( ! empty( $object['elements'] ) ) {
+					$result = array_merge( $result, $this->get_elementor_object_by_id( $object['elements'] ) );
+				} else {
+					if ( 'shortcode' == $object['widgetType'] && isset( $object['settings'] ) && ! empty( $object['settings']['shortcode'] ) && preg_match_all( '/\[porto_block\s[^]]*(id|name)="([^"]*)"/', $object['settings']['shortcode'], $matches ) && ! empty( $matches[2] ) ) {
+						$block_slugs = array_merge( $block_slugs, $matches[2] );
+					} elseif ( 'wp-widget-block-widget' == $object['widgetType'] && isset( $object['settings'] ) && isset( $object['settings']['wp'] ) && ! empty( $object['settings']['wp']['name'] ) ) {
+						$block_slugs = array_merge( $block_slugs, array_map( 'trim', explode( ',', $object['settings']['wp']['name'] ) ) );
+					}
+				}
+			}
+			if ( ! empty( $block_slugs ) ) {
+				$block_slugs = array_unique( $block_slugs );
+				global $wpdb;
+				foreach ( $block_slugs as $s ) {
+					$where   = is_numeric( $s ) ? 'ID' : 'post_name';
+					$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'porto_builder' AND $where = %s", sanitize_text_field( $s ) ) );
+					if ( $post_id && get_post_meta( $post_id, '_elementor_edit_mode', true ) && get_post_meta( $post_id, '_elementor_data', true ) ) {
+						$result[] = (int) $post_id;
+					}
+				}
+			}
+			return array_unique( $result );
 		}
 	}
 endif;
