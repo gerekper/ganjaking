@@ -27,9 +27,8 @@ class CDN extends Abstract_Summary_Page implements Interface_Page {
 
 		if ( ! WP_Smush::is_pro() ) {
 			$this->add_meta_box(
-				'cdn',
-				__( 'CDN', 'wp-smushit' ),
-				array( $this, 'cdn_upsell_meta_box' )
+				'cdn/upsell',
+				__( 'CDN', 'wp-smushit' )
 			);
 
 			return;
@@ -50,29 +49,6 @@ class CDN extends Abstract_Summary_Page implements Interface_Page {
 			array( $this, 'cdn_meta_box' ),
 			null,
 			array( $this, 'common_meta_box_footer' )
-		);
-	}
-
-	/**
-	 * CDN meta box (for free users).
-	 *
-	 * @since 3.0
-	 */
-	public function cdn_upsell_meta_box() {
-		$upgrade_url = add_query_arg(
-			array(
-				'utm_source'   => 'smush',
-				'utm_medium'   => 'plugin',
-				'utm_campaign' => 'smush_cdn_upgrade_button',
-			),
-			$this->upgrade_url
-		);
-
-		$this->view(
-			'cdn/upsell-meta-box',
-			array(
-				'upgrade_url' => $upgrade_url,
-			)
 		);
 	}
 

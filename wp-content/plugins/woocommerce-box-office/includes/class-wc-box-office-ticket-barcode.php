@@ -100,7 +100,7 @@ class WC_Box_Office_Ticket_Barcode {
 			return;
 		}
 
-		if ( isset( $post->ID ) ) {
+		if ( isset( get_post()->ID ) ) {
 			$barcode_string = $this->generate_barcode_text_for_ticket();
 			update_post_meta( $ticket_id, '_barcode_text', $barcode_string );
 		}

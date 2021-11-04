@@ -70,7 +70,6 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\conditionals\\development_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Development_Conditional',
             'yoast\\wp\\seo\\conditionals\\front_end_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Front_End_Conditional',
             'yoast\\wp\\seo\\conditionals\\get_request_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Get_Request_Conditional',
-            'yoast\\wp\\seo\\conditionals\\greek_support_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Greek_Support_Conditional',
             'yoast\\wp\\seo\\conditionals\\headless_rest_endpoints_enabled_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Headless_Rest_Endpoints_Enabled_Conditional',
             'yoast\\wp\\seo\\conditionals\\japanese_support_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional',
             'yoast\\wp\\seo\\conditionals\\jetpack_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Jetpack_Conditional',
@@ -349,7 +348,6 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Conditionals\\Development_Conditional' => 'getDevelopmentConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Front_End_Conditional' => 'getFrontEndConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Get_Request_Conditional' => 'getGetRequestConditionalService',
-            'Yoast\\WP\\SEO\\Conditionals\\Greek_Support_Conditional' => 'getGreekSupportConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Headless_Rest_Endpoints_Enabled_Conditional' => 'getHeadlessRestEndpointsEnabledConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional' => 'getJapaneseSupportConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Jetpack_Conditional' => 'getJetpackConditionalService',
@@ -1217,16 +1215,6 @@ class Cached_Container extends Container
     }
 
     /**
-     * Gets the public 'Yoast\WP\SEO\Conditionals\Greek_Support_Conditional' shared autowired service.
-     *
-     * @return \Yoast\WP\SEO\Conditionals\Greek_Support_Conditional
-     */
-    protected function getGreekSupportConditionalService()
-    {
-        return $this->services['Yoast\\WP\\SEO\\Conditionals\\Greek_Support_Conditional'] = new \Yoast\WP\SEO\Conditionals\Greek_Support_Conditional();
-    }
-
-    /**
      * Gets the public 'Yoast\WP\SEO\Conditionals\Headless_Rest_Endpoints_Enabled_Conditional' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Conditionals\Headless_Rest_Endpoints_Enabled_Conditional
@@ -2073,7 +2061,7 @@ class Cached_Container extends Container
      */
     protected function getLanguageHelperService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper'] = new \Yoast\WP\SEO\Helpers\Language_Helper(${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional'] = new \Yoast\WP\SEO\Conditionals\Japanese_Support_Conditional())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Greek_Support_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Greek_Support_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Conditionals\\Greek_Support_Conditional'] = new \Yoast\WP\SEO\Conditionals\Greek_Support_Conditional())) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Helpers\\Language_Helper'] = new \Yoast\WP\SEO\Helpers\Language_Helper(${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional'] = new \Yoast\WP\SEO\Conditionals\Japanese_Support_Conditional())) && false ?: '_'});
     }
 
     /**
@@ -2649,7 +2637,7 @@ class Cached_Container extends Container
      */
     protected function getFeatureFlagIntegrationService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Integrations\\Feature_Flag_Integration'] = new \Yoast\WP\SEO\Integrations\Feature_Flag_Integration(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Addon_Installation_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Addon_Installation_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Conditionals\\Addon_Installation_Conditional'] = new \Yoast\WP\SEO\Conditionals\Addon_Installation_Conditional())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Greek_Support_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Greek_Support_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Conditionals\\Greek_Support_Conditional'] = new \Yoast\WP\SEO\Conditionals\Greek_Support_Conditional())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional'] = new \Yoast\WP\SEO\Conditionals\Japanese_Support_Conditional())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional'] = new \Yoast\WP\SEO\Conditionals\Schema_Blocks_Conditional())) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Integrations\\Feature_Flag_Integration'] = new \Yoast\WP\SEO\Integrations\Feature_Flag_Integration(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Addon_Installation_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Addon_Installation_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Conditionals\\Addon_Installation_Conditional'] = new \Yoast\WP\SEO\Conditionals\Addon_Installation_Conditional())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Conditionals\\Japanese_Support_Conditional'] = new \Yoast\WP\SEO\Conditionals\Japanese_Support_Conditional())) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional']) ? $this->services['Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional'] : ($this->services['Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional'] = new \Yoast\WP\SEO\Conditionals\Schema_Blocks_Conditional())) && false ?: '_'});
     }
 
     /**

@@ -157,6 +157,6 @@ class WebP extends Abstract_Summary_Page implements Interface_Page {
 	 * @return bool
 	 */
 	protected function is_wizard() {
-		return ( ! WP_Smush::is_pro() || ( $this->settings->get( 'webp_mod' ) && ! get_site_option( WP_SMUSH_PREFIX . 'webp_hide_wizard' ) ) );
+		return ( ! WP_Smush::is_pro() || ( $this->settings->get( 'webp_mod' ) && ! get_site_option( 'wp-smush-webp_hide_wizard' ) ) );
 	}
 }

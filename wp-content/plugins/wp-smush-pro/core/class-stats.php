@@ -140,8 +140,8 @@ class Stats {
 	 * @return int|array
 	 */
 	public function get_savings( $type, $force_update = true, $format = false, $return_count = false ) {
-		$key       = WP_SMUSH_PREFIX . $type . '_savings';
-		$key_count = WP_SMUSH_PREFIX . 'resize_count';
+		$key       = 'wp-smush-' . $type . '_savings';
+		$key_count = 'wp-smush-resize_count';
 
 		if ( ! $force_update ) {
 			$savings = wp_cache_get( $key, 'wp-smush' );
@@ -232,8 +232,8 @@ class Stats {
 			$savings[ $type ]['bytes'] = size_format( $savings[ $type ]['bytes'], 1 );
 		}
 
-		wp_cache_set( WP_SMUSH_PREFIX . 'resize_savings', $savings['resize'], 'wp-smush' );
-		wp_cache_set( WP_SMUSH_PREFIX . 'pngjpg_savings', $savings['pngjpg'], 'wp-smush' );
+		wp_cache_set( 'wp-smush-resize_savings', $savings['resize'], 'wp-smush' );
+		wp_cache_set( 'wp-smush-pngjpg_savings', $savings['pngjpg'], 'wp-smush' );
 		wp_cache_set( $key_count, $count, 'wp-smush' );
 
 		return $return_count ? $count : $savings[ $type ];
@@ -339,7 +339,7 @@ class Stats {
 	public function get_smushed_attachments( $force_update = false ) {
 		// If not forced to update, try to get from cache.
 		if ( ! $force_update ) {
-			$smushed_count = wp_cache_get( WP_SMUSH_PREFIX . 'smushed_ids', 'wp-smush' );
+			$smushed_count = wp_cache_get( 'wp-smush-smushed_ids', 'wp-smush' );
 			// Return the cache value if cache is set.
 			if ( false !== $smushed_count && ! empty( $smushed_count ) ) {
 				return $smushed_count;
@@ -364,7 +364,7 @@ class Stats {
 		}
 
 		// Set in cache.
-		wp_cache_set( WP_SMUSH_PREFIX . 'smushed_ids', $posts, 'wp-smush' );
+		wp_cache_set( 'wp-smush-smushed_ids', $posts, 'wp-smush' );
 
 		return $posts;
 	}
@@ -377,7 +377,7 @@ class Stats {
 	 * @param integer $attachment_id ID of the smushed attachment.
 	 */
 	public static function add_to_smushed_list( $attachment_id ) {
-		$smushed_ids = wp_cache_get( WP_SMUSH_PREFIX . 'smushed_ids', 'wp-smush' );
+		$smushed_ids = wp_cache_get( 'wp-smush-smushed_ids', 'wp-smush' );
 
 		if ( ! empty( $smushed_ids ) ) {
 			$attachment_id = strval( $attachment_id );
@@ -386,7 +386,7 @@ class Stats {
 				$smushed_ids[] = $attachment_id;
 
 				// Set in cache.
-				wp_cache_set( WP_SMUSH_PREFIX . 'smushed_ids', $smushed_ids, 'wp-smush' );
+				wp_cache_set( 'wp-smush-smushed_ids', $smushed_ids, 'wp-smush' );
 			}
 		}
 	}
@@ -399,13 +399,13 @@ class Stats {
 	 * @param integer $attachment_id ID of the smushed attachment.
 	 */
 	public static function remove_from_smushed_list( $attachment_id ) {
-		$smushed_ids = wp_cache_get( WP_SMUSH_PREFIX . 'smushed_ids', 'wp-smush' );
+		$smushed_ids = wp_cache_get( 'wp-smush-smushed_ids', 'wp-smush' );
 
 		if ( ! empty( $smushed_ids ) ) {
 			$index = array_search( strval( $attachment_id ), $smushed_ids, true );
 			if ( false !== $index ) {
 				unset( $smushed_ids[ $index ] );
-				wp_cache_set( WP_SMUSH_PREFIX . 'smushed_ids', $smushed_ids, 'wp-smush' );
+				wp_cache_set( 'wp-smush-smushed_ids', $smushed_ids, 'wp-smush' );
 			}
 		}
 	}
@@ -572,7 +572,7 @@ class Stats {
 		// Loop over all the attachments to get the cumulative savings.
 		foreach ( $attachments as $attachment ) {
 			$smush_stats        = get_post_meta( $attachment, Modules\Smush::$smushed_meta_key, true );
-			$resize_savings     = get_post_meta( $attachment, WP_SMUSH_PREFIX . 'resize_savings', true );
+			$resize_savings     = get_post_meta( $attachment, 'wp-smush-resize_savings', true );
 			$conversion_savings = Helper::get_pngjpg_savings( $attachment );
 
 			if ( ! empty( $smush_stats['stats'] ) ) {

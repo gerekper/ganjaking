@@ -106,8 +106,7 @@ class SubscriberEngagement {
     $countQuery = $this->getStatsQuery($definition, true);
     if ($countQuery) {
       $query = 'SELECT COUNT(*) as cnt FROM ( ' . $countQuery . ' ) t ';
-      $countData = $this->entityManager->getConnection()->executeQuery($query)->fetch();
-      $count = (int)$countData['cnt'];
+      $count = (int)$this->entityManager->getConnection()->executeQuery($query)->fetchOne();
 
       $statsQuery = $this->getStatsQuery($definition);
       $query = $statsQuery . " ORDER BY {$definition->getSortBy()} {$definition->getSortOrder()} LIMIT :limit OFFSET :offset ";
@@ -121,7 +120,7 @@ class SubscriberEngagement {
           'limit' => \PDO::PARAM_INT,
           'offset' => \PDO::PARAM_INT,
         ])
-        ->fetchAll();
+        ->fetchAllAssociative();
     } else {
       $count = 0;
       $items = [];
@@ -393,8 +392,7 @@ class SubscriberEngagement {
 
     $subQuery = $this->getStatsQuery($definition, true, self::STATUS_UNOPENED, false);
     $query = ' SELECT COUNT(*) as cnt FROM ( ' . $subQuery . ' ) t ';
-    $unopenedCount = $this->entityManager->getConnection()->executeQuery($query)->fetch();
-    $unopenedCount = (int)$unopenedCount['cnt'];
+    $unopenedCount = (int)$this->entityManager->getConnection()->executeQuery($query)->fetchOne();
 
     $groups[] = [
       'name' => self::STATUS_UNOPENED,

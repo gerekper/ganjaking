@@ -60,8 +60,7 @@ class Bounces {
     $countQuery = $this->getBouncesQuery($definition, true);
     if ($countQuery) {
       $query = 'SELECT COUNT(*) as cnt FROM ( ' . $countQuery . ' ) t ';
-      $countData = $this->entityManager->getConnection()->executeQuery($query)->fetch();
-      $count = (int)$countData['cnt'];
+      $count = (int)$this->entityManager->getConnection()->executeQuery($query)->fetchOne();
 
       $query = $this->getBouncesQuery($definition);
       $query .= " ORDER BY {$definition->getSortBy()} {$definition->getSortOrder()} LIMIT :limit OFFSET :offset ";
@@ -75,7 +74,7 @@ class Bounces {
           'limit' => \PDO::PARAM_INT,
           'offset' => \PDO::PARAM_INT,
         ])
-        ->fetchAll();
+        ->fetchAllAssociative();
     } else {
       $count = 0;
       $items = [];

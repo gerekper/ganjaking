@@ -72,9 +72,6 @@ if ( WP_Smush::is_pro() ) {
 		<li><a href="https://wpmudev.com/hub2/community/" target="_blank">
 				<?php esc_html_e( 'Community', 'wp-smushit' ); ?>
 			</a></li>
-		<li><a href="https://wpmudev.com/academy/" target="_blank">
-				<?php esc_html_e( 'Academy', 'wp-smushit' ); ?>
-			</a></li>
 		<li><a href="https://wpmudev.com/terms-of-service/" target="_blank">
 				<?php esc_html_e( 'Terms of Service', 'wp-smushit' ); ?>
 			</a></li>

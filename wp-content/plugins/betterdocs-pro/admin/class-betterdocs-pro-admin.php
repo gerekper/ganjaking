@@ -58,6 +58,8 @@ class Betterdocs_Pro_Admin
 		add_action('wp_ajax_update_docs_term', array($this, 'update_docs_term'));
 		add_action('save_post_docs', array($this, 'update_new_post_doc_order_by_category'));
 		add_action('betterdocs_single_post_nav', array($this, 'single_post_nav'));
+        add_filter('betterdocs_highlight_admin_menu', array($this, 'highlight_admin_menu'), 1);
+        add_filter('betterdocs_highlight_admin_submenu', array($this, 'highlight_admin_submenu'), 1);
 
 		$alphabetically_order_post = BetterDocs_DB::get_settings('alphabetically_order_post');
 		if ($alphabetically_order_post != 1) {
@@ -203,7 +205,7 @@ class Betterdocs_Pro_Admin
 		return $parent_file;
 	}
 
-	public function highlight_admin_submenu($parent_file, $submenu_file)
+	public function highlight_admin_submenu($submenu_file)
 	{
 		global $current_screen, $pagenow;
 

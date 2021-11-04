@@ -422,6 +422,7 @@
     border: 1px solid #f2f2f2;
     width: 100%;
     font-size: 13px;
+    line-height: 1.3em;
     -webkit-transition: all 300ms300ms ease-in-out;
     -o-transition: all 300ms300ms ease-in-out;
     transition: all 300ms300ms ease-in-out; }

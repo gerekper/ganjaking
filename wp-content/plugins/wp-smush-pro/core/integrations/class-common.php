@@ -150,10 +150,6 @@ class Common {
 	public function smush_retina_image( $id, $retina_file, $image_size ) {
 		$smush = WP_Smush::get_instance()->core()->mod->smush;
 
-		// Initialize attachment id and media type.
-		$smush->attachment_id = $id;
-		$smush->media_type    = 'wp';
-
 		/**
 		 * Allows to Enable/Disable WP Retina 2x Integration
 		 */
@@ -293,8 +289,8 @@ class Common {
 		// If images found.
 		if ( ! empty( $image_ids ) ) {
 			// Get the resize savings.
-			$resize = get_post_meta( $id, WP_SMUSH_PREFIX . 'resize_savings' );
-			// Update each translations.
+			$resize = get_post_meta( $id, 'wp-smush-resize_savings' );
+			// Update each translation.
 			foreach ( $image_ids as $attchment_id ) {
 
 				$original_meta = wp_get_attachment_metadata( $attchment_id );
@@ -307,7 +303,7 @@ class Common {
 				update_post_meta( $attchment_id, Smush::$smushed_meta_key, $stats );
 				// Resize savings.
 				if ( ! empty( $resize ) ) {
-					update_post_meta( $attchment_id, WP_SMUSH_PREFIX . 'resize_savings', $resize );
+					update_post_meta( $attchment_id, 'wp-smush-resize_savings', $resize );
 				}
 				// Attachment meta data.
 				update_post_meta( $attchment_id, '_wp_attachment_metadata', $meta );

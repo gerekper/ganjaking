@@ -51,11 +51,11 @@ class Configs {
 	 * @return bool
 	 */
 	public function get_callback() {
-		$stored_configs = get_site_option( WP_SMUSH_PREFIX . self::OPTION_NAME, false );
+		$stored_configs = get_site_option( 'wp-smush-' . self::OPTION_NAME, false );
 
 		if ( false === $stored_configs ) {
 			$stored_configs = array( $this->get_basic_config() );
-			update_site_option( WP_SMUSH_PREFIX . self::OPTION_NAME, $stored_configs );
+			update_site_option( 'wp-smush-' . self::OPTION_NAME, $stored_configs );
 		}
 		return $stored_configs;
 	}
@@ -76,7 +76,7 @@ class Configs {
 
 		// Do we really need to re-sanitize here?
 		$sanitized_data = $this->sanitize_configs_list( $data );
-		update_site_option( WP_SMUSH_PREFIX . self::OPTION_NAME, $sanitized_data );
+		update_site_option( 'wp-smush-' . self::OPTION_NAME, $sanitized_data );
 
 		return $data;
 	}
@@ -185,12 +185,10 @@ class Configs {
 	 */
 	public function save_uploaded_config( $file ) {
 		try {
-			$config = $this->decode_and_validate_config_file( $file );
+			return $this->decode_and_validate_config_file( $file );
 		} catch ( \Exception $e ) {
 			return new \WP_Error( 'error_saving', $e->getMessage() );
 		}
-
-		return $config;
 	}
 
 	/**
@@ -256,7 +254,7 @@ class Configs {
 	 * @param string $id The ID of the config to apply.
 	 */
 	public function apply_config_by_id( $id ) {
-		$stored_configs = get_site_option( WP_SMUSH_PREFIX . self::OPTION_NAME );
+		$stored_configs = get_site_option( 'wp-smush-' . self::OPTION_NAME );
 
 		$config = false;
 		foreach ( $stored_configs as $config_data ) {
@@ -287,19 +285,19 @@ class Configs {
 
 		// Update 'networkwide' options in multisites.
 		if ( is_multisite() && isset( $sanitized_config['networkwide'] ) ) {
-			update_site_option( WP_SMUSH_PREFIX . 'networkwide', $sanitized_config['networkwide'] );
+			update_site_option( 'wp-smush-networkwide', $sanitized_config['networkwide'] );
 		}
 
 		$settings_handler = Settings::get_instance();
 
 		// Update image sizes.
 		if ( isset( $sanitized_config['resize_sizes'] ) ) {
-			$settings_handler->set_setting( WP_SMUSH_PREFIX . 'resize_sizes', $sanitized_config['resize_sizes'] );
+			$settings_handler->set_setting( 'wp-smush-resize_sizes', $sanitized_config['resize_sizes'] );
 		}
 
 		// Update settings. We could reuse the `save` method from settings to handle this instead.
 		if ( ! empty( $sanitized_config['settings'] ) ) {
-			$stored_settings = $settings_handler->get_setting( WP_SMUSH_PREFIX . 'settings' );
+			$stored_settings = $settings_handler->get_setting( 'wp-smush-settings' );
 
 			// Keep the keys that are in use in this version.
 			$new_settings = array_intersect_key( $sanitized_config['settings'], $stored_settings );
@@ -324,18 +322,18 @@ class Configs {
 
 				// Keep the stored settings that aren't present in the incoming one.
 				$new_settings = array_merge( $stored_settings, $new_settings );
-				$settings_handler->set_setting( WP_SMUSH_PREFIX . 'settings', $new_settings );
+				$settings_handler->set_setting( 'wp-smush-settings', $new_settings );
 			}
 		}
 
 		// Update lazy load.
 		if ( ! empty( $sanitized_config['lazy_load'] ) ) {
-			$stored_lazy_load = $settings_handler->get_setting( WP_SMUSH_PREFIX . 'lazy_load' );
+			$stored_lazy_load = $settings_handler->get_setting( 'wp-smush-lazy_load' );
 
 			// Save the defaults before applying the config if the current settings aren't set.
 			if ( empty( $stored_lazy_load ) ) {
 				$settings_handler->init_lazy_load_defaults();
-				$stored_lazy_load = $settings_handler->get_setting( WP_SMUSH_PREFIX . 'lazy_load' );
+				$stored_lazy_load = $settings_handler->get_setting( 'wp-smush-lazy_load' );
 			}
 
 			// Keep the settings that are in use in this version.
@@ -347,7 +345,7 @@ class Configs {
 
 			// Keep the stored settings that aren't present in the incoming one.
 			$new_lazy_load = array_replace_recursive( $stored_lazy_load, $sanitized_config['lazy_load'] );
-			$settings_handler->set_setting( WP_SMUSH_PREFIX . 'lazy_load', $new_lazy_load );
+			$settings_handler->set_setting( 'wp-smush-lazy_load', $new_lazy_load );
 		}
 	}
 
@@ -361,17 +359,17 @@ class Configs {
 	public function get_config_from_current() {
 		$settings = Settings::get_instance();
 
-		$stored_settings = $settings->get_setting( WP_SMUSH_PREFIX . 'settings' );
+		$stored_settings = $settings->get_setting( 'wp-smush-settings' );
 
 		$configs = array( 'settings' => $stored_settings );
 
 		if ( $stored_settings['resize'] ) {
-			$configs['resize_sizes'] = $settings->get_setting( WP_SMUSH_PREFIX . 'resize_sizes' );
+			$configs['resize_sizes'] = $settings->get_setting( 'wp-smush-resize_sizes' );
 		}
 
 		// Let's store this only for multisites.
 		if ( is_multisite() ) {
-			$configs['networkwide'] = get_site_option( WP_SMUSH_PREFIX . 'networkwide' );
+			$configs['networkwide'] = get_site_option( 'wp-smush-networkwide' );
 		}
 
 		// There's a site_option that handles this.
@@ -385,7 +383,7 @@ class Configs {
 
 		// Include the lazy load settings only when lazy load is enabled.
 		if ( ! empty( $configs['settings']['lazy_load'] ) ) {
-			$lazy_load_settings = $settings->get_setting( WP_SMUSH_PREFIX . 'lazy_load' );
+			$lazy_load_settings = $settings->get_setting( 'wp-smush-lazy_load' );
 
 			if ( ! empty( $lazy_load_settings ) ) {
 				// Exclude unique settings.
@@ -411,14 +409,12 @@ class Configs {
 			}
 		}
 
-		$new_config = array(
+		return array(
 			'config' => array(
 				'configs' => $configs,
 				'strings' => $this->format_config_to_display( $configs ),
 			),
 		);
-
-		return $new_config;
 	}
 
 	/**

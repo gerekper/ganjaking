@@ -9,7 +9,7 @@
  */
 
 if ( ! defined( 'WPINC' ) ) {
-	die;			    		    					   
+	die;
 }
 
 ?>
@@ -29,15 +29,15 @@ if ( ! defined( 'WPINC' ) ) {
 			<div data-tabs>
 				<?php $selected = is_array( $networkwide ) ? 'custom' : $networkwide; ?>
 				<label for="access-none" class="sui-tab-item <?php echo ! $networkwide ? 'active' : ''; ?>">
-					<input type="radio" name="<?php echo esc_attr( WP_SMUSH_PREFIX ); ?>subsite-access" value="0" id="access-none" <?php checked( $selected, false ); ?>>
+					<input type="radio" name="wp-smush-subsite-access" value="0" id="access-none" <?php checked( $selected, false ); ?>>
 					<?php esc_html_e( 'None', 'wp-smushit' ); ?>
 				</label>
 				<label for="access-all" class="sui-tab-item <?php echo '1' === $networkwide ? 'active' : ''; ?>">
-					<input type="radio" name="<?php echo esc_attr( WP_SMUSH_PREFIX ); ?>subsite-access" value="1" id="access-all" <?php checked( $selected, '1' ); ?>>
+					<input type="radio" name="wp-smush-subsite-access" value="1" id="access-all" <?php checked( $selected, '1' ); ?>>
 					<?php esc_html_e( 'All', 'wp-smushit' ); ?>
 				</label>
 				<label for="access-custom" class="sui-tab-item <?php echo is_array( $networkwide ) ? 'active' : ''; ?>">
-					<input type="radio" name="<?php echo esc_attr( WP_SMUSH_PREFIX ); ?>subsite-access" value="custom" id="access-custom" <?php checked( $selected, 'custom' ); ?>>
+					<input type="radio" name="wp-smush-subsite-access" value="custom" id="access-custom" <?php checked( $selected, 'custom' ); ?>>
 					<?php esc_html_e( 'Custom', 'wp-smushit' ); ?>
 				</label>
 			</div>
@@ -65,34 +65,34 @@ if ( ! defined( 'WPINC' ) ) {
 					</p>
 
 					<label class="sui-checkbox sui-checkbox-stacked sui-checkbox-sm">
-						<input type="checkbox" id="module-bulk" name="<?php echo esc_attr( WP_SMUSH_PREFIX ); ?>access[]" value="bulk" <?php checked( ! is_array( $networkwide ) || in_array( 'bulk', $networkwide, true ) ); ?>>
+						<input type="checkbox" id="module-bulk" name="wp-smush-access[]" value="bulk" <?php checked( ! is_array( $networkwide ) || in_array( 'bulk', $networkwide, true ) ); ?>>
 						<span aria-hidden="true">&nbsp;</span>
 						<span><?php esc_html_e( 'Bulk Smush', 'wp-smushit' ); ?></span>
 					</label>
 					<label class="sui-checkbox sui-checkbox-stacked sui-checkbox-sm">
-						<input type="checkbox" id="module-integrations" name="<?php echo esc_attr( WP_SMUSH_PREFIX ); ?>access[]" value="integrations" <?php checked( ! is_array( $networkwide ) || in_array( 'integrations', $networkwide, true ) ); ?>>
+						<input type="checkbox" id="module-integrations" name="wp-smush-access[]" value="integrations" <?php checked( ! is_array( $networkwide ) || in_array( 'integrations', $networkwide, true ) ); ?>>
 						<span aria-hidden="true">&nbsp;</span>
 						<span><?php esc_html_e( 'Integrations', 'wp-smushit' ); ?></span>
 					</label>
 					<label class="sui-checkbox sui-checkbox-stacked sui-checkbox-sm">
-						<input type="checkbox" id="module-lazy_load" name="<?php echo esc_attr( WP_SMUSH_PREFIX ); ?>access[]" value="lazy_load" <?php checked( ! is_array( $networkwide ) || in_array( 'lazy_load', $networkwide, true ) ); ?>>
+						<input type="checkbox" id="module-lazy_load" name="wp-smush-access[]" value="lazy_load" <?php checked( ! is_array( $networkwide ) || in_array( 'lazy_load', $networkwide, true ) ); ?>>
 						<span aria-hidden="true">&nbsp;</span>
 						<span><?php esc_html_e( 'Lazy Load', 'wp-smushit' ); ?></span>
 					</label>
 					<label class="sui-checkbox sui-checkbox-stacked sui-checkbox-sm">
-						<input type="checkbox" id="module-cdn" name="<?php echo esc_attr( WP_SMUSH_PREFIX ); ?>access[]" value="cdn" <?php checked( ! is_array( $networkwide ) || in_array( 'cdn', $networkwide, true ) ); ?>>
+						<input type="checkbox" id="module-cdn" name="wp-smush-access[]" value="cdn" <?php checked( ! is_array( $networkwide ) || in_array( 'cdn', $networkwide, true ) ); ?>>
 						<span aria-hidden="true">&nbsp;</span>
 						<span><?php esc_html_e( 'CDN', 'wp-smushit' ); ?></span>
 					</label>
 					<label class="sui-checkbox sui-checkbox-stacked sui-checkbox-sm">
-						<input type="checkbox" id="module-tools" name="<?php echo esc_attr( WP_SMUSH_PREFIX ); ?>access[]" value="tools" <?php checked( ! is_array( $networkwide ) || in_array( 'tools', $networkwide, true ) ); ?>>
+						<input type="checkbox" id="module-tools" name="wp-smush-access[]" value="tools" <?php checked( ! is_array( $networkwide ) || in_array( 'tools', $networkwide, true ) ); ?>>
 						<span aria-hidden="true">&nbsp;</span>
 						<span><?php esc_html_e( 'Tools', 'wp-smushit' ); ?></span>
 					</label>
 					<?php // Don't display if Dashboard's whitelabel is hiding documentation. ?>
 					<?php if ( ! apply_filters( 'wpmudev_branding_hide_doc_link', false ) ) : ?>
 						<label class="sui-checkbox sui-checkbox-stacked sui-checkbox-sm">
-							<input type="checkbox" id="module-tutorials" name="<?php echo esc_attr( WP_SMUSH_PREFIX ); ?>access[]" value="tutorials" <?php checked( ! is_array( $networkwide ) || in_array( 'tutorials', $networkwide, true ) ); ?>>
+							<input type="checkbox" id="module-tutorials" name="wp-smush-access[]" value="tutorials" <?php checked( ! is_array( $networkwide ) || in_array( 'tutorials', $networkwide, true ) ); ?>>
 							<span aria-hidden="true">&nbsp;</span>
 							<span><?php esc_html_e( 'Tutorials', 'wp-smushit' ); ?></span>
 						</label>

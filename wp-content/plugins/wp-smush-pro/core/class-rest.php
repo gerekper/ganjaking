@@ -84,8 +84,8 @@ class Rest {
 			return $status_txt;
 		}
 
-		$wp_resize_savings  = get_post_meta( $image['id'], WP_SMUSH_PREFIX . 'resize_savings', true );
-		$conversion_savings = get_post_meta( $image['id'], WP_SMUSH_PREFIX . 'pngjpg_savings', true );
+		$wp_resize_savings  = get_post_meta( $image['id'], 'wp-smush-resize_savings', true );
+		$conversion_savings = get_post_meta( $image['id'], 'wp-smush-pngjpg_savings', true );
 
 		$combined_stats = WP_Smush::get_instance()->core()->combined_stats( $wp_smush_data, $wp_resize_savings );
 		$combined_stats = WP_Smush::get_instance()->core()->combine_conversion_stats( $combined_stats, $conversion_savings );

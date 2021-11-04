@@ -122,8 +122,8 @@ abstract class Abstract_Page {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		// Notices.
-		add_action( 'admin_notices', array( $this, 'smush_upgrade_notice' ) );
-		add_action( 'network_admin_notices', array( $this, 'smush_upgrade_notice' ) );
+		//add_action( 'admin_notices', array( $this, 'smush_upgrade_notice' ) );
+		//add_action( 'network_admin_notices', array( $this, 'smush_upgrade_notice' ) );
 		add_action( 'admin_notices', array( $this, 'smush_deactivated' ) );
 		add_action( 'network_admin_notices', array( $this, 'smush_deactivated' ) );
 		add_action( 'wp_smush_header_notices', array( $this, 'settings_updated' ) );
@@ -197,7 +197,7 @@ abstract class Abstract_Page {
 		}
 
 		// Return if notice is already dismissed.
-		if ( get_site_option( WP_SMUSH_PREFIX . 'hide_upgrade_notice' ) ) {
+		if ( get_site_option( 'wp-smush-hide_upgrade_notice' ) ) {
 			return;
 		}
 
@@ -239,8 +239,8 @@ abstract class Abstract_Page {
 				>
 			</div>
 			<div class="smush-notice-message<?php echo 'new' === $install_type ? ' wp-smush-fresh' : ' wp-smush-existing'; ?>">
-				<?php printf( esc_html( $message ), '<strong>', '</strong>' ); ?>
-				<br/><span class="smush-notice-only-admins"><?php esc_html_e( '*Only admin users can see this message', 'wp-smushit' ); ?></span>
+				<?php printf( esc_html( $message ), '<strong>', '</strong>' ); ?><br/>
+				<small><?php esc_html_e( '*Only admin users can see this message', 'wp-smushit' ); ?></small>
 			</div>
 			<div class="smush-notice-cta">
 				<a href="<?php echo esc_url( $upgrade_url ); ?>" class="smush-notice-act button-primary" target="_blank">
@@ -419,7 +419,7 @@ abstract class Abstract_Page {
 		$classes = $this->settings->get( 'accessible_colors' ) ? 'sui-wrap sui-color-accessible' : 'sui-wrap';
 		echo '<div class="' . esc_attr( $classes ) . ' wrap-' . esc_attr( $this->slug ) . '">';
 
-		// Load page header.
+		$this->black_friday_notice();
 		$this->render_page_header();
 		$this->render_modals();
 		$this->render_inner_content();
@@ -429,6 +429,46 @@ abstract class Abstract_Page {
 
 		// Close shared ui wrapper.
 		echo '</div>';
+	}
+
+	/**
+	 * Show black friday notice.
+	 *
+	 * @since 3.9.2
+	 */
+	private function black_friday_notice() {
+		if ( ! get_site_option( 'wp-smush-show-black-friday' ) ) {
+			return;
+		}
+
+		if ( ! is_main_site() ) {
+			return;
+		}
+
+		// After 6 December.
+		if ( date_create( date_i18n( 'd-m-Y' ) ) >= date_create( date_i18n( '06-12-Y' ) ) ) {
+			delete_site_option( 'wp-smush-show-black-friday' );
+			return;
+		}
+
+		wp_enqueue_script(
+			'smush-black-friday',
+			WP_SMUSH_URL . 'app/assets/js/smush-black-friday.min.js',
+			array( 'wp-i18n' ),
+			WP_SMUSH_VERSION,
+			true
+		);
+
+		$strings = array(
+			'header'  => esc_html__( 'Black Friday Offer!', 'wp-smushit' ),
+			'message' => esc_html__( 'Get 11 Pro plugins on unlimited sites and much more with 50% OFF WPMU DEV Agency plan FOREVER', 'wp-smushit' ),
+			'notice'  => esc_html__( '*Only admin users can see this message', 'wp-smushit' ),
+			'link'    => 'https://wpmudev.com/black-friday/?coupon=BFP-2021&utm_source=smush_' . ( WP_Smush::is_pro() ? 'pro' : 'free' ) . '&utm_medium=referral&utm_campaign=bf2021',
+		);
+
+		wp_localize_script( 'smush-black-friday', 'smush_bf', $strings );
+
+		echo '<div id="smush-black-friday"></div>';
 	}
 
 	/**
@@ -446,11 +486,19 @@ abstract class Abstract_Page {
 		}
 
 		// Show new features modal if the modal wasn't dismissed.
-		if ( get_site_option( WP_SMUSH_PREFIX . 'show_upgrade_modal' ) ) {
+		if ( get_site_option( 'wp-smush-show_upgrade_modal' ) ) {
 			// Display only on single installs and on Network admin for multisites.
 			if ( ( ! is_multisite() && $hide_quick_setup ) || ( is_multisite() && is_network_admin() ) ) {
+				$cta_url = $this->get_url( 'smush-bulk' );
+				if ( is_multisite() ) {
+					$access = get_site_option( 'wp-smush-networkwide' );
+					if ( '1' === $access || ( is_array( $access ) && in_array( 'bulk', $access, true ) ) ) {
+						$cta_url = $this->get_url( 'smush' );
+					}
+				}
+
 				$this->modals['updated'] = array(
-					'cta_url' => $this->get_url( 'smush-settings' ) . '&view=configs',
+					'cta_url' => $cta_url,
 				);
 			}
 		}
@@ -655,8 +703,7 @@ abstract class Abstract_Page {
 	public function render_page_header() {
 		$current_screen = get_current_screen();
 		?>
-
-		<div class="sui-header wp-smush-page-header">
+		<div class="sui-header">
 			<h1 class="sui-header-title"><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<div class="sui-actions-right">
 				<?php
@@ -702,7 +749,7 @@ abstract class Abstract_Page {
 			return;
 		}
 
-		$api_message = get_site_option( WP_SMUSH_PREFIX . 'api_message', array() );
+		$api_message = get_site_option( 'wp-smush-api_message', array() );
 		$api_message = current( $api_message );
 
 		// Return if the API message is not set or user dismissed it earlier.
@@ -744,7 +791,7 @@ abstract class Abstract_Page {
 		}
 
 		// Show settings saved message.
-		if ( ! get_option( WP_SMUSH_PREFIX . 'settings_updated' ) ) {
+		if ( ! get_option( 'wp-smush-settings_updated' ) ) {
 			return;
 		}
 
@@ -756,7 +803,7 @@ abstract class Abstract_Page {
 		$message_class = 'success';
 
 		if ( 'smush-cdn' === $this->get_slug() ) {
-			$cdn = $this->settings->get_setting( WP_SMUSH_PREFIX . 'cdn_status' );
+			$cdn = $this->settings->get_setting( 'wp-smush-cdn_status' );
 			if ( isset( $cdn->cdn_enabling ) && $cdn->cdn_enabling ) {
 				$message = esc_html__( 'Your settings have been saved and changes are now propagating to the CDN. Changes can take up to 30 minutes to take effect but your images will continue to be served in the mean time, please be patient.', 'wp-smushit' );
 			}
@@ -788,7 +835,7 @@ abstract class Abstract_Page {
 		</script>
 		<?php
 		// Remove the option.
-		$this->settings->delete_setting( WP_SMUSH_PREFIX . 'settings_updated' );
+		$this->settings->delete_setting( 'wp-smush-settings_updated' );
 	}
 
 	/**
@@ -811,7 +858,7 @@ abstract class Abstract_Page {
 			return false;
 		}
 
-		$access = get_site_option( WP_SMUSH_PREFIX . 'networkwide' );
+		$access = get_site_option( 'wp-smush-networkwide' );
 
 		if ( ! $access || in_array( $page, array( 'directory', 'webp', 'configs' ), true ) ) {
 			return is_network_admin();

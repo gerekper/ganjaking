@@ -29,21 +29,25 @@ if ( ! defined( 'WPINC' ) ) {
 // If there are no images in media library.
 if ( 0 === absint( $core->total_count ) ) {
 	?>
-	<?php if ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) : ?>
-		<span class="wp-smush-no-image">
+	<div class="sui-message">
+		<?php if ( ! apply_filters( 'wpmudev_branding_hide_branding', false ) ) : ?>
 			<img src="<?php echo esc_url( WP_SMUSH_URL . 'app/assets/images/smush-no-media.png' ); ?>"
-				alt="<?php esc_attr_e( 'No attachments found - Upload some images', 'wp-smushit' ); ?>">
-		</span>
-	<?php endif; ?>
-	<p class="wp-smush-no-images-content">
-		<?php esc_html_e( 'We haven’t found any images in your media library yet so there’s no smushing to be done!', 'wp-smushit' ); ?><br>
-		<?php esc_html_e( 'Once you upload images, reload this page and start playing!', 'wp-smushit' ); ?>
-	</p>
-	<span class="wp-smush-upload-images sui-no-padding-bottom sui-no-padding-top">
-		<a class="sui-button sui-button-blue" href="<?php echo esc_url( admin_url( 'media-new.php' ) ); ?>">
-			<?php esc_html_e( 'UPLOAD IMAGES', 'wp-smushit' ); ?>
-		</a>
-	</span>
+				alt="<?php esc_attr_e( 'No attachments found - Upload some images', 'wp-smushit' ); ?>"
+				class="sui-image"
+			>
+		<?php endif; ?>
+
+		<div class="sui-message-content">
+			<p>
+				<?php esc_html_e( 'We haven’t found any images in your media library yet so there’s no smushing to be done!', 'wp-smushit' ); ?><br>
+				<?php esc_html_e( 'Once you upload images, reload this page and start playing!', 'wp-smushit' ); ?>
+			</p>
+
+			<a class="sui-button sui-button-blue" href="<?php echo esc_url( admin_url( 'media-new.php' ) ); ?>">
+				<?php esc_html_e( 'UPLOAD IMAGES', 'wp-smushit' ); ?>
+			</a>
+		</div>
+	</div>
 	<?php
 	return;
 }
@@ -164,7 +168,7 @@ if ( ! $is_pro ) {
 
 	<?php if ( ! $is_pro ) : ?>
 		<div id="wp-smush-bulk-smush-upsell-row" class="sui-row">
-			<div class="sui-col-sm-6">
+			<div class="sui-col-sm-7">
 				<h3><?php esc_html_e( 'Free Trial + 30% Discount for Smush users!', 'wp-smushit' ); ?></h3>
 				<p>
 					<?php
@@ -187,54 +191,25 @@ if ( ! $is_pro ) {
 				</a>
 				<p><small><?php esc_html_e( '*Discount applies to all annual plans.', 'wp-smushit' ); ?></small></p>
 			</div>
-			<div class="sui-col-sm-6 wp-smush-hidden-xl">
-				<ul class="smush-pro-features">
-					<li class="smush-pro-feature-row"><div class="smush-pro-feature-title">
+			<div class="sui-col-sm-5">
+				<ol class="sui-upsell-list">
+					<li>
+						<span class="sui-icon-check sui-sm" aria-hidden="true"></span>
 						<?php esc_html_e( 'Fix Google PageSpeed image recommendations', 'wp-smushit' ); ?>
-					</div></li>
-					<li class="smush-pro-feature-row"><div class="smush-pro-feature-title">
+					</li>
+					<li>
+						<span class="sui-icon-check sui-sm" aria-hidden="true"></span>
 						<?php esc_html_e( '10 GB Smush CDN', 'wp-smushit' ); ?>
-					</div></li>
-					<li class="smush-pro-feature-row"><div class="smush-pro-feature-title">
-						<?php esc_html_e( 'Smush original images', 'wp-smushit' ); ?>
-					</div></li>
-					<li class="smush-pro-feature-row"><div class="smush-pro-feature-title">
+					</li>
+					<li>
+						<span class="sui-icon-check sui-sm" aria-hidden="true"></span>
 						<?php esc_html_e( '2x better compression', 'wp-smushit' ); ?>
-					</div></li>
-					<li class="smush-pro-feature-row"><div class="smush-pro-feature-title">
+					</li>
+					<li>
+						<span class="sui-icon-check sui-sm" aria-hidden="true"></span>
 						<?php esc_html_e( 'Serve a next-gen format with WebP conversion', 'wp-smushit' ); ?>
-					</div></li>
-					<li class="smush-pro-feature-row"><div class="smush-pro-feature-title">
-						<?php esc_html_e( 'Copy your full size images', 'wp-smushit' ); ?>
-					</div></li>
-				</ul>
-			</div>
-
-			<div class="sui-col-sm-3 wp-smush-show-xl">
-				<ul class="smush-pro-features">
-					<li class="smush-pro-feature-row"><div class="smush-pro-feature-title">
-						<?php esc_html_e( 'Fix Google PageSpeed image recommendations', 'wp-smushit' ); ?>
-					</div></li>
-					<li class="smush-pro-feature-row"><div class="smush-pro-feature-title">
-						<?php esc_html_e( '10 GB Smush CDN', 'wp-smushit' ); ?>
-					</div></li>
-					<li class="smush-pro-feature-row"><div class="smush-pro-feature-title">
-						<?php esc_html_e( 'Smush original images', 'wp-smushit' ); ?>
-					</div></li>
-				</ul>
-			</div>
-			<div class="sui-col-sm-3 wp-smush-show-xl">
-				<ul class="smush-pro-features">
-					<li class="smush-pro-feature-row"><div class="smush-pro-feature-title">
-						<?php esc_html_e( '2x better compression', 'wp-smushit' ); ?>
-					</div></li>
-					<li class="smush-pro-feature-row"><div class="smush-pro-feature-title">
-						<?php esc_html_e( 'Serve a next-gen format with WebP conversion', 'wp-smushit' ); ?>
-					</div></li>
-					<li class="smush-pro-feature-row"><div class="smush-pro-feature-title">
-						<?php esc_html_e( 'Copy your full size images', 'wp-smushit' ); ?>
-					</div></li>
-				</ul>
+					</li>
+				</ol>
 			</div>
 		</div>
 	<?php endif; ?>

@@ -1056,7 +1056,7 @@ class Dir extends Abstract_Module {
 		// If not forced to update.
 		if ( ! $force_update ) {
 			// Get stats from cache.
-			$total_stats = wp_cache_get( WP_SMUSH_PREFIX . 'dir_total_stats', 'wp-smush' );
+			$total_stats = wp_cache_get( 'wp-smush-dir_total_stats', 'wp-smush' );
 			// If we have already calculated the stats and found in cache, return it.
 			if ( false !== $total_stats ) {
 				return $total_stats;
@@ -1122,7 +1122,7 @@ class Dir extends Abstract_Module {
 		$this->stats['optimised'] = $optimised;
 
 		// Set stats in cache.
-		wp_cache_set( WP_SMUSH_PREFIX . 'dir_total_stats', $this->stats, 'wp-smush' );
+		wp_cache_set( 'wp-smush-dir_total_stats', $this->stats, 'wp-smush' );
 
 		return $this->stats;
 	}

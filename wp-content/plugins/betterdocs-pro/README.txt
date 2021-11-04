@@ -4,7 +4,7 @@ Donate link: https://wpdeveloper.net
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 5.8
-Stable tag: 1.6.10
+Stable tag: 1.6.11
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,12 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.6.11 - 01/11/2021 =
+- Fixed: Category sidebar not showing when Multiple KB is enabled 
+- Fixed: Internal Knowledge Base not working properly when Elementor PRO is activated
+- Fixed: Instant Answer Cross-domain copy pasting throwing error when sending a message
+- Few minor bug fix and improvements
 
 = 1.6.10 - 17/10/2021 =
 - Fixed: Multiple KB hierarchy not working correctly

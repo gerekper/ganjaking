@@ -194,9 +194,6 @@ class Betterdocs_Pro
         $this->loader->add_filter('admin_body_class', $plugin_admin, 'body_classes');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
-		$this->loader->add_filter('parent_file', $plugin_admin, 'highlight_admin_menu', 11);
-		$this->loader->add_filter('submenu_file', $plugin_admin, 'highlight_admin_submenu', 11, 2);
-
         new BetterDocs_Pro_Admin_Screen();
 	}
 

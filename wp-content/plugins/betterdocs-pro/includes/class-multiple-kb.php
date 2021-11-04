@@ -146,7 +146,6 @@ class BetterDocs_Multiple_Kb
 
 	public static function postcount($term_count, $multiple_kb, $term_id, $term_slug, $count, $nested_subcategory=false)
 	{
-
         global $wp_query;
 
         if ($nested_subcategory==false && $term_count == 0) {
@@ -155,12 +154,17 @@ class BetterDocs_Multiple_Kb
 
 		$kb_terms = get_terms('knowledge_base');
 		$doc_category_terms = get_terms('doc_category');
-		$knowledge_base = isset($wp_query->query['knowledge_base']) ? $wp_query->query['knowledge_base'] : '';
+
+        if (is_singular('docs')) {
+            $kb_terms = self::single_kb_terms();
+            $knowledge_base = ($kb_terms) ? $kb_terms[0]->slug : '';
+        } else {
+            $knowledge_base = isset($wp_query->query['knowledge_base']) ? $wp_query->query['knowledge_base'] : '';
+        }
 
 		if ($multiple_kb == true && !empty($kb_terms) && !empty($doc_category_terms) && $knowledge_base != 'non-knowledgebase') {
 			$term_count = self::count_category($knowledge_base, $term_slug, $nested_subcategory);
 		}
-        //var_dump($term_count);
 		return $term_count;
 	}
 
@@ -243,7 +247,7 @@ class BetterDocs_Multiple_Kb
 	public static function sidebar_category_shortcode($shortcode)
 	{
         $output = betterdocs_generate_output();
-		return do_shortcode('[betterdocs_category_grid sidebar_list="true" posts_per_grid="-1" multiple_knowledge_base="true" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_sidebar_title_tag']).'"]');
+		return do_shortcode('[betterdocs_category_grid sidebar_list="true" posts_per_grid="-1" multiple_knowledge_base="true" kb_slug="'.self::kb_slug().'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_sidebar_title_tag']).'"]');
 	}
 
 	public static function breadcrumb_archive($html, $delimiter)
@@ -267,9 +271,9 @@ class BetterDocs_Multiple_Kb
 		return $html = $archive;
 	}
 
-	public static function breadcrumb_single($html, $delimiter)
-	{
-		global $post, $wp_query;
+	public static function single_kb_terms()
+    {
+        global $post, $wp_query;
 
         $kb_terms = array();
         if (isset($wp_query->query_vars['knowledge_base'])) {
@@ -279,15 +283,27 @@ class BetterDocs_Multiple_Kb
             }
         }
 
-        if (empty($kb_terms)) {
+        if (empty($kb_terms) && isset($_COOKIE['last_knowledge_base'])) {
             $kb_terms = wp_get_post_terms($post->ID, 'knowledge_base');
+            $kb_terms = array_values(
+                array_filter(
+                    $kb_terms,
+                    function ($terms) {
+                        return $terms->slug === $_COOKIE['last_knowledge_base'];
+                    }
+                )
+            );
         }
+        return $kb_terms;
+    }
 
+	public static function breadcrumb_single($html, $delimiter)
+	{
+        $kb_terms = self::single_kb_terms();
 		if ($kb_terms) {
 			$html = '<li class="betterdocs-breadcrumb-item breadcrumb-delimiter"> ' . $delimiter . ' </li>'
 				. betterdocs_get_term_parents_list($kb_terms[0]->term_id, 'knowledge_base', $delimiter);
 		}
-
 		return $html;
 	}
 
@@ -408,7 +424,13 @@ class BetterDocs_Multiple_Kb
 	public static function list_tax_query($tax_query, $multiple_kb, $tax_slug, $kb_slug)
 	{
 		global $wp_query;
-		$knowledge_base = isset($wp_query->query['knowledge_base']) ? $wp_query->query['knowledge_base'] : '';
+
+        if (is_singular('docs')) {
+            $kb_terms = self::single_kb_terms();
+            $knowledge_base = ($kb_terms) ? $kb_terms[0]->slug : '';
+        } else {
+            $knowledge_base = isset($wp_query->query['knowledge_base']) ? $wp_query->query['knowledge_base'] : '';
+        }
 
 		if ($multiple_kb == true && $knowledge_base != 'non-knowledgebase') {
 			$taxes = array('knowledge_base', 'doc_category');
@@ -482,11 +504,12 @@ class BetterDocs_Multiple_Kb
 
 	public static function kb_slug()
 	{
-		global $wp_query;
+		global $post, $wp_query;
 		$kb_slug = '';
 		$object = get_queried_object();
 		if (is_singular('docs')) {
-		    $kb_slug = isset($wp_query->query['knowledge_base']) ? $wp_query->query['knowledge_base'] : '';
+            $kb_terms = self::single_kb_terms();
+            $kb_slug = ($kb_terms) ? $kb_terms[0]->slug : '';
 		} elseif (is_tax('doc_category')) {
 			$kb_slug = self::doc_category_kb_slug($object->term_id);
 		} elseif (is_tax('knowledge_base')) {

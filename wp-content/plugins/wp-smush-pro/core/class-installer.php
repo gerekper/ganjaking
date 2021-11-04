@@ -43,12 +43,12 @@ class Installer {
 			 *
 			 * @see https://incsub.atlassian.net/browse/SMUSH-350
 			 */
-			update_site_option( WP_SMUSH_PREFIX . 'networkwide', 1 );
+			update_site_option( 'wp-smush-networkwide', 1 );
 		}
 	}
 
 	/**
-	 * Check if a existing install or new.
+	 * Check if an existing install or new.
 	 *
 	 * @since 2.8.0  Moved to this class from wp-smush.php file.
 	 */
@@ -57,7 +57,11 @@ class Installer {
 			define( 'WP_SMUSH_ACTIVATING', true );
 		}
 
-		$version = get_site_option( WP_SMUSH_PREFIX . 'version' );
+		$version = get_site_option( 'wp-smush-version' );
+
+		if ( ! $version ) {
+			add_site_option( 'wp-smush-show-black-friday', true );
+		}
 
 		if ( ! class_exists( '\\Smush\\Core\\Settings' ) ) {
 			require_once __DIR__ . '/class-settings.php';
@@ -85,7 +89,7 @@ class Installer {
 			self::directory_smush_table();
 
 			// Store the plugin version in db.
-			update_site_option( WP_SMUSH_PREFIX . 'version', WP_SMUSH_VERSION );
+			update_site_option( 'wp-smush-version', WP_SMUSH_VERSION );
 		}
 	}
 
@@ -95,12 +99,12 @@ class Installer {
 	 * @since 2.8.0
 	 */
 	public static function upgrade_settings() {
-		// Avoid to execute this over an over in same thread.
+		// Avoid executing this over an over in same thread.
 		if ( defined( 'WP_SMUSH_ACTIVATING' ) || ( defined( 'WP_SMUSH_UPGRADING' ) && WP_SMUSH_UPGRADING ) ) {
 			return;
 		}
 
-		$version = get_site_option( WP_SMUSH_PREFIX . 'version' );
+		$version = get_site_option( 'wp-smush-version' );
 
 		if ( false === $version ) {
 			self::smush_activated();
@@ -117,31 +121,39 @@ class Installer {
 
 			if ( version_compare( $version, '3.8.0', '<' ) ) {
 				// Delete the flag for hiding the BF modal because it was removed.
-				delete_site_option( WP_SMUSH_PREFIX . 'hide_blackfriday_modal' );
+				delete_site_option( 'wp-smush-hide_blackfriday_modal' );
 			}
 
 			if ( version_compare( $version, '3.8.3', '<' ) ) {
 				// Delete this unused setting, leftover from old smush.
-				delete_option( WP_SMUSH_PREFIX . 'transparent_png' );
+				delete_option( 'wp-smush-transparent_png' );
 			}
 
 			if ( version_compare( $version, '3.8.6', '<' ) ) {
-				// Add the flag to display the release highlights modal.
-				add_site_option( WP_SMUSH_PREFIX . 'show_upgrade_modal', true );
+				add_site_option( 'wp-smush-show_upgrade_modal', true );
 			}
 
 			if ( version_compare( $version, '3.9.0', '<' ) ) {
 				// Hide the Local WebP wizard if Local WebP is enabled.
 				if ( Settings::get_instance()->get( 'webp_mod' ) ) {
-					add_site_option( WP_SMUSH_PREFIX . 'webp_hide_wizard', true );
+					add_site_option( 'wp-smush-webp_hide_wizard', true );
 				}
+			}
+
+			if ( version_compare( $version, '3.9.1', '<' ) ) {
+				// Add the flag to display the release highlights modal.
+				add_site_option( 'wp-smush-show_upgrade_modal', true );
+			}
+
+			if ( version_compare( $version, '3.9.2', '<' ) ) {
+				add_site_option( 'wp-smush-show-black-friday', true );
 			}
 
 			// Create/upgrade directory smush table.
 			self::directory_smush_table();
 
 			// Store the latest plugin version in db.
-			update_site_option( WP_SMUSH_PREFIX . 'version', WP_SMUSH_VERSION );
+			update_site_option( 'wp-smush-version', WP_SMUSH_VERSION );
 		}
 	}
 
@@ -199,10 +211,10 @@ class Installer {
 	 * @since 3.7.0
 	 */
 	private static function upgrade_3_7_0() {
-		delete_site_option( WP_SMUSH_PREFIX . 'run_recheck' );
+		delete_site_option( 'wp-smush-run_recheck' );
 
 		// Fix the "None" animation in lazy-load options.
-		$lazy = Settings::get_instance()->get_setting( WP_SMUSH_PREFIX . 'lazy_load' );
+		$lazy = Settings::get_instance()->get_setting( 'wp-smush-lazy_load' );
 
 		if ( ! $lazy || ! isset( $lazy['animation'] ) || ! isset( $lazy['animation']['selected'] ) ) {
 			return;
@@ -210,7 +222,7 @@ class Installer {
 
 		if ( '0' === $lazy['animation']['selected'] ) {
 			$lazy['animation']['selected'] = 'none';
-			Settings::get_instance()->set_setting( WP_SMUSH_PREFIX . 'lazy_load', $lazy );
+			Settings::get_instance()->set_setting( 'wp-smush-lazy_load', $lazy );
 		}
 	}
 }

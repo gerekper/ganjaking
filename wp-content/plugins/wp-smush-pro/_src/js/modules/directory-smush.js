@@ -75,7 +75,7 @@ import Scanner from '../smush/directory-scanner';
 			/**
 			 * Smush images: Smush in Choose Directory modal clicked
 			 */
-			$( '.wp-smush-select-dir' ).on( 'click', function( e ) {
+			$( '#wp-smush-select-dir' ).on( 'click', function( e ) {
 				e.preventDefault();
 
 				// If disabled, do not process
@@ -182,7 +182,7 @@ import Scanner from '../smush/directory-scanner';
 		 */
 		initFileTree() {
 			const self = this,
-				smushButton = $( 'button.wp-smush-select-dir' ),
+				smushButton = $( 'button#wp-smush-select-dir' ),
 				ajaxSettings = {
 					type: 'GET',
 					url: ajaxurl,

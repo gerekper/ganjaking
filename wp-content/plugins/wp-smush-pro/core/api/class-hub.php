@@ -75,7 +75,7 @@ class Hub {
 		$status['cdn']   = $settings->get( 'cdn' );
 		$status['super'] = $settings->get( 'lossy' );
 
-		$lazy = $settings->get_setting( WP_SMUSH_PREFIX . 'lazy_load' );
+		$lazy = $settings->get_setting( 'wp-smush-lazy_load' );
 
 		$status['lazy'] = array(
 			'enabled' => $settings->get( 'lazy_load' ),

@@ -290,12 +290,12 @@ class Request {
 			'fails' => 0,
 		);
 
-		$last_run = get_site_option( WP_SMUSH_PREFIX . 'last_run_sync', $defaults );
+		$last_run = get_site_option( 'wp-smush-last_run_sync', $defaults );
 
 		$backoff = min( pow( 5, $last_run['fails'] ), HOUR_IN_SECONDS ); // Exponential 5, 25, 125, 625, 3125, 3600 max.
 		if ( $last_run['fails'] && $last_run['time'] > ( time() - $backoff ) && ! $manual ) {
 			$last_run['time'] = time();
-			update_site_option( WP_SMUSH_PREFIX . 'last_run_sync', $last_run );
+			update_site_option( 'wp-smush-last_run_sync', $last_run );
 			return new WP_Error( 'api-backoff', __( '[WPMUDEV API] Skipped sync due to API error exponential backoff.', 'wp-smushit' ) );
 		}
 
@@ -353,7 +353,7 @@ class Request {
 			$last_run['fails'] = $last_run['fails'] + 1;
 		}
 
-		update_site_option( WP_SMUSH_PREFIX . 'last_run_sync', $last_run );
+		update_site_option( 'wp-smush-last_run_sync', $last_run );
 
 		return $response;
 	}

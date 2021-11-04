@@ -21,7 +21,7 @@ $button_text = __( 'Save changes', 'wp-smushit' );
  *
  * @param bool $show_submit Should show submit?
  */
-$disabled = 'smush-integrations' === $current_tab ? apply_filters( 'wp_smush_integration_show_submit', false ) : false;
+$disabled = 'smush-integrations' === $current_tab ? apply_filters( 'wp_smush_integration_show_submit', false ) : false;		 	   	  	 					 		 
 
 if ( 'smush-cdn' === $current_tab && ! WP_Smush::get_instance()->core()->mod->cdn->get_status() ) {
 	$button_text = __( 'Save & Activate', 'wp-smushit' );

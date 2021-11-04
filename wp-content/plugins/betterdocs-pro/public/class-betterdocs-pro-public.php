@@ -155,6 +155,15 @@ class Betterdocs_Pro_Public
         return false;
     }
 
+    public function is_betterdocs()
+    {
+        $tax = BetterDocs_Helper::get_tax();
+        if (is_post_type_archive('docs') || $tax === 'knowledge_base' || $tax === 'doc_category' || is_singular('docs')) {
+            return true;
+        }
+        return false;
+    }
+
     public function get_404_template()
     {
         global $wp_query;
@@ -179,8 +188,9 @@ class Betterdocs_Pro_Public
         global $current_user;
         $roles = $current_user->roles;
         $content_visibility = BetterDocs_DB::get_settings('content_visibility');
+        $content_visibility = ($content_visibility !== 'off') ? $content_visibility : array('all');
         //If The User Has Multiple Roles Assigned
-        $role_exists = !empty( array_intersect( $roles, $content_visibility ) );
+        $role_exists = is_array($content_visibility) ? ( array_intersect( $roles, $content_visibility ) ) : 'all';
         if (is_user_logged_in() && (($role_exists === true) || in_array('all', $content_visibility))) {
             return true;
         } else {
@@ -203,7 +213,7 @@ class Betterdocs_Pro_Public
         $cat_terms = get_the_terms(get_the_ID(), 'doc_category');
         $kb_terms = get_the_terms(get_the_ID(), 'knowledge_base');
 
-        if ($this->is_templates() && $content_restriction == 1 && $this->content_visibility_by_role() == false
+        if ($this->is_betterdocs() && $content_restriction == 1 && $this->content_visibility_by_role() == false
             && (is_array($restrict_template) && in_array('all', $restrict_template)
                 || (is_array($restrict_template) && in_array('docs', $restrict_template))
                 || ($tax === 'knowledge_base'
@@ -237,6 +247,12 @@ class Betterdocs_Pro_Public
         $this->internal_kb_restriction();
         $docs_layout = get_theme_mod('betterdocs_docs_layout_select', 'layout-1');
         $tax = BetterDocs_Helper::get_tax();
+
+        if($tax === 'knowledge_base') {
+            $object = get_queried_object();
+            setcookie('last_knowledge_base', $object->slug, time() + (86400 * 30), "/");
+        }
+
         if (is_post_type_archive('docs')) {
             $multikb_layout = get_theme_mod('betterdocs_multikb_layout_select', 'layout-1');
             $layout_select = get_theme_mod('betterdocs_docs_layout_select', 'layout-1');
@@ -290,8 +306,8 @@ class Betterdocs_Pro_Public
 	 */
 	public function get_docs_single_template($single_template)
 	{
-        $this->internal_kb_restriction();
 		if (is_singular('docs')) {
+            $this->internal_kb_restriction();
 			$layout_select = get_theme_mod('betterdocs_single_layout_select', 'layout-1');
 			if ($layout_select === 'layout-2') {
 				$single_template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/template-single/layout-2.php';

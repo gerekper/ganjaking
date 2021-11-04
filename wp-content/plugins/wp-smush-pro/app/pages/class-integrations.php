@@ -63,15 +63,6 @@ class Integrations extends Abstract_Page implements Interface_Page {
 	 * To print full size smush, resize and backup in group, we hook at `smush_setting_column_right_end`.
 	 */
 	public function integrations_meta_box() {
-		$upsell_url = add_query_arg(
-			array(
-				'utm_source'   => 'smush',
-				'utm_medium'   => 'plugin',
-				'utm_campaign' => 'smush-nextgen-settings-upsell',
-			),
-			$this->upgrade_url
-		);
-
 		$this->view(
 			'integrations/meta-box',
 			array(
@@ -79,7 +70,6 @@ class Integrations extends Abstract_Page implements Interface_Page {
 				'is_pro'            => WP_Smush::is_pro(),
 				'integration_group' => $this->settings->get_integrations_fields(),
 				'settings'          => $this->settings->get(),
-				'upsell_url'        => $upsell_url,
 			)
 		);
 	}

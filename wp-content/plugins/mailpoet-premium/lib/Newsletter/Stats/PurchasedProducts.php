@@ -133,7 +133,7 @@ class PurchasedProducts {
       if ($retval === 0) {
         $retval = $b['total'] - $a['total'];
       }
-      return $retval;
+      return (int)ceil($retval);
     });
     return $products;
   }

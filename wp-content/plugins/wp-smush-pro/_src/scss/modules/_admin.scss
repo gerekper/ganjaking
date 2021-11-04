@@ -58,9 +58,6 @@
 		#smush-dash-tutorials,
 		#smush-dash-tutorials > .sui-notice { margin-bottom: 30px; }
 
-		// Dashboard upsell meta box.
-		#smush-box-dashboard-upsell .smush-pro-feature-row { margin-bottom: 10px; }
-
 		// Dashboard lazy load meta box.
 		#smush-box-dashboard-lazy-load {
 			.sui-settings-label {
@@ -93,17 +90,6 @@
 				pointer-events: none;
 				background-color: rgba(242,242,242,0.5);
 			}
-		}
-	}
-
-	/**
-	 * Bulk compress meta box.
-	 */
-	#smush-box-bulk {
-		.wp-smush-no-image,
-		.wp-smush-no-images-content,
-		.wp-smush-upload-images {
-			text-align: center;
 		}
 	}
 
@@ -674,95 +660,54 @@
 			}
 		}
 
-		.smush-pro-features {
-			.smush-pro-features-header {
-				background: #F6F6F6 url('#{$img--path}/widget-background-smush.svg') center no-repeat;
-				background-size: cover;
-				margin: -45px -30px 30px;
-				padding: 40px 30px;
-				text-align: center;
+		.smush-pro-features-header {
+			background: #F6F6F6 url('#{$img--path}/widget-background-smush.svg') center no-repeat;
+			background-size: cover;
+			margin: -30px -30px 30px;
+			padding: 40px 30px;
+			text-align: center;
 
-				@media screen and (max-width: 782px) {
-					margin: -35px -20px 20px;
-				}
+			@media screen and (max-width: 782px) {
+				margin: -35px -20px 20px;
+			}
+
+			& > div {
+				max-width: 610px;
+				margin: 0 auto;
+
+				p { margin-bottom: 10px; }
 
 				& > div {
-					max-width: 610px;
-					margin: 0 auto;
+					display: flex;
+					justify-content: center;
+					align-items: flex-start;
 
-					p { margin-bottom: 10px; }
+					@media screen and (max-width: 782px) {
+						flex-flow: column;
+						align-items: center;
 
-					& > div {
-						display: flex;
-						justify-content: center;
-						align-items: flex-start;
+						a {
+							margin-bottom: 10px;
+							margin-right: 0;
+						}
 
-						@media screen and (max-width: 782px) {
-							flex-flow: column;
-							align-items: center;
-
-							a {
-								margin-bottom: 10px;
-								margin-right: 0;
-							}
-
-							.sui-button {
-								padding: 12px 0;
-								width: 200px;
-							}
+						.sui-button {
+							padding: 12px 0;
+							width: 200px;
 						}
 					}
-
-					.sui-button-ghost {
-						margin-right: 0;
-					}
 				}
 
-				small {
-					color: #C053DC;
-					font-size: 10px;
-					line-height: 30px;
-					display: block;
+				.sui-button-ghost {
+					margin-right: 0;
 				}
 			}
 
-			.smush-pro-feature-title {
-				@include icon(before, check);
-				font-weight: 500;
+			small {
+				color: #C053DC;
+				font-size: 10px;
 				line-height: 30px;
-				color: #333;
-				padding: 0 0 0 20px;
-				position: relative;
-				&:before {
-					color: #8D00B1;
-					vertical-align: middle;
-					margin-left: -20px;
-					margin-right: 10px;
-					margin-top: 0;
-					font-size: 18px;
-					position: relative;
-				}
-			}
-
-			.smush-pro-feature-desc {
-				color: #888888;
-				font-size: 13px;
-				line-height: 22px;
-				padding: 0 0 0 33px;
-			}
-		}
-
-		.sui-upsell-row {
-			margin-top: 30px;
-
-			@media screen and (min-width: 1921px) {
-				margin-top: 60px;
-			}
-
-			.sui-upsell-image {
-				&.sui-upsell-image-smush:not(.integrations-upsell-image) {
-					bottom: -30px;
-				}
+				display: block;
 			}
 		}
 
@@ -845,38 +790,6 @@
 			@media screen and (min-width: 783px) {
 				background: #FFFFFF url('#{$img--path}/smush-graphic-bulksmush-upsell@2x.png') top 25px left 30px no-repeat;
 				background-size: 73px 119px;
-			}
-		}
-
-		/**
-		* Pro features list in the modules pages for the Free version.
-		*
-		* @since 3.9.0
-		*/
-		.sui-message-content {
-
-			.smush-pro-features {
-				max-width: 420px;
-				margin: 0 auto 30px auto;
-				text-align: left;
-
-				.smush-pro-feature-row {
-
-					.smush-pro-feature-title {
-						font-size: 12px;
-						line-height: 22px;
-
-						&:before {
-							font-size: 12px;
-						}
-					}
-
-					&:not(:last-child) {
-						border-bottom: 1px solid #F2F2F2;
-						padding-bottom: 12px;
-						margin-bottom: 12px;
-					}
-				}
 			}
 		}
 	}
@@ -993,15 +906,6 @@
 				margin-left: 5px;
 			}
 		}
-	}
-	.wp-smush-no-image {
-		display: block;
-		overflow: hidden;
-	}
-	.wp-smush-upload-images {
-		display: block;
-		overflow: hidden;
-		padding: 10px 0 40px;
 	}
 
 	.sui-box-footer .sui-icon-loader {

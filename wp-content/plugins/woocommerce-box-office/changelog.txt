@@ -1,5 +1,11 @@
 *** WooCommerce Box Office Changelog ***
 
+2021-10-28 - version 1.1.36
+* Fix - Add .nvmrc using node v10.16.0.
+* Fix - Missing barcode when ticket assigned to order.
+* Tweak - WC 5.8 compatibility.
+* Tweak - WP 5.8 compatibility.
+
 2021-07-21 - version 1.1.35
 * Fix - Ensure barcode is created as an image so it can be easily printed.
 

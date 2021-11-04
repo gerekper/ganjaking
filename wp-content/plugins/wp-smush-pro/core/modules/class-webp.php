@@ -8,6 +8,8 @@
 
 namespace Smush\Core\Modules;
 
+use Smush\Core\Core;
+use Smush\Core\Helper;
 use WP_Error;
 use WP_Smush;
 
@@ -72,6 +74,8 @@ class WebP extends Abstract_Module {
 	 * Moved here to reduce the redundancy.
 	 *
 	 * @since 3.8.8
+	 *
+	 * @param bool $force  Force check.
 	 *
 	 * @return true|string True when it's configured. String when it's not.
 	 */
@@ -281,13 +285,13 @@ class WebP extends Abstract_Module {
 		// Is it possible that none of the following conditions are met?
 		$root_path_base = '';
 
-		// Get the the Document root path. There must be a better way to do this.
-		// For example, /srv/www/thesite/public_html for /srv/www/thesite/public_html/wp-content/uploads.
+		// Get the Document root path. There must be a better way to do this.
+		// For example, /srv/www/site/public_html for /srv/www/site/public_html/wp-content/uploads.
 		if ( 0 === strpos( $upload['basedir'], ABSPATH ) ) {
 			// Environments like Flywheel have an ABSPATH that's not used in the paths.
 			$root_path_base = ABSPATH;
 		} elseif ( isset( $_SERVER['DOCUMENT_ROOT'] ) && 0 === strpos( $upload['basedir'], $_SERVER['DOCUMENT_ROOT'] ) ) {
-			// This gets called when scanning for unsmushed images.
+			// This gets called when scanning for uncompressed images.
 			// When ran from certain contexts, $_SERVER['DOCUMENT_ROOT'] might not be set.
 			$root_path_base = $_SERVER['DOCUMENT_ROOT'];
 		} elseif ( 0 === strpos( $upload['basedir'], dirname( WP_CONTENT_DIR ) ) ) {
@@ -305,15 +309,15 @@ class WebP extends Abstract_Module {
 		$root_path_base = apply_filters( 'smush_webp_rules_root_path_base', $root_path_base );
 
 		// Get the upload path relative to the Document root.
-		// For example, wp-content/uploads for /srv/www/thesite/public_html/wp-content/uploads.
+		// For example, wp-content/uploads for /srv/www/site/public_html/wp-content/uploads.
 		$upload_root_rel_path = ltrim( str_replace( $root_path_base, '', $upload['basedir'] ), '/' );
 
 		// Get the relative path for the  directory containing the webp files.
-		// This directory is a silbling of the 'uploads' dirrectory.
+		// This directory is a sibling of the 'uploads' directory.
 		// For example, wp-content/smush-webp for wp-content/uploads.
 		$webp_root_rel_path = dirname( $upload_root_rel_path ) . '/smush-webp';
 
-		$upload_dir_info = array(
+		return array(
 			'upload_path'     => $upload['basedir'],
 			'upload_rel_path' => $upload_root_rel_path,
 			'upload_url'      => $upload['baseurl'],
@@ -321,8 +325,6 @@ class WebP extends Abstract_Module {
 			'webp_rel_path'   => $webp_root_rel_path,
 			'webp_url'        => dirname( $upload['baseurl'] ) . '/smush-webp',
 		);
-
-		return $upload_dir_info;
 	}
 
 	/**
@@ -438,6 +440,79 @@ class WebP extends Abstract_Module {
 	}
 
 	/**
+	 * Convert images to WebP.
+	 *
+	 * @since 3.8.0
+	 *
+	 * @param int   $attachment_id  Attachment ID.
+	 * @param array $meta           Attachment meta.
+	 *
+	 * @return array
+	 */
+	public function convert_to_webp( $attachment_id, $meta ) {
+		$webp_files = array();
+
+		if ( ! wp_attachment_is_image( $attachment_id ) ) {
+			return $webp_files;
+		}
+
+		if ( ! $this->should_be_converted( $attachment_id ) ) {
+			return $webp_files;
+		}
+
+		// File path and URL for original image.
+		$attachment_file_path = Helper::get_attached_file( $attachment_id );
+
+		// If images has other registered size, smush them first.
+		if ( ! empty( $meta['sizes'] ) && ! has_filter( 'wp_image_editors', 'photon_subsizes_override_image_editors' ) ) {
+			foreach ( $meta['sizes'] as $size_data ) {
+				// We take the original image. The 'sizes' will all match the same URL and
+				// path. So just get the dirname and replace the filename.
+				$attachment_file_path_size = path_join( dirname( $attachment_file_path ), $size_data['file'] );
+
+				// Allows S3 to hook over here and check if the given file path exists else download the file.
+				do_action( 'smush_file_exists', $attachment_file_path_size, $attachment_id, $size_data );
+
+				$ext = Helper::get_mime_type( $attachment_file_path_size );
+				if ( $ext && false === array_search( $ext, Core::$mime_types, true ) ) {
+					continue;
+				}
+
+				$response = WP_Smush::get_instance()->core()->mod->smush->do_smushit( $attachment_file_path_size, true );
+
+				if ( is_wp_error( $response ) || ! $response ) {
+					$webp_has_error = true;
+				} else {
+					$webp_files[] = $this->get_webp_file_path( $attachment_file_path_size );
+				}
+			}
+		}
+
+		if ( isset( $webp_has_error ) ) {
+			return $webp_files;
+		}
+
+		$response = WP_Smush::get_instance()->core()->mod->smush->do_smushit( $attachment_file_path, true );
+		if ( ! is_wp_error( $response ) ) {
+			$webp_files[] = $this->get_webp_file_path( $attachment_file_path );
+
+			// If all images have been converted, set a flag in meta.
+			$stats = get_post_meta( $attachment_id, Smush::$smushed_meta_key, true );
+			if ( ! $stats ) {
+				$stats = array();
+			}
+
+			$upload_dir = $this->get_upload_dir();
+			// Use the relative path of the first webp image as a flag.
+			$stats['webp_flag'] = substr( $webp_files[0], strlen( $upload_dir['webp_path'] . '/' ) );
+
+			update_post_meta( $attachment_id, Smush::$smushed_meta_key, $stats );
+		}
+
+		return $webp_files;
+	}
+
+	/**
 	 * Deletes all the webp files when an attachment is deleted
 	 * Update Smush::$smushed_meta_key meta ( optional )
 	 * Used in Smush::delete_images() and Backup::restore_image()
@@ -471,7 +546,7 @@ class WebP extends Abstract_Module {
 		}
 
 		if ( ! empty( $meta['sizes'] ) ) {
-			foreach ( $meta['sizes'] as $size_key => $size_data ) {
+			foreach ( $meta['sizes'] as $size_data ) {
 				$size_file = path_join( $dir_path, $size_data['file'] );
 				if ( file_exists( $size_file . '.webp' ) ) {
 					unlink( $size_file . '.webp' );
