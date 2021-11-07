@@ -3,10 +3,6 @@
 /**
  * Class GroovyMenuActions
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GroovyMenuActions {
 
 	/**
@@ -64,10 +60,21 @@ class GroovyMenuActions {
 						'after'  => '',
 					);
 
+					$additional_css_class = array( '' );
+
+					if ( ! empty( $settings[ $setting_index . '__visibility' ] ) ) {
+
+						$additional_css_class[] = 'gm_action__visibility__' . esc_attr( $settings[ $setting_index . '__visibility' ] );
+
+						if ( 'both' !== $settings[ $setting_index . '__visibility' ] && ! in_array( $action_name, $wrappered_actions, true ) ) {
+							$wrappered_actions[] = $action_name;
+						}
+					}
+
 					// Check needle for wrapper.
 					if ( in_array( $action_name, $wrappered_actions, true ) ) {
 						$wrapper = array(
-							'before' => '<div class="gm-action__' . esc_attr( $action_name ) . '">',
+							'before' => '<div class="gm-action__' . esc_attr( $action_name ) . implode( ' ', $additional_css_class ) . '">',
 							'after'  => '</div>',
 						);
 					}

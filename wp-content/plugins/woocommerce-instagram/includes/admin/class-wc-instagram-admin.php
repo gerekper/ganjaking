@@ -41,6 +41,7 @@ class WC_Instagram_Admin {
 
 		if ( wc_instagram_has_business_account() ) {
 			include_once 'class-wc-instagram-admin-taxonomies.php';
+			include_once 'class-wc-instagram-admin-attributes.php';
 			include_once 'meta-boxes/class-wc-instagram-meta-box-product-data.php';
 		}
 	}

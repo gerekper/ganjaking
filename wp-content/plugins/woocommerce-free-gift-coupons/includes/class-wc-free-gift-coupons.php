@@ -20,7 +20,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 *
 	 * @var string
 	 */
-	public static $version = '3.3.0';
+	public static $version = '3.3.1';
 
 	/**
 	 * The required WooCommerce version
@@ -113,9 +113,9 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		add_action( 'woocommerce_coupon_get_items_to_validate', array( __CLASS__, 'exclude_free_gifts_from_coupon_validation' ), 10, 2 );
 
 		// Display as Free! in cart and in orders.
-		//add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'cart_item_price' ), 10, 2 );
-		//add_filter( 'woocommerce_cart_item_subtotal', array( __CLASS__, 'cart_item_price' ), 10, 2 );
-		//add_filter( 'woocommerce_order_formatted_line_subtotal', array( __CLASS__, 'cart_item_price' ), 10, 2 );
+		add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'cart_item_price' ), 10, 2 );
+		add_filter( 'woocommerce_cart_item_subtotal', array( __CLASS__, 'cart_item_price' ), 10, 2 );
+		add_filter( 'woocommerce_order_formatted_line_subtotal', array( __CLASS__, 'cart_item_price' ), 10, 2 );
 
 		// Remove free gifts from shipping calcs & enable free shipping if required.
 		add_filter( 'woocommerce_cart_shipping_packages', array( __CLASS__, 'remove_free_shipping_items' ) );
@@ -987,6 +987,8 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		// Adjust quantity in cart if bonus item.
 		if ( ! empty ( $cart_item['free_gift'] ) ) {
 
+			$current_key = $cart_item['key'];
+
 			$coupon = new WC_Coupon( $cart_item['free_gift'] );
 
 			if ( $coupon instanceof WC_Coupon && $coupon->get_object_read() ) {
@@ -1002,6 +1004,10 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
 				foreach ( $cart_contents as $per_cart_item ) { 
 					if ( in_array( $per_cart_item['variation_id'], $sync_to_products ) || in_array( $per_cart_item['product_id'], $sync_to_products ) ) {
+						// Do not count the quantity of the gift itself.
+						if ( $current_key === $per_cart_item['key'] ) {
+							continue;
+						}
 						$multiply_factor += $per_cart_item['quantity'];
 					}
 				}

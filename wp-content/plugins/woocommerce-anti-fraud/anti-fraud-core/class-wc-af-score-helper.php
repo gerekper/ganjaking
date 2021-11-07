@@ -165,7 +165,7 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 			$order_date = date('Y-m-d',strtotime($order_date));
 			$currentDate = date('Y-m-d');
 			$userDetails = $order->get_user();
-			$userRole = $userDetails->roles[0];
+			$userRole = ('' != $userDetails ) ? $userDetails->roles[0] : '';
 			$blacklist_available = false;
 
 			$args = array(  
@@ -315,6 +315,8 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				$wc_af_failed_rules[] = '{"id":"whitelist","label":"User Email is Whitelisted."}';
 				update_post_meta( $order_id, 'wc_af_failed_rules', $wc_af_failed_rules );
 				update_post_meta( $order_id, 'whitelist_action', 'user_email_whitelisted' );
+
+				$order->add_order_note( __( 'User Email is Whitelisted.', 'woocommerce-anti-fraud' ) );
 			} else if ( ( in_array($userRole,$wc_af_whitelist_user_roles) ) && ( 'yes' == $is_enable_whitelist_user_roles ) ) {
 				
 				Af_Logger::debug($userRole. ' is available in user role white list ');
@@ -328,6 +330,8 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 
 				update_post_meta( $order_id, 'wc_af_score', 100 );
 				update_post_meta( $order_id, 'wc_af_failed_rules', '' );
+
+				$order->add_order_note( __( $userRole . ' User Role is Whitelisted.', 'woocommerce-anti-fraud' ) );
 				
 				if ( $score_points <= $cancel_score && 0 !== $cancel_score ) {
 					$new_status = 'processing'; 
@@ -450,9 +454,17 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				 * @api array $statuses List of statuses to skip changes for
 				 */
 				$skip_status_change = apply_filters( 'wc_anti_fraud_skip_order_statuses', array( 'cancelled' ) );
+				$is_update_status_active = get_option('wc_af_fraud_update_state');
 
-				if ( ! in_array( $order->get_status(), $skip_status_change ) ) {
-					$order->update_status( $new_status, __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
+				Af_Logger::debug('is_update_status_active : ' . $is_update_status_active);
+				Af_Logger::debug('payment_requested_status : '. print_r($payment_requested_status, true));
+
+				if ( ! in_array( $order->get_status(), $skip_status_change ) && 'yes' == $is_update_status_active ) {
+					if(!empty($payment_requested_status)){
+						$order->update_status( $payment_requested_status, __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
+					} else {
+						$order->update_status( $new_status, __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
+					}
 				} else {
 					$order->add_order_note( __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
 				}
@@ -502,7 +514,18 @@ if ( ! class_exists( 'WC_AF_Score_Helper' ) ) {
 				// Send admin email
 				$email->send_notification();
 
-				$order->update_status( 'cancelled', __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
+				$is_update_status_active = get_option('wc_af_fraud_update_state');
+				if ( 'yes' == $is_update_status_active ) {
+					if(!empty($payment_requested_status)){
+						$order->update_status( $payment_requested_status, __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
+					} else {
+						$order->update_status( $new_status, __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
+					}
+				} else {
+					$order->add_order_note( __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
+					// $order->update_status( 'cancelled', __( 'Fraud check done.', 'woocommerce-anti-fraud' ) );
+				}
+
 			}
 			
 		}

@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WordPress_GDPR_Cookie_Popup extends WordPress_GDPR
 {
     protected $plugin_name;
@@ -145,7 +141,7 @@ class WordPress_GDPR_Cookie_Popup extends WordPress_GDPR
                         <?php } ?>
 
                         <?php if(!empty($popupTextDecline)) { ?>
-                            <a href="#" class="wordpress-gdpr-popup-decline wordpress-gdpr-open-privacy-settings-modal" style="background-color: <?php echo $popupDeclineBackgroundColor ?>; color: <?php echo $popupDeclineColor ?>;"><?php echo $popupTextDecline ?></a>
+                            <a href="#" class="wordpress-gdpr-popup-decline" style="background-color: <?php echo $popupDeclineBackgroundColor ?>; color: <?php echo $popupDeclineColor ?>;"><?php echo $popupTextDecline ?></a>
                         <?php } ?>
                         <div class="gdpr-clear"></div>
                     </div>

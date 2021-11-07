@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Instagram 3.6.2\n"
+"Project-Id-Version: WooCommerce Instagram 3.7.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-09-28T11:15:30+00:00\n"
+"POT-Creation-Date: 2021-11-03T11:03:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: woocommerce-instagram\n"
@@ -17,6 +17,7 @@ msgstr ""
 #. Plugin Name of the plugin
 #: includes/admin/notices/api-changes.php:17
 #: includes/admin/notices/catalog-images.php:18
+#: includes/admin/notices/google-product-attributes.php:18
 #: includes/admin/notices/google-product-categories.php:18
 #: includes/admin/notices/renew-access.php:13
 #: includes/admin/notices/shopping.php:20
@@ -41,6 +42,100 @@ msgstr ""
 msgid "https://themesquad.com/"
 msgstr ""
 
+#: data/google-product-attributes.php:15
+msgid "Age group"
+msgstr ""
+
+#: data/google-product-attributes.php:17
+msgid "Adult"
+msgstr ""
+
+#: data/google-product-attributes.php:18
+msgid "All ages"
+msgstr ""
+
+#: data/google-product-attributes.php:19
+msgid "Infant"
+msgstr ""
+
+#: data/google-product-attributes.php:20
+msgid "Kids"
+msgstr ""
+
+#: data/google-product-attributes.php:21
+msgid "New born"
+msgstr ""
+
+#: data/google-product-attributes.php:22
+msgid "Teen"
+msgstr ""
+
+#: data/google-product-attributes.php:23
+msgid "Toddler"
+msgstr ""
+
+#: data/google-product-attributes.php:27
+msgid "Color"
+msgstr ""
+
+#: data/google-product-attributes.php:30
+msgid "Gender"
+msgstr ""
+
+#: data/google-product-attributes.php:32
+msgid "Male"
+msgstr ""
+
+#: data/google-product-attributes.php:33
+msgid "Female"
+msgstr ""
+
+#: data/google-product-attributes.php:34
+msgid "Unisex"
+msgstr ""
+
+#: data/google-product-attributes.php:38
+msgid "Material"
+msgstr ""
+
+#: data/google-product-attributes.php:41
+msgid "Pattern"
+msgstr ""
+
+#: data/google-product-attributes.php:44
+msgid "Size"
+msgstr ""
+
+#: includes/admin/class-wc-instagram-admin-attributes.php:47
+#: includes/admin/class-wc-instagram-admin-attributes.php:65
+#: includes/admin/meta-boxes/class-wc-instagram-meta-box-product-data.php:192
+msgid "Google attribute"
+msgstr ""
+
+#: includes/admin/class-wc-instagram-admin-attributes.php:49
+#: includes/admin/class-wc-instagram-admin-attributes.php:69
+msgid "Associated Google attribute."
+msgstr ""
+
+#. translators: %s Google attribute label
+#: includes/admin/class-wc-instagram-admin-attributes.php:118
+#: includes/admin/class-wc-instagram-admin-attributes.php:144
+msgid "Google \"%s\" value"
+msgstr ""
+
+#: includes/admin/class-wc-instagram-admin-attributes.php:123
+#: includes/admin/class-wc-instagram-admin-attributes.php:157
+msgid "This Google attribute only accepts specific values."
+msgstr ""
+
+#: includes/admin/class-wc-instagram-admin-attributes.php:223
+msgid "Select an attribute&hellip;"
+msgstr ""
+
+#: includes/admin/class-wc-instagram-admin-attributes.php:254
+msgid "Select an option&hellip;"
+msgstr ""
+
 #: includes/admin/class-wc-instagram-admin-taxonomies.php:36
 #: includes/admin/class-wc-instagram-admin-taxonomies.php:55
 msgid "Google product category"
@@ -54,83 +149,84 @@ msgctxt "product data setting desc"
 msgid "A product category value provided by Google feed."
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:68
+#: includes/admin/class-wc-instagram-admin.php:69
 msgctxt "settings notice"
 msgid "Your Instagram account was disconnected successfully."
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:104
+#: includes/admin/class-wc-instagram-admin.php:105
 msgctxt "settings notice"
 msgid "Your Instagram account was connected successfully."
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:106
+#: includes/admin/class-wc-instagram-admin.php:107
 msgctxt "settings error"
 msgid "Authentication failed or canceled by the user."
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:108
+#: includes/admin/class-wc-instagram-admin.php:109
 msgctxt "settings notice"
 msgid "Catalog deleted successfully."
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:110
+#: includes/admin/class-wc-instagram-admin.php:111
 msgctxt "settings error"
 msgid "An unexpected error occurred."
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:166
+#: includes/admin/class-wc-instagram-admin.php:167
 #: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:144
 msgid "Copied!"
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:168
+#: includes/admin/class-wc-instagram-admin.php:169
 #: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:128
 msgid "Edit"
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:169
+#: includes/admin/class-wc-instagram-admin.php:170
 msgid "Ok"
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:170
+#: includes/admin/class-wc-instagram-admin.php:171
 msgid "Cancel"
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:171
+#: includes/admin/class-wc-instagram-admin.php:172
 #: includes/admin/fields/class-wc-instagram-admin-field-product-catalogs.php:141
 msgid "Copy link"
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:190
+#: includes/admin/class-wc-instagram-admin.php:191
 msgctxt "aria-label: settings link"
 msgid "View WooCommerce Instagram settings"
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:191
+#: includes/admin/class-wc-instagram-admin.php:192
 msgctxt "plugin action link"
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:214
+#: includes/admin/class-wc-instagram-admin.php:215
 #: includes/admin/settings/class-wc-instagram-settings-general.php:146
 msgctxt "aria-label: documentation link"
 msgid "View WooCommerce Instagram documentation"
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:215
+#: includes/admin/class-wc-instagram-admin.php:216
 msgctxt "plugin row link"
 msgid "Docs"
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:220
+#: includes/admin/class-wc-instagram-admin.php:221
+#: includes/admin/notices/google-product-attributes.php:32
 #: includes/admin/notices/shopping.php:34
 #: includes/admin/settings/class-wc-instagram-settings-product-catalog.php:160
 msgctxt "aria-label: documentation link"
 msgid "View WooCommerce Instagram Shopping documentation"
 msgstr ""
 
-#: includes/admin/class-wc-instagram-admin.php:221
+#: includes/admin/class-wc-instagram-admin.php:222
 msgctxt "plugin row link"
 msgid "Shopping"
 msgstr ""
@@ -237,7 +333,7 @@ msgctxt "product catalogs: catalog download aria-label"
 msgid "Download the product catalog in %s format"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-instagram-meta-box-product-data.php:70
+#: includes/admin/meta-boxes/class-wc-instagram-meta-box-product-data.php:71
 msgctxt "product data tab"
 msgid "Instagram"
 msgstr ""
@@ -340,6 +436,20 @@ msgctxt "admin notice"
 msgid "Now you can choose to include all the product images or just the featured image in the catalogs."
 msgstr ""
 
+#: includes/admin/notices/google-product-attributes.php:19
+msgctxt "admin notice"
+msgid "Now you can include additional information such as color, size, gender, etc. in your catalogs by using the product attributes."
+msgstr ""
+
+#: includes/admin/notices/google-product-attributes.php:25
+msgid "Add attribute"
+msgstr ""
+
+#: includes/admin/notices/google-product-attributes.php:33
+#: includes/admin/notices/shopping.php:35
+msgid "Read more"
+msgstr ""
+
 #: includes/admin/notices/google-product-categories.php:19
 msgctxt "admin notice"
 msgid "Now you can set the Google product category for each catalog or per product."
@@ -357,10 +467,6 @@ msgstr ""
 #: includes/admin/notices/shopping.php:21
 msgctxt "admin notice"
 msgid "Now you can use Instagram Shopping by uploading your product catalogs to Facebook."
-msgstr ""
-
-#: includes/admin/notices/shopping.php:35
-msgid "Read more"
 msgstr ""
 
 #: includes/admin/notices/update.php:19
@@ -1074,7 +1180,7 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: includes/class-wc-instagram-install.php:330
+#: includes/class-wc-instagram-install.php:332
 msgctxt "admin notice"
 msgid "WooCommerce Instagram update complete. Thank you for updating to the latest version!"
 msgstr ""
@@ -1112,7 +1218,7 @@ msgctxt "exception message"
 msgid "Invalid product catalog."
 msgstr ""
 
-#: includes/product-catalog/items/class-wc-instagram-product-catalog-item.php:43
+#: includes/product-catalog/items/class-wc-instagram-product-catalog-item.php:50
 msgctxt "exception message"
 msgid "Invalid product."
 msgstr ""

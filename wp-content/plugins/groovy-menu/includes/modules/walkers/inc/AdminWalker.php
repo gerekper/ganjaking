@@ -227,6 +227,10 @@ class AdminWalker extends WalkerNavMenu {
 			$itemTypeLabel .= ' [' . esc_html__( 'Frozen', 'groovy-menu' ) . ']';
 		}
 
+		if ( $this->preventAutoclose( $item ) ) {
+			$itemTypeLabel .= ' [' . esc_html__( 'Auto-close OFF', 'groovy-menu' ) . ']';
+		}
+
 		?>
 	<li id="menu-item-<?php echo $item_id; ?>" class="<?php echo implode( ' ', $classes ); ?>">
 		<div class="menu-item-bar">

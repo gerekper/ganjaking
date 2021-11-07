@@ -5585,6 +5585,14 @@ INTEGRATION DASHBOARD
   text-align: center;
   line-height: 1em; }
 
+.gm-dashboard__integration .gm-integrate-shortcode {
+  font-size: 1.3em;
+  padding: 6px 12px; }
+
+.gm-dashboard__integration .gm-dashboard-body-section label {
+  font-size: 16px;
+  margin-right: 5px; }
+
 .menu-item-settings {
   overflow: hidden; }
 

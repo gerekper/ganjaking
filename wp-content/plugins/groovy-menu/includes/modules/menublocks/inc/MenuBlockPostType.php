@@ -157,7 +157,7 @@ class MenuBlockPostType {
 			'groovy_menu_menus'                => array(),
 		);
 
-		// do new oreder.
+		// do new order.
 		foreach ( $correct_order as $item_slug => $item_order ) {
 			foreach ( $gm_submenus as $index => $gm_submenu ) {
 				if ( ! empty( $correct_order[ $item_slug ] ) ) {

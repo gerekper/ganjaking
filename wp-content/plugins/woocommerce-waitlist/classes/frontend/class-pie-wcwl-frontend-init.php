@@ -261,7 +261,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 				WC_Emails::instance();
 				do_action( 'wcwl_left_mailout_send_email', $email, $product_id );
 			}
-			wc_add_notice( __( 'You email address has been removed from this product.', 'woocommerce-waitlist' ) );
+			wc_add_notice( __( 'Your email address has been removed from this product.', 'woocommerce-waitlist' ) );
 			wcwl_remove_user_from_archive( $email, $product_id );
 		}
 
@@ -278,7 +278,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Init' ) ) {
 				return;
 			}
 			if ( ! hash_equals( hash_hmac( 'sha256', $email . '|' . $product_id, get_the_guid( $product_id ) . $email . 'woocommerce-waitlist-optin' ), $_GET['key'] ) ) {
-				wc_add_notice( __( 'Sorry, there was a problem with your request, please contact us for assistance.', 'woocommerce-waitlist' ), 'error' );
+				wc_add_notice( __( 'Sorry, there was a problem with your request, please contact a site administrator for assistance.', 'woocommerce-waitlist' ), 'error' );
 				return;
 			}
 			delete_transient( $_GET['key'] );

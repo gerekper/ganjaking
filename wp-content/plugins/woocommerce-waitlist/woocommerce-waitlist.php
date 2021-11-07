@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Waitlist
  * Plugin URI: http://www.woothemes.com/products/woocommerce-waitlist/
  * Description: This plugin enables registered users to request an email notification when an out-of-stock product comes back into stock. It tallies these registrations in the admin panel for review and provides details.
- * Version: 2.3.0
+ * Version: 2.3.1
  * Author: Neil Pie
  * Author URI: https://pie.co.de/
  * Developer: Neil Pie
@@ -84,7 +84,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 		 * WooCommerce_Waitlist_Plugin constructor
 		 */
 		public function __construct() {
-			self::$path                  = plugin_dir_path( __FILE__ );
+			self::$path = plugin_dir_path( __FILE__ );
 			require_once 'definitions.php';
 			if ( ! $this->minimum_woocommerce_version_is_loaded() ) {
 				return;
@@ -419,6 +419,14 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 							wcwl_perform_mailout_for_chained_products( $chained_products );
 						}
 					}
+					// Bundle products
+					global $woocommerce_bundles;
+					if ( $woocommerce_bundles && function_exists( 'wc_pb_get_bundled_product_map' ) ) {
+						$map = wc_pb_get_bundled_product_map( $product );
+						if ( is_array( $map ) && ! empty( $map ) ) {
+							wcwl_perform_mailout_for_bundle_products( $map );
+						}
+					}
 				}
 			}
 		}
@@ -746,7 +754,7 @@ if ( ! class_exists( 'WooCommerce_Waitlist_Plugin' ) ) {
 				if ( version_compare( $options['version'], '1.7.0' ) < 0 ) {
 					update_option( 'woocommerce_queue_flush_rewrite_rules', 'true' );
 				}
-				if ( version_compare( $options['version'], '2.0.0' ) >= 0 ) {
+				if ( version_compare( $options['version'], '2.0.0' ) >= 0 && ! get_option( '_' . WCWL_SLUG . '_version_2_warning' ) ) {
 					update_option( '_' . WCWL_SLUG . '_version_2_warning', true );
 				}
 			}

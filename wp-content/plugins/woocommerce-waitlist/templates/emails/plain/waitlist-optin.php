@@ -28,9 +28,9 @@ $link = add_query_arg( array(
 	'key'             => $key,
 	'lang'            => $lang,
 ), $product_link );
-echo '<a href="' . $link . '">' . $product_link . '</a>';
+echo esc_attr( $product_link );
 echo "\n\n";
-_e( 'If you would did not make this request please ignore this email.', 'woocommerce-waitlist' );
+_e( 'If you did not make this request please ignore this email.', 'woocommerce-waitlist' );
 echo "\n\n";
 
 echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );

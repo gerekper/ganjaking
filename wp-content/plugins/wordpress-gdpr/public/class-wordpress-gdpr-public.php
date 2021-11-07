@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WordPress_GDPR_Public extends WordPress_GDPR
 {
     protected $plugin_name;
@@ -80,6 +76,7 @@ class WordPress_GDPR_Public extends WordPress_GDPR
             'ajaxURL' => admin_url('admin-ajax.php'),
             'cookieLifetime' => $this->get_option('cookieLifetime'),
             'geoIP' => $this->get_option('geoIP'),
+            'privacySettingsPopupBackdropDisableClick' => $this->get_option('privacySettingsPopupBackdropDisableClick'),
             'popupExcludePages' => $this->get_option('popupExcludePages'),
             'acceptanceText' => __( 'You must accept our Privacy Policy.', 'wordpress-gdpr' ),
             'termsAcceptanceText' => __( 'You must accept our Terms and Conditions.', 'wordpress-gdpr' ),

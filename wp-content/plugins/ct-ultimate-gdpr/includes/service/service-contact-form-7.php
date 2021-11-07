@@ -97,22 +97,6 @@ class CT_Ultimate_GDPR_Service_Contact_Form_7 extends CT_Ultimate_GDPR_Service_A
 			'ct-ultimate-gdpr-services-cform7_accordion-4'
 		);*/
 
-        add_settings_field(
-            "services_{$this->get_id()}_service_name", // ID
-            sprintf( esc_html__( "[%s] Name", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
-            array( $this, "render_name_field" ), // Callback
-            $this->front_controller->find_controller('services')->get_id(), // Page
-            'ct-ultimate-gdpr-services-cform7_accordion-4' // Section
-        );
-
-		add_settings_field(
-			"services_{$this->get_id()}_description", // ID
-			sprintf( esc_html__( "[%s] Description", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
-			array( $this, "render_description_field" ), // Callback
-			$this->front_controller->find_controller('services')->get_id(), // Page
-			'ct-ultimate-gdpr-services-cform7_accordion-4'
-		);
-
 		add_settings_field(
 			'services_contact_form_7_consent_field', // ID
 			sprintf(

@@ -1,5 +1,10 @@
 *** WooCommerce Instagram Changelog ***
 
+2021-11-03 - version 3.7.0
+* Feature - Include additional information such as color, size, gender, etc. in the product catalogs.
+* Tweak - Tested compatibility with WC 5.9.
+* Dev - Deprecated filter hook `woocommerce_instagram_google_product_categories` in favor of `wc_instagram_google_product_categories`.
+
 2021-09-28 - version 3.6.2
 * Dev - Updated Instagram Graph API version to v12.0.
 * Tweak - Tested compatibility with WC 5.8.

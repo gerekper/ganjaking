@@ -17,10 +17,6 @@
  *
  * @return string  if $gm_echo is true then return empty string (by default)
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function groovyMenu( $args = array() ) {
 
 	if ( ! is_array( $args ) ) {
@@ -927,8 +923,28 @@ function groovyMenu( $args = array() ) {
 					</div>';
 	}
 
-	if ( ! empty( $mobile_woo_icon_html ) || ! empty( $mobile_search_icon_html ) ) {
-		$output_html .= '<div class="gm-menu-actions-wrapper">' . $mobile_search_icon_html . $mobile_woo_icon_html . '</div>';
+	ob_start();
+	/**
+	 * Fires as first groovy menu action buttons.
+	 *
+	 * @since 2.2.0
+	 */
+	do_action( 'gm_main_menu_actions_button_first' );
+	$gm_main_menu_actions_button_first = ob_get_clean();
+
+
+	ob_start();
+	/**
+	 * Fires as last groovy menu action buttons.
+	 *
+	 * @since 2.2.0
+	 */
+	do_action( 'gm_main_menu_actions_button_last' );
+	$gm_main_menu_actions_button_last = ob_get_clean();
+
+
+	if ( ! empty( $mobile_woo_icon_html ) || ! empty( $mobile_search_icon_html ) || ! empty( $gm_main_menu_actions_button_first ) || ! empty( $gm_main_menu_actions_button_last ) ) {
+		$output_html .= '<div class="gm-menu-actions-wrapper">' . $gm_main_menu_actions_button_first . $mobile_search_icon_html . $mobile_woo_icon_html . $gm_main_menu_actions_button_last . '</div>';
 	}
 
 
@@ -1088,16 +1104,7 @@ function groovyMenu( $args = array() ) {
 
 		$output_html .= '<div class="gm-actions">';
 
-
-		ob_start();
-		/**
-		 * Fires as first groovy menu action buttons.
-		 *
-		 * @since 2.2.0
-		 */
-		do_action( 'gm_main_menu_actions_button_first' );
-		$output_html .= ob_get_clean();
-
+		$output_html .= $gm_main_menu_actions_button_first;
 
 		$output_html .= GroovyMenuUtils::clean_output( $second_sidebar_burger['main_bar_before_action_button'] );
 
@@ -1183,14 +1190,7 @@ function groovyMenu( $args = array() ) {
 		}
 
 
-		ob_start();
-		/**
-		 * Fires as last groovy menu action buttons.
-		 *
-		 * @since 2.2.0
-		 */
-		do_action( 'gm_main_menu_actions_button_last' );
-		$output_html .= ob_get_clean();
+		$output_html .= $gm_main_menu_actions_button_last;
 
 
 		if ( $expand_space ) {
@@ -1305,7 +1305,7 @@ function groovyMenu( $args = array() ) {
 
 		$output_html .= '<div class="gm-grid-container d-flex flex-column h-100">';
 
-		if ( $groovyMenuSettings['mobileOffcanvasFullwidth'] ) {
+		if ( $groovyMenuSettings['mobileOffcanvasFullwidth'] && ! ( $groovyMenuSettings['mobileIndependentCssHamburger'] && $groovyMenuSettings['mobileIndependentCssHamburgerFloat']) ) {
 			$output_html .= '
 			<div class="gm-menu-btn gm-hamburger-close" aria-label="close">
 				<div class="gm-menu-btn__inner">';

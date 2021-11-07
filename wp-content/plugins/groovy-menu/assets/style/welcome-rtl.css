@@ -371,9 +371,11 @@
   background: #2b79ff;
   box-shadow: 0 1px 0 #0e54cc; }
 
-.gm-welcome-check--lic {
+.gm-welcome-check--lic,
+.gm-welcome-tile__link--lic-reload {
   position: relative; }
-  .gm-welcome-check--lic::before {
+  .gm-welcome-check--lic::before,
+  .gm-welcome-tile__link--lic-reload::before {
     color: #b31b56;
     content: '';
     position: absolute;
@@ -390,10 +392,12 @@
     transition: opacity 1s;
     -webkit-animation: 0.5s linear infinite gm-rotate-amination;
             animation: 0.5s linear infinite gm-rotate-amination; }
-  .gm-welcome-check--lic.gm-button-loading {
+  .gm-welcome-check--lic.gm-button-loading,
+  .gm-welcome-tile__link--lic-reload.gm-button-loading {
     pointer-events: none;
     cursor: not-allowed; }
-    .gm-welcome-check--lic.gm-button-loading::before {
+    .gm-welcome-check--lic.gm-button-loading::before,
+    .gm-welcome-tile__link--lic-reload.gm-button-loading::before {
       transition-delay: 0.2s;
       transition-duration: 1s;
       opacity: 1; }

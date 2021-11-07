@@ -124,22 +124,6 @@ class CT_Ultimate_GDPR_Service_ARForms extends CT_Ultimate_GDPR_Service_Abstract
 			'ct-ultimate-gdpr-services-arforms_accordion-2' // Section
 		);*/
 
-        add_settings_field(
-            "services_{$this->get_id()}_service_name", // ID
-            sprintf( esc_html__( "[%s] Name", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
-            array( $this, "render_name_field" ), // Callback
-            $this->front_controller->find_controller('services')->get_id(), // Page
-            'ct-ultimate-gdpr-services-arforms_accordion-2' // Section
-        );
-
-		add_settings_field(
-			"services_{$this->get_id()}_description", // ID
-			esc_html__( "[ARForms] Description", 'ct-ultimate-gdpr' ), // Title
-			array( $this, "render_description_field" ), // Callback
-			$this->front_controller->find_controller('services')->get_id(), // Page
-			'ct-ultimate-gdpr-services-arforms_accordion-2' // Section
-		);
-
 		add_settings_field(
 			'services_arforms_consent_field', // ID
 			sprintf(

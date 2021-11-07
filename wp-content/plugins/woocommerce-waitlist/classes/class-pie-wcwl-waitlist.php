@@ -273,9 +273,9 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 					}
 					do_action( 'wcwl_after_add_email_to_waitlist', $this->product_id, $email );
 
-					return apply_filters( 'wcwl_join_waitlist_success_message_text', __( 'You have been added to the waitlist for this product', 'woocommerce-waitlist' ) );
+					return apply_filters( 'wcwl_join_waitlist_success_message_text', __( 'You have been added to the waitlist for this product.', 'woocommerce-waitlist' ) );
 				} else {
-					return apply_filters( 'wcwl_join_waitlist_already_joined_message_text', __( 'The email provided is already on the waitlist for this product', 'woocommerce-waitlist' ) );
+					return apply_filters( 'wcwl_join_waitlist_already_joined_message_text', __( 'The email provided is already on the waitlist for this product.', 'woocommerce-waitlist' ) );
 				}
 			}
 

@@ -9,6 +9,7 @@
 			<key name="popupTextPrivacyCenter" />
 			<key name="popupTextPrivacySettings" />
 			<key name="popupTextCookiePolicy" />
+			<key name="popupTextPreferences" />
 
 			<key name="privacySettingsTriggerText" />
 			<key name="privacySettingsPopupTitle" />
@@ -16,6 +17,8 @@
 			<key name="privacySettingsPopupTextPrivacyCenter" />
 			<key name="privacySettingsPopupTextPrivacyPolicy" />
 			<key name="privacySettingsPopupTextCookiePolicy" />
+			<key name="privacySettingsPopupDeclineText" />
+			<key name="privacySettingsPopupAcceptText" />
 
 			<key name="confirmationEmailSubject" />
 			<key name="confirmationEmailText" />

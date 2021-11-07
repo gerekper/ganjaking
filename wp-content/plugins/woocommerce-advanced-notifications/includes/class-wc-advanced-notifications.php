@@ -36,7 +36,7 @@ class WC_Advanced_Notifications {
 			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_pending_to_processing', true ) ) {
 				add_action( 'woocommerce_order_status_pending_to_processing', array( $this, 'new_order' ) );
 			}
-			
+
 			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_pending_to_completed', true ) ) {
 				add_action( 'woocommerce_order_status_pending_to_completed', array( $this, 'new_order' ) );
 			}
@@ -48,7 +48,7 @@ class WC_Advanced_Notifications {
 			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_on-hold_to_completed', true ) ) {
 				add_action( 'woocommerce_order_status_on-hold_to_completed', array( $this, 'new_order' ) );
 			}
-			
+
 			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_failed_to_processing', true ) ) {
 				add_action( 'woocommerce_order_status_failed_to_processing', array( $this, 'new_order' ) );
 			}
@@ -311,7 +311,7 @@ class WC_Advanced_Notifications {
 			$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 			$email_heading = __( 'New Customer Order', 'woocommerce-advanced-notifications' );
 
-			$subject = apply_filters( 'woocommerce_email_subject_new_order', sprintf( __( '[%s] New Order (%s)', 'woocommerce-advanced-notifications' ), $blogname, $order->get_order_number() ), $order );
+			$subject = apply_filters( 'woocommerce_email_subject_new_order', sprintf( __( '[%s] New Order (%s)', 'woocommerce-advanced-notifications' ), $blogname, $order->get_order_number() ), $order, null );
 
 			foreach ( $notifications as $notification ) {
 
@@ -380,7 +380,7 @@ class WC_Advanced_Notifications {
 
 			$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
-			$subject = apply_filters( 'woocommerce_email_subject_low_stock', sprintf( '[%s] %s', $blogname, __( 'Product low in stock', 'woocommerce-advanced-notifications' ) ), $product );
+			$subject = apply_filters( 'woocommerce_email_subject_low_stock', sprintf( '[%s] %s', $blogname, __( 'Product low in stock', 'woocommerce-advanced-notifications' ) ), $product, null );
 
 			$sku = ($product->sku) ? '(' . $product->sku . ') ' : '';
 
@@ -429,7 +429,7 @@ class WC_Advanced_Notifications {
 
 			$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
-			$subject = apply_filters( 'woocommerce_email_subject_no_stock', sprintf( '[%s] %s', $blogname, __( 'Product out of stock', 'woocommerce-advanced-notifications' ) ), $product );
+			$subject = apply_filters( 'woocommerce_email_subject_no_stock', sprintf( '[%s] %s', $blogname, __( 'Product out of stock', 'woocommerce-advanced-notifications' ) ), $product, null );
 
 			$sku = ($product->sku) ? '(' . $product->sku . ') ' : '';
 
@@ -495,7 +495,7 @@ class WC_Advanced_Notifications {
 
 			$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
-			$subject = apply_filters( 'woocommerce_email_subject_backorder', sprintf( '[%s] %s', $blogname, __( 'Product Backorder', 'woocommerce-advanced-notifications' ) ), $product );
+			$subject = apply_filters( 'woocommerce_email_subject_backorder', sprintf( '[%s] %s', $blogname, __( 'Product Backorder', 'woocommerce-advanced-notifications' ) ), $product, null );
 
 			$sku = ($product->sku) ? ' (' . $product->sku . ')' : '';
 
@@ -548,7 +548,7 @@ class WC_Advanced_Notifications {
 			$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 			$email_heading = __( 'Customer Refund', 'woocommerce-advanced-notifications' );
 
-			$subject = apply_filters( 'woocommerce_email_subject_refund', sprintf( __( '[%s] Order Refund (%s)', 'woocommerce-advanced-notifications' ), $blogname, $order->get_order_number() ), $order );
+			$subject = apply_filters( 'woocommerce_email_subject_refund', sprintf( __( '[%s] Order Refund (%s)', 'woocommerce-advanced-notifications' ), $blogname, $order->get_order_number() ), $order, null );
 
 			foreach ( $notifications as $notification ) {
 

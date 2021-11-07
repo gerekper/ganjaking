@@ -511,18 +511,28 @@ if ( ! class_exists( 'GroovyMenuStyle' ) ) {
 
 			}
 
-			if ( isset( $settings['shadow'] ) && $settings['shadow'] && ! in_array( $header_style, array( 3, 5 ), true ) ) {
+			// Shadows.
+			if ( isset( $settings['shadow'] ) && $settings['shadow'] ) {
 				$classes_navbar[] = 'gm-navbar--has-shadow';
 			}
 
-			if ( isset( $settings['shadowSticky'] ) && $settings['shadowSticky'] && ! in_array( $header_style, array( 3, 5 ), true ) ) {
+			if ( isset( $settings['shadowType'] ) && $settings['shadowType'] ) {
+				$classes_navbar[] = 'gm-navbar--shadow-' . $settings['shadowType'];
+			}
+
+			if ( isset( $settings['shadowSticky'] ) && $settings['shadowSticky'] && ! in_array( $header_style, array( 3, 4, 5 ), true ) ) {
 				$classes_navbar[] = 'gm-navbar--has-shadow-sticky';
 			}
 
-			if ( isset( $settings['shadowDropdown'] ) && $settings['shadowDropdown'] && ! in_array( $header_style, array( 3, 5 ), true ) ) {
+			if ( isset( $settings['shadowDropdown'] ) && $settings['shadowDropdown'] ) {
 				$classes_navbar[] = 'gm-navbar--has-shadow-dropdown';
 			}
 
+			if ( isset( $settings['shadowDropdownType'] ) && $settings['shadowDropdownType'] ) {
+				$classes_navbar[] = 'gm-navbar--shadow-dropdown-' . $settings['shadowDropdownType'];
+			}
+
+			// Caret.
 			if ( isset( $settings['caret'] ) && ! $settings['caret'] ) {
 				$classes_navbar[] = 'gm-navbar--hide-gm-caret';
 			}

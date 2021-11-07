@@ -100,6 +100,38 @@ class Templates {
 			</div>
 		</div>
 
+		<div class="gm-modal gm-hidden" id="import-preset-modal">
+			<div class="gm-modal-content">
+				<form
+					class="gm-import-preset-form"
+					method="post"
+					action="?page=groovy_menu_settings&action=importPreset"
+					enctype="multipart/form-data">
+					<?php echo wp_nonce_field(); ?>
+					<div class="gm-modal-header">
+						<h4 class="modal-title"><?php esc_html_e( 'Import', 'groovy-menu' ); ?> <?php esc_html_e( 'preset', 'groovy-menu' ); ?> <span class="gm-modal-title-preset-name"></span></h4>
+					</div>
+					<div class="gm-modal-body">
+						<input
+							type="file"
+							name="import"/>
+					</div>
+					<div class="gm-modal-footer">
+						<div class="btn-group">
+							<button
+								type="submit"
+								class="btn modal-btn"><?php esc_html_e( 'Import', 'groovy-menu' ); ?>
+							</button>
+							<button
+								type="button"
+								class="btn modal-btn gm-modal-close"><?php esc_html_e( 'Close', 'groovy-menu' ); ?>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
 		<?php
 	}
 
@@ -169,5 +201,17 @@ class Templates {
 		<?php
 	}
 
+
+	static function presetActionLiImport() {
+		?>
+
+		<li class="preset-opts__nav__item preset-import">
+			<i class="fa fa-long-arrow-up"></i>
+			<span
+				class="preset-opts__nav__item__txt"><?php esc_html_e( 'Import', 'groovy-menu' ); ?></span>
+		</li>
+
+		<?php
+	}
 
 }

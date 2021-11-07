@@ -177,6 +177,8 @@ class WC_Instagram_Install {
 			WC_Instagram_Admin_Notices::add_dismiss_notice( 'wc_instagram_catalog_images' );
 		} elseif ( version_compare( $old_version, '3.3.0', '<' ) ) {
 			WC_Instagram_Admin_Notices::add_dismiss_notice( 'wc_instagram_google_product_categories' );
+		} elseif ( version_compare( $old_version, '3.7.0', '<' ) ) {
+			WC_Instagram_Admin_Notices::add_dismiss_notice( 'wc_instagram_google_product_attributes' );
 		}
 	}
 

@@ -25,7 +25,7 @@
         'use_cdn' => true,
         'dev_mode' => false,
         'display_name' => __('WordPress GDPR', 'wordpress-gdpr'),
-        'display_version' => '1.9.20',
+        'display_version' => '1.9.24',
         'page_title' => __('WordPress GDPR', 'wordpress-gdpr'),
         'update_notice' => true,
         'intro_text' => '',
@@ -277,6 +277,14 @@
                 'required' => array('popupEnable','equals','1'),
             ),
             array(
+                'id'       => 'popupCloseIcon',
+                'type'     => 'text',
+                'title'    => __('Close Icon', 'wordpress-gdpr'),
+                'subtitle' => __('Leave empty to hide the close icon. Default: fa fa-times', 'wordpress-gdpr'),
+                'default'  => '',
+                'required' => array('popupEnable','equals','1'),
+            ),
+            array(
                 'id'       => 'popupStyle',
                 'type'     => 'select',
                 'title'    => __('Popup Style', 'wordpress-gdpr'),
@@ -378,13 +386,6 @@
                 'title' => __('Link Color', 'wordpress-gdpr'), 
                 'validate' => 'color',
                 'default' => '#FF5722',
-                'required' => array('popupEnable','equals','1'),
-            ),
-            array(
-                'id'       => 'popupCloseIcon',
-                'type'     => 'text',
-                'title'    => __('Close Icon', 'wordpress-gdpr'),
-                'default'  => 'fa fa-times',
                 'required' => array('popupEnable','equals','1'),
             ),
             array(
@@ -530,6 +531,13 @@
                'indent' => false 
             ),
             array(
+                'id'       => 'privacySettingsPopupBackdropDisableClick',
+                'type'     => 'checkbox',
+                'title'    => __('Disable Popup Backdrop Click', 'wordpress-gdpr'),
+                'subtitle' => __('When enabled users can not click on the backdrop to close the privacy settings popup.', 'wordpress-gdpr'),
+                'default'  => '0',
+            ),
+            array(
                 'id'       => 'privacySettingsUseShortcode',
                 'type'     => 'checkbox',
                 'title'    => __('Use Privacy Settings Shortcode', 'wordpress-gdpr'),
@@ -611,6 +619,7 @@
                 'id'       => 'privacySettingsPopupCloseIcon',
                 'type'     => 'text',
                 'title'    => __('Popup Close Icon', 'wordpress-gdpr'),
+                'subtitle' => __('Leave empty to hide the close icon. Default: fa fa-times', 'wordpress-gdpr'),
                 'default'  => 'fa fa-times',
                 'required' => array('privacySettingsPopupEnable','equals','1'),
             ),

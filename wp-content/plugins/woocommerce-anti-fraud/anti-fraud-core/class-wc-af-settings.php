@@ -607,7 +607,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						'desc' => 'General behaviours of the Anti Fraud plugin are configured on this page.<hr/>',
 						'id'   => 'wc_af_general_settings'
 					),
-					 array(
+					array(
 						'title'       => __( 'Pre-Payment Checking', 'woocommerce-anti-fraud' ),
 						'type'        => 'checkbox',
 						'label'       => '',
@@ -624,6 +624,14 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						 'css'         => 'width:100%; height: 100px;',
 						 'desc' => __( 'Add a custom message for blocked users on Pre Payment Check' ),
 						 'id'    => 'wc_af_pre_payment_message',
+					),
+					array(
+						'title'       => __( 'Enable Update Order Status', 'woocommerce-anti-fraud' ),
+						'type'        => 'checkbox',
+						'label'       => '',
+						'default'     => 'yes',
+						'desc' => __( 'Update order status according the fraud score.<br/><br/><i>If this is enabled, the order status will be updated as Fraud Score value\'s status. </i>' ),
+						'id'    => 'wc_af_fraud_update_state',
 					),
 					array(
 						'title'       => __( 'Enable Payment Method Whitelisting', 'woocommerce-anti-fraud' ),
@@ -1244,11 +1252,13 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 
 							$this->log->add( 'MinFraud', '====== Authentication failed' );
 							$this->log->add( 'MinFraud', print_r( array( 'MaxMind Account Id' => $maxmind_user, 'MaxMind license key' => $maxmind_license_key ), true ) );
+							update_option('wc_af_maxmind_authentication', false);
 							add_action('admin_notices', array( $this, 'auth_error_admin_notice'));
 
 						} else {
 
 							$this->log->add( 'MinFraud', '====== Authentication succeed ' );
+							update_option('wc_af_maxmind_authentication', true);
 							add_action('admin_notices', array( $this, 'auth_success_admin_notice'));
 
 						}

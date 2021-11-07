@@ -589,7 +589,7 @@ class Ajax {
 
 					// If the image needs to be resmushed add it to the list.
 					if ( $should_resmush ) {
-						//$resmush_list[] = 'nextgen' === $type ? $attachment_k : $attachment;
+				//		$resmush_list[] = 'nextgen' === $type ? $attachment_k : $attachment;
 					}
 
 					/**

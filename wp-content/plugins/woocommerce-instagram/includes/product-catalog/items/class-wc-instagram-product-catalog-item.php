@@ -28,6 +28,13 @@ class WC_Instagram_Product_Catalog_Item {
 	protected $tax_location = array();
 
 	/**
+	 * The Google attributes.
+	 *
+	 * @var array
+	 */
+	protected $google_attributes;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 3.0.0
@@ -346,6 +353,76 @@ class WC_Instagram_Product_Catalog_Item {
 		}
 
 		return $price;
+	}
+
+	/**
+	 * Gets the Google attributes.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @return array
+	 */
+	public function get_google_attributes() {
+		if ( is_null( $this->google_attributes ) ) {
+			$this->load_google_attributes();
+		}
+
+		return $this->google_attributes;
+	}
+
+	/**
+	 * Gets a Google attribute by key.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @param string $key Attribute key.
+	 * @return mixed The attribute value. Null if not found.
+	 */
+	public function get_google_attribute( $key ) {
+		$google_attributes = $this->get_google_attributes();
+
+		return ( isset( $google_attributes[ $key ] ) ? $google_attributes[ $key ] : null );
+	}
+
+	/**
+	 * Loads the Google attributes.
+	 *
+	 * @since 3.7.0
+	 */
+	protected function load_google_attributes() {
+		$attributes = $this->get_product()->get_attributes();
+
+		foreach ( $attributes as $name => $attribute ) {
+			$attribute_id = ( $attribute instanceof WC_Product_Attribute ? $attribute->get_id() : wc_attribute_taxonomy_id_by_name( $name ) );
+			$google_pa    = WC_Instagram_Attribute_Relationships::get_relationship( $attribute_id );
+
+			if ( ! $google_pa ) {
+				continue;
+			}
+
+			if ( $attribute instanceof WC_Product_Attribute ) {
+				$terms = $attribute->get_terms();
+			} else {
+				$terms = array(
+					get_term_by( 'name', $attribute, $name ),
+				);
+			}
+
+			if ( empty( $terms ) ) {
+				return;
+			}
+
+			$has_options = WC_Instagram_Google_Product_Attributes::has_options( $google_pa );
+			$values      = array();
+
+			foreach ( $terms as $term ) {
+				if ( $term instanceof WP_Term ) {
+					$values[] = ( $has_options ? get_term_meta( $term->term_id, 'google_pa_value', true ) : $term->name );
+				}
+			}
+
+			$this->google_attributes[ $google_pa ] = join( ', ', array_filter( $values ) );
+		}
 	}
 
 	/**

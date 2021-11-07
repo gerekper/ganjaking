@@ -72,7 +72,7 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 		$authkey = 'Basic ' . base64_encode( $maxmind_user . ':' . $maxmind_license_key );
 		//$agent = $_SERVER["HTTP_USER_AGENT"];
 		$order_items = $order->get_items();
-		$currency_symbol = get_woocommerce_currency_symbol();
+		$currency_symbol = get_woocommerce_currency();
 		$shipping_total = $order->get_total();
 		$payment_title = $order->get_payment_method_title();
 		// Iterating through each item in the order
@@ -81,7 +81,7 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 			$product_name = $item_data['name'];
 			$item_quantity = wc_get_order_item_meta($item_id, '_qty', true);
 			$product_id = $item_data['product_id'];
-			//$product_cat = get_the_terms( $product_id, 'product_cat', true );
+			$product_cat = get_the_terms( $product_id, 'product_cat', true );
 			$price = get_post_meta( $product_id, '_regular_price', true);
 		}
 		//$agent = $_SERVER["HTTP_USER_AGENT"];
@@ -102,7 +102,7 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 				'region' => $order->get_shipping_state(),
 				'country' => $order->get_shipping_country(),
 				'postal' => $order->get_shipping_postcode(),
-				'phone_number' => $order->get_billing_phone(),
+				'phone_number' => $order->get_shipping_phone(),
 			),
 			'billing' => array(
 				'first_name' => $order->get_billing_first_name(),
@@ -122,7 +122,7 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 			),
 			'order' => array(
 				'amount' => $shipping_total,
-				'currency' => $currency_symbol,
+				'currency' => @$currency_symbol,
 			),
 			'shopping_cart' => array(
 				array(

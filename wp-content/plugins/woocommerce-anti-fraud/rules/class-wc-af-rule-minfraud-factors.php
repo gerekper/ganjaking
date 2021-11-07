@@ -75,7 +75,7 @@ class WC_AF_Rule_MinFraud_Factors extends WC_AF_Rule {
 		$authkey = 'Basic ' . base64_encode( $maxmind_user . ':' . $maxmind_license_key );
 		//$agent = $_SERVER["HTTP_USER_AGENT"];
 		$order_items = $order->get_items();
-		$currency_symbol = get_woocommerce_currency_symbol();
+		$currency_symbol = get_woocommerce_currency();
 		$shipping_total = $order->get_total();
 		$payment_title = $order->get_payment_method_title();
 		// Iterating through each item in the order

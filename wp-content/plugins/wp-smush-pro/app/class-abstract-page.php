@@ -7,6 +7,7 @@
 
 namespace Smush\App;
 
+use Smush\Core\Helper;
 use Smush\Core\Settings;
 use WP_Smush;
 use WPMUDEV_Dashboard;
@@ -441,7 +442,11 @@ abstract class Abstract_Page {
 			return;
 		}
 
-		if ( ! is_main_site() ) {
+		if ( ! is_main_site() || apply_filters( 'wpmudev_branding_hide_branding', false ) ) {
+			return;
+		}
+
+		if ( WP_Smush::is_pro() && ! Helper::is_wpmu_dev_admin() ) {
 			return;
 		}
 

@@ -408,15 +408,15 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Product' ) ) {
 		 * @since  1.0
 		 */
 		protected function setup_text_strings() {
-			$this->join_waitlist_button_text                    = __( 'Join waitlist', 'woocommerce-waitlist' );
-			$this->leave_waitlist_button_text                   = __( 'Leave waitlist', 'woocommerce-waitlist' );
+			$this->join_waitlist_button_text                    = __( 'Join Waitlist', 'woocommerce-waitlist' );
+			$this->leave_waitlist_button_text                   = __( 'Leave Waitlist', 'woocommerce-waitlist' );
 			$this->confirm_waitlist_button_text                 = __( 'Confirm', 'woocommerce-waitlist' );
-			$this->update_waitlist_button_text                  = __( 'Update waitlist', 'woocommerce-waitlist' );
+			$this->update_waitlist_button_text                  = __( 'Update Waitlist', 'woocommerce-waitlist' );
 			$this->join_waitlist_message_text                   = __( "Join the waitlist to be emailed when this product becomes available", 'woocommerce-waitlist' );
 			$this->leave_waitlist_message_text                  = __( 'You are on the waitlist for this product', 'woocommerce-waitlist' );
 			$this->leave_waitlist_success_message_text          = __( 'You have been removed from the waitlist for this product', 'woocommerce-waitlist' );
 			$this->leave_ticket_waitlist_success_message_text   = __( 'You have been removed from the waitlist for this ticket', 'woocommerce-waitlist' );
-			$this->join_waitlist_success_message_text           = __( 'You have been added to the waitlist for this product', 'woocommerce-waitlist' );
+			$this->join_waitlist_success_message_text           = __( 'You have been added to the waitlist for this product.', 'woocommerce-waitlist' );
 			$this->join_ticket_waitlist_success_message_text    = __( 'You have been added to the waitlist for this ticket', 'woocommerce-waitlist' );
 			$this->update_waitlist_success_message_text         = __( 'You have updated your waitlist for these products', 'woocommerce-waitlist' );
 			$this->toggle_waitlist_no_product_message_text      = __( 'You must select at least one product for which to update the waitlist', 'woocommerce-waitlist' );
@@ -426,7 +426,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Product' ) ) {
 			$this->grouped_product_message_text                 = __( "Check the box alongside any Out of Stock products and update the waitlist to be emailed when those products become available", 'woocommerce-waitlist' );
 			$this->no_user_grouped_product_message_text         = __( "Check the box alongside any Out of Stock products, enter your email address and join the waitlist to be notified when those products become available", 'woocommerce-waitlist' );
 			$this->grouped_product_joined_message_text          = __( 'You have updated the selected waitlist/s', 'woocommerce-waitlist' );
-			$this->email_field_placeholder_text                 = __( "Email address", 'woocommerce-waitlist' );
+			$this->email_field_placeholder_text                 = __( "Email Address", 'woocommerce-waitlist' );
 			$this->registered_opt_in_text                       = __( 'By ticking this box you agree to receive waitlist communications by email', 'woocommerce-waitlist' );
 		}
 	}

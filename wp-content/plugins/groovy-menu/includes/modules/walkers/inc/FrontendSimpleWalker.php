@@ -93,6 +93,10 @@ class FrontendSimpleWalker extends WalkerNavMenu {
 			$classes[] = 'gm-frozen-link';
 		}
 
+		if ( $this->preventAutoclose( $this->currentItem ) ) {
+			$classes[] = 'gm-close-by-click-only';
+		}
+
 		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
 		$class_names = trim( $class_names ) ? ' class="' . esc_attr( $class_names ) . '"' : '';
 

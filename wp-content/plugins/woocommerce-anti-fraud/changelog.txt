@@ -1,5 +1,11 @@
 *** WooCommerce Anti Fraud ***
 
+2021-11-04 - version 4.0
+* PLUGINS-1121 - Customer IP address did not match given billing country not working correctly.
+* PLUGINS-1203 - Support better minFraud Score Outputs.
+* PLUGINS-1181 - Correct settings not working.
+* PLUGINS-1188 - Minor code changes relating to paypal and Cron.
+
 2021-09-08 - version 3.9
 * PLUGINS-850 - Fix IP Address Blacklist checkbox to toggle functionality not working.
 * PLUGINS-1005 - EFT orders set to processing.

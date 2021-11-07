@@ -665,6 +665,7 @@ class Smush extends Abstract_Module {
 			$stats['stats']['lossy'] = 1;
 		}
 
+
 		update_post_meta( $attachment_id, self::$smushed_meta_key, $stats );
 
 		return $meta;

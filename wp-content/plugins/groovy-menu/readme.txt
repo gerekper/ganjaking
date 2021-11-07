@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.8
-Stable tag: 2.5.4
+Stable tag: 2.5.10.1
 Requires PHP: 7.0
 License: Themeforest Split Licence
 License URI: -
@@ -65,6 +65,43 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.5.10 =
+* Fix: Fixed a bug that prevented Visual Composer can't load the front-end CSS & JS for menu_block.
+
+= 2.5.9 =
+* Add: Added new options for submenu opening as "On click" that allow opening submenus only at click on the caret.
+* Add: New options for "Shadow settings" for choice shadow styles and colors.
+* Add: Added a feature to import and update existing presets.
+* Fix: "Menu shadow" and "Submenu shadow" settings now also work for vertical menu types.
+* Fix: Fixed a bug that appeared when submenus of the second and next levels with custom width and Menu Block are off screen.
+* Fix: Bug when the vertical submenu of the third level was higher than other submenus.
+* Fix: Fixed a bug that prevented Visual Composer from loading the front-end builder for menu_block.
+
+= 2.5.8 =
+* Add: For Actions in the Custom Code section, a new feature "visibility" has been added, which sets the rule for displaying "custom" on mobile, desktop or both versions.
+* Add: Now it is possible to separately specify the color of Hover and Active menu items.
+* Add: Added "Fixed" option for Badges position.
+* Fix: Bug with two "X" icons in mobile when Fullwidth with "Animated hamburger" together with enabled "Allow Float" toggle.
+
+= 2.5.7.1 =
+* Fix: Fixed a bug with closing dropdowns that have a contact form inside (phase 2 - fixed for mobile).
+
+= 2.5.7 =
+* Add: New option "Styles> Colors> Top level hover and active link background" for Sidebar & Expanded sidebar menu types.
+* Add: New option for menu items in Appearance> Menus> Groovy menu item options. "Prevent dropdown auto close on "mouse leave" event". Useful if menu item has a contact form widget in the dropdown.
+* Add: New option "Hide menu item and its content on mobile", which can be set in Appearance> Menus> Groovy menu item options
+* Add: A button on the Welcome page "Update license data" that will help you update your license data.
+* Fix: Bug with "Expired license" notification
+* Fix: Fixed some styles for Additional Menu
+
+= 2.5.6 =
+* Fix: Fixed some styles for Fullscreen Minimalistic menu type, when the "Organize fullscreen menu items into columns" toggle enabled.
+* Fix: A non-breaking space is now inserted for menu items whose title is hidden with a dash "-"
+
+= 2.5.5 =
+* Add: New option "Mega menu item line height" and "Submenu item line height".
+* Fix: Now it is not possible to use "Automatic integration" together with "Theme Locations integration" at the same time.
 
 = 2.5.4 =
 * Add: New option "Show hamburger menu only" for Minimalistic menu type.

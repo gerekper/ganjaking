@@ -162,11 +162,17 @@ class FrontendWalker extends WalkerNavMenu {
 
 		$gm_thumb_settings = $this->gmGetThumbSettings( $item );
 
-		$headerStyle = intval( $groovyMenuSettings['header']['style'] );
+		$headerStyle      = intval( $groovyMenuSettings['header']['style'] );
+		$showMenuItemDesc = $groovyMenuSettings['showMenuLinksDesc'];
+		$item_desc        = empty( $item->description ) ? '' : $item->description;
+		if ( $showMenuItemDesc && ! empty( $item_desc ) ) {
+			$item_desc = '<span class="gm-menu-item__desc">' . $item_desc . '</span>';
+		} else {
+			$item_desc = '';
+		}
 
 		if ( 1 === $depth && $this->isMegaMenu && ! $show_in_mobile ) {
 
-			global $groovyMenuSettings;
 			$styles                 = new GroovyMenuStyle();
 			$is_title_as_url        = $groovyMenuSettings['megamenuTitleAsLink'];
 			$is_title_as_url_accent = $groovyMenuSettings['megamenuTitleAsLinkAccent'];
@@ -422,13 +428,13 @@ class FrontendWalker extends WalkerNavMenu {
 
 					$current_title = apply_filters( 'the_title', $item->title, $item->ID );
 					if ( in_array( $current_title, $hiding_symbol, true ) ) {
-						$current_title = '';
+						$current_title = '&nbsp;';
 					}
 
 					$item_link .= '<span class="gm-menu-item__txt-wrapper">';
 					$item_link .= $badge['left'];
 					$item_link .= '<span class="gm-menu-item__txt' . ( empty( $item->url ) ? ' gm-menu-item__txt-empty-url' : '' ) . '">';
-					$item_link .= $link_before . $current_title . $link_after;
+					$item_link .= $link_before . $current_title . $link_after . $item_desc;
 					$item_link .= '</span>'; // .gm-menu-item__txt
 					$item_link .= $badge['right'];
 					$item_link .= '</span>'; // .gm-menu-item__txt-wrapper
@@ -453,10 +459,11 @@ class FrontendWalker extends WalkerNavMenu {
 
 					$current_title = apply_filters( 'the_title', $item->title, $item->ID );
 					if ( in_array( $current_title, $hiding_symbol, true ) ) {
-						$current_title = '';
+						$current_title = '&nbsp;';
 					}
 
 					$item_title .= $current_title;
+					$item_title .= $item_desc;
 
 				}
 
@@ -515,6 +522,14 @@ class FrontendWalker extends WalkerNavMenu {
 
 			if ( $this->frozenLink( $this->currentItem ) ) {
 				$classes[] = 'gm-frozen-link';
+			}
+
+			if ( $this->hideOnMobile( $this->currentItem ) ) {
+				$classes[] = 'gm-hide-on-mobile';
+			}
+
+			if ( $this->preventAutoclose( $this->currentItem ) ) {
+				$classes[] = 'gm-close-by-click-only';
 			}
 
 			$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
@@ -743,13 +758,13 @@ class FrontendWalker extends WalkerNavMenu {
 
 				$current_title = apply_filters( 'the_title', $item->title, $item->ID );
 				if ( in_array( $current_title, $hiding_symbol, true ) ) {
-					$current_title = '';
+					$current_title = '&nbsp;';
 				}
 
 				$item_output .= '<span class="gm-menu-item__txt-wrapper">';
 				$item_output .= $badge['left'];
 				$item_output .= '<span class="gm-menu-item__txt' . ( empty( $item->url ) ? ' gm-menu-item__txt-empty-url' : '' ) . '">';
-				$item_output .= $link_before . $current_title . $link_after;
+				$item_output .= $link_before . $current_title . $link_after . $item_desc;
 				$item_output .= '</span>'; // .gm-menu-item__txt
 				$item_output .= $badge['right'];
 				$item_output .= '</span>'; // .gm-menu-item__txt-wrapper

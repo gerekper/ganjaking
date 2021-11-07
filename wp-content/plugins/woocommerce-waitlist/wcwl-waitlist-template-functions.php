@@ -282,7 +282,7 @@ function wcwl_get_default_template_values( $user, $id, $context, $notice ) {
 		'opt_in'                         => wcwl_is_optin_enabled( $user ),
 		'opt_in_text'                    => wcwl_get_optin_text( $user ),
 		'email_address_label_text'       => apply_filters( 'wcwl_email_field_label', __( 'Enter your email address to join the waitlist for this product', 'woocommerce-waitlist' ) ),
-		'email_address_placeholder_text' => apply_filters( 'wcwl_email_field_placeholder', __( 'Email address', 'woocommerce-waitlist' ) ),
+		'email_address_placeholder_text' => apply_filters( 'wcwl_email_field_placeholder', __( 'Email Address', 'woocommerce-waitlist' ) ),
 		'is_archive'                     => isset( $_POST['archive'] ) ? $_POST['archive'] : false,
 		'dismiss_notification_text'      => apply_filters( 'wcwl_dismiss_notification_text', __( 'Dismiss notification', 'woocommerce-waitlist' ) ),
 		'registration_required_text'     => apply_filters( 'wcwl_join_waitlist_user_requires_registration_message_text', sprintf( __( 'You must register to use the waitlist feature. Please %1$slogin or create an account%2$s', 'woocommerce-waitlist' ), '<a href="' . wc_get_page_permalink( 'myaccount' ) . '?wcwl_redirect=' . urlencode( $current_url ) . '">', '</a>' ) ),
@@ -403,6 +403,24 @@ function wcwl_perform_mailout_for_chained_products( $chained_products ) {
 		}
 		$product = wc_get_product( $product_id );
 		if ( $product && $product->is_in_stock() && apply_filters( 'wcwl_waitlist_should_do_mailout', true, $product ) ) {
+			$product->waitlist = new Pie_WCWL_Waitlist( $product );
+			$product->waitlist->waitlist_mailout();
+		}
+	}
+}
+
+/**
+ * Check given bundled parent products and perform mailout if required
+ *
+ * @param array $bundle_products
+ */
+function wcwl_perform_mailout_for_bundle_products( $bundle_products ) {
+	foreach( $bundle_products as $product_id ) {
+		$product = wc_get_product( $product_id );
+		if ( ! $product || ! $product->is_type( 'bundle' ) || $product->get_manage_stock() ) {
+			continue;
+		}
+		if ( $product->is_in_stock() && apply_filters( 'wcwl_waitlist_should_do_mailout', true, $product ) ) {
 			$product->waitlist = new Pie_WCWL_Waitlist( $product );
 			$product->waitlist->waitlist_mailout();
 		}

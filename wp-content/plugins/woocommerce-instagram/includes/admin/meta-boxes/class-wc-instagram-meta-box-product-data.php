@@ -25,6 +25,7 @@ class WC_Instagram_Meta_Box_Product_Data {
 		add_filter( 'woocommerce_product_data_tabs', array( $this, 'product_data_tabs' ) );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'product_data_panels' ) );
 		add_action( 'woocommerce_process_product_meta', array( $this, 'save_product_data' ), 15 );
+		add_action( 'woocommerce_after_product_attribute_settings', array( $this, 'product_attribute_settings' ) );
 	}
 
 	/**
@@ -165,6 +166,34 @@ class WC_Instagram_Meta_Box_Product_Data {
 				delete_post_meta( $post_id, $key );
 			}
 		}
+	}
+
+	/**
+	 * Adds custom settings to the attribute in the product data metabox.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @param WC_Product_Attribute $attribute Attribute object.
+	 */
+	public function product_attribute_settings( $attribute ) {
+		// It's a custom attribute.
+		if ( ! $attribute->get_id() ) {
+			return;
+		}
+
+		$google_pa = WC_Instagram_Attributes::get_meta( $attribute->get_id(), 'google_pa' );
+
+		if ( ! $google_pa ) {
+			return;
+		}
+		?>
+		<tr>
+			<td>
+				<label><?php echo esc_html__( 'Google attribute', 'woocommerce-instagram' ); ?>:</label>
+				<strong><?php echo esc_html( WC_Instagram_Google_Product_Attributes::get_label( $google_pa ) ); ?></strong>
+			</td>
+		</tr>
+		<?php
 	}
 
 	/**

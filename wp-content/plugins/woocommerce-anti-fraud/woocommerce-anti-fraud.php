@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 3.9
+ * Version: 4.0
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * License: GPL v3
- * WC tested up to: 5.4
+ * WC tested up to: 5.8
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -51,6 +51,30 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
+
+
+/**
+ * This function runs when WordPress completes its upgrade process
+ * It iterates through each plugin updated to see if ours is included
+ * @param $upgrader_object Array
+ * @param $options Array
+ */
+function wp_opmc_upgrade_completed( $upgrader_object, $options ) {
+ 	// The path to our plugin's main file
+	$our_plugin = plugin_basename( __FILE__ );
+ 	// If an update has taken place and the updated type is plugins and the plugins element exists
+	if( $options['action'] == 'update' && $options['type'] == 'plugin' && isset( $options['plugins'] ) ) {
+  		// Iterate through the plugins being updated and check if ours is there
+		foreach( $options['plugins'] as $plugin ) {
+			if( $plugin == $our_plugin ) {
+    			// Set a transient to record that our plugin has just been updated
+				set_transient( 'wp_opmc_updated', 1 );
+				update_option('wc_af_fraud_update_state', 'yes');
+			}
+		}
+	}
+}
+add_action( 'upgrader_process_complete', 'wp_opmc_upgrade_completed', 10, 2 );
 
 /**
  * Plugin page links
@@ -530,6 +554,7 @@ class WooCommerce_Anti_Fraud {
 	public function save_default_settings() {
 		// For Minfraud
 		update_option('wc_af_fraud_check_before_payment', 'no');
+		update_option('wc_af_fraud_update_state', 'yes');
 		update_option('wc_af_enable_whitelist_payment_method', 'no');
 		update_option('wc_settings_anti_fraud_minfraud_order_weight', 30);
 		update_option('wc_settings_anti_fraud_minfraud_risk_score', 30);
@@ -801,10 +826,41 @@ function misha_validate_fname_lname( $fields, $errors ) {
 	$blocked_email = get_option('wc_settings_anti_fraudblacklist_emails');
 	$blocked_ipaddress = get_option('wc_settings_anti_fraudblacklist_ipaddress');
 	$array_mail = explode(',', $blocked_email);
+	$userRole = wp_get_current_user()->roles[0];
 	if ('' != $blocked_email) {
-		foreach ($array_mail as $single) {
-			if ($_POST[ 'billing_email' ] == $single) {
-				$errors->add( 'validation', 'This email id is blocked.' );
+
+		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
+		$is_whitelisted = '';
+		$wc_af_whitelist_user_roles = get_option('wc_af_whitelist_user_roles');
+		if ( empty($wc_af_whitelist_user_roles) ) {
+			$wc_af_whitelist_user_roles = array();
+		}
+
+		if ('' != $email_whitelist) {
+			$whitelist = explode( "\n", $email_whitelist );
+			if ( is_array( $whitelist ) && count( $whitelist ) > 0 ) {
+			// Trim items to be sure
+				foreach ( $whitelist as $k => $v ) {
+					$whitelist[$k] = trim( $v );
+				}
+				// Af_Logger::debug('email found : '. print_r($whitelist, true));
+			}
+			$is_whitelisted = array_intersect($whitelist, $array_mail);
+			$is_enable_whitelist_user_roles = get_option('wc_af_enable_whitelist_user_roles');
+			if ('yes' == $is_enable_whitelist_user_roles) {
+				$is_whitelisted_roles = in_array($userRole, $wc_af_whitelist_user_roles);
+			} else {
+				$is_whitelisted_roles = false;
+			}
+		}
+		
+		if (empty($is_whitelisted) && false == $is_whitelisted_roles) {
+			// Af_Logger::debug('blocked_email : '. print_r($array_mail,true));
+			foreach ($array_mail as $single) {
+				if ($_POST[ 'billing_email' ] == $single) {
+					echo "This email id is blocked.";
+					$errors->add( 'validation', 'This email id is blocked.' );
+				}
 			}
 		}
 	}

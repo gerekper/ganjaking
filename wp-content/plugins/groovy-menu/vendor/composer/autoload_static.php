@@ -14,6 +14,7 @@ class ComposerStaticInit56546145e36d577b123e2506cc71fadc
         '5f0758a858333143c3cc0725e0f79b35' => __DIR__ . '/../..' . '/includes/theme_support/divi.php',
         'f6bea0d34da77b3cca74e13cd46a9918' => __DIR__ . '/../..' . '/includes/theme_support/avada.php',
         '7bdf6a888a138e602026f09bb3ec5cc2' => __DIR__ . '/../..' . '/includes/theme_support/thrivethemes-gm-init.php',
+        '2f1f1216fe7219b45c065cd3f3afaa2f' => __DIR__ . '/../..' . '/includes/theme_support/visual_composer.php',
         '655fc50bc71579437c0b8c94b9b5f072' => __DIR__ . '/../..' . '/includes/migration/migrate.php',
         'fab540ef9b69f507bcc21701eeef4143' => __DIR__ . '/../..' . '/template/loader.php',
         '89faccae217ae94c3a1c0e22589b2a86' => __DIR__ . '/../..' . '/includes/modules/core/core.php',

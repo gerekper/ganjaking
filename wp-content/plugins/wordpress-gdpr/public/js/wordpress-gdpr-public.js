@@ -82,7 +82,7 @@
             var cookiesAllowed = false;
 
 
-            if(localStorage && that.getParameterByName('gdpr') !== "debug") {
+            if(localStorage && that.getParameterByName('gdpr') !== "debug" && ( that.getCookie('wordpress_gdpr_cookies_allowed') || that.getCookie('wordpress_gdpr_cookies_declined') ) ) {
 
                 var retrievedObject = localStorage.getItem('wordpress_gdpr_services_allowed_temp');
                 if(retrievedObject) {
@@ -120,7 +120,7 @@
                         }
                     }
 
-                    if(!exclude) {
+                    if(!exclude) {
                         if(response.firstTime) {
                             if(that.elements.popUpBackdrop.length > 0) {
                                 that.elements.popUpBackdrop.show();
@@ -287,13 +287,15 @@
                 that.elements.privacySettingsPopup.fadeOut();
             });
 
-            $(that.elements.privacySettingsPopupBackdrop).on('click', function(e) {
-                e.preventDefault();
-                if(that.elements.privacySettingsPopupBackdrop.length > 0) {
-                    that.elements.privacySettingsPopupBackdrop.fadeOut();
-                }
-                that.elements.privacySettingsPopup.fadeOut();
-            });
+            if(!that.settings.privacySettingsPopupBackdropDisableClick) {
+                $(that.elements.privacySettingsPopupBackdrop).on('click', function(e) {
+                    e.preventDefault();
+                    if(that.elements.privacySettingsPopupBackdrop.length > 0) {
+                        that.elements.privacySettingsPopupBackdrop.fadeOut();
+                    }
+                    that.elements.privacySettingsPopup.fadeOut();
+                });
+            }
         },
         popUpPrivacySettings : function() {
 
@@ -367,11 +369,11 @@
             $.each(services, function(i, index) {
 
                 if(index.allowed && !that.privacySettingsLoaded[i]) {
-                    if(index.head !== "") {
+                    if(index.head !== "") {
                         $("head").append(index.head);
                     }
 
-                    if(index.body !== "") {
+                    if(index.body !== "") {
                         $(index.body).prependTo($('body'));
                     }
                 }

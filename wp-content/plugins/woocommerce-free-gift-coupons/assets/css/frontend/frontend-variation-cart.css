@@ -35,7 +35,8 @@
 /*Error message*/
 .wc-fgc-stock-error { display: none; background: #dd3333 none repeat scroll 0 0; color: #ffffff; margin: 1.25em 0.1em; padding: .8em .2em; text-align: center; }
 
-button.wc_fgc_updatenow { cursor: pointer; font-size: .75em; }
+/* Edit button */
+.woocommerce-cart-form .actions button.wc_fgc_updatenow { cursor: pointer; font-size: .675em; margin-top: .5em; }
 
 /*=====================================
 =            Twenty Twenty fixes      =

@@ -54,7 +54,7 @@
 		</div>
 		<?php
 		if ( 'join' === $context && ( 'true' === $is_archive || is_shop() || is_product_category() ) ) {
-			$context          = __( 'confirm', 'woocommerce-waitlist' );
+			$context          = __( 'Confirm', 'woocommerce-waitlist' );
 			$join_button_text = wcwl_get_button_text( 'confirm' );
 		}
 		?>

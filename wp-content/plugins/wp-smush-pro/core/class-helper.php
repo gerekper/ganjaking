@@ -25,6 +25,24 @@ if ( ! defined( 'WPINC' ) ) {
 class Helper {
 
 	/**
+	 * Check if user is a WPMU DEV admin.
+	 *
+	 * @since 3.9.3
+	 *
+	 * @return bool
+	 */
+	public static function is_wpmu_dev_admin() {
+		if ( class_exists( '\WPMUDEV_Dashboard' ) ) {
+			if ( method_exists( '\WPMUDEV_Dashboard_Site', 'allowed_user' ) ) {
+				$user_id = get_current_user_id();
+				return \WPMUDEV_Dashboard::$site->allowed_user( $user_id );
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Get mime type for file.
 	 *
 	 * @since 3.1.0  Moved here as a helper function.

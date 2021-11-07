@@ -91,21 +91,7 @@ class CT_Ultimate_GDPR_Service_Gravity_Forms extends CT_Ultimate_GDPR_Service_Ab
 			'ct-ultimate-gdpr-services-gravityforms_accordion-12' // Section
 		);*/
 
-        add_settings_field(
-            "services_{$this->get_id()}_service_name", // ID
-            sprintf( esc_html__( "[%s] Name", 'ct-ultimate-gdpr' ), $this->get_name() ), // Title
-            array( $this, "render_name_field" ), // Callback
-            $this->front_controller->find_controller('services')->get_id(), // Page
-            'ct-ultimate-gdpr-services-gravityforms_accordion-12' // Section
-        );
 
-		add_settings_field(
-			"services_{$this->get_id()}_description", // ID
-			esc_html__( "[Gravity Forms] Description", 'ct-ultimate-gdpr' ), // Title
-			array( $this, "render_description_field" ), // Callback
-			$this->front_controller->find_controller('services')->get_id(), // Page
-			'ct-ultimate-gdpr-services-gravityforms_accordion-12' // Section
-		);
 
 		add_settings_field(
 			'services_gravity_forms_consent_field', // ID

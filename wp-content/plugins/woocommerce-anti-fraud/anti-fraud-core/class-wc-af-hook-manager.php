@@ -305,7 +305,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		* execute as cron job function
 		*/
 		public function paypal_email_task_hook_function() {
-			if ('' != get_option('wc_af_paypal_verification')) {
+			if ('yes' == get_option('wc_af_paypal_verification')) {
 
 				$score_helper = new WC_AF_Score_Helper();
 				// Get orders payed by paypal.
@@ -317,7 +317,7 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 
 				foreach ($orders as $order) {
 					$orderstatus = $order->get_status();
-					if ('on-hold' == $orderstatus || 'processing' == $orderstatus || 'completed' == 'order_status') {
+					if ('on-hold' == $orderstatus || 'processing' == $orderstatus) {
 						$datetime1 = new DateTime();
 						$datetime2 = new DateTime($order->get_date_created()->format('Y-m-d h:i:s'));
 						$interval = $datetime1->diff($datetime2);
@@ -351,8 +351,16 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 		public function do_this_hourly() {
 
 			global $wpdb;
+			$pre_payment_fraud_check = get_option('wc_af_fraud_check_before_payment');
+			$statuses = array_keys(wc_get_order_statuses());
+			if (!$pre_payment_fraud_check) {
+				unset($statuses['wc-pending']);
+				$statuses = array_keys($statuses);
+			}
+
 			$date_range = strtotime ( '-7 day' );
 			$orders = wc_get_orders(array(
+				'status' => $statuses,
 				'limit'=>-1,
 				'type'=> 'shop_order',
 				'date_query'  => array(

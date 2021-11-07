@@ -13,6 +13,7 @@ return array(
     '5f0758a858333143c3cc0725e0f79b35' => $baseDir . '/includes/theme_support/divi.php',
     'f6bea0d34da77b3cca74e13cd46a9918' => $baseDir . '/includes/theme_support/avada.php',
     '7bdf6a888a138e602026f09bb3ec5cc2' => $baseDir . '/includes/theme_support/thrivethemes-gm-init.php',
+    '2f1f1216fe7219b45c065cd3f3afaa2f' => $baseDir . '/includes/theme_support/visual_composer.php',
     '655fc50bc71579437c0b8c94b9b5f072' => $baseDir . '/includes/migration/migrate.php',
     'fab540ef9b69f507bcc21701eeef4143' => $baseDir . '/template/loader.php',
     '89faccae217ae94c3a1c0e22589b2a86' => $baseDir . '/includes/modules/core/core.php',

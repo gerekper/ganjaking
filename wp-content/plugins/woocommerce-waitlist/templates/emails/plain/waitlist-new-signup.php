@@ -20,11 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 echo '= ' . esc_html( $email_heading ) . " =\n\n";
 
-echo sprintf( __( '%s has just signed up to the waitlist for %s', 'woocommerce-waitlist' ), $user_email, $product_title );
+echo sprintf( __( '%1$s has just signed up to the waitlist for %2$s', 'woocommerce-waitlist' ), $user_email, $product_title );
 
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
-echo sprintf( __( 'There are now %d customers on this waitlist.  ', 'woocommerce-waitlist' ), $count );
-_e( 'To review the waitlist for this product visit the edit product screen and click on the waitlist tab', 'woocommerce-waitlist' );
+echo sprintf( __( 'There are now %d customers on this waitlist.', 'woocommerce-waitlist' ), $count ) . '  ';
+echo sprintf( __( 'To review the waitlist for this product visit the edit product screen (%s) and click on the waitlist tab', 'woocommerce-waitlist' ), esc_attr( $product_link ) );
 
 echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 

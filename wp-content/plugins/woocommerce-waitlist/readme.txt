@@ -45,6 +45,10 @@ If you’re using the Advanced Notifications extension make sure you disable the
 
 == Changelog ==
 
+2021.11.03 - version 2.3.1
+Fix: version meta update running query unnecessarily
+Fix: mailouts not always sending for parent product bundles
+
 2021.08.02 - version 2.3.0
 Added: Import/export options for waitlist data within WooCommerce's product exporter
 Added: Waitlist elements will now show by default within Elementor template

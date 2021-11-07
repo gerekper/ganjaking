@@ -216,6 +216,12 @@ abstract class WC_Instagram_Product_Catalog_Format {
 			'google_product_category'   => 'esc_attr',
 		);
 
+		$relationships = WC_Instagram_Attribute_Relationships::get_relationships();
+
+		foreach ( $relationships as $google_pa ) {
+			$props[ $google_pa ] = 'esc_attr';
+		}
+
 		if ( $product_item && ! $product_item instanceof WC_Instagram_Product_Catalog_Item_Variation ) {
 			unset( $props['item_group_id'] );
 		}
@@ -348,7 +354,11 @@ abstract class WC_Instagram_Product_Catalog_Format {
 				$value  = ( 'all' === $option ? $product_item->get_additional_image_links() : array() );
 				break;
 			default:
-				$value = $product_item->get_prop( $prop );
+				$value = $product_item->get_google_attribute( $prop );
+
+				if ( is_null( $value ) ) {
+					$value = $product_item->get_prop( $prop );
+				}
 				break;
 		}
 

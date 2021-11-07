@@ -3,10 +3,6 @@
 /**
  * Class GroovyMenuCategoryPreset
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class GroovyMenuCategoryPreset {
 
 	const meta_name = 'gm_custom_preset_id';

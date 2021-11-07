@@ -536,6 +536,13 @@ body:not(.fl-builder-edit) {
 .gm-dropdown:not(.gm-open) .gm-dropdown-menu-wrapper {
   overflow: hidden; }
 
+.gm-action__gm_main_menu_actions_button_first,
+.gm-action__gm_main_menu_actions_button_last {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row; }
+
 /************************************
 GROOVY TOOLBAR
 *************************************/
@@ -602,9 +609,9 @@ GROOVY TOOLBAR
 .gm-navbar--style-5 .gm-toolbar .gm-toolbar-social-link > span {
   display: none; }
 
-/* ------------------------------------ */
-/*    Toolbar Menu: Main CSS Styles     */
-/* ------------------------------------ */
+/* ----------------------------------
+   Toolbar Menu: Main CSS Styles
+ ------------------------------------ */
 .gm-toolbar-nav-container {
   padding: 0;
   margin: 0 16px;
@@ -682,8 +689,8 @@ GROOVY TOOLBAR
 .gm-toolbar-nav-container > ul > li.menu-item {
   margin: 0 2px; }
 
-.gm-toolbar-nav-container:after,
-.gm-toolbar-nav-container ul:after {
+.gm-toolbar-nav-container::after,
+.gm-toolbar-nav-container ul::after {
   content: '';
   display: block;
   clear: both; }
@@ -716,13 +723,13 @@ GROOVY TOOLBAR
 .gm-toolbar-nav-container ul ul li {
   position: relative; }
 
-.gm-toolbar-nav-container ul ul li > a:before {
+.gm-toolbar-nav-container ul ul li > a::before {
   position: absolute;
   right: 15px;
   display: inline-block;
   visibility: hidden;
   content: "";
-  transition: all .15s ease;
+  transition: all 0.15s ease;
   transform: translateX(0);
   opacity: 0;
   font: normal normal normal 16px/1 FontAwesome;
@@ -732,21 +739,16 @@ GROOVY TOOLBAR
   -moz-osx-font-smoothing: grayscale;
   text-rendering: auto; }
 
-.gm-toolbar-nav-container ul ul li.menu-item-has-children > a:after {
+.gm-toolbar-nav-container ul ul li.menu-item-has-children > a::after {
   content: "";
   position: absolute;
   top: 50%;
   left: 15px;
-  margin-top: -8px; }
-
-.gm-toolbar-nav-container ul li.menu-item-has-children > a > span:after {
-  content: "";
-  margin-right: 5px;
-  display: inline-block;
+  margin-top: -8px;
   font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
+  -webkit-font-smoothing: antialiased;
   text-rendering: auto;
-  -webkit-font-smoothing: antialiased; }
+  font-size: inherit; }
 
 .gm-toolbar-nav-container ul li.last ul {
   right: auto;
@@ -762,6 +764,15 @@ GROOVY TOOLBAR
 .gm-navbar .gm-toolbar-nav .menu-item,
 .gm-navbar #gm-toolbar .gm-toolbar-nav-container ul {
   padding: 0; }
+
+.gm-action__gm_toolbar_left_first,
+.gm-action__gm_toolbar_left_last,
+.gm-action__gm_toolbar_right_first,
+.gm-action__gm_toolbar_right_last {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row; }
 
 /***************************************
 GROOVY SEARCH
@@ -1440,7 +1451,8 @@ NAVBAR GENERAL STYLES
 
 .gm-navbar .gm-menu-actions-wrapper {
   display: flex;
-  margin: 0 24px; }
+  margin: 0 24px;
+  align-items: center; }
 
 .gm-navbar.gm-navbar--style-1 .gm-inner,
 .gm-navbar.gm-navbar--style-1 .gm-inner > .gm-container,
@@ -1642,7 +1654,7 @@ NAVBAR GENERAL STYLES
 .gm-navbar--style-4 .gm-menu-item--lvl-0 .gm-anchor .gm-menu-item__icon {
   transition: all 0.2s; }
 
-.gm-navbar--has-shadow:not(.gm-navbar-sticky-toggle) .gm-inner {
+.gm-navbar--has-shadow:not(.gm-navbar-sticky-toggle):not(.gm-navbar--style-4) .gm-inner {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
 
 .gm-navbar--has-shadow-dropdown .gm-dropdown-menu {
@@ -1776,6 +1788,11 @@ NAVBAR GENERAL STYLES
   flex-wrap: nowrap;
   flex-direction: row; }
 
+.gm-menu-item__desc {
+  display: block;
+  font-size: 10px;
+  line-height: 16px; }
+
 .gm-dropdown-with-scrollbar .gm-dropdown-menu .ps__rail-y {
   top: 0 !important; }
 
@@ -1813,6 +1830,14 @@ NAVBAR GENERAL STYLES
 [dir='rtl'] .gm-main-menu-wrapper .gm-dropdown-menu .ps__thumb-y {
   right: auto;
   left: 2px; }
+/* Safari 10.1+ */
+@media not all and (-webkit-min-device-pixel-ratio: 0), not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .gm-navbar.gm-navbar--style-5 .gm-main-menu-wrapper.ps,
+    .gm-navbar.gm-navbar--style-4 .gm-main-menu-wrapper.ps,
+    .gm-navbar.gm-navbar--style-3 .gm-main-menu-wrapper.ps {
+      overflow: visible !important; } } }
+
 .et-db #et-boc .et-l .et-fb-modules-list ul > li.grooni_groovymenu::before,
 .et-db #et-boc .et-l .et-fb-modules-list ul > li.grooni_groovymenu_fullwidth::before {
   content: '';
@@ -2648,7 +2673,7 @@ NAVBAR GENERAL STYLES
   width: 32px;
   height: 32px;
   cursor: pointer;
-  transition: transform linear .2s; }
+  transition: transform linear 0.2s; }
 
 .gm-action__gm_before_mobile_hamburger,
 .gm-action__gm_after_mobile_hamburger {

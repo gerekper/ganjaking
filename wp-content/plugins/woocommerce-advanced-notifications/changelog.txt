@@ -1,5 +1,8 @@
 *** Advanced Notifications Changelog ***
 
+2021-11-03 - version 1.2.34
+* Fix - Incorrect reuse of 'woocommerce_email_subject_*' hook.
+
 2021-10-21 - version 1.2.33
 * Chore - Bump WP & WC version support.
 * Fix   - Sending a new order email when the order status is from pending to on-hold.

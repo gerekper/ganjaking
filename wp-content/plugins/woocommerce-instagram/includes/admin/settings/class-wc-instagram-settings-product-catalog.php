@@ -461,7 +461,7 @@ if ( ! class_exists( 'WC_Instagram_Settings_Product_Catalog', false ) ) {
 		/**
 		 * Generates the HTML for a 'product_search' field.
 		 *
-		 * @since 1.0.0
+		 * @since 3.0.0
 		 *
 		 * @param string $key  The field key.
 		 * @param mixed  $data The field data.

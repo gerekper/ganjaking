@@ -12,7 +12,6 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 		 * Initialise ajax class
 		 */
 		public function init() {
-			$this->setup_text_strings();
 			$this->load_ajax();
 		}
 
@@ -46,7 +45,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 				if ( ! $response ) {
 					$response = sprintf( __( 'Failed to send optin email on %s.' ), gmdate( 'd M, y' ) );
 				} else {
-					$response = $this->get_optin_response;
+					$response = apply_filters( 'wcwl_notice_message_double_optin', __( 'Please check your inbox and confirm your email address to be added to the waitlist', 'woocommerce-waitlist' ) );
 				}
 				$context = '';
 			} elseif ( 'leave' === $context ) {
@@ -95,7 +94,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 		 */
 		public function verify_product( $product_id ) {
 			if ( ! wp_verify_nonce( $_POST['nonce'], 'wcwl-ajax-process-user-request-nonce' ) ) {
-				wp_send_json_error( $this->nonce_not_verified_text );
+				wp_send_json_error( apply_filters( 'wcwl_error_message_invalid_nonce', __( 'There was a problem with your request: nonce could not be verified.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) ) );
 			}
 			$product = wc_get_product( $product_id );
 			if ( $product ) {
@@ -104,7 +103,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 			if ( wcwl_is_event( $product_id ) ) {
 				return tribe_events_get_event( $product_id );
 			}
-			wp_send_json_error( $this->invalid_product_text );
+			wp_send_json_error( apply_filters( 'wcwl_error_message_invalid_product', __( 'There was a problem with your request: the selected product could not be found.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) ) );
 		}
 
 		/**
@@ -147,12 +146,12 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 			$notice_type = 'success';
 			$message     = '';
 			if ( ! wp_verify_nonce( $_POST['wcwl_remove_user_nonce'], 'wcwl-ajax-remove-user-nonce' ) ) {
-				$message     = $this->nonce_not_verified_text;
+				$message     = apply_filters( 'wcwl_error_message_invalid_nonce', __( 'There was a problem with your request: nonce could not be verified.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
 				$notice_type = 'error';
 			}
 			$product = isset( $_POST['product_id'] ) ? wc_get_product( absint( $_POST['product_id'] ) ) : false;
 			if ( ! $product ) {
-				$message     = $this->invalid_product_text;
+				$message     = apply_filters( 'wcwl_error_message_invalid_product', __( 'There was a problem with your request: the selected product could not be found.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
 				$notice_type = 'error';
 			}
 			$user = isset( $_POST['user_id'] ) ? get_user_by( 'id', absint( $_POST['user_id'] ) ) : 0;
@@ -186,7 +185,7 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 			$notice_type = 'success';
 			$message     = apply_filters( 'wcwl_account_removed_archives_message', __( 'You have been removed from all waitlist archives.', 'woocommerce-waitlist' ) );
 			if ( ! wp_verify_nonce( $_POST['wcwl_remove_user_archive_nonce'], 'wcwl-ajax-remove-user-archive-nonce' ) ) {
-				$message     = $this->nonce_not_verified_text;
+				$message     = apply_filters( 'wcwl_error_message_invalid_nonce', __( 'There was a problem with your request: nonce could not be verified.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
 				$notice_type = 'error';
 			}
 			$user     = isset( $_POST['user_id'] ) ? get_user_by( 'id', absint( $_POST['user_id'] ) ) : 0;
@@ -205,16 +204,6 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 			} else {
 				wp_send_json_error( $html );
 			}
-		}
-
-		/**
-		 * Required text for ajax requests
-		 */
-		protected function setup_text_strings() {
-			$this->nonce_not_verified_text = apply_filters( 'wcwl_error_message_invalid_nonce', __( 'There was a problem with your request: nonce could not be verified.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
-			$this->invalid_user_text       = apply_filters( 'wcwl_error_message_invalid_user', __( 'There was a problem with your request: the current user could not be identified.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
-			$this->invalid_product_text    = apply_filters( 'wcwl_error_message_invalid_product', __( 'There was a problem with your request: the selected product could not be found.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
-			$this->get_optin_response      = apply_filters( 'wcwl_notice_message_double_optin', __( 'Please check your inbox and confirm your email address to be added to the waitlist', 'woocommerce-waitlist' ) );
 		}
 	}
 }
