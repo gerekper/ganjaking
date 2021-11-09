@@ -387,7 +387,7 @@ class Mailer extends MailerAbstract {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param array $attachments
+	 * @param array $attachments The array of attachments data.
 	 */
 	public function set_attachments( $attachments ) {
 
@@ -395,46 +395,33 @@ class Mailer extends MailerAbstract {
 			return;
 		}
 
-		$data = array();
+		$data = [];
 
 		foreach ( $attachments as $attachment ) {
-			$file = false;
-
-			/*
-			 * We are not using WP_Filesystem API as we can't reliably work with it.
-			 * It is not always available, same as credentials for FTP.
-			 */
-			try {
-				if ( is_file( $attachment[0] ) && is_readable( $attachment[0] ) ) {
-					$file = file_get_contents( $attachment[0] ); // phpcs:ignore
-				}
-			}
-			catch ( \Exception $e ) {
-				$file = false;
-			}
+			$file = $this->get_attachment_file_content( $attachment );
 
 			if ( $file === false ) {
 				continue;
 			}
 
-			$data[] = array(
+			$data[] = [
 				'@odata.type'  => '#microsoft.graph.fileAttachment',
 				'name'         => $attachment[2],
-				'contentBytes' => base64_encode( $file ),
+				'contentBytes' => base64_encode( $file ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 				'contentType'  => $attachment[4],
-			);
+			];
 		}
 
 		if ( ! empty( $data ) ) {
 			$this->set_body_param(
-				array(
+				[
 					'hasAttachments' => true,
-				)
+				]
 			);
 			$this->set_body_param(
-				array(
+				[
 					'attachments' => $data,
-				)
+				]
 			);
 		}
 	}

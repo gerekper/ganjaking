@@ -31,7 +31,7 @@ class Options extends OptionsAbstract {
 				'title'       => esc_html__( 'Outlook / 365', 'wp-mail-smtp-pro' ),
 				'description' => sprintf(
 					wp_kses( /* translators: %s - URL to Outlook doc. */
-						__( 'Send emails using your personal or business Microsoft Outlook / 365  account, all while keeping your login credentials safe.<br><br>Read our <a href="%s" target="_blank" rel="noopener noreferrer">Outlook documentation</a> to learn how to configure Outlook and improve your email deliverability.', 'wp-mail-smtp-pro' ),
+						__( 'Our Outlook.com / Microsoft 365 mailer allows you to send emails from a Microsoft email account on Outlook.com or a Microsoft 365 email address. It\'s free, but you\'ll need to provide a credit card to get started. The set-up steps are more technical than other options, so we created a detailed guide to walk you through the process.<br><br>To get started, read our <a href="%s" target="_blank" rel="noopener noreferrer">Outlook / Microsoft 365 documentation</a>.', 'wp-mail-smtp-pro' ),
 						[
 							'br' => [],
 							'a'  => [

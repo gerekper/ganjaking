@@ -25,8 +25,8 @@ use WPMailSMTP\Vendor\Firebase\JWT\SignatureInvalidException;
 use WPMailSMTP\Vendor\Google\Auth\Cache\MemoryCacheItemPool;
 use WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpClientCache;
 use WPMailSMTP\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
-use WPMailSMTP\Vendor\GuzzleHttp\Psr7;
 use WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request;
+use WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils;
 use InvalidArgumentException;
 use WPMailSMTP\Vendor\phpseclib\Crypt\RSA;
 use WPMailSMTP\Vendor\phpseclib\Math\BigInteger;
@@ -248,7 +248,7 @@ class AccessToken
                 $token = $token['access_token'];
             }
         }
-        $body = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\stream_for(\http_build_query(['token' => $token]));
+        $body = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Utils::streamFor(\http_build_query(['token' => $token]));
         $request = new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', self::OAUTH2_REVOKE_URI, ['Cache-Control' => 'no-store', 'Content-Type' => 'application/x-www-form-urlencoded'], $body);
         $httpHandler = $this->httpHandler;
         $response = $httpHandler($request, $options);

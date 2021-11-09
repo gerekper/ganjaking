@@ -86,6 +86,14 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
         }
     }
     /**
+     * Delete the modulo for a given instance
+     */
+    public static function cleanupCache($instanceID)
+    {
+        unset(static::$modulo[$instanceID]);
+        unset(static::$reduce[$instanceID]);
+    }
+    /**
      * Returns the modulo
      *
      * @return integer

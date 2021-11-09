@@ -81,11 +81,14 @@ class Multisite {
 		// Maybe disable notifications for sub-sites.
 		add_filter( 'wp_mail_smtp_admin_notifications_has_access', [ $this, 'maybe_disable_notifications' ] );
 
-		// Enqueue assets.
-		add_action( 'wp_mail_smtp_admin_area_enqueue_assets', [ $this, 'enqueue_assets' ] );
+		if ( is_network_admin() ) {
 
-		// Add scripts data.
-		add_filter( 'wp_mail_smtp_admin_area_enqueue_assets_scripts_data', [ $this, 'scripts_data' ], 10, 2 );
+			// Enqueue assets.
+			add_action( 'wp_mail_smtp_admin_area_enqueue_assets', [ $this, 'enqueue_assets' ] );
+
+			// Add scripts data.
+			add_filter( 'wp_mail_smtp_admin_area_enqueue_assets_scripts_data', [ $this, 'scripts_data' ], 10, 2 );
+		}
 
 		// Check if on network admin and subsite related request.
 		if ( $this->is_network_admin_subsite_related_request() ) {
@@ -141,9 +144,15 @@ class Multisite {
 
 			// Filters options.
 			add_filter( 'wp_mail_smtp_populate_options', [ $this, 'network_admin_filter_options' ] );
+		}
 
-			// Filters ajax url.
-			add_filter( 'wp_mail_smtp_admin_area_enqueue_assets_scripts_data', [ $this, 'network_admin_filter_ajax_url' ], 10, 2 );
+		// Handle network admin subsite related AJAX request.
+		if (
+			WP::is_doing_self_ajax() &&
+			! empty( $_REQUEST['network_admin_subsite_related_request'] ) && // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			current_user_can( 'manage_network' )
+		) {
+			add_action( 'admin_init', [ $this, 'switch_blog_to_selection' ], 0 );
 		}
 
 		// Get network sites ajax handler.
@@ -195,6 +204,14 @@ class Multisite {
 				false
 			);
 		}
+
+		wp_enqueue_script(
+			'wp-mail-smtp-network-admin',
+			wp_mail_smtp()->assets_url . '/pro/js/smtp-pro-network-admin' . WP::asset_min() . '.js',
+			[ 'wp-mail-smtp-admin' ],
+			WPMS_PLUGIN_VER,
+			false
+		);
 	}
 
 	/**
@@ -219,6 +236,8 @@ class Multisite {
 				],
 			];
 		}
+
+		$data['network_subsite_mode'] = $this->is_network_admin_subsite_related_request();
 
 		return $data;
 	}
@@ -797,6 +816,8 @@ class Multisite {
 	/**
 	 * Filters network admin ajax url.
 	 *
+	 * @deprecated 3.1.0
+	 *
 	 * @since 2.9.0
 	 *
 	 * @param array  $script_data Data.
@@ -805,6 +826,8 @@ class Multisite {
 	 * @return array
 	 */
 	public function network_admin_filter_ajax_url( $script_data, $hook ) {
+
+		_deprecated_function( __METHOD__, '3.1.0' );
 
 		$this->switch_blog_to_selection();
 		$script_data['ajax_url'] = admin_url( 'admin-ajax.php' );

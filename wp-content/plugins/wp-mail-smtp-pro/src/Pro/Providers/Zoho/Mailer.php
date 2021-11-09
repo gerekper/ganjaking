@@ -248,6 +248,28 @@ class Mailer extends MailerAbstract {
 			return;
 		}
 
+		$data = $this->prepare_attachments( $attachments );
+
+		if ( ! empty( $data ) ) {
+			$this->set_body_param(
+				[
+					'attachments' => $data,
+				]
+			);
+		}
+	}
+
+	/**
+	 * Prepare attachments data for Zoho API.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param array $attachments Array of attachments.
+	 *
+	 * @return array
+	 */
+	protected function prepare_attachments( $attachments ) {
+
 		$data = [];
 
 		// Prepare request headers.
@@ -255,19 +277,7 @@ class Mailer extends MailerAbstract {
 		$headers['Content-Type'] = 'application/octet-stream';
 
 		foreach ( $attachments as $attachment ) {
-			$file = false;
-
-			/*
-			 * We are not using WP_Filesystem API as we can't reliably work with it.
-			 * It is not always available, same as credentials for FTP.
-			 */
-			try {
-				if ( is_file( $attachment[0] ) && is_readable( $attachment[0] ) ) {
-					$file = file_get_contents( $attachment[0] ); // phpcs:ignore
-				}
-			} catch ( \Exception $e ) {
-				$file = false;
-			}
+			$file = $this->get_attachment_file_content( $attachment );
 
 			if ( $file === false ) {
 				continue;
@@ -298,13 +308,7 @@ class Mailer extends MailerAbstract {
 			}
 		}
 
-		if ( ! empty( $data ) ) {
-			$this->set_body_param(
-				[
-					'attachments' => $data,
-				]
-			);
-		}
+		return $data;
 	}
 
 	/**

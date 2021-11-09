@@ -3,7 +3,6 @@
 namespace WPMailSMTP\Pro\Providers\AmazonSES;
 
 use WPMailSMTP\Admin\DebugEvents\DebugEvents;
-use WPMailSMTP\Debug;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Providers\MailerAbstract;
 
@@ -77,11 +76,6 @@ class Mailer extends MailerAbstract {
 			$this->process_response( $response );
 		} catch ( \Exception $e ) {
 			$this->error_message = $e->getMessage();
-
-			Debug::set(
-				'Mailer: Amazon SES' . "\r\n" .
-				$e->getMessage()
-			);
 		}
 	}
 
@@ -109,11 +103,6 @@ class Mailer extends MailerAbstract {
 		// Save the error text.
 		if ( ! empty( $error ) ) {
 			$this->error_message = $error;
-
-			Debug::set(
-				'Mailer: Amazon SES' . "\r\n" .
-				$error
-			);
 		}
 	}
 
@@ -130,10 +119,9 @@ class Mailer extends MailerAbstract {
 
 		if ( is_object( $this->response ) && ! empty( $this->response->get( 'MessageId' ) ) ) {
 			$is_sent = true;
-
-			Debug::clear();
 		}
 
+		/** This filter is documented in src/Providers/MailerAbstract.php. */
 		return apply_filters( 'wp_mail_smtp_providers_mailer_is_email_sent', $is_sent, $this->mailer );
 	}
 

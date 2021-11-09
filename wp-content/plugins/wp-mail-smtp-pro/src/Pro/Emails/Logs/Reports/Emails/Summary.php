@@ -260,6 +260,7 @@ class Summary extends SummaryLite {
 
 		$width          = $this->get_stats_column_width( $column );
 		$images_dir_url = wp_mail_smtp()->assets_url . '/images/reports/email/';
+		$icon_width     = ( $icon === 'icon-email.png' ) ? 16 : 15;
 
 		ob_start();
 		?>
@@ -268,7 +269,7 @@ class Summary extends SummaryLite {
 		<![endif]-->
 			<div class="stats-subject-column <?php echo esc_attr( $column ); ?>" style="width:100%;max-width:<?php echo intval( $width ); ?>px;display:inline-block;vertical-align:top;padding:0px 0px 10px 0px;font-size:13px;line-height:15px;">
 				<img src="<?php echo esc_url( $images_dir_url . $icon ); ?>"
-						 alt="<?php esc_attr( $title ); ?>" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: 15px;height: 15px;max-width: 100%;clear: both;vertical-align: bottom;" width="15" height="15">&nbsp;
+						 alt="<?php esc_attr( $title ); ?>" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;width: <?php echo esc_attr( $icon_width ); ?>px;height: 15px;max-width: 100%;clear: both;vertical-align: bottom;" width="<?php echo esc_attr( $icon_width ); ?>" height="15">&nbsp;
 				<span class="stats-subject-column-value" style="line-height: 100%;white-space: nowrap !important; color: #50575E;">
 					<?php echo wp_kses( $value, [ 'span' => [ 'style' => [] ] ] ); ?>
 				</span>

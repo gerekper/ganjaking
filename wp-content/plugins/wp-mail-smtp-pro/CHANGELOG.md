@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.0] - 2021-09-28
+### Added:
+- New transactional mailer: Postmark integration.
+- Email Log: added CC and BCC columns to the table.
+- Support for string attachments (added via PHPMailer object).
+
+### Changed:
+- Improved Weekly Email Summary Setup Wizard control.
+- Improved Email Source detection in Debug Events and Email Log for WP Core sent emails.
+- Improved uninstall process. It now removes all plugin DB data and tables.
+
+### Fixed:
+- Email Source detection in Debug Events and Email Log for file paths with backslashes.
+- Amazon SES automatic closest region detection (keycdn API request).
+- Added SSL check for Amazon SES and Outlook mailers in the Setup Wizard.
+- Blurry image assets in Weekly Email Summary.
+- PHP extension mb_strings not polyfilled correctly.
+- New user registration email template for Email Controls feature.
+- Added missing is_email_sent filters for Sendinblue, Mailgun, and Gmail mailers.
+- Debug Events double-entry DB save, because of a bug in is_email_sent method for certain mailers.
+- Network subsite switcher in WP Multisite installations with subdomain configuration.
+
+## [3.0.3] - 2021-08-09
+### Fixed:
+- Weekly Summary Email sending when migration code didn't trigger.
+
 ## [3.0.2] - 2021-08-05
 ### Fixed:
 - Fatal PHP error on WP version 5.2 and lower (missing wp_timezone function).

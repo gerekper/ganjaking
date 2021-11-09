@@ -17,7 +17,7 @@
  */
 namespace WPMailSMTP\Vendor\Google\Auth\Middleware;
 
-use WPMailSMTP\Vendor\GuzzleHttp\Psr7;
+use WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query;
 use WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface;
 /**
  * SimpleMiddleware is a Guzzle Middleware that implements Google's Simple API
@@ -76,9 +76,9 @@ class SimpleMiddleware
             if (!isset($options['auth']) || $options['auth'] !== 'simple') {
                 return $handler($request, $options);
             }
-            $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\parse_query($request->getUri()->getQuery());
+            $query = \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::parse($request->getUri()->getQuery());
             $params = \array_merge($query, $this->config);
-            $uri = $request->getUri()->withQuery(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\build_query($params));
+            $uri = $request->getUri()->withQuery(\WPMailSMTP\Vendor\GuzzleHttp\Psr7\Query::build($params));
             $request = $request->withUri($uri);
             return $handler($request, $options);
         };

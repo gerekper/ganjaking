@@ -351,10 +351,6 @@ var WPMailSMTPEmailReports = window.WPMailSMTPEmailReports || ( function( docume
 			app.updateTotalsUI( wp_mail_smtp_email_reports.stats_totals );
 
 			app.initFlatpickr();
-
-			if ( wp_mail_smtp.is_network_admin === '1' ) {
-				app.initNetworkAdmin();
-			}
 		},
 
 		/**
@@ -556,33 +552,6 @@ var WPMailSMTPEmailReports = window.WPMailSMTPEmailReports || ( function( docume
 			args.locale = flatpickrLocale;
 
 			$( '.wp-mail-smtp-filter-date-selector' ).flatpickr( args );
-		},
-
-		/**
-		 * Initialize network admin area related functionality.
-		 *
-		 * @since 3.0.0
-		 */
-		initNetworkAdmin: function() {
-
-			// Site selector select.
-			var $siteSelector = $( '.wp-mail-smtp-network-admin-site-selector' );
-
-			// Submit form on site selector change.
-			$siteSelector.on( 'change', function() {
-				$( this ).closest( 'form' ).submit();
-			} );
-
-			// Initialize site selector field.
-			$siteSelector.select2( {
-				dropdownCssClass: 'wp-mail-smtp-select2-dropdown',
-				cacheDataSource: {},
-				dataAdapter: $.fn.select2.amd.require( 'select2/data/cacheableAjax' ),
-				ajax: {
-					url     : wp_mail_smtp.ajax_url + '?action=wp_mail_smtp_pro_get_sites_ajax&nonce=' + wp_mail_smtp.nonce,
-					dataType: 'json'
-				},
-			} );
 		}
 	};
 

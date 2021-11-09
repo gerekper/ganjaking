@@ -266,10 +266,6 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 			ready: function() {
 
 				app.archive.initFlatpickr();
-
-				if ( wp_mail_smtp.is_network_admin === '1' ) {
-					app.archive.initNetworkAdmin();
-				}
 			},
 
 			/**
@@ -492,37 +488,6 @@ WPMailSMTP.Admin.Logs = WPMailSMTP.Admin.Logs || ( function( document, window, $
 					if ( ! modal.isOpen() ) {
 						modal.open();
 					}
-				} );
-			},
-
-			/**
-			 * Initialize network admin area related functionality.
-			 *
-			 * @since 2.9.0
-			 */
-			initNetworkAdmin: function() {
-
-				// Open edit links in new tab.
-				$( 'body.network-admin .wp-mail-smtp-page-logs-archive' )
-					.on( 'click', '.column-subject a[href*="mode=view"]', app.openLinkInNewTab );
-
-				// Site selector select.
-				var $siteSelector = $( '.wp-mail-smtp-network-admin-site-selector' );
-
-				// Submit form on site selector change.
-				$siteSelector.on( 'change', function() {
-					$( this ).closest( 'form' ).submit();
-				} );
-
-				// Initialize site selector field.
-				$siteSelector.select2( {
-					dropdownCssClass: 'wp-mail-smtp-select2-dropdown',
-					cacheDataSource: {},
-					dataAdapter: $.fn.select2.amd.require( 'select2/data/cacheableAjax' ),
-					ajax: {
-						url     : wp_mail_smtp.ajax_url + '?action=wp_mail_smtp_pro_get_sites_ajax&nonce=' + wp_mail_smtp.nonce,
-						dataType: 'json'
-					},
 				} );
 			}
 		},
