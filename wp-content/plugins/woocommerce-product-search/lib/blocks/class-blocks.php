@@ -44,6 +44,8 @@ class Blocks {
 		add_filter( 'block_categories_all', array( __CLASS__, 'block_categories_all' ), 10, 2 );
 
 		add_filter( 'block_categories', array( __CLASS__, 'block_categories' ), 10, 2 );
+
+		add_filter( 'widget_types_to_hide_from_legacy_widget_block', array( __CLASS__, 'widget_types_to_hide_from_legacy_widget_block' ) );
 	}
 
 	public static function block_categories( $block_categories, $post ) {
@@ -63,6 +65,23 @@ class Blocks {
 			)
 		);
 		return $block_categories;
+	}
+
+	public static function widget_types_to_hide_from_legacy_widget_block( $widgets ) {
+
+		if ( !WPS_LEGACY_WIDGETS ) {
+			$widgets[] = 'woocommerce_product_search_filter_attribute_widget';
+			$widgets[] = 'woocommerce_product_search_filter_category_widget';
+			$widgets[] = 'woocommerce_product_search_filter_price_widget';
+			$widgets[] = 'woocommerce_product_search_filter_rating_widget';
+			$widgets[] = 'woocommerce_product_search_filter_reset_widget';
+			$widgets[] = 'woocommerce_product_search_filter_sale_widget';
+			$widgets[] = 'woocommerce_product_search_filter_stock_widget';
+			$widgets[] = 'woocommerce_product_search_filter_tag_widget';
+			$widgets[] = 'woocommerce_product_search_filter_widget';
+			$widgets[] = 'woocommerce_product_search_widget';
+		}
+		return $widgets;
 	}
 
 	public static function wp_init() {

@@ -24,6 +24,7 @@ function redsys_return_all_languages_code() {
 		'es_ES' => '1',
 		'es_UY' => '1',
 		'es_VE' => '1',
+		'esp'   => '1',
 		'es'    => '1',
 		'ar'    => '1',
 		'cl'    => '1',

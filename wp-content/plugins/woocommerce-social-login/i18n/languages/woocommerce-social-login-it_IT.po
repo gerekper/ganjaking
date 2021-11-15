@@ -3,15 +3,15 @@ msgstr ""
 "Project-Id-Version: WooCommerce Social Login 1.5.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/marketplace-ticket-"
 "form/\n"
-"POT-Creation-Date: 2020-01-03 00:33:39+00:00\n"
-"PO-Revision-Date: 2020-03-09 18:58+0800\n"
+"POT-Creation-Date: 2021-01-11 09:18:59+00:00\n"
+"PO-Revision-Date: 2021-01-11 17:23+0800\n"
 "Last-Translator: Illimar Tambek\n"
 "Language-Team: \n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-Sourcecharset: UTF-8\n"
 "X-Poedit-Keywordslist: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -23,7 +23,7 @@ msgstr ""
 
 #. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML
 #. </a> tag
-#: class-wc-social-login.php:637
+#: class-wc-social-login.php:608
 msgid ""
 "Thanks for installing Social Login! Before you get started, please take a "
 "moment to %1$sread through the documentation%2$s."
@@ -33,7 +33,7 @@ msgstr ""
 
 #. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag, %3$s - <a> tag,
 #. %4$s - </a> tag
-#: class-wc-social-login.php:653
+#: class-wc-social-login.php:624
 msgid ""
 "WooCommerce Social Login: Facebook now requires your site's full OAuth "
 "Redirect URI to be configured for your app. Please head over to the "
@@ -46,7 +46,23 @@ msgstr ""
 "Reindirizzamento, e leggi la documentazione per %3$sconfigurare la tua app"
 "%4%s"
 
-#: class-wc-social-login.php:725
+#. translators: Placeholders: %1$s - <strong> opening HTML tag, %2$s -
+#. </strong> closing HTML tag, %3$s - <a> opening HTML tag, %4$s - </a> closing
+#. HTML tag, , %5$s - <a> opening HTML tag, %6$s - </a> closing HTML tag
+#: class-wc-social-login.php:640
+msgid ""
+"%1$sHeads up!%2$s Instagram has %3$sdeprecated its support for user logins"
+"%4$s. Your customers cannot use Instagram to login to your site. Please "
+"consider %5$ssetting up another provider%6$s to let your customers login via "
+"social platforms."
+msgstr ""
+"%1$sAttenzione!%2$s Instagram ha %3$sdeprecato il supporto per i login utenti"
+"%4$s. I tuoi clienti non saranno in grado di utilizzare Instagram per fare "
+"login nel tuo sito. Per favore, prendi in considerazione la possibilità di "
+"%5$sconfigurare un altro operatore%6$s per consentire ai tuoi clienti di "
+"fare login tramite social networks.."
+
+#: class-wc-social-login.php:713
 msgid ""
 "Oops, looks like iThemes Security is set to Filter Long URLs. This is likely "
 "to cause a conflict with Social Login -- please disable that setting for "
@@ -57,7 +73,7 @@ msgstr ""
 "per favore disabilita questa impostazione per un funzionamento ottimale."
 
 #. translators: %1$s, %3$s - opening <a> tag, %2$s, %4$s - closing </a> tag
-#: class-wc-social-login.php:738
+#: class-wc-social-login.php:726
 msgid ""
 "Please update callback URLs for each Social Login provider, then switch "
 "callback URLs to the Default format in the %1$sSocial Login settings%2$s. "
@@ -71,7 +87,7 @@ msgstr ""
 #. translators: Placeholders: %1$s - WooCommerce Social Login plugin name, %2$s
 #. - opening <a> HTML link tag, %3$s - closing </a> HTML link tag, %4$s cookie
 #. name wrapped in <code> HTML tags
-#: class-wc-social-login.php:749
+#: class-wc-social-login.php:737
 msgid ""
 "If you are experiencing issues with customers linking a social account using "
 "%1$s, please %2$sfollow the guidelines here%3$s, as your host should fix "
@@ -87,7 +103,7 @@ msgstr ""
 #. translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s closing
 #. </a> HTML link tag, %3$s - opening <a> HTML link tag, %4$s closing </a> HTML
 #. link tag
-#: class-wc-social-login.php:774
+#: class-wc-social-login.php:762
 msgid ""
 "Heads up! LinkedIn is deprecating v1 of their API. If you run into provider "
 "authentication issues, try %1$sswitching your API version to v2%2$s, or "
@@ -98,21 +114,7 @@ msgstr ""
 "versione API in v2%2$s, oppure %3$screa una nuova app LinkedIn%4$s e "
 "aggiorna le tue impostazioni."
 
-#. translators: Placeholders: %1$s - Instagram provider name, %2$s - opening
-#. <a> HTML link tag, %3$s - closing </a> HTML link tag, %4$s - opening <a>
-#. HTML link tag, %5$s - closing </a> HTML link tag
-#: class-wc-social-login.php:798
-msgid ""
-"Heads up! In early 2020, %1$s will %2$sdeprecate support for user logins"
-"%3$s. At this point, your customers will no longer be able to login to your "
-"site via %1$s. %4$sClick here to read more about this update%5$s."
-msgstr ""
-"Attenzione! All'inizio del 2020, %1$s rimuoverà %2$sil supporto per il login "
-"utenti%3$s. A quel punto i tuoi clienti non saranno più in grado di fare log "
-"in al tuo sito tramite %1$s. %4$sFai clic qui per saperne di più su questo "
-"aggiornamento%5$s."
-
-#: class-wc-social-login.php:877
+#: class-wc-social-login.php:839
 msgid "Removed customer Social Login data"
 msgstr "Dati di social login del cliente rimossi"
 
@@ -505,17 +507,25 @@ msgstr "Richiedi assistenza"
 msgid "Leave a Review"
 msgstr "Lascia una recensione"
 
-#. translators: Placeholders: %1$s - opening <a> HTML link tag, %2$s - closing
-#. </a> HTML link tag
+#: includes/admin/Setup_Wizard.php:688
+msgid "Want to keep learning?"
+msgstr "Desideri continuare a saperne di più?"
+
+#: includes/admin/Setup_Wizard.php:689
+msgid ""
+"Check out our monthly newsletter where we share updates, tutorials, and "
+"sneak peeks for new development!"
+msgstr ""
+"Dai un'occhiata alla nostra newsletter mensile dove condividiamo "
+"aggiornamenti, tutorial e anteprime sui "
+
 #: includes/admin/Setup_Wizard.php:693
 msgid ""
-"Want to keep learning? Check out our %1$smonthly newsletter%2$s where we "
-"share updates, tutorials, and sneak peeks for new development. %1$sSign up "
-"&rarr;%2$s"
+"Thanks for signing up! Keep an eye on your inbox for product updates and "
+"helpful tips!"
 msgstr ""
-"Vuoi continuare a mantenerti aggiornato? Dai un'occhiata alla nostra "
-"%1$snewsletter mensile%2$s dove condividiamo aggiornamenti, tutorial e "
-"anteprime sulle nuove versioni. %1$sIscriviti &rarr;%2$s"
+"Grazie per esserti iscritto! Tieni d'occhio i tuoi messaggi in arrivo per "
+"aggiornamenti sui prodotti e consigli utili!"
 
 #. translators: WooCommerce customers report tab title
 #: includes/admin/class-wc-social-login-admin.php:92
@@ -599,7 +609,7 @@ msgstr ""
 "mostrati i login tramite social network."
 
 #: includes/admin/class-wc-social-login-settings.php:127
-#: includes/class-wc-social-login-lifecycle.php:75
+#: includes/class-wc-social-login-lifecycle.php:76
 msgid "For faster checkout, login or register using your social account."
 msgstr ""
 "﻿Per acquisti più veloci, effettua il login o registrati utilizzando un tuo "
@@ -618,8 +628,8 @@ msgstr ""
 "mostrati i login tramite social network."
 
 #: includes/admin/class-wc-social-login-settings.php:136
-#: includes/class-wc-social-login-lifecycle.php:76
-#: includes/class-wc-social-login-lifecycle.php:215
+#: includes/class-wc-social-login-lifecycle.php:77
+#: includes/class-wc-social-login-lifecycle.php:216
 msgid "Use a social account for faster login or easy registration."
 msgstr ""
 "Usa un account di social network per un login immediato o una registrazione "
@@ -1015,73 +1025,6 @@ msgstr ""
 "Esiste già un profilo utente che utilizza lo stesso indirizzo email di "
 "questo profilo Google."
 
-#: includes/providers/class-wc-social-login-provider-instagram.php:45
-msgid "Instagram"
-msgstr "﻿Instagram"
-
-#. translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag
-#: includes/providers/class-wc-social-login-provider-instagram.php:66
-msgid "Need help setting up and configuring Instagram? %1$sRead the docs%2$s"
-msgstr ""
-"Hai bisogno di aiuto per installare e configurare Instagram? %1$sLeggi la "
-"documentazione%2$s"
-
-#. translators: Placeholder: %s - a url
-#: includes/providers/class-wc-social-login-provider-instagram.php:71
-msgid "The OAuth redirect_uri is %s"
-msgstr "L'indirizzo redirect_uri OAuth è %s"
-
-#: includes/providers/class-wc-social-login-provider-instagram.php:75
-msgid "(Please update your Instagram app to use this URL)"
-msgstr ""
-"(Per favore aggiorna la tua app Instagram per utilizzare questo indirizzo "
-"URL)"
-
-#. translators: Placeholder: %s - a url
-#: includes/providers/class-wc-social-login-provider-instagram.php:78
-msgid "The legacy OAuth redirect_uri is %s"
-msgstr "Il prcedente indirizzo (legacy) OAuth redirect_uri è %s"
-
-#: includes/providers/class-wc-social-login-provider-instagram.php:121
-msgid "Log in with Instagram"
-msgstr "﻿Accedi con Instagram"
-
-#: includes/providers/class-wc-social-login-provider-instagram.php:133
-msgid "Link your account to Instagram"
-msgstr "﻿Collega il tuo profilo ad Instagram"
-
-#: includes/providers/class-wc-social-login-provider-instagram.php:145
-msgid "Your Instagram account is now linked to your account."
-msgstr "﻿Il tuo profilo Instagram è ora collegato al tuo profilo utente."
-
-#: includes/providers/class-wc-social-login-provider-instagram.php:146
-msgid "Instagram was successfully unlinked from your account."
-msgstr ""
-"Il profilo Instagram è stato scollegato con successo dal tuo profilo utente."
-
-#: includes/providers/class-wc-social-login-provider-instagram.php:147
-msgid "This Instagram account is already linked to another user account."
-msgstr "﻿Questo profilo Instagram è già collegato ad un altro profilo utente."
-
-#: includes/providers/class-wc-social-login-provider-instagram.php:148
-msgid ""
-"A user account using the same email address as this Instagram account "
-"already exists."
-msgstr ""
-"﻿Esiste già un profilo utente che utilizza lo stesso indirizzo email di "
-"questo profilo Instagram."
-
-#. translators: Placeholders: %1$s - Social Login, %2$s - Instagram provider
-#. name, %3$s - opening <a> HTML link tag, %4$s - closing </a> HTML link tag
-#: includes/providers/class-wc-social-login-provider-instagram.php:169
-msgid ""
-"%1$s: Please note that %2$s will deprecate support for social logins in "
-"early 2020. %3$sClick here to read more about this update%4$s."
-msgstr ""
-"%1$s: Per favore tieni presente che %2$s rimuoverà il supporto ai social "
-"login all'inizio del 2020. %3$sFai clic qui per saperne di più su questo "
-"aggiornamento%4$s."
-
 #: includes/providers/class-wc-social-login-provider-linkedin.php:46
 msgid "LinkedIn"
 msgstr "LinkedIn"
@@ -1458,7 +1401,7 @@ msgid "http://www.woocommerce.com"
 msgstr "http://www.woocommerce.com"
 
 #. translators: Placeholder: %s - social provider name
-#: class-wc-social-login.php:691
+#: class-wc-social-login.php:679
 msgctxt "Requires SSL"
 msgid ""
 "WooCommerce Social Login: %s requires SSL for authentication, please force "
@@ -1487,6 +1430,11 @@ msgctxt "noun"
 msgid "Link Button Text"
 msgstr "Testo pulsante link"
 
+#: includes/admin/Setup_Wizard.php:694
+msgctxt "Newsletter sign up"
+msgid "Sign up"
+msgstr "Iscriviti"
+
 #: includes/admin/views/html-report-social-login.php:38
 msgctxt "The number of registrations for a provider"
 msgid "Registrations"
@@ -1496,6 +1444,69 @@ msgstr "﻿Registrazioni"
 msgctxt "Action to unlink an account from a social profile"
 msgid "Unlink"
 msgstr "Scollega"
+
+#~ msgid ""
+#~ "Heads up! In early 2020, %1$s will %2$sdeprecate support for user logins"
+#~ "%3$s. At this point, your customers will no longer be able to login to "
+#~ "your site via %1$s. %4$sClick here to read more about this update%5$s."
+#~ msgstr ""
+#~ "Attenzione! All'inizio del 2020, %1$s rimuoverà %2$sil supporto per il "
+#~ "login utenti%3$s. A quel punto i tuoi clienti non saranno più in grado di "
+#~ "fare log in al tuo sito tramite %1$s. %4$sFai clic qui per saperne di più "
+#~ "su questo aggiornamento%5$s."
+
+#~ msgid "Instagram"
+#~ msgstr "﻿Instagram"
+
+#~ msgid ""
+#~ "Need help setting up and configuring Instagram? %1$sRead the docs%2$s"
+#~ msgstr ""
+#~ "Hai bisogno di aiuto per installare e configurare Instagram? %1$sLeggi la "
+#~ "documentazione%2$s"
+
+#~ msgid "The OAuth redirect_uri is %s"
+#~ msgstr "L'indirizzo redirect_uri OAuth è %s"
+
+#~ msgid "(Please update your Instagram app to use this URL)"
+#~ msgstr ""
+#~ "(Per favore aggiorna la tua app Instagram per utilizzare questo indirizzo "
+#~ "URL)"
+
+#~ msgid "The legacy OAuth redirect_uri is %s"
+#~ msgstr "Il prcedente indirizzo (legacy) OAuth redirect_uri è %s"
+
+#~ msgid "Log in with Instagram"
+#~ msgstr "﻿Accedi con Instagram"
+
+#~ msgid "Link your account to Instagram"
+#~ msgstr "﻿Collega il tuo profilo ad Instagram"
+
+#~ msgid "Your Instagram account is now linked to your account."
+#~ msgstr "﻿Il tuo profilo Instagram è ora collegato al tuo profilo utente."
+
+#~ msgid "Instagram was successfully unlinked from your account."
+#~ msgstr ""
+#~ "Il profilo Instagram è stato scollegato con successo dal tuo profilo "
+#~ "utente."
+
+#~ msgid "This Instagram account is already linked to another user account."
+#~ msgstr ""
+#~ "﻿Questo profilo Instagram è già collegato ad un altro profilo utente."
+
+#~ msgid ""
+#~ "A user account using the same email address as this Instagram account "
+#~ "already exists."
+#~ msgstr ""
+#~ "﻿Esiste già un profilo utente che utilizza lo stesso indirizzo email di "
+#~ "questo profilo Instagram."
+
+#~ msgid ""
+#~ "%1$s: Please note that %2$s will deprecate support for social logins in "
+#~ "early 2020. %3$sClick here to read more about this update%4$s."
+#~ msgstr ""
+#~ "%1$s: Per favore tieni presente che %2$s rimuoverà il supporto ai social "
+#~ "login all'inizio del 2020. %3$sFai clic qui per saperne di più su questo "
+#~ "aggiornamento%4$s."
 
 #~ msgid "Your Social Network account is now linked to your account."
 #~ msgstr ""

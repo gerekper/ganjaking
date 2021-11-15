@@ -72,7 +72,7 @@ class AesDecryptingStream implements \WPMailSMTP\Vendor\Aws\Crypto\AesStreamInte
     public function read($length)
     {
         if ($length > \strlen($this->buffer)) {
-            $this->buffer .= $this->decryptBlock(self::BLOCK_SIZE * \ceil(($length - \strlen($this->buffer)) / self::BLOCK_SIZE));
+            $this->buffer .= $this->decryptBlock((int) (self::BLOCK_SIZE * \ceil(($length - \strlen($this->buffer)) / self::BLOCK_SIZE)));
         }
         $data = \substr($this->buffer, 0, $length);
         $this->buffer = \substr($this->buffer, $length);
@@ -95,7 +95,7 @@ class AesDecryptingStream implements \WPMailSMTP\Vendor\Aws\Crypto\AesStreamInte
         }
         $cipherText = '';
         do {
-            $cipherText .= $this->stream->read($length - \strlen($cipherText));
+            $cipherText .= $this->stream->read((int) ($length - \strlen($cipherText)));
         } while (\strlen($cipherText) < $length && !$this->stream->eof());
         $options = \OPENSSL_RAW_DATA;
         if (!$this->stream->eof() && $this->stream->getSize() !== $this->stream->tell()) {

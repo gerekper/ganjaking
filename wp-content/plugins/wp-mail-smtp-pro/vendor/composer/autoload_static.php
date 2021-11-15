@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb2d30e2581275313e722bf2dde877710
+class ComposerStaticInit11528cb91f49ed2293b7326801f875b7
 {
     public static $files = array (
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
@@ -330,6 +330,8 @@ class ComposerStaticInitb2d30e2581275313e722bf2dde877710
         'WPMailSMTP\\Providers\\Sendinblue\\Api' => __DIR__ . '/../..' . '/src/Providers/Sendinblue/Api.php',
         'WPMailSMTP\\Providers\\Sendinblue\\Mailer' => __DIR__ . '/../..' . '/src/Providers/Sendinblue/Mailer.php',
         'WPMailSMTP\\Providers\\Sendinblue\\Options' => __DIR__ . '/../..' . '/src/Providers/Sendinblue/Options.php',
+        'WPMailSMTP\\Providers\\SparkPost\\Mailer' => __DIR__ . '/../..' . '/src/Providers/SparkPost/Mailer.php',
+        'WPMailSMTP\\Providers\\SparkPost\\Options' => __DIR__ . '/../..' . '/src/Providers/SparkPost/Options.php',
         'WPMailSMTP\\Providers\\Zoho\\Options' => __DIR__ . '/../..' . '/src/Providers/Zoho/Options.php',
         'WPMailSMTP\\Reports\\Emails\\Summary' => __DIR__ . '/../..' . '/src/Reports/Emails/Summary.php',
         'WPMailSMTP\\Reports\\Reports' => __DIR__ . '/../..' . '/src/Reports/Reports.php',
@@ -1467,9 +1469,9 @@ class ComposerStaticInitb2d30e2581275313e722bf2dde877710
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb2d30e2581275313e722bf2dde877710::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb2d30e2581275313e722bf2dde877710::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb2d30e2581275313e722bf2dde877710::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit11528cb91f49ed2293b7326801f875b7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit11528cb91f49ed2293b7326801f875b7::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit11528cb91f49ed2293b7326801f875b7::$classMap;
 
         }, null, ClassLoader::class);
     }

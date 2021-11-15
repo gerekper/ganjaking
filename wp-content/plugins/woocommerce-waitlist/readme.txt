@@ -45,6 +45,9 @@ If you’re using the Advanced Notifications extension make sure you disable the
 
 == Changelog ==
 
+2021.11.05 - version 2.3.2
+Fix: Some specific setups for variations were not sending out Mailouts incorrectly
+
 2021.11.03 - version 2.3.1
 Fix: version meta update running query unnecessarily
 Fix: mailouts not always sending for parent product bundles

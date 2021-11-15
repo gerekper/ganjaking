@@ -11,10 +11,6 @@
 /**
  * @since      Class available since Release 2.1.0
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Util_TestDox_NamePrettifierTest extends PHPUnit_Framework_TestCase
 {
     protected $namePrettifier;

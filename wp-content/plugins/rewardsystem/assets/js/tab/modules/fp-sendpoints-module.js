@@ -2,6 +2,7 @@
  * Send Points - Module
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var SendPointsScripts = {
         init : function ( ) {
             this.show_or_hide_for_confirmation_mail( ) ;

@@ -58,7 +58,7 @@ class InstanceProfileProvider
      */
     public function __invoke()
     {
-        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\coroutine(function () {
+        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine::of(function () {
             // Retrieve token or switch out of secure mode
             $token = null;
             while ($this->secureMode && \is_null($token)) {

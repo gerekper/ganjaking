@@ -53,6 +53,18 @@ class WooCommerce_Product_Search_Compat {
 			}
 		}
 
+		if ( class_exists( 'woocommerce_wpml' ) ) {
+			if ( apply_filters( 'woocommerce_product_search_compat', true, 'plugin', 'woocommerce-multilingual' ) ) {
+				require_once WOO_PS_COMPAT_LIB . '/class-woocommerce-product-search-compat-wpml.php';
+			}
+		}
+
+		if ( class_exists( 'WC_Composite_Products' ) ) {
+			if ( apply_filters( 'woocommerce_product_search_compat', true, 'plugin', 'woocommerce-composite-products' ) ) {
+				require_once WOO_PS_COMPAT_LIB . '/class-woocommerce-product-search-compat-woocommerce-composite-products.php';
+			}
+		}
+
 		$theme = wp_get_theme();
 		if ( $theme instanceof WP_Theme ) {
 			if ( $theme->exists() ) {

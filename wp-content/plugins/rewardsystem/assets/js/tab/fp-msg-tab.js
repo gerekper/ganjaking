@@ -2,14 +2,18 @@
  * Message Tab
  */
 jQuery( function ( $ ) {
+    'use strict' ;
+    var rs_custom_uploader ;
     var MessageTabScripts = {
         init : function () {
+            this.toggle_settings() ;
             this.show_or_hide_for_position_for_var() ;
             this.show_or_hide_for_reward_shortcode() ;
             this.show_or_hide_for_single_product_page() ;
             this.show_or_hide_for_single_product_page_msg_for_referral_to_simple() ;
             this.show_or_hide_for_single_product_page_msg_for_referral_to_variable() ;
             this.show_or_hide_for_simple_product_msg_in_shop_page() ;
+            this.show_or_hide_for_variable_product_msg_in_shop_page() ;
             this.show_or_hide_for_simple_product_buying_points_msg_in_shop_page() ;
             this.show_or_hide_for_variable_product_buying_points_msg_in_shop_page() ;
             this.show_or_hide_for_simple_product_msg_in_custom_page() ;
@@ -63,13 +67,16 @@ jQuery( function ( $ ) {
             this.show_or_hide_for_msg_for_percent_cart_based_points_in_shop_page() ;
             this.show_or_hide_for_msg_for_fixed_cart_based_points_in_custom_page() ;
             this.show_or_hide_for_msg_for_percent_cart_based_points_in_custom_page() ;
-            this.show_or_hide_for_msg_for_page_size_my_reward_table_shortcode() ;
+            this.show_or_hide_for_msg_for_page_size_my_reward_table_shortcode() ;            
+            this.show_or_hide_msg_for_buy_point_message_for_simple_in_product_user();
+            this.show_or_hide_msg_for_buy_point_message_for_variable_in_product_user();           
             $( document ).on( 'change' , '#rs_my_reward_table_shortcode' , this.show_or_hide_for_reward_shortcode ) ;
             $( document ).on( 'change' , '#rs_enable_display_earn_message_for_variation' , this.show_or_hide_for_position_for_var ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_single_product' , this.single_product_page ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_single_product_referral' , this.single_product_page_msg_for_referral_to_simple ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_variable_product_referral' , this.single_product_page_msg_for_referral_to_variable ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_simple_in_shop' , this.simple_product_msg_in_shop_page ) ;
+            $( document ).on( 'change' , '#rs_show_hide_message_for_variable_in_shop' , this.variable_product_msg_in_shop_page ) ;
             $( document ).on( 'change' , '#rs_show_hide_buy_points_message_for_simple_in_shop' , this.simple_product_buying_points_msg_in_shop_page ) ;
             $( document ).on( 'change' , '#rs_show_hide_buy_points_message_for_variable_in_shop' , this.variable_product_buying_points_msg_in_shop_page ) ;
             $( document ).on( 'change' , '#rs_show_hide_message_for_simple_in_custom_shop' , this.simple_product_msg_in_custom_page ) ;
@@ -123,7 +130,38 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '#rs_enable_msg_for_percent_cart_total_based_product_purchase_in_shop' , this.msg_for_percent_cart_based_points_in_shop_page ) ;
             $( document ).on( 'change' , '#rs_enable_msg_for_fixed_cart_total_based_product_purchase_in_custom' , this.msg_for_fixed_cart_based_points_in_custom_page ) ;
             $( document ).on( 'change' , '#rs_enable_msg_for_percent_cart_total_based_product_purchase_in_custom' , this.msg_for_percent_cart_based_points_in_custom_page ) ;
-            $( document ).on( 'change' , '#rs_show_hide_page_size_my_rewards_shortcode' , this.msg_for_page_size_my_reward_table_shortcode ) ;
+            $( document ).on( 'change' , '#rs_show_hide_page_size_my_rewards_shortcode' , this.msg_for_page_size_my_reward_table_shortcode ) ;          
+            $( document ).on( 'change' , '#rs_show_hide_message_related_product_buying_point' , this.buy_point_message_for_simple_related_product ) ;           
+            $( document ).on( 'change' , '#rs_show_hide_message_related_product_buying_point_variable_product' , this.buy_point_message_for_variable_related_product ) ;
+            // Upload gift voucher.
+            $( document ).on( 'click' , '#rs_image_upload_button' , this.upload_gift_voucher ) ;
+        } ,
+        toggle_settings : function () {
+            jQuery( ".sortable" ).sortable( {
+                items : 'tr' ,
+                handle : '.post_sort_handle' ,
+            } ) ;
+            jQuery( ".sortable" ).disableSelection() ;
+        } ,       
+        buy_point_message_for_simple_related_product: function () {
+            MessageTabScripts.show_or_hide_msg_for_buy_point_message_for_simple_in_product_user() ;
+        } ,
+        show_or_hide_msg_for_buy_point_message_for_simple_in_product_user: function () {
+            if ( jQuery( '#rs_show_hide_message_related_product_buying_point' ).val() == '1' ) {
+                jQuery( '#rs_message_related_product_buying_point' ).parent().parent().show() ;
+            } else {
+                jQuery( '#rs_message_related_product_buying_point' ).parent().parent().hide() ;
+            }
+        } ,        
+        buy_point_message_for_variable_related_product: function () {
+            MessageTabScripts.show_or_hide_msg_for_buy_point_message_for_variable_in_product_user() ;
+        } ,
+        show_or_hide_msg_for_buy_point_message_for_variable_in_product_user: function () {
+            if ( jQuery( '#rs_show_hide_message_related_product_buying_point_variable_product' ).val() == '1' ) {
+                jQuery( '#rs_message_related_product_buying_point_variable_product' ).parent().parent().show() ;
+            } else {
+                jQuery( '#rs_message_related_product_buying_point_variable_product' ).parent().parent().hide() ;
+            }
         } ,
         msg_for_fixed_cart_based_points_in_product_page : function () {
             MessageTabScripts.show_or_hide_for_msg_for_fixed_cart_based_points_in_product_page() ;
@@ -235,6 +273,18 @@ jQuery( function ( $ ) {
             } else {
                 jQuery( '#rs_message_in_shop_page_for_simple' ).parent().parent().hide() ;
                 jQuery( '#rs_message_position_for_simple_products_in_shop_page' ).parent().parent().hide() ;
+            }
+        } ,
+        variable_product_msg_in_shop_page : function () {
+            MessageTabScripts.show_or_hide_for_variable_product_msg_in_shop_page() ;
+        } ,
+        show_or_hide_for_variable_product_msg_in_shop_page : function () {
+            if ( jQuery( '#rs_show_hide_message_for_variable_in_shop' ).val() == '1' ) {
+                jQuery( '#rs_message_in_shop_page_for_variable' ).parent().parent().show() ;
+                jQuery( '#rs_msg_position_for_var_products_in_shop_page' ).parent().parent().show() ;
+            } else {
+                jQuery( '#rs_message_in_shop_page_for_variable' ).parent().parent().hide() ;
+                jQuery( '#rs_msg_position_for_var_products_in_shop_page' ).parent().parent().hide() ;
             }
         } ,
         simple_product_buying_points_msg_in_shop_page : function () {
@@ -747,8 +797,14 @@ jQuery( function ( $ ) {
         } ,
         show_or_hide_for_position_for_var : function () {
             if ( jQuery( '#rs_enable_display_earn_message_for_variation' ).is( ':checked' ) == true ) {
+                $( '#rs_show_hide_message_for_variable_in_shop' ).closest( 'tr' ).show() ;
+                $( '#rs_show_hide_message_for_variable_in_shop_guest' ).closest( 'tr' ).show() ;
+                $( '#rs_message_in_shop_page_for_variable' ).closest( 'tr' ).show() ; 
                 $( '#rs_msg_position_for_var_products_in_shop_page' ).closest( 'tr' ).show() ;
             } else {
+                $( '#rs_show_hide_message_for_variable_in_shop' ).closest( 'tr' ).hide() ;
+                $( '#rs_show_hide_message_for_variable_in_shop_guest' ).closest( 'tr' ).hide() ;
+                $( '#rs_message_in_shop_page_for_variable' ).closest( 'tr' ).hide() ; 
                 $( '#rs_msg_position_for_var_products_in_shop_page' ).closest( 'tr' ).hide() ;
             }
         } ,
@@ -796,7 +852,27 @@ jQuery( function ( $ ) {
                 jQuery( '#rs_my_rewards_date_label_shortcode' ).closest( 'tr' ).hide() ;
                 jQuery( '#rs_my_rewards_points_expired_label_shortcode' ).closest( 'tr' ).hide() ;
             }
-        }
+        } ,
+        upload_gift_voucher : function ( e ) {
+            e.preventDefault() ;
+            if ( rs_custom_uploader ) {
+                rs_custom_uploader.open() ;
+                return ;
+            }
+            rs_custom_uploader = wp.media.frames.file_frame = wp.media( {
+                title : 'Choose Image' ,
+                button : { text : 'Choose Image'
+                } ,
+                multiple : false
+            } ) ;
+            //When a file is selected, grab the URL and set it as the text field's value
+            rs_custom_uploader.on( 'select' , function () {
+                attachment = rs_custom_uploader.state().get( 'selection' ).first().toJSON() ;
+                jQuery( '#rs_image_url_upload' ).val( attachment.url ) ;
+            } ) ;
+            //Open the uploader dialog
+            rs_custom_uploader.open() ;
+        } ,
     } ;
     MessageTabScripts.init() ;
 } ) ;

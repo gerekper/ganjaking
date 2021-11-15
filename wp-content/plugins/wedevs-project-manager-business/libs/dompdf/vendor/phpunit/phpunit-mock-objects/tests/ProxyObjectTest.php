@@ -11,10 +11,6 @@
 /**
  * @since      Class available since Release 2.0.0
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Framework_ProxyObjectTest extends PHPUnit_Framework_TestCase
 {
     public function testMockedMethodIsProxiedToOriginalMethod()

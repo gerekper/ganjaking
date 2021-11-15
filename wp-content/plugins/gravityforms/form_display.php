@@ -1287,7 +1287,7 @@ class GFFormDisplay {
 			 *
 			 * This filter allows the form confirmation text to be programmatically changed before it is rendered to the page.
 			 *
-			 * @since 2.5.14
+			 * @since 2.5.15
 			 *
 			 * @param string  $progress_confirmation Confirmation text to be filtered.
 			 * @param array $form The current form object

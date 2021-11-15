@@ -86,7 +86,7 @@ class MockHandler implements \Countable
                 $meta['statusCode'] = 200;
             }
             $result['@metadata'] = $meta;
-            $result = \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for($result);
+            $result = \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor($result);
         }
         $result->then($this->onFulfilled, $this->onRejected);
         return $result;

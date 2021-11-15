@@ -23,10 +23,6 @@ add_action( 'pm_after_create_task', ['WeDevs\PM_Pro\Modules\Kanboard\Src\Control
 add_action( 'pm_changed_task_status', ['WeDevs\PM_Pro\Modules\Kanboard\Src\Controllers\Kanboard_Controller','before_change_task_status'], 10, 3 );
 add_action( 'pm_after_new_comment', ['WeDevs\PM_Pro\Modules\Kanboard\Src\Controllers\Kanboard_Controller','after_new_comment'], 10, 2 );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function register_kanboard_scripts() {
     $view_path = dirname (__FILE__) . '/views/assets/';
 

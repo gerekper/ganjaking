@@ -23,6 +23,10 @@ if ( !defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( !class_exists( 'WC_Admin_Report' ) ) {
+	require_once WC()->plugin_path() . '/includes/admin/reports/class-wc-admin-report.php';
+}
+
 /**
  * Report on searches.
  */
@@ -139,8 +143,7 @@ class WooCommerce_Product_Search_Report_Searches extends WC_Admin_Report {
 		<div class="section">
 			<form method="GET">
 				<div>
-					<?php
-?>
+					<?php //?>
 					<div>
 					<input type="text" name="search_query" value="<?php echo esc_attr( isset( $_GET['search_query'] ) ? trim ( $_GET['search_query'] ) : '' ); ?>" />
 					<?php
@@ -181,8 +184,7 @@ class WooCommerce_Product_Search_Report_Searches extends WC_Admin_Report {
 					<input type="hidden" name="tab" value="search" />
 					<input type="hidden" name="report" value="searches" />
 					<?php wp_nonce_field( 'custom_range', 'wc_reports_nonce', false ); ?>
-					<?php
-?>
+					<?php //?>
 				</div>
 			</form>
 		</div>
@@ -527,8 +529,7 @@ class WooCommerce_Product_Search_Report_Searches extends WC_Admin_Report {
 			var main_chart;
 
 			jQuery(function(){
-				var order_data = jQuery.parseJSON( '<?php echo $chart_data; ?>' );<?php
-?>
+				var order_data = jQuery.parseJSON( '<?php echo $chart_data; ?>' );<?php //?>
 
 				var drawGraph = function( highlight ) {
 					var series = [

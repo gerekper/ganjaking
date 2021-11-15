@@ -95,11 +95,11 @@ abstract class AbstractMonitoringMiddleware implements \WPMailSMTP\Vendor\Aws\Cl
                 }
             }
             if ($value instanceof \Exception || $value instanceof \Throwable) {
-                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\rejection_for($value);
+                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::rejectionFor($value);
             }
             return $value;
         };
-        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for($handler($cmd, $request))->then($g, $g);
+        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor($handler($cmd, $request))->then($g, $g);
     }
     private function getClientId()
     {

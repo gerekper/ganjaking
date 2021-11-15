@@ -72,7 +72,6 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'disable_paygold' ) );
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'show_payment_method_add_method' ) );
-
 		// Payment listener/API hook.
 		add_action( 'woocommerce_api_wc_gateway_' . $this->id, array( $this, 'check_ipn_response' ) );
 
@@ -133,10 +132,10 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			}
 			?>
 	<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'woocommerce-redsys' ); ?></strong>: 
-														   <?php
-															esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
-															echo esc_html( $formated_currencies );
-															?>
+		<?php
+		esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
+		echo esc_html( $formated_currencies );
+		?>
 		</p></div>
 			<?php
 		endif;
@@ -355,7 +354,6 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			}
 		}
 	}
-
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -716,6 +714,13 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			$decodec           = $miObj->decodeMerchantParameters( $data );
 			$order_id          = $miObj->getParameter( 'Ds_Order' );
 			$ds_merchant_code  = $miObj->getParameter( 'Ds_MerchantCode' );
+			$ds_merchant_iden  = $miObj->getParameter( 'Ds_Merchant_Identifier' );
+			if ( $ds_merchant_iden ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'paygold', 'Is add Method' );
+				}
+				return true;
+			}
 			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_title( $order_id ) );
 			$order1            = $order_id;
 			$order2            = WCRed()->clean_order_number( $order1 );
@@ -889,15 +894,18 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$dsmerchantidenti  = $miObj->getParameter( 'Ds_Merchant_Identifier' );
 		$dscardbrand       = $miObj->getParameter( 'Ds_Card_Brand' );
 		$dsmechandata      = $miObj->getParameter( 'Ds_MerchantData' );
+		$card_txnid        = $miObj->getParameter( 'Ds_Merchant_Cof_Txnid' );
 		$dscargtype        = $miObj->getParameter( 'Ds_Card_Type' );
+		$expiry_date       = $miObj->getParameter( 'Ds_ExpiryDate' );
 		$dserrorcode       = $miObj->getParameter( 'Ds_ErrorCode' );
 		$dpaymethod        = $miObj->getParameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
 		$response          = intval( $response );
 		$secretsha256      = get_transient( 'redsys_signature_' . sanitize_title( $ordermi ) );
 		$order1            = $ordermi;
-		$order2            = WCRed()->clean_order_number( $order1 );
-		$order             = WCRed()->get_order( (int) $order2 );
-
+		if ( ! $dsmerchantidenti ) {
+			$order2            = WCRed()->clean_order_number( $order1 );
+			$order             = WCRed()->get_order( (int) $order2 );
+		}
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'paygold', 'SHA256 Settings: ' . $usesecretsha256 );
 			$this->log->add( 'paygold', 'SHA256 Transcient: ' . $secretsha256 );
@@ -919,10 +927,45 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'paygold', 'Ds_Card_Type: ' . $dscargtype );
 			$this->log->add( 'paygold', 'Ds_TransactionType: ' . $dstransactiontype );
 			$this->log->add( 'paygold', 'Ds_Merchant_Identifiers_Amount: ' . $response );
+			$this->log->add( 'paygold', 'Ds_Merchant_Identifier: ' . $dsmerchantidenti );
 			$this->log->add( 'paygold', 'Ds_Card_Brand: ' . $dscardbrand );
 			$this->log->add( 'paygold', 'Ds_MerchantData: ' . $dsmechandata );
+			$this->log->add( 'paygold', 'Ds_Merchant_Cof_Txnid: ' . $card_txnid );
 			$this->log->add( 'paygold', 'Ds_ErrorCode: ' . $dserrorcode );
 			$this->log->add( 'paygold', 'Ds_PayMethod: ' . $dpaymethod );
+		}
+		
+		if ( $dsmerchantidenti ) {
+			$token_type        = get_transient( $ordermi . '_add_method_type_subcription' );
+			$user_id           = get_transient( $ordermi . '_user_id_token' );
+			$dscargtype        = $miObj->getParameter( 'Ds_Card_Type' );
+			if ( ! empty( $expiry_date ) ) {
+				$dsexpiryyear  = '20' . substr( $expiry_date, 0, 2 );
+				$dsexpirymonth = substr( $expiry_date, -2 );
+			} else {
+				$dsexpiryyear  = '99';
+				$dsexpirymonth = '12';
+			}
+	
+			if ( ! empty( $dscardnumber4 ) ) {
+				$dscardnumber4 = substr( $dscardnumbercompl, -4 );
+			} else {
+				$dscardnumber4 = '0000';
+			}
+			
+			$token = new WC_Payment_Token_CC();
+			$token->set_token( $dsmerchantidenti );
+			$token->set_gateway_id( 'redsys' );
+			$token->set_user_id( $user_id );
+			$token->set_card_type( WCRed()->get_card_brand( $dscardbrand ) );
+			$token->set_last4( $dscardnumber4 );
+			$token->set_expiry_month( $dsexpirymonth );
+			$token->set_expiry_year( $dsexpiryyear );
+			$token->set_default( true );
+			$token->save();
+			WCRed()->set_txnid( $tokennum, $card_txnid );
+			WCRed()->set_token_type( $tokennum, $token_type );
+			exit();
 		}
 
 		// refund.

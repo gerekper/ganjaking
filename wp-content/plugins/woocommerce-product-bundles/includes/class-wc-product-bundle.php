@@ -406,7 +406,7 @@ class WC_Product_Bundle extends WC_Product {
 					$min_raw_price         += $min_quantity * (double) $bundled_item->min_price;
 					$min_raw_regular_price += $min_quantity * (double) $bundled_item->min_regular_price;
 
-					if ( ! $max_quantity ) {
+					if ( '' === $max_quantity ) {
 						$max_raw_price = $max_raw_regular_price = INF;
 					}
 

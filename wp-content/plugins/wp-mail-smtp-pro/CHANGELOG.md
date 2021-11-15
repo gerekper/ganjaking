@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.0] - 2021-11-09
+### Added:
+- New transactional mailer: SparkPost integration.
+- One-click migration from FluentSMTP plugin.
+- Plugin constants integration in Setup Wizard.
+
+### Fixed:
+- Early plugin deactivation issue with activity log plugins.
+
 ## [3.1.0] - 2021-09-28
 ### Added:
 - New transactional mailer: Postmark integration.

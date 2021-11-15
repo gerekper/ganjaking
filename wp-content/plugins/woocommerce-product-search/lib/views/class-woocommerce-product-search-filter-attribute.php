@@ -76,6 +76,21 @@ class WooCommerce_Product_Search_Filter_Attribute {
 	}
 
 	/**
+	 * Instance ID.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return string
+	 */
+	private static function get_n() {
+		$n = self::$instances;
+		if ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) {
+			$n .= '-' . md5( rand() );
+		}
+		return $n;
+	}
+
+	/**
 	 * Product attribute filter renderer.
 	 *
 	 * @param array $atts
@@ -112,6 +127,7 @@ class WooCommerce_Product_Search_Filter_Attribute {
 				'number'             => null,
 				'order'              => 'ASC',
 				'orderby'            => 'name',
+				'shop_only'          => 'no',
 				'show'               => 'all',
 				'show_count'         => 'no',
 				'show_heading'       => 'yes',
@@ -127,7 +143,7 @@ class WooCommerce_Product_Search_Filter_Attribute {
 			$atts
 		);
 
-		$n               = self::$instances;
+		$n               = self::get_n();
 		$container_class = '';
 		$container_id    = sprintf( 'product-search-filter-attribute-%d', $n );
 		$heading_class   = 'product-search-filter-terms-heading product-search-filter-attribute-heading';
@@ -192,7 +208,7 @@ class WooCommerce_Product_Search_Filter_Attribute {
 			);
 			return '';
 		} else {
-			if ( $atts['heading'] === null ) {
+			if ( $atts['heading'] === null || $atts['heading'] === '' ) {
 				if ( !empty( $taxonomy->labels ) && !empty( $taxonomy->labels->singular_name ) ) {
 					$atts['heading'] = _x( $taxonomy->labels->singular_name, 'product attribute singular name', 'woocommerce-product-search' );
 				} else {
@@ -289,6 +305,7 @@ class WooCommerce_Product_Search_Filter_Attribute {
 					case 'hide_empty' :
 					case 'hierarchical' :
 					case 'multiple' :
+					case 'shop_only' :
 					case 'show_count' :
 					case 'show_heading' :
 					case 'show_names' :
@@ -385,6 +402,10 @@ class WooCommerce_Product_Search_Filter_Attribute {
 			if ( $is_param ) {
 				$params[$key] = $value;
 			}
+		}
+
+		if ( $params['shop_only'] && !woocommerce_product_search_is_shop() ) {
+			return '';
 		}
 
 		if ( !empty( $containers['container_class'] ) ) {
@@ -546,9 +567,10 @@ class WooCommerce_Product_Search_Filter_Attribute {
 		$prefix_output = apply_filters(
 			"woocommerce_product_search_filter_{$taxonomy}_prefix",
 			sprintf(
-				'<div id="%s" class="product-search-filter-terms %s" data-multiple="%s">',
+				'<div id="%s" class="product-search-filter-terms %s %s" data-multiple="%s">',
 				esc_attr( $container_id ),
 				esc_attr( $container_class ),
+				$params['filter'] ? '' : 'filter-dead',
 				$params['multiple'] ? '1' : ''
 			)
 		);
@@ -711,40 +733,49 @@ class WooCommerce_Product_Search_Filter_Attribute {
 			'</div>'
 		);
 
+		$inline_script = '';
 		$js_object = sprintf( '{taxonomy:"%s"', esc_attr( $taxonomy ) );
 		$js_object .= ',multiple:' . ( $params['multiple'] ? 'true' : 'false' );
 		$js_object .= ',filter:' . ( $params['filter'] ? 'true' : 'false' );
 		$js_object .= sprintf( ',show:"%s"', esc_attr( $params['show'] ) );
 		$js_object .= sprintf( ',origin_id:"%s"', esc_attr( $container_id ) );
 		$js_object .= '}';
-		$output .= '<script type="text/javascript">';
-		$output .= 'document.addEventListener( "DOMContentLoaded", function() {';
-		$output .= 'if ( typeof jQuery !== "undefined" ) {';
-		$output .= 'if ( typeof ixwpsf !== "undefined" && typeof ixwpsf.taxonomy !== "undefined" ) {';
-		$output .= 'ixwpsf.taxonomy.push(' . $js_object . ');';
-		$output .= '}';
-		$output .= '}';
-		$output .= '} );';
-		$output .= '</script>';
+
+		$inline_script .= 'if ( typeof jQuery !== "undefined" ) {';
+		$inline_script .= 'if ( typeof ixwpsf !== "undefined" && typeof ixwpsf.taxonomy !== "undefined" ) {';
+		$inline_script .= 'ixwpsf.taxonomy.push(' . $js_object . ');';
+		$inline_script .= '}';
+		$inline_script .= '}';
+
+		$inline_script = woocommerce_product_search_safex( $inline_script );
+		wp_add_inline_script( 'product-filter', $inline_script );
 
 		if ( $params['style'] === 'dropdown' ) {
 
-			$selectize_options = array();
+			$selectize_parameters = array();
 
 			$height = null;
 			$adjust_size = null;
 			$class = 'ixnorm ';
 
-			$selectize_options[] = 'hideSelected:false';
+			$selectize_parameters['hideSelected'] = false;
 
 			if ( !empty( $params['height'] ) ) {
 				if ( $params['show_thumbnails'] ) {
-					$selectize_options[] = sprintf(
-						'plugins:{"ixnorm":{},"ixboxed":{},"ixremove":{},"ixthumbnail":{show_selected_thumbnails:%s}}',
-						$params['show_selected_thumbnails'] ? 'true' : 'false'
+					$selectize_parameters['plugins'] = array(
+						'ixnorm' => [],
+						'ixboxed' => [],
+						'ixremove' => [],
+						'ixthumbnail' => [
+							'show_selected_thumbnails' => $params['show_selected_thumbnails'] ? true : false
+						],
 					);
 				} else {
-					$selectize_options[] = 'plugins:["ixnorm","ixboxed","ixremove"]';
+					$selectize_parameters['plugins'] = array(
+						'ixnorm' => [],
+						'ixboxed' => [],
+						'ixremove' => []
+					);
 				}
 				if ( is_numeric( $params['height'] ) ) {
 					$adjust_size = intval( $params['height'] );
@@ -754,58 +785,82 @@ class WooCommerce_Product_Search_Filter_Attribute {
 				}
 			} else {
 				if ( $params['show_thumbnails'] ) {
-					$selectize_options[] = sprintf(
-						'plugins:{"ixnorm":{},"ixremove":{},"ixthumbnail":{show_selected_thumbnails:%s}}',
-						$params['show_selected_thumbnails'] ? 'true' : 'false'
+					$selectize_parameters['plugins'] = array(
+						'ixnorm' => [],
+						'ixremove' => [],
+						'ixthumbnail' => array(
+							'show_selected_thumbnails' => $params['show_selected_thumbnails'] ? true : false
+						)
 					);
 				} else {
-					$selectize_options[] = 'plugins:["ixnorm","ixremove"]';
+					$selectize_parameters['plugins'] = array(
+						'ixnorm' => [],
+						'ixremove' => []
+					);
 				}
 			}
 
-			$selectize_options[] = sprintf(
-				'wrapperClass:"selectize-control %s %s %s"',
+			$selectize_parameters['wrapperClass'] = sprintf(
+				'selectize-control %s %s %s',
 				esc_attr( 'product-search-filter-select-' . $taxonomy . '-selectize' ),
 				esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n . '-selectize' ),
 				$class
 			);
 
 			if ( $params['multiple'] ) {
-				$selectize_options[] = 'maxItems:null';
+				$selectize_parameters['maxItems'] = null;
 			} else {
-				$selectize_options[] = 'maxItems:1';
+				$selectize_parameters['maxItems'] = 1;
 			}
 
-			$selectize_options_object = '{' . implode( ',', $selectize_options ) . '}';
+			$inline_script = '';
 
-			$output .= '<script type="text/javascript">';
-			$output .= 'document.addEventListener( "DOMContentLoaded", function() {';
-			$output .= 'if ( typeof jQuery !== "undefined" ) {';
+			$inline_script .= 'if ( typeof jQuery !== "undefined" ) {';
 
-			$output .= sprintf( 'jQuery( document ).on( "apply-selectize", "#%s", function( e ) {', esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n ) );
-			$output .= 'if ( typeof jQuery().selectize !== "undefined" ) {';
-			$output .= 'jQuery( this ).prop( "disabled", false );';
-			$output .= sprintf( 'var selectized = jQuery( this ).selectize( %s );', $selectize_options_object );
+			$inline_script .= 'if ( window.parent && window.parent.document !== document ) {';
+			$inline_script .= 'if ( window.frameElement && jQuery( window.frameElement ).prop( "tagName" ).toLowerCase() === "iframe" ) {';
+			$inline_script .= 'if ( jQuery( window.frameElement ).attr( "name" ).indexOf( "customize-preview" ) >= 0 ) {';
+			$inline_script .= 'jQuery( document ).ready( function() {';
+			$inline_script .= 'jQuery( "select.apply-selectize" ).trigger( "apply-selectize" );';
+			$inline_script .= ' } );';
+			$inline_script .= '}';
+			$inline_script .= '}';
+			$inline_script .= '}';
+
+			$inline_script .= sprintf( 'jQuery( document ).on( "apply-selectize", "#%s", function( e ) {', esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n ) );
+			$inline_script .= 'if ( typeof jQuery().selectize !== "undefined" ) {';
+			$inline_script .= 'jQuery( this ).prop( "disabled", false );';
+			$inline_script .= sprintf( 'var selectized = jQuery( this ).selectize( %s );', json_encode( $selectize_parameters, JSON_FORCE_OBJECT ) );
 
 			if ( $adjust_size !== null ) {
-				$output .= sprintf(
+				$inline_script .= sprintf(
 					'ixboxed.adjustSize( "#%s", %d ); ',
 					esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n . '-selectized' ),
 					esc_attr( $adjust_size )
 				);
 			}
 
-			$output .= '}';
-			$output .= '});';
+			$inline_script .= '}';
+			$inline_script .= '});';
+
+			$inline_script .= 'if ( window.wps_did_apply_selectize !== undefined ) {';
+			$inline_script .= sprintf( 'jQuery( "#%s" ).trigger( "apply-selectize" );', esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n ) );
+			$inline_script .= '}';
+
+			$inline_script .= '}';
+
+			$inline_script = woocommerce_product_search_safex( $inline_script );
+
+			wp_add_inline_script( 'selectize-ix', $inline_script );
 
 			$output .= sprintf(
-				'jQuery( "#%s" ).trigger( "apply-selectize" );',
-				esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n )
+				'<div style="display:none!important" class="woocommerce-product-search-terms-observer" data-id="%s" data-taxonomy="%s" data-parameters="%s" data-adjust_size="%s" data-height="%s"></div>',
+				esc_attr( 'product-search-filter-select-' . $taxonomy . '-' . $n ),
+				esc_attr( $taxonomy ),
+				_wp_specialchars( json_encode( $selectize_parameters, JSON_FORCE_OBJECT ), ENT_QUOTES, false, true ),
+				esc_attr( $adjust_size !== null ? $adjust_size : '' ),
+				esc_attr( $height !== null ? $height : '' )
 			);
-
-			$output .= '}';
-			$output .= '} );';
-			$output .= '</script>';
 
 			if ( $height !== null ) {
 

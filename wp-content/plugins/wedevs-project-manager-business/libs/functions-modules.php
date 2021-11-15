@@ -7,10 +7,6 @@
  *
  * @return array
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function pm_pro_get_module_data( $module_file ) {
     $default_headers = array(
         'name'        => 'Module Name',

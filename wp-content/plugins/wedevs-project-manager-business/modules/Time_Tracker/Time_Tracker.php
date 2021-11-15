@@ -42,10 +42,6 @@ add_action( 'pm_after_delete_task', 'pm_pro_after_delete_task', 10 ,2 );
 add_action( 'pm_before_delete_task_list', 'pm_pro_after_delete_task_list', 10 ,2 );
 
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function register_time_tracker_scripts() {
     $view_path = dirname (__FILE__) . '/views/assets/';
     wp_register_script( 'time-tracker', plugins_url( 'views/assets/js/time-tracker.js', __FILE__ ), array('pm-const'), filemtime( $view_path . 'js/time-tracker.js' ), true );

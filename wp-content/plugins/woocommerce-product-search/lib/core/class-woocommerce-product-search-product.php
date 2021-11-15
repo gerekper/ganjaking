@@ -274,11 +274,19 @@ class WooCommerce_Product_Search_Product {
 	 */
 	private static function use_weights( &$query ) {
 		$result = false;
-		if ( $query->query_vars['post_type'] == 'product' ) {
+
+		$post_type = $query->get( 'post_type', false );
+		$ixwpss = !empty( $_REQUEST['ixwpss'] ) ? trim( $_REQUEST['ixwpss'] ) : '';
+
+		if (
+			is_string( $post_type ) && $post_type === 'product' ||
+			is_array( $post_type ) && in_array( 'product', $post_type )
+		) {
 			if (
 				$query->is_search() ||
 				$query->get( 'product_search', false ) ||
-				isset( $_REQUEST[WooCommerce_Product_Search_Service::SEARCH_TOKEN] )
+				isset( $_REQUEST[WooCommerce_Product_Search_Service::SEARCH_TOKEN] ) ||
+				strlen( $ixwpss ) > 0
 			) {
 				$result = true;
 			}

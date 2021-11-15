@@ -2,9 +2,9 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Project Manager Pro 2.5.9\n"
+"Project-Id-Version: WP Project Manager Pro 2.5.12\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cpm-pro\n"
-"POT-Creation-Date: 2021-01-29 04:10:47+00:00\n"
+"POT-Creation-Date: 2021-11-10 12:43:20+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -66,11 +66,11 @@ msgstr ""
 #: modules/Time_Tracker/views/assets/src/components/sub-task-type-summary.vue:148
 #: modules/Time_Tracker/views/assets/src/components/task-type-summary.vue:145
 #: modules/Time_Tracker/views/assets/src/components/user-projects-task-estimation.vue:41
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:147
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:197
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:153
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:203
 #: views/assets/src/components/calendar/task-create-form-x.vue:50
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:148
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:198
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:155
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:205
 #: views/emails/html/daily_digest.php:65
 msgid "Task"
 msgstr ""
@@ -305,10 +305,10 @@ msgstr ""
 #: modules/Time_Tracker/views/assets/src/components/report-form.vue:82
 #: modules/Time_Tracker/views/assets/src/components/sub-task-type-summary.vue:19
 #: modules/Time_Tracker/views/assets/src/components/task-type-summary.vue:19
-#: modules/Time_Tracker/views/assets/src/components/user-by-project-graph.vue:144
+#: modules/Time_Tracker/views/assets/src/components/user-by-project-graph.vue:153
 #: modules/Time_Tracker/views/assets/src/components/user-projects-task-estimation.vue:22
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:138
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:139
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:144
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:146
 msgid "Projects"
 msgstr ""
 
@@ -389,8 +389,8 @@ msgstr ""
 #: modules/Sub_Tasks/views/assets/src/components/subtask-lists.vue:116
 #: modules/Time_Tracker/Core/Report_Users.php:858
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:105
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:106
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:110
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:111
 msgid "Type"
 msgstr ""
 
@@ -651,11 +651,11 @@ msgstr ""
 #: modules/Gantt/views/assets/src/components/gantt.vue:20
 #: modules/Time_Tracker/Core/Report_Users.php:858
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:104
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:109
 #: modules/Woo_Project/views/assets/js/woo-project.js:1
 #: modules/Woo_Project/views/assets/src/components/action.vue:3
 #: views/assets/src/components/calendar/task-create-form-x.vue:27
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:105
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:110
 #: views/assets/src/components/reports/advance-task.vue:305
 #: views/assets/src/components/reports/completed-task-results.vue:7
 #: views/assets/src/components/reports/completed-tasks.vue:52
@@ -690,6 +690,16 @@ msgstr ""
 #: modules/Invoice/views/assets/src/components/tab-menu.vue:13
 #: modules/Invoice/views/assets/src/router/router.js:55
 msgid "Invoice"
+msgstr ""
+
+#: modules/Invoice/Src/Validators/Create_Invoice.php:10
+#: modules/Invoice/Src/Validators/Edit_Invoice.php:10
+msgid "Discount should be decimal number."
+msgstr ""
+
+#: modules/Invoice/Src/Validators/Create_Invoice.php:11
+#: modules/Invoice/Src/Validators/Edit_Invoice.php:11
+msgid "Partial amount should be decimal number."
 msgstr ""
 
 #: modules/Invoice/views/assets/js/invoice-frontend.js:1
@@ -759,16 +769,16 @@ msgstr ""
 #: modules/Time_Tracker/views/assets/src/components/single-task-estimation-form.vue:83
 #: modules/Time_Tracker/views/assets/src/components/single-task-estimation-form.vue:119
 #: modules/Time_Tracker/views/assets/src/components/task-inline-estimation.vue:37
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:106
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:107
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:111
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:112
 msgid "Hour"
 msgstr ""
 
 #: modules/Invoice/views/assets/js/invoice-frontend.js:1
 #: modules/Invoice/views/assets/js/invoice.js:1
 #: modules/Invoice/views/assets/src/components/invoice-entry.vue:10
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:62
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:125
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:61
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:123
 #: modules/Invoice/views/assets/src/components/payment-history.vue:51
 msgid "Tax"
 msgstr ""
@@ -776,7 +786,7 @@ msgstr ""
 #: modules/Invoice/views/assets/js/invoice-frontend.js:1
 #: modules/Invoice/views/assets/js/invoice.js:1
 #: modules/Invoice/views/assets/src/components/invoice-entry.vue:11
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:63
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:62
 #: modules/Invoice/views/assets/src/components/listing.vue:12
 #: modules/Invoice/views/assets/src/components/listing.vue:85
 #: modules/Time_Tracker/Core/Report_Summary.php:928
@@ -794,17 +804,17 @@ msgstr ""
 #: modules/Time_Tracker/views/assets/src/components/time-log.vue:55
 #: modules/Time_Tracker/views/assets/src/components/user-projects-task-estimation.vue:51
 #: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:12
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:124
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:125
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:172
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:212
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:246
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:130
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:131
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:178
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:218
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:252
 #: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:12
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:125
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:126
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:173
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:213
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:247
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:132
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:133
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:180
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:220
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:254
 msgid "Total"
 msgstr ""
 
@@ -812,7 +822,7 @@ msgstr ""
 #: modules/Invoice/views/assets/js/invoice.js:1
 #: modules/Invoice/views/assets/src/components/entry-task-row.vue:51
 #: modules/Invoice/views/assets/src/components/invoice-entry.vue:18
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:70
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:69
 msgid "Remove this task"
 msgstr ""
 
@@ -820,20 +830,20 @@ msgstr ""
 #: modules/Invoice/views/assets/js/invoice.js:1
 #: modules/Invoice/views/assets/src/components/entry-task-row.vue:27
 #: modules/Invoice/views/assets/src/components/invoice-entry.vue:28
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:81
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:80
 msgid "Toggle Description"
 msgstr ""
 
 #: modules/Invoice/views/assets/js/invoice-frontend.js:1
 #: modules/Invoice/views/assets/js/invoice.js:1
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:47
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:101
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:46
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:99
 msgid "+Add More"
 msgstr ""
 
 #: modules/Invoice/views/assets/js/invoice-frontend.js:1
 #: modules/Invoice/views/assets/js/invoice.js:1
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:59
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:58
 #: modules/Sprint/views/assets/src/components/new-sprint-form.vue:21
 #: views/assets/src/components/project-settings/label.vue:16
 msgid "Name"
@@ -841,26 +851,26 @@ msgstr ""
 
 #: modules/Invoice/views/assets/js/invoice-frontend.js:1
 #: modules/Invoice/views/assets/js/invoice.js:1
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:60
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:59
 msgid "Unit Price"
 msgstr ""
 
 #: modules/Invoice/views/assets/js/invoice-frontend.js:1
 #: modules/Invoice/views/assets/js/invoice.js:1
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:61
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:60
 msgid "Qty"
 msgstr ""
 
 #: modules/Invoice/views/assets/js/invoice-frontend.js:1
 #: modules/Invoice/views/assets/js/invoice.js:1
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:112
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:110
 #: modules/Invoice/views/assets/src/components/payment-history.vue:30
 msgid "Subtotal"
 msgstr ""
 
 #: modules/Invoice/views/assets/js/invoice-frontend.js:1
 #: modules/Invoice/views/assets/js/invoice.js:1
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:118
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:116
 #: modules/Invoice/views/assets/src/components/listing.vue:10
 #: modules/Invoice/views/assets/src/components/listing.vue:83
 #: modules/Invoice/views/assets/src/components/payment-history.vue:40
@@ -869,13 +879,13 @@ msgstr ""
 
 #: modules/Invoice/views/assets/js/invoice-frontend.js:1
 #: modules/Invoice/views/assets/js/invoice.js:1
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:144
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:142
 msgid "Total Paid"
 msgstr ""
 
 #: modules/Invoice/views/assets/js/invoice-frontend.js:1
 #: modules/Invoice/views/assets/js/invoice.js:1
-#: modules/Invoice/views/assets/src/components/invoice-entry.vue:150
+#: modules/Invoice/views/assets/src/components/invoice-entry.vue:148
 #: modules/Invoice/views/assets/src/components/payment-history.vue:87
 #: modules/Sprint/views/assets/src/components/sprint.vue:125
 msgid "Due"
@@ -1260,11 +1270,11 @@ msgstr ""
 #: modules/Invoice/views/assets/src/components/single-invoice-content.vue:214
 #: modules/Invoice/views/assets/src/components/single-invoice.vue:216
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/project-by-user-graph.vue:133
-#: modules/Time_Tracker/views/assets/src/components/projects-task-estimation.vue:205
-#: modules/Time_Tracker/views/assets/src/components/sub-task-type-summary.vue:196
-#: modules/Time_Tracker/views/assets/src/components/task-type-summary.vue:193
-#: modules/Time_Tracker/views/assets/src/components/user-by-project-graph.vue:136
+#: modules/Time_Tracker/views/assets/src/components/project-by-user-graph.vue:142
+#: modules/Time_Tracker/views/assets/src/components/projects-task-estimation.vue:210
+#: modules/Time_Tracker/views/assets/src/components/sub-task-type-summary.vue:201
+#: modules/Time_Tracker/views/assets/src/components/task-type-summary.vue:198
+#: modules/Time_Tracker/views/assets/src/components/user-by-project-graph.vue:145
 msgid "Hours"
 msgstr ""
 
@@ -1470,6 +1480,7 @@ msgstr ""
 
 #: modules/Kanboard/views/assets/js/kanboard.js:1
 #: modules/Kanboard/views/assets/src/helpers/mixin/mixin.js:14
+#: modules/Kanboard/views/assets/src/helpers/mixin/mixin.js:579
 msgid "Are you sure?"
 msgstr ""
 
@@ -1520,7 +1531,7 @@ msgstr ""
 #: modules/Kanboard/views/assets/js/kanboard.js:1
 #: modules/Kanboard/views/assets/src/components/kanboard-content.vue:482
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/custom-time-log-form.vue:144
+#: modules/Time_Tracker/views/assets/src/components/custom-time-log-form.vue:134
 msgid "Add"
 msgstr ""
 
@@ -2080,8 +2091,8 @@ msgstr ""
 #: modules/Time_Tracker/views/assets/src/components/lists-task-estimation.vue:9
 #: modules/Time_Tracker/views/assets/src/components/projects-subtask-estimation.vue:6
 #: modules/Time_Tracker/views/assets/src/components/projects-task-estimation.vue:29
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:143
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:144
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:149
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:151
 msgid "Project Name"
 msgstr ""
 
@@ -2103,7 +2114,8 @@ msgid "Created At"
 msgstr ""
 
 #: modules/Sub_Tasks/Src/Validators/Create_Sub_Task.php:10
-msgid "Sub task discription is required."
+#: modules/Sub_Tasks/Src/Validators/Update_Sub_Task.php:10
+msgid "Sub task description is required."
 msgstr ""
 
 #: modules/Sub_Tasks/Src/Validators/Create_Sub_Task.php:11
@@ -2113,11 +2125,17 @@ msgstr ""
 
 #: modules/Sub_Tasks/Src/Validators/Create_Sub_Task.php:12
 #: modules/Sub_Tasks/Src/Validators/Update_Sub_Task.php:12
+msgid "Project id should be numeric."
+msgstr ""
+
+#: modules/Sub_Tasks/Src/Validators/Create_Sub_Task.php:13
+#: modules/Sub_Tasks/Src/Validators/Update_Sub_Task.php:13
 msgid "Task id is required."
 msgstr ""
 
-#: modules/Sub_Tasks/Src/Validators/Update_Sub_Task.php:10
-msgid "Comment title is required."
+#: modules/Sub_Tasks/Src/Validators/Create_Sub_Task.php:14
+#: modules/Sub_Tasks/Src/Validators/Update_Sub_Task.php:14
+msgid "Task id should be numeric."
 msgstr ""
 
 #: modules/Sub_Tasks/views/assets/src/components/estimation-settings.vue:5
@@ -2136,10 +2154,10 @@ msgstr ""
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
 #: modules/Time_Tracker/views/assets/src/components/projects-task-estimation.vue:32
 #: modules/Time_Tracker/views/assets/src/components/user-projects-task-estimation.vue:40
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:152
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:232
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:153
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:233
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:158
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:238
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:160
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:240
 msgid "Subtask"
 msgstr ""
 
@@ -2229,8 +2247,8 @@ msgstr ""
 #: modules/Sub_Tasks/views/assets/src/components/subtask-form.vue:176
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
 #: modules/Time_Tracker/views/assets/src/components/report-form.vue:33
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:231
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:232
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:237
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:239
 msgid "Subtask Type"
 msgstr ""
 
@@ -2248,8 +2266,8 @@ msgstr ""
 
 #: modules/Sub_Tasks/views/assets/src/components/subtask-lists.vue:3
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:95
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:96
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:96
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:97
 msgid "Subtasks"
 msgstr ""
 
@@ -2569,12 +2587,12 @@ msgstr ""
 #: modules/Time_Tracker/views/assets/src/components/task-type-summary.vue:38
 #: modules/Time_Tracker/views/assets/src/components/user-projects-subtask-estimation.vue:8
 #: modules/Time_Tracker/views/assets/src/components/user-projects-task-estimation.vue:42
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:154
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:198
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:233
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:155
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:199
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:234
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:160
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:204
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:239
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:162
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:206
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:241
 msgid "Est. Hour"
 msgstr ""
 
@@ -2601,7 +2619,7 @@ msgstr ""
 
 #: modules/Time_Tracker/Core/Report_Summary.php:1080
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/project-by-user-graph.vue:141
+#: modules/Time_Tracker/views/assets/src/components/project-by-user-graph.vue:150
 #: modules/Time_Tracker/views/assets/src/components/projects-task-estimation.vue:30
 #: modules/Time_Tracker/views/assets/src/components/projects-task-estimation.vue:175
 #: views/assets/src/components/calendar/calendar.vue:134
@@ -2610,8 +2628,8 @@ msgstr ""
 
 #: modules/Time_Tracker/Core/Report_Users.php:858
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:101
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:102
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:106
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:107
 #: views/assets/src/components/reports/completed-task-results.vue:42
 msgid "Completed At"
 msgstr ""
@@ -2620,8 +2638,8 @@ msgstr ""
 #: modules/Time_Tracker/Core/Report_Users.php:905
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
 #: modules/Time_Tracker/views/assets/src/components/report-form.vue:32
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:196
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:197
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:202
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:204
 msgid "Task Type"
 msgstr ""
 
@@ -2652,12 +2670,12 @@ msgstr ""
 #: modules/Time_Tracker/views/assets/src/components/sub-task-type-summary.vue:153
 #: modules/Time_Tracker/views/assets/src/components/task-type-summary.vue:150
 #: modules/Time_Tracker/views/assets/src/components/user-projects-task-estimation.vue:141
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:358
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:513
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:660
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:358
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:535
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:682
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:375
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:534
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:685
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:376
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:556
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:707
 msgid "Est. Hours"
 msgstr ""
 
@@ -2694,18 +2712,18 @@ msgid "Work Hours"
 msgstr ""
 
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:370
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:525
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:370
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:547
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:387
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:546
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:388
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:568
 msgid "Completed Tasks"
 msgstr ""
 
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:370
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:672
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:370
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:694
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:387
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:697
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:388
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:719
 msgid "Completed Subtasks"
 msgstr ""
 
@@ -2917,38 +2935,44 @@ msgid "Subtask Types"
 msgstr ""
 
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:102
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:103
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:97
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:98
+msgid "Please add <mark>Estimation time</mark> for sub tasks to get the list !"
+msgstr ""
+
+#: modules/Time_Tracker/views/assets/js/time-tracker.js:1
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:107
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:108
 msgid "Task Title"
 msgstr ""
 
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:103
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:104
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:108
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:109
 msgid "Subtask Title"
 msgstr ""
 
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:134
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:187
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:222
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:256
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:135
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:188
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:223
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:257
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:140
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:193
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:228
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:262
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:142
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:195
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:230
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:264
 msgid "No result found!"
 msgstr ""
 
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:191
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:192
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:197
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:199
 msgid "Task type"
 msgstr ""
 
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:226
-#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:227
+#: modules/Time_Tracker/views/assets/src/components/user-reports-task-estimation.vue:232
+#: views/assets/src/components/my-tasks/user-reports-task-estimation.vue:234
 msgid "Subtask type"
 msgstr ""
 
@@ -3000,7 +3024,7 @@ msgid "Export to CSV"
 msgstr ""
 
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/custom-time-log-form.vue:44
+#: modules/Time_Tracker/views/assets/src/components/custom-time-log-form.vue:41
 msgid "Total Time"
 msgstr ""
 
@@ -3017,18 +3041,18 @@ msgid ""
 msgstr ""
 
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/watch.vue:71
+#: modules/Time_Tracker/views/assets/src/components/watch.vue:66
 msgid "Insert total time spent on this task manually, without time breakdown."
 msgstr ""
 
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
-#: modules/Time_Tracker/views/assets/src/components/watch.vue:73
+#: modules/Time_Tracker/views/assets/src/components/watch.vue:68
 msgid "+ Add custom time"
 msgstr ""
 
 #: modules/Time_Tracker/views/assets/js/time-tracker.js:1
 #: modules/Time_Tracker/views/assets/src/components/single-task-estimation-form.vue:101
-#: modules/Time_Tracker/views/assets/src/components/watch.vue:83
+#: modules/Time_Tracker/views/assets/src/components/watch.vue:77
 msgid "Please Choose one user"
 msgstr ""
 
@@ -3124,21 +3148,21 @@ msgstr ""
 msgid "Export to PDF"
 msgstr ""
 
-#: modules/Time_Tracker/views/assets/src/components/watch.vue:125
+#: modules/Time_Tracker/views/assets/src/components/watch.vue:93
 msgid "Time Log"
 msgstr ""
 
-#: modules/Time_Tracker/views/assets/src/components/watch.vue:137
+#: modules/Time_Tracker/views/assets/src/components/watch.vue:105
 #: modules/Time_Tracker/views/assets/src/components/watch_back.vue:12
 msgid "Start Time"
 msgstr ""
 
-#: modules/Time_Tracker/views/assets/src/components/watch.vue:141
+#: modules/Time_Tracker/views/assets/src/components/watch.vue:109
 #: modules/Time_Tracker/views/assets/src/components/watch_back.vue:16
 msgid "Stop"
 msgstr ""
 
-#: modules/Time_Tracker/views/assets/src/components/watch.vue:147
+#: modules/Time_Tracker/views/assets/src/components/watch.vue:115
 #: modules/Time_Tracker/views/assets/src/components/watch_back.vue:22
 msgid "Custom Time"
 msgstr ""
@@ -3467,7 +3491,7 @@ msgstr ""
 #: views/assets/src/components/project-files/file-lists.vue:139
 #: views/assets/src/components/project-files/file-lists.vue:189
 #: views/assets/src/components/project-files/link-content.vue:15
-#: views/assets/src/components/project-files/single-file.vue:68
+#: views/assets/src/components/project-files/single-file.vue:58
 msgid "by"
 msgstr ""
 
@@ -3501,7 +3525,7 @@ msgid "Create a doc"
 msgstr ""
 
 #: views/assets/src/components/project-files/file-lists.vue:48
-#: views/assets/src/components/project-files/single-file.vue:66
+#: views/assets/src/components/project-files/single-file.vue:56
 msgid "Attached to"
 msgstr ""
 
@@ -3561,26 +3585,26 @@ msgstr ""
 msgid "Move File"
 msgstr ""
 
-#: views/assets/src/components/project-files/single-doc.vue:62
-#: views/assets/src/components/project-files/single-file.vue:85
+#: views/assets/src/components/project-files/single-doc.vue:59
+#: views/assets/src/components/project-files/single-file.vue:73
 #: views/assets/src/components/project-files/single-link.vue:64
 msgid "Attachment"
 msgstr ""
 
-#: views/assets/src/components/project-files/single-doc.vue:72
-#: views/assets/src/components/project-files/single-file.vue:95
+#: views/assets/src/components/project-files/single-doc.vue:69
+#: views/assets/src/components/project-files/single-file.vue:82
 #: views/assets/src/components/project-files/single-link.vue:74
 msgid "Comments"
 msgstr ""
 
-#: views/assets/src/components/project-files/single-doc.vue:143
-#: views/assets/src/components/project-files/single-file.vue:166
+#: views/assets/src/components/project-files/single-doc.vue:140
+#: views/assets/src/components/project-files/single-file.vue:145
 #: views/assets/src/components/project-files/single-link.vue:145
 msgid "Revisions"
 msgstr ""
 
-#: views/assets/src/components/project-files/single-doc.vue:150
-#: views/assets/src/components/project-files/single-file.vue:173
+#: views/assets/src/components/project-files/single-doc.vue:147
+#: views/assets/src/components/project-files/single-file.vue:152
 #: views/assets/src/components/project-files/single-link.vue:152
 msgid "No Revision"
 msgstr ""

@@ -94,7 +94,7 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
             $mode = \getenv(self::ENV_MODE);
             $maxAttempts = \getenv(self::ENV_MAX_ATTEMPTS) ? \getenv(self::ENV_MAX_ATTEMPTS) : self::DEFAULT_MAX_ATTEMPTS;
             if (!empty($mode)) {
-                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\Retry\Configuration($mode, $maxAttempts));
+                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\Retry\Configuration($mode, $maxAttempts));
             }
             return self::reject('Could not find environment variable config' . ' in ' . self::ENV_MODE);
         };
@@ -107,7 +107,7 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
     public static function fallback()
     {
         return function () {
-            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\Retry\Configuration(self::DEFAULT_MODE, self::DEFAULT_MAX_ATTEMPTS));
+            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\Retry\Configuration(self::DEFAULT_MODE, self::DEFAULT_MAX_ATTEMPTS));
         };
     }
     /**
@@ -141,7 +141,7 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
                 return self::reject("Required retry config values\n                    not present in INI profile '{$profile}' ({$filename})");
             }
             $maxAttempts = isset($data[$profile][self::INI_MAX_ATTEMPTS]) ? $data[$profile][self::INI_MAX_ATTEMPTS] : self::DEFAULT_MAX_ATTEMPTS;
-            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\Retry\Configuration($data[$profile][self::INI_MODE], $maxAttempts));
+            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\Retry\Configuration($data[$profile][self::INI_MODE], $maxAttempts));
         };
     }
     /**

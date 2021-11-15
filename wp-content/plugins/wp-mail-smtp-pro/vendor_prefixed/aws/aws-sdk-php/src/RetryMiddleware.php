@@ -171,7 +171,7 @@ class RetryMiddleware
             }
             if ($value instanceof \Exception || $value instanceof \Throwable) {
                 if (!$decider($retries, $command, $request, null, $value)) {
-                    return \WPMailSMTP\Vendor\GuzzleHttp\Promise\rejection_for($this->bindStatsToReturn($value, $requestStats));
+                    return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::rejectionFor($this->bindStatsToReturn($value, $requestStats));
                 }
             } elseif ($value instanceof \WPMailSMTP\Vendor\Aws\ResultInterface && !$decider($retries, $command, $request, $value, null)) {
                 return $this->bindStatsToReturn($value, $requestStats);

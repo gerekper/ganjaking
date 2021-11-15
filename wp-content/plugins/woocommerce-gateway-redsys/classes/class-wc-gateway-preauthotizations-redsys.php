@@ -2916,7 +2916,7 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 			update_post_meta( $order_id, '_accept_haders', $http_accept );
 			update_user_meta( $user_id, '_accept_haders', $http_accept );
 		} else {
-			$http_accept = 'null';
+			$http_accept = "text\/html,application\/xhtml+xml,application\/xml;q=0.9,*\/*;q=0.8";
 			update_post_meta( $order_id, '_accept_haders', $http_accept );
 			update_user_meta( $user_id, '_accept_haders', $http_accept );
 		}
@@ -3812,7 +3812,7 @@ class WC_Gateway_Preauthorizations_Redsys extends WC_Payment_Gateway {
 						$threeDSInfo       = $json_decode->threeDSInfo;
 						$protocolVersion   = $json_decode->protocolVersion;
 						$acsURL            = $json_decode->acsURL;
-						$PAReq             = $json_decode->PAReq;
+						$PAReq             = trim( $json_decode->{ 'PAReq'} );
 						$MD                = $json_decode->MD;
 						$authorisationcode = trim( $XML_RETORNO->OPERACION->Ds_AuthorisationCode );
 

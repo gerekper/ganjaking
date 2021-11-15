@@ -2,10 +2,10 @@
  * Advance Tab
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var AdvanceTabScript = {
         init : function () {
             this.trigger_on_page_load() ;
-            this.show_or_hide_for_my_account_menu_page() ;
             this.show_or_hide_for_apply_previous_order_range() ;
             this.show_or_hide_for_menu_restriction_based_on_userrole() ;
             this.show_or_hide_for_pagination_for_total_earned_points() ;
@@ -27,6 +27,33 @@ jQuery( function ( $ ) {
             $( document ).on( 'click' , '#rs_points_earned_in_specific_duration_is_enabled' , this.toggle_points_earned_in_specific_duration ) ;
         } ,
         trigger_on_page_load : function () {
+            $( "#rs_points_earned_in_specific_duration_from_date" ).datepicker( {
+                dateFormat : 'yy-mm-dd' ,
+            } ) ;
+            $( "#rs_points_earned_in_specific_duration_to_date" ).datepicker( {
+                dateFormat : 'yy-mm-dd' ,
+            } ) ;
+            $( "#rs_from_date" ).datepicker( {
+                defaultDate : "+1w" ,
+                changeMonth : true ,
+                dateFormat : 'yy-mm-dd' ,
+                numberOfMonths : 1 ,
+                onClose : function ( selectedDate ) {
+                    $( "#to" ).datepicker( "option" , "minDate" , selectedDate ) ;
+                }
+            } ) ;
+            $( '#rs_from_date' ).datepicker( 'setDate' , '-1' ) ;
+            $( "#rs_to_date" ).datepicker( {
+                defaultDate : "+1w" ,
+                changeMonth : true ,
+                dateFormat : 'yy-mm-dd' ,
+                numberOfMonths : 1 ,
+                onClose : function ( selectedDate ) {
+                    $( "#from" ).datepicker( "option" , "maxDate" , selectedDate ) ;
+                }
+
+            } ) ;
+            $( "#rs_to_date" ).datepicker( 'setDate' , new Date() ) ;
             if ( fp_advance_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
                 $( '.rewardpoints_userrole_menu_restriction' ).chosen() ;
             } else {
@@ -50,6 +77,7 @@ jQuery( function ( $ ) {
                 jQuery( '.rs_myrewards_menu_sorting' ).show() ;
                 jQuery( '.rs_myrewards_menu_heading' ).show() ;
                 jQuery( '#rs_show_hide_refer_a_friend_menu_page' ).parent().parent().show() ;
+                jQuery( '#rs_my_cashback_form_menu_page' ).parent().parent().show() ;
             } else {
                 jQuery( '#rs_my_reward_table_menu_page' ).parent().parent().hide() ;
                 jQuery( '#rs_show_hide_generate_referral_menu_page' ).parent().parent().hide() ;
@@ -63,6 +91,7 @@ jQuery( function ( $ ) {
                 jQuery( '.rs_myrewards_menu_sorting' ).hide() ;
                 jQuery( '.rs_myrewards_menu_heading' ).hide() ;
                 jQuery( '#rs_show_hide_refer_a_friend_menu_page' ).parent().parent().hide() ;
+                jQuery( '#rs_my_cashback_form_menu_page' ).parent().parent().hide() ;
             }
         } ,
         apply_previous_order_range : function () {

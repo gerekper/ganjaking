@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.8
-Stable tag: 2.5.10.1
+Stable tag: 2.5.11
 Requires PHP: 7.0
 License: Themeforest Split Licence
 License URI: -
@@ -65,6 +65,11 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.5.11 =
+* Fix: Fixed logic for choosing one active menu integration under the integrations section.
+* Fix: Determinated and fixed a bug with incorect working of background image on iOS devices with active option "background-size: cover".
+* Fix: Fixed bug with some sub-menu opening on iPad.
 
 = 2.5.10 =
 * Fix: Fixed a bug that prevented Visual Composer can't load the front-end CSS & JS for menu_block.

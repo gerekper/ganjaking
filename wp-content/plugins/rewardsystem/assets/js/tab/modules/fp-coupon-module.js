@@ -2,6 +2,7 @@
  * SUMO Coupon - Module
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var CouponModule = {
         init : function () {
             this.show_hide_message_field() ;

@@ -61,8 +61,8 @@ class Upgrade {
      * @return boolean
      */
     public static function is_needs_update() {
-        $bd_version = get_option( 'pm_pro_db_version' );
-        $installed_version = ! empty( $bd_version ) ? get_option( 'pm_pro_db_version' ) : '0.1';
+        $db_version = get_option( 'pm_pro_db_version' );
+        $installed_version = ! empty( $db_version ) ? get_option( 'pm_pro_db_version' ) : '0.1';
 
         $updatable_versions = pm_pro_config('app.db_version');
 
@@ -161,7 +161,6 @@ class Upgrade {
         $installed_version = get_option( 'pm_pro_db_version' );
 
         foreach (self::$updates as $version => $object ) {
-
 
             if ( version_compare( $installed_version, $version, '<' ) ) {
 

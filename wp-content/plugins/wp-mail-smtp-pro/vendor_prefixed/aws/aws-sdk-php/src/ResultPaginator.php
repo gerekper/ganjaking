@@ -56,7 +56,7 @@ class ResultPaginator implements \Iterator
      */
     public function each(callable $handleResult)
     {
-        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\coroutine(function () use($handleResult) {
+        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine::of(function () use($handleResult) {
             $nextToken = null;
             do {
                 $command = $this->createNextCommand($this->args, $nextToken);
@@ -64,7 +64,7 @@ class ResultPaginator implements \Iterator
                 $nextToken = $this->determineNextToken($result);
                 $retVal = $handleResult($result);
                 if ($retVal !== null) {
-                    (yield \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for($retVal));
+                    (yield \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor($retVal));
                 }
             } while ($nextToken);
         });

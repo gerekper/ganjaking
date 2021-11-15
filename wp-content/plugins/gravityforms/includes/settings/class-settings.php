@@ -1192,7 +1192,7 @@ class Settings {
 			$target['field'] = rgar( $item, 'id' );
 		} elseif ( rgar( $item, 'fields' ) && ! rgar( $item, 'type' ) ) {
 			$target['type']  = 'section';
-			$target['field'] = rgar( $item, 'id' );
+			$target['field'] = $this->get_section_id( $item );
 		}
 
 		return $target;
@@ -1202,7 +1202,7 @@ class Settings {
 	/**
 	 * Get the section ID or a fallback if none is set.
 	 *
-	 * Dependencies rely on a section having an ID, so if a sectoin ID isn't set, we need to generate one.
+	 * Dependencies rely on a section having an ID, so if a section ID isn't set, we need to generate one.
 	 *
 	 * @since 2.5.13
 	 *
@@ -1211,10 +1211,11 @@ class Settings {
 	 * @return mixed|string
 	 */
 	private function get_section_id( $section ) {
+		$section_prefix = 'gform-settings-section-';
 		if ( rgar( $section, 'id' ) ) {
-			return $section['id'];
+			return $section_prefix . $section['id'];
 		} else {
-			return rgar( $section, 'title' ) ? sanitize_title( $section['title'] ) : '';
+			return rgar( $section, 'title' ) ? $section_prefix . sanitize_title( $section['title'] ) : '';
 		}
 	}
 

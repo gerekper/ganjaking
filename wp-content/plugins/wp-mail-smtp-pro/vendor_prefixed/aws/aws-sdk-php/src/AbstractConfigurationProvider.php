@@ -32,7 +32,7 @@ abstract class AbstractConfigurationProvider
         return function () use($provider, $cache, $cacheKey) {
             $found = $cache->get($cacheKey);
             if ($found instanceof static::$interfaceClass) {
-                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for($found);
+                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor($found);
             }
             return $provider()->then(function ($config) use($cache, $cacheKey) {
                 $cache->set($cacheKey, $config);

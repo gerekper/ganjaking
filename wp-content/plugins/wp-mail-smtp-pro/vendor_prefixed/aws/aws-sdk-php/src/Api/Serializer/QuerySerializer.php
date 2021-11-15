@@ -38,7 +38,7 @@ class QuerySerializer
         if ($params) {
             $body += \call_user_func($this->paramBuilder, $operation->getInput(), $params);
         }
-        $body = \http_build_query($body, null, '&', \PHP_QUERY_RFC3986);
+        $body = \http_build_query($body, '', '&', \PHP_QUERY_RFC3986);
         return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request('POST', $this->endpoint, ['Content-Length' => \strlen($body), 'Content-Type' => 'application/x-www-form-urlencoded'], $body);
     }
 }

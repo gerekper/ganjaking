@@ -1,5 +1,121 @@
 *** WooCommerce Product Search ***
 
+2021.11.09 - version 4.2.0
+* WordPress 5.8 compatible.
+* WooCommerce 5.9 compatible.
+* Requires at least WooCommerce 5.5.
+* Added the woocommerce_product_search_use_engine filter.
+* Added compatibility with the WooCommerce Composite Products extension (skip handling its AJAX requests).
+
+2021.11.02 - version 4.1.0
+* WordPress 5.8 compatible.
+* WooCommerce 5.8 compatible.
+* Improved filter and search results consistency with Catalog Visibility options for products.
+* Fixed limited processing when PHP memory_limit is set to -1 to have no memory limit.
+* Fixed a PHP Notice when inconsistent data is encountered while indexing a product variation.
+* Legacy widgets are not offered in the block editor as of this release by default.
+* Added the WPS_LEGACY_WIDGETS constant which can be set to true to enable legacy widgets offered in the block editor.
+* Fixed missing fill color in some block icons.
+* Improved indexing schedule queries and reduced scheduling overhead.
+* Fixed not applying weights on product filter search.
+* Fixed query time logged twice on product filter search.
+* Fixed blinker timeout set to 0 should disable it, for product search field and product filter search field.
+
+2021.08.06 - version 4.0.1
+* Fixes issues with dropdown style not being applied to category or attribute filters (appearing to be haphazard due to disorderly Javascript execution paths).
+* Omitting shop page check for customizer so block widget content is shown regardless of setting to show on shop pages only.
+
+2021.08.04 - version 4.0.0
+* WooCommerce 5.5 compatible.
+* Requires at least WooCommerce 5.0.
+* WordPress 5.8+ full widgets block editor compatibility.
+* Full block editor compatibility with new blocks added for all search and filter facilities provided by the extension.
+* Added the Product Search Field block.
+* Added the Product Filter – Search block.
+* Added the Product Filter – Category block.
+* Added the Product Filter – Attribute block.
+* Added the Product Filter – Price block.
+* Added the Product Filter – Rating block.
+* Added the Product Filter – Reset block.
+* Added the Product Filter – Sale block.
+* Added the Product Filter – Stock block.
+* Added the Product Filter – Tag block.
+* Added the Product Filter – Products block.
+* Blinded inline scripts against unwanted modification during content rendering (wptexturize etc).
+* Added the woocommerce_product_search_is_shop filter.
+* Added the woocommerce_product_search_is_shop() API function.
+* Added support for shop_only attributes on filter shortcodes and corresponding API functions.
+* Fixed automated search filter output in wp_footer corrupting responses to certain JSON requests, e.g. filter block output for ServerSideRender.
+* Fixed Javascript errors when trying to set properties of certain document elements when absent.
+* Removes the assistant as it is superfluous if the widgets block editor is used. The block browser can be used instead.
+* Requires fully updated database, removed backward-compatibility for configurations that have no object_term table.
+
+2021.06.16 - version 3.8.0
+* WordPress 5.8 compatible.
+* WooCommerce 5.4 compatible.
+* Fixed add-to-cart links produced for variable products when the option to "Enable AJAX add to cart buttons on archives" is disabled, the button would yield the shop page with an error shown instead of taking to the product page.
+* Added the French translation.
+* Fixed translation errors.
+* Updated and added missing translations.
+* Avoid redirect loops caused by $requested_url transformation done in wp-includes/canonical.php's redirect_canonical() that changes urlencoded() characters in uppercase to lowercase and causes a comparison failure with the $redirect_url.
+* Added the woocommerce_product_search_avoid_redirect_canonical_loops filter.
+* Removed options to Use the Shop URL and use_shop_url that are not needed and could inadvertently originate inconsistent results.
+* Added Product Filter – Stock widget.
+* Added [woocommerce_product_filter_stock] shortcode.
+* Added woocommerce_product_search_filter_stock() API function.
+* Added woocommerce_product_search_filter_stock_stock_counts filter.
+* Added woocommerce_product_search_filter_stock_product_ids_by_stock_status filter.
+* Added the woocommerce_product_search_service_post_ids_for_request action.
+* Fixed disabled live filtering on category, attribute or tag filters had no effect.
+* Added the Filter option to the Product Filter – Price widget, allows to disable live filtering via price input fields and slider.
+
+2021.04.11 - version 3.7.0
+* WordPress 5.8 compatible.
+* WooCommerce 5.2 compatible.
+* Requires at least WordPress 5.5.
+* Requires at least WooCommerce 4.9.
+
+2021.03.25 - version 3.6.2
+* Updated WPML / WooCommerce Multilingual compatibility to support untranslated products related to translated terms. Requires rebuilding the index to take effect.
+* Solved links to translated taxonomy terms leading to 404s with WPML as they are not correctly recognized without the lang URL parameter.
+* Improved the way live search field results are obtained to take appropriate variation-related results into account.
+* Fixed locale-specific issues with searches not producing expected results when search terms contain accented characters. Rebuilding the index is recommended if such issues are present.
+
+2021.03.15 - version 3.6.1
+* Fixed PHP 8 deprecated notices in our term walker class due to required parameters following a parameter unnecessarily declared as optional.
+* Fixed product taxonomies named using non-alphanumeric characters would not have their terms indexed.
+* Fixed issues where terms with no related products should be shown, they were not included (requires rebuilding the index to take effect).
+* Using specific Font Awesome solid (900) icon set to avoid clashes with the reduced icon set in its regular (400) icon set. Fixes issues with icons used in Storefront appearing incorrectly.
+* Fixed filter reset not appropriately shown when filters are displayed as type "Select".
+* Improved price slider UX with added support for touch events.
+
+2021.03.06 - version 3.6.0
+* WordPress 5.6 compatible.
+* WordPress 5.7 compatible.
+* WooCommerce 5.0 compatible.
+* WooCommerce 5.1 compatible.
+* Improved welcome styling.
+* Updated included fonts.
+* Updated the Storefront-specific CSS to explicitly use font-weight 900 for star rating, as Storefront (currently at 3.5.0) only imports the 900 font-weight Font Awesome Free but we also use 400, it got overridden resulting in hollow stars instead of solid ones.
+* Added support for WooCommerce Admin navigation with sections for overview, reports, settings and the assistant.
+* Fixed incorrect pagination links produced by the [woocommerce_product_filter_products] shortcode in certain conditions.
+* Fixed our cron test not indicating an error when performing the HTTP request using the POST method fails to obtain a response.
+* Fixed message indicating deferred processing should not be logged when there are no further variations to process.
+* Updated the indexing strategy to handle extended cases of product modifications via API and keep our index in sync.
+* Updated the compatibility with WPML to solve issues introduced by WPML filter hooks that revert terms to their originals instead of their translations.
+* Fixed an issue where filter thumbnails would initially not be displayed when dropdown style is used for category or attribute filters.
+
+2021.01.14 - version 3.5.1
+* Fixed products on back-order would not be included in results when there are more products out of stock than in stock.
+
+2021.01.08 - version 3.5.0
+* WordPress 5.6 compatible.
+* WooCommerce 4.9 compatible.
+* Requires at least WooCommerce 3.6.
+* Fixed an issue where ineligible products could be included in filtered results when products out of stock should be hidden and ineligible variations were in stock.
+* Dropped the unnecessary 'wpml' option of the [woocommerce_product_filter] shortcode and the Product Filter – Search widget. Appropriate WPML settings should be used to assure language-specific consistent filter results based on ICL_LANGUAGE_CODE context.
+* Updated index processing to evaluate short descriptions across variable products and variations so products can be found based on their content when variations should be identified based on their parent's short description.
+
 2020.12.17 - version 3.4.0
 * WordPress 5.6 compatible.
 * WooCommerce 4.8 compatible.

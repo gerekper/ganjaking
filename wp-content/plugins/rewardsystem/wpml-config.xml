@@ -8,12 +8,23 @@
 	<key name= "rs_free_product_quantity_message_info"/>       
         <key name="rs_free_product_msg_caption" />
 	<key name="rs_point_to_reach_next_level"/>
+        <key name="rs_log_for_bonus_points"/>
 	<!-- Member Level Message Settings-->
 
 	<!-- Reward Points Earning Threshold Settings-->
 	<key name="rs_mail_subject_for_reaching_maximum_threshold"/>
 	<key name="rs_mail_message_for_reaching_maximum_threshold"/>
+	<key name="rs_maximum_threshold_error_message"/>
 	<!-- Reward Points Earning Threshold Settings-->
+
+	<!-- Reward Points Earning Percentage based on Earned Points-->
+	<key name="rs_subject_for_free_product_mail_send_admin"/>
+	<key name="rs_content_for_free_product_mail_send_admin"/>
+	<key name="rs_subject_for_bonus_points_admin_email"/>
+	<key name="rs_message_for_bonus_points_admin_email"/>
+	<key name="rs_subject_for_bonus_points_customer_email"/>
+	<key name="rs_message_for_bonus_points_customer_email"/>
+	<!-- Reward Points Earning Percentage based on Earned Points-->
 
 	<!-- General-->
 
@@ -24,6 +35,7 @@
 	<!-- Product Purchase Reward Points Restrictions-->
 	<key name="rs_min_cart_total_for_earning_error_message"/> 
 	<key name="rs_max_cart_total_for_earning_error_message"/>
+	<key name="rs_minimum_quantity_error_message"/>
 	<!-- Product Purchase Reward Points Restrictions-->
 
 	<!-- Message Settings in Cart, Checkout and Thank You Page-->
@@ -250,6 +262,7 @@
 	<key name="rs_error_message_paypal_email_wrong"/>
 	<key name="rs_error_custom_payment_field_empty"/>
 	<key name="rs_error_recaptcha_field_empty"/>
+	<key name="rs_minimum_points_based_on_userrole_error_msg"/>
 	<!-- Error Message Settings -->
 
 	<!-- Cashback Module-->
@@ -409,6 +422,8 @@
 	<key name="rs_min_points_first_redeem_error_message" />
 	<key name="rs_min_points_after_first_error"/>
 	<key name="rs_min_cart_total_redeem_error"/>
+	<key name="rs_max_cart_total_redeem_error"/>
+	<key name="rs_available_points_redeem_error"/>
 	<key name="rs_coupon_applied_individual_error_msg"/>
 	<!-- Redeeming Restriction -->
 
@@ -563,6 +578,7 @@
 
 	<!-- Shop and Category Page Message Settings -->
 	<key name="rs_message_in_shop_page_for_simple" />
+        <key name="rs_message_in_shop_page_for_variable" />
 	<key name="rs_msg_for_fixed_cart_total_based_product_purchase_in_shop" />
 	<key name="rs_msg_for_percent_cart_total_based_product_purchase_in_shop" />
 	<key name="rs_buy_point_message_in_shop_page_for_simple" />
@@ -602,6 +618,7 @@
 	<key name="rs_buy_point_message_product_in_cart"/>
 	<key name="rs_referral_point_message_product_in_cart"/>
 	<key name="rs_message_user_points_in_cart"/>
+	<key name="rs_referer_point_message_cart_total_based_in_cart_page"/>
 	<key name="rs_message_user_points_redeemed_in_cart"/>
 	<!-- Cart Page Message Settings -->
 
@@ -611,6 +628,7 @@
 	<key name="rs_message_total_price_in_checkout" />
 	<key name="rs_msg_for_cart_total_based_points_in_checkout" />
 	<key name="rs_referral_point_message_product_in_checkout"/>
+	<key name="rs_referer_point_message_cart_total_based_in_checkout_page"/>
 	<key name="rs_buy_point_message_product_in_checkout"/>
 	<key name="rs_message_user_points_in_checkout"/>
 	<key name="rs_message_user_points_redeemed_in_checkout"/>
@@ -726,6 +744,8 @@
 	<!-- Referral Reward Points Log Settings -->
 	<key name="_rs_localize_referral_reward_points_for_purchase" />
 	<key name="_rs_localize_referral_reward_points_for_purchase_gettin_referred" />
+	<key name="_rs_localize_referrer_reward_points_based_on_cart_total"/>
+	<key name="_rs_localize_referred_reward_points_based_on_cart_total"/>
 	<key name="_rs_localize_referral_reward_points_gettin_referred"/>
 	<!-- Referral Reward Points Log Settings -->
 
@@ -796,6 +816,7 @@
 
 	<!-- Referral Product Purchase Reward Points Revised Log Settings -->
 	<key name="_rs_log_revise_referral_product_purchase" />
+	<key name="rs_log_revise_referrer_points_based_cart_total"/>
 	<!-- Referral Product Purchase Reward Points Revised Log Settings -->
 
 	<!-- Redeemed Reward Points Revised Log Settings -->
@@ -804,12 +825,15 @@
 
 	<!-- Getting Referred Reward Points for Product Purchase Revised Log settings -->
 	<key name="_rs_log_revise_getting_referred_product_purchase" />
+	<key name="rs_log_revise_referred_points_based_cart_total"/>
 	<!-- Getting Referred Reward Points for Product Purchase Revised Log settings -->
 
 	<!-- Referral Registration Points Revised upon Account Deletion Log Settings -->
 	<key name="_rs_localize_referral_account_signup_points_revised" />
 	<key name="_rs_localize_revise_points_for_referral_purchase" />
 	<key name="_rs_localize_revise_points_for_getting_referred_purchase" />
+	<key name="rs_localize_revise_referrer_points_for_deletion_based_cart_total"/>
+	<key name="rs_localize_revise_referred_points_for_deletion_based_cart_total"/>
 	<!-- Referral Registration Points Revised upon Account Deletion Log Settings -->
 
 	<!-- Social Reward Points Revised Log Settings -->

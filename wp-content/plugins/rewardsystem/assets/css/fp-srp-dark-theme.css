@@ -1482,17 +1482,17 @@
     text-align:center !important;
 }
 .rs_inactive_hyperlink h1{
-    font-size:18px !important;
-    color:#000 !important;
-    text-align:left !important;
+    font-size:17px !important;
+    color:#000;
+    text-align:center !important;
     padding:12px !important;
     font-weight:bold !important;
     font-family: 'Roboto', sans-serif !important;
 }
 .rs_active_hyperlink h1{
-    font-size:18px !important;;
-    color:#000 !important;
-    text-align:left !important;
+    font-size:17px !important;;
+    color:#fff;
+    text-align:center !important;
     padding:12px !important;
     font-family: 'Roboto', sans-serif !important;
     font-weight:bold !important;

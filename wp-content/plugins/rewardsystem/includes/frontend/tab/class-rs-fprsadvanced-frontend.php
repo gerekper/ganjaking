@@ -1,200 +1,165 @@
 <?php
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit ; // Exit if accessed directly.
+	exit ; // Exit if accessed directly.
 }
 
 if ( ! class_exists( 'RSFunctionForAdvanced' ) ) {
 
-    class RSFunctionForAdvanced {
+	class RSFunctionForAdvanced {
 
-        public static function init() {
-            if ( get_option( 'rs_load_script_styles' ) == 'wp_head' ) {
-                add_action( 'wp_head' , array( __CLASS__ , 'load_script_in_header_or_footer' ) ) ;
-            } else {
-                add_action( 'wp_footer' , array( __CLASS__ , 'load_script_in_header_or_footer' ) ) ;
-            }
-            if ( get_option( 'rs_reward_content_menu_page' ) == 'yes' ) {
-                $TitleURL = get_option( 'rs_my_reward_url_title' ) != '' ? get_option( 'rs_my_reward_url_title' ) : 'sumo-rewardpoints' ;
-                add_filter( 'woocommerce_account_menu_items' , array( __CLASS__ , 'add_reward_menu_in_myaccount' ) ) ;
-                add_action( 'woocommerce_account_' . $TitleURL . '_endpoint' , array( __CLASS__ , 'myreward_page_contents_sorting' ) ) ;
-            }
-        }
+		public static function init() {
+			if ( 'yes' == get_option( 'rs_reward_content_menu_page' ) ) {
+				$TitleURL = '' != get_option( 'rs_my_reward_url_title' ) ? get_option( 'rs_my_reward_url_title' ) : 'sumo-rewardpoints' ;
+				add_filter( 'woocommerce_account_menu_items' , array( __CLASS__ , 'add_reward_menu_in_myaccount' ) ) ;
+				add_action( 'woocommerce_account_' . sanitize_title($TitleURL) . '_endpoint' , array( __CLASS__ , 'myreward_page_contents_sorting' ) ) ;
+			}
+		}
 
-        public static function load_script_in_header_or_footer() {
-            wp_enqueue_style( 'fp_style_for_rewardsystem' , SRP_PLUGIN_DIR_URL . "assets/css/style.css" , array() , SRP_VERSION ) ;
-            wp_enqueue_style( 'wp_reward_footable_css' , SRP_PLUGIN_DIR_URL . "assets/css/footable.core.css" , array() , SRP_VERSION ) ;
+		public static function add_reward_menu_in_myaccount( $items ) {
+			$BanType = check_banning_type( get_current_user_id() ) ;
+			if ( 'earningonly' == $BanType || 'both' == $BanType ) {
+				return $items ;
+			}
 
-            if ( get_option( 'rs_enable_reward_point_bootstrap' ) == '1' )
-                wp_enqueue_style( 'wp_reward_bootstrap_css' , SRP_PLUGIN_DIR_URL . "assets/css/bootstrap.css" , array() , SRP_VERSION ) ;
+			$TitleURL   = '' != get_option( 'rs_my_reward_url_title' ) ? get_option( 'rs_my_reward_url_title' ) : 'sumo-rewardpoints' ;
+			$RewardMenu = array( $TitleURL => get_option( 'rs_my_reward_content_title' ) ) ;
+			$items      = array_slice( $items , 0 , 2 ) + $RewardMenu + array_slice( $items , 2 , count( $items ) - 1 ) ;
+			return $items ;
+		}
 
-            $assets_path = str_replace( array( 'http:' , 'https:' ) , '' , WC()->plugin_url() ) . '/assets/' ;
-            wp_enqueue_style( 'select2' , $assets_path . 'css/select2.css' ) ;
+		public static function myreward_page_contents_sorting() {
 
-            if ( get_option( 'rs_reward_point_dequeue_select2' ) == 'yes' )
-                wp_dequeue_script( 'edgt_select2' ) ;
+			$BanType = check_banning_type( get_current_user_id() ) ;
+			if ( 'earningonly' == $BanType || 'both' == $BanType ) {
+				wp_safe_redirect( get_permalink() ) ;
+				return ;
+			}
 
-            if ( get_option( 'rs_reward_point_dequeue_recaptcha' ) == 'yes' )
-                wp_dequeue_script( 'wp_google_recaptcha' ) ;
-        }
+			$columnvalues = array(
+				'rs_myrewards_table',
+				'rs_nominee_field',
+				'rs_gift_voucher_field',
+				'rs_referral_table',
+				'rs_generate_referral_link',
+				'rs_refer_a_friend_form',
+				'rs_my_cashback_form',
+				'rs_my_cashback_table',
+				'rs_email_subscribe_link',
+						) ;
 
-        public static function add_reward_menu_in_myaccount( $items ) {
-            $BanType = check_banning_type( get_current_user_id() ) ;
-            if ( $BanType == 'earningonly' || $BanType == 'both' )
-                return $items ;
+			$sortedcolumn = srp_check_is_array( get_option( 'rs_sorted_menu_settings_list' ) ) ? get_option( 'rs_sorted_menu_settings_list' ) : $columnvalues ;
+			if ( ! isset( $sortedcolumn[ 'rs_my_cashback_form'] ) ) {
+				$sortedcolumn = array_slice( $sortedcolumn , 0 , 4 , true ) +
+						array( 'rs_my_cashback_form' ) +
+						array_slice( $sortedcolumn , 3 , count( $sortedcolumn ) - 4 , true ) ;
+			}
 
-            $TitleURL   = get_option( 'rs_my_reward_url_title' ) != '' ? get_option( 'rs_my_reward_url_title' ) : 'sumo-rewardpoints' ;
-            $RewardMenu = array( $TitleURL => get_option( 'rs_my_reward_content_title' ) ) ;
-            $items      = array_slice( $items , 0 , 2 ) + $RewardMenu + array_slice( $items , 2 , count( $items ) - 1 ) ;
-            return $items ;
-        }
+			foreach ( $sortedcolumn as $column_key => $column_value ) {
+				$function_name = str_replace('rs_', '', $column_key);
+				self::$function_name();
+			}
+		}
 
-        public static function myreward_page_contents_sorting() {
+		public static function my_cashback_form() {
 
-            $BanType = check_banning_type( get_current_user_id() ) ;
-            if ( $BanType == 'earningonly' || $BanType == 'both' ) {
-                wp_safe_redirect( get_permalink() ) ;
-                return ;
-            }
+			if ( 'yes' != get_option( 'rs_cashback_activated' ) || '1' != get_option( 'rs_my_cashback_form_menu_page' , 1 ) ) {
+				return ;
+			}
+												
+			if ('1'!= get_option('rs_enable_disable_encashing')) {
+				return ;
+			}
+			
+			RS_Rewardsystem_Shortcodes::shortcode_rsencashform() ;                        
+		}
 
-            $columnvalues = array(
-                'rs_myrewards_table'        => self::reward_log() ,
-                'rs_nominee_field'          => self::display_nominee_field_in_my_account() ,
-                'rs_gift_voucher_field'     => self::giftvoucherfield() ,
-                'rs_referral_table'         => self::referral_list_table_in_menu() ,
-                'rs_generate_referral_link' => self::generate_referral_link() ,
-                'rs_refer_a_friend_form'    => self::display_refer_a_friend_form() ,
-                'rs_my_cashback_table'      => self::cash_back_log() ,
-                'rs_email_subscribe_link'   => self::field_for_subcribe() ,
-                    ) ;
+		public static function my_cashback_table() {
 
-            $sortedcolumn = srp_check_is_array( get_option( 'rs_sorted_menu_settings_list' ) ) ? get_option( 'rs_sorted_menu_settings_list' ) : $columnvalues ;
-            foreach ( $sortedcolumn as $column_key => $column_value ) {
-                echo isset( $columnvalues[ $column_key ] ) ? $columnvalues[ $column_key ] : '' ;
-            }
-        }
+			if ( 'yes' != get_option( 'rs_cashback_activated' ) || '1' != get_option( 'rs_my_cashback_table_menu_page' ) ) {
+				return '' ;
+			}
+						
+			RSCashBackFrontend::cash_back_log() ;                       
+		}
 
-        public static function cash_back_log() {
+		public static function myrewards_table() {
+					
+			if ( '1' != get_option( 'rs_my_reward_table_menu_page' ) ) {
+				return '' ;
+			}
+			
+						RSFunctionForMessage::reward_log( true ) ;                        
+		}
 
-            if ( 'yes' != get_option( 'rs_cashback_activated' ) || '1' != get_option( 'rs_my_cashback_table_menu_page' ) ) {
-                return '' ;
-            }
+		public static function nominee_field() {
 
-            ob_start() ;
-            RSCashBackFrontend::cash_back_log() ;
-            $content = ob_get_contents() ;
-            ob_end_clean() ;
+			if ( 'yes' != get_option( 'rs_nominee_activated' ) || '1' != get_option( 'rs_show_hide_nominee_field_menu_page' ) ) {
+				return '' ;
+			}
+			
+						RSFunctionForNominee::display_nominee_field_in_my_account() ;                        
+		}
 
-            return $content ;
-        }
+		public static function gift_voucher_field() {
 
-        public static function reward_log() {
+			if ( 'yes' != get_option( 'rs_gift_voucher_activated' ) || '1' != get_option( 'rs_show_hide_redeem_voucher_menu_page' ) ) {
+				return '' ;
+			}
+			
+						RSGiftVoucherFrontend::giftvoucherfield() ;                        
+		}
 
-            if ( '1' != get_option( 'rs_my_reward_table_menu_page' ) )
-                return '' ;
+		public static function referral_table() {
 
-            ob_start() ;
-            RSFunctionForMessage::reward_log() ;
-            $content = ob_get_contents() ;
-            ob_end_clean() ;
+			if ( 'yes' != get_option( 'rs_referral_activated' ) || '1' != get_option( 'rs_show_hide_referal_table_menu_page' ) ) {
+				return '' ;
+			}
 
-            return $content ;
-        }
+			if ( ! check_if_referral_is_restricted_based_on_history() ) {
+				return '' ;
+			}
+			
+						RSFunctionForReferralSystem::referral_list_table_in_menu() ;                        
+		}
 
-        public static function display_nominee_field_in_my_account() {
+		public static function refer_a_friend_form() {
 
-            if ( 'yes' != get_option( 'rs_nominee_activated' ) || '1' != get_option( 'rs_show_hide_nominee_field_menu_page' ) )
-                return '' ;
+			if ( 'yes' != get_option( 'rs_referral_activated' ) || '1' != get_option( 'rs_show_hide_refer_a_friend_menu_page' , '1' ) || '1' != get_option( 'rs_enable_message_for_friend_form' ) ) {
+				return '' ;
+			}		
+					
+						echo wp_kses_post(sprintf( '<h3 class="rs_refer_a_friend_title">%s</h3>' , esc_html__( 'Refer a Friend Form' , 'rewardsystem' ) )) ;
+						RS_Rewardsystem_Shortcodes::display_refer_a_friend_form() ;                        
+		}
 
-            ob_start() ;
-            RSFunctionForNominee::display_nominee_field_in_my_account() ;
-            $content = ob_get_contents() ;
-            ob_end_clean() ;
+		public static function email_subscribe_link() {
 
-            return $content ;
-        }
+			if ( 'yes' != get_option( 'rs_email_activated' ) || 1 != get_option( 'rs_show_hide_your_subscribe_link_menu_page' ) ) {
+				return '' ;
+			}
+						
+						echo wp_kses_post(sprintf( '<h3 class="rs_email_subscribe_link_title">%s</h3>' , esc_html__( 'Email - Subscribe Link' , 'rewardsystem' ) ) );
+						RSFunctionForEmailTemplate::field_for_subcribe( true ) ;                        					
+		}
 
-        public static function giftvoucherfield() {
+		public static function generate_referral_link() {
 
-            if ( 'yes' != get_option( 'rs_gift_voucher_activated' ) || '1' != get_option( 'rs_show_hide_redeem_voucher_menu_page' ) )
-                return '' ;
+			if ( 'yes' != get_option( 'rs_referral_activated' ) || '1' != get_option( 'rs_show_hide_generate_referral_menu_page' ) ) {
+				return '' ;
+			}
+						
+			if ( '2' == get_option( 'rs_show_hide_generate_referral_link_type' ) ) {
+				if ( check_if_referral_is_restricted_based_on_history() ) {
+					RSFunctionForReferralSystem::static_referral_link() ;
+				}
+			} else {
+				if ( check_if_referral_is_restricted_based_on_history() ) {
+					RSFunctionForReferralSystem::list_of_generated_link_and_field();
+				}
+			}                        
+		}
+	}
 
-            ob_start() ;
-            RSGiftVoucherFrontend::giftvoucherfield() ;
-            $content = ob_get_contents() ;
-            ob_end_clean() ;
-
-            return $content ;
-        }
-
-        public static function referral_list_table_in_menu() {
-
-            if ( 'yes' != get_option( 'rs_referral_activated' ) || '1' != get_option( 'rs_show_hide_referal_table_menu_page' ) ) {
-               return '' ;
-            }
-            
-            if ( ! check_if_referral_is_restricted_based_on_history() ){
-               return '' ;
-            }
-            
-            ob_start() ;
-            RSFunctionForReferralSystem::referral_list_table_in_menu() ;
-            $content = ob_get_contents() ;
-            ob_end_clean() ;
-
-            return $content ;
-        }
-
-        public static function display_refer_a_friend_form() {
-
-            if ( 'yes' != get_option( 'rs_referral_activated' ) || '1' != get_option( 'rs_show_hide_refer_a_friend_menu_page' , '1' ) || '1' != get_option( 'rs_enable_message_for_friend_form' ) )
-                return '' ;
-
-            ob_start() ;
-            echo sprintf( '<h3>%s</h3>' , esc_html__( 'Refer a Friend Form' , SRP_LOCALE ) ) ;
-            echo RS_Rewardsystem_Shortcodes::display_refer_a_friend_form() ;
-            $content = ob_get_contents() ;
-            ob_end_clean() ;
-
-            return $content ;
-        }
-
-        public static function field_for_subcribe() {
-
-            if ( 'yes' != get_option( 'rs_email_activated' ) || 1 != get_option( 'rs_show_hide_your_subscribe_link_menu_page' ) )
-                return '' ;
-
-            ob_start() ;
-            echo sprintf( '<h3>%s</h3>' , esc_html__( 'Email - Subscribe Link' , SRP_LOCALE ) ) ;
-            RSFunctionForEmailTemplate::field_for_subcribe( true ) ;
-            $content = ob_get_contents() ;
-            ob_end_clean() ;
-
-            return $content ;
-        }
-
-        public static function generate_referral_link() {
-            
-            if ( 'yes' != get_option( 'rs_referral_activated' ) || '1' != get_option( 'rs_show_hide_generate_referral_menu_page' ) ) {
-               return '' ;
-            }
-
-            ob_start() ;
-            if ( '2' == get_option( 'rs_show_hide_generate_referral_link_type' ) ) {
-                if ( check_if_referral_is_restricted_based_on_history() )
-                    echo RSFunctionForReferralSystem::static_referral_link() ;
-            } else {
-                if ( check_if_referral_is_restricted_based_on_history() )
-                    echo RSFunctionForReferralSystem::list_of_generated_link_and_field() ;
-            }
-
-            $content = ob_get_contents() ;
-            ob_end_clean() ;
-
-            return $content ;
-        }
-
-    }
-
-    RSFunctionForAdvanced::init() ;
+	RSFunctionForAdvanced::init() ;
 }

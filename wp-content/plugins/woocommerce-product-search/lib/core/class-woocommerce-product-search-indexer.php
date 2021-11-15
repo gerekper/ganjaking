@@ -62,6 +62,17 @@ class WooCommerce_Product_Search_Indexer {
 
 	private $raw = false;
 
+	private $has_processable = null;
+
+	/**
+	 * Default locale
+	 *
+	 * @since 3.6.2
+	 *
+	 * @var string
+	 */
+	private static $locale = null;
+
 	/**
 	 * Initialize.
 	 */
@@ -162,19 +173,22 @@ class WooCommerce_Product_Search_Indexer {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @return int[]
+	 * @return [int=>string]
 	 */
 	public function get_processable_term_ids() {
+
 		global $wpdb;
 		$term_ids = array();
 		if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
 			$product_taxonomies = self::get_applicable_product_taxonomies();
 			if ( count( $product_taxonomies ) > 0 ) {
 				$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
-				$query = "SELECT term_id FROM $wpdb->term_taxonomy WHERE taxonomy IN ( '" . implode( "','", esc_sql( $product_taxonomies ) ) . "' ) AND term_id NOT IN (SELECT DISTINCT term_id FROM $object_term_table WHERE object_id = 0)";
-				$term_ids = $wpdb->get_col( $query );
-				if ( is_array( $term_ids ) ) {
-					$term_ids = array_map( 'intval', array_unique( $term_ids ) );
+				$query = "SELECT term_id, taxonomy FROM $wpdb->term_taxonomy WHERE taxonomy IN ( '" . implode( "','", esc_sql( $product_taxonomies ) ) . "' ) AND term_id NOT IN (SELECT DISTINCT term_id FROM $object_term_table WHERE object_id = 0)";
+				$terms = $wpdb->get_results( $query );
+				if ( is_array( $terms ) ) {
+					foreach ( $terms as $term ) {
+						$term_ids[$term->term_id] = $term->taxonomy;
+					}
 				}
 			}
 		}
@@ -212,24 +226,26 @@ class WooCommerce_Product_Search_Indexer {
 
 				$tuples = array();
 				$values = array();
-				foreach ( $term_ids as $term_id ) {
+
+				foreach ( $term_ids as $term_id => $taxonomy ) {
 
 					$size = strlen(
 						"INSERT INTO $object_term_table " .
-						"( object_id, term_id, modified ) " .
+						"( object_id, term_id, modified, taxonomy ) " .
 						"VALUES " . implode( ',', $tuples ) . implode( ' ', $values )
 					);
 					if ( $size > 0.9 * $max ) {
 						break;
 					}
 
-					$tuples[] = '( 0, %d, %s )';
+					$tuples[] = '( 0, %d, %s, %s )';
 					$values[] = intval( $term_id );
 					$values[] = gmdate( 'Y-m-d H:i:s' );
+					$values[] = $taxonomy;
 				}
 				$wpdb->query( $wpdb->prepare(
 					"INSERT INTO $object_term_table " .
-					"( object_id, term_id, modified ) " .
+					"( object_id, term_id, modified, taxonomy ) " .
 					"VALUES " . implode( ',', $tuples ),
 					$values
 				) );
@@ -355,6 +371,75 @@ class WooCommerce_Product_Search_Indexer {
 			}
 		}
 		return $count;
+	}
+
+	/**
+	 * Whether there are any processable products.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @return boolean
+	 */
+	public function has_processable() {
+
+		global $wpdb;
+
+		if ( $this->has_processable !== null ) {
+			return $this->has_processable;
+		}
+
+		$has = false;
+
+		$index_table       = WooCommerce_Product_Search_Controller::get_tablename( 'index' );
+		$object_type_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_type' );
+		$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
+
+		if (
+			WooCommerce_Product_Search_Controller::table_exists( 'key' ) &&
+			WooCommerce_Product_Search_Controller::table_exists( 'index' ) &&
+			WooCommerce_Product_Search_Controller::table_exists( 'object_type' )
+		) {
+			$object_term_query = '';
+			if ( WooCommerce_Product_Search_Controller::table_exists( 'object_term' ) ) {
+
+				$object_term_query = "OR ID NOT IN (SELECT object_id FROM $object_term_table WHERE term_id = 0) ";
+			}
+
+			$n = 0;
+			$object_types = array( 'product', 'product_variation' );
+			foreach ( $object_types as $object_type ) {
+				$object_type_id = $wpdb->get_var( $wpdb->prepare(
+					"SELECT object_type_id FROM $object_type_table WHERE object_type = %s AND context_table = 'posts' AND context_column IS NULL AND context_key IS NULL",
+					$object_type
+				) );
+				$query = $wpdb->prepare(
+					"SELECT COUNT(*) FROM " .
+					" ( " .
+						"SELECT ID FROM $wpdb->posts " .
+						"WHERE " .
+						"post_type = %s " .
+						"AND post_status IN ( 'publish', 'pending', 'draft', 'private' ) " .
+						"AND ( " .
+							"ID NOT IN (SELECT object_id FROM $index_table WHERE object_type_id = %d) " .
+							$object_term_query .
+						" ) " .
+						"LIMIT 1" .
+					" ) tmp",
+					$object_type,
+					intval( $object_type_id )
+				);
+				$count = $wpdb->get_var( $query );
+				if ( $count !== null ) {
+					$n += intval( $count );
+				}
+				if ( $n > 0 ) {
+					$has = true;
+					break;
+				}
+			}
+		}
+		$this->has_processable = $has;
+		return $has;
 	}
 
 	/**
@@ -511,8 +596,7 @@ class WooCommerce_Product_Search_Indexer {
 	public function work() {
 
 		global $wpdb;
-
-		if ( self::get_processable_count() === 0 ) {
+		if ( !self::has_processable() ) {
 			return;
 		}
 
@@ -522,39 +606,11 @@ class WooCommerce_Product_Search_Indexer {
 
 		if ( $this->check_memory_limit ) {
 			$bytes = memory_get_peak_usage( true );
-			$memory_limit = ini_get( 'memory_limit' );
-			$matches = null;
-			preg_match( '/([0-9]+)(.)/', $memory_limit, $matches );
-			if ( isset( $matches[2] ) ) {
-				$exp = array( 'K' => 1, 'M' => 2, 'G' => 3, 'T' => 4, 'P' => 5, 'E' => 6 );
-				if ( key_exists( $matches[2], $exp ) ) {
-					$memory_limit = intval( preg_replace( '/[^0-9]/', '', $memory_limit ) ) * pow( 1024, $exp[$matches[2]] );
-				}
-			}
+			$memory_limit = WooCommerce_Product_Search_System::get_memory_limit();
 		}
 
 		if ( $this->check_execution_limit ) {
-			$max_execution_time = intval( ini_get( 'max_execution_time' ) );
-
-			if ( $max_execution_time === 0 ) {
-				$max_execution_time = PHP_INT_MAX;
-			}
-			$max_input_time = ini_get( 'max_input_time' );
-			if ( $max_input_time !== false ) {
-				$max_input_time = intval( $max_input_time );
-				switch ( $max_input_time ) {
-					case -1 :
-
-						break;
-					case 0 :
-
-						$max_execution_time = min( $max_execution_time, PHP_INT_MAX );
-						break;
-					default :
-
-						$max_execution_time = min( $max_execution_time, $max_input_time );
-				}
-			}
+			$max_execution_time = WooCommerce_Product_Search_System::get_max_execution_time();
 
 			if ( function_exists( 'getrusage' ) ) {
 				$resource_usage = getrusage();
@@ -635,6 +691,8 @@ class WooCommerce_Product_Search_Indexer {
 			$i++;
 		}
 
+		$this->has_processable = null;
+
 		$this->release();
 	}
 
@@ -704,6 +762,8 @@ class WooCommerce_Product_Search_Indexer {
 
 	public function index( $post_id ) {
 
+		do_action( 'woocommerce_product_search_indexer_index_start', $post_id );
+
 		wps_log_info( 'Indexing ' . $post_id );
 
 		global $wpdb;
@@ -746,6 +806,7 @@ class WooCommerce_Product_Search_Indexer {
 			$ids = array();
 			$titles = array();
 			$descriptions = array();
+			$short_descriptions = array();
 			$skus = array();
 			if ( $product->is_type( 'variable' ) ) {
 				if ( method_exists( $product, 'get_children' ) ) {
@@ -755,6 +816,7 @@ class WooCommerce_Product_Search_Indexer {
 							$ids[] = $variation->get_id();
 							$titles[] = $variation->get_name();
 							$descriptions[] = wc_format_content( $variation->get_description() );
+							$short_descriptions[] = wc_format_content( $variation->get_short_description() );
 							$skus[] = $variation->get_sku();
 						}
 						unset( $variation );
@@ -770,6 +832,7 @@ class WooCommerce_Product_Search_Indexer {
 						$ids[]          = $parent->get_id();
 						$titles[]       = $parent->get_name();
 						$descriptions[] = wc_format_content( $parent->get_description() );
+						$short_descriptions[] = wc_format_content( $parent->get_short_description() );
 						$skus[]         = $parent->get_sku();
 					}
 				}
@@ -790,12 +853,18 @@ class WooCommerce_Product_Search_Indexer {
 			} else {
 				$descriptions = '';
 			}
+			if ( count( $short_descriptions ) > 0 ) {
+				$short_descriptions = ' ' . implode( ' ', $short_descriptions );
+			} else {
+				$short_descriptions = '';
+			}
 			if ( count( $skus ) > 0 ) {
 				$skus = ' ' . implode( ' ', $skus );
 			} else {
 				$skus = '';
 			}
 
+			$context_columns = array();
 			$attribute_names = array();
 			if ( $this->raw ) {
 				$context_columns = array(
@@ -808,7 +877,7 @@ class WooCommerce_Product_Search_Indexer {
 					$context_columns = array(
 						'post_id'      => $this->filter( $product->get_id() . $ids, 'post_id', $post_id ),
 						'post_title'   => $this->filter( $product->get_title() . $titles, 'post_title', $post_id ),
-						'post_excerpt' => $this->filter( wc_format_content( $product->get_short_description() ), 'post_excerpt', $post_id ),
+						'post_excerpt' => $this->filter( wc_format_content( $product->get_short_description() ) . $short_descriptions, 'post_excerpt', $post_id ),
 						'post_content' => $this->filter( wc_format_content( $product->get_description() ) . $descriptions, 'post_content', $post_id ),
 						'sku'          => $this->filter( $product->get_sku() . $skus, 'sku', $post_id ),
 						'tag'          => $this->filter( wc_get_product_tag_list( $post_id, ' ' ), 'tag', $post_id ),
@@ -857,27 +926,30 @@ class WooCommerce_Product_Search_Indexer {
 					}
 				} else {
 
+					$context_columns = array(
+						'post_id'      => $this->filter( $product->get_id() . $ids, 'post_id', $product->get_id() ),
+						'post_title'   => $this->filter( $product->get_title() . $titles, 'post_title', $product->get_id() ),
+						'post_excerpt' => $this->filter( wc_format_content( $product->get_short_description() ) . $short_descriptions, 'post_excerpt', $product->get_id() ),
+						'post_content' => $this->filter( wc_format_content( $product->get_description() ) . $descriptions, 'post_content', $product->get_id() ),
+						'sku'          => $this->filter( $product->get_sku() . $skus, 'sku', $product->get_id() )
+					);
 					if ( $parent_id ) {
-						$context_columns = array(
-							'post_id'      => $this->filter( $product->get_id() . $ids, 'post_id', $product->get_id() ),
-							'post_title'   => $this->filter( $product->get_title() . $titles, 'post_title', $product->get_id() ),
-							'post_excerpt' => $this->filter( wc_format_content( $product->get_short_description() ), 'post_excerpt', $product->get_id() ),
-							'post_content' => $this->filter( wc_format_content( $product->get_description() ) . $descriptions, 'post_content', $product->get_id() ),
-							'sku'          => $this->filter( $product->get_sku() . $skus, 'sku', $product->get_id() ),
-							'tag'          => $this->filter( wc_get_product_tag_list( $parent_id, ' ' ), 'tag', $product->get_id() ),
-							'category'     => $this->filter( wc_get_product_category_list( $parent_id, ' ' ), 'category', $product->get_id() )
-						);
-						$attribute_taxonomies = wc_get_attribute_taxonomies();
-						if ( !empty( $attribute_taxonomies ) ) {
-							foreach ( $attribute_taxonomies as $attribute ) {
-								$term_string = $product->get_attribute( $attribute->attribute_name );
-								if ( !empty( $term_string ) && is_string( $term_string ) ) {
-									$attribute_names[] = $attribute->attribute_name;
-									$context_columns[$attribute->attribute_name] = $this->filter( $term_string, $attribute->attribute_name, $product->get_id() );
-								}
+						$context_columns['tag'] = $this->filter( wc_get_product_tag_list( $parent_id, ' ' ), 'tag', $product->get_id() );
+						$context_columns['category'] = $this->filter( wc_get_product_category_list( $parent_id, ' ' ), 'category', $product->get_id() );
+					} else {
+						wps_log_warning( sprintf( 'The indexer detected inconsistent data for the product variation %d: missing parent.', $product->get_id() ) );
+					}
+					$attribute_taxonomies = wc_get_attribute_taxonomies();
+					if ( !empty( $attribute_taxonomies ) ) {
+						foreach ( $attribute_taxonomies as $attribute ) {
+							$term_string = $product->get_attribute( $attribute->attribute_name );
+							if ( !empty( $term_string ) && is_string( $term_string ) ) {
+								$attribute_names[] = $attribute->attribute_name;
+								$context_columns[$attribute->attribute_name] = $this->filter( $term_string, $attribute->attribute_name, $product->get_id() );
 							}
 						}
 					}
+
 				}
 			}
 
@@ -966,8 +1038,12 @@ class WooCommerce_Product_Search_Indexer {
 							$parent_attributes = $parent_product->get_attributes();
 							foreach ( $parent_attributes as $parent_taxonomy => $wc_product_attribute ) {
 								if ( is_string( $parent_taxonomy ) && ( $wc_product_attribute instanceof WC_Product_Attribute ) ) {
-									if ( !$wc_product_attribute->get_variation() ) {
-										$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $parent_product_id, $parent_taxonomy ) );
+
+									$parent_taxonomy_name = $wc_product_attribute->get_taxonomy();
+									if ( taxonomy_exists( $parent_taxonomy_name ) ) {
+										if ( !$wc_product_attribute->get_variation() ) {
+											$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $parent_product_id, $parent_taxonomy_name ) );
+										}
 									}
 								}
 							}
@@ -989,10 +1065,14 @@ class WooCommerce_Product_Search_Indexer {
 					foreach ( $attributes as $taxonomy => $wc_product_attribute ) {
 						if ( is_string( $taxonomy ) && ( $wc_product_attribute instanceof WC_Product_Attribute ) ) {
 
-							$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $product_id, $taxonomy ) );
+							$taxonomy_name = $wc_product_attribute->get_taxonomy();
+							if ( taxonomy_exists( $taxonomy_name ) ) {
 
-							if ( !$wc_product_attribute->get_variation() ) {
-								$taxonomy_inherited[] = $taxonomy;
+								$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $product_id, $taxonomy_name ) );
+
+								if ( !$wc_product_attribute->get_variation() ) {
+									$taxonomy_inherited[] = $taxonomy;
+								}
 							}
 						}
 					}
@@ -1001,7 +1081,11 @@ class WooCommerce_Product_Search_Indexer {
 
 					foreach ( $attributes as $taxonomy => $wc_product_attribute ) {
 						if ( is_string( $taxonomy ) && ( $wc_product_attribute instanceof WC_Product_Attribute ) ) {
-							$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $product_id, $taxonomy ) );
+
+							$taxonomy_name = $wc_product_attribute->get_taxonomy();
+							if ( taxonomy_exists( $taxonomy_name ) ) {
+								$attribute_term_ids = array_merge( $attribute_term_ids, wc_get_product_term_ids( $product_id, $taxonomy_name ) );
+							}
 						}
 					}
 
@@ -1010,6 +1094,7 @@ class WooCommerce_Product_Search_Indexer {
 				$fields = array( 'object_id', 'parent_object_id', 'term_id', 'parent_term_id', 'object_type', 'taxonomy', 'inherit', 'modified' );
 				$term_ids = array_merge( $category_ids, $tag_ids, $attribute_term_ids );
 
+				$term_ids = apply_filters( 'woocommerce_product_search_indexer_object_term_term_ids', $term_ids, $product );
 				foreach ( $term_ids as $term_id ) {
 					$term = get_term( $term_id );
 					if ( $term instanceof WP_Term ) {
@@ -1076,6 +1161,8 @@ class WooCommerce_Product_Search_Indexer {
 
 			}
 		}
+
+		do_action( 'woocommerce_product_search_indexer_index_end', $post_id );
 	}
 
 	public function get_object_type_id( $object_type = null, $context = null, $context_table = null, $context_column = null, $context_key = null ) {
@@ -1256,7 +1343,7 @@ class WooCommerce_Product_Search_Indexer {
 	private function add_key( $key ) {
 		global $wpdb;
 
-		$key = trim( remove_accents( $key ) );
+		$key = trim( self::remove_accents( $key ) );
 
 		$key = function_exists( 'mb_strlen' ) ?
 			mb_substr( $key, 0, WooCommerce_Product_Search_Controller::MAX_KEY_LENGTH ) :
@@ -1404,6 +1491,7 @@ class WooCommerce_Product_Search_Indexer {
 	 * Equalize the input string.
 	 *
 	 * @since 2.9.0
+	 *
 	 * @param string $s
 	 *
 	 * @return string
@@ -1416,6 +1504,56 @@ class WooCommerce_Product_Search_Indexer {
 		$s = trim( preg_replace( '/-+\s/', ' ', $s ) );
 		$s = trim( preg_replace( '/\s+/', ' ', $s ) );
 		return $s;
+	}
+
+	/**
+	 * Remove accents.
+	 *
+	 * @since 3.6.2
+	 *
+	 * @param string $s
+	 *
+	 * @return string
+	 */
+	public static function remove_accents( $s ) {
+
+		if ( self::$locale === null ) {
+			self::$locale = 'en_US';
+			if ( defined( 'WPLANG' ) ) {
+				self::$locale = WPLANG;
+			}
+			$the_locale = get_option( 'WPLANG' );
+			if ( is_multisite() ) {
+				if ( $the_locale === false ) {
+					$the_locale = get_site_option( 'WPLANG' );
+				}
+			}
+			if ( $the_locale !== false ) {
+				self::$locale = $the_locale;
+			}
+		}
+
+		add_filter( 'locale', array( __CLASS__, 'locale' ), PHP_INT_MAX );
+		$s = remove_accents( $s );
+		remove_filter( 'locale', array( __CLASS__, 'locale' ), PHP_INT_MAX );
+
+		return $s;
+	}
+
+	/**
+	 * Filter the locale.
+	 *
+	 * @since 3.6.2
+	 *
+	 * @param string $locale
+	 *
+	 * @return string
+	 */
+	public static function locale( $locale ) {
+		if ( self::$locale !== null ) {
+			$locale = self::$locale;
+		}
+		return $locale;
 	}
 }
 WooCommerce_Product_Search_Indexer::init();

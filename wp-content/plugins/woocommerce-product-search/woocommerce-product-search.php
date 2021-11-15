@@ -2,7 +2,7 @@
 /**
  * woocommerce-product-search.php
  *
- * Copyright (c) 2014-2020 "kento" Karim Rahimpur www.itthinx.com
+ * Copyright (c) 2014-2021 "kento" Karim Rahimpur www.itthinx.com
  *
  * This code is provided subject to the license granted.
  * Unauthorized use and distribution is prohibited.
@@ -22,11 +22,11 @@
  * Plugin Name: WooCommerce Product Search
  * Plugin URI: https://woocommerce.com/products/woocommerce-product-search/
  * Description: The best Search Engine and Search Experience for WooCommerce.
- * Version: 3.4.0
+ * Version: 4.2.0
  * Author: itthinx
  * Author URI: https://www.itthinx.com
- * WC requires at least: 3.5
- * WC tested up to: 4.8
+ * WC requires at least: 5.5
+ * WC tested up to: 5.9
  * Woo: 512174:c84cc8ca16ddac3408e6b6c5871133a8
  */
 
@@ -47,7 +47,7 @@ if ( ! is_woocommerce_active() ) {
 	return;
 }
 
-define( 'WOO_PS_PLUGIN_VERSION', '3.4.0' );
+define( 'WOO_PS_PLUGIN_VERSION', '4.2.0' );
 define( 'WOO_PS_PLUGIN_DOMAIN', 'woocommerce-product-search' );
 define( 'WOO_PS_FILE', __FILE__ );
 if ( !defined( 'WOO_PS_LOG' ) ) {
@@ -83,6 +83,9 @@ if ( !defined( 'WPS_OBJECT_LIMIT' ) ) {
 if ( !defined( 'WPS_DEFER_VARIATIONS_THRESHOLD' ) ) {
 	define( 'WPS_DEFER_VARIATIONS_THRESHOLD', 3 );
 }
+if ( !defined( 'WPS_LEGACY_WIDGETS' ) ) {
+	define( 'WPS_LEGACY_WIDGETS', false );
+}
 
 /**
  * Boots the plugin.
@@ -112,6 +115,7 @@ function woocommerce_product_search_boot() {
 	define( 'WOO_PS_CORE_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 	define( 'WOO_PS_CORE_LIB', WOO_PS_CORE_DIR . $lib . '/core' );
 	define( 'WOO_PS_ADMIN_LIB', WOO_PS_CORE_DIR . $lib . '/admin' );
+	define( 'WOO_PS_BLOCKS_LIB', WOO_PS_CORE_DIR . $lib . '/blocks' );
 	define( 'WOO_PS_VIEWS_LIB', WOO_PS_CORE_DIR . $lib . '/views' );
 	define( 'WOO_PS_EXT_LIB', WOO_PS_CORE_DIR . $lib . '/ext' );
 	define( 'WOO_PS_COMPAT_LIB', WOO_PS_CORE_DIR . $lib . '/compat' );

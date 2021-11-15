@@ -23,10 +23,6 @@
  *
  * @since Class available since Release 3.3.0
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class PHPUnit_Extensions_GroupTestSuite extends PHPUnit_Framework_TestSuite
 {
     public function __construct(PHPUnit_Framework_TestSuite $suite, array $groups)

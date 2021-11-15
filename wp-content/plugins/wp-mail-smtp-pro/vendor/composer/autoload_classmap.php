@@ -272,6 +272,8 @@ return array(
     'WPMailSMTP\\Providers\\Sendinblue\\Api' => $baseDir . '/src/Providers/Sendinblue/Api.php',
     'WPMailSMTP\\Providers\\Sendinblue\\Mailer' => $baseDir . '/src/Providers/Sendinblue/Mailer.php',
     'WPMailSMTP\\Providers\\Sendinblue\\Options' => $baseDir . '/src/Providers/Sendinblue/Options.php',
+    'WPMailSMTP\\Providers\\SparkPost\\Mailer' => $baseDir . '/src/Providers/SparkPost/Mailer.php',
+    'WPMailSMTP\\Providers\\SparkPost\\Options' => $baseDir . '/src/Providers/SparkPost/Options.php',
     'WPMailSMTP\\Providers\\Zoho\\Options' => $baseDir . '/src/Providers/Zoho/Options.php',
     'WPMailSMTP\\Reports\\Emails\\Summary' => $baseDir . '/src/Reports/Emails/Summary.php',
     'WPMailSMTP\\Reports\\Reports' => $baseDir . '/src/Reports/Reports.php',

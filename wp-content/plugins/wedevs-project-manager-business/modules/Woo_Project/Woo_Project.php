@@ -13,10 +13,6 @@ use WeDevs\PM\Common\Models\Meta;
 use WeDevs\PM\Project\Models\Project;
 use WeDevs\PM\User\Models\User_Role;
 use WeDevs\PM_Pro\Duplicate\Controllers\Duplicate;
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Woo_Project {
 
     /**

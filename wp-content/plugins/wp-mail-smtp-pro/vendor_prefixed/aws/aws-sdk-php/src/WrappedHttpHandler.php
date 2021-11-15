@@ -71,7 +71,7 @@ class WrappedHttpHandler
         } elseif (isset($options['http_stats_receiver'])) {
             throw new \InvalidArgumentException('Providing a custom HTTP stats' . ' receiver to Aws\\WrappedHttpHandler is not supported.');
         }
-        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for($fn($request, $options))->then(function (\WPMailSMTP\Vendor\Psr\Http\Message\ResponseInterface $res) use($command, $request, &$stats) {
+        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor($fn($request, $options))->then(function (\WPMailSMTP\Vendor\Psr\Http\Message\ResponseInterface $res) use($command, $request, &$stats) {
             return $this->parseResponse($command, $request, $res, $stats);
         }, function ($err) use($request, $command, &$stats) {
             if (\is_array($err)) {

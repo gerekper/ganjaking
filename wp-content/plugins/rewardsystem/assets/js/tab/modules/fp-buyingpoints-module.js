@@ -2,6 +2,7 @@
  * Buying Points - Module
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var BuyingPointsModule = {
         init : function () {
             this.show_or_hide_for_bulk_update_for_buying_point_is_applicable_for() ;

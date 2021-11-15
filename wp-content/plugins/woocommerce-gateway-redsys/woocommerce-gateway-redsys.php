@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
  * Plugin URI: https://woocommerce.com/products/redsys-gateway/
  * Description: Extends WooCommerce with RedSys gateway.
- * Version: 16.1.0
+ * Version: 17.0.1
  * Author: José Conti
  * Author URI: https://www.joseconti.com/
- * Tested up to: 5.8
+ * Tested up to: 5.9
  * WC requires at least: 3.0
- * WC tested up to: 5.7
+ * WC tested up to: 5.9
  * Woo: 187871:50392593e834002d8bee386333d1ed3c
  * Text Domain: woocommerce-redsys
  * Domain Path: /languages/
@@ -18,7 +18,7 @@
  */
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '16.1.0' );
+	define( 'REDSYS_VERSION', '17.0.1' );
 }
 
 if ( ! defined( 'REDSYS_FLUSH_VERSION' ) ) {
@@ -50,7 +50,7 @@ if ( ! defined( 'REDSYS_CHECK_WOO_CONNECTION' ) ) {
 }
 
 if ( ! defined( 'REDSYS_POST_UPDATE_URL_P' ) ) {
-	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2021/09/12/woocommerce-redsys-gateway-16-1-x-multisite/' );
+	define( 'REDSYS_POST_UPDATE_URL_P', 'https://redsys.joseconti.com/2021/10/25/woocommerce-redsys-gateway-17-0-x/' );
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
@@ -305,8 +305,11 @@ function woocommerce_gateway_redsys_premium_init() {
 			wp_register_script( 'redsys-select2', REDSYS_PLUGIN_URL_P . 'assets/js/test-users-min.js', array( 'jquery', 'select2' ), REDSYS_VERSION, true );
 			wp_enqueue_script( 'redsys-select2' );
 		}
+		if ( 'woocommerce_page_paygold-page' === $screen->id ) {
+			wp_register_script( 'redsys-select2b', REDSYS_PLUGIN_URL_P . 'assets/js/pay-gold-search-user.js', array( 'jquery', 'select2' ), REDSYS_VERSION, true );
+			wp_enqueue_script( 'redsys-select2b' );
+		}
 	}
-
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -336,9 +339,10 @@ function woocommerce_gateway_redsys_premium_init() {
 			die;
 		}
 	}
-
+	
 	add_action( 'admin_enqueue_scripts', 'redsys_add_select2_to_users_test' );
 	add_action( 'wp_ajax_redsys_get_users_settings_search_users', 'redsys_get_users_settings_ajax_callback' );
+	add_action( 'wp_ajax_nopriv_redsys_get_users_settings_search_users_show_gateway', 'redsys_get_users_settings_ajax_callback' );
 	add_action( 'wp_ajax_redsys_get_users_settings_search_users_show_gateway', 'redsys_get_users_settings_ajax_callback' );
 
 	/**
@@ -597,7 +601,64 @@ function woocommerce_gateway_redsys_premium_init() {
 
 	// Adding Google Pay
 	// require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-googlepay-redsys.php'; // Google Pay version 12.0.
+	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
+	if ( WCRed()->is_gateway_enabled( 'paygold' ) ) {
+		include_once REDSYS_PLUGIN_PATH_P . 'includes/paygold-page.php';
+		add_action( 'admin_menu', 'paygold_menu' );
+	}
+	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
+	function paygold_menu() {
+		global $paygold_page;
 
+		$paygold_page = add_submenu_page( 'woocommerce', __( 'Pay Gold Tools', 'woocommerce-redsys' ), __( 'Pay Gold Tools', 'woocommerce-redsys' ), 'manage_options', 'paygold-page', 'paygold_page' );
+	
+	}
+	function redsys_paygond_ajax_callback() {
+		
+		if ( is_admin() ) {
+
+			$search = $_GET['q'];
+			$args   = array(
+				'search'         => "*{$search}*",
+				'fields'         => 'all',
+				'search_columns' => array( 'user_login', 'user_email', 'user_nicename' ),
+			);
+		
+			// The User Query
+			$user_query = new WP_User_Query( $args );
+			$users      = $user_query->get_results();
+			if ( ! empty( $users ) ) {
+				$return = array();
+				foreach ( $users as $user ) {
+					$user_info = get_userdata( $user->ID );
+					$return[]  = array( $user_info->ID, $user_info->user_email );
+				}
+				echo wp_json_encode( $return );
+				die;
+			} else {
+				die;
+			}
+		}
+	}
+	add_action( 'wp_ajax_woo_search_users_paygold', 'redsys_paygond_ajax_callback' );
+	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */	
+	function redsys_paygold_css() {
+		wp_register_style( 'redsys_css_slect2', REDSYS_PLUGIN_URL_P . 'assets/css/select2.css', false, REDSYS_VERSION );
+		wp_enqueue_style( 'redsys_css_slect2' );
+	}
+	add_action( 'admin_enqueue_scripts', 'redsys_paygold_css' );
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -929,6 +990,46 @@ function woocommerce_gateway_redsys_premium_init() {
 					// Order review event delegation (the input is still not there).
 					orderReviewSection.on( 'change', 'input[name="token"]', function( e ) {
 						toggleInsiteFields( e.target.value === 'add' );
+					} );
+				}( jQuery ) );
+			</script>
+			<?php
+		}
+		if ( WCRed()->is_gateway_enabled( 'redsys' ) ) {
+			?>
+			<script type="text/javascript">
+				// Added by WooCommerce Redsys Gateway https://woocommerce.com/products/redsys-gateway/
+				(function($){
+					$('form.checkout').on( 'change', 'input[name^="payment_method"]', function() {
+						var t = { updateTimer: !1,  dirtyInput: !1,
+							reset_update_checkout_timer: function() {
+								clearTimeout(t.updateTimer)
+							},
+							trigger_update_checkout: function() {
+								t.reset_update_checkout_timer(), t.dirtyInput = !1,
+								$(document.body).trigger("update_checkout")
+							}
+						};
+						t.trigger_update_checkout();
+					});
+				} )(jQuery);				
+				( function( $ ) {
+					var orderReviewSection = $('#order_review');
+					function toggleRedsysFields( display ) {
+						var fields = $('#redsys_save_token');
+						var paymentMethodRedsysCheckbox = $( '#payment_method_redsys' );
+						if ( ! fields.length ) {
+							return;
+						}
+			
+						if ( paymentMethodRedsysCheckbox.attr( 'checked' ) ) {
+							fields.css( { display: display ? 'block' : 'none' } );
+						}
+					}
+
+					// Order review event delegation (the input is still not there).
+					orderReviewSection.on( 'change', 'input[name="token"]', function( e ) {
+						toggleRedsysFields( e.target.value === 'add' );
 					} );
 				}( jQuery ) );
 			</script>

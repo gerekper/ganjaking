@@ -78,6 +78,10 @@ abstract class RestSerializer
         }
         if (isset($bodyMembers)) {
             $this->payload($operation->getInput(), $bodyMembers, $opts);
+        } else {
+            if (!isset($opts['body']) && $this->hasPayloadParam($input, $payload)) {
+                $this->payload($operation->getInput(), [], $opts);
+            }
         }
         return $opts;
     }
@@ -168,5 +172,27 @@ abstract class RestSerializer
         // Expand path place holders using Amazon's slightly different URI
         // template syntax.
         return \WPMailSMTP\Vendor\GuzzleHttp\Psr7\UriResolver::resolve($this->endpoint, new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Uri($relative));
+    }
+    /**
+     * @param StructureShape $input
+     */
+    private function hasPayloadParam(\WPMailSMTP\Vendor\Aws\Api\StructureShape $input, $payload)
+    {
+        if ($payload) {
+            $potentiallyEmptyTypes = ['blob', 'string'];
+            if ($this->api->getMetadata('protocol') == 'rest-xml') {
+                $potentiallyEmptyTypes[] = 'structure';
+            }
+            $payloadMember = $input->getMember($payload);
+            if (\in_array($payloadMember['type'], $potentiallyEmptyTypes)) {
+                return \false;
+            }
+        }
+        foreach ($input->getMembers() as $member) {
+            if (!isset($member['location'])) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }

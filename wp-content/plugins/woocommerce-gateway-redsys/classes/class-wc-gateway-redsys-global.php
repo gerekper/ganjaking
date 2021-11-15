@@ -21,6 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Gateway_Redsys_Global {
 
+
+	function __construct() {
+
+		$this->log   = new WC_Logger();
+		$this->debug = $this->get_redsys_option( 'debug', 'insite' );
+	}
+
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -319,6 +326,8 @@ class WC_Gateway_Redsys_Global {
 		$out = str_replace( '#', ' ', $out );
 		$out = str_replace( '&', ' ', $out );
 		$out = str_replace( '@', ' ', $out );
+		$out = str_replace( '[', ' ', $out );
+		$out = str_replace( ']', ' ', $out );
 
 		return $out;
 	}
@@ -358,9 +367,9 @@ class WC_Gateway_Redsys_Global {
 	 */
 	function get_txnid( $token_num ) {
 		if ( $token_num ) {
-			$redsys_txnid = get_option( 'txnid_' . $token_num, false );
-			if ( $redsys_txnid ) {
-				return $redsys_txnid;
+			$redsys_txnid = trim( get_option( 'txnid_' . $token_num, false ) );
+			if ( $redsys_txnid && ! empty( $redsys_txnid ) && '' !== $redsys_txnid ) {
+				return trim( $redsys_txnid );
 			} else {
 				return '999999999999999'; // Temporal return for old tokens.
 			}
@@ -1161,48 +1170,54 @@ class WC_Gateway_Redsys_Global {
 			$transaction_id2 = substr_replace( $transaction_id, $transaction_id1, 0, -9 ); // new order number
 		} else {
 			$ordernumbertype = $this->get_redsys_option( 'redsysordertype', $gateway );
+			$sufix           = $this->get_redsys_option( 'subfix', $gateway );
+			if ( $sufix ) {
+				$sufix = $sufix;
+			} else {
+				$sufix = '';
+			}
 			if ( ! $ordernumbertype || 'threepluszeros' === $ordernumbertype ) {
 				$transaction_id  = str_pad( $order_id, 12, '0', STR_PAD_LEFT );
 				$transaction_id1 = mt_rand( 1, 999 ); // lets to create a random number
 				$transaction_id2 = substr_replace( $transaction_id, $transaction_id1, 0, -9 ); // new order number
 			} elseif ( 'endoneletter' === $ordernumbertype ) {
 				$letters         = $this->get_letters( 1 );
-				$transaction_id2 = str_pad( $order_id . $letters, 9, '0', STR_PAD_LEFT );
+				$transaction_id2 = str_pad( $order_id . $letters . $sufix, 9, '0', STR_PAD_LEFT );
 			} elseif ( 'endtwoletters' === $ordernumbertype ) {
 				$letters         = $this->get_letters( 2 );
-				$transaction_id2 = str_pad( $order_id . $letters, 12, '0', STR_PAD_LEFT );
+				$transaction_id2 = str_pad( $order_id . $letters . $sufix, 12, '0', STR_PAD_LEFT );
 			} elseif ( 'endthreeletters' === $ordernumbertype ) {
 				$letters         = $this->get_letters( 3 );
-				$transaction_id2 = str_pad( $order_id . $letters, 12, '0', STR_PAD_LEFT );
+				$transaction_id2 = str_pad( $order_id . $letters . $sufix, 12, '0', STR_PAD_LEFT );
 			} elseif ( 'endoneletterup' === $ordernumbertype ) {
 				$letters         = $this->get_letters_up( 1 );
-				$transaction_id2 = str_pad( $order_id . $letters, 12, '0', STR_PAD_LEFT );
+				$transaction_id2 = str_pad( $order_id . $letters . $sufix, 12, '0', STR_PAD_LEFT );
 			} elseif ( 'endtwolettersup' === $ordernumbertype ) {
 				$letters         = $this->get_letters_up( 2 );
-				$transaction_id2 = str_pad( $order_id . $letters, 12, '0', STR_PAD_LEFT );
+				$transaction_id2 = str_pad( $order_id . $letters . $sufix, 12, '0', STR_PAD_LEFT );
 			} elseif ( 'endthreelettersup' === $ordernumbertype ) {
 				$letters         = $this->get_letters_up( 3 );
-				$transaction_id2 = str_pad( $order_id . $letters, 12, '0', STR_PAD_LEFT );
+				$transaction_id2 = str_pad( $order_id . $letters . $sufix, 12, '0', STR_PAD_LEFT );
 			} elseif ( 'endoneletterdash' === $ordernumbertype ) {
 				$letters         = $this->get_letters( 1 );
-				$transaction_id2 = str_pad( $order_id . '-' . $letters, 12, '0', STR_PAD_LEFT );
+				$transaction_id2 = str_pad( $order_id . '-' . $letters . $sufix, 12, '0', STR_PAD_LEFT );
 			} elseif ( 'endtwolettersdash' === $ordernumbertype ) {
 				$letters         = $this->get_letters( 2 );
-				$transaction_id2 = str_pad( $order_id . '-' . $letters, 12, '0', STR_PAD_LEFT );
+				$transaction_id2 = str_pad( $order_id . '-' . $letters . $sufix, 12, '0', STR_PAD_LEFT );
 			} elseif ( 'endthreelettersdash' === $ordernumbertype ) {
 				$letters         = $this->get_letters( 3 );
-				$transaction_id2 = str_pad( $order_id . '-' . $letters, 12, '0', STR_PAD_LEFT );
+				$transaction_id2 = str_pad( $order_id . '-' . $letters . $sufix, 12, '0', STR_PAD_LEFT );
 			} elseif ( 'endoneletterupdash' === $ordernumbertype ) {
-				$letters = $this->get_letters_up( 1 );
-				set_transient( 'redys_order_temp_' . $transaction_id2, $order_id, 3600 );
+				$letters         = $this->get_letters_up( 1 );
+				$transaction_id2 = str_pad( $order_id . '-' . $letters . $sufix, 12, '0', STR_PAD_LEFT );
 			} elseif ( 'endtwolettersupdash' === $ordernumbertype ) {
-				$letters = $this->get_letters_up( 2 );
-				set_transient( 'redys_order_temp_' . $transaction_id2, $order_id, 3600 );
+				$letters         = $this->get_letters_up( 2 );
+				$transaction_id2 = str_pad( $order_id . '-' . $letters . $sufix, 12, '0', STR_PAD_LEFT );
 			} elseif ( 'endthreelettersupdash' === $ordernumbertype ) {
 				$letters         = $this->get_letters_up( 3 );
-				$transaction_id2 = str_pad( $order_id . '-' . $letters, 12, '0', STR_PAD_LEFT );
+				$transaction_id2 = str_pad( $order_id . '-' . $letters . $sufix, 12, '0', STR_PAD_LEFT );
 			} elseif ( 'simpleorder' === $ordernumbertype ) {
-				$transaction_id2 = str_pad( $order_id, 12, '0', STR_PAD_LEFT );
+				$transaction_id2 = str_pad( $order_id . $sufix, 12, '0', STR_PAD_LEFT );
 			}
 		}
 		set_transient( 'redys_order_temp_' . $transaction_id2, $order_id, 3600 );
@@ -1216,7 +1231,7 @@ class WC_Gateway_Redsys_Global {
 	function redsys_amount_format( $total ) {
 
 		if ( 0 == $total || 0.00 == $total ) {
-			return 0;
+			return '000';
 		}
 
 		$order_total_sign = number_format( $total, 2, '', '' );
@@ -1284,7 +1299,7 @@ class WC_Gateway_Redsys_Global {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function check_order_has_pre_order( $oder_id ) {
-		
+
 		if ( ! class_exists( 'WC_Pre_Orders_Order' ) ) {
 			return false;
 		} elseif ( WC_Pre_Orders_Order::order_contains_pre_order( $order_id ) ) {
@@ -1527,7 +1542,7 @@ class WC_Gateway_Redsys_Global {
 	 */
 	public static function cart_needs_payment( $needs_payment, $cart ) {
 
-		$global = new WC_Gateway_Redsys_Global();
+		// $global = new WC_Gateway_Redsys_Global();
 		/*
 		if ( is_user_logged_in() ) {
 			$user_id = get_current_user_id();
@@ -1538,9 +1553,15 @@ class WC_Gateway_Redsys_Global {
 		}
 		*/
 		foreach ( $cart->get_cart() as $item => $values ) {
+			if ( 'yes' === WCRed()->debug ) {
+				WCRed()->log->add( 'redsys', 'LLega petición cart_needs_payment' );
+			}
 			$product_id = $values['product_id'];
 			$get        = get_post_meta( $product_id, '_redsystokenr', true );
 			if ( false === $needs_payment && 0 == $cart->total && 'yes' === $get ) {
+				if ( 'yes' === WCRed()->debug ) {
+					WCRed()->log->add( 'redsys', 'retornando cart_needs_payment TRUE Product:' . $product_id );
+				}
 				$needs_payment = true;
 				return $needs_payment;
 			}
@@ -1548,20 +1569,50 @@ class WC_Gateway_Redsys_Global {
 		return $needs_payment;
 	}
 	public static function order_needs_payment( $needs_payment, $order, $valid_order_statuses ) {
+		// $global = new WC_Gateway_Redsys_Global();
 		// Skips checks if the order already needs payment.
+		if ( 'yes' === WCRed()->debug ) {
+			WCRed()->log->add( 'redsys', 'LLega petición order_needs_payment' );
+		}
+
+		$order_id = $order->get_id();
+
+		$need_token = WCRed()->check_order_needs_token_r( $order_id );
+
+		if ( $need_token ) {
+			return true;
+		}
+
 		if ( $needs_payment ) {
+			if ( 'yes' === WCRed()->debug ) {
+				WCRed()->log->add( 'redsys', 'order_needs_payment TRUE, order_needs_payment retorna TRUE' );
+			}
 			return $needs_payment;
+		}
+
+		if ( 'yes' === WCRed()->debug ) {
+			WCRed()->log->add( 'redsys', '$order->get_total()' );
 		}
 
 		if ( $order->get_total() > 0 ) {
+			if ( 'yes' === WCRed()->debug ) {
+				WCRed()->log->add( 'redsys', '$order->get_total(): ' . $order->get_total() );
+			}
 			return $needs_payment;
 		}
 
-		$order_id  = $order->get_id();
-		$get_token = get_post_meta( $order_id, '_redsystokenr', true );
+		if ( 'yes' === WCRed()->debug ) {
+			WCRed()->log->add( 'redsys', 'order_needs_payment' );
+			WCRed()->log->add( 'redsys', '$order_id: ' . $order_id );
+			WCRed()->log->add( 'redsys', '$get_token: ' . $get_token );
+		}
 
 		if ( 'yes' === $get_token ) {
+			if ( 'yes' === WCRed()->debug ) {
+				WCRed()->log->add( 'redsys', 'LLega petición order_needs_payment, "yes" === $get_token' );
+			}
 			$needs_payment = true;
+			return $needs_payment;
 		}
 		return $needs_payment;
 	}
@@ -1617,7 +1668,7 @@ class WC_Gateway_Redsys_Global {
 	function get_token_by_id( $token_id ) {
 
 		$token = WC_Payment_Tokens::get( (int) $token_id );
-		return $token->get_token();
+		return (string) $token->get_token();
 	}
 	/**
 	 * Package: WooCommerce Redsys Gateway
@@ -1742,50 +1793,84 @@ class WC_Gateway_Redsys_Global {
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
-	function send_paygold_link( $post_id ) {
+	function send_paygold_link( $post_id = false, $data = false, $type = false ) {
 
-		$order_id                     = $post_id;
-		$order                        = $this->get_order( $order_id );
-		$type                         = get_post_meta( $post_id, '_paygold_link_type', true );
-		$send_to                      = get_post_meta( $post_id, '_paygold_link_send_to', true );
-		$liveurlws                    = 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl';
-		$customer                     = $this->get_redsys_option( 'customer', 'paygold' );
-		$commercename                 = $this->get_redsys_option( 'commercename', 'paygold' );
-		$DSMerchantTerminal           = $this->get_redsys_option( 'terminal', 'paygold' );
-		$secretsha256                 = $this->get_redsys_option( 'secretsha256', 'paygold' );
-		$descripredsys                = $this->get_redsys_option( 'descripredsys', 'paygold' );
-		$subject                      = remove_accents( $this->get_redsys_option( 'subject', 'paygold' ) );
-		$name                         = remove_accents( $order->get_billing_first_name() );
-		$last_name                    = remove_accents( $order->get_billing_last_name() );
-		$adress_ship_shipAddrLine1    = remove_accents( $order->get_billing_address_1() );
-		$adress_ship_shipAddrLine2    = remove_accents( $order->get_billing_address_2() );
-		$adress_ship_shipAddrCity     = remove_accents( $order->get_billing_city() );
-		$adress_ship_shipAddrState    = remove_accents( strtolower( $order->get_billing_state() ) );
-		$adress_ship_shipAddrPostCode = remove_accents( $order->get_billing_postcode() );
-		$adress_ship_shipAddrCountry  = remove_accents( strtolower( $order->get_billing_country() ) );
-		$customermail                 = $order->get_billing_email();
-		$miObj                        = new RedsysAPIWs();
-		$order_total_sign             = $this->redsys_amount_format( $order->get_total() );
-		$orderid2                     = $this->prepare_order_number( $order_id, 'paygold' );
-		$transaction_type             = 'F';
-		$currency_codes               = $this->get_currencies();
-		$currency                     = $currency_codes[ get_woocommerce_currency() ];
-		$paygold                      = new WC_Gateway_Paygold_Redsys();
-		$url_ok                       = esc_attr( add_query_arg( 'utm_nooverride', '1', $paygold->get_return_url( $order ) ) );
-		$product_description          = $this->product_description( $order, 'paygold' );
-		$textoLibre1                  = '';
-		$sms_txt                      = $this->get_redsys_option( 'sms', 'paygold' );
-		$description                  = WCRed()->product_description( $order, 'paygold' );
-		$p2f_xmldata                  = '&lt;![CDATA[&lt;nombreComprador&gt;' . $name . ' ' . $last_name . '&lt;&#47;nombreComprador&gt;&lt;direccionComprador&gt;' . $adress_ship_shipAddrLine1 . ' ' . $adress_ship_shipAddrLine2 . ', ' . $adress_ship_shipAddrCity . ', ' . $adress_ship_shipAddrState . ', ' . $adress_ship_shipAddrPostCode . ', ' . $adress_ship_shipAddrCountry . '&lt;&#47;direccionComprador&gt;&lt;textoLibre1&gt;' . $textoLibre1 . '&lt;&#47;textoLibre1&gt;&lt;subjectMailCliente&gt;' . $subject . '&lt;&#47;subjectMailCliente&gt;]]&gt;';
-		$ds_signature                 = '';
-		$expiration                   = $this->get_redsys_option( 'expiration', 'paygold' );
-		$not_use_https                = $this->get_redsys_option( 'not_use_https', 'paygold' );
-		$notify_url_not_https         = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_paygold', home_url( '/' ) ) );
-		$notify_url                   = add_query_arg( 'wc-api', 'WC_Gateway_paygold', home_url( '/' ) );
-		$log                          = new WC_Logger();
-			
+		if ( $post_id ) {
+
+			// Capturamos todo de $post_id
+			$order_id                     = $post_id;
+			$order                        = $this->get_order( $order_id );
+			$type                         = get_post_meta( $post_id, '_paygold_link_type', true );
+			$send_to                      = get_post_meta( $post_id, '_paygold_link_send_to', true );
+			$subject                      = remove_accents( $this->get_redsys_option( 'subject', 'paygold' ) );
+			$name                         = remove_accents( $order->get_billing_first_name() );
+			$last_name                    = remove_accents( $order->get_billing_last_name() );
+			$adress_ship_shipAddrLine1    = remove_accents( $order->get_billing_address_1() );
+			$adress_ship_shipAddrLine2    = remove_accents( $order->get_billing_address_2() );
+			$adress_ship_shipAddrCity     = remove_accents( $order->get_billing_city() );
+			$adress_ship_shipAddrState    = remove_accents( strtolower( $order->get_billing_state() ) );
+			$adress_ship_shipAddrPostCode = remove_accents( $order->get_billing_postcode() );
+			$adress_ship_shipAddrCountry  = remove_accents( strtolower( $order->get_billing_country() ) );
+			$customermail                 = $order->get_billing_email();
+			$order_total_sign             = $this->redsys_amount_format( $order->get_total() );
+			$orderid2                     = $this->prepare_order_number( $order_id, 'paygold' );
+			$product_description          = $this->product_description( $order, 'paygold' );
+			$description                  = WCRed()->product_description( $order, 'paygold' );
+		} else {
+
+			// Capturamos todo de $data.
+			// ******** data **********
+			// $data['user_id'];
+			// $data['token_type'];
+			// $data['send_type'];
+			// $POST['send_to'];
+			// $data['description'];
+
+			$order_id                     = $this->create_add_payment_method_number();
+			$user_id                      = $data['user_id'];
+			$user                         = get_user_by( 'id', $user_id );
+			$type                         = $data['link_type'];
+			$token_type                   = $data['token_type'];
+			$send_to                      = $data['send_to'];
+			$subject                      = remove_accents( $this->get_redsys_option( 'subject', 'paygold' ) );
+			$name                         = remove_accents( $user->billing_first_name );
+			$last_name                    = remove_accents( $user->billing_last_name );
+			$adress_ship_shipAddrLine1    = remove_accents( $user->billing_address_1 );
+			$adress_ship_shipAddrLine2    = remove_accents( $user->billing_address_2 );
+			$adress_ship_shipAddrCity     = remove_accents( $user->billing_city );
+			$adress_ship_shipAddrState    = remove_accents( strtolower( $user->billing_state ) );
+			$adress_ship_shipAddrPostCode = remove_accents( $user->billing_postcode );
+			$adress_ship_shipAddrCountry  = remove_accents( strtolower( $user->billing_country ) );
+			$customermail                 = $data['email'];
+			$order_total_sign             = '0';
+			$orderid2                     = $order_id;
+			$product_description          = 'Add Payment Method';
+			$description                  = $data['description'];
+		}
+		$textoLibre1          = '';
+		$sms_txt              = $this->get_redsys_option( 'sms', 'paygold' );
+		$currency_codes       = $this->get_currencies();
+		$currency             = $currency_codes[ get_woocommerce_currency() ];
+		$paygold              = new WC_Gateway_Paygold_Redsys();
+		$url_ok               = esc_attr( add_query_arg( 'utm_nooverride', '1', $paygold->get_return_url( $order ) ) );
+		$transaction_type     = 'F';
+		$miObj                = new RedsysAPIWs();
+		$liveurlws            = 'https://sis.redsys.es/sis/services/SerClsWSEntradaV2?wsdl';
+		$customer             = $this->get_redsys_option( 'customer', 'paygold' );
+		$commercename         = $this->get_redsys_option( 'commercename', 'paygold' );
+		$DSMerchantTerminal   = $this->get_redsys_option( 'terminal', 'paygold' );
+		$secretsha256         = $this->get_redsys_option( 'secretsha256', 'paygold' );
+		$descripredsys        = $this->get_redsys_option( 'descripredsys', 'paygold' );
+		$p2f_xmldata          = '&lt;![CDATA[&lt;nombreComprador&gt;' . $name . ' ' . $last_name . '&lt;&#47;nombreComprador&gt;&lt;direccionComprador&gt;' . $adress_ship_shipAddrLine1 . ' ' . $adress_ship_shipAddrLine2 . ', ' . $adress_ship_shipAddrCity . ', ' . $adress_ship_shipAddrState . ', ' . $adress_ship_shipAddrPostCode . ', ' . $adress_ship_shipAddrCountry . '&lt;&#47;direccionComprador&gt;&lt;textoLibre1&gt;' . $textoLibre1 . '&lt;&#47;textoLibre1&gt;&lt;subjectMailCliente&gt;' . $subject . '&lt;&#47;subjectMailCliente&gt;]]&gt;';
+		$ds_signature         = '';
+		$expiration           = $this->get_redsys_option( 'expiration', 'paygold' );
+		$not_use_https        = $this->get_redsys_option( 'not_use_https', 'paygold' );
+		$notify_url_not_https = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_paygold', home_url( '/' ) ) );
+		$notify_url           = add_query_arg( 'wc-api', 'WC_Gateway_paygold', home_url( '/' ) );
+		$log                  = new WC_Logger();
+
 		if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'paygold' ) ) {
-			$log->add( 'paygold', 'arrive to Global send_paygold_link() function');
+			$log->add( 'paygold', 'arrive to Global send_paygold_link() function' );
 		}
 
 		if ( ! $expiration ) {
@@ -1793,7 +1878,7 @@ class WC_Gateway_Redsys_Global {
 		} else {
 			$expiration = '1440';
 		}
-		
+
 		if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'paygold' ) ) {
 			$log->add( 'paygold', '$expiration: ' . $expiration );
 		}
@@ -1803,7 +1888,7 @@ class WC_Gateway_Redsys_Global {
 		} else {
 			$final_notify_url = $notify_url;
 		}
-		
+
 		if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'paygold' ) ) {
 			$log->add( 'paygold', '$final_notify_url: ' . $final_notify_url );
 		}
@@ -1828,6 +1913,27 @@ class WC_Gateway_Redsys_Global {
 		$DATOS_ENTRADA .= '<DS_MERCHANT_PRODUCTDESCRIPTION>' . $description . '</DS_MERCHANT_PRODUCTDESCRIPTION>';
 		$DATOS_ENTRADA .= '<DS_MERCHANT_P2F_EXPIRYDATE>' . $expiration . '</DS_MERCHANT_P2F_EXPIRYDATE>';
 		$DATOS_ENTRADA .= '<DS_MERCHANT_URLOK>' . $url_ok . '</DS_MERCHANT_URLOK>';
+		if ( 'Add Payment Method' === $product_description ) {
+			if ( 'R' === $token_type ) {
+				$DATOS_ENTRADA .= '<DS_MERCHANT_IDENTIFIER>REQUIRED</DS_MERCHANT_IDENTIFIER>';
+				$DATOS_ENTRADA .= '<DS_MERCHANT_COF_INI>S</DS_MERCHANT_COF_INI>';
+				$DATOS_ENTRADA .= '<DS_MERCHANT_COF_TYPE>R</DS_MERCHANT_COF_TYPE>';
+
+				$exp_sec = $expiration * 60;
+				$trans   = $orderid2 . '_add_method_type_subcription';
+				set_transient( $trans, 'R', $exp_sec );
+				set_transient( $orderid2 . '_user_id_token', $user_id, $exp_sec );
+			}
+			if ( 'C' === $token_type ) {
+				$DATOS_ENTRADA .= '<DS_MERCHANT_IDENTIFIER>REQUIRED<DS_MERCHANT_IDENTIFIER>';
+				$DATOS_ENTRADA .= '<DS_MERCHANT_COF_INI>S</DS_MERCHANT_COF_INI>';
+				$DATOS_ENTRADA .= '<DS_MERCHANT_COF_TYPE>C</DS_MERCHANT_COF_TYPE>';
+				$exp_sec        = $expiration * 60;
+				$trans          = $orderid2 . '_add_method_type_subcription';
+				set_transient( $trans, 'C', $exp_sec );
+				set_transient( $orderid2 . '_user_id_token', $user_id, $exp_sec );
+			}
+		}
 		$DATOS_ENTRADA .= $send;
 		$DATOS_ENTRADA .= $sms_text;
 		$DATOS_ENTRADA .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
@@ -1839,27 +1945,26 @@ class WC_Gateway_Redsys_Global {
 		$XML .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
 		$XML .= '<DS_SIGNATURE>' . $miObj->createMerchantSignatureHostToHost( $secretsha256, $DATOS_ENTRADA ) . '</DS_SIGNATURE>';
 		$XML .= '</REQUEST>';
-		
-		
+
 		if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'paygold' ) ) {
 			$log->add( 'paygold', '$XML: ' . $XML );
 		}
 
 		$CLIENTE  = new SoapClient( $liveurlws );
 		$RESPONSE = $CLIENTE->trataPeticion( array( 'datoEntrada' => $XML ) );
-		
+
 		if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'paygold' ) ) {
 			$log->add( 'paygold', '$RESPONSE: ' . print_r( $RESPONSE, true ) );
 		}
 
 		if ( isset( $RESPONSE->trataPeticionReturn ) ) {
 			$XML_RETORNO       = new SimpleXMLElement( $RESPONSE->trataPeticionReturn );
-			$authorisationcode = json_decode( $XML_RETORNO->OPERACION->Ds_AuthorisationCode );
-			$codigo            = json_decode( $XML_RETORNO->CODIGO );
-			$redsys_order      = json_decode( $XML_RETORNO->OPERACION->Ds_Order );
-			$terminal          = json_decode( $XML_RETORNO->OPERACION->Ds_Terminal );
-			$currency_code     = json_decode( $XML_RETORNO->OPERACION->Ds_Currency );
-			$response          = json_decode( $XML_RETORNO->OPERACION->Ds_Response );
+			$authorisationcode = (string) $XML_RETORNO->OPERACION->Ds_AuthorisationCode;
+			$codigo            = (string) $XML_RETORNO->CODIGO;
+			$redsys_order      = (string) $XML_RETORNO->OPERACION->Ds_Order;
+			$terminal          = (string) $XML_RETORNO->OPERACION->Ds_Terminal;
+			$currency_code     = (string) $XML_RETORNO->OPERACION->Ds_Currency;
+			$response          = (string) $XML_RETORNO->OPERACION->Ds_Response;
 			$urlpago2fases     = (string) $XML_RETORNO->OPERACION->Ds_UrlPago2Fases;
 		} else {
 			if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'paygold' ) ) {
@@ -1868,7 +1973,7 @@ class WC_Gateway_Redsys_Global {
 			return 'error';
 		}
 
-		if ( 0 === $codigo && 9998 === $response ) {
+		if ( '0' === $codigo && '9998' === $response ) {
 			return $urlpago2fases;
 			if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'paygold' ) ) {
 				$log->add( 'paygold', '$urlpago2fases: ' . $urlpago2fases );
@@ -1896,5 +2001,83 @@ class WC_Gateway_Redsys_Global {
 		} else {
 			return false;
 		}
+	}
+
+	function check_order_needs_token_r( $order_id ) {
+		$order = wc_get_order( $order_id );
+		$items = $order->get_items();
+		foreach ( $items as $item ) {
+			$product_id = $item->get_product_id();
+			$get        = get_post_meta( $product_id, '_redsystokenr', true );
+			if ( 'yes' === $get ) {
+				return true;
+			}
+			continue;
+		}
+		return false;
+	}
+
+	function do_make_3dmethod( $order_id ) {
+
+		$threeDSServerTransID = get_transient( 'threeDSServerTransID_' . $order_id );
+		$threeDSMethodURL     = get_transient( 'threeDSMethodURL_' . $order_id );
+		$final_notify_url     = get_transient( 'final_notify_url_' . $order_id );
+		$array_data           = array(
+			'threeDSServerTransID'         => $threeDSServerTransID,
+			'threeDSMethodNotificationURL' => $final_notify_url,
+		);
+		$json                 = json_encode( $array_data );
+
+		$json_datos_3DSecure_codificad = rtrim( strtr( base64_encode( $json ), '+/', '-_' ), '=' );
+
+		$tresdmehod =
+			'<form id="tresdmethod" method="POST" action="' . $threeDSMethodURL . '">
+				<input type="hidden" name="threeDSMethodData" value="' . $json_datos_3DSecure_codificad . '" />
+				<input name="submit_3ds" type="submit" class="button-alt" id="submit_redsys_3ds_method" value="' . __( 'Press here if you are not redirected', 'woocommerce-redsys' ) . '" />
+			</form>';
+			return $tresdmehod;
+	}
+
+	function print_overlay_image() {
+
+		$image = REDSYS_PLUGIN_URL_P . 'assets/images/loader-2.gif';
+		echo '
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+			<head>
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+				<title>Untitled Document</title>
+				<style type="text/css">
+					body {
+						background: #EAB897;
+						opacity: 0.6;
+					}
+					section {
+					  width: 100%;
+					  /*border: 1px solid #2d2d2d;*/
+					  display: flex;
+					  justify-content: center;
+					  align-items: center;
+					}
+					#redsysover1 {
+						color: #fff;
+						padding: 12px;
+						display: inline-block;
+					}
+					h2 {
+						color: #fff;
+						text-align: center;
+						font-size: xx-large;
+					}
+				</style>
+			</head>
+			<body>
+				<section>
+					<div id="redsysover1">
+						<img src="' . $image . '" alt="" width="250" height="250" />
+						<h2>Processing payment</h2>
+					</div>
+				</section>
+			</body>
+		</html>';
 	}
 }

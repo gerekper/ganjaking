@@ -15,7 +15,7 @@
       "includes/theme_support/divi.php",
       "includes/theme_support/avada.php",
       "includes/theme_support/thrivethemes-gm-init.php",
-      "includes/theme_support/visual_composer.php",
+      "includes/theme_support/visual_composer/visual_composer.php",
 
       "includes/migration/migrate.php",
       "template/loader.php",

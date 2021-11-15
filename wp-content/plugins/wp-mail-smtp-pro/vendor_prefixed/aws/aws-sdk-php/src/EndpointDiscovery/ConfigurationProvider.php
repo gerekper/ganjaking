@@ -95,7 +95,7 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
                 $enabled = \getenv(self::ENV_ENABLED_ALT);
             }
             if ($enabled !== \false && $enabled !== '') {
-                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\EndpointDiscovery\Configuration($enabled, $cacheLimit));
+                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\EndpointDiscovery\Configuration($enabled, $cacheLimit));
             }
             return self::reject('Could not find environment variable config' . ' in ' . self::ENV_ENABLED);
         };
@@ -124,7 +124,7 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
             }
         }
         return function () use($enabled) {
-            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\EndpointDiscovery\Configuration($enabled, self::DEFAULT_CACHE_LIMIT));
+            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\EndpointDiscovery\Configuration($enabled, self::DEFAULT_CACHE_LIMIT));
         };
     }
     /**
@@ -158,7 +158,7 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
             if (!isset($data[$profile]['endpoint_discovery_enabled'])) {
                 return self::reject("Required endpoint discovery config values \n                    not present in INI profile '{$profile}' ({$filename})");
             }
-            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\EndpointDiscovery\Configuration($data[$profile]['endpoint_discovery_enabled'], $cacheLimit));
+            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\EndpointDiscovery\Configuration($data[$profile]['endpoint_discovery_enabled'], $cacheLimit));
         };
     }
     /**

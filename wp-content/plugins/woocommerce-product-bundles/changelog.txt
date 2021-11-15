@@ -1,5 +1,11 @@
 *** WooCommerce Product Bundles ***
 
+2021.11.09 - version 6.12.6
+* Feature - Added compatibility with PayPal Payments to hide quick pay buttons in Bundle product pages.
+* Dev - Added 'woocommerce_bundles_after_bundled_item_price' action hook.
+* Fix - Prevent infinite max Bundle price when the max Bundle quantity is capped.
+* Fix - Trigger 'woocommerce_bundled_cart_item_removed' when a bundled item is removed from the cart.
+
 2021.10.01 - version 6.12.5
 * Dev - Added 'bundled_item_reset_variation_image' JS filter to make variation image reset logic for optional bundled items customizable.
 * Fix - Fixed an infinite loop affecting discounts when using Memberships.

@@ -183,6 +183,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				<?php
 			}
 			if ( class_exists( 'SOAPClient' ) ) {
+				$exceptionMessage = false;
 				try {
 					  $soapClient = new SoapClient( 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntradaV2?wsdl' );
 				} catch ( Exception $e ) {
@@ -234,10 +235,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				}
 				?>
 				<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'woocommerce-redsys' ); ?></strong>: 
-																	   <?php
-																		esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
-																		echo $formated_currencies;
-																		?>
+				<?php
+					esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
+					echo $formated_currencies;
+				?>
 		</p></div>
 				<?php
 			endif;
@@ -856,7 +857,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	 */
 	function hide_payment_method_add_method( $available_gateways ) {
 
-		if ( ! is_admin() && is_account_page() ) {
+		if ( ! is_admin() && is_wc_endpoint_url( 'add-payment-method' ) ) {
 			unset( $available_gateways[ $this->id ] );
 		}
 		return $available_gateways;
@@ -1074,11 +1075,16 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	 */
 	function update_checkout_on_change( $fields ) {
 
-		$customfieldname = $this->customfieldname;
+		if ( isset( $this->customfieldname ) && $this->customfieldname ) {
+			$customfieldname = $this->customfieldname;
+		} else {
+			$customfieldname = 'billing_first_name';
+		}
 		if ( ! empty( $customfieldname ) || '' !== $customfieldname ) {
 			$fields['billing'][ $customfieldname ]['class'][] = 'update_totals_on_change';
 		} else {
 			$fields['billing']['billing_first_name']['class'][] = 'update_totals_on_change';
+
 		}
 		return $fields;
 	}
@@ -1342,7 +1348,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', ' ' );
 				$this->log->add( 'insite', '/****************************/' );
-				$this->log->add( 'insite', '          The call            ' );
+				$this->log->add( 'insite', '          The call 1          ' );
 				$this->log->add( 'insite', '/****************************/' );
 				$this->log->add( 'insite', ' ' );
 				$this->log->add( 'insite', $DATOS_ENTRADA );
@@ -1376,7 +1382,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', ' ' );
 				// $this->log->add( 'insite', '$acctinfo: ' . $acctinfo );
-				$this->log->add( 'insite', '$XML_RETORNO: ' . print_r( $XML_RETORNO, true ) );
+				$this->log->add( 'insite', '$XML_RETORNO 1 IniciaPeticion: ' . print_r( $XML_RETORNO, true ) );
 			}
 
 			$ds_emv3ds_json       = $XML_RETORNO->INFOTARJETA->Ds_EMV3DS;
@@ -1422,7 +1428,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'insite', '          The XML             ' );
 					$this->log->add( 'insite', '/****************************/' );
 					$this->log->add( 'insite', ' ' );
-					$this->log->add( 'insite', $XML );
+					$this->log->add( 'insite', 'trataPeticion 1: ' . $XML );
 					$this->log->add( 'insite', ' ' );
 				}
 				$CLIENTE    = new SoapClient( $redsys_adr );
@@ -1430,16 +1436,16 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 
 				if ( isset( $responsews->trataPeticionReturn ) ) {
 					$XML_RETORNO       = new SimpleXMLElement( $responsews->trataPeticionReturn );
-					$authorisationcode = json_decode( $XML_RETORNO->OPERACION->Ds_AuthorisationCode );
-					$codigo            = json_decode( $XML_RETORNO->CODIGO );
-					$redsys_order      = json_decode( $XML_RETORNO->OPERACION->Ds_Order );
-					$terminal          = json_decode( $XML_RETORNO->OPERACION->Ds_Terminal );
-					$currency_code     = json_decode( $XML_RETORNO->OPERACION->Ds_Currency );
+					$authorisationcode = (string)$XML_RETORNO->OPERACION->Ds_AuthorisationCode;
+					$codigo            = (string)$XML_RETORNO->CODIGO;
+					$redsys_order      = (string)$XML_RETORNO->OPERACION->Ds_Order;
+					$terminal          = (string)$XML_RETORNO->OPERACION->Ds_Terminal;
+					$currency_code     = (string)$XML_RETORNO->OPERACION->Ds_Currency;
 				}
 
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'insite', ' ' );
-					$this->log->add( 'insite', '$XML_RETORNO: ' . print_r( $XML_RETORNO, true ) );
+					$this->log->add( 'insite', '$XML_RETORNO 2: ' . print_r( $XML_RETORNO, true ) );
 					$this->log->add( 'insite', 'Ds_AuthorisationCode: ' . $authorisationcode );
 				}
 				if ( $authorisationcode ) {
@@ -1566,7 +1572,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'insite', '          The XML             ' );
 					$this->log->add( 'insite', '/****************************/' );
 					$this->log->add( 'insite', ' ' );
-					$this->log->add( 'insite', $XML );
+					$this->log->add( 'insite', 'trataPeticion 2: ' . $XML );
 					$this->log->add( 'insite', ' ' );
 				}
 				$CLIENTE    = new SoapClient( $redsys_adr );
@@ -1580,13 +1586,13 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'insite', ' ' );
 					$this->log->add( 'insite', '$responsews: ' . print_r( $responsews, true ) );
-					$this->log->add( 'insite', '$XML_RETORNO: ' . print_r( $XML_RETORNO, true ) );
+					$this->log->add( 'insite', '$XML_RETORNO 3: ' . print_r( $XML_RETORNO, true ) );
 				}
-				$authorisationcode = json_decode( $XML_RETORNO->OPERACION->Ds_AuthorisationCode );
-				$codigo            = json_decode( $XML_RETORNO->CODIGO );
-				$redsys_order      = json_decode( $XML_RETORNO->OPERACION->Ds_Order );
-				$terminal          = json_decode( $XML_RETORNO->OPERACION->Ds_Terminal );
-				$currency_code     = json_decode( $XML_RETORNO->OPERACION->Ds_Currency );
+				$authorisationcode = (string)$XML_RETORNO->OPERACION->Ds_AuthorisationCode;
+				$codigo            = (string)$XML_RETORNO->CODIGO;
+				$redsys_order      = (string)$XML_RETORNO->OPERACION->Ds_Order;
+				$terminal          = (string)$XML_RETORNO->OPERACION->Ds_Terminal;
+				$currency_code     = (string)$XML_RETORNO->OPERACION->Ds_Currency;
 
 				if ( $authorisationcode ) {
 					update_post_meta( $order_id, '_redsys_done', 'yes' );
@@ -1978,7 +1984,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', ' ' );
 				$this->log->add( 'insite', '/****************************/' );
-				$this->log->add( 'insite', '          The call            ' );
+				$this->log->add( 'insite', '          The call  2          ' );
 				$this->log->add( 'insite', '/****************************/' );
 				$this->log->add( 'insite', ' ' );
 				$this->log->add( 'insite', $DATOS_ENTRADA );
@@ -2014,7 +2020,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'insite', ' ' );
 					// $this->log->add( 'insite', '$acctinfo: ' . $acctinfo );
-					$this->log->add( 'insite', '$XML_RETORNO: ' . print_r( $XML_RETORNO, true ) );
+					$this->log->add( 'insite', '$XML_RETORNO 4 IniciaPeticion: ' . print_r( $XML_RETORNO, true ) );
 				}
 
 				$ds_emv3ds_json       = $XML_RETORNO->INFOTARJETA->Ds_EMV3DS;
@@ -2060,7 +2066,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'insite', '          The XML             ' );
 						$this->log->add( 'insite', '/****************************/' );
 						$this->log->add( 'insite', ' ' );
-						$this->log->add( 'insite', $XML );
+						$this->log->add( 'insite', 'trataPeticion 3: ' . $XML );
 						$this->log->add( 'insite', ' ' );
 					}
 					$CLIENTE    = new SoapClient( $redsys_adr );
@@ -2068,16 +2074,16 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 
 					if ( isset( $responsews->trataPeticionReturn ) ) {
 						$XML_RETORNO       = new SimpleXMLElement( $responsews->trataPeticionReturn );
-						$authorisationcode = json_decode( $XML_RETORNO->OPERACION->Ds_AuthorisationCode );
-						$codigo            = json_decode( $XML_RETORNO->CODIGO );
-						$redsys_order      = json_decode( $XML_RETORNO->OPERACION->Ds_Order );
-						$terminal          = json_decode( $XML_RETORNO->OPERACION->Ds_Terminal );
-						$currency_code     = json_decode( $XML_RETORNO->OPERACION->Ds_Currency );
+						$authorisationcode = (string)$XML_RETORNO->OPERACION->Ds_AuthorisationCode;
+						$codigo            = (string)$XML_RETORNO->CODIGO;
+						$redsys_order      = (string)$XML_RETORNO->OPERACION->Ds_Order;
+						$terminal          = (string)$XML_RETORNO->OPERACION->Ds_Terminal;
+						$currency_code     = (string)$XML_RETORNO->OPERACION->Ds_Currency;
 					}
 
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'insite', ' ' );
-						$this->log->add( 'insite', '$XML_RETORNO: ' . print_r( $XML_RETORNO, true ) );
+						$this->log->add( 'insite', '$XML_RETORNO 5: ' . print_r( $XML_RETORNO, true ) );
 						$this->log->add( 'insite', 'Ds_AuthorisationCode: ' . $authorisationcode );
 					}
 					if ( $authorisationcode ) {
@@ -2202,7 +2208,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'insite', '          The XML             ' );
 						$this->log->add( 'insite', '/****************************/' );
 						$this->log->add( 'insite', ' ' );
-						$this->log->add( 'insite', $XML );
+						$this->log->add( 'insite', 'trataPeticion 4: ' . $XML );
 						$this->log->add( 'insite', ' ' );
 					}
 					$CLIENTE    = new SoapClient( $redsys_adr );
@@ -2216,13 +2222,13 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'insite', ' ' );
 						$this->log->add( 'insite', '$responsews: ' . print_r( $responsews, true ) );
-						$this->log->add( 'insite', '$XML_RETORNO: ' . print_r( $XML_RETORNO, true ) );
+						$this->log->add( 'insite', '$XML_RETORNO 6: ' . print_r( $XML_RETORNO, true ) );
 					}
-					$authorisationcode = json_decode( $XML_RETORNO->OPERACION->Ds_AuthorisationCode );
-					$codigo            = json_decode( $XML_RETORNO->CODIGO );
-					$redsys_order      = json_decode( $XML_RETORNO->OPERACION->Ds_Order );
-					$terminal          = json_decode( $XML_RETORNO->OPERACION->Ds_Terminal );
-					$currency_code     = json_decode( $XML_RETORNO->OPERACION->Ds_Currency );
+					$authorisationcode = (string)$XML_RETORNO->OPERACION->Ds_AuthorisationCode;
+					$codigo            = (string)$XML_RETORNO->CODIGO;
+					$redsys_order      = (string)$XML_RETORNO->OPERACION->Ds_Order;
+					$terminal          = (string)$XML_RETORNO->OPERACION->Ds_Terminal;
+					$currency_code     = (string)$XML_RETORNO->OPERACION->Ds_Currency;
 
 					if ( $authorisationcode ) {
 						update_post_meta( $order_id, '_redsys_done', 'yes' );
@@ -2320,6 +2326,10 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			} else {
 				$CLIENTE    = new SoapClient( $redsys_adr );
 				$responsews = $CLIENTE->trataPeticion( array( 'datoEntrada' => $XML ) );
+				
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'trataPeticion 5: ' . $XML );
+				}
 
 				if ( isset( $responsews->trataPeticionReturn ) ) {
 					$XML_RETORNO = new SimpleXMLElement( $responsews->trataPeticionReturn );
@@ -2475,7 +2485,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		}
 
 		$customfieldname = $this->customfieldname;
-		if ( ! empty( $customfieldname ) || '' !== $customfieldname ) {
+		if ( ! empty( $customfieldname ) || '' !== $customfieldname && $customfieldname ) {
 			if ( isset( $post_data[ $customfieldname ] ) ) {
 				$billing_first_name = $post_data[ $customfieldname ];
 			} else {
@@ -2689,6 +2699,20 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				echo '</ul>';
 				echo '</div>';
 			}
+			if ( ( ( 'yes' === $this->pay1clic && is_user_logged_in() ) || 'no' !== $need_token ) ) {
+				if ( 'no' === $need_token ) {
+					echo '
+							<div id="redsys_save_token">
+								<label><input type="checkbox" id="_redsys_save_token" name="_redsys_save_token" onclick="redysTokenCheck(this);" value="yes"> ' . __( 'Save payment information to my account for future purchases.', 'woocommerce-redsys' ) . '</label>
+							</div>';
+				} else {
+					echo '
+								<div id="redsys_save_token">
+									' . __( 'We need to store your credit card for future payments. It will be stored by our bank, so it is totally safe.', 'woocommerce-redsys' ) . '
+									<input type="hidden" id="_redsys_save_token" name="_redsys_save_token" value="yes">
+								</div>';
+				}
+			}
 
 			// Debug line comment
 			/*
@@ -2736,20 +2760,6 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				<div id="card-form"/></div>
 			</fieldset>
 			<div>';
-		}
-		if ( ( ( 'yes' === $this->pay1clic && is_user_logged_in() ) || 'no' !== $need_token ) ) {
-			if ( 'no' === $need_token ) {
-				echo '
-						<div id="redsys_save_token">
-							<label><input type="checkbox" id="_redsys_save_token" name="_redsys_save_token" onclick="redysTokenCheck(this);" value="yes"> ' . __( 'Save payment information to my account for future purchases.', 'woocommerce-redsys' ) . '</label>
-						</div>';
-			} else {
-				echo '
-							<div id="redsys_save_token">
-								' . __( 'We need to store your credit card for future payments. It will be stored by our bank, so it is totally safe.', 'woocommerce-redsys' ) . '
-								<input type="hidden" id="_redsys_save_token" name="_redsys_save_token" value="yes">
-							</div>';
-			}
 		}
 					echo '
 					<div class="input-wrapper" id="redsys-submit"></div>
@@ -3047,7 +3057,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'insite', ' ' );
 			$this->log->add( 'insite', '/****************************/' );
-			$this->log->add( 'insite', '          The call            ' );
+			$this->log->add( 'insite', '          The call  3          ' );
 			$this->log->add( 'insite', '/****************************/' );
 			$this->log->add( 'insite', ' ' );
 			$this->log->add( 'insite', $DATOS_ENTRADA );
@@ -3081,7 +3091,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'insite', ' ' );
 			// $this->log->add( 'insite', '$acctinfo: ' . $acctinfo );
-			$this->log->add( 'insite', '$XML_RETORNO: ' . print_r( $XML_RETORNO, true ) );
+			$this->log->add( 'insite', '$XML_RETORNO 7 IniciaPeticion: ' . print_r( $XML_RETORNO, true ) );
 		}
 
 		$ds_emv3ds_json       = $XML_RETORNO->INFOTARJETA->Ds_EMV3DS;
@@ -3131,7 +3141,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'insite', '          The XML             ' );
 				$this->log->add( 'insite', '/****************************/' );
 				$this->log->add( 'insite', ' ' );
-				$this->log->add( 'insite', $XML );
+				$this->log->add( 'insite', 'trataPeticion 6: ' . $XML );
 				$this->log->add( 'insite', ' ' );
 			}
 			$CLIENTE  = new SoapClient( $redsys_adr );
@@ -3139,16 +3149,16 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 
 			if ( isset( $RESPONSE->trataPeticionReturn ) ) {
 				$XML_RETORNO       = new SimpleXMLElement( $RESPONSE->trataPeticionReturn );
-				$authorisationcode = json_decode( $XML_RETORNO->OPERACION->Ds_AuthorisationCode );
-				$codigo            = json_decode( $XML_RETORNO->CODIGO );
-				$redsys_order      = json_decode( $XML_RETORNO->OPERACION->Ds_Order );
-				$terminal          = json_decode( $XML_RETORNO->OPERACION->Ds_Terminal );
-				$currency_code     = json_decode( $XML_RETORNO->OPERACION->Ds_Currency );
+				$authorisationcode = (string)$XML_RETORNO->OPERACION->Ds_AuthorisationCode;
+				$codigo            = (string)$XML_RETORNO->CODIGO;
+				$redsys_order      = (string)$XML_RETORNO->OPERACION->Ds_Order;
+				$terminal          = (string)$XML_RETORNO->OPERACION->Ds_Terminal;
+				$currency_code     = (string)$XML_RETORNO->OPERACION->Ds_Currency;
 			}
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', ' ' );
-				$this->log->add( 'insite', '$XML_RETORNO: ' . print_r( $XML_RETORNO, true ) );
+				$this->log->add( 'insite', '$XML_RETORNO 8: ' . print_r( $XML_RETORNO, true ) );
 				$this->log->add( 'insite', 'Ds_AuthorisationCode: ' . $authorisationcode );
 			}
 			if ( $authorisationcode ) {
@@ -3271,7 +3281,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'insite', '          The XML             ' );
 				$this->log->add( 'insite', '/****************************/' );
 				$this->log->add( 'insite', ' ' );
-				$this->log->add( 'insite', $XML );
+				$this->log->add( 'insite', 'trataPeticion 7: ' . $XML );
 				$this->log->add( 'insite', ' ' );
 			}
 			$CLIENTE  = new SoapClient( $redsys_adr );
@@ -3285,13 +3295,13 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', ' ' );
 				$this->log->add( 'insite', '$RESPONSE: ' . print_r( $RESPONSE, true ) );
-				$this->log->add( 'insite', '$XML_RETORNO: ' . print_r( $XML_RETORNO, true ) );
+				$this->log->add( 'insite', '$XML_RETORNO 9: ' . print_r( $XML_RETORNO, true ) );
 			}
-			$authorisationcode = json_decode( $XML_RETORNO->OPERACION->Ds_AuthorisationCode );
-			$codigo            = json_decode( $XML_RETORNO->CODIGO );
-			$redsys_order      = json_decode( $XML_RETORNO->OPERACION->Ds_Order );
-			$terminal          = json_decode( $XML_RETORNO->OPERACION->Ds_Terminal );
-			$currency_code     = json_decode( $XML_RETORNO->OPERACION->Ds_Currency );
+			$authorisationcode = (string)$XML_RETORNO->OPERACION->Ds_AuthorisationCode;
+			$codigo            = (string)$XML_RETORNO->CODIGO;
+			$redsys_order      = (string)$XML_RETORNO->OPERACION->Ds_Order;
+			$terminal          = (string)$XML_RETORNO->OPERACION->Ds_Terminal;
+			$currency_code     = (string)$XML_RETORNO->OPERACION->Ds_Currency;
 
 			if ( $authorisationcode ) {
 				update_post_meta( $order_id, '_redsys_done', 'yes' );
@@ -3439,6 +3449,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		}
 		if ( $order_total_sign <= 3000 ) {
 			$lwv = '<DS_MERCHANT_EXCEP_SCA>LWV</DS_MERCHANT_EXCEP_SCA>';
+			set_transient( $order_id . '_ds_merchant_excep_sca', 'LWV', 3600 );
 		} else {
 			$lwv = '';
 		}
@@ -3449,8 +3460,21 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'insite', ' ' );
 			}
 			$lwv = '<DS_MERCHANT_EXCEP_SCA>TRA</DS_MERCHANT_EXCEP_SCA>';
+			set_transient( $order_id . '_ds_merchant_excep_sca', 'TRA', 3600 );
 		}
-
+		
+		set_transient( $order_id . '_ds_merchant_cof_ini', $cof_ini, 3600 );
+		set_transient( $order_id . '_ds_merchant_cof_type', $cof_type, 3600 );
+		set_transient( $order_id . '_insite_token_redsys', $customer_token_c, 3600 );
+		set_transient( $order_id . '_insite_token_txnid', $cof_txnid, 3600 );
+		
+		set_transient( $order_id . '_insite_merchant_amount', $order_total_sign, 3600 );
+		set_transient( $order_id . '_insite_merchant_order', $orderid2, 3600 );
+		set_transient( $order_id . '_insite_merchantcode', $customer, 3600 );
+		set_transient( $order_id . '_insite_terminal', $DSMerchantTerminal, 3600 );
+		set_transient( $order_id . '_insite_transaction_type', $transaction_type, 3600 );
+		set_transient( $order_id . '_insite_currency', $currency, 3600 );
+		
 		$DATOS_ENTRADA  = '<DATOSENTRADA>';
 		$DATOS_ENTRADA .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
 		$DATOS_ENTRADA .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
@@ -3475,7 +3499,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'insite', ' ' );
 			$this->log->add( 'insite', '$DATOS_ENTRADA: ' . $DATOS_ENTRADA );
-			$this->log->add( 'insite', '$XML: ' . $XML );
+			$this->log->add( 'insite', '$XML IniciaPeticion 1: ' . $XML );
 			$this->log->add( 'insite', ' ' );
 		}
 
@@ -3492,7 +3516,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$threeDSInfo          = '';
 		$threeDSMethodURL     = '';
 		if ( isset( $respuesta->protocolVersion ) ) {
-			$protocolVersion = trim( $respuesta->protocolVersion );
+			$protocolVersion = (string) $respuesta->protocolVersion;
 		}
 		if ( isset( $XML_RETORNO->INFOTARJETA->Ds_Card_PSD2 ) ) {
 			$Ds_Card_PSD2 = trim( $XML_RETORNO->INFOTARJETA->Ds_Card_PSD2 );
@@ -3508,7 +3532,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		}
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'insite', ' ' );
-			$this->log->add( 'insite', '$XML_RETORNO: ' . print_r( $XML_RETORNO, true ) );
+			$this->log->add( 'insite', '$XML_RETORNO 10 IniciaPeticion: ' . print_r( $XML_RETORNO, true ) );
 			$this->log->add( 'insite', '$respuesta: ' . print_r( $respuesta, true ) );
 			$this->log->add( 'insite', 'protocolVersion: ' . $protocolVersion );
 			$this->log->add( 'insite', 'threeDSServerTransID: ' . $threeDSServerTransID );
@@ -3518,7 +3542,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'insite', ' ' );
 		}
 
-		if ( ( 'NO_3DS_v2' === $protocolVersion || ( '1.0.2' === $protocolVersion ) && 'Y' === $Ds_Card_PSD2 ) ) {
+		if ( ( 'NO_3DS_v2' === $protocolVersion || ( '1.0.2' === $protocolVersion ) ) ) {
 			// Es protocolo 1.0.2
 			$protocolVersion = '1.0.2';
 			if ( 'yes' === $this->debug ) {
@@ -3594,7 +3618,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', ' ' );
 				$this->log->add( 'insite', '$DATOS_ENTRADA: ' . $DATOS_ENTRADA );
-				$this->log->add( 'insite', '$XML: ' . $XML );
+				$this->log->add( 'insite', 'trataPeticion 8: ' . $XML );
 				$this->log->add( 'insite', ' ' );
 			}
 
@@ -3616,7 +3640,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug && ! $authorisationcode ) {
 				$this->log->add( 'insite', ' ' );
 				$this->log->add( 'insite', '$RESPONSE: ' . print_r( $RESPONSE, true ) );
-				$this->log->add( 'insite', '$XML_RETORNO: ' . print_r( $XML_RETORNO, true ) );
+				$this->log->add( 'insite', '$XML_RETORNO 11: ' . print_r( $XML_RETORNO, true ) );
 				$this->log->add( 'insite', '$codigo: ' . $codigo );
 				$this->log->add( 'insite', '$respuesta: ' . print_r( $respuestaeds, true ) );
 				$this->log->add( 'insite', 'protocolVersion: ' . $protocolVersion );
@@ -3641,6 +3665,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				// Guardamos todo en transciends
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'insite', '/***************/' );
+					$this->log->add( 'insite', '     1.0.2'        );
 					$this->log->add( 'insite', '  Hay Challenge  ' );
 					$this->log->add( 'insite', '/***************/' );
 				}
@@ -3772,7 +3797,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				}
 				return 'success';
 			}
-		} elseif ( ( ( '2.1.0' === $protocolVersion ) || ( '2.2.0' === $protocolVersion ) ) && ( 'Y' === $Ds_Card_PSD2 ) ) {
+		} elseif ( ( ( '2.1.0' === $protocolVersion ) || ( '2.2.0' === $protocolVersion ) ) ) {
 			// Es protocolo 2.1.0
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', 'Es Protocolo 2.1.0 y PSD2' );
@@ -3808,6 +3833,13 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'insite', '$threeDSServerTransID: ' . $threeDSServerTransID );
 				$this->log->add( 'insite', '$final_notify_url: ' . $final_notify_url );
 				$this->log->add( 'insite', '$threeDSMethodURL: ' . $threeDSMethodURL );
+			}
+			
+			if ( ! empty( $threeDSMethodURL ) ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'There is threeDSMethodURL, contnue with PSD2 Autentification' . $json_pre );
+				}
+				return 'threeDSMethodURL';
 			}
 			$data     = array();
 			$data     = array(
@@ -3971,7 +4003,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			$XML           .= '</REQUEST>';
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'insite', 'The XML: ' . $XML );
+				$this->log->add( 'insite', 'trataPeticion 9: ' . $XML );
 			}
 
 			$CLIENTE  = new SoapClient( $redsys_adr );
@@ -3985,13 +4017,14 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			$threeDSInfo       = $json_decode->threeDSInfo;
 			$protocolVersion   = $json_decode->protocolVersion;
 			$acsURL            = $json_decode->acsURL;
-			$PAReq             = $json_decode->PAReq;
+			$PAReq             = trim( $json_decode->{ 'PAReq'} );
+			$creq              = trim( $json_decode->{ 'creq'} );
 			$MD                = $json_decode->MD;
 			$authorisationcode = trim( $XML_RETORNO->OPERACION->Ds_AuthorisationCode );
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', ' ' );
-				$this->log->add( 'insite', '$XML_RETORNO: ' . print_r( $XML_RETORNO, true ) );
+				$this->log->add( 'insite', '$XML_RETORNO 12: ' . print_r( $XML_RETORNO, true ) );
 				$this->log->add( 'insite', 'Ds_EMV3DS: ' . $Ds_EMV3DS );
 				$this->log->add( 'insite', '$threeDSInfo: ' . $threeDSInfo );
 				$this->log->add( 'insite', ' ' );
@@ -4002,6 +4035,8 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				// Guardamos todo en transciends
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'insite', '/***************/' );
+					$this->log->add( 'insite', '  2.2.0 y 2.2.1' );
+					$this->log->add( 'insite', 'pay_with_token_c()' );
 					$this->log->add( 'insite', '  Hay Challenge  ' );
 					$this->log->add( 'insite', '/***************/' );
 				}
@@ -4011,6 +4046,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				set_transient( 'PAReq_' . $order_id, $PAReq, 300 );
 				set_transient( 'MD_' . $order_id, $MD, 300 );
 				set_transient( $MD, $order_id, 300 );
+				set_transient( 'creq_' . $order_id, $creq, 300 );
 				set_transient( 'amount_' . $MD, $order_total_sign, 300 );
 				set_transient( 'order_' . $MD, $orderid2, 300 );
 				set_transient( 'merchantcode_' . $MD, $customer, 300 );
@@ -4150,25 +4186,99 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	function process_payment( $order_id ) {
+		global $woocommerce;
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'insite', __( 'Next Step, Call', 'woocommerce-redsys' ) );
+			$this->log->add( 'insite', __( 'Next Step, Call. process_payment()', 'woocommerce-redsys' ) );
 		}
-		$ordermi        = get_post_meta( $order_id, '_temp_redsys_order_number', true );
-		$order          = WCRed()->get_order( $order_id );
-		$user_id        = $order->get_user_id();
-		$rneeds_payment = get_transient( $ordermi . '_insite_needs_payment' );
-		$secretsha256   = $this->get_redsys_sha256( $user_id );
-		$redsys_adr     = $this->get_redsys_url_gateway( $user_id );
-		$tokennum       = get_transient( $order_id . '_insite_use_token' );
-
+		$ordermi                         = get_post_meta( $order_id, '_temp_redsys_order_number', true );
+		$order                           = WCRed()->get_order( $order_id );
+		$user_id                         = $order->get_user_id();
+		$rneeds_payment                  = get_transient( $ordermi . '_insite_needs_payment' );
+		$secretsha256                    = $this->get_redsys_sha256( $user_id );
+		$redsys_adr                      = $this->get_redsys_url_gateway( $user_id );
+		$tokennum                        = get_transient( $order_id . '_insite_use_token' );
+		$insite_user_id                  = get_transient( $ordermi . '_insite_user_id' );
+		$insite_customer                 = get_transient( $ordermi . '_insite_customer' );
+		$insite_terminal                 = get_transient( $ordermi . '_insite_terminal'  );
+		$insite_currency                 = get_transient( $ordermi . '_insite_currency' );
+		$insite_transaction_type         = get_transient( $ordermi . '_insite_transaction_type' );
+		$insite_redsys_amount            = get_transient( $ordermi . '_insite_redsys_amount' );
+		$insite_redsys_token             = get_transient( $ordermi . '_insite_redsys_token' );
+		$insite_final_notify_url         = get_transient( $ordermi . '_insite_final_notify_url' );
+		$insite_merchan_name             = get_transient( $ordermi . '_insite_merchan_name' );
+		$insite_merchant_lastnme         = get_transient( $ordermi . '_insite_merchant_lastnme' );
+		$insite_redsys_adr               = get_transient( $ordermi . '_insite_redsys_adr' );
+		$insite_secretsha256             = get_transient( $ordermi . '_insite_secretsha256' );
+		$insite_save                     = get_transient( $ordermi . '_insite_save' );
+		$insite_protocolversion          = get_transient( $ordermi . '_insite_protocolversion' );
+		$insite_threeDSServerTransID     = get_transient( $ordermi . '_insite_threeDSServerTransID' );
+		$insite_threeDSInfo              = get_transient( $ordermi . '_insite_threeDSInfo' );
+		$insite_threeDSMethodURL         = get_transient( $ordermi . '_insite_threeDSMethodURL' );
+		$insite_ds_card_psd2             = get_transient( $ordermi . '_insite_ds_card_psd2' );
+		$insite_token                    = get_transient( $ordermi . '_insite_token' );
+		$insite_user_id                  = get_transient( $ordermi . '_insite_user_id' );
+		$insite_token_need               = get_transient( $ordermi . '_insite_token_need' );
+		$insite_needs_payment            = get_transient( $ordermi . '_insite_needs_payment' );
+		$insite_Ds_Merchant_MerchantData = get_transient( $ordermi . '_insite_Ds_Merchant_MerchantData' );
+		$insite_Ds_MERCHANT_IDENTIFIER   = get_transient( $ordermi . '_insite_Ds_MERCHANT_IDENTIFIER' );
+		$insite_DS_MERCHANT_COF_INI      = get_transient( $ordermi . '_insite_DS_MERCHANT_COF_INI' );
+		$insite_DS_MERCHANT_COF_TYPE     = get_transient( $ordermi . '_insite_DS_MERCHANT_COF_TYPE' );
+		$ds_merchant_cof_ini             = get_transient( $ordermi . '_ds_merchant_cof_ini' );
+		$insite_DS_MERCHANT_EXCEP_SCA    = get_transient( $ordermi . '_insite_DS_MERCHANT_EXCEP_SCA' );
+		$http_accept                     = get_post_meta( $order_id, '_accept_haders' );
+		$redsys_adr_ws                   = $this->get_redsys_url_gateway_ws( $user_id, $type );
+		
+		set_transient( $order_id . '_insite_token_redsys', $tokennum );
+		set_transient( $order_id . '_insite_token', $insite_redsys_token );
+		set_transient( $order_id . '_ds_merchant_cof_ini', $insite_DS_MERCHANT_COF_INI );
+		set_transient( $order_id . '_ds_merchant_cof_type', $insite_DS_MERCHANT_COF_TYPE );
+		set_transient( $order_id . '_ds_merchant_excep_sca', $insite_DS_MERCHANT_EXCEP_SCA );
+		set_transient( $order_id . '_insite_merchant_amount', $insite_redsys_amount );
+		set_transient( $order_id . '_insite_merchant_order', $ordermi );
+		set_transient( $order_id . '_insite_merchantcode', $insite_customer );
+		set_transient( $order_id . '_insite_terminal', $insite_terminal );
+		set_transient( $order_id . '_insite_transaction_type', $insite_transaction_type );
+		set_transient( $order_id . '_insite_currency', $insite_currency );
+		set_transient( $ordermi . '_insite_redsys_number', $order_id );
+		
 		if ( 'yes' === $this->debug ) {
+			$this->log->add( 'insite', ' ' );
 			$this->log->add( 'insite', '$ordermi: ' . $ordermi );
 			$this->log->add( 'insite', '$user_id: ' . $user_id );
 			$this->log->add( 'insite', '$rneeds_payment: ' . $rneeds_payment );
 			$this->log->add( 'insite', '$secretsha256: ' . $secretsha256 );
 			$this->log->add( 'insite', '$redsys_adr: ' . $redsys_adr );
 			$this->log->add( 'insite', '$tokennum: ' . $tokennum );
+			$this->log->add( 'insite', '$user_id: ' . $insite_user_id );
+			$this->log->add( 'insite', '$customer:' . $insite_customer );
+			$this->log->add( 'insite', '$terminal: ' . $insite_terminal );
+			$this->log->add( 'insite', '$currency: ' . $insite_currency );
+			$this->log->add( 'insite', '$transaction_type: ' . $insite_transaction_type );
+			$this->log->add( 'insite', '$redsys_amount: ' . $insite_redsys_amount );
+			$this->log->add( 'insite', '$redsys_order_id: ' . $order_id );
+			$this->log->add( 'insite', '$redsys_token: ' . $insite_redsys_token );
+			$this->log->add( 'insite', '$final_notify_url: ' . $insite_final_notify_url );
+			$this->log->add( 'insite', '$merchan_name: ' . $insite_merchan_name );
+			$this->log->add( 'insite', '$merchant_lastnme: ' . $insite_merchant_lastnme );
+			$this->log->add( 'insite', '$redsys_adr: ' . $insite_redsys_adr );
+			$this->log->add( 'insite', '$secretsha256: ' . $insite_secretsha256 );
+			$this->log->add( 'insite', '$save: ' . $insite_save );			
+			$this->log->add( 'insite', '$insite_protocolversion: ' . $insite_protocolversion );
+			$this->log->add( 'insite', '$insite_threeDSServerTransID: ' . $insite_threeDSServerTransID );
+			$this->log->add( 'insite', '$insite_threeDSInfo: ' . $insite_threeDSInfo );
+			$this->log->add( 'insite', '$insite_threeDSMethodURL: ' . $insite_threeDSMethodURL );
+			$this->log->add( 'insite', '$insite_ds_card_psd2: ' . $insite_ds_card_psd2 );
+			$this->log->add( 'insite', '$insite_token: ' . $insite_token );
+			$this->log->add( 'insite', '$insite_user_id: ' . $insite_user_id );
+			$this->log->add( 'insite', '$insite_token_need: ' . $insite_token_need );
+			$this->log->add( 'insite', '$insite_needs_payment: ' . $insite_needs_payment );
+			$this->log->add( 'insite', '$insite_Ds_Merchant_MerchantData: ' . $insite_Ds_Merchant_MerchantData );
+			$this->log->add( 'insite', '$insite_Ds_MERCHANT_IDENTIFIER: ' . $insite_Ds_MERCHANT_IDENTIFIER );
+			$this->log->add( 'insite', '$insite_DS_MERCHANT_COF_INI: ' . $insite_DS_MERCHANT_COF_INI );
+			$this->log->add( 'insite', '$insite_DS_MERCHANT_COF_TYPE: ' . $insite_DS_MERCHANT_COF_TYPE );
+			$this->log->add( 'insite', '$ds_merchant_cof_ini: ' . $ds_merchant_cof_ini );
+			$this->log->add( 'insite', '$insite_DS_MERCHANT_EXCEP_SCA: ' . $insite_DS_MERCHANT_EXCEP_SCA );
 		}
 
 		if ( 'no' !== $tokennum ) { // Using Token
@@ -4197,6 +4307,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						wc_add_notice( 'We are having trouble charging the card, please try another one. ', 'error' );
 					}
 				} else {
+					WCRed()->print_overlay_image();
 					$result = $this->pay_with_token_c( $order_id, $tokennum );
 					if ( 'success' === $result ) {
 						return array(
@@ -4207,6 +4318,11 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 						return array(
 							'result'   => 'success',
 							'redirect' => $order->get_checkout_payment_url( true ) . '#3DSform',
+						);
+					} elseif ( 'threeDSMethodURL' === $result ) {
+						return array(
+							'result'   => 'success',
+							'redirect' => $this->notify_url . '&threeDSMethodURL=true&order=' . $order_id,
 						);
 					}
 				}
@@ -4220,183 +4336,624 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'insite', 'NOT Using Token' );
 			}
-			$version       = get_transient( $ordermi . '_insite_version' );
-			$params        = get_transient( $ordermi . '_insite_params' );
-			$signature     = get_transient( $ordermi . '_insite_signature' );
-			$response      = wp_remote_post(
-				$redsys_adr,
-				array(
-					'method'      => 'POST',
-					'timeout'     => 45,
-					'httpversion' => '1.0',
-					'user-agent'  => 'WooCommerce',
-					'body'        => array(
-						'Ds_SignatureVersion'   => $version,
-						'Ds_MerchantParameters' => $params,
-						'Ds_Signature'          => $signature,
-					),
-				)
-			);
-			$miObj         = new RedsysAPI();
-			$response_code = wp_remote_retrieve_response_code( $response );
-			$response_body = wp_remote_retrieve_body( $response );
-			$result        = json_decode( $response_body );
-
-			if ( empty( $response ) ) {
-				wc_add_notice( 'Try again', 'error' );
-				return;
-			}
-
-			if ( ! empty( $result ) && $result->errorCode ) {
-				$response = WCRed()->get_response_by_code( $result->errorCode );
-				$error    = WCRed()->get_error_by_code( $result->errorCode );
-				if ( ! empty( $response ) ) {
-					wc_add_notice( $response, 'error' );
-				}
-				if ( ! empty( $error ) ) {
-					wc_add_notice( $error, 'error' );
-				}
-				return;
-			}
-
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'insite', '$response_body: ' . $response_body );
-				$this->log->add( 'insite', 'Ds_SignatureVersion: ' . $result->Ds_SignatureVersion );
-				$this->log->add( 'insite', 'Ds_MerchantParameters: ' . $result->Ds_MerchantParameters );
-				$this->log->add( 'insite', 'Ds_Signature: ' . $result->Ds_Signature );
-			}
-
-			$decodec            = $miObj->decodeMerchantParameters( $result->Ds_MerchantParameters );
-			$response           = $miObj->getParameter( 'Ds_Response' );
-			$decodec_array      = json_decode( $decodec );
-			$signatureCalculada = $miObj->createMerchantSignatureNotif( $secretsha256, $result->Ds_MerchantParameters );
-
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'insite', '$response: ' . $response );
-				$this->log->add( 'insite', '$decodec_array: ' . print_r( $decodec_array, true ) );
-				$this->log->add( 'insite', '$signatureCalculada: ' . $signatureCalculada );
-				// $this->log->add( 'insite', '$codigoRespuesta: ' . $codigoRespuesta );
-				$this->log->add( 'insite', 'Ds_Signature: ' . $result->Ds_Signature );
-				$this->log->add( 'insite', 'print_r: ' . print_r( $result, true ) );
-			}
-			if ( isset( $decodec_array->Ds_AuthorisationCode ) && ! empty( $decodec_array->Ds_AuthorisationCode ) ) {
-				$autorization        = $decodec_array->Ds_AuthorisationCode;
-				$total               = $decodec_array->Ds_Amount;
-				$ordermi             = $decodec_array->Ds_Order;
-				$dscode              = $decodec_array->Ds_MerchantCode;
-				$currency_code       = $decodec_array->Ds_Currency;
-				$response            = $decodec_array->Ds_Response;
-				$id_trans            = $decodec_array->Ds_AuthorisationCode;
-				$dstermnal           = $decodec_array->Ds_Terminal;
-				$dsmerchandata       = $decodec_array->Ds_MerchantData;
-				$dscardcountry       = $decodec_array->Ds_Card_Country;
-				$descardbrand        = $decodec_array->Ds_Card_Brand;
-				$desprocesspaymethod = $decodec_array->Ds_ProcessedPayMethod;
-				$dsdate              = date( 'd/m/Y', current_time( 'timestamp', 0 ) );
-				$dshour              = date( 'H:i', current_time( 'timestamp', 0 ) );
-
+			
+			if ( '2.1.0' === $insite_protocolversion || '2.2.0' === $insite_protocolversion ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'insite', '$autorization: ' . $autorization );
-					$this->log->add( 'insite', '$total: ' . $total );
-					$this->log->add( 'insite', '$ordermi: ' . $ordermi );
-					$this->log->add( 'insite', '$dscode: ' . $dscode );
-					$this->log->add( 'insite', '$currency_code: ' . $currency_code );
-					$this->log->add( 'insite', '$response: ' . $response );
-					$this->log->add( 'insite', '$id_trans: ' . $id_trans );
-					$this->log->add( 'insite', '$dstermnal: ' . $dstermnal );
-					$this->log->add( 'insite', '$dsmerchandata: ' . $dsmerchandata );
-					$this->log->add( 'insite', '$dscardcountry: ' . $dscardcountry );
-					$this->log->add( 'insite', '$descardbrand: ' . $descardbrand );
-					$this->log->add( 'insite', '$desprocesspaymethod: ' . $desprocesspaymethod );
-					$this->log->add( 'insite', '$dsdate: ' . $dsdate );
-					$this->log->add( 'insite', '$dshour: ' . $dshour );
+					$this->log->add( 'insite', 'Protocol ' . $insite_protocolversion );
 				}
-
-				$authorisation_code = $id_trans;
-
-				if ( ! empty( $ordermi ) ) {
-					update_post_meta( $order_id, '_payment_order_number_redsys', $ordermi );
-				}
-				if ( ! empty( $dsdate ) ) {
-					update_post_meta( $order_id, '_payment_date_redsys', $dsdate );
-				}
-				if ( ! empty( $dshour ) ) {
-					update_post_meta( $order_id, '_payment_hour_redsys', $dshour );
-				}
-				if ( ! empty( $id_trans ) ) {
-					update_post_meta( $order_id, '_authorisation_code_redsys', $authorisation_code );
-				}
-				if ( ! empty( $dscardcountry ) ) {
-					update_post_meta( $order_id, '_card_country_insite', $dscardcountry );
-				}
-				if ( ! empty( $sha256 ) ) {
-					update_post_meta( $order_id, '_order_sha256_insite', $sha256 );
-				}
-				$order = WCRed()->get_order( $order_id );
-				// Payment completed
-				$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
-				$order->add_order_note( __( 'Authorization code: ', 'woocommerce-redsys' ) . $authorisation_code );
+				
+				
+				$http_accept = WCPSD2()->get_accept_headers( $order_id );
+				$browserIP   = $this->get_the_ip();
+	
+				set_transient( 'threeDSInfo_' . $order_id, $insite_threeDSInfo, 300 );
+				set_transient( 'fuc_' . $order_id, $insite_customer, 300 );
+				set_transient( 'accept_headers_' . $order_id, $http_accept, 300 );
+				set_transient( 'protocolVersion_' . $order_id, $insite_protocolversion, 300 );
+				set_transient( 'threeDSServerTransID_' . $order_id, $insite_threeDSServerTransID, 300 );
+				set_transient( 'threeDSMethodURL_' . $order_id, $insite_threeDSMethodURL, 300 );
+				set_transient( 'amount_' . $order_id, $insite_redsys_amount, 300 );
+				set_transient( 'order_' . $order_id, $ordermi, 300 );
+				set_transient( 'terminal_' . $order_id, $insite_terminal, 300 );
+				set_transient( 'currency_' . $order_id, $insite_currency, 300 );
+				set_transient( 'identifier_' . $order_id, $insite_Ds_MERCHANT_IDENTIFIER, 300 );
+				set_transient( 'cof_ini_' . $order_id, $ds_merchant_cof_ini, 300 );
+				set_transient( 'cof_type_' . $order_id, $insite_DS_MERCHANT_COF_TYPE, 300 );
+				set_transient( 'cof_txnid_' . $order_id, $cof_txnid, 300 );
+				set_transient( 'final_notify_url_' . $order_id, $insite_final_notify_url, 300 );
+				set_transient( 'redys_token' . $order_id, $insite_redsys_token, 300 );
+				set_transient( $insite_threeDSServerTransID, $order_id, 300 );
+	
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'insite', 'payment_complete() 9' );
+					$this->log->add( 'insite', '$threeDSServerTransID: ' . $insite_threeDSServerTransID );
+					$this->log->add( 'insite', '$final_notify_url: ' . $insite_final_notify_url );
+					$this->log->add( 'insite', '$threeDSMethodURL: ' . $insite_threeDSMethodURL );
 				}
-				$order->payment_complete();
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'insite', 'Payment complete.' );
+				
+				if ( $insite_threeDSMethodURL ) {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', 'There is $threeDSMethodURL: ' . $insite_threeDSMethodURL );
+					}
+					return array(
+						'result'   => 'success',
+						'redirect' => $this->notify_url . '&threeDSMethodURL=true&order=' . $order_id,
+					);
 				}
-				$order = new WC_Order( $order_id );
-				return array(
-					'result'   => 'success',
-					'redirect' => add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ),
+				$threeDSCompInd = 'Y';
+
+				$datos_usuario = array(
+					'threeDSInfo'              => 'AuthenticationData',
+					'protocolVersion'          => $insite_protocolversion,
+					'browserAcceptHeader'      => $http_accept,
+					'browserColorDepth'        => WCPSD2()->get_profundidad_color( $order_id ),
+					'browserIP'                => $browserIP,
+					'browserJavascriptEnabled' => WCPSD2()->get_browserjavaenabled( $order_id ),
+					'browserJavaEnabled'       => WCPSD2()->get_browserjavaenabled( $order_id ),
+					'browserLanguage'          => WCPSD2()->get_idioma_navegador( $order_id ),
+					'browserScreenHeight'      => WCPSD2()->get_altura_pantalla( $order_id ),
+					'browserScreenWidth'       => WCPSD2()->get_anchura_pantalla( $order_id ),
+					'browserTZ'                => WCPSD2()->get_diferencia_horaria( $order_id ),
+					'browserUserAgent'         => WCPSD2()->get_agente_navegador( $order_id ),
+					'threeDSServerTransID'     => $insite_threeDSServerTransID,
+					'notificationURL'          => $insite_final_notify_url,
+					'threeDSCompInd'           => $threeDSCompInd,
 				);
-			}
-
-			if ( isset( $decodec_array->Ds_EMV3DS->acsURL ) ) { // Need verification
-
-				if ( 'yes' === $rneeds_payment ) {
-					update_post_meta( $order_id, '_redsystokenr', 'yes' );
-				}
-
-				$response = (int) $decodec_array->Ds_Response;
+				
+				update_post_meta( $order_id, '_accept_haders', $http_accept );
+				update_post_meta( $order_id, '_billing_profundidad_color_field', WCPSD2()->get_profundidad_color( $order_id ) );
+				update_post_meta( $order_id, '_billing_idioma_navegador_field', WCPSD2()->get_idioma_navegador( $order_id ) );
+				update_post_meta( $order_id, '_billing_altura_pantalla_field', WCPSD2()->get_altura_pantalla( $order_id ) );
+				update_post_meta( $order_id, '_billing_anchura_pantalla_field', WCPSD2()->get_anchura_pantalla( $order_id ) );
+				update_post_meta( $order_id, '_billing_tz_horaria_field', WCPSD2()->get_diferencia_horaria( $order_id ) );
+				update_post_meta( $order_id, '_billing_js_enabled_navegador_field', WCPSD2()->get_browserjavaenabled( $order_id ) );
+				$order               = WCRed()->get_order( $order_id );
+				$acctinfo            = WCPSD2()->get_acctinfo( $order, $datos_usuario, $user_id );
+				
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'insite', 'La respuesta es $response: ' . $response );
+					$this->log->add( 'insite', '$user_id: ' . $user_id );
+					$this->log->add( 'insite', '$order_id: ' . $order_id );
+					$this->log->add( 'insite', 'threeDSInfo: AuthenticationData' );
+					$this->log->add( 'insite', 'protocolVersion: ' . $insite_protocolversion );
+					$this->log->add( 'insite', 'threeDSServerTransID: ' . $insite_threeDSServerTransID );
+					$this->log->add( 'insite', 'notificationURL: ' . $insite_final_notify_url );
+					$this->log->add( 'insite', 'threeDSCompInd: ' . $threeDSCompInd );
+					$this->log->add( 'insite', 'acctInfo: : ' . $acctinfo );
 				}
-				$threedsinfo = $decodec_array->Ds_EMV3DS->threeDSInfo;
-				if ( ! empty( $threedsinfo ) && 'ChallengeRequest' === $threedsinfo ) {
+
+				if ( $insite_redsys_amount < 3000 ) {
+					$lwv = '<DS_MERCHANT_EXCEP_SCA>LWV</DS_MERCHANT_EXCEP_SCA>';
+				} else {
+					$lwv = '';
+				}
+				if ( 'yes' === $this->traactive && $order_total_sign <= ( 100 * (int) $this->traamount ) && $order_total_sign > 3000 ) {
 					if ( 'yes' === $this->debug ) {
-						if ( ! empty( $redsys_insite ) ) {
-							$this->log->add( 'insite', '$redsys_insite->secure3ds: ' . $redsys_insite->secure3ds );
+						$this->log->add( 'insite', ' ' );
+						$this->log->add( 'insite', 'Using TRA' );
+						$this->log->add( 'insite', ' ' );
+					}
+					$lwv = '<DS_MERCHANT_EXCEP_SCA>TRA</DS_MERCHANT_EXCEP_SCA>';
+				}
+				$miObj = new RedsysAPIWs();
+	
+				if ( ! empty( $this->merchantgroup ) ) {
+					$ds_merchant_group = '<DS_MERCHANT_GROUP>' . $this->merchantgroup . '</DS_MERCHANT_GROUP>';
+				} else {
+					$ds_merchant_group = '';
+				}
+
+				if ( $insite_DS_MERCHANT_COF_INI ) {
+					$ini = '<DS_MERCHANT_IDENTIFIER>REQUIRED</DS_MERCHANT_IDENTIFIER><DS_MERCHANT_COF_INI>' . $insite_DS_MERCHANT_COF_INI . '</DS_MERCHANT_COF_INI>';
+				} else {
+					$ini = '';
+				}
+				if ( $insite_DS_MERCHANT_COF_TYPE ) {
+					$cof = '<DS_MERCHANT_COF_TYPE>' . $insite_DS_MERCHANT_COF_TYPE . '</DS_MERCHANT_COF_TYPE>';
+				} else {
+					$cof = '';
+				}
+
+				$DATOS_ENTRADA  = '<DATOSENTRADA>';
+				$DATOS_ENTRADA .= '<DS_MERCHANT_AMOUNT>' . $insite_redsys_amount . '</DS_MERCHANT_AMOUNT>';
+				$DATOS_ENTRADA .= '<DS_MERCHANT_ORDER>' . $ordermi . '</DS_MERCHANT_ORDER>';
+				$DATOS_ENTRADA .= '<DS_MERCHANT_MERCHANTCODE>' . $insite_customer . '</DS_MERCHANT_MERCHANTCODE>';
+				$DATOS_ENTRADA .= '<DS_MERCHANT_TERMINAL>' . $insite_terminal . '</DS_MERCHANT_TERMINAL>';
+				$DATOS_ENTRADA .= '<DS_MERCHANT_TRANSACTIONTYPE>0</DS_MERCHANT_TRANSACTIONTYPE>';
+				$DATOS_ENTRADA .= '<DS_MERCHANT_CURRENCY>' . $insite_currency . '</DS_MERCHANT_CURRENCY>';
+				$DATOS_ENTRADA .= '<DS_MERCHANT_IDOPER>' . $insite_redsys_token . '</DS_MERCHANT_IDOPER>';
+				$DATOS_ENTRADA .= $ds_merchant_group;
+				$DATOS_ENTRADA .= $ini;
+				$DATOS_ENTRADA .= $cof;
+				$DATOS_ENTRADA .= $lwv;
+				$DATOS_ENTRADA .= '<DS_MERCHANT_EMV3DS>' . $acctinfo . '</DS_MERCHANT_EMV3DS>';
+				$DATOS_ENTRADA .= '</DATOSENTRADA>';
+				$XML            = '<REQUEST>';
+				$XML           .= $DATOS_ENTRADA;
+				$XML           .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
+				$XML           .= '<DS_SIGNATURE>' . $miObj->createMerchantSignatureHostToHost( $insite_secretsha256, $DATOS_ENTRADA ) . '</DS_SIGNATURE>';
+				$XML           .= '</REQUEST>';
+	
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'trataPeticion 10: ' . $XML );
+				}
+
+				$CLIENTE  = new SoapClient( $redsys_adr_ws );
+				$RESPONSE = $CLIENTE->trataPeticion( array( 'datoEntrada' => $XML ) );
+	
+				if ( isset( $RESPONSE->trataPeticionReturn ) ) {
+					$XML_RETORNO = new SimpleXMLElement( $RESPONSE->trataPeticionReturn );
+				}
+				$Ds_EMV3DS         = $XML_RETORNO->OPERACION->Ds_EMV3DS;
+				$json_decode       = json_decode( $Ds_EMV3DS );
+				$threeDSInfo       = $json_decode->threeDSInfo;
+				$protocolVersion   = $json_decode->protocolVersion;
+				$acsURL            = $json_decode->acsURL;
+				$PAReq             = trim( $json_decode->{ 'PAReq'} );
+				$creq              = trim( $json_decode->{ 'creq'} );
+				$MD                = $json_decode->MD;
+				$authorisationcode = trim( $XML_RETORNO->OPERACION->Ds_AuthorisationCode );
+	
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', ' ' );
+					$this->log->add( 'insite', '$XML_RETORNO 13: ' . print_r( $XML_RETORNO, true ) );
+					$this->log->add( 'insite', 'Ds_EMV3DS: ' . $Ds_EMV3DS );
+					$this->log->add( 'insite', '$protocolVersion: ' . $protocolVersion );
+					$this->log->add( 'insite', '$acsURL: ' . $acsURL );
+					$this->log->add( 'insite', '$PAReq: ' . $PAReq );
+					$this->log->add( 'insite', '$creq: ' . $creq );
+					$this->log->add( 'insite', '$MD: ' . $MD );
+					$this->log->add( 'insite', '$authorisationcode: ' . $authorisationcode );
+					$this->log->add( 'insite', ' ' );
+				}
+				if ( 'ChallengeRequest' === $threeDSInfo ) {
+					// hay challenge
+					// Guardamos todo en transciends
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', '/***************/' );
+						$this->log->add( 'insite', '  2.2.0 y 2.2.1' );
+						$this->log->add( 'insite', 'process_paymnt()' );
+						$this->log->add( 'insite', '  Hay Challenge  ' );
+						$this->log->add( 'insite', '/***************/' );
+					}
+					set_transient( 'threeDSInfo_' . $order_id, $threeDSInfo, 300 );
+					set_transient( 'protocolVersion_' . $order_id, $protocolVersion, 300 );
+					set_transient( 'acsURL_' . $order_id, $acsURL, 300 );
+					set_transient( 'PAReq_' . $order_id, $PAReq, 300 );
+					set_transient( 'MD_' . $order_id, $MD, 300 );
+					set_transient( $MD, $order_id, 300 );
+					set_transient( 'creq_' . $order_id, $creq, 300 );
+					set_transient( 'amount_' . $MD, $order_total_sign, 300 );
+					set_transient( 'order_' . $MD, $orderid2, 300 );
+					set_transient( 'merchantcode_' . $MD, $customer, 300 );
+					set_transient( 'terminal_' . $MD, $DSMerchantTerminal, 300 );
+					set_transient( 'currency_' . $MD, $currency, 300 );
+					set_transient( 'identifier_' . $MD, $customer_token_c, 300 );
+					set_transient( 'cof_ini_' . $MD, $cof_ini, 300 );
+					set_transient( 'cof_type_' . $MD, $cof_type, 300 );
+					set_transient( 'cof_txnid_' . $MD, $cof_txnid, 300 );
+					return array(
+						'result'   => 'success',
+						'redirect' => $order->get_checkout_payment_url( true ) . '#3DSform',
+					);
+				} elseif ( ! empty( $authorisationcode ) ) {
+					// Pago directo sin challenge
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', '/***************/' );
+						$this->log->add( 'insite', '  Paid  ' );
+						$this->log->add( 'insite', '/***************/' );
+					}
+					$Ds_Order        = trim( $XML_RETORNO->OPERACION->Ds_Order );
+					$Ds_MerchantCode = trim( $XML_RETORNO->OPERACION->Ds_MerchantCode );
+					$Ds_Terminal     = trim( $XML_RETORNO->OPERACION->Ds_Terminal );
+					update_post_meta( $order->get_id(), '_redsys_done', 'yes' );
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', 'payment_complete() 8' );
+					}
+					$order->payment_complete();
+					$order->add_order_note( __( 'HTTP Notification received - Payment completed', 'woocommerce-redsys' ) );
+					$order->add_order_note( __( 'Authorization code: ', 'woocommerce-redsys' ) . $authorisationcode );
+	
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', ' ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', '      Saving Order Meta       ' );
+						$this->log->add( 'insite', '/****************************/' );
+						$this->log->add( 'insite', ' ' );
+					}
+	
+					if ( ! empty( $Ds_Order ) ) {
+						update_post_meta( $order->get_id(), '_payment_order_number_redsys', $Ds_Order );
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', '_payment_order_number_redsys saved: ' . $Ds_Order );
 						}
-						$this->log->add( 'insite', 'La respuesta es $response: ' . $response );
+					} else {
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', ' ' );
+							$this->log->add( 'insite', '_payment_order_number_redsys NOT SAVED!!!' );
+							$this->log->add( 'insite', ' ' );
+						}
 					}
-					$acsurl = $decodec_array->Ds_EMV3DS->acsURL;
-					$pareq  = $decodec_array->Ds_EMV3DS->PAReq;
-					$md     = $decodec_array->Ds_EMV3DS->MD;
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'insite', '$acsurl: ' . $acsurl );
-						$this->log->add( 'insite', '$pareq: ' . $pareq );
-						$this->log->add( 'insite', '$md: ' . $md );
+					if ( ! empty( $dsdate ) ) {
+						update_post_meta( $order->get_id(), '_payment_date_redsys', $dsdate );
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', '_payment_date_redsys saved: ' . $dsdate );
+						}
+					} else {
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', ' ' );
+							$this->log->add( 'insite', '_payment_date_redsys NOT SAVED!!!' );
+							$this->log->add( 'insite', ' ' );
+						}
 					}
-					set_transient( $order_id . '_insite_acsurl', $acsurl, 36000 );
-					set_transient( $order_id . '_insite_pareq', $pareq, 36000 );
-					set_transient( $order_id . '_insite_md', $md, 36000 );
-					set_transient( $order_id . '_do_redsys_challenge', 'yes', 36000 );
-					// echo 'ChallengeRequest';
+					if ( ! empty( $Ds_Terminal ) ) {
+						update_post_meta( $order->get_id(), '_payment_terminal_redsys', $Ds_Terminal );
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', '_payment_terminal_redsys saved: ' . $Ds_Terminal );
+						}
+					} else {
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', ' ' );
+							$this->log->add( 'insite', '_payment_terminal_redsys NOT SAVED!!!' );
+							$this->log->add( 'insite', ' ' );
+						}
+					}
+					if ( ! empty( $dshour ) ) {
+						update_post_meta( $order->get_id(), '_payment_hour_redsys', $dshour );
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', '_payment_hour_redsys saved: ' . $dshour );
+						}
+					} else {
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', ' ' );
+							$this->log->add( 'insite', '_payment_hour_redsys NOT SAVED!!!' );
+							$this->log->add( 'insite', ' ' );
+						}
+					}
+					if ( ! empty( $authorisationcode ) ) {
+						update_post_meta( $order->get_id(), '_authorisation_code_redsys', $authorisationcode );
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', '_authorisation_code_redsys saved: ' . $authorisationcode );
+						}
+					} else {
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', ' ' );
+							$this->log->add( 'insite', '_authorisation_code_redsys NOT SAVED!!!' );
+							$this->log->add( 'insite', ' ' );
+						}
+					}
+					if ( ! empty( $currency ) ) {
+						update_post_meta( $order->get_id(), '_corruncy_code_redsys', $currency );
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', '_corruncy_code_redsys saved: ' . $currency );
+						}
+					} else {
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', ' ' );
+							$this->log->add( 'insite', '_corruncy_code_redsys NOT SAVED!!!' );
+							$this->log->add( 'insite', ' ' );
+						}
+					}
+					// This meta is essential for later use:
+					if ( ! empty( $secretsha256 ) ) {
+						update_post_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', '_redsys_secretsha256 saved: ' . $secretsha256 );
+						}
+					} else {
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', ' ' );
+							$this->log->add( 'insite', '_redsys_secretsha256 NOT SAVED!!!' );
+							$this->log->add( 'insite', ' ' );
+						}
+					}
+					return array(
+							'result'   => 'success',
+							'redirect' => add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ),
+						);
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				exit();
+			} else {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'Protocol ' . $insite_protocolversion );
+				}
+				
+				$protocolVersion = '1.0.2';
+				
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'Es Protocolo NO_3DS_v2 (1.0.2) y PSD2' );
+				}
+
+				$browserIP     = $this->get_the_ip();
+				$datos_usuario = array(
+					'threeDSInfo'         => 'AuthenticationData',
+					'protocolVersion'     => $protocolVersion,
+					'browserAcceptHeader' => $http_accept,
+					'browserColorDepth'   => WCPSD2()->get_profundidad_color( $order_id ),
+					'browserIP'           => $browserIP,
+					'browserJavaEnabled'  => WCPSD2()->get_browserjavaenabled( $order_id ),
+					'browserLanguage'     => WCPSD2()->get_idioma_navegador( $order_id ),
+					'browserScreenHeight' => WCPSD2()->get_altura_pantalla( $order_id ),
+					'browserScreenWidth'  => WCPSD2()->get_anchura_pantalla( $order_id ),
+					'browserTZ'           => WCPSD2()->get_diferencia_horaria( $order_id ),
+					'browserUserAgent'    => WCPSD2()->get_agente_navegador( $order_id ),
+					'notificationURL'     => $final_notify_url,
+				);
+				$needed        = wp_json_encode(
+					array(
+						'threeDSInfo'         => 'AuthenticationData',
+						'protocolVersion'     => $protocolVersion,
+						'browserAcceptHeader' => $http_accept,
+						'browserUserAgent'    => WCPSD2()->get_agente_navegador( $order_id ),
+					)
+				);
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', '3DS Info:' .  $needed );
+				}
+				$miObj = '';
+				$miObj = new RedsysAPI();
+				$miObj->setParameter( 'DS_MERCHANT_MODULE', $insite_customer );
+				$miObj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $insite_customer );
+				$miObj->setParameter( 'DS_MERCHANT_TERMINAL', $insite_terminal );
+				$miObj->setParameter( 'DS_MERCHANT_CURRENCY', $insite_currency );
+				$miObj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $insite_transaction_type );
+				$miObj->setParameter( 'DS_MERCHANT_AMOUNT', $insite_redsys_amount );
+				$miObj->setParameter( 'DS_MERCHANT_ORDER', $ordermi );
+				$miObj->setParameter( 'DS_MERCHANT_IDOPER', $insite_redsys_token );
+				$miObj->setParameter( 'DS_MERCHANT_MERCHANTURL', $insite_final_notify_url );
+				$miObj->setParameter( 'DS_MERCHANT_TITULAR', $insite_merchan_name . ' ' . $insite_merchant_lastnme );
+				//$miObj->setParameter( 'DS_MERCHANT_DIRECTPAYMENT', '3DS' );
+		
+				if ( 'yes' === $this->pay1clic && ( 'yes' === $insite_save || 'yes' === $need_token ) ) {
+					if ( 'R' === $token_type_needed ) {
+						$miObj->setParameter( 'Ds_Merchant_MerchantData', '0' );
+						$miObj->setParameter( 'Ds_MERCHANT_IDENTIFIER', 'REQUIRED' );
+						$miObj->setParameter( 'DS_MERCHANT_COF_INI', 'N' );
+						$miObj->setParameter( 'DS_MERCHANT_COF_TYPE', 'R' );
+						set_transient( $order_id . '_ds_merchant_cof_ini', 'R', 3600 );
+					} else {
+						$miObj->setParameter( 'Ds_Merchant_MerchantData', '0' );
+						$miObj->setParameter( 'Ds_MERCHANT_IDENTIFIER', 'REQUIRED' );
+						$miObj->setParameter( 'DS_MERCHANT_COF_INI', 'S' );
+						$miObj->setParameter( 'DS_MERCHANT_COF_TYPE', 'R' );
+						set_transient( $order_id . '_ds_merchant_cof_ini', 'C', 3600 );
+					}
+				}
+		
+				if ( (int) $insite_redsys_amount < 3000 ) {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'insite', 'ChallengeRequest: TRUE' );
+						$this->log->add( 'insite', 'Apply SCA: LWV' );
+					}
+					$miObj->setParameter( 'DS_MERCHANT_EXCEP_SCA', 'LWV' );
+				} elseif ( $insite_redsys_amount <= ( 100 * (int) $this->traamount ) && 'yes' === $this->traactive ) {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', 'Apply SCA: TRA' );
+					}
+					$miObj->setParameter( 'DS_MERCHANT_EXCEP_SCA', 'TRA' );
+				} else {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', 'Apply SCA: NO' );
+					}
+				}
+				$miObj->setParameter( 'DS_MERCHANT_EMV3DS', $needed );
+				
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'DS_MERCHANT_EMV3DS: ' . $needed );
+				}
+				
+				$version   = 'HMAC_SHA256_V1';
+				$request   = '';
+				$params    = $miObj->createMerchantParameters();
+				$signature = $miObj->createMerchantSignature( $insite_secretsha256 );
+		
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', '$version: ' . $version );
+					$this->log->add( 'insite', '$params: ' . $params );
+					$this->log->add( 'insite', '$signature: ' . $signature );
+		
+				}
+				$response      = wp_remote_post(
+					$redsys_adr,
+					array(
+						'method'      => 'POST',
+						'timeout'     => 45,
+						'httpversion' => '1.0',
+						'user-agent'  => 'WooCommerce',
+						'body'        => array(
+							'Ds_SignatureVersion'   => $version,
+							'Ds_MerchantParameters' => $params,
+							'Ds_Signature'          => $signature,
+						),
+					)
+				);
+
+				$response_code = wp_remote_retrieve_response_code( $response );
+				$response_body = wp_remote_retrieve_body( $response );
+				$result        = json_decode( $response_body );
+	
+				if ( empty( $response ) ) {
+					wc_add_notice( 'Try again', 'error' );
+					return;
+				}
+	
+				if ( ! empty( $result ) && $result->errorCode ) {
+					$response = WCRed()->get_response_by_code( $result->errorCode );
+					$error    = WCRed()->get_error_by_code( $result->errorCode );
+					if ( ! empty( $response ) ) {
+						wc_add_notice( $response, 'error' );
+					}
+					if ( ! empty( $error ) ) {
+						wc_add_notice( $error, 'error' );
+					}
+					return;
+				}
+	
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', '$response_body: ' . $response_body );
+					$this->log->add( 'insite', 'Ds_SignatureVersion: ' . $result->Ds_SignatureVersion );
+					$this->log->add( 'insite', 'Ds_MerchantParameters: ' . $result->Ds_MerchantParameters );
+					$this->log->add( 'insite', 'Ds_Signature: ' . $result->Ds_Signature );
+				}
+				$decodec            = $miObj->decodeMerchantParameters( $result->Ds_MerchantParameters );
+				$response           = $miObj->getParameter( 'Ds_Response' );
+				$decodec_array      = json_decode( $decodec );
+				$signatureCalculada = $miObj->createMerchantSignatureNotif( $secretsha256, $result->Ds_MerchantParameters );
+	
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', '$response: ' . $response );
+					$this->log->add( 'insite', '$decodec_array: ' . print_r( $decodec_array, true ) );
+					$this->log->add( 'insite', '$signatureCalculada: ' . $signatureCalculada );
+					$this->log->add( 'insite', 'Ds_Signature: ' . $result->Ds_Signature );
+					$this->log->add( 'insite', 'print_r: ' . print_r( $result, true ) );
+				}
+				if ( isset( $decodec_array->Ds_AuthorisationCode ) && ! empty( $decodec_array->Ds_AuthorisationCode ) ) {
+					$autorization        = $decodec_array->Ds_AuthorisationCode;
+					$total               = $decodec_array->Ds_Amount;
+					$ordermi             = $decodec_array->Ds_Order;
+					$dscode              = $decodec_array->Ds_MerchantCode;
+					$currency_code       = $decodec_array->Ds_Currency;
+					$response            = $decodec_array->Ds_Response;
+					$id_trans            = $decodec_array->Ds_AuthorisationCode;
+					$dstermnal           = $decodec_array->Ds_Terminal;
+					$dsmerchandata       = $decodec_array->Ds_MerchantData;
+					$dscardcountry       = $decodec_array->Ds_Card_Country;
+					$descardbrand        = $decodec_array->Ds_Card_Brand;
+					$desprocesspaymethod = $decodec_array->Ds_ProcessedPayMethod;
+					$dsdate              = date( 'd/m/Y', current_time( 'timestamp', 0 ) );
+					$dshour              = date( 'H:i', current_time( 'timestamp', 0 ) );
+	
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', '$autorization: ' . $autorization );
+						$this->log->add( 'insite', '$total: ' . $total );
+						$this->log->add( 'insite', '$ordermi: ' . $ordermi );
+						$this->log->add( 'insite', '$dscode: ' . $dscode );
+						$this->log->add( 'insite', '$currency_code: ' . $currency_code );
+						$this->log->add( 'insite', '$response: ' . $response );
+						$this->log->add( 'insite', '$id_trans: ' . $id_trans );
+						$this->log->add( 'insite', '$dstermnal: ' . $dstermnal );
+						$this->log->add( 'insite', '$dsmerchandata: ' . $dsmerchandata );
+						$this->log->add( 'insite', '$dscardcountry: ' . $dscardcountry );
+						$this->log->add( 'insite', '$descardbrand: ' . $descardbrand );
+						$this->log->add( 'insite', '$desprocesspaymethod: ' . $desprocesspaymethod );
+						$this->log->add( 'insite', '$dsdate: ' . $dsdate );
+						$this->log->add( 'insite', '$dshour: ' . $dshour );
+					}
+	
+					$authorisation_code = $id_trans;
+	
+					if ( ! empty( $ordermi ) ) {
+						update_post_meta( $order_id, '_payment_order_number_redsys', $ordermi );
+					}
+					if ( ! empty( $dsdate ) ) {
+						update_post_meta( $order_id, '_payment_date_redsys', $dsdate );
+					}
+					if ( ! empty( $dshour ) ) {
+						update_post_meta( $order_id, '_payment_hour_redsys', $dshour );
+					}
+					if ( ! empty( $id_trans ) ) {
+						update_post_meta( $order_id, '_authorisation_code_redsys', $authorisation_code );
+					}
+					if ( ! empty( $dscardcountry ) ) {
+						update_post_meta( $order_id, '_card_country_insite', $dscardcountry );
+					}
+					if ( ! empty( $sha256 ) ) {
+						update_post_meta( $order_id, '_order_sha256_insite', $sha256 );
+					}
+					$order = WCRed()->get_order( $order_id );
+					// Payment completed
+					$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
+					$order->add_order_note( __( 'Authorization code: ', 'woocommerce-redsys' ) . $authorisation_code );
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', 'payment_complete() 9' );
+					}
+					$order->payment_complete();
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', 'Payment complete.' );
 					}
 					$order = new WC_Order( $order_id );
 					return array(
 						'result'   => 'success',
-						'redirect' => $order->get_checkout_payment_url( true ),
+						'redirect' => add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ),
 					);
 				}
+	
+				if ( isset( $decodec_array->Ds_EMV3DS->acsURL ) ) { // Need verification
+	
+					if ( 'yes' === $rneeds_payment ) {
+						update_post_meta( $order_id, '_redsystokenr', 'yes' );
+					}
+	
+					$response = (int) $decodec_array->Ds_Response;
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', 'La respuesta es $response: ' . $response );
+					}
+					$threedsinfo = $decodec_array->Ds_EMV3DS->threeDSInfo;
+					if ( ! empty( $threedsinfo ) && 'ChallengeRequest' === $threedsinfo ) {
+						if ( 'yes' === $this->debug ) {
+							if ( ! empty( $redsys_insite ) ) {
+								$this->log->add( 'insite', '$redsys_insite->secure3ds: ' . $redsys_insite->secure3ds );
+							}
+							$this->log->add( 'insite', 'La respuesta es $response: ' . $response );
+						}
+						$acsurl = $decodec_array->Ds_EMV3DS->acsURL;
+						$pareq  = trim( $decodec_array->Ds_EMV3DS->{ 'PAReq'} );
+						$md     = $decodec_array->Ds_EMV3DS->MD;
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', '$acsurl: ' . $acsurl );
+							$this->log->add( 'insite', '$pareq: ' . $pareq );
+							$this->log->add( 'insite', '$md: ' . $md );
+						}
+						set_transient( $order_id . '_insite_acsurl', $acsurl, 36000 );
+						set_transient( $order_id . '_insite_pareq', $pareq, 36000 );
+						set_transient( $order_id . '_insite_md', $md, 36000 );
+						set_transient( $order_id . '_do_redsys_challenge', 'yes', 36000 );
+						// echo 'ChallengeRequest';
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'insite', 'ChallengeRequest: TRUE' );
+						}
+						$order = new WC_Order( $order_id );
+						return array(
+							'result'   => 'success',
+							'redirect' => $order->get_checkout_payment_url( true ),
+						);
+					}
+				}
+	
+				$order = new WC_Order( $order_id );
+				return array(
+					'result'   => 'success',
+					'redirect' => $order->get_checkout_payment_url( true ),
+				);
 			}
-
-			$order = new WC_Order( $order_id );
-			return array(
-				'result'   => 'success',
-				'redirect' => $order->get_checkout_payment_url( true ),
-			);
 		}
 	}
 
@@ -4408,6 +4965,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	public static function check_token_insite_from_action_checkout() {
 
 		$redsys_insite = new WC_Gateway_InSite_Redsys();
+		$miObj         = new RedsysAPIWs();
 
 		if ( 'yes' === $redsys_insite->debug ) {
 			$redsys_insite->log->add( 'insite', ' ' );
@@ -4447,18 +5005,151 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		$redsys_amount     = WCRed()->redsys_amount_format( $amount );
 		$secretsha256      = $redsys_insite->get_redsys_sha256( $user_id );
 		$redsys_adr        = $redsys_insite->get_redsys_url_gateway( $user_id );
+		$redsys_adrws      = $redsys_insite->get_redsys_url_gateway_ws( $user_id );
 		$need_token        = $_POST['need_token'];
 		$token_type_needed = $_POST['token_needed'];
 		$merchant_module   = 'WooCommerce_Redsys_Gateway_' . REDSYS_VERSION . '_WooCommerce.com';
-		$emv3ds            = '{"threeDSInfo":"AuthenticationData",
-							"protocolVersion":"1.0.2",
-							"browserAcceptHeader":"' . $http_accept . '",
-							"browserUserAgent":"' . $usr_agent . '"}';
+		$merchant_data    = false;
+		$identifier       = false;
+		$cof_ini          = false;
+		$cof_type         = false;
+		$lwv              = false;
+		$tra              = false;
 
 		if ( 'yes' === $redsys_insite->debug ) {
 			$redsys_insite->log->add( 'insite', ' ' );
-			$redsys_insite->log->add( 'insite', '$emv3ds: ' . $emv3ds );
 			$redsys_insite->log->add( 'insite', '$currency: ' . $currency );
+		}
+
+		if ( 'yes' === $redsys_insite->pay1clic && ( 'yes' === $save || 'yes' === $need_token ) ) {
+			if ( 'R' === $token_type_needed ) {
+				$merchant_data = '<Ds_Merchant_MerchantData>0</Ds_Merchant_MerchantData>';
+				$identifier    = '<Ds_MERCHANT_IDENTIFIER>REQUIRED</Ds_MERCHANT_IDENTIFIER>';
+				$cof_ini       = '<DS_MERCHANT_COF_INI>S</DS_MERCHANT_COF_INI>';
+				$cof_type      = '<DS_MERCHANT_COF_TYPE>R</DS_MERCHANT_COF_TYPE>';
+				set_transient( $order_id . '_ds_merchant_cof_ini', 'S', 3600 );
+				set_transient( $order_id . '_ds_merchant_cof_type', 'R', 3600 );
+			} else {
+				$merchant_data = '<Ds_Merchant_MerchantData>0</Ds_Merchant_MerchantData>';
+				$identifier    = '<DS_MERCHANT_IDENTIFIER>REQUIRED</DS_MERCHANT_IDENTIFIER>';
+				$cof_ini       = '<DS_MERCHANT_COF_INI>S</DS_MERCHANT_COF_INI>';
+				$cof_type      = '<DS_MERCHANT_COF_TYPE>C</DS_MERCHANT_COF_TYPE>';
+				set_transient( $order_id . '_ds_merchant_cof_ini', 'S', 3600 );
+				set_transient( $order_id . '_ds_merchant_cof_type', 'C', 3600 );
+			}
+		}
+
+		if ( (int) $redsys_amount < 3000 ) {
+			if ( 'yes' === $redsys_insite->debug ) {
+				$redsys_insite->log->add( 'insite', 'Apply SCA: LWV' );
+			}
+			$lwv = '<DS_MERCHANT_EXCEP_SCA>LWV</DS_MERCHANT_EXCEP_SCA>';
+			set_transient( $order_id . '_ds_merchant_excep_sca', 'LWV', 3600 );
+		} elseif ( $redsys_amount <= ( 100 * (int) $redsys_insite->traamount ) && 'yes' === $redsys_insite->traactive ) {
+			if ( 'yes' === $redsys_insite->debug ) {
+				$redsys_insite->log->add( 'insite', 'Apply SCA: TRA' );
+			}
+			$tra = '<DS_MERCHANT_EXCEP_SCA>TRA</DS_MERCHANT_EXCEP_SCA>';
+			set_transient( $order_id . '_ds_merchant_excep_sca', 'TRA', 3600 );
+
+		} else {
+			if ( 'yes' === $redsys_insite->debug ) {
+				$redsys_insite->log->add( 'insite', 'Apply SCA: NO' );
+			}
+		}
+
+		$DATOS_ENTRADA  = '<DATOSENTRADA>';
+		$DATOS_ENTRADA .= '<DS_MERCHANT_AMOUNT>' . $redsys_amount . '</DS_MERCHANT_AMOUNT>';
+		$DATOS_ENTRADA .= '<DS_MERCHANT_ORDER>' . $order_id . '</DS_MERCHANT_ORDER>';
+		$DATOS_ENTRADA .= '<DS_MERCHANT_MERCHANTCODE>' . $customer . '</DS_MERCHANT_MERCHANTCODE>';
+		$DATOS_ENTRADA .= '<DS_MERCHANT_TERMINAL>' . $terminal . '</DS_MERCHANT_TERMINAL>';
+		$DATOS_ENTRADA .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
+		$DATOS_ENTRADA .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
+		$DATOS_ENTRADA .= '<DS_MERCHANT_IDOPER>' . $redsys_token . '</DS_MERCHANT_IDOPER>';
+		if ( $merchant_data ) {
+			$DATOS_ENTRADA .= $merchant_data;
+		}
+		if ( $identifier ) {
+			$DATOS_ENTRADA .= $identifier;
+		}
+		if ( $cof_ini ) {
+			$DATOS_ENTRADA .= $cof_ini;
+		}
+		if ( $cof_type ) {
+			$DATOS_ENTRADA .= $cof_type;
+		}
+		if ( $lwv ) {
+			$DATOS_ENTRADA .= $lwv;
+		}
+		if ( $tra ) {
+			$DATOS_ENTRADA .= $tra;
+		}
+		$DATOS_ENTRADA .= '<DS_MERCHANT_EMV3DS>{"threeDSInfo":"CardData"}</DS_MERCHANT_EMV3DS>';
+		$DATOS_ENTRADA .= '</DATOSENTRADA>';
+
+		if ( 'yes' === $redsys_insite->debug ) {
+			$redsys_insite->log->add( 'insite', ' ' );
+			$redsys_insite->log->add( 'insite', '/****************************/' );
+			$redsys_insite->log->add( 'insite', '          The call  4          ' );
+			$redsys_insite->log->add( 'insite', '/****************************/' );
+			$redsys_insite->log->add( 'insite', ' ' );
+			$redsys_insite->log->add( 'insite', $DATOS_ENTRADA );
+			$redsys_insite->log->add( 'insite', ' ' );
+		}
+
+		$XML  = '<REQUEST>';
+		$XML .= $DATOS_ENTRADA;
+		$XML .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
+		$XML .= '<DS_SIGNATURE>' . $miObj->createMerchantSignatureHostToHost( $secretsha256, $DATOS_ENTRADA ) . '</DS_SIGNATURE>';
+		$XML .= '</REQUEST>';
+
+		if ( 'yes' === $redsys_insite->debug ) {
+			$redsys_insite->log->add( 'insite', ' ' );
+			$redsys_insite->log->add( 'insite', '/****************************/' );
+			$redsys_insite->log->add( 'insite', '          The XML             ' );
+			$redsys_insite->log->add( 'insite', '/****************************/' );
+			$redsys_insite->log->add( 'insite', ' ' );
+			$redsys_insite->log->add( 'insite', $XML );
+			$redsys_insite->log->add( 'insite', ' ' );
+		}
+
+		$CLIENTE  = new SoapClient( $redsys_adrws );
+		$RESPONSE = $CLIENTE->iniciaPeticion( array( 'datoEntrada' => $XML ) );
+
+		if ( isset( $RESPONSE->iniciaPeticionReturn ) ) {
+			$XML_RETORNO = new SimpleXMLElement( $RESPONSE->iniciaPeticionReturn );
+			$respuesta   = json_decode( $XML_RETORNO->INFOTARJETA->Ds_EMV3DS );
+		}
+		
+		if ( 'yes' === $redsys_insite->debug ) {
+			$redsys_insite->log->add( 'insite', ' ' );
+			$redsys_insite->log->add( 'insite', '/****************************/' );
+			$redsys_insite->log->add( 'insite', '          The XML             ' );
+			$redsys_insite->log->add( 'insite', '/****************************/' );
+			$redsys_insite->log->add( 'insite', ' ' );
+			$redsys_insite->log->add( 'insite', $XML );
+			$redsys_insite->log->add( 'insite', '$XML_RETORNO 14 IniciaPeticion: ' . print_r( $XML_RETORNO, true ) );
+			$redsys_insite->log->add( 'insite', '$respuesta: ' . print_r( $respuesta, true ) );
+			$redsys_insite->log->add( 'insite', '$respuesta->protocolVersion: ' .$respuesta->protocolVersion );
+			$redsys_insite->log->add( 'insite', '$respuesta->threeDSServerTransID: ' . $respuesta->threeDSServerTransID );
+			$redsys_insite->log->add( 'insite', '$respuesta->threeDSInfo: ' . $respuesta->threeDSInfo );
+			$redsys_insite->log->add( 'insite', '$respuesta->threeDSMethodURL: ' . $respuesta->threeDSMethodURL );
+			$redsys_insite->log->add( 'insite', ' ' );
+		}
+		if ( ! empty( $respuesta->protocolVersion ) ) {
+			set_transient( $order_id . '_insite_protocolversion', trim( $respuesta->protocolVersion ), 46000 );
+		}
+		if ( ! empty( $respuesta->threeDSServerTransID ) ) {
+			set_transient( $order_id . '_insite_threeDSServerTransID', trim( $respuesta->threeDSServerTransID ), 46000 );
+		}
+		if ( ! empty( $respuesta->threeDSInfo ) ) {
+			set_transient( $order_id . '_insite_threeDSInfo', trim( $respuesta->threeDSInfo ), 46000 );
+		}
+		if ( ! empty( $respuesta->threeDSMethodURL ) ) {
+			set_transient( $order_id . '_insite_threeDSMethodURL', trim( $respuesta->threeDSMethodURL ), 46000 );
+		}
+		if ( isset( $XML_RETORNO->INFOTARJETA->Ds_Card_PSD2 ) ) {
+			set_transient( $order_id . '_insite_ds_card_psd2', trim( $XML_RETORNO->INFOTARJETA->Ds_Card_PSD2 ), 46000 );
 		}
 
 		check_ajax_referer( 'redsys_insite_nonce', 'redsysnonce' );
@@ -4470,90 +5161,116 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		if ( 0 === (int) $redsys_amount ) {
 			set_transient( $order_id . '_insite_needs_payment', 'yes', 46000 );
 		}
-
-		if ( 'yes' === $redsys_insite->debug ) {
-			$redsys_insite->log->add( 'insite', ' ' );
-			$redsys_insite->log->add( 'insite', '$user_id: ' . $user_id );
-			$redsys_insite->log->add( 'insite', '$customer:' . $customer );
-			$redsys_insite->log->add( 'insite', '$terminal: ' . $terminal );
-			$redsys_insite->log->add( 'insite', '$currency: ' . $currency );
-			$redsys_insite->log->add( 'insite', '$transaction_type: ' . $transaction_type );
-			$redsys_insite->log->add( 'insite', '$redsys_amount: ' . $redsys_amount );
-			$redsys_insite->log->add( 'insite', '$redsys_order_id: ' . $order_id );
-			$redsys_insite->log->add( 'insite', '$redsys_token: ' . $redsys_token );
-			$redsys_insite->log->add( 'insite', '$final_notify_url: ' . $final_notify_url );
-			$redsys_insite->log->add( 'insite', '$merchan_name: ' . $merchan_name );
-			$redsys_insite->log->add( 'insite', '$merchant_lastnme: ' . $merchant_lastnme );
-			$redsys_insite->log->add( 'insite', '$redsys_adr: ' . $redsys_adr );
-			$redsys_insite->log->add( 'insite', '$secretsha256: ' . $secretsha256 );
-			$redsys_insite->log->add( 'insite', '$save: ' . $save );
-		}
-
-		$miObj = new RedsysAPI();
-
-		$miObj->setParameter( 'DS_MERCHANT_MODULE', $merchant_module );
-		$miObj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $customer );
-		$miObj->setParameter( 'DS_MERCHANT_TERMINAL', $terminal );
-		$miObj->setParameter( 'DS_MERCHANT_CURRENCY', $currency );
-		$miObj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
-		$miObj->setParameter( 'DS_MERCHANT_AMOUNT', $redsys_amount );
-		$miObj->setParameter( 'DS_MERCHANT_ORDER', $order_id );
-		$miObj->setParameter( 'DS_MERCHANT_IDOPER', $redsys_token );
-		$miObj->setParameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
-		$miObj->setParameter( 'DS_MERCHANT_TITULAR', $merchan_name . ' ' . $merchant_lastnme );
-		$miObj->setParameter( 'DS_MERCHANT_DIRECTPAYMENT', '3DS' );
-
+		
 		if ( 'yes' === $redsys_insite->pay1clic && ( 'yes' === $save || 'yes' === $need_token ) ) {
 			if ( 'R' === $token_type_needed ) {
-				$miObj->setParameter( 'Ds_Merchant_MerchantData', '0' );
-				$miObj->setParameter( 'Ds_MERCHANT_IDENTIFIER', 'REQUIRED' );
-				$miObj->setParameter( 'DS_MERCHANT_COF_INI', 'N' );
-				$miObj->setParameter( 'DS_MERCHANT_COF_TYPE', 'R' );
-				set_transient( $order_id . '_ds_merchant_cof_ini', 'R', 3600 );
+				set_transient( $order_id . '_insite_Ds_Merchant_MerchantData', '0', 46000 );
+				set_transient( $order_id . '_insite_Ds_MERCHANT_IDENTIFIER', 'REQUIRED', 46000 );
+				set_transient( $order_id . '_insite_DS_MERCHANT_COF_INI', 'S', 46000 );
+				set_transient( $order_id . '_insite_DS_MERCHANT_COF_TYPE', 'R', 46000 );
+				set_transient( $order_id . '_ds_merchant_cof_ini', 'S', 3600 );
 			} else {
-				$miObj->setParameter( 'Ds_Merchant_MerchantData', '0' );
-				$miObj->setParameter( 'Ds_MERCHANT_IDENTIFIER', 'REQUIRED' );
-				$miObj->setParameter( 'DS_MERCHANT_COF_INI', 'S' );
-				$miObj->setParameter( 'DS_MERCHANT_COF_TYPE', 'R' );
-				set_transient( $order_id . '_ds_merchant_cof_ini', 'C', 3600 );
+				set_transient( $order_id . '_insite_Ds_Merchant_MerchantData', '0', 3600 );
+				set_transient( $order_id . '_insite_Ds_MERCHANT_IDENTIFIER', 'REQUIRED', 3600 );
+				set_transient( $order_id . '_insite_DS_MERCHANT_COF_INI', 'S', 3600 );
+				set_transient( $order_id . '_insite_DS_MERCHANT_COF_TYPE', 'C', 3600 );
+				set_transient( $order_id . '_ds_merchant_cof_ini', 'S', 3600 );
 			}
 		}
-
+		
 		if ( (int) $redsys_amount < 3000 ) {
 			if ( 'yes' === $redsys_insite->debug ) {
 				$redsys_insite->log->add( 'insite', 'Apply SCA: LWV' );
 			}
-			$miObj->setParameter( 'DS_MERCHANT_EXCEP_SCA', 'LWV' );
+			set_transient( $order_id . '_insite_DS_MERCHANT_EXCEP_SCA', 'LWV', 3600 );
 		} elseif ( $redsys_amount <= ( 100 * (int) $redsys_insite->traamount ) && 'yes' === $redsys_insite->traactive ) {
 			if ( 'yes' === $redsys_insite->debug ) {
 				$redsys_insite->log->add( 'insite', 'Apply SCA: TRA' );
 			}
-			$miObj->setParameter( 'DS_MERCHANT_EXCEP_SCA', 'TRA' );
+			set_transient( $order_id . '_insite_DS_MERCHANT_EXCEP_SCA', 'TRA', 3600 );
 		} else {
 			if ( 'yes' === $redsys_insite->debug ) {
 				$redsys_insite->log->add( 'insite', 'Apply SCA: NO' );
 			}
 		}
-		$miObj->setParameter( 'DS_MERCHANT_EMV3DS', json_decode( $emv3ds, true ) );
-		/*
-		if ( 'yes' === $redsys_insite->secure3ds ) {
-			$miObj->setParameter("DS_MERCHANT_EMV3DS", json_decode( $emv3ds, true ) );
-		}
-		*/
-		$version   = 'HMAC_SHA256_V1';
-		$request   = '';
-		$params    = $miObj->createMerchantParameters();
-		$signature = $miObj->createMerchantSignature( $secretsha256 );
+		
+		set_transient( $order_id . '_insite_user_id', $user_id, 3600 );
+		set_transient( $order_id . '_insite_customer', $customer, 3600 );
+		set_transient( $order_id . '_insite_terminal', $terminal, 3600 );
+		set_transient( $order_id . '_insite_currency', $currency, 3600 );
+		set_transient( $order_id . '_insite_transaction_type', $transaction_type, 3600 );
+		set_transient( $order_id . '_insite_redsys_amount', $redsys_amount, 3600 );
+		set_transient( $order_id . '_insite_redsys_token', $redsys_token, 3600 );
+		set_transient( $order_id . '_insite_final_notify_url', $final_notify_url, 3600 );
+		set_transient( $order_id . '_insite_merchan_name', $merchan_name, 3600 );
+		set_transient( $order_id . '_insite_merchant_lastnme', $merchant_lastnme, 3600 );
+		set_transient( $order_id . '_insite_redsys_adr', $redsys_adr, 3600 );
+		set_transient( $order_id . '_insite_secretsha256', $secretsha256, 3600 );
+		set_transient( $order_id . '_insite_save', $save, 3600 );
+		
 
 		if ( 'yes' === $redsys_insite->debug ) {
-			$redsys_insite->log->add( 'insite', '$version: ' . $version );
-			$redsys_insite->log->add( 'insite', '$params: ' . $params );
-			$redsys_insite->log->add( 'insite', '$signature: ' . $signature );
+			
+			$insite_user_id                  = get_transient( $order_id . '_insite_user_id' );
+			$insite_customer                 = get_transient( $order_id . '_insite_customer' );
+			$insite_terminal                 = get_transient( $order_id . '_insite_terminal'  );
+			$insite_currency                 = get_transient( $order_id . '_insite_currency' );
+			$insite_transaction_type         = get_transient( $order_id . '_insite_transaction_type' );
+			$insite_redsys_amount            = get_transient( $order_id . '_insite_redsys_amount' );
+			$insite_redsys_token             = get_transient( $order_id . '_insite_redsys_token' );
+			$insite_final_notify_url         = get_transient( $order_id . '_insite_final_notify_url' );
+			$insite_merchan_name             = get_transient( $order_id . '_insite_merchan_name' );
+			$insite_merchant_lastnme         = get_transient( $order_id . '_insite_merchant_lastnme' );
+			$insite_redsys_adr               = get_transient( $order_id . '_insite_redsys_adr' );
+			$insite_secretsha256             = get_transient( $order_id . '_insite_secretsha256' );
+			$insite_save                     = get_transient( $order_id . '_insite_save' );
+			$insite_protocolversion          = get_transient( $order_id . '_insite_protocolversion' );
+			$insite_threeDSServerTransID     = get_transient( $order_id . '_insite_threeDSServerTransID' );
+			$insite_threeDSInfo              = get_transient( $order_id . '_insite_threeDSInfo' );
+			$insite_threeDSMethodURL         = get_transient( $order_id . '_insite_threeDSMethodURL' );
+			$insite_ds_card_psd2             = get_transient( $order_id . '_insite_ds_card_psd2' );
+			$insite_token                    = get_transient( $order_id . '_insite_token' );
+			$insite_user_id                  = get_transient( $order_id . '_insite_user_id' );
+			$insite_token_need               = get_transient( $order_id . '_insite_token_need' );
+			$insite_needs_payment            = get_transient( $order_id . '_insite_needs_payment' );
+			$insite_Ds_Merchant_MerchantData = get_transient( $order_id . '_insite_Ds_Merchant_MerchantData' );
+			$insite_Ds_MERCHANT_IDENTIFIER   = get_transient( $order_id . '_insite_Ds_MERCHANT_IDENTIFIER' );
+			$insite_DS_MERCHANT_COF_INI      = get_transient( $order_id . '_insite_DS_MERCHANT_COF_INI' );
+			$insite_DS_MERCHANT_COF_TYPE     = get_transient( $order_id . '_insite_DS_MERCHANT_COF_TYPE' );
+			$ds_merchant_cof_ini             = get_transient( $order_id . '_ds_merchant_cof_ini' );
+			$insite_DS_MERCHANT_EXCEP_SCA    = get_transient( $order_id . '_insite_DS_MERCHANT_EXCEP_SCA' );
 
+			$redsys_insite->log->add( 'insite', ' ' );
+			$redsys_insite->log->add( 'insite', '$user_id: ' . $insite_user_id );
+			$redsys_insite->log->add( 'insite', '$customer:' . $insite_customer );
+			$redsys_insite->log->add( 'insite', '$terminal: ' . $insite_terminal );
+			$redsys_insite->log->add( 'insite', '$currency: ' . $insite_currency );
+			$redsys_insite->log->add( 'insite', '$transaction_type: ' . $insite_transaction_type );
+			$redsys_insite->log->add( 'insite', '$redsys_amount: ' . $insite_redsys_amount );
+			$redsys_insite->log->add( 'insite', '$redsys_order_id: ' . $order_id );
+			$redsys_insite->log->add( 'insite', '$redsys_token: ' . $insite_redsys_token );
+			$redsys_insite->log->add( 'insite', '$final_notify_url: ' . $insite_final_notify_url );
+			$redsys_insite->log->add( 'insite', '$merchan_name: ' . $insite_merchan_name );
+			$redsys_insite->log->add( 'insite', '$merchant_lastnme: ' . $insite_merchant_lastnme );
+			$redsys_insite->log->add( 'insite', '$redsys_adr: ' . $insite_redsys_adr );
+			$redsys_insite->log->add( 'insite', '$secretsha256: ' . $insite_secretsha256 );
+			$redsys_insite->log->add( 'insite', '$save: ' . $insite_save );			
+			$redsys_insite->log->add( 'insite', '$insite_protocolversion: ' . $insite_protocolversion );
+			$redsys_insite->log->add( 'insite', '$insite_threeDSServerTransID: ' . $insite_threeDSServerTransID );
+			$redsys_insite->log->add( 'insite', '$insite_threeDSInfo: ' . $insite_threeDSInfo );
+			$redsys_insite->log->add( 'insite', '$insite_threeDSMethodURL: ' . $insite_threeDSMethodURL );
+			$redsys_insite->log->add( 'insite', '$insite_ds_card_psd2: ' . $insite_ds_card_psd2 );
+			$redsys_insite->log->add( 'insite', '$insite_token: ' . $insite_token );
+			$redsys_insite->log->add( 'insite', '$insite_user_id: ' . $insite_user_id );
+			$redsys_insite->log->add( 'insite', '$insite_token_need: ' . $insite_token_need );
+			$redsys_insite->log->add( 'insite', '$insite_needs_payment: ' . $insite_needs_payment );
+			$redsys_insite->log->add( 'insite', '$insite_Ds_Merchant_MerchantData: ' . $insite_Ds_Merchant_MerchantData );
+			$redsys_insite->log->add( 'insite', '$insite_Ds_MERCHANT_IDENTIFIER: ' . $insite_Ds_MERCHANT_IDENTIFIER );
+			$redsys_insite->log->add( 'insite', '$insite_DS_MERCHANT_COF_INI: ' . $insite_DS_MERCHANT_COF_INI );
+			$redsys_insite->log->add( 'insite', '$insite_DS_MERCHANT_COF_TYPE: ' . $insite_DS_MERCHANT_COF_TYPE );
+			$redsys_insite->log->add( 'insite', '$ds_merchant_cof_ini: ' . $ds_merchant_cof_ini );
+			$redsys_insite->log->add( 'insite', '$insite_DS_MERCHANT_EXCEP_SCA: ' . $insite_DS_MERCHANT_EXCEP_SCA );
 		}
-		set_transient( $order_id . '_insite_version', $version, 3600 );
-		set_transient( $order_id . '_insite_params', $params, 3600 );
-		set_transient( $order_id . '_insite_signature', $signature, 3600 );
 		echo 'success';
 		wp_die();
 	}
@@ -4583,6 +5300,329 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'insite', ' ' );
 		}
 
+		if ( isset( $_GET['threeDSServerTransID'] ) ) {
+			
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', '$_GET["threeDSServerTransID"]' );
+			}
+
+			$ordermum             = $_GET['order'];
+			$order                = WCRed()->get_order( $ordermum );
+			$threeddservertransid = $_GET['threeDSServerTransID'];
+			
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', '$ordermum: ' . $ordermum );
+				$this->log->add( 'insite', '$threeddservertransid: ' . $threeddservertransid );
+			}
+			
+			if ( 'yes' == $this->debug ) {
+				$this->log->add( 'insite', 'HTTP Notification received: ' . print_r( $_POST, true ) );
+			}
+			if ( 'yes' === $this->not_use_https ) {
+				$final_notify_url = $this->notify_url_not_https;
+			} else {
+				$final_notify_url = $this->notify_url;
+			}
+			
+			if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
+				$browserUserAgent = $_SERVER['HTTP_USER_AGENT'];
+			} else {
+				$browserUserAgent = false;
+			}
+
+			$user_id             = get_current_user_id();
+			$browserAcceptHeader = get_post_meta( $ordermum, '_accept_haders' );
+			$browserColorDepth   = get_post_meta( $ordermum, '_billing_profundidad_color_field' );
+			$browserLanguage     = get_post_meta( $ordermum, '_billing_idioma_navegador_field' );
+			$browserScreenHeight = get_post_meta( $ordermum, '_billing_altura_pantalla_field' );
+			$browserScreenWidth  = get_post_meta( $ordermum, '_billing_anchura_pantalla_field' );
+			$browserTZ           = get_post_meta( $ordermum, '_billing_tz_horaria_field' );
+			$java_enabled        = get_post_meta( $ordermum, '_billing_js_enabled_navegador_field' );
+			$protocolVersion     = get_transient ( 'protocolVersion_' . $ordermum );
+			$merchant_cof        = get_transient( $ordermum . '_ds_merchant_cof_ini' );
+			$merchant_type       = get_transient( $ordermum . '_ds_merchant_cof_type' );
+			$excep_sca           = get_transient( $ordermum . '_ds_merchant_excep_sca' );
+			$token_ioper         = get_transient( $ordermum . '_insite_token' );
+			$merchant_identifier = get_transient( $ordermum . '_insite_token_redsys' );
+			$merchant_txnid      = get_transient( $ordermum . '_insite_token_txnid' );
+			$redsys_adr          = $this->get_redsys_url_gateway_ws();
+			$miObj               = new RedsysAPIWs();
+			$secretsha256        = $this->get_redsys_sha256( $user_id );
+
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', '$merchant_cof: ' . $merchant_cof );
+				$this->log->add( 'insite', '$merchant_type: ' . $merchant_type );
+				$this->log->add( 'insite', '$excep_sca: ' . $excep_sca );
+				$this->log->add( 'insite', '$token_ioper: ' . $token_ioper );
+				$this->log->add( 'insite', '$merchant_identifier: ' . $merchant_identifier );
+				$this->log->add( 'insite', '$merchant_txnid: ' . $merchant_txnid );
+				
+				$this->log->add( 'insite', '$user_id: ' . $user_id );
+				$this->log->add( 'insite', '$browserAcceptHeader: ' . implode( '', WCRed()->clean_data( $browserAcceptHeader ) ) );
+				$this->log->add( 'insite', '$browserColorDepth: ' . implode( '', $browserColorDepth ) );
+				$this->log->add( 'insite', '$browserLanguage: ' . implode( '', WCRed()->clean_data( $browserLanguage ) ) );
+				$this->log->add( 'insite', '$browserScreenHeight: ' . implode( '', WCRed()->clean_data( $browserScreenHeight ) ) );
+				$this->log->add( 'insite', '$browserScreenWidth: ' . implode( '', WCRed()->clean_data( $browserScreenWidth ) ) );
+				$this->log->add( 'insite', '$browserTZ: ' . implode( '', $browserTZ ) );
+				$this->log->add( 'insite', '$java_enabled: ' . implode( '', WCRed()->clean_data( $java_enabled ) ) );
+				$this->log->add( 'insite', '$protocolVersion: ' . $protocolVersion );
+				$this->log->add( 'insite', '$merchant_cof: ' . $merchant_cof );
+				$this->log->add( 'insite', '$merchant_type: ' . $merchant_type );
+				$this->log->add( 'insite', '$excep_sca: ' . $excep_sca );
+				$this->log->add( 'insite', '$token_ioper: ' . $token_ioper );
+				$this->log->add( 'insite', '$merchant_identifier: ' . $merchant_identifier );
+				$this->log->add( 'insite', '$merchant_txnid: ' . $merchant_txnid );
+				$this->log->add( 'insite', '$redsys_adr: ' . $redsys_adr );
+				$this->log->add( 'insite', '$secretsha256: ' . $secretsha256 );
+				$this->log->add( 'insite', '/****************************/' );
+			}
+			
+			$order_total_sign = get_transient( $ordermum . '_insite_merchant_amount' );
+			
+			if ( $order_total_sign ) {
+				$orderid2         = get_transient( $ordermum . '_insite_merchant_order' );
+				$customer         = get_transient( $ordermum . '_insite_merchantcode' );
+				$terminal         = get_transient( $ordermum . '_insite_terminal' );
+				$transaction_type = get_transient( $ordermum . '_insite_transaction_type' );
+				$currency         = get_transient( $ordermum . '_insite_currency' );
+			} else {
+				$orderid2                        = get_post_meta( $ordermum, '_temp_redsys_order_number', true );
+				$customer                        = get_transient( $orderid2 . '_insite_customer' );
+				$terminal                        = get_transient( $orderid2 . '_insite_terminal'  );
+				$currency                        = get_transient( $orderid2 . '_insite_currency' );
+				$transaction_type                = get_transient( $orderid2 . '_insite_transaction_type' );
+				$insite_DS_MERCHANT_COF_INI      = get_transient( $orderid2 . '_insite_DS_MERCHANT_COF_INI' );
+				$insite_DS_MERCHANT_COF_TYPE     = get_transient( $orderid2 . '_insite_DS_MERCHANT_COF_TYPE' );
+				$order_total_sign                = get_transient( $orderid2 . '_insite_redsys_amount' );
+				
+			}
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', '$orderid2: ' . $orderid2 );
+				$this->log->add( 'insite', '$customer: ' . $customer );
+				$this->log->add( 'insite', '$terminal: ' . $terminal );
+				$this->log->add( 'insite', '$transaction_type: ' . $transaction_type );
+				$this->log->add( 'insite', '$currency: ' . $currency );
+				$this->log->add( 'insite', '$insite_DS_MERCHANT_COF_INI: ' . $insite_DS_MERCHANT_COF_INI );
+				$this->log->add( 'insite', '$insite_DS_MERCHANT_COF_TYPE: ' . $insite_DS_MERCHANT_COF_TYPE );
+				$this->log->add( 'insite', '$token_ioper: ' . $token_ioper );
+				$this->log->add( 'insite', '$order_total_sign: ' . $order_total_sign );
+				$this->log->add( 'insite', '$merchant_cof: ' . $merchant_cof );
+				$this->log->add( 'insite', '$merchant_type: ' . $merchant_type );
+
+			}
+			
+			if ( ( 'no' === $merchant_identifier || empty( $merchant_identifier ) ) && ! empty( $merchant_cof ) ) {
+				$merchant_identifier = 'REQUIRED';
+			}
+
+			if ( $token_ioper ) {
+				$insite_redsys_token = '<DS_MERCHANT_IDOPER>' . $token_ioper . '</DS_MERCHANT_IDOPER>';
+			} else {
+				$insite_redsys_token = '';
+			}
+			if ( 'no' !== $merchant_identifier && ! empty( $merchant_identifier ) ) {
+				$merchant_identifier_d = '<Ds_MERCHANT_IDENTIFIER>' . $merchant_identifier . '</Ds_MERCHANT_IDENTIFIER>';
+			} else {
+				$merchant_identifier_d = '';
+			}
+			if ( $merchant_cof ) {
+				$merchant_cof = '<DS_MERCHANT_COF_INI>' . $merchant_cof . '</DS_MERCHANT_COF_INI>';
+			} else {
+				$merchant_cof = '';
+			}
+			if ( $merchant_type ) {
+				$merchant_type = '<DS_MERCHANT_COF_TYPE>' . $merchant_type . '</DS_MERCHANT_COF_TYPE>';
+			} else {
+				$merchant_type = '';
+			}
+			if ( $merchant_txnid ) {
+				$merchant_txnid = '<DS_MERCHANT_COF_TXNID>' . $merchant_txnid . '</DS_MERCHANT_COF_TXNID>';
+			} else {
+				$merchant_txnid = '';
+			}
+			
+			if ( 'yes' === $this->not_use_https ) {
+				$final_notify_url = $this->notify_url_not_https;
+			} else {
+				$final_notify_url = $this->notify_url;
+			}
+
+			$datos_usuario       = array(
+				'threeDSInfo'              => 'AuthenticationData',
+				'protocolVersion'          => $protocolVersion,
+				'browserAcceptHeader'      => implode( '', WCRed()->clean_data( $browserAcceptHeader ) ),
+				'browserColorDepth'        => implode( '', $browserColorDepth ),
+				'browserIP'                => (string) $this->get_the_ip(),
+				'browserJavaEnabled'       => implode( '', WCRed()->clean_data( $java_enabled ) ),
+				'browserJavascriptEnabled' => 'enabled',
+				'browserLanguage'          => implode( '', WCRed()->clean_data( $browserLanguage ) ),
+				'browserScreenHeight'      => implode( '', WCRed()->clean_data( $browserScreenHeight ) ),
+				'browserScreenWidth'       => implode( '', WCRed()->clean_data( $browserScreenWidth ) ),
+				'browserTZ'                => implode( '', $browserTZ ),
+				'threeDSServerTransID'     => (string) $threeddservertransid,
+				'browserUserAgent'         => $browserUserAgent,
+				'notificationURL'          => (string) $final_notify_url,
+				'threeDSCompInd'           => (string) 'Y',
+			);
+			$acctinfo = WCPSD2()->get_acctinfo( $order, $datos_usuario );
+			
+			$DATOS_ENTRADA  = '<DATOSENTRADA>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_MERCHANTCODE>' . $customer . '</DS_MERCHANT_MERCHANTCODE>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_TERMINAL>' . $terminal . '</DS_MERCHANT_TERMINAL>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
+			$DATOS_ENTRADA .= $insite_redsys_token;
+			$DATOS_ENTRADA .= $merchant_identifier_d; // '<DS_MERCHANT_IDENTIFIER>' . $customer_token . '</DS_MERCHANT_IDENTIFIER>';
+			$DATOS_ENTRADA .= $merchant_cof; // '<DS_MERCHANT_COF_INI>N</DS_MERCHANT_COF_INI>';
+			$DATOS_ENTRADA .= $merchant_type;// '<DS_MERCHANT_COF_TYPE>R</DS_MERCHANT_COF_TYPE>';
+			$DATOS_ENTRADA .= $merchant_txnid;// '<DS_MERCHANT_COF_TXNID>' . $txnid . '</DS_MERCHANT_COF_TXNID>';
+			// $DATOS_ENTRADA .= '<DS_MERCHANT_MERCHANTURL>' . $final_notify_url . '</DS_MERCHANT_MERCHANTURL>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_EMV3DS>' . $acctinfo . '</DS_MERCHANT_EMV3DS>';
+			$DATOS_ENTRADA .= '</DATOSENTRADA>';
+
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', ' ' );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', '          The call  5          ' );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', ' ' );
+				$this->log->add( 'insite', $DATOS_ENTRADA );
+				$this->log->add( 'insite', ' ' );
+			}
+			
+			$XML  = '<REQUEST>';
+			$XML .= $DATOS_ENTRADA;
+			$XML .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
+			$XML .= '<DS_SIGNATURE>' . $miObj->createMerchantSignatureHostToHost( $secretsha256, $DATOS_ENTRADA ) . '</DS_SIGNATURE>';
+			$XML .= '</REQUEST>';
+
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', ' ' );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', '          The XML             ' );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', ' ' );
+				$this->log->add( 'insite', 'trataPeticion 11: ' . $XML );
+				$this->log->add( 'insite', ' ' );
+			}
+
+			$CLIENTE    = new SoapClient( $redsys_adr );
+			$responsews = $CLIENTE->trataPeticion( array( 'datoEntrada' => $XML ) );
+			
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', ' ' );
+				// $this->log->add( 'insite', '$acctinfo: ' . $acctinfo );
+				$this->log->add( 'insite', '$responsews: ' . print_r( $responsews, true ) );
+			}
+
+			if ( isset( $responsews->trataPeticionReturn ) ) {
+				$XML_RETORNO       = new SimpleXMLElement( $responsews->trataPeticionReturn );
+				$respuestaeds      = json_decode( $XML_RETORNO->OPERACION->Ds_EMV3DS );
+				$threeDSInfo       = trim( $respuestaeds->threeDSInfo );
+				$protocolVersion   = trim( $respuestaeds->protocolVersion );
+				$acsURL            = trim( $respuestaeds->acsURL );
+				$PAReq             = trim( $respuestaeds->{ 'PAReq'} );
+				$MD                = trim( $respuestaeds->MD );
+				$creq              = trim( $respuestaeds->{ 'creq'} );
+				$authorisationcode = trim( $XML_RETORNO->OPERACION->Ds_AuthorisationCode );
+				$ordermi           = trim( $XML_RETORNO->OPERACION->Ds_Order );
+				$dstermnal         = trim( $XML_RETORNO->OPERACION->Ds_Terminal );
+				$dscardcountry     = trim( $XML_RETORNO->OPERACION->Ds_Card_Country );
+			}
+
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', ' ' );
+				// $this->log->add( 'insite', '$acctinfo: ' . $acctinfo );
+				$this->log->add( 'insite', '$XML_RETORNO 15: ' . print_r( $XML_RETORNO, true ) );
+				$this->log->add( 'insite', 'Ds_EMV3DS: ' . $XML_RETORNO->OPERACION->Ds_EMV3DS );
+				$this->log->add( 'insite', 'threeDSInfo: ' . $threeDSInfo );
+				$this->log->add( 'insite', '$protocolVersion: ' . $protocolVersion );
+				$this->log->add( 'insite', '$acsURL: ' . $acsURL );
+				$this->log->add( 'insite', '$PAReq: ' . $PAReq );
+				$this->log->add( 'insite', '$MD: ' . $MD );
+				$this->log->add( 'insite', '$creq: ' . $creq );
+				$this->log->add( 'insite', '$authorisationcode: ' . $authorisationcode );
+			}
+			if ( 'ChallengeRequest' === $threeDSInfo ) {
+				WCRed()->print_overlay_image();
+				if ( $PAReq ) { ?>
+					<form method="POST" action="<?php echo $acsURL; ?>"  enctype = "application/x-www-form-urlencoded">
+						<input type="hidden" name="PaReq" value="<?php echo esc_attr( $PAReq ); ?>" />
+						<input type="hidden" name="MD" value="<?php echo esc_attr( $MD ); ?>" />
+						<input type="hidden" name="TermUrl" value="<?php echo esc_attr( $final_notify_url ); ?>" />
+						<input name="submit_3ds" type="submit" class="button-alt" id="submit_pareq" value="' . __( 'Press here if you are not redirected', 'woocommerce-redsys' ) . '" />
+					</form>
+					<script type="text/javascript">
+				        document.getElementById('submit_pareq').click();
+				    </script>
+					<?php
+				}
+				if ( $creq ) { ?>
+					<form method="POST" action="<?php echo $acsURL; ?>" enctype = "application/xwww-form-urlencoded">
+						<input type="hidden" name="CReq" value=”<?php echo $creq; ?>” />
+						<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ) ?>" />
+					</form>
+					<script type="text/javascript">
+				        document.getElementById('submit_creq').click();
+				    </script>
+					<?php
+				}
+			}
+			if ( ! empty( $authorisationcode ) ) {
+				echo 'La operción ha sido aceptado y el número de autorización es: ' . $authorisationcode;
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', '$ordermi: ' . $ordermi );
+				}
+				$order_id = get_transient( $ordermi . '_insite_redsys_number' );
+				$order    = WCRed()->get_order( $order_id );
+				$url_ok   = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
+				$url_ko   = $order->get_cancel_order_url();
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', '$url_ok: ' . $$url_ok );
+					$this->log->add( 'insite', '$url_ko: ' . $$$url_ko );
+				}
+				if ( ! empty( $ordermi ) ) {
+					update_post_meta( $order->id, '_payment_order_number_redsys', $ordermi );
+				}
+				if ( ! empty( $dsdate ) ) {
+					update_post_meta( $order->id, '_payment_date_redsys', $dsdate );
+				}
+				if ( ! empty( $dshour ) ) {
+					update_post_meta( $order->id, '_payment_hour_redsys', $dshour );
+				}
+				if ( ! empty( $authorisationcode ) ) {
+					update_post_meta( $order->id, '_authorisation_code_redsys', $authorisationcode );
+				}
+				if ( ! empty( $dscardcountry ) ) {
+					update_post_meta( $order->id, '_card_country_insite', $dscardcountry );
+				}
+				if ( ! empty( $dscargtype ) ) {
+					update_post_meta( $order->id, '_card_type_insite', $dscargtype == 'C' ? 'Credit' : 'Debit' );
+				}
+				if ( ! empty( $dstermnal ) ) {
+					update_post_meta( $order->id, '_payment_terminal_redsys', $dstermnal );
+				}
+				// Payment completed
+				$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
+				$order->add_order_note( __( 'Authorisation code: ', 'woocommerce-redsys' ) . $authorisationcode );
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'payment_complete() 16' );
+				}
+				$order->payment_complete();
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'Payment complete.' );
+				}
+				wp_safe_redirect( $url_ok );
+				exit;
+			}
+			echo $acctinfo . '<br />';
+			echo 'Llega threeDSServerTransID';
+			exit;
+
+		}
+
 		$threeDSInfo       = get_transient( 'threeDSInfo_' . $order );
 		$protocolVersion   = get_transient( 'protocolVersion_' . $order );
 		$temp_order_number = get_post_meta( $order, '_temp_redsys_order_number', true );
@@ -4600,7 +5640,22 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				'threeDSMethodNotificationURL' => $final_notify_url,
 			);
 			$json                 = base64_encode( wp_json_encode( $data ) );
-
+			$creq                 = trim( get_transient( 'creq_' . $order ) );
+			$acsurl2              = get_transient( 'acsURL_' . $order );
+			if ( $creq ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'Doing Creq Form POST ' );
+				}
+			?>
+				<form method="POST" action="<?php echo $acsurl2; ?>" enctype = "application/xwww-form-urlencoded">
+					<input type="hidden" name="CReq" value=”<?php echo $creq; ?>” />
+					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ) ?>" />
+				</form>
+				<script type="text/javascript">
+					document.getElementById('submit_creq').click();
+				</script>
+			<?php
+			} else {
 			wc_enqueue_js(
 				'$("body").block({
 					message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/select2-spinner.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to 3DSecure Form.', 'woocommerce-redsys' ) . '",
@@ -4626,51 +5681,74 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				<input type="hidden" name="threeDSMethodData" value="' . $json . '" />
 				<input type="submit" class="button-alt" id="submit_redsys_payment_form_3" value="' . __( 'Press here if you are not redirected', 'woocommerce-redsys' ) . '" />
 				</form>';
+			}
 		} elseif ( 'ChallengeRequest' === $threeDSInfo ) {
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'insite', ' ' );
-				$this->log->add( 'insite', '/****************************/' );
-				$this->log->add( 'insite', '         Hay Challenge        ' );
-				$this->log->add( 'insite', '/****************************/' );
-				$this->log->add( 'insite', ' ' );
-			}
-			// Hay challenge
-			$acsURL = trim( get_transient( 'acsURL_' . $order ) );
-			$PAReq  = trim( get_transient( 'PAReq_' . $order ) );
-			$MD     = trim( get_transient( 'MD_' . $order ) );
-			if ( 'yes' === $this->not_use_https ) {
-				$final_notify_url = $this->notify_url_not_https;
+			if ( '2.2.0' === $protocolVersion ) {
+				$creq    = get_transient( 'creq_' . $order );
+				$acsurl2 = get_transient( 'acsURL_' . $order );
+				
+				if ( $creq ) {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', 'Doing Creq Form POST 2.2.0 ' );
+						$this->log->add( 'insite', '$acsurl2: ' . $acsurl2 );
+						$this->log->add( 'insite', '$creq: ' . $creq );
+					}
+				?>
+				<form method="POST" action="<?php echo $acsurl2; ?>" enctype = "application/xwww-form-urlencoded">
+					<input type="hidden" name="CReq" value=<?php echo $creq; ?> />
+					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ) ?>" />
+				</form>
+				<script type="text/javascript">
+					document.getElementById('submit_creq').click();
+				</script>
+			<?php
+				}
 			} else {
-				$final_notify_url = $this->notify_url;
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', ' ' );
+					$this->log->add( 'insite', '/****************************/' );
+					$this->log->add( 'insite', '         Hay Challenge        ' );
+					$this->log->add( 'insite', '/****************************/' );
+					$this->log->add( 'insite', ' ' );
+				}
+				// Hay challenge
+				$acsURL = trim( get_transient( 'acsURL_' . $order ) );
+				$PAReq  = trim( get_transient( 'PAReq_' . $order ) );
+				$MD     = trim( get_transient( 'MD_' . $order ) );
+				if ( 'yes' === $this->not_use_https ) {
+					$final_notify_url = $this->notify_url_not_https;
+				} else {
+					$final_notify_url = $this->notify_url;
+				}
+				wc_enqueue_js(
+					'
+			$("body").block({
+				message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/select2-spinner.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to Bizum to make the payment.', 'woocommerce-redsys' ) . '",
+				overlayCSS:
+				{
+					background: "#fff",
+					opacity: 0.6
+				},
+				css: {
+					padding:		20,
+					textAlign:		"center",
+					color:			"#555",
+					border:			"3px solid #aaa",
+					backgroundColor:"#fff",
+					cursor:			"wait",
+					lineHeight:		"32px"
+				}
+			});
+		jQuery("#submit_redsys_payment_form_2").click();
+		'
+				);
+				echo '<form action="' . esc_url( $acsURL ) . '" method="post" id="redsys_payment_form" target="_top">
+			<input type="hidden" name="PaReq" value="' . esc_attr( $PAReq ) . '" />
+			<input type="hidden" name="MD" value="' . esc_attr( $MD ) . '" />
+			<input type="hidden" name="TermUrl" value="' . esc_attr( $final_notify_url ) . '" />
+			<input type="submit" class="button-alt" id="submit_redsys_payment_form_2" value="' . __( 'Pay with Bizum', 'woocommerce-redsys' ) . '" />
+		</form>';
 			}
-			wc_enqueue_js(
-				'
-		$("body").block({
-			message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/select2-spinner.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to Bizum to make the payment.', 'woocommerce-redsys' ) . '",
-			overlayCSS:
-			{
-				background: "#fff",
-				opacity: 0.6
-			},
-			css: {
-				padding:		20,
-				textAlign:		"center",
-				color:			"#555",
-				border:			"3px solid #aaa",
-				backgroundColor:"#fff",
-				cursor:			"wait",
-				lineHeight:		"32px"
-			}
-		});
-	jQuery("#submit_redsys_payment_form_2").click();
-	'
-			);
-			echo '<form action="' . esc_url( $acsURL ) . '" method="post" id="redsys_payment_form" target="_top">
-		<input type="hidden" name="PaReq" value="' . esc_attr( $PAReq ) . '" />
-		<input type="hidden" name="MD" value="' . esc_attr( $MD ) . '" />
-		<input type="hidden" name="TermUrl" value="' . esc_attr( $final_notify_url ) . '" />
-		<input type="submit" class="button-alt" id="submit_redsys_payment_form_2" value="' . __( 'Pay with Bizum', 'woocommerce-redsys' ) . '" />
-	</form>';
 
 		} else {
 
@@ -4898,7 +5976,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			}
 		}
 	}
-
+	
 	/**
 	 * Check redsys IPN validity
 	 **/
@@ -4913,6 +5991,85 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' == $this->debug ) {
 			$this->log->add( 'insite', 'HTTP Notification received: ' . print_r( $_POST, true ) );
 		}
+		
+		if ( isset( $_GET['threeDSMethodURL'] ) ) {
+			if ( 'yes' == $this->debug ) {
+				$this->log->add( 'insite', 'check_ipn_request_is_valid > $_GET["threeDSMethodURL"]' );
+			}
+			$order_id             = $_GET['order'];
+			$threeDSInfo          = get_transient( 'threeDSInfo_' . $order_id );
+			$accept_headers       = get_transient( 'accept_headers_' . $order_id );
+			$protocolVersion      = get_transient( 'protocolVersion_' . $order_id );
+			$acsURL               = get_transient( 'acsURL_' . $order_id );
+			$threeDSServerTransID = get_transient( 'threeDSServerTransID_' . $order_id );
+			$threeDSMethodURL     = get_transient( 'threeDSMethodURL_' . $order_id );
+			$amount               = get_transient( 'amount_' . $order_id );
+			$order                = get_transient( 'order_' . $order_id );
+			$terminal             = get_transient( 'terminal_' . $order_id );
+			$currency             = get_transient( 'currency_' . $order_id );
+			$identifier           = get_transient( 'identifier_' . $order_id );
+			$cof_ini              = get_transient( 'cof_ini_' . $order_id );
+			$cof_type             = get_transient( 'cof_type_' . $order_id );
+			$cof_txnid            = get_transient( 'cof_txnid_' . $order_id );
+			$final_notify_url     = get_transient( 'final_notify_url_' . $order_id );
+			$token_redsys         = get_transient( 'redys_token' . $order_id );
+			
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', '     IS threeDSMethodURL      ' );
+				$this->log->add( 'insite', '$order_id: ' . $order_id );
+				$this->log->add( 'insite', '$threeDSInfo: ' . $threeDSInfo );
+				$this->log->add( 'insite', '$accept_headers: ' . $accept_headers );
+				$this->log->add( 'insite', '$protocolVersion: ' . $protocolVersion );
+				$this->log->add( 'insite', '$threeDSServerTransID: ' . $threeDSServerTransID );
+				$this->log->add( 'insite', '$threeDSMethodURL: ' . $threeDSMethodURL );
+				$this->log->add( 'insite', '$amount: ' . $amount );
+				$this->log->add( 'insite', '$order: ' . $order );
+				$this->log->add( 'insite', '$terminal: ' . $terminal );
+				$this->log->add( 'insite', '$currency: ' . $currency );
+				$this->log->add( 'insite', '$identifier: ' . $identifier );
+				$this->log->add( 'insite', '$cof_ini: ' . $cof_ini );
+				$this->log->add( 'insite', '$cof_type: ' . $cof_type );
+				$this->log->add( 'insite', '$cof_txnid: ' . $cof_txnid );
+				$this->log->add( 'insite', '$final_notify_url: ' . $final_notify_url );
+				$this->log->add( 'insite', '$token_redsys: ' . $token_redsys );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', ' ' );
+			}
+			if ( ! empty( $threeDSServerTransID ) && ! empty( $threeDSMethodURL ) ) {
+
+				WCRed()->print_overlay_image();
+				echo WCRed()->do_make_3dmethod( $order_id );
+				?>
+				<script type="text/javascript">
+			        document.getElementById('submit_redsys_3ds_method').click();
+			    </script>
+				<?php
+			}
+			echo 'Es una llamada threeDSMethodURL';
+		}
+		
+		if ( isset( $_POST['threeDSMethodData'] ) ) {
+			if ( 'yes' == $this->debug ) {
+				$this->log->add( 'insite', 'check_ipn_request_is_valid > $_POST["threeDSMethodData"]' );
+			}
+			echo $_POST['threeDSMethodData'] . '<br />';
+			$json_datos_3DSecure = (string) $_POST['threeDSMethodData'];
+			$decoded   = (string) rtrim( strtr( base64_decode( $json_datos_3DSecure ), '+/', '-_'), '=' );
+			$jsonData  = stripslashes( html_entity_decode( $decoded ) );
+			$deco_json = json_decode( $jsonData );
+			$order_id  = get_transient(  $deco_json->threeDSServerTransID );
+			$order     = WCRed()->get_order( $order_id );
+			$url       = $order->get_checkout_payment_url( true ) . '&threeDSServerTransID=' . $deco_json->threeDSServerTransID . '&order=' . $order_id;
+			if ( 'yes' == $this->debug ) {
+				$this->log->add( 'insite', '$deco_json: ' . print_r( $deco_json, true ) );
+				$this->log->add( 'insite', '$order_id: ' . $order_id );
+				$this->log->add( 'insite', '$url: ' . $url );
+			}
+			wp_safe_redirect( $url );
+			exit;
+		}
+
 		if ( isset( $_POST['Ds_SignatureVersion'] ) && isset( $_POST['Ds_MerchantParameters'] ) && isset( $_POST['Ds_Signature'] ) ) {
 			$version     = $_POST['Ds_SignatureVersion'];
 			$data        = $_POST['Ds_MerchantParameters'];
@@ -5000,6 +6157,483 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
+	function check_confirm_cres( $post ) {
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( 'insite', ' ' );
+			$this->log->add( 'insite', '/****************************/' );
+			$this->log->add( 'insite', '           Is CRES            ' );
+			$this->log->add( 'insite', '/****************************/' );
+			$this->log->add( 'insite', ' ' );
+		}
+		$cres                 = sanitize_text_field( $_POST['cres'] );
+		$decoded              = (string) rtrim( strtr( base64_decode( $cres ), '+/', '-_'), '=' );
+		$jsonData             = stripslashes( html_entity_decode( $decoded ) );
+		$deco_json            = json_decode( $jsonData );
+		$threeDSServerTransID = (string) $deco_json->threeDSServerTransID;
+		$acsTransID           = (string) $deco_json->acsTransID;
+		$messageType          = (string) $deco_json->messageType;
+		$messageVersion       = (string) $deco_json->messageVersion;
+		$transStatus          = (string) $deco_json->transStatus;
+		$order_id             = get_transient( $threeDSServerTransID );
+		
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( 'insite', ' ' );
+			$this->log->add( 'insite', '$cress: ' . $cres );
+			$this->log->add( 'insite', '$decoded: ' . $decoded );
+			$this->log->add( 'insite', '$jsonData: ' . $jsonData );
+			$this->log->add( 'insite', '$deco_json: ' . print_r( $deco_json, true ) );
+			$this->log->add( 'insite', '$threeDSServerTransID: ' . $threeDSServerTransID );
+			$this->log->add( 'insite', '$acsTransID: ' . $acsTransID );
+			$this->log->add( 'insite', '$messageType: ' . $messageType );
+			$this->log->add( 'insite', '$messageVersion: ' . $messageVersion );
+			$this->log->add( 'insite', '$transStatus: ' . $transStatus );
+			$this->log->add( 'insite', ' ' );
+		}
+		
+		$user_id             = get_current_user_id();
+		$protocolVersion     = get_transient ( 'protocolVersion_' . $order_id );
+		$merchant_cof        = get_transient( $order_id . '_ds_merchant_cof_ini' );
+		$merchant_type       = get_transient( $order_id . '_ds_merchant_cof_type' );
+		$excep_sca           = get_transient( $order_id . '_ds_merchant_excep_sca' );
+		$token_ioper         = get_transient( $order_id . '_insite_token' );
+		$merchant_identifier = get_transient( $order_id . '_insite_token_redsys' );
+		$merchant_txnid      = get_transient( $order_id . '_insite_token_txnid' );
+		$redsys_adr          = $this->get_redsys_url_gateway_ws();
+		$miObj               = new RedsysAPIWs();
+		$secretsha256        = $this->get_redsys_sha256( $user_id );
+		
+
+		
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( 'insite', ' ' );
+			$this->log->add( 'insite', '/****************************/' );
+			$this->log->add( 'insite', '           Is CRES            ' );
+			$this->log->add( 'insite', '/****************************/' );
+			$this->log->add( 'insite', ' ' );
+			$this->log->add( 'insite', '$protocolVersion: ' . $protocolVersion );
+			$this->log->add( 'insite', '$merchant_cof: ' . $merchant_cof );
+			$this->log->add( 'insite', '$merchant_type: ' . $merchant_type );
+			$this->log->add( 'insite', '$excep_sca: ' . $excep_sca );
+			$this->log->add( 'insite', '$token_ioper: ' . $token_ioper );
+			$this->log->add( 'insite', '$merchant_identifier: ' . $merchant_identifier );
+			$this->log->add( 'insite', '$merchant_txnid: ' . $merchant_txnid );
+			$this->log->add( 'insite', '$redsys_adr: ' . $redsys_adr );
+			$this->log->add( 'insite', '$secretsha256: ' . $secretsha256 );
+			$this->log->add( 'insite', '/****************************/' );
+		}
+
+		if ( $token_ioper ) {
+			$token_ioper = '<DS_MERCHANT_IDOPER>' . $merchant_identifier . '</DS_MERCHANT_IDOPER>';
+		} else {
+			$token_ioper = '';
+		}
+		if ( 'no' !== $merchant_identifier && ! empty( $merchant_identifier ) ) {
+			$merchant_identifier_d = '<DS_MERCHANT_IDENTIFIER>' . $merchant_identifier . '</DS_MERCHANT_IDENTIFIER>';
+		} elseif ( 'S' === $merchant_cof ) {
+			$merchant_identifier_d = '<DS_MERCHANT_IDENTIFIER>REQUIRED</DS_MERCHANT_IDENTIFIER>';
+		} else {
+			$merchant_identifier_d = '';
+		}
+		if ( $merchant_cof ) {
+			$merchant_cof_d = '<DS_MERCHANT_COF_INI>' . $merchant_cof . '</DS_MERCHANT_COF_INI>';
+		} else {
+			$merchant_cof_d = '';
+		}
+		if ( $merchant_type ) {
+			$merchant_type_d = '<DS_MERCHANT_COF_TYPE>' . $merchant_type . '</DS_MERCHANT_COF_TYPE>';
+		} else {
+			$merchant_type_d = '';
+		}
+		if ( $merchant_txnid ) {
+			$merchant_txnid_d = '<DS_MERCHANT_COF_TXNID>' . $merchant_txnid . '</DS_MERCHANT_COF_TXNID>';
+		} else {
+			$merchant_txnid_d = '';
+		}
+		$order_total_sign = get_transient( $order_id . '_insite_merchant_amount' );
+		$orderid2         = get_transient( $order_id . '_insite_merchant_order' );
+		$customer         = get_transient( $order_id . '_insite_merchantcode' );
+		$terminal         = get_transient( $order_id . '_insite_terminal' );
+		$transaction_type = get_transient( $order_id . '_insite_transaction_type' );
+		$currency         = get_transient( $order_id . '_insite_currency' );
+		
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( 'insite', ' ' );
+			$this->log->add( 'insite', '/****************************/' );
+			$this->log->add( 'insite', '           Is CRES            ' );
+			$this->log->add( 'insite', '/****************************/' );
+			$this->log->add( 'insite', ' ' );
+			$this->log->add( 'insite', '$order_total_sign: ' . $order_total_sign );
+			$this->log->add( 'insite', '$orderid2: ' . $orderid2 );
+			$this->log->add( 'insite', '$customer: ' . $customer );
+			$this->log->add( 'insite', '$terminal: ' . $terminal );
+			$this->log->add( 'insite', '$transaction_type: ' . $transaction_type );
+			$this->log->add( 'insite', '$currency: ' . $currency );
+		}
+		if ( 'yes' === $this->not_use_https ) {
+			$final_notify_url = $this->notify_url_not_https;
+		} else {
+			$final_notify_url = $this->notify_url;
+		}
+		
+		$response3ds = array(
+			'threeDSInfo'     => 'ChallengeResponse',
+			'protocolVersion' => $messageVersion,
+			'cres'            => $cres,
+		);
+		$response3ds_json = wp_json_encode( $response3ds );
+		
+		if ( $merchant_identifier && $merchant_txnid ) {
+			$DATOS_ENTRADA  = '<DATOSENTRADA>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_MERCHANTCODE>' . $customer . '</DS_MERCHANT_MERCHANTCODE>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_TERMINAL>' . $terminal . '</DS_MERCHANT_TERMINAL>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
+			$DATOS_ENTRADA .= $merchant_identifier_d; // '<DS_MERCHANT_IDENTIFIER>' . $customer_token . '</DS_MERCHANT_IDENTIFIER>';
+			$DATOS_ENTRADA .= $merchant_cof_d; // '<DS_MERCHANT_COF_INI>N</DS_MERCHANT_COF_INI>';
+			$DATOS_ENTRADA .= $merchant_type_d;// '<DS_MERCHANT_COF_TYPE>R</DS_MERCHANT_COF_TYPE>';
+			$DATOS_ENTRADA .= $merchant_txnid_d;// '<DS_MERCHANT_COF_TXNID>' . $txnid . '</DS_MERCHANT_COF_TXNID>';
+			// $DATOS_ENTRADA .= '<DS_MERCHANT_MERCHANTURL>' . $final_notify_url . '</DS_MERCHANT_MERCHANTURL>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_EMV3DS>' . $response3ds_json . '</DS_MERCHANT_EMV3DS>';
+			$DATOS_ENTRADA .= '</DATOSENTRADA>';
+
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', ' ' );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', '          The call  6          ' );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', ' ' );
+				$this->log->add( 'insite', $DATOS_ENTRADA );
+				$this->log->add( 'insite', ' ' );
+			}
+			
+			$XML  = '<REQUEST>';
+			$XML .= $DATOS_ENTRADA;
+			$XML .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
+			$XML .= '<DS_SIGNATURE>' . $miObj->createMerchantSignatureHostToHost( $secretsha256, $DATOS_ENTRADA ) . '</DS_SIGNATURE>';
+			$XML .= '</REQUEST>';
+
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', ' ' );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', '          The XML             ' );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', ' ' );
+				$this->log->add( 'insite', 'trataPeticion 12: ' . $XML );
+				$this->log->add( 'insite', ' ' );
+			}
+
+			$CLIENTE    = new SoapClient( $redsys_adr );
+			$responsews = $CLIENTE->trataPeticion( array( 'datoEntrada' => $XML ) );
+			
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', ' ' );
+				// $this->log->add( 'insite', '$acctinfo: ' . $acctinfo );
+				$this->log->add( 'insite', '$responsews: ' . print_r( $responsews, true ) );
+			}
+
+			if ( isset( $responsews->trataPeticionReturn ) ) {
+				$XML_RETORNO       = new SimpleXMLElement( $responsews->trataPeticionReturn );
+				if ( isset( $XML_RETORNO->OPERACION->Ds_EMV3DS ) ) {
+					$respuestaeds = json_decode( $XML_RETORNO->OPERACION->Ds_EMV3DS );
+				} else {
+					$respuestaeds = false;
+				}
+				if ( isset( $XML_RETORNO->CODIGO ) ) {
+					$codigo = (string) $XML_RETORNO->CODIGO;
+				} else {
+					$codigo = false;
+				}
+				if ( isset( $XML_RETORNO->OPERACION->Ds_Order ) ) {
+					$ordermi = (string) $XML_RETORNO->OPERACION->Ds_Order;
+				} else {
+					$ordermi = false;
+				}
+				if ( isset( $XML_RETORNO->OPERACION->Ds_Terminal ) ) {
+					$dstermnal = (string) $XML_RETORNO->OPERACION->Ds_Terminal;
+				} else {
+					$dstermnal = false;
+				}
+				if ( isset( $respuestaeds->threeDSInfo ) ) {
+					$threeDSInfo = trim( $respuestaeds->threeDSInfo );
+				} else {
+					$threeDSInfo = false;
+				}
+				if ( isset( $respuestaeds->protocolVersion ) ) {
+					$protocolVersion = trim( $respuestaeds->protocolVersion );
+				} else {
+					$protocolVersion = false;
+				}
+				if ( isset( $respuestaeds->acsURL ) ) {
+					$acsURL = trim( $respuestaeds->acsURL );
+				} else {
+					$acsURL = false;
+				}
+				if ( isset( $respuestaeds->{ 'PAReq'} ) ) {
+					$PAReq = trim( $respuestaeds->{ 'PAReq'} );
+				} else {
+					$PAReq = false;
+				}
+				if ( isset( $respuestaeds->MD ) ) {
+					$MD = trim( $respuestaeds->MD );
+				} else {
+					$MD = false;
+				}
+				if ( isset( $respuestaeds->{ 'creq'} ) ) {
+					$creq = trim( $respuestaeds->{ 'creq'} );
+				} else {
+					$creq = false;
+				}
+				if ( isset( $XML_RETORNO->OPERACION->Ds_AuthorisationCode ) ) {
+					$authorisationcode = trim( $XML_RETORNO->OPERACION->Ds_AuthorisationCode );
+				} else {
+					$authorisationcode = false;
+				}
+				$dsdate = date( get_option('date_format') );
+				$dshour = date( 'H:i:s', current_time( 'timestamp', 0 ) );
+			}
+
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', ' ' );
+				// $this->log->add( 'insite', '$acctinfo: ' . $acctinfo );
+				$this->log->add( 'insite', '$XML_RETORNO 16: ' . print_r( $XML_RETORNO, true ) );
+				$this->log->add( 'insite', 'Ds_EMV3DS: ' . $XML_RETORNO->OPERACION->Ds_EMV3DS );
+				$this->log->add( 'insite', '$codigo: ' . $codigo );
+				$this->log->add( 'insite', 'threeDSInfo: ' . $threeDSInfo );
+				$this->log->add( 'insite', '$protocolVersion: ' . $protocolVersion );
+				$this->log->add( 'insite', '$acsURL: ' . $acsURL );
+				$this->log->add( 'insite', '$PAReq: ' . $PAReq );
+				$this->log->add( 'insite', '$MD: ' . $MD );
+				$this->log->add( 'insite', '$creq: ' . $creq );
+				$this->log->add( 'insite', '$authorisationcode: ' . $authorisationcode );
+			}
+			
+			if ( $authorisationcode ) {
+				$order  = WCRed()->get_order( $order_id );
+				$url_ok = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
+				$url_ko = $order->get_cancel_order_url();
+				if ( ! empty( $ordermi ) ) {
+					update_post_meta( $order->id, '_payment_order_number_redsys', $ordermi );
+				}
+				if ( ! empty( $dsdate ) ) {
+					update_post_meta( $order->id, '_payment_date_redsys', $dsdate );
+				}
+				if ( ! empty( $dshour ) ) {
+					update_post_meta( $order->id, '_payment_hour_redsys', $dshour );
+				}
+				if ( ! empty( $authorisationcode ) ) {
+					update_post_meta( $order->id, '_authorisation_code_redsys', $authorisationcode );
+				}
+				if ( ! empty( $dscardcountry ) ) {
+					update_post_meta( $order->id, '_card_country_insite', $dscardcountry );
+				}
+				if ( ! empty( $dscargtype ) ) {
+					update_post_meta( $order->id, '_card_type_insite', $dscargtype == 'C' ? 'Credit' : 'Debit' );
+				}
+				if ( ! empty( $dstermnal ) ) {
+					update_post_meta( $order->id, '_payment_terminal_redsys', $dstermnal );
+				}
+				// Payment completed
+				$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
+				$order->add_order_note( __( 'Authorisation code: ', 'woocommerce-redsys' ) . $authorisationcode );
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'payment_complete() 16' );
+				}
+				$order->payment_complete();
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'Payment complete.' );
+				}
+				wp_safe_redirect( $url_ok );
+				exit;
+			}
+			if ( $codigo ) {
+				$error = WCRed()->get_error( $codigo );
+				$order->add_order_note( __( 'There was a problem with this order. The Error was "' . $error . '"', 'woocommerce-redsys' ) );
+				wp_safe_redirect( $url_ko );
+				exit;
+			} else {
+				wp_safe_redirect( $url_ko );
+				exit;
+			}
+		} else {
+			$DATOS_ENTRADA  = '<DATOSENTRADA>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_MERCHANTCODE>' . $customer . '</DS_MERCHANT_MERCHANTCODE>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_TERMINAL>' . $terminal . '</DS_MERCHANT_TERMINAL>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
+			$DATOS_ENTRADA .= $merchant_identifier_d; // '<DS_MERCHANT_IDENTIFIER>' . $customer_token . '</DS_MERCHANT_IDENTIFIER>';
+			$DATOS_ENTRADA .= $merchant_cof_d; // '<DS_MERCHANT_COF_INI>N</DS_MERCHANT_COF_INI>';
+			$DATOS_ENTRADA .= $merchant_type_d;// '<DS_MERCHANT_COF_TYPE>R</DS_MERCHANT_COF_TYPE>';
+			$DATOS_ENTRADA .= $merchant_txnid_d;// '<DS_MERCHANT_COF_TXNID>' . $txnid . '</DS_MERCHANT_COF_TXNID>';
+			// $DATOS_ENTRADA .= '<DS_MERCHANT_MERCHANTURL>' . $final_notify_url . '</DS_MERCHANT_MERCHANTURL>';
+			$DATOS_ENTRADA .= '<DS_MERCHANT_EMV3DS>' . $response3ds_json . '</DS_MERCHANT_EMV3DS>';
+			$DATOS_ENTRADA .= '</DATOSENTRADA>';
+
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', ' ' );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', '          The call  7          ' );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', ' ' );
+				$this->log->add( 'insite', $DATOS_ENTRADA );
+				$this->log->add( 'insite', ' ' );
+			}
+			
+			$XML  = '<REQUEST>';
+			$XML .= $DATOS_ENTRADA;
+			$XML .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
+			$XML .= '<DS_SIGNATURE>' . $miObj->createMerchantSignatureHostToHost( $secretsha256, $DATOS_ENTRADA ) . '</DS_SIGNATURE>';
+			$XML .= '</REQUEST>';
+
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', ' ' );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', '          The XML             ' );
+				$this->log->add( 'insite', '/****************************/' );
+				$this->log->add( 'insite', ' ' );
+				$this->log->add( 'insite', 'trataPeticion 13: ' . $XML );
+				$this->log->add( 'insite', ' ' );
+			}
+
+			$CLIENTE    = new SoapClient( $redsys_adr );
+			$responsews = $CLIENTE->trataPeticion( array( 'datoEntrada' => $XML ) );
+			
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', ' ' );
+				// $this->log->add( 'insite', '$acctinfo: ' . $acctinfo );
+				$this->log->add( 'insite', '$responsews: ' . print_r( $responsews, true ) );
+			}
+			
+			if ( isset( $responsews->trataPeticionReturn ) ) {
+				$XML_RETORNO       = new SimpleXMLElement( $responsews->trataPeticionReturn );
+				$authorisationcode = (string) $XML_RETORNO->OPERACION->Ds_AuthorisationCode;
+				$codigo            = (string) $XML_RETORNO->CODIGO;
+				$redsys_order      = (string) $XML_RETORNO->OPERACION->Ds_Order;
+				$terminal          = (string) $XML_RETORNO->OPERACION->Ds_Terminal;
+				$currency_code     = (string) $XML_RETORNO->OPERACION->Ds_Currency;
+				if ( isset( $XML_RETORNO->OPERACION->Ds_Merchant_Identifier ) ) {
+					$xpiration_date = (string) $XML_RETORNO->OPERACION->Ds_ExpiryDate;
+					$identifier     = (string) $XML_RETORNO->OPERACION->Ds_Merchant_Identifier;
+					$dscardbrand    = (string) $XML_RETORNO->OPERACION->Ds_Card_Brand;
+					$txnid          = (string) $XML_RETORNO->OPERACION->Ds_Merchant_Cof_Txnid;
+					$number         = (string) $XML_RETORNO->OPERACION->Ds_Card_Number;
+				} else {
+					$identifier = false;
+				}
+			}
+			
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'insite', '$XML_RETORNO 17: ' . print_r( $XML_RETORNO, true ) );
+				$this->log->add( 'insite', '$authorisationcode: ' . $authorisationcode );
+				$this->log->add( 'insite', '$codigo: ' . $codigo );
+				$this->log->add( 'insite', '$redsys_order: ' . $redsys_order );
+				$this->log->add( 'insite', '$terminal: ' . $terminal );
+				$this->log->add( 'insite', '$currency_code: ' . $currency_code );
+			}
+			
+			if ( $authorisationcode ) {
+				$order  = WCRed()->get_order( $order_id );
+				$url_ok = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
+				$url_ko = $order->get_cancel_order_url();
+				if ( ! empty( $ordermi ) ) {
+					update_post_meta( $order->id, '_payment_order_number_redsys', $ordermi );
+				}
+				if ( ! empty( $dsdate ) ) {
+					update_post_meta( $order->id, '_payment_date_redsys', $dsdate );
+				}
+				if ( ! empty( $dshour ) ) {
+					update_post_meta( $order->id, '_payment_hour_redsys', $dshour );
+				}
+				if ( ! empty( $authorisationcode ) ) {
+					update_post_meta( $order->id, '_authorisation_code_redsys', $authorisationcode );
+				}
+				if ( ! empty( $dscardcountry ) ) {
+					update_post_meta( $order->id, '_card_country_insite', $dscardcountry );
+				}
+				if ( ! empty( $dscargtype ) ) {
+					update_post_meta( $order->id, '_card_type_insite', $dscargtype == 'C' ? 'Credit' : 'Debit' );
+				}
+				if ( ! empty( $dstermnal ) ) {
+					update_post_meta( $order->id, '_payment_terminal_redsys', $dstermnal );
+				}
+				// Payment completed
+				$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
+				$order->add_order_note( __( 'Authorisation code: ', 'woocommerce-redsys' ) . $authorisationcode );
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'payment_complete() 16' );
+				}
+				$order->payment_complete();
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'insite', 'Payment complete.' );
+				}
+				if ( $identifier ) {
+					$user_id       = $order->get_user_id();
+					$dsexpiryyear  = '20' . substr( $xpiration_date, 0, 2 );
+					$dsexpirymonth = substr( $xpiration_date, -2 );
+					
+					if ( '1' === $dscardbrand ) {
+						$dscardbrand = 'Visa';
+					} elseif ( '2' === $dscardbrand ) {
+						$dscardbrand = 'MasterCard';
+					} elseif ( '8' === $dscardbrand ) {
+						$dscardbrand = 'Amex';
+					} elseif ( '9' === $dscardbrand ) {
+						$dscardbrand = 'JCB';
+					} elseif ( '6' === $dscardbrand ) {
+						$dscardbrand = 'Diners';
+					} elseif ( '22' === $dscardbrand ) {
+						$dscardbrand = 'UPI';
+					} elseif ( '7' === $dscardbrand ) {
+						$dscardbrand = 'Privada';
+					} else {
+						$dscardbrand = __( 'Unknown', 'woocommerce-redsys' );
+					}
+					$dscardnumber4 = '0000';
+					
+					if ( 'C' === $merchant_type ) {
+						$token_type = 'C';
+					} else {
+						$token_type = 'R';
+					}
+					
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'insite', 'Saving Credit Card $dsexpirymonth.' );
+						$this->log->add( 'insite', '$user_id: ' . $user_id );
+						$this->log->add( 'insite', '$dsexpirymonth: ' . $dsexpirymonth );
+						$this->log->add( 'insite', '$dsexpiryyear: ' . $dsexpiryyear );
+						$this->log->add( 'insite', '$dscardbrand: ' . $dscardbrand );
+						$this->log->add( 'insite', '$identifier: ' . $identifier );
+						$this->log->add( 'insite', '$txnid: ' . $txnid );
+						$this->log->add( 'insite', '$token_type: ' . $token_type );
+
+					}
+					
+					$token = new WC_Payment_Token_CC();
+					$token->set_token( $identifier );
+					$token->set_gateway_id( 'redsys' );
+					$token->set_user_id( $user_id );
+					$token->set_card_type( $dscardbrand );
+					$token->set_last4( $dscardnumber4 );
+					$token->set_expiry_month( $dsexpirymonth );
+					$token->set_expiry_year( $dsexpiryyear );
+					$token->set_default( true );
+					$token->save();
+					WCRed()->set_txnid( $identifier, $txnid );
+					WCRed()->set_token_type( $identifier, $token_type );
+				}
+				wp_safe_redirect( $url_ok );
+				exit;
+			}
+		}
+	}
+	/**
+	 * Package: WooCommerce Redsys Gateway
+	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
+	 * Copyright: (C) 2013 - 2021 José Conti
+	 */
 	function check_confirm_pares( $post ) {
 
 		if ( 'yes' === $this->debug ) {
@@ -5067,7 +6701,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'insite', ' ' );
 			$this->log->add( 'insite', '$DATOS_ENTRADA: ' . $DATOS_ENTRADA );
-			$this->log->add( 'insite', '$XML: ' . $XML );
+			$this->log->add( 'insite', 'trataPeticion 14: ' . $XML );
 			$this->log->add( 'insite', ' ' );
 		}
 
@@ -5133,7 +6767,11 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 
 		@ob_clean();
 		$_POST = stripslashes_deep( $_POST );
-
+		if ( isset( $_POST['cres'] ) ) {
+			WCRed()->print_overlay_image();
+			$this->check_confirm_cres( $_POST );
+		}
+		
 		if ( isset( $_POST['PaRes'] ) ) {
 			$result = $this->check_confirm_pares( $_POST );
 
@@ -5293,6 +6931,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'insite', '$tokennum: ' . $tokennum );
+			$this->log->add( 'insite', '$card_txnid: ' . $card_txnid );
 			$this->log->add( 'insite', '$user_id: ' . $user_id );
 			$this->log->add( 'insite', '$card_brand: ' . WCRed()->get_card_brand( $card_brand ) );
 			$this->log->add( 'insite', '$dscardnumber4: ' . $dscardnumber4 );
@@ -5718,12 +7357,19 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 		 */
 		$order   = WCRed()->get_order( $order_id );
 		$user_id = $order->get_user_id();
+		
 		if ( 'yes' == $this->debug ) {
-			$this->log->add( 'insite', 'HTTP Notification received: ' . print_r( $_POST, true ) );
+			$this->log->add( 'insite', 'HTTP $_POST checkout received: ' . print_r( $_POST, true ) );
+		}
+		if ( ! empty( $_POST['billing_http_accept_headers'] ) ) {
+			$headers = base64_decode( $_POST['billing_http_accept_headers'] );
+			update_post_meta( $order_id, '_accept_haders', sanitize_text_field( $headers ) );
+			update_user_meta( $user_id, '_accept_haders', sanitize_text_field( $headers ) );
 		}
 		if ( ! empty( $_POST['billing_agente_navegador'] ) ) {
-			update_post_meta( $order_id, '_billing_agente_navegador_field', sanitize_text_field( $_POST['billing_agente_navegador'] ) );
-			update_user_meta( $user_id, '_billing_agente_navegador_field', sanitize_text_field( $_POST['billing_agente_navegador'] ) );
+			$agente = base64_decode( $_POST['billing_agente_navegador'] );
+			update_post_meta( $order_id, '_billing_agente_navegador_field', sanitize_text_field( $agente ) );
+			update_user_meta( $user_id, '_billing_agente_navegador_field', sanitize_text_field( $agente ) );
 		}
 		if ( ! empty( $_POST['billing_idioma_navegador'] ) ) {
 			update_post_meta( $order_id, '_billing_idioma_navegador_field', sanitize_text_field( $_POST['billing_idioma_navegador'] ) );
@@ -5760,6 +7406,14 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			set_transient( $order_id . '_redsys_token_type', sanitize_text_field( $_POST['_redsys_token_type'] ), 36000 );
 		} else {
 			set_transient( $order_id . '_redsys_token_type', 'no', 36000 );
+		}
+		if ( ! empty( $_POST['billing_tz_horaria'] ) ) {
+			update_post_meta( $order_id, '_billing_tz_horaria_field', sanitize_text_field( $_POST['billing_tz_horaria'] ) );
+			update_user_meta( $user_id, '_billing_tz_horaria_field', sanitize_text_field( $_POST['billing_tz_horaria'] ) );
+		}
+		if ( ! empty( $_POST['billing_js_enabled_navegador'] ) ) {
+			update_post_meta( $order_id, '_billing_js_enabled_navegador_field', sanitize_text_field( $_POST['billing_js_enabled_navegador'] ) );
+			update_user_meta( $user_id, '_billing_js_enabled_navegador_field', sanitize_text_field( $_POST['billing_js_enabled_navegador'] ) );
 		}
 	}
 }

@@ -1,5 +1,8 @@
 *** WooCommerce Social Login Changelog ***
 
+2021.11.05 - version 2.11.1
+ * Localization - Add Russian translation (thanks to Paley)
+
 2020.12.07 - version 2.11.0
  * Misc - Add compatibility for WooCommerce 4.7
  * Misc - Require PHP 7.0 or newer

@@ -76,13 +76,14 @@ class CredentialProvider
     public static function defaultProvider(array $config = [])
     {
         $cacheable = ['web_identity', 'sso', 'process_credentials', 'process_config', 'ecs', 'instance'];
+        $profileName = \getenv(self::ENV_PROFILE) ?: 'default';
         $defaultChain = ['env' => self::env(), 'web_identity' => self::assumeRoleWithWebIdentityCredentialProvider($config)];
         if (!isset($config['use_aws_shared_config_files']) || $config['use_aws_shared_config_files'] !== \false) {
-            $defaultChain['sso'] = self::sso('profile default', self::getHomeDir() . '/.aws/config', $config);
+            $defaultChain['sso'] = self::sso('profile ' . $profileName, self::getHomeDir() . '/.aws/config', $config);
             $defaultChain['process_credentials'] = self::process();
             $defaultChain['ini'] = self::ini();
-            $defaultChain['process_config'] = self::process('profile default', self::getHomeDir() . '/.aws/config');
-            $defaultChain['ini_config'] = self::ini('profile default', self::getHomeDir() . '/.aws/config');
+            $defaultChain['process_config'] = self::process('profile ' . $profileName, self::getHomeDir() . '/.aws/config');
+            $defaultChain['ini_config'] = self::ini('profile ' . $profileName, self::getHomeDir() . '/.aws/config');
         }
         $shouldUseEcsCredentialsProvider = \getenv(\WPMailSMTP\Vendor\Aws\Credentials\EcsCredentialProvider::ENV_URI);
         // getenv() is not thread safe - fall back to $_SERVER
@@ -112,7 +113,7 @@ class CredentialProvider
      */
     public static function fromCredentials(\WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $creds)
     {
-        $promise = \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for($creds);
+        $promise = \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor($creds);
         return function () use($promise) {
             return $promise;
         };
@@ -200,7 +201,7 @@ class CredentialProvider
         return function () use($provider, $cache, $cacheKey) {
             $found = $cache->get($cacheKey);
             if ($found instanceof \WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface && !$found->isExpired()) {
-                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for($found);
+                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor($found);
             }
             return $provider()->then(function (\WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $creds) use($cache, $cacheKey) {
                 $cache->set($cacheKey, $creds, null === $creds->getExpiration() ? 0 : $creds->getExpiration() - \time());
@@ -221,7 +222,7 @@ class CredentialProvider
             $key = \getenv(self::ENV_KEY);
             $secret = \getenv(self::ENV_SECRET);
             if ($key && $secret) {
-                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\Credentials\Credentials($key, $secret, \getenv(self::ENV_SESSION) ?: NULL));
+                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\Credentials\Credentials($key, $secret, \getenv(self::ENV_SESSION) ?: NULL));
             }
             return self::reject('Could not find environment variable ' . 'credentials in ' . self::ENV_KEY . '/' . self::ENV_SECRET);
         };
@@ -284,7 +285,7 @@ class CredentialProvider
             }
             $ssoResponse = $ssoClient->getRoleCredentials(['accessToken' => $tokenData['accessToken'], 'accountId' => $ssoProfile['sso_account_id'], 'roleName' => $ssoProfile['sso_role_name']]);
             $ssoCredentials = $ssoResponse['roleCredentials'];
-            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\Credentials\Credentials($ssoCredentials['accessKeyId'], $ssoCredentials['secretAccessKey'], $ssoCredentials['sessionToken'], $expiration));
+            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\Credentials\Credentials($ssoCredentials['accessKeyId'], $ssoCredentials['secretAccessKey'], $ssoCredentials['sessionToken'], $expiration));
         };
     }
     /**
@@ -415,7 +416,7 @@ class CredentialProvider
             if (empty($data[$profile]['aws_session_token'])) {
                 $data[$profile]['aws_session_token'] = isset($data[$profile]['aws_security_token']) ? $data[$profile]['aws_security_token'] : null;
             }
-            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\Credentials\Credentials($data[$profile]['aws_access_key_id'], $data[$profile]['aws_secret_access_key'], $data[$profile]['aws_session_token']));
+            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\Credentials\Credentials($data[$profile]['aws_access_key_id'], $data[$profile]['aws_secret_access_key'], $data[$profile]['aws_session_token']));
         };
     }
     /**
@@ -476,7 +477,7 @@ class CredentialProvider
             if (empty($processData['SessionToken'])) {
                 $processData['SessionToken'] = null;
             }
-            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\Credentials\Credentials($processData['AccessKeyId'], $processData['SecretAccessKey'], $processData['SessionToken'], $expires));
+            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\Credentials\Credentials($processData['AccessKeyId'], $processData['SecretAccessKey'], $processData['SessionToken'], $expires));
         };
     }
     /**
@@ -520,7 +521,7 @@ class CredentialProvider
         }
         $result = $stsClient->assumeRole(['RoleArn' => $roleArn, 'RoleSessionName' => $roleSessionName]);
         $credentials = $stsClient->createCredentials($result);
-        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for($credentials);
+        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor($credentials);
     }
     /**
      * Gets the environment's HOME directory if available.
@@ -606,7 +607,7 @@ class CredentialProvider
             return self::reject("Unable to successfully retrieve credentials from the source specified in the" . " credentials file: {$credentialSource}; failure message was: " . $reason->getMessage());
         }
         return function () use($credentialsResult) {
-            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for($credentialsResult);
+            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor($credentialsResult);
         };
     }
     private static function reject($msg)

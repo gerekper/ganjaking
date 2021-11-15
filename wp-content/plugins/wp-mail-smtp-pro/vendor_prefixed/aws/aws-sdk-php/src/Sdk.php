@@ -9,6 +9,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionACMPCA(array $args = [])
  * @method \Aws\AccessAnalyzer\AccessAnalyzerClient createAccessAnalyzer(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionAccessAnalyzer(array $args = [])
+ * @method \Aws\Account\AccountClient createAccount(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionAccount(array $args = [])
  * @method \Aws\Acm\AcmClient createAcm(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionAcm(array $args = [])
  * @method \Aws\AlexaForBusiness\AlexaForBusinessClient createAlexaForBusiness(array $args = [])
@@ -73,6 +75,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionChimeSDKMessaging(array $args = [])
  * @method \Aws\Cloud9\Cloud9Client createCloud9(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionCloud9(array $args = [])
+ * @method \Aws\CloudControlApi\CloudControlApiClient createCloudControlApi(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionCloudControlApi(array $args = [])
  * @method \Aws\CloudDirectory\CloudDirectoryClient createCloudDirectory(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionCloudDirectory(array $args = [])
  * @method \Aws\CloudFormation\CloudFormationClient createCloudFormation(array $args = [])
@@ -135,6 +139,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionConnectContactLens(array $args = [])
  * @method \Aws\ConnectParticipant\ConnectParticipantClient createConnectParticipant(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionConnectParticipant(array $args = [])
+ * @method \Aws\ConnectWisdomService\ConnectWisdomServiceClient createConnectWisdomService(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionConnectWisdomService(array $args = [])
  * @method \Aws\CostExplorer\CostExplorerClient createCostExplorer(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionCostExplorer(array $args = [])
  * @method \Aws\CostandUsageReportService\CostandUsageReportServiceClient createCostandUsageReportService(array $args = [])
@@ -341,6 +347,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionMacie2(array $args = [])
  * @method \Aws\ManagedBlockchain\ManagedBlockchainClient createManagedBlockchain(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionManagedBlockchain(array $args = [])
+ * @method \Aws\ManagedGrafana\ManagedGrafanaClient createManagedGrafana(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionManagedGrafana(array $args = [])
  * @method \Aws\MarketplaceCatalog\MarketplaceCatalogClient createMarketplaceCatalog(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMarketplaceCatalog(array $args = [])
  * @method \Aws\MarketplaceCommerceAnalytics\MarketplaceCommerceAnalyticsClient createMarketplaceCommerceAnalytics(array $args = [])
@@ -393,6 +401,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionOutposts(array $args = [])
  * @method \Aws\PI\PIClient createPI(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPI(array $args = [])
+ * @method \Aws\Panorama\PanoramaClient createPanorama(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionPanorama(array $args = [])
  * @method \Aws\Personalize\PersonalizeClient createPersonalize(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPersonalize(array $args = [])
  * @method \Aws\PersonalizeEvents\PersonalizeEventsClient createPersonalizeEvents(array $args = [])
@@ -531,6 +541,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionTransfer(array $args = [])
  * @method \Aws\Translate\TranslateClient createTranslate(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionTranslate(array $args = [])
+ * @method \Aws\VoiceID\VoiceIDClient createVoiceID(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionVoiceID(array $args = [])
  * @method \Aws\WAFV2\WAFV2Client createWAFV2(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionWAFV2(array $args = [])
  * @method \Aws\Waf\WafClient createWaf(array $args = [])
@@ -564,7 +576,7 @@ namespace WPMailSMTP\Vendor\Aws;
  */
 class Sdk
 {
-    const VERSION = '3.194.5';
+    const VERSION = '3.199.10';
     /** @var array Arguments for creating clients */
     private $args;
     /**

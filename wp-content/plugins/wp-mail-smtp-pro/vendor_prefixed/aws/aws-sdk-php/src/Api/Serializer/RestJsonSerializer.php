@@ -27,7 +27,8 @@ class RestJsonSerializer extends \WPMailSMTP\Vendor\Aws\Api\Serializer\RestSeria
     }
     protected function payload(\WPMailSMTP\Vendor\Aws\Api\StructureShape $member, array $value, array &$opts)
     {
+        $body = isset($value) ? (string) $this->jsonFormatter->build($member, $value) : "{}";
         $opts['headers']['Content-Type'] = $this->contentType;
-        $opts['body'] = (string) $this->jsonFormatter->build($member, $value);
+        $opts['body'] = $body;
     }
 }

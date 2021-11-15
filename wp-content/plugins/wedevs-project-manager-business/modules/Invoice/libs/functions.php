@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function pm_pro_invoice_get_total_due( $invoice ) {
 	$paid  = pm_pro_invoice_get_total_paid( $invoice['payments']['data'] );
     $total = pm_pro_invoice_get_invoice_total( $invoice['entryTasks'], $invoice['entryNames'], $invoice['discount']);

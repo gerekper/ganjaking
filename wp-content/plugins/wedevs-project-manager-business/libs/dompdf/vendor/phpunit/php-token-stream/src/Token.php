@@ -278,10 +278,6 @@ abstract class PHP_Token_Includes extends PHP_Token
 }
 
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 {
     /**

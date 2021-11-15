@@ -1,5 +1,25 @@
 *** Redsys Gateway Change Log ***
 
+2021.11.07 - version 17.0.1
+
+* IMPROVED: CSS in Redsys redirection checkout.
+* FIXED: Some notices.
+* FIXED: Version 17.0.0 has some problems with some servers with mod_security active. This version fixes all these problems.
+* FIXED: There was one PHP open tag, and this make problems on some servers.
+
+2021.10.25 - version 17.0.0
+
+* NEW: Now you can add a subfix.
+* NEW: Declared compatibility with WooCommerce 5.9.
+* NEW: Now the user can select a credit card or if he want to save a credit card in the checkout with Redsys redirection.
+* NEW: Now you can send a Pay Gold Link to a customer for get a Subscription or 1clic Token. WooCommerce > Pay Gold Tools
+* IMPROVED: Now the plugin recognize the 2.1 & 2.2 credit cards.
+* FIXED: Now Payment Methods in My Account is shown With Redsys in the checkout.
+
+2021.09.13 - version 16.1.1
+
+* FIXED: Fixed Warning in admin WC_Helper_Options 
+
 2021.09.12 - version 16.1.0
 
 * NEW: Now you can select Order Number format in Redsys redirection.

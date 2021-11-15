@@ -25,10 +25,6 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPAR
  * @since      Class available since Release 2.0.0
  * @covers     PHPUnit_Framework_TestSuite
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Framework_SuiteTest extends PHPUnit_Framework_TestCase
 {
     protected $result;

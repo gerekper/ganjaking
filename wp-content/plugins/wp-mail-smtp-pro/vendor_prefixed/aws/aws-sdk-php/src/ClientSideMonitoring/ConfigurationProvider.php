@@ -95,7 +95,7 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
             // Use credentials from environment variables, if available
             $enabled = \getenv(self::ENV_ENABLED);
             if ($enabled !== \false) {
-                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\ClientSideMonitoring\Configuration($enabled, \getenv(self::ENV_HOST) ?: self::DEFAULT_HOST, \getenv(self::ENV_PORT) ?: self::DEFAULT_PORT, \getenv(self::ENV_CLIENT_ID) ?: self::DEFAULT_CLIENT_ID));
+                return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\ClientSideMonitoring\Configuration($enabled, \getenv(self::ENV_HOST) ?: self::DEFAULT_HOST, \getenv(self::ENV_PORT) ?: self::DEFAULT_PORT, \getenv(self::ENV_CLIENT_ID) ?: self::DEFAULT_CLIENT_ID));
             }
             return self::reject('Could not find environment variable CSM config' . ' in ' . self::ENV_ENABLED . '/' . self::ENV_HOST . '/' . self::ENV_PORT . '/' . self::ENV_CLIENT_ID);
         };
@@ -108,7 +108,7 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
     public static function fallback()
     {
         return function () {
-            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\ClientSideMonitoring\Configuration(self::DEFAULT_ENABLED, self::DEFAULT_HOST, self::DEFAULT_PORT, self::DEFAULT_CLIENT_ID));
+            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\ClientSideMonitoring\Configuration(self::DEFAULT_ENABLED, self::DEFAULT_HOST, self::DEFAULT_PORT, self::DEFAULT_CLIENT_ID));
         };
     }
     /**
@@ -153,7 +153,7 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
             if (empty($data[$profile]['csm_client_id'])) {
                 $data[$profile]['csm_client_id'] = self::DEFAULT_CLIENT_ID;
             }
-            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\promise_for(new \WPMailSMTP\Vendor\Aws\ClientSideMonitoring\Configuration($data[$profile]['csm_enabled'], $data[$profile]['csm_host'], $data[$profile]['csm_port'], $data[$profile]['csm_client_id']));
+            return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::promiseFor(new \WPMailSMTP\Vendor\Aws\ClientSideMonitoring\Configuration($data[$profile]['csm_enabled'], $data[$profile]['csm_host'], $data[$profile]['csm_port'], $data[$profile]['csm_client_id']));
         };
     }
     /**

@@ -76,6 +76,7 @@ class WooCommerce_Product_Search_Admin {
 		$output .= '*[id*="woocommerce_product_search_filter_price_widget"] .widget-title,';
 		$output .= '*[id*="woocommerce_product_search_filter_rating_widget"] .widget-title,';
 		$output .= '*[id*="woocommerce_product_search_filter_sale_widget"] .widget-title,';
+		$output .= '*[id*="woocommerce_product_search_filter_stock_widget"] .widget-title,';
 		$output .= '*[id*="woocommerce_product_search_filter_tag_widget"] .widget-title,';
 		$output .= '*[id*="woocommerce_product_search_filter_reset_widget"] .widget-title {';
 		$output .= sprintf( 'background-image: url( %s );', esc_url( WOO_PS_PLUGIN_URL . '/images/woocommerce-product-search.png' ) );
@@ -91,6 +92,7 @@ class WooCommerce_Product_Search_Admin {
 		$output .= 'html[dir="rtl"] *[id*="woocommerce_product_search_filter_price_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] *[id*="woocommerce_product_search_filter_rating_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] *[id*="woocommerce_product_search_filter_sale_widget"] .widget-title,';
+		$output .= 'html[dir="rtl"] *[id*="woocommerce_product_search_filter_stock_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] *[id*="woocommerce_product_search_filter_tag_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] *[id*="woocommerce_product_search_filter_reset_widget"] .widget-title {';
 		$output .= 'background-position: right 0.62em center;';
@@ -104,6 +106,7 @@ class WooCommerce_Product_Search_Admin {
 		$output .= '.widget-tpl *[id*="woocommerce_product_search_filter_price_widget"] .widget-title,';
 		$output .= '.widget-tpl *[id*="woocommerce_product_search_filter_rating_widget"] .widget-title,';
 		$output .= '.widget-tpl *[id*="woocommerce_product_search_filter_sale_widget"] .widget-title,';
+		$output .= '.widget-tpl *[id*="woocommerce_product_search_filter_stock_widget"] .widget-title,';
 		$output .= '.widget-tpl *[id*="woocommerce_product_search_filter_tag_widget"] .widget-title,';
 		$output .= '.widget-tpl *[id*="woocommerce_product_search_filter_reset_widget"] .widget-title {';
 		$output .= 'background-position: 0 top;';
@@ -116,6 +119,7 @@ class WooCommerce_Product_Search_Admin {
 		$output .= 'html[dir="rtl"] .widget-tpl *[id*="woocommerce_product_search_filter_price_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] .widget-tpl *[id*="woocommerce_product_search_filter_rating_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] .widget-tpl *[id*="woocommerce_product_search_filter_sale_widget"] .widget-title,';
+		$output .= 'html[dir="rtl"] .widget-tpl *[id*="woocommerce_product_search_filter_stock_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] .widget-tpl *[id*="woocommerce_product_search_filter_tag_widget"] .widget-title,';
 		$output .= 'html[dir="rtl"] .widget-tpl *[id*="woocommerce_product_search_filter_reset_widget"] .widget-title {';
 		$output .= 'background-position: right top;';
@@ -333,7 +337,7 @@ class WooCommerce_Product_Search_Admin {
 			$content .= wp_kses(
 				sprintf(
 					__( 'Live search statistics are available in the <a href="%s">Search</a> section of the reports.', 'woocommerce-product-search' ),
-					esc_url( admin_url( 'admin.php?page=wc-reports&tab=search' ) )
+					esc_url( WooCommerce_Product_Search_Admin_Navigation::get_report_url( 'searches' ) )
 				),
 				array( 'a' => array( 'href' => array(), 'class' => array() ) )
 			);
@@ -361,14 +365,17 @@ class WooCommerce_Product_Search_Admin {
 				),
 				array( 'a' => array( 'href' => array() ) )
 			);
-			$content .= ' ';
-			$content .= wp_kses(
-				sprintf(
-					__( 'You can use the <a href="%s">Assistant</a> to add filter widgets to your sidebars.', 'woocommerce-product-search' ),
-					esc_url( self::get_admin_section_url( self::SECTION_ASSISTANT ) )
-				),
-				array( 'a' => array( 'href' => array() ) )
-			);
+
+			if ( self::uses_classic_widgets() ) {
+				$content .= ' ';
+				$content .= wp_kses(
+					sprintf(
+						__( 'You can use the <a href="%s">Assistant</a> to add filter widgets to your sidebars.', 'woocommerce-product-search' ),
+						esc_url( self::get_admin_section_url( self::SECTION_ASSISTANT ) )
+					),
+					array( 'a' => array( 'href' => array() ) )
+				);
+			}
 			$content .= ' ';
 			$content .= esc_html__( 'These live filters update the products shown in your shop instantly, to include those that are related.', 'woocommerce-product-search' );
 			$content .= ' ';
@@ -392,6 +399,9 @@ class WooCommerce_Product_Search_Admin {
 			$content .= '</li>';
 			$content .= '<li>';
 			$content .= esc_html__( 'Product Filter &ndash; Search', 'woocommerce-product-search' );
+			$content .= '</li>';
+			$content .= '<li>';
+			$content .= esc_html__( 'Product Filter &ndash; Stock', 'woocommerce-product-search' );
 			$content .= '</li>';
 			$content .= '<li>';
 			$content .= esc_html__( 'Product Filter &ndash; Tags', 'woocommerce-product-search' );
@@ -763,6 +773,10 @@ class WooCommerce_Product_Search_Admin {
 												$widget = new WooCommerce_Product_Search_Filter_Sale_Widget();
 												$widget_settings = $widget->update( $widget->get_default_instance(), array() );
 												break;
+											case 'woocommerce_product_search_filter_stock_widget' :
+												$widget = new WooCommerce_Product_Search_Filter_Stock_Widget();
+												$widget_settings = $widget->update( $widget->get_default_instance(), array() );
+												break;
 											case 'woocommerce_product_search_filter_tag_widget' :
 												$widget = new WooCommerce_Product_Search_Filter_Tag_Widget();
 												$widget_settings = $widget->update( $widget->get_default_instance(), array() );
@@ -900,19 +914,22 @@ class WooCommerce_Product_Search_Admin {
 		echo esc_html( __( 'Index', 'woocommerce-product-search' ) );
 		echo '</a>';
 		if ( current_user_can( self::ASSISTANT_CONTROL_CAPABILITY ) ) {
-			echo '|';
-			echo '</li>';
-			echo '<li class="tab-header">';
-			printf( '<a class="%s" href="%s">', isset( $current_section ) && $current_section == self::SECTION_ASSISTANT ? 'current' : '', esc_url( self::get_admin_section_url( self::SECTION_ASSISTANT ) ) );
-			echo esc_html( __( 'Assistant', 'woocommerce-product-search' ) );
-			echo '</a>';
-			echo '</li>';
+
+			if ( self::uses_classic_widgets() ) {
+				echo '|';
+				echo '</li>';
+				echo '<li class="tab-header">';
+				printf( '<a class="%s" href="%s">', isset( $current_section ) && $current_section == self::SECTION_ASSISTANT ? 'current' : '', esc_url( self::get_admin_section_url( self::SECTION_ASSISTANT ) ) );
+				echo esc_html( __( 'Assistant', 'woocommerce-product-search' ) );
+				echo '</a>';
+				echo '</li>';
+			}
 		} else {
 			echo '</li>';
 		}
 		echo '&mdash;';
 		echo '<li class="tab-header">';
-		echo '<a href="' . esc_url( admin_url( 'admin.php?page=wc-reports&tab=search' ) ) . '">' . esc_html__( 'Reports', 'woocommerce-product-search' ) . '</a>';
+		echo '<a href="' . esc_url(  WooCommerce_Product_Search_Admin_Navigation::get_report_url( 'searches' ) ) . '">' . esc_html__( 'Reports', 'woocommerce-product-search' ) . '</a>';
 		echo '</li>';
 
 		echo '<li class="tab-header">';
@@ -1254,7 +1271,7 @@ class WooCommerce_Product_Search_Admin {
 				echo wp_kses(
 					sprintf(
 						__( 'Live search statistics are available in the <a href="%s">Search</a> section of the reports.', 'woocommerce-product-search' ),
-						esc_url( admin_url( 'admin.php?page=wc-reports&tab=search' ) )
+						esc_url( WooCommerce_Product_Search_Admin_Navigation::get_report_url( 'searches' ) )
 					),
 					array( 'a' => array( 'href' => array(), 'class' => array() ) )
 				);
@@ -2117,6 +2134,7 @@ class WooCommerce_Product_Search_Admin {
 						'woocommerce_product_search_filter_price_widget',
 						'woocommerce_product_search_filter_rating_widget',
 						'woocommerce_product_search_filter_sale_widget',
+						'woocommerce_product_search_filter_stock_widget',
 						'woocommerce_product_search_filter_tag_widget',
 						'woocommerce_product_search_filter_reset_widget'
 					);
@@ -2202,6 +2220,7 @@ class WooCommerce_Product_Search_Admin {
 						new WooCommerce_Product_Search_Filter_Category_Widget(),
 						new WooCommerce_Product_Search_Filter_Rating_Widget(),
 						new WooCommerce_Product_Search_Filter_Sale_Widget(),
+						new WooCommerce_Product_Search_Filter_Stock_Widget(),
 						new WooCommerce_Product_Search_Filter_Tag_Widget(),
 						new WooCommerce_Product_Search_Filter_Reset_Widget()
 					);
@@ -2376,7 +2395,7 @@ class WooCommerce_Product_Search_Admin {
 			$show_welcome_url = wp_nonce_url( add_query_arg( WooCommerce_Product_Search_Admin_Notice::SHOW_WELCOME_NOTICE, true, $current_url ), 'show', 'wps_notice' );
 			$links[] = '<a href="' . esc_url( $show_welcome_url ) . '">' . esc_html__( 'Welcome', 'woocommerce-product-search' ) . '</a>';
 			$links[] = '<a style="font-weight:bold" href="' . esc_url( $settings_url ) . '">' . esc_html__( 'Settings', 'woocommerce-product-search' ) . '</a>';
-			$links[] = '<a style="font-weight:bold" href="' . esc_url( admin_url( 'admin.php?page=wc-reports&tab=search' ) ) . '">' . esc_html__( 'Reports', 'woocommerce-product-search' ) . '</a>';
+			$links[] = '<a style="font-weight:bold" href="' . esc_url(  WooCommerce_Product_Search_Admin_Navigation::get_report_url( 'searches' ) ) . '">' . esc_html__( 'Reports', 'woocommerce-product-search' ) . '</a>';
 		}
 		return $links;
 	}
@@ -2432,6 +2451,29 @@ class WooCommerce_Product_Search_Admin {
 				echo '</tr>';
 			}
 		}
+	}
+
+	/**
+	 * Classic widgets used?
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return boolean false if the widgets block editor is used
+	 */
+	public static function uses_classic_widgets() {
+
+		global $wp_version;
+
+		$result = false;
+
+		if ( version_compare( $wp_version, '5.8.0' ) < 0 ) {
+			$result = true;
+		}
+
+		if ( function_exists( 'wp_use_widgets_block_editor' ) ) {
+			$result = !wp_use_widgets_block_editor();
+		}
+		return $result;
 	}
 }
 WooCommerce_Product_Search_Admin::init();

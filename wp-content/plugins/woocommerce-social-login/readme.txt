@@ -2,7 +2,7 @@
 Author: skyverge, woocommerce
 Tags: woocommerce
 Requires at least: 5.2
-Tested up to: 5.5.3
+Tested up to: 5.8.1
 Requires PHP: 7.0
 
 One-click registration and login via social networks like Facebook, Google, Twitter and Amazon

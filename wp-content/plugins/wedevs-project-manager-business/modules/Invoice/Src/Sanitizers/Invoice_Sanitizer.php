@@ -7,7 +7,7 @@ use WeDevs\PM_Pro\Core\Sanitizer\Abstract_Sanitizer;
 class Invoice_Sanitizer extends Abstract_Sanitizer {
 	public function filters() {
         return [
-            'title'       => 'trimer|pm_kses',
+            'title'       => 'trimer|sanitize_text_field',
             'terms'       => 'trimer|pm_kses',
             'client_note' => 'trimer|pm_kses',
         ];

@@ -195,7 +195,7 @@ final class Middleware
                     return $result;
                 }, function ($reason) use($history, $ticket) {
                     $history->finish($ticket, $reason);
-                    return \WPMailSMTP\Vendor\GuzzleHttp\Promise\rejection_for($reason);
+                    return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::rejectionFor($reason);
                 });
             };
         };
@@ -268,7 +268,7 @@ final class Middleware
                     if ($err instanceof \WPMailSMTP\Vendor\Aws\Exception\AwsException) {
                         $err->setTransferInfo(['total_time' => \microtime(\true) - $start] + $err->getTransferInfo());
                     }
-                    return \WPMailSMTP\Vendor\GuzzleHttp\Promise\rejection_for($err);
+                    return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Create::rejectionFor($err);
                 });
             };
         };

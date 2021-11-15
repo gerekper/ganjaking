@@ -2,6 +2,7 @@
  * Email - Module
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var RSEmailFrontend = {
         init : function ( ) {
             $( document ).on( 'click' , '#subscribeoption' , this.subscribe_or_unsubscribe_mail ) ;

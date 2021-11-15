@@ -2,9 +2,9 @@
  * Email - Module
  */
 jQuery( function ( $ ) {
+    'use strict' ;
     var EmailModule = {
         init : function () {
-            this.trigger_on_page_load() ;
             this.default_value_for_templates() ;
             this.show_or_hide_for_sender_option() ;
             this.show_or_hide_for_mailsending_option() ;
@@ -28,13 +28,6 @@ jQuery( function ( $ ) {
             $( document ).on( 'change' , '.rs_sendmail_options_all' , this.show_or_hide_for_user_option ) ;
             $( document ).on( 'click' , '#send_button' , this.send_mail ) ;
             $( document ).on( 'click' , '#rs_select_mail_function' , this.add_note ) ;
-        } ,
-        trigger_on_page_load : function () {
-            if ( fp_email_params.fp_wc_version <= parseFloat( '2.2.0' ) ) {
-                $( '#rs_multiselect_mail_send' ).chosen() ;
-            } else {
-                $( '#rs_multiselect_mail_send' ).select2() ;
-            }
         } ,
         add_note : function () {
             if ( fp_email_params.fp_wc_version > '2.2.0' ) {

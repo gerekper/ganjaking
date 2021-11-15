@@ -11,10 +11,6 @@ use WeDevs\PM_Pro\Core\WP\Register_Scripts as Pro_Register_Scripts;
 use WeDevs\PM\User\Models\User_Role;
 use WeDevs\PM_Pro\Integrations\Models\Integrations ;
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function pm_pro_get_text( $key ) {
     return Textdomain::get_text( $key);
 }

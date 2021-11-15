@@ -28,10 +28,10 @@ class Options extends OptionsAbstract {
 			[
 				'logo_url'    => wp_mail_smtp()->assets_url . '/images/providers/microsoft.svg',
 				'slug'        => self::SLUG,
-				'title'       => esc_html__( 'Outlook / 365', 'wp-mail-smtp-pro' ),
+				'title'       => esc_html__( '365 / Outlook', 'wp-mail-smtp-pro' ),
 				'description' => sprintf(
 					wp_kses( /* translators: %s - URL to Outlook doc. */
-						__( 'Our Outlook.com / Microsoft 365 mailer allows you to send emails from a Microsoft email account on Outlook.com or a Microsoft 365 email address. It\'s free, but you\'ll need to provide a credit card to get started. The set-up steps are more technical than other options, so we created a detailed guide to walk you through the process.<br><br>To get started, read our <a href="%s" target="_blank" rel="noopener noreferrer">Outlook / Microsoft 365 documentation</a>.', 'wp-mail-smtp-pro' ),
+						__( 'Our Microsoft 365 / Outlook.com mailer allows you to send emails from a Microsoft email account on Outlook.com or a Microsoft 365 email address. It\'s free, but you\'ll need to provide a credit card to get started. The set-up steps are more technical than other options, so we created a detailed guide to walk you through the process.<br><br>To get started, read our <a href="%s" target="_blank" rel="noopener noreferrer">Microsoft 365 / Outlook documentation</a>.', 'wp-mail-smtp-pro' ),
 						[
 							'br' => [],
 							'a'  => [
@@ -45,7 +45,7 @@ class Options extends OptionsAbstract {
 				),
 				'notices'     => [
 					'educational' => wp_kses(
-						__( 'The Microsoft Outlook / 365 mailer is a great choice if you\'re already using paid email services with Microsoft, as you\'ll have the benefit of high email sending limits without signing up for a separate service. Due to the fairly complex setup, however, this option is recommended for more technical users.<br><br>If you\'d prefer a more straightforward setup, then we\'d recommend considering one of the other mailer options.', 'wp-mail-smtp-pro' ),
+						__( 'The Microsoft 365 / Outlook mailer is a great choice if you\'re already using paid email services with Microsoft, as you\'ll have the benefit of high email sending limits without signing up for a separate service. Due to the fairly complex setup, however, this option is recommended for more technical users.<br><br>If you\'d prefer a more straightforward setup, then we\'d recommend considering one of the other mailer options.', 'wp-mail-smtp-pro' ),
 						[
 							'br' => [],
 						]

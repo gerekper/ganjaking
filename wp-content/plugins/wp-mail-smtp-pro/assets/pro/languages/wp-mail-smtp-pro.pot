@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Mail SMTP 3.1.0\n"
+"Project-Id-Version: WP Mail SMTP 3.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-mail-smtp-pro\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-09-27T06:12:19+00:00\n"
+"POT-Creation-Date: 2021-11-04T06:29:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wp-mail-smtp-pro\n"
@@ -1137,7 +1137,7 @@ msgid "Email ID's must be specified."
 msgstr ""
 
 #: src/Pro/Emails/Logs/Resend.php:107
-msgid "Emails were added to the send queue."
+msgid "Emails were added to the send queue. If these selected emails have their email content, they will be resent shortly."
 msgstr ""
 
 #: src/Pro/Emails/Logs/Resend.php:150
@@ -1615,16 +1615,16 @@ msgid "Outlook did not provide any specific reason why the email failed to send.
 msgstr ""
 
 #: src/Pro/Providers/Outlook/Options.php:31
-msgid "Outlook / 365"
+msgid "365 / Outlook"
 msgstr ""
 
 #. translators: %s - URL to Outlook doc.
 #: src/Pro/Providers/Outlook/Options.php:34
-msgid "Our Outlook.com / Microsoft 365 mailer allows you to send emails from a Microsoft email account on Outlook.com or a Microsoft 365 email address. It's free, but you'll need to provide a credit card to get started. The set-up steps are more technical than other options, so we created a detailed guide to walk you through the process.<br><br>To get started, read our <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Outlook / Microsoft 365 documentation</a>."
+msgid "Our Microsoft 365 / Outlook.com mailer allows you to send emails from a Microsoft email account on Outlook.com or a Microsoft 365 email address. It's free, but you'll need to provide a credit card to get started. The set-up steps are more technical than other options, so we created a detailed guide to walk you through the process.<br><br>To get started, read our <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Microsoft 365 / Outlook documentation</a>."
 msgstr ""
 
 #: src/Pro/Providers/Outlook/Options.php:48
-msgid "The Microsoft Outlook / 365 mailer is a great choice if you're already using paid email services with Microsoft, as you'll have the benefit of high email sending limits without signing up for a separate service. Due to the fairly complex setup, however, this option is recommended for more technical users.<br><br>If you'd prefer a more straightforward setup, then we'd recommend considering one of the other mailer options."
+msgid "The Microsoft 365 / Outlook mailer is a great choice if you're already using paid email services with Microsoft, as you'll have the benefit of high email sending limits without signing up for a separate service. Due to the fairly complex setup, however, this option is recommended for more technical users.<br><br>If you'd prefer a more straightforward setup, then we'd recommend considering one of the other mailer options."
 msgstr ""
 
 #: src/Pro/Providers/Outlook/Options.php:92

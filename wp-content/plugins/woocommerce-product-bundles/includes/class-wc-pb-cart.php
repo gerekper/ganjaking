@@ -1746,14 +1746,16 @@ class WC_PB_Cart {
 
 				unset( $cart->cart_contents[ $bundled_item_cart_key ] );
 
-				/** WC core action. @see WC_Cart::remove_cart_item
+				/** Triggered when bundled item is removed from the cart.
 				 *
-				 * @since  6.10.3
+				 * @since  6.12.6
+				 *
+				 * @hint   Bypass WC_Cart::remove_cart_item to avoid issues with performance and loops.
 				 *
 				 * @param  string  $bundled_item_cart_key
 				 * @param  WC_Cart $cart
 				 */
-				do_action( 'woocommerce_cart_item_removed', $bundled_item_cart_key, $cart );
+				do_action( 'woocommerce_bundled_cart_item_removed', $bundled_item_cart_key, $cart );
 			}
 
 		} elseif ( ! isset( $_POST[ 'update-bundle' ] ) && wc_pb_is_bundled_cart_item( $cart->removed_cart_contents[ $cart_item_key ] ) ) {

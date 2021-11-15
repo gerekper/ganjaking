@@ -104,7 +104,7 @@ class Resend {
 
 		$this->schedule_emails_send( $email_ids );
 
-		wp_send_json_success( esc_html__( 'Emails were added to the send queue.', 'wp-mail-smtp-pro' ) );
+		wp_send_json_success( esc_html__( 'Emails were added to the send queue. If these selected emails have their email content, they will be resent shortly.', 'wp-mail-smtp-pro' ) );
 	}
 
 	/**

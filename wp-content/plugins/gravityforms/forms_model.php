@@ -3484,8 +3484,12 @@ class GFFormsModel {
 					$match_count ++;
 				}
 			}
+
 			// If operation is Is Not, none of the values in the array can match the target value.
-			$is_match = $operation == 'isnot' ? $match_count == count( $field_value ) : $match_count > 0;
+			// Except when operation is Is Not Empty. In that case, one non-empty value is enough
+			$must_match_all = ( $operation == 'isnot' && ! rgblank( $target_value ) ) || ( $operation == 'is' && rgblank( $target_value ) );
+			$is_match = $must_match_all ? $match_count == count( $field_value ) : $match_count > 0;
+
 		} else if ( self::matches_operation( GFFormsModel::maybe_trim_input( GFCommon::get_selection_value( $field_value ), $form_id, $source_field ), $target_value, $operation ) ) {
 			$is_match = true;
 		}

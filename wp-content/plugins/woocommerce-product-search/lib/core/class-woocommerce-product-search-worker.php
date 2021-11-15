@@ -39,6 +39,7 @@ class WooCommerce_Product_Search_Worker {
 	const LIMIT_PER_WORK_CYCLE_DEFAULT = 40;
 	const TEST_CRON_REQUEST_TIMEOUT    = 5;
 	const TEST_CRON_MIN_FAIL_STATUS    = 300;
+	const INIT_SCHEDULED_GAP           = 10;
 
 	/**
 	 * Initialize
@@ -46,8 +47,14 @@ class WooCommerce_Product_Search_Worker {
 	public static function init() {
 
 		add_action( 'woocommerce_product_search_work', array( __CLASS__, 'work' ), 10, 0 );
-		self::schedule();
 		add_action( 'woocommerce_product_search_deactivate', array( __CLASS__, 'deactivate' ) );
+
+		$last_scheduled = intval( get_option( 'woocommerce_product_search_worker_init_scheduled', 0 ) );
+		if ( ( time() - $last_scheduled ) > self::INIT_SCHEDULED_GAP ) {
+
+			update_option( 'woocommerce_product_search_worker_init_scheduled', time() );
+			self::schedule();
+		}
 	}
 
 	/**
@@ -89,9 +96,7 @@ class WooCommerce_Product_Search_Worker {
 			}
 			if ( !self::get_next_scheduled() ) {
 				$indexer = new WooCommerce_Product_Search_Indexer();
-				$processable = $indexer->get_processable_count();
-				$total       = $indexer->get_total_count();
-				if ( $processable > 0 ) {
+				if ( $indexer->has_processable() ) {
 					if ( $delta !== null ) {
 						$delta = intval( $delta );
 						if ( $delta <= 0 ) {
@@ -135,8 +140,7 @@ class WooCommerce_Product_Search_Worker {
 
 		$indexer = new WooCommerce_Product_Search_Indexer();
 
-		$c = $indexer->get_processable_count();
-		if ( $c > 0 ) {
+		if ( $indexer->has_processable() ) {
 			$indexer->work();
 		}
 		$indexer->gc();
@@ -286,6 +290,9 @@ class WooCommerce_Product_Search_Worker {
 					)
 				);
 			}
+		} else {
+
+			$error = $response;
 		}
 		return $error;
 	}

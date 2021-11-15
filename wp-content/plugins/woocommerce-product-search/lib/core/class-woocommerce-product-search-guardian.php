@@ -134,39 +134,11 @@ class WooCommerce_Product_Search_Guardian {
 
 		if ( $this->check_memory_limit ) {
 			$this->bytes = memory_get_peak_usage( true );
-			$this->memory_limit = ini_get( 'memory_limit' );
-			$matches = null;
-			preg_match( '/([0-9]+)(.)/', $this->memory_limit, $matches );
-			if ( isset( $matches[2] ) ) {
-				$exp = array( 'K' => 1, 'M' => 2, 'G' => 3, 'T' => 4, 'P' => 5, 'E' => 6 );
-				if ( key_exists( $matches[2], $exp ) ) {
-					$this->memory_limit = intval( preg_replace( '/[^0-9]/', '', $this->memory_limit ) ) * pow( 1024, $exp[$matches[2]] );
-				}
-			}
+			$this->memory_limit = WooCommerce_Product_Search_System::get_memory_limit();
 		}
 
 		if ( $this->check_execution_limit ) {
-			$this->max_execution_time = intval( ini_get( 'max_execution_time' ) );
-
-			if ( $this->max_execution_time === 0 ) {
-				$this->max_execution_time = PHP_INT_MAX;
-			}
-			$max_input_time = ini_get( 'max_input_time' );
-			if ( $max_input_time !== false ) {
-				$max_input_time = intval( $max_input_time );
-				switch ( $max_input_time ) {
-					case -1 :
-
-						break;
-					case 0 :
-
-						$this->max_execution_time = min( $this->max_execution_time, PHP_INT_MAX );
-						break;
-					default :
-
-						$this->max_execution_time = min( $this->max_execution_time, $max_input_time );
-				}
-			}
+			$this->max_execution_time = WooCommerce_Product_Search_System::get_max_execution_time();
 
 			if ( function_exists( 'getrusage' ) ) {
 				$resource_usage = getrusage();

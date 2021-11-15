@@ -208,6 +208,11 @@ nav ul.gm-navbar-nav > li {
   -webkit-backface-visibility: hidden !important;
   backface-visibility: hidden !important; }
 
+/* fix iOS bug when use background-size: cover; & background-position: fixed; Together */
+@supports (-webkit-touch-callout: inherit) {
+  .gm-navbar ~ .gm-main-menu-wrapper {
+    background-attachment: scroll !important; } }
+
 .gm-grid-container {
   width: 100%;
   padding-left: 15px;

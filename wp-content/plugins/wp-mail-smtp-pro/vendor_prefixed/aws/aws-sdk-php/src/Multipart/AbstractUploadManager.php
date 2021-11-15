@@ -74,7 +74,7 @@ abstract class AbstractUploadManager implements \WPMailSMTP\Vendor\GuzzleHttp\Pr
         if ($this->promise) {
             return $this->promise;
         }
-        return $this->promise = \WPMailSMTP\Vendor\GuzzleHttp\Promise\coroutine(function () {
+        return $this->promise = \WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine::of(function () {
             // Initiate the upload.
             if ($this->state->isCompleted()) {
                 throw new \LogicException('This multipart upload has already ' . 'been completed or aborted.');

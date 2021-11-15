@@ -193,7 +193,7 @@ add_action( 'admin_enqueue_scripts', 'redsys_notice_style' );
 function check_redsys_connected() {
 
 	if ( REDSYS_CHECK_WOO_CONNECTION ) {
-		if ( class_exists( WC_Helper_Options ) ) {
+		if ( class_exists( 'WC_Helper_Options' ) ) {
 			$auth = WC_Helper_Options::get( 'auth' );
 			if ( empty( $auth['access_token'] ) ) {
 				$class    = 'notice notice-error';

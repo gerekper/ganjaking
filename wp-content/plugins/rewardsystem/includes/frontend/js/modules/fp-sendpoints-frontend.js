@@ -1,4 +1,5 @@
 jQuery( function ( $ ) {
+    'use strict' ;
     var formforsendpoints = {
         init : function ( ) {
             $( document.body ).on( 'click' , '#rs_send_points_submit_button' , this.formforsendpointsclick ) ;

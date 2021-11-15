@@ -70,7 +70,7 @@ class AssumeRoleWithWebIdentityCredentialProvider
      */
     public function __invoke()
     {
-        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\coroutine(function () {
+        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine::of(function () {
             $client = $this->client;
             $result = null;
             while ($result == null) {

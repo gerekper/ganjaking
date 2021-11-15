@@ -172,7 +172,9 @@ ixwps.productSearch = function( fieldId, containerId, resultsId, url, query, arg
 	}
 	query = $.trim( query );
 	if ( query != '' ) {
-		$blinker.addClass( 'blinker' );
+		if ( blinkerTimeout !== 0 ) {
+			$blinker.addClass( 'blinker' );
+		}
 		if ( blinkerTimeout > 0 ) {
 			ixwps.blinkerTimeouts[ '#' + fieldId ] = setTimeout(
 				function() {

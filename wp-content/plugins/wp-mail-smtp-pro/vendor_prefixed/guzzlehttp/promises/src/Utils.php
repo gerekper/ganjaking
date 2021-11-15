@@ -45,7 +45,9 @@ final class Utils
         $promise = new \WPMailSMTP\Vendor\GuzzleHttp\Promise\Promise([$queue, 'run']);
         $queue->add(function () use($task, $promise) {
             try {
-                $promise->resolve($task());
+                if (\WPMailSMTP\Vendor\GuzzleHttp\Promise\Is::pending($promise)) {
+                    $promise->resolve($task());
+                }
             } catch (\Throwable $e) {
                 $promise->reject($e);
             } catch (\Exception $e) {

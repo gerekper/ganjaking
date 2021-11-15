@@ -65,7 +65,7 @@ class Waiter implements \WPMailSMTP\Vendor\GuzzleHttp\Promise\PromisorInterface
     }
     public function promise()
     {
-        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\coroutine(function () {
+        return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine::of(function () {
             $name = $this->config['operation'];
             for ($state = 'retry', $attempt = 1; $state === 'retry'; $attempt++) {
                 // Execute the operation.

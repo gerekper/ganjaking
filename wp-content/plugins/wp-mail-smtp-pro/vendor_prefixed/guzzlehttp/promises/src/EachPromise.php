@@ -66,9 +66,7 @@ class EachPromise implements \WPMailSMTP\Vendor\GuzzleHttp\Promise\PromisorInter
             $this->createPromise();
             /** @psalm-assert Promise $this->aggregate */
             $this->iterable->rewind();
-            if (!$this->checkIfFinished()) {
-                $this->refillPending();
-            }
+            $this->refillPending();
         } catch (\Throwable $e) {
             /**
              * @psalm-suppress NullReference
@@ -92,6 +90,9 @@ class EachPromise implements \WPMailSMTP\Vendor\GuzzleHttp\Promise\PromisorInter
     {
         $this->mutex = \false;
         $this->aggregate = new \WPMailSMTP\Vendor\GuzzleHttp\Promise\Promise(function () {
+            if ($this->checkIfFinished()) {
+                return;
+            }
             \reset($this->pending);
             // Consume a potentially fluctuating list of promises while
             // ensuring that indexes are maintained (precluding array_shift).
