@@ -668,7 +668,7 @@ class RevSliderSlide extends RevSliderFunctions {
 
 			if(!empty($taxonomies)){
 				foreach($taxonomies as $ptt){
-					if($ptt === 'post_tag') continue;
+					if($ptt === 'post_tag' || $ptt === 'translation_priority') continue;
 					$temp_cats = get_the_terms($post_id, $ptt);
 					if(!empty($temp_cats)){
 						$cats = array_merge($cats, $temp_cats);

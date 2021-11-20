@@ -4,6 +4,7 @@
  *
  * @version 1.0.8
  * @since 1.0.0
+ * @package WC_Products_Compare
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -29,7 +30,7 @@ get_header( 'shop' ); ?>
 
 		// Get all row headers.
 		$headers = WC_Products_Compare_Frontend::get_product_meta_headers( $products );
-	?>
+		?>
 
 		<table>
 			<!--thead-->
@@ -41,23 +42,24 @@ get_header( 'shop' ); ?>
 						<h3><?php esc_html_e( 'Products', 'woocommerce-products-compare' ); ?></h3>
 					</th>
 
-					<?php foreach ( $products as $product ) {
+					<?php
+					foreach ( $products as $product ) {
 						$product = wc_get_product( $product );
 
 						if ( ! WC_Products_Compare::is_product( $product ) ) {
 							continue;
 						}
-					?>
+						?>
 
 						<td class="product" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>" style="width:<?php echo esc_attr( $column_width ); ?>%">
-							<a href="#" title="<?php esc_attr_e( 'Remove Product', 'woocommerce-products-compare' ); ?>" class="remove-compare-product" data-remove-id="<?php echo esc_attr( $product->get_id() ); ?>"><?php _e( 'Remove Product', 'woocommerce-products-compare' ); ?></a>
-							<a href="<?php echo get_permalink( $product->get_id() ); ?>" title="<?php echo esc_attr( $product->get_title() ); ?>" class="product-link">
+							<a href="#" title="<?php esc_attr_e( 'Remove Product', 'woocommerce-products-compare' ); ?>" class="remove-compare-product" data-remove-id="<?php echo esc_attr( $product->get_id() ); ?>"><?php esc_html_e( 'Remove Product', 'woocommerce-products-compare' ); ?></a>
+							<a href="<?php echo esc_attr( get_permalink( $product->get_id() ) ); ?>" title="<?php echo esc_attr( $product->get_title() ); ?>" class="product-link">
 
 								<?php woocommerce_show_product_loop_sale_flash(); ?>
 
-								<?php echo $product->get_image( 'shop_single' ); ?>
+								<?php echo $product->get_image( 'shop_single' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
-								<h3><?php echo $product->get_title(); ?></h3>
+								<h3><?php echo $product->get_title(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h3>
 
 							</a>
 
@@ -82,21 +84,26 @@ get_header( 'shop' ); ?>
 					}
 				}
 
-				if ( $show_rating ) { ?>
+				if ( $show_rating ) {
+					?>
 					<tr class="products ratings-row">
 						<th class="header-title">
-							<h3><?php _e( 'Ratings', 'woocommerce-products-compare' ); ?></h3>
+							<h3><?php esc_html_e( 'Ratings', 'woocommerce-products-compare' ); ?></h3>
 						</th>
 
-						<?php foreach ( $products as $product ) {
+						<?php
+						foreach ( $products as $product ) {
 							$product = wc_get_product( $product );
 
 							if ( ! WC_Products_Compare::is_product( $product ) ) {
 								continue;
 							}
-						?>
+							?>
 							<td class="product" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>">
-								<?php if ( $product->get_average_rating() > 0 ) { woocommerce_template_loop_rating(); } ?>
+								<?php
+								if ( $product->get_average_rating() > 0 ) {
+									woocommerce_template_loop_rating(); }
+								?>
 							</td>
 						<?php } ?>
 					</tr>
@@ -107,15 +114,16 @@ get_header( 'shop' ); ?>
 						<h3><?php esc_html_e( 'Price', 'woocommerce-products-compare' ); ?></h3>
 					</th>
 
-					<?php foreach ( $products as $product ) {
+					<?php
+					foreach ( $products as $product ) {
 						$product = wc_get_product( $product );
 
 						if ( ! WC_Products_Compare::is_product( $product ) ) {
 							continue;
 						}
-					?>
+						?>
 						<td class="product" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>">
-							<?php woocommerce_template_loop_price(); ?>			
+							<?php woocommerce_template_loop_price(); ?>
 						</td>
 					<?php } ?>
 				</tr>
@@ -128,17 +136,18 @@ get_header( 'shop' ); ?>
 
 					<td>&nbsp;</td>
 
-					<?php foreach ( $products as $product ) {
+					<?php
+					foreach ( $products as $product ) {
 						$product = wc_get_product( $product );
 
 						if ( ! WC_Products_Compare::is_product( $product ) ) {
 							continue;
 						}
-					?>
+						?>
 
 						<td class="product" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>">
-							<a href="<?php echo get_permalink( $product->get_id() ); ?>" title="<?php echo esc_attr( $product->get_title() ); ?>">
-								<h3><?php echo $product->get_title(); ?></h3>
+							<a href="<?php echo esc_attr( get_permalink( $product->get_id() ) ); ?>" title="<?php echo esc_attr( $product->get_title() ); ?>">
+								<h3><?php echo $product->get_title(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h3>
 							</a>
 
 							<?php woocommerce_template_loop_price(); ?>
@@ -167,62 +176,61 @@ get_header( 'shop' ); ?>
 								esc_html_e( 'SKU', 'woocommerce-products-compare' );
 
 							} else {
-								echo wc_attribute_label( $header );
+								echo esc_html( wc_attribute_label( $header ) );
 							}
 							?>
 						</th>
 
-						<?php foreach ( $products as $product ) {
+						<?php
+						foreach ( $products as $product ) {
 							$product = wc_get_product( $product );
 
 							if ( ! WC_Products_Compare::is_product( $product ) ) {
 								continue;
 							}
 
-							$post = get_post( $product->get_id() );
-							$attributes = $product->get_attributes();
-						?>
+							$product_post = get_post( $product->get_id() );
+							$attributes   = $product->get_attributes();
+							?>
 							<td class="product" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>">
 								<?php
 								if ( 'stock' === $header && $product->managing_stock() ) {
-									$class = $product->get_availability()['class'];
+									$class        = $product->get_availability()['class'];
 									$availability = $product->get_availability()['availability'];
 
-									echo '<span class="stock-status ' . esc_attr( $class ) . '">' . $availability . '</span>' . PHP_EOL;
+									echo '<span class="stock-status ' . esc_attr( $class ) . '">' . $availability . '</span>' . PHP_EOL; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 								} elseif ( 'description' === $header ) {
-									echo wp_strip_all_tags( $post->post_excerpt );
+									echo wp_kses_post( wp_strip_all_tags( $product_post->post_excerpt ) );
 
 								} elseif ( 'sku' === $header ) {
-									echo $product->get_sku();
+									echo esc_html( $product->get_sku() );
 
 								} elseif ( array_key_exists( sanitize_title( $header ), $attributes ) ) {
 
 									if ( $attributes[ sanitize_title( $header ) ]['is_taxonomy'] ) {
-
 										$values = wc_get_product_terms( $product->get_id(), $attributes[ sanitize_title( $header ) ]['name'], array( 'fields' => 'names' ) );
-										echo apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( ', ', $values ) ) ), $attributes[ sanitize_title( $header ) ], $values );
 									} else {
-
 										// Convert pipes to commas and display values.
 										$values = array_map( 'trim', explode( WC_DELIMITER, $attributes[ sanitize_title( $header ) ]['value'] ) );
-										echo apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( ', ', $values ) ) ), $attributes[ sanitize_title( $header ) ], $values );
 									}
+
+									echo wp_kses_post( apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( ', ', $values ) ) ), $attributes[ sanitize_title( $header ) ], $values ) );
 								}
 								?>
 							</td>
-						<?php } ?>				
+						<?php } ?>
 					</tr>
 				<?php } ?>
 			</tbody>
 			<!--tbody end-->
 
-		</table> 
+		</table>
 
-	<?php
+		<?php
 	} else {
 
-		echo WC_Products_Compare_Frontend::empty_message();
+		echo WC_Products_Compare_Frontend::empty_message(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 	?>
 

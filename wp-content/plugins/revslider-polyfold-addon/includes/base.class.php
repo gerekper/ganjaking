@@ -15,7 +15,7 @@ class RsPolyfoldBase extends RsAddOnPolyfoldBase {
 					 $_PluginUrl     = RS_POLYFOLD_PLUGIN_URL,
 					 $_PluginTitle   = 'polyfold',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '3.0.3';
+				     $_Version       = '3.0.5';
 	
 	public function __construct() {
 		

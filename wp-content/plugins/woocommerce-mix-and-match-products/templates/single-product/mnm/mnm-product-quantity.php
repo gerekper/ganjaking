@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
- * @version 1.9.4
+ * @version 1.11.4
  */
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -37,6 +37,16 @@ if ( $product->is_in_stock() && $mnm_item->is_in_stock() ) {
 	$quantity = isset( $_REQUEST[ $input_name ] ) && ! empty( $_REQUEST[ $input_name ][ $child_id ] ) ? intval( $_REQUEST[ $input_name ][ $child_id ] ) : apply_filters( 'woocommerce_mnm_quantity_input', '', $mnm_item, $product );
 
 	/**
+	 * The min/max input value.
+	 */
+	$min_qty = $product->get_child_quantity( 'min', $child_id );
+	$max_qty = $product->get_child_quantity( 'max', $child_id );
+
+	if ( 'tabular' === $product->get_layout() && $min_qty === $max_qty ) {
+		echo $min_qty;
+	}
+
+	/**
 	 * Filter woocommerce_mnm_child_quantity_input_args.
 	 *
 	 * @param array $args
@@ -48,11 +58,11 @@ if ( $product->is_in_stock() && $mnm_item->is_in_stock() ) {
 		array(
 			'input_name'  => $input_name . '[' . $child_id . ']',
 			'input_value' => $quantity,
-			'min_value'   => $product->get_child_quantity( 'min', $child_id ),
-			'max_value'   => $product->get_child_quantity( 'max', $child_id ),
+			'min_value'   => $min_qty,
+			'max_value'   => $max_qty,
 			'placeholder' => 0,
 			'step'        => $product->get_child_quantity( 'step', $child_id ),
-			'classes'     => array( 'qty', 'mnm-quantity' ),
+			'classes'     => array( 'qty', 'mnm-quantity', 'input-text' ),
 		),
 		$mnm_item,
         $product

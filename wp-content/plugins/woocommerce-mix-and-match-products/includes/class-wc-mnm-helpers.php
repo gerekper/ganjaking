@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Helpers
  * @since    1.0.0
- * @version  1.3.0
+ * @version  1.11.4
  */
 
 // Exit if accessed directly.
@@ -89,6 +89,26 @@ class WC_Mix_and_Match_Helpers {
 	 */
 	public static function is_child_supported_product_type( $product ) {
 		return $product instanceOf WC_Product && ( in_array( $product->get_type(), self::get_supported_product_types() ) || ( $product->is_type( 'variation' ) && WC_MNM_Core_Compatibility::has_all_attributes_set( $product ) ) );
+	}
+
+	/**
+	 * Format a product title incl qty.
+	 * 
+	 * @since 1.11.4
+	 *
+	 * @param  string  $title
+	 * @param  string  $qty
+	 * @return string
+	 */
+	public static function format_product_title( $title, $qty = '' ) {
+
+		$title_string = $title;
+
+		if ( $qty ) {
+			$title_string = sprintf( esc_html_x( '%1$s &times; %2$d', 'title, quantity', 'woocommerce-mix-and-match-products' ), $title_string, $qty );
+		}
+
+		return $title_string;
 	}
 
 	/*-----------------------------------------------------------------------------------*/

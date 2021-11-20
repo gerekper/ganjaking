@@ -645,7 +645,7 @@ class WC_AM_Product_Admin {
 
 			<?php
 
-			WCAM()->wc_print_js( "
+			WCAM()->wc_am_print_js( "
 			/* Only display API Tab if API checkbox is checked */
 			jQuery( 'input#_is_api' ).change( function(){
 				jQuery( '.show_if_api' ).hide();
@@ -708,11 +708,11 @@ class WC_AM_Product_Admin {
 			<?php
 
 			if ( WCAM()->get_wc_version() >= '3.2' ) :
-				WCAM()->wc_print_js( "
+				WCAM()->wc_am_print_js( "
 				jQuery('select.wc-am-select').selectWoo({allowClear:true});
 			" );
 			else :
-				WCAM()->wc_print_js( "
+				WCAM()->wc_am_print_js( "
 				jQuery('select.wc-am-select').select2({allowClear:true});
 			" );
 			endif;
@@ -1063,7 +1063,7 @@ class WC_AM_Product_Admin {
         </div>
 
 		<?php
-		WCAM()->wc_print_js( "
+		WCAM()->wc_am_print_js( "
 			/* Datepicker for Variations writepanel */
 			jQuery( '.wc_api_last_updated_var' ).datepicker({
 				defaultDate: '',
@@ -1107,11 +1107,11 @@ class WC_AM_Product_Admin {
 		" );
 
 		if ( WCAM()->get_wc_version() >= '3.2' ) :
-			WCAM()->wc_print_js( "
+			WCAM()->wc_am_print_js( "
 				jQuery('select.wc-am-var-select').selectWoo({allowClear:true});
 			" );
 		else :
-			WCAM()->wc_print_js( "
+			WCAM()->wc_am_print_js( "
 				jQuery('select.wc-am-var-select').select2({allowClear:true});
 			" );
 		endif;

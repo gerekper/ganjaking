@@ -37,49 +37,6 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
  *
  * ----------------------------------------------------------------------------- */
 
-:root {
-
-	--c-white: #fff;
-	--c-black: #000;
-	--c-titan-white: #fdfdff;
-	--c-zircon: #fbfdff;
-	--c-light-blue: #f6f9fc;
-	--c-comet: #5b5e80;
-	--c-blue-haze: #c3c5db;
-	--c-white-lilac: #ecedf8;
-	--c-white-iris: #f4f5fb;
-	--c-snuff: #d5d7e9;
-	--c-santas: #9b9db8;
-	--c-amethyst-smoke: #9092b2;
-	--c-gravity-blue: #3e7da6;
-	--c-primary-light: #3985b7;
-	--c-chathams: #0f3d6c;
-	--c-orange: #f15a2b;
-	--c-green: #22a753;
-	--c-hunter: #276a52;
-	--c-tara: #e1f6ed;
-	--c-emerald: #57c091;
-	--c-red: #dd301d;
-	--c-background-red: #feefef;
-	--c-blue-ribbon: #175cff;
-	--c-yellow: #ffbe03;
-	--c-warning: #a16938;
-	--c-port: #242748;
-	--c-port-dark: #1c1f3f;
-	--c-spindle: #bed8ed;
-
-	--c-placeholder: var(--c-comet);
-	--c-border: var(--c-amethyst-smoke);
-	--c-button-disabled: #639cc1;
-	--c-focus: var(--c-spindle);
-	--c-icon: var(--c-amethyst-smoke);
-	--c-text: var(--c-port);
-	--c-disabled: var(--c-white-iris);
-	--c-error: var(--c-red);
-	--c-button: var(--c-gravity-blue);
-
-}
-
 /* Box Shadows */
 
 /* -----------------------------------------------------------------------------
@@ -87,21 +44,6 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
  * Variables: Box Shadow
  *
  * ----------------------------------------------------------------------------- */
-
-:root {
-
-	--bs-datepicker: 0 0.125rem 0.75rem rgba(28, 31, 63, 0.09);
-	--bs-focus-light: 0 0 0 1px var(--c-focus);
-	--bs-focus: 0 0 0 2px var(--c-focus);
-	--bs-focus-sm: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 2px var(--c-white-lilac);
-	--bs-button: 0 1px 2px rgba(0, 0, 0, 0.05);
-	--bs-small: var(--bs-datepicker);
-	--bs-input-focus: 0 0.125rem 0.0675rem rgba(28, 31, 63, 0.0634624), 0 0 0 2px var(--c-focus);
-	--bs-input-hover: 0 0.25rem 0.25rem rgba(18, 25, 97, 0.0405344);
-	--bs-outline-light: 0 2px 2px rgba(58, 58, 87, 0.0596411);
-	--bs-outline-light-hover: 0 4px 2px rgba(58, 58, 87, 0.1);
-	--bs-outline-light-hover-alt: 0 2px 2px rgba(58, 58, 87, 0.0796);
-}
 
 /* Font Icons */
 
@@ -115,153 +57,6 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
  *
  * ----------------------------------------------------------------------------- */
 
-:root {
-	--gform-icon--zoho: "\e977";
-	--gform-icon--zapier: "\e976";
-	--gform-icon--webhooks: "\e975";
-	--gform-icon--warning-amber: "\e973";
-	--gform-icon--warning: "\e974";
-	--gform-icon--vote: "\e972";
-	--gform-icon--videopipe: "\e971";
-	--gform-icon--verified: "\e970";
-	--gform-icon--user: "\e97d";
-	--gform-icon--upload: "\e96f";
-	--gform-icon--twilio: "\e96e";
-	--gform-icon--trello: "\e96d";
-	--gform-icon--trash: "\e985";
-	--gform-icon--total: "\e96c";
-	--gform-icon--tools: "\e97f";
-	--gform-icon--title: "\e96b";
-	--gform-icon--time: "\e96a";
-	--gform-icon--tags: "\e969";
-	--gform-icon--survey: "\e968";
-	--gform-icon--style: "\e967";
-	--gform-icon--stripe: "\e966";
-	--gform-icon--st-plus: "\e951";
-	--gform-icon--st-circle: "\e94a";
-	--gform-icon--square: "\e965";
-	--gform-icon--slack: "\e964";
-	--gform-icon--single-line-text: "\e963";
-	--gform-icon--signature: "\e962";
-	--gform-icon--shipping: "\e961";
-	--gform-icon--settings: "\e986";
-	--gform-icon--sendgrid: "\e960";
-	--gform-icon--section: "\e95f";
-	--gform-icon--search: "\e95e";
-	--gform-icon--renew: "\e980";
-	--gform-icon--recaptcha: "\e95d";
-	--gform-icon--radio-button: "\e95c";
-	--gform-icon--quiz: "\e95b";
-	--gform-icon--question-mark: "\e97e";
-	--gform-icon--question: "\e95a";
-	--gform-icon--quantity: "\e901";
-	--gform-icon--product: "\e959";
-	--gform-icon--postmark: "\e958";
-	--gform-icon--post-image: "\e956";
-	--gform-icon--post-custom-field: "\e957";
-	--gform-icon--polls: "\e953";
-	--gform-icon--poll-alt: "\e954";
-	--gform-icon--poll: "\e955";
-	--gform-icon--pointer: "\e952";
-	--gform-icon--plus-regular: "\e982";
-	--gform-icon--place: "\e950";
-	--gform-icon--phone: "\e94f";
-	--gform-icon--paypal: "\e94e";
-	--gform-icon--password1: "\e94d";
-	--gform-icon--password: "\e97c";
-	--gform-icon--paragraph-text: "\e94c";
-	--gform-icon--page: "\e94b";
-	--gform-icon--numbers-alt: "\e948";
-	--gform-icon--numbers: "\e949";
-	--gform-icon--notifications-active: "\e97b";
-	--gform-icon--name-2: "\e97a";
-	--gform-icon--name: "\e947";
-	--gform-icon--multi-select: "\e946";
-	--gform-icon--monetization-on: "\e945";
-	--gform-icon--mollie: "\e944";
-	--gform-icon--misc: "\e943";
-	--gform-icon--minus-regular: "\e981";
-	--gform-icon--minus: "\e942";
-	--gform-icon--merge-tag: "\e941";
-	--gform-icon--mailgun: "\e940";
-	--gform-icon--mailchimp: "\e93f";
-	--gform-icon--mail: "\e93e";
-	--gform-icon--mad-mimi: "\e93d";
-	--gform-icon--list: "\e93c";
-	--gform-icon--link: "\e93b";
-	--gform-icon--jetsloth: "\e93a";
-	--gform-icon--info-outline: "\e988";
-	--gform-icon--info: "\e98d";
-	--gform-icon--icontact: "\e937";
-	--gform-icon--hubspot: "\e936";
-	--gform-icon--html-code: "\e935";
-	--gform-icon--how-to-reg: "\e934";
-	--gform-icon--hidden: "\e933";
-	--gform-icon--helpscout: "\e932";
-	--gform-icon--help: "\e939";
-	--gform-icon--gravity-pdf: "\e930";
-	--gform-icon--gravity-logo: "\e92f";
-	--gform-icon--get-response: "\e92e";
-	--gform-icon--freshbooks: "\e92d";
-	--gform-icon--format-quote1: "\e92c";
-	--gform-icon--format-quote: "\e900";
-	--gform-icon--for-gravity: "\e92b";
-	--gform-icon--flag-alt: "\e92a";
-	--gform-icon--flag: "\e929";
-	--gform-icon--excerpt: "\e928";
-	--gform-icon--entries: "\e927";
-	--gform-icon--emma: "\e926";
-	--gform-icon--embed: "\e925";
-	--gform-icon--email-octopus: "\e924";
-	--gform-icon--ellipsis: "\e923";
-	--gform-icon--duplicate: "\e922";
-	--gform-icon--dropdown: "\e921";
-	--gform-icon--dropbox: "\e920";
-	--gform-icon--drag-indicator: "\e91e";
-	--gform-icon--drag: "\e91f";
-	--gform-icon--dollar: "\e91d";
-	--gform-icon--design: "\e979";
-	--gform-icon--delete: "\e91c";
-	--gform-icon--date: "\e91b";
-	--gform-icon--credit-card: "\e978";
-	--gform-icon--create: "\e919";
-	--gform-icon--coupon-alt: "\e918";
-	--gform-icon--coupon: "\e917";
-	--gform-icon--constant-contact: "\e916";
-	--gform-icon--consent: "\e915";
-	--gform-icon--confirmations: "\e987";
-	--gform-icon--color-pallet: "\e914";
-	--gform-icon--cog: "\e913";
-	--gform-icon--clever-reach: "\e912";
-	--gform-icon--circle-star: "\e98c";
-	--gform-icon--circle-notice: "\e98e";
-	--gform-icon--circle-delete: "\e98a";
-	--gform-icon--circle-close: "\e938";
-	--gform-icon--circle-check: "\e931";
-	--gform-icon--circle-arrow-down: "\e989";
-	--gform-icon--chevron: "\e911";
-	--gform-icon--check-box: "\e910";
-	--gform-icon--check: "\e983";
-	--gform-icon--chained-selects: "\e91a";
-	--gform-icon--category: "\e90f";
-	--gform-icon--capsule: "\e90e";
-	--gform-icon--campaign-monitor: "\e90d";
-	--gform-icon--campaign: "\e984";
-	--gform-icon--breeze: "\e90c";
-	--gform-icon--body: "\e90b";
-	--gform-icon--back: "\e90a";
-	--gform-icon--aweber: "\e909";
-	--gform-icon--authorize-dot-net: "\e908";
-	--gform-icon--api: "\e907";
-	--gform-icon--analytics: "\e906";
-	--gform-icon--akismet: "\e98b";
-	--gform-icon--agile-crm: "\e905";
-	--gform-icon--advanced-post-creation: "\e904";
-	--gform-icon--active-campaign: "\e903";
-	--gform-icon--accessibility: "\e902";
-	--gform-icon--floppy-disk: "\e98f";
-}
-
 /* Heights */
 
 /* -----------------------------------------------------------------------------
@@ -270,12 +65,6 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
  *
  * ----------------------------------------------------------------------------- */
 
-:root {
-
-	--h-editor-accordion-toggles: 3.375rem;
-
-}
-
 /* Images */
 
 /* -----------------------------------------------------------------------------
@@ -283,18 +72,6 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
  * Variables: Images
  *
  * ----------------------------------------------------------------------------- */
-
-:root {
-
-	--im-input-check: url(../images/check.svg);
-	--im-input-grey-check: url(../images/grey-check.svg);
-	--im-input-bullet: url(../images/bullet.svg);
-	--im-input-grey-bullet: url(../images/grey-bullet.svg);
-	--im-input-cog: url(../images/cog.svg);
-	--im-input-cog-hover: url(../images/cog-hover.svg);
-	--im-input-exit: url(../images/exit.svg);
-	--im-input-plus: url(../images/plus.svg);
-}
 
 /* Media Queries */
 
@@ -308,22 +85,6 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
  *
  * ----------------------------------------------------------------------------- */
 
-:root {
-
-	--tr-hover: all 0.15s ease;
-	--tr-hover-slow: color 300ms ease-in-out, background-color 300ms ease-in-out, border-color 300ms ease-in-out;
-	--tr-color: color 0.15s ease;
-	--tr-dropdown: opacity 0.15s ease;
-	--tr-button: transform 300ms ease, box-shadow 300ms ease, background-color 300ms ease;
-	--tr-inputs: box-shadow 0.15s ease, background-color 0.15s ease;
-	--tr-toggles: left 0.25s ease;
-	--cl-linear-transform: transform 200ms;
-	--cl-bezier-flyout: transform 200ms cubic-bezier(1, 0, 0, 1.005);
-	--tr-cl-button-focus: border-color 200ms ease-in-out, box-shadow 200ms ease-in-out;
-	--tr-cl-flyout-reveal: opacity 190ms ease-in-out, transform 190ms ease-in-out;
-
-}
-
 /* Typography */
 
 /* -----------------------------------------------------------------------------
@@ -335,24 +96,12 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 :root {
 
 	/* Font Families */
-	--t-font-family-base: inter, -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen-sans, ubuntu, cantarell, "Helvetica Neue", sans-serif;
-	--t-font-family-admin-icons: "gform-icons-admin";
-	--t-font-family-theme-icons: "gform-icons-theme";
 
 	/* Font Weights */
-	--t-font-weight-normal: 400;
-	--t-font-weight-medium: 500;
-	--t-font-weight-bold: 600;
 
 	/* Font Sizes */
-	--t-font-size-small: 0.75rem;
-	--t-font-size-base: 0.8125rem;
-	--t-font-size-label: 0.875rem;
-	--t-font-size-large-label: 1.0625rem;
 
 	/* Line Heights */
-	--t-line-height-base: 1.188rem;
-	--t-line-height-label: 1.125rem;
 
 }
 
@@ -392,8 +141,6 @@ AND ANY CHANGES MADE HERE WILL BE OVERWRITTEN.
 .gform-settings__content table.gform_system_report, .gform-settings__content table.plugins {
 
 	background: #fff;
-
-	background: var(--c-white);
 
 	border: 1px solid #e3e6ef;
 
@@ -502,8 +249,6 @@ html[dir="rtl"] #wpcontent {
 .wrap {
 
 	color: #242748;
-
-	color: var(--c-text);
 	margin: 0;
 
 }
@@ -625,7 +370,6 @@ html[dir="rtl"] #wpcontent {
 
 	background: #fff;
 	font-weight: 500;
-	font-weight: var(--t-font-weight-medium);
 
 }
 
@@ -641,15 +385,9 @@ html[dir="rtl"] #wpcontent {
 
 	border: 1px solid #3985b7;
 
-	border: 1px solid var(--c-primary-light);
-
 	box-shadow: 0 0.125rem 0.0675rem rgba(28, 31, 63, 0.0634624), 0 0 0 2px #bed8ed;
 
-	box-shadow: var(--bs-input-focus);
-
 	color: #242748;
-
-	color: var(--c-text);
 
 }
 
@@ -679,7 +417,6 @@ html[dir="rtl"] #wpcontent {
 
 .gform-settings__navigation .gform-icon {
 	color: #242748;
-	color: var(--c-port);
 	font-size: 1.5rem;
 }
 
@@ -759,8 +496,6 @@ html[dir="rtl"] #wpcontent {
 .gform-settings-panel {
 
 	background: #fff;
-
-	background: var(--c-white);
 
 	border: 1px solid #e3e6ef;
 
@@ -1105,18 +840,14 @@ div.addon-logo.dashicons {
 
 .gform-settings-panel__content input[type="email"], .gform-settings-panel__content input[type="number"], .gform-settings-panel__content input[type="password"], .gform-settings-panel__content input[type="text"], .gform-settings-panel__content input[type="search"], .gform-settings-panel__content input[type="url"], .gform-settings-panel__content input[type="tel"], .gform-settings-panel__content select, .gform-settings-panel__content .select2-container .select2-selection__rendered, .gform-settings-panel__content textarea {
 		background-color: #fff;
-		background-color: var(--c-white);
 		border: 1px solid #9092b2;
-		border: 1px solid var(--c-amethyst-smoke);
 		border-radius: 3px;
 		color: #242748;
-		color: var(--c-port);
 		font-family: inherit;
 		font-size: 0.875rem;
 		line-height: 1.25rem;
 		padding: 0.6875rem 1rem;
 		transition: box-shadow 0.15s ease, background-color 0.15s ease;
-		transition: var(--tr-inputs);
 	}
 
 .gform-settings-panel__content input[type="email"], .gform-settings-panel__content input[type="number"], .gform-settings-panel__content input[type="password"], .gform-settings-panel__content input[type="text"], .gform-settings-panel__content input[type="search"], .gform-settings-panel__content input[type="url"], .gform-settings-panel__content input[type="tel"], .gform-settings-panel__content select, .gform-settings-panel__content textarea {
@@ -1126,7 +857,6 @@ div.addon-logo.dashicons {
 
 .gform-settings-panel__content input[type="email"][disabled], .gform-settings-panel__content input[type="email"][readonly], .gform-settings-panel__content input[type="number"][disabled], .gform-settings-panel__content input[type="number"][readonly], .gform-settings-panel__content input[type="password"][disabled], .gform-settings-panel__content input[type="password"][readonly], .gform-settings-panel__content input[type="text"][disabled], .gform-settings-panel__content input[type="text"][readonly], .gform-settings-panel__content input[type="search"][disabled], .gform-settings-panel__content input[type="search"][readonly], .gform-settings-panel__content input[type="url"][disabled], .gform-settings-panel__content input[type="url"][readonly], .gform-settings-panel__content input[type="tel"][disabled], .gform-settings-panel__content input[type="tel"][readonly], .gform-settings-panel__content select[disabled], .gform-settings-panel__content select[readonly], .gform-settings-panel__content textarea[disabled], .gform-settings-panel__content textarea[readonly] {
 			background: #f4f5fb;
-			background: var(--c-white-iris);
 			border: 1px solid transparent;
 			cursor: not-allowed;
 			outline: none;
@@ -1135,7 +865,6 @@ div.addon-logo.dashicons {
 
 .gform-settings-panel__content input[type="email"][disabled], .gform-settings-panel__content input[type="number"][disabled], .gform-settings-panel__content input[type="password"][disabled], .gform-settings-panel__content input[type="text"][disabled], .gform-settings-panel__content input[type="search"][disabled], .gform-settings-panel__content input[type="url"][disabled], .gform-settings-panel__content input[type="tel"][disabled], .gform-settings-panel__content select[disabled], .gform-settings-panel__content textarea[disabled] {
 			color: #9092b2;
-			color: var(--c-amethyst-smoke);
 		}
 
 .gform-settings-panel__content input[type="search"]#form-search-input {
@@ -1146,15 +875,9 @@ div.addon-logo.dashicons {
 
 		border: 1px solid #3985b7;
 
-		border: 1px solid var(--c-primary-light);
-
 		box-shadow: 0 0.125rem 0.0675rem rgba(28, 31, 63, 0.0634624), 0 0 0 2px #bed8ed;
 
-		box-shadow: var(--bs-input-focus);
-
 		color: #242748;
-
-		color: var(--c-text);
 	}
 
 .gform-settings-panel__content select#bulk_action {
@@ -1187,15 +910,9 @@ div.addon-logo.dashicons {
 
 	border: 1px solid #3985b7;
 
-	border: 1px solid var(--c-primary-light);
-
 	box-shadow: 0 0.125rem 0.0675rem rgba(28, 31, 63, 0.0634624), 0 0 0 2px #bed8ed;
 
-	box-shadow: var(--bs-input-focus);
-
 	color: #242748;
-
-	color: var(--c-text);
 }
 
 .gform-settings-field__toggleable-inputs {
@@ -1247,15 +964,11 @@ html[dir="rtl"] .gform-settings-field__toggleable-inputs {
 .gform-settings-panel__content input[type="checkbox"] {
 
 	background: #fff;
-
-	background: var(--c-white);
 	border: 1px solid #9092b2;
-	border: 1px solid var(--c-amethyst-smoke);
 	border-radius: 3px;
 	height: 1.375rem;
 	margin: 0 0.75rem 0 0;
 	transition: box-shadow 0.15s ease, background-color 0.15s ease;
-	transition: var(--tr-inputs);
 	width: 1.375rem
 
 }
@@ -1264,15 +977,9 @@ html[dir="rtl"] .gform-settings-field__toggleable-inputs {
 
 		border: 1px solid #3985b7;
 
-		border: 1px solid var(--c-primary-light);
-
 		box-shadow: 0 0.125rem 0.0675rem rgba(28, 31, 63, 0.0634624), 0 0 0 2px #bed8ed;
 
-		box-shadow: var(--bs-input-focus);
-
 		color: #242748;
-
-		color: var(--c-text);
 	}
 
 .gform-settings-panel__content input[type="checkbox"]::before {
@@ -1316,17 +1023,13 @@ html[dir="rtl"] .gform-settings-field__toggleable-inputs {
 .gform-settings-panel__content input[type="radio"] {
 
 	background: #fff;
-
-	background: var(--c-white);
 	border: 1px solid #9092b2;
-	border: 1px solid var(--c-amethyst-smoke);
 	border-radius: 50%;
 	box-shadow: 0 2px 2px rgba(58, 58, 87, 0.06);
 	box-sizing: border-box;
 	height: 1.375rem;
 	position: relative;
 	transition: box-shadow 0.15s ease, background-color 0.15s ease;
-	transition: var(--tr-inputs);
 	width: 1.375rem
 
 }
@@ -1335,15 +1038,9 @@ html[dir="rtl"] .gform-settings-field__toggleable-inputs {
 
 		border: 1px solid #3985b7;
 
-		border: 1px solid var(--c-primary-light);
-
 		box-shadow: 0 0.125rem 0.0675rem rgba(28, 31, 63, 0.0634624), 0 0 0 2px #bed8ed;
 
-		box-shadow: var(--bs-input-focus);
-
 		color: #242748;
-
-		color: var(--c-text);
 	}
 
 .gform-settings-panel__content input[type="radio"]::before {
@@ -1540,9 +1237,7 @@ html[dir="rtl"] .gform-settings-field .gform-settings-input__container + .gform-
 
 .gform-settings-choice--visual label {
 		background: #fff;
-		background: var(--c-white);
 		border: 1px solid #9092b2;
-		border: 1px solid var(--c-amethyst-smoke);
 		border-radius: 3px;
 		box-sizing: border-box;
 		display: block;
@@ -1557,7 +1252,6 @@ html[dir="rtl"] .gform-settings-field .gform-settings-input__container + .gform-
 
 			background: transparent;
 			border: 1px solid #d5d7e9;
-			border: 1px solid var(--c-snuff);
 			border-radius: 50%;
 			content: "";
 			height: 1rem;
@@ -1575,13 +1269,10 @@ html[dir="rtl"] .gform-settings-field .gform-settings-input__container + .gform-
 
 .gform-settings-choice--visual input:checked + label::before {
 		background-color: #22a753;
-		background-color: var(--c-green);
 		color: #fff;
-		color: var(--c-white);
 		content: "\e983";
 		display: block;
 		font-family: "gform-icons-admin";
-		font-family: var(--t-font-family-admin-icons);
 		font-size: 1rem;
 		position: absolute;
 		right: 0.5rem;
@@ -1590,7 +1281,6 @@ html[dir="rtl"] .gform-settings-field .gform-settings-input__container + .gform-
 
 .gform-settings-choice--visual input:checked + label, .gform-settings-choice--visual label:hover {
 		border: 1px solid #d5d7e9;
-		border: 1px solid var(--c-snuff);
 		box-shadow: 0 4px 6px rgba(28, 31, 63, 0.0837013);
 	}
 
@@ -1601,7 +1291,6 @@ html[dir="rtl"] .gform-settings-field .gform-settings-input__container + .gform-
 
 .gform-settings-choice--visual .fa, .gform-settings-choice--visual .dashicons, .gform-settings-choice--visual .gform-icon {
 		color: #f15a2b;
-		color: var(--c-orange);
 		font-size: 2rem;
 		height: auto;
 		width: auto;
@@ -1638,8 +1327,6 @@ html[dir="rtl"] .gform-settings-field .gform-settings-input__container + .gform-
 
 		background: #fff;
 
-		background: var(--c-white);
-
 		border: 1px solid #e3e6ef;
 
 		border-radius: 3px;
@@ -1667,7 +1354,6 @@ html[dir="rtl"] .gform-settings-field .gform-settings-input__container + .gform-
 .gform-settings-panel--card .gform-settings-choices--visual label, .gform-settings-panel--card .gform-settings-choices--visual input:checked + label, .gform-settings-panel--card .gform-settings-choices--visual label:hover {
 			border: none;
 			border-bottom: 1px solid #ecedf8;
-			border-bottom: 1px solid var(--c-white-lilac);
 			border-radius: 3px 0 0 3px;
 			box-shadow: none;
 			padding-bottom: 0;
@@ -1692,7 +1378,6 @@ html[dir="rtl"] .gform-settings-field .gform-settings-input__container + .gform-
 
 .gform-settings-panel--card .gform-settings-card-tag::before {
 			background: #ecedf8;
-			background: var(--c-white-lilac);
 			content: "";
 			display: block;
 			height: 1px;
@@ -1736,7 +1421,6 @@ html[dir="rtl"] .gform-settings-field .gform-settings-input__container + .gform-
 			.gform-settings-panel--card .gform-settings-choices--visual label, .gform-settings-panel--card .gform-settings-choices--visual input:checked + label, .gform-settings-panel--card .gform-settings-choices--visual label:hover {
 				border-bottom: none;
 				border-right: 1px solid #ecedf8;
-				border-right: 1px solid var(--c-white-lilac);
 				width: 12.5rem;
 			}
 
@@ -2331,8 +2015,6 @@ html:not([dir="rtl"]) .gform-settings-input__container--with-merge-tag .wp-edito
 
 	color: #276a52;
 
-	color: var(--c-hunter);
-
 }
 
 .gform-settings__wrapper .alert.success::before, .alert.gforms_note_success::before, #TB_window .alert.success::before, #gf-admin-notices-wrapper .notice-success::before {
@@ -2530,8 +2212,6 @@ html:not([dir="rtl"]) .gform-settings-input__container--with-merge-tag .wp-edito
 .gform-result-box {
 
 	background: #fff;
-
-	background: var(--c-white);
 	border: 1px solid #e3e6ef;
 	border-radius: 3px;
 	box-shadow: 0 4px 10px rgba(18, 25, 97, 0.0779552);
@@ -2557,13 +2237,9 @@ html:not([dir="rtl"]) .gform-settings-input__container--with-merge-tag .wp-edito
 .gform-result-box__secondary {
 
 	background: #f6f9fc;
-
-	background: var(--c-light-blue);
 	border-radius: 0 0 3px 3px;
 	color: #f15a2b;
-	color: var(--c-orange);
 	font-size: 0.8125rem;
-	font-size: var(--t-font-size-base);
 	font-style: normal;
 	font-weight: 600;
 	justify-content: space-between;
@@ -2582,9 +2258,7 @@ html:not([dir="rtl"]) .gform-settings-input__container--with-merge-tag .wp-edito
 
 	align-items: center;
 	background: #fff;
-	background: var(--c-white);
 	border: 1px solid #d5d7e9;
-	border: 1px solid var(--c-snuff);
 	border-radius: 3px;
 	box-shadow: 0 2px 1px rgba(28, 31, 63, 0.0634624);
 	display: flex;
@@ -2604,7 +2278,6 @@ html:not([dir="rtl"]) .gform-settings-input__container--with-merge-tag .wp-edito
 
 	color: #696c8c;
 	font-size: 0.875rem;
-	font-size: var(--t-font-size-label);
 	line-height: 1rem;
 
 }
@@ -2612,8 +2285,6 @@ html:not([dir="rtl"]) .gform-settings-input__container--with-merge-tag .wp-edito
 .box-number {
 
 	color: #242748;
-
-	color: var(--c-text);
 	font-size: 1.3125rem;
 	font-weight: 600;
 	letter-spacing: 0.484615px;
@@ -2648,7 +2319,6 @@ html:not([dir="rtl"]) .gform-settings-input__container--with-merge-tag .wp-edito
 
 .sales tbody > :nth-child(odd) {
 		background: #f6f9fc;
-		background: var(--c-light-blue);
 	}
 
 .sales thead th {
@@ -2678,7 +2348,6 @@ html:not([dir="rtl"]) .gform-settings-input__container--with-merge-tag .wp-edito
 
 .gform-settings-input__container .ui-datepicker-trigger:hover svg {
 			fill: #5b5e80;
-			fill: var(--c-comet);
 		}
 
 .gform-settings-field__date_time .gform-settings-input__container .ui-datepicker-trigger:focus {
@@ -2718,8 +2387,6 @@ html:not([dir="rtl"]) .gform-settings-input__container--with-merge-tag .wp-edito
 #gresults-results-filter-buttons {
 
 	background: #f6f9fc;
-
-	background: var(--c-light-blue);
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
 	clear: both;
@@ -2734,8 +2401,6 @@ html:not([dir="rtl"]) .gform-settings-input__container--with-merge-tag .wp-edito
 #gresults-results-filter-submit-button, #gresults-results-filter-clear-button {
 
 	font-size: 0.875rem;
-
-	font-size: var(--t-font-size-label);
 	height: 2.1875rem;
 	line-height: 1.125rem;
 	margin-right: 0.5rem;

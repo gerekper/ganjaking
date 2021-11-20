@@ -501,7 +501,7 @@ class WC_AM_Subscription {
 	 * @param int $order_id
 	 * @param int $new_api_product_activations
 	 *
-	 * @return array|bool
+	 * @return array
 	 *
 	 * @throws \Exception
 	 */
@@ -540,7 +540,6 @@ class WC_AM_Subscription {
 							//$values[ 'sub_title' ]             = $data[ 'name' ];
 							$variation_id                      = ! empty( $data[ 'variation_id' ] ) && WC_AM_PRODUCT_DATA_STORE()->has_valid_product_status( $data[ 'variation_id' ] ) ? $data[ 'variation_id' ] : 0;
 							$item_qty                          = $data[ 'quantity' ];
-							$refund_qty                        = WC_AM_ORDER_DATA_STORE()->get_qty_refunded_for_item( $subscription_id, $item_id );
 							$values[ 'sub_id' ]                = $data[ 'order_id' ];
 							$values[ 'sub_item_id' ]           = $item_id;
 							$values[ 'sub_order_key' ]         = $obj_data[ 'order_key' ];
@@ -550,14 +549,20 @@ class WC_AM_Subscription {
 							$values[ 'variation_id' ]          = $variation_id;
 							$values[ 'parent_id' ]             = $data[ 'product_id' ];
 							$values[ 'product_id' ]            = ! empty( $variation_id ) ? $variation_id : $values[ 'parent_id' ];
-							$api_product_activations           = WC_AM_PRODUCT_DATA_STORE()->get_api_activations( $values[ 'product_id' ] );
-							$values[ 'api_activations' ]       = ! empty( $api_product_activations ) ? $api_product_activations : apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
-							$product_object                    = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $values[ 'product_id' ] );
-							$values[ 'product_title' ]         = is_object( $product_object ) ? $product_object->get_title() : '';
 							$values[ 'item_qty' ]              = $item_qty;
-							$values[ 'status' ]                = $obj_data[ 'status' ];
-							$values[ 'refund_qty' ]            = $refund_qty;
-							$values[ 'activations_total' ]     = ( $values[ 'api_activations' ] * $item_qty ) + ( $refund_qty * $values[ 'api_activations' ] );
+							$refund_qty                        = WC_AM_ORDER_DATA_STORE()->get_qty_refunded_for_product_id( $order_id, $values[ 'product_id' ] );
+							$values[ 'refund_qty' ]            = absint( $refund_qty );
+
+							if ( $values[ 'refund_qty' ] >= $values[ 'item_qty' ] ) {
+								continue;
+							}
+
+							$api_product_activations       = WC_AM_PRODUCT_DATA_STORE()->get_api_activations( $values[ 'product_id' ] );
+							$values[ 'api_activations' ]   = ! empty( $api_product_activations ) ? $api_product_activations : apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
+							$product_object                = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $values[ 'product_id' ] );
+							$values[ 'product_title' ]     = is_object( $product_object ) ? $product_object->get_title() : '';
+							$values[ 'status' ]            = $obj_data[ 'status' ];
+							$values[ 'activations_total' ] = ( $values[ 'api_activations' ] * $item_qty ) + ( $refund_qty * $values[ 'api_activations' ] );
 
 							if ( empty( $values[ 'api_activations' ] ) ) {
 								$values[ 'api_activations' ]   = apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
@@ -574,7 +579,7 @@ class WC_AM_Subscription {
 			return $items;
 		}
 
-		return false;
+		return array();
 	}
 
 	/**

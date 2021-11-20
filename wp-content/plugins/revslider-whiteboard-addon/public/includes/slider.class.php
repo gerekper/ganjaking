@@ -10,9 +10,9 @@ if(!defined('ABSPATH')) exit();
 class rs_whiteboard_fe_slider extends RevSliderFunctions {
 	
 	private $slug = 'whiteboard';
+	private $pluginTitle = 'whiteboard';
 	
 	public function __construct() {
-		
 		add_action('revslider_slider_init_by_data_post', array($this, 'check_addon_active'), 10, 1);
 		if(is_admin()){
 			//add_action('wp_enqueue_scripts', array($this, 'add_scripts'));
@@ -23,8 +23,39 @@ class rs_whiteboard_fe_slider extends RevSliderFunctions {
 		
 		add_action('revslider_fe_javascript_option_output', array($this, 'add_whiteboard_javascript_options'));
 		
+		add_action('revslider_export_html_write_footer', array($this, 'write_export_footer'), 10, 1);
+		add_filter('revslider_export_html_file_inclusion', array($this, 'add_addon_files'), 10, 2);
 	}
 	
+	public function write_export_footer($export){
+		$output = $export->slider_output;
+		$array = $this->add_html_script_additions(array(), $output);
+		$toload = $this->get_val($array, 'toload', array());
+		if(!empty($toload)){
+			foreach($toload as $script){
+				echo $script;
+			}
+		}
+	}
+
+	public function add_addon_files($html, $export){
+		
+		$output = $export->slider_output;
+		$addOn = $this->isEnabled($output->slider);
+		if(empty($addOn)) return $html;
+
+		$_jsPathMin = file_exists(WHITEBOARD_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
+		if(!$export->usepcl){
+			$export->zip->addFile(WHITEBOARD_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js');
+		}else{
+			$export->pclzip->add(WHITEBOARD_PLUGIN_PATH.'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', PCLZIP_OPT_REMOVE_PATH, WHITEBOARD_PLUGIN_PATH.'public/assets/js/', PCLZIP_OPT_ADD_PATH, 'js/');
+		}
+		
+		$html = str_replace(array(WHITEBOARD_PLUGIN_URL.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.min.js', WHITEBOARD_PLUGIN_URL.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js'), $export->path_js .'revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', $html);
+		
+		return $html;
+	}
+
 	// HANDLE ALL TRUE/FALSE
 	private function isFalse($val) {
 		if(empty($val)) return true;
@@ -64,12 +95,11 @@ class rs_whiteboard_fe_slider extends RevSliderFunctions {
 	}
 	
 	public function add_scripts(){
-		$whiteboardTitle = 'whiteboard';
 		$base = WHITEBOARD_PLUGIN_URL . 'public/assets/';
-		$path = $base . 'js/revolution.addon.' . $whiteboardTitle . '.min.js';
-		$_jsPathMin = file_exists(WHITEBOARD_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $whiteboardTitle . '.js') ? '' : '.min';
+		$path = $base . 'js/revolution.addon.' . $this->pluginTitle . '.min.js';
+		$_jsPathMin = file_exists(WHITEBOARD_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
 
-		wp_enqueue_script('rs-whiteboard', $base . 'js/revolution.addon.' . $whiteboardTitle . $_jsPathMin . '.js', array('jquery', 'revmin'), WHITEBOARD_VERSION, true);
+		wp_enqueue_script('rs-whiteboard', $base . 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', array('jquery', 'revmin'), WHITEBOARD_VERSION, true);
 		
 		add_filter('revslider_modify_waiting_scripts', array($this, 'add_waiting_script_slugs'), 10, 1);
 	}
@@ -79,7 +109,8 @@ class rs_whiteboard_fe_slider extends RevSliderFunctions {
 			$addOn = $this->isEnabled($output);
 			if(empty($addOn)) return $return;
 		}else{
-			if($output->ajax_loaded !== true) return $return;
+			$me = $output->get_markup_export();
+			if($me !== true && $output->ajax_loaded !== true) return $return;
 			
 			$addOn = $this->isEnabled($output->slider);
 			if(empty($addOn)) return $return;

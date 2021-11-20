@@ -1,4 +1,22 @@
 *** WooCommerce PDF Invoice Changelog ***
+2021.11.15 - version 4.15.1
+ * Fix for invoices not attaching to emails at checkout
+ * Fix bulk action 'create and email invoice'
+
+2021.10.27 - version 4.15.0
+ * WC 5.8
+ * Filter for terms title (pdf_invioce_terms_title)
+ * Filter for terms content (pdf_invioce_terms_content)
+ * Filter for applying the_content (pdf_invioce_terms_content_apply_the_content)
+ * New option to create invoice date when invoice is created.
+ * Do not add date to invoice if no date is stored
+ * Make sure display_invoice_number is created and update the order if it's missing
+ * Additional classes and IDs for the template https://docs.woocommerce.com/document/pdf-invoice-developer-tools/#section-19
+ * Fix "PHP Notice: Trying to access array offset on value of type bool"
+ * Fix download link test
+ * Add option to overlay "Paid In Full"
+ * Fix invoices not creating for Pending order status
+
 2021.09.09 - version 4.14.4
  * Fix shipping tracking output logic
 

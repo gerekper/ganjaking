@@ -5648,7 +5648,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				}
 			?>
 				<form method="POST" action="<?php echo $acsurl2; ?>" enctype = "application/xwww-form-urlencoded">
-					<input type="hidden" name="CReq" value=”<?php echo $creq; ?>” />
+					<input type="hidden" name="CReq" value="<?php echo $creq; ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ) ?>" />
 				</form>
 				<script type="text/javascript">
@@ -5695,7 +5695,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					}
 				?>
 				<form method="POST" action="<?php echo $acsurl2; ?>" enctype = "application/xwww-form-urlencoded">
-					<input type="hidden" name="CReq" value=<?php echo $creq; ?> />
+					<input type="hidden" name="CReq" value="<?php echo $creq; ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ) ?>" />
 				</form>
 				<script type="text/javascript">
@@ -6056,12 +6056,15 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 			echo $_POST['threeDSMethodData'] . '<br />';
 			$json_datos_3DSecure = (string) $_POST['threeDSMethodData'];
 			$decoded   = (string) rtrim( strtr( base64_decode( $json_datos_3DSecure ), '+/', '-_'), '=' );
-			$jsonData  = stripslashes( html_entity_decode( $decoded ) );
-			$deco_json = json_decode( $jsonData );
+			$jsondata  = stripslashes( html_entity_decode( $decoded ) );
+			$deco_json = json_decode( $jsondata );
 			$order_id  = get_transient(  $deco_json->threeDSServerTransID );
 			$order     = WCRed()->get_order( $order_id );
 			$url       = $order->get_checkout_payment_url( true ) . '&threeDSServerTransID=' . $deco_json->threeDSServerTransID . '&order=' . $order_id;
 			if ( 'yes' == $this->debug ) {
+				$this->log->add( 'insite', '$json_datos_3DSecure: ' . $json_datos_3DSecure );
+				// $this->log->add( 'insite', '$decoded: ' . $decoded );
+				//$this->log->add( 'insite', '$jsonData: ' . $jsondata );
 				$this->log->add( 'insite', '$deco_json: ' . print_r( $deco_json, true ) );
 				$this->log->add( 'insite', '$order_id: ' . $order_id );
 				$this->log->add( 'insite', '$url: ' . $url );

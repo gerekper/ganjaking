@@ -277,7 +277,7 @@ class WC_pdf_admin_functions {
 				'ids' => $ids,
 			);
 
-			WC()->queue()->add( 'woocommerce_pdf_invoice_create_email_invoice', array( $args ), 'pdf_invoice' );
+			WC()->queue()->add( 'woocommerce_pdf_invoice_create_email_invoice', array( $args ) );
 		}
 
 		return esc_url_raw( $redirect_to );

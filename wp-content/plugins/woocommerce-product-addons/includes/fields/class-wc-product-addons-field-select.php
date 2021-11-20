@@ -11,7 +11,7 @@ class WC_Product_Addons_Field_Select extends WC_Product_Addons_Field {
 	public function validate() {
 		if ( ! empty( $this->addon['required'] ) ) {
 			if ( empty( $this->value ) ) {
-				return new WP_Error( 'error', sprintf( __( '"%s" is a required field.', 'woocommerce-product-addons' ), $this->addon['name'] ) );
+				return new WP_Error( 'error', esc_html( sprintf( __( '"%s" is a required field.', 'woocommerce-product-addons' ), $this->addon['name'] ) ) );
 			}
 		}
 		return true;

@@ -1,5 +1,12 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2021.11.11 - version 1.11.4
+* Update: Tested up to WooCommerce 5.9.0.
+* Fix: Hide PayPal Payments payment request buttons for Mix and Match products.
+* Fix: Hide WooCommerce Payments payment request buttons for Mix and Match products.
+* Tweak: Display quantity in child product title if min and max allowed quantities are the same.
+* Tweak: Wrap main quantity input and add to cart button in div element.
+
 2021.09.21 - version 1.11.3
 * Update: Tested up to WooCommerce 5.6.0.
 * Fix: Add woocommerce_product_has_options core filter to WC_Product_Mix_and_Match class.

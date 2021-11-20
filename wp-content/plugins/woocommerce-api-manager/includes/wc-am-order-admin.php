@@ -179,7 +179,7 @@ class WC_AM_Order_Admin {
 
 				<?php
 				$javascript = ob_get_clean();
-				WCAM()->wc_print_js( $javascript );
+				WCAM()->wc_am_print_js( $javascript );
 
 				if ( WCAM()->get_wc_version() >= '3.2' ) :
 					ob_start();
@@ -187,14 +187,14 @@ class WC_AM_Order_Admin {
                     jQuery('select.add_api_license_key').selectWoo({allowClear:true});
 					<?php
 					$javascript = ob_get_clean();
-					WCAM()->wc_print_js( $javascript );
+					WCAM()->wc_am_print_js( $javascript );
 				else :
 					ob_start();
 					?>
                     jQuery('select.add_api_license_key').select2({allowClear:true});
 					<?php
 					$javascript = ob_get_clean();
-					WCAM()->wc_print_js( $javascript );
+					WCAM()->wc_am_print_js( $javascript );
 				endif;
 			} else {
 				?><p style="padding:0 8px;"><?php esc_html_e( 'No API resources for this order.', 'woocommerce-api-manager' ) ?></p><?php
@@ -289,7 +289,7 @@ class WC_AM_Order_Admin {
 
 				<?php
 				$javascript = ob_get_clean();
-				WCAM()->wc_print_js( $javascript );
+				WCAM()->wc_am_print_js( $javascript );
 			} else {
 				?>
                 <p style="padding:0 8px;"><?php esc_html_e( 'No activations yet.', 'woocommerce-api-manager' ) ?></p>

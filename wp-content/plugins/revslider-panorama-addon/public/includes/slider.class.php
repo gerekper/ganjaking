@@ -26,9 +26,85 @@ class RsPanoramaSliderFront extends RevSliderFunctions {
 		add_action('revslider_fe_javascript_output', array($this, 'write_init_script'), 10, 2);
 		add_action('revslider_get_slider_wrapper_div', array($this, 'check_if_ajax_loaded'), 10, 2);
 		add_filter('revslider_get_slider_html_addition', array($this, 'add_html_script_additions'), 10, 2);
+		add_action('revslider_export_html_write_footer', array($this, 'write_export_footer'), 10, 1);
+		add_filter('revslider_export_html_file_inclusion', array($this, 'add_addon_files'), 10, 2);
 		
 	}
 	
+	public function write_export_footer($export){
+		$output = $export->slider_output;
+		$array = $this->add_html_script_additions(array(), $output);
+		$toload = $this->get_val($array, 'toload', array());
+		if(!empty($toload)){
+			foreach($toload as $script){
+				echo $script;
+			}
+		}
+	}
+
+	public function add_addon_files($html, $export){
+		$output = $export->slider_output;
+		$addOn = $this->isEnabled($output->slider);
+		if(empty($addOn)) return $html;
+
+		$_jsPathMin = file_exists(RS_PANORAMA_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
+		if(!$export->usepcl){
+			$export->zip->addFile(RS_PLUGIN_PATH . 'public/assets/js/libs/three.min.js', 'js/three.min.js');
+			$export->zip->addFile(RS_PANORAMA_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js');
+			$export->zip->addFile(RS_PANORAMA_PLUGIN_PATH . 'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css', 'css/revolution.addon.' . $this->pluginTitle . '.css');
+		}else{
+			$export->pclzip->add(RS_PLUGIN_PATH.'public/assets/js/libs/three.min.js', PCLZIP_OPT_REMOVE_PATH, RS_PLUGIN_PATH.'public/assets/js/libs/', PCLZIP_OPT_ADD_PATH, 'js/');
+			$export->pclzip->add(RS_PANORAMA_PLUGIN_PATH.'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', PCLZIP_OPT_REMOVE_PATH, RS_PANORAMA_PLUGIN_PATH.'public/assets/js/', PCLZIP_OPT_ADD_PATH, 'js/');
+			$export->pclzip->add(RS_PANORAMA_PLUGIN_PATH.'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css', PCLZIP_OPT_REMOVE_PATH, RS_PANORAMA_PLUGIN_PATH.'public/assets/css/', PCLZIP_OPT_ADD_PATH, 'css/');
+		}
+		$html = str_replace($this->pluginUrl.'public/assets/css/revolution.addon.' . $this->pluginTitle . '.css', 'css/revolution.addon.' . $this->pluginTitle . '.css', $html);
+		$html = str_replace(array($this->pluginUrl.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.min.js', $this->pluginUrl.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js'), $export->path_js .'revolution.addon.' . $this->pluginTitle . '.js', $html);
+		$html = str_replace(RS_PLUGIN_URL.'public/assets/js/libs/three.min.js', $export->path_js .'three.min.js', $html);
+		
+
+		//check for all slides to add and replace images
+		$slides = $output->get_current_slides();
+		$front = new RsPanoramaSlideFront($this->pluginTitle);
+
+		
+
+
+		if(!empty($slides)){
+			$plugins_url = plugins_url('', dirname(__FILE__));
+			$upload_folder = wp_upload_dir();
+			$upload_url = $this->get_val($upload_folder, 'baseurl');
+			$upload_path = $this->get_val($upload_folder, 'basedir');
+			
+			foreach($slides as $slide){
+				$addOn = $front->isEnabled($slide);
+				if(empty($addOn)) continue;
+
+				$params = $slide->get_params();
+				$bg = $this->get_val($params, 'bg', array());
+				$type = $this->get_val($bg, 'type', 'trans');
+				if($type !== 'image') continue;
+				$image = $this->get_val($bg, 'image', '');
+				if(empty($image)) continue;
+
+				$file = str_replace($upload_url, '', $image);
+				$add = $upload_path.$file;
+				$basename = basename($add);
+				if(!$export->usepcl){
+					$export->zip->addFile($add, 'assets/'.$basename);
+				}else{
+					$base = dirname($add);
+					$export->pclzip->add($add, PCLZIP_OPT_REMOVE_PATH, $base, PCLZIP_OPT_ADD_PATH, 'assets/');
+				}
+
+				$image_slashed = str_replace('/', '\/', $image);
+				$html = str_replace($image, 'assets/'.$basename, $html);
+				$html = str_replace($image_slashed, 'assets\/'.$basename, $html);
+			}
+		}
+
+		return $html;
+	}
+
 	// HANDLE ALL TRUE/FALSE
 	private function isFalse($val) {
 		if(empty($val)) return true;
@@ -114,7 +190,8 @@ class RsPanoramaSliderFront extends RevSliderFunctions {
 			$addOn = $this->isEnabled($output);
 			if(empty($addOn)) return $return;
 		}else{
-			if($output->ajax_loaded !== true) return $return;
+			$me = $output->get_markup_export();
+			if($me !== true && $output->ajax_loaded !== true) return $return;
 			
 			$addOn = $this->isEnabled($output->slider);
 			if(empty($addOn)) return $return;
@@ -146,7 +223,8 @@ class RsPanoramaSliderFront extends RevSliderFunctions {
 	}
 	
 	public function check_if_ajax_loaded($r, $output) {
-		if($output->ajax_loaded !== true) return $r;
+		$me = $output->get_markup_export();
+		if($me !== true && $output->ajax_loaded !== true) return $r;
 		
 		$addOn = $this->isEnabled($output->slider);
 		if(empty($addOn)) return $r;

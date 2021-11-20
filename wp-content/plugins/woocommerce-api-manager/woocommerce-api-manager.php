@@ -4,17 +4,17 @@
  * Plugin Name: WooCommerce API Manager
  * Plugin URI: https://woocommerce.com/products/woocommerce-api-manager/
  * Description: An API resource manager.
- * Version: 2.3.9
+ * Version: 2.3.11
  * Author: Todd Lahman LLC
  * Author URI: https://www.toddlahman.com
  * Developer: Todd Lahman LLC
  * Developer URI: https://www.toddlahman.com
  * Text Domain: woocommerce-api-manager
  * Domain Path: /i18n/languages/
- * WC requires at least: 3.4
- * WC tested up to: 4.8
+ * WC requires at least: 5.5
+ * WC tested up to: 5.8
  * Woo: 260110:f7cdcfb7de76afa0889f07bcb92bf12e
- * Requires WP: 4.7
+ * Requires WP: 5.6
  * Requires PHP: 7.0
  *
  * Intellectual Property rights, and copyright, reserved by Todd Lahman, LLC as allowed by law include,
@@ -35,10 +35,10 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Constants
  */
-define( 'WC_AM_VERSION', '2.3.9' );
-define( 'WC_AM_WC_MIN_REQUIRED_VERSION', '3.4' );
+define( 'WC_AM_VERSION', '2.3.11' );
+define( 'WC_AM_WC_MIN_REQUIRED_VERSION', '5.5' );
 define( 'WC_AM_REQUIRED_PHP_VERSION', '7.0' );
-define( 'WC_AM_WC_SUBS_MIN_REQUIRED_VERSION', '2.3' );
+define( 'WC_AM_WC_SUBS_MIN_REQUIRED_VERSION', '3.1' );
 
 /**
  * Required functions.
@@ -129,7 +129,7 @@ final class WooCommerce_API_Manager {
 	 * @since 2.0
 	 */
 	public function __clone() {
-		wc_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning is forbidden.', 'woocommerce-api-manager' ), '2.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning is forbidden.', 'woocommerce-api-manager' ), '2.0' );
 	}
 
 	/**
@@ -138,7 +138,7 @@ final class WooCommerce_API_Manager {
 	 * @since 2.0
 	 */
 	public function __wakeup() {
-		wc_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'woocommerce-api-manager' ), '2.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of this class is forbidden.', 'woocommerce-api-manager' ), '2.0' );
 	}
 
 	private function __construct() {
@@ -335,13 +335,13 @@ final class WooCommerce_API_Manager {
 	}
 
 	/**
-	 * Get WooCommerce styles for the frontend
+	 * Get styles for the frontend
 	 *
 	 * @param array
 	 *
 	 * @return array
 	 */
-	public function wc_enqueue_styles( $styles ) {
+	public function enqueue_styles( $styles ) {
 		if ( is_account_page() ) {
 			$styles[ 'woocommerce-api-manager' ] = array(
 				'src'     => $this->plugin_url() . 'includes/assets/css/woocommerce-api-manager-min.css?' . filemtime( $this->plugin_path() . '/includes/assets/css/woocommerce-api-manager-min.css' ),
@@ -368,20 +368,20 @@ final class WooCommerce_API_Manager {
 	 *
 	 * @since 1.3
 	 *
-	 * @param string $wc_queued_js JavaScript
+	 * @param string $queued_js JavaScript
 	 */
-	public function wc_print_js( $wc_queued_js ) {
-		if ( ! empty( $wc_queued_js ) ) {
+	public function wc_am_print_js( $queued_js ) {
+		if ( ! empty( $queued_js ) ) {
 			// Sanitize
-			$wc_queued_js = wp_check_invalid_utf8( $wc_queued_js );
-			$wc_queued_js = preg_replace( '/&#(x)?0*(?(1)27|39);?/i', "'", $wc_queued_js );
-			$wc_queued_js = str_replace( "\r", '', $wc_queued_js );
+			$queued_js = wp_check_invalid_utf8( $queued_js );
+			$queued_js = preg_replace( '/&#(x)?0*(?(1)27|39);?/i', "'", $queued_js );
+			$queued_js = str_replace( "\r", '', $queued_js );
 
 			echo "<!-- WooCommerce API Manager JavaScript -->\n<script type=\"text/javascript\">\njQuery(function($) ";
 			echo "{";
-			echo $wc_queued_js . "});\n</script>\n";
+			echo $queued_js . "});\n</script>\n";
 
-			unset( $wc_queued_js );
+			unset( $queued_js );
 		}
 	}
 
@@ -394,9 +394,6 @@ final class WooCommerce_API_Manager {
 
 		require_once( 'includes/wc-am-autoloader.php' );
 		require_once( 'includes/wc-am-core-functions.php' );
-
-		// Set up localisation
-		$this->load_plugin_textdomain();
 
 		// Load dependents of other plugins
 		add_action( 'plugins_loaded', array( $this, 'load_dependents' ) );
@@ -420,10 +417,10 @@ final class WooCommerce_API_Manager {
 		/**
 		 * Run after Storefront because it sets the styles to be empty.
 		 */
-		add_filter( 'woocommerce_enqueue_styles', array( $this, 'wc_enqueue_styles' ), 100, 1 );
+		add_filter( 'woocommerce_enqueue_styles', array( $this, 'enqueue_styles' ), 100, 1 );
 
 		if ( is_admin() ) {
-			add_action( 'admin_footer', array( $this, 'wc_print_js' ), 25 );
+			add_action( 'admin_footer', array( $this, 'wc_am_print_js' ), 25 );
 		}
 
 		add_action( 'in_plugin_update_message-' . plugin_basename( __FILE__ ), array( $this, 'in_plugin_update_message' ), 10, 2 );
@@ -463,6 +460,9 @@ final class WooCommerce_API_Manager {
 	 * @since 1.4.6.1
 	 */
 	public function load_dependents() {
+		// Set up localisation
+		$this->load_plugin_textdomain();
+
 		/**
 		 * @since 2.0.16
 		 */
@@ -508,7 +508,7 @@ final class WooCommerce_API_Manager {
 	 */
 	public static function woocommerce_inactive_notice() { ?>
         <div class="notice notice-info is-dismissible">
-            <p><?php printf( __( 'The %sWooCommerce API Manager is inactive.%s The %sWooCommerce%s plugin must be active for the WooCommerce API Manager to work. Please activate WooCommerce on the %splugin page%s once it is installed.', 'woocommerce-api-manager' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/" target="_blank">', '</a>', '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '</a>' ); ?></p>
+            <p><?php printf( __( 'The %sWooCommerce API Manager is inactive.%s The %sWooCommerce%s plugin must be active for the WooCommerce API Manager to work. Please activate WooCommerce on the %splugin page%s once it is installed.', 'woocommerce-api-manager' ), '<strong>', '</strong>', '<a href="https://wordpress.org/plugins/woocommerce/" target="_blank">', '</a>', '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '</a>' ); ?></p>
         </div>
 		<?php
 	}

@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Duotone-Filters Add-On
 Plugin URI: http://www.themepunch.com/
 Description: Add Duotone-Filters to your Slider Images
 Author: ThemePunch
-Version: 3.0.3
+Version: 3.0.4
 Author URI: http://themepunch.com
 */
 

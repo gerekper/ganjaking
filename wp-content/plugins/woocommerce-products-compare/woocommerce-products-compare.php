@@ -3,19 +3,21 @@
  * Plugin Name: WooCommerce Products Compare
  * Plugin URI: https://woocommerce.com/products/woocommerce-products-compare/
  * Description: Have your customers to compare similar products side by side.
- * Version: 1.0.23
+ * Version: 1.0.25
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-products-compare
  * Domain Path: /languages
- * Tested up to: 5.6
- * WC tested up to: 4.8
+ * Tested up to: 5.8
+ * WC tested up to: 5.9
  * WC requires at least: 2.6
  * Copyright: © 2021 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * Woo: 853117:c3ba0a4a3199a0cc7a6112eb24414548
+ *
+ * @package WC_Products_Compare
  */
 
 /**
@@ -30,19 +32,16 @@ function woocommerce_products_compare_missing_wc_notice() {
 
 if ( ! class_exists( 'WC_Products_Compare' ) ) :
 
-	define( 'WC_PRODUCTS_COMPARE_VERSION', '1.0.23' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PRODUCTS_COMPARE_VERSION', '1.0.25' ); // WRCS: DEFINED_VERSION.
 
 	/**
-	 * main class.
-	 *
-	 * @package  WC_Products_Compare
+	 * Main class.
 	 */
 	class WC_Products_Compare {
 
 		/**
-		 * init
+		 * Init.
 		 *
-		 * @access public
 		 * @since 1.0.0
 		 * @return bool
 		 */
@@ -68,7 +67,7 @@ if ( ! class_exists( 'WC_Products_Compare' ) ) :
 		 */
 		public function deactivate() {
 
-			// set the flag back to false so it can be reflushed on activate
+			// Set the flag back to false so it can be reflushed on activate.
 			update_option( 'wc_products_compare_endpoint_set', false );
 
 			flush_rewrite_rules();
@@ -79,7 +78,6 @@ if ( ! class_exists( 'WC_Products_Compare' ) ) :
 		/**
 		 * Registers the widget
 		 *
-		 * @access public
 		 * @since 1.0.0
 		 * @return bool
 		 */
@@ -94,10 +92,9 @@ if ( ! class_exists( 'WC_Products_Compare' ) ) :
 		/**
 		 * Checks to make sure item is a product
 		 *
-		 * @access public
 		 * @since 1.0.4
 		 * @version 1.0.4
-		 * @param object $product
+		 * @param object $product Product object.
 		 * @return bool
 		 */
 		public static function is_product( $product ) {

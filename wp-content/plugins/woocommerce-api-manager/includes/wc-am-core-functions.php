@@ -1,11 +1,13 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * WooCommerce API Manager Core Functions
  *
  * @package     WooCommerce API Manager/includes/Core Functions
  * @author      Todd Lahman LLC
- * @copyright   Copyright (c) HealthCare Interactive
+ * @copyright   Copyright (c) Todd Lahman LLC
  * @version     2.0
  */
 

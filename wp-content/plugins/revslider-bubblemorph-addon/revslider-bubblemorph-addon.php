@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Bubblemorph AddOn
 Plugin URI: http://www.themepunch.com/
 Description: Spice up your slides with a Bubble Morph effect
 Author: ThemePunch
-Version: 3.0.4
+Version: 3.0.5
 Author URI: http://themepunch.com
 */
 

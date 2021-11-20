@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.1] - 2021-11-17
+### Fixed:
+- PHP 8 compatibility when existing Gmail mailer connection is revoked. 
+
 ## [3.2.0] - 2021-11-09
 ### Added:
 - New transactional mailer: SparkPost integration.

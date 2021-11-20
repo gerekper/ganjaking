@@ -30,7 +30,9 @@ class DateTimeResult extends \DateTime implements \JsonSerializable
         if (\PHP_VERSION_ID < 56000) {
             return new self(\gmdate('c', $unixTimestamp));
         }
-        $dateTime = \DateTime::createFromFormat('U.u', \sprintf('%0.6f', $unixTimestamp), new \DateTimeZone('UTC'));
+        $decimalSeparator = isset(\localeconv()['decimal_point']) ? \localeconv()['decimal_point'] : ".";
+        $formatString = "U" . $decimalSeparator . "u";
+        $dateTime = \DateTime::createFromFormat($formatString, \sprintf('%0.6f', $unixTimestamp), new \DateTimeZone('UTC'));
         if (\false === $dateTime) {
             throw new \WPMailSMTP\Vendor\Aws\Api\Parser\Exception\ParserException('Invalid timestamp value passed to DateTimeResult::fromEpoch');
         }

@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Bundles 6.12.6\n"
+"Project-Id-Version: WooCommerce Product Bundles 6.12.7\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-11-09T06:59:16+00:00\n"
+"POT-Creation-Date: 2021-11-11T17:55:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -292,7 +292,7 @@ msgstr ""
 
 #. translators: %1$s: SKU, %2$s: Bundled item ID
 #: includes/admin/class-wc-pb-admin-ajax.php:552
-#: includes/admin/class-wc-pb-admin-order.php:172
+#: includes/admin/class-wc-pb-admin-order.php:167
 msgctxt "bundled items stock change note sku with id format"
 msgid "%1$s:%2$s"
 msgstr ""
@@ -310,7 +310,7 @@ msgstr ""
 
 #. translators: List of items
 #: includes/admin/class-wc-pb-admin-ajax.php:570
-#: includes/admin/class-wc-pb-admin-order.php:196
+#: includes/admin/class-wc-pb-admin-order.php:177
 msgid "Added bundled line items: %s"
 msgstr ""
 
@@ -405,27 +405,22 @@ msgid "Learn more"
 msgstr ""
 
 #. translators: %1$s: Product title, %2$s: Product identifier
-#: includes/admin/class-wc-pb-admin-order.php:178
+#: includes/admin/class-wc-pb-admin-order.php:173
 msgctxt "bundled items stock change note format"
 msgid "%1$s (%2$s)"
 msgstr ""
 
-#: includes/admin/class-wc-pb-admin-order.php:186
-msgctxt "bundled items stock change note format"
-msgid "%1$s (%2$s) &ndash; %3$s"
-msgstr ""
-
-#: includes/admin/class-wc-pb-admin-order.php:255
+#: includes/admin/class-wc-pb-admin-order.php:236
 #: includes/admin/class-wc-pb-admin.php:311
 msgid "Edit"
 msgstr ""
 
-#: includes/admin/class-wc-pb-admin-order.php:257
+#: includes/admin/class-wc-pb-admin-order.php:238
 #: includes/admin/class-wc-pb-admin.php:310
 msgid "Configure"
 msgstr ""
 
-#: includes/admin/class-wc-pb-admin-order.php:291
+#: includes/admin/class-wc-pb-admin-order.php:272
 msgid "Done"
 msgstr ""
 
@@ -1251,7 +1246,7 @@ msgid " &mdash; %s"
 msgstr ""
 
 #: includes/class-wc-pb-display.php:241
-#: includes/class-wc-pb-display.php:1369
+#: includes/class-wc-pb-display.php:1365
 msgid "Includes"
 msgstr ""
 
@@ -1298,39 +1293,43 @@ msgstr ""
 
 #: includes/class-wc-pb-display.php:686
 #: includes/class-wc-pb-display.php:711
-#: includes/class-wc-pb-display.php:1461
-#: includes/class-wc-pb-display.php:1477
+#: includes/class-wc-pb-display.php:1457
+#: includes/class-wc-pb-display.php:1473
 msgid "Subtotal"
 msgstr ""
 
 #. translators: %1$s: Subtotal string, %2$s: Subtotal amount
 #: includes/class-wc-pb-display.php:688
 #: includes/class-wc-pb-display.php:711
-#: includes/class-wc-pb-display.php:1461
-#: includes/class-wc-pb-display.php:1477
+#: includes/class-wc-pb-display.php:1457
+#: includes/class-wc-pb-display.php:1473
 msgctxt "bundled product subtotal"
 msgid "%1$s: %2$s"
 msgstr ""
 
-#: includes/class-wc-pb-display.php:974
-#: includes/class-wc-pb-display.php:991
+#: includes/class-wc-pb-display.php:884
+msgid "Remove this bundle"
+msgstr ""
+
+#: includes/class-wc-pb-display.php:970
+#: includes/class-wc-pb-display.php:987
 msgctxt "edit in cart link text"
 msgid "Edit"
 msgstr ""
 
 #. translators: %1$s: Product title, %2$s: Edit in cart URL, %3$s: Edit in cart text
-#: includes/class-wc-pb-display.php:976
+#: includes/class-wc-pb-display.php:972
 msgctxt "edit in cart text"
 msgid "%1$s<br/><a class=\"edit_bundle_in_cart_text edit_in_cart_text\" rel=\"no-follow\" href=\"%2$s\"><small>%3$s</small></a>"
 msgstr ""
 
 #. translators: %1$s: Product title, %2$s: Edit in cart URL, %3$s: Edit in cart text
-#: includes/class-wc-pb-display.php:993
+#: includes/class-wc-pb-display.php:989
 msgctxt "edit in cart text"
 msgid "%1$s<br/><a class=\"edit_bundle_in_cart_text edit_in_cart_text\" href=\"%2$s\"><small>%3$s</small></a>"
 msgstr ""
 
-#: includes/class-wc-pb-display.php:1090
+#: includes/class-wc-pb-display.php:1086
 #: includes/class-wc-pb-order.php:1054
 msgid "Part of"
 msgstr ""
@@ -1675,47 +1674,47 @@ msgctxt "Price range: from"
 msgid "%1$s%2$s"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:1432
+#: includes/class-wc-product-bundle.php:1438
 msgid "Update Cart"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2886
+#: includes/class-wc-product-bundle.php:2892
 msgid "Default"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2887
+#: includes/class-wc-product-bundle.php:2893
 msgid "The add-to-cart form is displayed inside the single-product summary."
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2890
+#: includes/class-wc-product-bundle.php:2896
 msgid "Before Tabs"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2891
+#: includes/class-wc-product-bundle.php:2897
 msgid "The add-to-cart form is displayed before the single-product tabs. Usually allocates the entire page width for displaying form content. Note that some themes may not support this option."
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2906
+#: includes/class-wc-product-bundle.php:2912
 msgid "Standard"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2907
+#: includes/class-wc-product-bundle.php:2913
 msgid "Tabular"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2908
+#: includes/class-wc-product-bundle.php:2914
 msgid "Grid"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2980
+#: includes/class-wc-product-bundle.php:2986
 msgid "Grouped"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2985
+#: includes/class-wc-product-bundle.php:2991
 msgid "Flat"
 msgstr ""
 
-#: includes/class-wc-product-bundle.php:2990
+#: includes/class-wc-product-bundle.php:2996
 msgid "None"
 msgstr ""
 

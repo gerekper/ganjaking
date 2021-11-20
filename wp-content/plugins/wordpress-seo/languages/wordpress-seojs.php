@@ -257,9 +257,6 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/components/SchemaTab.js:82
 	__( 'Learn more about structured data with Schema.org', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/SettingsReplacementVariableEditor.js:39
-	__( 'Modify your meta description by editing it right here', 'wordpress-seo' ),
-
 	// Reference: packages/js/src/components/WordPressUserSelector.js:113
 	__( 'Select a user...', 'wordpress-seo' ),
 
@@ -511,20 +508,6 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/components/social/SocialUpsell.js:34
 	/* %s expands to Yoast SEO Premium */
 	__( 'Get %s to unlock social previews!', 'wordpress-seo' ),
-
-	// Reference: packages/js/src/containers/FacebookEditor.js:67
-	// Reference: packages/js/src/containers/TwitterEditor.js:71
-	// Reference: packages/js/src/elementor/containers/FacebookEditor.js:83
-	// Reference: packages/js/src/elementor/containers/TwitterEditor.js:87
-	/* %s expands to the social medium name, i.e. Faceboook. */
-	__( 'Modify your %s title by editing it right here...', 'wordpress-seo' ),
-
-	// Reference: packages/js/src/containers/FacebookEditor.js:74
-	// Reference: packages/js/src/containers/TwitterEditor.js:78
-	// Reference: packages/js/src/elementor/containers/FacebookEditor.js:90
-	// Reference: packages/js/src/elementor/containers/TwitterEditor.js:94
-	/* %s expands to the social medium name, i.e. Faceboook. */
-	__( 'Modify your %s description by editing it right here...', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/containers/SchemaSettings.js:15
 	__( 'default', 'wordpress-seo' ),

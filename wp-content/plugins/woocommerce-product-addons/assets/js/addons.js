@@ -922,11 +922,7 @@ jQuery(function ($) {
 				$cart.trigger('woocommerce-product-addons-update');
 			});
 
-			$cart
-				.find(
-					'.wc-pao-addon-custom, .wc-pao-addon-custom-textarea, .wc-pao-addon input, .wc-pao-addon textarea, .wc-pao-addon select, input.qty, .variations select'
-				)
-				.change();
+			$cart.trigger('woocommerce-product-addons-update');
 
 			var submitButton = $cart
 				.get(0)

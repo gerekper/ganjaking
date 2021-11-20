@@ -90,7 +90,7 @@ class WC_AM_Admin_System_Status {
 			$section_tooltip = $section[ 'tooltip' ];
 			$debug_data      = $section[ 'data' ];
 
-			include( WCAM()->plugin_path() . '/templates/admin/status.php' );
+			include_once __DIR__ . '/status.php';
 		}
 	}
 

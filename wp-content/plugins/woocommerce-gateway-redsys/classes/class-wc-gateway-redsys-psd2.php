@@ -681,15 +681,26 @@ class WC_Gateway_Redsys_PSD2 {
 			}
 		}
 		$Ds_Merchant_EMV3DS['addrMatch']        = $this->addr_match( $order );
-		$Ds_Merchant_EMV3DS['billAddrCity']     = $this->clean_data( $order->get_billing_city() );
-		$Ds_Merchant_EMV3DS['billAddrLine1']    = $this->clean_data( $order->get_billing_address_1() );
-		$Ds_Merchant_EMV3DS['billAddrPostCode'] = $this->clean_data( $order->get_billing_postcode() );
-		$Ds_Merchant_EMV3DS['billAddrState']    = strtoupper( $this->clean_data( $order->get_billing_state() ) );
-		$Ds_Merchant_EMV3DS['billAddrCountry']  = WCRed()->get_country_codes_3( $order->get_billing_country() );
+		if ( $order->get_billing_city() !== '' ) {
+			$Ds_Merchant_EMV3DS['billAddrCity']     = $this->clean_data( $order->get_billing_city() );
+		}
+		if ( $order->get_billing_address_1() !== '' ) {
+			$Ds_Merchant_EMV3DS['billAddrLine1']    = $this->clean_data( $order->get_billing_address_1() );
+		}
+		if ( $order->get_billing_postcode() !== '' ) {
+			$Ds_Merchant_EMV3DS['billAddrPostCode'] = $this->clean_data( $order->get_billing_postcode() );
+		}
+		if ( $order->get_billing_state() !== '' ) {
+			$Ds_Merchant_EMV3DS['billAddrState']    = strtoupper( $this->clean_data( $order->get_billing_state() ) );
+		}
+		if ( $order->get_billing_country() !== '' ) {
+			$Ds_Merchant_EMV3DS['billAddrCountry']  = WCRed()->get_country_codes_3( $order->get_billing_country() );
+		}
 		$Ds_Merchant_EMV3DS['Email']            = $this->get_email( $order );
 		$Ds_Merchant_EMV3DS['acctInfo']         = $acctInfo;
-		$Ds_Merchant_EMV3DS['homePhone']        = array( 'subscriber' => $this->get_homephone( $order ) );
-
+		if ( $this->get_homephone( $order ) !== '' ) {
+			$Ds_Merchant_EMV3DS['homePhone']        = array( 'subscriber' => $this->get_homephone( $order ) );
+		}
 		/**
 		 * TO-DO: suspiciousAccActivity, en una futura versión añadiré un meta a los usuarios para que el admistrador pueda marcar alguna cuenta fraudulenta o que ha habido algún problema.
 		 */
@@ -698,20 +709,33 @@ class WC_Gateway_Redsys_PSD2 {
 			$Ds_Merchant_EMV3DS['billAddrLine2'] = $this->clean_data( $order->get_shipping_address_2() );
 		}
 		if ( $order->has_shipping_address() ) {
-			$Ds_Merchant_EMV3DS['shipAddrCity']     = $this->clean_data( $order->get_shipping_city() );
-			$Ds_Merchant_EMV3DS['shipAddrLine1']    = $this->clean_data( $order->get_shipping_address_1() );
-			$Ds_Merchant_EMV3DS['shipAddrPostCode'] = $this->clean_data( $order->get_shipping_postcode() );
-			$Ds_Merchant_EMV3DS['shipAddrState']    = strtoupper( $this->clean_data( $order->get_shipping_state() ) );
-			$Ds_Merchant_EMV3DS['shipAddrCountry']  = WCRed()->get_country_codes_3( $order->get_shipping_country() );
+			if ( $this->clean_data( $order->get_shipping_city() !== '' ) ) {
+				$Ds_Merchant_EMV3DS['shipAddrCity']     = $this->clean_data( $order->get_shipping_city() );
+			}
+			
+			if ( $this->clean_data( $order->get_shipping_address_1() !== '' ) ) {
+				$Ds_Merchant_EMV3DS['shipAddrLine1']    = $this->clean_data( $order->get_shipping_address_1() );
+			}
+			
+			if ( $this->clean_data( $order->get_shipping_postcode() !== '' ) ) {
+				$Ds_Merchant_EMV3DS['shipAddrPostCode'] = $this->clean_data( $order->get_shipping_postcode() );
+			}
+			if ( $this->clean_data( $order->get_shipping_state() !== '' ) ) {
+				$Ds_Merchant_EMV3DS['shipAddrState']    = strtoupper( $this->clean_data( $order->get_shipping_state() ) );
+			}
+			if ( $order->get_shipping_country() !== '' ) {
+				$Ds_Merchant_EMV3DS['shipAddrCountry']  = WCRed()->get_country_codes_3( $order->get_shipping_country() );
+			}
+
 			if ( $order->get_shipping_address_2() !== '' ) {
 				$Ds_Merchant_EMV3DS['shipAddrLine2'] = $this->clean_data( $order->get_shipping_address_2() );
 			}
 		}
 		if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'redsys' ) ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$Ds_Merchant_EMV3DS: ' . print_r( $Ds_Merchant_EMV3DS, true ) );
-				$this->log->add( 'redsys', ' ' );
-			}
+			$this->log->add( 'redsys', ' ' );
+			$this->log->add( 'redsys', '$Ds_Merchant_EMV3DS: ' . print_r( $Ds_Merchant_EMV3DS, true ) );
+			$this->log->add( 'redsys', ' ' );
+		}
 		$Ds_Merchant_EMV3DS  = wp_json_encode( $Ds_Merchant_EMV3DS );
 		return $Ds_Merchant_EMV3DS;
 	}

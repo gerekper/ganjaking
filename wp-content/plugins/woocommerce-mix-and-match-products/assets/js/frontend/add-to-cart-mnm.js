@@ -137,7 +137,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 		this.$mnm_button          = data.$mnm_data.find( '.mnm_add_to_cart_button' );
 		this.$mnm_message         = data.$mnm_data.find( '.mnm_message' );
 		this.$mnm_message_content = this.$mnm_message.find( '.mnm_message_content' );
-		this.$mnm_quantity        = this.$mnm_data.find( '.mnm_button_wrap input.qty' );
+		this.$mnm_quantity        = this.$mnm_data.find( '.mnm_wrap input.qty' );
 
 		this.$addons_totals     = this.$mnm_data.find( '#product-addons-total' );
 		this.show_addons_totals = false;

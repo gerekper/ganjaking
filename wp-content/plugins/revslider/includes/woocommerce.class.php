@@ -107,6 +107,14 @@ class RevSliderWooCommerce extends RevSliderFunctions {
 				'terms'    => 'featured',
 			);
 		}
+
+		$tax_query['relation'] = 'AND';
+		$tax_query[] = array(
+			'taxonomy' => 'product_visibility',
+			'field'    => 'name',
+			'terms'    => 'exclude-from-catalog',
+			'operator' => 'NOT IN',
+		);
 		
 		if(!empty($meta_query)){
 			$query['meta_query'] = $meta_query;

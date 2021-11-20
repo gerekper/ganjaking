@@ -5546,7 +5546,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', 'order contains subscription & is token is not disabled' );
 				}
-				if ( $customer_token_r ) {
+				if ( $customer_token_r && 'no' !== $tokennum ) {
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', 'There is Token R: ' . $customer_token_r );
 					}
@@ -6461,7 +6461,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				}
 				if ( $creq ) { ?>
 					<form method="POST" action="<?php echo $acsURL; ?>" enctype = "application/xwww-form-urlencoded">
-						<input type="hidden" name="CReq" value=”<?php echo $creq; ?>” />
+						<input type="hidden" name="CReq" value="<?php echo $creq; ?>" />
 						<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ) ?>" />
 					</form>
 					<script type="text/javascript">
@@ -6545,8 +6545,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'redsys', 'Doing Creq Form POST ' );
 				}
 			?>
-				<form method="POST" action="<?php echo $acsurl2; ?>" enctype = "application/xwww-form-urlencoded">
-					<input type="hidden" name="CReq" value=”<?php echo $creq; ?>” />
+				<form method="POST" action="<?php echo $acsurl2; ?>" enctype="application/xwww-form-urlencoded">
+					<input type="hidden" name="CReq" value="<?php echo $creq; ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ) ?>" />
 				</form>
 				<script type="text/javascript">
@@ -6592,8 +6592,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'redsys', '$creq: ' . $creq );
 					}
 				?>
-				<form method="POST" action="<?php echo $acsurl2; ?>" enctype = "application/xwww-form-urlencoded">
-					<input type="hidden" name="CReq" value=<?php echo $creq; ?> />
+				<form method="POST" action="<?php echo $acsurl2; ?>" enctype="application/xwww-form-urlencoded">
+					<input type="hidden" name="CReq" value="<?php echo $creq; ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ) ?>" />
 				</form>
 				<script type="text/javascript">
@@ -6621,7 +6621,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				wc_enqueue_js(
 					'
 			$("body").block({
-				message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/select2-spinner.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to Bizum to make the payment.', 'woocommerce-redsys' ) . '",
+				message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/select2-spinner.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to Redsys to make the payment.', 'woocommerce-redsys' ) . '",
 				overlayCSS:
 				{
 					background: "#fff",
@@ -6644,7 +6644,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			<input type="hidden" name="PaReq" value="' . esc_attr( $PAReq ) . '" />
 			<input type="hidden" name="MD" value="' . esc_attr( $MD ) . '" />
 			<input type="hidden" name="TermUrl" value="' . esc_attr( $final_notify_url ) . '" />
-			<input type="submit" class="button-alt" id="submit_redsys_payment_form_2" value="' . __( 'Pay with Bizum', 'woocommerce-redsys' ) . '" />
+			<input type="submit" class="button-alt" id="submit_redsys_payment_form_2" value="' . __( 'Pay with Redsys', 'woocommerce-redsys' ) . '" />
 		</form>';
 			}
 

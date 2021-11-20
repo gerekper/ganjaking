@@ -110,36 +110,36 @@
   </table>
   <table table width="100%">
 	<tr>
-	   	<td width="20%" valign="top">[[PDFINVOICENUMHEADING]]</td>
-	    <td width="30%" valign="top">[[PDFINVOICENUM]]</td>
-	   	<td width="20%" valign="top">[[PDFORDERENUMHEADING]]</td>
-	    <td width="30%" valign="top">[[PDFORDERENUM]]</td>
+	   	<td width="20%" valign="top" id="invoicenumberheading">[[PDFINVOICENUMHEADING]]</td>
+	    <td width="30%" valign="top" id="invoicenumber">[[PDFINVOICENUM]]</td>
+	   	<td width="20%" valign="top" id="ordernumberheading">[[PDFORDERENUMHEADING]]</td>
+	    <td width="30%" valign="top" id="ordernumber">[[PDFORDERENUM]]</td>
 	</tr>
 	<tr>
-	   	<td valign="top">[[PDFINVOICEDATEHEADING]]</td>
-       	<td valign="top">[[PDFINVOICEDATE]]</td>
-    	<td valign="top">[[PDFORDERDATEHEADING]]</td>
-       	<td valign="top">[[PDFORDERDATE]]</td>
+	   	<td valign="top" id="paymethodheading">[[PDFINVOICEDATEHEADING]]</td>
+       	<td valign="top" id="invoicedate">[[PDFINVOICEDATE]]</td>
+    	<td valign="top" id="orderdateheading">[[PDFORDERDATEHEADING]]</td>
+       	<td valign="top" id="orderdate">[[PDFORDERDATE]]</td>
     </tr>
     
     <tr>
-	   	<td valign="top">[[PDFINVOICE_PAYMETHOD_HEADING]]</td>
-       	<td valign="top">[[PDFINVOICEPAYMENTMETHOD]]</td>
-    	<td valign="top">[[PDFINVOICE_SHIPMETHOD_HEADING]]</td>
-        <td valign="top">[[PDFSHIPPINGMETHOD]]</td>
+	   	<td valign="top" id="paymethodheading">[[PDFINVOICE_PAYMETHOD_HEADING]]</td>
+       	<td valign="top" id="paymethod">[[PDFINVOICEPAYMENTMETHOD]]</td>
+    	<td valign="top" id="shipmethodheading">[[PDFINVOICE_SHIPMETHOD_HEADING]]</td>
+        <td valign="top" id="shipmethod">[[PDFSHIPPINGMETHOD]]</td>
     </tr>
 
     [[PDFSHIPMENTTRACKING]]
     
     <tr>   
-    	<td valign="top" colspan="2">
+    	<td valign="top" colspan="2" id="billingdetails">
     	<h3>[[PDFINVOICE_BILLINGDETAILS_HEADING]]</h3>
 		[[PDFBILLINGADDRESS]]<br />
         [[PDFBILLINGTEL]]<br />
         [[PDFBILLINGEMAIL]]
         [[PDFBILLINGVATNUMBER]]
     	</td>
-    	<td valign="top" colspan="2">
+    	<td valign="top" colspan="2" id="shippingdetails">
     	<h3>[[PDFINVOICE_SHIPPINGDETAILS_HEADING]]</h3>
 		[[PDFSHIPPINGADDRESS]]
     	</td>
@@ -160,7 +160,7 @@
     
 	<table table width="100%">
     	<tr>
-        	<td width="100%" valign="top">
+        	<td width="100%" valign="top" id="ordernotes">
             [[PDFORDERNOTES]]
         	</td>
 		</tr>

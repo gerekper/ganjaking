@@ -1,5 +1,11 @@
 *** Redsys Gateway Change Log ***
 
+2021.11.11 - version 17.0.2
+
+* IMPROVED: When no user data are collected in the checkout, now is not sent as 3DS to Redsys.
+* FIXED: Now, when in Redsys redirection is selected using a new credit card and is a subscription, the customer is redirected to Redsys.
+* FIXED: There were wrong quotes.
+
 2021.11.07 - version 17.0.1
 
 * IMPROVED: CSS in Redsys redirection checkout.

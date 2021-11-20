@@ -31,7 +31,7 @@ class RsPanoramaSlideFront extends RevSliderFunctions {
 	
 	}
 	
-	private function isEnabled($slider) {
+	public function isEnabled($slider) {
 		
 		$settings = $slider->get_params();
 		if(empty($settings)) return false;

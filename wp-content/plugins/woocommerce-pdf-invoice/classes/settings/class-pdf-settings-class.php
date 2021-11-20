@@ -39,7 +39,7 @@
             'pdf_prefix'            => '',
             'pdf_sufix'             => '',
             'pdf_filename'          => '{{company}}-{{invoicenumber}}',
-            'pdf_date'              => 'completed',
+            'pdf_date'              => 'invoice',
             'pdf_date_format'       => 'j F, Y',
             'pdf_termsid'           => '',
             'pdf_creation'          => 'file',
@@ -50,7 +50,9 @@
             'pdf_rtl'               => 'false',
             'pdf_display_tax'       => 'FALSE',
             'pdf_thank_you_text'    => 'Download your invoice : [[INVOICENUMBER]]',
-            'thanks_style'          => 'link'
+            'thanks_style'          => 'link',
+            'paid_in_full_show'     => 'no',
+            'paid_in_full_text'     => '',
         );
 
         Private static $layout_defaults = array(
@@ -740,7 +742,7 @@
                     </tr>
                     
                     <!-- Invoice Date -->
-                    <?php $date_array = array( 'order' => 'Order Date', 'completed' => 'Completed Date' ); ?>
+                    <?php $date_array = array( 'invoice' => 'Date Invoice Created', 'order' => 'Order Date', 'completed' => 'Completed Date' ); ?>
                     <tr valign="top">
                         <th scope="row" class="titledesc">
                             <label for="woocommerce_pdf_invoice_settings[pdf_date]"><?php _e('Which date should the invoice use', 'woocommerce-pdf-invoice' ); ?></label>
@@ -842,7 +844,7 @@
                     <tr valign="top">
                         <th scope="row" class="titledesc">
                             <label for="woocommerce_pdf_invoice_settings[pdf_rtl]"><?php _e('Use RTL layout?', 'woocommerce-pdf-invoice' ); ?></label>
-                            <img class="help_tip woocommerce-help-tip" data-tip="<?php _e("Set this to 'Yes' of you want the PDF in RTL layout", 'woocommerce-pdf-invoice' ); ?>" src="<?php echo plugins_url( 'woocommerce/assets/images/help.png' );?>" height="16" width="16" />                 
+                            <img class="help_tip woocommerce-help-tip" data-tip="<?php _e("Set this to 'Yes' if you want the PDF in RTL layout", 'woocommerce-pdf-invoice' ); ?>" src="<?php echo plugins_url( 'woocommerce/assets/images/help.png' );?>" height="16" width="16" />                 
                         </th>
                         <td class="forminp forminp-number">
                         <select name="woocommerce_pdf_invoice_settings[pdf_rtl]" id="woocommerce_pdf_invoice_settings[pdf_rtl]" style="width: 350px;">
@@ -850,6 +852,37 @@
                                 <option value="<?php echo $key; ?>" <?php selected( $woocommerce_pdf_invoice_options['pdf_rtl'], $key ); ?>><?php echo $value; ?></option>
                             <?php } ?>
                         </select>
+                        </td>
+                    </tr>
+
+                    <!-- Show Paid In Full overlay on paid invoices? -->
+                    <?php $pif_array = array( 'no' => 'No' , 'yes' => 'Yes' ); ?>
+                    <tr valign="top">
+                        <th scope="row" class="titledesc">
+                            <label for="woocommerce_pdf_invoice_settings[paid_in_full_show]"><?php _e('Show Paid In Full overlay on paid invoices?', 'woocommerce-pdf-invoice' ); ?></label>
+                            <img class="help_tip woocommerce-help-tip" data-tip="<?php _e("Set this to 'Yes' if you want a 'Paid In Full' overlay on paid invoices?", 'woocommerce-pdf-invoice' ); ?>" src="<?php echo plugins_url( 'woocommerce/assets/images/help.png' );?>" height="16" width="16" />                 
+                        </th>
+                        <td class="forminp forminp-number">
+                        <select name="woocommerce_pdf_invoice_settings[paid_in_full_show]" id="woocommerce_pdf_invoice_settings[paid_in_full_show]" style="width: 350px;">
+                            <?php foreach ( $pif_array as $key => $value ) { ?>
+                                <option value="<?php echo $key; ?>" <?php selected( $woocommerce_pdf_invoice_options['paid_in_full_show'], $key ); ?>><?php echo $value; ?></option>
+                            <?php } ?>
+                        </select>
+                        </td>
+                    </tr>
+
+                    <!-- Text for Paid In Full overlay -->
+                    <tr valign="top">
+                        <th scope="row" class="titledesc">
+                            <label for="woocommerce_pdf_invoice_settings[paid_in_full_text]"><?php _e('Set text for Paid In Full overlay', 'woocommerce-pdf-invoice' ); ?></label>
+                            <img class="help_tip woocommerce-help-tip" data-tip="<?php _e('Leave blank to use translatable "PAID IN FULL"', 'woocommerce-pdf-invoice' ); ?>" src="<?php echo plugins_url( 'woocommerce/assets/images/help.png' );?>" height="16" width="16" />                 
+                        </th>
+                        <td class="forminp forminp-number">
+                        <input id="woocommerce_pdf_invoice_settings[paid_in_full_text]" 
+                            name="woocommerce_pdf_invoice_settings[paid_in_full_text]" 
+                            type="text" 
+                            value="<?php echo $woocommerce_pdf_invoice_options['paid_in_full_text']; ?>"
+                            placeholder="<?php _e('PAID IN FULL', 'woocommerce-pdf-invoice' ); ?>" style="width: 350px;"/>
                         </td>
                     </tr>
 

@@ -28,7 +28,81 @@ class RsScrollvideoSliderFront extends RevSliderFunctions {
 		add_action('revslider_fe_javascript_output', array($this, 'write_init_script'), 10, 2);
 		//add_action('revslider_get_slider_wrapper_div', array($this, 'check_if_ajax_loaded'), 10, 2);
 		add_filter('revslider_get_slider_html_addition', array($this, 'add_html_script_additions'), 10, 2);
+		add_action('revslider_export_html_write_footer', array($this, 'write_export_footer'), 10, 1);
+		add_filter('revslider_export_html_file_inclusion', array($this, 'add_addon_files'), 10, 2);
 		
+	}
+
+	public function write_export_footer($export){
+		$output = $export->slider_output;
+		$array = $this->add_html_script_additions(array(), $output);
+		$toload = $this->get_val($array, 'toload', array());
+		if(!empty($toload)){
+			foreach($toload as $script){
+				echo $script;
+			}
+		}
+	}
+
+	public function add_addon_files($html, $export){
+		$output = $export->slider_output;
+		$addOn = $this->isEnabled($output->slider);
+		if(empty($addOn)) return $html;
+
+		$_jsPathMin = file_exists(RS_SCROLLVIDEO_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js') ? '' : '.min';
+		if(!$export->usepcl){
+			$export->zip->addFile(RS_SCROLLVIDEO_PLUGIN_PATH . 'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', 'js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js');
+		}else{
+			$export->pclzip->add(RS_SCROLLVIDEO_PLUGIN_PATH.'public/assets/js/revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', PCLZIP_OPT_REMOVE_PATH, RS_SCROLLVIDEO_PLUGIN_PATH.'public/assets/js/', PCLZIP_OPT_ADD_PATH, 'js/');
+		}
+
+		$html = str_replace(array($this->pluginUrl.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.min.js', $this->pluginUrl.'public/assets/js/revolution.addon.' . $this->pluginTitle . '.js'), $export->path_js .'revolution.addon.' . $this->pluginTitle . $_jsPathMin . '.js', $html);
+		
+		$upload_folder	= wp_upload_dir();
+		$upload_url		= $this->get_val($upload_folder, 'baseurl');
+		$upload_path	= $this->get_val($upload_folder, 'basedir');
+		$url			= $this->get_val($addOn, array('sequence', 'dir'));
+		$dir			= str_replace($upload_url, $upload_path, $url);
+		$first			= intval($this->get_val($addOn, array('sequence', 'first'), 1));
+		$last			= intval($this->get_val($addOn, array('sequence', 'last'), 1));
+		$fps			= intval($this->get_val($addOn, array('sequence', 'fps'), 10));
+		$quality		= intval($this->get_val($addOn, array('sequence', 'quality'), 0.5) * 10);
+		if($quality < 10) $quality = '0'.$quality;
+		if($first > $last){
+			$_last = $first;
+			$first = $last;
+			$last = $_last;
+		}
+		while($first <= $last){
+			$now = $first;
+			while(strlen($now) < 3){ $now = '0'.$now; }
+			$image = $now.'_f'.$fps.'_q'.$quality.'.jpg';
+
+			if(file_exists($dir.$image)){
+				if(!$export->usepcl){
+					$export->zip->addFile($dir.$image, 'assets/'.$image);
+				}else{
+					$export->pclzip->add($dir.$image, PCLZIP_OPT_REMOVE_PATH, $dir, PCLZIP_OPT_ADD_PATH, 'assets/');
+				}
+			}
+			$first++;
+		}
+		$mpeg = $this->get_val($addOn, 'mpeg');
+		$filename = basename($mpeg);
+		if(!empty($mpeg)){
+			if(file_exists($upload_path . $mpeg)){
+				if(!$export->usepcl){
+					$export->zip->addFile($upload_path . $mpeg, 'assets/'.$filename);
+				}else{
+					$export->pclzip->add($upload_path.$mpeg, PCLZIP_OPT_REMOVE_PATH, dirname($upload_path.$mpeg), PCLZIP_OPT_ADD_PATH, 'assets/');
+				}
+			}
+			$html = str_replace($mpeg, './assets/'.$filename, $html);
+		}
+		$dir = $this->get_val($addOn, 'dir');
+		$html = str_replace($dir, './assets/', $html);
+		
+		return $html;
 	}
 
 	// ENABLE STATIC LAYER CONTAINERS
@@ -156,7 +230,8 @@ class RsScrollvideoSliderFront extends RevSliderFunctions {
 			$addOn = $this->isEnabled($output);
 			if(empty($addOn)) return $return;
 		}else{
-			if($output->ajax_loaded !== true) return $return;
+			$me = $output->get_markup_export();
+			if($me !== true && $output->ajax_loaded !== true) return $return;
 			
 			$addOn = $this->isEnabled($output->slider);
 			if(empty($addOn)) return $return;
@@ -191,7 +266,6 @@ class RsScrollvideoSliderFront extends RevSliderFunctions {
 		$id = $slider->get_id();		
 
 		if (!empty($enabled) && $enabled['active']===true)  {	
-				
 				$spinner = 	$enabled['keepspinner'] === 1 || $enabled['keepspinner']===true ? 'true' : 'false';
 				$scroll = 	isset($enabled['blockscroll']) ? $enabled['blockscroll'] === 1 || $enabled['blockscroll']===true ? 'true' : 'false' : 'false';
 				$winoffset = isset($enabled['winoffset']) ? $enabled['winoffset'] : "0%";

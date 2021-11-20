@@ -1,5 +1,19 @@
 *** WooCommerce Order Status Manager Changelog ***
 
+2021.11.16 - version 1.13.3
+ * Fix - Improve compatibility with WooCommerce Subscriptions, so orders that transition from 'on-hold' to a paid order status have the associated subscription activated
+
+2021.03.16 - version 1.13.2
+ * Fix - Use WordPress filter hooks to append bulk actions to the orders edit screen for improved third party plugins and WordPress compatibility
+
+2021.01.07 - version 1.13.1
+ * Fix - Ensure that the "pending" WooCommerce core order status cannot be set to other values than "needs payment" to avoid issues with some payment gateways
+
+2020.12.08 - version 1.13.0
+ * Misc - Add compatibility for WooCommerce 4.7
+ * Misc - Require PHP 7.0 or newer
+ * Dev - Pass email object to hook that filters the order status email's body text
+
 2020.10.02 - version 1.12.2
  * Tweak - Improve the confirmation popup when the plugin is about to be deactivated with custom statuses in use
 

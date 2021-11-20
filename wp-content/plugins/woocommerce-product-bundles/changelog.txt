@@ -1,5 +1,9 @@
 *** WooCommerce Product Bundles ***
 
+2021.11.10 - version 6.12.7
+* Fix - Fixed an edge-case issue with removing ungrouped bundles that include hidden items.
+* Fix - Prevent bundled item inventory from being reduced when adding non-configurable bundles to orders manually.
+
 2021.11.09 - version 6.12.6
 * Feature - Added compatibility with PayPal Payments to hide quick pay buttons in Bundle product pages.
 * Dev - Added 'woocommerce_bundles_after_bundled_item_price' action hook.

@@ -42,35 +42,43 @@ class WC_Product_Add_Ons_Groups_Controller extends WP_REST_Controller {
 	 * @since 2.9.0
 	 */
 	public function register_routes() {
-		register_rest_route( $this->namespace, '/product-add-ons', array(
+		register_rest_route(
+			$this->namespace,
+			'/product-add-ons',
 			array(
-				'methods'             => WP_REST_Server::CREATABLE,
-				'callback'            => array( $this, 'create_item' ),
-				'permission_callback' => array( $this, 'permissions_check' ),
-			),
+				array(
+					'methods'             => WP_REST_Server::CREATABLE,
+					'callback'            => array( $this, 'create_item' ),
+					'permission_callback' => array( $this, 'permissions_check' ),
+				),
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_all' ),
+					'permission_callback' => array( $this, 'permissions_check' ),
+				),
+			)
+		);
+		register_rest_route(
+			$this->namespace,
+			'/product-add-ons/(?P<id>\d+)',
 			array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_all' ),
-				'permission_callback' => array( $this, 'permissions_check' ),
-			),
-		) );
-		register_rest_route( $this->namespace, '/product-add-ons/(?P<id>\d+)', array(
-			array(
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_item' ),
-				'permission_callback' => array( $this, 'permissions_check' ),
-			),
-			array(
-				'methods'             => WP_REST_Server::EDITABLE,
-				'callback'            => array( $this, 'update_item' ),
-				'permission_callback' => array( $this, 'permissions_check' ),
-			),
-			array(
-				'methods'             => WP_REST_Server::DELETABLE,
-				'callback'            => array( $this, 'delete_item' ),
-				'permission_callback' => array( $this, 'permissions_check' ),
-			),
-		) );
+				array(
+					'methods'             => WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_item' ),
+					'permission_callback' => array( $this, 'permissions_check' ),
+				),
+				array(
+					'methods'             => WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'update_item' ),
+					'permission_callback' => array( $this, 'permissions_check' ),
+				),
+				array(
+					'methods'             => WP_REST_Server::DELETABLE,
+					'callback'            => array( $this, 'delete_item' ),
+					'permission_callback' => array( $this, 'permissions_check' ),
+				),
+			)
+		);
 	}
 
 	/**
@@ -81,14 +89,14 @@ class WC_Product_Add_Ons_Groups_Controller extends WP_REST_Controller {
 	 * @return WP_REST_Response| mixed
 	 */
 	public function create_item( $request ) {
-		$allowed_keys = array( 'name', 'priority', 'restrict_to_categories', 'fields' );
+		$allowed_keys     = array( 'name', 'priority', 'restrict_to_categories', 'fields' );
 		$filtered_request = array_intersect_key( $request->get_params(), array_flip( $allowed_keys ) );
 		$result = WC_Product_Addons_Global_Group::create_group( wc_clean( $filtered_request ) );
 		if ( is_wp_error( $result ) ) {
 			return new WP_Error(
 				'woocommerce_product_add_ons_rest__' . $result->get_error_code(),
 				$result->get_error_message(),
-				array( 'status' => 400 ) // bad request
+				array( 'status' => 400 ) // bad request.
 			);
 		}
 
@@ -119,7 +127,7 @@ class WC_Product_Add_Ons_Groups_Controller extends WP_REST_Controller {
 			return new WP_Error(
 				'woocommerce_product_add_ons_rest__' . $result->get_error_code(),
 				$result->get_error_message(),
-				array( 'status' => 404 ) // not found
+				array( 'status' => 404 ) // not found.
 			);
 		}
 
@@ -134,14 +142,14 @@ class WC_Product_Add_Ons_Groups_Controller extends WP_REST_Controller {
 	 * @return WP_REST_Response| WP_Error
 	 */
 	public function update_item( $request ) {
-		$allowed_keys = array( 'name', 'priority', 'restrict_to_categories', 'fields', 'exclude_global_add_ons' );
+		$allowed_keys     = array( 'name', 'priority', 'restrict_to_categories', 'fields', 'exclude_global_add_ons' );
 		$filtered_request = array_intersect_key( $request->get_params(), array_flip( $allowed_keys ) );
 		$result = WC_Product_Addons_Groups::update_group( wc_clean( $request['id'] ), wc_clean( $filtered_request ) );
 		if ( is_wp_error( $result ) ) {
 			return new WP_Error(
 				'woocommerce_product_add_ons_rest__' . $result->get_error_code(),
 				$result->get_error_message(),
-				array( 'status' => 400 ) // bad request
+				array( 'status' => 400 ) // bad request.
 			);
 		}
 
@@ -161,18 +169,18 @@ class WC_Product_Add_Ons_Groups_Controller extends WP_REST_Controller {
 			return new WP_Error(
 				'woocommerce_product_add_ons_rest__' . $result->get_error_code(),
 				$result->get_error_message(),
-				array( 'status' => 404 ) // not found
+				array( 'status' => 404 ) // not found.
 			);
 		}
 		return rest_ensure_response( $result );
 	}
 
-	/* Validate the requester's permissions
+	/** Validate the requester's permissions
 	 *
 	 * @since 2.9.0
 	 *
 	 * @param $request
-	 * @return boolean
+	 * @return boolean|WP_Error
 	 */
 	public function permissions_check( $request ) {
 		if ( current_user_can( 'manage_woocommerce' ) || current_user_can( 'manage_options' ) ) {

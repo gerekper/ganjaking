@@ -1,7 +1,6 @@
 <?php
 /**
  * Product Add-ons helper
- *
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -9,6 +8,111 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class WC_Product_Addons_Helper {
+	/**
+	 * Gets global product addons. The result is cached.
+	 *
+	 * @return array
+	 */
+	protected static function get_global_product_addons() {
+		$cache_key     = 'all_products';
+		$cache_group   = 'global_product_addons';
+		$cache_value   = wp_cache_get( $cache_key, $cache_group );
+		$last_modified = get_option( 'woocommerce_global_product_addons_last_modified' );
+
+		if ( false === $cache_value || $last_modified !== $cache_value['last_modified'] ) {
+			$args          = array(
+				'posts_per_page'      => -1,
+				'orderby'             => 'meta_value',
+				'order'               => 'ASC',
+				'meta_key'            => '_priority',
+				'post_type'           => 'global_product_addon',
+				'post_status'         => 'publish',
+				'suppress_filters'    => true,
+				'ignore_sticky_posts' => true,
+				'no_found_rows'       => true,
+				'fields'              => 'ids',
+				'meta_query'          => array(
+					array(
+						'key'   => '_all_products',
+						'value' => '1',
+					),
+				),
+			);
+			$return_addons = get_posts( $args );
+
+			wp_cache_set(
+				$cache_key,
+				array(
+					'last_modified' => $last_modified,
+					'data'          => $return_addons,
+				),
+				$cache_group
+			);
+		} else {
+			$return_addons = $cache_value['data'];
+		}
+
+		return (array) $return_addons;
+	}
+
+	/**
+	 * Gets product addons from its terms. The result is cached.
+	 *
+	 * @param int $product_id The product ID.
+	 * @return array
+	 */
+	protected static function get_product_term_addons( $product_id ) {
+		$cache_key     = $product_id;
+		$cache_group   = 'global_product_addons';
+		$cache_value   = wp_cache_get( $cache_key, $cache_group );
+		$last_modified = get_option( 'woocommerce_global_product_addons_last_modified' );
+
+		if ( false === $cache_value || $last_modified !== $cache_value['last_modified'] ) {
+			$return_addons = array();
+			$product_terms = apply_filters( 'get_product_addons_product_terms', wc_get_object_terms( $product_id, 'product_cat', 'term_id' ), $product_id );
+
+			if ( $product_terms ) {
+				$args          = apply_filters(
+					'get_product_addons_global_query_args',
+					array(
+						'posts_per_page'      => -1,
+						'orderby'             => 'meta_value',
+						'order'               => 'ASC',
+						'meta_key'            => '_priority',
+						'post_type'           => 'global_product_addon',
+						'post_status'         => 'publish',
+						'suppress_filters'    => true,
+						'ignore_sticky_posts' => true,
+						'no_found_rows'       => true,
+						'fields'              => 'ids',
+						'tax_query'           => array(
+							array(
+								'taxonomy'         => 'product_cat',
+								'field'            => 'id',
+								'terms'            => $product_terms,
+								'include_children' => false,
+							),
+						),
+					),
+					$product_terms
+				);
+				$return_addons = get_posts( $args );
+			}
+			wp_cache_set(
+				$cache_key,
+				array(
+					'last_modified' => $last_modified,
+					'data'          => $return_addons,
+				),
+				$cache_group
+			);
+		} else {
+			$return_addons = $cache_value['data'];
+		}
+
+		return (array) $return_addons;
+	}
+
 	/**
 	 * Gets addons assigned to a product by ID.
 	 *
@@ -27,11 +131,10 @@ class WC_Product_Addons_Helper {
 		$raw_addons = array();
 		$parent_id  = wp_get_post_parent_id( $post_id );
 
-		$product        = wc_get_product( $post_id );
+		$product = wc_get_product( $post_id );
 		if ( ! $product ) {
 			return array();
 		}
-		$product_terms  = apply_filters( 'get_product_addons_product_terms', wc_get_object_terms( $product->get_id(), 'product_cat', 'term_id' ), $product->get_id() );
 		$exclude        = $product->get_meta( '_product_addons_exclude_global' );
 		$product_addons = array_filter( (array) $product->get_meta( '_product_addons' ) );
 
@@ -43,60 +146,14 @@ class WC_Product_Addons_Helper {
 		// Product Level Addons.
 		$raw_addons[10]['product'] = apply_filters( 'get_product_addons_fields', $product_addons, $post_id );
 
-		// Global level addons (all products).
+		// Global level addons (all products and categories).
 		if ( '1' !== $exclude && $inc_global ) {
-			$args = array(
-				'posts_per_page'   => -1,
-				'orderby'          => 'meta_value',
-				'order'            => 'ASC',
-				'meta_key'         => '_priority',
-				'post_type'        => 'global_product_addon',
-				'post_status'      => 'publish',
-				'suppress_filters' => true,
-				'meta_query' => array(
-					array(
-						'key'   => '_all_products',
-						'value' => '1',
-					),
-				),
-			);
-
-			$global_addons = get_posts( $args );
+			$global_addons = array_merge( self::get_global_product_addons(), self::get_product_term_addons( $product->get_id() ) );
 
 			if ( $global_addons ) {
-				foreach ( $global_addons as $global_addon ) {
-					$priority                                     = get_post_meta( $global_addon->ID, '_priority', true );
-					$raw_addons[ $priority ][ $global_addon->ID ] = apply_filters( 'get_product_addons_fields', array_filter( (array) get_post_meta( $global_addon->ID, '_product_addons', true ) ), $global_addon->ID );
-				}
-			}
-
-			// Global level addons (categories).
-			if ( $product_terms ) {
-				$args = apply_filters( 'get_product_addons_global_query_args', array(
-					'posts_per_page'   => -1,
-					'orderby'          => 'meta_value',
-					'order'            => 'ASC',
-					'meta_key'         => '_priority',
-					'post_type'        => 'global_product_addon',
-					'post_status'      => 'publish',
-					'suppress_filters' => true,
-					'tax_query'        => array(
-						array(
-							'taxonomy'         => 'product_cat',
-							'field'            => 'id',
-							'terms'            => $product_terms,
-							'include_children' => false,
-						),
-					),
-				), $product_terms );
-
-				$global_addons = get_posts( $args );
-
-				if ( $global_addons ) {
-					foreach ( $global_addons as $global_addon ) {
-						$priority                                     = get_post_meta( $global_addon->ID, '_priority', true );
-						$raw_addons[ $priority ][ $global_addon->ID ] = apply_filters( 'get_product_addons_fields', array_filter( (array) get_post_meta( $global_addon->ID, '_product_addons', true ) ), $global_addon->ID );
-					}
+				foreach ( $global_addons as $global_addon_id ) {
+					$priority                                    = get_post_meta( $global_addon_id, '_priority', true );
+					$raw_addons[ $priority ][ $global_addon_id ] = apply_filters( 'get_product_addons_fields', array_filter( (array) get_post_meta( $global_addon_id, '_product_addons', true ) ), $global_addon_id );
 				}
 			}
 		}
@@ -134,7 +191,7 @@ class WC_Product_Addons_Helper {
 				continue;
 			}
 			if ( empty( $addons[ $addon_key ]['field_name'] ) ) {
-				$addon_name = substr( $addon['name'], 0, $max_addon_name_length );
+				$addon_name                         = substr( $addon['name'], 0, $max_addon_name_length );
 				$addons[ $addon_key ]['field_name'] = sanitize_title( $prefix . $addon_name . '-' . $addon_field_counter );
 				$addon_field_counter++;
 			}
@@ -163,7 +220,7 @@ class WC_Product_Addons_Helper {
 		$neg = false;
 
 		if ( $price < 0 ) {
-			$neg = true;
+			$neg    = true;
 			$price *= -1;
 		}
 
@@ -174,7 +231,19 @@ class WC_Product_Addons_Helper {
 		if ( is_object( $product ) ) {
 			// Support new wc_get_price_excluding_tax() and wc_get_price_excluding_tax() functions.
 			if ( function_exists( 'wc_get_price_excluding_tax' ) ) {
-				$display_price = self::get_product_addon_tax_display_mode() === 'incl' ? wc_get_price_including_tax( $product, array( 'qty' => 1, 'price' => $price ) ) : wc_get_price_excluding_tax( $product, array( 'qty' => 1, 'price' => $price ) );
+				$display_price = self::get_product_addon_tax_display_mode() === 'incl' ? wc_get_price_including_tax(
+					$product,
+					array(
+						'qty'   => 1,
+						'price' => $price,
+					)
+				) : wc_get_price_excluding_tax(
+					$product,
+					array(
+						'qty'   => 1,
+						'price' => $price,
+					)
+				);
 
 				/**
 				 * When a user is tax exempt and product prices are exclusive of taxes, WooCommerce displays prices as follows:
@@ -182,7 +251,13 @@ class WC_Product_Addons_Helper {
 				 * - Cart and Checkout pages: excluding taxes
 				 */
 				if ( ( is_cart() || is_checkout() ) && ! empty( WC()->customer ) && WC()->customer->get_is_vat_exempt() && ! wc_prices_include_tax() ) {
-					$display_price = wc_get_price_excluding_tax( $product, array( 'qty' => 1, 'price' => $price ) );
+					$display_price = wc_get_price_excluding_tax(
+						$product,
+						array(
+							'qty'   => 1,
+							'price' => $price,
+						)
+					);
 				}
 			} else {
 				$display_price = self::get_product_addon_tax_display_mode() === 'incl' ? $product->get_price_including_tax( 1, $price ) : $product->get_price_excluding_tax( 1, $price );

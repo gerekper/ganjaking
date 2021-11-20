@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Lottie AddOn
 Plugin URI: http://www.themepunch.com/
 Description: Add cool 2d animations directly from After Effects using lottie
 Author: ThemePunch
-Version: 3.0.4
+Version: 3.0.5
 Author URI: http://themepunch.com
 */
 
@@ -22,7 +22,7 @@ if(!defined('WPINC')) die;
 
 define('RS_LOTTIE_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('RS_LOTTIE_PLUGIN_URL', str_replace('index.php', '', plugins_url( 'index.php', __FILE__)));
-define('RS_LOTTIE_REVISION', '3.0.4');
+define('RS_LOTTIE_REVISION', '3.0.5');
 
 require_once(RS_LOTTIE_PLUGIN_PATH . 'includes/base.class.php');
 

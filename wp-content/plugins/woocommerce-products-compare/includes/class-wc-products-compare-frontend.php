@@ -1,11 +1,32 @@
 <?php
+/**
+ * The frontend class.
+ *
+ * @package WC_Products_Compare
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
+/**
+ * WC_Products_Compare_Frontend class.
+ *
+ * phpcs:disable Squiz.Commenting.FunctionComment.Missing, WordPress.Security.NonceVerification.Recommended
+ */
 class WC_Products_Compare_Frontend {
-	private static $_this;
+	/**
+	 * Class instance.
+	 *
+	 * @var WC_Products_Compare_Frontend
+	 */
+	private static $instance;
+
+	/**
+	 * Cookie name.
+	 *
+	 * @var string
+	 */
 	public static $cookie_name;
 
 	/**
@@ -15,7 +36,7 @@ class WC_Products_Compare_Frontend {
 	 * @return bool
 	 */
 	public function __construct() {
-		self::$_this = $this;
+		self::$instance = $this;
 
 		if ( is_admin() ) {
 			add_action( 'wp_ajax_wc_products_compare_add_product_ajax', array( $this, 'add_product_ajax' ) );
@@ -52,7 +73,7 @@ class WC_Products_Compare_Frontend {
 	 * @return instance object
 	 */
 	public function get_instance() {
-		return self::$_this;
+		return self::$instance;
 	}
 
 	/**
@@ -62,8 +83,7 @@ class WC_Products_Compare_Frontend {
 	 * @return string $endpoint
 	 */
 	public static function get_endpoint() {
-
-		// set the endpoint per user setting
+		// Set the endpoint per user setting.
 		return apply_filters( 'woocommerce_products_compare_end_point', 'products-compare' );
 	}
 
@@ -110,6 +130,7 @@ class WC_Products_Compare_Frontend {
 			'cookieName'           => self::$cookie_name,
 			'cookieExpiry'         => apply_filters( 'woocommerce_products_compare_cookie_expiry', 7 ),
 			'maxProducts'          => $max_products,
+			// Translators: %s Number of products.
 			'maxAlert'             => sprintf( __( 'Sorry, a maximum of %s products can be compared at one time.', 'woocommerce-products-compare' ), $max_products ),
 			'noProducts'           => WC_products_compare_Frontend::empty_message(),
 			'moreProducts'         => __( 'Please add at least 2 or more products to compare.', 'woocommerce-products-compare' ),
@@ -137,7 +158,7 @@ class WC_Products_Compare_Frontend {
 		if ( ! get_option( 'wc_products_compare_endpoint_set', false ) ) {
 			flush_rewrite_rules();
 
-			// update option so this doesn't need to run again
+			// update option so this doesn't need to run again.
 			update_option( 'wc_products_compare_endpoint_set', true );
 		}
 
@@ -148,6 +169,7 @@ class WC_Products_Compare_Frontend {
 	 * Return the page title for compare page.
 	 *
 	 * @since 1.0.5
+	 * @param string $title Page title.
 	 * @return string $title
 	 */
 	public function add_page_title( $title ) {
@@ -162,9 +184,10 @@ class WC_Products_Compare_Frontend {
 	 * Add a breadcrumb for the compare page.
 	 *
 	 * @since 1.0.5
+	 * @param array $crumbs Breacrumb trail.
 	 * @return array $crumbs
 	 */
-	public function add_wc_breadcrumb( $crumbs) {
+	public function add_wc_breadcrumb( $crumbs ) {
 		if ( $this->is_compare_page() ) {
 			$crumbs[1] = array( $this->get_page_title() );
 		}
@@ -177,7 +200,8 @@ class WC_Products_Compare_Frontend {
 	 *
 	 * @since 1.0.0
 	 * @since 1.0.20 Use WC core get template function.
-	 * @return mixed
+	 * @param string $path Path to template file.
+	 * @return string
 	 */
 	public function display_template( $path ) {
 		if ( $this->is_compare_page() ) {
@@ -203,13 +227,10 @@ class WC_Products_Compare_Frontend {
 	public function display_compare_button() {
 		global $post;
 
-		$name = __( 'Compare', 'woocommerce-products-compare' );
-
 		$checked = checked( $this->is_listed( $post->ID ), true, false );
+		$html    = '<p class="woocommerce-products-compare-compare-button"><label for="woocommerce-products-compare-checkbox-' . esc_attr( $post->ID ) . '"><input type="checkbox" class="woocommerce-products-compare-checkbox" data-product-id="' . esc_attr( $post->ID ) . '" ' . $checked . ' id="woocommerce-products-compare-checkbox-' . esc_attr( $post->ID ) . '" />&nbsp;' . esc_html__( 'Compare', 'woocommerce-products-compare' ) . '</label> <a href="' . esc_url( get_home_url() . '/' . $this->get_endpoint() ) . '" title="' . esc_attr__( 'Compare Page', 'woocommerce-products-compare' ) . '" class="woocommerce-products-compare-compare-link"><span class="dashicons dashicons-external"></span></a></p>';
 
-		$html = '<p class="woocommerce-products-compare-compare-button"><label for="woocommerce-products-compare-checkbox-' . esc_attr( $post->ID ) . '"><input type="checkbox" class="woocommerce-products-compare-checkbox" data-product-id="' . esc_attr( $post->ID ) . '" ' . $checked . ' id="woocommerce-products-compare-checkbox-' . esc_attr( $post->ID ) . '" />&nbsp;' . $name . '</label> <a href="' . get_home_url() . '/' . $this->get_endpoint() . '" title="' . esc_attr__( 'Compare Page', 'woocommerce-products-compare' ) . '" class="woocommerce-products-compare-compare-link"><span class="dashicons dashicons-external"></span></a></p>';
-
-		echo apply_filters( 'woocommerce_products_compare_compare_button', $html, $post->ID, $checked );
+		echo apply_filters( 'woocommerce_products_compare_compare_button', $html, $post->ID, $checked ); // phpcs:ignore
 
 		return true;
 	}
@@ -218,14 +239,14 @@ class WC_Products_Compare_Frontend {
 	 * Checks if the product is listed in the compared products cookie.
 	 *
 	 * @since 1.0.0
-	 * @param $product_id int
+	 * @param int $product_id Product ID.
 	 * @return bool
 	 */
 	public function is_listed( $product_id ) {
 		$products = $this->get_compared_products(); // Comma delimited string.
 
 		// List exists.
-		if ( $products && is_array( $products ) && in_array( (string) $product_id, $products ) ) {
+		if ( $products && is_array( $products ) && in_array( (int) $product_id, $products, true ) ) {
 			return true;
 		} else {
 			return false;
@@ -239,12 +260,12 @@ class WC_Products_Compare_Frontend {
 	 * @return $ids array
 	 */
 	public static function get_compared_products() {
-		$products = isset( $_COOKIE[ self::$cookie_name ] ) ? $_COOKIE[ self::$cookie_name ] : false;
+		$products = isset( $_COOKIE[ self::$cookie_name ] ) ? wc_clean( wp_unslash( $_COOKIE[ self::$cookie_name ] ) ) : false;
 
 		// Check if list exists.
 		if ( ! empty( $products ) ) {
 			// Convert it back to array.
-			$products = explode( ',', $products );
+			$products = array_map( 'absint', explode( ',', $products ) );
 		} else {
 			$products = false;
 		}
@@ -253,10 +274,10 @@ class WC_Products_Compare_Frontend {
 	}
 
 	/**
-	 * Get product metas headers.
+	 * Get product meta headers.
 	 *
 	 * @since 1.0.0
-	 * @param array $products
+	 * @param array $products List of products.
 	 * @return array $headers
 	 */
 	public static function get_product_meta_headers( $products = array() ) {
@@ -305,7 +326,7 @@ class WC_Products_Compare_Frontend {
 		// Move description to the top.
 		if ( in_array( 'description', $headers, true ) ) {
 			// Get array key index position.
-			$index = array_search( 'description', $headers );
+			$index = array_search( 'description', $headers, true );
 
 			unset( $headers[ $index ] );
 
@@ -315,7 +336,7 @@ class WC_Products_Compare_Frontend {
 		// Move sku to the top.
 		if ( in_array( 'sku', $headers, true ) ) {
 			// Get array key index position.
-			$index = array_search( 'sku', $headers );
+			$index = array_search( 'sku', $headers, true );
 
 			unset( $headers[ $index ] );
 
@@ -325,14 +346,14 @@ class WC_Products_Compare_Frontend {
 		// Move stock to the top.
 		if ( in_array( 'stock', $headers, true ) ) {
 			// Get array key index position.
-			$index = array_search( 'stock', $headers );
+			$index = array_search( 'stock', $headers, true );
 
 			unset( $headers[ $index ] );
 
 			array_unshift( $headers, 'stock' );
 		}
 
-		return apply_filters( 'woocommerce_products_compare_meta_headers', $headers );		
+		return apply_filters( 'woocommerce_products_compare_meta_headers', $headers );
 	}
 
 	/**
@@ -359,13 +380,10 @@ class WC_Products_Compare_Frontend {
 	 * Add product ajax
 	 *
 	 * @since 1.0.0
-	 * @return html
 	 */
 	public function add_product_ajax() {
-		$nonce = $_POST['ajaxAddProductNonce'];
-
 		// Bail if nonce don't check out.
-		if ( ! wp_verify_nonce( $nonce, '_wc_products_compare_add_product_nonce' ) ) {
+		if ( ! isset( $_POST['ajaxAddProductNonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['ajaxAddProductNonce'] ), '_wc_products_compare_add_product_nonce' ) ) {
 			die( 'error' );
 		}
 
@@ -374,10 +392,10 @@ class WC_Products_Compare_Frontend {
 			die( 'error' );
 		}
 
-		$product_id = sanitize_text_field( $_POST['product_id'] );
+		$product_id = sanitize_text_field( wp_unslash( $_POST['product_id'] ) );
 
 		$product = wc_get_product( $product_id );
-		$post = get_post( $product_id );
+		$post    = get_post( $product_id );
 
 		$html = '';
 
@@ -389,13 +407,13 @@ class WC_Products_Compare_Frontend {
 
 		$html .= '<h3>' . $post->post_title . '</h3>' . PHP_EOL;
 
-		$html .= '<a href="#" title="' . esc_attr( 'Remove Product', 'woocommerce-products-compare' ) . '" class="remove-compare-product" data-remove-id="' . esc_attr( $product->get_id() ) . '">' . __( 'Remove Product', 'woocommerce-products-compare' ) . '</a>' . PHP_EOL;
+		$html .= '<a href="#" title="' . esc_attr__( 'Remove Product', 'woocommerce-products-compare' ) . '" class="remove-compare-product" data-remove-id="' . esc_attr( $product->get_id() ) . '">' . esc_html__( 'Remove Product', 'woocommerce-products-compare' ) . '</a>' . PHP_EOL;
 
 		$html .= '</a>' . PHP_EOL;
 
-		$html .= '</li>' . PHP_EOL;		
+		$html .= '</li>' . PHP_EOL;
 
-		echo $html;
+		echo $html; // phpcs:ignore
 		exit;
 	}
 }

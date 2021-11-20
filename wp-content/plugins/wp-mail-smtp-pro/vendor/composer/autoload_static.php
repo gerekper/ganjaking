@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit11528cb91f49ed2293b7326801f875b7
+class ComposerStaticInitcc6c97ff08232e89bfe20c5014f4b9c0
 {
     public static $files = array (
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
@@ -170,6 +170,7 @@ class ComposerStaticInit11528cb91f49ed2293b7326801f875b7
         'Firebase\\JWT\\ExpiredException' => __DIR__ . '/..' . '/firebase/php-jwt/src/ExpiredException.php',
         'Firebase\\JWT\\JWK' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWK.php',
         'Firebase\\JWT\\JWT' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWT.php',
+        'Firebase\\JWT\\Key' => __DIR__ . '/..' . '/firebase/php-jwt/src/Key.php',
         'Firebase\\JWT\\SignatureInvalidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/SignatureInvalidException.php',
         'InstituteWeb\\ComposerScripts\\ImprovedScriptExecution' => __DIR__ . '/..' . '/instituteweb/composer-scripts/src/ImprovedScriptExecution.php',
         'WPMailSMTP\\Admin\\AdminBarMenu' => __DIR__ . '/../..' . '/src/Admin/AdminBarMenu.php',
@@ -474,6 +475,14 @@ class ComposerStaticInit11528cb91f49ed2293b7326801f875b7
         'WPMailSMTP\\Vendor\\Aws\\Endpoint\\PartitionEndpointProvider' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Endpoint/PartitionEndpointProvider.php',
         'WPMailSMTP\\Vendor\\Aws\\Endpoint\\PartitionInterface' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Endpoint/PartitionInterface.php',
         'WPMailSMTP\\Vendor\\Aws\\Endpoint\\PatternEndpointProvider' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Endpoint/PatternEndpointProvider.php',
+        'WPMailSMTP\\Vendor\\Aws\\Endpoint\\UseDualstackEndpoint\\Configuration' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Endpoint/UseDualstackEndpoint/Configuration.php',
+        'WPMailSMTP\\Vendor\\Aws\\Endpoint\\UseDualstackEndpoint\\ConfigurationInterface' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Endpoint/UseDualstackEndpoint/ConfigurationInterface.php',
+        'WPMailSMTP\\Vendor\\Aws\\Endpoint\\UseDualstackEndpoint\\ConfigurationProvider' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Endpoint/UseDualstackEndpoint/ConfigurationProvider.php',
+        'WPMailSMTP\\Vendor\\Aws\\Endpoint\\UseDualstackEndpoint\\Exception\\ConfigurationException' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Endpoint/UseDualstackEndpoint/Exception/ConfigurationException.php',
+        'WPMailSMTP\\Vendor\\Aws\\Endpoint\\UseFipsEndpoint\\Configuration' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Endpoint/UseFipsEndpoint/Configuration.php',
+        'WPMailSMTP\\Vendor\\Aws\\Endpoint\\UseFipsEndpoint\\ConfigurationInterface' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Endpoint/UseFipsEndpoint/ConfigurationInterface.php',
+        'WPMailSMTP\\Vendor\\Aws\\Endpoint\\UseFipsEndpoint\\ConfigurationProvider' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Endpoint/UseFipsEndpoint/ConfigurationProvider.php',
+        'WPMailSMTP\\Vendor\\Aws\\Endpoint\\UseFipsEndpoint\\Exception\\ConfigurationException' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Endpoint/UseFipsEndpoint/Exception/ConfigurationException.php',
         'WPMailSMTP\\Vendor\\Aws\\Exception\\AwsException' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Exception/AwsException.php',
         'WPMailSMTP\\Vendor\\Aws\\Exception\\CommonRuntimeException' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Exception/CommonRuntimeException.php',
         'WPMailSMTP\\Vendor\\Aws\\Exception\\CouldNotCreateChecksumException' => __DIR__ . '/../..' . '/vendor_prefixed/aws/aws-sdk-php/src/Exception/CouldNotCreateChecksumException.php',
@@ -1469,9 +1478,9 @@ class ComposerStaticInit11528cb91f49ed2293b7326801f875b7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit11528cb91f49ed2293b7326801f875b7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit11528cb91f49ed2293b7326801f875b7::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit11528cb91f49ed2293b7326801f875b7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcc6c97ff08232e89bfe20c5014f4b9c0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcc6c97ff08232e89bfe20c5014f4b9c0::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcc6c97ff08232e89bfe20c5014f4b9c0::$classMap;
 
         }, null, ClassLoader::class);
     }

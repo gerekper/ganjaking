@@ -15,7 +15,7 @@ class RsLottieBase extends RsAddOnLottieBase {
 					 $_PluginUrl     = RS_LOTTIE_PLUGIN_URL,
 					 $_PluginTitle   = 'lottie',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '3.0.4';
+				     $_Version       = '3.0.5';
 	
 	public function __construct() {
 		

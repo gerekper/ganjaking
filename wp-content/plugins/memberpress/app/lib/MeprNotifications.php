@@ -60,8 +60,7 @@ class MeprNotifications {
 
     if (
       MeprUtils::is_mepr_admin()
-      // TODO: Add a MemberPress Setting?
-      // && ! mepr_setting( 'hide-announcements', false )
+      && ! get_option( 'mepr_hide_announcements' )
     ) {
       $access = true;
     }

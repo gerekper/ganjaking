@@ -797,6 +797,9 @@
 			// WooCommerce Shipment Tracking
 			$content = str_replace(	'[[PDFSHIPMENTTRACKING]]', 					self::get_shipment_tracking( $order_id ), 		 							$content );
 
+			// Paid im full overlay
+			$content = str_replace(	'[[PDFPAIDINFULLOVERLAY]]', 				self::get_pdf_template_paid_in_full_overlay( $order, $settings ), 			$content );
+
 			// Allow the content to be filtered
 			$content = apply_filters( 'pdf_content_additional_content' , $content , $order_id );
 
@@ -943,7 +946,9 @@
 			$pdfcompanyname = get_post_meta( $order_id,'_pdf_company_name',TRUE );
 
 			if ( !isset( $pdfcompanyname ) || $pdfcompanyname == '' ) {
-				$pdfcompanyname    = __( $settings['pdf_company_name'], 'woocommerce-pdf-invoice' );
+				$pdfcompanyname = $settings['pdf_company_name'];
+				$pdfcompanyname = isset( $pdfcompanyname ) && strlen( $pdfcompanyname ) != 0 ? $pdfcompanyname : "";
+				$pdfcompanyname = __( $pdfcompanyname, 'woocommerce-pdf-invoice' );
 			}
 
 			return apply_filters( 'pdf_invoice_display_companyname', $pdfcompanyname, $order_id );
@@ -960,7 +965,9 @@
 			$pdf_company_details = nl2br( get_post_meta( $order_id,'_pdf_company_details',TRUE ) );
 
 			if ( !isset( $pdf_company_detailspdf_company_details ) || $pdf_company_details == '' ) {
-				$pdf_company_details    = nl2br( __( $settings['pdf_company_details'], 'woocommerce-pdf-invoice' ) );
+				$pdf_company_details = $settings['pdf_company_details'];
+				$pdf_company_details = isset( $pdf_company_details ) && strlen( $pdf_company_details ) != 0 ? $pdf_company_details : "";
+				$pdf_company_details = nl2br( __( $pdf_company_details, 'woocommerce-pdf-invoice' ) );
 			}
 
 			return apply_filters( 'pdf_invoice_display_companydetails', $pdf_company_details, $order_id );
@@ -977,7 +984,9 @@
 			$pdf_registered_name = get_post_meta( $order_id,'_pdf_registered_name',TRUE );
 
 			if ( !isset( $pdf_registered_name ) || $pdf_registered_name == '' ) {
-				$pdf_registered_name    = __( $settings['pdf_registered_name'], 'woocommerce-pdf-invoice' );
+				$pdf_registered_name = $settings['pdf_registered_name'];
+				$pdf_registered_name = isset( $pdf_registered_name ) && strlen( $pdf_registered_name ) != 0 ? $pdf_registered_name : "";
+				$pdf_registered_name = __( $pdf_registered_name, 'woocommerce-pdf-invoice' );
 			}
 
 			return apply_filters( 'pdf_invoice_display_registeredname', $pdf_registered_name, $order_id );
@@ -994,7 +1003,9 @@
 			$pdf_registered_address = get_post_meta( $order_id,'_pdf_registered_address',TRUE );
 
 			if ( !isset( $pdf_registered_address ) || $pdf_registered_address == '' ) {
-				$pdf_registered_address    = __( $settings['pdf_registered_address'], 'woocommerce-pdf-invoice' );
+				$pdf_registered_address = $settings['pdf_registered_address'];
+				$pdf_registered_address = isset( $pdf_registered_address ) && strlen( $pdf_registered_address ) != 0 ? $pdf_registered_address : "";
+				$pdf_registered_address = __( $pdf_registered_address, 'woocommerce-pdf-invoice' );
 			}
 
 			return apply_filters( 'pdf_invoice_display_registered_address', $pdf_registered_address, $order_id );
@@ -1011,7 +1022,9 @@
 			$pdf_company_number = get_post_meta( $order_id,'_pdf_company_number',TRUE );
 
 			if ( !isset( $pdf_company_number ) || $pdf_company_number == '' ) {
-				$pdf_company_number    = __( $settings['pdf_company_number'], 'woocommerce-pdf-invoice' );
+				$pdf_company_number = $settings['pdf_company_number'];
+				$pdf_company_number = isset( $pdf_company_number ) && strlen( $pdf_company_number ) != 0 ? $pdf_company_number : "";
+				$pdf_company_number = __( $pdf_company_number, 'woocommerce-pdf-invoice' );
 			}
 
 			return apply_filters( 'pdf_invoice_display_company_number', $pdf_company_number, $order_id );
@@ -1028,7 +1041,9 @@
 			$pdf_tax_number = get_post_meta( $order_id,'_pdf_tax_number',TRUE );
 
 			if ( !isset( $pdf_tax_number ) || $pdf_tax_number == '' ) {
-				$pdf_tax_number    = __( $settings['pdf_tax_number'], 'woocommerce-pdf-invoice' );
+				$pdf_tax_number = $settings['pdf_tax_number'];
+				$pdf_tax_number = isset( $pdf_tax_number ) && strlen( $pdf_tax_number ) != 0 ? $pdf_tax_number : "";
+				$pdf_tax_number = __( $pdf_tax_number, 'woocommerce-pdf-invoice' );
 			}
 
 			return apply_filters( 'pdf_invoice_display_tax_number', $pdf_tax_number, $order_id );
@@ -1049,6 +1064,8 @@
 			$pdf_registered_name = get_post_meta( $order_id,'_pdf_registered_name',TRUE );
 
 			if ( !isset( $pdf_registered_name ) || $pdf_registered_name == '' ) {
+				$pdf_registered_name = $settings['pdf_registered_name'];
+				$pdf_registered_name = isset( $pdf_registered_name ) && strlen( $pdf_registered_name ) != 0 ? $pdf_registered_name : "";
 				$pdf_registered_name    = __( $settings['pdf_registered_name'], 'woocommerce-pdf-invoice' );
 			}
 
@@ -1076,7 +1093,9 @@
 			$pdf_registered_address = get_post_meta( $order_id,'_pdf_registered_address',TRUE );
 
 			if ( !isset( $pdf_registered_address ) || $pdf_registered_address == '' ) {
-				$pdf_registered_address    = __( $settings['pdf_registered_address'], 'woocommerce-pdf-invoice' );
+				$pdf_registered_address = $settings['pdf_registered_address'];
+				$pdf_registered_address = isset( $pdf_registered_address ) && strlen( $pdf_registered_address ) != 0 ? $pdf_registered_address : "";
+				$pdf_registered_address    = __( $pdf_registered_address, 'woocommerce-pdf-invoice' );
 			}
 
 			$pdf_registered_address = apply_filters( 'pdf_invoice_display_registered_address', $pdf_registered_address, $order_id );
@@ -1103,7 +1122,9 @@
 			$pdf_company_number = get_post_meta( $order_id,'_pdf_company_number',TRUE );
 
 			if ( !isset( $pdf_company_number ) || $pdf_company_number == '' ) {
-				$pdf_company_number    = __( $settings['pdf_company_number'], 'woocommerce-pdf-invoice' );
+				$pdf_company_number = $settings['pdf_company_number'];
+				$pdf_company_number = isset( $pdf_company_number ) && strlen( $pdf_company_number ) != 0 ? $pdf_company_number : "";
+				$pdf_company_number    = __( $pdf_company_number, 'woocommerce-pdf-invoice' );
 			}
 
 			$pdf_company_number = apply_filters( 'pdf_invoice_display_company_number', $pdf_company_number, $order_id );
@@ -1130,6 +1151,8 @@
 			$pdf_tax_number = get_post_meta( $order_id,'_pdf_tax_number',TRUE );
 
 			if ( !isset( $pdf_tax_number ) || $pdf_tax_number == '' ) {
+				$pdf_tax_number = $settings['pdf_tax_number'];
+				$pdf_tax_number = isset( $pdf_tax_number ) && strlen( $pdf_tax_number ) != 0 ? $pdf_tax_number : "";
 				$pdf_tax_number    = __( $settings['pdf_tax_number'], 'woocommerce-pdf-invoice' );
 			}
 
@@ -1143,16 +1166,46 @@
 		}
 
 		/**
-		 * Get the Invoice Number
+		 * Get the Display Invoice Number
 		 * @param  [type] $order_id [description]
 		 * @return [type]           [description]
 		 */
 		public static function get_invoice_display_invoice_num( $order_id ) {
-			if ( $order_id ) :
-				$invnum = esc_html( get_post_meta( $order_id, '_invoice_number_display', true ) );
-			else :
-				$invnum = ''; 
-			endif;
+
+			if ( $order_id ) {
+
+				$invnum 		= '';
+				$invoice_meta 	= get_post_meta( $order_id, '_invoice_meta', TRUE );
+
+				if( isset( $invoice_meta['invoice_number_display'] ) && strlen( $invoice_meta['invoice_number_display'] ) != 0 ) {
+					$invnum = esc_html( $invoice_meta['invoice_number_display'] );
+				} else {
+					$invnum = esc_html( get_post_meta( $order_id, '_invoice_number_display', TRUE ) );
+				}
+
+				if( $invnum == '' || strlen( $invnum ) == 0 ) {
+
+					$invoice_number = isset( $invoice_meta['invoice_number'] ) ? TRUR : FALSE;
+
+					if( $invoice_number  ) {
+						// We have a valid invoice_number, create the display_invoice_number
+						
+						$display_invoice_number = WC_pdf_functions::create_display_invoice_number( $order_id );
+
+						// Set $invnum 
+						$invnum = $display_invoice_number;
+
+						// Update the post meta _invoice_number_display
+						update_post_meta( $order_id, '_invoice_number_display', $display_invoice_number );
+
+						// Update the post meta _invoice_meta
+						$invoice_meta['invoice_number_display'] = $display_invoice_number;
+						update_post_meta( $order_id, '_invoice_meta', $invoice_meta );
+
+					}
+				}
+
+			}
 
 			return apply_filters( 'pdf_display_invoice_number', $invnum, $order_id );
 		}
@@ -1212,22 +1265,12 @@
 			// No date stored
 			$date = NULL;
 
+			// Get the date
+			$date = WC_pdf_functions::set_invoice_date( $order_id );
+
 			// Force a $date_format if one is not set
 			if ( !isset( $date_format ) || $date_format == '' ) {
 				$date_format = "j F, Y";
-			}
-
-			if ( $usedate == 'completed' && $order->get_status() == 'completed' ) {
-				// Order completed data
-				$date = WC_send_pdf::get_completed_date( $order_id );
-			} else {
-				// Order placed date
-				$date = $order->get_date_created();
-			}
-
-			// In some cases $date will be empty so we might want to send the order date
-			if ( $sendsomething && !$date ) {
-				$date = $order->get_date_created();
 			}
 			
 			// Format the date
@@ -1356,10 +1399,21 @@
 
 		}
 
+		/**
+		 * [get_invoice_shipment_tracking_title description]
+		 * @param  [type] $order_id [description]
+		 * @return [type]           [description]
+		 */
 		public static function get_invoice_shipment_tracking_title( $order_id ) {
 			return apply_filters( 'pdf_invoice_shipment_tracking_title', esc_html__('Shipment Tracking', 'woocommerce-pdf-invoice'), $order_id );
 		}
 
+		/**
+		 * [get_invoice_shipment_tracking_numbers description]
+		 * @param  [type] $order_id [description]
+		 * @param  [type] $tracking [description]
+		 * @return [type]           [description]
+		 */
 		public static function get_invoice_shipment_tracking_numbers( $order_id, $tracking ) {
 
 			$details = '<table width="100%">';
@@ -1384,14 +1438,29 @@
 			return apply_filters( 'pdf_invoice_shipment_tracking_numbers', $details, $order_id, $tracking );
 		}
 
+		/**
+		 * [get_invoice_shipment_tracking_shipped_via_title description]
+		 * @param  [type] $order_id [description]
+		 * @return [type]           [description]
+		 */
 		public static function get_invoice_shipment_tracking_shipped_via_title( $order_id ) {
 			return apply_filters( 'pdf_invoice_shipment_tracking_hipped_via_title', esc_html__('Shipped Via:', 'woocommerce-pdf-invoice'), $order_id );
 		}
 
+		/**
+		 * [get_invoice_shipment_tracking_tracking_id_title description]
+		 * @param  [type] $order_id [description]
+		 * @return [type]           [description]
+		 */
 		public static function get_invoice_shipment_tracking_tracking_id_title( $order_id ) {
 			return apply_filters( 'pdf_invoice_shipment_tracking_tracking_id_title', esc_html__('Tracking ID:', 'woocommerce-pdf-invoice'), $order_id );
 		}
 
+		/**
+		 * [get_invoice_shipment_tracking_shippied_on_title description]
+		 * @param  [type] $order_id [description]
+		 * @return [type]           [description]
+		 */
 		public static function get_invoice_shipment_tracking_shippied_on_title( $order_id ) {
 			return apply_filters( 'pdf_invoice_shipment_tracking_shippied_on_title', esc_html__('Shipped On:', 'woocommerce-pdf-invoice'), $order_id );
 		}
@@ -2787,6 +2856,66 @@
 		}
 
 		/**
+		 * Adds the pdf template paid in full overlay.
+		 *
+		 * @param      <type>  $order     The order
+		 * @param      <type>  $settings  The settings
+		 *
+		 * @return     <type>  The pdf template paid in full overlay.
+		 */
+		public static function get_pdf_template_paid_in_full_overlay( $order, $settings ) {
+
+			// Check if this option is set
+			if( isset( $settings['paid_in_full_show'] ) && $settings['paid_in_full_show'] === 'yes' ) {
+
+				$order_id 		= $order->get_id();
+				$invoice_meta 	= get_post_meta( $order_id, '_invoice_meta', TRUE );
+
+				// Check we have an invoice number
+				$has_invoice_number = isset( $invoice_meta['invoice_number'] ) ? TRUE : FALSE;
+
+				// Set the "Paid in full" text
+				if( isset( $settings['paid_in_full_text'] ) && strlen( $settings['paid_in_full_text'] ) !== 0 ) {
+					$paid_in_full_text = $settings['paid_in_full_text'];
+				} else {
+					$paid_in_full_text = __( 'PAID IN FULL', 'woocommerce-pdf-invoice' );
+				}
+
+				if( $order->needs_payment() || !$has_invoice_number ) {
+					$overlaycss = '';
+				} else {
+
+					$overlaycss = '
+					    #header:after{
+							content: "' . $paid_in_full_text . '";
+							position: absolute;
+							left: 0.3em;
+							top: 1em;
+							right: 0;
+							bottom: 0;
+							font-size: 15em;
+							font-weight: 400;
+							color: #ce1717;
+							-webkit-transform: rotate(-20deg);
+							-moz-transform: rotate(-20deg);
+							-ms-transform: rotate(-20deg);
+							-o-transform: rotate(-20deg);
+							transform: rotate(-20deg);
+							opacity: 0.3;
+					    }
+					';
+
+				}
+
+			} else {
+				// Option is off or not set, return nothing
+				$overlaycss = '';
+			}
+
+			return apply_filters( 'pdf_template_paid_in_full_overlay_css', $overlaycss, $order, $settings );
+		}
+
+		/**
 		 * [get_woocommerce_invoice_terms description]
 		 * @param  integer $page_id [description]
 		 * @return [type]           [description]
@@ -2823,9 +2952,9 @@
 			$post 	 = get_post( $id );  
 			
 			$content = str_replace(	'[[PDFFONTFAMILY]]', 					self::get_fontfamily( $order_id, $settings ),							$content );
-			$content = str_replace( '[[PDFRTL]]', 							self::get_text_direction( $order_id, $settings ),					$content );
-			$content = str_replace(	'[[TERMSTITLE]]', 						$post->post_title,  													$content );
-			$content = str_replace(	'[[TERMS]]', 							apply_filters( 'the_content', $post->post_content ),					$content );
+			$content = str_replace( '[[PDFRTL]]', 							self::get_text_direction( $order_id, $settings ),						$content );
+			$content = str_replace(	'[[TERMSTITLE]]', 						self::get_terms_title( $order_id, $post ),  							$content );
+			$content = str_replace(	'[[TERMS]]', 							self::get_terms_content( $order_id, $post ),							$content );
 
 			$content = str_replace(	'[[PDFREGISTEREDNAME]]', 				self::get_invoice_registeredname( $order_id, $settings ), 				$content );
 			$content = str_replace(	'[[PDFREGISTEREDADDRESS]]', 			self::get_invoice_registeredaddress( $order_id, $settings ),			$content );
@@ -2838,6 +2967,36 @@
 			$content = str_replace(	'[[PDFTAXNUMBER_SECTION]]', 			self::get_invoice_taxnumber_section( $order_id, $settings ), 			$content );
 			
 			return $content;	
+		}
+
+		/**
+		 * [get_terms_content description]
+		 * @param  [type] $order_id [description]
+		 * @param  [type] $post     [description]
+		 * @return [type]           [description]
+		 */
+		public static function get_terms_title( $order_id, $post ) {
+
+			return apply_filters( 'pdf_invoice_terms_title', $post->post_title, $order_id, $post );
+
+		}
+
+		/**
+		 * [get_terms_content description]
+		 * @param  [type] $order_id [description]
+		 * @param  [type] $post     [description]
+		 * @return [type]           [description]
+		 */
+		public static function get_terms_content( $order_id, $post ) {
+
+			$terms 				= apply_filters( 'pdf_invoice_terms_content', $post->post_content, $order_id, $post );
+			$apply_the_content 	= apply_filters( 'pdf_invoice_terms_content_apply_the_content', true, $order_id, $post );
+
+			if( $apply_the_content ) {
+				$terms = apply_filters( 'the_content', $post->post_content );
+			}
+
+			return $terms;
 		}
 
         /**
@@ -2888,6 +3047,11 @@
 			 
 		}
 
+		/**
+		 * { compatibilty_methods }
+		 *
+		 * @param      <type>  $order_id  The order identifier
+		 */
 		public static function compatibilty_methods( $order_id ) {
 			remove_all_filters('woocommerce_currency_symbol');
 		}

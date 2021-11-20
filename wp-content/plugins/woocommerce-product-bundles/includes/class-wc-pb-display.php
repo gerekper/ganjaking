@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  6.12.2
+ * @version  6.12.6
  */
 class WC_PB_Display {
 
@@ -857,35 +857,31 @@ class WC_PB_Display {
 				return '';
 			}
 
-			if ( false === WC_Product_Bundle::group_mode_has( $bundle->get_group_mode(), 'parent_item' ) && $bundle->contains( 'mandatory' ) ) {
+			if ( false === WC_Product_Bundle::group_mode_has( $bundle->get_group_mode(), 'parent_item' ) ) {
+
+				// Remove the entire bundle if this is the last visible item, or if the bundle contains mandatory items.
 
 				$bundled_cart_items = wc_pb_get_bundled_cart_items( $bundle_container_item );
+				$has_mandatory      = $bundle->contains( 'mandatory' );
+				$visible_items      = 0;
+
 				if ( ! empty( $bundled_cart_items ) ) {
+					foreach ( $bundled_cart_items as $bundled_cart_item ) {
 
-					// Filter array to only grap visible and mandatory items.
-					$trigger_item_key = WC_PB_Helpers::cache_get( 'woocommerce_remove_bundle_cart_item_key' );
-					if ( is_null( $trigger_item_key ) ) {
-						foreach ( $bundled_cart_items as $cart_item_key => $bundled_cart_item ) {
+						$maybe_visible_bundled_item = $bundle->get_bundled_item( $bundled_cart_item[ 'bundled_item_id' ] );
 
-							$filtered_bundled_item = $bundle->get_bundled_item( $bundled_cart_item[ 'bundled_item_id' ] );
-							if ( ! is_a( $filtered_bundled_item, 'WC_Bundled_Item' ) ) {
-								continue;
-							}
+						if ( ! is_a( $maybe_visible_bundled_item, 'WC_Bundled_Item' ) ) {
+							continue;
+						}
 
-							if ( $filtered_bundled_item->is_visible( 'cart' ) ) {
-								$trigger_item_key = $cart_item_key;
-								WC_PB_Helpers::cache_set( 'woocommerce_remove_bundle_cart_item_key', $cart_item_key );
-								break;
-							}
+						if ( $maybe_visible_bundled_item->is_visible( 'cart' ) ) {
+							$visible_items++;
 						}
 					}
 
-					/*
-					 * If it's the first child which is visible and mandatory, show a button that relays the remove action to the parent.
-					 */
-					if ( $trigger_item_key === $cart_item_key ) {
+					if ( $has_mandatory || $visible_items === 1 ) {
 
-						$remove_text = __( 'Remove this item', 'woocommerce' );
+						$remove_text = __( 'Remove this bundle', 'woocommerce-product-bundles' );
 						$link        = sprintf(
 							'<a href="%s" class="remove remove_bundle" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
 							esc_url( wc_get_cart_remove_url( $bundle_container_item_key ) ),

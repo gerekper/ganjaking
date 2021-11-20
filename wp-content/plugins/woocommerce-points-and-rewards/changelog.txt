@@ -1,5 +1,8 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2021-11-16 - version 1.7.3
+* Fix - Ensure partial redemptions meet the Minimum Points Discount.
+
 2021-09-30 - version 1.7.2
 * Fix - Add: Enable automatic translations for the plugin content.
 * Tweak - WC 5.7 compatibility.

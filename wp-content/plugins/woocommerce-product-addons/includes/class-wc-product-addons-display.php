@@ -84,8 +84,8 @@ class WC_Product_Addons_Display {
 			'price_include_tax'            => 'yes' === esc_attr( get_option( 'woocommerce_prices_include_tax' ) ),
 			'display_include_tax'          => ( wc_tax_enabled() && 'incl' === esc_attr( get_option( 'woocommerce_tax_display_shop' ) ) ) ? true : false,
 			'ajax_url'                     => WC()->ajax_url(),
-			'i18n_sub_total'               => __( 'Subtotal', 'woocommerce-product-addons' ),
-			'i18n_remaining'               => sprintf( __( '%s characters remaining', 'woocommerce-product-addons' ), '<span></span>' ),
+			'i18n_sub_total'               => esc_attr__( 'Subtotal', 'woocommerce-product-addons' ),
+			'i18n_remaining'               => esc_attr( sprintf( __( '%s characters remaining', 'woocommerce-product-addons' ), '<span></span>' ) ),
 			'currency_format_num_decimals' => absint( get_option( 'woocommerce_price_num_decimals' ) ),
 			'currency_format_symbol'       => get_woocommerce_currency_symbol(),
 			'currency_format_decimal_sep'  => esc_attr( wp_unslash( get_option( 'woocommerce_price_decimal_sep' ) ) ),
@@ -192,6 +192,7 @@ class WC_Product_Addons_Display {
 					$this->plugin_path() . '/templates/'
 				);
 
+				// This is sanitised in the template files and earlier functions.
 				echo $this->get_addon_html( $addon );
 
 				wc_get_template(
@@ -429,24 +430,45 @@ class WC_Product_Addons_Display {
 	}
 
 	/**
-	 * Check required add-ons.
+	 * Checks if the product has any required add-ons.
+	 *
+	 * Since this is an expensive operation, the result is cached.
 	 *
 	 * @param int $product_id Product ID.
 	 * @return bool
 	 */
 	protected function check_required_addons( $product_id ) {
-		// No parent add-ons, but yes to global.
-		$addons = WC_Product_Addons_Helper::get_product_addons( $product_id, false, false, true );
+		$cache_group   = 'product_check_required_addons';
+		$cache_value   = wp_cache_get( $product_id, $cache_group );
+		$last_modified = get_the_modified_date( 'U', $product_id );
 
-		if ( $addons && ! empty( $addons ) ) {
-			foreach ( $addons as $addon ) {
-				if ( isset( $addon['required'] ) && '1' == $addon['required'] ) {
-					return true;
+		if ( false === $cache_value || $last_modified !== $cache_value['last_modified'] ) {
+			// No parent add-ons, but yes to global.
+			$addons              = WC_Product_Addons_Helper::get_product_addons( $product_id, false, false, true );
+			$has_required_addons = false;
+
+			if ( $addons && ! empty( $addons ) ) {
+				foreach ( $addons as $addon ) {
+					if ( ! empty( $addon['required'] ) ) {
+						$has_required_addons = true;
+						break;
+					}
 				}
 			}
+
+			wp_cache_set(
+				$product_id,
+				array(
+					'last_modified' => $last_modified,
+					'data'          => $has_required_addons,
+				),
+				$cache_group
+			);
+		} else {
+			$has_required_addons = (bool) $cache_value['data'];
 		}
 
-		return false;
+		return $has_required_addons;
 	}
 
 	/**

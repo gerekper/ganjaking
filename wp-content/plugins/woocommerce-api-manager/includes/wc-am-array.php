@@ -378,10 +378,10 @@ class WC_AM_Array {
 	 *
 	 * @return array|bool
 	 */
-	public function get_meta_query_flattened( $type = '', $id ) {
+	public function get_meta_query_flattened( $type = '', $id = 0 ) {
 		global $wpdb;
 
-		if ( ! empty( $type ) ) {
+		if ( ! empty( $type ) && ! empty( $id ) ) {
 			$items = $wpdb->get_results( "
 				SELECT 		meta_key, meta_value
 				FROM 		$wpdb->prefix$type
@@ -436,8 +436,8 @@ class WC_AM_Array {
 	 *
 	 * @return bool|array
 	 */
-	public function get_meta_flattened( $type = '', $id, $key = '', $single = false ) {
-		if ( ! empty( $type ) ) {
+	public function get_meta_flattened( $type = '', $id = 0, $key = '', $single = false ) {
+		if ( ! empty( $type ) && ! empty( $id ) ) {
 			if ( $type == 'post' ) {
 				$meta = get_post_meta( $id, $key, $single );
 			}

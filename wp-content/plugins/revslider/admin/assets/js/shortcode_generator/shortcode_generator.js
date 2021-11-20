@@ -513,6 +513,8 @@ VISUAL COMPOSER HOOKS
 			_str.style.display = 'inline-block';
 			RVS.F.initOnOff(_str);
 		}
+
+		RVS.DOC.on('click','.rs_lib_premium_red',RVS.F.showRegisterSliderInfo);
 		
 		RVS.DOC.on('registrationdone',function() {
 			if (RVS.ENV.activated===false) {

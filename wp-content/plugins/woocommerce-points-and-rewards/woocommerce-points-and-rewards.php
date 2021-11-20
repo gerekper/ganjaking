@@ -5,7 +5,7 @@
  * Description: Reward customers for purchases and other actions with points which can be redeemed for discounts
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.7.2
+ * Version: 1.7.3
  * Text Domain: woocommerce-points-and-rewards
  * Domain Path: /languages/
  * Tested up to: 5.8
@@ -143,7 +143,7 @@ register_activation_hook( __FILE__, 'wc_points_rewards_activate' );
  */
 
 if ( ! class_exists( 'WC_Points_Rewards' ) ) :
-	define( 'WC_POINTS_REWARDS_VERSION', '1.7.2' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_POINTS_REWARDS_VERSION', '1.7.3' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_POINTS_REWARDS_ENDPOINT', 'points-and-rewards' );
 
 	class WC_Points_Rewards {
@@ -241,7 +241,7 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 		/**
 		 * Set up the Blocks integration class
 		 *
-		 * @since x.x.x
+		 * @since 1.7.0
 		 */
 		public static function setup_blocks_integration() {
 			add_action(
@@ -623,7 +623,7 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 		 *   until WooCommerce Blocks gets something we can register with to avoid the need to perform this check.
 		 *
 		 * @returns bool True if either of the blocks are present on the page.
-		 * @since x.x.x
+		 * @since 1.7.0
 		 */
 		public static function is_woocommerce_block_present() {
 

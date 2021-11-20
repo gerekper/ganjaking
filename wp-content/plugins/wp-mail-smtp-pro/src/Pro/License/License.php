@@ -174,7 +174,7 @@ class License {
 	 */
 	public function display_settings_license_key_field_content( $options ) {
 
-	$key  = 'B5E0B5F8DD8689E6ACA49DD6E6E1A930';
+		$key  = 'E7B0U5F7CC8189E6ACL19DD6F6E1B662';
 		$type = 'Pro';
 		$license  = $options->get_group( 'license' );
 		$is_valid = ! empty( $key ) &&
@@ -589,7 +589,6 @@ class License {
 	 */
 	public function notices( $below_h2 = false ) {
 		return;
-
 
 		// Grab the option and output any nag dealing with license keys.
 		$options  = new Options();

@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '65e7ae75f0e637eda183c44b305eab5e3b075b9f',
+    'reference' => '7cfce354b703961eeaf296ee988be2861f5a8b65',
     'name' => 'yoast/wordpress-seo-premium',
   ),
   'versions' => 
@@ -142,12 +142,12 @@ private static $installed = array (
     ),
     'mockery/mockery' => 
     array (
-      'pretty_version' => '1.3.4',
-      'version' => '1.3.4.0',
+      'pretty_version' => '1.3.5',
+      'version' => '1.3.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '31467aeb3ca3188158613322d66df81cedd86626',
+      'reference' => '472fa8ca4e55483d55ee1e73c963718c4393791d',
     ),
     'myclabs/deep-copy' => 
     array (
@@ -563,21 +563,21 @@ private static $installed = array (
     ),
     'yoast/phpunit-polyfills' => 
     array (
-      'pretty_version' => '1.0.1',
-      'version' => '1.0.1.0',
+      'pretty_version' => '1.0.2',
+      'version' => '1.0.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f014fb21c2b0038fd329515d59025af42fb98715',
+      'reference' => '1a582ab1d91e86aa450340c4d35631a85314ff9f',
     ),
     'yoast/wordpress-seo' => 
     array (
-      'pretty_version' => '17.5',
-      'version' => '17.5.0.0',
+      'pretty_version' => '17.6',
+      'version' => '17.6.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd783cd349dbecf03f9c53b425b3dcc1c155cef79',
+      'reference' => '76b2f1aa19e1a4ce16033e762129351e9f1217aa',
     ),
     'yoast/wordpress-seo-premium' => 
     array (
@@ -586,16 +586,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '65e7ae75f0e637eda183c44b305eab5e3b075b9f',
+      'reference' => '7cfce354b703961eeaf296ee988be2861f5a8b65',
     ),
     'yoast/wp-test-utils' => 
     array (
-      'pretty_version' => '0.2.2',
-      'version' => '0.2.2.0',
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '896f7640d86162ff7a0dc6ce59f8837f284521c5',
+      'reference' => '21df3a08974ee62f489f64e34be7f26a32ec872c',
     ),
     'yoast/yoastcs' => 
     array (

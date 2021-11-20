@@ -26,12 +26,12 @@ class WC_Product_Addons_Field_File_Upload extends WC_Product_Addons_Field {
 		if ( ! empty( $this->addon['required'] ) ) {
 			if ( empty( $_FILES[ $field_name ] ) || empty( $_FILES[ $field_name ]['name'] ) ) {
 				/* translators: %s Addon name */
-				return new WP_Error( 'error', sprintf( __( '"%s" is a required field.', 'woocommerce-product-addons' ), $this->addon['name'] ) );
+				return new WP_Error( 'error', esc_html( sprintf( __( '"%s" is a required field.', 'woocommerce-product-addons' ), $this->addon['name'] ) ) );
 			}
 		}
 
 		if ( ! empty( $_FILES[ $field_name ] ) && WC_Product_Addons_Helper::is_filesize_over_limit( $_FILES[ $field_name ] ) ) {
-			return new WP_Error( 'error', __( 'Filesize exceeds the limit.', 'woocommerce-product-addons' ) );
+			return new WP_Error( 'error', esc_html__( 'Filesize exceeds the limit.', 'woocommerce-product-addons' ) );
 		}
 
 		return true;

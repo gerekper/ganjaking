@@ -19,4 +19,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 ?>
-<?php echo $mnm_item->is_visible() ? '<a href="' . $mnm_item->get_permalink() . '" target="_blank">' . $mnm_item->get_title() . '</a>' : $mnm_item->get_title(); 
+<?php echo $mnm_item->is_visible() ? '<a href="' . $mnm_item->get_permalink() . '" target="_blank">' . WC_Mix_and_Match_Helpers::format_product_title( $title, $quantity ) . '</a>' : WC_Mix_and_Match_Helpers::format_product_title( $title, $qty ); 

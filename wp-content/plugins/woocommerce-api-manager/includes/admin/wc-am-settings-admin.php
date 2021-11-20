@@ -313,8 +313,8 @@ class WC_AM_Settings_Admin {
 				),
 
 				array(
-					'name'     => __( 'API Query Log', 'woocommerce-api-manager' ),
-					'desc'     => sprintf( __( '<br>Logs query events inside <code>%s</code><br> Log file size %s <a href="%s">View Log</a>', 'woocommerce-api-manager' ), basename( wc_get_log_file_path( 'wc-am-api-query-log' ) ), esc_attr( $this->human_readable_filesize( wc_get_log_file_path( 'wc-am-api-query-log' ) ) ), esc_url( self_admin_url() . 'admin.php?page=wc-status&tab=logs' ) ),
+					'name'     => __( 'API Request Log', 'woocommerce-api-manager' ),
+					'desc'     => sprintf( __( '<br>Logs query events inside <code>%s</code><br> Log file size %s <a href="%s">View Log</a>', 'woocommerce-api-manager' ), basename( wc_get_log_file_path( 'wc-am-api-request-log' ) ), esc_attr( $this->human_readable_filesize( wc_get_log_file_path( 'wc-am-api-query-log' ) ) ), esc_url( self_admin_url() . 'admin.php?page=wc-status&tab=logs' ) ),
 					'id'       => $this->option_prefix . '_api_debug_log',
 					'type'     => 'radio',
 					'desc_tip' => '',
@@ -346,10 +346,9 @@ class WC_AM_Settings_Admin {
 
 				array(
 					'name' => __( 'API Manager Extensions', 'woocommerce-api-manager' ),
-					'desc' => sprintf( __( '%s%sIntegrate plugins and themes easily with %sWooCommerce API Manager PHP Library for Plugins and Themes%s.%s', 'woocommerce-api-manager' ), '<ul style="list-style-type:disc;padding-left:5em">','<li>', '<a href="' . esc_url( 'https://www.toddlahman.com/shop/woocommerce-api-manager-php-library-for-plugins-and-themes/' ) . '" target="blank">', '</a>', '</li>' ),
-					//'desc' => sprintf( __( '%s%sIntegrate plugins and themes easily with %sWooCommerce API Manager PHP Library for Plugins and Themes%s.%s%sThe API Doc Tabs can be displayed automatically on the product page if the %sWooCommerce API Manager Product Tabs%s extension is implemented.%s%s', 'woocommerce-api-manager' ), '<ul style="list-style-type:disc;padding-left:5em">','<li>', '<a href="' . esc_url( 'https://www.toddlahman.com/shop/woocommerce-api-manager-php-library-for-plugins-and-themes/' ) . '" target="blank">', '</a>', '</li>', '<li>', '<a href="' . esc_url( 'https://www.toddlahman.com/shop/woocommerce-api-manager-product-tabs/' ) . '" target="blank">', '</a>', '</li>', '</ul>' ),
+					'desc' => sprintf( __( '%s%sIntegrate plugins and themes easily with %sWooCommerce API Manager PHP Library for Plugins and Themes%s.%s%sDisplay the Product API tab settings data automatically on the frontend product page with the %sWooCommerce API Manager Product Tabs%s extension is implemented.%s%s', 'woocommerce-api-manager' ), '<ul style="list-style-type:disc;padding-left:5em">','<li>', '<a href="' . esc_url( 'https://www.toddlahman.com/shop/woocommerce-api-manager-php-library-for-plugins-and-themes/' ) . '" target="blank">', '</a>', '</li>', '<li>', '<a href="' . esc_url( 'https://www.toddlahman.com/shop/woocommerce-api-manager-product-tabs/' ) . '" target="blank">', '</a>', '</li>', '</ul>' ),
 					'type' => 'title',
-					'id'   => $this->option_prefix . '_apidoctabs'
+					'id'   => $this->option_prefix . '_api_extensions_info'
 				),
 
 				array( 'type' => 'sectionend', 'id' => $this->option_prefix . '_api_extensions' ),

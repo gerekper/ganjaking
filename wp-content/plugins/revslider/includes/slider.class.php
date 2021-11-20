@@ -15,12 +15,13 @@ class RevSliderSlider extends RevSliderFunctions {
 	public $id;
 	public $title;
 	public $alias;
-	public $settings = array();
-	public $params = array();
+	public $settings		= array();
+	public $params			= array();
 	public $slides;
 	public $type;
-	public $inited = false;
+	public $inited			= false;
 	public $map;
+	public $template_slider	= false;
 
 	/**
 	 * @var RevSliderSlide
@@ -985,7 +986,8 @@ class RevSliderSlider extends RevSliderFunctions {
 		$params['title']	 = $new_title;
 		$params['alias']	 = $new_alias;
 		$params['shortcode'] = '[rev_slider alias="'. $new_alias .'"]';
-		
+		if($this->template_slider) $params['pakps'] = true;
+
 		$wpdb->update(
 			$wpdb->prefix . RevSliderFront::TABLE_SLIDER,
 			array(
@@ -1684,6 +1686,17 @@ class RevSliderSlider extends RevSliderFunctions {
 		
 		$response = $wpdb->insert($wpdb->prefix . RevSliderFront::TABLE_SLIDES, $slide_to_copy);
 		
+		if($response){
+			if($this->template_slider){
+				$sl = new RevSliderSlider();
+				$sl->init_by_id($slider_id);
+				$params = $sl->get_params();
+				$params['pakps'] = true;
+				
+				$sl->update_params($params, true);
+			}
+		}
+
 		if(isset($slide_id) && $response !== false){
 			$this->map[$slide_id] = $wpdb->insert_id;
 		}
@@ -2269,8 +2282,9 @@ class RevSliderSlider extends RevSliderFunctions {
 		if($published == true){ //Events integration
 			$addition['post_status'] = 'publish';
 		}
-		$addition	= array_merge($addition, RevSliderWooCommerce::get_meta_query($this->get_params()));
 		
+		$addition = array_merge($addition, RevSliderWooCommerce::get_meta_query($this->get_params()));
+
 		return $this->get_posts_by_category($slider_id, $cat_ids, $sort_by, $sort_dir, $max_posts, $post_types, $taxonomies, $addition);
 	}
 	
@@ -2310,21 +2324,39 @@ class RevSliderSlider extends RevSliderFunctions {
 		$image		= '';
 		$sid		= $slider->get_id();
 		$do_ids		= ($slide_ids !== false) ? false : true;
-		
+		$addons_used = array();
+
 		if(!empty($slides)){
 			foreach($slides as $slide){
 				$id		= $slide->get_id();
 				$image	= ($post60) ? $slide->get_overview_image_attributes($type) : $slide->get_overview_image_attributes_pre60($type);
 				break;
 			}
-			if($do_ids){
-				$slide_ids = array();
-				foreach($slides as $slide){
-					$slide_ids[] = $slide->get_id();
+			if($do_ids) $slide_ids = array();
+			
+			foreach($slides as $slide){
+				if($do_ids) $slide_ids[] = $slide->get_id();
+
+				$addons = $slide->get_param('addOns');
+				if(!empty($addons)){
+					foreach($addons as $addon => $values){
+						if($this->_truefalse($this->get_val($values, 'enable', false)) === true){
+							if(!in_array($addon, $addons_used)) $addons_used[] = $addon;
+						}
+					}
 				}
 			}
 		}
-		
+
+		$addons = $slider->get_param('addOns');
+		if(!empty($addons)){
+			foreach($addons as $addon => $values){
+				if($this->_truefalse($this->get_val($values, 'enable', false)) === true){
+					if(!in_array($addon, $addons_used)) $addons_used[] = $addon;
+				}
+			}
+		}
+
 		return array(
 			'id'		=> $sid,
 			'slide_id'	=> $id,
@@ -2335,6 +2367,8 @@ class RevSliderSlider extends RevSliderFunctions {
 			'type'		=> ($post60) ? $slider->get_param('type', 'standard') : $slider->get_param('slider-type', 'standard'),
 			'size'		=> ($post60) ? $slider->get_param('layouttype') : $slider->get_param('slider_type', 'fullwidth'),
 			'bg'		=> $image,
+			'addons'	=> $addons_used,
+			'premium'	=> $slider->get_param('pakps', false),
 			'tags'		=> $this->get_tags(),
 			'favorite'	=> $favorite->is_favorite('modules', $sid),
 			'children'	=> ($slider instanceof RevSliderFolder) ? $slider->get_children() : array(),

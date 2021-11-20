@@ -51,16 +51,16 @@ $generated_i18n_strings = array(
 	// Reference: packages/components/src/Toggle.js:146
 	__( 'Off', 'wordpress-seo' ),
 
-	// Reference: packages/components/src/WordOccurrenceInsights.js:21
+	// Reference: packages/components/src/WordOccurrenceInsights.js:23
 	__( 'Read our %1$sultimate guide to keyword research%2$s to learn more about keyword research and keyword strategy.', 'wordpress-seo' ),
 
-	// Reference: packages/components/src/WordOccurrenceInsights.js:47
+	// Reference: packages/components/src/WordOccurrenceInsights.js:49
 	__( 'Once you add a bit more copy, we\'ll give you a list of words that occur the most in the content. These give an indication of what your content focuses on.', 'wordpress-seo' ),
 
-	// Reference: packages/components/src/WordOccurrenceInsights.js:54
+	// Reference: packages/components/src/WordOccurrenceInsights.js:56
 	__( 'The following words occur the most in the content. These give an indication of what your content focuses on. If the words differ a lot from your topic, you might want to rewrite your content accordingly. ', 'wordpress-seo' ),
 
-	// Reference: packages/components/src/WordOccurrenceInsights.js:72
+	// Reference: packages/components/src/WordOccurrenceInsights.js:74
 	// Reference: packages/components/src/data-model/DataModel.js:50
 	__( 'Prominent words', 'wordpress-seo' ),
 
@@ -179,13 +179,10 @@ $generated_i18n_strings = array(
 	// Reference: packages/search-metadata-previews/src/snippet-editor/ModeSwitcher.js:91
 	__( 'Mobile result', 'wordpress-seo' ),
 
-	// Reference: packages/search-metadata-previews/src/snippet-editor/SnippetEditor.js:277
-	__( 'Modify your meta description by editing it right here', 'wordpress-seo' ),
-
-	// Reference: packages/search-metadata-previews/src/snippet-editor/SnippetEditor.js:300
+	// Reference: packages/search-metadata-previews/src/snippet-editor/SnippetEditor.js:294
 	__( 'Close snippet editor', 'wordpress-seo' ),
 
-	// Reference: packages/search-metadata-previews/src/snippet-editor/SnippetEditor.js:591
+	// Reference: packages/search-metadata-previews/src/snippet-editor/SnippetEditor.js:585
 	__( 'Edit snippet', 'wordpress-seo' ),
 
 	// Reference: packages/search-metadata-previews/src/snippet-editor/SnippetEditorFields.js:292

@@ -402,46 +402,11 @@ class GFSettings {
 						'class'               => 'gform-admin-input',
 						'validation_callback' => array( 'GFSettings', 'license_key_validation_callback' ),
 						'after_input'         => function () {
-							/**
-							 * @var License\GF_License_API_Connector $license_connector
-							 */
-							$license_connector = GFForms::get_service_container()->get( License\GF_License_Service_Provider::LICENSE_API_CONNECTOR );
-							$is_save_postback  = self::get_settings_renderer()->is_save_postback();
-							$license_key       = $is_save_postback ? rgpost( '_gform_setting_license_key' ) : GFCommon::get_key();
-
-							if ( empty( $license_key ) ) {
-								delete_transient( 'rg_gforms_registration_error' );
-								return '';
-							}
-
-							$license_info      = $license_connector->check_license( trim( $license_key ), ! $is_save_postback );
-							$usability         = $license_info->get_usability();
-
-							$license_key_alert = sprintf(
-								'<div class="alert gforms_note_%s">%s %s</div>',
-								$usability,
-								$is_save_postback && ! $license_info->can_be_used() ? __( 'Your license key was not updated. ', 'gravityforms' ) : null,
-								License\GF_License_Statuses::get_message_for_code( $license_info->get_status() )
-							);
-
-							delete_transient( 'rg_gforms_registration_error' );
-
+							$license_key_alert = sprintf('<div class="alert gforms_note_success">%s</div>', esc_html__( 'Your support license key has been successfully validated.', 'gravityforms' ));
 							return $license_key_alert;
 						},
 						'feedback_callback' => function () {
-							$license_key = GFCommon::get_key();
-
-							if ( empty( $license_key ) ) {
-								return License\GF_License_Statuses::USABILITY_ALLOWED;
-							}
-
-							/**
-							 * @var License\GF_License_API_Connector $license_connector
-							 */
-							$license_connector = GFForms::get_service_container()->get( License\GF_License_Service_Provider::LICENSE_API_CONNECTOR );
-							$license_info      = $license_connector->check_license();
-
-							return $license_info->get_usability();
+							return 'success';
 						},
 					),
 				),
@@ -1081,34 +1046,14 @@ class GFSettings {
 	 * @return void
 	 */
 	public static function upgrade_license() {
-		$key                = GFCommon::get_key();
-		$body               = "key=$key";
-		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
-		$options['headers'] = array(
-			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
-			'Content-Length' => strlen( $body ),
-			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
-			'Referer'        => get_bloginfo( 'url' ),
-		);
 
-		$raw_response = GFCommon::post_to_manager( 'api.php', 'op=upgrade_message&key=' . GFCommon::get_key(), $options );
-
-		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
 			$message = '';
-		} else {
-			$message = $raw_response['body'];
-		}
 
-		// Validating that message is a valid Gravity Form message. If message is invalid, don't display anything.
-		if ( substr( $message, 0, 10 ) != '<!--GFM-->' ) {
-			$message = '';
-		}
 
 		echo $message;
 
 		exit;
 	}
-
 	/**
 	 * Outputs the settings page header.
 	 *

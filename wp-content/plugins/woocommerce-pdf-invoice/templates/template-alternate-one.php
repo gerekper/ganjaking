@@ -113,23 +113,23 @@
       <td valign="top" width="40%">
         <table width="100%">
           <tr>
-            <td colspan="2"><h2>[[PDFDOCTITLE]]</h2></td>
+            <td colspan="2" id="invoicetitle"><h2>[[PDFDOCTITLE]]</h2></td>
           </tr>
           <tr>
-            <td width="50%">[[PDFINVOICENUMHEADING]]</td>
-            <td width="50%">[[PDFINVOICENUM]]</td>
+            <td width="50%" id="invoicenumberheading">[[PDFINVOICENUMHEADING]]</td>
+            <td width="50%" id="invoicenumber">[[PDFINVOICENUM]]</td>
           </tr>
           <tr>
-            <td>[[PDFINVOICEDATEHEADING]]</td>
-            <td>[[PDFINVOICEDATE]]</td>
+            <td id="invoicedateheading">[[PDFINVOICEDATEHEADING]]</td>
+            <td id="invoicedate">[[PDFINVOICEDATE]]</td>
           </tr>
           <tr>
-            <td>[[PDFORDERENUMHEADING]]</td>
-            <td>[[PDFORDERENUM]]</td>
+            <td id="ordernumberheading">[[PDFORDERENUMHEADING]]</td>
+            <td id="ordernumber">[[PDFORDERENUM]]</td>
           </tr>
           <tr>
-            <td>[[PDFORDERDATEHEADING]]</td>
-            <td>[[PDFORDERDATE]]</td>
+            <td id="orderdateheading">[[PDFORDERDATEHEADING]]</td>
+            <td id="orderdate">[[PDFORDERDATE]]</td>
           </tr>
         </table>
       </td>
@@ -138,12 +138,12 @@
 
   <table width="100%">
     <tr>
-      <td valign="top" width="33%">
+      <td valign="top" width="33%" id="company-info">
       <h3>[[PDFINVOICE_SUPPLYDETAILS_HEADING]]</h3>
           [[PDFCOMPANYNAME]]<br />
           [[PDFCOMPANYDETAILS]]
       </td> 
-    	<td valign="top" width="33%">
+    	<td valign="top" width="33%" id="billingdetails">
     	<h3>[[PDFINVOICE_BILLINGDETAILS_HEADING]]</h3>
   		    [[PDFBILLINGADDRESS]]<br />
           [[PDFBILLINGTEL]]<br />
@@ -152,7 +152,7 @@
       <h3>[[PDFINVOICE_PAYMETHOD_HEADING]]</h3>
           [[PDFINVOICEPAYMENTMETHOD]]
     	</td>
-    	<td valign="top" width="33%">
+    	<td valign="top" width="33%" id="shippingdetails">
     	<h3>[[PDFINVOICE_SHIPPINGDETAILS_HEADING]]</h3>
 		      [[PDFSHIPPINGADDRESS]]
       <h3>[[PDFINVOICE_SHIPMETHOD_HEADING]]</h3>
@@ -178,12 +178,12 @@
     
 	<table table width="100%">
     	<tr>
-        	<td width="60%" valign="top">
+        	<td width="60%" valign="top" id="ordernotes">
             [[PDFORDERNOTES]]
         	</td>
         	<td width="40%" valign="top" align="right">
             
-            	<table width="100%">
+            	<table width="100%" id="ordertotals">
                 [[PDFORDERTOTALS]]
             	</table>
             

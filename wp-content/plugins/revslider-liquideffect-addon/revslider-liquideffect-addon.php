@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Distortion Effect AddOn
 Plugin URI: http://www.themepunch.com/
 Description: Enhance your slides with distortion effects
 Author: ThemePunch
-Version: 3.0.2
+Version: 3.0.3
 Author URI: http://themepunch.com
 */
 

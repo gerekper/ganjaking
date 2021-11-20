@@ -1348,6 +1348,12 @@ class WC_Product_Bundle extends WC_Product {
 				&& ( ! $this->managing_stock() || $this->get_stock_quantity() > $bundle_stock_quantity )
 			) {
 
+				/*
+				 * Do not show remaining stock at bundle level if:
+				 * - a bundled item manages stock;
+				 * - min !== max qty; and
+				 * - purchasing the max possible qty affects the remaining bundle stock
+				 */
 				$has_undefined_bundle_stock_quantity = false;
 
 				foreach ( $this->get_bundled_items() as $bundled_item ) {

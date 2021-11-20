@@ -26,6 +26,9 @@ class RevSliderLicense extends RevSliderFunctions {
 		if($version_info == 'valid'){
 			update_option('revslider-valid', 'true');
 			update_option('revslider-code', $code);
+			update_option('revslider-trustpilot', 'true');
+			update_option('revslider-deregister-popup', 'false');
+
 			return true;
 		}elseif($version_info == 'exist'){
 			return 'exist';
@@ -55,7 +58,9 @@ class RevSliderLicense extends RevSliderFunctions {
 		if($vi == 'valid'){
 			update_option('revslider-valid', 'false');
 			update_option('revslider-code', '');
-			
+			update_option('revslider-trustpilot', 'false');
+			update_option('revslider-deregister-popup', 'true');
+
 			return true;
 		}
 		

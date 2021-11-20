@@ -1,24 +1,31 @@
 <?php
 /**
- * The widget class
+ * The widget class.
+ *
+ * @package WC_Products_Compare
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
+/**
+ * WC_Products_Compare_Widget class.
+ *
+ * phpcs:disable Squiz.Commenting.FunctionComment.Missing, WordPress.Security.NonceVerification.Recommended
+ */
 class WC_Products_Compare_Widget extends WP_Widget {
 
 	/**
 	 * Init
 	 *
-	 * @access public
 	 * @since 1.0.0
-	 * @return bool
 	 */
 	public function __construct() {
-
-		$widget_ops = array( 'classname' => 'woocommerce woocommerce-products-compare-widget', 'description' => __( 'Displays a running list of compared products.', 'woocommerce-products-compare' ) );
+		$widget_ops = array(
+			'classname'   => 'woocommerce woocommerce-products-compare-widget',
+			'description' => __( 'Displays a running list of compared products.', 'woocommerce-products-compare' ),
+		);
 
 		parent::__construct( 'compared_products', __( 'WooCommerce Products Compare', 'woocommerce-products-compare' ), $widget_ops );
 	}
@@ -75,34 +82,32 @@ class WC_Products_Compare_Widget extends WP_Widget {
 			$html .= '<p class="no-products">' . __( 'Add some products to compare.', 'woocommerce-products-compare' ) . '</p>' . PHP_EOL;
 		}
 
-		$html .= '<a href="' . esc_url( site_url() . '/' . $endpoint  ) . '" title="' . esc_attr( 'Compare Products', 'woocommerce-products-compare' ) . '" class="button woocommerce-products-compare-widget-compare-button">' . __( 'Compare Products', 'woocommerce-products-compare' ) . '</a>' . PHP_EOL;
+		$html .= '<a href="' . esc_url( site_url() . '/' . $endpoint ) . '" title="' . esc_attr__( 'Compare Products', 'woocommerce-products-compare' ) . '" class="button woocommerce-products-compare-widget-compare-button">' . esc_html__( 'Compare Products', 'woocommerce-products-compare' ) . '</a>' . PHP_EOL;
 
 		$html .= $args['after_widget'];
 
-		echo $html;
+		echo $html; // phpcs:ignore
 	}
 
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title'] = wp_strip_all_tags( $new_instance['title'] );
 
 		return $instance;
 	}
 
 	public function form( $instance ) {
-		//Defaults
 		$instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
-
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Compare Products', 'woocommerce-products-compare' );
-	?>
+		$title    = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Compare Products', 'woocommerce-products-compare' );
+		?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title:', 'woocommerce-products-compare' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'woocommerce-products-compare' ); ?></label>
 
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 
 		</p>
-	<?php
+		<?php
 		return true;
 	}
 }

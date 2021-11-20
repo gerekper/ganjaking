@@ -183,27 +183,8 @@ class GFAutoUpgrade {
 	}
 
 	private function get_changelog() {
-		$key                = $this->get_key();
-		$body               = "key={$key}";
-		$options            = array( 'method' => 'POST', 'timeout' => 3, 'body' => $body );
-		$options['headers'] = array(
-			'Content-Type'   => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
-			'Content-Length' => strlen( $body ),
-			'User-Agent'     => 'WordPress/' . get_bloginfo( 'version' ),
-			'Referer'        => get_bloginfo( 'url' ),
-		);
 
-		$raw_response = GFCommon::post_to_manager( 'changelog.php', $this->get_remote_request_params( $this->_slug, $key, $this->_version ), $options );
-
-		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
-			$text = sprintf( esc_html__( 'Oops!! Something went wrong.%sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='https://www.gravityforms.com/support/'>", '</a>' );
-		} else {
-			$text = $raw_response['body'];
-			if ( substr( $text, 0, 10 ) != '<!--GFM-->' ) {
 				$text = '';
-			}
-		}
-
 		return stripslashes( $text );
 	}
 
@@ -271,7 +252,7 @@ class GFAutoUpgrade {
 
 		$updates[] = array(
 			'name'              => esc_html( $this->_title ),
-			'is_valid_key'      => rgar( $version_info, 'is_valid_key' ),
+			'is_valid_key'      => true,
 			'path'              => $this->_path,
 			'slug'              => $this->_slug,
 			'latest_version'    => $version_info['version'],
@@ -294,17 +275,12 @@ class GFAutoUpgrade {
 			<?php
 			$force_check = rgget( 'force-check' ) == 1;
 			$version_info = $this->get_version_info( $this->_slug, ! $force_check );
-
-			if ( ! rgar( $version_info, 'is_valid_key' ) ) {
 				?>
-				<div class="gf_update_expired alert_red">
-					<?php printf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic updates and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="admin.php?page=gf_settings">','</a>','<a href="https://www.gravityforms.com">', '</a>' ); ?>
-				</div>
 
 			<?php
-			} elseif ( version_compare( $this->_version, $version_info['version'], '<' ) ) {
+			if ( version_compare( $this->_version, $version_info['version'], '<' ) ) {
 
-				if ( rgar( $version_info, 'is_valid_key' ) ) {
+				
 					$plugin_file = $this->_path;
 					$upgrade_url = wp_nonce_url( 'update.php?action=upgrade-plugin&amp;plugin=' . urlencode( $plugin_file ), 'upgrade-plugin_' . $plugin_file );
 					$details_url = self_admin_url( 'plugin-install.php?tab=plugin-information&plugin=' . urlencode( $this->_slug ) . '&section=changelog&TB_iframe=true&width=600&height=800' );
@@ -317,7 +293,7 @@ class GFAutoUpgrade {
 						<?php echo $message . ' <p>' . sprintf( esc_html__( 'You can update to the latest version automatically or download the update and install it manually. %sUpdate Automatically%s %sDownload Update%s', 'gravityforms' ), "</p><a class='button-primary' href='{$upgrade_url}'>", '</a>', "&nbsp;<a class='button' href='{$version_info['url']}'>", '</a>' ); ?>
 					</div>
 				<?php
-				}
+				
 			} else {
 
 				?>

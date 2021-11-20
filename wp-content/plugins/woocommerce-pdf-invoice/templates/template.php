@@ -8,6 +8,7 @@
       font-family: [[PDFFONTFAMILY]];
       font-size: 11px;
     }
+
     @page { 
   		margin: 480px 50px 100px 50px;
   	} 
@@ -18,7 +19,8 @@
   		right: 0px; 
   		height: 480px; 
   		text-align: center;
-  	} 
+  	}
+    [[PDFPAIDINFULLOVERLAY]]
     #footer { 
   		position: fixed; 
   		left: 0px; 
@@ -101,78 +103,81 @@
   </style> 
 </head>
   <body[[PDFRTL]]> 
-  <div id="header"> 
-  <table table width="100%">
-	<tr>
-    	<td valign="top" width="50%" id="logo">[[PDFLOGO]]</td>
-    	<td valign="top" width="50%" id="company-info">[[PDFCOMPANYNAME]]<br />[[PDFCOMPANYDETAILS]]<br /></td>
-	</tr>
-  </table>
-  <table table width="100%">
-	<tr>
-	   	<td width="20%" valign="top">[[PDFINVOICENUMHEADING]]</td>
-	    <td width="30%" valign="top">[[PDFINVOICENUM]]</td>
-	   	<td width="20%" valign="top">[[PDFORDERENUMHEADING]]</td>
-	    <td width="30%" valign="top">[[PDFORDERENUM]]</td>
-	</tr>
-	<tr>
-	   	<td valign="top">[[PDFINVOICEDATEHEADING]]</td>
-       	<td valign="top">[[PDFINVOICEDATE]]</td>
-    	<td valign="top">[[PDFORDERDATEHEADING]]</td>
-       	<td valign="top">[[PDFORDERDATE]]</td>
-    </tr>
+    <div class="paidinfull">
+      <div id="header"> 
+        <table table width="100%">
+
+        	<tr>
+            	<td valign="top" width="50%" id="logo">[[PDFLOGO]]</td>
+            	<td valign="top" width="50%" id="company-info">[[PDFCOMPANYNAME]]<br />[[PDFCOMPANYDETAILS]]<br /></td>
+        	</tr>
+
+        </table>
+
+        <table table width="100%">
+        	<tr>
+            <td width="20%" valign="top" id="invoicenumberheading">[[PDFINVOICENUMHEADING]]</td>
+            <td width="30%" valign="top" id="invoicenumber">[[PDFINVOICENUM]]</td>
+            <td width="20%" valign="top" id="ordernumberheading">[[PDFORDERENUMHEADING]]</td>
+            <td width="30%" valign="top" id="ordernumber">[[PDFORDERENUM]]</td>
+        	</tr>
+
+          <tr>
+      	   	<td valign="top" id="invoicedateheading">[[PDFINVOICEDATEHEADING]]</td>
+            <td valign="top" id="invoicedate">[[PDFINVOICEDATE]]</td>
+          	<td valign="top" id="orderdateheading">[[PDFORDERDATEHEADING]]</td>
+            <td valign="top" id="orderdate">[[PDFORDERDATE]]</td>
+          </tr>
     
-    <tr>
-	   	<td valign="top">[[PDFINVOICE_PAYMETHOD_HEADING]]</td>
-       	<td valign="top">[[PDFINVOICEPAYMENTMETHOD]]</td>
-    	<td valign="top">[[PDFINVOICE_SHIPMETHOD_HEADING]]</td>
-        <td valign="top">[[PDFSHIPPINGMETHOD]]</td>
-    </tr>
+          <tr>
+            <td valign="top" id="paymethodheading">[[PDFINVOICE_PAYMETHOD_HEADING]]</td>
+            <td valign="top" id="paymethod">[[PDFINVOICEPAYMENTMETHOD]]</td>
+            <td valign="top" id="shipmethodheading">[[PDFINVOICE_SHIPMETHOD_HEADING]]</td>
+            <td valign="top" id="shipmethod">[[PDFSHIPPINGMETHOD]]</td>
+          </tr>
 
-    [[PDFSHIPMENTTRACKING]]
+          [[PDFSHIPMENTTRACKING]]
     
-    <tr>   
-    	<td valign="top" colspan="2">
-    	<h3>[[PDFINVOICE_BILLINGDETAILS_HEADING]]</h3>
-		[[PDFBILLINGADDRESS]]<br />
-        [[PDFBILLINGTEL]]<br />
-        [[PDFBILLINGEMAIL]]
-        [[PDFBILLINGVATNUMBER]]
-    	</td>
-    	<td valign="top" colspan="2">
-    	<h3>[[PDFINVOICE_SHIPPINGDETAILS_HEADING]]</h3>
-		[[PDFSHIPPINGADDRESS]]
-    	</td>
-    </tr>
-  </table>
-  </div>
+          <tr>   
+          <td valign="top" colspan="2" id="billingdetails">
+          <h3>[[PDFINVOICE_BILLINGDETAILS_HEADING]]</h3>
+          [[PDFBILLINGADDRESS]]<br />
+          [[PDFBILLINGTEL]]<br />
+          [[PDFBILLINGEMAIL]]
+          [[PDFBILLINGVATNUMBER]]
+          </td>
+          <td valign="top" colspan="2" id="shippingdetails">
+          <h3>[[PDFINVOICE_SHIPPINGDETAILS_HEADING]]</h3>
+          [[PDFSHIPPINGADDRESS]]
+          </td>
+          </tr>
+        </table>
+      </div>
 
-  <div id="footer"> 
+      <div id="footer"> 
 
-    <div class="copyright">[[PDFREGISTEREDNAME_SECTION]] [[PDFREGISTEREDADDRESS_SECTION]]</div>
-    <div class="copyright">[[PDFCOMPANYNUMBER_SECTION]] [[PDFTAXNUMBER_SECTION]]</div>
+        <div class="copyright">[[PDFREGISTEREDNAME_SECTION]] [[PDFREGISTEREDADDRESS_SECTION]]</div>
+        <div class="copyright">[[PDFCOMPANYNUMBER_SECTION]] [[PDFTAXNUMBER_SECTION]]</div>
 
-  </div> 
-  <div id="content">
-	  [[ORDERINFOHEADER]]
-    [[ORDERINFO]]
-    [[PDFBARCODES]]
-    
-	<table width="100%">
-    	<tr>
-        	<td width="60%" valign="top">
-            [[PDFORDERNOTES]]
-        	</td>
-        	<td width="40%" valign="top" align="right">
-            
-            	<table width="100%">
-                [[PDFORDERTOTALS]]
-            	</table>
-            
-        	</td>
-		</tr>
-	</table>
+      </div>
 
-  </div> 
+      <div id="content">
+        [[ORDERINFOHEADER]]
+        [[ORDERINFO]]
+        [[PDFBARCODES]]
+
+        <table width="100%">
+          <tr>
+            <td width="60%" valign="top" id="ordernotes">[[PDFORDERNOTES]]</td>
+            <td width="40%" valign="top" align="right">
+              <table width="100%" id="ordertotals">[[PDFORDERTOTALS]]</table>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+
+    </div>
+
 </body> 
 </html> 

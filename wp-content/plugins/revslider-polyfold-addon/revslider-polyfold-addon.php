@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Polyfold Scroll Effect
 Plugin URI: http://www.themepunch.com/
 Description: Add sharp edges to your sliders as they scroll into and out of view
 Author: ThemePunch
-Version: 3.0.3
+Version: 3.0.5
 Author URI: http://themepunch.com
 */
 

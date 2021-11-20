@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Typewriter Effect
 Plugin URI: http://www.themepunch.com/
 Description: Enhance your slider's text with typewriter effects
 Author: ThemePunch
-Version: 3.0.2
+Version: 3.0.4
 Author URI: http://themepunch.com
 */
 
@@ -22,7 +22,7 @@ if(!defined('WPINC')) die;
 
 define('RS_TYPEWRITER_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('RS_TYPEWRITER_PLUGIN_URL', str_replace('index.php', '', plugins_url( 'index.php', __FILE__)));
-define('RS_TYPEWRITER_VERSION', '3.0.2');
+define('RS_TYPEWRITER_VERSION', '3.0.4');
 
 require_once(RS_TYPEWRITER_PLUGIN_PATH . 'includes/base.class.php');
 

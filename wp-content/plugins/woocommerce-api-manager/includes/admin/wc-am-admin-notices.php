@@ -53,13 +53,7 @@ class WC_AM_Admin_Notices {
 
 		add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
 		add_action( 'shutdown', array( $this, 'store_notices' ) );
-
-		// Prevents Call to undefined function wp_get_current_user() error.
-		include_once( ABSPATH . 'wp-includes/pluggable.php' );
-
-		if ( current_user_can( 'manage_woocommerce' ) ) {
-			add_action( 'admin_print_styles', array( $this, 'add_notices' ) );
-		}
+		add_action( 'admin_print_styles', array( $this, 'add_notices' ) );
 	}
 
 	/**
@@ -158,34 +152,36 @@ class WC_AM_Admin_Notices {
 	 * @since 2.0
 	 */
 	public function add_notices() {
-		$notices = $this->get_notices();
+		if ( current_user_can( 'manage_woocommerce' ) ) {
+			$notices = $this->get_notices();
 
-		if ( empty( $notices ) ) {
-			return;
-		}
+			if ( empty( $notices ) ) {
+				return;
+			}
 
-		$screen          = get_current_screen();
-		$screen_id       = $screen ? $screen->id : '';
-		$show_on_screens = array(
-			'dashboard',
-			'plugins',
-		);
+			$screen          = get_current_screen();
+			$screen_id       = $screen ? $screen->id : '';
+			$show_on_screens = array(
+				'dashboard',
+				'plugins',
+			);
 
-		// Notices should only show on WooCommerce screens, the main dashboard, and on the plugins screen.
-		if ( ! in_array( $screen_id, wc_get_screen_ids(), true ) && ! in_array( $screen_id, $show_on_screens, true ) ) {
-			return;
-		}
+			// Notices should only show on WooCommerce screens, the main dashboard, and on the plugins screen.
+			if ( ! in_array( $screen_id, wc_get_screen_ids(), true ) && ! in_array( $screen_id, $show_on_screens, true ) ) {
+				return;
+			}
 
-		wp_enqueue_style( 'woocommerce-api-manager--activation', plugins_url( '/includes/assets/css/activation.css', WCAM()->get_plugin_file() ), array(), WC_AM_VERSION );
+			wp_enqueue_style( 'woocommerce-api-manager--activation', plugins_url( '/includes/assets/css/activation.css', WCAM()->get_plugin_file() ), array(), WC_AM_VERSION );
 
-		// Add RTL support.
-		wp_style_add_data( 'woocommerce-api-manager-activation', 'rtl', 'replace' );
+			// Add RTL support.
+			wp_style_add_data( 'woocommerce-api-manager-activation', 'rtl', 'replace' );
 
-		foreach ( $notices as $notice ) {
-			if ( ! empty( $this->core_notices[ $notice ] ) && apply_filters( 'wc_api_manager_show_admin_notice', true, $notice ) ) {
-				add_action( 'admin_notices', array( $this, $this->core_notices[ $notice ] ) );
-			} else {
-				add_action( 'admin_notices', array( $this, 'output_custom_notices' ) );
+			foreach ( $notices as $notice ) {
+				if ( ! empty( $this->core_notices[ $notice ] ) && apply_filters( 'wc_api_manager_show_admin_notice', true, $notice ) ) {
+					add_action( 'admin_notices', array( $this, $this->core_notices[ $notice ] ) );
+				} else {
+					add_action( 'admin_notices', array( $this, 'output_custom_notices' ) );
+				}
 			}
 		}
 	}

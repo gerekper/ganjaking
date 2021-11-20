@@ -125,8 +125,15 @@ class WC_Points_Rewards_Cart_Checkout {
 			return;
 		}
 
+		$discount_amount = ! empty( $_POST['wc_points_rewards_apply_discount_amount'] ) ? absint( $_POST['wc_points_rewards_apply_discount_amount'] ) : '';
+
+		// Queue an error notice and bail if the discount doesn't reach the minimum
+		if ( self::queue_below_minimum_discount_notice( $discount_amount ) ) {
+			return;
+		}
+
 		// Get discount amount if set and store in session
-		WC()->session->set( 'wc_points_rewards_discount_amount', ( ! empty( $_POST['wc_points_rewards_apply_discount_amount'] ) ? absint( $_POST['wc_points_rewards_apply_discount_amount'] ) : '' ) );
+		WC()->session->set( 'wc_points_rewards_discount_amount', $discount_amount );
 
 		// generate and set unique discount code
 		$discount_code = WC_Points_Rewards_Discount::generate_discount_code();
@@ -156,19 +163,27 @@ class WC_Points_Rewards_Cart_Checkout {
 	public function ajax_maybe_apply_discount() {
 		check_ajax_referer( 'apply-coupon', 'security' );
 
-		// bail if the discount has already been applied
+		// Bail if the discount has already been applied.
 		if ( self::is_discount_applied() ) {
 			die;
 		}
 
-		// Get discount amount if set and store in session
-		WC()->session->set( 'wc_points_rewards_discount_amount', ( ! empty( $_POST['discount_amount'] ) ? absint( $_POST['discount_amount'] ) : '' ) );
+		$discount_amount = ! empty( $_POST['discount_amount'] ) ? absint( $_POST['discount_amount'] ) : 0;
 
-		// generate and set unique discount code
-		$discount_code = WC_Points_Rewards_Discount::generate_discount_code();
+		// Queue an error notice and display earn/redeem messages if the discount doesn't reach the minimum.
+		if ( self::queue_below_minimum_discount_notice( $discount_amount ) ) {
+			$this->render_earn_points_message();
+			$this->render_redeem_points_message();
+		} else {
+			// Get discount amount if set and store in session.
+			WC()->session->set( 'wc_points_rewards_discount_amount', $discount_amount );
 
-		// apply the discount
-		WC()->cart->add_discount( $discount_code );
+			// Generate and set unique discount code.
+			$discount_code = WC_Points_Rewards_Discount::generate_discount_code();
+
+			// Apply the discount.
+			WC()->cart->add_discount( $discount_code );
+		}
 
 		wc_print_notices();
 		die;
@@ -187,9 +202,9 @@ class WC_Points_Rewards_Cart_Checkout {
 	public static function hide_success_message_for_rest_requests( $message, $message_code, $coupon ) {
 		if ( WC_Coupon::WC_COUPON_SUCCESS === $message_code && $coupon->get_code() === WC_Points_Rewards_Discount::get_discount_code() ) {
 			return '';
-		} else {
-			return $message;
 		}
+
+		return $message;
 	}
 
 	/**
@@ -202,7 +217,6 @@ class WC_Points_Rewards_Cart_Checkout {
 	 * @since 1.7.0
 	 */
 	public static function rest_apply_discount( $args ) {
-		global $wc_points_rewards;
 		$discount_amount = isset( $args['discount_amount'] ) ? $args['discount_amount'] : 0;
 		add_filter( 'woocommerce_coupon_message', [ self::class, 'hide_success_message_for_rest_requests' ], 10, 3 );
 		$existing_discount = WC_Points_Rewards_Discount::get_discount_code();
@@ -213,23 +227,9 @@ class WC_Points_Rewards_Cart_Checkout {
 		WC()->session->set( 'wc_points_rewards_discount_amount', ( ! empty( $discount_amount ) ? absint( $discount_amount ) : '' ) );
 
 		// Check if this is above the minimum spend.
-		$minimum_discount      = (float) get_option( 'wc_points_rewards_cart_min_discount', '' );
-		$minimum_points_amount = WC_Points_Rewards_Manager::calculate_points_for_discount( $minimum_discount );
-		if (
-			$discount_amount < $minimum_points_amount &&
-			'yes' === get_option( 'wc_points_rewards_partial_redemption_enabled' )
-		) {
-			throw new Exception(
-				sprintf(
-					/* translators: %s is the custom name for points, %d is the minimum number of points the user must spend */
-					__(
-					'The minimum number of %s you can redeem is %d.',
-					'woocommerce-points-and-rewards'
-					),
-					$wc_points_rewards->get_points_label( $discount_amount ),
-					$minimum_points_amount
-				)
-			);
+		$minimum_discount_message = self::generate_below_minimum_discount_message( $discount_amount );
+		if( ! is_null( $minimum_discount_message ) ) {
+			throw new Exception( $minimum_discount_message );
 		}
 
 		// generate and set unique discount code
@@ -238,6 +238,62 @@ class WC_Points_Rewards_Cart_Checkout {
 		// apply the discount
 		WC()->cart->add_discount( $discount_code );
 	}
+
+
+	/**
+	 * Generate the error message when the redeemed points don't reach the set minimum.
+	 *
+	 * @param int $discount_amount The points discount submitted.
+	 *
+	 * @return string|null Error message or null if no error.
+	 *
+	 * @since 1.7.3
+	 */
+	private static function generate_below_minimum_discount_message( $discount_amount ) {
+		global $wc_points_rewards;
+
+		$minimum_discount      = (float) get_option( 'wc_points_rewards_cart_min_discount', '' );
+		$minimum_points_amount = WC_Points_Rewards_Manager::calculate_points_for_discount( $minimum_discount );
+		if (
+			$discount_amount < $minimum_points_amount &&
+			'yes' === get_option( 'wc_points_rewards_partial_redemption_enabled' )
+		) {
+			return sprintf(
+			/* translators: %s is the custom name for points, %d is the minimum number of points the user must spend */
+				__(
+					'The minimum number of %s you can redeem is %d.',
+					'woocommerce-points-and-rewards'
+				),
+				$wc_points_rewards->get_points_label( $discount_amount ),
+				$minimum_points_amount
+			);
+		}
+		return null;
+	}
+
+	/**
+	 * Adds the corresponding error notice if the discount amount doesn't reach the set minimum.
+	 *
+	 * @param int $discount_amount The points discount submitted.
+	 *
+	 * @return bool true if the notice was added, false otherwise.
+	 *
+	 * @since 1.7.3
+	 */
+	private static function queue_below_minimum_discount_notice( $discount_amount ) {
+
+		// Check if this is above the minimum spend.
+		$minimum_discount_message = self::generate_below_minimum_discount_message( $discount_amount );
+		if ( is_null( $minimum_discount_message ) ) {
+			return false;
+		}
+		// Queue the error message
+		wc_add_notice( $minimum_discount_message, 'error' );
+
+		return true;
+	}
+
+
 
 	/**
 	 * Generate the message that will be displayed showing how many points the customer will receive for completing their purchase.

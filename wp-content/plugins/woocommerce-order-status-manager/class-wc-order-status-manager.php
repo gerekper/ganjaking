@@ -39,7 +39,7 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.12.2';
+	const VERSION = '1.13.3';
 
 	/** @var \WC_Order_Status_Manager single instance of this plugin */
 	protected static $instance;
@@ -71,6 +71,9 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 	/** @var \WC_Order_Status_Manager_Icons instance */
 	protected $icons;
 
+	/** @var \WC_Order_Status_Manager_Integrations instance */
+	protected $integrations;
+
 
 	/**
 	 * Initializes the plugin
@@ -88,7 +91,7 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 		);
 
 		// functions required before we hook into init
-		require_once( $this->get_plugin_path() . '/includes/wc-order-status-manager-functions.php' );
+		require_once( $this->get_plugin_path() . '/src/wc-order-status-manager-functions.php' );
 
 		add_action( 'init', array( $this, 'init' ) );
 
@@ -120,7 +123,7 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 	 */
 	public function init_plugin() {
 
-		$this->emails = $this->load_class( '/includes/class-wc-order-status-manager-emails.php', 'WC_Order_Status_Manager_Emails' );
+		$this->emails = $this->load_class( '/src/class-wc-order-status-manager-emails.php', 'WC_Order_Status_Manager_Emails' );
 	}
 
 
@@ -132,17 +135,19 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 	public function includes() {
 
 		if ( null === $this->order_statuses ) {
-			$this->order_statuses = $this->load_class( '/includes/class-wc-order-status-manager-order-statuses.php', 'WC_Order_Status_Manager_Order_Statuses' );
+			$this->order_statuses = $this->load_class( '/src/class-wc-order-status-manager-order-statuses.php', 'WC_Order_Status_Manager_Order_Statuses' );
 		}
 
-		require_once( $this->get_plugin_path() . '/includes/class-wc-order-status-manager-post-types.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-order-status-manager-post-types.php' );
 		\WC_Order_Status_Manager_Post_Types::initialize();
 
-		$this->icons = $this->load_class( '/includes/class-wc-order-status-manager-icons.php', 'WC_Order_Status_Manager_Icons' );
+		$this->icons = $this->load_class( '/src/class-wc-order-status-manager-icons.php', 'WC_Order_Status_Manager_Icons' );
+
+		$this->integrations = $this->load_class( '/src/integrations/class-wc-order-status-manager-integrations.php', 'WC_Order_Status_Manager_Integrations' );
 
 		// load Frontend
 		if ( ! is_admin() || is_ajax() ) {
-			$this->frontend = $this->load_class( '/includes/class-wc-order-status-manager-frontend.php', 'WC_Order_Status_Manager_Frontend' );
+			$this->frontend = $this->load_class( '/src/class-wc-order-status-manager-frontend.php', 'WC_Order_Status_Manager_Frontend' );
 		}
 
 		// load Admin
@@ -164,7 +169,7 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 	 */
 	private function admin_includes() {
 
-		$this->admin = $this->load_class( '/includes/admin/class-wc-order-status-manager-admin.php', 'WC_Order_Status_Manager_Admin' );
+		$this->admin = $this->load_class( '/src/admin/class-wc-order-status-manager-admin.php', 'WC_Order_Status_Manager_Admin' );
 	}
 
 
@@ -175,7 +180,7 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 	 */
 	private function ajax_includes() {
 
-		$this->ajax = $this->load_class( '/includes/class-wc-order-status-manager-ajax.php', 'WC_Order_Status_Manager_AJAX' );
+		$this->ajax = $this->load_class( '/src/class-wc-order-status-manager-ajax.php', 'WC_Order_Status_Manager_AJAX' );
 	}
 
 
@@ -198,7 +203,7 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new \SkyVerge\WooCommerce\Order_Status_Manager\Lifecycle( $this );
 	}
@@ -308,10 +313,10 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 	public function is_download_permitted( $maybe_permitted, $order ) {
 
 		// callback runs early so we need to manually include necessary classes
-		require_once( $this->get_plugin_path() . '/includes/class-wc-order-status-manager-order-status.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-order-status-manager-order-status.php' );
 
 		if ( null === $this->order_statuses ) {
-			$this->order_statuses = $this->load_class( '/includes/class-wc-order-status-manager-order-statuses.php', 'WC_Order_Status_Manager_Order_Statuses' );
+			$this->order_statuses = $this->load_class( '/src/class-wc-order-status-manager-order-statuses.php', 'WC_Order_Status_Manager_Order_Statuses' );
 		}
 
 		$order_status = new \WC_Order_Status_Manager_Order_Status( $order->get_status() );
@@ -392,6 +397,17 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 		return $this->icons;
 	}
 
+	/**
+	 * Get the integrations handler instance
+	 *
+	 * @since 1.13.3
+	 *
+	 * @return \WC_Order_Status_Manager_Integrations
+	 */
+	public function get_integrations_instance() {
+		return $this->integrations;
+	}
+
 
 	/** Admin methods ******************************************************/
 
@@ -407,14 +423,35 @@ class WC_Order_Status_Manager extends Framework\SV_WC_Plugin {
 		parent::add_admin_notices();
 
 		$this->get_admin_notice_handler()->add_admin_notice(
-			/* translators: 1$s - opening <a> link tag, 2$s - closing </a> link tag */
-			sprintf( __( 'Thanks for installing Order Status Manager! Before you get started, please take a moment to %1$sread through the documentation%2$s.', 'woocommerce-order-status-manager' ),
-				'<a href="' . $this->get_documentation_url() . '">',
-				'</a>'
+			sprintf(
+				/* translators: 1$s - opening <a> link tag, 2$s - closing </a> link tag */
+				__( 'Thanks for installing Order Status Manager! Before you get started, please take a moment to %1$sread through the documentation%2$s.', 'woocommerce-order-status-manager' ),
+				'<a href="' . $this->get_documentation_url() . '">', '</a>'
 			),
 			'read-the-docs',
-			array( 'always_show_on_settings' => false, 'notice_class' => 'updated' )
+			[
+				'always_show_on_settings' => false,
+				'notice_class'            => 'updated',
+			]
 		);
+
+		if ( 'yes' === get_option( 'wc_order_status_manager_show_paid_pending_status_notice' ) ) {
+
+			$this->get_admin_notice_handler()->add_admin_notice(
+				sprintf(
+					/* translators: Placeholder: %1$s - opening <strong> HTML tag, %2$s - closing </strong> HTML tag, %3$s - opening <a> HTML link tag, %4$s - closing </a> HTML link tag */
+					__( '%1$sHeads up!%2$s Order Status Manager now requires the "Pending Payment" status to only refer to orders that are awaiting payment, to avoid payment processing issues for your orders. We have automatically made this change in the %3$sPending Payment status settings%4$s.', 'woocommerce-order-status-manager' ),
+					'<strong>', '</strong>',
+					'<a href="' . esc_url( $this->get_settings_url() ) . '">', '</a>'
+				),
+				'pending-status-set-to-paid',
+				[
+					'always_show_on_settings' => false,
+					'dismissible'             => true,
+					'notice_class'            => 'notice-warning',
+				]
+			);
+		}
 	}
 
 

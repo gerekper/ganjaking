@@ -309,6 +309,7 @@ class WC_AM_Order_Data_Store {
 
 	/**
 	 * Return the refunded quantity for an order item.
+	 * Used for non-WooCommerce Subscription products since there is an Order item_id in the API Resource.
 	 *
 	 * @since 2.0
 	 *
@@ -320,11 +321,76 @@ class WC_AM_Order_Data_Store {
 	public function get_qty_refunded_for_item( $order, $item_id ) {
 		$order = $this->get_order_object( $order );
 
-		if ( $order ) {
-			return $order->get_qty_refunded_for_item( $item_id );
+		return is_object( $order ) ? $order->get_qty_refunded_for_item( $item_id ) : 0;
+	}
+
+	/**
+	 * Return the refunded quantity for a product_id.
+	 * Used for WooCommerce Subscription products since there is no Order item_id in the API Resource.
+	 *
+	 * @since 2.3.10
+	 *
+	 * @param int|object $order WC_Order or order ID.
+	 * @param int        $product_id
+	 *
+	 * @return int
+	 * @throws \Exception
+	 */
+	public function get_qty_refunded_for_product_id( $order, $product_id ) {
+		$count    = 0;
+		$refunds  = array();
+		$order    = $this->get_order_object( $order );
+		$item_ids = $this->get_order_item_ids( $order );
+
+		foreach ( $order->get_refunds() as $refund ) {
+			foreach ( $item_ids as $item_id ) {
+				foreach ( $refund->get_items( array( 'line_item' ) ) as $refunded_item ) {
+					if ( absint( $refunded_item->get_meta( '_refunded_item_id' ) ) === $item_id ) {
+						$parent_id                   = wc_get_order_item_meta( $refunded_item->get_id(), '_product_id' );
+						$variation_id                = wc_get_order_item_meta( $refunded_item->get_id(), '_variation_id' );
+						$refunds[ $order->get_id() ] = array(
+							'order_id'   => $order->get_id(),
+							'item_id'    => $item_id,
+							'product_id' => empty( $variation_id ) ? $parent_id : $variation_id,
+							'count'      => $count += $this->get_refund_quantity_for_item( $refund, $item_id )
+						);
+					}
+				}
+			}
+		}
+
+		foreach ( $refunds as $refund ) {
+			if ( $refund[ 'product_id' ] == $product_id ) {
+				return $refund[ 'count' ];
+			}
 		}
 
 		return 0;
+	}
+
+	/**
+	 * Get the refunded amount for a line item.
+	 *
+	 * @since 2.3.10
+	 *
+	 * @param object $refund    WC_Order_Refund
+	 * @param int    $item_id   ID of the item we're checking.
+	 * @param string $item_type Type of the item we're checking, if not a line_item.
+	 *
+	 * @return int
+	 */
+	private function get_refund_quantity_for_item( $refund, $item_id, $item_type = 'line_item' ) {
+		$qty = 0;
+
+		if ( is_object( $refund ) ) {
+			foreach ( $refund->get_items( $item_type ) as $refunded_item ) {
+				if ( absint( $refunded_item->get_meta( '_refunded_item_id' ) ) === $item_id ) {
+					$qty += $refunded_item->get_quantity();
+				}
+			}
+		}
+
+		return $qty;
 	}
 
 	/**
@@ -512,7 +578,7 @@ class WC_AM_Order_Data_Store {
 	 *
 	 * @param int $order_id
 	 *
-	 * @return array|bool
+	 * @return array
 	 */
 	public function get_line_item_data_from_order( $order_id ) {
 		$values    = array();
@@ -536,8 +602,15 @@ class WC_AM_Order_Data_Store {
 
 					// Only store API resource data for API products that have an order status of completed.
 					if ( $valid_product && ! $is_wc_sub ) {
-						$item_qty                      = ! empty( $item->get_quantity() ) ? $item->get_quantity() : 0;
-						$refund_qty                    = $this->get_qty_refunded_for_item( $order_id, $item_id );
+						$item_qty               = ! empty( $item->get_quantity() ) ? $item->get_quantity() : 0;
+						$refund_qty             = $this->get_qty_refunded_for_item( $order_id, $item_id );
+						$values[ 'item_qty' ]   = $item_qty;
+						$values[ 'refund_qty' ] = absint( $refund_qty );
+
+						if ( $values[ 'refund_qty' ] >= $values[ 'item_qty' ] ) {
+							continue;
+						}
+
 						$values[ 'user_id' ]           = $this->get_customer_id( $order );
 						$values[ 'order_item_id' ]     = ! empty( $item_id ) ? (int) $item_id : 0;
 						$values[ 'variation_id' ]      = $variation_id;
@@ -548,8 +621,6 @@ class WC_AM_Order_Data_Store {
 						$values[ 'api_activations' ]   = ! empty( $api_product_activations ) ? $api_product_activations : apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $values[ 'product_id' ] );
 						$product_object                = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $values[ 'product_id' ] );
 						$values[ 'product_title' ]     = is_object( $product_object ) ? $product_object->get_title() : '';
-						$values[ 'item_qty' ]          = $item_qty;
-						$values[ 'refund_qty' ]        = $refund_qty;
 						$values[ 'activations_total' ] = ( $values[ 'api_activations' ] * $item_qty ) + ( $refund_qty * $values[ 'api_activations' ] );
 
 						if ( empty( $values[ 'api_activations' ] ) ) {
@@ -565,7 +636,7 @@ class WC_AM_Order_Data_Store {
 			return $items;
 		}
 
-		return false;
+		return array();
 	}
 
 	/**

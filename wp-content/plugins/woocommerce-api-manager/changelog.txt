@@ -1,8 +1,10 @@
-*** API Manager Changelog ***
+*** WooCommerce API Manager Changelog ***
 
-REQUIRED: WooCommerce 3.4.
-REQUIRED: PHP 7.0.
-REQUIRED: WooCommerce Subscriptions 2.3, if it is installed and active.
+2021.11.12 - version 2.3.11
+ * Fix: Eliminate include of pluggable.php that was included to prevents "Call to undefined function wp_get_current_user()" error.
+
+2021.04.27 - version 2.3.10
+ * Fix: The WooCommerce Subscription product type API Resources refunded quantity was not incremented, and acitvations purchased were not decremented, when the product line item was refunded on the Order screen after recent WooCommerce Subscriptions update.
 
 2020.12.23 - version 2.3.9
  * Tweak: Confirm Amazon S3 constants are set in wp-config.php, or WooCommerce > Settings > API Manager > Amazon S3 settings are set, before modifying Amazon S3 product file URL for secure Amazon S3 access.

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundles edit-order functions and filters.
  *
  * @class    WC_PB_Admin_Order
- * @version  6.12.0
+ * @version  6.12.7
  */
 class WC_PB_Admin_Order {
 
@@ -134,13 +134,8 @@ class WC_PB_Admin_Order {
 
 						$new_container_item = $order->get_item( $added_to_order );
 
-						if ( $item_reduced_stock = $item->get_meta( '_reduced_stock', true ) ) {
-							$new_container_item->add_meta_data( '_reduced_stock', $item_reduced_stock, true );
-							$new_container_item->save();
-						}
-
 						$bundled_order_items = wc_pb_get_bundled_order_items( $new_container_item, $order );
-						$product_ids = array();
+						$product_ids         = array();
 						$order_notes         = array();
 
 						foreach ( $bundled_order_items as $order_item_id => $order_item ) {
@@ -175,21 +170,7 @@ class WC_PB_Admin_Order {
 							}
 
 							/* translators: %1$s: Product title, %2$s: Product identifier */
-							$order_note = sprintf( _x( '%1$s (%2$s)', 'bundled items stock change note format', 'woocommerce-product-bundles' ), $order_item->get_name(), $stock_id );
-
-							if ( $bundled_product->managing_stock() ) {
-
-								$qty           = $order_item->get_quantity();
-								$old_stock     = $bundled_product->get_stock_quantity();
-								$new_stock     = wc_update_product_stock( $bundled_product, $qty, 'decrease' );
-								$stock_from_to = $old_stock . '&rarr;' . $new_stock;
-								$order_note    = sprintf( _x( '%1$s (%2$s) &ndash; %3$s', 'bundled items stock change note format', 'woocommerce-product-bundles' ), $order_item->get_name(), $stock_id, $stock_from_to );
-
-								$order_item->add_meta_data( '_reduced_stock', $qty, true );
-								$order_item->save();
-							}
-
-							$order_notes[] = $order_note;
+							$order_notes[] =  sprintf( _x( '%1$s (%2$s)', 'bundled items stock change note format', 'woocommerce-product-bundles' ), $order_item->get_name(), $stock_id );
 						}
 
 						if ( ! empty( $order_notes ) ) {

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce API Manager\n"
-"POT-Creation-Date: 2020-12-16 16:34-0800\n"
-"PO-Revision-Date: 2020-12-16 16:34-0800\n"
+"POT-Creation-Date: 2021-04-27 12:23-0700\n"
+"PO-Revision-Date: 2021-04-27 12:24-0700\n"
 "Last-Translator: Todd Lahman <support@toddlahman.com>\n"
 "Language-Team: Todd Lahman <support@toddlahman.com>\n"
 "Language: en_US\n"
@@ -506,7 +506,7 @@ msgstr ""
 
 #: includes/admin/wc-am-settings-admin.php:316
 #, fuzzy
-msgid "API Query Log"
+msgid "API Request Log"
 msgstr "Impossible d'activer la clé de licence API"
 
 #: includes/admin/wc-am-settings-admin.php:317
@@ -548,7 +548,9 @@ msgstr "Options de l'API Manager"
 #, php-format
 msgid ""
 "%s%sIntegrate plugins and themes easily with %sWooCommerce API Manager PHP "
-"Library for Plugins and Themes%s.%s"
+"Library for Plugins and Themes%s.%s%sDisplay the Product API tab settings "
+"data automatically on the frontend product page with the %sWooCommerce API "
+"Manager Product Tabs%s extension is implemented.%s%s"
 msgstr ""
 
 #: includes/api/wc-am-api-requests.php:97
@@ -932,7 +934,7 @@ msgstr "Encore aucune activation"
 msgid "No activations."
 msgstr "Activations"
 
-#: includes/wc-am-order.php:581
+#: includes/wc-am-order.php:582
 msgid "Cancelled API Products update job."
 msgstr ""
 
@@ -1353,31 +1355,31 @@ msgstr ""
 msgid "Documentation link for My Account dashboard."
 msgstr ""
 
-#: includes/wc-am-smart-cache.php:277 includes/wc-am-smart-cache.php:323
+#: includes/wc-am-smart-cache.php:275 includes/wc-am-smart-cache.php:324
 msgid ""
 "Details from refresh_cache() method, get_all_api_resources_for_order_id() "
 "error."
 msgstr ""
 
-#: includes/wc-am-smart-cache.php:283 includes/wc-am-smart-cache.php:329
+#: includes/wc-am-smart-cache.php:281 includes/wc-am-smart-cache.php:330
 msgid ""
 "Details from refresh_cache() method, "
 "get_all_api_resources_for_sub_parent_id() error."
 msgstr ""
 
-#: includes/wc-am-smart-cache.php:289 includes/wc-am-smart-cache.php:335
+#: includes/wc-am-smart-cache.php:287 includes/wc-am-smart-cache.php:336
 msgid ""
 "Details from refresh_cache() method, "
 "get_all_api_non_wc_subscription_resources_for_order_id() error."
 msgstr ""
 
-#: includes/wc-am-smart-cache.php:295 includes/wc-am-smart-cache.php:341
+#: includes/wc-am-smart-cache.php:293 includes/wc-am-smart-cache.php:342
 msgid ""
 "Details from refresh_cache() method, "
 "get_api_resources_for_user_id_sort_by_product_title() error."
 msgstr ""
 
-#: includes/wc-am-smart-cache.php:409 includes/wc-am-smart-cache.php:451
+#: includes/wc-am-smart-cache.php:392 includes/wc-am-smart-cache.php:438
 msgid "Details from delete_cache() method, random_int() error."
 msgstr ""
 

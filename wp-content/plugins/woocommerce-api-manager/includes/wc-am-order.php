@@ -62,6 +62,7 @@ class WC_AM_Order {
 		add_action( 'woocommerce_order_status_completed', array( $this, 'update_order' ) );
 		add_action( 'woocommerce_order_status_changed', array( $this, 'remove_order' ), 10, 3 );
 		add_action( 'woocommerce_order_partially_refunded', array( $this, 'order_partially_refunded' ), 10, 2 );
+		add_action( 'woocommerce_order_fully_refunded', array( $this, 'order_fully_refunded' ), 10, 2 );
 		add_action( 'woocommerce_refund_deleted', array( $this, 'refund_deleted' ), 10, 2 );
 		add_action( 'woocommerce_delete_order_items', array( $this, 'delete_order' ) );
 		add_action( 'woocommerce_delete_order', array( $this, 'delete_order' ) );
@@ -591,12 +592,26 @@ class WC_AM_Order {
 	 *
 	 * @since 2.0
 	 *
-	 * @param int $refund_id
 	 * @param int $order_id
+	 * @param int $refund_id
 	 *
 	 * @throws \Exception
 	 */
 	public function order_partially_refunded( $order_id, $refund_id ) {
+		$this->update_order( $order_id );
+	}
+
+	/**
+	 * Update the API resource order items for the order when an order is fully refunded.
+	 *
+	 * @since 2.3.10
+	 *
+	 * @param int $order_id
+	 * @param int $refund_id
+	 *
+	 * @throws \Exception
+	 */
+	public function order_fully_refunded( $order_id, $refund_id ) {
 		$this->update_order( $order_id );
 	}
 

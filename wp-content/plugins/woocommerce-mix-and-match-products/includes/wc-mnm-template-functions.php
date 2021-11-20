@@ -268,9 +268,16 @@ function wc_mnm_template_child_item_details_open( $mnm_item, $product ) {
  */
 function wc_mnm_template_child_item_title( $mnm_item, $product ) {
 
+	$min_qty = $product->get_child_quantity( 'min', $mnm_item->get_id() );
+	$max_qty = $product->get_child_quantity( 'max', $mnm_item->get_id() );
+
+	$qty     = 'tabular' !== $product->get_layout() && $min_qty > 1 && $min_qty === $max_qty ? $min_qty : '';
+
 	wc_get_template(
 		'single-product/mnm/mnm-product-title.php',
 		array(
+			'quantity'    => $qty,
+			'title'       => $mnm_item->get_title(),
 			'mnm_product' => $mnm_item, // For back-compatibility.
 			'mnm_item'    => $mnm_item
 		),

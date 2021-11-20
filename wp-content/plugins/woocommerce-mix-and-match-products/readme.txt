@@ -2,10 +2,10 @@
 Contributors: helgatheviking, SomewhereWarm
 Tags: woocommerce, product, container, boxes, kits, configurable
 Requires at least: 4.0
-Tested up to: 5.7.0
-Stable tag: 1.11.3
+Tested up to: 5.8.0
+Stable tag: 1.11.4
 WC requires at least: 3.1.0
-WC tested up to: 5.6.0
+WC tested up to: 5.9.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,7 +22,7 @@ For example, a Case of Wine might have 12 bottles. The customer might be allowed
 
 Installing "WooCommerce Mix and Match Products" can be done using the following steps:
 
-1. Download the plugin via WooThemes.com.
+1. Download the plugin via WooCommerce.com.
 1. Upload the ZIP file through the "Plugins > Add New > Upload" screen in your WordPress dashboard.
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Create a new product and select "Mix & Match product" from the product type dropdown in the product data metabox.

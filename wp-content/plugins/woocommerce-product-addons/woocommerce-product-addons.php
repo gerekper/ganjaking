@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Product Add-ons
  * Plugin URI: https://woocommerce.com/products/product-add-ons/
  * Description: Add extra options to products which your customers can select from, when adding to the cart, with an optional fee for each extra option. Add-ons can be checkboxes, a select box, or custom text input.
- * Version: 4.3.0
+ * Version: 4.4.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 3.8
  * Tested up to: 5.8
- * WC tested up to: 5.8
+ * WC tested up to: 5.9
  * WC requires at least: 3.0
  * Text Domain: woocommerce-product-addons
  * Domain Path: /languages/
@@ -16,6 +16,8 @@
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Woo: 18618:147d0077e591e16db9d0d67daeb8c484
+ *
+ * @package woocommerce-product-addons
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +30,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce fallback notice.
  *
  * @since 4.1.2
- * @return string
  */
 function woocommerce_product_addons_missing_wc_notice() {
 	/* translators: %s WC download URL link. */
@@ -52,6 +53,9 @@ add_filter( 'woocommerce_translations_updates_for_woocommerce-product-addons', '
 
 add_action( 'plugins_loaded', 'woocommerce_product_addons_init', 9 );
 
+/**
+ * Init product addons.
+ */
 function woocommerce_product_addons_init() {
 	load_plugin_textdomain( 'woocommerce-product-addons', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 
@@ -61,7 +65,7 @@ function woocommerce_product_addons_init() {
 	}
 
 	if ( ! class_exists( 'WC_Product_Addons' ) ) :
-		define( 'WC_PRODUCT_ADDONS_VERSION', '4.3.0' ); // WRCS: DEFINED_VERSION.
+		define( 'WC_PRODUCT_ADDONS_VERSION', '4.4.0' ); // WRCS: DEFINED_VERSION.
 		define( 'WC_PRODUCT_ADDONS_MAIN_FILE', __FILE__ );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -70,7 +74,11 @@ function woocommerce_product_addons_init() {
 		 * Main class.
 		 */
 		class WC_Product_Addons {
-
+			/**
+			 * Groups controller instance.
+			 *
+			 * @var WC_Product_Add_Ons_Groups_Controller
+			 */
 			protected $groups_controller;
 
 			/**
@@ -91,29 +99,28 @@ function woocommerce_product_addons_init() {
 			 * @version 2.9.0
 			 */
 			public function init() {
-				require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-helper.php' );
+				require_once dirname( __FILE__ ) . '/includes/class-wc-product-addons-helper.php';
 
 				// Pre 3.0 conversion helper to be remove in future.
-				require_once( dirname( __FILE__ ) . '/includes/updates/class-wc-product-addons-3-0-conversion-helper.php' );
+				require_once dirname( __FILE__ ) . '/includes/updates/class-wc-product-addons-3-0-conversion-helper.php';
 
-				require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-install.php' );
+				require_once dirname( __FILE__ ) . '/includes/class-wc-product-addons-install.php';
 
-				// Core (models)
-				require_once( dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-group-validator.php' );
-				require_once( dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-global-group.php' );
-				require_once( dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-product-group.php' );
-				require_once( dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-groups.php' );
+				// Core (models).
+				require_once dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-group-validator.php';
+				require_once dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-global-group.php';
+				require_once dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-product-group.php';
+				require_once dirname( __FILE__ ) . '/includes/groups/class-wc-product-addons-groups.php';
 
-				// Admin
 				if ( is_admin() ) {
-					require_once( dirname( __FILE__ ) . '/includes/admin/class-wc-product-addons-privacy.php' );
-					require_once( dirname( __FILE__ ) . '/includes/admin/class-wc-product-addons-admin.php' );
+					require_once dirname( __FILE__ ) . '/includes/admin/class-wc-product-addons-privacy.php';
+					require_once dirname( __FILE__ ) . '/includes/admin/class-wc-product-addons-admin.php';
 					$GLOBALS['Product_Addon_Admin'] = new WC_Product_Addons_Admin();
 				}
 
-				require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-display.php' );
-				require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-cart.php' );
-				require_once( dirname( __FILE__ ) . '/includes/class-wc-product-addons-ajax.php' );
+				require_once dirname( __FILE__ ) . '/includes/class-wc-product-addons-display.php';
+				require_once dirname( __FILE__ ) . '/includes/class-wc-product-addons-cart.php';
+				require_once dirname( __FILE__ ) . '/includes/class-wc-product-addons-ajax.php';
 
 				$GLOBALS['Product_Addon_Display'] = new WC_Product_Addons_Display();
 				$GLOBALS['Product_Addon_Cart']    = new WC_Product_Addons_Cart();
@@ -148,21 +155,24 @@ function woocommerce_product_addons_init() {
 			 * Initialize the REST API
 			 *
 			 * @since 2.9.0
-			 * @param WP_Rest_Server $wp_rest_server
+			 * @param WP_Rest_Server $wp_rest_server Rest server class.
 			 */
 			public function rest_api_init( $wp_rest_server ) {
-				require_once( dirname( __FILE__ ) . '/includes/api/wc-product-add-ons-groups-controller-v1.php' );
+				require_once dirname( __FILE__ ) . '/includes/api/wc-product-add-ons-groups-controller-v1.php';
 				$this->groups_controller = new WC_Product_Add_Ons_Groups_Controller();
 				$this->groups_controller->register_routes();
 			}
 
 			/**
 			 * Plugin action links
+			 *
+			 * @param array $links Array of links.
+			 * @return array
 			 */
 			public function action_links( $links ) {
 				$plugin_links = array(
-					'<a href="https://woocommerce.com/my-account/tickets/">' . __( 'Support', 'woocommerce-product-addons' ) . '</a>',
-					'<a href="https://docs.woocommerce.com/document/product-add-ons/">' . __( 'Documentation', 'woocommerce-product-addons' ) . '</a>',
+					'<a href="https://woocommerce.com/my-account/tickets/">' . esc_html__( 'Support', 'woocommerce-product-addons' ) . '</a>',
+					'<a href="https://docs.woocommerce.com/document/product-add-ons/">' . esc_html__( 'Documentation', 'woocommerce-product-addons' ) . '</a>',
 				);
 				return array_merge( $plugin_links, $links );
 			}
@@ -175,7 +185,7 @@ function woocommerce_product_addons_init() {
 				$show_activate_notice = get_transient( 'wc_pao_activation_notice' );
 
 				if ( $show_activate_notice ) {
-					echo '<div class="notice is-dismissible updated"><p><strong>' . __( 'WooCommerce Product Add-ons is ready to go!', 'woocommerce-product-addons' ) . '</strong></p><p>' . __( 'Create an add-on that applies to every product, or apply it to specific categories. Create an add-on for an individual product by editing the product.', 'woocommerce-product-addons' ) . '</p><p><a href="' . esc_url( admin_url() ) . 'edit.php?post_type=product&page=addons" class="button button-primary">' . __( 'Create add-ons', 'woocommerce-product-addons' ) . '</a>&nbsp;&nbsp;<a href="' . esc_url( admin_url() ) . 'edit.php?post_type=product" class="button">' . __( 'Find products', 'woocommerce-product-addons' ) . '</a></p></div>';
+					echo '<div class="notice is-dismissible updated"><p><strong>' . esc_html__( 'WooCommerce Product Add-ons is ready to go!', 'woocommerce-product-addons' ) . '</strong></p><p>' . esc_html__( 'Create an add-on that applies to every product, or apply it to specific categories. Create an add-on for an individual product by editing the product.', 'woocommerce-product-addons' ) . '</p><p><a href="' . esc_url( admin_url() ) . 'edit.php?post_type=product&page=addons" class="button button-primary">' . esc_html__( 'Create add-ons', 'woocommerce-product-addons' ) . '</a>&nbsp;&nbsp;<a href="' . esc_url( admin_url() ) . 'edit.php?post_type=product" class="button">' . esc_html__( 'Find products', 'woocommerce-product-addons' ) . '</a></p></div>';
 
 					delete_transient( 'wc_pao_activation_notice' );
 				}

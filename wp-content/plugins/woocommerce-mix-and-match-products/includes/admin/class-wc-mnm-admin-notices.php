@@ -265,7 +265,7 @@ class WC_MNM_Admin_Notices {
 	 */
 	private static function get_trigger_update_prompt() {
 		$update_url    = esc_url( wp_nonce_url( add_query_arg( 'trigger_wc_mnm_db_update', true, admin_url() ), 'wc_mnm_trigger_db_update_nonce', '_wc_mnm_admin_nonce' ) );
-		$update_prompt = '<p><a href="' . $update_url . '" class="wc-pb-update-now button-primary">' . __( 'Run the updater', 'woocommerce-mix-and-match-products' ) . '</a></p>';
+		$update_prompt = '<p><a href="' . $update_url . '" class="wc-mnm-update-now button-primary">' . __( 'Run the updater', 'woocommerce-mix-and-match-products' ) . '</a></p>';
 		return $update_prompt;
 	}
 

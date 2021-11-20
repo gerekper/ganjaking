@@ -15,7 +15,7 @@ class RsMousetrapBase extends RsAddOnMousetrapBase {
 					 $_PluginUrl     = RS_MOUSETRAP_PLUGIN_URL,
 					 $_PluginTitle   = 'mousetrap',
 				     $_FilePath      = __FILE__,
-				     $_Version       = '3.0.2';
+				     $_Version       = '3.0.4';
 	
 	public function __construct() {
 		

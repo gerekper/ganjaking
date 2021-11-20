@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Add-ons 4.3.0\n"
+"Project-Id-Version: WooCommerce Product Add-ons 4.4.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-product-addons\n"
-"POT-Creation-Date: 2021-10-26 05:52:11+00:00\n"
+"POT-Creation-Date: 2021-11-16 09:49:47+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,12 +15,12 @@ msgstr ""
 "X-Generator: node-wp-i18n 1.2.5\n"
 
 #: includes/admin/class-wc-product-addons-admin.php:45
-#: includes/admin/class-wc-product-addons-admin.php:358
+#: includes/admin/class-wc-product-addons-admin.php:359
 msgid "Add-ons"
 msgstr ""
 
 #: includes/admin/class-wc-product-addons-admin.php:60
-#: includes/admin/class-wc-product-addons-privacy.php:12
+#: includes/admin/class-wc-product-addons-privacy.php:24
 msgid "Product Add-ons"
 msgstr ""
 
@@ -122,25 +122,26 @@ msgstr ""
 msgid "Multiple Choice"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:636
+#: includes/admin/class-wc-product-addons-admin.php:637
 msgid "SKU:"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:645
+#: includes/admin/class-wc-product-addons-admin.php:646
 #. translators: %s ID of variation
 msgid "%s (No longer exists)"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-admin.php:648
+#: includes/admin/class-wc-product-addons-admin.php:649
 msgid "Variation ID:"
 msgstr ""
 
-#: includes/admin/class-wc-product-addons-privacy.php:20
+#: includes/admin/class-wc-product-addons-privacy.php:34
+#. translators: %1$s is the HTML for the opening tag of the link element. %2$s
+#. is the closing tag. The text between will be a hyperlink.
 msgid ""
 "By using this extension, you may be storing personal data or sharing data "
-"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
-"how this works, including what you may want to include in your privacy "
-"policy.</a>"
+"with an external service. %1$sLearn more about how this works, including "
+"what you may want to include in your privacy policy.%2$s"
 msgstr ""
 
 #: includes/admin/views/html-addon-option.php:33
@@ -304,8 +305,8 @@ msgstr ""
 msgid "Add description"
 msgstr ""
 
-#: includes/admin/views/html-addon.php:149 templates/addons/addon-start.php:59
-#: templates/addons/addon-start.php:70
+#: includes/admin/views/html-addon.php:149 templates/addons/addon-start.php:62
+#: templates/addons/addon-start.php:73
 msgid "Required field"
 msgstr ""
 
@@ -337,7 +338,7 @@ msgid "Adjust price"
 msgstr ""
 
 #: includes/admin/views/html-global-admin-add.php:6
-#: woocommerce-product-addons.php:178
+#: woocommerce-product-addons.php:188
 msgid "Create add-ons"
 msgstr ""
 
@@ -358,7 +359,7 @@ msgid "Set up add-ons that apply to all products or specific product categories.
 msgstr ""
 
 #: includes/admin/views/html-global-admin-add.php:25
-#: includes/admin/views/html-global-admin.php:14
+#: includes/admin/views/html-global-admin.php:20
 msgid "Name"
 msgstr ""
 
@@ -367,7 +368,7 @@ msgid "This name is for your reference only and will not be visible to customers
 msgstr ""
 
 #: includes/admin/views/html-global-admin-add.php:34
-#: includes/admin/views/html-global-admin.php:15
+#: includes/admin/views/html-global-admin.php:21
 msgid "Priority"
 msgstr ""
 
@@ -378,7 +379,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/views/html-global-admin-add.php:43
-#: includes/admin/views/html-global-admin.php:16
+#: includes/admin/views/html-global-admin.php:22
 msgid "Product Categories"
 msgstr ""
 
@@ -387,7 +388,7 @@ msgid "Choose categories&hellip;"
 msgstr ""
 
 #: includes/admin/views/html-global-admin-add.php:47
-#: includes/admin/views/html-global-admin.php:42
+#: includes/admin/views/html-global-admin.php:48
 msgid "All Products"
 msgstr ""
 
@@ -401,43 +402,43 @@ msgid ""
 "single product when editing that product."
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:9
+#: includes/admin/views/html-global-admin.php:15
 msgid "Add-Ons"
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:9
+#: includes/admin/views/html-global-admin.php:15
 msgid "Create New"
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:17
+#: includes/admin/views/html-global-admin.php:23
 msgid "Number of Fields"
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:33
+#: includes/admin/views/html-global-admin.php:39
 msgid "Edit"
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:33
+#: includes/admin/views/html-global-admin.php:39
 msgid "Delete"
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:44
+#: includes/admin/views/html-global-admin.php:50
 msgid "No Products Assigned"
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:60
+#: includes/admin/views/html-global-admin.php:66
 msgid "No add-ons found."
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:60
+#: includes/admin/views/html-global-admin.php:66
 msgid "Create add-ons."
 msgstr ""
 
-#: includes/admin/views/html-global-admin.php:67
-msgid ""
-"Need help with add-ons? Visit the <a "
-"href=\"https://docs.woocommerce.com/document/product-add-ons\" "
-"target=\"_blank\">Documentation</a>."
+#: includes/admin/views/html-global-admin.php:76
+#. translators: %1$s is the HTML for the opening tag of the link element.
+#. 'Documentation' will be an <a> element linking to the WooCommerce.com docs
+#. %2$s is the closing tag.
+msgid "Need help with add-ons? Visit the %1$sDocumentation%2$s."
 msgstr ""
 
 #: includes/class-wc-product-addons-display.php:87
@@ -448,11 +449,11 @@ msgstr ""
 msgid "%s characters remaining"
 msgstr ""
 
-#: includes/class-wc-product-addons-display.php:472
+#: includes/class-wc-product-addons-display.php:494
 msgid "Select options"
 msgstr ""
 
-#: includes/fields/class-wc-product-addons-field-custom.php:17
+#: includes/fields/class-wc-product-addons-field-custom.php:24
 #: includes/fields/class-wc-product-addons-field-file-upload.php:29
 #: includes/fields/class-wc-product-addons-field-list.php:15
 #: includes/fields/class-wc-product-addons-field-select.php:14
@@ -461,27 +462,27 @@ msgstr ""
 msgid "\"%s\" is a required field."
 msgstr ""
 
-#: includes/fields/class-wc-product-addons-field-custom.php:27
+#: includes/fields/class-wc-product-addons-field-custom.php:34
 #. translators: 1 Addon name 2 Minimum amount
 msgid "The minimum characters required for \"%1$s\" is %2$s."
 msgstr ""
 
-#: includes/fields/class-wc-product-addons-field-custom.php:32
+#: includes/fields/class-wc-product-addons-field-custom.php:39
 #. translators: 1 Addon name 2 Maximum amount
 msgid "The maximum allowed characters for \"%1$s\" is %2$s."
 msgstr ""
 
-#: includes/fields/class-wc-product-addons-field-custom.php:40
+#: includes/fields/class-wc-product-addons-field-custom.php:47
 #. translators: 1 Addon name 2 minimum amount
 msgid "The minimum amount required for \"%1$s\" is %2$s."
 msgstr ""
 
-#: includes/fields/class-wc-product-addons-field-custom.php:47
+#: includes/fields/class-wc-product-addons-field-custom.php:54
 #. translators: 1 Addon name 2 Maximum amount
 msgid "The maximum allowed amount for \"%1$s\" is %2$s."
 msgstr ""
 
-#: includes/fields/class-wc-product-addons-field-custom.php:61
+#: includes/fields/class-wc-product-addons-field-custom.php:67
 #. translators: %s Addon name
 msgid "Please enter a value greater than 0 for \"%s\"."
 msgstr ""
@@ -498,58 +499,59 @@ msgstr ""
 msgid "Unable to delete group. Invalid global add ons group ID."
 msgstr ""
 
-#: templates/addons/custom-text.php:28
+#: templates/addons/custom-text.php:29
 msgid "Only letters"
 msgstr ""
 
-#: templates/addons/custom-text.php:32
+#: templates/addons/custom-text.php:33
 msgid "Only numbers"
 msgstr ""
 
-#: templates/addons/custom-text.php:36
+#: templates/addons/custom-text.php:37
 msgid "Only letters and numbers"
 msgstr ""
 
-#: templates/addons/file-upload.php:30
+#: templates/addons/file-upload.php:43
+#. translators: %s file size.
 msgid "(max file size %s)"
 msgstr ""
 
-#: templates/addons/image.php:16 templates/addons/image.php:54
-#: templates/addons/radiobutton.php:18 templates/addons/select.php:17
+#: templates/addons/image.php:18 templates/addons/image.php:59
+#: templates/addons/radiobutton.php:21 templates/addons/select.php:22
 msgid "None"
 msgstr ""
 
-#: templates/addons/image.php:56 templates/addons/select.php:19
+#: templates/addons/image.php:61 templates/addons/select.php:24
 msgid "Select an option..."
 msgstr ""
 
-#: woocommerce-product-addons.php:35
+#: woocommerce-product-addons.php:36
 #. translators: %s WC download URL link.
 msgid ""
 "Product Add-ons requires WooCommerce to be installed and active. You can "
 "download %s here."
 msgstr ""
 
-#: woocommerce-product-addons.php:164
+#: woocommerce-product-addons.php:174
 msgid "Support"
 msgstr ""
 
-#: woocommerce-product-addons.php:165
+#: woocommerce-product-addons.php:175
 msgid "Documentation"
 msgstr ""
 
-#: woocommerce-product-addons.php:178
+#: woocommerce-product-addons.php:188
 msgid "WooCommerce Product Add-ons is ready to go!"
 msgstr ""
 
-#: woocommerce-product-addons.php:178
+#: woocommerce-product-addons.php:188
 msgid ""
 "Create an add-on that applies to every product, or apply it to specific "
 "categories. Create an add-on for an individual product by editing the "
 "product."
 msgstr ""
 
-#: woocommerce-product-addons.php:178
+#: woocommerce-product-addons.php:188
 msgid "Find products"
 msgstr ""
 

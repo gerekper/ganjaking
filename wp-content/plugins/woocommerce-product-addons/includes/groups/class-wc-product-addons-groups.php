@@ -48,7 +48,7 @@ class WC_Product_Addons_Groups {
 			return WC_Product_Addons_Product_Group::get_group( $post );
 		}
 
-		return new WP_Error( 'invalid_id', __( 'Unable to retrieve data. Invalid global add ons group or product ID.', 'woocommerce-product-addons' ) );
+		return new WP_Error( 'invalid_id', esc_html__( 'Unable to retrieve data. Invalid global add ons group or product ID.', 'woocommerce-product-addons' ) );
 	}
 
 	/**
@@ -80,7 +80,7 @@ class WC_Product_Addons_Groups {
 	 */
 	public static function delete_group( $id ) {
 		if ( ! self::is_a_global_group_id( $id ) ) {
-			return new WP_Error( 'invalid_id', __( 'Unable to delete group. Invalid global add ons group ID.', 'woocommerce-product-addons' ) );
+			return new WP_Error( 'invalid_id', esc_html__( 'Unable to delete group. Invalid global add ons group ID.', 'woocommerce-product-addons' ) );
 		}
 
 		$post = WP_Post::get_instance( $id );

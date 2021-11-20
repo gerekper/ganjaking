@@ -1,5 +1,11 @@
 *** Product Addons Changelog ***
 
+2021-11-16 - version 4.4.0
+* Fix - Escape output in some places across the plugin.
+* Fix - Improve performance when displaying many global product addons.
+* Tweak - WC 5.9 compatibility.
+* Tweak - WP 5.8 compatibility.
+
 2021-10-26 - version 4.3.0
 * Tweak - Add filters to allow for extensibility.
 

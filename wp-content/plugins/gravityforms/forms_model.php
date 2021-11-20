@@ -6106,41 +6106,6 @@ class GFFormsModel {
 	 */
 	public static function save_key( $new_key ) {
 
-		$new_key      = trim( $new_key );
-		$new_key_md5  = md5( $new_key );
-		$previous_key = get_option( 'rg_gforms_key' );
-
-		/**
-		 * @var License\GF_License_API_Connector $license_connector
-		 */
-		$license_connector = GFForms::get_service_container()->get( License\GF_License_Service_Provider::LICENSE_API_CONNECTOR );
-		$license_connector->clear_cache_for_key( $new_key_md5 );
-
-		// Delete gform_version_info so GF will ping version.php to send site record update.
-		delete_option( 'gform_version_info' );
-
-		if ( empty( $new_key ) ) {
-
-			delete_option( 'rg_gforms_key' );
-
-			// Unlink the site with the license key on Gravity API.
-			$license_connector->update_site_registration( '' );
-
-		} elseif ( $previous_key != $new_key ) {
-			update_option( 'rg_gforms_key', $new_key_md5 );
-
-			// Updating site registration with Gravity Server.
-			$result = $license_connector->update_site_registration( $new_key_md5, true );
-
-			// New key is invalid, revert to old key.
-			if ( ! $result->can_be_used() ) {
-				update_option( 'rg_gforms_key', $previous_key );
-			}
-		} else {
-			// Updating site registration with Gravity Server.
-			$license_connector->update_site_registration( $new_key_md5, true );
-		}
-
 	}
 
 	/**

@@ -208,5 +208,14 @@
 .single-product div.product form.cart .mnm_price p.price {
   margin: 0 0 1.5em; }
 
+/* Fix for Elementor flex styles. */
 .woocommerce div.product.elementor form.cart.mnm_form {
   display: block !important; }
+
+/* Integration: PayPal Payments */
+.product-type-mix-and-match #ppc-button, .product-type-mix-and-match #ppcp-messages {
+  display: none !important; }
+
+/* Integration: WooCommerce Payments */
+.product-type-mix-and-match #wcpay-payment-request-wrapper, .product-type-mix-and-match #wcpay-payment-request-button-separator {
+  display: none !important; }
