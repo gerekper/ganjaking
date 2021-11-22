@@ -1,5 +1,24 @@
 (function($) {
   $(document).ready(function() {
+    if ($('body').hasClass('mpcs-sidebar-with-accordion')) {
+      var headers = $('#mpcs-sidebar .mpcs-section-header');
+      var current = $('#mpcs-sidebar .mpcs-lesson.current');
+      if (current.length) {
+        var header = current.closest('.mpcs-section').find('.mpcs-section-header');
+        header.addClass('active');
+        header.next('.mpcs-lessons').css('display', 'block');
+      }
+      $(headers).on('click', function () {
+        var $this = $(this);
+        $this.toggleClass('active');
+        if ($this.hasClass('active')) {
+          $this.next('.mpcs-lessons').css('display', 'block');
+        } else {
+          $this.next('.mpcs-lessons').css('display', 'none');
+        }
+      });
+    }
+
     $('#previous_lesson_link').on('click', function(e) {
       e.preventDefault();
       this.disabled = true;

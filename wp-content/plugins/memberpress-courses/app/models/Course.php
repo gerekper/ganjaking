@@ -11,6 +11,7 @@ class Course extends lib\BaseCptModel {
   public static $nonce_str = 'mpcs-course-nonce';
   public static $page_template_str = 'mpcs-course-page-template';
   public static $page_status_str = 'mpcs-course-page-status';
+  public static $accordion_sidebar_str = 'mpcs-course-page-accordion-sidebar';
   public static $sales_url_str = 'mpcs-sales-url';
   public static $permalink_slug = 'courses';
   public $statuses;
@@ -25,6 +26,7 @@ class Course extends lib\BaseCptModel {
         'page_template' => array('default' => null, 'type' => 'string'),
         'menu_order'    => array('default' => 0, 'type' => 'int'),
         'sales_url'    => array('default' => "", 'type' => 'string'),
+        'accordion_sidebar' => array( 'default' => 'disabled', 'type' => 'string' ),
       )
     );
 

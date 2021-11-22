@@ -392,10 +392,6 @@ class MeprAppCtrl extends MeprBaseCtrl {
     $sub_ctrl = new MeprSubscriptionsCtrl();
     $menu_title = 'MemberPress';
 
-    if ( MeprUtils::is_black_friday_time() && empty( get_option( 'mp_2020_bf_dismissed' ) ) ) {
-      $menu_title .= '<span class="memberpress-menu-pulse green"></span>';
-    }
-
     add_menu_page('MemberPress', $menu_title, $capability, 'memberpress', 'MeprAppCtrl::toplevel_menu_route', MEPR_IMAGES_URL."/memberpress-16@2x.png", 775677);
 
     add_submenu_page('memberpress', __('Members', 'memberpress'), __('Members', 'memberpress'), $capability, 'memberpress-members', array($mbr_ctrl,'listing'));

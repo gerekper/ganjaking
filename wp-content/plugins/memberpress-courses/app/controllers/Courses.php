@@ -312,7 +312,6 @@ class Courses extends lib\BaseCtrl {
       }
 
       $my_course_ids = get_posts(array('post_type' => models\Course::$cpt, 'posts_per_page' => -1, 'post__in' => $courses_started, 'orderby' => 'title', 'order' => 'ASC', 'fields' => 'ids'));
-
       set_transient( 'mpcs_enrolled_courses_'.$user_id, $my_course_ids, 24 * HOUR_IN_SECONDS );
       $transients[] = 'mpcs_enrolled_courses_'.$user_id;
       \update_option('mpcs-transients', $transients);
@@ -332,6 +331,7 @@ class Courses extends lib\BaseCtrl {
         });
       }
 
+      //Krista, Remember: ALL COURSE IDS DOES NOT INCLUDED STARTED COURSES
       $all_course_ids = array_column( $courses, 'ID' );
       $course_ids = array_merge($my_course_ids, $all_course_ids);
 
@@ -348,11 +348,11 @@ class Courses extends lib\BaseCtrl {
       if ( false == ( get_transient( 'mpcs_mycourses_'.$user_id ) ) ) {
         $mepr_user = new \MeprUser($user_id);
 
-        if(empty($all_course_ids)) {
-          $all_course_ids = array (0); //Empty arrays apply no filter on get_posts
+        if(empty($course_ids)) {
+          $course_ids = array (0); //Empty arrays apply no filter on get_posts
         }
 
-        $courses = get_posts(array('post_type' => models\Course::$cpt, 'posts_per_page' => -1, 'post__not_in' => $all_course_ids, 'orderby' => 'title', 'order' => 'ASC'));
+        $courses = get_posts(array('post_type' => models\Course::$cpt, 'posts_per_page' => -1, 'post__in' => $course_ids, 'orderby' => 'title', 'order' => 'ASC'));
 
         // Remove courses the user does not have access to
         if(false == \MeprUtils::is_logged_in_and_an_admin()){

@@ -15,3 +15,43 @@ div.mpcs-breadcrumbs span.mpcs-breadcrumb:not(:last-child)::after {
 
 div.mpcs-breadcrumb {
   font-weight: bold; }
+
+.mpcs-sidebar-with-accordion #mpcs-sidebar .mpcs-lessons {
+  display: none;
+  overflow: hidden;
+}
+
+.mpcs-sidebar-with-accordion #mpcs-sidebar .mpcs-section {
+  margin-bottom: 0;
+  position: relative;
+}
+
+.mpcs-sidebar-with-accordion #mpcs-sidebar .mpcs-section-title {
+  padding: 1em;
+}
+
+.mpcs-sidebar-with-accordion #mpcs-sidebar .mpcs-section-header {
+  border-bottom: 1px solid rgba(255,255,255,.15);
+  position: relative;
+}
+
+.mpcs-sidebar-with-accordion #mpcs-sidebar .mpcs-section-header:after {
+  content: '';
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #666;
+}
+
+.mpcs-sidebar-with-accordion #mpcs-sidebar .mpcs-section-header.active:after {
+  border-bottom: 6px solid #666;
+  border-top: none;
+}
+
+.mpcs-sidebar-with-accordion #mpcs-sidebar .mpcs-section-title:hover {
+  cursor: pointer;
+}

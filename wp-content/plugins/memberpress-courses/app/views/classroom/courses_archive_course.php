@@ -11,11 +11,15 @@ $category = isset($_GET['category']) ? esc_attr($_GET['category']) : '';
 $author = isset($_GET['author']) ? esc_attr($_GET['author']) : '';
 $options = \get_option('mpcs-options');
 $progress_color = implode(', ', helpers\Options::get_rgb($options, 'progress-color') );
+$filter_base_url = home_url( $wp->request );
+$pos = strpos($filter_base_url , '/page');
 
+if ($pos > 0) {
+  $filter_base_url = substr($filter_base_url,0,$pos);
+}
 // Load header
 echo helpers\Courses::get_classroom_header();
 ?>
-
 <div class="entry entry-content" style="padding: 2em 0">
   <div class="container grid-xl">
 
@@ -31,9 +35,9 @@ echo helpers\Courses::get_classroom_header();
 
               printf('<li><input type="text" class="form-input mpcs-dropdown-search" placeholder="%s" id="mpmcSearchCategory"></li>', esc_html__('Search', 'memberpress-courses') );
 
-              printf('<li class="%s"><a href="%s">%s</a></li>', $category == '' ? 'active' : '', add_query_arg('category', ''), esc_html__('All', 'memberpress-courses') );
+              printf('<li class="%s"><a href="%s">%s</a></li>', $category == '' ? 'active' : '', add_query_arg('category', '',  $filter_base_url), esc_html__('All', 'memberpress-courses') );
               foreach ($terms as $term) {
-                printf('<li class="%s"><a href="%s">%s</a></li>', $category == $term->slug ? 'active' : '', add_query_arg('category', $term->slug), $term->name );
+                printf('<li class="%s"><a href="%s">%s</a></li>', $category == $term->slug ? 'active' : '', add_query_arg('category', $term->slug,  $filter_base_url), $term->name );
               }
             ?>
           </ul>
@@ -50,10 +54,10 @@ echo helpers\Courses::get_classroom_header();
 
               printf('<li><input type="text" class="form-input mpcs-dropdown-search" placeholder="%s" id="mpmcSearchCourses"></li>', esc_html__('Search', 'memberpress-courses') );
 
-              printf('<li class="%s"><a href="%s">%s</a></li>', $author == '' ? 'active' : '', add_query_arg('author', ''), esc_html__('All', 'memberpress-courses') );
+              printf('<li class="%s"><a href="%s">%s</a></li>', $author == '' ? 'active' : '', add_query_arg('author', '',  $filter_base_url), esc_html__('All', 'memberpress-courses') );
 
               foreach ($post_authors as $post_author) {
-                printf('<li class="%s"><a href="%s">%s</a></li>', $author == $post_author->user_login ? 'active' : '', add_query_arg('author', $post_author->user_login), lib\Utils::get_full_name( $post_author->ID ) );
+                printf('<li class="%s"><a href="%s">%s</a></li>', $author == $post_author->user_login ? 'active' : '', add_query_arg('author', $post_author->user_login,  $filter_base_url), lib\Utils::get_full_name( $post_author->ID ) );
               }
             ?>
           </ul>
@@ -122,7 +126,7 @@ echo helpers\Courses::get_classroom_header();
               <?php
               $user_id = get_the_author_meta( 'ID' );
               $user_data = get_userdata( $user_id );
-              $author_url = add_query_arg( 'author', $user_data->user_login );
+              $author_url = add_query_arg( 'author', $user_data->user_login,  $filter_base_url );
               // echo lib\Utils::get_avatar( $user_id, '30' );
               // echo lib\Utils::get_full_name( $user_id );
               ?>

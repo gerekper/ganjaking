@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Courses
 Plugin URI: https://memberpress.com/
 Description: Create Courses that work seamlessly with MemberPress.
-Version: 1.0.29
+Version: 1.0.34
 Requires at least: 5.0
 Author: Caseproof LLC
 Author URI: https://caseproof.com/
@@ -135,9 +135,6 @@ if((defined('TESTS_RUNNING') && TESTS_RUNNING) || is_plugin_active('memberpress/
 
   // Instansiate Ctrls
   lib\CtrlFactory::all();
-
-  // Setup screens
-  ctrl\App::setup_menus();
 
   register_activation_hook(PLUGIN_SLUG, function() { require_once(LIB_PATH . "/activation.php"); });
   register_deactivation_hook(PLUGIN_SLUG, function() { require_once(LIB_PATH . "/deactivation.php"); });

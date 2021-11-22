@@ -89,6 +89,10 @@ class Account extends lib\BaseCtrl {
       $courses_ids = array_column( $courses, 'ID' );
       $per_page = apply_filters('mpcs_courses_per_page', 6);
 
+      if (empty($courses_ids)) {
+        $courses_ids = array ( 0 );
+      }
+
       $course_query = new \WP_Query(array('post_type' => models\Course::$cpt, 'post_status' => 'publish', 'posts_per_page' => $per_page, 'paged' => $paged, 'orderby'=> 'post__in', 'order' => 'ASC', 'post__in' => $courses_ids));
       $course_posts = $course_query->get_posts();
 

@@ -30,9 +30,14 @@ class App extends lib\BaseCtrl {
     add_filter( 'the_title', array($this, 'show_lock_icon') );
     add_action( 'plugins_loaded', array($this, 'load_language') ); // Must load here or it won't work with PolyLang etc
     add_filter( 'mepr_view_paths', array( $this, 'add_view_path' ) );
+
+    //Add support for watupro quizzes in classroom mode
+    if(is_plugin_active('watupro/watupro.php')) {
+      add_action(base\SLUG_KEY . '_courses_footer', array($this, 'do_wordpress_footer'));
+    }
   }
 
-  /**
+  /**w
    * Make sure the rewrite rules are flushed to prevent issues with accessing the custom post types.
    * All custom post types should be registered by now.
    *
@@ -179,22 +184,20 @@ class App extends lib\BaseCtrl {
 
   public static function setup_menus() {
     $app = App::fetch();
-    add_action('admin_menu', array($app,'menu'));
+    add_action('admin_menu', array($app,'menu'), '20');
   }
 
   public function menu() {
     self::admin_separator();
-    $courses_ctrl = ctrl\Courses::fetch();
-
     $menu_title = __('Courses', 'memberpress-courses');
     $menu_title .= sprintf( '<span style="background-color: #ed5a4c; color: #fff; font-weight: bold; display: inline-block; margin-left: 5px; padding: 2px 6px 3px; border-radius: 100px; font-size: 10px;">%s</span>', __('NEW', 'memberpress', 'memberpress-courses') );
 
-    $courses_menu_hook = add_submenu_page(
+    add_submenu_page(
       'memberpress',
       __('MemberPress Courses', 'memberpress-courses'),
       $menu_title,
       'manage_options',
-      $courses_ctrl->cpt_admin_url(),
+      'memberpress-courses',
       array( $this, 'toplevel_menu_route' )
     );
   }
@@ -570,5 +573,9 @@ class App extends lib\BaseCtrl {
   function add_view_path( $paths ) {
     array_splice( $paths, 1, 0, base\VIEWS_PATH );
     return $paths;
+  }
+
+  function do_wordpress_footer() {
+    do_action('wp_footer');
   }
 }

@@ -1,22 +1,22 @@
 # Copyright (C) 2021 Caseproof LLC
-# This file is distributed under the same license as the MemberPress Courses plugin.
+# This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: MemberPress Courses 1.0.29\n"
+"Project-Id-Version: MemberPress Courses 1.0.34\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-courses\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-05-07T18:22:27+00:00\n"
+"POT-Creation-Date: 2021-09-29T20:07:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: memberpress-courses\n"
 
 #. Plugin Name of the plugin
-#: app/controllers/App.php:194
-#: main.php:151
+#: app/controllers/App.php:197
+#: main.php:148
 msgid "MemberPress Courses"
 msgstr ""
 
@@ -37,9 +37,9 @@ msgid "https://caseproof.com/"
 msgstr ""
 
 #: app/controllers/Account.php:57
-#: app/controllers/admin/Courses.php:284
-#: app/controllers/App.php:77
-#: app/controllers/App.php:189
+#: app/controllers/admin/Courses.php:285
+#: app/controllers/App.php:82
+#: app/controllers/App.php:192
 msgid "Courses"
 msgstr ""
 
@@ -102,76 +102,76 @@ msgstr ""
 msgid "Completion Rate"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:285
+#: app/controllers/admin/Courses.php:286
 #: app/controllers/admin/Lessons.php:159
 msgid "Course"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:286
+#: app/controllers/admin/Courses.php:287
 msgid "Add New Course"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:287
+#: app/controllers/admin/Courses.php:288
 msgid "Edit Course"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:288
+#: app/controllers/admin/Courses.php:289
 msgid "New Course"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:289
+#: app/controllers/admin/Courses.php:290
 msgid "View Course"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:290
+#: app/controllers/admin/Courses.php:291
 msgid "Search Courses"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:291
+#: app/controllers/admin/Courses.php:292
 msgid "No Courses found"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:292
+#: app/controllers/admin/Courses.php:293
 msgid "No Courses found in Trash"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:293
+#: app/controllers/admin/Courses.php:294
 msgid "Parent Course:"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:321
+#: app/controllers/admin/Courses.php:322
 msgid "Curriculum Builder"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:322
+#: app/controllers/admin/Courses.php:323
 msgid "Course Setting"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:323
+#: app/controllers/admin/Courses.php:324
 msgid "Page Options"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:371
+#: app/controllers/admin/Courses.php:372
 msgid "Facebook URL"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:372
+#: app/controllers/admin/Courses.php:373
 msgid "Twitter URL"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:373
+#: app/controllers/admin/Courses.php:374
 msgid "Instagram URL"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:374
+#: app/controllers/admin/Courses.php:375
 msgid "Youtube URL"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:397
+#: app/controllers/admin/Courses.php:398
 msgid "You are not allowed to delete user's progress"
 msgstr ""
 
-#: app/controllers/admin/Courses.php:406
+#: app/controllers/admin/Courses.php:407
 msgid "Progress was deleted for this User and Course"
 msgstr ""
 
@@ -237,15 +237,15 @@ msgstr ""
 msgid "Duplicate"
 msgstr ""
 
-#: app/controllers/App.php:51
+#: app/controllers/App.php:56
 msgid "MemberPress Courses has been activated successfully!"
 msgstr ""
 
-#: app/controllers/App.php:59
+#: app/controllers/App.php:64
 msgid "MemberPress Courses requires WordPress 5.0 and above to run smoothly. Please upgrade!"
 msgstr ""
 
-#: app/controllers/App.php:265
+#: app/controllers/App.php:268
 msgid "Allowed Files"
 msgstr ""
 
@@ -331,15 +331,15 @@ msgstr ""
 msgid "message"
 msgstr ""
 
-#: app/controllers/Lessons.php:183
+#: app/controllers/Lessons.php:203
 msgid "Forbidden"
 msgstr ""
 
-#: app/controllers/Lessons.php:206
+#: app/controllers/Lessons.php:226
 msgid "This lesson has already been completed"
 msgstr ""
 
-#: app/controllers/Lessons.php:238
+#: app/controllers/Lessons.php:258
 msgid "Progress was recorded for this User and Lesson"
 msgstr ""
 
@@ -752,29 +752,29 @@ msgstr ""
 msgid "Reset Progress"
 msgstr ""
 
-#: app/views/classroom/courses_archive_course.php:26
+#: app/views/classroom/courses_archive_course.php:30
 msgid "Category"
 msgstr ""
 
-#: app/views/classroom/courses_archive_course.php:32
-#: app/views/classroom/courses_archive_course.php:51
+#: app/views/classroom/courses_archive_course.php:36
+#: app/views/classroom/courses_archive_course.php:55
 msgid "Search"
 msgstr ""
 
-#: app/views/classroom/courses_archive_course.php:34
-#: app/views/classroom/courses_archive_course.php:53
+#: app/views/classroom/courses_archive_course.php:38
+#: app/views/classroom/courses_archive_course.php:57
 msgid "All"
 msgstr ""
 
-#: app/views/classroom/courses_archive_course.php:44
+#: app/views/classroom/courses_archive_course.php:48
 msgid "Author"
 msgstr ""
 
-#: app/views/classroom/courses_archive_course.php:74
+#: app/views/classroom/courses_archive_course.php:78
 msgid "Find a course"
 msgstr ""
 
-#: app/views/classroom/courses_archive_course.php:147
+#: app/views/classroom/courses_archive_course.php:151
 msgid "No Course found"
 msgstr ""
 
@@ -889,7 +889,7 @@ msgstr ""
 msgid "Complete Lesson"
 msgstr ""
 
-#: main.php:152
+#: main.php:149
 msgid "Courses add-on for MemberPress."
 msgstr ""
 
@@ -922,7 +922,7 @@ msgstr ""
 msgid "the content course"
 msgstr ""
 
-#: builder/views/Settings.jsx:49
+#: builder/views/Settings.jsx:67
 msgid "Sales Page"
 msgstr ""
 

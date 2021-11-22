@@ -2,20 +2,20 @@
 # This file is distributed under the same license as the MemberPress plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MemberPress 1.9.25\n"
+"Project-Id-Version: MemberPress 1.9.27\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-11-13T20:04:42+00:00\n"
+"POT-Creation-Date: 2021-11-18T21:26:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: memberpress\n"
 
 #. Plugin Name of the plugin
-#: app/controllers/MeprAppCtrl.php:417
+#: app/controllers/MeprAppCtrl.php:413
 msgid "MemberPress"
 msgstr ""
 
@@ -313,7 +313,7 @@ msgid "UNAUTHORIZED: %s"
 msgstr ""
 
 #: app/controllers/MeprAppCtrl.php:60
-#: app/controllers/MeprAppCtrl.php:446
+#: app/controllers/MeprAppCtrl.php:442
 #: app/views/admin/support/view.php:6
 msgid "Support"
 msgstr ""
@@ -362,7 +362,7 @@ msgstr ""
 msgid "<strong>MemberPress: Your PHP version (%s) is out of date!</strong> This version has reached official End Of Life and as such may expose your site to security vulnerabilities. Please contact your web hosting provider to update to %s or newer"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:401
+#: app/controllers/MeprAppCtrl.php:397
 #: app/controllers/MeprDbCtrl.php:214
 #: app/controllers/MeprMembersCtrl.php:232
 #: app/helpers/MeprProductsHelper.php:116
@@ -370,13 +370,13 @@ msgstr ""
 msgid "Members"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:405
-#: app/controllers/MeprAppCtrl.php:408
+#: app/controllers/MeprAppCtrl.php:401
+#: app/controllers/MeprAppCtrl.php:404
 msgid "Affiliates"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:412
-#: app/controllers/MeprAppCtrl.php:414
+#: app/controllers/MeprAppCtrl.php:408
+#: app/controllers/MeprAppCtrl.php:410
 #: app/controllers/MeprDbCtrl.php:215
 #: app/controllers/MeprMembersCtrl.php:113
 #: app/controllers/MeprSubscriptionsCtrl.php:552
@@ -384,7 +384,7 @@ msgstr ""
 msgid "Subscriptions"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:415
+#: app/controllers/MeprAppCtrl.php:411
 #: app/controllers/MeprMembersCtrl.php:114
 #: app/controllers/MeprReportsCtrl.php:120
 #: app/controllers/MeprTransactionsCtrl.php:619
@@ -394,53 +394,53 @@ msgstr ""
 msgid "Transactions"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:416
+#: app/controllers/MeprAppCtrl.php:412
 #: app/views/admin/reports/main.php:4
 msgid "Reports"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:418
+#: app/controllers/MeprAppCtrl.php:414
 #: app/views/admin/options/form.php:4
 #: app/views/admin/options/form.php:511
 msgid "Settings"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:419
+#: app/controllers/MeprAppCtrl.php:415
 #: app/views/admin/options/account_login.php:6
 #: app/views/admin/update/ui.php:21
 msgid "Account Login"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:420
+#: app/controllers/MeprAppCtrl.php:416
 msgid "Add-ons"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:423
-#: app/controllers/MeprAppCtrl.php:536
+#: app/controllers/MeprAppCtrl.php:419
+#: app/controllers/MeprAppCtrl.php:532
 #: app/controllers/MeprCoursesCtrl.php:35
 msgid "Courses"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:424
+#: app/controllers/MeprAppCtrl.php:420
 msgid "NEW"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:425
+#: app/controllers/MeprAppCtrl.php:421
 #: app/views/admin/support/view.php:124
 msgid "MemberPress Courses"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:430
-#: app/controllers/MeprAppCtrl.php:433
+#: app/controllers/MeprAppCtrl.php:426
+#: app/controllers/MeprAppCtrl.php:429
 msgid "SMTP"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:439
-#: app/controllers/MeprAppCtrl.php:442
+#: app/controllers/MeprAppCtrl.php:435
+#: app/controllers/MeprAppCtrl.php:438
 msgid "Analytics"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:528
+#: app/controllers/MeprAppCtrl.php:524
 #: app/controllers/MeprMembersCtrl.php:124
 #: app/controllers/MeprProductsCtrl.php:42
 #: app/controllers/MeprRemindersCtrl.php:94
@@ -448,152 +448,152 @@ msgstr ""
 msgid "Memberships"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:530
+#: app/controllers/MeprAppCtrl.php:526
 #: app/controllers/MeprGroupsCtrl.php:33
 msgid "Groups"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:532
+#: app/controllers/MeprAppCtrl.php:528
 #: app/controllers/MeprRulesCtrl.php:60
 msgid "Rules"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:534
+#: app/controllers/MeprAppCtrl.php:530
 #: app/controllers/MeprCouponsCtrl.php:29
 msgid "Coupons"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:589
+#: app/controllers/MeprAppCtrl.php:585
 msgid "We can't display your account form right now. Please come back soon and try again."
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:620
+#: app/controllers/MeprAppCtrl.php:616
 msgid "the requested resource."
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:630
+#: app/controllers/MeprAppCtrl.php:626
 msgid "Unauthorized for"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:647
+#: app/controllers/MeprAppCtrl.php:643
 msgid "There was a problem with our system. Please come back soon and try again."
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:730
+#: app/controllers/MeprAppCtrl.php:726
 msgid "-- Select State --"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:767
+#: app/controllers/MeprAppCtrl.php:763
 msgctxt "ui"
 msgid "Done"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:768
+#: app/controllers/MeprAppCtrl.php:764
 msgctxt "ui"
 msgid "Today"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:769
+#: app/controllers/MeprAppCtrl.php:765
 msgctxt "ui"
 msgid "Jan"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:769
+#: app/controllers/MeprAppCtrl.php:765
 msgctxt "ui"
 msgid "Feb"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:769
+#: app/controllers/MeprAppCtrl.php:765
 msgctxt "ui"
 msgid "Mar"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:769
+#: app/controllers/MeprAppCtrl.php:765
 msgctxt "ui"
 msgid "Apr"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:769
+#: app/controllers/MeprAppCtrl.php:765
 msgctxt "ui"
 msgid "May"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:769
+#: app/controllers/MeprAppCtrl.php:765
 msgctxt "ui"
 msgid "Jun"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:770
+#: app/controllers/MeprAppCtrl.php:766
 msgctxt "ui"
 msgid "Jul"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:770
+#: app/controllers/MeprAppCtrl.php:766
 msgctxt "ui"
 msgid "Aug"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:770
+#: app/controllers/MeprAppCtrl.php:766
 msgctxt "ui"
 msgid "Sep"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:770
+#: app/controllers/MeprAppCtrl.php:766
 msgctxt "ui"
 msgid "Oct"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:770
+#: app/controllers/MeprAppCtrl.php:766
 msgctxt "ui"
 msgid "Nov"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:770
+#: app/controllers/MeprAppCtrl.php:766
 msgctxt "ui"
 msgid "Dec"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:771
+#: app/controllers/MeprAppCtrl.php:767
 msgctxt "ui"
 msgid "Su"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:771
+#: app/controllers/MeprAppCtrl.php:767
 msgctxt "ui"
 msgid "Mo"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:771
+#: app/controllers/MeprAppCtrl.php:767
 msgctxt "ui"
 msgid "Tu"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:771
+#: app/controllers/MeprAppCtrl.php:767
 msgctxt "ui"
 msgid "We"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:771
+#: app/controllers/MeprAppCtrl.php:767
 msgctxt "ui"
 msgid "Th"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:771
+#: app/controllers/MeprAppCtrl.php:767
 msgctxt "ui"
 msgid "Fr"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:771
+#: app/controllers/MeprAppCtrl.php:767
 msgctxt "ui"
 msgid "Sa"
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:900
+#: app/controllers/MeprAppCtrl.php:896
 msgid "There was a problem with our system: %s. Please come back soon and try again."
 msgstr ""
 
-#: app/controllers/MeprAppCtrl.php:983
-#: app/controllers/MeprAppCtrl.php:985
+#: app/controllers/MeprAppCtrl.php:979
+#: app/controllers/MeprAppCtrl.php:981
 msgid "MemberPress Account Links"
 msgstr ""
 
@@ -4624,54 +4624,54 @@ msgid "Use Login Redirect URL?"
 msgstr ""
 
 #. Translators: Readable time to display
-#: app/lib/MeprNotifications.php:295
+#: app/lib/MeprNotifications.php:313
 msgid "%1$s ago"
 msgstr ""
 
-#: app/lib/MeprNotifications.php:428
+#: app/lib/MeprNotifications.php:446
 msgid "%s unread message"
 msgid_plural "%s unread messages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/lib/MeprNotifications.php:472
-#: app/lib/MeprNotifications.php:537
+#: app/lib/MeprNotifications.php:490
+#: app/lib/MeprNotifications.php:555
 #: app/views/admin/black-friday.php:6
 msgid "Dismiss"
 msgstr ""
 
-#: app/lib/MeprNotifications.php:479
-#: app/lib/MeprNotifications.php:544
+#: app/lib/MeprNotifications.php:497
+#: app/lib/MeprNotifications.php:562
 msgid "%s second ago"
 msgid_plural "%s seconds ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/lib/MeprNotifications.php:515
+#: app/lib/MeprNotifications.php:533
 msgid "You're all caught up!"
 msgstr ""
 
-#: app/lib/MeprNotifications.php:590
+#: app/lib/MeprNotifications.php:608
 msgid "Inbox"
 msgstr ""
 
-#: app/lib/MeprNotifications.php:593
+#: app/lib/MeprNotifications.php:611
 msgid "View Dismissed"
 msgstr ""
 
-#: app/lib/MeprNotifications.php:594
+#: app/lib/MeprNotifications.php:612
 msgid "View Active"
 msgstr ""
 
-#: app/lib/MeprNotifications.php:595
+#: app/lib/MeprNotifications.php:613
 msgid "Close"
 msgstr ""
 
-#: app/lib/MeprNotifications.php:608
+#: app/lib/MeprNotifications.php:626
 msgid "Notifications"
 msgstr ""
 
-#: app/lib/MeprNotifications.php:611
+#: app/lib/MeprNotifications.php:629
 msgid "Dismiss All"
 msgstr ""
 
@@ -5207,6 +5207,8 @@ msgstr ""
 #: app/views/checkout/spc_form.php:92
 #: app/views/checkout/spc_form.php:104
 #: app/views/login/form.php:40
+#: app/views/login/reset_password.php:12
+#: app/views/login/reset_password.php:23
 msgid "Show password"
 msgstr ""
 
@@ -5216,7 +5218,7 @@ msgid "Confirm New Password"
 msgstr ""
 
 #: app/views/account/password.php:33
-#: app/views/login/reset_password.php:23
+#: app/views/login/reset_password.php:33
 msgctxt "ui"
 msgid "Update Password"
 msgstr ""
@@ -10024,7 +10026,7 @@ msgctxt "ui"
 msgid "Enter your new password"
 msgstr ""
 
-#: app/views/login/reset_password.php:15
+#: app/views/login/reset_password.php:20
 msgctxt "ui"
 msgid "Password Confirmation"
 msgstr ""

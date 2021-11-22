@@ -167,6 +167,10 @@ class Courses {
         "name" => models\Course::$page_status_str,
         "value" => $course->status
       ),
+      "accordionSidebar" => array(
+        "name" => models\Course::$accordion_sidebar_str,
+        "value" => $course->accordion_sidebar
+      ),
       "salesUrl" => array(
         "name" => models\Course::$sales_url_str,
         "value" => $course->sales_url

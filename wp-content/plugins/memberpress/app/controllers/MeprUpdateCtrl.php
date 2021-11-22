@@ -58,12 +58,12 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
     $link = 'https://memberpress.com/bf2021/bf-alert/lic-no';
     $heading = '📢 Black Friday is here!';
     $message = "Get MemberPress TODAY for up to $300 OFF. PLUS enter to win a 14\" MacBook Pro M1. Don't wait!";
-    $button_text = 'Get MemberPress 👉';
+    $button_text = 'Get MemberPress 👈';
 
     if ( ! empty( $li['license_key']['expires_at'] ) && strtotime( $li['license_key']['expires_at'] ) < time() ) {
       // Expired
       $message = "RENEW MemberPress TODAY for up to $300 OFF. PLUS enter to win a 14\" MacBook Pro M1. Don't wait!";
-      $button_text = 'Renew MemberPress 👉';
+      $button_text = 'Renew MemberPress 👈';
       $link = 'https://memberpress.com/bf2021/bf-alert/lic-exp';
     } else {
       // Active
@@ -71,14 +71,14 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
         case 'memberpress-basic':
         case 'business':
           $message = "UPGRADE to MemberPress Plus or Pro TODAY & SAVE up to $300 OFF. And enter to win a 14\" MacBook Pro M1. Don't wait!";
-          $button_text = 'Upgrade MemberPress 👉';
+          $button_text = 'Upgrade MemberPress 👈';
           $link = 'https://memberpress.com/bf2021/bf-alert/lic-basic';
           break;
 
         case 'memberpress-plus':
         case 'memberpress-plus-2':
           $message = "UPGRADE to MemberPress PRO TODAY & SAVE up to $300 OFF. PLUS enter to win a 14\" MacBook Pro M1. Don't wait!";
-          $button_text = 'Upgrade MemberPress 👉';
+          $button_text = 'Upgrade MemberPress 👈';
           $link = 'https://memberpress.com/bf2021/bf-alert/lic-plus';
           break;
 
@@ -86,7 +86,7 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
         case 'memberpress-pro-5':
         case 'developer':
           $message = "ENTREPRENEUR on your list? Buy a MemberPress GIFT subscription + PRINTABLE CERTIFICATE & save up to $300! PLUS enter to win a MacBook Pro!";
-          $button_text = 'Buy a MemberPress Gift Certificate 👉';
+          $button_text = 'Buy a MemberPress Gift Certificate 👈';
           $heading = '📢 Black Friday is here!';
           $link = 'https://memberpress.com/bf2021/bf-alert/lic-pro';
           break;
@@ -467,7 +467,7 @@ class MeprUpdateCtrl extends MeprBaseCtrl {
           set_site_transient(
             'mepr_license_info',
             $license_info,
-            MeprUtils::hours(12)
+            MeprUtils::hours(72) // 3 days
           );
         }
         catch(Exception $e) {

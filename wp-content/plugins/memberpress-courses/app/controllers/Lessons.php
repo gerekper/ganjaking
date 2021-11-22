@@ -13,6 +13,7 @@ class Lessons extends lib\BaseCtrl {
     add_filter('the_content', array($this, 'prepend_breadcrumbs'));
     add_filter('the_content', array($this, 'append_lesson_navigation'));
     add_filter('template_include', array($this, 'override_template'), 999999);
+    add_filter('body_class', array($this, 'add_body_class'));
     add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'), 99);
     add_action('wp_ajax_mpcs_record_lesson_progress', array($this, 'record_lesson_progress'));
     add_filter('embed_oembed_html', array($this, 'wrap_oembed_html'), 99, 2);
@@ -125,6 +126,25 @@ class Lessons extends lib\BaseCtrl {
     }
 
     return $template;
+  }
+
+  /**
+   * Add class to body lesson
+   * @param array $classes
+   * @return array
+   */
+  public function add_body_class($classes) {
+    global $post;
+
+    $lesson = new models\Lesson($post->ID);
+    $section = $lesson->section();
+    if($section !== false) {
+      $course = $section->course();
+      if ( is_a( $post, 'WP_Post' ) && is_single() && $post->post_type === models\Lesson::$cpt && $course->accordion_sidebar === 'enabled' ) {
+        $classes[] = 'mpcs-sidebar-with-accordion';
+      }
+    }
+    return $classes;
   }
 
   /**

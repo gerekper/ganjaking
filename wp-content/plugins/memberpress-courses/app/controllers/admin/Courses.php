@@ -151,6 +151,7 @@ class Courses extends lib\BaseCptCtrl {
     $course = new models\Course($post_id);
     $course->page_template = isset($_POST[models\Course::$page_template_str]) ? sanitize_text_field($_POST[models\Course::$page_template_str]) : $course->attrs['page_template']['default'];
     $course->status = isset($_POST[models\Course::$page_status_str]) ? $_POST[models\Course::$page_status_str] : $course->attrs['status']['default'];
+    $course->accordion_sidebar = isset($_POST[ models\Course::$accordion_sidebar_str]) ? $_POST[ models\Course::$accordion_sidebar_str] : $course->attrs['accordion_sidebar']['default'];
     $course->menu_order = (isset($_POST['menu_order']) && is_numeric($_POST['menu_order'])) ? $_POST['menu_order'] : $course->attrs['menu_order']['default'];
     $course->sales_url = (isset($_POST[models\Course::$sales_url_str])) ? esc_url($_POST[models\Course::$sales_url_str]) : $course->attrs[models\Course::$sales_url_str]['default'];
 
@@ -297,7 +298,7 @@ class Courses extends lib\BaseCptCtrl {
         'show_ui' => true,
         'show_in_rest' => true,
         'query_var' => 'course',
-        'show_in_menu' => base\PLUGIN_NAME,
+        'show_in_menu' => 'memberpress',
         'has_archive' => true,
         'capability_type' => 'page',
         'hierarchical' => false,
