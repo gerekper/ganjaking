@@ -45,7 +45,10 @@ class WC_Memberships_Meta_Box_View_Content_Restriction_Rule extends \WC_Membersh
 		$index   = $this->get_rule_index( $args );
 
 		?>
-		<tbody class="rule content-restriction-rule content-restriction-rule-<?php echo esc_attr( $index ); ?> <?php if ( ! $this->rule->current_user_can_edit() || ! $this->rule->current_context_allows_editing() ) : ?>disabled<?php endif; ?>">
+		<tbody
+			class="rule content-restriction-rule content-restriction-rule-<?php echo esc_attr( $index ); ?>
+			<?php if ( ! $this->rule->current_user_can_edit() || ! $this->rule->current_context_allows_editing() ) : ?>disabled<?php endif; ?>"
+			<?php echo $this->rule->is_trashed() ? 'style="display: none; height: 0;"' : ''; ?>>
 
 			<tr>
 
@@ -285,7 +288,7 @@ class WC_Memberships_Meta_Box_View_Content_Restriction_Rule extends \WC_Membersh
 
 			<?php if ( ! $this->rule->current_user_can_edit() || ! $this->rule->current_context_allows_editing() ) : ?>
 
-				<tr class="disabled-notice">
+				<tr class="disabled-notice" <?php echo $this->rule->is_trashed() ? 'style="display: none; height: 0;"' : ''; ?>>
 
 					<td class="check-column"></td>
 					<td colspan="<?php echo ( 'wc_membership_plan' === $this->post->post_type ) ? 4 : 3; ?>">

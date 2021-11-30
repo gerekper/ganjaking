@@ -60,7 +60,7 @@ if ( ! defined( 'WPINC' ) ) {
 </div>
 
 <?php if ( ! $is_pro ) : ?>
-	<p><?php esc_html_e( 'Smush Pro supports hosting images on Amazon S3 and optimizating NextGen Gallery images directly through NextGen Gallery settings.', 'wp-smushit' ); ?></p>
+	<p><?php esc_html_e( 'Smush Pro supports hosting images on Amazon S3 and optimizing NextGen Gallery images directly through NextGen Gallery settings.', 'wp-smushit' ); ?></p>
 	<p>
 		<?php
 		printf( /* translators: %1$s - opening <a>, %2$s - closing </a> */

@@ -34,6 +34,7 @@ jQuery(function( $ ) {
 			var $field = $( 'input[name="wc_od_checkout_delivery_option"]' ),
 				$toggleFields = $(
 					'.wc_od_time_frames,' +
+					'#wc_od_checkout_text,' +
 					'.wc_od_delivery_days,' +
 					'#wc_od_max_delivery_days,' +
 					'[name="wc_od_delivery_fields_option"],' +

@@ -6,9 +6,22 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.9.4 ( 2021-11-29 ) =
+
+- Fix: Errors in media library with WP Offload Media and backups
+- Fix: CDN not activated if the WPMU DEV Dashboard plugin folder is renamed
+- Fix: Missing hover effect for video on the Smush Pro page
+- Fix: Incorrect number of compressed images when WooCommerce plugin is active
+- Fix: View stats not working when adding an image from a page/post
+- Fix: Wrong "Images smushed" count on NextGen Gallery Smush page
+- Fix: Duplicate stats are added by WPML media translations.
+- Fix: Regenerated thumbnails not detected as pending for Smush
+- Fix: CDN status when pushing production to staging on WPMU DEV hosting
+- Fix: Translation strings
+
 = 3.9.3 ( 2021-11-04 ) =
 
-Enhance: White label support
+- Enhance: White label support
 
 = 3.9.2 ( 2021-11-01 ) =
 
@@ -127,4 +140,4 @@ Enhance: White label support
 
 
 
-941105-1636025917-au
+941105-1638183700-au

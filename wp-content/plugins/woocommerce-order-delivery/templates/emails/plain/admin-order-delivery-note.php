@@ -3,7 +3,7 @@
  * Admin order delivery note email (plain text)
  *
  * @package WC_OD/Templates/Emails/Plain
- * @since   1.5.0
+ * @version 1.5.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -26,7 +26,6 @@ echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n"
  * @hooked WC_Emails::order_details() Shows the order details table.
  * @hooked WC_Structured_Data::generate_order_data() Generates structured data.
  * @hooked WC_Structured_Data::output_structured_data() Outputs structured data.
- * @since 2.5.0
  */
 do_action( 'woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email );
 

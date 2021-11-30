@@ -1,18 +1,20 @@
 <?php
 /**
- * Checkout delivery date form
+ * Checkout delivery date form.
  *
  * @package WC_OD/Templates
- * @since   1.5.0
+ * @version 1.9.5
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Variables.
+ * Template vars.
  *
  * @var WC_Checkout $checkout
+ * @var string      $title
  * @var string      $delivery_option
+ * @var string      $checkout_text
  * @var array       $delivery_range
  */
 ?>
@@ -23,9 +25,11 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php if ( 'calendar' === $delivery_option ) : ?>
 
-		<p><?php echo wp_kses_post( __( 'We will try our best to deliver your order on the specified date.', 'woocommerce-order-delivery' ) ); ?></p>
-
 		<?php
+		if ( ! empty( $checkout_text ) ) :
+			echo '<p class="wc-od-checkout-text">' . wp_kses_post( $checkout_text ) . '</p>';
+		endif;
+
 		$fields = $checkout->get_checkout_fields( 'delivery' );
 
 		foreach ( $fields as $key => $field ) :

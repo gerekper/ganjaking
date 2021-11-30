@@ -239,23 +239,31 @@
   line-height: 1px;
 }
 .mwb_crp_wrapper_button .twitter-share-button {
-  background: #3399ff none repeat scroll 0 0;
-  border-radius: 5px;
-  color: #ffffff;
-  display: inline-block;
-  font-size: 12px;
-  padding: 1px 12px;
-  text-decoration: none;
-  vertical-align: top;
+    background: #3399ff none repeat scroll 0 0;
+    border-radius: 5px;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 12px;
+    padding: 1px 12px;
+    text-decoration: none;
+    vertical-align: top;
+    width: 100px;
+    max-width: 100px;
+    text-align: center;
+    padding: 6px 12px;
+    text-decoration: none !important;
 }
-.mwb_crp_wrapper_button  .fb-share-button {
- background: #267fe7 none repeat scroll 0 0;
- border-radius: 5px;
- color: #ffffff;
- font-size: 12px;
- padding: 1px 12px;
- text-decoration: none;
- vertical-align: top;
+.mwb_crp_wrapper_button .fb-share-button {
+    background: #1877f2 none repeat scroll 0 0;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 1px 12px;
+    text-decoration: none;
+    vertical-align: top;
+    width: 100%;
+    max-width: 100px;
+    padding: 6px 12px;
 }
 .mwb_crp_wrapper_button .google{
  display: inline-block; 
@@ -266,16 +274,19 @@
  margin: 0 7px;
 }
 .mwb_crp_wrapper_button .mwb_wpr_mail_button {
-  background-color: #575757;
-  border-radius: 3px;
-  box-shadow: none;
-  display: inline-block;
-  height: 21px;
-  padding: 0;
-  text-align: center;
-  vertical-align: top;
-  width: 50px;
-  margin: 0px 12px;
+    background-color: #575757;
+    border-radius: 3px;
+    box-shadow: none;
+    display: inline-block;
+    height: 31px;
+    padding: 0;
+    text-align: center;
+    vertical-align: top;
+    width: 50px;
+    margin: 0px 12px;
+    width: 100%;
+    max-width: 100px;
+    padding: 6px 12px;
 }
 .mwb_crp_wrapper_button .mwb_wpr_mail_button img {
  box-shadow: none;
@@ -630,22 +641,24 @@ outline: 0;
 /*=====  End of Media Query CSS  ======*/
 /*Addede new css*/
 .mwb_crp_referal_section{
-  /*border: 1px solid #d1d1d1 !important;*/
   box-shadow: 0 0 10px -1px #d1d1d1;
 }
-.mwb_crp_whatsapp_button{
+.mwb_crp_whatsapp_button {
     background-color: #4FCE5D;
     border-radius: 3px;
     box-shadow: none;
     display: inline-block;
-    height: 21px;
+    height: 31px;
     text-align: center;
     vertical-align: top;
     width: 50px;
     margin-left: 10px;
+    width: 100%;
+    max-width: 100px;
+    padding: 6px 12px;
 }
 .mwb_crp_whatsapp_button img{
-    margin: 3px auto 0;
+    margin: 0 auto 0;
     vertical-align: top;
     width: 18px;
 }
@@ -678,9 +691,7 @@ outline: 0;
 .mwb_crp_referal_code_wrap{
   margin-top: 10px;
 }
-/*#mwb_cpr_referal_code_copy{
-  margin: 0;
-}*/
+
 .woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--referral_coupons a::before{
   content: "\f0c0";
 }

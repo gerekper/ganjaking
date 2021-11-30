@@ -314,7 +314,7 @@ class CDN extends Abstract_Module {
 		}
 
 		// CDN will not work if there is no dashboard plugin installed.
-		if ( ! file_exists( WP_PLUGIN_DIR . '/wpmudev-updates/update-notifications.php' ) ) {
+		if ( ! file_exists( WP_PLUGIN_DIR . '/wpmudev-updates/update-notifications.php' ) && ! class_exists('WPMUDEV_Dashboard') ) {
 			return;
 		}
 

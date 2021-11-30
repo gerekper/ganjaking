@@ -426,6 +426,17 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 					),
 
 					array(
+						'id'                => wc_od_maybe_prefix( 'checkout_text' ),
+						'title'             => __( 'Checkout text', 'woocommerce-order-delivery' ),
+						'desc_tip'          => __( 'Add a description of the shipping & delivery during checkout.', 'woocommerce-order-delivery' ),
+						'type'              => 'textarea',
+						'custom_attributes' => array(
+							'rows' => 3,
+							'cols' => 20,
+						),
+					),
+
+					array(
 						'id'       => wc_od_maybe_prefix( 'delivery_days' ),
 						'title'    => __( 'Delivery days', 'woocommerce-order-delivery' ),
 						'desc'     => __( 'Choose the available days to deliver orders.', 'woocommerce-order-delivery' ),

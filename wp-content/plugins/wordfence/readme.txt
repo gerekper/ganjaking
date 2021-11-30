@@ -4,7 +4,9 @@ Tags: security, firewall, malware scanner, web application firewall, two factor 
 Requires at least: 3.9
 Requires PHP: 5.3
 Tested up to: 5.8
-Stable tag: 7.5.6
+Stable tag: 7.5.7
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Secure your website with the most comprehensive WordPress security plugin. Firewall, malware scan, blocking, live traffic, login security & more.
 
@@ -163,9 +165,9 @@ Providing excellent customer service is very important to us.  We offer help to 
 
 Designed for every skill level, [The WordPress Security Learning Center](https://www.wordfence.com/learn/) is dedicated to deepening users’ understanding of security best practices by providing free access to entry-level articles, in-depth articles, videos, industry survey results, graphics and more.
 
-= Where can I find the Wordfence Terms of Use and Privacy Policy? =
+= Where can I find the Wordfence Terms of Service and Privacy Policy? =
 
-These are available on our website: [Terms of Use](https://www.wordfence.com/terms-of-use/) and [Privacy Policy](https://www.wordfence.com/privacy-policy/)
+These are available on our website: [Terms of Service](https://www.wordfence.com/terms-of-service/) and [Privacy Policy](https://www.wordfence.com/privacy-policy/)
 
 == Screenshots ==
 
@@ -182,6 +184,10 @@ Secure your website with Wordfence.
 9. Logging in is easy with Wordfence 2FA.
 
 == Changelog ==
+
+= 7.5.7 - November 22, 2021 =
+* Improvement: Made preliminary changes for compatibility with PHP 8.1
+* Change: Added GPLv3 license and updated EULA
 
 = 7.5.6 - October 18, 2021 =
 * Fix: Prevented login errors with WooCommerce integration when manual username entry is enabled on the WooCommerce registration form

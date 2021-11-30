@@ -2763,6 +2763,20 @@ class UpdraftPlus_Admin {
 	}
 
 	/**
+	 * Show footer review message and link.
+	 *
+	 * @return string
+	 */
+	public function display_footer_review_message() {
+		$message = sprintf(
+			__('Enjoyed %s? Please leave us a %s rating. We really appreciate your support!', 'updraftplus'),
+			'<b>UpdraftPlus</b>',
+			'<a href="https://www.g2.com/products/updraftplus/reviews" target="_blank">&starf;&starf;&starf;&starf;&starf;</a>'
+		);
+		return $message;
+	}
+
+	/**
 	 * Include the settings header template
 	 */
 	public function settings_header() {
@@ -2837,6 +2851,13 @@ class UpdraftPlus_Admin {
 			}
 			echo '<b>'.__('Actions', 'updraftplus').':</b> <a href="'.UpdraftPlus_Options::admin_page_url().'?page=updraftplus">'.__('Return to UpdraftPlus configuration', 'updraftplus').'</a>';
 			return;
+		}
+
+		if (substr($updraftplus->version, 0, 1) === '2') {
+			/**
+			 * Add filter for display footer review message and link.
+			 */
+			add_filter('admin_footer_text', array($this, 'display_footer_review_message'));
 		}
 
 		echo '<div id="updraft_backup_started" class="updated updraft-hidden" style="display:none;"></div>';
@@ -4748,7 +4769,9 @@ ENDHERE;
 		global $updraftplus;
 
 		// on restore start job_id is empty but if we needed file system permissions or this is a resumption then we have already started a job so reuse it
-		$restore_job_id = empty($_REQUEST['job_id']) ? false : $_REQUEST['job_id'];
+		$restore_job_id = empty($_REQUEST['job_id']) ? false : stripslashes($_REQUEST['job_id']);
+		
+		if (false !== $restore_job_id && !preg_match('/^[0-9a-f]+$/', $restore_job_id)) die('Invalid request.'.serialize($restore_job_id));
 
 		// Set up nonces, log files etc.
 		$updraftplus->initiate_restore_job($restore_job_id);
@@ -4850,7 +4873,7 @@ ENDHERE;
 			$backup_timestamp = $updraftplus->jobdata_get('backup_timestamp');
 			$continuation_data = array('updraftplus_ajax_restore' => 'do_ajax_restore');
 		} else {
-			$backup_timestamp = $_REQUEST['backup_timestamp'];
+			$backup_timestamp = (int) $_REQUEST['backup_timestamp'];
 			$continuation_data = null;
 		}
 
@@ -5041,7 +5064,7 @@ ENDHERE;
 	/**
 	 * Carry out the restore process within the WP admin dashboard, using data from $_POST
 	 *
-	 * @param  Array	  $timestamp         Identifying the backup to be restored
+	 * @param  Integer	  $timestamp         Identifying the backup to be restored
 	 * @param  Array|null $continuation_data For continuing a multi-stage restore; this is the saved jobdata for the job; in this method the keys used are second_loop_entities, restore_options; but it is also passed on to Updraft_Restorer::perform_restore()
 	 * @return Boolean|WP_Error - a WP_Error indicates a terminal failure; false indicates not-yet complete (not necessarily terminal); true indicates complete.
 	 */
@@ -5057,7 +5080,7 @@ ENDHERE;
 		$backup_set = UpdraftPlus_Backup_History::get_history($timestamp);
 
 		if (empty($backup_set)) {
-			echo '<p>'.__('This backup does not exist in the backup history - restoration aborted. Timestamp:', 'updraftplus')." $timestamp</p><br>";
+			echo '<p>'.__('This backup does not exist in the backup history - restoration aborted. Timestamp:', 'updraftplus').' '.htmlspecialchars($timestamp).'</p><br>';
 			return new WP_Error('does_not_exist', __('Backup does not exist in the backup history', 'updraftplus')." ($timestamp)");
 		}
 

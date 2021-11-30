@@ -459,6 +459,7 @@ return array (
   'AC\\Type\\QueryAwareTrait' => $dir . '/classes/Type/QueryAwareTrait.php',
   'AC\\Type\\ToggleOptions' => $dir . '/classes/Type/ToggleOptions.php',
   'AC\\Type\\Url' => $dir . '/classes/Type/Url.php',
+  'AC\\Type\\Url\\CouponCode' => $dir . '/classes/Type/Url/CouponCode.php',
   'AC\\Type\\Url\\Documentation' => $dir . '/classes/Type/Url/Documentation.php',
   'AC\\Type\\Url\\Editor' => $dir . '/classes/Type/Url/Editor.php',
   'AC\\Type\\Url\\EditorNetwork' => $dir . '/classes/Type/Url/EditorNetwork.php',

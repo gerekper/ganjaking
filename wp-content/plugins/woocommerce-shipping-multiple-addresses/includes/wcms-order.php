@@ -42,37 +42,49 @@ class WC_MS_Order {
 
 	public function update_package_status() {
 		$pkg_idx  = $_POST['package'];
-		$order    = $_POST['order'];
-		$packages = get_post_meta( $order, '_wcms_packages', true );
-		$email    = $_POST['email'];
+		$order_id = $_POST['order'];
+		$order    = wc_get_order( $order_id );
+		$status   = '';
 
-		foreach ( $packages as $x => $package ) {
-			if ( $x == $pkg_idx ) {
-				$packages[ $x ]['status'] = $_POST['status'];
+		if ( ! $order ) {
+			$packages = $order->get_meta( '_wcms_packages' );
+			$email    = $_POST['email'];
 
-				if ( $_POST['status'] == 'Completed' && $email ) {
-					self::send_package_email( $order, $pkg_idx );
+			foreach ( $packages as $x => $package ) {
+				if ( $x == $pkg_idx ) {
+					$packages[ $x ]['status'] = sanitize_text_field( $_POST['status'] );
+
+					if ( $_POST['status'] == 'Completed' && $email ) {
+						self::send_package_email( $order, $pkg_idx );
+					}
+
+					break;
 				}
-
-				break;
 			}
+
+			$order->update_meta_data( '_wcms_packages', $packages );
+			$order->save();
+
+			$status = sanitize_text_field( $_POST['status'] );
 		}
 
-		update_post_meta( $order, '_wcms_packages', $packages );
-
-		die( $_POST['status'] );
-
+		die( $status );
 	}
 
 	public function update_package_on_completed_order( $order_id ) {
-		$packages = get_post_meta( $order_id, '_wcms_packages', true );
+		$order = wc_get_order( $order_id );
 
-		if ( $packages ) {
-			foreach ( $packages as $x => $package ) {
-				$packages[ $x ]['status'] = 'Completed';
+		if ( ! $order ) {
+			$packages = $order->get_meta( '_wcms_packages' );
+
+			if ( $packages ) {
+				foreach ( $packages as $x => $package ) {
+					$packages[ $x ]['status'] = 'Completed';
+				}
+
+				$order->update_meta_data( '_wcms_packages', $packages );
+				$order->save();
 			}
-
-			update_post_meta( $order_id, '_wcms_packages', $packages );
 		}
 	}
 
@@ -81,15 +93,16 @@ class WC_MS_Order {
 	 *
 	 * @param array   	$order_details Order details.
 	 * @param WC_Order  	$order Order object.
-	 * 
+	 *
 	 * @return array
 	 */
 	public function update_preview_order_details( $order_details, $order ) {
+		if ( is_callable( array( $order, 'get_meta' ) ) ) {
+			$packages = $order->get_meta( '_wcms_packages' );
 
-		$packages = get_post_meta( $order->get_id(), '_wcms_packages', true );
-
-		if( is_array( $packages ) && 1 < count( $packages ) ) {
-			$order_details['formatted_shipping_address'] = $this->generate_formatted_multiple_addresses( $order );
+			if( is_array( $packages ) && 1 < count( $packages ) ) {
+				$order_details['formatted_shipping_address'] = $this->generate_formatted_multiple_addresses( $order );
+			}
 		}
 
 		return $order_details;
@@ -100,7 +113,7 @@ class WC_MS_Order {
 	 *
 	 * @param array   	$package Package.
 	 * @param WC_Order  $order   Order object.
-	 * 
+	 *
 	 * @return string
 	 */
 	public static function generate_address_map_url( $package, $order ) {
@@ -117,7 +130,7 @@ class WC_MS_Order {
 				$destination['postcode'],
 				$destination['country']
 			 ) ) );
-			
+
 			 $address_map_url = apply_filters( 'woocommerce_shipping_address_map_url', 'https://maps.google.com/maps?&q=' . rawurlencode( $destination_pieces ) . '&z=16', $order );
 		}
 
@@ -128,14 +141,18 @@ class WC_MS_Order {
 	 * Generate formatted shipping address for multiple addresses.
 	 *
 	 * @param WC_Order  $order   Order object.
-	 * 
+	 *
 	 * @return string
 	 */
 	public function generate_formatted_multiple_addresses( $order ) {
-		
-		$packages = get_post_meta( $order->get_id(), '_wcms_packages', true );
 
-		if ( ! $order || ! $packages ) {
+		if ( ! $order || ! is_callable( array( $order, 'get_meta' ) ) ) {
+			return;
+		}
+
+		$packages = $order->get_meta( '_wcms_packages' );
+
+		if ( ! $packages ) {
 			return;
 		}
 
@@ -146,18 +163,18 @@ class WC_MS_Order {
 
 		<div class="item-addresses-holder">
 			<?php foreach ( $packages as $x => $package ) { ?>
-				
+
 				<?php $address_map_url 	= self::generate_address_map_url( $package, $order ); ?>
-				
+
 				<div class="item-address-box package-<?php echo esc_attr( $x ); ?>-box" style="margin-bottom:20px;">
 					<a href="<?php echo esc_url( $address_map_url ); ?>" target="_blank">
 						<?php self::display_shipping_package_address( $order, $package, $x, false ); ?>
 					</a>
 				</div>
-			
+
 			<?php } ?>
 		</div>
-		
+
 		<?php
 		$item_addresses_html .= ob_get_contents();
 		ob_end_clean();
@@ -166,10 +183,12 @@ class WC_MS_Order {
 	}
 
 	public function override_order_shipping_address( $order ) {
+		if ( ! is_callable( array( $order, 'get_meta' ) ) ) {
+			return;
+		}
 
-		$order_id = WC_MS_Compatibility::get_order_prop( $order, 'id' );
-		$packages  = get_post_meta( $order_id, '_wcms_packages', true );
-		$multiship = get_post_meta( $order_id, '_multiple_shipping', true );
+		$packages  = $order->get_meta( '_wcms_packages' );
+		$multiship = $order->get_meta( '_multiple_shipping' );
 
 		if ( ( ! $order->get_formatted_shipping_address() && ( is_array( $packages ) && count( $packages ) > 1 ) ) || 'yes' === $multiship ) :
 		?>
@@ -193,12 +212,17 @@ class WC_MS_Order {
 			$order = wc_get_order( $order );
 		}
 
-		if ( false == apply_filters( 'wcms_list_order_item_addresses', true, $order_id ) )
+		if ( ! is_callable( array( $order, 'get_meta' ) ) ) {
 			return;
+		}
 
-		$package_items     = get_post_meta( $order_id, '_packages_item_ids', true );
-		$methods           = get_post_meta( $order_id, '_shipping_methods', true );
-		$packages          = get_post_meta( $order_id, '_wcms_packages', true );
+		if ( false == apply_filters( 'wcms_list_order_item_addresses', true, $order_id ) ) {
+			return;
+		}
+
+		$package_items     = $order->get_meta( '_packages_item_ids' );
+		$methods           = $order->get_meta( '_shipping_methods' );
+		$packages          = $order->get_meta( '_wcms_packages' );
 		$available_methods = $order->get_shipping_methods();
 
 		if ( ! $packages || count( $packages ) == 1 ) {
@@ -319,21 +343,30 @@ class WC_MS_Order {
 			$the_order = wc_get_order( $post->ID );
 		}
 
+		if ( ! is_callable( array( $the_order, 'get_meta' ) ) ) {
+			return;
+		}
+
 		if ( $column == 'shipping_address' ) {
-			$packages = get_post_meta( $post->ID, '_wcms_packages', true );
+			$packages = $the_order->get_meta( '_wcms_packages' );
 
 			if ( ! $the_order->get_formatted_shipping_address() && is_array( $packages ) && count( $packages ) > 1 ) {
 				_e( 'Ships to multiple addresses ', 'wc_shipping_multiple_address' );
 			}
-
 		}
 	}
 
 	public function order_meta_box( $type ) {
 		global $post;
 
-		$methods   = get_post_meta( $post->ID, '_shipping_methods', true );
-		$multiship = get_post_meta( $post->ID, '_multiple_shipping', true );
+		$order = wc_get_order( $post->ID );
+
+		if ( ! $order ) {
+			return;
+		}
+
+		$methods   = $order->get_meta( '_shipping_methods' );
+		$multiship = $order->get_meta( '_multiple_shipping' );
 
 		if ( $multiship == 'yes' || ( is_array( $methods ) && count( $methods ) > 1 ) ) {
 			add_meta_box(
@@ -351,20 +384,25 @@ class WC_MS_Order {
 	public function admin_css() {
 		$screen = get_current_screen();
 		if ( 'shop_order' == $screen->id || 'woocommerce_page_wc-settings' == $screen->id ) {
-			wp_enqueue_style( 'wc-ms-admin-css', plugins_url( 'css/admin.css', WC_Ship_Multiple::FILE ) );
+			wp_enqueue_style( 'wc-ms-admin-css', plugins_url( 'assets/css/admin.css', WC_Ship_Multiple::FILE ) );
 		}
 	}
 
 	public function packages_meta_box( $post ) {
-		$order                  = wc_get_order( $post->ID );
-		$packages               = get_post_meta( $post->ID, '_wcms_packages', true );
+		$order = wc_get_order( $post->ID );
 
-		if ( ! $order || ! $packages ) {
+		if ( ! $order ) {
 			return;
 		}
 
-		$package_items          = get_post_meta( $post->ID, '_packages_item_ids', true );
-		$methods                = get_post_meta( $post->ID, '_shipping_methods', true );
+		$packages = $order->get_meta( '_wcms_packages' );
+
+		if ( ! $packages ) {
+			return;
+		}
+
+		$package_items          = $order->get_meta( '_packages_item_ids' );
+		$methods                = $order->get_meta( '_shipping_methods' );
 		$settings               = get_option( 'woocommerce_multiple_shipping_settings', array() );
 		$partial_orders         = isset( $settings['partial_orders'] ) && 'yes' === $settings['partial_orders'];
 		$send_email             = isset( $settings['partial_orders_email'] ) && 'yes' === $settings['partial_orders_email'];
@@ -423,11 +461,17 @@ class WC_MS_Order {
 			self::display_shipping_package_address( $order, $package, $x, true );
 
 			// Get Shipping method for this package
-			$method = '';
-			if ( isset( $methods[ $x ]['id'] ) ) {
+			$method = isset( $methods[ $x ]['label'] ) ? $methods[ $x ]['label'] : '';
+
+			if ( isset( $methods[ $x ]['id'] ) && empty( $method ) ) {
 				foreach ( $order_shipping_methods as $ship_method ) {
+                    $method_info = explode( ":", $methods[ $x ]['id'] );
+                    $method_id   = $method_info[0];
+                    $method_inst = isset( $method_info[1] ) ? $method_info[1] : '';
+
 					if ( $ship_method->get_method_id() . ':' . $ship_method->get_instance_id() === $methods[ $x ]['id']
 						|| $ship_method->get_method_id() === $methods[ $x ]['id']
+                        || ( $method_id == $ship_method->get_method_id() && $method_inst == $ship_method->get_instance_id() )
 					) {
 						$method = $ship_method->get_name();
 						break;
@@ -588,8 +632,13 @@ class WC_MS_Order {
 
 
 	public function update_order_addresses( $post_id, $post ) {
+		$order = wc_get_order( $post_id );
 
-		$packages = get_post_meta( $post_id, '_wcms_packages', true );
+		if ( ! $order ) {
+			return;
+		}
+
+		$packages = $order->get_meta( '_wcms_packages' );
 
 		if ( $packages && isset( $_POST['edit_address'] ) && count( $_POST['edit_address'] ) > 0 ) {
 			foreach ( $_POST['edit_address'] as $idx ) {
@@ -597,28 +646,35 @@ class WC_MS_Order {
 					continue;
 				}
 
-				$address = array(
-					'first_name' => isset( $_POST['pkg_first_name_' . $idx] ) ? $_POST['pkg_first_name_' . $idx] : '',
-					'last_name'  => isset( $_POST['pkg_last_name_' . $idx] ) ? $_POST['pkg_last_name_' . $idx] : '',
-					'company'    => isset( $_POST['pkg_company_' . $idx] ) ? $_POST['pkg_company_' . $idx] : '',
-					'address_1'  => isset( $_POST['pkg_address_1_' . $idx] ) ? $_POST['pkg_address_1_' . $idx] : '',
-					'address_2'  => isset( $_POST['pkg_address_2_' . $idx] ) ? $_POST['pkg_address_2_' . $idx] : '',
-					'city'       => isset( $_POST['pkg_city_' . $idx] ) ? $_POST['pkg_city_' . $idx] : '',
-					'state'      => isset( $_POST['pkg_state_' . $idx] ) ? $_POST['pkg_state_' . $idx] : '',
-					'postcode'   => isset( $_POST['pkg_postcode_' . $idx] ) ? $_POST['pkg_postcode_' . $idx] : '',
-					'country'    => isset( $_POST['pkg_country_' . $idx] ) ? $_POST['pkg_country_' . $idx] : '',
-				);
+				// Get the shipping fields.
+				$shipping_fields = WC()->countries->get_address_fields( $package['destination']['country'], 'shipping_' );
+				$address         = array();
+
+				// Assign value to respective address key.
+				foreach ( $shipping_fields as $key => $field ) {
+					$addr_key             = str_replace( 'shipping_', '', $key );
+					$post_key             = 'pkg_' . $addr_key . '_' . $idx;
+					$address[ $addr_key ] = isset( $_POST[ $post_key ] ) ? sanitize_text_field( $_POST[ $post_key ] ) : '';
+				}
 
 				$packages[ $idx ]['destination'] = $address;
 			}
-			update_post_meta( $post_id, '_wcms_packages', $packages );
+
+			$order->update_meta_data( '_wcms_packages', $packages );
+			$order->save();
 		}
 	}
 
 	public function update_order_taxes( $order_id, $items ) {
 		$order_taxes = isset( $items['order_taxes'] ) ? $items['order_taxes'] : array();
-		$tax_total = array();
-		$packages = get_post_meta( $order_id, '_wcms_packages', true );
+		$tax_total   = array();
+		$order       = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			return;
+		}
+
+		$packages = $order->get_meta( '_wcms_packages' );
 
 		if ( ! is_array( $packages ) ) {
 			return;
@@ -643,26 +699,30 @@ class WC_MS_Order {
 			wc_update_order_item_meta( $item_id, 'tax_amount', $tax_total[ $item_id ] );
 		}
 
-		$old_total_tax = get_post_meta( $order_id, '_order_tax', true );
+		$old_total_tax = $order->get_meta( '_order_tax' );
 
 		if ( $total_tax > $old_total_tax ) {
-			$order_total = get_post_meta( $order_id, '_order_total', true );
+			$order_total = $order->get_meta( '_order_total' );
 			$order_total -= $old_total_tax;
 			$order_total += $total_tax;
 
-			update_post_meta( $order_id, '_order_total', $order_total );
+			$order->update_meta_data( '_order_total', $order_total );
 		}
 
-		update_post_meta( $order_id, '_order_tax', $total_tax );
-
+		$order->update_meta_data( '_order_tax', $total_tax );
+		$order->save();
 	}
 
 	public function order_item_taxes( $items, $order ) {
-		if ( get_post_meta( WC_MS_Compatibility::get_order_prop( $order, 'id' ), '_multiple_shipping', true ) != 'yes' ) {
+		if ( ! is_callable( array( $order, 'get_meta' ) ) ) {
 			return $items;
 		}
 
-		$packages = get_post_meta( WC_MS_Compatibility::get_order_prop( $order, 'id' ), '_wcms_packages', true );
+		if ( $order->get_meta( '_multiple_shipping' ) != 'yes' ) {
+			return $items;
+		}
+
+		$packages = $order->get_meta( '_wcms_packages' );
 
 		if ( ! $packages ) {
 			return $items;
@@ -670,10 +730,6 @@ class WC_MS_Order {
 
 		foreach ( $items as $item_id => $item ) {
 			if ( $item['type'] != 'line_item' ) {
-				continue;
-			}
-
-			if ( $item['qty'] == 1 ) {
 				continue;
 			}
 
@@ -698,26 +754,21 @@ class WC_MS_Order {
 							$item_rate_ids = array_keys( $package_item['line_tax_data']['total'] );
 							$tax_rate_ids = array_unique( array_merge( $tax_rate_ids, $item_rate_ids ) );
 						}
-					}
 
+                        foreach ( $tax_rate_ids as $rate_id ) {
+                            if ( isset( $package_item['line_tax_data']['total'][ $rate_id ] ) ) {
+                                $item_tax_data['total'][ $rate_id ] = $package_item['line_tax_data']['total'][ $rate_id ];
+                            }
+
+                            if ( isset( $package_item['line_tax_data']['subtotal'][ $rate_id ] ) ) {
+                                $item_tax_data['subtotal'][ $rate_id ] = $package_item['line_tax_data']['subtotal'][ $rate_id ];
+                            }
+                        }
+					}
 				}
 			}
 
 			if ( $modified && is_array( $tax_rate_ids ) ) {
-				foreach ( $tax_rate_ids as $rate_id ) {
-					if ( ! isset( $item_tax_data['total'][ $rate_id ] ) ) {
-						$item_tax_data['total'][ $rate_id ] = 0;
-					}
-
-					$item_tax_data['total'][ $rate_id ] += $item_tax_total;
-
-					if ( !isset( $item_tax_data['subtotal'][ $rate_id ] ) ) {
-						$item_tax_data['subtotal'][ $rate_id ] = 0;
-					}
-
-					$item_tax_data['subtotal'][ $rate_id ] += $item_tax_subtotal;
-				}
-
 				if ( is_a( $item, 'WC_Order_Item_Product' ) ) {
 					$items[ $item_id ]->set_taxes( $item_tax_data );
 				} else {
@@ -740,7 +791,11 @@ class WC_MS_Order {
 	* @return string $template
 	*/
 	public function pip_template_body( $template, $order, $order_loop ) {
-		$packages = get_post_meta( WC_MS_Compatibility::get_order_prop( $order, 'id' ), '_shipping_packages', true );
+		if ( ! is_callable( array( $order, 'get_meta' ) ) ) {
+			return $template;
+		}
+
+		$packages = $order->get_meta( '_shipping_packages' );
 
 		if ( $packages && count( $packages ) > 1 ) {
 			$template = dirname( WC_Ship_Multiple::FILE ) . '/templates/pip-template-body.php';
@@ -794,7 +849,11 @@ class WC_MS_Order {
 	}
 
 	public static function render_products_table( $order, $idx ) {
-		$packages = get_post_meta( WC_MS_Compatibility::get_order_prop( $order, 'id' ), '_wcms_packages', true );
+		if ( ! is_callable( array( $order, 'get_meta' ) ) ) {
+			return '';
+		}
+
+		$packages = $order->get_meta( '_wcms_packages' );
 		$package  = $packages[ $idx ];
 		$products = $package['contents'];
 
@@ -860,7 +919,11 @@ class WC_MS_Order {
 	}
 
 	public static function render_addresses_table( $order, $index ) {
-		$packages = get_post_meta( WC_MS_Compatibility::get_order_prop( $order, 'id' ), '_wcms_packages', true );
+		if ( ! is_callable( array( $order, 'get_meta' ) ) ) {
+			return '';
+		}
+
+		$packages = $order->get_meta( '_wcms_packages' );
 		$package  = $packages[ $index ];
 
 		ob_start();

@@ -4,13 +4,32 @@ Plugin Name: Wordfence Security
 Plugin URI: http://www.wordfence.com/
 Description: Wordfence Security - Anti-virus, Firewall and Malware Scan
 Author: Wordfence
-Version: 7.5.6
+Version: 7.5.7
 Author URI: http://www.wordfence.com/
 Text Domain: wordfence
 Domain Path: /languages
 Network: true
 Requires at least: 3.9
 Requires PHP: 5.3
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+
+@copyright Copyright (C) 2021 Defiant Inc.
+@license http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
 */
 if(defined('WP_INSTALLING') && WP_INSTALLING){
 	return;
@@ -19,8 +38,8 @@ if(defined('WP_INSTALLING') && WP_INSTALLING){
 if (!defined('ABSPATH')) {
 	exit;
 }
-define('WORDFENCE_VERSION', '7.5.6');
-define('WORDFENCE_BUILD_NUMBER', '1634562195');
+define('WORDFENCE_VERSION', '7.5.7');
+define('WORDFENCE_BUILD_NUMBER', '1637598990');
 define('WORDFENCE_BASENAME', function_exists('plugin_basename') ? plugin_basename(__FILE__) :
 	basename(dirname(__FILE__)) . '/' . basename(__FILE__));
 

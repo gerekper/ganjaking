@@ -28,9 +28,6 @@
 			"path": "..\\woocommerce-name-your-price"
 		},
 		{
-			"path": "..\\woocommerce-paypal-payments"
-		},
-		{
 			"path": "..\\woocommerce-subscriptions"
 		},
 		{
@@ -46,10 +43,13 @@
 			"path": "..\\wc-mnm-not-sold-separately"
 		},
 		{
-			"path": "..\\..\\themes\\betheme"
+			"path": "..\\wc-nyp-product-texts"
 		},
 		{
-			"path": "..\\aco-woo-dynamic-pricing"
+			"path": "..\\..\\themes\\storefront"
+		},
+		{
+			"path": "..\\woocommerce-payments"
 		}
 	],
 	"settings": {}

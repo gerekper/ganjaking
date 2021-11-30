@@ -1,16 +1,16 @@
 jQuery(document).ready(function($){
 	var elements = jQuery('.modal-overlay, .modal');
 
-	jQuery('.close-modal').click(function(){
+	jQuery( document ).on( 'click', '.close-modal', function(){
 	    elements.removeClass('active');
 	});
-	jQuery('.mwb_crp_cancel').click(function(){
+	jQuery( document ).on( 'click', '.mwb_crp_cancel', function(){
 	    elements.removeClass('active');
 	});
 
 	
 	var mwb_crp_deactivate_link = '';
-	jQuery('.mwb_crp_reason_button' ).change( function(){
+	jQuery( document ).on( 'change', '.mwb_crp_reason_button', function(){
 		jQuery(this).siblings('textarea').addClass('mwb_crp_message_show');
 		jQuery(this).siblings('textarea').removeClass('mwb_crp_message');
 		
@@ -42,7 +42,7 @@ jQuery(document).ready(function($){
         elements.find('a.mwb_crp_skip').attr('href', mwb_crp_deactivate_link);  
      });
 
-	jQuery('.mwb_crp_deactivate').click(function(){
+	jQuery( document ).on( 'click', '.mwb_crp_deactivate', function(){
 		var selected_option = jQuery("input[name='mwb_crp_reason']:checked").val();
 		var text= jQuery("input[name='mwb_crp_reason']:checked").next().next().val();
 		var data={
@@ -50,9 +50,6 @@ jQuery(document).ready(function($){
 			option:selected_option,
 			text:text
 		};
-		//jQuery('#mwb_admin_crp_loader').show();
-		//jQuery(this).addClass( 'loading' );
-		//jQuery(this).html('<i class="fa fa-spin fa-spinner"></i>');
 		$.ajax({
 			url:mwb_ajax.ajaxurl,
 			type:'POST',

@@ -15,6 +15,14 @@ use ACP\Editing\View;
 
 class EditingModelFactory {
 
+	public static function unsupported_field_types() {
+		return [
+			CustomFieldType::TYPE_ARRAY,
+			CustomFieldType::TYPE_COUNT,
+			CustomFieldType::TYPE_NON_EMPTY,
+		];
+	}
+
 	/**
 	 * @param string             $field_type
 	 * @param Editing\Storage    $storage
@@ -23,12 +31,13 @@ class EditingModelFactory {
 	 * @return Service|false
 	 */
 	public static function create( $field_type, Editing\Storage $storage, Column\CustomField $column ) {
+		$unsupported_field_types = self::unsupported_field_types();
+
+		if ( in_array( $field_type, $unsupported_field_types ) ) {
+			return false;
+		}
 
 		switch ( $field_type ) {
-			case CustomFieldType::TYPE_ARRAY :
-			case CustomFieldType::TYPE_COUNT :
-			case CustomFieldType::TYPE_NON_EMPTY :
-				return false;
 			case CustomFieldType::TYPE_BOOLEAN :
 				return new Service\Basic(
 					new View\Toggle(

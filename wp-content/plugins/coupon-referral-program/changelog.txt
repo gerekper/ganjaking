@@ -1,5 +1,13 @@
 *** Coupon Referal Program ***
 
+2021-09-16 - Version 1.6.1
+
+* New: Compatibility with latest WP and WC
+* New: Hide Coupon Referral Woo PAR is enabled
+* New: Display Coupon usage count
+* Fix: Email Template Overriding issue
+* Fix: Typo Error
+
 2021-02-26 - version 1.6.0
   * New - Compatibility with WooCommerce 5.0 and WordPress 5.6
   * New - Referral via coupon code

@@ -13,31 +13,25 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_Account_Funds_Admin {
 
-	/** @var Settings Tab ID */
-	private $settings_tab_id = 'account_funds';
-
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'includes' ) );
+		add_filter( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_settings_page' ) );
 
 		// Plugin action links.
 		add_filter( 'plugin_action_links_' . WC_ACCOUNT_FUNDS_BASENAME, array( $this, 'action_links' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 
-		// Users
+		// Users.
 		add_filter( 'manage_users_columns', array( $this, 'manage_users_columns' ) );
 		add_action( 'manage_users_custom_column', array( $this, 'manage_users_custom_column' ), 10, 3 );
 		add_action( 'show_user_profile', array( $this, 'user_meta_fields' ) );
 		add_action( 'edit_user_profile', array( $this, 'user_meta_fields' ) );
 		add_action( 'personal_options_update', array( $this, 'save_user_meta_fields' ) );
 		add_action( 'edit_user_profile_update', array( $this, 'save_user_meta_fields' ) );
-
-		// Settings
-		add_action( 'woocommerce_settings_tabs_array', array( $this, 'add_woocommerce_settings_tab' ), 50 );
-		add_action( 'woocommerce_settings_tabs_' . $this->settings_tab_id, array( $this, 'woocommerce_settings_tab_action' ), 10 );
-		add_action( 'woocommerce_update_options_' . $this->settings_tab_id, array( $this, 'woocommerce_settings_save' ), 10 );
 	}
 
 	/**
@@ -49,6 +43,35 @@ class WC_Account_Funds_Admin {
 		include_once 'wc-account-funds-admin-functions.php';
 		include_once 'class-wc-account-funds-admin-notices.php';
 		include_once 'class-wc-account-funds-admin-system-status.php';
+	}
+
+	/**
+	 * Enqueues admin scripts.
+	 *
+	 * @since 2.6.0
+	 */
+	public function enqueue_scripts() {
+		if ( ! wc_account_funds_is_settings_page() ) {
+			return;
+		}
+
+		$suffix = wc_account_funds_get_scripts_suffix();
+
+		wp_enqueue_script( 'wc-account-funds-settings', WC_ACCOUNT_FUNDS_URL . "assets/js/admin/settings{$suffix}.js", array( 'jquery' ), WC_ACCOUNT_FUNDS_VERSION, true );
+	}
+
+	/**
+	 * Adds the settings page.
+	 *
+	 * @since 2.6.0
+	 *
+	 * @param array $settings The settings pages.
+	 * @return array An array with the settings pages.
+	 */
+	public function add_settings_page( $settings ) {
+		$settings[] = include 'class-wc-account-funds-admin-settings.php';
+
+		return $settings;
 	}
 
 	/**
@@ -185,112 +208,58 @@ class WC_Account_Funds_Admin {
 
 	/**
 	 * Returns settings array.
-	 * @return array settings
+	 *
+	 * @deprecated 2.6.0
+	 *
+	 * @return array
 	 */
 	public function get_settings() {
-		$settings = array(
-			array(
-				'name' => __( 'Discount Settings', 'woocommerce-account-funds' ),
-				'type' => 'title',
-				'desc' => '',
-				'id'   => 'account_funds_title'
-			),
-			array(
-				'name'     => __( 'Give Discount', 'woocommerce-account-funds' ),
-				'type'     => 'checkbox',
-				'desc'     => __( 'Apply a discount when account funds are used to purchase items', 'woocommerce-account-funds' ),
-				'id'       => 'account_funds_give_discount'
-			),
-			array(
-				'name'     => __( 'Discount Type', 'woocommerce-account-funds' ),
-				'type'     => 'select',
-				'options'  => array(
-					'fixed'      => __( 'Fixed Price', 'woocommerce-account-funds' ),
-					'percentage' => __( 'Percentage', 'woocommerce-account-funds' )
-				),
-				'desc'     => __( 'Percentage discounts will be based on the amount of funds used.', 'woocommerce-account-funds' ),
-				'id'       => 'account_funds_discount_type',
-				'desc_tip' => true
-			),
-			array(
-				'name'    => __( 'Discount Amount', 'woocommerce-account-funds' ),
-				'type'    => 'text',
-				'desc'    => __( 'Enter numbers only. Do not include the percentage sign.', 'woocommerce-account-funds' ),
-				'default' => '',
-				'id'      => 'account_funds_discount_amount',
-				'desc_tip' => true
-			),
-			array( 'type' => 'sectionend', 'id' => 'account_funds_title' ),
-			array(
-				'name' => __( 'Funding', 'woocommerce-account-funds' ),
-				'type' => 'title',
-				'desc' => '',
-				'id'   => 'account_funds_funding_title'
-			),
-			array(
-				'name'            => __( 'Enable "My Account" Top-up', 'woocommerce-account-funds' ),
-				'type'            => 'checkbox',
-				'desc'            => __( 'Allow customers to top up funds via their account page.', 'woocommerce-account-funds' ),
-				'id'              => 'account_funds_enable_topup'
-			),
-			array(
-				'name'            => __( 'Minimum Top-up', 'woocommerce-account-funds' ),
-				'type'            => 'text',
-				'desc'            => '',
-				'default'         => '',
-				'placeholder'     => 1,
-				'id'              => 'account_funds_min_topup',
-				'desc_tip'        => true
-			),
-			array(
-				'name'            => __( 'Maximum Top-up', 'woocommerce-account-funds' ),
-				'type'            => 'text',
-				'desc'            => '',
-				'default'         => '',
-				'placeholder'     => __( 'n/a', 'woocommerce-account-funds' ),
-				'id'              => 'account_funds_max_topup',
-				'desc_tip'        => true
-			),
-			array( 'type' => 'sectionend', 'id' => 'account_funds_funding_title' ),
-			array(
-				'name' => __( 'Paying with Account Funds', 'woocommerce-account-funds' ),
-				'type' => 'title',
-				'desc' => '',
-				'id'   => 'account_funds_payment_title'
-			),
-			array(
-				'name'     => __( 'Partial Funds Payment', 'woocommerce-account-funds' ),
-				'type'     => 'checkbox',
-				'desc'     => __( 'Allow customers to apply available funds and pay the difference via another gateway.', 'woocommerce-account-funds' ),
-				'desc_tip' => __( 'If disabled, users must pay for the entire order using the account funds payment gateway.', 'woocommerce-account-funds' ),
-				'id'       => 'account_funds_partial_payment'
-			),
-			array( 'type' => 'sectionend', 'id' => 'account_funds_payment_title' ),
-		);
+		$settings = array();
 
-		return apply_filters( 'woocommerce_account_funds_get_settings', $settings );
+		if ( has_filter( 'woocommerce_account_funds_get_settings' ) ) {
+			/**
+			 * The plugin settings.
+			 *
+			 * @deprecated 2.6.0
+			 *
+			 * @param array $settings An array with the settings.
+			 */
+			$settings = apply_filters( 'woocommerce_account_funds_get_settings', $settings );
+		}
+
+		return $settings;
 	}
 
 	/**
 	 * Add settings tab to woocommerce
+	 *
+	 * @deprecated 2.6.0
+	 *
+	 * @param array $settings_tabs An array with the settings tabs.
+	 * @return array
 	 */
 	public function add_woocommerce_settings_tab( $settings_tabs ) {
-		$settings_tabs[ $this->settings_tab_id ] = __( 'Account Funds', 'woocommerce-account-funds' );
+		wc_deprecated_function( __FUNCTION__, '2.6.0' );
+
 		return $settings_tabs;
 	}
 
 	/**
 	 * Do this when viewing our custom settings tab(s). One function for all tabs.
+	 *
+	 * @deprecated 2.6.0
 	 */
 	public function woocommerce_settings_tab_action() {
-		woocommerce_admin_fields( $this->get_settings() );
+		wc_deprecated_function( __FUNCTION__, '2.6.0' );
 	}
 
 	/**
 	 * Save settings in a single field in the database for each tab's fields (one field per tab).
+	 *
+	 * @deprecated 2.6.0
 	 */
 	public function woocommerce_settings_save() {
-		woocommerce_update_options( $this->get_settings() );
+		wc_deprecated_function( __FUNCTION__, '2.6.0' );
 	}
 }
 

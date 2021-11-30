@@ -1,5 +1,11 @@
 *** WooCommerce Memberships Changelog ***
 
+2021.11.22 - version 1.22.9
+ * Fix - Show profile fields for product variations when the parent product has associated profile fields
+
+2021.11.15 - version 1.22.8
+ * Fix - Hide rules belonging to trashed membership plans from all meta boxes
+
 2021.10.07 - version 1.22.7
  * Dev - Adds a filter to help third party code handle product discounts when a product is on sale
 

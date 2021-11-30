@@ -33,8 +33,7 @@ class WC_MS_API {
      * @return array
      */
     private function calculate_shipping_packages( $order ) {
-        $methods    = WC_MS_Compatibility::get_order_prop( $order, 'shipping_methods' );
-        $packages   = get_post_meta( WC_MS_Compatibility::get_order_prop( $order, 'id' ), '_wcms_packages', true );
+		$packages   = $order->get_meta( '_wcms_packages' );
         $multiship  = count( $packages ) > 1;
 
         $retval = array(

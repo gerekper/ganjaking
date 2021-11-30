@@ -32,7 +32,7 @@ class WC_MS_Checkout {
         add_action( 'init', array( $this, 'totals_calculation_handler' ) );
 
         // modify a cart item's subtotal to include taxes
-        add_action( 'woocommerce_cart_item_subtotal', array( $this, 'subtotal_include_taxes' ), 10, 3 );
+        add_filter( 'woocommerce_cart_item_subtotal', array( $this, 'subtotal_item_include_taxes' ), 10, 3 );
 
         add_action( 'woocommerce_checkout_order_processed', array($wcms, 'clear_session') );
 
@@ -279,7 +279,9 @@ class WC_MS_Checkout {
 
 	public function save_billing_fields() {
 		foreach ( WC()->checkout->get_checkout_fields( 'billing' ) as $key => $field ) {
-			WC()->customer->{"set_{$key}"}( wc_clean( $_POST[ $key ] ) );
+			if (  is_callable( array( WC()->customer, "set_{$key}" ) ) ) {
+				WC()->customer->{"set_{$key}"}( wc_clean( $_POST[ $key ] ) );
+			}
 		}
 
 		WC()->customer->save();
@@ -343,11 +345,13 @@ class WC_MS_Checkout {
             $item_id
         ));
 
-        if ( !$order_id ) {
+		$order = wc_get_order( $order_id );
+
+        if ( ! $order ) {
             return;
         }
 
-        $item_ids = get_post_meta( $order_id, '_packages_item_ids', true );
+        $item_ids = $order->get_meta( '_packages_item_ids' );
 
         if ( !is_array( $item_ids ) ) {
             $item_ids = array();
@@ -355,12 +359,17 @@ class WC_MS_Checkout {
 
         $item_ids[ $cart_key ] = $item_id;
 
-        update_post_meta( $order_id, '_packages_item_ids', $item_ids );
-
+		$order->update_meta_data( '_packages_item_ids', $item_ids );
+		$order->save();
     }
 
 
     public function checkout_process($order_id) {
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			return;
+		}
 
         $sess_item_address = wcms_session_get( 'cart_item_addresses' );
         $has_item_address = (!wcms_session_isset( 'cart_item_addresses' ) || empty($sess_item_address)) ? false : true;
@@ -381,7 +390,7 @@ class WC_MS_Checkout {
         $sess_rates         = apply_filters( 'wc_ms_checkout_session_rates', $sess_rates);
 
         if ( $has_item_address ) {
-            update_post_meta( $order_id, '_multiple_shipping', 'yes' );
+            $order->update_meta_data( '_multiple_shipping', 'yes' );
         }
 
         // update the taxes
@@ -389,11 +398,11 @@ class WC_MS_Checkout {
         $sess_packages  = $this->calculate_taxes( null, $sess_packages, true );
 
         if ( $packages ) {
-            update_post_meta( $order_id, '_shipping_packages', $packages );
+            $order->update_meta_data( '_shipping_packages', $packages );
         }
 
-        if ($sess_item_address !== false && !empty($sess_item_address)) {
-            update_post_meta( $order_id, '_shipping_addresses', $sess_item_address );
+        if ( $sess_item_address !== false && ! empty( $sess_item_address ) ) {
+            $order->update_meta_data( '_shipping_addresses', $sess_item_address );
             //wcms_session_delete( 'cart_item_addresses' );
 
             if ( $sess_packages ) {
@@ -416,30 +425,29 @@ class WC_MS_Checkout {
                     }
 
                     // remove the shipping address
-                    update_post_meta( $order_id, '_shipping_first_name', $shipping_address['first_name'] );
-                    update_post_meta( $order_id, '_shipping_last_name', $shipping_address['last_name'] );
-                    update_post_meta( $order_id, '_shipping_company', $shipping_address['company'] );
-                    update_post_meta( $order_id, '_shipping_address_1', $shipping_address['address_1'] );
-                    update_post_meta( $order_id, '_shipping_address_2', $shipping_address['address_2'] );
-                    update_post_meta( $order_id, '_shipping_city', $shipping_address['city'] );
-                    update_post_meta( $order_id, '_shipping_postcode', $shipping_address['postcode'] );
-                    update_post_meta( $order_id, '_shipping_country', $shipping_address['country'] );
-                    update_post_meta( $order_id, '_shipping_state', $shipping_address['state'] );
+                    $order->set_shipping_first_name( $shipping_address['first_name'] );
+                    $order->set_shipping_last_name( $shipping_address['last_name'] );
+                    $order->set_shipping_company( $shipping_address['company'] );
+                    $order->set_shipping_address_1( $shipping_address['address_1'] );
+                    $order->set_shipping_address_2( $shipping_address['address_2'] );
+                    $order->set_shipping_city( $shipping_address['city'] );
+                    $order->set_shipping_postcode( $shipping_address['postcode'] );
+                    $order->set_shipping_country( $shipping_address['country'] );
+                    $order->set_shipping_state( $shipping_address['state'] );
                 }
             }
 
         }
 
         if ( $sess_packages !== false && !empty($sess_packages) && $has_item_address ) {
-            update_post_meta( $order_id, '_wcms_packages', $sess_packages);
+            $order->update_meta_data( '_wcms_packages', $sess_packages );
         }
 
         if ( $sess_methods !== false && !empty($sess_methods) && $has_item_address ) {
             $methods = $sess_methods;
-            update_post_meta( $order_id, '_shipping_methods', $methods );
-        } else {
-            $order = wc_get_order( $order_id );
-
+            $order->update_meta_data( '_shipping_methods', $methods );
+        
+		} else {
             $methods = $order->get_shipping_methods();
             $ms_methods = array();
 
@@ -455,13 +463,14 @@ class WC_MS_Checkout {
                 }
             }
 
-            update_post_meta( $order_id, '_shipping_methods', $ms_methods );
-
+            $order->update_meta_data( '_shipping_methods', $ms_methods );
         }
 
         if ( $sess_rates !== false ) {
-            update_post_meta( $order_id, '_shipping_rates', $sess_rates );
+            $order->update_meta_data( '_shipping_rates', $sess_rates );
         }
+
+		$order->save();
 
         do_action( 'wc_ms_after_checkout_process', $order_id );
     }
@@ -527,14 +536,26 @@ class WC_MS_Checkout {
         $field          = (function_exists('wc_add_notice')) ? 'shipping_method' : 'shipping_methods';
         parse_str($post, $data);
 
-		if ( isset( $data[ $field ] ) && is_array( $data[ $field ] ) ) {
+        $all_shippings  = isset( $data['all_shipping_methods'] ) ? json_decode( $data['all_shipping_methods'], true ) : array();
+
+        if ( isset( $data[ $field ] ) && is_array( $data[ $field ] ) ) {
 			$chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
 
 			foreach ( $data[ $field ] as $x => $method ) {
-				$ship_methods[ $x ] = [
-					'id' => $method,
-					'label' => $method,
-				];
+                $method_info = isset( $all_shippings[ $method ] ) ? $all_shippings[ $method ] : $method;
+
+                if ( empty( $method_info['label'] ) ) {
+                    $method_label = $method;
+                } else {
+                    $explode_method = explode( ' ', $method_info['label'] );
+                    unset( $explode_method[ count( $explode_method)-1 ] );
+                    $method_label = implode( ' ', $explode_method );
+                }
+                
+				$ship_methods[ $x ] = array(
+					'id'    => $method,
+					'label' => $method_label,
+                );
 
 				// Update chosen methods in WooCommerce session.
 				$chosen_shipping_methods[ $x ] = $method;
@@ -651,16 +672,18 @@ class WC_MS_Checkout {
 			// Update chosen shipping methods to match with WooCommerce session variable.
 			$chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
 			$methods                 = wcms_session_get( 'shipping_methods' );
+
 			if ( ! empty( $methods ) ) {
 				foreach ( $methods as $key => $method ) {
 					if ( isset( $chosen_shipping_methods[ $key ] ) ) {
-						$methods[ $key ] = [
-							'id'    => $chosen_shipping_methods[ $key ],
-							'label' => $chosen_shipping_methods[ $key ],
-						];
+                        $methods[ $key ] = array(
+                            'id'    => $chosen_shipping_methods[ $key ],
+                            'label' => $chosen_shipping_methods[ $key ],
+                        );    
 					}
 				}
 			}
+
 			wcms_session_set( 'shipping_methods', $methods );
 		}
 
@@ -1064,13 +1087,19 @@ class WC_MS_Checkout {
                     }
                 }
 
+                // Calculate the discount total from cart line data.
+                $discount_total     = $line_subtotal - $line_total;
+                $discount_tax_total = $line_subtotal_tax - $line_tax;
+
                 // Store costs + taxes for lines
                 if ( !isset( $item_taxes[ $cart_item_key ] ) ) {
-                    $item_taxes[ $cart_item_key ]['line_total']         = $line_total;
-                    $item_taxes[ $cart_item_key ]['line_tax']           = $line_tax;
-                    $item_taxes[ $cart_item_key ]['line_subtotal']      = $line_subtotal;
-                    $item_taxes[ $cart_item_key ]['line_subtotal_tax']  = $line_subtotal_tax;
-                    $item_taxes[ $cart_item_key ]['line_tax_data']      = array('total' => $discounted_taxes, 'subtotal' => $taxes );
+                    $item_taxes[ $cart_item_key ]['line_total']          = $line_total;
+                    $item_taxes[ $cart_item_key ]['line_tax']            = $line_tax;
+                    $item_taxes[ $cart_item_key ]['line_subtotal']       = $line_subtotal;
+                    $item_taxes[ $cart_item_key ]['line_subtotal_tax']   = $line_subtotal_tax;
+                    $item_taxes[ $cart_item_key ]['line_tax_data']       = array('total' => $discounted_taxes, 'subtotal' => $taxes );
+                    $item_taxes[ $cart_item_key ]['line_disc_total']     = $discount_total;
+                    $item_taxes[ $cart_item_key ]['line_disc_total_tax'] = $discount_tax_total;
                 } else {
                     $item_taxes[ $cart_item_key ]['line_total']                 += $line_total;
                     $item_taxes[ $cart_item_key ]['line_tax']                   += $line_tax;
@@ -1078,13 +1107,17 @@ class WC_MS_Checkout {
                     $item_taxes[ $cart_item_key ]['line_subtotal_tax']          += $line_subtotal_tax;
                     $item_taxes[ $cart_item_key ]['line_tax_data']['total']     += $discounted_taxes;
                     $item_taxes[ $cart_item_key ]['line_tax_data']['subtotal']  += $taxes;
+                    $item_taxes[ $cart_item_key ]['line_disc_total']            += $discount_total;
+                    $item_taxes[ $cart_item_key ]['line_disc_total_tax']        += $discount_tax_total;
                 }
 
-                $packages[ $idx ]['contents'][ $cart_item_key ]['line_total']       = $line_total;
-                $packages[ $idx ]['contents'][ $cart_item_key ]['line_tax']         = $line_tax;
-                $packages[ $idx ]['contents'][ $cart_item_key ]['line_subtotal']    = $line_subtotal;
-                $packages[ $idx ]['contents'][ $cart_item_key ]['line_subtotal_tax']= $line_subtotal_tax;
-                $packages[ $idx ]['contents'][ $cart_item_key ]['line_tax_data']    = array('total' => $discounted_taxes, 'subtotal' => $taxes);
+                $packages[ $idx ]['contents'][ $cart_item_key ]['line_total']          = $line_total;
+                $packages[ $idx ]['contents'][ $cart_item_key ]['line_tax']            = $line_tax;
+                $packages[ $idx ]['contents'][ $cart_item_key ]['line_subtotal']       = $line_subtotal;
+                $packages[ $idx ]['contents'][ $cart_item_key ]['line_subtotal_tax']   = $line_subtotal_tax;
+                $packages[ $idx ]['contents'][ $cart_item_key ]['line_tax_data']       = array('total' => $discounted_taxes, 'subtotal' => $taxes);
+                $packages[ $idx ]['contents'][ $cart_item_key ]['line_disc_total']     = $discount_total;
+                $packages[ $idx ]['contents'][ $cart_item_key ]['line_disc_total_tax'] = $discount_tax_total;
             }
         }
 
@@ -1120,6 +1153,13 @@ class WC_MS_Checkout {
 			
 			if( $_product->is_virtual() ){
 
+                $item_taxes[ $cart_item_key ]['line_subtotal']       = $cart_item['line_subtotal'];
+                $item_taxes[ $cart_item_key ]['line_subtotal_tax']   = $cart_item['line_subtotal_tax'];
+                $item_taxes[ $cart_item_key ]['line_total']          = $cart_item['line_total'];
+                $item_taxes[ $cart_item_key ]['line_tax']            = $cart_item['line_tax'];
+                $item_taxes[ $cart_item_key ]['line_disc_total']     = $cart_item['line_subtotal'] - $cart_item['line_total'];
+                $item_taxes[ $cart_item_key ]['line_disc_total_tax'] = $cart_item['line_subtotal_tax'] - $cart_item['line_tax'];
+
 				// Get tax rates total from cart contents if exists
 				if( isset( $cart_item['line_tax_data']['total'] ) ){
 				
@@ -1150,14 +1190,29 @@ class WC_MS_Checkout {
         } else {
             $cart->tax_total          = array_sum( $cart_taxes );
         }
-
+        
         if ( version_compare( WC_VERSION, '3.2.0', '<' ) ) {
             $cart->taxes              = array_map( 'WC_Tax::round', $cart_taxes );
         } else {
+			// Get discount tax discount data by calculating the discount with packages instead of cart.
+			if ( class_exists( 'WC_Discounts' ) && version_compare( WC_VERSION, '3.2.3', '>=' ) ) {
+				$coupon_discount_tax_totals = $this->calculate_coupon_discount_tax_amounts( $cart, $packages );
+				$cart->set_discount_total( array_sum( $cart->get_coupon_discount_totals() ) );
+				$cart->set_coupon_discount_tax_totals( $coupon_discount_tax_totals );
+			}
+
             $cart->set_cart_contents_taxes( array_map( 'WC_Tax::round', $cart_taxes ) );
+
+            // Get total discount total tax by checking on 'line_disc_total_tax' array value.
+            $cart_disc_total_tax = array_sum( array_column( $item_taxes, 'line_disc_total_tax' ) );
+		    
+            //Set the new cart total data to the cart.
+		    $cart->set_discount_tax( $cart_disc_total_tax );
+            $cart->set_subtotal_tax( array_sum( array_column( $item_taxes, 'line_subtotal_tax' ) ) );
+            
             $discounts = array_sum( $cart->coupon_discount_totals ) + array_sum( $cart->coupon_discount_tax_totals );
 
-            $cart->set_total( ( $cart->get_subtotal() + $cart->get_subtotal_tax() - $old_tax_total ) + $cart->get_shipping_total() + array_sum( $cart->get_cart_contents_taxes() ) + $old_shipping_tax_total - $discounts );
+            $cart->set_total( ( $cart->get_subtotal() + $cart->get_subtotal_tax() ) + $cart->get_shipping_total() + $old_shipping_tax_total - $discounts );
         }
 
         if ( $merge ) {
@@ -1186,10 +1241,144 @@ class WC_MS_Checkout {
 
         // store the modified packages array
         wcms_session_set( 'wcms_packages', $packages );
+        // store the modified packages array to different session
+        wcms_session_set( 'wcms_packages_after_tax_calc', $packages );
 
         return $cart;
 
     }
+
+    /**
+	 * Get the coupons from the cart.
+	 *
+	 * @param WC_Cart    $cart
+	 *
+     * @since 3.6.34
+	 * @return array
+	 */
+    public function get_coupons_from_cart( $cart ) {
+		$coupons = $cart->get_coupons();
+
+		foreach ( $coupons as $coupon ) {
+			switch ( $coupon->get_discount_type() ) {
+				case 'fixed_product':
+					$coupon->sort = 1;
+					break;
+				case 'percent':
+					$coupon->sort = 2;
+					break;
+				case 'fixed_cart':
+					$coupon->sort = 3;
+					break;
+				default:
+					$coupon->sort = 0;
+					break;
+			}
+
+			// Allow plugins to override the default order.
+			$coupon->sort = apply_filters( 'woocommerce_coupon_sort', $coupon->sort, $coupon );
+		}
+
+		uasort( $coupons, array( $this, 'sort_coupons_callback' ) );
+
+        return $coupons;
+	}
+
+	/**
+	 * Sort coupons so discounts apply consistently across installs.
+	 *
+	 * In order of priority;
+	 *  - sort param
+	 *  - usage restriction
+	 *  - coupon value
+	 *  - ID
+	 *
+	 * @param WC_Coupon $a Coupon object.
+	 * @param WC_Coupon $b Coupon object.
+     * 
+     * $since 3.6.34
+	 * @return int
+	 */
+	public function sort_coupons_callback( $a, $b ) {
+		if ( $a->sort === $b->sort ) {
+			if ( $a->get_limit_usage_to_x_items() === $b->get_limit_usage_to_x_items() ) {
+				if ( $a->get_amount() === $b->get_amount() ) {
+					return $b->get_id() - $a->get_id();
+				}
+				return ( $a->get_amount() < $b->get_amount() ) ? -1 : 1;
+			}
+			return ( $a->get_limit_usage_to_x_items() < $b->get_limit_usage_to_x_items() ) ? -1 : 1;
+		}
+		return ( $a->sort < $b->sort ) ? -1 : 1;
+	}
+
+    /**
+	 * Recalculate the discount tax rates based on package destination.
+	 *
+	 * @param WC_Cart            $cart
+	 * @param array              $packages
+	 *
+     * @since 3.6.34
+	 * @return array
+	 */
+    public function calculate_coupon_discount_tax_amounts( $cart, $packages ) {
+		$coupons = $this->get_coupons_from_cart( $cart );
+        $coupon_discount_tax_amounts = array();
+        
+        // Calculate the line value.
+        foreach( $packages as $idx => $package ) {
+            $items = array();
+            
+            foreach ( $package['contents'] as $key => $cart_item ) {
+                $item                          = new stdClass();
+                $item->key                     = $key;
+                $item->object                  = $cart_item;
+                $item->product                 = $cart_item['data'];
+                $item->quantity                = $cart_item['quantity'];
+                $item->taxable                 = 'taxable' === $cart_item['data']->get_tax_status();
+			    $item->price_includes_tax      = false;
+                $item->price                   = wc_add_number_precision_deep( $cart_item['line_subtotal'] );
+                $item->tax_rates               = $this->get_item_tax_rates( $item, $package );
+                
+                $items[ $key ] = $item;
+            }
+
+            $discounts = new WC_Discounts( $cart );
+
+            // Set items directly so the discounts class can see any tax adjustments made thus far using subtotals.
+            $discounts->set_items( $items );
+
+            foreach ( $coupons as $coupon ) {
+                $discounts->apply_coupon( $coupon );
+            }
+
+            $coupon_discount_amounts     = $discounts->get_discounts_by_coupon( true );
+
+            // See how much tax was 'discounted' per item and per coupon.
+            foreach ( $discounts->get_discounts( true ) as $coupon_code => $coupon_discounts ) {
+                $coupon_discount_tax_amounts[ $coupon_code ] = isset( $coupon_discount_tax_amounts[ $coupon_code ] ) ? $coupon_discount_tax_amounts[ $coupon_code ] : 0;
+
+                foreach ( $coupon_discounts as $item_key => $coupon_discount ) {
+                    $item = $items[ $item_key ];
+
+                    if ( $item->product->is_taxable() ) {
+                        // Item subtotals were sent, so set 3rd param.
+                        $item_tax = array_sum( WC_Tax::calc_tax( $coupon_discount, $item->tax_rates, $item->price_includes_tax ) );
+                        
+                        // Sum total tax.
+                        $coupon_discount_tax_amounts[ $coupon_code ] += $item_tax;
+
+                        // Remove tax from discount total.
+                        if ( $item->price_includes_tax ) {
+                            $coupon_discount_amounts[ $coupon_code ] -= $item_tax;
+                        }
+                    }
+                }
+            }
+        }
+
+		return wc_remove_number_precision_deep( $coupon_discount_tax_amounts );
+	}
 
 	/**
 	* Apply rounding to an array of taxes before summing.
@@ -1230,14 +1419,50 @@ class WC_MS_Checkout {
 		return $shipping_taxes;
 	}
 
-    public function subtotal_include_taxes( $product_subtotal, $cart_item, $cart_item_key ) {
-
-        $packages = wcms_session_get( 'wcms_packages' );
+    /**
+	 * This method manipulate the subtotal item value for price with tax included.
+	 *
+	 * @param float              $product_subtotal
+	 * @param array              $cart_item
+	 * @param string             $cart_item_key
+	 *
+	 * @return float
+	 */
+    public function subtotal_item_include_taxes( $product_subtotal, $cart_item, $cart_item_key ) {
+        $packages     = wcms_session_isset( 'wcms_packages_after_tax_calc' ) ? wcms_session_get( 'wcms_packages_after_tax_calc' ) : wcms_session_get( 'wcms_packages' );
         $tax_based_on = get_option( 'woocommerce_tax_based_on', 'billing' );
 
         // only process subtotal if multishipping is being used
         if ( ( is_array( $packages ) && count( $packages ) <= 1 ) || 'shipping' !== $tax_based_on )
             return $product_subtotal;
+
+        // Value that needs to be updated.
+        $package_item = array(
+            'line_total' => 0,
+            'line_tax'   => 0,
+            'line_subtotal' => 0,
+            'line_subtotal_tax' => 0
+        );
+
+        // Calculate the line value.
+        for ( $i = 0; $i < count( $packages ); $i++ ) {
+            if ( isset( $packages[ $i ]['contents'][ $cart_item_key ] ) ) {
+                $new_cart_item = $packages[ $i ]['contents'][ $cart_item_key ];
+                $package_item['line_total']        += isset( $new_cart_item['line_total'] ) ? $new_cart_item['line_total'] : 0;
+                $package_item['line_tax']          += isset( $new_cart_item['line_tax'] ) ? $new_cart_item['line_tax'] : 0;
+                $package_item['line_subtotal']     += isset( $new_cart_item['line_subtotal'] ) ? $new_cart_item['line_subtotal'] : 0;
+                $package_item['line_subtotal_tax'] += isset( $new_cart_item['line_subtotal_tax'] ) ? $new_cart_item['line_subtotal_tax'] : 0;
+            }
+        }
+
+        // Replace the cart item with the modified one.
+        if ( isset( $new_cart_item ) ) {
+            $cart_item = $new_cart_item;
+            
+            foreach ( $package_item as $key => $value ) {
+                $cart_item[ $key ] = $value;
+            }
+        }
 
         $subtotal   = $this->wcms->get_cart_item_subtotal( $cart_item );
         $taxable    = $cart_item['data']->is_taxable();
@@ -1269,11 +1494,43 @@ class WC_MS_Checkout {
         return $product_subtotal;
     }
 
+    /**
+	 * This method get item tax rates based on package destination.
+	 *
+	 * @param array              $item
+	 * @param array              $package
+	 *
+     * @since 3.6.34
+	 * @return array
+	 */
+    public function get_item_tax_rates( $item, $package ) {
+
+        $customer = new WC_Customer();
+
+        $customer_country  = $package['destination']['country'];
+        $customer_state    = $package['destination']['state'];
+        $customer_postcode = $package['destination']['postcode'];
+        $customer_city     = $package['destination']['city'];
+
+        $customer->set_billing_location( $customer_country, $customer_state, $customer_postcode, $customer_city );
+        $customer->set_shipping_location( $customer_country, $customer_state, $customer_postcode, $customer_city );
+
+        $item_tax_rates = WC_Tax::get_rates( $item->product->get_tax_class(), $customer );
+
+        return $item_tax_rates;
+    }
+
     public function create_order_shipments( $order_id, $posted = null ) {
-        $multishipping  = get_post_meta( $order_id, '_multiple_shipping', true );
-        $created        = get_post_meta( $order_id, '_shipments_created', true );
-        $packages       = get_post_meta( $order_id, '_wcms_packages', true );
-        $shipment       = $this->wcms->shipments;
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			return;
+		}
+
+        $multishipping = $order->get_meta( '_multiple_shipping' );
+        $created       = $order->get_meta( '_shipments_created' );
+        $packages      = $order->get_meta( '_wcms_packages' );
+        $shipment      = $this->wcms->shipments;
 
         if ( $multishipping != 'yes' || $created == 'yes' ) {
             return;
@@ -1283,8 +1540,8 @@ class WC_MS_Checkout {
             $shipment->create_from_package( $package, $i, $order_id );
         }
 
-        update_post_meta( $order_id, '_shipments_created', 'yes' );
-
+		$order->update_meta_data( '_shipments_created', 'yes' );
+		$order->save();
     }
 
 	public function prevent_customer_data_update( $update, $wc_checkout ) {

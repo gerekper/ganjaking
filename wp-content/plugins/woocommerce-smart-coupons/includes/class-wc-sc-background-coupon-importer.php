@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     1.5.0
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -926,6 +926,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 				if ( false !== $csv_file_handler ) {
 					for ( $no_of_coupons_created = 1; $no_of_coupons_created <= $no_of_coupons_to_generate; $no_of_coupons_created++ ) {
 						$posted_data['no_of_coupons_to_generate'] = 1;
+						$posted_data['customer_email']            = empty( $posted_data['customer_email'] ) ? $posted_data['smart_coupon_email'] : $posted_data['customer_email'];
 						$coupon_data                              = $woocommerce_smart_coupon->generate_coupons_code( $posted_data, '', '' );
 						$file_data = $woocommerce_smart_coupon->get_coupon_csv_data( $column_headers, $coupon_data ); // phpcs:ignore
 						if ( $file_data ) {

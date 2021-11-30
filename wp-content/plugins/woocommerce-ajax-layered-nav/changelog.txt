@@ -1,5 +1,19 @@
 *** Ajax Layered Nav Changelog ***
 
+2021-11-23 - version 1.7.0
+* Fix - Update sanitization and output escaping across widget files.
+
+2021-06-22 - version 1.6.0
+* Fix - Fix WordPress 5.8 Compatibility.
+* Fix - Update build scripts.
+* Tweak - WC 5.4 compatibility.
+* Tweak - WP 5.8 compatibility.
+
+2021-02-22 - version 1.5.0
+* Fix - Fix a notice due to a missing callback on wp_ajax_set_type.
+* Fix - Fix color picker initial value and allow save.
+* Fix - Update node-sass to 4.14.1.
+
 2021-02-10 - version 1.4.28
 * Tweak - WC 5.0 compatibility.
 * Tweak - WP 5.6 compatibility.

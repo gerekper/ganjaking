@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Account Funds 2.5.4\n"
+"Project-Id-Version: WooCommerce Account Funds 2.6.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-20T15:29:18+00:00\n"
+"POT-Creation-Date: 2021-11-23T16:11:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: woocommerce-account-funds\n"
@@ -34,53 +34,20 @@ msgstr ""
 msgid "https://themesquad.com/"
 msgstr ""
 
+#. translators: %s the form field title
+#: includes/abstracts/abstract-wc-account-funds-settings-api.php:353
+msgctxt "settings error"
+msgid "The field \"%s\" is required."
+msgstr ""
+
 #: includes/admin/class-wc-account-funds-admin-product.php:34
 msgid "Account Funds Deposit"
 msgstr ""
 
-#: includes/admin/class-wc-account-funds-admin.php:66
-msgctxt "aria-label: settings link"
-msgid "View WooCommerce Account Funds settings"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:67
-msgctxt "plugin action link"
-msgid "Settings"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:90
-msgctxt "aria-label: documentation link"
-msgid "View WooCommerce Account Funds documentation"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:91
-msgctxt "plugin row link"
-msgid "Docs"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:96
-msgctxt "aria-label: changelog link"
-msgid "View WooCommerce Account Funds changelog"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:97
-msgctxt "plugin row link"
-msgid "Changelog"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:102
-msgctxt "aria-label: support link"
-msgid "View WooCommerce Account Funds support"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:103
-msgctxt "plugin row link"
-msgid "Support"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:120
-#: includes/admin/class-wc-account-funds-admin.php:150
-#: includes/admin/class-wc-account-funds-admin.php:278
+#: includes/admin/class-wc-account-funds-admin-settings.php:31
+#: includes/admin/class-wc-account-funds-admin.php:143
+#: includes/admin/class-wc-account-funds-admin.php:173
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:136
 #: includes/admin/views/html-admin-status-report-settings.php:19
 #: includes/class-wc-account-funds-cart-manager.php:246
 #: includes/class-wc-account-funds-my-account.php:76
@@ -91,90 +58,52 @@ msgstr ""
 msgid "Account Funds"
 msgstr ""
 
-#: includes/admin/class-wc-account-funds-admin.php:153
+#: includes/admin/class-wc-account-funds-admin.php:89
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Account Funds settings"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:90
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:113
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Account Funds documentation"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:114
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:119
+msgctxt "aria-label: changelog link"
+msgid "View WooCommerce Account Funds changelog"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:120
+msgctxt "plugin row link"
+msgid "Changelog"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:125
+msgctxt "aria-label: support link"
+msgid "View WooCommerce Account Funds support"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:126
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
+
+#: includes/admin/class-wc-account-funds-admin.php:176
 msgid "Account Funds Amount"
 msgstr ""
 
-#: includes/admin/class-wc-account-funds-admin.php:156
+#: includes/admin/class-wc-account-funds-admin.php:179
 msgid "Funds this user can use to purchase items"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:193
-msgid "Discount Settings"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:199
-msgid "Give Discount"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:201
-msgid "Apply a discount when account funds are used to purchase items"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:205
-msgid "Discount Type"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:208
-msgid "Fixed Price"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:209
-msgid "Percentage"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:211
-msgid "Percentage discounts will be based on the amount of funds used."
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:216
-msgid "Discount Amount"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:218
-msgid "Enter numbers only. Do not include the percentage sign."
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:225
-msgid "Funding"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:231
-msgid "Enable \"My Account\" Top-up"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:233
-msgid "Allow customers to top up funds via their account page."
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:237
-#: includes/admin/views/html-admin-status-report-settings.php:35
-msgid "Minimum Top-up"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:246
-#: includes/admin/views/html-admin-status-report-settings.php:40
-msgid "Maximum Top-up"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:250
-msgid "n/a"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:256
-msgid "Paying with Account Funds"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:262
-msgid "Partial Funds Payment"
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:264
-msgid "Allow customers to apply available funds and pay the difference via another gateway."
-msgstr ""
-
-#: includes/admin/class-wc-account-funds-admin.php:265
-msgid "If disabled, users must pay for the entire order using the account funds payment gateway."
 msgstr ""
 
 #: includes/admin/notices/update-2-3-7.php:20
@@ -211,6 +140,89 @@ msgctxt "admin notice"
 msgid "It is strongly recommended that you backup your database before proceeding. Are you sure you wish to run the updater now?"
 msgstr ""
 
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:73
+msgid "Partial Funds Payment"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:74
+msgid "Allow customers to apply available funds and pay the difference via another gateway."
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:75
+msgid "If disabled, users must pay for the entire order using the account funds payment gateway."
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:79
+msgid "Funds on Register"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:80
+msgid "Add funds to the customer account on registration."
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:81
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:100
+msgid "n/a"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:85
+msgid "Funding"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:89
+msgid "Enable \"My Account\" Top-up"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:90
+msgid "Allow customers to top up funds via their account page."
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:94
+#: includes/admin/views/html-admin-status-report-settings.php:35
+msgid "Minimum Top-up"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:99
+#: includes/admin/views/html-admin-status-report-settings.php:40
+msgid "Maximum Top-up"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:104
+msgid "Discount Settings"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:108
+msgid "Give Discount"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:109
+msgid "Apply a discount when account funds are used to purchase items"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:113
+msgid "Discount Type"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:114
+msgid "Percentage discounts will be based on the amount of funds used."
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:116
+msgid "Fixed Price"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:117
+msgid "Percentage"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:122
+msgid "Discount Amount"
+msgstr ""
+
+#: includes/admin/settings/class-wc-account-funds-settings-general.php:123
+msgid "Enter numbers only. Do not include the percentage sign."
+msgstr ""
+
 #: includes/admin/views/html-admin-status-report-settings.php:19
 msgid "This section shows information about Account Funds."
 msgstr ""
@@ -235,7 +247,7 @@ msgstr ""
 msgid "Discount amount"
 msgstr ""
 
-#: includes/admin/wc-account-funds-admin-functions.php:63
+#: includes/admin/wc-account-funds-admin-functions.php:79
 msgid "Dismiss"
 msgstr ""
 

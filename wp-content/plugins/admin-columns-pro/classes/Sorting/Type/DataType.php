@@ -10,6 +10,7 @@ class DataType {
 	const NUMERIC = 'numeric';
 	const DATE = 'date';
 	const DATETIME = 'datetime';
+	const DECIMAL = 'decimal';
 
 	/**
 	 * @var string
@@ -37,7 +38,7 @@ class DataType {
 	 * @return bool
 	 */
 	public static function is_valid( $value ) {
-		return in_array( $value, [ self::STRING, self::NUMERIC, self::DATE, self::DATETIME ] );
+		return in_array( $value, [ self::STRING, self::NUMERIC, self::DATE, self::DATETIME, self::DECIMAL ] );
 	}
 
 }

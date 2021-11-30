@@ -228,7 +228,7 @@ class WooCommerce_Product_Search {
 	public static function redirect_canonical( $redirect_url, $requested_url ) {
 
 		if ( is_string( $redirect_url ) && is_string( $requested_url ) ) {
-			if ( strcmp( urldecode( $redirect_url ), urldecode( $requested_url ) === 0 ) ) {
+			if ( strcmp( urldecode( $redirect_url ), urldecode( $requested_url ) ) === 0 ) {
 				$redirect_url = false;
 			}
 		}

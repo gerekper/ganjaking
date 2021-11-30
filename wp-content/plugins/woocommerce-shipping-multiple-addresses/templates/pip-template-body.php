@@ -1,7 +1,7 @@
 <?php
-$packages                   = get_post_meta( WC_MS_Compatibility::get_order_prop( $order, 'id' ), '_wcms_packages', true );
-$packages_shipping_methods  = get_post_meta( WC_MS_Compatibility::get_order_prop( $order, 'id' ), '_shipping_methods', true );
-$order_shipping_methods     = $order->get_shipping_methods();
+$packages                  = $order->get_meta( '_wcms_packages' );
+$packages_shipping_methods = $order->get_meta( '_shipping_methods' );
+$order_shipping_methods    = $order->get_shipping_methods();
 
 foreach ( $packages as $pkg_idx => $package ):
     if (! is_array($packages_shipping_methods) ) {
@@ -58,13 +58,13 @@ foreach ( $packages as $pkg_idx => $package ):
                     <?php echo $order->get_formatted_billing_address(); ?>
                 </p>
                 <?php do_action( 'wc_print_invoice_packing_template_body_after_billing_address', $order ); ?>
-                <?php if (get_post_meta(WC_MS_Compatibility::get_order_prop( $order, 'id' ), 'VAT Number', TRUE) && $action == 'print_invoice') : ?>
-                    <p><strong><?php _e('VAT:', 'woocommerce-pip'); ?></strong> <?php echo get_post_meta(WC_MS_Compatibility::get_order_prop( $order, 'id' ), 'VAT Number', TRUE); ?></p>
+                <?php if ( $order->get_meta( 'VAT Number' ) && $action == 'print_invoice') : ?>
+                    <p><strong><?php _e('VAT:', 'woocommerce-pip'); ?></strong> <?php echo $order->get_meta( 'VAT Number' ); ?></p>
                 <?php endif; ?>
-                <?php if (WC_MS_Compatibility::get_order_prop( $order, 'billing_email' )) : ?>
+                <?php if ( WC_MS_Compatibility::get_order_prop( $order, 'billing_email' ) ) : ?>
                     <p><strong><?php _e('Email:', 'woocommerce-pip'); ?></strong> <?php echo WC_MS_Compatibility::get_order_prop( $order, 'billing_email' ); ?></p>
                 <?php endif; ?>
-                <?php if (WC_MS_Compatibility::get_order_prop( $order, 'billing_phone' )) : ?>
+                <?php if ( WC_MS_Compatibility::get_order_prop( $order, 'billing_phone' ) ) : ?>
                     <p><strong><?php _e('Tel:', 'woocommerce-pip'); ?></strong> <?php echo WC_MS_Compatibility::get_order_prop( $order, 'billing_phone' ); ?></p>
                 <?php endif; ?>
 
@@ -76,11 +76,11 @@ foreach ( $packages as $pkg_idx => $package ):
 
                 <p><?php echo wcms_get_formatted_address( $package['destination'] ); ?></p>
 
-                <?php if (get_post_meta( $order_id, '_tracking_provider', true )) : ?>
-                    <p><strong><?php _e('Tracking provider:', 'woocommerce-pip'); ?></strong> <?php echo get_post_meta( $order_id, '_tracking_provider', true ); ?></p>
+                <?php if ( $order->get_meta( '_tracking_provider' ) ) : ?>
+                    <p><strong><?php _e('Tracking provider:', 'woocommerce-pip'); ?></strong> <?php echo $order->get_meta( '_tracking_provider' ); ?></p>
                 <?php endif; ?>
-                <?php if (get_post_meta( $order_id, '_tracking_number', true )) : ?>
-                    <p><strong><?php _e('Tracking number:', 'woocommerce-pip'); ?></strong> <?php echo get_post_meta( $order_id, '_tracking_number', true ); ?></p>
+                <?php if ( $order->get_meta( '_tracking_number' ) ) : ?>
+                    <p><strong><?php _e('Tracking number:', 'woocommerce-pip'); ?></strong> <?php echo $order->get_meta( '_tracking_number' ); ?></p>
                 <?php endif; ?>
 
             </div>

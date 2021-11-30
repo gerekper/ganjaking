@@ -113,8 +113,16 @@ class WC_Mix_and_Match_Admin {
 		wp_register_style( 'wc-mnm-admin', WC_Mix_and_Match()->plugin_url() . '/assets/css/admin/mnm-admin.css', array(), WC_Mix_and_Match()->version );
 		wp_style_add_data( 'wc-mnm-admin', 'rtl', 'replace' );
 
+		if ( $suffix ) {
+			wp_style_add_data( 'wc-mnm-admin', 'suffix', '.min' );
+		}
+
 		wp_enqueue_style( 'wc-mnm-admin-order-style', WC_Mix_and_Match()->plugin_url() . '/assets/css/admin/mnm-edit-order.css', array( 'woocommerce_admin_styles' ), WC_Mix_and_Match()->version );
 		wp_style_add_data( 'wc-mnm-admin-order-style', 'rtl', 'replace' );
+
+		if ( $suffix ) {
+			wp_style_add_data( 'wc-mnm-admin-order-style', 'suffix', '.min' );
+		}
 
 		// General admin styles.
 		wp_enqueue_style( 'wc-mnm-admin' );

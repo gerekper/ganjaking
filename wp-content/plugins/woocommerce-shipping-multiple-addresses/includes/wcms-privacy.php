@@ -71,7 +71,8 @@ class WC_MS_Privacy extends WC_Abstract_Privacy {
 
 		if ( 0 < count( $orders ) ) {
 			foreach ( $orders as $order ) {
-				$packages = get_post_meta( $order->get_id(), '_wcms_packages', true );
+				$packages = $order->get_meta( '_wcms_packages' );
+
 				foreach ( $packages as $idx => $package ) {
 					$products = $package['contents'];
 					$address  = ( isset($package['full_address'] ) && ! empty( $package['full_address'] ) ) ? WC()->countries->get_formatted_address( $package['full_address'] ) : '';
@@ -81,7 +82,8 @@ class WC_MS_Privacy extends WC_Abstract_Privacy {
 						return get_the_title( $product['data']->id );
 					}, $products ) );
 
-					$order_note = get_post_meta( $order->get_id(), '_note_' . $idx, true );
+					$order_note = $order->get_meta( '_note_' . $idx );
+
 					if ( ! empty( $order_note ) ) {
 						$data .= sprintf( __( '. Note: %s.', 'wc_shipping_multiple_address' ), $order_note );
 					}
@@ -93,7 +95,7 @@ class WC_MS_Privacy extends WC_Abstract_Privacy {
 						'data'        => array(
 							array(
 								'name'  => sprintf( __( 'Multiple Shipping package "%s"', 'wc_shipping_multiple_address' ), $idx ),
-								'value' => get_post_meta( $order->get_id(), '_wcms_packages', true ),
+								'value' => $packages,
 							),
 						),
 					);
@@ -237,13 +239,13 @@ class WC_MS_Privacy extends WC_Abstract_Privacy {
 	protected function maybe_handle_order( $order ) {
 		global $wpdb;
 
-		$order_id           = $order->get_id();
+		$order_id          = $order->get_id();
 
-		$packages          = get_post_meta( $order_id, '_shipping_packages', true );
-		$sess_item_address = get_post_meta( $order_id, '_shipping_addresses', true );
-		$sess_packages     = get_post_meta( $order_id, '_wcms_packages', true );
-		$ms_methods        = get_post_meta( $order_id, '_shipping_methods', true );
-		$sess_rates        = get_post_meta( $order_id, '_shipping_rates', true );
+		$packages          = $order->get_meta( '_shipping_packages' );
+		$sess_item_address = $order->get_meta( '_shipping_addresses' );
+		$sess_packages     = $order->get_meta( '_wcms_packages' );
+		$ms_methods        = $order->get_meta( '_shipping_methods' );
+		$sess_rates        = $order->get_meta( '_shipping_rates' );
 
 		if ( empty( $packages ) && empty( $sess_item_address ) && empty( $sess_packages ) && empty( $ms_methods ) && empty( $sess_rates ) ) {
 			return array( false, false, array() );
@@ -262,15 +264,16 @@ class WC_MS_Privacy extends WC_Abstract_Privacy {
 		}
 
 		foreach ( $packages as $idx => $package ) {
-			delete_post_meta( $order_id, '_note_' . $idx );
-			delete_post_meta( $order_id, '_date_' . $idx );
+			$order->delete_meta_data( '_note_' . $idx );
+			$order->delete_meta_data( '_date_' . $idx );
 		}
 
-		delete_post_meta( $order_id, '_shipping_packages' );
-		delete_post_meta( $order_id, '_shipping_addresses' );
-		delete_post_meta( $order_id, '_wcms_packages' );
-		delete_post_meta( $order_id, '_shipping_methods' );
-		delete_post_meta( $order_id, '_shipping_rates' );
+		$order->delete_meta_data( '_shipping_packages' );
+		$order->delete_meta_data( '_shipping_addresses' );
+		$order->delete_meta_data( '_wcms_packages' );
+		$order->delete_meta_data( '_shipping_methods' );
+		$order->delete_meta_data( '_shipping_rates' );
+		$order->save();
 
 		return array( true, false, array( __( 'Multiple Shipping Order Data Erased.', 'wc_shipping_multiple_address' ) ) );
 	}

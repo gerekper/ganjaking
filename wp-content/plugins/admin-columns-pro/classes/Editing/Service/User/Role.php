@@ -11,8 +11,10 @@ class Role implements Editing\Service {
 	public function get_view( $context ) {
 		$options = [];
 
-		foreach ( get_editable_roles() as $k => $role ) {
-			$options[ $k ] = translate_user_role( $role['name'] );
+		if ( function_exists( 'get_editable_roles' ) ) {
+			foreach ( get_editable_roles() as $k => $role ) {
+				$options[ $k ] = translate_user_role( $role['name'] );
+			}
 		}
 
 		$view = ( new Editing\View\AdvancedSelect( $options ) )

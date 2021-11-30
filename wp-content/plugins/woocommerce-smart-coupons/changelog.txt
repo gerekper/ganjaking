@@ -1,5 +1,12 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2021.11.18 - version 4.33.0
+* New: WooCommerce 5.9.0 compatible
+* New: Tested upto WordPress 5.8.2
+* Fix: Displaying error 'Uncaught Exception: Invalid coupon' under the order admin page > Generated coupons meta box, when a coupon that is auto-generated got deleted
+* Fix: Support for wildcard email under Allowed emails during 'Bulk generate' & 'Import coupons'
+* Update: POT file
+
 2021.10.26 - version 4.32.0
 * Fix: Incorrect discount calculation when cart is having Product Bundles & max discount is set in the coupon
 * Update: POT file

@@ -3,7 +3,7 @@
  * Admin subscription delivery note email
  *
  * @package WC_OD/Templates/Emails
- * @since   1.5.0
+ * @version 1.5.0
  */
 
 defined( 'ABSPATH' ) || exit;

@@ -81,3 +81,6 @@ table.form-table tr th {
     background-color: #fff;
     color: #444;
 }
+#mwb_cpr_image {
+    display: none;
+}

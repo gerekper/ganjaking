@@ -50,9 +50,16 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Settings' ) ) {
 		 * @return array
 		 */
 		public function register_settings( $settings ) {
-			return array_merge(
-				array_slice( $settings, 0, -3 ),
-				apply_filters( 'wc_od_subscription_settings', array(
+			/**
+			 * Filters the subscription settings.
+			 *
+			 * @since 1.4.0
+			 *
+			 * @param array $subscription_settings An array with the subscription settings.
+			 */
+			$subscription_settings = apply_filters(
+				'wc_od_subscription_settings',
+				array(
 					array(
 						'id'       => wc_od_maybe_prefix( 'subscriptions_limit_to_billing_interval' ),
 						'title'    => __( 'Limit subscription orders to the billing interval', 'woocommerce-order-delivery' ),
@@ -61,8 +68,13 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Settings' ) ) {
 						'type'     => 'checkbox',
 						'default'  => WC_OD()->settings()->get_default( 'subscriptions_limit_to_billing_interval' ),
 					),
-				) ),
-				array_slice( $settings, -3)
+				)
+			);
+
+			return array_merge(
+				array_slice( $settings, 0, -3 ),
+				$subscription_settings,
+				array_slice( $settings, -3 )
 			);
 		}
 

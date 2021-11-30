@@ -635,7 +635,7 @@ class Media_Library extends Abstract_Module {
 	 */
 	private function show_restore_option( $image_id, $attachment_data ) {
 		// No Attachment data, don't go ahead.
-		if ( empty( $attachment_data ) ) {
+		if ( empty( $attachment_data ) || ! $this->settings->get( 'backup' ) ) {
 			return false;
 		}
 
@@ -664,9 +664,7 @@ class Media_Library extends Abstract_Module {
 			$backup = str_replace( wp_basename( $file ), wp_basename( $backup ), $file );
 		}
 
-		$file_exists = apply_filters( 'smush_backup_exists', file_exists( $backup ), $image_id, $backup );
-
-		if ( $file_exists ) {
+		if ( apply_filters( 'smush_backup_exists', ! empty( $backup_sizes ), $image_id, $backup ) ) {
 			return true;
 		}
 

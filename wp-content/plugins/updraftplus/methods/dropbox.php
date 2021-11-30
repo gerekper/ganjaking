@@ -542,7 +542,7 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 		
 		foreach ($remote_files as $file_info) {
 			if ($file_info['name'] == $file) {
-				return $updraftplus->chunked_download($file, $this, $file_info['size'], true, null, 2*1048576);
+				return $updraftplus->chunked_download($file, $this, $file_info['size'], apply_filters('updraftplus_dropbox_downloads_manually_break_up', false), null, 2*1048576);
 			}
 		}
 

@@ -100,10 +100,10 @@ class WC_MS_Front {
 		wp_enqueue_script( 'jquery-blockui' );
 
 		// touchpunch to support mobile browsers
-		wp_enqueue_script( 'jquery-ui-touch-punch', plugins_url( 'js/jquery.ui.touch-punch.min.js', WC_Ship_Multiple::FILE ), array( 'jquery-ui-mouse', 'jquery-ui-widget' ) );
+		wp_enqueue_script( 'jquery-ui-touch-punch', plugins_url( 'assets/js/jquery.ui.touch-punch.min.js', WC_Ship_Multiple::FILE ), array( 'jquery-ui-mouse', 'jquery-ui-widget' ) );
 
 		if ( $user->ID != 0 ) {
-			wp_enqueue_script( 'multiple_shipping_script', plugins_url( 'js/front.js', WC_Ship_Multiple::FILE ) );
+			wp_enqueue_script( 'multiple_shipping_script', plugins_url( 'assets/js/front.min.js', WC_Ship_Multiple::FILE ) );
 
 			wp_localize_script( 'multiple_shipping_script', 'WC_Shipping', array(
 				// URL to wp-admin/admin-ajax.php to process the request
@@ -121,10 +121,10 @@ class WC_MS_Front {
 		<?php
 		}
 
-		wp_enqueue_script( 'jquery-tiptip', plugins_url( 'js/jquery.tiptip.js', WC_Ship_Multiple::FILE ), array( 'jquery', 'jquery-ui-core' ) );
+		wp_enqueue_script( 'jquery-tiptip', plugins_url( 'assets/js/jquery.tiptip.min.js', WC_Ship_Multiple::FILE ), array( 'jquery', 'jquery-ui-core' ) );
 
-		wp_enqueue_script( 'modernizr', plugins_url( 'js/modernizr.js', WC_Ship_Multiple::FILE ) );
-		wp_enqueue_script( 'multiple_shipping_checkout', plugins_url( 'js/woocommerce-checkout.js', WC_Ship_Multiple::FILE ), array( 'woocommerce', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-mouse' ) );
+		wp_enqueue_script( 'modernizr', plugins_url( 'assets/js/modernizr.min.js', WC_Ship_Multiple::FILE ) );
+		wp_enqueue_script( 'multiple_shipping_checkout', plugins_url( 'assets/js/woocommerce-checkout.min.js', WC_Ship_Multiple::FILE ), array( 'woocommerce', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-mouse' ) );
 
 		wp_localize_script(
 			'multiple_shipping_checkout',
@@ -143,7 +143,7 @@ class WC_MS_Front {
 		);
 
 		if ( ! is_checkout() ) {
-			wp_register_script( 'wcms-country-select', plugins_url( 'js/country-select.js', WC_Ship_Multiple::FILE ), array( 'jquery', 'selectWoo', 'select2' ), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION, true );
+			wp_register_script( 'wcms-country-select', plugins_url( 'assets/js/country-select.min.js', WC_Ship_Multiple::FILE ), array( 'jquery', 'selectWoo', 'select2' ), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION, true );
 			wp_localize_script(
 				'wcms-country-select',
 				'wcms_country_select_params',
@@ -160,8 +160,8 @@ class WC_MS_Front {
 			wp_enqueue_style( 'select2', WC()->plugin_url() . '/assets/css/select2.css', array(), WC_VERSION );
 		}
 
-		wp_enqueue_style( 'multiple_shipping_styles', plugins_url( 'css/front.css', WC_Ship_Multiple::FILE ) );
-		wp_enqueue_style( 'tiptip', plugins_url( 'css/jquery.tiptip.css', WC_Ship_Multiple::FILE ) );
+		wp_enqueue_style( 'multiple_shipping_styles', plugins_url( 'assets/css/front.css', WC_Ship_Multiple::FILE ) );
+		wp_enqueue_style( 'tiptip', plugins_url( 'assets/css/jquery.tiptip.css', WC_Ship_Multiple::FILE ) );
 
 		global $wp_scripts;
 		$ui_version = $wp_scripts->registered['jquery-ui-core']->ver;
@@ -175,11 +175,17 @@ class WC_MS_Front {
 		// on the thank you page, remove the Shipping Address block if the order ships to multiple addresses
 		if ( isset( $_GET['order-received'] ) || isset( $_GET['view-order'] ) ) {
 			$order_id = isset( $_GET['order-received'] ) ? intval( $_GET['order-received'] ) : intval( $_GET['view-order'] );
-			$packages = get_post_meta( $order_id, '_wcms_packages', true );
-			$multiship= get_post_meta( $order_id, '_multiple_shipping', true );
+			$order    = wc_get_order( $order_id );
+
+			if ( ! $order ) {
+				return;
+			}
+
+			$packages  = $order->get_meta( '_wcms_packages' );
+			$multiship = $order->get_meta( '_multiple_shipping' );
 
 			if ( ( $packages && count( $packages ) > 1 ) || $multiship == 'yes' ) {
-				wp_enqueue_script( 'wcms_shipping_address_override', plugins_url( 'js/address-override.js', WC_Ship_Multiple::FILE ), array( 'jquery' ) );
+				wp_enqueue_script( 'wcms_shipping_address_override', plugins_url( 'assets/js/address-override.min.js', WC_Ship_Multiple::FILE ), array( 'jquery' ) );
 			}
 		}
 	}
@@ -219,7 +225,7 @@ class WC_MS_Front {
 			// load SmartyStreets LiveAddress jQuery plugin
 			wp_enqueue_script( 'wc_address_validation_smarty_streets', '//d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/2.4/jquery.liveaddress.min.js', array( 'jquery' ), '2.4', true );
 
-			wp_enqueue_script( 'wcms_address_validation', plugins_url( 'js/address-validation.js', WC_Ship_Multiple::FILE ), array( 'jquery' ) );
+			wp_enqueue_script( 'wcms_address_validation', plugins_url( 'assets/js/address-validation.min.js', WC_Ship_Multiple::FILE ), array( 'jquery' ) );
 
 			$params['smarty_streets_key'] = $provider->html_key;
 
@@ -239,7 +245,13 @@ class WC_MS_Front {
 	 * @param int $order_id
 	 */
 	public function show_multiple_addresses_notice($order_id) {
-		$packages  = get_post_meta( $order_id, '_wcms_packages', true );
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			return;
+		}
+
+		$packages = $order->get_meta( '_wcms_packages' );
 
 		if ( empty( $packages ) || count( $packages ) <= 1 ) {
 			return;
@@ -506,21 +518,20 @@ class WC_MS_Front {
 	 */
 	public function inline_scripts() {
 		$order_id = isset( $_GET['order'] ) ? $_GET['order'] : false;
+		$order    = wc_get_order( $order_id );
 
-		if ( $order_id ):
-			$order = wc_get_order( $order_id );
-
+		if ( $order ) {
 			if ( method_exists( $order, 'get_checkout_order_received_url' ) ) {
 				$page_id = $order->get_checkout_order_received_url();
 			} else {
 				$page_id = wc_get_page_id( get_option( 'woocommerce_thanks_page_id', 'thanks' ) );
 			}
 
-			$custom = get_post_custom( $order_id );
+			$shipping_addresses = $order->get_meta( '_shipping_addresses', false );
 
-			if ( is_page( $page_id ) && isset( $custom['_shipping_addresses'] ) && isset( $custom['_shipping_addresses'][0] ) && ! empty( $custom['_shipping_addresses'][0] ) ) {
+			if ( is_page( $page_id ) && ! empty( $shipping_addresses ) ) {
 				$html       = '<div>';
-				$packages   = get_post_meta( $order_id, '_wcms_packages', true );
+				$packages   = $order->get_meta( '_wcms_packages' );
 
 				foreach ( $packages as $package ) {
 					$html .= '<address>' . wcms_get_formatted_address( $package['destination'] ) . '</address><br /><hr/>';
@@ -536,7 +547,7 @@ class WC_MS_Front {
 				</script>
 			<?php
 			}
-		endif;
+		}
 	}
 
 	/**

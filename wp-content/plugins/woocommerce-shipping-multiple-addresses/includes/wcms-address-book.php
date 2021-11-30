@@ -278,100 +278,109 @@ class WC_MS_Address_Book {
         }
     }
 
+    public function validate_addresses_book( $shipFields ) {
+        $address = $_POST['address'];
+        $errors  = array();
+
+        foreach ( $shipFields as $key => $field ) {
+
+            if ( isset($field['required']) && $field['required'] && empty($address[$key]) ) {
+                if ( 'shipping_state' == $key && empty( WC()->countries->get_states( $address['shipping_country'] ) ) ) {
+                    continue;
+                }
+
+                $errors[] = $key;
+            }
+
+            if (! empty($address[$key]) ) {
+
+                // Validation rules
+                if ( ! empty( $field['validate'] ) && is_array( $field['validate'] ) ) {
+                    foreach ( $field['validate'] as $rule ) {
+                        switch ( $rule ) {
+                            case 'postcode' :
+                                $address[ $key ] = trim( $address[ $key ] );
+
+                                if ( ! WC_Validation::is_postcode( $address[ $key ], $address[ 'shipping_country' ] ) ) :
+                                    $errors[] = $key;
+                                    wc_add_notice( __( 'Please enter a valid postcode/ZIP.', 'wc_shipping_multiple_address' ), 'error' );
+                                else :
+                                    $address[ $key ] = wc_format_postcode( $address[ $key ], $address[ 'shipping_country' ] );
+                                endif;
+                                break;
+                            case 'phone' :
+                                $address[ $key ] = wc_format_phone_number( $address[ $key ] );
+
+                                if ( ! WC_Validation::is_phone( $address[ $key ] ) ) {
+                                    $errors[] = $key;
+
+                                    if ( function_exists('wc_add_notice') )
+                                        wc_add_notice( '<strong>' . $field['label'] . '</strong> ' . __( 'is not a valid phone number.', 'wc_shipping_multiple_address' ), 'error' );
+                                    else
+                                        WC()->add_error('<strong>' . $field['label'] . '</strong> ' . __( 'is not a valid phone number.', 'wc_shipping_multiple_address' ));
+                                }
+
+                                break;
+                            case 'email' :
+                                $address[ $key ] = strtolower( $address[ $key ] );
+
+                                if ( ! is_email( $address[ $key ] ) ) {
+                                    $errors[] = $key;
+
+                                    if ( function_exists('wc_add_notice') )
+                                        wc_add_notice( '<strong>' . $field['label'] . '</strong> ' . __( 'is not a valid email address.', 'wc_shipping_multiple_address' ), 'error' );
+                                    else
+                                        WC()->add_error( '<strong>' . $field['label'] . '</strong> ' . __( 'is not a valid email address.', 'wc_shipping_multiple_address' ) );
+                                }
+
+                                break;
+                            case 'state' :
+                                // Get valid states
+                                $valid_states = WC()->countries->get_states( $address[ 'shipping_country' ] );
+                                if ( $valid_states )
+                                    $valid_state_values = array_flip( array_map( 'strtolower', $valid_states ) );
+
+                                // Convert value to key if set
+                                if ( isset( $valid_state_values[ strtolower( $address[ $key ] ) ] ) )
+                                    $address[ $key ] = $valid_state_values[ strtolower( $address[ $key ] ) ];
+
+                                // Only validate if the country has specific state options
+                                if ( is_array($valid_states) && sizeof( $valid_states ) > 0 )
+                                    if ( ! in_array( $address[ $key ], array_keys( $valid_states ) ) ) {
+                                        $errors[] = $key;
+
+                                        if ( function_exists('wc_add_notice') )
+                                            wc_add_notice( '<strong>' . $field['label'] . '</strong> ' . __( 'is not valid. Please enter one of the following:', 'wc_shipping_multiple_address' ) . ' ' . implode( ', ', $valid_states ), 'error' );
+                                        else
+                                            WC()->add_error('<strong>' . $field['label'] . '</strong> ' . __( 'is not valid. Please enter one of the following:', 'wc_shipping_multiple_address' ) . ' ' . implode( ', ', $valid_states ));
+                                    }
+                                break;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return array(
+            'errors' => $errors,
+            'address' => $address
+        );
+    }
+
     public function save_addresses_book_from_post() {
         if ( !empty( $_POST['action'] ) && $_POST['action'] == 'save_to_address_book' ) {
 
             $user       = wp_get_current_user();
             $id         = $_POST['id'];
-            $address    = $_POST['address'];
+			$address = $_POST['address'];
             $addresses  = $this->get_user_addresses( $user );
             $shipFields = WC()->countries->get_address_fields( $address['shipping_country'], 'shipping_' );
-            $errors     = array();
             $redirect_url   = (isset($_POST['next'])) ? $_POST['next'] : get_permalink( wc_get_page_id('multiple_addresses') );
 
-            foreach ( $shipFields as $key => $field ) {
+			$validation = $this->validate_addresses_book( $shipFields );
 
-                if ( isset($field['required']) && $field['required'] && empty($address[$key]) ) {
-                    if ( 'shipping_state' == $key && empty( WC()->countries->get_states( $address['shipping_country'] ) ) ) {
-                        continue;
-                    }
-
-                    $errors[] = $key;
-                }
-
-                if (! empty($address[$key]) ) {
-
-                    // Validation rules
-                    if ( ! empty( $field['validate'] ) && is_array( $field['validate'] ) ) {
-                        foreach ( $field['validate'] as $rule ) {
-                            switch ( $rule ) {
-                                case 'postcode' :
-                                    $address[ $key ] = trim( $address[ $key ] );
-
-                                    if ( ! WC_Validation::is_postcode( $address[ $key ], $address[ 'shipping_country' ] ) ) :
-                                        $errors[] = $key;
-                                        wc_add_notice( __( 'Please enter a valid postcode/ZIP.', 'wc_shipping_multiple_address' ), 'error' );
-                                    else :
-                                        $address[ $key ] = wc_format_postcode( $address[ $key ], $address[ 'shipping_country' ] );
-                                    endif;
-                                    break;
-                                case 'phone' :
-                                    $address[ $key ] = wc_format_phone_number( $address[ $key ] );
-
-                                    if ( ! WC_Validation::is_phone( $address[ $key ] ) ) {
-                                        $errors[] = $key;
-
-                                        if ( function_exists('wc_add_notice') )
-                                            wc_add_notice( '<strong>' . $field['label'] . '</strong> ' . __( 'is not a valid phone number.', 'wc_shipping_multiple_address' ), 'error' );
-                                        else
-                                            WC()->add_error('<strong>' . $field['label'] . '</strong> ' . __( 'is not a valid phone number.', 'wc_shipping_multiple_address' ));
-                                    }
-
-                                    break;
-                                case 'email' :
-                                    $address[ $key ] = strtolower( $address[ $key ] );
-
-                                    if ( ! is_email( $address[ $key ] ) ) {
-                                        $errors[] = $key;
-
-                                        if ( function_exists('wc_add_notice') )
-                                            wc_add_notice( '<strong>' . $field['label'] . '</strong> ' . __( 'is not a valid email address.', 'wc_shipping_multiple_address' ), 'error' );
-                                        else
-                                            WC()->add_error( '<strong>' . $field['label'] . '</strong> ' . __( 'is not a valid email address.', 'wc_shipping_multiple_address' ) );
-                                    }
-
-                                    break;
-                                case 'state' :
-                                    // Get valid states
-                                    $valid_states = WC()->countries->get_states( $address[ 'shipping_country' ] );
-                                    if ( $valid_states )
-                                        $valid_state_values = array_flip( array_map( 'strtolower', $valid_states ) );
-
-                                    // Convert value to key if set
-                                    if ( isset( $valid_state_values[ strtolower( $address[ $key ] ) ] ) )
-                                        $address[ $key ] = $valid_state_values[ strtolower( $address[ $key ] ) ];
-
-                                    // Only validate if the country has specific state options
-                                    if ( is_array($valid_states) && sizeof( $valid_states ) > 0 )
-                                        if ( ! in_array( $address[ $key ], array_keys( $valid_states ) ) ) {
-                                            $errors[] = $key;
-
-                                            if ( function_exists('wc_add_notice') )
-                                                wc_add_notice( '<strong>' . $field['label'] . '</strong> ' . __( 'is not valid. Please enter one of the following:', 'wc_shipping_multiple_address' ) . ' ' . implode( ', ', $valid_states ), 'error' );
-                                            else
-                                                WC()->add_error('<strong>' . $field['label'] . '</strong> ' . __( 'is not valid. Please enter one of the following:', 'wc_shipping_multiple_address' ) . ' ' . implode( ', ', $valid_states ));
-                                        }
-
-                                    break;
-                            }
-                        }
-                    }
-
-                }
-
-            }
-
-            if ( count($errors) > 0 ) {
+            if ( count( $validation['errors'] ) > 0 ) {
                 if ( function_exists( 'wc_add_notice' ) ) {
                     wc_add_notice( __( 'Please enter the complete address', 'wc_shipping_multiple_address' ), 'error' );
                 } else {
@@ -381,6 +390,8 @@ class WC_MS_Address_Book {
                 wp_redirect( add_query_arg('address-form', 1, $next ) );
                 exit;
             }
+
+			$address = $validation['address'];
 
             // address is unique, save!
             if ( $id == -1 ) {
@@ -641,95 +652,17 @@ class WC_MS_Address_Book {
         $checkout   = WC()->checkout;
         $user       = wp_get_current_user();
 
-        $address    = $_POST['address'];
+		$address = $_POST['address'];
+
         $shipFields = WC()->countries->get_address_fields( $address['shipping_country'], 'shipping_' );
-        $errors     = array();
 
-        foreach ( $shipFields as $key => $field ) {
+		$validation = $this->validate_addresses_book( $shipFields );
 
-            if ( isset($field['required']) && $field['required'] && empty($address[$key]) ) {
-                if ( 'shipping_state' == $key && empty( WC()->countries->get_states( $address['shipping_country'] ) ) ) {
-                    continue;
-                }
-
-                $errors[] = $key;
-            }
-
-            if (! empty($address[$key]) ) {
-
-                // Validation rules
-                if ( ! empty( $field['validate'] ) && is_array( $field['validate'] ) ) {
-                    foreach ( $field['validate'] as $rule ) {
-                        switch ( $rule ) {
-                            case 'postcode' :
-                                $address[ $key ] = trim( $address[ $key ] );
-
-                                if ( ! WC_Validation::is_postcode( $address[ $key ], $address[ 'shipping_country' ] ) ) :
-                                    $errors[] = $key;
-                                    wc_add_notice( __( 'Please enter a valid postcode/ZIP.', 'wc_shipping_multiple_address' ), 'error' );
-                                else :
-                                    $address[ $key ] = wc_format_postcode( $address[ $key ], $address[ 'shipping_country' ] );
-                                endif;
-                                break;
-                            case 'phone' :
-                                $address[ $key ] = wc_format_phone_number( $address[ $key ] );
-
-                                if ( ! WC_Validation::is_phone( $address[ $key ] ) ) {
-                                    $errors[] = $key;
-
-                                    if ( function_exists('wc_add_notice') )
-                                        wc_add_notice( '<strong>' . $field['label'] . '</strong> ' . __( 'is not a valid phone number.', 'wc_shipping_multiple_address' ), 'error' );
-                                    else
-                                        WC()->add_error('<strong>' . $field['label'] . '</strong> ' . __( 'is not a valid phone number.', 'wc_shipping_multiple_address' ));
-                                }
-
-                                break;
-                            case 'email' :
-                                $address[ $key ] = strtolower( $address[ $key ] );
-
-                                if ( ! is_email( $address[ $key ] ) ) {
-                                    $errors[] = $key;
-
-                                    if ( function_exists('wc_add_notice') )
-                                        wc_add_notice( '<strong>' . $field['label'] . '</strong> ' . __( 'is not a valid email address.', 'wc_shipping_multiple_address' ), 'error' );
-                                    else
-                                        WC()->add_error( '<strong>' . $field['label'] . '</strong> ' . __( 'is not a valid email address.', 'wc_shipping_multiple_address' ) );
-                                }
-
-                                break;
-                            case 'state' :
-                                // Get valid states
-                                $valid_states = WC()->countries->get_states( $address[ 'shipping_country' ] );
-                                if ( $valid_states )
-                                    $valid_state_values = array_flip( array_map( 'strtolower', $valid_states ) );
-
-                                // Convert value to key if set
-                                if ( isset( $valid_state_values[ strtolower( $address[ $key ] ) ] ) )
-                                    $address[ $key ] = $valid_state_values[ strtolower( $address[ $key ] ) ];
-
-                                // Only validate if the country has specific state options
-                                if ( is_array($valid_states) && sizeof( $valid_states ) > 0 )
-                                    if ( ! in_array( $address[ $key ], array_keys( $valid_states ) ) ) {
-                                        $errors[] = $key;
-
-                                        if ( function_exists('wc_add_notice') )
-                                            wc_add_notice( '<strong>' . $field['label'] . '</strong> ' . __( 'is not valid. Please enter one of the following:', 'wc_shipping_multiple_address' ) . ' ' . implode( ', ', $valid_states ), 'error' );
-                                        else
-                                            WC()->add_error('<strong>' . $field['label'] . '</strong> ' . __( 'is not valid. Please enter one of the following:', 'wc_shipping_multiple_address' ) . ' ' . implode( ', ', $valid_states ));
-                                    }
-
-                                break;
-                        }
-                    }
-                }
-
-            }
-
-        }
-
-        if ( count($errors) > 0 ) {
+        if ( count( $validation['errors'] ) > 0 ) {
             die( wp_json_encode( array( 'ack' => 'ERR', 'errors' => $errors, 'message' => __( 'Please enter the complete address', 'wc_shipping_multiple_address' ) ) ) );
         }
+
+		$address = $validation['address'];
 
         $id  = $_POST['id'];
 

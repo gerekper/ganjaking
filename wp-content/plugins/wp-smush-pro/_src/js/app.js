@@ -32,6 +32,7 @@ if ( ! String.prototype.includes ) {
 
 require( './modules/helpers' );
 require( './modules/admin' );
+require( './modules/admin-common' );
 require( './modules/bulk-smush' );
 require( './modules/onboarding' );
 require( './modules/directory-smush' );

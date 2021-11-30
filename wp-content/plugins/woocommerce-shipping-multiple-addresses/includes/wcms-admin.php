@@ -36,8 +36,8 @@ class WC_MS_Admin {
             return;
         }
 
-        wp_enqueue_script( 'wcms-product-search', plugins_url( 'js/product-search.js', WC_Ship_Multiple::FILE ), array('jquery'), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION, true );
-        wp_enqueue_script( 'wcms-admin', plugins_url( 'js/admin.js', WC_Ship_Multiple::FILE ), array('jquery'), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION, true );
+        wp_enqueue_script( 'wcms-product-search', plugins_url( 'assets/js/product-search.min.js', WC_Ship_Multiple::FILE ), array('jquery'), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION, true );
+        wp_enqueue_script( 'wcms-admin', plugins_url( 'assets/js/admin.min.js', WC_Ship_Multiple::FILE ), array('jquery'), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION, true );
         wp_localize_script( 'wcms-product-search', 'wcms_product_search', array(
             'security' => wp_create_nonce( 'search-products' ),
             'isLessThanWC27' => version_compare( WC_VERSION, '3.0', '<' ),
@@ -52,13 +52,13 @@ class WC_MS_Admin {
 			return;
 		}
 
-		wp_enqueue_script( 'wcms-country-select', plugins_url( 'js/country-select.js', WC_Ship_Multiple::FILE ), array( 'jquery' ), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION, true );
+		wp_enqueue_script( 'wcms-country-select', plugins_url( 'assets/js/country-select.min.js', WC_Ship_Multiple::FILE ), array( 'jquery' ), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION, true );
 		wp_localize_script( 'wcms-country-select', 'wcms_country_select_params', apply_filters( 'wc_country_select_params', array(
 			'countries'              => wp_json_encode( array_merge( WC()->countries->get_allowed_country_states(), WC()->countries->get_shipping_country_states() ) ),
 			'i18n_select_state_text' => esc_attr__( 'Select an option&hellip;', 'wc_shipping_multiple_address' ),
 		) ) );
 
-		wp_enqueue_script( 'wcms-edit-user', plugins_url( 'js/user-edit.js', WC_Ship_Multiple::FILE ), array( 'jquery' ), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION, true );
+		wp_enqueue_script( 'wcms-edit-user', plugins_url( 'assets/js/user-edit.min.js', WC_Ship_Multiple::FILE ), array( 'jquery' ), WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION, true );
 	}
 
     /**

@@ -194,3 +194,25 @@ function wc_od_update_186_delete_empty_time_frames_from_orders() {
 function wc_od_update_186_db_version() {
 	WC_OD_Install::update_db_version( '1.8.6' );
 }
+
+/**
+ * Updates the plugin settings.
+ *
+ * @since 1.9.5
+ */
+function wc_od_update_195_update_settings() {
+	if ( false !== get_option( 'wc_od_checkout_text' ) ) {
+		return;
+	}
+
+	$value = __( 'We will try our best to deliver your order on the specified date.', 'woocommerce-order-delivery' );
+
+	update_option( 'wc_od_checkout_text', $value );
+}
+
+/**
+ * Update DB Version.
+ */
+function wc_od_update_195_db_version() {
+	WC_OD_Install::update_db_version( '1.9.5' );
+}

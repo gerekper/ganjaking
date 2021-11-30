@@ -94,19 +94,26 @@ class WC_MS_Gifts {
             return;
         }
 
-        $packages = get_post_meta( $order_id, '_wcms_packages', true );
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			return;
+		}
+
+        $packages = $order->get_meta( '_wcms_packages' );
 
         foreach ( $_POST['shipping_gift'] as $idx => $value ) {
 
             if ( $value != 'yes' )
                 continue;
 
-            if (! array_key_exists( $idx, $packages ) )
+            if ( ! array_key_exists( $idx, $packages ) )
                 continue;
 
-            update_post_meta( $order_id, '_gift_'. $idx, true );
-
+			$order->update_meta_data( '_gift_'. $idx, true );
         }
+
+		$order->save();
     }
 
     /**
@@ -130,21 +137,37 @@ class WC_MS_Gifts {
     }
 
     public static function store_shipping_address_gift_data( $order_id ) {
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			return; 
+		}
+
         if ( ! empty( $_POST['checkout_shipping_gift'] ) ) {
-            update_post_meta( $order_id, '_gift', true );
+            $order->update_meta_data( '_gift', true );
+			$order->save();
         }
     }
 
     public static function render_order_shipping_gift_data( $order ) {
-        $is_gift = get_post_meta( WC_MS_Compatibility::get_order_prop( $order, 'id' ), '_gift', true );
+		if ( ! is_callable( array( $order, 'get_meta' ) ) ) {
+			return;
+		}
+
+        $is_gift = $order->get_meta( '_gift' );
+
         if ( $is_gift ) {
             echo '<p><span class="dashicons dashicons-megaphone"></span> <strong>This is a gift</strong></p>';
         }
     }
 
     public static function render_gift_data( $order, $package, $package_index ) {
-        $packages       = get_post_meta( WC_MS_Compatibility::get_order_prop( $order, 'id' ), '_wcms_packages', true );
-        $order_is_gift  = (get_post_meta( WC_MS_Compatibility::get_order_prop( $order, 'id' ), '_gift_'. $package_index, true ) == true ) ? true : false;
+		if ( is_callable( array( $order, 'get_meta' ) ) ) {
+			return;
+		}
+
+        $packages      = $order->get_meta( '_wcms_packages' );
+        $order_is_gift = ( true == $order->get_meta( '_gift_' . $package_index ) ) ? true : false;
 
         if ( $order_is_gift && count( $packages ) == 1 ) {
             // inject the gift data into the only package

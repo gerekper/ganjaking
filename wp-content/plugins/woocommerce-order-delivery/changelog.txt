@@ -1,5 +1,9 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2021.11.25 - version 1.9.5
+* Feature - Added setting to include a description in the delivery section on the checkout page.
+* Tweak - Tested compatibility with WC 5.9.
+
 2021.10.20 - version 1.9.4
 * Tweak - Added plugin info to the WooCommerce System Status Report.
 * Tweak - Tested compatibility with WC 5.8.

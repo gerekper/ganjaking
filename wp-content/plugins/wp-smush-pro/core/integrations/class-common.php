@@ -12,6 +12,7 @@
 
 namespace Smush\Core\Integrations;
 
+use Smush\Core\Helper;
 use Smush\Core\Modules\Helpers\Parser;
 use Smush\Core\Modules\Smush;
 use WP_Smush;
@@ -38,12 +39,14 @@ class Common {
 			// Optimise WP retina 2x images.
 			add_action( 'wr2x_retina_file_added', array( $this, 'smush_retina_image' ), 20, 3 );
 
-			// WPML integration.
-			add_action( 'wp_smush_image_optimised', array( $this, 'wpml_update_duplicate_meta' ), 10, 3 );
-
 			// Remove any pre_get_posts_filters added by WP Media Folder plugin.
 			add_action( 'wp_smush_remove_filters', array( $this, 'remove_filters' ) );
 		}
+
+		// WPML integration.
+		add_action( 'wpml_updated_attached_file', array( $this, 'wpml_undo_ignore_attachment' ) );
+		add_action( 'wpml_after_duplicate_attachment', array( $this, 'wpml_ignore_duplicate_attachment' ), 10, 2 );
+		add_action( 'wpml_after_copy_attached_file_postmeta', array( $this, 'wpml_ignore_duplicate_attachment' ), 10, 2 );
 
 		// ReCaptcha lazy load.
 		add_filter( 'smush_skip_iframe_from_lazy_load', array( $this, 'exclude_recaptcha_iframe' ), 10, 2 );
@@ -71,6 +74,9 @@ class Common {
 
 		// GiveWP donation form load lazyload images in iframe.
 		add_action( 'give_donation_form_top', array( $this, 'givewp_skip_image_lazy_load' ), 0 );
+
+		// Thumbnail regeneration handler.
+		add_action( 'wp_update_attachment_metadata', array( $this, 'thumbnail_regenerate_handler' ), 10, 2 );
 	}
 
 	/**
@@ -256,86 +262,35 @@ class Common {
 	 */
 
 	/**
-	 * Update meta for the duplicated image.
+	 * Ignore WPML duplicated images from Smush.
 	 *
-	 * If WPML is duplicating images, we need to update the meta for the duplicate image as well,
-	 * otherwise it will not be found during compression or on the WordPress back/front-ends.
+	 * If WPML is duplicating images, we need to mark them as ignored for Smushing
+	 * because the image is same for all those duplicated attachment posts. This is
+	 * required to avoid wrong Smush stats.
 	 *
-	 * @since 3.0
+	 * @param int $attachment_id            Original attachment ID.
+	 * @param int $duplicated_attachment_id Duplicated attachment ID.
 	 *
-	 * @param int   $id    Attachment ID.
-	 * @param array $stats Smushed stats.
-	 * @param array $meta  New meta data.
+	 * @since 3.9.4
 	 */
-	public function wpml_update_duplicate_meta( $id, $stats, $meta ) {
-		// Continue only if duplication is enabled.
-		if ( ! $this->is_wpml_duplicating_images() ) {
-			return;
-		}
-
-		global $wpdb;
-
-		// Get translated attachments.
-		$image_ids = $wpdb->get_col(
-			$wpdb->prepare(
-				"SELECT element_id FROM {$wpdb->prefix}icl_translations
-						WHERE trid IN (
-							SELECT trid FROM {$wpdb->prefix}icl_translations WHERE element_id=%d
-						) AND element_id!=%d AND element_type='post_attachment'",
-				array( $id, $id )
-			)
-		); // Db call ok; no-cache ok.
-
-		// If images found.
-		if ( ! empty( $image_ids ) ) {
-			// Get the resize savings.
-			$resize = get_post_meta( $id, 'wp-smush-resize_savings' );
-			// Update each translation.
-			foreach ( $image_ids as $attchment_id ) {
-
-				$original_meta = wp_get_attachment_metadata( $attchment_id );
-				// Don't update the meta if the file isn't the same.
-				if ( $original_meta['file'] !== $meta['file'] ) {
-					continue;
-				}
-
-				// Smushed stats.
-				update_post_meta( $attchment_id, Smush::$smushed_meta_key, $stats );
-				// Resize savings.
-				if ( ! empty( $resize ) ) {
-					update_post_meta( $attchment_id, 'wp-smush-resize_savings', $resize );
-				}
-				// Attachment meta data.
-				update_post_meta( $attchment_id, '_wp_attachment_metadata', $meta );
-			}
-		}
+	public function wpml_ignore_duplicate_attachment( $attachment_id, $duplicated_attachment_id ) {
+		// Ignore the image from Smush if duplicate.
+		update_post_meta( $duplicated_attachment_id, 'wp-smush-ignore-bulk', 'true' );
 	}
 
 	/**
-	 * Check if WPML is active and is duplicating images.
+	 * Remove an image from the ignored list.
 	 *
-	 * @since 3.0
+	 * When a new image is added instead of duplicate, we need to remove it
+	 * from the ignored list to make it available for Smushing.
 	 *
-	 * @return bool
+	 * @param int $attachment_id Attachment ID.
+	 *
+	 * @since 3.9.4
 	 */
-	private function is_wpml_duplicating_images() {
-		if ( ! class_exists( '\SitePress' ) ) {
-			return false;
-		}
-
-		$media_settings = get_site_option( '_wpml_media' );
-
-		// Check if WPML media translations are active.
-		if ( ! $media_settings || ! isset( $media_settings['new_content_settings']['duplicate_media'] ) ) {
-			return false;
-		}
-
-		// WPML duplicate existing media for translated content?
-		if ( ! $media_settings['new_content_settings']['duplicate_media'] ) {
-			return false;
-		}
-
-		return true;
+	public function wpml_undo_ignore_attachment( $attachment_id ) {
+		// Delete ignore flag.
+		delete_post_meta( $attachment_id, 'wp-smush-ignore-bulk' );
 	}
 
 	/**
@@ -599,5 +554,78 @@ class Common {
 	 */
 	public function givewp_skip_image_lazy_load() {
 		add_filter( 'wp_smush_should_skip_parse', '__return_true' );
+	}
+
+	/**
+	 * Callback for 'wp_update_attachment_metadata' WordPress hook used by Smush to detect
+	 * regenerated thumbnails and mark them as pending for (re)smush.
+	 *
+	 * @since 3.9.2
+	 *
+	 * @param array $new_meta New metadata.
+	 * @param int   $attachment_id The attachment ID.
+	 *
+	 * @return array
+	 */
+	public function thumbnail_regenerate_handler( $new_meta, $attachment_id ) {
+		// Skip if the attachment is not an image or does not have thumbnails.
+		if ( ! wp_attachment_is_image( $attachment_id ) || empty( $new_meta['sizes'] ) ) {
+			return $new_meta;
+		}
+
+		// Skip if the attachment has an active smush operation.
+		if ( false !== get_option( 'smush-in-progress-' . $attachment_id, false ) ) {
+			return $new_meta;
+		}
+
+		// Skip if the attachment is being restored by Smush.
+		if ( false !== get_option( 'wp-smush-restore-' . $attachment_id, false ) ) {
+			return $new_meta;
+		}
+
+		$smush_key  = Smush::$smushed_meta_key;
+		$smush_meta = get_post_meta( $attachment_id, $smush_key, true );
+
+		// Skip attachments without Smush meta key.
+		if ( empty( $smush_meta ) ) {
+			return $new_meta;
+		}
+
+		$size_increased        = false;
+		$offload_media_enabled = class_exists( '\Amazon_S3_And_CloudFront' );
+
+		if ( ! $offload_media_enabled ) {
+			// We need only the last $new_meta['sizes'] element of each subsequent call
+			// to wp_update_attachment_metadata() made by wp_create_image_subsizes().
+			$size = array_keys( $new_meta['sizes'] )[ count( $new_meta['sizes'] ) - 1 ];
+
+			$uploads_dir = dirname( Helper::original_file() . $new_meta['file'] );
+			$file_name   = $uploads_dir . '/' . $new_meta['sizes'][ $size ]['file'];
+
+			$actual_size = is_file( $file_name ) ? filesize( $file_name ) : false;
+			$stored_size = isset( $smush_meta['sizes'][ $size ]->size_after ) ? $smush_meta['sizes'][ $size ]->size_after : false;
+
+			// Only do the comparison if we have both the actual and the database stored size.
+			if ( false !== $actual_size && false !== $stored_size ) {
+				$size_increased = $actual_size > $stored_size;
+			}
+		}
+
+		// File size increased or WP Offload Media plugin enabled? Let's remove all
+		// Smush related meta keys for this attachment.
+		if ( $size_increased || $offload_media_enabled ) {
+			// Main stats.
+			delete_post_meta( $attachment_id, $smush_key );
+			// Lossy flag.
+			delete_post_meta( $attachment_id, 'wp-smush-lossy' );
+			// Resize savings.
+			delete_post_meta( $attachment_id, 'wp-smush-resize_savings' );
+			// PNG to JPG conversion savings.
+			delete_post_meta( $attachment_id, 'wp-smush-pngjpg_savings' );
+			// Finally, remove the attachment ID from cache.
+			WP_Smush::get_instance()->core()->remove_from_smushed_list( $attachment_id );
+		}
+
+		return $new_meta;
 	}
 }

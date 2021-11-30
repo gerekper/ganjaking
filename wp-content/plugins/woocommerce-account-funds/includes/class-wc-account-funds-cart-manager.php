@@ -204,7 +204,7 @@ class WC_Account_Funds_Cart_Manager {
 	 * get discount amount
 	 */
 	public function display_discount_amount() {
-		$amount = floatval( get_option( 'account_funds_discount_amount' ) );
+		$amount = get_option( 'account_funds_discount_amount', 0 );
 		$amount = 'fixed' === get_option( 'account_funds_discount_type' ) ? wc_price( $amount ) . ' ' : '';
 		return $amount;
 	}
@@ -252,7 +252,7 @@ class WC_Account_Funds_Cart_Manager {
 			$funds = min( WC()->cart->get_total( 'edit' ), WC_Account_Funds::get_account_funds( null, false ) );
 
 			if ( 'yes' === $this->give_discount ) {
-				$discount_amount = get_option( 'account_funds_discount_amount' );
+				$discount_amount = get_option( 'account_funds_discount_amount', 0 );
 
 				$label = sprintf(
 					/* translators: 1: funds available 2: discount */
@@ -303,7 +303,7 @@ class WC_Account_Funds_Cart_Manager {
 		return array(
 			'id'            => true,
 			'discount_type' => 'fixed' === get_option( 'account_funds_discount_type' ) ? 'fixed_cart' : 'percent',
-			'amount'        => (float) get_option( 'account_funds_discount_amount' ),
+			'amount'        => get_option( 'account_funds_discount_amount', 0 ),
 		);
 	}
 

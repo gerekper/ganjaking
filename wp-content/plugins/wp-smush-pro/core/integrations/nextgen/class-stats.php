@@ -800,7 +800,7 @@ class Stats extends NextGen {
 		if ( empty( $stats['bytes'] ) && ! empty( $stats['size_before'] ) ) {
 			$stats['bytes'] = $stats['size_before'] - $stats['size_after'];
 		}
-		$stats['human'] = size_format( $stats['bytes'] );
+		$stats['human'] = size_format( ! empty( $stats['bytes'] ) ? $stats['bytes'] : 0 );
 		if ( ! empty( $stats['size_before'] ) ) {
 			$stats['percent'] = ( $stats['bytes'] / $stats['size_before'] ) * 100;
 			$stats['percent'] = round( $stats['percent'], 2 );

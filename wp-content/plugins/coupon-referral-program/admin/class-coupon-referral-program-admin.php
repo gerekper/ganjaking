@@ -17,7 +17,6 @@
  *
  * @package    Coupon_Referral_Program
  * @subpackage Coupon_Referral_Program/admin
- * @author     Makewebbetter
  */
 class Coupon_Referral_Program_Admin {
 
@@ -25,8 +24,7 @@ class Coupon_Referral_Program_Admin {
 	 * The ID of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string $plugin_name    The ID of this plugin.
 	 */
 	private $plugin_name;
 
@@ -34,7 +32,6 @@ class Coupon_Referral_Program_Admin {
 	 * The version of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
@@ -67,22 +64,15 @@ class Coupon_Referral_Program_Admin {
 
 			/* Enqueue style for using WooCommerce Tooltip.*/
 			wp_enqueue_style( 'woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css', array(), WC_VERSION );
-
-			if ( isset( $_GET['section'] ) && 'crp_help' === $_GET['section'] ) {
-						 $custom_css = "
-		                p.submit{
-		                        display: none !important;
-		                }";
-		        wp_add_inline_style( $this->plugin_name, $custom_css );
+			if ( isset( $_GET['section'] ) && 'crp_help' === $_GET['section'] && isset( $_GET['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['nonce'] ) ), 'mwb_crp_nonce' ) ) {
+				$custom_css = 'p.submit{display: none !important;}';
+				wp_add_inline_style( $this->plugin_name, $custom_css );
 			}
-
 		}
 		/* Enqueue styles only for Reports only.*/
 		if ( 'woocommerce_page_wc-reports' === $hook ) {
 			wp_enqueue_style( 'account_page', COUPON_REFERRAL_PROGRAM_DIR_URL . 'public/css/coupon-referral-program-public.css', array(), $this->version, 'all' );
 		}
-		
-		
 	}
 
 	/**
@@ -95,11 +85,11 @@ class Coupon_Referral_Program_Admin {
 
 		/*  Enqueue scripts only on this plugin's menu page.*/
 		if ( 'woocommerce_page_wc-settings' === $hook ) {
-			wp_enqueue_script( $this->plugin_name . 'admin-js', COUPON_REFERRAL_PROGRAM_DIR_URL . 'admin/js/crp-admin.js', $this->version, false );
+			wp_enqueue_script( $this->plugin_name . 'admin-js', COUPON_REFERRAL_PROGRAM_DIR_URL . 'admin/js/crp-admin.js', array(), $this->version, true );
 
 			/* Enqueue and Localize script for using WooCommerce Tooltip.*/
 
-			wp_enqueue_script( 'woocommerce_admin', WC()->plugin_url() . '/assets/js/admin/woocommerce_admin.js', array( 'jquery', 'jquery-blockui', 'jquery-ui-sortable', 'jquery-ui-widget', 'jquery-ui-core', 'jquery-tiptip', 'wc-enhanced-select' ), WC_VERSION );
+			wp_enqueue_script( 'woocommerce_admin', WC()->plugin_url() . '/assets/js/admin/woocommerce_admin.js', array( 'jquery', 'jquery-blockui', 'jquery-ui-sortable', 'jquery-ui-widget', 'jquery-ui-core', 'jquery-tiptip', 'wc-enhanced-select' ), WC_VERSION, true );
 			$params      = array(
 				'strings' => '',
 				'urls'    => '',
@@ -110,11 +100,7 @@ class Coupon_Referral_Program_Admin {
 			wp_localize_script( 'woocommerce_admin', 'woocommerce_admin', $params );
 			wp_localize_script( $this->plugin_name . 'admin-js', 'woocommerce_img', $translation );
 		}
-		
-
 	}
-	
-
 	/**
 	 * Adding settings menu for Coupon Referral Program in Woocommerce Settings Page.
 	 *
@@ -137,7 +123,7 @@ class Coupon_Referral_Program_Admin {
 
 		global $current_section;
 
-		woocommerce_admin_fields( self::crp_get_settings( $current_section ) );
+		woocommerce_admin_fields( $this->crp_get_settings( $current_section ) );
 	}
 
 	/**
@@ -165,14 +151,13 @@ class Coupon_Referral_Program_Admin {
 					'type'    => 'checkbox',
 					'id'      => 'mwb_crp_plugin_enable',
 				),
-				
 				array(
 					'title'             => __( 'Referral key length', 'coupon-referral-program' ),
 					'default'           => 7,
 					'type'              => 'number',
 					'custom_attributes' => array(
-						'min' => '7',
-						'max' => '10',
+						'min'  => '7',
+						'max'  => '10',
 						'step' => '1',
 					),
 					'id'                => 'mwb_referral_length',
@@ -183,7 +168,10 @@ class Coupon_Referral_Program_Admin {
 					'title'             => __( 'Set days to remember referrals', 'coupon-referral-program' ),
 					'default'           => 365,
 					'type'              => 'number',
-					'custom_attributes' => array( 'min' => '1','step' => '1'),
+					'custom_attributes' => array(
+						'min'  => '1',
+						'step' => '1',
+					),
 					'id'                => 'mwb_cpr_ref_link_expiry',
 					'class'             => 'mwb_crp_input_val',
 					'desc_tip'          => __( 'After entered days referrals will not be treated as the referred user.', 'coupon-referral-program' ),
@@ -273,19 +261,19 @@ class Coupon_Referral_Program_Admin {
 				),
 			);
 		}
-		if ('referal_config' === $current_section) {
+		if ( 'referal_config' === $current_section ) {
 			$settings = array(
 				array(
-					'title'=>__( 'Referral signup discount for referee', 'coupon-referral-program' ),
-					'type'=>'title',
+					'title' => esc_html__( 'Referral signup discount for referee', 'coupon-referral-program' ),
+					'type'  => 'title',
 				),
-				//referee discount.
+				// Referee discount.
 				array(
-					'title'   => __( 'Enable/Disable discount', 'coupon-referral-program' ),
-					'desc'    => __( 'Referral signup discount for referee', 'coupon-referral-program' ),
-					'default' => 'no',
-					'type'    => 'checkbox',
-					'id'      => 'mwb_crp_refree_discount_enable',
+					'title'    => __( 'Enable/Disable discount', 'coupon-referral-program' ),
+					'desc'     => __( 'Referral signup discount for referee', 'coupon-referral-program' ),
+					'default'  => 'no',
+					'type'     => 'checkbox',
+					'id'       => 'mwb_crp_refree_discount_enable',
 					'desc_tip' => __( 'By using this setting you can give the discount coupon for referee when referred user signup using referral link.', 'coupon-referral-program' ),
 				),
 				array(
@@ -307,11 +295,11 @@ class Coupon_Referral_Program_Admin {
 						'mwb_cpr_percent' => __( 'Percentage', 'coupon-referral-program' ),
 					),
 					'desc_tip' => __( 'Select the type for your signup discount coupon for referee when referred user signup using referred link.' ),
-					'desc' => __( 'The referee will get the selected coupon type on the referral signup.', 'coupon-referral-program' ),
+					'desc'     => __( 'The referee will get the selected coupon type on the referral signup.', 'coupon-referral-program' ),
 				),
 				array(
 					'type' => 'sectionend',
-				),	
+				),
 				array(
 					'title' => __( 'Referral configuration', 'coupon-referral-program' ),
 					'type'  => 'title',
@@ -388,7 +376,7 @@ class Coupon_Referral_Program_Admin {
 						'mwb_cpr_percent' => __( 'Percentage', 'coupon-referral-program' ),
 					),
 					'desc_tip' => __( 'Select the type for your referral purchase discount coupon for referee.', 'coupon-referral-program' ),
-					'desc' => __( 'The referee will get the selected coupon type on the referral purchase.', 'coupon-referral-program' ),
+					'desc'     => __( 'The referee will get the selected coupon type on the referral purchase.', 'coupon-referral-program' ),
 
 				),
 				array(
@@ -499,15 +487,15 @@ class Coupon_Referral_Program_Admin {
 				),
 
 				array(
-					'title'   => __( 'Enable/Disable discount', 'coupon-referral-program' ),
-					'desc'    => __( 'Enable/Disable discount coupon on sign up', 'coupon-referral-program' ),
-					'desc_tip'=> __( 'Enable this settings to give discount coupon for new user signup.', 'coupon-referral-program' ),
-					'default' => 'no',
-					'type'    => 'checkbox',
-					'id'      => 'mwb_crp_signup_enable',
+					'title'    => __( 'Enable/Disable discount', 'coupon-referral-program' ),
+					'desc'     => __( 'Enable/Disable discount coupon on sign up', 'coupon-referral-program' ),
+					'desc_tip' => __( 'Enable this settings to give discount coupon for new user signup.', 'coupon-referral-program' ),
+					'default'  => 'no',
+					'type'     => 'checkbox',
+					'id'       => 'mwb_crp_signup_enable',
 				),
 				array(
-					'title'   => __( 'Select users', 'woocommerce' ),
+					'title'   => __( 'Select users', 'coupon-referral-program' ),
 					'id'      => 'mwb_crp_signup_enable_value',
 					'default' => 'yes',
 					'type'    => 'radio',
@@ -526,16 +514,16 @@ class Coupon_Referral_Program_Admin {
 					'custom_attributes' => array( 'min' => 1 ),
 				),
 				array(
-					'title'    => __('Signup Coupon type', 'coupon-referral-program'),
+					'title'    => __( 'Signup Coupon type', 'coupon-referral-program' ),
 					'default'  => 1,
 					'type'     => 'select',
 					'id'       => 'signup_discount_coupon_type',
 					'options'  => array(
-						'mwb_cpr_fixed'   => __('Fixed', 'coupon-referral-program'),
-						'mwb_cpr_percent' => __('Percentage', 'coupon-referral-program'),
+						'mwb_cpr_fixed'   => __( 'Fixed', 'coupon-referral-program' ),
+						'mwb_cpr_percent' => __( 'Percentage', 'coupon-referral-program' ),
 					),
-					'desc_tip' => __('Select the type for your signup discount coupon which you want to offer for your customers.', 'coupon-referral-program'),
-					'desc' => __( 'The customer will get the selected coupon type on the signup.', 'coupon-referral-program' ),
+					'desc_tip' => __( 'Select the type for your signup discount coupon which you want to offer for your customers.', 'coupon-referral-program' ),
+					'desc'     => __( 'The customer will get the selected coupon type on the signup.', 'coupon-referral-program' ),
 				),
 				array(
 					'type' => 'sectionend',
@@ -620,22 +608,22 @@ class Coupon_Referral_Program_Admin {
 					'desc_tip' => __( 'If you desire to add a prefix to your coupon, you can add here.', 'coupon-referral-program' ),
 				),
 				array(
-					'title'    => __( 'Minimum spend', 'coupon-referral-program' ),
-					'default'  => '',
-					'type'     => 'text',
-					'id'       => 'mwb_crp_coupon_min_val',
-					'class'    => 'mwb_crp_input_val wc_input_price',
-					'desc_tip' => __( 'This field allows you set the minimum spend(subtotal) allowed to use the coupon.', 'coupon-referral-program' ),
-					'placeholder'=>__('No minimum','coupon-referral-program'),
+					'title'       => __( 'Minimum spend', 'coupon-referral-program' ),
+					'default'     => '',
+					'type'        => 'text',
+					'id'          => 'mwb_crp_coupon_min_val',
+					'class'       => 'mwb_crp_input_val wc_input_price',
+					'desc_tip'    => __( 'This field allows you set the minimum spend(subtotal) allowed to use the coupon.', 'coupon-referral-program' ),
+					'placeholder' => __( 'No minimum', 'coupon-referral-program' ),
 				),
 				array(
-					'title'    => __( 'Maximum spend', 'coupon-referral-program' ),
-					'default'  => '',
-					'type'     => 'text',
-					'id'       => 'mwb_crp_coupon_max_val',
-					'class'    => 'mwb_crp_input_val wc_input_price',
-					'desc_tip' => __( 'This field allows you set the maximum spend(subtotal) allowed to use the coupon.', 'coupon-referral-program' ),
-					'placeholder'=>__('No maximum','coupon-referral-program'),
+					'title'       => __( 'Maximum spend', 'coupon-referral-program' ),
+					'default'     => '',
+					'type'        => 'text',
+					'id'          => 'mwb_crp_coupon_max_val',
+					'class'       => 'mwb_crp_input_val wc_input_price',
+					'desc_tip'    => __( 'This field allows you set the maximum spend(subtotal) allowed to use the coupon.', 'coupon-referral-program' ),
+					'placeholder' => __( 'No maximum', 'coupon-referral-program' ),
 				),
 				array(
 					'title'    => __( 'Include products', 'coupon-referral-program' ),
@@ -703,7 +691,7 @@ class Coupon_Referral_Program_Admin {
 			);
 		}
 		if ( 'reports' === $current_section ) {
-			wp_redirect( admin_url( 'admin.php?page=wc-reports&tab=crp_report' ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=wc-reports&tab=crp_report' ) );
 			exit;
 		}
 		if ( 'woocommerce_subscription' === $current_section ) {
@@ -749,7 +737,7 @@ class Coupon_Referral_Program_Admin {
 					<iframe height="400px" width="60%" src="https://www.youtube.com/embed/YzE6cp6KSxo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
 			</div>
-			<?php 
+			<?php
 		}
 		return apply_filters( 'crp_get_settings', $settings );
 	}
@@ -759,7 +747,6 @@ class Coupon_Referral_Program_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-
 	public function crp_referral_setting_save() {
 
 		global $current_section;
@@ -813,7 +800,7 @@ class Coupon_Referral_Program_Admin {
 	 * @since    1.0.0
 	 */
 	public static function get_visible_text() {
-		$referral_button_text = get_option( 'referral_button_text', 'Referral Program' );
+		$referral_button_text = get_option( 'referral_button_text', __( 'Referral Program', 'coupon-referral-program' ) );
 		return $referral_button_text;
 	}
 
@@ -824,7 +811,7 @@ class Coupon_Referral_Program_Admin {
 	 */
 	public static function get_discount_type() {
 		$referral_discount_type = get_option( 'signup_discount_type', 'fixed' );
-		if ( $referral_discount_type == 'mwb_cpr_percent' ) {
+		if ( 'mwb_cpr_percent' === $referral_discount_type ) {
 			$referral_discount_type = 'percentage';
 		} else {
 			$referral_discount_type = 'fixed';
@@ -838,16 +825,15 @@ class Coupon_Referral_Program_Admin {
 	 * @since    1.0.0
 	 */
 	public function crp_output_sections() {
-
 		global $current_section;
-		$sections = self::crp_get_sections();
+		$sections = $this->crp_get_sections();
 
 		echo '<ul class="subsubsub">';
 
 		$array_keys = array_keys( $sections );
-
+		$nonce      = wp_create_nonce( 'mwb_crp_nonce' );
 		foreach ( $sections as $id => $label ) {
-			echo '<li><a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=crp-referral_setting&section=' . sanitize_title( $id ) ) ) . '" class="' . ( $current_section == $id ? 'current' : '' ) . '">' . $label . '</a> ' . ( end( $array_keys ) == $id ? '' : '|' ) . ' </li>';//phpcs-ignore 
+			echo '<li><a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=crp-referral_setting&section=' . sanitize_title( $id ) ) ) . '&nonce=' . esc_html( $nonce ) . '" class="' . ( $current_section === $id ? 'current' : '' ) . '">' . esc_html( $label ) . '</a> ' . ( end( $array_keys ) === $id ? '' : '|' ) . ' </li>';
 		}
 		echo '</ul><br class="clear">';
 	}
@@ -860,12 +846,12 @@ class Coupon_Referral_Program_Admin {
 	public function crp_get_sections() {
 
 		$sections = array(
-			''        => __( 'General', 'coupon-referral-program' ),
-			'referal_config'=>__('Referral configuration','coupon-referral-program'),
-			'signup'  => __( 'Sign up discount', 'coupon-referral-program' ),
-			'coupon'  => __( 'Coupon configuration', 'coupon-referral-program' ),
-			'display' => __( 'Display configuration', 'coupon-referral-program' ),
-			'reports' => __( 'Reports', 'coupon-referral-program' ),
+			''               => __( 'General', 'coupon-referral-program' ),
+			'referal_config' => __( 'Referral configuration', 'coupon-referral-program' ),
+			'signup'         => __( 'Sign up discount', 'coupon-referral-program' ),
+			'coupon'         => __( 'Coupon configuration', 'coupon-referral-program' ),
+			'display'        => __( 'Display configuration', 'coupon-referral-program' ),
+			'reports'        => __( 'Reports', 'coupon-referral-program' ),
 
 		);
 		if ( is_plugin_active( 'woocommerce-points-and-rewards/woocommerce-points-and-rewards.php' ) ) {
@@ -878,7 +864,13 @@ class Coupon_Referral_Program_Admin {
 		}
 		return apply_filters( 'crp_get_sections', $sections );
 	}
-	public function mwb_crp_help_section($mwb_crp_help_section){
+
+	/**
+	 * Extend the section
+	 *
+	 * @param array $mwb_crp_help_section .
+	 */
+	public function mwb_crp_help_section( $mwb_crp_help_section ) {
 		$mwb_crp_help_section['crp_help'] = __( 'Help and support', 'coupon-referral-program' );
 		return $mwb_crp_help_section;
 	}
@@ -886,7 +878,7 @@ class Coupon_Referral_Program_Admin {
 	/**
 	 * Set the default value for the number if they are blank
 	 *
-	 * @param array $parm array of the post settings
+	 * @param array $parm array of the post settings.
 	 * @since    1.0.0
 	 */
 	public function mwb_save_settings( $parm ) {
@@ -941,14 +933,14 @@ class Coupon_Referral_Program_Admin {
 	 * @since    1.0.0
 	 */
 	public function mwb_crp_report_users() {
-		include COUPON_REFERRAL_PROGRAM_DIR_PATH . '/admin/partials/coupon-referral-program-admin-display-report.php';
+		include COUPON_REFERRAL_PROGRAM_DIR_PATH . '/admin/partials/class-coupon-referral-program-admin-display-report.php';
 
 	}
 
 	/**
 	 * Add CRP Report button in the admin menu
 	 *
-	 * @param array $wp_admin_bar array of the admin bar.
+	 * @param object $wp_admin_bar array of the admin bar.
 	 * @name mwb_crp_report_button_link
 	 * @since    1.0.0
 	 */
@@ -972,19 +964,19 @@ class Coupon_Referral_Program_Admin {
 	 */
 	public function mwb_crp_get_all_products() {
 		$mwb_crp_product_data = array();
-			$args = array(
-				'post_type' => 'product',
-				'post_status' => 'publish',
-				'posts_per_page' => -1,
-				'orderby'    => 'DESC',
-			);
-			$mwb_crp_all_products = get_posts( $args );
-			if ( isset( $mwb_crp_all_products ) && ! empty( $mwb_crp_all_products ) && is_array( $mwb_crp_all_products ) ) {
-				foreach ( $mwb_crp_all_products as $key => $mwb_product ) {
-					$mwb_crp_product_data[ $mwb_product->ID ] = $mwb_product->post_title;
-				}
+		$args                 = array(
+			'post_type'      => 'product',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'orderby'        => 'DESC',
+		);
+		$mwb_crp_all_products = get_posts( $args );
+		if ( isset( $mwb_crp_all_products ) && ! empty( $mwb_crp_all_products ) && is_array( $mwb_crp_all_products ) ) {
+			foreach ( $mwb_crp_all_products as $key => $mwb_product ) {
+				$mwb_crp_product_data[ $mwb_product->ID ] = $mwb_product->post_title;
 			}
-			return $mwb_crp_product_data;
+		}
+		return $mwb_crp_product_data;
 	}
 
 	/**
@@ -995,7 +987,7 @@ class Coupon_Referral_Program_Admin {
 	 */
 	public function mwb_crp_add_menu_link() {
 
-		 add_submenu_page(
+		add_submenu_page(
 			'woocommerce',
 			__( 'Referrals', 'coupon-referral-program' ),
 			__( 'Referrals', 'coupon-referral-program' ),
@@ -1011,19 +1003,19 @@ class Coupon_Referral_Program_Admin {
 	 * @name mwb_crp_setting_compatibility_wpml.
 	 * @since    1.6.0
 	 */
-	public function mwb_crp_setting_compatibility_wpml(){
-	   do_action( 'wpml_multilingual_options', 'referral_button_page' );
-	   do_action( 'wpml_multilingual_options', 'mwb_crp_include_pro' );
-	   do_action( 'wpml_multilingual_options', 'mwb_crp_exclude_pro' );
-	   
+	public function mwb_crp_setting_compatibility_wpml() {
+		do_action( 'wpml_multilingual_options', 'referral_button_page' );
+		do_action( 'wpml_multilingual_options', 'mwb_crp_include_pro' );
+		do_action( 'wpml_multilingual_options', 'mwb_crp_exclude_pro' );
+
 	}
 
 	/**
 	 * This function is used to sanitize referral length key.
 	 *
 	 * @param int $value value of settings.
-	 * @param int $value value of settings.
-	 * @param int $value value of settings.
+	 * @param int $option value of settings.
+	 * @param int $raw_value value of settings.
 	 * @name mwb_crp_referral_length_sanitize_option.
 	 * @since    1.6.0
 	 */
@@ -1036,13 +1028,13 @@ class Coupon_Referral_Program_Admin {
 	 * This function is used to sanitize referral link expiry.
 	 *
 	 * @param int $value value of settings.
-	 * @param int $value value of settings.
-	 * @param int $value value of settings.
+	 * @param int $option value of settings.
+	 * @param int $raw_value value of settings.
 	 * @name mwb_cpr_ref_link_expiry_sanitize_option.
 	 * @since    1.6.0
 	 */
 	public function mwb_cpr_ref_link_expiry_sanitize_option( $value, $option, $raw_value ) {
-		
+
 		return is_null( $raw_value ) ? 365 : absint( $raw_value );
 	}
 

@@ -30,6 +30,7 @@ return array (
   'ACP\\Admin\\Settings' => $dir . '/classes/Admin/Settings.php',
   'ACP\\Admin\\View\\MenuSetup' => $dir . '/classes/Admin/View/MenuSetup.php',
   'ACP\\ApplyFilter\\CustomField\\StoredDateFormat' => $dir . '/classes/ApplyFilter/CustomField/StoredDateFormat.php',
+  'ACP\\Asset\\Script\\LicenseManager' => $dir . '/classes/Asset/Script/LicenseManager.php',
   'ACP\\Bookmark\\Addon' => $dir . '/classes/Bookmark/Addon.php',
   'ACP\\Bookmark\\Controller\\RequestSetter' => $dir . '/classes/Bookmark/Controller/RequestSetter.php',
   'ACP\\Bookmark\\Controller\\Segment' => $dir . '/classes/Bookmark/Controller/Segment.php',

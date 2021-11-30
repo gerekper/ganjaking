@@ -78,8 +78,9 @@ class WC_MS_Admin_User_Addresses_List_Table extends WP_List_Table {
 	}
 
 	public function single_row( $item ) {
-		$address    = $item['address'];
-		$fields     = WC()->countries->get_address_fields( $address['shipping_country'], 'wcms_shipping_' );
+		$address              = $item['address'];
+		$default_address_keys = array_keys( WC()->countries->get_default_address_fields() );
+		$fields               = WC()->countries->get_address_fields( $address['shipping_country'], 'wcms_shipping_' );
 		?>
 		<tr id="address-<?php echo $item['index']; ?>">
 			<?php $this->single_row_columns( $item ); ?>
@@ -90,7 +91,13 @@ class WC_MS_Admin_User_Addresses_List_Table extends WP_List_Table {
 				<div class="address-column">
 				<?php
 				foreach ( $fields as $key => $field ) {
-					$val = ( isset( $address[ substr( $key, 5 ) ] ) ) ? $address[ substr( $key, 5 ) ] : '';
+					$val         = ( isset( $address[ substr( $key, 5 ) ] ) ) ? $address[ substr( $key, 5 ) ] : '';
+					$default_key = str_replace( array( 'wcms_shipping_', 'shipping_' ), '', $key );
+
+					// Get the value for non default address fields.
+					if ( empty( $val ) && isset( $address[ $key ] ) && ! in_array( $default_key, $default_address_keys ) ) {
+						$val = $address[ $key ];
+					}
 
 					if ( empty( $val ) && ! empty( $_GET[ $key ] ) ) {
 						$val = $_GET[ $key ];

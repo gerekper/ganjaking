@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Mix and Match Products 1.11.4\n"
+"Project-Id-Version: WooCommerce Mix and Match Products 1.11.5\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n"
-"POT-Creation-Date: 2021-11-11 19:22:18+00:00\n"
+"POT-Creation-Date: 2021-11-19 20:28:53+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -83,41 +83,41 @@ msgstr ""
 msgid "WooCommerce Mix and Match Products"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:148
+#: includes/admin/class-wc-mnm-admin.php:156
 #: includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php:176
 msgid "Configure"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:149
+#: includes/admin/class-wc-mnm-admin.php:157
 #: includes/admin/meta-boxes/class-wc-mnm-meta-box-order.php:174
 msgid "Edit"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:150
+#: includes/admin/class-wc-mnm-admin.php:158
 msgid ""
 "Failed to initialize form. If this issue persists, please reload the page "
 "and try again."
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:151
+#: includes/admin/class-wc-mnm-admin.php:159
 msgid ""
 "Failed to validate configuration. If this issue persists, please reload the "
 "page and try again."
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:211
+#: includes/admin/class-wc-mnm-admin.php:219
 msgid "Learn how to update"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:282
+#: includes/admin/class-wc-mnm-admin.php:290
 msgid "Documentation"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:283
+#: includes/admin/class-wc-mnm-admin.php:291
 msgid "Support"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:308
+#: includes/admin/class-wc-mnm-admin.php:316
 #. translators: placeholders are opening and closing tags. Leads to docs on
 #. version 1.3.0
 msgid ""
@@ -400,87 +400,87 @@ msgstr ""
 msgid "Subtotal: %s"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:224 includes/class-wc-mnm-display.php:460
+#: includes/class-wc-mnm-display.php:224 includes/class-wc-mnm-display.php:464
 #: includes/updates/wc-mnm-update-functions.php:210
 msgid "Container size"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:351
+#: includes/class-wc-mnm-display.php:355
 msgid "Total: "
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:352
+#: includes/class-wc-mnm-display.php:356
 msgid "Subtotal: "
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:353
+#: includes/class-wc-mnm-display.php:357
 msgid "Options total:"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:354
+#: includes/class-wc-mnm-display.php:358
 msgid "Grand total: "
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:359
+#: includes/class-wc-mnm-display.php:363
 #: includes/class-wc-product-mix-and-match.php:1321
 msgid "Free!"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:361
+#: includes/class-wc-mnm-display.php:365
 #. translators: %s is current selected quantity
 msgid "You have selected %s items. "
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:363
+#: includes/class-wc-mnm-display.php:367
 #. translators: %s is current selected quantity
 msgid "You have selected %s item. "
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:365
+#: includes/class-wc-mnm-display.php:369
 #. translators: %v is the error message. %s is quantity left to be selected.
 msgid "%vPlease select %s items to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:367
+#: includes/class-wc-mnm-display.php:371
 #. translators: %v is the error message. %s is quantity left to be selected.
 msgid "%vPlease select %s item to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:368
-msgid "Please select at least 1 item to continue&hellip;"
-msgstr ""
-
-#: includes/class-wc-mnm-display.php:370
-#. translators: %v is the error message. %min is the script placeholder for min
-#. quantity. %max is script placeholder for max quantity.
-msgid "%vPlease choose between %min and %max items to continue&hellip;"
-msgstr ""
-
 #: includes/class-wc-mnm-display.php:372
-#. translators: %v is the error message. %min is the script placeholder for min
-#. quantity. %max is script placeholder for max quantity.
-msgid "%vPlease choose at least %min item to continue&hellip;"
+msgid "Please select at least 1 item to continue&hellip;"
 msgstr ""
 
 #: includes/class-wc-mnm-display.php:374
 #. translators: %v is the error message. %min is the script placeholder for min
 #. quantity. %max is script placeholder for max quantity.
-msgid "%vPlease choose at least %min items to continue&hellip;"
+msgid "%vPlease choose between %min and %max items to continue&hellip;"
 msgstr ""
 
 #: includes/class-wc-mnm-display.php:376
 #. translators: %v is the error message. %min is the script placeholder for min
 #. quantity. %max is script placeholder for max quantity.
-msgid "%vPlease choose fewer than %max item to continue&hellip;"
+msgid "%vPlease choose at least %min item to continue&hellip;"
 msgstr ""
 
 #: includes/class-wc-mnm-display.php:378
 #. translators: %v is the error message. %min is the script placeholder for min
 #. quantity. %max is script placeholder for max quantity.
-msgid "%vPlease choose fewer than %max items to continue&hellip;"
+msgid "%vPlease choose at least %min items to continue&hellip;"
 msgstr ""
 
 #: includes/class-wc-mnm-display.php:380
+#. translators: %v is the error message. %min is the script placeholder for min
+#. quantity. %max is script placeholder for max quantity.
+msgid "%vPlease choose fewer than %max item to continue&hellip;"
+msgstr ""
+
+#: includes/class-wc-mnm-display.php:382
+#. translators: %v is the error message. %min is the script placeholder for min
+#. quantity. %max is script placeholder for max quantity.
+msgid "%vPlease choose fewer than %max items to continue&hellip;"
+msgstr ""
+
+#: includes/class-wc-mnm-display.php:384
 #. translators: %v is the error message. %min is the script placeholder for min
 #. quantity. %max is script placeholder for max quantity.
 msgid ""
@@ -488,12 +488,12 @@ msgid ""
 "to your cart."
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:442 includes/class-wc-mnm-display.php:466
+#: includes/class-wc-mnm-display.php:446 includes/class-wc-mnm-display.php:470
 #: includes/updates/wc-mnm-update-functions.php:226
 msgid "Purchased with"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:443 includes/class-wc-mnm-display.php:463
+#: includes/class-wc-mnm-display.php:447 includes/class-wc-mnm-display.php:467
 #: includes/class-wc-mnm-order.php:519
 #: includes/updates/wc-mnm-update-functions.php:218
 msgid "Part of"
@@ -1040,22 +1040,22 @@ msgctxt "edit container in order: formatted validation message"
 msgid "%1$s %2$s"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:189
+#: includes/admin/class-wc-mnm-admin.php:197
 msgctxt "label for the system staus page"
 msgid "Version"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:193
+#: includes/admin/class-wc-mnm-admin.php:201
 msgctxt "label for the system staus page"
 msgid "Database Version"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:200
+#: includes/admin/class-wc-mnm-admin.php:208
 msgctxt "label for the system status page"
 msgid "Template Overrides"
 msgstr ""
 
-#: includes/admin/class-wc-mnm-admin.php:208
+#: includes/admin/class-wc-mnm-admin.php:216
 msgctxt "label for the system status page"
 msgid "Outdated Templates"
 msgstr ""
@@ -1074,7 +1074,7 @@ msgid ""
 "href=\"%2$s\"><small>%3$s</small></a>"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:356
+#: includes/class-wc-mnm-display.php:360
 #. translators: Placeholders "Total/Subtotal" string followed by price followed
 #. by price suffix. %1$d is %t placeholder for subtotal. %2$d is %p placeholder
 #. for price. %3$d is %s placeholder for %s price suffix.
@@ -1082,7 +1082,7 @@ msgctxt "\"Total/Subtotal\" string followed by price followed by price suffix"
 msgid "%1$s%2$s%3$s"
 msgstr ""
 
-#: includes/class-wc-mnm-display.php:358
+#: includes/class-wc-mnm-display.php:362
 #. translators: %1$d is
 msgctxt "Sale/strikeout price"
 msgid "<del>%1$s</del> <ins>%2$s</ins>"

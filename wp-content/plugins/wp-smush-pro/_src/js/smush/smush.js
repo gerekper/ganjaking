@@ -883,6 +883,15 @@ class Smush {
 			}
 		}
 
+		// Reset the lossless images count in case of pending images for resmush ( Nextgen only ).
+		if (
+			'nextgen' === this.smush_type  &&
+			wp_smushit_data.resmush.length > 0 && 
+			(this.smushed + this.errors.length <= 1)
+		) {
+			wp_smushit_data.count_images -= (wp_smushit_data.resmush.length + 1);
+		}
+
 		// No more images left. Show bulk wrapper and Smush notice.
 		if ( 0 === this.ids.length ) {
 			// Sync stats for bulk Smush media library ( skip for Nextgen ).

@@ -98,7 +98,7 @@ class wordfenceScanner {
 				
 				$logOnly = (isset($signatureRow[5]) && !empty($signatureRow[5])) ? $signatureRow[5] : false;
 				$commonStringIndexes = (isset($signatureRow[8]) && is_array($signatureRow[8])) ? $signatureRow[8] : array(); 
-				if (@preg_match('/' . $pattern . '/iS', null) === false) {
+				if (@preg_match('/' . $pattern . '/iS', '') === false) {
 					wordfence::status(1, 'error', sprintf(__('Regex compilation failed for signature %d', 'wordfence'), (int) $id));
 					unset($sigData['rules'][$key]);
 				}

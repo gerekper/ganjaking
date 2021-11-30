@@ -68,19 +68,7 @@ $support = @json_decode(wfConfig::get('supportContent'), true);
 										<li class="wf-option-title">
 											<ul class="wf-flex-vertical wf-flex-align-left">
 												<li><?php esc_html_e('General Data Protection Regulation', 'wordfence'); ?> <a href="<?php echo wfSupportController::esc_supportURL(wfSupportController::ITEM_GDPR); ?>" target="_blank" rel="noopener noreferrer" class="wf-inline-help"><i class="wf-fa wf-fa-question-circle-o" aria-hidden="true"></i><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a></li>
-												<li class="wf-option-subtitle"><?php esc_html_e('The GDPR is a set of rules that provides more control over EU personal data. Defiant has updated its terms of use, privacy policies, and software, as well as made available a data processing agreement to meet GDPR compliance.', 'wordfence'); ?></li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<ul class="wf-option wf-option-static">
-										<li class="wf-option-title">
-											<ul class="wf-flex-vertical wf-flex-align-left">
-												<li><?php esc_html_e('Data Processing Agreement', 'wordfence'); ?> <a href="<?php echo wfSupportController::esc_supportURL(wfSupportController::ITEM_GDPR_DPA); ?>" target="_blank" rel="noopener noreferrer" class="wf-inline-help"><i class="wf-fa wf-fa-question-circle-o" aria-hidden="true"></i><span class="screen-reader-text"> (<?php esc_html_e('opens in new tab', 'wordfence') ?>)</span></a></li>
-												<li class="wf-option-subtitle"><?php echo wp_kses(sprintf(
-													/* translators: URL to support page. */
-														__('If you qualify as a data controller under the GDPR and need a data processing agreement, it can be <a href="%s" target="_blank" rel="noopener noreferrer">found here<span class="screen-reader-text"> (opens in new tab)</span></a>.', 'wordfence'), wfSupportController::esc_supportURL(wfSupportController::ITEM_GDPR_DPA)), array('a'=>array('href'=>array(), 'target'=>array(), 'rel'=>array()), 'span'=>array('class'=>array()))); ?></li>
+												<li class="wf-option-subtitle"><?php esc_html_e('The GDPR is a set of rules that provides more control over EU personal data. Defiant has updated its terms of service, privacy policies, and software, as well as made available standard contractual clauses to meet GDPR compliance.', 'wordfence'); ?></li>
 											</ul>
 										</li>
 									</ul>

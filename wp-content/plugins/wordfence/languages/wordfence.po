@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Wordfence Security plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Wordfence Security 7.5.6\n"
+"Project-Id-Version: Wordfence Security 7.5.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/src\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-18T08:53:50-04:00\n"
+"POT-Creation-Date: 2021-11-22T11:28:45-05:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wordfence\n"
@@ -213,11 +213,10 @@ msgstr ""
 #: lib/menu_support.php:39
 #: lib/menu_support.php:43
 #: lib/menu_support.php:70
-#: lib/menu_support.php:80
-#: lib/menu_support.php:120
-#: lib/menu_support.php:138
-#: lib/menu_support.php:143
-#: lib/menu_support.php:164
+#: lib/menu_support.php:108
+#: lib/menu_support.php:126
+#: lib/menu_support.php:131
+#: lib/menu_support.php:152
 #: lib/menu_tools_diagnostic.php:771
 #: lib/menu_tools_diagnostic.php:838
 #: lib/menu_tools_diagnostic.php:839
@@ -313,12 +312,12 @@ msgstr ""
 #: views/dashboard/status-payment-expiring.php:31
 #: views/dashboard/status-renewing.php:17
 #: views/gdpr/banner.php:55
+#: views/onboarding/fresh-install.php:42
 #: views/onboarding/fresh-install.php:43
-#: views/onboarding/fresh-install.php:44
 #: views/onboarding/modal-final-attempt.php:41
 #: views/onboarding/modal-final-attempt.php:42
+#: views/onboarding/plugin-header.php:64
 #: views/onboarding/plugin-header.php:65
-#: views/onboarding/plugin-header.php:66
 #: views/options/option-label.php:28
 #: views/options/option-select.php:22
 #: views/options/option-switch.php:34
@@ -728,9 +727,9 @@ msgstr ""
 #: views/blocking/blocking-status.php:27
 #: views/dashboard/options-group-dashboard.php:107
 #: views/gdpr/banner.php:55
-#: views/onboarding/fresh-install.php:44
+#: views/onboarding/fresh-install.php:43
 #: views/onboarding/modal-final-attempt.php:42
-#: views/onboarding/plugin-header.php:66
+#: views/onboarding/plugin-header.php:65
 #: views/scanner/scanner-status.php:55
 #: views/tours/login-security.php:30
 #: views/tours/login-security.php:62
@@ -1062,9 +1061,9 @@ msgstr ""
 #: views/blocking/options-group-advanced-country.php:85
 #: views/dashboard/options-group-dashboard.php:107
 #: views/dashboard/options-group-license.php:70
-#: views/onboarding/fresh-install.php:43
+#: views/onboarding/fresh-install.php:42
 #: views/onboarding/modal-final-attempt.php:41
-#: views/onboarding/plugin-header.php:65
+#: views/onboarding/plugin-header.php:64
 #: views/scanner/scanner-status.php:55
 #: views/tools/options-group-2fa.php:40
 #: views/waf/firewall-status.php:68
@@ -1296,9 +1295,9 @@ msgid "Yes Please"
 msgstr ""
 
 #: lib/menu_dashboard.php:477
-#: views/onboarding/fresh-install.php:45
+#: views/onboarding/fresh-install.php:44
 #: views/onboarding/modal-final-attempt.php:43
-#: views/onboarding/plugin-header.php:67
+#: views/onboarding/plugin-header.php:66
 msgid "No Thanks"
 msgstr ""
 
@@ -2419,14 +2418,14 @@ msgstr ""
 #: views/dashboard/options-group-import.php:147
 #: views/dashboard/options-group-import.php:157
 #: views/dashboard/options-group-import.php:177
-#: views/onboarding/fresh-install.php:99
-#: views/onboarding/fresh-install.php:131
-#: views/onboarding/fresh-install.php:144
-#: views/onboarding/fresh-install.php:155
+#: views/onboarding/fresh-install.php:98
+#: views/onboarding/fresh-install.php:130
+#: views/onboarding/fresh-install.php:143
+#: views/onboarding/fresh-install.php:154
 #: views/onboarding/modal-final-attempt.php:48
-#: views/onboarding/plugin-header.php:135
-#: views/onboarding/plugin-header.php:167
-#: views/onboarding/plugin-header.php:180
+#: views/onboarding/plugin-header.php:134
+#: views/onboarding/plugin-header.php:166
+#: views/onboarding/plugin-header.php:179
 msgid "Close"
 msgstr ""
 
@@ -2529,63 +2528,54 @@ msgid "General Data Protection Regulation"
 msgstr ""
 
 #: lib/menu_support.php:71
-msgid "The GDPR is a set of rules that provides more control over EU personal data. Defiant has updated its terms of use, privacy policies, and software, as well as made available a data processing agreement to meet GDPR compliance."
+msgid "The GDPR is a set of rules that provides more control over EU personal data. Defiant has updated its terms of service, privacy policies, and software, as well as made available standard contractual clauses to meet GDPR compliance."
 msgstr ""
 
 #: lib/menu_support.php:80
-msgid "Data Processing Agreement"
-msgstr ""
-
-#. translators: URL to support page.
-#: lib/menu_support.php:83
-msgid "If you qualify as a data controller under the GDPR and need a data processing agreement, it can be <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">found here<span class=\"screen-reader-text\"> (opens in new tab)</span></a>."
-msgstr ""
-
-#: lib/menu_support.php:92
 msgid "Agreement to New Terms and Privacy Policies"
 msgstr ""
 
-#: lib/menu_support.php:93
+#: lib/menu_support.php:81
 msgid "To continue using Defiant products and services including the Wordfence plugin, all customers must review and agree to the updated terms and privacy policies. These changes reflect our commitment to follow data protection best practices and regulations. The Wordfence interface will remain disabled until these terms are agreed to."
 msgstr ""
 
-#: lib/menu_support.php:106
+#: lib/menu_support.php:94
 msgid "All Documentation"
 msgstr ""
 
-#: lib/menu_support.php:114
+#: lib/menu_support.php:102
 msgid "Top Topics and Questions"
 msgstr ""
 
-#: lib/menu_support.php:162
+#: lib/menu_support.php:150
 msgid "Documentation"
 msgstr ""
 
-#: lib/menu_support.php:163
+#: lib/menu_support.php:151
 msgid "Documentation about Wordfence may be found on our website by clicking the button below or by clicking the <i class=\"wf-fa wf-fa-question-circle-o\" aria-hidden=\"true\"></i> links on any of the plugin's pages."
 msgstr ""
 
-#: lib/menu_support.php:164
+#: lib/menu_support.php:152
 msgid "View Documentation"
 msgstr ""
 
-#: lib/menu_support.php:269
-#: views/onboarding/fresh-install.php:131
-#: views/onboarding/plugin-header.php:167
+#: lib/menu_support.php:257
+#: views/onboarding/fresh-install.php:130
+#: views/onboarding/plugin-header.php:166
 msgid "Premium License Installed"
 msgstr ""
 
-#: lib/menu_support.php:269
-#: views/onboarding/fresh-install.php:131
-#: views/onboarding/plugin-header.php:167
+#: lib/menu_support.php:257
+#: views/onboarding/fresh-install.php:130
+#: views/onboarding/plugin-header.php:166
 msgid "Congratulations! Wordfence Premium is now active on your website. Please note that some Premium features are not enabled by default."
 msgstr ""
 
-#: lib/menu_support.php:269
+#: lib/menu_support.php:257
 #: views/blocking/blocking-create.php:530
-#: views/onboarding/fresh-install.php:30
-#: views/onboarding/modal-final-attempt.php:59
-#: views/onboarding/plugin-header.php:61
+#: views/onboarding/fresh-install.php:29
+#: views/onboarding/modal-final-attempt.php:58
+#: views/onboarding/plugin-header.php:60
 #: views/waf/waf-install.php:106
 #: views/waf/waf-modal-wrapper.php:17
 #: views/waf/waf-uninstall.php:108
@@ -5592,43 +5582,43 @@ msgid "wfConfig::set() got an array as second param with key: %1$s and value: %2
 msgstr ""
 
 #. translators: Key in key-value store.
-#: lib/wfConfig.php:627
+#: lib/wfConfig.php:631
 msgid "Error reassembling value for %s"
 msgstr ""
 
 #. translators: 1. Key in key-value store. 2. MySQL error number. 3. MySQL error message.
-#: lib/wfConfig.php:721
-#: lib/wfConfig.php:730
-#: lib/wfConfig.php:737
-#: lib/wfConfig.php:747
-#: lib/wfConfig.php:754
+#: lib/wfConfig.php:725
+#: lib/wfConfig.php:734
+#: lib/wfConfig.php:741
+#: lib/wfConfig.php:751
+#: lib/wfConfig.php:758
 msgid "Error writing value chunk for %1$s (MySQLi error: [%2$s] %3$s)"
 msgstr ""
 
 #. translators: Key in key-value store.
-#: lib/wfConfig.php:766
+#: lib/wfConfig.php:770
 msgid "Error writing value header for %s"
 msgstr ""
 
 #. translators: 1. Key in key-value store. 2. MySQL error number. 3. MySQL error message.
-#: lib/wfConfig.php:779
-#: lib/wfConfig.php:790
-#: lib/wfConfig.php:800
+#: lib/wfConfig.php:783
+#: lib/wfConfig.php:794
+#: lib/wfConfig.php:804
 msgid "Error writing value for %1$s (MySQLi error: [%2$s] %3$s)"
 msgstr ""
 
 #. translators: 1. Key in key-value store. 2. MySQL error number. 3. MySQL error message.
-#: lib/wfConfig.php:807
+#: lib/wfConfig.php:811
 msgid "Error finishing writing value for %1$s (MySQLi error: [%2$s] %3$s)"
 msgstr ""
 
 #. translators: Support URL.
-#: lib/wfConfig.php:977
+#: lib/wfConfig.php:981
 msgid "Wordfence Upgrade not run. Please modify your .htaccess"
 msgstr ""
 
 #. translators: Support URL.
-#: lib/wfConfig.php:977
+#: lib/wfConfig.php:981
 msgid ""
 "To preserve the integrity of your website we are not running Wordfence auto-update.\n"
 "You are running the LiteSpeed web server which has been known to cause a problem with Wordfence auto-update.\n"
@@ -5640,75 +5630,75 @@ msgid ""
 ""
 msgstr ""
 
-#: lib/wfConfig.php:1100
+#: lib/wfConfig.php:1104
 msgid "Unable to save the .htaccess file needed to disable script execution in the uploads directory. Please check your permissions on that directory."
 msgstr ""
 
-#: lib/wfConfig.php:1137
+#: lib/wfConfig.php:1141
 msgid "Unable to remove code execution protections applied to the .htaccess file in the uploads directory. Please check your permissions on that file."
 msgstr ""
 
-#: lib/wfConfig.php:1174
+#: lib/wfConfig.php:1178
 #: lib/wordfenceClass.php:7481
 msgid "The grace period end time must be in the future."
 msgstr ""
 
-#: lib/wfConfig.php:1183
+#: lib/wfConfig.php:1187
 msgid "Unknown firewall mode."
 msgstr ""
 
-#: lib/wfConfig.php:1202
+#: lib/wfConfig.php:1206
 msgid "The following emails are invalid: "
 msgstr ""
 
 #. translators: Regular expression.
-#: lib/wfConfig.php:1215
+#: lib/wfConfig.php:1219
 msgid "\"%s\" is not a valid regular expression."
 msgstr ""
 
-#: lib/wfConfig.php:1234
+#: lib/wfConfig.php:1238
 msgid "Please make sure you separate your IP addresses with commas. The following allowlisted IP addresses are invalid: "
 msgstr ""
 
-#: lib/wfConfig.php:1253
+#: lib/wfConfig.php:1257
 msgid "The following users you selected to ignore in live traffic reports are not valid on this system: "
 msgstr ""
 
-#: lib/wfConfig.php:1270
+#: lib/wfConfig.php:1274
 msgid "The following IPs you selected to ignore in live traffic reports are not valid: "
 msgstr ""
 
-#: lib/wfConfig.php:1287
+#: lib/wfConfig.php:1291
 msgid "The following IPs/ranges you selected to trust as proxies are not valid: "
 msgstr ""
 
-#: lib/wfConfig.php:1297
+#: lib/wfConfig.php:1301
 msgid "An empty license key was entered."
 msgstr ""
 
-#: lib/wfConfig.php:1300
+#: lib/wfConfig.php:1304
 #: lib/wordfenceClass.php:4411
 msgid "The license key entered is not in a valid format. It must contain only numbers and the letters A-F."
 msgstr ""
 
-#: lib/wfConfig.php:1312
+#: lib/wfConfig.php:1316
 msgid "A wildcard cannot be used to exclude all files from the scan."
 msgstr ""
 
-#: lib/wfConfig.php:1779
-#: lib/wfConfig.php:1801
+#: lib/wfConfig.php:1783
+#: lib/wfConfig.php:1805
 msgid "The Wordfence server's response did not contain the expected elements."
 msgstr ""
 
-#: lib/wfConfig.php:1783
+#: lib/wfConfig.php:1787
 msgid "Your options have been saved, but you left your license key blank, so we tried to get you a free license key from the Wordfence servers. There was a problem fetching the free key: "
 msgstr ""
 
-#: lib/wfConfig.php:1805
+#: lib/wfConfig.php:1809
 msgid "Your options have been saved. However we noticed you changed your license key, and we tried to verify it with the Wordfence servers but received an error: "
 msgstr ""
 
-#: lib/wfConfig.php:1849
+#: lib/wfConfig.php:1853
 msgid "Your options have been saved. However we tried to verify your license key with the Wordfence servers and received an error: "
 msgstr ""
 
@@ -8971,7 +8961,7 @@ msgid "Click here to use the recommended setting"
 msgstr ""
 
 #: lib/wordfenceClass.php:6343
-#: views/onboarding/fresh-install.php:39
+#: views/onboarding/fresh-install.php:38
 msgid "or"
 msgstr ""
 
@@ -10666,7 +10656,7 @@ msgid "Tables missing (prefix %1$s, %2$s): %s"
 msgstr ""
 
 #: views/gdpr/banner.php:8
-msgid "Wordfence's terms of use and privacy policy have changed"
+msgid "Wordfence's terms of service and privacy policy have changed"
 msgstr ""
 
 #: views/gdpr/banner.php:9
@@ -10675,7 +10665,7 @@ msgid "Review"
 msgstr ""
 
 #: views/gdpr/banner.php:50
-msgid "We have updated our Terms of Use and Privacy Policy. To continue using Wordfence, you will need to review and accept the updated <a href=\"https://www.wordfence.com/terms-of-use/\" target=\"_blank\" rel=\"noopener noreferrer\">Terms of Use</a> and <a href=\"https://www.wordfence.com/privacy-policy/\" target=\"_blank\" rel=\"noopener noreferrer\">Privacy Policy<span class=\"screen-reader-text\"> (opens in new tab)</span></a>."
+msgid "We have updated our Terms of Service and Privacy Policy. To continue using Wordfence, you will need to review and accept the updated <a href=\"https://www.wordfence.com/terms-of-service/\" target=\"_blank\" rel=\"noopener noreferrer\">Terms of Service</a> and <a href=\"https://www.wordfence.com/privacy-policy/\" target=\"_blank\" rel=\"noopener noreferrer\">Privacy Policy<span class=\"screen-reader-text\"> (opens in new tab)</span></a>."
 msgstr ""
 
 #: views/gdpr/banner.php:51
@@ -10687,7 +10677,7 @@ msgid "Agree"
 msgstr ""
 
 #: views/gdpr/disabled-overlay.php:7
-msgid "Our Terms of Use and Privacy Policy have changed.  To continue using Wordfence, you will need to review and accept the updated Terms of Use and Privacy Policy by clicking Review."
+msgid "Our Terms of Service and Privacy Policy have changed.  To continue using Wordfence, you will need to review and accept the updated Terms of Service and Privacy Policy by clicking Review."
 msgstr ""
 
 #: views/onboarding/banner.php:8
@@ -10695,11 +10685,11 @@ msgid "Wordfence installation is incomplete"
 msgstr ""
 
 #: views/onboarding/disabled-overlay.php:7
-msgid "To continue using Wordfence, you will need to review and accept the Terms of Use and Privacy Policy. Click Resume Installation to begin."
+msgid "To continue using Wordfence, you will need to review and accept the Terms of Service and Privacy Policy. Click Resume Installation to begin."
 msgstr ""
 
 #: views/onboarding/fresh-install.php:9
-#: views/onboarding/fresh-install.php:35
+#: views/onboarding/fresh-install.php:34
 msgid "Wordfence - Securing your WordPress Website"
 msgstr ""
 
@@ -10736,70 +10726,63 @@ msgstr ""
 #: views/onboarding/fresh-install.php:27
 #: views/onboarding/modal-final-attempt.php:56
 #: views/onboarding/plugin-header.php:58
-msgid "By checking this box, I agree to the Wordfence <a href=\"https://www.wordfence.com/terms-of-use/\" target=\"_blank\" rel=\"noopener noreferrer\">terms</a> and <a href=\"https://www.wordfence.com/privacy-policy/\" target=\"_blank\" rel=\"noopener noreferrer\">privacy policy<span class=\"screen-reader-text\"> (opens in new tab)</span></a>"
+msgid "I have read and agree to the <a href=\"https://www.wordfence.com/license-terms-and-conditions/\" target=\"_blank\" rel=\"noopener noreferrer\">Wordfence License Terms and Conditions<span class=\"screen-reader-text\"> (opens in new tab)</span></a> and <a href=\"https://www.wordfence.com/terms-of-service/\" target=\"_blank\" rel=\"noopener noreferrer\">Terms of Service</a> and have read and acknowledge the <a href=\"https://www.wordfence.com/privacy-policy/\" target=\"_blank\" rel=\"noopener noreferrer\">Wordfence Privacy Policy<span class=\"screen-reader-text\"> (opens in new tab)</span></a>."
 msgstr ""
 
-#. translators: Support URL.
-#: views/onboarding/fresh-install.php:28
-#: views/onboarding/modal-final-attempt.php:57
-#: views/onboarding/plugin-header.php:59
-msgid "If you qualify as a data controller under the GDPR and need a data processing agreement, <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">click here<span class=\"screen-reader-text\"> (opens in new tab)</span></a>."
-msgstr ""
-
-#: views/onboarding/fresh-install.php:36
+#: views/onboarding/fresh-install.php:35
 #: views/onboarding/plugin-header.php:47
 msgid "Enter Premium License Key"
 msgstr ""
 
-#: views/onboarding/fresh-install.php:37
+#: views/onboarding/fresh-install.php:36
 #: views/onboarding/modal-final-attempt.php:34
 #: views/onboarding/plugin-header.php:48
 msgid "Enter your premium license key to enable real-time protection for your website."
 msgstr ""
 
-#: views/onboarding/fresh-install.php:38
+#: views/onboarding/fresh-install.php:37
 #: views/onboarding/modal-final-attempt.php:36
 #: views/onboarding/plugin-header.php:49
 msgid "Enter Premium Key"
 msgstr ""
 
-#: views/onboarding/fresh-install.php:38
+#: views/onboarding/fresh-install.php:37
 #: views/onboarding/modal-final-attempt.php:36
 #: views/onboarding/plugin-header.php:49
 msgid "Install"
 msgstr ""
 
-#: views/onboarding/fresh-install.php:40
+#: views/onboarding/fresh-install.php:39
 #: views/onboarding/modal-final-attempt.php:38
-#: views/onboarding/plugin-header.php:64
+#: views/onboarding/plugin-header.php:63
 msgid "If you don't have one, you can purchase one now."
 msgstr ""
 
-#: views/onboarding/fresh-install.php:99
-#: views/onboarding/plugin-header.php:135
+#: views/onboarding/fresh-install.php:98
+#: views/onboarding/plugin-header.php:134
 msgid "Configuration Complete"
 msgstr ""
 
-#: views/onboarding/fresh-install.php:99
-#: views/onboarding/plugin-header.php:135
+#: views/onboarding/fresh-install.php:98
+#: views/onboarding/plugin-header.php:134
 msgid "Congratulations! Configuration is complete and Wordfence Premium is active on your website."
 msgstr ""
 
-#: views/onboarding/fresh-install.php:99
-#: views/onboarding/fresh-install.php:131
-#: views/onboarding/fresh-install.php:144
-#: views/onboarding/plugin-header.php:135
-#: views/onboarding/plugin-header.php:167
-#: views/onboarding/plugin-header.php:180
+#: views/onboarding/fresh-install.php:98
+#: views/onboarding/fresh-install.php:130
+#: views/onboarding/fresh-install.php:143
+#: views/onboarding/plugin-header.php:134
+#: views/onboarding/plugin-header.php:166
+#: views/onboarding/plugin-header.php:179
 msgid "Go To Dashboard"
 msgstr ""
 
-#: views/onboarding/fresh-install.php:144
-#: views/onboarding/plugin-header.php:180
+#: views/onboarding/fresh-install.php:143
+#: views/onboarding/plugin-header.php:179
 msgid "Free License Installed"
 msgstr ""
 
-#: views/onboarding/fresh-install.php:155
+#: views/onboarding/fresh-install.php:154
 msgid "Error Installing License"
 msgstr ""
 

@@ -42,6 +42,10 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 				'wc_od_update_186_delete_empty_time_frames_from_orders',
 				'wc_od_update_186_db_version',
 			),
+			'1.9.5' => array(
+				'wc_od_update_195_update_settings',
+				'wc_od_update_195_db_version',
+			),
 		);
 
 		/**

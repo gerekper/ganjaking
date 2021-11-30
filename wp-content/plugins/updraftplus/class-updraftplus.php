@@ -68,6 +68,8 @@ class UpdraftPlus {
 
 	private $remotestorage_extrainfo = array();
 
+	public $no_checkin_last_time;
+	
 	/**
 	 * Class constructor
 	 */
@@ -164,8 +166,8 @@ class UpdraftPlus {
 	 * @see __construct
 	 * @internal uses auto_update_plugin filter
 	 *
-	 * @param bool   $update Whether the item has automatic updates enabled
-	 * @param object $item   Object holding the asset to be updated
+	 * @param Bool   $update Whether the item has automatic updates enabled
+	 * @param Object $item   Object holding the asset to be updated
 	 * @return bool True of automatic updates enabled, false if not
 	 */
 	public function maybe_auto_update_plugin($update, $item) {
@@ -798,8 +800,8 @@ class UpdraftPlus {
 	/**
 	 * This function allows you to manually set the nonce and timestamp for the current backup job. If none are provided then it will create new ones.
 	 *
-	 * @param boolean|string $nonce     - the nonce you want to set
-	 * @param boolean|string $timestamp - the timestamp you want to set
+	 * @param Boolean|string $nonce     - the nonce you want to set
+	 * @param Boolean|string $timestamp - the timestamp you want to set
 	 *
 	 * @return string                   - returns the backup nonce that has been set
 	 */
@@ -847,7 +849,7 @@ class UpdraftPlus {
 	/**
 	 * Opens the log file, writes a standardised header, and stores the resulting name and handle in the class variables logfile_name/logfile_handle/opened_log_time (and possibly backup_is_already_complete)
 	 *
-	 * @param string $nonce - Used in the log file name to distinguish it from other log files. Should be the job nonce.
+	 * @param String $nonce - Used in the log file name to distinguish it from other log files. Should be the job nonce.
 	 * @returns void
 	 */
 	public function logfile_open($nonce) {
@@ -867,8 +869,8 @@ class UpdraftPlus {
 	/**
 	 * Opens the log file, and finds if backup_is_already_complete
 	 *
-	 * @param string  $nonce               - Used in the log file name to distinguish it from other log files. Should be the job nonce.
-	 * @param boolean $use_existing_result - Whether to use any existing result or not
+	 * @param String  $nonce               - Used in the log file name to distinguish it from other log files. Should be the job nonce.
+	 * @param Boolean $use_existing_result - Whether to use any existing result or not
 	 *
 	 * @return boolean - returns true if the backup is complete otherwise returns false
 	 */
@@ -907,7 +909,7 @@ class UpdraftPlus {
 	/**
 	 * Returns the logfile name for a given job
 	 *
-	 * @param string $nonce - Used in the log file name to distinguish it from other log files. Should be the job nonce.
+	 * @param String $nonce - Used in the log file name to distinguish it from other log files. Should be the job nonce.
 	 * @return string
 	 */
 	public function get_logfile_name($nonce) {
@@ -992,7 +994,7 @@ class UpdraftPlus {
 	/**
 	 * This function will read the next chunk from the log file and return it's contents and last read byte position
 	 *
-	 * @param string $nonce - the UpdraftPlus file nonce
+	 * @param String $nonce - the UpdraftPlus file nonce
 	 *
 	 * @return array - an empty array if there is no log file or an array with log file contents and last read byte position
 	 */
@@ -1196,7 +1198,7 @@ class UpdraftPlus {
 	 * Outputs data to the browser.
 	 * Will also fill the buffer on nginx systems after a specified amount of time.
 	 *
-	 * @param string $line The text to output
+	 * @param String $line The text to output
 	 * @return void
 	 */
 	public function output_to_browser($line) {
@@ -1307,14 +1309,14 @@ class UpdraftPlus {
 	/**
 	 * Method for helping remote storage methods to upload files in chunks without needing to duplicate all the overhead
 	 *
-	 * @param	object  $caller        the object to call back to do the actual network API calls; needs to have a chunked_upload() method.
-	 * @param	string  $file          the basename of the file
-	 * @param	string  $cloudpath     this is passed back to the callback function; within this function, it is used only for logging
-	 * @param	string  $logname       the prefix used on log lines. Also passed back to the callback function.
-	 * @param	integer $chunk_size    the size, in bytes, of each upload chunk
-	 * @param	integer $uploaded_size how many bytes have already been uploaded. This is passed back to the callback function; within this method, it is only used for logging.
-	 * @param	boolean $singletons    when the file, given the chunk size, would only have one chunk, should that be uploaded (true), or instead should 1 be returned (false) ?
-	 * @return  boolean
+	 * @param	Object  $caller        the object to call back to do the actual network API calls; needs to have a chunked_upload() method.
+	 * @param	String  $file          the basename of the file
+	 * @param	String  $cloudpath     this is passed back to the callback function; within this function, it is used only for logging
+	 * @param	String  $logname       the prefix used on log lines. Also passed back to the callback function.
+	 * @param	Integer $chunk_size    the size, in bytes, of each upload chunk
+	 * @param	Integer $uploaded_size how many bytes have already been uploaded. This is passed back to the callback function; within this method, it is only used for logging.
+	 * @param	Boolean $singletons    when the file, given the chunk size, would only have one chunk, should that be uploaded (true), or instead should 1 be returned (false) ?
+	 * @return  Boolean
 	 */
 	public function chunked_upload($caller, $file, $cloudpath, $logname, $chunk_size, $uploaded_size, $singletons = false) {
 
@@ -1475,12 +1477,12 @@ class UpdraftPlus {
 	/**
 	 * Provides a convenience function allowing remote storage methods to download a file in chunks, without duplicated overhead.
 	 *
-	 * @param string  $file              - The basename of the file being downloaded
-	 * @param object  $method            - This remote storage method object needs to have a chunked_download() method to call back
-	 * @param integer $remote_size       - The size, in bytes, of the object being downloaded
-	 * @param boolean $manually_break_up - Whether to break the download into multiple network operations (rather than just issuing a GET with a range beginning at the end of the already-downloaded data, and carrying on until it times out)
+	 * @param String  $file              - The basename of the file being downloaded
+	 * @param Object  $method            - This remote storage method object needs to have a chunked_download() method to call back
+	 * @param Integer $remote_size       - The size, in bytes, of the object being downloaded
+	 * @param Boolean $manually_break_up - Whether to break the download into multiple network operations (rather than just issuing a GET with a range beginning at the end of the already-downloaded data, and carrying on until it times out)
 	 * @param Mixed   $passback          - A value to pass back to the callback function
-	 * @param integer $chunk_size        - Break up the download into chunks of this number of bytes. Should be set if and only if $manually_break_up is true.
+	 * @param Integer $chunk_size        - Break up the download into chunks of this number of bytes. Should be set if and only if $manually_break_up is true.
 	 */
 	public function chunked_download($file, $method, $remote_size, $manually_break_up = false, $passback = null, $chunk_size = 1048576) {
 
@@ -1957,7 +1959,7 @@ class UpdraftPlus {
 	 * @param String  $entity    - the backup entity
 	 * @param Array   $checksums - checksums for the backup file
 	 * @param Array   $jobdata   - the jobdata for this backup
-	 * @param integer $ind       - the index of the file
+	 * @param Integer $ind       - the index of the file
 	 *
 	 * @return String            - returns the entity output string
 	 */
@@ -2207,7 +2209,7 @@ class UpdraftPlus {
 			
 			if (isset($time_passed[$prev_resumption])) {
 				// N.B. A check-in occurred; we haven't yet tested if it was useful
-				$resumption_extralog = ", previous check-in=".round($time_passed[$prev_resumption], 1)."s";
+				$resumption_extralog = ", previous check-in=".round($time_passed[$prev_resumption], 2)."s";
 			}
 			
 			// This is just a simple test to catch restorations of old backup sets where the backup includes a resumption of the backup job
@@ -2797,7 +2799,7 @@ class UpdraftPlus {
 	 *
 	 * @param array   $jobdata     - the initial job data that we want to change
 	 * @param array   $options     - options sent from the front end includes the clone id, secret token and maybe clone url and migration key
-	 * @param integer $split_every - the size we should split the zips at
+	 * @param Integer $split_every - the size we should split the zips at
 	 *
 	 * @return array               - the modified jobdata
 	 */
@@ -2997,8 +2999,8 @@ class UpdraftPlus {
 	/**
 	 * This function will try and get a lock for the backup, it will return false if it fails to get a lock.
 	 *
-	 * @param boolean $backup_files    - boolean to indicate if we want a lock for files
-	 * @param boolean $backup_database - boolean to indicate if we want a lock for the database
+	 * @param Boolean $backup_files    - boolean to indicate if we want a lock for files
+	 * @param Boolean $backup_database - boolean to indicate if we want a lock for the database
 	 *
 	 * @return boolean                 - boolean to indicate if we got a lock or not
 	 */
@@ -3048,8 +3050,8 @@ class UpdraftPlus {
 	/**
 	 * This function will try and get a lock for the backup job, it will return false if it fails to get a lock.
 	 *
-	 * @param string  $job_nonce     - the backup job nonce
-	 * @param integer $resumption_no - the current resumption
+	 * @param String  $job_nonce     - the backup job nonce
+	 * @param Integer $resumption_no - the current resumption
 	 *
 	 * @return boolean - boolean to indicate if we got a lock or not
 	 */
@@ -3115,7 +3117,7 @@ class UpdraftPlus {
 	/**
 	 * This function is a filter function which will return the nonce for the incremental backup set we want to add to
 	 *
-	 * @param string $nonce - the backup nonce we want to filter
+	 * @param String $nonce - the backup nonce we want to filter
 	 *
 	 * @return string       - the backup nonce
 	 */
@@ -4168,8 +4170,8 @@ class UpdraftPlus {
 	/**
 	 * This function will check if the passed-in file is this job's responsibility to upload. Potentially files can belong to a different job, when running an incremental backup run
 	 *
-	 * @param string $file - the name of the file
-	 * @param string $type - the file entity type (db, plugins, themes etc)
+	 * @param String $file - the name of the file
+	 * @param String $type - the file entity type (db, plugins, themes etc)
 	 *
 	 * @return boolean - whether this is a file this job should upload (at some point)
 	 */
@@ -4822,7 +4824,7 @@ class UpdraftPlus {
 	/**
 	 * Sets up the nonce, basic job data, opens a log file for a new restore job, and makes sure that the Updraft_Restorer class is available
 	 *
-	 * @param boolean|string $nonce - the job nonce we want to use or false for a new one
+	 * @param Boolean|string $nonce - the job nonce we want to use or false for a new one
 	 *
 	 * @return void
 	 */
@@ -5402,7 +5404,7 @@ class UpdraftPlus {
 	 *
 	 * @param array  $db_supported_collations       Supported collations. It should contain result of 'SHOW COLLATION' query
 	 * @param array  $db_unsupported_collate_unique Unsupported unique collates collection
-	 * @param string $similar_type_charset          Charset for which need to get default collate substitution
+	 * @param String $similar_type_charset          Charset for which need to get default collate substitution
 	 * @return string $similar_type_collate default substitute collate which is best suitable or blank string
 	 */
 	public function get_similar_collate_related_to_charset($db_supported_collations, $db_unsupported_collate_unique, $similar_type_charset) {
@@ -5728,9 +5730,9 @@ class UpdraftPlus {
 	/**
 	 * Get log message for permission failure
 	 *
-	 * @param string $path                            full path of file or folder
-	 * @param string $log_message_prefix              action which is performed to path
-	 * @param string $directory_prefix_in_log_message Directory Prefix. It should be either "Parent" or "Destination"
+	 * @param String $path                            full path of file or folder
+	 * @param String $log_message_prefix              action which is performed to path
+	 * @param String $directory_prefix_in_log_message Directory Prefix. It should be either "Parent" or "Destination"
 	 * @return string|boolean log message (HTML). If posix function doesn't exist, It returns false
 	 */
 	public function log_permission_failure_message($path, $log_message_prefix, $directory_prefix_in_log_message = 'Parent') {
@@ -5796,7 +5798,7 @@ class UpdraftPlus {
 	 * Currently used in this->block_updates_during_restore_progress and admin->print_restore_in_progress_box_if_needed
 	 *
 	 * @uses $_REQUEST['action']
-	 * @param int $job_time_greater_than Specify the time in seconds.  Default is 120 seconds but function like block_updates_during_restore_progress has a 1 second time set as we want to check as soon as a restore is kicked off
+	 * @param Int $job_time_greater_than Specify the time in seconds.  Default is 120 seconds but function like block_updates_during_restore_progress has a 1 second time set as we want to check as soon as a restore is kicked off
 	 * @return void|array There is a possibility if there is no restore in progress this can return a void.  However, in every other case, it will return an array.
 	 */
 	public function check_restore_progress($job_time_greater_than = 120) {

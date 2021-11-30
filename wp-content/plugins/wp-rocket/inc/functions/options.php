@@ -455,6 +455,30 @@ function get_rocket_cache_query_string() { // phpcs:ignore WordPress.NamingConve
  */
 function rocket_valid_key() {
 	return true;
+	$rocket_secret_key = get_rocket_option( 'secret_key' );
+	if ( ! $rocket_secret_key ) {
+		return false;
+	}
+
+	$valid_details = 8 === strlen( get_rocket_option( 'consumer_key' ) ) && hash_equals( $rocket_secret_key, hash( 'crc32', get_rocket_option( 'consumer_email' ) ) );
+
+	if ( ! $valid_details ) {
+		set_transient(
+			'rocket_check_key_errors',
+			[
+				__( 'The provided license data are not valid.', 'rocket' ) .
+				' <br>' .
+				// Translators: %1$s = opening link tag, %2$s = closing link tag.
+				sprintf( __( 'To resolve, please %1$scontact support%2$s.', 'rocket' ), '<a href="https://wp-rocket.me/support/" rel="noopener noreferrer" target=_"blank">', '</a>' ),
+			]
+		);
+
+		return $valid_details;
+	}
+
+	delete_transient( 'rocket_check_key_errors' );
+
+	return $valid_details;
 }
 
 /**

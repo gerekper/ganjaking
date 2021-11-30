@@ -28,9 +28,9 @@ class WC_MS_Order_Shipment {
             // Start transaction if available
             $wpdb->query( 'START TRANSACTION' );
 
-            $customer_notes = array();
-            $package_note  = get_post_meta( $order_id, '_note_'. $package_index, true );
-            $package_delivery_date = get_post_meta( $order_id, '_date_'. $package_index, true );
+            $customer_notes        = array();
+            $package_note          = $order->get_meta( '_note_' . $package_index );
+            $package_delivery_date = $order->get_meta( '_date_' . $package_index );
 
             if ( !empty( $order_post->post_excerpt ) ) {
                 $customer_notes[] = $order_post->post_excerpt;
@@ -88,8 +88,8 @@ class WC_MS_Order_Shipment {
             }
 
             // Store shipping for all packages
-            $rates              = get_post_meta( $order_id, '_shipping_rates', true );
-            $shipping_methods   = get_post_meta( $order_id, '_shipping_methods', true );
+            $rates              = $order->get_meta( '_shipping_rates' );
+            $shipping_methods   = $order->get_meta( '_shipping_methods' );
             $shipping_total     = 0;
             $shipping_tax_total = 0;
 
@@ -217,7 +217,7 @@ class WC_MS_Order_Shipment {
             do_action( 'wc_ms_checkout_update_shipment_meta', $shipment, $order, $package, $package_index );
 
             if ( WC_MS_Gifts::is_enabled() ) {
-                if ( 1 == get_post_meta( $order_id, '_gift_'. $package_index, true ) ) {
+                if ( 1 == $order->get_meta( '_gift_' . $package_index ) ) {
                     update_post_meta( $shipment_id, '_gift', true );
                 }
             }

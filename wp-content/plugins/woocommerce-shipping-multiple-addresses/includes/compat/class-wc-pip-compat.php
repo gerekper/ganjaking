@@ -58,17 +58,16 @@ class WC_Pip_Compat {
 	 * @return bool
 	 */
 	private function has_multiple_shipping_and_multiple_packages( $order ) {
-
-		$order_id          = WC_MS_Compatibility::get_order_prop( $order, 'id' );
-		$multiple_shipping = get_post_meta( $order_id, '_multiple_shipping', true );
-
-		if ( $order instanceof WC_Order ) {
-			$order_id = WC_MS_Compatibility::get_order_prop( $order, 'id' );
-		} else {
-			$order_id = $order;
-			$order    = wc_get_order( $order );
+		if ( ! $order instanceof WC_Order ) {
+			$order = wc_get_order( $order );
 		}
-		$packages = get_post_meta( $order_id, '_wcms_packages', true );
+
+		if ( ! is_callable( array( $order, 'get_meta' ) ) ) {
+			return false;
+		}
+
+		$multiple_shipping = $order->get_meta( '_multiple_shipping' );
+		$packages          = $order->get_meta( '_wcms_packages' );
 
 		if ( 'yes' === $multiple_shipping && $packages && count( $packages ) > 1 ) {
 			return true;

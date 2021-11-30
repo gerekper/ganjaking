@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: WooCommerce Advanced Ajax Layered Navigation
- * Version: 1.4.28
+ * Version: 1.7.0
  * Plugin URI: https://woocommerce.com/products/ajax-layered-navigation/
  * Description: Ajaxifies the standard WooCommerce Layered Nav and adds additional output types like color swatches, sizes, checkboxes, etc
  * Author URI: https://woocommerce.com
  * Author: WooCommerce
- * Tested up to: 5.6
- * WC tested up to: 5.0
+ * Tested up to: 5.8
+ * WC tested up to: 5.4
  * Woo: 18675:8a0ed1b64e6a889a9f084db0ed5ece6c
  * Text Domain: woocommerce-ajax-layered-nav
  *
@@ -38,7 +38,7 @@ function wc_ajax_layered_nav_init() {
 		return;
 	}
 
-	define( 'WC_AJAX_LAYERED_NAV_VERSION', '1.4.28' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_AJAX_LAYERED_NAV_VERSION', '1.7.0' ); // WRCS: DEFINED_VERSION.
 
 	load_plugin_textdomain( 'woocommerce-ajax-layered-nav', false, plugin_basename( __DIR__ ) . '/languages' );
 
@@ -52,7 +52,7 @@ function wc_ajax_layered_nav_init() {
 	/**
 	 * Pagination Wrapper
 	 *
-	 * Makes for easy locating on pagination after ajax callback - makes sure paginations carries through.
+	 * Makes for easy locating on pagination after ajax callback - makes sure pagination carries through.
 	 */
 	add_action( 'woocommerce_pagination', 'wc_ajax_layered_nav_pagination_before', 1 );
 	add_action( 'woocommerce_pagination', 'wc_ajax_layered_nav_pagination_after', 15 );
@@ -64,8 +64,7 @@ function wc_ajax_layered_nav_init() {
 	 */
 	add_action( 'woocommerce_before_shop_loop', 'wc_ajax_layered_nav_before_products_div', 0 );
 	add_action( 'woocommerce_after_shop_loop', 'wc_ajax_layered_nav_after_products_div', 999 );
-
-	add_action( 'wp_ajax_set_type', 'wc_ajax_layered_nav_set_type' );
+	add_action( 'wp_ajax_ajax_layered_nav_set_type', 'wc_ajax_layered_nav_ajax_set_type' );
 }
 
 /**
@@ -84,12 +83,14 @@ function wc_ajax_layered_nav_woocommerce_deactivated() {
  * @return string
  */
 function wc_ajax_layered_nav_maybe_preserve_brand_filter( $link ) {
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended
 	if ( isset( $_GET['filter_product_brand'] ) ) {
-		$link = add_query_arg( 'filter_product_brand', intval( $_GET['filter_product_brand'] ), $link );
+		$link = add_query_arg( 'filter_product_brand', intval( wp_unslash( $_GET['filter_product_brand'] ) ), $link );
 	}
 	if ( ! empty( $_GET['filtering'] ) ) {
 		$link = add_query_arg( 'filtering', '1', $link );
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	return $link;
 }
 
@@ -170,7 +171,7 @@ function wc_ajax_layered_nav_scripts() {
 		'navSelector'          => apply_filters( 'sod_aln_inf_scroll_nav', '.pagination' ),
 		'itemSelector'         => apply_filters( 'sod_aln_inf_scroll_item', '#main .product' ),
 		'contentSelector'      => apply_filters( 'sod_aln_inf_scroll_content', '#main ul.products' ),
-		'loading_text'         => apply_filters( 'woocommerce_ajax_layered_nav_loading_text', __( 'Loading', 'woocommerce-ajax-layered-nav' ) ),
+		'loading_text'         => apply_filters( 'woocommerce_ajax_layered_nav_loading_text', esc_attr__( 'Loading', 'woocommerce-ajax-layered-nav' ) ),
 		'containers'           => $html_containers,
 		'triggers'             => $clickables,
 		'selects'              => $selects,
@@ -181,7 +182,7 @@ function wc_ajax_layered_nav_scripts() {
 		'scrolltop'            => $scroll,
 		'offset'               => $offset,
 		'no_products'          => $no_products,
-		'i18n_error_message'   => __( 'Error getting products. Try again.', 'woocommerce-ajax-layered-nav' ),
+		'i18n_error_message'   => esc_attr__( 'Error getting products. Try again.', 'woocommerce-ajax-layered-nav' ),
 	);
 
 	wp_localize_script( 'pageloader', 'ajax_layered_nav', $args );
@@ -193,20 +194,20 @@ function wc_ajax_layered_nav_scripts() {
 function wc_ajax_layered_nav_admin_scripts() {
 	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-	wp_register_script( 'advanced_nav_admin', plugins_url( 'assets/js/ajax_layered_nav_admin' . $suffix . '.js', __FILE__ ), array(), WC_AJAX_LAYERED_NAV_VERSION, false );
-	wp_register_script( 'advanced_colorpicker', plugins_url( 'assets/js/colorpicker' . $suffix . '.js', __FILE__ ), array(), WC_AJAX_LAYERED_NAV_VERSION, false );
-	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'advanced_colorpicker' );
-	wp_enqueue_script( 'advanced_nav_admin' );
-	wp_register_style( 'colorpicker_css', plugins_url( 'assets/css/colorpicker.css', __FILE__ ), array(), WC_AJAX_LAYERED_NAV_VERSION );
-	wp_register_style( 'advanced_nav_css', plugins_url( 'assets/css/advanced_nav.css', __FILE__ ), array(), WC_AJAX_LAYERED_NAV_VERSION );
-	wp_enqueue_style( 'colorpicker_css' );
-	wp_enqueue_style( 'advanced_nav_css' );
-	$args = array(
-		'siteurl'                => get_site_url(),
-		'sod_ajax_layered_nonce' => wp_create_nonce( 'sod_ajax_layered_nonce' ),
+	wp_enqueue_style( 'colorpicker_css', plugins_url( 'assets/css/colorpicker.css', __FILE__ ), array(), WC_AJAX_LAYERED_NAV_VERSION );
+	wp_enqueue_style( 'advanced_nav_css', plugins_url( 'assets/css/advanced_nav.css', __FILE__ ), array(), WC_AJAX_LAYERED_NAV_VERSION );
+
+	wp_enqueue_script( 'advanced_nav_admin', plugins_url( 'assets/js/ajax_layered_nav_admin' . $suffix . '.js', __FILE__ ), array( 'jquery' ), WC_AJAX_LAYERED_NAV_VERSION, false );
+	wp_enqueue_script( 'advanced_colorpicker', plugins_url( 'assets/js/colorpicker' . $suffix . '.js', __FILE__ ), array( 'jquery' ), WC_AJAX_LAYERED_NAV_VERSION, false );
+
+	wp_localize_script(
+		'advanced_nav_admin',
+		'ajax_layered_nav',
+		array(
+			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'ajax_layered_nav_nonce' ),
+		)
 	);
-	wp_localize_script( 'advanced_nav_admin', 'site', $args );
 }
 
 /**
@@ -244,23 +245,22 @@ function wc_ajax_layered_nav_after_products_div() {
  **/
 function wc_ajax_layered_nav_ajax_set_type() {
 	try {
-		$nonce = $_POST['sod_ajax_layered_nonce'];
-		if ( ! wp_verify_nonce( $nonce, 'sod_ajax_layered_nonce' ) ) {
+		if ( ! isset( $_POST['ajax_layered_nav_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['ajax_layered_nav_nonce'] ), 'ajax_layered_nav_nonce' ) ) {
 			die( 'Busted!' );
 		}
 
-		$args             = array( 'hide_empty' => '0' );
-		$attribute_values = get_terms( 'pa_' . $_POST['attr_name'], $args );
-		$html             = null;
+		$args = array( 'hide_empty' => '0' );
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$attribute_values = ! empty( $_POST['attr_name'] ) ? get_terms( wc_attribute_taxonomy_name( wp_unslash( $_POST['attr_name'] ) ), $args ) : array();
+		$raw_id           = isset( $_POST['id'] ) ? wc_clean( wp_unslash( $_POST['id'] ) ) : '';
+		$id_parts         = explode( '-', $raw_id );
+		$number           = array_pop( $id_parts );
+		$id               = implode( '-', $id_parts );
 
-		$number = explode( '-', $_POST['id'] );
-		if ( is_array( $number ) ) {
-			$number = end( $number );
-		}
-		$widget = explode( '-', $_POST['id'] );
-		$end    = array_pop( $widget );
-		$id     = implode( '-', $widget );
-		switch ( $_POST['type'] ) {
+		$type = isset( $_POST['type'] ) ? wc_clean( wp_unslash( $_POST['type'] ) ) : '';
+		$html = '';
+
+		switch ( $type ) {
 			case 'list':
 			case 'dropdown':
 			case 'checkbox':
@@ -271,15 +271,15 @@ function wc_ajax_layered_nav_ajax_set_type() {
 				$html .= '<table class="color">
 							<thead>
 								<tr>
-									<td>' . __( 'Name', 'woocommerce-ajax-layered-nav' ) . '</td>
-									<td>' . __( 'Color Code', 'woocommerce-ajax-layered-nav' ) . '</td>
+									<td>' . esc_html__( 'Name', 'woocommerce-ajax-layered-nav' ) . '</td>
+									<td>' . esc_html__( 'Color Code', 'woocommerce-ajax-layered-nav' ) . '</td>
 								</tr>
 							</thead>
 							<tbody>';
 				foreach ( $attribute_values as $attribute ) {
 					$html .= '<tr>
-								<td class="labels"><label for="widget-' . $id . '[' . $number . '][colors][' . $attribute->term_id . ']">' . $attribute->name . '</label></td>
-								<td class="inputs"><input class="color_input" type="input" name="widget-' . $id . '[' . $number . '][colors][' . $attribute->term_id . ']" id="widget-' . $id . '[' . $number . '][colors][' . $attribute->term_id . ']" size="10" maxlength="7"/>
+								<td class="labels"><label for="widget-' . esc_attr( $id ) . '[' . esc_attr( $number ) . '][colors][' . esc_attr( $attribute->term_id ) . ']">' . esc_html( $attribute->name ) . '</label></td>
+								<td class="inputs"><input class="color_input" type="input" name="widget-' . esc_attr( $id ) . '[' . esc_attr( $number ) . '][colors][' . esc_attr( $attribute->term_id ) . ']" id="widget-' . esc_attr( $id ) . '[' . esc_attr( $number ) . '][colors][' . esc_attr( $attribute->term_id ) . ']" size="10" maxlength="7"/>
 								<div class="colorSelector"><div></div></div></td>
 							</tr>';
 				}
@@ -291,16 +291,16 @@ function wc_ajax_layered_nav_ajax_set_type() {
 				$html .= '<table class="sizes">
 							<thead>
 								<tr>
-									<td>' . __( 'Name', 'woocommerce-ajax-layered-nav' ) . '</td>
-									<td>' . __( 'Label', 'woocommerce-ajax-layered-nav' ) . '</td>
+									<td>' . esc_html__( 'Name', 'woocommerce-ajax-layered-nav' ) . '</td>
+									<td>' . esc_html__( 'Label', 'woocommerce-ajax-layered-nav' ) . '</td>
 									<td></td>
 								</tr>
 							</thead>
 							<tbody>';
 				foreach ( $attribute_values as $attribute ) {
 					$html .= '<tr>
-								<td class="labels"><label for="widget-' . $id . '[' . $number . '][labels][' . $attribute->term_id . ']">' . $attribute->name . '</label></td>
-								<td class="inputs"><input type="input" name="widget-' . $id . '[' . $number . '][labels][' . $attribute->term_id . '] id="widget-' . $id . '[' . $number . '][labels][' . $attribute->term_id . ']" size="10" maxlength="7"/></td>
+								<td class="labels"><label for="widget-' . esc_attr( $id ) . '[' . esc_attr( $number ) . '][labels][' . esc_attr( $attribute->term_id ) . ']">' . esc_html( $attribute->name ) . '</label></td>
+								<td class="inputs"><input type="input" name="widget-' . esc_attr( $id ) . '[' . esc_attr( $number ) . '][labels][' . esc_attr( $attribute->term_id ) . '] id="widget-' . esc_attr( $id ) . '[' . esc_attr( $number ) . '][labels][' . esc_attr( $attribute->term_id ) . ']" size="10" maxlength="7"/></td>
 								<td></td>
 							</tr>';
 				}
@@ -308,7 +308,7 @@ function wc_ajax_layered_nav_ajax_set_type() {
 						</table>';
 				break;
 		}
-		echo $html;
+		echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	} catch ( Exception $e ) {
 		exit;
 	}

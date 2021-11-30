@@ -1,5 +1,14 @@
 *** WooCommerce Account Funds ***
 
+2021-11-23 - version 2.6.0
+* Feature - Add funds to the customer account on registration.
+* Tweak - Moved the 'Partial Funds Payment' setting to the top of the settings page.
+* Tweak - Validate the price type fields on the settings page.
+* Tweak - Toggle visibility of the dependant settings fields.
+* Tweak - Tested compatibility with WC 5.9.
+* Dev - Deprecated filter hook `woocommerce_account_funds_get_settings`.
+* Dev - Updated the minimum requirements to WC 3.4, WP 4.7, and PHP 5.4.
+
 2021-10-20 - version 2.5.4
 * Tweak - Added plugin info to the WooCommerce System Status Report.
 * Tweak - Tested compatibility with WC 5.8.

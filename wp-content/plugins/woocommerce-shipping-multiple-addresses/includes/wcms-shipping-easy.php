@@ -29,8 +29,13 @@ class WC_MS_Shipping_Easy {
 	}
 
 	public function send_shipments( $parent_order_id, $backend_order = false ) {
+		$parent_order = wc_get_order( $parent_order_id );
 
-		if ( 'yes' == get_post_meta( $parent_order_id, '_multiple_shipping', true ) ) {
+		if ( ! $parent_order ) {
+			return;
+		}
+
+		if ( 'yes' == $parent_order->get_meta( '_multiple_shipping' ) ) {
 			$shipment_ids = get_posts(array(
 				'nopaging'      => true,
 				'post_type'     => 'order_shipment',
@@ -53,7 +58,8 @@ class WC_MS_Shipping_Easy {
 
 
 
-			update_post_meta( $parent_order_id, 'se_order_created', true );
+			$parent_order->update_meta_data( 'se_order_created', true );
+			$parent_order->save();
 		}
 	}
 

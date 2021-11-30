@@ -651,11 +651,17 @@
 		 * @since 3.6.0
 		 */
 		.sui-upgrade-page .thumbnail-container {
-			cursor: pointer;
 			img {
+				cursor: pointer;
 				width: 640px;
 				@media screen and (max-width: 600px) {
 					width: 100%;
+				}
+				transition: opacity 0.5s;
+				&:hover
+				{
+					opacity: 0.68;
+					transition: opacity 0.5s;
 				}
 			}
 		}

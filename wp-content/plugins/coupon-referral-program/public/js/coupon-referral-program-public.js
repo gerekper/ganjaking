@@ -60,10 +60,10 @@
 		var btns = document.querySelectorAll('button');
 	    var clipboard = new Clipboard(btns);
 
-	    $(".mwb_cpr_btn_copy").click(function(){
+	    $( document ).on( 'click', '.mwb_cpr_btn_copy', function(){
 	    	$(".mwb_cpr_btn_copy").addClass("mwb_copied");
 	    });
-	    $(".mwb-crp-coupon-btn-copy").click(function(){
+		$( document ).on( 'click', '.mwb-crp-coupon-btn-copy', function(){
 	    	$(".mwb-crp-coupon-btn-copy").removeClass("mwb_copied");
 	    	$(this).addClass("mwb_copied");
 	    });

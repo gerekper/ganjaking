@@ -47,16 +47,21 @@ class CustomField extends AC\Column\CustomField
 		$this->add_setting( new Settings\Column\CustomField( $this ) )
 		     ->add_setting( new AC\Settings\Column\BeforeAfter( $this ) );
 
-		$setting = new Editing\Settings\CustomField( $this );
+		$unsupported_field_types = EditingModelFactory::unsupported_field_types();
 
-		if ( in_array( $this->get_field_type(), [ Settings\Column\CustomFieldType::TYPE_DEFAULT, Settings\Column\CustomFieldType::TYPE_TEXT ] ) ) {
-			$section = ( new EditableType\Text( $this, EditableType\Text::TYPE_TEXT ) );
-			$section->set_values( $this->get_options() );
+		if ( ! in_array( $this->get_field_type(), $unsupported_field_types ) ) {
+			$setting = new Editing\Settings\CustomField( $this );
 
-			$setting->add_section( $section );
+			if ( in_array( $this->get_field_type(), [ Settings\Column\CustomFieldType::TYPE_DEFAULT, Settings\Column\CustomFieldType::TYPE_TEXT ] ) ) {
+				$section = ( new EditableType\Text( $this, EditableType\Text::TYPE_TEXT ) );
+				$section->set_values( $this->get_options() );
+
+				$setting->add_section( $section );
+			}
+
+			$this->add_setting( $setting );
 		}
 
-		$this->add_setting( $setting );
 	}
 
 }

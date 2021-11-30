@@ -206,34 +206,35 @@ class WC_MS_Notes {
     }
 
     public static function store_order_notes( $order_id ) {
-        $packages = get_post_meta( $order_id, '_wcms_packages', true );
+        $order = wc_get_order( $order_id );
 
-        if ( !empty($_POST['shipping_note']) ) {
+        if ( ! $order ) {
+            return;
+        }
 
+        $packages = $order->get_meta( '_wcms_packages' );
 
+        if ( ! empty( $_POST['shipping_note'] ) ) {
             foreach ( $_POST['shipping_note'] as $idx => $value ) {
-
-                if (! array_key_exists( $idx, $packages ) )
+                if ( ! array_key_exists( $idx, $packages ) ) {
                     continue;
+                }
 
-                update_post_meta( $order_id, '_note_'. $idx, $value );
-
+                $order->update_meta_data( '_note_' . $idx, $value );
             }
         }
 
-        if ( !empty($_POST['shipping_date']) ) {
-
-
+        if ( ! empty( $_POST['shipping_date'] ) ) {
             foreach ( $_POST['shipping_date'] as $idx => $value ) {
-
-                if (! array_key_exists( $idx, $packages ) )
+                if ( ! array_key_exists( $idx, $packages ) ) {
                     continue;
+				}
 
-                update_post_meta( $order_id, '_date_'. $idx, $value );
-
+                $order->update_meta_data( '_date_' . $idx, $value );
             }
         }
-
+        
+        $order->save();		
     }
 
     public static function render_notes( $order, $package, $package_index ) {

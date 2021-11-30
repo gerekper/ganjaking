@@ -3,7 +3,7 @@
  * Order delivery details
  *
  * @package WC_OD/Templates
- * @since   1.5.4
+ * @version 1.5.4
  */
 
 defined( 'ABSPATH' ) || exit;

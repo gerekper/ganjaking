@@ -581,7 +581,11 @@ class Stats {
 				$stats['size_after']  += ! empty( $smush_stats['stats']['size_after'] ) ? $smush_stats['stats']['size_after'] : 0;
 			}
 
-			$stats['count_images']       += ! empty( $smush_stats['sizes'] ) && is_array( $smush_stats['sizes'] ) ? count( $smush_stats['sizes'] ) : 0;
+			$stats['count_images'] = 0;
+			foreach ( ( is_array( $smush_stats['sizes'] ) ? $smush_stats['sizes'] : array() ) as $image_stats ) {
+				$stats['count_images'] += $image_stats->size_before !== $image_stats->size_after ? 1 : 0;
+			}
+
 			$stats['count_supersmushed'] += ! empty( $smush_stats['stats'] ) && $smush_stats['stats']['lossy'] ? 1 : 0;
 
 			// Add resize saving stats.
@@ -679,9 +683,7 @@ class Stats {
 			$smush_stats['sizes']['full']->percent = round( $smush_stats['sizes']['full']->percent, 1 );
 		}
 
-		$smush_stats = $this->total_compression( $smush_stats );
-
-		return $smush_stats;
+		return $this->total_compression( $smush_stats );
 	}
 
 	/**
@@ -715,9 +717,7 @@ class Stats {
 			}
 		}
 
-		$stats = $this->total_compression( $stats );
-
-		return $stats;
+		return $this->total_compression( $stats );
 	}
 
 	/**
@@ -791,7 +791,7 @@ class Stats {
 				)
 			); // Db call ok; no-cache ok.
 
-			// If we didn' got any results.
+			// If we didn't got any results.
 			if ( ! $global_data ) {
 				break;
 			}
@@ -878,10 +878,10 @@ class Stats {
 			$smush_data['percent'] = ( $smush_data['bytes'] / $smush_data['size_before'] ) * 100;
 		}
 
-		// Round off precentage.
+		// Round off percentage.
 		$smush_data['percent'] = round( $smush_data['percent'], 1 );
 
-		// Human readable format.
+		// Human-readable format.
 		$smush_data['human'] = size_format(
 			$smush_data['bytes'],
 			( $smush_data['bytes'] >= 1024 ) ? 1 : 0

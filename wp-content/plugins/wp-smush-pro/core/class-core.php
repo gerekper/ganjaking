@@ -564,5 +564,4 @@ class Core extends Stats {
 
 		return $resize_sizes['width'] > $resize_sizes['height'] ? $resize_sizes['width'] : $resize_sizes['height'];
 	}
-
 }

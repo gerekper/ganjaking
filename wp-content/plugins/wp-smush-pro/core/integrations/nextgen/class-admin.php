@@ -433,17 +433,17 @@ class Admin extends NextGen {
 			$this->resmush_ids = get_option( 'wp-smush-nextgen-resmush-list', array() );
 		}
 
-		// I fwe have images to be resmushed, exclude it.
-		if ( ! empty( $this->resmush_ids ) ) {
+		// Includes the count of different sizes an image might have.
+		$this->image_count = $this->get_image_count( $smushed_images, false );
+
+		// If we have images to be resmushed, exclude it.
+		if ( ! empty( $this->resmush_ids ) && is_array( $smushed_images ) ) {
 			// Get the Smushed images, exlude resmush ids.
 			$smushed_images = array_diff_key( $smushed_images, array_flip( $this->resmush_ids ) );
 		}
 
 		// Set the counts.
 		$this->total_count = $this->ng_stats->total_count();
-
-		// Includes the count of different sizes an image might have.
-		$this->image_count = $this->get_image_count( $smushed_images );
 
 		// Count of images ( Attachments ), Does not includes additioanl sizes that might have been created.
 		$this->smushed_count = isset( $smushed_images ) && is_array( $smushed_images ) ? count( $smushed_images ) : $smushed_images;

@@ -204,6 +204,8 @@ class WC_Memberships_Membership_Plans {
 
 		$product_id       = $product->get_id();
 		$membership_plans = [];
+		$is_variation     = $product instanceof \WC_Product_Variation;
+		$parent_id        = $is_variation ? $product->get_parent_id() : null;
 
 		if ( $product_id > 0 ) {
 
@@ -212,7 +214,7 @@ class WC_Memberships_Membership_Plans {
 			// Using `'compare' => 'LIKE'` would be error prone, so let's just query all plans and discard those who don't apply; the query will be cached anyway.
 			foreach ( wc_memberships_get_membership_plans( $args ) as $membership_plan ) {
 
-				if ( $membership_plan->has_product( $product_id ) ) {
+				if ( $membership_plan->has_product( $product_id ) || ( $is_variation && $membership_plan->has_product( $parent_id ) ) ) {
 
 					$membership_plans[ $membership_plan->get_id() ] = $membership_plan;
 				}
@@ -220,7 +222,7 @@ class WC_Memberships_Membership_Plans {
 		}
 
 		/**
-		 * Filters membership plans matched to a product that grants access access.
+		 * Filters membership plans matched to a product that grants access.
 		 *
 		 * @since 1.19.0
 		 *
@@ -234,7 +236,7 @@ class WC_Memberships_Membership_Plans {
 	/**
 	 * Returns the count of the existing membership plans.
 	 *
-	 * By default will only return the count of published plans.
+	 * By default, it will only return the count of published plans.
 	 * If you need to count also drafts and plans with other statuses, you need to pass an appropriate `post_status` argument.
 	 *
 	 * @since 1.9.0

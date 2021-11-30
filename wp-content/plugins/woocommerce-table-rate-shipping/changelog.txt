@@ -1,5 +1,10 @@
 *** Table Rate Shipping Changelog ***
 
+2021-11-17 - version 3.0.35
+* Fix 	- Min & max with zero value is not equal with empty.
+* Fix 	- Translations are not being loaded.
+* Fix 	- Fatal error on PHP 8.0 by replacing "&#37;" with "%%".
+
 2021-09-29 - version 3.0.34
 * Fix 	- Incorrect shipping fee calculation with measurement price calculator product.
 * Fix 	- "Abort Reason" warnings persist after shipping information is updated.

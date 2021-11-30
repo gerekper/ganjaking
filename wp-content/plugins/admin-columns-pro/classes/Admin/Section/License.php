@@ -6,7 +6,6 @@ use AC;
 use AC\Asset\Assets;
 use AC\Asset\Enqueueables;
 use AC\Asset\Location;
-use AC\Asset\Script;
 use AC\Asset\Style;
 use AC\Type\Url;
 use AC\View;
@@ -53,7 +52,7 @@ class License extends AC\Admin\Section implements Enqueueables {
 	public function get_assets() {
 		return new Assets( [
 			new Style( 'acp-license-manager', $this->location->with_suffix( 'assets/core/css/license-manager.css' ) ),
-			new Script( 'acp-license-manager', $this->location->with_suffix( 'assets/core/js/license-manager.js' ) ),
+			new ACP\Asset\Script\LicenseManager( 'acp-license-manager', $this->location ),
 		] );
 	}
 

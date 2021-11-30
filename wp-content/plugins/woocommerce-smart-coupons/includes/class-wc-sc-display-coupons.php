@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.1.0
+ * @version     2.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1974,6 +1974,12 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 						foreach ( $data as $coupon_data ) {
 
 							if ( ! is_admin() && ! empty( $coupon_data['email'] ) && ! empty( $email ) && $coupon_data['email'] !== $email ) {
+								continue;
+							}
+
+							$post_id = ( ! empty( $coupon_data['code'] ) ) ? post_exists( $coupon_data['code'] ) : 0;
+
+							if ( empty( $post_id ) ) {
 								continue;
 							}
 

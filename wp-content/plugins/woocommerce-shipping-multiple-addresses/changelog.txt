@@ -1,8 +1,23 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2021-11-17 - version 3.6.37
+* Tweak - Refactor address validation
+* Fix   - Fatal error with custom billing fields added from 'woocommerce_checkout_fields' filter hook.
+
+2021-10-21 - version 3.6.36
+* Tweak - Use order CRUD classes to save or get meta data.
+* Fix   - Editing address in admin does not support custom address fields.
+
+2021-10-06 - version 3.6.35
+* Tweak - Remove the empty recipient-form.php file.
+* Fix   - Different subtotal, tax, and discount value when one cart item has multiple addresses.
+* Fix   - Incorrect shipping method in the order.
+* Fix   - Overlap select field in address form.
+
 2021-09-29 - version 3.6.34
 * Fix   - Different subtotal value when discount coupon is used.
 * Fix   - "Undefined Index: price" notice error when using WC Composite Product plugin.
+* Tweak - Update the "WC requires at least" header to 3.2.3.
 
 2021-08-31 - version 3.6.33
 * Fix   - Address array is missing in package destination.

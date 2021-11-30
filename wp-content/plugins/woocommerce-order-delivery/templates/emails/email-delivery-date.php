@@ -3,7 +3,7 @@
  * Email delivery details
  *
  * @package WC_OD/Templates/Emails
- * @since   1.5.5
+ * @version 1.5.5
  */
 
 defined( 'ABSPATH' ) || exit;

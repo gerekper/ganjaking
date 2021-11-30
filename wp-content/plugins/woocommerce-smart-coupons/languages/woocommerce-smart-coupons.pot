@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the WooCommerce Smart Coupons package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Smart Coupons 4.32.0\n"
+"Project-Id-Version: WooCommerce Smart Coupons 4.33.0\n"
 "Report-Msgid-Bugs-To: https://www.storeapps.org/support/contact-us/\n"
-"POT-Creation-Date: 2021-10-26 07:33:02+00:00\n"
+"POT-Creation-Date: 2021-11-18 07:47:40+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: Tue, 26 Oct 2021 13:03:02 +0530\n"
+"PO-Revision-Date: Thu, 18 Nov 2021 13:17:40 +0530\n"
 "Last-Translator: Ratnakar Dubey <support@storeapps.org>\n"
 "Language-Team: StoreApps <support@storeapps.org>\n"
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "it to use"
 msgstr ""
 
-#. #-#-#-#-#  woocommerce-smart-coupons.pot (WooCommerce Smart Coupons 4.32.0)  #-#-#-#-#
+#. #-#-#-#-#  woocommerce-smart-coupons.pot (WooCommerce Smart Coupons 4.33.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: includes/class-wc-sc-admin-notifications.php:177
 #: includes/class-wc-sc-admin-notifications.php:243
@@ -530,8 +530,8 @@ msgstr ""
 
 #: includes/class-wc-sc-admin-pages.php:817
 #: includes/class-wc-sc-admin-pages.php:1132
-#: includes/class-wc-sc-display-coupons.php:2079
-#: includes/class-wc-sc-display-coupons.php:2112
+#: includes/class-wc-sc-display-coupons.php:2085
+#: includes/class-wc-sc-display-coupons.php:2118
 #: includes/class-wc-sc-privacy.php:564
 msgid "Message"
 msgstr ""
@@ -1305,7 +1305,7 @@ msgstr ""
 msgid "Failed to create export file."
 msgstr ""
 
-#: includes/class-wc-sc-background-coupon-importer.php:1222
+#: includes/class-wc-sc-background-coupon-importer.php:1223
 msgid "Every 5 Seconds"
 msgstr ""
 
@@ -2065,7 +2065,7 @@ msgstr ""
 
 #: includes/class-wc-sc-display-coupons.php:272
 #: includes/class-wc-sc-display-coupons.php:873
-#: includes/class-wc-sc-display-coupons.php:2026
+#: includes/class-wc-sc-display-coupons.php:2032
 #: includes/class-wc-sc-shortcode.php:479
 #: includes/class-wc-smart-coupons.php:3957 templates/combined-email.php:124
 #: templates/email.php:121 templates/print-coupons-default.php:138
@@ -2074,7 +2074,7 @@ msgstr ""
 
 #: includes/class-wc-sc-display-coupons.php:274
 #: includes/class-wc-sc-display-coupons.php:875
-#: includes/class-wc-sc-display-coupons.php:2028
+#: includes/class-wc-sc-display-coupons.php:2034
 #: includes/class-wc-sc-shortcode.php:481
 #: includes/class-wc-smart-coupons.php:3959 templates/combined-email.php:126
 #: templates/email.php:123 templates/plain/combined-email.php:91
@@ -2084,7 +2084,7 @@ msgstr ""
 
 #: includes/class-wc-sc-display-coupons.php:291
 #: includes/class-wc-sc-display-coupons.php:889
-#: includes/class-wc-sc-display-coupons.php:2057
+#: includes/class-wc-sc-display-coupons.php:2063
 #: includes/class-wc-sc-shortcode.php:510
 #: includes/class-wc-smart-coupons.php:3986
 #: includes/emails/class-wc-sc-email-coupon.php:173
@@ -2253,25 +2253,25 @@ msgstr ""
 msgid "More details"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:2076
-#: includes/class-wc-sc-display-coupons.php:2113
+#: includes/class-wc-sc-display-coupons.php:2082
+#: includes/class-wc-sc-display-coupons.php:2119
 msgid "Sender"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:2077
-#: includes/class-wc-sc-display-coupons.php:2111
+#: includes/class-wc-sc-display-coupons.php:2083
+#: includes/class-wc-sc-display-coupons.php:2117
 msgid "Receiver"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:2109
+#: includes/class-wc-sc-display-coupons.php:2115
 msgid "Code"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:2110
+#: includes/class-wc-sc-display-coupons.php:2116
 msgid "Amount"
 msgstr ""
 
-#: includes/class-wc-sc-display-coupons.php:2202
+#: includes/class-wc-sc-display-coupons.php:2208
 msgid "Generated coupons"
 msgstr ""
 

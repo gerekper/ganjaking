@@ -42,7 +42,7 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 		$description = sprintf( __( "Available balance: %s", 'woocommerce-account-funds'), WC_Account_Funds::get_account_funds() );
 
 		if ( 'yes' === get_option( 'account_funds_give_discount' ) ) {
-			$amount      = floatval( get_option( 'account_funds_discount_amount' ) );
+			$amount      = get_option( 'account_funds_discount_amount', 0 );
 			$amount      = 'fixed' === get_option( 'account_funds_discount_type' ) ? wc_price( $amount ) : $amount . '%';
 			$description .= '<br/><em>' . sprintf( __( 'Use your account funds and get a %s discount on your order.', 'woocommerce-account-funds' ), $amount ) . '</em>';
 		}

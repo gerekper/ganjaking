@@ -359,6 +359,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 						'min' => $range->get_from(),
 						'max' => $range->get_to(),
 					),
+					'checkout_text'       => WC_OD()->settings()->get_setting( 'checkout_text' ),
 				)
 			);
 

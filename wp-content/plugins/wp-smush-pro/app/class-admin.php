@@ -124,6 +124,9 @@ class Admin {
 		// Main JS.
 		wp_register_script( 'smush-admin', WP_SMUSH_URL . 'app/assets/js/smush-admin.min.js', array( 'jquery', 'smush-sui', 'underscore', 'wp-color-picker' ), WP_SMUSH_VERSION, true );
 
+		// JS that can be used on all pages in the WP backend.
+		wp_register_script( 'smush-admin-common', WP_SMUSH_URL . 'app/assets/js/smush-admin-common.min.js', array( 'jquery' ), WP_SMUSH_VERSION, true );
+
 		if ( ! WP_Smush::is_pro() ) {
 			// Used on dashboard video widget.
 			wp_register_script( 'smush-wistia', '//fast.wistia.com/assets/external/E-v1.js', array(), WP_SMUSH_VERSION, true );
@@ -179,9 +182,12 @@ class Admin {
 			}
 		}
 
-		// Skip these pages where the script isn't used.
 		if ( ! in_array( $current_page, array( 'post', 'post-new', 'page', 'edit-page' ), true ) ) {
+			// Skip these pages where the script isn't used.
 			wp_enqueue_script( 'smush-admin' );
+		} else {
+			// Otherwise, load only the common JS code.
+			wp_enqueue_script( 'smush-admin-common' );
 		}
 
 		// We need it on media pages and Smush pages.

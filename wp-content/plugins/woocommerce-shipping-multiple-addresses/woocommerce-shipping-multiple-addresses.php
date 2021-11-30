@@ -3,14 +3,14 @@
  * Plugin Name: WooCommerce Ship to Multiple Addresses
  * Plugin URI: https://woocommerce.com/products/shipping-multiple-addresses/
  * Description: Allow customers to ship orders with multiple products or quantities to separate addresses instead of forcing them to place multiple orders for different delivery addresses.
- * Version: 3.6.34
+ * Version: 3.6.37
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: wc_shipping_multiple_address
  * Domain Path: /languages
  * Tested up to: 5.8
- * WC tested up to: 5.5
- * WC requires at least: 3.0
+ * WC tested up to: 5.7
+ * WC requires at least: 3.2.3
  * Woo: 18741:aa0eb6f777846d329952d5b891d6f8cc
  *
  * Copyright 2020 WooCommerce.
@@ -33,7 +33,7 @@ function woocommerce_shipping_multiple_addresses_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
-	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.6.34' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPPING_MULTIPLE_ADDRESSES_VERSION', '3.6.37' ); // WRCS: DEFINED_VERSION.
 
 	class WC_Ship_Multiple {
 
@@ -493,7 +493,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 
 				if ($order_id == 0 || !$order) wp_die(__( 'Order could not be found', 'wc_shipping_multiple_address' ) );
 
-				$packages           = get_post_meta($order_id, '_wcms_packages', true);
+				$packages = $order->get_meta( '_wcms_packages' );
 
 				if ( !$packages ) wp_die(__( 'This order does not ship to multiple addresses', 'wc_shipping_multiple_address' ) );
 
@@ -872,13 +872,25 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 						?>
 						</div>
 						<?php endif;
+                            
+                            $all_shippings = array();
+                            foreach ( $shipping_methods as $shipping_method ) {
+                                if ( ! array_key_exists( $shipping_method->get_id(), $all_shippings ) ) {
+                                    $all_shippings[ $shipping_method->get_id() ] = array(
+                                        'id'    => $shipping_method->get_id(),
+                                        'label' => $shipping_method->get_label(),
+                                    );
+                                }
+                            }
 
-						endforeach; ?>
+						endforeach;?>
 						<div style="clear:both;"></div>
 
 						<?php if (! function_exists('wc_add_notice') ): ?>
 						<input type="hidden" name="shipping_method" value="multiple_shipping" />
 						<?php endif; ?>
+
+                        <input type="hidden" name="all_shipping_methods" value="<?php echo esc_attr( wp_json_encode( $all_shippings ) ); ?>" />
 					</div>
 
 				</td>
@@ -1087,6 +1099,7 @@ if ( ! class_exists( 'WC_Ship_Multiple' ) ) :
 			wcms_session_delete( 'shipping_methods' );
 			wcms_session_delete( 'wcms_original_cart' );
 			wcms_session_delete( 'wcms_packages' );
+            wcms_session_delete( 'wcms_packages_after_tax_calc' );
 			wcms_session_delete( 'wcms_item_delivery_dates' );
 
 			do_action( 'wc_ms_cleared_session' );

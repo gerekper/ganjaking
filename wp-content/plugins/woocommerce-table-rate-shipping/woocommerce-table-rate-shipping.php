@@ -3,15 +3,16 @@
  * Plugin Name: WooCommerce Table Rate Shipping
  * Plugin URI: https://woocommerce.com/products/table-rate-shipping/
  * Description: Table rate shipping lets you define rates depending on location vs shipping class, price, weight, or item count.
- * Version: 3.0.34
+ * Version: 3.0.35
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.0
  * Tested up to: 5.8
+ * Text Domain: woocommerce-table-rate-shipping
  * Copyright: © 2021 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
- * Domain Path: /languages/
+ * Domain Path: /languages
  * WC tested up to: 5.5
  * WC requires at least: 2.6
  *
@@ -40,7 +41,7 @@ class WC_Table_Rate_Shipping {
 	 * Constructor.
 	 */
 	public function __construct() {
-		define( 'TABLE_RATE_SHIPPING_VERSION', '3.0.34' ); // WRCS: DEFINED_VERSION.
+		define( 'TABLE_RATE_SHIPPING_VERSION', '3.0.35' ); // WRCS: DEFINED_VERSION.
 		define( 'TABLE_RATE_SHIPPING_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG && ( ! defined( 'WP_DEBUG_DISPLAY' ) || WP_DEBUG_DISPLAY ) );
 		define( 'WC_TABLE_RATE_SHIPPING_MAIN_FILE', __FILE__ );
 
@@ -120,7 +121,7 @@ class WC_Table_Rate_Shipping {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
-		add_filter( 'woocommerce_translations_updates_for_woocommerce_table_rate_shipping', '__return_true' );
+		add_filter( 'woocommerce_translations_updates_for_woocommerce-table-rate-shipping', '__return_true' );
 		add_action( 'woocommerce_shipping_init', array( $this, 'shipping_init' ) );
 		add_action( 'delete_product_shipping_class', array( $this, 'update_deleted_shipping_class' ) );
 		add_action( 'woocommerce_before_cart', array( $this, 'maybe_show_abort' ), 1 );
@@ -280,10 +281,10 @@ class WC_Table_Rate_Shipping {
             foreach( $packages as $package_id => $package ) {
                 $package_hash = WC_Table_Rate_Shipping::create_package_hash( $package );
 
-                if ( isset( $abort[ $package_hash ] ) && ! wc_has_notice( $abort[ $package_hash ] ) ) {
-                    wc_add_notice( $abort[ $package_hash ] );
+                if ( isset( $abort[ $package_hash ] ) && ! wc_has_notice( $abort[ $package_hash ], 'error' ) ) {
+                    wc_add_notice( $abort[ $package_hash ], 'error' );
                 }
-                
+
             }
         }
 	}
@@ -305,7 +306,7 @@ class WC_Table_Rate_Shipping {
             }
         }
 
-        $package_to_hash = array_filter( $package, function( $key ) { 
+        $package_to_hash = array_filter( $package, function( $key ) {
             return in_array( $key, array( 'contents', 'contents_cost', 'applied_coupons', 'user', 'destination' ) );
         }, ARRAY_FILTER_USE_KEY );
 

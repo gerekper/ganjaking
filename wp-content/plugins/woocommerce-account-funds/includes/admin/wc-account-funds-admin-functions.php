@@ -33,6 +33,22 @@ function wc_account_funds_get_current_screen_id() {
 }
 
 /**
+ * Gets if we are in the plugin settings page or not.
+ *
+ * @since 2.6.0
+ *
+ * @return bool
+ */
+function wc_account_funds_is_settings_page() {
+	// phpcs:disable WordPress.Security.NonceVerification
+	return ( is_admin() &&
+		isset( $_GET['page'] ) && 'wc-settings' === $_GET['page'] &&
+		isset( $_GET['tab'] ) && 'account_funds' === $_GET['tab']
+	);
+	// phpcs:enable WordPress.Security.NonceVerification
+}
+
+/**
  * Gets the dismiss url for a notice.
  *
  * @since 2.3.7

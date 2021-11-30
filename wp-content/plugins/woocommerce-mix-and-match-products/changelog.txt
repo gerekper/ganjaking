@@ -1,5 +1,10 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2021.11.19 - verison 1.11.5
+* Fix: Load RTL stylesheets when not in SCRIPT_DEBUG mode.
+* Fix: Load correct stylesheet when in QuickView Modal.
+* Tweak: Moved 'add-to-cart' input value to button.
+
 2021.11.11 - version 1.11.4
 * Update: Tested up to WooCommerce 5.9.0.
 * Fix: Hide PayPal Payments payment request buttons for Mix and Match products.

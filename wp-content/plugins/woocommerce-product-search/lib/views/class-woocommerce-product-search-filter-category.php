@@ -870,6 +870,12 @@ class WooCommerce_Product_Search_Filter_Category {
 				$selectize_parameters['maxItems'] = 1;
 			}
 
+			$max_options = apply_filters( 'woocommerce_product_search_selectize_max_options', 100000, $params );
+			if ( $max_options !== null ) {
+				$max_options = intval( $max_options );
+			}
+			$selectize_parameters['maxOptions'] = $max_options;
+
 			$inline_script = '';
 
 			$inline_script .= 'if ( typeof jQuery !== "undefined" ) {';

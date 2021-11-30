@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, DNutbourne, aporter, snigh
 Tags: backup, restore, database backup, wordpress backup, cloud backup, s3, dropbox, google drive, onedrive, ftp, backups
 Requires at least: 3.2
 Tested up to: 5.8
-Stable tag: 1.16.63
+Stable tag: 1.16.65
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -167,6 +167,19 @@ Unfortunately not; since this is free software, there’s no warranty and no gua
 The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the best place to learn in more detail about any important changes.
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
+
+
+= 1.16.65 - 25/Nov/2021 =
+
+* SECURITY: Fix a non-persistent XSS error allowing an attacker to once run JavaScript in your web browser if you clicked on a link crafted personally for your site whilst logged into it. Discovered by Cryptotipit.
+* TWEAK: Premium - add review link at bottom of admin
+
+= 1.16.64 - 24/Nov/2021 =
+
+* FIX: Do not create a zip manifest file if the zip is still potentially incomplete
+* TWEAK: Improve Dropbox downloading performance by reducing round-trips, by eliminating unnecessary chunking
+* TWEAK: Update certificate store to current list
+* TWEAK: Increase precision of previous check-in record in log
 
 = 1.16.63 - 25/Oct/2021 =
 
@@ -1270,7 +1283,7 @@ N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which i
 = 1.13.6 - 05/Sep/2017 =
 
 * FEATURE: Google Drive authorisation now goes via an officially registered app for easier connections to Google Drive.
-* FEATURE: Include commands for UpdraftCentral's (https://updraftcentral.com) Google Analytics management facility (check the changelog for the release)
+* FEATURE: Include commands for UpdraftCentral's (https://updraftcentral.com) Google Analytics management facility (check the changelog.txt for the release)
 * FIX: Correct handling of OneDrive folder names featuring spaces (possibly a regression/change in the handling at OneDrive's end)
 * TWEAK: Prevent messy layout when the last log message is very long
 * TWEAK: Log catchable fatal errors and exceptions during backup in PHP 7
@@ -1400,4 +1413,4 @@ Reliance upon any non-English translation is at your own risk; UpdraftPlus can g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.16.63: Fixes various issues with the creation and cleanup of zip manifest files. Various small tweaks and improvements, including backup read/write optimisations. A recommended update for all.
+* 1.16.65: Fixes a non-persistent reflected XSS issue. Do not create a zip manifest file if the zip is still potentially incomplete. Faster Dropbox uploads. A recommended update for all.

@@ -412,7 +412,7 @@ class wfScanEngine {
 			$isFork = ($_GET['isFork'] == '1' ? true : false);
 			wfConfig::set('lowResourceScanWaitStep', !wfConfig::get('lowResourceScanWaitStep'));
 			if ($isFork && wfConfig::get('lowResourceScanWaitStep')) {
-				sleep($this->maxExecTime / 2);
+				sleep((int) round($this->maxExecTime / 2));
 				$this->fork(); //exits
 			}
 		}

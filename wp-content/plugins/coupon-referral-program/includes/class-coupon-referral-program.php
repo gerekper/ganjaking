@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -25,7 +24,6 @@
  * @since      1.0.0
  * @package    coupon-referral-program
  * @subpackage coupon-referral-program/includes
- * @author     WooCommerce
  */
 class Coupon_Referral_Program {
 
@@ -34,7 +32,6 @@ class Coupon_Referral_Program {
 	 * the plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
 	 * @var      coupon-referral-program-loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
@@ -43,7 +40,6 @@ class Coupon_Referral_Program {
 	 * The unique identifier of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
 	protected $plugin_name;
@@ -52,7 +48,6 @@ class Coupon_Referral_Program {
 	 * The current version of the plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
 	 * @var      string    $version    The current version of the plugin.
 	 */
 	protected $version;
@@ -67,13 +62,11 @@ class Coupon_Referral_Program {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		
+
 		if ( defined( 'COUPON_REFERRAL_PROGRAM_VERSION' ) ) {
 
 			$this->version = COUPON_REFERRAL_PROGRAM_VERSION;
-		} 
-		
-		else {
+		} else {
 
 			$this->version = '1.0.0';
 		}
@@ -101,7 +94,6 @@ class Coupon_Referral_Program {
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
-	 * @access   private
 	 */
 	private function load_dependencies() {
 
@@ -126,16 +118,12 @@ class Coupon_Referral_Program {
 		 * The class responsible for defining all actions that occur in the onboarding the site data
 		 * in the admin side of the site.
 		 */
-		! class_exists( 'Makewebbetter_Onboarding_Helper' ) && require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-makewebbetter-onboarding-helper.php';
-		$this->onboard = new Makewebbetter_Onboarding_Helper();
-		
-
 		$this->loader = new Coupon_Referral_Program_Loader();
 
 	}
-
-	public function init(){
-		add_filter( 'woocommerce_email_classes', array($this, 'crp_woocommerce_email_classes' ));
+	/** Register the emails */
+	public function init() {
+		add_filter( 'woocommerce_email_classes', array( $this, 'crp_woocommerce_email_classes' ) );
 	}
 
 	/**
@@ -143,34 +131,32 @@ class Coupon_Referral_Program {
 	 * of the plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   private
 	 */
 	private function define_admin_hooks() {
 
 		$plugin_admin = new Coupon_Referral_Program_Admin( $this->get_plugin_name(), $this->get_version() );
-		
+
 		$this->id = 'crp-referral_setting';
 		// All admin actions and filters goes here.
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_filter( 'woocommerce_settings_tabs_array', $plugin_admin,'woocommerce_settings_tabs_option', 50 );
+		$this->loader->add_filter( 'woocommerce_settings_tabs_array', $plugin_admin, 'woocommerce_settings_tabs_option', 50 );
 		$this->loader->add_action( 'woocommerce_settings_tabs_' . $this->id, $plugin_admin, 'crp_referral_settings_tab' );
 		$this->loader->add_action( 'woocommerce_settings_save_' . $this->id, $plugin_admin, 'crp_referral_setting_save' );
 		$this->loader->add_action( 'woocommerce_sections_' . $this->id, $plugin_admin, 'crp_output_sections' );
-		$this->loader->add_action("woocommerce_update_options_".$this->id,$plugin_admin,'mwb_save_settings',10,1);
-		$this->loader->add_filter('woocommerce_admin_reports',$plugin_admin,'mwb_crp_report',10,1);
-		$this->loader->add_action('admin_bar_menu',$plugin_admin ,'mwb_crp_report_button_link', 90);
+		$this->loader->add_action( 'woocommerce_update_options_' . $this->id, $plugin_admin, 'mwb_save_settings', 10, 1 );
+		$this->loader->add_filter( 'woocommerce_admin_reports', $plugin_admin, 'mwb_crp_report', 10, 1 );
+		$this->loader->add_action( 'admin_bar_menu', $plugin_admin, 'mwb_crp_report_button_link', 90 );
 
-		$this->loader->add_action('crp_get_sections',$plugin_admin ,'mwb_crp_help_section');
-		$this->loader->add_action('admin_menu',$plugin_admin ,'mwb_crp_add_menu_link');
-
+		$this->loader->add_action( 'crp_get_sections', $plugin_admin, 'mwb_crp_help_section' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'mwb_crp_add_menu_link' );
 
 		/*Compatibility with WPML*/
-		$this->loader->add_action( 'init', $plugin_admin, 'mwb_crp_setting_compatibility_wpml');
+		$this->loader->add_action( 'init', $plugin_admin, 'mwb_crp_setting_compatibility_wpml' );
 
-		$this->loader->add_filter('woocommerce_admin_settings_sanitize_option_mwb_referral_length',$plugin_admin,'mwb_crp_referral_length_sanitize_option',10,3 );
-		$this->loader->add_filter('woocommerce_admin_settings_sanitize_option_mwb_cpr_ref_link_expiry',$plugin_admin,'mwb_cpr_ref_link_expiry_sanitize_option',10,3 );	
+		$this->loader->add_filter( 'woocommerce_admin_settings_sanitize_option_mwb_referral_length', $plugin_admin, 'mwb_crp_referral_length_sanitize_option', 10, 3 );
+		$this->loader->add_filter( 'woocommerce_admin_settings_sanitize_option_mwb_cpr_ref_link_expiry', $plugin_admin, 'mwb_cpr_ref_link_expiry_sanitize_option', 10, 3 );
 
 		$this->loader->add_filter( 'mwb_deactivation_supported_slug', $plugin_admin, 'add_mwb_deactivation_screens' );
 	}
@@ -180,7 +166,6 @@ class Coupon_Referral_Program {
 	 * of the plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   private
 	 */
 	private function define_public_hooks() {
 
@@ -191,49 +176,53 @@ class Coupon_Referral_Program {
 		// Check if plugin is enabled.
 		$enable = get_option( 'mwb_crp_plugin_enable', false );
 
-		if($enable =='yes') {
+		if ( 'yes' === $enable ) {
 
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-			$this->loader->add_action( 'wp_footer', $plugin_public, 'mwb_crp_load_html');
-			
-			$this->loader->add_action( 'user_register',$plugin_public,'woocommerce_created_customer_discount' );
-			$this->loader->add_action( 'wp_loaded', $plugin_public, 'wp_loaded_set_referral_key' );
-			$this->loader->add_action( 'woocommerce_order_status_changed',$plugin_public, 'woocommerce_order_status_changed_discount',10,3 );
-			$this->loader->add_action( 'wp_head',$plugin_public,'woocommerce_referral_button_show' );
-			$this->loader->add_action('init',$plugin_public,'woocommerce_register_shortcode');
-			$this->loader->add_filter('wc_points_rewards_event_description',$plugin_public,'wc_points_rewards_event_description',10,3);
-			$this->loader->add_filter('woocommerce_account_menu_items',$plugin_public, 'crp_referral_coupon_dashboard');
-			$this->loader->add_action( 'woocommerce_account_referral_coupons_endpoint',$plugin_public, 'crp_coupon_account_points');
-			/*Add button in the woocommerce*/
-			$this->loader->add_action('woocommerce_my_subscriptions_actions',$plugin_public,'mwb_crp_add_button_for_the_apply_coupon',10,1);
-			$this->loader->add_action('woocommerce_subscription_details_after_subscription_table',$plugin_public,'mwb_crp_add_button_order_details_page',10,1);
-			/*Change renewal order total*/
-			$this->loader->add_filter('wcs_renewal_order_created',$plugin_public,'mwb_crp_change_renewal_order_total',99,2);
-			$this->loader->add_action('wp_ajax_mwb_crp_coupons_popup',$plugin_public,'mwb_crp_coupons_popup');
-			$this->loader->add_action('wp_ajax_mwb_crp_coupon_apply',$plugin_public,'mwb_crp_coupon_apply');
-			$this->loader->add_action('wp_ajax_mwb_crp_coupon_remove',$plugin_public,'mwb_crp_coupon_remove');
-			$this->loader->add_action('wp_ajax_mwb_crp_send_referal_link_mail',$plugin_public,'mwb_crp_send_referal_link_mail');
-			$this->loader->add_action('wp_ajax_noprev_mwb_crp_send_referal_link_mail',$plugin_public,'mwb_crp_send_referal_link_mail');
-			$this->loader->add_filter('woocommerce_coupon_is_valid',$plugin_public, 'mwb_crp_woocommerce_coupon_is_valid',10,3);
+			$this->loader->add_action( 'wp_footer', $plugin_public, 'mwb_crp_load_html' );
 
-			//new extra code.
-			$this->loader->add_filter('query_vars',$plugin_public,'mwb_crp_custom_endpoint_query_vars');
-			//wmpl.
-			$this->loader->add_filter('wcml_register_endpoints_query_vars',$plugin_public,'mwb_crp_wpml_register_endpoint',10,3);
-			$this->loader->add_filter('wcml_endpoint_permalink_filter',$plugin_public,'mwb_crp_endpoint_permalink_filter',10,2);
-			
+			$this->loader->add_action( 'user_register', $plugin_public, 'woocommerce_created_customer_discount' );
+			$this->loader->add_action( 'wp_loaded', $plugin_public, 'wp_loaded_set_referral_key' );
+			$this->loader->add_action( 'woocommerce_order_status_changed', $plugin_public, 'woocommerce_order_status_changed_discount', 10, 3 );
+			$this->loader->add_action( 'wp_head', $plugin_public, 'woocommerce_referral_button_show' );
+			$this->loader->add_action( 'init', $plugin_public, 'woocommerce_register_shortcode' );
+			$this->loader->add_filter( 'wc_points_rewards_event_description', $plugin_public, 'wc_points_rewards_event_description', 10, 3 );
+			$this->loader->add_filter( 'woocommerce_account_menu_items', $plugin_public, 'crp_referral_coupon_dashboard' );
+			$this->loader->add_action( 'woocommerce_account_referral_coupons_endpoint', $plugin_public, 'crp_coupon_account_points' );
+			/*Add button in the woocommerce*/
+			$this->loader->add_action( 'woocommerce_my_subscriptions_actions', $plugin_public, 'mwb_crp_add_button_for_the_apply_coupon', 10, 1 );
+			$this->loader->add_action( 'woocommerce_subscription_details_after_subscription_table', $plugin_public, 'mwb_crp_add_button_order_details_page', 10, 1 );
+			/*Change renewal order total*/
+			$this->loader->add_filter( 'wcs_renewal_order_created', $plugin_public, 'mwb_crp_change_renewal_order_total', 99, 2 );
+			$this->loader->add_action( 'wp_ajax_mwb_crp_coupons_popup', $plugin_public, 'mwb_crp_coupons_popup' );
+			$this->loader->add_action( 'wp_ajax_mwb_crp_coupon_apply', $plugin_public, 'mwb_crp_coupon_apply' );
+			$this->loader->add_action( 'wp_ajax_mwb_crp_coupon_remove', $plugin_public, 'mwb_crp_coupon_remove' );
+			$this->loader->add_action( 'wp_ajax_mwb_crp_send_referal_link_mail', $plugin_public, 'mwb_crp_send_referal_link_mail' );
+			$this->loader->add_action( 'wp_ajax_noprev_mwb_crp_send_referal_link_mail', $plugin_public, 'mwb_crp_send_referal_link_mail' );
+			$this->loader->add_filter( 'woocommerce_coupon_is_valid', $plugin_public, 'mwb_crp_woocommerce_coupon_is_valid', 10, 3 );
+
+			// new extra code.
+			$this->loader->add_filter( 'query_vars', $plugin_public, 'mwb_crp_custom_endpoint_query_vars' );
+			// wmpl.
+			$this->loader->add_filter( 'wcml_register_endpoints_query_vars', $plugin_public, 'mwb_crp_wpml_register_endpoint', 10, 3 );
+			$this->loader->add_filter( 'wcml_endpoint_permalink_filter', $plugin_public, 'mwb_crp_endpoint_permalink_filter', 10, 2 );
+
 		}
 
 	}
-
-	public function crp_woocommerce_email_classes($emails){
-		$emails['crp_signup_email'] = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-emails.php';
-		$emails['crp_order_email'] = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-order-emails.php';
-		$emails['crp_refree_email'] = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-refree-discount-emails.php';
+	/**
+	 *  Inlcude the email classes
+	 *
+	 * @param array $emails .
+	 */
+	public function crp_woocommerce_email_classes( $emails ) {
+		$emails['crp_signup_email']    = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-emails.php';
+		$emails['crp_order_email']     = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-order-emails.php';
+		$emails['crp_refree_email']    = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-refree-discount-emails.php';
 		$emails['crp_share_via_email'] = include COUPON_REFERRAL_PROGRAM_DIR_PATH . 'emails/class-coupon-referral-program-share-via-emails.php';
-		
-        return $emails;
+
+		return $emails;
 	}
 
 	/**

@@ -2157,7 +2157,7 @@ class wfUtils {
 					'h'		 => $homeurl,
 					't'		 => microtime(true),
 					'lang'   => get_site_option('WPLANG'),
-				), null, '&'),
+				), '', '&'),
 				array(
 					'body'    => json_encode($payload),
 					'headers' => array(
@@ -2852,11 +2852,7 @@ class wfUtils {
 			$base = time();
 		}
 		
-		$offset = wfConfig::get('timeoffset_ntp', false);
-		if ($offset === false) {
-			$offset = wfConfig::get('timeoffset_wf', false);
-			if ($offset === false) { $offset = 0; }
-		}
+		$offset = (int) wfConfig::get('timeoffset_wf', 0);
 		return $base + $offset;
 	}
 	
@@ -2867,11 +2863,7 @@ class wfUtils {
 	 * @return int
 	 */
 	public static function denormalizedTime($base) {
-		$offset = wfConfig::get('timeoffset_ntp', false);
-		if ($offset === false) {
-			$offset = wfConfig::get('timeoffset_wf', false);
-			if ($offset === false) { $offset = 0; }
-		}
+		$offset = (int) wfConfig::get('timeoffset_wf', 0);
 		return $base - $offset;
 	}
 	

@@ -166,6 +166,7 @@ class WC_OD_Settings extends WC_OD_Singleton {
 				'delivery_events_index'    => 1,
 				'delivery_events'          => array(),
 				'delivery_fields_option'   => 'optional',
+				'checkout_text'            => '',
 			);
 
 			/**

@@ -3,16 +3,17 @@
  * Plugin Name: WooCommerce Account Funds
  * Plugin URI: https://woocommerce.com/products/account-funds/
  * Description: Allow customers to deposit funds into their accounts and pay with account funds during checkout.
- * Version: 2.5.4
+ * Version: 2.6.0
  * Author: Themesquad
  * Author URI: https://themesquad.com/
- * Requires at least: 4.4
+ * Requires at least: 4.7
  * Tested up to: 5.8
+ * Requires PHP: 5.4
  * Text Domain: woocommerce-account-funds
  * Domain Path: /languages/
  *
- * WC requires at least: 3.2
- * WC tested up to: 5.8
+ * WC requires at least: 3.4
+ * WC tested up to: 5.9
  * Woo: 18728:a6fcf35d3297c328078dfe822e00bd06
  *
  * Copyright: 2009-2021 WooCommerce.
@@ -63,7 +64,7 @@ class WC_Account_Funds {
 	 *
 	 * @var string
 	 */
-	public $version = '2.5.4';
+	public $version = '2.6.0';
 
 	/**
 	 * Constructor.
@@ -133,6 +134,7 @@ class WC_Account_Funds {
 
 		if ( wc_account_funds_is_request( 'frontend' ) ) {
 			include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-checkout.php';
+			include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-register.php';
 		}
 	}
 

@@ -14,17 +14,17 @@ class WC_Account_Funds_Requirements {
 	/**
 	 * Minimum PHP version required.
 	 */
-	const MINIMUM_PHP_VERSION = '5.2.4';
+	const MINIMUM_PHP_VERSION = '5.4';
 
 	/**
 	 * Minimum WordPress version required.
 	 */
-	const MINIMUM_WP_VERSION = '4.4';
+	const MINIMUM_WP_VERSION = '4.7';
 
 	/**
 	 * Minimum WooCommerce version required.
 	 */
-	const MINIMUM_WC_VERSION = '3.2';
+	const MINIMUM_WC_VERSION = '3.4';
 
 	/**
 	 * Requirements errors.

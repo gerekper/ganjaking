@@ -222,7 +222,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 				'title'       => __( 'Handling Fee Per [item]', 'woocommerce-table-rate-shipping' ),
 				'type'        => 'price',
 				'desc_tip'    => true,
-				'description' => sprintf( __( 'Handling fee. Enter an amount, e.g. %1$s, or a percentage, e.g. 5&#37;. Leave blank to disable. Applied based on the "Calculation Type" chosen below.', 'woocommerce-table-rate-shipping' ), '2' . wc_get_price_decimal_separator() . '50'  ),
+				'description' => sprintf( __( 'Handling fee. Enter an amount, e.g. %1$s, or a percentage, e.g. 5%%. Leave blank to disable. Applied based on the "Calculation Type" chosen below.', 'woocommerce-table-rate-shipping' ), '2' . wc_get_price_decimal_separator() . '50'  ),
 				'default'     => '',
 				'placeholder' => __( 'n/a', 'woocommerce-table-rate-shipping' ),
 			),
@@ -374,7 +374,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 			$priorities = get_option( 'woocommerce_table_rate_priorities_' . $this->instance_id );
 
 			$rates_has_no_class = false;
-			
+
 			// search the shipping rates array if it has empty rate_class or zero rate_class
 			foreach ( $this->get_shipping_rates( ARRAY_A ) as $idx => $shipping_rate ) {
 				if ( empty( $shipping_rate['rate_class'] ) ) {
@@ -440,13 +440,13 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 						rate_condition = 'price'
 						AND
 						(
-							( ( rate_min + 0 ) = '' AND ( rate_max + 0 ) = '' )
+							( ( rate_min ) = '' AND ( rate_max ) = '' )
 							OR
 							( ( rate_min + 0 ) >= 0 AND ( rate_max + 0 ) >=0 AND '{$price}' >= ( rate_min + 0 ) AND '{$price}' <= ( rate_max + 0 ) )
 							OR
-							( ( rate_min + 0 ) >= 0 AND ( rate_max + 0 ) = '' AND '{$price}' >= ( rate_min + 0 ) )
+							( ( rate_min ) >= 0 AND ( rate_max ) = '' AND '{$price}' >= ( rate_min + 0 ) )
 							OR
-							( ( rate_min + 0 ) = '' AND ( rate_max + 0 ) >= 0 AND '{$price}' <= ( rate_max + 0 ) )
+							( ( rate_min ) = '' AND ( rate_max ) >= 0 AND '{$price}' <= ( rate_max + 0 ) )
 						)
 					)
 					OR
@@ -454,13 +454,13 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 						rate_condition = 'weight'
 						AND
 						(
-							( ( rate_min + 0 ) = '' AND ( rate_max + 0 ) = '' )
+							( ( rate_min ) = '' AND ( rate_max ) = '' )
 							OR
 							( ( rate_min + 0 ) >= 0 AND ( rate_max + 0 ) >=0 AND '{$weight}' >= ( rate_min + 0 ) AND '{$weight}' <= ( rate_max + 0 ) )
 							OR
-							( ( rate_min + 0 ) >= 0 AND ( rate_max + 0 ) = '' AND '{$weight}' >= ( rate_min + 0 ) )
+							( ( rate_min ) >= 0 AND ( rate_max ) = '' AND '{$weight}' >= ( rate_min + 0 ) )
 							OR
-							( ( rate_min + 0 ) = '' AND ( rate_max + 0 ) >= 0 AND '{$weight}' <= ( rate_max + 0 ) )
+							( ( rate_min ) = '' AND ( rate_max ) >= 0 AND '{$weight}' <= ( rate_max + 0 ) )
 						)
 					)
 					OR
@@ -468,13 +468,13 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 						rate_condition = 'items'
 						AND
 						(
-							( ( rate_min + 0 ) = '' AND ( rate_max + 0 ) = '' )
+							( ( rate_min ) = '' AND ( rate_max ) = '' )
 							OR
 							( ( rate_min + 0 ) >= 0 AND ( rate_max + 0 ) >=0 AND '{$count}' >= ( rate_min + 0 ) AND '{$count}' <= ( rate_max + 0 ) )
 							OR
-							( ( rate_min + 0 ) >= 0 AND ( rate_max + 0 ) = '' AND '{$count}' >= ( rate_min + 0 ) )
+							( ( rate_min ) >= 0 AND ( rate_max ) = '' AND '{$count}' >= ( rate_min + 0 ) )
 							OR
-							( ( rate_min + 0 ) = '' AND ( rate_max + 0 ) >= 0 AND '{$count}' <= ( rate_max + 0 ) )
+							( ( rate_min ) = '' AND ( rate_max ) >= 0 AND '{$count}' <= ( rate_max + 0 ) )
 						)
 					)
 					OR
@@ -482,13 +482,13 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 						rate_condition = 'items_in_class'
 						AND
 						(
-							( ( rate_min + 0 ) = '' AND ( rate_max + 0 ) = '' )
+							( ( rate_min ) = '' AND ( rate_max ) = '' )
 							OR
 							( ( rate_min + 0 ) >= 0 AND ( rate_max + 0 ) >= 0 AND '{$count_in_class}' >= ( rate_min + 0 ) AND '{$count_in_class}' <= ( rate_max + 0 ) )
 							OR
-							( ( rate_min + 0 ) >= 0 AND ( rate_max + 0 ) = '' AND '{$count_in_class}' >= ( rate_min + 0 ) )
+							( ( rate_min ) >= 0 AND ( rate_max ) = '' AND '{$count_in_class}' >= ( rate_min + 0 ) )
 							OR
-							( ( rate_min + 0 ) = '' AND ( rate_max + 0 ) >= 0 AND '{$count_in_class}' <= ( rate_max + 0 ) )
+							( ( rate_min ) = '' AND ( rate_max ) >= 0 AND '{$count_in_class}' <= ( rate_max + 0 ) )
 						)
 					)
 				)
@@ -1030,7 +1030,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 		}
 
 		$row_base_price = $_product->get_price() * $qty;
-        
+
         // From Issue #134 : Adding a compatibility product price for Measurement Price Calculator plugin by SkyVerge.
         if ( class_exists( 'WC_Measurement_Price_Calculator_Loader' ) && isset( $item['pricing_item_meta_data']['_price'] ) ) {
             $row_base_price = $item['pricing_item_meta_data']['_price'] * $qty;
@@ -1089,8 +1089,8 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 			return;
 		}
 
-		if ( ! wc_has_notice( $message ) ) {
-			wc_add_notice( $message );
+		if ( ! wc_has_notice( $message, 'error' ) ) {
+			wc_add_notice( $message, 'error' );
 		}
 	}
 
@@ -1102,7 +1102,7 @@ class WC_Shipping_Table_Rate extends WC_Shipping_Method {
 	 */
 	private function save_abort_message( $message, $package = null ) {
 		$abort = WC()->session->get( WC_Table_Rate_Shipping::$abort_key );
-		
+
         if ( empty( $abort ) ) {
 			$abort = array();
 		}

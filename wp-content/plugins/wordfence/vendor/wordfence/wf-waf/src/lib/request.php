@@ -609,7 +609,7 @@ class wfWAFRequest implements wfWAFRequestInterface {
 		}
 		$queryString = $this->getQueryString();
 		if ($queryString) {
-			$uri .= '?' . http_build_query($queryString, null, '&');
+			$uri .= '?' . http_build_query($queryString, '', '&');
 		}
 		if (!empty($highlights['queryString'])) {
 			foreach ($highlights['queryString'] as $matches) {
@@ -788,7 +788,7 @@ class wfWAFRequest implements wfWAFRequestInterface {
 				}
 			}
 			
-			if (preg_match('/^multipart\/form\-data;(?:\s*(?!boundary)(?:[^\x00-\x20\(\)<>@,;:\\"\/\[\]\?\.=]+)=[^;]+;)*\s*boundary=([^;]*)(?:;\s*(?:[^\x00-\x20\(\)<>@,;:\\"\/\[\]\?\.=]+)=[^;]+)*$/i', $contentType, $boundaryMatches)) {
+			if (preg_match('/^multipart\/form\-data;(?:\s*(?!boundary)(?:[^\x00-\x20\(\)<>@,;:\\"\/\[\]\?\.=]+)=[^;]+;)*\s*boundary=([^;]*)(?:;\s*(?:[^\x00-\x20\(\)<>@,;:\\"\/\[\]\?\.=]+)=[^;]+)*$/i', (string) $contentType, $boundaryMatches)) {
 				$boundary = $boundaryMatches[1];
 				$bodyArray = array();
 				foreach ($body as $key => $value) {
@@ -868,7 +868,7 @@ FORM;
 				}
 			}
 			else { //Assume application/x-www-form-urlencoded and re-encode the body
-				$body = http_build_query($body, null, '&');
+				$body = http_build_query($body, '', '&');
 				if (!empty($highlights['body'])) {
 					foreach ($highlights['body'] as $matches) {
 						if (!empty($matches['param'])) {

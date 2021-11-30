@@ -13,7 +13,7 @@ if (!wfUtils::isAdmin()) {
 			<th><?php esc_html_e('Time:', 'wordfence') ?></th>
 			<td><?php esc_html_e(sprintf(
 				/* translators: 1. Time ago, example: 2 hours, 40 seconds. 2. Localized date. 3. Unix timestamp.  */
-					__('%1$s ago -- %2$s -- %3$s in Unixtime', 'wordfence'), $v['timeAgo'], date(DATE_RFC822, $v['ctime']), $v['ctime'])) ?></td>
+					__('%1$s ago -- %2$s -- %3$s in Unixtime', 'wordfence'), $v['timeAgo'], date(DATE_RFC822, (int) $v['ctime']), $v['ctime'])) ?></td>
 		</tr>
 		<?php if ($v['timeSinceLastHit']) {
 			echo '<th>' . esc_html__('Seconds since last hit:', 'wordfence') . '</th><td>' . $v['timeSinceLastHit'] . '</td></tr>';

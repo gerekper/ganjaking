@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.3.0
- * @version 1.11.4
+ * @version 1.11.5
  */
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -87,9 +87,9 @@ if ( $product->is_purchasable() && $product->is_in_stock() ) {
 			?>
 
 			<div class="add_to_cart_button_wrap mnm_button">
-				<button type="submit" class="single_add_to_cart_button mnm_add_to_cart_button button alt" value="<?php echo esc_attr( $product->get_id() ); ?>" data-product_id="<?php echo esc_attr( $product->get_id() ); ?>"><?php echo $product->single_add_to_cart_text(); ?></button>
+				<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button mnm_add_to_cart_button button alt" value="<?php echo esc_attr( $product->get_id() ); ?>" data-product_id="<?php echo esc_attr( $product->get_id() ); ?>"><?php echo $product->single_add_to_cart_text(); ?></button>
 			</div>
-			<input type="hidden" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" />
+
 			<?php
 			/**
 			 * woocommerce_after_add_to_cart_button hook.

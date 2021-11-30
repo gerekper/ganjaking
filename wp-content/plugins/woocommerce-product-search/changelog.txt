@@ -1,5 +1,10 @@
 *** WooCommerce Product Search ***
 
+2021.11.25 - version 4.2.1
+* Fixes a comparison bug in the redirect_canonical filter used to avoid redirect loops in certain circumstances.
+* Increased the implicit limit of items for category and attribute filter dropdowns (using 100000 to override the default used by the selectize component's maxOptions parameter).
+* Added the woocommerce_product_search_selectize_max_options filter.
+
 2021.11.09 - version 4.2.0
 * WordPress 5.8 compatible.
 * WooCommerce 5.9 compatible.
