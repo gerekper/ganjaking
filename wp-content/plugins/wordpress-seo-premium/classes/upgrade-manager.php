@@ -110,6 +110,27 @@ class WPSEO_Upgrade_Manager {
 		if ( version_compare( $version_number, '17.4-RC0', '<' ) ) {
 			add_action( 'init', [ $this, 'upgrade_17_4' ], 12 );
 		}
+
+		if ( version_compare( $version_number, '17.7-RC0', '<' ) ) {
+			add_action( 'init', [ $this, 'upgrade_17_7' ], 12 );
+		}
+	}
+
+	/**
+	 * Make sure our options autoload.
+	 *
+	 * @return void
+	 */
+	public function upgrade_17_7() {
+		global $wpdb;
+
+		foreach ( [ WPSEO_Redirect_Option::OPTION_PLAIN, WPSEO_Redirect_Option::OPTION_REGEX ] as $option ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- Normal methods only work if the option value has changed.
+			$wpdb->update( $wpdb->options, [ 'autoload' => 'yes' ], [ 'option_name' => $option ] );
+		}
+
+		// Make sure we don't autoload the non-exported option.
+		$wpdb->update( $wpdb->options, [ 'autoload' => 'no' ], [ 'option_name' => WPSEO_Redirect_Option::OPTION ] );
 	}
 
 	/**

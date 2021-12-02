@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit56fafaadce32ef894fcc479adee297b9
+class ComposerStaticInitaa3a382ad28956eb76852d80c7895322
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -543,6 +543,7 @@ class ComposerStaticInit56fafaadce32ef894fcc479adee297b9
         'Yoast\\WP\\SEO\\Actions\\Addon_Installation\\Addon_Activate_Action' => __DIR__ . '/../..' . '/src/actions/addon-installation/addon-activate-action.php',
         'Yoast\\WP\\SEO\\Actions\\Addon_Installation\\Addon_Install_Action' => __DIR__ . '/../..' . '/src/actions/addon-installation/addon-install-action.php',
         'Yoast\\WP\\SEO\\Actions\\Alert_Dismissal_Action' => __DIR__ . '/../..' . '/src/actions/alert-dismissal-action.php',
+        'Yoast\\WP\\SEO\\Actions\\Configuration\\Configuration_Workout_Action' => __DIR__ . '/../..' . '/src/actions/configuration/configuration-workout-action.php',
         'Yoast\\WP\\SEO\\Actions\\Importing\\Abstract_Importing_Action' => __DIR__ . '/../..' . '/src/actions/importing/abstract-importing-action.php',
         'Yoast\\WP\\SEO\\Actions\\Importing\\Aioseo_Posts_Importing_Action' => __DIR__ . '/../..' . '/src/actions/importing/aioseo-posts-importing-action.php',
         'Yoast\\WP\\SEO\\Actions\\Importing\\Import_Cursor_Manager_Trait' => __DIR__ . '/../..' . '/src/actions/importing/import-cursor-manager-trait.php',
@@ -748,6 +749,8 @@ class ComposerStaticInit56fafaadce32ef894fcc479adee297b9
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Addon_Installation\\Installation_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/addon-installation/installation-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Admin_Columns_Cache_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/admin-columns-cache-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Background_Indexing_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/background-indexing-integration.php',
+        'Yoast\\WP\\SEO\\Integrations\\Admin\\ConfigurationWorkout_Notice_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/configurationworkout-notice-integration.php',
+        'Yoast\\WP\\SEO\\Integrations\\Admin\\Configuration_Workout_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/configuration-workout-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Cron_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/cron-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Disable_Concatenate_Scripts_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/disable-concatenate-scripts-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Fix_News_Dependencies_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/fix-news-dependencies-integration.php',
@@ -803,6 +806,7 @@ class ComposerStaticInit56fafaadce32ef894fcc479adee297b9
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Web_Stories' => __DIR__ . '/../..' . '/src/integrations/third-party/web-stories.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\WooCommerce' => __DIR__ . '/../..' . '/src/integrations/third-party/woocommerce.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Woocommerce_Permalinks' => __DIR__ . '/../..' . '/src/integrations/third-party/woocommerce-permalinks.php',
+        'Yoast\\WP\\SEO\\Integrations\\Uninstall_Integration' => __DIR__ . '/../..' . '/src/integrations/uninstall-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Watchers\\Addon_Update_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/addon-update-watcher.php',
         'Yoast\\WP\\SEO\\Integrations\\Watchers\\Auto_Update_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/auto-update-watcher.php',
         'Yoast\\WP\\SEO\\Integrations\\Watchers\\Indexable_Ancestor_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/indexable-ancestor-watcher.php',
@@ -868,6 +872,7 @@ class ComposerStaticInit56fafaadce32ef894fcc479adee297b9
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Link_Count_Indexing_Modal_Presenter' => __DIR__ . '/../..' . '/src/deprecated/src/presenters/admin/link-count-indexing-modal-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Meta_Fields_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/meta-fields-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Migration_Error_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/migration-error-presenter.php',
+        'Yoast\\WP\\SEO\\Presenters\\Admin\\Notice_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/notice-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Premium_Badge_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/premium-badge-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Bingbot_Presenter' => __DIR__ . '/../..' . '/src/presenters/bingbot-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Breadcrumbs_Presenter' => __DIR__ . '/../..' . '/src/presenters/breadcrumbs-presenter.php',
@@ -911,13 +916,17 @@ class ComposerStaticInit56fafaadce32ef894fcc479adee297b9
         'Yoast\\WP\\SEO\\Repositories\\Primary_Term_Repository' => __DIR__ . '/../..' . '/src/repositories/primary-term-repository.php',
         'Yoast\\WP\\SEO\\Repositories\\SEO_Links_Repository' => __DIR__ . '/../..' . '/src/repositories/seo-links-repository.php',
         'Yoast\\WP\\SEO\\Repositories\\SEO_Meta_Repository' => __DIR__ . '/../..' . '/src/repositories/seo-meta-repository.php',
+        'Yoast\\WP\\SEO\\Routes\\Abstract_Action_Route' => __DIR__ . '/../..' . '/src/routes/abstract-action-route.php',
         'Yoast\\WP\\SEO\\Routes\\Abstract_Indexation_Route' => __DIR__ . '/../..' . '/src/routes/abstract-indexation-route.php',
         'Yoast\\WP\\SEO\\Routes\\Alert_Dismissal_Route' => __DIR__ . '/../..' . '/src/routes/alert-dismissal-route.php',
+        'Yoast\\WP\\SEO\\Routes\\Configuration_Workout_Route' => __DIR__ . '/../..' . '/src/routes/configuration-workout-route.php',
+        'Yoast\\WP\\SEO\\Routes\\Importing_Route' => __DIR__ . '/../..' . '/src/routes/importing-route.php',
         'Yoast\\WP\\SEO\\Routes\\Indexables_Head_Route' => __DIR__ . '/../..' . '/src/routes/indexables-head-route.php',
         'Yoast\\WP\\SEO\\Routes\\Indexing_Route' => __DIR__ . '/../..' . '/src/routes/indexing-route.php',
         'Yoast\\WP\\SEO\\Routes\\Route_Interface' => __DIR__ . '/../..' . '/src/routes/route-interface.php',
         'Yoast\\WP\\SEO\\Routes\\SEMrush_Route' => __DIR__ . '/../..' . '/src/routes/semrush-route.php',
         'Yoast\\WP\\SEO\\Routes\\Supported_Features_Route' => __DIR__ . '/../..' . '/src/routes/supported-features-route.php',
+        'Yoast\\WP\\SEO\\Routes\\Workouts_Route' => __DIR__ . '/../..' . '/src/routes/workouts-route.php',
         'Yoast\\WP\\SEO\\Routes\\Yoast_Head_REST_Field' => __DIR__ . '/../..' . '/src/routes/yoast-head-rest-field.php',
         'Yoast\\WP\\SEO\\Schema_Templates\\Assets\\Icons' => __DIR__ . '/../..' . '/src/schema-templates/assets/icons.php',
         'Yoast\\WP\\SEO\\Services\\Importing\\Importable_Detector' => __DIR__ . '/../..' . '/src/services/importing/importable-detector.php',
@@ -963,9 +972,9 @@ class ComposerStaticInit56fafaadce32ef894fcc479adee297b9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit56fafaadce32ef894fcc479adee297b9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit56fafaadce32ef894fcc479adee297b9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit56fafaadce32ef894fcc479adee297b9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitaa3a382ad28956eb76852d80c7895322::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitaa3a382ad28956eb76852d80c7895322::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitaa3a382ad28956eb76852d80c7895322::$classMap;
 
         }, null, ClassLoader::class);
     }

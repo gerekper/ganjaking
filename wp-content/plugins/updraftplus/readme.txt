@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, DNutbourne, aporter, snigh
 Tags: backup, restore, database backup, wordpress backup, cloud backup, s3, dropbox, google drive, onedrive, ftp, backups
 Requires at least: 3.2
 Tested up to: 5.8
-Stable tag: 1.16.65
+Stable tag: 1.16.66
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -169,9 +169,13 @@ The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the b
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
 
 
+= 1.16.66 - 29/Nov/2021 =
+
+* SECURITY: The fix made in 1.16.65 was faulty; this release corrects it.
+
 = 1.16.65 - 25/Nov/2021 =
 
-* SECURITY: Fix a non-persistent XSS error allowing an attacker to once run JavaScript in your web browser if you clicked on a link crafted personally for your site whilst logged into it. Discovered by Cryptotipit.
+* SECURITY: Fix a non-persistent XSS error allowing an attacker to once run JavaScript in your web browser if you clicked on a link crafted personally for your site whilst logged into it. Discovered by Krzysztof Zając.
 * TWEAK: Premium - add review link at bottom of admin
 
 = 1.16.64 - 24/Nov/2021 =
@@ -1413,4 +1417,4 @@ Reliance upon any non-English translation is at your own risk; UpdraftPlus can g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.16.65: Fixes a non-persistent reflected XSS issue. Do not create a zip manifest file if the zip is still potentially incomplete. Faster Dropbox uploads. A recommended update for all.
+* 1.16.66: Fixes a non-persistent reflected XSS issue. Do not create a zip manifest file if the zip is still potentially incomplete. Faster Dropbox uploads. A recommended update for all.

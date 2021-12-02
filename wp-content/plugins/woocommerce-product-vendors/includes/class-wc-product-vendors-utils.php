@@ -395,7 +395,7 @@ class WC_Product_Vendors_Utils {
 
 		$product_terms = wp_get_object_terms( $product_id, WC_PRODUCT_VENDORS_TAXONOMY, array( 'fields' => 'ids' ) );
 
-		if ( null === $product_terms || empty( $product_terms ) ) {
+		if ( empty( $product_terms ) || is_wp_error( $product_terms ) ) {
 			return false;
 		}
 

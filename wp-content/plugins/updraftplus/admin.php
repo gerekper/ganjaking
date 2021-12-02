@@ -4771,7 +4771,7 @@ ENDHERE;
 		// on restore start job_id is empty but if we needed file system permissions or this is a resumption then we have already started a job so reuse it
 		$restore_job_id = empty($_REQUEST['job_id']) ? false : stripslashes($_REQUEST['job_id']);
 		
-		if (false !== $restore_job_id && !preg_match('/^[0-9a-f]+$/', $restore_job_id)) die('Invalid request.'.serialize($restore_job_id));
+		if (false !== $restore_job_id && !preg_match('/^[0-9a-f]+$/', $restore_job_id)) die('Invalid request (restore_job_id).');
 
 		// Set up nonces, log files etc.
 		$updraftplus->initiate_restore_job($restore_job_id);

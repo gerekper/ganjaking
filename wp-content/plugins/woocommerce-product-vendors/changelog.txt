@@ -1,5 +1,10 @@
 *** Product Vendors Changelog ***
 
+2021-11-30 - version 2.1.58
+* Fix - check if `wp_get_object_terms` response is `WP_Error`.
+* Tweak - WC 5.9 compatibility.
+* Tweak - WP 5.8 compatibility.
+
 2021-10-20 - version 2.1.57
 * Fix - Added validation for default product cost and handling fee fields.
 * Fix - Show refunded quantity in the vendor order details.

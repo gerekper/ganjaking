@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '536bacc9f50ed13acb7c0b3c76ccb5f74d47ec35',
+        'reference' => '6140b0d67c14665d2ad5d6a30e5c939c1eee8c24',
         'name' => 'updraftplus/updraftplus',
         'dev' => false,
     ),
@@ -298,7 +298,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '536bacc9f50ed13acb7c0b3c76ccb5f74d47ec35',
+            'reference' => '6140b0d67c14665d2ad5d6a30e5c939c1eee8c24',
             'dev_requirement' => false,
         ),
         'vakata/jstree' => array(

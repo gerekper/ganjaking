@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitefc891bb95e3416c909f62c11719def4
+class ComposerStaticInite384bf91234e8d3422dc7319bd446f88
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -188,6 +188,7 @@ class ComposerStaticInitefc891bb95e3416c909f62c11719def4
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_PostType_Archive' => __DIR__ . '/../..' . '/src/integrations/opengraph-posttype-archive.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Post_Type' => __DIR__ . '/../..' . '/src/integrations/opengraph-post-type.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive' => __DIR__ . '/../..' . '/src/integrations/opengraph-term-archive.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Routes\\Workouts_Routes_Integration' => __DIR__ . '/../..' . '/src/integrations/routes/workouts-routes-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia' => __DIR__ . '/../..' . '/src/integrations/third-party/algolia.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium' => __DIR__ . '/../..' . '/src/integrations/third-party/elementor-premium.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier' => __DIR__ . '/../..' . '/src/integrations/third-party/zapier.php',
@@ -223,9 +224,9 @@ class ComposerStaticInitefc891bb95e3416c909f62c11719def4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitefc891bb95e3416c909f62c11719def4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitefc891bb95e3416c909f62c11719def4::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitefc891bb95e3416c909f62c11719def4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite384bf91234e8d3422dc7319bd446f88::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite384bf91234e8d3422dc7319bd446f88::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite384bf91234e8d3422dc7319bd446f88::$classMap;
 
         }, null, ClassLoader::class);
     }

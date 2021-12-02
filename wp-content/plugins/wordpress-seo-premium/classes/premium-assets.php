@@ -1,4 +1,4 @@
-<?php // phpcs:ignore Yoast.Files.FileName.InvalidClassFileName
+<?php
 /**
  * WPSEO Premium plugin file.
  *
@@ -107,7 +107,7 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 					'wp-i18n',
 					'yoast-seo-premium-commons',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'analysis',
-					WPSEO_Admin_Asset_Manager::PREFIX . 'editor-modules',
+					WPSEO_Admin_Asset_Manager::PREFIX . 'admin-modules',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'react-select',
 					WPSEO_Admin_Asset_Manager::PREFIX . 'yoast-components',
 				],

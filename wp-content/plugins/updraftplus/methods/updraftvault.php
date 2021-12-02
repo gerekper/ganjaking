@@ -561,6 +561,7 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 	 */
 	protected function s3_get_quota_info($format = 'numeric', $quota = 0) {
 		$ret = '';
+		$counted = 0;
 
 		if ($quota > 0) {
 
@@ -587,7 +588,6 @@ class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 
 
 			$ret .= __('Current use:', 'updraftplus').' ';
 
-			$counted = false;
 			if (is_wp_error($current_files)) {
 				$ret .= __('Error:', 'updraftplus').' '.$current_files->get_error_message().' ('.$current_files->get_error_code().')';
 			} elseif (!is_array($current_files)) {

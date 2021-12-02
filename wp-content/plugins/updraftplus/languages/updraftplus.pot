@@ -6550,7 +6550,7 @@ msgstr ""
 msgid "You can get more quota here"
 msgstr ""
 
-#: src/methods/updraftvault.php:529, src/methods/updraftvault.php:545, src/methods/updraftvault.php:588
+#: src/methods/updraftvault.php:529, src/methods/updraftvault.php:545, src/methods/updraftvault.php:589
 msgid "Current use:"
 msgstr ""
 
