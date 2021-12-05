@@ -958,7 +958,8 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 			return null;
 		}
 
-		$val = $this->getGMNavMenuMetaWithCheck( $item_id, self::MENU_BLOCK_URL, true );
+		// groovy_menu_block_url
+		$val = get_post_meta( $item_id, self::MENU_BLOCK_URL, true );
 		$val = $val ? esc_url( $val ) : $reserveUrl;
 
 		return $val;

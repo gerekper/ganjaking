@@ -2702,4 +2702,8 @@ NAVBAR GENERAL STYLES
   display: flex;
   align-items: center; }
 
+.gm-navigation-drawer--mobile:not(.gm-navigation-drawer--open) .gm-menu-btn-close-mobile-drawer {
+  visibility: hidden;
+  opacity: 0; }
+
 /* rtl:end:ignore */

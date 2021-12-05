@@ -45,6 +45,7 @@ class AdminWalker extends WalkerNavMenu {
 
 		add_filter( 'wp_edit_nav_menu_walker', '\GroovyMenu\AdminWalker::get_edit_walker', $admin_walker_priority, 2 );
 		add_filter( 'wp_setup_nav_menu_item', '\GroovyMenu\AdminWalker::setup_fields' );
+		add_action( 'wp_update_nav_menu_item', '\GroovyMenu\AdminWalker::save_nav_menu', 10, 3 );
 
 	}
 
@@ -338,18 +339,18 @@ class AdminWalker extends WalkerNavMenu {
 				</label>
 			</p>
 			<?php if ( $gm_menu_block ) : ?>
-				<p class="description description-wide groovymenu-block-url">
+				<p class="description description-wide groovy_menu_block_url">
 					<?php
 					$value = $this->menuBlockURL( $item );
 					if ( ! $value ) {
 						$value = '';
 					}
 					?>
-					<label for="groovymenu-block-url-<?php echo esc_attr( $item_id ); ?>">
+					<label for="groovy_menu_block_url-<?php echo esc_attr( $item_id ); ?>">
 						<?php esc_html_e( 'Menu block URL', 'groovy-menu' ); ?><br/>
-						<input type="text" id="groovymenu-block-url-<?php echo esc_attr( $item_id ); ?>"
-							class="widefat code groovymenu-block-url"
-							name="groovymenu-block-url[<?php echo esc_attr( $item_id ); ?>]"
+						<input type="text" id="groovy_menu_block_url-<?php echo esc_attr( $item_id ); ?>"
+							class="widefat code groovy_menu_block_url"
+							name="groovy_menu_block_url[<?php echo esc_attr( $item_id ); ?>]"
 							value="<?php echo esc_attr( $value ); ?>"/>
 					</label>
 				</p>
@@ -474,5 +475,29 @@ class AdminWalker extends WalkerNavMenu {
 		<?php
 		$output .= ob_get_clean();
 	}
+
+
+	public static function save_nav_menu( $menu_id, $menu_item_db_id, $menu_item_args ) {
+
+		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || ! isset( $_POST['update-nav-menu-nonce'] ) ) {
+			return;
+		}
+
+		check_admin_referer( 'update-nav_menu', 'update-nav-menu-nonce' );
+
+		if ( ! empty( $menu_item_args['menu-item-object'] ) && 'gm_menu_block' === $menu_item_args['menu-item-object'] ) {
+			if ( ! empty( $_POST[ self::MENU_BLOCK_URL ] ) && ! empty( $_POST[ self::MENU_BLOCK_URL ][ $menu_item_db_id ] ) ) {
+				$menublock_url = esc_url( $_POST[ self::MENU_BLOCK_URL ][ $menu_item_db_id ] );
+
+				if ( $menublock_url ) {
+					update_post_meta( $menu_item_db_id, self::MENU_BLOCK_URL, $menublock_url );
+				} else {
+					delete_post_meta( $menu_item_db_id, self::MENU_BLOCK_URL );
+				}
+			}
+
+		}
+	}
+
 
 }

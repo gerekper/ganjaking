@@ -229,6 +229,11 @@ function groovyMenu( $args = array() ) {
 	}
 
 
+	if ( method_exists( 'GroovyMenuUtils', 'enquare_styles_recompile' ) ) {
+		GroovyMenuUtils::enquare_styles_recompile( $compiled_css, $groovyMenuSettings['version'] );
+	}
+
+
 	/**
 	 * Google Font link building
 	 */
@@ -948,7 +953,7 @@ function groovyMenu( $args = array() ) {
 	}
 
 
-	if ( ( $groovyMenuSettings['mobileIndependentCssHamburger'] && $groovyMenuSettings['mobileIndependentCssHamburgerFloat'] && 2 !== $header_style ) || $groovyMenuSettings['mobileCustomHamburger'] ) {
+	if ( $groovyMenuSettings['mobileCustomHamburger'] ) {
 
 
 		if ( $groovyMenuSettings['mobileCustomHamburger'] ) {
@@ -985,7 +990,7 @@ function groovyMenu( $args = array() ) {
 
 			$output_html .= '<div class="gm-menu-btn gm-burger hamburger">' . $menu_button_text_full . '<div class="hamburger-box"><div class="hamburger-inner"></div></div></div>';
 
-		} elseif ( $groovyMenuSettings['mobileIndependentCssHamburger'] && ! $groovyMenuSettings['mobileIndependentCssHamburgerFloat'] && 2 !== $header_style ) {
+		} elseif ( 2 !== $header_style && $groovyMenuSettings['mobileIndependentCssHamburger'] ) {
 
 			$output_html .= '<div class="gm-menu-btn gm-burger hamburger">' . $menu_button_text_full . '<div class="hamburger-box"><div class="hamburger-inner"></div></div></div>';
 
@@ -1028,10 +1033,31 @@ function groovyMenu( $args = array() ) {
 
 	$output_html .= '<div class="gm-main-menu-wrapper">';
 
-	if ( 2 === $header_style && $groovyMenuSettings['minimalisticMenuFullscreen'] ) {
+	if ( 2 === $header_style && $groovyMenuSettings['minimalisticMenuFullscreen'] && ! $groovyMenuSettings['minimalisticMenuShowCloseButton'] ) {
 		$output_html .= '<span class="gm-fullscreen-close" aria-label="close"><svg height="32" width="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
     <path fill-rule="evenodd" d="M 16 32 C 7.16 32 0 24.84 0 16 C 0 7.16 7.16 0 16 0 C 24.84 0 32 7.16 32 16 C 32 24.84 24.84 32 16 32 Z M 16 2 C 8.27 2 2 8.27 2 16 C 2 23.73 8.27 30 16 30 C 23.73 30 30 23.73 30 16 C 30 8.27 23.73 2 16 2 Z M 17.35 16 C 17.35 16 20.71 19.37 20.71 19.37 C 21.09 19.74 21.09 20.34 20.71 20.71 C 20.34 21.09 19.74 21.09 19.37 20.71 C 19.37 20.71 16 17.35 16 17.35 C 16 17.35 12.63 20.71 12.63 20.71 C 12.26 21.09 11.66 21.09 11.29 20.71 C 10.91 20.34 10.91 19.74 11.29 19.37 C 11.29 19.37 14.65 16 14.65 16 C 14.65 16 11.29 12.63 11.29 12.63 C 10.91 12.26 10.91 11.66 11.29 11.29 C 11.66 10.91 12.26 10.91 12.63 11.29 C 12.63 11.29 16 14.65 16 14.65 C 16 14.65 19.37 11.29 19.37 11.29 C 19.74 10.91 20.34 10.91 20.71 11.29 C 21.09 11.66 21.09 12.26 20.71 12.63 C 20.71 12.63 17.35 16 17.35 16 Z" />
 </svg></span>';
+	}
+
+	if ( 2 === $header_style && $groovyMenuSettings['minimalisticMenuShowCloseButton'] ) {
+		$output_html .= '<div class="gm-menu-btn-close-drawer">';
+		if ( $groovyMenuSettings['minimalisticCssHamburger'] ) {
+
+			$output_html .= '<div class="hamburger is-active ' . $groovyMenuSettings['minimalisticCssHamburgerType'] . '"><div class="hamburger-box"><div class="hamburger-inner"></div></div></div>';
+
+		} else {
+			$output_html .= '<span class="gm-menu-btn">';
+			$output_html .= '	<span class="gm-menu-btn__inner">';
+
+			$menu_icon = 'fa fa-bars';
+			if ( ! empty( $styles->getGlobal( 'misc_icons', 'close_icon' ) ) ) {
+				$menu_icon = $styles->getGlobal( 'misc_icons', 'close_icon' );
+			}
+			$output_html .= '	<i class="' . esc_attr( $menu_icon ) . '"></i>';
+			$output_html .= '	</span>';
+			$output_html .= '</span>';
+		}
+		$output_html .= '</div>';
 	}
 
 	$output_html .= '<nav id="gm-main-menu">';
@@ -1299,23 +1325,31 @@ function groovyMenu( $args = array() ) {
 		}
 		$output_html .= '">';
 
-		if ( $groovyMenuSettings['mobileIndependentCssHamburger'] && $groovyMenuSettings['mobileIndependentCssHamburgerFloat'] && 2 !== $header_style && ! $groovyMenuSettings['mobileCustomHamburger'] ) {
-			$output_html .= '<div class="gm-burger hamburger"><div class="hamburger-box"><div class="hamburger-inner"></div></div></div>';
-		}
-
 		$output_html .= '<div class="gm-grid-container d-flex flex-column h-100">';
 
-		if ( $groovyMenuSettings['mobileOffcanvasFullwidth'] && ! ( $groovyMenuSettings['mobileIndependentCssHamburger'] && $groovyMenuSettings['mobileIndependentCssHamburgerFloat']) ) {
-			$output_html .= '
-			<div class="gm-menu-btn gm-hamburger-close" aria-label="close">
-				<div class="gm-menu-btn__inner">';
-			$menu_icon   = 'fa fa-times';
-			if ( ! empty( $styles->getGlobal( 'misc_icons', 'close_icon' ) ) ) {
-				$menu_icon = $styles->getGlobal( 'misc_icons', 'close_icon' );
+		if ( $groovyMenuSettings['mobileMenuShowCloseButton'] ) {
+			$output_html .= '<div class="gm-menu-btn-close-mobile-drawer gm-hamburger-close" aria-label="close">';
+
+			if ( ( 2 === $header_style && $groovyMenuSettings['minimalisticCssHamburger'] ) || ( $groovyMenuSettings['mobileIndependentCssHamburger'] && 2 !== $header_style ) ){
+
+				$hamburgerType = (2 === $header_style) ? $groovyMenuSettings['minimalisticCssHamburgerType'] : $groovyMenuSettings['mobileIndependentCssHamburgerType'];
+
+				$output_html .= '<div class="hamburger is-active ' . esc_attr( $hamburgerType ) . '"><div class="hamburger-box"><div class="hamburger-inner"></div></div></div>';
+
+			} else {
+				$output_html .= '<span class="gm-menu-btn">';
+				$output_html .= '	<span class="gm-menu-btn__inner">';
+
+				$menu_icon = 'fa fa-bars';
+				if ( ! empty( $styles->getGlobal( 'misc_icons', 'close_icon' ) ) ) {
+					$menu_icon = $styles->getGlobal( 'misc_icons', 'close_icon' );
+				}
+				$output_html .= '	<i class="' . esc_attr( $menu_icon ) . '"></i>';
+				$output_html .= '	</span>';
+				$output_html .= '</span>';
 			}
-			$output_html .= '	<i class="' . esc_attr( $menu_icon ) . '"></i>
-				</div>
-			</div>';
+
+			$output_html .= '</div>';
 		}
 
 		ob_start();
@@ -1545,6 +1579,28 @@ function groovyMenu( $args = array() ) {
  *
  */
 function gm_wp_nav_menu( $args = array() ) {
+	global $groovyMenuSettings;
+
+	if ( ! empty( $args['menu'] ) || ! empty( $args['gm_preset_id'] ) ) {
+		\GroovyMenu\PreStorage::get_instance()->remove_all_gm();
+	}
+
+	$defaults_args = array(
+		'menu'           => 'default',
+		'gm_preset_id'   => 'default',
+		'echo'           => false,
+		'gm_echo'        => true,
+		'gm_pre_storage' => false,
+		'depth'          => 0, // limit the depth of the nav.
+		'is_disable'     => false,
+	);
+
+	$args = shortcode_atts( $defaults_args, $args, '' );
+
+	if ( ! empty( $args['gm_preset_id'] ) ) {
+		$groovyMenuSettings['preset']['id'] = $args['gm_preset_id'];
+	}
+
 	return groovyMenu( $args );
 }
 

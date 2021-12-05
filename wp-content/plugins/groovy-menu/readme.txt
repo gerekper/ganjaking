@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.8
-Stable tag: 2.5.11
+Stable tag: 2.6.0
 Requires PHP: 7.0
 License: Themeforest Split Licence
 License URI: -
@@ -66,9 +66,20 @@ Source: https://select2.github.io/
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
 
+= 2.6.0 =
+* Improve: The plugin has been highly optimized, the size of the main frontend.js file has been reduced by more than 3 times.
+* Fix: Fixed display of mobile hamburger in some cases.
+
+= 2.5.12 =
+* Add: Added the ability to display the "X" icon for closing the menu for the mobile version, without using the "Animated Hamburger menu" setting.
+* Add: New feature for displaying the close icon "X" of the menu for the desktop version of Minimalistic style.
+* Add: New setting for vertical positioning of menu items in the desktop Minimalistic style "Menu list alignment".
+* Add: New setting for mobile positioning of menu items in the horizontal plane "Menu items horizontal Align".
+* Fix: Now in the desktop the Minimalistic style submenu matches the width of the setting in "General > Submenu > Submenu width".
+
 = 2.5.11 =
 * Fix: Fixed logic for choosing one active menu integration under the integrations section.
-* Fix: Determinated and fixed a bug with incorect working of background image on iOS devices with active option "background-size: cover".
+* Fix: Determinated and fixed a bug with incorrect working of background image on iOS devices with active option "background-size: cover".
 * Fix: Fixed bug with some sub-menu opening on iPad.
 
 = 2.5.10 =

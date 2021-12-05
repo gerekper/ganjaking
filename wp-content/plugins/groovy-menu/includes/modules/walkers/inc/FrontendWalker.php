@@ -525,7 +525,7 @@ class FrontendWalker extends WalkerNavMenu {
 			}
 
 			if ( $this->hideOnMobile( $this->currentItem ) ) {
-				$classes[] = 'gm-hide-on-mobile';
+				$classes[] = 'gm-hide-on-mobile gm-hide-on-mobile-by-option';
 			}
 
 			if ( $this->preventAutoclose( $this->currentItem ) ) {
