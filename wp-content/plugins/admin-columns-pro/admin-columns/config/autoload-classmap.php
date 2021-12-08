@@ -19,7 +19,7 @@ return array (
   'AC\\Admin\\MenuFactoryInterface' => $dir . '/classes/Admin/MenuFactoryInterface.php',
   'AC\\Admin\\Menu\\Item' => $dir . '/classes/Admin/Menu/Item.php',
   'AC\\Admin\\NetworkRequestHandler' => $dir . '/classes/Admin/NetworkRequestHandler.php',
-  'AC\\Admin\\Notice\\ReadOnly' => $dir . '/classes/Admin/Notice/ReadOnly.php',
+  'AC\\Admin\\Notice\\ReadOnlyListScreen' => $dir . '/classes/Admin/Notice/ReadOnlyListScreen.php',
   'AC\\Admin\\PageFactory' => $dir . '/classes/Admin/PageFactory.php',
   'AC\\Admin\\PageFactoryInterface' => $dir . '/classes/Admin/PageFactoryInterface.php',
   'AC\\Admin\\PageRequestHandler' => $dir . '/classes/Admin/PageRequestHandler.php',

@@ -1,4 +1,9 @@
 *** WooCommerce Variation Swatches and Photos ***
+2021.11.30 - version 3.1.5
+    * Update:  Make configuration object properties public.
+    * Update:  Fix the plugin link.
+
+
 2021.07.27 - version 3.1.4
     * Version:  WP and WC compatibility tags
 

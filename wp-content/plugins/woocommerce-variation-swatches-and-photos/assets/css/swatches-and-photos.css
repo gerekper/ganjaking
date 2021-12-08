@@ -49,7 +49,7 @@
 }
 
 div.swatch-wrapper.selected  {
-    border:2px solid green; /* this is grey, change to what you want */
+    border:2px solid green; /* this is green, change to what you want */
     padding:1px;
 }
 

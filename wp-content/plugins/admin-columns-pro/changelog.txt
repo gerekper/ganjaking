@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 5.6.4 =
+Release Date: December 6th, 2021
+
+* [Hotfix] The ReadOnly class is renamed because it gave a fatal error in PHP 8.1
+
 = 5.6.3 =
 Release Date: November 22nd, 2021
 

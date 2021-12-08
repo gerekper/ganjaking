@@ -2,9 +2,9 @@
 
 class WC_Swatches_Attribute_Configuration_Object {
 
-	private $_attribute_name;
-	private $_swatch_options;
-	private $_product;
+	public $_attribute_name;
+	public $_swatch_options;
+	public $_product;
 
 	/**
 	 *
