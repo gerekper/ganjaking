@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Stores error/notice messages returned by restrictions.
  *
  * @class    WC_CSP_Check_Result
- * @version  1.4.0
+ * @version  1.11.0
  * @author   SomewhereWarm
  *
  */
@@ -38,9 +38,10 @@ class WC_CSP_Check_Result {
 	 * @param   string  $message_code
 	 * @param   string  $message_text
 	 * @param   string  $message_type
+	 * @param   array   $debug_info (Optional)
 	 * @return  boolean
 	 */
-	public function add( $message_code, $message_text, $message_type = 'error' ) {
+	public function add( $message_code, $message_text, $message_type = 'error', $debug_info = array() ) {
 
 		if ( $message_code && $message_text ) {
 
@@ -49,6 +50,10 @@ class WC_CSP_Check_Result {
 			$message[ 'text' ] = $message_text;
 			$message[ 'type' ] = $message_type;
 
+			if ( WC_CSP_Debugger::is_running() ) {
+				$message[ 'debug_info' ] = $debug_info;
+			}
+
 			// Prevent duplicate messages.
 			foreach ( $this->messages as $check_message ) {
 				if ( $check_message === $message ) {
@@ -56,7 +61,7 @@ class WC_CSP_Check_Result {
 				}
 			}
 
-			$this->messages[]  = $message;
+			$this->messages[] = $message;
 
 			return true;
 		}
@@ -99,7 +104,7 @@ class WC_CSP_Check_Result {
 					$messages[] = $message;
 				} elseif ( $type && $message[ 'type' ] === $type ) {
 					$messages[] = $message;
-				} else {
+				} elseif ( ! $code && ! $type ) {
 					$messages[] = $message;
 				}
 			}

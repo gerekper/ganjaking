@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Selected Billing Country Condition.
  *
  * @class    WC_CSP_Condition_Billing_Country_State
- * @version  1.9.0
+ * @version  1.11.0
  */
 class WC_CSP_Condition_Billing_Country_State extends WC_CSP_Condition {
 
@@ -82,9 +82,32 @@ class WC_CSP_Condition_Billing_Country_State extends WC_CSP_Condition {
 			$billing_state = apply_filters( 'woocommerce_csp_billing_country_condition_default_state', $billing_state, $data, $args );
 		}
 
+		$billing_continents        = $this->get_billing_continents();
+		$formatted_condition_value = array();
+
+		// Map continents to the countries they contain.
+		foreach ( $data[ 'value' ] as $value ) {
+
+			if ( strpos( $value, 'country:' ) !== false ) {
+				$value                       = str_replace( 'country:', '', $value );
+				$formatted_condition_value[] = $value;
+
+			} elseif ( strpos( $value, 'continent:' ) !== false ) {
+				$value                   = str_replace( 'continent:', '', $value );
+				$countries_per_continent = $billing_continents[ $value ][ 'countries' ];
+
+				foreach ( $countries_per_continent as $country_in_continent ) {
+					$formatted_condition_value[] = $country_in_continent;
+				}
+			} else {
+				// Backwards compatible.
+				$formatted_condition_value[] = $value;
+			}
+		}
+
 		if ( $this->modifier_is( $data[ 'modifier' ], array( 'in' ) ) ) {
 
-			if ( in_array( $billing_country, $data[ 'value' ] ) ) {
+			if ( in_array( $billing_country, $formatted_condition_value ) ) {
 
 				// No states defined in condition?
 				if ( empty( $data[ 'states' ] ) || empty( $data[ 'states' ][ $billing_country ] ) ) {
@@ -106,7 +129,7 @@ class WC_CSP_Condition_Billing_Country_State extends WC_CSP_Condition {
 		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-in') ) ) {
 
 			// Country defined in condition not selected?
-			if ( ! in_array( $billing_country, $data[ 'value' ] ) ) {
+			if ( ! in_array( $billing_country, $formatted_condition_value ) ) {
 
 				$is_matching = true;
 
@@ -146,16 +169,14 @@ class WC_CSP_Condition_Billing_Country_State extends WC_CSP_Condition {
 
 				$processed_condition_data[ 'states' ] = array();
 
-				$country_states = array_map( 'stripslashes', $posted_condition_data[ 'states' ] );
+				$states_per_country = array_map( 'stripslashes', $posted_condition_data[ 'states' ] );
 
-				foreach ( $country_states as $country_state_key ) {
+				foreach ( $states_per_country as $country_state_key ) {
 					$country_state_key = explode( ':', $country_state_key );
 					$country_key       = current( $country_state_key );
 					$state_key         = end( $country_state_key );
 
-					if ( in_array( $country_key, $processed_condition_data[ 'value' ] ) ) {
-						$processed_condition_data[ 'states' ][ $country_key ][] = $state_key;
-					}
+					$processed_condition_data[ 'states' ][ $country_key ][] = $state_key;
 				}
 			}
 
@@ -171,28 +192,56 @@ class WC_CSP_Condition_Billing_Country_State extends WC_CSP_Condition {
 	 * @param  int    $index
 	 * @param  int    $condition_index
 	 * @param  array  $condition_data
-	 * @return str
+	 * @return void
 	 */
 	public function get_admin_fields_html( $index, $condition_index, $condition_data ) {
 
-		$countries = array();
-		$states    = array();
-		$modifier  = '';
+		// Contains all selected continents.
+		$selected_continents = array();
 
+		// Contains all selected countries.
+		$selected_countries  = array();
+
+		// Contains all selected states.
+		$selected_states     = array();
+
+		// Contains the selected modifier.
+		$selected_modifier   = '';
+
+		// Parse condition data and separate continents and countries.
 		if ( ! empty( $condition_data[ 'value' ] ) ) {
-			$countries = $condition_data[ 'value' ];
+			$data = $condition_data[ 'value' ];
+
+			foreach ( $data as $value ) {
+				if ( false !== strpos( $value, 'country:' ) ) {
+					$value                = str_replace( 'country:', '', $value );
+					$selected_countries[] = $value;
+				} elseif ( false !== strpos( $value, 'continent:' ) ) {
+					$value                 = str_replace( 'continent:', '', $value );
+					$selected_continents[] = $value;
+				} else {
+					// Backwards compatible.
+					$selected_countries[] = $value;
+				}
+			}
 		}
 
 		if ( ! empty( $condition_data[ 'states' ] ) ) {
-			$states = $condition_data[ 'states' ];
+			$selected_states = $condition_data[ 'states' ];
 		}
 
 		if ( ! empty( $condition_data[ 'modifier' ] ) ) {
-			$modifier = $condition_data[ 'modifier' ];
+			$selected_modifier = $condition_data[ 'modifier' ];
 		}
 
-		$billing_countries = WC()->countries->get_allowed_countries();
-		$billing_states    = WC()->countries->get_allowed_country_states();
+		// Contains all available Billing Countries.
+		$billing_countries_directory = WC()->countries->get_allowed_countries();
+
+		// Contains all available Billing States.
+		$billing_states_directory    = WC()->countries->get_allowed_country_states();
+
+		// Contains all available Billing continents.
+		$billing_continents_directory = $this->get_billing_continents();
 
 		?>
 		<input type="hidden" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][condition_id]" value="<?php echo $this->id; ?>" />
@@ -200,16 +249,22 @@ class WC_CSP_Condition_Billing_Country_State extends WC_CSP_Condition {
 			<div class="condition_modifier">
 				<div class="sw-enhanced-select">
 					<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][modifier]">
-						<option value="in" <?php selected( $modifier, 'in', true ) ?>><?php echo __( 'is', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
-						<option value="not-in" <?php selected( $modifier, 'not-in', true ) ?>><?php echo __( 'is not', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="in" <?php selected( $selected_modifier, 'in', true ) ?>><?php echo __( 'is', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
+						<option value="not-in" <?php selected( $selected_modifier, 'not-in', true ) ?>><?php echo __( 'is not', 'woocommerce-conditional-shipping-and-payments' ); ?></option>
 					</select>
 				</div>
 			</div>
 			<div class="condition_value select-field">
 				<select class="csp_billing_countries multiselect sw-select2" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value][]" multiple="multiple" data-placeholder="<?php _e( 'Select billing countries&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 					<?php
-						foreach ( $billing_countries as $key => $val ) {
-							echo '<option value="' . esc_attr( $key ) . '" ' . selected( in_array( $key, $countries ), true, false ).'>' . $val . '</option>';
+						foreach ( $billing_continents_directory as $continent_code => $continent ) {
+							echo '<option value="continent:' . esc_attr( $continent_code ) . '"' . selected( in_array( $continent_code, $selected_continents ), true, false ) . '>' . esc_html( $continent[ 'name' ] ) . '</option>';
+
+							$countries_per_continent = array_intersect( array_keys( $billing_countries_directory ), $continent[ 'countries' ] );
+
+							foreach ( $countries_per_continent as $country_code ) {
+								echo '<option value="country:' . esc_attr( $country_code ) . '"' . selected( in_array( $country_code, $selected_countries ), true, false ) . '>' . esc_html( '&nbsp;&nbsp; ' . $billing_countries_directory[ $country_code ] ) . '</option>';
+							}
 						}
 					?>
 				</select>
@@ -226,33 +281,32 @@ class WC_CSP_Condition_Billing_Country_State extends WC_CSP_Condition {
 			<div class="condition_value excluded_states select-field">
 				<select class="csp_billing_states multiselect sw-select2" name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][states][]" multiple="multiple" data-placeholder="<?php _e( 'Limit restriction to specific states or regions&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 					<?php
-						if ( ! empty( $countries ) ) {
-							foreach ( $countries as $country_key ) {
 
-								if ( ! isset( $billing_countries[ $country_key ] ) ) {
+						// If condition value includes a continent, then map it to the countries it contains.
+						if ( ! empty( $selected_continents ) ) {
+							$selected_countries = $this->populate_continent_countries( $selected_continents, $selected_countries, $billing_continents_directory, $billing_countries_directory );
+						}
+
+						// Remove duplicate countries. A country can be added both as part of a continent + as standalone.
+						$selected_countries = array_unique( $selected_countries );
+
+						// Associate the country codes with the country names.
+						if ( ! empty( $selected_countries ) ) {
+
+							foreach ( $selected_countries as $country_code ) {
+								if ( ! isset( $billing_countries_directory[ $country_code ] ) ) {
 									continue;
 								}
-
-								if ( empty( $billing_states[ $country_key ] ) ) {
-									continue;
-								}
-
-								if ( $country_states = $billing_states[ $country_key ] ) {
-
-									$country_value = $billing_countries[ $country_key ];
-
-									echo '<optgroup label="' . esc_attr( $country_value ) . '">';
-										foreach ( $country_states as $state_key => $state_value ) {
-											echo '<option value="' . esc_attr( $country_key ) . ':' . $state_key . '"';
-											if ( ! empty( $states[ $country_key ] ) && in_array( $state_key, $states[ $country_key ] ) ) {
-												echo ' selected="selected"';
-											}
-											echo '>' . $country_value . ' &ndash; ' . $state_value . '</option>';
-										}
-									echo '</optgroup>';
-								}
+								$selected_countries[ $country_code ] = $billing_countries_directory[ $country_code ];
 							}
 						}
+
+						// Sort countries based on their name -- not code.
+						asort( $selected_countries );
+
+						// Print the states for each of the selected countries that has states.
+						$this->print_states( $selected_countries, $selected_states, $billing_states_directory );
+
 					?>
 				</select>
 				<div class="condition_form_row">
@@ -261,5 +315,88 @@ class WC_CSP_Condition_Billing_Country_State extends WC_CSP_Condition {
 				</div>
 			</div>
 		</div><?php
+	}
+
+	/*
+	*
+	* Helpers.
+	*
+	*/
+
+	/**
+	 * Update countries array to include the countries of each selected continent.
+	 *
+	 * @param  array  $selected_continents
+	 * @param  array  $selected_countries
+	 * @param  array  $billing_continents_directory
+	 * @param  array  $billing_countries_directory
+	 *
+	 * @return array
+	 */
+	public function populate_continent_countries( $selected_continents, $selected_countries, $billing_continents_directory, $billing_countries_directory ) {
+
+		foreach ( $selected_continents as $continent_id ) {
+			$current_continent       = $billing_continents_directory[ $continent_id ];
+			$countries_per_continent = array_intersect( array_keys( $billing_countries_directory ), $current_continent[ 'countries' ] );
+
+			foreach ( $countries_per_continent as $countries_list ) {
+				$selected_countries[] = $countries_list;
+			}
+		}
+
+		return $selected_countries;
+	}
+
+	/**
+	 * Prints states per country.
+	 *
+	 * @param  array  $selected_countries
+	 * @param  array  $selected_states
+	 * @param  array  $billing_states_directory
+	 */
+	public function print_states( $selected_countries, $selected_states, $billing_states_directory ) {
+
+		foreach ( $selected_countries as $country_code => $country_name ) {
+
+			if ( ! isset( $billing_states_directory[ $country_code ] ) || empty( $billing_states_directory[ $country_code ] ) ) {
+				continue;
+			}
+
+			$states_per_country = $billing_states_directory[ $country_code ];
+
+			if ( empty( $states_per_country ) ) {
+				continue;
+			}
+
+			echo '<optgroup label="' . esc_attr( $country_name ) . '">';
+			foreach ( $states_per_country as $state_key => $state_value ) {
+				echo '<option value="' . esc_attr( $country_code ) . ':' . $state_key . '"';
+				if ( ! empty( $selected_states[ $country_code ] ) && in_array( $state_key, $selected_states[ $country_code ] ) ) {
+					echo ' selected';
+				}
+				echo '>' . $country_name . ' &ndash; ' . $state_value . '</option>';
+			}
+			echo '</optgroup>';
+		}
+	}
+
+	/**
+	 * Get continents that the store sells to in a format that includes billing countries.
+	 *
+	 * @return array
+	 */
+	public function get_billing_continents() {
+		$continents            = WC()->countries->get_continents();
+		$billing_countries     = WC()->countries->get_allowed_countries();
+		$billing_country_codes = array_keys( $billing_countries );
+		$billing_continents    = array();
+
+		foreach ( $continents as $continent_code => $continent ) {
+			if ( count( array_intersect( $continent['countries'], $billing_country_codes ) ) ) {
+				$billing_continents[ $continent_code ] = $continent;
+			}
+		}
+
+		return $billing_continents;
 	}
 }

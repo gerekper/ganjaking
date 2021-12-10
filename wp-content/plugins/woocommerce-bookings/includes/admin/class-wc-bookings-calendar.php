@@ -223,7 +223,7 @@ class WC_Bookings_Calendar {
 			}
 		}
 		usort( $events_data, function( $a, $b ) {
-			return $a['start'] > $b['start'];
+			return $a['start'] <=> $b['start'];
 		} );
 		return $events_data;
 	}

@@ -84,6 +84,7 @@ class ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a
         'WoocommerceProductFeedsDbManager' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-db-manager.php',
         'WoocommerceProductFeedsExpandedStructuredData' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-expanded-structured-data.php',
         'WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-expanded-structured-data-cache-invalidator.php',
+        'WoocommerceProductFeedsFacebookForWoocommerce' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php',
         'WoocommerceProductFeedsFeedConfig' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-feed-config.php',
         'WoocommerceProductFeedsFeedConfigFactory' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-feed-config-factory.php',
         'WoocommerceProductFeedsFeedConfigRepository' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-feed-config-repository.php',
@@ -96,6 +97,7 @@ class ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a
         'WoocommerceProductFeedsMain' => __DIR__ . '/../..' . '/src/woocommerce-product-feeds-main.php',
         'WoocommerceProductFeedsTermDepthRepository' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-term-depth-repository.php',
         'WoocommerceProductFeedsWoocommerceAdminIntegration' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-woocommerce-admin-integration.php',
+        'WoocommerceProductFeedsWoocommerceGermanized' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-woocommerce-germanized.php',
         'WoocommerceProductVendors' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-vendors.php',
     );
 

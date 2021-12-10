@@ -285,6 +285,10 @@ $woocommerce_gpf_di['WoocommercePrfGoogleReviewProductInfo'] = function ( $c ) {
 	);
 };
 
+$woocommerce_gpf_di['WoocommerceProductFeedsFacebookForWoocommerce'] = function ( $c ) {
+	return new WoocommerceProductFeedsFacebookForWoocommerce();
+};
+
 $woocommerce_gpf_di['WoocommerceProductFeedsIntegrationManager'] = function ( $c ) {
 	return new WoocommerceProductFeedsIntegrationManager( $c );
 };
@@ -381,4 +385,7 @@ $woocommerce_gpf_di['WoocommerceProductFeedsAdvancedCustomFields']              
 	return new WoocommerceProductFeedsAdvancedCustomFields(
 		$c['WoocommerceProductFeedsAdvancedCustomFieldsFormatter']
 	);
+};
+$woocommerce_gpf_di['WoocommerceProductFeedsWoocommerceGermanized']             = function ( $c ) {
+	return new WoocommerceProductFeedsWoocommerceGermanized();
 };

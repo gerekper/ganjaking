@@ -95,3 +95,20 @@ function wc_csp_print_taxonomy_tree_options( $terms, $selected_ids = array(), $a
 		$term_path = $args[ 'term_path' ];
 	}
 }
+
+/**
+ * Get debug status.
+ *
+ * @since  1.11.0
+ *
+ * @return bool
+ */
+function wc_csp_debug_enabled() {
+
+	$debug = ( 'yes' === get_option( 'wccsp_debug_enabled', 'no' ) );
+
+	/**
+	 * 'woocommerce_csp_debug_enabled' filter.
+	 */
+	return apply_filters( 'woocommerce_csp_debug_enabled', $debug );
+}

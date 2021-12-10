@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Customer Condition.
  *
  * @class    WC_CSP_Condition_Customer
- * @version  1.10.0
+ * @version  1.11.0
  */
 class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 
@@ -131,8 +131,18 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 	 */
 	public function check_emails( $data, $args ) {
 
-		$check_emails      = array();
-		$restricted_emails = array_filter( array_map( 'sanitize_email', array_map( 'strtolower', $data[ 'value'] ) ), 'is_email' );
+		$check_emails                    = array();
+		$restricted_emails_wildcards     = array();
+		$restricted_emails_fully_defined = array();
+		$restricted_emails               = array_filter( array_map( 'sanitize_email', array_map( 'strtolower', $data[ 'value'] ) ), 'is_email' );
+
+		foreach( $restricted_emails as $restricted_email ) {
+			if ( false !== strpos( $restricted_email, '*' ) ) {
+				$restricted_emails_wildcards[] = $restricted_email;
+			} else {
+				$restricted_emails_fully_defined[] = $restricted_email;
+			}
+		}
 
 		if ( is_user_logged_in() ) {
 			$current_user   = wp_get_current_user();
@@ -170,9 +180,27 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 
 		if ( ! empty( $check_emails ) ) {
 			foreach ( $check_emails as $check_email ) {
-				if ( in_array( $check_email, $restricted_emails ) ) {
+
+				// First, check if the customer email is identical to a fully defined email in the condition value.
+				if ( in_array( $check_email, $restricted_emails_fully_defined ) ) {
 					$identified_email = true;
 					break;
+				}
+			}
+
+			if ( ! $identified_email ) {
+				foreach( $restricted_emails_wildcards as $restricted_emails_wildcard ) {
+
+					// Then, check if the customer email is part of an email with wildcards in the condition value.
+					$excluded_email_regex = preg_quote( $restricted_emails_wildcard, '/' );
+					$excluded_email_regex = str_replace( preg_quote( '*', '/' ), '.*?', $excluded_email_regex );
+					$excluded_email_regex = "/$excluded_email_regex$/i";
+					$matched_emails       = preg_grep( $excluded_email_regex, $check_emails );
+
+					if ( count( $matched_emails ) ) {
+						$identified_email = true;
+						break;
+					}
 				}
 			}
 		}
@@ -292,15 +320,25 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 			return $posted_emails;
 		}
 
+		$invalid_wildcard_notice = '';
+		foreach ( $invalid_emails as $invalid_email ) {
+			if ( false !== strpos( $invalid_email, '*' ) ) {
+				$invalid_wildcard_notice = __( 'You can only use an asterisk (*) to match multiple addresses before the <code>@</code> e-mail separator.', 'woocommerce-conditional-shipping-and-payments' );
+				break;
+			}
+		}
+
 		if ( 1 === count( $invalid_emails ) ) {
-			WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Rule <strong>#%1$s</strong>: Invalid e-mail found (%2$s) and removed from the <strong>Customer</strong> condition.', 'woocommerce-conditional-shipping-and-payments' ),
+			WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Rule <strong>#%1$s</strong>: Invalid e-mail found (%2$s) and removed from the <strong>Customer</strong> condition. %3$s', 'woocommerce-conditional-shipping-and-payments' ),
 				$position,
-				implode( ', ', $invalid_emails )
+				implode( ', ', $invalid_emails ),
+				$invalid_wildcard_notice
 			) );
 		} else {
-			WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Rule <strong>#%1$s</strong>: Invalid e-mails found (%2$s) and removed from the <strong>Customer</strong> condition.', 'woocommerce-conditional-shipping-and-payments' ),
+			WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Rule <strong>#%1$s</strong>: Invalid e-mails found (%2$s) and removed from the <strong>Customer</strong> condition. %3$s', 'woocommerce-conditional-shipping-and-payments' ),
 				$position,
-				implode( ', ', $invalid_emails )
+				implode( ', ', $invalid_emails ),
+				$invalid_wildcard_notice
 			) );
 		}
 
@@ -381,7 +419,8 @@ class WC_CSP_Condition_Customer extends WC_CSP_Condition {
 			 data-modifiers="<?php echo implode( ',', $modifiers ); ?>"
 			<?php echo in_array( $current_modifier, $modifiers ) ? '' : ' style="display:none;"'; ?>
 		>
-			<textarea class="csp_conditional_values_input" name="<?php echo in_array( $current_modifier, $modifiers ) ? $value_input_name : ''; ?>" placeholder="<?php _e( 'List of e-mails separated by comma.', 'woocommerce-conditional-shipping-and-payments' ); ?>"><?php echo in_array( $current_modifier, $modifiers ) ? esc_textarea( $formatted_values ) : ''; ?></textarea>
+			<textarea class="csp_conditional_values_input" name="<?php echo in_array( $current_modifier, $modifiers ) ? $value_input_name : ''; ?>"><?php echo in_array( $current_modifier, $modifiers ) ? esc_textarea( $formatted_values ) : ''; ?></textarea>
+			<span class="description"><?php _e( 'Separate e-mail addresses with commas. You can match multiple addresses by using an asterisk (*) before the <code>@</code> e-mail separator. For example, <code>*@woocommerce.com</code> will match all woocommerce.com addresses.', 'woocommerce-conditional-shipping-and-payments' ) ?></span>
 		</div>
 
 		<?php

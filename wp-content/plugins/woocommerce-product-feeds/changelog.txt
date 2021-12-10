@@ -1,5 +1,10 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2021.12.06 - version 10.3.0
+* New: Allow fields from WooCommerce Germanized to be used for prepopulations
+* Change: WooCommerce 5.9 compatibility
+* Change: WooCommerce 6.0 compatibility
+
 2021.09.28 - version 10.2.1
 * Fix: Revert Action Scheduler to v3.2.1 due to conflicts
 

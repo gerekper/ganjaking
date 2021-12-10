@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-20T12:51:12+00:00\n"
+"POT-Creation-Date: 2021-11-30T21:58:42+00:00\n"
 "PO-Revision-Date: 2020-06-12 09:30:38+0000\n"
 "Language: nb_NO\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -2629,7 +2629,7 @@ msgid "Calendar Mode"
 msgstr ""
 
 #. translators: %s: Number of posts that have expired
-#: includes/admin/class-wc-bookings-tools.php:90
+#: includes/admin/class-wc-bookings-tools.php:93
 msgid "Removed %s expired In Cart booking(s)."
 msgstr ""
 

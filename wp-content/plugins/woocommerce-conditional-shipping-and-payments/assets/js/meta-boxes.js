@@ -205,15 +205,18 @@ jQuery( function($) {
 		// Countries Changed? Updates states selector!
 		.on( 'change', 'select.csp_shipping_countries, select.csp_billing_countries', function() {
 
-			var $countries_selector = $( this ),
-				selector_type       = $countries_selector.hasClass( 'csp_shipping_countries' ) ? 'shipping' : 'billing',
-				selected_countries  = get_selections( $countries_selector ),
-				$restriction_form   = $countries_selector.closest( '.condition_content, .woocommerce_restriction_form' ),
-				$states_selector    = 'shipping' === selector_type ? $restriction_form.find( 'select.csp_shipping_states' ) : $restriction_form.find( 'select.csp_billing_states' ),
-				$selected_states    = $states_selector.find( ':selected' ),
-				selected_states     = [],
-				states_data         = 'shipping' === selector_type ? wc_restrictions_admin_params.shipping_states_data : wc_restrictions_admin_params.billing_states_data,
-				state_options       = [];
+			var $countries_selector          = $( this ),
+				selector_type                = $countries_selector.hasClass( 'csp_shipping_countries' ) ? 'shipping' : 'billing',
+				selected_countries           = get_selections( $countries_selector ),
+				$restriction_form            = $countries_selector.closest( '.condition_content, .woocommerce_restriction_form' ),
+				$states_selector             = 'shipping' === selector_type ? $restriction_form.find( 'select.csp_shipping_states' ) : $restriction_form.find( 'select.csp_billing_states' ),
+				$selected_states             = $states_selector.find( ':selected' ),
+				selected_states              = [],
+				states_data                  = 'shipping' === selector_type ? wc_restrictions_admin_params.shipping_states_data : wc_restrictions_admin_params.billing_states_data,
+				state_options                = [],
+				continents_data              = wc_restrictions_admin_params.continents_data,
+				countries_data               = wc_restrictions_admin_params.countries_data,
+				selected_countries_formatted = [];
 
 			// Save chosen states.
 			$selected_states.each( function() {
@@ -222,13 +225,43 @@ jQuery( function($) {
 
 			// Create new set of options for the States selector.
 			$.each( selected_countries, function( index, country_selection ) {
+				if ( country_selection.key.includes( 'country:' ) ) {
+
+					var country_key = country_selection.key.replace( 'country:', '' );
+
+					// Check if country is already added to avoid duplicates.
+					if ( ! country_added( selected_countries_formatted, country_key ) ) {
+						selected_countries_formatted.push( { key: country_key, value: country_selection.value } );
+					}
+
+				} else if ( country_selection.key.includes( 'continent:' ) ) {
+
+					var continent_key          = country_selection.key.replace( 'continent:', '' ),
+						countries_in_continent = continents_data[ continent_key ].countries;
+
+					// Expand continents to the countries they include.
+					$.each( countries_in_continent, function( country_index, country_in_continent_key ) {
+
+						// Check if country is already added to avoid duplicates.
+						if ( ! country_added( selected_countries_formatted, country_in_continent_key ) ) {
+							selected_countries_formatted.push( { key: country_in_continent_key, value: countries_data[ country_in_continent_key ] } );
+						}
+					} );
+				}
+			} );
+
+			// Sort countries by name.
+			selected_countries_formatted.sort( countries_states_sort );
+
+			// Create new set of options for the States selector.
+			$.each( selected_countries_formatted, function( index, country_selection ) {
 
 				var country_state_options = [],
 					country_code          = country_selection.key,
 					country_name          = country_selection.value,
 					country_states        = states_data[ country_code ] || false;
 
-				if ( ! country_states ) {
+				if ( ! country_states || 0 === country_states.length ) {
 					return true;
 				}
 
@@ -251,6 +284,8 @@ jQuery( function($) {
 
 			// Remove current state options.
 			$states_selector.children().remove();
+
+			state_options.sort( countries_states_sort );
 
 			$states_selector.selectSW( {
 				data: state_options
@@ -552,6 +587,48 @@ jQuery( function($) {
 
 		return values;
 
+	}
+
+	/**
+	 * Check if a country is already added in the condition data.
+	 */
+	function country_added( countries, country_code ) {
+
+		var found = false;
+
+		$.each( countries, function( index, country ) {
+			if ( country.key === country_code ) {
+				found = true;
+				return false;
+			}
+		} );
+
+		return found;
+	}
+
+	/**
+	 * Sorting function for objects based on properties.
+	 */
+	function countries_states_sort( a, b ) {
+		var result = 0;
+
+		if ( a.hasOwnProperty( 'text' ) && b.hasOwnProperty( 'text' ) ) {
+			if ( a.text > b.text ) {
+				result = 1;
+			} else if(  b.text > a.text ) {
+				result = -1;
+			}
+		}
+
+		if ( a.hasOwnProperty( 'value' ) && b.hasOwnProperty( 'value' ) ) {
+			if ( a.value > b.value ) {
+				result = 1;
+			} else if(  b.value > a.value ) {
+				result = -1;
+			}
+		}
+
+		return result;
 	}
 
 	/**

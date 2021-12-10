@@ -81,6 +81,8 @@
             "./src/integrations/woocommerce-min-max-quantities.php",
             "./src/integrations/woocommerce-product-feeds-advanced-custom-fields.php",
             "./src/integrations/woocommerce-product-feeds-advanced-custom-fields-formatter.php",
+            "./src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php",
+            "./src/integrations/woocommerce-product-feeds-woocommerce-germanized.php",
             "./src/integrations/woocommerce-product-vendors.php",
             "./src/integrations/yoast-woocommerce-seo.php"
         ]
@@ -89,7 +91,7 @@
         "phpunit/phpunit": "~8.0",
         "10up/wp_mock": "0.3.0",
         "squizlabs/php_codesniffer": "^3.5",
-        "wp-coding-standards/wpcs": "^2.2",
+        "wp-coding-standards/wpcs": "^2.3.0",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
         "phpmd/phpmd": "^2.8"
     }

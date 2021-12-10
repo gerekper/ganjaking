@@ -56,7 +56,7 @@ class FileCookieJar extends CookieJar
             }
         }
 
-        $jsonStr = \GuzzleHttp\json_encode($json);
+        $jsonStr = \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\json_encode($json);
         if (false === file_put_contents($filename, $jsonStr, LOCK_EX)) {
             throw new \RuntimeException("Unable to save file {$filename}");
         }
@@ -79,7 +79,7 @@ class FileCookieJar extends CookieJar
             return;
         }
 
-        $data = \GuzzleHttp\json_decode($json, true);
+        $data = \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\json_decode($json, true);
         if (is_array($data)) {
             foreach (json_decode($json, true) as $cookie) {
                 $this->setCookie(new SetCookie($cookie));

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Selected Shipping Method Condition.
  *
  * @class    WC_CSP_Condition_Shipping_Method
- * @version  1.8.7
+ * @version  1.11.0
  */
 class WC_CSP_Condition_Shipping_Method extends WC_CSP_Package_Condition {
 
@@ -132,7 +132,7 @@ class WC_CSP_Condition_Shipping_Method extends WC_CSP_Package_Condition {
 			if ( 1 === sizeof( $bad_packages ) ) {
 				$message = sprintf( __( 'choose a different shipping method for package #%s', 'woocommerce-conditional-shipping-and-payments' ), $bad_packages[ 0 ] );
 			} else {
-				$message = sprintf( __( 'choose a different shipping method for packages %s', 'woocommerce-conditional-shipping-and-payments' ), WC_CSP_Condition::merge_titles( $bad_packages, array( 'prefix' => '#', 'quotes' => false ) ) );
+				$message = sprintf( __( 'choose a different shipping method for packages %s', 'woocommerce-conditional-shipping-and-payments' ), $this->merge_titles( $bad_packages, array( 'prefix' => '#', 'quotes' => false ) ) );
 			}
 		}
 

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Shipping Methods.
  *
  * @class    WC_CSP_Restrict_Shipping_Methods
- * @version  1.9.0
+ * @version  1.11.0
  */
 class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction {
 
@@ -37,7 +37,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 		add_filter( 'woocommerce_cart_shipping_packages', array( $this, 'add_variables_to_packages' ), 100 );
 
 		// Remove shipping methods from packages.
-		add_action( 'woocommerce_package_rates', array( $this, 'exclude_package_shipping_methods' ), 10, 2 );
+		add_filter( 'woocommerce_package_rates', array( $this, 'exclude_package_shipping_methods' ), 10, 2 );
 
 		// Save global settings.
 		add_action( 'woocommerce_update_options_restrictions_' . $this->id, array( $this, 'update_global_restriction_data' ) );
@@ -56,6 +56,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 
 		// Display notice after each excluded shipping rate.
 		add_action( 'woocommerce_after_shipping_rate', array( $this, 'add_notice_after_excluded_shipping_rate' ), 100, 2 );
+
 	}
 
 	/**
@@ -829,7 +830,7 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 		$result = new WC_CSP_Check_Result();
 		$args   = array(
 			'context'      => 'validation',
-			'include_data' => true
+			'include_data' => true,
 		);
 
 		/**
@@ -887,7 +888,12 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 					foreach ( $product_rules_map as $rule_index => $excluded_rate_ids ) {
 
 						if ( ! empty( $excluded_rate_ids ) ) {
-							$result->add( 'shipping_method_excluded_by_product_restriction', $this->get_resolution_message( $product_restriction_data[ $rule_index ], 'product', array_merge( $args, array( 'cart_item_data' => $cart_item_data ) ) ) );
+							$result->add(
+								'shipping_method_excluded_by_product_restriction',
+								$this->get_resolution_message( $product_restriction_data[ $rule_index ], 'product', array_merge( $args, array( 'cart_item_data' => $cart_item_data ) ) ),
+								'error',
+								WC_CSP_Debugger::is_running() ? array_merge( $product_restriction_data[ $rule_index ], array( 'product' => $product ) ) : array()
+							);
 						}
 					}
 				}
@@ -903,7 +909,12 @@ class WC_CSP_Restrict_Shipping_Methods extends WC_CSP_Restriction implements WC_
 				foreach ( $global_rules_map as $rule_index => $excluded_rate_ids ) {
 
 					if ( ! empty( $excluded_rate_ids ) ) {
-						$result->add( 'shipping_method_excluded_by_global_restriction', $this->get_resolution_message( $global_restriction_data[ $rule_index ], 'global', $args ) );
+						$result->add(
+							'shipping_method_excluded_by_global_restriction',
+							$this->get_resolution_message( $global_restriction_data[ $rule_index ], 'global', $args ),
+							'error',
+							WC_CSP_Debugger::is_running() ? $global_restriction_data[ $rule_index ] : array()
+						);
 					}
 				}
 			}

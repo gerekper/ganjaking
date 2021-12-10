@@ -17,7 +17,7 @@ if ( ! class_exists( 'WC_Settings_Restrictions' ) ) :
 /**
  * WooCommerce Global Restriction Settings.
  *
- * @version  1.9.0
+ * @version  1.11.0
  */
 class WC_Settings_Restrictions extends WC_Settings_Page {
 
@@ -110,6 +110,16 @@ class WC_Settings_Restrictions extends WC_Settings_Page {
 				'type'          => 'checkbox',
 				'checkboxgroup' => 'start',
 				'desc_tip'      => __( 'Disable all restrictions created in the <strong>Product Data > Restrictions</strong> section of your products.', 'woocommerce-conditional-shipping-and-payments' ),
+			),
+
+			array(
+				'title'         => __( 'Debug Mode', 'woocommerce-conditional-shipping-and-payments' ),
+				'desc'          => __( 'Enable debug mode', 'woocommerce-conditional-shipping-and-payments' ),
+				'id'            => 'wccsp_debug_enabled',
+				'default'       => 'no',
+				'type'          => 'checkbox',
+				'checkboxgroup' => 'start',
+				'desc_tip'      => __( 'Enable debug mode to display detailed information about your active restrictions on the Checkout page. Useful for understanding the effect of your global and product-level rules on your shipping and payment options.', 'woocommerce-conditional-shipping-and-payments' ),
 			),
 
 			array( 'type' => 'sectionend', 'id' => 'global_restriction_debug_options' ),

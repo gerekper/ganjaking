@@ -68,7 +68,7 @@ class StreamHandler
             $e = RequestException::wrapException($request, $e);
             $this->invokeStats($options, $request, $startTime, null, $e);
 
-            return \GuzzleHttp\Promise\rejection_for($e);
+            return \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\rejection_for($e);
         }
     }
 
@@ -120,7 +120,7 @@ class StreamHandler
             } catch (\Exception $e) {
                 $msg = 'An error was encountered during the on_headers event';
                 $ex = new RequestException($msg, $request, $response, $e);
-                return \GuzzleHttp\Promise\rejection_for($ex);
+                return \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\rejection_for($ex);
             }
         }
 
@@ -413,7 +413,7 @@ class StreamHandler
             $scheme = $request->getUri()->getScheme();
             if (isset($value[$scheme])) {
                 if (!isset($value['no'])
-                    || !\GuzzleHttp\is_host_in_noproxy(
+                    || !\Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\is_host_in_noproxy(
                         $request->getUri()->getHost(),
                         $value['no']
                     )
@@ -437,7 +437,7 @@ class StreamHandler
             // PHP 5.6 or greater will find the system cert by default. When
             // < 5.6, use the Guzzle bundled cacert.
             if (PHP_VERSION_ID < 50600) {
-                $options['ssl']['cafile'] = \GuzzleHttp\default_ca_bundle();
+                $options['ssl']['cafile'] = \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\default_ca_bundle();
             }
         } elseif (is_string($value)) {
             $options['ssl']['cafile'] = $value;
@@ -504,7 +504,7 @@ class StreamHandler
         static $args = ['severity', 'message', 'message_code',
             'bytes_transferred', 'bytes_max'];
 
-        $value = \GuzzleHttp\debug_resource($value);
+        $value = \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\debug_resource($value);
         $ident = $request->getMethod() . ' ' . $request->getUri()->withFragment('');
         $this->addNotification(
             $params,

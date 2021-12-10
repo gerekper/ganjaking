@@ -168,7 +168,7 @@ class CurlFactory implements CurlFactoryInterface
         // If an exception was encountered during the onHeaders event, then
         // return a rejected promise that wraps that exception.
         if ($easy->onHeadersException) {
-            return \GuzzleHttp\Promise\rejection_for(
+            return \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\rejection_for(
                 new RequestException(
                     'An error was encountered during the on_headers event',
                     $easy->request,
@@ -200,7 +200,7 @@ class CurlFactory implements CurlFactoryInterface
             ? new ConnectException($message, $easy->request, null, $ctx)
             : new RequestException($message, $easy->request, $easy->response, null, $ctx);
 
-        return \GuzzleHttp\Promise\rejection_for($error);
+        return \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\rejection_for($error);
     }
 
     private function getDefaultConf(EasyHandle $easy)
@@ -431,7 +431,7 @@ class CurlFactory implements CurlFactoryInterface
                 if (isset($options['proxy'][$scheme])) {
                     $host = $easy->request->getUri()->getHost();
                     if (!isset($options['proxy']['no']) ||
-                        !\GuzzleHttp\is_host_in_noproxy($host, $options['proxy']['no'])
+                        !\Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\is_host_in_noproxy($host, $options['proxy']['no'])
                     ) {
                         $conf[CURLOPT_PROXY] = $options['proxy'][$scheme];
                     }
@@ -491,7 +491,7 @@ class CurlFactory implements CurlFactoryInterface
         }
 
         if (!empty($options['debug'])) {
-            $conf[CURLOPT_STDERR] = \GuzzleHttp\debug_resource($options['debug']);
+            $conf[CURLOPT_STDERR] = \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\debug_resource($options['debug']);
             $conf[CURLOPT_VERBOSE] = true;
         }
     }

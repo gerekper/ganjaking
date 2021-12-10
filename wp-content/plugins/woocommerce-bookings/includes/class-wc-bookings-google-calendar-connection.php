@@ -104,10 +104,10 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		self::CALENDAR_DEFAULT_POLLER_RATE * 8,
 	);
 
-	/** 
+	/**
 	 * Limit for the poller retry.
 	 * Even if we will have more consecutive failures we will use this as a maximum value.
-	 * 
+	 *
 	 * @since 1.15.15
 	 */
 	const CALENDAR_POLLER_MAX_RETRY_RATE = 4; // Maximum index for CALENDAR_EXPONENTIAL_BACKOFF_RATES.
@@ -335,7 +335,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 
 	/**
 	 * Set a delay for the next poller request in case we had an error on the previous request.
-	 * 
+	 *
 	 * This is a very simplified exponential backoff request function. It is simplified because we don't do
 	 * active re-tries in the case of a failure. This means that we don't need advance algorithm but just
 	 * an exponentially growing set of retry times. We also don't need to add the random amount to ensure
@@ -366,7 +366,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 
 	/**
 	 * Returns value of poller interval that will be used for next poll.
-	 * 
+	 *
 	 * @return integer Poller interval in seconds.
 	 *
 	 * @since 1.15.15
@@ -376,7 +376,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		$poller_failures            = min( get_option( self::POLLER_BACKOFF_FAILURE_STATE, 0 ), self::CALENDAR_POLLER_MAX_RETRY_RATE );
 		$failures_adjusted_interval = self::CALENDAR_EXPONENTIAL_BACKOFF_RATES[ $poller_failures ];
 		$interval                   = max( $default_interval, $failures_adjusted_interval ); // max in case the user has self defined a bigger interval.
-		
+
 		return $interval * MINUTE_IN_SECONDS; // seconds.
 	}
 
@@ -1054,7 +1054,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			}
 		}
 		return parent::validate_text_field( $key, $value );
-	}	
+	}
 
 	/**
 	 * Generate the Google Calendar Authorization field.
@@ -1097,9 +1097,13 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	public function admin_options() {
 		echo '<p>' . esc_html__( 'To sync with Google Calendar using an app provided by WooCommerce.com, click the "Connect with Google" button below to authorize access to your Google calendar.', 'woocommerce-bookings' ) . '</p>';
 
-		echo '<table class="form-table">';
+		try {
+			echo '<table class="form-table">';
 			$this->generate_settings_html();
-		echo '</table>';
+			echo '</table>';
+		} catch ( Exception $e ) {
+			$this->log( 'The Google Calendar API is facing issues: ' . $e->getMessage() );
+		}
 	}
 
 	/**
@@ -1281,7 +1285,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			$code   = sanitize_text_field( $_GET['code'] );
 			$client = $this->get_client();
 			$client->setClientId( $this->client_id );
-			$client->setClientSecret( $this->client_secret );	
+			$client->setClientSecret( $this->client_secret );
 			$access_token = $client->fetchAccessTokenWithAuthCode( $code );
 
 			if ( empty( $access_token ) ) {
@@ -1733,15 +1737,6 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 			$start_date = new WC_DateTime( $event->getStart()->getDateTime() );
 			$end_date   = new WC_DateTime( $event->getEnd()->getDateTime() );
 
-			try {
-				// Our date ranges are inclusive, Google's are not, so shift the range (e.g. [10:00, 11:00] -> [10:01. 10:59])
-				$start_date->add( new DateInterval( 'PT60S' ) );
-				$end_date->sub( new DateInterval( 'PT1S' ) );
-			} catch ( Exception $e ) {
-				$this->log( $e->getMessage() );
-				// Should never happen.
-			}
-
 			$availability->set_range_type( 'custom:daterange' )
 				->set_from_date( $start_date->format( 'Y-m-d' ) )
 				->set_to_date( $end_date->format( 'Y-m-d' ) )
@@ -1936,10 +1931,10 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 * @return array
 	 */
 	private function renew_access_token( $refresh_token, $client ) {
-		
+
 		if ( get_option( 'wc_bookings_google_calendar_custom_connection' ) ) {
 			$client->setClientId( $this->client_id );
-			$client->setClientSecret( $this->client_secret );	
+			$client->setClientSecret( $this->client_secret );
 			return $client->fetchAccessTokenWithRefreshToken( $refresh_token );
 		}
 

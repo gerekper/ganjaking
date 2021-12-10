@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Shipping Countries.
  *
  * @class    WC_CSP_Restrict_Shipping_Countries
- * @version  1.9.0
+ * @version  1.11.0
  */
 class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction, WC_CSP_Cart_Restriction {
 
@@ -415,7 +415,12 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 					foreach ( $product_rules_map as $rule_index => $excluded_country_locales ) {
 
 						if ( ! empty( $excluded_country_locales ) ) {
-							$result->add( 'country_excluded_by_product_restriction', $this->get_resolution_message( $product_restriction_data[ $rule_index ], 'product', array_merge( $args, array( 'cart_item_data' => $cart_item_data ) ) ), $msg_type );
+							$result->add(
+								'country_excluded_by_product_restriction',
+								$this->get_resolution_message( $product_restriction_data[ $rule_index ], 'product', array_merge( $args, array( 'cart_item_data' => $cart_item_data ) ) ),
+								$msg_type,
+								WC_CSP_Debugger::is_running() ? array_merge( $product_restriction_data[ $rule_index ], array( 'product' => $product, 'shipping_package_index' => $shipping_package_index ) ) : array()
+							);
 						}
 					}
 				}
@@ -453,7 +458,12 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 				foreach ( $global_rules_map as $rule_index => $excluded_country_locales ) {
 
 					if ( ! empty( $excluded_country_locales ) ) {
-						$result->add( 'country_excluded_by_global_restriction', $this->get_resolution_message( $global_restriction_data[ $rule_index ], 'global', $args ), $msg_type );
+						$result->add(
+							'country_excluded_by_global_restriction',
+							$this->get_resolution_message( $global_restriction_data[ $rule_index ], 'global', $args ),
+							$msg_type,
+							WC_CSP_Debugger::is_running() ? array_merge( $global_restriction_data[ $rule_index ], array( 'shipping_package_index' => $shipping_package_index ) ) : array()
+						);
 					}
 				}
 			}
@@ -596,7 +606,7 @@ class WC_CSP_Restrict_Shipping_Countries extends WC_CSP_Restriction implements W
 	 * @param  array  $posted
 	 * @return void
 	 */
-	public function validate_checkout( $posted ) {
+	public function validate_checkout( $posted = array() ) {
 		return $this->check_restriction();
 	}
 

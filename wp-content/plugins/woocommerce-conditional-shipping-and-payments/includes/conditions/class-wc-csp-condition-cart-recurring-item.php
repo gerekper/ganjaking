@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product on Subscription in Cart Condition.
  *
  * @class    WC_CSP_Condition_Cart_Reccuring_Item
- * @version  1.8.5
+ * @version  1.11.0
  */
 class WC_CSP_Condition_Cart_Recurring_Item extends WC_CSP_Condition {
 
@@ -45,7 +45,7 @@ class WC_CSP_Condition_Cart_Recurring_Item extends WC_CSP_Condition {
 		}
 
 		$message                    = false;
-		$chosen_periods_placeholder = WC_CSP_Condition::merge_titles( $this->get_billing_period_adverb( $data[ 'value' ] ), array( 'rel' => 'or', 'quotes' => false ) );
+		$chosen_periods_placeholder = $this->merge_titles( $this->get_billing_period_adverb( $data[ 'value' ] ), array( 'rel' => 'or', 'quotes' => false ) );
 
 		if ( $this->modifier_is( $data[ 'modifier' ], array( 'in' ) ) ) {
 
@@ -53,7 +53,7 @@ class WC_CSP_Condition_Cart_Recurring_Item extends WC_CSP_Condition {
 				$message  = __( 'remove all subscription products from your cart', 'woocommerce-conditional-shipping-and-payments' );
 			} else {
 				$subjects = $this->get_billing_period_adverb( $this->get_condition_violation_subjects( $data, $args ) );
-				$message  = sprintf( __( 'remove all %s subscription products from your cart', 'woocommerce-conditional-shipping-and-payments' ), WC_CSP_Condition::merge_titles( $subjects, array( 'rel' => 'and', 'quotes' => false ) ) );
+				$message  = sprintf( __( 'remove all %s subscription products from your cart', 'woocommerce-conditional-shipping-and-payments' ), $this->merge_titles( $subjects, array( 'rel' => 'and', 'quotes' => false ) ) );
 			}
 
 		} elseif ( $this->modifier_is( $data[ 'modifier' ], array( 'not-in' ) ) ) {

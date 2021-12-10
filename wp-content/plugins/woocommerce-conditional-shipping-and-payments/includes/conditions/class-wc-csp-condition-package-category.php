@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Category in Package Condition.
  *
  * @class    WC_CSP_Condition_Package_Category
- * @version  1.4.1
+ * @version  1.11.0
  */
 class WC_CSP_Condition_Package_Category extends WC_CSP_Package_Condition {
 
@@ -70,13 +70,13 @@ class WC_CSP_Condition_Package_Category extends WC_CSP_Package_Condition {
 		}
 
 		$package_count = $this->get_package_count( $args );
-		$categories    = WC_CSP_Condition::merge_titles( $category_names, array( 'rel' => $this->get_term_relationship() ) );
+		$categories    = $this->merge_titles( $category_names, array( 'rel' => $this->get_term_relationship() ) );
 		$message       = false;
 
 		if ( $this->modifier_is( $data[ 'modifier' ], array( 'in' ) ) ) {
 
 			$product_names = $this->get_condition_violation_subjects( $data, $args );
-			$products      = WC_CSP_Condition::merge_titles( $product_names );
+			$products      = $this->merge_titles( $product_names );
 
 			if ( sizeof( $product_names ) > 4 ) {
 
@@ -188,7 +188,7 @@ class WC_CSP_Condition_Package_Category extends WC_CSP_Package_Condition {
 	 * @return array
 	 */
 	public function get_condition_resolution_placeholder( $data, $args ) {
-		return WC_CSP_Condition::merge_titles( $this->get_condition_violation_subjects( $data, $args ) );
+		return $this->merge_titles( $this->get_condition_violation_subjects( $data, $args ) );
 	}
 
 	/**

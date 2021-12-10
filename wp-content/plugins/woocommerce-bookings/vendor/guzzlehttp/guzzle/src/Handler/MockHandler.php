@@ -91,7 +91,7 @@ class MockHandler implements \Countable
         }
 
         $response = $response instanceof \Exception
-            ? \GuzzleHttp\Promise\rejection_for($response)
+            ? \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\rejection_for($response)
             : \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\promise_for($response);
 
         return $response->then(
@@ -120,7 +120,7 @@ class MockHandler implements \Countable
                 if ($this->onRejected) {
                     call_user_func($this->onRejected, $reason);
                 }
-                return \GuzzleHttp\Promise\rejection_for($reason);
+                return \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\rejection_for($reason);
             }
         );
     }

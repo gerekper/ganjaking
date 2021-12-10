@@ -29,8 +29,9 @@ class WoocommerceGpfRebuildProductJob extends WoocommerceGpfAbstractCacheRebuild
 		// If we get here either it exists, and is a product, or has been
 		// deleted.
 		// If it's deleted, or trashed, we just clear down the cache for the
-		// post, otherwise we rebuild the cache for it.
+		// post, otherwise we clear down and rebuild the cache for it.
 		if ( $post && 'trash' !== $post->post_status ) {
+			$this->drop_post_cache( $post_id );
 			$this->rebuild_item( $post_id );
 		} else {
 			$this->drop_post_cache( $post_id );

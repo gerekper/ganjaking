@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Category in Cart Condition.
  *
  * @class    WC_CSP_Condition_Cart_Category
- * @version  1.8.1
+ * @version  1.11.0
  */
 class WC_CSP_Condition_Cart_Category extends WC_CSP_Condition {
 
@@ -71,13 +71,13 @@ class WC_CSP_Condition_Cart_Category extends WC_CSP_Condition {
 			}
 		}
 
-		$categories = WC_CSP_Condition::merge_titles( $category_names, array( 'rel' => $this->get_term_relationship() ) );
+		$categories = $this->merge_titles( $category_names, array( 'rel' => $this->get_term_relationship() ) );
 		$message    = false;
 
 		if ( $this->modifier_is( $data[ 'modifier' ], array( 'in' ) ) ) {
 
 			$product_names = $this->get_condition_violation_subjects( $data, $args );
-			$products      = WC_CSP_Condition::merge_titles( $product_names );
+			$products      = $this->merge_titles( $product_names );
 
 			if ( sizeof( $product_names ) > 4 ) {
 

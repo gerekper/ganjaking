@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Customer Role Condition.
  *
  * @class    WC_CSP_Condition_Customer
- * @version  1.4.0
+ * @version  1.11.0
  */
 class WC_CSP_Condition_Customer_Role extends WC_CSP_Condition {
 
@@ -159,8 +159,9 @@ class WC_CSP_Condition_Customer_Role extends WC_CSP_Condition {
 			<div class="condition_value">
 				<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value][]" class="multiselect sw-select2" multiple="multiple" data-placeholder="<?php _e( 'Select roles&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 					<?php
-						foreach ( $wp_role_names as $role_slug => $role_name )
+						foreach ( $wp_role_names as $role_slug => $role_name ) {
 							echo '<option value="' . $role_slug . '" ' . selected( in_array( $role_slug, $roles ), true, false ) . '>' . $role_name . '</option>';
+						}
 					?>
 				</select>
 			</div>

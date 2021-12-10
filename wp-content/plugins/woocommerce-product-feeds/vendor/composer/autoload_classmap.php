@@ -59,6 +59,7 @@ return array(
     'WoocommerceProductFeedsDbManager' => $baseDir . '/src/common/woocommerce-product-feeds-db-manager.php',
     'WoocommerceProductFeedsExpandedStructuredData' => $baseDir . '/src/common/woocommerce-product-feeds-expanded-structured-data.php',
     'WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator' => $baseDir . '/src/common/woocommerce-product-feeds-expanded-structured-data-cache-invalidator.php',
+    'WoocommerceProductFeedsFacebookForWoocommerce' => $baseDir . '/src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php',
     'WoocommerceProductFeedsFeedConfig' => $baseDir . '/src/common/woocommerce-product-feeds-feed-config.php',
     'WoocommerceProductFeedsFeedConfigFactory' => $baseDir . '/src/common/woocommerce-product-feeds-feed-config-factory.php',
     'WoocommerceProductFeedsFeedConfigRepository' => $baseDir . '/src/common/woocommerce-product-feeds-feed-config-repository.php',
@@ -71,5 +72,6 @@ return array(
     'WoocommerceProductFeedsMain' => $baseDir . '/src/woocommerce-product-feeds-main.php',
     'WoocommerceProductFeedsTermDepthRepository' => $baseDir . '/src/common/woocommerce-product-feeds-term-depth-repository.php',
     'WoocommerceProductFeedsWoocommerceAdminIntegration' => $baseDir . '/src/common/woocommerce-product-feeds-woocommerce-admin-integration.php',
+    'WoocommerceProductFeedsWoocommerceGermanized' => $baseDir . '/src/integrations/woocommerce-product-feeds-woocommerce-germanized.php',
     'WoocommerceProductVendors' => $baseDir . '/src/integrations/woocommerce-product-vendors.php',
 );

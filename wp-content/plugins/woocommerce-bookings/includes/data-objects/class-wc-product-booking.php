@@ -74,12 +74,12 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	public function __construct( $product = 0 ) {
 		/**
 		 * Override default attributes for Product Booking.
-		 * 
+		 *
 		 * @since 1.15.46
-		 * 
+		 *
 		 * @param array $defaults Default values to init new Product.
 		 * @param int|WC_Product|object $product Product to init.
-		 * 
+		 *
 		 * @see WC_Product_Booking::defaults
 		 */
 		$defaults   = apply_filters( 'woocommerce_bookings_product_defaults', $this->defaults, $product );
@@ -2361,14 +2361,16 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 			if ( $this->has_person_types() ) {
 				$person_types = $this->get_person_types();
 				foreach ( $person_types as $person ) {
+					$person_qty = $data['_persons'][ $person->get_id() ] ?? 0;
+
 					$person_max = $person->get_max();
-					if ( is_numeric( $person_max ) && isset( $data['_persons'][ $person->get_id() ] ) && $data['_persons'][ $person->get_id() ] > $person_max ) {
+					if ( is_numeric( $person_max ) && $person_qty > $person_max ) {
 						/* translators: 1: person name 2: maximum persons */
 						return new WP_Error( 'Error', sprintf( __( 'The maximum %1$s per group is %2$d', 'woocommerce-bookings' ), $person->post_title, $person_max ) );
 					}
 
 					$person_min = $person->get_min();
-					if ( is_numeric( $person_min ) && isset( $data['_persons'][ $person->get_id() ] ) && $data['_persons'][ $person->get_id() ] < $person_min ) {
+					if ( is_numeric( $person_min ) && $person_qty  < $person_min ) {
 						/* translators: 1: person name 2: minimum persons */
 						return new WP_Error( 'Error', sprintf( __( 'The minimum %1$s per group is %2$d', 'woocommerce-bookings' ), $person->post_title, $person_min ) );
 					}

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shipping Class in Cart Condition.
  *
  * @class    WC_CSP_Condition_Cart_Shipping_Class
- * @version  1.4.0
+ * @version  1.11.0
  * @author   SomewhereWarm
  */
 class WC_CSP_Condition_Cart_Shipping_Class extends WC_CSP_Condition {
@@ -74,7 +74,7 @@ class WC_CSP_Condition_Cart_Shipping_Class extends WC_CSP_Condition {
 	 * @return array
 	 */
 	public function get_condition_resolution_placeholder( $data, $args ) {
-		return WC_CSP_Condition::merge_titles( $this->get_condition_violation_subjects( $data, $args ) );
+		return $this->merge_titles( $this->get_condition_violation_subjects( $data, $args ) );
 	}
 
 	/**

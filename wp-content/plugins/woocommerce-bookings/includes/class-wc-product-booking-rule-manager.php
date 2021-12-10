@@ -732,7 +732,30 @@ class WC_Product_Booking_Rule_Manager {
 			$minutes['is_bookable'] = $range['rule'];
 		}
 
-		$minutes['minutes'] = self::calculate_minute_range( $from, $to );
+		$calculated_minutes_range = self::calculate_minute_range( $from, $to );
+
+		/**
+		 * Consider an example of a clinic which is open from 11:00am to 4:00pm which offers 30 minute slots
+		 * and also 1:00pm to 2:00pm is already booked.
+		 *
+		 * 11:00am = 11*60 = 660 (opening time)
+		 * 04:00pm = 16*60 = 960 (closing time)
+		 * 01:00pm = 13*60 = 780 (start of an existing booking)
+		 * 02:00pm = 14*60 = 840 (end of an existing booking)
+		 *
+		 * @see https://github.com/woocommerce/woocommerce-bookings/blob/trunk/includes/class-wc-product-booking-rule-manager.php#L571
+		 * The output of array_diff removes 780 and 840 from the range [660-960] which causes this issue:
+		 * @see https://github.com/woocommerce/woocommerce-bookings/issues/2383.
+		 * We need the 780 and 840 to be a part of bookable time array.
+		 * What the below fix does is set the unbookable range as 1:01pm - 1:59pm (781 - 839).
+		 * This is only for unbookable range, when the is_bookable is set to `false`.
+		 */
+		if ( ! $minutes['is_bookable'] ) {
+			array_shift( $calculated_minutes_range );
+			array_pop( $calculated_minutes_range );
+		}
+
+		$minutes['minutes'] = $calculated_minutes_range;
 
 		return $minutes;
 	}

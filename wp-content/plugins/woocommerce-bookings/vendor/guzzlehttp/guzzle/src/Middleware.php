@@ -102,7 +102,7 @@ final class Middleware
                             'error'    => $reason,
                             'options'  => $options
                         ];
-                        return \GuzzleHttp\Promise\rejection_for($reason);
+                        return \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\rejection_for($reason);
                     }
                 );
             };
@@ -198,7 +198,7 @@ final class Middleware
                             : null;
                         $message = $formatter->format($request, $response, $reason);
                         $logger->notice($message);
-                        return \GuzzleHttp\Promise\rejection_for($reason);
+                        return \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Promise\rejection_for($reason);
                     }
                 );
             };

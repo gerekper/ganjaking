@@ -595,7 +595,7 @@ class WC_Bookings_Admin {
 	 * Add admin styles
 	 */
 	public function styles_and_scripts() {
-		global $post, $wp_scripts;
+		global $post;
 
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
@@ -604,9 +604,7 @@ class WC_Bookings_Admin {
 			return;
 		}
 
-		$jquery_version = isset( $wp_scripts->registered['jquery-ui-core']->ver ) ? $wp_scripts->registered['jquery-ui-core']->ver : '1.11.4';
-
-		wp_enqueue_style( 'jquery-ui-style', '//ajax.googleapis.com/ajax/libs/jqueryui/' . $jquery_version . '/themes/smoothness/jquery-ui.min.css' );
+		wp_enqueue_style( 'jquery-ui-style', WC_BOOKINGS_PLUGIN_URL . '/dist/css/jquery-ui-styles.css', array(), '1.11.4-wc-bookings.' . WC_BOOKINGS_VERSION );
 		wp_enqueue_style( 'wc_bookings_admin_styles', WC_BOOKINGS_PLUGIN_URL . '/dist/css/admin.css', null, WC_BOOKINGS_VERSION );
 		wp_register_script( 'wc_bookings_admin_js', WC_BOOKINGS_PLUGIN_URL . '/dist/admin.js', array( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-sortable' ), WC_BOOKINGS_VERSION, true );
 

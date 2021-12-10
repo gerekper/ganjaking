@@ -1,5 +1,17 @@
 *** WooCommerce Bookings Changelog ***
 
+2021-11-30 - version 1.15.49
+* Fix - Availability of the product with multiple auto-assigned resources.
+* Fix - Bring jQuery UI into our codebase instead of loading from a CDN.
+* Fix - DatePicker crash issue while navigating between months.
+* Fix - Deleting the quantity overrides at a product level by another person type.
+* Fix - Deprecated notice with PHP 8 when viewing a Schedule in the back end.
+* Fix - Error notice on unable to initialize a calendar connection.
+* Fix - Fix: Google Calendar 2 way sync offset.
+* Fix - address more dependency conflicts.
+* Tweak - WC 5.9 compatibility.
+* Tweak - WP 5.8 compatibility.
+
 2021-10-20 - version 1.15.48
 * Fix - Include `was-in-cart` bookings to database cleanup tool.
 * Tweak - WC 5.8 compatibility.

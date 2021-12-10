@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Coupon Code Condition.
  *
  * @class    WC_CSP_Condition_Coupon_Code
- * @version  1.9.0
+ * @version  1.11.0
  */
 class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 
@@ -54,7 +54,7 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 			} else {
 
 				$coupons        = $this->get_condition_violation_subjects( $data, $args );
-				$merged_coupons = WC_CSP_Condition::merge_titles( $coupons );
+				$merged_coupons = $this->merge_titles( $coupons );
 
 				if ( sizeof( $coupons ) > 1 ) {
 					$message = sprintf( __( 'remove coupons %s', 'woocommerce-conditional-shipping-and-payments' ), $merged_coupons );
@@ -89,7 +89,7 @@ class WC_CSP_Condition_Coupon_Code extends WC_CSP_Condition {
 	 * @return array
 	 */
 	public function get_condition_resolution_placeholder( $data, $args ) {
-		return WC_CSP_Condition::merge_titles( $this->get_condition_violation_subjects( $data, $args ) );
+		return $this->merge_titles( $this->get_condition_violation_subjects( $data, $args ) );
 	}
 
 	/**

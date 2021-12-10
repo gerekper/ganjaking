@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Restrict Payment Gateways.
  *
  * @class    WC_CSP_Restrict_Payment_Gateways
- * @version  1.9.4
+ * @version  1.11.0
  */
 class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_CSP_Checkout_Restriction {
 
@@ -591,7 +591,7 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 		$result = new WC_CSP_Check_Result();
 		$args   = array(
 			'context'      => 'validation',
-			'include_data' => true
+			'include_data' => true,
 		);
 
 		$cart_contents      = WC()->cart->get_cart();
@@ -633,7 +633,12 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 				foreach ( $product_rules_map as $rule_index => $excluded_gateway_ids ) {
 
 					if ( ! empty( $excluded_gateway_ids ) ) {
-						$result->add( 'payment_gateway_excluded_by_product_restriction', $this->get_resolution_message( $product_restriction_data[ $rule_index ], 'product', array_merge( $args, array( 'cart_item_data' => $cart_item_data ) ) ) );
+						$result->add(
+							'payment_gateway_excluded_by_product_restriction',
+							$this->get_resolution_message( $product_restriction_data[ $rule_index ], 'product', array_merge( $args, array( 'cart_item_data' => $cart_item_data ) ) ),
+							'error',
+							WC_CSP_Debugger::is_running() ? array_merge( $product_restriction_data[ $rule_index ], array( 'product' => $product ) ) : array()
+						);
 					}
 				}
 			}
@@ -650,7 +655,12 @@ class WC_CSP_Restrict_Payment_Gateways extends WC_CSP_Restriction implements WC_
 		foreach ( $global_rules_map as $rule_index => $excluded_gateway_ids ) {
 
 			if ( ! empty( $excluded_gateway_ids ) ) {
-				$result->add( 'payment_gateway_excluded_by_global_restriction', $this->get_resolution_message( $global_restriction_data[ $rule_index ], 'global', $args ) );
+				$result->add(
+					'payment_gateway_excluded_by_global_restriction',
+					$this->get_resolution_message( $global_restriction_data[ $rule_index ], 'global', $args ),
+					'error',
+					WC_CSP_Debugger::is_running() ? $global_restriction_data[ $rule_index ] : array()
+				);
 			}
 		}
 

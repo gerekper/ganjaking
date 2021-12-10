@@ -237,8 +237,9 @@ class WoocommerceProductFeedsDbManager {
 	 * Sets up a feed config entry for each enabled feed.
 	 */
 	public function upgrade_db_to_10() {
-		$feed_types = $this->common->get_feed_types();
-		foreach ( array_keys( $this->settings['gpf_enabled_feeds'] ) as $enabled_feed ) {
+		$feed_types        = $this->common->get_feed_types();
+		$gpf_enabled_feeds = $this->settings['gpf_enabled_feeds'] ?? [];
+		foreach ( array_keys( $gpf_enabled_feeds ) as $enabled_feed ) {
 			$config = [
 				'type' => $enabled_feed,
 				'name' => isset( $feed_types[ $enabled_feed ]['name'] ) ?

@@ -26,7 +26,7 @@ class WC_CSP_Admin {
 	 *
 	 * @var string
 	 */
-	private static $bundled_selectsw_version = '1.1.3';
+	private static $bundled_selectsw_version = '1.1.7';
 
 	/**
 	 * @var array
@@ -287,6 +287,8 @@ class WC_CSP_Admin {
 			'is_wc_version_gte_3_2'       => WC_CSP_Core_Compatibility::is_wc_version_gte( '3.2' ) ? 'yes' : 'no',
 			'billing_states_data'         => WC()->countries->get_allowed_country_states(),
 			'shipping_states_data'        => WC()->countries->get_shipping_country_states(),
+			'continents_data'             => WC()->countries->get_shipping_continents(),
+			'countries_data'              => WC()->countries->get_shipping_countries(),
 			'i18n_delete_rule_warning'    => __('This rule will be permanently deleted from your system. Are you sure?', 'woocommerce-conditional-shipping-and-payments'),
 			'i18n_toggle_session_expired' => _x( 'Something went wrong. Please refresh your browser and try again.', 'active toggler', 'woocommerce' ),
 			'i18n_matches_1'              => _x( 'One result is available, press enter to select it.', 'enhanced select', 'woocommerce' ),

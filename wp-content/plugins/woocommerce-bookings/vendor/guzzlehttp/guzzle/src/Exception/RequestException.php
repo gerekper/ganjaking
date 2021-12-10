@@ -124,7 +124,7 @@ class RequestException extends TransferException
      */
     public static function getResponseBodySummary(ResponseInterface $response)
     {
-        return \GuzzleHttp\Psr7\get_message_body_summary($response);
+        return \Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\get_message_body_summary($response);
     }
 
     /**

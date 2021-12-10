@@ -1,9 +1,9 @@
 # Copyright (C) 2017 Ademti Software Ltd.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Product Feed 10.2.1\n"
+"Project-Id-Version: WooCommerce Google Product Feed 10.3.0\n"
 "Report-Msgid-Bugs-To: https://plugins.leewillis.co.uk/support\n"
-"POT-Creation-Date: 2021-09-28 08:52:42+00:00\n"
+"POT-Creation-Date: 2021-12-06 13:35:07+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -364,6 +364,7 @@ msgid "Condition or state of items"
 msgstr ""
 
 #: src/gpf/woocommerce-gpf-common.php:138
+#: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:23
 msgid "Brand"
 msgstr ""
 
@@ -441,6 +442,7 @@ msgid "Item's Colour"
 msgstr ""
 
 #: src/gpf/woocommerce-gpf-common.php:212
+#: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:27
 msgid "Size"
 msgstr ""
 
@@ -501,6 +503,7 @@ msgid ""
 msgstr ""
 
 #: src/gpf/woocommerce-gpf-common.php:267
+#: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:25
 msgid "Material"
 msgstr ""
 
@@ -509,6 +512,7 @@ msgid "Item's material"
 msgstr ""
 
 #: src/gpf/woocommerce-gpf-common.php:275
+#: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:26
 msgid "Pattern"
 msgstr ""
 
@@ -1062,6 +1066,18 @@ msgstr ""
 #: src/integrations/woocommerce-product-feeds-advanced-custom-fields.php:322
 #. Translators: %s is the field name.
 msgid "%s (URL)"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:21
+msgid "-- Fields from Facebook for WooCommerce --"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-facebook-for-woocommerce.php:24
+msgid "Color"
+msgstr ""
+
+#: src/integrations/woocommerce-product-feeds-woocommerce-germanized.php:19
+msgid "-- Fields from \"WooCommerce Germanized\" --"
 msgstr ""
 
 #: src/integrations/yoast-woocommerce-seo.php:9

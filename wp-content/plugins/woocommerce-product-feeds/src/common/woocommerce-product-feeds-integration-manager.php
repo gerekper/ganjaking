@@ -38,6 +38,15 @@ class WoocommerceProductFeedsIntegrationManager {
 		$this->woocommerce_multilingual_integration();
 		$this->pw_bulk_edit_integration();
 		$this->advanced_custom_fields_integration();
+		$this->facebook_for_woocommerce_integration();
+		$this->woocommerce_germanized_integration();
+	}
+
+	private function facebook_for_woocommerce_integration() {
+		if ( ! class_exists( 'WC_Facebook_Loader' ) ) {
+			return;
+		}
+		$this->container['WoocommerceProductFeedsFacebookForWoocommerce']->run();
 	}
 
 	private function product_brands_for_woocommerce_integration() {
@@ -171,5 +180,12 @@ class WoocommerceProductFeedsIntegrationManager {
 			return;
 		}
 		$this->container['WoocommerceProductFeedsAdvancedCustomFields']->run();
+	}
+
+	private function woocommerce_germanized_integration() {
+		if ( ! class_exists( 'WooCommerce_Germanized' ) ) {
+			return;
+		}
+		$this->container['WoocommerceProductFeedsWoocommerceGermanized']->run();
 	}
 }

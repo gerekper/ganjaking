@@ -1,5 +1,12 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2021.12.08 - version 1.11.0
+* Feature - Introduced Debug Mode for restriction rules, enabled under 'WooCommerce > Settings > Restrictions'.
+* Feature - Added continents support in the 'Shipping Countries and States' condition.
+* Feature - Added wildcards support in 'Customer E-mail' condition.
+* Feature - Introduced missing '=' modifier in 'Cart Item Count' condition.
+* Fix - Updated condition classes and call public function merge_titles using $this.
+
 2021.10.12 - version 1.10.0
 * Important - Updated 'Cart Subtotal' condition to include or exclude tax based on the 'Display prices during cart and checkout' option.
 * Feature - Introduced 'Cart Item Count' condition for global Payment Gateway Restrictions.

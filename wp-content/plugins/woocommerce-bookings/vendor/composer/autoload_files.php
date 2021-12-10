@@ -16,4 +16,7 @@ return array(
     '37a3dc5111fe8f707ab4c132ef1dbc62' => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
     'decc78cc4436b1292c6c0d151b19445c' => $vendorDir . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
     'a8d3953fd9959404dd22d3dfcd0a79f0' => $vendorDir . '/google/apiclient/src/aliases.php',
+    '30ca4a061496507d36e7338aa2429874' => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
+    'b1df2d76cc0659afef99297d49e90d1c' => $vendorDir . '/guzzlehttp/promises/src/functions_include.php',
+    '5091c1fcbb9dd3eba65960e1e11c5432' => $vendorDir . '/guzzlehttp/psr7/src/functions_include.php',
 );

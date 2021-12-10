@@ -566,7 +566,26 @@ class WC_Booking_Form {
 			$end_time = strtotime( '+ ' . $duration_index * $product_duration . ' ' . $this->product->get_duration_unit(), $start_time );
 
 			// Check if $end_time is bookable by rules.
-			if ( ! WC_Product_Booking_Rule_Manager::check_availability_rules_against_time( $start_time, $end_time, $resource_id, $this->product ) ) {
+			if ( 0 === $resource_id && $this->product->has_resources() ) {
+				// If product has multiple resources but no resource_id
+				// specified in request, assume "Automatically assigned"
+				// resources setup.
+				$auto_assigned_bookable = false;
+
+				// Check bookable against every resource.
+				foreach ( $this->product->get_resource_ids() as $auto_assigned_resource_id ) {
+					if ( WC_Product_Booking_Rule_Manager::check_availability_rules_against_time( $start_time, $end_time, $auto_assigned_resource_id, $this->product ) ) {
+						$auto_assigned_bookable = true;
+					}
+				}
+
+				// Only skip the block which has no resources available for booking.
+				if ( ! $auto_assigned_bookable ) {
+					continue;
+				}
+			} elseif ( ! WC_Product_Booking_Rule_Manager::check_availability_rules_against_time( $start_time, $end_time, $resource_id, $this->product ) ) {
+				// If product has no resources OR resource_id is specified.
+				// Assume "Customer selected" resources setup.
 				continue;
 			}
 

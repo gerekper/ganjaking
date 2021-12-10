@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Membership Plan Condition.
  *
  * @class    WC_CSP_Condition_Membership_Plan
- * @version  1.5.6
+ * @version  1.11.0
  */
 class WC_CSP_Condition_Membership_Plan extends WC_CSP_Condition {
 
@@ -185,8 +185,9 @@ class WC_CSP_Condition_Membership_Plan extends WC_CSP_Condition {
 			<div class="condition_value">
 				<select name="restriction[<?php echo $index; ?>][conditions][<?php echo $condition_index; ?>][value][]" class="multiselect sw-select2" multiple="multiple" data-placeholder="<?php _e( 'Select plans&hellip;', 'woocommerce-conditional-shipping-and-payments' ); ?>">
 					<?php
-						foreach ( $membership_plans as $plan )
-							echo '<option value="' . $plan->get_id() . '" ' . selected( in_array( $plan->get_id(), $current_plans ), true, false ).'>' . $plan->get_name() . '</option>';
+						foreach ( $membership_plans as $plan ) {
+							echo '<option value="' . $plan->get_id() . '" ' . selected( in_array( $plan->get_id(), $current_plans ), true, false ) . '>' . $plan->get_name() . '</option>';
+						}
 					?>
 				</select>
 			</div>

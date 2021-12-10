@@ -218,11 +218,7 @@ class WC_Bookings_Init {
 	 * Frontend booking form scripts
 	 */
 	public function booking_form_styles() {
-		global $wp_scripts;
-
-		$jquery_version = isset( $wp_scripts->registered['jquery-ui-core']->ver ) ? $wp_scripts->registered['jquery-ui-core']->ver : '1.11.4';
-
-		wp_enqueue_style( 'jquery-ui-style', '//ajax.googleapis.com/ajax/libs/jqueryui/' . $jquery_version . '/themes/smoothness/jquery-ui.min.css' );
+		wp_enqueue_style( 'jquery-ui-style', WC_BOOKINGS_PLUGIN_URL . '/dist/css/jquery-ui-styles.css', array(), '1.11.4-wc-bookings.' . WC_BOOKINGS_VERSION );
 		wp_enqueue_style( 'wc-bookings-styles', WC_BOOKINGS_PLUGIN_URL . '/dist/css/frontend.css', null, WC_BOOKINGS_VERSION );
 	}
 
