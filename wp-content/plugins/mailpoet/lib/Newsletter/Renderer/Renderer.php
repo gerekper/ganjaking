@@ -6,14 +6,14 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Env;
+use MailPoet\Config\ServicesChecker;
 use MailPoet\Entities\NewsletterEntity;
+use MailPoet\InvalidStateException;
 use MailPoet\Models\Newsletter;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Renderer\EscapeHelper as EHelper;
 use MailPoet\RuntimeException;
-use MailPoet\Services\Bridge;
 use MailPoet\Tasks\Sending as SendingTask;
-use MailPoet\Util\License\License;
 use MailPoet\Util\pQuery\DomNode;
 use MailPoet\WP\Functions as WPFunctions;
 
@@ -33,31 +33,26 @@ class Renderer {
   /** @var \MailPoetVendor\CSS */
   private $cSSInliner;
 
-  /** @var Bridge */
-  private $bridge;
-
-  /** @var License */
-  private $license;
-
   /** @var NewslettersRepository */
   private $newslettersRepository;
+
+  /** @var ServicesChecker */
+  private $servicesChecker;
 
   public function __construct(
     Blocks\Renderer $blocksRenderer,
     Columns\Renderer $columnsRenderer,
     Preprocessor $preprocessor,
     \MailPoetVendor\CSS $cSSInliner,
-    Bridge $bridge,
     NewslettersRepository $newslettersRepository,
-    License $license
+    ServicesChecker $servicesChecker
   ) {
     $this->blocksRenderer = $blocksRenderer;
     $this->columnsRenderer = $columnsRenderer;
     $this->preprocessor = $preprocessor;
     $this->cSSInliner = $cSSInliner;
-    $this->bridge = $bridge;
-    $this->license = $license;
     $this->newslettersRepository = $newslettersRepository;
+    $this->servicesChecker = $servicesChecker;
   }
 
   /**
@@ -66,11 +61,13 @@ class Renderer {
    * @return NewsletterEntity|null
    */
   private function getNewsletter($newsletter) {
-    if ($newsletter instanceof NewsletterEntity) return $newsletter;
     if ($newsletter instanceof Newsletter) {
-      $newsletterId = $newsletter->id;
+      return $this->newslettersRepository->findOneById($newsletter->id);
     }
-    return $this->newslettersRepository->findOneById($newsletterId);
+    if (!$newsletter instanceof NewsletterEntity) {
+      throw new InvalidStateException();
+    }
+    return $newsletter;
   }
 
   public function render($newsletter, SendingTask $sendingTask = null, $type = false) {
@@ -97,9 +94,7 @@ class Renderer {
       : [];
 
     if (
-      !$this->license->hasLicense()
-      && !$this->bridge->isMailpoetSendingServiceEnabled()
-      && !$preview
+      !$this->servicesChecker->isUserActivelyPaying() && !$preview
     ) {
       $content = $this->addMailpoetLogoContentBlock($content, $styles);
     }
@@ -178,6 +173,11 @@ class Renderer {
           $selector = '.mailpoet_content-wrapper';
           break;
       }
+
+      if (!is_array($style)) {
+        continue;
+      }
+
       $css .= StylesHelper::setStyle($style, $selector);
     }
     return $css;
@@ -220,9 +220,12 @@ class Renderer {
     foreach ($templateDom->query('img') as $image) {
       $image->src = str_replace(' ', '%20', $image->src);
     }
+    // because tburry/pquery contains a bug and replaces the opening non mso condition incorrectly we have to replace the opening tag with correct value
+    $template = $templateDom->__toString();
+    $template = str_replace('<!--[if !mso]><![endif]-->', '<!--[if !mso]><!-- -->', $template);
     $template = WPFunctions::get()->applyFilters(
       self::FILTER_POST_PROCESS,
-      $templateDom->__toString()
+      $template
     );
     return $template;
   }
@@ -256,7 +259,7 @@ class Renderer {
               'link' => 'http://www.mailpoet.com',
               'src' => Env::$assetsUrl . '/img/mailpoet_logo_newsletter.png',
               'fullWidth' => false,
-              'alt' => 'MailPoet',
+              'alt' => 'Email Marketing Powered by MailPoet',
               'width' => '108px',
               'height' => '65px',
               'styles' => [

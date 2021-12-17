@@ -2,7 +2,7 @@
 
 /**
  *
- * @link              https://wpdeveloper.net
+ * @link              https://wpdeveloper.com
  * @since             1.0.0
  * @package           Betterdocs_Pro
  *
@@ -10,9 +10,9 @@
  * Plugin Name:       BetterDocs Pro
  * Plugin URI:        https:/betterdocs.co
  * Description:       Help your customers browse the docs and find instant answers through BetterDocs Instant Answers. Get access to Multiple KB, Insightful Analytics & many more!
- * Version:           1.6.11
+ * Version:           2.0.0
  * Author:            WPDeveloper
- * Author URI:        https://wpdeveloper.net
+ * Author URI:        https://wpdeveloper.com
  * License:           GPL-3.0+
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       betterdocs-pro
@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'BETTERDOCS_PRO_VERSION', '1.6.11' );
+define( 'BETTERDOCS_PRO_VERSION', '2.0.0' );
 //define( 'BETTERDOCS_PRO_PUBLIC_URL', plugins_url( '/', __FILE__ ) );
 define( 'BETTERDOCS_PRO_URL', plugin_dir_url( __FILE__ ) );
 define( 'BETTERDOCS_PRO_PUBLIC_URL', BETTERDOCS_PRO_URL . 'public/' );
@@ -39,7 +39,7 @@ define( 'BETTERDOCS_PRO_ADMIN_DIR_PATH', BETTERDOCS_PRO_ROOT_DIR_PATH . 'admin/'
 define( 'BETTERDOCS_PRO_PUBLIC_PATH', BETTERDOCS_PRO_ROOT_DIR_PATH . 'public/' );
 
 // Licensing
-define( 'BETTERDOCS_PRO_STORE_URL', 'https://wpdeveloper.net/' );
+define( 'BETTERDOCS_PRO_STORE_URL', 'https://api.wpdeveloper.com/' );
 define( 'BETTERDOCS_PRO_SL_ITEM_ID', 342422 );
 define( 'BETTERDOCS_PRO_SL_ITEM_SLUG', 'betterdocs-pro' );
 define( 'BETTERDOCS_PRO_SL_ITEM_NAME', 'BetterDocs Pro' );

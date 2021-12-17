@@ -7,4 +7,4 @@ if (!defined('ABSPATH')) exit;
 
 require_once __DIR__ . '/composer/autoload_real.php';
 
-return ComposerAutoloaderInitb64142cb0644b23d079088a9d7575f8a::getLoader();
+return ComposerAutoloaderInit961c6330ed054c7c9f29243901e7e7b9::getLoader();

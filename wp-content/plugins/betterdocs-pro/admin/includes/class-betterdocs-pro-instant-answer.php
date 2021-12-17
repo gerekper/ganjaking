@@ -375,7 +375,7 @@ class BetterDocs_Pro_IA {
                 'DISPLAY' => $reaction,
                 'SUCCESS' => esc_html__('Thanks for your feedback','betterdocs-pro'),
                 'TEXT'    => $reaction_title,
-                'URL'     => home_url() . '?rest_route=/betterdocs/feedback',
+                'URL'     => home_url() . '/?rest_route=/betterdocs/feedback',
             ),
             'RESPONSE'  => $response_settings,
             'ASKFORM' => array(
@@ -387,7 +387,7 @@ class BetterDocs_Pro_IA {
                 'SENDING' => esc_html__('Sending','betterdocs-pro'),
                 'SEND' => esc_html__('Send','betterdocs-pro'),
             ),
-            'ASK_URL' => home_url() . '?rest_route=/betterdocs/ask',
+            'ASK_URL' => home_url() . '/?rest_route=/betterdocs/ask',
         );
 
         if( ! empty( $launcher_settings ) ) {

@@ -1,10 +1,10 @@
 === BetterDocs Pro ===
 Contributors: wpdevteam, re_enter_rupok
-Donate link: https://wpdeveloper.net
+Donate link: https://wpdeveloper.com
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 5.8
-Stable tag: 1.6.11
+Stable tag: 2.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -44,7 +44,7 @@ Track and evaluate activities on your documentation page and improve customer ex
 
 ## 🚀 Backed By A Trusted Team ##
 
-This Documentation plugin is brought to you by the team behind [WPDeveloper](https://wpdeveloper.net/), a dedicated marketplace for WordPress, trusted by 400,000+ happy users.
+This Documentation plugin is brought to you by the team behind [WPDeveloper](https://wpdeveloper.com/), a dedicated marketplace for WordPress, trusted by 400,000+ happy users.
 
 ## 👨‍💻 DOCUMENTATION AND SUPPORT ##
 
@@ -54,8 +54,8 @@ This Documentation plugin is brought to you by the team behind [WPDeveloper](htt
 
 ## 💙 Loved BetterDocs? ##
 
-- Join our [Facebook Group](https://www.facebook.com/groups/wpdeveloper.net/)
-- Learn from our tutorials on [Youtube Channel](https://wpdeveloper.net/go/youtube-channel)
+- Join our [Facebook Group](https://www.facebook.com/groups/wpdeveloper.com/)
+- Learn from our tutorials on [Youtube Channel](https://wpdeveloper.com/go/youtube-channel)
 - Or rate us on WordPress
 
 ## 🔥 WHAT’S NEXT ## 
@@ -66,7 +66,7 @@ If you like this docs plugin, then consider checking out our other projects:
 [NotificationX](https://wordpress.org/plugins/notificationx/) – Best Social Proof & FOMO Marketing Solution
 [WP Scheduled Posts](https://wordpress.org/plugins/wp-scheduled-posts/) – Complete solution for WordPress Post Scheduling to manage schedules through an editorial calendar.
 
-Visit WPDeveloper to learn more about how to do better in WordPress with [Help Tutorial, Tips & Tricks](https://wpdeveloper.net/blog)!
+Visit WPDeveloper to learn more about how to do better in WordPress with [Help Tutorial, Tips & Tricks](https://wpdeveloper.com/blog)!
 
 
 == Installation ==
@@ -90,6 +90,16 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 2.0.0 - 14/12/2021 =
+- Added: Advanced Search with Popular Trends option
+- Added: 2 New Layouts for Docs 
+- Added: Popular Docs section
+- Fixed: Internal KB not working perfectly with some selected user roles
+- Fixed: Few minor bug fix & improvements
+
+= 1.6.12 - 09/11/2021 =
+- Fixed: Internal KB isn't perfectly working with some selected user roles
 
 = 1.6.11 - 01/11/2021 =
 - Fixed: Category sidebar not showing when Multiple KB is enabled 

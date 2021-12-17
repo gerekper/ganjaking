@@ -23,6 +23,7 @@ class NewsletterListingRepository extends ListingRepository {
 
   private static $supportedTypes = [
     NewsletterEntity::TYPE_STANDARD,
+    NewsletterEntity::TYPE_RE_ENGAGEMENT,
     NewsletterEntity::TYPE_WELCOME,
     NewsletterEntity::TYPE_AUTOMATIC,
     NewsletterEntity::TYPE_NOTIFICATION,
@@ -154,6 +155,7 @@ class NewsletterListingRepository extends ListingRepository {
         break;
 
       case NewsletterEntity::TYPE_WELCOME:
+      case NewsletterEntity::TYPE_RE_ENGAGEMENT:
       case NewsletterEntity::TYPE_NOTIFICATION:
       case NewsletterEntity::TYPE_AUTOMATIC:
         $groups = array_merge($groups, [

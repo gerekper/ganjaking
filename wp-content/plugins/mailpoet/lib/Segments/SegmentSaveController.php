@@ -53,7 +53,7 @@ class SegmentSaveController {
         FROM $subscriberSegmentTable
         WHERE segment_id = :segmentId
       ");
-      $stmt->execute([
+      $stmt->executeQuery([
         'duplicateId' => $duplicate->getId(),
         'segmentId' => $segmentEntity->getId(),
       ]);

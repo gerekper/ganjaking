@@ -7,29 +7,33 @@
  */
 if (!class_exists('A2W_Utils')) {
 
-    class A2W_Utils {
+    class A2W_Utils
+    {
 
-        public static function wcae_strack_active() {
+        public static function wcae_strack_active()
+        {
             return is_plugin_active('woocommerce_aliexpress_shipment_tracking/index.php');
         }
 
-        public static function update_post_terms_count($post_id) {
+        public static function update_post_terms_count($post_id)
+        {
             global $wpdb;
             $update_taxonomies = array();
-            $res = $wpdb->get_results("SELECT tt.taxonomy,tt.term_taxonomy_id,tt.term_id FROM {$wpdb->term_relationships} tr LEFT JOIN {$wpdb->term_taxonomy} tt ON (tr.term_taxonomy_id=tt.term_taxonomy_id) WHERE tr.object_id=".absint($post_id), ARRAY_A);
-            foreach($res as $row){
-                if(!isset($update_taxonomies[$row['taxonomy']])){
+            $res = $wpdb->get_results("SELECT tt.taxonomy,tt.term_taxonomy_id,tt.term_id FROM {$wpdb->term_relationships} tr LEFT JOIN {$wpdb->term_taxonomy} tt ON (tr.term_taxonomy_id=tt.term_taxonomy_id) WHERE tr.object_id=" . absint($post_id), ARRAY_A);
+            foreach ($res as $row) {
+                if (!isset($update_taxonomies[$row['taxonomy']])) {
                     $update_taxonomies[$row['taxonomy']] = array();
                 }
-                $update_taxonomies[$row['taxonomy']][] = in_array($row['taxonomy'],array('product_cat','product_tag'))?$row['term_taxonomy_id']:$row['term_id'];
+                $update_taxonomies[$row['taxonomy']][] = in_array($row['taxonomy'], array('product_cat', 'product_tag')) ? $row['term_taxonomy_id'] : $row['term_id'];
             }
 
-            foreach($update_taxonomies as $taxonomy=>$terms){
+            foreach ($update_taxonomies as $taxonomy => $terms) {
                 wp_update_term_count_now($terms, $taxonomy);
             }
         }
 
-        public static function clear_url($url) {
+        public static function clear_url($url)
+        {
             if ($url) {
                 $parts = parse_url($url);
                 $res = '';
@@ -55,7 +59,8 @@ if (!class_exists('A2W_Utils')) {
          * @uses   get_intermediate_image_sizes()
          * @return array $sizes Data for all currently-registered image sizes.
          */
-        public function get_image_sizes() {
+        public function get_image_sizes()
+        {
             global $_wp_additional_image_sizes;
 
             $sizes = array();
@@ -84,7 +89,8 @@ if (!class_exists('A2W_Utils')) {
          * @param  string $size The image size for which to retrieve data.
          * @return bool|array $size Size data about an image size or false if the size doesn't exist.
          */
-        public function get_image_size($size) {
+        public function get_image_size($size)
+        {
             $sizes = get_image_sizes();
 
             if (isset($sizes[$size])) {
@@ -101,7 +107,8 @@ if (!class_exists('A2W_Utils')) {
          * @param  string $size The image size for which to retrieve data.
          * @return bool|string $size Width of an image size or false if the size doesn't exist.
          */
-        public function get_image_width($size) {
+        public function get_image_width($size)
+        {
             if (!$size = get_image_size($size)) {
                 return false;
             }
@@ -120,7 +127,8 @@ if (!class_exists('A2W_Utils')) {
          * @param  string $size The image size for which to retrieve data.
          * @return bool|string $size Height of an image size or false if the size doesn't exist.
          */
-        public function get_image_height($size) {
+        public function get_image_height($size)
+        {
             if (!$size = get_image_size($size)) {
                 return false;
             }
@@ -132,7 +140,8 @@ if (!class_exists('A2W_Utils')) {
             return false;
         }
 
-        public static function delete_post_images($post_id) {
+        public static function delete_post_images($post_id)
+        {
             global $wpdb;
             $external_id = get_post_meta($post_id, '_a2w_external_id', true);
             $post_type = get_post_type($post_id);
@@ -151,40 +160,42 @@ if (!class_exists('A2W_Utils')) {
         }
 
         // cloned wp_delete_attachment function, use for overload sites
-        public static function delete_attachment( $post_id, $force_delete = false ) {
-            if (a2w_check_defined('A2W_USE_DEFAULT_DELETE_ATTACHMENT')) {
+        // 2021.11.20 By default will use default function (wp_delete_attachment)
+        public static function delete_attachment($post_id, $force_delete = false)
+        {
+            if (!a2w_check_defined('A2W_USE_CUSTOM_DELETE_ATTACHMENT')) {
                 return wp_delete_attachment($post_id, $force_delete);
             }
-            
+
             global $wpdb;
-            
-            $post = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE ID = %d", $post_id ) );
 
-            if ( ! $post ) {
-                    return $post;
+            $post = $wpdb->get_row($wpdb->prepare("SELECT * FROM $wpdb->posts WHERE ID = %d", $post_id));
+
+            if (!$post) {
+                return $post;
             }
 
-            $post = get_post( $post );
-            
-            
+            $post = get_post($post);
 
-            if ( 'attachment' !== $post->post_type ) {
-                    return false;
+            if ('attachment' !== $post->post_type) {
+                return false;
             }
 
-            if ( ! $force_delete && EMPTY_TRASH_DAYS && MEDIA_TRASH && 'trash' !== $post->post_status ) {
-                    return wp_trash_post( $post_id );
+            if (!$force_delete && EMPTY_TRASH_DAYS && MEDIA_TRASH && 'trash' !== $post->post_status) {
+                return wp_trash_post($post_id);
             }
 
             delete_post_meta($post_id, '_wp_trash_meta_status');
             delete_post_meta($post_id, '_wp_trash_meta_time');
-            
-            $meta = wp_get_attachment_metadata( $post_id );
-            $backup_sizes = get_post_meta( $post->ID, '_wp_attachment_backup_sizes', true );
-            $file = get_attached_file( $post_id );
 
-            if ( is_multisite() )
-                    delete_transient( 'dirsize_cache' );
+            $meta = wp_get_attachment_metadata($post_id);
+            $backup_sizes = get_post_meta($post->ID, '_wp_attachment_backup_sizes', true);
+            $file = get_attached_file($post_id);
+
+            if (is_multisite()) {
+                delete_transient('dirsize_cache');
+            }
+
             /**
              * Fires before an attachment is deleted, at the start of wp_delete_attachment().
              *
@@ -192,8 +203,8 @@ if (!class_exists('A2W_Utils')) {
              *
              * @param int $post_id Attachment ID.
              */
-            do_action( 'delete_attachment', $post_id );
-            
+            do_action('delete_attachment', $post_id);
+
             wp_delete_object_term_relationships($post_id, array('category', 'post_tag'));
             wp_delete_object_term_relationships($post_id, get_object_taxonomies($post->post_type));
 
@@ -201,36 +212,38 @@ if (!class_exists('A2W_Utils')) {
             // A2W disable this call!
             // delete_metadata( 'post', null, '_thumbnail_id', $post_id, true );
 
-            wp_defer_comment_counting( true );
+            wp_defer_comment_counting(true);
 
-            $comment_ids = $wpdb->get_col( $wpdb->prepare( "SELECT comment_ID FROM $wpdb->comments WHERE comment_post_ID = %d", $post_id ));
-            foreach ( $comment_ids as $comment_id ) {
-                    wp_delete_comment( $comment_id, true );
+            $comment_ids = $wpdb->get_col($wpdb->prepare("SELECT comment_ID FROM $wpdb->comments WHERE comment_post_ID = %d", $post_id));
+            foreach ($comment_ids as $comment_id) {
+                wp_delete_comment($comment_id, true);
             }
 
-            wp_defer_comment_counting( false );
+            wp_defer_comment_counting(false);
 
-            $post_meta_ids = $wpdb->get_col( $wpdb->prepare( "SELECT meta_id FROM $wpdb->postmeta WHERE post_id = %d ", $post_id ));
-            foreach ( $post_meta_ids as $mid )
-                    delete_metadata_by_mid( 'post', $mid );
+            $post_meta_ids = $wpdb->get_col($wpdb->prepare("SELECT meta_id FROM $wpdb->postmeta WHERE post_id = %d ", $post_id));
+            foreach ($post_meta_ids as $mid) {
+                delete_metadata_by_mid('post', $mid);
+            }
 
             /** This action is documented in wp-includes/post.php */
-            do_action( 'delete_post', $post_id );
-            $result = $wpdb->delete( $wpdb->posts, array( 'ID' => $post_id ) );
-            if ( ! $result ) {
-                    return false;
+            do_action('delete_post', $post_id);
+            $result = $wpdb->delete($wpdb->posts, array('ID' => $post_id));
+            if (!$result) {
+                return false;
             }
             /** This action is documented in wp-includes/post.php */
-            do_action( 'deleted_post', $post_id );
+            do_action('deleted_post', $post_id);
 
-            wp_delete_attachment_files( $post_id, $meta, $backup_sizes, $file );
+            wp_delete_attachment_files($post_id, $meta, $backup_sizes, $file);
 
-            clean_post_cache( $post );
-            
+            clean_post_cache($post);
+
             return $post;
         }
 
-        public static function clear_image_url($img_url, $param_str = '') {
+        public static function clear_image_url($img_url, $param_str = '')
+        {
             //$img_url = str_replace("http:", "https:", $img_url);
             if (substr($img_url, 0, 4) !== "http") {
                 $new_src = "https:" . $img_url;
@@ -250,10 +263,11 @@ if (!class_exists('A2W_Utils')) {
             return $new_src;
         }
 
-        public static function get_all_images_from_product($product, $skip = false, $product_images=true, $description_images=true) {
+        public static function get_all_images_from_product($product, $skip = false, $product_images = true, $description_images = true)
+        {
             $tmp_all_images = array();
 
-            if($product_images){
+            if ($product_images) {
                 foreach ($product['images'] as $img) {
                     $img_id = md5($img);
                     if (!isset($tmp_all_images[$img_id])) {
@@ -278,12 +292,12 @@ if (!class_exists('A2W_Utils')) {
                 foreach ($desc_images as $img_id => $img) {
                     if (!isset($tmp_all_images[$img_id])) {
                         $tmp_all_images[$img_id] = array('image' => $img, 'type' => 'description');
-                    } 
+                    }
                 }
             }
 
             if (!empty($product['sku_products']['attributes'])) {
-                foreach ($product['sku_products']['attributes'] as $attribute) {               
+                foreach ($product['sku_products']['attributes'] as $attribute) {
                     foreach ($attribute['value'] as $attr_value) {
                         $has_variation = false;
                         foreach ($product['sku_products']['variations'] as $variation) {
@@ -297,20 +311,20 @@ if (!class_exists('A2W_Utils')) {
                         }
 
                         if ($has_variation) {
-                            if (a2w_get_setting('use_external_image_urls')){
+                            if (a2w_get_setting('use_external_image_urls')) {
                                 if (!empty($attr_value['thumb'])) {
                                     $img_id = md5($attr_value['thumb']);
                                     if (!isset($tmp_all_images[$img_id])) {
                                         $tmp_all_images[$img_id] = array('image' => $attr_value['thumb'], 'type' => 'attribute');
                                     }
-                                } else if (!empty($attr_value['image'])) { 
+                                } else if (!empty($attr_value['image'])) {
                                     $img_id = md5($attr_value['image']);
                                     if (!isset($tmp_all_images[$img_id])) {
                                         $tmp_all_images[$img_id] = array('image' => $attr_value['image'], 'type' => 'attribute');
                                     }
-                                } 
-                            } else{
-                                if (!empty($attr_value['image'])) { 
+                                }
+                            } else {
+                                if (!empty($attr_value['image'])) {
                                     $img_id = md5($attr_value['image']);
                                     if (!isset($tmp_all_images[$img_id])) {
                                         $tmp_all_images[$img_id] = array('image' => $attr_value['image'], 'type' => 'attribute');
@@ -327,8 +341,8 @@ if (!class_exists('A2W_Utils')) {
                 }
             }
 
-            if($skip){
-                foreach($product['skip_images'] as $img_id){
+            if ($skip) {
+                foreach ($product['skip_images'] as $img_id) {
                     unset($tmp_all_images[$img_id]);
                 }
             }
@@ -336,10 +350,11 @@ if (!class_exists('A2W_Utils')) {
             return $tmp_all_images;
         }
 
-        public static function get_images_from_description($description) {
+        public static function get_images_from_description($description)
+        {
             $src_result = array();
 
-            if(class_exists('DOMDocument')) {
+            if ($description && class_exists('DOMDocument')) {
                 $description = htmlspecialchars_decode(utf8_decode(htmlentities($description, ENT_COMPAT, 'UTF-8', false)));
 
                 if (function_exists('libxml_use_internal_errors')) {
@@ -350,7 +365,6 @@ if (!class_exists('A2W_Utils')) {
                 $dom->formatOutput = true;
                 $tags = $dom->getElementsByTagName('img');
 
-                
                 foreach ($tags as $tag) {
                     $src_result[md5($tag->getAttribute('src'))] = $tag->getAttribute('src');
                 }
@@ -359,7 +373,8 @@ if (!class_exists('A2W_Utils')) {
             return $src_result;
         }
 
-        public static function normalizeChars($s) {
+        public static function normalizeChars($s)
+        {
             $replace = array(
                 'ъ' => '-', 'Ь' => '-', 'Ъ' => '-', 'ь' => '-',
                 'Ă' => 'A', 'Ą' => 'A', 'À' => 'A', 'Ã' => 'A', 'Á' => 'A', 'Æ' => 'A', 'Â' => 'A', 'Å' => 'A', 'Ä' => 'Ae',
@@ -400,135 +415,137 @@ if (!class_exists('A2W_Utils')) {
                 'в' => 'v', 'ו' => 'v', 'В' => 'v',
                 'ש' => 'w', 'ŵ' => 'w', 'Ŵ' => 'w',
                 'ы' => 'y', 'ŷ' => 'y', 'ý' => 'y', 'ÿ' => 'y', 'Ÿ' => 'y', 'Ŷ' => 'y',
-                'Ы' => 'y', 'ž' => 'z', 'З' => 'z', 'з' => 'z', 'ź' => 'z', 'ז' => 'z', 'ż' => 'z', 'ſ' => 'z', 'Ж' => 'zh', 'ж' => 'zh'
+                'Ы' => 'y', 'ž' => 'z', 'З' => 'z', 'з' => 'z', 'ź' => 'z', 'ז' => 'z', 'ż' => 'z', 'ſ' => 'z', 'Ж' => 'zh', 'ж' => 'zh',
             );
             return strtr($s, $replace);
         }
-              
-        public static function safeTransliterate ($text) {
-            
+
+        public static function safeTransliterate($text)
+        {
+
             //for cyrilic first:
             $cyr = array(
-                'ж',  'ч',  'щ',   'ш',  'ю',  'а', 'б', 'в', 'г', 'д', 'е', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ъ', 'ь', 'я',
-                'Ж',  'Ч',  'Щ',   'Ш',  'Ю',  'А', 'Б', 'В', 'Г', 'Д', 'Е', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ъ', 'Ь', 'Я');
-                $lat = array(
+                'ж', 'ч', 'щ', 'ш', 'ю', 'а', 'б', 'в', 'г', 'д', 'е', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ъ', 'ь', 'я',
+                'Ж', 'Ч', 'Щ', 'Ш', 'Ю', 'А', 'Б', 'В', 'Г', 'Д', 'Е', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ъ', 'Ь', 'Я');
+            $lat = array(
                 'zh', 'ch', 'sht', 'sh', 'yu', 'a', 'b', 'v', 'g', 'd', 'e', 'z', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f', 'h', 'c', 'y', 'x', 'q',
                 'Zh', 'Ch', 'Sht', 'Sh', 'Yu', 'A', 'B', 'V', 'G', 'D', 'E', 'Z', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'H', 'c', 'Y', 'X', 'Q');
-               $text = str_replace($cyr, $lat, $text);
-               
-               //for Brasilian and Arabic languages:
-       
+            $text = str_replace($cyr, $lat, $text);
+
+            //for Brasilian and Arabic languages:
+
             //if available, this function uses PHP5.4's transliterate, which is capable of converting arabic, hebrew, greek,
             //chinese, japanese and more into ASCII! however, we use our manual (and crude) fallback *first* instead because
             //we will take the liberty of transliterating some things into more readable ASCII-friendly forms,
             //e.g. "100℃" > "100degc" instead of "100oc"
-            
+
             /* manual transliteration list:
-               -------------------------------------------------------------------------------------------------------------- */
+            -------------------------------------------------------------------------------------------------------------- */
             /* this list is supposed to be practical, not comprehensive, representing:
-               1. the most common accents and special letters that get typed, and
-               2. the most practical transliterations for readability;
-               
-               this data was produced with the help of:
-               http://www.unicode.org/charts/normalization/
-               http://www.yuiblog.com/sandbox/yui/3.3.0pr3/api/text-data-accentfold.js.html
-               http://www.utf8-chartable.de/
-            */
-            static $translit = array (
-                'a'    => '/[ÀÁÂẦẤẪẨÃĀĂẰẮẴȦẲǠẢÅÅǺǍȀȂẠẬẶḀĄẚàáâầấẫẩãāăằắẵẳȧǡảåǻǎȁȃạậặḁą]/u',
-                'b'    => '/[ḂḄḆḃḅḇ]/u',            'c'    => '/[ÇĆĈĊČḈçćĉċčḉ]/u',
-                'd'    => '/[ÐĎḊḌḎḐḒďḋḍḏḑḓð]/u',
-                'e'    => '/[ÈËĒĔĖĘĚȄȆȨḔḖḘḚḜẸẺẼẾỀỂỄỆèëēĕėęěȅȇȩḕḗḙḛḝẹẻẽếềểễệ]/u',
-                'f'    => '/[Ḟḟ]/u',                'g'    => '/[ĜĞĠĢǦǴḠĝğġģǧǵḡ]/u',
-                'h'    => '/[ĤȞḢḤḦḨḪĥȟḣḥḧḩḫẖ]/u',        'i'    => '/[ÌÏĨĪĬĮİǏȈȊḬḮỈỊiìïĩīĭįǐȉȋḭḯỉị]/u',
-                'j'    => '/[Ĵĵǰ]/u',                'k'    => '/[ĶǨḰḲḴKķǩḱḳḵ]/u',
-                'l'    => '/[ĹĻĽĿḶḸḺḼĺļľŀḷḹḻḽ]/u',        'm'    => '/[ḾṀṂḿṁṃ]/u',
-                'n'    => '/[ÑŃŅŇǸṄṆṈṊñńņňǹṅṇṉṋ]/u',
-                'o'    => '/[ÒÖŌŎŐƠǑǪǬȌȎȪȬȮȰṌṎṐṒỌỎỐỒỔỖỘỚỜỞỠỢØǾòöōŏőơǒǫǭȍȏȫȭȯȱṍṏṑṓọỏốồổỗộớờởỡợøǿ]/u',
-                'p'    => '/[ṔṖṕṗ]/u',                'r'    => '/[ŔŖŘȐȒṘṚṜṞŕŗřȑȓṙṛṝṟ]/u',
-                's'    => '/[ŚŜŞŠȘṠṢṤṦṨſśŝşšșṡṣṥṧṩ]/u',    'ss'    => '/[ß]/u',
-                't'    => '/[ŢŤȚṪṬṮṰţťțṫṭṯṱẗ]/u',        'th'    => '/[Þþ]/u',
-                'u'    => '/[ÙŨŪŬŮŰŲƯǓȔȖṲṴṶṸṺỤỦỨỪỬỮỰùũūŭůűųưǔȕȗṳṵṷṹṻụủứừửữựµ]/u',
-                'v'    => '/[ṼṾṽṿ]/u',                'w'    => '/[ŴẀẂẄẆẈŵẁẃẅẇẉẘ]/u',
-                'x'    => '/[ẊẌẋẍ×]/u',            'y'    => '/[ÝŶŸȲẎỲỴỶỸýÿŷȳẏẙỳỵỷỹ]/u',
-                'z'    => '/[ŹŻŽẐẒẔźżžẑẓẕ]/u',                
+            1. the most common accents and special letters that get typed, and
+            2. the most practical transliterations for readability;
+
+            this data was produced with the help of:
+            http://www.unicode.org/charts/normalization/
+            http://www.yuiblog.com/sandbox/yui/3.3.0pr3/api/text-data-accentfold.js.html
+            http://www.utf8-chartable.de/
+             */
+            static $translit = array(
+                'a' => '/[ÀÁÂẦẤẪẨÃĀĂẰẮẴȦẲǠẢÅÅǺǍȀȂẠẬẶḀĄẚàáâầấẫẩãāăằắẵẳȧǡảåǻǎȁȃạậặḁą]/u',
+                'b' => '/[ḂḄḆḃḅḇ]/u', 'c' => '/[ÇĆĈĊČḈçćĉċčḉ]/u',
+                'd' => '/[ÐĎḊḌḎḐḒďḋḍḏḑḓð]/u',
+                'e' => '/[ÈËĒĔĖĘĚȄȆȨḔḖḘḚḜẸẺẼẾỀỂỄỆèëēĕėęěȅȇȩḕḗḙḛḝẹẻẽếềểễệ]/u',
+                'f' => '/[Ḟḟ]/u', 'g' => '/[ĜĞĠĢǦǴḠĝğġģǧǵḡ]/u',
+                'h' => '/[ĤȞḢḤḦḨḪĥȟḣḥḧḩḫẖ]/u', 'i' => '/[ÌÏĨĪĬĮİǏȈȊḬḮỈỊiìïĩīĭįǐȉȋḭḯỉị]/u',
+                'j' => '/[Ĵĵǰ]/u', 'k' => '/[ĶǨḰḲḴKķǩḱḳḵ]/u',
+                'l' => '/[ĹĻĽĿḶḸḺḼĺļľŀḷḹḻḽ]/u', 'm' => '/[ḾṀṂḿṁṃ]/u',
+                'n' => '/[ÑŃŅŇǸṄṆṈṊñńņňǹṅṇṉṋ]/u',
+                'o' => '/[ÒÖŌŎŐƠǑǪǬȌȎȪȬȮȰṌṎṐṒỌỎỐỒỔỖỘỚỜỞỠỢØǾòöōŏőơǒǫǭȍȏȫȭȯȱṍṏṑṓọỏốồổỗộớờởỡợøǿ]/u',
+                'p' => '/[ṔṖṕṗ]/u', 'r' => '/[ŔŖŘȐȒṘṚṜṞŕŗřȑȓṙṛṝṟ]/u',
+                's' => '/[ŚŜŞŠȘṠṢṤṦṨſśŝşšșṡṣṥṧṩ]/u', 'ss' => '/[ß]/u',
+                't' => '/[ŢŤȚṪṬṮṰţťțṫṭṯṱẗ]/u', 'th' => '/[Þþ]/u',
+                'u' => '/[ÙŨŪŬŮŰŲƯǓȔȖṲṴṶṸṺỤỦỨỪỬỮỰùũūŭůűųưǔȕȗṳṵṷṹṻụủứừửữựµ]/u',
+                'v' => '/[ṼṾṽṿ]/u', 'w' => '/[ŴẀẂẄẆẈŵẁẃẅẇẉẘ]/u',
+                'x' => '/[ẊẌẋẍ×]/u', 'y' => '/[ÝŶŸȲẎỲỴỶỸýÿŷȳẏẙỳỵỷỹ]/u',
+                'z' => '/[ŹŻŽẐẒẔźżžẑẓẕ]/u',
                 //combined letters and ligatures:
-                'ae'    => '/[ÄǞÆǼǢäǟæǽǣ]/u',            'oe'    => '/[Œœ]/u',
-                'dz'    => '/[ǄǅǱǲǆǳ]/u',
-                'ff'    => '/[ﬀ]/u',    'fi'    => '/[ﬃﬁ]/u',    'ffl'    => '/[ﬄﬂ]/u',
-                'ij'    => '/[Ĳĳ]/u',    'lj'    => '/[Ǉǈǉ]/u',    'nj'    => '/[Ǌǋǌ]/u',
-                'st'    => '/[ﬅﬆ]/u',    'ue'    => '/[ÜǕǗǙǛüǖǘǚǜ]/u',
+                'ae' => '/[ÄǞÆǼǢäǟæǽǣ]/u', 'oe' => '/[Œœ]/u',
+                'dz' => '/[ǄǅǱǲǆǳ]/u',
+                'ff' => '/[ﬀ]/u', 'fi' => '/[ﬃﬁ]/u', 'ffl' => '/[ﬄﬂ]/u',
+                'ij' => '/[Ĳĳ]/u', 'lj' => '/[Ǉǈǉ]/u', 'nj' => '/[Ǌǋǌ]/u',
+                'st' => '/[ﬅﬆ]/u', 'ue' => '/[ÜǕǗǙǛüǖǘǚǜ]/u',
                 //currencies:
-                'eur'   => '/[€]/u',    'cents'    => '/[¢]/u',    'lira'    => '/[₤]/u',    'dollars' => '/[$]/u',
-                'won'    => '/[₩]/u',    'rs'    => '/[₨]/u',    'yen'    => '/[¥]/u',    'pounds'  => '/[£]/u',
-                'pts'    => '/[₧]/u',
+                'eur' => '/[€]/u', 'cents' => '/[¢]/u', 'lira' => '/[₤]/u', 'dollars' => '/[$]/u',
+                'won' => '/[₩]/u', 'rs' => '/[₨]/u', 'yen' => '/[¥]/u', 'pounds' => '/[£]/u',
+                'pts' => '/[₧]/u',
                 //misc:
-                'degc'    => '/[℃]/u',    'degf'  => '/[℉]/u',
-                'no'    => '/[№]/u',    'tm'    => '/[™]/u'
+                'degc' => '/[℃]/u', 'degf' => '/[℉]/u',
+                'no' => '/[№]/u', 'tm' => '/[™]/u',
             );
             //do the manual transliteration first
-            $text = preg_replace (array_values ($translit), array_keys ($translit), $text);
-            
+            $text = preg_replace(array_values($translit), array_keys($translit), $text);
+
             //flatten the text down to just a-z0-9 and dash, with underscores instead of spaces
-            $text = preg_replace (
+            $text = preg_replace(
                 //remove punctuation    //replace non a-z    //deduplicate    //trim underscores from start & end
-                array (/*'/\p{P}/u',*/    /*'/[^_a-z0-9-]/i',*/     '/_{2,}/',    '/^_|_$/'),
-                array (/*'',*/      /*  '_', */          '_',        ''),
-                
+                array( /*'/\p{P}/u',*//*'/[^_a-z0-9-]/i',*/'/_{2,}/', '/^_|_$/'),
+                array( /*'',*//*  '_', */'_', ''),
+
                 //attempt transliteration with PHP5.4's transliteration engine (best):
                 //(this method can handle near anything, including converting chinese and arabic letters to ASCII.
                 // requires the 'intl' extension to be enabled)
-                function_exists ('transliterator_transliterate') ? transliterator_transliterate (
+                function_exists('transliterator_transliterate') ? transliterator_transliterate(
                     //split unicode accents and symbols, e.g. "Å" > "A°":
-                    'NFKD; '.
+                    'NFKD; ' .
                     //convert everything to the Latin charset e.g. "ま" > "ma":
                     //(splitting the unicode before transliterating catches some complex cases,
                     // such as: "㏳" >NFKD> "20日" >Latin> "20ri")
-                    'Latin; '.
+                    'Latin; ' .
                     //because the Latin unicode table still contains a large number of non-pure-A-Z glyphs (e.g. "œ"),
                     //convert what remains to an even stricter set of characters, the US-ASCII set:
                     //(we must do this because "Latin/US-ASCII" alone is not able to transliterate non-Latin characters
                     // such as "ま". this two-stage method also means we catch awkward characters such as:
                     // "㏀" >Latin> "kΩ" >Latin/US-ASCII> "kO")
-                    'Latin/US-ASCII; '.
+                    'Latin/US-ASCII; ' .
                     //remove the now stand-alone diacritics from the string
                     '[:Nonspacing Mark:] Remove; ',
-                $text)
-                
+                    $text)
+
                 //attempt transliteration with iconv: <php.net/manual/en/function.iconv.php>
-                : (function_exists ('iconv') ? str_replace (array ("'", '"', '`', '^', '~'), '', 
+                 : (function_exists('iconv') ? str_replace(array("'", '"', '`', '^', '~'), '',
                     //note: results of this are different depending on iconv version,
                     //      sometimes the diacritics are written to the side e.g. "ñ" = "~n", which are removed
-                    iconv ('UTF-8', 'US-ASCII//IGNORE//TRANSLIT', $text)
+                    iconv('UTF-8', 'US-ASCII//IGNORE//TRANSLIT', $text)
                 ) : $text)
             );
-            
+
             //old iconv versions and certain inputs may cause a nullstring. don't allow a blank response
             return !$text ? '_' : $text;
         }
 
-        public static function get_product_shipping_info($_product, $quantity=1, $default_country=false, $with_vars=true){
+        public static function get_product_shipping_info($_product, $quantity = 1, $default_country = false, $with_vars = true)
+        {
             $woocommerce_model = new A2W_Woocommerce();
             $loader = new A2W_Aliexpress();
 
             $default_ff_method = a2w_get_setting('fulfillment_prefship');
-            $product_id = $_product->get_type() == 'variation' ? $_product->get_parent_id() : $_product->get_id(); 
+            $product_id = $_product->get_type() == 'variation' ? $_product->get_parent_id() : $_product->get_id();
 
             $shipping_meta = new A2W_ProductShippingMeta($product_id);
 
             $product = $woocommerce_model->get_product_by_post_id($product_id, $with_vars);
-          
+
             $product_country = isset($product['shipping_to_country']) && $product['shipping_to_country'] ? $product['shipping_to_country'] : '';
-            $shiping_to_country = $default_country? $default_country : $product_country;
-            
+            $shiping_to_country = $default_country ? $default_country : $product_country;
+
             $shiping_from_country = get_post_meta($_product->get_id(), '_a2w_country_code', true);
-            $shiping_from_country = empty($shiping_from_country)?"":$shiping_from_country;
+            $shiping_from_country = empty($shiping_from_country) ? "" : $shiping_from_country;
 
             $items = $shipping_meta->get_items($quantity, $shiping_from_country, $shiping_to_country);
 
             // Load only if data not in cache
             // TODO: if no items (empty result) then try load again
-            if ($shiping_to_country && $items === false /* !empty($items) */) {
+            if ($shiping_to_country && $items === false/* !empty($items) */) {
                 $res = $loader->load_shipping_info($product['id'], $quantity, $shiping_to_country, $shiping_from_country, $product['price'], $product['price']);
                 if ($res['state'] !== 'error') {
                     $items = $res['items'];
@@ -536,27 +553,27 @@ if (!class_exists('A2W_Utils')) {
                 }
             }
 
-            $items = !empty($items)?$items:array();
+            $items = !empty($items) ? $items : array();
 
-            $default_method = !empty($product['shipping_default_method'])?$product['shipping_default_method']:$default_ff_method;
+            $default_method = !empty($product['shipping_default_method']) ? $product['shipping_default_method'] : $default_ff_method;
 
             $has_shipping_method = false;
-            foreach($items as $item){
-                if($item['serviceName'] == $default_method){
+            foreach ($items as $item) {
+                if ($item['serviceName'] == $default_method) {
                     $has_shipping_method = true;
                     break;
                 }
             }
 
-            if(!$has_shipping_method){
+            if (!$has_shipping_method) {
                 $default_method = "";
                 $tmp_p = -1;
-                foreach($items as $k=>$item){
+                foreach ($items as $k => $item) {
                     $price = isset($item['previewFreightAmount']['value']) ? $item['previewFreightAmount']['value'] : $item['freightAmount']['value'];
                     if ($tmp_p < 0 || $price < $tmp_p || $item['serviceName'] == $default_ff_method) {
                         $tmp_p = $price;
                         $default_method = $item['serviceName'];
-                        if($default_method == $default_ff_method){
+                        if ($default_method == $default_ff_method) {
                             break;
                         }
                     }
@@ -564,15 +581,136 @@ if (!class_exists('A2W_Utils')) {
             }
 
             $shipping_cost = 0;
-            foreach($items as $item){
-                if($item['serviceName'] == $default_method){
+            foreach ($items as $item) {
+                if ($item['serviceName'] == $default_method) {
                     $shipping_cost = isset($item['previewFreightAmount']['value']) ? $item['previewFreightAmount']['value'] : $item['freightAmount']['value'];
                 }
             }
 
-            return array('product_id' => $_product->get_id(), 'default_method'=>$default_method, 'items' => $items, 'shipping_cost' => $shipping_cost);
+            return array('product_id' => $_product->get_id(), 'default_method' => $default_method, 'items' => $items, 'shipping_cost' => $shipping_cost);
         }
 
+        public static function remove_ship_from($product, $country_from = 'CN')
+        {
+            $default_country = 'CN';
+            $ship_from_attr_value = array();
+            $ship_from_attr_name = "";
+            foreach ($product['sku_products']['attributes'] as $attr) {
+                foreach ($attr['value'] as $attr_val) {
+                    if (isset($attr_val['country_code'])) {
+                        $ship_from_attr_name = $attr['name'];
+                        if ($attr_val['country_code'] === $default_country) {
+                            $ship_from_attr_value[$default_country] = $attr_val['id'];
+                        } else if ($attr_val['country_code'] === $country_from) {
+                            $ship_from_attr_value[$country_from] = $attr_val['id'];
+                        }
+                    }
+                }
+            }
+
+            $ship_from_attr_value = empty($ship_from_attr_value) ? false : (isset($ship_from_attr_value[$country_from]) ? $ship_from_attr_value[$country_from] : $ship_from_attr_value[$default_country]);
+
+            if ($ship_from_attr_name && $ship_from_attr_value) {
+                $product['disable_add_new_variants'] = true;
+                $product['skip_vars'] = array();
+                $product['skip_attr'] = array($ship_from_attr_name);
+                foreach ($product['sku_products']['variations'] as $v) {
+                    if (!in_array($ship_from_attr_value, $v['attributes'])) {
+                        $product['skip_vars'][] = $v['id'];
+                    }
+                }
+            }
+
+            return $product;
+        }
+
+        public static function update_product_shipping($product, $country_from, $country_to, $page, $update_price)
+        {
+            if (!$country_from && !$country_to) {
+                return;
+            }
+
+            $country_model = new A2W_Country();
+
+            $shipping_from_country_list = array();
+            foreach ($product['sku_products']['variations'] as $var) {
+                if (!empty($var['country_code'])) {
+                    $shipping_from_country_list[$var['country_code']] = $var['country_code'];
+                }
+            }
+            $shipping_from_country_list = array_values($shipping_from_country_list);
+            $product['shipping_from_country_list'] = $shipping_from_country_list;
+
+            if (count($shipping_from_country_list) > 0 && !in_array($country_from, $shipping_from_country_list)) {
+                $country_from = $shipping_from_country_list[0];
+            }
+
+            $product['shipping_to_country'] = $country_to;
+            if ($c = $country_model->get_country($product['shipping_to_country'])) {
+                $product['shipping_to_country_name'] = $c['n'];
+            }
+
+            $product['shipping_from_country'] = $country_from;
+            if ($c = $country_model->get_country($product['shipping_from_country'])) {
+                $product['shipping_from_country_name'] = $c['n'];
+            }
+
+            if ($update_price) {
+                $loader = new A2W_Aliexpress();
+
+                $country = $country_from . $country_to;
+
+                if (empty($product['shipping_info'][$country])) {
+                    $res = $loader->load_shipping_info($product['id'], 1, $country_to, $country_from, $page == 'import' ? $product['price_min'] : $product['price'], $page == 'import' ? $product['price_max'] : $product['price']);
+                    if ($res['state'] !== 'error') {
+                        $product['shipping_info'][$country] = $res['items'];
+                    } else {
+                        $product['shipping_info'][$country] = array();
+                    }
+                }
+
+                $items = isset($product['shipping_info'][$country]) ? $product['shipping_info'][$country] : array();
+
+                $default_ff_method = a2w_get_setting('fulfillment_prefship');
+
+                if (empty($product['shipping_default_method'])) {
+                    $product['shipping_default_method'] = $default_ff_method;
+                }
+
+                $has_shipping_method = false;
+                foreach ($items as $item) {
+                    if ($item['serviceName'] == $product['shipping_default_method']) {
+                        $has_shipping_method = true;
+                        break;
+                    }
+                }
+
+                if (!$has_shipping_method) {
+                    $default_method = "";
+                    $tmp_p = -1;
+                    foreach ($items as $k => $item) {
+                        $price = isset($item['previewFreightAmount']['value']) ? $item['previewFreightAmount']['value'] : $item['freightAmount']['value'];
+                        if ($tmp_p < 0 || $price < $tmp_p || $item['serviceName'] == $default_ff_method) {
+                            $tmp_p = $price;
+                            $default_method = $item['serviceName'];
+                            if ($default_method == $default_ff_method) {
+                                break;
+                            }
+                        }
+                    }
+                    $product['shipping_default_method'] = $default_method;
+                }
+
+                $product['shipping_cost'] = 0;
+                foreach ($items as $item) {
+                    if ($item['serviceName'] == $product['shipping_default_method']) {
+                        $product['shipping_cost'] = isset($item['previewFreightAmount']['value']) ? $item['previewFreightAmount']['value'] : $item['freightAmount']['value'];
+                    }
+                }
+            }
+
+            return $product;
+        }
     }
 
 }

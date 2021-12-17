@@ -22,6 +22,12 @@ class DisplayFormInWPContent {
     FormEntity::DISPLAY_TYPE_SLIDE_IN,
   ];
 
+  const SUPPORTED_POST_TYPES = [
+    'post',
+    'product',
+    'job_listing',
+  ];
+
   /** @var WPFunctions */
   private $wp;
 
@@ -126,11 +132,7 @@ class DisplayFormInWPContent {
 
   private function getContentBellow(FormEntity $form, string $displayType): string {
     if (!$this->shouldDisplayFormType($form, $displayType)) return '';
-    $formData = [
-      'body' => $form->getBody(),
-      'styles' => $form->getStyles(),
-      'settings' => $form->getSettings(),
-    ];
+
     $formSettings = $form->getSettings();
     if (!is_array($formSettings)) return '';
     $htmlId = 'mp_form_' . $displayType . $form->getId();
@@ -139,8 +141,8 @@ class DisplayFormInWPContent {
       'form_id' => $form->getId(),
       'form_success_message' => $formSettings['success_message'] ?? null,
       'form_type' => $displayType,
-      'styles' => $this->formRenderer->renderStyles($formData, '#' . $htmlId, $displayType),
-      'html' => $this->formRenderer->renderHTML($formData),
+      'styles' => $this->formRenderer->renderStyles($form, '#' . $htmlId, $displayType),
+      'html' => $this->formRenderer->renderHTML($form),
       'close_button_icon' => $formSettings['close_button'] ?? 'round_white',
     ];
 
@@ -190,7 +192,7 @@ class DisplayFormInWPContent {
       return false;
     }
 
-    if ($this->wp->isSingular('post') || $this->wp->isSingular('product')) {
+    if ($this->wp->isSingular($this->wp->applyFilters('mailpoet_display_form_supported_post_types', self::SUPPORTED_POST_TYPES))) {
       if ($this->shouldDisplayFormOnPost($setup, 'posts')) return true;
       if ($this->shouldDisplayFormOnCategory($setup)) return true;
       if ($this->shouldDisplayFormOnTag($setup)) return true;

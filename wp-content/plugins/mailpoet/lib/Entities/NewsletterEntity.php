@@ -31,6 +31,7 @@ class NewsletterEntity {
   const TYPE_NOTIFICATION = 'notification';
   const TYPE_NOTIFICATION_HISTORY = 'notification_history';
   const TYPE_WC_TRANSACTIONAL_EMAIL = 'wc_transactional';
+  const TYPE_RE_ENGAGEMENT = 're_engagement';
 
   // standard newsletters
   const STATUS_DRAFT = 'draft';
@@ -134,25 +135,25 @@ class NewsletterEntity {
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\NewsletterEntity", mappedBy="parent")
-   * @var NewsletterEntity[]|ArrayCollection
+   * @var ArrayCollection<int, NewsletterEntity>
    */
   private $children;
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\NewsletterSegmentEntity", mappedBy="newsletter", orphanRemoval=true)
-   * @var NewsletterSegmentEntity[]|ArrayCollection
+   * @var ArrayCollection<int, NewsletterSegmentEntity>
    */
   private $newsletterSegments;
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\NewsletterOptionEntity", mappedBy="newsletter", orphanRemoval=true)
-   * @var NewsletterOptionEntity[]|ArrayCollection
+   * @var ArrayCollection<int, NewsletterOptionEntity>
    */
   private $options;
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\SendingQueueEntity", mappedBy="newsletter")
-   * @var SendingQueueEntity[]|ArrayCollection
+   * @var ArrayCollection<int, SendingQueueEntity>
    */
   private $queues;
 
@@ -283,7 +284,7 @@ class NewsletterEntity {
       $task = $queue->getTask();
       if ($task === null) continue;
 
-      $scheduled = new Carbon($task->getScheduledAt()); // @phpstan-ignore-line - Carbon accepts a instance of DateTimeInterface but that is not mentioned in its phpdoc block causing a PHPStan error in this line.
+      $scheduled = new Carbon($task->getScheduledAt());
       if ($scheduled < (new Carbon())->subDays(30)) continue;
 
       if (($status === self::STATUS_DRAFT) && ($task->getStatus() !== ScheduledTaskEntity::STATUS_SCHEDULED)) continue;
@@ -407,21 +408,31 @@ class NewsletterEntity {
   }
 
   /**
-   * @return NewsletterEntity[]|ArrayCollection
+   * @return ArrayCollection<int, NewsletterEntity>
    */
   public function getChildren() {
     return $this->children;
   }
 
   /**
-   * @return NewsletterSegmentEntity[]|ArrayCollection
+   * @return ArrayCollection<int, NewsletterSegmentEntity>
    */
   public function getNewsletterSegments() {
     return $this->newsletterSegments;
   }
 
   /**
-   * @return NewsletterOptionEntity[]|ArrayCollection
+   * @return int[]
+   */
+  public function getSegmentIds() {
+    return array_filter($this->newsletterSegments->map(function(NewsletterSegmentEntity $newsletterSegment) {
+      $segment = $newsletterSegment->getSegment();
+      return $segment ? (int)$segment->getId() : null;
+    })->toArray());
+  }
+
+  /**
+   * @return ArrayCollection<int, NewsletterOptionEntity>
    */
   public function getOptions() {
     return $this->options;
@@ -440,22 +451,29 @@ class NewsletterEntity {
   }
 
   /**
-   * @return SendingQueueEntity[]|ArrayCollection
+   * @return ArrayCollection<int, SendingQueueEntity>
    */
   public function getQueues() {
     return $this->queues;
   }
 
-  /**
-   * @return SendingQueueEntity|null
-   */
-  public function getLatestQueue() {
+  public function getLatestQueue(): ?SendingQueueEntity {
     $criteria = new Criteria();
     $criteria->orderBy(['id' => Criteria::DESC]);
     $criteria->setMaxResults(1);
     return $this->queues->matching($criteria)->first() ?: null;
   }
 
+  public function getLastUpdatedQueue(): ?SendingQueueEntity {
+    $criteria = new Criteria();
+    $criteria->orderBy(['updatedAt' => Criteria::DESC]);
+    $criteria->setMaxResults(1);
+    return $this->queues->matching($criteria)->first() ?: null;
+  }
+
+  /**
+   * @return Collection<int, SendingQueueEntity>
+   */
   private function getUnfinishedQueues(): Collection {
     $criteria = new Criteria();
     $expr = Criteria::expr();
@@ -469,5 +487,32 @@ class NewsletterEntity {
       return null;
     }
     return $body['globalStyles'][$category][$style] ?? null;
+  }
+
+  public function getProcessedAt(): ?DateTimeInterface {
+    $processedAt = null;
+    $queue = $this->getLatestQueue();
+
+    if ($queue instanceof SendingQueueEntity) {
+      $task = $queue->getTask();
+
+      if ($task instanceof ScheduledTaskEntity) {
+        $processedAt = $task->getProcessedAt();
+      }
+    }
+
+    return $processedAt;
+  }
+
+  public function getContent(): string {
+    $content = $this->getBody()['content'] ?? '';
+    return json_encode($content) ?: '';
+  }
+
+  /**
+   * Only some types of newsletters can be set as sent. Some others are just active or draft.
+   */
+  public function canBeSetSent(): bool {
+    return in_array($this->getType(), [self::TYPE_NOTIFICATION_HISTORY, self::TYPE_STANDARD], true);
   }
 }

@@ -87,34 +87,37 @@ if (!class_exists('A2W_ImportPageController')) {
                     $product['sku_products'] = array('variations' => array(), 'attributes' => array());
                 }
 
-                if(empty($product['shipping_to_country'])){
-                    $product['shipping_to_country'] = $default_shipping_to_country;
-                    $product['shipping_to_country_name'] = $default_shipping_to_country;
-                }
-                if($country = $country_model->get_country($product['shipping_to_country'])){
-                    $product['shipping_to_country_name'] = $country['n'];
-                }
+                // TODO need remove product shipping initialization from this controller (2021.10.08)!
+                // ======================================================================
+                // if(empty($product['shipping_to_country'])){
+                //     $product['shipping_to_country'] = $default_shipping_to_country;
+                //     $product['shipping_to_country_name'] = $default_shipping_to_country;
+                // }
+                // if($country = $country_model->get_country($product['shipping_to_country'])){
+                //     $product['shipping_to_country_name'] = $country['n'];
+                // }
 
-                $shipping_from_country_list=array();
-                foreach($product['sku_products']['variations'] as $var ){
-                    if(!empty($var['country_code'])){
-                        $shipping_from_country_list[$var['country_code']] = $var['country_code'];
-                    }
-                }
-                $shipping_from_country_list = array_values($shipping_from_country_list);
-                $product['shipping_from_country_list']=$shipping_from_country_list;
+                // $shipping_from_country_list=array();
+                // foreach($product['sku_products']['variations'] as $var ){
+                //     if(!empty($var['country_code'])){
+                //         $shipping_from_country_list[$var['country_code']] = $var['country_code'];
+                //     }
+                // }
+                // $shipping_from_country_list = array_values($shipping_from_country_list);
+                // $product['shipping_from_country_list']=$shipping_from_country_list;
 
-                if(count($shipping_from_country_list) > 0 && !in_array($default_shipping_from_country, $shipping_from_country_list)){
-                    $default_shipping_from_country = $shipping_from_country_list[0];
-                }
+                // if(count($shipping_from_country_list) > 0 && !in_array($default_shipping_from_country, $shipping_from_country_list)){
+                //     $default_shipping_from_country = $shipping_from_country_list[0];
+                // }
 
-                if(empty($product['shipping_from_country'])){
-                    $product['shipping_from_country'] = $default_shipping_from_country;
-                    $product['shipping_from_country_name'] = $default_shipping_from_country;
-                }
-                if($country = $country_model->get_country($product['shipping_from_country'])){
-                    $product['shipping_from_country_name'] = $country['n'];
-                }
+                // if(empty($product['shipping_from_country'])){
+                //     $product['shipping_from_country'] = $default_shipping_from_country;
+                //     $product['shipping_from_country_name'] = $default_shipping_from_country;
+                // }
+                // if($country = $country_model->get_country($product['shipping_from_country'])){
+                //     $product['shipping_from_country_name'] = $country['n'];
+                // }
+                // ======================================================================
                             
                 $tmp_all_images = A2W_Utils::get_all_images_from_product($product);
 
@@ -162,6 +165,7 @@ if (!class_exists('A2W_ImportPageController')) {
             $this->model_put("categories", $woocommerce_model->get_categories());
             $this->model_put('countries', $country_model->get_countries());
             $this->model_put('override_model', $override_model);
+            
             
             $this->include_view("import.php");
         }

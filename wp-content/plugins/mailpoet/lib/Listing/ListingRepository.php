@@ -13,7 +13,9 @@ abstract class ListingRepository {
   /** @var QueryBuilder */
   protected $queryBuilder;
 
-  public function __construct(EntityManager $entityManager) {
+  public function __construct(
+    EntityManager $entityManager
+  ) {
     $this->queryBuilder = $entityManager->createQueryBuilder();
   }
 

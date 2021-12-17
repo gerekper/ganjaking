@@ -34,7 +34,7 @@
 				*/?>
 				<?php if ($item['not_available_product']) : ?>
 					<strong><?php esc_html_e( 'Product is not available on AliExpress!', 'ali2woo' ); ?></strong>
-				<? else: ?>
+				<?php else: ?>
 					<strong><?php esc_html_e( 'Link to AliExpress'); ?>:</strong> <a href="<?php echo $item['original_url']; ?>"><?php esc_html_e( 'click here', 'ali2woo' ); ?></a>
 				<?php endif; ?>
 				</td>

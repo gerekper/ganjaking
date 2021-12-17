@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Doctrine\ORM\Mapping; if (!defined('ABSPATH')) exit; final class SqlResultSetMappings implements \MailPoetVendor\Doctrine\ORM\Mapping\Annotation { public $value = []; } 
+ declare (strict_types=1); namespace MailPoetVendor\Doctrine\ORM\Mapping; if (!defined('ABSPATH')) exit; final class SqlResultSetMappings implements Annotation { public $value = []; } 

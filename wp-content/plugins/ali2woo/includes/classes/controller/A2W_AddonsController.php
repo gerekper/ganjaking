@@ -28,7 +28,7 @@ if (!class_exists('A2W_AddonsController')) {
                     $this->addons['addons'] = json_decode($request['body'], true);
                 }
                 $this->addons['next_update'] = time() + $this->update_period;
-                update_option('a2w_addons_data', $this->addons);
+                update_option('a2w_addons_data', $this->addons, 'no');
             }
         }
 
@@ -58,7 +58,7 @@ if (!class_exists('A2W_AddonsController')) {
             foreach ($this->addons['addons'] as $addon) {
                 $this->addons['viewed_addons'][]=$addon['id'];
             }
-            update_option('a2w_addons_data', $this->addons);
+            update_option('a2w_addons_data', $this->addons, 'no');
         }
     }
 }

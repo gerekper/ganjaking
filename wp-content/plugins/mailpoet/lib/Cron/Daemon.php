@@ -66,6 +66,7 @@ class Daemon {
     yield $this->workersFactory->createQueueWorker(); // not CronWorkerInterface compatible
     yield $this->workersFactory->createSendingServiceKeyCheckWorker();
     yield $this->workersFactory->createPremiumKeyCheckWorker();
+    yield $this->workersFactory->createSubscribersStatsReportWorker();
     yield $this->workersFactory->createBounceWorker();
     yield $this->workersFactory->createExportFilesCleanupWorker();
     yield $this->workersFactory->createBeamerkWorker();
@@ -77,5 +78,9 @@ class Daemon {
     yield $this->workersFactory->createStatsNotificationsWorkerForAutomatedEmails();
     yield $this->workersFactory->createSubscriberLinkTokensWorker();
     yield $this->workersFactory->createSubscribersEngagementScoreWorker();
+    yield $this->workersFactory->createSubscribersLastEngagementWorker();
+    yield $this->workersFactory->createSubscribersCountCacheRecalculationWorker();
+    yield $this->workersFactory->createReEngagementEmailsSchedulerWorker();
+    yield $this->workersFactory->createNewsletterTemplateThumbnailsWorker();
   }
 }

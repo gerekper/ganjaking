@@ -15,6 +15,7 @@
       var mailpoet_premium_key_valid = <%= json_encode(premium_key_valid) %>;
       var mailpoet_premium_plugin_installed = <%= json_encode(premium_plugin_installed) %>;
       var mailpoet_premium_plugin_download_url = <%= json_encode(premium_plugin_download_url) %>;
+      var mailpoet_premium_plugin_activation_url = <%= json_encode(premium_plugin_activation_url) %>;
       var mailpoet_paths = <%= json_encode(paths) %>;
       var mailpoet_built_in_captcha_supported = <%= json_encode(built_in_captcha_supported == true) %>;
       var mailpoet_free_plan_url = "<%= add_referral_id('https://www.mailpoet.com/free-plan') %>";
@@ -63,6 +64,9 @@
     'preview': __('Preview'),
     'subscribersCanChooseFrom': __('Subscribers can choose from these lists:'),
     'leaveEmptyToDisplayAll': __('Leave this field empty to display all lists'),
+
+    'reEngagementTitle': __('Re-engagement page'),
+    'reEngagementDescription': __('Thank your subscribers reactivated by the Re-engagement email for their continued interest in your emails.'),
 
     'unsubscribeTitle': __('Unsubscribe page'),
     'unsubscribeDescription1': __('When your subscribers click the "Unsubscribe" link, they will be directed to a confirmation page. After confirming, the success page will be shown. These pages must contain the [mailpoet_page] shortcode.'),
@@ -122,8 +126,8 @@
     'rolesDescription': __('Manage which WordPress roles access which features of MailPoet.'),
     'manageUsingMembers': __('Manage using the Members plugin'),
     'installMembers': __('Install the plugin [link]Members[/link] (free) to manage permissions.'),
-    'trackingTitle': __('Open and click tracking'),
-    'trackingDescription': __('Enable or disable open and click tracking.'),
+    're-engagementDisabledNotice': __('Re-engagement emails were deactivated.'),
+    're-engagementReactivatedNotice': __("Re-engagement emails are now enabled. Don’t forget to [link]activate them[/link]."),
     'transactionalTitle': _x('Send all site’s emails with…', 'Transational emails settings title'),
     'transactionalDescription': _x('Choose which method to send all your WordPress emails (e.g. password reset, new registration, WooCommerce invoices, etc.).', 'Transational emails settings description'),
     'transactionalLink': _x('Read more.', 'Transactional emails settings link'),
@@ -141,9 +145,9 @@
     'shareDataTitle': __('Share anonymous data'),
     'shareDataDescription': __('Share anonymous data and help us improve the plugin. We appreciate your help!'),
     'captchaTitle': __('Protect your forms against spam signups'),
-    'captchaDescription': __('Built-in CAPTCHA protects your subscription forms after a second signup attempt by a bot. Alternatively, use reCAPTCHA by Google.'),
+    'captchaDescription': __('Built-in CAPTCHA protects your subscription forms against bots. Alternatively, use reCAPTCHA by Google.'),
     'signupForCaptchaKey': __('Sign up for an API key pair here.'),
-    'builtInCaptcha': __('Built-in captcha (default)'),
+    'builtInCaptcha': __('Built-in CAPTCHA (default)'),
     'disbaledBecauseExtensionMissing': __('(disabled because GD or FreeType extension is missing)'),
     'googleReCaptcha': __('Google reCAPTCHA v2'),
     'yourReCaptchaKey': __('Your reCAPTCHA Site Key'),
@@ -183,7 +187,9 @@
     'learnMore': __('Learn more'),
     'premiumTabPremiumActiveMessage': __('MailPoet Premium is active', 'mailpoet'),
     'premiumTabPremiumNotInstalledMessage': __('MailPoet Premium is not installed.', 'mailpoet'),
+    'premiumTabPremiumNotActivatedMessage': __('MailPoet Premium is installed but not activated.', 'mailpoet'),
     'premiumTabPremiumDownloadMessage': __('Download MailPoet Premium plugin', 'mailpoet'),
+    'premiumTabPremiumActivateMessage': __('Activate MailPoet Premium plugin', 'mailpoet'),
     'premiumTabPremiumInstallationInstallingMessage': __('downloading MailPoet Premium…', 'mailpoet'),
     'premiumTabPremiumInstallationActivatingMessage': __('activating MailPoet Premium…', 'mailpoet'),
     'premiumTabPremiumInstallationActiveMessage': __('MailPoet Premium is active!', 'mailpoet'),
@@ -211,8 +217,6 @@
     'wcOptinMsgCannotBeEmpty': __('The checkbox opt-in message cannot be empty.'),
     'subscribeOldWCTitle': __('Subscribe old WooCommerce customers'),
     'subscribeOldWCDescription': __('Subscribe all my past customers to this list because they agreed to receive marketing emails from me.'),
-    'enableCookiesTitle': _x('Enable browser cookies', 'Option in settings page: the user can accept or forbid MailPoet to use browser cookies'),
-    'enableCookiesDescription': _x('If you enable this option, MailPoet will use browser cookies for more precise WooCommerce tracking. This is practical for abandoned cart emails for example.', 'Browser cookies are data created by websites and stored in visitors web browser'),
 
     'mssTitle': __('MailPoet Sending Service'),
     'youreSendingWithMss': __("You're now sending with MailPoet!"),
@@ -281,6 +285,12 @@
     'testEmailBody': __('Yup, it works! You can start blasting away emails to the moon.'),
     'emailSent': __('The email has been sent! Check your inbox.'),
     'orCancel': __('or Cancel'),
+
+    'engagementTrackingTitle': __('Engagement analytics tracking'),
+    'engagementTrackingDescription': __('Choose the balance between subscriber privacy and deeper engagement insights that is right for your business.'),
+    'engagementTrackingFull': __('Full – additionally use browser cookies to improve the site and email engagement tracking and abandoned cart email accuracy.'),
+    'engagementTrackingPartial': __('Partial – additionally track email engagement (opens, clicks). Disable cookie-based tracking.'),
+    'engagementTrackingBasic': __('Basic – only use data your site already has about your subscribers. Disable email engagement and cookie-based tracking, and re-engagement emails.'),
   }) %>
 <% endblock %>
 

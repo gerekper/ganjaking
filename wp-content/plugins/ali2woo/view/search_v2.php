@@ -1,13 +1,14 @@
 <div class="a2w-content">
     <div class="page-main">
-        <?php include_once A2W()->plugin_path() . '/view/chrome_notify.php'; ?>
         
+        <?php include_once A2W()->plugin_path() . '/view/chrome_notify.php'; ?>        
         
-        <?php if (!A2W_Account::getInstance()->is_activated()):?>
+        <?php if (A2W_Account::getInstance()->is_activated()):?>
         <div class="a2w-pc-warn"><p>You didn't activate Ali2Woo! Please open the Ali2Woo plugin <a href="<?php echo admin_url('admin.php?page=a2w_setting') ?>">settings</a> and input your purchase key.</p></div>
         <?php endif; ?>
         
 
+        <?php include_once A2W()->plugin_path() . '/view/setup_wizard_notify.php'; ?>
         <form class="search-panel" method="GET" id="a2w-search-form">
             <input type="hidden" name="page" id="page" value="<?php echo esc_attr(((isset($_GET['page'])) ? $_GET['page'] : '')); ?>" />
             <input type="hidden" name="cur_page" id="cur_page" value="<?php echo esc_attr(((isset($_GET['cur_page'])) ? $_GET['cur_page'] : '')); ?>" />
@@ -37,8 +38,8 @@
                         </div>
                         <div class="col-lg-3 col-sm-4">
                             <div class="search-panel-buttons">
-                                <button class="btn btn-info no-outline" id="a2w-do-filter" type="button"><?php _e('Search', 'ali2woo'); ?></button>
-                                <button class="btn btn-link no-outline" id="search-trigger" type="button">Advance</button>
+                                <button class="btn btn-info no-outline" id="a2w-do-filter" type="button"><?php _ex('Search', 'Button', 'ali2woo'); ?></button>
+                                <button class="btn btn-link no-outline" id="search-trigger" type="button"><?php _ex('Advance', 'Button', 'ali2woo'); ?></button>
                             </div>
                         </div>
                     </div>
@@ -109,7 +110,7 @@
 
         <div>
             <div class="import-all-panel">
-                <button type="button" class="btn btn-success no-outline btn-icon-left import_all"><div class="btn-loader-wrap"><div class="e2w-loader"></div></div><span class="btn-icon-wrap add"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add"></use></svg></span>Add all to import list</button>
+                <button type="button" class="btn btn-success no-outline btn-icon-left import_all"><div class="btn-loader-wrap"><div class="e2w-loader"></div></div><span class="btn-icon-wrap add"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add"></use></svg></span><?php _e('Add all to import list', 'ali2woo'); ?></button>
             </div>
             <div class="sort-panel">
                 <label for="a2w-sort-selector"><?php _e('Sort by:', 'ali2woo'); ?></label>
@@ -136,15 +137,16 @@
             <?php $out_curr = $localizator->getLocaleCurr();  ?>
             <?php if ($load_products_result['state'] != 'error'): ?>
                 <?php if (!$load_products_result['total']): ?>
-                    <p>products not found</p>
+                    <p><?php esc_html_e('products not found', 'ali2woo'); ?></p>
                 <?php else: ?>
-                    <?php $row_ind = 0; ?>
+                    <?php $row_ind = 0; $ind = 0; ?>
                     <?php foreach ($load_products_result['products'] as $product): ?>
                         <?php
                         if ($row_ind == 0) {
                             echo '<div class="search-result__row">';
                         }
                         ?>
+                        
                         <article class="product-card<?php if ($product['post_id'] || $product['import_id']): ?> product-card--added<?php endif; ?>" data-id="<?php echo $product['id'] ?>">
                             <div class="product-card__img"><a href="<?php echo $product['affiliate_url'] ?>" target="_blank"><img src="<?php echo A2W()->plugin_url() . '/assets/img/blank_image.png'; ?>" class="lazy" data-original="<?php echo !empty($product['thumb'])?$product['thumb']:""; ?>" alt="#"></a>
                                 <div class="product-card__marked-corner">
@@ -181,7 +183,7 @@
                                         <?php endfor; ?>
                                     </div>
                                     <div class="product-card__supplier">
-                                        <div class="product-card__orderscount"><?php echo $product['volume']; ?> <span>Orders</span></div><img class="supplier-icon" src="<?php echo A2W()->plugin_url() . '/assets/img/icons/supplier_ali_2x.png'; ?>" width="16" height="16">
+                                        <div class="product-card__orderscount"><?php echo $product['volume']; ?> <span><?php esc_html_e('Orders', 'ali2woo'); ?></span></div><img class="supplier-icon" src="<?php echo A2W()->plugin_url() . '/assets/img/icons/supplier_ali_2x.png'; ?>" width="16" height="16">
                                     </div>
                                 </div>
                                 <div class="product-card__actions">
@@ -193,7 +195,8 @@
                                 </div>
                             </div>
                         </article>
-                        <?php $row_ind++; ?>
+                        
+                        <?php $row_ind++; $ind++; ?>
                         <?php
                         if ($row_ind == 4) {
                             echo '</div>';

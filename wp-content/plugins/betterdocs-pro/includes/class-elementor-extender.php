@@ -39,8 +39,16 @@ class Betterdocs_Elmenetor_Extender
             }
 
             $sidebar = '<aside class="betterdocs-full-sidebar-left"><div class="betterdocs-sidebar-content">'.$shortcode.'</div></aside>';
-        }
+        } elseif ($settings['betterdocs_sidebar_layout'] == 'layout-4') {
+            if ($multiple_kb == 1) {
+                $shortcode = do_shortcode( '[betterdocs_category_grid disable_customizer_style="true" title_tag="'.$settings['category_title_tag'].'" icon=0 post_counter=0 sidebar_list="true" posts_per_grid="-1" multiple_knowledge_base=true]' );
+            } else {
+                $shortcode = do_shortcode( '[betterdocs_category_grid disable_customizer_style="true" title_tag="'.$settings['category_title_tag'].'" icon=0 post_counter=0 sidebar_list="true" posts_per_grid="-1"]' );
 
+            }
+
+            $sidebar = '<div class="betterdocs-single-layout4"><aside class="betterdocs-full-sidebar-left"><div class="betterdocs-sidebar-content">'.$shortcode.'</div></aside></div>';
+        }
         return $sidebar;
     }
 }

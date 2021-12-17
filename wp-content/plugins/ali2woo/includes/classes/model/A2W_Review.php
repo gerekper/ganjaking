@@ -18,16 +18,17 @@ if (!class_exists('A2W_Review')) {
         private $raiting_from;
         private $raiting_to;
         private $max_number_reviews_per_product;
+        private $min_number_reviews_per_product;
 
         public function __construct() {
             $this->aliexpress_loader = new A2W_Aliexpress();
             $this->attachment_model = new A2W_Attachment();
             $this->helper = new A2W_Helper();
 
-            $this->allowed_countries = a2w_get_setting('review_allow_country');
-            if (!empty($this->allowed_countries)) {
-                $this->allowed_countries = explode(',', $this->allowed_countries);
-            }
+            //todo: in the very old plugin version we used "review_allow_country" option
+            //need to do the code to remove it completely because now we use another option "review_country"
+
+            $this->allowed_countries = a2w_get_setting('review_country');
 
             $this->review_translated = a2w_get_setting('review_translated');
             $this->review_load_attributes = a2w_get_setting('review_load_attributes');
@@ -37,10 +38,13 @@ if (!class_exists('A2W_Review')) {
 
             $tmp = intval(a2w_get_setting('review_max_per_product'));
             $this->max_number_reviews_per_product = ($tmp > 0) ? $tmp : 20;
+
+            $tmp = intval(a2w_get_setting('review_min_per_product'));
+            $this->min_number_reviews_per_product = ($tmp > 0) ? $tmp : $this->max_number_reviews_per_product;
         }
 
         /**
-         * Get reviews and save in Woocommerce
+         * Get reviews and save them in Woocommerce
          * 
          * @param mixed $post_id
          */
@@ -58,7 +62,10 @@ if (!class_exists('A2W_Review')) {
 
             if($step === false || $step === 'reviews'){
                 $comment_number = get_comments(array('post_id' => $post_id, 'meta_key' => 'rating', 'count' => true));
-                $remaining_comment_number = $this->max_number_reviews_per_product - $comment_number;
+               
+                $max_number_reviews_per_product = $this->get_max_reviews_number_by_product($post_id);
+               
+                $remaining_comment_number = $max_number_reviews_per_product - $comment_number;
 
                 if ($remaining_comment_number > 0) {
                     $pageNumber = intval(get_post_meta($post_id, '_a2w_review_page', true));
@@ -92,9 +99,9 @@ if (!class_exists('A2W_Review')) {
                                 continue;
                             }
 
-                            $review_cash = md5($post_id . $external_id . $item['buyerName'] . (isset($item['buyerFeedback'])?$item['buyerFeedback']:"") . $item['evalDate']);
-                            $has_same_comment = $wpdb->get_var($wpdb->prepare("SELECT count(c.comment_ID) FROM {$wpdb->comments} c LEFT JOIN {$wpdb->commentmeta} cm ON (c.comment_ID = cm.comment_id and cm.meta_key='a2w_cash') WHERE cm.meta_value=%s", $review_cash)) > 0;
-                            if ($has_same_comment || !empty($added_review_cash[$review_cash])) {
+                            $review_cache = md5($post_id . $external_id . $item['buyerName'] . (isset($item['buyerFeedback'])?$item['buyerFeedback']:"") . $item['evalDate']);
+                            $has_same_comment = $wpdb->get_var($wpdb->prepare("SELECT count(c.comment_ID) FROM {$wpdb->comments} c LEFT JOIN {$wpdb->commentmeta} cm ON (c.comment_ID = cm.comment_id and cm.meta_key='a2w_cash') WHERE cm.meta_value=%s", $review_cache)) > 0;
+                            if ($has_same_comment || !empty($added_review_cash[$review_cache])) {
                                 continue;
                             }
 
@@ -104,6 +111,13 @@ if (!class_exists('A2W_Review')) {
                                 $tmp_text = $tmp_text . "<br/><br/>" . preg_replace('#([\w\-]+:)#', '<b>$1</b>', str_replace(':', ': ', A2W_PhraseFilter::apply_filter_to_text($item['skuInfo'])));
                                 //$tmp_text = $tmp_text . "<br/><br/>" . str_replace(':', ': ', A2W_PhraseFilter::apply_filter_to_text($item['skuInfo']));
                             }
+
+                            $maybe_skip_review = $this->maybe_skip_review($tmp_text);
+
+                            if ($maybe_skip_review){
+                                continue;     
+                            }
+
                             $review_text = A2W_PhraseFilter::apply_filter_to_text($tmp_text);
 
                             $author = A2W_PhraseFilter::apply_filter_to_text($item['buyerName']);
@@ -126,7 +140,7 @@ if (!class_exists('A2W_Review')) {
                             $comment_id = wp_insert_comment($data);
 
                             add_comment_meta($comment_id, 'rating', (int) esc_attr($rating), true);
-                            add_comment_meta($comment_id, 'a2w_cash', $review_cash, true);
+                            add_comment_meta($comment_id, 'a2w_cash', $review_cache, true);
                             add_comment_meta($comment_id, 'a2w_country', $item['buyerCountry'], true);
 
                             if($step === false){
@@ -176,7 +190,7 @@ if (!class_exists('A2W_Review')) {
                                 }
                             }
 
-                            $added_review_cash[$review_cash] = $review_cash;
+                            $added_review_cash[$review_cache] = $review_cache;
 
                             $remaining_comment_number--;
                         }
@@ -242,13 +256,58 @@ if (!class_exists('A2W_Review')) {
             return A2W_ResultBuilder::buildOk(array('new_steps'=>$new_steps));
         }
 
-        private function check_review_country($item) {
-            if (empty($this->allowed_countries))
-                return true;
+        public function get_max_reviews_number_by_product($post_id){
+            $result = get_post_meta( $post_id, A2W_Constants::product_reviews_max_number_meta(), true);
 
-            $value = strtoupper($item['flag']);
-            if (array_search($value, $this->allowed_countries) !== false)
+            if (!$result){            
+                $result =  rand( $this->max_number_reviews_per_product, $this->min_number_reviews_per_product );  
+                update_post_meta( $post_id, A2W_Constants::product_reviews_max_number_meta(), $result );
+            } 
+
+            return $result;
+        }
+
+        public function maybe_skip_review($text){
+
+            if (a2w_get_setting('review_skip_empty') && empty($text)) {
                 return true;
+            }
+
+            $keywords_str = a2w_get_setting('review_skip_keywords');
+      
+            if ($keywords_str) {
+
+                $keywords = explode(',', $keywords_str);
+
+                return $this->found_keywords($keywords, $text);
+     
+            }
+
+            return false;
+        }
+
+        private function found_keywords($keywords, $text) {
+            return array_reduce($keywords, function ($match_found, $keyword) use ($text) {
+                return $match_found || $this->found_keyword($keyword, $text);
+            }, FALSE);
+        }
+
+        private function found_keyword($keyword, $text) {
+            $keyword = trim($keyword);
+            return preg_match('/\b' . preg_quote($keyword) . '\b/iu', $text);
+        }
+
+        private function check_review_country($item) {
+
+            if (empty($this->allowed_countries)){
+                return true;
+            }
+
+            $review_country = strtoupper($item['buyerCountry']);
+
+            if (array_search($review_country, $this->allowed_countries) !== false){
+                return true;
+            }
 
             return false;
         }
@@ -320,6 +379,13 @@ if (!class_exists('A2W_Review')) {
 
         public static function save_comment_photos($comment_id, $photo_list) {
             update_comment_meta($comment_id, 'a2w_photo_list', $photo_list);
+        }
+
+        public static function clear_all_product_max_number_review_meta(){
+    
+            global $wpdb;
+            
+            $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key='" . A2W_Constants::product_reviews_max_number_meta() . "'");
         }
 
     }

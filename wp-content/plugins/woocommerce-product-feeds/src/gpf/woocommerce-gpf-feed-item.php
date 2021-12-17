@@ -929,15 +929,15 @@ class WoocommerceGpfFeedItem {
 
 		// Grab the variation thumbnail if available.
 		if ( $this->is_variation ) {
-			$image_id           = $this->get_the_product_thumbnail_id( $this->general_product );
+			$image_id           = $this->get_the_product_thumbnail_id( $this->specific_product );
 			list( $image_link ) = wp_get_attachment_image_src( $image_id, $this->image_style, false );
-			if ( ! empty( $this->image_link ) ) {
+			if ( ! empty( $image_link ) ) {
 				$this->register_image_source( $image_id, $image_link, 'variation_image' );
 			}
 		}
 
 		// Grab the "product image" from main / parent product.
-		$image_id            = $this->get_the_product_thumbnail_id( $this->specific_product );
+		$image_id            = $this->get_the_product_thumbnail_id( $this->general_product );
 		list ( $image_link ) = wp_get_attachment_image_src( $image_id, $this->image_style, false );
 		if ( ! empty( $image_link ) ) {
 			$this->register_image_source( $image_id, $image_link, 'product_image' );

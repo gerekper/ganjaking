@@ -17,6 +17,8 @@ class Subscription {
   const ACTION_MANAGE = 'manage';
   const ACTION_UNSUBSCRIBE = 'unsubscribe';
   const ACTION_CONFIRM_UNSUBSCRIBE = 'confirmUnsubscribe';
+  const ACTION_RE_ENGAGEMENT = 'reEngagement';
+
   public $allowedActions = [
     self::ACTION_CAPTCHA,
     self::ACTION_CAPTCHA_IMAGE,
@@ -24,7 +26,9 @@ class Subscription {
     self::ACTION_MANAGE,
     self::ACTION_UNSUBSCRIBE,
     self::ACTION_CONFIRM_UNSUBSCRIBE,
+    self::ACTION_RE_ENGAGEMENT,
   ];
+
   public $permissions = [
     'global' => AccessControl::NO_ACCESS_RESTRICTION,
   ];
@@ -38,7 +42,11 @@ class Subscription {
   /** @var UserSubscription\Captcha */
   private $captcha;
 
-  public function __construct(UserSubscription\Pages $subscriptionPages, WPFunctions $wp, UserSubscription\Captcha $captcha) {
+  public function __construct(
+    UserSubscription\Pages $subscriptionPages,
+    WPFunctions $wp,
+    UserSubscription\Captcha $captcha
+  ) {
     $this->subscriptionPages = $subscriptionPages;
     $this->wp = $wp;
     $this->captcha = $captcha;
@@ -76,6 +84,10 @@ class Subscription {
   public function unsubscribe($data) {
     $subscription = $this->initSubscriptionPage(UserSubscription\Pages::ACTION_UNSUBSCRIBE, $data);
     $subscription->unsubscribe();
+  }
+
+  public function reEngagement($data) {
+    $this->initSubscriptionPage(UserSubscription\Pages::ACTION_RE_ENGAGEMENT, $data);
   }
 
   private function initSubscriptionPage($action, $data) {

@@ -5,6 +5,7 @@ namespace MailPoet\Cron\Workers\KeyCheck;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Cron\CronWorkerScheduler;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\SettingsController;
 
@@ -14,9 +15,12 @@ class PremiumKeyCheck extends KeyCheckWorker {
   /** @var SettingsController */
   private $settings;
 
-  public function __construct(SettingsController $settings) {
+  public function __construct(
+    SettingsController $settings,
+    CronWorkerScheduler $cronWorkerScheduler
+  ) {
     $this->settings = $settings;
-    parent::__construct();
+    parent::__construct($cronWorkerScheduler);
   }
 
   public function checkProcessingRequirements() {

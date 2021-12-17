@@ -25,8 +25,7 @@
 }
 
 .a2w_review_images img{
-    width: auto !important;
-    height:100% !important;
+    height: auto;
     float:none !important;
     display: inline !important; 
 }

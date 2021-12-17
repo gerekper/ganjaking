@@ -53,7 +53,7 @@ class SegmentEntity {
 
   /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\DynamicSegmentFilterEntity", mappedBy="segment")
-   * @var DynamicSegmentFilterEntity[]|ArrayCollection
+   * @var ArrayCollection<int, DynamicSegmentFilterEntity>
    */
   private $dynamicFilters;
 
@@ -69,7 +69,11 @@ class SegmentEntity {
    */
   private $averageEngagementScoreUpdatedAt;
 
-  public function __construct(string $name, string $type, string $description) {
+  public function __construct(
+    string $name,
+    string $type,
+    string $description
+  ) {
     $this->name = $name;
     $this->type = $type;
     $this->description = $description;
@@ -124,7 +128,7 @@ class SegmentEntity {
   }
 
   /**
-   * @return DynamicSegmentFilterEntity[]|ArrayCollection
+   * @return ArrayCollection<int, DynamicSegmentFilterEntity>
    */
   public function getDynamicFilters() {
     return $this->dynamicFilters;

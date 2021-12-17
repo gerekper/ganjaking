@@ -16,16 +16,18 @@ if (!class_exists('A2W_AbstractAdminPage')) {
         private $menu_title;
         private $capability;
         private $menu_slug;
-        private $menu_as_link;
+        private $menu_type;
         private $style_assets = array();
         private $script_assets = array();
         private $script_data_assets = array();
 
-        public function __construct($page_title, $menu_title, $capability, $menu_slug, $priority = 10, $menu_as_link=false) {
+
+        // $menu_type: 0 - standart menu, 1 - menu as link, 2 - skip menu
+        public function __construct($page_title, $menu_title, $capability, $menu_slug, $priority = 10, $menu_type=0) {
             parent::__construct(A2W()->plugin_path() . '/view/');
             
             if(is_admin()){
-                $this->init($page_title, $menu_title, $capability, $menu_slug, $priority, $menu_as_link);
+                $this->init($page_title, $menu_title, $capability, $menu_slug, $priority, $menu_type);
 
                 add_action('a2w_admin_assets', array($this, 'admin_register_assets'), 1);
 
@@ -63,19 +65,21 @@ if (!class_exists('A2W_AbstractAdminPage')) {
         }
         
 
-        protected function init($page_title, $menu_title, $capability, $menu_slug, $priority, $menu_as_link) {
+        protected function init($page_title, $menu_title, $capability, $menu_slug, $priority, $menu_type) {
             $this->page_title = $page_title;
             $this->menu_title = $menu_title;
             $this->capability = $capability;
             $this->menu_slug = $menu_slug;
-            $this->menu_as_link = $menu_as_link;
+            $this->menu_type = $menu_type;
             add_action('a2w_init_admin_menu', array($this, 'add_submenu_page'), $priority);
         }
 
         public function add_submenu_page($parent_slug) {
-            if($this->menu_as_link){
+            if($this->menu_type == 1){
                 $page_id = add_submenu_page($parent_slug, $this->page_title, $this->menu_title, $this->capability, $this->menu_slug);
-            } else {
+            } else if($this->menu_type == 2) {
+                $page_id = add_submenu_page(null, $this->page_title, $this->menu_title, $this->capability, $this->menu_slug, array($this, 'render'));
+            }else {
                 $page_id = add_submenu_page($parent_slug, $this->page_title, $this->menu_title, $this->capability, $this->menu_slug, array($this, 'render'));
             }
             

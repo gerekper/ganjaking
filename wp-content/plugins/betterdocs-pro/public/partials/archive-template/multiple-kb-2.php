@@ -2,7 +2,7 @@
 /**
  * Template multiple docs
  *
- * @link       https://wpdeveloper.net
+ * @link       https://wpdeveloper.com
  * @since      
  *
  * @package    BetterDocs
@@ -12,10 +12,9 @@
 get_header(); 
 
 echo '<div class="betterdocs-wraper betterdocs-mkb-wraper">';
-	$live_search = BetterDocs_DB::get_settings('live_search');
-
-	if ($live_search == 1) {
-        echo '<div class="betterdocs-search-form-wrap">'.do_shortcode( '[betterdocs_search_form]' ).'</div>';
+    $live_search = BetterDocs_DB::get_settings('live_search');
+    if ( $live_search == 1 && method_exists('BetterDocs_Public','search') ) {
+        echo BetterDocs_Public::search();
     }
 	
 	echo '<div class="betterdocs-archive-wrap betterdocs-archive-mkb">';

@@ -9,7 +9,7 @@
                 <span><?php _e('Calculate your shipping price:', 'ali2woo'); ?></span>
                 <div class="country-select country-select-from">
                     <span><?php _e('From:', 'ali2woo'); ?></span>
-                    <select id="modal-country-from-select" class="modal-country-select form-control country_list" style="width: 100%;">
+                    <select id="a2w-modal-country-from-select" class="modal-country-select form-control country_list" style="width: 100%;">
                         <?php foreach ($countries as $country): ?>
                             <option value="<?php echo $country['c']; ?>"<?php if (isset($filter['country']) && $filter['country'] == $country['c']): ?> selected="selected"<?php endif; ?>><?php echo $country['n']; ?></option>
                         <?php endforeach; ?>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="country-select country-select-to">
                     <span><?php _e('To:', 'ali2woo'); ?></span>
-                    <select id="modal-country-select" class="modal-country-select form-control country_list" style="width: 100%;">
+                    <select id="a2w-modal-country-select" class="modal-country-select form-control country_list" style="width: 100%;">
                         <?php foreach ($countries as $country): ?>
                             <option value="<?php echo $country['c']; ?>"<?php if (isset($filter['country']) && $filter['country'] == $country['c']): ?> selected="selected"<?php endif; ?>><?php echo $country['n']; ?></option>
                         <?php endforeach; ?>

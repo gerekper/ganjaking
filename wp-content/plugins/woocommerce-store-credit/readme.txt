@@ -4,11 +4,11 @@ Tags: woocommerce, credit, coupons
 Requires at least: 4.7
 Tested up to: 5.8
 Requires PHP: 5.3
-Stable tag: 3.9.2
+Stable tag: 3.9.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.4
-WC tested up to: 5.8
+WC tested up to: 5.9
 Woo: 18609:c4bf3ecec4146cb69081e5b28b6cdac4
 
 Create 'Store Credit' coupons for customers which are redeemable at checkout.

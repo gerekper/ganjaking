@@ -6,7 +6,9 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\DI\ContainerWrapper;
+use MailPoet\Doctrine\EntityManagerFactory;
 use MailPoet\Settings\SettingsController;
+use MailPoetVendor\Doctrine\ORM\EntityManager;
 use MailPoetVendor\Monolog\Processor\IntrospectionProcessor;
 use MailPoetVendor\Monolog\Processor\MemoryUsageProcessor;
 use MailPoetVendor\Monolog\Processor\WebProcessor;
@@ -30,6 +32,7 @@ class LoggerFactory {
   const TOPIC_NEWSLETTERS = 'newsletters';
   const TOPIC_POST_NOTIFICATIONS = 'post-notifications';
   const TOPIC_MSS = 'mss';
+  const TOPIC_BRIDGE = 'bridge-api';
   const TOPIC_SENDING = 'sending';
 
   /** @var LoggerFactory */
@@ -44,9 +47,22 @@ class LoggerFactory {
   /** @var LogRepository */
   private $logRepository;
 
-  public function __construct(LogRepository $logRepository, SettingsController $settings) {
+  /** @var EntityManager */
+  private $entityManager;
+
+  /** @var EntityManagerFactory */
+  private $entityManagerFactory;
+
+  public function __construct(
+    LogRepository $logRepository,
+    EntityManager $entityManager,
+    EntityManagerFactory $entityManagerFactory,
+    SettingsController $settings
+  ) {
     $this->settings = $settings;
     $this->logRepository = $logRepository;
+    $this->entityManager = $entityManager;
+    $this->entityManagerFactory = $entityManagerFactory;
   }
 
   /**
@@ -68,7 +84,12 @@ class LoggerFactory {
         $this->loggerInstances[$name]->pushProcessor(new MemoryUsageProcessor());
       }
 
-      $this->loggerInstances[$name]->pushHandler(new LogHandler($this->logRepository, $this->getDefaultLogLevel()));
+      $this->loggerInstances[$name]->pushHandler(new LogHandler(
+        $this->logRepository,
+        $this->entityManager,
+        $this->entityManagerFactory,
+        $this->getDefaultLogLevel()
+      ));
     }
     return $this->loggerInstances[$name];
   }
@@ -77,6 +98,8 @@ class LoggerFactory {
     if (!self::$instance instanceof LoggerFactory) {
       self::$instance = new LoggerFactory(
         ContainerWrapper::getInstance()->get(LogRepository::class),
+        ContainerWrapper::getInstance()->get(EntityManager::class),
+        ContainerWrapper::getInstance()->get(EntityManagerFactory::class),
         SettingsController::getInstance()
       );
     }

@@ -1,10 +1,10 @@
-# Copyright (C) 2021 SomewhereWarm
+# Copyright (C) 2021 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce All Products For Subscriptions 3.1.30\n"
+"Project-Id-Version: WooCommerce All Products For Subscriptions 3.1.31\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
-"POT-Creation-Date: 2021-08-27 15:12:17+00:00\n"
+"POT-Creation-Date: 2021-12-03 13:56:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -296,7 +296,7 @@ msgstr ""
 msgid "&quot;%1$s&quot; is only available with a subscription plan. %2$s"
 msgstr ""
 
-#: includes/class-wcs-att-core-compatibility.php:209
+#. Author of the plugin/theme
 msgid "WooCommerce"
 msgstr ""
 
@@ -501,43 +501,43 @@ msgstr ""
 msgid "Add to an existing subscription?"
 msgstr ""
 
-#: woocommerce-all-products-for-subscriptions.php:98
-#: woocommerce-all-products-for-subscriptions.php:107
+#: woocommerce-all-products-for-subscriptions.php:97
+#: woocommerce-all-products-for-subscriptions.php:106
 msgid "Foul!"
 msgstr ""
 
-#: woocommerce-all-products-for-subscriptions.php:198
+#: woocommerce-all-products-for-subscriptions.php:197
 msgid ""
 "All Products for WooCommerce Subscriptions requires at least <a "
 "href=\"%1$s\" target=\"_blank\">WooCommerce Subscriptions</a> version "
 "<strong>%2$s</strong>."
 msgstr ""
 
-#: woocommerce-all-products-for-subscriptions.php:206
+#: woocommerce-all-products-for-subscriptions.php:205
 msgid ""
 "All Products for WooCommerce Subscriptions requires at least PHP "
 "<strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
 msgstr ""
 
-#: woocommerce-all-products-for-subscriptions.php:214
+#: woocommerce-all-products-for-subscriptions.php:213
 msgid ""
 "All Products for WooCommerce Subscriptions requires at least WooCommerce "
 "version <strong>%1$s</strong>. %2$s"
 msgstr ""
 
-#: woocommerce-all-products-for-subscriptions.php:216
+#: woocommerce-all-products-for-subscriptions.php:215
 msgid "Please install and activate WooCommerce."
 msgstr ""
 
-#: woocommerce-all-products-for-subscriptions.php:218
+#: woocommerce-all-products-for-subscriptions.php:217
 msgid "Please update WooCommerce."
 msgstr ""
 
-#: woocommerce-all-products-for-subscriptions.php:402
+#: woocommerce-all-products-for-subscriptions.php:401
 msgid "Documentation"
 msgstr ""
 
-#: woocommerce-all-products-for-subscriptions.php:403
+#: woocommerce-all-products-for-subscriptions.php:402
 msgid "Support"
 msgstr ""
 
@@ -554,10 +554,6 @@ msgid ""
 "Make existing products available on subscription, and give customers the "
 "freedom to add products to their existing subscriptions. WooCommerce "
 "Subscriptions add-on formerly known as Subscribe All The Things."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "SomewhereWarm"
 msgstr ""
 
 #. Author URI of the plugin/theme

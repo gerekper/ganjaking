@@ -72,7 +72,7 @@ class WC_Shipment_Tracking_Actions {
 				),
 				'Germany'        => array(
 					'DHL Intraship (DE)' => 'https://www.dhl.de/de/privatkunden/pakete-empfangen/verfolgen.html?lang=de&idc=%1$s&rfn=&extendedSearch=true',
-					'Hermes'             => 'https://tracking.hermesworld.com/?TrackID=%1$s',
+					'Hermes'             => 'https://www.myhermes.de/empfangen/sendungsverfolgung/sendungsinformation/#%1$s',
 					'Deutsche Post DHL'  => 'https://www.dhl.de/de/privatkunden/pakete-empfangen/verfolgen.html?lang=de&idc=%1$s',
 					'UPS Germany'        => 'https://wwwapps.ups.com/WebTracking?sort_by=status&tracknums_displayed=1&TypeOfInquiryNumber=T&loc=de_DE&InquiryNumber1=%1$s',
 					'DPD.de'             => 'https://tracking.dpd.de/parcelstatus?query=%1$s&locale=en_DE',
@@ -658,6 +658,9 @@ class WC_Shipment_Tracking_Actions {
 	 * @param array $tracking_items List of tracking item
 	 */
 	public function save_tracking_items( $order_id, $tracking_items ) {
+        // Always re-index the array
+        $tracking_items = array_values( $tracking_items );
+
 		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
 			update_post_meta( $order_id, '_wc_shipment_tracking_items', $tracking_items );
 		} else {

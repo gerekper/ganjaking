@@ -44,7 +44,7 @@ class BetterDocsPro_Install_Core {
 
         ?>
 
-        <script type="text/javascript">
+        <script>
             jQuery(document).ready( function($) {
                 $('#betterdocs-install-core').on('click', function (e) {
                     var self = $(this);

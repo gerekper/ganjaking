@@ -11,16 +11,16 @@ $pc_info = A2W_SystemInfo::server_ping();
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-lg-2">
                         <label for="a2w_write_info_log">
-                            <strong><?php _e('Write ali2woo logs', 'ali2woo'); ?></strong>
+                            <strong><?php esc_html_e('Write ali2woo logs', 'ali2woo'); ?></strong>
                         </label>
-                        <div class="info-box" data-toggle="tooltip" title="<?php _e('Write ali2woo logs', 'ali2woo'); ?>"></div>
+                        <div class="info-box" data-toggle="tooltip" title="<?php esc_html_e('Write ali2woo logs', 'ali2woo'); ?>"></div>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-lg-10">
                         <div class="form-group input-block no-margin">
-                            <input type="checkbox" class="form-control" id="a2w_write_info_log" name="a2w_write_info_log" value="yes" <?php if ($write_info_log): ?>checked<?php endif; ?>/>
+                            <input type="checkbox" class="form-control" id="a2w_write_info_log" name="a2w_write_info_log" value="yes" <?php if ($write_info_log): ?><?php esc_html_e('checked', 'ali2woo'); ?><?php endif; ?>/>
                             <?php if ($write_info_log): ?>
-                                <div><?php if (file_exists(A2W_Logs::getInstance()->log_path())): ?><a target="_blank" href="<?php echo A2W_Logs::getInstance()->log_url();?>">Open log file</a> | <?php endif; ?>
-                                <a class="a2w-clean-log" href="#">Delete log file</a></div>
+                                <div><?php if (file_exists(A2W_Logs::getInstance()->log_path())): ?><a target="_blank" href="<?php echo A2W_Logs::getInstance()->log_url();?>"><?php esc_html_e('Open log file', 'ali2woo'); ?></a> | <?php endif; ?>
+                                <a class="a2w-clean-log" href="#"><?php esc_html_e('Delete log file', 'ali2woo'); ?></a></div>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -29,7 +29,7 @@ $pc_info = A2W_SystemInfo::server_ping();
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-lg-2">
                         <label>
-                            <strong><?php _e('Server address', 'ali2woo'); ?></strong>
+                            <strong><?php esc_html_e('Server address', 'ali2woo'); ?></strong>
                         </label>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-lg-10">
@@ -41,15 +41,15 @@ $pc_info = A2W_SystemInfo::server_ping();
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-lg-2">
                         <label>
-                            <strong><?php _e('Php version', 'ali2woo'); ?></strong>
+                            <strong><?php esc_html_e('Php version', 'ali2woo'); ?></strong>
                         </label>
-                        <div class="info-box" data-toggle="tooltip" title="<?php _ex('Php version', 'setting description', 'ali2woo'); ?>"></div>
+                        <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_x('Php version', 'setting description', 'ali2woo'); ?>"></div>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-lg-10">
                         <div class="form-group input-block no-margin clearfix">
                             <?php
                             $result = A2W_SystemInfo::php_check();
-                            echo ($result['state']!=='ok'?'<span class="error">ERROR</span>':'<span class="ok">OK</span>');
+                            echo ($result['state']!=='ok'?'<span class="error">Error</span>':'<span class="ok">Ok</span>');
                             if($result['state']!=='ok'){
                                 echo '<div class="info-box" data-toggle="tooltip" title="'.$result['message'].'"></div>';
                             }
@@ -60,17 +60,17 @@ $pc_info = A2W_SystemInfo::server_ping();
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-lg-2">
                         <label>
-                            <strong><?php _e('Php config', 'ali2woo'); ?></strong>
+                            <strong><?php esc_html_e('Php config', 'ali2woo'); ?></strong>
                         </label>
                     </div>
                     
                     <div class="col-xs-12 col-sm-8 col-lg-10">
                         <div class="php_ini_check_row">
-                            <span>allow_url_fopen :</span>
+                            <span><?php esc_html_e('allow_url_fopen', 'ali2woo'); ?>:</span>
                             <?php if(ini_get('allow_url_fopen')):?>
-                                <span class="ok">On</span>
+                                <span class="ok"><?php esc_html_e('On', 'ali2woo'); ?></span>
                             <?php else: ?>
-                                <span class="error">Off</span><div class="info-box" data-toggle="tooltip" title="<?php _e('There may be problems with the image editor', 'ali2woo');?>"></div>
+                                <span class="error"><?php esc_html_e('Off', 'ali2woo'); ?></span><div class="info-box" data-toggle="tooltip" title="<?php esc_html_e('There may be problems with the image editor', 'ali2woo');?>"></div>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -78,9 +78,9 @@ $pc_info = A2W_SystemInfo::server_ping();
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-lg-2">
                         <label>
-                            <strong><?php _e('Internal AJAX call', 'ali2woo'); ?></strong>
+                            <strong><?php esc_html_e('Internal AJAX call', 'ali2woo'); ?></strong>
                         </label>
-                        <div class="info-box" data-toggle="tooltip" title="<?php _ex("If you see Error here, then the background loading feature and the synchronization function don't work on your website. Need analyze php error log and server configutation to resolve the issue.", 'setting description', 'ali2woo'); ?>"></div>
+                        <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_x("If you see Error here, then the background loading feature and the synchronization function don't work on your website. Need analyze php error log and server configutation to resolve the issue.", 'setting description', 'ali2woo'); ?>"></div>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-lg-10">
                         <div class="form-group input-block no-margin clearfix">
@@ -97,9 +97,9 @@ $pc_info = A2W_SystemInfo::server_ping();
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-lg-2">
                         <label>
-                            <strong><?php _e('Server ping', 'ali2woo'); ?></strong>
+                            <strong><?php esc_html_e('Server ping', 'ali2woo'); ?></strong>
                         </label>
-                        <div class="info-box" data-toggle="tooltip" title="<?php _ex('Server ping', 'setting description', 'ali2woo'); ?>"></div>
+                        <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_x('Server ping', 'setting description', 'ali2woo'); ?>"></div>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-lg-10">
                         <div class="form-group input-block no-margin clearfix">
@@ -123,22 +123,22 @@ $pc_info = A2W_SystemInfo::server_ping();
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-lg-2">
                         <label>
-                            <strong><?php _e('DISABLE_WP_CRON', 'ali2woo'); ?></strong>
+                            <strong><?php esc_html_e('DISABLE_WP_CRON', 'ali2woo'); ?></strong>
                         </label>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-lg-10">
                         <div class="form-group input-block no-margin clearfix">
                             <?php echo (defined('DISABLE_WP_CRON') && DISABLE_WP_CRON)?"Yes":"No";?>
-                            <div class="info-box" data-toggle="tooltip" title="<?php _ex('We recommend to disable WP Cron and setup the cron on your server/hosting instead.', 'setting description', 'ali2woo'); ?>"></div>                            
+                            <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_x('We recommend to disable WP Cron and setup the cron on your server/hosting instead.', 'setting description', 'ali2woo'); ?>"></div>                            
                         </div>                                                                     
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-lg-2">
                         <label>
-                            <strong><?php _e('PHP DOM', 'ali2woo'); ?></strong>
+                            <strong><?php esc_html_e('PHP DOM', 'ali2woo'); ?></strong>
                         </label>
-                        <div class="info-box" data-toggle="tooltip" title="<?php _ex('is there a DOM library', 'setting description', 'ali2woo'); ?>"></div>
+                        <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_x('is there a DOM library', 'setting description', 'ali2woo'); ?>"></div>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-lg-10">
                         <div class="form-group input-block no-margin clearfix">
@@ -156,9 +156,9 @@ $pc_info = A2W_SystemInfo::server_ping();
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-lg-2">
                         <label>
-                            <strong><?php _e('Import queue', 'ali2woo'); ?></strong>
+                            <strong><?php esc_html_e('Import queue', 'ali2woo'); ?></strong>
                         </label>
-                        <div class="info-box" data-toggle="tooltip" title="<?php _e('Import queue', 'ali2woo'); ?>"></div>
+                        <div class="info-box" data-toggle="tooltip" title="<?php esc_html_e('Import queue', 'ali2woo'); ?>"></div>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-lg-10">
                         <div class="form-group input-block no-margin">
@@ -168,8 +168,22 @@ $pc_info = A2W_SystemInfo::server_ping();
                             ?>
                             <span><?php echo $num_in_queue; ?></span> 
                             <?php if($num_in_queue>0):?>
-                            <a class="a2w-run-cron-queue" href="#">Run</a> | <a class="a2w-clean-import-queue" href="#">Clean</a>
+                            <a class="a2w-run-cron-queue" href="#"><?php esc_html_e('Run', 'ali2woo'); ?></a> | <a class="a2w-clean-import-queue" href="#"><?php esc_html_e('Clean', 'ali2woo'); ?></a>
                             <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-lg-2">
+                        <label>
+                            <strong><?php echo esc_html_x('Setup Wizard', 'Wizard', 'ali2woo'); ?></strong>
+                        </label>
+                        <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_x('It will help you to set up settings for the plugin, use it if you`re newbye in dropshipping.', 'Wizard', 'ali2woo'); ?>"></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-lg-10">
+                        <div class="form-group input-block no-margin">
+                            <a href="<?php echo admin_url('admin.php?page=a2w_wizard') ?>"><?php esc_html_e('Start', 'ali2woo'); ?></a>
                         </div>
                     </div>
                 </div>
@@ -180,7 +194,7 @@ $pc_info = A2W_SystemInfo::server_ping();
         <div class="container-fluid">
             <div class="row pt20 border-top">
                 <div class="col-sm-12">
-                    <input class="btn btn-success js-main-submit" type="submit" value="<?php _e('Save settings', 'ali2woo'); ?>"/>
+                    <input class="btn btn-success js-main-submit" type="submit" value="<?php esc_html_e('Save settings', 'ali2woo'); ?>"/>
                 </div>
             </div>
         </div>
@@ -191,6 +205,8 @@ $pc_info = A2W_SystemInfo::server_ping();
 <script>
     (function ($) {
         $(function () {
+            if($.fn.tooltip) { $('[data-toggle="tooltip"]').tooltip({"placement": "top"}); }
+            
             $('.a2w-clean-log').click(function () {
                 $.post(ajaxurl, {action: 'a2w_clear_log_file'}).done(function (response) {
                     let json = $.parseJSON(response);

@@ -11,7 +11,7 @@ if ( class_exists( 'WC_Free_Gift_Coupons_Admin' ) ) {
  * Main Admin Class
  *
  * @class WC_Free_Gift_Coupons_Admin
- * @version	3.3.0
+ * @version	3.3.2
  */
 class WC_Free_Gift_Coupons_Admin {
 
@@ -20,7 +20,7 @@ class WC_Free_Gift_Coupons_Admin {
 	 * 
 	 * @var string
 	 */
-	public static $version = '3.3.1';
+	public static $version = '3.3.2';
 
 	/** 
 	 * Coupon Product ids list
@@ -62,7 +62,13 @@ class WC_Free_Gift_Coupons_Admin {
 
 		// Coupon styles.
 		wp_register_style( 'woocommerce_free_gift_coupon_meta', plugins_url( '../assets/css/admin/free-gift-coupons-meta-box' . $suffix . '.css' , __DIR__ ), array(), WC_Free_Gift_Coupons::$version );
-			
+		
+		wp_style_add_data( 'woocommerce_free_gift_coupon_meta', 'rtl', 'replace' );
+
+		if ( $suffix ) {
+			wp_style_add_data( 'woocommerce_free_gift_coupon_meta', 'suffix', '.min' );
+		}
+
 		// Coupon script.
 		wp_register_script( 'woocommerce_free_gift_coupon_meta', plugins_url( '../assets/js/admin/free-gift-coupons-meta-box' . $suffix . '.js' , __DIR__ ), array( 'jquery', 'backbone', 'underscore', 'wp-util', 'jquery-ui-sortable', 'wc-enhanced-select' ), WC_Free_Gift_Coupons::$version, true );
 
@@ -295,7 +301,7 @@ class WC_Free_Gift_Coupons_Admin {
 			}
 
 			// Add the synced product to list of required products. Stealth way of making sure the sync doesn't malfunction!
-			self::sort_synced_products_for_coupon( $coupon, $synced_products, $clear_old_synced_prod, $save_coupon );
+			self::sort_synced_products_for_coupon( $coupon, $synced_products, false, false );
 
 			// Sanitize free shipping option.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce check handled by WooCommerce core.
@@ -396,6 +402,13 @@ class WC_Free_Gift_Coupons_Admin {
 				$gift_id = intval( $gift_id );
 
 				$_product = wc_get_product( $gift_id );
+
+				if ( is_admin() && ! $_product->is_purchasable() ) {
+					// translators: %1$s is the product name. %2$s is the edit link for that product.
+					$notice = sprintf( wp_kses_post( __( '<strong class="dashicons-before dashicons-warning">"%1$s"</strong> is not purchasable and cannot be gifted! Please <a href="%2$s">edit the gift</a> to verify it is published, in stock, and has a price.', 'wc_free_gift_coupons' ) ), $_product->get_title(), esc_url( get_edit_post_link( $_product->get_id() ) ) );
+					
+					WC_Free_Gift_Coupons_Admin_Notices::add_notice( $notice, 'warning', true );
+				}
 				
 				if ( $_product ) {
 					$gift_data[$gift_id] = 

@@ -1,5 +1,10 @@
 *** Advanced Notifications Changelog ***
 
+2021-12-13 - version 1.2.35
+* Fix   - Add custom order status for WooCommerce Deposits compatibility.
+* Tweak - Use 'wp_loaded' hook to send the notification.
+* Tweak - WC 5.9 compatibility.
+
 2021-11-03 - version 1.2.34
 * Fix - Incorrect reuse of 'woocommerce_email_subject_*' hook.
 

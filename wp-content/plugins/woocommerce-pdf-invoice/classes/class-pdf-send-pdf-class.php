@@ -198,6 +198,18 @@
 			$messagetext  = '';
 			$messagetext .= $pdf->get_woocommerce_invoice_content( $order_id, $email_id );
 
+			/**
+			 * Debugging
+			 */
+	  		if( isset( $settings["pdf_debug"] ) && $settings["pdf_debug"] == "true" ) {
+	  			// Load PDF Dbugging
+	  			if( !class_exists( 'WC_pdf_debug') ) {
+	  				include( 'class-pdf-debug.php' );
+	  			}
+
+	  			WC_pdf_debug::pdf_debug( $messagetext, 'WC_PDF_Invoice', __('PDF Invoice Body : ', 'woocommerce-pdf-invoice'), TRUE );
+			}
+
 			if( isset( $settings["pdf_generator"] ) && $settings["pdf_generator"] == 'MPDF' ) {
 				
 				// include mpdf autoloader
@@ -235,16 +247,6 @@
 					$terms_file = self::get_pdf_temp() . "/" . 'terms-' . $filename;
 					$mpdf->Output( $terms_file, \Mpdf\Output\Destination::FILE );
 
-					/**
-					 * Debugging
-					 */
-			  		if( isset( $settings["pdf_debug"] ) && $settings["pdf_debug"] == "true" ) {
-			  			// Load PDF Dbugging
-			  			if( !class_exists( 'WC_pdf_debug') ) {
-			  				include( 'class-pdf-debug.php' );
-			  			}
-					}
-
 					// Load PDF Merger
 					if ( !class_exists('PDFMerger') ) {
 						include ( PDFPLUGINPATH . 'lib/PDFMerger/PDFMerger.php' );
@@ -267,46 +269,17 @@
 					// Save the invoice file
 					$mpdf->Output( $file, \Mpdf\Output\Destination::FILE );
 
-					/**
-					 * Debugging
-					 */
-			  		if( isset( $settings["pdf_debug"] ) && $settings["pdf_debug"] == "true" ) {
-			  			// Load PDF Dbugging
-			  			if( !class_exists( 'WC_pdf_debug') ) {
-			  				include( 'class-pdf-debug.php' );
-			  			}
-					}
-
 				}
 
-				if( $stream ) {
+				ob_start();
+			   	header('Content-type: application/force-download');
+			   	header('Content-Disposition: attachment; filename=' . $filename );
+			   	readfile( $file );
+			   	ob_get_contents();
 
-					ob_start();
-				   	header('Content-type: application/force-download');
-				   	header('Content-Disposition: attachment; filename=' . $filename );
-				   	readfile( $file );
-				   	ob_get_contents();
-
-				   	exit;
-
-				} else {
-					// $mpdf->Output( $file, \Mpdf\Output\Destination::FILE );
-				}
-
-				return $file;
+			   	exit;
 
 			} else {
-
-				/**
-				 * Debugging
-				 */
-		  		if( isset( $settings["pdf_debug"] ) && $settings["pdf_debug"] == "true" ) {
-		  			// Load PDF Dbugging
-		  			if( !class_exists( 'WC_pdf_debug') ) {
-		  				include( 'class-pdf-debug.php' );
-		  			}
-		  			WC_pdf_debug::pdf_debug( $messagetext, 'WC_PDF_Invoice', __('PDF Invoice Body : ', 'woocommerce-pdf-invoice'), TRUE );
-				} 
 
 				// DOMPDF Options
 				$options = new Options();
@@ -1185,7 +1158,7 @@
 
 				if( $invnum == '' || strlen( $invnum ) == 0 ) {
 
-					$invoice_number = isset( $invoice_meta['invoice_number'] ) ? TRUR : FALSE;
+					$invoice_number = isset( $invoice_meta['invoice_number'] ) ? TRUE : FALSE;
 
 					if( $invoice_number  ) {
 						// We have a valid invoice_number, create the display_invoice_number

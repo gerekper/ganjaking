@@ -3,7 +3,7 @@
 /**
  * Fired during plugin activation
  *
- * @link       https://wpdeveloper.net
+ * @link       https://wpdeveloper.com
  * @since      1.0.0
  *
  * @package    Betterdocs_Pro
@@ -18,7 +18,7 @@
  * @since      1.0.0
  * @package    Betterdocs_Pro
  * @subpackage Betterdocs_Pro/includes
- * @author     WPDeveloper <support@wpdeveloper.net>
+ * @author     WPDeveloper <support@wpdeveloper.com>
  */
 class Betterdocs_Pro_Activator {
 

@@ -247,7 +247,7 @@ if (!class_exists('A2W_JSON_API')) {
                         <p><strong>Note:</strong> User-friendly permalinks are not currently enabled. <a target="_blank" class="button" href="options-permalink.php">Change Permalinks</a>
             <?php } ?>
                     <p class="submit">
-                        <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'ali2woo') ?>" />
+                        <input type="submit" class="button-primary" value="<?php _e('Save changes', 'ali2woo') ?>" />
                     </p>
                 </form>
             </div>

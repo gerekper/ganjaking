@@ -69,10 +69,10 @@ class NewsletterTemplateEntity extends \MailPoet\Entities\NewsletterTemplateEnti
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'name', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'categories', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'body', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'thumbnail', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'readonly', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'updatedAt'];
+            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'name', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'categories', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'body', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'thumbnail', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'thumbnailData', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'readonly', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'updatedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'name', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'categories', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'body', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'thumbnail', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'readonly', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'updatedAt'];
+        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'name', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'categories', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'body', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'thumbnail', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'thumbnailData', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'readonly', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\NewsletterTemplateEntity' . "\0" . 'updatedAt'];
     }
 
     /**
@@ -287,6 +287,28 @@ class NewsletterTemplateEntity extends \MailPoet\Entities\NewsletterTemplateEnti
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setThumbnail', [$thumbnail]);
 
         return parent::setThumbnail($thumbnail);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getThumbnailData(): ?string
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getThumbnailData', []);
+
+        return parent::getThumbnailData();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setThumbnailData(string $thumbnailData): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setThumbnailData', [$thumbnailData]);
+
+        parent::setThumbnailData($thumbnailData);
     }
 
     /**

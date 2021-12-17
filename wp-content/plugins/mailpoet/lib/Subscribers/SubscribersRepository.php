@@ -10,6 +10,7 @@ use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberCustomFieldEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
+use MailPoet\Entities\UserAgentEntity;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Doctrine\DBAL\Connection;
@@ -20,6 +21,9 @@ use MailPoetVendor\Doctrine\ORM\Query\Expr\Join;
  * @extends Repository<SubscriberEntity>
  */
 class SubscribersRepository extends Repository {
+  /** @var WPFunctions */
+  private $wp;
+
   protected $ignoreColumnsForUpdate = [
     'wp_user_id',
     'is_woocommerce_user',
@@ -27,6 +31,14 @@ class SubscribersRepository extends Repository {
     'created_at',
     'last_subscribed_at',
   ];
+
+  public function __construct(
+    EntityManager $entityManager,
+    WPFunctions $wp
+  ) {
+    $this->wp = $wp;
+    parent::__construct($entityManager);
+  }
 
   protected function getEntityClassName() {
     return SubscriberEntity::class;
@@ -127,7 +139,7 @@ class SubscribersRepository extends Repository {
       // Delete subscriber custom fields
       $subscriberCustomFieldTable = $entityManager->getClassMetadata(SubscriberCustomFieldEntity::class)->getTableName();
       $subscriberTable = $entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
-      $entityManager->getConnection()->executeUpdate("
+      $entityManager->getConnection()->executeStatement("
          DELETE scs FROM $subscriberCustomFieldTable scs
          JOIN $subscriberTable s ON s.`id` = scs.`subscriber_id`
          WHERE scs.`subscriber_id` IN (:ids)
@@ -156,7 +168,7 @@ class SubscribersRepository extends Repository {
     }
 
     $subscriberSegmentsTable = $this->entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
-    $count = $this->entityManager->getConnection()->executeUpdate("
+    $count = $this->entityManager->getConnection()->executeStatement("
        DELETE ss FROM $subscriberSegmentsTable ss
        WHERE ss.`subscriber_id` IN (:ids)
        AND ss.`segment_id` = :segment_id
@@ -175,7 +187,7 @@ class SubscribersRepository extends Repository {
 
     $subscriberSegmentsTable = $this->entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
     $segmentsTable = $this->entityManager->getClassMetadata(SegmentEntity::class)->getTableName();
-    $count = $this->entityManager->getConnection()->executeUpdate("
+    $count = $this->entityManager->getConnection()->executeStatement("
        DELETE ss FROM $subscriberSegmentsTable ss
        JOIN $segmentsTable s ON s.id = ss.segment_id AND s.`type` = :typeDefault
        WHERE ss.`subscriber_id` IN (:ids)
@@ -308,5 +320,34 @@ class SubscribersRepository extends Repository {
       ->getQuery()
       ->setMaxResults($limit)
       ->getResult();
+  }
+
+  public function maybeUpdateLastEngagement(SubscriberEntity $subscriberEntity, ?UserAgentEntity $userAgent = null): void {
+    if ($userAgent instanceof UserAgentEntity && $userAgent->getUserAgentType() === UserAgentEntity::USER_AGENT_TYPE_MACHINE) {
+      return;
+    }
+    $now = Carbon::createFromTimestamp((int)$this->wp->currentTime('timestamp'));
+    // Do not update engagement if was recently updated to avoid unnecessary updates in DB
+    if ($subscriberEntity->getLastEngagementAt() && $subscriberEntity->getLastEngagementAt() > $now->subMinute()) {
+      return;
+    }
+    // Update last engagement for human (and also unknown) user agent
+    $subscriberEntity->setLastEngagementAt($now);
+    $this->flush();
+  }
+
+  /**
+   * @param array $ids
+   * @return string[]
+   */
+  public function getUndeletedSubscribersEmailsByIds(array $ids): array {
+    return $this->entityManager->createQueryBuilder()
+      ->select('s.email')
+      ->from(SubscriberEntity::class, 's')
+      ->where('s.deletedAt IS NULL')
+      ->andWhere('s.id IN (:ids)')
+      ->setParameter('ids', $ids)
+      ->getQuery()
+      ->getArrayResult();
   }
 }

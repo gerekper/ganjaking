@@ -10,8 +10,18 @@ use MailPoet\Models\ScheduledTask;
 use MailPoet\Models\ScheduledTaskSubscriber;
 use MailPoet\Models\SendingQueue;
 use MailPoet\Tasks\Sending as SendingTask;
+use MailPoet\WP\Functions as WPFunctions;
 
 class AutomaticEmailScheduler {
+  /** @var WPFunctions|null */
+  private $wp;
+
+  public function __construct(
+    ?WPFunctions $wp = null
+  ) {
+    $this->wp = $wp;
+  }
+
   public function scheduleAutomaticEmail($group, $event, $schedulingCondition = false, $subscriberId = false, $meta = false) {
     $newsletters = Scheduler::getNewsletters(Newsletter::TYPE_AUTOMATIC, $group);
     if (empty($newsletters)) return false;
@@ -95,7 +105,7 @@ class AutomaticEmailScheduler {
     $sendingTask->status = SendingQueue::STATUS_SCHEDULED;
     $sendingTask->priority = SendingQueue::PRIORITY_MEDIUM;
 
-    $sendingTask->scheduledAt = Scheduler::getScheduledTimeWithDelay($newsletter->afterTimeType, $newsletter->afterTimeNumber);
+    $sendingTask->scheduledAt = Scheduler::getScheduledTimeWithDelay($newsletter->afterTimeType, $newsletter->afterTimeNumber, $this->wp);
     return $sendingTask->save();
   }
 
@@ -105,7 +115,7 @@ class AutomaticEmailScheduler {
       $sendingTask->__set('meta', $meta);
     }
     // compute new 'scheduled_at' from now
-    $sendingTask->scheduledAt = Scheduler::getScheduledTimeWithDelay($newsletter->afterTimeType, $newsletter->afterTimeNumber);
+    $sendingTask->scheduledAt = Scheduler::getScheduledTimeWithDelay($newsletter->afterTimeType, $newsletter->afterTimeNumber, $this->wp);
     $sendingTask->save();
   }
 }

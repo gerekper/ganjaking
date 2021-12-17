@@ -310,8 +310,8 @@ if (!class_exists('A2W_SettingPageAjaxController')) {
             if($result['state']!=='error'){
                 $result['tariff_name'] = empty($result['tariff_code']) || $result['tariff_code']==='free'?'Starter':ucfirst($result['tariff_code']);
 
-                $valid_to = $result['valid_to']?strtotime($result['valid_to']):false;
-                $tariff_to = $result['tariff_to']?strtotime($result['tariff_to']):false;
+                $valid_to = !empty($result['valid_to'])?strtotime($result['valid_to']):false;
+                $tariff_to = !empty($result['tariff_to'])?strtotime($result['tariff_to']):false;
 
                 $supported_until = ($valid_to && $tariff_to && $tariff_to > $valid_to)?$tariff_to:$valid_to;
                     

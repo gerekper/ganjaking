@@ -91,7 +91,7 @@ class BetterDocs_Role_Management {
                 'content_visibility' => array(
                     'type'        => 'select',
                     'label'       => __('Restrict Access to', 'betterdocs-pro'),
-                    'help'        => __('<strong>Note:</strong> Only selected User Roles will be able to view your Knowledge Base' , 'betterdocs'),
+                    'help'        => __('<strong>Note:</strong> Only selected User Roles will be able to view your Knowledge Base' , 'betterdocs-pro'),
                     'priority'    => 2,
                     'multiple'    => true,
                     'default'     => 'all',
@@ -100,7 +100,7 @@ class BetterDocs_Role_Management {
                 'restrict_template' => array(
                     'type'        => 'select',
                     'label'       => __('Restriction on Docs', 'betterdocs-pro'),
-                    'help'        => __('<strong>Note:</strong> Selected Docs pages will be restricted' , 'betterdocs'),
+                    'help'        => __('<strong>Note:</strong> Selected Docs pages will be restricted' , 'betterdocs-pro'),
                     'priority'    => 3,
                     'multiple'    => true,
                     'default'     => 'all',
@@ -109,7 +109,7 @@ class BetterDocs_Role_Management {
                 'restrict_category' => array(
                     'type'        => 'select',
                     'label'       => __('Restriction on Docs Categories', 'betterdocs-pro'),
-                    'help'        => __('<strong>Note:</strong> Selected Docs categories will be restricted ' , 'betterdocs'),
+                    'help'        => __('<strong>Note:</strong> Selected Docs categories will be restricted ' , 'betterdocs-pro'),
                     'priority'    => 5,
                     'multiple'    => true,
                     'default'     => 'all',

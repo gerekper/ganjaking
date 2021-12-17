@@ -56,6 +56,7 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   var mailpoet_time_format = "<%= wp_time_format()|escape('js') %>";
   var mailpoet_version = "<%= mailpoet_version() %>";
   var mailpoet_locale = "<%= mailpoet_locale() %>";
+  var mailpoet_wp_week_starts_on = "<%= wp_start_of_week() %>";
   var mailpoet_premium_version = <%= json_encode(mailpoet_premium_version()) %>;
   var mailpoet_3rd_party_libs_enabled = <%= is_loading_3rd_party_enabled() | json_encode %>;
   var mailpoet_analytics_enabled = <%= is_analytics_enabled() | json_encode %>;
@@ -70,11 +71,14 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   var mailpoet_referral_id = <%= json_encode(referral_id) %>;
   var mailpoet_feature_announcement_has_news = <%= json_encode(feature_announcement_has_news) %>;
   var mailpoet_wp_segment_state = <%= json_encode(wp_segment_state) %>;
+  var mailpoet_mta_method = '<%= mta_method %>';
 </script>
 
 <!-- javascripts -->
 <%= javascript(
+  'runtime.js',
   'vendor.js',
+  'commons.js',
   'mailpoet.js'
 )%>
 
@@ -85,6 +89,7 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   'senderEmailAddressWarning2': _x('Use an address like %1$s for the Sender and put %2$s in the <em>Reply-to</em> field below.', 'In the last step, before sending a newsletter. URL: ?page=mailpoet-newsletters#/send/2'),
   'senderEmailAddressWarning3': _x('Read more.'),
   'mailerSendingResumedNotice': __('Sending has been resumed.'),
+  'mailerSendingNotResumedUnauthorized': __('Failed to resume sending because the email address is unauthorized. Please authorize it and try again.'),
   'dismissNotice': __('Dismiss this notice.'),
 
   'subscribersLimitNoticeTitle': __('Congratulations, you now have more than [subscribersLimit] subscribers!'),
@@ -111,6 +116,10 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
 
   'sent': __('Sent'),
   'notSentYet': __('Not sent yet!'),
+
+  'allSendingPausedHeader': __('All sending is currently paused!'),
+  'allSendingPausedBody': __('Your [link]API key[/link] to send with MailPoet is invalid.'),
+  'allSendingPausedLink': __('Purchase a key'),
 
   'close': __('Close'),
   'today': __('Today'),
@@ -156,9 +165,7 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
 <% block translations %><% endblock %>
 
 <% block after_translations %><% endblock %>
-
 <%= javascript(
-  'admin_vendor_chunk.js',
   'admin_vendor.js'
 )%>
 

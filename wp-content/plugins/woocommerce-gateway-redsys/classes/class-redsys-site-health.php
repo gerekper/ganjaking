@@ -3,7 +3,7 @@
 * Copyright: (C) 2013 - 2021 José Conti
 */
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
 add_filter( 'site_status_tests', 'redsys_add_oficial_redsys_test' );

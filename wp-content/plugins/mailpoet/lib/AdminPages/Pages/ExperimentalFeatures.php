@@ -11,7 +11,9 @@ class ExperimentalFeatures {
   /** @var PageRenderer */
   private $pageRenderer;
 
-  public function __construct(PageRenderer $pageRenderer) {
+  public function __construct(
+    PageRenderer $pageRenderer
+  ) {
     $this->pageRenderer = $pageRenderer;
   }
 

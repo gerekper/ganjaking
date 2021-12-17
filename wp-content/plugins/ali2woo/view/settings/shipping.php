@@ -5,26 +5,25 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
     <input type="hidden" name="setting_form" value="1"/>
     <div class="panel panel-primary mt20">
         <div class="panel-heading">
-            <h3 class="panel-title"><?php _ex('Shipping settings', 'Setting title', 'ali2woo'); ?></h3>
+            <h3 class="panel-title"><?php  echo esc_html_x('Shipping settings', 'Setting title', 'ali2woo'); ?></h3>
             <span class="pull-right">
-                <a href="#" class="reset-shipping-meta btn _a2wfv"><?php _ex('Reset product shipping meta', 'Setting title', 'ali2woo'); ?><div class="info-box" data-placement="left" data-toggle="tooltip" title="<?php _ex('It clears the shipping methods cache, use this feature if you believe the shipping cost is changed on AliExpress.', 'Setting tip', 'ali2woo'); ?>"></div></a>
+                <a href="#" class="reset-shipping-meta btn _a2wfv"><?php  echo esc_html_x('Reset product shipping meta', 'Setting title', 'ali2woo'); ?><div class="info-box" data-placement="left" data-toggle="tooltip" title="<?php  echo esc_html_x('It clears the shipping methods cache, use this feature if you believe the shipping cost is changed on AliExpress.', 'Setting tip', 'ali2woo'); ?>"></div></a>
             </span>
         </div>
 
-        
-        <div class="panel-body _a2wfv">
-            <div class="row">
+        <div class="panel-body">
+            <div class="row _a2wfv">
                 <div class="col-md-4">
                     <label>
-                        <strong><?php _ex('Default shipping class', 'Setting title', 'ali2woo'); ?></strong>
+                        <strong><?php  echo esc_html_x('Default shipping class', 'Setting title', 'ali2woo'); ?></strong>
                     </label>
-                    <div class="info-box" data-toggle="tooltip" title="<?php _ex('Specific shipping class for WooCommerce, that get all products imported via Ali2Woo.', 'setting description', 'ali2woo'); ?>"></div>
+                    <div class="info-box" data-toggle="tooltip" title="<?php  echo esc_html_x('Specific shipping class for WooCommerce, that get all products imported via Ali2Woo.', 'setting description', 'ali2woo'); ?>"></div>
                 </div>
                 <div class="col-md-8">
                     <div class="form-group input-block no-margin">
                         <?php $default_shipping_class = a2w_get_setting('default_shipping_class'); ?>
                         <select name="a2w_default_shipping_class" id="a2w_default_shipping_class" class="form-control small-input">
-                            <option value=""><?php _ex('Do nothing', 'Setting option', 'ali2woo'); ?></option>
+                            <option value=""><?php  echo esc_html_x('Do nothing', 'Setting option', 'ali2woo'); ?></option>
                             <?php foreach($shipping_class as $sc):?>
                             <option value="<?php echo $sc->term_id;?>" <?php if ($default_shipping_class == $sc->term_id): ?>selected="selected"<?php endif; ?>><?php echo $sc->name;?></option>
                             <?php endforeach; ?>
@@ -36,14 +35,14 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
             <div class="row">
                 <div class="col-md-4">
                     <label>
-                        <strong><?php _ex('Default Shipping Country', 'Setting title', 'ali2woo'); ?></strong>
+                        <strong><?php  echo esc_html_x('Default Shipping Country', 'Setting title', 'ali2woo'); ?></strong>
                     </label>
-                    <div class="info-box" data-toggle="tooltip" title="<?php _ex('This is for the frontend (Cart, Checkout, Product page) and for the backend Ali2Woo`s pages (Search, Import List, etc.).', 'setting description', 'ali2woo'); ?>"></div>
+                    <div class="info-box" data-toggle="tooltip" title="<?php  echo esc_html_x('This is for the frontend (Cart, Checkout, Product page) and for the backend Ali2Woo`s pages (Search, Import List, etc.).', 'setting description', 'ali2woo'); ?>"></div>
                 </div>
                 <div class="col-md-8">
                     <?php $cur_a2w_aliship_shipto = a2w_get_setting('aliship_shipto'); ?>
                     <div class="form-group input-block no-margin">
-                        <select name="a2w_aliship_shipto" id="a2w_aliship_shipto" class="form-control small-input">
+                        <select name="a2w_aliship_shipto" id="a2w_aliship_shipto" class="form-control small-input country_list">
                             <?php foreach ($shipping_countries as $country): ?>
                                 <option value="<?php echo $country['c']; ?>"<?php if ($cur_a2w_aliship_shipto == $country['c']): ?> selected<?php endif; ?>>
                                     <?php echo $country['n']; ?>
@@ -63,9 +62,9 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
             <div class="row">
                         <div class="col-md-4">
                             <label>
-                                <strong><?php _ex('Use Aliexpress Shipping', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('Use Aliexpress Shipping', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
-                            <div class="info-box" data-toggle="tooltip" title="<?php _ex('It enables all options below and show the shipping selection interface on the cart and checkout page.', 'setting description', 'ali2woo'); ?>"></div>
+                            <div class="info-box" data-toggle="tooltip" title="<?php  echo esc_html_x('It enables all options below and show the shipping selection interface on the cart and checkout page.', 'setting description', 'ali2woo'); ?>"></div>
                         </div>
                         <div class="col-md-8">
                             <div class="form-group input-block no-margin">
@@ -79,9 +78,9 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
             <div class="row">
                         <div class="col-md-4">
                             <label>
-                                <strong><?php _ex('Shipping selection type', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('Shipping selection type', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
-                            <div class="info-box" data-toggle="tooltip" title="<?php _ex('Choose how the shipping method appears on the cart and checkout page: Popup or Select', 'setting description', 'ali2woo'); ?>"></div>
+                            <div class="info-box" data-toggle="tooltip" title="<?php  echo esc_html_x('Choose how the shipping method appears on the cart and checkout page: Popup or Select', 'setting description', 'ali2woo'); ?>"></div>
                         </div>
                         <div class="col-md-8">
                             <?php $cur_a2w_aliship_selection_type = a2w_get_setting('aliship_selection_type'); ?>
@@ -100,7 +99,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
             <div class="row">
                         <div class="col-md-4">
                             <label for="a2w_aliship_shipping_option_text">
-                                <strong><?php _ex('AliExpress shipping option text', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('AliExpress shipping option text', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
                         </div>
                         <div class="col-md-5">
@@ -122,9 +121,9 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
             <div class="row">
                         <div class="col-md-4">
                             <label>
-                                <strong><?php _ex('Shipping calculation', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('Shipping calculation', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
-                            <div class="info-box" data-toggle="tooltip" title="<?php _ex('Shipping packages are cached so if you change this option, you`ll need to update your existing cart to make changes apply.', 'setting description', 'ali2woo'); ?>"></div>
+                            <div class="info-box" data-toggle="tooltip" title="<?php  echo esc_html_x('Shipping packages are cached so if you change this option, you`ll need to update your existing cart to make changes apply.', 'setting description', 'ali2woo'); ?>"></div>
                         </div>
                         <div class="col-md-8">
                             <?php $cur_a2w_aliship_shipping_type = a2w_get_setting('aliship_shipping_type'); ?>
@@ -143,7 +142,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
             <div class="row">
                         <div class="col-md-4">
                             <label for="a2w_aliship_shipping_label">
-                                <strong><?php _ex('Shipping Label', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('Shipping Label', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
                             <div class="info-box" data-toggle="tooltip" title='Label of added shipping method in cart/checkout'></div>
                         </div>
@@ -157,7 +156,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
             <div class="row">
                         <div class="col-md-4">
                             <label for="a2w_aliship_free_shipping_label">
-                                <strong><?php _ex('Free Shipping label', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('Free Shipping label', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
                             <div class="info-box" data-toggle="tooltip" title='Label of added free shipping method in cart/checkout'></div>
                         </div>
@@ -173,9 +172,9 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                     <div class="row">
                         <div class="col-md-4">
                             <label>
-                                <strong><?php _ex('Show on Product page', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('Show on Product page', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
-                            <div class="info-box" data-toggle="tooltip" title="<?php _ex('Show shipping selection on the product page', 'setting description', 'ali2woo'); ?>"></div>
+                            <div class="info-box" data-toggle="tooltip" title="<?php  echo esc_html_x('Show shipping selection on the product page', 'setting description', 'ali2woo'); ?>"></div>
                         </div>
                         <div class="col-md-8">
                             <div class="form-group input-block no-margin">
@@ -186,7 +185,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                     <div class="row">
                         <div class="col-md-4">
                             <label>
-                                <strong><?php _ex('Shipping not available message', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('Shipping not available message', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
                         </div>
                         <div class="col-md-5">
@@ -201,7 +200,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                     <div class="row">
                         <div class="col-md-4">
                             <label>
-                                <strong><?php _ex('Position of shipping selection on Product page', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('Position of shipping selection on Product page', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
                         </div>
                         <div class="col-md-8">
@@ -225,8 +224,8 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                     <div class="row">
                             <div class="col-md-4">
                                 <label>
-                                    <strong><?php _ex('Remove items that shipping is not available', 'Setting title', 'ali2woo'); ?></strong>
-                                    <div class="info-box" data-toggle="tooltip" title="<?php _ex('When customers go to checkout, remove all items which are not available to ship to customers` country. During a customer session, items removed for this reason will be restored automatically if customer changes billing/shipping country to which the items are available to ship.', 'Setting description', 'ali2woo'); ?>"></div>
+                                    <strong><?php  echo esc_html_x('Remove items that shipping is not available', 'Setting title', 'ali2woo'); ?></strong>
+                                    <div class="info-box" data-toggle="tooltip" title="<?php  echo esc_html_x('When customers go to checkout, remove all items which are not available to ship to customers` country. During a customer session, items removed for this reason will be restored automatically if customer changes billing/shipping country to which the items are available to ship.', 'Setting description', 'ali2woo'); ?>"></div>
                                 </label>
                             </div>
                             <div class="col-md-8">
@@ -239,7 +238,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                     <div class="row">
                         <div class="col-md-4">
                             <label>
-                                <strong><?php _ex('Default message for items that shipping is not available', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('Default message for items that shipping is not available', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
                         </div>
                         <div class="col-md-5">
@@ -257,7 +256,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                     <div class="row">
                         <div class="col-md-4">
                             <label>
-                                <strong><?php _ex('Default shipping cost', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('Default shipping cost', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
                         </div>
                         <div class="col-md-8">
@@ -265,37 +264,37 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                                 <span class="input-group-addon" id="a2w_aliship_not_available_cost_addon"><?php echo get_woocommerce_currency_symbol(); ?></span>
                                 <input type="number" min="0" step="any" class="form-control" id="a2w_aliship_not_available_cost" name="a2w_aliship_not_available_cost"  value="<?php echo esc_attr(a2w_get_setting('aliship_not_available_cost')); ?>" aria-describedby="a2w_aliship_not_available_cost_addon" />
                             </div>
-                            <p><?php _ex('Apply this shipping cost for items that shipping is not available. 0 means free shipping', 'Setting title', 'ali2woo'); ?></p>
+                            <p><?php  echo esc_html_x('Apply this shipping cost for items that shipping is not available. 0 means free shipping', 'Setting title', 'ali2woo'); ?></p>
                             
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <label>
-                                <strong><?php _ex('Default min delivery time', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('Default min delivery time', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-block no-margin large-input">
                                 <input type="number" min="0" step="any" class="form-control" id="a2w_aliship_not_available_time_min" name="a2w_aliship_not_available_time_min"  value="<?php echo esc_attr(a2w_get_setting('aliship_not_available_time_min')); ?>" aria-describedby="a2w_aliship_not_available_time_min_addon" />
-                                <span class="input-group-addon" id="a2w_aliship_not_available_time_min_addon"><?php _ex('Day(s)', 'Setting title', 'ali2woo'); ?></span>
+                                <span class="input-group-addon" id="a2w_aliship_not_available_time_min_addon"><?php  echo esc_html_x('Day(s)', 'Setting title', 'ali2woo'); ?></span>
                             </div>
-                            <p><?php _ex('Min delivery time shown for items that shipping is not available', 'Setting title', 'ali2woo'); ?></p>
+                            <p><?php  echo esc_html_x('Min delivery time shown for items that shipping is not available', 'Setting title', 'ali2woo'); ?></p>
                             
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <label>
-                                <strong><?php _ex('Default max delivery time', 'Setting title', 'ali2woo'); ?></strong>
+                                <strong><?php  echo esc_html_x('Default max delivery time', 'Setting title', 'ali2woo'); ?></strong>
                             </label>
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-block no-margin large-input">
                                 <input type="number" min="0" step="any" class="form-control" id="a2w_aliship_not_available_time_max" name="a2w_aliship_not_available_time_max"  value="<?php echo esc_attr(a2w_get_setting('aliship_not_available_time_max')); ?>" aria-describedby="a2w_aliship_not_available_time_max_addon" />
-                                <span class="input-group-addon" id="a2w_aliship_not_available_time_max_addon"><?php _ex('Day(s)', 'Setting title', 'ali2woo'); ?></span>
+                                <span class="input-group-addon" id="a2w_aliship_not_available_time_max_addon"><?php  echo esc_html_x('Day(s)', 'Setting title', 'ali2woo'); ?></span>
                             </div>
-                            <p><?php _ex('Max delivery time shown for items that shipping is not available', 'Setting title', 'ali2woo'); ?></p>
+                            <p><?php  echo esc_html_x('Max delivery time shown for items that shipping is not available', 'Setting title', 'ali2woo'); ?></p>
                             
                         </div>
                     </div>
@@ -305,7 +304,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
             <div class="global-pricing mt20"> 
                 <div class="panel panel-primary mt20 _a2wfv">
                     <div class="panel-heading">
-                        <h3 class="display-inline"><?php _ex('Global shipping rules', 'Setting title', 'ali2woo'); ?><div class="info-box" data-placement="left" data-toggle="tooltip" title="<?php _ex('Please note that you can disable Global rules for specific shipping methods if needed. Just go to "Shipping List" page, then choose "specific method" and set  "Enable price rule" to "no".', 'Setting tip', 'ali2woo'); ?>"></div></h3>
+                        <h3 class="display-inline"><?php  echo esc_html_x('Global shipping rules', 'Setting title', 'ali2woo'); ?><div class="info-box" data-placement="left" data-toggle="tooltip" title="<?php  echo esc_html_x('Please note that you can disable Global rules for specific shipping methods if needed. Just go to "Shipping List" page, then choose "specific method" and set  "Enable price rule" to "no".', 'Setting tip', 'ali2woo'); ?>"></div></h3>
                     </div>
 
                     <div class="panel-body js-default-prices">
@@ -366,10 +365,10 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
             </div>
         </div>
     </div> 
-    <div class="container-fluid _a2wfv">
+    <div class="container-fluid">
         <div class="row pt20">
             <div class="col-sm-12">
-                <input class="btn btn-success" type="submit" value="<?php _e('Save settings', 'ali2woo'); ?>"/>
+                <input class="btn btn-success" type="submit" value="<?php esc_html_e('Save settings', 'ali2woo'); ?>"/>
             </div>
         </div>
     </div>

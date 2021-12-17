@@ -21,7 +21,10 @@ class BlockRendererHelper {
   /** @var WPFunctions */
   protected $wp;
 
-  public function __construct(FieldNameObfuscator $fieldNameObfuscator, WPFunctions $wp) {
+  public function __construct(
+    FieldNameObfuscator $fieldNameObfuscator,
+    WPFunctions $wp
+  ) {
     $this->fieldNameObfuscator = $fieldNameObfuscator;
     $this->wp = $wp;
   }
@@ -38,8 +41,13 @@ class BlockRendererHelper {
     }
 
     if (($blockId === 'first_name') || ($blockId === 'last_name')) {
-      $rules['pattern'] = "^[^><]*$";
-      $rules['error-message'] = __('Please specify a valid name', 'mailpoet');
+      $errorMessages = [
+        __('Please specify a valid name.', 'mailpoet'),
+        __('Addresses in names are not permitted, please add your name instead.', 'mailpoet'),
+      ];
+      $rules['names'] = '[' . implode(',', array_map(function (string $errorMessage): string {
+        return htmlspecialchars((string)json_encode($errorMessage), ENT_QUOTES);
+      }, $errorMessages)) . ']';
     }
 
     if ($blockId === 'segments') {
@@ -47,7 +55,7 @@ class BlockRendererHelper {
       $rules['mincheck'] = 1;
       $rules['group'] = $blockId;
       $rules['errors-container'] = '.mailpoet_error_' . $blockId;
-      $rules['required-message'] = __('Please select a list', 'mailpoet');
+      $rules['required-message'] = __('Please select a list.', 'mailpoet');
     }
 
     if (!empty($block['params']['required'])) {
@@ -58,7 +66,7 @@ class BlockRendererHelper {
     if (!empty($block['params']['validate'])) {
       if ($block['params']['validate'] === 'phone') {
         $rules['pattern'] = "^[\d\+\-\.\(\)\/\s]*$";
-        $rules['error-message'] = __('Please specify a valid phone number', 'mailpoet');
+        $rules['error-message'] = __('Please specify a valid phone number.', 'mailpoet');
       } else {
         $rules['type'] = $this->wp->escAttr($block['params']['validate']);
       }
@@ -67,7 +75,7 @@ class BlockRendererHelper {
     if (in_array($block['type'], ['radio', 'checkbox'])) {
       $rules['group'] = 'custom_field_' . $blockId;
       $rules['errors-container'] = '.mailpoet_error_' . $blockId;
-      $rules['required-message'] = __('Please select at least one option', 'mailpoet');
+      $rules['required-message'] = __('Please select at least one option.', 'mailpoet');
     }
 
     if ($block['type'] === 'date') {
@@ -85,7 +93,12 @@ class BlockRendererHelper {
         if (is_bool($value)) {
           $value = ($value) ? 'true' : 'false';
         }
-        $validation[] = 'data-parsley-' . $rule . '="' . $value . '"';
+        // We need to use single quotes because we need to pass array of strings as a parameter for custom validation
+        if ($rule === 'names') {
+          $validation[] = 'data-parsley-' . $rule . '=\'' . $value . '\'';
+        } else {
+          $validation[] = 'data-parsley-' . $rule . '="' . $value . '"';
+        }
       }
     }
     return join(' ', $validation);
@@ -179,6 +192,12 @@ class BlockRendererHelper {
     return (isset($block['params']['value'])
             && strlen(trim($block['params']['value'])) > 0)
             ? $this->wp->escAttr(trim($block['params']['value'])) : '';
+  }
+
+  public function getFieldIsRequired($block = []): bool {
+    return (isset($block['params']['required'])
+            && strlen(trim($block['params']['required'])) > 0)
+            ? !empty($block['params']['required']) : false;
   }
 
   public function getInputModifiers(array $block = []): string {

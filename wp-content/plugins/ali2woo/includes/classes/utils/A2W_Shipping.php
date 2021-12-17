@@ -154,7 +154,7 @@ if (!class_exists('A2W_Shipping')) {
                         '</div>' .
                        '<div class="a2w-div-table-col">' . $method['formated_delivery_time'] . '</div>' .
                        '<div class="a2w-div-table-col">' . $method_price_html . '</div>' .
-                       '<div class="a2w-div-table-col">' . ($method['tracking'] ? 'yes' : 'no') . '</div>' .
+                       '<div class="a2w-div-table-col">' . ($method['tracking'] ? esc_html__('yes', 'ali2woo') : esc_html__('no', 'ali2woo')) . '</div>' .
                        '<div class="a2w-div-table-col">' . $method['company'] . '</div>' .
                        '</div>';
 

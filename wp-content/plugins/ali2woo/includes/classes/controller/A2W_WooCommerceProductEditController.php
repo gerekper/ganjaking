@@ -23,17 +23,38 @@ if (!class_exists('A2W_WooCommerceProductEditController')) {
             add_action('wp_ajax_a2w_save_image', array($this, 'ajax_save_image'));
             add_action('wp_ajax_a2w_upload_sticker', array($this, 'ajax_upload_sticker'));
             add_action('wp_ajax_a2w_edit_image_url', array($this, 'ajax_edit_image_url'));
+
+            add_filter('get_sample_permalink_html', array($this, 'get_sample_permalink_html'), 10, 2);
+        }
+
+        public function get_sample_permalink_html($return, $id ){
+
+            $external_id = get_post_meta($id,'_a2w_external_id', true);
+
+            if($external_id){
+                $return .= '<button type="button" data-id="' . $external_id . '" class="sync-ali-product button button-small hide-if-no-js">' . __("AliExpress Sync", 'ali2woo') . '</button>';
+            }
+
+            return $return;
         }
 
         function current_screen($current_screen) {
             if ($current_screen->in_admin() && ($current_screen->id == 'product' || $current_screen->id == 'ali2woo_page_a2w_import')) {
                 wp_enqueue_script('a2w-admin-script', A2W()->plugin_url() . '/assets/js/admin_script.js', array('jquery'),  A2W()->version);
+              
                 $lang_data = array(
                     'process_loading_d_of_d_erros_d' => _x('Process loading %d of %d. Errors: %d.', 'Status', 'ali2woo'),
                     'load_button_text' => _x('Load %d images', 'Status', 'ali2woo'),
                     'all_images_loaded_text' => _x('All images loaded', 'Status', 'ali2woo'),
                 );
                 wp_localize_script('a2w-admin-script', 'a2w_external_images_data', array('lang' => $lang_data));
+
+                $lang_data = array(
+                    'sync_successfully' => _x('Synchronized successfully.', 'Status', 'ali2woo'),
+                    'sync_failed' => _x('Sync failed.', 'Status', 'ali2woo'),
+                );
+                wp_localize_script('a2w-admin-script', 'a2w_sync_data', array('lang' => $lang_data));
+
 
                 wp_enqueue_style('a2w-admin-style', A2W()->plugin_url() . '/assets/css/admin_style.css', array(), A2W()->version);
 

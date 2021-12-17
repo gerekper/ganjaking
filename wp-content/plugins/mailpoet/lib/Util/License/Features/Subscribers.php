@@ -10,11 +10,12 @@ use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\SubscribersRepository;
 
 class Subscribers {
-  const SUBSCRIBERS_OLD_LIMIT = 2000;
-  const SUBSCRIBERS_NEW_LIMIT = 1000;
+  const SUBSCRIBERS_OLD_LIMIT = 999999999999;
+  const SUBSCRIBERS_NEW_LIMIT = 999999999999;
   const NEW_LIMIT_DATE = '2019-11-00';
   const MSS_KEY_STATE = 'mta.mailpoet_api_key_state.state';
   const MSS_SUBSCRIBERS_LIMIT_SETTING_KEY = 'mta.mailpoet_api_key_state.data.site_active_subscriber_limit';
+  const MSS_SUPPORT_SETTING_KEY = 'mta.mailpoet_api_key_state.data.support_tier';
   const PREMIUM_KEY_STATE = 'premium.premium_key_state.state';
   const PREMIUM_SUBSCRIBERS_LIMIT_SETTING_KEY = 'premium.premium_key_state.data.site_active_subscriber_limit';
   const PREMIUM_SUPPORT_SETTING_KEY = 'premium.premium_key_state.data.support_tier';
@@ -25,7 +26,10 @@ class Subscribers {
   /** @var SubscribersRepository */
   private $subscribersRepository;
 
-  public function __construct(SettingsController $settings, SubscribersRepository $subscribersRepository) {
+  public function __construct(
+    SettingsController $settings,
+    SubscribersRepository $subscribersRepository
+  ) {
     $this->settings = $settings;
     $this->subscribersRepository = $subscribersRepository;
   }
@@ -72,6 +76,10 @@ class Subscribers {
 
   private function getMssSubscribersLimit() {
     return (int)$this->settings->get(self::MSS_SUBSCRIBERS_LIMIT_SETTING_KEY);
+  }
+
+  public function hasMssPremiumSupport() {
+    return $this->hasValidMssKey() && $this->settings->get(self::MSS_SUPPORT_SETTING_KEY) === 'premium';
   }
 
   private function hasValidPremiumKey() {

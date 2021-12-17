@@ -72,12 +72,16 @@ if (!class_exists('A2W_Migrate')) {
                 $this->migrate_to_1_18_5();
             }
 
+            if(version_compare($cur_version, "1.18.15", '<')) {
+                $this->migrate_to_1_18_15();
+            }
+
             if(is_a($this, 'A2WL_Migrate') && version_compare($cur_version, "2.0.5", '<')) {
                 $this->migrate_to_2_0_5();
             }
             
             if(version_compare($cur_version, A2W()->version, '<')) {
-                update_option('a2w_db_version', A2W()->version);
+                update_option('a2w_db_version', A2W()->version, 'no');
             }
         }
         
@@ -114,13 +118,13 @@ if (!class_exists('A2W_Migrate')) {
             
             $formula_list = a2w_get_transient('a2w_formula_list');
             if($formula_list){
-                update_option('a2w_formula_list', $formula_list);
+                update_option('a2w_formula_list', $formula_list, 'no');
             }
             a2w_delete_transient('a2w_formula_list');
             
             $formula = a2w_get_transient('a2w_default_formula');
             if($formula){
-                update_option('a2w_default_formula', $formula);
+                update_option('a2w_default_formula', $formula, 'no');
             }
             a2w_delete_transient('a2w_default_formula');
         }
@@ -385,6 +389,14 @@ if (!class_exists('A2W_Migrate')) {
             global $wpdb;
 
             $wpdb->query("UPDATE {$wpdb->prefix}woocommerce_order_itemmeta SET meta_key='_a2w_customer_chosen_shipping' WHERE meta_key='a2w_customer_chosen_shipping'");
+        }
+
+        private function migrate_to_1_18_15() {
+            a2w_error_log('migrate to 1.18.15');
+
+            global $wpdb;
+
+            $wpdb->query("UPDATE {$wpdb->options} SET autoload='no' WHERE option_name like 'a2w\_%' OR option_name like '_transient_a2w\_%'");
         }
 
 

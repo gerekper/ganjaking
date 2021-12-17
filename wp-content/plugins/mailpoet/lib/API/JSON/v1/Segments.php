@@ -12,9 +12,12 @@ use MailPoet\API\JSON\Error as APIError;
 use MailPoet\API\JSON\Response;
 use MailPoet\API\JSON\ResponseBuilders\SegmentsResponseBuilder;
 use MailPoet\Config\AccessControl;
+use MailPoet\Cron\CronWorkerScheduler;
+use MailPoet\Cron\Workers\WooCommerceSync;
 use MailPoet\Doctrine\Validator\ValidationException;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Form\FormsRepository;
 use MailPoet\Listing;
 use MailPoet\Newsletter\Segment\NewsletterSegmentRepository;
 use MailPoet\Segments\SegmentListingRepository;
@@ -58,6 +61,12 @@ class Segments extends APIEndpoint {
   /** @var NewsletterSegmentRepository */
   private $newsletterSegmentRepository;
 
+  /** @var CronWorkerScheduler */
+  private $cronWorkerScheduler;
+
+  /** @var FormsRepository */
+  private $formsRepository;
+
   public function __construct(
     Listing\Handler $listingHandler,
     SegmentsRepository $segmentsRepository,
@@ -67,7 +76,9 @@ class Segments extends APIEndpoint {
     SubscribersRepository $subscribersRepository,
     WooCommerce $wooCommerce,
     WP $wpSegment,
-    NewsletterSegmentRepository $newsletterSegmentRepository
+    NewsletterSegmentRepository $newsletterSegmentRepository,
+    CronWorkerScheduler $cronWorkerScheduler,
+    FormsRepository $formsRepository
   ) {
     $this->listingHandler = $listingHandler;
     $this->wooCommerceSync = $wooCommerce;
@@ -78,6 +89,8 @@ class Segments extends APIEndpoint {
     $this->wpSegment = $wpSegment;
     $this->segmentListingRepository = $segmentListingRepository;
     $this->newsletterSegmentRepository = $newsletterSegmentRepository;
+    $this->cronWorkerScheduler = $cronWorkerScheduler;
+    $this->formsRepository = $formsRepository;
   }
 
   public function get($data = []) {
@@ -173,9 +186,26 @@ class Segments extends APIEndpoint {
     if (isset($activelyUsedNewslettersSubjects[$segment->getId()])) {
       return $this->badRequest([
         APIError::BAD_REQUEST => str_replace(
-          '%$1s',
+          '%1$s',
           "'" . join("', '", $activelyUsedNewslettersSubjects[$segment->getId()] ) . "'",
-          _x('List cannot be deleted because it’s used for %$1s email', 'Alert shown when trying to delete segment, which is assigned to any automatic emails.', 'mailpoet')
+          _x('List cannot be deleted because it’s used for %1$s email', 'Alert shown when trying to delete segment, which is assigned to any automatic emails.', 'mailpoet')
+        ),
+      ]);
+    }
+
+    $activelyUsedFormNames = $this->formsRepository->getNamesOfFormsForSegments();
+    if (isset($activelyUsedFormNames[$segment->getId()])) {
+      return $this->badRequest([
+        APIError::BAD_REQUEST => str_replace(
+          '%1$s',
+          "'" . join("', '", $activelyUsedFormNames[$segment->getId()] ) . "'",
+          _nx(
+            'List cannot be deleted because it’s used for %1$s form',
+            'List cannot be deleted because it’s used for %1$s forms',
+            count($activelyUsedFormNames[$segment->getId()]),
+            'Alert shown when trying to delete segment, when it is assigned to a form.',
+            'mailpoet'
+          )
         ),
       ]);
     }
@@ -189,7 +219,7 @@ class Segments extends APIEndpoint {
       $this->subscribersRepository->bulkTrash($subscriberIds);
     }
 
-    $this->segmentsRepository->bulkTrash([$segment->getId()], $segment->getType());
+    $this->segmentsRepository->doTrash([$segment->getId()], $segment->getType());
     $this->segmentsRepository->refresh($segment);
     return $this->successResponse(
       $this->segmentsResponseBuilder->build($segment),
@@ -234,7 +264,7 @@ class Segments extends APIEndpoint {
   public function synchronize($data) {
     try {
       if ($data['type'] === SegmentEntity::TYPE_WC_USERS) {
-        $this->wooCommerceSync->synchronizeCustomers();
+        $this->cronWorkerScheduler->scheduleImmediatelyIfNotRunning(WooCommerceSync::TASK_TYPE);
       } else {
         $this->wpSegment->synchronizeUsers();
       }

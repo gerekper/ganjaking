@@ -30,7 +30,7 @@ class Plugin_List_Links {
 
 		$row_meta = array(
 			'docs'    => '<a href="' . esc_url( apply_filters( 'redsys_docs_url', 'https://redsys.joseconti.com/guias/' ) ) . '" aria-label="' . esc_attr__( 'View Plugin documentation', 'woocommerce-redsys' ) . '">' . esc_html__( 'Docs', 'woocommerce-redsys' ) . '</a>',
-			'apidocs' => '<a href="' . esc_url( apply_filters( 'redsys_apidocs_url', 'https://redsys.joseconti.com/api-woocommerce-redsys-gateway/' ) ) . '" aria-label="' . esc_attr__( 'View Plugin API docs', 'woocommerce-redsys' ) . '">' . esc_html__( 'API docs', 'woocommerce' ) . '</a>',
+			'apidocs' => '<a href="' . esc_url( apply_filters( 'redsys_apidocs_url', 'https://redsys.joseconti.com/api-woocommerce-redsys-gateway/' ) ) . '" aria-label="' . esc_attr__( 'View Plugin API docs', 'woocommerce-redsys' ) . '">' . esc_html__( 'API docs', 'woocommerce-redsys' ) . '</a>',
 			'support' => '<a href="' . esc_url( apply_filters( 'redsys_support_url', 'https://woocommerce.com/my-account/create-a-ticket/' ) ) . '" aria-label="' . esc_attr__( 'Open a Support Ticket', 'woocommerce-redsys' ) . '">' . esc_html__( 'Open a Support Ticket', 'woocommerce-redsys' ) . '</a>',
 		);
 

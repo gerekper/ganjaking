@@ -415,7 +415,7 @@ jQuery(document).ready(function($){
                     },
                     'buttons': [
                         {
-                        'text': "Apply",
+                        'text': a2w_ali_ship_data.lang.apply,
                         'icon': "ui-icon-heart",
                         'click': function() {
 

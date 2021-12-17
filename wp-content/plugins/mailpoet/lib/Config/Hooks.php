@@ -80,6 +80,7 @@ class Hooks {
     $this->setupWPUsers();
     $this->setupWooCommerceUsers();
     $this->setupWooCommercePurchases();
+    $this->setupWooCommerceSubscriberEngagement();
     $this->setupImageSize();
     $this->setupListing();
     $this->setupSubscriptionEvents();
@@ -230,6 +231,13 @@ class Hooks {
       10, // this should execute after the WC sync call on the same hook
       2
     );
+
+    $this->wp->addAction(
+      'woocommerce_before_pay_action',
+      [$this->hooksWooCommerce, 'subscribeOnOrderPay'],
+      10,
+      1
+    );
   }
 
   public function setupWPUsers() {
@@ -324,6 +332,14 @@ class Hooks {
         1
       );
     }
+  }
+
+  public function setupWooCommerceSubscriberEngagement() {
+    $this->wp->addAction(
+      'woocommerce_new_order',
+      [$this->hooksWooCommerce, 'updateSubscriberEngagement'],
+      7
+    );
   }
 
   public function setupImageSize() {

@@ -7,6 +7,7 @@
     $redirect_url = @get_bloginfo('home')."/wp-admin/admin.php?page=wc-settings&tab=integration&section=help-scout";
 
 	if(isset($_REQUEST['code']) && !empty($_REQUEST['code'])){
+		
 		    $help_scout_settings = get_option('woocommerce_help-scout_settings');
 
 		//echo "<b>Code updated:-</b>";
@@ -22,7 +23,6 @@
 		define( 'wc_helpscout_token_uri','https://api.helpscout.net/v2/oauth2/token' );
 
 		if(get_option('wc_helpscout_code')){
-
 			// build up the params for generating token
 			$params = array(
 				'client_id'				=>	wc_helpscout_client_app_key,
@@ -37,50 +37,51 @@
 			$response  = wp_remote_post( wc_helpscout_token_uri , array(
 				'body' => $params
 			));
+			//echo "<pre>respponse";print_r($response);exit;
+			  if (is_array($response)){
+					if($response['response']['code']=="200"){
+						$tokenData = json_decode($response['body']);
 
-      if (is_array($response)){
-  			if($response['response']['code']=="200"){
-  				$tokenData = json_decode($response['body']);
-
-  				// update token related data in option table
-  				update_option('helpscout_access_token',$tokenData->access_token);
-  				update_option('helpscout_access_refresh_token',$tokenData->refresh_token);
-  				update_option('helpscout_access_token_type',$tokenData->token_type);
-  				update_option('helpscout_expires_in',$tokenData->expires_in);
-          echo "</br>----------------------------------------</br>";
-          echo "<b>HelpScout has successfully been integrated to your Woocommerce website.</b>";
-          echo "</br>----------------------------------------</br>";
-          ?>
-          <script>
-            setTimeout(function(){
-                   window.location = "<?php echo $redirect_url;?>";
-            }, 2500);
-          </script> <?php
-  			}else{
-  				echo "</br>----------------------------------------</br>";
-  				echo "<b>Invalid URL for HelpScout authorization.</b>";
-  				echo "</br>----------------------------------------</br>";
-          ?>
-          <script>
-            setTimeout(function(){
-                   window.location = "<?php echo $redirect_url;?>";
-            }, 2500);
-          </script> <?php
-  			}
-      }else{
-        echo "</br>----------------------------------------</br>";
-        echo "Request timed out, please try again later";
-        echo "</br>----------------------------------------</br>";
-        ?>
-        <script>
-          setTimeout(function(){
-                 window.location = "<?php echo $redirect_url;?>";
-          }, 2500);
-        </script> <?php
-      }
-    }
+						// update token related data in option table
+						update_option('helpscout_access_token',$tokenData->access_token);
+						update_option('helpscout_access_refresh_token',$tokenData->refresh_token);
+						update_option('helpscout_access_token_type',$tokenData->token_type);
+						update_option('helpscout_expires_in',$tokenData->expires_in);
+						  echo "</br>----------------------------------------</br>";
+						  echo "<b>HelpScout has successfully been integrated to your Woocommerce website.</b>";
+						  echo "</br>----------------------------------------</br>";
+						  ?>
+						  <script>
+							setTimeout(function(){
+								   window.location = "<?php echo $redirect_url;?>";
+							}, 2500);
+						  </script> <?php
+					}else{
+						
+							echo "</br>----------------------------------------</br>";
+							echo "<b>Invalid APP Key or APP Secret Key. Please recheck and submit again.</b>";
+							echo "</br>----------------------------------------</br>";	
+						
+					  ?>
+					  <script>
+						setTimeout(function(){
+							   window.location = "<?php echo $redirect_url;?>";
+						}, 2500);
+					  </script> <?php
+					}
+			  }else{
+				echo "</br>----------------------------------------</br>";
+				echo "Request timed out, please try again later";
+				echo "</br>----------------------------------------</br>";
+				?>
+				<script>
+				  setTimeout(function(){
+						 window.location = "<?php echo $redirect_url;?>";
+				  }, 2500);
+				</script> <?php
+			  }
+		}
 	}else{
-
 		// define params for constants to use for api post
 		define( 'wc_helpscout_client_app_key', $help_scout_settings['app_key'] );
 		define( 'wc_helpscout_client_api_secret', $help_scout_settings['app_secret'] );
@@ -117,9 +118,11 @@
 				</script>
 
 			<?php }else{
-				echo "</br>----------------------------------------</br>";
-				echo "<b>Invalid URL for HelpScout authorization.</b>";
-				echo "</br>----------------------------------------</br>";
+				
+					echo "</br>----------------------------------------</br>";
+					echo "<b>Invalid APP Key or APP Secret. Please recheck and submit again.</b>";
+					echo "</br>----------------------------------------</br>";	
+				
 			}
 		}
 	}

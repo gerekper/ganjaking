@@ -52,11 +52,17 @@ class ImportExportRepository {
   /** @var FilterHandler */
   private $filterHandler;
 
-  public function __construct(EntityManager $entityManager, FilterHandler $filterHandler) {
+  public function __construct(
+    EntityManager $entityManager,
+    FilterHandler $filterHandler
+  ) {
     $this->entityManager = $entityManager;
     $this->filterHandler = $filterHandler;
   }
 
+  /**
+   * @return ClassMetadata<object>
+   */
   protected function getClassMetadata(string $className): ClassMetadata {
     return $this->entityManager->getClassMetadata($className);
   }
@@ -93,7 +99,7 @@ class ImportExportRepository {
       $rows[] = "(" . implode(', ', $paramNames) . ")";
     }
 
-    return $this->entityManager->getConnection()->executeUpdate("
+    return $this->entityManager->getConnection()->executeStatement("
       INSERT IGNORE INTO {$tableName} (`" . implode("`, `", $columns) . "`) VALUES
       " . implode(", \n", $rows) . "
     ", $parameters);
@@ -153,7 +159,7 @@ class ImportExportRepository {
       $updateColumns[] = 'deleted_at = NULL';
     }
 
-    return $this->entityManager->getConnection()->executeUpdate("
+    return $this->entityManager->getConnection()->executeStatement("
       UPDATE {$tableName} SET
       " . implode(", \n", $updateColumns) . "
       WHERE
@@ -168,6 +174,13 @@ class ImportExportRepository {
 
     $qb = $this->createSubscribersQueryBuilder($limit, $offset);
     $qb = $this->addSubscriberCustomFieldsToQueryBuilder($qb);
+
+    if (!$segment || $segment->isStatic()) {
+      // joining with the segments table is used only when there is no segment or for static segments.
+      // this because dynamic segments don't have a corresponding entry in the segments table.
+      $qb->leftJoin($subscriberSegmentTable, $segmentTable, $segmentTable, "{$segmentTable}.id = {$subscriberSegmentTable}.segment_id")
+        ->groupBy("{$subscriberTable}.id, {$segmentTable}.id");
+    }
 
     if (!$segment) {
       // if there are subscribers who do not belong to any segment, use
@@ -187,7 +200,8 @@ class ImportExportRepository {
       // Dynamic segments don't have a relation to the segment table,
       // So we need to use a placeholder
       $qb->addSelect(":segmentName AS segment_name")
-        ->setParameter('segmentName', $segment->getName());
+        ->setParameter('segmentName', $segment->getName())
+        ->groupBy("{$subscriberTable}.id");
       $qb = $this->filterHandler->apply($qb, $segment);
     }
 
@@ -214,9 +228,7 @@ class ImportExportRepository {
       ")
       ->from($subscriberTable)
       ->leftJoin($subscriberTable, $subscriberSegmentTable, $subscriberSegmentTable, "{$subscriberTable}.id = {$subscriberSegmentTable}.subscriber_id")
-      ->leftJoin($subscriberSegmentTable, $segmentTable, $segmentTable, "{$segmentTable}.id = {$subscriberSegmentTable}.segment_id")
       ->andWhere("{$subscriberTable}.deleted_at IS NULL")
-      ->groupBy("{$subscriberTable}.id, {$segmentTable}.id")
       ->orderBy("{$subscriberTable}.id")
       ->setFirstResult($offset)
       ->setMaxResults($limit);
@@ -232,7 +244,7 @@ class ImportExportRepository {
       ->from($customFieldsTable)
       ->execute();
 
-    $customFields = $customFields instanceof Statement ? $customFields->fetchAll() : [];
+    $customFields = $customFields->fetchAll();
 
     foreach ($customFields as $customField) {
       $customFieldId = "customFieldId{$customField['id']}";

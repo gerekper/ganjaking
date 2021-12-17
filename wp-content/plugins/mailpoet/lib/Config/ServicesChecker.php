@@ -74,8 +74,8 @@ class ServicesChecker {
     return false;
   }
 
-  public function isPremiumKeyValid($displayErrorNotice = true) {
-    $premiumKeySpecified = Bridge::isPremiumKeySpecified();
+  public function isPremiumKeyValid($displayErrorNotice = false) {
+    /*$premiumKeySpecified = Bridge::isPremiumKeySpecified();
     $premiumPluginActive = License::getLicense();
     $premiumKey = $this->settings->get(Bridge::PREMIUM_KEY_STATE_SETTING_NAME);
 
@@ -122,9 +122,9 @@ class ServicesChecker {
       return true;
     } elseif ($premiumKey['state'] === Bridge::KEY_VALID) {
       return true;
-    }
+    }*/
 
-    return false;
+    return true;
   }
 
   public function isMailPoetAPIKeyPendingApproval(): bool {
@@ -133,5 +133,31 @@ class ServicesChecker {
     $isApproved = $this->settings->get('mta.mailpoet_api_key_state.data.is_approved');
     $mssKeyPendingApproval = $isApproved === false || $isApproved === 'false'; // API unfortunately saves this as a string
     return $mssActive && $mssKeyValid && $mssKeyPendingApproval;
+  }
+
+  public function isUserActivelyPaying(): bool {
+    $isPremiumKeyValid = $this->isPremiumKeyValid(false);
+
+    $mssActive = Bridge::isMPSendingServiceEnabled();
+    $isMssKeyValid = $this->isMailPoetAPIKeyValid(false);
+
+    if (!$mssActive || ($isPremiumKeyValid && !$isMssKeyValid)) {
+      return $this->subscribersFeature->hasPremiumSupport();
+    } else {
+      return $this->subscribersFeature->hasMssPremiumSupport();
+    }
+  }
+
+  /**
+   * Returns MSS or Premium valid key.
+   */
+  public function getAnyValidKey(): ?string {
+    if ($this->isMailPoetAPIKeyValid(false, true)) {
+      return $this->settings->get(Bridge::API_KEY_SETTING_NAME);
+    }
+    if ($this->isPremiumKeyValid(false)) {
+      return $this->settings->get(Bridge::PREMIUM_KEY_SETTING_NAME);
+    }
+    return null;
   }
 }

@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Help Scout
  * Plugin URI: https://woocommerce.com/products/woocommerce-help-scout/
  * Description: A Help Scout integration plugin for WooCommerce.
- * Version: 2.9.2
+ * Version: 3.1
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-help-scout
  * Domain Path: /languages
  * Woo: 395318:1f5df97b2bc60cdb3951b72387ec2e28
- * WC tested up to: 5.2
+ * WC tested up to: 5.8
  * WC requires at least: 2.6
  *
  * Copyright (c) 2018 WooCommerce.
@@ -43,6 +43,9 @@ define( 'WC_HELP_SCOUT_PLUGINURL', plugin_dir_url( __FILE__ ) );
  * WooCommerce Help Scout main class.
  */
 class WC_Help_Scout {
+	
+	protected $app_key;
+	protected $app_secret;
 
 	/**
 	 * Instance of this class.
@@ -62,11 +65,15 @@ class WC_Help_Scout {
 	 * Initialize the plugin.
 	 */
 	private function __construct() {
+		
+		// Define user set variables.
+		$woocommerce_help_scout_settings = get_option( 'woocommerce_help-scout_settings' );
+		$this->app_key = isset($woocommerce_help_scout_settings['app_key']) ? $woocommerce_help_scout_settings['app_key'] : '';
+		$this->app_secret = isset($woocommerce_help_scout_settings['app_secret']) ? $woocommerce_help_scout_settings['app_secret'] : '';
+		$this->mailbox_id = isset($woocommerce_help_scout_settings['mailbox_id']) ? $woocommerce_help_scout_settings['mailbox_id'] : '';
+		
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-
-		//
-		register_deactivation_hook( __FILE__, array($this,'plugin_uninstall' ) );
 		
 		// Checks with WooCommerce is installed.
 		if ( class_exists( 'WC_Integration' ) ) {
@@ -79,9 +86,8 @@ class WC_Help_Scout {
 			// Register the integration.
 			add_filter( 'woocommerce_integrations', array( $this, 'add_integration' ) );
 
-			$integration = new WC_Help_Scout_Integration();
 			// Instantiate components if API creds are defined
-			if($integration->are_credentials_defined()) {
+			if($this->are_credentials_defined()) {
 				// Register API for Help Scout APP.
 				add_action( 'woocommerce_api_loaded', array( $this, 'load_api' ) );
 				add_filter( 'woocommerce_api_classes', array( $this, 'add_api' ) );
@@ -119,6 +125,18 @@ class WC_Help_Scout {
 			$url = $this->get_settings_url_helpscout();
 			echo '<div class="updated fade"><p>' . sprintf( __( '%1$sWooCommerce Help Scout is almost ready.%2$s To get started, %3$sconnect your Help Scout account%4$s and specify a Mailbox ID.', 'woocommerce-help-scout' ), '<strong>', '</strong>', '<a href="' . esc_url( $url ) . '">', '</a>' ) . '</p></div>' . "\n";
 		}
+	}
+	
+	/**
+	 * Check if client has defined Scout API Credentials.
+	 *
+	 * @return boolean
+	 */
+	public function are_credentials_defined() {
+		if(!empty($this->app_key) && !empty($this->app_secret) && !empty($this->mailbox_id)) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -262,15 +280,20 @@ class WC_Help_Scout {
 		return $apis;
 	}
 
-
-	function plugin_uninstall () {
-		delete_option('woocommerce_help-scout_settings');
-	    delete_option('helpscout_access_refresh_token');
-	    delete_option('helpscout_expires_in');
-		wp_clear_scheduled_hook('my_task_hook');
-	}
 }
 
 add_action( 'plugins_loaded', array( 'WC_Help_Scout', 'get_instance' ) );
+
+register_uninstall_hook( __FILE__, 'plugin_uninstall' );
+
+/**
+ * Uninstall plugin and delete settings.
+ */
+function plugin_uninstall () {
+	delete_option('woocommerce_help-scout_settings');
+	delete_option('helpscout_access_refresh_token');
+	delete_option('helpscout_expires_in');
+	wp_clear_scheduled_hook('my_task_hook');
+}
 
 endif;

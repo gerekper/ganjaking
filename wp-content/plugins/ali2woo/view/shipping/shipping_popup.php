@@ -32,7 +32,7 @@ $a2w_shipping_html = str_replace(array("\r", "\n"), '', $a2w_shipping_html);
     <div>
         <input type="hidden" class="a2w_to_country_field" name="a2w_to_country_field" value="<?php echo isset($default_country) ? $default_country : ''; ?>"><input type="hidden" class="a2w_shipping_method_field" name="a2w_shipping_method_field" value="<?php if ($default_shipping_method) echo $default_shipping_method; ?>"><?php  if ( is_product() ): ?><input type="hidden" class="a2w_remove_cart_item" name="a2w_remove_cart_item" value="<?php echo a2w_get_setting( 'aliship_not_available_remove' ) ? 1 : 0; ?>"><input type="hidden" class="a2w_fake_method" name="a2w_fake_method" value="<?php echo A2W_Shipping::get_fake_method_id(); ?>"><?php  endif; ?><input type="hidden" class="product_id" value="<?php echo $product_id; ?>"><input type="hidden" class="item_id" value="<?php echo isset($cart_item_key) ? $cart_item_key : $product_id; ?>">
     </div>
-    <?php if ($show_label) : ?><span class="label"><?php _e('Shipping:', 'ali2woo'); ?></span><?php endif; ?>
+    <?php if ($show_label) : ?><span class="label"><?php _e('Shipping', 'ali2woo'); ?>:</span><?php endif; ?>
     <div class="shipping_info"><?php echo $shipping_info; ?></div><div class="product-shipping-date"></div>
 </div>
 <div class="a2w_shipping_modal" id="a2w_shipping_modal_<?php echo isset($cart_item_key) ? $cart_item_key : $product_id; ?>">

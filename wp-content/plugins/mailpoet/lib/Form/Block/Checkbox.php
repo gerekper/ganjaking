@@ -19,7 +19,11 @@ class Checkbox {
   /** @var WPFunctions */
   private $wp;
 
-  public function __construct(BlockRendererHelper $rendererHelper, BlockWrapperRenderer $wrapper, WPFunctions $wp) {
+  public function __construct(
+    BlockRendererHelper $rendererHelper,
+    BlockWrapperRenderer $wrapper,
+    WPFunctions $wp
+  ) {
     $this->rendererHelper = $rendererHelper;
     $this->wrapper = $wrapper;
     $this->wp = $wp;
@@ -39,10 +43,15 @@ class Checkbox {
     );
 
     $selectedValue = $this->rendererHelper->getFieldValue($block);
+    $isFieldRequired = $this->rendererHelper->getFieldIsRequired($block);
 
     foreach ($options as $option) {
+      $hiddenValue = $isFieldRequired ? '1' : '0'; // Mandatory Fields can not be Empty
+      $html .= '<input type="hidden" value="' . $hiddenValue . '"  name="' . $fieldName . '" />';
+
       $html .= '<label class="mailpoet_checkbox_label" '
         . $this->rendererHelper->renderFontStyle($formSettings) . '>';
+
       $html .= '<input type="checkbox" class="mailpoet_checkbox" ';
 
       $html .= 'name="' . $fieldName . '" ';

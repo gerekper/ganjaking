@@ -28,7 +28,11 @@ class SubscriptionUrlFactory {
   /** @var LinkTokens */
   private $linkTokens;
 
-  public function __construct(WPFunctions $wp, SettingsController $settings, LinkTokens $linkTokens) {
+  public function __construct(
+    WPFunctions $wp,
+    SettingsController $settings,
+    LinkTokens $linkTokens
+  ) {
     $this->wp = $wp;
     $this->settings = $settings;
     $this->linkTokens = $linkTokens;
@@ -69,6 +73,14 @@ class SubscriptionUrlFactory {
     $post = $this->getPost($this->settings->get('subscription.pages.unsubscribe'));
     $data = $queueId && $subscriber ? ['queueId' => $queueId] : null;
     return $this->getSubscriptionUrl($post, 'unsubscribe', $subscriber, $data);
+  }
+
+  public function getReEngagementUrl(SubscriberEntity $subscriber = null) {
+    $reEngagementSetting = $this->settings->get('reEngagement');
+    $postId = $reEngagementSetting['page'] ?? null;
+
+    $post = $this->getPost($postId);
+    return $this->getSubscriptionUrl($post, 're_engagement', $subscriber);
   }
 
   public function getSubscriptionUrl(

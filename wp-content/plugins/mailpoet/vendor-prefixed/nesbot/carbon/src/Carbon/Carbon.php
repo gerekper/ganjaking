@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Carbon; if (!defined('ABSPATH')) exit; use MailPoetVendor\Carbon\Traits\Date; use DateTime; use DateTimeInterface; use DateTimeZone; class Carbon extends \DateTime implements \MailPoetVendor\Carbon\CarbonInterface { use Date; public static function isMutable() { return \true; } } 
+ namespace MailPoetVendor\Carbon; if (!defined('ABSPATH')) exit; use MailPoetVendor\Carbon\Traits\Date; use DateTime; use DateTimeInterface; use DateTimeZone; class Carbon extends DateTime implements CarbonInterface { use Date; public static function isMutable() { return \true; } } 

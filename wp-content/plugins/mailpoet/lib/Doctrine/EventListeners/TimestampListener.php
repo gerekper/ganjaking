@@ -30,11 +30,11 @@ class TimestampListener {
       && method_exists($entity, 'getCreatedAt')
       && !$entity->getCreatedAt()
     ) {
-      $entity->setCreatedAt($this->now);
+      $entity->setCreatedAt($this->now->copy());
     }
 
     if (in_array(UpdatedAtTrait::class, $entityTraits, true) && method_exists($entity, 'setUpdatedAt')) {
-      $entity->setUpdatedAt($this->now);
+      $entity->setUpdatedAt($this->now->copy());
     }
   }
 
@@ -43,7 +43,7 @@ class TimestampListener {
     $entityTraits = $this->getEntityTraits($entity);
 
     if (in_array(UpdatedAtTrait::class, $entityTraits, true) && method_exists($entity, 'setUpdatedAt')) {
-      $entity->setUpdatedAt($this->now);
+      $entity->setUpdatedAt($this->now->copy());
     }
   }
 

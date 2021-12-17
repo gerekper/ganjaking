@@ -6,17 +6,19 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\AdminPages\PageRenderer;
+use MailPoet\Cache\TransientCache;
 use MailPoet\Config\ServicesChecker;
 use MailPoet\Form\Block;
 use MailPoet\Listing\PageLimit;
 use MailPoet\Models\CustomField;
 use MailPoet\Segments\SegmentsSimpleListRepository;
 use MailPoet\Services\Bridge;
-use MailPoet\Settings\SettingsController;
+use MailPoet\Settings\TrackingConfig;
 use MailPoet\Subscribers\ConfirmationEmailMailer;
 use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
 use MailPoet\Util\License\License;
 use MailPoet\WP\Functions as WPFunctions;
+use MailPoetVendor\Carbon\Carbon;
 
 class Subscribers {
   /** @var PageRenderer */
@@ -40,8 +42,11 @@ class Subscribers {
   /** @var SegmentsSimpleListRepository */
   private $segmentsListRepository;
 
-  /** @var SettingsController */
-  private $settings;
+  /** @var TransientCache */
+  private $transientCache;
+
+  /** @var TrackingConfig */
+  private $trackingConfig;
 
   public function __construct(
     PageRenderer $pageRenderer,
@@ -50,8 +55,9 @@ class Subscribers {
     WPFunctions $wp,
     ServicesChecker $servicesChecker,
     Block\Date $dateBlock,
-    SettingsController $settings,
-    SegmentsSimpleListRepository $segmentsListRepository
+    SegmentsSimpleListRepository $segmentsListRepository,
+    TransientCache $transientCache,
+    TrackingConfig $trackingConfig
   ) {
     $this->pageRenderer = $pageRenderer;
     $this->listingPageLimit = $listingPageLimit;
@@ -60,7 +66,8 @@ class Subscribers {
     $this->dateBlock = $dateBlock;
     $this->servicesChecker = $servicesChecker;
     $this->segmentsListRepository = $segmentsListRepository;
-    $this->settings = $settings;
+    $this->transientCache = $transientCache;
+    $this->trackingConfig = $trackingConfig;
   }
 
   public function render() {
@@ -99,8 +106,11 @@ class Subscribers {
     $data['subscriber_count'] = $this->subscribersFeature->getSubscribersCount();
     $data['has_premium_support'] = $this->subscribersFeature->hasPremiumSupport();
     $data['link_premium'] = $this->wp->getSiteUrl(null, '/wp-admin/admin.php?page=mailpoet-premium');
-    $data['tracking_enabled'] = $this->settings->get('tracking.enabled');
+    $data['tracking_config'] = $this->trackingConfig->getConfig();
 
+    $subscribersCacheCreatedAt = $this->transientCache->getOldestCreatedAt(TransientCache::SUBSCRIBERS_STATISTICS_COUNT_KEY);
+    $subscribersCacheCreatedAt = $subscribersCacheCreatedAt ?: Carbon::now();
+    $data['subscribers_counts_cache_created_at'] = $subscribersCacheCreatedAt->format('Y-m-d\TH:i:sO');
     $this->pageRenderer->displayPage('subscribers/subscribers.html', $data);
   }
 }

@@ -1741,17 +1741,19 @@ class WC_CP_Cart {
 
 				unset( $cart->cart_contents[ $composited_item_cart_key ] );
 
-				/** WC core action. @see WC_Cart::remove_cart_item
+				/** Triggered when composited item is removed from the cart.
 				 *
-				 * @since  8.2.1
+				 * @since  8.3.4
+				 *
+				 * @hint   Bypass WC_Cart::remove_cart_item to avoid issues with performance and loops.
 				 *
 				 * @param  string  $composited_item_cart_key
 				 * @param  WC_Cart $cart
 				 */
-				do_action( 'woocommerce_cart_item_removed', $composited_item_cart_key, $cart );
+				do_action( 'woocommerce_composited_cart_item_removed', $composited_item_cart_key, $cart );
 			}
 
-		} elseif ( ! isset( $_POST[ 'update-composite' ] ) && wc_cp_maybe_is_composited_cart_item( $cart->removed_cart_contents[ $cart_item_key ] ) ) {
+		} elseif ( ! isset( $_POST[ 'update-composite' ] ) && wc_cp_is_composited_cart_item( $cart->removed_cart_contents[ $cart_item_key ] ) ) {
 
 			$cart_item    = $cart->removed_cart_contents[ $cart_item_key ];
 			$component_id = isset( $cart_item[ 'composite_item' ] ) ? absint( $cart_item[ 'composite_item' ] ) : false;
@@ -1776,18 +1778,18 @@ class WC_CP_Cart {
 				$composite_data[ $component_id ][ 'quantity' ] = 0;
 			}
 
-			$container_key = wc_cp_get_composited_cart_item_container( $cart_item, false, true );
+			$container_key = wc_cp_get_composited_cart_item_container( $cart_item, $cart->cart_contents, true );
 
 			// Apply the updated composite_data.
 			WC()->cart->cart_contents[ $container_key ][ 'composite_data' ] = $composite_data;
 
 			// Update composite_data in children.
-			foreach ( wc_cp_get_composited_cart_items( WC()->cart->cart_contents[ $container_key ], false, true ) as $child_key ) {
+			foreach ( wc_cp_get_composited_cart_items( WC()->cart->cart_contents[ $container_key ], $cart->cart_contents, true ) as $child_key ) {
 				WC()->cart->cart_contents[ $child_key ][ 'composite_data' ] = $composite_data;
 			}
 
 			// Update the child items array.
-			WC()->cart->cart_contents[ $container_key ][ 'composite_children' ] = array_diff( WC()->cart->cart_contents[ $container_key ][ 'composite_children' ], array( $cart_item_key ) );
+			WC()->cart->cart_contents[ $container_key ][ 'composite_children' ] = array_diff( $cart->cart_contents[ $container_key ][ 'composite_children' ], array( $cart_item_key ) );
 		}
 	}
 

@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor; if (!defined('ABSPATH')) exit; class Swift_TransportException extends \MailPoetVendor\Swift_IoException { public function __construct($message, $code = 0, \Exception $previous = null) { parent::__construct($message, $code, $previous); } } 
+ namespace MailPoetVendor; if (!defined('ABSPATH')) exit; class Swift_TransportException extends Swift_IoException { public function __construct($message, $code = 0, \Exception $previous = null) { parent::__construct($message, $code, $previous); } } 

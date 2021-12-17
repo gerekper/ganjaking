@@ -5,9 +5,9 @@ namespace MailPoet\Cron\Workers;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Models\ScheduledTask;
-use MailPoet\Models\StatisticsClicks;
-use MailPoet\Models\StatisticsWooCommercePurchases;
+use MailPoet\Entities\ScheduledTaskEntity;
+use MailPoet\Entities\StatisticsClickEntity;
+use MailPoet\Statistics\StatisticsClicksRepository;
 use MailPoet\Statistics\Track\WooCommercePurchases;
 use MailPoet\WooCommerce\Helper as WCHelper;
 use MailPoetVendor\Carbon\Carbon;
@@ -22,12 +22,17 @@ class WooCommercePastOrders extends SimpleWorker {
   /** @var WooCommercePurchases */
   private $woocommercePurchases;
 
+  /** @var StatisticsClicksRepository */
+  private $statisticsClicksRepository;
+
   public function __construct(
     WCHelper $woocommerceHelper,
+    StatisticsClicksRepository $statisticsClicksRepository,
     WooCommercePurchases $woocommercePurchases
   ) {
     $this->woocommerceHelper = $woocommerceHelper;
     $this->woocommercePurchases = $woocommercePurchases;
+    $this->statisticsClicksRepository = $statisticsClicksRepository;
     parent::__construct();
   }
 
@@ -35,9 +40,9 @@ class WooCommercePastOrders extends SimpleWorker {
     return $this->woocommerceHelper->isWooCommerceActive() && empty($this->getCompletedTasks()); // run only once
   }
 
-  public function processTaskStrategy(ScheduledTask $task, $timer) {
-    $oldestClick = StatisticsClicks::orderByAsc('created_at')->limit(1)->findOne();
-    if (!$oldestClick instanceof StatisticsClicks) {
+  public function processTaskStrategy(ScheduledTaskEntity $task, $timer) {
+    $oldestClick = $this->statisticsClicksRepository->findOneBy([], ['createdAt' => 'asc']);
+    if (!$oldestClick instanceof StatisticsClickEntity) {
       return true;
     }
 
@@ -51,7 +56,7 @@ class WooCommercePastOrders extends SimpleWorker {
 
     $orderIds = $this->woocommerceHelper->wcGetOrders([
       'status' => 'completed',
-      'date_completed' => '>=' . $oldestClick->createdAt,
+      'date_completed' => '>=' . $oldestClick->getCreatedAt()->format('Y-m-d H:i:s'),
       'orderby' => 'ID',
       'order' => 'ASC',
       'limit' => self::BATCH_SIZE,
@@ -63,12 +68,13 @@ class WooCommercePastOrders extends SimpleWorker {
     }
 
     foreach ($orderIds as $orderId) {
-      // clean all records for given order to fix wrong data inserted by a past buggy version
-      StatisticsWooCommercePurchases::where('order_id', $orderId)->deleteMany();
       $this->woocommercePurchases->trackPurchase($orderId, false);
     }
-    $task->meta = ['last_processed_id' => end($orderIds)];
-    $task->save();
+
+    $task->setMeta(['last_processed_id' => end($orderIds)]);
+    $this->scheduledTasksRepository->persist($task);
+    $this->scheduledTasksRepository->flush();
+
     return false;
   }
 

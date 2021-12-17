@@ -81,8 +81,13 @@
   
             <div class="address order_items">
 
-            <?php $order_id = (int)$_GET['post'];
+            <?php 
+            
+                if (!isset($_GET['post'])) return;
+                $order_id = (int)$_GET['post'];
                 $order = wc_get_order( $order_id );
+
+                if (! $order ) return;
                 $order_items = $order->get_items();
 
             ?>
@@ -167,7 +172,7 @@
 
                 $external_order_id = $a2w_order_item->getExternalOrderId();
 
-                $order_item_tracking_codes = $a2w_order_item->getFormatedTrackingCodes();
+                $order_item_tracking_codes = $a2w_order_item->getFormatedTrackingCodes(true);
             ?>
 
             <?php woocommerce_wp_text_input( array(

@@ -257,7 +257,7 @@ class Options
      *
      * @var string
      */
-    private $pdfBackend = "auto";
+    private $pdfBackend = "CPDF";
 
     /**
      * PDFlib license key

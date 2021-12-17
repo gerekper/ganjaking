@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MailPoet\API\JSON\v1;
 
@@ -200,12 +200,21 @@ class Subscribers extends APIEndpoint {
 
   public function sendConfirmationEmail($data = []) {
     $id = (isset($data['id']) ? (int)$data['id'] : false);
-    $subscriber = Subscriber::findOne($id);
-    if ($subscriber instanceof Subscriber) {
-      if ($this->confirmationEmailMailer->sendConfirmationEmail($subscriber)) {
-        return $this->successResponse();
+    $subscriber = $this->subscribersRepository->findOneById($id);
+    if ($subscriber instanceof SubscriberEntity) {
+      try {
+        if ($this->confirmationEmailMailer->sendConfirmationEmail($subscriber)) {
+          return $this->successResponse();
+        } else {
+          return $this->errorResponse([
+            APIError::UNKNOWN => __('There was a problem with your sending method. Please check if your sending method is properly configured.', 'mailpoet'),
+          ]);
+        }
+      } catch (\Exception $e) {
+        return $this->errorResponse([
+          APIError::UNKNOWN => __('There was a problem with your sending method. Please check if your sending method is properly configured.', 'mailpoet'),
+        ]);
       }
-      return $this->errorResponse();
     } else {
       return $this->errorResponse([
         APIError::NOT_FOUND => WPFunctions::get()->__('This subscriber does not exist.', 'mailpoet'),

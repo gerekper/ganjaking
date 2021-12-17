@@ -11,12 +11,14 @@ use MailPoet\Entities\StatisticsClickEntity;
 use MailPoet\Entities\StatisticsNewsletterEntity;
 use MailPoet\Entities\StatisticsOpenEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Entities\UserAgentEntity;
 use MailPoet\Util\Security;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 class EmailAction implements Filter {
   const ACTION_OPENED = 'opened';
+  const ACTION_MACHINE_OPENED = 'machineOpened';
   const ACTION_NOT_OPENED = 'notOpened';
   const ACTION_CLICKED = 'clicked';
   const ACTION_CLICKED_ANY = 'clickedAny';
@@ -24,11 +26,13 @@ class EmailAction implements Filter {
 
   const ALLOWED_ACTIONS = [
     self::ACTION_OPENED,
+    self::ACTION_MACHINE_OPENED,
     self::ACTION_NOT_OPENED,
     self::ACTION_CLICKED,
     self::ACTION_NOT_CLICKED,
     self::ACTION_CLICKED_ANY,
     EmailOpensAbsoluteCountAction::TYPE,
+    EmailOpensAbsoluteCountAction::MACHINE_TYPE,
   ];
 
   const CLICK_ACTIONS = [
@@ -40,16 +44,18 @@ class EmailAction implements Filter {
   /** @var EntityManager */
   private $entityManager;
 
-  public function __construct(EntityManager $entityManager) {
+  public function __construct(
+    EntityManager $entityManager
+  ) {
     $this->entityManager = $entityManager;
   }
 
   public function apply(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filter): QueryBuilder {
     $filterData = $filter->getFilterData();
-    $action = $filterData->getParam('action');
+    $action = $filterData->getAction();
     $newsletterId = (int)$filterData->getParam('newsletter_id');
     $linkId = $filterData->getParam('link_id') ? (int)$filterData->getParam('link_id') : null;
-    $parameterSuffix = (string)$filter->getId() ?? Security::generateRandomString();
+    $parameterSuffix = (string)($filter->getId() ?? Security::generateRandomString());
 
     $statsSentTable = $this->entityManager->getClassMetadata(StatisticsNewsletterEntity::class)->getTableName();
     $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
@@ -100,6 +106,14 @@ class EmailAction implements Filter {
         'stats',
         "stats.subscriber_id = $subscribersTable.id AND stats.newsletter_id = :newsletter" . $parameterSuffix
       )->setParameter('newsletter' . $parameterSuffix, $newsletterId);
+    }
+    if ($action === EmailAction::ACTION_OPENED) {
+      $queryBuilder->andWhere('stats.user_agent_type = :userAgentType')
+        ->setParameter('userAgentType', UserAgentEntity::USER_AGENT_TYPE_HUMAN);
+    }
+    if ($action === EmailAction::ACTION_MACHINE_OPENED) {
+      $queryBuilder->andWhere('(stats.user_agent_type = :userAgentType)')
+        ->setParameter('userAgentType', UserAgentEntity::USER_AGENT_TYPE_MACHINE);
     }
     if ($action === EmailAction::ACTION_CLICKED && $linkId) {
       $where .= ' AND stats.link_id = :link' . $parameterSuffix;

@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Settings\SettingsController;
+use MailPoet\Settings\TrackingConfig;
 use MailPoet\Subscription\Captcha;
 use MailPoet\Util\Helpers;
 use MailPoet\WP\Functions as WPFunctions;
@@ -19,11 +20,19 @@ class HeadersAlreadySentNotice {
   /** @var SettingsController */
   private $settings;
 
+  /** @var TrackingConfig */
+  private $trackingConfig;
+
   /** @var WPFunctions */
   private $wp;
 
-  public function __construct(SettingsController $settings, WPFunctions $wp) {
+  public function __construct(
+    SettingsController $settings,
+    TrackingConfig $trackingConfig,
+    WPFunctions $wp
+  ) {
     $this->settings = $settings;
+    $this->trackingConfig = $trackingConfig;
     $this->wp = $wp;
   }
 
@@ -32,7 +41,7 @@ class HeadersAlreadySentNotice {
       return null;
     }
     $captchaEnabled = $this->settings->get('captcha.type') === Captcha::TYPE_BUILTIN;
-    $trackingEnabled = $this->settings->get('tracking.enabled');
+    $trackingEnabled = $this->trackingConfig->isEmailTrackingEnabled();
     if ($this->areHeadersAlreadySent()) {
       return $this->display($captchaEnabled, $trackingEnabled);
     }

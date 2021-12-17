@@ -55,12 +55,20 @@ class NewsletterTemplateEntity {
   private $thumbnail;
 
   /**
+   * @ORM\Column(type="string", nullable=true)
+   * @var string|null
+   */
+  private $thumbnailData;
+
+  /**
    * @ORM\Column(type="boolean")
    * @var bool
    */
   private $readonly = false;
 
-  public function __construct(string $name) {
+  public function __construct(
+    string $name
+  ) {
     $this->name = $name;
   }
 
@@ -121,6 +129,14 @@ class NewsletterTemplateEntity {
    */
   public function setThumbnail($thumbnail) {
     $this->thumbnail = $thumbnail;
+  }
+
+  public function getThumbnailData(): ?string {
+    return $this->thumbnailData;
+  }
+
+  public function setThumbnailData(string $thumbnailData): void {
+    $this->thumbnailData = $thumbnailData;
   }
 
   public function getReadonly(): bool {

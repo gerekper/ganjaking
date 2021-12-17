@@ -11,6 +11,7 @@ use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
+use MailPoet\Form\FormsRepository;
 use MailPoet\Newsletter\Segment\NewsletterSegmentRepository;
 use MailPoet\NotFoundException;
 use MailPoet\WP\Functions as WPFunctions;
@@ -26,12 +27,17 @@ class SegmentsRepository extends Repository {
   /** @var NewsletterSegmentRepository */
   private $newsletterSegmentRepository;
 
+  /** @var FormsRepository */
+  private $formsRepository;
+
   public function __construct(
     EntityManager $entityManager,
-    NewsletterSegmentRepository $newsletterSegmentRepository
+    NewsletterSegmentRepository $newsletterSegmentRepository,
+    FormsRepository $formsRepository
   ) {
     parent::__construct($entityManager);
     $this->newsletterSegmentRepository = $newsletterSegmentRepository;
+    $this->formsRepository = $formsRepository;
   }
 
   protected function getEntityClassName() {
@@ -114,8 +120,10 @@ class SegmentsRepository extends Repository {
     // We want to remove redundant filters before update
     while ($segment->getDynamicFilters()->count() > count($filtersData)) {
       $filterEntity = $segment->getDynamicFilters()->last();
-      $segment->getDynamicFilters()->removeElement($filterEntity);
-      $this->entityManager->remove($filterEntity);
+      if ($filterEntity) {
+        $segment->getDynamicFilters()->removeElement($filterEntity);
+        $this->entityManager->remove($filterEntity);
+      }
     }
     foreach ($filtersData as $key => $filterData) {
       if ($filterData instanceof DynamicSegmentFilterData) {
@@ -143,7 +151,7 @@ class SegmentsRepository extends Repository {
       $segmentTable = $entityManager->getClassMetadata(SegmentEntity::class)->getTableName();
       $segmentFiltersTable = $entityManager->getClassMetadata(DynamicSegmentFilterEntity::class)->getTableName();
 
-      $entityManager->getConnection()->executeUpdate("
+      $entityManager->getConnection()->executeStatement("
          DELETE ss FROM $subscriberSegmentTable ss
          JOIN $segmentTable s ON ss.`segment_id` = s.`id`
          WHERE ss.`segment_id` IN (:ids)
@@ -153,14 +161,14 @@ class SegmentsRepository extends Repository {
         'type' => $type,
       ], ['ids' => Connection::PARAM_INT_ARRAY]);
 
-      $entityManager->getConnection()->executeUpdate("
+      $entityManager->getConnection()->executeStatement("
          DELETE df FROM $segmentFiltersTable df
          WHERE df.`segment_id` IN (:ids)
       ", [
         'ids' => $ids,
       ], ['ids' => Connection::PARAM_INT_ARRAY]);
 
-      return $entityManager->getConnection()->executeUpdate("
+      return $entityManager->getConnection()->executeStatement("
          DELETE s FROM $segmentTable s
          WHERE s.`id` IN (:ids)
          AND s.`type` = :type
@@ -172,8 +180,14 @@ class SegmentsRepository extends Repository {
   }
 
   public function bulkTrash(array $ids, string $type = SegmentEntity::TYPE_DEFAULT): int {
-    $activelyUsed = $this->newsletterSegmentRepository->getSubjectsOfActivelyUsedEmailsForSegments($ids);
-    $ids = array_diff($ids, array_keys($activelyUsed));
+    $activelyUsedInNewsletters = $this->newsletterSegmentRepository->getSubjectsOfActivelyUsedEmailsForSegments($ids);
+    $activelyUsedInForms = $this->formsRepository->getNamesOfFormsForSegments();
+    $activelyUsed = array_unique(array_merge(array_keys($activelyUsedInNewsletters), array_keys($activelyUsedInForms)));
+    $ids = array_diff($ids, $activelyUsed);
+    return $this->updateDeletedAt($ids, new Carbon(), $type);
+  }
+
+  public function doTrash(array $ids, string $type = SegmentEntity::TYPE_DEFAULT): int {
     return $this->updateDeletedAt($ids, new Carbon(), $type);
   }
 
@@ -209,5 +223,23 @@ class SegmentsRepository extends Repository {
       ->getQuery()
       ->setMaxResults($limit)
       ->getResult();
+  }
+
+  /**
+   * Returns count of segments that have more than one dynamic filter
+   */
+  public function getSegmentCountWithMultipleFilters(): int {
+    $segmentFiltersTable = $this->entityManager->getClassMetadata(DynamicSegmentFilterEntity::class)->getTableName();
+    $qbInner = $this->entityManager->getConnection()->createQueryBuilder()
+      ->select('COUNT(DISTINCT sf.id) AS segmentCount')
+      ->from($segmentFiltersTable, 'sf')
+      ->groupBy('sf.segment_id')
+      ->having('COUNT(sf.id) > 1');
+    $result = $this->entityManager->getConnection()->createQueryBuilder()
+      ->select('count(*)')
+      ->from(sprintf('(%s) as subCounts', $qbInner->getSQL()))
+      ->execute()
+      ->fetchOne();
+    return (int)$result;
   }
 }

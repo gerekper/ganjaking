@@ -10,7 +10,7 @@
         </div>
         <div class="a2w-modal-content">
             <div class="a2w-edit-photo-loader">
-                <div><span class="spinner"></span><span class="message">Loading...</span></div>
+                <div><span class="spinner"></span><span class="message"><?php _e('Loading', 'ali2woo'); ?>...</span></div>
             </div>
             <div class="a2w-edit-photo-container">
                 <div class="tui-image-editor"></div>
@@ -19,11 +19,11 @@
                         <div class="sub-menu-container" id="crop-sub-menu">
                             
                             <div class="manual-crop-items">
-                                <a href="#" class="manual-crop">Manual crop</a>    
-                                <div class="actions" style="display:none"><a href="#" class="button-primary apply">Apply</a> <a href="#" class="cancel">Cancel</a></div>
+                                <a href="#" class="manual-crop"><?php _e('Manual crop', 'ali2woo'); ?></a>    
+                                <div class="actions" style="display:none"><a href="#" class="button-primary apply"><?php _e('Apply', 'ali2woo'); ?></a> <a href="#" class="cancel"><?php _e('Cancel', 'ali2woo'); ?></a></div>
                             </div>
                             <div class="crop-items">
-                                <div class="crop-item"><a href="#" class="crop" data-type="original"><span class="crop-recr" style="padding-bottom: 80%;"></span><span class="name">original ratio</span></a></div>
+                                <div class="crop-item"><a href="#" class="crop" data-type="original"><span class="crop-recr" style="padding-bottom: 80%;"></span><span class="name"><?php _e('original ratio', 'ali2woo'); ?></span></a></div>
                                 <div class="crop-item"><a href="#" class="crop" data-type="1x1 "><span class="crop-recr" style="padding-bottom: 80%;"></span><span class="name">1x1</span></a></div>
                                 <div class="crop-item"><a href="#" class="crop" data-type="5x4"><span class="crop-recr" style="padding-bottom: 60%;"></span><span class="name">5x4</span></a></div>
                                 <div class="crop-item"><a href="#" class="crop" data-type="4x3"><span class="crop-recr" style="padding-bottom: 55%;"></span><span class="name">4x3</span></a></div>
@@ -32,13 +32,13 @@
                             </div>
                         </div>
                         <div class="sub-menu-container menu" id="draw-line-sub-menu">
-                            <div class="block-title">Color:</div>
+                            <div class="block-title"><?php _e('Color', 'ali2woo'); ?>:</div>
                             <div class="block">
                                 <div><input type="text" id="color-picker"/></div>
                                 <div><a href="#" class="get-color"><span></span></a></div>
                             </div>
 
-                            <div class="block-title">Size:</div>
+                            <div class="block-title"><?php _e('Size', 'ali2woo'); ?>:</div>
                             <div class="block">
                                 <div style="width:100%"><input id="input-brush-width-range" type="range" min="1" max="50" value="10"></div>
                             </div>
@@ -48,7 +48,7 @@
                             <div class="block">
                                 <div class="block-item input-wrapper">
                                     <span class="upload-icon"></span>
-                                    Upload
+                                    <?php _e('Upload', 'ali2woo'); ?>
                                     <input type="file" accept="image/*" id="input-mask-image-file">
                                 </div>
                                 <?php foreach($srickers as $sricker):?>
@@ -59,13 +59,13 @@
                         </div>
                         
                         <div class="sub-menu-container menu" id="draw-text-sub-menu">
-                            <div class="block-title">Color:</div>
+                            <div class="block-title"><?php _e('Color', 'ali2woo'); ?>:</div>
                             <div class="block">
                                 <div><input type="text" id="text-color-picker"/></div>
                                 <div><a href="#" class="get-color text"><span></span></a></div>
                             </div>
 
-                            <div class="block-title">Size:</div>
+                            <div class="block-title"><?php _e('Size', 'ali2woo'); ?>:</div>
                             <div class="block">
                                 <select id="input-text-size">
                                     <?php $default_size = 20; ?>
@@ -93,8 +93,8 @@
         </div>
         <div class="a2w-modal-toolbar">
             <span class="spinner"></span>
-            <button type="button" class="button-primary save-image">Save</button>
-            <button type="button" class="button cancel-image">Cancel</button>
+            <button type="button" class="button-primary save-image"><?php _e('Save', 'ali2woo'); ?></button>
+            <button type="button" class="button cancel-image"><?php _e('Cancel', 'ali2woo'); ?></button>
         </div>
     </div>
     <div class="a2w-modal-backdrop"></div>

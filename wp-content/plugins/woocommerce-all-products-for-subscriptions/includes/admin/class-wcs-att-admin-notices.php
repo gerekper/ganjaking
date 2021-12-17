@@ -137,7 +137,7 @@ class WCS_ATT_Admin_Notices {
 	public static function output_notices() {
 
 		$saved_notices = get_option( 'wcsatt_meta_box_notices', array() );
-		$notices       = $saved_notices + self::$admin_notices;
+		$notices       = array_merge( self::$admin_notices, $saved_notices );
 
 		if ( ! empty( $notices ) ) {
 

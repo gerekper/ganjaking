@@ -2,8 +2,8 @@
 Contributors: mailpoet
 Tags: email, email marketing, post notification, woocommerce emails, email automation, newsletter, newsletter builder, newsletter subscribers
 Requires at least: 5.3
-Tested up to: 5.7
-Stable tag: 3.64.1
+Tested up to: 5.8
+Stable tag: 3.75.0
 Requires PHP: 7.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -45,7 +45,7 @@ Trusted by 300,000 WordPress websites since 2011.
 
 = See it in action =
 
-[Test the demo](http://demo.mailpoet.com/) or [see the 2 min. video](https://vimeo.com/223581490)
+[See the 2 min. video](https://vimeo.com/223581490)
 [vimeo https://vimeo.com/223581490]
 
 = Before you install =
@@ -183,6 +183,193 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 6. WooCommerce emails
 
 == Changelog ==
+
+= 3.75.0 - 2021-12-13 =
+* Changed: show MailPoet logo in emails when using free MailPoet plan;
+* Fixed: "# of machine opens" segment not working properly.
+
+= 3.74.3 - 2021-12-07 =
+* Added: new segment "subscribed to list";
+* Improved: more options for "purchased product" segment;
+* Improved: more performant WooCommerce customers names sync;
+* Improved: simplified tracking settings in MailPoet > Settings > Advanced;
+* Fixed: issue in WooCommerce checkout integration;
+* Fixed: popup form is displayed again after dismissed when 'After submit' is set to 'Go to Page'.
+
+= 3.74.2 - 2021-11-29 =
+* Added: new re-engagement email type;
+* Added: integration with new Checkout Block in WooCommerce;
+* Added: new segment by subscriber score;
+* Fixed: high CPU usage caused by a cron job;
+* Fixed: sending not working after unbanning.
+
+= 3.74.1 - 2021-11-22 =
+* Improved: differentiate inactive forms in Widgets;
+* Fixed: duplicate entries when exporting subscribers in some cases;
+* Fixed: WooCommerce subscription segment doesn't handle when a user changes subscription;
+* Fixed: CSS in form iframe not working when using on different domain;
+* Fixed: potential issue when handling DateTimes.
+
+= 3.74.0 - 2021-11-17 =
+* Added: a filter to change reCAPTCHA type;
+* Updated: preparation for Black Friday sale;
+* Updated: npm dependencies;
+* Updated: react-select library;
+* Improved: more explanatory error message when there is a problem with sending method;
+* Improved: include List column when exporting subscribers to Excel;
+* Improved: make logger resilient to "The EntityManager is closed" error;
+* Improved: support d/m/y format when importing subscribers;
+* Improved: import a template form is now centered;
+* Improved: load template thumbnails from file system instead of database to improve templates page performance;
+* Changed: custom field labels can no longer be set per form, but are the same in every form;
+* Changed: limit scheduling email to 5 years in the future;
+* Fixed: high CPU usage for some customers;
+* Fixed: missing "Enable auto-updates" for the premium plugin;
+* Fixed: custom select default values can't be changed on Manage subscription page;
+* Fixed: block toolbar hidden under top bar in form editor;
+* Fixed: unable to place a new form unless it's saved;
+* Fixed: wrong placeholders in translatable strings;
+* Fixed: unable to uncheck a checkbox in Manage Subscriptions when the default value is checked;
+* Fixed: wrong WordPress menu icons for AutomateWoo and WC Payments when on MailPoet pages;
+* Fixed: form confirmation message is not shown in some edge cases;
+* Fixed: extra space in Post Notifications when using double quotes.
+
+= 3.73.2 - 2021-11-08 =
+* Fixed: error on dynamic segments filter query.
+
+= 3.73.1 - 2021-11-04 =
+* Fixed: segments are not loading.
+
+= 3.73.0 - 2021-11-02 =
+* Updated: composer dependencies;
+* Improved: don't allow duplicate sending and sending without an unsubscribe link;
+* Fixed: last engagement date is not calculated for some of the old subscribers.
+
+= 3.72.0 - 2021-10-25 =
+* Improved: updated Mixpanel configuration;
+* Improved: refactor CronWorkerRunner and related classes to Doctrine;
+* Improved: removed old StatisticsWooCommercePurchases model and replaced it with code that uses Doctrine;
+* Fixed: mailpoet_register_form_extend filter not working;
+* Fixed: automatic latest content block shows wrong content;
+* Fixed: "Create a new form" link not working in MailPoet widget;
+* Fixed: preselect a first form in form widget.
+
+= 3.71.3 - 2021-10-18 =
+* Improved: show email stats with less then 0.1% with two decimal places;
+* Improved: more options when sending is paused because of unauthorized email address;
+* Improved: offer activating premium plugin in settings when already installed;
+* Changed: offer more tools to clean your lists;
+* Fixed: an error when using MySQL in strict mode;
+* Fixed: rare database error when using incompatible collations;
+* Fixed: automatic emails can be set up without providing scheduled time;
+* Fixed: after editing an order the customer is subscribed when they shouldn't be.
+
+= 3.71.2 - 2021-10-04 =
+* Improved: better handle reply-to address with missing reply-to name;
+* Improved: use WordPress functions to get post excerpt and content in post notifications;
+* Changed: inactive subscribers conditions;
+* Fixed: PHP warning about PHPMailer class not found;
+* Fixed: welcome email setup accepts non-numerical values;
+* Fixed: missing space between paragraph and heading in post notifications.
+
+= 3.71.1 - 2021-09-29 =
+* Fixed: conflict with Elementor plugin.
+
+= 3.71.0 - 2021-09-28 =
+* Improved: handling recipient related SMTP errors;
+* Changed: removed "MailPoet Page" from form's "After submit, go to page" options;
+* Changed: don't save a form without assigned list;
+* Fixed: unable to remove description from segments.
+
+= 3.70.0 - 2021-09-20 =
+* Added: filter to alter mailpoet database table prefix;
+* Added: bounced metric on the Email Stats page;
+* Improved: update lucatume/wp-browser;
+* Improved: MailPoet form security against spambots;
+* Improved: coding standards;
+* Improved: refactor to Doctrine;
+* Improved: code comment on warning;
+* Fixed: machine-opened metric on the Email Stats page;
+* Fixed: flaky integration test;
+* Fixed: "Updated at" in the System Status shows time with incorrect time zone;
+* Fixed: horizontal scrollbar in form style settings sidebar.
+
+= 3.69.1 - 2021-09-13 =
+* Added: saving detailed bounce stats;
+* Added: show last engagement date on the Subscriber page;
+* Added: notice when creating opens-related segment;
+* Added: new machine-opened and # of machine-opens segments;
+* Changed: throttle also logged-in users when signing up multiple times;
+* Changed: show CAPTCHA on the first signup, instead on the second;
+* Changed: performance of the queries used to sync WooCommerce data;
+* Changed: display more specific error message for banned users;
+* Fixed: an error when using MySQL in strict mode;
+* Fixed: compatibility with WooCommerce Payments new checkout experience;
+* Fixed: segment counter when using multiple text input fields;
+* Fixed: missing space after signup checkbox on the checkout.
+
+= 3.69.0 - 2021-09-07 =
+* Added: saving subscribers' last engagement date;
+* Added: show machine-opened emails on the subscriber stats page;
+* Improved: performance of subscribers count recalculation;
+* Fixed: heading shortcode not rendered in WooCommerce transactional emails if moved below order content;
+* Fixed: unsubscribing from a preview email when logged out throws fatal error.
+
+= 3.68.0 - 2021-08-30 =
+* Added: show machine-opened percentage on the email stats page;
+* Added: open and click User-agents in Export Personal Data tool;
+* Improved: subscribers in your plan shown on top of the page;
+* Improved: MailPoet will honor the Reply-to address for WordPress emails sent with MailPoet. Thanks, Mark!
+* Improved: Gutenberg updated for form editor;
+* Improved: React updated to v17;
+* Changed: put less emphasis on open metric on the emails listing;
+* Fixed: a conflict if PHPMailer is already loaded by another plugin.
+
+= 3.67.1 - 2021-08-24 =
+* Added: differentiating human and machine email opens;
+* Added: saving opens and clicks User-agent;
+* Improved: Unified notice for invalid API key;
+* Fixed: conflict with "Invoices for WooCommerce" plugin when signing up for newsletters on checkout;
+* Fixed: potential error in MailPoet Router;
+* Fixed: cannot edit a subscriber when they are subscribed to a non-existing list.
+
+= 3.67.0 - 2021-08-17 =
+* Improved: better handle potential errors when previewing an email;
+* Improved: "Recalculate" Lists and Segments count button also on Subscribers page;
+* Improved: allow importing subscribers with consent but without IP addresses;
+* Improved: prevent deleting a list if used with a form;
+* Fixed: empty WooCommerce Products block can't be deleted;
+* Fixed: when scheduling email, calendar doesn't respect WordPress "week starts on" setting;
+* Fixed: exporting personal data in WordPress Tools fails with MailPoet error;
+* Fixed: below pages form doesn't show on pages created with WP Job Manager;
+* Fixed: button rendering in Outlook 2016.
+
+= 3.66.0 - 2021-08-09 =
+* Improved: tested up to WordPress 5.8;
+* Improved: more consistent behavior when subscribing via different sources;
+* Changed: removed a poll after deactivating MailPoet plugin;
+* Fixed: creating segment from stats page doesn't work;
+* Fixed: WooCommerce customers are moved to trash when WordPress Users list is disabled;
+* Fixed: wrong "recalculated at" time for lists counts in some cases.
+
+= 3.65.1 - 2021-07-20 =
+* Fixed: Sign up button in welcome wizard not working.
+
+= 3.65.0 - 2021-07-13 =
+* Added: Lists and Segments subscribers counts cache to speed up MailPoet pages.
+
+= 3.64.3 - 2021-07-06 =
+* Fixed: custom email shortcodes notice cannot be dismissed.
+
+= 3.64.2 - 2021-06-28 =
+* Improved: performance of the engagement score calculation;
+* Improved: segment form error handling;
+* Improved: hide help icon in form editor preview;
+* Changed: MailPoet no longer unsubscribes from unchecked lists in signup form;
+* Fixed: rare PHP error when unsubscribing;
+* Fixed: duplicated New Subscriber notification;
+* Fixed: large 3rd-party admin menu icons;
+* Fixed: false-positive registration spam detection.
 
 = 3.64.1 - 2021-06-22 =
 * Added: create complex segments using multiple conditions;

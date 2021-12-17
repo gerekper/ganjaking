@@ -52,7 +52,16 @@ class NewsletterTemplatesRepository extends Repository {
     }
 
     if (isset($data['thumbnail'])) {
-      $template->setThumbnail($data['thumbnail']);
+      // Backward compatibility for importing templates exported from older versions
+      if (strpos($data['thumbnail'], 'data:image') === 0) {
+        $data['thumbnail_data'] = $data['thumbnail'];
+      } else {
+        $template->setThumbnail($data['thumbnail']);
+      }
+    }
+
+    if (isset($data['thumbnail_data'])) {
+      $template->setThumbnailData($data['thumbnail_data']);
     }
 
     if (isset($data['body'])) {
@@ -96,5 +105,15 @@ class NewsletterTemplatesRepository extends Repository {
       ->setParameter('categories', self::RECENTLY_SENT_CATEGORIES)
       ->getQuery()
       ->getSingleScalarResult();
+  }
+
+  public function getIdsOfEditableTemplates(): array {
+    $result = $this->doctrineRepository->createQueryBuilder('nt')
+      ->select('nt.id')
+      ->where('nt.readonly = :readonly')
+      ->setParameter('readonly', false)
+      ->getQuery()
+      ->getArrayResult();
+    return array_column($result, 'id');
   }
 }

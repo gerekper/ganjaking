@@ -5,9 +5,14 @@ namespace MailPoet\Newsletter\Links;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Cron\Workers\StatsNotifications\NewsletterLinkRepository;
 use MailPoet\DI\ContainerWrapper;
+use MailPoet\Entities\NewsletterEntity;
+use MailPoet\Entities\NewsletterLinkEntity;
+use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\InvalidStateException;
-use MailPoet\Models\NewsletterLink;
+use MailPoet\Newsletter\NewslettersRepository;
+use MailPoet\Newsletter\Sending\SendingQueuesRepository;
 use MailPoet\Newsletter\Shortcodes\Categories\Link;
 use MailPoet\Newsletter\Shortcodes\Shortcodes;
 use MailPoet\Router\Endpoints\Track as TrackEndpoint;
@@ -30,9 +35,27 @@ class Links {
   /** @var SubscribersRepository */
   private $subscribersRepository;
 
-  public function __construct(LinkTokens $linkTokens, SubscribersRepository $subscribersRepository) {
+  /** @var NewsletterLinkRepository */
+  private $newsletterLinkRepository;
+
+  /** @var NewslettersRepository */
+  private $newslettersRepository;
+
+  /** @var SendingQueuesRepository */
+  private $sendingQueueRepository;
+
+  public function __construct(
+    LinkTokens $linkTokens,
+    SubscribersRepository $subscribersRepository,
+    NewsletterLinkRepository $newsletterLinkRepository,
+    NewslettersRepository $newslettersRepository,
+    SendingQueuesRepository $sendingQueuesRepository
+  ) {
     $this->linkTokens = $linkTokens;
     $this->subscribersRepository = $subscribersRepository;
+    $this->newsletterLinkRepository = $newsletterLinkRepository;
+    $this->newslettersRepository = $newslettersRepository;
+    $this->sendingQueueRepository = $sendingQueuesRepository;
   }
 
   public function process($content, $newsletterId, $queueId) {
@@ -141,27 +164,37 @@ class Links {
 
   public function save(array $links, $newsletterId, $queueId) {
     foreach ($links as $link) {
-      if (isset($link['id']))
+      if (isset($link['id'])) {
         continue;
-      if (empty($link['hash']) || empty($link['link'])) continue;
-      $newsletterLink = NewsletterLink::create();
-      $newsletterLink->newsletterId = $newsletterId;
-      $newsletterLink->queueId = $queueId;
-      $newsletterLink->hash = $link['hash'];
-      $newsletterLink->url = $link['link'];
-      $newsletterLink->save();
+      }
+
+      if (empty($link['hash']) || empty($link['link'])) {
+        continue;
+      }
+
+      $newsletter = $this->newslettersRepository->getReference($newsletterId);
+      $sendingQueue = $this->sendingQueueRepository->getReference($queueId);
+
+      if (!$newsletter instanceof NewsletterEntity || !$sendingQueue instanceof SendingQueueEntity) {
+        continue;
+      }
+
+      $newsletterLink = new NewsletterLinkEntity($newsletter, $sendingQueue, $link['link'], $link['hash']);
+      $this->newsletterLinkRepository->persist($newsletterLink);
     }
+
+    $this->newsletterLinkRepository->flush();
   }
 
   public function ensureInstantUnsubscribeLink(array $processedLinks) {
     if (in_array(
-      NewsletterLink::INSTANT_UNSUBSCRIBE_LINK_SHORT_CODE,
+      NewsletterLinkEntity::INSTANT_UNSUBSCRIBE_LINK_SHORT_CODE,
       array_column($processedLinks, 'link'))
     ) {
       return $processedLinks;
     }
     $processedLinks[] = $this->hashLink(
-      NewsletterLink::INSTANT_UNSUBSCRIBE_LINK_SHORT_CODE,
+      NewsletterLinkEntity::INSTANT_UNSUBSCRIBE_LINK_SHORT_CODE,
       Links::LINK_TYPE_SHORTCODE
     );
     return $processedLinks;
@@ -172,16 +205,19 @@ class Links {
     $links = array_unique(Helpers::flattenArray($links));
     foreach ($links as $link) {
       $linkHash = explode('-', $link);
-      if (!isset($linkHash[1])) continue;
-      $newsletterLink = NewsletterLink::where('hash', $linkHash[1])
-        ->where('queue_id', $queueId)
-        ->findOne();
+
+      if (!isset($linkHash[1])) {
+        continue;
+      }
+
+      $newsletterLink = $this->newsletterLinkRepository->findOneBy(['hash' => $linkHash[1], 'queue' => $queueId]);
+
       // convert either only link shortcodes or all hashes links if "convert all"
       // option is specified
-      if (($newsletterLink instanceof NewsletterLink) &&
-        (preg_match('/\[link:/', $newsletterLink->url) || $convertAll)
+      if (($newsletterLink instanceof NewsletterLinkEntity) &&
+        (preg_match('/\[link:/', $newsletterLink->getUrl()) || $convertAll)
       ) {
-        $content = str_replace($link, $newsletterLink->url, $content);
+        $content = str_replace($link, $newsletterLink->getUrl(), $content);
       }
     }
     return $content;
@@ -199,9 +235,9 @@ class Links {
     $subscriberId, $subscriberLinkToken, $queueId, $linkHash, $preview
   ) {
     return [
-      $subscriberId,
+      (string)$subscriberId,
       $subscriberLinkToken,
-      $queueId,
+      (string)$queueId,
       $linkHash,
       $preview,
     ];
@@ -250,12 +286,13 @@ class Links {
   }
 
   private function load($newsletterId, $queueId) {
-    $links = NewsletterLink::whereEqual('newsletter_id', $newsletterId)
-      ->whereEqual('queue_id', $queueId)
-      ->findMany();
+    $links = $this->newsletterLinkRepository->findBy(
+      ['newsletter' => $newsletterId, 'queue' => $queueId]
+    );
+
     $savedLinks = [];
     foreach ($links as $link) {
-      $savedLinks[$link->url] = $link->asArray();
+      $savedLinks[$link->getUrl()] = $link->toArray();
     }
     return $savedLinks;
   }

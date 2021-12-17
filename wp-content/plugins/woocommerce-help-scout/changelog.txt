@@ -1,5 +1,16 @@
 *** WooCommerce Help Scout Changelog ***
 
+2021-11-04 - version 3.1
+* PLUGINS-1240 - Incorrect API credentials should display useful message.
+
+2021-10-25 - version 3.0
+* PLUGINS-869 - Removed duplicate “Create Conversation” button.
+* PLUGINS-1118 - Fix saved credentials being deleted on plugin deactivation.
+* PLUGINS-1161 - Speed improvement.
+* PLUGINS-1201 - Fix validation error in sending email from order page.
+* PLUGINS-461 - Fix not displaying correct error on order page.
+* PLUGINS-1072 - File upload minor adjustments.
+
 2021-05-11 - version 2.9.2
 * PLUGINS-1017 - Fix file upload security issues
 

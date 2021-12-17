@@ -1,9 +1,9 @@
-<div class="a2w-content">
+<div class="a2w-content">    
     <div class="container">
-        <?php include_once A2W()->plugin_path() . '/view/chrome_notify.php'; ?>
         
+        <?php include_once A2W()->plugin_path() . '/view/chrome_notify.php'; ?>        
         
-        <?php if (!A2W_Account::getInstance()->is_activated()):?>
+        <?php if (A2W_Account::getInstance()->is_activated()):?>
         <div class="a2w-pc-warn"><p>You didn't activate Ali2Woo! Please open the Ali2Woo plugin <a href="<?php echo admin_url('admin.php?page=a2w_setting') ?>">settings</a> and input your purchase key.</p></div>
         <?php endif; ?>
         
@@ -80,10 +80,12 @@
             </div>
 
             <div class="a2w-product-import-list">
-                <?php foreach ($product_list as $product): ?>
+                <?php foreach ($product_list as $ind => $product): ?>
+                    
+
                     <div class='row space-top'>
-                        <div class='col-xs-12'>
-                            <div class='product' data-id="<?php echo $product['import_id']; ?>" data-country_from_list="<?php echo implode(";",$product['shipping_from_country_list']); ?>" data-country_from="<?php echo $product['shipping_from_country']; ?>" data-country_to="<?php echo $product['shipping_to_country']; ?>">
+                        <div class='col-xs-12'>                            
+                            <div class='product<?php echo isset($product['shipping_cost'])?" shiping_loaded":""?>' data-id="<?php echo $product['import_id']; ?>" data-country_from_list="<?php echo empty($product['shipping_from_country_list'])?'':implode(";",$product['shipping_from_country_list']); ?>" data-country_from="<?php echo isset($product['shipping_from_country'])?$product['shipping_from_country']:''; ?>" data-country_to="<?php echo isset($product['shipping_to_country'])?$product['shipping_to_country']:''; ?>">
                                 <div class="a2w-row">
                                     <ul class="nav nav-tabs">
                                         <li class="select darker-background"><span class="for-checkbox"><input type="checkbox" class="form-control" value="<?php echo $product['import_id']; ?>"></span></li>
@@ -258,10 +260,8 @@
                                                             <input type="text" class="form-control attr-name" data-id="<?php echo $attr['id']; ?>" value="<?php echo $attr['name']; ?>">
                                                         </th>
                                                     <?php endforeach; ?>
-                                                    <th><?php _e('Cost', 'ali2woo'); ?></th>
-                                                    
-                                                    <th><?php _e('Shipping', 'ali2woo'); ?></th>
-                                                    
+                                                    <th><?php _e('Cost', 'ali2woo'); ?></th>                                                    
+                                                    <th><?php _e('Shipping', 'ali2woo'); ?></th>                                                    
                                                     <th><?php _e('Price', 'ali2woo'); ?></th>
                                                     <th><?php _e('Regular Price', 'ali2woo'); ?></th>
                                                     <th><?php _e('Profit', 'ali2woo'); ?></th>
@@ -299,11 +299,9 @@
                                                     <?php endforeach; ?>
                                                     <td></td>
                                                     <!-- <td colspan="<?php echo (4 + count($product['sku_products']['attributes'])); ?>"></td> -->
-                                                    
                                                     <td>
-                                                        <a href="#" class="shipping-country"><?php echo isset($product['shipping_to_country'])?$product['shipping_to_country_name']:__('Select country', 'ali2woo'); ?></a>
+                                                        <a href="#" class="shipping-country"><?php echo isset($product['shipping_to_country'])? (isset($product['shipping_to_country_name'])?$product['shipping_to_country_name']:$product['shipping_to_country']):__('Select country', 'ali2woo'); ?></a>
                                                     </td>
-                                                    
                                                     <td>
                                                         <div class="price-edit-selector edit-price">
                                                             <div class="price-box-top">
@@ -401,9 +399,7 @@
                                                             <td data-attr-id="<?php echo explode(":", $av)[0]; ?>"><input type="text" class="form-control attr" data-id="<?php echo $av; ?>" value="<?php echo isset($var['attributes_names'][$j]) ? $var['attributes_names'][$j] : ''; ?>"></td>
                                                         <?php endforeach; ?>
                                                         <td style="white-space: nowrap;" class="external-price" data-value="<?php echo $var['price']; ?>"><?php echo $localizator->getLocaleCurr($var['currency']); ?><?php echo $var['price']; ?></td>
-                                                        
-                                                        <td style="white-space: nowrap;" class="external-shipping" data-value="0" data-currency="<?php echo $localizator->getLocaleCurr($var['currency']); ?>">N/A</td>
-                                                        
+                                                        <td style="white-space: nowrap;" class="external-shipping" data-value="<?php echo isset($product['shipping_cost'])?floatval($product['shipping_cost']):"0"?>" data-currency="<?php echo $localizator->getLocaleCurr($var['currency']); ?>"><?php echo isset($product['shipping_cost'])?$localizator->getLocaleCurr($var['currency']).floatval($product['shipping_cost']):"N/A"?></td>
                                                         <td>
                                                             <input type="text" class="form-control price" value="<?php echo $var['calc_price']; ?>">
                                                         </td>
@@ -498,7 +494,7 @@
                                         })(jQuery);
                                     </script>
                                 </div>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -573,12 +569,10 @@
                 
                 if ($(this).attr("rel") === 'variants') {
                     $(this).parents('.product').children('div.tabs-content[rel="' + $(this).attr("rel") + '"]').find('img.lazy-in-container').lazyload();
-                    
                     if(!$(this).parents(".product").hasClass('shiping_loaded')){
                         a2w_update_product_shipping_info($(this).parents(".product").attr('data-id'));
                         $(this).parents(".product").addClass('shiping_loaded');
                     }
-                    
                 }
                 return false;
             });

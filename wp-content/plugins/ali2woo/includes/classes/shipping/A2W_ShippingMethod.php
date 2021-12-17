@@ -60,7 +60,7 @@
 
             //set woocommerce_enable_shipping_calc to "yes"
             //to show the shipping calculator in the cart
-            update_option( 'woocommerce_enable_shipping_calc', 'yes');
+            update_option( 'woocommerce_enable_shipping_calc', 'yes', 'no');
 
             add_filter( 'woocommerce_shipping_methods', 'add_a2w_shipping_method' );
 

@@ -5,7 +5,7 @@ namespace MailPoet\Cron\Workers;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Models\ScheduledTask;
+use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Subscribers\ImportExport\Export\Export;
 use MailPoetVendor\Carbon\Carbon;
 
@@ -13,7 +13,7 @@ class ExportFilesCleanup extends SimpleWorker {
   const TASK_TYPE = 'export_files_cleanup';
   const DELETE_FILES_AFTER_X_DAYS = 1;
 
-  public function processTaskStrategy(ScheduledTask $task, $timer) {
+  public function processTaskStrategy(ScheduledTaskEntity $task, $timer) {
     $iterator = new \GlobIterator(Export::getExportPath() . '/' . Export::getFilePrefix() . '*.*');
     foreach ($iterator as $file) {
       if (is_string($file)) {

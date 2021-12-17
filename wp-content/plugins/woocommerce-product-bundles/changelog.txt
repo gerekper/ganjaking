@@ -1,5 +1,9 @@
 *** WooCommerce Product Bundles ***
 
+2021.12.10 - version 6.13.0
+* Feature - Support bundle sells in REST API.
+* Fix - Fixed an issue that prevented stock statuses from showing up under 'Analytics > Bundles'.
+
 2021.11.10 - version 6.12.7
 * Fix - Fixed an edge-case issue with removing ungrouped bundles that include hidden items.
 * Fix - Prevent bundled item inventory from being reduced when adding non-configurable bundles to orders manually.

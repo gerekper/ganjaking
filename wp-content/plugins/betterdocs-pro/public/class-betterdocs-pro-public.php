@@ -3,7 +3,7 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://wpdeveloper.net
+ * @link       https://wpdeveloper.com
  * @since      1.0.0
  *
  * @package    Betterdocs_Pro
@@ -18,7 +18,7 @@
  *
  * @package    Betterdocs_Pro
  * @subpackage Betterdocs_Pro/public
- * @author     WPDeveloper <support@wpdeveloper.net>
+ * @author     WPDeveloper <support@wpdeveloper.com>
  */
 class Betterdocs_Pro_Public
 {
@@ -54,10 +54,21 @@ class Betterdocs_Pro_Public
 		add_filter('betterdocs_docs_layout_select_choices', array($this, 'customizer_docs_page_layout_choices'));
 		add_filter('betterdocs_archive_template', array($this, 'get_docs_archive_template'));
 		add_filter('betterdocs_single_layout_select_choices', array($this, 'customizer_single_layout_choices'));
-		add_filter('single_template', array($this, 'get_docs_single_template'), 100);
+		add_filter('betterdocs_single_template', array($this, 'get_docs_single_template'));
         add_filter('betterdocs_post_order_options', array($this, 'post_order_options'), 1);
         add_filter('betterdocs_post_order_default', array($this, 'post_order_default'), 1);
 		add_action('betterdocs_docs_before_social', array($this, 'betterdocs_article_reactions'));
+        add_filter('betterdocs_layout_documentation_page_settings', array($this, 'popular_docs_settings'));
+        add_filter('betterdocs_option_default_settings', array($this, 'betterdocs_default_option_setting'), 10, 1);
+        add_filter('betterdocs_search_form_atts', array($this, 'search_form_atts'));
+        add_action('betterdocs_live_search_form_footer', array($this, 'srarch_form_footer'), 10, 1);
+        add_action('betterdocs_after_live_search_form', array($this, 'popular_srarch'), 10, 1);
+        add_action('betterdocs_advance_search_settings', array($this, 'advance_search_settings'));
+        add_action('betterdocs_popular_keyword_limit_settings', array($this, 'popular_keyword_limit'));
+        $live_search = BetterDocs_DB::get_settings('advance_search');
+        if ($live_search == 1) {
+            add_action('betterdocs_search_section', array($this, 'advance_search'), 10, 1);
+        }
 	}
 
 	/**
@@ -79,13 +90,11 @@ class Betterdocs_Pro_Public
 		 * class.
 		 */
 
-        wp_register_style( 'simplebar', plugin_dir_url(__FILE__) . 'css/simplebar.css', array(), $this->version, 'all' );
-        wp_register_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/betterdocs-pro-public.css', array(), $this->version, 'all');
+        wp_register_style( $this->plugin_name, plugin_dir_url(__FILE__) . 'css/betterdocs-pro-public.css', array(), $this->version, 'all' );
 	}
 
 	public function enqueue_styles()
     {
-        wp_enqueue_style( 'simplebar');
         wp_enqueue_style( $this->plugin_name);
     }
 
@@ -107,13 +116,11 @@ class Betterdocs_Pro_Public
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-        wp_register_script('simplebar', plugin_dir_url(__FILE__) . 'js/simplebar.js', array( 'jquery' ), $this->version, true);
         wp_register_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/betterdocs-pro-public.js', array('jquery'), $this->version, true);
 	}
 
     public function enqueue_scripts()
     {
-        wp_enqueue_script('simplebar');
         wp_enqueue_script($this->plugin_name);
         $single_reactions = array(
             'FEEDBACK' => array(
@@ -191,7 +198,7 @@ class Betterdocs_Pro_Public
         $content_visibility = ($content_visibility !== 'off') ? $content_visibility : array('all');
         //If The User Has Multiple Roles Assigned
         $role_exists = is_array($content_visibility) ? ( array_intersect( $roles, $content_visibility ) ) : 'all';
-        if (is_user_logged_in() && (($role_exists === true) || in_array('all', $content_visibility))) {
+        if (is_user_logged_in() && (($role_exists == true) || in_array('all', $content_visibility))) {
             return true;
         } else {
             return false;
@@ -256,9 +263,12 @@ class Betterdocs_Pro_Public
         if (is_post_type_archive('docs')) {
             $multikb_layout = get_theme_mod('betterdocs_multikb_layout_select', 'layout-1');
             $layout_select = get_theme_mod('betterdocs_docs_layout_select', 'layout-1');
-
             if (BetterDocs_Multiple_Kb::$enable == 1 && $multikb_layout === 'layout-2') {
                 $template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/multiple-kb-2.php';
+            } elseif (BetterDocs_Multiple_Kb::$enable == 1 && $multikb_layout === 'layout-3') {
+                $template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/multiple-kb-3.php';
+            } elseif (BetterDocs_Multiple_Kb::$enable == 1 && $multikb_layout === 'layout-4') {
+                $template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/multiple-kb-tab-grid.php';
             } elseif (BetterDocs_Multiple_Kb::$enable == 1) {
                 $template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/multiple-kb.php';
             } elseif ($layout_select === 'layout-2') {
@@ -267,6 +277,8 @@ class Betterdocs_Pro_Public
                 $template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/category-box-3.php';
             } elseif ($layout_select === 'layout-4') {
                 $template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/category-list-2.php';
+            } elseif ($layout_select === 'layout-5') {
+                $template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/category-layout-5.php';
             } else {
                 $template = BETTERDOCS_PUBLIC_PATH . 'partials/archive-template/category-list.php';
             }
@@ -280,6 +292,8 @@ class Betterdocs_Pro_Public
             $template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/category-box-3.php';
         } elseif ($tax === 'knowledge_base' && $docs_layout === 'layout-4') {
             $template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/category-list-2.php';
+        } elseif ($tax === 'knowledge_base' && $docs_layout === 'layout-5') {
+            $template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/archive-template/category-layout-5.php';
         } elseif ($tax === 'knowledge_base') {
             $template = BETTERDOCS_PUBLIC_PATH . 'partials/archive-template/category-list.php';
         }
@@ -293,6 +307,9 @@ class Betterdocs_Pro_Public
 		);
 		$choices['layout-4'] = array(
 			'image' => BETTERDOCS_ADMIN_URL . 'assets/img/docs-layout-4.png',
+		);
+		$choices['layout-5'] = array(
+			'image' => BETTERDOCS_ADMIN_URL . 'assets/img/docs-layout-5.png',
 		);
 		return $choices;
 	}
@@ -313,9 +330,13 @@ class Betterdocs_Pro_Public
 				$single_template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/template-single/layout-2.php';
 			} elseif ($layout_select === 'layout-3') {
 				$single_template = BETTERDOCS_PRO_PUBLIC_PATH . 'partials/template-single/layout-3.php';
-			} else {
-				$single_template = BETTERDOCS_PUBLIC_PATH . 'partials/template-single/layout-1.php';
-			}
+			} elseif ($layout_select === 'layout-4') {
+                $single_template = BETTERDOCS_PUBLIC_PATH . 'partials/template-single/layout-4.php';
+            } elseif ($layout_select === 'layout-5') {
+                $single_template = BETTERDOCS_PUBLIC_PATH . 'partials/template-single/layout-5.php';
+            } else {
+                $single_template = BETTERDOCS_PUBLIC_PATH . 'partials/template-single/layout-1.php';
+            }
 		}
 		return $single_template;
 	}
@@ -328,8 +349,47 @@ class Betterdocs_Pro_Public
 		$choices['layout-3'] = array(
 			'image' => BETTERDOCS_ADMIN_URL . 'assets/img/single-layout-3.png',
 		);
+		$choices['layout-4'] = array(
+			'image' => BETTERDOCS_ADMIN_URL . 'assets/img/single-layout-4.png',
+		);
+		$choices['layout-5'] = array(
+			'image' => BETTERDOCS_ADMIN_URL . 'assets/img/single-layout-5.png',
+		);
 		return $choices;
 	}
+
+    public function popular_docs_settings($settings) 
+    {
+        $settings['fields']['popular_docs'] = array(
+            'type'        => 'title',
+            'label'       => __('Popular Docs' , 'betterdocs-pro'),
+            'priority'    => 10,
+        );
+
+        $settings['fields']['betterdocs_popular_docs_text'] = array(
+            'type'        => 'text',
+            'label'       => __('Popular Docs Text' , 'betterdocs-pro'),
+            'default'     => __('Popular Docs', 'betterdocs-pro'),
+            'priority'    => 10,
+        );
+
+        $settings['fields']['betterdocs_popular_docs_number'] = array(
+            'type'      => 'number',
+            'label'     => __('Popular Posts Number' , 'betterdocs-pro'),
+            'default'   => 10,
+            'priority'	=> 10
+        );
+
+        return $settings;
+    }
+
+    public function betterdocs_default_option_setting($values) 
+    {
+        $values['betterdocs_popular_docs_text']   =  __('Popular Docs', 'betterdocs-pro');
+        $values['betterdocs_popular_docs_number'] = 10;
+        
+        return $values;
+    }
 
 	public function betterdocs_article_reactions($reactions = '')
 	{
@@ -344,12 +404,116 @@ class Betterdocs_Pro_Public
 
     public function post_order_options($options)
     {
-        $options['betterdocs_order'] = __('BetterDocs Order', 'betterdocs');
+        $options['betterdocs_order'] = __('BetterDocs Order', 'betterdocs-pro');
         return $options;
     }
 
     public function post_order_default()
     {
         return 'betterdocs_order';
+    }
+
+    public function advance_search_settings()
+    {
+        $settings = array(
+            'type'        => 'checkbox',
+            'label'       => __('Enable Advance Search' , 'betterdocs-pro'),
+            'default'     => 1,
+            'priority'    => 10
+        );
+        return $settings;
+    }
+
+    public function popular_keyword_limit()
+    {
+        $settings = array(
+            'type'        => 'number',
+            'label'       => __('Minimum amount of Keywords Search' , 'betterdocs-pro'),
+            'default'     => 5,
+            'priority'    => 10
+        );
+        return $settings;
+    }
+
+    public function popular_search_keyword()
+    {
+        $keywords = array();
+        $get_search_keyword = get_option( 'betterdocs_search_data' );
+        $popular_keyword_limit = BetterDocs_DB::get_settings('popular_keyword_limit');
+        if ($get_search_keyword) {
+            $search_keyword_arr = unserialize($get_search_keyword);
+            arsort($search_keyword_arr);
+            $popular_keyword_arr = array_slice($search_keyword_arr, 0, 5, true);
+            if ( $popular_keyword_arr ) {
+                foreach ($popular_keyword_arr as $key=>$value) {
+                    if ($value > $popular_keyword_limit) {
+                        array_push($keywords, $key);
+                    }
+                }
+            }
+        }
+        return $keywords;
+    }
+
+    public function search_form_atts($atts)
+    {
+        $atts['category_search'] = false;
+        $atts['search_button'] = false;
+        $atts['popular_search'] = false;
+        return $atts;
+    }
+
+    public function srarch_form_footer($get_args) {
+        if ( $get_args['category_search'] == true ) {
+            echo '<select class="betterdocs-search-category">
+                <option value="">'.esc_html__('All Categories','betterdocs').'</option>
+                '.BetterDocs_Helper::term_options('doc_category').'
+            </select>';
+        }
+
+        if ( $get_args['search_button'] == true ) {
+            echo '<input class="search-submit" type="submit" value="'.esc_html__('Search','betterdocs').'">';
+        }
+
+        if (BetterDocs_DB::get_settings('multiple_kb') == 1 && BetterDocs_DB::get_settings('kb_based_search') == 1) {
+            $kb_slug = BetterDocs_Multiple_Kb::kb_slug();
+            echo '<input type="hidden" value="' . esc_attr($kb_slug) . '" class="betterdocs-search-kbslug betterdocs-search-submit">';
+        }
+    }
+
+    public function popular_srarch($get_args) {
+        $html = '';
+        $output = betterdocs_generate_output_pro();
+        if ( $get_args['popular_search' ] == true && !empty($this->popular_search_keyword()) ) {
+            $html = '<div class="betterdocs-popular-search-keyword">';
+            $html .= '<span class="popular-search-title">'.esc_html($output['betterdocs_popular_search_text']).' </span>';
+            foreach ($this->popular_search_keyword() as $keyword) {
+                $html .= '<span class="popular-keyword">'.$keyword.'</span>';
+            }
+            $html .= '</div>';
+        }
+        echo $html;
+    }
+
+    public function advance_search()
+    {
+        $output = betterdocs_generate_output();
+        $output_pro = betterdocs_generate_output_pro();
+        $search_placeholder = BetterDocs_DB::get_settings('search_placeholder');
+        $search_heading_switch = $output['betterdocs_live_search_heading_switch'];
+        $search_heading = $output['betterdocs_live_search_heading'];
+        $search_subheading = $output['betterdocs_live_search_subheading'];
+        $search_category = $output_pro['betterdocs_category_search_toggle'];
+        $search_button = $output_pro['betterdocs_search_button_toggle'];
+        $popular_search = $output_pro['betterdocs_popular_search_toggle'];
+
+        return '<div class="betterdocs-search-form-wrap">'. do_shortcode( '[betterdocs_search_form 
+            placeholder="'.$search_placeholder.'" 
+            enable_heading="'.$search_heading_switch.'"
+            heading="'.$search_heading.'" 
+            subheading="'.$search_subheading.'"
+            category_search="'.$search_category.'"
+            search_button="'.$search_button.'"
+            popular_search="'.$popular_search.'"]').'</div>';
     }
 }

@@ -7,18 +7,23 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\AdminPages\PageRenderer;
 use MailPoet\API\JSON\ResponseBuilders\CustomFieldsResponseBuilder;
+use MailPoet\Cache\TransientCache;
 use MailPoet\Config\ServicesChecker;
 use MailPoet\CustomFields\CustomFieldsRepository;
 use MailPoet\Entities\DynamicSegmentFilterData;
+use MailPoet\Entities\SegmentEntity;
 use MailPoet\Listing\PageLimit;
 use MailPoet\Models\Newsletter;
 use MailPoet\Segments\SegmentDependencyValidator;
+use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Services\Bridge;
-use MailPoet\Settings\SettingsController;
+use MailPoet\Settings\TrackingConfig;
 use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
 use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 use MailPoet\WP\AutocompletePostListLoader as WPPostListLoader;
 use MailPoet\WP\Functions as WPFunctions;
+use MailPoetVendor\Carbon\Carbon;
+use MailPoetVendor\Doctrine\Common\Collections\Criteria;
 
 class Segments {
   /** @var PageRenderer */
@@ -42,9 +47,6 @@ class Segments {
   /** @var WPPostListLoader */
   private $wpPostListLoader;
 
-  /** @var SettingsController */
-  private $settings;
-
   /** @var SegmentDependencyValidator */
   private $segmentDependencyValidator;
 
@@ -54,6 +56,15 @@ class Segments {
   /** @var CustomFieldsResponseBuilder */
   private $customFieldsResponseBuilder;
 
+  /** @var TransientCache */
+  private $transientCache;
+
+  /** @var SegmentsRepository */
+  private $segmentsRepository;
+
+  /** @var TrackingConfig */
+  private $trackingConfig;
+
   public function __construct(
     PageRenderer $pageRenderer,
     PageLimit $listingPageLimit,
@@ -62,10 +73,12 @@ class Segments {
     WooCommerceHelper $woocommerceHelper,
     WPPostListLoader $wpPostListLoader,
     SubscribersFeature $subscribersFeature,
-    SettingsController $settings,
     CustomFieldsRepository $customFieldsRepository,
     CustomFieldsResponseBuilder $customFieldsResponseBuilder,
-    SegmentDependencyValidator $segmentDependencyValidator
+    SegmentDependencyValidator $segmentDependencyValidator,
+    SegmentsRepository $segmentsRepository,
+    TrackingConfig $trackingConfig,
+    TransientCache $transientCache
   ) {
     $this->pageRenderer = $pageRenderer;
     $this->listingPageLimit = $listingPageLimit;
@@ -74,10 +87,12 @@ class Segments {
     $this->wp = $wp;
     $this->woocommerceHelper = $woocommerceHelper;
     $this->wpPostListLoader = $wpPostListLoader;
-    $this->settings = $settings;
     $this->segmentDependencyValidator = $segmentDependencyValidator;
     $this->customFieldsRepository = $customFieldsRepository;
     $this->customFieldsResponseBuilder = $customFieldsResponseBuilder;
+    $this->transientCache = $transientCache;
+    $this->segmentsRepository = $segmentsRepository;
+    $this->trackingConfig = $trackingConfig;
   }
 
   public function render() {
@@ -108,6 +123,22 @@ class Segments {
       ->where('type', Newsletter::TYPE_STANDARD)
       ->orderByExpr('ISNULL(sent_at) DESC, sent_at DESC')->findArray();
 
+    $data['static_segments_list'] = [];
+    $criteria = new Criteria();
+    $criteria->where(Criteria::expr()->isNull('deletedAt'));
+    $criteria->andWhere(Criteria::expr()->neq('type', SegmentEntity::TYPE_DYNAMIC));
+    $criteria->orderBy(['name' => 'ASC']);
+    $segments = $this->segmentsRepository->matching($criteria);
+    foreach ($segments as $segment) {
+      $data['static_segments_list'][] = [
+        'id' => $segment->getId(),
+        'name' => $segment->getName(),
+        'type' => $segment->getType(),
+        'description' => $segment->getDescription(),
+      ];
+    }
+
+
     $data['product_categories'] = $this->wpPostListLoader->getWooCommerceCategories();
 
     $data['products'] = $this->wpPostListLoader->getProducts();
@@ -125,8 +156,10 @@ class Segments {
     );
     $wooCurrencySymbol = $this->woocommerceHelper->isWooCommerceActive() ? $this->woocommerceHelper->getWoocommerceCurrencySymbol() : '';
     $data['woocommerce_currency_symbol'] = html_entity_decode($wooCurrencySymbol);
-    $data['tracking_enabled'] = $this->settings->get('tracking.enabled');
-
+    $data['tracking_config'] = $this->trackingConfig->getConfig();
+    $subscribersCacheCreatedAt = $this->transientCache->getOldestCreatedAt(TransientCache::SUBSCRIBERS_STATISTICS_COUNT_KEY);
+    $subscribersCacheCreatedAt = $subscribersCacheCreatedAt ?: Carbon::now();
+    $data['subscribers_counts_cache_created_at'] = $subscribersCacheCreatedAt->format('Y-m-d\TH:i:sO');
     $this->pageRenderer->displayPage('segments.html', $data);
   }
 }

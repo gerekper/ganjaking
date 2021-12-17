@@ -1,5 +1,9 @@
 *** Product Enquiry Form Changelog ***
 
+2021-12-09 - version 1.2.20
+* Tweak - WC 6.0 compatibility.
+* Tweak - WP 5.9 compatibility.
+
 2021-08-10 - version 1.2.19
 * Fix - Remove escape backslashes appearing with quotes and other escaped characters, in product inquiry messages emailed to the site owner. .
 * Tweak - WC 5.5 compatibility.

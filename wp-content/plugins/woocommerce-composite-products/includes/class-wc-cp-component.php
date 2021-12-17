@@ -437,7 +437,7 @@ class WC_CP_Component implements ArrayAccess {
 	 */
 	public function show_sorting_options() {
 		$data = $this->get_data();
-		return isset( $data[ 'show_orderby' ] ) && 'yes' === $data[ 'show_orderby' ] && ! $this->is_static();
+		return isset( $data[ 'show_orderby' ] ) && 'yes' === $data[ 'show_orderby' ] && count( $this->get_options() ) > 1;
 	}
 
 	/**
@@ -498,7 +498,7 @@ class WC_CP_Component implements ArrayAccess {
 	 */
 	public function show_filtering_options() {
 		$data = $this->get_data();
-		return isset( $data[ 'show_filters' ] ) && 'yes' === $data[ 'show_filters' ] && ! $this->is_static();
+		return isset( $data[ 'show_filters' ] ) && 'yes' === $data[ 'show_filters' ] && count( $this->get_options() ) > 1;
 	}
 
 	/**

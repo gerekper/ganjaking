@@ -13,6 +13,7 @@ use MailPoet\Models\SendingQueue;
 use MailPoet\Models\Subscriber as SubscriberModel;
 use MailPoet\Newsletter\Url as NewsletterUrl;
 use MailPoet\Settings\SettingsController;
+use MailPoet\Settings\TrackingConfig;
 use MailPoet\Subscription\SubscriptionUrlFactory;
 use MailPoet\WP\Functions as WPFunctions;
 
@@ -28,14 +29,19 @@ class Link implements CategoryInterface {
   /** @var WPFunctions */
   private $wp;
 
+  /** @var TrackingConfig */
+  private $trackingConfig;
+
   public function __construct(
     SettingsController $settings,
     NewsletterUrl $newsletterUrl,
-    WPFunctions $wp
+    WPFunctions $wp,
+    TrackingConfig $trackingConfig
   ) {
     $this->settings = $settings;
     $this->newsletterUrl = $newsletterUrl;
     $this->wp = $wp;
+    $this->trackingConfig = $trackingConfig;
   }
 
   public function process(
@@ -85,14 +91,18 @@ class Link implements CategoryInterface {
         );
         return self::processUrl($shortcodeDetails['action'], $url, $queue, $wpUserPreview);
 
+      case 'subscription_re_engage_url':
+        $url = $subscriptionUrlFactory->getReEngagementUrl($wpUserPreview ? null : $subscriber);
+        return self::processUrl($shortcodeDetails['action'], $url, $queue, $wpUserPreview);
+
       default:
         $shortcode = self::getFullShortcode($shortcodeDetails['action']);
         $url = $this->wp->applyFilters(
           'mailpoet_newsletter_shortcode_link',
           $shortcode,
-          $newsletterModel,
-          $subscriberModel,
-          $queueModel,
+          $newsletter,
+          $subscriber,
+          $queue,
           $shortcodeDetails['arguments'],
           $wpUserPreview
         );
@@ -105,7 +115,7 @@ class Link implements CategoryInterface {
 
   public function processUrl($action, $url, $queue, $wpUserPreview = false): string {
     if ($wpUserPreview) return $url;
-    return ($queue !== false && (boolean)$this->settings->get('tracking.enabled')) ?
+    return ($queue !== false && $this->trackingConfig->isEmailTrackingEnabled()) ?
       self::getFullShortcode($action) :
       $url;
   }
@@ -139,14 +149,17 @@ class Link implements CategoryInterface {
           false
         );
         break;
+      case 'subscription_re_engage_url':
+        $url = $subscriptionUrlFactory->getReEngagementUrl($subscriber);
+        break;
       default:
         $shortcode = self::getFullShortcode($shortcodeAction);
         $url = $this->wp->applyFilters(
           'mailpoet_newsletter_shortcode_link',
           $shortcode,
-          $newsletterModel,
-          $subscriberModel,
-          $queueModel,
+          $newsletter,
+          $subscriber,
+          $queue,
           $wpUserPreview
         );
         $url = ($url !== $shortcodeAction) ? $url : null;

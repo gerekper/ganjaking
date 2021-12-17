@@ -1,5 +1,9 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2021-12-09 - version 1.7.4
+* Tweak - WC 6.0 compatibility.
+* Tweak - WP 5.9 compatibility.
+
 2021-11-16 - version 1.7.3
 * Fix - Ensure partial redemptions meet the Minimum Points Discount.
 

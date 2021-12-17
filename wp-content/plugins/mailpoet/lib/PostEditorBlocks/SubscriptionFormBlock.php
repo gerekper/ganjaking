@@ -10,6 +10,7 @@ use MailPoet\Form\FormsRepository;
 use MailPoet\Form\Widget;
 use MailPoet\WP\Functions as WPFunctions;
 
+// phpcs:disable Generic.Files.InlineHTML
 class SubscriptionFormBlock {
   /** @var WPFunctions */
   private $wp;
@@ -60,6 +61,7 @@ class SubscriptionFormBlock {
           selectForm: '<?php echo __('Select a MailPoet form', 'mailpoet') ?>',
           createForm: '<?php echo __('Create a new form', 'mailpoet') ?>',
           subscriptionForm: '<?php echo __('MailPoet Subscription Form', 'mailpoet') ?>',
+          inactive: '<?php echo __('inactive', 'mailpoet') ?>',
         };
       </script>
       <?php

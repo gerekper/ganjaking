@@ -1,5 +1,10 @@
 === WooCommerce Free Gift Coupons ===
 
+2021.12.01  - version 3.3.2
+* Fix: Load RTL stylesheets when not in SCRIPT_DEBUG mode.
+* New: Display notices to store managers in front-end and admin when a gift product is not purchasable.
+* Update: Move cart/order "Free!" price filters to later priority for compat with discounting plugins.
+
 2021.11.01 - version 3.3.1
 * Update: Tested against WooCommerce 5.8.0.
 * Fix: Do not count the cart quantity of the gift itself when syncing quantities of variation to parent variable.

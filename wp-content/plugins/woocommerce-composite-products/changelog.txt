@@ -1,5 +1,13 @@
 *** WooCommerce Composite Products ***
 
+2021.12.02 - version 8.3.4
+* Feature - Added compatibility with PayPal Payments to hide quick pay buttons in Composite product pages.
+* Dev - Added 'woocommerce_composite_after_composite_price' action hook.
+* Fix - Fixed an issue that prevented Scenarios from being taken into account in catalog price calculations when the 'Catalog Price > Calculate from/to' option is active.
+* Fix - Fixed PHP notice when switching a subscribed Composite that includes a Product Bundle.
+* Fix - Rename 'woocommerce_cart_item_removed' filter to 'woocommerce_composited_cart_item_removed' to prevent issues with performance and loops when removing components from the cart.
+* Fix - Fixed issue that made sorting/filtering options show up for optional components with only a single product. 
+
 2021.10.04 - version 8.3.3
 * Fix - Fixed missing notices.
 * Tweak - Improved compatibility with Memberships.

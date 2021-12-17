@@ -16,7 +16,7 @@ class MetaInformationManager {
 
       if (isset($args['showAuthor']) && $args['showAuthor'] === $positionField) {
         $text[] = self::getPostAuthor(
-          $post->post_author, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+          $post->post_author, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
           $args['authorPrecededBy']
         );
       }
@@ -24,7 +24,7 @@ class MetaInformationManager {
       if (isset($args['showCategories']) && $args['showCategories'] === $positionField) {
         $text[] = self::getPostCategories(
           $post->ID,
-          $post->post_type, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+          $post->post_type, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
           $args['categoriesPrecededBy']
         );
       }

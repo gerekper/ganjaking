@@ -5,6 +5,7 @@ namespace MailPoet\Newsletter\Editor;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Util\pQuery\pQuery;
 use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 use MailPoet\WP\Functions as WPFunctions;
 
@@ -16,9 +17,14 @@ class PostContentManager {
   /** @var WooCommerceHelper */
   private $woocommerceHelper;
 
-  public function __construct(WooCommerceHelper $woocommerceHelper = null) {
-    $wp = new WPFunctions;
-    $this->maxExcerptLength = $wp->applyFilters('mailpoet_newsletter_post_excerpt_length', $this->maxExcerptLength);
+  /** @var WPFunctions */
+  private $wp;
+
+  public function __construct(
+    WooCommerceHelper $woocommerceHelper = null
+  ) {
+    $this->wp = new WPFunctions;
+    $this->maxExcerptLength = $this->wp->applyFilters('mailpoet_newsletter_post_excerpt_length', $this->maxExcerptLength);
     $this->woocommerceHelper = $woocommerceHelper ?: new WooCommerceHelper();
   }
 
@@ -26,19 +32,19 @@ class PostContentManager {
     if ($displayType === 'titleOnly') {
       return '';
     }
-    if ($this->woocommerceHelper->isWooCommerceActive() && $post->post_type === 'product') { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    if ($this->woocommerceHelper->isWooCommerceActive() && $this->wp->getPostType($post) === 'product') {
       $product = $this->woocommerceHelper->wcGetProduct($post->ID);
       if ($product) {
         return $this->getContentForProduct($product, $displayType);
       }
     }
     if ($displayType === 'excerpt') {
-      if (!empty($post->post_excerpt)) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
-        return self::stripShortCodes($post->post_excerpt); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+      if ($this->wp->hasExcerpt($post)) {
+        return self::stripShortCodes($this->wp->getTheExcerpt($post));
       }
-      return $this->generateExcerpt($post->post_content); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+      return $this->generateExcerpt($post->post_content); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
     }
-    return self::stripShortCodes($post->post_content); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    return self::stripShortCodes($post->post_content); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
   }
 
   public function filterContent($content, $displayType, $withPostClass = true) {
@@ -69,7 +75,15 @@ class PostContentManager {
 
     $content = strip_tags($content, implode('', $tagsNotBeingStripped));
     if ($withPostClass) {
-      $content = str_replace('<p', '<p class="' . self::WP_POST_CLASS . '"', WPFunctions::get()->wpautop($content));
+      $dOMParser = new pQuery();
+      $DOM = $dOMParser->parseStr(WPFunctions::get()->wpautop($content));
+      $paragraphs = $DOM->query('p');
+      foreach ($paragraphs as $paragraph) {
+        // We replace the class attribute to avoid conflicts in the newsletter editor
+        $paragraph->removeAttr('class');
+        $paragraph->addClass(self::WP_POST_CLASS);
+      }
+      $content = $DOM->__toString();
     } else {
       $content = WPFunctions::get()->wpautop($content);
     }

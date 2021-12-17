@@ -154,22 +154,22 @@ function find_min_shipping_price(items, default_method) {
     return result;
 }
 
-function fill_modal_shipping_info(product_id, country_from_list, country_from, country_to, items, page = 'search', default_method = '', onSelectCallback = null) {
+function fill_modal_shipping_info(product_id, country_from_list, country_from, country_to, items, page = 'search', default_method = '', onSelectCallback = null) {    
     const tmp_data = { product_id, country_from_list, country_from, country_to, 'shipping': items, page, default_method, onSelectCallback };
     jQuery(".modal-shipping").data(tmp_data);
 
-    jQuery('#modal-country-from-select').html('')
+    jQuery('#a2w-modal-country-from-select').html('')
     if(country_from_list.length>0){
         jQuery(".modal-shipping").addClass('with-country-from')
         jQuery.each(country_from_list, function (i, c) {
-            jQuery('#modal-country-from-select').append('<option value="'+c+'">'+c+'</option>')
+            jQuery('#a2w-modal-country-from-select').append('<option value="'+c+'">'+c+'</option>')
         });
-        jQuery('#modal-country-from-select').val(country_from).trigger('change');
+        jQuery('#a2w-modal-country-from-select').val(country_from).trigger('change');
     }else{
         jQuery(".modal-shipping").removeClass('with-country-from')
     }
 
-    jQuery('#modal-country-select').val(country_to).trigger('change');
+    jQuery('#a2w-modal-country-select').val(country_to).trigger('change');
 
     const min_shipping_price = find_min_shipping_price(tmp_data.shipping, default_method);
 
@@ -254,6 +254,71 @@ function a2w_get_product_proc(params, callback) {
     }
 }
 
+function a2w_js_update_product(products_to_update, state, on_load_calback) {
+    if (products_to_update.length > 0) {
+        var data = products_to_update.shift();
+
+        const a2w_get_product_proc = function(params, callback) {
+            if (typeof a2w_get_product === "function") {
+                a2w_get_product(params, callback);
+            } else {
+                callback('error', false, 'Please install and activate the ali2woo chrome extension in your browser: <a href="' + a2w_wc_pl_script.chrome_url + '">Get Chrome Extension</a>');
+            }
+        }
+
+        const post_import = function (post_data = {}) {
+            jQuery.post(ajaxurl, post_data).done(function (response) {
+                var json = jQuery.parseJSON(response);
+                if (json.state !== 'ok') {
+                    console.log(json);
+                }
+
+                if (json.state === 'error') {
+                    state.update_error_cnt += data.ids.length;
+                } else {
+                    state.update_error_cnt += json.update_state.error;
+                    state.update_cnt += json.update_state.ok;
+                }
+
+                if (on_load_calback) {
+                    on_load_calback(json.state, state);
+                }
+
+                a2w_js_update_product(products_to_update, state, on_load_calback);
+            }).fail(function (xhr, status, error) {
+                console.log(error);
+                state.update_error_cnt += data.ids.length;
+
+                if (on_load_calback) {
+                    on_load_calback('error', state);
+                }
+
+                a2w_js_update_product(products_to_update, state, on_load_calback);
+            });
+        }
+
+
+        if (a2w_wc_pl_script.chrome_ext_import && data.action == 'a2w_sync_products') {
+            var external_id = jQuery('#a2w-' + data.ids[0]).attr('data-external-id');
+            a2w_get_product_proc({ id: external_id, locale: a2w_wc_pl_script.locale, curr: a2w_wc_pl_script.currency }, function (apd_state, apd, msg) {
+                if (apd_state !== 'error') {
+                    const apd_items = [{ id: external_id, apd }]
+                    post_import({ ...data, apd_items: apd_items })
+                } else {
+                    console.log('Error! a2w_get_product: ', msg);
+                    state.update_error_cnt += data.ids.length;
+                    if (on_load_calback) {
+                        on_load_calback('error', state);
+                    }
+                    a2w_js_update_product(products_to_update, state, on_load_calback);
+                }
+            });
+        } else {
+            post_import(data)
+        }
+    }
+}
+
 function Utils() { }
 Utils.prototype = {
     constructor: Utils,
@@ -278,10 +343,43 @@ var Utils = new Utils();
             $("#chrome-notify").show();
         }
 
-        $(".country_list").select2();
+        /* ##################### Sync Product with AliExpress (Product Detail Page) ############### */
 
-        $("#a2w_local_currency").select2();
-        $("#a2w_import_language").select2();
+        var a2w_update_action_lock = false;
+
+        $(".sync-ali-product").click(function (e) {
+
+            e.preventDefault();
+
+            if (!a2w_update_action_lock){
+                a2w_update_action_lock = true;
+                var products_to_update = [];
+                var data = { 'action':  'a2w_sync_products', 'ids': [] }
+                data.ids.push($(this).data('id'));
+
+                if (data.ids.length > 0) {
+                    products_to_update.push(data);
+
+                    var on_load = function (response_state, state) {
+                        if ((state.update_cnt + state.update_error_cnt) === state.num_to_update) {
+                            a2w_update_action_lock = false;
+                            alert(a2w_sync_data.lang.sync_successfully);
+                            location.reload();
+                        } else {
+                            alert(a2w_sync_data.lang.sync_failed);
+                        }
+                    };
+
+                    var state = { num_to_update: 1, update_cnt: 0, update_error_cnt: 0 };
+                    a2w_js_update_product(products_to_update, state, on_load);
+                }
+            }
+        });
+        /* ######################################################################################## */
+
+
+
+        $(".country_list").select2();
 
         $("img.lazy").lazyload && $("img.lazy").lazyload({ effect: "fadeIn" });
 
@@ -338,6 +436,13 @@ var Utils = new Utils();
             return false;
         });
 
+        jQuery("#a2w-change-product-supplier").change(function () {
+            jQuery("#a2w-override-warning").toggle();
+            const product = $(".modal-override-product").data();
+            fill_override_form($('#a2w-change-product-supplier').is(':checked'), product.override_data)
+            return true;
+        });
+
         $('#a2w-override-select-products').select2({
             minimumInputLength: 3,
             allowClear: true,
@@ -369,13 +474,62 @@ var Utils = new Utils();
             }
         });
 
+        function fill_override_form(changeSupplier, overrideData) {
+            if (!overrideData) return;
+            
+            const oldVariations = changeSupplier ? overrideData.variations : overrideData.order_variations
+
+            if (oldVariations.length > 0) {
+                $('.modal-override-product .override-order-variations').html('');
+                if(!changeSupplier) { 
+                    let total_orders = 0;
+                    $.each(oldVariations, function (i, variation) { total_orders += parseInt(variation.cnt); });
+                    $('.modal-override-product .override-order-variations').html('<div class="a2w-info" style="margin-top: 12px;">You have <b>' + total_orders + ' unfulfilled orders</b> of the product are you trying to override</div>');                                
+                }
+
+                // render variation override                            
+                $.each(oldVariations, function (i, variation) {
+                    if (i == 0) {
+                        $('.modal-override-product .override-order-variations').append('<div class="override-items" style="margin-top: 0px;" data-variation-id="' + variation.variation_id + '"><div class="override-item"><div class="item-title" style="font-weight: bold;">Old variations</div><div class="item-body"><div class="a2w-item-override"><img src="' + variation.thumbnail + '"/><div class="product-title">' + variation.variation_attributes + '<br/><span>In ' + variation.cnt + ' orders</span></div></div></div></div><div class="a2w-icon-arrow-right variation-delimiter"></div><div class="override-item"><div class="item-title" style="font-weight: bold;">New variations</div><div class="item-body"><select style="width:100%" class="form-control override-order-variation" data-placeholder="Search variations"></select></div></div></div>');
+                    } else {
+                        $('.modal-override-product .override-order-variations').append('<div class="override-items" style="margin-top: 0px;" data-variation-id="' + variation.variation_id + '"><div class="override-item"><div class="item-body"><div class="a2w-item-override"><img src="' + variation.thumbnail + '"/><div class="product-title">' + variation.variation_attributes + '<br/><span>In ' + variation.cnt + ' orders</span></div></div></div></div><div class="a2w-icon-arrow-right variation-delimiter"></div><div class="override-item"><div class="item-body"><select style="width:100%" class="form-control override-order-variation" data-placeholder="Search variations"></select></div></div></div>');
+                    }
+                });
+
+                const product = $(".modal-override-product").data();
+                const variations_data = product.sku_products.variations.map(function (v) { return { id: v.id, text: v.attributes_names.join('#'), thumb: v.image } });
+                $(".override-order-variations .override-order-variation").select2({
+                    allowClear: true,
+                    data: variations_data,
+                    templateResult: function (product) {
+                        if (product.id) {
+                            return $('<div class="a2w-item-override dd"><img src="' + product.thumb + '"/><div class="product-title">' + product.text + '</div></div>');
+                        } else {
+                            return product.text;
+                        }
+                    },
+                    templateSelection: function (product) {
+                        if (product.id) {
+                            return $('<div class="a2w-item-override dd"><img src="' + product.thumb + '"/><div class="product-title">' + product.text + '</div></div>');
+                        } else {
+                            return product.text;
+                        }
+                    }
+                }).val(null).trigger('change');
+
+                $('.modal-override-product .override-order-variations').show();
+            } else {
+                $('.modal-override-product .override-order-variations').hide();
+                $('.modal-override-product .do-override-product').removeAttr('disabled');
+            }
+        }
+
         $('#a2w-override-select-products').on('change', function () {
             const productId = $('#a2w-override-select-products').val();
             if (productId) {
                 $('.modal-override-product .override-options').show();
 
-                const data = { action: 'a2w_override_order_variations', product_id: productId };
-
+                const data = { action: 'a2w_override_variations', product_id: productId };
                 jQuery.post(ajaxurl, data).done(function (response) {
                     let json = jQuery.parseJSON(response);
                     if (json.state !== 'ok') {
@@ -383,50 +537,13 @@ var Utils = new Utils();
                         $(".modal-override-product .override-error").html('<div class="a2w-danger">' + json.message + '</div>');
                         $('.modal-override-product .do-override-product').attr('disabled', 'disabled');
                     } else {
-                        if (json.order_variations.length > 0) {
-                            let total_orders = 0;
-                            $.each(json.order_variations, function (i, variation) {
-                                total_orders += variation.cnt;
-                            });
+                        const changeSupplier = $('#a2w-change-product-supplier').is(':checked')
 
-                            // render variation override
-                            $('.modal-override-product .override-order-variations').html('<div class="a2w-info" style="margin-top: 12px;">You have <b>' + total_orders + ' unfulfilled orders</b> of the product are you trying to override</div>');
-                            $.each(json.order_variations, function (i, variation) {
-                                if (i == 0) {
+                        const product = $(".modal-override-product").data();
+                        product.override_data = json
+                        $(".modal-override-product").data(product)
 
-                                    $('.modal-override-product .override-order-variations').append('<div class="override-items" style="margin-top: 0px;" data-variation-id="' + variation.variation_id + '"><div class="override-item"><div class="item-title" style="font-weight: bold;">Old variations</div><div class="item-body"><div class="a2w-item-override"><img src="' + variation.thumbnail + '"/><div class="product-title">' + variation.variation_attributes + '<br/><span>In ' + variation.cnt + ' orders</span></div></div></div></div><div class="a2w-icon-arrow-right variation-delimiter"></div><div class="override-item"><div class="item-title" style="font-weight: bold;">New variations</div><div class="item-body"><select style="width:100%" class="form-control override-order-variation" data-placeholder="Search variations"></select></div></div></div>');
-                                } else {
-                                    $('.modal-override-product .override-order-variations').append('<div class="override-items" style="margin-top: 0px;" data-variation-id="' + variation.variation_id + '"><div class="override-item"><div class="item-body"><div class="a2w-item-override"><img src="' + variation.thumbnail + '"/><div class="product-title">' + variation.variation_attributes + '<br/><span>In ' + variation.cnt + ' orders</span></div></div></div></div><div class="a2w-icon-arrow-right variation-delimiter"></div><div class="override-item"><div class="item-body"><select style="width:100%" class="form-control override-order-variation" data-placeholder="Search variations"></select></div></div></div>');
-                                }
-
-                            });
-
-                            const product = $(".modal-override-product").data();
-                            const variations_data = product.sku_products.variations.map(function (v) { return { id: v.id, text: v.attributes_names.join('#'), thumb: v.image } });
-                            $(".override-order-variations .override-order-variation").select2({
-                                allowClear: true,
-                                data: variations_data,
-                                templateResult: function (product) {
-                                    if (product.id) {
-                                        return $('<div class="a2w-item-override dd"><img src="' + product.thumb + '"/><div class="product-title">' + product.text + '</div></div>');
-                                    } else {
-                                        return product.text;
-                                    }
-                                },
-                                templateSelection: function (product) {
-                                    if (product.id) {
-                                        return $('<div class="a2w-item-override dd"><img src="' + product.thumb + '"/><div class="product-title">' + product.text + '</div></div>');
-                                    } else {
-                                        return product.text;
-                                    }
-                                }
-                            }).val(null).trigger('change');
-
-                            $('.modal-override-product .override-order-variations').show();
-                        } else {
-                            $('.modal-override-product .override-order-variations').hide();
-                            $('.modal-override-product .do-override-product').removeAttr('disabled');
-                        }
+                        fill_override_form(changeSupplier, json)
                     }
 
                 }).fail(function (xhr, status, error) {
@@ -463,10 +580,10 @@ var Utils = new Utils();
             const external_id = $(this).parents('.modal-override-product').attr('id');
             let productDiv = $('.product[data-id="' + external_id + '"]');
 
-            const order_variations = []
+            const variations = []
             $(".override-order-variations .override-order-variation").each(function () {
                 if ($(this).val()) {
-                    order_variations.push({ variation_id: $(this).parents('.override-items').attr('data-variation-id'), external_variation_id: $(this).val() });
+                    variations.push({ variation_id: $(this).parents('.override-items').attr('data-variation-id'), external_variation_id: $(this).val() });
                 }
             });
 
@@ -474,9 +591,10 @@ var Utils = new Utils();
                 action: 'a2w_override_product',
                 product_id: $('#a2w-override-select-products').val(),
                 external_id: external_id,
+                change_supplier: $('#a2w-change-product-supplier').is(':checked'),
                 override_images: $('#a2w-override-images').is(':checked'),
                 override_title_description: $('#a2w-override-title-description').is(':checked'),
-                order_variations: order_variations
+                variations: variations
             };
 
             jQuery.post(ajaxurl, data).done(function (response) {
@@ -571,7 +689,7 @@ var Utils = new Utils();
 
                 $.each(product.sku_products.attributes, function (i, attr) {
                     const attrKeys = Object.keys(attr.value).filter(k => !attr.value[k].original_id)
-                    if (attrKeys.length > 1) {
+                    if (attrKeys.length > 0) {
                         let values = attrKeys.map(function (k) { return attr.value[k] && attr.value[k].name }) || [];
                         $('.modal-split-product .split-attributes').append('<div class="split-attr"><div class="row" style="display:flex;align-items: center;"><div class="col-xs-2" style="display:flex;align-items: center;"><input type="radio" id="' + attr.id + '" name="split_attr" value="' + attr.id + '" count="' + values.length + '" ' + (i === 0 ? 'checked="checked"' : '') + '/><label for="' + attr.id + '">' + attr.name + '</label></div><div class="col-xs-10">We will create ' + values.length + ' products each containing only distinct "' + attr.name + '" variants (' + values.join(', ') + ')</div></div></div>');
                     }
@@ -698,7 +816,7 @@ var Utils = new Utils();
                     if (json.state !== 'ok') {
                         console.log(json);
                     } else {
-                        const shiping_to_name = $("#modal-country-select option:selected").text()
+                        const shiping_to_name = $("#a2w-modal-country-select option:selected").text()
                         if (shiping_to_name) {
                             $(product).find('.shipping-country').html(shiping_to_name)
                         }
@@ -711,18 +829,25 @@ var Utils = new Utils();
             }
 
 
-            const country_from_list = product_data.country_from_list.split(';').filter(c=>c)            
-            if (!product_data.country_to || !product_data.shipping) {
-                fill_modal_shipping_info($(this).parents(".product").attr('data-id'), country_from_list, product_data.country_from || "", "", null, 'import', '', onSelectCallback);
-            } else {
-                fill_modal_shipping_info($(this).parents(".product").attr('data-id'), country_from_list, product_data.country_from || "", product_data.country_to || "", product_data.shipping, 'import', product_data.default_method, onSelectCallback);
-            }
+            const product_id = $(this).parents(".product").attr('data-id')
 
+            const country_from_list = product_data.country_from_list.split(';').filter(c=>c)            
+            if (!product_data.country_to) {
+                fill_modal_shipping_info(product_id, country_from_list, product_data.country_from || "", "", null, 'import', '', onSelectCallback);
+            } else if(!product_data.shipping){
+                a2w_load_shipping_info(product_id, product_data.country_from || '', product_data.country_to || '', 'import', function (state, items, default_method, shipping_cost, variations) {
+                    if (state != 'error') {                        
+                        fill_modal_shipping_info(product_id, country_from_list, product_data.country_from || "", product_data.country_to || "", items, 'import', product_data.default_method || default_method, onSelectCallback);
+                    }
+                })
+            }else {
+                fill_modal_shipping_info(product_id, country_from_list, product_data.country_from || "", product_data.country_to || "", product_data.shipping, 'import', product_data.default_method, onSelectCallback);
+            }
             $(".modal-shipping").addClass('opened');
             return false;
         });
 
-        $('#modal-country-from-select').on('change', function () {
+        $('#a2w-modal-country-from-select').on('change', function () {
             const shipping_data = $(".modal-shipping").data();
             if ($(this).val() && $(this).val() != "" && shipping_data.country_from != $(this).val()) {
                 shipping_data.country_from = $(this).val();
@@ -741,7 +866,7 @@ var Utils = new Utils();
             }
         });
 
-        $('#modal-country-select').on('change', function () {
+        $('#a2w-modal-country-select').on('change', function () {
             const shipping_data = $(".modal-shipping").data();
             if ($(this).val() && $(this).val() != "" && shipping_data.country_to != $(this).val()) {
                 shipping_data.country_to = $(this).val();
@@ -836,7 +961,7 @@ var Utils = new Utils();
                 body: 'Are you sure you want add all product to import list?',
                 yes: function () {
                     products_to_import = [];
-                    $('.product-card:not(.product-card--added)').each(function () {
+                    $('.product-card:not(.product-card--added):not(.product-card--promo)').each(function () {
                         products_to_import.push({ 'action': 'a2w_add_to_import', 'id': $(this).attr('data-id') });
                     });
                     if (products_to_import.length > 0) {
@@ -852,9 +977,9 @@ var Utils = new Utils();
                             }
 
                             if (response_state !== 'ok') {
-                                show_notification('Import failed. ' + response_message, true);
+                                show_notification(a2w_common_data.lang.import_failed + ' ' + response_message, true);
                             } else {
-                                show_notification('Imported successfully.');
+                                show_notification(a2w_common_data.lang.imported_successfully);
                                 if ($('.product-card[data-id="' + id + '"]').length > 0) {
                                     $('.product-card[data-id="' + id + '"]').addClass("product-card--added");
                                     $('.product-card[data-id="' + id + '"] .product-card__actions .btn .title').text('Remove from import list');
@@ -879,6 +1004,13 @@ var Utils = new Utils();
 
         $(".product-card").find(".product-card__actions .btn").on("click", function () {
             var _this = $(this);
+
+            if ($(_this).hasClass("promo")){
+                var promo_link = $(_this).closest(".product-card").find('a').prop('href');
+                window.location.href = promo_link;
+                return;
+            }
+
             $(_this).addClass("load");
             if ($(_this).closest(".product-card").hasClass('product-card--added')) {
                 $(_this).addClass("btn-success");
@@ -889,9 +1021,9 @@ var Utils = new Utils();
                     var json = jQuery.parseJSON(response);
                     if (json.state !== 'ok') {
                         console.log(json);
-                        show_notification('Import failed. ' + json.message, true);
+                        show_notification(a2w_common_data.lang.import_failed + ' ' + json.message, true);
                     } else {
-                        show_notification('Imported successfully.');
+                        show_notification(a2w_common_data.lang.imported_successfully);
 
                         $(_this).closest(".product-card").removeClass("product-card--added");
                         $(_this).find(".title").text('Add to import list');
@@ -910,9 +1042,9 @@ var Utils = new Utils();
 
                 var on_import_load = function (id, response_state, response_message, state) {
                     if (response_state !== 'ok') {
-                        show_notification('Import failed. ' + response_message, true);
+                        show_notification(a2w_common_data.lang.import_failed + ' ' + response_message, true);
                     } else {
-                        show_notification('Imported successfully.');
+                        show_notification(a2w_common_data.lang.imported_successfully);
                         if ($('.product-card[data-id="' + id + '"]').length > 0) {
                             $('.product-card[data-id="' + id + '"]').addClass("product-card--added");
                             $('.product-card[data-id="' + id + '"] .product-card__actions .btn .title').text('Remove from import list');
@@ -953,9 +1085,9 @@ var Utils = new Utils();
                 var on_import_load = function (id, response_state, response_message, state) {
                     if (response_state !== 'ok') {
 
-                        show_notification('Import failed. ' + response_message, true);
+                        show_notification(a2w_common_data.lang.import_failed + ' ' + response_message, true);
                     } else {
-                        show_notification('Imported successfully.');
+                        show_notification(a2w_common_data.lang.imported_successfully);
                         if ($('.product-card[data-id="' + id + '"]').length > 0) {
                             $('.product-card[data-id="' + id + '"]').addClass("product-card--added");
                             $('.product-card[data-id="' + id + '"] .product-card__actions .btn .title').text('Remove from import list');
@@ -995,9 +1127,9 @@ var Utils = new Utils();
         $("#search-trigger").on("click", function () {
             $(".search-panel-advanced").slideToggle("fast", function () {
                 if ($(this).is(":visible")) {
-                    $("#search-trigger").html("Simple");
+                    $("#search-trigger").html(a2w_common_data.lang.simple);
                 } else {
-                    $("#search-trigger").html("Advance");
+                    $("#search-trigger").html(a2w_common_data.lang.advance);
                 }
             });
         });
@@ -1054,7 +1186,7 @@ var Utils = new Utils();
         }
 
         $('#a2w-import-actions .check-all').change(function () {
-            var checkboxes = $('.a2w-product-import-list .select :checkbox').not($(this));
+            var checkboxes = $('.a2w-product-import-list .select :checkbox').not($(this)).not(":disabled");
             if ($(this).is(':checked')) {
                 checkboxes.prop('checked', true);
             } else {
@@ -1258,6 +1390,13 @@ var Utils = new Utils();
 
         jQuery(".a2w-product-import-list").on("click", ".post_import", function () {
             var this_btn = this;
+
+            if ($(this_btn).hasClass("promo")){
+                var promo_link = $(this_btn).closest(".product-promo").find('a.blue-color').prop('href');
+                window.location.href = promo_link;
+                return false;
+            }
+
             var product = $(this).parents('.product');
             var products_to_import = [];
             var data = { 'action': 'a2w_push_product', 'id': $(product).attr('data-id') };

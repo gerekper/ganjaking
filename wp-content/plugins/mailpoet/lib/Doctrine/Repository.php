@@ -5,6 +5,8 @@ namespace MailPoet\Doctrine;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoetVendor\Doctrine\Common\Collections\Collection;
+use MailPoetVendor\Doctrine\Common\Collections\Criteria;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 use MailPoetVendor\Doctrine\ORM\EntityRepository as DoctrineEntityRepository;
 use MailPoetVendor\Doctrine\ORM\Mapping\ClassMetadata;
@@ -16,10 +18,10 @@ abstract class Repository {
   /** @var EntityManager */
   protected $entityManager;
 
-  /** @var ClassMetadata */
+  /** @var ClassMetadata<object> */
   protected $classMetadata;
 
-  /** @var DoctrineEntityRepository */
+  /** @var DoctrineEntityRepository<T> */
   protected $doctrineRepository;
 
   /** @var string[] */
@@ -42,6 +44,14 @@ abstract class Repository {
    */
   public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) {
     return $this->doctrineRepository->findBy($criteria, $orderBy, $limit, $offset);
+  }
+
+  /**
+   * @param Criteria $criteria
+   * @return Collection<int, T>
+   */
+  public function matching(Criteria $criteria) {
+    return $this->doctrineRepository->matching($criteria);
   }
 
   public function countBy(array $criteria): int {
@@ -82,10 +92,10 @@ abstract class Repository {
   public function truncate() {
     $tableName = $this->classMetadata->getTableName();
     $connection = $this->entityManager->getConnection();
-    $connection->query('SET FOREIGN_KEY_CHECKS=0');
+    $connection->executeQuery('SET FOREIGN_KEY_CHECKS=0');
     $q = "TRUNCATE $tableName";
-    $connection->executeUpdate($q);
-    $connection->query('SET FOREIGN_KEY_CHECKS=1');
+    $connection->executeStatement($q);
+    $connection->executeQuery('SET FOREIGN_KEY_CHECKS=1');
   }
 
   /**
@@ -104,6 +114,17 @@ abstract class Repository {
 
   public function flush() {
     $this->entityManager->flush();
+  }
+
+  public function getReference($id) {
+    return $this->entityManager->getReference($this->getEntityClassName(), $id);
+  }
+
+  /**
+   * @param T $entity
+   */
+  public function detach($entity) {
+    $this->entityManager->detach($entity);
   }
 
   /**

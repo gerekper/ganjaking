@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Validates configurations against scenarios.
  *
  * @class    WC_CP_Scenarios_Manager
- * @version  8.0.2
+ * @version  8.3.4
  */
 class WC_CP_Scenarios_Manager {
 
@@ -643,8 +643,9 @@ class WC_CP_Scenarios_Manager {
 	public function exist() {
 
 		$cg_ids     = $this->get_ids_by_action( 'compat_group' );
+		$co_ids     = $this->get_ids_by_action( 'conditional_options' );
 		$cc_ids     = $this->get_ids_by_action( 'conditional_components' );
-		$active_ids = array_unique( array_merge( $cg_ids, $cc_ids ) );
+		$active_ids = array_unique( array_merge( $cg_ids, $co_ids, $cc_ids ) );
 
 		// At least 1 scenario will always exist. If it's the '0' ID scenario, then no conditional logic exists whatsoever.
 		if ( 1 === sizeof( $active_ids ) && 1 === sizeof( $cg_ids ) && '0' === current( $cg_ids ) ) {

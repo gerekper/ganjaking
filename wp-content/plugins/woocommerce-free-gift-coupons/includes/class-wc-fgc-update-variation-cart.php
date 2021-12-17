@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Main WC_FGC_Update_Variation_Cart Class
  *
- * @version 3.1.0
+ * @version 3.3.2
  */
 class WC_FGC_Update_Variation_Cart {
 
@@ -96,6 +96,10 @@ class WC_FGC_Update_Variation_Cart {
 			// Enqueue needed css for it.
 			wp_enqueue_style( 'wc_fgc_style', plugins_url( 'assets/css/frontend/frontend-variation-cart' . $suffix . '.css' , __DIR__ ), array(), WC_Free_Gift_Coupons::$version );
 			wp_style_add_data( 'wc_fgc_style', 'rtl', 'replace' );
+
+			if ( $suffix ) {
+				wp_style_add_data( 'wc_fgc_style', 'suffix', '.min' );
+			}
 
 			// Change the variable add to cart error pop up notice text.
 			add_filter( 'woocommerce_get_script_data', array( __CLASS__, 'change_variation_select_alert' ), 10, 2 );
@@ -525,7 +529,7 @@ class WC_FGC_Update_Variation_Cart {
 						$cart_item['data']->get_permalink( $cart_item )
 					);
 
-					$phrase .= '<a class="wc-fgc-edit-in-cart wc-fgc-edit-var-link" href="' . esc_url( $edit_in_cart_link ) . '" data-cart_item_key="' . esc_attr( $cart_item_key ) . '" data-product_id="' . esc_attr( $cart_item['product_id'] ) . '" data-variation_id="' . esc_attr( $cart_item['variation_id'] ) . '" data-pre_selected_attributes="'. htmlspecialchars( wp_json_encode( $pre_selected_attributes ) ) .'">' . esc_html( $cart_item['data']->get_name() ) . '</a>' . $word_seperator;
+					$phrase .= '<a class="wc-fgc-edit-in-cart wc-fgc-edit-var-link" href="' . esc_url( $edit_in_cart_link ) . '" data-cart_item_key="' . esc_attr( $cart_item_key ) . '" data-product_id="' . esc_attr( $cart_item['product_id'] ) . '" data-variation_id="' . esc_attr( $cart_item['variation_id'] ) . '" data-pre_selected_attributes="' . htmlspecialchars( wp_json_encode( $pre_selected_attributes ) ) . '">' . esc_html( $cart_item['data']->get_name() ) . '</a>' . $word_seperator;
 
 					++$count;
 				}

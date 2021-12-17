@@ -18,7 +18,11 @@ class Updater {
   /** @var SettingsController */
   private $settings;
 
-  public function __construct($pluginName, $slug, $version) {
+  public function __construct(
+    $pluginName,
+    $slug,
+    $version
+  ) {
     $this->plugin = WPFunctions::get()->pluginBasename($pluginName);
     $this->slug = $slug;
     $this->version = $version;
@@ -36,11 +40,13 @@ class Updater {
 
     $latestVersion = $this->getLatestVersion();
 
-    if (isset($latestVersion->new_version)) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
-      if (version_compare($this->version, $latestVersion->new_version, '<')) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    if (isset($latestVersion->new_version)) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      if (version_compare($this->version, $latestVersion->new_version, '<')) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
         $updateTransient->response[$this->plugin] = $latestVersion;
+      } else {
+        $updateTransient->no_update[$this->plugin] = $latestVersion; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
       }
-      $updateTransient->last_checked = time(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+      $updateTransient->last_checked = time(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
       $updateTransient->checked[$this->plugin] = $this->version;
     }
 

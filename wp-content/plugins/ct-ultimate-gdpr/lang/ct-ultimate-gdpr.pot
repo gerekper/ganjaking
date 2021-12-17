@@ -2,15 +2,15 @@
 # This file is distributed under the same license as the Ultimate GDPR & CCPA plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate GDPR & CCPA 3.2\n"
+"Project-Id-Version: Ultimate GDPR & CCPA 3.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ct-ultimate-gdpr\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-11-02T14:46:53+01:00\n"
-"PO-Revision-Date: 2021-11-02T14:46:53+01:00\n"
+"POT-Creation-Date: 2021-12-16T12:57:12+01:00\n"
+"PO-Revision-Date: 2021-12-16T12:57:12+01:00\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: ct-ultimate-gdpr\n"
 
@@ -1201,7 +1201,7 @@ msgstr ""
 msgid "Cookies detected: %s, Cookies saved: %s"
 msgstr ""
 
-#: includes/controller/controller-cookie.php:6008
+#: includes/controller/controller-cookie.php:6023
 msgid "There was a problem with connecting to the cookie scanner. Skipped this url."
 msgstr ""
 

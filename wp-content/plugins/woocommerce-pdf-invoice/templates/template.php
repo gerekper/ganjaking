@@ -10,29 +10,28 @@
     }
 
     @page { 
-  		margin: 480px 50px 100px 50px;
-  	} 
+      margin: 480px 50px 100px 50px;
+    } 
     #header { 
-  		position: fixed; 
-  		left: 0px; 
-  		top: -460px; 
-  		right: 0px; 
-  		height: 480px; 
-  		text-align: center;
-  	}
-    [[PDFPAIDINFULLOVERLAY]]
+      position: fixed; 
+      left: 0px; 
+      top: -460px; 
+      right: 0px; 
+      height: 480px; 
+      text-align: center;
+    }
     #footer { 
-  		position: fixed; 
-  		left: 0px; 
-  		bottom: -150px; 
-  		right: 0px; 
-  		height: 100px; 
-  		font-size:11px; 
-  		text-align: center;
-  	} 
-  	#content { 
-  		font-size:10px;
-  	}
+      position: fixed; 
+      left: 0px; 
+      bottom: -150px; 
+      right: 0px; 
+      height: 100px; 
+      font-size:11px; 
+      text-align: center;
+    } 
+    #content { 
+      font-size:10px;
+    }
 
     #logo img {
       max-width:340px;
@@ -99,33 +98,34 @@
 
     }
 
+    [[PDFPAIDINFULLOVERLAY]]
+
     [[PDFCURRENCYSYMBOLFONT]]
   </style> 
 </head>
-  <body[[PDFRTL]]> 
-    <div class="paidinfull">
+  <body[[PDFRTL]]>
       <div id="header"> 
         <table table width="100%">
 
-        	<tr>
-            	<td valign="top" width="50%" id="logo">[[PDFLOGO]]</td>
-            	<td valign="top" width="50%" id="company-info">[[PDFCOMPANYNAME]]<br />[[PDFCOMPANYDETAILS]]<br /></td>
-        	</tr>
+          <tr>
+              <td valign="top" width="50%" id="logo">[[PDFLOGO]]</td>
+              <td valign="top" width="50%" id="company-info">[[PDFCOMPANYNAME]]<br />[[PDFCOMPANYDETAILS]]<br /></td>
+          </tr>
 
         </table>
 
         <table table width="100%">
-        	<tr>
+          <tr>
             <td width="20%" valign="top" id="invoicenumberheading">[[PDFINVOICENUMHEADING]]</td>
             <td width="30%" valign="top" id="invoicenumber">[[PDFINVOICENUM]]</td>
             <td width="20%" valign="top" id="ordernumberheading">[[PDFORDERENUMHEADING]]</td>
             <td width="30%" valign="top" id="ordernumber">[[PDFORDERENUM]]</td>
-        	</tr>
+          </tr>
 
           <tr>
-      	   	<td valign="top" id="invoicedateheading">[[PDFINVOICEDATEHEADING]]</td>
+            <td valign="top" id="invoicedateheading">[[PDFINVOICEDATEHEADING]]</td>
             <td valign="top" id="invoicedate">[[PDFINVOICEDATE]]</td>
-          	<td valign="top" id="orderdateheading">[[PDFORDERDATEHEADING]]</td>
+            <td valign="top" id="orderdateheading">[[PDFORDERDATEHEADING]]</td>
             <td valign="top" id="orderdate">[[PDFORDERDATE]]</td>
           </tr>
     
@@ -176,8 +176,6 @@
         </table>
 
       </div>
-
-    </div>
 
 </body> 
 </html> 

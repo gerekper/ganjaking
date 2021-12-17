@@ -34,6 +34,9 @@ class WC_PB_BS_Module extends WCS_PB_Abstract_Module {
 
 		// Product-related functions and hooks.
 		require_once( WC_PB_ABSPATH . 'includes/modules/bundle-sells/includes/class-wc-pb-bs-product.php' );
+
+		// REST API hooks.
+		require_once( WC_PB_ABSPATH . 'includes/modules/bundle-sells/includes/class-wc-pb-bs-rest-api.php' );
 	}
 
 	/**

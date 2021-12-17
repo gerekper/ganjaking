@@ -5,10 +5,10 @@ namespace MailPoet\Cron\Workers;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Entities\StatisticsClickEntity;
 use MailPoet\Entities\StatisticsOpenEntity;
 use MailPoet\Entities\SubscriberEntity;
-use MailPoet\Models\ScheduledTask;
 use MailPoet\Util\DBCollationChecker;
 use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
@@ -42,15 +42,16 @@ class SubscribersLastEngagement extends SimpleWorker {
     $this->wooCommereHelper = $wooCommereHelper;
   }
 
-  public function processTaskStrategy(ScheduledTask $task, $timer): bool {
+  public function processTaskStrategy(ScheduledTaskEntity $task, $timer): bool {
     $meta = $task->getMeta();
     $minId = $meta['nextId'] ?? 1;
     $highestId = $this->getHighestSubscriberId();
     while ($minId <= $highestId) {
       $maxId = $minId + self::BATCH_SIZE;
       $this->processBatch($minId, $maxId);
-      $task->meta = ['nextId' => $maxId];
-      $task->save();
+      $task->setMeta(['nextId' => $maxId]);
+      $this->scheduledTasksRepository->persist($task);
+      $this->scheduledTasksRepository->flush();
       $this->cronHelper->enforceExecutionLimit($timer); // Throws exception and interrupts process if over execution limit
       $minId = $maxId;
     }
@@ -79,7 +80,7 @@ class SubscribersLastEngagement extends SimpleWorker {
       UPDATE $subscribersTable as mps
         LEFT JOIN (SELECT max(created_at) as created_at, subscriber_id FROM $statisticsOpensTable as mpsoinner GROUP BY mpsoinner.subscriber_id) as mpso ON mpso.subscriber_id = mps.id
         LEFT JOIN (SELECT max(created_at) as created_at, subscriber_id FROM $statisticsClicksTable as mpscinner GROUP BY mpscinner.subscriber_id) as mpsc ON mpsc.subscriber_id = mps.id
-      SET mps.last_engagement_at = NULLIF(GREATEST(COALESCE(mpso.created_at, 0), COALESCE(mpsc.created_at,0)), 0)
+      SET mps.last_engagement_at = NULLIF(GREATEST(COALESCE(mpso.created_at, '0'), COALESCE(mpsc.created_at, '0')), '0')
       WHERE mps.last_engagement_at IS NULL AND mps.id >= $minSubscriberId AND  mps.id < $maxSubscriberId;
     ";
 

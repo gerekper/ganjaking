@@ -209,7 +209,7 @@ function wc_store_credit_log( $message, $level = 'notice', $handle = 'wc_store_c
 /**
  * Gets the proportional discounts for the specified amounts.
  *
- * The discounts are calculated as a percentage of total discounting amount.
+ * The discounts are calculated as a percentage of the total discounting amount.
  *
  * @since 3.0.0
  *
@@ -222,14 +222,38 @@ function wc_store_credit_get_proportional_discounts( $discounting_amounts, $tota
 	$discounts = array();
 
 	$total_discounting_amount = array_sum( $discounting_amounts );
-	$total_discount           = min( $total_discount, $total_discounting_amount );
+	$total_discount           = (float) min( $total_discount, $total_discounting_amount );
+	$cent_precision           = pow( 10, $precision );
+	$trimmed_discounts        = array();
 
 	foreach ( $discounting_amounts as $key => $discounting_amount ) {
-		if ( $total_discounting_amount > 0 ) {
-			$discount_percent  = ( $discounting_amount / $total_discounting_amount );
-			$discounts[ $key ] = round( $total_discount * $discount_percent, $precision );
-		} else {
+		if ( $total_discounting_amount <= 0 ) {
 			$discounts[ $key ] = 0;
+		} else {
+			// Trim the discounts with high precision instead of rounding them to avoid discrepancies with the total discount.
+			$discount_percent = ( $discounting_amount / $total_discounting_amount );
+			$raw_discount     = ( $total_discount * $discount_percent * $cent_precision );
+			$trimmed_discount = floor( $raw_discount );
+
+			$trimmed_discounts[ $key ] = ( $raw_discount - $trimmed_discount );
+			$discounts[ $key ]         = ( $trimmed_discount / $cent_precision );
+		}
+	}
+
+	// Round the result to avoid weird floating numbers.
+	$remaining = round( $total_discount - array_sum( $discounts ), $precision );
+
+	// Apply the remaining cents.
+	if ( $remaining > 0 ) {
+		arsort( $trimmed_discounts );
+
+		// The remaining cents are always lower or equals to the number of items.
+		$increment = ( 1 / $cent_precision );
+		$keys      = array_keys( $trimmed_discounts );
+		$keys      = array_slice( $keys, 0, ( $remaining / $increment ) );
+
+		foreach ( $keys as $key ) {
+			$discounts[ $key ] += $increment;
 		}
 	}
 

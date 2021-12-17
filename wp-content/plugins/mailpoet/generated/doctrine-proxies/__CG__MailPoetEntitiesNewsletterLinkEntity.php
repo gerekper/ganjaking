@@ -237,6 +237,17 @@ class NewsletterLinkEntity extends \MailPoet\Entities\NewsletterLinkEntity imple
     /**
      * {@inheritDoc}
      */
+    public function toArray(): array
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'toArray', []);
+
+        return parent::toArray();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getId()
     {
         if ($this->__isInitialized__ === false) {

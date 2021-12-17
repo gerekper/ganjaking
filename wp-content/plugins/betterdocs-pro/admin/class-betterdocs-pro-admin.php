@@ -2,7 +2,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://wpdeveloper.net
+ * @link       https://wpdeveloper.com
  * @since      1.0.0
  *
  * @package    Betterdocs_Pro
@@ -17,7 +17,7 @@
  *
  * @package    Betterdocs_Pro
  * @subpackage Betterdocs_Pro/admin
- * @author     WPDeveloper <support@wpdeveloper.net>
+ * @author     WPDeveloper <support@wpdeveloper.com>
  */
 class Betterdocs_Pro_Admin
 {

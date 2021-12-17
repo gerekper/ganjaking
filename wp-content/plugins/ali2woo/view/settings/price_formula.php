@@ -9,7 +9,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
     <div class="pricing-rules-type">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel__header-title"><?php _e('Pricing rules modes', 'ali2woo'); ?></h3>
+                <h3 class="panel__header-title"><?php echo esc_html_e('Pricing rules modes', 'ali2woo'); ?></h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -35,10 +35,10 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
 
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Global pricing rules</h3>
+            <h3 class="panel-title"><?php echo esc_html_e('Global pricing rules', 'ali2woo'); ?></h3>
             <span class="pull-right">
-            <a class="disabled" style="display: none;">You have unsaved changes</a>
-            <a href="#" class="apply-pricing-rules btn">Apply pricing rules to existing products</a></span>
+            <a class="disabled" style="display: none;"><?php echo esc_html_e('You have unsaved changes', 'ali2woo'); ?></a>
+            <a href="#" class="apply-pricing-rules btn"><?php echo esc_html_e('Apply pricing rules to existing products', 'ali2woo'); ?></a></span>
         </div>
 
 
@@ -55,7 +55,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
 
 
                 <div class="col-sm-2 vertical-align">
-                    <h3>Product cost</h3>
+                    <h3><?php echo esc_html_e('Product cost', 'ali2woo'); ?></h3>
                 </div>
                 <div class="col-sm-3 col-md-3 vertical-align">
                     <div class="input-group price-dropdown-group">
@@ -63,14 +63,14 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
 
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php if ($default_formula->sign == '+'): ?>Fixed Markup<?php endif; ?>
-                                <?php if ($default_formula->sign == '='): ?>Custom Price<?php endif; ?>   
-                                <?php if ($default_formula->sign == '*'): ?>Multiplier<?php endif; ?>  <span class="caret"></span>
+                                <?php if ($default_formula->sign == '+'): ?><?php echo esc_html_e('Fixed Markup', 'ali2woo'); ?><?php endif; ?>
+                                <?php if ($default_formula->sign == '='): ?><?php echo esc_html_e('Custom Price', 'ali2woo'); ?><?php endif; ?>   
+                                <?php if ($default_formula->sign == '*'): ?><?php echo esc_html_e('Multiplier', 'ali2woo'); ?><?php endif; ?>  <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right sign">
-                                <li data-sign = "+" <?php if ($default_formula->sign == '+'): ?>style="display: none;"<?php endif; ?>><a>Fixed Markup</a></li>
-                                <li data-sign = "=" <?php if ($default_formula->sign == '='): ?>style="display: none;"<?php endif; ?>><a>Custom Price</a></li>
-                                <li data-sign = "*" <?php if ($default_formula->sign == '*'): ?>style="display: none;"<?php endif; ?>><a>Multiplier</a></li>
+                                <li data-sign = "+" <?php if ($default_formula->sign == '+'): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Fixed Markup', 'ali2woo'); ?></a></li>
+                                <li data-sign = "=" <?php if ($default_formula->sign == '='): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Custom Price', 'ali2woo'); ?></a></li>
+                                <li data-sign = "*" <?php if ($default_formula->sign == '*'): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Multiplier', 'ali2woo'); ?></a></li>
                             </ul>
                         </div><!-- /btn-group -->
                     </div>
@@ -81,7 +81,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                     </svg>
                 </div>
                 <div class="col-sm-2 vertical-align">
-                    <h3 style="width: 135px;">Product price</h3>
+                    <h3 style="width: 135px;"><?php echo esc_html_e('Product price', 'ali2woo'); ?></h3>
                 </div>
                 <div class="col-sm-1 vertical-align">                
                     <div class="info-box" data-placement="left" data-toggle="tooltip" title=""></div>
@@ -95,10 +95,10 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                 </div>
 
                 <div class="col-sm-10 vertical-align switch-col" <?php if ($a2w_use_compared_price_markup): ?>style="display:none;"<?php endif; ?>>
-                    <span class="grey-color" style="">Set your compared at pricing rules</span>
+                    <span class="grey-color" style=""><?php echo esc_html_e('Set your compared at pricing rules', 'ali2woo'); ?></span>
                 </div> 
                 <div class="col-sm-2 vertical-align switch-col" <?php if (!$a2w_use_compared_price_markup): ?>style="display:none;"<?php endif; ?>>
-                    <h3>Product cost</h3>
+                    <h3><?php echo esc_html_e('Product cost', 'ali2woo'); ?></h3>
                 </div>                            
                 <div class="col-sm-3 col-md-3 vertical-align switch-col" <?php if (!$a2w_use_compared_price_markup): ?>style="display:none;"<?php endif; ?>>
                     <div class="input-group price-dropdown-group">
@@ -107,14 +107,14 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
 
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php if ($default_formula->compared_sign == '+'): ?>Fixed Markup<?php endif; ?>
-                                <?php if ($default_formula->compared_sign == '='): ?>Custom Price<?php endif; ?>   
-                                <?php if ($default_formula->compared_sign == '*'): ?>Multiplier<?php endif; ?>  <span class="caret"></span>
+                                <?php if ($default_formula->compared_sign == '+'): ?><?php echo esc_html_e('Fixed Markup', 'ali2woo'); ?><?php endif; ?>
+                                <?php if ($default_formula->compared_sign == '='): ?><?php echo esc_html_e('Custom Price', 'ali2woo'); ?><?php endif; ?>   
+                                <?php if ($default_formula->compared_sign == '*'): ?><?php echo esc_html_e('Multiplier', 'ali2woo'); ?><?php endif; ?>  <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right compared_sign">
-                                <li data-sign = "+" <?php if ($default_formula->compared_sign == '+'): ?>style="display: none;"<?php endif; ?>><a>Fixed Markup</a></li>
-                                <li data-sign = "=" <?php if ($default_formula->compared_sign == '='): ?>style="display: none;"<?php endif; ?>><a>Custom Price</a></li>
-                                <li data-sign = "*" <?php if ($default_formula->compared_sign == '*'): ?>style="display: none;"<?php endif; ?>><a>Multiplier</a></li>
+                                <li data-sign = "+" <?php if ($default_formula->compared_sign == '+'): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Fixed Markup', 'ali2woo'); ?></a></li>
+                                <li data-sign = "=" <?php if ($default_formula->compared_sign == '='): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Custom Price', 'ali2woo'); ?></a></li>
+                                <li data-sign = "*" <?php if ($default_formula->compared_sign == '*'): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Multiplier', 'ali2woo'); ?></a></li>
                             </ul>
                         </div><!-- /btn-group -->
                     </div>
@@ -125,10 +125,10 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                     </svg>
                 </div>
                 <div class="col-sm-2 vertical-align switch-col" <?php if (!$a2w_use_compared_price_markup): ?>style="display:none;"<?php endif; ?>>
-                    <h3 style="width: 135px;">Regular price</h3>
+                    <h3 style="width: 135px;"><?php echo esc_html_e('Regular price', 'ali2woo'); ?></h3>
                 </div>
                 <div class="col-sm-1 vertical-align switch-col" <?php if (!$a2w_use_compared_price_markup): ?>style="display:none;"<?php endif; ?>>
-                    <div class="info-box" data-toggle="tooltip" data-placement="left" title=""></div><span class="grey-color" style="display:none;">Set your compared at pricing rules</span>
+                    <div class="info-box" data-toggle="tooltip" data-placement="left" title=""></div><span class="grey-color" style="display:none;"><?php echo esc_html_e('Set your compared at pricing rules', 'ali2woo'); ?></span>
                 </div>
 
             </div>
@@ -137,8 +137,8 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
             <div class="container-flex">
                 <div class="price-rulle-toggle <?php if (!$a2w_use_extended_price_markup): ?>price-rulle-toggle--disabled<?php endif; ?>"></div>
                 <div>
-                    <h3 style="margin: 0; line-height: 24px;">Advanced pricing rules</h3>
-                    <div class="grey-color">Set your product markup depending on cost ranges.</div>
+                    <h3 style="margin: 0; line-height: 24px;"><?php echo esc_html_e('Advanced pricing rules', 'ali2woo'); ?></h3>
+                    <div class="grey-color"><?php echo esc_html_e('Set your product markup depending on cost ranges.', 'ali2woo'); ?></div>
                 </div>
             </div>
             <div class="js-advanced-prices mt20" <?php if (!$a2w_use_extended_price_markup): ?>style="display: none;" <?php else: ?>style="display: block;"<?php endif; ?>>
@@ -147,10 +147,10 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                     <table class="border">
                         <thead>
                             <tr class="border-bottom">
-                                <th colspan="3" width="50%">Cost range</th>
-                                <th width="25%">Markup</th>
+                                <th colspan="3" width="50%"><?php echo esc_html_e('Cost range.', 'ali2woo'); ?></th>
+                                <th width="25%"><?php echo esc_html_e('Markup', 'ali2woo'); ?></th>
                                 <th width="25%" style="white-space: nowrap;">
-                                    <input class="use_compared_price_markup" type="checkbox" <?php if ($a2w_use_compared_price_markup): ?>checked="checked"<?php endif; ?>><span>Regular price markup</span>
+                                    <input class="use_compared_price_markup" type="checkbox" <?php if ($a2w_use_compared_price_markup): ?>checked="checked"<?php endif; ?>><span><?php echo esc_html_e('Regular price markup', 'ali2woo'); ?></span>
                                 </th>
                                 <th>&nbsp;</th>
                             </tr>
@@ -175,14 +175,14 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
 
                                             <div class="input-group-btn">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <?php if ($formula->sign == '+'): ?>Fixed Markup<?php endif; ?>
-                                                    <?php if ($formula->sign == '='): ?>Custom Price<?php endif; ?>   
-                                                    <?php if ($formula->sign == '*'): ?>Multiplier<?php endif; ?>  <span class="caret"></span>
+                                                    <?php if ($formula->sign == '+'): ?><?php echo esc_html_e('Fixed Markup', 'ali2woo'); ?><?php endif; ?>
+                                                    <?php if ($formula->sign == '='): ?><?php echo esc_html_e('Custom Price', 'ali2woo'); ?><?php endif; ?>   
+                                                    <?php if ($formula->sign == '*'): ?><?php echo esc_html_e('Multiplier', 'ali2woo'); ?><?php endif; ?>  <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-right sign">
-                                                    <li data-sign = "+" <?php if ($formula->sign == '+'): ?>style="display: none;"<?php endif; ?>><a>Fixed Markup</a></li>
-                                                    <li data-sign = "=" <?php if ($formula->sign == '='): ?>style="display: none;"<?php endif; ?>><a>Custom Price</a></li>
-                                                    <li data-sign = "*" <?php if ($formula->sign == '*'): ?>style="display: none;"<?php endif; ?>><a>Multiplier</a></li>
+                                                    <li data-sign = "+" <?php if ($formula->sign == '+'): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Fixed Markup', 'ali2woo'); ?></a></li>
+                                                    <li data-sign = "=" <?php if ($formula->sign == '='): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Custom Price', 'ali2woo'); ?></a></li>
+                                                    <li data-sign = "*" <?php if ($formula->sign == '*'): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Multiplier', 'ali2woo'); ?></a></li>
                                                 </ul>
                                             </div><!-- /btn-group -->
                                             
@@ -194,14 +194,14 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
 
                                             <div class="input-group-btn">
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <?php if ($formula->compared_sign == '+'): ?>Fixed Markup<?php endif; ?>
-                                                    <?php if ($formula->compared_sign == '='): ?>Custom Price<?php endif; ?>   
-                                                    <?php if ($formula->compared_sign == '*'): ?>Multiplier<?php endif; ?>  <span class="caret"></span>
+                                                    <?php if ($formula->compared_sign == '+'): ?><?php echo esc_html_e('Fixed Markup', 'ali2woo'); ?><?php endif; ?>
+                                                    <?php if ($formula->compared_sign == '='): ?><?php echo esc_html_e('Custom Price', 'ali2woo'); ?><?php endif; ?>   
+                                                    <?php if ($formula->compared_sign == '*'): ?><?php echo esc_html_e('Multiplier', 'ali2woo'); ?><?php endif; ?>  <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-right compared_sign">
-                                                    <li data-sign = "+" <?php if ($formula->compared_sign == '+'): ?>style="display: none;"<?php endif; ?>><a>Fixed Markup</a></li>
-                                                    <li data-sign = "=" <?php if ($formula->compared_sign == '='): ?>style="display: none;"<?php endif; ?>><a>Custom Price</a></li>
-                                                    <li data-sign = "*" <?php if ($formula->compared_sign == '*'): ?>style="display: none;"<?php endif; ?>><a>Multiplier</a></li>
+                                                    <li data-sign = "+" <?php if ($formula->compared_sign == '+'): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Fixed Markup', 'ali2woo'); ?></a></li>
+                                                    <li data-sign = "=" <?php if ($formula->compared_sign == '='): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Custom Price', 'ali2woo'); ?></a></li>
+                                                    <li data-sign = "*" <?php if ($formula->compared_sign == '*'): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Multiplier', 'ali2woo'); ?></a></li>
                                                 </ul>
                                             </div><!-- /btn-group -->
                                             
@@ -221,8 +221,8 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                             <tr class="border-bottom">
                                 <td colspan="3">
                                     <div class="container-flex jc-sb panel__message">
-                                        <div>Rest of the price ranges</div>
-                                        <div class="info-box" data-toggle="tooltip" title="These markups will be used for the rest of the price ranges"></div>
+                                        <div><?php echo esc_html_e('Rest of the price ranges', 'ali2woo'); ?></div>
+                                        <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_e('These markups will be used for the rest of the price ranges', 'ali2woo'); ?>"></div>
                                     </div>
                                 </td>
                                 <td>
@@ -231,14 +231,14 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
 
                                         <div class="input-group-btn">
                                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <?php if ($default_formula->sign == '+'): ?>Fixed Markup<?php endif; ?>
-                                                <?php if ($default_formula->sign == '='): ?>Custom Price<?php endif; ?>   
-                                                <?php if ($default_formula->sign == '*'): ?>Multiplier<?php endif; ?>  <span class="caret"></span>
+                                                <?php if ($default_formula->sign == '+'): ?><?php echo esc_html_e('Fixed Markup', 'ali2woo'); ?><?php endif; ?>
+                                                <?php if ($default_formula->sign == '='): ?><?php echo esc_html_e('Custom Price', 'ali2woo'); ?><?php endif; ?>   
+                                                <?php if ($default_formula->sign == '*'): ?><?php echo esc_html_e('Multiplier', 'ali2woo'); ?><?php endif; ?>  <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-right default_sign">
-                                                <li data-sign = "+" <?php if ($default_formula->sign == '+'): ?>style="display: none;"<?php endif; ?>><a>Fixed Markup</a></li>
-                                                <li data-sign = "=" <?php if ($default_formula->sign == '='): ?>style="display: none;"<?php endif; ?>><a>Custom Price</a></li>
-                                                <li data-sign = "*" <?php if ($default_formula->sign == '*'): ?>style="display: none;"<?php endif; ?>><a>Multiplier</a></li>
+                                                <li data-sign = "+" <?php if ($default_formula->sign == '+'): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Fixed Markup', 'ali2woo'); ?></a></li>
+                                                <li data-sign = "=" <?php if ($default_formula->sign == '='): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Custom Price', 'ali2woo'); ?></a></li>
+                                                <li data-sign = "*" <?php if ($default_formula->sign == '*'): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Multiplier', 'ali2woo'); ?></a></li>
                                             </ul>
                                         </div><!-- /btn-group -->
                                     </div>
@@ -249,14 +249,14 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
 
                                         <div class="input-group-btn">
                                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <?php if ($default_formula->compared_sign == '+'): ?>Fixed Markup<?php endif; ?>
-                                                <?php if ($default_formula->compared_sign == '='): ?>Custom Price<?php endif; ?>   
-                                                <?php if ($default_formula->compared_sign == '*'): ?>Multiplier<?php endif; ?>  <span class="caret"></span>
+                                                <?php if ($default_formula->compared_sign == '+'): ?><?php echo esc_html_e('Fixed Markup', 'ali2woo'); ?><?php endif; ?>
+                                                <?php if ($default_formula->compared_sign == '='): ?><?php echo esc_html_e('Custom Price', 'ali2woo'); ?><?php endif; ?>   
+                                                <?php if ($default_formula->compared_sign == '*'): ?><?php echo esc_html_e('Multiplier', 'ali2woo'); ?><?php endif; ?>  <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-right default_compared_sign">
-                                                <li data-sign = "+" <?php if ($default_formula->compared_sign == '+'): ?>style="display: none;"<?php endif; ?>><a>Fixed Markup</a></li>
-                                                <li data-sign = "=" <?php if ($default_formula->compared_sign == '='): ?>style="display: none;"<?php endif; ?>><a>Custom Price</a></li>
-                                                <li data-sign = "*" <?php if ($default_formula->compared_sign == '*'): ?>style="display: none;"<?php endif; ?>><a>Multiplier</a></li>
+                                                <li data-sign = "+" <?php if ($default_formula->compared_sign == '+'): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Fixed Markup', 'ali2woo'); ?></a></li>
+                                                <li data-sign = "=" <?php if ($default_formula->compared_sign == '='): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Custom Price', 'ali2woo'); ?></a></li>
+                                                <li data-sign = "*" <?php if ($default_formula->compared_sign == '*'): ?>style="display: none;"<?php endif; ?>><a><?php echo esc_html_e('Multiplier', 'ali2woo'); ?></a></li>
                                             </ul>
                                         </div><!-- /btn-group -->
                                     </div>
@@ -290,26 +290,26 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
     <div class="assign-cents">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel__header-title">Assign cents</h3>
+                <h3 class="panel__header-title"><?php echo esc_html_e('Assign cents', 'ali2woo'); ?></h3>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12 col-lg-8">
-                        <div class="grey-color mb20">You can set a specific cent value for your retail price. We will use this value when forming the final price for your items (e.g., if you want the cost of your product to be XX.99 then add 99 to the fields below).</div>
+                        <div class="grey-color mb20"><?php echo esc_html_e('You can set a specific cent value for your retail price. We will use this value when forming the final price for your items (e.g., if you want the cost of your product to be XX.99 then add 99 to the fields below).', 'ali2woo'); ?></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
                         <div class="input-wrap">
                             <input type="checkbox" id="cb-set-cents" <?php if ($cents > -1) : ?> checked <?php endif; ?>>
-                            <label for="cb-set-cents">Assign cents</label>
+                            <label for="cb-set-cents"><?php echo esc_html_e('Assign cents', 'ali2woo'); ?></label>
                             <input type="text" class="form-control small-input" id="set-cents"  <?php if ($cents > -1) : ?> value="<?php echo $cents; ?>" <?php else: ?> disabled="" <?php endif; ?>>
                         </div>    
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-8 col-lg-10">
                         <div class="input-wrap" <?php if (!$a2w_use_compared_price_markup): ?>style="display:none;"<?php endif; ?>>
                             <input type="checkbox" id="cb-compared-set-cents" <?php if ($compared_cents > -1) : ?> checked <?php endif; ?>>
-                            <label for="cb-compared-set-cents">Assign compared at cents</label>
+                            <label for="cb-compared-set-cents"><?php echo esc_html_e('Assign compared at cents', 'ali2woo'); ?></label>
                             <input type="text" class="form-control small-input" id="compared-set-cents" <?php if ($compared_cents > -1) : ?> value="<?php echo $compared_cents; ?>" <?php else: ?> disabled="" <?php endif; ?>>
                         </div>    
                     </div>
@@ -322,22 +322,21 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
 
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel__header-title">Add shipping cost</h3>
+            <h3 class="panel__header-title"><?php echo esc_html_e('Add shipping cost', 'ali2woo'); ?></h3>
         </div>
-        
-        <div class="panel-body _a2wfv">
+        <div class="panel-body">
             <div class="row">
                 <div class="col-md-12 col-lg-8">
-                    <div class="grey-color mb20">You can add the shipping cost that you see in the import list to the product price.</div>
+                    <div class="grey-color mb20"><?php echo esc_html_e('You can add the shipping cost that you see in the import list to the product price.', 'ali2woo'); ?></div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-4">
                     <label for="a2w_add_shipping_to_price">
-                        <strong><?php _e("Add shipping cost to product price", 'ali2woo'); ?></strong>
+                        <strong><?php echo esc_html_e("Add shipping cost to product price", 'ali2woo'); ?></strong>
                     </label>
-                    <div class="info-box" data-toggle="tooltip" title="<?php _e("Shipping costs will be added to the product price.", 'ali2woo'); ?>"></div>
+                    <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_e("Shipping costs will be added to the product price.", 'ali2woo'); ?>"></div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group input-block no-margin">
@@ -349,9 +348,9 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
             <div class="row">
                 <div class="col-md-4">
                     <label for="a2w_apply_price_rules_after_shipping_cost">
-                        <strong><?php _e("Add shipping cost first and then apply the price rules", 'ali2woo'); ?></strong>
+                        <strong><?php echo esc_html_e("Add shipping cost first and then apply the price rules", 'ali2woo'); ?></strong>
                     </label>
-                    <div class="info-box" data-toggle="tooltip" title="<?php _e("Pricing rules will be applied after shipping cost are added to the product price. This is necessary if you want to add a markup to both the product cost and the shipping cost.", 'ali2woo'); ?>"></div>
+                    <div class="info-box" data-toggle="tooltip" title="<?php echo esc_html_e("Pricing rules will be applied after shipping cost are added to the product price. This is necessary if you want to add a markup to both the product cost and the shipping cost.", 'ali2woo'); ?>"></div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group input-block no-margin">
@@ -369,7 +368,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
 <div class="container-fluid">
     <div class="row pt20 border-top">
         <div class="col-sm-12">
-            <input class="btn btn-success mt20" type="submit" id="save-price-rules" value="<?php _e('Save settings', 'ali2woo'); ?>"/>
+            <input class="btn btn-success mt20" type="submit" id="save-price-rules" value="<?php echo esc_html_e('Save settings', 'ali2woo'); ?>"/>
         </div>
     </div>
 </div>
@@ -377,31 +376,31 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
 <div class="modal-overlay modal-apply-pricing-rules">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title">Apply pricing rules to existing products</h3>
+            <h3 class="modal-title"><?php echo esc_html_e('Apply pricing rules to existing products', 'ali2woo'); ?></h3>
             <a class="modal-btn-close" href="#"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cross"></use></svg></a>
         </div>
         <div class="modal-body">
-            <label>Select the update type</label>
+            <label><?php echo esc_html_e('Select the update type', 'ali2woo'); ?></label>
             <div style="padding-bottom: 20px;">
                 <div class="type btn-group" role="group">
-                    <button type="button" class="btn btn-default" value="price">Prices</button>
-                    <button type="button" class="btn btn-default" value="regular_price">Regular Prices</button>
-                    <button type="button" class="btn btn-default" value="all">Prices and Regular Prices</button>
+                    <button type="button" class="btn btn-default" value="price"><?php echo esc_html_e('Prices', 'ali2woo'); ?></button>
+                    <button type="button" class="btn btn-default" value="regular_price"><?php echo esc_html_e('Regular Prices', 'ali2woo'); ?></button>
+                    <button type="button" class="btn btn-default" value="all"><?php echo esc_html_e('Prices and Regular Prices', 'ali2woo'); ?></button>
                 </div>
             </div>
-            <label>Select the update scope</label>
+            <label><?php echo esc_html_e('Select the update scope', 'ali2woo'); ?></label>
             <div>
                 <div class="scope btn-group" role="group">
-                    <button type="button" class="btn btn-default" value="shop">Shop</button>
-                    <button type="button" class="btn btn-default" value="import">Import List</button>
-                    <button type="button" class="btn btn-default" value="all">Shop and Import List</button>
+                    <button type="button" class="btn btn-default" value="shop"><?php echo esc_html_e('Shop', 'ali2woo'); ?></button>
+                    <button type="button" class="btn btn-default" value="import"><?php echo esc_html_e('Import List', 'ali2woo'); ?></button>
+                    <button type="button" class="btn btn-default" value="all"><?php echo esc_html_e('Shop and Import List', 'ali2woo'); ?></button>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
             <span class="status" style="padding-right: 10px;">xxx</span>
-            <button class="btn btn-default close-btn" type="button"><?php _e('Close'); ?></button>
-            <button class="btn btn-success apply-btn" type="button"><div class="btn-icon-wrap cssload-container"><div class="cssload-speeding-wheel"></div></div><?php _e('Apply'); ?></button>
+            <button class="btn btn-default close-btn" type="button"><?php echo esc_html_e('Close', 'ali2woo'); ?></button>
+            <button class="btn btn-success apply-btn" type="button"><div class="btn-icon-wrap cssload-container"><div class="cssload-speeding-wheel"></div></div><?php echo esc_html_e('Apply', 'ali2woo'); ?></button>
         </div>
     </div>
 </div>
@@ -446,7 +445,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                 if(state!=='ok'){
                     show_notification(message, true);
                 }else{
-                    show_notification('Applying pricing rules to your existing products');
+                    show_notification('<?php echo esc_html_e('Applying pricing rules to your existing products', 'ali2woo'); ?>');
                     $(".modal-apply-pricing-rules").removeClass('opened');
                 }
                 $(_this_btn).removeAttr("disabled");
@@ -460,7 +459,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                         if(scope=='all'){
                             a2w_apply_shop_pricing_rules(type, 0, on_done_calback);
                         }else{
-                            show_notification('Applying pricing rules to your existing products');
+                            show_notification('<?php echo esc_html_e('Applying pricing rules to your existing products', 'ali2woo'); ?>');
                             $(".modal-apply-pricing-rules").removeClass('opened');
                             $(_this_btn).removeAttr("disabled");
                         }
@@ -491,7 +490,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                 }
             }).fail(function (xhr, status, error) {
                 if(on_done_calback){
-                    on_done_calback('error', 'Applying pricing rules failed.');
+                    on_done_calback('error', '<?php echo esc_html_e('Applying pricing rules failed.', 'ali2woo'); ?>');
                 }
             });
         }
@@ -516,7 +515,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
                 }
             }).fail(function (xhr, status, error) {
                 if(on_done_calback){
-                    on_done_calback('error', 'Applying pricing rules failed.');
+                    on_done_calback('error', '<?php echo esc_html_e('Applying pricing rules failed.', 'ali2woo'); ?>');
                 }
             });
         }
@@ -668,15 +667,15 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
 
             $('.panel-danger').hide();
             if (!num_check) {
-                $('.panel-danger .content').html('Cost value must be a number.');
+                $('.panel-danger .content').html('<?php echo esc_html_e('Cost value must be a number.', 'ali2woo'); ?>');
                 $('.panel-danger').show();
             }
             if (!min_max_check) {
-                $('.panel-danger .content').html('Cost range end value must be greater than the starting value.');
+                $('.panel-danger .content').html('<?php echo esc_html_e('Cost range end value must be greater than the starting value.', 'ali2woo'); ?>');
                 $('.panel-danger').show();
             }
             if (!ranges_check) {
-                $('.panel-danger .content').html('Your ranges overlap.');
+                $('.panel-danger .content').html('<?php echo esc_html_e('Your ranges overlap.', 'ali2woo'); ?>');
                 $('.panel-danger').show();
             }
 
@@ -713,7 +712,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
             }
 
             if (!ranges_check1 || !ranges_check2)
-                show_notification('Assign cents field value should be an integer between 1 and 99', true);
+                show_notification('<?php echo esc_html_e('Assign cents field value should be an integer between 1 and 99', 'ali2woo'); ?>', true);
 
             return ranges_check1 && ranges_check2;
         }
@@ -792,6 +791,7 @@ $a2w_local_currency = strtoupper(a2w_get_setting('local_currency'));
         });
 
         //info content 
+        //todo: add translation here
         $(".js-default-prices div.info-box").on("mouseover", function () {
             $(this).attr('title', rule_info_box_calculation("E.g., A product that costs %d <?php echo $a2w_local_currency;?> would have its price set to %d <?php echo $a2w_local_currency;?> (%d %s %d = %d).", get_el_sign_value($('.js-default-prices ul.sign')), get_value()));
             if(jQuery.fn.tooltip) { $(this).tooltip('fixTitle').tooltip('show'); }

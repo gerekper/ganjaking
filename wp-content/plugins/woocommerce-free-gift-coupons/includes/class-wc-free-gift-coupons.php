@@ -11,7 +11,7 @@ if ( class_exists( 'WC_Free_Gift_Coupons' ) ) {
  * Main WC_Free_Gift_Coupons Class
  *
  * @package Class
- * @version	3.3.0
+ * @version	3.3.2
  */
 class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
@@ -20,7 +20,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 *
 	 * @var string
 	 */
-	public static $version = '3.3.1';
+	public static $version = '3.3.2';
 
 	/**
 	 * The required WooCommerce version
@@ -113,9 +113,9 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 		add_action( 'woocommerce_coupon_get_items_to_validate', array( __CLASS__, 'exclude_free_gifts_from_coupon_validation' ), 10, 2 );
 
 		// Display as Free! in cart and in orders.
-		add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'cart_item_price' ), 10, 2 );
-		add_filter( 'woocommerce_cart_item_subtotal', array( __CLASS__, 'cart_item_price' ), 10, 2 );
-		add_filter( 'woocommerce_order_formatted_line_subtotal', array( __CLASS__, 'cart_item_price' ), 10, 2 );
+		add_filter( 'woocommerce_cart_item_price', array( __CLASS__, 'cart_item_price' ), 20, 2 );
+		add_filter( 'woocommerce_cart_item_subtotal', array( __CLASS__, 'cart_item_price' ), 20, 2 );
+		add_filter( 'woocommerce_order_formatted_line_subtotal', array( __CLASS__, 'cart_item_price' ), 20, 2 );
 
 		// Remove free gifts from shipping calcs & enable free shipping if required.
 		add_filter( 'woocommerce_cart_shipping_packages', array( __CLASS__, 'remove_free_shipping_items' ) );
@@ -267,17 +267,30 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 					 */
 					$cart_item_data = apply_filters( 'wc_fgc_cart_item_data', 
 						array(
-						'free_gift'                   => $coupon_code,
-						'fgc_quantity'                => isset( $data['quantity'] ) && $data['quantity'] > 0 ? intval( $data['quantity'] ) : 1,
-						'fgc_type'                    => $data['data']->is_type( 'variable' ) ? 'variable' : 'not-variable', // Deprecated 3.1.0.
-						'fgc_edit_in_cart'            => self::supports_edit_in_cart( $data['data'] ),
-						'fgc_pre_selected_attributes' => self::get_pre_selected_attributes( $data['data'] ),
+							'free_gift'                   => $coupon_code,
+							'fgc_quantity'                => isset( $data['quantity'] ) && $data['quantity'] > 0 ? intval( $data['quantity'] ) : 1,
+							'fgc_type'                    => $data['data']->is_type( 'variable' ) ? 'variable' : 'not-variable', // Deprecated 3.1.0.
+							'fgc_edit_in_cart'            => self::supports_edit_in_cart( $data['data'] ),
+							'fgc_pre_selected_attributes' => self::get_pre_selected_attributes( $data['data'] ),
 						),
 						$coupon_code
 					);
 
 					$key = self::add_gift_item_to_cart( $data, $cart_item_data );
 
+				} elseif ( current_user_can( 'manage_woocommerce' ) ) {
+
+					if ( isset( $data['data'] ) && $data['data'] instanceof WC_Product ) {
+						// translators: %1$s is the product name. 
+						$message = sprintf( wp_kses_post( __( '"%1$s" is not purchasable and could not be added to the cart as a gift. Please verify it is published, in stock, and has a price. Note: This message is visible to store managers only.', 'wc_free_gift_coupons' ) ), $data['data']->get_title() );
+
+						$notice = sprintf( '<a href="%s" tabindex="1" class="button wc-forward">%s</a> %s', esc_url( get_edit_post_link( $data['data']->get_id() ) ), esc_html__( 'Edit gift', 'wc_free_gift_coupons' ), esc_html( $message ) );
+
+					} else {
+						$notice = esc_html__( 'There are problems with the Gift Products associated with this coupon. Please try editing and re-saving your coupon. Note: This message is visible to store managers only.', 'wc_free_gift_coupons' );
+					}
+					
+					wc_add_notice( $notice, 'error' );
 				}
 			}
 
@@ -387,11 +400,12 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 				array_merge(
 					$cart_item_data,
 					array(
-					'product_id'   => absint( $product_id ),
-					'variation_id' => absint( $variation_id ),
-					'variation'    => $variation,
-					'quantity'     => $quantity,
-					'data'         => $product,
+						'key'          => $cart_item_key,
+						'product_id'   => absint( $product_id ),
+						'variation_id' => absint( $variation_id ),
+						'variation'    => $variation,
+						'quantity'     => $quantity,
+						'data'         => $product,
 					)
 				),
 				$cart_item_key
@@ -450,7 +464,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 */
 	public static function sync_free_gifts_from_session( $cart ) {
 
-		$cart_contents    = $cart->get_cart_contents();
+		$cart_contents = $cart->get_cart_contents();
 
 		if ( empty( $cart_contents ) ) {
 			return;
@@ -463,7 +477,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 			}
 
 			// Modify the current gift quantity.
-			$cart_item = $cart_contents[$cart_item_key];
+			$cart_item                                  = $cart_contents[$cart_item_key];
 			WC()->cart->cart_contents[ $cart_item_key ] = self::sync_add_cart_item( $cart_item );
 
 		}
@@ -1003,7 +1017,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 				}
 
 				foreach ( $cart_contents as $per_cart_item ) { 
-					if ( in_array( $per_cart_item['variation_id'], $sync_to_products ) || in_array( $per_cart_item['product_id'], $sync_to_products ) ) {
+					if ( in_array( $per_cart_item['variation_id'], $sync_to_products, true ) || in_array( $per_cart_item['product_id'], $sync_to_products, true ) ) {
 						// Do not count the quantity of the gift itself.
 						if ( $current_key === $per_cart_item['key'] ) {
 							continue;
@@ -1046,7 +1060,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
 		if ( ! empty( $values['fgc_synced_original_qty'] ) ) {
 			$cart_item['fgc_synced_original_qty'] = $values['fgc_synced_original_qty'];
-			$cart_item = self::sync_add_cart_item( $cart_item );
+			$cart_item                            = self::sync_add_cart_item( $cart_item );
 		}
 
 		return $cart_item;

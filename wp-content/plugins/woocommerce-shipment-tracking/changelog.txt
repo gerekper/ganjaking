@@ -1,5 +1,14 @@
 *** Shipment Tracking Changelog ***
 
+2021-12-13 - version 1.6.30
+* Add	- Support for automated translations.
+* Tweak - WC 5.9 compatibility.
+
+2021-09-21 - version 1.6.29
+* Fix   - Tracking number items is not indexed properly after deletion.
+* Fix   - Change Hermes Tracking URL.
+* Tweak - Bump WP & WC compatibility.
+
 2021-07-27 - version 1.6.28
 * Fix   - Change DHL Sweden Tracking URL.
 

@@ -38,7 +38,10 @@ class API {
   public $urlStats = 'https://bridge.mailpoet.com/api/v0/stats';
   public $urlAuthorizedEmailAddresses = 'https://bridge.mailpoet.com/api/v0/authorized_email_addresses';
 
-  public function __construct($apiKey, $wp = null) {
+  public function __construct(
+    $apiKey,
+    $wp = null
+  ) {
     $this->setKey($apiKey);
     if (is_null($wp)) {
       $this->wp = new WPFunctions();
@@ -143,13 +146,22 @@ class API {
     return false;
   }
 
-  public function updateSubscriberCount($count) {
+  public function updateSubscriberCount($count): bool {
     $result = $this->request(
       $this->urlStats,
       ['subscriber_count' => (int)$count],
       'PUT'
     );
-    return $this->wp->wpRemoteRetrieveResponseCode($result) === self::RESPONSE_CODE_STATS_SAVED;
+    $code = $this->wp->wpRemoteRetrieveResponseCode($result);
+    $isSuccess = $code === self::RESPONSE_CODE_STATS_SAVED;
+    if (!$isSuccess) {
+      $logData = [
+        'code' => $code,
+        'error' => is_wp_error($result) ? $result->get_error_message() : null,
+      ];
+      $this->loggerFactory->getLogger(LoggerFactory::TOPIC_BRIDGE)->addError('Stats API call failed.', $logData);
+    }
+    return $isSuccess;
   }
 
   public function getAuthorizedEmailAddresses() {

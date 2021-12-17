@@ -176,7 +176,7 @@ class CT_Ultimate_GDPR_Controller_Age extends CT_Ultimate_GDPR_Controller_Abstra
             /* cookie popup features can be in footer */
             wp_enqueue_script(
                 'ct-ultimate-gdpr-age-popup',
-                ct_ultimate_gdpr_url('assets/js/age-popup.js'),
+                ct_ultimate_gdpr_url('assets/js/age-popup.min.js'),
                 array('jquery'),
                 ct_ultimate_gdpr_get_plugin_version(),
                 true

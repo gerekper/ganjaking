@@ -48,12 +48,12 @@ class WC_Help_Scout_Ajax {
 		}
 
 		$fileData = [];
-		$fileTypes = array('jpg','jpeg','png','pdf');
-		$total = count($_FILES['images']['name']);
-		$fileData= [];
-		$errorUploadMsg = '';
-		$fileExist = $_FILES['images']['name'][0];
-		if(isset($_FILES['images']) && !empty($fileExist)){
+		
+		if(isset($_FILES['images']) && !empty($_FILES['images']['name'][0])){
+			$fileTypes = array('jpg','jpeg','png','pdf');
+			$total = count($_FILES['images']['name']);
+			$fileData= [];
+			$errorUploadMsg = '';
 			$uploadedFiles = $_FILES['images'];
 			if(!empty($uploadedFiles)){
 				for( $i=0 ; $i < $total ; $i++ ) { 
@@ -73,6 +73,13 @@ class WC_Help_Scout_Ajax {
 		$integration = new WC_Help_Scout_Integration();
 		//return if Authrorization has failed
 		if(!$integration->check_authorization_still_valid()) { 
+			wp_send_json(
+				array(
+					'id'     => 0,
+					'number' => 0,
+					'status' => __( 'Invalid Authorization! <br/>Please re-validate plugin with your helpscout account from settings.', 'woocommerce-help-scout' )
+				)
+			);
 			return false;
 		}
 		// Sets the conversation params.
@@ -221,6 +228,13 @@ class WC_Help_Scout_Ajax {
 		$integration = new WC_Help_Scout_Integration();
 		//return if Authrorization has failed.
 		if(!$integration->check_authorization_still_valid()) { 
+			wp_send_json(
+				array(
+					'threads' => array(),
+					'subject' => '',
+					'error' => __( 'Invalid Authorization! <br/>Please re-validate plugin with your helpscout account from settings.', 'woocommerce-help-scout' )
+				)
+			);
 			return false;
 		}
 		// Sets the conversation params.
@@ -288,12 +302,11 @@ class WC_Help_Scout_Ajax {
 		}
 		
 		$fileData = [];
-		$fileTypes = array('jpg','jpeg','png','pdf');
-		$total = count($_FILES['images']['name']);
-		$fileData= [];
-		$errorUploadMsg = '';
-		$fileExist = $_FILES['images']['name'][0];
-		if(isset($_FILES['images']) && !empty($fileExist)){
+		
+		if(isset($_FILES['images']) && !empty($_FILES['images']['name'][0])){
+			$fileTypes = array('jpg','jpeg','png','pdf');
+			$total = count($_FILES['images']['name']);
+			$errorUploadMsg = '';
 			$uploadedFiles = $_FILES['images'];
 			if(!empty($uploadedFiles)){
 				for( $i=0 ; $i < $total ; $i++ ) { 
@@ -325,6 +338,12 @@ class WC_Help_Scout_Ajax {
 		$integration = new WC_Help_Scout_Integration();
 		//return if Authrorization has failed.
 		if(!$integration->check_authorization_still_valid()) { 
+			wp_send_json(
+				array(
+					'error' => 0,
+					'message' => __( 'Invalid Authorization! <br/>Please re-validate plugin with your helpscout account from settings.', 'woocommerce-help-scout' )
+				)
+			);
 			return false;
 		}
 		// Sets the conversation params.

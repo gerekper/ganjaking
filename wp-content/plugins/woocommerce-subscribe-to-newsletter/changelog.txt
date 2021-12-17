@@ -1,5 +1,8 @@
 *** Subscribe to Newsletter Changelog ***
 
+2021-12-15 - version 3.3.4
+* Tweak - Tested compatibility with WC 6.0.
+
 2021-10-27 - version 3.3.3
 * Tweak - Added plugin info to the WooCommerce System Status Report.
 * Tweak - Tested compatibility up to WC 5.9.

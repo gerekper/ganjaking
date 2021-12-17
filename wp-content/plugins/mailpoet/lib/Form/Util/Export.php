@@ -10,21 +10,21 @@ use MailPoet\Form\Widget;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Export {
-  public static function getAll($form = null) {
+  public static function getAll() {
     return [
-      'html'      => static::get('html', $form),
-      'php'       => static::get('php', $form),
-      'iframe'    => static::get('iframe', $form),
-      'shortcode' => static::get('shortcode', $form),
+      'html'      => static::get('html'),
+      'php'       => static::get('php'),
+      'iframe'    => static::get('iframe'),
+      'shortcode' => static::get('shortcode'),
     ];
   }
 
-  public static function get($type = 'html', $form = null) {
+  public static function get($type = 'html') {
     switch ($type) {
       case 'iframe':
         // generate url to load iframe's content
         $iframeUrl = WPFunctions::get()->addQueryArg([
-          'mailpoet_form_iframe' => $form['id'],
+          'mailpoet_form_iframe' => ':form_id:',
         ], WPFunctions::get()->siteUrl());
 
         // generate iframe
@@ -50,7 +50,7 @@ class Export {
         $output = [
           '$form_widget = new \MailPoet\Form\Widget();',
           'echo $form_widget->widget(array(\'form\' => ' .
-            (int)$form['id'] .
+            ':form_id:' .
             ', \'form_type\' => \'php\'));',
           ];
         return join("\n", $output);
@@ -96,13 +96,13 @@ class Export {
 
         $formWidget = new Widget();
         $output[] = $formWidget->widget([
-          'form' => (int)$form['id'],
+          'form' => ':form_id:',
           'form_type' => 'php',
         ]);
         return join("\n", $output);
 
       case 'shortcode':
-        return '[mailpoet_form id="' . (int)$form['id'] . '"]';
+        return '[mailpoet_form id=":form_id:"]';
     }
   }
 }

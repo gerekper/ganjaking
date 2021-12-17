@@ -392,7 +392,7 @@ class WC_Help_Scout_API extends WC_API_Resource {
 					ON order_items.order_id = postmeta.post_id
 					AND order_items.order_item_type = 'line_item'
 				WHERE  postmeta.meta_key = '_customer_user'
-				AND    postmeta.meta_value = %d
+				AND    postmeta.meta_value = %s
 				$limit
 			 ", $customer->ID )
 		);

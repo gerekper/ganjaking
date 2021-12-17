@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Doctrine\DBAL\Exception; if (!defined('ABSPATH')) exit; class NotNullConstraintViolationException extends \MailPoetVendor\Doctrine\DBAL\Exception\ConstraintViolationException { } 
+ namespace MailPoetVendor\Doctrine\DBAL\Exception; if (!defined('ABSPATH')) exit; class NotNullConstraintViolationException extends ConstraintViolationException { } 

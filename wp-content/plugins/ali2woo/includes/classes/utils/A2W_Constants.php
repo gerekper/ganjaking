@@ -21,6 +21,10 @@ if (!class_exists('A2W_Constants')) {
             return "_a2w_external_id";
         }
 
+        public static function product_reviews_max_number_meta(){
+            return "_a2w_reviews_max_number";
+        }
+
 
 
 

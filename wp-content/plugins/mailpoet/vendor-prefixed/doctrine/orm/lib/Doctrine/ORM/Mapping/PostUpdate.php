@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Doctrine\ORM\Mapping; if (!defined('ABSPATH')) exit; final class PostUpdate implements \MailPoetVendor\Doctrine\ORM\Mapping\Annotation { } 
+ declare (strict_types=1); namespace MailPoetVendor\Doctrine\ORM\Mapping; if (!defined('ABSPATH')) exit; use Attribute; final class PostUpdate implements Annotation { } 

@@ -29,7 +29,13 @@ class MailPoet {
   /** @var BlacklistCheck */
   private $blacklist;
 
-  public function __construct($apiKey, $sender, $replyTo, MailPoetMapper $errorMapper, AuthorizedEmailsController $authorizedEmailsController) {
+  public function __construct(
+    $apiKey,
+    $sender,
+    $replyTo,
+    MailPoetMapper $errorMapper,
+    AuthorizedEmailsController $authorizedEmailsController
+  ) {
     $this->api = new API($apiKey);
     $this->sender = $sender;
     $this->replyTo = $replyTo;
@@ -115,7 +121,7 @@ class MailPoet {
     return $body;
   }
 
-  private function composeBody($newsletter, $subscriber, $unsubscribeUrl, $meta) {
+  private function composeBody($newsletter, $subscriber, $unsubscribeUrl, $meta): array {
     $body = [
       'to' => ([
         'address' => $subscriber['email'],
@@ -127,10 +133,12 @@ class MailPoet {
       ]),
       'reply_to' => ([
         'address' => $this->replyTo['reply_to_email'],
-        'name' => $this->replyTo['reply_to_name'],
       ]),
       'subject' => $newsletter['subject'],
     ];
+    if (!empty($this->replyTo['reply_to_name'])) {
+      $body['reply_to']['name'] = $this->replyTo['reply_to_name'];
+    }
     if (!empty($newsletter['body']['html'])) {
       $body['html'] = $newsletter['body']['html'];
     }

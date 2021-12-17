@@ -5,16 +5,13 @@ namespace MailPoet\Newsletter\ViewInBrowser;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\DI\ContainerWrapper;
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Entities\SubscriberEntity;
-use MailPoet\Models\Newsletter;
 use MailPoet\Newsletter\Links\Links;
-use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Renderer\Renderer;
 use MailPoet\Newsletter\Shortcodes\Shortcodes;
-use MailPoet\Settings\SettingsController;
+use MailPoet\Settings\TrackingConfig;
 use MailPoet\WP\Emoji;
 
 class ViewInBrowserRenderer {
@@ -35,13 +32,13 @@ class ViewInBrowserRenderer {
 
   public function __construct(
     Emoji $emoji,
-    SettingsController $settings,
+    TrackingConfig $trackingConfig,
     Shortcodes $shortcodes,
     Renderer $renderer,
     Links $links
   ) {
     $this->emoji = $emoji;
-    $this->isTrackingEnabled = $settings->get('tracking.enabled');
+    $this->isTrackingEnabled = $trackingConfig->isEmailTrackingEnabled();
     $this->renderer = $renderer;
     $this->shortcodes = $shortcodes;
     $this->links = $links;
@@ -49,7 +46,7 @@ class ViewInBrowserRenderer {
 
   public function render(
     bool $isPreview,
-    Newsletter $newsletter,
+    NewsletterEntity $newsletter,
     SubscriberEntity $subscriber = null,
     SendingQueueEntity $queue = null
   ) {
@@ -99,22 +96,17 @@ class ViewInBrowserRenderer {
     return $renderedNewsletter;
   }
 
-  /** this is here to prepare entities for the shortcodes library, when this whole file uses doctrine, this can be deleted */
   private function prepareShortcodes($newsletter, $subscriber, $queue, $wpUserPreview) {
-    /** @var NewslettersRepository $newsletterRepository */
-    $newsletterRepository = ContainerWrapper::getInstance()->get(NewslettersRepository::class);
-
     if ($queue instanceof SendingQueueEntity) {
       $this->shortcodes->setQueue($queue);
     }
-    if ($newsletter instanceof Newsletter) {
-      $newsletter = $newsletterRepository->findOneById($newsletter->id);
-    }
+
     if ($newsletter instanceof NewsletterEntity) {
       $this->shortcodes->setNewsletter($newsletter);
     }
 
     $this->shortcodes->setWpUserPreview($wpUserPreview);
+
     if ($subscriber instanceof SubscriberEntity) {
       $this->shortcodes->setSubscriber($subscriber);
     }

@@ -69,10 +69,10 @@ class StatisticsClickEntity extends \MailPoet\Entities\StatisticsClickEntity imp
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'link', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'wooCommercePurchases', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'count', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'updatedAt'];
+            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'link', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'wooCommercePurchases', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'userAgent', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'userAgentType', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'count', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'updatedAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'link', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'wooCommercePurchases', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'count', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'updatedAt'];
+        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'link', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'wooCommercePurchases', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'userAgent', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'userAgentType', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'count', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'createdAt', '' . "\0" . 'MailPoet\\Entities\\StatisticsClickEntity' . "\0" . 'updatedAt'];
     }
 
     /**
@@ -298,6 +298,50 @@ class StatisticsClickEntity extends \MailPoet\Entities\StatisticsClickEntity imp
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCount', []);
 
         return parent::getCount();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUserAgent(): ?\MailPoet\Entities\UserAgentEntity
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUserAgent', []);
+
+        return parent::getUserAgent();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUserAgent(?\MailPoet\Entities\UserAgentEntity $userAgent): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUserAgent', [$userAgent]);
+
+        parent::setUserAgent($userAgent);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUserAgentType(): int
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUserAgentType', []);
+
+        return parent::getUserAgentType();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUserAgentType(int $userAgentType): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUserAgentType', [$userAgentType]);
+
+        parent::setUserAgentType($userAgentType);
     }
 
     /**

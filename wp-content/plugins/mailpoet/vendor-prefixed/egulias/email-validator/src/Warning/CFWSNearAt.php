@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Egulias\EmailValidator\Warning; if (!defined('ABSPATH')) exit; class CFWSNearAt extends \MailPoetVendor\Egulias\EmailValidator\Warning\Warning { const CODE = 49; public function __construct() { $this->message = "Deprecated folding white space near @"; } } 
+ namespace MailPoetVendor\Egulias\EmailValidator\Warning; if (!defined('ABSPATH')) exit; class CFWSNearAt extends Warning { const CODE = 49; public function __construct() { $this->message = "Deprecated folding white space near @"; } } 

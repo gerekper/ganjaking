@@ -157,10 +157,16 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 /* 8 */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wc"]["number"]; }());
+(function() { module.exports = window["wc"]["wcSettings"]; }());
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wc"]["number"]; }());
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports) {
 
 function _classCallCheck(instance, Constructor) {
@@ -173,7 +179,7 @@ module.exports = _classCallCheck;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 function _defineProperties(target, props) {
@@ -196,10 +202,10 @@ module.exports = _createClass;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var setPrototypeOf = __webpack_require__(37);
+var setPrototypeOf = __webpack_require__(38);
 
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
@@ -220,10 +226,10 @@ module.exports = _inherits;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var _typeof = __webpack_require__(38)["default"];
+var _typeof = __webpack_require__(21)["default"];
 
 var assertThisInitialized = __webpack_require__(18);
 
@@ -239,12 +245,6 @@ function _possibleConstructorReturn(self, call) {
 
 module.exports = _possibleConstructorReturn;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wc"]["wcSettings"]; }());
 
 /***/ }),
 /* 14 */
@@ -305,13 +305,13 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithoutHoles = __webpack_require__(34);
+var arrayWithoutHoles = __webpack_require__(35);
 
-var iterableToArray = __webpack_require__(35);
+var iterableToArray = __webpack_require__(36);
 
-var unsupportedIterableToArray = __webpack_require__(28);
+var unsupportedIterableToArray = __webpack_require__(29);
 
-var nonIterableSpread = __webpack_require__(36);
+var nonIterableSpread = __webpack_require__(37);
 
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
@@ -330,34 +330,61 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 /* 21 */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["htmlEntities"]; }());
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 /* 22 */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["components"]; }());
+(function() { module.exports = window["wp"]["htmlEntities"]; }());
 
 /***/ }),
 /* 23 */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wc"]["csvExport"]; }());
+(function() { module.exports = window["wp"]["components"]; }());
 
 /***/ }),
 /* 24 */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wc"]["currency"]; }());
+(function() { module.exports = window["wc"]["csvExport"]; }());
 
 /***/ }),
 /* 25 */
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["date"]; }());
+(function() { module.exports = window["wc"]["currency"]; }());
 
 /***/ }),
 /* 26 */
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["date"]; }());
+
+/***/ }),
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var objectWithoutPropertiesLoose = __webpack_require__(44);
@@ -385,7 +412,7 @@ module.exports = _objectWithoutProperties;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 function _arrayLikeToArray(arr, len) {
@@ -402,10 +429,10 @@ module.exports = _arrayLikeToArray;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(27);
+var arrayLikeToArray = __webpack_require__(28);
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -420,19 +447,19 @@ module.exports = _unsupportedIterableToArray;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["apiFetch"]; }());
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["url"]; }());
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 function _extends() {
@@ -458,14 +485,14 @@ module.exports = _extends;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayWithHoles = __webpack_require__(41);
 
 var iterableToArrayLimit = __webpack_require__(42);
 
-var unsupportedIterableToArray = __webpack_require__(28);
+var unsupportedIterableToArray = __webpack_require__(29);
 
 var nonIterableRest = __webpack_require__(43);
 
@@ -477,16 +504,16 @@ module.exports = _slicedToArray;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["dom"]; }());
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(27);
+var arrayLikeToArray = __webpack_require__(28);
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
@@ -496,7 +523,7 @@ module.exports = _arrayWithoutHoles;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports) {
 
 function _iterableToArray(iter) {
@@ -507,7 +534,7 @@ module.exports = _iterableToArray;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports) {
 
 function _nonIterableSpread() {
@@ -518,7 +545,7 @@ module.exports = _nonIterableSpread;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 function _setPrototypeOf(o, p) {
@@ -532,33 +559,6 @@ function _setPrototypeOf(o, p) {
 }
 
 module.exports = _setPrototypeOf;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports) {
-
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    module.exports = _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  } else {
-    module.exports = _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  }
-
-  return _typeof(obj);
-}
-
-module.exports = _typeof;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
@@ -755,19 +755,19 @@ var defineProperty = __webpack_require__(14);
 var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/classCallCheck.js
-var classCallCheck = __webpack_require__(9);
+var classCallCheck = __webpack_require__(10);
 var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/createClass.js
-var createClass = __webpack_require__(10);
+var createClass = __webpack_require__(11);
 var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/inherits.js
-var inherits = __webpack_require__(11);
+var inherits = __webpack_require__(12);
 var inherits_default = /*#__PURE__*/__webpack_require__.n(inherits);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(12);
+var possibleConstructorReturn = __webpack_require__(13);
 var possibleConstructorReturn_default = /*#__PURE__*/__webpack_require__.n(possibleConstructorReturn);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/getPrototypeOf.js
@@ -781,7 +781,7 @@ var external_wp_element_ = __webpack_require__(0);
 var external_wc_components_ = __webpack_require__(4);
 
 // EXTERNAL MODULE: external ["wc","wcSettings"]
-var external_wc_wcSettings_ = __webpack_require__(13);
+var external_wc_wcSettings_ = __webpack_require__(8);
 
 // EXTERNAL MODULE: external ["wp","compose"]
 var external_wp_compose_ = __webpack_require__(20);
@@ -797,7 +797,7 @@ var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 var external_wc_navigation_ = __webpack_require__(7);
 
 // EXTERNAL MODULE: external ["wc","number"]
-var external_wc_number_ = __webpack_require__(8);
+var external_wc_number_ = __webpack_require__(9);
 
 // EXTERNAL MODULE: external ["wc","data"]
 var external_wc_data_ = __webpack_require__(5);
@@ -806,7 +806,7 @@ var external_wc_data_ = __webpack_require__(5);
 var external_wc_date_ = __webpack_require__(15);
 
 // EXTERNAL MODULE: external ["wc","currency"]
-var external_wc_currency_ = __webpack_require__(24);
+var external_wc_currency_ = __webpack_require__(25);
 var external_wc_currency_default = /*#__PURE__*/__webpack_require__.n(external_wc_currency_);
 
 // CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/lib/currency-context.js
@@ -1097,7 +1097,7 @@ report_summary_ReportSummary.contextType = CurrencyContext;
   };
 }))(report_summary_ReportSummary));
 // EXTERNAL MODULE: external ["wp","date"]
-var external_wp_date_ = __webpack_require__(25);
+var external_wp_date_ = __webpack_require__(26);
 
 // EXTERNAL MODULE: external "lodash"
 var external_lodash_ = __webpack_require__(3);
@@ -1642,11 +1642,11 @@ report_chart_ReportChart.defaultProps = {
   });
 }))(report_chart_ReportChart));
 // EXTERNAL MODULE: external ["wp","apiFetch"]
-var external_wp_apiFetch_ = __webpack_require__(29);
+var external_wp_apiFetch_ = __webpack_require__(30);
 var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_);
 
 // EXTERNAL MODULE: external ["wp","url"]
-var external_wp_url_ = __webpack_require__(30);
+var external_wp_url_ = __webpack_require__(31);
 
 // CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/lib/index.js
 /**
@@ -1707,29 +1707,33 @@ function getSelectedChart(chartName) {
 var assertThisInitialized = __webpack_require__(18);
 var assertThisInitialized_default = /*#__PURE__*/__webpack_require__.n(assertThisInitialized);
 
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/typeof.js
+var helpers_typeof = __webpack_require__(21);
+var typeof_default = /*#__PURE__*/__webpack_require__.n(helpers_typeof);
+
 // EXTERNAL MODULE: external ["wp","htmlEntities"]
-var external_wp_htmlEntities_ = __webpack_require__(21);
+var external_wp_htmlEntities_ = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/extends.js
-var helpers_extends = __webpack_require__(31);
+var helpers_extends = __webpack_require__(32);
 var extends_default = /*#__PURE__*/__webpack_require__.n(helpers_extends);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/slicedToArray.js
-var slicedToArray = __webpack_require__(32);
+var slicedToArray = __webpack_require__(33);
 var slicedToArray_default = /*#__PURE__*/__webpack_require__.n(slicedToArray);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/objectWithoutProperties.js
-var objectWithoutProperties = __webpack_require__(26);
+var objectWithoutProperties = __webpack_require__(27);
 var objectWithoutProperties_default = /*#__PURE__*/__webpack_require__.n(objectWithoutProperties);
 
 // EXTERNAL MODULE: external ["wp","components"]
-var external_wp_components_ = __webpack_require__(22);
+var external_wp_components_ = __webpack_require__(23);
 
 // EXTERNAL MODULE: external ["wp","dom"]
-var external_wp_dom_ = __webpack_require__(33);
+var external_wp_dom_ = __webpack_require__(34);
 
 // EXTERNAL MODULE: external ["wc","csvExport"]
-var external_wc_csvExport_ = __webpack_require__(23);
+var external_wc_csvExport_ = __webpack_require__(24);
 
 // CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/components/report-table/download-icon.js
 
@@ -2331,6 +2335,7 @@ var EMPTY_OBJECT = {};
 
 
 
+
 function revenue_createSuper(Derived) { var hasNativeReflectConstruct = revenue_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = getPrototypeOf_default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = getPrototypeOf_default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return possibleConstructorReturn_default()(this, result); }; }
 
 function revenue_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
@@ -2359,7 +2364,8 @@ function revenue_isNativeReflectConstruct() { if (typeof Reflect === "undefined"
 
 
 
-var stockStatuses = Object(external_wc_wcSettings_["getSetting"])('stockStatuses', {});
+var adminSettings = Object(external_wc_wcSettings_["getSetting"])('admin', {});
+var stockStatuses = typeof_default()(adminSettings) === 'object' && adminSettings.length !== 1 && adminSettings.stockStatuses ? adminSettings.stockStatuses : Object(external_wc_wcSettings_["getSetting"])('stockStatuses', {});
 
 var revenue_BundlesReportTable = /*#__PURE__*/function (_Component) {
   inherits_default()(BundlesReportTable, _Component);
@@ -2562,6 +2568,7 @@ revenue_BundlesReportTable.contextType = CurrencyContext;
 
 
 
+
 function stock_createSuper(Derived) { var hasNativeReflectConstruct = stock_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = getPrototypeOf_default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = getPrototypeOf_default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return possibleConstructorReturn_default()(this, result); }; }
 
 function stock_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
@@ -2586,7 +2593,8 @@ function stock_isNativeReflectConstruct() { if (typeof Reflect === "undefined" |
 
 
 
-var stock_stockStatuses = Object(external_wc_wcSettings_["getSetting"])('stockStatuses', {});
+var stock_adminSettings = Object(external_wc_wcSettings_["getSetting"])('admin', {});
+var stock_stockStatuses = typeof_default()(stock_adminSettings) === 'object' && stock_adminSettings.length !== 1 && stock_adminSettings.stockStatuses ? stock_adminSettings.stockStatuses : Object(external_wc_wcSettings_["getSetting"])('stockStatuses', {});
 
 var stock_BundlesStockReportTable = /*#__PURE__*/function (_Component) {
   inherits_default()(BundlesStockReportTable, _Component);

@@ -29,14 +29,14 @@ class Redsys_Card_Images extends WP_Widget {
 	 * Copyright: (C) 2013 - 2021 José Conti
 	 */
 	public function widget( $args, $instance ) {
-		// Define the widget
+		// Define the widget.
 		$title = $instance['title'];
 		echo $args['before_widget'];
-		// if title is present
+		// if title is present.
 		if ( ! empty( $title ) ) {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
-		// output
+		// output.
 		echo '<!-- logos tarjetas crédito añadidos por el plugin de Redsys de WooCommerce.com -->';
 		echo '<img src="' . REDSYS_PLUGIN_URL_P . 'assets/images/Visa-MasterCard.png" alt="' . __( 'Accepted Credit Cards', 'woocommerce-redsys' ) . '" height="58" width="150">';
 		echo '<!-- Fin logos tarjetas crédito añadidos por el plugin de Redsys de WooCommerce.com -->';
@@ -71,11 +71,11 @@ class Redsys_Card_Images extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 
 		$instance          = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
 		return $instance;
 	}
 }
-// Register the widget
+// Register the widget.
 /**
  * Copyright: (C) 2013 - 2021 José Conti
  */

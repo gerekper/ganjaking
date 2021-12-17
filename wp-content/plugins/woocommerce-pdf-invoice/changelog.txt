@@ -1,4 +1,14 @@
 *** WooCommerce PDF Invoice Changelog ***
+2021.12.06 - version 4.15.3
+ * New filter for post types allowed for invoices woocommerce_pdf_invoice_ignore_order_types
+ * Fix logic check in get_invoice_display_invoice_num
+ * New meta key _invoice_created_mysql specifically used when resetting invoice number option is YES
+ * Upgrade - add _invoice_created_mysql for previous orders
+
+2021.11.30 - version 4.15.2
+ * Fix layout issue with mPDF generator
+ * DOMPDF - set rendering backend to CPDF
+
 2021.11.15 - version 4.15.1
  * Fix for invoices not attaching to emails at checkout
  * Fix bulk action 'create and email invoice'

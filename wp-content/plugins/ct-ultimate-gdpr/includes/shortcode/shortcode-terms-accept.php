@@ -11,6 +11,11 @@ class CT_Ultimate_GDPR_Shortcode_Terms_Accept {
 	private $tag = 'ultimate_gdpr_terms_accept';
 
 	/**
+	 * @var int
+	 */
+	private $terms_page_id; 
+
+	/**
 	 * CT_Ultimate_GDPR_Shortcode_Settings constructor.
 	 */
 	public function __construct() {
@@ -71,4 +76,48 @@ class CT_Ultimate_GDPR_Shortcode_Terms_Accept {
 		);
 		return ob_get_clean();
 	}
+
+	/**
+ 	*
+	*/
+	public function auto_insert_terms_shortcode() {
+
+		$ct_ultimate_gdpr_terms_option = get_option( 'ct-ultimate-gdpr-terms' );
+		$page_id = $ct_ultimate_gdpr_terms_option[ 'terms_target_page' ];
+
+		if( !empty($page_id) ) {
+
+			$this->terms_page_id = (int) $page_id;
+
+			add_filter( 'the_content', function($content) {
+
+				if ( is_singular() && get_post()->ID == $this->terms_page_id ) {
+ 
+					wp_enqueue_script(
+						'ct-ultimate-gdpr-shortcode-terms-accept',
+						ct_ultimate_gdpr_url( '/assets/js/shortcode-terms-accept.js' ),
+						array( 'jquery' ),
+						ct_ultimate_gdpr_get_plugin_version(),
+						true
+					);
+		
+					$redirect_page = CT_Ultimate_GDPR::instance()->get_admin_controller()->get_option_value( 'terms_after_page', -1, CT_Ultimate_GDPR_Controller_Terms::ID, 'page' );
+					if ( $redirect_page == -1 ) {
+						$redirect = CT_Ultimate_GDPR_Controller_Terms::get_redirect_after_page();
+					} else {
+						$redirect = get_permalink( $redirect_page );
+					}
+					wp_localize_script( 'ct-ultimate-gdpr-shortcode-terms-accept', 'ct_ultimate_gdpr_terms',
+						array(
+							'ajaxurl' => admin_url( 'admin-ajax.php' ),
+							'redirect' => $redirect,
+						)
+					);
+					$content .= do_shortcode('[ultimate_gdpr_terms_accept]');
+				}
+				return $content;
+			});
+		}
+	}
+	
 }

@@ -182,7 +182,7 @@ class StatisticsWooCommercePurchaseEntity extends \MailPoet\Entities\StatisticsW
     /**
      * {@inheritDoc}
      */
-    public function getNewsletter()
+    public function getNewsletter(): ?\MailPoet\Entities\NewsletterEntity
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNewsletter', []);
@@ -193,7 +193,7 @@ class StatisticsWooCommercePurchaseEntity extends \MailPoet\Entities\StatisticsW
     /**
      * {@inheritDoc}
      */
-    public function getQueue()
+    public function getQueue(): ?\MailPoet\Entities\SendingQueueEntity
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getQueue', []);
@@ -204,7 +204,7 @@ class StatisticsWooCommercePurchaseEntity extends \MailPoet\Entities\StatisticsW
     /**
      * {@inheritDoc}
      */
-    public function getSubscriber()
+    public function getSubscriber(): ?\MailPoet\Entities\SubscriberEntity
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubscriber', []);
@@ -215,7 +215,7 @@ class StatisticsWooCommercePurchaseEntity extends \MailPoet\Entities\StatisticsW
     /**
      * {@inheritDoc}
      */
-    public function getClick()
+    public function getClick(): ?\MailPoet\Entities\StatisticsClickEntity
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getClick', []);
@@ -237,7 +237,7 @@ class StatisticsWooCommercePurchaseEntity extends \MailPoet\Entities\StatisticsW
     /**
      * {@inheritDoc}
      */
-    public function setSubscriber($subscriber)
+    public function setSubscriber(?\MailPoet\Entities\SubscriberEntity $subscriber)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSubscriber', [$subscriber]);
@@ -265,6 +265,28 @@ class StatisticsWooCommercePurchaseEntity extends \MailPoet\Entities\StatisticsW
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOrderPriceTotal', []);
 
         return parent::getOrderPriceTotal();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setOrderCurrency(string $orderCurrency): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setOrderCurrency', [$orderCurrency]);
+
+        parent::setOrderCurrency($orderCurrency);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setOrderPriceTotal(float $orderPriceTotal): void
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setOrderPriceTotal', [$orderPriceTotal]);
+
+        parent::setOrderPriceTotal($orderPriceTotal);
     }
 
     /**

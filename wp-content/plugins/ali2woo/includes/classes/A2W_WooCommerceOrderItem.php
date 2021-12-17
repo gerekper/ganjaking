@@ -155,20 +155,26 @@ if (!class_exists('A2W_WooCommerceOrderItem')):
 
 
 
-		public function getFormatedTrackingCodes(){
+		public function getFormatedTrackingCodes($plain=false){
 		
 			$tracking_numbers  = $this->getTrackingCodes();
 
 			$tracking_numbers_formated = array();
 
-			$tracking_url_template = "https://global.cainiao.com/detail.htm?mailNoList={tracking_number}";
+			if (!$plain){
 
-			$tracking_url_template = apply_filters('a2w_get_tracking_url_template', $tracking_url_template);
+				$tracking_url_template = "https://global.cainiao.com/detail.htm?mailNoList={tracking_number}";
 
-			foreach( $tracking_numbers  as $tracking_number ){
-				$tracking_url = str_replace( '{tracking_number}', $tracking_number, $tracking_url_template );
-				$link_title = __('Click to see the tracking information', 'ali2woo');
-				$tracking_numbers_formated[] = "<a target='_blank' title='{$link_title}' href='{$tracking_url}'>" . $tracking_number. "</a>";
+				$tracking_url_template = apply_filters('a2w_get_tracking_url_template', $tracking_url_template);
+
+				foreach( $tracking_numbers  as $tracking_number ){
+					$tracking_url = str_replace( '{tracking_number}', $tracking_number, $tracking_url_template );
+					$link_title = __('Click to see the tracking information', 'ali2woo');
+					$tracking_numbers_formated[] = "<a target='_blank' title='{$link_title}' href='{$tracking_url}'>" . $tracking_number. "</a>";
+				}
+
+			} else {
+				$tracking_numbers_formated = $tracking_numbers;	
 			}
 
 			return !empty( $tracking_numbers_formated ) ? implode( ",", $tracking_numbers_formated ) : "";

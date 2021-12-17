@@ -5,8 +5,7 @@ namespace MailPoet\API\MP\v1;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\CustomFields\ApiDataSanitizer;
-use MailPoet\Models\CustomField;
+use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Models\Segment;
 use MailPoet\Models\Subscriber;
 use MailPoet\Models\SubscriberSegment;
@@ -16,6 +15,7 @@ use MailPoet\Subscribers\ConfirmationEmailMailer;
 use MailPoet\Subscribers\NewSubscriberNotificationMailer;
 use MailPoet\Subscribers\RequiredCustomFieldValidator;
 use MailPoet\Subscribers\Source;
+use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\Tasks\Sending;
 use MailPoet\Util\Helpers;
 use MailPoet\WP\Functions as WPFunctions;
@@ -31,89 +31,43 @@ class API {
   /** @var RequiredCustomFieldValidator */
   private $requiredCustomFieldValidator;
 
-  /** @var ApiDataSanitizer */
-  private $customFieldsDataSanitizer;
-
   /** @var WelcomeScheduler */
   private $welcomeScheduler;
 
   /** @var SettingsController */
   private $settings;
 
+  /** @var CustomFields */
+  private $customFields;
+
+  /** @var SubscribersRepository */
+  private $subscribersRepository;
+
   public function __construct(
     NewSubscriberNotificationMailer $newSubscriberNotificationMailer,
     ConfirmationEmailMailer $confirmationEmailMailer,
     RequiredCustomFieldValidator $requiredCustomFieldValidator,
-    ApiDataSanitizer $customFieldsDataSanitizer,
     WelcomeScheduler $welcomeScheduler,
-    SettingsController $settings
+    CustomFields $customFields,
+    SettingsController $settings,
+    SubscribersRepository $subscribersRepository
   ) {
     $this->newSubscriberNotificationMailer = $newSubscriberNotificationMailer;
     $this->confirmationEmailMailer = $confirmationEmailMailer;
     $this->requiredCustomFieldValidator = $requiredCustomFieldValidator;
-    $this->customFieldsDataSanitizer = $customFieldsDataSanitizer;
     $this->welcomeScheduler = $welcomeScheduler;
     $this->settings = $settings;
+    $this->customFields = $customFields;
+    $this->subscribersRepository = $subscribersRepository;
   }
 
   public function getSubscriberFields() {
-    $data = [
-      [
-        'id' => 'email',
-        'name' => WPFunctions::get()->__('Email', 'mailpoet'),
-        'type' => 'text',
-        'params' => [
-          'required' => '1',
-        ],
-      ],
-      [
-        'id' => 'first_name',
-        'name' => WPFunctions::get()->__('First name', 'mailpoet'),
-        'type' => 'text',
-        'params' => [
-          'required' => '',
-        ],
-      ],
-      [
-        'id' => 'last_name',
-        'name' => WPFunctions::get()->__('Last name', 'mailpoet'),
-        'type' => 'text',
-        'params' => [
-          'required' => '',
-        ],
-      ],
-    ];
-
-    $customFields = CustomField::selectMany(['id', 'name', 'type', 'params'])->findMany();
-    foreach ($customFields as $customField) {
-      $result = [
-        'id' => 'cf_' . $customField->id,
-        'name' => $customField->name,
-        'type' => $customField->type,
-      ];
-      if (is_serialized($customField->params)) {
-        $result['params'] = unserialize($customField->params);
-      } else {
-        $result['params'] = $customField->params;
-      }
-      $data[] = $result;
-    }
-
-    return $data;
+    return $this->customFields->getSubscriberFields();
   }
 
   public function addSubscriberField(array $data = []) {
     try {
-      $customField = CustomField::createOrUpdate($this->customFieldsDataSanitizer->sanitize($data));
-      $errors = $customField->getErrors();
-      if (!empty($errors)) {
-        throw new APIException('Failed to save a new subscriber field ' . join(', ', $errors), APIException::FAILED_TO_SAVE_SUBSCRIBER_FIELD);
-      }
-      $customField = CustomField::findOne($customField->id);
-      if (!$customField instanceof CustomField) {
-        throw new APIException('Failed to create a new subscriber field', APIException::FAILED_TO_SAVE_SUBSCRIBER_FIELD);
-      }
-      return $customField->asArray();
+      return $this->customFields->addSubscriberField($data);
     } catch (\InvalidArgumentException $e) {
       throw new APIException($e->getMessage(), $e->getCode(), $e);
     }
@@ -184,7 +138,7 @@ class API {
       $subscriber->save();
       if ($subscriber->getErrors() !== false) {
         throw new APIException(
-          WPFunctions::get()->__(sprintf('Failed to save a status of a subscriber : %s', strtolower(implode(', ', $subscriber->getErrors()))), 'mailpoet'),
+          __(sprintf('Failed to save a status of a subscriber : %s', strtolower(implode(', ', $subscriber->getErrors()))), 'mailpoet'),
           APIException::FAILED_TO_SAVE_SUBSCRIBER
         );
       }
@@ -197,11 +151,13 @@ class API {
 
     // send confirmation email
     if ($sendConfirmationEmail) {
-      $result = $this->_sendConfirmationEmail($subscriber);
-      if (!$result && $subscriber->getErrors()) {
+      try {
+        $this->_sendConfirmationEmail($subscriber);
+      } catch (\Exception $e) {
         throw new APIException(
-          WPFunctions::get()->__(sprintf('Subscriber added to lists, but confirmation email failed to send: %s', strtolower(implode(', ', $subscriber->getErrors()))), 'mailpoet'),
-        APIException::CONFIRMATION_FAILED_TO_SEND);
+          __(sprintf('Subscriber added to lists, but confirmation email failed to send: %s', strtolower($e->getMessage())), 'mailpoet'),
+          APIException::CONFIRMATION_FAILED_TO_SEND
+        );
       }
     }
 
@@ -273,7 +229,7 @@ class API {
     // throw exception when subscriber email is missing
     if (empty($subscriber['email'])) {
       throw new APIException(
-        WPFunctions::get()->__('Subscriber email address is required.', 'mailpoet'),
+        __('Subscriber email address is required.', 'mailpoet'),
         APIException::EMAIL_ADDRESS_REQUIRED
       );
     }
@@ -281,7 +237,7 @@ class API {
     // throw exception when subscriber already exists
     if (Subscriber::findOne($subscriber['email'])) {
       throw new APIException(
-        WPFunctions::get()->__('This subscriber already exists.', 'mailpoet'),
+        __('This subscriber already exists.', 'mailpoet'),
         APIException::SUBSCRIBER_EXISTS
       );
     }
@@ -291,7 +247,7 @@ class API {
     }
 
     // separate data into default and custom fields
-    list($defaultFields, $customFields) = Subscriber::extractCustomFieldsFromFromObject($subscriber);
+    [$defaultFields, $customFields] = Subscriber::extractCustomFieldsFromFromObject($subscriber);
 
     // filter out all incoming data that we don't want to change, like status ...
     $defaultFields = array_intersect_key($defaultFields, array_flip(['email', 'first_name', 'last_name', 'subscribed_ip']));
@@ -308,7 +264,7 @@ class API {
     $newSubscriber->save();
     if ($newSubscriber->getErrors() !== false) {
       throw new APIException(
-        WPFunctions::get()->__(sprintf('Failed to add subscriber: %s', strtolower(implode(', ', $newSubscriber->getErrors()))), 'mailpoet'),
+        __(sprintf('Failed to add subscriber: %s', strtolower(implode(', ', $newSubscriber->getErrors()))), 'mailpoet'),
         APIException::FAILED_TO_SAVE_SUBSCRIBER
       );
     }
@@ -334,7 +290,7 @@ class API {
     // throw exception when list name is missing
     if (empty($list['name'])) {
       throw new APIException(
-        WPFunctions::get()->__('List name is required.', 'mailpoet'),
+        __('List name is required.', 'mailpoet'),
         APIException::LIST_NAME_REQUIRED
       );
     }
@@ -342,7 +298,7 @@ class API {
     // throw exception when list already exists
     if (Segment::where('name', $list['name'])->findOne()) {
       throw new APIException(
-        WPFunctions::get()->__('This list already exists.', 'mailpoet'),
+        __('This list already exists.', 'mailpoet'),
         APIException::LIST_EXISTS
       );
     }
@@ -356,7 +312,7 @@ class API {
     $newList->save();
     if ($newList->getErrors() !== false) {
       throw new APIException(
-        WPFunctions::get()->__(sprintf('Failed to add list: %s', strtolower(implode(', ', $newList->getErrors()))), 'mailpoet'),
+        __(sprintf('Failed to add list: %s', strtolower(implode(', ', $newList->getErrors()))), 'mailpoet'),
         APIException::FAILED_TO_SAVE_LIST
       );
     }
@@ -364,7 +320,7 @@ class API {
     // reload list to get the saved created|updated|delete dates/other fields
     $newList = Segment::findOne($newList->id);
     if (!$newList instanceof Segment) {
-      throw new APIException(WPFunctions::get()->__('Failed to add list', 'mailpoet'), APIException::FAILED_TO_SAVE_LIST);
+      throw new APIException(__('Failed to add list', 'mailpoet'), APIException::FAILED_TO_SAVE_LIST);
     }
 
     return $newList->asArray();
@@ -380,7 +336,10 @@ class API {
   }
 
   protected function _sendConfirmationEmail(Subscriber $subscriber) {
-    return $this->confirmationEmailMailer->sendConfirmationEmailOnce($subscriber);
+    $subscriberEntity = $this->subscribersRepository->findOneById($subscriber->id);
+    if ($subscriberEntity instanceof SubscriberEntity) {
+      return $this->confirmationEmailMailer->sendConfirmationEmailOnce($subscriberEntity);
+    }
   }
 
   protected function _scheduleWelcomeNotification(Subscriber $subscriber, array $segments) {
@@ -389,7 +348,7 @@ class API {
       foreach ($result as $queue) {
         if ($queue instanceof Sending && $queue->getErrors()) {
           throw new APIException(
-            WPFunctions::get()->__(sprintf('Subscriber added, but welcome email failed to send: %s', strtolower(implode(', ', $queue->getErrors()))), 'mailpoet'),
+            __(sprintf('Subscriber added, but welcome email failed to send: %s', strtolower(implode(', ', $queue->getErrors()))), 'mailpoet'),
             APIException::WELCOME_FAILED_TO_SEND
           );
         }

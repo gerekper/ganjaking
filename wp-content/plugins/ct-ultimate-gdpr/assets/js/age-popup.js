@@ -50,6 +50,7 @@ jQuery(document).ready(function ($) {
     // hide popup
     if (isConsentValid()) {
         hidePopup();
+        scheduledRedirect();
     } else {
         showPopup();
     }
@@ -108,25 +109,20 @@ jQuery(document).ready(function ($) {
             // for ages below 13, redirect to my account for user to be able to enter guard data
             if (ct_ultimate_gdpr_age.my_account_page_url) {
                 jQuery('#ct-ultimate-gdpr-age-accept').attr('disabled', true);
-                window.location.href = ct_ultimate_gdpr_age.my_account_page_url;
+                setInterval(function() { window.location.href = ct_ultimate_gdpr_age.my_account_page_url; }, 1000);
             }
 
             // do not hide popup
             return;
 
-        } else {
+        } 
+        
+        // redirect to terms/privacy if active
+        if (ct_ultimate_gdpr_age.scheduled_redirect) {
 
-            // for ages 13 - 16 redirect to terms/privacy if active
-            if (ct_ultimate_gdpr_age.scheduled_redirect) {
-                jQuery('#ct-ultimate-gdpr-age-accept').attr('disabled', true);
-                window.location.href = ct_ultimate_gdpr_age.scheduled_redirect;
-            }
-
-            // do not hide popup
-            return;
-
+            jQuery('#ct-ultimate-gdpr-age-accept').attr('disabled', true);
+            setInterval(function() { window.location.href = ct_ultimate_gdpr_age.scheduled_redirect; }, 1000);
         }
-
 
         hidePopup()
         $(document).trigger('ct-age-clicked');
@@ -146,8 +142,6 @@ jQuery(document).ready(function ($) {
             hidePopup();
         }
 
-        
-
     });
 
     function dateToAge(date) {
@@ -155,6 +149,14 @@ jQuery(document).ready(function ($) {
         const diffDate = new Date(msDiff);
 
         return Math.abs(diffDate.getUTCFullYear() - 1970);
+    }
+
+    function scheduledRedirect() {
+    
+        // always redirect if scheduled_redirect is not empty
+        if (ct_ultimate_gdpr_age.scheduled_redirect && ct_ultimate_gdpr_age.scheduled_redirect !== ct_ultimate_gdpr_age.my_account_page_url) {
+            setInterval(function() { window.location.href = ct_ultimate_gdpr_age.scheduled_redirect; }, 1000);
+        }
     }
 
 });

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product-related functions and filters.
  *
  * @class    WC_PB_BS_Product
- * @version  6.7.6
+ * @version  6.13.0
  */
 class WC_PB_BS_Product {
 
@@ -40,7 +40,7 @@ class WC_PB_BS_Product {
 			$product = wc_get_product( $product );
 		}
 
-		if ( ( $product instanceof WC_Product ) && false === $product->is_type( 'bundle' ) ) {
+		if ( ( $product instanceof WC_Product ) && self::supports_bundle_sells( $product ) ) {
 
 			$bundle_sell_ids = $product->get_meta( '_wc_pb_bundle_sell_ids', true );
 
@@ -195,4 +195,40 @@ class WC_PB_BS_Product {
 
 		return apply_filters( 'wc_pb_bundle_sells_dummy_bundle', $bundle );
 	}
+
+	/**
+	 * Get product types that don't support bundle-sells.
+	 *
+	 * @since  6.13.0
+	 *
+	 * @return array
+	 */
+	public static function get_unsupported_product_types() {
+		return (array) apply_filters( 'wc_pb_bundle_sells_unsupported_product_types', array( 'bundle', 'grouped', 'external' ) );
+	}
+
+	/**
+	 * True if product supports bundle-sells.
+	 *
+	 * @since  6.13.0
+	 *
+	 * @param  mixed  $product
+	 * @return boolean
+	 */
+	public static function supports_bundle_sells( $product ) {
+
+		$is_supported = false;
+
+		if ( ! ( $product instanceof WC_Product ) ) {
+			$product = wc_get_product( $product );
+		}
+
+		if ( $product instanceof WC_Product ) {
+			$is_supported = ! $product->is_type( self::get_unsupported_product_types() );
+		}
+
+		return $is_supported;
+
+	}
+
 }

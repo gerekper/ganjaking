@@ -22,7 +22,7 @@ class LastSubscribedAtListener {
     $entity = $eventArgs->getEntity();
 
     if ($entity instanceof SubscriberEntity && $entity->getStatus() === SubscriberEntity::STATUS_SUBSCRIBED) {
-      $entity->setLastSubscribedAt($this->now);
+      $entity->setLastSubscribedAt($this->now->copy());
     }
   }
 
@@ -41,7 +41,7 @@ class LastSubscribedAtListener {
     [$oldStatus, $newStatus] = $changeSet['status'];
     // Update last_subscribed_at when status changes to subscribed
     if ($oldStatus !== SubscriberEntity::STATUS_SUBSCRIBED && $newStatus === SubscriberEntity::STATUS_SUBSCRIBED) {
-      $entity->setLastSubscribedAt($this->now);
+      $entity->setLastSubscribedAt($this->now->copy());
     }
   }
 }

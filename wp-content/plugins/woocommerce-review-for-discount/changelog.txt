@@ -1,0 +1,162 @@
+*** WooCommerce Review for Discount ***
+
+2021-12-09 - version 1.6.22
+* Tweak - WC 6.0 compatibility.
+* Tweak - WordPress 5.9 compatibility.
+
+2021-02-04 - version 1.6.21
+* Tweak - WC 5.0 compatibility.
+
+2020-12-01 - version 1.6.20
+* Tweak - WC 4.7 compatibility.
+* Tweak - WordPress 5.6 compatibility.
+
+2020-10-06 - version 1.6.19
+* Tweak - WC 4.5 compatibility.
+
+2020-08-19 - version 1.6.18
+* Tweak - WordPress 5.5 compatibility.
+
+2020-07-07 - version 1.6.17
+* Fix - Switch to using selectWoo fields and escape output.
+
+2020-06-10 - version 1.6.16
+* Tweak - WC 4.2 compatibility.
+
+2020-04-30 - version 1.6.15
+* Tweak - WC 4.1 compatibility.
+
+2020-03-17 - version 1.6.14
+* Tweak - Remove lagacy code.
+* Fix   - Product Category Restriction Field not respected.
+
+2020-03-06 - version 1.6.13
+* Tweak - WC 3.9 compatibility.
+
+2020-01-30 - version 1.6.12
+* Fix   - {valid_products} variable does not show categories in email.
+
+2020-01-14 - version 1.6.11
+* Tweak - WC 3.9 compatibility.
+
+2019-11-04 - version 1.6.10
+* Tweak - WC 3.8 compatibility.
+
+2019-08-08 - version 1.6.9
+* Tweak - WC 3.7 compatibility.
+
+2019-04-16 - version 1.6.8
+* Tweak - WC 3.6 compatibility.
+
+2018-09-25 - version 1.6.7
+* Update - WC 3.5 compatibility.
+
+2018-06-04 - version 1.6.6
+* Update - WC 3.4 compatibility.
+* Update - Privacy policy notification.
+* Update - Export/erasure hooks added.
+
+2017-12-14 - version 1.6.5
+* Update - WC tested up to version.
+
+2017-08-21 - version 1.6.4
+* Fix: Restriction applies only to the first product category.
+
+2017-04-03 - version 1.6.3
+* Fix: Fatal error when commenting on a blog post
+* Fix: WooCommerce 3.0 compatibility
+
+2017-02-22 - version 1.6.2
+* Fix: Database error on plugin activation for the first time (handles upgrades properly now)
+
+2016-04-21 - version 1.6.1
+* Bug fix: Honor the exclude sale items checkbox
+
+2015-11-16 - version 1.6
+* Bug fix: Fixed support for variations because reviews are made on parent products
+* Bug fix: Ensure that customer email is stored with the generated coupon
+* Feature: Updated user interface to match WooCommerce core coupons
+* Feature: Added filter 'wc_review_discount_discount_object' to allow 3rd-party plugins to modify the discount
+
+2015-07-31 - version 1.5.8
+* WooCommerce 2.4 compatibility
+* Fixed bug that wouldn't send coupons when no products/categories were selected and all products was not selected
+* Minor CSS and display issues
+* Added text domain to plugin info block
+
+2015-02-01 - version 1.5.7
+* WooCommerce 2.3 compatibility
+
+2014-12-24 - version 1.5.6
+* Bug fix: UI not retaining "exclude sale items" selection
+
+2014-12-17 - version 1.5.5
+* Feature: Ability to limit coupons from sale items
+
+2014-10-25 - version 1.5.4
+* Bug fix: General code cleanup and improvements
+
+2014-07-31 - version 1.5.3
+* Fixed bug to block coupons from being sent to non-product reviews/comments
+
+2014-01-30 - version 1.5.2
+* Fixed bug that prevented email settings to display
+
+2014-01-20 - version 1.5.1
+* Added ability to limit coupons to one per email address
+
+2014-01-08 - version 1.5
+* Added WooCommerce 2.1 compatibility
+
+2013-11-27 - version 1.4.3
+* More general housekeeping thanks to an observant customer! Thanks!
+
+2013-11-22 - version 1.4.2
+* Fixed bug related to installing the plugin
+
+2013-02-26 - version 1.4.1
+* Fixed bug where discount was sent even while review was waiting approval
+* Fixed bug where categories and discount weren't being saved
+* Fixed bug where slashes in emails weren\'t being stripped
+
+2013-01-26 - version 1.4
+* No more coupons for post comments
+* 2.0 compatibility
+* Other random goodness
+
+2012-12-06 - version 1.3.3
+* Bug fixes
+* Fixed installer
+
+2012-12-04 - version 1.3.2
+* New updater
+
+2012-10-31 - version 1.3.1
+* Bug fixes
+
+2012-10-10 - version 1.3
+* Update coupon form
+* Support for coupons for any product
+* Fix coupon validity bug
+
+2012-08-29 - version 1.2.3
+* Support for WooCommerce 1.6.5.1
+* Fixed timezone causing coupon invalidity
+
+2012-07-30 - version 1.2.2
+* Fixed admin stylesheets
+
+2012-07-23 - version 1.2.1
+* Fixed expiration dates not being saved
+
+2012-07-20 - version 1.2
+* Added WooCommerce 1.6.1 compatibility updates
+* Added support to send discounts for "verified owner" only - requires WooCommerce 1.6
+
+2012-06-21 - version 1.1
+* Limit sending of coupons one per email address - multiple commenters with same email address won't get multiple coupons
+* Limit active discounts to one per product
+* Fail on creation of discounts with no products selected
+
+2012-03-29 - version 1.0
+* First release

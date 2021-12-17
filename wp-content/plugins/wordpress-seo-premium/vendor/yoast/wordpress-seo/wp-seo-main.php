@@ -15,7 +15,7 @@ if ( ! function_exists( 'add_filter' ) ) {
  * {@internal Nobody should be able to overrule the real version number as this can cause
  *            serious issues with the options, so no if ( ! defined() ).}}
  */
-define( 'WPSEO_VERSION', '17.7' );
+define( 'WPSEO_VERSION', '17.8' );
 
 
 if ( ! defined( 'WPSEO_PATH' ) ) {
@@ -218,6 +218,7 @@ function _wpseo_activate() {
 	}
 
 	WPSEO_Options::set( 'indexing_reason', 'first_install' );
+	WPSEO_Options::set( 'first_time_install', true );
 
 	do_action( 'wpseo_register_roles' );
 	WPSEO_Role_Manager_Factory::get()->add();
@@ -367,9 +368,6 @@ function wpseo_init_rest_api() {
 	}
 
 	// Boot up REST API.
-	$configuration_service = new WPSEO_Configuration_Service();
-	$configuration_service->initialize();
-
 	$statistics_service = new WPSEO_Statistics_Service( new WPSEO_Statistics() );
 
 	$endpoints   = [];

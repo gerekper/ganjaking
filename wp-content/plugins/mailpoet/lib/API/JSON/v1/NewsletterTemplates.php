@@ -11,6 +11,7 @@ use MailPoet\API\JSON\ResponseBuilders\NewsletterTemplatesResponseBuilder;
 use MailPoet\Config\AccessControl;
 use MailPoet\Newsletter\ApiDataSanitizer;
 use MailPoet\NewsletterTemplates\NewsletterTemplatesRepository;
+use MailPoet\NewsletterTemplates\ThumbnailSaver;
 use MailPoet\WP\Functions as WPFunctions;
 
 class NewsletterTemplates extends APIEndpoint {
@@ -28,16 +29,21 @@ class NewsletterTemplates extends APIEndpoint {
   /** @var NewsletterTemplatesResponseBuilder */
   private $newsletterTemplatesResponseBuilder;
 
+  /** @var ThumbnailSaver */
+  private $thumbnailImageSaver;
+
   /** @var ApiDataSanitizer */
   private $apiDataSanitizer;
 
   public function __construct(
     NewsletterTemplatesRepository $newsletterTemplatesRepository,
     NewsletterTemplatesResponseBuilder $newsletterTemplatesResponseBuilder,
+    ThumbnailSaver $thumbnailImageSaver,
     ApiDataSanitizer $apiDataSanitizer
   ) {
     $this->newsletterTemplatesRepository = $newsletterTemplatesRepository;
     $this->newsletterTemplatesResponseBuilder = $newsletterTemplatesResponseBuilder;
+    $this->thumbnailImageSaver = $thumbnailImageSaver;
     $this->apiDataSanitizer = $apiDataSanitizer;
   }
 
@@ -70,6 +76,7 @@ class NewsletterTemplates extends APIEndpoint {
     }
     try {
       $template = $this->newsletterTemplatesRepository->createOrUpdate($data);
+      $template = $this->thumbnailImageSaver->ensureTemplateThumbnailFile($template);
       if (!empty($data['categories']) && $data['categories'] === NewsletterTemplatesRepository::RECENTLY_SENT_CATEGORIES) {
         $this->newsletterTemplatesRepository->cleanRecentlySent();
       }

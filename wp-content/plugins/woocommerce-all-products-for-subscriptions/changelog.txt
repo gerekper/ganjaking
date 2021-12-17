@@ -1,5 +1,10 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2021.12.03 - version 3.1.31
+* Feature - Added integration with PayPal Payments to hide quick-pay buttons in product pages with subscription plans.
+* Fix - Fixed missing notices.
+* Fix - Fixed PHP warning triggered when selecting a discounted Subscription plan for a Product Bundle without a Regular/Sale price.
+
 2021.08.27 - version 3.1.30
 * Feature - Added integration with Stripe to hide quick-pay buttons in product pages with σubscription plans.
 * Fix - Fixed floating Add to Cart button in pages created by Elementor.

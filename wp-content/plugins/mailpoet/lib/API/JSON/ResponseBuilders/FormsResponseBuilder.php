@@ -14,7 +14,9 @@ class FormsResponseBuilder {
   /** @var StatisticsFormsRepository */
   private $statisticsFormsRepository;
 
-  public function __construct(StatisticsFormsRepository $statisticsFormsRepository) {
+  public function __construct(
+    StatisticsFormsRepository $statisticsFormsRepository
+  ) {
     $this->statisticsFormsRepository = $statisticsFormsRepository;
   }
 

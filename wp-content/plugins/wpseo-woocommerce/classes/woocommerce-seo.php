@@ -682,7 +682,10 @@ class Yoast_WooCommerce_SEO {
 		$request_helper = new Request_Helper();
 
 		if ( ! $request_helper->is_rest_request() ) {
-			// This is a frontend request.
+			if ( \is_null( $context ) ) {
+				$context = YoastSEO()->meta->for_current_page()->context;
+			}
+
 			if ( is_a( $context, Meta_Tags_Context::class ) ) {
 				if ( $context->indexable->object_sub_type === 'product' ) {
 					$the_post = \get_post( $context->indexable->object_id );
@@ -812,6 +815,11 @@ class Yoast_WooCommerce_SEO {
 	protected function get_product_short_description( $product = null ) {
 		if ( is_null( $product ) ) {
 			$product = $this->get_product();
+		}
+
+		// Safety check for PHPv8.0. Issue: https://yoast.atlassian.net/browse/P2-1149.
+		if ( is_null( $product ) ) {
+			return '';
 		}
 
 		if ( method_exists( $product, 'get_short_description' ) ) {
@@ -1164,12 +1172,38 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
+	 * Retrieves a product identifier.
+	 *
+	 * @param string $type The type of identifier to retrieve. E.g. 'gtin8' or 'isbn'.
+	 *
+	 * @return string The product identifier.
+	 */
+	protected function get_product_identifier( $type ) {
+		$request_helper = new Request_Helper();
+
+		/*
+		 * On product overview pages in REST requests, do not cache the global identifiers.
+		 * Otherwise each product would get the same ids.
+		 */
+		if ( ! \is_singular() && $request_helper->is_rest_request() ) {
+			$this->get_product_global_identifiers();
+		}
+
+		// Cache the global identifiers.
+		if ( empty( $this->global_identifiers ) ) {
+			$this->get_product_global_identifiers();
+		}
+
+		return isset( $this->global_identifiers[ $type ] ) ? $this->global_identifiers[ $type ] : '';
+	}
+
+	/**
 	 * Retrieves the product GTIN8 identifier.
 	 *
 	 * @return string The product GTIN8 identifier.
 	 */
 	public function get_product_var_gtin8() {
-		return isset( $this->global_identifiers['gtin8'] ) ? $this->global_identifiers['gtin8'] : '';
+		return $this->get_product_identifier( 'gtin8' );
 	}
 
 	/**
@@ -1178,7 +1212,7 @@ class Yoast_WooCommerce_SEO {
 	 * @return string The product GTIN12 / UPC identifier.
 	 */
 	public function get_product_var_gtin12() {
-		return isset( $this->global_identifiers['gtin12'] ) ? $this->global_identifiers['gtin12'] : '';
+		return $this->get_product_identifier( 'gtin12' );
 	}
 
 	/**
@@ -1187,7 +1221,7 @@ class Yoast_WooCommerce_SEO {
 	 * @return string The product GTIN13 / EAN identifier.
 	 */
 	public function get_product_var_gtin13() {
-		return isset( $this->global_identifiers['gtin13'] ) ? $this->global_identifiers['gtin13'] : '';
+		return $this->get_product_identifier( 'gtin13' );
 	}
 
 	/**
@@ -1196,7 +1230,7 @@ class Yoast_WooCommerce_SEO {
 	 * @return string The product GTIN14 / ITF-14 identifier.
 	 */
 	public function get_product_var_gtin14() {
-		return isset( $this->global_identifiers['gtin14'] ) ? $this->global_identifiers['gtin14'] : '';
+		return $this->get_product_identifier( 'gtin14' );
 	}
 
 	/**
@@ -1205,7 +1239,7 @@ class Yoast_WooCommerce_SEO {
 	 * @return string The product ISBN identifier.
 	 */
 	public function get_product_var_isbn() {
-		return isset( $this->global_identifiers['isbn'] ) ? $this->global_identifiers['isbn'] : '';
+		return $this->get_product_identifier( 'isbn' );
 	}
 
 	/**
@@ -1214,7 +1248,7 @@ class Yoast_WooCommerce_SEO {
 	 * @return string The product MPN identifier.
 	 */
 	public function get_product_var_mpn() {
-		return isset( $this->global_identifiers['mpn'] ) ? $this->global_identifiers['mpn'] : '';
+		return $this->get_product_identifier( 'mpn' );
 	}
 
 	/**

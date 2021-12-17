@@ -85,7 +85,13 @@ if (!class_exists('A2W_ProductShippingMeta')):
         public static function get_country_from_list($product_id){
             global $wpdb;
             $query = "SELECT DISTINCT pm.meta_value FROM {$wpdb->posts} p INNER JOIN {$wpdb->postmeta} pm ON (pm.post_id=p.ID AND pm.meta_key='_a2w_country_code') WHERE p.post_parent=%d AND p.post_type='product_variation'";
-            return $wpdb->get_col($wpdb->prepare($query, $product_id));
+            $country_from_list =  $wpdb->get_col($wpdb->prepare($query, $product_id));
+
+            if(empty($country_from_list)){
+                $query = "SELECT DISTINCT pm.meta_value FROM {$wpdb->postmeta} pm WHERE pm.post_id=%d AND pm.meta_key='_a2w_country_code'";
+                $country_from_list =  $wpdb->get_col($wpdb->prepare($query, $product_id));
+            }
+            return $country_from_list;
         }
     }
 

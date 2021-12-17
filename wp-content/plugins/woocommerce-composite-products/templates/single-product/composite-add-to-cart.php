@@ -28,6 +28,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	?><div class="composite_wrap" style="<?php echo apply_filters( 'woocommerce_composite_button_behaviour', 'new', $product ) === 'new' ? '' : 'display:none'; ?>">
 		<div class="composite_price"></div>
+		<?php
+			/**
+			* 'woocommerce_composite_after_composite_price' action.
+			*
+			* @since 8.3.4
+			*/
+			do_action( 'woocommerce_composite_after_composite_price' );
+		?>
 		<div class="composite_message" style="display:none;"><ul class="msg woocommerce-info"></ul></div>
 		<div class="composite_availability"><?php
 			// Availability html.

@@ -454,7 +454,6 @@ function get_rocket_cache_query_string() { // phpcs:ignore WordPress.NamingConve
  * @return bool true if everything is ok, false otherwise
  */
 function rocket_valid_key() {
-	return true;
 	$rocket_secret_key = get_rocket_option( 'secret_key' );
 	if ( ! $rocket_secret_key ) {
 		return false;

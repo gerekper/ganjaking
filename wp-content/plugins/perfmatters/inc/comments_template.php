@@ -1,0 +1,2 @@
+<?php
+/* Blank Comments Template */

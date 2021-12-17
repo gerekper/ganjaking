@@ -8,14 +8,15 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Config\Renderer;
 use MailPoet\Cron\Workers\SimpleWorker;
 use MailPoet\Entities\NewsletterEntity;
+use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Mailer\Mailer;
 use MailPoet\Mailer\MetaInfo;
 use MailPoet\Models\Newsletter;
-use MailPoet\Models\ScheduledTask;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Statistics\NewsletterStatistics;
 use MailPoet\Newsletter\Statistics\NewsletterStatisticsRepository;
 use MailPoet\Settings\SettingsController;
+use MailPoet\Settings\TrackingConfig;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 
@@ -40,13 +41,17 @@ class AutomatedEmails extends SimpleWorker {
   /** @var NewsletterStatisticsRepository */
   private $newsletterStatisticsRepository;
 
+  /** @var TrackingConfig */
+  private $trackingConfig;
+
   public function __construct(
     Mailer $mailer,
     Renderer $renderer,
     SettingsController $settings,
     NewslettersRepository $repository,
     NewsletterStatisticsRepository $newsletterStatisticsRepository,
-    MetaInfo $mailerMetaInfo
+    MetaInfo $mailerMetaInfo,
+    TrackingConfig $trackingConfig
   ) {
     parent::__construct();
     $this->mailer = $mailer;
@@ -55,6 +60,7 @@ class AutomatedEmails extends SimpleWorker {
     $this->mailerMetaInfo = $mailerMetaInfo;
     $this->repository = $repository;
     $this->newsletterStatisticsRepository = $newsletterStatisticsRepository;
+    $this->trackingConfig = $trackingConfig;
   }
 
   public function checkProcessingRequirements() {
@@ -71,13 +77,13 @@ class AutomatedEmails extends SimpleWorker {
     if (empty(trim($settings['address']))) {
       return false;
     }
-    if (!(bool)$this->settings->get('tracking.enabled')) {
+    if (!$this->trackingConfig->isEmailTrackingEnabled()) {
       return false;
     }
     return (bool)$settings['automated'];
   }
 
-  public function processTaskStrategy(ScheduledTask $task, $timer) {
+  public function processTaskStrategy(ScheduledTaskEntity $task, $timer) {
     try {
       $settings = $this->settings->get(Worker::SETTINGS_KEY);
       $newsletters = $this->getNewsletters();

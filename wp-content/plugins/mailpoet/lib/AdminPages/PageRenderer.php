@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Renderer;
+use MailPoet\Cron\Workers\SubscribersCountCacheRecalculation;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Features\FeaturesController;
 use MailPoet\Referrals\ReferralDetector;
@@ -32,18 +33,23 @@ class PageRenderer {
   /** @var SegmentsRepository */
   private $segmentRepository;
 
+  /** @var SubscribersCountCacheRecalculation */
+  private $subscribersCountCacheRecalculation;
+
   public function __construct(
     Renderer $renderer,
     FeaturesController $featuresController,
     SettingsController $settings,
     UserFlagsController $userFlags,
-    SegmentsRepository $segmentRepository
+    SegmentsRepository $segmentRepository,
+    SubscribersCountCacheRecalculation $subscribersCountCacheRecalculation
   ) {
     $this->renderer = $renderer;
     $this->featuresController = $featuresController;
     $this->settings = $settings;
     $this->userFlags = $userFlags;
     $this->segmentRepository = $segmentRepository;
+    $this->subscribersCountCacheRecalculation = $subscribersCountCacheRecalculation;
   }
 
   /**
@@ -61,6 +67,7 @@ class PageRenderer {
       'feature_flags' => $this->featuresController->getAllFlags(),
       'referral_id' => $this->settings->get(ReferralDetector::REFERRAL_SETTING_NAME),
       'mailpoet_api_key_state' => $this->settings->get('mta.mailpoet_api_key_state'),
+      'mta_method' => $this->settings->get('mta.method'),
       'premium_key_state' => $this->settings->get('premium.premium_key_state'),
       'last_announcement_seen' => $lastAnnouncementSeen,
       'feature_announcement_has_news' => (empty($lastAnnouncementSeen) || $lastAnnouncementSeen < $lastAnnouncementDate),
@@ -72,6 +79,9 @@ class PageRenderer {
         && class_exists(DIPanel::class)
       ) {
         DIPanel::init();
+      }
+      if (is_admin() && $this->subscribersCountCacheRecalculation->shouldBeScheduled()) {
+        $this->subscribersCountCacheRecalculation->schedule();
       }
       echo $this->renderer->render($template, $data + $defaults);
     } catch (\Exception $e) {

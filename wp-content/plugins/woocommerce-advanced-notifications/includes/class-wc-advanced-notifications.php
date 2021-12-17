@@ -31,6 +31,12 @@ class WC_Advanced_Notifications {
 			}
 		}
 
+		add_action( 'wp_loaded', array( $this, 'send_notification_hooks' ) );
+		add_filter( 'woocommerce_translations_updates_for_woocommerce_advanced_notifications', '__return_true' );
+	}
+
+	public function send_notification_hooks() {
+		
 		// Hook emails
 		if ( apply_filters( 'woocommerce_advanced_notifications_multiple_statuses_trigger', true ) ) {
 			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_pending_to_processing', true ) ) {
@@ -57,18 +63,36 @@ class WC_Advanced_Notifications {
 				add_action( 'woocommerce_order_status_failed_to_completed', array( $this, 'new_order' ) );
 			}
 
+			/**
+			 * Add custom order status for WooCommerce Deposits compatibility.
+			 * 
+			 * @since 1.2.35
+			 */
+
+			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_pending_to_partial-payment', true ) ) {
+				add_action( 'woocommerce_order_status_pending_to_partial-payment', array( $this, 'new_order' ) );
+			}
+
+			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_on-hold_to_partial-payment', true ) ) {
+				add_action( 'woocommerce_order_status_on-hold_to_partial-payment', array( $this, 'new_order' ) );
+			}
+
+			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_failed_to_partial-payment', true ) ) {
+				add_action( 'woocommerce_order_status_failed_to_partial-payment', array( $this, 'new_order' ) );
+			}
+
 			if ( apply_filters( 'woocommerce_advanced_notifications_purchase_pending_to_on-hold', false ) ) {
 				add_action( 'woocommerce_order_status_pending_to_on-hold', array( $this, 'new_order' ) );
 			}
 		} else {
 			add_action( 'woocommerce_order_status_completed', array( $this, 'new_order' ) );
 		}
+
 		add_action( 'woocommerce_low_stock_notification', array( $this, 'low_stock' ), 1, 2 );
 		add_action( 'woocommerce_no_stock_notification', array( $this, 'out_of_stock' ), 1, 2 );
 		add_action( 'woocommerce_product_on_backorder_notification', array( $this, 'backorder' ), 1, 2 );
 		add_action( 'woocommerce_order_fully_refunded_notification', array( $this, 'refund' ) );
 		add_action( 'woocommerce_order_partially_refunded_notification', array( $this, 'refund' ) );
-		add_filter( 'woocommerce_translations_updates_for_woocommerce_advanced_notifications', '__return_true' );
 	}
 
 	/**

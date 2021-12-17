@@ -7,17 +7,20 @@
  */
 if (!class_exists('A2W_Aliexpress')) {
 
-    class A2W_Aliexpress {
+    class A2W_Aliexpress
+    {
 
         private $product_import_model;
         private $account;
 
-        function __construct() {
+        public function __construct()
+        {
             $this->product_import_model = new A2W_ProductImport();
             $this->account = A2W_Account::getInstance();
         }
 
-        public function load_products($filter, $page = 1, $per_page = 20, $params = array()) {
+        public function load_products($filter, $page = 1, $per_page = 20, $params = array())
+        {
             /** @var wpdb $wpdb */
             global $wpdb;
 
@@ -83,7 +86,8 @@ if (!class_exists('A2W_Aliexpress')) {
             return $result;
         }
 
-        public function load_reviews($product_id, $page, $page_size = 20, $params = array()) {
+        public function load_reviews($product_id, $page, $page_size = 20, $params = array())
+        {
             $request_url = A2W_RequestHelper::build_request('get_reviews', array('lang' => A2W_AliexpressLocalizator::getInstance()->language, 'product_id' => $product_id, 'page' => $page, 'page_size' => $page_size));
             $request = a2w_remote_get($request_url);
 
@@ -100,17 +104,18 @@ if (!class_exists('A2W_Aliexpress')) {
             return $result;
         }
 
-        public function load_product($product_id, $params = array()) {
+        public function load_product($product_id, $params = array())
+        {
             /** @var wpdb $wpdb */
             global $wpdb;
-    
+
             $products_in_import = $this->product_import_model->get_product_id_list();
 
-            $request_url = A2W_RequestHelper::build_request('get_product', array('product_id' => $product_id, 'skip_desc'=>true));
+            $request_url = A2W_RequestHelper::build_request('get_product', array('product_id' => $product_id, 'skip_desc' => true));
 
-            if(empty($params['data'])){
-                $request = a2w_remote_get($request_url);    
-            }else{
+            if (empty($params['data'])) {
+                $request = a2w_remote_get($request_url);
+            } else {
                 $request = a2w_remote_post($request_url, $params['data']);
             }
 
@@ -139,31 +144,40 @@ if (!class_exists('A2W_Aliexpress')) {
                         }
                     }
 
-                    if(($convert_attr_casea = a2w_get_setting('convert_attr_case')) != 'original'){
+                    if (a2w_get_setting('remove_ship_from')) {
+                        $default_ship_from = a2w_get_setting('default_ship_from');
+                        $result['product'] = A2W_Utils::remove_ship_from($result['product'], $default_ship_from);
+                    }
+
+                    $country_from = a2w_get_setting('aliship_shipfrom', 'CN');
+                    $country_to = a2w_get_setting('aliship_shipto', 'US');
+                    $result['product'] = A2W_Utils::update_product_shipping($result['product'], $country_from, $country_to, 'import', a2w_get_setting('add_shipping_to_price'));
+
+                    if (($convert_attr_casea = a2w_get_setting('convert_attr_case')) != 'original') {
                         $convert_func = false;
                         switch ($convert_attr_casea) {
                             case 'lower':
-                                $convert_func = function($v){return strtolower($v);};
+                                $convert_func = function ($v) {return strtolower($v);};
                                 break;
                             case 'sentence':
-                                $convert_func = function($v){return ucfirst(strtolower($v));};
+                                $convert_func = function ($v) {return ucfirst(strtolower($v));};
                                 break;
                         }
 
-                        if($convert_func){
-                            foreach($result['product']['sku_products']['attributes'] as &$product_attr){
-                                if(!isset($product_attr['original_name'])){
+                        if ($convert_func) {
+                            foreach ($result['product']['sku_products']['attributes'] as &$product_attr) {
+                                if (!isset($product_attr['original_name'])) {
                                     $product_attr['original_name'] = $product_attr['name'];
                                 }
 
                                 $product_attr['name'] = $convert_func($product_attr['name']);
 
-                                foreach($product_attr['value'] as &$product_attr_val){
+                                foreach ($product_attr['value'] as &$product_attr_val) {
                                     $product_attr_val['name'] = $convert_func($product_attr_val['name']);
                                 }
                             }
 
-                            foreach($result['product']['sku_products']['variations'] as &$product_var){
+                            foreach ($result['product']['sku_products']['variations'] as &$product_var) {
                                 $product_var['attributes_names'] = array_map($convert_func, $product_var['attributes_names']);
                             }
                         }
@@ -179,13 +193,12 @@ if (!class_exists('A2W_Aliexpress')) {
                         }
                     }
 
-
                     $result['product']['attribute'] = array();
-                    if(isset($result['product']['desc_meta']['attributes']) && is_array($result['product']['desc_meta']['attributes'])){
+                    if (isset($result['product']['desc_meta']['attributes']) && is_array($result['product']['desc_meta']['attributes'])) {
                         $split_attribute_values = a2w_get_setting('split_attribute_values');
                         $attribute_values_separator = a2w_get_setting('attribute_values_separator');
-                        foreach($result['product']['desc_meta']['attributes'] as $attr){
-                            $el = array('name'=>$attr['name']);
+                        foreach ($result['product']['desc_meta']['attributes'] as $attr) {
+                            $el = array('name' => $attr['name']);
                             if ($split_attribute_values) {
                                 $el['value'] = array_map('a2w_phrase_apply_filter_to_text', array_map('trim', explode($attribute_values_separator, $attr['value'])));
                             } else {
@@ -207,43 +220,43 @@ if (!class_exists('A2W_Aliexpress')) {
                     }
 
                     if (!a2w_get_setting('not_import_description')) {
-                        $desc_url = isset($result['product']['desc_meta']['desc_url'])?$result['product']['desc_meta']['desc_url']:"";
-                        if(!$desc_url){
-                            $response = a2w_remote_get("https://m.aliexpress.com/api/products/".$product_id."/descriptions?clientType=pc&currency=".A2W_AliexpressLocalizator::getInstance()->currency."&lang=".A2W_AliexpressLocalizator::getInstance()->getLangCode());
+                        $desc_url = isset($result['product']['desc_meta']['desc_url']) ? $result['product']['desc_meta']['desc_url'] : "";
+                        if (!$desc_url) {
+                            $response = a2w_remote_get("https://m.aliexpress.com/api/products/" . $product_id . "/descriptions?clientType=pc&currency=" . A2W_AliexpressLocalizator::getInstance()->currency . "&lang=" . A2W_AliexpressLocalizator::getInstance()->getLangCode());
                             if (!is_wp_error($response)) {
                                 $headers = $response['headers']->getAll();
-                                $content_type = isset($headers['content-type'])?$headers['content-type']:"";
-                                if($response['response']['code'] == 200 && strpos($content_type, "application/json") !== false){
+                                $content_type = isset($headers['content-type']) ? $headers['content-type'] : "";
+                                if ($response['response']['code'] == 200 && strpos($content_type, "application/json") !== false) {
                                     $desc_meta = json_decode($response['body'], true);
                                     $desc_url = $desc_meta['data']['productDesc'];
-                                }else{
+                                } else {
                                     a2w_error_log("Load product description meta error: " . $response['response']['message']);
                                 }
                             } else {
                                 a2w_error_log("Load product description gloabl meta error: " . $response['response']['message']);
                             }
                         }
-                        if($desc_url){
+                        if ($desc_url) {
                             $desc_url .= "&v=1";
                             $url_parts = parse_url($desc_url);
 
                             $args = array('headers' => array(
-                                ':authority'=>$url_parts['host'],
-                                ':method'=>'GET',
-                                ':path'=>$url_parts['path'].(empty($url_parts['query'])?"":"?").$url_parts['query'],
-                                ':scheme'=>$url_parts['scheme'],
-                                'accept'=>'application/json, text/plain, */*',
-                                'accept-encoding'=>'gzip, deflate, br',
-                                'accept-language'=>'en;q=0.9,en-US;q=0.8,it;q=0.7',
-                                'origin'=>'https://www.aliexpress.com',
-                                'referer'=>'https://www.aliexpress.com/item/'.$product_id.'.html',
-                                'sec-fetch-dest'=>'empty',
-                                'sec-fetch-mode'=>'cors',
-                                'sec-fetch-site'=>'cross-site',
-                                'user-agent'=>'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36',
+                                ':authority' => $url_parts['host'],
+                                ':method' => 'GET',
+                                ':path' => $url_parts['path'] . (empty($url_parts['query']) ? "" : "?") . $url_parts['query'],
+                                ':scheme' => $url_parts['scheme'],
+                                'accept' => 'application/json, text/plain, */*',
+                                'accept-encoding' => 'gzip, deflate, br',
+                                'accept-language' => 'en;q=0.9,en-US;q=0.8,it;q=0.7',
+                                'origin' => 'https://www.aliexpress.com',
+                                'referer' => 'https://www.aliexpress.com/item/' . $product_id . '.html',
+                                'sec-fetch-dest' => 'empty',
+                                'sec-fetch-mode' => 'cors',
+                                'sec-fetch-site' => 'cross-site',
+                                'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36',
                             ));
-                            
-                            $response = a2w_remote_get($desc_url,$args);
+
+                            $response = a2w_remote_get($desc_url, $args);
                             if (!is_wp_error($response)) {
                                 $result['product']['description'] .= $this->clean_description($response['body']);
                             } else {
@@ -253,7 +266,6 @@ if (!class_exists('A2W_Aliexpress')) {
                     }
 
                     $result['product']['description'] = A2W_PhraseFilter::apply_filter_to_text($result['product']['description']);
-
 
                     $tmp_all_images = A2W_Utils::get_all_images_from_product($result['product']);
 
@@ -273,9 +285,8 @@ if (!class_exists('A2W_Aliexpress')) {
             return $result;
         }
 
-        
-
-        public function check_affiliate($product_id) {
+        public function check_affiliate($product_id)
+        {
             $request_url = A2W_RequestHelper::build_request('check_affiliate', array('product_id' => $product_id));
             $request = a2w_remote_get($request_url);
             if (is_wp_error($request)) {
@@ -286,7 +297,8 @@ if (!class_exists('A2W_Aliexpress')) {
             return $result;
         }
 
-        public function sync_products($product_ids, $params = array()) {
+        public function sync_products($product_ids, $params = array())
+        {
             $product_ids = is_array($product_ids) ? $product_ids : array($product_ids);
 
             $request_params = array('product_id' => implode(',', $product_ids));
@@ -299,9 +311,9 @@ if (!class_exists('A2W_Aliexpress')) {
 
             $request_url = A2W_RequestHelper::build_request('sync_products', $request_params);
 
-            if(empty($params['data'])){
-                $request = a2w_remote_get($request_url);    
-            }else{
+            if (empty($params['data'])) {
+                $request = a2w_remote_get($request_url);
+            } else {
                 $request = a2w_remote_post($request_url, $params['data']);
             }
 
@@ -381,15 +393,16 @@ if (!class_exists('A2W_Aliexpress')) {
             return $result;
         }
 
-        public function load_shipping_info($product_id, $quantity, $country_code, $country_code_form = '', $min_price = '', $max_price = '') {
-            
+        public function load_shipping_info($product_id, $quantity, $country_code, $country_code_form = '', $min_price = '', $max_price = '')
+        {
+
             $country_code = $this->normalize_country($country_code);
 
             if (!empty($country_code_form)) {
                 $country_code_form = $this->normalize_country($country_code_form);
             }
-            
-            $request_url = A2W_RequestHelper::build_request('get_shipping_info', array('product_id' => $product_id, 'quantity' => $quantity, 'country_code' => $country_code, 'country_code_from' => $country_code_form, 'min_price'=>$min_price, 'max_price'=>$max_price));       
+
+            $request_url = A2W_RequestHelper::build_request('get_shipping_info', array('product_id' => $product_id, 'quantity' => $quantity, 'country_code' => $country_code, 'country_code_from' => $country_code_form, 'min_price' => $min_price, 'max_price' => $max_price));
             $request = a2w_remote_get($request_url);
             if (is_wp_error($request)) {
                 $result = A2W_ResultBuilder::buildError($request->get_error_message());
@@ -404,14 +417,25 @@ if (!class_exists('A2W_Aliexpress')) {
             return $result;
         }
 
-        private function normalize_country($country){
-            if ($country == "GB") $country = "UK"; 
-            if ($country == "RS") $country = "SRB";
-            if ($country == "ME") $country = "MNE";
-            return $country;  
+        private function normalize_country($country)
+        {
+            if ($country == "GB") {
+                $country = "UK";
+            }
+
+            if ($country == "RS") {
+                $country = "SRB";
+            }
+
+            if ($country == "ME") {
+                $country = "MNE";
+            }
+
+            return $country;
         }
 
-        public static function clean_description($description) {
+        public static function clean_description($description)
+        {
             $html = $description;
 
             if (function_exists('mb_convert_encoding')) {
@@ -424,7 +448,7 @@ if (!class_exists('A2W_Aliexpress')) {
                 libxml_use_internal_errors(true);
             }
 
-            if (class_exists('DOMDocument')) {
+            if ($html && class_exists('DOMDocument')) {
                 $dom = new DOMDocument();
                 @$dom->loadHTML($html);
                 $dom->formatOutput = true;
@@ -479,7 +503,6 @@ if (!class_exists('A2W_Aliexpress')) {
             $html = str_replace('\t', ' ', $html);
             $html = str_replace('  ', ' ', $html);
 
-
             $html = preg_replace("/http:\/\/g(\d+)\.a\./i", "https://ae$1.", $html);
 
             $html = preg_replace("/<[^\/>]*[^td]>([\s]?|&nbsp;)*<\/[^>]*[^td]>/", '', $html); //delete ALL empty tags
@@ -487,11 +510,12 @@ if (!class_exists('A2W_Aliexpress')) {
 
             $html = str_replace(array('<img', '<table'), array('<img class="img-responsive"', '<table class="table table-bordered'), $html);
             $html = force_balance_tags($html);
-            
+
             return html_entity_decode($html, ENT_COMPAT, 'UTF-8');
         }
 
-        public function get_affiliate_urls($urls) {
+        public function get_affiliate_urls($urls)
+        {
             if ($this->account->account_type == 'admitad') {
                 return A2W_AdmitadAccount::getInstance()->getDeeplink($urls);
             } else if ($this->account->account_type == 'epn') {
@@ -501,8 +525,9 @@ if (!class_exists('A2W_Aliexpress')) {
             }
         }
 
-        public function links_to_affiliate($content) {
-            if (class_exists('DOMDocument')) {
+        public function links_to_affiliate($content)
+        {
+            if ($content && class_exists('DOMDocument')) {
                 $hrefs = array();
                 if (function_exists('libxml_use_internal_errors')) {
                     libxml_use_internal_errors(true);
@@ -532,7 +557,7 @@ if (!class_exists('A2W_Aliexpress')) {
             }
             return $content;
         }
-        
+
     }
 
 }

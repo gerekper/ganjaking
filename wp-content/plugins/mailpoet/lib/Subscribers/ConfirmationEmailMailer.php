@@ -6,9 +6,10 @@ if (!defined('ABSPATH')) exit;
 
 
 use Html2Text\Html2Text;
+use MailPoet\Entities\SegmentEntity;
+use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Mailer\Mailer;
 use MailPoet\Mailer\MetaInfo;
-use MailPoet\Models\Subscriber;
 use MailPoet\Services\AuthorizedEmailsController;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\SettingsController;
@@ -60,20 +61,24 @@ class ConfirmationEmailMailer {
    * Use this method if you want to make sure the confirmation email
    * is not sent multiple times within a single request
    * e.g. if sending confirmation emails from hooks
+   * @throws \Exception if unable to send the email.
    */
-  public function sendConfirmationEmailOnce(Subscriber $subscriber): bool {
-    if (isset($this->sentEmails[$subscriber->id])) {
+  public function sendConfirmationEmailOnce(SubscriberEntity $subscriber): bool {
+    if (isset($this->sentEmails[$subscriber->getId()])) {
       return true;
     }
     return $this->sendConfirmationEmail($subscriber);
   }
 
-  public function sendConfirmationEmail(Subscriber $subscriber) {
+  /**
+   * @throws \Exception if unable to send the email.
+   */
+  public function sendConfirmationEmail(SubscriberEntity $subscriber) {
     $signupConfirmation = $this->settings->get('signup_confirmation');
     if ((bool)$signupConfirmation['enabled'] === false) {
       return false;
     }
-    if (!$this->wp->isUserLoggedIn() && $subscriber->countConfirmations >= self::MAX_CONFIRMATION_EMAILS) {
+    if (!$this->wp->isUserLoggedIn() && $subscriber->getConfirmationsCount() >= self::MAX_CONFIRMATION_EMAILS) {
       return false;
     }
 
@@ -83,9 +88,9 @@ class ConfirmationEmailMailer {
       return false;
     }
 
-    $segments = $subscriber->segments()->findMany();
-    $segmentNames = array_map(function($segment) {
-      return $segment->name;
+    $segments = $subscriber->getSegments()->toArray();
+    $segmentNames = array_map(function(SegmentEntity $segment) {
+      return $segment->getName();
     }, $segments);
 
     $body = nl2br($signupConfirmation['body']);
@@ -98,16 +103,18 @@ class ConfirmationEmailMailer {
     );
 
     // replace activation link
-    $subscriberEntity = $this->subscribersRepository->findOneById($subscriber->id);
     $body = Helpers::replaceLinkTags(
       $body,
-      $this->subscriptionUrlFactory->getConfirmationUrl($subscriberEntity),
+      $this->subscriptionUrlFactory->getConfirmationUrl($subscriber),
       ['target' => '_blank'],
       'activation_link'
     );
 
     //create a text version. @ is important here, Html2Text throws warnings
-    $text = @Html2Text::convert((mb_detect_encoding($body, 'UTF-8', true)) ? $body : utf8_encode($body));
+    $text = @Html2Text::convert(
+      (mb_detect_encoding($body, 'UTF-8', true)) ? $body : utf8_encode($body),
+      true
+    );
 
     // build email data
     $email = [
@@ -119,25 +126,26 @@ class ConfirmationEmailMailer {
     ];
 
     // send email
+    $extraParams = [
+      'meta' => $this->mailerMetaInfo->getConfirmationMetaInfo($subscriber),
+    ];
     try {
-      $extraParams = [
-        'meta' => $this->mailerMetaInfo->getConfirmationMetaInfo($subscriber),
-      ];
       $result = $this->mailer->send($email, $subscriber, $extraParams);
-      if ($result['response'] === false) {
-        $subscriber->setError(__('Something went wrong with your subscription. Please contact the website owner.', 'mailpoet'));
-        return false;
-      };
-
-      if (!$this->wp->isUserLoggedIn()) {
-        $subscriber->countConfirmations++;
-        $subscriber->save();
-      }
-      $this->sentEmails[$subscriber->id] = true;
-      return true;
     } catch (\Exception $e) {
-      $subscriber->setError(__('Something went wrong with your subscription. Please contact the website owner.', 'mailpoet'));
-      return false;
+      throw new \Exception(__('Something went wrong with your subscription. Please contact the website owner.', 'mailpoet'));
     }
+
+    if ($result['response'] === false) {
+      throw new \Exception(__('Something went wrong with your subscription. Please contact the website owner.', 'mailpoet'));
+    };
+
+    if (!$this->wp->isUserLoggedIn()) {
+      $subscriber->setConfirmationsCount($subscriber->getConfirmationsCount() + 1);
+      $this->subscribersRepository->persist($subscriber);
+      $this->subscribersRepository->flush();
+    }
+    $this->sentEmails[$subscriber->getId()] = true;
+
+    return true;
   }
 }

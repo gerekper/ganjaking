@@ -11,10 +11,13 @@ class MailerError {
   const OPERATION_CONNECT = 'connect';
   const OPERATION_SEND = 'send';
   const OPERATION_AUTHORIZATION = 'authorization';
+  const OPERATION_INSUFFICIENT_PRIVILEGES = 'insufficient_privileges';
 
   const LEVEL_HARD = 'hard';
   const LEVEL_SOFT = 'soft';
 
+  const MESSAGE_EMAIL_FORBIDDEN_ACTION = 'Key is valid, but the action is forbidden';
+  const MESSAGE_EMAIL_INSUFFICIENT_PRIVILEGES = 'Insufficient privileges';
   const MESSAGE_EMAIL_NOT_AUTHORIZED = 'The email address is not authorized';
 
   /** @var string */
@@ -39,7 +42,13 @@ class MailerError {
    * @param int|null $retryInterval
    * @param array $subscribersErrors
    */
-  public function __construct($operation, $level, $message = null, $retryInterval = null, array $subscribersErrors = []) {
+  public function __construct(
+    $operation,
+    $level,
+    $message = null,
+    $retryInterval = null,
+    array $subscribersErrors = []
+  ) {
     $this->operation = $operation;
     $this->level = $level;
     $this->message = $message;

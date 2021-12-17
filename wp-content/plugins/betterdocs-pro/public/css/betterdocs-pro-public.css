@@ -2,6 +2,81 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+.betterdocs-searchform select {
+  border: none;
+  background-color: transparent;
+  border-left: 1px solid #D3D9EF;
+  padding-left: 21px;
+  padding-right: 21px;
+  outline: none;
+  color: #595959;
+  font-weight: normal;
+  font-size: 18px;
+  max-width: 170px;
+}
+.betterdocs-searchform .search-submit {
+  margin-left: 30px;
+  background-color: #24CC8F;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #FFFFFF;
+  font-style: normal;
+  border-radius: 7px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  padding-right: 25px;
+  padding-left: 25px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.betterdocs-popular-search-keyword {
+  margin-top: 24px;
+  display: block;
+}
+.betterdocs-popular-search-keyword .popular-keyword {
+  font-size: 14px;
+  padding: 8px 25px;
+  background-color: #FFF;
+  border: 1px solid #DDDEFF;
+  color: #99A3CA;
+  cursor: pointer;
+  display: inline-block;
+}
+.betterdocs-popular-search-keyword .popular-search-title {
+  color: #8588A6;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  margin-right: 16px;
+}
+@media (max-width: 767px) {
+  .betterdocs-searchform {
+    flex-direction: column;
+  }
+  .betterdocs-searchform-input-wrap {
+    padding: 10px;
+    border: 1px solid #D3D9EF;
+    margin-bottom: 10px;
+  }
+  .betterdocs-searchform svg.docs-search-icon {
+    margin-left: 0;
+  }
+  .betterdocs-searchform .betterdocs-search-category {
+    max-width: 100%;
+    width: 100%;
+    border: 1px solid #D3D9EF;
+    margin-bottom: 10px;
+  }
+  .betterdocs-searchform .search-submit {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+.betterdocs-searchform .search-submit:hover{
+  background-color: #528ffe;
+}
 .betterdocs-categories-wrap.betterdocs-category-box.pro-layout-3
   .docs-single-cat-wrap {
   flex-flow: row wrap;
@@ -39,15 +114,15 @@
 }
 .betterdocs-full-sidebar-left .betterdocs-categories-wrap {
   width: 100% !important;
-  border-radius: 0 !important;
+  border-radius: 0;
 }
 .betterdocs-single-layout2 .betterdocs-entry-content .betterdocs-toc,
-.betterdocs-single-layout3 .betterdocs-entry-content .betterdocs-toc {
+.betterdocs-single-layout3 .betterdocs-entry-content .betterdocs-toc{
   display: none;
 }
 @media only screen and (max-width: 1199px) {
   .betterdocs-single-layout2 .betterdocs-entry-content .betterdocs-toc,
-  .betterdocs-single-layout3 .betterdocs-entry-content .betterdocs-toc {
+  .betterdocs-single-layout3 .betterdocs-entry-content .betterdocs-toc{
     display: block;
   }
 }
@@ -110,9 +185,9 @@
   right: 0;
 }
 
-.docs-content-full-main,
-#betterdocs-sidebar-left,
-#betterdocs-sidebar-right {
+.betterdocs-content-full .docs-single-main,
+.betterdocs-full-sidebar-left,
+.betterdocs-full-sidebar-right {
   padding-top: 50px;
 }
 
@@ -128,6 +203,10 @@
   .betterdocs-sidebar-content.betterdocs-category-sidebar
   .betterdocs-categories-wrap {
   padding: 15px 0px;
+}
+
+betterdocs-single-layout5 .betterdocs-full-sidebar-left {
+  max-width: 270px;
 }
 
 .betterdocs-toc .toc-list li::before {
@@ -158,7 +237,9 @@
   .docs-item-container {
   padding: 0 15px;
 }
-
+.betterdocs-full-sidebar-left .betterdocs-categories-wrap.white-bg .docs-single-cat-wrap {
+  background-color: transparent !important;
+}
 @media (min-width: 1199px) and (max-width: 1280px) {
   .betterdocs-full-sidebar-left {
     grid-column: 1 / span 3;
@@ -205,14 +286,6 @@
 .betterdocs-single-wraper.full-wrapper {
   background-color: #fff;
 }
-
-.betterdocs-content-full {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-gap: 30px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
 .betterdocs-full-sidebar-left {
   grid-column: 1 / span 3;
   padding-right: 1px;
@@ -243,6 +316,7 @@
 .grid-col-1 .docs-content-full-main {
   grid-column: 1 / span 12;
 }
+
 #betterdocs-sidebar-left {
   position: relative;
 }
@@ -265,11 +339,6 @@
   .docs-single-cat-wrap {
   min-width: auto;
 }
-.docs-content-full-main,
-#betterdocs-sidebar-left,
-#betterdocs-sidebar-right {
-  padding-top: 50px;
-}
 .betterdocs-full-sidebar-left
   .betterdocs-sidebar-content.betterdocs-category-sidebar
   .category-list
@@ -285,9 +354,7 @@
   list-style: none;
 }
 
-.betterdocs-full-sidebar-left
-  .betterdocs-sidebar-content.betterdocs-category-sidebar
-  .betterdocs-categories-wrap {
+.betterdocs-full-sidebar-lef .betterdocs-sidebar-content.betterdocs-category-sidebar .betterdocs-categories-wrap {
   padding: 15px 0px;
 }
 
@@ -325,26 +392,11 @@
   }
 }
 
-@media (max-width: 767px) {
-  #betterdocs-sidebar-left,
-  #betterdocs-sidebar-right {
-    display: none;
-  }
-
-  .grid-col-2 .docs-content-full-main,
-  .grid-col-3 .docs-content-full-main {
-    grid-column: 1 / -1;
-  }
-  .grid-col-2.sidebar-enable .docs-content-full-main {
-    grid-column: 1/span 10;
-  }
-}
-
 .betterdocs-full-sidebar-left .docs-cat-title-wrap {
   position: relative;
 }
 
-.betterdocs-single-layout3 .betterdocs-full-sidebar-left .cat-list-arrow-down {
+.betterdocs-single-layout3 .betterdocs-full-sidebar-left .cat-list-arrow-down{
   display: block;
   height: 15px;
   width: 15px;
@@ -357,6 +409,130 @@
   transform: rotate(-180deg);
 }
 
+.betterdocs-list-popular {
+  display: flex;
+  flex-direction: row;
+}
+.betterdocs-popular-list ul li svg {
+  margin-right: 10px;
+}
+.betterdocs-archive-list-view {
+  flex-basis: 70%;
+  margin-right: 30px;
+}
+.betterdocs-archive-popular {
+  flex-basis: 30%;
+  margin-left: 30px;
+}
+.betterdocs-categories-wrap.betterdocs-list-view {
+  flex-direction: column;
+}
+.betterdocs-categories-wrap.betterdocs-category-box.pro-layout-3.betterdocs-list-view .docs-single-cat-wrap {
+  flex-flow: unset;
+  align-items: flex-start;
+}
+.betterdocs-popular-list .popular-title {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 36px;
+  color: #000000;
+  padding-left: 8px!important;
+}
+.betterdocs-popular-list ul {
+  list-style: none;
+  margin-left: 0;
+}
+.betterdocs-popular-list ul li {
+  display: flex;
+  align-items: center;
+}
+.betterdocs-popular-list ul li a {
+  font-size: 17px;
+  line-height: 36px;
+  color: #15063F;
+  line-height: 2;
+}
+.betterdocs-popular-list ul li svg {
+  font-size: 15px;
+  min-width: 15px;
+  width: 15px;
+  fill: #A6A4EF;
+}
+.betterdocs-tab-content.active {
+  display: block;
+}
+.betterdocs-tab-content {
+  display: none;
+}
+.betterdocs-tab-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+.betterdocs-tab-list a {
+  display: block;
+  margin: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 36px;
+  padding: 10px 36px;
+  color: #15063F;
+  background-color: #EDEDFF;
+  border-radius: 5px;
+}
+.betterdocs-tab-list a.active {
+  background-color: #614EFC;
+  color: #fff;
+}
+.betterdocs-tab-categories {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-gap: 30px;
+}
+.betterdocs-tab-categories .docs-cat-title-inner {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.betterdocs-tab-categories .docs-single-cat-wrap {
+  padding: 25px;
+  background-color: #fff;
+}
+.betterdocs-tab-categories .docs-cat-title-inner {
+  margin-bottom: 20px;
+}
+.betterdocs-tab-categories .docs-item-container {
+  padding: 0 !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .betterdocs-list-popular {
+    display: block;
+  }
+  .betterdocs-tab-categories{
+    display: block;
+  } 
+}
+@media (max-width: 767px) {
+  #betterdocs-sidebar-left,
+  #betterdocs-sidebar-right {
+    display: none;
+  }
+  .grid-col-2 .docs-content-full-main,
+  .grid-col-3 .docs-content-full-main {
+    grid-column: 1 / -1;
+  }
+  .grid-col-2.sidebar-enable .docs-content-full-main {
+    grid-column: 1/span 10;
+  }
+  .docs-single-title .betterdocs-entry-title {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+}
 .betterdocs-categories-wrap.pro-layout-4.single-kb .docs-single-cat-wrap.docs-cat-list-2-items .docs-item-container .docs-cat-link-btn {
   margin-left: 0;
 	margin-right: 0;

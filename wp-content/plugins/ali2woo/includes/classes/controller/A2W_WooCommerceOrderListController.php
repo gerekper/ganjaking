@@ -75,26 +75,16 @@ if (!class_exists('A2W_WooCommerceOrderListController')) :
         }
 
         function ajax_get_fulfilled_orders() {
-            $result = A2W_ResultBuilder::buildOk();
-
-            try {
-                $woocommerce_model = new A2W_Woocommerce();
-                $result = A2W_ResultBuilder::buildOk(array('data' => $woocommerce_model->get_fulfilled_orders_data()));
-                restore_error_handler();
-            } catch (Throwable $e) {
-                a2w_print_throwable($e);
-                $result = A2W_ResultBuilder::buildError($e->getMessage());
-            } catch (Exception $e) {
-                a2w_print_throwable($e);
-                $result = A2W_ResultBuilder::buildError($e->getMessage());
-            }
-
+     
+            $woocommerce_model = new A2W_Woocommerce();
+            $result = A2W_ResultBuilder::buildOk(array('data' => $woocommerce_model->get_fulfilled_orders_data()));
+               
             echo json_encode($result);
             wp_die();
         }
 
         function ajax_save_tracking_code() {
-            try {
+       
                 $order_id = intval($_POST['id']);
                 $ext_id = intval($_POST['ext_id']);
                 $tracking_codes = isset($_POST['tracking_codes']) ? $_POST['tracking_codes'] : array();
@@ -104,18 +94,15 @@ if (!class_exists('A2W_WooCommerceOrderListController')) :
                 
                 $woocommerce_model = new A2W_Woocommerce();
                 $result = $woocommerce_model->save_tracking_code($order_id, $ext_id, $tracking_codes, $carrier_name, $carrier_url, $tracking_status);
-                
-                restore_error_handler();
-            } catch (Throwable $e) {
-                a2w_print_throwable($e);
-                $result = A2W_ResultBuilder::buildError($e->getMessage());
-            } catch (Exception $e) {
-                a2w_print_throwable($e);
-                $result = A2W_ResultBuilder::buildError($e->getMessage());
-            }
 
-            echo json_encode($result);
-            wp_die();
+                if (!$result){
+                    $result = A2W_ResultBuilder::buildError(_x('Didn`t find the Woocommerce order №', 'Error text', 'ali2woo') . $order_id);
+                } else {
+                    $result = A2W_ResultBuilder::buildOk();    
+                }
+
+                echo json_encode($result);
+                wp_die();
         }
 
         function ajax_order_info() {

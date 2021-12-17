@@ -14,7 +14,6 @@ use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Entities\StatsNotificationEntity;
 use MailPoet\Mailer\Mailer;
 use MailPoet\Mailer\MetaInfo;
-use MailPoet\Models\NewsletterLink;
 use MailPoet\Models\ScheduledTask;
 use MailPoet\Newsletter\Statistics\NewsletterStatisticsRepository;
 use MailPoet\Settings\SettingsController;
@@ -179,7 +178,7 @@ class Worker {
 
   public static function getShortcodeLinksMapping() {
     return [
-      NewsletterLink::UNSUBSCRIBE_LINK_SHORT_CODE => __('Unsubscribe link', 'mailpoet'),
+      NewsletterLinkEntity::UNSUBSCRIBE_LINK_SHORT_CODE => __('Unsubscribe link', 'mailpoet'),
       '[link:subscription_manage_url]' => __('Manage subscription link', 'mailpoet'),
       '[link:newsletter_view_in_browser_url]' => __('View in browser link', 'mailpoet'),
     ];

@@ -2,7 +2,7 @@
 /**
  * Template archive docs
  *
- * @link       https://wpdeveloper.net
+ * @link       https://wpdeveloper.com
  * @since      1.0.0
  *
  * @package    BetterDocs
@@ -11,11 +11,11 @@
 
 get_header(); 
 
-echo '<div class="betterdocs-wraper betterdocs-main-wraper">';
-	$live_search = BetterDocs_DB::get_settings('live_search');
-	if ($live_search == 1) {
-        echo '<div class="betterdocs-search-form-wrap cat-layout-4">'. do_shortcode( '[betterdocs_search_form]' ) .'</div>';
-	}
+echo '<div class="betterdocs-wraper betterdocs-main-wraper betterdocs-category-list-2">';
+    $live_search = BetterDocs_DB::get_settings('live_search');
+    if ( $live_search == 1 && method_exists('BetterDocs_Public','search') ) {
+        echo BetterDocs_Public::search();
+    }
 
     $output = betterdocs_generate_output();
 	echo '<div class="betterdocs-archive-wrap betterdocs-archive-main cat-layout-4">';

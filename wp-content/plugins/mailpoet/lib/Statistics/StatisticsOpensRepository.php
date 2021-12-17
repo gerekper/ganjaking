@@ -11,6 +11,7 @@ use MailPoet\Entities\StatisticsNewsletterEntity;
 use MailPoet\Entities\StatisticsOpenEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoetVendor\Carbon\Carbon;
+use MailPoetVendor\Doctrine\ORM\QueryBuilder;
 
 /**
  * @extends Repository<StatisticsOpenEntity>
@@ -88,5 +89,16 @@ class StatisticsOpensRepository extends Repository {
       ->set('s.averageEngagementScoreUpdatedAt', ':updatedAt')
       ->setParameter('updatedAt', null)
       ->getQuery()->execute();
+  }
+
+  public function getAllForSubscriber(SubscriberEntity $subscriber): QueryBuilder {
+    return $this->entityManager->createQueryBuilder()
+      ->select('opens.id id, queue.newsletterRenderedSubject, opens.createdAt, userAgent.userAgent')
+      ->from(StatisticsOpenEntity::class, 'opens')
+      ->join('opens.queue', 'queue')
+      ->leftJoin('opens.userAgent', 'userAgent')
+      ->where('opens.subscriber = :subscriber')
+      ->orderBy('queue.newsletterRenderedSubject')
+      ->setParameter('subscriber', $subscriber->getId());
   }
 }

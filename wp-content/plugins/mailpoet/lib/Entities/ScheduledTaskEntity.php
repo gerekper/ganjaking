@@ -10,6 +10,8 @@ use MailPoet\Doctrine\EntityTraits\AutoincrementedIdTrait;
 use MailPoet\Doctrine\EntityTraits\CreatedAtTrait;
 use MailPoet\Doctrine\EntityTraits\DeletedAtTrait;
 use MailPoet\Doctrine\EntityTraits\UpdatedAtTrait;
+use MailPoetVendor\Doctrine\Common\Collections\ArrayCollection;
+use MailPoetVendor\Doctrine\Common\Collections\Collection;
 use MailPoetVendor\Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,8 @@ class ScheduledTaskEntity {
   const PRIORITY_HIGH = 1;
   const PRIORITY_MEDIUM = 5;
   const PRIORITY_LOW = 10;
+  const BASIC_RESCHEDULE_TIMEOUT = 5; // minutes
+  const MAX_RESCHEDULE_TIMEOUT = 1440; // minutes
 
   use AutoincrementedIdTrait;
   use CreatedAtTrait;
@@ -68,9 +72,26 @@ class ScheduledTaskEntity {
   private $meta;
 
   /**
+   * @ORM\Column(type="boolean", nullable=true)
+   * @var bool|null
+   */
+  private $inProgress;
+
+  /**
+   * @ORM\Column(type="integer", options={"default" : 0})
+   * @var int
+   */
+  private $rescheduleCount = 0;
+
+  /**
    * @ORM\OneToMany(targetEntity="MailPoet\Entities\ScheduledTaskSubscriberEntity", mappedBy="task", fetch="EXTRA_LAZY")
+   * @var Collection<int, ScheduledTaskSubscriberEntity>
    */
   public $subscribers;
+
+  public function __construct() {
+    $this->subscribers = new ArrayCollection();
+  }
 
   /**
    * @return string|null
@@ -154,5 +175,34 @@ class ScheduledTaskEntity {
    */
   public function setMeta($meta) {
     $this->meta = $meta;
+  }
+
+  /**
+   * @return bool|null
+   */
+  public function getInProgress() {
+    return $this->inProgress;
+  }
+
+  /**
+   * @param bool|null $inProgress
+   */
+  public function setInProgress($inProgress) {
+    $this->inProgress = $inProgress;
+  }
+
+  public function getRescheduleCount(): int {
+    return $this->rescheduleCount;
+  }
+
+  public function setRescheduleCount(int $rescheduleCount) {
+    $this->rescheduleCount = $rescheduleCount;
+  }
+
+  /**
+   * @return Collection<int, ScheduledTaskSubscriberEntity>
+   */
+  public function getSubscribers(): Collection {
+    return $this->subscribers;
   }
 }

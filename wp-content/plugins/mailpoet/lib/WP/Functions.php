@@ -282,7 +282,6 @@ class Functions {
   /**
    * @param string|array $args
    * @param string|array $deprecated
-   * @return array|int|WP_Error
    */
   public function getTerms($args = [], $deprecated = '') {
     return get_terms($args, $deprecated);
@@ -727,5 +726,40 @@ class Functions {
    */
   public function wpKses(string $string, $allowedHtml, $allowedProtocols = []) {
     return wp_kses($string, $allowedHtml, $allowedProtocols);
+  }
+
+  public function deprecatedHook(string $hook_name, string $version, string $replacement, string $message) {
+    _deprecated_hook($hook_name, $version, $replacement, $message);
+  }
+
+  public function getTheExcerpt($post = null) {
+    return get_the_excerpt($post);
+  }
+
+  public function hasExcerpt($post = null) {
+    return has_excerpt($post);
+  }
+
+  public function wpMkdirP(string $dir) {
+    return wp_mkdir_p($dir);
+  }
+
+  public function wpGetImageEditor(string $path, $args = []) {
+    return wp_get_image_editor($path, $args);
+  }
+
+  public function wpRegisterScript(string $handle, $src, $deps = [], $ver = false, $in_footer = false): bool {
+    return wp_register_script($handle, $src, $deps, $ver, $in_footer);
+  }
+
+  public function wpSetScriptTranslations(string $handle, string $domain = 'default', string $path = null): bool {
+    return wp_set_script_translations($handle, $domain, $path);
+  }
+
+  /**
+   * @return \WP_Scripts
+   */
+  public function getWpScripts() {
+    return wp_scripts();
   }
 }

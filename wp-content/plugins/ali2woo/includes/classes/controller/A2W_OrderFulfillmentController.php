@@ -6,27 +6,30 @@
  * @author MA_GROUP
  *
  * @autoload: a2w_admin_init
- * 
+ *
  * @ajax: true
  */
 if (!class_exists('A2W_OrderFulfillmentController')) {
 
-    class A2W_OrderFulfillmentController extends A2W_AbstractController  {
+    class A2W_OrderFulfillmentController extends A2W_AbstractController
+    {
 
-        public function __construct() {
+        public function __construct()
+        {
             parent::__construct(A2W()->plugin_path() . '/view/');
-            $post_type = isset($_GET['post_type'])?$_GET['post_type']:(isset($_REQUEST['post_type'])?$_REQUEST['post_type']:"");
+            $post_type = isset($_GET['post_type']) ? $_GET['post_type'] : (isset($_REQUEST['post_type']) ? $_REQUEST['post_type'] : "");
             if (is_admin() && $post_type == "shop_order") {
                 add_action('admin_enqueue_scripts', array($this, 'assets'));
-                add_action( 'admin_footer', array( $this, 'place_orders_bulk_popup' ) );
+                add_action('admin_footer', array($this, 'place_orders_bulk_popup'));
             }
 
             add_filter('a2w_wcol_bulk_actions_init', array($this, 'bulk_actions'));
             add_action('wp_ajax_a2w_get_aliexpress_order_data', array($this, 'get_aliexpress_order_data'));
         }
 
-        function assets() {
-            wp_enqueue_script('a2w-ali-orderfulfill-js', A2W()->plugin_url() . '/assets/js/orderfulfill.js', array(),  A2W()->version, true);
+        public function assets()
+        {
+            wp_enqueue_script('a2w-ali-orderfulfill-js', A2W()->plugin_url() . '/assets/js/orderfulfill.js', array(), A2W()->version, true);
 
             wp_enqueue_script('a2w-sprintf-script', A2W()->plugin_url() . '/assets/js/sprintf.js', array(), A2W()->version);
 
@@ -67,14 +70,15 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                 'no_ali_products' => _x('No AliExpress products in the current order. Check out <a href="%s">the instruction</a>', 'Status', 'ali2woo'),
 
                 'unknown_error' => _x('Unknown error occured. Please contact support.', 'Status', 'ali2woo'),
-                'server_error' => _x('Server error. Continue to try again.', 'Status', 'ali2woo')
+                'server_error' => _x('Server error. Continue to try again.', 'Status', 'ali2woo'),
             );
 
             wp_localize_script('a2w-ali-orderfulfill-js', 'a2w_ali_orderfulfill_js', array('lang' => $lang_data));
 
         }
 
-        public function bulk_actions($params){
+        public function bulk_actions($params)
+        {
             $params[0][] = 'a2w_order_place_bulk';
             $params[1]['a2w_order_place_bulk'] = __("Place on AliExpress", 'ali2woo');
 
@@ -86,7 +90,8 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
             $this->include_view('includes/place_orders_bulk_popup.php');
         }
 
-        function get_aliexpress_order_data() {
+        public function get_aliexpress_order_data()
+        {
 
             $result = array("state" => "ok", "data" => "", "action" => "");
 
@@ -98,9 +103,6 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                 echo json_encode($result);
                 wp_die();
             }
-
-
-
 
             $order = new WC_Order($post_id);
 
@@ -127,7 +129,8 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                 'autopay' => $a2w_order_autopay,
                 'awaitingpay' => $a2w_order_awaiting_payment,
                 'cpf' => $this->get_cpf($order),
-                'storeurl' => get_site_url()
+                'storeurl' => get_site_url(),
+                'currency' => $this->get_currency($order),
             );
 
             $items = $order->get_items();
@@ -143,13 +146,10 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
 
                 $external_id = get_post_meta($product_id, '_a2w_external_id', true);
 
-
                 if ($external_id) {
 
                     $skuArray = $this->getSkuArray($normalized_item);
 
-                    
-       
                     if (empty($skuArray) && $variation_id && $variation_id > 0) {
                         $result['error_code'] = -2;
                         $result['state'] = 'error';
@@ -171,17 +171,16 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
                     //because chrome extension chosoe default shipping method in this case
                     $shipping_service_name = $normalized_item->get_A2W_ShippingCode();
 
-      
-                    //todo: make an ability to change the shipping method 
+                    //todo: make an ability to change the shipping method
                     //before place order on AliExpress
-           
+
                     $content['products'][$k] = array(
                         'url' => $original_url,
                         'productId' => $external_id,
                         'originalId' => $product_id,
                         'qty' => $quantity,
                         'sku' => $skuArray,
-                        'shipping' => $shipping_service_name
+                        'shipping' => $shipping_service_name,
                     );
 
                     $k++;
@@ -207,122 +206,142 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
             wp_die();
         }
 
-        private function format_field($str) {
+        private function format_field($str)
+        {
             $str = trim($str);
 
-            if (!empty($str))
+            if (!empty($str)) {
                 $str = ucwords(strtolower($str));
+            }
 
             return $str;
         }
 
-        private function get_cpf($order){
+        private function get_currency($order)
+        {
+            return strtolower($order->get_currency());
+        }
+
+        private function get_cpf($order)
+        {
 
             $b_cpf = $order->get_meta('_billing_cpf');
             $s_cpf = $order->get_meta('_shipping_cpf');
 
             $cpf = $b_cpf ? $b_cpf : ($s_cpf ? $s_cpf : '');
 
-            $cpf = $cpf ? preg_replace("/[^0-9]/", "", $cpf ) : '';
+            $cpf = $cpf ? preg_replace("/[^0-9]/", "", $cpf) : '';
 
             return $cpf;
 
         }
 
-        private function get_phone($order) {
-            if (WC()->version < '3.0.0')
+        private function get_phone($order)
+        {
+            if (WC()->version < '3.0.0') {
                 $result = $order->billing_phone ? $order->billing_phone : $order->shipping_phone;
-            else
+            } else {
                 $result = $order->get_billing_phone();
-
+            }
 
             $result = preg_replace('/[^0-9]+/', '', $result);
 
             return $result;
         }
 
-        private function get_customer_note($order) {
-            if (WC()->version < '3.0.0')
+        private function get_customer_note($order)
+        {
+            if (WC()->version < '3.0.0') {
                 $result = $order->customer_note;
-            else
+            } else {
                 $result = $order->get_customer_note();
+            }
 
             return $this->translitirate($result);
         }
 
-        private function get_country_region($order) {
-            if (WC()->version < '3.0.0')
+        private function get_country_region($order)
+        {
+            if (WC()->version < '3.0.0') {
                 $result = $order->shipping_country ? $this->format_field_country($order->shipping_country) : $this->format_field_country($order->billing_country);
-            else
+            } else {
                 $result = $order->get_shipping_country() ? $this->format_field_country($order->get_shipping_country()) : $this->format_field_country($order->get_billing_country());
+            }
 
             return $this->translitirate($result);
         }
 
-        private function get_region($order) {
-            if (WC()->version < '3.0.0')
+        private function get_region($order)
+        {
+            if (WC()->version < '3.0.0') {
                 $result = $order->shipping_state ? $this->format_field_state($order->shipping_country, $order->shipping_state) : $this->format_field_state($order->billing_country, $order->billing_state);
-            else
+            } else {
                 $result = $order->get_shipping_state() ? $this->format_field_state($order->get_shipping_country(), $order->get_shipping_state()) : $this->format_field_state($order->get_billing_country(), $order->get_billing_state());
+            }
 
             return $this->translitirate($result);
         }
 
-        private function get_city($order) {
+        private function get_city($order)
+        {
 
-            if (WC()->version < '3.0.0')
+            if (WC()->version < '3.0.0') {
                 $result = $order->shipping_city ? $this->format_field($order->shipping_city) : $this->format_field($order->billing_city);
-            else
+            } else {
                 $result = $order->get_shipping_city() ? $this->format_field($order->get_shipping_city()) : $this->format_field($order->get_billing_city());
+            }
 
             return $this->translitirate($result);
         }
 
-        private function get_contactName($order) {
+        private function get_contactName($order)
+        {
 
             if (WC()->version < '3.0.0') {
 
-                if ( $order->shipping_first_name ){
+                if ($order->shipping_first_name) {
                     $result = $order->shipping_first_name . ' ' . $order->shipping_last_name;
 
                     if (isset($this->shipping_third_name)) {
-                        $result .=  ' ' . $order->shipping_third_name;
+                        $result .= ' ' . $order->shipping_third_name;
                     }
                 } else {
                     $result = $order->billing_first_name . ' ' . $order->billing_last_name;
 
                     if (isset($this->billing_third_name)) {
-                        $result .=  ' ' . $order->billing_third_name;
+                        $result .= ' ' . $order->billing_third_name;
                     }
                 }
 
-            }
-            else
+            } else {
                 $result = $order->get_shipping_first_name() ? $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name() . ' ' . $order->get_meta('_shipping_third_name') : $order->get_billing_first_name() . ' ' . $order->get_billing_last_name() . ' ' . $order->get_meta('_billing_third_name');
+            }
 
             return $this->translitirate($result);
         }
 
-        private function get_address_number($order){
+        private function get_address_number($order)
+        {
 
             $b_number = $order->get_meta('_billing_number');
             $s_number = $order->get_meta('_shipping_number');
 
             $number = $b_number ? $b_number : ($s_number ? $s_number : '');
 
-            $number = $number ? preg_replace("/[^0-9]/", "", $number ) : '';
+            $number = $number ? preg_replace("/[^0-9]/", "", $number) : '';
 
             return $number;
 
         }
 
-        private function get_address1($order) {
+        private function get_address1($order)
+        {
 
-
-            if (WC()->version < '3.0.0')
+            if (WC()->version < '3.0.0') {
                 $result = $order->shipping_address_1 ? $order->shipping_address_1 : $order->billing_address_1;
-            else
+            } else {
                 $result = $order->get_shipping_address_1() ? $order->get_shipping_address_1() : $order->get_billing_address_1();
+            }
 
             //Add street number if it's available
             $result = $result . " " . $this->get_address_number($order);
@@ -330,56 +349,70 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
             return $this->translitirate($result);
         }
 
-        private function get_address2($order) {
+        private function get_address2($order)
+        {
 
-            if (WC()->version < '3.0.0')
+            if (WC()->version < '3.0.0') {
                 $result = $order->shipping_address_2 ? $order->shipping_address_2 : $order->billing_address_2;
-            else
+            } else {
                 $result = $order->get_shipping_address_2() ? $order->get_shipping_address_2() : $order->get_billing_address_2();
+            }
 
             return $this->translitirate($result);
         }
 
-        private function get_zip($order) {
+        private function get_zip($order)
+        {
 
-
-            if (WC()->version < '3.0.0')
+            if (WC()->version < '3.0.0') {
                 $result = $order->shipping_postcode ? $order->shipping_postcode : $order->billing_postcode;
-            else
+            } else {
                 $result = $order->get_shipping_postcode() ? $order->get_shipping_postcode() : $order->get_billing_postcode();
+            }
 
             return $result;
         }
 
-        private function format_field_country($str) {
+        private function format_field_country($str)
+        {
             $str = trim($str);
 
-            if (!empty($str))
+            if (!empty($str)) {
                 $str = strtoupper($str);
+            }
 
+            if ($str === "GB") {
+                $str = "UK";
+            }
 
-            if ($str === "GB") $str = "UK";
-            if ($str == "RS") $str = "SRB";
-            if ($str == "ME") $str = "MNE";
+            if ($str == "RS") {
+                $str = "SRB";
+            }
+
+            if ($str == "ME") {
+                $str = "MNE";
+            }
 
             return $str;
         }
 
-        private function format_field_state($country_code, $state_code) {
-            if (isset(WC()->countries->states[$country_code]) && isset(WC()->countries->states[$country_code][$state_code]))
+        private function format_field_state($country_code, $state_code)
+        {
+            if (isset(WC()->countries->states[$country_code]) && isset(WC()->countries->states[$country_code][$state_code])) {
                 $result = $this->format_field(WC()->countries->states[$country_code][$state_code]);
-            else
+            } else {
                 $result = $state_code;
+            }
 
             //WooCommerce translation file has html entities
-            $result = html_entity_decode( (string) $result, ENT_QUOTES, 'UTF-8');
+            $result = html_entity_decode((string) $result, ENT_QUOTES, 'UTF-8');
 
             return $result;
 
-
         }
 
-        private function getSkuArray($item) {
+        private function getSkuArray($item)
+        {
 
             $sku = array();
 
@@ -407,14 +440,16 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
             return $sku;
         }
 
-        private function getSkuArrayByVariationID($variation_id){
+        private function getSkuArrayByVariationID($variation_id)
+        {
 
             $sku = array();
 
             $external_var_data = get_post_meta($variation_id, '_aliexpress_sku_props', true);
 
-            if (empty($external_var_data))
+            if (empty($external_var_data)) {
                 return $sku;
+            }
 
             if ($external_var_data) {
                 $items = explode(';', $external_var_data);
@@ -427,8 +462,9 @@ if (!class_exists('A2W_OrderFulfillmentController')) {
             return $sku;
         }
 
-        private function translitirate($result){
-            if (a2w_get_setting('order_translitirate')){
+        private function translitirate($result)
+        {
+            if (a2w_get_setting('order_translitirate')) {
                 $result = A2W_Utils::safeTransliterate($result);
             }
 

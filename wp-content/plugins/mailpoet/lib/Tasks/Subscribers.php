@@ -11,7 +11,9 @@ use MailPoet\Models\ScheduledTaskSubscriber;
 class Subscribers {
   private $task;
 
-  public function __construct(ScheduledTask $task) {
+  public function __construct(
+    ScheduledTask $task
+  ) {
     $this->task = $task;
   }
 

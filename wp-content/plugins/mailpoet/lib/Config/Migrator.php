@@ -5,9 +5,12 @@ namespace MailPoet\Config;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\FormEntity;
 use MailPoet\Models\Newsletter;
 use MailPoet\Models\Subscriber;
+use MailPoet\Segments\DynamicSegments\Filters\UserRole;
+use MailPoet\Segments\DynamicSegments\Filters\WooCommerceProduct;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Util\Helpers;
 
@@ -47,6 +50,7 @@ class Migrator {
       'forms',
       'statistics_newsletters',
       'statistics_clicks',
+      'statistics_bounces',
       'statistics_opens',
       'statistics_unsubscribes',
       'statistics_forms',
@@ -56,6 +60,7 @@ class Migrator {
       'user_flags',
       'feature_flags',
       'dynamic_segment_filters',
+      'user_agents',
     ];
   }
 
@@ -70,6 +75,9 @@ class Migrator {
     }
     $this->updateNullInUnsubscribeStats();
     $this->fixScheduledTasksSubscribersTimestampColumns();
+    $this->removeDeprecatedStatisticsIndexes();
+    $this->migrateSerializedFilterDataToNewColumns();
+    $this->migratePurchasedProductDynamicFilters();
     return $output;
   }
 
@@ -225,6 +233,8 @@ class Migrator {
       'link_token char(32) NULL,',
       'engagement_score FLOAT unsigned NULL,',
       'engagement_score_updated_at timestamp NULL,',
+      'last_engagement_at timestamp NULL,',
+      'woocommerce_synced_at timestamp NULL,',
       'PRIMARY KEY  (id),',
       'UNIQUE KEY email (email),',
       'UNIQUE KEY unsubscribe_token (unsubscribe_token),',
@@ -313,6 +323,7 @@ class Migrator {
       'description varchar(255) NOT NULL DEFAULT "",',
       'body longtext,',
       'thumbnail longtext,',
+      'thumbnail_data longtext,',
       'readonly tinyint(1) DEFAULT 0,',
       'created_at timestamp NULL,', // must be NULL, see comment at the top
       'updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,',
@@ -421,6 +432,18 @@ class Migrator {
     return $this->sqlify(__FUNCTION__, $attributes);
   }
 
+  public function statisticsBounces() {
+    $attributes = [
+      'id int(11) unsigned NOT NULL AUTO_INCREMENT,',
+      'newsletter_id int(11) unsigned NOT NULL,',
+      'subscriber_id int(11) unsigned NOT NULL,',
+      'queue_id int(11) unsigned NOT NULL,',
+      'created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,',
+      'PRIMARY KEY  (id)',
+    ];
+    return $this->sqlify(__FUNCTION__, $attributes);
+  }
+
   public function statisticsClicks() {
     $attributes = [
       'id int(11) unsigned NOT NULL AUTO_INCREMENT,',
@@ -428,11 +451,13 @@ class Migrator {
       'subscriber_id int(11) unsigned NOT NULL,',
       'queue_id int(11) unsigned NOT NULL,',
       'link_id int(11) unsigned NOT NULL,',
+      'user_agent_id int(11) unsigned NULL,',
+      'user_agent_type tinyint(1) NOT NULL DEFAULT 0,',
       'count int(11) unsigned NOT NULL,',
       'created_at timestamp NULL,', // must be NULL, see comment at the top
       'updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,',
       'PRIMARY KEY  (id),',
-      'KEY newsletter_id_subscriber_id (newsletter_id, subscriber_id),',
+      'KEY newsletter_id_subscriber_id_user_agent_type (newsletter_id, subscriber_id, user_agent_type),',
       'KEY queue_id (queue_id),',
       'KEY subscriber_id (subscriber_id)',
     ];
@@ -445,9 +470,11 @@ class Migrator {
       'newsletter_id int(11) unsigned NOT NULL,',
       'subscriber_id int(11) unsigned NOT NULL,',
       'queue_id int(11) unsigned NOT NULL,',
+      'user_agent_id int(11) unsigned NULL,',
+      'user_agent_type tinyint(1) NOT NULL DEFAULT 0,',
       'created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,',
       'PRIMARY KEY  (id),',
-      'KEY newsletter_id_subscriber_id (newsletter_id, subscriber_id),',
+      'KEY newsletter_id_subscriber_id_user_agent_type (newsletter_id, subscriber_id, user_agent_type),',
       'KEY queue_id (queue_id),',
       'KEY subscriber_id (subscriber_id),',
       'KEY created_at (created_at),',
@@ -564,8 +591,22 @@ class Migrator {
       'created_at timestamp NULL,',
       'updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,',
       'filter_data longblob,',
+      'filter_type varchar(255) NULL,',
+      'action varchar(255) NULL,',
       'PRIMARY KEY (id),',
       'KEY segment_id (segment_id)',
+    ];
+    return $this->sqlify(__FUNCTION__, $attributes);
+  }
+
+  public function userAgents() {
+    $attributes = [
+      'id int(11) unsigned NOT NULL AUTO_INCREMENT,',
+      'hash varchar(32) UNIQUE NOT NULL, ',
+      'user_agent text NOT NULL, ',
+      'created_at timestamp NULL,',
+      'updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,',
+      'PRIMARY KEY (id)',
     ];
     return $this->sqlify(__FUNCTION__, $attributes);
   }
@@ -631,6 +672,108 @@ class Migrator {
       ";
       $wpdb->query($addUpdatedAtQuery);
     }
+    return true;
+  }
+
+  private function removeDeprecatedStatisticsIndexes(): bool {
+    global $wpdb;
+    // skip the migration if the DB version is higher than 3.67.1 or is not set (a new install)
+    if (version_compare($this->settings->get('db_version', '3.67.1'), '3.67.1', '>')) {
+      return false;
+    }
+
+    $dbName = Env::$dbName;
+    $statisticsTables = [
+      "{$this->prefix}statistics_clicks",
+      "{$this->prefix}statistics_opens",
+    ];
+    foreach ($statisticsTables as $statisticsTable) {
+      $oldStatisticsIndexExists = $wpdb->get_results("
+      SELECT DISTINCT INDEX_NAME
+      FROM INFORMATION_SCHEMA.STATISTICS
+      WHERE TABLE_SCHEMA = '{$dbName}'
+        AND TABLE_NAME = '$statisticsTable'
+        AND INDEX_NAME='newsletter_id_subscriber_id'
+     ");
+      if (!empty($oldStatisticsIndexExists)) {
+        $dropIndexQuery = "
+        ALTER TABLE `{$statisticsTable}`
+          DROP INDEX `newsletter_id_subscriber_id`
+      ";
+        $wpdb->query($dropIndexQuery);
+      }
+    }
+
+    return true;
+  }
+
+  private function migrateSerializedFilterDataToNewColumns(): bool {
+    global $wpdb;
+    // skip the migration if the DB version is higher than 3.73.1 or is not set (a new install)
+    if (version_compare($this->settings->get('db_version', '3.73.1'), '3.73.0', '>')) {
+      return false;
+    }
+
+    $dynamicSegmentFiltersTable = "{$this->prefix}dynamic_segment_filters";
+    $dynamicSegmentFilters = $wpdb->get_results("
+      SELECT id, filter_data, filter_type, `action`
+      FROM {$dynamicSegmentFiltersTable}
+    ", ARRAY_A);
+    foreach ($dynamicSegmentFilters as $dynamicSegmentFilter) {
+      if ($dynamicSegmentFilter['filter_type'] && $dynamicSegmentFilter['action']) {
+        continue;
+      }
+      $filterData = unserialize($dynamicSegmentFilter['filter_data']);
+      // bc compatibility fix, the filter with the segmentType userRole didn't have filled action
+      if ($filterData['segmentType'] === DynamicSegmentFilterData::TYPE_USER_ROLE && empty($filterData['action'])) {
+        $filterData['action'] = UserRole::TYPE;
+      }
+      $wpdb->update($dynamicSegmentFiltersTable, [
+        'action' => $filterData['action'] ?? null,
+        'filter_type' => $filterData['segmentType'] ?? null,
+      ], ['id' => $dynamicSegmentFilter['id']]);
+    }
+
+    return true;
+  }
+
+  private function migratePurchasedProductDynamicFilters(): bool {
+    global $wpdb;
+    // skip the migration if the DB version is higher than 3.74.3 or is not set (a new install)
+    if (version_compare($this->settings->get('db_version', '3.74.3'), '3.74.2', '>')) {
+      return false;
+    }
+
+    $dynamicSegmentFiltersTable = "{$this->prefix}dynamic_segment_filters";
+    $filterType = DynamicSegmentFilterData::TYPE_WOOCOMMERCE;
+    $action = WooCommerceProduct::ACTION_PRODUCT;
+    $dynamicSegmentFilters = $wpdb->get_results("
+      SELECT `id`, `filter_data`, `filter_type`, `action`
+      FROM {$dynamicSegmentFiltersTable}
+      WHERE `filter_type` = '{$filterType}'
+        AND `action` = '{$action}'
+    ", ARRAY_A);
+
+    foreach ($dynamicSegmentFilters as $dynamicSegmentFilter) {
+      $filterData = unserialize($dynamicSegmentFilter['filter_data']);
+      if (!isset($filterData['product_ids'])) {
+        $filterData['product_ids'] = [];
+      }
+
+      if (isset($filterData['product_id']) && !in_array($filterData['product_id'], $filterData['product_ids'])) {
+        $filterData['product_ids'][] = $filterData['product_id'];
+        unset($filterData['product_id']);
+      }
+
+      if (!isset($filterData['operator'])) {
+        $filterData['operator'] = DynamicSegmentFilterData::OPERATOR_ANY;
+      }
+
+      $wpdb->update($dynamicSegmentFiltersTable, [
+        'filter_data' => serialize($filterData),
+      ], ['id' => $dynamicSegmentFilter['id']]);
+    }
+
     return true;
   }
 }

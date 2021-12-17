@@ -5893,6 +5893,21 @@ Reklame: Samle inn personlig identifiserbar informasjon som navn og sted;',
 	}
 
 	/**
+     * Hook to hide the dummy user from admin view, so it's invisible
+     *
+	 * @param $user_search
+	 */
+	public function hide_dummy_user( $user_search ) {
+		global $wpdb;
+		$num = '1';
+		$user_search->query_where = str_replace(
+			'WHERE 1='.$num, 
+			"WHERE 1=$num AND {$wpdb->users}.user_email != '{$this->dummy_email_address}'", 
+			$user_search->query_where
+		);
+	}
+
+	/**
 	 *
 	 */
 	private function create_dummy_user() {
@@ -6128,20 +6143,6 @@ Reklame: Samle inn personlig identifiserbar informasjon som navn og sted;',
 
 			return ( ! ( $post_id instanceof WP_Error ) ) ? true : false;
 		}
-	}
-
-	/**
-     * Hook to hide the dummy user from admin view, so it's invisible
-     *
-	 * @param $user_search
-	 */
-	public function hide_dummy_user( $user_search ) {
-		global $wpdb;
-		$user_search->query_where = str_replace(
-		        'WHERE 1=1',
-			"WHERE 1=1 AND {$wpdb->users}.user_email != '{$this->dummy_email_address}'",
-            $user_search->query_where
-        );
 	}
 
 	/**

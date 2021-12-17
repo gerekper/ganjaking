@@ -47,9 +47,14 @@ class SubscriberStats extends APIEndpoint {
       'email' => $subscriber->getEmail(),
       'total_sent' => $statistics->getTotalSentCount(),
       'open' => $statistics->getOpenCount(),
+      'machine_open' => $statistics->getMachineOpenCount(),
       'click' => $statistics->getClickCount(),
       'engagement_score' => $subscriber->getEngagementScore(),
     ];
+    $lastEngagement = $subscriber->getLastEngagementAt();
+    if ($lastEngagement instanceof \DateTimeInterface) {
+      $response['last_engagement'] = $lastEngagement->format('Y-m-d H:i:s');
+    }
     $woocommerce = $statistics->getWooCommerceRevenue();
     if ($woocommerce instanceof WooCommerceRevenue) {
       $response['woocommerce'] = $woocommerce->asArray();

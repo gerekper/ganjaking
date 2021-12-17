@@ -51,6 +51,24 @@
 				});
 			}
 		});
+
+		/// multiple kb tab grid
+		$('.betterdocs-tab-list a').first().addClass('active');
+		$('.betterdocs-tab-content').first().addClass('active');
+		$('.tab-content-1').addClass('active');
+		$('.betterdocs-tab-list a').click(function(e) {
+			e.preventDefault();
+			$(this).siblings('a').removeClass('active').end().addClass('active');
+			let sel = this.getAttribute('data-toggle-target');
+			$('.betterdocs-tab-content').removeClass('active').filter(sel).addClass('active');
+		});
+		/**
+	 	 * Event Listener Added To Advanced Search Button To Prevent Submission
+	 	 */
+		$('.search-submit').on('click', function( e ) {
+			e.preventDefault();
+		});
+
 	});
 
 })( jQuery );

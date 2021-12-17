@@ -1,5 +1,10 @@
 *** Store Credit Changelog ***
 
+2021-12-01 - version 3.9.3
+* Tweak - Tested compatibility with WC 5.9.
+* Tweak - Improved the distribution of the coupon credit over the cart items.
+* Fix - Fixed wrong discount when the cart contains many low-priced items.
+
 2021-10-13 - version 3.9.2
 * Tweak - Tested compatibility up to WC 5.8.
 * Fix - Fixed warning caused by the undefined variable `$found`.

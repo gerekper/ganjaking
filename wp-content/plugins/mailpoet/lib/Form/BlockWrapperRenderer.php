@@ -11,7 +11,9 @@ class BlockWrapperRenderer {
   /** @var WPFunctions */
   private $wp;
 
-  public function __construct(WPFunctions $wp) {
+  public function __construct(
+    WPFunctions $wp
+  ) {
     $this->wp = $wp;
   }
 

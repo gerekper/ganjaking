@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Loads admin scripts, includes admin classes and adds admin hooks.
  *
  * @class    WC_PB_Admin
- * @version  6.12.0
+ * @version  6.12.8
  */
 class WC_PB_Admin {
 
@@ -27,7 +27,7 @@ class WC_PB_Admin {
 	 *
 	 * @var string
 	 */
-	private static $bundled_selectsw_version = '1.1.3';
+	private static $bundled_selectsw_version = '1.1.7';
 
 	/**
 	 * Setup Admin class.

@@ -20,7 +20,13 @@ class Notice {
   private $dataNoticeName;
   private $renderInParagraph;
 
-  public function __construct($type, $message, $classes = '', $dataNoticeName = '', $renderInParagraph = true) {
+  public function __construct(
+    $type,
+    $message,
+    $classes = '',
+    $dataNoticeName = '',
+    $renderInParagraph = true
+  ) {
     $this->type = $type;
     $this->message = $message;
     $this->classes = $classes;

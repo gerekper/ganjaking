@@ -12,6 +12,8 @@ use MailPoet\Segments\DynamicSegments\Filters\EmailAction;
 use MailPoet\Segments\DynamicSegments\Filters\EmailOpensAbsoluteCountAction;
 use MailPoet\Segments\DynamicSegments\Filters\Filter;
 use MailPoet\Segments\DynamicSegments\Filters\MailPoetCustomFields;
+use MailPoet\Segments\DynamicSegments\Filters\SubscriberScore;
+use MailPoet\Segments\DynamicSegments\Filters\SubscriberSegment;
 use MailPoet\Segments\DynamicSegments\Filters\SubscriberSubscribedDate;
 use MailPoet\Segments\DynamicSegments\Filters\UserRole;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCategory;
@@ -52,8 +54,16 @@ class FilterFactory {
   /** @var SubscriberSubscribedDate */
   private $subscriberSubscribedDate;
 
+  /** @var SubscriberScore */
+  private $subscriberScore;
+
   /** @var MailPoetCustomFields */
   private $mailPoetCustomFields;
+
+  /**
+   * @var SubscriberSegment
+   */
+  private $subscriberSegment;
 
   public function __construct(
     EmailAction $emailAction,
@@ -66,7 +76,9 @@ class FilterFactory {
     WooCommerceNumberOfOrders $wooCommerceNumberOfOrders,
     WooCommerceTotalSpent $wooCommerceTotalSpent,
     WooCommerceSubscription $wooCommerceSubscription,
-    SubscriberSubscribedDate $subscriberSubscribedDate
+    SubscriberSubscribedDate $subscriberSubscribedDate,
+    SubscriberScore $subscriberScore,
+    SubscriberSegment $subscriberSegment
   ) {
     $this->emailAction = $emailAction;
     $this->userRole = $userRole;
@@ -78,13 +90,15 @@ class FilterFactory {
     $this->emailOpensAbsoluteCount = $emailOpensAbsoluteCount;
     $this->wooCommerceTotalSpent = $wooCommerceTotalSpent;
     $this->subscriberSubscribedDate = $subscriberSubscribedDate;
+    $this->subscriberScore = $subscriberScore;
     $this->mailPoetCustomFields = $mailPoetCustomFields;
+    $this->subscriberSegment = $subscriberSegment;
   }
 
   public function getFilterForFilterEntity(DynamicSegmentFilterEntity $filter): Filter {
     $filterData = $filter->getFilterData();
     $filterType = $filterData->getFilterType();
-    $action = $filterData->getParam('action');
+    $action = $filterData->getAction();
     switch ($filterType) {
       case DynamicSegmentFilterData::TYPE_USER_ROLE:
         return $this->userRole($action);
@@ -102,14 +116,19 @@ class FilterFactory {
   private function userRole($action) {
     if ($action === SubscriberSubscribedDate::TYPE) {
       return $this->subscriberSubscribedDate;
+    } elseif ($action === SubscriberScore::TYPE) {
+      return $this->subscriberScore;
     } elseif ($action === MailPoetCustomFields::TYPE) {
       return $this->mailPoetCustomFields;
+    } elseif ($action === SubscriberSegment::TYPE) {
+      return $this->subscriberSegment;
     }
     return $this->userRole;
   }
 
   private function email($action) {
-    if ($action === EmailOpensAbsoluteCountAction::TYPE) {
+    $countActions = [EmailOpensAbsoluteCountAction::TYPE, EmailOpensAbsoluteCountAction::MACHINE_TYPE];
+    if (in_array($action, $countActions)) {
       return $this->emailOpensAbsoluteCount;
     }
     return $this->emailAction;

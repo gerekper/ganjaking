@@ -11,7 +11,7 @@ if (!class_exists('A2W_ShippingPageController')):
     class A2W_ShippingPageController extends A2W_AbstractAdminPage {
 
         public function __construct() {
-            parent::__construct(__('Shipping List', 'ali2woo'), __('Shipping List', 'ali2woo'), 'import', 'edit.php?post_type=a2w_shipping', 30, true);
+            parent::__construct(__('Shipping List', 'ali2woo'), __('Shipping List', 'ali2woo'), 'import', 'edit.php?post_type=a2w_shipping', 30, 1);
 
             add_action('admin_init', array($this, 'admin_init'));
 

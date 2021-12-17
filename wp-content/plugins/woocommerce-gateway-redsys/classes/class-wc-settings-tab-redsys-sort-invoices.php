@@ -3,7 +3,7 @@
  * Copyright: (C) 2013 - 2021 José Conti
  */
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 /**
  * Copyright: (C) 2013 - 2021 José Conti
@@ -56,7 +56,6 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	public static function settings_tab() {
 		woocommerce_admin_fields( self::get_settings() );
 	}
-
 
 	/**
 	 * Uses the WooCommerce options API to save settings via the @see woocommerce_update_options() function.
@@ -176,15 +175,15 @@ function redsys_add_invoice_number( $columns ) {
 	unset( $new_column['wc_actions'] );
 
 	// edit this for you column(s)
-	// all of your columns will be added before the actions colums
+	// all of your columns will be added before the actions colums.
 	$new_column['invoice_number'] = __( 'Invoice Number', 'woocommerce-redsys' );
 
-	// stop editing
+	// stop editing.
 	$new_column['wc_actions'] = $columns['wc_actions'];
 	return $new_column;
 }
 
-// render the values
+// render the values.
 /**
  * Copyright: (C) 2013 - 2021 José Conti
  */
@@ -198,7 +197,7 @@ function redsys_add_invoice_number_value( $column ) {
 	}
 }
 
-// sort invoice order colum
+// sort invoice order colum.
 /**
  * Copyright: (C) 2013 - 2021 José Conti
  */
@@ -233,7 +232,7 @@ function redsys_sort_invoice_orders( $order_id ) {
 			settype( $last_invoice_number, 'integer' );
 		}
 		if ( empty( $last_invoice_number ) ) {
-			// Check if there is a option with the first invoice number
+			// Check if there is a option with the first invoice number.
 			$first_invoice_number = get_option( 'wc_settings_tab_redsys_sort_invoices_first_invoice_number' );
 			if ( empty( $first_invoice_number ) ) {
 				$invoice_number = 1;
@@ -280,7 +279,7 @@ function redsys_sort_invoice_orders_admin( $order_id ) {
 			settype( $last_invoice_number, 'integer' );
 		}
 		if ( empty( $last_invoice_number ) ) {
-			// Check if there is a option with the first invoice number
+			// Check if there is a option with the first invoice number.
 			$first_invoice_number = get_option( 'wc_settings_tab_redsys_sort_invoices_first_invoice_number' );
 			if ( empty( $first_invoice_number ) ) {
 				$invoice_number = 1;
@@ -303,7 +302,7 @@ function redsys_sort_invoice_orders_admin( $order_id ) {
 		update_post_meta( $order_id, '_invoice_order_redsys', $final_invoice_number );
 	}
 }
-// We hook to WooCommerce payment function
+// We hook to WooCommerce payment function.
 /**
  * Copyright: (C) 2013 - 2021 José Conti
  */
@@ -343,7 +342,7 @@ function redsys_check_add_invoice_number( $order ) {
 	}
 
 	if ( empty( $last_invoice_number ) ) {
-		// Check if there is a option with the first invoice number
+		// Check if there is a option with the first invoice number.
 		$first_invoice_number = get_option( 'wc_settings_tab_redsys_sort_invoices_first_invoice_number' );
 		if ( empty( $first_invoice_number ) ) {
 			$invoice_number = 1;

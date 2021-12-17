@@ -1,15 +1,15 @@
-# Copyright (C) 2021 SomewhereWarm
+# Copyright (C) 2021 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Composite Products 8.3.3\n"
+"Project-Id-Version: WooCommerce Composite Products 8.3.4\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-04T16:32:29+00:00\n"
+"POT-Creation-Date: 2021-12-03T10:28:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -28,7 +28,7 @@ msgid "Create personalized product kits and configurable products."
 msgstr ""
 
 #. Author of the plugin
-msgid "SomewhereWarm"
+msgid "WooCommerce"
 msgstr ""
 
 #. Author URI of the plugin
@@ -1185,8 +1185,8 @@ msgstr ""
 #: includes/class-wc-cp-order.php:75
 #: includes/compatibility/class-wc-cp-compatibility.php:58
 #: includes/compatibility/class-wc-cp-compatibility.php:67
-#: woocommerce-composite-products.php:75
-#: woocommerce-composite-products.php:84
+#: woocommerce-composite-products.php:74
+#: woocommerce-composite-products.php:83
 msgid "Foul!"
 msgstr ""
 
@@ -1311,7 +1311,7 @@ msgid "&ldquo;%s&rdquo;"
 msgstr ""
 
 #. translators: Product title.
-#: includes/class-wc-cp-cart.php:1979
+#: includes/class-wc-cp-cart.php:1981
 msgid "You have already added an identical &quot;%s&quot; to your cart. You cannot add another one."
 msgstr ""
 
@@ -2470,12 +2470,12 @@ msgid "No compatible options to display."
 msgstr ""
 
 #. translators: Required version.
-#: woocommerce-composite-products.php:199
+#: woocommerce-composite-products.php:198
 msgid "WooCommerce Composite Products requires at least WooCommerce <strong>%s</strong>."
 msgstr ""
 
 #. translators: %1$s: PHP version, %2$s: Documentation link.
-#: woocommerce-composite-products.php:208
+#: woocommerce-composite-products.php:207
 msgid "WooCommerce Composite Products requires at least PHP <strong>%1$s</strong>. Learn <a href=\"%2$s\">how to update PHP</a>."
 msgstr ""
 

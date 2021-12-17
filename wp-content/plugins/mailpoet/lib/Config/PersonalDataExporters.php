@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\DI\ContainerWrapper;
 use MailPoet\Subscribers\ImportExport\PersonalDataExporters\NewsletterClicksExporter;
+use MailPoet\Subscribers\ImportExport\PersonalDataExporters\NewsletterOpensExporter;
 use MailPoet\Subscribers\ImportExport\PersonalDataExporters\NewslettersExporter;
 use MailPoet\Subscribers\ImportExport\PersonalDataExporters\SegmentsExporter;
 use MailPoet\Subscribers\ImportExport\PersonalDataExporters\SubscriberExporter;
@@ -18,6 +19,7 @@ class PersonalDataExporters {
     WPFunctions::get()->addFilter('wp_privacy_personal_data_exporters', [$this, 'registerSegmentsExporter']);
     WPFunctions::get()->addFilter('wp_privacy_personal_data_exporters', [$this, 'registerNewslettersExporter']);
     WPFunctions::get()->addFilter('wp_privacy_personal_data_exporters', [$this, 'registerNewsletterClicksExporter']);
+    WPFunctions::get()->addFilter('wp_privacy_personal_data_exporters', [$this, 'registerNewsletterOpensExporter']);
   }
 
   public function registerSegmentsExporter($exporters) {
@@ -37,7 +39,7 @@ class PersonalDataExporters {
   }
 
   public function registerNewslettersExporter($exporters) {
-    $newsletterExporter = ContainerWrapper::getInstance(NewslettersExporter::class);
+    $newsletterExporter = ContainerWrapper::getInstance()->get(NewslettersExporter::class);
     $exporters[] = [
       'exporter_friendly_name' => WPFunctions::get()->__('MailPoet Emails', 'mailpoet'),
       'callback' => [$newsletterExporter, 'export'],
@@ -48,7 +50,15 @@ class PersonalDataExporters {
   public function registerNewsletterClicksExporter($exporters) {
     $exporters[] = [
       'exporter_friendly_name' => WPFunctions::get()->__('MailPoet Email Clicks', 'mailpoet'),
-      'callback' => [new NewsletterClicksExporter(), 'export'],
+      'callback' => [ContainerWrapper::getInstance()->get(NewsletterClicksExporter::class), 'export'],
+    ];
+    return $exporters;
+  }
+
+  public function registerNewsletterOpensExporter($exporters) {
+    $exporters[] = [
+      'exporter_friendly_name' => WPFunctions::get()->__('MailPoet Email Opens', 'mailpoet'),
+      'callback' => [ContainerWrapper::getInstance()->get(NewsletterOpensExporter::class), 'export'],
     ];
     return $exporters;
   }

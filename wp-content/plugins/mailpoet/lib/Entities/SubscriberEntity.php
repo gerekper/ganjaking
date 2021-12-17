@@ -19,6 +19,7 @@ use MailPoetVendor\Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity()
  * @ORM\Table(name="subscribers")
+ * @ORM\HasLifecycleCallbacks
  */
 class SubscriberEntity {
   // statuses
@@ -141,8 +142,20 @@ class SubscriberEntity {
   private $engagementScoreUpdatedAt;
 
   /**
-   * @ORM\OneToMany(targetEntity="MailPoet\Entities\SubscriberSegmentEntity", mappedBy="subscriber")
-   * @var iterable<SubscriberSegmentEntity>&Collection
+   * @ORM\Column(type="datetimetz", nullable=true)
+   * @var DateTimeInterface|null
+   */
+  private $lastEngagementAt;
+
+  /**
+   * @ORM\Column(type="datetimetz", nullable=true)
+   * @var DateTimeInterface|null
+   */
+  private $woocommerceSyncedAt;
+
+  /**
+   * @ORM\OneToMany(targetEntity="MailPoet\Entities\SubscriberSegmentEntity", mappedBy="subscriber", orphanRemoval=true)
+   * @var Collection<int, SubscriberSegmentEntity>
    */
   private $subscriberSegments;
 
@@ -398,7 +411,7 @@ class SubscriberEntity {
   }
 
   /**
-   * @return Collection
+   * @return Collection<int, SubscriberSegmentEntity>
    */
   public function getSubscriberSegments() {
     return $this->subscriberSegments;
@@ -438,5 +451,31 @@ class SubscriberEntity {
    */
   public function setEngagementScoreUpdatedAt(?DateTimeInterface $engagementScoreUpdatedAt): void {
     $this->engagementScoreUpdatedAt = $engagementScoreUpdatedAt;
+  }
+
+  public function getLastEngagementAt(): ?DateTimeInterface {
+    return $this->lastEngagementAt;
+  }
+
+  public function setLastEngagementAt(DateTimeInterface $lastEngagementAt): void {
+    $this->lastEngagementAt = $lastEngagementAt;
+  }
+
+  public function setWoocommerceSyncedAt(?DateTimeInterface $woocommerceSyncedAt): void {
+    $this->woocommerceSyncedAt = $woocommerceSyncedAt;
+  }
+
+  public function getWoocommerceSyncedAt(): ?DateTimeInterface {
+    return $this->woocommerceSyncedAt;
+  }
+
+  /** @ORM\PreFlush */
+  public function cleanupSubscriberSegments(): void {
+    // Delete old orphan SubscriberSegments to avoid errors on update
+    $this->subscriberSegments->map(function (SubscriberSegmentEntity $subscriberSegment) {
+      if ($subscriberSegment->getSegment() === null) {
+        $this->subscriberSegments->removeElement($subscriberSegment);
+      }
+    });
   }
 }

@@ -1,7 +1,10 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2021-12-01 - version 3.6.38
+* Fix   - Missing CSS and JS assets causing broken styles and functionality.
+
 2021-11-17 - version 3.6.37
-* Tweak - Refactor address validation
+* Tweak - Refactor address validation.
 * Fix   - Fatal error with custom billing fields added from 'woocommerce_checkout_fields' filter hook.
 
 2021-10-21 - version 3.6.36

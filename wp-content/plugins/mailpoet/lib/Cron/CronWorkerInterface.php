@@ -5,7 +5,7 @@ namespace MailPoet\Cron;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Models\ScheduledTask;
+use MailPoet\Entities\ScheduledTaskEntity;
 
 interface CronWorkerInterface {
   /** @return string */
@@ -23,18 +23,18 @@ interface CronWorkerInterface {
   public function init();
 
   /**
-   * @param ScheduledTask $task
+   * @param ScheduledTaskEntity $task
    * @param float $timer
    * @return bool
    */
-  public function prepareTaskStrategy(ScheduledTask $task, $timer);
+  public function prepareTaskStrategy(ScheduledTaskEntity $task, $timer);
 
   /**
-   * @param ScheduledTask $task
+   * @param ScheduledTaskEntity $task
    * @param float $timer
    * @return bool
    */
-  public function processTaskStrategy(ScheduledTask $task, $timer);
+  public function processTaskStrategy(ScheduledTaskEntity $task, $timer);
 
   /** @return \DateTimeInterface */
   public function getNextRunDate();

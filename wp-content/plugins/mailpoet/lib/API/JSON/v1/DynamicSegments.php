@@ -11,6 +11,7 @@ use MailPoet\API\JSON\Error;
 use MailPoet\API\JSON\Response;
 use MailPoet\API\JSON\ResponseBuilders\DynamicSegmentsResponseBuilder;
 use MailPoet\Config\AccessControl;
+use MailPoet\Doctrine\Validator\ValidationException;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Listing\Handler;
 use MailPoet\Newsletter\Segment\NewsletterSegmentRepository;
@@ -116,7 +117,11 @@ class DynamicSegments extends APIEndpoint {
       ], [], Response::STATUS_BAD_REQUEST);
     } catch (InvalidArgumentException $e) {
       return $this->badRequest([
-        Error::BAD_REQUEST  => __('Another record already exists. Please specify a different "name".', 'mailpoet'),
+        Error::BAD_REQUEST => __('Another record already exists. Please specify a different "name".', 'mailpoet'),
+      ]);
+    } catch (ValidationException $exception) {
+      return $this->badRequest([
+        Error::BAD_REQUEST => __('Please specify a name.', 'mailpoet'),
       ]);
     }
   }
@@ -148,6 +153,8 @@ class DynamicSegments extends APIEndpoint {
         return WPFunctions::get()->__('Please select a type for the comparison, an amount and a number of days.', 'mailpoet');
       case InvalidFilterException::MISSING_FILTER:
         return WPFunctions::get()->__('Please add at least one condition for filtering.', 'mailpoet');
+      case InvalidFilterException::MISSING_OPERATOR:
+        return WPFunctions::get()->__('Please select a type for the comparison.', 'mailpoet');
       default:
         return WPFunctions::get()->__('An error occurred while saving data.', 'mailpoet');
     }
@@ -171,9 +178,9 @@ class DynamicSegments extends APIEndpoint {
     if (isset($activelyUsedNewslettersSubjects[$segment->getId()])) {
       return $this->badRequest([
         Error::BAD_REQUEST => str_replace(
-          '%$1s',
+          '%1$s',
           "'" . join("', '", $activelyUsedNewslettersSubjects[$segment->getId()] ) . "'",
-          _x('Segment cannot be deleted because it’s used for %$1s email', 'Alert shown when trying to delete segment, which is assigned to any automatic emails.', 'mailpoet')
+          _x('Segment cannot be deleted because it’s used for %1$s email', 'Alert shown when trying to delete segment, which is assigned to any automatic emails.', 'mailpoet')
         ),
       ]);
     }

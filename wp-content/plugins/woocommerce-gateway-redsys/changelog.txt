@@ -1,5 +1,10 @@
 *** Redsys Gateway Change Log ***
 
+2021.12.04 - version 17.0.3
+
+* NEW: New option for move Terms checkout check above Gateways. Set in Redsys in the Checkout settings.
+* FIXED: Fixed some translations strings.
+
 2021.11.11 - version 17.0.2
 
 * IMPROVED: When no user data are collected in the checkout, now is not sent as 3DS to Redsys.

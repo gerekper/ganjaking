@@ -6,6 +6,9 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Cron\CronHelper;
+use MailPoet\Cron\CronWorkerScheduler;
+use MailPoet\Entities\NewsletterEntity;
+use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Logging\LoggerFactory;
 use MailPoet\Models\Newsletter;
 use MailPoet\Models\ScheduledTask;
@@ -15,6 +18,7 @@ use MailPoet\Models\SubscriberSegment;
 use MailPoet\Newsletter\Scheduler\PostNotificationScheduler;
 use MailPoet\Newsletter\Scheduler\Scheduler as NewsletterScheduler;
 use MailPoet\Newsletter\Scheduler\WelcomeScheduler;
+use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
 use MailPoet\Segments\SubscribersFinder;
 use MailPoet\Tasks\Sending as SendingTask;
 
@@ -30,14 +34,24 @@ class Scheduler {
   /** @var CronHelper */
   private $cronHelper;
 
+  /** @var CronWorkerScheduler */
+  private $cronWorkerScheduler;
+
+  /** @var ScheduledTasksRepository */
+  private $scheduledTasksRepository;
+
   public function __construct(
     SubscribersFinder $subscribersFinder,
     LoggerFactory $loggerFactory,
-    CronHelper $cronHelper
+    CronHelper $cronHelper,
+    CronWorkerScheduler $cronWorkerScheduler,
+    ScheduledTasksRepository $scheduledTasksRepository
   ) {
     $this->cronHelper = $cronHelper;
     $this->subscribersFinder = $subscribersFinder;
     $this->loggerFactory = $loggerFactory;
+    $this->cronWorkerScheduler = $cronWorkerScheduler;
+    $this->scheduledTasksRepository = $scheduledTasksRepository;
   }
 
   public function process($timer = false) {
@@ -53,16 +67,18 @@ class Scheduler {
       $newsletter = Newsletter::findOneWithOptions($queue->newsletterId);
       if (!$newsletter || $newsletter->deletedAt !== null) {
         $queue->delete();
-      } elseif ($newsletter->status !== Newsletter::STATUS_ACTIVE && $newsletter->status !== Newsletter::STATUS_SCHEDULED) {
+      } elseif ($newsletter->status !== NewsletterEntity::STATUS_ACTIVE && $newsletter->status !== NewsletterEntity::STATUS_SCHEDULED) {
         continue;
-      } elseif ($newsletter->type === Newsletter::TYPE_WELCOME) {
+      } elseif ($newsletter->type === NewsletterEntity::TYPE_WELCOME) {
         $this->processWelcomeNewsletter($newsletter, $queue);
-      } elseif ($newsletter->type === Newsletter::TYPE_NOTIFICATION) {
+      } elseif ($newsletter->type === NewsletterEntity::TYPE_NOTIFICATION) {
         $this->processPostNotificationNewsletter($newsletter, $queue);
-      } elseif ($newsletter->type === Newsletter::TYPE_STANDARD) {
+      } elseif ($newsletter->type === NewsletterEntity::TYPE_STANDARD) {
         $this->processScheduledStandardNewsletter($newsletter, $queue);
-      } elseif ($newsletter->type === Newsletter::TYPE_AUTOMATIC) {
+      } elseif ($newsletter->type === NewsletterEntity::TYPE_AUTOMATIC) {
         $this->processScheduledAutomaticEmail($newsletter, $queue);
+      } elseif ($newsletter->type === NewsletterEntity::TYPE_RE_ENGAGEMENT) {
+        $this->processReEngagementEmail($queue);
       }
       $this->cronHelper->enforceExecutionLimit($timer);
     }
@@ -91,7 +107,7 @@ class Scheduler {
     return true;
   }
 
-  public function processPostNotificationNewsletter($newsletter, $queue) {
+  public function processPostNotificationNewsletter($newsletter, SendingTask $queue) {
     $this->loggerFactory->getLogger(LoggerFactory::TOPIC_POST_NOTIFICATIONS)->addInfo(
       'process post notification in scheduler',
       ['newsletter_id' => $newsletter->id, 'task_id' => $queue->taskId]
@@ -124,6 +140,7 @@ class Scheduler {
 
     // queue newsletter for delivery
     $queue->newsletterId = $notificationHistory->id;
+    $queue->updateCount();
     $queue->status = null;
     $queue->save();
     // update notification status
@@ -174,6 +191,12 @@ class Scheduler {
     return true;
   }
 
+  private function processReEngagementEmail($queue) {
+    $queue->status = null;
+    $queue->save();
+    return true;
+  }
+
   public function verifyMailpoetSubscriber($subscriberId, $newsletter, $queue) {
     $subscriber = Subscriber::findOne($subscriberId);
     // check if subscriber is in proper segment
@@ -213,7 +236,12 @@ class Scheduler {
   public function verifySubscriber($subscriber, $queue) {
     if ($subscriber->status === Subscriber::STATUS_UNCONFIRMED) {
       // reschedule delivery
-      $queue->rescheduleProgressively();
+      $task = $this->scheduledTasksRepository->findOneById($queue->task()->id);
+
+      if ($task instanceof ScheduledTaskEntity) {
+        $this->cronWorkerScheduler->rescheduleProgressively($task);
+      }
+
       return false;
     } else if ($subscriber->status === Subscriber::STATUS_UNSUBSCRIBED) {
       $queue->delete();

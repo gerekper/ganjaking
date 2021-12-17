@@ -8,7 +8,7 @@
  * @since      2.0.0
  * @package    BetterDocs
  * @subpackage BetterDocs/includes
- * @author     WPDeveloper <support@wpdeveloper.net>
+ * @author     WPDeveloper <support@wpdeveloper.com>
  */
 
 class BetterDocs_Multiple_Kb
@@ -31,7 +31,7 @@ class BetterDocs_Multiple_Kb
 			add_filter('betterdocs_doc_permalink_default', array(__CLASS__, 'doc_permalink_default'), 10, 3);
 			add_filter('nav_menu_link_attributes', array(__CLASS__, 'doc_category_nav_menu_permalink'), 10, 2);
 			add_action('betterdocs_cat_template_multikb', array(__CLASS__, 'get_multiple_kb'));
-			add_action('betterdocs_postcount', array(__CLASS__, 'postcount'), 10, 6);
+			add_action('betterdocs_postcount', array(__CLASS__, 'postcount'), 10, 7);
 			add_action('betterdocs_category_list_shortcode', array(__CLASS__, 'category_list_shortcode'), 10, 1);
 			add_action('betterdocs_category_box_shortcode', array(__CLASS__, 'category_box_shortcode'), 10, 1);
 			add_action('betterdocs_sidebar_category_shortcode', array(__CLASS__, 'sidebar_category_shortcode'), 10, 1);
@@ -57,7 +57,6 @@ class BetterDocs_Multiple_Kb
 			add_action('wp_ajax_update_knowledge_base_order', array(__CLASS__, 'update_knowledge_base_order'));
 			add_action('betterdocs_internal_kb_fields', array(__CLASS__, 'internal_kb_settings_field'));
 			if (BetterDocs_DB::get_settings('kb_based_search') == 1) {
-                add_action('betterdocs_live_search_field_footer', array(__CLASS__, 'srarch_footer'));
                 add_action('betterdocs_live_search_tax_query', array(__CLASS__, 'live_search_tax_query'), 10, 2);
             }
 		}
@@ -144,7 +143,7 @@ class BetterDocs_Multiple_Kb
         return BetterDocs_DB::get_settings('multiple_kb');
 	}
 
-	public static function postcount($term_count, $multiple_kb, $term_id, $term_slug, $count, $nested_subcategory=false)
+	public static function postcount($term_count, $multiple_kb, $term_id, $term_slug, $count, $nested_subcategory=false, $knowledge_base=false)
 	{
         global $wp_query;
 
@@ -236,9 +235,9 @@ class BetterDocs_Multiple_Kb
 	{
         $output = betterdocs_generate_output();
 		if (is_tax('knowledge_base')) {
-			$shortcode = do_shortcode('[betterdocs_category_box multiple_knowledge_base="true" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]');
+			$shortcode = do_shortcode('[betterdocs_category_box multiple_knowledge_base="true" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" border_bottom="'.$output['betterdocs_doc_page_box_border_bottom'].'"]');
 		} else {
-			$shortcode = do_shortcode('[betterdocs_category_box title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]');
+			$shortcode = do_shortcode('[betterdocs_category_box title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" border_bottom="'.$output['betterdocs_doc_page_box_border_bottom'].'"]');
 		}
 
 		return $shortcode;
@@ -424,10 +423,11 @@ class BetterDocs_Multiple_Kb
 	public static function list_tax_query($tax_query, $multiple_kb, $tax_slug, $kb_slug)
 	{
 		global $wp_query;
-
         if (is_singular('docs')) {
             $kb_terms = self::single_kb_terms();
             $knowledge_base = ($kb_terms) ? $kb_terms[0]->slug : '';
+        } elseif ($kb_slug) {
+            $knowledge_base = $kb_slug;
         } else {
             $knowledge_base = isset($wp_query->query['knowledge_base']) ? $wp_query->query['knowledge_base'] : '';
         }
@@ -1014,12 +1014,8 @@ class BetterDocs_Multiple_Kb
 		wp_send_json_success();
 	}
 
-	static function srarch_footer() {
-        $kb_slug = BetterDocs_Multiple_Kb::kb_slug();
-	    echo '<input type="hidden" value="'.esc_attr($kb_slug).'" class="betterdocs-search-kbslug betterdocs-search-submit">';
-    }
-
     static function live_search_tax_query($tax_query, $post) {
+        if (empty($post['kb_slug'])) return;
         return array(
             array(
                 'taxonomy' => 'knowledge_base',

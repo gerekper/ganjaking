@@ -90,7 +90,7 @@ class BetterDocs_Licensing {
 		}		   
 		if ( $status === 'expired' ) {
 			$msg = __( 'Your license has been expired. Please %1$srenew your license%2$s key to enable updates for %3$s.',	$this->text_domain );
-			$msg = sprintf( $msg, '<a rel="nofollow" href="https://wpdeveloper.net/account">', '</a>', '<strong>' . $this->product_name . '</strong>' );
+			$msg = sprintf( $msg, '<a rel="nofollow" href="https://wpdeveloper.com/account">', '</a>', '<strong>' . $this->product_name . '</strong>' );
 			?>
 			<div class="notice notice-error">
 				<p><?php echo $msg; ?></p>
@@ -151,7 +151,7 @@ class BetterDocs_Licensing {
 	                    <p><?php printf( __( 'Visit the <a rel="nofollow" href="%s" target="_blank">Validation Guide</a> for help.', $this->text_domain ), 'https://betterdocs.co/docs/betterdocs-license/' ); ?></p>
 
 	                    <ol>
-	                        <li><?php printf( __( 'Log in to <a rel="nofollow" href="%s" target="_blank">your account</a> to get your license key.', $this->text_domain ), 'https://wpdeveloper.net/account/' ); ?></li>
+	                        <li><?php printf( __( 'Log in to <a rel="nofollow" href="%s" target="_blank">your account</a> to get your license key.', $this->text_domain ), 'https://wpdeveloper.com/account/' ); ?></li>
 	                        <li><?php printf( __( 'If you don\'t yet have a license key, get <a rel="nofollow" href="%s" target="_blank">BetterDocs Pro now</a>.', $this->text_domain ), 'https://betterdocs.co/upgrade' ); ?></li>
 	                        <li><?php _e( __( 'Copy the license key from your account and paste it below.', $this->text_domain ) ); ?></li>
 	                        <li><?php _e( __( 'Click on <strong>"Activate License"</strong> button.', $this->text_domain ) ); ?></li>
@@ -225,11 +225,6 @@ class BetterDocs_Licensing {
 	 * @return bool|string   The product license key, or false if not set
 	 */
 	public function get_license_status() {
-		if(get_option( $this->product_slug . '-license-status' ) != 'valid') {
-            set_transient( $this->product_slug . '-license_data', true, 12 * HOUR_IN_SECONDS );
-            update_option( $this->product_slug . '-license-status', 'valid' );
-            update_option( $this->product_slug . '-license-key', '123456-123456-123456-123456' );
-            }
 		$status = get_option( $this->product_slug . '-license-status' );
 		if ( ! $status ) {
 			// User hasn't saved the license to settings yet. No use making the call.

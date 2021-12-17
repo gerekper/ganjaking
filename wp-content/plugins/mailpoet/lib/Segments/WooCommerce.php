@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MailPoet\Segments;
 
@@ -6,16 +6,19 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Env;
+use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Entities\SubscriberSegmentEntity;
 use MailPoet\Models\ModelValidator;
-use MailPoet\Models\Segment;
-use MailPoet\Models\Subscriber;
-use MailPoet\Models\SubscriberSegment;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\Source;
+use MailPoet\Subscribers\SubscriberSaveController;
+use MailPoet\Subscribers\SubscriberSegmentRepository;
 use MailPoet\Subscribers\SubscribersRepository;
 use MailPoet\WooCommerce\Helper as WCHelper;
 use MailPoet\WP\Functions as WPFunctions;
-use MailPoetVendor\Idiorm\ORM;
+use MailPoetVendor\Carbon\Carbon;
+use MailPoetVendor\Doctrine\DBAL\Connection;
+use MailPoetVendor\Doctrine\ORM\EntityManager;
 
 class WooCommerce {
   /** @var SettingsController */
@@ -36,21 +39,46 @@ class WooCommerce {
   /** @var SubscribersRepository */
   private $subscribersRepository;
 
+  /** @var SegmentsRepository */
+  private $segmentsRepository;
+
+  /** @var SubscriberSegmentRepository */
+  private $subscriberSegmentRepository;
+
+  /** @var SubscriberSaveController */
+  private $subscriberSaveController;
+
   /** @var WCHelper */
   private $woocommerceHelper;
+
+  /** @var EntityManager */
+  private $entityManager;
+
+  /** @var Connection */
+  private $connection;
 
   public function __construct(
     SettingsController $settings,
     WPFunctions $wp,
     WCHelper $woocommerceHelper,
     SubscribersRepository $subscribersRepository,
-    WP $wpSegment
+    SegmentsRepository $segmentsRepository,
+    SubscriberSegmentRepository $subscriberSegmentRepository,
+    SubscriberSaveController $subscriberSaveController,
+    WP $wpSegment,
+    EntityManager $entityManager,
+    Connection $connection
   ) {
     $this->settings = $settings;
     $this->wp = $wp;
     $this->wpSegment = $wpSegment;
     $this->subscribersRepository = $subscribersRepository;
+    $this->segmentsRepository = $segmentsRepository;
+    $this->subscriberSegmentRepository = $subscriberSegmentRepository;
+    $this->subscriberSaveController = $subscriberSaveController;
     $this->woocommerceHelper = $woocommerceHelper;
+    $this->entityManager = $entityManager;
+    $this->connection = $connection;
   }
 
   public function shouldShowWooCommerceSegment() {
@@ -64,9 +92,7 @@ class WooCommerce {
   }
 
   public function synchronizeRegisteredCustomer($wpUserId, $currentFilter = null) {
-    $wcSegment = Segment::getWooCommerceSegment();
-
-    if ($wcSegment === false) return;
+    $wcSegment = $this->segmentsRepository->getWooCommerceSegment();
 
     $currentFilter = $currentFilter ?: $this->wp->currentFilter();
     switch ($currentFilter) {
@@ -80,10 +106,9 @@ class WooCommerce {
       case 'woocommerce_update_customer':
       default:
         $wpUser = $this->wp->getUserdata($wpUserId);
-        $subscriber = Subscriber::where('wp_user_id', $wpUserId)
-          ->findOne();
+        $subscriber = $this->subscribersRepository->findOneBy(['wpUserId' => $wpUserId]);
 
-        if ($wpUser === false || $subscriber === false) {
+        if ($wpUser === false || $subscriber === null) {
           // registered customers should exist as WP users and WP segment subscribers
           return false;
         }
@@ -92,24 +117,21 @@ class WooCommerce {
           'is_woocommerce_user' => 1,
         ];
         if (!empty($newCustomer)) {
-          $data['status'] = Subscriber::STATUS_SUBSCRIBED;
           $data['source'] = Source::WOOCOMMERCE_USER;
         }
-        $data['id'] = $subscriber->id();
-        if ($wpUser->first_name) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
-          $data['first_name'] = $wpUser->first_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+        $data['id'] = $subscriber->getId();
+        if ($wpUser->first_name) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+          $data['first_name'] = $wpUser->first_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
         }
-        if ($wpUser->last_name) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
-          $data['last_name'] = $wpUser->last_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+        if ($wpUser->last_name) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+          $data['last_name'] = $wpUser->last_name; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
         }
-        $subscriber = Subscriber::createOrUpdate($data);
-        if ($subscriber->getErrors() === false && $subscriber->id > 0) {
-          // add subscriber to the WooCommerce Customers segment
-          SubscriberSegment::subscribeToSegments(
-            $subscriber,
-            [$wcSegment->id]
-          );
-        }
+        $subscriber = $this->subscriberSaveController->createOrUpdate($data, $subscriber);
+        // add subscriber to the WooCommerce Customers segment
+        $this->subscriberSegmentRepository->subscribeToSegments(
+          $subscriber,
+          [$wcSegment]
+        );
         break;
     }
 
@@ -118,59 +140,55 @@ class WooCommerce {
 
   public function synchronizeGuestCustomer($orderId) {
     $wcOrder = $this->woocommerceHelper->wcGetOrder($orderId);
-    $wcSegment = Segment::getWooCommerceSegment();
 
-    if ((!$wcOrder instanceof \WC_Order) || $wcSegment === false) return;
+    if (!$wcOrder instanceof \WC_Order) return;
     $signupConfirmation = $this->settings->get('signup_confirmation');
-    $status = Subscriber::STATUS_UNCONFIRMED;
+    $status = SubscriberEntity::STATUS_UNCONFIRMED;
     if ((bool)$signupConfirmation['enabled'] === false) {
-      $status = Subscriber::STATUS_SUBSCRIBED;
+      $status = SubscriberEntity::STATUS_SUBSCRIBED;
     }
 
-    $insertedEmails = $this->insertSubscribersFromOrders($orderId, $status);
+    $email = $this->insertSubscriberFromOrder($orderId, $status);
 
-    if (empty($insertedEmails[0]['email'])) {
+    if (empty($email)) {
       return false;
     }
-    $subscriber = Subscriber::where('email', $insertedEmails[0]['email'])
-      ->findOne();
+    $subscriber = $this->subscribersRepository->findOneBy(['email' => $email]);
 
-    if ($subscriber !== false) {
-      $firstName = $wcOrder->get_billing_first_name(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
-      $lastName = $wcOrder->get_billing_last_name(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    if ($subscriber) {
+      $firstName = $wcOrder->get_billing_first_name(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      $lastName = $wcOrder->get_billing_last_name(); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
       if ($firstName) {
-        $subscriber->firstName = $firstName;
+        $subscriber->setFirstName($firstName);
       }
       if ($lastName) {
-        $subscriber->lastName = $lastName;
+        $subscriber->setLastName($lastName);
       }
       if ($firstName || $lastName) {
-        $subscriber->save();
+        $this->subscribersRepository->flush();
       }
-      // add subscriber to the WooCommerce Customers segment
-      SubscriberSegment::subscribeToSegments(
-        $subscriber,
-        [$wcSegment->id]
-      );
     }
   }
 
-  public function synchronizeCustomers() {
+  public function synchronizeCustomers(int $lastProcessedOrderId = 0, ?int $highestOrderId = null, int $batchSize = 1000): int {
+
     $this->wpSegment->synchronizeUsers(); // synchronize registered users
 
     $this->markRegisteredCustomers();
-    $insertedUsersEmails = $this->insertSubscribersFromOrders();
-    $this->removeUpdatedSubscribersWithInvalidEmail($insertedUsersEmails);
-    unset($insertedUsersEmails);
-    $this->updateFirstNames();
-    $this->updateLastNames();
-    $this->insertUsersToSegment();
-    $this->unsubscribeUsersFromSegment();
-    $this->removeOrphanedSubscribers();
-    $this->updateStatus();
-    $this->updateGlobalStatus();
 
-    return true;
+    $processedOrders = $this->insertSubscribersFromOrders($lastProcessedOrderId, $batchSize);
+    $this->updateNames($processedOrders);
+
+    $lastProcessedOrderId = end($processedOrders);
+    if (!$highestOrderId || $lastProcessedOrderId === $highestOrderId) {
+      $this->insertUsersToSegment();
+      $this->unsubscribeUsersFromSegment();
+      $this->removeOrphanedSubscribers();
+      $this->updateStatus();
+      $this->updateGlobalStatus();
+    }
+
+    return (int)$lastProcessedOrderId;
   }
 
   private function ensureColumnCollation(): void {
@@ -181,13 +199,19 @@ class WooCommerce {
     $mailpoetEmailColumn = $wpdb->get_row(
       'SHOW FULL COLUMNS FROM ' . MP_SUBSCRIBERS_TABLE . ' WHERE Field = "email"'
     );
-    $this->mailpoetEmailCollation = $mailpoetEmailColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    $this->mailpoetEmailCollation = $mailpoetEmailColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
     $wpPostmetaValueColumn = $wpdb->get_row(
       'SHOW FULL COLUMNS FROM ' . $wpdb->postmeta . ' WHERE Field = "meta_value"'
     );
-    $this->wpPostmetaValueCollation = $wpPostmetaValueColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+    $this->wpPostmetaValueCollation = $wpPostmetaValueColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
   }
 
+  /**
+   * In MySQL, if you have the same charset and collation in joined tables' columns it's perfect;
+   * if you have different charsets, utf8 and utf8mb4, it works too; but if you have the same charset
+   * with different collations, e.g. utf8mb4_unicode_ci and utf8mb4_unicode_520_ci, it will fail
+   * with an 'Illegal mix of collations' error. That's why we need an optional COLLATE clause to fix this.
+   */
   private function needsCollationChange(): bool {
     $this->ensureColumnCollation();
     $collation1 = (string)$this->mailpoetEmailCollation;
@@ -196,271 +220,321 @@ class WooCommerce {
     if ($collation1 === $collation2) {
       return false;
     }
-    $collation1UnderscorePos = strpos($collation1, '_');
-    $collation2UnderscorePos = strpos($collation2, '_');
+    list($charset1) = explode('_', $collation1);
+    list($charset2) = explode('_', $collation2);
 
-    $charset1 = substr($collation1, 0, $collation1UnderscorePos === false ? strlen($collation1) : $collation1UnderscorePos);
-    $charset2 = substr($collation2, 0, $collation2UnderscorePos === false ? strlen($collation2) : $collation2UnderscorePos);
     return $charset1 === $charset2;
   }
 
   private function markRegisteredCustomers() {
     // Mark WP users having a customer role as WooCommerce subscribers
     global $wpdb;
-    $subscribersTable = Subscriber::$_table;
-    Subscriber::rawExecute(sprintf('
-      UPDATE LOW_PRIORITY %1$s mps
-        JOIN %2$s wu ON mps.wp_user_id = wu.id
-        JOIN %3$s wpum ON wu.id = wpum.user_id AND wpum.meta_key = "' . $wpdb->prefix . 'capabilities"
-      SET is_woocommerce_user = 1, source = "%4$s"
-        WHERE wpum.meta_value LIKE "%%\"customer\"%%"
-    ', $subscribersTable, $wpdb->users, $wpdb->usermeta, Source::WOOCOMMERCE_USER));
+    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    $this->connection->executeQuery("
+      UPDATE LOW_PRIORITY {$subscribersTable} mps
+        JOIN {$wpdb->users} wu ON mps.wp_user_id = wu.id
+        JOIN {$wpdb->usermeta} wpum ON wu.id = wpum.user_id AND wpum.meta_key = :capabilities
+      SET is_woocommerce_user = 1, source = :source
+        WHERE wpum.meta_value LIKE '%\"customer\"%'
+    ", ['capabilities' => $wpdb->prefix . 'capabilities', 'source' => Source::WOOCOMMERCE_USER]);
   }
 
-  private function insertSubscribersFromOrders($orderId = null, $status = Subscriber::STATUS_SUBSCRIBED) {
+  private function insertSubscriberFromOrder(int $orderId, string $status): ?string {
     global $wpdb;
-    $subscribersTable = Subscriber::$_table;
-    $orderId = !is_null($orderId) ? (int)$orderId : null;
+    $validator = new ModelValidator();
 
-    $insertedUsersEmails = ORM::for_table($wpdb->users)->raw_query(
-      'SELECT DISTINCT wppm.meta_value as email FROM `' . $wpdb->prefix . 'postmeta` wppm
-        JOIN `' . $wpdb->prefix . 'posts` p ON wppm.post_id = p.ID AND p.post_type = "shop_order"
-        WHERE wppm.meta_key = "_billing_email" AND wppm.meta_value != ""
-        ' . ($orderId ? ' AND p.ID = "' . $orderId . '"' : '') . '
-      ')->findArray();
+    $email = $this->connection->executeQuery("
+      SELECT wppm.meta_value AS email
+      FROM `{$wpdb->posts}` wpp
+      JOIN `{$wpdb->postmeta}` wppm ON wpp.ID = wppm.post_id AND wppm.meta_key = '_billing_email' AND wppm.meta_value != ''
+      WHERE wpp.post_type = 'shop_order'
+      AND wpp.ID = :orderId
+    ", ['orderId' => $orderId])->fetchOne();
 
-    Subscriber::rawExecute(sprintf('
-      INSERT IGNORE INTO %1$s (is_woocommerce_user, email, status, created_at, last_subscribed_at, source)
-      SELECT 1, wppm.meta_value, "%2$s", CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), "%3$s" FROM `' . $wpdb->prefix . 'postmeta` wppm
-        JOIN `' . $wpdb->prefix . 'posts` p ON wppm.post_id = p.ID AND p.post_type = "shop_order"
-        WHERE wppm.meta_key = "_billing_email" AND wppm.meta_value != ""
-        ' . ($orderId ? ' AND p.ID = "' . $orderId . '"' : '') . '
-      ON DUPLICATE KEY UPDATE is_woocommerce_user = 1
-    ', $subscribersTable, $status, Source::WOOCOMMERCE_USER));
+    if (!$email || !$validator->validateEmail($email)) {
+      return null;
+    }
 
-    return $insertedUsersEmails;
+    $this->insertSubscribers([$email], $status);
+    return $email;
   }
 
-  private function removeUpdatedSubscribersWithInvalidEmail($updatedEmails) {
+  /**
+   * @return array<string, int>
+   */
+  private function insertSubscribersFromOrders(int $lastProcessedOrderId, int $batchSize): array {
+    global $wpdb;
     $validator = new ModelValidator();
-    $invalidIsWoocommerceUsers = array_map(function($item) {
-      return $item['email'];
-    },
-    array_filter($updatedEmails, function($updatedEmail) use($validator) {
-      return !$validator->validateEmail($updatedEmail['email']);
-    }));
-    if (!$invalidIsWoocommerceUsers) {
+
+    $parameters = [
+      'lowestOrderId' => $lastProcessedOrderId,
+      'highestOrderId' => $lastProcessedOrderId + $batchSize,
+    ];
+    $parametersType = [
+      'lowestOrderId' => \PDO::PARAM_INT,
+      'highestOrderId' => \PDO::PARAM_INT,
+    ];
+
+    $result = $this->connection->executeQuery("
+      SELECT wpp.id AS order_id, wppm.meta_value AS email
+      FROM `{$wpdb->posts}` wpp
+      JOIN `{$wpdb->postmeta}` wppm ON wpp.ID = wppm.post_id AND wppm.meta_key = '_billing_email' AND wppm.meta_value != ''
+      WHERE wpp.post_type = 'shop_order'
+      AND (wpp.ID > :lowestOrderId AND wpp.ID <= :highestOrderId)
+      ORDER BY wpp.id
+    ", $parameters, $parametersType)->fetchAllAssociative();
+
+    $processedOrders = [];
+    foreach ($result as $item) {
+      if (!$validator->validateEmail($item['email'])) {
+        continue;
+      }
+      // because data in result are sorted by id, we can replace the previous order id
+      $processedOrders[(string)$item['email']] = (int)$item['order_id'];
+    }
+
+    if (count($processedOrders)) {
+      $this->insertSubscribers(array_keys($processedOrders));
+    }
+
+    return $processedOrders;
+  }
+
+  private function insertSubscribers(array $emails, string $status = SubscriberEntity::STATUS_SUBSCRIBED): int {
+    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    $subscribersValues = [];
+    $now = (Carbon::createFromTimestamp($this->wp->currentTime('timestamp')))->format('Y-m-d H:i:s');
+    $source = Source::WOOCOMMERCE_USER;
+    foreach ($emails as $email) {
+      $subscribersValues[] = "(1, '{$email}', '{$status}', '{$now}', '{$now}', '{$source}')";
+    }
+
+    $this->connection->executeQuery('
+      INSERT IGNORE INTO ' . $subscribersTable . ' (`is_woocommerce_user`, `email`, `status`, `created_at`, `last_subscribed_at`, `source`) VALUES
+      ' . implode(',', $subscribersValues) . '
+      ON DUPLICATE KEY UPDATE is_woocommerce_user = 1
+    ');
+
+    return count($emails);
+  }
+
+  /**
+   * @param array<string, int> $orders
+   */
+  private function updateNames(array $orders): void {
+    global $wpdb;
+    if (!$orders) {
       return;
     }
-    ORM::for_table(Subscriber::$_table)
-      ->whereNull('wp_user_id')
-      ->where('is_woocommerce_user', 1)
-      ->whereIn('email', $invalidIsWoocommerceUsers)
-      ->delete_many();
-  }
+    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
 
-  private function updateFirstNames() {
-    global $wpdb;
-    $collate = '';
-    if ($this->needsCollationChange()) {
-      $collate = ' COLLATE ' . $this->mailpoetEmailCollation;
+    $metaKeys = [
+      '_billing_first_name',
+      '_billing_last_name',
+    ];
+    $metaData = $this->connection->executeQuery("
+      SELECT post_id, meta_key, meta_value
+      FROM {$wpdb->postmeta}
+      WHERE meta_key IN (:metaKeys) AND post_id IN (:postIds)
+    ",
+      ['metaKeys' => $metaKeys, 'postIds' => array_values($orders)],
+      ['metaKeys' => Connection::PARAM_STR_ARRAY, 'postIds' => Connection::PARAM_INT_ARRAY]
+    )->fetchAllAssociative();
+
+    $subscribersData = [];
+    foreach ($orders as $email => $postId) {
+      $subscribersData[$postId]['email'] = $email;
     }
-    $subscribersTable = Subscriber::$_table;
-    Subscriber::rawExecute(sprintf('
-      UPDATE LOW_PRIORITY %1$s mps
-        JOIN %2$s wppm ON mps.email = wppm.meta_value %3$s AND wppm.meta_key = "_billing_email"
-        JOIN %2$s wppm2 ON wppm2.post_id = wppm.post_id AND wppm2.meta_key = "_billing_first_name"
-        JOIN (SELECT MAX(post_id) AS max_id FROM %2$s WHERE meta_key = "_billing_email" GROUP BY meta_value) AS tmaxid ON tmaxid.max_id = wppm.post_id
-      SET mps.first_name = wppm2.meta_value
-        WHERE  mps.first_name = ""
-        AND mps.is_woocommerce_user = 1
-        AND wppm2.meta_value IS NOT NULL
-    ', $subscribersTable, $wpdb->postmeta, $collate));
-  }
 
-  private function updateLastNames() {
-    global $wpdb;
-    $collate = '';
-    if ($this->needsCollationChange()) {
-      $collate = ' COLLATE ' . $this->mailpoetEmailCollation;
+    foreach ($metaData as $row) {
+      if (!$row['meta_value']) {
+        continue;
+      }
+      $subscribersData[$row['post_id']][$row['meta_key']] = $row['meta_value'];
     }
-    $subscribersTable = Subscriber::$_table;
-    Subscriber::rawExecute(sprintf('
-      UPDATE LOW_PRIORITY %1$s mps
-        JOIN %2$s wppm ON mps.email = wppm.meta_value %3$s AND wppm.meta_key = "_billing_email"
-        JOIN %2$s wppm2 ON wppm2.post_id = wppm.post_id AND wppm2.meta_key = "_billing_last_name"
-        JOIN (SELECT MAX(post_id) AS max_id FROM %2$s WHERE meta_key = "_billing_email" GROUP BY meta_value) AS tmaxid ON tmaxid.max_id = wppm.post_id
-      SET mps.last_name = wppm2.meta_value
-        WHERE mps.last_name = ""
-        AND mps.is_woocommerce_user = 1
-        AND wppm2.meta_value IS NOT NULL
-    ', $subscribersTable, $wpdb->postmeta, $collate));
+
+    $now = (Carbon::now())->format('Y-m-d H:i:s');
+    foreach ($subscribersData as $subscriber) {
+      $data = [];
+      $data['woocommerce_synced_at'] = $now;
+      if (!empty($subscriber['_billing_first_name'])) $data['first_name'] = $subscriber['_billing_first_name'];
+      if (!empty($subscriber['_billing_last_name'])) $data['last_name'] = $subscriber['_billing_last_name'];
+      $this->connection->update($subscribersTable, $data, ['email' => $subscriber['email']]);
+    }
   }
 
-  private function insertUsersToSegment() {
-    $wcSegment = Segment::getWooCommerceSegment();
-    $subscribersTable = Subscriber::$_table;
-    $wpMailpoetSubscriberSegmentTable = SubscriberSegment::$_table;
+  private function insertUsersToSegment(): void {
+    $wcSegment = $this->segmentsRepository->getWooCommerceSegment();
+    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    $subscriberSegmentsTable = $this->entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
     // Subscribe WC users to segment
-    Subscriber::rawExecute(sprintf('
-     INSERT IGNORE INTO %s (subscriber_id, segment_id, created_at)
-      SELECT mps.id, "%s", CURRENT_TIMESTAMP() FROM %s mps
-        WHERE mps.is_woocommerce_user = 1
-    ', $wpMailpoetSubscriberSegmentTable, $wcSegment->id, $subscribersTable));
+    $this->connection->executeQuery("
+      INSERT IGNORE INTO {$subscriberSegmentsTable} (subscriber_id, segment_id, created_at)
+      SELECT id, :segmentId, CURRENT_TIMESTAMP()
+      FROM {$subscribersTable}
+      WHERE is_woocommerce_user = 1
+    ",
+      ['segmentId' => $wcSegment->getId()],
+      ['segmentId' => \PDO::PARAM_INT]
+    );
   }
 
-  private function unsubscribeUsersFromSegment() {
-    $wcSegment = Segment::getWooCommerceSegment();
-    $subscribersTable = Subscriber::$_table;
-    $wpMailpoetSubscriberSegmentTable = SubscriberSegment::$_table;
+  private function unsubscribeUsersFromSegment(): void {
+    $wcSegment = $this->segmentsRepository->getWooCommerceSegment();
+    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    $subscriberSegmentsTable = $this->entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
     // Unsubscribe non-WC or invalid users from segment
-    Subscriber::rawExecute(sprintf('
-     DELETE mpss FROM %s mpss
-      LEFT JOIN %s mps ON mpss.subscriber_id = mps.id
-        WHERE mpss.segment_id = %s AND (mps.is_woocommerce_user = 0 OR mps.email = "" OR mps.email IS NULL)
-    ', $wpMailpoetSubscriberSegmentTable, $subscribersTable, $wcSegment->id));
+    $this->connection->executeQuery("
+      DELETE mpss FROM {$subscriberSegmentsTable} mpss
+      LEFT JOIN {$subscribersTable} mps ON mpss.subscriber_id = mps.id
+      WHERE mpss.segment_id = :segmentId AND (mps.is_woocommerce_user = 0 OR mps.email = '' OR mps.email IS NULL)
+    ",
+      ['segmentId' => $wcSegment->getId()],
+      ['segmentId' => \PDO::PARAM_INT]
+    );
   }
 
-  private function updateGlobalStatus() {
-    $subscribersTable = Subscriber::$_table;
-    $subscriberSegmentTable = SubscriberSegment::$_table;
-    $wcSegment = Segment::getWooCommerceSegment();
+  private function updateGlobalStatus(): void {
+    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    $subscriberSegmentsTable = $this->entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
+    $wcSegment = $this->segmentsRepository->getWooCommerceSegment();
     // Set global status unsubscribed to all woocommerce users without any segment
-    $sql = sprintf('
-      UPDATE %1$s mps
-        LEFT JOIN %2$s mpss ON mpss.subscriber_id = mps.id
-      SET mps.status = "unsubscribed"
-        WHERE
-          mpss.id IS NULL
-          AND mps.is_woocommerce_user = 1
-    ', $subscribersTable, $subscriberSegmentTable);
-    Subscriber::rawExecute($sql);
+    $this->connection->executeQuery("
+      UPDATE {$subscribersTable} mps
+      LEFT JOIN {$subscriberSegmentsTable} mpss ON mpss.subscriber_id = mps.id
+      SET mps.status = :statusUnsubscribed
+      WHERE mpss.id IS NULL
+        AND mps.is_woocommerce_user = 1
+    ",
+      ['statusUnsubscribed' => SubscriberEntity::STATUS_UNSUBSCRIBED],
+      ['statusUnsubscribed' => \PDO::PARAM_STR]
+    );
     // SET global status unsubscribed to all woocommerce users who have only 1 segment and it is woocommerce segment and they are not subscribed
     // You can't specify target table 'mps' for update in FROM clause
-    $sql = sprintf('
-      UPDATE %1$s as mps
-        JOIN %2$s as mpss on mps.id = mpss.subscriber_id AND mpss.segment_id = "%3$s" AND mpss.status = "unsubscribed"
-      SET mps.status = "unsubscribed"
-        WHERE mps.id IN (
-          SELECT s.id -- get all subscribers with exactly 1 list
-            FROM ( SELECT id FROM %1$s WHERE is_woocommerce_user = 1) as s
-            JOIN %2$s as l on s.id=l.subscriber_id
-            GROUP BY s.id
-            HAVING COUNT(l.id) = 1
-        )
-    ', $subscribersTable, $subscriberSegmentTable, $wcSegment->id);
-    Subscriber::rawExecute($sql);
+    $this->connection->executeQuery("
+      UPDATE {$subscribersTable} mps
+      JOIN {$subscriberSegmentsTable} mpss ON mps.id = mpss.subscriber_id AND mpss.segment_id = :segmentId AND mpss.status = :statusUnsubscribed
+      SET mps.status = :statusUnsubscribed
+      WHERE mps.id IN (
+        SELECT s.id -- get all subscribers with exactly 1 segment
+        FROM (SELECT id FROM {$subscribersTable} WHERE is_woocommerce_user = 1) s
+        JOIN {$subscriberSegmentsTable} ss on s.id = ss.subscriber_id
+        GROUP BY s.id
+        HAVING COUNT(ss.id) = 1
+      )
+    ",
+      ['statusUnsubscribed' => SubscriberEntity::STATUS_UNSUBSCRIBED, 'segmentId' => $wcSegment->getId()],
+      ['statusUnsubscribed' => \PDO::PARAM_STR, 'segmentId' => \PDO::PARAM_INT]
+    );
   }
 
-  private function removeOrphanedSubscribers() {
+  private function removeOrphanedSubscribers(): void {
     // Remove orphaned WooCommerce segment subscribers (not having a matching WC customer email),
     // e.g. if WC orders were deleted directly from the database
     // or a customer role was revoked and a user has no orders
     global $wpdb;
 
-    $wcSegment = Segment::getWooCommerceSegment();
+    $wcSegment = $this->segmentsRepository->getWooCommerceSegment();
+    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    $subscriberSegmentsTable = $this->entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
 
     // Unmark registered customers
 
     // Insert WC customer IDs to a temporary table for left join to use an index
     $tmpTableName = Env::$dbPrefix . 'tmp_wc_ids';
     // Registered users with orders
-    Subscriber::rawExecute(sprintf('
-      CREATE TEMPORARY TABLE %1$s
+    $this->connection->executeQuery("
+      CREATE TEMPORARY TABLE {$tmpTableName}
         (`id` int(11) unsigned NOT NULL, UNIQUE(`id`)) AS
-      SELECT DISTINCT wppm.meta_value AS id FROM %2$s wppm
-        JOIN %3$s wpp ON wppm.post_id = wpp.ID
-        AND wpp.post_type = "shop_order"
-        WHERE wppm.meta_key = "_customer_user"
-    ', $tmpTableName, $wpdb->postmeta, $wpdb->posts));
+      SELECT DISTINCT wppm.meta_value AS id FROM {$wpdb->postmeta} wppm
+        JOIN {$wpdb->posts} wpp ON wppm.post_id = wpp.ID
+        AND wpp.post_type = 'shop_order'
+        WHERE wppm.meta_key = '_customer_user'
+    ");
     // Registered users with a customer role
-    Subscriber::rawExecute(sprintf('
-      INSERT IGNORE INTO %1$s
-      SELECT DISTINCT wpum.user_id AS id FROM %2$s wpum
-      WHERE wpum.meta_key = "%3$s" AND wpum.meta_value LIKE "%%\"customer\"%%"
-    ', $tmpTableName, $wpdb->usermeta, $wpdb->prefix . 'capabilities'));
+    $this->connection->executeQuery("
+      INSERT IGNORE INTO {$tmpTableName}
+      SELECT DISTINCT wpum.user_id AS id FROM {$wpdb->usermeta} wpum
+      WHERE wpum.meta_key = :capabilities AND wpum.meta_value LIKE '%\"customer\"%'
+    ", ['capabilities' => $wpdb->prefix . 'capabilities']);
 
     // Unmark WC list registered users which aren't WC customers anymore
-    Subscriber::tableAlias('mps')
-      ->select('mps.*')
-      ->join(
-        MP_SUBSCRIBER_SEGMENT_TABLE,
-        'mps.`id` = mpss.`subscriber_id` AND mpss.`segment_id` = "' . $wcSegment->id . '"',
-        'mpss'
-      )
-      ->leftOuterJoin(
-        $tmpTableName,
-        'mps.`wp_user_id` = wctmp.`id`',
-        'wctmp'
-      )
-      ->where('is_woocommerce_user', 1)
-      ->whereNull('wctmp.id')
-      ->whereNotNull('wp_user_id')
-      ->findResultSet()
-      ->set('is_woocommerce_user', 0)
-      ->save();
+    $subQb = $this->connection->createQueryBuilder();
+    $subQb->select('mps.id')
+      ->from($subscribersTable, 'mps')
+      ->join('mps', $subscriberSegmentsTable, 'mpss', 'mps.id = mpss.subscriber_id AND mpss.segment_id = :segmentId')
+      ->leftJoin('mps', $tmpTableName, 'wctmp', 'mps.wp_user_id = wctmp.id')
+      ->where('mps.is_woocommerce_user = 1')
+      ->andWhere('wctmp.id IS NULL')
+      ->andWhere('mps.wp_user_id IS NOT NULL');
+    $qb = $this->connection->createQueryBuilder();
+    $qb->update($subscribersTable)
+      ->set('is_woocommerce_user', '0')
+      ->where("id IN (SELECT id FROM ({$subQb->getSQL()}) AS sq) ")
+      ->setParameter('segmentId', $wcSegment->getId());
+    $qb->execute();
 
-    Subscriber::rawExecute('DROP TABLE ' . $tmpTableName);
+    $this->connection->executeQuery("DROP TABLE {$tmpTableName}");
 
     // Remove guest customers
 
     // Insert WC customer emails to a temporary table and ensure matching collations
     // between MailPoet and WooCommerce emails for left join to use an index
     $tmpTableName = Env::$dbPrefix . 'tmp_wc_emails';
-    Subscriber::rawExecute(sprintf('
-      CREATE TEMPORARY TABLE %1$s
-        (`email` varchar(150) NOT NULL, UNIQUE(`email`)) COLLATE %2$s AS
-      SELECT DISTINCT wppm.meta_value AS email FROM %3$s wppm
-        JOIN %4$s wpp ON wppm.post_id = wpp.ID
-        AND wpp.post_type = "shop_order"
-        WHERE wppm.meta_key = "_billing_email"
-    ', $tmpTableName, $this->mailpoetEmailCollation, $wpdb->postmeta, $wpdb->posts));
+    $collation = '';
+    if ($this->needsCollationChange()) {
+      $collation = "COLLATE $this->mailpoetEmailCollation";
+    }
+    $this->connection->executeQuery("
+      CREATE TEMPORARY TABLE {$tmpTableName}
+        (`email` varchar(150) NOT NULL, UNIQUE(`email`)) {$collation}
+      SELECT DISTINCT wppm.meta_value AS email FROM {$wpdb->postmeta} wppm
+        JOIN {$wpdb->posts} wpp ON wppm.post_id = wpp.ID
+        AND wpp.post_type = 'shop_order'
+        WHERE wppm.meta_key = '_billing_email'
+    ");
 
     // Remove WC list guest users which aren't WC customers anymore
-    Subscriber::tableAlias('mps')
-      ->select('mps.*')
-      ->join(
-        MP_SUBSCRIBER_SEGMENT_TABLE,
-        'mps.`id` = mpss.`subscriber_id` AND mpss.`segment_id` = "' . $wcSegment->id . '"',
-        'mpss'
-      )
-      ->leftOuterJoin(
-        $tmpTableName,
-        'mps.`email` = wctmp.`email`',
-        'wctmp'
-      )
-      ->where('is_woocommerce_user', 1)
-      ->whereNull('wctmp.email')
-      ->whereNull('wp_user_id')
-      ->findResultSet()
-      ->set('is_woocommerce_user', 0)
-      ->delete();
+    $subQb = $this->connection->createQueryBuilder();
+    $subQb->select('mps.id')
+      ->from($subscribersTable, 'mps')
+      ->join('mps', $subscriberSegmentsTable, 'mpss', 'mps.id = mpss.subscriber_id AND mpss.segment_id = :segmentId')
+      ->leftJoin('mps', $tmpTableName, 'wctmp', 'mps.email = wctmp.email')
+      ->where('mps.is_woocommerce_user = 1')
+      ->andWhere('wctmp.email IS NULL')
+      ->andWhere('mps.wp_user_id IS NULL');
+    $qb = $this->connection->createQueryBuilder();
+    $qb->delete($subscribersTable)
+      ->where("id IN (SELECT id FROM ({$subQb->getSQL()}) AS sq) ")
+      ->setParameter('segmentId', $wcSegment->getId());
+    $qb->execute();
 
-    Subscriber::rawExecute('DROP TABLE ' . $tmpTableName);
+    $this->connection->executeQuery("DROP TABLE {$tmpTableName}");
   }
 
-  private function updateStatus() {
+  private function updateStatus(): void {
     $subscribeOldCustomers = $this->settings->get('mailpoet_subscribe_old_woocommerce_customers.enabled', false);
     if ($subscribeOldCustomers !== "1") {
-      $status = Subscriber::STATUS_UNSUBSCRIBED;
+      $status = SubscriberEntity::STATUS_UNSUBSCRIBED;
     } else {
-      $status = Subscriber::STATUS_SUBSCRIBED;
+      $status = SubscriberEntity::STATUS_SUBSCRIBED;
     }
-    $subscribersTable = Subscriber::$_table;
-    $subscriberSegmentTable = SubscriberSegment::$_table;
-    $wcSegment = Segment::getWooCommerceSegment();
+    $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    $subscriberSegmentsTable = $this->entityManager->getClassMetadata(SubscriberSegmentEntity::class)->getTableName();
+    $wcSegment = $this->segmentsRepository->getWooCommerceSegment();
 
-    $sql = sprintf('
-      UPDATE LOW_PRIORITY %1$s mpss
-        JOIN %2$s mps ON mpss.subscriber_id = mps.id
-      SET mpss.status = "%3$s"
-        WHERE
-          mpss.segment_id = %4$s
-          AND mps.confirmed_at IS NULL
-          AND mps.confirmed_ip IS NULL
-          AND mps.is_woocommerce_user = 1
-    ', $subscriberSegmentTable, $subscribersTable, $status, $wcSegment->id);
-
-    Subscriber::rawExecute($sql);
+    $this->connection->executeQuery("
+      UPDATE LOW_PRIORITY {$subscriberSegmentsTable} AS mpss
+      JOIN {$subscribersTable} AS mps ON mpss.subscriber_id = mps.id
+      SET mpss.status = :status
+      WHERE
+        mpss.segment_id = :segmentId
+        AND mps.confirmed_at IS NULL
+        AND mps.confirmed_ip IS NULL
+        AND mps.is_woocommerce_user = 1
+    ",
+      ['status' => $status, 'segmentId' => $wcSegment->getId()],
+      ['status' => \PDO::PARAM_STR, 'segmentId' => \PDO::PARAM_INT]
+    );
   }
 }

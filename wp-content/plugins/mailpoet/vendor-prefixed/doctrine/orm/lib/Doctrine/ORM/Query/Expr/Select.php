@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor\Doctrine\ORM\Query\Expr; if (!defined('ABSPATH')) exit; class Select extends \MailPoetVendor\Doctrine\ORM\Query\Expr\Base { protected $preSeparator = ''; protected $postSeparator = ''; protected $allowedClasses = [\MailPoetVendor\Doctrine\ORM\Query\Expr\Func::class]; public function getParts() { return $this->parts; } } 
+ declare (strict_types=1); namespace MailPoetVendor\Doctrine\ORM\Query\Expr; if (!defined('ABSPATH')) exit; class Select extends Base { protected $preSeparator = ''; protected $postSeparator = ''; protected $allowedClasses = [Func::class]; protected $parts = []; public function getParts() { return $this->parts; } } 

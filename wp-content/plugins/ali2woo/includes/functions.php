@@ -299,13 +299,13 @@ if (!function_exists('utf8_decode')) {
 
 if (!function_exists('a2w_set_transient')) {
 
-    function a2w_set_transient($transient, $value, $expiration = 0, $use_cache = false) {
+    function a2w_set_transient($transient, $value, $expiration = 0, $use_cache = false, $autoload = 'no') {
         if (a2w_check_defined('A2W_SAVE_TRANSIENT_AS_OPTION')) {
             wp_cache_delete( $transient, 'options' );
             if (false === get_option($transient)) {
-                $result = add_option($transient, $value);
+                $result = add_option($transient, $value, '', $autoload);
             } else {
-                $result = update_option($transient, $value);
+                $result = update_option($transient, $value, $autoload);
             }
 
             return $result;
@@ -347,7 +347,6 @@ if (!function_exists('a2w_set_transient')) {
             $transient_timeout = '_transient_timeout_' . $transient;
             $transient_option = '_transient_' . $transient;
             if (false === get_option($transient_option)) {
-                $autoload = 'yes';
                 if ($expiration) {
                     $autoload = 'no';
                     add_option($transient_timeout, time() + $expiration, '', 'no');

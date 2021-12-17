@@ -77,7 +77,7 @@ if (!class_exists('A2W_Account')) {
             if (a2w_check_defined('A2W_ITEM_PURCHASE_CODE')) {
                 $item_purchase_code = A2W_ITEM_PURCHASE_CODE;
             }else{
-                $item_purchase_code = "111111111-a1aa-1a11-a111-a1a11aa1a1111a";
+                $item_purchase_code = a2w_get_setting('item_purchase_code');
             }
             $result="token=".urlencode($item_purchase_code)."&version=".A2W()->version;
             
@@ -89,7 +89,7 @@ if (!class_exists('A2W_Account')) {
         }
 
         public function is_activated(){
-            $item_purchase_code = "111111111-a1aa-1a11-a111-a1a11aa1a1111a";
+            $item_purchase_code = a2w_check_defined('A2W_ITEM_PURCHASE_CODE')?A2W_ITEM_PURCHASE_CODE:a2w_get_setting('item_purchase_code');
             return !empty($item_purchase_code);
         }
     }

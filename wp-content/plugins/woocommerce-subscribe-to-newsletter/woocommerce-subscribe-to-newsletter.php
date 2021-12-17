@@ -3,14 +3,14 @@
  * Plugin Name: WooCommerce Subscribe to Newsletter
  * Plugin URI: https://woocommerce.com/products/newsletter-subscription/
  * Description: Allow users to subscribe to your newsletter during checkout, when registering on your site, or via a sidebar widget.
- * Version: 3.3.3
+ * Version: 3.3.4
  * Author: Themesquad
  * Author URI: https://themesquad.com
  * Requires at least: 4.4
  * Tested up to: 5.8
  * Requires PHP: 5.4
  * WC requires at least: 3.0
- * WC tested up to: 5.9
+ * WC tested up to: 6.0
  * Woo: 18605:9b4ddf6c5bcc84c116ede70d840805fe
  *
  * Text Domain: woocommerce-subscribe-to-newsletter

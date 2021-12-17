@@ -9,11 +9,15 @@ use MailPoet\Cron\CronTrigger;
 use MailPoet\Cron\Workers\AuthorizedSendingEmailsCheck;
 use MailPoet\Cron\Workers\Beamer;
 use MailPoet\Cron\Workers\InactiveSubscribers;
+use MailPoet\Cron\Workers\NewsletterTemplateThumbnails;
 use MailPoet\Cron\Workers\StatsNotifications\Worker;
 use MailPoet\Cron\Workers\SubscriberLinkTokens;
+use MailPoet\Cron\Workers\SubscribersLastEngagement;
 use MailPoet\Cron\Workers\UnsubscribeTokens;
 use MailPoet\Entities\FormEntity;
 use MailPoet\Entities\NewsletterEntity;
+use MailPoet\Entities\NewsletterLinkEntity;
+use MailPoet\Entities\NewsletterTemplateEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Entities\StatisticsFormEntity;
@@ -21,7 +25,6 @@ use MailPoet\Entities\UserFlagEntity;
 use MailPoet\Form\FormsRepository;
 use MailPoet\Mailer\MailerLog;
 use MailPoet\Models\Newsletter;
-use MailPoet\Models\NewsletterLink;
 use MailPoet\Models\ScheduledTask;
 use MailPoet\Models\Segment;
 use MailPoet\Models\SendingQueue;
@@ -31,11 +34,13 @@ use MailPoet\Segments\WP;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\Pages;
 use MailPoet\Settings\SettingsController;
+use MailPoet\Settings\TrackingConfig;
 use MailPoet\Settings\UserFlagsRepository;
 use MailPoet\Subscribers\NewSubscriberNotificationMailer;
 use MailPoet\Subscribers\Source;
 use MailPoet\Subscription\Captcha;
 use MailPoet\Util\Helpers;
+use MailPoet\Util\Notices\ChangedTrackingNotice;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
@@ -154,6 +159,8 @@ class Populator {
       'LifestyleBlogB',
       'Painter',
       'FarmersMarket',
+      'ConfirmInterestBeforeDeactivation',
+      'ConfirmInterestOrUnsubscribe',
     ];
     $this->formsRepository = $formsRepository;
     $this->entityManager = $entityManager;
@@ -185,6 +192,10 @@ class Populator {
     $this->moveGoogleAnalyticsFromPremium();
     $this->addPlacementStatusToForms();
     $this->migrateFormPlacement();
+    $this->scheduleSubscriberLastEngagementDetection();
+    $this->moveNewsletterTemplatesThumbnailData();
+    $this->scheduleNewsletterTemplateThumbnails();
+    $this->updateToUnifiedTrackingSettings();
   }
 
   private function createMailPoetPage() {
@@ -231,8 +242,8 @@ class Populator {
 
     // set default sender info based on current user
     $sender = [
-      'name' => $currentUser->display_name, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
-      'address' => $currentUser->user_email, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+      'name' => $currentUser->display_name, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      'address' => $currentUser->user_email, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
     ];
 
     // set default from name & address
@@ -426,32 +437,41 @@ class Populator {
       ],
       [
         'name' => 'group',
-        'newsletter_type' => Newsletter::TYPE_AUTOMATIC,
+        'newsletter_type' => NewsletterEntity::TYPE_AUTOMATIC,
       ],
       [
         'name' => 'event',
-        'newsletter_type' => Newsletter::TYPE_AUTOMATIC,
+        'newsletter_type' => NewsletterEntity::TYPE_AUTOMATIC,
       ],
       [
         'name' => 'sendTo',
-        'newsletter_type' => Newsletter::TYPE_AUTOMATIC,
+        'newsletter_type' => NewsletterEntity::TYPE_AUTOMATIC,
       ],
       [
         'name' => 'segment',
-        'newsletter_type' => Newsletter::TYPE_AUTOMATIC,
+        'newsletter_type' => NewsletterEntity::TYPE_AUTOMATIC,
       ],
       [
         'name' => 'afterTimeNumber',
-        'newsletter_type' => Newsletter::TYPE_AUTOMATIC,
+        'newsletter_type' => NewsletterEntity::TYPE_AUTOMATIC,
       ],
       [
         'name' => 'afterTimeType',
-        'newsletter_type' => Newsletter::TYPE_AUTOMATIC,
+        'newsletter_type' => NewsletterEntity::TYPE_AUTOMATIC,
       ],
       [
         'name' => 'meta',
-        'newsletter_type' => Newsletter::TYPE_AUTOMATIC,
+        'newsletter_type' => NewsletterEntity::TYPE_AUTOMATIC,
       ],
+      [
+        'name' => 'afterTimeNumber',
+        'newsletter_type' => NewsletterEntity::TYPE_RE_ENGAGEMENT,
+      ],
+      [
+        'name' => 'afterTimeType',
+        'newsletter_type' => NewsletterEntity::TYPE_RE_ENGAGEMENT,
+      ],
+
     ];
 
     return [
@@ -653,15 +673,18 @@ class Populator {
     );
   }
 
-  private function scheduleTask($type, $datetime) {
+  private function scheduleTask($type, $datetime, $priority = null) {
     $task = ScheduledTask::where('type', $type)
-      ->whereRaw('status = ? OR status IS NULL', [ScheduledTask::STATUS_SCHEDULED])
+      ->whereRaw('(status = ? OR status IS NULL)', [ScheduledTask::STATUS_SCHEDULED])
       ->findOne();
     if ($task) {
       return true;
     }
     $task = ScheduledTask::create();
     $task->type = $type;
+    if ($priority !== null) {
+      $task->priority = $priority;
+    }
     $task->status = ScheduledTask::STATUS_SCHEDULED;
     $task->scheduledAt = $datetime;
     $task->save();
@@ -684,9 +707,9 @@ class Populator {
     global $wpdb;
     $wpdb->query(sprintf(
       $query,
-      NewsletterLink::$_table,
-      NewsletterLink::INSTANT_UNSUBSCRIBE_LINK_SHORT_CODE,
-      NewsletterLink::UNSUBSCRIBE_LINK_SHORT_CODE
+      $this->entityManager->getClassMetadata(NewsletterLinkEntity::class)->getTableName(),
+      NewsletterLinkEntity::INSTANT_UNSUBSCRIBE_LINK_SHORT_CODE,
+      NewsletterLinkEntity::UNSUBSCRIBE_LINK_SHORT_CODE
     ));
   }
 
@@ -708,7 +731,7 @@ class Populator {
           t.status = :tStatusScheduled
           AND n.status = :nStatusDraft
     ";
-    $this->entityManager->getConnection()->executeUpdate(
+    $this->entityManager->getConnection()->executeStatement(
       $query,
       [
         'tStatusPaused' => ScheduledTaskEntity::STATUS_PAUSED,
@@ -880,5 +903,56 @@ class Populator {
 
   private function detectReferral() {
     $this->referralDetector->detect();
+  }
+
+  private function scheduleSubscriberLastEngagementDetection() {
+    if (version_compare($this->settings->get('db_version', '3.72.1'), '3.72.0', '>')) {
+      return;
+    }
+    $this->scheduleTask(
+      SubscribersLastEngagement::TASK_TYPE,
+      Carbon::createFromTimestamp($this->wp->currentTime('timestamp'))
+    );
+  }
+
+  private function scheduleNewsletterTemplateThumbnails() {
+    $this->scheduleTask(
+      NewsletterTemplateThumbnails::TASK_TYPE,
+      Carbon::createFromTimestamp($this->wp->currentTime('timestamp')),
+      ScheduledTaskEntity::PRIORITY_LOW
+    );
+  }
+
+  private function moveNewsletterTemplatesThumbnailData() {
+    if (version_compare($this->settings->get('db_version', '3.73.3'), '3.73.2', '>')) {
+      return;
+    }
+    $newsletterTemplatesTable = $this->entityManager->getClassMetadata(NewsletterTemplateEntity::class)->getTableName();
+    $this->entityManager->getConnection()->executeQuery("
+      UPDATE " . $newsletterTemplatesTable . "
+      SET thumbnail_data = thumbnail, thumbnail = NULL
+      WHERE thumbnail LIKE 'data:image%';"
+    );
+  }
+
+  private function updateToUnifiedTrackingSettings() {
+    if (version_compare($this->settings->get('db_version', '3.74.3'), '3.74.2', '>')) {
+      return;
+    }
+    $emailTracking = $this->settings->get('tracking.enabled', true);
+    $wooTrackingCookie = $this->settings->get('woocommerce.accept_cookie_revenue_tracking.enabled');
+    if ($wooTrackingCookie === null) { // No setting for WooCommerce Cookie Tracking - WooCommerce was not active
+      $trackingLevel = $emailTracking ? TrackingConfig::LEVEL_FULL : TrackingConfig::LEVEL_BASIC;
+    } elseif ($wooTrackingCookie) { // WooCommerce Cookie Tracking enabled
+      $trackingLevel = TrackingConfig::LEVEL_FULL;
+      // Cookie was enabled but tracking disabled and we are switching to full.
+      // So we activate an admin notice to let the user know that we activated tracking
+      if (!$emailTracking) {
+        $this->wp->setTransient(ChangedTrackingNotice::OPTION_NAME, true);
+      }
+    } else { // WooCommerce Tracking Cookie Disabled
+      $trackingLevel = $emailTracking ? TrackingConfig::LEVEL_PARTIAL : TrackingConfig::LEVEL_BASIC;
+    }
+    $this->settings->set('tracking.level', $trackingLevel);
   }
 }

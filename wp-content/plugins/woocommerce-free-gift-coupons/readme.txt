@@ -2,7 +2,7 @@
 Contributors: helgatheviking
 Requires at least: 4.4.0
 Tested up to: 5.8.0
-Stable tag: 3.3.1
+Stable tag: 3.3.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

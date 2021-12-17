@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Entities\FormEntity;
+use MailPoet\Settings\SettingsController;
 use MailPoet\Util\CdnAssetUrl;
 use MailPoet\Util\Helpers;
 use MailPoet\WP\Functions as WPFunctions;
@@ -94,9 +95,17 @@ EOL;
   /** @var string */
   protected $assetsDirectory = '';
 
-  public function __construct(CdnAssetUrl $cdnAssetUrl, WPFunctions $wp) {
+  /** @var SettingsController */
+  private $settings;
+
+  public function __construct(
+    CdnAssetUrl $cdnAssetUrl,
+    SettingsController $settings,
+    WPFunctions $wp
+  ) {
     $this->cdnAssetUrl = $cdnAssetUrl;
     $this->wp = $wp;
+    $this->settings = $settings;
   }
 
   abstract public function getName(): string;
@@ -123,7 +132,19 @@ EOL;
     $formEntity->setBody($this->getBody());
     $formEntity->setSettings($this->getSettings());
     $formEntity->setStyles($this->getStyles());
+    $settings = $formEntity->getSettings();
+    if (!isset($settings['success_message']) || !($settings['success_message'])) {
+      $settings['success_message'] = $this->getDefaultSuccessMessage();
+      $formEntity->setSettings($settings);
+    }
     return $formEntity;
+  }
+
+  private function getDefaultSuccessMessage() {
+    if ($this->settings->get('signup_confirmation.enabled')) {
+      return __('Check your inbox or spam folder to confirm your subscription.', 'mailpoet');
+    }
+    return __('You’ve been successfully subscribed to our newsletter!', 'mailpoet');
   }
 
   protected function getAssetUrl(string $filename): string {

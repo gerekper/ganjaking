@@ -4,6 +4,7 @@
 		<custom-field action="copy">a2w_text_initial_name</custom-field>
 		<custom-field action="copy">a2w_use_price_rule</custom-field>
 		<custom-field action="copy">_a2wl_skip_meta</custom-field>
+		<custom-field action="copy">_a2w_deleted_variations_attributes</custom-field>
 		<custom-field action="copy">_a2w_country_code</custom-field>
 		<custom-field action="copy">_a2w_shipping_data</custom-field>
 		<custom-field action="copy">_a2w_disable_add_new_variants</custom-field>
@@ -26,6 +27,8 @@
 		<custom-field action="copy">_swatch_type_options</custom-field>
 		<custom-field action="copy">_a2w_external_image_url</custom-field>
 		<custom-field action="copy">_a2w_import_lang</custom-field>
-		<custom-field action="copy">_wp_a2w_attached_file</custom-field>		
+		<custom-field action="copy">_wp_a2w_attached_file</custom-field>
+		<custom-field action="copy">external_variation_id</custom-field>
+		<custom-field action="copy">_aliexpress_sku_props</custom-field>
 	</custom-fields>
 </wpml-config>

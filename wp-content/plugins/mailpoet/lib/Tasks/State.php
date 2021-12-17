@@ -10,13 +10,14 @@ use MailPoet\Models\Newsletter;
 use MailPoet\Models\ScheduledTask;
 use MailPoet\Models\SendingQueue;
 use MailPoet\Newsletter\Url as NewsletterUrl;
-use MailPoetVendor\Carbon\Carbon;
 
 class State {
   /** @var NewsletterUrl */
   private $newsletterUrl;
 
-  public function __construct(NewsletterUrl $newsletterUrl) {
+  public function __construct(
+    NewsletterUrl $newsletterUrl
+  ) {
     $this->newsletterUrl = $newsletterUrl;
   }
 
@@ -56,7 +57,8 @@ class State {
       ScheduledTask::STATUS_SCHEDULED,
       ScheduledTask::VIRTUAL_STATUS_RUNNING,
     ],
-    $limit = Scheduler::TASK_BATCH_SIZE) {
+    $limit = Scheduler::TASK_BATCH_SIZE
+  ) {
     $tasks = [];
     foreach ($statuses as $status) {
       $query = ScheduledTask::orderByDesc('id')
@@ -91,7 +93,7 @@ class State {
       'id' => (int)$task->id,
       'type' => $task->type,
       'priority' => (int)$task->priority,
-      'updated_at' => Carbon::createFromTimeString((string)$task->updatedAt)->timestamp,
+      'updated_at' => $task->updatedAt,
       'scheduled_at' => $task->scheduledAt ? $task->scheduledAt : null,
       'status' => $task->status,
       'newsletter' => (($queue instanceof SendingQueue) && ($newsletter instanceof Newsletter)) ? [

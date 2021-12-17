@@ -1,2 +1,2 @@
 <?php
- namespace MailPoetVendor; if (!defined('ABSPATH')) exit; $preferences = \MailPoetVendor\Swift_Preferences::getInstance(); $preferences->setCharset('utf-8'); if (@\is_writable($tmpDir = \sys_get_temp_dir())) { $preferences->setTempDir($tmpDir)->setCacheType('disk'); } 
+ namespace MailPoetVendor; if (!defined('ABSPATH')) exit; $preferences = Swift_Preferences::getInstance(); $preferences->setCharset('utf-8'); if (@\is_writable($tmpDir = \sys_get_temp_dir())) { $preferences->setTempDir($tmpDir)->setCacheType('disk'); } 

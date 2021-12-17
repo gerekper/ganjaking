@@ -10,7 +10,9 @@ class CdnAssetUrl {
   /** @var string */
   private $baseUrl;
 
-  public function __construct(string $baseUrl) {
+  public function __construct(
+    string $baseUrl
+  ) {
     $this->baseUrl = $baseUrl;
   }
 

@@ -24,7 +24,7 @@ if (!class_exists('A2W_ServiceController')) {
                     $plugin_data = json_decode($request['body'], true);
                     $categories = isset($plugin_data['categories']) && is_array($plugin_data['categories'])?$plugin_data['categories']:array();
                     a2w_set_setting('system_message', $plugin_data['messages']);
-                    update_option('a2w_all_categories', $categories);
+                    update_option('a2w_all_categories', $categories, 'no');
                 }
             }
         }

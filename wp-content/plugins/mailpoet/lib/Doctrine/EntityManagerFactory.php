@@ -54,6 +54,7 @@ class EntityManagerFactory {
 
   public function createEntityManager(): EntityManager {
     $entityManager = EntityManager::create($this->connection, $this->configuration);
+    $this->cleanupListeners($entityManager);
     $this->setupListeners($entityManager);
     if (
       class_exists(Debugger::class)
@@ -62,6 +63,22 @@ class EntityManagerFactory {
       DoctrinePanel::init($entityManager);
     }
     return $entityManager;
+  }
+
+  /**
+   * We sometimes work with more EntityManager in tests, and the behavior could be inconsistent with multiple listeners
+   */
+  private function cleanupListeners(EntityManager $entityManager) {
+    $eventManager = $entityManager->getEventManager();
+    foreach ($eventManager->getListeners() as $event => $listeners) {
+      if (!is_array($listeners)) {
+        $eventManager->removeEventListener($event, $listeners);
+        continue;
+      }
+      foreach ($listeners as $listener) {
+        $eventManager->removeEventListener($event, $listener);
+      }
+    }
   }
 
   private function setupListeners(EntityManager $entityManager) {

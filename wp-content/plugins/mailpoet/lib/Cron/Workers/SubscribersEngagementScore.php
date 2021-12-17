@@ -5,7 +5,7 @@ namespace MailPoet\Cron\Workers;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Models\ScheduledTask;
+use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Statistics\StatisticsOpensRepository;
 use MailPoet\Subscribers\SubscribersRepository;
@@ -36,7 +36,7 @@ class SubscribersEngagementScore extends SimpleWorker {
     $this->subscribersRepository = $subscribersRepository;
   }
 
-  public function processTaskStrategy(ScheduledTask $task, $timer) {
+  public function processTaskStrategy(ScheduledTaskEntity $task, $timer) {
     $recalculatedSubscribersCount = $this->recalculateSubscribers();
     if ($recalculatedSubscribersCount > 0) {
       $this->scheduleImmediately();

@@ -13,6 +13,16 @@ if (!class_exists('A2W_SearchPageController')) {
 
         public function __construct() {
             parent::__construct(__('Search Products', 'ali2woo'), __('Search Products', 'ali2woo'), 'import', 'a2w_dashboard', 10);
+            
+            add_filter('a2w_configure_lang_data', array($this, 'configure_lang_data'));            
+        }
+
+        public function configure_lang_data($lang_data){
+            $lang_data['advance']=_x('Advance', 'Button', 'ali2woo');
+            $lang_data['simple']=_x('Simple', 'Button', 'ali2woo');
+            $lang_data['imported_successfully']=_x('Imported successfully.', 'Status', 'ali2woo');
+            $lang_data['import_failed']=_x('Import failed.', 'Status', 'ali2woo');
+            return $lang_data;
         }
 
         public function render($params = array()) {
@@ -89,6 +99,8 @@ if (!class_exists('A2W_SearchPageController')) {
             $this->model_put('locale', $localizator->getLangCode());
             $this->model_put('currency', $localizator->currency);
             $this->model_put('chrome_ext_import', a2w_check_defined('A2W_CHROME_EXT_IMPORT'));
+
+            
             
             $this->model_put('load_products_result', $load_products_result);
 

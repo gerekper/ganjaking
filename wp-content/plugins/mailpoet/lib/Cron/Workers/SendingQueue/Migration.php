@@ -6,8 +6,8 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Cron\Workers\SimpleWorker;
+use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Mailer\MailerLog;
-use MailPoet\Models\ScheduledTask;
 use MailPoet\Models\ScheduledTaskSubscriber;
 use MailPoet\Models\SendingQueue as SendingQueueModel;
 use MailPoet\WP\Functions as WPFunctions;
@@ -23,7 +23,7 @@ class Migration extends SimpleWorker {
     return empty($completedTasks);
   }
 
-  public function prepareTaskStrategy(ScheduledTask $task, $timer) {
+  public function prepareTaskStrategy(ScheduledTaskEntity $task, $timer) {
     $unmigratedColumns = $this->checkUnmigratedColumnsExist();
     $unmigratedQueuesCount = 0;
     $unmigratedQueueSubscribers = [];
@@ -38,9 +38,10 @@ class Migration extends SimpleWorker {
       && count($unmigratedQueueSubscribers) == 0)
     ) {
       // nothing to migrate, complete task
-      $task->processedAt = WPFunctions::get()->currentTime('mysql');
-      $task->status = ScheduledTask::STATUS_COMPLETED;
-      $task->save();
+      $task->setProcessedAt(Carbon::createFromTimestamp(WPFunctions::get()->currentTime('timestamp')));
+      $task->setStatus(ScheduledTaskEntity::STATUS_COMPLETED);
+      $this->scheduledTasksRepository->persist($task);
+      $this->scheduledTasksRepository->flush();
       $this->resumeSending();
       return false;
     }
@@ -77,7 +78,7 @@ class Migration extends SimpleWorker {
     }
   }
 
-  public function processTaskStrategy(ScheduledTask $task, $timer) {
+  public function processTaskStrategy(ScheduledTaskEntity $task, $timer) {
     $this->migrateSendingQueues($timer);
     $this->migrateSubscribers($timer);
     $this->resumeSending();
@@ -145,7 +146,7 @@ class Migration extends SimpleWorker {
             $queue['id']
           ));
           // link the queue with the task via task_id
-          $newTaskId = $wpdb->insert_id; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+          $newTaskId = $wpdb->insert_id; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
           $wpdb->query(sprintf(
             'UPDATE %1$s SET `task_id` = %2$s WHERE `id` = %3$s',
             MP_SENDING_QUEUES_TABLE,

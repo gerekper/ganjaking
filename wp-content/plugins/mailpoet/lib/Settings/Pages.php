@@ -59,7 +59,7 @@ class Pages {
     $page = null;
     if (!empty($pages)) {
       $page = array_shift($pages);
-      if (strpos($page->post_content, '[mailpoet_page]') === false) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+      if (strpos($page->post_content, '[mailpoet_page]') === false) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
         $page = null;
       }
     }
@@ -105,12 +105,13 @@ class Pages {
     $subscriptionUrlFactory = Subscription\SubscriptionUrlFactory::getInstance();
     return [
       'id' => $page->ID,
-      'title' => $page->post_title, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.NotCamelCaps
+      'title' => $page->post_title, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
       'url' => [
         'unsubscribe' => $subscriptionUrlFactory->getSubscriptionUrl($page, 'unsubscribe'),
         'manage' => $subscriptionUrlFactory->getSubscriptionUrl($page, 'manage'),
         'confirm' => $subscriptionUrlFactory->getSubscriptionUrl($page, 'confirm'),
         'confirm_unsubscribe' => $subscriptionUrlFactory->getSubscriptionUrl($page, 'confirm_unsubscribe'),
+        're_engagement' => $subscriptionUrlFactory->getSubscriptionUrl($page, 're_engagement'),
       ],
     ];
   }

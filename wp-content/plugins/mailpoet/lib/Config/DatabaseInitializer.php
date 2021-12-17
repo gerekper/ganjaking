@@ -11,7 +11,9 @@ use MailPoetVendor\Psr\Container\ContainerInterface;
 class DatabaseInitializer {
   private $diContainer;
 
-  public function __construct(ContainerInterface $diContainer) {
+  public function __construct(
+    ContainerInterface $diContainer
+  ) {
     $this->diContainer = $diContainer;
   }
 
@@ -20,6 +22,6 @@ class DatabaseInitializer {
 
     // pass the same PDO connection to legacy Database object
     $database = new Database();
-    $database->init($connection->getWrappedConnection()->getConnection());
+    $database->init($connection->getWrappedConnection());
   }
 }

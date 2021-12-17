@@ -30,6 +30,20 @@ class FormsRepository extends Repository {
       ->getResult();
   }
 
+  public function getNamesOfFormsForSegments(): array {
+    $allNonDeletedForms = $this->findAllNotDeleted();
+
+    $nameMap = [];
+    foreach ($allNonDeletedForms as $form) {
+      $blockSegmentsIds = $form->getSettingsSegmentIds();
+      foreach ($blockSegmentsIds as $blockSegmentId) {
+        $nameMap[$blockSegmentId][] = $form->getName();
+      }
+    }
+
+    return $nameMap;
+  }
+
   public function count(): int {
     return (int)$this->doctrineRepository
       ->createQueryBuilder('f')

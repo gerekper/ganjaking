@@ -22,6 +22,7 @@
     var mailpoet_mss_key_invalid = <%= mss_key_invalid ? 'true' : 'false' %>;
     var mailpoet_subscribers_count = <%= subscriber_count %>;
     var mailpoet_custom_fields = <%= json_encode(custom_fields) %>;
+    var mailpoet_static_segments_list = <%= json_encode(static_segments_list) %>;
     var mailpoet_has_premium_support = <%= has_premium_support ? 'true' : 'false' %>;
     var wordpress_editable_roles_list = <%= json_encode(wordpress_editable_roles_list)  %>;
     var mailpoet_newsletters_list = <%= json_encode(newsletters_list)  %>;
@@ -32,7 +33,8 @@
     var mailpoet_can_use_woocommerce_subscriptions = <%= json_encode(can_use_woocommerce_subscriptions)  %>;
     var mailpoet_woocommerce_currency_symbol = <%= json_encode(woocommerce_currency_symbol)  %>;
     var mailpoet_woocommerce_countries = <%= json_encode(woocommerce_countries)  %>;
-    var mailpoet_tracking_enabled = <%= json_encode(tracking_enabled) %>;
+    var mailpoet_tracking_config = <%= json_encode(tracking_config) %>;
+    var mailpoet_subscribers_counts_cache_created_at = <%= json_encode(subscribers_counts_cache_created_at) %>;
 
   </script>
 <% endblock %>
@@ -63,17 +65,18 @@
     'bounced': __('Bounced'),
     'createdOn': __('Created on'),
     'oneSegmentTrashed': __('1 list was moved to the trash. Note that deleting a list does not delete its subscribers.'),
-    'multipleSegmentsTrashed': __('%$1d lists were moved to the trash. Note that deleting a list does not delete its subscribers.'),
+    'multipleSegmentsTrashed': __('%1$d lists were moved to the trash. Note that deleting a list does not delete its subscribers.'),
     'oneSegmentDeleted': __('1 list was permanently deleted. Note that deleting a list does not delete its subscribers.'),
-    'multipleSegmentsDeleted': __('%$1d lists were permanently deleted. Note that deleting a list does not delete its subscribers.'),
+    'multipleSegmentsDeleted': __('%1$d lists were permanently deleted. Note that deleting a list does not delete its subscribers.'),
     'oneSegmentRestored': __('1 list has been restored from the Trash.'),
-    'multipleSegmentsRestored': __('%$1d lists have been restored from the Trash.'),
+    'multipleSegmentsRestored': __('%1$d lists have been restored from the Trash.'),
     'duplicate': __('Duplicate'),
-    'listDuplicated': __('List "%$1s" has been duplicated.'),
+    'listDuplicated': __('List "%1$s" has been duplicated.'),
     'update': __('Update'),
     'forceSync': __('Force Sync'),
     'readMore': __('Read More'),
-    'listSynchronized': __('List "%$1s" has been synchronized.'),
+    'listSynchronized': __('List "%1$s" has been synchronized.'),
+    'listSynchronizationWasScheduled': __('Synchronization of the "%1$s" list started. It can take several minutes to finish.'),
     'viewSubscribers': __('View Subscribers'),
     'new': __('New List'),
     'newSegment': __('New Segment'),
@@ -96,20 +99,17 @@
     'currentPage': __('Current page'),
     'pageOutOf': __('of'),
     'numberOfItemsSingular': __('1 item'),
-    'numberOfItemsMultiple': __('%$1d items'),
-    'allSendingPausedHeader': __('All sending is currently paused!'),
-    'allSendingPausedBody': __('Your key to send with MailPoet is invalid.'),
-    'allSendingPausedLink': __('Purchase a key'),
+    'numberOfItemsMultiple': __('%1$d items'),
 
     'segmentDescriptionTip': __('This text box is for your own use and is never shown to your subscribers.'),
     'backToList': __('Back'),
 
-    'subscribersInPlanCount': _x('%$1d / %$2d', 'count / total subscribers'),
+    'subscribersInPlanCount': _x('%1$d / %2$d', 'count / total subscribers'),
     'subscribersInPlan': _x('%s subscribers in your plan', 'number of subscribers in a sending plan'),
     'subscribersInPlanTooltip': __('This is the total of subscribed, unconfirmed and inactive subscribers we count when you are sending with MailPoet Sending Service. The count excludes unsubscribed and bounced (invalid) email addresses.'),
 
     'mailpoetSubscribers': _x('%s MailPoet subscribers', 'number of subscribers in the plugin'),
-    'mailpoetSubscribersTooltipFree': __('This is the total of all subscribers including %$1d WordPress users. To exclude WordPress users, please purchase one of our premium plans.'),
+    'mailpoetSubscribersTooltipFree': __('This is the total of all subscribers including %1$d WordPress users. To exclude WordPress users, please purchase one of our premium plans.'),
     'mailpoetSubscribersTooltipPremium': __('This is the total of all subscribers excluding all WordPress users.'),
 
     'pageTitleSegments': __('Segments'),
@@ -128,7 +128,7 @@
     'loadingDynamicSegmentItems': __('Loading data…'),
     'noDynamicSegmentItemsFound': __('No segments found'),
     'numberOfItemsSingular': __('1 item'),
-    'numberOfItemsMultiple': __('%$1d items'),
+    'numberOfItemsMultiple': __('%1$d items'),
     'previousPage': __('Previous page'),
     'firstPage': __('First page'),
     'nextPage': __('Next page'),
@@ -142,25 +142,31 @@
     'selectUserRolePlaceholder': __('Select user role'),
     'selectCustomFieldPlaceholder': __('Select custom field'),
     'emailActionOpened': _x('opened', 'Dynamic segment creation: when newsletter was opened'),
+    'emailActionMachineOpened': _x('machine-opened', 'Dynamic segment creation: list of all subscribers that opened the newsletter automatically in the background'),
     'emailActionOpensAbsoluteCount': __('# of opens'),
+    'emailActionMachineOpensAbsoluteCount': __('# of machine-opens'),
     'emailActionOpens': __('opens'),
     'emailActionDays': __('days'),
     'emailActionOpensSentence': _x('{condition} {opens} opens', 'The result will be "more than 20 opens"'),
     'emailActionOpensDaysSentence': _x('in the last {days} days', 'The result will be "in the last 5 days"'),
     'moreThan': __('more than'),
     'lessThan': __('less than'),
+    'higherThan': __('higher than'),
+    'lowerThan': __('lower than'),
     'equals': __('equals'),
+    'notEquals': __('not equals'),
     'contains': __('contains'),
     'value': __('value'),
     'selectValue': __('Select value'),
     'checked': __('checked'),
     'unchecked': __('unchecked'),
+    'unknown': __('unknown'),
+    'notUnknown': __('not unknown'),
 
     'before': _x('before', 'Meaning: "Subscriber subscribed before Aprile"'),
     'after': _x('after', 'Meaning: "Subscriber subscribed after April'),
     'inTheLast': _x('in the last', 'Meaning: "Subscriber subscribed in the last 3 days"'),
     'notInTheLast': _x('not in the last', 'Meaning: "Subscriber subscribed not in the last 3 days"'),
-
 
     'emailActionNotOpened': _x('not opened', 'Dynamic segment creation: when newsletter was not opened'),
     'emailActionClicked': _x('clicked', 'Dynamic segment creation: when a newsletter link was clicked'),
@@ -171,17 +177,30 @@
     'segmentsTipText': __('segments allow you to group your subscribers by other criteria, such as events and actions.'),
     'segmentsTipLink': __('Read more.'),
     'subscribedDate': __('subscribed date'),
+    'subscriberScore': _x('score', 'Subscriber engagement score'),
+    'subscriberScorePlaceholder': _x('score', 'Placeholder for input: subscriber engagement score'),
+    'subscriberScoreSentence': _x('{condition} {score} %', 'The result will be "higher than 20 %"'),
+    'subscribedToList': __('subscribed to list'),
     'segmentsSubscriber': __('WordPress user role'),
     'mailpoetCustomField': __('MailPoet custom field'),
     'segmentsActiveSubscription': __('has an active subscription'),
     'woocommerceSubscriptions': _x('WooCommerce Subscriptions', 'Dynamic segment creation: User selects this to use any WooCommerce Subscriptions filters'),
     'selectWooSubscription': __('Search subscriptions'),
+    'searchLists': __('Search lists'),
+
+    'anyOf': __('any of'),
+    'allOf': __('all of'),
+    'noneOf': __('none of'),
+
+    'anyOf': __('any of'),
+    'allOf': __('all of'),
+    'noneOf': __('none of'),
 
     'oneDynamicSegmentTrashed': __('1 segment was moved to the trash.'),
-    'multipleDynamicSegmentsTrashed': __('%$1d segments were moved to the trash.'),
+    'multipleDynamicSegmentsTrashed': __('%1$d segments were moved to the trash.'),
     'oneDynamicSegmentRestored': __('1 segment has been restored from the Trash.'),
-    'multipleDynamicSegmentsRestored': __('%$1d segments have been restored from the Trash.'),
-    'multipleDynamicSegmentsDeleted': __('%$1d segments were permanently deleted.'),
+    'multipleDynamicSegmentsRestored': __('%1$d segments have been restored from the Trash.'),
+    'multipleDynamicSegmentsDeleted': __('%1$d segments were permanently deleted.'),
     'oneDynamicSegmentDeleted': __('1 segment was permanently deleted.'),
 
     'wooNumberOfOrders': __('# of orders'),
@@ -194,7 +213,7 @@
     'inTheLast': _x('in the last', 'Appears together with `days` when creating a new WooCommerce segment based on the number of orders.'),
     'wooNumberOfOrdersOrders': __('orders'),
     'wooPurchasedCategory': __('purchased in this category'),
-    'wooPurchasedProduct': __('purchased this product'),
+    'wooPurchasedProduct': __('purchased product'),
     'wooTotalSpent': __('total spent'),
     'wooCustomerInCountry': __('is in country'),
     'wooTotalSpentAmount': __('amount'),
@@ -205,7 +224,7 @@
 
     'dynamicSegmentSizeIsCalculated': __('Calculating segment size…'),
     'dynamicSegmentSizeCalculatingTimeout': __("It's taking longer than usual to generate the segment, which may be due to a complex configuration. Try using fewer or simpler conditions."),
-    'dynamicSegmentSize': __('This segment has %$1d subscribers.'),
+    'dynamicSegmentSize': __('This segment has %1$d subscribers.'),
 
     'unknownBadgeName': __('Unknown'),
     'unknownBadgeTooltip': __('Not enough data.'),
@@ -225,5 +244,9 @@
     'anyConditions': _x('<strong>Any</strong> of the following conditions', 'Dynamic segment creation: The user can select join between condition when he has more than one'),
     'filterConnectAnd': _x('and', 'Dynamic segment creation: The user can see logical operator between condition when has more than one'),
     'filterConnectOr': _x('or', 'Dynamic segment creation: The user can see logical operator between condition when has more than one'),
+
+    'subscribersCountWereCalculatedWithMinutesAgo': __('Lists and Segments subscribers counts were calculated <abbr>{$mins} minutes ago</abbr>'),
+    'recalculateNow': __('Recalculate now'),
+    'privacyProtectionNotice': __('Due to email privacy protections, some opens may not be tracked. Consider using a different engagement metric.'),
   }) %>
 <% endblock %>
