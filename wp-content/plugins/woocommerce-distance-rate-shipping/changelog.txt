@@ -1,5 +1,9 @@
 *** WooCommerce Distance Rate Shipping Changelog ***
 
+2021-12-13 - version 1.0.29
+* Fix - Allow localization based on WordPress language setting.
+* Tweak - WC 5.9 compatibility.
+
 2021-08-31 - version 1.0.28
 * Add - Added `woocommerce_shipping_distance_rate_get_customer_address_string` filter.
 * Add - Added `woocommerce_shipping_distance_rate_get_shipping_address_string` filter.

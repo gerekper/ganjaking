@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Composite Products 8.3.4\n"
+"Project-Id-Version: WooCommerce Composite Products 8.3.5\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-12-03T10:28:47+00:00\n"
+"POT-Creation-Date: 2021-12-15T07:30:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -35,1062 +35,1062 @@ msgstr ""
 msgid "https://somewherewarm.com/"
 msgstr ""
 
-#: includes/admin/analytics/class-wc-cp-admin-analytics-sync.php:124
+#: includes/admin/analytics/class-wc-cp-admin-analytics-sync.php:123
 msgid "Tool ran. No orders found to process."
 msgstr ""
 
-#: includes/admin/analytics/class-wc-cp-admin-analytics-sync.php:141
+#: includes/admin/analytics/class-wc-cp-admin-analytics-sync.php:140
 msgid "Tool ran."
 msgstr ""
 
-#: includes/admin/analytics/class-wc-cp-admin-analytics-sync.php:499
+#: includes/admin/analytics/class-wc-cp-admin-analytics-sync.php:498
 msgid "Regenerate Composite Products revenue analytics data"
 msgstr ""
 
-#: includes/admin/analytics/class-wc-cp-admin-analytics-sync.php:500
+#: includes/admin/analytics/class-wc-cp-admin-analytics-sync.php:499
 msgid "Regenerate data"
 msgstr ""
 
-#: includes/admin/analytics/class-wc-cp-admin-analytics-sync.php:501
+#: includes/admin/analytics/class-wc-cp-admin-analytics-sync.php:500
 msgid "Regenerates historical Revenue data under <strong>Analytics > Composites</strong>."
 msgstr ""
 
-#: includes/admin/analytics/class-wc-cp-admin-analytics.php:91
+#: includes/admin/analytics/class-wc-cp-admin-analytics.php:90
 msgid "Composites"
 msgstr ""
 
 #. translators: %s is product name
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-data-store.php:218
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-data-store.php:217
 msgid "%s (Deleted)"
 msgstr ""
 
 #. translators: %s is product name
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-data-store.php:218
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-data-store.php:217
 msgid "(Deleted)"
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:166
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:165
 msgid "Product ID."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:172
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:156
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:164
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:171
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:155
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:163
 msgid "Number of items sold."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:178
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:177
 msgid "Number of composited items sold."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:184
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:183
 msgid "Total Net Sales of all items sold."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:190
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:189
 msgid "Number of orders product appeared in."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:197
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:196
 msgid "Product name."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:203
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:202
 msgid "Product price."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:209
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:208
 msgid "Product image."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:215
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:214
 msgid "Product link."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:221
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:220
 msgid "Product SKU."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:239
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:319
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:238
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:318
 msgid "Current page of the collection."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:247
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:327
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:246
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:326
 msgid "Maximum number of items to be returned in result set."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:256
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:336
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:255
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:335
 msgid "Limit response to resources published after a given ISO8601 compliant date."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:262
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:342
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:261
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:341
 msgid "Limit response to resources published before a given ISO8601 compliant date."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:268
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:348
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:267
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:347
 msgid "Order sort attribute ascending or descending."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:275
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:355
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:274
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:354
 msgid "Sort collection by object attribute."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:290
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:289
 msgid "Indicates whether all the conditions should be true for the resulting set, or if any one of them is sufficient. Match affects the following parameters: status_is, status_is_not, product_includes, product_excludes, coupon_includes, coupon_excludes, customer, categories"
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:300
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:382
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:299
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:381
 msgid "Limit result to items with specified product ids."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:310
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:309
 msgid "Add additional piece of info about each product to the report."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:327
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:326
 msgid "Product Title"
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:328
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:327
 #: assets/js/admin/analytics.js:43
 msgid "SKU"
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:329
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:155
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:328
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:154
 msgid "Items Sold"
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:330
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:163
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:329
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:162
 msgid "Composited Items Sold"
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:331
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:330
 msgid "N. Revenue"
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:332
+#: includes/admin/analytics/reports/revenue/class-wc-cp-analytics-revenue-rest-controller.php:331
 #: assets/js/admin/analytics.js:55
 #: assets/js/admin/analytics.js:73
 msgid "Orders"
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-data-store.php:172
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-data-store.php:188
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-data-store.php:171
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-data-store.php:187
 msgid "Sorry, fetching revenue data failed."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:171
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:170
 msgid "Net Sales."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:178
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:177
 msgid "Number of orders."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:187
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:186
 msgid "Reports data grouped by segment condition."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:195
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:194
 msgid "Segment identificator."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:201
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:200
 msgid "Human readable segment label, either product or variation name."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:208
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:273
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:207
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:272
 msgid "Interval subtotals."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:227
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:226
 msgid "Totals data."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:234
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:233
 msgid "Reports data grouped by intervals."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:242
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:241
 msgid "Type of interval."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:249
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:248
 msgid "The date the report start, in the site's timezone."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:255
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:254
 msgid "The date the report start, as GMT."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:261
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:260
 msgid "The date the report end, in the site's timezone."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:267
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:266
 msgid "The date the report end, as GMT."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:368
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:367
 msgid "Time interval to use for buckets in the returned data."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:391
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:390
 msgid "Segment the response by additional constraint."
 msgstr ""
 
-#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:401
+#: includes/admin/analytics/reports/revenue/stats/class-wc-cp-analytics-revenue-stats-rest-controller.php:400
 msgid "Limit stats fields to the specified items."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-ajax.php:478
-#: includes/admin/class-wc-cp-admin-ajax.php:904
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3893
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3943
+#: includes/admin/class-wc-cp-admin-ajax.php:477
+#: includes/admin/class-wc-cp-admin-ajax.php:903
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3892
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3942
 msgid "Any Variation"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-ajax.php:645
+#: includes/admin/class-wc-cp-admin-ajax.php:644
 msgid "The submitted configuration is invalid."
 msgstr ""
 
 #. translators: %1$s: Message, %2$s: Notice text.
-#: includes/admin/class-wc-cp-admin-ajax.php:652
+#: includes/admin/class-wc-cp-admin-ajax.php:651
 msgctxt "edit composite in order: formatted validation message"
 msgid "%1$s %2$s"
 msgstr ""
 
 #. translators: Component ID.
-#: includes/admin/class-wc-cp-admin-ajax.php:761
-#: includes/admin/class-wc-cp-admin-order.php:143
+#: includes/admin/class-wc-cp-admin-ajax.php:760
+#: includes/admin/class-wc-cp-admin-order.php:142
 msgid "Component #%s"
 msgstr ""
 
 #. translators: %1$s: Component title, %2$s: Product name, %3$s: Product SKU.
-#: includes/admin/class-wc-cp-admin-ajax.php:765
-#: includes/admin/class-wc-cp-admin-order.php:161
+#: includes/admin/class-wc-cp-admin-ajax.php:764
+#: includes/admin/class-wc-cp-admin-order.php:160
 msgctxt "component change note format"
 msgid "%1$s: %2$s (%3$s)"
 msgstr ""
 
 #. translators: notification for updated components.
-#: includes/admin/class-wc-cp-admin-ajax.php:772
+#: includes/admin/class-wc-cp-admin-ajax.php:771
 msgid "Deleted component line items: %s"
 msgstr ""
 
 #. translators: notification for updated components.
-#: includes/admin/class-wc-cp-admin-ajax.php:777
-#: includes/admin/class-wc-cp-admin-order.php:171
+#: includes/admin/class-wc-cp-admin-ajax.php:776
+#: includes/admin/class-wc-cp-admin-order.php:170
 msgid "Added component line items: %s"
 msgstr ""
 
 #. translators: notification for updated components.
-#: includes/admin/class-wc-cp-admin-ajax.php:782
+#: includes/admin/class-wc-cp-admin-ajax.php:781
 msgid "Adjusted component line items: %s"
 msgstr ""
 
 #. translators: prompt.
-#: includes/admin/class-wc-cp-admin-notices.php:348
+#: includes/admin/class-wc-cp-admin-notices.php:347
 msgid "<strong>WooCommerce Composite Products</strong> is updating your database.%s"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:353
+#: includes/admin/class-wc-cp-admin-notices.php:352
 msgid "<strong>WooCommerce Composite Products</strong> has been updated! To keep things running smoothly, your database needs to be updated, as well."
 msgstr ""
 
 #. translators: link to documentation.
-#: includes/admin/class-wc-cp-admin-notices.php:355
+#: includes/admin/class-wc-cp-admin-notices.php:354
 msgid "Before you proceed, please take a few minutes to <a href=\"%s\" target=\"_blank\">learn more</a> about best practices when updating."
 msgstr ""
 
 #. translators: failed prompt.
-#: includes/admin/class-wc-cp-admin-notices.php:360
+#: includes/admin/class-wc-cp-admin-notices.php:359
 msgid "<strong>WooCommerce Composite Products</strong> has not finished updating your database.%s"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:369
+#: includes/admin/class-wc-cp-admin-notices.php:368
 msgid "<strong>WooCommerce Composite Products</strong> database update complete. Thank you for updating to the latest version!"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:397
+#: includes/admin/class-wc-cp-admin-notices.php:396
 msgid "Ready to create your first product kit?"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:398
+#: includes/admin/class-wc-cp-admin-notices.php:397
 msgid "Thank you for installing WooCommerce Composite Products."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:398
+#: includes/admin/class-wc-cp-admin-notices.php:397
 msgid "Let's get started by creating your first composite product!"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:399
+#: includes/admin/class-wc-cp-admin-notices.php:398
 msgid "Let's go!"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:466
+#: includes/admin/class-wc-cp-admin-notices.php:465
 msgid "Loopback test passed!"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:468
+#: includes/admin/class-wc-cp-admin-notices.php:467
 msgid "Loopback test failed!"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:493
+#: includes/admin/class-wc-cp-admin-notices.php:492
 msgid "Composite Products ran a quick check-up on your site, and found that loopback requests might be failing to complete. Loopback requests are used by WooCommerce to run scheduled events, such as database upgrades. To keep your site in top shape, please ask the host or administrator of your server to look into this for you."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:494
+#: includes/admin/class-wc-cp-admin-notices.php:493
 msgid "Repeat test"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:511
+#: includes/admin/class-wc-cp-admin-notices.php:510
 msgid "Update database"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:531
+#: includes/admin/class-wc-cp-admin-notices.php:530
 msgid "run it manually"
 msgstr ""
 
 #. translators: fallback action link.
-#: includes/admin/class-wc-cp-admin-notices.php:533
+#: includes/admin/class-wc-cp-admin-notices.php:532
 msgid " The process seems to be taking a little longer than usual, so let's try to %s."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-notices.php:549
+#: includes/admin/class-wc-cp-admin-notices.php:548
 msgid "get in touch with us"
 msgstr ""
 
 #. translators: link to support.
-#: includes/admin/class-wc-cp-admin-notices.php:551
+#: includes/admin/class-wc-cp-admin-notices.php:550
 msgid " If this message persists, please restore your database from a backup, or %s."
 msgstr ""
 
 #. translators: %1$s: Component title, %2$s: Product name, %3$s: Product SKU.
-#: includes/admin/class-wc-cp-admin-order.php:152
+#: includes/admin/class-wc-cp-admin-order.php:151
 msgctxt "component stock change note format"
 msgid "%1$s: %2$s (%3$s)"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-order.php:225
-#: includes/admin/class-wc-cp-admin.php:304
+#: includes/admin/class-wc-cp-admin-order.php:224
+#: includes/admin/class-wc-cp-admin.php:303
 msgid "Edit"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-order.php:227
-#: includes/admin/class-wc-cp-admin.php:303
+#: includes/admin/class-wc-cp-admin-order.php:226
+#: includes/admin/class-wc-cp-admin.php:302
 msgid "Configure"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin-order.php:261
+#: includes/admin/class-wc-cp-admin-order.php:260
 msgid "Done"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:127
+#: includes/admin/class-wc-cp-admin.php:126
 msgid "The installed version of <strong>Composite Products</strong> is not compatible with the <code>selectSW</code> library found on your system. Please update Composite Products to the latest version."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:201
+#: includes/admin/class-wc-cp-admin.php:200
 msgid "Composite Products does not collect, store or share any personal data."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:270
+#: includes/admin/class-wc-cp-admin.php:269
 msgid "Your settings could not be saved. Please refresh the page and try again."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:271
+#: includes/admin/class-wc-cp-admin.php:270
 msgid "No default option&hellip;"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:272
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3877
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3937
+#: includes/admin/class-wc-cp-admin.php:271
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3876
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3936
 msgctxt "optional component property controlled in scenarios"
 msgid "No selection"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:273
+#: includes/admin/class-wc-cp-admin.php:272
 msgid "Choose a Component Image"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:274
+#: includes/admin/class-wc-cp-admin.php:273
 msgid "Set Component Image"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:275
+#: includes/admin/class-wc-cp-admin.php:274
 msgid "Please ensure that a Default Option is set in all non-optional Components before choosing 'Use Defaults' as the preferred Catalog Price display method for this Composite."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:276
+#: includes/admin/class-wc-cp-admin.php:275
 msgid "The Default Option field cannot be cleared &ndash; you have added a single <strong>Component Option</strong> without checking the <strong>Optional</strong> box."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:277
+#: includes/admin/class-wc-cp-admin.php:276
 msgid "A Default Option must be chosen in all non-optional Components when the <strong>Catalog Price</strong> display method is set to <strong>Use Defaults</strong>."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:278
+#: includes/admin/class-wc-cp-admin.php:277
 msgid "To configure Scenarios, the changes you made under the Components tab must be saved. Save changes now?"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:279
+#: includes/admin/class-wc-cp-admin.php:278
 msgid "To configure States, the changes you made under the Components tab must be saved. Save changes now?"
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:305
+#: includes/admin/class-wc-cp-admin.php:304
 msgid "Failed to initialize form. If this issue persists, please reload the page and try again."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:306
+#: includes/admin/class-wc-cp-admin.php:305
 msgid "Failed to validate configuration. If this issue persists, please reload the page and try again."
 msgstr ""
 
-#: includes/admin/class-wc-cp-admin.php:307
-#: includes/class-wc-cp-display.php:312
+#: includes/admin/class-wc-cp-admin.php:306
+#: includes/class-wc-cp-display.php:311
 msgid "Your selection could not be updated. If the issue persists, please refresh the page and try again."
+msgstr ""
+
+#: includes/admin/export/class-wc-cp-product-export.php:50
+#: includes/admin/import/class-wc-cp-product-import.php:59
+#: includes/admin/import/class-wc-cp-product-import.php:79
+msgid "Composite Components (JSON-encoded)"
 msgstr ""
 
 #: includes/admin/export/class-wc-cp-product-export.php:51
 #: includes/admin/import/class-wc-cp-product-import.php:60
 #: includes/admin/import/class-wc-cp-product-import.php:80
-msgid "Composite Components (JSON-encoded)"
+msgid "Composite Scenarios (JSON-encoded)"
 msgstr ""
 
 #: includes/admin/export/class-wc-cp-product-export.php:52
 #: includes/admin/import/class-wc-cp-product-import.php:61
 #: includes/admin/import/class-wc-cp-product-import.php:81
-msgid "Composite Scenarios (JSON-encoded)"
+msgid "Composite Contents Virtual"
 msgstr ""
 
 #: includes/admin/export/class-wc-cp-product-export.php:53
 #: includes/admin/import/class-wc-cp-product-import.php:62
 #: includes/admin/import/class-wc-cp-product-import.php:82
-msgid "Composite Contents Virtual"
+msgid "Composite Layout"
 msgstr ""
 
 #: includes/admin/export/class-wc-cp-product-export.php:54
 #: includes/admin/import/class-wc-cp-product-import.php:63
 #: includes/admin/import/class-wc-cp-product-import.php:83
-msgid "Composite Layout"
+msgid "Composite Cart Editing"
 msgstr ""
 
 #: includes/admin/export/class-wc-cp-product-export.php:55
 #: includes/admin/import/class-wc-cp-product-import.php:64
 #: includes/admin/import/class-wc-cp-product-import.php:84
-msgid "Composite Cart Editing"
+msgid "Composite Sold Individually"
 msgstr ""
 
 #: includes/admin/export/class-wc-cp-product-export.php:56
 #: includes/admin/import/class-wc-cp-product-import.php:65
 #: includes/admin/import/class-wc-cp-product-import.php:85
-msgid "Composite Sold Individually"
+msgid "Composite Catalog Price"
 msgstr ""
 
 #: includes/admin/export/class-wc-cp-product-export.php:57
 #: includes/admin/import/class-wc-cp-product-import.php:66
 #: includes/admin/import/class-wc-cp-product-import.php:86
-msgid "Composite Catalog Price"
-msgstr ""
-
-#: includes/admin/export/class-wc-cp-product-export.php:58
-#: includes/admin/import/class-wc-cp-product-import.php:67
-#: includes/admin/import/class-wc-cp-product-import.php:87
 msgid "Composite Form Location"
 msgstr ""
 
 #. translators: %1$s: Product title %2$s: Documentation link.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:217
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:216
 msgid "&quot;%1$s&quot; is not purchasable just yet. But, fear not &ndash; setting up <a href=\"%2$s\" target=\"_blank\">pricing options</a> only takes a minute! <ul class=\"cp_notice_list\"><li>To give &quot;%1$s&quot; a static base price, navigate to <strong>Product Data > General</strong> and fill in the <strong>Regular Price</strong> field.</li><li>To preserve the prices and taxes of products chosen in Components, go to <strong>Product Data > Components</strong> and enable <strong>Priced Individually</strong> for each Component whose price must be preserved.</li></ul> Then, save your changes."
 msgstr ""
 
 #. translators: Product title.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:237
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:236
 msgid "The catalog price of \"%s\" is currently being calculated in the background. During this time, its price will be hidden."
 msgstr ""
 
 #. translators: %1$s: Product title, %2$s: Documentation link, %3$s: Support link.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:240
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:239
 msgid "The catalog price of \"%1$s\" could not be calculated within the default time limit. This may happen when adding Scenarios to Composite Products that contain many Components and a large number of product/variation options. For assistance, please check out the <a href=\"%2$s\" target=\"_blank\">documentation</a>, or <a href=\"%3$s\" target=\"_blank\">get in touch with us</a>."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:259
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:258
 msgid "The <strong>Activate Options</strong> Scenario Action is no longer supported. All Scenarios that made use of this Action prior to Composite Products version 8.0 have been converted to <strong>States</strong>. To conditionally hide Component Options in new Composite Products, use the new <strong>Hide Component Options</strong> Scenario Action. <strong>States</strong> are not supported in new Composite Products."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:292
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:291
 msgid "No"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:293
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:292
 msgid "Yes"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:294
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:293
 msgid "Matching configurations only"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:297
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:296
 msgid "Allow only one of this item (or only one of each unique configuration of this item) to be bought in a single order."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:328
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:327
 msgid "Layout"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:390
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:389
 msgid "Form Location"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:425
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:424
 msgid "Catalog Price"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:443
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:442
 msgid "Edit in Cart"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:445
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:444
 msgid "Enable this option to allow changing the configuration of this Composite in the cart."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:464
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:502
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1960
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:463
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:501
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1959
 msgid "Components"
 msgstr ""
 
 #. translators: Documentation link.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:505
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:504
 msgid "Components are the <a href=\"%s\" target=\"_blank\">building blocks</a> of every Composite Product."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:506
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:505
 msgid "Ready to start building?"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:517
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:516
 msgid "Add Component"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:536
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:535
 msgid "Unassembled"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:537
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:536
 msgid "Component selections preserve their individual dimensions, weight and shipping classes. A virtual container item keeps them grouped together in the cart."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:542
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:541
 msgid "Assembled"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:543
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:542
 msgid "Component selections are assembled and shipped in a new physical container with the specified dimensions, weight and shipping class. The entire composite product appears as a single physical item.</br></br>To ship a component outside this container, navigate to the <strong>Components</strong> tab, expand its settings and enable <strong>Shipped Individually</strong>. Components that are <strong>Shipped Individually</strong> preserve their own dimensions, weight and shipping classes."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:553
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:552
 msgid "Composite type"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:574
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:573
 msgid "What happened to the shipping options?"
 msgstr ""
 
 #. translators: Documentation link.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:577
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:576
 msgid "The contents of this composite product preserve their dimensions, weight and shipping classes. <a href=\"%s\" target=\"_blank\">Unassembled</a> composite products do not have any shipping options to configure."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:587
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:586
 msgid "Assembled weight"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:588
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:587
 msgid "Controls whether to ignore or preserve the weight of assembled components.</br></br> <strong>Ignore</strong> &ndash; The specified Weight is the total weight of the entire composite product.</br></br> <strong>Preserve</strong> &ndash; The specified Weight is treated as a container weight. The total weight of the composite product is the sum of: i) the container weight, and ii) the weight of all assembled components."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:591
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:590
 msgid "Ignore"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:592
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:591
 msgid "Preserve"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:648
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:647
 msgid "Basic Settings"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:651
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:650
 msgid "Advanced Settings"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:718
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:717
 msgid "Hide Components"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:719
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:718
 msgid "Enable this option to hide one or more Components when the specified Conditions are satisfied."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:724
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:723
 msgid "Select components&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:768
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:767
 msgid "hide"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:769
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:768
 msgid "hide all except"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:778
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:777
 msgid "Hide Component Options"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:779
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:778
 msgid "Enable this option to hide one or more Component Options when the specified Conditions are satisfied."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:829
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:828
 msgid "Choose a Component to get started."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:829
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:828
 msgid "Then, select the options you'd like to hide."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:846
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1020
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:4032
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:845
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1019
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:4031
 msgid "Remove"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:856
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:855
 msgid "Select component&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:900
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:899
 msgid "State Name"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:900
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:899
 msgid "Scenario Name"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:908
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:907
 msgid "State Description"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:908
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:907
 msgid "Scenario Description"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:999
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:998
 msgid "First, add some Components."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:999
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:998
 msgid "Then, choose products or variations that can be bought together."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1001
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1000
 msgid "First, add some Conditions."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1001
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1000
 msgid "Then, choose an Action to trigger when these Conditions are satisfied."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1030
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1029
 msgid "Add component&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1030
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1029
 msgid "Add condition&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1082
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1081
 msgid "Option Select Action"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1122
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1121
 msgid "Selection Details Visibility"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1126
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1125
 msgid "Title"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1127
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1126
 msgid "Show/hide the title of the selected option."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1131
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1130
 msgid "Description"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1132
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1131
 msgid "Show/hide the description of the selected option."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1136
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1135
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1137
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1136
 msgid "Show/hide the thumbnail of the selected option."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1141
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1140
 msgid "Price"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1142
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1141
 msgid "Show/hide the price of the selected option."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1180
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1179
 msgid "Subtotal Visibility"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1184
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1183
 msgid "Single-product summary"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1185
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1184
 msgid "Controls the visibility of the Component subtotal in the single-product Summary section."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1189
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1188
 msgid "Cart/checkout"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1190
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1189
 msgid "Controls the visibility of the Component subtotal in cart/checkout templates."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1194
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1193
 msgid "Order details"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1195
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1194
 msgid "Controls the visibility of the Component subtotal in order details &amp; e-mail templates."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1218
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1217
 msgid "Options Sorting"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1221
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1220
 msgid "Check this option to allow sorting the available Component Options by popularity, rating, newness or price."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1245
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1244
 msgid "Options Filtering"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1248
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1247
 msgid "Check this option to configure and display layered attribute filters. Useful for narrowing down Component Options more easily."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1280
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1279
 msgid "Select product attributes&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1387
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1386
 msgid "Component Name"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1389
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1388
 msgid "Name or title of this Component."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1411
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1410
 msgid "Component Description"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1413
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1412
 msgid "Optional short description of this Component."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1436
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1435
 msgid "Component Image"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1438
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1437
 msgid "Select image"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1439
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1438
 msgid "Placeholder image to use in configuration summaries. Substituted by the image of the selected Component Option."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1440
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1439
 msgid "Remove image"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1465
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1464
 msgid "Select products"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1466
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1465
 msgid "Select categories"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1508
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1507
 msgid "Component Options"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1517
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1516
 msgid "Product options offered in this Component. Add products individually, or select a category to include all associated products."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1560
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1559
 msgid "Select categories&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1593
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1592
 msgid "The default, pre-selected Component Option. Must be populated when the <strong>Catalog Price</strong> display method is set to <strong>Use Defaults</strong>."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1618
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1617
 msgid "Default Option"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1621
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1620
 #: includes/admin/meta-boxes/views/html-composite-edit-form.php:48
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1631
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1630
 msgid "Choose a product&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1661
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1660
 msgid "Min Quantity"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1664
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1663
 msgid "Set a minimum quantity for the selected Component Option."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1686
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1685
 msgid "Max Quantity"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1689
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1688
 msgid "Set a maximum quantity for the selected Component Option. Leave the field empty to allow an unlimited maximum quantity."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1711
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1710
 msgid "Optional"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1714
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1713
 msgid "Controls whether a Component Option must be selected or not."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1736
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1735
 msgid "Shipped Individually"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1739
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1738
 msgid "Enable this option if the Component is <strong>not</strong> physically assembled or packaged within the Composite."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1761
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1760
 msgid "Priced Individually"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1764
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1763
 msgid "Enable this option if the included Component Options must maintain their individual prices."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1789
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1788
 msgid "Option Prices"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1826
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1825
 msgid "Discount %"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1829
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1828
 msgid "Discount to apply to the chosen Component Option."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1866
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1865
 msgid "Options Style"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1930
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1929
 msgid "Options Pagination"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1967
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2273
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2293
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1966
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2272
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2292
 msgid "Scenarios"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1976
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2357
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2377
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1975
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2356
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2376
 msgid "States"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1995
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:1994
 msgid "By default, the sale of a product within a composite has the same effect on its stock as an individual sale. There are no separate inventory settings for composited items. However, managing stock at composite level can be very useful for allocating composite stock quota, or for keeping track of composited item sales."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2274
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2273
 msgid "Use Scenarios to conditionally hide Components and Component Options."
 msgstr ""
 
 #. translators: %1$s: Documentation link, %2$s: Support link.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2277
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2361
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2276
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2360
 msgid "Need assistance? Check out the <a href=\"%1$s\" target=\"_blank\">documentation</a>, or <a href=\"%2$s\" target=\"_blank\">get in touch</a> with us."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2286
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2285
 msgid "Add Scenario"
 msgstr ""
 
 #. translators: Documentation link.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2296
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2378
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2295
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2377
 msgid "First, <a href=\"%s\" target=\"_blank\">create some Components</a> by navigating to the Components tab."
 msgstr ""
 
 #. translators: Documentation link.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2299
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2298
 msgid "Then, return here to <a href=\"%s\" target=\"_blank\">add Scenarios</a>."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2358
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2357
 msgid "Use States to specify combinations of Component Options that can be bought together."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2370
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2369
 msgid "Add State"
 msgstr ""
 
 #. translators: Documentation link.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2381
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2380
 msgid "Then, return here to <a href=\"%s\" target=\"_blank\">add States</a>."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2430
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2429
 msgid "Virtual composite products are intangible and are not shipped. When this option is enabled, any physical products purchased in this Composite will be treated as virtual."
 msgstr ""
 
 #. translators: %1$s: Documentation link, %2$s: WP server details.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2452
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2451
 msgid "Composite Products has detected that your server may have failed to process and save some of the data on this page. Please get in touch with your server's host or administrator and (kindly) ask them to <a href=\"%1$s\" target=\"_blank\">increase the number of variables</a> that PHP scripts can post and process%2$s."
 msgstr ""
 
 #. translators: %1$s: Documentation link, %2$s: WP server details.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2452
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2451
 msgid " (currently %s)"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2512
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2511
 msgid "Your changes have not been saved &ndash; please wait for the <strong>WooCommerce Composite Products Data Update</strong> routine to complete before creating new composite products or making changes to existing ones."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2747
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2746
 msgid "Untitled Component"
 msgstr ""
 
 #. translators: %1$s: Options count, %2$s: Product title.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2765
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2764
 msgid "You have added %1$s Component Options to \"%2$s\". To reduce the load on your server, it is recommended to use the <strong>Product Thumbnails</strong> Options Style, which supports pagination."
 msgstr ""
 
 #. translators: Product title.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2812
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2821
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2811
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2820
 msgid "The <strong>Min Quantity</strong> entered for \"%s\" was not valid and has been reset. Please enter a non-negative integer value."
 msgstr ""
 
 #. translators: Product title.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2841
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2850
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2840
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2849
 msgid "The <strong>Max Quantity</strong> you entered for \"%s\" was not valid and has been reset. Please enter a positive integer value greater than (or equal to) <strong>Min Quantity</strong>, or leave the field empty."
 msgstr ""
 
 #. translators: Product title.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2867
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:2866
 msgid "The <strong>Discount</strong> value you entered for \"%s\" was not valid and has been reset. Please enter a positive number between 0-100."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3198
-#: includes/class-wc-cp-scenario.php:140
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3197
+#: includes/class-wc-cp-scenario.php:139
 msgid "Untitled Scenario"
 msgstr ""
 
 #. translators: Component title.
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3516
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3515
 msgid "The <strong>Default Option</strong> chosen for &quot;%s&quot; was not found in any Scenario. Please double-check your preferences before saving, and always save any changes made to Component Options before choosing new defaults."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3521
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3520
 msgid "The chosen combination of <strong>Default Options</strong> does not match with any Scenario. Please double-check your preferences before saving, and always save any changes made to Component Options before choosing new defaults."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3537
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3536
 msgid "Add at least one <strong>Component</strong> before saving. To add a Component, go to the <strong>Components</strong> tab and click <strong>Add Component</strong>."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3545
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3544
 msgid "Please give a valid <strong>Name</strong> to all Components before saving."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3549
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3548
 msgid "Add at least one valid <strong>Component Option</strong> to each Component. Component Options can be added by selecting products individually, or by choosing product categories."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3553
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3552
 msgid "Some of your Scenarios were incomplete and could not be saved. Please add some <strong>Conditions</strong> and configure at least one <strong>Action</strong> in every Scenario before saving."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3557
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3556
 msgid "Some of your States were incomplete and could not be saved. Please add some <strong>Components</strong> in every State before saving."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3561
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3560
 msgid "Please review your Scenarios. It might be possible to simplify, split up, or delete some of them. When creating Scenarios, remember that it's only possible to hide Components and Component Options based on product/variation selections made <strong>in preceeding Components</strong> only."
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3798
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3797
 msgid "is"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3799
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3798
 msgid "is not"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3800
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3799
 msgid "is any"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3825
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3824
 msgid "Select products and variations&hellip;"
 msgstr ""
 
-#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3839
+#: includes/admin/meta-boxes/class-wc-cp-meta-box-product-data.php:3838
 msgid "Search for products and variations&hellip;"
 msgstr ""
 
@@ -1126,1244 +1126,1244 @@ msgstr ""
 msgid "State Configuration"
 msgstr ""
 
-#: includes/admin/views/html-admin-page-status-report.php:18
+#: includes/admin/views/html-admin-page-status-report.php:17
 #: assets/js/admin/analytics.js:245
 msgid "Composite Products"
 msgstr ""
 
-#: includes/admin/views/html-admin-page-status-report.php:23
+#: includes/admin/views/html-admin-page-status-report.php:22
 msgid "Database version"
 msgstr ""
 
-#: includes/admin/views/html-admin-page-status-report.php:24
+#: includes/admin/views/html-admin-page-status-report.php:23
 msgid "The version of Composite Products reported by the database. This should be the same as the version of the extension."
 msgstr ""
 
-#: includes/admin/views/html-admin-page-status-report.php:37
+#: includes/admin/views/html-admin-page-status-report.php:36
 msgid "Database version mismatch."
 msgstr ""
 
-#: includes/admin/views/html-admin-page-status-report.php:43
+#: includes/admin/views/html-admin-page-status-report.php:42
 msgid "Loopback test"
 msgstr ""
 
-#: includes/admin/views/html-admin-page-status-report.php:44
+#: includes/admin/views/html-admin-page-status-report.php:43
 msgid "Loopback requests are used by Composite Products to process tasks in the background."
 msgstr ""
 
-#: includes/admin/views/html-admin-page-status-report.php:53
+#: includes/admin/views/html-admin-page-status-report.php:52
 msgid "Loopback test failed."
 msgstr ""
 
-#: includes/admin/views/html-admin-page-status-report.php:59
+#: includes/admin/views/html-admin-page-status-report.php:58
 msgid "Template overrides"
 msgstr ""
 
-#: includes/admin/views/html-admin-page-status-report.php:60
+#: includes/admin/views/html-admin-page-status-report.php:59
 msgid "Shows any files overriding the default Composite Products templates."
 msgstr ""
 
 #. Translators: %1$s: Template name, %2$s: Template version, %3$s: Core version.
-#: includes/admin/views/html-admin-page-status-report.php:77
+#: includes/admin/views/html-admin-page-status-report.php:76
 msgid "%1$s version %2$s (out of date)"
 msgstr ""
 
-#: includes/class-wc-cp-ajax.php:58
+#: includes/class-wc-cp-ajax.php:57
 msgid "Looks like something went wrong. Please refresh the page and try again."
 msgstr ""
 
-#: includes/class-wc-cp-ajax.php:136
-#: includes/class-wc-cp-component-view.php:321
+#: includes/class-wc-cp-ajax.php:135
+#: includes/class-wc-cp-component-view.php:320
 msgid "Please make sure that you have assigned a price to this product. WooCommerce does not allow products with a blank price to be purchased. This note cannot be viewed by customers."
 msgstr ""
 
-#: includes/class-wc-cp-cart.php:61
-#: includes/class-wc-cp-cart.php:70
-#: includes/class-wc-cp-display.php:71
-#: includes/class-wc-cp-display.php:80
-#: includes/class-wc-cp-order.php:66
-#: includes/class-wc-cp-order.php:75
-#: includes/compatibility/class-wc-cp-compatibility.php:58
-#: includes/compatibility/class-wc-cp-compatibility.php:67
+#: includes/class-wc-cp-cart.php:60
+#: includes/class-wc-cp-cart.php:69
+#: includes/class-wc-cp-display.php:70
+#: includes/class-wc-cp-display.php:79
+#: includes/class-wc-cp-order.php:65
+#: includes/class-wc-cp-order.php:74
+#: includes/compatibility/class-wc-cp-compatibility.php:57
+#: includes/compatibility/class-wc-cp-compatibility.php:66
 #: woocommerce-composite-products.php:74
 #: woocommerce-composite-products.php:83
 msgid "Foul!"
 msgstr ""
 
-#: includes/class-wc-cp-cart.php:181
+#: includes/class-wc-cp-cart.php:180
 msgid "The submitted composite configuration could not be added to the cart."
 msgstr ""
 
-#: includes/class-wc-cp-cart.php:187
-#: includes/class-wc-cp-order.php:415
-#: includes/class-wc-cp-rest-api.php:1689
+#: includes/class-wc-cp-cart.php:186
+#: includes/class-wc-cp-order.php:414
+#: includes/class-wc-cp-rest-api.php:1688
 msgid "A composite with this ID does not exist."
 msgstr ""
 
 #. translators: Component title.
-#: includes/class-wc-cp-cart.php:506
+#: includes/class-wc-cp-cart.php:505
 msgid "Please choose a valid &quot;%s&quot; option&hellip;"
 msgstr ""
 
 #. translators: Component title.
-#: includes/class-wc-cp-cart.php:508
-#: includes/class-wc-cp-cart.php:541
-#: includes/class-wc-cp-cart.php:731
+#: includes/class-wc-cp-cart.php:507
+#: includes/class-wc-cp-cart.php:540
+#: includes/class-wc-cp-cart.php:730
 msgid "The chosen &quot;%s&quot; option is unavailable."
 msgstr ""
 
 #. translators: %1$s: Composite title, %2$s: Reason.
-#: includes/class-wc-cp-cart.php:513
-#: includes/class-wc-cp-cart.php:546
-#: includes/class-wc-cp-cart.php:647
-#: includes/class-wc-cp-cart.php:737
-#: includes/class-wc-cp-cart.php:807
-#: includes/class-wc-cp-cart.php:824
-#: includes/class-wc-cp-stock-manager.php:221
-#: includes/class-wc-cp-stock-manager.php:237
-#: includes/class-wc-cp-stock-manager.php:257
-#: includes/class-wc-cp-stock-manager.php:274
-#: includes/class-wc-cp-stock-manager.php:297
+#: includes/class-wc-cp-cart.php:512
+#: includes/class-wc-cp-cart.php:545
+#: includes/class-wc-cp-cart.php:646
+#: includes/class-wc-cp-cart.php:736
+#: includes/class-wc-cp-cart.php:806
+#: includes/class-wc-cp-cart.php:823
+#: includes/class-wc-cp-stock-manager.php:220
+#: includes/class-wc-cp-stock-manager.php:236
+#: includes/class-wc-cp-stock-manager.php:256
+#: includes/class-wc-cp-stock-manager.php:273
+#: includes/class-wc-cp-stock-manager.php:296
 msgid "&quot;%1$s&quot; cannot be added to your cart. %2$s"
 msgstr ""
 
 #. translators: %1$s: Composite title, %2$s: Reason.
-#: includes/class-wc-cp-cart.php:515
-#: includes/class-wc-cp-cart.php:548
-#: includes/class-wc-cp-cart.php:650
-#: includes/class-wc-cp-cart.php:740
-#: includes/class-wc-cp-cart.php:810
-#: includes/class-wc-cp-cart.php:827
-#: includes/class-wc-cp-stock-manager.php:260
-#: includes/class-wc-cp-stock-manager.php:277
-#: includes/class-wc-cp-stock-manager.php:300
+#: includes/class-wc-cp-cart.php:514
+#: includes/class-wc-cp-cart.php:547
+#: includes/class-wc-cp-cart.php:649
+#: includes/class-wc-cp-cart.php:739
+#: includes/class-wc-cp-cart.php:809
+#: includes/class-wc-cp-cart.php:826
+#: includes/class-wc-cp-stock-manager.php:259
+#: includes/class-wc-cp-stock-manager.php:276
+#: includes/class-wc-cp-stock-manager.php:299
 msgid "&quot;%1$s&quot; cannot be purchased. %2$s"
 msgstr ""
 
 #. translators: Component title.
-#: includes/class-wc-cp-cart.php:538
+#: includes/class-wc-cp-cart.php:537
 msgid "Please choose another &quot;%s&quot; option&hellip;"
 msgstr ""
 
 #. translators: %1$s: Missing attributes, %2$s: Component title.
-#: includes/class-wc-cp-cart.php:634
+#: includes/class-wc-cp-cart.php:633
 msgid "%1$s is a required &quot;%2$s&quot; field."
 msgid_plural "%1$s are required &quot;%2$s&quot; fields."
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: Component title.
-#: includes/class-wc-cp-cart.php:638
+#: includes/class-wc-cp-cart.php:637
 msgid "Please choose &quot;%s&quot; options&hellip;"
 msgstr ""
 
 #. translators: Component title.
-#: includes/class-wc-cp-cart.php:641
+#: includes/class-wc-cp-cart.php:640
 msgid "&quot;%s&quot; is missing some required options."
 msgstr ""
 
 #. translators: Component title.
-#: includes/class-wc-cp-cart.php:718
+#: includes/class-wc-cp-cart.php:717
 msgid "Please choose a &quot;%s&quot; option."
 msgstr ""
 
 #. translators: Component title.
-#: includes/class-wc-cp-cart.php:721
+#: includes/class-wc-cp-cart.php:720
 msgid "A &quot;%s&quot; selection is required."
 msgstr ""
 
 #. translators: Component title.
-#: includes/class-wc-cp-cart.php:728
+#: includes/class-wc-cp-cart.php:727
 msgid "Please choose a different &quot;%s&quot; option."
 msgstr ""
 
 #. translators: %1$s: Composite title.
-#: includes/class-wc-cp-cart.php:752
+#: includes/class-wc-cp-cart.php:751
 msgid "The selected &quot;%1$s&quot; options cannot be purchased together."
 msgstr ""
 
 #. translators: %1$s: Composite title.
-#: includes/class-wc-cp-cart.php:755
+#: includes/class-wc-cp-cart.php:754
 msgid "The selected options cannot be purchased together. Please choose a different configuration and try again."
 msgstr ""
 
 #. translators: %1$s: Product title, %2$d: Quantity.
-#: includes/class-wc-cp-cart.php:803
-#: includes/class-wc-cp-cart.php:1627
+#: includes/class-wc-cp-cart.php:802
+#: includes/class-wc-cp-cart.php:1634
 msgid "The quantity of &quot;%1$s&quot; cannot be lower than %2$d."
 msgstr ""
 
 #. translators: %1$s: Product title, %2$d: Quantity.
-#: includes/class-wc-cp-cart.php:820
-#: includes/class-wc-cp-cart.php:1632
+#: includes/class-wc-cp-cart.php:819
+#: includes/class-wc-cp-cart.php:1639
 msgid "The quantity of &quot;%1$s&quot; cannot be higher than %2$d."
 msgstr ""
 
 #. translators: %1$s: Product title, %2$d: Quantity.
-#: includes/class-wc-cp-cart.php:1637
+#: includes/class-wc-cp-cart.php:1644
 msgid "The quantity of &quot;%1$s&quot; must be entered in multiples of %2$d."
 msgstr ""
 
 #. translators: %s: Composite name.
-#: includes/class-wc-cp-cart.php:1692
+#: includes/class-wc-cp-cart.php:1699
 msgctxt "Composite name in quotes"
 msgid "&ldquo;%s&rdquo;"
 msgstr ""
 
 #. translators: Product title.
-#: includes/class-wc-cp-cart.php:1981
+#: includes/class-wc-cp-cart.php:1988
 msgid "You have already added an identical &quot;%s&quot; to your cart. You cannot add another one."
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1177
+#: includes/class-wc-cp-component.php:1176
 msgid "Dropdown"
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1178
+#: includes/class-wc-cp-component.php:1177
 msgid "Component Options are listed in a dropdown menu."
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1183
+#: includes/class-wc-cp-component.php:1182
 msgid "Thumbnails"
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1184
+#: includes/class-wc-cp-component.php:1183
 msgid "Component Options are displayed as thumbnails, paginated and arranged in columns similar to the main shop loop."
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1189
+#: includes/class-wc-cp-component.php:1188
 msgid "Radio Buttons"
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1190
+#: includes/class-wc-cp-component.php:1189
 msgid "Component Options are displayed as radio buttons."
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1294
+#: includes/class-wc-cp-component.php:1293
 msgid "Absolute"
 msgstr ""
 
 #. translators: Price.
-#: includes/class-wc-cp-component.php:1296
+#: includes/class-wc-cp-component.php:1295
 msgid "Display absolute Component Option prices, e.g. </br>%s."
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1300
+#: includes/class-wc-cp-component.php:1299
 msgid "Relative"
 msgstr ""
 
 #. translators: %1$s: Min price, %2$s: Max price.
-#: includes/class-wc-cp-component.php:1302
+#: includes/class-wc-cp-component.php:1301
 msgid "Display Component Option prices relative to the price of the Default Option, e.g. </br>+%1$s or -%2$s."
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1306
+#: includes/class-wc-cp-component.php:1305
 msgid "Hidden"
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1307
+#: includes/class-wc-cp-component.php:1306
 msgid "Hide Component Option prices."
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1327
+#: includes/class-wc-cp-component.php:1326
 msgid "Classic"
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1328
+#: includes/class-wc-cp-component.php:1327
 msgid "Component Options are arranged in pages, similar to the main shop loop."
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1332
+#: includes/class-wc-cp-component.php:1331
 msgid "Load more"
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1333
+#: includes/class-wc-cp-component.php:1332
 msgid "Component Options are appended by clicking a \"Load more\" button."
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1352
+#: includes/class-wc-cp-component.php:1351
 msgid "View selection details"
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1353
+#: includes/class-wc-cp-component.php:1352
 msgid "Display selected product details without moving to the next Component."
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1357
+#: includes/class-wc-cp-component.php:1356
 msgid "View next step"
 msgstr ""
 
-#: includes/class-wc-cp-component.php:1358
+#: includes/class-wc-cp-component.php:1357
 msgid "View the next Component."
 msgstr ""
 
 #. translators: %1$s: Original price, %2$s: Sale price.
-#: includes/class-wc-cp-display.php:222
+#: includes/class-wc-cp-display.php:221
 msgctxt "Sale/strikeout price"
 msgid "<del>%1$s</del> <ins>%2$s</ins>"
 msgstr ""
 
 #. translators: %1$s: Total string, %2$s: Price, %3$s: Price suffix.
-#: includes/class-wc-cp-display.php:224
+#: includes/class-wc-cp-display.php:223
 msgctxt "\"Total\" string followed by price followed by price suffix"
 msgid "%1$s%2$s%3$s"
 msgstr ""
 
 #. translators: %1$s: Sign, %2$s: Price.
-#: includes/class-wc-cp-display.php:226
+#: includes/class-wc-cp-display.php:225
 msgctxt "relative price (signed)"
 msgid "%1$s%2$s"
 msgstr ""
 
 #. translators: %1$s: Price, %2$s: Unit suffix, %3$s: Discount.
-#: includes/class-wc-cp-display.php:228
-#: includes/class-wc-cp-product.php:981
+#: includes/class-wc-cp-display.php:227
+#: includes/class-wc-cp-product.php:980
 msgctxt "option price followed by per unit suffix and discount"
 msgid "%1$s %2$s %3$s"
 msgstr ""
 
 #. translators: %1$s: Min price, %2$s: Max price.
-#: includes/class-wc-cp-display.php:230
+#: includes/class-wc-cp-display.php:229
 msgctxt "Price range (plain)"
 msgid "%1$s to %2$s"
 msgstr ""
 
 #. translators: %1$s: Min price, %2$s: Max price.
-#: includes/class-wc-cp-display.php:232
+#: includes/class-wc-cp-display.php:231
 msgctxt "Price range"
 msgid "%1$s &ndash; %2$s"
 msgstr ""
 
 #. translators: %1$s: Min price, %2$s: Max price.
-#: includes/class-wc-cp-display.php:234
+#: includes/class-wc-cp-display.php:233
 msgctxt "Price range (relative)"
 msgid "%1$s to %2$s"
 msgstr ""
 
 #. translators: Price.
-#: includes/class-wc-cp-display.php:236
+#: includes/class-wc-cp-display.php:235
 msgctxt "Price range - from"
 msgid "from %s;"
 msgstr ""
 
 #. translators: Price.
-#: includes/class-wc-cp-display.php:238
+#: includes/class-wc-cp-display.php:237
 msgctxt "Price range - From:"
 msgid "From: %s"
 msgstr ""
 
 #. translators: Quantity.
-#: includes/class-wc-cp-display.php:240
-#: includes/class-wc-cp-display.php:907
-#: includes/class-wc-cp-display.php:1257
-#: includes/class-wc-cp-product.php:1012
+#: includes/class-wc-cp-display.php:239
+#: includes/class-wc-cp-display.php:906
+#: includes/class-wc-cp-display.php:1256
+#: includes/class-wc-cp-product.php:1011
 msgctxt "qty string"
 msgid " &times; %s"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:241
-#: includes/class-wc-cp-product.php:965
-#: includes/class-wc-cp-products.php:600
+#: includes/class-wc-cp-display.php:240
+#: includes/class-wc-cp-product.php:964
+#: includes/class-wc-cp-products.php:599
 msgid "each"
 msgstr ""
 
 #. translators: Discount.
-#: includes/class-wc-cp-display.php:243
-#: includes/class-wc-cp-product.php:941
-#: includes/class-wc-cp-product.php:945
+#: includes/class-wc-cp-display.php:242
+#: includes/class-wc-cp-product.php:940
+#: includes/class-wc-cp-product.php:944
 msgid "(%s%% off)"
 msgstr ""
 
 #. translators: %1$s: Title, %2$s: Quantity, %3$s: Price.
-#: includes/class-wc-cp-display.php:245
-#: includes/class-wc-cp-product.php:1020
+#: includes/class-wc-cp-display.php:244
+#: includes/class-wc-cp-product.php:1019
 msgctxt "title quantity price"
 msgid "%1$s%2$s%3$s"
 msgstr ""
 
 #. translators: %1$s: Product title, %2$s: Details.
-#: includes/class-wc-cp-display.php:247
+#: includes/class-wc-cp-display.php:246
 msgctxt "product title followed by details"
 msgid "%1$s%2$s"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:249
+#: includes/class-wc-cp-display.php:248
 msgid "Total: "
 msgstr ""
 
-#: includes/class-wc-cp-display.php:250
+#: includes/class-wc-cp-display.php:249
 msgid "Subtotal: "
 msgstr ""
 
-#: includes/class-wc-cp-display.php:251
+#: includes/class-wc-cp-display.php:250
 #: templates/single-product/js/options-radio-buttons.php:22
 #: templates/single-product/js/options-thumbnails.php:22
 msgid "Loading&hellip;"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:252
+#: includes/class-wc-cp-display.php:251
 msgid "No options available&hellip;"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:253
+#: includes/class-wc-cp-display.php:252
 msgid "No selection"
 msgstr ""
 
 #. translators: Component title.
-#: includes/class-wc-cp-display.php:255
+#: includes/class-wc-cp-display.php:254
 msgctxt "dropdown empty-value option: optional selection (%s replaced by component title)"
 msgid "No %s"
 msgstr ""
 
 #. translators: %1$s: Option title, %2$s: Price.
-#: includes/class-wc-cp-display.php:257
+#: includes/class-wc-cp-display.php:256
 msgctxt "dropdown option title, followed by price"
 msgid "%1$s &nbsp;&ndash;&nbsp; %2$s"
 msgstr ""
 
 #. translators: %1$s: Option Title, %2$s: Price.
-#: includes/class-wc-cp-display.php:259
+#: includes/class-wc-cp-display.php:258
 msgctxt "dropdown option title, followed by relative price"
 msgid "%1$s: &nbsp;%2$s"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:260
+#: includes/class-wc-cp-display.php:259
 msgctxt "thumbnail option configure"
 msgid "Select options"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:261
+#: includes/class-wc-cp-display.php:260
 msgctxt "thumbnail option select"
 msgid "Select"
 msgstr ""
 
 #. translators: Option title.
-#: includes/class-wc-cp-display.php:263
+#: includes/class-wc-cp-display.php:262
 msgctxt "thumbnail option select"
 msgid "Select %s"
 msgstr ""
 
 #. translators: Option title.
-#: includes/class-wc-cp-display.php:265
+#: includes/class-wc-cp-display.php:264
 msgctxt "thumbnail option configure"
 msgid "Select %s options"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:266
+#: includes/class-wc-cp-display.php:265
 msgctxt "dropdown empty-value option: mandatory selection (%s replaced by component title)"
 msgid "Choose an option"
 msgstr ""
 
 #. translators: Previous component.
-#: includes/class-wc-cp-display.php:268
+#: includes/class-wc-cp-display.php:267
 msgctxt "previous step navigation button text"
 msgid "%s"
 msgstr ""
 
 #. translators: Next component.
-#: includes/class-wc-cp-display.php:270
+#: includes/class-wc-cp-display.php:269
 msgctxt "next step navigation button text"
 msgid "%s"
 msgstr ""
 
 #. translators: Previous component.
-#: includes/class-wc-cp-display.php:272
+#: includes/class-wc-cp-display.php:271
 msgctxt "previous step navigation button aria label"
 msgid "Go to %s"
 msgstr ""
 
 #. translators: Next component.
-#: includes/class-wc-cp-display.php:274
+#: includes/class-wc-cp-display.php:273
 msgctxt "next step navigation button aria label"
 msgid "Go to %s"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:275
+#: includes/class-wc-cp-display.php:274
 msgctxt "final step navigation button text"
 msgid "Review Selections"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:276
+#: includes/class-wc-cp-display.php:275
 msgid "Reset selection"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:277
+#: includes/class-wc-cp-display.php:276
 #: templates/composited-product/invalid-product.php:24
 #: templates/composited-product/js/selection.php:33
 msgid "Clear selection"
 msgstr ""
 
 #. translators: %1$s: Message source, %2$s: Message content.
-#: includes/class-wc-cp-display.php:279
+#: includes/class-wc-cp-display.php:278
 msgid "<span class=\"msg-source\">%1$s</span> &rarr; <span class=\"msg-content\">%2$s</span>"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:280
+#: includes/class-wc-cp-display.php:279
 msgid "Please resolve all pending issues before adding this product to your cart."
 msgstr ""
 
-#: includes/class-wc-cp-display.php:281
+#: includes/class-wc-cp-display.php:280
 #: templates/composited-product/invalid-product.php:25
 msgid "The selected item cannot be purchased at the moment."
 msgstr ""
 
-#: includes/class-wc-cp-display.php:282
+#: includes/class-wc-cp-display.php:281
 msgid "This product cannot be purchased at the moment."
 msgstr ""
 
-#: includes/class-wc-cp-display.php:283
+#: includes/class-wc-cp-display.php:282
 msgid "Please choose an option to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:284
+#: includes/class-wc-cp-display.php:283
 msgid "Please choose an option."
 msgstr ""
 
-#: includes/class-wc-cp-display.php:285
+#: includes/class-wc-cp-display.php:284
 msgid "The chosen option is incompatible with your previous selections."
 msgstr ""
 
-#: includes/class-wc-cp-display.php:286
+#: includes/class-wc-cp-display.php:285
 msgid "The chosen product options are incompatible with your previous selections."
 msgstr ""
 
-#: includes/class-wc-cp-display.php:287
+#: includes/class-wc-cp-display.php:286
 msgid "The selected option does not have enough stock. Please choose another option to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:288
+#: includes/class-wc-cp-display.php:287
 msgid "Please choose product options to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:289
+#: includes/class-wc-cp-display.php:288
 msgid "Please choose product options."
 msgstr ""
 
-#: includes/class-wc-cp-display.php:290
+#: includes/class-wc-cp-display.php:289
 msgid "Please configure all required product fields to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:291
+#: includes/class-wc-cp-display.php:290
 msgid "Please configure all required product fields."
 msgstr ""
 
-#: includes/class-wc-cp-display.php:292
+#: includes/class-wc-cp-display.php:291
 msgid "Please enter a valid amount to continue&hellip;"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:293
+#: includes/class-wc-cp-display.php:292
 msgid "Please enter a valid amount."
 msgstr ""
 
-#: includes/class-wc-cp-display.php:294
+#: includes/class-wc-cp-display.php:293
 msgctxt "summary element configure action text singular"
 msgid "Select option"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:295
+#: includes/class-wc-cp-display.php:294
 msgctxt "summary element configure action text plural"
 msgid "Select options"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:296
+#: includes/class-wc-cp-display.php:295
 msgctxt "summary element edit action text"
 msgid "Edit"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:297
+#: includes/class-wc-cp-display.php:296
 msgctxt "summary element view action text"
 msgid "View"
 msgstr ""
 
 #. translators: %1$s: Action, %2$s: Component title.
-#: includes/class-wc-cp-display.php:299
+#: includes/class-wc-cp-display.php:298
 msgctxt "summary element action aria label"
 msgid "%1$s %2$s"
 msgstr ""
 
 #. translators: %1$s: Title, %2$s: Stock string.
-#: includes/class-wc-cp-display.php:301
+#: includes/class-wc-cp-display.php:300
 msgctxt "insufficient stock - composite template"
 msgid "<p class=\"stock out-of-stock insufficient-stock\">%1$s &rarr; %2$s</p>"
 msgstr ""
 
 #. translators: %1$s: Title, %2$s: Stock string.
-#: includes/class-wc-cp-display.php:301
-#: includes/class-wc-cp-product.php:1289
-#: includes/class-wc-cp-product.php:1292
+#: includes/class-wc-cp-display.php:300
+#: includes/class-wc-cp-product.php:1300
+#: includes/class-wc-cp-product.php:1303
 msgid "Insufficient stock"
 msgstr ""
 
 #. translators: %1$s: Item, %2$s: Item.
-#: includes/class-wc-cp-display.php:303
+#: includes/class-wc-cp-display.php:302
 msgctxt "comma-separated items"
 msgid "%1$s, %2$s"
 msgstr ""
 
 #. translators: Component title.
-#: includes/class-wc-cp-display.php:305
+#: includes/class-wc-cp-display.php:304
 msgid "Loading &quot;%s&quot; options is taking a bit longer than usual. Would you like to keep trying?"
 msgstr ""
 
 #. translators: Component title.
-#: includes/class-wc-cp-display.php:307
+#: includes/class-wc-cp-display.php:306
 msgid "The configuration step you have requested to view (&quot;%s&quot;) is currently not accessible."
 msgstr ""
 
 #. translators: %1$s: Current page, %2$s: Total number of pages.
-#: includes/class-wc-cp-display.php:309
+#: includes/class-wc-cp-display.php:308
 msgid "Page %1$s of %2$s"
 msgstr ""
 
 #. translators: Component title.
-#: includes/class-wc-cp-display.php:311
+#: includes/class-wc-cp-display.php:310
 msgid "<span class=\"source\">%s</span> &rarr; updating options&hellip;"
 msgstr ""
 
 #. translators: Product title.
-#: includes/class-wc-cp-display.php:314
+#: includes/class-wc-cp-display.php:313
 msgctxt "aria selection title"
 msgid "Your selection: %s"
 msgstr ""
 
 #. translators: Product title.
-#: includes/class-wc-cp-display.php:406
+#: includes/class-wc-cp-display.php:405
 msgid "The catalog price of &quot;%s&quot; is currently being calculated in the background. During this time, its price will be hidden. <strong>Note</strong>: This message is visible to store managers only."
 msgstr ""
 
 #. translators: %1$s: Product title, %2$s: Documentation link, %3$s: Support link.
-#: includes/class-wc-cp-display.php:409
+#: includes/class-wc-cp-display.php:408
 msgid "The catalog price of &quot;%1$s&quot; could not be calculated within the default time limit. This may happen when adding Scenarios to Composite Products that contain many Components and a large number of product/variation options. For assistance, please check out the <a href=\"%2$s\" target=\"_blank\">documentation</a>, or <a href=\"%3$s\" target=\"_blank\">get in touch with support</a>. <strong>Note</strong>: This message is visible to store managers only."
 msgstr ""
 
 #. translators: Product title.
-#: includes/class-wc-cp-display.php:429
+#: includes/class-wc-cp-display.php:428
 msgid "You are currently editing &quot;%1$s&quot;. When finished, click the <strong>Update Cart</strong> button."
 msgstr ""
 
 #. translators: %1$s: Subotal prefix, %2$s: Subtotal.
-#: includes/class-wc-cp-display.php:701
-#: includes/class-wc-cp-display.php:1196
+#: includes/class-wc-cp-display.php:700
+#: includes/class-wc-cp-display.php:1195
 msgctxt "component subtotal"
 msgid "%1$s: %2$s"
 msgstr ""
 
 #. translators: %1$s: Subotal prefix, %2$s: Subtotal.
-#: includes/class-wc-cp-display.php:701
-#: includes/class-wc-cp-display.php:1196
+#: includes/class-wc-cp-display.php:700
+#: includes/class-wc-cp-display.php:1195
 msgid "Subtotal"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:867
+#: includes/class-wc-cp-display.php:866
 msgctxt "edit in cart link text"
 msgid "Edit"
 msgstr ""
 
 #. translators: %1$s: Content, %2$s: Link, %3$s: Text.
-#: includes/class-wc-cp-display.php:869
+#: includes/class-wc-cp-display.php:868
 msgctxt "edit in cart text"
 msgid "%1$s<br/><a class=\"edit_composite_in_cart_text edit_in_cart_text\" href=\"%2$s\"><small>%3$s</small></a>"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:1433
-#: includes/class-wc-cp-display.php:1448
-#: includes/compatibility/modules/class-wc-cp-wl-compatibility.php:94
-#: includes/compatibility/modules/class-wc-cp-wl-compatibility.php:109
+#: includes/class-wc-cp-display.php:1432
+#: includes/class-wc-cp-display.php:1447
+#: includes/compatibility/modules/class-wc-cp-wl-compatibility.php:93
+#: includes/compatibility/modules/class-wc-cp-wl-compatibility.php:108
 msgid "*"
 msgstr ""
 
-#: includes/class-wc-cp-display.php:1433
+#: includes/class-wc-cp-display.php:1432
 msgid "Accurate pricing info available in cart."
 msgstr ""
 
 #. translators: %1$s: Title, %2$s: Identifier, %3$s: Meta.
-#: includes/class-wc-cp-helpers.php:308
+#: includes/class-wc-cp-helpers.php:307
 msgctxt "product title followed by sku in parenthesis and meta"
 msgid "%1$s (%2$s) &ndash; %3$s"
 msgstr ""
 
 #. translators: %1$s: Title, %2$s: Identifier, %3$s: Meta.
-#: includes/class-wc-cp-helpers.php:311
+#: includes/class-wc-cp-helpers.php:310
 msgctxt "product title followed by sku and meta"
 msgid "%1$s &ndash; %2$s &ndash; %3$s"
 msgstr ""
 
 #. translators: %1$s: Title, %2$s: Identifier.
-#: includes/class-wc-cp-helpers.php:316
+#: includes/class-wc-cp-helpers.php:315
 msgctxt "product title followed by sku in parenthesis"
 msgid "%1$s (%2$s)"
 msgstr ""
 
 #. translators: %1$s: Title, %2$s: Identifier.
-#: includes/class-wc-cp-helpers.php:319
+#: includes/class-wc-cp-helpers.php:318
 msgctxt "product title followed by sku"
 msgid "%1$s &ndash; %2$s"
 msgstr ""
 
 #. translators: %1$s: Title, %2$s: Meta.
-#: includes/class-wc-cp-helpers.php:324
+#: includes/class-wc-cp-helpers.php:323
 msgctxt "product title followed by meta in parenthesis"
 msgid "%1$s (%2$s)"
 msgstr ""
 
 #. translators: %1$s: Title, %2$s: Meta.
-#: includes/class-wc-cp-helpers.php:327
+#: includes/class-wc-cp-helpers.php:326
 msgctxt "product title followed by meta"
 msgid "%1$s &ndash; %2$s"
 msgstr ""
 
-#: includes/class-wc-cp-install.php:87
+#: includes/class-wc-cp-install.php:86
 msgid "Composite product"
 msgstr ""
 
-#: includes/class-wc-cp-install.php:493
+#: includes/class-wc-cp-install.php:492
 msgid "Documentation"
 msgstr ""
 
-#: includes/class-wc-cp-install.php:494
+#: includes/class-wc-cp-install.php:493
 msgid "Support"
 msgstr ""
 
-#: includes/class-wc-cp-order.php:405
-#: includes/class-wc-cp-rest-api.php:1684
+#: includes/class-wc-cp-order.php:404
+#: includes/class-wc-cp-rest-api.php:1683
 msgid "The submitted composite configuration could not be added to this order."
 msgstr ""
 
-#: includes/class-wc-cp-order.php:526
+#: includes/class-wc-cp-order.php:525
 msgctxt "component order item qty meta key"
 msgid "Qty"
 msgstr ""
 
-#: includes/class-wc-cp-order.php:532
+#: includes/class-wc-cp-order.php:531
 msgctxt "component order item SKU meta key"
 msgid "SKU"
 msgstr ""
 
 #. translators: Price.
-#: includes/class-wc-cp-product.php:983
+#: includes/class-wc-cp-product.php:982
 msgctxt "Price range - from"
 msgid "from %s"
 msgstr ""
 
 #. translators: Price.
-#: includes/class-wc-cp-product.php:1017
+#: includes/class-wc-cp-product.php:1016
 msgctxt "price suffix"
 msgid " &ndash; %s"
 msgstr ""
 
 #. translators: Stock.
-#: includes/class-wc-cp-product.php:1241
-#: includes/class-wc-cp-product.php:1293
+#: includes/class-wc-cp-product.php:1252
+#: includes/class-wc-cp-product.php:1304
 msgid "(only %s left in stock)"
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:164
+#: includes/class-wc-cp-rest-api.php:163
 msgid "Forces all contents of this composite to be treated as virtual."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:169
+#: includes/class-wc-cp-rest-api.php:168
 msgid "Single-product template layout. Applicable to composite-type products."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:175
+#: includes/class-wc-cp-rest-api.php:174
 msgid "Controls the form location of the product in the single-product page. Applicable to composite-type products."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:181
+#: includes/class-wc-cp-rest-api.php:180
 msgid "Controls whether the configuration of this product can be modified from the cart page. Applicable to composite-type products."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:186
+#: includes/class-wc-cp-rest-api.php:185
 msgid "Sold Individually option context. Applicable to composite-type products."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:192
+#: includes/class-wc-cp-rest-api.php:191
 msgid "Composite catalog price calculation. Applicable to composite-type products."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:198
+#: includes/class-wc-cp-rest-api.php:197
 msgid "List of components that this product consists of. Applicable to composite-type products."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:205
-#: includes/class-wc-cp-rest-api.php:387
-#: includes/class-wc-cp-rest-api.php:406
-#: includes/class-wc-cp-rest-api.php:511
-#: includes/class-wc-cp-rest-api.php:1446
+#: includes/class-wc-cp-rest-api.php:204
+#: includes/class-wc-cp-rest-api.php:386
+#: includes/class-wc-cp-rest-api.php:405
+#: includes/class-wc-cp-rest-api.php:510
+#: includes/class-wc-cp-rest-api.php:1445
 msgid "Component ID."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:211
+#: includes/class-wc-cp-rest-api.php:210
 msgid "Title of the component."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:216
+#: includes/class-wc-cp-rest-api.php:215
 msgid "Description of the component."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:221
+#: includes/class-wc-cp-rest-api.php:220
 msgid "Query type associated with component options."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:227
+#: includes/class-wc-cp-rest-api.php:226
 msgid "Product IDs or category IDs to use for populating component options."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:235
+#: includes/class-wc-cp-rest-api.php:234
 msgid "The product ID of the default/pre-selected component option."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:240
+#: includes/class-wc-cp-rest-api.php:239
 msgid "Attachment ID of the thumbnail associated with this Component."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:245
+#: includes/class-wc-cp-rest-api.php:244
 msgid "URL of the thumbnail associated with this Component."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:250
+#: includes/class-wc-cp-rest-api.php:249
 msgid "Minimum component quantity."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:255
+#: includes/class-wc-cp-rest-api.php:254
 msgid "Maximum component quantity."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:260
+#: includes/class-wc-cp-rest-api.php:259
 msgid "Indicates whether the price of this component is added to the base price of the composite."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:265
+#: includes/class-wc-cp-rest-api.php:264
 msgid "Indicates whether this component is shipped separately from the composite."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:270
+#: includes/class-wc-cp-rest-api.php:269
 msgid "Indicates whether the component is optional."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:275
+#: includes/class-wc-cp-rest-api.php:274
 msgid "Discount applied to the component, applicable when Priced Individually is enabled."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:280
+#: includes/class-wc-cp-rest-api.php:279
 msgid "Indicates which template to use for displaying component options."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:286
+#: includes/class-wc-cp-rest-api.php:285
 msgid "Controls how new Thumbnails are loaded into the Component Options view. Applicable when the Options Style of this Component is set to Thumbnails."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:292
+#: includes/class-wc-cp-rest-api.php:291
 msgid "Controls how Component Option prices are displayed. Applicable when Priced Individually is enabled for this Component."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:298
+#: includes/class-wc-cp-rest-api.php:297
 msgid "Whether to display sorting options in this Component."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:303
+#: includes/class-wc-cp-rest-api.php:302
 msgid "Whether to display filtering options in this Component."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:308
+#: includes/class-wc-cp-rest-api.php:307
 msgid "Attribute IDs to use for creating Component Option filters."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:316
+#: includes/class-wc-cp-rest-api.php:315
 msgid "Controls the visibility of product titles in the Component Selection view."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:321
+#: includes/class-wc-cp-rest-api.php:320
 msgid "Controls the visibility of product short descriptions in the Component Selection view."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:326
+#: includes/class-wc-cp-rest-api.php:325
 msgid "Controls the visibility of product prices in the Component Selection view."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:331
+#: includes/class-wc-cp-rest-api.php:330
 msgid "Controls the visibility of product thumbnails in the Component Selection view."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:336
+#: includes/class-wc-cp-rest-api.php:335
 msgid "Controls the visibility of the subtotal associated with this Component in the single-product page."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:341
+#: includes/class-wc-cp-rest-api.php:340
 msgid "Controls the visibility of the subtotal associated with this Component in the cart page."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:346
+#: includes/class-wc-cp-rest-api.php:345
 msgid "Controls the visibility of the subtotal associated with this Component in order-related pages and e-mail notifications."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:354
+#: includes/class-wc-cp-rest-api.php:353
 msgid "Scenarios data. Applicable to composite-type products."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:361
+#: includes/class-wc-cp-rest-api.php:360
 msgid "Scenario ID."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:367
+#: includes/class-wc-cp-rest-api.php:366
 msgid "Name of the scenario."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:372
+#: includes/class-wc-cp-rest-api.php:371
 msgid "Optional short description of the scenario."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:377
+#: includes/class-wc-cp-rest-api.php:376
 msgid "Scenario matching conditions."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:393
-#: includes/class-wc-cp-rest-api.php:421
-#: includes/class-wc-cp-rest-api.php:524
+#: includes/class-wc-cp-rest-api.php:392
+#: includes/class-wc-cp-rest-api.php:420
+#: includes/class-wc-cp-rest-api.php:523
 msgid "Comparison modifier for the referenced product/variation IDs."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:412
+#: includes/class-wc-cp-rest-api.php:411
 msgid "Product/variation IDs in component targeted by the scenario (-1 = no selection)"
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:433
+#: includes/class-wc-cp-rest-api.php:432
 msgid "Scenario actions."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:443
+#: includes/class-wc-cp-rest-api.php:442
 msgid "Scenario action ID ('compat_group' action)."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:450
-#: includes/class-wc-cp-rest-api.php:469
-#: includes/class-wc-cp-rest-api.php:497
-#: includes/class-wc-cp-rest-api.php:545
+#: includes/class-wc-cp-rest-api.php:449
+#: includes/class-wc-cp-rest-api.php:468
+#: includes/class-wc-cp-rest-api.php:496
+#: includes/class-wc-cp-rest-api.php:544
 msgid "Indicates whether the scenario action is active."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:462
+#: includes/class-wc-cp-rest-api.php:461
 msgid "Scenario action ID ('conditional_components' action)."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:475
+#: includes/class-wc-cp-rest-api.php:474
 msgid "Components to hide."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:490
+#: includes/class-wc-cp-rest-api.php:489
 msgid "Scenario action ID ('conditional_options' action)."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:503
+#: includes/class-wc-cp-rest-api.php:502
 msgid "Component options to hide."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:516
+#: includes/class-wc-cp-rest-api.php:515
 msgid "Product/variation IDs to hide in component (-1 = no selection)"
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:539
+#: includes/class-wc-cp-rest-api.php:538
 msgid "Scenario action ID (by default 'compat_group' or 'conditional_components')."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:551
+#: includes/class-wc-cp-rest-api.php:550
 msgid "Scenario action data."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:562
+#: includes/class-wc-cp-rest-api.php:561
 msgid "Controls whether the Scenario will be enabled or disabled."
 msgstr ""
 
 #. translators: Component ID.
-#: includes/class-wc-cp-rest-api.php:721
+#: includes/class-wc-cp-rest-api.php:720
 msgid "Component ID #%s does not exist."
 msgstr ""
 
 #. translators: Scenario ID.
-#: includes/class-wc-cp-rest-api.php:824
+#: includes/class-wc-cp-rest-api.php:823
 msgid "Scenario ID #%s does not exist."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1142
+#: includes/class-wc-cp-rest-api.php:1141
 msgid "Invalid data - 'quantity_min' cannot be greater than 'quantity_max'."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1152
+#: includes/class-wc-cp-rest-api.php:1151
 msgid "Invalid data - No component options found."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1174
+#: includes/class-wc-cp-rest-api.php:1173
 msgid "Invalid data - Undefined title."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1179
+#: includes/class-wc-cp-rest-api.php:1178
 msgid "Invalid data - Bad thumbnail ID/URL."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1316
+#: includes/class-wc-cp-rest-api.php:1315
 msgid "Invalid data - Undefined sceario name."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1323
+#: includes/class-wc-cp-rest-api.php:1322
 msgid "Invalid data - Incorrect scenario action data."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1424
+#: includes/class-wc-cp-rest-api.php:1423
 msgid "ID of parent line item, applicable if the item is part of a composite."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1430
+#: includes/class-wc-cp-rest-api.php:1429
 msgid "IDs of composited line items, applicable if the item is a composite container."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1439
+#: includes/class-wc-cp-rest-api.php:1438
 msgid "Composite product configuration array. Must be defined when adding a composite-type line item to an order, to ensure components are added to the order as well."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1451
+#: includes/class-wc-cp-rest-api.php:1450
 msgid "Chosen product ID."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1456
+#: includes/class-wc-cp-rest-api.php:1455
 msgid "Chosen product quantity."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1461
+#: includes/class-wc-cp-rest-api.php:1460
 msgid "Chosen variation ID, if applicable."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1466
+#: includes/class-wc-cp-rest-api.php:1465
 msgid "Chosen variation data to pass into 'WC_Order::add_product', if applicable."
 msgstr ""
 
-#: includes/class-wc-cp-rest-api.php:1471
+#: includes/class-wc-cp-rest-api.php:1470
 msgid "Additional arguments to pass into 'WC_Order::add_product', if applicable."
 msgstr ""
 
 #. translators: Product title.
-#: includes/class-wc-cp-stock-manager.php:217
+#: includes/class-wc-cp-stock-manager.php:216
 msgid "Only 1 &quot;%s&quot; may be purchased."
 msgstr ""
 
 #. translators: Product title.
-#: includes/class-wc-cp-stock-manager.php:233
+#: includes/class-wc-cp-stock-manager.php:232
 msgid "&quot;%s&quot; cannot be purchased."
 msgstr ""
 
 #. translators: Product title.
-#: includes/class-wc-cp-stock-manager.php:253
+#: includes/class-wc-cp-stock-manager.php:252
 msgid "&quot;%s&quot; is out of stock."
 msgstr ""
 
 #. translators: %1$s: Product title, %2$s: Stock quantity.
-#: includes/class-wc-cp-stock-manager.php:270
+#: includes/class-wc-cp-stock-manager.php:269
 msgid "There is not enough stock of &quot;%1$s&quot; (%2$s remaining)."
 msgstr ""
 
 #. translators: %1$s: Product title, %2$s: Stock quantity, %3$s Product quantity in cart.
-#: includes/class-wc-cp-stock-manager.php:293
+#: includes/class-wc-cp-stock-manager.php:292
 msgid "There is not enough stock of &quot;%1$s&quot; (%2$s in stock, %3$s in your cart)."
 msgstr ""
 
 #. translators: %1$s: Regular price, %2$s: Price.
-#: includes/class-wc-product-composite.php:623
-#: includes/class-wc-product-composite.php:638
+#: includes/class-wc-product-composite.php:622
+#: includes/class-wc-product-composite.php:637
 msgctxt "Price range: from"
 msgid "%1$s%2$s"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:824
+#: includes/class-wc-product-composite.php:823
 msgid "configuration"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:824
+#: includes/class-wc-product-composite.php:823
 msgid "review"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:857
+#: includes/class-wc-product-composite.php:856
 msgid "Update Cart"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2420
+#: includes/class-wc-product-composite.php:2419
 msgid "Use defaults"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2421
+#: includes/class-wc-product-composite.php:2420
 msgid "Displays the price of the default configuration. Requires <strong>Default Option</strong> to be set in all non-optional Components."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2424
+#: includes/class-wc-product-composite.php:2423
 msgid "Calculate from/to"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2425
+#: includes/class-wc-product-composite.php:2424
 msgid "Builds a price string based on the configuration with the lowest/highest price."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2428
+#: includes/class-wc-product-composite.php:2427
 msgid "Hide"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2429
+#: includes/class-wc-product-composite.php:2428
 msgid "Hides the catalog price."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2447
+#: includes/class-wc-product-composite.php:2446
 msgid "Default"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2448
+#: includes/class-wc-product-composite.php:2447
 msgid "The add-to-cart form is displayed inside the single-product summary."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2451
+#: includes/class-wc-product-composite.php:2450
 msgid "Before Tabs"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2452
+#: includes/class-wc-product-composite.php:2451
 msgid "The add-to-cart form is displayed before the single-product tabs. Usually allocates the entire page width for displaying form content. Note that some themes may not support this option."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2470
+#: includes/class-wc-product-composite.php:2469
 msgid "Stacked"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2471
+#: includes/class-wc-product-composite.php:2470
 msgid "Components are stacked."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2475
+#: includes/class-wc-product-composite.php:2474
 msgid "Progressive"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2476
+#: includes/class-wc-product-composite.php:2475
 msgid "Components are stacked, wrapped in toggle-boxes and configured in sequence."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2480
+#: includes/class-wc-product-composite.php:2479
 msgid "Stepped"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2481
+#: includes/class-wc-product-composite.php:2480
 msgid "Components are viewed and configured step-by-step. The configuration is summarized in a final Review step."
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2488
+#: includes/class-wc-product-composite.php:2487
 msgid "Componentized"
 msgstr ""
 
-#: includes/class-wc-product-composite.php:2489
+#: includes/class-wc-product-composite.php:2488
 msgid "A variation of the Stepped layout that starts with a configuration Summary. Components can be configured in any sequence."
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:307
+#: includes/compatibility/class-wc-cp-compatibility.php:306
 msgid "Product Bundles"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:308
+#: includes/compatibility/class-wc-cp-compatibility.php:307
 msgid "WooCommerce Product Bundles"
 msgstr ""
 
 #. translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version.
-#: includes/compatibility/class-wc-cp-compatibility.php:311
-#: includes/compatibility/class-wc-cp-compatibility.php:322
-#: includes/compatibility/class-wc-cp-compatibility.php:343
+#: includes/compatibility/class-wc-cp-compatibility.php:310
+#: includes/compatibility/class-wc-cp-compatibility.php:321
+#: includes/compatibility/class-wc-cp-compatibility.php:342
 msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>Composite Products</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:320
+#: includes/compatibility/class-wc-cp-compatibility.php:319
 msgid "Composite Products - Conditional Images"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:329
+#: includes/compatibility/class-wc-cp-compatibility.php:328
 msgid "The <strong>Conditional Components</strong> mini-extension is now part of <strong>Composite Products</strong>. Please deactivate and remove the <strong>Composite Products - Conditional Components</strong> feature plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:340
-#: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:159
+#: includes/compatibility/class-wc-cp-compatibility.php:339
+#: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:158
 msgid "Product Add-Ons"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:341
+#: includes/compatibility/class-wc-cp-compatibility.php:340
 msgid "WooCommerce Product Add-Ons"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:160
+#: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:159
 msgid "Enable/disable Product Add-Ons of the selected option."
 msgstr ""
 
 #. translators: %1$s: Component title, %2$s: Message.
-#: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:229
-#: includes/compatibility/modules/class-wc-cp-nyp-compatibility.php:139
+#: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:228
+#: includes/compatibility/modules/class-wc-cp-nyp-compatibility.php:138
 msgid "Please check your &quot;%1$s&quot; configuration: %2$s"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-cp-et-compatibility.php:97
+#: includes/compatibility/modules/class-wc-cp-et-compatibility.php:96
 msgid "Unavailable when using the Divi builder."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-cp-pb-compatibility.php:44
+#: includes/compatibility/modules/class-wc-cp-pb-compatibility.php:43
 msgid "Composited None"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-cp-pb-compatibility.php:50
+#: includes/compatibility/modules/class-wc-cp-pb-compatibility.php:49
 msgid "Composited Flat"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-cp-pb-compatibility.php:56
+#: includes/compatibility/modules/class-wc-cp-pb-compatibility.php:55
 msgid "Composited Grouped"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-cp-pip-compatibility.php:348
-#: includes/compatibility/modules/class-wc-cp-pip-compatibility.php:350
+#: includes/compatibility/modules/class-wc-cp-pip-compatibility.php:347
+#: includes/compatibility/modules/class-wc-cp-pip-compatibility.php:349
 msgid "Packaged in:"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-cp-wl-compatibility.php:94
+#: includes/compatibility/modules/class-wc-cp-wl-compatibility.php:93
 msgid "For up-to-date pricing details, please add the product to your cart."
 msgstr ""
 
 #. translators: %1$s: Term, %2$s: Next term.
-#: includes/wc-cp-functions.php:519
+#: includes/wc-cp-functions.php:518
 msgctxt "term separator"
 msgid "%1$s&nbsp;&gt;&nbsp;%2$s"
 msgstr ""
 
 #. translators: %1$s: Term, %2$s: Next term.
-#: includes/wc-cp-functions.php:541
+#: includes/wc-cp-functions.php:540
 msgctxt "many terms separator"
 msgid "%1$s&nbsp;&gt;&nbsp;&hellip;&nbsp;&gt;&nbsp;%2$s"
 msgstr ""
 
-#: includes/wc-cp-template-functions.php:138
+#: includes/wc-cp-template-functions.php:137
 msgid "View previous steps"
 msgstr ""
 
-#: includes/wc-cp-template-functions.php:156
+#: includes/wc-cp-template-functions.php:155
 msgid "View next steps"
 msgstr ""
 
-#: includes/wc-cp-template-functions.php:951
+#: includes/wc-cp-template-functions.php:950
 msgid "Loading..."
 msgstr ""
 
-#: includes/wc-cp-template-functions.php:955
+#: includes/wc-cp-template-functions.php:954
 msgid "JavaScript must be supported by your browser and needs to be enabled in order to view this page."
 msgstr ""
 
-#: includes/wc-cp-template-functions.php:1230
+#: includes/wc-cp-template-functions.php:1229
 msgid "Clear"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-composite.php:36
+#: includes/widgets/class-wc-widget-composite.php:35
 msgid "Dynamic configuration summary for Composite Products."
 msgstr ""
 
-#: includes/widgets/class-wc-widget-composite.php:38
+#: includes/widgets/class-wc-widget-composite.php:37
 msgid "Composite Products Summary"
 msgstr ""
 
-#: includes/widgets/class-wc-widget-composite.php:42
+#: includes/widgets/class-wc-widget-composite.php:41
 #: templates/single-product/composite-summary.php:50
 #: templates/single-product/composite-summary.php:51
 msgid "Your Selections"

@@ -2,7 +2,6 @@
 /**
  * WC_CP_Admin class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    2.2.2
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Setup admin hooks.
  *
  * @class    WC_CP_Admin
- * @version  8.3.0
+ * @version  8.3.5
  */
 class WC_CP_Admin {
 
@@ -25,7 +24,7 @@ class WC_CP_Admin {
 	 *
 	 * @var string
 	 */
-	private static $bundled_selectsw_version = '1.1.6';
+	private static $bundled_selectsw_version = '1.1.7';
 
 	/**
 	 * Setup admin hooks.

@@ -2,7 +2,6 @@
 /**
  * WC_CP_Helpers class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.5.0
  */

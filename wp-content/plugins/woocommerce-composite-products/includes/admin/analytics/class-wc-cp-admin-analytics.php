@@ -2,9 +2,8 @@
 /**
  * WC_CP_Admin_Analytics class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
- * @since    8.3.0-dev
+ * @since    8.3.0
  */
 
 // Exit if accessed directly.
@@ -15,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Composite Products WooCommerce Analytics.
  *
- * @version  8.3.0-dev
+ * @version  8.3.0
  */
 class WC_CP_Admin_Analytics {
 

@@ -2,7 +2,6 @@
 /**
  * WC_CP_Background_Updater class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.7.0
  */

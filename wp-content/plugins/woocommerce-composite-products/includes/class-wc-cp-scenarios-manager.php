@@ -2,7 +2,6 @@
 /**
  * WC_CP_Scenarios_Manager class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.9.0
  */

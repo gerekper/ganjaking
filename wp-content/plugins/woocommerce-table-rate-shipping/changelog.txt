@@ -1,5 +1,9 @@
 *** Table Rate Shipping Changelog ***
 
+2021-12-13 - version 3.0.36
+* Fix   - Excluding the /languages folder in composer.json file.
+* Tweak - WC 5.9 compatibility.
+
 2021-11-17 - version 3.0.35
 * Fix 	- Min & max with zero value is not equal with empty.
 * Fix 	- Translations are not being loaded.

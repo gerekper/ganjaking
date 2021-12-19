@@ -2,9 +2,8 @@
 /**
  * REST API Reports composites controller.
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
- * @since    8.3.0-dev
+ * @since    8.3.0
  */
 
 // Exit if accessed directly.
@@ -17,7 +16,7 @@ use Automattic\WooCommerce\Admin\API\Reports\ExportableInterface;
 /**
  * WC_CP_Analytics_Revenue_REST_Controller class.
  *
- * @version 8.3.0-dev
+ * @version 8.3.0
  */
 class WC_CP_Analytics_Revenue_REST_Controller extends WC_REST_Reports_Controller implements ExportableInterface {
 

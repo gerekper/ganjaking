@@ -2,7 +2,6 @@
 /**
  * Composite Products DB update functions
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.7.0
  */

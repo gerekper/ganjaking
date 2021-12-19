@@ -2,7 +2,6 @@
 /**
  * Composite Products Deprecated Functions
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.5.2
  */

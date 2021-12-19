@@ -2,7 +2,6 @@
 /**
  * WC_CP_QV_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.4.4
  */

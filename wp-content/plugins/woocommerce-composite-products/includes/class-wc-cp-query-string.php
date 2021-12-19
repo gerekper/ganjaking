@@ -2,7 +2,6 @@
 /**
  * WC_CP_Query_String class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    6.3.0
  */

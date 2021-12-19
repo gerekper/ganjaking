@@ -2,7 +2,6 @@
 /**
  * Status Report data for CP.
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.13.9
  */

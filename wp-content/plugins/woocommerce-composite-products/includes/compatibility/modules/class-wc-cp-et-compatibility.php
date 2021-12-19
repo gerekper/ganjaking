@@ -2,7 +2,6 @@
 /**
  * WC_CP_ET_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    7.1.2
  */

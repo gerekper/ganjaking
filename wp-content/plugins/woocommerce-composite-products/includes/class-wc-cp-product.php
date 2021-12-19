@@ -2,7 +2,6 @@
 /**
  * WC_CP_Product class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    2.6.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composited Product wrapper class.
  *
  * @class    WC_CP_Product
- * @version  8.3.0
+ * @version  8.3.5
  */
 class WC_CP_Product {
 
@@ -1029,19 +1028,31 @@ class WC_CP_Product {
 	 */
 	public function get_discount() {
 
-		if ( $component = $this->get_component() ) {
-			$discount = $component->get_discount();
+		$discount  = '';
+		$component = $this->get_component();
+
+		if ( ! $component ) {
+			return $discount;
 		}
 
-		/**
-		 * 'woocommerce_composited_product_discount' filter.
-		 *
-		 * @since  6.0.0
-		 *
-		 * @param  mixed          $discount
-		 * @param  WC_CP_Product  $this
-		 */
-		return $this->is_priced_individually() ? apply_filters( 'woocommerce_composited_product_discount', $discount, $this ) : '';
+		if ( $component->is_priced_individually() ) {
+
+			if ( isset( $this->is_subscription_renewal ) ) {
+				return $discount;
+			}
+
+			/**
+			 * 'woocommerce_composited_product_discount' filter.
+			 *
+			 * @since  6.0.0
+			 *
+			 * @param  mixed          $discount
+			 * @param  WC_CP_Product  $this
+			 */
+			$discount = apply_filters( 'woocommerce_composited_product_discount', $component->get_discount(), $this );
+		}
+
+		return $discount;
 	}
 
 	/**

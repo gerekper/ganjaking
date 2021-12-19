@@ -2,7 +2,6 @@
 /**
  * WC_Product_Composite_Data_Store_CPT class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.9.0
  */

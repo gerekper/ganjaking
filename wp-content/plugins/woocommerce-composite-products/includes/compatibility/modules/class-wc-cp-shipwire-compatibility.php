@@ -2,7 +2,6 @@
 /**
  * WC_CP_Shipwire_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.8.0
  */

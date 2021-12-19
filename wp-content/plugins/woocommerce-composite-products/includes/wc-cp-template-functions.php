@@ -2,7 +2,6 @@
 /**
  * Composite Product Template Functions
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.2.0
  */

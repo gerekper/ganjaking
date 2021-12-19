@@ -1,6 +1,11 @@
+### 2.5.15.3
+- Fixed issue which caused multisites to experience a fatal error on plugin activation.
+
 ### 2.5.15.2
 - Fixed issue with Dynamic Field Map on some add-ons including HubSpot Add-On and User Registration Add-On.
+- Fixed issue with form import not properly sanitizing JSON string in some cases.
 - Fixed an issue where uploaded files are not deleted on entry deletion if a custom upload path is used.
+
 
 ### 2.5.15.1
 - Fixed performance issue with Generic Map settings field.

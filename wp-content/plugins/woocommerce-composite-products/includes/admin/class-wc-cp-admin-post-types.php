@@ -2,7 +2,6 @@
 /**
  * WC_CP_Admin_Post_Types class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.15.2
  */

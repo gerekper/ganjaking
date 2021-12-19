@@ -2,7 +2,6 @@
 /**
  * WC_CP_Zapier_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    8.1.1
  */

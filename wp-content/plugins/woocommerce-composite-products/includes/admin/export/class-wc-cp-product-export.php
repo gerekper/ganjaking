@@ -2,7 +2,6 @@
 /**
  * WC_CP_Product_Export class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.11.0
  */

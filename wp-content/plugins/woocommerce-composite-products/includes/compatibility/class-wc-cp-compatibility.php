@@ -2,7 +2,6 @@
 /**
  * WC_CP_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  */
 

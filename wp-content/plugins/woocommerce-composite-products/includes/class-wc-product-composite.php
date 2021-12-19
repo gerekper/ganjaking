@@ -2,7 +2,6 @@
 /**
  * WC_Product_Composite class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    1.0.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Product Class.
  *
  * @class    WC_Product_Composite
- * @version  8.3.0-dev
+ * @version  8.3.0
  */
 class WC_Product_Composite extends WC_Product {
 

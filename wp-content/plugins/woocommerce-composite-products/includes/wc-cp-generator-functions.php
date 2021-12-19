@@ -4,7 +4,6 @@
  *
  * PHP 5.5+ only.
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  */
 

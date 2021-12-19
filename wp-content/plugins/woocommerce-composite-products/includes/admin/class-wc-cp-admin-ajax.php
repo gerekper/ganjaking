@@ -2,7 +2,6 @@
 /**
  * WC_CP_Admin_Ajax class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.7.0
  */

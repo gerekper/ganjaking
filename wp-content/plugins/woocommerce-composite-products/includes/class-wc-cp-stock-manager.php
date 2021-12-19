@@ -2,7 +2,6 @@
 /**
  * WC_CP_Stock_Manager and WC_CP_Stock_Manager_Item classes
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.0.4
  */

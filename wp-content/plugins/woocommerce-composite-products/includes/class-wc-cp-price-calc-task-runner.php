@@ -2,7 +2,6 @@
 /**
  * WC_CP_Price_Calc_Task_Runner class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    4.0.0
  */

@@ -95,9 +95,11 @@ if ( ! class_exists( 'WC_Google_Distance_Matrix_API' ) ) {
 		 * @param  string $avoid       Avoid.
 		 * @param  string $units       Units.
 		 * @param  mixed  $region      Region.
+		 * @param  string $language    Language.
+		 * 
 		 * @return array
 		 */
-		public function get_distance( $origin, $destination, $sensor = 'false', $mode = 'driving', $avoid = '', $units = 'metric', $region = false ) {
+		public function get_distance( $origin, $destination, $sensor = 'false', $mode = 'driving', $avoid = '', $units = 'metric', $region = false, $language = '' ) {
 			$transient = md5( http_build_query( array(
 				'name'        => 'wc_distance_rate',
 				'origin'      => $origin,
@@ -107,26 +109,33 @@ if ( ! class_exists( 'WC_Google_Distance_Matrix_API' ) ) {
 				'avoid'       => $avoid,
 				'units'       => $units,
 				'region'      => $region,
+				'language'    => $language,
 			) ) );
 
 			$distance = get_transient( $transient );
+
 			if ( false === $distance ) {
 				if ( $this->debug ) {
 					wc_add_notice( 'Distance not found in cache, will perform API request.', 'notice' );
 				}
 
-				$params = array();
-				$params['origins'] = $origin;
+				$params                 = array();
+				$params['origins']      = $origin;
 				$params['destinations'] = $destination;
-				$params['mode'] = $mode;
+				$params['mode']         = $mode;
+				
 				if ( ! empty( $avoid ) ) {
 					$params['avoid'] = $avoid;
 				}
-				$params['units'] = $units;
+
+				$params['units']  = $units;
 				$params['sensor'] = $sensor;
+
 				if ( ! empty( $region ) ) {
 					$params['region'] = $region;
 				}
+
+				$params['language'] = $language;
 				
 				/**
 				 * Filters the Google Distance Matrix API request parameters.

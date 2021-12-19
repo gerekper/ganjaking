@@ -2,7 +2,6 @@
 /**
  * WC_CP_Stripe_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    7.1.4
  */

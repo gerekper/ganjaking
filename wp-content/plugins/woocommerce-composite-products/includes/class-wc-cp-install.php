@@ -2,7 +2,6 @@
 /**
  * WC_CP_Install class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.7.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles installation and updating tasks. Not much to see here, folks!
  *
  * @class    WC_CP_Install
- * @version  8.3.0-dev
+ * @version  8.3.0
  */
 class WC_CP_Install {
 
@@ -260,7 +259,7 @@ class WC_CP_Install {
 	 * Tables:
 	 *     wc_order_composite_lookup - Used for the analytics.
 	 *
-	 * @since  8.3.0-dev
+	 * @since  8.3.0
 	 */
 	private static function create_tables() {
 		global $wpdb;
@@ -272,7 +271,7 @@ class WC_CP_Install {
 	/**
 	 * Get table schema.
 	 *
-	 * @since  8.3.0-dev
+	 * @since  8.3.0
 	 *
 	 * @return string
 	 */

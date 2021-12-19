@@ -617,7 +617,10 @@ if ( ! class_exists( 'WC_Shipping_Distance_Rate' ) ) {
 				$region = 'uk';
 			}
 
-			$distance = $this->get_api()->get_distance( $this->get_shipping_address_string(), $this->get_customer_address_string( $package ), false, $this->mode, $this->avoid, $this->unit, $region );
+			// Get language code to allow localization.
+			$language = get_bloginfo("language");
+			
+			$distance = $this->get_api()->get_distance( $this->get_shipping_address_string(), $this->get_customer_address_string( $package ), false, $this->mode, $this->avoid, $this->unit, $region, $language );
 
 			// Check if a valid response was received.
 			if ( ! isset( $distance->rows[0] ) || 'OK' !== $distance->rows[0]->elements[0]->status ) {

@@ -2,7 +2,6 @@
 /**
  * WC_CP_Notices class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    7.0.4
  */

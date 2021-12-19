@@ -2,7 +2,6 @@
 /**
  * WC_CP_Cart class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    2.2.2
  */
@@ -15,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) )
  * Composite products cart API and hooks.
  *
  * @class    WC_CP_Cart
- * @version  8.3.0
+ * @version  8.3.5
  */
 
 class WC_CP_Cart {
@@ -916,7 +915,15 @@ class WC_CP_Cart {
 
 			$component_option = $composite->get_component_option( $component_id, $cart_item[ 'product_id' ] );
 
-			if ( $component_option && false === $component_option->is_shipped_individually() ) {
+			if ( ! $component_option ) {
+				return $cart_item;
+			}
+
+			if ( isset( $cart_item[ 'subscription_renewal' ] ) ) {
+				$component_option->is_subscription_renewal = true;
+			}
+
+			if ( false === $component_option->is_shipped_individually() ) {
 
 				if ( $component_option->is_weight_aggregated( $cart_item[ 'data' ] ) ) {
 

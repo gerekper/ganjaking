@@ -2,7 +2,6 @@
 /**
  * Composite Widget Functions
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.0.0
  */

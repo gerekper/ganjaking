@@ -2,9 +2,8 @@
 /**
  * WC_CP_Admin_Analytics_Sync class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
- * @since    8.3.0-dev
+ * @since    8.3.0
  */
 
 // Exit if accessed directly.
@@ -19,7 +18,7 @@ use Automattic\WooCommerce\Admin\API\Reports\Products\DataStore as ProductsDataS
  * Admin Reports Class for syncing the lookup table.
  *
  * @class    WC_CP_Admin_Analytics_Sync
- * @version  8.3.0-dev
+ * @version  8.3.0
  */
 class WC_CP_Admin_Analytics_Sync {
 

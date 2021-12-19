@@ -2,9 +2,8 @@
 /**
  * REST API Reports data store.
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
- * @since    8.3.0-dev
+ * @since    8.3.0
  */
 
 // Exit if accessed directly.
@@ -19,7 +18,7 @@ use Automattic\WooCommerce\Admin\API\Reports\DataStoreInterface;
 /**
  * WC_CP_REST_Reports_Composite_Products_Data_Store class.
  *
- * @version 8.3.0-dev
+ * @version 8.3.0
  */
 abstract class WC_CP_Analytics_Data_Store extends ReportsDataStore implements DataStoreInterface {
 

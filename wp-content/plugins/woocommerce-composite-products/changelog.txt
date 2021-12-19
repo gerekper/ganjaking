@@ -1,5 +1,8 @@
 *** WooCommerce Composite Products ***
 
+2021.12.15 - version 8.3.5
+* Fix - Fixed an issue that made component discounts apply twice when manually renewing a Composite Product on subscription. 
+
 2021.12.02 - version 8.3.4
 * Feature - Added compatibility with PayPal Payments to hide quick pay buttons in Composite product pages.
 * Dev - Added 'woocommerce_composite_after_composite_price' action hook.

@@ -4,9 +4,8 @@
  *
  * Class for parameter-based Products Stats Report querying
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
- * @since    8.3.0-dev
+ * @since    8.3.0
  */
 
 // Exit if accessed directly.
@@ -19,7 +18,7 @@ use Automattic\WooCommerce\Admin\API\Reports\Query as ReportsQuery;
 /**
  * WC_CP_Analytics_Revenue_Query class.
  *
- * @version 8.3.0-dev
+ * @version 8.3.0
  */
 class WC_CP_Analytics_Revenue_Query extends ReportsQuery {
 

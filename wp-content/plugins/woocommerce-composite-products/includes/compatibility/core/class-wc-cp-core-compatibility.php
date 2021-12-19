@@ -2,7 +2,6 @@
 /**
  * WC_CP_Core_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Composite Products
  * @since    3.5.2
  */
@@ -57,7 +56,7 @@ class WC_CP_Core_Compatibility {
 	/**
 	 * Cache 'is_wc_admin_active' result.
 	 *
-	 * @since 8.3.0-dev
+	 * @since 8.3.0
 	 * @var   bool
 	 */
 	private static $is_wc_admin_active;
@@ -533,7 +532,7 @@ class WC_CP_Core_Compatibility {
 	/**
 	 * True if 'wc-admin' is active.
 	 *
-	 * @since  8.3.0-dev
+	 * @since  8.3.0
 	 *
 	 * @return boolean
 	 */
