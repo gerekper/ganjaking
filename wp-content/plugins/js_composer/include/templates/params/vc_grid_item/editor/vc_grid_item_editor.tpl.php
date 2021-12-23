@@ -8,7 +8,7 @@ $nav_bar->render();
 $custom_tag = 'script';
 ?>
 <div class="metabox-composer-content">
-	<div id="visual_composer_content" class="wpb_main_sortable main_wrapper"
+	<div id="wpbakery_content" class="wpb_main_sortable main_wrapper"
 		data-type="<?php echo esc_attr( get_post_type() ); ?>"></div>
 	<div id="vc_gitem-preview" class="main_wrapper vc_gitem-preview" data-vc-grid-item="preview">
 	</div>

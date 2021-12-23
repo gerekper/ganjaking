@@ -234,7 +234,7 @@ class RevSliderShortcodeWizard extends RevSliderFunctions {
 		$rs_color_picker_presets = RSColorpicker::get_color_presets();
 		
 		?>
-		<script type="text/javascript">
+		<script>
             var ajaxurl = '<?php echo esc_js( admin_url( 'admin-ajax.php', 'relative' ) ); ?>';
 			window.RVS = window.RVS === undefined ? {F:{}, C:{}, ENV:{}, LIB:{}, V:{}, S:{}} : window.RVS;
 			RVS.LIB.OBJ = RVS.LIB.OBJ===undefined ? {} : RVS.LIB.OBJ;

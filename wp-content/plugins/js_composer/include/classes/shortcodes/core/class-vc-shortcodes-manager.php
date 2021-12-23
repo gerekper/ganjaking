@@ -35,10 +35,6 @@ require_once $this->path( 'SHORTCODES_DIR', 'core/class-wpbakeryshortcodescontai
  *
  * Class Vc_Shortcodes_Manager
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Shortcodes_Manager {
 	private $shortcode_classes = array(
 		'default' => array(),

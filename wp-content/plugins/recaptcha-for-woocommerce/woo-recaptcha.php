@@ -3,11 +3,11 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.24
+ * Version: 2.25
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
- * WC tested up to: 5.8.0
+ * WC tested up to: 5.8.2
  * Text Domain:recaptcha-for-woocommerce
  * Domain Path: languages/
  * Woo: 5347485:aeae74683dd892d43ed390cc28533524
@@ -3285,6 +3285,7 @@ class I13_Woo_Recpatcha {
 				
 		} else {
 
+					
 			if (isset($_POST['woocommerce_add_payment_method']) && ( isset($_REQUEST['woocommerce-add-payment-method-nonce']) || isset($_REQUEST['_wpnonce']) )) {
 		
 				$i13_recapcha_add_payment_method_score_threshold_v3 = get_option('i13_recapcha_add_payment_method_score_threshold_v3');
@@ -3305,124 +3306,129 @@ class I13_Woo_Recpatcha {
 				$is_enabled = get_option('i13_recapcha_enable_on_addpaymentmethod');
 
 				$nonce_value = '';
-								
-				if (isset($_REQUEST['woocommerce-add-payment-method-nonce']) && !empty($_REQUEST['woocommerce-add-payment-method-nonce'])) {
+					
+				if ('yes' == $is_enabled && isset($_POST['woocommerce_add_payment_method']) && isset($_POST['payment_method'])) {
+									
+					if (isset($_REQUEST['woocommerce-add-payment-method-nonce']) && !empty($_REQUEST['woocommerce-add-payment-method-nonce'])) {
 
-					$nonce_value = sanitize_text_field($_REQUEST['woocommerce-add-payment-method-nonce']); // @codingStandardsIgnoreLine.
-				} else if (isset($_REQUEST['_wpnonce']) && !empty($_REQUEST['_wpnonce'])) {
+							$nonce_value = sanitize_text_field($_REQUEST['woocommerce-add-payment-method-nonce']); // @codingStandardsIgnoreLine.
+					} else if (isset($_REQUEST['_wpnonce']) && !empty($_REQUEST['_wpnonce'])) {
 
-					$nonce_value = sanitize_text_field($_REQUEST['_wpnonce']); // @codingStandardsIgnoreLine.
-				}
-
-				if (wp_verify_nonce($nonce_value, 'woocommerce-add-payment-method')) {
-
-
-						   
-					if (isset($_POST['i13_recaptcha_payment_method_token']) && !empty($_POST['i13_recaptcha_payment_method_token'])) {
-						// Google reCAPTCHA API secret key 
-						$response = sanitize_text_field($_POST['i13_recaptcha_payment_method_token']);
-
-						// Verify the reCAPTCHA response 
-						$verifyResponse = wp_remote_post(
-							'https://www.' . esc_html(sanitize_text_field($this->get_recaptcha_domain())) . '/recaptcha/api/siteverify',
-							array(
-							'method'      => 'POST',
-							'timeout'     => 45,
-							'body'        => array(
-							'secret' => $secret_key,
-							'response' => $response
-							)
-
-							)
-						);
+							$nonce_value = sanitize_text_field($_REQUEST['_wpnonce']); // @codingStandardsIgnoreLine.
+					}
+					if (!empty($nonce_value)) {
+										
+						if (wp_verify_nonce($nonce_value, 'woocommerce-add-payment-method')) {
 
 
-						if (is_array($verifyResponse) && !is_wp_error($verifyResponse) && isset($verifyResponse['body'])) {
 
-									 // Decode json data 
-									 $responseData = json_decode($verifyResponse['body']);
-													
-									 // If reCAPTCHA response is valid 
-							if (!$responseData->success) {
+							if (isset($_POST['i13_recaptcha_payment_method_token']) && !empty($_POST['i13_recaptcha_payment_method_token'])) {
+												// Google reCAPTCHA API secret key 
+												$response = sanitize_text_field($_POST['i13_recaptcha_payment_method_token']);
+
+												// Verify the reCAPTCHA response 
+												$verifyResponse = wp_remote_post(
+														'https://www.' . esc_html(sanitize_text_field($this->get_recaptcha_domain())) . '/recaptcha/api/siteverify',
+														array(
+														'method'      => 'POST',
+														'timeout'     => 45,
+														'body'        => array(
+														'secret' => $secret_key,
+														'response' => $response
+														)
+
+														)
+												);
 
 
-								if (''==trim($recapcha_error_msg_captcha_invalid)) {
+								if (is_array($verifyResponse) && !is_wp_error($verifyResponse) && isset($verifyResponse['body'])) {
 
-									return wc_add_notice(__('Google reCAPTCHA verification failed, please try again later.', 'recaptcha-for-woocommerce'), 'error');
-																	 
+									// Decode json data 
+									$responseData = json_decode($verifyResponse['body']);
 
+									// If reCAPTCHA response is valid 
+									if (!$responseData->success) {
+
+
+										if (''==trim($recapcha_error_msg_captcha_invalid)) {
+
+											return wc_add_notice(__('Google reCAPTCHA verification failed, please try again later.', 'recaptcha-for-woocommerce'), 'error');
+
+
+										} else {
+
+											return wc_add_notice($recapcha_error_msg_captcha_invalid, 'error');
+
+
+										}
+									} else {
+
+
+
+										if ($responseData->score < $i13_recapcha_add_payment_method_score_threshold_v3 || $responseData->action!=$i13_recapcha_add_payment_method_action_v3) {
+
+											if (''==trim($recapcha_error_msg_captcha_invalid)) {
+
+																		return wc_add_notice(__('Google reCAPTCHA verification failed, please try again later.', 'recaptcha-for-woocommerce'), 'error');
+
+
+
+
+
+											} else {
+
+																				return wc_add_notice($recapcha_error_msg_captcha_invalid, 'error');
+
+
+
+											}
+
+										}
+
+
+									}
 								} else {
 
-									return wc_add_notice($recapcha_error_msg_captcha_invalid, 'error');
-																		 
+									if (''==trim($recapcha_error_msg_captcha_no_response)) {
 
-								}
-							} else {
-
-
-
-								if ($responseData->score < $i13_recapcha_add_payment_method_score_threshold_v3 || $responseData->action!=$i13_recapcha_add_payment_method_action_v3) {
-
-									if (''==trim($recapcha_error_msg_captcha_invalid)) {
-
-										return wc_add_notice(__('Google reCAPTCHA verification failed, please try again later.', 'recaptcha-for-woocommerce'), 'error');
-																			
+																return wc_add_notice(__('Could not get response from reCAPTCHA server.', 'recaptcha-for-woocommerce'), 'error');
 
 
 
 
 									} else {
 
-										return wc_add_notice($recapcha_error_msg_captcha_invalid, 'error');
-																				
+																	return wc_add_notice($recapcha_error_msg_captcha_no_response, 'error');
+
+
 
 
 									}
 
 								}
-														  
-
-							}
-						} else {
-
-							if (''==trim($recapcha_error_msg_captcha_no_response)) {
-
-								return wc_add_notice(__('Could not get response from reCAPTCHA server.', 'recaptcha-for-woocommerce'), 'error');
-															 
-
-
-
 							} else {
 
-								return wc_add_notice($recapcha_error_msg_captcha_no_response, 'error');
-															  
+								if (''==trim($recapcha_error_msg_captcha_blank)) {
 
+									return wc_add_notice(__('Google reCAPTCHA token is missing.', 'recaptcha-for-woocommerce'), 'error');
+
+
+
+
+								} else {
+
+									return wc_add_notice($recapcha_error_msg_captcha_blank, 'error');
+
+
+
+
+								}
 
 
 							}
 
 						}
-					} else {
-
-						if (''==trim($recapcha_error_msg_captcha_blank)) {
-
-							return wc_add_notice(__('Google reCAPTCHA token is missing.', 'recaptcha-for-woocommerce'), 'error');
-													  
-
-
-
-						} else {
-
-							return wc_add_notice($recapcha_error_msg_captcha_blank, 'error');
-													
-
-
-
-						}
-
-
 					}
-								
 				}
 			}
 

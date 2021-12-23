@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-18 16:46+0200\n"
-"PO-Revision-Date: 2021-02-18 16:49+0200\n"
+"POT-Creation-Date: 2021-12-14 17:07+0200\n"
+"PO-Revision-Date: 2021-12-14 17:08+0200\n"
 "Last-Translator: Alireza Hesari <www.alirezahesari."
 "ir>@<alirezahesari1812@gmail.com>\n"
 "Language-Team: Persian\n"
@@ -97,11 +97,11 @@ msgstr "متن دکمه"
 #: config/./deprecated/shortcode-vc-button2.php:19
 #: config/./deprecated/shortcode-vc-cta-button.php:35
 #: config/./deprecated/shortcode-vc-cta-button2.php:65
-#: include/./params/vc_grid_item/shortcodes.php:27
-#: include/./params/vc_grid_item/shortcodes.php:70
-#: include/./params/vc_grid_item/shortcodes.php:547
-#: include/./params/vc_grid_item/shortcodes.php:887
-#: include/./params/vc_grid_item/shortcodes.php:898
+#: include/./params/vc_grid_item/shortcodes.php:38
+#: include/./params/vc_grid_item/shortcodes.php:82
+#: include/./params/vc_grid_item/shortcodes.php:572
+#: include/./params/vc_grid_item/shortcodes.php:912
+#: include/./params/vc_grid_item/shortcodes.php:923
 msgid "URL (Link)"
 msgstr "URL (لینک)"
 
@@ -119,10 +119,10 @@ msgstr "اضافه کردن لینک به دکمه ."
 #: config/./content/shortcode-vc-text-separator.php:100
 #: config/./content/shortcode-vc-toggle.php:48
 #: config/./grids/class-vc-grids-common.php:415
-#: config/./tta/shortcode-vc-tta-accordion.php:33
-#: config/./tta/shortcode-vc-tta-tabs.php:33
-#: config/./tta/shortcode-vc-tta-tour.php:33
-#: include/./params/vc_grid_item/shortcodes.php:485
+#: config/./tta/shortcode-vc-tta-accordion.php:65
+#: config/./tta/shortcode-vc-tta-tabs.php:65
+#: config/./tta/shortcode-vc-tta-tour.php:65
+#: include/./params/vc_grid_item/shortcodes.php:509
 msgid "Style"
 msgstr "استایل"
 
@@ -133,18 +133,18 @@ msgstr "انتخاب استایل دکمه"
 #: config/./buttons/shortcode-vc-btn.php:69
 #: config/./content/shortcode-vc-line-chart.php:40
 #: config/./content/shortcode-vc-round-chart.php:39
-#: config/./tta/shortcode-vc-tta-accordion.php:29
-#: config/./tta/shortcode-vc-tta-tabs.php:29
-#: config/./tta/shortcode-vc-tta-tour.php:29
+#: config/./tta/shortcode-vc-tta-accordion.php:61
+#: config/./tta/shortcode-vc-tta-tabs.php:61
+#: config/./tta/shortcode-vc-tta-tour.php:61
 msgid "Modern"
 msgstr "مدرن"
 
 #: config/./buttons/shortcode-vc-btn.php:70
 #: config/./buttons/shortcode-vc-cta.php:108
 #: config/./buttons/shortcode-vc-cta.php:143
-#: config/./tta/shortcode-vc-tta-accordion.php:28
-#: config/./tta/shortcode-vc-tta-tabs.php:28
-#: config/./tta/shortcode-vc-tta-tour.php:28
+#: config/./tta/shortcode-vc-tta-accordion.php:60
+#: config/./tta/shortcode-vc-tta-tabs.php:60
+#: config/./tta/shortcode-vc-tta-tour.php:60
 msgid "Classic"
 msgstr "کلاسیک"
 
@@ -152,17 +152,17 @@ msgstr "کلاسیک"
 #: config/./buttons/shortcode-vc-cta.php:109
 #: config/./content/shortcode-vc-line-chart.php:39
 #: config/./content/shortcode-vc-round-chart.php:38
-#: config/./tta/shortcode-vc-tta-accordion.php:30
-#: config/./tta/shortcode-vc-tta-tabs.php:30
-#: config/./tta/shortcode-vc-tta-tour.php:30
+#: config/./tta/shortcode-vc-tta-accordion.php:62
+#: config/./tta/shortcode-vc-tta-tabs.php:62
+#: config/./tta/shortcode-vc-tta-tour.php:62
 msgid "Flat"
 msgstr "فلت"
 
 #: config/./buttons/shortcode-vc-btn.php:72
 #: config/./buttons/shortcode-vc-cta.php:110
-#: config/./tta/shortcode-vc-tta-accordion.php:31
-#: config/./tta/shortcode-vc-tta-tabs.php:31
-#: config/./tta/shortcode-vc-tta-tour.php:31
+#: config/./tta/shortcode-vc-tta-accordion.php:63
+#: config/./tta/shortcode-vc-tta-tabs.php:63
+#: config/./tta/shortcode-vc-tta-tour.php:63
 msgid "Outline"
 msgstr "طرح کلی"
 
@@ -180,8 +180,8 @@ msgstr "3بعدی"
 #: config/./content/shortcode-vc-round-chart.php:40
 #: config/./content/shortcode-vc-round-chart.php:63
 #: include/./classes/shortcodes/vc-row.php:52
-#: include/./params/vc_grid_item/shortcodes.php:19
-#: include/./params/vc_grid_item/shortcodes.php:252
+#: include/./params/vc_grid_item/shortcodes.php:18
+#: include/./params/vc_grid_item/shortcodes.php:264
 #: include/./templates/pages/partials/vc-roles-parts/_post_types.tpl.php:15
 #: include/./templates/pages/partials/vc-roles-parts/_settings.tpl.php:18
 #: include/./templates/pages/partials/vc-roles-parts/_shortcodes.tpl.php:33
@@ -273,9 +273,9 @@ msgstr "انتخاب رنگ متن شناور برای عنصر خود ."
 #: config/./deprecated/shortcode-vc-button2.php:46
 #: config/./deprecated/shortcode-vc-cta-button2.php:32
 #: config/./deprecated/shortcode-vc-cta-button2.php:78
-#: config/./tta/shortcode-vc-tta-accordion.php:44
-#: config/./tta/shortcode-vc-tta-tabs.php:44
-#: config/./tta/shortcode-vc-tta-tour.php:44
+#: config/./tta/shortcode-vc-tta-accordion.php:76
+#: config/./tta/shortcode-vc-tta-tabs.php:76
+#: config/./tta/shortcode-vc-tta-tour.php:76
 msgid "Shape"
 msgstr "شکل"
 
@@ -291,10 +291,10 @@ msgstr "شکل دکمه را انتخاب کنید."
 #: config/./grids/class-vc-grids-common.php:418
 #: config/./grids/class-vc-grids-common.php:503
 #: config/./grids/class-vc-grids-common.php:876
-#: config/./tta/shortcode-vc-tta-accordion.php:40
-#: config/./tta/shortcode-vc-tta-tabs.php:40
-#: config/./tta/shortcode-vc-tta-tour.php:40
-#: include/./params/vc_grid_item/shortcodes.php:490
+#: config/./tta/shortcode-vc-tta-accordion.php:72
+#: config/./tta/shortcode-vc-tta-tabs.php:72
+#: config/./tta/shortcode-vc-tta-tour.php:72
+#: include/./params/vc_grid_item/shortcodes.php:514
 msgid "Rounded"
 msgstr "گرد شده"
 
@@ -303,9 +303,9 @@ msgstr "گرد شده"
 #: config/./content/shortcode-vc-hoverbox.php:151
 #: config/./content/shortcode-vc-message.php:131
 #: config/./content/vc-icon-element.php:186
-#: config/./tta/shortcode-vc-tta-accordion.php:41
-#: config/./tta/shortcode-vc-tta-tabs.php:41
-#: config/./tta/shortcode-vc-tta-tour.php:41
+#: config/./tta/shortcode-vc-tta-accordion.php:73
+#: config/./tta/shortcode-vc-tta-tabs.php:73
+#: config/./tta/shortcode-vc-tta-tour.php:73
 msgid "Square"
 msgstr "مربع"
 
@@ -313,9 +313,9 @@ msgstr "مربع"
 #: config/./buttons/shortcode-vc-cta.php:99
 #: config/./content/shortcode-vc-hoverbox.php:153
 #: config/./content/shortcode-vc-message.php:133
-#: config/./tta/shortcode-vc-tta-accordion.php:42
-#: config/./tta/shortcode-vc-tta-tabs.php:42
-#: config/./tta/shortcode-vc-tta-tour.php:42
+#: config/./tta/shortcode-vc-tta-accordion.php:74
+#: config/./tta/shortcode-vc-tta-tabs.php:74
+#: config/./tta/shortcode-vc-tta-tour.php:74
 msgid "Round"
 msgstr "گرد"
 
@@ -335,10 +335,10 @@ msgstr "گرد"
 #: config/./deprecated/shortcode-vc-cta-button.php:52
 #: config/./deprecated/shortcode-vc-cta-button2.php:85
 #: config/./grids/class-vc-grids-common.php:464
-#: config/./tta/shortcode-vc-tta-accordion.php:52
-#: config/./tta/shortcode-vc-tta-tabs.php:50
-#: config/./tta/shortcode-vc-tta-tour.php:50
-#: include/./params/vc_grid_item/shortcodes.php:500
+#: config/./tta/shortcode-vc-tta-accordion.php:84
+#: config/./tta/shortcode-vc-tta-tabs.php:82
+#: config/./tta/shortcode-vc-tta-tour.php:82
+#: include/./params/vc_grid_item/shortcodes.php:524
 msgid "Color"
 msgstr "رنگ"
 
@@ -374,10 +374,11 @@ msgstr "انتخاب اندازه نمایش دکمه  ."
 #: config/./content/shortcode-vc-zigzag.php:34
 #: config/./deprecated/shortcode-vc-button2.php:34
 #: config/./grids/class-vc-grids-common.php:448
-#: config/./tta/shortcode-vc-tta-accordion.php:110
-#: config/./tta/shortcode-vc-tta-tabs.php:121
-#: config/./tta/shortcode-vc-tta-tour.php:121
-#: include/./params/vc_grid_item/shortcodes.php:652
+#: config/./tta/shortcode-vc-tta-accordion.php:142
+#: config/./tta/shortcode-vc-tta-tabs.php:153
+#: config/./tta/shortcode-vc-tta-tour.php:153
+#: include/./params/vc_grid_item/shortcodes.php:497
+#: include/./params/vc_grid_item/shortcodes.php:677
 msgid "Alignment"
 msgstr "ترازبندی"
 
@@ -410,15 +411,16 @@ msgstr "اینلاین"
 #: config/./deprecated/shortcode-vc-cta-button.php:78
 #: config/./deprecated/shortcode-vc-cta-button2.php:105
 #: config/./grids/class-vc-grids-common.php:452
-#: config/./tta/shortcode-vc-tta-accordion.php:106
-#: config/./tta/shortcode-vc-tta-accordion.php:158
-#: config/./tta/shortcode-vc-tta-tabs.php:117
-#: config/./tta/shortcode-vc-tta-tour.php:107
-#: config/./tta/shortcode-vc-tta-tour.php:117
+#: config/./tta/shortcode-vc-tta-accordion.php:138
+#: config/./tta/shortcode-vc-tta-accordion.php:190
+#: config/./tta/shortcode-vc-tta-tabs.php:149
+#: config/./tta/shortcode-vc-tta-tour.php:139
+#: config/./tta/shortcode-vc-tta-tour.php:149
 #: include/./classes/shortcodes/vc-gitem-col.php:33
-#: include/./params/vc_grid_item/shortcodes.php:566
-#: include/./params/vc_grid_item/shortcodes.php:655
-#: include/./params/vc_grid_item/shortcodes.php:774
+#: include/./params/vc_grid_item/shortcodes.php:500
+#: include/./params/vc_grid_item/shortcodes.php:591
+#: include/./params/vc_grid_item/shortcodes.php:680
+#: include/./params/vc_grid_item/shortcodes.php:799
 msgid "Left"
 msgstr "چپ"
 
@@ -438,15 +440,16 @@ msgstr "چپ"
 #: config/./deprecated/shortcode-vc-cta-button.php:77
 #: config/./deprecated/shortcode-vc-cta-button2.php:104
 #: config/./grids/class-vc-grids-common.php:453
-#: config/./tta/shortcode-vc-tta-accordion.php:107
-#: config/./tta/shortcode-vc-tta-accordion.php:159
-#: config/./tta/shortcode-vc-tta-tabs.php:118
-#: config/./tta/shortcode-vc-tta-tour.php:108
-#: config/./tta/shortcode-vc-tta-tour.php:118
+#: config/./tta/shortcode-vc-tta-accordion.php:139
+#: config/./tta/shortcode-vc-tta-accordion.php:191
+#: config/./tta/shortcode-vc-tta-tabs.php:150
+#: config/./tta/shortcode-vc-tta-tour.php:140
+#: config/./tta/shortcode-vc-tta-tour.php:150
 #: include/./classes/shortcodes/vc-gitem-col.php:41
-#: include/./params/vc_grid_item/shortcodes.php:567
-#: include/./params/vc_grid_item/shortcodes.php:656
-#: include/./params/vc_grid_item/shortcodes.php:775
+#: include/./params/vc_grid_item/shortcodes.php:501
+#: include/./params/vc_grid_item/shortcodes.php:592
+#: include/./params/vc_grid_item/shortcodes.php:681
+#: include/./params/vc_grid_item/shortcodes.php:800
 msgid "Right"
 msgstr "راست"
 
@@ -461,13 +464,14 @@ msgstr "راست"
 #: config/./content/vc-icon-element.php:232
 #: config/./deprecated/shortcode-vc-button2.php:39
 #: config/./grids/class-vc-grids-common.php:451
-#: config/./tta/shortcode-vc-tta-accordion.php:108
-#: config/./tta/shortcode-vc-tta-tabs.php:119
-#: config/./tta/shortcode-vc-tta-tour.php:119
+#: config/./tta/shortcode-vc-tta-accordion.php:140
+#: config/./tta/shortcode-vc-tta-tabs.php:151
+#: config/./tta/shortcode-vc-tta-tour.php:151
 #: include/./classes/shortcodes/vc-gitem-col.php:37
-#: include/./params/vc_grid_item/shortcodes.php:568
-#: include/./params/vc_grid_item/shortcodes.php:657
-#: include/./params/vc_grid_item/shortcodes.php:776
+#: include/./params/vc_grid_item/shortcodes.php:502
+#: include/./params/vc_grid_item/shortcodes.php:593
+#: include/./params/vc_grid_item/shortcodes.php:682
+#: include/./params/vc_grid_item/shortcodes.php:801
 msgid "Center"
 msgstr "وسط"
 
@@ -511,7 +515,7 @@ msgstr "انتخاب مکان آیکون"
 #: config/./content/vc-icon-element.php:125
 #: config/./content/vc-icon-element.php:144
 #: config/./deprecated/shortcode-vc-button.php:54
-#: config/./tta/shortcode-vc-tta-accordion.php:151
+#: config/./tta/shortcode-vc-tta-accordion.php:183
 msgid "Icon"
 msgstr "آیکون"
 
@@ -559,10 +563,10 @@ msgstr "آیکون را از کتابخانه انتخاب کنید."
 #: config/./structure/shortcode-vc-raw-html.php:25
 #: config/./structure/shortcode-vc-raw-js.php:26
 #: config/./structure/shortcode-vc-widget-sidebar.php:29
-#: config/./tta/shortcode-vc-tta-accordion.php:179
+#: config/./tta/shortcode-vc-tta-accordion.php:211
 #: config/./tta/shortcode-vc-tta-pageable.php:99
-#: config/./tta/shortcode-vc-tta-tabs.php:182
-#: config/./tta/shortcode-vc-tta-tour.php:196
+#: config/./tta/shortcode-vc-tta-tabs.php:214
+#: config/./tta/shortcode-vc-tta-tour.php:228
 #: config/./wp/shortcode-vc-wp-archives.php:34
 #: config/./wp/shortcode-vc-wp-calendar.php:23
 #: config/./wp/shortcode-vc-wp-categories.php:35
@@ -616,10 +620,10 @@ msgstr "آی دی  المان"
 #: config/./structure/shortcode-vc-raw-html.php:27
 #: config/./structure/shortcode-vc-raw-js.php:28
 #: config/./structure/shortcode-vc-widget-sidebar.php:31
-#: config/./tta/shortcode-vc-tta-accordion.php:181
+#: config/./tta/shortcode-vc-tta-accordion.php:213
 #: config/./tta/shortcode-vc-tta-pageable.php:101
-#: config/./tta/shortcode-vc-tta-tabs.php:184
-#: config/./tta/shortcode-vc-tta-tour.php:198
+#: config/./tta/shortcode-vc-tta-tabs.php:216
+#: config/./tta/shortcode-vc-tta-tour.php:230
 #: config/./wp/shortcode-vc-wp-archives.php:36
 #: config/./wp/shortcode-vc-wp-calendar.php:25
 #: config/./wp/shortcode-vc-wp-categories.php:37
@@ -689,11 +693,11 @@ msgstr ""
 #: config/./structure/shortcode-vc-raw-html.php:31
 #: config/./structure/shortcode-vc-raw-js.php:32
 #: config/./structure/shortcode-vc-widget-sidebar.php:35
-#: config/./tta/shortcode-vc-tta-accordion.php:185
+#: config/./tta/shortcode-vc-tta-accordion.php:217
 #: config/./tta/shortcode-vc-tta-pageable.php:105
 #: config/./tta/shortcode-vc-tta-section.php:63
-#: config/./tta/shortcode-vc-tta-tabs.php:188
-#: config/./tta/shortcode-vc-tta-tour.php:202
+#: config/./tta/shortcode-vc-tta-tabs.php:220
+#: config/./tta/shortcode-vc-tta-tour.php:234
 #: config/./wp/shortcode-vc-wp-archives.php:40
 #: config/./wp/shortcode-vc-wp-calendar.php:29
 #: config/./wp/shortcode-vc-wp-categories.php:41
@@ -714,19 +718,19 @@ msgstr ""
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:79
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:149
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:93
-#: include/./params/vc_grid_item/shortcodes.php:61
-#: include/./params/vc_grid_item/shortcodes.php:181
-#: include/./params/vc_grid_item/shortcodes.php:306
-#: include/./params/vc_grid_item/shortcodes.php:331
-#: include/./params/vc_grid_item/shortcodes.php:397
-#: include/./params/vc_grid_item/shortcodes.php:414
-#: include/./params/vc_grid_item/shortcodes.php:430
-#: include/./params/vc_grid_item/shortcodes.php:461
-#: include/./params/vc_grid_item/shortcodes.php:524
-#: include/./params/vc_grid_item/shortcodes.php:600
-#: include/./params/vc_grid_item/shortcodes.php:622
-#: include/./params/vc_grid_item/shortcodes.php:664
-#: include/./params/vc_grid_item/shortcodes.php:807
+#: include/./params/vc_grid_item/shortcodes.php:72
+#: include/./params/vc_grid_item/shortcodes.php:193
+#: include/./params/vc_grid_item/shortcodes.php:318
+#: include/./params/vc_grid_item/shortcodes.php:343
+#: include/./params/vc_grid_item/shortcodes.php:409
+#: include/./params/vc_grid_item/shortcodes.php:426
+#: include/./params/vc_grid_item/shortcodes.php:442
+#: include/./params/vc_grid_item/shortcodes.php:473
+#: include/./params/vc_grid_item/shortcodes.php:548
+#: include/./params/vc_grid_item/shortcodes.php:625
+#: include/./params/vc_grid_item/shortcodes.php:647
+#: include/./params/vc_grid_item/shortcodes.php:689
+#: include/./params/vc_grid_item/shortcodes.php:832
 msgid "Extra class name"
 msgstr "نام کلاس اضافی"
 
@@ -794,19 +798,19 @@ msgstr "نام کلاس اضافی"
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:81
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:151
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:95
-#: include/./params/vc_grid_item/shortcodes.php:63
-#: include/./params/vc_grid_item/shortcodes.php:183
-#: include/./params/vc_grid_item/shortcodes.php:308
-#: include/./params/vc_grid_item/shortcodes.php:333
-#: include/./params/vc_grid_item/shortcodes.php:399
-#: include/./params/vc_grid_item/shortcodes.php:416
-#: include/./params/vc_grid_item/shortcodes.php:432
-#: include/./params/vc_grid_item/shortcodes.php:463
-#: include/./params/vc_grid_item/shortcodes.php:526
-#: include/./params/vc_grid_item/shortcodes.php:602
-#: include/./params/vc_grid_item/shortcodes.php:624
-#: include/./params/vc_grid_item/shortcodes.php:666
-#: include/./params/vc_grid_item/shortcodes.php:809
+#: include/./params/vc_grid_item/shortcodes.php:74
+#: include/./params/vc_grid_item/shortcodes.php:195
+#: include/./params/vc_grid_item/shortcodes.php:320
+#: include/./params/vc_grid_item/shortcodes.php:345
+#: include/./params/vc_grid_item/shortcodes.php:411
+#: include/./params/vc_grid_item/shortcodes.php:428
+#: include/./params/vc_grid_item/shortcodes.php:444
+#: include/./params/vc_grid_item/shortcodes.php:475
+#: include/./params/vc_grid_item/shortcodes.php:550
+#: include/./params/vc_grid_item/shortcodes.php:627
+#: include/./params/vc_grid_item/shortcodes.php:649
+#: include/./params/vc_grid_item/shortcodes.php:691
+#: include/./params/vc_grid_item/shortcodes.php:834
 msgid ""
 "Style particular content element differently - add a class name and refer to "
 "it in custom CSS."
@@ -865,20 +869,20 @@ msgstr "کد عمل کلیک را وارد کنید."
 #: config/./social/shortcode-vc-pinterest.php:40
 #: config/./social/shortcode-vc-tweetmeme.php:356
 #: config/./structure/shortcode-vc-raw-html.php:37
-#: config/./tta/shortcode-vc-tta-accordion.php:191
+#: config/./tta/shortcode-vc-tta-accordion.php:223
 #: config/./tta/shortcode-vc-tta-pageable.php:111
-#: config/./tta/shortcode-vc-tta-tabs.php:194
-#: config/./tta/shortcode-vc-tta-tour.php:208
+#: config/./tta/shortcode-vc-tta-tabs.php:226
+#: config/./tta/shortcode-vc-tta-tour.php:240
 #: include/./autoload/vendors/shortcode-vc-gutenberg.php:36
-#: include/./params/vc_grid_item/shortcodes.php:55
-#: include/./params/vc_grid_item/shortcodes.php:80
-#: include/./params/vc_grid_item/shortcodes.php:176
-#: include/./params/vc_grid_item/shortcodes.php:301
-#: include/./params/vc_grid_item/shortcodes.php:391
-#: include/./params/vc_grid_item/shortcodes.php:454
-#: include/./params/vc_grid_item/shortcodes.php:530
-#: include/./params/vc_grid_item/shortcodes.php:606
-#: include/./params/vc_grid_item/shortcodes.php:813
+#: include/./params/vc_grid_item/shortcodes.php:66
+#: include/./params/vc_grid_item/shortcodes.php:92
+#: include/./params/vc_grid_item/shortcodes.php:188
+#: include/./params/vc_grid_item/shortcodes.php:313
+#: include/./params/vc_grid_item/shortcodes.php:403
+#: include/./params/vc_grid_item/shortcodes.php:466
+#: include/./params/vc_grid_item/shortcodes.php:554
+#: include/./params/vc_grid_item/shortcodes.php:631
+#: include/./params/vc_grid_item/shortcodes.php:838
 msgid "CSS box"
 msgstr "جعبه CSS"
 
@@ -917,19 +921,19 @@ msgstr "جعبه CSS"
 #: config/./social/shortcode-vc-pinterest.php:42
 #: config/./social/shortcode-vc-tweetmeme.php:358
 #: config/./structure/shortcode-vc-raw-html.php:39
-#: config/./tta/shortcode-vc-tta-accordion.php:193
+#: config/./tta/shortcode-vc-tta-accordion.php:225
 #: config/./tta/shortcode-vc-tta-pageable.php:113
-#: config/./tta/shortcode-vc-tta-tabs.php:196
-#: config/./tta/shortcode-vc-tta-tour.php:210
+#: config/./tta/shortcode-vc-tta-tabs.php:228
+#: config/./tta/shortcode-vc-tta-tour.php:242
 #: include/./autoload/vendors/shortcode-vc-gutenberg.php:38
 #: include/./classes/settings/class-vc-settings.php:121
-#: include/./params/vc_grid_item/shortcodes.php:57
-#: include/./params/vc_grid_item/shortcodes.php:82
-#: include/./params/vc_grid_item/shortcodes.php:393
-#: include/./params/vc_grid_item/shortcodes.php:456
-#: include/./params/vc_grid_item/shortcodes.php:532
-#: include/./params/vc_grid_item/shortcodes.php:608
-#: include/./params/vc_grid_item/shortcodes.php:815
+#: include/./params/vc_grid_item/shortcodes.php:68
+#: include/./params/vc_grid_item/shortcodes.php:94
+#: include/./params/vc_grid_item/shortcodes.php:405
+#: include/./params/vc_grid_item/shortcodes.php:468
+#: include/./params/vc_grid_item/shortcodes.php:556
+#: include/./params/vc_grid_item/shortcodes.php:633
+#: include/./params/vc_grid_item/shortcodes.php:840
 msgid "Design Options"
 msgstr "تنظیمات طراحی"
 
@@ -990,14 +994,14 @@ msgstr "دکمه"
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:59
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:129
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:11
-#: include/./params/vc_grid_item/shortcodes.php:171
-#: include/./params/vc_grid_item/shortcodes.php:196
-#: include/./params/vc_grid_item/shortcodes.php:222
-#: include/./params/vc_grid_item/shortcodes.php:236
-#: include/./params/vc_grid_item/shortcodes.php:276
-#: include/./params/vc_grid_item/shortcodes.php:290
-#: include/./params/vc_grid_item/shortcodes.php:326
-#: include/./params/vc_grid_item/shortcodes.php:721
+#: include/./params/vc_grid_item/shortcodes.php:183
+#: include/./params/vc_grid_item/shortcodes.php:208
+#: include/./params/vc_grid_item/shortcodes.php:234
+#: include/./params/vc_grid_item/shortcodes.php:248
+#: include/./params/vc_grid_item/shortcodes.php:288
+#: include/./params/vc_grid_item/shortcodes.php:302
+#: include/./params/vc_grid_item/shortcodes.php:338
+#: include/./params/vc_grid_item/shortcodes.php:746
 msgid "Content"
 msgstr "محتوا"
 
@@ -1043,7 +1047,7 @@ msgstr "استفاده از فونت سفارشی؟"
 #: config/./buttons/shortcode-vc-cta.php:63
 #: config/./content/shortcode-vc-hoverbox.php:98
 #: config/./content/shortcode-vc-toggle.php:34
-#: include/./params/vc_grid_item/shortcodes.php:108
+#: include/./params/vc_grid_item/shortcodes.php:120
 msgid "Enable Google fonts."
 msgstr "فعال کردن فونت های گوگل."
 
@@ -1118,7 +1122,7 @@ msgstr ""
 #: config/./content/shortcode-vc-hoverbox.php:181
 #: config/./deprecated/shortcode-vc-cta-button2.php:39
 #: config/./deprecated/shortcode-vc-googleplus.php:42
-#: include/./params/vc_grid_item/shortcodes.php:352
+#: include/./params/vc_grid_item/shortcodes.php:364
 #: include/./templates/params/column_offset/template.tpl.php:37
 msgid "Width"
 msgstr "عرض"
@@ -1152,7 +1156,7 @@ msgstr "خیر"
 #: config/./containers/shortcode-vc-row.php:91
 #: config/./containers/shortcode-vc-section.php:45
 #: config/./tta/shortcode-vc-tta-pageable.php:89
-#: config/./tta/shortcode-vc-tta-tabs.php:107
+#: config/./tta/shortcode-vc-tta-tabs.php:139
 msgid "Top"
 msgstr "بالا"
 
@@ -1165,7 +1169,7 @@ msgstr "بالا"
 #: config/./deprecated/shortcode-vc-cta-button.php:79
 #: config/./deprecated/shortcode-vc-cta-button2.php:106
 #: config/./tta/shortcode-vc-tta-pageable.php:90
-#: config/./tta/shortcode-vc-tta-tabs.php:108
+#: config/./tta/shortcode-vc-tta-tabs.php:140
 msgid "Bottom"
 msgstr "پایین"
 
@@ -1202,84 +1206,84 @@ msgstr "محل محتوای عنصر در ستون داخلی"
 #: config/./containers/shortcode-vc-column-inner.php:45
 #: config/./containers/shortcode-vc-column.php:122
 #: include/./params/column_offset/column_offset.php:41
-#: include/./params/vc_grid_item/shortcodes.php:355
+#: include/./params/vc_grid_item/shortcodes.php:367
 msgid "1 column - 1/12"
 msgstr "1 ستون - 1/12"
 
 #: config/./containers/shortcode-vc-column-inner.php:46
 #: config/./containers/shortcode-vc-column.php:123
 #: include/./params/column_offset/column_offset.php:42
-#: include/./params/vc_grid_item/shortcodes.php:356
+#: include/./params/vc_grid_item/shortcodes.php:368
 msgid "2 columns - 1/6"
 msgstr "2 ستون - 1/6"
 
 #: config/./containers/shortcode-vc-column-inner.php:47
 #: config/./containers/shortcode-vc-column.php:124
 #: include/./params/column_offset/column_offset.php:43
-#: include/./params/vc_grid_item/shortcodes.php:357
+#: include/./params/vc_grid_item/shortcodes.php:369
 msgid "3 columns - 1/4"
 msgstr "3 ستون - 1/4"
 
 #: config/./containers/shortcode-vc-column-inner.php:48
 #: config/./containers/shortcode-vc-column.php:125
 #: include/./params/column_offset/column_offset.php:44
-#: include/./params/vc_grid_item/shortcodes.php:358
+#: include/./params/vc_grid_item/shortcodes.php:370
 msgid "4 columns - 1/3"
 msgstr "4 ستون - 1/3 "
 
 #: config/./containers/shortcode-vc-column-inner.php:49
 #: config/./containers/shortcode-vc-column.php:126
 #: include/./params/column_offset/column_offset.php:45
-#: include/./params/vc_grid_item/shortcodes.php:359
+#: include/./params/vc_grid_item/shortcodes.php:371
 msgid "5 columns - 5/12"
 msgstr "5 ستون - 5/12 "
 
 #: config/./containers/shortcode-vc-column-inner.php:50
 #: config/./containers/shortcode-vc-column.php:127
 #: include/./params/column_offset/column_offset.php:46
-#: include/./params/vc_grid_item/shortcodes.php:360
+#: include/./params/vc_grid_item/shortcodes.php:372
 msgid "6 columns - 1/2"
 msgstr "6 ستون - 1/2"
 
 #: config/./containers/shortcode-vc-column-inner.php:51
 #: config/./containers/shortcode-vc-column.php:128
 #: include/./params/column_offset/column_offset.php:47
-#: include/./params/vc_grid_item/shortcodes.php:361
+#: include/./params/vc_grid_item/shortcodes.php:373
 msgid "7 columns - 7/12"
 msgstr "7 ستون - 7/12"
 
 #: config/./containers/shortcode-vc-column-inner.php:52
 #: config/./containers/shortcode-vc-column.php:129
 #: include/./params/column_offset/column_offset.php:48
-#: include/./params/vc_grid_item/shortcodes.php:362
+#: include/./params/vc_grid_item/shortcodes.php:374
 msgid "8 columns - 2/3"
 msgstr "8 ستون - 2/3"
 
 #: config/./containers/shortcode-vc-column-inner.php:53
 #: config/./containers/shortcode-vc-column.php:130
 #: include/./params/column_offset/column_offset.php:49
-#: include/./params/vc_grid_item/shortcodes.php:363
+#: include/./params/vc_grid_item/shortcodes.php:375
 msgid "9 columns - 3/4"
 msgstr "9 ستون - 3/4"
 
 #: config/./containers/shortcode-vc-column-inner.php:54
 #: config/./containers/shortcode-vc-column.php:131
 #: include/./params/column_offset/column_offset.php:50
-#: include/./params/vc_grid_item/shortcodes.php:364
+#: include/./params/vc_grid_item/shortcodes.php:376
 msgid "10 columns - 5/6"
 msgstr "10 ستون - 5/6"
 
 #: config/./containers/shortcode-vc-column-inner.php:55
 #: config/./containers/shortcode-vc-column.php:132
 #: include/./params/column_offset/column_offset.php:51
-#: include/./params/vc_grid_item/shortcodes.php:365
+#: include/./params/vc_grid_item/shortcodes.php:377
 msgid "11 columns - 11/12"
 msgstr "11 ستون - 11/12 "
 
 #: config/./containers/shortcode-vc-column-inner.php:56
 #: config/./containers/shortcode-vc-column.php:133
 #: include/./params/column_offset/column_offset.php:52
-#: include/./params/vc_grid_item/shortcodes.php:366
+#: include/./params/vc_grid_item/shortcodes.php:378
 msgid "12 columns - 1/1"
 msgstr "12 ستون - 1/1"
 
@@ -1316,7 +1320,7 @@ msgstr "تنظیمات ریسپانسیو"
 
 #: config/./containers/shortcode-vc-column-inner.php:63
 #: config/./containers/shortcode-vc-column.php:140
-#: include/./params/vc_grid_item/shortcodes.php:368
+#: include/./params/vc_grid_item/shortcodes.php:380
 msgid "Select column width."
 msgstr "انتخاب عرض ستون"
 
@@ -1335,12 +1339,12 @@ msgstr ""
 "بودن"
 
 #: config/./containers/shortcode-vc-column.php:10
-#: include/./params/vc_grid_item/shortcodes.php:340
+#: include/./params/vc_grid_item/shortcodes.php:352
 msgid "Column"
 msgstr "ستون"
 
 #: config/./containers/shortcode-vc-column.php:14
-#: include/./params/vc_grid_item/shortcodes.php:348
+#: include/./params/vc_grid_item/shortcodes.php:360
 msgid "Place content elements inside the column"
 msgstr "محل محتوای عنصر در داخل ستون"
 
@@ -1398,10 +1402,10 @@ msgstr "اگر انتخاب شود ویدئو برای پس زمینه ردیف 
 #: include/./classes/vendors/plugins/acf/shortcode.php:50
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:74
 #: include/./params/default_params.php:85
-#: include/./params/vc_grid_item/shortcodes.php:39
-#: include/./params/vc_grid_item/shortcodes.php:107
-#: include/./params/vc_grid_item/shortcodes.php:136
-#: include/./params/vc_grid_item/shortcodes.php:375
+#: include/./params/vc_grid_item/shortcodes.php:50
+#: include/./params/vc_grid_item/shortcodes.php:119
+#: include/./params/vc_grid_item/shortcodes.php:148
+#: include/./params/vc_grid_item/shortcodes.php:387
 msgid "Yes"
 msgstr "بله"
 
@@ -1443,25 +1447,25 @@ msgstr "پارالکس"
 #: config/./grids/class-vc-grids-common.php:926
 #: config/./grids/class-vc-grids-common.php:1133
 #: config/./grids/class-vc-grids-common.php:1183 config/./lean-map.php:205
-#: config/./tta/shortcode-vc-tta-accordion.php:66
-#: config/./tta/shortcode-vc-tta-accordion.php:86
-#: config/./tta/shortcode-vc-tta-accordion.php:117
-#: config/./tta/shortcode-vc-tta-accordion.php:145
+#: config/./tta/shortcode-vc-tta-accordion.php:98
+#: config/./tta/shortcode-vc-tta-accordion.php:118
+#: config/./tta/shortcode-vc-tta-accordion.php:149
+#: config/./tta/shortcode-vc-tta-accordion.php:177
 #: config/./tta/shortcode-vc-tta-pageable.php:33
 #: config/./tta/shortcode-vc-tta-pageable.php:61
-#: config/./tta/shortcode-vc-tta-tabs.php:66
-#: config/./tta/shortcode-vc-tta-tabs.php:87
-#: config/./tta/shortcode-vc-tta-tabs.php:128
-#: config/./tta/shortcode-vc-tta-tabs.php:156
-#: config/./tta/shortcode-vc-tta-tour.php:66
-#: config/./tta/shortcode-vc-tta-tour.php:87
-#: config/./tta/shortcode-vc-tta-tour.php:142
-#: config/./tta/shortcode-vc-tta-tour.php:170
+#: config/./tta/shortcode-vc-tta-tabs.php:98
+#: config/./tta/shortcode-vc-tta-tabs.php:119
+#: config/./tta/shortcode-vc-tta-tabs.php:160
+#: config/./tta/shortcode-vc-tta-tabs.php:188
+#: config/./tta/shortcode-vc-tta-tour.php:98
+#: config/./tta/shortcode-vc-tta-tour.php:119
+#: config/./tta/shortcode-vc-tta-tour.php:174
+#: config/./tta/shortcode-vc-tta-tour.php:202
 #: include/./autoload/vc-image-filters.php:56
 #: include/./params/animation_style/animation_style.php:41
 #: include/./params/css_editor/css_editor.php:114
-#: include/./params/vc_grid_item/shortcodes.php:14
-#: include/./params/vc_grid_item/shortcodes.php:488
+#: include/./params/vc_grid_item/shortcodes.php:13
+#: include/./params/vc_grid_item/shortcodes.php:512
 #: include/./templates/pages/vc-settings/default-template-post-type.tpl.php:27
 msgid "None"
 msgstr "هیچکدام"
@@ -1505,7 +1509,7 @@ msgstr ""
 #: config/./containers/shortcode-vc-section.php:102
 #: config/./content/shortcode-vc-hoverbox.php:79
 #: config/./content/shortcode-vc-single-image.php:33
-#: include/./params/vc_grid_item/shortcodes.php:743
+#: include/./params/vc_grid_item/shortcodes.php:768
 msgid "Image"
 msgstr "تصویر"
 
@@ -1514,7 +1518,7 @@ msgstr "تصویر"
 #: config/./containers/shortcode-vc-section.php:105
 #: config/./content/shortcode-vc-hoverbox.php:82
 #: config/./content/shortcode-vc-single-image.php:36
-#: include/./params/vc_grid_item/shortcodes.php:746
+#: include/./params/vc_grid_item/shortcodes.php:771
 msgid "Select image from media library."
 msgstr "تصویر را از کتابخانه رسانه ها انتخاب کنید."
 
@@ -1602,7 +1606,7 @@ msgstr "موقعیت محتوا"
 #: config/./content/shortcode-vc-toggle.php:57
 #: config/./grids/class-vc-grids-common.php:1134
 #: config/./grids/class-vc-grids-common.php:1184
-#: include/./helpers/helpers_api.php:554
+#: include/./helpers/helpers_api.php:555
 msgid "Default"
 msgstr "پیشفرض"
 
@@ -1643,12 +1647,12 @@ msgstr ""
 "شود. شما می توانید آن را به زمانی عقب تر تغییر دهید."
 
 #: config/./containers/shortcode-vc-row.php:7
-#: include/./params/vc_grid_item/shortcodes.php:314
+#: include/./params/vc_grid_item/shortcodes.php:326
 msgid "Row"
 msgstr "ردیف"
 
 #: config/./containers/shortcode-vc-row.php:13
-#: include/./params/vc_grid_item/shortcodes.php:327
+#: include/./params/vc_grid_item/shortcodes.php:339
 msgid "Place content elements inside the row"
 msgstr "المانهای محتوا را در ردیف قرار بده."
 
@@ -1698,12 +1702,12 @@ msgstr "انتخاب موقعیت ستون ها داخل ردیف"
 
 #: config/./containers/shortcode-vc-section.php:7
 #: config/./deprecated/shortcode-vc-accordion-tab.php:18
-#: config/./tta/shortcode-vc-tta-accordion.php:215
+#: config/./tta/shortcode-vc-tta-accordion.php:247
 #: config/./tta/shortcode-vc-tta-pageable.php:128
 #: config/./tta/shortcode-vc-tta-pageable.php:129
 #: config/./tta/shortcode-vc-tta-section.php:70
-#: config/./tta/shortcode-vc-tta-tour.php:225
-#: config/./tta/shortcode-vc-tta-tour.php:226
+#: config/./tta/shortcode-vc-tta-tour.php:257
+#: config/./tta/shortcode-vc-tta-tour.php:258
 #: include/./classes/core/class-vc-base.php:702
 #: include/./classes/core/class-vc-base.php:705
 msgid "Section"
@@ -1811,7 +1815,7 @@ msgid "Blank space with custom height"
 msgstr "فضای خالی با ارتفاع سفارشی"
 
 #: config/./content/shortcode-vc-empty-space.php:16
-#: include/./params/vc_grid_item/shortcodes.php:258
+#: include/./params/vc_grid_item/shortcodes.php:270
 msgid "Height"
 msgstr "ارتفاع"
 
@@ -1863,7 +1867,7 @@ msgstr "آدرس تصویر از حساب کاربری فلیکر"
 #: include/./classes/vendors/plugins/class-vc-vendor-layerslider.php:149
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:64
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:134
-#: include/./params/vc_grid_item/shortcodes.php:726
+#: include/./params/vc_grid_item/shortcodes.php:751
 msgid "Widget title"
 msgstr "عنوان ابزارک"
 
@@ -1889,7 +1893,7 @@ msgstr "عنوان ابزارک"
 #: include/./classes/vendors/plugins/class-vc-vendor-layerslider.php:151
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:66
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:136
-#: include/./params/vc_grid_item/shortcodes.php:728
+#: include/./params/vc_grid_item/shortcodes.php:753
 msgid "Enter text used as widget title (Note: located above content element)."
 msgstr "وارد کردن متن برای عنوان ابزارک ( بالای محتوا نشان داده می شود )"
 
@@ -1992,7 +1996,7 @@ msgstr "چرخش خودکار"
 #: config/./deprecated/shortcode-vc-tabs.php:27
 #: config/./deprecated/shortcode-vc-tour.php:29
 #: include/./autoload/vendors/gutenberg.php:41
-#: include/./classes/settings/class-vc-settings.php:498
+#: include/./classes/settings/class-vc-settings.php:515
 msgid "Disable"
 msgstr "غیرفعال کردن"
 
@@ -2004,13 +2008,13 @@ msgstr "چرخش اتوماتیک اسلایدها هر X ثانیه."
 
 #: config/./content/shortcode-vc-gallery.php:54
 #: config/./content/shortcode-vc-single-image.php:21
-#: include/./params/vc_grid_item/shortcodes.php:732
+#: include/./params/vc_grid_item/shortcodes.php:757
 msgid "Image source"
 msgstr "آدرس تصویر"
 
 #: config/./content/shortcode-vc-gallery.php:57
 #: config/./content/shortcode-vc-single-image.php:24
-#: include/./params/vc_grid_item/shortcodes.php:735
+#: include/./params/vc_grid_item/shortcodes.php:760
 msgid "Media library"
 msgstr "کتابخانه رسانه ها"
 
@@ -2021,7 +2025,7 @@ msgstr "لینک خارجی"
 
 #: config/./content/shortcode-vc-gallery.php:61
 #: config/./content/shortcode-vc-single-image.php:29
-#: include/./params/vc_grid_item/shortcodes.php:739
+#: include/./params/vc_grid_item/shortcodes.php:764
 msgid "Select image source."
 msgstr "انتخاب منبع تصویر"
 
@@ -2049,10 +2053,10 @@ msgstr ""
 #: config/./content/shortcode-vc-gallery.php:97
 #: config/./content/shortcode-vc-single-image.php:56
 #: config/./content/shortcode-vc-single-image.php:70
-#: include/./params/vc_grid_item/shortcodes.php:44
-#: include/./params/vc_grid_item/shortcodes.php:380
-#: include/./params/vc_grid_item/shortcodes.php:557
-#: include/./params/vc_grid_item/shortcodes.php:765
+#: include/./params/vc_grid_item/shortcodes.php:55
+#: include/./params/vc_grid_item/shortcodes.php:392
+#: include/./params/vc_grid_item/shortcodes.php:582
+#: include/./params/vc_grid_item/shortcodes.php:790
 msgid "Image size"
 msgstr "سایز تصویر"
 
@@ -2492,7 +2496,7 @@ msgstr "انتخاب رنگ سفارشی نمودار"
 
 #: config/./content/shortcode-vc-line-chart.php:121
 #: config/./content/shortcode-vc-round-chart.php:149
-#: include/./params/vc_grid_item/shortcodes.php:207
+#: include/./params/vc_grid_item/shortcodes.php:219
 msgid "Animation"
 msgstr "انیمیشن "
 
@@ -2944,7 +2948,7 @@ msgid "Marketing"
 msgstr "بازاریابی"
 
 #: config/./content/shortcode-vc-progress-bar.php:67
-#: include/./params/vc_grid_item/shortcodes.php:646
+#: include/./params/vc_grid_item/shortcodes.php:671
 msgid "Label"
 msgstr "برچسب"
 
@@ -2973,8 +2977,10 @@ msgid "Select custom single bar text color."
 msgstr "انتخاب رنگ متن سفارشی یک نوار"
 
 #: config/./content/shortcode-vc-progress-bar.php:121
-msgid "Select bar background color."
-msgstr "انتخاب رنگ پس زمینه بار"
+#, fuzzy
+#| msgid "Select area color."
+msgid "Select bar color."
+msgstr "انتخاب رنگ این ناحیه"
 
 #: config/./content/shortcode-vc-progress-bar.php:127
 msgid "Bar custom background color"
@@ -3025,9 +3031,9 @@ msgstr "حلقه ای"
 #: config/./content/shortcode-vc-round-chart.php:48
 #: config/./grids/class-vc-grids-common.php:254
 #: config/./grids/class-vc-grids-common.php:806
-#: config/./tta/shortcode-vc-tta-accordion.php:99
-#: config/./tta/shortcode-vc-tta-tabs.php:100
-#: config/./tta/shortcode-vc-tta-tour.php:100
+#: config/./tta/shortcode-vc-tta-accordion.php:131
+#: config/./tta/shortcode-vc-tta-tabs.php:132
+#: config/./tta/shortcode-vc-tta-tour.php:132
 msgid "Gap"
 msgstr "اندازه خالی"
 
@@ -3123,19 +3129,19 @@ msgid "Select separator width (percentage)."
 msgstr "انتخاب عرض اطلاع رسانی ( درصد )"
 
 #: config/./content/shortcode-vc-single-image.php:7
-#: include/./params/vc_grid_item/shortcodes.php:718
+#: include/./params/vc_grid_item/shortcodes.php:743
 msgid "Single Image"
 msgstr "تصویر تکی"
 
 #: config/./content/shortcode-vc-single-image.php:11
-#: include/./params/vc_grid_item/shortcodes.php:722
+#: include/./params/vc_grid_item/shortcodes.php:747
 msgid "Simple image with CSS animation"
 msgstr "تصویر ساده با css انیمیشن"
 
 #: config/./content/shortcode-vc-single-image.php:25
 #: config/./content/shortcode-vc-single-image.php:45
-#: include/./params/vc_grid_item/shortcodes.php:736
-#: include/./params/vc_grid_item/shortcodes.php:754
+#: include/./params/vc_grid_item/shortcodes.php:761
+#: include/./params/vc_grid_item/shortcodes.php:779
 msgid "External link"
 msgstr "لینک خارجی"
 
@@ -3144,13 +3150,13 @@ msgid "Featured Image"
 msgstr "ویژگی تصویر"
 
 #: config/./content/shortcode-vc-single-image.php:47
-#: include/./params/vc_grid_item/shortcodes.php:756
+#: include/./params/vc_grid_item/shortcodes.php:781
 msgid "Select external link."
 msgstr "انتخاب لینک خارجی"
 
 #: config/./content/shortcode-vc-single-image.php:59
-#: include/./params/vc_grid_item/shortcodes.php:47
-#: include/./params/vc_grid_item/shortcodes.php:383
+#: include/./params/vc_grid_item/shortcodes.php:58
+#: include/./params/vc_grid_item/shortcodes.php:395
 msgid ""
 "Enter image size (Example: \"thumbnail\", \"medium\", \"large\", \"full\" or "
 "other sizes defined by theme). Alternatively enter size in pixels (Example: "
@@ -3176,43 +3182,44 @@ msgid "Add image caption."
 msgstr "اضافه کردن عنوان عکس"
 
 #: config/./content/shortcode-vc-single-image.php:105
-#: include/./params/vc_grid_item/shortcodes.php:563
-#: include/./params/vc_grid_item/shortcodes.php:771
+#: include/./params/vc_grid_item/shortcodes.php:588
+#: include/./params/vc_grid_item/shortcodes.php:796
 msgid "Image alignment"
 msgstr "جای تصویر"
 
 #: config/./content/shortcode-vc-single-image.php:112
-#: include/./params/vc_grid_item/shortcodes.php:570
-#: include/./params/vc_grid_item/shortcodes.php:778
+#: include/./params/vc_grid_item/shortcodes.php:505
+#: include/./params/vc_grid_item/shortcodes.php:595
+#: include/./params/vc_grid_item/shortcodes.php:803
 msgid "Select image alignment."
 msgstr "انتخاب مکان تصویر"
 
 #: config/./content/shortcode-vc-single-image.php:116
 #: config/./content/shortcode-vc-single-image.php:130
-#: include/./params/vc_grid_item/shortcodes.php:574
-#: include/./params/vc_grid_item/shortcodes.php:782
+#: include/./params/vc_grid_item/shortcodes.php:599
+#: include/./params/vc_grid_item/shortcodes.php:807
 msgid "Image style"
 msgstr "استایل تصویر"
 
 #: config/./content/shortcode-vc-single-image.php:119
 #: config/./content/shortcode-vc-single-image.php:133
-#: include/./params/vc_grid_item/shortcodes.php:577
-#: include/./params/vc_grid_item/shortcodes.php:785
+#: include/./params/vc_grid_item/shortcodes.php:602
+#: include/./params/vc_grid_item/shortcodes.php:810
 msgid "Select image display style."
 msgstr "انتخاب استایل نمایش تصویر"
 
 #: config/./content/shortcode-vc-single-image.php:141
 #: config/./content/shortcode-vc-single-image.php:161
 #: include/./params/css_editor/css_editor.php:89
-#: include/./params/vc_grid_item/shortcodes.php:581
-#: include/./params/vc_grid_item/shortcodes.php:789
+#: include/./params/vc_grid_item/shortcodes.php:606
+#: include/./params/vc_grid_item/shortcodes.php:814
 msgid "Border color"
 msgstr "رنگ مرزبندی"
 
 #: config/./content/shortcode-vc-single-image.php:156
 #: config/./content/shortcode-vc-single-image.php:174
-#: include/./params/vc_grid_item/shortcodes.php:594
-#: include/./params/vc_grid_item/shortcodes.php:802
+#: include/./params/vc_grid_item/shortcodes.php:619
+#: include/./params/vc_grid_item/shortcodes.php:827
 msgid "Border color."
 msgstr "رنگ مرزبندی."
 
@@ -3393,35 +3400,35 @@ msgid "Horizontal zigzag separator line"
 msgstr ""
 
 #: config/./content/shortcode-vc-zigzag.php:26
-#: include/./params/vc_grid_item/shortcodes.php:99
-#: include/./params/vc_grid_item/shortcodes.php:123
+#: include/./params/vc_grid_item/shortcodes.php:111
+#: include/./params/vc_grid_item/shortcodes.php:135
 msgid "Select color for your element."
 msgstr "انتخاب رنگ المان."
 
 #: config/./content/shortcode-vc-zigzag.php:67
-#: config/./tta/shortcode-vc-tta-tour.php:133
+#: config/./tta/shortcode-vc-tta-tour.php:165
 msgid "Extra small"
 msgstr "خیلی کوچک"
 
 #: config/./content/shortcode-vc-zigzag.php:68
 #: config/./deprecated/shortcode-vc-googleplus.php:21 config/./lean-map.php:198
-#: config/./tta/shortcode-vc-tta-tour.php:132
+#: config/./tta/shortcode-vc-tta-tour.php:164
 msgid "Small"
 msgstr "کوچک"
 
 #: config/./content/shortcode-vc-zigzag.php:69
 #: config/./deprecated/shortcode-vc-googleplus.php:22
-#: config/./tta/shortcode-vc-tta-tour.php:131
+#: config/./tta/shortcode-vc-tta-tour.php:163
 msgid "Medium"
 msgstr "متوسط"
 
 #: config/./content/shortcode-vc-zigzag.php:70 config/./lean-map.php:197
-#: config/./tta/shortcode-vc-tta-tour.php:130
+#: config/./tta/shortcode-vc-tta-tour.php:162
 msgid "Large"
 msgstr "بزرگ"
 
 #: config/./content/shortcode-vc-zigzag.php:71
-#: config/./tta/shortcode-vc-tta-tour.php:129
+#: config/./tta/shortcode-vc-tta-tour.php:161
 msgid "Extra large"
 msgstr "خیلی بزرگ"
 
@@ -3470,26 +3477,26 @@ msgid "Add link to custom heading."
 msgstr "اضافه کردن لینک به هدینگ سفارشی"
 
 #: config/./content/vc-custom-heading-element.php:57
-#: include/./params/vc_grid_item/shortcodes.php:95
-#: include/./params/vc_grid_item/shortcodes.php:119
+#: include/./params/vc_grid_item/shortcodes.php:107
+#: include/./params/vc_grid_item/shortcodes.php:131
 msgid "Select element tag."
 msgstr "انتخاب تگ  المان"
 
 #: config/./content/vc-custom-heading-element.php:58
-#: include/./params/vc_grid_item/shortcodes.php:96
-#: include/./params/vc_grid_item/shortcodes.php:120
+#: include/./params/vc_grid_item/shortcodes.php:108
+#: include/./params/vc_grid_item/shortcodes.php:132
 msgid "Select text alignment."
 msgstr "انتخاب مکان متن"
 
 #: config/./content/vc-custom-heading-element.php:59
-#: include/./params/vc_grid_item/shortcodes.php:97
-#: include/./params/vc_grid_item/shortcodes.php:121
+#: include/./params/vc_grid_item/shortcodes.php:109
+#: include/./params/vc_grid_item/shortcodes.php:133
 msgid "Enter font size."
 msgstr "سایز فونت را وارد کنید"
 
 #: config/./content/vc-custom-heading-element.php:60
-#: include/./params/vc_grid_item/shortcodes.php:98
-#: include/./params/vc_grid_item/shortcodes.php:122
+#: include/./params/vc_grid_item/shortcodes.php:110
+#: include/./params/vc_grid_item/shortcodes.php:134
 msgid "Enter line height."
 msgstr "ارتفاع بین خطوط را وارد کنید."
 
@@ -3508,12 +3515,12 @@ msgid "Use font family from the theme."
 msgstr "استفاده از فونت الگو"
 
 #: config/./content/vc-custom-heading-element.php:78
-#: include/./params/vc_grid_item/shortcodes.php:152
+#: include/./params/vc_grid_item/shortcodes.php:164
 msgid "Select font family."
 msgstr "انتخاب نوع فونت"
 
 #: config/./content/vc-custom-heading-element.php:79
-#: include/./params/vc_grid_item/shortcodes.php:153
+#: include/./params/vc_grid_item/shortcodes.php:165
 msgid "Select font styling."
 msgstr "انتخاب استایل فونت"
 
@@ -3599,10 +3606,10 @@ msgid "Collapsible content panels"
 msgstr "پنل محتوای از پیش ساخته شده"
 
 #: config/./deprecated/shortcode-vc-accordion.php:24
-#: config/./tta/shortcode-vc-tta-accordion.php:172
+#: config/./tta/shortcode-vc-tta-accordion.php:204
 #: config/./tta/shortcode-vc-tta-pageable.php:53
-#: config/./tta/shortcode-vc-tta-tabs.php:148
-#: config/./tta/shortcode-vc-tta-tour.php:162
+#: config/./tta/shortcode-vc-tta-tabs.php:180
+#: config/./tta/shortcode-vc-tta-tour.php:194
 msgid "Active section"
 msgstr "فعالسازی  بخش"
 
@@ -4097,22 +4104,22 @@ msgstr ""
 "وارد کردن دسته بندیها و برچسب هایی که قرار نیست در لیست فیلتر نشان داده شوند."
 
 #: config/./grids/class-vc-grids-common.php:419
-#: include/./params/vc_grid_item/shortcodes.php:491
+#: include/./params/vc_grid_item/shortcodes.php:515
 msgid "Less Rounded"
 msgstr "کمتر دور"
 
 #: config/./grids/class-vc-grids-common.php:420
-#: include/./params/vc_grid_item/shortcodes.php:492
+#: include/./params/vc_grid_item/shortcodes.php:516
 msgid "Border"
 msgstr "مرز (border)"
 
 #: config/./grids/class-vc-grids-common.php:421
-#: include/./params/vc_grid_item/shortcodes.php:493
+#: include/./params/vc_grid_item/shortcodes.php:517
 msgid "Rounded Border"
 msgstr "مرز گرد"
 
 #: config/./grids/class-vc-grids-common.php:422
-#: include/./params/vc_grid_item/shortcodes.php:494
+#: include/./params/vc_grid_item/shortcodes.php:518
 msgid "Less Rounded Border"
 msgstr "گرد شده"
 
@@ -4265,48 +4272,48 @@ msgstr "انتخاب رنگ برای فلش ها"
 #: config/./grids/class-vc-grids-common.php:550
 #: config/./grids/class-vc-grids-common.php:923
 #: config/./tta/shortcode-vc-tta-pageable.php:68
-#: config/./tta/shortcode-vc-tta-tabs.php:163
-#: config/./tta/shortcode-vc-tta-tour.php:177
+#: config/./tta/shortcode-vc-tta-tabs.php:195
+#: config/./tta/shortcode-vc-tta-tour.php:209
 msgid "Pagination style"
 msgstr "استایل صفحه بندی"
 
 #: config/./grids/class-vc-grids-common.php:554
 #: config/./grids/class-vc-grids-common.php:927
 #: config/./tta/shortcode-vc-tta-pageable.php:62
-#: config/./tta/shortcode-vc-tta-tabs.php:157
-#: config/./tta/shortcode-vc-tta-tour.php:171
+#: config/./tta/shortcode-vc-tta-tabs.php:189
+#: config/./tta/shortcode-vc-tta-tour.php:203
 msgid "Square Dots"
 msgstr "نقطه های مربعی"
 
 #: config/./grids/class-vc-grids-common.php:555
 #: config/./grids/class-vc-grids-common.php:928
 #: config/./tta/shortcode-vc-tta-pageable.php:63
-#: config/./tta/shortcode-vc-tta-tabs.php:158
-#: config/./tta/shortcode-vc-tta-tour.php:172
+#: config/./tta/shortcode-vc-tta-tabs.php:190
+#: config/./tta/shortcode-vc-tta-tour.php:204
 msgid "Radio Dots"
 msgstr "ورودی رادیو"
 
 #: config/./grids/class-vc-grids-common.php:556
 #: config/./grids/class-vc-grids-common.php:929
 #: config/./tta/shortcode-vc-tta-pageable.php:64
-#: config/./tta/shortcode-vc-tta-tabs.php:159
-#: config/./tta/shortcode-vc-tta-tour.php:173
+#: config/./tta/shortcode-vc-tta-tabs.php:191
+#: config/./tta/shortcode-vc-tta-tour.php:205
 msgid "Point Dots"
 msgstr "نقطه های نقطه ای"
 
 #: config/./grids/class-vc-grids-common.php:557
 #: config/./grids/class-vc-grids-common.php:930
 #: config/./tta/shortcode-vc-tta-pageable.php:65
-#: config/./tta/shortcode-vc-tta-tabs.php:160
-#: config/./tta/shortcode-vc-tta-tour.php:174
+#: config/./tta/shortcode-vc-tta-tabs.php:192
+#: config/./tta/shortcode-vc-tta-tour.php:206
 msgid "Fill Square Dots"
 msgstr "نقطه های تو پر مربعی"
 
 #: config/./grids/class-vc-grids-common.php:558
 #: config/./grids/class-vc-grids-common.php:931
 #: config/./tta/shortcode-vc-tta-pageable.php:66
-#: config/./tta/shortcode-vc-tta-tabs.php:161
-#: config/./tta/shortcode-vc-tta-tour.php:175
+#: config/./tta/shortcode-vc-tta-tabs.php:193
+#: config/./tta/shortcode-vc-tta-tour.php:207
 msgid "Rounded Fill Square Dots"
 msgstr "نقطه های حلقه ای تو پر مربعی"
 
@@ -4383,24 +4390,24 @@ msgstr "راه راه روشن"
 #: config/./grids/class-vc-grids-common.php:580
 #: config/./grids/class-vc-grids-common.php:953
 #: config/./tta/shortcode-vc-tta-pageable.php:69
-#: config/./tta/shortcode-vc-tta-tabs.php:164
-#: config/./tta/shortcode-vc-tta-tour.php:178
+#: config/./tta/shortcode-vc-tta-tabs.php:196
+#: config/./tta/shortcode-vc-tta-tour.php:210
 msgid "Select pagination style."
 msgstr "انتخاب استایل صفحه بندی"
 
 #: config/./grids/class-vc-grids-common.php:584
 #: config/./grids/class-vc-grids-common.php:957
 #: config/./tta/shortcode-vc-tta-pageable.php:76
-#: config/./tta/shortcode-vc-tta-tabs.php:170
-#: config/./tta/shortcode-vc-tta-tour.php:184
+#: config/./tta/shortcode-vc-tta-tabs.php:202
+#: config/./tta/shortcode-vc-tta-tour.php:216
 msgid "Pagination color"
 msgstr "رنگ صفحه بندی"
 
 #: config/./grids/class-vc-grids-common.php:595
 #: config/./grids/class-vc-grids-common.php:968
 #: config/./tta/shortcode-vc-tta-pageable.php:77
-#: config/./tta/shortcode-vc-tta-tabs.php:171
-#: config/./tta/shortcode-vc-tta-tour.php:185
+#: config/./tta/shortcode-vc-tta-tabs.php:203
+#: config/./tta/shortcode-vc-tta-tour.php:217
 msgid "Select pagination color."
 msgstr "انتخاب رنگ صفحه بندی"
 
@@ -5474,100 +5481,132 @@ msgstr "سه تصویر با مقاله"
 msgid "Accordion"
 msgstr "آکاردیون"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:34
+#: config/./tta/shortcode-vc-tta-accordion.php:37
+#: config/./tta/shortcode-vc-tta-tabs.php:37
+#: config/./tta/shortcode-vc-tta-tour.php:37
+#, fuzzy
+#| msgid "Widget title"
+msgid "Widget title tag"
+msgstr "عنوان ابزارک"
+
+#: config/./tta/shortcode-vc-tta-accordion.php:38
+#: config/./tta/shortcode-vc-tta-tabs.php:38
+#: config/./tta/shortcode-vc-tta-tour.php:38
+#, fuzzy
+#| msgid "Select widget area to display."
+msgid "Select widget title tag."
+msgstr "انتخاب کنید کدام منطه ویجت خروجی باشد."
+
+#: config/./tta/shortcode-vc-tta-accordion.php:53
+#: config/./tta/shortcode-vc-tta-tabs.php:53
+#: config/./tta/shortcode-vc-tta-tour.php:53
+#, fuzzy
+#| msgid "Section stretch"
+msgid "Section title tag"
+msgstr "بخش کشش"
+
+#: config/./tta/shortcode-vc-tta-accordion.php:54
+#: config/./tta/shortcode-vc-tta-tabs.php:54
+#: config/./tta/shortcode-vc-tta-tour.php:54
+#, fuzzy
+#| msgid "Select tabs section title alignment."
+msgid "Select section title tag."
+msgstr "انتخاب ترازبندی عنوان بخش زبانه ها"
+
+#: config/./tta/shortcode-vc-tta-accordion.php:66
 msgid "Select accordion display style."
 msgstr "انتخاب استایل نمایش آکاردئون"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:45
+#: config/./tta/shortcode-vc-tta-accordion.php:77
 msgid "Select accordion shape."
 msgstr "انتخاب شکل آکاردئون"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:53
+#: config/./tta/shortcode-vc-tta-accordion.php:85
 msgid "Select accordion color."
 msgstr "انتخاب رنگ آکاردئون"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:59
-#: config/./tta/shortcode-vc-tta-tabs.php:59
-#: config/./tta/shortcode-vc-tta-tour.php:59
+#: config/./tta/shortcode-vc-tta-accordion.php:91
+#: config/./tta/shortcode-vc-tta-tabs.php:91
+#: config/./tta/shortcode-vc-tta-tour.php:91
 msgid "Do not fill content area?"
 msgstr "منطقه محتوا را پر نکند ؟"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:60
-#: config/./tta/shortcode-vc-tta-tabs.php:60
-#: config/./tta/shortcode-vc-tta-tour.php:60
+#: config/./tta/shortcode-vc-tta-accordion.php:92
+#: config/./tta/shortcode-vc-tta-tabs.php:92
+#: config/./tta/shortcode-vc-tta-tour.php:92
 msgid "Do not fill content area with color."
 msgstr "منطقه محتوا را با رنگ پر نکند"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:79
-#: config/./tta/shortcode-vc-tta-tabs.php:79
-#: config/./tta/shortcode-vc-tta-tour.php:79
+#: config/./tta/shortcode-vc-tta-accordion.php:111
+#: config/./tta/shortcode-vc-tta-tabs.php:111
+#: config/./tta/shortcode-vc-tta-tour.php:111
 msgid "Spacing"
 msgstr "فاصله گذاری"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:80
+#: config/./tta/shortcode-vc-tta-accordion.php:112
 msgid "Select accordion spacing."
 msgstr "انتخاب فاصله گذاری آکاردئون"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:100
+#: config/./tta/shortcode-vc-tta-accordion.php:132
 msgid "Select accordion gap."
 msgstr "انتخاب فاصله شکاف آکاردئون"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:111
+#: config/./tta/shortcode-vc-tta-accordion.php:143
 msgid "Select accordion section title alignment."
 msgstr "انتخاب ترازبندی عنوان بخش آکاردئون"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:131
+#: config/./tta/shortcode-vc-tta-accordion.php:163
 #: config/./tta/shortcode-vc-tta-pageable.php:47
-#: config/./tta/shortcode-vc-tta-tabs.php:142
-#: config/./tta/shortcode-vc-tta-tour.php:156
+#: config/./tta/shortcode-vc-tta-tabs.php:174
+#: config/./tta/shortcode-vc-tta-tour.php:188
 msgid "Autoplay"
 msgstr "پخش خودکار"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:132
+#: config/./tta/shortcode-vc-tta-accordion.php:164
 msgid ""
 "Select auto rotate for accordion in seconds (Note: disabled by default)."
 msgstr ""
 "انتخاب تعداد چرخش خودکار در ثانیه برای آکاردئون ( به صورت پیش فرض غیر فعال "
 "است)"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:137
+#: config/./tta/shortcode-vc-tta-accordion.php:169
 msgid "Allow collapse all?"
 msgstr "اجازه بستن همه ؟"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:138
+#: config/./tta/shortcode-vc-tta-accordion.php:170
 msgid "Allow collapse all accordion sections."
 msgstr "اجازه بستن همه بخش های آکاردئون"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:146
+#: config/./tta/shortcode-vc-tta-accordion.php:178
 msgid "Chevron"
 msgstr "شورون"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:147
+#: config/./tta/shortcode-vc-tta-accordion.php:179
 msgid "Plus"
 msgstr "مثبت"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:148
+#: config/./tta/shortcode-vc-tta-accordion.php:180
 msgid "Triangle"
 msgstr "مثلث"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:152
+#: config/./tta/shortcode-vc-tta-accordion.php:184
 msgid "Select accordion navigation icon."
 msgstr "آیکون ناوبری اکاردئون را انتخاب کنید"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:165
-#: config/./tta/shortcode-vc-tta-tabs.php:110
-#: config/./tta/shortcode-vc-tta-tour.php:110
+#: config/./tta/shortcode-vc-tta-accordion.php:197
+#: config/./tta/shortcode-vc-tta-tabs.php:142
+#: config/./tta/shortcode-vc-tta-tour.php:142
 msgid "Position"
 msgstr "موقعیت"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:166
+#: config/./tta/shortcode-vc-tta-accordion.php:198
 msgid "Select accordion navigation icon position."
 msgstr "موقعیت آیکون ناوبری اکاردئون را انتخاب کنید"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:174
+#: config/./tta/shortcode-vc-tta-accordion.php:206
 #: config/./tta/shortcode-vc-tta-pageable.php:55
-#: config/./tta/shortcode-vc-tta-tabs.php:150
-#: config/./tta/shortcode-vc-tta-tour.php:164
+#: config/./tta/shortcode-vc-tta-tabs.php:182
+#: config/./tta/shortcode-vc-tta-tour.php:196
 msgid ""
 "Enter active section number (Note: to have all sections closed on initial "
 "load enter non-existing number)."
@@ -5575,11 +5614,11 @@ msgstr ""
 "وارد کردن تعداد بخش های فعال ( اگر مقداری وارد نکنید همه ی بخش ها موقع "
 "بارگذاری بسته خواهند بود)"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:187
+#: config/./tta/shortcode-vc-tta-accordion.php:219
 #: config/./tta/shortcode-vc-tta-pageable.php:107
 #: config/./tta/shortcode-vc-tta-section.php:65
-#: config/./tta/shortcode-vc-tta-tabs.php:190
-#: config/./tta/shortcode-vc-tta-tour.php:204
+#: config/./tta/shortcode-vc-tta-tabs.php:222
+#: config/./tta/shortcode-vc-tta-tour.php:236
 msgid ""
 "If you wish to style particular content element differently, then use this "
 "field to add a class name and then refer to it in your css file."
@@ -5587,7 +5626,7 @@ msgstr ""
 "اگر میخواهید به المان خاصی از محتوا استایل متفاوتی دهید، از این فیلد برای "
 "افزودن کلاس استفاده کنید و سپس آنرا به فایل css ارجاع دهید"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:206
+#: config/./tta/shortcode-vc-tta-accordion.php:238
 msgid "Add Section"
 msgstr "اضافه کردن بخش"
 
@@ -5656,40 +5695,40 @@ msgstr "بخش زبانه ها، گشت و گذار و آکاردئون ها"
 msgid "Tabs"
 msgstr "تب ها"
 
-#: config/./tta/shortcode-vc-tta-tabs.php:34
+#: config/./tta/shortcode-vc-tta-tabs.php:66
 msgid "Select tabs display style."
 msgstr "انتخاب استایل نمایش زبانه ها"
 
-#: config/./tta/shortcode-vc-tta-tabs.php:45
+#: config/./tta/shortcode-vc-tta-tabs.php:77
 msgid "Select tabs shape."
 msgstr "انتخاب شکل زبانه ها"
 
-#: config/./tta/shortcode-vc-tta-tabs.php:51
+#: config/./tta/shortcode-vc-tta-tabs.php:83
 msgid "Select tabs color."
 msgstr "انتخاب رنگ زبانه ها"
 
-#: config/./tta/shortcode-vc-tta-tabs.php:80
+#: config/./tta/shortcode-vc-tta-tabs.php:112
 msgid "Select tabs spacing."
 msgstr "انتخاب فاصله زبانه ها"
 
-#: config/./tta/shortcode-vc-tta-tabs.php:101
+#: config/./tta/shortcode-vc-tta-tabs.php:133
 msgid "Select tabs gap."
 msgstr "انتخاب فاصله شکاف زبانه ها"
 
-#: config/./tta/shortcode-vc-tta-tabs.php:111
+#: config/./tta/shortcode-vc-tta-tabs.php:143
 msgid "Select tabs navigation position."
 msgstr "انتخاب موقعیت ناوبری زبانه ها"
 
-#: config/./tta/shortcode-vc-tta-tabs.php:122
+#: config/./tta/shortcode-vc-tta-tabs.php:154
 msgid "Select tabs section title alignment."
 msgstr "انتخاب ترازبندی عنوان بخش زبانه ها"
 
-#: config/./tta/shortcode-vc-tta-tabs.php:143
+#: config/./tta/shortcode-vc-tta-tabs.php:175
 msgid "Select auto rotate for tabs in seconds (Note: disabled by default)."
 msgstr "انتخاب چرخش خودکار برای زبانه ها در ثانیه ( به صورت پیش فرض غیر فعال )"
 
-#: config/./tta/shortcode-vc-tta-tabs.php:211
-#: config/./tta/shortcode-vc-tta-tabs.php:212
+#: config/./tta/shortcode-vc-tta-tabs.php:243
+#: config/./tta/shortcode-vc-tta-tabs.php:244
 #: include/./classes/core/class-vc-base.php:701
 #: include/./classes/shortcodes/vc-tab.php:6
 msgid "Tab"
@@ -5699,47 +5738,47 @@ msgstr "تب"
 msgid "Tour"
 msgstr "تور"
 
-#: config/./tta/shortcode-vc-tta-tour.php:34
+#: config/./tta/shortcode-vc-tta-tour.php:66
 msgid "Select tour display style."
 msgstr "انتخاب استایل نمایش گشت و گذار"
 
-#: config/./tta/shortcode-vc-tta-tour.php:45
+#: config/./tta/shortcode-vc-tta-tour.php:77
 msgid "Select tour shape."
 msgstr "انتخاب شکل گشت و گذار"
 
-#: config/./tta/shortcode-vc-tta-tour.php:51
+#: config/./tta/shortcode-vc-tta-tour.php:83
 msgid "Select tour color."
 msgstr "انتخاب رنگ گشت و گذار"
 
-#: config/./tta/shortcode-vc-tta-tour.php:80
+#: config/./tta/shortcode-vc-tta-tour.php:112
 msgid "Select tour spacing."
 msgstr "انتخاب فاصله گذاری گشت گذار"
 
-#: config/./tta/shortcode-vc-tta-tour.php:101
+#: config/./tta/shortcode-vc-tta-tour.php:133
 msgid "Select tour gap."
 msgstr "انتخاب فاصله شکاف گشت و گذار"
 
-#: config/./tta/shortcode-vc-tta-tour.php:111
+#: config/./tta/shortcode-vc-tta-tour.php:143
 msgid "Select tour navigation position."
 msgstr "انتخاب موقعیت ناوبری گشت و گذار"
 
-#: config/./tta/shortcode-vc-tta-tour.php:122
+#: config/./tta/shortcode-vc-tta-tour.php:154
 msgid "Select tour section title alignment."
 msgstr "انتخاب ترازبندی عنوان بخش گشت و گذار"
 
-#: config/./tta/shortcode-vc-tta-tour.php:128
+#: config/./tta/shortcode-vc-tta-tour.php:160
 msgid "Auto"
 msgstr "خودکار"
 
-#: config/./tta/shortcode-vc-tta-tour.php:135
+#: config/./tta/shortcode-vc-tta-tour.php:167
 msgid "Navigation width"
 msgstr "عرض ناوبری"
 
-#: config/./tta/shortcode-vc-tta-tour.php:136
+#: config/./tta/shortcode-vc-tta-tour.php:168
 msgid "Select tour navigation width."
 msgstr "انتخاب عرض ناوبری گشت و گذار"
 
-#: config/./tta/shortcode-vc-tta-tour.php:157
+#: config/./tta/shortcode-vc-tta-tour.php:189
 msgid "Select auto rotate for tour in seconds (Note: disabled by default)."
 msgstr ""
 "انتخاب گردش خودکار برای گشت و گذار در ثانیه ( به صورت پیش فرض غیر فعال )"
@@ -6251,7 +6290,7 @@ msgstr "نقش مدیر"
 #: include/./autoload/vc-pages/pages.php:50
 #: include/./autoload/vc-pages/pages.php:63
 #: include/./classes/core/class-vc-base.php:690
-#: include/./classes/editors/class-vc-backend-editor.php:92
+#: include/./classes/editors/class-vc-backend-editor.php:89
 #: include/./classes/editors/navbar/class-vc-navbar.php:98
 #: include/./classes/updaters/class-vc-updater.php:129
 msgid "WPBakery Page Builder"
@@ -6670,7 +6709,7 @@ msgstr "دانلود شده"
 
 #: include/./classes/core/class-vc-base.php:748
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:132
-#: include/./classes/editors/navbar/class-vc-navbar.php:177
+#: include/./classes/editors/navbar/class-vc-navbar.php:187
 #: include/./params/vc_grid_item/editor/navbar/class-vc-navbar-grid-item.php:51
 #: include/./templates/editors/popups/vc_ui-panel-row-layout.tpl.php:34
 #: include/./templates/pages/vc-welcome/vc-faq.php:36
@@ -6928,11 +6967,13 @@ msgstr "ذخیره به عنوان pending"
 
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:122
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:123
+#: include/./classes/editors/navbar/class-vc-navbar.php:189
 msgid "Publish"
 msgstr "انتشار"
 
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:126
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:127
+#: include/./classes/editors/navbar/class-vc-navbar.php:191
 msgid "Submit for Review"
 msgstr "ارسال برای بازبینی"
 
@@ -6982,7 +7023,7 @@ msgstr "الگو ها"
 msgid "Frontend"
 msgstr "ویرایش زنده"
 
-#: include/./classes/editors/navbar/class-vc-navbar.php:177
+#: include/./classes/editors/navbar/class-vc-navbar.php:194
 #: include/./params/vc_grid_item/editor/class-vc-grid-item-editor.php:237
 #: include/./params/vc_grid_item/editor/navbar/class-vc-navbar-grid-item.php:37
 msgid "Preview"
@@ -7135,7 +7176,7 @@ msgid "Add Param"
 msgstr "اضافه کردن پارامتر"
 
 #: include/./classes/settings/automapper/class-vc-automapper.php:165
-#: include/./classes/settings/class-vc-settings.php:447
+#: include/./classes/settings/class-vc-settings.php:465
 #: include/./templates/editors/popups/modal_edit_element.tpl.php:21
 #: include/./templates/editors/popups/panel_multi_shortcode_edit_form.tpl.php:17
 #: include/./templates/editors/popups/panel_shortcode_edit_form.tpl.php:22
@@ -7283,7 +7324,7 @@ msgstr ""
 msgid "Dismiss this notice."
 msgstr "نادیده گرفتن اخطار"
 
-#: include/./classes/settings/class-vc-roles.php:126
+#: include/./classes/settings/class-vc-roles.php:132
 msgid "Roles settings successfully saved."
 msgstr "تنظیمات نقشها با موفقیت ذخیره شده"
 
@@ -7337,111 +7378,121 @@ msgstr "رنگ پس زمینه تب منو"
 msgid "Active tab background color"
 msgstr "فعال کردن رنگ پس زمینه تب"
 
-#: include/./classes/settings/class-vc-settings.php:253
+#: include/./classes/settings/class-vc-settings.php:255
 msgid "Disable responsive content elements"
 msgstr "غیرفعالسازی المان های محتوای ریسپانسیو"
 
-#: include/./classes/settings/class-vc-settings.php:261
+#: include/./classes/settings/class-vc-settings.php:263
 msgid "Google fonts subsets"
 msgstr "زیرمجموعه های فونت های گوگل"
 
-#: include/./classes/settings/class-vc-settings.php:276
+#: include/./classes/settings/class-vc-settings.php:278
 msgid "Use custom design options"
 msgstr "استفاده از تنظیمات سفارشی طراحی"
 
-#: include/./classes/settings/class-vc-settings.php:299
+#: include/./classes/settings/class-vc-settings.php:301
 msgid "Elements bottom margin"
 msgstr "حاشیه پایین المانها"
 
-#: include/./classes/settings/class-vc-settings.php:308
+#: include/./classes/settings/class-vc-settings.php:310
 msgid "Grid gutter width"
 msgstr "عرض جدول gutter"
 
-#: include/./classes/settings/class-vc-settings.php:317
-msgid "Mobile screen width"
+#: include/./classes/settings/class-vc-settings.php:319
+#, fuzzy
+#| msgid "Mobile screen width"
+msgid "Mobile breakpoint"
 msgstr "عرض صفحه موبایل"
 
-#: include/./classes/settings/class-vc-settings.php:337
+#: include/./classes/settings/class-vc-settings.php:326
+msgid "Desktop breakpoint"
+msgstr ""
+
+#: include/./classes/settings/class-vc-settings.php:333
+msgid "Large Desktop breakpoint"
+msgstr ""
+
+#: include/./classes/settings/class-vc-settings.php:353
 msgid "Paste your CSS code"
 msgstr "کد css خود را paste کنید."
 
-#: include/./classes/settings/class-vc-settings.php:444
-#: include/./classes/settings/class-vc-settings.php:445
+#: include/./classes/settings/class-vc-settings.php:462
+#: include/./classes/settings/class-vc-settings.php:463
 msgid "Are you sure you want to reset to defaults?"
 msgstr "آیا مطمئنید که میخواهید تنظیمات  را به حالت پیش فرض برگردانید؟"
 
-#: include/./classes/settings/class-vc-settings.php:446
+#: include/./classes/settings/class-vc-settings.php:464
 msgid "Saving..."
 msgstr "در حال ذخیره سازی ..."
 
-#: include/./classes/settings/class-vc-settings.php:448
+#: include/./classes/settings/class-vc-settings.php:466
 msgid "Design Options successfully saved."
 msgstr "تنظیمات طراحی با موفقیت ذخیره شد"
 
-#: include/./classes/settings/class-vc-settings.php:449
+#: include/./classes/settings/class-vc-settings.php:467
 msgid "Design Options could not be saved"
 msgstr "تنظیمات طراحی ذخیره نشد"
 
-#: include/./classes/settings/class-vc-settings.php:450
+#: include/./classes/settings/class-vc-settings.php:468
 msgid ""
 "Problem with AJAX request execution, check internet connection and try again."
 msgstr ""
 "مشکل با درخواست اجرای آژاکس، ارتباط اینترنت خود را چک کنید و مجددا تلاش کنید"
 
-#: include/./classes/settings/class-vc-settings.php:451
+#: include/./classes/settings/class-vc-settings.php:469
 msgid "Are you sure you want to delete this shortcode?"
 msgstr "آیا مطمئنید که میخواهید این کدکوتاه را پاک کنید؟"
 
-#: include/./classes/settings/class-vc-settings.php:452
+#: include/./classes/settings/class-vc-settings.php:470
 msgid "Are you sure you want to delete the shortcode's param?"
 msgstr "آیا مطمئنید که میخواهید پارام کد کوتاه را پاک کنید؟"
 
-#: include/./classes/settings/class-vc-settings.php:453
+#: include/./classes/settings/class-vc-settings.php:471
 msgid "My shortcodes"
 msgstr "کدهای کوتاه من"
 
-#: include/./classes/settings/class-vc-settings.php:454
+#: include/./classes/settings/class-vc-settings.php:472
 msgid "Shortcode name is required."
 msgstr "نام کدکوتاه الزامیست"
 
-#: include/./classes/settings/class-vc-settings.php:455
+#: include/./classes/settings/class-vc-settings.php:473
 msgid "Please enter valid shortcode tag."
 msgstr "لطفا برچسب معتبر کدکوتاه را وارد کنید."
 
-#: include/./classes/settings/class-vc-settings.php:456
+#: include/./classes/settings/class-vc-settings.php:474
 msgid "Please enter all required fields for params."
 msgstr "لطفا تمامی فیلدهای مورد نیاز پارام ها را وارد کنید."
 
-#: include/./classes/settings/class-vc-settings.php:457
+#: include/./classes/settings/class-vc-settings.php:475
 msgid "New shortcode mapped from string!"
 msgstr "کدکوتاه جدید از رشته نگاشت شد."
 
-#: include/./classes/settings/class-vc-settings.php:458
+#: include/./classes/settings/class-vc-settings.php:476
 msgid "Shortcode updated!"
 msgstr "کدکوتاه به روز شد!"
 
-#: include/./classes/settings/class-vc-settings.php:459
+#: include/./classes/settings/class-vc-settings.php:477
 msgid "Content param can not be added manually, please use checkbox."
 msgstr "پارام محتوا نمیتواند به طور دستی اضافه شود. از چک باکس استفاده کنید."
 
-#: include/./classes/settings/class-vc-settings.php:460
+#: include/./classes/settings/class-vc-settings.php:478
 #, php-format
 msgid "Param %s already exists. Param names must be unique."
 msgstr "پارام %s وجو داردو اسامی پارام باید منحصر به فرد باشند."
 
-#: include/./classes/settings/class-vc-settings.php:461
+#: include/./classes/settings/class-vc-settings.php:479
 msgid "Please use only letters, numbers and underscore for param name"
 msgstr "لطفا فقط از حروف ، اعداد و آندرلاین برای نام پارام استفاده کنید."
 
-#: include/./classes/settings/class-vc-settings.php:462
+#: include/./classes/settings/class-vc-settings.php:480
 msgid "Please enter valid shortcode to parse!"
 msgstr "لطفا کد کوتاه معتبری را وارد کنید!"
 
-#: include/./classes/settings/class-vc-settings.php:483
+#: include/./classes/settings/class-vc-settings.php:501
 msgid "Add custom CSS code to the plugin without modifying files."
 msgstr "اضافه کردن CSS سفارشی به پلاگین بدون ویرایش فایل"
 
-#: include/./classes/settings/class-vc-settings.php:501
+#: include/./classes/settings/class-vc-settings.php:518
 msgid ""
 "Disable content elements from \"stacking\" one on top other on small media "
 "screens (Example: mobile devices)."
@@ -7449,15 +7500,15 @@ msgstr ""
 "غیر فعال کردن عناصر محتوا از \"انباشته\" یکی در بالای دیگر بر روی صفحه نمایش "
 "رسانه کوچک ( به عنوان مثال: دستگاه های تلفن همراه )."
 
-#: include/./classes/settings/class-vc-settings.php:525
+#: include/./classes/settings/class-vc-settings.php:542
 msgid "Select subsets for Google Fonts available to content elements."
 msgstr "انتخاب دسترسی زیرمجموعه فونت های گوگل برای المانهای محتوا"
 
-#: include/./classes/settings/class-vc-settings.php:608
+#: include/./classes/settings/class-vc-settings.php:625
 msgid "Enable"
 msgstr "فعالسازی"
 
-#: include/./classes/settings/class-vc-settings.php:610
+#: include/./classes/settings/class-vc-settings.php:627
 msgid ""
 "Enable the use of custom design options (Note: when checked - custom css "
 "file will be used)."
@@ -7465,28 +7516,35 @@ msgstr ""
 "فعال کردن استفاده از تنظیمات سفارشی طراحی ( موقع انتخاب فایل CSS سفارشی مورد "
 "استفاده قرار میگیرد)"
 
-#: include/./classes/settings/class-vc-settings.php:632
+#: include/./classes/settings/class-vc-settings.php:649
 msgid ""
 "Change default vertical spacing between content elements (Example: 20px)."
 msgstr "تغییر فاصله عمودی پیش فرض بین المانهای محتوا ( مثال 20px )"
 
-#: include/./classes/settings/class-vc-settings.php:643
+#: include/./classes/settings/class-vc-settings.php:660
 msgid ""
 "Change default horizontal spacing between columns, enter new value in pixels."
 msgstr ""
 "تغییر فاصله افقی پیش فرض بین المانهای ستون ها . مقدار جدید را به پیکسل وارد "
 "کنید."
 
-#: include/./classes/settings/class-vc-settings.php:654
+#: include/./classes/settings/class-vc-settings.php:671
+#: include/./classes/settings/class-vc-settings.php:679
+#: include/./classes/settings/class-vc-settings.php:687
+#, fuzzy
+#| msgid ""
+#| "By default content elements \"stack\" one on top other when screen size "
+#| "is smaller than 768px. Change the value to change \"stacking\" size."
 msgid ""
-"By default content elements \"stack\" one on top other when screen size is "
-"smaller than 768px. Change the value to change \"stacking\" size."
+"Content elements stack one on top other when the screen size is smaller than "
+"entered value. Change it to control when your layout stacks and adopts to a "
+"particular viewport or device size."
 msgstr ""
 "زمانی که صفحه نمایش کوچکتر از 768 پیکسل باشد به صورت پیش فرض عناصر محتوا روی "
 "هم انباشته (یکی روی دیگری ) می شوند برای تغییر سایز انباشته مقدار را تغییر "
 "دهید."
 
-#: include/./classes/settings/class-vc-settings.php:682
+#: include/./classes/settings/class-vc-settings.php:715
 msgid ""
 "Here you can tweak default WPBakery Page Builder content elements visual "
 "appearance. By default WPBakery Page Builder is using neutral light-grey "
@@ -7498,28 +7556,42 @@ msgstr ""
 "میکند. تغییر  \"Main accent color\" در صورتی که هیج رنگ  \"content block\" "
 "خاصی تنظیم نشده باشد، تمامی المانهای محتوا را تحت تاثیر قرار میدهد."
 
-#: include/./classes/settings/class-vc-settings.php:759
+#: include/./classes/settings/class-vc-settings.php:792
 msgid "Invalid Margin value."
 msgstr "مقدار margin نامعتبر."
 
-#: include/./classes/settings/class-vc-settings.php:773
+#: include/./classes/settings/class-vc-settings.php:806
 msgid "Invalid Gutter value."
 msgstr "مقدار gutter نامعتبر"
 
-#: include/./classes/settings/class-vc-settings.php:786
-msgid "Invalid \"Responsive max\" value."
+#: include/./classes/settings/class-vc-settings.php:819
+#, fuzzy
+#| msgid "Invalid \"Responsive max\" value."
+msgid "Invalid \"Responsive mobile\" value."
 msgstr "مقدار  \"Responsive max\" نامعتبر"
 
-#: include/./classes/settings/class-vc-settings.php:876
+#: include/./classes/settings/class-vc-settings.php:832
+#, fuzzy
+#| msgid "Invalid \"Responsive max\" value."
+msgid "Invalid \"Responsive md\" value."
+msgstr "مقدار  \"Responsive max\" نامعتبر"
+
+#: include/./classes/settings/class-vc-settings.php:845
+#, fuzzy
+#| msgid "Invalid \"Responsive max\" value."
+msgid "Invalid \"Responsive lg\" value."
+msgstr "مقدار  \"Responsive max\" نامعتبر"
+
+#: include/./classes/settings/class-vc-settings.php:935
 msgid ""
 "Something went wrong: js_composer_front_custom.css could not be created."
 msgstr "اشتباهی رخ داده است: js_composer_front_custom.css ایجاد نشده است."
 
-#: include/./classes/settings/class-vc-settings.php:878
+#: include/./classes/settings/class-vc-settings.php:937
 msgid "js_composer_front_custom.css could not be created. Connection error."
 msgstr "js_composer_front_custom.css نتوانست ایجاد شود. خطای اتصال"
 
-#: include/./classes/settings/class-vc-settings.php:880
+#: include/./classes/settings/class-vc-settings.php:939
 #, php-format
 msgid ""
 "js_composer_front_custom.css could not be created. Cannot write custom css "
@@ -7528,36 +7600,36 @@ msgstr ""
 "js_composer_front_custom.css نتوانست ایجاد شود. css سفارشی در \"%s\" نوشته "
 "نشد."
 
-#: include/./classes/settings/class-vc-settings.php:882
+#: include/./classes/settings/class-vc-settings.php:941
 msgid "js_composer_front_custom.css could not be created. Problem with access."
 msgstr "js_composer_front_custom.css نتوانست ایجاد شود. مشکل در دسترسی."
 
-#: include/./classes/settings/class-vc-settings.php:922
+#: include/./classes/settings/class-vc-settings.php:981
 msgid "Something went wrong: custom.css could not be created."
 msgstr "اشتباهی رخ داد: custom.css ایجاد نشد."
 
-#: include/./classes/settings/class-vc-settings.php:924
+#: include/./classes/settings/class-vc-settings.php:983
 msgid "custom.css could not be created. Connection error."
 msgstr "custom.css نتوانست ایجاد شود. خطای اتصال"
 
-#: include/./classes/settings/class-vc-settings.php:926
+#: include/./classes/settings/class-vc-settings.php:985
 #, fuzzy, php-format
 #| msgid "custom.css could not be created. Cannot write custom css to \""
 msgid "custom.css could not be created. Cannot write custom css to %s."
 msgstr "custom.css نتوانست ایجاد شود. css سفارشی در  \" نوشته نشد."
 
-#: include/./classes/settings/class-vc-settings.php:928
+#: include/./classes/settings/class-vc-settings.php:987
 msgid "custom.css could not be created. Problem with access."
 msgstr "custom.css ایجاد نشد. مشکل در دسترسی."
 
-#: include/./classes/settings/class-vc-settings.php:949
+#: include/./classes/settings/class-vc-settings.php:1008
 #, php-format
 msgid ""
 "%s could not be created. Not available to create js_composer directory in "
 "uploads directory (%s)."
 msgstr ""
 
-#: include/./classes/shortcodes/core/class-wpbakeryshortcode.php:540
+#: include/./classes/shortcodes/core/class-wpbakeryshortcode.php:720
 #: include/./templates/editors/partials/backend_controls.tpl.php:31
 #: include/./templates/editors/partials/backend_controls_tab.tpl.php:24
 #: include/./templates/editors/partials/frontend_controls.tpl.php:18
@@ -7574,7 +7646,7 @@ msgstr ""
 msgid "Edit %s"
 msgstr "ویرایش  %s"
 
-#: include/./classes/shortcodes/core/class-wpbakeryshortcode.php:541
+#: include/./classes/shortcodes/core/class-wpbakeryshortcode.php:721
 #: include/./templates/editors/partials/backend_controls.tpl.php:35
 #: include/./templates/editors/partials/backend_controls_tab.tpl.php:28
 #: include/./templates/editors/partials/frontend_controls.tpl.php:23
@@ -7589,7 +7661,7 @@ msgstr "ویرایش  %s"
 msgid "Clone %s"
 msgstr "Clone %s(کلون)"
 
-#: include/./classes/shortcodes/core/class-wpbakeryshortcode.php:541
+#: include/./classes/shortcodes/core/class-wpbakeryshortcode.php:721
 #: include/./templates/editors/partials/backend_controls.tpl.php:39
 #: include/./templates/editors/partials/backend_controls_tab.tpl.php:32
 #: include/./templates/editors/partials/frontend_controls.tpl.php:26
@@ -7850,7 +7922,7 @@ msgstr "نمایش برچسب"
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:53
 #: include/./classes/vendors/plugins/acf/shortcode.php:51
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:76
-#: include/./params/vc_grid_item/shortcodes.php:648
+#: include/./params/vc_grid_item/shortcodes.php:673
 msgid "Enter label to display before key value."
 msgstr "وارد کردن برچسب برای نمایش قبل از مقدار کلید"
 
@@ -7891,7 +7963,7 @@ msgstr "تراز"
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:65
 #: include/./classes/vendors/plugins/acf/shortcode.php:63
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:89
-#: include/./params/vc_grid_item/shortcodes.php:660
+#: include/./params/vc_grid_item/shortcodes.php:685
 msgid "Select alignment."
 msgstr "انتخاب ترازبندی"
 
@@ -8515,11 +8587,11 @@ msgstr "انتخاب فیلد از سفارش"
 msgid "Order custom key"
 msgstr "کلید سفارشی سفارش"
 
-#: include/./helpers/helpers.php:291
+#: include/./helpers/helpers.php:298
 msgid "Added"
 msgstr "افزوده شد"
 
-#: include/./helpers/helpers.php:1223 include/./params/loop/loop.php:364
+#: include/./helpers/helpers.php:1230 include/./params/loop/loop.php:364
 msgid "Taxonomies"
 msgstr "طبقه بندی"
 
@@ -8527,31 +8599,31 @@ msgstr "طبقه بندی"
 msgid "Wrong vc_map object. Base attribute is required"
 msgstr "شیء wpb_map اشتباه. ویژگی زمینه مورد نیاز است."
 
-#: include/./helpers/helpers_api.php:546
+#: include/./helpers/helpers_api.php:547
 msgid "CSS Animation"
 msgstr "css متحرک"
 
-#: include/./helpers/helpers_api.php:556
+#: include/./helpers/helpers_api.php:557
 msgid "Top to bottom"
 msgstr "بالا به پایین"
 
-#: include/./helpers/helpers_api.php:557
+#: include/./helpers/helpers_api.php:558
 msgid "Bottom to top"
 msgstr "پایین به بالا"
 
-#: include/./helpers/helpers_api.php:558
+#: include/./helpers/helpers_api.php:559
 msgid "Left to right"
 msgstr "چپ به راست"
 
-#: include/./helpers/helpers_api.php:559
+#: include/./helpers/helpers_api.php:560
 msgid "Right to left"
 msgstr "راست به چپ"
 
-#: include/./helpers/helpers_api.php:560
+#: include/./helpers/helpers_api.php:561
 msgid "Appear from center"
 msgstr "از مرکز ظاهر شود"
 
-#: include/./helpers/helpers_api.php:565
+#: include/./helpers/helpers_api.php:566
 msgid ""
 "Select type of animation for element to be animated when it \"enters\" the "
 "browsers viewport (Note: works only in modern browsers)."
@@ -8911,7 +8983,7 @@ msgstr "اسلاید خروجی راست"
 msgid "slideOutUp"
 msgstr "اسلاید خروجی بالا"
 
-#: include/./params/animation_style/animation_style.php:499
+#: include/./params/animation_style/animation_style.php:504
 msgid "Animate it"
 msgstr "انیمیشن دادن به آن"
 
@@ -9238,100 +9310,110 @@ msgstr "الگو های شبکه بندی"
 msgid "Custom Grid Templates"
 msgstr "الگو های شبکه ای سفارشی"
 
-#: include/./params/vc_grid_item/shortcodes.php:11
-#: include/./params/vc_grid_item/shortcodes.php:447
-#: include/./params/vc_grid_item/shortcodes.php:478
+#: include/./params/vc_grid_item/shortcodes.php:10
+#: include/./params/vc_grid_item/shortcodes.php:459
+#: include/./params/vc_grid_item/shortcodes.php:490
 msgid "Add link"
 msgstr "اضافه کردن لینک"
 
-#: include/./params/vc_grid_item/shortcodes.php:15
+#: include/./params/vc_grid_item/shortcodes.php:14
 msgid "Post link"
 msgstr "لینک مطلب"
 
-#: include/./params/vc_grid_item/shortcodes.php:16
+#: include/./params/vc_grid_item/shortcodes.php:15
 msgid "Post author"
 msgstr "نویسنده پست"
 
-#: include/./params/vc_grid_item/shortcodes.php:17
+#: include/./params/vc_grid_item/shortcodes.php:16
 msgid "Large image"
 msgstr "تصویر بزرگ"
 
-#: include/./params/vc_grid_item/shortcodes.php:18
+#: include/./params/vc_grid_item/shortcodes.php:17
 msgid "Large image (prettyPhoto)"
 msgstr "تصویر بزرگ ( عکس زیبا )"
 
-#: include/./params/vc_grid_item/shortcodes.php:21
+#: include/./params/vc_grid_item/shortcodes.php:20
 msgid "Select link option."
 msgstr "انتخاب تنظیمات لینک"
 
-#: include/./params/vc_grid_item/shortcodes.php:33
-#: include/./params/vc_grid_item/shortcodes.php:76
-#: include/./params/vc_grid_item/shortcodes.php:553
-#: include/./params/vc_grid_item/shortcodes.php:893
-#: include/./params/vc_grid_item/shortcodes.php:904
+#: include/./params/vc_grid_item/shortcodes.php:24
+msgid "Open link in a new tab"
+msgstr ""
+
+#: include/./params/vc_grid_item/shortcodes.php:27
+#, fuzzy
+#| msgid "Select link option."
+msgid "Select link target window."
+msgstr "انتخاب تنظیمات لینک"
+
+#: include/./params/vc_grid_item/shortcodes.php:44
+#: include/./params/vc_grid_item/shortcodes.php:88
+#: include/./params/vc_grid_item/shortcodes.php:578
+#: include/./params/vc_grid_item/shortcodes.php:918
+#: include/./params/vc_grid_item/shortcodes.php:929
 msgid "Add custom link."
 msgstr "اضافه کردن لینک سفارشی"
 
-#: include/./params/vc_grid_item/shortcodes.php:37
-#: include/./params/vc_grid_item/shortcodes.php:373
+#: include/./params/vc_grid_item/shortcodes.php:48
+#: include/./params/vc_grid_item/shortcodes.php:385
 msgid "Use featured image on background?"
 msgstr "استفاده از ویژگی های تصویر در پس زمینه ؟"
 
-#: include/./params/vc_grid_item/shortcodes.php:40
-#: include/./params/vc_grid_item/shortcodes.php:376
+#: include/./params/vc_grid_item/shortcodes.php:51
+#: include/./params/vc_grid_item/shortcodes.php:388
 msgid ""
 "Note: Featured image overwrites background image and color from \"Design "
 "Options\"."
 msgstr ""
 "توجه: تصویر های ویژه رونویسی تصویر پس زمینه و رنگ از \"گزینه های طراحی\"."
 
-#: include/./params/vc_grid_item/shortcodes.php:105
+#: include/./params/vc_grid_item/shortcodes.php:117
 msgid "Use custom fonts?"
 msgstr "استفاده از فونت های سفارشی ؟"
 
-#: include/./params/vc_grid_item/shortcodes.php:126
 #: include/./params/vc_grid_item/shortcodes.php:138
-#: include/./params/vc_grid_item/shortcodes.php:156
+#: include/./params/vc_grid_item/shortcodes.php:150
+#: include/./params/vc_grid_item/shortcodes.php:168
 msgid "Custom fonts"
 msgstr "فونتهای سفارشی"
 
-#: include/./params/vc_grid_item/shortcodes.php:134
+#: include/./params/vc_grid_item/shortcodes.php:146
 msgid "Yes theme default font family?"
 msgstr "بله فونت پیش فرض الگو ؟"
 
-#: include/./params/vc_grid_item/shortcodes.php:137
+#: include/./params/vc_grid_item/shortcodes.php:149
 msgid "Yes font family from the theme."
 msgstr "بله فونت پیش فرض از الگو سایت."
 
-#: include/./params/vc_grid_item/shortcodes.php:165
+#: include/./params/vc_grid_item/shortcodes.php:177
 msgid "Grid Item"
 msgstr "آیتم شبکه بندی"
 
-#: include/./params/vc_grid_item/shortcodes.php:172
+#: include/./params/vc_grid_item/shortcodes.php:184
 msgid "Main grid item"
 msgstr "آیتم اصلی شبکه بندی"
 
-#: include/./params/vc_grid_item/shortcodes.php:191
+#: include/./params/vc_grid_item/shortcodes.php:203
 msgid "A/B block"
 msgstr "بلاک  A/B"
 
-#: include/./params/vc_grid_item/shortcodes.php:216
+#: include/./params/vc_grid_item/shortcodes.php:228
 msgid "Zone"
 msgstr "منطقه"
 
-#: include/./params/vc_grid_item/shortcodes.php:230
+#: include/./params/vc_grid_item/shortcodes.php:242
 msgid "Normal"
 msgstr ""
 
-#: include/./params/vc_grid_item/shortcodes.php:243
+#: include/./params/vc_grid_item/shortcodes.php:255
 msgid "Height mode"
 msgstr "حالت ارتفاع"
 
-#: include/./params/vc_grid_item/shortcodes.php:247
+#: include/./params/vc_grid_item/shortcodes.php:259
 msgid "Original"
 msgstr "اصلی"
 
-#: include/./params/vc_grid_item/shortcodes.php:254
+#: include/./params/vc_grid_item/shortcodes.php:266
 msgid ""
 "Sizing proportions for height and width. Select \"Original\" to scale image "
 "without cropping."
@@ -9339,97 +9421,97 @@ msgstr ""
 "اندازه نسبت ها برای ارتفاع و عرض. انتخاب کنید \"اصلی\" به مقیاس تصویر بدون "
 "برداشت."
 
-#: include/./params/vc_grid_item/shortcodes.php:264
+#: include/./params/vc_grid_item/shortcodes.php:276
 msgid "Enter custom height."
 msgstr "وارد کردن ارتفاع سفارشی"
 
-#: include/./params/vc_grid_item/shortcodes.php:270
+#: include/./params/vc_grid_item/shortcodes.php:282
 msgid "Hover"
 msgstr ""
 
-#: include/./params/vc_grid_item/shortcodes.php:284
+#: include/./params/vc_grid_item/shortcodes.php:296
 msgid "Additional"
 msgstr ""
 
-#: include/./params/vc_grid_item/shortcodes.php:406
+#: include/./params/vc_grid_item/shortcodes.php:418
 msgid "Post Title"
 msgstr "عنوان مطلب"
 
-#: include/./params/vc_grid_item/shortcodes.php:409
-#: include/./params/vc_grid_item/shortcodes.php:425
-#: include/./params/vc_grid_item/shortcodes.php:442
-#: include/./params/vc_grid_item/shortcodes.php:473
-#: include/./params/vc_grid_item/shortcodes.php:541
-#: include/./params/vc_grid_item/shortcodes.php:617
+#: include/./params/vc_grid_item/shortcodes.php:421
+#: include/./params/vc_grid_item/shortcodes.php:437
+#: include/./params/vc_grid_item/shortcodes.php:454
+#: include/./params/vc_grid_item/shortcodes.php:485
+#: include/./params/vc_grid_item/shortcodes.php:565
+#: include/./params/vc_grid_item/shortcodes.php:642
 msgid "Post"
 msgstr "نوشته"
 
-#: include/./params/vc_grid_item/shortcodes.php:410
+#: include/./params/vc_grid_item/shortcodes.php:422
 msgid "Title of current post"
 msgstr "عنوان مطلب فعلی"
 
-#: include/./params/vc_grid_item/shortcodes.php:422
+#: include/./params/vc_grid_item/shortcodes.php:434
 msgid "Post Excerpt"
 msgstr "چکیده ی مطلب"
 
-#: include/./params/vc_grid_item/shortcodes.php:426
+#: include/./params/vc_grid_item/shortcodes.php:438
 msgid "Excerpt or manual excerpt"
 msgstr "گزیده ای یا گزیده ای دستی"
 
-#: include/./params/vc_grid_item/shortcodes.php:438
+#: include/./params/vc_grid_item/shortcodes.php:450
 msgid "Post Author"
 msgstr "نویسنده پست"
 
-#: include/./params/vc_grid_item/shortcodes.php:443
+#: include/./params/vc_grid_item/shortcodes.php:455
 msgid "Author of current post"
 msgstr "نویسنده پست کنونی"
 
-#: include/./params/vc_grid_item/shortcodes.php:450
+#: include/./params/vc_grid_item/shortcodes.php:462
 msgid "Add link to author?"
 msgstr "اضافه کردن پیوند به نویسنده؟"
 
-#: include/./params/vc_grid_item/shortcodes.php:469
+#: include/./params/vc_grid_item/shortcodes.php:481
 msgid "Post Categories"
 msgstr "موضوعات پست"
 
-#: include/./params/vc_grid_item/shortcodes.php:474
+#: include/./params/vc_grid_item/shortcodes.php:486
 msgid "Categories of current post"
 msgstr "دسته بندی ها از ارسال کنونی"
 
-#: include/./params/vc_grid_item/shortcodes.php:481
+#: include/./params/vc_grid_item/shortcodes.php:493
 msgid "Add link to category?"
 msgstr "اضافه کردن پیوند به دسته؟"
 
-#: include/./params/vc_grid_item/shortcodes.php:489
+#: include/./params/vc_grid_item/shortcodes.php:513
 msgid "Comma"
 msgstr "ویرگول"
 
-#: include/./params/vc_grid_item/shortcodes.php:496
+#: include/./params/vc_grid_item/shortcodes.php:520
 msgid "Select category display style."
 msgstr "انتخاب سبک نمایش دسته."
 
-#: include/./params/vc_grid_item/shortcodes.php:512
+#: include/./params/vc_grid_item/shortcodes.php:536
 msgid "Select category color."
 msgstr "رنگ دسته را انتخاب کنید."
 
-#: include/./params/vc_grid_item/shortcodes.php:516
+#: include/./params/vc_grid_item/shortcodes.php:540
 msgid "Category size"
 msgstr "اندازه دسته بندی"
 
-#: include/./params/vc_grid_item/shortcodes.php:520
+#: include/./params/vc_grid_item/shortcodes.php:544
 msgid "Select category size."
 msgstr "اندازه دسته بندی را انتخاب کنید."
 
-#: include/./params/vc_grid_item/shortcodes.php:538
+#: include/./params/vc_grid_item/shortcodes.php:562
 msgid "Post Image"
 msgstr "تصویر مطلب"
 
-#: include/./params/vc_grid_item/shortcodes.php:542
+#: include/./params/vc_grid_item/shortcodes.php:566
 msgid "Featured image"
 msgstr "ویژگی تصویر"
 
-#: include/./params/vc_grid_item/shortcodes.php:559
-#: include/./params/vc_grid_item/shortcodes.php:767
+#: include/./params/vc_grid_item/shortcodes.php:584
+#: include/./params/vc_grid_item/shortcodes.php:792
 msgid ""
 "Enter image size (Example: \"thumbnail\", \"medium\", \"large\", \"full\" or "
 "other sizes defined by theme). Alternatively enter size in pixels (Example: "
@@ -9442,37 +9524,37 @@ msgstr ""
 "اگر این بخش خالی باشد \"thumbnail\" (تصویر بندانگشتی) به صورت پیشفرض نمایش "
 "داده میشود"
 
-#: include/./params/vc_grid_item/shortcodes.php:614
+#: include/./params/vc_grid_item/shortcodes.php:639
 msgid "Post Date"
 msgstr "تاریخ مطلب"
 
-#: include/./params/vc_grid_item/shortcodes.php:618
+#: include/./params/vc_grid_item/shortcodes.php:643
 msgid "Post publish date"
 msgstr "نمایش تاریخ پست؟"
 
-#: include/./params/vc_grid_item/shortcodes.php:630
+#: include/./params/vc_grid_item/shortcodes.php:655
 msgid "Custom Field"
 msgstr "فیلد سفارشی"
 
-#: include/./params/vc_grid_item/shortcodes.php:634
+#: include/./params/vc_grid_item/shortcodes.php:659
 #: include/./templates/pages/partials/vc-roles-parts/_shortcodes.tpl.php:35
 #: include/./templates/pages/partials/vc-roles-parts/_shortcodes.tpl.php:36
 msgid "Elements"
 msgstr "المنت ها"
 
-#: include/./params/vc_grid_item/shortcodes.php:636
+#: include/./params/vc_grid_item/shortcodes.php:661
 msgid "Custom fields data from meta values of the post."
 msgstr "اطلاعات فیلدهای سفارشی از مقادیر متای مطلب"
 
-#: include/./params/vc_grid_item/shortcodes.php:640
+#: include/./params/vc_grid_item/shortcodes.php:665
 msgid "Field key name"
 msgstr "نام کلید فیلد"
 
-#: include/./params/vc_grid_item/shortcodes.php:642
+#: include/./params/vc_grid_item/shortcodes.php:667
 msgid "Enter custom field name to retrieve meta data value."
 msgstr "وارد کردن نام فیلد سفارشی برای مقدار متای پیدا شده"
 
-#: include/./params/vc_grid_item/shortcodes.php:658
+#: include/./params/vc_grid_item/shortcodes.php:683
 msgid "Justify"
 msgstr "تراز"
 
@@ -10579,7 +10661,7 @@ msgstr "پیش نمایش فونتهای گوگل"
 msgid "Grumpy wizards make toxic brew for the evil Queen and Jack."
 msgstr "نوع فونت الگو را در این قسمت انتخاب کنید"
 
-#: include/./templates/params/vc_grid_item/attributes/post_categories.php:28
+#: include/./templates/params/vc_grid_item/attributes/post_categories.php:38
 #, php-format
 msgid "View all posts in %s"
 msgstr "مشاهده تمام پست ها در%s"
@@ -10626,6 +10708,9 @@ msgstr "توئیت به"
 #: include/./templates/shortcodes/vc_tweetmeme.php:33
 msgid "Tweet"
 msgstr "توئیت"
+
+#~ msgid "Select bar background color."
+#~ msgstr "انتخاب رنگ پس زمینه بار"
 
 #~ msgid ""
 #~ "Enter row ID (Note: make sure it is unique and valid according to <a href="

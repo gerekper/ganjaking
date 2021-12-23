@@ -6,10 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Renders navigation bar for Editors.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Navbar {
 	/**
 	 * @var array
@@ -178,6 +174,23 @@ class Vc_Navbar {
 	 * @return string
 	 */
 	public function getControlSaveBackend() {
-		return '<li class="vc_pull-right vc_save-backend">' . '<a href="javascript:;" class="vc_btn vc_btn-grey vc_btn-sm vc_navbar-btn vc_control-preview">' . esc_attr__( 'Preview', 'js_composer' ) . '</a>' . '<a class="vc_btn vc_btn-sm vc_navbar-btn vc_btn-primary vc_control-save" id="wpb-save-post">' . esc_attr__( 'Update', 'js_composer' ) . '</a>' . '</li>';
+		$post = $this->post();
+		$post_type = $post->post_type;
+		$post_type_object = get_post_type_object( $post_type );
+		$can_publish = current_user_can( $post_type_object->cap->publish_posts );
+
+		if ( in_array( get_post_status( $post ), array(
+			'publish',
+			'future',
+			'private',
+		) ) ) {
+			$save_text = esc_html__( 'Update', 'js_composer' );
+		} else if ( $can_publish ) {
+			$save_text = esc_html__( 'Publish', 'js_composer' );
+		} else {
+			$save_text = esc_html__( 'Submit for Review', 'js_composer' );
+		}
+
+		return '<li class="vc_pull-right vc_save-backend">' . '<a href="javascript:;" class="vc_btn vc_btn-grey vc_btn-sm vc_navbar-btn vc_control-preview">' . esc_attr__( 'Preview', 'js_composer' ) . '</a>' . '<a class="vc_btn vc_btn-sm vc_navbar-btn vc_btn-primary vc_control-save" id="wpb-save-post">' . $save_text . '</a>' . '</li>';
 	}
 }

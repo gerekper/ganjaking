@@ -5,7 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 VcShortcodeAutoloader::getInstance()->includeClass( 'WPBakeryShortCode_Vc_Gitem_Animated_Block' );
 
-global $vc_gitem_add_link_param;
 $vc_gitem_add_link_param = apply_filters( 'vc_gitem_add_link_param', array(
 	'type' => 'dropdown',
 	'heading' => esc_html__( 'Add link', 'js_composer' ),
@@ -16,12 +15,26 @@ $vc_gitem_add_link_param = apply_filters( 'vc_gitem_add_link_param', array(
 		esc_html__( 'Post author', 'js_composer' ) => 'post_author',
 		esc_html__( 'Large image', 'js_composer' ) => 'image',
 		esc_html__( 'Large image (prettyPhoto)', 'js_composer' ) => 'image_lightbox',
+		esc_html__( 'Full image', 'js_composer' ) => 'image_full',
+		esc_html__( 'Full image (prettyPhoto)', 'js_composer' ) => 'image_full_lightbox',
 		esc_html__( 'Custom', 'js_composer' ) => 'custom',
 	),
 	'description' => esc_html__( 'Select link option.', 'js_composer' ),
 ) );
+$vc_gitem_add_link_target_param = apply_filters( 'vc_gitem_add_link_target_param', array(
+	'type' => 'checkbox',
+	'heading' => esc_html__( 'Open link in a new tab', 'js_composer' ),
+	'param_name' => 'link_target',
+	'value' => '',
+	'description' => esc_html__( 'Select link target window.', 'js_composer' ),
+	'dependency' => array(
+		'element' => 'link',
+		'value_not_equal_to' => array( 'custom', 'none' ),
+	),
+) );
 $zone_params = array(
 	$vc_gitem_add_link_param,
+	$vc_gitem_add_link_target_param,
 	array(
 		'type' => 'vc_link',
 		'heading' => esc_html__( 'URL (Link)', 'js_composer' ),
@@ -65,6 +78,7 @@ $zone_params = array(
 );
 $post_data_params = array(
 	$vc_gitem_add_link_param,
+	$vc_gitem_add_link_target_param,
 	array(
 		'type' => 'vc_link',
 		'heading' => esc_html__( 'URL (Link)', 'js_composer' ),
@@ -482,6 +496,18 @@ $list = array(
 			),
 			array(
 				'type' => 'dropdown',
+				'heading' => esc_html__( 'Alignment', 'js_composer' ),
+				'param_name' => 'alignment',
+				'value' => array(
+					esc_html__( 'Left', 'js_composer' ) => 'left',
+					esc_html__( 'Right', 'js_composer' ) => 'right',
+					esc_html__( 'Center', 'js_composer' ) => 'center',
+				),
+				'std' => 'center',
+				'description' => esc_html__( 'Select image alignment.', 'js_composer' ),
+			),
+			array(
+				'type' => 'dropdown',
 				'heading' => esc_html__( 'Style', 'js_composer' ),
 				'param_name' => 'category_style',
 				'value' => array(
@@ -542,6 +568,7 @@ $list = array(
 		'description' => esc_html__( 'Featured image', 'js_composer' ),
 		'params' => array(
 			$vc_gitem_add_link_param,
+			$vc_gitem_add_link_target_param,
 			array(
 				'type' => 'vc_link',
 				'heading' => esc_html__( 'URL (Link)', 'js_composer' ),
@@ -905,6 +932,7 @@ foreach (
 			) );
 		}
 		// Add link dropdown
+		array_unshift( $list[ $key ]['params'], $vc_gitem_add_link_target_param );
 		array_unshift( $list[ $key ]['params'], $vc_gitem_add_link_param );
 	}
 }

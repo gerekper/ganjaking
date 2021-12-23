@@ -18,8 +18,18 @@ $css_class = array( 'vc_gitem-post-data' );
 $css_class[] = vc_shortcode_custom_css_class( $atts['css'] );
 $css_class[] = $atts['el_class'];
 $css_class[] = 'vc_gitem-post-data-source-post_categories';
-$style = str_replace( ',', 'comma', $atts['category_style'] );
-$output = '<div class="' . esc_attr( implode( ' ', array_filter( $css_class ) ) ) . ' vc_grid-filter vc_clearfix vc_grid-filter-' . esc_attr( $style ) . ' vc_grid-filter-size-' . esc_attr( $atts['category_size'] ) . ' vc_grid-filter-center vc_grid-filter-color-' . esc_attr( $atts['category_color'] ) . '">';
+$css_class[] = 'vc_grid-filter vc_clearfix';
+$css_class[] = 'vc_grid-filter vc_clearfix';
+$style = trim( str_replace( ',', 'comma', $atts['category_style'] ) );
+$css_class[] = 'vc_grid-filter-' . esc_attr( $style );
+$css_class[] = 'vc_grid-filter-size-' . esc_attr( $atts['category_size'] );
+$css_class[] = 'vc_grid-filter-' . esc_attr( $atts['alignment'] );
+$css_class[] = 'vc_grid-filter-' . esc_attr( $atts['alignment'] );
+if ( ! empty( $style ) && 'none' !== $style ) {
+	$css_class[] = 'vc_grid-filter-color-' . esc_attr( $atts['category_color'] );
+}
+
+$output = '<div class="' . esc_attr( implode( ' ', array_filter( $css_class ) ) ) . '">';
 $data = array();
 if ( ! empty( $categories ) ) {
 	foreach ( $categories as $category ) {

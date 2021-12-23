@@ -1,3 +1,25 @@
+20.12.2021 - ver 6.8.0
+  - Update: Deprecated jQuery removed from the plugin
+  - Fix: Button animation works properly on Safari
+  - Fix: Image gallery works properly on WordPress 5.8
+  - Fix: "Load more" button works properly to load content with Ajax
+  - Fix: WPBakery works properly with Layer Slider
+  - Fix: Role management for users works properly for the Super Admin role
+  - Fix: WPBakery works properly with WPML
+  - Fix: WPBakery works properly with ACF
+  - Fix: Post grid loading works properly
+  - Fix: Post grid categories work properly on mobile
+  - Fix: Post grid autoplay works properly
+  - Fix: Post grid works properly with ACF
+  - Fix: Post grid images full sizes works properly
+  - Fix: Scrollbar works properly for Raw HTML
+  - Fix: Post grid pagination works properly
+  - Fix: Charts work properly in the editor
+  - Fix: Update filters for vc_shortcode_content_filter
+  - Fix: Empty ACF values are not displayed
+  - Fix: Editor loads properly for all user roles
+  - Deprecated: Class WPBakeryVisualComposerAbstract will be removed in 6.9.0
+
 06.07.2021 - ver 6.7.0
   - New: Custom breakpoint controls to adjust stacking behavior
   - New: Option to disable animations in Masonry grid added
@@ -1124,7 +1146,7 @@
    - WP 3.5 compatibility fixes added
 
 29.12.2012 - ver 3.4.9
-   - Introduced developers methods more info https://kb.wpbakery.com/index.php?title=Category:Visual_Composer
+   - Introduced developers methods more info https://kb.wpbakery.com/
    - Exceprts now are working for posts/pages created with WPBakery Page Builder
    - Nivo slider updated (ver. 3.1)
    - Responsive css can be turned off from WPBakery Page Builder settings page

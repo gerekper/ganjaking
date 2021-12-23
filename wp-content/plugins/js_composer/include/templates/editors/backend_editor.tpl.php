@@ -36,12 +36,12 @@ $first_tag = 'style';
 /** @var Vc_Backend_Editor $editor */
 ?>
 	<<?php echo esc_attr( $first_tag ); ?>>
-		#wpb_visual_composer {
+		#wpb_wpbakery {
 			display: none;
 		}
 	</<?php echo esc_attr( $first_tag ); ?>>
 	<div class="metabox-composer-content">
-		<div id="visual_composer_content" class="wpb_main_sortable main_wrapper"></div>
+		<div id="wpbakery_content" class="wpb_main_sortable main_wrapper"></div>
 		<?php require vc_path_dir( 'TEMPLATES_DIR', 'editors/partials/vc_welcome_block.tpl.php' ); ?>
 
 	</div>

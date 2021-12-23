@@ -138,7 +138,7 @@ class RevSliderFront extends RevSliderFunctions {
 		/**
 		 * Fix for WordPress versions below 3.7
 		 **/
-		$style_pre = ($wp_version < 3.7) ? '<style type="text/css" id="rs-plugin-settings-inline-css">' : '';
+		$style_pre = ($wp_version < 3.7) ? '<style id="rs-plugin-settings-inline-css">' : '';
 		$style_post = ($wp_version < 3.7) ? '</style>' : '';
 		$custom_css = $css->get_static_css();
 		$custom_css = $css->compress_css($custom_css);
@@ -165,7 +165,7 @@ class RevSliderFront extends RevSliderFunctions {
 		if(empty($rs_js_collection)) return true;
 		if(empty($rs_js_collection['revapi'])) return true;
 
-		echo '<script type="text/javascript" id="rs-initialisation-scripts">'."\n";
+		echo '<script id="rs-initialisation-scripts">'."\n";
 		echo RS_T2.'var	tpj = jQuery;'."\n\n";
 		echo RS_T2.'var	'.implode(',', $rs_js_collection['revapi']) . ';'."\n";
 		if(!empty($rs_js_collection['js'])){
@@ -231,7 +231,7 @@ class RevSliderFront extends RevSliderFunctions {
 		$wait	= apply_filters('revslider_modify_waiting_scripts', $wait);
 		?>
 
-		<script type="text/javascript">
+		<script>
 			window.RS_MODULES = window.RS_MODULES || {};
 			window.RS_MODULES.modules = window.RS_MODULES.modules || {};
 			window.RS_MODULES.waiting = window.RS_MODULES.waiting || [];
@@ -255,7 +255,7 @@ class RevSliderFront extends RevSliderFunctions {
 		}
 
 		?>
-		<script type="text/javascript">
+		<script>
 			function rs_adminBarToolBarTopFunction() {
 				if(jQuery('#wp-admin-bar-revslider-default').length > 0 && jQuery('rs-module-wrap').length > 0){
 					var aliases = new Array();
@@ -421,36 +421,36 @@ class RevSliderFront extends RevSliderFunctions {
 					e.thumbh = e.thumbh===undefined ? 0 : parseInt(e.thumbh);
 					e.tabhide = e.tabhide===undefined ? 0 : parseInt(e.tabhide);
 					e.thumbhide = e.thumbhide===undefined ? 0 : parseInt(e.thumbhide);
-					e.mh = e.mh===undefined || e.mh=="" || e.mh==="auto" ? 0 : parseInt(e.mh,0);		
-					if(e.layout==="fullscreen" || e.l==="fullscreen") 						
-						newh = Math.max(e.mh,window.RSIH);					
+					e.mh = e.mh===undefined || e.mh=="" || e.mh==="auto" ? 0 : parseInt(e.mh,0);
+					if(e.layout==="fullscreen" || e.l==="fullscreen")
+						newh = Math.max(e.mh,window.RSIH);
 					else{					
 						e.gw = Array.isArray(e.gw) ? e.gw : [e.gw];
-						for (var i in e.rl) if (e.gw[i]===undefined || e.gw[i]===0) e.gw[i] = e.gw[i-1];					
+						for (var i in e.rl) if (e.gw[i]===undefined || e.gw[i]===0) e.gw[i] = e.gw[i-1];
 						e.gh = e.el===undefined || e.el==="" || (Array.isArray(e.el) && e.el.length==0)? e.gh : e.el;
 						e.gh = Array.isArray(e.gh) ? e.gh : [e.gh];
 						for (var i in e.rl) if (e.gh[i]===undefined || e.gh[i]===0) e.gh[i] = e.gh[i-1];
 											
 						var nl = new Array(e.rl.length),
-							ix = 0,						
-							sl;					
+							ix = 0,
+							sl;
 						e.tabw = e.tabhide>=pw ? 0 : e.tabw;
 						e.thumbw = e.thumbhide>=pw ? 0 : e.thumbw;
 						e.tabh = e.tabhide>=pw ? 0 : e.tabh;
-						e.thumbh = e.thumbhide>=pw ? 0 : e.thumbh;					
+						e.thumbh = e.thumbhide>=pw ? 0 : e.thumbh;
 						for (var i in e.rl) nl[i] = e.rl[i]<window.RSIW ? 0 : e.rl[i];
 						sl = nl[0];									
-						for (var i in nl) if (sl>nl[i] && nl[i]>0) { sl = nl[i]; ix=i;}															
-						var m = pw>(e.gw[ix]+e.tabw+e.thumbw) ? 1 : (pw-(e.tabw+e.thumbw)) / (e.gw[ix]);					
+						for (var i in nl) if (sl>nl[i] && nl[i]>0) { sl = nl[i]; ix=i;}
+						var m = pw>(e.gw[ix]+e.tabw+e.thumbw) ? 1 : (pw-(e.tabw+e.thumbw)) / (e.gw[ix]);
 						newh =  (e.gh[ix] * m) + (e.tabh + e.thumbh);
 					}				
 					var el = document.getElementById(e.c);
-					if (el!==null && el) el.style.height = newh+"px";					
+					if (el!==null && el) el.style.height = newh+"px";
 					el = document.getElementById(e.c+"_wrapper");
 					if (el!==null && el) el.style.height = newh+"px";
 				} catch(e){
 					console.log("Failure at Presize of Slider:" + e)
-				}					   
+				}
 			//}
 		  };
 	 */
@@ -458,12 +458,12 @@ class RevSliderFront extends RevSliderFunctions {
 		global $revslider_rev_start_size_loaded;
 		if($revslider_rev_start_size_loaded === true) return false;
 		
-		$script = '<script type="text/javascript">';		
+		$script = '<script>';
 		$script .= 'function setREVStartSize(e){
-			//window.requestAnimationFrame(function() {				 
-				window.RSIW = window.RSIW===undefined ? window.innerWidth : window.RSIW;	
-				window.RSIH = window.RSIH===undefined ? window.innerHeight : window.RSIH;	
-				try {								
+			//window.requestAnimationFrame(function() {
+				window.RSIW = window.RSIW===undefined ? window.innerWidth : window.RSIW;
+				window.RSIH = window.RSIH===undefined ? window.innerHeight : window.RSIH;
+				try {
 					var pw = document.getElementById(e.c).parentNode.offsetWidth,
 						newh;
 					pw = pw===0 || isNaN(pw) ? window.RSIW : pw;
@@ -473,31 +473,31 @@ class RevSliderFront extends RevSliderFunctions {
 					e.thumbh = e.thumbh===undefined ? 0 : parseInt(e.thumbh);
 					e.tabhide = e.tabhide===undefined ? 0 : parseInt(e.tabhide);
 					e.thumbhide = e.thumbhide===undefined ? 0 : parseInt(e.thumbhide);
-					e.mh = e.mh===undefined || e.mh=="" || e.mh==="auto" ? 0 : parseInt(e.mh,0);		
-					if(e.layout==="fullscreen" || e.l==="fullscreen") 						
-						newh = Math.max(e.mh,window.RSIH);					
-					else{					
+					e.mh = e.mh===undefined || e.mh=="" || e.mh==="auto" ? 0 : parseInt(e.mh,0);
+					if(e.layout==="fullscreen" || e.l==="fullscreen")
+						newh = Math.max(e.mh,window.RSIH);
+					else{
 						e.gw = Array.isArray(e.gw) ? e.gw : [e.gw];
-						for (var i in e.rl) if (e.gw[i]===undefined || e.gw[i]===0) e.gw[i] = e.gw[i-1];					
+						for (var i in e.rl) if (e.gw[i]===undefined || e.gw[i]===0) e.gw[i] = e.gw[i-1];
 						e.gh = e.el===undefined || e.el==="" || (Array.isArray(e.el) && e.el.length==0)? e.gh : e.el;
 						e.gh = Array.isArray(e.gh) ? e.gh : [e.gh];
 						for (var i in e.rl) if (e.gh[i]===undefined || e.gh[i]===0) e.gh[i] = e.gh[i-1];
 											
 						var nl = new Array(e.rl.length),
-							ix = 0,						
-							sl;					
+							ix = 0,
+							sl;
 						e.tabw = e.tabhide>=pw ? 0 : e.tabw;
 						e.thumbw = e.thumbhide>=pw ? 0 : e.thumbw;
 						e.tabh = e.tabhide>=pw ? 0 : e.tabh;
-						e.thumbh = e.thumbhide>=pw ? 0 : e.thumbh;					
+						e.thumbh = e.thumbhide>=pw ? 0 : e.thumbh;
 						for (var i in e.rl) nl[i] = e.rl[i]<window.RSIW ? 0 : e.rl[i];
-						sl = nl[0];									
-						for (var i in nl) if (sl>nl[i] && nl[i]>0) { sl = nl[i]; ix=i;}															
-						var m = pw>(e.gw[ix]+e.tabw+e.thumbw) ? 1 : (pw-(e.tabw+e.thumbw)) / (e.gw[ix]);					
+						sl = nl[0];
+						for (var i in nl) if (sl>nl[i] && nl[i]>0) { sl = nl[i]; ix=i;}
+						var m = pw>(e.gw[ix]+e.tabw+e.thumbw) ? 1 : (pw-(e.tabw+e.thumbw)) / (e.gw[ix]);
 						newh =  (e.gh[ix] * m) + (e.tabh + e.thumbh);
 					}
 					var el = document.getElementById(e.c);
-					if (el!==null && el) el.style.height = newh+"px";					
+					if (el!==null && el) el.style.height = newh+"px";
 					el = document.getElementById(e.c+"_wrapper");
 					if (el!==null && el) {
 						el.style.height = newh+"px";
@@ -505,7 +505,7 @@ class RevSliderFront extends RevSliderFunctions {
 					}
 				} catch(e){
 					console.log("Failure at Presize of Slider:" + e)
-				}					   
+				}
 			//});
 		  };';
 		$script .= '</script>' . "\n";

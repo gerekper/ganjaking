@@ -48,17 +48,17 @@ $add_element_box->render();
 // [/add element popup/box]
 
 // [shortcodes edit form panel render]
-visual_composer()->editForm()->render();
+wpbakery()->editForm()->render();
 // [/shortcodes edit form panel render]
 
 // [templates panel editor render]
 if ( vc_user_access()->part( 'templates' )->can()->get() ) {
-	visual_composer()->templatesPanelEditor()->renderUITemplate();
+	wpbakery()->templatesPanelEditor()->renderUITemplate();
 }
 // [/templates panel editor render]
 
 // [preset panel editor render]
-visual_composer()->presetPanelEditor()->renderUIPreset();
+wpbakery()->presetPanelEditor()->renderUIPreset();
 // [/preset panel editor render]
 
 // [post settings panel render]

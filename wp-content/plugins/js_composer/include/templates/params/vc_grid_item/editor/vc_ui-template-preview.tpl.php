@@ -15,7 +15,7 @@ if ( $vc_grid_item_editor ) {
 	add_filter( 'vc_wpbakery_shortcode_get_controls_list', array( $vc_grid_item_editor, 'shortcodesControls' ) );
 }
 
-add_action( 'admin_enqueue_scripts', array( visual_composer()->templatesPanelEditor(), 'enqueuePreviewScripts' ) );
+add_action( 'admin_enqueue_scripts', array( wpbakery()->templatesPanelEditor(), 'enqueuePreviewScripts' ) );
 
 
 global $menu, $submenu, $parent_file, $post_ID, $post, $post_type;
@@ -32,7 +32,7 @@ remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 remove_action( 'admin_print_styles', 'print_emoji_styles' );
 add_thickbox();
 wp_enqueue_media( array( 'post' => $post_ID ) );
-visual_composer()->templatesPanelEditor()->registerPreviewScripts();
+wpbakery()->templatesPanelEditor()->registerPreviewScripts();
 require_once ABSPATH . 'wp-admin/admin-header.php';
 $custom_tag = 'script';
 $first_tag = 'style';
@@ -67,10 +67,10 @@ $first_tag = 'style';
 			?>
 		</textarea>
 
-		<div id="wpb_visual_composer" class="postbox " style="display: block;">
+		<div id="wpb_wpbakery" class="postbox " style="display: block;">
 			<div class="inside">
 				<div class="metabox-composer-content">
-					<div id="visual_composer_content" class="wpb_main_sortable main_wrapper ui-sortable ui-droppable"></div>
+					<div id="wpbakery_content" class="wpb_main_sortable main_wrapper ui-sortable ui-droppable"></div>
 					<div id="vc_no-content-helper" class="vc_welcome"></div>
 				</div>
 				<input type="hidden" name="vc_js_composer_group_access_show_rule" class="vc_js_composer_group_access_show_rule" value="all">

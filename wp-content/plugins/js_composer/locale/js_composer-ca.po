@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-18 16:46+0200\n"
-"PO-Revision-Date: 2021-02-18 16:47+0200\n"
+"POT-Creation-Date: 2021-12-14 17:07+0200\n"
+"PO-Revision-Date: 2021-12-14 17:09+0200\n"
 "Last-Translator: Albert Parera\n"
 "Language-Team: WPBakery\n"
 "Language: ca\n"
@@ -96,11 +96,11 @@ msgstr "Text del botó"
 #: config/./deprecated/shortcode-vc-button2.php:19
 #: config/./deprecated/shortcode-vc-cta-button.php:35
 #: config/./deprecated/shortcode-vc-cta-button2.php:65
-#: include/./params/vc_grid_item/shortcodes.php:27
-#: include/./params/vc_grid_item/shortcodes.php:70
-#: include/./params/vc_grid_item/shortcodes.php:547
-#: include/./params/vc_grid_item/shortcodes.php:887
-#: include/./params/vc_grid_item/shortcodes.php:898
+#: include/./params/vc_grid_item/shortcodes.php:38
+#: include/./params/vc_grid_item/shortcodes.php:82
+#: include/./params/vc_grid_item/shortcodes.php:572
+#: include/./params/vc_grid_item/shortcodes.php:912
+#: include/./params/vc_grid_item/shortcodes.php:923
 msgid "URL (Link)"
 msgstr "URL (Enllaç)"
 
@@ -118,10 +118,10 @@ msgstr "Afegiu un enllaç al botó."
 #: config/./content/shortcode-vc-text-separator.php:100
 #: config/./content/shortcode-vc-toggle.php:48
 #: config/./grids/class-vc-grids-common.php:415
-#: config/./tta/shortcode-vc-tta-accordion.php:33
-#: config/./tta/shortcode-vc-tta-tabs.php:33
-#: config/./tta/shortcode-vc-tta-tour.php:33
-#: include/./params/vc_grid_item/shortcodes.php:485
+#: config/./tta/shortcode-vc-tta-accordion.php:65
+#: config/./tta/shortcode-vc-tta-tabs.php:65
+#: config/./tta/shortcode-vc-tta-tour.php:65
+#: include/./params/vc_grid_item/shortcodes.php:509
 msgid "Style"
 msgstr "Estil"
 
@@ -132,18 +132,18 @@ msgstr "Seleccioneu un estil per al botó."
 #: config/./buttons/shortcode-vc-btn.php:69
 #: config/./content/shortcode-vc-line-chart.php:40
 #: config/./content/shortcode-vc-round-chart.php:39
-#: config/./tta/shortcode-vc-tta-accordion.php:29
-#: config/./tta/shortcode-vc-tta-tabs.php:29
-#: config/./tta/shortcode-vc-tta-tour.php:29
+#: config/./tta/shortcode-vc-tta-accordion.php:61
+#: config/./tta/shortcode-vc-tta-tabs.php:61
+#: config/./tta/shortcode-vc-tta-tour.php:61
 msgid "Modern"
 msgstr "Modern"
 
 #: config/./buttons/shortcode-vc-btn.php:70
 #: config/./buttons/shortcode-vc-cta.php:108
 #: config/./buttons/shortcode-vc-cta.php:143
-#: config/./tta/shortcode-vc-tta-accordion.php:28
-#: config/./tta/shortcode-vc-tta-tabs.php:28
-#: config/./tta/shortcode-vc-tta-tour.php:28
+#: config/./tta/shortcode-vc-tta-accordion.php:60
+#: config/./tta/shortcode-vc-tta-tabs.php:60
+#: config/./tta/shortcode-vc-tta-tour.php:60
 msgid "Classic"
 msgstr "Clàssic"
 
@@ -151,17 +151,17 @@ msgstr "Clàssic"
 #: config/./buttons/shortcode-vc-cta.php:109
 #: config/./content/shortcode-vc-line-chart.php:39
 #: config/./content/shortcode-vc-round-chart.php:38
-#: config/./tta/shortcode-vc-tta-accordion.php:30
-#: config/./tta/shortcode-vc-tta-tabs.php:30
-#: config/./tta/shortcode-vc-tta-tour.php:30
+#: config/./tta/shortcode-vc-tta-accordion.php:62
+#: config/./tta/shortcode-vc-tta-tabs.php:62
+#: config/./tta/shortcode-vc-tta-tour.php:62
 msgid "Flat"
 msgstr "Pla"
 
 #: config/./buttons/shortcode-vc-btn.php:72
 #: config/./buttons/shortcode-vc-cta.php:110
-#: config/./tta/shortcode-vc-tta-accordion.php:31
-#: config/./tta/shortcode-vc-tta-tabs.php:31
-#: config/./tta/shortcode-vc-tta-tour.php:31
+#: config/./tta/shortcode-vc-tta-accordion.php:63
+#: config/./tta/shortcode-vc-tta-tabs.php:63
+#: config/./tta/shortcode-vc-tta-tour.php:63
 msgid "Outline"
 msgstr "Contorn"
 
@@ -179,8 +179,8 @@ msgstr "3d"
 #: config/./content/shortcode-vc-round-chart.php:40
 #: config/./content/shortcode-vc-round-chart.php:63
 #: include/./classes/shortcodes/vc-row.php:52
-#: include/./params/vc_grid_item/shortcodes.php:19
-#: include/./params/vc_grid_item/shortcodes.php:252
+#: include/./params/vc_grid_item/shortcodes.php:18
+#: include/./params/vc_grid_item/shortcodes.php:264
 #: include/./templates/pages/partials/vc-roles-parts/_post_types.tpl.php:15
 #: include/./templates/pages/partials/vc-roles-parts/_settings.tpl.php:18
 #: include/./templates/pages/partials/vc-roles-parts/_shortcodes.tpl.php:33
@@ -272,9 +272,9 @@ msgstr "Seleccioneu el color de text en passar per sobre de l'element."
 #: config/./deprecated/shortcode-vc-button2.php:46
 #: config/./deprecated/shortcode-vc-cta-button2.php:32
 #: config/./deprecated/shortcode-vc-cta-button2.php:78
-#: config/./tta/shortcode-vc-tta-accordion.php:44
-#: config/./tta/shortcode-vc-tta-tabs.php:44
-#: config/./tta/shortcode-vc-tta-tour.php:44
+#: config/./tta/shortcode-vc-tta-accordion.php:76
+#: config/./tta/shortcode-vc-tta-tabs.php:76
+#: config/./tta/shortcode-vc-tta-tour.php:76
 msgid "Shape"
 msgstr "Forma"
 
@@ -290,10 +290,10 @@ msgstr "Seleccioneu la forma del botó."
 #: config/./grids/class-vc-grids-common.php:418
 #: config/./grids/class-vc-grids-common.php:503
 #: config/./grids/class-vc-grids-common.php:876
-#: config/./tta/shortcode-vc-tta-accordion.php:40
-#: config/./tta/shortcode-vc-tta-tabs.php:40
-#: config/./tta/shortcode-vc-tta-tour.php:40
-#: include/./params/vc_grid_item/shortcodes.php:490
+#: config/./tta/shortcode-vc-tta-accordion.php:72
+#: config/./tta/shortcode-vc-tta-tabs.php:72
+#: config/./tta/shortcode-vc-tta-tour.php:72
+#: include/./params/vc_grid_item/shortcodes.php:514
 msgid "Rounded"
 msgstr "Arrodonit"
 
@@ -302,9 +302,9 @@ msgstr "Arrodonit"
 #: config/./content/shortcode-vc-hoverbox.php:151
 #: config/./content/shortcode-vc-message.php:131
 #: config/./content/vc-icon-element.php:186
-#: config/./tta/shortcode-vc-tta-accordion.php:41
-#: config/./tta/shortcode-vc-tta-tabs.php:41
-#: config/./tta/shortcode-vc-tta-tour.php:41
+#: config/./tta/shortcode-vc-tta-accordion.php:73
+#: config/./tta/shortcode-vc-tta-tabs.php:73
+#: config/./tta/shortcode-vc-tta-tour.php:73
 msgid "Square"
 msgstr "Quadrat"
 
@@ -312,9 +312,9 @@ msgstr "Quadrat"
 #: config/./buttons/shortcode-vc-cta.php:99
 #: config/./content/shortcode-vc-hoverbox.php:153
 #: config/./content/shortcode-vc-message.php:133
-#: config/./tta/shortcode-vc-tta-accordion.php:42
-#: config/./tta/shortcode-vc-tta-tabs.php:42
-#: config/./tta/shortcode-vc-tta-tour.php:42
+#: config/./tta/shortcode-vc-tta-accordion.php:74
+#: config/./tta/shortcode-vc-tta-tabs.php:74
+#: config/./tta/shortcode-vc-tta-tour.php:74
 msgid "Round"
 msgstr "Rodó"
 
@@ -334,10 +334,10 @@ msgstr "Rodó"
 #: config/./deprecated/shortcode-vc-cta-button.php:52
 #: config/./deprecated/shortcode-vc-cta-button2.php:85
 #: config/./grids/class-vc-grids-common.php:464
-#: config/./tta/shortcode-vc-tta-accordion.php:52
-#: config/./tta/shortcode-vc-tta-tabs.php:50
-#: config/./tta/shortcode-vc-tta-tour.php:50
-#: include/./params/vc_grid_item/shortcodes.php:500
+#: config/./tta/shortcode-vc-tta-accordion.php:84
+#: config/./tta/shortcode-vc-tta-tabs.php:82
+#: config/./tta/shortcode-vc-tta-tour.php:82
+#: include/./params/vc_grid_item/shortcodes.php:524
 msgid "Color"
 msgstr "Color"
 
@@ -373,10 +373,11 @@ msgstr "Seleccioneu la mida del botó."
 #: config/./content/shortcode-vc-zigzag.php:34
 #: config/./deprecated/shortcode-vc-button2.php:34
 #: config/./grids/class-vc-grids-common.php:448
-#: config/./tta/shortcode-vc-tta-accordion.php:110
-#: config/./tta/shortcode-vc-tta-tabs.php:121
-#: config/./tta/shortcode-vc-tta-tour.php:121
-#: include/./params/vc_grid_item/shortcodes.php:652
+#: config/./tta/shortcode-vc-tta-accordion.php:142
+#: config/./tta/shortcode-vc-tta-tabs.php:153
+#: config/./tta/shortcode-vc-tta-tour.php:153
+#: include/./params/vc_grid_item/shortcodes.php:497
+#: include/./params/vc_grid_item/shortcodes.php:677
 msgid "Alignment"
 msgstr "Alineació"
 
@@ -409,15 +410,16 @@ msgstr "En línea"
 #: config/./deprecated/shortcode-vc-cta-button.php:78
 #: config/./deprecated/shortcode-vc-cta-button2.php:105
 #: config/./grids/class-vc-grids-common.php:452
-#: config/./tta/shortcode-vc-tta-accordion.php:106
-#: config/./tta/shortcode-vc-tta-accordion.php:158
-#: config/./tta/shortcode-vc-tta-tabs.php:117
-#: config/./tta/shortcode-vc-tta-tour.php:107
-#: config/./tta/shortcode-vc-tta-tour.php:117
+#: config/./tta/shortcode-vc-tta-accordion.php:138
+#: config/./tta/shortcode-vc-tta-accordion.php:190
+#: config/./tta/shortcode-vc-tta-tabs.php:149
+#: config/./tta/shortcode-vc-tta-tour.php:139
+#: config/./tta/shortcode-vc-tta-tour.php:149
 #: include/./classes/shortcodes/vc-gitem-col.php:33
-#: include/./params/vc_grid_item/shortcodes.php:566
-#: include/./params/vc_grid_item/shortcodes.php:655
-#: include/./params/vc_grid_item/shortcodes.php:774
+#: include/./params/vc_grid_item/shortcodes.php:500
+#: include/./params/vc_grid_item/shortcodes.php:591
+#: include/./params/vc_grid_item/shortcodes.php:680
+#: include/./params/vc_grid_item/shortcodes.php:799
 msgid "Left"
 msgstr "Esquerra"
 
@@ -437,15 +439,16 @@ msgstr "Esquerra"
 #: config/./deprecated/shortcode-vc-cta-button.php:77
 #: config/./deprecated/shortcode-vc-cta-button2.php:104
 #: config/./grids/class-vc-grids-common.php:453
-#: config/./tta/shortcode-vc-tta-accordion.php:107
-#: config/./tta/shortcode-vc-tta-accordion.php:159
-#: config/./tta/shortcode-vc-tta-tabs.php:118
-#: config/./tta/shortcode-vc-tta-tour.php:108
-#: config/./tta/shortcode-vc-tta-tour.php:118
+#: config/./tta/shortcode-vc-tta-accordion.php:139
+#: config/./tta/shortcode-vc-tta-accordion.php:191
+#: config/./tta/shortcode-vc-tta-tabs.php:150
+#: config/./tta/shortcode-vc-tta-tour.php:140
+#: config/./tta/shortcode-vc-tta-tour.php:150
 #: include/./classes/shortcodes/vc-gitem-col.php:41
-#: include/./params/vc_grid_item/shortcodes.php:567
-#: include/./params/vc_grid_item/shortcodes.php:656
-#: include/./params/vc_grid_item/shortcodes.php:775
+#: include/./params/vc_grid_item/shortcodes.php:501
+#: include/./params/vc_grid_item/shortcodes.php:592
+#: include/./params/vc_grid_item/shortcodes.php:681
+#: include/./params/vc_grid_item/shortcodes.php:800
 msgid "Right"
 msgstr "Dreta"
 
@@ -460,13 +463,14 @@ msgstr "Dreta"
 #: config/./content/vc-icon-element.php:232
 #: config/./deprecated/shortcode-vc-button2.php:39
 #: config/./grids/class-vc-grids-common.php:451
-#: config/./tta/shortcode-vc-tta-accordion.php:108
-#: config/./tta/shortcode-vc-tta-tabs.php:119
-#: config/./tta/shortcode-vc-tta-tour.php:119
+#: config/./tta/shortcode-vc-tta-accordion.php:140
+#: config/./tta/shortcode-vc-tta-tabs.php:151
+#: config/./tta/shortcode-vc-tta-tour.php:151
 #: include/./classes/shortcodes/vc-gitem-col.php:37
-#: include/./params/vc_grid_item/shortcodes.php:568
-#: include/./params/vc_grid_item/shortcodes.php:657
-#: include/./params/vc_grid_item/shortcodes.php:776
+#: include/./params/vc_grid_item/shortcodes.php:502
+#: include/./params/vc_grid_item/shortcodes.php:593
+#: include/./params/vc_grid_item/shortcodes.php:682
+#: include/./params/vc_grid_item/shortcodes.php:801
 msgid "Center"
 msgstr "Centrat"
 
@@ -510,7 +514,7 @@ msgstr "Seleccioneu l'alineació de la icona."
 #: config/./content/vc-icon-element.php:125
 #: config/./content/vc-icon-element.php:144
 #: config/./deprecated/shortcode-vc-button.php:54
-#: config/./tta/shortcode-vc-tta-accordion.php:151
+#: config/./tta/shortcode-vc-tta-accordion.php:183
 msgid "Icon"
 msgstr "Icona"
 
@@ -558,10 +562,10 @@ msgstr "Seleccioneu la icona de la biblioteca."
 #: config/./structure/shortcode-vc-raw-html.php:25
 #: config/./structure/shortcode-vc-raw-js.php:26
 #: config/./structure/shortcode-vc-widget-sidebar.php:29
-#: config/./tta/shortcode-vc-tta-accordion.php:179
+#: config/./tta/shortcode-vc-tta-accordion.php:211
 #: config/./tta/shortcode-vc-tta-pageable.php:99
-#: config/./tta/shortcode-vc-tta-tabs.php:182
-#: config/./tta/shortcode-vc-tta-tour.php:196
+#: config/./tta/shortcode-vc-tta-tabs.php:214
+#: config/./tta/shortcode-vc-tta-tour.php:228
 #: config/./wp/shortcode-vc-wp-archives.php:34
 #: config/./wp/shortcode-vc-wp-calendar.php:23
 #: config/./wp/shortcode-vc-wp-categories.php:35
@@ -615,10 +619,10 @@ msgstr "ID de l'element"
 #: config/./structure/shortcode-vc-raw-html.php:27
 #: config/./structure/shortcode-vc-raw-js.php:28
 #: config/./structure/shortcode-vc-widget-sidebar.php:31
-#: config/./tta/shortcode-vc-tta-accordion.php:181
+#: config/./tta/shortcode-vc-tta-accordion.php:213
 #: config/./tta/shortcode-vc-tta-pageable.php:101
-#: config/./tta/shortcode-vc-tta-tabs.php:184
-#: config/./tta/shortcode-vc-tta-tour.php:198
+#: config/./tta/shortcode-vc-tta-tabs.php:216
+#: config/./tta/shortcode-vc-tta-tour.php:230
 #: config/./wp/shortcode-vc-wp-archives.php:36
 #: config/./wp/shortcode-vc-wp-calendar.php:25
 #: config/./wp/shortcode-vc-wp-categories.php:37
@@ -685,11 +689,11 @@ msgstr ""
 #: config/./structure/shortcode-vc-raw-html.php:31
 #: config/./structure/shortcode-vc-raw-js.php:32
 #: config/./structure/shortcode-vc-widget-sidebar.php:35
-#: config/./tta/shortcode-vc-tta-accordion.php:185
+#: config/./tta/shortcode-vc-tta-accordion.php:217
 #: config/./tta/shortcode-vc-tta-pageable.php:105
 #: config/./tta/shortcode-vc-tta-section.php:63
-#: config/./tta/shortcode-vc-tta-tabs.php:188
-#: config/./tta/shortcode-vc-tta-tour.php:202
+#: config/./tta/shortcode-vc-tta-tabs.php:220
+#: config/./tta/shortcode-vc-tta-tour.php:234
 #: config/./wp/shortcode-vc-wp-archives.php:40
 #: config/./wp/shortcode-vc-wp-calendar.php:29
 #: config/./wp/shortcode-vc-wp-categories.php:41
@@ -710,19 +714,19 @@ msgstr ""
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:79
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:149
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:93
-#: include/./params/vc_grid_item/shortcodes.php:61
-#: include/./params/vc_grid_item/shortcodes.php:181
-#: include/./params/vc_grid_item/shortcodes.php:306
-#: include/./params/vc_grid_item/shortcodes.php:331
-#: include/./params/vc_grid_item/shortcodes.php:397
-#: include/./params/vc_grid_item/shortcodes.php:414
-#: include/./params/vc_grid_item/shortcodes.php:430
-#: include/./params/vc_grid_item/shortcodes.php:461
-#: include/./params/vc_grid_item/shortcodes.php:524
-#: include/./params/vc_grid_item/shortcodes.php:600
-#: include/./params/vc_grid_item/shortcodes.php:622
-#: include/./params/vc_grid_item/shortcodes.php:664
-#: include/./params/vc_grid_item/shortcodes.php:807
+#: include/./params/vc_grid_item/shortcodes.php:72
+#: include/./params/vc_grid_item/shortcodes.php:193
+#: include/./params/vc_grid_item/shortcodes.php:318
+#: include/./params/vc_grid_item/shortcodes.php:343
+#: include/./params/vc_grid_item/shortcodes.php:409
+#: include/./params/vc_grid_item/shortcodes.php:426
+#: include/./params/vc_grid_item/shortcodes.php:442
+#: include/./params/vc_grid_item/shortcodes.php:473
+#: include/./params/vc_grid_item/shortcodes.php:548
+#: include/./params/vc_grid_item/shortcodes.php:625
+#: include/./params/vc_grid_item/shortcodes.php:647
+#: include/./params/vc_grid_item/shortcodes.php:689
+#: include/./params/vc_grid_item/shortcodes.php:832
 msgid "Extra class name"
 msgstr "Classe CSS extra"
 
@@ -790,19 +794,19 @@ msgstr "Classe CSS extra"
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:81
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:151
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:95
-#: include/./params/vc_grid_item/shortcodes.php:63
-#: include/./params/vc_grid_item/shortcodes.php:183
-#: include/./params/vc_grid_item/shortcodes.php:308
-#: include/./params/vc_grid_item/shortcodes.php:333
-#: include/./params/vc_grid_item/shortcodes.php:399
-#: include/./params/vc_grid_item/shortcodes.php:416
-#: include/./params/vc_grid_item/shortcodes.php:432
-#: include/./params/vc_grid_item/shortcodes.php:463
-#: include/./params/vc_grid_item/shortcodes.php:526
-#: include/./params/vc_grid_item/shortcodes.php:602
-#: include/./params/vc_grid_item/shortcodes.php:624
-#: include/./params/vc_grid_item/shortcodes.php:666
-#: include/./params/vc_grid_item/shortcodes.php:809
+#: include/./params/vc_grid_item/shortcodes.php:74
+#: include/./params/vc_grid_item/shortcodes.php:195
+#: include/./params/vc_grid_item/shortcodes.php:320
+#: include/./params/vc_grid_item/shortcodes.php:345
+#: include/./params/vc_grid_item/shortcodes.php:411
+#: include/./params/vc_grid_item/shortcodes.php:428
+#: include/./params/vc_grid_item/shortcodes.php:444
+#: include/./params/vc_grid_item/shortcodes.php:475
+#: include/./params/vc_grid_item/shortcodes.php:550
+#: include/./params/vc_grid_item/shortcodes.php:627
+#: include/./params/vc_grid_item/shortcodes.php:649
+#: include/./params/vc_grid_item/shortcodes.php:691
+#: include/./params/vc_grid_item/shortcodes.php:834
 msgid ""
 "Style particular content element differently - add a class name and refer to "
 "it in custom CSS."
@@ -861,20 +865,20 @@ msgstr "Introduïu un codi per a l'acció «onclick»."
 #: config/./social/shortcode-vc-pinterest.php:40
 #: config/./social/shortcode-vc-tweetmeme.php:356
 #: config/./structure/shortcode-vc-raw-html.php:37
-#: config/./tta/shortcode-vc-tta-accordion.php:191
+#: config/./tta/shortcode-vc-tta-accordion.php:223
 #: config/./tta/shortcode-vc-tta-pageable.php:111
-#: config/./tta/shortcode-vc-tta-tabs.php:194
-#: config/./tta/shortcode-vc-tta-tour.php:208
+#: config/./tta/shortcode-vc-tta-tabs.php:226
+#: config/./tta/shortcode-vc-tta-tour.php:240
 #: include/./autoload/vendors/shortcode-vc-gutenberg.php:36
-#: include/./params/vc_grid_item/shortcodes.php:55
-#: include/./params/vc_grid_item/shortcodes.php:80
-#: include/./params/vc_grid_item/shortcodes.php:176
-#: include/./params/vc_grid_item/shortcodes.php:301
-#: include/./params/vc_grid_item/shortcodes.php:391
-#: include/./params/vc_grid_item/shortcodes.php:454
-#: include/./params/vc_grid_item/shortcodes.php:530
-#: include/./params/vc_grid_item/shortcodes.php:606
-#: include/./params/vc_grid_item/shortcodes.php:813
+#: include/./params/vc_grid_item/shortcodes.php:66
+#: include/./params/vc_grid_item/shortcodes.php:92
+#: include/./params/vc_grid_item/shortcodes.php:188
+#: include/./params/vc_grid_item/shortcodes.php:313
+#: include/./params/vc_grid_item/shortcodes.php:403
+#: include/./params/vc_grid_item/shortcodes.php:466
+#: include/./params/vc_grid_item/shortcodes.php:554
+#: include/./params/vc_grid_item/shortcodes.php:631
+#: include/./params/vc_grid_item/shortcodes.php:838
 msgid "CSS box"
 msgstr "Caixa CSS"
 
@@ -913,19 +917,19 @@ msgstr "Caixa CSS"
 #: config/./social/shortcode-vc-pinterest.php:42
 #: config/./social/shortcode-vc-tweetmeme.php:358
 #: config/./structure/shortcode-vc-raw-html.php:39
-#: config/./tta/shortcode-vc-tta-accordion.php:193
+#: config/./tta/shortcode-vc-tta-accordion.php:225
 #: config/./tta/shortcode-vc-tta-pageable.php:113
-#: config/./tta/shortcode-vc-tta-tabs.php:196
-#: config/./tta/shortcode-vc-tta-tour.php:210
+#: config/./tta/shortcode-vc-tta-tabs.php:228
+#: config/./tta/shortcode-vc-tta-tour.php:242
 #: include/./autoload/vendors/shortcode-vc-gutenberg.php:38
 #: include/./classes/settings/class-vc-settings.php:121
-#: include/./params/vc_grid_item/shortcodes.php:57
-#: include/./params/vc_grid_item/shortcodes.php:82
-#: include/./params/vc_grid_item/shortcodes.php:393
-#: include/./params/vc_grid_item/shortcodes.php:456
-#: include/./params/vc_grid_item/shortcodes.php:532
-#: include/./params/vc_grid_item/shortcodes.php:608
-#: include/./params/vc_grid_item/shortcodes.php:815
+#: include/./params/vc_grid_item/shortcodes.php:68
+#: include/./params/vc_grid_item/shortcodes.php:94
+#: include/./params/vc_grid_item/shortcodes.php:405
+#: include/./params/vc_grid_item/shortcodes.php:468
+#: include/./params/vc_grid_item/shortcodes.php:556
+#: include/./params/vc_grid_item/shortcodes.php:633
+#: include/./params/vc_grid_item/shortcodes.php:840
 msgid "Design Options"
 msgstr "Opcions de disseny"
 
@@ -986,14 +990,14 @@ msgstr "Botó"
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:59
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:129
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:11
-#: include/./params/vc_grid_item/shortcodes.php:171
-#: include/./params/vc_grid_item/shortcodes.php:196
-#: include/./params/vc_grid_item/shortcodes.php:222
-#: include/./params/vc_grid_item/shortcodes.php:236
-#: include/./params/vc_grid_item/shortcodes.php:276
-#: include/./params/vc_grid_item/shortcodes.php:290
-#: include/./params/vc_grid_item/shortcodes.php:326
-#: include/./params/vc_grid_item/shortcodes.php:721
+#: include/./params/vc_grid_item/shortcodes.php:183
+#: include/./params/vc_grid_item/shortcodes.php:208
+#: include/./params/vc_grid_item/shortcodes.php:234
+#: include/./params/vc_grid_item/shortcodes.php:248
+#: include/./params/vc_grid_item/shortcodes.php:288
+#: include/./params/vc_grid_item/shortcodes.php:302
+#: include/./params/vc_grid_item/shortcodes.php:338
+#: include/./params/vc_grid_item/shortcodes.php:746
 msgid "Content"
 msgstr "Contingut"
 
@@ -1039,7 +1043,7 @@ msgstr "Voleu utilitzar una font personalitzada?"
 #: config/./buttons/shortcode-vc-cta.php:63
 #: config/./content/shortcode-vc-hoverbox.php:98
 #: config/./content/shortcode-vc-toggle.php:34
-#: include/./params/vc_grid_item/shortcodes.php:108
+#: include/./params/vc_grid_item/shortcodes.php:120
 msgid "Enable Google fonts."
 msgstr "S'habiliten les fonts de Google."
 
@@ -1114,7 +1118,7 @@ msgstr ""
 #: config/./content/shortcode-vc-hoverbox.php:181
 #: config/./deprecated/shortcode-vc-cta-button2.php:39
 #: config/./deprecated/shortcode-vc-googleplus.php:42
-#: include/./params/vc_grid_item/shortcodes.php:352
+#: include/./params/vc_grid_item/shortcodes.php:364
 #: include/./templates/params/column_offset/template.tpl.php:37
 msgid "Width"
 msgstr "Amplada"
@@ -1148,7 +1152,7 @@ msgstr "No"
 #: config/./containers/shortcode-vc-row.php:91
 #: config/./containers/shortcode-vc-section.php:45
 #: config/./tta/shortcode-vc-tta-pageable.php:89
-#: config/./tta/shortcode-vc-tta-tabs.php:107
+#: config/./tta/shortcode-vc-tta-tabs.php:139
 msgid "Top"
 msgstr "A dalt"
 
@@ -1161,7 +1165,7 @@ msgstr "A dalt"
 #: config/./deprecated/shortcode-vc-cta-button.php:79
 #: config/./deprecated/shortcode-vc-cta-button2.php:106
 #: config/./tta/shortcode-vc-tta-pageable.php:90
-#: config/./tta/shortcode-vc-tta-tabs.php:108
+#: config/./tta/shortcode-vc-tta-tabs.php:140
 msgid "Bottom"
 msgstr "A baix"
 
@@ -1198,84 +1202,84 @@ msgstr "Inseriu els elements del contingut dins de la columna interior"
 #: config/./containers/shortcode-vc-column-inner.php:45
 #: config/./containers/shortcode-vc-column.php:122
 #: include/./params/column_offset/column_offset.php:41
-#: include/./params/vc_grid_item/shortcodes.php:355
+#: include/./params/vc_grid_item/shortcodes.php:367
 msgid "1 column - 1/12"
 msgstr "1 columna - 1/12"
 
 #: config/./containers/shortcode-vc-column-inner.php:46
 #: config/./containers/shortcode-vc-column.php:123
 #: include/./params/column_offset/column_offset.php:42
-#: include/./params/vc_grid_item/shortcodes.php:356
+#: include/./params/vc_grid_item/shortcodes.php:368
 msgid "2 columns - 1/6"
 msgstr "2 columnes - 1/6"
 
 #: config/./containers/shortcode-vc-column-inner.php:47
 #: config/./containers/shortcode-vc-column.php:124
 #: include/./params/column_offset/column_offset.php:43
-#: include/./params/vc_grid_item/shortcodes.php:357
+#: include/./params/vc_grid_item/shortcodes.php:369
 msgid "3 columns - 1/4"
 msgstr "3 columnes - 1/4"
 
 #: config/./containers/shortcode-vc-column-inner.php:48
 #: config/./containers/shortcode-vc-column.php:125
 #: include/./params/column_offset/column_offset.php:44
-#: include/./params/vc_grid_item/shortcodes.php:358
+#: include/./params/vc_grid_item/shortcodes.php:370
 msgid "4 columns - 1/3"
 msgstr "4 columnes - 1/3"
 
 #: config/./containers/shortcode-vc-column-inner.php:49
 #: config/./containers/shortcode-vc-column.php:126
 #: include/./params/column_offset/column_offset.php:45
-#: include/./params/vc_grid_item/shortcodes.php:359
+#: include/./params/vc_grid_item/shortcodes.php:371
 msgid "5 columns - 5/12"
 msgstr "5 columnes - 5/12"
 
 #: config/./containers/shortcode-vc-column-inner.php:50
 #: config/./containers/shortcode-vc-column.php:127
 #: include/./params/column_offset/column_offset.php:46
-#: include/./params/vc_grid_item/shortcodes.php:360
+#: include/./params/vc_grid_item/shortcodes.php:372
 msgid "6 columns - 1/2"
 msgstr "6 columnes - 1/2"
 
 #: config/./containers/shortcode-vc-column-inner.php:51
 #: config/./containers/shortcode-vc-column.php:128
 #: include/./params/column_offset/column_offset.php:47
-#: include/./params/vc_grid_item/shortcodes.php:361
+#: include/./params/vc_grid_item/shortcodes.php:373
 msgid "7 columns - 7/12"
 msgstr "7 columnes - 7/12"
 
 #: config/./containers/shortcode-vc-column-inner.php:52
 #: config/./containers/shortcode-vc-column.php:129
 #: include/./params/column_offset/column_offset.php:48
-#: include/./params/vc_grid_item/shortcodes.php:362
+#: include/./params/vc_grid_item/shortcodes.php:374
 msgid "8 columns - 2/3"
 msgstr "8 columnes - 2/3"
 
 #: config/./containers/shortcode-vc-column-inner.php:53
 #: config/./containers/shortcode-vc-column.php:130
 #: include/./params/column_offset/column_offset.php:49
-#: include/./params/vc_grid_item/shortcodes.php:363
+#: include/./params/vc_grid_item/shortcodes.php:375
 msgid "9 columns - 3/4"
 msgstr "9 columnes - 3/4"
 
 #: config/./containers/shortcode-vc-column-inner.php:54
 #: config/./containers/shortcode-vc-column.php:131
 #: include/./params/column_offset/column_offset.php:50
-#: include/./params/vc_grid_item/shortcodes.php:364
+#: include/./params/vc_grid_item/shortcodes.php:376
 msgid "10 columns - 5/6"
 msgstr "10 columnes - 5/6"
 
 #: config/./containers/shortcode-vc-column-inner.php:55
 #: config/./containers/shortcode-vc-column.php:132
 #: include/./params/column_offset/column_offset.php:51
-#: include/./params/vc_grid_item/shortcodes.php:365
+#: include/./params/vc_grid_item/shortcodes.php:377
 msgid "11 columns - 11/12"
 msgstr "11 columnes - 11/12"
 
 #: config/./containers/shortcode-vc-column-inner.php:56
 #: config/./containers/shortcode-vc-column.php:133
 #: include/./params/column_offset/column_offset.php:52
-#: include/./params/vc_grid_item/shortcodes.php:366
+#: include/./params/vc_grid_item/shortcodes.php:378
 msgid "12 columns - 1/1"
 msgstr "12 columnes - 1/1"
 
@@ -1312,7 +1316,7 @@ msgstr "Opcions adaptatives"
 
 #: config/./containers/shortcode-vc-column-inner.php:63
 #: config/./containers/shortcode-vc-column.php:140
-#: include/./params/vc_grid_item/shortcodes.php:368
+#: include/./params/vc_grid_item/shortcodes.php:380
 msgid "Select column width."
 msgstr "Seleccioneu l'ample de columna."
 
@@ -1331,12 +1335,12 @@ msgstr ""
 "visibilitat i el desfasament."
 
 #: config/./containers/shortcode-vc-column.php:10
-#: include/./params/vc_grid_item/shortcodes.php:340
+#: include/./params/vc_grid_item/shortcodes.php:352
 msgid "Column"
 msgstr "Columna"
 
 #: config/./containers/shortcode-vc-column.php:14
-#: include/./params/vc_grid_item/shortcodes.php:348
+#: include/./params/vc_grid_item/shortcodes.php:360
 msgid "Place content elements inside the column"
 msgstr "Inseriu els elements del contingut dins de la columna"
 
@@ -1394,10 +1398,10 @@ msgstr "Si està marcat, es mostrarà un vídeo com a fons de la fila."
 #: include/./classes/vendors/plugins/acf/shortcode.php:50
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:74
 #: include/./params/default_params.php:85
-#: include/./params/vc_grid_item/shortcodes.php:39
-#: include/./params/vc_grid_item/shortcodes.php:107
-#: include/./params/vc_grid_item/shortcodes.php:136
-#: include/./params/vc_grid_item/shortcodes.php:375
+#: include/./params/vc_grid_item/shortcodes.php:50
+#: include/./params/vc_grid_item/shortcodes.php:119
+#: include/./params/vc_grid_item/shortcodes.php:148
+#: include/./params/vc_grid_item/shortcodes.php:387
 msgid "Yes"
 msgstr "Sí"
 
@@ -1439,25 +1443,25 @@ msgstr "Paral·laxi"
 #: config/./grids/class-vc-grids-common.php:926
 #: config/./grids/class-vc-grids-common.php:1133
 #: config/./grids/class-vc-grids-common.php:1183 config/./lean-map.php:205
-#: config/./tta/shortcode-vc-tta-accordion.php:66
-#: config/./tta/shortcode-vc-tta-accordion.php:86
-#: config/./tta/shortcode-vc-tta-accordion.php:117
-#: config/./tta/shortcode-vc-tta-accordion.php:145
+#: config/./tta/shortcode-vc-tta-accordion.php:98
+#: config/./tta/shortcode-vc-tta-accordion.php:118
+#: config/./tta/shortcode-vc-tta-accordion.php:149
+#: config/./tta/shortcode-vc-tta-accordion.php:177
 #: config/./tta/shortcode-vc-tta-pageable.php:33
 #: config/./tta/shortcode-vc-tta-pageable.php:61
-#: config/./tta/shortcode-vc-tta-tabs.php:66
-#: config/./tta/shortcode-vc-tta-tabs.php:87
-#: config/./tta/shortcode-vc-tta-tabs.php:128
-#: config/./tta/shortcode-vc-tta-tabs.php:156
-#: config/./tta/shortcode-vc-tta-tour.php:66
-#: config/./tta/shortcode-vc-tta-tour.php:87
-#: config/./tta/shortcode-vc-tta-tour.php:142
-#: config/./tta/shortcode-vc-tta-tour.php:170
+#: config/./tta/shortcode-vc-tta-tabs.php:98
+#: config/./tta/shortcode-vc-tta-tabs.php:119
+#: config/./tta/shortcode-vc-tta-tabs.php:160
+#: config/./tta/shortcode-vc-tta-tabs.php:188
+#: config/./tta/shortcode-vc-tta-tour.php:98
+#: config/./tta/shortcode-vc-tta-tour.php:119
+#: config/./tta/shortcode-vc-tta-tour.php:174
+#: config/./tta/shortcode-vc-tta-tour.php:202
 #: include/./autoload/vc-image-filters.php:56
 #: include/./params/animation_style/animation_style.php:41
 #: include/./params/css_editor/css_editor.php:114
-#: include/./params/vc_grid_item/shortcodes.php:14
-#: include/./params/vc_grid_item/shortcodes.php:488
+#: include/./params/vc_grid_item/shortcodes.php:13
+#: include/./params/vc_grid_item/shortcodes.php:512
 #: include/./templates/pages/vc-settings/default-template-post-type.tpl.php:27
 msgid "None"
 msgstr "Cap"
@@ -1502,7 +1506,7 @@ msgstr ""
 #: config/./containers/shortcode-vc-section.php:102
 #: config/./content/shortcode-vc-hoverbox.php:79
 #: config/./content/shortcode-vc-single-image.php:33
-#: include/./params/vc_grid_item/shortcodes.php:743
+#: include/./params/vc_grid_item/shortcodes.php:768
 msgid "Image"
 msgstr "Imatge"
 
@@ -1511,7 +1515,7 @@ msgstr "Imatge"
 #: config/./containers/shortcode-vc-section.php:105
 #: config/./content/shortcode-vc-hoverbox.php:82
 #: config/./content/shortcode-vc-single-image.php:36
-#: include/./params/vc_grid_item/shortcodes.php:746
+#: include/./params/vc_grid_item/shortcodes.php:771
 msgid "Select image from media library."
 msgstr "Seleccioneu la imatge des de la mediateca."
 
@@ -1599,7 +1603,7 @@ msgstr "Posició del contingut"
 #: config/./content/shortcode-vc-toggle.php:57
 #: config/./grids/class-vc-grids-common.php:1134
 #: config/./grids/class-vc-grids-common.php:1184
-#: include/./helpers/helpers_api.php:554
+#: include/./helpers/helpers_api.php:555
 msgid "Default"
 msgstr "Per defecte"
 
@@ -1640,12 +1644,12 @@ msgstr ""
 "la visible en qualsevol moment."
 
 #: config/./containers/shortcode-vc-row.php:7
-#: include/./params/vc_grid_item/shortcodes.php:314
+#: include/./params/vc_grid_item/shortcodes.php:326
 msgid "Row"
 msgstr "Fila"
 
 #: config/./containers/shortcode-vc-row.php:13
-#: include/./params/vc_grid_item/shortcodes.php:327
+#: include/./params/vc_grid_item/shortcodes.php:339
 msgid "Place content elements inside the row"
 msgstr "Inseriu els elements del contingut dins de la fila"
 
@@ -1697,12 +1701,12 @@ msgstr "Seleccioneu la posició de les columnes dins de les files."
 
 #: config/./containers/shortcode-vc-section.php:7
 #: config/./deprecated/shortcode-vc-accordion-tab.php:18
-#: config/./tta/shortcode-vc-tta-accordion.php:215
+#: config/./tta/shortcode-vc-tta-accordion.php:247
 #: config/./tta/shortcode-vc-tta-pageable.php:128
 #: config/./tta/shortcode-vc-tta-pageable.php:129
 #: config/./tta/shortcode-vc-tta-section.php:70
-#: config/./tta/shortcode-vc-tta-tour.php:225
-#: config/./tta/shortcode-vc-tta-tour.php:226
+#: config/./tta/shortcode-vc-tta-tour.php:257
+#: config/./tta/shortcode-vc-tta-tour.php:258
 #: include/./classes/core/class-vc-base.php:702
 #: include/./classes/core/class-vc-base.php:705
 msgid "Section"
@@ -1807,7 +1811,7 @@ msgid "Blank space with custom height"
 msgstr "Espai buit amb alçada personalitzada"
 
 #: config/./content/shortcode-vc-empty-space.php:16
-#: include/./params/vc_grid_item/shortcodes.php:258
+#: include/./params/vc_grid_item/shortcodes.php:270
 msgid "Height"
 msgstr "Alçada"
 
@@ -1859,7 +1863,7 @@ msgstr "Canal d'imatges d'un compte de Flickr"
 #: include/./classes/vendors/plugins/class-vc-vendor-layerslider.php:149
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:64
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:134
-#: include/./params/vc_grid_item/shortcodes.php:726
+#: include/./params/vc_grid_item/shortcodes.php:751
 msgid "Widget title"
 msgstr "Títol del giny"
 
@@ -1885,7 +1889,7 @@ msgstr "Títol del giny"
 #: include/./classes/vendors/plugins/class-vc-vendor-layerslider.php:151
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:66
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:136
-#: include/./params/vc_grid_item/shortcodes.php:728
+#: include/./params/vc_grid_item/shortcodes.php:753
 msgid "Enter text used as widget title (Note: located above content element)."
 msgstr ""
 "Introduïu el text a usar com a títol del giny. (Nota: Es mostrarà al damunt "
@@ -1990,7 +1994,7 @@ msgstr "Gir automàtic"
 #: config/./deprecated/shortcode-vc-tabs.php:27
 #: config/./deprecated/shortcode-vc-tour.php:29
 #: include/./autoload/vendors/gutenberg.php:41
-#: include/./classes/settings/class-vc-settings.php:498
+#: include/./classes/settings/class-vc-settings.php:515
 msgid "Disable"
 msgstr "Deshabilita"
 
@@ -2002,13 +2006,13 @@ msgstr "Rotació automàtica de diapositives cada X segons."
 
 #: config/./content/shortcode-vc-gallery.php:54
 #: config/./content/shortcode-vc-single-image.php:21
-#: include/./params/vc_grid_item/shortcodes.php:732
+#: include/./params/vc_grid_item/shortcodes.php:757
 msgid "Image source"
 msgstr "Origen de la imatge"
 
 #: config/./content/shortcode-vc-gallery.php:57
 #: config/./content/shortcode-vc-single-image.php:24
-#: include/./params/vc_grid_item/shortcodes.php:735
+#: include/./params/vc_grid_item/shortcodes.php:760
 msgid "Media library"
 msgstr "Biblioteca multimèdia"
 
@@ -2019,7 +2023,7 @@ msgstr "Enllaços externs"
 
 #: config/./content/shortcode-vc-gallery.php:61
 #: config/./content/shortcode-vc-single-image.php:29
-#: include/./params/vc_grid_item/shortcodes.php:739
+#: include/./params/vc_grid_item/shortcodes.php:764
 msgid "Select image source."
 msgstr "Seleccioneu l'origen de la imatge."
 
@@ -2047,10 +2051,10 @@ msgstr ""
 #: config/./content/shortcode-vc-gallery.php:97
 #: config/./content/shortcode-vc-single-image.php:56
 #: config/./content/shortcode-vc-single-image.php:70
-#: include/./params/vc_grid_item/shortcodes.php:44
-#: include/./params/vc_grid_item/shortcodes.php:380
-#: include/./params/vc_grid_item/shortcodes.php:557
-#: include/./params/vc_grid_item/shortcodes.php:765
+#: include/./params/vc_grid_item/shortcodes.php:55
+#: include/./params/vc_grid_item/shortcodes.php:392
+#: include/./params/vc_grid_item/shortcodes.php:582
+#: include/./params/vc_grid_item/shortcodes.php:790
 msgid "Image size"
 msgstr "Mida de la imatge"
 
@@ -2500,7 +2504,7 @@ msgstr "Seleccioneu un color personalitzat per a la gràfica."
 
 #: config/./content/shortcode-vc-line-chart.php:121
 #: config/./content/shortcode-vc-round-chart.php:149
-#: include/./params/vc_grid_item/shortcodes.php:207
+#: include/./params/vc_grid_item/shortcodes.php:219
 msgid "Animation"
 msgstr "Animació"
 
@@ -2955,7 +2959,7 @@ msgid "Marketing"
 msgstr "Màrqueting"
 
 #: config/./content/shortcode-vc-progress-bar.php:67
-#: include/./params/vc_grid_item/shortcodes.php:646
+#: include/./params/vc_grid_item/shortcodes.php:671
 msgid "Label"
 msgstr "Etiqueta"
 
@@ -2984,8 +2988,10 @@ msgid "Select custom single bar text color."
 msgstr "Seleccioneu un color de fons personalitzat per a la barra individual."
 
 #: config/./content/shortcode-vc-progress-bar.php:121
-msgid "Select bar background color."
-msgstr "Color de fons de la barra de progrés."
+#, fuzzy
+#| msgid "Select area color."
+msgid "Select bar color."
+msgstr "Seleccioneu el color de l'àrea."
 
 #: config/./content/shortcode-vc-progress-bar.php:127
 msgid "Bar custom background color"
@@ -3036,9 +3042,9 @@ msgstr "Dònut"
 #: config/./content/shortcode-vc-round-chart.php:48
 #: config/./grids/class-vc-grids-common.php:254
 #: config/./grids/class-vc-grids-common.php:806
-#: config/./tta/shortcode-vc-tta-accordion.php:99
-#: config/./tta/shortcode-vc-tta-tabs.php:100
-#: config/./tta/shortcode-vc-tta-tour.php:100
+#: config/./tta/shortcode-vc-tta-accordion.php:131
+#: config/./tta/shortcode-vc-tta-tabs.php:132
+#: config/./tta/shortcode-vc-tta-tour.php:132
 msgid "Gap"
 msgstr "Separació"
 
@@ -3134,19 +3140,19 @@ msgid "Select separator width (percentage)."
 msgstr "Seleccioneu l'amplada del separador (percentatge)."
 
 #: config/./content/shortcode-vc-single-image.php:7
-#: include/./params/vc_grid_item/shortcodes.php:718
+#: include/./params/vc_grid_item/shortcodes.php:743
 msgid "Single Image"
 msgstr "Imatge única"
 
 #: config/./content/shortcode-vc-single-image.php:11
-#: include/./params/vc_grid_item/shortcodes.php:722
+#: include/./params/vc_grid_item/shortcodes.php:747
 msgid "Simple image with CSS animation"
 msgstr "Imatge simple amb animacions CSS"
 
 #: config/./content/shortcode-vc-single-image.php:25
 #: config/./content/shortcode-vc-single-image.php:45
-#: include/./params/vc_grid_item/shortcodes.php:736
-#: include/./params/vc_grid_item/shortcodes.php:754
+#: include/./params/vc_grid_item/shortcodes.php:761
+#: include/./params/vc_grid_item/shortcodes.php:779
 msgid "External link"
 msgstr "Enllaç extern"
 
@@ -3155,13 +3161,13 @@ msgid "Featured Image"
 msgstr "Imatge destacada"
 
 #: config/./content/shortcode-vc-single-image.php:47
-#: include/./params/vc_grid_item/shortcodes.php:756
+#: include/./params/vc_grid_item/shortcodes.php:781
 msgid "Select external link."
 msgstr "Seleccioneu l'enllaç extern."
 
 #: config/./content/shortcode-vc-single-image.php:59
-#: include/./params/vc_grid_item/shortcodes.php:47
-#: include/./params/vc_grid_item/shortcodes.php:383
+#: include/./params/vc_grid_item/shortcodes.php:58
+#: include/./params/vc_grid_item/shortcodes.php:395
 msgid ""
 "Enter image size (Example: \"thumbnail\", \"medium\", \"large\", \"full\" or "
 "other sizes defined by theme). Alternatively enter size in pixels (Example: "
@@ -3188,43 +3194,44 @@ msgid "Add image caption."
 msgstr "Afegeix llegenda d'imatge."
 
 #: config/./content/shortcode-vc-single-image.php:105
-#: include/./params/vc_grid_item/shortcodes.php:563
-#: include/./params/vc_grid_item/shortcodes.php:771
+#: include/./params/vc_grid_item/shortcodes.php:588
+#: include/./params/vc_grid_item/shortcodes.php:796
 msgid "Image alignment"
 msgstr "Alineació d'imatge"
 
 #: config/./content/shortcode-vc-single-image.php:112
-#: include/./params/vc_grid_item/shortcodes.php:570
-#: include/./params/vc_grid_item/shortcodes.php:778
+#: include/./params/vc_grid_item/shortcodes.php:505
+#: include/./params/vc_grid_item/shortcodes.php:595
+#: include/./params/vc_grid_item/shortcodes.php:803
 msgid "Select image alignment."
 msgstr "Seleccioneu l'alineació de la imatge."
 
 #: config/./content/shortcode-vc-single-image.php:116
 #: config/./content/shortcode-vc-single-image.php:130
-#: include/./params/vc_grid_item/shortcodes.php:574
-#: include/./params/vc_grid_item/shortcodes.php:782
+#: include/./params/vc_grid_item/shortcodes.php:599
+#: include/./params/vc_grid_item/shortcodes.php:807
 msgid "Image style"
 msgstr "Estil de la imatge"
 
 #: config/./content/shortcode-vc-single-image.php:119
 #: config/./content/shortcode-vc-single-image.php:133
-#: include/./params/vc_grid_item/shortcodes.php:577
-#: include/./params/vc_grid_item/shortcodes.php:785
+#: include/./params/vc_grid_item/shortcodes.php:602
+#: include/./params/vc_grid_item/shortcodes.php:810
 msgid "Select image display style."
 msgstr "Seleccioneu l'estil de la imatge."
 
 #: config/./content/shortcode-vc-single-image.php:141
 #: config/./content/shortcode-vc-single-image.php:161
 #: include/./params/css_editor/css_editor.php:89
-#: include/./params/vc_grid_item/shortcodes.php:581
-#: include/./params/vc_grid_item/shortcodes.php:789
+#: include/./params/vc_grid_item/shortcodes.php:606
+#: include/./params/vc_grid_item/shortcodes.php:814
 msgid "Border color"
 msgstr "Color de la vora"
 
 #: config/./content/shortcode-vc-single-image.php:156
 #: config/./content/shortcode-vc-single-image.php:174
-#: include/./params/vc_grid_item/shortcodes.php:594
-#: include/./params/vc_grid_item/shortcodes.php:802
+#: include/./params/vc_grid_item/shortcodes.php:619
+#: include/./params/vc_grid_item/shortcodes.php:827
 msgid "Border color."
 msgstr "Color de la vora."
 
@@ -3400,35 +3407,35 @@ msgid "Horizontal zigzag separator line"
 msgstr "Línia de separació horitzontal ziga-zaga"
 
 #: config/./content/shortcode-vc-zigzag.php:26
-#: include/./params/vc_grid_item/shortcodes.php:99
-#: include/./params/vc_grid_item/shortcodes.php:123
+#: include/./params/vc_grid_item/shortcodes.php:111
+#: include/./params/vc_grid_item/shortcodes.php:135
 msgid "Select color for your element."
 msgstr "Seleccioneu color per al vostre element."
 
 #: config/./content/shortcode-vc-zigzag.php:67
-#: config/./tta/shortcode-vc-tta-tour.php:133
+#: config/./tta/shortcode-vc-tta-tour.php:165
 msgid "Extra small"
 msgstr "Extra petit"
 
 #: config/./content/shortcode-vc-zigzag.php:68
 #: config/./deprecated/shortcode-vc-googleplus.php:21 config/./lean-map.php:198
-#: config/./tta/shortcode-vc-tta-tour.php:132
+#: config/./tta/shortcode-vc-tta-tour.php:164
 msgid "Small"
 msgstr "Petit"
 
 #: config/./content/shortcode-vc-zigzag.php:69
 #: config/./deprecated/shortcode-vc-googleplus.php:22
-#: config/./tta/shortcode-vc-tta-tour.php:131
+#: config/./tta/shortcode-vc-tta-tour.php:163
 msgid "Medium"
 msgstr "Mitjà"
 
 #: config/./content/shortcode-vc-zigzag.php:70 config/./lean-map.php:197
-#: config/./tta/shortcode-vc-tta-tour.php:130
+#: config/./tta/shortcode-vc-tta-tour.php:162
 msgid "Large"
 msgstr "Gran"
 
 #: config/./content/shortcode-vc-zigzag.php:71
-#: config/./tta/shortcode-vc-tta-tour.php:129
+#: config/./tta/shortcode-vc-tta-tour.php:161
 msgid "Extra large"
 msgstr "Extra gran"
 
@@ -3477,26 +3484,26 @@ msgid "Add link to custom heading."
 msgstr "Afegiu un enllaç a l'encapçalament personalitzat."
 
 #: config/./content/vc-custom-heading-element.php:57
-#: include/./params/vc_grid_item/shortcodes.php:95
-#: include/./params/vc_grid_item/shortcodes.php:119
+#: include/./params/vc_grid_item/shortcodes.php:107
+#: include/./params/vc_grid_item/shortcodes.php:131
 msgid "Select element tag."
 msgstr "Seleccioneu l'etiqueta de l'element."
 
 #: config/./content/vc-custom-heading-element.php:58
-#: include/./params/vc_grid_item/shortcodes.php:96
-#: include/./params/vc_grid_item/shortcodes.php:120
+#: include/./params/vc_grid_item/shortcodes.php:108
+#: include/./params/vc_grid_item/shortcodes.php:132
 msgid "Select text alignment."
 msgstr "Seleccioneu l'alineació del text."
 
 #: config/./content/vc-custom-heading-element.php:59
-#: include/./params/vc_grid_item/shortcodes.php:97
-#: include/./params/vc_grid_item/shortcodes.php:121
+#: include/./params/vc_grid_item/shortcodes.php:109
+#: include/./params/vc_grid_item/shortcodes.php:133
 msgid "Enter font size."
 msgstr "Introduïu el tamany de la font."
 
 #: config/./content/vc-custom-heading-element.php:60
-#: include/./params/vc_grid_item/shortcodes.php:98
-#: include/./params/vc_grid_item/shortcodes.php:122
+#: include/./params/vc_grid_item/shortcodes.php:110
+#: include/./params/vc_grid_item/shortcodes.php:134
 msgid "Enter line height."
 msgstr "Introduïu l'alçada de la línia."
 
@@ -3513,12 +3520,12 @@ msgid "Use font family from the theme."
 msgstr "Utilitzar família de fonts del tema."
 
 #: config/./content/vc-custom-heading-element.php:78
-#: include/./params/vc_grid_item/shortcodes.php:152
+#: include/./params/vc_grid_item/shortcodes.php:164
 msgid "Select font family."
 msgstr "Seleccioneu la família de fonts."
 
 #: config/./content/vc-custom-heading-element.php:79
-#: include/./params/vc_grid_item/shortcodes.php:153
+#: include/./params/vc_grid_item/shortcodes.php:165
 msgid "Select font styling."
 msgstr "Seleccioneu l'estil de font."
 
@@ -3604,10 +3611,10 @@ msgid "Collapsible content panels"
 msgstr "Panells de contingut colapsable"
 
 #: config/./deprecated/shortcode-vc-accordion.php:24
-#: config/./tta/shortcode-vc-tta-accordion.php:172
+#: config/./tta/shortcode-vc-tta-accordion.php:204
 #: config/./tta/shortcode-vc-tta-pageable.php:53
-#: config/./tta/shortcode-vc-tta-tabs.php:148
-#: config/./tta/shortcode-vc-tta-tour.php:162
+#: config/./tta/shortcode-vc-tta-tabs.php:180
+#: config/./tta/shortcode-vc-tta-tour.php:194
 msgid "Active section"
 msgstr "Secció activa"
 
@@ -4105,22 +4112,22 @@ msgstr ""
 "Introduïu categories. Les etiquetes no es mostraran en la llista de filtres"
 
 #: config/./grids/class-vc-grids-common.php:419
-#: include/./params/vc_grid_item/shortcodes.php:491
+#: include/./params/vc_grid_item/shortcodes.php:515
 msgid "Less Rounded"
 msgstr "Menys arrodonit"
 
 #: config/./grids/class-vc-grids-common.php:420
-#: include/./params/vc_grid_item/shortcodes.php:492
+#: include/./params/vc_grid_item/shortcodes.php:516
 msgid "Border"
 msgstr "Vora"
 
 #: config/./grids/class-vc-grids-common.php:421
-#: include/./params/vc_grid_item/shortcodes.php:493
+#: include/./params/vc_grid_item/shortcodes.php:517
 msgid "Rounded Border"
 msgstr "Vora arrodonida"
 
 #: config/./grids/class-vc-grids-common.php:422
-#: include/./params/vc_grid_item/shortcodes.php:494
+#: include/./params/vc_grid_item/shortcodes.php:518
 msgid "Less Rounded Border"
 msgstr "Vora menys arrodonida"
 
@@ -4272,48 +4279,48 @@ msgstr "Seleccioneu el color per les fletxes."
 #: config/./grids/class-vc-grids-common.php:550
 #: config/./grids/class-vc-grids-common.php:923
 #: config/./tta/shortcode-vc-tta-pageable.php:68
-#: config/./tta/shortcode-vc-tta-tabs.php:163
-#: config/./tta/shortcode-vc-tta-tour.php:177
+#: config/./tta/shortcode-vc-tta-tabs.php:195
+#: config/./tta/shortcode-vc-tta-tour.php:209
 msgid "Pagination style"
 msgstr "Estil de paginació"
 
 #: config/./grids/class-vc-grids-common.php:554
 #: config/./grids/class-vc-grids-common.php:927
 #: config/./tta/shortcode-vc-tta-pageable.php:62
-#: config/./tta/shortcode-vc-tta-tabs.php:157
-#: config/./tta/shortcode-vc-tta-tour.php:171
+#: config/./tta/shortcode-vc-tta-tabs.php:189
+#: config/./tta/shortcode-vc-tta-tour.php:203
 msgid "Square Dots"
 msgstr "Punts quadrats"
 
 #: config/./grids/class-vc-grids-common.php:555
 #: config/./grids/class-vc-grids-common.php:928
 #: config/./tta/shortcode-vc-tta-pageable.php:63
-#: config/./tta/shortcode-vc-tta-tabs.php:158
-#: config/./tta/shortcode-vc-tta-tour.php:172
+#: config/./tta/shortcode-vc-tta-tabs.php:190
+#: config/./tta/shortcode-vc-tta-tour.php:204
 msgid "Radio Dots"
 msgstr "Punts circulars"
 
 #: config/./grids/class-vc-grids-common.php:556
 #: config/./grids/class-vc-grids-common.php:929
 #: config/./tta/shortcode-vc-tta-pageable.php:64
-#: config/./tta/shortcode-vc-tta-tabs.php:159
-#: config/./tta/shortcode-vc-tta-tour.php:173
+#: config/./tta/shortcode-vc-tta-tabs.php:191
+#: config/./tta/shortcode-vc-tta-tour.php:205
 msgid "Point Dots"
 msgstr "Punts petits"
 
 #: config/./grids/class-vc-grids-common.php:557
 #: config/./grids/class-vc-grids-common.php:930
 #: config/./tta/shortcode-vc-tta-pageable.php:65
-#: config/./tta/shortcode-vc-tta-tabs.php:160
-#: config/./tta/shortcode-vc-tta-tour.php:174
+#: config/./tta/shortcode-vc-tta-tabs.php:192
+#: config/./tta/shortcode-vc-tta-tour.php:206
 msgid "Fill Square Dots"
 msgstr "Punts quadrats reblerts"
 
 #: config/./grids/class-vc-grids-common.php:558
 #: config/./grids/class-vc-grids-common.php:931
 #: config/./tta/shortcode-vc-tta-pageable.php:66
-#: config/./tta/shortcode-vc-tta-tabs.php:161
-#: config/./tta/shortcode-vc-tta-tour.php:175
+#: config/./tta/shortcode-vc-tta-tabs.php:193
+#: config/./tta/shortcode-vc-tta-tour.php:207
 msgid "Rounded Fill Square Dots"
 msgstr "Punts quadrats reblerts arrodonits"
 
@@ -4390,24 +4397,24 @@ msgstr "Franges clares"
 #: config/./grids/class-vc-grids-common.php:580
 #: config/./grids/class-vc-grids-common.php:953
 #: config/./tta/shortcode-vc-tta-pageable.php:69
-#: config/./tta/shortcode-vc-tta-tabs.php:164
-#: config/./tta/shortcode-vc-tta-tour.php:178
+#: config/./tta/shortcode-vc-tta-tabs.php:196
+#: config/./tta/shortcode-vc-tta-tour.php:210
 msgid "Select pagination style."
 msgstr "Seleccioneu l'estil de paginació."
 
 #: config/./grids/class-vc-grids-common.php:584
 #: config/./grids/class-vc-grids-common.php:957
 #: config/./tta/shortcode-vc-tta-pageable.php:76
-#: config/./tta/shortcode-vc-tta-tabs.php:170
-#: config/./tta/shortcode-vc-tta-tour.php:184
+#: config/./tta/shortcode-vc-tta-tabs.php:202
+#: config/./tta/shortcode-vc-tta-tour.php:216
 msgid "Pagination color"
 msgstr "Color de paginació"
 
 #: config/./grids/class-vc-grids-common.php:595
 #: config/./grids/class-vc-grids-common.php:968
 #: config/./tta/shortcode-vc-tta-pageable.php:77
-#: config/./tta/shortcode-vc-tta-tabs.php:171
-#: config/./tta/shortcode-vc-tta-tour.php:185
+#: config/./tta/shortcode-vc-tta-tabs.php:203
+#: config/./tta/shortcode-vc-tta-tour.php:217
 msgid "Select pagination color."
 msgstr "Seleccioneu el color de paginació."
 
@@ -5488,100 +5495,132 @@ msgstr "Tres Imatges amb article"
 msgid "Accordion"
 msgstr "Acordió"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:34
+#: config/./tta/shortcode-vc-tta-accordion.php:37
+#: config/./tta/shortcode-vc-tta-tabs.php:37
+#: config/./tta/shortcode-vc-tta-tour.php:37
+#, fuzzy
+#| msgid "Widget title"
+msgid "Widget title tag"
+msgstr "Títol del giny"
+
+#: config/./tta/shortcode-vc-tta-accordion.php:38
+#: config/./tta/shortcode-vc-tta-tabs.php:38
+#: config/./tta/shortcode-vc-tta-tour.php:38
+#, fuzzy
+#| msgid "Select widget area to display."
+msgid "Select widget title tag."
+msgstr "Seleccioneu l'àrea de ginys que s'ha de mostrar."
+
+#: config/./tta/shortcode-vc-tta-accordion.php:53
+#: config/./tta/shortcode-vc-tta-tabs.php:53
+#: config/./tta/shortcode-vc-tta-tour.php:53
+#, fuzzy
+#| msgid "Section stretch"
+msgid "Section title tag"
+msgstr "Estirament de la secció"
+
+#: config/./tta/shortcode-vc-tta-accordion.php:54
+#: config/./tta/shortcode-vc-tta-tabs.php:54
+#: config/./tta/shortcode-vc-tta-tour.php:54
+#, fuzzy
+#| msgid "Select tabs section title alignment."
+msgid "Select section title tag."
+msgstr "Seleccioneu l'alineació del títol de la secció de pestanyes."
+
+#: config/./tta/shortcode-vc-tta-accordion.php:66
 msgid "Select accordion display style."
 msgstr "Seleccioneu l'estil de visualització de l'acordió."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:45
+#: config/./tta/shortcode-vc-tta-accordion.php:77
 msgid "Select accordion shape."
 msgstr "Seleccioneu la forma de l'acordió."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:53
+#: config/./tta/shortcode-vc-tta-accordion.php:85
 msgid "Select accordion color."
 msgstr "Seleccioneu el color de l'acordió."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:59
-#: config/./tta/shortcode-vc-tta-tabs.php:59
-#: config/./tta/shortcode-vc-tta-tour.php:59
+#: config/./tta/shortcode-vc-tta-accordion.php:91
+#: config/./tta/shortcode-vc-tta-tabs.php:91
+#: config/./tta/shortcode-vc-tta-tour.php:91
 msgid "Do not fill content area?"
 msgstr "No omplir l'àrea de contingut?"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:60
-#: config/./tta/shortcode-vc-tta-tabs.php:60
-#: config/./tta/shortcode-vc-tta-tour.php:60
+#: config/./tta/shortcode-vc-tta-accordion.php:92
+#: config/./tta/shortcode-vc-tta-tabs.php:92
+#: config/./tta/shortcode-vc-tta-tour.php:92
 msgid "Do not fill content area with color."
 msgstr "No omplir l'àrea de contingut amb color."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:79
-#: config/./tta/shortcode-vc-tta-tabs.php:79
-#: config/./tta/shortcode-vc-tta-tour.php:79
+#: config/./tta/shortcode-vc-tta-accordion.php:111
+#: config/./tta/shortcode-vc-tta-tabs.php:111
+#: config/./tta/shortcode-vc-tta-tour.php:111
 msgid "Spacing"
 msgstr "Espaiat"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:80
+#: config/./tta/shortcode-vc-tta-accordion.php:112
 msgid "Select accordion spacing."
 msgstr "Seleccioneu l'espaiat de l'acordió."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:100
+#: config/./tta/shortcode-vc-tta-accordion.php:132
 msgid "Select accordion gap."
 msgstr "Seleccioneu l'espai buit de l'acordió."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:111
+#: config/./tta/shortcode-vc-tta-accordion.php:143
 msgid "Select accordion section title alignment."
 msgstr "Seleccioneu l'alineació del títol de la secció de l'acordió."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:131
+#: config/./tta/shortcode-vc-tta-accordion.php:163
 #: config/./tta/shortcode-vc-tta-pageable.php:47
-#: config/./tta/shortcode-vc-tta-tabs.php:142
-#: config/./tta/shortcode-vc-tta-tour.php:156
+#: config/./tta/shortcode-vc-tta-tabs.php:174
+#: config/./tta/shortcode-vc-tta-tour.php:188
 msgid "Autoplay"
 msgstr "Reproducció automàtica"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:132
+#: config/./tta/shortcode-vc-tta-accordion.php:164
 msgid ""
 "Select auto rotate for accordion in seconds (Note: disabled by default)."
 msgstr ""
 "Seleccioneu la rotació automàtica per l'acordió en segons (Nota: desactivat "
 "per defecte)."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:137
+#: config/./tta/shortcode-vc-tta-accordion.php:169
 msgid "Allow collapse all?"
 msgstr "Voleu permetre que es contregui tot?"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:138
+#: config/./tta/shortcode-vc-tta-accordion.php:170
 msgid "Allow collapse all accordion sections."
 msgstr "Permetre contraure totes les seccions de l'acordió."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:146
+#: config/./tta/shortcode-vc-tta-accordion.php:178
 msgid "Chevron"
 msgstr "Forma de Galó"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:147
+#: config/./tta/shortcode-vc-tta-accordion.php:179
 msgid "Plus"
 msgstr "Més"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:148
+#: config/./tta/shortcode-vc-tta-accordion.php:180
 msgid "Triangle"
 msgstr "Triangle"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:152
+#: config/./tta/shortcode-vc-tta-accordion.php:184
 msgid "Select accordion navigation icon."
 msgstr "Seleccioneu la icona de la navegació de l'acordió."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:165
-#: config/./tta/shortcode-vc-tta-tabs.php:110
-#: config/./tta/shortcode-vc-tta-tour.php:110
+#: config/./tta/shortcode-vc-tta-accordion.php:197
+#: config/./tta/shortcode-vc-tta-tabs.php:142
+#: config/./tta/shortcode-vc-tta-tour.php:142
 msgid "Position"
 msgstr "Posició"
 
-#: config/./tta/shortcode-vc-tta-accordion.php:166
+#: config/./tta/shortcode-vc-tta-accordion.php:198
 msgid "Select accordion navigation icon position."
 msgstr "Seleccioneu la posició de la icona de la navegació de l'acordió."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:174
+#: config/./tta/shortcode-vc-tta-accordion.php:206
 #: config/./tta/shortcode-vc-tta-pageable.php:55
-#: config/./tta/shortcode-vc-tta-tabs.php:150
-#: config/./tta/shortcode-vc-tta-tour.php:164
+#: config/./tta/shortcode-vc-tta-tabs.php:182
+#: config/./tta/shortcode-vc-tta-tour.php:196
 msgid ""
 "Enter active section number (Note: to have all sections closed on initial "
 "load enter non-existing number)."
@@ -5589,11 +5628,11 @@ msgstr ""
 "Introduïu el número de la secció activa (Nota: Per tenir totes les seccions "
 "tancades en la càrrega inicial, introduïu un número no existent)."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:187
+#: config/./tta/shortcode-vc-tta-accordion.php:219
 #: config/./tta/shortcode-vc-tta-pageable.php:107
 #: config/./tta/shortcode-vc-tta-section.php:65
-#: config/./tta/shortcode-vc-tta-tabs.php:190
-#: config/./tta/shortcode-vc-tta-tour.php:204
+#: config/./tta/shortcode-vc-tta-tabs.php:222
+#: config/./tta/shortcode-vc-tta-tour.php:236
 msgid ""
 "If you wish to style particular content element differently, then use this "
 "field to add a class name and then refer to it in your css file."
@@ -5601,7 +5640,7 @@ msgstr ""
 "Si voleu aplicar un estil CSS diferent a un element del contingut, introduïu "
 "el nom de la classe CSS en aquest camp i crida-la des del teu arxiu CSS."
 
-#: config/./tta/shortcode-vc-tta-accordion.php:206
+#: config/./tta/shortcode-vc-tta-accordion.php:238
 msgid "Add Section"
 msgstr "Afegeix una secció"
 
@@ -5668,42 +5707,42 @@ msgstr "Secció per pestanyes horitzontals, pestanyues verticals, acordions."
 msgid "Tabs"
 msgstr "Pestanyes"
 
-#: config/./tta/shortcode-vc-tta-tabs.php:34
+#: config/./tta/shortcode-vc-tta-tabs.php:66
 msgid "Select tabs display style."
 msgstr "Seleccioneu l'estil de visualització de les pestanyes."
 
-#: config/./tta/shortcode-vc-tta-tabs.php:45
+#: config/./tta/shortcode-vc-tta-tabs.php:77
 msgid "Select tabs shape."
 msgstr "Seleccioneu la forma de les pestanyes."
 
-#: config/./tta/shortcode-vc-tta-tabs.php:51
+#: config/./tta/shortcode-vc-tta-tabs.php:83
 msgid "Select tabs color."
 msgstr "Seleccioneu el color de les pestanyes."
 
-#: config/./tta/shortcode-vc-tta-tabs.php:80
+#: config/./tta/shortcode-vc-tta-tabs.php:112
 msgid "Select tabs spacing."
 msgstr "Seleccioneu l'espaiat de les pestanyes."
 
-#: config/./tta/shortcode-vc-tta-tabs.php:101
+#: config/./tta/shortcode-vc-tta-tabs.php:133
 msgid "Select tabs gap."
 msgstr "Seleccioneu l'espai buit entre les pestanyes."
 
-#: config/./tta/shortcode-vc-tta-tabs.php:111
+#: config/./tta/shortcode-vc-tta-tabs.php:143
 msgid "Select tabs navigation position."
 msgstr "Seleccioneu la posició de la navegació de les pestanyes."
 
-#: config/./tta/shortcode-vc-tta-tabs.php:122
+#: config/./tta/shortcode-vc-tta-tabs.php:154
 msgid "Select tabs section title alignment."
 msgstr "Seleccioneu l'alineació del títol de la secció de pestanyes."
 
-#: config/./tta/shortcode-vc-tta-tabs.php:143
+#: config/./tta/shortcode-vc-tta-tabs.php:175
 msgid "Select auto rotate for tabs in seconds (Note: disabled by default)."
 msgstr ""
 "Seleccioneu la rotació automàtica per a les pestanyes en segons (Nota: "
 "desactivat per defecte)."
 
-#: config/./tta/shortcode-vc-tta-tabs.php:211
-#: config/./tta/shortcode-vc-tta-tabs.php:212
+#: config/./tta/shortcode-vc-tta-tabs.php:243
+#: config/./tta/shortcode-vc-tta-tabs.php:244
 #: include/./classes/core/class-vc-base.php:701
 #: include/./classes/shortcodes/vc-tab.php:6
 msgid "Tab"
@@ -5713,47 +5752,47 @@ msgstr "Pestanya horitzontal"
 msgid "Tour"
 msgstr "Pestanya vertical"
 
-#: config/./tta/shortcode-vc-tta-tour.php:34
+#: config/./tta/shortcode-vc-tta-tour.php:66
 msgid "Select tour display style."
 msgstr "Seleccioneu l'estil de la pestanya vertical."
 
-#: config/./tta/shortcode-vc-tta-tour.php:45
+#: config/./tta/shortcode-vc-tta-tour.php:77
 msgid "Select tour shape."
 msgstr "Seleccioneu la forma de la pestanya vertical."
 
-#: config/./tta/shortcode-vc-tta-tour.php:51
+#: config/./tta/shortcode-vc-tta-tour.php:83
 msgid "Select tour color."
 msgstr "Seleccioneu el color de la pestanya vertical."
 
-#: config/./tta/shortcode-vc-tta-tour.php:80
+#: config/./tta/shortcode-vc-tta-tour.php:112
 msgid "Select tour spacing."
 msgstr "Seleccioneu l'espaiat de la pestanya vertical."
 
-#: config/./tta/shortcode-vc-tta-tour.php:101
+#: config/./tta/shortcode-vc-tta-tour.php:133
 msgid "Select tour gap."
 msgstr "Seleccioneu l'espai buit de la pestanya vertical."
 
-#: config/./tta/shortcode-vc-tta-tour.php:111
+#: config/./tta/shortcode-vc-tta-tour.php:143
 msgid "Select tour navigation position."
 msgstr "Seleccioneu la posició de navegació de la pestanya vertical."
 
-#: config/./tta/shortcode-vc-tta-tour.php:122
+#: config/./tta/shortcode-vc-tta-tour.php:154
 msgid "Select tour section title alignment."
 msgstr "Seleccioneu l'alineació del títol de la secció de petanya vertical."
 
-#: config/./tta/shortcode-vc-tta-tour.php:128
+#: config/./tta/shortcode-vc-tta-tour.php:160
 msgid "Auto"
 msgstr "Auto"
 
-#: config/./tta/shortcode-vc-tta-tour.php:135
+#: config/./tta/shortcode-vc-tta-tour.php:167
 msgid "Navigation width"
 msgstr "Ample de la Navegació"
 
-#: config/./tta/shortcode-vc-tta-tour.php:136
+#: config/./tta/shortcode-vc-tta-tour.php:168
 msgid "Select tour navigation width."
 msgstr "Seleccioneu l'ample de la navegació de la petanya vertical."
 
-#: config/./tta/shortcode-vc-tta-tour.php:157
+#: config/./tta/shortcode-vc-tta-tour.php:189
 msgid "Select auto rotate for tour in seconds (Note: disabled by default)."
 msgstr ""
 "Seleccioneu la rotació automàtica per a la pestanya vertical en segons "
@@ -6265,7 +6304,7 @@ msgstr "Gestor de Rols"
 #: include/./autoload/vc-pages/pages.php:50
 #: include/./autoload/vc-pages/pages.php:63
 #: include/./classes/core/class-vc-base.php:690
-#: include/./classes/editors/class-vc-backend-editor.php:92
+#: include/./classes/editors/class-vc-backend-editor.php:89
 #: include/./classes/editors/navbar/class-vc-navbar.php:98
 #: include/./classes/updaters/class-vc-updater.php:129
 msgid "WPBakery Page Builder"
@@ -6678,7 +6717,7 @@ msgstr "Baixats"
 
 #: include/./classes/core/class-vc-base.php:748
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:132
-#: include/./classes/editors/navbar/class-vc-navbar.php:177
+#: include/./classes/editors/navbar/class-vc-navbar.php:187
 #: include/./params/vc_grid_item/editor/navbar/class-vc-navbar-grid-item.php:51
 #: include/./templates/editors/popups/vc_ui-panel-row-layout.tpl.php:34
 #: include/./templates/pages/vc-welcome/vc-faq.php:36
@@ -6935,11 +6974,13 @@ msgstr "Desa com a pendent"
 
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:122
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:123
+#: include/./classes/editors/navbar/class-vc-navbar.php:189
 msgid "Publish"
 msgstr "Publica"
 
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:126
 #: include/./classes/editors/navbar/class-vc-navbar-frontend.php:127
+#: include/./classes/editors/navbar/class-vc-navbar.php:191
 msgid "Submit for Review"
 msgstr "Envia per a revisió"
 
@@ -6989,7 +7030,7 @@ msgstr "Plantilles"
 msgid "Frontend"
 msgstr "Frontal"
 
-#: include/./classes/editors/navbar/class-vc-navbar.php:177
+#: include/./classes/editors/navbar/class-vc-navbar.php:194
 #: include/./params/vc_grid_item/editor/class-vc-grid-item-editor.php:237
 #: include/./params/vc_grid_item/editor/navbar/class-vc-navbar-grid-item.php:37
 msgid "Preview"
@@ -7144,7 +7185,7 @@ msgid "Add Param"
 msgstr "Afegeix parámetre"
 
 #: include/./classes/settings/automapper/class-vc-automapper.php:165
-#: include/./classes/settings/class-vc-settings.php:447
+#: include/./classes/settings/class-vc-settings.php:465
 #: include/./templates/editors/popups/modal_edit_element.tpl.php:21
 #: include/./templates/editors/popups/panel_multi_shortcode_edit_form.tpl.php:17
 #: include/./templates/editors/popups/panel_shortcode_edit_form.tpl.php:22
@@ -7289,7 +7330,7 @@ msgstr ""
 msgid "Dismiss this notice."
 msgstr "Descarta aquest avís."
 
-#: include/./classes/settings/class-vc-roles.php:126
+#: include/./classes/settings/class-vc-roles.php:132
 msgid "Roles settings successfully saved."
 msgstr "La configuració de rols s'ha desat correctament."
 
@@ -7343,115 +7384,125 @@ msgstr "Color de fons de les pestanyes de navegació"
 msgid "Active tab background color"
 msgstr "Color de fons de la pestanya activa"
 
-#: include/./classes/settings/class-vc-settings.php:253
+#: include/./classes/settings/class-vc-settings.php:255
 msgid "Disable responsive content elements"
 msgstr "Desactivar els elements amb continguts adaptatius"
 
-#: include/./classes/settings/class-vc-settings.php:261
+#: include/./classes/settings/class-vc-settings.php:263
 msgid "Google fonts subsets"
 msgstr "Subconjunts de fonts de Google"
 
-#: include/./classes/settings/class-vc-settings.php:276
+#: include/./classes/settings/class-vc-settings.php:278
 msgid "Use custom design options"
 msgstr "Utilitza les opcions personalitzades de disseny"
 
-#: include/./classes/settings/class-vc-settings.php:299
+#: include/./classes/settings/class-vc-settings.php:301
 msgid "Elements bottom margin"
 msgstr "Elements pel marge inferior"
 
-#: include/./classes/settings/class-vc-settings.php:308
+#: include/./classes/settings/class-vc-settings.php:310
 msgid "Grid gutter width"
 msgstr "Ample de canal de graella"
 
-#: include/./classes/settings/class-vc-settings.php:317
-msgid "Mobile screen width"
+#: include/./classes/settings/class-vc-settings.php:319
+#, fuzzy
+#| msgid "Mobile screen width"
+msgid "Mobile breakpoint"
 msgstr "Amplada de la pantalla mòbil"
 
-#: include/./classes/settings/class-vc-settings.php:337
+#: include/./classes/settings/class-vc-settings.php:326
+msgid "Desktop breakpoint"
+msgstr ""
+
+#: include/./classes/settings/class-vc-settings.php:333
+msgid "Large Desktop breakpoint"
+msgstr ""
+
+#: include/./classes/settings/class-vc-settings.php:353
 msgid "Paste your CSS code"
 msgstr "Enganxeu el codi CSS"
 
-#: include/./classes/settings/class-vc-settings.php:444
-#: include/./classes/settings/class-vc-settings.php:445
+#: include/./classes/settings/class-vc-settings.php:462
+#: include/./classes/settings/class-vc-settings.php:463
 msgid "Are you sure you want to reset to defaults?"
 msgstr "Esteu segur que voleu restablir les opcions predefinides?"
 
-#: include/./classes/settings/class-vc-settings.php:446
+#: include/./classes/settings/class-vc-settings.php:464
 msgid "Saving..."
 msgstr "Desant..."
 
-#: include/./classes/settings/class-vc-settings.php:448
+#: include/./classes/settings/class-vc-settings.php:466
 msgid "Design Options successfully saved."
 msgstr "Opcions de Disseny guardades correctament."
 
-#: include/./classes/settings/class-vc-settings.php:449
+#: include/./classes/settings/class-vc-settings.php:467
 msgid "Design Options could not be saved"
 msgstr "No s'han pogut desar les Opcions de Disseny"
 
-#: include/./classes/settings/class-vc-settings.php:450
+#: include/./classes/settings/class-vc-settings.php:468
 msgid ""
 "Problem with AJAX request execution, check internet connection and try again."
 msgstr ""
 "Problema amb l'execució de la sol·licitud d'AJAX. Comproveu la connexió a "
 "internet i torneu a provar."
 
-#: include/./classes/settings/class-vc-settings.php:451
+#: include/./classes/settings/class-vc-settings.php:469
 msgid "Are you sure you want to delete this shortcode?"
 msgstr "¿Segur que vols eliminar aquest shortcode?"
 
-#: include/./classes/settings/class-vc-settings.php:452
+#: include/./classes/settings/class-vc-settings.php:470
 msgid "Are you sure you want to delete the shortcode's param?"
 msgstr "¿Segur que vols eliminar el paràmetre del shortcode?"
 
-#: include/./classes/settings/class-vc-settings.php:453
+#: include/./classes/settings/class-vc-settings.php:471
 msgid "My shortcodes"
 msgstr "Els meus shortcodes"
 
-#: include/./classes/settings/class-vc-settings.php:454
+#: include/./classes/settings/class-vc-settings.php:472
 msgid "Shortcode name is required."
 msgstr "Es requereix nom del shortcode."
 
-#: include/./classes/settings/class-vc-settings.php:455
+#: include/./classes/settings/class-vc-settings.php:473
 msgid "Please enter valid shortcode tag."
 msgstr "Introduïu una etiqueta de shortcode vàlida."
 
-#: include/./classes/settings/class-vc-settings.php:456
+#: include/./classes/settings/class-vc-settings.php:474
 msgid "Please enter all required fields for params."
 msgstr "Ingresseu tots els paràmetres dels camps requerits."
 
-#: include/./classes/settings/class-vc-settings.php:457
+#: include/./classes/settings/class-vc-settings.php:475
 msgid "New shortcode mapped from string!"
 msgstr "Nou shortcode mapejat des de la cadena!"
 
-#: include/./classes/settings/class-vc-settings.php:458
+#: include/./classes/settings/class-vc-settings.php:476
 msgid "Shortcode updated!"
 msgstr "Shortcode actualitzat!"
 
-#: include/./classes/settings/class-vc-settings.php:459
+#: include/./classes/settings/class-vc-settings.php:477
 msgid "Content param can not be added manually, please use checkbox."
 msgstr ""
 "El paràmetre del contingut no es pot afegir manualment. Utilitzeu la casella "
 "de verificació."
 
-#: include/./classes/settings/class-vc-settings.php:460
+#: include/./classes/settings/class-vc-settings.php:478
 #, php-format
 msgid "Param %s already exists. Param names must be unique."
 msgstr "El paràmetre %s ja existeix. Els noms de Paràmetre han de ser únics."
 
-#: include/./classes/settings/class-vc-settings.php:461
+#: include/./classes/settings/class-vc-settings.php:479
 msgid "Please use only letters, numbers and underscore for param name"
 msgstr ""
 "Utilitzeu només lletres, números i guions baixos per al nom del paràmetre"
 
-#: include/./classes/settings/class-vc-settings.php:462
+#: include/./classes/settings/class-vc-settings.php:480
 msgid "Please enter valid shortcode to parse!"
 msgstr "Introduïu un shortcode vàlid que interpretar!"
 
-#: include/./classes/settings/class-vc-settings.php:483
+#: include/./classes/settings/class-vc-settings.php:501
 msgid "Add custom CSS code to the plugin without modifying files."
 msgstr "Afegiu CSS personalitzat a l'extensió sense modificar els arxius."
 
-#: include/./classes/settings/class-vc-settings.php:501
+#: include/./classes/settings/class-vc-settings.php:518
 msgid ""
 "Disable content elements from \"stacking\" one on top other on small media "
 "screens (Example: mobile devices)."
@@ -7459,17 +7510,17 @@ msgstr ""
 "Evita que els elements de contingut es \"superposin\" uns sobre altres en "
 "pantalles petites (Exemple: un mòbil)."
 
-#: include/./classes/settings/class-vc-settings.php:525
+#: include/./classes/settings/class-vc-settings.php:542
 msgid "Select subsets for Google Fonts available to content elements."
 msgstr ""
 "Seleccioneu els subconjunts de fonts de Google disponibles per als elements "
 "del contingut."
 
-#: include/./classes/settings/class-vc-settings.php:608
+#: include/./classes/settings/class-vc-settings.php:625
 msgid "Enable"
 msgstr "Activat"
 
-#: include/./classes/settings/class-vc-settings.php:610
+#: include/./classes/settings/class-vc-settings.php:627
 msgid ""
 "Enable the use of custom design options (Note: when checked - custom css "
 "file will be used)."
@@ -7477,30 +7528,37 @@ msgstr ""
 "Activa l'ús d'opcions de disseny personalitzades. Quan està seleccionat, es "
 "farà servir l'arxiu de css personalitzat."
 
-#: include/./classes/settings/class-vc-settings.php:632
+#: include/./classes/settings/class-vc-settings.php:649
 msgid ""
 "Change default vertical spacing between content elements (Example: 20px)."
 msgstr ""
 "Canvia la separació vertical per defecte entre els elements de contingut. "
 "(Exemple: 20px)."
 
-#: include/./classes/settings/class-vc-settings.php:643
+#: include/./classes/settings/class-vc-settings.php:660
 msgid ""
 "Change default horizontal spacing between columns, enter new value in pixels."
 msgstr ""
 "Canvieu la separació horitzontal per defecte entre columnas. Introduïu un "
 "nou valor en píxels."
 
-#: include/./classes/settings/class-vc-settings.php:654
+#: include/./classes/settings/class-vc-settings.php:671
+#: include/./classes/settings/class-vc-settings.php:679
+#: include/./classes/settings/class-vc-settings.php:687
+#, fuzzy
+#| msgid ""
+#| "By default content elements \"stack\" one on top other when screen size "
+#| "is smaller than 768px. Change the value to change \"stacking\" size."
 msgid ""
-"By default content elements \"stack\" one on top other when screen size is "
-"smaller than 768px. Change the value to change \"stacking\" size."
+"Content elements stack one on top other when the screen size is smaller than "
+"entered value. Change it to control when your layout stacks and adopts to a "
+"particular viewport or device size."
 msgstr ""
 "Per defecte, els elements de contingut es \"superposen\" uns sobre els "
 "altres quan la mida de pantalla és menor a 768px. Aquí podeu canviar aquest "
 "valor."
 
-#: include/./classes/settings/class-vc-settings.php:682
+#: include/./classes/settings/class-vc-settings.php:715
 msgid ""
 "Here you can tweak default WPBakery Page Builder content elements visual "
 "appearance. By default WPBakery Page Builder is using neutral light-grey "
@@ -7513,30 +7571,44 @@ msgstr ""
 "tots els elements de contingut, llevat que ja s'hagi configurat un color "
 "relacionat amb el \"bloc de contingut\"."
 
-#: include/./classes/settings/class-vc-settings.php:759
+#: include/./classes/settings/class-vc-settings.php:792
 msgid "Invalid Margin value."
 msgstr "Valor de marge no vàlid."
 
-#: include/./classes/settings/class-vc-settings.php:773
+#: include/./classes/settings/class-vc-settings.php:806
 msgid "Invalid Gutter value."
 msgstr "Valor del buit no vàlid."
 
-#: include/./classes/settings/class-vc-settings.php:786
-msgid "Invalid \"Responsive max\" value."
+#: include/./classes/settings/class-vc-settings.php:819
+#, fuzzy
+#| msgid "Invalid \"Responsive max\" value."
+msgid "Invalid \"Responsive mobile\" value."
 msgstr "Valor de \"Responsive max\" no válido."
 
-#: include/./classes/settings/class-vc-settings.php:876
+#: include/./classes/settings/class-vc-settings.php:832
+#, fuzzy
+#| msgid "Invalid \"Responsive max\" value."
+msgid "Invalid \"Responsive md\" value."
+msgstr "Valor de \"Responsive max\" no válido."
+
+#: include/./classes/settings/class-vc-settings.php:845
+#, fuzzy
+#| msgid "Invalid \"Responsive max\" value."
+msgid "Invalid \"Responsive lg\" value."
+msgstr "Valor de \"Responsive max\" no válido."
+
+#: include/./classes/settings/class-vc-settings.php:935
 msgid ""
 "Something went wrong: js_composer_front_custom.css could not be created."
 msgstr ""
 "Alguna cosa no ha funcionat: js_composer_front_custom.css no s'ha pogut "
 "crear."
 
-#: include/./classes/settings/class-vc-settings.php:878
+#: include/./classes/settings/class-vc-settings.php:937
 msgid "js_composer_front_custom.css could not be created. Connection error."
 msgstr "js_composer_front_custom.css no s'ha pogut crear. Error de connexió."
 
-#: include/./classes/settings/class-vc-settings.php:880
+#: include/./classes/settings/class-vc-settings.php:939
 #, php-format
 msgid ""
 "js_composer_front_custom.css could not be created. Cannot write custom css "
@@ -7545,30 +7617,30 @@ msgstr ""
 "js_composer_front_custom.css no s'ha pogut creat. No es pot escriure css "
 "personalitzat a \"%s\"."
 
-#: include/./classes/settings/class-vc-settings.php:882
+#: include/./classes/settings/class-vc-settings.php:941
 msgid "js_composer_front_custom.css could not be created. Problem with access."
 msgstr "js_composer_front_custom.css no s'ha pogut crear. Problema d'accés."
 
-#: include/./classes/settings/class-vc-settings.php:922
+#: include/./classes/settings/class-vc-settings.php:981
 msgid "Something went wrong: custom.css could not be created."
 msgstr "Alguna cosa no ha funcionat: custom.css no s'ha pogut crear."
 
-#: include/./classes/settings/class-vc-settings.php:924
+#: include/./classes/settings/class-vc-settings.php:983
 msgid "custom.css could not be created. Connection error."
 msgstr "custom.css no s'ha pogut crear. Error de connexió."
 
-#: include/./classes/settings/class-vc-settings.php:926
+#: include/./classes/settings/class-vc-settings.php:985
 #, php-format
 msgid "custom.css could not be created. Cannot write custom css to %s."
 msgstr ""
 "No s'ha pogut crear el custom.css. No es pot escriure el css personalitzat a "
 "%s."
 
-#: include/./classes/settings/class-vc-settings.php:928
+#: include/./classes/settings/class-vc-settings.php:987
 msgid "custom.css could not be created. Problem with access."
 msgstr "No s'ha pogut crear el custom.css. Problema d'accés."
 
-#: include/./classes/settings/class-vc-settings.php:949
+#: include/./classes/settings/class-vc-settings.php:1008
 #, php-format
 msgid ""
 "%s could not be created. Not available to create js_composer directory in "
@@ -7577,7 +7649,7 @@ msgstr ""
 "%s no es pot crear. No està disponible per crear el directori js_composer en "
 "el directori pujades (%s)."
 
-#: include/./classes/shortcodes/core/class-wpbakeryshortcode.php:540
+#: include/./classes/shortcodes/core/class-wpbakeryshortcode.php:720
 #: include/./templates/editors/partials/backend_controls.tpl.php:31
 #: include/./templates/editors/partials/backend_controls_tab.tpl.php:24
 #: include/./templates/editors/partials/frontend_controls.tpl.php:18
@@ -7594,7 +7666,7 @@ msgstr ""
 msgid "Edit %s"
 msgstr "Edita %s"
 
-#: include/./classes/shortcodes/core/class-wpbakeryshortcode.php:541
+#: include/./classes/shortcodes/core/class-wpbakeryshortcode.php:721
 #: include/./templates/editors/partials/backend_controls.tpl.php:35
 #: include/./templates/editors/partials/backend_controls_tab.tpl.php:28
 #: include/./templates/editors/partials/frontend_controls.tpl.php:23
@@ -7609,7 +7681,7 @@ msgstr "Edita %s"
 msgid "Clone %s"
 msgstr "Clona %s"
 
-#: include/./classes/shortcodes/core/class-wpbakeryshortcode.php:541
+#: include/./classes/shortcodes/core/class-wpbakeryshortcode.php:721
 #: include/./templates/editors/partials/backend_controls.tpl.php:39
 #: include/./templates/editors/partials/backend_controls_tab.tpl.php:32
 #: include/./templates/editors/partials/frontend_controls.tpl.php:26
@@ -7864,7 +7936,7 @@ msgstr "Mostra l'etiqueta"
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:53
 #: include/./classes/vendors/plugins/acf/shortcode.php:51
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:76
-#: include/./params/vc_grid_item/shortcodes.php:648
+#: include/./params/vc_grid_item/shortcodes.php:673
 msgid "Enter label to display before key value."
 msgstr "Introduïu l'etiqueta a mostrar abans del valor clau."
 
@@ -7905,7 +7977,7 @@ msgstr "justificar"
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:65
 #: include/./classes/vendors/plugins/acf/shortcode.php:63
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:89
-#: include/./params/vc_grid_item/shortcodes.php:660
+#: include/./params/vc_grid_item/shortcodes.php:685
 msgid "Select alignment."
 msgstr "Seleccioneu l'alineació."
 
@@ -8519,11 +8591,11 @@ msgstr "Trieu el camp de la comanda."
 msgid "Order custom key"
 msgstr "Clau personalitzada de la comanda"
 
-#: include/./helpers/helpers.php:291
+#: include/./helpers/helpers.php:298
 msgid "Added"
 msgstr "Afegit"
 
-#: include/./helpers/helpers.php:1223 include/./params/loop/loop.php:364
+#: include/./helpers/helpers.php:1230 include/./params/loop/loop.php:364
 msgid "Taxonomies"
 msgstr "Taxonomies"
 
@@ -8531,31 +8603,31 @@ msgstr "Taxonomies"
 msgid "Wrong vc_map object. Base attribute is required"
 msgstr "Objecte erroni de vc_map. Es requereix l'atribut base"
 
-#: include/./helpers/helpers_api.php:546
+#: include/./helpers/helpers_api.php:547
 msgid "CSS Animation"
 msgstr "Animació CSS"
 
-#: include/./helpers/helpers_api.php:556
+#: include/./helpers/helpers_api.php:557
 msgid "Top to bottom"
 msgstr "De dalt a baix"
 
-#: include/./helpers/helpers_api.php:557
+#: include/./helpers/helpers_api.php:558
 msgid "Bottom to top"
 msgstr "De baix a dalt"
 
-#: include/./helpers/helpers_api.php:558
+#: include/./helpers/helpers_api.php:559
 msgid "Left to right"
 msgstr "D'esquerra a dreta"
 
-#: include/./helpers/helpers_api.php:559
+#: include/./helpers/helpers_api.php:560
 msgid "Right to left"
 msgstr "De dreta a esquerra"
 
-#: include/./helpers/helpers_api.php:560
+#: include/./helpers/helpers_api.php:561
 msgid "Appear from center"
 msgstr "Apareix des del centre"
 
-#: include/./helpers/helpers_api.php:565
+#: include/./helpers/helpers_api.php:566
 msgid ""
 "Select type of animation for element to be animated when it \"enters\" the "
 "browsers viewport (Note: works only in modern browsers)."
@@ -8916,7 +8988,7 @@ msgstr "slideOutRight"
 msgid "slideOutUp"
 msgstr "slideOutUp"
 
-#: include/./params/animation_style/animation_style.php:499
+#: include/./params/animation_style/animation_style.php:504
 msgid "Animate it"
 msgstr "Anima'l"
 
@@ -9231,47 +9303,57 @@ msgstr "Plantilles de graella"
 msgid "Custom Grid Templates"
 msgstr "Plantilles de graella personalitzades"
 
-#: include/./params/vc_grid_item/shortcodes.php:11
-#: include/./params/vc_grid_item/shortcodes.php:447
-#: include/./params/vc_grid_item/shortcodes.php:478
+#: include/./params/vc_grid_item/shortcodes.php:10
+#: include/./params/vc_grid_item/shortcodes.php:459
+#: include/./params/vc_grid_item/shortcodes.php:490
 msgid "Add link"
 msgstr "Afegeix un enllaç"
 
-#: include/./params/vc_grid_item/shortcodes.php:15
+#: include/./params/vc_grid_item/shortcodes.php:14
 msgid "Post link"
 msgstr "Enllaç de l'entrada"
 
-#: include/./params/vc_grid_item/shortcodes.php:16
+#: include/./params/vc_grid_item/shortcodes.php:15
 msgid "Post author"
 msgstr "Autor de l'entrada"
 
-#: include/./params/vc_grid_item/shortcodes.php:17
+#: include/./params/vc_grid_item/shortcodes.php:16
 msgid "Large image"
 msgstr "Imatge gran"
 
-#: include/./params/vc_grid_item/shortcodes.php:18
+#: include/./params/vc_grid_item/shortcodes.php:17
 msgid "Large image (prettyPhoto)"
 msgstr "Imatge gran (Obriu-la en una finestra emergent mitjançant prettyPhoto)"
 
-#: include/./params/vc_grid_item/shortcodes.php:21
+#: include/./params/vc_grid_item/shortcodes.php:20
 msgid "Select link option."
 msgstr "Tria l'opció de l'enllaç."
 
-#: include/./params/vc_grid_item/shortcodes.php:33
-#: include/./params/vc_grid_item/shortcodes.php:76
-#: include/./params/vc_grid_item/shortcodes.php:553
-#: include/./params/vc_grid_item/shortcodes.php:893
-#: include/./params/vc_grid_item/shortcodes.php:904
+#: include/./params/vc_grid_item/shortcodes.php:24
+msgid "Open link in a new tab"
+msgstr ""
+
+#: include/./params/vc_grid_item/shortcodes.php:27
+#, fuzzy
+#| msgid "Select link option."
+msgid "Select link target window."
+msgstr "Tria l'opció de l'enllaç."
+
+#: include/./params/vc_grid_item/shortcodes.php:44
+#: include/./params/vc_grid_item/shortcodes.php:88
+#: include/./params/vc_grid_item/shortcodes.php:578
+#: include/./params/vc_grid_item/shortcodes.php:918
+#: include/./params/vc_grid_item/shortcodes.php:929
 msgid "Add custom link."
 msgstr "Afegeix un enllaç personalitzat."
 
-#: include/./params/vc_grid_item/shortcodes.php:37
-#: include/./params/vc_grid_item/shortcodes.php:373
+#: include/./params/vc_grid_item/shortcodes.php:48
+#: include/./params/vc_grid_item/shortcodes.php:385
 msgid "Use featured image on background?"
 msgstr "Voleu posar la imatge destacada al fons?"
 
-#: include/./params/vc_grid_item/shortcodes.php:40
-#: include/./params/vc_grid_item/shortcodes.php:376
+#: include/./params/vc_grid_item/shortcodes.php:51
+#: include/./params/vc_grid_item/shortcodes.php:388
 msgid ""
 "Note: Featured image overwrites background image and color from \"Design "
 "Options\"."
@@ -9279,53 +9361,53 @@ msgstr ""
 "Nota: La imatge destacada sobreescriu la imatge de fons i el color "
 "especificats a \"Opcions de disseny\"."
 
-#: include/./params/vc_grid_item/shortcodes.php:105
+#: include/./params/vc_grid_item/shortcodes.php:117
 msgid "Use custom fonts?"
 msgstr "Usar un tipus de lletra personalitzada?"
 
-#: include/./params/vc_grid_item/shortcodes.php:126
 #: include/./params/vc_grid_item/shortcodes.php:138
-#: include/./params/vc_grid_item/shortcodes.php:156
+#: include/./params/vc_grid_item/shortcodes.php:150
+#: include/./params/vc_grid_item/shortcodes.php:168
 msgid "Custom fonts"
 msgstr "Tipus de lletra personalitzat"
 
-#: include/./params/vc_grid_item/shortcodes.php:134
+#: include/./params/vc_grid_item/shortcodes.php:146
 msgid "Yes theme default font family?"
 msgstr "Voleu usar la tipografia per defecte del tema?"
 
-#: include/./params/vc_grid_item/shortcodes.php:137
+#: include/./params/vc_grid_item/shortcodes.php:149
 msgid "Yes font family from the theme."
 msgstr "Utilitzeu la tipografa del tema."
 
-#: include/./params/vc_grid_item/shortcodes.php:165
+#: include/./params/vc_grid_item/shortcodes.php:177
 msgid "Grid Item"
 msgstr "Element de tipus graella"
 
-#: include/./params/vc_grid_item/shortcodes.php:172
+#: include/./params/vc_grid_item/shortcodes.php:184
 msgid "Main grid item"
 msgstr "Element principal de tipus graella"
 
-#: include/./params/vc_grid_item/shortcodes.php:191
+#: include/./params/vc_grid_item/shortcodes.php:203
 msgid "A/B block"
 msgstr "Bloc A/B"
 
-#: include/./params/vc_grid_item/shortcodes.php:216
+#: include/./params/vc_grid_item/shortcodes.php:228
 msgid "Zone"
 msgstr "Zona"
 
-#: include/./params/vc_grid_item/shortcodes.php:230
+#: include/./params/vc_grid_item/shortcodes.php:242
 msgid "Normal"
 msgstr "Normal"
 
-#: include/./params/vc_grid_item/shortcodes.php:243
+#: include/./params/vc_grid_item/shortcodes.php:255
 msgid "Height mode"
 msgstr "Mode d'alçada"
 
-#: include/./params/vc_grid_item/shortcodes.php:247
+#: include/./params/vc_grid_item/shortcodes.php:259
 msgid "Original"
 msgstr "Original"
 
-#: include/./params/vc_grid_item/shortcodes.php:254
+#: include/./params/vc_grid_item/shortcodes.php:266
 msgid ""
 "Sizing proportions for height and width. Select \"Original\" to scale image "
 "without cropping."
@@ -9333,97 +9415,97 @@ msgstr ""
 "Proporcions de mida per l'altura i l'amplada. Seleccioneu \"Original\" per "
 "escalar la imatge sense retallar-la."
 
-#: include/./params/vc_grid_item/shortcodes.php:264
+#: include/./params/vc_grid_item/shortcodes.php:276
 msgid "Enter custom height."
 msgstr "Introduïu una alçada personalitzada."
 
-#: include/./params/vc_grid_item/shortcodes.php:270
+#: include/./params/vc_grid_item/shortcodes.php:282
 msgid "Hover"
 msgstr "En passar per sobre el ratolí"
 
-#: include/./params/vc_grid_item/shortcodes.php:284
+#: include/./params/vc_grid_item/shortcodes.php:296
 msgid "Additional"
 msgstr "Addicional"
 
-#: include/./params/vc_grid_item/shortcodes.php:406
+#: include/./params/vc_grid_item/shortcodes.php:418
 msgid "Post Title"
 msgstr "Títol de l'entrada"
 
-#: include/./params/vc_grid_item/shortcodes.php:409
-#: include/./params/vc_grid_item/shortcodes.php:425
-#: include/./params/vc_grid_item/shortcodes.php:442
-#: include/./params/vc_grid_item/shortcodes.php:473
-#: include/./params/vc_grid_item/shortcodes.php:541
-#: include/./params/vc_grid_item/shortcodes.php:617
+#: include/./params/vc_grid_item/shortcodes.php:421
+#: include/./params/vc_grid_item/shortcodes.php:437
+#: include/./params/vc_grid_item/shortcodes.php:454
+#: include/./params/vc_grid_item/shortcodes.php:485
+#: include/./params/vc_grid_item/shortcodes.php:565
+#: include/./params/vc_grid_item/shortcodes.php:642
 msgid "Post"
 msgstr "Entrada"
 
-#: include/./params/vc_grid_item/shortcodes.php:410
+#: include/./params/vc_grid_item/shortcodes.php:422
 msgid "Title of current post"
 msgstr "Títol de l'entrada actual"
 
-#: include/./params/vc_grid_item/shortcodes.php:422
+#: include/./params/vc_grid_item/shortcodes.php:434
 msgid "Post Excerpt"
 msgstr "Extracte de l'entrada"
 
-#: include/./params/vc_grid_item/shortcodes.php:426
+#: include/./params/vc_grid_item/shortcodes.php:438
 msgid "Excerpt or manual excerpt"
 msgstr "Extracte o extracte manual"
 
-#: include/./params/vc_grid_item/shortcodes.php:438
+#: include/./params/vc_grid_item/shortcodes.php:450
 msgid "Post Author"
 msgstr "Autor de la publicació"
 
-#: include/./params/vc_grid_item/shortcodes.php:443
+#: include/./params/vc_grid_item/shortcodes.php:455
 msgid "Author of current post"
 msgstr "Entrada actual publicada per"
 
-#: include/./params/vc_grid_item/shortcodes.php:450
+#: include/./params/vc_grid_item/shortcodes.php:462
 msgid "Add link to author?"
 msgstr "Voleu afegir un enllaç de l'autor?"
 
-#: include/./params/vc_grid_item/shortcodes.php:469
+#: include/./params/vc_grid_item/shortcodes.php:481
 msgid "Post Categories"
 msgstr "Categories de l'entrada"
 
-#: include/./params/vc_grid_item/shortcodes.php:474
+#: include/./params/vc_grid_item/shortcodes.php:486
 msgid "Categories of current post"
 msgstr "Categories de l'entrada"
 
-#: include/./params/vc_grid_item/shortcodes.php:481
+#: include/./params/vc_grid_item/shortcodes.php:493
 msgid "Add link to category?"
 msgstr "Voleu afegir un enllaç a la categoria?"
 
-#: include/./params/vc_grid_item/shortcodes.php:489
+#: include/./params/vc_grid_item/shortcodes.php:513
 msgid "Comma"
 msgstr "Coma"
 
-#: include/./params/vc_grid_item/shortcodes.php:496
+#: include/./params/vc_grid_item/shortcodes.php:520
 msgid "Select category display style."
 msgstr "Trieu l'estil de la categoria."
 
-#: include/./params/vc_grid_item/shortcodes.php:512
+#: include/./params/vc_grid_item/shortcodes.php:536
 msgid "Select category color."
 msgstr "Trieu un color per la categoria."
 
-#: include/./params/vc_grid_item/shortcodes.php:516
+#: include/./params/vc_grid_item/shortcodes.php:540
 msgid "Category size"
 msgstr "Mida de la categoria"
 
-#: include/./params/vc_grid_item/shortcodes.php:520
+#: include/./params/vc_grid_item/shortcodes.php:544
 msgid "Select category size."
 msgstr "Trieu la mida de la categoria."
 
-#: include/./params/vc_grid_item/shortcodes.php:538
+#: include/./params/vc_grid_item/shortcodes.php:562
 msgid "Post Image"
 msgstr "Imatge de l'entrada"
 
-#: include/./params/vc_grid_item/shortcodes.php:542
+#: include/./params/vc_grid_item/shortcodes.php:566
 msgid "Featured image"
 msgstr "Imatge destacada"
 
-#: include/./params/vc_grid_item/shortcodes.php:559
-#: include/./params/vc_grid_item/shortcodes.php:767
+#: include/./params/vc_grid_item/shortcodes.php:584
+#: include/./params/vc_grid_item/shortcodes.php:792
 msgid ""
 "Enter image size (Example: \"thumbnail\", \"medium\", \"large\", \"full\" or "
 "other sizes defined by theme). Alternatively enter size in pixels (Example: "
@@ -9435,40 +9517,40 @@ msgstr ""
 "píxels: 200x100 (Amplada x Alçada). Si ho deixeu en blanc, per defecte "
 "s'utilitzarà la mida 'thumbnail'."
 
-#: include/./params/vc_grid_item/shortcodes.php:614
+#: include/./params/vc_grid_item/shortcodes.php:639
 msgid "Post Date"
 msgstr "Data de l'entrada"
 
-#: include/./params/vc_grid_item/shortcodes.php:618
+#: include/./params/vc_grid_item/shortcodes.php:643
 msgid "Post publish date"
 msgstr "Data de publicació de l'entrada"
 
-#: include/./params/vc_grid_item/shortcodes.php:630
+#: include/./params/vc_grid_item/shortcodes.php:655
 msgid "Custom Field"
 msgstr "Camp personalitzat"
 
-#: include/./params/vc_grid_item/shortcodes.php:634
+#: include/./params/vc_grid_item/shortcodes.php:659
 #: include/./templates/pages/partials/vc-roles-parts/_shortcodes.tpl.php:35
 #: include/./templates/pages/partials/vc-roles-parts/_shortcodes.tpl.php:36
 msgid "Elements"
 msgstr "Elements"
 
-#: include/./params/vc_grid_item/shortcodes.php:636
+#: include/./params/vc_grid_item/shortcodes.php:661
 msgid "Custom fields data from meta values of the post."
 msgstr ""
 "Dades dels camps personalitzats procedents de valors meta de l'entrada."
 
-#: include/./params/vc_grid_item/shortcodes.php:640
+#: include/./params/vc_grid_item/shortcodes.php:665
 msgid "Field key name"
 msgstr "Nom de clau del camp"
 
-#: include/./params/vc_grid_item/shortcodes.php:642
+#: include/./params/vc_grid_item/shortcodes.php:667
 msgid "Enter custom field name to retrieve meta data value."
 msgstr ""
 "Introduïu el nom del camp personalitzat per obtenir el valor de les "
 "metadades."
 
-#: include/./params/vc_grid_item/shortcodes.php:658
+#: include/./params/vc_grid_item/shortcodes.php:683
 msgid "Justify"
 msgstr "Justificat"
 
@@ -10516,7 +10598,7 @@ msgstr "Vista prèvia de les fonts de Google"
 msgid "Grumpy wizards make toxic brew for the evil Queen and Jack."
 msgstr "Jove xef, porti whisky amb quinze glaçons d'hidrogen, coi."
 
-#: include/./templates/params/vc_grid_item/attributes/post_categories.php:28
+#: include/./templates/params/vc_grid_item/attributes/post_categories.php:38
 #, php-format
 msgid "View all posts in %s"
 msgstr "Veure totes les entrades de %s"
@@ -10563,6 +10645,9 @@ msgstr "Piuleu a"
 #: include/./templates/shortcodes/vc_tweetmeme.php:33
 msgid "Tweet"
 msgstr "Piula això"
+
+#~ msgid "Select bar background color."
+#~ msgstr "Color de fons de la barra de progrés."
 
 #~ msgid "Open prettyPhoto"
 #~ msgstr "Obre-ho amb prettyPhoto"

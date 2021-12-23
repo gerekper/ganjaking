@@ -69,16 +69,29 @@ if ( strlen( $link ) > 0 && 'none' !== $link ) {
 		}
 		$image_block = '<a href="' . esc_url( $link_s['url'] ) . '" title="' . esc_attr( $link_s['title'] ) . '" target="' . esc_attr( trim( $link_s['target'] ) ) . '" class="vc_gitem-link vc-zone-link"' . $rel . '></a>';
 	} elseif ( 'post_link' === $link ) {
-		$image_block = '<a href="{{ post_link_url }}" title="{{ post_title }}" class="vc_gitem-link vc-zone-link"></a>';
+		$target = isset( $atts['link_target'] ) && $atts['link_target'] ? 'target="_blank"' : '';
+		$image_block = '<a href="{{ post_link_url }}" title="{{ post_title }}" class="vc_gitem-link vc-zone-link" ' . $target . '></a>';
 	} elseif ( 'post_author' === $link ) {
-		$image_block = '<a href="{{ post_author_href }}" title="{{ post_author }}" class="vc_gitem-link vc-zone-link"></a>';
+		$target = isset( $atts['link_target'] ) && $atts['link_target'] ? 'target="_blank"' : '';
+		$image_block = '<a href="{{ post_author_href }}" title="{{ post_author }}" class="vc_gitem-link vc-zone-link" ' . $target . '></a>';
 	} elseif ( 'image' === $link ) {
-		$image_block = '<a href="{{ post_image_url }}" title="{{ post_title }}" class="vc_gitem-link vc-zone-link"></a>';
+		$target = isset( $atts['link_target'] ) && $atts['link_target'] ? 'target="_blank"' : '';
+		$image_block = '<a href="{{ post_image_url }}" title="{{ post_title }}" class="vc_gitem-link vc-zone-link" ' . $target . '></a>';
 	} elseif ( 'image_lightbox' === $link ) {
 		if ( ! isset( $this->lightbox_rel ) ) {
 			$this->lightbox_rel = ' data-lightbox="lightbox[rel-' . get_the_ID() . '-' . wp_rand() . ']"';
 		}
-		$image_block .= '<a href="{{ post_image_url }}" title="{{ post_title }}" ' . $this->lightbox_rel . ' data-vc-gitem-zone="prettyphotoLink" class="vc_gitem-link prettyphoto vc-zone-link vc-prettyphoto-link"></a>';
+		$target = isset( $atts['link_target'] ) && $atts['link_target'] ? 'target="_blank"' : '';
+		$image_block .= '<a href="{{ post_image_url }}" title="{{ post_title }}" ' . $this->lightbox_rel . ' data-vc-gitem-zone="prettyphotoLink" class="vc_gitem-link prettyphoto vc-zone-link vc-prettyphoto-link" ' . $target . '></a>';
+	} elseif ( 'image_full' === $link ) {
+		$target = isset( $atts['link_target'] ) && $atts['link_target'] ? 'target="_blank"' : '';
+		$image_block = '<a href="{{ post_full_image_url }}" title="{{ post_title }}" class="vc_gitem-link vc-zone-link" ' . $target . '></a>';
+	} elseif ( 'image_full_lightbox' === $link ) {
+		if ( ! isset( $this->lightbox_rel ) ) {
+			$this->lightbox_rel = ' data-lightbox="lightbox[rel-' . get_the_ID() . '-' . wp_rand() . ']"';
+		}
+		$target = isset( $atts['link_target'] ) && $atts['link_target'] ? 'target="_blank"' : '';
+		$image_block .= '<a href="{{ post_full_image_url }}" title="{{ post_title }}" ' . $this->lightbox_rel . ' data-vc-gitem-zone="prettyphotoLink" class="vc_gitem-link prettyphoto vc-zone-link vc-prettyphoto-link" ' . $target . '></a>';
 	}
 	$image_block = apply_filters( 'vc_gitem_zone_image_block_link', $image_block, $link, 'vc_gitem-link vc-zone-link' );
 }

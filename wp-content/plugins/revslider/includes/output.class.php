@@ -954,7 +954,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		
 		if(!in_array($max_width, array('0', 0, '0px', '0%'), true) && $type == 'auto'){
 			if(intval($max_width) > 0 && strpos($max_width, 'px') === false && strpos($max_width, '%') === false) $max_width .= 'px';
-			$style .= 'max-width:'. $max_width.';';
+			$style .= (empty($max_width)) ? '' : 'max-width:'. $max_width.';';
 		}
 
 		$fixedOnTop = array(
@@ -962,7 +962,7 @@ class RevSliderOutput extends RevSliderFunctions {
 			'd' => false
 		);
 
-		if ($fixedOnTop['v']===true) {
+		if($fixedOnTop['v'] === true){
 			$style .= 'position:fixed;top:0px;height:0px';
 		}
 		
@@ -1370,6 +1370,10 @@ class RevSliderOutput extends RevSliderFunctions {
 			//echo RS_T7.'<!-- MAIN IMAGE -->'."\n";
 			echo RS_T7.'<img';
 			foreach($img as $k => $v){
+				if($k === 'alt'){
+					echo ' '.$k.'="'.$v.'"'; //always print an alt even if empty
+					continue;
+				}
 				echo (trim($v) !== '') ? ' '.$k.'="'.$v.'"' : '';
 			}
 			echo ' data-no-retina>'."\n";
@@ -2358,7 +2362,7 @@ class RevSliderOutput extends RevSliderFunctions {
 			}else{
 				$me = $this->get_markup_export();
 				$html .= ($me === true) ? '<!-- STYLE -->' : '';
-				$html .= RS_T4 .'<style type="text/css">'. $css .'</style>';
+				$html .= RS_T4 .'<style>'. $css .'</style>';
 				$html .= ($me === true) ? '<!-- /STYLE -->' : '';
 			}
 		}else{
@@ -4622,7 +4626,7 @@ rs-module .material-icons {
 		
 		$vw	 = $this->get_val($layer, array('size', 'width'));
 		$vh	 = $this->get_val($layer, array('size', 'height'));
-		$vpl = $this->get_val($layer, array('media', 'preloadAudio'), 'auto');
+		$vpl = $this->get_val($layer, array('media', 'preload'), 'auto');
 		$sta = $this->get_val($layer, array('media', 'startAt'), -1);
 		$end = $this->get_val($layer, array('media', 'endAt'), -1);
 		$mp4 = esc_attr($this->remove_http($this->get_val($layer, array('media', 'audioUrl'))));
@@ -4644,11 +4648,11 @@ rs-module .material-icons {
 			$data['video']['w'] = $this->get_biggest_device_setting($vw, $this->enabled_sizes);
 			$data['video']['h'] = $this->get_biggest_device_setting($vh, $this->enabled_sizes);
 		}
-		if(!in_array($vpl, array('', 'auto'), true)){
+		//if(!in_array($vpl, array('', 'auto'), true)){
 			$data['video']['p'] = $vpl;
-			$plw = intval($this->get_val($layer, array('media', 'preloadWait'), 5));
-			if(!in_array($plw, array('5', 5), true)) $data['video']['pw'] = $plw;
-		}
+			//$plw = intval($this->get_val($layer, array('media', 'preloadWait'), 5));
+			//if(!in_array($plw, array('5', 5), true)) $data['video']['pw'] = $plw;
+		//}
 		if(!in_array($sta, array('', '-1', -1), true)) $data['video']['sta'] = $sta;
 		if(!in_array($end, array('', '-1', -1), true)) $data['video']['end'] = $end;
 		if(!empty($mp4))	$data['mp4'] = $mp4;
@@ -5419,8 +5423,7 @@ rs-module .material-icons {
 				if($urlImage !== ''){
 					//$urlImage = str_replace(array('https://', 'http://'), '//', $urlImage);
 					$html = '<img src="'.$this->remove_http($urlImage).'"';
-					$html .= ($alt !== '') ? ' alt="'.$alt.'"' : '';
-					$html .= ' class="'.$class.'"';
+					$html .= ' alt="'.$alt.'" class="'.$class.'"';
 					$html .= $additional.' data-no-retina>';
 				}
 			break;
@@ -5874,7 +5877,7 @@ rs-module .material-icons {
 			switch($slide->get_param(array('seo', 'type'), 'regular')){
 				default: //---- normal link
 				case 'regular':
-					$target	= 'data-tag="'.$slide->get_param(array('seo', 'tag'), 'l').'" data-target="'.$slide->get_param(array('seo', 'target'), '_self').'"';					
+					$target	= ' data-tag="'.$slide->get_param(array('seo', 'tag'), 'l').'" data-target="'.$slide->get_param(array('seo', 'target'), '_self').'"';					
 					$http	= $slide->get_param(array('seo', 'linkHelp'), 'auto');
 					$l		= $this->remove_http($slide->get_param(array('seo', 'link'), ''), $http);
 					$link	= ($l !== '') ? ' data-link="'.do_shortcode($l).'"'.$target : $link;
@@ -6940,20 +6943,20 @@ rs-module .material-icons {
 	 */
 	private function add_javascript_to_footer(){
 		$slver = apply_filters('revslider_remove_version', RS_REVISION); //allows to remove slider version at the JavaScript and CSS inclusions
-		$ret = RS_T3.'<script type="text/javascript" src="'.RS_PLUGIN_URL_CLEAN.'public/assets/js/rbtools.min.js?rev='.$slver.'"></script>'."\n";
+		$ret = RS_T3.'<script src="'.RS_PLUGIN_URL_CLEAN.'public/assets/js/rbtools.min.js?rev='.$slver.'"></script>'."\n";
 		if(!file_exists(RS_PLUGIN_PATH.'public/assets/js/rs6.min.js')){
-			$ret .= RS_T3.'<script type="text/javascript" src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.main.js?rev='.$slver.'"></script>'."\n";
+			$ret .= RS_T3.'<script src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.main.js?rev='.$slver.'"></script>'."\n";
 			//if on, load all libraries instead of dynamically loading them
-			$ret .= RS_T3.'<script type="text/javascript" src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.actions.js?rev='.$slver.'"></script>'."\n";
-			$ret .= RS_T3.'<script type="text/javascript" src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.carousel.js?rev='.$slver.'"></script>'."\n";
-			$ret .= RS_T3.'<script type="text/javascript" src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.layeranimation.js?rev='.$slver.'"></script>'."\n";
-			$ret .= RS_T3.'<script type="text/javascript" src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.navigation.js?rev='.$slver.'"></script>'."\n";
-			$ret .= RS_T3.'<script type="text/javascript" src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.panzoom.js?rev='.$slver.'"></script>'."\n";
-			$ret .= RS_T3.'<script type="text/javascript" src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.parallax.js?rev='.$slver.'"></script>'."\n";
-			$ret .= RS_T3.'<script type="text/javascript" src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.slideanims.js?rev='.$slver.'"></script>'."\n";
-			$ret .= RS_T3.'<script type="text/javascript" src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.video.js?rev='.$slver.'"></script>'."\n";
+			$ret .= RS_T3.'<script src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.actions.js?rev='.$slver.'"></script>'."\n";
+			$ret .= RS_T3.'<script src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.carousel.js?rev='.$slver.'"></script>'."\n";
+			$ret .= RS_T3.'<script src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.layeranimation.js?rev='.$slver.'"></script>'."\n";
+			$ret .= RS_T3.'<script src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.navigation.js?rev='.$slver.'"></script>'."\n";
+			$ret .= RS_T3.'<script src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.panzoom.js?rev='.$slver.'"></script>'."\n";
+			$ret .= RS_T3.'<script src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.parallax.js?rev='.$slver.'"></script>'."\n";
+			$ret .= RS_T3.'<script src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.slideanims.js?rev='.$slver.'"></script>'."\n";
+			$ret .= RS_T3.'<script src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/dev/rs6.video.js?rev='.$slver.'"></script>'."\n";
 		}else{
-			$ret .= RS_T3.'<script type="text/javascript" src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/rs6.min.js?rev='.$slver.'"></script>'."\n";
+			$ret .= RS_T3.'<script src="'. RS_PLUGIN_URL_CLEAN . 'public/assets/js/rs6.min.js?rev='.$slver.'"></script>'."\n";
 		}
 		
 		return $ret;
@@ -7032,7 +7035,7 @@ rs-module .material-icons {
 		global $rs_double_jquery_script;
 		
 		if($rs_double_jquery_script === false || $do_check === true){
-			echo '<script type="text/javascript">'."\n";
+			echo '<script>'."\n";
 			echo RS_T2.'if(typeof revslider_showDoubleJqueryError === "undefined") {';
 			echo 'function revslider_showDoubleJqueryError(sliderID) {';
 			echo 'console.log("You have some jquery.js library include that comes after the Slider Revolution files js inclusion.");';
@@ -7125,7 +7128,7 @@ rs-module .material-icons {
 
 		$message = $this->slider->get_title().': '.$message;
 		$html = '';
-		$html .= '<script type="text/javascript">';
+		$html .= '<script>';
 		$html .= 'console.log("'.esc_html($message).'")';
 		$html .= '</script>'."\n";
 
@@ -7173,7 +7176,7 @@ rs-module .material-icons {
 		$html .= ($this->rs_module_wrap_closed === false) ? RS_T4.'</rs-module>'."\n" : '';
 		$html .= ($this->rs_module_closed === false) ? RS_T3.'</rs-module-wrap>'."\n" : '';
 		
-		$html .=  RS_T3.'<script type="text/javascript">'."\n";
+		$html .=  RS_T3.'<script>'."\n";
 		$html .=  RS_T4.'var rs_eslider = document.getElementById("'.$html_id.'");'."\n";
 		if(is_user_logged_in()){
 			$html .=  RS_T4.'rs_eslider.style.display = "block";'."\n";
@@ -7289,7 +7292,7 @@ rs-module .material-icons {
 		$fw = ($layout == 'fullscreen') ? 'off' : $fw;
 		$fs = ($layout == 'fullscreen') ? 'on' : 'off';
 		$html	= '';
-		$html	.= RS_T4.'<script type="text/javascript">'."\n";
+		$html	.= RS_T4.'<script>'."\n";
 		$html	.= RS_T5.$this->get_html_js_start_size($fw, $fs)."\n";
 		$html	.= RS_T4.'</script>'."\n";
 		
@@ -7316,7 +7319,7 @@ rs-module .material-icons {
 			$cache->add_addition('action', 'wp_print_footer_scripts', $this->JTA . RS_T2.'var	'. $revapi .';'."\n", 1);
 		}
 		if($this->full_js){
-			$html .= $this->JTA . RS_T.'<script type="text/javascript">'."\n";
+			$html .= $this->JTA . RS_T.'<script>'."\n";
 			$html .= $this->JTA . RS_T2.'var	tpj = jQuery;'."\n";
 			//$html .= $this->JTA . RS_T2.'window.'. $revapi .' = window.'. $revapi .'===undefined || window.'. $revapi .'===null || window.'. $revapi .'.length===0  ? document.getElementById("'. $html_id .'") : window.'. $revapi .';'."\n";
 		}		
@@ -7452,7 +7455,7 @@ rs-module .material-icons {
 		$html = '';
 		
 		if($this->orig_html_id !== false){
-			//$html .= $this->JTA . RS_T.'<script type="text/javascript">'."\n";
+			//$html .= $this->JTA . RS_T.'<script>'."\n";
 			$html .= $this->JTA . RS_T2.'console.log("'.sprintf(__('Warning - ID: %s exists already and was converted to: %s', 'revslider'), $this->orig_html_id, $this->get_html_id()).'")'."\n";
 			//$html .= $this->JTA . RS_T.'</script>'."\n";
 		}

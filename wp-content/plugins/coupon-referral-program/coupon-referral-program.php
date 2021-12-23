@@ -14,7 +14,7 @@
  * Plugin Name:       Coupon Referral Program
  * Plugin URI:        https://woocommerce.com/products/coupon-referral-program/
  * Description:       This extension is mainly to install a referral program on your site and share the discount coupons in return.
- * Version:           1.6.1
+ * Version:           1.6.2
  * Author:            MakeWebBetter
  * Author URI:        https://makewebbetter.com/
  * Developer:         makewebbetter
@@ -23,9 +23,9 @@
  * Domain Path:       /languages
  * Woo: 3820066:337863f09a287f1aaa7ad10d885a170e
  * Requires at least:        4.6
- * Tested up to:             5.8.1
+ * Tested up to:             5.8.2
  * WC requires at least:     3.0
- * WC tested up to:          5.6
+ * WC tested up to:          5.9.0
  *
  * Copyright:         © 2009-2021 WooCommerce.
  * License:           GNU General Public License v3.0
@@ -54,11 +54,10 @@ if ( $activated ) {
 	define( 'ONBOARD_PLUGIN_NAME', 'Coupon Referral Program' );
 
 
-
 	/** Define plugin constants.  */
 	function define_coupon_referral_program_constants() {
 
-		coupon_referral_program_constants( 'COUPON_REFERRAL_PROGRAM_VERSION', '1.6.1' );
+		coupon_referral_program_constants( 'COUPON_REFERRAL_PROGRAM_VERSION', '1.6.2' );
 		coupon_referral_program_constants( 'COUPON_REFERRAL_PROGRAM_DIR_PATH', plugin_dir_path( __FILE__ ) );
 		coupon_referral_program_constants( 'COUPON_REFERRAL_PROGRAM_DIR_URL', plugin_dir_url( __FILE__ ) );
 	}
@@ -183,9 +182,9 @@ if ( $activated ) {
 	function mwb_signup_discount_amount( $mwb_cpr_coupon_amount, $mwb_cpr_discount_type ) {
 
 		if ( 'mwb_cpr_fixed' === $mwb_cpr_discount_type ) {
-			$mwb_signup_discount_amount = '<span style="font-weight: bold;">' . wc_price( $mwb_cpr_coupon_amount ) . '</span>';
+			$mwb_signup_discount_amount = '<span class="mwb_cpr_signup_notification" >' . wc_price( $mwb_cpr_coupon_amount ) . '</span>';
 		} else {
-			$mwb_signup_discount_amount = '<span style="font-weight: bold;">' . $mwb_cpr_coupon_amount . '%</span>';
+			$mwb_signup_discount_amount = '<span class="mwb_cpr_signup_notification" >' . $mwb_cpr_coupon_amount . '%</span>';
 		}
 		return $mwb_signup_discount_amount;
 	}
@@ -253,8 +252,8 @@ if ( $activated ) {
 	function mwb_crp_plugin_row_meta( $links, $file ) {
 		if ( strpos( $file, 'coupon-referral-program/coupon-referral-program.php' ) !== false ) {
 			$new_links = array(
-				'doc'     => '<a href="https://docs.woocommerce.com/document/coupon-referral-program" target="_blank"><i class="far fa-file-alt" style="margin-right:3px;"></i>Documentation</a>',
-				'support' => '<a href="https://makewebbetter.freshdesk.com/a/tickets/new" target="_blank"><i class="fas fa-user-ninja" style="margin-right:3px;"></i>Support</a>',
+				'doc'     => '<a href="https://docs.woocommerce.com/document/coupon-referral-program" target="_blank"><i class="far fa-file-alt" ></i>Documentation</a>',
+				'support' => '<a href="https://makewebbetter.freshdesk.com/a/tickets/new" target="_blank"><i class="fas fa-user-ninja" ></i>Support</a>',
 			);
 
 			$links = array_merge( $links, $new_links );

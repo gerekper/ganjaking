@@ -8,10 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param $value
  * @return string
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function vc_vc_grid_item_form_field( $settings, $value ) {
 	require_once vc_path_dir( 'PARAMS_DIR', 'vc_grid_item/editor/class-vc-grid-item-editor.php' );
 	require_once vc_path_dir( 'PARAMS_DIR', 'vc_grid_item/class-vc-grid-item.php' );
@@ -83,19 +79,29 @@ function vc_gitem_create_link( $atts, $default_class = '', $title = '' ) {
 			}
 			$link = 'a href="' . esc_url( $link['url'] ) . '" class="' . esc_attr( $css_class ) . '"';
 		} elseif ( 'post_link' === $atts['link'] ) {
-			$link = 'a href="{{ post_link_url }}" class="' . esc_attr( $css_class ) . '"';
+			$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+			$link = 'a href="{{ post_link_url }}" class="' . esc_attr( $css_class ) . '"' . $target;
 			if ( ! strlen( $title ) ) {
 				$title = '{{ post_title }}';
 			}
 		} elseif ( 'post_author' === $atts['link'] ) {
-			$link = 'a href="{{ post_author_href }}" class="' . esc_attr( $css_class ) . '"';
+			$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+			$link = 'a href="{{ post_author_href }}" class="' . esc_attr( $css_class ) . '"' . $target;
 			if ( ! strlen( $title ) ) {
 				$title = '{{ post_author }}';
 			}
 		} elseif ( 'image' === $atts['link'] ) {
-			$link = 'a{{ post_image_url_href }} class="' . esc_attr( $css_class ) . '"';
+			$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+			$link = 'a{{ post_image_url_href }} class="' . esc_attr( $css_class ) . '"' . $target;
 		} elseif ( 'image_lightbox' === $atts['link'] ) {
-			$link = 'a{{ post_image_url_attr_prettyphoto:' . $css_class . ' }}';
+			$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+			$link = 'a{{ post_image_url_attr_prettyphoto:' . $css_class . ' }}' . $target;
+		} elseif ( 'image_full' === $atts['link'] ) {
+			$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+			$link = 'a{{ post_full_image_url_href }} class="' . esc_attr( $css_class ) . '"' . $target;
+		} elseif ( 'image_full_lightbox' === $atts['link'] ) {
+			$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+			$link = 'a{{ post_full_image_url_attr_prettyphoto:' . $css_class . ' }}' . $target;
 		}
 	}
 	if ( strlen( $title ) > 0 ) {
@@ -137,21 +143,37 @@ function vc_gitem_create_link_real( $atts, $post, $default_class = '', $title = 
 			}
 			$link = 'a href="' . esc_url( $link['url'] ) . '" class="' . esc_attr( $link_css_class ) . '"';
 		} elseif ( 'post_link' === $atts['link'] ) {
-			$link = 'a href="' . esc_url( get_permalink( $post->ID ) ) . '" class="' . esc_attr( $link_css_class ) . '"';
+			$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+			$link = 'a href="' . esc_url( get_permalink( $post->ID ) ) . '" class="' . esc_attr( $link_css_class ) . '"' . $target;
 			if ( ! strlen( $title ) ) {
 				$title = the_title( '', '', false );
 			}
 		} elseif ( 'image' === $atts['link'] ) {
+			$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
 			$href_link = vc_gitem_template_attribute_post_image_url( '', array(
 				'post' => $post,
 				'data' => '',
 			) );
-			$link = 'a href="' . esc_url( $href_link ) . '" class="' . esc_attr( $link_css_class ) . '"';
+			$link = 'a href="' . esc_url( $href_link ) . '" class="' . esc_attr( $link_css_class ) . '"' . $target;
 		} elseif ( 'image_lightbox' === $atts['link'] ) {
+			$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
 			$link = 'a' . vc_gitem_template_attribute_post_image_url_attr_lightbox( '', array(
 				'post' => $post,
 				'data' => esc_attr( $link_css_class ),
+			) ) . $target;
+		} elseif ( 'image_full' === $atts['link'] ) {
+			$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+			$href_link = vc_gitem_template_attribute_post_full_image_url( '', array(
+				'post' => $post,
+				'data' => '',
 			) );
+			$link = 'a href="' . esc_url( $href_link ) . '" class="' . esc_attr( $link_css_class ) . '"' . $target;
+		} elseif ( 'image_full_lightbox' === $atts['link'] ) {
+			$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+			$link = 'a' . vc_gitem_template_attribute_post_full_image_url_attr_lightbox( '', array(
+				'post' => $post,
+				'data' => esc_attr( $link_css_class ),
+			) ) . $target;
 		}
 	}
 	if ( strlen( $title ) > 0 ) {

@@ -13,10 +13,6 @@ require_once vc_path_dir( 'EDITORS_DIR', 'navbar/class-vc-navbar.php' );
 /**
  * Renders navigation bar for Editors.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Navbar_Grid_Item extends Vc_Navbar {
 	protected $controls = array(
 		'templates',

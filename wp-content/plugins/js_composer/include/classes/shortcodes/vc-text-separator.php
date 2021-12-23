@@ -6,10 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class WPBakeryShortCode_Vc_Text_separator
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WPBakeryShortCode_Vc_Text_Separator extends WPBakeryShortCode {
 
 	/**
@@ -32,7 +28,7 @@ class WPBakeryShortCode_Vc_Text_Separator extends WPBakeryShortCode {
 		}
 		$data = vc_map_integrate_parse_atts( $this->shortcode, 'vc_icon', $atts, 'i_' );
 		if ( $data ) {
-			$icon = visual_composer()->getShortCode( 'vc_icon' );
+			$icon = wpbakery()->getShortCode( 'vc_icon' );
 			if ( is_object( $icon ) ) {
 				return $icon->render( array_filter( $data ) );
 			}

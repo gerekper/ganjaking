@@ -137,7 +137,7 @@ class RevSliderExtension {
 	 */
 	public function add_eg_additional_inline_javascript(){
 		?>
-		<script type="text/javascript">
+		<script>
 			var ajaxRevslider;
 			function rsCustomAjaxContentLoadingFunction() {
 				// CUSTOM AJAX CONTENT LOADING FUNCTION

@@ -17,10 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div id="mwb_crp_loader" style="display: none;">
+<div id="mwb_crp_loader" class="mwb_crp_hide_element">
 	<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ); ?>public/images/loading.gif">
 </div>
-<div class="mwb-coupon-popup-wrapper" style="display: none;">
+<div class="mwb-coupon-popup-wrapper mwb_crp_hide_element">
 	<div class="mwb-coupon-popup-content">
 		<div class="mwb-coupon-popup-header">
 			<h2><?php esc_html_e( 'Available Coupon', 'coupon-referral-program' ); ?></h2>

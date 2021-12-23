@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$total_templates = visual_composer()->templatesPanelEditor()->loadDefaultTemplates();
+$total_templates = wpbakery()->templatesPanelEditor()->loadDefaultTemplates();
 $templates_total_count = count( $total_templates );
 ?>
 <div id="vc_no-content-helper" class="vc_welcome vc_ui-font-open-sans">

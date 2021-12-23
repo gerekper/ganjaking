@@ -1,4 +1,5 @@
 jQuery(document).ready(function($){
+
 	var elements = jQuery('.modal-overlay, .modal');
 
 	jQuery( document ).on( 'click', '.close-modal', function(){

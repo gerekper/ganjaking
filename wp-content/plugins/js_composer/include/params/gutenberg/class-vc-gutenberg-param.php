@@ -9,10 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Vc_Gutenberg_Param
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Gutenberg_Param {
 	protected $postTypeSlug = 'wpb_gutenberg_param';
 

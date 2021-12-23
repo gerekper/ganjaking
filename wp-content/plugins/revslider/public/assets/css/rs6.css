@@ -440,7 +440,7 @@ rs-fullwidth-wrap { position:relative;width:100%;height:auto;display: block; ove
 
 .rev_row_zone_top 				{	top:0px;}
 .rev_row_zone_bottom 			{	bottom:0px;}
-.rev_row_zone_middle			{ top: 50%; transform: perspective(1px) translateY(-50%); }
+.rev_row_zone_middle			{ top: 0px;}
 
 rs-column-wrap .rs-parallax-wrap  { vertical-align: top }
 

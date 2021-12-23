@@ -5,7 +5,7 @@
  * or custom field
  *
  * @since 1.0.0
- * @version 1.8.1
+ * @version 1.9.0
  */
 
 $thumblink = '';

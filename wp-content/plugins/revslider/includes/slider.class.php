@@ -1902,6 +1902,9 @@ class RevSliderSlider extends RevSliderFunctions {
 			'order'		=> $this->get_param(array('source', 'post', 'sortDirection'), 'DESC'),
 			'tag'		=> $tags
 		);
+
+		$tax_query = $this->get_tax_query();
+		if(!empty($tax_query)) $query['tax_query'] = $tax_query;
 		
 		if(strpos($sort_by, 'meta_num_') === 0){
 			$query['orderby']	= 'meta_value_num';
@@ -1912,7 +1915,7 @@ class RevSliderSlider extends RevSliderFunctions {
 		}else{
 			$query['orderby']	= $sort_by;
 		}
-		
+
 		$get_relateds		= apply_filters('revslider_get_related_posts', $query, $post_id);
 		$tag_related_posts	= get_posts($get_relateds);
 		
@@ -1923,7 +1926,7 @@ class RevSliderSlider extends RevSliderFunctions {
 			}
 			$article_categories = get_the_category($post_id);
 			$category_string = '';
-			foreach($article_categories as $category) { 
+			foreach($article_categories as $category){
 				$category_string .= $category->cat_ID . ',';
 			}
 			
@@ -1950,7 +1953,7 @@ class RevSliderSlider extends RevSliderFunctions {
 			$cat_related_posts	= get_posts($get_relateds);
 			$tag_related_posts	= $tag_related_posts + $cat_related_posts;
 		}
-		
+
 		foreach($tag_related_posts as $post){
 			$the_post = (method_exists($post, 'to_array')) ? $post->to_array() : (array)$post;
 			if($the_post['ID'] == $post_id) continue;
@@ -1979,7 +1982,7 @@ class RevSliderSlider extends RevSliderFunctions {
 		}else{
 			$max_posts = intval($max_posts);
 		}
-		
+
 		$args = array(
 			'suppress_filters' => 0,
 			'posts_per_page' => $max_posts,
@@ -1988,6 +1991,9 @@ class RevSliderSlider extends RevSliderFunctions {
 			'orderby'   => 'comment_count',
 			'order'     => 'DESC'
 		);
+
+		$tax_query = $this->get_tax_query();
+		if(!empty($tax_query)) $args['tax_query'] = $tax_query;
 		
 		$args	= apply_filters('revslider_get_popular_posts', $args, $post_id);
 		$posts	= get_posts($args);
@@ -2027,6 +2033,10 @@ class RevSliderSlider extends RevSliderFunctions {
 		}
 		
 		$args['posts_per_page']	= $max_posts;
+		
+		$tax_query = $this->get_tax_query();
+		if(!empty($tax_query)) $args['tax_query'] = $tax_query;
+
 		$args	= apply_filters('revslider_get_latest_posts', $args, $post_id);
 		$posts	= get_posts($args);
 		
@@ -2058,6 +2068,29 @@ class RevSliderSlider extends RevSliderFunctions {
 		}
 		
 		return $my_posts;
+	}
+
+
+	public function get_tax_query(){
+		$cat_ids	= $this->get_param(array('source', 'post', 'category'));
+		$data		= $this->get_tax_by_cat_id($cat_ids);
+		$tax_query	= false;
+		if(isset($data['tax']) && isset($data['tax']) && !empty($data['tax']) && !empty($data['cats'])){
+			$cat_id = (strpos($data['cats'], ',') !== false) ? explode(',', $data['cats']) : array($data['cats']);
+			$tax_query = array('relation' => 'OR');
+
+			//add taxomonies to the query
+			$taxonomies = (strpos($data['tax'], ',') !== false) ? explode(',', $data['tax']) : array($data['tax']);
+			foreach($taxonomies as $taxomony){
+				$tax_query[] = array(
+					'taxonomy'	=> $taxomony,
+					'field'		=> 'id',
+					'terms'		=> $cat_id
+				);			
+			}
+		}
+
+		return $tax_query;
 	}
 	
 	
@@ -2489,23 +2522,11 @@ class RevSliderSlider extends RevSliderFunctions {
 			$tax_query = array('relation' => 'OR');
 		
 			//add taxomonies to the query
-			if(strpos($taxonomies, ',') !== false){	//multiple taxomonies
-				$taxonomies = explode(',', $taxonomies);
-				foreach($taxonomies as $taxomony){
-					$tax_query[] = array(
-						'taxonomy'	=> $taxomony,
-						'field'		=> 'id',
-						'terms'		=> $cat_id
-					);			
-				}
-			}else{		//single taxomony
-				$tax_query[] = array(
-					'taxonomy' => $taxonomies,
-					'field' => 'id',
-					'terms' => $cat_id
-				);			
+			$taxonomies = (strpos($taxonomies, ',') !== false) ? explode(',', $taxonomies) : array($taxonomies);
+			foreach($taxonomies as $taxomony){
+				$tax_query[] = array('taxonomy' => $taxomony, 'field' => 'id', 'terms' => $cat_id);			
 			}
-			
+
 			$query['tax_query'] = $tax_query;
 		}
 		

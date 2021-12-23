@@ -18,7 +18,7 @@ $page_bg = ($page_bg == '' || $page_bg == 'transparent') ? 'transparent' : $page
 		<link rel="profile" href="http://gmpg.org/xfn/11">
 		<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 		<?php wp_head(); ?>
-		<style type="text/css">
+		<style>
 			body:before { display:none !important}
 			body:after { display:none !important}
 			body, body.page-template-revslider-page-template, body.page-template---publicviewsrevslider-page-template-php { background:<?php echo $page_bg;?>}

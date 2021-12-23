@@ -1,7 +1,19 @@
 *** Coupon Referal Program ***
 
-2021-09-16 - Version 1.6.1
+2021-12-14 - Version 1.6.2
 
+* New: Compatibility with WooCommerce 5.9.0
+* New: Compatibility with WordPress 5.8.2
+* New: Give special  first purchase discount
+* New: Customise the referral template
+* New: Add the order id in the table for referral purchase
+* New: Add the pagination in the coupon details report section
+* New: Add the referral use detail on the order edit page
+* Fix: Referred users do not count when the coupon is not given
+* Fix: Popular theme compatibility for referral section
+* Fix: Other minor fixes
+
+2021-09-16 - Version 1.6.1
 * New: Compatibility with latest WP and WC
 * New: Hide Coupon Referral Woo PAR is enabled
 * New: Display Coupon usage count
@@ -62,4 +74,3 @@
 
 2019-02-05 - version 1.0.0
  * First Release.
-

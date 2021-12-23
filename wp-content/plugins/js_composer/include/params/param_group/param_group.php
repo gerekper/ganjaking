@@ -9,10 +9,6 @@ require_once vc_path_dir( 'EDITORS_DIR', 'class-vc-edit-form-fields.php' );
  * Class Vc_ParamGroup_Edit_Form_Fields
  * @since 4.4
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_ParamGroup_Edit_Form_Fields extends Vc_Edit_Form_Fields {
 	/** @noinspection PhpMissingParentConstructorInspection */
 

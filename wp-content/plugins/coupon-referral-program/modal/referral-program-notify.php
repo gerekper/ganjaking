@@ -81,7 +81,7 @@ $public_obj = new Coupon_Referral_Program_Public( 'Coupon Referral Program', '1.
 								<p>
 											<?php
 											esc_html_e( '3. You will get the fixed discount coupon of  ', 'coupon-referral-program' );
-											echo '<span class="mwb_cpr_highlight" style="color:' . wp_kses_post( Coupon_Referral_Program_Admin::get_selected_color() ) . '">' . wp_kses_post( wc_price( $public_obj->get_referral_discount_order() ) ) . '</span>';
+											echo '<span class="mwb_cpr_highlight" style="color:' . wp_kses_post( Coupon_Referral_Program_Admin::get_selected_color() ) . '">' . wp_kses_post( wc_price( $public_obj->get_referral_discount_order( $user_id ) ) ) . '</span>';
 											esc_html_e( ' on the referral purchase.', 'coupon-referral-program' );
 											?>
 									</p>
@@ -91,7 +91,7 @@ $public_obj = new Coupon_Referral_Program_Public( 'Coupon Referral Program', '1.
 								<p>
 											<?php
 											esc_html_e( '3. You will get the fixed discount coupon, ', 'coupon-referral-program' );
-											echo '<span class="mwb_cpr_highlight" style="color:' . wp_kses_post( Coupon_Referral_Program_Admin::get_selected_color() ) . '">' . wp_kses_post( $public_obj->get_referral_discount_order() ) . '%</span>';
+											echo '<span class="mwb_cpr_highlight" style="color:' . wp_kses_post( Coupon_Referral_Program_Admin::get_selected_color() ) . '">' . wp_kses_post( $public_obj->get_referral_discount_order( $user_id ) ) . '%</span>';
 											esc_html_e( ' of the referral order', 'coupon-referral-program' ) . $public_obj->get_referral_coupon_amount_limit_html();
 											?>
 								</p>
@@ -101,7 +101,7 @@ $public_obj = new Coupon_Referral_Program_Public( 'Coupon Referral Program', '1.
 								<p>
 											<?php
 											esc_html_e( '3. You will get ', 'coupon-referral-program' );
-											echo '<span class="mwb_cpr_highlight" style="color:' . wp_kses_post( Coupon_Referral_Program_Admin::get_selected_color() ) . '">' . wp_kses_post( $public_obj->get_referral_discount_order() ) . '%</span>';
+											echo '<span class="mwb_cpr_highlight" style="color:' . wp_kses_post( Coupon_Referral_Program_Admin::get_selected_color() ) . '">' . wp_kses_post( $public_obj->get_referral_discount_order( $user_id ) ) . '%</span>';
 											esc_html_e( ' coupon on the referral order purchase.', 'coupon-referral-program' );
 											?>
 								</p>
@@ -111,7 +111,7 @@ $public_obj = new Coupon_Referral_Program_Public( 'Coupon Referral Program', '1.
 								<p>
 											<?php
 											esc_html_e( '3. You will get percentage coupon, ', 'coupon-referral-program' );
-											echo '<span class="mwb_cpr_highlight" style="color:' . wp_kses_post( Coupon_Referral_Program_Admin::get_selected_color() ) . '">' . wp_kses_post( $public_obj->get_referral_discount_order() ) . '%</span>';
+											echo '<span class="mwb_cpr_highlight" style="color:' . wp_kses_post( Coupon_Referral_Program_Admin::get_selected_color() ) . '">' . wp_kses_post( $public_obj->get_referral_discount_order( $user_id ) ) . '%</span>';
 											esc_html_e( ' of the referral order', 'coupon-referral-program' ) . $public_obj->get_referral_coupon_amount_limit_html();
 											?>
 								</p>

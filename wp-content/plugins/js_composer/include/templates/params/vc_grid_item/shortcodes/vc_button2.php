@@ -34,11 +34,20 @@ if ( isset( $atts['link'] ) ) {
 		}
 		$link = 'href="' . esc_url( $vc_link['url'] ) . '" class="' . esc_attr( $css_class ) . '"';
 	} elseif ( 'post_link' === $atts['link'] ) {
-		$link = 'href="{{ post_link_url }}" class="' . esc_attr( $css_class ) . '"';
+		$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+		$link = 'href="{{ post_link_url }}" class="' . esc_attr( $css_class ) . '"' . $target;
 	} elseif ( 'image' === $atts['link'] ) {
-		$link = '{{ post_image_url_href }} class="' . esc_attr( $css_class ) . '"';
+		$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+		$link = '{{ post_image_url_href }} class="' . esc_attr( $css_class ) . '"' . $target;
 	} elseif ( 'image_lightbox' === $atts['link'] ) {
-		$link = '{{ post_image_url_attr_prettyphoto:' . esc_attr( $css_class ) . ' }}';
+		$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+		$link = '{{ post_image_url_attr_prettyphoto:' . esc_attr( $css_class ) . ' }}' . $target;
+	} elseif ( 'image_full' === $atts['link'] ) {
+		$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+		$link = '{{ post_full_image_url_href }} class="' . esc_attr( $css_class ) . '"' . $target;
+	} elseif ( 'image_full_lightbox' === $atts['link'] ) {
+		$target = isset( $atts['link_target'] ) && $atts['link_target'] ? ' target="_blank"' : '';
+		$link = '{{ post_full_image_url_attr_prettyphoto:' . esc_attr( $css_class ) . ' }}' . $target;
 	}
 }
 

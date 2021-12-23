@@ -3,7 +3,7 @@
  * Plugin Name: WP Post Modules for Elementor
  * Author:      SaurabhSharma
  * Author URI: 	http://codecanyon.net/user/saurabhsharma
- * Version:     1.8.1
+ * Version:     1.9.0
  * Text Domain: wppm-el
  * Domain Path: /languages/
  * Description: Create WordPress Post Modules in different styles for Blog, Magazine and Newspaper websites.
@@ -586,11 +586,7 @@ if ( ! class_exists( 'WP_Post_Modules_El' ) ) {
 
 /**
  * Generate Instance
- */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
+ */
 function wppm_el() {
     return WP_Post_Modules_El::instance();
 }

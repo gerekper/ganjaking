@@ -4280,7 +4280,10 @@ ROW WRAPPERS
 #rev_builder.inAnimationMode ._lc_.selected>.ui-resizable-handle { display: none !important; }
 /*#rev_builder.inAnimationMode ._lc_.selected>._borders_  */
 
- 
+ /* CHROME FIX FOR SLOW SELECTING ON LAYERS */
+ ._lc_mask_ {
+    transform: none !important;
+}
 
 /*******************************
     -IDLE / HOVER SWITCH -
@@ -4408,6 +4411,9 @@ ROW WRAPPERS
 .tp-clearfix {  clear:both;}
 .rightaligned   { text-align: right}
 .vertical_medium_wrap   {     top: 50%;transform: translateY(-50%);position: absolute;}
+
+/* WP MENU */
+#adminmenuwrap .toplevel_page_revslider .wp-submenu a #revslider_premium_link { color: #ffb818!important}
 
 
 /* SLIDER OVERVIEW MENU*/

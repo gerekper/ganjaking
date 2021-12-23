@@ -82,7 +82,6 @@ class Coupon_Referral_Program_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts( $hook ) {
-
 		/*  Enqueue scripts only on this plugin's menu page.*/
 		if ( 'woocommerce_page_wc-settings' === $hook ) {
 			wp_enqueue_script( $this->plugin_name . 'admin-js', COUPON_REFERRAL_PROGRAM_DIR_URL . 'admin/js/crp-admin.js', array(), $this->version, true );
@@ -99,6 +98,23 @@ class Coupon_Referral_Program_Admin {
 
 			wp_localize_script( 'woocommerce_admin', 'woocommerce_admin', $params );
 			wp_localize_script( $this->plugin_name . 'admin-js', 'woocommerce_img', $translation );
+
+		}
+		if( 'woocommerce_page_wc-reports' === $hook ) {
+			$mwb_crp_arr = array(
+				'Showing_page'   => __( 'Showing page _PAGE_ of _PAGES_', 'coupon-referral-program' ),
+				'no_record'      => __( 'No records available', 'coupon-referral-program' ),
+				'nothing_found'  => __( 'Nothing found', 'coupon-referral-program' ),
+				'display_record' => __( 'Display _MENU_ Entries', 'coupon-referral-program' ),
+				'filtered_info'  => __( '(filtered from _MAX_ total records)', 'coupon-referral-program' ),
+				'search'         => __( 'Search', 'coupon-referral-program' ),
+				'previous'       => __( 'Previous', 'coupon-referral-program' ),
+				'next'           => __( 'Next', 'coupon-referral-program' ),
+			);
+			wp_enqueue_script( 'datatables', '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', array(), $this->version, true );
+			wp_register_script( $this->plugin_name . 'admin-report-js', COUPON_REFERRAL_PROGRAM_DIR_URL . 'admin/js/crp-report-admin.js', array(), $this->version, false );
+			wp_localize_script( $this->plugin_name . 'admin-report-js', 'mwb_crp_admin', $mwb_crp_arr );
+			wp_enqueue_script( $this->plugin_name . 'admin-report-js' );
 		}
 	}
 	/**
@@ -312,6 +328,13 @@ class Coupon_Referral_Program_Admin {
 					'id'      => 'mwb_crp_enable_referal_purchase',
 				),
 				array(
+					'title'   => __( 'Enable special discount coupon on first referral purchase.', 'coupon-referral-program' ),
+					'desc'    => __( 'Enable this setting to allow the customer to get the special discount coupon on first referral purchase ', 'coupon-referral-program' ),
+					'default' => 'no',
+					'type'    => 'checkbox',
+					'id'      => 'mwb_crp_enable_first_referal_purchase',
+				),
+				array(
 					'title'             => __( 'Max. no. for referral orders', 'coupon-referral-program' ),
 					'default'           => 1,
 					'type'              => 'number',
@@ -378,6 +401,15 @@ class Coupon_Referral_Program_Admin {
 					'desc_tip' => __( 'Select the type for your referral purchase discount coupon for referee.', 'coupon-referral-program' ),
 					'desc'     => __( 'The referee will get the selected coupon type on the referral purchase.', 'coupon-referral-program' ),
 
+				),
+				array(
+					'title'             => __( 'First Referral purchase discount', 'coupon-referral-program' ),
+					'default'           => 1,
+					'type'              => 'number',
+					'custom_attributes' => array( 'min' => '1' ),
+					'id'                => 'first_referral_discount_on_order',
+					'class'             => 'mwb_crp_input_val',
+					'desc_tip'          => __( 'Enter the discount value you want to give your customers, who have referred other users on your site. Please Note, This will be applicable on the first purchase only', 'coupon-referral-program' ),
 				),
 				array(
 					'type' => 'sectionend',
@@ -1051,5 +1083,24 @@ class Coupon_Referral_Program_Admin {
 			array_push( $valid_screens, 'coupon-referral-program' );
 		}
 		return $valid_screens;
+	}
+
+	/**
+	 * Show referral details in order edit page.
+	 *
+	 * @param object $order .
+	 */
+	public function mwb_crp_woocommerce_after_order_itemmeta( $order ) {
+		$refree_id = get_post_meta( $order->get_id(), 'referral_has_rewarded', true );
+		$user      = get_user_by( 'ID', $refree_id );
+		$prof_url  = get_edit_profile_url($refree_id);
+		if ( ! empty( $refree_id ) && ! empty( $user ) ) :
+			?>
+		<div class="form-field form-field-wide">
+			<h3><b>Referred by user:</b></h3>
+			<b><a href="<?php echo esc_html( $prof_url ); ?>"><?php echo esc_html( $user->user_email ); ?></a></b>
+		</div>
+			<?php
+		endif;
 	}
 }

@@ -148,7 +148,7 @@ class RevSliderElementorWidget extends \Elementor\Widget_Shortcode {
 		// hack to make sure object library only opens when the user manually adds a slider to the page
 		if(empty($shortcode)) {
 		?>
-		<script type="text/javascript">window.parent.elementorSelectRevSlider();</script>
+		<script>window.parent.elementorSelectRevSlider();</script>
 		<?php
 		}
 		?>

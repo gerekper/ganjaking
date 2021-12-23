@@ -6,10 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Vc_Grid_Item_Preview
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Grid_Item_Preview {
 	protected $shortcodes_string = '';
 	protected $post_id = false;
@@ -110,8 +106,8 @@ class Vc_Grid_Item_Preview {
 	}
 
 	public function enqueue() {
-		visual_composer()->frontCss();
-		visual_composer()->frontJsRegister();
+		wpbakery()->frontCss();
+		wpbakery()->frontJsRegister();
 		wp_enqueue_script( 'prettyphoto' );
 		wp_enqueue_style( 'prettyphoto' );
 		wp_enqueue_style( 'js_composer_front' );

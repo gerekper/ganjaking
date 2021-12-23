@@ -10,10 +10,6 @@ require_once vc_path_dir( 'CORE_DIR', 'access/abstract-class-vc-access.php' );
  *
  * @since 4.8
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Role_Access_Controller extends Vc_Access {
 	protected static $part_name_prefix = 'vc_access_rules_';
 	protected $part = false;
@@ -130,6 +126,10 @@ class Vc_Role_Access_Controller extends Vc_Access {
 		}
 
 		return $this;
+	}
+
+	public function getValidAccess() {
+		return $this->validAccess;
 	}
 
 	/**

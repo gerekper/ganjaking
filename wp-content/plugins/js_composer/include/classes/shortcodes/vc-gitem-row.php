@@ -8,10 +8,6 @@ require_once vc_path_dir( 'SHORTCODES_DIR', 'vc-row.php' );
 /**
  * Class WPBakeryShortCode_Vc_Gitem_Row
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WPBakeryShortCode_Vc_Gitem_Row extends WPBakeryShortCode_Vc_Row {
 	/**
 	 * @return string

@@ -7,10 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Vc_Templates_Panel_Editor
  * @since 4.4
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Templates_Panel_Editor {
 	/**
 	 * @since 4.4
@@ -429,8 +425,8 @@ class Vc_Templates_Panel_Editor {
 	}
 
 	public function registerPreviewScripts() {
-		visual_composer()->registerAdminJavascript();
-		visual_composer()->registerAdminCss();
+		wpbakery()->registerAdminJavascript();
+		wpbakery()->registerAdminCss();
 		vc_backend_editor()->registerBackendJavascript();
 		vc_backend_editor()->registerBackendCss();
 		wp_register_script( 'vc_editors-templates-preview-js', vc_asset_url( 'js/editors/templates-preview.js' ), array(
@@ -811,7 +807,7 @@ class Vc_Templates_Panel_Editor {
 	 */
 	public function addFrontendTemplatesShortcodesCustomCss() {
 		$output = $shortcodes_custom_css = '';
-		$shortcodes_custom_css = visual_composer()->parseShortcodesCustomCss( vc_frontend_editor()->getTemplateContent() );
+		$shortcodes_custom_css = wpbakery()->parseShortcodesCustomCss( vc_frontend_editor()->getTemplateContent() );
 		if ( ! empty( $shortcodes_custom_css ) ) {
 			$shortcodes_custom_css = wp_strip_all_tags( $shortcodes_custom_css );
 			$first_tag = 'style';

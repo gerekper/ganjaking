@@ -23,6 +23,38 @@ return array(
 		),
 		array(
 			'type' => 'dropdown',
+			'param_name' => 'title_tag',
+			'value' => array(
+				'h1' => 'h1',
+				'h2' => 'h2',
+				'h3' => 'h3',
+				'h4' => 'h4',
+				'h5' => 'h5',
+				'h6' => 'h6',
+				'p' => 'p',
+			),
+			'std' => 'h2',
+			'heading' => esc_html__( 'Widget title tag', 'js_composer' ),
+			'description' => esc_html__( 'Select widget title tag.', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
+			'param_name' => 'section_title_tag',
+			'value' => array(
+				'h1' => 'h1',
+				'h2' => 'h2',
+				'h3' => 'h3',
+				'h4' => 'h4',
+				'h5' => 'h5',
+				'h6' => 'h6',
+				'p' => 'p',
+			),
+			'std' => 'h4',
+			'heading' => esc_html__( 'Section title tag', 'js_composer' ),
+			'description' => esc_html__( 'Select section title tag.', 'js_composer' ),
+		),
+		array(
+			'type' => 'dropdown',
 			'param_name' => 'style',
 			'value' => array(
 				esc_html__( 'Classic', 'js_composer' ) => 'classic',

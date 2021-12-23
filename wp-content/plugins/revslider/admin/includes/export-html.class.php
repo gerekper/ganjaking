@@ -457,7 +457,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 
 			<!-- LOAD JQUERY LIBRARY -->
-			<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
 			
 			<!-- LOADING FONTS AND ICONS -->
 			<?php echo $this->export_font; ?>
@@ -476,7 +476,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 				
 				if($static_css !== ''){
 					$css = RevSliderGlobals::instance()->get('RevSliderCssParser');
-					echo '<style type="text/css">';
+					echo '<style>';
 					echo $css->compress_css($static_css);
 					echo '</style>'."\n";
 				}
@@ -497,24 +497,24 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 			<?php
 			RevSliderFront::add_waiting_script();
 			?>
-			<script type="text/javascript" src="<?php echo $this->path_js; ?>rbtools.min.js"></script>
+			<script src="<?php echo $this->path_js; ?>rbtools.min.js"></script>
 			<?php
 			if(!file_exists(RS_PLUGIN_PATH.'public/assets/js/rs6.min.js')){
 				?>
-				<script type="text/javascript" src="<?php echo $this->path_js; ?>rs6.main.js"></script>
-				<script type="text/javascript" src="<?php echo $this->path_js; ?>rs6.actions.js"></script>
-				<script type="text/javascript" src="<?php echo $this->path_js; ?>rs6.carousel.js"></script>
-				<script type="text/javascript" src="<?php echo $this->path_js; ?>rs6.layeranimation.js"></script>
-				<script type="text/javascript" src="<?php echo $this->path_js; ?>rs6.navigation.js"></script>
-				<script type="text/javascript" src="<?php echo $this->path_js; ?>rs6.panzoom.js"></script>
-				<script type="text/javascript" src="<?php echo $this->path_js; ?>rs6.parallax.js"></script>
-				<script type="text/javascript" src="<?php echo $this->path_js; ?>rs6.slideanims.js"></script>
-				<!--script type="text/javascript" src="<?php echo $this->path_js; ?>three.min.js"></script-->
-				<script type="text/javascript" src="<?php echo $this->path_js; ?>rs6.video.js"></script>
+				<script src="<?php echo $this->path_js; ?>rs6.main.js"></script>
+				<script src="<?php echo $this->path_js; ?>rs6.actions.js"></script>
+				<script src="<?php echo $this->path_js; ?>rs6.carousel.js"></script>
+				<script src="<?php echo $this->path_js; ?>rs6.layeranimation.js"></script>
+				<script src="<?php echo $this->path_js; ?>rs6.navigation.js"></script>
+				<script src="<?php echo $this->path_js; ?>rs6.panzoom.js"></script>
+				<script src="<?php echo $this->path_js; ?>rs6.parallax.js"></script>
+				<script src="<?php echo $this->path_js; ?>rs6.slideanims.js"></script>
+				<!--script src="<?php echo $this->path_js; ?>three.min.js"></script-->
+				<script src="<?php echo $this->path_js; ?>rs6.video.js"></script>
 				<?php
 			}else{
 				?>
-				<script type="text/javascript" src="<?php echo $this->path_js; ?>rs6.min.js"></script>
+				<script src="<?php echo $this->path_js; ?>rs6.min.js"></script>
 				<?php
 			}
 			?>
@@ -612,7 +612,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 		if(!empty($rs_css_collection)){
 			$custom_css = implode("\n".RS_T2, $rs_css_collection);
 			$css = RevSliderGlobals::instance()->get('RevSliderCssParser');
-			echo '<style type="text/css">';
+			echo '<style>';
 			echo $css->compress_css($custom_css);
 			echo '</style>'."\n";
 		}
@@ -658,7 +658,7 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 					<div class="clearfix"></div>
 				</div>
 			</footer>
-			<script type="text/javascript" src="../../assets/warning.js"></script>
+			<script src="../../assets/warning.js"></script>
 			<?php
 		}
 		?>

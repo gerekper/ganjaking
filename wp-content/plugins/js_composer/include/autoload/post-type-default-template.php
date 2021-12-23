@@ -48,10 +48,6 @@ function vc_set_default_content_for_post_type( $post_content, $post ) {
  *
  * @since 4.12
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Setting_Post_Type_Default_Template_Field {
 	protected $tab;
 	protected $key;
@@ -119,7 +115,7 @@ class Vc_Setting_Post_Type_Default_Template_Field {
 	 * @return bool|\Vc_Templates_Panel_Editor
 	 */
 	protected function getTemplatesEditor() {
-		return visual_composer()->templatesPanelEditor();
+		return wpbakery()->templatesPanelEditor();
 	}
 
 	/**

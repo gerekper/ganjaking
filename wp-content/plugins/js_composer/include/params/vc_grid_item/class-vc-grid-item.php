@@ -6,10 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Vc_Grid_Item to build grid item.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Grid_Item {
 	protected $template = '';
 	protected $html_template = false;
@@ -253,7 +249,7 @@ class Vc_Grid_Item {
 		} else {
 			$predefined_template = $this->predefinedTemplate( $id );
 			if ( $predefined_template ) {
-				$shortcodes_custom_css = visual_composer()->parseShortcodesCustomCss( $predefined_template['template'] );
+				$shortcodes_custom_css = wpbakery()->parseShortcodesCustomCss( $predefined_template['template'] );
 			}
 		}
 		if ( ! empty( $shortcodes_custom_css ) ) {

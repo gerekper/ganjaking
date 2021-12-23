@@ -159,6 +159,7 @@ class Coupon_Referral_Program {
 		$this->loader->add_filter( 'woocommerce_admin_settings_sanitize_option_mwb_cpr_ref_link_expiry', $plugin_admin, 'mwb_cpr_ref_link_expiry_sanitize_option', 10, 3 );
 
 		$this->loader->add_filter( 'mwb_deactivation_supported_slug', $plugin_admin, 'add_mwb_deactivation_screens' );
+		$this->loader->add_action( 'woocommerce_admin_order_data_after_order_details', $plugin_admin, 'mwb_crp_woocommerce_after_order_itemmeta', 20, 3 );
 	}
 
 	/**

@@ -4,8 +4,8 @@ Author: SaurabhSharma
 Author URI: http://codecanyon.net/user/saurabhsharma
 Tags: post modules, post snippets, wp query
 Requires at least: 4.3
-Tested up to: 5.7.2
-Stable tag: 5.7.2
+Tested up to: 5.8.2
+Stable tag: 5.8.2
 
 
 == Description ==
@@ -124,6 +124,13 @@ For installation and setup, please refer to the documentation/index.html file in
 main download archive.
 
 == Changelog ==
+
+= 1.9.0 =
+* Added "Filter by time period" option
+    - Filter posts by today, yesterday, last 7 days, current month, previous month, current year and previous year.
+    - WP Post Modules > Content > Query > Filter by time period
+* Fixed: Deprecated functions of Elementor widget replaced by latest ones
+* Ensured compatibility with WordPress 5.8.2 and Elementor 3.4.x
 
 = 1.8.1 =
 * Fixed: Video embeds should show when "Show Embed" is enabled

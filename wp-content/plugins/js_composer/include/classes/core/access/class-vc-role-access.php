@@ -8,10 +8,6 @@ require_once vc_path_dir( 'CORE_DIR', 'access/abstract-class-vc-access.php' );
 /**
  * Class Vc_Role_Access
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Role_Access extends Vc_Access {
 	/**
 	 * @var bool

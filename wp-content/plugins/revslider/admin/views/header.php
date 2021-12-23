@@ -43,7 +43,7 @@ $rs_global_sizes		 = array(
 	't' => $rsaf->get_val($rs_global_settings, array('size', 'tablet'), '778'),
 	'm' => $rsaf->get_val($rs_global_settings, array('size', 'mobile'), '480')
 );
-$rs_show_updated = get_option('rs_cache_overlay', RS_REVISION);
+$rs_show_updated = get_option('rs_cache_overlay', '1.0.0');
 if(version_compare(RS_REVISION, $rs_show_updated, '>')){
     update_option('rs_cache_overlay', RS_REVISION);
 }
@@ -51,7 +51,7 @@ $rs_show_deregister_popup = $rsaf->_truefalse(get_option('revslider-deregister-p
 
 ?>
 <!-- GLOBAL VARIABLES -->
-<script type="text/javascript">
+<script>
 	window.RVS = window.RVS === undefined ? {F:{}, C:{}, ENV:{}, LIB:{}, V:{}, S:{}, DOC:jQuery(document), WIN:jQuery(window)} : window.RVS;
 	
 	RVS.LIB.ADDONS			= RVS.LIB.ADDONS === undefined ? {} : RVS.LIB.ADDONS;	
@@ -61,8 +61,7 @@ $rs_show_deregister_popup = $rsaf->_truefalse(get_option('revslider-deregister-p
 	RVS.LIB.COLOR_PRESETS	= <?php echo (!empty($rs_color_picker_presets)) ? 'JSON.parse('. $rsaf->json_encode_client_side($rs_color_picker_presets) .')' : '{}'; ?>;
 
 	RVS.ENV.addOns_to_update = <?php echo (!empty($rs_addon_update)) ? 'JSON.parse('.$rsaf->json_encode_client_side($rs_addon_update).')' : '{}'; ?>;
-	RVS.ENV.activated		= '<?php echo ($rs_valid) == 'true' ? 'true' : 'false'; ?>';
-	RVS.ENV.activated		= RVS.ENV.activated == 'true' || RVS.ENV.activated == true ? true : false;
+	RVS.ENV.activated		= <?php echo ($rsaf->_truefalse($rs_valid) === true) ? 'true' : 'false'; ?>;
 	RVS.ENV.nonce			= '<?php echo wp_create_nonce('revslider_actions'); ?>';
 	RVS.ENV.plugin_dir		= 'revslider';
 	RVS.ENV.slug_path		= '<?php echo RS_PLUGIN_SLUG_PATH; ?>';

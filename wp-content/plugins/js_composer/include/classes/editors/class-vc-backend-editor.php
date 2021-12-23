@@ -18,10 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 4.2
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Backend_Editor {
 
 	/**
@@ -76,24 +72,21 @@ class Vc_Backend_Editor {
 		$this->registerBackendJavascript();
 		$this->registerBackendCss();
 		// B.C:
-		visual_composer()->registerAdminCss();
-		visual_composer()->registerAdminJavascript();
+		wpbakery()->registerAdminCss();
+		wpbakery()->registerAdminJavascript();
 	}
 
 	/**
-	 *    Calls add_meta_box to create Editor block. Block is rendered by WPBakeryVisualComposerLayout.
-	 *
 	 * @param $post_type
 	 * @throws \Exception
 	 * @since  4.2
 	 * @access public
 	 *
-	 * @see WPBakeryVisualComposerLayout
 	 */
 	public function render( $post_type ) {
 		if ( $this->isValidPostType( $post_type ) ) {
 			// meta box to render
-			add_meta_box( 'wpb_visual_composer', esc_html__( 'WPBakery Page Builder', 'js_composer' ), array(
+			add_meta_box( 'wpb_wpbakery', esc_html__( 'WPBakery Page Builder', 'js_composer' ), array(
 				$this,
 				'renderEditor',
 			), $post_type, 'normal', 'high' );
@@ -210,7 +203,7 @@ class Vc_Backend_Editor {
 		wp_register_script( 'ace-editor', vc_asset_url( 'lib/bower/ace-builds/src-min-noconflict/ace.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 		wp_register_script( 'webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js', array(), WPB_VC_VERSION, true ); // Google Web Font CDN
 
-		wp_localize_script( 'vc-backend-actions-js', 'i18nLocale', visual_composer()->getEditorsLocale() );
+		wp_localize_script( 'vc-backend-actions-js', 'i18nLocale', wpbakery()->getEditorsLocale() );
 	}
 
 	public function registerBackendCss() {

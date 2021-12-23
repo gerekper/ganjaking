@@ -38,7 +38,6 @@
   "vc-settings-presets.php": "Logic for settings presets",
   "vc-single-image.php": "add bc for single image",
   "params-to-init.php": "add required init params",
-  "bc-access-rules-4.8.php": "BC for roles via filters >= VC 4.8",
   "post-type-default-template.php": "Load default templates",
   "bc-multisite-options.php": "BC for multisite options",
   "vc-undoredo.php": "Undo Redo logic"

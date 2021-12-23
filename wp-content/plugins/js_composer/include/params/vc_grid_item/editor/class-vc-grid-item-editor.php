@@ -14,10 +14,6 @@ require_once vc_path_dir( 'EDITORS_DIR', 'class-vc-backend-editor.php' );
 /**
  * Class Vc_Grid_Item_Editor
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Grid_Item_Editor extends Vc_Backend_Editor {
 	protected static $post_type = 'vc_grid_item';
 	protected $templates_editor = false;
@@ -52,8 +48,8 @@ class Vc_Grid_Item_Editor extends Vc_Backend_Editor {
 			$this->registerBackendJavascript();
 			$this->registerBackendCss();
 			// B.C:
-			visual_composer()->registerAdminCss();
-			visual_composer()->registerAdminJavascript();
+			wpbakery()->registerAdminCss();
+			wpbakery()->registerAdminJavascript();
 			add_action( 'admin_print_scripts-post.php', array(
 				$this,
 				'printScriptsMessages',
@@ -149,7 +145,7 @@ class Vc_Grid_Item_Editor extends Vc_Backend_Editor {
 	 * @access public
 	 */
 	public function addMetaBox() {
-		add_meta_box( 'wpb_visual_composer', esc_html__( 'Grid Builder', 'js_composer' ), array(
+		add_meta_box( 'wpb_wpbakery', esc_html__( 'Grid Builder', 'js_composer' ), array(
 			$this,
 			'renderEditor',
 		), $this->postType(), 'normal', 'high' );
@@ -308,6 +304,6 @@ class Vc_Grid_Item_Editor extends Vc_Backend_Editor {
 			$this,
 			'templatePreviewPath',
 		) );
-		visual_composer()->templatesPanelEditor()->renderTemplatePreview();
+		wpbakery()->templatesPanelEditor()->renderTemplatePreview();
 	}
 }

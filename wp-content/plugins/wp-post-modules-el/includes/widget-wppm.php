@@ -4,7 +4,7 @@
  * The main Elementor widget file for WP Post Modules
  *
  * @since 1.0.0
- * @version 1.8.1
+ * @version 1.9.0
  *
  */
 
@@ -50,7 +50,7 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
         ];
     }
 
-    protected function _register_controls() {
+    protected function register_controls() {
 
             // Categories array
             $cat_arr = array();
@@ -358,6 +358,26 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
         'label' => __( 'Filter by Search term', 'wppm-el' ),
         'type' => Controls_Manager::TEXT,
         'description' => __( 'Filter posts by search term. Prepend with hyphen to exclude a term. E.g. Pillow -sofa will show all results for pillow but not sofa.', 'wppm-el' ),
+        ]
+        );
+
+        $this->add_control(
+        'time_custom',
+        [
+        'label' => __( 'Filter by time period', 'wppm-el' ),
+        'label_block' => true,
+        'type' => Controls_Manager::SELECT,
+        'options' => [
+        'none' => __( 'None', 'wppm-el' ),
+        'today' => __( 'Today', 'wppm-el' ),
+        'yesterday' => __( 'Yesterday', 'wppm-el' ),
+        'prev_week' => __( 'Last 7 Days', 'wppm-el' ),
+        'curr_month' => __( 'Current Month', 'wppm-el' ),
+        'prev_month' => __( 'Previous Month', 'wppm-el' ),
+        'curr_year' => __( 'Current year', 'wppm-el' ),
+        'prev_year' => __( 'Previous Year', 'wppm-el' )
+        ],
+        'default' => 'none'
         ]
         );
 
@@ -3999,6 +4019,7 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
             's'                     => null,
             'cat_limit'             => 3,
             'show_more_cats'        => true,
+            'time_custom'           => 'none',
 
             // Date parameters
             'year'                  => '',
@@ -4193,8 +4214,40 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
 
 
         // Date Params
-        if ( $year || $month || $week || $day || $before || $after ) {
+        if ( $year || $month || $week || $day || $before || $after || $time_custom ) {
             $date_arr = array();
+            if ( 'none' !== $time_custom ) {
+                $t = date('d-m-Y');
+                $today = strtolower( date( "d", strtotime($t) ) );
+                $yesterday = intval($today - 1);
+                $prev_week = date('Y-m-d', strtotime('-7 days'));
+                $curr_month = date('m');
+                $curr_year = date('Y');
+                
+                if ( 'today' == $time_custom ) {
+                    $date_arr['day'] = $today;
+                }
+                if ( 'yesterday' == $time_custom ) {
+                    $date_arr['day'] = $yesterday;
+                }
+                if ( 'prev_week' == $time_custom ) {
+                    $date_arr['after'] = $prev_week;
+                }
+                if ( 'curr_month' == $time_custom ) {
+                    $date_arr['month'] = $curr_month;
+                    $date_arr['year'] = $curr_year;
+                }
+                if ( 'prev_month' == $time_custom ) {
+                    $date_arr['month'] = intval( $curr_month - 1 );
+                }
+                if ( 'curr_year' == $time_custom ) {
+                    $date_arr['year'] = $curr_year;
+                }
+                if ( 'prev_year' == $time_custom ) {
+                    $date_arr['year'] = intval( $curr_year - 1 );
+                }
+            }
+
             if ( $year ) {
                 $date_arr['year'] = $year;
             }
@@ -4209,7 +4262,7 @@ class Widget_WP_Post_Modules_El extends Widget_Base {
 
             if ( $day ) {
                 $date_arr['day'] = $day;
-            }
+            }               
 
             if ( $before ) {
                 $date_arr['before'] = $before;

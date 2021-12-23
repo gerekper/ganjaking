@@ -1,5 +1,9 @@
 *** Changelog ***
 
+2021-12-16- version 2.25
+
+* reCaptcha V3 fixes:- Add payment method asking for captcha even it is disabled to use captcha.
+
 2021-10-27- version 2.24
 
 * Fixed pay for an order captcha not showing when not enabled for login/guest captcha.

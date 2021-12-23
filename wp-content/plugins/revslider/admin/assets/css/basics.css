@@ -540,7 +540,7 @@ mcg_guide_image { width: 280px; height: 160px; background-position: top left; ba
 
 
 
-._TPRB_ .olibrary_item { width:267px; height: 210px; display: inline-block; margin: 0px 20px 20px 0px; background: #2a2c2f;position: relative; z-index: 20 }
+._TPRB_ .olibrary_item { width:267px; height: 210px; display: inline-block; margin: 0px 20px 20px 0px; background: #2a2c2f;position: relative; z-index: 20;vertical-align: top; }
 ._TPRB_ .olibrary_media_wrap { width: 267px; height: 150px; position: absolute; left:0px; top:0px;z-index:100; background-size: cover;background-position: center}
 ._TPRB_ .olibrary_media_wrap.patternbg { background:url(../images/light_pattern_2x.png); background-size:16px 16px; background-repeat:repeat;  }
 ._TPRB_ .olibrary_media_wrap.obj_med_darkbg { background: #2a2c2f; }

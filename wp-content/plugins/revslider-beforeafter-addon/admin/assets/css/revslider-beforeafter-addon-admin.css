@@ -84,6 +84,9 @@
 	display: none !important;
 }
 
+#beaf_after_source .revbuilder-cpicker-component{
+    display: none;
+}
 
 @media only screen and (max-width : 1442px) {
 

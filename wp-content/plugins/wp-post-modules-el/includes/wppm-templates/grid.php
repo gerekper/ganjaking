@@ -4,7 +4,7 @@
  * Template part for the WP Post Modules Plugin
  *
  * @since 1.0.0
- * @version 1.8.1
+ * @version 1.9.0
  *
  * All variables coming from parent file wp-post-modules-el.php
  */

@@ -7,8 +7,8 @@ if ( ! defined( 'VC_IS_TEMPLATE_PREVIEW' ) ) {
 	define( 'VC_IS_TEMPLATE_PREVIEW', true );
 }
 add_action( 'admin_enqueue_scripts', array( vc_backend_editor(), 'enqueueEditorScripts' ) );
-add_action( 'admin_enqueue_scripts', array( visual_composer()->templatesPanelEditor(), 'enqueuePreviewScripts' ) );
-add_filter( 'admin_body_class', array( visual_composer()->templatesPanelEditor(), 'addBodyClassTemplatePreview' ) );
+add_action( 'admin_enqueue_scripts', array( wpbakery()->templatesPanelEditor(), 'enqueuePreviewScripts' ) );
+add_filter( 'admin_body_class', array( wpbakery()->templatesPanelEditor(), 'addBodyClassTemplatePreview' ) );
 do_action( 'vc-render-templates-preview-template' );
 
 global $menu, $submenu, $parent_file, $post_ID, $post, $post_type;
@@ -26,7 +26,7 @@ remove_action( 'admin_print_styles', 'print_emoji_styles' );
 add_thickbox();
 wp_enqueue_script( 'vc_editors-templates-preview-js' );
 wp_enqueue_media( array( 'post' => $post_ID ) );
-visual_composer()->templatesPanelEditor()->registerPreviewScripts();
+wpbakery()->templatesPanelEditor()->registerPreviewScripts();
 require_once ABSPATH . 'wp-admin/admin-header.php';
 $custom_tag = 'script';
 $first_tag = 'style';
@@ -67,10 +67,10 @@ $first_tag = 'style';
 		?>
 	</textarea>
 
-	<div id="wpb_visual_composer" class="postbox " style="display: block;">
+	<div id="wpb_wpbakery" class="postbox " style="display: block;">
 		<div class="inside">
 			<div class="metabox-composer-content">
-				<div id="visual_composer_content" class="wpb_main_sortable main_wrapper ui-sortable ui-droppable"></div>
+				<div id="wpbakery_content" class="wpb_main_sortable main_wrapper ui-sortable ui-droppable"></div>
 				<div id="vc_no-content-helper" class="vc_welcome"></div>
 			</div>
 			<input type="hidden" name="vc_js_composer_group_access_show_rule" class="vc_js_composer_group_access_show_rule" value="all">

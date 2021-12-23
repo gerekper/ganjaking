@@ -9,10 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Class Vc_Roles
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Roles {
 	protected $post_types = false;
 	protected $vc_excluded_post_types = false;
@@ -30,12 +26,18 @@ class Vc_Roles {
 		'dragndrop',
 	);
 
+	protected static $parts_cache = null;
+
 	/**
 	 * Get list of parts
 	 * @return mixed
 	 */
 	public function getParts() {
-		return apply_filters( 'vc_roles_parts_list', $this->parts );
+		if ( is_null( self::$parts_cache ) ) {
+			self::$parts_cache = apply_filters( 'vc_roles_parts_list', $this->parts );
+		}
+
+		return self::$parts_cache;
 	}
 
 	/**

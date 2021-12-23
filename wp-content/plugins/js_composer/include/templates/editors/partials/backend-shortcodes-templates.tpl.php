@@ -33,14 +33,14 @@ $custom_tag = 'script'; // TODO: Use HTML Shadow dom or ajax response for templa
 	<<?php echo esc_attr( $custom_tag ); ?> type="text/html" id="vc_shortcode-template-<?php echo esc_attr( $sc_base ); ?>">
 		<?php
 		// @codingStandardsIgnoreLine
-		print visual_composer()->getShortCode( $sc_base )->template();
+		print wpbakery()->getShortCode( $sc_base )->template();
 		?>
 	</<?php echo esc_attr( $custom_tag ); ?>>
 <?php endforeach ?>
 <<?php echo esc_attr( $custom_tag ); ?> type="text/html" id="vc_row-inner-element-template">
 	<?php
 	// @codingStandardsIgnoreLine
-	print visual_composer()->getShortCode( 'vc_row_inner' )->template();
+	print wpbakery()->getShortCode( 'vc_row_inner' )->template();
 	?>
 </<?php echo esc_attr( $custom_tag ); ?>>
 <<?php echo esc_attr( $custom_tag ); ?> type="text/html" id="vc_settings-page-param-block">

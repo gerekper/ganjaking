@@ -24,13 +24,13 @@ if(!defined('ABSPATH')) exit();
 						<div class="mcg_option_third_wraps">
 							<div class="st_slider mcg_guide_optionwrap mcg_option_third">																
 								<div class="mcg_o_title"><?php _e('What\'s new?');?></div>
-								<div class="mcg_o_descp"><?php printf(__( 'Check out our Change Log to learn about new Features and Bug Fixes in Version %s.', 'revslider'), RS_REVISION); ?></div>
+								<div class="mcg_o_descp"><?php printf(__( 'Go over our Change Log to learn about new Features and Bug Fixes in Version %s.', 'revslider'), RS_REVISION); ?></div>
 								<div class="div25"></div>
 								<a  target="_blank" rel="noopener" href="https://www.sliderrevolution.com/documentation/changelog/" class="basic_action_button autosize basic_action_lilabutton"><?php _e('More Info');?></a>
 							</div>
 							<div class="st_scene mcg_guide_optionwrap mcg_option_third">																
-								<div class="mcg_o_title"><?php _e('Docs & FAQs');?></div>
-								<div class="mcg_o_descp"><?php printf(__( 'Checkout our all new Help Center<br>with updated %s Support Material.', 'revslider'), RS_REVISION); ?></div>
+								<div class="mcg_o_title"><?php _e('First Steps, Docs & FAQs');?></div>
+								<div class="mcg_o_descp"><?php printf(__( 'Check out our Help Center with updated<br>%s Support Posts, Manual and Video Tuts.', 'revslider'), RS_REVISION); ?></div>
 								<div class="div25"></div>
 								<a  target="_blank" rel="noopener" href="https://www.sliderrevolution.com/help-center/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=faq" class="basic_action_button autosize basic_action_lilabutton"><?php _e('Help Center');?></a>
 							</div>
@@ -47,7 +47,7 @@ if(!defined('ABSPATH')) exit();
 					if(get_option('revslider-valid', 'false') == 'true') { ?>
 						<div id="open_welcome_register_form" class="big_purple_linkbutton"><?php _e('Lets get Started with ' );?> <b> <?php printf(__('Slider Revolution %s', 'revslider'), RS_REVISION); ?></b></div>
 					<?php } else { ?>
-						<div id="open_welcome_register_form" class="big_purple_linkbutton"><?php _e('Activate Slider Revolution to');?> <b> <i class="material-icons">lock</i> <?php _e('Unlock all Features');?></b></div>
+						<div id="open_welcome_register_form" class="big_purple_linkbutton"><?php _e('Register Slider Revolution to');?> <b> <i class="material-icons">lock</i> <?php _e('Unlock all Features');?></b></div>
 					<?php } ?>
 				</div>
 			</div>

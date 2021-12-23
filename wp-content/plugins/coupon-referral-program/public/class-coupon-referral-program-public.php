@@ -44,7 +44,6 @@ class Coupon_Referral_Program_Public {
 	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
@@ -61,7 +60,7 @@ class Coupon_Referral_Program_Public {
 		}
 		add_shortcode( 'crp_referral_link', array( $this, 'mwb_crp_referral_link_shortcode' ) );
 		// ===========Add Rewrite Rule============
-		//phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.flush_rewrite_rules_flush_rewrite_rules
 		add_rewrite_endpoint( 'referral_coupons', EP_PAGES );
 	}
 
@@ -370,7 +369,7 @@ class Coupon_Referral_Program_Public {
 
 				$retrive_data = $cookie_val['referral_key'];
 			}
-			if ( ! empty( $retrive_data ) ) {
+			if ( isset( $retrive_data ) && ! empty( $retrive_data ) ) {
 				$args['meta_query'] = array(
 					array(
 						'key'     => 'referral_key',
@@ -379,28 +378,30 @@ class Coupon_Referral_Program_Public {
 					),
 				);
 				$referral_user_data = get_users( $args );
-				$refree_id          = $referral_user_data[0]->data->ID;
-				$referral_user      = get_user_by( 'ID', $refree_id );
-				$referral_email     = $this->get_user_email( $referral_user );
-				if ( isset( $refree_id ) && ! empty( $refree_id ) && ! empty( $user_id ) ) {
-					update_user_meta( $user_id, 'mwb_cpr_user_referred_by', $refree_id );
-					if ( $this->check_signup_is_enable() && $this->check_reffral_signup_is_enable() ) {
-						if ( ! self::check_is_points_rewards_enable() ) {
-							$coupon_code = $this->mwb_create_coupon_send_email( $user_id );
-							$this->save_singup_coupon_code( 'singup', $coupon_code, $user_id );
-						} else {
-							$points = $this->get_points_for_signup();
-							WC_Points_Rewards_Manager::increase_points( $user_id, $points, 'reffral-account-signup' );
+				if ( ! empty( $referral_user_data ) ) {
+					$refree_id      = $referral_user_data[0]->data->ID;
+					$referral_user  = get_user_by( 'ID', $refree_id );
+					$referral_email = $this->get_user_email( $referral_user );
+					if ( isset( $refree_id ) && ! empty( $refree_id ) && ! empty( $user_id ) ) {
+						update_user_meta( $user_id, 'mwb_cpr_user_referred_by', $refree_id );
+						if ( $this->check_signup_is_enable() && $this->check_reffral_signup_is_enable() ) {
+							if ( ! self::check_is_points_rewards_enable() ) {
+								$coupon_code = $this->mwb_create_coupon_send_email( $user_id );
+								$this->save_singup_coupon_code( 'singup', $coupon_code, $user_id );
+							} else {
+								$points = $this->get_points_for_signup();
+								WC_Points_Rewards_Manager::increase_points( $user_id, $points, 'reffral-account-signup' );
+							}
 						}
-					}
-					// referal signup.
-					if ( $this->check_reffre_signup_is_enable() ) {
-						if ( ! self::check_is_points_rewards_enable() ) {
-							$coupon_code = $this->mwb_create_coupon_send_email_for_refree( $refree_id );
-							$this->save_referal_singup_coupon_code( $coupon_code, $refree_id, $user_id );
-						} else {
-							$points = $this->get_points_for_refree_signup();
-							WC_Points_Rewards_Manager::increase_points( $refree_id, $points, 'reffree-account-on-referal-signup' );
+						// referal signup.
+						if ( $this->check_reffre_signup_is_enable() ) {
+							if ( ! self::check_is_points_rewards_enable() ) {
+								$coupon_code = $this->mwb_create_coupon_send_email_for_refree( $refree_id );
+								$this->save_referal_singup_coupon_code( $coupon_code, $refree_id, $user_id );
+							} else {
+								$points = $this->get_points_for_refree_signup();
+								WC_Points_Rewards_Manager::increase_points( $refree_id, $points, 'reffree-account-on-referal-signup' );
+							}
 						}
 					}
 				}
@@ -939,15 +940,19 @@ class Coupon_Referral_Program_Public {
 		}
 	}
 
-
 	/**
 	 * Get the Referral Discount on which % would be calculated over Order Total
 	 *
-	 * @since 1.0.0
-	 * @return number value of Referral Discount
+	 * @param int $user_id .
 	 */
-	public function get_referral_discount_order() {
-		$referral_discount_on_order = get_option( 'referral_discount_on_order', 1 );
+	public function get_referral_discount_order( $user_id ) {
+		$referral_first_discount = get_option( 'mwb_crp_enable_first_referal_purchase', 'no' );
+		$total_order_placed      = $this->get_number_of_orders_placed( $user_id );
+		if ( 'yes' === $referral_first_discount && 1 == $total_order_placed ) {
+			$referral_discount_on_order = get_option( 'first_referral_discount_on_order', 1 );
+		} else {
+			$referral_discount_on_order = get_option( 'referral_discount_on_order', 1 );
+		}
 		return $referral_discount_on_order;
 	}
 	/**
@@ -1059,7 +1064,7 @@ class Coupon_Referral_Program_Public {
 					$refree_email       = $this->get_user_email( $refree );
 					if ( ! empty( $order ) ) {
 						$order_total                = $order->get_total();
-						$referral_discount_on_order = $this->get_referral_discount_order();
+						$referral_discount_on_order = $this->get_referral_discount_order( $user_id );
 						if ( isset( $refree_id ) && ! empty( $refree_id ) ) {
 
 							if ( ! self::check_is_points_rewards_enable() ) {
@@ -1497,7 +1502,6 @@ class Coupon_Referral_Program_Public {
 					$mwb_coupon_count++;
 				}
 			}
-
 			$mwb_referred_user = array_unique( $mwb_referred_user );
 		}
 		// Referal signup discount coupon.
@@ -1540,12 +1544,26 @@ class Coupon_Referral_Program_Public {
 			$mwb_referred_user_via_code = array_unique( $mwb_referred_user_via_code );
 			$mwb_referred_user          = $mwb_referred_user + count( $mwb_referred_user_via_code );
 		}
+		// Correct referred user total code.
+		$users = get_users(
+			array(
+				'meta_key'   => 'mwb_cpr_user_referred_by',
+				'meta_value' => $user_id,
+			)
+		);
+		if ( is_array( $users ) && ! empty( $users ) ) {
+			$mwb_referred_user = 0;
+			foreach ( $users as $key => $user ) {
+				$mwb_referred_user++;
+			}
+		}
 		return array(
 			'total_earning'  => $mwb_crp_total_earn,
 			'referred_users' => $mwb_referred_user,
 			'total_coupon'   => $mwb_coupon_count,
 		);
 	}
+
 
 	/**
 	 * This function is used check is enable subscription
@@ -1588,7 +1606,7 @@ class Coupon_Referral_Program_Public {
 	public function mwb_crp_add_button_for_the_apply_coupon( $subscription ) {
 		if ( ! $this->mwb_crp_is_enable_multiple_apply_coupons() && $this->mwb_crp_is_enable_subscription() ) {
 			?>
-			<div id="mwb_crp_loader" style="display: none;">
+			<div id="mwb_crp_loader" class="mwb_crp_hide_element">
 				<img src="<?php echo esc_html( COUPON_REFERRAL_PROGRAM_DIR_URL ); ?>public/images/loading.gif">
 			</div>
 			<a href="javascript:;" data-id="<?php echo esc_html( $subscription->get_id() ); ?>"class="button view mwb-coupon-view-btn mwb_crp_default"><?php echo esc_html_x( 'Apply Coupon', 'view a subscription', 'coupon-referral-program' ); ?></a>
@@ -1865,7 +1883,7 @@ class Coupon_Referral_Program_Public {
 	public function mwb_crp_add_button_order_details_page( $subscription ) {
 		if ( ! $this->mwb_crp_is_enable_multiple_apply_coupons() && $this->mwb_crp_is_enable_subscription() ) {
 			?>
-			<div id="mwb_crp_loader" style="display: none;">
+			<div id="mwb_crp_loader" class="mwb_crp_hide_element">
 				<img src="<?php echo esc_url( COUPON_REFERRAL_PROGRAM_DIR_URL ); ?>public/images/loading.gif">
 			</div>
 			<a href="javascript:;" data-id="<?php echo esc_html( $subscription->get_id() ); ?>"class="button view mwb-coupon-view-btn mwb_crp_default"><?php echo esc_html_x( 'Apply Coupon', 'view a subscription', 'coupon-referral-program' ); ?></a>
@@ -2174,7 +2192,7 @@ class Coupon_Referral_Program_Public {
 							if ( empty( $user_id ) ) {
 								if ( ! self::check_is_points_rewards_enable() ) {
 									$order_total                = $order->get_total();
-									$referral_discount_on_order = $this->get_referral_discount_order();
+									$referral_discount_on_order = $this->get_referral_discount_order( $user_id );
 									$mwb_cpr_coupon_amount      = $this->get_referral_coupon_amount( $referral_discount_on_order, $order_total );
 									$mwb_cpr_coupon_length      = $this->mwb_get_coupon_length();
 									$mwb_cpr_code               = $this->mwb_cpr_coupon_generator( $mwb_cpr_coupon_length );

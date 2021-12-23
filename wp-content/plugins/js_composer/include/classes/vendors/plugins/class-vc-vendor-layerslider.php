@@ -9,10 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 4.3
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Vendor_Layerslider {
 	/**
 	 * @var int - used to detect id for layerslider in frontend
@@ -111,7 +107,7 @@ class Vc_Vendor_Layerslider {
 				$ls = $wpdb->get_results( '
   SELECT id, name, date_c
   FROM ' . $wpdb->prefix . "layerslider
-  WHERE flag_hidden = '0' AND flag_deleted = '0'
+  WHERE flag_hidden = '0' AND flag_deleted = '0' AND flag_group = '0'
   ORDER BY date_c ASC LIMIT 999
   " );
 				wp_cache_add( 'vc_vendor_layerslider_list', $ls );

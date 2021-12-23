@@ -6,21 +6,24 @@ Description: Slider Revolution - Premium responsive slider
 Author: ThemePunch
 Text Domain: revslider
 Domain Path: /languages
-Version: 6.5.11
+Version: 6.5.12
 Author URI: https://themepunch.com/
 */
 
 // If this file is called directly, abort.
 if(!defined('WPINC')){ die; }
+
+//How To Activate RevSlider===============================
 update_option( 'revslider-valid', 'true' );
-update_option( 'revslider-code', 'active' );
+update_option( 'revslider-code', 'WORDPRESS' );
 update_option( 'revslider-temp-active-notice', 'false' );
-update_option('revslider-code', '7h33ky51-7446-4574-4663-91b999e6dad5');
+//END=====================================================
+
 if(class_exists('RevSliderFront')){
 	die('ERROR: It looks like you have more than one instance of Slider Revolution installed. Please remove additional instances for this plugin to work again.');
 }
 
-define('RS_REVISION',			'6.5.11');
+define('RS_REVISION',			'6.5.12');
 define('RS_PLUGIN_PATH',		plugin_dir_path(__FILE__));
 define('RS_PLUGIN_SLUG_PATH',	plugin_basename(__FILE__));
 define('RS_PLUGIN_FILE_PATH',	__FILE__);
@@ -28,7 +31,7 @@ define('RS_PLUGIN_SLUG',		apply_filters('set_revslider_slug', 'revslider'));
 define('RS_PLUGIN_URL',			get_rs_plugin_url());
 define('RS_PLUGIN_URL_CLEAN',	str_replace(array('http://', 'https://'), '//', RS_PLUGIN_URL));
 define('RS_DEMO',				false);
-define('RS_TP_TOOLS',			'6.5.11'); //holds the version of the tp-tools script, load only the latest!
+define('RS_TP_TOOLS',			'6.5.12'); //holds the version of the tp-tools script, load only the latest!
 
 global $revslider_fonts;
 global $revslider_is_preview_mode;

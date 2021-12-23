@@ -56,14 +56,22 @@
   text-align: right;
 }
 .mwb-crp-referral-table-wrapper #mwb-crp-referral-table_length {
-  width: 200px;
+  max-width: 280px;
   display: inline-block;
+  width: 100%;
   margin-bottom: 10px;
 }
+
+.mwb-crp-referral-table-wrapper #mwb-crp-referral-table_length > label,
+.mwb-crp-referral-table-wrapper #mwb-crp-referral-table_filter > label {
+  display: flex;
+  gap: 10px;
+}
 .mwb-crp-referral-table-wrapper #mwb-crp-referral-table_filter {
-  width: calc(100% - 200px);
+  width: calc(100% - 300px);
   display: inline-block;
   text-align: right;
+  margin-left: 20px;
   margin-bottom: 10px;
 }
 .mwb-crp-referral-table-wrapper #mwb-crp-referral-table_length select {
@@ -146,14 +154,14 @@
   justify-content: center;
 }
 .mwb-crp-referral-column {
-  width: 33.33%;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin: 15px 0;
+  width: calc(33.33% - 30px);
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 10px 0;
 }
 .mwb-crp-referral-column-inner {
   background-color: #4bbbce;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
   color: #ffffff;
   border-radius: 6px;
@@ -271,7 +279,6 @@
 }
 .mwb_crp_wrapper_button .mwb_crp_common_class {
  display: inline-block;
- margin: 0 7px;
 }
 .mwb_crp_wrapper_button .mwb_wpr_mail_button {
     background-color: #575757;
@@ -372,7 +379,6 @@ outline: 0;
   line-height: 32px;
 }
 .mdl-cpr-btn {
-  /*background-color: #E85E54 !important;*/
   color: #ffffff !important;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
   border: none;
@@ -406,8 +412,6 @@ outline: 0;
   color: #333333;
 }
 .mwb_cpr_logged_wrapper .mwb_cpr_refrral_code_copy code {
-  /* background-color: #E85E54; */
-  /*color: #ffffff;*/
   display: block;
   text-align: left;
   word-break: break-all;
@@ -621,6 +625,10 @@ outline: 0;
     display: block;
     text-align: center;
   }
+
+  .mwb-crp-referral-table-wrapper #mwb-crp-referral-table_filter {
+    margin-left: 0;
+  }
   #mwb-crp-referral-table_paginate, #mwb-crp-referral-table_info{
     float: none;
     width: 100%;
@@ -642,6 +650,7 @@ outline: 0;
 /*Addede new css*/
 .mwb_crp_referal_section{
   box-shadow: 0 0 10px -1px #d1d1d1;
+  padding: 20px !important;
 }
 .mwb_crp_whatsapp_button {
     background-color: #4FCE5D;
@@ -664,10 +673,14 @@ outline: 0;
 }
 .mwb_crp_wrapper_button{
   margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 /*email css*/
 .mwb_crp_email_wrap{
   display: none;
+  margin-top: 20px;
 }
 .mwb_crp_error{
   color: #FF0000;
@@ -694,4 +707,10 @@ outline: 0;
 
 .woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--referral_coupons a::before{
   content: "\f0c0";
+}
+.mwb_cpr_signup_notification{
+  font-weight: bold;
+}
+.mwb_crp_hide_element{
+  display: none;
 }

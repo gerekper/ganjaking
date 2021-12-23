@@ -1036,7 +1036,7 @@ class RevSliderFunctions extends RevSliderData {
 					}
 					
 					if(!empty($weights) && is_array($weights)){
-						$ret .= '<style type="text/css">';
+						$ret .= '<style>';
 						foreach($weights as $weight){
 							$style	 = (strpos($weight, 'italic') !== false) ? 'italic' : 'normal';
 							$_weight = str_replace('italic', '', $weight);

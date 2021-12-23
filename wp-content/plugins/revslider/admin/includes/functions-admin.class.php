@@ -384,15 +384,22 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 	public function add_notices(){
 		$_n = array();
 		$notices = (array)get_option('revslider-notices', false);
+		$rs_valid = $this->_truefalse(get_option('revslider-valid', 'false'));
 		
 		if(!empty($notices) && is_array($notices)){
 			$n_discarted = get_option('revslider-notices-dc', array());
-			
 			foreach($notices as $notice){
-				//check if global or just on plugin related pages
-				if($notice->version === true || !in_array($notice->code, $n_discarted) && version_compare($notice->version, RS_REVISION, '>=')){
-					$_n[] = $notice;
+				if(in_array($notice->code, $n_discarted)) continue;
+				if(isset($notice->version) && version_compare($notice->version, RS_REVISION, '<=')) continue;
+				if(isset($notice->registered)){ //if this is set, only show the notice if the plugin state is the same
+					$registered = $this->_truefalse($notice->registered);
+					if($registered !== $rs_valid) continue;
 				}
+				if(isset($notice->show_until) && $notice->show_until !== '0000-00-00 00:00:00'){
+					if(strtotime($notice->show_until) < time()) continue;
+				}
+
+				$_n[] = $notice;
 			}
 		}
 		

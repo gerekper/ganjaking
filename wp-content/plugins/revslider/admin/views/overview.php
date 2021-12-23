@@ -233,7 +233,7 @@ $rs_languages	= $rsaf->get_available_languages();
 	</div>
 </div>
 
-<script type="text/javascript">
+<script>
 	window.sliderLibrary = JSON.parse(<?php echo $rsaf->json_encode_client_side(array('sliders' => $rs_od)); ?>);
 	window.rs_system = JSON.parse(<?php echo $rsaf->json_encode_client_side($system_config); ?>);
 	var rvs_f_initOverView_Once = false;

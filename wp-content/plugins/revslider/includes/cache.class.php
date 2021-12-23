@@ -172,7 +172,7 @@ class RevSliderCache extends RevSliderFunctions {
 		if(is_array($html)){
 			if(!empty($html)){
 				usort($html, array($this, 'sort_by_priority'));
-				echo (current_filter() === 'wp_print_footer_scripts') ? '<script type="text/javascript">'."\n" : '';
+				echo (current_filter() === 'wp_print_footer_scripts') ? '<script>'."\n" : '';
 				foreach($html as $echo){
 					echo $this->get_val($echo, 'html');
 				}

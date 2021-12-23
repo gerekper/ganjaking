@@ -120,13 +120,14 @@ if ( ! class_exists( 'Coupon_Referral_Share_Via_Email' ) ) {
 			return wc_get_template_html(
 				$this->template_html,
 				array(
-					'user'          => $this->object,
-					'refferal_link' => $this->refferal_link,
-					'user_name'     => $this->user_name,
-					'email_heading' => $this->get_heading(),
-					'sent_to_admin' => false,
-					'plain_text'    => false,
-					'email'         => $this,
+					'user'               => $this->object,
+					'refferal_link'      => $this->refferal_link,
+					'user_name'          => $this->user_name,
+					'email_heading'      => $this->get_heading(),
+					'sent_to_admin'      => false,
+					'plain_text'         => false,
+					'email'              => $this,
+					'additional_content' => $this->get_additional_content(),
 				),
 				'',
 				$this->template_base
@@ -142,13 +143,14 @@ if ( ! class_exists( 'Coupon_Referral_Share_Via_Email' ) ) {
 			return wc_get_template_html(
 				$this->template_plain,
 				array(
-					'user'          => $this->object,
-					'refferal_link' => $this->refferal_link,
-					'user_name'     => $this->user_name,
-					'email_heading' => $this->get_heading(),
-					'sent_to_admin' => false,
-					'plain_text'    => true,
-					'email'         => $this,
+					'user'               => $this->object,
+					'refferal_link'      => $this->refferal_link,
+					'user_name'          => $this->user_name,
+					'email_heading'      => $this->get_heading(),
+					'sent_to_admin'      => false,
+					'plain_text'         => true,
+					'email'              => $this,
+					'additional_content' => $this->get_additional_content(),
 				),
 				'',
 				$this->template_base
@@ -183,6 +185,16 @@ if ( ! class_exists( 'Coupon_Referral_Share_Via_Email' ) ) {
 					'description' => sprintf( __( 'Available placeholders: %s', 'coupon-referral-program' ), '<code>{site_title}, {refferal_link}</code>' ),
 					'placeholder' => $this->get_default_heading(),
 					'default'     => '',
+				),
+				'additional_content' => array(
+					'title'       => esc_html__( 'Custom Email', 'mwb-woocommerce-rma' ),
+					/* translators: %s: list of placeholders */
+					'description' => sprintf( __( 'If N/A then default email will send. Available placeholders: %s', 'coupon-referral-program' ), '<code>{site_title}, {refferal_link}, {user_name}</code>' ),
+					'css'         => 'width:400px; height: 75px;',
+					'placeholder' => esc_html__( 'N/A', 'coupon-referral-program' ),
+					'type'        => 'textarea',
+					'default'     => $this->get_default_additional_content(),
+					'desc_tip'    => true,
 				),
 				'email_type' => array(
 					'title'       => __( 'Email type', 'coupon-referral-program' ),

@@ -704,7 +704,7 @@ class RevSliderSlide extends RevSliderFunctions {
 			if($featured_image_url !== false){
 				$attr['img_urls'][$img_handle] = array(
 					'url' => $featured_image_url[0],
-					'tag' => '<img class="'.$class.'" src="'.$featured_image_url[0].'" width="'.$featured_image_url[1].'" height="'.$featured_image_url[2].'" data-no-retina />'
+					'tag' => '<img class="'.$class.'" src="'.$featured_image_url[0].'" width="'.$featured_image_url[1].'" height="'.$featured_image_url[2].'" alt="'.esc_attr($this->get_val($attr1, 'title')).'" data-no-retina />'
 				);
 			}
 		}
@@ -1653,11 +1653,11 @@ class RevSliderSlide extends RevSliderFunctions {
 						'img_urls'	=> array(
 							'full'	=> array(
 								'url' => $fb_img,
-								'tag' => '<img'.$class.' src="'.$fb_img.'" data-no-retina />'
+								'tag' => '<img'.$class.' src="'.$fb_img.'" alt="'.esc_attr($this->get_val($this->post_data, 'name')).'" data-no-retina />'
 							),
 							'thumbnail' => array(
 								'url' => $fb_img_thumbnail,
-								'tag' => '<img'.$class.' src="'.$fb_img_thumbnail.'" data-no-retina />'
+								'tag' => '<img'.$class.' src="'.$fb_img_thumbnail.'" alt="'.esc_attr($this->get_val($this->post_data, 'name')).'" data-no-retina />'
 							)
 						)
 					);
@@ -1677,11 +1677,11 @@ class RevSliderSlide extends RevSliderFunctions {
 						'img_urls'	=> array(
 							'full'	=> array(
 								'url' => $fb_img,
-								'tag' => '<img'.$class.' src="'.$fb_img.'" data-no-retina />'
+								'tag' => '<img'.$class.' src="'.$fb_img.'" alt="'.esc_attr($this->get_val($this->post_data, 'message')).'" data-no-retina />'
 							),
 							'thumbnail' => array(
 								'url' => $fb_img_thumbnail,
-								'tag' => '<img'.$class.' src="'.$fb_img_thumbnail.'" data-no-retina />'
+								'tag' => '<img'.$class.' src="'.$fb_img_thumbnail.'" alt="'.esc_attr($this->get_val($this->post_data, 'message')).'" data-no-retina />'
 							)
 						)
 					);
@@ -1724,7 +1724,7 @@ class RevSliderSlide extends RevSliderFunctions {
 					$attr1['img_urls'] = array(
 						'large' => array(
 							'url' => $img,
-							'tag' => '<img'.$class.' src="'.$img.'" width="'.$w.'" height="'.$h.'" data-no-retina />'
+							'tag' => '<img'.$class.' src="'.$img.'" width="'.$w.'" height="'.$h.'" alt="'.esc_attr($this->get_val($this->post_data, 'full_text')).'" data-no-retina />'
 						)
 					);
 				}
@@ -1746,26 +1746,26 @@ class RevSliderSlide extends RevSliderFunctions {
 					$attr1['stream_image_url'] = $inst_img;
 					$attr1['img_urls']['original'] = array(
 						'url' => $inst_img, 
-						'tag' => '<img'.$class.' src="'.$inst_img.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
+						'tag' => '<img'.$class.' src="'.$inst_img.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" alt="'.esc_attr($this->get_val($attr1, 'title')).'" data-no-retina />'
 					);
 					$attr1['img_urls']['original_size'] = array(
 						'url' => $inst_img, 
-						'tag' => '<img'.$class.' src="'.$inst_img.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
+						'tag' => '<img'.$class.' src="'.$inst_img.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" alt="'.esc_attr($this->get_val($attr1, 'title')).'" data-no-retina />'
 					);
 					$attr1['img_urls']['large'] = array(
 						'url' => $inst_img, 
-						'tag' => '<img'.$class.' src="'.$inst_img.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
+						'tag' => '<img'.$class.' src="'.$inst_img.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" alt="'.esc_attr($this->get_val($attr1, 'title')).'" data-no-retina />'
 					);
 				}
 				if(!empty($inst_thumb)){
 					$attr1['stream_image_url'] = (!isset($attr1['stream_image_url'])) ? $inst_thumb : $attr1['stream_image_url'];
 					$attr1['img_urls']['thumb'] = array(
 						'url' => $inst_thumb,
-						'tag' => '<img'.$class.' src="'.$inst_thumb.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
+						'tag' => '<img'.$class.' src="'.$inst_thumb.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" alt="'.esc_attr($this->get_val($attr1, 'title')).'" data-no-retina />'
 					);
 					$attr1['img_urls']['thumbnail'] = array(
 						'url' => $inst_thumb,
-						'tag' => '<img'.$class.' src="'.$inst_thumb.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" data-no-retina />'
+						'tag' => '<img'.$class.' src="'.$inst_thumb.'" width="'.$this->get_val($this->post_data, array('dimensions', 'width')).'" height="'.$this->get_val($this->post_data, array('dimensions', 'height')).'" alt="'.esc_attr($this->get_val($attr1, 'title')).'" data-no-retina />'
 					);
 				}
 			break;
@@ -1779,16 +1779,16 @@ class RevSliderSlide extends RevSliderFunctions {
 					'views'		=> $this->get_val($this->post_data, 'views'),
 					'stream_image_url' => $this->get_val($this->post_data, 'url_o'),
 					'img_urls'	=> array(
-						'square' 	 => array('url' => $this->get_val($this->post_data, 'url_sq'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_sq').'" width="'.$this->get_val($this->post_data, 'width_sq').'" height="'.$this->get_val($this->post_data, 'height_sq').'" data-no-retina />'),
-						'large-square' => array('url' => $this->get_val($this->post_data, 'url_q'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_q').'" width="'.$this->get_val($this->post_data, 'width_q').'" height="'.$this->get_val($this->post_data, 'height_q').'"  data-no-retina />'),
-						'thumbnail'  => array('url' => $this->get_val($this->post_data, 'url_t'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_t').'" width="'.$this->get_val($this->post_data, 'width_t').'" height="'.$this->get_val($this->post_data, 'height_t').'"  data-no-retina />'),
-						'small' 	 => array('url' => $this->get_val($this->post_data, 'url_s'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_s').'" width="'.$this->get_val($this->post_data, 'width_s').'" height="'.$this->get_val($this->post_data, 'height_s').'"  data-no-retina />'),
-						'small-320'  => array('url' => $this->get_val($this->post_data, 'url_n'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_n').'" width="'.$this->get_val($this->post_data, 'width_n').'" height="'.$this->get_val($this->post_data, 'height_n').'"  data-no-retina />'),
-						'medium' 	 => array('url' => $this->get_val($this->post_data, 'url_m'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_m').'" width="'.$this->get_val($this->post_data, 'width_m').'" height="'.$this->get_val($this->post_data, 'height_m').'"  data-no-retina />'),
-						'medium-640' => array('url' => $this->get_val($this->post_data, 'url_z'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_z').'" width="'.$this->get_val($this->post_data, 'width_z').'" height="'.$this->get_val($this->post_data, 'height_z').'"  data-no-retina />'),
-						'medium-800' => array('url' => $this->get_val($this->post_data, 'url_c'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_c').'" width="'.$this->get_val($this->post_data, 'width_c').'" height="'.$this->get_val($this->post_data, 'height_c').'"  data-no-retina />'),
-						'large' 	 => array('url' => $this->get_val($this->post_data, 'url_l'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_l').'" width="'.$this->get_val($this->post_data, 'width_l').'" height="'.$this->get_val($this->post_data, 'height_l').'"  data-no-retina />'),
-						'original'	 => array('url' => $this->get_val($this->post_data, 'url_o'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_o').'" width="'.$this->get_val($this->post_data, 'width_o').'" height="'.$this->get_val($this->post_data, 'height_o').'"  data-no-retina />')
+						'square' 	 => array('url' => $this->get_val($this->post_data, 'url_sq'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_sq').'" width="'.$this->get_val($this->post_data, 'width_sq').'" height="'.$this->get_val($this->post_data, 'height_sq').'" alt="'.esc_attr($this->get_val($this->post_data, 'title')).'" data-no-retina />'),
+						'large-square' => array('url' => $this->get_val($this->post_data, 'url_q'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_q').'" width="'.$this->get_val($this->post_data, 'width_q').'" height="'.$this->get_val($this->post_data, 'height_q').'" alt="'.esc_attr($this->get_val($this->post_data, 'title')).'" data-no-retina />'),
+						'thumbnail'  => array('url' => $this->get_val($this->post_data, 'url_t'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_t').'" width="'.$this->get_val($this->post_data, 'width_t').'" height="'.$this->get_val($this->post_data, 'height_t').'" alt="'.esc_attr($this->get_val($this->post_data, 'title')).'" data-no-retina />'),
+						'small' 	 => array('url' => $this->get_val($this->post_data, 'url_s'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_s').'" width="'.$this->get_val($this->post_data, 'width_s').'" height="'.$this->get_val($this->post_data, 'height_s').'" alt="'.esc_attr($this->get_val($this->post_data, 'title')).'" data-no-retina />'),
+						'small-320'  => array('url' => $this->get_val($this->post_data, 'url_n'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_n').'" width="'.$this->get_val($this->post_data, 'width_n').'" height="'.$this->get_val($this->post_data, 'height_n').'" alt="'.esc_attr($this->get_val($this->post_data, 'title')).'" data-no-retina />'),
+						'medium' 	 => array('url' => $this->get_val($this->post_data, 'url_m'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_m').'" width="'.$this->get_val($this->post_data, 'width_m').'" height="'.$this->get_val($this->post_data, 'height_m').'" alt="'.esc_attr($this->get_val($this->post_data, 'title')).'" data-no-retina />'),
+						'medium-640' => array('url' => $this->get_val($this->post_data, 'url_z'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_z').'" width="'.$this->get_val($this->post_data, 'width_z').'" height="'.$this->get_val($this->post_data, 'height_z').'" alt="'.esc_attr($this->get_val($this->post_data, 'title')).'" data-no-retina />'),
+						'medium-800' => array('url' => $this->get_val($this->post_data, 'url_c'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_c').'" width="'.$this->get_val($this->post_data, 'width_c').'" height="'.$this->get_val($this->post_data, 'height_c').'" alt="'.esc_attr($this->get_val($this->post_data, 'title')).'" data-no-retina />'),
+						'large' 	 => array('url' => $this->get_val($this->post_data, 'url_l'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_l').'" width="'.$this->get_val($this->post_data, 'width_l').'" height="'.$this->get_val($this->post_data, 'height_l').'" alt="'.esc_attr($this->get_val($this->post_data, 'title')).'" data-no-retina />'),
+						'original'	 => array('url' => $this->get_val($this->post_data, 'url_o'), 'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, 'url_o').'" width="'.$this->get_val($this->post_data, 'width_o').'" height="'.$this->get_val($this->post_data, 'height_o').'" alt="'.esc_attr($this->get_val($this->post_data, 'title')).'" data-no-retina />')
 					)
 				);
 			break;
@@ -1820,10 +1820,10 @@ class RevSliderSlide extends RevSliderFunctions {
 						);
 						switch($additions['yt_type']){
 							case 'channel':
-								$attr1['img_urls'][$name]['tag'] = '<img'.$class.' src="'.$this->get_val($vals, 'url').'" data-no-retina />';
+								$attr1['img_urls'][$name]['tag'] = '<img'.$class.' src="'.$this->get_val($vals, 'url').'" alt="'.esc_attr($this->get_val($attr1, 'title')).'" data-no-retina />';
 							break;
 							case 'playlist':
-								$attr1['img_urls'][$name]['tag'] = '<img'.$class.' src="'.$this->get_val($vals, 'url').'" width="'.$this->get_val($vals, 'width').'" height="'.$this->get_val($vals, 'height').'" data-no-retina />';
+								$attr1['img_urls'][$name]['tag'] = '<img'.$class.' src="'.$this->get_val($vals, 'url').'" width="'.$this->get_val($vals, 'width').'" height="'.$this->get_val($vals, 'height').'" alt="'.esc_attr($this->get_val($attr1, 'title')).'" data-no-retina />';
 							break;
 						}
 					}
@@ -1848,7 +1848,7 @@ class RevSliderSlide extends RevSliderFunctions {
 						$attr1['stream_image_url'] = (!isset($attr1['stream_image_url'])) ? $this->get_val($this->post_data, $name) : $attr1['stream_image_url'];
 						$attr1['img_urls'][$name] = array(
 							'url' => $this->get_val($this->post_data, $name),
-							'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, $name).'" data-no-retina />'
+							'tag' => '<img'.$class.' src="'.$this->get_val($this->post_data, $name).'" alt="'.esc_attr($this->get_val($attr1, 'title')).'" data-no-retina />'
 						);
 					}
 				}

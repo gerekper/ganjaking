@@ -143,7 +143,7 @@ foreach ( $values as $k => $v ) {
 	}
 
 	if ( 'modern' === $style ) {
-		$stroke_color = vc_colorCreator( is_array( $color ) ? end( $color ) : $color, - 7 );
+		$stroke_color = is_array( $color ) ? end( $color ) : $color;
 		$highlight_stroke_color = vc_colorCreator( $stroke_color, - 7 );
 	} else {
 		$stroke_color = $color;
@@ -152,14 +152,11 @@ foreach ( $values as $k => $v ) {
 
 	$data['datasets'][] = array(
 		'label' => isset( $v['title'] ) ? $v['title'] : '',
-		'fillColor' => $fill_color,
-		'strokeColor' => $stroke_color,
-		'pointColor' => $color,
-		'pointStrokeColor' => $color,
-		'highlightFill' => $highlight,
-		'highlightStroke' => $highlight_stroke_color,
-		'pointHighlightFill' => $highlight_stroke_color,
-		'pointHighlightStroke' => $highlight_stroke_color,
+		'borderColor' => $stroke_color,
+		'backgroundColor' => ( 'modern' === $style ? [
+			$stroke_color,
+			$highlight_stroke_color,
+		] : $stroke_color ),
 		'data' => explode( ';', isset( $v['y_values'] ) ? trim( $v['y_values'], ';' ) : '' ),
 	);
 }
@@ -172,15 +169,7 @@ if ( '' !== $title ) {
 }
 
 $canvas_html = '<canvas class="vc_line-chart-canvas" width="1" height="1"></canvas>';
-$legend_html = '';
-if ( $legend ) {
-	foreach ( $data['datasets'] as $v ) {
-		$color = is_array( $v['pointColor'] ) ? current( $v['pointColor'] ) : $v['pointColor'];
-		$legend_html .= '<li><span style="background-color:' . $color . '"></span>' . $v['label'] . '</li>';
-	}
-	$legend_html = '<ul class="vc_chart-legend">' . $legend_html . '</ul>';
-	$canvas_html = '<div class="vc_chart-with-legend">' . $canvas_html . '</div>';
-}
+
 if ( ! empty( $el_id ) ) {
 	$options[] = 'id="' . esc_attr( $el_id ) . '"';
 }
@@ -188,7 +177,7 @@ $output = '
 <div class="' . esc_attr( $css_class ) . '" ' . implode( ' ', $options ) . '>
 	' . $title . '
 	<div class="wpb_wrapper">
-		' . $canvas_html . $legend_html . '
+		' . $canvas_html . '
 	</div>' . '
 </div>' . '
 ';

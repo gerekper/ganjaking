@@ -550,7 +550,7 @@ $api = 'revapi'; // . $slider_id;
 						<div style="display:none"  class="form_intoaccordion" data-trigger="#slr_fsc_l2"><i class="material-icons">arrow_drop_down</i></div>
 						<div class="collapsable">
 							<div id="post_subtype_settings_wrapper">
-								<label_a><?php _e('Fetch By', 'revslider');?></label_a><select id="post_fetch_type" name="post_fetch_type" class="sliderinput tos2 nosearchbox easyinit" data-r="source.post.fetchType" data-show=".fetch_ .*val*_" data-hide=".fetch_ .dep_">
+								<label_a><?php _e('Fetch By', 'revslider');?></label_a><select id="post_fetch_type" name="post_fetch_type" class="sliderinput tos2 nosearchbox easyinit" data-r="source.post.fetchType" data-show=".fetch_ .*val*_, ._show_*val*" data-hide=".fetch_ .dep_, ._*val*_hide">
 									<option value="cat_tag"><?php _e('Categories & Tags', 'revslider');?></option>
 									<option value="related"><?php _e('Related', 'revslider');?></option>
 									<option value="popular"><?php _e('Popular', 'revslider');?></option>
@@ -567,7 +567,7 @@ if (!empty($post_type)) {
 }
 ?>
 									</select><span class="linebreak"></span>
-									<label_a><?php _e('Categories:', 'revslider');?></label_a><select id="post_category" name="post_category" multiple class="sliderinput tos2 nosearchbox easyinit" data-r="source.post.category"></select><span class="linebreak"></span>
+									<div class="_show_cat_tag _show_related _show_popular _show_recent _next_prev_hide "><label_a><?php _e('Categories:', 'revslider');?></label_a><select id="post_category" name="post_category" multiple class="sliderinput tos2 nosearchbox easyinit" data-r="source.post.category"></select><span class="linebreak"></span></div>
 								</div>
 							</div>
 							<div id="specificpost_subtype_settings_wrapper">

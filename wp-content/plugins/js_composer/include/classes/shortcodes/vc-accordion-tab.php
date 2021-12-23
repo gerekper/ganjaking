@@ -8,10 +8,6 @@ require_once vc_path_dir( 'SHORTCODES_DIR', 'vc-tab.php' );
 /**
  * Class WPBakeryShortCode_VC_Accordion_tab
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WPBakeryShortCode_VC_Accordion_Tab extends WPBakeryShortCode_VC_Tab {
 	/**
 	 * @var string

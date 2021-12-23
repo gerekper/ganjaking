@@ -14,10 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 4.5
  * Class WPBakeryShortCode_Vc_Cta
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WPBakeryShortCode_Vc_Cta extends WPBakeryShortCode {
 	protected $template_vars = array();
 
@@ -102,7 +98,7 @@ class WPBakeryShortCode_Vc_Cta extends WPBakeryShortCode {
 	public function getHeading( $tag, $atts ) {
 		if ( isset( $atts[ $tag ] ) && '' !== trim( $atts[ $tag ] ) ) {
 			if ( isset( $atts[ 'use_custom_fonts_' . $tag ] ) && 'true' === $atts[ 'use_custom_fonts_' . $tag ] ) {
-				$custom_heading = visual_composer()->getShortCode( 'vc_custom_heading' );
+				$custom_heading = wpbakery()->getShortCode( 'vc_custom_heading' );
 				$data = vc_map_integrate_parse_atts( $this->shortcode, 'vc_custom_heading', $atts, $tag . '_' );
 				$data['font_container'] = implode( '|', array_filter( array(
 					'tag:' . $tag,
@@ -138,7 +134,7 @@ class WPBakeryShortCode_Vc_Cta extends WPBakeryShortCode {
 	public function getButton( $atts ) {
 		$data = vc_map_integrate_parse_atts( $this->shortcode, 'vc_btn', $atts, 'btn_' );
 		if ( $data ) {
-			$btn = visual_composer()->getShortCode( 'vc_btn' );
+			$btn = wpbakery()->getShortCode( 'vc_btn' );
 			if ( is_object( $btn ) ) {
 				return '<div class="vc_cta3-actions">' . $btn->render( array_filter( $data ) ) . '</div>';
 			}
@@ -159,7 +155,7 @@ class WPBakeryShortCode_Vc_Cta extends WPBakeryShortCode {
 		}
 		$data = vc_map_integrate_parse_atts( $this->shortcode, 'vc_icon', $atts, 'i_' );
 		if ( $data ) {
-			$icon = visual_composer()->getShortCode( 'vc_icon' );
+			$icon = wpbakery()->getShortCode( 'vc_icon' );
 			if ( is_object( $icon ) ) {
 				return '<div class="vc_cta3-icons">' . $icon->render( array_filter( $data ) ) . '</div>';
 			}

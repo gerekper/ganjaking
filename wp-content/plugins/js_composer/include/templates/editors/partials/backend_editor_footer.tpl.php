@@ -11,17 +11,17 @@ $add_element_box->render();
 // [/add element box]
 
 // [rendering edit form]
-visual_composer()->editForm()->render();
+wpbakery()->editForm()->render();
 // [/rendering edit form]
 
 // [rendering templates panel editor]
 if ( vc_user_access()->part( 'templates' )->can()->get() ) {
-	visual_composer()->templatesPanelEditor()->renderUITemplate();
+	wpbakery()->templatesPanelEditor()->renderUITemplate();
 }
 // [/rendering templates panel editor]
 
 // [preset panel editor render]
-visual_composer()->presetPanelEditor()->renderUIPreset();
+wpbakery()->presetPanelEditor()->renderUIPreset();
 // [/preset panel editor render]
 
 

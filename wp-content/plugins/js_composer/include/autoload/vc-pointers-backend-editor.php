@@ -6,10 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Add WP ui pointers to backend editor.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function vc_add_admin_pointer() {
 	if ( is_admin() ) {
 		foreach ( vc_editor_post_types() as $post_type ) {
@@ -70,7 +66,7 @@ function vc_backend_editor_register_pointer( $pointers ) {
 						),
 						'buttonsEvent' => 'vcPointersEditorsTourEvents',
 					),
-					'closeEvent' => 'click #wpb_visual_composer',
+					'closeEvent' => 'click #wpb_wpbakery',
 					'showEvent' => 'shortcodeView:ready',
 				),
 				array(
@@ -84,7 +80,7 @@ function vc_backend_editor_register_pointer( $pointers ) {
 						'buttonsEvent' => 'vcPointersEditorsTourEvents',
 					),
 					'showCallback' => 'vcPointersShowOnContentElementControls',
-					'closeEvent' => 'click #wpb_visual_composer',
+					'closeEvent' => 'click #wpb_wpbakery',
 				),
 			),
 		);

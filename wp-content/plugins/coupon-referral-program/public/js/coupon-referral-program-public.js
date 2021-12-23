@@ -99,7 +99,7 @@
 	    	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/;
 	    	var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
 	    	var error = false;
-	    	
+			var send_html = $(this).html();
 			var html = "<ul>";
 
 			if( email == null || email == "" ) {
@@ -128,8 +128,7 @@
 				$('#mwb_crp_notice').html(html);
 			}
 			else{
-				
-				var spinner = '<i class="fa fa-spinner fa-spin"></i>';
+				var spinner = '<i class="mwb_crp_spinner fa fa-spinner fa-spin"></i>';
 				jQuery(this).html(spinner);
 				var data = {
 					action:'mwb_crp_send_referal_link_mail',
@@ -142,12 +141,16 @@
 					data:data,
 					dataType:'json',
 					success:function( response ) {
-						
 						if ( response.result ) {
+							$('.mwb_crp_spinner').remove();
+							$('#mwb_crp_email_send').html(send_html);
 							$('#mwb_crp_notice').removeClass('mwb_crp_error');
 							$('#mwb_crp_notice').addClass('mwb_crp_mail_succes');
 							$('#mwb_crp_notice').text(response.msg);
-							location.reload();
+							setTimeout(
+							    function() {
+									location.reload();
+							    }, 3000);
 						}
 						else{
 							$('#mwb_crp_notice').removeClass('mwb_crp_mail_succes');

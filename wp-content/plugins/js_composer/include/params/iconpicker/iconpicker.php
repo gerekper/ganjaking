@@ -30,10 +30,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *     this file Also // SEE HOOKS FOLDER FOR FONTS REGISTERING/ENQUEUE IN BASE
  * @path "/include/autoload/hook-vc-iconpicker-param.php"
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Vc_IconPicker {
 	/**
 	 * @since 4.4

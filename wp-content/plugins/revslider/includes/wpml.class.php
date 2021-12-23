@@ -214,7 +214,7 @@ class RevSliderWpml extends RevSliderFunctions {
 				'image'	=> $this->getFlagUrl($code)
 			);
 		}
-		echo '<script type="text/javascript">';
+		echo '<script>';
 		echo 'var RS_WPML_LANGS = JSON.parse(\''.json_encode($use_langs).'\');';
 		echo '</script>';
 	}

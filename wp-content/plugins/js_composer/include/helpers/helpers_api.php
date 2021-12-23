@@ -8,10 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return bool
  * @throws \Exception
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function wpb_map( $attributes ) {
 	return vc_map( $attributes );
 }
@@ -279,7 +275,7 @@ if ( ! function_exists( 'vc_add_default_templates' ) ) {
 	 * @since 4.3
 	 */
 	function vc_add_default_templates( $data ) {
-		return visual_composer()->templatesPanelEditor()->addDefaultTemplates( $data );
+		return wpbakery()->templatesPanelEditor()->addDefaultTemplates( $data );
 	}
 }
 

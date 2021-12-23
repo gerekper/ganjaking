@@ -22,10 +22,6 @@ if ( ! defined( 'WPB_VC_VERSION' ) ) {
  * @since 4.2
  * vc_filter: vc_wpb_getimagesize - to override output of this function
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function wpb_getImageBySize( $params = array() ) {
 	$params = array_merge( array(
 		'post_id' => null,
@@ -46,6 +42,7 @@ function wpb_getImageBySize( $params = array() ) {
 
 	$attach_id = $post_id ? get_post_thumbnail_id( $post_id ) : $params['attach_id'];
 	$attach_id = apply_filters( 'vc_object_id', $attach_id );
+	$attach_id = apply_filters( 'wpml_object_id', $attach_id );
 	$thumb_size = $params['thumb_size'];
 	$thumb_class = ( isset( $params['class'] ) && '' !== $params['class'] ) ? $params['class'] . ' ' : '';
 
@@ -60,7 +57,13 @@ function wpb_getImageBySize( $params = array() ) {
 		'full',
 	);
 	if ( is_string( $thumb_size ) && ( ( ! empty( $_wp_additional_image_sizes[ $thumb_size ] ) && is_array( $_wp_additional_image_sizes[ $thumb_size ] ) ) || in_array( $thumb_size, $sizes, true ) ) ) {
-		$attributes = array( 'class' => $thumb_class . 'attachment-' . $thumb_size );
+		$attachment = get_post( $attach_id );
+		$title = trim( wp_strip_all_tags( $attachment->post_title ) );
+		$attributes = array(
+			'class' => $thumb_class . 'attachment-' . $thumb_size,
+			'title' => $title,
+		);
+
 		$thumbnail = wp_get_attachment_image( $attach_id, $thumb_size, false, $attributes );
 	} elseif ( $attach_id ) {
 		if ( is_string( $thumb_size ) ) {

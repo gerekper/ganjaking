@@ -1,13 +1,43 @@
 <div class="slider-revolution-update-list">
-<h3 class="version-number">Version 6.5.11 (18th November 2021)</h3>	
+	<h3 class="version-number">Version 6.5.12 (21st December 2021)</h3>
+	<div class="newfeature"><strong style="font-weight:700">New Features</strong></div>
+	<ul>
+		<li>Added new submenus: Getting Started, Help Center, Templates, Premium Support and Go Premium</li>
+	</ul>	
+	<div class="change"><strong style="font-weight:700">Changes</strong></div>
+	<ul>
+		<li>Menu burger buttons and scroll down buttons won't use out of box the intelligent size inheriting to avoid strange spacing on smaller devices</li>
+		<li>Updated GSAP to version 3.9.0</li>
+		<li>Simplified duplicating and copy pasting layers with actions triggering the duplicated layers with steps like:</li>
+		<ul>
+			<li>Deleting a layer will remove the action references pointing on it from other layers</li>
+			<li>Undoing "delete layer" will recreate the deleted action references as well</li>
+			<li>Duplicating a layer will check for all pointing action references and will also duplicate those by adjusting the target id as well</li>
+		</ul>
+	</ul>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
 	<ul>
-		<li>Javascript Error breaks the Global Settings in Overview Mode and throws Console Error getConcVals</li>		
+		<li>Changing audio preload options does not have any influence on loading performance and results on frontend</li>		
+		<li>Selecting post based slider by popularity, related and recent does not allow categories to be selected</li>
+		<li>Backend is slow in Chrome if more than 200 elements are added in rows and columns. Issue happens only in WebKit browsers based on transform perspective and filters</li>
+		<li>Glitch effect of advanced transitions throws console error</li>
+		<li>Duplicating layers undo/redo group is filled with multiple steps, single redo/undo is not working</li>
+		<li>Menu link & scroll action's scroll offset value is ignored</li>
+		<li>Change between navigation and general settings in the editor does not refresh the layer rendering, generating artifacts until next refresh</li>
+		<li>Multiple rows and columns generating artifacts on Chrome version 96.0.4664.110+</li>
+		<li>Centered rows may show layers and elements in columns blurry if the content is drawn on half pixels. Core will now internally calculate the vertical position of rows and columns</li>
+	</ul>
+
+	<h3 class="version-number">Version 6.5.11 (19th November 2021)</h3>	
+	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>
+	<ul>
+		<li>JavaScript error breaks the global settings in the overview mode and throws a console error getConcVals</li>
 	</ul>	
+
 	<h3 class="version-number">Version 6.5.10 (17th November 2021)</h3>
 	<div class="change"><strong style="font-weight:700">Changes</strong></div>	
 	<ul>
-		<li>Fullwidth layout in combination with Timeline based scroll will allow optional to pull content now</li>
+		<li>Fullwidth layout in combination with timeline based scroll will allow optional to pull content now</li>
 		<li>Slider Revolution meta box now shows on all custom post types</li>
 	</ul>
 	<div class="bugfix"><strong style="font-weight:700">Bugfixes</strong></div>

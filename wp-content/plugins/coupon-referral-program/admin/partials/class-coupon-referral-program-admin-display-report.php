@@ -68,11 +68,9 @@ class Coupon_Referral_Program_Admin_Display_Report extends WP_List_Table {
 		switch ( $column_name ) {
 
 			case 'user_name':
-				$nonce   = wp_create_nonce( 'mwb_crp_nonce' );
-				$actions = array(
-					'view_details_log' => '<a href="' . admin_url( 'admin.php?page=wc-reports&tab=crp_report&user_id=' . $item['id'] . '&nonce=' . $nonce . '&action=view_details_log"' ) . '">' . __( 'View Details', 'coupon-referral-program' ) . '</a>',
-				);
-				return $item[ $column_name ] . $this->row_actions( $actions );
+				$nonce = wp_create_nonce( 'mwb_crp_nonce' );
+				$link  = '<div class="crp_view_details_log"><a href="' . admin_url( 'admin.php?page=wc-reports&tab=crp_report&user_id=' . $item['id'] . '&nonce=' . $nonce . '&action=view_details_log"' ) . '">' . __( 'View Coupon Details', 'coupon-referral-program' ) . '</a></div>';
+				return $item[ $column_name ] . $link;
 			case 'user_email':
 				return '<b>' . $item[ $column_name ] . '</b>';
 			case 'referred_users':
@@ -328,8 +326,9 @@ if ( isset( $_GET['action'] ) && isset( $_GET['user_id'] ) ) {
 				<?php
 				if ( ! empty( $crp_public_obj->get_referral_purchase_coupons( $user_id ) ) ) :
 					foreach ( $crp_public_obj->get_referral_purchase_coupons( $user_id ) as $coupon_code => $user_id_crp_coupon ) :
-						$coupon = new WC_Coupon( $coupon_code );
-						$flag   = false;
+						$coupon   = new WC_Coupon( $coupon_code );
+						$flag     = false;
+						$order_id = get_post_meta( $coupon->get_id(), 'coupon_created_to', true );
 						if ( 'publish' === get_post_status( $coupon_code ) ) :
 							$flag = true;
 							?>
@@ -351,7 +350,7 @@ if ( isset( $_GET['action'] ) && isset( $_GET['user_id'] ) ) {
 					</td>
 					<td data-th="<?php esc_html_e( 'Coupon Created', 'coupon-referral-program' ); ?>"><?php echo esc_html( $crp_public_obj->mwb_crp_get_transalted_coupon_created_date( $coupon ) ); ?></td>
 					<td data-th="<?php esc_html_e( 'Expiry Date', 'coupon-referral-program' ); ?>"><?php echo esc_html( $crp_public_obj->mwb_crp_get_transalted_coupon_exp_date( $coupon ) ); ?></td>
-					<td data-th="<?php esc_html_e( 'Event', 'coupon-referral-program' ); ?>"><?php esc_html_e( 'Referral Purchase', 'coupon-referral-program' ); ?></td>
+					<td data-th="<?php esc_html_e( 'Event', 'coupon-referral-program' ); ?>"><?php echo esc_html__( 'Referral Purchase For', 'coupon-referral-program' ) . ' #' . esc_html( $order_id ); ?></td>
 					<td data-th="<?php esc_html_e( 'Referred Users', 'coupon-referral-program' ); ?>"><?php echo esc_html( ( get_userdata( esc_html( $user_id_crp_coupon ) ) ) ? esc_html( get_userdata( $user_id_crp_coupon )->data->display_name ) : esc_html__( 'User has been deleted', 'coupon-referral-program' ) ); ?></td>
 					<td data-th="<?php esc_html_e( 'Usage Count', 'coupon-referral-program' ); ?>"><?php echo esc_html( $coupon->get_usage_count() ); ?></td>
 				</tr>
@@ -365,7 +364,8 @@ if ( isset( $_GET['action'] ) && isset( $_GET['user_id'] ) ) {
 				<?php
 				if ( ! empty( $crp_public_obj->get_referral_purchase_coupons_on_guest( $user_id ) ) ) :
 					foreach ( $crp_public_obj->get_referral_purchase_coupons_on_guest( $user_id ) as $coupon_code => $email ) :
-						$coupon = new WC_Coupon( $coupon_code );
+						$coupon   = new WC_Coupon( $coupon_code );
+						$order_id = get_post_meta( $coupon->get_id(), 'coupon_created_to', true );
 						if ( 'publish' === get_post_status( $coupon_code ) ) :
 							?>
 				<tr>
@@ -386,7 +386,7 @@ if ( isset( $_GET['action'] ) && isset( $_GET['user_id'] ) ) {
 					</td>
 					<td data-th="<?php esc_html_e( 'Coupon Created', 'coupon-referral-program' ); ?>"><?php echo esc_html( $crp_public_obj->mwb_crp_get_transalted_coupon_created_date( $coupon ) ); ?></td>
 					<td data-th="<?php esc_html_e( 'Expiry Date', 'coupon-referral-program' ); ?>"><?php echo esc_html( $crp_public_obj->mwb_crp_get_transalted_coupon_exp_date( $coupon ) ); ?></td>
-					<td data-th="<?php esc_html_e( 'Event', 'coupon-referral-program' ); ?>"><?php esc_html_e( 'Referral Purchase via guset user', 'coupon-referral-program' ); ?></td>
+					<td data-th="<?php esc_html_e( 'Event', 'coupon-referral-program' ); ?>"><?php echo esc_html__( 'Referral Purchase Via Guest User For', 'coupon-referral-program' ) . ' #' . esc_html( $order_id ); ?></td>
 					<td data-th="<?php esc_html_e( 'Referred Users', 'coupon-referral-program' ); ?>"><?php echo $email ? esc_html( $email ) : esc_html__( 'Email not found', 'coupon-referral-program' ); ?></td>
 					<td data-th="<?php esc_html_e( 'Usage Count', 'coupon-referral-program' ); ?>"><?php echo esc_html( $coupon->get_usage_count() ); ?></td>
 				</tr>
@@ -406,7 +406,7 @@ if ( isset( $_GET['action'] ) && isset( $_GET['user_id'] ) ) {
 	</div>
 		<br>
 		<?php $nonce = wp_create_nonce( 'mwb_crp_nonce' ); ?>
-		<a  href="<?php echo esc_html( admin_url( 'admin.php?page=wc-reports&tab=crp_report&nonce=' . $nonce ) ); ?>" style="line-height: 2" class="button button-primary mwb_wpr_save_changes"><?php esc_html_e( 'Go Back', 'coupon-referral-program' ); ?></a> 
+		<a  href="<?php echo esc_html( admin_url( 'admin.php?page=wc-reports&tab=crp_report&nonce=' . $nonce ) ); ?>" class="button button-primary mwb_wpr_save_changes"><?php esc_html_e( 'Go Back', 'coupon-referral-program' ); ?></a> 
 		<?php
 	}
 } else {

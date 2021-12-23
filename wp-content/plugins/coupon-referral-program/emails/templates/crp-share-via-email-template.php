@@ -19,12 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @hooked WC_Emails::email_header() Output the email header
  */
 do_action( 'woocommerce_email_header', $email_heading, $email );
-?>
 
-<p><?php esc_html_e( 'Congratulation! You have received referral link, Below is the Referral link. ', 'coupon-referral-program' ); ?></p>
-<p><?php esc_html_e( 'Referred By :- ', 'coupon-referral-program' ); ?><?php echo esc_html( $user_name ); ?></p>
-<?php
-$template = '<style>@media screen and (max-width: 600px) {
+$template  = '<p>' . esc_html( 'Congratulation! You have received referral link, Below is the Referral link. ', 'coupon-referral-program' ) . '</p>
+<p>' . esc_html( 'Referred By :- ', 'coupon-referral-program' ) . esc_html( $user_name ) . '</p>';
+$template .= '<style>@media screen and (max-width: 600px) {
 		.mwb_wuc_price_code_wrapper {
 			width: 100% !important;
 			display: block;
@@ -46,7 +44,11 @@ $template = '<style>@media screen and (max-width: 600px) {
 		</tr>
 	</tbody>
 </table>';
-echo $template;
+if ( isset( $additional_content ) && '' !== $additional_content ) {
+	echo $additional_content;
+} else {
+	echo $template;
+}
 
 /**
  * Include the woo footer.

