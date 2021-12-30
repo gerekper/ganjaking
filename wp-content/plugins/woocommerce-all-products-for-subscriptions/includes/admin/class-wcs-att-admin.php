@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Admin class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce All Products For Subscriptions
  * @since    1.0.4
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin includes and hooks.
  *
  * @class    WCS_ATT_Admin
- * @version  3.1.9
+ * @version  3.1.32
  */
 class WCS_ATT_Admin {
 
@@ -25,7 +24,7 @@ class WCS_ATT_Admin {
   	 *
   	 * @var string
   	 */
-  	private static $bundled_selectsw_version = '1.1.5';
+  	private static $bundled_selectsw_version = '1.1.7';
 
 	/**
 	 * Initialize.

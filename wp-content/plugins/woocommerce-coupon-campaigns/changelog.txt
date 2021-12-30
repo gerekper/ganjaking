@@ -1,5 +1,9 @@
 *** WC Coupon Campaigns ***
 
+2021-12-15 - version 1.1.18
+* Tweak - WC 6.0 compatibility.
+* Tweak - WP 5.9 compatibility.
+
 2021-02-04 - version 1.1.17
 * Tweak - WC 5.0 compatibility.
 

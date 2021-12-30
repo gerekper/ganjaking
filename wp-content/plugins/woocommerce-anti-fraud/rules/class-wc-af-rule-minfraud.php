@@ -102,7 +102,7 @@ class WC_AF_Rule_MinFraud extends WC_AF_Rule {
 				'region' => $order->get_shipping_state(),
 				'country' => $order->get_shipping_country(),
 				'postal' => $order->get_shipping_postcode(),
-				'phone_number' => $order->get_shipping_phone(),
+				'phone_number' => $order->get_billing_phone(),
 			),
 			'billing' => array(
 				'first_name' => $order->get_billing_first_name(),

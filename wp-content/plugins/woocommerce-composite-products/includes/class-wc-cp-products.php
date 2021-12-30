@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * API functions to support product modifications when contained in Composites.
  *
  * @class    WC_CP_Products
- * @version  8.0.0
+ * @version  8.3.6
  */
 class WC_CP_Products {
 
@@ -79,13 +79,13 @@ class WC_CP_Products {
 		// Always-on price filters used in cart context.
 		if ( 'filters' === self::get_composited_cart_item_discount_method() ) {
 
-			add_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_get_price_cart' ), 99, 2 );
-			add_filter( 'woocommerce_product_get_sale_price', array( __CLASS__, 'filter_get_sale_price_cart' ), 99, 2 );
-			add_filter( 'woocommerce_product_get_regular_price', array( __CLASS__, 'filter_get_regular_price_cart' ), 99, 2 );
+			add_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_get_price_cart' ), 98, 2 );
+			add_filter( 'woocommerce_product_get_sale_price', array( __CLASS__, 'filter_get_sale_price_cart' ), 98, 2 );
+			add_filter( 'woocommerce_product_get_regular_price', array( __CLASS__, 'filter_get_regular_price_cart' ), 98, 2 );
 
-			add_filter( 'woocommerce_product_variation_get_price', array( __CLASS__, 'filter_get_price_cart' ), 99, 2 );
-			add_filter( 'woocommerce_product_variation_get_sale_price', array( __CLASS__, 'filter_get_sale_price_cart' ), 99, 2 );
-			add_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_get_regular_price_cart' ), 99, 2 );
+			add_filter( 'woocommerce_product_variation_get_price', array( __CLASS__, 'filter_get_price_cart' ), 98, 2 );
+			add_filter( 'woocommerce_product_variation_get_sale_price', array( __CLASS__, 'filter_get_sale_price_cart' ), 98, 2 );
+			add_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_get_regular_price_cart' ), 98, 2 );
 		}
 	}
 

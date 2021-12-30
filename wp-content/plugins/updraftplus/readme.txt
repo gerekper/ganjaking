@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, DNutbourne, aporter, snigh
 Tags: backup, restore, database backup, wordpress backup, cloud backup, s3, dropbox, google drive, onedrive, ftp, backups
 Requires at least: 3.2
 Tested up to: 5.8
-Stable tag: 1.16.66
+Stable tag: 1.16.69
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -168,6 +168,16 @@ The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the b
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
 
+= 1.16.69 - 27/Dec/2021 =
+
+* FIX: A bug that prevented a final resumption from attempting to split the zip to make progress
+* FIX: Handle LOCK TABLES statements produced by some mysqldump versions properly in case of atomic restores
+* SECURITY: Fix a non-persistent XSS error allowing an attacker to once run JavaScript in your web browser if you clicked on a link crafted personally for you whilst logged into your site (very similar to that fixed in 1.16.65/6). A packaging error meant that this was not properly fixed in the 1.16.67-68 releases.
+* TWEAK: Search and replace ABSPATH if it's changed, non-trivial and stored in the DB by a bad plugin/theme
+* TWEAK: Make whole label for "UpdraftPlus temporary clone user login settings" clickable
+* TWEAK: Change wording for an advanced tool for clarity
+* TWEAK: Include UD in user agent for S3 calls when using the AWS SDKs
+* TWEAK: Make sure WP_Error is passed up during specific plugin update failure case
 
 = 1.16.66 - 29/Nov/2021 =
 
@@ -1417,4 +1427,4 @@ Reliance upon any non-English translation is at your own risk; UpdraftPlus can g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.16.66: Fixes a non-persistent reflected XSS issue. Do not create a zip manifest file if the zip is still potentially incomplete. Faster Dropbox uploads. A recommended update for all.
+* 1.16.69: Fixes a non-persistent reflected XSS issue (and packaging error in .67-68). Do not create a zip manifest file if the zip is still potentially incomplete. Fixes a potential issue with resumptions on large backups. Various small tweaks. A recommended update for all.

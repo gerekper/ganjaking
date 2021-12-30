@@ -7,10 +7,10 @@
  * Text Domain: wcopc
  * Domain Path: languages
  * Plugin URI:  https://woocommerce.com/products/woocommerce-one-page-checkout/
- * Version: 1.9.0
- * Tested up to: 5.8
+ * Version: 1.9.1
+ * Tested up to: 5.8.2
  * WC requires at least: 2.5
- * WC tested up to: 5.5
+ * WC tested up to: 6.0.0
  * Woo: 527886:c9ba8f8352cd71b5508af5161268619a
  *
  * This program is free software: you can redistribute it and/or modify
@@ -56,7 +56,7 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.9.0' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.9.1' ); // WRCS: DEFINED_VERSION.
 
 add_filter( 'woocommerce_translations_updates_for_woocommerce-one-page-checkout', '__return_true' );
 
@@ -278,7 +278,7 @@ class PP_One_Page_Checkout {
 		add_action( 'template_redirect', array( __CLASS__, 'maybe_set_session' ), 1 );
 
 		// Enable robots on OPC pages.
-		add_action( 'wp_head', array( __CLASS__, 'maybe_enable_robots' ), 5 );
+		self::maybe_enable_robots();
 
 		// Hook in just before (and after) 'woocommerce_checkout_payment' to adjust needs_payment() to ensure the payment methods are displayed on page load
 		add_action( 'woocommerce_checkout_order_review', array( __CLASS__, 'maybe_toggle_cart_needs_payment' ), 19 );
@@ -1905,13 +1905,20 @@ class PP_One_Page_Checkout {
 	 * Re-enables robots on OPC pages.
 	 *
 	 * WC 3.2 started adding no-index tags to checkout pages, this was introduced on
-	 * https://github.com/woocommerce/woocommerce/blob/master/includes/wc-template-functions.php#L3233-L3243
+	 * https://github.com/woocommerce/woocommerce/blob/master/includes/wc-template-functions.php#L3625-3635
+	 * 
+	 * Later, as WP 5.7 deprecated the `wp_robots_no_robots` function and WC dropped
+	 * support for 5.6 in 5.0, a new filter was introduced on
+	 * https://github.com/woocommerce/woocommerce/blob/master/includes/wc-template-functions.php#3645-3652
+	 * 
+	 * We are removing both of them in case we are in a OPC page.
 	 *
 	 * @since 1.5.6
 	 */
 	public static function maybe_enable_robots() {
-		if ( self::is_wcopc_checkout() ) {
+		if( self::is_wcopc_checkout() ) {
 			remove_action( 'wp_head', 'wc_page_noindex' );
+			remove_filter( 'wp_robots', 'wc_page_no_robots' );
 		}
 	}
 

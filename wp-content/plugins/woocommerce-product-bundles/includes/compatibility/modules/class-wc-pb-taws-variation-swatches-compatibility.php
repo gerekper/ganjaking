@@ -2,7 +2,6 @@
 /**
  * WC_PB_TAWS_Variation_Swatches_Compatibility
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    5.9.2
  */

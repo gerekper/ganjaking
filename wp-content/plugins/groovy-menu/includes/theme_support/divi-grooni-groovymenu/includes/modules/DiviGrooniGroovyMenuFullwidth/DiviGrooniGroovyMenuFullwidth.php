@@ -29,7 +29,7 @@ if ( ! class_exists( 'DiviGrooniGroovyMenuFullwidth' ) && class_exists( 'ET_Buil
 			return array();
 		}
 
-		public function render( $attrs, $content = null, $render_slug ) {
+		public function render( $attrs, $content, $render_slug ) {
 			$module_id    = $this->props['module_id'];
 			$module_class = $this->props['module_class'];
 
@@ -51,6 +51,6 @@ if ( ! class_exists( 'DiviGrooniGroovyMenuFullwidth' ) && class_exists( 'ET_Buil
 		}
 	}
 
-	new DiviGrooniGroovyMenuFullwidth;
+	new DiviGrooniGroovyMenuFullwidth();
 
 }

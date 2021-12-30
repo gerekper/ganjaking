@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Order class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce All Products For Subscriptions
  * @since    2.0.0
  */

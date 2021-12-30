@@ -33,6 +33,9 @@
 
 		public function handle_shop_order_bulk_actions( $redirect_to, $action, $ids ) {
 
+			// PDF Invoices settings
+			$settings = get_option( 'woocommerce_pdf_invoice_settings' );
+
 			// Bail out if this is not the pdf_bulk_export.
 			if ( $action === 'pdf_bulk_export' && class_exists("ZipArchive") ) {
 
@@ -59,10 +62,28 @@
 				$files   = array();
 				$ids 	 = array_map( 'absint', $ids );
 
+				$temporary   = array();
+
 				foreach ( $ids as $id ) {
 
+					// Get the order
 					$order   = wc_get_order( $id );
-					$files[] =  WC_send_pdf::get_woocommerce_invoice( $order );
+
+					// Create the PDF
+					if( isset( $settings["pdf_generator"] ) && $settings["pdf_generator"] == 'MPDF' ) {
+						$file 	 = WC_send_pdf::get_woocommerce_invoice( $order, NULL, FALSE );
+					} else {
+						$file 	 = WC_send_pdf::get_woocommerce_invoice( $order );
+					}
+
+					$temporary[] = $file;
+
+					// Check if the returned fileame contains the full path, add it if necessary (mPDF)
+					if (strpos( $file, $pdftemp  ) !== false ) {
+						$files[] = $file;
+					} else {
+						$files[] = $pdftemp  . '/' . $file;
+					}
 
 					$changed++;
 

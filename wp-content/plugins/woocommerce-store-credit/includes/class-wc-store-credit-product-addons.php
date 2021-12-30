@@ -90,7 +90,19 @@ class WC_Store_Credit_Product_Addons {
 			return;
 		}
 
-		wc_store_credit_get_template( 'single-product/store-credit.php' );
+		$data = wp_parse_args(
+			$product->get_meta( '_store_credit_data' ),
+			array(
+				'receiver_fields_title' => __( 'Send credit to someone?', 'woocommerce-store-credit' ),
+			)
+		);
+
+		$args = array(
+			'data'   => $data,
+			'fields' => self::get_receiver_fields(),
+		);
+
+		wc_store_credit_get_template( 'single-product/store-credit.php', $args );
 	}
 
 	/**

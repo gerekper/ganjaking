@@ -1,5 +1,8 @@
 *** WooCommerce Twilio SMS Notifications Changelog ***
 
+2021.12.27 - version 1.16.2
+ * Dev - Add booking and order parameters to `wc_twilio_sms_bookings_token_map` filter hook
+
 2021.07.26 - version 1.16.1
  * Fix - Update non-ASID country code list to match Twilio's features
 

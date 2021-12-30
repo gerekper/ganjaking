@@ -2,7 +2,6 @@
 /**
  * Product Bundles global functions
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    1.0.0
  */

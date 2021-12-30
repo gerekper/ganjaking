@@ -184,6 +184,12 @@ class UpdraftCentral_Updates_Commands extends UpdraftCentral_Commands {
 				return $status;
 			}
 
+			if (is_wp_error($result[$plugin])) {
+				$status['error'] = $result[$plugin]->get_error_code();
+				$status['error_message'] = $result[$plugin]->get_error_message();
+				return $status;
+			}
+			
 			$plugin_data = get_plugins('/' . $result[$plugin]['destination_name']);
 			$plugin_data = reset($plugin_data);
 

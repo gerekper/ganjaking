@@ -515,7 +515,7 @@ class Crypt_RSA
                 case !function_exists('openssl_pkey_get_details'):
                     define('CRYPT_RSA_MODE', CRYPT_RSA_MODE_INTERNAL);
                     break;
-                case extension_loaded('openssl') && version_compare(PHP_VERSION, '4.2.0', '>=') && file_exists($this->configFile):
+                case function_exists('phpinfo') && extension_loaded('openssl') && version_compare(PHP_VERSION, '4.2.0', '>=') && file_exists($this->configFile):
                     // some versions of XAMPP have mismatched versions of OpenSSL which causes it not to work
                     ob_start();
                     @phpinfo();
@@ -589,7 +589,7 @@ class Crypt_RSA
      * @access public
      * @param int $bits
      * @param int $timeout
-     * @param Math_BigInteger $p
+     * @param array $partial
      */
     function createKey($bits = 1024, $timeout = false, $partial = array())
     {
@@ -768,7 +768,12 @@ class Crypt_RSA
      *
      * @access private
      * @see self::setPrivateKeyFormat()
-     * @param string $RSAPrivateKey
+     * @param Math_BigInteger $n
+     * @param Math_BigInteger $e
+     * @param Math_BigInteger $d
+     * @param array<int,Math_BigInteger> $primes
+     * @param array<int,Math_BigInteger> $exponents
+     * @param array<int,Math_BigInteger> $coefficients
      * @return string
      */
     function _convertPrivateKey($n, $e, $d, $primes, $exponents, $coefficients)
@@ -931,9 +936,9 @@ class Crypt_RSA
                 );
                 $key = "openssh-key-v1\0$key";
 
-                return "-----BEGIN OPENSSH PRIVATE KEY-----\r\n" .
-                       chunk_split(base64_encode($key), 70) .
-                       "-----END OPENSSH PRIVATE KEY-----";
+                return "-----BEGIN OPENSSH PRIVATE KEY-----\n" .
+                       chunk_split(base64_encode($key), 70, "\n") .
+                       "-----END OPENSSH PRIVATE KEY-----\n";
             default: // eg. CRYPT_RSA_PRIVATE_FORMAT_PKCS1
                 $components = array();
                 foreach ($raw as $name => $value) {
@@ -1061,8 +1066,9 @@ class Crypt_RSA
      *
      * @access private
      * @see self::setPublicKeyFormat()
-     * @param string $RSAPrivateKey
-     * @return string
+     * @param Math_BigInteger $n
+     * @param Math_BigInteger $e
+     * @return string|array<string,Math_BigInteger>
      */
     function _convertPublicKey($n, $e)
     {
@@ -1292,6 +1298,7 @@ class Crypt_RSA
                     $length = $this->_decodeLength($temp);
                     switch ($this->_string_shift($temp, $length)) {
                         case "\x2a\x86\x48\x86\xf7\x0d\x01\x01\x01": // rsaEncryption
+                        case "\x2A\x86\x48\x86\xF7\x0D\x01\x01\x0A": // rsaPSS
                             break;
                         case "\x2a\x86\x48\x86\xf7\x0d\x01\x05\x03": // pbeWithMD5AndDES-CBC
                             /*
@@ -1624,6 +1631,8 @@ class Crypt_RSA
 
                 return $components;
         }
+
+        return false;
     }
 
     /**
@@ -1962,7 +1971,6 @@ class Crypt_RSA
      *
      * @see self::getPublicKey()
      * @access public
-     * @param string $key
      * @param int $type optional
      */
     function getPublicKey($type = CRYPT_RSA_PUBLIC_FORMAT_PKCS8)
@@ -2020,7 +2028,6 @@ class Crypt_RSA
      *
      * @see self::getPublicKey()
      * @access public
-     * @param string $key
      * @param int $type optional
      * @return mixed
      */
@@ -2045,8 +2052,7 @@ class Crypt_RSA
      *
      * @see self::getPrivateKey()
      * @access private
-     * @param string $key
-     * @param int $type optional
+     * @param int $mode optional
      */
     function _getPrivatePublicKey($mode = CRYPT_RSA_PUBLIC_FORMAT_PKCS8)
     {
@@ -2263,7 +2269,7 @@ class Crypt_RSA
      *    of the hash function Hash) and 0.
      *
      * @access public
-     * @param int $format
+     * @param int $sLen
      */
     function setSaltLength($sLen)
     {
@@ -2296,7 +2302,7 @@ class Crypt_RSA
      * See {@link http://tools.ietf.org/html/rfc3447#section-4.2 RFC3447#section-4.2}.
      *
      * @access private
-     * @param string $x
+     * @param int|string|resource $x
      * @return Math_BigInteger
      */
     function _os2ip($x)
@@ -2523,7 +2529,7 @@ class Crypt_RSA
      *
      * @access private
      * @param string $mgfSeed
-     * @param int $mgfLen
+     * @param int $maskLen
      * @return string
      */
     function _mgf1($mgfSeed, $maskLen)
@@ -2658,9 +2664,9 @@ class Crypt_RSA
             $offset+= $patternMatch ? 0 : 1;
         }
 
-        // we do & instead of && to avoid https://en.wikipedia.org/wiki/Short-circuit_evaluation
+        // we do | instead of || to avoid https://en.wikipedia.org/wiki/Short-circuit_evaluation
         // to protect against timing attacks
-        if (!$hashesMatch & !$patternMatch) {
+        if (!$hashesMatch | !$patternMatch) {
             user_error('Decryption error');
             return false;
         }
@@ -2996,6 +3002,59 @@ class Crypt_RSA
     }
 
     /**
+     * EMSA-PKCS1-V1_5-ENCODE (without NULL)
+     *
+     * Quoting https://tools.ietf.org/html/rfc8017#page-65,
+     *
+     * "The parameters field associated with id-sha1, id-sha224, id-sha256,
+     *  id-sha384, id-sha512, id-sha512/224, and id-sha512/256 should
+     *  generally be omitted, but if present, it shall have a value of type
+     *  NULL"
+     *
+     * @access private
+     * @param string $m
+     * @param int $emLen
+     * @return string
+     */
+    function _emsa_pkcs1_v1_5_encode_without_null($m, $emLen)
+    {
+        $h = $this->hash->hash($m);
+        if ($h === false) {
+            return false;
+        }
+
+        switch ($this->hashName) {
+            case 'sha1':
+                $t = pack('H*', '301f300706052b0e03021a0414');
+                break;
+            case 'sha256':
+                $t = pack('H*', '302f300b06096086480165030402010420');
+                break;
+            case 'sha384':
+                $t = pack('H*', '303f300b06096086480165030402020430');
+                break;
+            case 'sha512':
+                $t = pack('H*', '304f300b06096086480165030402030440');
+                break;
+            default:
+                return false;
+        }
+        $t.= $h;
+        $tLen = strlen($t);
+
+        if ($emLen < $tLen + 11) {
+            user_error('Intended encoded message length too short');
+            return false;
+        }
+
+        $ps = str_repeat(chr(0xFF), $emLen - $tLen - 3);
+
+        $em = "\0\1$ps\0$t";
+
+        return $em;
+    }
+
+    /**
      * RSASSA-PKCS1-V1_5-SIGN
      *
      * See {@link http://tools.ietf.org/html/rfc3447#section-8.2.1 RFC3447#section-8.2.1}.
@@ -3032,6 +3091,7 @@ class Crypt_RSA
      *
      * @access private
      * @param string $m
+     * @param string $s
      * @return string
      */
     function _rsassa_pkcs1_v1_5_verify($m, $s)
@@ -3060,13 +3120,17 @@ class Crypt_RSA
         // EMSA-PKCS1-v1_5 encoding
 
         $em2 = $this->_emsa_pkcs1_v1_5_encode($m, $this->k);
-        if ($em2 === false) {
+        $em3 = $this->_emsa_pkcs1_v1_5_encode_without_null($m, $this->k);
+
+        if ($em2 === false && $em3 === false) {
             user_error('RSA modulus too short');
             return false;
         }
 
         // Compare
-        return $this->_equals($em, $em2);
+
+        return ($em2 !== false && $this->_equals($em, $em2)) ||
+               ($em3 !== false && $this->_equals($em, $em3));
     }
 
     /**
@@ -3172,7 +3236,7 @@ class Crypt_RSA
      *
      * @see self::encrypt()
      * @access public
-     * @param string $plaintext
+     * @param string $ciphertext
      * @return string
      */
     function decrypt($ciphertext)

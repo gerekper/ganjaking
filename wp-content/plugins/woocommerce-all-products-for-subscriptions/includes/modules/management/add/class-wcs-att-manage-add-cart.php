@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Manage_Add_Cart class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce All Products For Subscriptions
  * @since    2.1.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add stuff to existing subscriptions.
  *
  * @class    WCS_ATT_Manage_Add_Cart
- * @version  3.1.19
+ * @version  3.1.33
  */
 class WCS_ATT_Manage_Add_Cart extends WCS_ATT_Abstract_Module {
 
@@ -127,6 +126,11 @@ class WCS_ATT_Manage_Add_Cart extends WCS_ATT_Abstract_Module {
 	public static function options_template() {
 
 		if ( 'off' === get_option( 'wcsatt_add_cart_to_subscription', 'off' ) ) {
+			return;
+		}
+
+		// User must be logged in.
+		if ( ! is_user_logged_in() ) {
 			return;
 		}
 

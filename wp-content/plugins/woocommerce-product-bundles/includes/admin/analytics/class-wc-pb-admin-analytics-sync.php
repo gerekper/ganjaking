@@ -2,7 +2,6 @@
 /**
  * WC_PB_Admin_Analytics_Sync class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    6.9.0
  */

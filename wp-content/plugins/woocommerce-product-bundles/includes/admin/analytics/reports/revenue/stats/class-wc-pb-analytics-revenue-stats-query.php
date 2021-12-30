@@ -3,7 +3,6 @@
  * REST API Reports Stats Query
  * Handles requests to the '/reports/bundles/stats' endpoint.
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    6.9.0
  */

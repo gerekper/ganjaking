@@ -2,7 +2,6 @@
 /**
  * WC_PB_Product_Import class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    5.4.0
  */

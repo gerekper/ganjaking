@@ -1,5 +1,8 @@
 *** WooCommerce Instagram Changelog ***
 
+2021-12-16 - version 3.7.1
+* Tweak - Tested compatibility with WC 6.0.
+
 2021-11-03 - version 3.7.0
 * Feature - Include additional information such as color, size, gender, etc. in the product catalogs.
 * Tweak - Tested compatibility with WC 5.9.

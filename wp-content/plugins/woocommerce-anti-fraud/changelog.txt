@@ -1,5 +1,8 @@
 *** WooCommerce Anti Fraud ***
 
+2021-12-20 - version 4.1
+* PLUGINS-1255 - Correct settings for proxy/vpn, multiple attempts and mismatch address.
+
 2021-11-04 - version 4.0
 * PLUGINS-1121 - Customer IP address did not match given billing country not working correctly.
 * PLUGINS-1203 - Support better minFraud Score Outputs.

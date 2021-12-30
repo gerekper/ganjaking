@@ -2,7 +2,6 @@
 /**
  * WC_PB_Stripe_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    6.6.1
  */

@@ -1,5 +1,8 @@
 *** WooCommerce Composite Products ***
 
+2021.12.21 - version 8.3.6
+* Fix - Change price filters priority to retain compatibility with All Products for WooCommerce Subscriptions.
+
 2021.12.15 - version 8.3.5
 * Fix - Fixed an issue that made component discounts apply twice when manually renewing a Composite Product on subscription. 
 

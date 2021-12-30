@@ -1,5 +1,9 @@
 *** Shipping Per Product Changelog ***
 
+2021-12-13 - version 2.3.16
+* Fix - Make Australia 2 digits state code works.
+* Tweak - WC 5.9 & WP 5.8 compatibility.
+
 2021-08-12 - version 2.3.15
 * Fix - Only allow 200 shipping rule tables to be edited in the product editor.
 * Fix - Skip importing rows where the product ID is empty.

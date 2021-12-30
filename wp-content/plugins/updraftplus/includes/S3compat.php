@@ -137,6 +137,9 @@ class UpdraftPlus_S3_Compat {
 		if ($use_ssl) $opts['ssl.certificate_authority'] = $ssl_ca_cert;
 
 		$this->client = Aws\S3\S3Client::factory($opts);
+		
+		global $updraftplus;
+		$this->client->setUserAgent(' UpdraftPlus/'.$updraftplus->version, true);
 	}
 
 	/**

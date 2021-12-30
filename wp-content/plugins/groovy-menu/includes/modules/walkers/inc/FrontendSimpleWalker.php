@@ -97,6 +97,13 @@ class FrontendSimpleWalker extends WalkerNavMenu {
 			$classes[] = 'gm-close-by-click-only';
 		}
 
+		if ( $this->hasChildren( $classes ) ) {
+			$classes[] = 'gm-dropdown';
+		}
+		if ( $this->hasParents() && $this->hasChildren( $classes ) ) {
+			$classes[] = 'gm-dropdown-submenu';
+		}
+
 		$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args, $depth ) );
 		$class_names = trim( $class_names ) ? ' class="' . esc_attr( $class_names ) . '"' : '';
 
@@ -320,6 +327,13 @@ class FrontendSimpleWalker extends WalkerNavMenu {
 			$item_output .= $link_before . $current_title . $link_after;
 			$item_output .= '</span>'; // .gm-menu-item__txt
 			$item_output .= $badge['right'];
+			if ( ! empty( $groovyMenuSettings['toolbarMenuTopShowCaret'] ) && $groovyMenuSettings['toolbarMenuTopShowCaret'] && $depth < 1 ) {
+				if ( $this->hasParents() && $this->hasChildren( $classes ) ) {
+					$item_output .= '<span class="gm-caret" aria-label="submenu"><i class="fa fa-fw fa-angle-right"></i></span>';
+				} elseif ( $this->hasChildren( $classes ) ) {
+					$item_output .= '<span class="gm-caret" aria-label="dropdown"><i class="fa fa-fw fa-angle-down"></i></span>';
+				}
+			}
 			$item_output .= '</span>'; // .gm-menu-item__txt-wrapper
 
 			if ( ! empty( $item->url ) ) {

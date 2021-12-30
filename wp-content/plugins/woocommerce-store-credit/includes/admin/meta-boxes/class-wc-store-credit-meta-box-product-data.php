@@ -128,12 +128,26 @@ class WC_Store_Credit_Meta_Box_Product_Data {
 			);
 		}
 
+		$fields['different_receiver_group'] = array(
+			'type' => 'options_group',
+		);
+
 		$fields['allow_different_receiver'] = array(
 			'id'          => '_store_credit_allow_different_receiver',
 			'label'       => _x( 'Send to someone', 'coupon: field label', 'woocommerce-store-credit' ),
 			'description' => _x( 'Allow purchasing credit for a different person.', 'coupon: field desc', 'woocommerce-store-credit' ),
 			'type'        => 'checkbox',
 			'value'       => ( isset( $values['allow_different_receiver'] ) ? $values['allow_different_receiver'] : 'yes' ),
+		);
+
+		$fields['receiver_fields_title'] = array(
+			'id'          => '_store_credit_receiver_fields_title',
+			'label'       => _x( 'Title to display', 'coupon: field label', 'woocommerce-store-credit' ),
+			'description' => _x( 'Add a title for the receiver form.', 'coupon: field desc', 'woocommerce-store-credit' ),
+			'desc_tip'    => true,
+			'type'        => 'text',
+			'value'       => ( isset( $values['receiver_fields_title'] ) ? $values['receiver_fields_title'] : '' ),
+			'placeholder' => __( 'Send credit to someone?', 'woocommerce-store-credit' ),
 		);
 
 		$fields['display_receiver_fields'] = array(

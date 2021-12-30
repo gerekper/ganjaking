@@ -238,29 +238,29 @@ function groovyMenu( $args = array() ) {
 	 * Google Font link building
 	 */
 
-	if ( ! empty( $groovyMenuSettings['googleFont'] ) && $groovyMenuSettings['googleFont'] !== 'none' ) {
+	if ( ! empty( $groovyMenuSettings['googleFont'] ) && 'none' !== $groovyMenuSettings['googleFont'] ) {
 
 		$common_font_family   = rawurlencode( $groovyMenuSettings['googleFont'] );
 		$common_font_variants = [];
 		$common_font_subsets  = [];
 
-		if ( ! empty( $groovyMenuSettings['itemTextWeight'] ) && $groovyMenuSettings['itemTextWeight'] !== 'none' ) {
+		if ( ! empty( $groovyMenuSettings['itemTextWeight'] ) && 'none' !== $groovyMenuSettings['itemTextWeight'] ) {
 			array_push( $common_font_variants, $groovyMenuSettings['itemTextWeight'] );
 		}
 
-		if ( ! empty( $groovyMenuSettings['mobileItemTextWeight'] ) && $groovyMenuSettings['mobileItemTextWeight'] !== 'none' ) {
+		if ( ! empty( $groovyMenuSettings['mobileItemTextWeight'] ) && 'none' !== $groovyMenuSettings['mobileItemTextWeight'] ) {
 			array_push( $common_font_variants, $groovyMenuSettings['mobileItemTextWeight'] );
 		}
 
-		if ( ! empty( $groovyMenuSettings['mobileSubitemTextWeight'] ) && $groovyMenuSettings['mobileSubitemTextWeight'] !== 'none' ) {
+		if ( ! empty( $groovyMenuSettings['mobileSubitemTextWeight'] ) && 'none' !== $groovyMenuSettings['mobileSubitemTextWeight'] ) {
 			array_push( $common_font_variants, $groovyMenuSettings['mobileSubitemTextWeight'] );
 		}
 
-		if ( ! empty( $groovyMenuSettings['subLevelItemTextWeight'] ) && $groovyMenuSettings['subLevelItemTextWeight'] !== 'none' ) {
+		if ( ! empty( $groovyMenuSettings['subLevelItemTextWeight'] ) && 'none' !== $groovyMenuSettings['subLevelItemTextWeight'] ) {
 			array_push( $common_font_variants, $groovyMenuSettings['subLevelItemTextWeight'] );
 		}
 
-		if ( ! empty( $groovyMenuSettings['megamenuTitleTextWeight'] ) && $groovyMenuSettings['megamenuTitleTextWeight'] !== 'none' ) {
+		if ( ! empty( $groovyMenuSettings['megamenuTitleTextWeight'] ) && 'none' !== $groovyMenuSettings['megamenuTitleTextWeight'] ) {
 			array_push( $common_font_variants, $groovyMenuSettings['megamenuTitleTextWeight'] );
 		}
 
@@ -269,15 +269,15 @@ function groovyMenu( $args = array() ) {
 			$common_font_family         = $common_font_family . ':' . implode( ',', $uniq_common_fonts_variants );
 		}
 
-		if ( ! empty( $groovyMenuSettings['itemTextSubset'] ) && $groovyMenuSettings['itemTextSubset'] !== 'none' ) {
+		if ( ! empty( $groovyMenuSettings['itemTextSubset'] ) && 'none' !== $groovyMenuSettings['itemTextSubset'] ) {
 			array_push( $common_font_subsets, $groovyMenuSettings['itemTextSubset'] );
 		}
 
-		if ( ! empty( $groovyMenuSettings['subLevelItemTextSubset'] ) && $groovyMenuSettings['subLevelItemTextSubset'] !== 'none' ) {
+		if ( ! empty( $groovyMenuSettings['subLevelItemTextSubset'] ) && 'none' !== $groovyMenuSettings['subLevelItemTextSubset'] ) {
 			array_push( $common_font_subsets, $groovyMenuSettings['subLevelItemTextSubset'] );
 		}
 
-		if ( ! empty( $groovyMenuSettings['megamenuTitleTextSubset'] ) && $groovyMenuSettings['megamenuTitleTextSubset'] !== 'none' ) {
+		if ( ! empty( $groovyMenuSettings['megamenuTitleTextSubset'] ) && 'none' !== $groovyMenuSettings['megamenuTitleTextSubset'] ) {
 			array_push( $common_font_subsets, $groovyMenuSettings['megamenuTitleTextSubset'] );
 		}
 
@@ -289,17 +289,17 @@ function groovyMenu( $args = array() ) {
 		$output_html .= groovy_menu_add_gfonts_fontface( $preset_id, 'google_font', $common_font_family, ( ! $args['gm_echo'] ) );
 	}
 
-	if ( ! empty( $groovyMenuSettings['logoTxtFont'] ) && $groovyMenuSettings['logoTxtFont'] !== 'none' ) {
+	if ( ! empty( $groovyMenuSettings['logoTxtFont'] ) && 'none' !== $groovyMenuSettings['logoTxtFont'] && 'text' === $groovyMenuSettings['logoType'] ) {
 
 		$logo_font_family   = rawurlencode( $groovyMenuSettings['logoTxtFont'] );
 		$logo_font_variants = [];
 		$logo_font_subsets  = [];
 
-		if ( ! empty( $groovyMenuSettings['logoTxtWeight'] ) && $groovyMenuSettings['logoTxtWeight'] !== 'none' ) {
+		if ( ! empty( $groovyMenuSettings['logoTxtWeight'] ) && 'none' !== $groovyMenuSettings['logoTxtWeight'] ) {
 			array_push( $logo_font_variants, $groovyMenuSettings['logoTxtWeight'] );
 		}
 
-		if ( ! empty( $groovyMenuSettings['stickyLogoTxtWeight'] ) && $groovyMenuSettings['stickyLogoTxtWeight'] !== 'none' ) {
+		if ( ! empty( $groovyMenuSettings['stickyLogoTxtWeight'] ) && 'none' !== $groovyMenuSettings['stickyLogoTxtWeight'] ) {
 			array_push( $logo_font_variants, $groovyMenuSettings['stickyLogoTxtWeight'] );
 		}
 
@@ -308,11 +308,11 @@ function groovyMenu( $args = array() ) {
 			$logo_font_family         = $logo_font_family . ':' . implode( ',', $uniq_logo_fonts_variants );
 		}
 
-		if ( ! empty( $groovyMenuSettings['logoTxtSubset'] ) && $groovyMenuSettings['logoTxtSubset'] !== 'none' ) {
+		if ( ! empty( $groovyMenuSettings['logoTxtSubset'] ) && 'none' !== $groovyMenuSettings['logoTxtSubset'] ) {
 			array_push( $logo_font_subsets, $groovyMenuSettings['logoTxtSubset'] );
 		}
 
-		if ( ! empty( $groovyMenuSettings['stickyLogoTxtSubset'] ) && $groovyMenuSettings['stickyLogoTxtSubset'] !== 'none' ) {
+		if ( ! empty( $groovyMenuSettings['stickyLogoTxtSubset'] ) && 'none' !== $groovyMenuSettings['stickyLogoTxtSubset'] ) {
 			array_push( $logo_font_subsets, $groovyMenuSettings['stickyLogoTxtSubset'] );
 		}
 
@@ -322,6 +322,34 @@ function groovyMenu( $args = array() ) {
 		}
 
 		$output_html .= groovy_menu_add_gfonts_fontface( $preset_id, 'logo_txt_font', $logo_font_family, ( ! $args['gm_echo'] ) );
+	}
+
+
+	if ( ! empty( $groovyMenuSettings['toolbarMenuTextFont'] ) && 'none' !== $groovyMenuSettings['toolbarMenuTextFont'] && $groovyMenuSettings['toolbarMenuEnable'] ) {
+
+		$toolbar_menu_font_family   = rawurlencode( $groovyMenuSettings['toolbarMenuTextFont'] );
+		$toolbar_menu_font_variants = [];
+		$toolbar_menu_font_subsets  = [];
+
+		if ( ! empty( $groovyMenuSettings['toolbarMenuTextWeight'] ) && 'none' !== $groovyMenuSettings['toolbarMenuTextWeight'] ) {
+			array_push( $toolbar_menu_font_variants, $groovyMenuSettings['toolbarMenuTextWeight'] );
+		}
+
+		if ( ! empty( $toolbar_menu_font_variants ) ) {
+			$uniq_toolbar_menu_fonts_variants = array_unique( $toolbar_menu_font_variants );
+			$toolbar_menu_font_family         = $toolbar_menu_font_family . ':' . implode( ',', $uniq_toolbar_menu_fonts_variants );
+		}
+
+		if ( ! empty( $groovyMenuSettings['toolbarMenuTextSubset'] ) && 'none' !== $groovyMenuSettings['toolbarMenuTextSubset'] ) {
+			array_push( $toolbar_menu_font_subsets, $groovyMenuSettings['toolbarMenuTextSubset'] );
+		}
+
+		if ( ! empty( $toolbar_menu_font_variants ) && ! empty( $toolbar_menu_font_subsets ) ) {
+			$uniq_toolbar_menu_fonts_subsets = array_unique( $toolbar_menu_font_subsets );
+			$toolbar_menu_font_family        = $toolbar_menu_font_family . '&subset=' . implode( ',', $uniq_toolbar_menu_fonts_subsets );
+		}
+
+		$output_html .= groovy_menu_add_gfonts_fontface( $preset_id, 'toolbar_menu_txt_font', $toolbar_menu_font_family, ( ! $args['gm_echo'] ) );
 	}
 
 	$uniqid = empty( $groovyMenuSettings['gm-uniqid'][ $args['gm_preset_id'] ] ) ? 'gm-' . uniqid() : $groovyMenuSettings['gm-uniqid'][ $args['gm_preset_id'] ];

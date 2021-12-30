@@ -2,7 +2,6 @@
 /**
  * Status Report data for APFS.
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  All Products for WooCommerce Subscriptions
  * @since    3.1.8
  */

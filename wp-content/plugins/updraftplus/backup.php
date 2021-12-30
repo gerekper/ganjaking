@@ -1240,7 +1240,7 @@ class UpdraftPlus_Backup {
 
 			// 03-Sep-2015 - came across a case (HS#2052) where there apparently was a check-in 'last time', but no resumption was scheduled because the 'useful_checkin' jobdata was *not* last time - which must indicate dying at a very unfortunate/unlikely point in the code. As a result, the split was not auto-reduced. Consequently, we've added !$updraftplus->newresumption_scheduled as a condition on the first check here (it was already on the second), as if no resumption is scheduled then whatever checkin there was last time was only partial. This was on GoDaddy, for which a number of curious I/O event combinations have been seen in recent months - their platform appears to have some odd behaviour when PHP is killed off.
 			// 04-Sep-2015 - move the '$updraftplus->current_resumption<=10' check to the inner loop (instead of applying to this whole section), as I see no reason for that restriction (case seen in HS#2064 where it was required on resumption 15)
-			if ($updraftplus->no_checkin_last_time || !$updraftplus->newresumption_scheduled) {
+			if ($updraftplus->no_checkin_last_time || !$updraftplus->newresumption_scheduled || $updraftplus->resumption_scheduled_for_cleanup) {
 				// Apr 2015: !$updraftplus->newresumption_scheduled added after seeing a log where there was no activity on resumption 9, and extra resumption 10 then tried the same operation.
 				if ($updraftplus->current_resumption - $updraftplus->last_successful_resumption > 2 || !$updraftplus->newresumption_scheduled) {
 					$this->try_split = true;

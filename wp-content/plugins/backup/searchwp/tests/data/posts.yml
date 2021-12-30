@@ -1,5 +1,0 @@
-Trendwerk\Faker\Entity\Post:
-  post{1..500}:
-    post_content: <realText(10000)>
-    post_title: '<realText(100)>'
-    post_type: "<randomElement(array('post','page','movies', 'alpha', 'beta', 'gamma', 'omega'))>"

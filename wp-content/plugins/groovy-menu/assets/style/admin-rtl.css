@@ -3431,34 +3431,34 @@ ICON FONT
   -moz-osx-font-smoothing: grayscale;
   speak: none; }
 
-.gm-icon-crown:before {
+.gm-icon-crown::before {
   content: "\e900"; }
 
-.gm-icon-file-box:before {
+.gm-icon-file-box::before {
   content: "\e901"; }
 
-.gm-icon-list:before {
+.gm-icon-list::before {
   content: "\e902"; }
 
-.gm-icon-help:before {
+.gm-icon-help::before {
   content: "\e903"; }
 
-.gm-icon-tools:before {
+.gm-icon-tools::before {
   content: "\e904"; }
 
-.gm-icon-download:before {
+.gm-icon-download::before {
   content: "\e905"; }
 
-.gm-icon-layers:before {
+.gm-icon-layers::before {
   content: "\e906"; }
 
-.gm-icon-power-off:before {
+.gm-icon-power-off::before {
   content: "\e907"; }
 
-.gm-icon-music-mixer:before {
+.gm-icon-music-mixer::before {
   content: "\e908"; }
 
-.gm-icon-drop:before {
+.gm-icon-drop::before {
   content: "\e909"; }
 
 /***************************************

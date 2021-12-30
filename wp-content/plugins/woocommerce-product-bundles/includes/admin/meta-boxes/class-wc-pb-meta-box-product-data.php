@@ -2,7 +2,6 @@
 /**
  * WC_PB_Meta_Box_Product_Data class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    5.0.0
  */

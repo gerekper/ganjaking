@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Class WC_Account_Funds_Integration_Subscription.
+ * Class WC_Account_Funds_Integration_All_Products_Subscriptions.
  */
 class WC_Account_Funds_Integration_All_Products_Subscriptions implements WC_Account_Funds_Integration {
 

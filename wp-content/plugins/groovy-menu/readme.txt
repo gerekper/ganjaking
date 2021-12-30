@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.8
-Stable tag: 2.6.0
+Stable tag: 2.6.1
 Requires PHP: 7.0
 License: Themeforest Split Licence
 License URI: -
@@ -65,6 +65,12 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.6.1 =
+* Add: Option for additional menu that allow to show submenu on click or hover.
+* Add: Added option to set own font for additional menu.
+* Add: Added compatibility with Bricks page builder.
+* Fix: Error Message deprecated $render_slug on PHP 8+
 
 = 2.6.0 =
 * Improve: The plugin has been highly optimized, the size of the main frontend.js file has been reduced by more than 3 times.

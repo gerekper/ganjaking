@@ -29,6 +29,8 @@ class UpdraftPlus_Addons_Migrator {
 	private $restore_options = array();
 
 	private $page_size = 5000;
+
+	private $old_abspath = '';
 	
 	// This is also used to detect the situation of importing a single site into a multisite
 	// Public, as it is used externally
@@ -45,6 +47,7 @@ class UpdraftPlus_Addons_Migrator {
 		add_action('updraftplus_restore_db_record_old_home', array($this, 'updraftplus_restore_db_record_old_home'));
 		add_action('updraftplus_restore_db_record_old_content', array($this, 'updraftplus_restore_db_record_old_content'));
 		add_action('updraftplus_restore_db_record_old_uploads', array($this, 'updraftplus_restore_db_record_old_uploads'));
+		add_action('updraftplus_restore_db_record_old_abspath', array($this, 'updraftplus_restore_db_record_old_abspath'));
 		add_action('updraftplus_restored_plugins_one', array($this, 'restored_plugins_one'));
 		add_action('updraftplus_restored_themes_one', array($this, 'restored_themes_one'));
 		add_action('updraftplus_debugtools_dashboard', array($this, 'debugtools_dashboard'), 30);
@@ -705,6 +708,18 @@ class UpdraftPlus_Addons_Migrator {
 		$this->old_uploads = $old_uploads;
 	}
 
+	/**
+	 * This function is called via a filter it saves the passed in old abspath value from restorer.php to a class variable for later use
+	 *
+	 * @param String $old_abspath - the old abspath
+	 *
+	 * @return void
+	 */
+	public function updraftplus_restore_db_record_old_abspath($old_abspath) {
+		if ('' !== $this->old_abspath) return;
+		$this->old_abspath = $old_abspath;
+	}
+
 	public function updraftplus_restore_db_pre() {
 
 		global $wpdb, $updraftplus, $updraftplus_restorer;
@@ -790,6 +805,8 @@ class UpdraftPlus_Addons_Migrator {
 		$old_uploads = isset($this->old_uploads) ? $this->old_uploads : false;
 		if (!$old_home && !$old_siteurl) return;
 
+		$old_abspath = $this->old_abspath;
+
 		if (empty($this->tables_replaced)) $this->tables_replaced = array();
 
 		// Already done?
@@ -826,7 +843,7 @@ class UpdraftPlus_Addons_Migrator {
 			$try_site_blog_replace = true;
 		} else {
 
-			list($from_array, $to_array) = $this->build_searchreplace_array($old_siteurl, $old_home, $old_content, $old_uploads);
+			list($from_array, $to_array) = $this->build_searchreplace_array($old_siteurl, $old_home, $old_content, $old_uploads, $old_abspath);
 
 			// This block is for multisite installs, to do the search/replace of each site's URL individually. We want to try to do it here for efficiency - i.e. so that we don't have to double-pass tables
 			if (!empty($this->restored_blogs) && preg_match('/^(\d+)_(.*)$/', substr($table, strlen($import_table_prefix)), $tmatches) && (preg_match('#^((https?://)([^/]+))#i', $this->home, $matches) || preg_match('#^((https?://)([^/]+))#i', $this->siteurl, $matches)) && (preg_match('#^((https?://)([^/]+))#i', $old_home, $omatches) || preg_match('#^((https?://)([^/]+))#i', $old_siteurl, $omatches))) {
@@ -971,16 +988,17 @@ class UpdraftPlus_Addons_Migrator {
 	}
 		
 	/**
-	 * Builds from supplied parameters and $this->(siteurl,home,content,uploads)
+	 * Builds from supplied parameters and $this->(siteurl,home,content,uploads,abspath)
 	 *
-	 * @param String		 $old_siteurl
-	 * @param String		 $old_home
-	 * @param Boolean|String $old_content
-	 * @param Boolean|String $old_uploads
+	 * @param String         $old_siteurl - the old site url
+	 * @param String         $old_home    - the old home url
+	 * @param Boolean|String $old_content - the old content url
+	 * @param Boolean|String $old_uploads - the old upload url
+	 * @param String         $old_abspath - the old abspath
 	 *
 	 * @return Array - itself containing two arrays, with corresponding 'search' and 'replace' items.
 	 */
-	private function build_searchreplace_array($old_siteurl, $old_home, $old_content = false, $old_uploads = false) {
+	private function build_searchreplace_array($old_siteurl, $old_home, $old_content = false, $old_uploads = false, $old_abspath = '') {
 	
 		// The uploads parameter, if === false, should be ignored - it is only intended to be used in the special case of single-into-multisite imports (only in that case with $this->uploads get set)
 		if (false === $old_content && false === $old_uploads) $old_content = $old_siteurl.'/wp-content';
@@ -1049,6 +1067,11 @@ class UpdraftPlus_Addons_Migrator {
 				$to_array[] = $to_array[$key];
 			}
 		}
+
+		if (rtrim($old_abspath, '/') !== '') {
+			$from_array[] = rtrim($old_abspath, '/');
+			$to_array[] = rtrim(ABSPATH, '/');
+		}
 		
 		return array($from_array, $to_array);
 	}
@@ -1095,6 +1118,8 @@ class UpdraftPlus_Addons_Migrator {
 		}
 		
 		$replace_this_uploads = isset($this->old_uploads) ? $this->old_uploads : false;
+
+		$replace_this_abspath = $this->old_abspath;
 
 		// Sanity checks
 		if (empty($replace_this_siteurl)) {
@@ -1162,7 +1187,7 @@ class UpdraftPlus_Addons_Migrator {
 
 		if (function_exists('set_time_limit')) @set_time_limit(1800);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 
-		list($from_array, $to_array) = $this->build_searchreplace_array($replace_this_siteurl, $replace_this_home, $replace_this_content, $replace_this_uploads);
+		list($from_array, $to_array) = $this->build_searchreplace_array($replace_this_siteurl, $replace_this_home, $replace_this_content, $replace_this_uploads, $replace_this_abspath);
 
 		foreach ($from_array as $ind => $from_url) {
 			$updraftplus->log_e('Database search and replace: replace %s in backup dump with %s', $from_url, $to_array[$ind]);

@@ -1,5 +1,9 @@
 *** Store Credit Changelog ***
 
+2021-12-20 - version 3.9.4
+* Feature - Added setting to edit the title to Send to someone of Store Credit products.
+* Tweak - Tested compatibility with WC 6.0.
+
 2021-12-01 - version 3.9.3
 * Tweak - Tested compatibility with WC 5.9.
 * Tweak - Improved the distribution of the coupon credit over the cart items.

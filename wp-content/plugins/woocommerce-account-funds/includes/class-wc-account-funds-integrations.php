@@ -38,6 +38,7 @@ class WC_Account_Funds_Integrations {
 	public function register_integrations() {
 		$integrations = array(
 			'WC_Account_Funds_Integration_All_Products_Subscriptions',
+			'WC_Account_Funds_Integration_Square',
 		);
 
 		/**

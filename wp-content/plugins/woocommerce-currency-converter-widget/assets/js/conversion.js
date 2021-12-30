@@ -204,7 +204,7 @@ jQuery(document).ready(function($) {
 	});
 
 	// Ajax events
-	jQuery('body').bind('wc_fragments_refreshed wc_fragments_loaded show_variation updated_checkout updated_shipping_method added_to_cart cart_page_refreshed cart_widget_refreshed updated_addons post-load', function() {
+	jQuery('body').on('wc_fragments_refreshed wc_fragments_loaded show_variation updated_checkout updated_shipping_method added_to_cart cart_page_refreshed cart_widget_refreshed updated_addons post-load', function() {
 		if ( current_currency ) {
 			switch_currency( current_currency );
 		}
@@ -243,8 +243,8 @@ jQuery(document).ready(function($) {
 		});
 
 		observer.observe(
-			document.body, 
-			{	
+			document.body,
+			{
 				attributes: true,
 				childList: true,
 				subtree: true,

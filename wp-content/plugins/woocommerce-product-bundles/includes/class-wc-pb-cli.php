@@ -2,7 +2,6 @@
 /**
  * WC_PB_CLI class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    5.5.0
  */

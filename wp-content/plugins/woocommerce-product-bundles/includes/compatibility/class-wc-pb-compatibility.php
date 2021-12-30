@@ -2,7 +2,6 @@
 /**
  * WC_PB_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    4.6.4
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_PB_Compatibility
- * @version  6.4.0
+ * @version  6.13.1
  */
 class WC_PB_Compatibility {
 
@@ -277,6 +276,11 @@ class WC_PB_Compatibility {
 
 		// ThemeAlien Variation Swatches for WooCommerce compatibility.
 		$module_paths[ 'taws_variation_swatches' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-taws-variation-swatches-compatibility.php';
+
+		// WooCommerce Payments compatibility.
+		if ( class_exists( 'WC_Payments' ) ) {
+			$module_paths[ 'wcpay' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-wc-payments-compatibility.php';
+		}
 
 		/**
 		 * 'woocommerce_bundles_compatibility_modules' filter.

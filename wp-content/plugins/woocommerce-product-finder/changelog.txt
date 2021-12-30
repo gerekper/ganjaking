@@ -1,5 +1,9 @@
 *** Product Finder Changelog ***
 
+2021-12-15 - version 1.2.19
+* Tweak - WC 6.0 compatibility.
+* Tweak - WP 5.9 compatibility.
+
 2021-02-04 - version 1.2.18
 * Tweak - WC 5.0 compatibility.
 

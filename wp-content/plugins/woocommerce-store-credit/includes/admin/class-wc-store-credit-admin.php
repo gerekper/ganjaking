@@ -187,7 +187,7 @@ class WC_Store_Credit_Admin {
 	 * @param mixed $file  Plugin Base file.
 	 * @return array
 	 */
-	public static function plugin_row_meta( $links, $file ) {
+	public function plugin_row_meta( $links, $file ) {
 		if ( WC_STORE_CREDIT_BASENAME === $file ) {
 			$row_meta = array(
 				'docs' => sprintf(

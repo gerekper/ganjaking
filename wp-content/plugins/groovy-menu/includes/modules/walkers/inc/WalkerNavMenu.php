@@ -1094,7 +1094,43 @@ class WalkerNavMenu extends Walker_Nav_Menu {
 
 				$mm_content = ob_get_clean();
 
+
+			// All other cases.
 			} else {
+
+				// Check Bricks builder content.
+				if ( defined( 'BRICKS_DB_PAGE_CONTENT' ) && class_exists( '\Bricks\Frontend' ) && class_exists( '\Bricks\Assets' ) ) {
+
+					$bricks_data = get_post_meta( $post_id, BRICKS_DB_PAGE_CONTENT, true );
+
+					// Check for old section, row, column layout syntax
+					if ( ! isset( $bricks_data[0]['parent'] ) ) {
+						$bricks_data = get_post_meta( $post_id, '_bricks_page_content', true );
+					}
+
+					if ( ! empty( $bricks_data ) && is_array( $bricks_data ) && method_exists( '\Bricks\Frontend', 'render_data' ) ) {
+
+						// Store the current main render_data \Bricks\Frontend::$elements
+						$store_elements = \Bricks\Frontend::$elements;
+
+						$bricks_content = \Bricks\Frontend::render_data( $bricks_data, $post_id, 'content', true );
+
+						// Reset the main render_data \Bricks\Frontend::$elements
+						\Bricks\Frontend::$elements = $store_elements;
+
+
+						\Bricks\Assets::$inline_css['content'] = '';
+
+						\Bricks\Assets::generate_css_from_elements( $bricks_data, 'content' );
+						$inline_css = \Bricks\Assets::$inline_css['content'];
+
+						\Bricks\Assets::$inline_css['content'] = '';
+
+						$bricks_content .= "\n <style>{$inline_css}</style>";
+
+						return $bricks_content;
+					}
+				}
 
 				$raw_content = empty( $post->post_content ) ? '' : $post->post_content;
 

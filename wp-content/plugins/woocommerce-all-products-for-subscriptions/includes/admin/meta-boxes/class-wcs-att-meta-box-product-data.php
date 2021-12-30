@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Meta_Box_Product_Data class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce All Products For Subscriptions
  * @since    2.0.0
  */

@@ -56,6 +56,8 @@ class UpdraftPlus {
 	public $current_resumption;
 
 	public $newresumption_scheduled = false;
+	
+	public $resumption_scheduled_for_cleanup = false;
 
 	public $cpanel_quota_readable = false;
 
@@ -2396,6 +2398,7 @@ class UpdraftPlus {
 			$schedule_for = time() + $resume_interval;
 			if (1 === $schedule_resumption) {
 				$this->log("Scheduling a resumption ($next_resumption) after $resume_interval seconds ($schedule_for); but the job will then be aborted unless something happens this time");
+				$this->resumption_scheduled_for_cleanup = true;
 			} else {
 				$this->log("Scheduling a resumption ($next_resumption) after $resume_interval seconds ($schedule_for) in case this run gets aborted");
 			}

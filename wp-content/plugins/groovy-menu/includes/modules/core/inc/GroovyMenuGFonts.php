@@ -318,13 +318,26 @@ class GroovyMenuGFonts {
 			),
 			array(
 				'section'     => 'styles',
+				'font_option' => 'toolbar_menu_text_font',
+				'weight'      => array(
+					'styles' => [
+						'toolbar_menu_txt_weight',
+					]
+				),
+				'subset'      => array(
+					'styles' => [
+						'toolbar_menu_txt_subset',
+					]
+				),
+			),
+			array(
+				'section'     => 'styles',
 				'font_option' => 'google_font',
 				'weight'      => array(
 					'styles' => [
 						'item_text_weight',
 						'sub_level_item_text_weight',
 						'megamenu_title_text_weight',
-						'toolbar_menu_text_weight',
 						'second_sidebar_menu_text_weight',
 						'menu_links_desc_text_weight',
 					],
@@ -338,7 +351,6 @@ class GroovyMenuGFonts {
 						'item_text_subset',
 						'sub_level_item_text_subset',
 						'megamenu_title_text_subset',
-						'toolbar_menu_text_subset',
 						'second_sidebar_menu_text_subset',
 						'menu_links_desc_text_subset',
 					],

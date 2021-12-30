@@ -102,7 +102,7 @@
 
 				} else {
 					
-					$pdf = WC_send_pdf::get_woocommerce_invoice( $order, $id );
+					$pdf = WC_send_pdf::get_woocommerce_invoice( $order, $id, FALSE );
 
             		// Apply a filter to modify the PDF if required
             		$pdf = apply_filters( 'pdf_invoice_modify_attachment', $pdf, $id, $order );
@@ -271,13 +271,21 @@
 
 				}
 
-				ob_start();
-			   	header('Content-type: application/force-download');
-			   	header('Content-Disposition: attachment; filename=' . $filename );
-			   	readfile( $file );
-			   	ob_get_contents();
+				$mpdf->Output('filename.pdf', \Mpdf\Output\Destination::FILE);
 
-			   	exit;
+				if( isset( $stream ) && $stream === FALSE ) {
+					return $file;
+				} else {
+
+					ob_start();
+				   	header('Content-type: application/force-download');
+				   	header('Content-Disposition: attachment; filename=' . $filename );
+				   	readfile( $file );
+				   	ob_get_contents();
+
+				   	exit;
+
+				}
 
 			} else {
 
@@ -298,12 +306,13 @@
 					( !isset($settings['pdf_termsid']) || $settings['pdf_termsid'] == 0 ) && 
 					( !isset($settings['pdf_creation']) || $settings['pdf_creation'] == 'standard' )
 				) {
+
 					// Start the PDF Generator for the invoice
 
 					ob_start();
 
 					$dompdf = new DOMPDF();
-					$dompdf->setOptions($options);
+					$dompdf->setOptions( $options );
 					$dompdf->load_html( $messagetext );
 					$dompdf->set_paper( $papersize, $paperorientation );
 					$dompdf->render();
@@ -320,6 +329,7 @@
 					( isset($settings['pdf_termsid']) && $settings['pdf_termsid'] != 0 ) || 
 					( isset($settings['pdf_creation']) && $settings['pdf_creation'] == 'file' )
 				) {
+
 					/**
 					 * This section deals with sending / generating a PDF Invoice that will include a Terms and Conditions page
 					 * Uses PDF Merge library
@@ -334,7 +344,7 @@
 					}
 
 					$dompdf = new DOMPDF();
-					$dompdf->setOptions($options);
+					$dompdf->setOptions( $options );
 					$dompdf->load_html( $messagetext );
 					$dompdf->set_paper( $papersize, $paperorientation );
 					$dompdf->render();
@@ -428,6 +438,7 @@
 					return ( $pdftemp . '/' . $filename );
 											
 				} else {
+
 					// Add PDF extension 
 					if (strpos($filename, '.pdf') === false) {
 						$filename =  $filename . '.pdf';

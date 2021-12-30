@@ -638,8 +638,8 @@ GROOVY TOOLBAR
 .gm-toolbar-nav-container ul,
 .gm-toolbar-nav-container li {
   list-style: none;
-  margin: 0 0 0 0;
-  padding: 0; }
+  margin: 0 !important;
+  padding: 0 !important; }
 
 .gm-toolbar-nav-container > ul > li {
   margin-left: 2px;
@@ -659,7 +659,6 @@ GROOVY TOOLBAR
   cursor: default; }
 
 .gm-toolbar-nav-container ul ul {
-  visibility: hidden;
   position: absolute;
   padding: 0;
   top: 100%;
@@ -672,9 +671,6 @@ GROOVY TOOLBAR
   left: 99.8%;
   width: 170px;
   padding: 0; }
-
-.gm-toolbar-nav-container ul li:hover > ul {
-  visibility: visible; }
 
 .gm-toolbar-nav-container ul ul {
   bottom: 0;
@@ -711,7 +707,7 @@ GROOVY TOOLBAR
   color: #686868;
   border: 0 none;
   line-height: 150%;
-  padding: 8px 20px;
+  padding: 8px 20px !important;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden; }
 

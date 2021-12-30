@@ -1,4 +1,7 @@
 *** WorldPay Changelog ***
+2021.12.22 - version 4.3.0
+ * Add security columns based on AVS result from Worldpay
+
 2021.07.20 - version 4.2.1
  * Fix CRITICAL Uncaught Error: Using $this when not in object context
 

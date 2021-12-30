@@ -16,13 +16,6 @@ class WooCommerce_Widget_Currency_Converter extends WP_Widget {
 	private $widget_id_base = 'woocommerce_currency_converter';
 
 	/**
-	 * Register the Widget with WP
-	 */
-	public static function register() {
-		register_widget( 'WooCommerce_Widget_Currency_Converter' );
-	}
-
-	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -159,5 +152,3 @@ class WooCommerce_Widget_Currency_Converter extends WP_Widget {
 		<?php
 	}
 }
-
-WooCommerce_Widget_Currency_Converter::register();

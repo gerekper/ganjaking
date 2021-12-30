@@ -202,11 +202,12 @@ jQuery( function( $ ) {
 
 							if ( 'woocommerce_json_search_products_and_variations_in_component' === $el.data( 'action' ) ) {
 
-								if ( 'yes' === $el.data( 'component_optional' ) ) {
+								if ( 'yes' === $el.data( 'component_optional' ) || '8.0' === $el.data( 'action_version' ) ) {
 									terms.push( { id: '-1', text: wc_composite_admin_params.i18n_none } );
 								}
-
-								terms.push( { id: '0', text: wc_composite_admin_params.i18n_all } );
+								if ( '8.0' !== $el.data( 'action_version' ) ) {
+									terms.push( { id: '0', text: wc_composite_admin_params.i18n_all } );
+								}
 							}
 
 							if ( data ) {

@@ -4,7 +4,6 @@
  *
  * Class for parameter-based Products Stats Report querying
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    6.9.0
  */

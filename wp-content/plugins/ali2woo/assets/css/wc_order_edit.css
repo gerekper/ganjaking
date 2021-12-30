@@ -1,12 +1,46 @@
-
 #a2w_external_order_modal {
-    display: none;    
+    display: none;
 }
 
-.ali2woo-ui-dialog > #a2w_external_order_modal {
+.ali2woo-ui-dialog>#a2w_external_order_modal {
     display: block;
 }
 
-#order_data .order_data_column .address.order_items strong{
+#order_data .order_data_column .address.order_items strong {
     display: inline;
+}
+
+.order_data_column a.product_view {
+    width: 16px;
+    margin-left: 4px;
+    height: 0;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid transparent;
+    border-radius: 4px
+}
+
+.order_data_column a.product_view::before {
+    font-family: WooCommerce;
+    speak: never;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    content: "";
+    line-height: 16px;
+    font-size: 14px;
+    vertical-align: middle;
+    top: 4px;
+}
+
+.order_data_column a.product_view:hover {
+    border: 2px solid #00a0d2
 }

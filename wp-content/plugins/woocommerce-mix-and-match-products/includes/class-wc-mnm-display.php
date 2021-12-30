@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Display
  * @since    1.0.0
- * @version  1.11.3
+ * @version  1.11.5
  */
 
 // Exit if accessed directly.

@@ -43,6 +43,7 @@ foreach ($afp_orders as $order_id) {
 
         $sql = "SELECT * FROM $wpdb->posts 
                 WHERE post_type = 'shop_order'
+                AND post_status != 'auto-draft'
                 AND post_date BETWEEN '" . $date_to . "  00:00:00' AND '" . $date_from . " 23:59:59'";
     $result = $wpdb->get_results($sql);
 
@@ -106,6 +107,7 @@ for ($i = 6; $i > 0; $i--) {
     $result = $wpdb->get_results(
         "SELECT * FROM $wpdb->posts 
                 WHERE post_type = 'shop_order'
+                AND post_status != 'auto-draft'
                 AND post_date BETWEEN '" . $date_to . "  00:00:00' AND '" . $date_from . " 23:59:59'
     "
     );
@@ -349,6 +351,7 @@ for ($i = 6; $i > 0; $i--) {
 $result = $wpdb->get_results(
     "SELECT * FROM $wpdb->posts 
                 WHERE post_type = 'shop_order'
+                AND post_status != 'auto-draft'
                 ORDER BY ID DESC LIMIT 10
     "
 );

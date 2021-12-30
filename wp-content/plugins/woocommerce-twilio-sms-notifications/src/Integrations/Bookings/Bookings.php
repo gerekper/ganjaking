@@ -856,10 +856,13 @@ class Bookings {
 		 * Allow actors to change the SMS message tokens.
 		 *
 		 * @since 1.12.0
+		 * @since 1.16.2 added booking and order parameters
 		 *
 		 * @param bool $token_map
+		 * @param \WC_Booking $booking
+		 * @param \WC_Order $order
 		 */
-		$token_map = (array) apply_filters( 'wc_twilio_sms_bookings_token_map', $token_map );
+		$token_map = (array) apply_filters( 'wc_twilio_sms_bookings_token_map', $token_map, $booking, $order );
 
 		foreach ( $token_map as $key => $value ) {
 

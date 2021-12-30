@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Display_Cart class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce All Products For Subscriptions
  * @since    1.0.0
  */

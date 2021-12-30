@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 4.0
+ * Version: 4.1
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * License: GPL v3
@@ -592,7 +592,7 @@ class WooCommerce_Anti_Fraud {
 		update_option('wc_af_attempt_count_check', 'yes');
 		update_option('wc_settings_anti_fraud_order_attempt_weight', 25);
 		update_option('wc_settings_anti_fraud_attempt_time_span', 24);
-		update_option('wc_settings_anti_fraud_max_order_attempt_time_span', 1);
+		update_option('wc_settings_anti_fraud_max_order_attempt_time_span', 5);
 		update_option('wc_af_ip_multiple_check', 'yes');
 		update_option('wc_settings_anti_fraud_ip_multiple_weight', 25);
 		update_option('wc_settings_anti_fraud_ip_multiple_time_span', 30);
@@ -826,7 +826,13 @@ function misha_validate_fname_lname( $fields, $errors ) {
 	$blocked_email = get_option('wc_settings_anti_fraudblacklist_emails');
 	$blocked_ipaddress = get_option('wc_settings_anti_fraudblacklist_ipaddress');
 	$array_mail = explode(',', $blocked_email);
-	$userRole = wp_get_current_user()->roles[0];
+	$userRole = '';
+	$user = get_user_by('email', $_POST['billing_email']);
+	if(isset($user->ID)){
+		$userRole = $user->roles[0];
+	}
+	// Af_Logger::debug('users '. print_r($user->roles[0], true));
+	// $userRole = wp_get_current_user()->roles[0];
 	if ('' != $blocked_email) {
 
 		$email_whitelist = get_option('wc_settings_anti_fraud_whitelist');
@@ -898,19 +904,42 @@ function max_order_same_ip( $fields, $errors)
 		$ip_address = WC_Geolocation::get_ip_address();
 		Af_Logger::debug('ip_address : '. $ip_address);
 
+		$user = get_user_by('email', $_POST['billing_email']);
+		// if(isset($user->ID)){
+		// 	$meta['key'] = '_customer_user';
+		// 	$meta['value'] = $user->ID;
+		// } else {
+		// 	$meta['key'] = '_billing_email';
+		// 	$meta['value'] = $_POST[ 'billing_email' ];
+		// }
+		Af_Logger::debug('User Meta : '. print_r($meta, true));
+
 		// Get the Same IP Orders
-		$orders_count = wc_get_orders(
+		$orders_count_ip = wc_get_orders(
 			array(
 				'limit'               => -1,
+				'meta_key'            => '_billing_email',
+    			'meta_value'          => $_POST[ 'billing_email' ],
 	 			'customer_ip_address' => $ip_address,
 				'type'                => wc_get_order_types( 'order-count' ),
 				'date_after'          => $start_datetime_string,
 				'date_before'         => $end_datetime_string,
 			)
 		);
-
-		Af_Logger::debug('Order Count : '. count($orders_count));
-		if (count($orders_count) >= $max_orders) {
+		$order_count_user = wc_get_orders(
+			array(
+				'limit'               => -1,
+				'meta_key'            => '_customer_user',
+    			'meta_value'          => $user->ID,
+	 			'customer_ip_address' => $ip_address,
+				'type'                => wc_get_order_types( 'order-count' ),
+				'date_after'          => $start_datetime_string,
+				'date_before'         => $end_datetime_string,
+			)
+		);
+		// Af_Logger::debug('Orders : '. print_r($orders_count, true));
+		Af_Logger::debug('Order Count : '. count($orders_count_ip));
+		if (count($orders_count_ip) >= $max_orders || count($order_count_user) >= $max_orders) {
 			$errors->add( 'validation', 'You have reached maximum number of allowed orders in ' . $time_stamp . ' hours. Please try again later.' );
 		}
 	}

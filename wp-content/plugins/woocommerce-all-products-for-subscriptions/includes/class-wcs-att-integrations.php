@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Integrations class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce All Products For Subscriptions
  * @since    1.0.0
  */
@@ -68,6 +67,11 @@ class WCS_ATT_Integrations {
 		// Stripe compatibility.
 		if ( class_exists( 'WC_Gateway_Stripe' ) ) {
 			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-stripe.php' );
+		}
+
+		// WooCommerce Payments compatibility.
+		if ( class_exists( 'WC_Payments' ) ) {
+			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-wc-payments.php' );
 		}
 
 		// Define dependencies.

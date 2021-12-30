@@ -1,6 +1,10 @@
 *** WooCommerce Mix and Match Products Changelog***
 
-2021.11.19 - verison 1.11.5
+2021.12.16 - version 1.11.6
+* Fix: Missing action parameter in add to cart form element.
+* Fix: Completely remove WooCommerce Payments payment request buttons for Mix and Match products.
+
+2021.11.19 - version 1.11.5
 * Fix: Load RTL stylesheets when not in SCRIPT_DEBUG mode.
 * Fix: Load correct stylesheet when in QuickView Modal.
 * Tweak: Moved 'add-to-cart' input value to button.

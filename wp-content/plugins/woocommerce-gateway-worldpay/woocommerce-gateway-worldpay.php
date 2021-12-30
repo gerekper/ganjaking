@@ -3,11 +3,11 @@
 Plugin Name: WooCommerce WorldPay Gateway
 Plugin URI: http://woothemes.com/woocommerce/
 Description: Extends WooCommerce. Provides a WorldPay gateway for WooCommerce. Includes basic support for Subscriptions. http://www.worldpay.com.
-Version: 4.2.1
+Version: 4.3.0
 Author: Andrew Benbow
 Author URI: http://www.chromeorange.co.uk
 WC requires at least: 3.0.0
-WC tested up to: 5.5.0
+WC tested up to: 6.0.0
 Woo: 18646:6bc48c9d12dc0c43add4b099665a80b0
 */
 
@@ -47,7 +47,13 @@ woothemes_queue_update( plugin_basename( __FILE__ ), '6bc48c9d12dc0c43add4b09966
 // Defines
 define( 'WORLDPAYPLUGINPATH', plugin_dir_path( __FILE__ ) );
 define( 'WORLDPAYPLUGINURL', plugin_dir_url( __FILE__ ) );
-define( 'WORLDPAYPLUGINVERSION', '4.2.1' );
+define( 'WORLDPAYPLUGINVERSION', '4.3.0' );
+
+// Load Admin files
+if( is_admin() ) {
+	include('classes/class-wc-gateway-worldpay-security.php');
+	$WC_Gateway_Worldpay_Security = new WC_Gateway_Worldpay_Security();
+}
 
 /**
  * Localization

@@ -108,6 +108,8 @@ class Updraft_Restorer {
 	
 	private $old_table_prefix = null;
 
+	private $old_abspath = '';
+
 	/**
 	 * Constructor
 	 *
@@ -174,6 +176,7 @@ class Updraft_Restorer {
 		$this->ud_backup_set = $backup_set;
 		
 		add_filter('updraftplus_logline', array($this, 'updraftplus_logline'), 10, 5);
+		add_action('updraftplus_restored_db_table', array($this, 'updraftplus_restored_db_table'), 10, 3);
 		
 		do_action('updraftplus_restorer_restore_options', $restore_options);
 		$this->ud_multisite_selective_restore = (is_array($restore_options) && !empty($restore_options['updraft_restore_ms_whichsites']) && $restore_options['updraft_restore_ms_whichsites'] > 0) ? $restore_options['updraft_restore_ms_whichsites'] : false;
@@ -2909,6 +2912,13 @@ class Updraft_Restorer {
 							$this->ud_backup_is_multisite = ($val) ? 1 : 0;
 						}
 					}
+				} elseif ('' == $this->old_abspath && preg_match('/^\# ABSPATH: ?(.*)$/', $buffer, $matches)) {
+					if (ABSPATH != $matches[1] && '/' != $matches[1]) {
+						$this->old_abspath = $matches[1];
+						$updraftplus->log(__('Old ABSPATH:', 'updraftplus').' '.$this->old_abspath, 'notice-restore', 'old-abspath');
+						$updraftplus->log("Old ABSPATH: {$this->old_abspath}");
+						do_action('updraftplus_restore_db_record_old_abspath', $this->old_abspath);
+					}
 				}
 				continue;
 			}
@@ -2986,6 +2996,7 @@ class Updraft_Restorer {
 						$sql_line = UpdraftPlus_Manipulation_Functions::str_replace_once($this->table_name, $this->table_prefix.$this->table_name, $sql_line);
 					}
 				}
+
 				// Run the SQL command; then set up for the next one.
 				$this->line++;
 				$updraftplus->log(__("Split line to avoid exceeding maximum packet size", 'updraftplus')." (".strlen($sql_line)." + ".strlen($buffer)." : ".$this->max_allowed_packet.")", 'notice-restore');
@@ -3128,11 +3139,12 @@ class Updraft_Restorer {
 			} elseif (preg_match('/^\s*(\/\*\!40000 )?(alter|lock) tables? \`?([^\`\(]*)\`?\s+(write|disable|enable)/i', $sql_line, $matches)) {
 				// Only binary mysqldump produces this pattern (LOCK TABLES `table` WRITE, ALTER TABLE `table` (DISABLE|ENABLE) KEYS)
 				$sql_type = 4;
-				if ($import_table_prefix != $this->old_table_prefix) {
-					if ('' != $this->old_table_prefix) {
-						$sql_line = UpdraftPlus_Manipulation_Functions::str_replace_once($this->old_table_prefix, $import_table_prefix, $sql_line);
-					} else {
+				$temp_insert_table_prefix = $this->disable_atomic_on_current_table ? $this->final_import_table_prefix : $import_table_prefix;
+				if ($temp_insert_table_prefix != $this->old_table_prefix) {
+					if ('' === $this->old_table_prefix || $non_wp_table) {
 						$sql_line = UpdraftPlus_Manipulation_Functions::str_replace_once($this->table_name, $this->new_table_name, $sql_line);
+					} else {
+						$sql_line = UpdraftPlus_Manipulation_Functions::str_replace_once($this->old_table_prefix, $temp_insert_table_prefix, $sql_line);
 					}
 				}
 			} elseif (preg_match('/^(un)?lock tables/i', $sql_line)) {
@@ -4092,6 +4104,51 @@ class Updraft_Restorer {
 		// Re-generate permalinks. Do this last - i.e. make sure everything else is fixed up first.
 		if ($table == $import_table_prefix.'options') $this->flush_rewrite_rules();
 
+	}
+
+	/**
+	 * This function will search and replace ABSPATH in the restored table
+	 *
+	 * @param string $table               - the table to search and replace
+	 * @param string $import_table_prefix - the import table prefix
+	 *
+	 * @return void
+	 */
+	public function updraftplus_restored_db_table($table, $import_table_prefix) {
+		
+		global $updraftplus;
+
+		// If this is set return as migrator will handle the abspath change, this way we don't search and replace each table twice
+		if (!empty($this->restore_options['updraft_restorer_replacesiteurl'])) return;
+
+		// If old abspath is not empty then it has changed so try and search replace it, just in case a bad plugin/theme has saved abspath to the DB
+		if (!empty($this->old_abspath)) {
+			$from_array = array();
+			$from_array[] = $this->old_abspath;
+			$to_array = array();
+			$to_array[] = ABSPATH;
+			$stripped_table = substr($table, strlen($import_table_prefix));
+			// The search/replace parameters are allowed to be either strings or arrays
+			$report = $this->search_replace_obj->icit_srdb_replacer($from_array, $to_array, array($table => $stripped_table), 5000);
+
+			// Output any errors encountered during the db work.
+			if (!empty($report['errors']) && is_array($report['errors'])) {
+				$updraftplus->log(__('Error:', 'updraftplus'), 'warning-restore', 'restore-db-error');
+				$processed_errors = array();
+				foreach ($report['errors'] as $error) {
+					if (in_array($error, $processed_errors)) continue;
+					$processed_errors[] = $error;
+					$num = count(array_keys($report['errors'], $error));
+					$err_string = $error;
+					if ($num > 1) $err_string .= ' (x'.$num.')';
+					$updraftplus->log($err_string, 'warning-restore');
+				}
+			} elseif (false == $report) {
+				$updraftplus->log(sprintf(__('Failed: the %s operation was not able to start.', 'updraftplus'), __('search and replace', 'updraftplus')), 'warning-notice');
+			} elseif (!is_array($report)) {
+				$updraftplus->log(sprintf(__('Failed: we did not understand the result returned by the %s operation.', 'updraftplus'), __('search and replace', 'updraftplus')), 'warning-notice');
+			}
+		}
 	}
 
 	/**

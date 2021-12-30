@@ -2,7 +2,6 @@
 /**
  * Admin Bundled Product view
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  */
 

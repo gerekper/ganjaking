@@ -795,11 +795,11 @@
 		  */
 		 function admin_pdf_url_check() {
 			 global $woocommerce;
-			 
-			 if ( is_admin() && isset( $_GET['pdfid'] ) ) {
+
+			if ( is_admin() && isset( $_GET['pdfid'] ) ) {
 				
-				$orderid = stripslashes( $_GET['pdfid'] );
-				$order   = new WC_Order($orderid);
+				$order_id = stripslashes( $_GET['pdfid'] );
+				$order    = new WC_Order($order_id);
 
 				echo WC_send_pdf::get_woocommerce_invoice( $order, NULL, 'false' );
 			 

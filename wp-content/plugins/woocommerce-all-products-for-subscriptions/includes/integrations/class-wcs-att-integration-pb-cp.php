@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Integration_PB_CP class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce All Products For Subscriptions
  * @since    2.3.0
  */
@@ -442,16 +441,24 @@ class WCS_ATT_Integration_PB_CP {
 	 * @param  array     $order_item
 	 * @param  WC_Order  $order
 	 * @param  boolean   $return_ids
+	 * @param  boolean   $deep
 	 * @return mixed
 	 */
-	public static function get_bundle_type_order_items( $order_item, $order = false, $return_ids = false ) {
+	public static function get_bundle_type_order_items( $order_item, $order = false, $return_ids = false, $deep = false ) {
 
 		$children = array();
 
-		foreach ( self::$child_order_item_getters as $child_order_item_getter ) {
-			$children = call_user_func_array( $child_order_item_getter, array( $order_item, $order, $return_ids ) );
-			if ( ! empty( $children ) ) {
-				break;
+		if ( $deep && function_exists( 'wc_cp_is_composite_container_order_item' ) && wc_cp_is_composite_container_order_item( $order_item ) ) {
+
+			$children = wc_cp_get_composited_order_items( $order_item, $order, $return_ids, true );
+
+		} else {
+
+			foreach ( self::$child_order_item_getters as $child_order_item_getter ) {
+				$children = call_user_func_array( $child_order_item_getter, array( $order_item, $order, $return_ids ) );
+				if ( ! empty( $children ) ) {
+					break;
+				}
 			}
 		}
 
@@ -1082,7 +1089,6 @@ class WCS_ATT_Integration_PB_CP {
 						$subtract += 1;
 					}
 
-
 					$bundled_order_items = self::get_bundle_type_order_items( $item, $subscription );
 
 					foreach ( $bundled_order_items as $bundled_item_key => $bundled_order_item ) {
@@ -1563,7 +1569,7 @@ class WCS_ATT_Integration_PB_CP {
 
 		$removing_item = $subscription->get_item( $removing_item_id );
 
-		if ( $child_items = self::get_bundle_type_order_items( $removing_item, $subscription, true ) ) {
+		if ( $child_items = self::get_bundle_type_order_items( $removing_item, $subscription, true, true ) ) {
 			foreach ( $child_items as $child_item ) {
 				wcs_update_order_item_type( $child_item, 'line_item_switched', $subscription->get_id() );
 			}
@@ -1985,12 +1991,7 @@ class WCS_ATT_Integration_PB_CP {
 				if ( $item = $subscription->get_item( $cart_item[ 'subscription_switch' ][ 'item_id' ] ) ) {
 
 					$aggregated_total_old = $item->get_total();
-
-					if ( function_exists( 'wc_cp_is_composite_container_order_item' ) && wc_cp_is_composite_container_order_item( $item ) ) {
-						$child_items = wc_cp_get_composited_order_items( $item, $subscription, false, true );
-					} else {
-						$child_items = self::get_bundle_type_order_items( $item, $subscription );
-					}
+					$child_items          = self::get_bundle_type_order_items( $item, $subscription, false, true );
 
 					if ( ! empty( $child_items ) ) {
 						foreach ( $child_items as $child_item ) {

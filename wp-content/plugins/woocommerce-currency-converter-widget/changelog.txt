@@ -1,5 +1,10 @@
 *** Currency Converter Changelog ***
 
+2021-12-21 - version 1.6.26
+* Tweak - Reduce the size of wc_currency_converter_params.
+* Tweak - WC tested up to 6.0.
+* Tweak - WP tested up to 5.8.
+
 2021-01-28 - version 1.6.25
 * Fix minification of conversion.js. PR#87
 

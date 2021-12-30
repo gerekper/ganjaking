@@ -34,7 +34,7 @@ class WC_Twilio_SMS extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '1.16.1';
+	const VERSION = '1.16.2';
 
 	/** @var WC_Twilio_SMS single instance of this plugin */
 	protected static $instance;

@@ -112,7 +112,7 @@ class UpdraftPlus_Search_Replace {
 
 			$where = '';
 			// Opportunity to use internal knowledge on tables which may be huge
-			if ('postmeta' == $stripped_table && ((is_array($search) && strpos($search[0], 'http') === 0) || strpos($search, 'http') === 0)) {
+			if ('postmeta' == $stripped_table && ((is_array($search) && 0 === strpos($search[0], 'http')) || (is_string($search) && 0 === strpos($search, 'http')))) {
 				$where = " WHERE meta_value LIKE '%http%'";
 			}
 

@@ -179,7 +179,7 @@
 
 				if( isset( $_GET['pdf_method']) && $_GET['pdf_method'] == 'send' ) {
 
-					header( 'Location: ' . WC_send_pdf::get_woocommerce_invoice( $order, NULL, TRUE ) );
+					echo WC_send_pdf::get_woocommerce_invoice( $order, NULL, 'false' );
 					exit;
 
 				} 

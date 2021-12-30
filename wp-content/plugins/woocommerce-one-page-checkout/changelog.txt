@@ -1,5 +1,10 @@
 *** WooCommerce One Page Checkout Changelog ***
 
+2021-12-17 - version 1.9.1
+* Fix - Enable indexing of pages containing the OPC shortcode.
+* Tweak - WC 6.0.0 compatibility.
+* Tweak - WP 5.8.2 compatibility.
+
 2021-11-23 - version 1.9.0
 * Fix - Fix post content notice.
 

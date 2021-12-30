@@ -149,9 +149,6 @@
 				$this->log = new WC_Logger();
 			}
 
-			// Enqueue Admin Scripts and CSS
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
-
 			// Add test card info to the description if in test mode
 			if ( $this->status == 'testing' ) {
 				$this->description .= ' ' . __( '<br />TEST MODE ENABLED.<br />In test mode, you can use Visa card number 4111111111111111 with any CVC and a valid expiration date.', 'woocommerce_worlday' );
@@ -1078,18 +1075,6 @@
 		
 		function startsWith($haystack, $needle) {
     		return $needle === "" || strpos($haystack, $needle) === 0;
-		}
-
-		/**
-		 * Load admin JS / CSS only on WorldPay settings tab
-		 * @param  [type] $hook [description]
-		 * @return void
-		 */
-		function admin_scripts( $hook ) {
-			if ( in_array( $hook, array( 'woocommerce_page_wc-settings', 'woocommerce_page_woocommerce_settings') ) && ( isset( $_GET['section'] ) && ( 'wc_gateway_worldpay_form' == strtolower( $_GET['section'] ) || 'worldpay' == strtolower( $_GET['section'] ) ) ) ) {
-				wp_enqueue_style( $this->id .  '-admin-fa', "//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" , array(), WORLDPAYPLUGINVERSION );
-				wp_enqueue_style( $this->id .  '-admin-wp', $this->get_plugin_url() . '/assets/admin-css.css' , array(), WORLDPAYPLUGINVERSION );
-			}
 		}
 
 		/**

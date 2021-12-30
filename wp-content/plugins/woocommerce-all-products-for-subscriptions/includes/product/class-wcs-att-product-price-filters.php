@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Product_Price_Filters class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce All Products For Subscriptions
  * @since    2.0.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles modifications to the prices of subscription-enabled product objects.
  *
  * @class    WCS_ATT_Product_Price_Filters
- * @version  3.1.3
+ * @version  3.1.32
  */
 class WCS_ATT_Product_Price_Filters {
 
@@ -93,19 +92,19 @@ class WCS_ATT_Product_Price_Filters {
 			add_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 0, 2 );
 
 			// 'Inherit' context.
-			add_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_variation_prices' ), 99.9, 2 );
-			add_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_price' ), 99.9, 2 );
-			add_filter( 'woocommerce_product_get_sale_price', array( __CLASS__, 'filter_sale_price' ), 99.9, 2 );
-			add_filter( 'woocommerce_product_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 99.9, 2 );
-			add_filter( 'woocommerce_product_variation_get_price', array( __CLASS__, 'filter_price' ), 99.9, 2 );
-			add_filter( 'woocommerce_product_variation_get_sale_price', array( __CLASS__, 'filter_sale_price' ), 99.9, 2 );
-			add_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 99.9, 2 );
+			add_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_variation_prices' ), 99, 2 );
+			add_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_price' ), 99, 2 );
+			add_filter( 'woocommerce_product_get_sale_price', array( __CLASS__, 'filter_sale_price' ), 99, 2 );
+			add_filter( 'woocommerce_product_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 99, 2 );
+			add_filter( 'woocommerce_product_variation_get_price', array( __CLASS__, 'filter_price' ), 99, 2 );
+			add_filter( 'woocommerce_product_variation_get_sale_price', array( __CLASS__, 'filter_sale_price' ), 99, 2 );
+			add_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 99, 2 );
 
-			add_filter( 'woocommerce_subscriptions_product_price', array( __CLASS__, 'filter_subscription_price' ), 99.9, 2 );
+			add_filter( 'woocommerce_subscriptions_product_price', array( __CLASS__, 'filter_subscription_price' ), 99, 2 );
 			add_filter( 'woocommerce_get_variation_prices_hash', array( __CLASS__, 'filter_variation_prices_hash' ), 0, 2 );
 			add_filter( 'woocommerce_available_variation', array( __CLASS__, 'filter_variation_data' ), 0, 3 );
 
-			add_filter( 'woocommerce_product_is_on_sale', array( __CLASS__, 'filter_is_on_sale' ), 99.9, 2 );
+			add_filter( 'woocommerce_product_is_on_sale', array( __CLASS__, 'filter_is_on_sale' ), 99, 2 );
 
 			/**
 			 * Action 'wcsatt_add_price_filters'.
@@ -144,19 +143,19 @@ class WCS_ATT_Product_Price_Filters {
 			remove_filter( 'woocommerce_subscriptions_product_price', array( __CLASS__, 'filter_price' ), 0, 2 );
 			remove_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_variation_prices' ), 0, 2 );
 
-			remove_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_price' ), 99.9, 2 );
-			remove_filter( 'woocommerce_product_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 99.9, 2 );
-			remove_filter( 'woocommerce_product_get_sale_price', array( __CLASS__, 'filter_sale_price' ), 99.9, 2 );
-			remove_filter( 'woocommerce_product_variation_get_price', array( __CLASS__, 'filter_price' ), 99.9, 2 );
-			remove_filter( 'woocommerce_product_variation_get_sale_price', array( __CLASS__, 'filter_sale_price' ), 99.9, 2 );
-			remove_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 99.9, 2 );
-			remove_filter( 'woocommerce_subscriptions_product_price', array( __CLASS__, 'filter_price' ), 99.9, 2 );
-			remove_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_variation_prices' ), 99.9, 2 );
+			remove_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_price' ), 99, 2 );
+			remove_filter( 'woocommerce_product_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 99, 2 );
+			remove_filter( 'woocommerce_product_get_sale_price', array( __CLASS__, 'filter_sale_price' ), 99, 2 );
+			remove_filter( 'woocommerce_product_variation_get_price', array( __CLASS__, 'filter_price' ), 99, 2 );
+			remove_filter( 'woocommerce_product_variation_get_sale_price', array( __CLASS__, 'filter_sale_price' ), 99, 2 );
+			remove_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_regular_price' ), 99, 2 );
+			remove_filter( 'woocommerce_subscriptions_product_price', array( __CLASS__, 'filter_price' ), 99, 2 );
+			remove_filter( 'woocommerce_variation_prices', array( __CLASS__, 'filter_variation_prices' ), 99, 2 );
 
 			remove_filter( 'woocommerce_get_variation_prices_hash', array( __CLASS__, 'filter_variation_prices_hash' ), 0, 2 );
 			remove_filter( 'woocommerce_available_variation', array( __CLASS__, 'filter_variation_data' ), 0, 3 );
 
-			remove_filter( 'woocommerce_product_is_on_sale', array( __CLASS__, 'filter_is_on_sale' ), 99.9, 2 );
+			remove_filter( 'woocommerce_product_is_on_sale', array( __CLASS__, 'filter_is_on_sale' ), 99, 2 );
 
 			/**
 			 * Action 'wcsatt_remove_price_filters'.

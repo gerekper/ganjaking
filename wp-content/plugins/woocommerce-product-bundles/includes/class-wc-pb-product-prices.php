@@ -2,7 +2,6 @@
 /**
  * WC_PB_Product_Prices class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    5.0.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Price functions and hooks.
  *
  * @class    WC_PB_Product_Prices
- * @version  6.7.7
+ * @version  6.13.2
  */
 class WC_PB_Product_Prices {
 
@@ -56,13 +55,13 @@ class WC_PB_Product_Prices {
 		// Always-on price filters used in cart context.
 		if ( 'filters' === self::get_bundled_cart_item_discount_method() ) {
 
-			add_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_get_price_cart' ), 99, 2 );
-			add_filter( 'woocommerce_product_get_sale_price', array( __CLASS__, 'filter_get_sale_price_cart' ), 99, 2 );
-			add_filter( 'woocommerce_product_get_regular_price', array( __CLASS__, 'filter_get_regular_price_cart' ), 99, 2 );
+			add_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_get_price_cart' ), 98, 2 );
+			add_filter( 'woocommerce_product_get_sale_price', array( __CLASS__, 'filter_get_sale_price_cart' ), 98, 2 );
+			add_filter( 'woocommerce_product_get_regular_price', array( __CLASS__, 'filter_get_regular_price_cart' ), 98, 2 );
 
-			add_filter( 'woocommerce_product_variation_get_price', array( __CLASS__, 'filter_get_price_cart' ), 99, 2 );
-			add_filter( 'woocommerce_product_variation_get_sale_price', array( __CLASS__, 'filter_get_sale_price_cart' ), 99, 2 );
-			add_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_get_regular_price_cart' ), 99, 2 );
+			add_filter( 'woocommerce_product_variation_get_price', array( __CLASS__, 'filter_get_price_cart' ), 98, 2 );
+			add_filter( 'woocommerce_product_variation_get_sale_price', array( __CLASS__, 'filter_get_sale_price_cart' ), 98, 2 );
+			add_filter( 'woocommerce_product_variation_get_regular_price', array( __CLASS__, 'filter_get_regular_price_cart' ), 98, 2 );
 		}
 	}
 

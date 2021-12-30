@@ -1,5 +1,9 @@
 *** WooCommerce Account Funds ***
 
+2021-12-17 - version 2.6.1
+* Tweak - Tested compatibility with WC 6.0.
+* Fix - Fixed wrong Order balance in the Square dashboard when partially paying the order with funds.
+
 2021-11-23 - version 2.6.0
 * Feature - Add funds to the customer account on registration.
 * Tweak - Moved the 'Partial Funds Payment' setting to the top of the settings page.

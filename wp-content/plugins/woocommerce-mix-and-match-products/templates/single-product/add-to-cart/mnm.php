@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
- * @version 1.8.0
+ * @version 1.11.6
  */
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +28,7 @@ global $product;
 do_action( 'woocommerce_before_add_to_cart_form' );
 ?>
 
-<form method="post" enctype="multipart/form-data" class="mnm_form cart cart_group <?php echo esc_attr( $classes ); ?>">
+<form class="mnm_form cart cart_group <?php echo esc_attr( $classes ); ?>" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype="multipart/form-data">
 
 	<?php
 

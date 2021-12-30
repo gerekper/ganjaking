@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Manage_Add_Product class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce All Products For Subscriptions
  * @since    2.1.0
  */

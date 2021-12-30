@@ -4969,12 +4969,12 @@ ENDHERE;
 		echo '<div class="updraft_restore_main">';
 		
 		if ($debug) echo '<input type="hidden" id="updraftplus_ajax_restore_debug" name="updraftplus_ajax_restore_debug" value="1">';
-		echo '<input type="hidden" id="updraftplus_ajax_restore_job_id" name="updraftplus_restore_job_id" value="' . $updraftplus->nonce . '">';
-		echo '<input type="hidden" id="updraftplus_ajax_restore_action" name="updraftplus_restore_action" value="' . $ajax_action . '">';
+		echo '<input type="hidden" id="updraftplus_ajax_restore_job_id" name="updraftplus_restore_job_id" value="' . esc_attr($updraftplus->nonce) . '">';
+		echo '<input type="hidden" id="updraftplus_ajax_restore_action" name="updraftplus_restore_action" value="' . esc_attr($ajax_action) . '">';
 		echo '<div id="updraftplus_ajax_restore_progress" style="display: none;"></div>';
 
 		echo '<div class="updraft_restore_main--components">';
-		echo '	<p>'.sprintf(__('The restore operation has begun (%s). Do not close this page until it reports itself as having finished.', 'updraftplus'), $updraftplus->nonce).'</p>';
+		echo '	<p>'.sprintf(__('The restore operation has begun (%s). Do not close this page until it reports itself as having finished.', 'updraftplus'), htmlspecialchars($updraftplus->nonce)).'</p>';
 		echo '	<h2>'.__('Restoration progress:', 'updraftplus').'</h2>';
 		echo '	<div class="updraft_restore_result"><span class="dashicons"></span><pan class="updraft_restore_result--text"></span></div>';
 		echo '	<ul class="updraft_restore_components_list">';
@@ -4982,13 +4982,16 @@ ENDHERE;
 		foreach ($restore_components as $restore_component) {
 			// Set Database description
 			if ('db' == $restore_component && !isset($backupable_entities[$restore_component]['description'])) $backupable_entities[$restore_component]['description'] = __('Database', 'updraftplus');
-			echo '		<li data-component="'.esc_attr($restore_component).'"><span class="updraft_component--description">'.(isset($backupable_entities[$restore_component]['description']) ? $backupable_entities[$restore_component]['description'] : $restore_component).'</span><span class="updraft_component--progress"></span></li>';
+			if (!isset($backupable_entities[$restore_component])) {
+				die('Abort: invalid data');
+			}
+			echo '		<li data-component="'.esc_attr($restore_component).'"><span class="updraft_component--description">'.(isset($backupable_entities[$restore_component]['description']) ? htmlspecialchars($backupable_entities[$restore_component]['description']) : htmlspecialchars($restore_component)).'</span><span class="updraft_component--progress"></span></li>';
 		}
 		echo '		<li data-component="cleaning"><span class="updraft_component--description">'.__('Cleaning', 'updraftplus').'</span><span class="updraft_component--progress"></span></li>';
 		echo '		<li data-component="finished"><span class="updraft_component--description">'.__('Finished', 'updraftplus').'</span><span class="updraft_component--progress"></span></li>';
 		echo '	</ul>'; // end ul.updraft_restore_components_list
 		// Provide download link for the log file
-		echo '	<p><a target="_blank" href="?action=downloadlog&page=updraftplus&updraftplus_backup_nonce='.htmlspecialchars($updraftplus->nonce).'">'.__('Follow this link to download the log file for this restoration (needed for any support requests).', 'updraftplus').'</a></p>';
+		echo '	<p><a target="_blank" href="?action=downloadlog&page=updraftplus&updraftplus_backup_nonce='.esc_attr($updraftplus->nonce).'">'.__('Follow this link to download the log file for this restoration (needed for any support requests).', 'updraftplus').'</a></p>';
 		echo '</div>'; // end .updraft_restore_main--components
 		echo '<div class="updraft_restore_main--activity">';
 		echo '	<h2 class="updraft_restore_main--activity-title">'.__('Activity log', 'updraftplus').' <i id="activity-full-log" title="'.__('Full-screen', 'updraftplus').'" class="dashicons dashicons-fullscreen-alt" style="float: right; cursor: pointer; margin-left: 7px;"></i> <span id="updraftplus_ajax_restore_last_activity"></span></h2>';

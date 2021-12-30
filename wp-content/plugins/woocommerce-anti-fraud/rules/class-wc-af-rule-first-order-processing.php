@@ -14,7 +14,7 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 	public function __construct() {
 		$this->is_enabled  = get_option('wc_af_first_order_custom');
 		$this->rule_weight = get_option('wc_settings_anti_fraud_first_order_custom_weight');
-		parent::__construct( 'first_order', 'This is the customer&apos;s first order.', $this->rule_weight );
+		parent::__construct( 'first_order', 'This is the customer&apos;s first order with this billing details.', $this->rule_weight );
 	}
 
 	/**

@@ -2,7 +2,6 @@
 /**
  * WC_Product_Bundle_Data_Store_CPT class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    5.2.0
  */

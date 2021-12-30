@@ -2,7 +2,6 @@
 /**
  * WC_Product_Bundle class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    1.0.0
  */
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle Class.
  *
  * @class    WC_Product_Bundle
- * @version  6.11.0
+ * @version  6.13.1
  */
 class WC_Product_Bundle extends WC_Product {
 
@@ -1066,7 +1065,7 @@ class WC_Product_Bundle extends WC_Product {
 
 			foreach ( $bundled_items as $bundled_item_id => $bundled_item ) {
 
-				if ( $bundled_item->is_subscription() && $bundled_item->is_priced_individually() ) {
+				if ( $bundled_item->is_subscription() && $bundled_item->is_priced_individually() && $bundled_item->is_purchasable() ) {
 
 					$bundled_product    = $bundled_item->product;
 					$bundled_product_id = $bundled_item->get_product_id();

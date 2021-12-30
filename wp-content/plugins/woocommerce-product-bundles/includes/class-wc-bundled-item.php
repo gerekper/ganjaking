@@ -2,7 +2,6 @@
 /**
  * WC_Bundled_Item class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    4.2.0
  */
@@ -18,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The bunded item class is a product container that initializes and holds pricing, availability and variation/attribute-related data for a bundled product.
  *
  * @class    WC_Bundled_Item
- * @version  6.12.0
+ * @version  6.13.1
  */
 class WC_Bundled_Item {
 
@@ -1268,6 +1267,46 @@ class WC_Bundled_Item {
 	 */
 	public function is_subscription() {
 		return in_array( $this->product->get_type(), array( 'subscription', 'variable-subscription' ) );
+	}
+
+	/**
+	 * Check if the item has a limited subscription.
+	 *
+	 * @since  6.13.1
+	 *
+	 * @return boolean
+	 */
+	public function is_limited_subscription() {
+
+		if ( ! $this->is_subscription() ) {
+			return false;
+		}
+
+		$bundled_product = $this->get_product();
+		return ( 'active' === wcs_get_product_limitation( $bundled_product ) );
+	}
+
+	/**
+	 * Check if the user has purchased a subscription item.
+	 *
+	 * @since  6.13.1
+	 *
+	 * @return boolean
+	 */
+	public function user_has_subscription() {
+
+		if ( ! $this->is_subscription() ) {
+			return false;
+		}
+
+		if ( is_user_logged_in() ) {
+			$user_id         = get_current_user_id();
+			$bundled_product = $this->get_product();
+			if ( wcs_user_has_subscription( $user_id, $bundled_product->get_id(), 'active' ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

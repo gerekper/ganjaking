@@ -28,7 +28,7 @@ if (!class_exists('BetterDocs_Elementor_Reactions')) {
         }
 
         public function get_categories () {
-            return ['betterdocs-elements'];
+            return ['betterdocs-elements-single'];
         }
 
         public function get_keywords () {

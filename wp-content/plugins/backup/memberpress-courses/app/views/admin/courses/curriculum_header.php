@@ -1,1 +1,0 @@
-<div id="mpcs-admin-header-wrapper"></div>

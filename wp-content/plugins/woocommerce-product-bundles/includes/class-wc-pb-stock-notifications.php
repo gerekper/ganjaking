@@ -2,7 +2,6 @@
 /**
  * WC_PB_Stock_Notifications class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    6.10.0
  */

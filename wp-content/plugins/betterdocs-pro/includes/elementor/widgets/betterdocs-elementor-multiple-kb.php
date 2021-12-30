@@ -29,7 +29,7 @@ class BetterDocs_Elementor_Multiple_Kb extends Widget_Base {
     }
 
     public function get_categories () {
-        return ['docs-archive'];
+        return ['betterdocs-elements', 'docs-archive'];
     }
 
     public function get_style_depends()

@@ -460,6 +460,7 @@ class Betterdocs_Pro_Public
         $atts['category_search'] = false;
         $atts['search_button'] = false;
         $atts['popular_search'] = false;
+        $atts['popular_search_title'] = false;
         return $atts;
     }
 
@@ -485,8 +486,13 @@ class Betterdocs_Pro_Public
         $html = '';
         $output = betterdocs_generate_output_pro();
         if ( $get_args['popular_search' ] == true && !empty($this->popular_search_keyword()) ) {
+            if ($get_args['popular_search_title'] == true) {
+                $search_title = $get_args['popular_search_title'];
+            } else {
+                $search_title = $output['betterdocs_popular_search_text'];
+            }
             $html = '<div class="betterdocs-popular-search-keyword">';
-            $html .= '<span class="popular-search-title">'.esc_html($output['betterdocs_popular_search_text']).' </span>';
+            $html .= '<span class="popular-search-title">'.esc_html($search_title).' </span>';
             foreach ($this->popular_search_keyword() as $keyword) {
                 $html .= '<span class="popular-keyword">'.$keyword.'</span>';
             }

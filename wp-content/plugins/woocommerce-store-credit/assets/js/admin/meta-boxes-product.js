@@ -44,7 +44,7 @@
 			 * Toggle between showing or hiding display receiver fields options.
 			 */
 			toggleReceiverFields: function () {
-				$( '#_store_credit_display_receiver_fields' )
+				$( '#_store_credit_display_receiver_fields, #_store_credit_receiver_fields_title' )
 					.closest( '.form-field' )
 					.toggle( $( this ).prop( 'checked' ) );
 			}

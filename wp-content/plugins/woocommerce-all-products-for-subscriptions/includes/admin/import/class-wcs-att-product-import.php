@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Product_Import class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  All Products for WooCommerce Subscriptions
  * @since    2.2.5
  */

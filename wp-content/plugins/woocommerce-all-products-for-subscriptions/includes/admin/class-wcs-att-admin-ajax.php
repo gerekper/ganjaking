@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Admin_Ajax class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce All Products For Subscriptions
  * @since    2.2.0
  */

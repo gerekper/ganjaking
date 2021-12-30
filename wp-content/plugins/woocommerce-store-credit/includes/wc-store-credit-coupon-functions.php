@@ -446,7 +446,7 @@ function wc_store_credit_generate_coupon_code( $args = array() ) {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param array The arguments.
+	 * @param array $args The arguments.
 	 */
 	$args = apply_filters( 'wc_store_credit_coupon_code_args', $args );
 

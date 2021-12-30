@@ -39,6 +39,14 @@ class WC_Currency_Converter {
 	private $settings;
 
 	/**
+	 * Widget object
+	 *
+	 * @var WooCommerce_Widget_Currency_Converter
+	 */
+	private $widget;
+
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -165,6 +173,36 @@ class WC_Currency_Converter {
 	}
 
 	/**
+	 * Extract an array of currencies from a widget instance
+	 * @param $instance
+	 *
+	 * @return array of currencies
+	 */
+	public function get_currencies_from_instance( $instance ) {
+		$currencies = array();
+		if ( ! empty( $instance['currency_codes'] ) ) {
+			// Split on a comma if there is one. Else, use a new line split.
+			if ( stristr( $instance['currency_codes'], ',' ) ) {
+				$currencies = array_map( 'trim', array_filter( explode( ',', $instance['currency_codes'] ) ) );
+			} else {
+				$currencies = array_map( 'trim', array_filter( explode( "\n", $instance['currency_codes'] ) ) );
+			}
+		}
+
+		// Defaults if unset.
+		if ( empty( $currencies ) ) {
+			$currencies = array( 'USD', 'EUR' );
+		}
+
+		if ( $currencies ) {
+			// Prepend store currency.
+			$currencies = array_unique( array_merge( array( get_woocommerce_currency() ), $currencies ) );
+		}
+
+		return $currencies;
+    }
+
+	/**
 	 * Display the currency converter form.
 	 *
 	 * @since  1.4.0
@@ -185,15 +223,7 @@ class WC_Currency_Converter {
 			$html .= wpautop( wp_kses_post( $instance['message'] ) );
 		}
 
-		$currencies = array();
-		if ( ! empty( $instance['currency_codes'] ) ) {
-			// Split on a comma if there is one. Else, use a new line split.
-			if ( stristr( $instance['currency_codes'], ',' ) ) {
-				$currencies = array_map( 'trim', array_filter( explode( ',', $instance['currency_codes'] ) ) );
-			} else {
-				$currencies = array_map( 'trim', array_filter( explode( "\n", $instance['currency_codes'] ) ) );
-			}
-		}
+		$currencies = $this->get_currencies_from_instance( $instance );
 
 		// Figure out where the currency symbols should be displayed.
 		$symbol_positions = array();
@@ -205,14 +235,7 @@ class WC_Currency_Converter {
 			}
 		}
 
-		// Defaults if unset.
-		if ( empty( $currencies ) ) {
-			$currencies = array_unique( array( get_woocommerce_currency(), 'USD', 'EUR' ) );
-		}
-
 		if ( $currencies ) {
-			// Prepend store currency.
-			$currencies = array_unique( array_merge( array( get_woocommerce_currency() ), $currencies ) );
 
 			if ( ! empty( $instance['currency_display'] ) && 'select' === $instance['currency_display'] ) {
 				$html .= '<label for="currency_switcher" class="currency_switcher_label">Choose a Currency</label>';
@@ -312,6 +335,10 @@ class WC_Currency_Converter {
 	 */
 	public function widgets() {
 		include_once __DIR__ . '/currency-converter-widget.php';
+
+		$this->widget = new WooCommerce_Widget_Currency_Converter();
+
+		register_widget($this->widget);
 	}
 
 	/**
@@ -347,13 +374,83 @@ class WC_Currency_Converter {
 			true
 		);
 
-		$symbols = array();
-		$codes   = get_woocommerce_currencies();
+		$currencies = $this->get_currencies_being_used();
 
-		foreach ( $codes as $code => $name ) {
+		$wc_currency_converter_params = array(
+			'current_currency'       => isset( $_COOKIE['woocommerce_current_currency'] ) ? $_COOKIE['woocommerce_current_currency'] : '',
+			'currencies'             => wp_json_encode( $this->get_symbols( $currencies ) ),
+			'rates'                  => $this->get_currencies_rates( $currencies ),
+			'base'                   => $this->base,
+			'currency_format_symbol' => get_woocommerce_currency_symbol(),
+			'currency'               => get_woocommerce_currency(),
+			'currency_pos'           => get_option( 'woocommerce_currency_pos' ),
+			'num_decimals'           => wc_get_price_decimals(),
+			'trim_zeros'             => intval( get_option( 'woocommerce_price_num_decimals' ) ) === 0,
+			'thousand_sep'           => esc_attr( wc_get_price_thousand_separator() ),
+			'decimal_sep'            => esc_attr( wc_get_price_decimal_separator() ),
+			'i18n_oprice'            => __( 'Original price:', 'woocommerce-currency-converter-widget' ),
+			'zero_replace'           => $this->get_zero_replace(),
+			'currency_rate_default'  => apply_filters( 'wc_currency_converter_default_rate', 1 ),
+			'locale_info'            => $this->get_locale_info( $currencies ),
+		);
+
+		wp_localize_script( 'wc_currency_converter', 'wc_currency_converter_params', apply_filters( 'wc_currency_converter_params', $wc_currency_converter_params ) );
+	}
+
+	/**
+	 * Returns an array of symbols for the given currencies
+	 *
+	 * @param $currencies
+	 *
+	 * @return array of symbols
+	 */
+	private function get_symbols( $currencies ) {
+		$symbols = array();
+		foreach ( $currencies as $code ) {
 			$symbols[ $code ] = get_woocommerce_currency_symbol( $code );
 		}
 
+		return $symbols;
+	}
+
+	/**
+	 * Returns an array of currencies that are being used by the widget
+	 * @return array of currencies being used by the widget
+	 */
+	private function get_currencies_being_used() {
+		$instances = $this->widget->get_settings();
+
+		$currencies = array();
+		foreach ( $instances as $instance ) {
+			$currencies = array_merge( $currencies, $this->get_currencies_from_instance( $instance ) );
+		}
+
+		return array_unique( $currencies );
+	}
+
+	/**
+	 * Returns an array of rates for the given currencies
+	 *
+	 * @param $currencies
+	 *
+	 * @return array of rates
+	 */
+	private function get_currencies_rates( $currencies ) {
+		$rates = array();
+
+		foreach ( $currencies as $currency ) {
+			$rates[ $currency ] = ( (array) $this->rates )[ $currency ];
+		}
+
+		return $rates;
+	}
+
+	/**
+	 * Return a string with decimal separator and 0s for how many decimal places should be used
+	 *
+	 * @return string
+	 */
+	private function get_zero_replace() {
 		$zero_replace = get_option( 'woocommerce_price_decimal_sep', '.' );
 		$decimals     = absint( get_option( 'woocommerce_price_num_decimals' ) );
 
@@ -361,29 +458,31 @@ class WC_Currency_Converter {
 			$zero_replace .= '0';
 		}
 
-		$should_we_trim_zeros = intval( get_option( 'woocommerce_price_num_decimals' ) ) === 0;
+		return $zero_replace;
+	}
 
+	/**
+	 * Return an array of local_info for the given currencies
+	 *
+	 * @param $currencies
+	 *
+	 * @return array of local_info
+	 */
+	private function get_locale_info( $currencies ) {
 		$locale_info = include WC()->plugin_path() . '/i18n/locale-info.php';
 
-		$wc_currency_converter_params = array(
-			'current_currency'       => isset( $_COOKIE['woocommerce_current_currency'] ) ? $_COOKIE['woocommerce_current_currency'] : '',
-			'currencies'             => wp_json_encode( $symbols ),
-			'rates'                  => $this->rates,
-			'base'                   => $this->base,
-			'currency_format_symbol' => get_woocommerce_currency_symbol(),
-			'currency'               => get_woocommerce_currency(),
-			'currency_pos'           => get_option( 'woocommerce_currency_pos' ),
-			'num_decimals'           => wc_get_price_decimals(),
-			'trim_zeros'             => $should_we_trim_zeros,
-			'thousand_sep'           => esc_attr( wc_get_price_thousand_separator() ),
-			'decimal_sep'            => esc_attr( wc_get_price_decimal_separator() ),
-			'i18n_oprice'            => __( 'Original price:', 'woocommerce-currency-converter-widget' ),
-			'zero_replace'           => $zero_replace,
-			'currency_rate_default'  => apply_filters( 'wc_currency_converter_default_rate', 1 ),
-			'locale_info'            => $locale_info,
-		);
 
-		wp_localize_script( 'wc_currency_converter', 'wc_currency_converter_params', apply_filters( 'wc_currency_converter_params', $wc_currency_converter_params ) );
+		$locale_info = array_filter( $locale_info, function ( $element ) use ( $currencies ) {
+			return in_array( $element['currency_code'], $currencies );
+		} );
+
+		return array_map( function ( $element ) {
+			return [
+				'currency_code' => $element['currency_code'],
+				'thousand_sep'  => $element['thousand_sep'],
+				'decimal_sep'   => $element['decimal_sep']
+			];
+		}, $locale_info );
 	}
 
 	/**

@@ -35,6 +35,9 @@ function woocommerce_per_product_shipping_get_matching_rule( $product_id, $packa
 	$state    = $package['destination']['state'];
 	$postcode = $package['destination']['postcode'];
 
+	// Get 2 Characters state code if exists.
+	$state    = woocommerce_per_product_state_code_alias( $state, $country );
+
 	// Define valid postcodes.
 	$valid_postcodes = array( '', $postcode );
 
@@ -65,4 +68,26 @@ function woocommerce_per_product_shipping_get_matching_rule( $product_id, $packa
 	);
 
 	return $matching_rule;
+}
+
+/**
+ * Get state code alias if exists.
+ *
+ * @param string $state_code   State code.
+ * @param string $country_code Country code.
+ *
+ * @return string
+ */
+function woocommerce_per_product_state_code_alias( $state_code, $country_code ) {
+	$state_code_alias = array(
+		'AU' => array(
+			'NSW' => 'NS',
+			'ACT' => 'AC',
+			'QLD' => 'QL',
+			'TAS' => 'TS',
+			'VIC' => 'VI',
+		)
+	);
+
+	return isset( $state_code_alias[ $country_code ][ $state_code ] ) ? $state_code_alias[ $country_code ][ $state_code ] : $state_code;
 }

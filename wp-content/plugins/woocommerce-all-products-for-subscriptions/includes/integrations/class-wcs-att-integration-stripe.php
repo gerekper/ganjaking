@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Stripe_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce All Products For Subscriptions
  * @since    3.1.30
  */

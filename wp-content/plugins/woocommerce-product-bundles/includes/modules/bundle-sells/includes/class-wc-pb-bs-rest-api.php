@@ -2,7 +2,6 @@
 /**
  * WC_PB_BS_REST_API class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    6.13.0
  */

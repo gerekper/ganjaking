@@ -1,5 +1,13 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2021.12.23 - version 3.1.33
+* Fix - Fixed an issue where 'Add this cart to an existing subscription' is displayed when user not logged in.
+
+2021.12.21 - version 3.1.32
+* Feature - Hide WooCommerce Payments quick-pay buttons in product pages with Subscription plans.
+* Fix - Fixed an issue that resulted in an immediate charge of synchronized subscription plans. Introduced in v3.1.31 after changing the priorities of price filters.
+* Fix - Fixed an issue that prevented bundled items from being removed from a subscription when removing their parent Bundle, in scenarios when the parent Bundle is part of a Composite Product.
+
 2021.12.03 - version 3.1.31
 * Feature - Added integration with PayPal Payments to hide quick-pay buttons in product pages with subscription plans.
 * Fix - Fixed missing notices.

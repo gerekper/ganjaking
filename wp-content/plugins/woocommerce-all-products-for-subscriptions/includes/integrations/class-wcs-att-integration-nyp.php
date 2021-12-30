@@ -2,7 +2,6 @@
 /**
  * WCS_ATT_Integration_NYP class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce All Products For Subscriptions
  * @since    2.3.1
  */

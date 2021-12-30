@@ -2,7 +2,6 @@
 /**
  * WC_PB_Stock_Manager and WC_PB_Stock_Manager_Item classes
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    4.8.7
  */

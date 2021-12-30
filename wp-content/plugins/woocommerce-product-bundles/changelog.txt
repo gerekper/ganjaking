@@ -1,5 +1,12 @@
 *** WooCommerce Product Bundles ***
 
+2021.12.21 - version 6.13.2
+* Fix - Change price filters priority to retain compatibility with All Products for WooCommerce Subscriptions.
+
+2021.12.17 - version 6.13.1
+* Fix - Fixed fatal error that was triggered when adding non-purchasable Subscription products as bundled items.
+* Tweak - Added compatibility with WooCommerce Payments to hide unsupported quick-pay buttons in Bundle product pages.
+
 2021.12.10 - version 6.13.0
 * Feature - Support bundle sells in REST API.
 * Fix - Fixed an issue that prevented stock statuses from showing up under 'Analytics > Bundles'.

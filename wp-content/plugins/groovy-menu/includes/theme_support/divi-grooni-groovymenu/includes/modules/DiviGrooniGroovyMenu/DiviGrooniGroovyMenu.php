@@ -28,7 +28,7 @@ if ( ! class_exists( 'DiviGrooniGroovyMenu' ) && class_exists( 'ET_Builder_Modul
 			return array();
 		}
 
-		public function render( $attrs, $content = null, $render_slug ) {
+		public function render( $attrs, $content, $render_slug ) {
 			$module_id    = $this->props['module_id'];
 			$module_class = $this->props['module_class'];
 
@@ -50,6 +50,6 @@ if ( ! class_exists( 'DiviGrooniGroovyMenu' ) && class_exists( 'ET_Builder_Modul
 		}
 	}
 
-	new DiviGrooniGroovyMenu;
+	new DiviGrooniGroovyMenu();
 
 }

@@ -45,7 +45,7 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 
 		// Default risk is false
 		$risk = false;
-		$contents = @file_get_contents("https://ip.teoh.io/api/vpn/$ip");
+		$contents = @file_get_contents("http://proxycheck.io/v2/".$ip."?key=913st5-6a024j-t43896-i0t35y&vpn=1&asn=1");
 				 
 		if ( $contents !== false ) {
 
@@ -53,11 +53,11 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 			
 			if (json_last_error() === JSON_ERROR_NONE) {
 				
-				$array_data = (array) $res;
+				$array_data = (array) $res->$ip;
 
-				if (array_key_exists('vpn_or_proxy', $array_data)) {
+				if (array_key_exists('proxy', $array_data)) {
 
-					if ($res->vpn_or_proxy == 'yes') {
+					if ('yes' == $res->$ip->proxy) {
 
 						$risk = true;						
 					}

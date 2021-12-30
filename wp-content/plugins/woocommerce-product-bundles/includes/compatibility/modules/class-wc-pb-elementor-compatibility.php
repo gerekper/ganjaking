@@ -2,7 +2,6 @@
 /**
  * WC_PB_Elementor_Compatibility class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    6.5.0
  */

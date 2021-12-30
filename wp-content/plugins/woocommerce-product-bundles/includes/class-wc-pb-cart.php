@@ -2,7 +2,6 @@
 /**
  * WC_PB_Cart class
  *
- * @author   SomewhereWarm <info@somewherewarm.com>
  * @package  WooCommerce Product Bundles
  * @since    4.5.0
  */
