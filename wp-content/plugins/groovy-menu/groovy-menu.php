@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) || die( 'This script cannot be accessed directly.' );
 /*
 Plugin Name: Groovy Menu
-Version: 2.6.1
+Version: 2.6.1.1
 Description: Groovy menu is a modern adjustable and flexible menu designed for creating mobile-friendly menus with a lot of options.
 Plugin URI: https://groovymenu.grooni.com/
 Author: Grooni
@@ -11,7 +11,7 @@ Domain Path: /languages/
 */
 
 
-define( 'GROOVY_MENU_VERSION', '2.6.1' );
+define( 'GROOVY_MENU_VERSION', '2.6.1.1' );
 define( 'GROOVY_MENU_DB_VER_OPTION', 'groovy_menu_db_version' );
 define( 'GROOVY_MENU_PREFIX_WIM', 'groovy-menu-wim' );
 define( 'GROOVY_MENU_SITE_URI', site_url() );
@@ -249,6 +249,7 @@ if ( empty( $lic_gm_version ) || GROOVY_MENU_VERSION !== $lic_gm_version ) {
 	GroovyMenuUtils::check_lic();
 }
 $lic_type = GroovyMenuUtils::get_paramlic( 'type' );
+$gm_supported_module['check_update'] = "";
 if ( 'extended' !== $lic_type || ! empty( $gm_supported_module['check_update'] ) ) {
 	if ( class_exists( '\Puc_v4_Factory' ) ) {
 		$update_checker = \Puc_v4_Factory::buildUpdateChecker(

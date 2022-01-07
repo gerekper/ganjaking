@@ -70,7 +70,7 @@ const ConfigureSettingsTask = () => {
 							{__( 'Configure fields now', 'woocommerce_gpf')}
 						</Button>
 					</a>&nbsp;&nbsp;
-					<a target="_blank" rel="noopener noreferrer" href="https://docs.woocommerce.com/document/google-product-feed-setting-product-data">
+					<a target="_blank" rel="noopener noreferrer" href="https://woocommerce.com/document/google-product-feed-setting-product-data/">
 						<Button isLink>
 							{__( 'Find out more', 'woocommerce_gpf')}
 						</Button>
@@ -112,7 +112,7 @@ const SetupFeedTask = () => {
 					{ __( "Our online guide walks you through setting up your Google Merchant Centre account, adding shipping & tax settings, and having Google fetch your feed automatically every day to keep your product data up to date.", 'woocommerce_gpf') }
 				</p>
 				<p>
-					<a target="_blank" rel="noopener noreferrer" href="https://docs.woocommerce.com/document/google-product-feed-setting-up-your-feed-google-merchant-centre/">
+					<a target="_blank" rel="noopener noreferrer" href="https://woocommerce.com/document/google-product-feed-setting-up-your-feed-google-merchant-centre/">
 						<Button isSecondary >
 							{__( 'Follow the guide', 'woocommerce_gpf')}
 						</Button>

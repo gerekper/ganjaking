@@ -1,6 +1,7 @@
 <?php
 
 use Automattic\WooCommerce\Admin\Features\Onboarding;
+use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
 use Automattic\WooCommerce\Admin\Loader;
 
 class WoocommerceProductFeedsWoocommerceAdminIntegration {
@@ -25,7 +26,7 @@ class WoocommerceProductFeedsWoocommerceAdminIntegration {
 			! function_exists( 'wc_admin_is_registered_page' ) ||
 			! class_exists( 'Automattic\WooCommerce\Admin\Loader' ) ||
 			! Loader::is_admin_page() ||
-			! Onboarding::should_show_tasks()
+			! $this->should_show_tasks()
 		) {
 			return;
 		}
@@ -86,5 +87,14 @@ class WoocommerceProductFeedsWoocommerceAdminIntegration {
 		}
 
 		return $registered_tasks_list_items;
+	}
+
+	private function should_show_tasks() {
+		if ( version_compare( WC_VERSION, '5.9', '<' ) ) {
+			return Onboarding::should_show_tasks();
+		}
+		$extended_list = TaskLists::get_list( 'extended' );
+
+		return $extended_list && ! $extended_list->is_hidden();
 	}
 }

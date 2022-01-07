@@ -183,11 +183,11 @@ class WoocommerceGpfAdmin {
 			__( 'Settings', 'woocommerce_gpf' )
 		);
 		$links[]      = sprintf(
-			'<a href="https://docs.woocommerce.com/document/google-product-feed-setting-up-your-feed-google-merchant-centre/">%s</a>',
+			'<a href="https://woocommerce.com/document/google-product-feed-setting-up-your-feed-google-merchant-centre/">%s</a>',
 			__( 'Set up guide', 'woocommerce_gpf' )
 		);
 		$links[]      = sprintf(
-			'<a href="https://docs.woocommerce.com/document/google-product-feed-troubleshooting/">%s</a>',
+			'<a href="https://woocommerce.com/document/google-product-feed-troubleshooting/">%s</a>',
 			__( 'Troubleshooting', 'woocommerce_gpf' )
 		);
 

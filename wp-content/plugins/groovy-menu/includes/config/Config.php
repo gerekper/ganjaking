@@ -1481,6 +1481,7 @@ return array(
 					'click' => esc_html__( 'on click', 'groovy-menu' ),
 				),
 				'default'     => 'hover',
+				'condition'   => array( 'toolbar_menu_enable', '==', true ),
 			),
 			'toolbar_menu_appearance_style'                     => array(
 				'title'     => esc_html__( 'Dropdown appearance style', 'groovy-menu' ),

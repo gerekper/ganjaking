@@ -3,11 +3,11 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.25
+ * Version: 2.26
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
- * WC tested up to: 5.8.2
+ * WC tested up to: 6.0
  * Text Domain:recaptcha-for-woocommerce
  * Domain Path: languages/
  * Woo: 5347485:aeae74683dd892d43ed390cc28533524
@@ -37,7 +37,6 @@ class I13_Woo_Recpatcha {
 		add_action('woocommerce_lostpassword_form', array($this, 'i13woo_extra_lostpassword_fields'));
 		add_action('woocommerce_review_order_before_submit', array($this, 'i13woo_extra_checkout_fields'));
 		add_action('woocommerce_register_post', array($this, 'i13_woocomm_validate_signup_captcha'), 10, 3);
-		add_action('lostpassword_post', array($this, 'i13_woocomm_validate_lostpassword_captcha'), 10, 1);
 		add_action('woocommerce_process_login_errors', array($this, 'i13_woocomm_validate_login_captcha'), 10, 3);
 		add_action('woocommerce_after_checkout_validation', array($this, 'i13_woocomm_validate_checkout_captcha'), 10, 2);
 		add_filter('woocommerce_get_settings_pages', array($this, 'i13_woocomm_load_custom_settings_tab'));
@@ -62,7 +61,7 @@ class I13_Woo_Recpatcha {
 				add_action('wp_head', array($this, 'i13_add_header_metadata'));
 				add_action('login_head', array($this, 'i13_add_header_metadata'));
 				add_action('wp', array($this,'i13_woocommerce_track_order'), 10, 1 ); 
-
+								add_action( 'woocommerce_init', array($this,'do_woocommerce_init'), 10, 1 ); 
 						
 		if ($this->isIEBrowser()) {
 									
@@ -95,7 +94,19 @@ class I13_Woo_Recpatcha {
 		
 	}
 		
-		
+	public function do_woocommerce_init() {
+			
+			$version=6.0;
+		// woo 6.0 new password reset form	
+		if ( version_compare( WC_VERSION, $version, '>=' ) ) {
+					   
+					add_action('woocommerce_resetpassword_form', array($this, 'i13woo_extra_lostpassword_fields'));
+					add_action('validate_password_reset', array($this, 'i13_woocomm_validate_lostpassword_captcha'), 10, 1);
+		} else {
+					
+				add_action('lostpassword_post', array($this, 'i13_woocomm_validate_lostpassword_captcha'), 10, 1);
+		}
+	}
 	public function is_rest() {
 			   
 		$prefix = rest_get_url_prefix();
@@ -2550,11 +2561,14 @@ class I13_Woo_Recpatcha {
 			$recapcha_error_msg_captcha_invalid = str_replace('[recaptcha]', $captcha_lable, $recapcha_error_msg_captcha_invalid);
 
 			$nonce_value = '';
-			if (isset($_REQUEST['woocommerce-lost-password-nonce']) || isset($_REQUEST['_wpnonce'])) {
+			if (isset($_REQUEST['woocommerce-lost-password-nonce']) || isset($_REQUEST['_wpnonce']) || isset($_REQUEST['woocommerce-reset-password-nonce']) ) {
 					
 				if (isset($_REQUEST['woocommerce-lost-password-nonce']) && !empty($_REQUEST['woocommerce-lost-password-nonce'])) {
 
 					$nonce_value=sanitize_text_field($_REQUEST['woocommerce-lost-password-nonce']);
+				} else if (isset($_REQUEST['woocommerce-reset-password-nonce']) && !empty($_REQUEST['woocommerce-reset-password-nonce'])) {
+
+					$nonce_value=sanitize_text_field($_REQUEST['woocommerce-reset-password-nonce']);
 				} else if (isset($_REQUEST['_wpnonce']) && !empty($_REQUEST['_wpnonce'])) {
 
 					$nonce_value=sanitize_text_field($_REQUEST['_wpnonce']);
@@ -2563,7 +2577,7 @@ class I13_Woo_Recpatcha {
 			}
 			if ('yes' == $is_enabled && isset($_POST['wc_reset_password'])) {
 
-				if (wp_verify_nonce($nonce_value, 'lost_password')) {
+				if (wp_verify_nonce($nonce_value, 'lost_password') || wp_verify_nonce($nonce_value, 'reset_password')  ) {
 
 					if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
 						// Google reCAPTCHA API secret key 
@@ -2632,18 +2646,21 @@ class I13_Woo_Recpatcha {
 			$secret_key = get_option('wc_settings_tab_recapcha_secret_key_v3');
 			$is_enabled = get_option('i13_recapcha_enable_on_lostpassword');
 			$nonce_value = '';
-			if (isset($_REQUEST['woocommerce-lost-password-nonce']) || isset($_REQUEST['_wpnonce'])) {
-
+			if (isset($_REQUEST['woocommerce-lost-password-nonce']) || isset($_REQUEST['_wpnonce']) || isset($_REQUEST['woocommerce-reset-password-nonce']) ) {
+					
 				if (isset($_REQUEST['woocommerce-lost-password-nonce']) && !empty($_REQUEST['woocommerce-lost-password-nonce'])) {
 
 					$nonce_value=sanitize_text_field($_REQUEST['woocommerce-lost-password-nonce']);
+				} else if (isset($_REQUEST['woocommerce-reset-password-nonce']) && !empty($_REQUEST['woocommerce-reset-password-nonce'])) {
+
+					$nonce_value=sanitize_text_field($_REQUEST['woocommerce-reset-password-nonce']);
 				} else if (isset($_REQUEST['_wpnonce']) && !empty($_REQUEST['_wpnonce'])) {
 
 					$nonce_value=sanitize_text_field($_REQUEST['_wpnonce']);
 				}
-
+			
 			}
-			if ('yes' == $is_enabled && isset($_POST['wc_reset_password']) && wp_verify_nonce($nonce_value, 'lost_password')) {
+			if ('yes' == $is_enabled && isset($_POST['wc_reset_password']) && ( wp_verify_nonce($nonce_value, 'lost_password') ||  wp_verify_nonce($nonce_value, 'reset_password') )) {
 
 						
 
@@ -5834,7 +5851,7 @@ class I13_Woo_Recpatcha {
 						
 
 							<script type="text/javascript">
-
+																var capchaChecked = false;
 								var myCaptcha = null;    
 				<?php $intval_signup= uniqid('interval_'); ?>
 
@@ -5863,6 +5880,7 @@ class I13_Woo_Recpatcha {
 																				<?php if ('yes'==trim($disable_submit_btn)) : ?>
 																					jQuery('.woocommerce-Button').removeAttr("title");
 																					jQuery('.woocommerce-Button').attr("disabled", false);
+																																										capchaChecked = true;
 																				<?php endif; ?>  
 																					
 																				   if (typeof woo_lostpassword_captcha_verified === "function") { 
@@ -5873,8 +5891,43 @@ class I13_Woo_Recpatcha {
 																		  }
 
 																	};  
+																																		
+																																		<?php if ('yes'==trim($disable_submit_btn)) : ?>
+																																				jQuery('#password_1').on('keyup',function(){
+
+																																					if(jQuery(".woocommerce-Button").is(":disabled") || capchaChecked==false){
+
+																																						setTimeout(function(){ jQuery(".woocommerce-Button").attr("disabled", true); }, 500);
+
+																																					}
+																																				});  
+																																				jQuery('#password_1').on('blur',function(){
+
+																																					if(jQuery(".woocommerce-Button").is(":disabled") || capchaChecked==false){
+
+																																						setTimeout(function(){ jQuery(".woocommerce-Button").attr("disabled", true); }, 500);
+
+																																					}
+																																				});  
+																																				jQuery('#password_2').on('keyup',function(){
+
+																																					if(jQuery(".woocommerce-Button").is(":disabled") || capchaChecked==false){
+
+																																						setTimeout(function(){ jQuery("#place_order").attr("disabled", true); }, 500);
+
+																																					}
+																																				});  
 																	
-																   
+																																				jQuery('#password_2').on('blur',function(){
+
+																																					if(jQuery(".woocommerce-Button").is(":disabled") || capchaChecked==false){
+
+																																						setTimeout(function(){ jQuery("#place_order").attr("disabled", true); }, 500);
+
+																																					}
+																																				});  
+																	
+																																		<?php endif; ?>
 																   
 							</script>
 							 
@@ -5917,7 +5970,7 @@ class I13_Woo_Recpatcha {
 								
 					$i13_recapcha_lostpassword_action_v3='forgot_password';
 				}
-				if (''==trim($$i13_generation_v3_woo_fpass)) {
+				if (''==trim($i13_generation_v3_woo_fpass)) {
 								
 					$i13_generation_v3_woo_fpass='no';
 				}
@@ -6994,8 +7047,8 @@ class I13_Woo_Recpatcha {
 	
 	public function i13_woocommerce_track_order( $array) {
 			
-			
 		
+
 		$reCapcha_version = get_option('i13_recapcha_version'); 
 		if (''==$reCapcha_version) {
 			$reCapcha_version='v2';

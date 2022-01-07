@@ -89,11 +89,11 @@ class VI_WNOTIFICATION_Frontend_Notify {
 			if ( is_array( $products ) && count( $products ) ) {
 				echo json_encode( $products );
 				die;
-			}else{
+			} else {
 				echo json_encode( array() );
 				die;
-            }
-		}else{
+			}
+		} else {
 			echo json_encode( array() );
 			die;
 		}
@@ -183,7 +183,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 		$city = $this->settings->get_virtual_city();
 		if ( $city ) {
 			$city = explode( "\n", $city );
-			$city = array_filter( $city ,'trim');
+			$city = array_filter( $city, 'trim' );
 			if ( $limit ) {
 				if ( count( $city ) > $limit ) {
 					shuffle( $city );
@@ -191,8 +191,9 @@ class VI_WNOTIFICATION_Frontend_Notify {
 					return array_slice( $city, 0, $limit );
 				}
 			}
-			$city=array_map('trim', $city);
+			$city = array_map( 'trim', $city );
 		}
+
 		return $city;
 	}
 
@@ -274,22 +275,22 @@ class VI_WNOTIFICATION_Frontend_Notify {
 		$product_thumb                  = $this->settings->get_product_sizes();
 		$save_logs                      = $this->settings->save_logs();
 		$archive_page                   = $this->settings->archive_page();
-		$product_visibility = $this->settings->get_params('product_visibility') ?: '';
+		$product_visibility             = $this->settings->get_params( 'product_visibility' ) ?: '';
 		$prefix                         = woocommerce_notification_prefix();
-		$current_lang ='';
+		$current_lang                   = '';
 		if ( is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
 			$current_lang = wpml_get_current_language();
 		} elseif ( class_exists( 'Polylang' ) ) {
 			$current_lang = pll_current_language( 'slug' );
 		}
-		$prefix       .= $current_lang;
+		$prefix .= $current_lang;
 		/*Check Single Product page*/
-		if ( $enable_single_product && (is_product() || isset($_POST['viwn_pd_id'])) ) {
-		    if (is_product()) {
-			    $product_id = get_the_ID();
-		    }else{
-			    $product_id = isset($_POST['viwn_pd_id']) ? sanitize_text_field($_POST['viwn_pd_id']):'';
-            }
+		if ( $enable_single_product && ( is_product() || isset( $_POST['viwn_pd_id'] ) ) ) {
+			if ( is_product() ) {
+				$product_id = get_the_ID();
+			} else {
+				$product_id = isset( $_POST['viwn_pd_id'] ) ? sanitize_text_field( $_POST['viwn_pd_id'] ) : '';
+			}
 			if ( ! $product_id ) {
 				return $products;
 			}
@@ -318,7 +319,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 								if ( ! $product_variation->is_in_stock() && ! $this->settings->enable_out_of_stock_product() ) {
 									unset( $temp_p[ $key ] );
 								} else {
-									if ( !empty($product_visibility) && !in_array($product_variation->get_catalog_visibility(),$product_visibility)) {
+									if ( ! empty( $product_visibility ) && ! in_array( $product_variation->get_catalog_visibility(), $product_visibility ) ) {
 										continue;
 									}
 
@@ -377,7 +378,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 					}
 				} else {
 					if ( $product->is_in_stock() || $this->settings->enable_out_of_stock_product() ) {
-						if (!empty($product_visibility) && !in_array($product->get_catalog_visibility(),$product_visibility) ) {
+						if ( ! empty( $product_visibility ) && ! in_array( $product->get_catalog_visibility(), $product_visibility ) ) {
 							return false;
 						}
 
@@ -470,7 +471,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 						$the_query->the_post();
 						$same_cate_product_id = get_the_ID();
 						$same_cate_product    = wc_get_product( $same_cate_product_id );
-						if (!empty($product_visibility) && !in_array($same_cate_product->get_catalog_visibility(),$product_visibility) ) {
+						if ( ! empty( $product_visibility ) && ! in_array( $same_cate_product->get_catalog_visibility(), $product_visibility ) ) {
 							continue;
 						}
 						if ( $same_cate_product->is_type( 'external' ) && $product_link ) {
@@ -520,7 +521,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 		/*Get All page*/
 		/*Check with Product get from Billing*/
 		$limit_product = $this->settings->get_limit_product();
-		if ($this->settings->get_params('enable_current_category') && (is_product_category() || isset($_POST['viwn_category_name']))) {
+		if ( $this->settings->get_params( 'enable_current_category' ) && ( is_product_category() || isset( $_POST['viwn_category_name'] ) ) ) {
 			if ( is_product_category() ) {
 				global $wp_query;
 				$viwn_category_name = $wp_query->query_vars['product_cat'] ?? '';
@@ -529,7 +530,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 			}
 		}
 		if ( $archive_page > 0 ) {
-			$products = get_transient( $prefix.($viwn_category_name??'') );
+			$products = get_transient( $prefix . ( $viwn_category_name ?? '' ) );
 			if ( is_array( $products ) && count( $products ) ) {
 				return $products;
 			} else {
@@ -701,7 +702,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 
 					}
 			}
-			if (!empty($viwn_category_name)){
+			if ( ! empty( $viwn_category_name ) ) {
 				$args['tax_query'] = array(
 					'relation' => 'AND',
 					array(
@@ -715,26 +716,26 @@ class VI_WNOTIFICATION_Frontend_Notify {
 			if ( $this->settings->enable_out_of_stock_product() ) {
 				unset( $args['meta_query'] );
 			}
-			if (function_exists('stm_lms_product_remove_from_archive')) {
+			if ( function_exists( 'stm_lms_product_remove_from_archive' ) ) {
 				remove_action( 'pre_get_posts', 'stm_lms_product_remove_from_archive' );
 			}
 			$the_query = new WP_Query( $args );
-			if (function_exists('stm_lms_product_remove_from_archive')) {
+			if ( function_exists( 'stm_lms_product_remove_from_archive' ) ) {
 				add_action( 'pre_get_posts', 'stm_lms_product_remove_from_archive' );
 			}
 			if ( $the_query->have_posts() ) {
 				while ( $the_query->have_posts() ) {
 					$the_query->the_post();
 					$product_id = apply_filters( 'wpml_object_id', get_the_ID(), 'product', false, $current_lang );
-					$product = wc_get_product( $product_id );
+					$product    = wc_get_product( $product_id );
 
-					if( !is_object($product) ){
-					    continue;
-                    }
+					if ( ! is_object( $product ) ) {
+						continue;
+					}
 					if (
-					        !empty($product_visibility) &&
-                            !in_array($product->get_catalog_visibility(),$product_visibility)
-                    ) {
+						! empty( $product_visibility ) &&
+						! in_array( $product->get_catalog_visibility(), $product_visibility )
+					) {
 						continue;
 					}
 					if ( $product->is_type( 'external' ) && $product_link ) {
@@ -754,7 +755,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 						}
 					}
 					$product_tmp = array(
-						'title' => get_the_title($product_id),
+						'title' => get_the_title( $product_id ),
 						'url'   => $link,
 						'thumb' => has_post_thumbnail() ? get_the_post_thumbnail_url( '', $product_thumb ) : '',
 					);
@@ -773,7 +774,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 			wp_reset_postdata();
 			if ( count( $products ) ) {
 
-				set_transient( $prefix.($viwn_category_name??''), $products, 3600 );
+				set_transient( $prefix . ( $viwn_category_name ?? '' ), $products, 3600 );
 
 				return $products;
 			} else {
@@ -832,7 +833,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 					),
 				);
 			}
-			if (!empty($viwn_category_name)){
+			if ( ! empty( $viwn_category_name ) ) {
 				$args['tax_query'] = array(
 					'relation' => 'AND',
 					array(
@@ -862,9 +863,9 @@ class VI_WNOTIFICATION_Frontend_Notify {
 //								$p_data = wc_get_product( $item['variation_id'] );
 //							}else{
 							$line_product_id = apply_filters( 'wpml_object_id', $line_product_id, 'product', false, $current_lang );
-							$p_data = wc_get_product( $line_product_id );
+							$p_data          = wc_get_product( $line_product_id );
 //                            }
-							if( !is_object($p_data) ){
+							if ( ! is_object( $p_data ) ) {
 								continue;
 							}
 							if ( ! $p_data->is_in_stock() && ! $this->settings->enable_out_of_stock_product() ) {
@@ -873,7 +874,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 							if ( $p_data->get_status() != 'publish' ) {
 								continue;
 							}
-							if (!empty($product_visibility) && !in_array($p_data->get_catalog_visibility(),$product_visibility) ) {
+							if ( ! empty( $product_visibility ) && ! in_array( $p_data->get_catalog_visibility(), $product_visibility ) ) {
 								continue;
 							}
 							// do stuff for everything else
@@ -883,7 +884,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 							}
 							$line_product_title = get_the_title( $line_product_id );
 							if ( ! empty( $item['variation_id'] ) ) {
-							    $line_variation_id = apply_filters( 'wpml_object_id', $item['variation_id'], 'product', false, $current_lang );
+								$line_variation_id  = apply_filters( 'wpml_object_id', $item['variation_id'], 'product', false, $current_lang );
 								$line_product_title = get_the_title( $line_variation_id );
 							}
 							$product_tmp = array(
@@ -1166,21 +1167,21 @@ class VI_WNOTIFICATION_Frontend_Notify {
 	 * Show HTML code
 	 */
 	public function wp_footer() {
-        if(!is_admin()){
+		if ( ! is_admin() ) {
 
-	        $sound_enable = $this->settings->sound_enable();
-	        $sound        = $this->settings->get_sound();
+			$sound_enable = $this->settings->sound_enable();
+			$sound        = $this->settings->get_sound();
 
-	        echo $this->show_product();
+			echo $this->show_product();
 
-	        if ( $sound_enable ) {
-		        ?>
+			if ( $sound_enable ) {
+				?>
                 <audio id="woocommerce-notification-audio">
                     <source src="<?php echo esc_url( VI_WNOTIFICATION_SOUNDS_URL . $sound ) ?>">
                 </audio>
-		        <?php
-	        }
-        }
+				<?php
+			}
+		}
 	}
 
 	/**
@@ -1188,7 +1189,9 @@ class VI_WNOTIFICATION_Frontend_Notify {
 	 */
 	public function wp_print_styles() {
 		?>
-        <link id="woocommerce-notification-fonts" rel="preload" href="<?php echo esc_attr( esc_url( VI_WNOTIFICATION_FONT . 'icons-close.woff2' ) ) ?>" as="font" crossorigin>
+        <link id="woocommerce-notification-fonts" rel="preload"
+              href="<?php echo esc_attr( esc_url( VI_WNOTIFICATION_FONT . 'icons-close.woff2' ) ) ?>" as="font"
+              crossorigin>
 		<?php
 	}
 
@@ -1198,7 +1201,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 			return;
 		}
 		$enable_mobile = $this->settings->enable_mobile();
-		if ( ! $enable_mobile && wp_is_mobile()) {
+		if ( ! $enable_mobile && wp_is_mobile() ) {
 			return;
 		}
 		// Any mobile device (phones or tablets).
@@ -1338,7 +1341,7 @@ class VI_WNOTIFICATION_Frontend_Notify {
 				if ( is_array( $names ) && count( $names ) ) {
 					$options_array['names'] = array_map( 'base64_encode', $names );
 				}
-				if ( $detect ==='1' ) {
+				if ( $detect === '1' ) {
 					$cities = $this->get_cities( 50 );
 					if ( is_array( $cities ) && count( $cities ) ) {
 						$options_array['cities'] = array_map( 'base64_encode', $cities );
@@ -1369,26 +1372,26 @@ class VI_WNOTIFICATION_Frontend_Notify {
 			'change_message_number' => $this->settings->change_message_number_enable(),
 		),
 			$options_array );
-		if ($options_array['detect'] ==='2'){
-			$ip            = new WC_Geolocation();
-			$geo_ip = $ip->geolocate_ip('', true, false);
-			$woo_countries = new WC_Countries();
-			$woo_countries = $woo_countries->__get( 'countries' );
-			$geo_ip['country'] = $woo_countries[$geo_ip['country']] ?? $geo_ip['country'] ?? '';
-			if(empty($geo_ip['city'])){
+		if ( $options_array['detect'] === '2' ) {
+			$ip                = new WC_Geolocation();
+			$geo_ip            = $ip->geolocate_ip( '', true, false );
+			$woo_countries     = new WC_Countries();
+			$woo_countries     = $woo_countries->__get( 'countries' );
+			$geo_ip['country'] = $woo_countries[ $geo_ip['country'] ] ?? $geo_ip['country'] ?? '';
+			if ( empty( $geo_ip['city'] ) ) {
 				$ip_address = $ip->get_ip_address();
-				$geo_city = get_transient('wn_city_'.$ip_address);
-				if ($geo_city === false){
-					$geoip_services =  array(
+				$geo_city   = get_transient( 'wn_city_' . $ip_address );
+				if ( $geo_city === false ) {
+					$geoip_services = array(
 						'ip-api.com' => 'http://ip-api.com/json/%s',
 						'ipinfo.io'  => 'https://ipinfo.io/%s/json',
 					);
-					if ( !empty( $geoip_services ) ) {
+					if ( ! empty( $geoip_services ) ) {
 						$geoip_services_keys = array_keys( $geoip_services );
 						foreach ( $geoip_services_keys as $service_name ) {
-						    if ($geo_city){
-						        break;
-                            }
+							if ( $geo_city ) {
+								break;
+							}
 							$service_endpoint = $geoip_services[ $service_name ];
 							$response         = wp_safe_remote_get( sprintf( $service_endpoint, $ip_address ), array( 'timeout' => 2 ) );
 							if ( ! is_wp_error( $response ) && $response['body'] ) {
@@ -1397,13 +1400,13 @@ class VI_WNOTIFICATION_Frontend_Notify {
 							}
 						}
 					}
-					set_transient('wn_city_' . $ip_address, $geo_city, DAY_IN_SECONDS );
+					set_transient( 'wn_city_' . $ip_address, $geo_city, DAY_IN_SECONDS );
 				}
 				$geo_ip['city'] = $geo_city;
 			}
-			$geo_ip_t        = apply_filters( 'wn_get_geo_ip',$geo_ip );
-			$options_array['cities'] =array($geo_ip_t['city'] ?? '');
-			$options_array['country'] =$geo_ip_t['country'] ?? '';
+			$geo_ip_t                 = apply_filters( 'wn_get_geo_ip', $geo_ip );
+			$options_array['cities']  = array( $geo_ip_t['city'] ?? '' );
+			$options_array['country'] = $geo_ip_t['country'] ?? '';
 		}
 
 		if ( $options_array['change_virtual_time'] ) {
@@ -1436,17 +1439,17 @@ class VI_WNOTIFICATION_Frontend_Notify {
 		$options_array['initial_delay'] = $initial_delay;
 		/*Process products, address, time */
 		/*Load products*/
-		if (  $non_ajax && ($archive ||is_product()) ) {
+		if ( $non_ajax && ( $archive || is_product() ) ) {
 			$options_array['ajax_url'] = '';
 			$products                  = $this->get_product();
 		} else {
-			$options_array['ajax_url'] = admin_url( 'admin-ajax.php' );
-			$options_array['viwn_pd_id'] = $enable_single_product && is_product() ? get_the_ID():'';
-			if ($this->settings->get_params('enable_current_category') && is_product_category()){
-			    global $wp_query;
-				$options_array['viwn_category_name'] = $wp_query->query_vars['product_cat'] ??'';
-            }
-			$products                  = array();
+			$options_array['ajax_url']   = admin_url( 'admin-ajax.php' );
+			$options_array['viwn_pd_id'] = $enable_single_product && is_product() ? get_the_ID() : '';
+			if ( $this->settings->get_params( 'enable_current_category' ) && is_product_category() ) {
+				global $wp_query;
+				$options_array['viwn_category_name'] = $wp_query->query_vars['product_cat'] ?? '';
+			}
+			$products = array();
 		}
 		if ( is_array( $products ) && count( $products ) ) {
 			$options_array['products'] = $products;

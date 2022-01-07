@@ -140,7 +140,7 @@ class WoocommerceGpfStructuredData {
 
 		// Brand.
 		if ( isset( $feed_item->additional_elements['brand'] ) ) {
-			$markup['brand'] = $feed_item->additional_elements['brand'][0];
+			$markup['brand'] = $this->generate_brand_markup( $feed_item->additional_elements['brand'][0] );
 		}
 
 		return $markup;
@@ -192,7 +192,7 @@ class WoocommerceGpfStructuredData {
 
 		// Brand.
 		if ( isset( $feed_item->additional_elements['brand'] ) ) {
-			$markup['brand'] = $feed_item->additional_elements['brand'][0];
+			$markup['brand'] = $this->generate_brand_markup( $feed_item->additional_elements['brand'][0] );
 		}
 
 		// Colour.
@@ -217,5 +217,16 @@ class WoocommerceGpfStructuredData {
 		}
 
 		return $condition;
+	}
+
+	private function generate_brand_markup( $brand ) {
+		return apply_filters(
+			'woocommerce_gpf_structured_data_brand',
+			[
+				'@type' => 'Brand',
+				'name'  => $brand,
+			],
+			$brand
+		);
 	}
 }

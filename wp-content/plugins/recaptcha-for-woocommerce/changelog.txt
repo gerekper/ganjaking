@@ -1,5 +1,10 @@
 *** Changelog ***
 
+2022-01-04- version 2.26
+
+* WooCommerce 6.0 compatibility fixes.
+* Tested with WooCommerce 6.0
+
 2021-12-16- version 2.25
 
 * reCaptcha V3 fixes:- Add payment method asking for captcha even it is disabled to use captcha.

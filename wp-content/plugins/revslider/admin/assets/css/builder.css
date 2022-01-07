@@ -3966,7 +3966,7 @@ oneshort .input_presets { right: 0px !important; left:auto !important; }
 #rev_builder.inAnimationMode ._c_paddings,
 #rev_builder.inAnimationMode ._c_margins { background-color: rgba(94,53,177,0.25); }
 
-
+._lc_mask { transform:none}
 
 /*._lc_.rs-linebreak ._lc_content_:before   { content: "linebreak";text-align: center;width: 100%;height: 1px;position: absolute;left: 0px;font-size: 12px;line-height: 0px;top: 50%;margin-top:-1px;vertical-align: top;display: block; color:#006dd2;}*/
 ._lc_.rs-linebreak ._lc_content_:after    { content: " "; width: 100%;height: 100%; position: absolute;top: 0px;left: 0px;  background:rgba(248,44,144,0.25); display:none;}  
@@ -4280,11 +4280,7 @@ ROW WRAPPERS
 #rev_builder.inAnimationMode ._lc_.selected>.ui-resizable-handle { display: none !important; }
 /*#rev_builder.inAnimationMode ._lc_.selected>._borders_  */
 
- /* CHROME FIX FOR SLOW SELECTING ON LAYERS */
- ._lc_mask_ {
-    transform: none !important;
-}
-
+ 
 /*******************************
     -IDLE / HOVER SWITCH -
  *******************************/

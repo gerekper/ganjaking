@@ -5,15 +5,15 @@
             <h3>Support</h3>
             <hr>
             <ul class="ul-disc">
-                <li><a href="https://docs.woocommerce.com/document/google-product-feed-setting-up-your-feed-google-merchant-centre">Set up guide</a></li>
-                <li><a href="https://docs.woocommerce.com/document/google-product-feed-setting-product-data">Setting product data</a>
+                <li><a href="https://woocommerce.com/document/google-product-feed-setting-up-your-feed-google-merchant-centre/">Set up guide</a></li>
+                <li><a href="https://woocommerce.com/document/google-product-feed-setting-product-data/">Setting product data</a>
                 </li>
-                <li><a href="https://docs.woocommerce.com/document/google-product-feed-feed-generation-options">Feed generation options</a></li>
-                <li><a href="https://docs.woocommerce.com/document/google-product-feed-customizations">Customizations</a></li>
+                <li><a href="https://woocommerce.com/document/google-product-feed-feed-generation-options/">Feed generation options</a></li>
+                <li><a href="https://woocommerce.com/document/google-product-feed-customizations/">Customizations</a></li>
             </ul>
             <br>
             <center>
-                <a class="button button-primary" target="_blank" href="https://docs.woocommerce.com/document/google-product-feed-troubleshooting">Troubleshooting info</a><br>&mdash;<br>
+                <a class="button button-primary" target="_blank" href="https://woocommerce.com/document/google-product-feed-troubleshooting/">Troubleshooting info</a><br>&mdash;<br>
                 <a target="_blank" href="https://woocommerce.com/my-account/create-a-ticket/">Open support ticket</a>
             </center>
             <br>

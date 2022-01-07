@@ -2,7 +2,7 @@
 Contributors: Grooni
 Requires at least: 4.9.7
 Tested up to: 5.8
-Stable tag: 2.6.1
+Stable tag: 2.6.1.1
 Requires PHP: 7.0
 License: Themeforest Split Licence
 License URI: -
@@ -65,6 +65,9 @@ Source: https://select2.github.io/
 == Changelog ==
 
 Visit [Changelog](https://grooni.com/docs/groovy-menu/changelog/) from our [Knowledge Base](https://grooni.com/docs/groovy-menu/)
+
+= 2.6.1.1 =
+* HotFix: Additional menu Dropdown appearance style.
 
 = 2.6.1 =
 * Add: Option for additional menu that allow to show submenu on click or hover.

@@ -1624,16 +1624,14 @@ class RevSliderSlide extends RevSliderFunctions {
 		
 		switch($stream_type){
 			case 'facebook':
-
 				if($additions['fb_type'] == 'album'){
 					$image_array = $this->get_val($this->post_data, 'images');
-					$this->image_url	=  isset($image_array[0]['source']) ? $image_array[0]['source'] : $this->get_val($this->post_data, 'picture', $this->image_thumb);
+					$this->image_url	= isset($image_array[0]['source']) ? $image_array[0]['source'] : $this->get_val($this->post_data, 'picture', $this->image_thumb);
 					$this->image_thumb	= $this->get_val($this->post_data, 'picture', $this->image_thumb);
 				}else{
 					$this->image_url	= $this->get_val($this->post_data, 'full_picture', $this->image_thumb);
 					$this->image_thumb	= $this->get_val($this->post_data, 'picture', $this->image_thumb);
 				}
-
 
 				if($this->get_val($additions, 'fb_type') == 'album'){
 					$fb_img_thumbnail = $this->get_val($this->post_data, 'picture');
@@ -1735,7 +1733,7 @@ class RevSliderSlide extends RevSliderFunctions {
 					'title'		=> $caption,
 					'content'	=> $caption,
 					'link'		=> 'https://www.instagram.com/p/'. $this->get_val($this->post_data, 'shortcode'),
-					'date'		=> date_i18n(get_option('date_format').' '.get_option('time_format'), $this->get_val($this->post_data, 'taken_at_timestamp', false)),
+					'date'		=> $this->convert_post_date($this->get_val($this->post_data, 'taken_at_timestamp'), true),
 					'author_name' => $this->get_val($additions, 'instagram_user'), //$this->get_val($this->post_data, 'user_info', '')
 				);
 				

@@ -1,5 +1,11 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2022.01.05 - version 10.4.0
+* Change: Update documentation links to reflect docs.woocommerce.com migration
+* Change: WooCommerce 6.1 Compatibility
+* Change: Update WooCommerce Action Scheduler library to latest release
+* Fix: Improve structured data for Brand
+
 2021.12.09 - version 10.3.1
 * Fix: Variation images not always pulled through properly
 
@@ -466,7 +472,7 @@
 * Fix issue where Composite products weren't included
 * Fix issue where External products were incorrectly included
 * Fix issue where definition of constant could conflict with other plugins
-* Introduce render cache for feeds, disabled by default pending testing, see https://docs.woocommerce.com/document/google-product-feed-feed-item-caching/ for information on how to test this
+* Introduce render cache for feeds, disabled by default pending testing, see https://woocommerce.com/document/google-product-feed-feed-item-caching/ for information on how to test this
 
 2017.04.25 - version 7.0.8
 * Fix issue where variation ID not passed to woocommerce_gpf_elements filters

@@ -132,7 +132,7 @@ class WoocommerceProductFeedsExpandedStructuredData {
 
 		// Brand.
 		if ( isset( $feed_item->additional_elements['brand'][0] ) ) {
-			$markup['brand'] = $feed_item->additional_elements['brand'][0];
+			$markup['brand'] = $this->generate_brand_markup( $feed_item->additional_elements['brand'][0] );
 		}
 
 		// Condition.
@@ -423,5 +423,21 @@ class WoocommerceProductFeedsExpandedStructuredData {
 		$wc_product->update_meta_data( 'woocommerce_gpf_schema_cache', $this->additional_product_markup );
 		$wc_product->update_meta_data( 'woocommerce_gpf_schema_cache_timestamp', time() );
 		$wc_product->save_meta_data();
+	}
+
+	/**
+	 * @param $brand
+	 *
+	 * @return mixed
+	 */
+	private function generate_brand_markup( $brand ) {
+		return apply_filters(
+			'woocommerce_gpf_structured_data_brand',
+			[
+				'@type' => 'Brand',
+				'name'  => $brand,
+			],
+			$brand
+		);
 	}
 }

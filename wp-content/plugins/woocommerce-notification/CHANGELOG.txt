@@ -1,3 +1,7 @@
+/*1.4.3 - 2021.12.31**/
+- Fixed: Compatible with the Polylang plugin
+- Updated: Compatibility with WC6.0.0
+
 /*1.4.2.5 - 2021.08.25**/
 - Fixed: Hidden notify in new widget preview wordpress
 - Fixed: Critical error when the product is not added to other languages in ajax.
