@@ -42,6 +42,7 @@ class WC_Shipping_Flat_Rate_Boxes extends WC_Shipping_Method {
 		$this->available_rates       = array();
 
 		add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
+		add_filter( 'woocommerce_translations_updates_for_woocommerce_shipping_flat_rate_boxes', '__return_true' );
 	}
 
 	/**

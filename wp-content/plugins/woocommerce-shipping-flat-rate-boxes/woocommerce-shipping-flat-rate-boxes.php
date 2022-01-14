@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Flat Rate Box Shipping
  * Plugin URI: https://woocommerce.com/products/flat-rate-box-shipping/
  * Description: Flat rate box shipping lets you define costs for boxes to different destinations. Items are packed into boxes based on item size and volume.
- * Version: 2.0.15
+ * Version: 2.0.16
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.0
  * Tested up to: 5.5
  * WC requires at least: 2.6
- * WC tested up to: 4.2
+ * WC tested up to: 4.5
  *
  * Copyright: © 2020 WooCommerce
  * License: GNU General Public License v3.0
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WC_BOX_SHIPPING_VERSION', '2.0.15' ); // WRCS: DEFINED_VERSION.
+define( 'WC_BOX_SHIPPING_VERSION', '2.0.16' ); // WRCS: DEFINED_VERSION.
 
 // Plugin init hook.
 add_action( 'plugins_loaded', 'wc_shipping_flat_rate_boxes_init' );

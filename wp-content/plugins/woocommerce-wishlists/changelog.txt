@@ -1,4 +1,9 @@
 *** WooCommerce Wishlist Changelog ***
+2022.01.08 - version 2.2.6
+    * Check product exists before attempting to call functions on it.
+    * Update:  WC and WP Updates.
+    * Fix:  Change the $.fn.modal to $.fn.wl_modal so it does not conflict with other jquery modal plugins.
+
 2021.07.14 - version 2.2.5
     * Fix:  Check product has an availability object before attempting to use.
     * Update:  WC and WP Updates.

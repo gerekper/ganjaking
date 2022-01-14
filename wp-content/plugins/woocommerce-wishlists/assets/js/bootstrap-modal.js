@@ -197,11 +197,11 @@
     /* MODAL PLUGIN DEFINITION
      * ======================= */
 
-    $.fn.modal = function (option) {
+    $.fn.wl_modal = function (option) {
         return this.each(function () {
             var $this = $(this)
                 , data = $this.data('modal')
-                , options = $.extend({}, $.fn.modal.defaults, $this.data(), typeof option == 'object' && option)
+                , options = $.extend({}, $.fn.wl_modal.defaults, $this.data(), typeof option == 'object' && option)
             if (!data)
                 $this.data('modal', (data = new Modal(this, options)))
             if (typeof option == 'string')
@@ -211,13 +211,13 @@
         })
     }
 
-    $.fn.modal.defaults = {
+    $.fn.wl_modal.defaults = {
         backdrop: true
         , keyboard: true
         , show: true
     }
 
-    $.fn.modal.Constructor = Modal
+    $.fn.wl_modal.Constructor = Modal
 
 
     /* MODAL DATA-API
@@ -235,7 +235,7 @@
             e.preventDefault()
 
             $target
-                .modal(option)
+                .wl_modal(option)
                 .one('hide', function () {
                     $this.focus()
                 })

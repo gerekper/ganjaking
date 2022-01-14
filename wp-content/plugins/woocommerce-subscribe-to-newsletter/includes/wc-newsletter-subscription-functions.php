@@ -452,3 +452,19 @@ function wc_newsletter_subscription_get_checkout_location_choices() {
 		)
 	);
 }
+
+/**
+ * Converts a bool to 'yes' or 'no'.
+ *
+ * The returned string is translatable.
+ *
+ * @since 3.3.5
+ *
+ * @see wc_string_to_bool()
+ *
+ * @param bool $value Bool to convert.
+ * @return string
+ */
+function wc_newsletter_subscription_bool_to_string( $value ) {
+	return ( wc_string_to_bool( $value ) ? __( 'Yes', 'woocommerce-subscribe-to-newsletter' ) : __( 'No', 'woocommerce-subscribe-to-newsletter' ) );
+}

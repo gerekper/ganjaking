@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Flat Rate Box Shipping 2.0.15\n"
+"Project-Id-Version: WooCommerce Flat Rate Box Shipping 2.0.16\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-flat-rate-boxes\n"
-"POT-Creation-Date: 2020-08-19 18:17:15+00:00\n"
+"POT-Creation-Date: 2020-10-06 20:28:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,7 +57,7 @@ msgstr ""
 
 #: includes/class-wc-shipping-flat-rate-boxes-privacy.php:12
 #: includes/class-wc-shipping-flat-rate-boxes.php:23
-#: includes/class-wc-shipping-flat-rate-boxes.php:149
+#: includes/class-wc-shipping-flat-rate-boxes.php:150
 msgid "Flat Rate Boxes"
 msgstr ""
 
@@ -79,24 +79,24 @@ msgstr ""
 msgid "Flat Rate Box"
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:146
+#: includes/class-wc-shipping-flat-rate-boxes.php:147
 #: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zone-methods-table.php:144
 msgid "Method Title"
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:148
+#: includes/class-wc-shipping-flat-rate-boxes.php:149
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:153
+#: includes/class-wc-shipping-flat-rate-boxes.php:154
 msgid "Tax Status"
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:158
+#: includes/class-wc-shipping-flat-rate-boxes.php:159
 msgid "Taxable"
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:159
+#: includes/class-wc-shipping-flat-rate-boxes.php:160
 #: includes/legacy/shipping-zones/includes/list-tables/class-wc-shipping-zones-table.php:156
 #: includes/legacy/shipping-zones/includes/views/form-add-shipping-zone.php:28
 #: includes/legacy/shipping-zones/includes/views/form-add-shipping-zone.php:47
@@ -105,40 +105,40 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:163
+#: includes/class-wc-shipping-flat-rate-boxes.php:164
 msgid "Handling Fee"
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:165
+#: includes/class-wc-shipping-flat-rate-boxes.php:166
 msgid ""
 "Fee excluding tax. Enter an amount, e.g. 2.50, or a percentage of the cart "
 "value, e.g. 5%. Leave blank to disable."
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:168
-#: includes/class-wc-shipping-flat-rate-boxes.php:176
+#: includes/class-wc-shipping-flat-rate-boxes.php:169
+#: includes/class-wc-shipping-flat-rate-boxes.php:177
 msgid "n/a"
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:171
+#: includes/class-wc-shipping-flat-rate-boxes.php:172
 msgid "Un-packable Item Cost"
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:173
+#: includes/class-wc-shipping-flat-rate-boxes.php:174
 msgid ""
 "Cost excluding tax. Leave blank to disable the rate if un-packable items "
 "are found."
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:295
+#: includes/class-wc-shipping-flat-rate-boxes.php:296
 msgid "Product # is missing dimensions. Aborting."
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:405
+#: includes/class-wc-shipping-flat-rate-boxes.php:406
 msgid "Boxes"
 msgstr ""
 
-#: includes/class-wc-shipping-flat-rate-boxes.php:405
+#: includes/class-wc-shipping-flat-rate-boxes.php:406
 msgid ""
 "Define your flat rate boxes here. Items will be packed into them by order "
 "of volume."

@@ -61,11 +61,11 @@ class Workouts_Integration implements Integration_Interface {
 	/**
 	 * Workouts_Integration constructor.
 	 *
-	 * @param Indexable_Repository      $indexable_repository    The indexables repository.
-	 * @param WPSEO_Shortlinker         $shortlinker             The shortlinker.
-	 * @param Options_Helper            $options_helper          The options helper.
-	 * @param Prominent_Words_Helper    $prominent_words_helper  The prominent words helper.
-	 * @param Post_Type_Helper          $post_type_helper        The post type helper.
+	 * @param Indexable_Repository   $indexable_repository    The indexables repository.
+	 * @param WPSEO_Shortlinker      $shortlinker             The shortlinker.
+	 * @param Options_Helper         $options_helper          The options helper.
+	 * @param Prominent_Words_Helper $prominent_words_helper  The prominent words helper.
+	 * @param Post_Type_Helper       $post_type_helper        The post type helper.
 	 */
 	public function __construct(
 		Indexable_Repository $indexable_repository,
@@ -74,11 +74,11 @@ class Workouts_Integration implements Integration_Interface {
 		Prominent_Words_Helper $prominent_words_helper,
 		Post_Type_Helper $post_type_helper
 	) {
-		$this->indexable_repository    = $indexable_repository;
-		$this->shortlinker             = $shortlinker;
-		$this->options_helper          = $options_helper;
-		$this->prominent_words_helper  = $prominent_words_helper;
-		$this->post_type_helper        = $post_type_helper;
+		$this->indexable_repository   = $indexable_repository;
+		$this->shortlinker            = $shortlinker;
+		$this->options_helper         = $options_helper;
+		$this->prominent_words_helper = $prominent_words_helper;
+		$this->post_type_helper       = $post_type_helper;
 	}
 
 	/**
@@ -128,6 +128,7 @@ class Workouts_Integration implements Integration_Interface {
 			[
 				'cornerstoneGuide'          => $this->shortlinker->build_shortlink( 'https://yoa.st/4el' ),
 				'orphanedGuide'             => $this->shortlinker->build_shortlink( 'https://yoa.st/4fa' ),
+				'orphanedUpdateContent'     => $this->shortlinker->build_shortlink( 'https://yoa.st/4h9' ),
 				'cornerstoneOn'             => $this->options_helper->get( 'enable_cornerstone_content' ),
 				'seoDataOptimizationNeeded' => ! $this->prominent_words_helper->is_indexing_completed(),
 				'orphaned'                  => $orphaned,

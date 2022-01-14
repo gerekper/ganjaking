@@ -457,6 +457,10 @@ function rocket_valid_key() {
 return true;
 }
 
+	delete_transient( 'rocket_check_key_errors' );
+
+	return $valid_details;
+
 /**
  * Determine if the key is valid.
  *

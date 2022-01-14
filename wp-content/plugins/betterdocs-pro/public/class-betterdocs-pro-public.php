@@ -65,6 +65,7 @@ class Betterdocs_Pro_Public
         add_action('betterdocs_after_live_search_form', array($this, 'popular_srarch'), 10, 1);
         add_action('betterdocs_advance_search_settings', array($this, 'advance_search_settings'));
         add_action('betterdocs_popular_keyword_limit_settings', array($this, 'popular_keyword_limit'));
+        add_filter('betterdocs_search_button_text', array($this, 'search_button_text'), 10, 1 );
         $live_search = BetterDocs_DB::get_settings('advance_search');
         if ($live_search == 1) {
             add_action('betterdocs_search_section', array($this, 'advance_search'), 10, 1);
@@ -130,7 +131,7 @@ class Betterdocs_Pro_Public
                 'URL'     => home_url() . '?rest_route=/betterdocs/feedback',
             ),
         );
-        wp_localize_script($this->plugin_name, 'betterdocs', $single_reactions);
+        wp_localize_script($this->plugin_name, 'betterdocs_pro', $single_reactions);
     }
 
     public function load_assets()
@@ -385,9 +386,9 @@ class Betterdocs_Pro_Public
 
     public function betterdocs_default_option_setting($values) 
     {
-        $values['betterdocs_popular_docs_text']   =  __('Popular Docs', 'betterdocs-pro');
+        $values['betterdocs_popular_docs_text']   = esc_html__('Popular Docs', 'betterdocs-pro');
         $values['betterdocs_popular_docs_number'] = 10;
-        
+        $values['search_button_text']             = esc_html__('Search','betterdocs-pro');
         return $values;
     }
 
@@ -417,9 +418,19 @@ class Betterdocs_Pro_Public
     {
         $settings = array(
             'type'        => 'checkbox',
-            'label'       => __('Enable Advance Search' , 'betterdocs-pro'),
+            'label'       => __('Enable Advanced Search' , 'betterdocs-pro'),
             'default'     => 1,
             'priority'    => 10
+        );
+        return $settings;
+    }
+
+    public function search_button_text($settings) {
+        $settings = array(
+            'type'     => 'text',
+            'label'    => __('Search Button Text', 'betterdocs-pro'),
+            'priority' => 10,
+            'default'  => esc_html__('Search','betterdocs-pro'),
         );
         return $settings;
     }
@@ -457,10 +468,12 @@ class Betterdocs_Pro_Public
 
     public function search_form_atts($atts)
     {
+        $search_button_text = BetterDocs_DB::get_settings('search_button_text');
         $atts['category_search'] = false;
         $atts['search_button'] = false;
         $atts['popular_search'] = false;
         $atts['popular_search_title'] = false;
+        $atts['search_button_text'] = empty($search_button_text) ? 'Search' : $search_button_text;
         return $atts;
     }
 
@@ -473,7 +486,7 @@ class Betterdocs_Pro_Public
         }
 
         if ( $get_args['search_button'] == true ) {
-            echo '<input class="search-submit" type="submit" value="'.esc_html__('Search','betterdocs').'">';
+            echo '<input class="search-submit" type="submit" value="'.esc_html__($get_args['search_button_text'],'betterdocs').'">';
         }
 
         if (BetterDocs_DB::get_settings('multiple_kb') == 1 && BetterDocs_DB::get_settings('kb_based_search') == 1) {

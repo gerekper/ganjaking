@@ -34,18 +34,18 @@
 			e.preventDefault();
 			
 			var feelings = e.currentTarget.dataset.feelings;
-			if( betterdocs != undefined && 
-				betterdocs.FEEDBACK != undefined && 
-				betterdocs.FEEDBACK.DISPLAY != undefined && 
-				betterdocs.FEEDBACK.DISPLAY == true ) {
-				var URL = betterdocs.FEEDBACK.URL + '/' + betterdocspublic.post_id + '&feelings=' + feelings;
+			if( betterdocs_pro != undefined &&
+				betterdocs_pro.FEEDBACK != undefined &&
+				betterdocs_pro.FEEDBACK.DISPLAY != undefined &&
+				betterdocs_pro.FEEDBACK.DISPLAY == true ) {
+				var URL = betterdocs_pro.FEEDBACK.URL + '/' + betterdocspublic.post_id + '&feelings=' + feelings;
 				jQuery.ajax({
 					url : URL,
 					method : 'POST',
 					success : function( res ){
 						if(res === true) {
 							$('.betterdocs-article-reactions-heading,.betterdocs-article-reaction-links').fadeOut(1000);
-							$('.betterdocs-article-reactions').html('<p>'+betterdocs.FEEDBACK.SUCCESS+'</p>').fadeIn(1000);
+							$('.betterdocs-article-reactions').html('<p>'+betterdocs_pro.FEEDBACK.SUCCESS+'</p>').fadeIn(1000);
 						}
 					}
 				});

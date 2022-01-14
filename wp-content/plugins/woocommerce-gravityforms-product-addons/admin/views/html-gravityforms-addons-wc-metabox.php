@@ -133,7 +133,6 @@ if ( is_array( $gravity_form_data ) && isset( $gravity_form_data['id'] ) && is_n
 
                 </div>
 
-
                 <div class="wc-product-data-metabox-group-field">
                     <div class="wc-product-data-metabox-group-field-title">
                         <a href="javascript:;"><?php _e( 'Price Labels', 'wc_gf_addons' ); ?></a>
@@ -173,7 +172,6 @@ if ( is_array( $gravity_form_data ) && isset( $gravity_form_data['id'] ) && is_n
                         </div>
                     </div>
                 </div>
-
 
                 <div class="wc-product-data-metabox-group-field">
                     <div class="wc-product-data-metabox-group-field-title">
@@ -319,7 +317,6 @@ if ( is_array( $gravity_form_data ) && isset( $gravity_form_data['id'] ) && is_n
                         </div>
                     </div>
                 </div>
-
 
                 <div class="wc-product-data-metabox-group-field">
                     <div class="wc-product-data-metabox-group-field-title">
@@ -489,6 +486,7 @@ if ( is_array( $gravity_form_data ) && isset( $gravity_form_data['id'] ) && is_n
                     </div>
                 </div>
 
+                <?php  do_action('woocommerce_gforms_after_field_groups', $gravity_form_data, $product->get_id()); ?>
 
             </div>
 

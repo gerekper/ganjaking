@@ -155,6 +155,7 @@ class WC_GFPA_Admin_Controller {
 				'structured_data_override_type'   => isset( $_POST['gravityform-structured_data_override_type'] ) ? $_POST['gravityform-structured_data_override_type'] : 'append',
 			);
 
+            $gravity_form_data = apply_filters('woocommerce_gravityforms_before_save_metadata', $gravity_form_data, $product->get_id());
 			$product->update_meta_data( '_gravity_form_data', $gravity_form_data );
 			$product->save_meta_data();
 		} else {

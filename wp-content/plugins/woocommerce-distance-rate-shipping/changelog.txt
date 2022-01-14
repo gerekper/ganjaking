@@ -1,5 +1,8 @@
 *** WooCommerce Distance Rate Shipping Changelog ***
 
+2022-01-05 - version 1.0.30
+* Fix - Missing Languages folder and .pot file in release-ready zip file.
+
 2021-12-13 - version 1.0.29
 * Fix - Allow localization based on WordPress language setting.
 * Tweak - WC 5.9 compatibility.

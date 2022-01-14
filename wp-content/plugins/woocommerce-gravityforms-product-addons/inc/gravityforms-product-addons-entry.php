@@ -224,12 +224,13 @@ class WC_GFPA_Entry {
 					}
 
 
-
+					//slash it so that unicode doesn't get stripped out by WP add_metadata wp_unslash
+					$cart_item_lead = wp_slash($gravity_forms_history_value->value['_gravity_form_lead']);
 
 					$new_history = array(
 						'_gravity_form_cart_item_key'   => $cart_item_key,
 						'_gravity_form_linked_entry_id' => $entry_id,
-						'_gravity_form_lead'            => $gravity_forms_history_value->value['_gravity_form_lead'],
+						'_gravity_form_lead'            => $cart_item_lead,
 						'_gravity_form_data'            => $gravity_forms_history_value->value['_gravity_form_data']
 					);
 
@@ -337,6 +338,7 @@ class WC_GFPA_Entry {
 		$order_items = $the_order->get_items();
 
 		foreach ( $order_items as $order_item ) {
+			$gravity_forms_history = null;
 
 			$meta_data = $order_item->get_meta_data();
 			if ( WC_GFPA_Compatibility::is_wc_version_gte_3_2() ) {

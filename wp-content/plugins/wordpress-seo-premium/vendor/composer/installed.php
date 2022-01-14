@@ -6,37 +6,37 @@
     'aliases' => 
     array (
     ),
-    'reference' => '7af50bbb17f678b88c34288de111e548a513d067',
+    'reference' => '2fdfc47b72df571230094869d9f09583b1b64368',
     'name' => 'yoast/wordpress-seo-premium',
   ),
   'versions' => 
   array (
     'antecedent/patchwork' => 
     array (
-      'pretty_version' => '2.1.15',
-      'version' => '2.1.15.0',
+      'pretty_version' => '2.1.17',
+      'version' => '2.1.17.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0430ceaac7f447f1778c199ec19d7e4362a6f961',
+      'reference' => 'df5aba175a44c2996ced4edf8ec9f9081b5348c0',
     ),
     'brain/monkey' => 
     array (
-      'pretty_version' => '2.6.0',
-      'version' => '2.6.0.0',
+      'pretty_version' => '2.6.1',
+      'version' => '2.6.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '7042140000b4b18034c0c0010d86274a00f25442',
+      'reference' => 'a31c84515bb0d49be9310f52ef1733980ea8ffbb',
     ),
     'composer/installers' => 
     array (
-      'pretty_version' => 'v1.10.0',
-      'version' => '1.10.0.0',
+      'pretty_version' => 'v1.12.0',
+      'version' => '1.12.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d',
+      'reference' => 'd20a64ed3c94748397ff5973488761b22f6d3f19',
     ),
     'cordoval/hamcrest-php' => 
     array (
@@ -429,12 +429,12 @@
     ),
     'squizlabs/php_codesniffer' => 
     array (
-      'pretty_version' => '3.6.0',
-      'version' => '3.6.0.0',
+      'pretty_version' => '3.6.1',
+      'version' => '3.6.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ffced0d2c8fa8e6cdc4d695a743271fab6c38625',
+      'reference' => 'f268ca40d54617c6e06757f83f699775c9b3ff2e',
     ),
     'symfony/console' => 
     array (
@@ -537,21 +537,21 @@
     ),
     'yoast/phpunit-polyfills' => 
     array (
-      'pretty_version' => '1.0.2',
-      'version' => '1.0.2.0',
+      'pretty_version' => '1.0.3',
+      'version' => '1.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1a582ab1d91e86aa450340c4d35631a85314ff9f',
+      'reference' => '5ea3536428944955f969bc764bbe09738e151ada',
     ),
     'yoast/wordpress-seo' => 
     array (
-      'pretty_version' => '17.8',
-      'version' => '17.8.0.0',
+      'pretty_version' => '17.9',
+      'version' => '17.9.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '45b8d4d58bfa3a737d47cb6591d2e1e2a7650233',
+      'reference' => '798cc343c543341add4c1cc142a69cb9fc1cb62e',
     ),
     'yoast/wordpress-seo-premium' => 
     array (
@@ -560,7 +560,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '7af50bbb17f678b88c34288de111e548a513d067',
+      'reference' => '2fdfc47b72df571230094869d9f09583b1b64368',
     ),
     'yoast/wp-test-utils' => 
     array (

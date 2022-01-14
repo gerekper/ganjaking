@@ -23,6 +23,7 @@ class WC_Newsletter_Subscription_Register {
 	public function __construct() {
 		add_action( 'woocommerce_register_form', array( $this, 'register_content' ) );
 		add_action( 'woocommerce_created_customer', array( $this, 'process_register' ), 10, 1 );
+		add_filter( 'wp_new_user_notification_email_admin', array( $this, 'new_user_admin_email' ), 10, 2 );
 	}
 
 	/**
@@ -64,7 +65,7 @@ class WC_Newsletter_Subscription_Register {
 	 * @param int $customer_id Customer ID.
 	 */
 	public function process_register( $customer_id ) {
-		if ( defined( 'WOOCOMMERCE_CHECKOUT' ) || ! isset( $_REQUEST['subscribe_to_newsletter'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		if ( defined( 'WOOCOMMERCE_CHECKOUT' ) || ! isset( $_POST['subscribe_to_newsletter'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			return;
 		}
 
@@ -78,13 +79,40 @@ class WC_Newsletter_Subscription_Register {
 			return;
 		}
 
-		wc_newsletter_subscription_subscribe(
+		$subscribed = wc_newsletter_subscription_subscribe(
 			$customer->get_email(),
 			array(
 				'first_name' => $customer->get_first_name(),
 				'last_name'  => $customer->get_last_name(),
 			)
 		);
+
+		if ( $subscribed ) {
+			update_user_meta( $customer_id, 'subscribed_on_register', 'yes' );
+		}
+	}
+
+	/**
+	 * Adds the new customer subscription value to the administrator's info mail.
+	 *
+	 * @since 3.3.5
+	 *
+	 * @param array   $email Used to build wp_mail().
+	 * @param WP_User $user  User object for new user.
+	 * @return array
+	 */
+	public function new_user_admin_email( $email, $user ) {
+		$subscribed = get_user_meta( $user->ID, 'subscribed_on_register', true );
+		$value      = wc_newsletter_subscription_bool_to_string( 'yes' === $subscribed );
+		$label      = get_option( 'woocommerce_newsletter_label' );
+
+		if ( ! $label ) {
+			$label = _x( 'Subscribe to our newsletter', 'subscription checkbox label', 'woocommerce-subscribe-to-newsletter' );
+		}
+
+		$email['message'] .= "\r\n{$label}: {$value}\r\n";
+
+		return $email;
 	}
 }
 

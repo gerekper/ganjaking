@@ -1,5 +1,8 @@
 *** Shipping Per Product Changelog ***
 
+2022-01-05 - version 2.3.17
+* Fix - Missing Languages folder and .pot file in release-ready zip file.
+
 2021-12-13 - version 2.3.16
 * Fix - Make Australia 2 digits state code works.
 * Tweak - WC 5.9 & WP 5.8 compatibility.

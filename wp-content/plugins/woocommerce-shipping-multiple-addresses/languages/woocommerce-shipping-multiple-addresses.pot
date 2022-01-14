@@ -1,16 +1,16 @@
-# Copyright (C) 2021 WooCommerce
+# Copyright (C) 2022 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.6.34\n"
+"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.6.39\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-multiple-"
 "addresses\n"
-"POT-Creation-Date: 2021-09-29 03:59:40+00:00\n"
+"POT-Creation-Date: 2022-01-05 18:58:47+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
@@ -29,64 +29,61 @@ msgstr ""
 msgid "Address saved"
 msgstr ""
 
-#: includes/wcms-address-book.php:313 includes/wcms-address-book.php:669
+#: includes/wcms-address-book.php:306
 msgid "Please enter a valid postcode/ZIP."
 msgstr ""
 
-#: includes/wcms-address-book.php:325 includes/wcms-address-book.php:327
-#: includes/wcms-address-book.php:681 includes/wcms-address-book.php:683
+#: includes/wcms-address-book.php:318 includes/wcms-address-book.php:320
 msgid "is not a valid phone number."
 msgstr ""
 
-#: includes/wcms-address-book.php:338 includes/wcms-address-book.php:340
-#: includes/wcms-address-book.php:694 includes/wcms-address-book.php:696
+#: includes/wcms-address-book.php:331 includes/wcms-address-book.php:333
 msgid "is not a valid email address."
 msgstr ""
 
-#: includes/wcms-address-book.php:360 includes/wcms-address-book.php:362
-#: includes/wcms-address-book.php:716 includes/wcms-address-book.php:718
+#: includes/wcms-address-book.php:353 includes/wcms-address-book.php:355
 msgid "is not valid. Please enter one of the following:"
 msgstr ""
 
-#: includes/wcms-address-book.php:376 includes/wcms-address-book.php:378
-#: includes/wcms-address-book.php:731
+#: includes/wcms-address-book.php:385 includes/wcms-address-book.php:387
+#: includes/wcms-address-book.php:662
 msgid "Please enter the complete address"
 msgstr ""
 
-#: includes/wcms-address-book.php:404 includes/wcms-address-book.php:406
-#: includes/wcms-address-book.php:763
+#: includes/wcms-address-book.php:415 includes/wcms-address-book.php:417
+#: includes/wcms-address-book.php:696
 msgid "Address is already in your address book"
 msgstr ""
 
-#: includes/wcms-address-book.php:465
+#: includes/wcms-address-book.php:476
 msgid "Address Book"
 msgstr ""
 
-#: includes/wcms-address-book.php:486
+#: includes/wcms-address-book.php:497
 msgid "You have not set up a shipping address yet."
 msgstr ""
 
-#: includes/wcms-address-book.php:488 templates/shipping-address-drop.php:282
+#: includes/wcms-address-book.php:499 templates/shipping-address-drop.php:282
 #: templates/shipping-address-table.php:198
 msgid "Use this address"
 msgstr ""
 
-#: includes/wcms-address-book.php:493
+#: includes/wcms-address-book.php:504
 msgid "You have no shipping addresses saved."
 msgstr ""
 
-#: includes/wcms-address-book.php:830 templates/shipping-address-drop.php:151
+#: includes/wcms-address-book.php:763 templates/shipping-address-drop.php:151
 #: templates/shipping-address-drop.php:236
 msgid "Drag items here"
 msgstr ""
 
 #: includes/wcms-admin-user-addresses-list-table.php:28
-#: includes/wcms-order.php:233 woocommerce-shipping-multiple-addresses.php:508
+#: includes/wcms-order.php:257 woocommerce-shipping-multiple-addresses.php:508
 msgid "Address"
 msgstr ""
 
 #: includes/wcms-admin-user-addresses-list-table.php:65
-#: includes/wcms-order.php:551 templates/address-block.php:27
+#: includes/wcms-order.php:595 templates/address-block.php:27
 msgid "Edit"
 msgstr ""
 
@@ -95,11 +92,11 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: includes/wcms-admin-user-addresses-list-table.php:105
+#: includes/wcms-admin-user-addresses-list-table.php:112
 msgid "Cancel"
 msgstr ""
 
-#: includes/wcms-admin-user-addresses-list-table.php:106
+#: includes/wcms-admin-user-addresses-list-table.php:113
 #: templates/account-address-form.php:42 templates/address-form.php:101
 #: templates/shipping-address-drop.php:308
 #: templates/shipping-address-table.php:222
@@ -111,7 +108,7 @@ msgstr ""
 msgid "Select an option&hellip;"
 msgstr ""
 
-#: includes/wcms-admin.php:105 includes/wcms-privacy.php:152
+#: includes/wcms-admin.php:105 includes/wcms-privacy.php:154
 msgid "Multiple Shipping Addresses"
 msgstr ""
 
@@ -159,73 +156,73 @@ msgstr ""
 msgid "Modify/Add Address"
 msgstr ""
 
-#: includes/wcms-checkout.php:297
+#: includes/wcms-checkout.php:299
 msgid "Stored Addresses"
 msgstr ""
 
-#: includes/wcms-checkout.php:299
+#: includes/wcms-checkout.php:301
 msgid "Select an address to use&hellip;"
 msgstr ""
 
-#: includes/wcms-checkout.php:491 includes/wcms-checkout.php:493
+#: includes/wcms-checkout.php:500 includes/wcms-checkout.php:502
 msgid "One or more items has no shipping address."
 msgstr ""
 
-#: includes/wcms-front.php:252
+#: includes/wcms-front.php:264
 msgid ""
 "This order ships to multiple addresses.  <a class=\"button\" "
 "href=\"%s\">View Addresses</a>"
 msgstr ""
 
-#: includes/wcms-front.php:310
+#: includes/wcms-front.php:322
 msgid "Shipping address %d"
 msgstr ""
 
-#: includes/wcms-front.php:420
+#: includes/wcms-front.php:432
 msgid "%s is a required field."
 msgstr ""
 
-#: includes/wcms-front.php:437
+#: includes/wcms-front.php:449
 msgid "Please enter a valid postcode / ZIP."
 msgstr ""
 
-#: includes/wcms-front.php:446
+#: includes/wcms-front.php:458
 msgid "%s is not a valid phone number."
 msgstr ""
 
-#: includes/wcms-front.php:453
+#: includes/wcms-front.php:465
 msgid "%s is not a valid email address."
 msgstr ""
 
-#: includes/wcms-front.php:480
+#: includes/wcms-front.php:492
 msgid "Address added successfully."
 msgstr ""
 
-#: includes/wcms-front.php:483
+#: includes/wcms-front.php:495
 msgid "Address changed successfully."
 msgstr ""
 
-#: includes/wcms-front.php:555
+#: includes/wcms-front.php:566
 msgid "Delete address"
 msgstr ""
 
-#: includes/wcms-front.php:573
+#: includes/wcms-front.php:584
 msgid "Deleted address"
 msgstr ""
 
-#: includes/wcms-front.php:575
+#: includes/wcms-front.php:586
 msgid "Address could not be found"
 msgstr ""
 
-#: includes/wcms-front.php:593
+#: includes/wcms-front.php:604
 msgid "Add address"
 msgstr ""
 
-#: includes/wcms-gifts.php:55 includes/wcms-gifts.php:125
+#: includes/wcms-gifts.php:55 includes/wcms-gifts.php:132
 msgid "This is a gift"
 msgstr ""
 
-#: includes/wcms-gifts.php:159
+#: includes/wcms-gifts.php:182
 msgid "This is a Gift"
 msgstr ""
 
@@ -242,7 +239,7 @@ msgstr ""
 msgid "Character Limit: %d"
 msgstr ""
 
-#: includes/wcms-notes.php:263
+#: includes/wcms-notes.php:264
 msgid "Shipping Date: %s"
 msgstr ""
 
@@ -263,92 +260,92 @@ msgstr ""
 msgid "Invalid shipment status"
 msgstr ""
 
-#: includes/wcms-order.php:180
+#: includes/wcms-order.php:199
 msgid "Ships to multiple addresses"
 msgstr ""
 
-#: includes/wcms-order.php:228
+#: includes/wcms-order.php:252
 msgid "This order ships to multiple addresses."
 msgstr ""
 
-#: includes/wcms-order.php:232 multi-shipping.php:138 settings.php:47
+#: includes/wcms-order.php:256 multi-shipping.php:138 settings.php:47
 msgid "Products"
 msgstr ""
 
-#: includes/wcms-order.php:235
+#: includes/wcms-order.php:259
 msgid "Notes"
 msgstr ""
 
-#: includes/wcms-order.php:306
+#: includes/wcms-order.php:330
 msgid "Delivery date: %s"
 msgstr ""
 
-#: includes/wcms-order.php:326
+#: includes/wcms-order.php:354
 msgid "Ships to multiple addresses "
 msgstr ""
 
-#: includes/wcms-order.php:341
+#: includes/wcms-order.php:374
 msgid "Order Shipping Addresses"
 msgstr ""
 
-#: includes/wcms-order.php:457
+#: includes/wcms-order.php:501
 msgid "Pending"
 msgstr ""
 
-#: includes/wcms-order.php:458 includes/wcms-order.php:463
+#: includes/wcms-order.php:502 includes/wcms-order.php:507
 msgid "Completed"
 msgstr ""
 
-#: includes/wcms-order.php:460
+#: includes/wcms-order.php:504
 msgid "GO"
 msgstr ""
 
-#: includes/wcms-order.php:463
+#: includes/wcms-order.php:507
 msgid "Change"
 msgstr ""
 
-#: includes/wcms-order.php:490
+#: includes/wcms-order.php:534
 msgid "Do you want to send an email to the customer?"
 msgstr ""
 
-#: includes/wcms-order.php:756 multi-shipping.php:183
+#: includes/wcms-order.php:811 multi-shipping.php:183
 msgid "Part of your order has been shipped"
 msgstr ""
 
-#: includes/wcms-order.php:784
+#: includes/wcms-order.php:839
 msgid ""
 "Hi there. Part of your recent order on %s has been completed. Your order "
 "details are shown below for your reference:"
 msgstr ""
 
-#: includes/wcms-order.php:786
+#: includes/wcms-order.php:841
 msgid "Order:"
 msgstr ""
 
-#: includes/wcms-order.php:806 templates/pip-template-body.php:118
+#: includes/wcms-order.php:865 templates/pip-template-body.php:118
 #: templates/pip-template-body.php:204 templates/shipping-address-table.php:66
 #: woocommerce-shipping-multiple-addresses.php:508
 msgid "Product"
 msgstr ""
 
-#: includes/wcms-order.php:807 templates/pip-template-body.php:119
+#: includes/wcms-order.php:866 templates/pip-template-body.php:119
 #: templates/pip-template-body.php:205 templates/shipping-address-table.php:67
 msgid "Quantity"
 msgstr ""
 
-#: includes/wcms-order.php:842
+#: includes/wcms-order.php:901
 msgid "Download %d:"
 msgstr ""
 
-#: includes/wcms-order.php:844
+#: includes/wcms-order.php:903
 msgid "Download:"
 msgstr ""
 
-#: includes/wcms-order.php:871 templates/pip-template-body.php:55
+#: includes/wcms-order.php:934 templates/pip-template-body.php:55
 msgid "Billing address"
 msgstr ""
 
-#: includes/wcms-order.php:875 templates/pip-template-body.php:75
+#: includes/wcms-order.php:938 templates/pip-template-body.php:75
 msgid "Shipping address"
 msgstr ""
 
@@ -380,43 +377,43 @@ msgid ""
 "policy.</a>"
 msgstr ""
 
-#: includes/wcms-privacy.php:79
+#: includes/wcms-privacy.php:80
 msgid "Products listing for shipping address \"%s\": "
 msgstr ""
 
-#: includes/wcms-privacy.php:86
+#: includes/wcms-privacy.php:88
 msgid ". Note: %s."
 msgstr ""
 
-#: includes/wcms-privacy.php:91 includes/wcms-privacy.php:112
+#: includes/wcms-privacy.php:93 includes/wcms-privacy.php:114
 msgid "Orders"
 msgstr ""
 
-#: includes/wcms-privacy.php:95
+#: includes/wcms-privacy.php:97
 msgid "Multiple Shipping package \"%s\""
 msgstr ""
 
-#: includes/wcms-privacy.php:116
+#: includes/wcms-privacy.php:118
 msgid "Multiple Shipping Order Shipment \"%s\""
 msgstr ""
 
-#: includes/wcms-privacy.php:148
+#: includes/wcms-privacy.php:150
 msgid "Customer Data"
 msgstr ""
 
-#: includes/wcms-privacy.php:185
+#: includes/wcms-privacy.php:187
 msgid "Multiple Shipping User Data Erased."
 msgstr ""
 
-#: includes/wcms-privacy.php:275
+#: includes/wcms-privacy.php:278
 msgid "Multiple Shipping Order Data Erased."
 msgstr ""
 
-#: includes/wcms-shipping-easy.php:75
+#: includes/wcms-shipping-easy.php:81
 msgid "This is a gift!"
 msgstr ""
 
-#: includes/wcms-shipping-easy.php:107
+#: includes/wcms-shipping-easy.php:113
 #. translators: 1: tracking number 2: carrier key 3: carrier service key 4:
 #. cost
 msgid ""
@@ -861,7 +858,7 @@ msgstr ""
 
 #: woocommerce-shipping-multiple-addresses.php:287
 #: woocommerce-shipping-multiple-addresses.php:605
-#: woocommerce-shipping-multiple-addresses.php:922
+#: woocommerce-shipping-multiple-addresses.php:934
 msgid "Shipping Methods"
 msgstr ""
 
@@ -903,7 +900,7 @@ msgstr ""
 
 #: woocommerce-shipping-multiple-addresses.php:761
 #: woocommerce-shipping-multiple-addresses.php:870
-#: woocommerce-shipping-multiple-addresses.php:1002
+#: woocommerce-shipping-multiple-addresses.php:1014
 msgid "Modify address"
 msgstr ""
 
@@ -914,7 +911,7 @@ msgid ""
 "alternate arrangements."
 msgstr ""
 
-#: woocommerce-shipping-multiple-addresses.php:997
+#: woocommerce-shipping-multiple-addresses.php:1009
 msgid ""
 "(3) Sorry, it seems that there are no available shipping methods for your "
 "state. Please contact us if you require assistance or wish to make "

@@ -1,4 +1,8 @@
 *** WooCommerce Conditional Content Changelog ***
+2022.01.08 - version 2.1.8
+    * Enhancement:  Added a Customer Order History condition to allow showing or hiding a block if the current user has purchased product(s).
+                        Uses either the logged in user id, or the billing email in the case the user checked out as guest.
+
 2021.09.02 - version 2.1.7
     * Update:  Allow the selection of specific variations for Cart Product rules.
     * Update:  WP and WC compatibility tags.

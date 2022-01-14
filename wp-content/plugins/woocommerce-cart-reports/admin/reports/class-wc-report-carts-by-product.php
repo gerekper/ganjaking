@@ -317,14 +317,7 @@ class WC_Report_Carts_By_Product extends WC_Admin_Report {
 		?>
 		<a
 			href="#"
-			download="report-<?php echo $current_range; ?>-
-										<?php
-										echo date_i18n(
-											'Y-m-d',
-											current_time( 'timestamp' )
-										);
-										?>
-			.csv"
+			download="report-<?php echo $current_range; ?>-<?php echo date_i18n( 'Y-m-d', current_time( 'timestamp' ) ); ?>.csv"
 			class="export_csv"
 			data-export="chart"
 			data-xaxes="<?php _e( 'Date', 'woocommerce_cart_reports' ); ?>"

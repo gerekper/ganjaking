@@ -4,7 +4,7 @@ Donate link: https://wpdeveloper.com
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 5.8
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,11 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 2.0.3 - 12/01/2022 =
+- Added: Advanced Search option for Elementor widget
+- Fixed: Elementor Sidebar order option not working properly
+- Fixed: Few minor bug fixes & improvements
 
 = 2.0.2 - 23/12/2021 =
 - Fixed: Multiple KB Elementor widget not showing properly

@@ -46,6 +46,11 @@ class WC_GFPA_Cart {
 
 		// Adjust price if required based on the gravity form data
 		if ( isset( $cart_item['_gravity_form_lead'] ) && isset( $cart_item['_gravity_form_data'] ) ) {
+
+			if (function_exists('wc_pb_is_bundled_cart_item') && wc_pb_is_bundled_cart_item( $cart_item )) {
+				return $cart_item;
+			}
+
 			//Gravity forms generates errors and warnings.  To prevent these from conflicting with other things, we are going to disable warnings and errors.
 			$err_level = error_reporting();
 			error_reporting( 0 );
@@ -263,6 +268,10 @@ class WC_GFPA_Cart {
 
 	public function get_cart_item_from_session( $cart_item, $values ) {
 
+		if (function_exists('wc_pb_is_bundled_cart_item') && wc_pb_is_bundled_cart_item( $cart_item )) {
+			return $cart_item;
+		}
+
 		if ( isset( $values['_gravity_form_data'] ) ) {
 			$cart_item['_gravity_form_data'] = $values['_gravity_form_data'];
 		}
@@ -468,7 +477,7 @@ class WC_GFPA_Cart {
 	}
 
 	/**
-	 * @param $item \WC_Order_Item
+	 * @param $item WC_Order_Item
 	 * @param $cart_item_key
 	 * @param $cart_item
 	 */
@@ -480,6 +489,10 @@ class WC_GFPA_Cart {
 
 			//$cart_item_debug = print_r( $cart_item, true );
 			if ( isset( $cart_item['_gravity_form_lead'] ) && isset( $cart_item['_gravity_form_data'] ) ) {
+
+				if (function_exists('wc_pb_is_bundled_cart_item') && wc_pb_is_bundled_cart_item( $cart_item )) {
+					return $item;
+				}
 
 				$item_id = $item->get_id();
 
@@ -493,8 +506,11 @@ class WC_GFPA_Cart {
 
 				GFCommon::log_debug( "Gravity Forms Has cart_item['_gravity_form_lead'] and cart_item['_gravity_form_data']: Order Item ID(#{$item_id})" );
 
+				//slash it so that unicode doesn't get stripped out by WP add_metadata wp_unslash
+				$cart_item_lead = wp_slash($cart_item['_gravity_form_lead']);
+
 				$item->add_meta_data( '_gravity_forms_history', array(
-						'_gravity_form_lead'          => $cart_item['_gravity_form_lead'],
+						'_gravity_form_lead'          => $cart_item_lead,
 						'_gravity_form_data'          => $cart_item['_gravity_form_data'],
 						'_gravity_form_cart_item_key' => $cart_item_key
 					)

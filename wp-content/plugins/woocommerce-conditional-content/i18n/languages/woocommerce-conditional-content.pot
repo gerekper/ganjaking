@@ -1,18 +1,18 @@
-# Copyright (C) 2021 Lucas Stark
+# Copyright (C) 2022 Lucas Stark
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Conditional Content 2.1.7\n"
+"Project-Id-Version: WooCommerce Conditional Content 2.1.8\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-conditional-content\n"
-"POT-Creation-Date: 2021-09-02 15:35:49+00:00\n"
+"POT-Creation-Date: 2022-01-08 17:59:23+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: grunt-wp-i18n1.0.1\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
 
 #: admin/class-wc-conditional-content-admin-controller.php:117
 #: admin/views/metabox-rules.php:48
@@ -576,7 +576,8 @@ msgstr ""
 #: classes/rules/sales.php:12 classes/rules/schedule.php:55
 #: classes/rules/stock.php:11 classes/rules/taxonomy.php:12
 #: classes/rules/users.php:12 classes/rules/users.php:63
-#: classes/rules/users.php:116 classes/rules/wpml.php:12
+#: classes/rules/users.php:116 classes/rules/wordpress.php:11
+#: classes/rules/wordpress.php:114 classes/rules/wpml.php:12
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/geo.php:12
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/products.php:11
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/products.php:43
@@ -595,6 +596,8 @@ msgstr ""
 #: dist/woocommerce-conditional-content/classes/rules/users.php:12
 #: dist/woocommerce-conditional-content/classes/rules/users.php:63
 #: dist/woocommerce-conditional-content/classes/rules/users.php:116
+#: dist/woocommerce-conditional-content/classes/rules/wordpress.php:11
+#: dist/woocommerce-conditional-content/classes/rules/wordpress.php:114
 #: dist/woocommerce-conditional-content/classes/rules/wpml.php:12
 msgid "is"
 msgstr ""
@@ -611,7 +614,8 @@ msgstr ""
 #: classes/rules/sales.php:13 classes/rules/schedule.php:56
 #: classes/rules/stock.php:12 classes/rules/taxonomy.php:13
 #: classes/rules/users.php:13 classes/rules/users.php:64
-#: classes/rules/users.php:117 classes/rules/wpml.php:13
+#: classes/rules/users.php:117 classes/rules/wordpress.php:12
+#: classes/rules/wpml.php:13
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/geo.php:13
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/products.php:12
 #: dist/woocommerce-conditional-content/back_compat_less_27/classes/rules/products.php:44
@@ -630,6 +634,7 @@ msgstr ""
 #: dist/woocommerce-conditional-content/classes/rules/users.php:13
 #: dist/woocommerce-conditional-content/classes/rules/users.php:64
 #: dist/woocommerce-conditional-content/classes/rules/users.php:117
+#: dist/woocommerce-conditional-content/classes/rules/wordpress.php:12
 #: dist/woocommerce-conditional-content/classes/rules/wpml.php:13
 msgid "is not"
 msgstr ""
@@ -1045,6 +1050,26 @@ msgstr ""
 #: classes/rules/schedule.php:71
 #: dist/woocommerce-conditional-content/classes/rules/schedule.php:71
 msgid "Saturday"
+msgstr ""
+
+#: classes/rules/store.php:81
+#: dist/woocommerce-conditional-content/classes/rules/store.php:81
+msgid "has purchased"
+msgstr ""
+
+#: classes/rules/store.php:82
+#: dist/woocommerce-conditional-content/classes/rules/store.php:82
+msgid "has not purchased"
+msgstr ""
+
+#: classes/rules/wordpress.php:64
+#: dist/woocommerce-conditional-content/classes/rules/wordpress.php:64
+msgid "is one of"
+msgstr ""
+
+#: classes/rules/wordpress.php:65
+#: dist/woocommerce-conditional-content/classes/rules/wordpress.php:65
+msgid "is not one of"
 msgstr ""
 
 #: dist/woocommerce-conditional-content/woocommerce-conditional-content-main.php:96

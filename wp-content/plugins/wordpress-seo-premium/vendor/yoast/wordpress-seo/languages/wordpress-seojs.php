@@ -262,63 +262,66 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/components/SchemaTab.js:82
 	__( 'Learn more about structured data with Schema.org', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:347
+	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:310
 	__( 'Tracking', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:353
-	// Reference: packages/js/src/components/WincherPerformanceReport.js:245
+	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:316
+	// Reference: packages/js/src/components/WincherPerformanceReport.js:238
 	__( 'Keyphrase', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:359
-	// Reference: packages/js/src/components/WincherPerformanceReport.js:251
+	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:322
+	// Reference: packages/js/src/components/WincherPerformanceReport.js:244
 	__( 'Position', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:365
-	// Reference: packages/js/src/components/WincherPerformanceReport.js:257
+	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:328
+	// Reference: packages/js/src/components/WincherPerformanceReport.js:250
 	__( 'Position over time', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:394
-	// Reference: packages/js/src/components/WincherPerformanceReport.js:279
+	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:358
+	// Reference: packages/js/src/components/WincherPerformanceReport.js:274
 	/* %s expands to Wincher */
 	__( 'Get more insights over at %s', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:399
+	// Reference: packages/js/src/components/WincherKeyphrasesTable.js:363
 	__( '* focus keyphrase', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherPerformanceReport.js:127
-	/* %s expands to Wincher */
-	__( 'Add your existing keyphrases to %s', 'wordpress-seo' ),
-
-	// Reference: packages/js/src/components/WincherPerformanceReport.js:165
+	// Reference: packages/js/src/components/WincherPerformanceReport.js:126
 	// Reference: packages/js/src/components/WincherTableRow.js:179
 	__( 'View', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherPerformanceReport.js:232
+	// Reference: packages/js/src/components/WincherPerformanceReport.js:181
+	__( 'This overview only shows you keyphrases added to Yoast SEO. There may be other keyphrases added to your %s.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/WincherPerformanceReport.js:194
+	/* %s : Expands to "Wincher". */
+	__( '%s account', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/components/WincherPerformanceReport.js:222
 	__( 'Top performing keyphrases on your site', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherPerformanceReport.js:84
-	// Reference: packages/js/src/components/WincherSEOPerformance.js:171
+	// Reference: packages/js/src/components/WincherPerformanceReport.js:90
+	// Reference: packages/js/src/components/WincherSEOPerformance.js:178
 	/* %s expands to Wincher */
 	__( 'Connect with %s', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherPostPublish.js:34
-	// Reference: packages/js/src/components/WincherSEOPerformance.js:266
+	// Reference: packages/js/src/components/WincherPostPublish.js:31
+	// Reference: packages/js/src/components/WincherSEOPerformance.js:271
 	__( 'SEO performance', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherPostPublish.js:36
-	// Reference: packages/js/src/components/WincherSEOPerformance.js:269
+	// Reference: packages/js/src/components/WincherPostPublish.js:33
+	// Reference: packages/js/src/components/WincherSEOPerformance.js:274
 	__( 'Learn more about the SEO performance feature.', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherPostPublish.js:42
+	// Reference: packages/js/src/components/WincherPostPublish.js:39
 	__( 'Tracking has already been enabled for one or more keyphrases of this page. Clicking the button below will enable tracking for all of its keyphrases.', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherPostPublish.js:54
+	// Reference: packages/js/src/components/WincherPostPublish.js:51
 	__( 'Track all keyphrases on this page', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherSEOPerformance.js:227
+	// Reference: packages/js/src/components/WincherSEOPerformance.js:234
 	__( 'You can enable / disable tracking the SEO performance for each keyphrase below.', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/components/WincherSEOPerformanceModal.js:75
+	// Reference: packages/js/src/components/WincherSEOPerformanceModal.js:72
 	// Reference: packages/js/src/components/fills/MetaboxFill.js:80
 	__( 'Track SEO performance', 'wordpress-seo' ),
 
@@ -589,7 +592,7 @@ $generated_i18n_strings = array(
 
 	// Reference: packages/js/src/components/modals/WincherNoTrackedKeyphrasesAlert.js:18
 	/* %s: Expands to "Wincher". */
-	__( 'Your %s account does not contain any keyphrases for this website yet. ', 'wordpress-seo' ),
+	__( 'Your %s account does not contain any keyphrases for this website yet. You can track keyphrases by using the "Track SEO Performance" button in the post editor.', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/components/modals/WincherReconnectAlert.js:19
 	/* %s expands to a link to open the Wincher login popup. */
@@ -742,6 +745,35 @@ $generated_i18n_strings = array(
 
 	// Reference: packages/js/src/inline-links/inline.js:229
 	__( 'Open in new tab', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/installation-success.js:108
+	/* %s expands to ' »'. */
+	__( 'Skip%s', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/installation-success.js:46
+	/* %s expands to Yoast SEO. */
+	__( 'You\'ve successfully installed %s!', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/installation-success.js:57
+	__( 'Your site is now easy to find for search engines!', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/installation-success.js:61
+	/* %s expands to Yoast SEO. */
+	__( '%s rolls out the red carpet for the search bots, which helps your site perform better in search engines.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/installation-success.js:70
+	__( 'Man holding a tablet.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/installation-success.js:78
+	/* %s expands to Yoast SEO. */
+	__( 'Configure %s!', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/installation-success.js:85
+	/* %s expands to Yoast SEO. */
+	__( 'Set the essential %s settings in a few steps.', 'wordpress-seo' ),
+
+	// Reference: packages/js/src/installation-success.js:99
+	__( 'Start configuration workout!', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/structured-data-blocks/faq/block.js:21
 	__( 'Yoast FAQ', 'wordpress-seo' ),
@@ -943,7 +975,7 @@ $generated_i18n_strings = array(
 	__( 'Term description', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/workouts/components/ConfigurationWorkout.js:478
-	// Reference: packages/js/src/workouts/components/ConfigurationWorkoutCard.js:24
+	// Reference: packages/js/src/workouts/components/ConfigurationWorkoutCard.js:25
 	__( 'Configuration', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/workouts/components/ConfigurationWorkout.js:481
@@ -1048,7 +1080,7 @@ $generated_i18n_strings = array(
 	__( 'Sign up for the Yoast newsletter!', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/workouts/components/ConfigurationWorkout.js:794
-	// Reference: packages/js/src/workouts/components/WorkoutCard.js:56
+	// Reference: packages/js/src/workouts/components/WorkoutCard.js:57
 	__( 'Do workout again', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/workouts/components/ConfigurationWorkout.js:794
@@ -1074,26 +1106,26 @@ $generated_i18n_strings = array(
 	/* %1$s translates to a rightward pointing arrow ( → ) */
 	__( 'View other SEO workouts%1$s', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/ConfigurationWorkoutCard.js:26
+	// Reference: packages/js/src/workouts/components/ConfigurationWorkoutCard.js:27
 	/* %s translates to Yoast SEO. */
 	__( 'Configure %s', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/ConfigurationWorkoutCard.js:28
+	// Reference: packages/js/src/workouts/components/ConfigurationWorkoutCard.js:29
 	__( 'Configure %s in a few steps', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/ConfigurationWorkoutCard.js:32
+	// Reference: packages/js/src/workouts/components/ConfigurationWorkoutCard.js:33
 	__( 'Apply the optimal SEO settings to your site', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/CornerstoneWorkoutCard.js:28
+	// Reference: packages/js/src/workouts/components/CornerstoneWorkoutCard.js:29
 	__( 'The cornerstone approach', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/CornerstoneWorkoutCard.js:29
+	// Reference: packages/js/src/workouts/components/CornerstoneWorkoutCard.js:30
 	__( 'Rank with articles you want to rank with', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/CornerstoneWorkoutCard.js:31
+	// Reference: packages/js/src/workouts/components/CornerstoneWorkoutCard.js:32
 	__( 'Make your important articles rank higher', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/CornerstoneWorkoutCard.js:32
+	// Reference: packages/js/src/workouts/components/CornerstoneWorkoutCard.js:33
 	__( 'Bring more visitors to your articles', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/workouts/components/FinishButton.js:14
@@ -1102,35 +1134,35 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/workouts/components/FinishButton.js:14
 	__( 'I\'ve finished this step', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:101
+	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:104
 	/* %1$s and %2$s are replaced by opening and closing anchor tags. */
 	__( 'Yoast respects your privacy. Read %1$sour privacy policy%2$s on how we handle your personal information.', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:119
+	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:122
 	__( 'Sign up!', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:40
+	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:41
 	__( 'Oops! Something went wrong. Check your email address and try again.', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:41
+	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:42
 	__( 'That is not a valid email address. Check your email address and try again.', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:42
+	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:43
 	__( 'That email address has already been subscribed.', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:43
+	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:44
 	__( 'Thanks! Please click the link in the email we just sent you to confirm your newsletter subscription.', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:83
+	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:86
 	__( 'Receive best-practice tips and learn how to rank on search engines', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:84
+	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:87
 	__( 'Stay up-to-date with the latest SEO news', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:85
+	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:88
 	__( 'Get guidance on how to use Yoast SEO to the fullest', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:89
+	// Reference: packages/js/src/workouts/components/NewsletterSignup.js:92
 	__( 'Email address', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/workouts/components/OrganizationSection.js:37
@@ -1139,16 +1171,16 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/workouts/components/OrganizationSection.js:48
 	__( 'Organization logo (important)', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/OrphanedWorkoutCard.js:28
+	// Reference: packages/js/src/workouts/components/OrphanedWorkoutCard.js:29
 	__( 'Orphaned content', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/OrphanedWorkoutCard.js:29
+	// Reference: packages/js/src/workouts/components/OrphanedWorkoutCard.js:30
 	__( 'Clean up your unlinked content to make sure people can find it', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/OrphanedWorkoutCard.js:31
+	// Reference: packages/js/src/workouts/components/OrphanedWorkoutCard.js:32
 	__( 'Make pages easier for Google and visitors to find', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/OrphanedWorkoutCard.js:32
+	// Reference: packages/js/src/workouts/components/OrphanedWorkoutCard.js:33
 	__( 'Add internal links to your posts and pages', 'wordpress-seo' ),
 
 	// Reference: packages/js/src/workouts/components/PersonSection.js:42
@@ -1212,23 +1244,23 @@ $generated_i18n_strings = array(
 	// Reference: packages/js/src/workouts/components/Steps.js:60
 	__( 'Saved!', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/WorkoutCard.js:111
+	// Reference: packages/js/src/workouts/components/WorkoutCard.js:112
 	/* %1$s: number of finished steps, %2$s: number of finishable steps */
 	__( '%1$s/%2$s steps completed', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/WorkoutCard.js:123
+	// Reference: packages/js/src/workouts/components/WorkoutCard.js:124
 	__( 'Configuration required', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/WorkoutCard.js:125
+	// Reference: packages/js/src/workouts/components/WorkoutCard.js:126
 	__( 'Please finish the Configuration workout first in order for this workout to be effective.', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/WorkoutCard.js:52
+	// Reference: packages/js/src/workouts/components/WorkoutCard.js:53
 	__( 'Start workout!', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/WorkoutCard.js:54
+	// Reference: packages/js/src/workouts/components/WorkoutCard.js:55
 	__( 'Continue workout!', 'wordpress-seo' ),
 
-	// Reference: packages/js/src/workouts/components/WorkoutCard.js:74
+	// Reference: packages/js/src/workouts/components/WorkoutCard.js:75
 	/* %s : Expands to the add-on name. */
 	__( 'Unlock with %s!', 'wordpress-seo' ),
 

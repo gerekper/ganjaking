@@ -1,5 +1,8 @@
 *** Warranty Requests Changelog ***
 
+2022-01-05 - version 1.9.31
+* Fix   - Missing Languages folder and .pot file in release-ready zip file.
+
 2021-10-06 - version 1.9.30
 * Add   - Display warranty item meta on email.
 * Tweak - Warranty refund amount and code are not GDPR data.

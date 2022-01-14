@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WooCommerce Distance Rate Shipping
- * Version: 1.0.29
+ * Version: 1.0.30
  * Plugin URI: https://woocommerce.com/products/woocommerce-distance-rate-shipping/
  * Description: Set up shipping rates based on the distance from your store to the customer, as well as charge based on number of items, order total or time to travel to customer.
  * Author: WooCommerce
@@ -15,7 +15,7 @@
  *
  * Woo: 461314:bbb6fc986fe0f074dcd5141d451b4821
  *
- * Copyright: © 2021 WooCommerce
+ * Copyright: © 2022 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'WC_DISTANCE_RATE_VERSION' ) ) {
-	define( 'WC_DISTANCE_RATE_VERSION', '1.0.29' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_DISTANCE_RATE_VERSION', '1.0.30' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_DISTANCE_RATE_FILE', __FILE__ );
 }
 

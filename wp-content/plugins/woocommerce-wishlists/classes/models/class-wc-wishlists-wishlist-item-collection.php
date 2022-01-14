@@ -109,7 +109,7 @@ class WC_Wishlists_Wishlist_Item_Collection {
 
 				$_product = wc_get_product( $values['variation_id'] ? $values['variation_id'] : $values['product_id'] );
 
-				if ( $_product->exists() && $values['quantity'] > 0 ) {
+				if ($_product && $_product->exists() && $values['quantity'] > 0 ) {
 
 					// Put session data into array. Run through filter so other plugins can load their own session data
 					$contents[ $key ] = apply_filters( 'woocommerce_get_cart_item_from_session', array(

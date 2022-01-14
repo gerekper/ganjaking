@@ -1,4 +1,12 @@
 *** Gravity Forms Product Add-Ons Changelog ***
+2022.01.08 - version 3.3.26
+    * Enhancement:  Added action, woocommerce_gforms_after_field_groups, to allow rendering custom sections in the gravity forms configuration section.
+    * Enhancement:  Added filter, woocommerce_gravityforms_before_save_metadata, to allow adjusting the _gravity_form_data value before save.
+
+2021.12.02 - version 3.3.25
+    * Fix:  Ensure $gravity_forms_history variable is defined when resuming an order to prevent issues with PayPal checkout.
+    * Enhancement: Double slash the _gravity_forms_history value before it's saved as order item meta data.  Prevents WP from breaking unicode escaped sequences.
+
 2021.09.10 - version 3.3.24
     * Update: Switch check for the multifile uploader.
     * Update: Added a filter to disable initializing the file uploader.

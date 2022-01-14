@@ -1,5 +1,10 @@
 *** Subscribe to Newsletter Changelog ***
 
+2022-01-05 - version 3.3.5
+* Feature - Include in the email sent to the admin whether the user was subscribed during registration.
+* Tweak - Tested compatibility with WC 6.1.
+* Tweak - Tested compatibility with WP 5.9.
+
 2021-12-15 - version 3.3.4
 * Tweak - Tested compatibility with WC 6.0.
 

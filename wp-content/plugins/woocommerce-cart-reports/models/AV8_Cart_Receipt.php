@@ -133,6 +133,11 @@ class AV8_Cart_Receipt {
 				$cart_item,
 				$cart_item_key
 			);
+
+			if ( ! $_product ) {
+				continue;
+			}
+
 			if ( isset( $cart_item['variation_id'] ) ) {
 				$products[] = array(
 					'type'         => 'variation',
@@ -174,9 +179,7 @@ class AV8_Cart_Receipt {
 	public function set_owner( $owner ) {
 		// We still want to set the title to person x's cart, to keep searching working for guest carts
 		$this->post_author = $owner;
-		if ( WP_DEBUG == true ) {
-			assert( $this->post_author > 0 || $this->post_author == '' );
-		}
+
 		if ( $this->post_author > 0 ) {
 			$user_info = get_userdata( $this->post_author );
 			if ( $user_info->first_name != '' && $user_info->last_name != '' ) {

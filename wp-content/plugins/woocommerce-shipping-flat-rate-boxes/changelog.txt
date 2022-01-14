@@ -1,5 +1,8 @@
 *** Flat Rate Box Shipping Changelog ***
 
+2020-10-06 - version 2.0.16
+* Tweak - WC 4.5 compatibility.
+
 2020-08-19 - version 2.0.15
 * Tweak - WordPress 5.5 compatibility.
 
