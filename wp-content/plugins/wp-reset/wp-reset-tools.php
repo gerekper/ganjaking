@@ -12,10 +12,6 @@ if (!defined('ABSPATH')) {
   die('Do not open this file directly.');
 }
 
-
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
 
 class WP_Reset_Tools
 {
@@ -310,7 +306,21 @@ class WP_Reset_Tools
 
     $wordpress_versions = get_transient('wp_reset_wordpress_versions');
 
-    
+    if ($force || !is_array($wordpress_versions) || empty($wordpress_versions)) {
+      $response = $wp_reset_licensing->query_licensing_server('wordpress_versions');
+
+      if (is_wp_error($response)) {
+        return $response->get_error_message();
+      }
+
+      $wordpress_versions = array_reverse($response['data']);
+
+      if (is_array($wordpress_versions)) {
+        set_transient('wp_reset_wordpress_versions', $wordpress_versions, DAY_IN_SECONDS);
+      } else {
+        return false;
+      }
+    }
 
     return $wordpress_versions;
   } // get_wordpress_versions

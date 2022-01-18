@@ -8,14 +8,12 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\AutomaticEmails\WooCommerce\WooCommerce as WooCommerceEmail;
 use MailPoet\Models\Subscriber;
 use MailPoet\Newsletter\Scheduler\AutomaticEmailScheduler;
-use MailPoet\Statistics\Track\Clicks;
-use MailPoet\Util\Cookies;
+use MailPoet\Statistics\Track\SubscriberCookie;
 use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 use MailPoet\WP\Functions as WPFunctions;
 
 class AbandonedCart {
   const SLUG = 'woocommerce_abandoned_shopping_cart';
-  const LAST_VISIT_TIMESTAMP_OPTION_NAME = 'mailpoet_last_visit_timestamp';
   const TASK_META_NAME = 'cart_product_ids';
 
   /** @var WPFunctions */
@@ -24,8 +22,8 @@ class AbandonedCart {
   /** @var WooCommerceHelper */
   private $wooCommerceHelper;
 
-  /** @var Cookies */
-  private $cookies;
+  /** @var SubscriberCookie */
+  private $subscriberCookie;
 
   /** @var AbandonedCartPageVisitTracker */
   private $pageVisitTracker;
@@ -33,12 +31,18 @@ class AbandonedCart {
   /** @var AutomaticEmailScheduler */
   private $scheduler;
 
-  public function __construct() {
-    $this->wp = WPFunctions::get();
-    $this->wooCommerceHelper = new WooCommerceHelper();
-    $this->cookies = new Cookies();
-    $this->pageVisitTracker = new AbandonedCartPageVisitTracker($this->wp, $this->wooCommerceHelper, $this->cookies);
-    $this->scheduler = new AutomaticEmailScheduler();
+  public function __construct(
+    WPFunctions $wp,
+    WooCommerceHelper $wooCommerceHelper,
+    SubscriberCookie $subscriberCookie,
+    AbandonedCartPageVisitTracker $pageVisitTracker,
+    AutomaticEmailScheduler $scheduler
+  ) {
+    $this->wp = $wp;
+    $this->wooCommerceHelper = $wooCommerceHelper;
+    $this->subscriberCookie = $subscriberCookie;
+    $this->pageVisitTracker = $pageVisitTracker;
+    $this->scheduler = $scheduler;
   }
 
   public function getEventDetails() {
@@ -190,9 +194,9 @@ class AbandonedCart {
     }
 
     // if user not logged in, try to find subscriber by cookie
-    $cookieData = $this->cookies->get(Clicks::ABANDONED_CART_COOKIE_NAME);
-    if ($cookieData && isset($cookieData['subscriber_id'])) {
-      return Subscriber::findOne($cookieData['subscriber_id']) ?: null;
+    $subscriberId = $this->subscriberCookie->getSubscriberId();
+    if ($subscriberId) {
+      return Subscriber::findOne($subscriberId) ?: null;
     }
     return null;
   }

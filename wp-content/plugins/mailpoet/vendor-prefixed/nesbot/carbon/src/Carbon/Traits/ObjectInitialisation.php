@@ -1,2 +1,7 @@
 <?php
- namespace MailPoetVendor\Carbon\Traits; if (!defined('ABSPATH')) exit; trait ObjectInitialisation { protected $constructedObjectId; } 
+namespace MailPoetVendor\Carbon\Traits;
+if (!defined('ABSPATH')) exit;
+trait ObjectInitialisation
+{
+ protected $constructedObjectId;
+}

@@ -5,8 +5,10 @@ namespace MailPoet\API\JSON\ResponseBuilders;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Segments\DynamicSegments\Filters\EmailAction;
 use MailPoet\Segments\SegmentDependencyValidator;
 use MailPoet\Segments\SegmentSubscribersRepository;
 use MailPoet\Subscribers\SubscribersCountsController;
@@ -54,6 +56,31 @@ class DynamicSegmentsResponseBuilder {
       $filter['id'] = $dynamicFilter->getId();
       $filter['segmentType'] = $dynamicFilter->getFilterData()->getFilterType(); // We need to add filterType with key segmentType due to BC
       $filter['action'] = $dynamicFilter->getFilterData()->getAction();
+      if (isset($filter['country_code']) && !is_array($filter['country_code'])) {
+        // Convert to multiple values filter
+        $filter['country_code'] = [$filter['country_code']];
+      }
+      if (isset($filter['wordpressRole']) && !is_array($filter['wordpressRole'])) {
+        // new filters are always array, they support multiple values, the old didn't convert old filters to new format
+        $filter['wordpressRole'] = [$filter['wordpressRole']];
+      }
+      if (($filter['segmentType'] === DynamicSegmentFilterData::TYPE_EMAIL)) {
+        // compatibility with older filters
+        if ((($filter['action'] === EmailAction::ACTION_OPENED) || ($filter['action'] === EmailAction::ACTION_NOT_OPENED))) {
+          if (isset($filter['newsletter_id']) && !isset($filter['newsletters'])) {
+            // make sure the newsletters are an array
+            $filter['newsletters'] = [intval($filter['newsletter_id'])];
+            unset($filter['newsletter_id']);
+          }
+        } else {
+          $filter['newsletter_id'] = intval($filter['newsletter_id']);
+        }
+        if ($filter['action'] === EmailAction::ACTION_NOT_OPENED) {
+          // convert not opened
+          $filter['action'] = EmailAction::ACTION_OPENED;
+          $filter['operator'] = DynamicSegmentFilterData::OPERATOR_NONE;
+        }
+      }
       $filters[] = $filter;
     }
     $data['filters'] = $filters;
@@ -73,10 +100,12 @@ class DynamicSegmentsResponseBuilder {
     if ($missingPlugins) {
       $missingPlugin = reset($missingPlugins);
       $data['is_plugin_missing'] = true;
-      $data['missing_plugin_message'] = sprintf(
-        __('Activate the %s plugin to see the number of subscribers and enable the editing of this segment.', 'mailpoet'),
-        $missingPlugin
-      );
+      $data['missing_plugin_message'] = $this->segmentDependencyValidator->getCustomErrorMessage($missingPlugin)
+        ?:
+        sprintf(
+          __('Activate the %s plugin to see the number of subscribers and enable the editing of this segment.', 'mailpoet'),
+          $missingPlugin
+        );
     } else {
       $data['is_plugin_missing'] = false;
       $data['missing_plugin_message'] = null;

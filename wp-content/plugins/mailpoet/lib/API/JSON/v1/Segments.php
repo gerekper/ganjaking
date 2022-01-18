@@ -6,12 +6,12 @@ if (!defined('ABSPATH')) exit;
 
 
 use Exception;
-use InvalidArgumentException;
 use MailPoet\API\JSON\Endpoint as APIEndpoint;
 use MailPoet\API\JSON\Error as APIError;
 use MailPoet\API\JSON\Response;
 use MailPoet\API\JSON\ResponseBuilders\SegmentsResponseBuilder;
 use MailPoet\Config\AccessControl;
+use MailPoet\ConflictException;
 use MailPoet\Cron\CronWorkerScheduler;
 use MailPoet\Cron\Workers\WooCommerceSync;
 use MailPoet\Doctrine\Validator\ValidationException;
@@ -126,11 +126,11 @@ class Segments extends APIEndpoint {
       $segment = $this->segmentSavecontroller->save($data);
     } catch (ValidationException $exception) {
       return $this->badRequest([
-        APIError::BAD_REQUEST  => __('Please specify a name.', 'mailpoet'),
+        APIError::BAD_REQUEST => __('Please specify a name.', 'mailpoet'),
       ]);
-    } catch (InvalidArgumentException $exception) {
+    } catch (ConflictException $exception) {
       return $this->badRequest([
-        APIError::BAD_REQUEST  => __('Another record already exists. Please specify a different "name".', 'mailpoet'),
+        APIError::BAD_REQUEST => __('Another record already exists. Please specify a different "name".', 'mailpoet'),
       ]);
     }
     $response = $this->segmentsResponseBuilder->build($segment);

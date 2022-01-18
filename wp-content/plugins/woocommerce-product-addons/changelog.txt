@@ -1,5 +1,11 @@
 *** Product Addons Changelog ***
 
+2022-01-12 - version 4.5.0
+* Fix - Fixed an issue where the subtotal price for a variable product was shown incorrectly on a product page.
+* Fix - Fixes an issue in the admin panel when adding add ons.
+* Tweak - WC 6.1 compatibility.
+* Tweak - WP 5.8 compatibility.
+
 2021-11-16 - version 4.4.0
 * Fix - Escape output in some places across the plugin.
 * Fix - Improve performance when displaying many global product addons.

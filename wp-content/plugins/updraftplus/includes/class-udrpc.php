@@ -755,7 +755,7 @@ class UpdraftPlus_Remote_Communications {
 			}
 
 			if (empty($decoded)) {
-				$this->log('response from remote site ('.$this->destination_url.') could not be understood: '.substr($response_body, 0, 100).' ... ');
+				$this->log('response from remote site ('.$this->destination_url.') could not be understood: '.substr($response_body, 0, 100).' ... ', 'info');
 				return new WP_Error('response_not_understood', 'Response from remote site could not be understood', $response_body);
 			}
 		}

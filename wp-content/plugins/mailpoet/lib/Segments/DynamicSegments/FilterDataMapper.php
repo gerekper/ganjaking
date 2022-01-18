@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Segments\DynamicSegments\Exceptions\InvalidFilterException;
 use MailPoet\Segments\DynamicSegments\Filters\EmailAction;
+use MailPoet\Segments\DynamicSegments\Filters\EmailActionClickAny;
 use MailPoet\Segments\DynamicSegments\Filters\EmailOpensAbsoluteCountAction;
 use MailPoet\Segments\DynamicSegments\Filters\MailPoetCustomFields;
 use MailPoet\Segments\DynamicSegments\Filters\SubscriberScore;
@@ -19,8 +20,21 @@ use MailPoet\Segments\DynamicSegments\Filters\WooCommerceNumberOfOrders;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceProduct;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceSubscription;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceTotalSpent;
+use MailPoet\WP\Functions as WPFunctions;
 
 class FilterDataMapper {
+  /** @var WPFunctions */
+  private $wp;
+
+  public function __construct(
+    WPFunctions $wp = null
+  ) {
+    if (!$wp) {
+      $wp = WPFunctions::get();
+    }
+    $this->wp = $wp;
+  }
+
   /**
    * @param array $data
    * @return DynamicSegmentFilterData[]
@@ -30,11 +44,16 @@ class FilterDataMapper {
     if (!isset($data['filters']) || count($data['filters'] ?? []) < 1) {
       throw new InvalidFilterException('Filters are missing', InvalidFilterException::MISSING_FILTER);
     }
-    foreach ($data['filters'] as $filter) {
+    $processFilter = function ($filter, $data) {
       $filter['connect'] = $data['filters_connect'] ?? DynamicSegmentFilterData::CONNECT_TYPE_AND;
-      $filters[] = $this->createFilter($filter);
+      return $this->createFilter($filter);
+    };
+    $wpFilterName = 'mailpoet_dynamic_segments_filters_map';
+    if ($this->wp->hasFilter($wpFilterName)) {
+      return $this->wp->applyFilters($wpFilterName, $data, $processFilter);
     }
-    return $filters;
+    $filter = reset($data['filters']);
+    return [$processFilter($filter, $data)];
   }
 
   private function createFilter(array $filterData): DynamicSegmentFilterData {
@@ -109,6 +128,7 @@ class FilterDataMapper {
     if (empty($data['wordpressRole'])) throw new InvalidFilterException('Missing role', InvalidFilterException::MISSING_ROLE);
     return new DynamicSegmentFilterData(DynamicSegmentFilterData::TYPE_USER_ROLE, $data['action'], [
       'wordpressRole' => $data['wordpressRole'],
+      'operator' => $data['operator'] ?? DynamicSegmentFilterData::OPERATOR_ANY,
       'connect' => $data['connect'],
     ]);
   }
@@ -125,16 +145,27 @@ class FilterDataMapper {
     ) {
       return $this->createEmailOpensAbsoluteCount($data);
     }
-    if ($data['action'] === EmailAction::ACTION_CLICKED_ANY) {
+    if ($data['action'] === EmailActionClickAny::TYPE) {
         return new DynamicSegmentFilterData(DynamicSegmentFilterData::TYPE_EMAIL, $data['action'], [
           'connect' => $data['connect'],
         ]);
     }
-    if (empty($data['newsletter_id'])) throw new InvalidFilterException('Missing newsletter id', InvalidFilterException::MISSING_NEWSLETTER_ID);
+
     $filterData = [
-      'newsletter_id' => $data['newsletter_id'],
       'connect' => $data['connect'],
+      'operator' => $data['operator'] ?? DynamicSegmentFilterData::OPERATOR_ANY,
     ];
+
+    if (($data['action'] !== EmailAction::ACTION_OPENED) && ($data['action'] !== EmailAction::ACTION_NOT_OPENED)) {
+      if (empty($data['newsletter_id'])) throw new InvalidFilterException('Missing newsletter id', InvalidFilterException::MISSING_NEWSLETTER_ID);
+      $filterData['newsletter_id'] = $data['newsletter_id'];
+    } else {
+      if (empty($data['newsletters']) || !is_array($data['newsletters'])) throw new InvalidFilterException('Missing newsletter', InvalidFilterException::MISSING_NEWSLETTER_ID);
+      $filterData['newsletters'] = array_map(function ($segmentId) {
+        return intval($segmentId);
+      }, $data['newsletters']);
+    }
+
     $filterType = DynamicSegmentFilterData::TYPE_EMAIL;
     $action = $data['action'];
     if (isset($data['link_id'])) {
@@ -171,8 +202,10 @@ class FilterDataMapper {
     $filterType = DynamicSegmentFilterData::TYPE_WOOCOMMERCE;
     $action = $data['action'];
     if ($data['action'] === WooCommerceCategory::ACTION_CATEGORY) {
-      if (!isset($data['category_id'])) throw new InvalidFilterException('Missing category', InvalidFilterException::MISSING_CATEGORY_ID);
-      $filterData['category_id'] = $data['category_id'];
+      if (!isset($data['category_ids'])) throw new InvalidFilterException('Missing category', InvalidFilterException::MISSING_CATEGORY_ID);
+      if (!isset($data['operator'])) throw new InvalidFilterException('Missing operator', InvalidFilterException::MISSING_OPERATOR);
+      $filterData['operator'] = $data['operator'];
+      $filterData['category_ids'] = $data['category_ids'];
     } elseif ($data['action'] === WooCommerceProduct::ACTION_PRODUCT) {
       if (!isset($data['product_ids'])) throw new InvalidFilterException('Missing product', InvalidFilterException::MISSING_PRODUCT_ID);
       if (!isset($data['operator'])) throw new InvalidFilterException('Missing operator', InvalidFilterException::MISSING_OPERATOR);
@@ -181,8 +214,10 @@ class FilterDataMapper {
     } elseif ($data['action'] === WooCommerceCountry::ACTION_CUSTOMER_COUNTRY) {
       if (!isset($data['country_code'])) throw new InvalidFilterException('Missing country', InvalidFilterException::MISSING_COUNTRY);
       $filterData['country_code'] = $data['country_code'];
+      $filterData['operator'] = $data['operator'] ?? DynamicSegmentFilterData::OPERATOR_ANY;
     } elseif ($data['action'] === WooCommerceNumberOfOrders::ACTION_NUMBER_OF_ORDERS) {
-      if (!isset($data['number_of_orders_type'])
+      if (
+        !isset($data['number_of_orders_type'])
         || !isset($data['number_of_orders_count']) || $data['number_of_orders_count'] < 0
         || !isset($data['number_of_orders_days']) || $data['number_of_orders_days'] < 1
       ) {
@@ -192,7 +227,8 @@ class FilterDataMapper {
       $filterData['number_of_orders_count'] = $data['number_of_orders_count'];
       $filterData['number_of_orders_days'] = $data['number_of_orders_days'];
     } elseif ($data['action'] === WooCommerceTotalSpent::ACTION_TOTAL_SPENT) {
-      if (!isset($data['total_spent_type'])
+      if (
+        !isset($data['total_spent_type'])
         || !isset($data['total_spent_amount']) || $data['total_spent_amount'] < 0
         || !isset($data['total_spent_days']) || $data['total_spent_days'] < 1
       ) {
@@ -218,8 +254,10 @@ class FilterDataMapper {
     $filterType = DynamicSegmentFilterData::TYPE_WOOCOMMERCE_SUBSCRIPTION;
     $action = $data['action'];
     if ($data['action'] === WooCommerceSubscription::ACTION_HAS_ACTIVE) {
-      if (!isset($data['product_id'])) throw new InvalidFilterException('Missing product', InvalidFilterException::MISSING_PRODUCT_ID);
-      $filterData['product_id'] = $data['product_id'];
+      if (!isset($data['product_ids']) || !is_array($data['product_ids'])) throw new InvalidFilterException('Missing product', InvalidFilterException::MISSING_PRODUCT_ID);
+      if (!isset($data['operator'])) throw new InvalidFilterException('Missing operator', InvalidFilterException::MISSING_OPERATOR);
+      $filterData['operator'] = $data['operator'];
+      $filterData['product_ids'] = $data['product_ids'];
     } else {
       throw new InvalidFilterException("Unknown action " . $data['action'], InvalidFilterException::MISSING_ACTION);
     }

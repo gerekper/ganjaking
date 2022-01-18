@@ -1,0 +1,14 @@
+<?php
+namespace MailPoetVendor\Egulias\EmailValidator\Result\Reason;
+if (!defined('ABSPATH')) exit;
+class LocalOrReservedDomain implements Reason
+{
+ public function code() : int
+ {
+ return 153;
+ }
+ public function description() : string
+ {
+ return 'Local, mDNS or reserved domain (RFC2606, RFC6762)';
+ }
+}

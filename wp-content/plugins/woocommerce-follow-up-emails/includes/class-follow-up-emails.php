@@ -393,7 +393,7 @@ class Follow_Up_Emails {
 		if ( self::is_sensei_installed() ) {
 			$url = get_permalink( get_option( 'woothemes-sensei_user_dashboard_page_id', -1 ) );
 		} elseif ( self::is_woocommerce_installed() ) {
-			$url = get_permalink( WC_FUE_Compatibility::wc_get_page_id( 'myaccount' ) );
+			$url = get_permalink( wc_get_page_id( 'myaccount' ) );
 		}
 
 		return apply_filters( 'fue_get_account_url', $url );

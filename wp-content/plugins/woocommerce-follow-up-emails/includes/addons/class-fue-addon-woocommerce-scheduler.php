@@ -26,8 +26,7 @@ class FUE_Addon_Woocommerce_Scheduler {
 	 */
 	private function register_hooks() {
 		// refunds
-		add_action( 'woocommerce_refund_created', array( $this, 'refund_manual' ) );
-		add_action( 'woocommerce_refund_processed', array( $this, 'refund_processed' ), 10, 2 );
+		add_action( 'woocommerce_refund_created', array( $this, 'refund_created' ) );
 
 		// @since 2.2.1 support custom order statuses
 		add_action( 'init', array( $this, 'hook_statuses' ), 100 );
@@ -124,77 +123,51 @@ class FUE_Addon_Woocommerce_Scheduler {
 
 	}
 
-	/**
-	 * Schedule emails after a refund has been manually processed
-	 *
-	 * Checks for the existence of $_POST['api_refund'] to make sure
-	 * that the request came from the admin edit order screen
-	 *
-	 * @param int $refund_id
-	 */
-	public function refund_manual( $refund_id ) {
 
-		if ( ! isset( $_POST['api_refund'] ) || $_POST['api_refund'] === 'true' )
-			return;
+    /**
+     * Schedule emails after a refund has been processed
+     * @param int $refund_id The refund ID
+     */
+    public function refund_created($refund_id) {
 
-		$refund = WC_FUE_Compatibility::wc_get_order( $refund_id );
+        /**
+         * @var WC_Order_Refund $refund
+         */
+        $refund = WC_FUE_Compatibility::wc_get_order( $refund_id );
 
-		$emails = fue_get_emails( 'any', FUE_Email::STATUS_ACTIVE, array(
-			'meta_query' => array(
-				array(
-					'key'   => '_interval_type',
-					'value' => 'refund_manual',
-				),
-			),
-		) );
+        $triggers = array( 'refund_successful' );
 
-		foreach ( $emails as $email ) {
-			$insert = array(
-				'order_id'  => $refund->post->post_parent,
-				'meta'      => array(
-					'refund_id'     => $refund_id,
-					'refund_amount' => get_post_meta( $refund_id, '_refund_amount', true ),
-					'refund_reason' => $refund->reason,
-				),
-			);
-			FUE_Sending_Scheduler::queue_email( $insert, $email );
-		}
+        /*
+         Checking if refund has been manually processed.
+         */
+        if ( ! $refund->get_refunded_payment() ) {
+            $triggers[] = 'refund_manual';
+        }
 
-	}
 
-	/**
-	 * Schedule emails after a refund has been processed by a payment gateway
-	 * @param bool $successful Status returned by the payment gateway if the refund have been successful or not
-	 * @param WC_Order_Refund $refund
-	 */
-	public function refund_processed( $refund, $successful ) {
+        // enqueue the emails
+        $emails =  fue_get_emails( 'any', FUE_Email::STATUS_ACTIVE, array(
+            'meta_query' => array(
+                array(
+                    'key'      => '_interval_type',
+                    'value'    => $triggers,
+                    'compare'  => 'IN',
+                ),
+            ),
+        ) );
 
-		if ( $successful )
-			$trigger = 'refund_successful';
-		else
-			$trigger = 'refund_failed';
-
-		$emails = fue_get_emails( 'any', FUE_Email::STATUS_ACTIVE, array(
-			'meta_query' => array(
-				array(
-					'key'   => '_interval_type',
-					'value' => $trigger,
-				),
-			),
-		) );
-
-		foreach ( $emails as $email ) {
-			$insert = array(
-				'order_id'  => $refund->post->post_parent,
-				'meta'      => array(
-					'refund_id'     => $refund->get_id(),
-					'refund_amount' => get_post_meta( $refund->get_id(), '_refund_amount', true ),
-					'refund_reason' => $refund->reason,
-				),
-			);
-			FUE_Sending_Scheduler::queue_email( $insert, $email );
-		}
-	}
+        foreach ( $emails as $email ) {
+            $insert = array(
+                'order_id' => $refund->get_parent_id(),
+                'meta'     => array(
+                    'refund_id'     => $refund_id,
+                    'refund_amount' => $refund->get_amount(),
+                    'refund_reason' => $refund->get_reason(),
+                ),
+            );
+            FUE_Sending_Scheduler::queue_email( $insert, $email );
+        }
+    }
 
 	/**
 	 * Register order statuses to trigger follow-up emails
@@ -529,11 +502,7 @@ class FUE_Addon_Woocommerce_Scheduler {
 		$queued = array();
 		$coupon = new WC_Coupon( $code );
 
-		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			$exists = ( $coupon->get_id() > 0 );
-		} else {
-			$exists = $coupon->exists;
-		}
+		$exists = ( $coupon->get_id() > 0 );
 
 		if ( ! $exists ) {
 			return;
@@ -981,69 +950,18 @@ class FUE_Addon_Woocommerce_Scheduler {
 	 * @return array Array of emails added to the queue
 	 */
 	protected function queue_category_emails( $emails, $order ) {
-		$queued     = array();
+		$queued = array();
 
-		if ( ! empty( $emails ) ) {
-			$top_email = reset( $emails );
+		foreach ( $emails as $email ) {
+			$insert = array(
+				'send_on'    => $email->get_send_timestamp(),
+				'email_id'   => $email->id,
+				'product_id' => $email->product_id,
+				'order_id'   => WC_FUE_Compatibility::get_order_prop( $order, 'id' ),
+			);
 
-			if ( $top_email !== false ) {
-
-				$insert = array(
-					'send_on'       => $top_email->get_send_timestamp(),
-					'email_id'      => $top_email->id,
-					'product_id'    => $top_email->product_id,
-					'order_id'      => WC_FUE_Compatibility::get_order_prop( $order, 'id' ),
-				);
-
-				if ( ! is_wp_error( FUE_Sending_Scheduler::queue_email( $insert, $top_email ) ) ) {
-					$queued[] = $insert;
-				}
-
-				// look for other emails with the same category id
-				foreach ( $emails as $cat_email ) {
-					if ( $cat_email->id == $top_email->id )
-						continue;
-
-					if ( $cat_email->category_id == $top_email->category_id ) {
-
-						$insert = array(
-							'send_on'       => $cat_email->get_send_timestamp(),
-							'email_id'      => $cat_email->id,
-							'product_id'    => $cat_email->product_id,
-							'order_id'      => WC_FUE_Compatibility::get_order_prop( $order, 'id' ),
-						);
-
-						if ( ! is_wp_error( FUE_Sending_Scheduler::queue_email( $insert, $cat_email ) ) ) {
-							$queued[] = $insert;
-						}
-} else {
-						// if schedule is within 60 minutes, add to queue
-						$interval   = (int) $cat_email->interval;
-
-						if ( $cat_email->interval_type == 'date' ) {
-							continue;
-											}
-
-						$add = FUE_Sending_Scheduler::get_time_to_add( $interval, $cat_email->interval_duration );
-
-						if ( $add > 3600 ) {
-							continue;
-											}
-
-						// less than 60 minutes, add to queue
-						$send_on = current_time( 'timestamp' ) + $add;
-
-						$insert = array(
-							'send_on'       => $send_on,
-							'email_id'      => $cat_email->id,
-							'product_id'    => $cat_email->product_id,
-							'order_id'      => WC_FUE_Compatibility::get_order_prop( $order, 'id' ),
-						);
-						if ( ! is_wp_error( FUE_Sending_Scheduler::queue_email( $insert, $cat_email ) ) ) {
-							$queued[] = $insert;
-											}
-					}
-				}
+			if ( ! is_wp_error( FUE_Sending_Scheduler::queue_email( $insert, $email ) ) ) {
+				$queued[] = $insert;
 			}
 		}
 

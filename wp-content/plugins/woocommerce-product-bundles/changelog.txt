@@ -1,5 +1,10 @@
 *** WooCommerce Product Bundles ***
 
+2022.01.13 - version 6.13.3
+* Fix - Fixed an issue where override title setting was not respected when manually adding items to an order in admin.
+* Fix - Fixed an issue that made Bundle-Sells use inaccurate display settings.
+* Fix - Fixed warnings triggered by using deprecated 'is_ajax'. Replaced with 'wp_doing_ajax' for WooCommerce v6.1+.
+
 2021.12.21 - version 6.13.2
 * Fix - Change price filters priority to retain compatibility with All Products for WooCommerce Subscriptions.
 

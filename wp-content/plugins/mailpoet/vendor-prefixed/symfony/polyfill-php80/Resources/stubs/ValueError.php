@@ -1,2 +1,6 @@
 <?php
- namespace MailPoetVendor; if (!defined('ABSPATH')) exit; class ValueError extends \Error { } 
+namespace MailPoetVendor;
+if (!defined('ABSPATH')) exit;
+class ValueError extends \Error
+{
+}

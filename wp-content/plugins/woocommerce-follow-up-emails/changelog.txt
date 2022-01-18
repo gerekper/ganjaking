@@ -1,5 +1,12 @@
 *** WooCommerce Follow-Up Emails ***
 
+2022-01-13 - version 4.9.17
+* Fix - After Refunded Successfully trigger.
+* Fix - Products from multiple categories in an order only schedules some emails.
+* Tweak - Removed some legacy code for WC < 3.0.0 support.
+* Tweak - WC 6.0 compatibility.
+* Tweak - WC 6.1 compatibility.
+
 2021-09-30 - version 4.9.16
 * Fix - Better unsubscribe link management.
 * Tweak - WC 5.7 compatibility.

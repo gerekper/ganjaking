@@ -6,46 +6,30 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\WP\Functions as WPFunctions;
-use MailPoet\WP\Notice;
 
 class AutomaticEmails {
   const FILTER_PREFIX = 'mailpoet_automatic_email_';
 
+  /** @var WPFunctions */
   private $wp;
 
   /** @var array|null */
   private $automaticEmails;
 
-  public $availableGroups = [
-    'WooCommerce',
-  ];
+  /** @var AutomaticEmailFactory */
+  private $automaticEmailFactory;
 
-  public function __construct() {
-    $this->wp = new WPFunctions;
+  public function __construct(
+    WPFunctions $wp,
+    AutomaticEmailFactory $automaticEmailFactory
+  ) {
+    $this->wp = $wp;
+    $this->automaticEmailFactory = $automaticEmailFactory;
   }
 
   public function init() {
-    foreach ($this->availableGroups as $group) {
-      $groupClass = sprintf(
-        '%1$s\%2$s\%2$s',
-        __NAMESPACE__,
-        $group
-      );
-
-      if (!class_exists($groupClass)) {
-        $this->displayGroupWarning($group);
-        continue;
-      }
-
-      $groupInstance = new $groupClass();
-
-      if (method_exists($groupInstance, 'init')) {
-        $groupInstance->init();
-      } else {
-        $this->displayGroupWarning($group);
-        continue;
-      }
-    }
+    $instance = $this->automaticEmailFactory->createWooCommerceEmail();
+    $instance->init();
   }
 
   public function getAutomaticEmails() {
@@ -64,7 +48,8 @@ class AutomaticEmails {
     foreach ($registeredGroups as $group) {
       $automaticEmail = $this->wp->applyFilters($group, []);
 
-      if (!$this->validateAutomaticEmailDataFields($automaticEmail) ||
+      if (
+        !$this->validateAutomaticEmailDataFields($automaticEmail) ||
         !$this->validateAutomaticEmailEventsDataFields($automaticEmail['events'])
       ) {
         continue;
@@ -150,13 +135,5 @@ class AutomaticEmails {
     }, $registeredGroups);
 
     $this->automaticEmails = null;
-  }
-
-  private function displayGroupWarning($group) {
-    $notice = sprintf('%s %s',
-      sprintf(__('%s automatic email group is misconfigured.', 'mailpoet'), $group),
-      WPFunctions::get()->__('Please contact our technical support for assistance.', 'mailpoet')
-    );
-    Notice::displayWarning($notice);
   }
 }

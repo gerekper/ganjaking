@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) exit;
 use MailPoet\Cron\Workers\StatsNotifications\Worker;
 use MailPoet\DI\ContainerWrapper;
 use MailPoet\Premium\Config\Hooks as ConfigHooks;
+use MailPoet\Premium\Segments\DynamicSegments\SegmentCombinations;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Initializer {
@@ -19,14 +20,19 @@ class Initializer {
   /** @var ConfigHooks */
   private $hooks;
 
+  /** @var SegmentCombinations */
+  private $segmentCombinations;
+
   const INITIALIZED = 'MAILPOET_PREMIUM_INITIALIZED';
 
   public function __construct(
     WPFunctions $wp,
-    ConfigHooks $hooks
+    ConfigHooks $hooks,
+    SegmentCombinations $segmentCombinations
   ) {
     $this->wp = $wp;
     $this->hooks = $hooks;
+    $this->segmentCombinations = $segmentCombinations;
   }
 
   public function init($params = [
@@ -57,6 +63,7 @@ class Initializer {
     );
 
     $this->setupStatsPages();
+    $this->setupSegmentCombinations();
 
      $this->hooks->init();
 
@@ -86,6 +93,21 @@ class Initializer {
     );
   }
 
+  public function setupSegmentCombinations() {
+    $this->wp->addFilter(
+      'mailpoet_dynamic_segments_filters_map',
+      [$this->segmentCombinations, 'mapMultipleFilters'], 10, 2
+    );
+    $this->wp->addAction(
+      'mailpoet_dynamic_segments_filters_save',
+      [$this->segmentCombinations, 'saveMultipleFilters'], 10, 2
+    );
+    $this->wp->addAction(
+      'mailpoet_segments_translations_after',
+      [$this, 'dynamicSegmentCombinations']
+    );
+  }
+
   public function newslettersCampaignStats() {
     // shortcode URLs to substitute with user-friendly names
     $data['shortcode_links'] = Worker::getShortcodeLinksMapping();
@@ -98,6 +120,10 @@ class Initializer {
     $data['shortcode_links'] = Worker::getShortcodeLinksMapping();
 
     echo $this->renderer->render('subscribers/stats.html', $data);
+  }
+
+  public function dynamicSegmentCombinations() {
+    echo $this->renderer->render('segments/dynamic.html');
   }
 
   public function includePremiumStyles() {

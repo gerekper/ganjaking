@@ -44,7 +44,7 @@ if ( isset( $_POST ) && ! empty( $_POST['save_addon'] ) || ! empty( $_GET['edit'
 				</th>
 				<td>
 					<select id="addon-objects" name="addon-objects[]" multiple="multiple" style="width:50%;" data-placeholder="<?php esc_attr_e( 'Choose categories&hellip;', 'woocommerce-product-addons' ); ?>" class="wc-enhanced-select wc-pao-enhanced-select">
-						<option value="all" <?php selected( in_array( 'all', $objects ), true ); ?>><?php esc_html_e( 'All Products', 'woocommerce-product-addons' ); ?></option>
+						<option value="all" <?php selected( in_array( 0, $objects ), true ); ?>><?php esc_html_e( 'All Products', 'woocommerce-product-addons' ); ?></option>
 						<optgroup label="<?php esc_attr_e( 'Product categories', 'woocommerce-product-addons' ); ?>">
 							<?php
 							$terms = get_terms( 'product_cat', array( 'hide_empty' => 0 ) );

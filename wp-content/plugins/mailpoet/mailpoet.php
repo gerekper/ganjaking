@@ -5,12 +5,14 @@ if (!defined('ABSPATH')) exit;
 
 /*
  * Plugin Name: MailPoet 3 (New)
- * Version: 3.75.0
+ * Version: 3.77.0
  * Plugin URI: http://www.mailpoet.com
  * Description: Create and send newsletters, post notifications and welcome emails from your WordPress.
  * Author: MailPoet
  * Author URI: http://www.mailpoet.com
  * Requires at least: 5.3
+ * Text Domain: mailpoet
+ * Domain Path: /lang
  *
  * @package WordPress
  * @author MailPoet
@@ -18,7 +20,7 @@ if (!defined('ABSPATH')) exit;
  */
 
 $mailpoetPlugin = [
-  'version' => '3.75.0',
+  'version' => '3.77.0',
   'filename' => __FILE__,
   'path' => dirname(__FILE__),
   'autoloader' => dirname(__FILE__) . '/vendor/autoload.php',
@@ -41,7 +43,7 @@ if (version_compare(get_bloginfo('version'), '5.0', '<')) {
 }
 
 // Check for minimum supported PHP version
-if (version_compare(phpversion(), '7.1.8', '<')) {
+if (version_compare(phpversion(), '7.2.0', '<')) {
   add_action('admin_notices', 'mailpoet_php_version_notice');
   // deactivate the plugin
   add_action('admin_init', 'mailpoet_deactivate_plugin');
@@ -61,7 +63,7 @@ function mailpoet_wp_version_notice() {
 
 // Display PHP version error notice
 function mailpoet_php_version_notice() {
-  $noticeP1 = __('MailPoet requires PHP version 7.1.8 or newer (7.4 recommended). You are running version [version].', 'mailpoet');
+  $noticeP1 = __('MailPoet requires PHP version 7.2 or newer (8.0 recommended). You are running version [version].', 'mailpoet');
   $noticeP1 = str_replace('[version]', phpversion(), $noticeP1);
 
   $noticeP2 = __('Please read our [link]instructions[/link] on how to upgrade your site.', 'mailpoet');
@@ -75,7 +77,7 @@ function mailpoet_php_version_notice() {
   $noticeP3 = __('If you can’t upgrade the PHP version, [link]install this version[/link] of MailPoet. Remember to not update MailPoet ever again!', 'mailpoet');
   $noticeP3 = str_replace(
     '[link]',
-    '<a href="https://downloads.wordpress.org/plugin/mailpoet.3.51.0.zip" target="_blank">',
+    '<a href="https://downloads.wordpress.org/plugin/mailpoet.3.74.3.zip" target="_blank">',
     $noticeP3
   );
   $noticeP3 = str_replace('[/link]', '</a>', $noticeP3);

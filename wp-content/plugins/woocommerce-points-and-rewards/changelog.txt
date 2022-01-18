@@ -1,5 +1,8 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2022-01-14 - version 1.7.5
+* Tweak - WC 6.1 compatibility.
+
 2021-12-09 - version 1.7.4
 * Tweak - WC 6.0 compatibility.
 * Tweak - WP 5.9 compatibility.

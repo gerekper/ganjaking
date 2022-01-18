@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 class License {
-  const FREE_PREMIUM_SUBSCRIBERS_LIMIT = 1000;
+  const FREE_PREMIUM_SUBSCRIBERS_LIMIT = 999999999999;
 
   public static function getLicense($license = false) {
     if (!$license) {

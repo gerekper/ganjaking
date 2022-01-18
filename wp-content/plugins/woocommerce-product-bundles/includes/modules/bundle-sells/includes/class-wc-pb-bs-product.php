@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product-related functions and filters.
  *
  * @class    WC_PB_BS_Product
- * @version  6.13.0
+ * @version  6.13.3
  */
 class WC_PB_BS_Product {
 
@@ -191,6 +191,13 @@ class WC_PB_BS_Product {
 		}
 
 		$bundle->set_bundled_data_items( $bundled_data_items );
+
+		// Set default values for Bundle properties.
+		// If the database has different settings associated with the product ID, the following code resets their values.
+		// The following changes do not persist in the DB due to the "runtime" nature of the $bundle object.
+		$bundle->set_layout( 'default' );
+		$bundle->set_add_to_cart_form_location( 'default' );
+		$bundle->set_group_mode( 'parent' );
 
 		return apply_filters( 'wc_pb_bundle_sells_dummy_bundle', $bundle );
 	}

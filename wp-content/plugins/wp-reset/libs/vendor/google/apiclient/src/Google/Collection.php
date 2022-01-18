@@ -5,10 +5,6 @@
  * exposes the items array for iteration, so you can just
  * iterate over the object rather than a reference inside.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Google_Collection extends Google_Model implements Iterator, Countable
 {
   protected $collection_key = 'items';

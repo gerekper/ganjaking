@@ -294,18 +294,22 @@ class WC_Recommender_Recorder {
 
 
 			if ( $type == 'purchased' ) {
-				$this->woocommerce_recommender_build_simularity( $product_id, array( 'completed' ) );
+				$status = apply_filters('woocommerce_recommender_also_purchased_status', 'completed');
+				$this->woocommerce_recommender_build_simularity( $product_id, array( $status ) );
 			}
 
 
 			if ( $type == 'purchased-together' ) {
-				$this->woocommerce_build_purchased_together( $product_id, array( 'completed' ) );
+				$status = apply_filters('woocommerce_recommender_purchased_together_status', 'completed');
+				$this->woocommerce_build_purchased_together( $product_id, array( $status ) );
 			}
 
 			if ( $type == 'all' ) {
 				$this->woocommerce_recommender_build_simularity( $product_id, array( 'viewed' ) );
-				$this->woocommerce_recommender_build_simularity( $product_id, array( 'completed' ) );
-				$this->woocommerce_build_purchased_together( $product_id, array( 'completed' ) );
+				$status = apply_filters('woocommerce_recommender_also_purchased_status', 'completed');
+				$this->woocommerce_recommender_build_simularity( $product_id, array( $status ) );
+				$status = apply_filters('woocommerce_recommender_purchased_together_status', 'completed');
+				$this->woocommerce_build_purchased_together( $product_id, array( $status ) );
 			}
 
 		}

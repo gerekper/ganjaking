@@ -116,7 +116,7 @@ class Export {
       throw new \Exception(__('Failed opening file for export.', 'mailpoet'));
     }
     $formatCSV = function($row) {
-      return '"' . str_replace('"', '\"', $row) . '"';
+      return '"' . str_replace('"', '\"', (string)$row) . '"';
     };
     // add UTF-8 BOM (3 bytes, hex EF BB BF) at the start of the file for
     // Excel to automatically recognize the encoding
@@ -163,7 +163,8 @@ class Export {
         // sorted by segment name (due to slow queries when using ORDER BY and LIMIT),
         // we need to keep track of processed segments so that we do not create header
         // multiple times when switching from one segment to another and back.
-        if ((!count($processedSegments) || $lastSegment !== $currentSegment) &&
+        if (
+          (!count($processedSegments) || $lastSegment !== $currentSegment) &&
           (!in_array($lastSegment, $processedSegments) || !in_array($currentSegment, $processedSegments))
         ) {
           $this->writeXLSX(
@@ -176,7 +177,8 @@ class Export {
         $lastSegment = ucwords($subscriber['segment_name']);
         // detect RTL language and set Excel to properly display the sheet
         $rTLRegex = '/\p{Arabic}|\p{Hebrew}/u';
-        if (!$xLSXWriter->rtl && (
+        if (
+          !$xLSXWriter->rtl && (
             preg_grep($rTLRegex, $subscriber) ||
             preg_grep($rTLRegex, $this->formattedSubscriberFieldsWithList))
         ) {

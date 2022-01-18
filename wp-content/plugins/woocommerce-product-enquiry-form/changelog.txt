@@ -1,5 +1,9 @@
 *** Product Enquiry Form Changelog ***
 
+2022-01-13 - version 1.2.21
+* Fix - Unify `.github/**.md` files with other repos.
+* Tweak - WC 6.1 compatibility.
+
 2021-12-09 - version 1.2.20
 * Tweak - WC 6.0 compatibility.
 * Tweak - WP 5.9 compatibility.

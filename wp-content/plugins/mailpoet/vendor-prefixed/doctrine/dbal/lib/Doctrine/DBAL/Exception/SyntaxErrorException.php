@@ -1,2 +1,6 @@
 <?php
- namespace MailPoetVendor\Doctrine\DBAL\Exception; if (!defined('ABSPATH')) exit; class SyntaxErrorException extends ServerException { } 
+namespace MailPoetVendor\Doctrine\DBAL\Exception;
+if (!defined('ABSPATH')) exit;
+class SyntaxErrorException extends ServerException
+{
+}

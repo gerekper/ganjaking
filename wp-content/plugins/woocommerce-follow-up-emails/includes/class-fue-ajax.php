@@ -2933,12 +2933,12 @@ class FUE_AJAX {
 			// generate a new session id
 			$session = time();
 			ob_start();
-			$args = WC_FUE_Compatibility::backport_order_status_query_args( array(
+			$args = array(
 				'post_type'     => 'shop_order',
 				'post_status'   => array( 'wc-on-hold', 'wc-processing', 'wc-completed' ),
 				'fields'        => 'ids',
 				'nopaging'      => true
-			) );
+			);
 			$orders = get_posts( $args );
 			FUE_Transients::set_transient( 'fue_update_'. $session, $orders, 3600 );
 			ob_clean();

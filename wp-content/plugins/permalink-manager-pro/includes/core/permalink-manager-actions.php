@@ -123,8 +123,36 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 			$uniq_id = $_POST['pm_session_id'];
 		}
 
+		// Get content type & post statuses
+		if(empty($_POST['content_type'])) {
+			$error = true;
+			$return = array('alert' => Permalink_Manager_Admin_Functions::get_alert_message(__( '<strong>No content type</strong> selected!', 'permalink-manager' ), 'error updated_slugs'));
+		} else if($_POST['content_type'] == 'taxonomies') {
+			$content_type = 'taxonomies';
+
+			if(empty($_POST['taxonomies'])) {
+				$error = true;
+				$return = array('alert' => Permalink_Manager_Admin_Functions::get_alert_message(__( '<strong>No taxonomy</strong> selected!', 'permalink-manager' ), 'error updated_slugs'));
+			}
+		} else {
+			$content_type = 'post_types';
+
+			// Check if any post type was selected
+			if(empty($_POST['post_types'])) {
+				$error = true;
+				$return = array('alert' => Permalink_Manager_Admin_Functions::get_alert_message(__( '<strong>No post type</strong> selected!', 'permalink-manager' ), 'error updated_slugs'));
+			}
+
+			// Check post status
+			if(empty($_POST['post_statuses'])) {
+				$error = true;
+				$return = array('alert' => Permalink_Manager_Admin_Functions::get_alert_message(__( '<strong>No post status</strong> selected!', 'permalink-manager' ), 'error updated_slugs'));
+			}
+		}
+
 		// Check if both strings are set for "Find and replace" tool
-		if(!empty($function_name)) {
+		if(!empty($function_name) && !empty($content_type) && empty($error)) {
+
 			// Hotfix for WPML (start)
 			if($sitepress) {
 				remove_filter('get_terms_args', array($sitepress, 'get_terms_args_filter'), 10);
@@ -137,7 +165,7 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 			$mode = isset($_POST['mode']) ? $_POST['mode'] : 'custom_uris';
 
 			// Get the content type
-			if(!empty($_POST['content_type']) && $_POST['content_type'] == 'taxonomies') {
+			if($content_type == 'taxonomies') {
 				$class_name = 'Permalink_Manager_URI_Functions_Tax';
 			} else {
 				$class_name = 'Permalink_Manager_URI_Functions_Post';

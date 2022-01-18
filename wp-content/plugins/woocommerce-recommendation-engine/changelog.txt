@@ -1,4 +1,12 @@
 *** WooCommerce Recommendation Engine Changelog ***
+2022.01.12 - version 3.2.8
+    * New:  New filter, woocommerce_recommender_purchased_together_status, which will allow you to change the status that purchased together is built from.
+                add_filter('woocommerce_recommender_purchased_together_status', function($status) { return 'processing'; });
+
+    * New:  New filter, woocommerce_recommender_also_purchased_status, which allows you to change the status the Also Purchased is rebuild from.
+                add_filter('woocommerce_recommender_also_purchased_status', function($status) { return 'processing'; });
+    * Update:  WC and WP Updates.
+
 2021.07.14 - version 3.2.7
     * Update:  WC and WP Updates.
 

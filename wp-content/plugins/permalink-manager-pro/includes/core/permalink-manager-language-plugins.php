@@ -70,6 +70,9 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 			// Translate permastructures
 			add_filter('permalink_manager_filter_permastructure', array($this, 'translate_permastructure'), 9, 2);
 
+			// Translate custom permalinks
+			add_filter('permalink_manager_filter_final_post_permalink', array($this, 'translate_permalinks'), 9, 2);
+
 			// Translate post type slug
 			if(class_exists('WPML_Slug_Translation')) {
 				add_filter('permalink_manager_filter_post_type_slug', array($this, 'wpml_translate_post_type_slug'), 9, 3);
@@ -442,6 +445,23 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		if(!empty($language_code) && defined('ICL_LANGUAGE_CODE') && ICL_LANGUAGE_CODE != $language_code && !empty($wp_query->query['do_not_redirect'])) {
 			unset($wp_query->query['do_not_redirect']);
 		}
+	}
+
+	/*
+	 * Copy WPML URL hooks and use them for custom permalinks filtered with Permalink Manager
+	 */
+	function translate_permalinks($permalink, $post) {
+		global $wpml_url_filters, $wp_filter;
+
+		if(!empty($wpml_url_filters)) {
+			$wpml_url_hook_name = _wp_filter_build_unique_id('post_link', array($wpml_url_filters, 'permalink_filter'), 1);
+
+			if(has_filter('post_link', $wpml_url_hook_name)) {
+				$permalink = $wpml_url_filters->permalink_filter($permalink, $post);
+			}
+		}
+
+		return $permalink;
 	}
 
 	function translate_permastructure($permastructure, $element) {

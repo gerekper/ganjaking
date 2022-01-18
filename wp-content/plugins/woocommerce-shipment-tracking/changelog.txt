@@ -1,5 +1,8 @@
 *** Shipment Tracking Changelog ***
 
+2022-01-12 - version 1.6.31
+* Fix   - Change Canada Post Tracking URL.
+
 2021-12-13 - version 1.6.30
 * Add	- Support for automated translations.
 * Tweak - WC 5.9 compatibility.

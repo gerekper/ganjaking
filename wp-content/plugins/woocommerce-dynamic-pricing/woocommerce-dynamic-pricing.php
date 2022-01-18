@@ -5,18 +5,18 @@
  * Woo: 18643:9a41775bb33843f52c93c922b0053986
  * Plugin URI: https://woocommerce.com/products/dynamic-pricing/
  * Description: WooCommerce Dynamic Pricing lets you configure dynamic pricing rules for products, categories and members.
- * Version: 3.1.26
+ * Version: 3.1.27
  * Author: Element Stark
  * Author URI: https://elementstark.com
  * Requires at least: 3.3
- * Tested up to: 5.7
+ * Tested up to: 5.8
  * Text Domain: woocommerce-dynamic-pricing
  * Domain Path: /i18n/languages/
- * Copyright: © 2009-2021 Element Stark LLC.
+ * Copyright: © 2009-2022 Element Stark LLC.
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * WC requires at least: 3.0.0
- * WC tested up to: 5.2
+ * WC tested up to: 6.0
  */
 
 
@@ -349,6 +349,9 @@ class WC_Dynamic_Pricing {
 
 			//Filters the regular product get price.
 			add_filter( 'woocommerce_product_get_price', array( $this, 'on_get_price' ), 10, 2 );
+
+			//Filters subscription prices.
+			add_filter( 'woocommerce_subscriptions_product_price', array( $this, 'on_get_price' ), 10, 2 );
 		} else {
 			add_filter( 'woocommerce_get_price', array( $this, 'on_get_price' ), 10, 2 );
 		}
@@ -371,6 +374,10 @@ class WC_Dynamic_Pricing {
 
 			//Filters the regular product get price.
 			remove_filter( 'woocommerce_product_get_price', array( $this, 'on_get_price' ), 10, 2 );
+
+			//Filters subscription prices.
+			remove_filter( 'woocommerce_subscriptions_product_price', array( $this, 'on_get_price' ), 10, 2 );
+
 		} else {
 			remove_filter( 'woocommerce_get_price', array( $this, 'on_get_price' ), 10, 2 );
 		}
@@ -668,7 +675,7 @@ class WC_Dynamic_Pricing {
 					if ( $working_price !== false ) {
 						$discount_price = $module->get_discounted_price_for_shop( $_product, $working_price );
 
-						if ( ( $discount_price === 0 || $discount_price === 0.0 || $discount_price ) && $discount_price != $working_price ) {
+						if ($discount_price !== null && ( $discount_price === 0 || $discount_price === 0.0 || $discount_price ) && $discount_price != $working_price ) {
 							$working_price      = $discount_price;
 							$adjustment_applied = true;
 
@@ -980,7 +987,12 @@ function wc_dynamic_pricing_is_within_date_range( $from = '', $to = '' ) {
 	// Check date range
 	$from_date = empty( $from ) ? false : wc_dynamic_pricing_wp_strtotime( $from . ' ' . '00:00:00' );
 	$to_date   = empty( $to ) ? false : wc_dynamic_pricing_wp_strtotime( $to . ' ' . '23:59:00' );
-	$now       = current_time( 'timestamp' );
+	$now       = current_datetime()->format('U');
+
+	$from_date = intval($from_date);
+	$to_date = intval($to_date);
+	$now = intval($now);
+
 
 	$execute_rules = true;
 	if ( $from_date && $to_date && !( $now >= $from_date && $now <= $to_date ) ) {

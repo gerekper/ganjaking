@@ -9,7 +9,7 @@
 
 		if ( $email->product_id ) {
 			$product = WC_FUE_Compatibility::wc_get_product( $email->product_id );
-			$downloadables = ( $product ) ? ( version_compare( WC_VERSION, '3.0', '<' ) ? $product->get_files() : $product->get_downloads() ) : array();
+			$downloadables = ( $product ) ? $product->get_downloads() : array();
 
 			if ( !empty( $downloadables ) ) {
 				foreach ( $downloadables as $key => $file ) {

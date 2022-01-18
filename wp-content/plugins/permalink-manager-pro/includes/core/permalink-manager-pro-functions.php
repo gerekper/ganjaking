@@ -38,11 +38,11 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	/**
 	 * Get license key
 	 */
-	public static function get_license_key() {
+	public static function get_license_key($load_from_db = false) {
 		$permalink_manager_options = get_option('permalink-manager', array());
 
 		// Key defined in wp-config.php
-		if(defined('PMP_LICENCE_KEY') || defined('PMP_LICENSE_KEY')) {
+		if((defined('PMP_LICENCE_KEY') || defined('PMP_LICENSE_KEY')) && empty($load_from_db)) {
 			$license_key = defined('PMP_LICENCE_KEY') ? PMP_LICENCE_KEY : PMP_LICENSE_KEY;
 		}
 		// Network licence key (multisite)
@@ -68,7 +68,7 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	/**
 	 * Update check
 	 */
-	public function check_for_updates($flush_exp_date = false) {
+	public function check_for_updates() {
 		$license_key = self::get_license_key();
 
 		// Load Plugin Update Checker by YahnisElsts
@@ -85,7 +85,19 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 
 	public function reload_license_key() {
 		if(!empty($_POST['licence']['licence_key']) || (!empty($_REQUEST['action']) && $_REQUEST['action'] == 'pm_get_exp_date') || (!empty($_REQUEST['puc_slug']) && $_REQUEST['puc_slug'] == 'permalink-manager-pro')) {
+			delete_transient('permalink_manager_active');
 			$this->update_checker->requestInfo();
+		}
+
+		// Sync the license data saved in DB after license key was set in wp-config.php file
+		else if(defined('PMP_LICENCE_KEY') || defined('PMP_LICENSE_KEY')) {
+			$db_license_key = self::get_license_key(true);
+			$license_key = self::get_license_key();
+
+			if(!empty($db_license_key) && !empty($license_key) && $db_license_key !== $license_key) {
+				delete_transient('permalink_manager_active');
+				$info = $this->update_checker->requestInfo();
+			}
 		}
 	}
 

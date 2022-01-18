@@ -25,7 +25,7 @@ function fue_get_login_url( $redirect = '' ) {
 	if ( Follow_Up_Emails::is_woocommerce_installed() ) {
 		return add_query_arg(
 			array('redirect' => $redirect),
-			get_permalink( WC_FUE_Compatibility::wc_get_page_id('myaccount') )
+			get_permalink( wc_get_page_id('myaccount') )
 		);
 	} else {
 		return wp_login_url( $redirect );

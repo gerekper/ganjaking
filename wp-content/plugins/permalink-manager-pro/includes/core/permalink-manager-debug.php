@@ -171,7 +171,9 @@ class Permalink_Manager_Debug_Functions extends Permalink_Manager_Class {
 	 * A function used to display the debug data in various functions
 	 */
 	public static function display_debug_data($debug_info) {
-		$debug_txt = sprintf("<pre style=\"display:block;\">%s</pre>", print_r($debug_info, true));
+		$debug_txt = print_r($debug_info, true);
+		$debug_txt = sprintf("<pre style=\"display:block;\">%s</pre>", esc_html($debug_txt));
+
 		wp_die($debug_txt);
 	}
 

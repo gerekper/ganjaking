@@ -1,2 +1,9 @@
 <?php
- namespace MailPoetVendor; if (!defined('ABSPATH')) exit; if (\PHP_VERSION_ID < 80000) { interface Stringable { public function __toString(); } } 
+namespace MailPoetVendor;
+if (!defined('ABSPATH')) exit;
+if (\PHP_VERSION_ID < 80000) {
+ interface Stringable
+ {
+ public function __toString();
+ }
+}

@@ -242,20 +242,29 @@ if (false === class_exists('WF_Licensing_WPR')) {
          */
         function get_license($key = '')
         {
-           $options = get_option('wf_licensing_' . $this->prefix, array());
-		   $options['error'] = '';
-		   $options['meta'] = array();
-           $options['meta']['feature'] = true;
-           $options['last_check'] = time()+99999;
-           $options['license_key'] = '6Xais0bh-tEmmdVcB-XlWumfk4-lCdt1VHf';
-           //$license['valid_until'] = date(get_option('date_format'), strtotime('+1200 days');
-           $options['name'] = 'Developer';
-           $options['access_key'] = '6Xais0bh-tEmmdVcB-XlWumfk4-lCdt1VHf';
-           $options['valid_until'] = date(get_option('date_format'), strtotime('+1200 days'));
-           $options['recurring'] = false;
-		   $this->update_license($options);
-           return $options;
-            
+            $default = array(
+                'license_key' => '',
+                'error' => '',
+                'valid_until' => '',
+                'last_check' => 0,
+                'name' => '',
+                'meta' => array(),
+                'access_key' => ''
+            );
+
+            $options = get_option('wf_licensing_' . $this->prefix, array());
+            $options = array_merge($default, $options);
+
+            if (empty($options['access_key'])) {
+                $options['access_key'] = $this->generate_access_key();
+                $this->update_license($options);
+            }
+
+            if (!empty($key)) {
+                return $options[$key];
+            } else {
+                return $options;
+            }
         } // get_license
 
 
@@ -374,7 +383,6 @@ if (false === class_exists('WF_Licensing_WPR')) {
          */
         function is_active($feature = '', $force_check = false)
         {
-			return true;
             $last_check = get_transient('wf_licensing_wpr_last_check');
             if ($force_check || $last_check === false){
                 $this->log('auto recheck license');

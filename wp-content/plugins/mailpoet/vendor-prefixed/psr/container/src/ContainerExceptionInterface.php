@@ -1,2 +1,6 @@
 <?php
- namespace MailPoetVendor\Psr\Container; if (!defined('ABSPATH')) exit; interface ContainerExceptionInterface { } 
+namespace MailPoetVendor\Psr\Container;
+if (!defined('ABSPATH')) exit;
+interface ContainerExceptionInterface
+{
+}

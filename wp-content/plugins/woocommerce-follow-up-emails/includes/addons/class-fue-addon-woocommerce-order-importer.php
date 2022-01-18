@@ -133,9 +133,7 @@ class FUE_Addon_WooCommerce_Order_Importer {
 			$start_date = null;
 
 			if ( $email->trigger == 'completed' ) {
-				$start_date = version_compare( WC_VERSION, '3.0', '>=' )
-					? ( $order->get_date_completed() ? gmdate( 'Y-m-d H:i:s', $order->get_date_completed()->getOffsetTimestamp()  ) : '' )
-					: $order->completed_date;
+				$start_date = $order->get_date_completed() ? gmdate( 'Y-m-d H:i:s', $order->get_date_completed()->getOffsetTimestamp()  ) : '' ;
 
 			} elseif (
 				in_array( $email->trigger, Follow_Up_Emails::instance()->fue_wc->get_order_statuses() ) ||

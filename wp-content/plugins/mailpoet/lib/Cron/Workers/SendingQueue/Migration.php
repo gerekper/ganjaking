@@ -33,7 +33,8 @@ class Migration extends SimpleWorker {
       $unmigratedQueueSubscribers = $this->getTaskIdsForUnmigratedSubscribers();
     }
 
-    if (!$unmigratedColumns ||
+    if (
+      !$unmigratedColumns ||
       ($unmigratedQueuesCount == 0
       && count($unmigratedQueueSubscribers) == 0)
     ) {

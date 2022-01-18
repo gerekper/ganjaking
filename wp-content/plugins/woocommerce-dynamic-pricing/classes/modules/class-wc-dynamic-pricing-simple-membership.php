@@ -272,6 +272,33 @@ class WC_Dynamic_Pricing_Simple_Membership extends WC_Dynamic_Pricing_Simple_Bas
 					$execute_rules = wc_dynamic_pricing_is_within_date_range( $pricing_rule_set['date_from'], $pricing_rule_set['date_to'] );
 				}
 
+				if ($execute_rules) {
+					$quantity = 0;
+					if (isset($pricing_rule_set['collector']) && $pricing_rule_set['collector']['type'] == 'cat' ) {
+						$collector = $pricing_rule_set['collector'];
+						if ( isset( $collector['args'] ) && isset( $collector['args']['cats'] ) && is_array( $collector['args']['cats'] ) ) {
+
+							if ( isset( $collector['args'] ) && isset( $collector['args']['cats'] ) && is_array( $collector['args']['cats'] ) ) {
+
+								if ( is_object_in_term( $_product->get_id(), 'product_cat', $collector['args']['cats'] ) ) {
+									$quantity += 1;
+								}
+
+								$temp_cart = WC_Dynamic_Pricing_Compatibility::WC()->cart->cart_contents;
+								foreach ( $temp_cart as $lck => $check_cart_item ) {
+									if ( is_object_in_term( $check_cart_item['product_id'], 'product_cat', $collector['args']['cats'] ) ) {
+										$quantity += (int) $check_cart_item['quantity'];
+									}
+								}
+							}
+						}
+
+						$execute_rules = $quantity > 0;
+					}
+
+
+				}
+
 				if ( $execute_rules ) {
 					$pricing_rules = $pricing_rule_set['rules'];
 					if ( is_array( $pricing_rules ) && sizeof( $pricing_rules ) > 0 ) {
@@ -335,7 +362,7 @@ class WC_Dynamic_Pricing_Simple_Membership extends WC_Dynamic_Pricing_Simple_Bas
 				if ( $this->available_rulesets && count( $this->available_rulesets ) ) {
 					$available_rule = reset( $this->available_rulesets );
 
-					$s_working_price = apply_filters( 'woocommerce_dyanmic_pricing_working_price', $working_price, 'membership', $fake_cart_item );
+					$s_working_price = apply_filters( 'woocommerce_dyanmic_pricing_working_price', $discounted_price ? $discounted_price : $working_price, 'membership', $fake_cart_item );
 
 					return $this->get_adjusted_price( $fake_cart_item, $available_rule, $s_working_price );
 				} else {

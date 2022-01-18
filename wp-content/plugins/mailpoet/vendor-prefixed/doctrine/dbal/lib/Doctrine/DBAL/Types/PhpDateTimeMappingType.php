@@ -1,2 +1,6 @@
 <?php
- namespace MailPoetVendor\Doctrine\DBAL\Types; if (!defined('ABSPATH')) exit; interface PhpDateTimeMappingType { } 
+namespace MailPoetVendor\Doctrine\DBAL\Types;
+if (!defined('ABSPATH')) exit;
+interface PhpDateTimeMappingType
+{
+}

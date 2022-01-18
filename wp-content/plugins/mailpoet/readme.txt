@@ -3,8 +3,8 @@ Contributors: mailpoet
 Tags: email, email marketing, post notification, woocommerce emails, email automation, newsletter, newsletter builder, newsletter subscribers
 Requires at least: 5.3
 Tested up to: 5.8
-Stable tag: 3.75.0
-Requires PHP: 7.1
+Stable tag: 3.77.0
+Requires PHP: 7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -75,9 +75,9 @@ With our WooCommerce emails, you can:
 The Premium version adds the following features:
 
 * For each newsletter, see which subscribers opened it and which links got the most clicks
-* Removes the small MailPoet logo in the footer of your emails
-* Same day support (Monday to Friday)
-* Send to over 1,000 subscribers with your own sending method (host, SendGrid, Amazon SES)
+* Removes the small MailPoet logo in the footer of your emails - _only in paid plans_
+* Same day support (Monday to Friday) - _only in paid plans_
+* Send to over 1,000 subscribers with your own sending method (host, SendGrid, Amazon SES) - _only in selected paid plans_
 
 = MailPoet Sending Service =
 **MailPoet Sending Service is free for your first 1,000 subscribers (pay as you go afterwards). [Read More](https://www.mailpoet.com/free-plan/)**
@@ -183,6 +183,41 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 6. WooCommerce emails
 
 == Changelog ==
+
+= 3.77.0 - 2022-01-17 =
+* Added: client-side validation on Manage subscription page;
+* Updated: composer dependencies;
+* Improved: date input shows full date when creating a segment;
+* Improved: backward compatibility for WooCommerce Blocks;
+* Improved: more comparison options for email and subscriber segments;
+* Improved: more form delay options added;
+* Fixed: opting out on WooCommerce checkout doesn't unsubscribe from other lists configured in MailPoet Settings.
+
+= 3.76.0 - 2022-01-13 =
+* Improved: more options for "MailPoet custom field" segment;
+* Improved: more options for "WooCommerce" segments;
+* Improved: select boxes have the same height;
+* Improved: dropped support for PHP 7.1, MailPoet now requires at least PHP 7.2;
+* Improved: more options for "has an active subscription" segment;
+* Improved: more options for "WordPress user role" segment;
+* Improved: more options for "purchased in this category" segment;
+* Improved: more options for "is in country" segment;
+* Improved: more options for "opened" segment;
+* Improved: subscriber cookies are now set on clicks, login, signup, and order checkout;
+* Improved: show full email subject when creating segment based on email;
+* Improved: include guest users in WooCommerce segments;
+* Improved: add link to our knowledge base when segment creation fails;
+* Changed: automatic emails are deactivated when editing;
+* Changed: segments with multiple conditions require the premium plugin;
+* Fixed: cron issues with excessive number of queries in WooCommerce subsriber sync;
+* Fixed: unclosed paragraph tags do not break rendering anymore. Thanks Helene!
+* Fixed: incorrect result for a segment with multiple "purchased product" conditions;
+* Fixed: column search field when importing subscribers not working;
+* Fixed: form messages displayed in wrong place when using multiple forms on the page;
+* Fixed: show correct animation in form editor for slide-in form.
+
+= 3.75.1 - 2021-12-15 =
+* Fixed: Issues with rendering full posts in newsletters.
 
 = 3.75.0 - 2021-12-13 =
 * Changed: show MailPoet logo in emails when using free MailPoet plan;

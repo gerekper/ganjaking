@@ -741,7 +741,7 @@ class FUE_Addon_Woocommerce_Admin {
 		<li class=""><strong>{dollars_spent_order}</strong> <img class="help_tip" title="<?php esc_attr_e('The the amount spent on an order', 'follow_up_emails'); ?>" src="<?php echo esc_url( FUE_TEMPLATES_URL ); ?>/images/help.png" width="16" height="16" /></li>
 		<?php
 
-		if ( in_array( $email->trigger, array('refund_manual', 'refund_successful', 'refund_failed') ) ):
+		if ( in_array( $email->trigger, array( 'refund_manual', 'refund_successful' ), true ) ) :
 			?>
 			<li class=""><strong>{refund_amount}</strong> <img class="help_tip" title="<?php esc_attr_e('The amount of the refund', 'follow_up_emails'); ?>" src="<?php echo esc_url( FUE_TEMPLATES_URL ); ?>/images/help.png" width="16" height="16" /></li>
 			<li class=""><strong>{refund_reason}</strong> <img class="help_tip" title="<?php esc_attr_e('The reason for the refund', 'follow_up_emails'); ?>" src="<?php echo esc_url( FUE_TEMPLATES_URL ); ?>/images/help.png" width="16" height="16" /></li>

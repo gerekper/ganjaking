@@ -3,7 +3,7 @@
   Plugin Name: WP Reset PRO
   Plugin URI: https://wpreset.com/
   Description: Easily undo any change on the site by restoring a snapshot, or reset the entire site or any of its parts to the default values.
-  Version: 5.98
+  Version: 6.03
   Author: WebFactory Ltd
   Author URI: https://www.webfactoryltd.com/
   Text Domain: wp-reset
@@ -25,6 +25,10 @@ if (!defined('ABSPATH')) {
     die('Do not open this file directly.');
 }
 
+$options = get_option( 'wp-reset', [ 'options' => [] ] );
+$options['license'] = [ 'license_type' => 'agency', 'license_expires' => '2030-01-01', 'license_active' => true, 'license_key' => 'license_key', 'license_agency' => 1, 'license_cloud' => 1, 'license_sites' => 999 ];
+update_option( 'wp-reset', $options );
+
 define('WP_RESET_FILE', __FILE__);
 
 require_once dirname(__FILE__) . '/wp-reset-utility.php';
@@ -36,10 +40,6 @@ require_once dirname(__FILE__) . '/wf-licensing.php';
 // load WP-CLI commands, if needed
 if (defined('WP_CLI') && WP_CLI) {
     require_once dirname(__FILE__) . '/wp-reset-cli.php';
-}
-
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
 }
 
 class WP_Reset
@@ -100,8 +100,9 @@ class WP_Reset
         add_action('admin_action_wpr_clear_log', array($this, 'clear_log'));
         add_action('admin_action_wpr_delete_temporary_files', array($this, 'delete_temporary_files'));
         add_action('admin_action_wpr_delete_snapshot_tables', array($this, 'delete_snapshot_tables'));
-        add_action('admin_action_wpr_clear_autouploader', array($this, 'autosnapshots_uploader_reset'));
         add_action('wp_before_admin_bar_render', array($this, 'admin_bar'));
+
+        add_filter('install_plugins_table_api_args_featured', array($this, 'featured_plugins_tab'));
 
         add_action('plugins_loaded', array($this, 'admin_actions'));
         add_action('admin_head-tools_page_wp-reset', array($this, 'rebrand_css'));
@@ -164,29 +165,29 @@ class WP_Reset
             $cloud_snapshots = $wp_reset_cloud->get_cloud_snapshots();
             $snapshot_stats = array();
             $snapshot_stats = array();
-            for ($i = 45; $i >= 0; $i--){
+            for ($i = 45; $i >= 0; $i--) {
                 $snapshot_stats[date("Y-m-d", strtotime('-' . $i . ' days'))] = array('m' => 0, 'a' => 0, 'cm' => 0, 'ca' => 0);
             }
 
-            foreach($snapshots as $snapshot){
+            foreach ($snapshots as $snapshot) {
                 $snapshot_date = date('Y-m-d', strtotime($snapshot['timestamp']));
-                if(!array_key_exists($snapshot_date, $snapshot_stats)){
+                if (!array_key_exists($snapshot_date, $snapshot_stats)) {
                     continue;
                 }
 
-                if($snapshot['auto'] == true){
+                if ($snapshot['auto'] == true) {
                     $snapshot_stats[$snapshot_date]['a']++;
                 } else {
                     $snapshot_stats[$snapshot_date]['m']++;
                 }
             }
 
-            foreach($cloud_snapshots as $snapshot){
+            foreach ($cloud_snapshots as $snapshot) {
                 $snapshot_date = date('Y-m-d', strtotime($snapshot['timestamp']));
-                if(!array_key_exists($snapshot_date, $snapshot_stats)){
+                if (!array_key_exists($snapshot_date, $snapshot_stats)) {
                     continue;
                 }
-                if($snapshot['auto'] == true){
+                if ($snapshot['auto'] == true) {
                     $snapshot_stats[$snapshot_date]['ca']++;
                 } else {
                     $snapshot_stats[$snapshot_date]['cm']++;
@@ -194,7 +195,7 @@ class WP_Reset
             }
 
             $recovery_url = $wp_reset->wpr_recovery_path(true);
-            if($recovery_url !== false){
+            if ($recovery_url !== false) {
                 $lcdata['meta']['ers_url'] = $recovery_url;
             }
             $lcdata['meta']['stats'] = $snapshot_stats;
@@ -371,7 +372,7 @@ class WP_Reset
             $this->log = get_option('wp-reset-log', array());
         }
 
-        if (count($this->log) > 5000) {
+        if ($this->log !== false && count($this->log) > 5000) {
             $this->log = array_slice($this->log, -5000, 5000, true);
         }
 
@@ -391,6 +392,79 @@ class WP_Reset
     {
         return get_option('wp-reset-log', array());
     }
+
+
+    /**
+     * Helper function for adding plugins to featured list
+     *
+     * @return array
+     */
+    function featured_plugins_tab($args)
+    {
+        add_filter('plugins_api_result', array($this, 'plugins_api_result'), 10, 3);
+        return $args;
+    } // featured_plugins_tab
+
+
+    /**
+     * Add plugins to featured plugins list
+     *
+     * @return object
+     */
+    function plugins_api_result($res, $action, $args)
+    {
+        remove_filter('plugins_api_result', array($this, 'plugins_api_result'), 10, 3);
+
+        $res = $this->add_plugin_featured('eps-301-redirects', $res);
+        $res = $this->add_plugin_featured('wp-force-ssl', $res);
+
+        return $res;
+    } // plugins_api_result
+
+
+    /**
+     * Add single plugin to featured list
+     *
+     * @return object
+     */
+    function add_plugin_featured($plugin_slug, $res)
+    {
+        // check if plugin is already on the list
+        if (!empty($res->plugins) && is_array($res->plugins)) {
+            foreach ($res->plugins as $plugin) {
+                if (is_object($plugin) && !empty($plugin->slug) && $plugin->slug == $plugin_slug) {
+                    return $res;
+                }
+            } // foreach
+        }
+
+        $plugin_info = get_transient('wf-plugin-info-' . $plugin_slug);
+
+        if (!$plugin_info) {
+            $plugin_info = plugins_api('plugin_information', array(
+                'slug' => $plugin_slug,
+                'is_ssl' => is_ssl(),
+                'fields' => array(
+                    'banners' => true,
+                    'reviews' => true,
+                    'downloaded' => true,
+                    'active_installs' => true,
+                    'icons' => true,
+                    'short_description' => true,
+                ),
+            ));
+            if (!is_wp_error($plugin_info)) {
+                set_transient('wf-plugin-info-' . $plugin_slug, $plugin_info, DAY_IN_SECONDS * 7);
+            }
+        }
+
+        if (!empty($res->plugins) && is_array($res->plugins) && $plugin_info && is_object($plugin_info)) {
+            array_unshift($res->plugins, $plugin_info);
+        }
+
+        return $res;
+    } // add_plugin_featured
+
 
     /**
      * Get log
@@ -422,6 +496,11 @@ class WP_Reset
      */
     function clear_log()
     {
+        check_admin_referer('wpr_clear_log');
+        if (!current_user_can('manage_options')) {
+            return false;
+        }
+
         update_option('wp-reset-log', array());
 
         if (!empty($_GET['redirect'])) {
@@ -635,16 +714,6 @@ class WP_Reset
             wp_localize_script('wp-pointer', 'wp_reset_pointers', $pointers);
         }
 
-        if ($hook == 'plugins.php') {
-            $rebranding = $this->get_rebranding();
-            if (false === $rebranding) {
-                return false;
-            }
-
-            wp_enqueue_script('wp-reset-branding', $this->plugin_url . 'js/branding.js', array('jquery'), $this->version, true);
-            wp_localize_script('wp-reset-branding', 'wpr_rebranding', $rebranding);
-        }
-
         if (!$this->is_plugin_page() && !$options['adminbar_snapshots']) {
             return;
         }
@@ -670,6 +739,7 @@ class WP_Reset
             'documented_error' => __('An error has occurred.', 'wp-reset'),
             'plugin_name' => __('WP Reset PRO', 'wp-reset'),
             'is_plugin_page' => (int) $this->is_plugin_page(),
+            'current_screen' => $hook,
             'autouploader_key' => 'wpr_autouploader_time_' . preg_replace("/[^a-zA-Z0-9]+/", "", home_url()),
             'whitelabel' => (int) !WP_Reset_Utility::whitelabel_filter(),
             'settings_url' => admin_url('tools.php?page=wp-reset'),
@@ -716,6 +786,31 @@ class WP_Reset
             'cloud_service' => array_key_exists($options['cloud_service'], $this->cloud_services) ? 1 : 0,
             'rebranding' => $this->get_rebranding() === false ? 0 : $this->get_rebranding()
         );
+
+        if ($hook == 'plugins.php') {
+            $rebranding = $this->get_rebranding();
+            if (false !== $rebranding) {
+                wp_enqueue_script('wp-reset-branding', $this->plugin_url . 'js/branding.js', array('jquery'), $this->version, true);
+                wp_localize_script('wp-reset-branding', 'wpr_rebranding', $rebranding);
+            }
+
+            $js_localize['space_usage_total'] = 0;
+            foreach ($snapshots as $snapshot) {
+                if (false === $snapshot['local']) {
+                    continue;
+                }
+                $js_localize['space_usage_total'] += $snapshot['tbl_size'];
+            }
+
+            $js_localize['space_usage_total'] += $this->folder_size(trailingslashit(WP_CONTENT_DIR) . 'wp-reset-autosnapshots');
+            $js_localize['space_usage_total'] += $this->folder_size(trailingslashit(WP_CONTENT_DIR) . 'wp-reset-snapshots-export');
+
+            if($js_localize['space_usage_total'] > 0){
+                $js_localize['space_usage_total'] = WP_Reset_Utility::format_size($js_localize['space_usage_total']);
+            }
+
+
+        }
 
         if ($this->is_plugin_page()) {
             wp_enqueue_style('plugin-install');
@@ -860,6 +955,7 @@ class WP_Reset
     function rebrand_css()
     {
         if ($this->get_rebranding() !== false) {
+            echo '<style></style>';
             echo '<style>' . $this->get_rebranding('admin_css_predefined') . $this->get_rebranding('admin_css') . '</style>';
         }
     }
@@ -1127,6 +1223,16 @@ class WP_Reset
         return $this->delete_count;
     } // do_delete_wp_content
 
+    function folder_size($path){
+        $bytestotal = 0;
+        $path = realpath($path);
+        if($path!==false && $path!='' && file_exists($path)){
+            foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object){
+                $bytestotal += $object->getSize();
+            }
+        }
+        return $bytestotal;
+    }
 
     /**
      * Recursively deletes a folder
@@ -2823,7 +2929,7 @@ class WP_Reset
         $wf_licensing_wpr = get_option('wf_licensing_wpr');
 
         $active_plugins = get_transient('wpr_active_plugins');
-        if(false === $active_plugins){
+        if (false === $active_plugins) {
             $active_plugins = get_option('active_plugins');
         }
         $active_theme = wp_get_theme();
@@ -3575,8 +3681,7 @@ class WP_Reset
             echo '</ul>';
         }
         echo '</div>';
-        echo '<p><a class="button button-delete" href="' . add_query_arg(array('action' => 'wpr_clear_log', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Clear Log</a>';
-        //echo '<p><a class="button button-delete" href="' . add_query_arg(array('action' => 'wpr_clear_autouploader', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Clear Autouploader</a>';
+        echo '<p><a class="button button-delete" href="' . add_query_arg(array('_wpnonce' => wp_create_nonce('wpr_clear_log'), 'action' => 'wpr_clear_log', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Clear Log</a>';
 
         echo '</div>';
         echo '</div>';
@@ -3586,22 +3691,15 @@ class WP_Reset
         echo '<h4><span class="card-name">WP Reset Files</span><div class="card-header-right"></div></h4>';
         echo '<div class="card-body"><p>';
 
-        $total_files = 0;
         $total_size = 0;
-        $files = $this->scan_folder($this->export_dir_path());
-        if (empty($files)) {
-            echo 'There are 0 temporary files, totaling 0 bytes';
-        } else {
-            foreach ($files as $file) {
-                if (stripos($file, '.htaccess')) {
-                    continue;
-                }
-                $total_files++;
-                $total_size += filesize($file);
-            }
+        $total_size += $this->folder_size(trailingslashit(WP_CONTENT_DIR) . 'wp-reset-autosnapshots');
+        $total_size += $this->folder_size(trailingslashit(WP_CONTENT_DIR) . 'wp-reset-snapshots-export');
 
-            echo 'There are ' . $total_files . ' temporary files, totaling ' . WP_Reset_Utility::format_size($total_size);
-            echo '<p><a class="button button-delete" href="' . add_query_arg(array('action' => 'wpr_delete_temporary_files', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Delete temporary snapshot files</a></p>';
+        if ($total_size == 0) {
+            echo 'There are no temporary files';
+        } else {
+            echo 'Temporary files used by WP Reset total ' . WP_Reset_Utility::format_size($total_size);
+            echo '<p><a class="button button-delete" href="' . add_query_arg(array('_wpnonce' => wp_create_nonce('wpr_delete_temporary_files'), 'action' => 'wpr_delete_temporary_files', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Delete temporary snapshot files</a></p>';
         }
 
         echo '</p></div>';
@@ -3656,7 +3754,7 @@ class WP_Reset
                     echo '<li>' . $table . '</li>';
                 }
                 echo '</ul>';
-                echo '<a class="button button-delete" href="' . add_query_arg(array('action' => 'wpr_delete_snapshot_tables', 'uid' => $uid, 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Delete the tables prefixed with ' . $uid . '_</a>';
+                echo '<a class="button button-delete" href="' . add_query_arg(array('_wpnonce' => wp_create_nonce('wpr_delete_snapshot_tables'), 'action' => 'wpr_delete_snapshot_tables', 'uid' => $uid, 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Delete the tables prefixed with ' . $uid . '_</a>';
                 echo '</div>';
             }
         }
@@ -4311,8 +4409,10 @@ class WP_Reset
             'size-200' => 'when total snapshot size exceeds 200 MB',
             'size-500' => 'when total snapshot size exceeds 500 MB',
             'size-1000' => 'when total snapshot size exceeds 1000 MB',
+            'size-2000' => 'when total snapshot size exceeds 2000 MB',
+            'size-3000' => 'when total snapshot size exceeds 3000 MB',
         );
-        echo '<div class="sub-option-group">Delete automatic snapshots: <select id="option_prune_snapshots_details" style="width:240px;">';
+        echo '<div class="sub-option-group">Delete automatic snapshots: <select id="option_prune_snapshots_details" style="width:295px;">';
         WP_Reset_Utility::create_select_options($prune_details, $options['prune_snapshots_details']);
         echo '</select></div></div>';
 
@@ -4337,8 +4437,10 @@ class WP_Reset
                 'size-200' => 'when total snapshot size exceeds 200 MB',
                 'size-500' => 'when total snapshot size exceeds 500 MB',
                 'size-1000' => 'when total snapshot size exceeds 1000 MB',
+                'size-2000' => 'when total snapshot size exceeds 2000 MB',
+                'size-3000' => 'when total snapshot size exceeds 3000 MB',
             );
-            echo '<div class="sub-option-group">Delete automatic snapshots from cloud: <select id="option_prune_cloud_snapshots_details" style="width:240px;">';
+            echo '<div class="sub-option-group">Delete automatic snapshots from cloud: <select id="option_prune_cloud_snapshots_details" style="width:295px;">';
             WP_Reset_Utility::create_select_options($cloud_prune_details, $options['prune_cloud_snapshots_details']);
             echo '</select></div></div>';
         }
@@ -4497,6 +4599,115 @@ class WP_Reset
         $tbl_core = $tbl_custom = $tbl_size = $tbl_rows = 0;
         $options = $this->get_options();
 
+        $snapshots = $this->get_all_snapshots();
+
+        $snapshots = array_reverse($snapshots);
+        $ss_user = array_filter($snapshots, function ($snapshot) {
+            return !(bool) @$snapshot['auto'];
+        });
+        $ss_auto = array_filter($snapshots, function ($snapshot) {
+            return (bool) @$snapshot['auto'];
+        });
+
+        //snapshots_size_alert
+        $space_usage_total = 0;
+        $space_usage_user = 0;
+        $space_usage_auto = 0;
+
+        foreach ($snapshots as $snapshot) {
+            if (false === $snapshot['local']) {
+                continue;
+            }
+            $space_usage_total += $snapshot['tbl_size'];
+            if ($snapshot['auto']) {
+                $space_usage_auto += $snapshot['tbl_size'];
+            } else {
+                $space_usage_user += $snapshot['tbl_size'];
+            }
+        }
+
+        $snapshots = $this->get_snapshots();
+        $tables = $wpdb->get_results('SHOW TABLES', ARRAY_N);
+        $uid_length = 7;
+        if (strlen($wpdb->prefix) > 10) {
+            $uid_length = 5;
+        }
+
+        $orphaned_snapshots = array();
+
+        foreach ($tables as $table) {
+            if ($uid_length !== stripos($table[0], $wpdb->prefix)) {
+                continue;
+            }
+            $current_id = substr($table[0], 0, ($uid_length - 1));
+
+            if (array_key_exists($current_id, $snapshots)) {
+                continue;
+            }
+
+            if (!array_key_exists($current_id, $orphaned_snapshots)) {
+                $orphaned_snapshots[$current_id] = array();
+            }
+            $orphaned_snapshots[$current_id][] = $table[0];
+        } // foreach
+
+
+
+        if ($space_usage_total / 1000000 > $options['snapshots_size_alert']) {
+            echo '<div class="card">';
+            echo '<span style="color: #dd3036;">' . $this->get_card_header('Snapshot Database Usage Alert', 'snapshots-user', array('collapse_button' => 0, 'create_snapshot' => false, 'snapshot_actions' => false)) . '</span>';
+            echo '<div class="card-body">';
+            echo '<p style="color: #dd3036;">';
+            echo 'Your snapshots are using ' . WP_Reset_Utility::format_size($space_usage_total) . ' total space in the database!<br />';
+            echo 'User snapshots take up ' . WP_Reset_Utility::format_size($space_usage_user) . '<br />';
+            echo 'Automatic snapshots take up ' . WP_Reset_Utility::format_size($space_usage_auto) . '<br />';
+            echo '</p>';
+            echo '<p>If there are snapshots that you don\'t need right away but still want to keep them, you can download them or upload them to cloud and then delete them from your website.
+            For automatic snapshots you can also enable the "Automatically delete automatic snapshots" option in the <a class="change-tab" data-tab="4" href="#snapshot-options-group">Settings</a> tab to limit the space used up by automatic snapshots.</p>';
+            echo '</div>';
+            echo '</div>';
+        }
+
+        echo '<div class="card">';
+        echo '<span>' . $this->get_card_header('WP Reset Resource Usage', 'snapshots-user', array('collapse_button' => true, 'create_snapshot' => false, 'snapshot_actions' => false)) . '</span>';
+        echo '<div class="card-body">';
+        echo '<p>';
+        echo 'Your snapshots are using <strong>' . WP_Reset_Utility::format_size($space_usage_total) . '</strong> total space in the database:<br />';
+        echo ' - User snapshots take up ' . WP_Reset_Utility::format_size($space_usage_user) . '<br />';
+        echo ' - Automatic snapshots take up ' . WP_Reset_Utility::format_size($space_usage_auto) . '<br />';
+        echo '<p>If there are snapshots that you don\'t need right away but still want to keep them, you can download them to your computer or upload them to cloud and then delete them from your website.
+        For automatic snapshots you can also enable the "Automatically delete automatic snapshots" option in the <a class="change-tab" data-tab="4" href="#snapshot-options-group">Settings</a> tab to limit the space used up by automatic snapshots.</p>';
+
+        echo '<hr />';
+
+        if (!empty($orphaned_snapshots)) {
+            $total_orphaned = 0;
+            foreach ($orphaned_snapshots as $uid => $snapshot) {
+                if (array_key_exists($uid, $snapshots)) {
+                    continue;
+                }
+                foreach ($snapshot as $table) {
+                    $total_orphaned++;
+                }
+            }
+            echo '<p>There are ' . $total_orphaned . ' tables that <strong>appear</strong> to have belonged to snapshots that have been deleted. They could have remained behind because of a timeout or other errors when deleting the associated snapshot.</p>';
+            echo '<p>Please enable Debug mode in the Support tab and review the tables in case they need to be deleted.</p>';
+            echo '<hr />';
+        }
+
+
+
+        $autosnapshot_size = $this->folder_size(trailingslashit(WP_CONTENT_DIR) . 'wp-reset-autosnapshots');
+        $snapshot_size = $this->folder_size(trailingslashit(WP_CONTENT_DIR) . 'wp-reset-snapshots-export');
+
+        echo 'Total Disk space used by temporary files such as snapshot download ZIP files is <strong>' . WP_Reset_Utility::format_size($autosnapshot_size + $snapshot_size) . '</strong>';
+        echo '<br /><br />';
+        echo '<p><a class="button button-delete" href="' . add_query_arg(array('_wpnonce' => wp_create_nonce('wpr_delete_temporary_files'), 'action' => 'wpr_delete_temporary_files', 'redirect' => urlencode($_SERVER['REQUEST_URI'])), admin_url('admin.php')) . '">Delete temporary files</a></p>';
+        echo '</p>';
+        echo '</div>';
+        echo '</div>';
+
+
         echo '<div class="card" id="card-snapshots">';
         echo $this->get_card_header('Snapshots', 'snapshots-info', array('collapse_button' => true, 'documentation_link' => true));
         echo '<div class="card-body">';
@@ -4536,47 +4747,8 @@ class WP_Reset
         echo '</div>';
         echo '</div>'; // snapshots desc
 
-        $snapshots = $this->get_all_snapshots();
 
-        $snapshots = array_reverse($snapshots);
-        $ss_user = array_filter($snapshots, function ($snapshot) {
-            return !(bool) @$snapshot['auto'];
-        });
-        $ss_auto = array_filter($snapshots, function ($snapshot) {
-            return (bool) @$snapshot['auto'];
-        });
 
-        //snapshots_size_alert
-        $space_usage_total = 0;
-        $space_usage_user = 0;
-        $space_usage_auto = 0;
-
-        foreach ($snapshots as $snapshot) {
-            if (false === $snapshot['local']) {
-                continue;
-            }
-            $space_usage_total += $snapshot['tbl_size'];
-            if ($snapshot['auto']) {
-                $space_usage_auto += $snapshot['tbl_size'];
-            } else {
-                $space_usage_user += $snapshot['tbl_size'];
-            }
-        }
-
-        if ($space_usage_total / 1000000 > $options['snapshots_size_alert']) {
-            echo '<div class="card">';
-            echo '<span style="color: #dd3036;">' . $this->get_card_header('Snapshot Database Usage Alert', 'snapshots-user', array('collapse_button' => 0, 'create_snapshot' => false, 'snapshot_actions' => false)) . '</span>';
-            echo '<div class="card-body">';
-            echo '<p style="color: #dd3036;">';
-            echo 'Your snapshots are using ' . WP_Reset_Utility::format_size($space_usage_total) . ' total space in the database!<br />';
-            echo 'User snapshots take up ' . WP_Reset_Utility::format_size($space_usage_user) . '<br />';
-            echo 'Automatic snapshots take up ' . WP_Reset_Utility::format_size($space_usage_auto) . '<br />';
-            echo '</p>';
-            echo '<p>If there are snapshots that you don\'t need right away but still want to keep them, you can download them or upload them to cloud and then delete them from your website.
-            For automatic snapshots you can also enable the "Automatically delete automatic snapshots" option in the <a class="change-tab" data-tab="4" href="#snapshot-options-group">Settings</a> tab to limit the space used up by automatic snapshots.</p>';
-            echo '</div>';
-            echo '</div>';
-        }
 
         echo '<div class="card">';
         echo $this->get_card_header('User Created Snapshots', 'snapshots-user', array('collapse_button' => 1, 'create_snapshot' => true, 'snapshot_actions' => true));
@@ -4616,7 +4788,7 @@ class WP_Reset
         echo '<tr><th></th><th class="ss-date">Date</th><th>Description</th><th class="ss-size">Size</th><th class="ss-actions">';
         echo '<div class="dropdown">
         <a class="button dropdown-toggle" href="#">Actions</a>
-        <div class="dropdown-menu">        
+        <div class="dropdown-menu">
         <a title="Delete all auto snapshots" data-snapshots="auto" href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete all snapshots" data-text-wait="Deleting snapshots. Please wait." data-text-confirm="Are you sure you want to delete all automatic snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete All Automatic Snapshots', 'wp-reset') . '</a>
         <a title="Delete selected auto snapshots" data-snapshots=selected_auto href="#" class="dropdown-item delete-snapshots delete-button" data-btn-confirm="Delete selected auto snapshots" data-text-wait="Deleting selected automatic snapshots. Please wait." data-text-confirm="Are you sure you want to delete the selected automatic snapshots? There is NO UNDO.<br>Deleting the snapshots will not affect the active database tables in any way." data-text-done="%n snapshots deleted." data-text-done-singular="One snapshot deleted.">' . __('Delete Selected Automatic Snapshots', 'wp-reset') . '</a>';
 
@@ -5431,13 +5603,14 @@ class WP_Reset
      */
     function delete_snapshot_tables($uid = '')
     {
+        check_admin_referer('wpr_delete_snapshot_tables');
         global $wpdb;
 
         if (empty($uid)) {
             $uid = $_GET['uid'];
         }
 
-        if (strlen($uid) != 4 && strlen($uid) != 6) {
+        if (!ctype_alpha($uid) || !current_user_can('manage_options') || (strlen($uid) != 4 && strlen($uid) != 6)) {
             return new WP_Error(1, 'Invalid UID format.');
         }
 
@@ -5465,8 +5638,17 @@ class WP_Reset
      */
     function delete_temporary_files()
     {
+        check_admin_referer('wpr_delete_temporary_files');
+        if (!current_user_can('manage_options')) {
+            return false;
+        }
+
         if (file_exists($this->export_dir_path())) {
             $this->delete_folder($this->export_dir_path(), basename($this->export_dir_path()));
+        }
+
+        if (file_exists($this->autosnapshots_dir_path())) {
+            $this->delete_folder($this->autosnapshots_dir_path(), basename($this->autosnapshots_dir_path()));
         }
 
         if (!empty($_GET['redirect'])) {
@@ -5973,7 +6155,7 @@ class WP_Reset
         }
 
         $table_status = $wpdb->get_results('SHOW TABLE STATUS');
-                
+
         if (is_array($table_status)) {
             foreach ($table_status as $table) {
                 if (0 !== stripos($table->Name, $uid . '_')) {
@@ -6236,6 +6418,22 @@ class WP_Reset
             $uid = false;
         }
 
+        $uid_tracker_file = false;
+        $uid_tracker_contents = '';
+        $search = glob(trailingslashit(WP_CONTENT_DIR) . 'wpr_uid_tracker_*');
+        if (!empty($search)) {
+            $uid_tracker_file = trailingslashit(WP_CONTENT_DIR) . basename($search[0]);
+        } else {
+            $uid_tracker_file = trailingslashit(WP_CONTENT_DIR) . 'wpr_uid_tracker_' . md5(time());
+        }
+
+        if(file_exists($uid_tracker_file)){
+            $uid_tracker_contents = file_get_contents($uid_tracker_file);
+        }
+
+        $uid_tracker_contents .= $uid . "\n";
+        file_put_contents($uid_tracker_file, $uid_tracker_contents);
+
         return $uid;
     } // generate_snapshot_uid
 
@@ -6260,11 +6458,11 @@ class WP_Reset
         foreach ($snapshots as $sid => $snapshot) {
             if (isset($snapshot['auto']) && ($snapshot['auto'] == 'true' || $snapshot['auto'] == '1' || $snapshot['auto'] == true)) {
                 $snapshot_dates[$sid] = strtotime($snapshot['timestamp']);
-                if(!array_key_exists('file_size',$snapshot)){
+                if (!array_key_exists('file_size', $snapshot)) {
                     $snapshot['file_size'] = 0;
                 }
                 $snapshot_sizes[$sid] = round(($snapshot['file_size'] + $snapshot['tbl_size']) / 10485.76) / 100; // Size in MB with 2 decimal places
-            } 
+            }
         }
 
         arsort($snapshot_dates);
@@ -6332,7 +6530,7 @@ class WP_Reset
             }
         }
         arsort($snapshot_dates);
-        
+
         if (substr($options['options']['prune_cloud_snapshots_details'], 0, 4) == 'size') {
             $tmp = explode('-', $options['options']['prune_cloud_snapshots_details']);
             $max_size = (int) $tmp[1];

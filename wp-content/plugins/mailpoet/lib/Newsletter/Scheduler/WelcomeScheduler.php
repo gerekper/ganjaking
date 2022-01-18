@@ -55,7 +55,8 @@ class WelcomeScheduler {
     if (empty($newsletters)) return false;
     $result = [];
     foreach ($newsletters as $newsletter) {
-      if ($newsletter->getOptionValue(NewsletterOptionFieldEntity::NAME_EVENT) === 'segment' &&
+      if (
+        $newsletter->getOptionValue(NewsletterOptionFieldEntity::NAME_EVENT) === 'segment' &&
         in_array($newsletter->getOptionValue(NewsletterOptionFieldEntity::NAME_SEGMENT), $segments)
       ) {
         $sendingTask = $this->createWelcomeNotificationSendingTask($newsletter, $subscriberId);
@@ -83,13 +84,15 @@ class WelcomeScheduler {
         // do not schedule welcome newsletter if roles have not changed
         $oldRole = $oldUserData['roles'];
         $newRole = $wpUser['roles'];
-        if ($newsletterRole === self::WORDPRESS_ALL_ROLES ||
+        if (
+          $newsletterRole === self::WORDPRESS_ALL_ROLES ||
           !array_diff($oldRole, $newRole)
         ) {
           continue;
         }
       }
-      if ($newsletterRole === self::WORDPRESS_ALL_ROLES ||
+      if (
+        $newsletterRole === self::WORDPRESS_ALL_ROLES ||
         in_array($newsletterRole, $wpUser['roles'])
       ) {
         $this->createWelcomeNotificationSendingTask($newsletter, $subscriberId);

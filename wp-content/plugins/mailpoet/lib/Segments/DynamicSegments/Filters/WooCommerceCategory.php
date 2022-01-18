@@ -5,9 +5,13 @@ namespace MailPoet\Segments\DynamicSegments\Filters;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Entities\DynamicSegmentFilterData;
 use MailPoet\Entities\DynamicSegmentFilterEntity;
 use MailPoet\Entities\SubscriberEntity;
+use MailPoet\Util\DBCollationChecker;
+use MailPoet\Util\Security;
 use MailPoet\WP\Functions as WPFunctions;
+use MailPoetVendor\Doctrine\DBAL\Connection;
 use MailPoetVendor\Doctrine\DBAL\Query\QueryBuilder;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
 
@@ -19,58 +23,149 @@ class WooCommerceCategory implements Filter {
   /** @var EntityManager */
   private $entityManager;
 
+  /** @var DBCollationChecker */
+  private $collationChecker;
+
   /** @var WPFunctions */
   private $wp;
 
   public function __construct(
     EntityManager $entityManager,
+    DBCollationChecker $collationChecker,
     WPFunctions $wp
   ) {
     $this->entityManager = $entityManager;
+    $this->collationChecker = $collationChecker;
     $this->wp = $wp;
   }
 
   public function apply(QueryBuilder $queryBuilder, DynamicSegmentFilterEntity $filter): QueryBuilder {
-    global $wpdb;
     $filterData = $filter->getFilterData();
-    $categoryId = (int)$filterData->getParam('category_id');
+
+    $operator = $filterData->getOperator();
+    $categoryIds = (array)$filterData->getParam('category_ids');
+    $categoryIdswithChildrenIds = $this->getCategoriesWithChildren($categoryIds);
+
     $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+
+    $parameterSuffix = $filter->getId() ?: Security::generateRandomString();
+    $parameterSuffix = (string)$parameterSuffix;
+
+    if ($operator === DynamicSegmentFilterData::OPERATOR_ANY) {
+      $this->applyCustomerJoin($queryBuilder, $subscribersTable);
+      $this->applyOrderStatsJoin($queryBuilder);
+      $this->applyProductJoin($queryBuilder);
+      $this->applyTermRelationshipsJoin($queryBuilder);
+      $this->applyTermTaxonomyJoin($queryBuilder, $parameterSuffix);
+
+    } elseif ($operator === DynamicSegmentFilterData::OPERATOR_ALL) {
+      $this->applyCustomerJoin($queryBuilder, $subscribersTable);
+      $this->applyOrderStatsJoin($queryBuilder);
+      $this->applyProductJoin($queryBuilder);
+      $this->applyTermRelationshipsJoin($queryBuilder);
+      $this->applyTermTaxonomyJoin($queryBuilder, $parameterSuffix)
+        ->groupBy("{$subscribersTable}.id, orderStats.order_id")
+        ->having('COUNT(orderStats.order_id) = :count_' . $parameterSuffix)
+        ->setParameter('count_' . $parameterSuffix, count($categoryIds));
+
+    } elseif ($operator === DynamicSegmentFilterData::OPERATOR_NONE) {
+      $this->applyCustomerJoin($queryBuilder, $subscribersTable);
+      $this->applyOrderStatsJoin($queryBuilder);
+      // subQuery with subscriber ids that bought products
+      $subQuery = $this->createQueryBuilder($subscribersTable);
+      $subQuery->select("DISTINCT $subscribersTable.id");
+      $subQuery = $this->applyCustomerJoin($subQuery, $subscribersTable);
+      $subQuery = $this->applyOrderStatsJoin($subQuery);
+      $subQuery = $this->applyProductJoin($subQuery);
+      $subQuery = $this->applyTermRelationshipsJoin($subQuery);
+      $subQuery = $this->applyTermTaxonomyJoin($subQuery, $parameterSuffix)
+        ->andWhere("orderStats.status NOT IN ('wc-cancelled', 'wc-failed')");
+      // application subQuery for negation
+      $queryBuilder->where("{$subscribersTable}.id NOT IN ({$subQuery->getSQL()})");
+    }
+
+    return $queryBuilder
+      ->andWhere("orderStats.status NOT IN ('wc-cancelled', 'wc-failed')")
+      ->setParameter("category_{$parameterSuffix}", $categoryIdswithChildrenIds, Connection::PARAM_STR_ARRAY);
+  }
+
+  private function applyCustomerJoin(QueryBuilder $queryBuilder, string $subscribersTable): QueryBuilder {
+    global $wpdb;
+    $collation = $this->collationChecker->getCollateIfNeeded(
+      $subscribersTable,
+      'email',
+      $wpdb->prefix . 'wc_customer_lookup',
+      'email'
+    );
     return $queryBuilder->innerJoin(
       $subscribersTable,
-      $wpdb->postmeta,
-      'postmeta',
-      "postmeta.meta_key = '_customer_user' AND $subscribersTable.wp_user_id=postmeta.meta_value"
-    )->join(
-      'postmeta',
-      $wpdb->prefix . 'woocommerce_order_items',
-      'items',
-      'postmeta.post_id = items.order_id'
-    )->innerJoin(
-      'items',
-      $wpdb->prefix . 'woocommerce_order_itemmeta',
-      'itemmeta',
-      "itemmeta.order_item_id = items.order_item_id AND itemmeta.meta_key = '_product_id'"
-    )->join(
-      'itemmeta',
+      $wpdb->prefix . 'wc_customer_lookup',
+      'customer',
+      "$subscribersTable.email = customer.email $collation"
+    );
+  }
+
+  private function applyOrderStatsJoin(QueryBuilder $queryBuilder): QueryBuilder {
+    global $wpdb;
+    return $queryBuilder->join(
+      'customer',
+      $wpdb->prefix . 'wc_order_stats',
+      'orderStats',
+      'customer.customer_id = orderStats.customer_id'
+    );
+  }
+
+  private function applyProductJoin(QueryBuilder $queryBuilder): QueryBuilder {
+    global $wpdb;
+    return $queryBuilder->innerJoin(
+      'orderStats',
+      $wpdb->prefix . 'wc_order_product_lookup',
+      'product',
+      'orderStats.order_id = product.order_id'
+    );
+  }
+
+  private function applyTermRelationshipsJoin(QueryBuilder $queryBuilder): QueryBuilder {
+    global $wpdb;
+    return $queryBuilder->join(
+      'product',
       $wpdb->term_relationships, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
       'term_relationships',
-      'itemmeta.meta_value = term_relationships.object_id'
-    )->innerJoin(
+      'product.product_id = term_relationships.object_id'
+    );
+  }
+
+  private function applyTermTaxonomyJoin(QueryBuilder $queryBuilder, string $parameterSuffix): QueryBuilder {
+    global $wpdb;
+    return $queryBuilder->innerJoin(
       'term_relationships',
       $wpdb->term_taxonomy, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
       'term_taxonomy',
-      'term_taxonomy.term_taxonomy_id=term_relationships.term_taxonomy_id
+      "term_taxonomy.term_taxonomy_id=term_relationships.term_taxonomy_id
       AND
-      term_taxonomy.term_id IN (' . join(',', $this->getAllCategoryIds($categoryId)) . ')'
-    )->andWhere('postmeta.post_id NOT IN (
-        SELECT id FROM ' . $wpdb->posts . ' as p WHERE p.post_status IN ("wc-cancelled", "wc-failed")
-      )'
+      term_taxonomy.term_id IN (:category_{$parameterSuffix})"
     );
+  }
+
+  private function createQueryBuilder(string $table): QueryBuilder {
+    return $this->entityManager->getConnection()
+      ->createQueryBuilder()
+      ->from($table);
+  }
+
+  private function getCategoriesWithChildren(array $categoriesId) {
+    $allIds = [];
+
+    foreach ($categoriesId as $categoryId) {
+      $allIds = array_merge($allIds, $this->getAllCategoryIds($categoryId));
+    }
+
+    return array_unique($allIds);
   }
 
   private function getAllCategoryIds(int $categoryId) {
     $subcategories = $this->wp->getTerms('product_cat', ['child_of' => $categoryId]);
-    if (!is_array($subcategories)) return [];
+    if (!is_array($subcategories) || empty($subcategories)) return [$categoryId];
     $ids = array_map(function($category) {
       return $category->term_id; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
     }, $subcategories);

@@ -1,2 +1,6 @@
 <?php
- namespace MailPoetVendor; if (!defined('ABSPATH')) exit; interface Swift_Events_EventListener { } 
+namespace MailPoetVendor;
+if (!defined('ABSPATH')) exit;
+interface Swift_Events_EventListener
+{
+}

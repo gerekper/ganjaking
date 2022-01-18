@@ -1,2 +1,119 @@
 <?php
- namespace MailPoetVendor\Egulias\EmailValidator\Validation; if (!defined('ABSPATH')) exit; use MailPoetVendor\Egulias\EmailValidator\EmailLexer; use MailPoetVendor\Egulias\EmailValidator\Exception\InvalidEmail; use MailPoetVendor\Egulias\EmailValidator\Exception\LocalOrReservedDomain; use MailPoetVendor\Egulias\EmailValidator\Exception\DomainAcceptsNoMail; use MailPoetVendor\Egulias\EmailValidator\Warning\NoDNSMXRecord; use MailPoetVendor\Egulias\EmailValidator\Exception\NoDNSRecord; class DNSCheckValidation implements EmailValidation { private $warnings = []; private $error; private $mxRecords = []; public function __construct() { if (!\function_exists('idn_to_ascii')) { throw new \LogicException(\sprintf('The %s class requires the Intl extension.', __CLASS__)); } } public function isValid($email, EmailLexer $emailLexer) { $host = $email; if (\false !== ($lastAtPos = \strrpos($email, '@'))) { $host = \substr($email, $lastAtPos + 1); } $hostParts = \explode('.', $host); $reservedTopLevelDnsNames = [ 'test', 'example', 'invalid', 'localhost', 'local', 'intranet', 'internal', 'private', 'corp', 'home', 'lan', ]; $isLocalDomain = \count($hostParts) <= 1; $isReservedTopLevel = \in_array($hostParts[\count($hostParts) - 1], $reservedTopLevelDnsNames, \true); if ($isLocalDomain || $isReservedTopLevel) { $this->error = new LocalOrReservedDomain(); return \false; } return $this->checkDns($host); } public function getError() { return $this->error; } public function getWarnings() { return $this->warnings; } protected function checkDns($host) { $variant = \INTL_IDNA_VARIANT_UTS46; $host = \rtrim(\idn_to_ascii($host, \IDNA_DEFAULT, $variant), '.') . '.'; return $this->validateDnsRecords($host); } private function validateDnsRecords($host) { $dnsRecords = @\dns_get_record($host, \DNS_MX + \DNS_A + \DNS_AAAA); if (empty($dnsRecords)) { $this->error = new NoDNSRecord(); return \false; } foreach ($dnsRecords as $dnsRecord) { if (!$this->validateMXRecord($dnsRecord)) { return \false; } } if (empty($this->mxRecords)) { $this->warnings[NoDNSMXRecord::CODE] = new NoDNSMXRecord(); } return \true; } private function validateMxRecord($dnsRecord) { if ($dnsRecord['type'] !== 'MX') { return \true; } if (empty($dnsRecord['target']) || $dnsRecord['target'] === '.') { $this->error = new DomainAcceptsNoMail(); return \false; } $this->mxRecords[] = $dnsRecord; return \true; } } 
+namespace MailPoetVendor\Egulias\EmailValidator\Validation;
+if (!defined('ABSPATH')) exit;
+use MailPoetVendor\Egulias\EmailValidator\EmailLexer;
+use MailPoetVendor\Egulias\EmailValidator\Result\InvalidEmail;
+use MailPoetVendor\Egulias\EmailValidator\Result\Reason\DomainAcceptsNoMail;
+use MailPoetVendor\Egulias\EmailValidator\Result\Reason\LocalOrReservedDomain;
+use MailPoetVendor\Egulias\EmailValidator\Result\Reason\NoDNSRecord as ReasonNoDNSRecord;
+use MailPoetVendor\Egulias\EmailValidator\Result\Reason\UnableToGetDNSRecord;
+use MailPoetVendor\Egulias\EmailValidator\Warning\NoDNSMXRecord;
+class DNSCheckValidation implements EmailValidation
+{
+ protected const DNS_RECORD_TYPES_TO_CHECK = \DNS_MX + \DNS_A + \DNS_AAAA;
+ private $warnings = [];
+ private $error;
+ private $mxRecords = [];
+ public function __construct()
+ {
+ if (!\function_exists('idn_to_ascii')) {
+ throw new \LogicException(\sprintf('The %s class requires the Intl extension.', __CLASS__));
+ }
+ }
+ public function isValid(string $email, EmailLexer $emailLexer) : bool
+ {
+ // use the input to check DNS if we cannot extract something similar to a domain
+ $host = $email;
+ // Arguable pattern to extract the domain. Not aiming to validate the domain nor the email
+ if (\false !== ($lastAtPos = \strrpos($email, '@'))) {
+ $host = \substr($email, $lastAtPos + 1);
+ }
+ // Get the domain parts
+ $hostParts = \explode('.', $host);
+ // Reserved Top Level DNS Names (https://tools.ietf.org/html/rfc2606#section-2),
+ // mDNS and private DNS Namespaces (https://tools.ietf.org/html/rfc6762#appendix-G)
+ $reservedTopLevelDnsNames = [
+ // Reserved Top Level DNS Names
+ 'test',
+ 'example',
+ 'invalid',
+ 'localhost',
+ // mDNS
+ 'local',
+ // Private DNS Namespaces
+ 'intranet',
+ 'internal',
+ 'private',
+ 'corp',
+ 'home',
+ 'lan',
+ ];
+ $isLocalDomain = \count($hostParts) <= 1;
+ $isReservedTopLevel = \in_array($hostParts[\count($hostParts) - 1], $reservedTopLevelDnsNames, \true);
+ // Exclude reserved top level DNS names
+ if ($isLocalDomain || $isReservedTopLevel) {
+ $this->error = new InvalidEmail(new LocalOrReservedDomain(), $host);
+ return \false;
+ }
+ return $this->checkDns($host);
+ }
+ public function getError() : ?InvalidEmail
+ {
+ return $this->error;
+ }
+ public function getWarnings() : array
+ {
+ return $this->warnings;
+ }
+ protected function checkDns($host)
+ {
+ $variant = \INTL_IDNA_VARIANT_UTS46;
+ $host = \rtrim(\idn_to_ascii($host, \IDNA_DEFAULT, $variant), '.') . '.';
+ return $this->validateDnsRecords($host);
+ }
+ private function validateDnsRecords($host) : bool
+ {
+ // A workaround to fix https://bugs.php.net/bug.php?id=73149
+ \set_error_handler(static function (int $errorLevel, string $errorMessage) : ?bool {
+ throw new \RuntimeException("Unable to get DNS record for the host: {$errorMessage}");
+ });
+ try {
+ // Get all MX, A and AAAA DNS records for host
+ $dnsRecords = \dns_get_record($host, static::DNS_RECORD_TYPES_TO_CHECK);
+ } catch (\RuntimeException $exception) {
+ $this->error = new InvalidEmail(new UnableToGetDNSRecord(), '');
+ return \false;
+ } finally {
+ \restore_error_handler();
+ }
+ // No MX, A or AAAA DNS records
+ if ($dnsRecords === [] || $dnsRecords === \false) {
+ $this->error = new InvalidEmail(new ReasonNoDNSRecord(), '');
+ return \false;
+ }
+ // For each DNS record
+ foreach ($dnsRecords as $dnsRecord) {
+ if (!$this->validateMXRecord($dnsRecord)) {
+ // No MX records (fallback to A or AAAA records)
+ if (empty($this->mxRecords)) {
+ $this->warnings[NoDNSMXRecord::CODE] = new NoDNSMXRecord();
+ }
+ return \false;
+ }
+ }
+ return \true;
+ }
+ private function validateMxRecord($dnsRecord) : bool
+ {
+ if ($dnsRecord['type'] !== 'MX') {
+ return \true;
+ }
+ // "Null MX" record indicates the domain accepts no mail (https://tools.ietf.org/html/rfc7505)
+ if (empty($dnsRecord['target']) || $dnsRecord['target'] === '.') {
+ $this->error = new InvalidEmail(new DomainAcceptsNoMail(), "");
+ return \false;
+ }
+ $this->mxRecords[] = $dnsRecord;
+ return \true;
+ }
+}

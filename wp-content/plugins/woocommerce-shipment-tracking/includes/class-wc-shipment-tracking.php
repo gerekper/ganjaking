@@ -55,7 +55,7 @@ class WC_Shipment_Tracking_Actions {
 					'bpost' => 'https://track.bpost.be/btr/web/#/search?itemCode=%1$s',
 				),
 				'Canada'         => array(
-					'Canada Post' => 'https://www.canadapost-postescanada.ca/track-reperage/en#/details/%1$s',
+					'Canada Post' => 'https://www.canadapost-postescanada.ca/track-reperage/en#/resultList?searchFor=%1$s',
 					'Purolator'   => 'https://www.purolator.com/purolator/ship-track/tracking-summary.page?pin=%1$s',
 				),
 				'Czech Republic' => array(

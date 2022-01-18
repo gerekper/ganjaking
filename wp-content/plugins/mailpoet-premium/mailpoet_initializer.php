@@ -56,7 +56,8 @@ function mailpoet_premium_check_mailpoet_version() {
     preg_match('/^3\.\d+/', MAILPOET_VERSION, $match);
     $freeMinorVersion = !empty($match[0]) ? $match[0] : MAILPOET_VERSION;
   }
-  if (!$freeMinorVersion
+  if (
+    !$freeMinorVersion
     || version_compare($freeMinorVersion, MAILPOET_VERSION_REQUIRED) < 0
   ) {
     add_action('admin_notices', 'mailpoet_premium_free_version_required_notice');

@@ -79,22 +79,10 @@ class FUE_Addon_Twitter_Tweeter {
 	public function get_order_statuses() {
 		$order_statuses = array();
 
-		if ( WC_FUE_Compatibility::is_wc_version_gte_2_2() ) {
-			$statuses = wc_get_order_statuses();
+		$statuses = wc_get_order_statuses();
 
-			foreach ( $statuses as $key => $status ) {
-				$order_statuses[] = str_replace( 'wc-', '', $key );
-			}
-
-		} else {
-			$terms = get_terms( 'shop_order_status', array('hide_empty' => 0, 'orderby' => 'id') );
-
-			if (! isset($terms->errors) ) {
-				foreach ( $terms as $status ) {
-					$order_statuses[] = $status->slug;
-				}
-			}
-
+		foreach ( $statuses as $key => $status ) {
+			$order_statuses[] = str_replace( 'wc-', '', $key );
 		}
 
 		return $order_statuses;

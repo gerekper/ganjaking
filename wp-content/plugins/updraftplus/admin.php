@@ -3701,7 +3701,7 @@ class UpdraftPlus_Admin {
 		}
 
 		$next_res_after = (int) $time-time();
-		$next_res_txt = ($is_oneshot) ? '' : sprintf(__("next resumption: %d (after %ss)", 'updraftplus'), $next_resumption, $next_res_after). ' ';
+		$next_res_txt = $is_oneshot ? '' : sprintf(__('next resumption: %d', 'updraftplus'), $next_resumption).($next_resumption ? ' '.sprintf(__('(after %ss)', 'updraftplus'), $next_res_after) : '').' ';
 		$last_activity_txt = ($last_checkin_ago >= 0) ? sprintf(__('last activity: %ss ago', 'updraftplus'), floor($last_checkin_ago)).' ' : '';
 
 		if (($last_checkin_ago < 50 && $next_res_after>30) || $is_oneshot) {

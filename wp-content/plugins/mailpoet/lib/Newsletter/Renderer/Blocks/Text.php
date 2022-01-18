@@ -94,16 +94,17 @@ class Text {
           false;
         // if previous or next paragraphs are empty OR previous paragraph
         // is a heading, insert a break line
-        if (!$nextElement ||
-            !$previousElement ||
-            (preg_match('/h\d+/', $previousElementTag))
+        if (
+          !$nextElement ||
+          !$previousElement ||
+          (preg_match('/h\d+/', $previousElementTag))
         ) {
           $paragraph = $this->insertLineBreak($paragraph);
         }
         $paragraph->remove();
         continue;
       }
-      $style = $paragraph->style;
+      $style = (string)$paragraph->style;
       if (!preg_match('/text-align/i', $style)) {
         $style = 'text-align: left;' . $style;
       }

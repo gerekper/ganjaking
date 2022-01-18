@@ -3,18 +3,18 @@
  * Plugin Name: WooCommerce Product Enquiry Form
  * Plugin URI: https://woocommerce.com/products/product-enquiry-form/
  * Description: Adds an enquiry form tab to certain product pages which allows customers to contact you about a product. Also includes optional reCAPTCHA for preventing spam.
- * Version: 1.2.20
+ * Version: 1.2.21
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 3.1
  * Tested up to: 5.9
  * WC requires at least: 2.6
- * WC tested up to: 6.0
+ * WC tested up to: 6.1
  * Text Domain: wc_enquiry_form
  * Domain Path: /languages
  * Woo: 18601:5a0f5d72519a8ffcc86669f042296937
  *
- * Copyright: © 2021 WooCommerce
+ * Copyright: © 2022 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */

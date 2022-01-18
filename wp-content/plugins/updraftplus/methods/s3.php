@@ -394,8 +394,9 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 							if (method_exists($this, 's3_out_of_quota')) call_user_func(array($this, 's3_out_of_quota'), $config['quota'], $this->quota_used, $orig_file_size);
 							continue;
 						} else {
+							$quota_transient_used = $this->quota_transient_used ? ' (via transient)' : '';
 							// We don't need to log this always - the s3_out_of_quota method will do its own logging
-							$this->log("Quota is available: used=$quota_used (".round($quota_used/1048576, 1)." MB), total=".$config['quota']." (".round($config['quota']/1048576, 1)." MB), needed=$orig_file_size (".round($orig_file_size/1048576, 1)." MB)");
+							$this->log("Quota is available: used=$quota_used (".round($quota_used/1048576, 1)." MB), total=".$config['quota']." (".round($config['quota']/1048576, 1)." MB), needed=$orig_file_size (".round($orig_file_size/1048576, 1)." MB)".$quota_transient_used);
 						}
 					}
 				}

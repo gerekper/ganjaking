@@ -17,19 +17,32 @@ class WooCommerce {
   /** @var WooCommerceHelper */
   private $woocommerceHelper;
 
+  /** @var string[] */
   public $availableEvents = [
     'AbandonedCart',
     'FirstPurchase',
     'PurchasedInCategory',
     'PurchasedProduct',
   ];
+
+  /** @var bool */
   private $woocommerceEnabled;
+
+  /** @var WPFunctions */
   private $wp;
 
-  public function __construct() {
-    $this->wp = new WPFunctions;
-    $this->woocommerceHelper = new WooCommerceHelper();
+  /** @var WooCommerceEventFactory */
+  private $eventFactory;
+
+  public function __construct(
+    WPFunctions $wp,
+    WooCommerceHelper $woocommerceHelper,
+    WooCommerceEventFactory $eventFactory
+  ) {
+    $this->wp = $wp;
+    $this->woocommerceHelper = $woocommerceHelper;
     $this->woocommerceEnabled = $this->isWoocommerceEnabled();
+    $this->eventFactory = $eventFactory;
   }
 
   public function init() {
@@ -65,18 +78,14 @@ class WooCommerce {
     ] : [];
 
     foreach ($this->availableEvents as $event) {
-      $eventClass = sprintf(
-        '%s\Events\%s',
-        __NAMESPACE__,
-        $event
-      );
+      $eventInstance = in_array($event, $this->availableEvents, true)
+        ? $this->eventFactory->createEvent($event)
+        : null;
 
-      if (!class_exists($eventClass)) {
+      if (!$eventInstance) {
         $this->displayEventWarning($event);
         continue;
       }
-
-      $eventInstance = new $eventClass();
 
       if (method_exists($eventInstance, 'init')) {
         $eventInstance->init();

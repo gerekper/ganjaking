@@ -18,11 +18,7 @@ class FUE_Addon_Woocommerce_Admin_Products {
 	}
 
 	public function init() {
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			add_action( 'woocommerce_product_write_panels', array( $this, 'add_product_data_panel' ) );
-		} else {
-			add_action( 'woocommerce_product_data_panels', array( $this, 'add_product_data_panel' ) );
-		}
+		add_action( 'woocommerce_product_data_panels', array( $this, 'add_product_data_panel' ) );
 	}
 
 	public function add_scripts() {

@@ -51,9 +51,11 @@ class WC_Recommender_CLI_Rebuild {
 					WP_CLI::success( sprintf( __( 'Adding Also Viewed for ProductID: %d', 'wc_recommender' ), $product_id ) );
 					$builder->woocommerce_recommender_build_simularity( $product_id, array( 'viewed' ) );
 					WP_CLI::success( sprintf( __( 'Adding Also Purchased for ProductID: %d', 'wc_recommender' ), $product_id ) );
-					$builder->woocommerce_recommender_build_simularity( $product_id, array( 'completed' ) );
+					$status = apply_filters('woocommerce_recommender_also_purchased_status', 'completed');
+					$builder->woocommerce_recommender_build_simularity( $product_id, array( $status ) );
 					WP_CLI::success( sprintf( __( 'Adding Purchased Together for ProductID: %d', 'wc_recommender' ), $product_id ) );
-					$builder->woocommerce_build_purchased_together( $product_id, array( 'completed' ) );
+					$status = apply_filters('woocommerce_recommender_purchased_together_status', 'completed');
+					$builder->woocommerce_build_purchased_together( $product_id, array( $status ) );
 				}
 			}
 

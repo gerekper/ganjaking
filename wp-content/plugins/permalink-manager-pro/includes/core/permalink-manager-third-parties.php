@@ -621,7 +621,9 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
  			$element_id = $queried_element->ID;
  		} else if(!empty($queried_element->term_id)) {
  			$element_id = "tax-{$queried_element->term_id}";
- 		}
+ 		} else if(defined('REST_REQUEST') && !empty($post->ID)) {
+			$element_id = $post->ID;
+		}
 
  		// Get the custom permalink (if available) or the current request URL (if unavailable)
  		if(!empty($element_id) && !empty($permalink_manager_uris[$element_id])) {

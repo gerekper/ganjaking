@@ -36,10 +36,6 @@ use Monolog\Handler\SyslogHandler as MonologSyslogHandler;
  * The Google API Client
  * https://github.com/google/google-api-php-client
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Google_Client
 {
   const LIBVER = "2.7.2";

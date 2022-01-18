@@ -7,10 +7,9 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 
 	public function __construct() {
 		add_action( 'admin_init', array($this, 'init') );
+		add_action( 'rest_api_init', array($this, 'init') );
 
 		add_filter( 'term_link', array($this, 'custom_tax_permalinks'), 999, 2 );
-		// add_filter( 'category_link', array($this, 'custom_tax_permalinks'), 999, 2 );
-		// add_filter( 'tag_link', array($this, 'custom_tax_permalinks'), 999, 2 );
 
 		/**
 		 * URI Editor
@@ -533,7 +532,7 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 	 * "Quick Edit" form
 	 */
 	function quick_edit_column($columns) {
-		return array_merge($columns, array('permalink-manager-col' => __( 'Current URI', 'permalink-manager')));
+		return (is_array($columns)) ? array_merge($columns, array('permalink-manager-col' => __( 'Current URI', 'permalink-manager'))) : $columns;
 	}
 
 	function quick_edit_column_content($content, $column_name, $term_id) {

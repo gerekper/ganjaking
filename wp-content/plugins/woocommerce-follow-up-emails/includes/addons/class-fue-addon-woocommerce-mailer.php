@@ -132,89 +132,48 @@ class FUE_Addon_Woocommerce_Mailer {
 
 			if ( is_array( $post['product_ids'] ) ) {
 
-				if ( WC_FUE_Compatibility::is_wc_version_gt( '2.0' ) ) {
-					// if WC >= 2.0, do a direct query
-					foreach ( $post['product_ids'] as $product_id ) {
-						$order_ids = $wpdb->get_results( $wpdb->prepare(
-							"SELECT DISTINCT order_id
-							FROM {$wpdb->prefix}followup_order_items
-							WHERE product_id = %d OR variation_id = %d",
-							$product_id, $product_id
-						) );
+				foreach ( $post['product_ids'] as $product_id ) {
+					$order_ids = $wpdb->get_results( $wpdb->prepare(
+						"SELECT DISTINCT order_id
+						FROM {$wpdb->prefix}followup_order_items
+						WHERE product_id = %d OR variation_id = %d",
+						$product_id, $product_id
+					) );
 
-						foreach ( $order_ids as $row ) {
-							$order = WC_FUE_Compatibility::wc_get_order( $row->order_id );
+					foreach ( $order_ids as $row ) {
+						$order = WC_FUE_Compatibility::wc_get_order( $row->order_id );
 
-							if ( ! $order ) {
-								continue;
-							}
+						if ( ! $order ) {
+							continue;
+						}
 
-							// Only on processing and completed orders.
-							$order_status = WC_FUE_Compatibility::get_order_status( $order );
+						// Only on processing and completed orders.
+						$order_status = WC_FUE_Compatibility::get_order_status( $order );
 
-							if ( $order_status != 'processing' && $order_status != 'completed' ) {
-								continue;
-							}
+						if ( $order_status != 'processing' && $order_status != 'completed' ) {
+							continue;
+						}
 
-							$order_user_id  = (WC_FUE_Compatibility::get_order_user_id( $order ) > 0)
-								? WC_FUE_Compatibility::get_order_user_id( $order )
-								: 0;
-							$key = $order_user_id
-								   .'|'. WC_FUE_Compatibility::get_order_prop( $order, 'billing_email' )
-								   .'|'. WC_FUE_Compatibility::get_order_prop( $order, 'billing_first_name' )
-								   .' '. WC_FUE_Compatibility::get_order_prop( $order, 'billing_last_name' );
-							$value = array(
-								$order_user_id,
-								WC_FUE_Compatibility::get_order_prop( $order, 'billing_email' ),
-								WC_FUE_Compatibility::get_order_prop( $order, 'billing_first_name' ) .' '. WC_FUE_Compatibility::get_order_prop( $order, 'billing_last_name' )
-							);
+						$order_user_id  = (WC_FUE_Compatibility::get_order_user_id( $order ) > 0)
+							? WC_FUE_Compatibility::get_order_user_id( $order )
+							: 0;
+						$key = $order_user_id
+								.'|'. WC_FUE_Compatibility::get_order_prop( $order, 'billing_email' )
+								.'|'. WC_FUE_Compatibility::get_order_prop( $order, 'billing_first_name' )
+								.' '. WC_FUE_Compatibility::get_order_prop( $order, 'billing_last_name' );
+						$value = array(
+							$order_user_id,
+							WC_FUE_Compatibility::get_order_prop( $order, 'billing_email' ),
+							WC_FUE_Compatibility::get_order_prop( $order, 'billing_first_name' ) .' '. WC_FUE_Compatibility::get_order_prop( $order, 'billing_last_name' )
+						);
 
-							$found_user_ids[] = $order_user_id;
+						$found_user_ids[] = $order_user_id;
 
-							if (! isset($found_recipients[$key]) ) {
-								$found_recipients[$key] = $value;
-							}
+						if (! isset($found_recipients[$key]) ) {
+							$found_recipients[$key] = $value;
 						}
 					}
-				} else {
-					foreach ( $post['product_ids'] as $product_id ) {
-						$order_ids = $wpdb->get_results( $wpdb->prepare(
-							"SELECT DISTINCT order_id
-							FROM {$wpdb->prefix}followup_order_items
-							WHERE product_id = %d OR variation_id = %d",
-							$product_id, $product_id
-						) );
-
-						foreach ( $order_ids as $order_id ) {
-							// load the order and check the status
-							$order = WC_FUE_Compatibility::wc_get_order( $order_id );
-
-							if ( !$order ) {
-								continue;
-							}
-
-							// only on processing and completed orders
-							$order_status = WC_FUE_Compatibility::get_order_status( $order );
-							if ( $order_status != 'processing' && $order_status != 'completed' ) {
-								continue;
-							}
-
-							$order_user_id  = (WC_FUE_Compatibility::get_order_user_id( $order ) > 0)
-								? WC_FUE_Compatibility::get_order_user_id( $order )
-								: 0;
-							$key            = $order_user_id .'|'. WC_FUE_Compatibility::get_order_prop( $order, 'billing_email' ) .'|'. WC_FUE_Compatibility::get_order_prop( $order, 'billing_first_name' ) .' '. WC_FUE_Compatibility::get_order_prop( $order, 'billing_last_name' );
-							$value          = array( $order_user_id, WC_FUE_Compatibility::get_order_prop( $order, 'billing_email' ), WC_FUE_Compatibility::get_order_prop( $order, 'billing_first_name' ) .' '. WC_FUE_Compatibility::get_order_prop( $order, 'billing_last_name' ) );
-
-							$found_user_ids[] = $order_user_id;
-							if (! isset($found_recipients[$key]) ) {
-								$found_recipients[$key] = $value;
-								break;
-							}
-
-						} // endforeach ( $order_items_result as $order_items )
-					}
-
-				} // endif: function_exists('get_product')
+				}
 
 			} // endif: is_array($post['product_ids'])
 
@@ -570,7 +529,7 @@ class FUE_Addon_Woocommerce_Mailer {
 			$order  = WC_FUE_Compatibility::wc_get_order( $queue_item->order_id );
 			$meta   = maybe_unserialize( $queue_item->meta );
 
-			if ( in_array( $email->interval_type, array( 'refund_manual', 'refund_successful', 'refund_failed' ) ) ) {
+			if ( in_array( $email->interval_type, array( 'refund_manual', 'refund_successful' ), true ) ) {
 				$refund     = WC_FUE_Compatibility::wc_get_order( $meta['refund_id'] );
 				$items      = array();
 

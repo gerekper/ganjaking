@@ -411,6 +411,8 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 						// Ignore page endpoint if its value is 1
 						if(in_array($endpoint, array('page', 'paged')) && $endpoint_value == 1) { continue; }
 
+						// Replace whitespaces with '+' and sanitize the value
+						$endpoint_value = preg_replace('/\s+/', '+', $endpoint_value);
 						$query[$endpoint] = sanitize_text_field($endpoint_value);
 					}
 				}
@@ -786,8 +788,14 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			// Adjust trailing slashes
 			$correct_permalink = self::control_trailing_slashes($correct_permalink);
 
-			wp_safe_redirect($correct_permalink, $redirect_mode, PERMALINK_MANAGER_PLUGIN_NAME);
-			exit();
+			// Prevent redirect loop
+			$rel_old_uri = wp_make_link_relative($old_uri);
+			$rel_correct_permalink = wp_make_link_relative($correct_permalink);
+
+			if($rel_old_uri !== $rel_correct_permalink) {
+				wp_safe_redirect($correct_permalink, $redirect_mode, PERMALINK_MANAGER_PLUGIN_NAME);
+				exit();
+			}
 		}
  	}
 

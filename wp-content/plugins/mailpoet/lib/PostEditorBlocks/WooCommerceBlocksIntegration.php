@@ -62,7 +62,13 @@ class WooCommerceBlocksIntegration {
       '__experimental_woocommerce_blocks_add_data_attributes_to_block',
       [$this, 'addDataAttributesToBlock']
     );
-    $this->wp->registerBlockType(Env::$assetsPath . '/dist/js/marketing_optin_block');
+    $block = $this->wp->registerBlockTypeFromMetadata(Env::$assetsPath . '/dist/js/marketing_optin_block');
+    // We need to force the script to load in the footer. register_block_type always adds the script to the header.
+    if ($block instanceof \WP_Block_Type && $block->editor_script) { // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+      $wpScripts = $this->wp->getWpScripts();
+      $wpScripts->add_data($block->editor_script, 'group', 1); // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+    }
+
     $this->extendRestApi();
   }
 
@@ -72,7 +78,7 @@ class WooCommerceBlocksIntegration {
   public function registerCheckoutFrontendBlocks($integration_registry) {
     $integration_registry->register(new MarketingOptinBlock(
       [
-      'defaultText'  => $this->settings->get('woocommerce.optin_on_checkout.message', ''),
+      'defaultText' => $this->settings->get('woocommerce.optin_on_checkout.message', ''),
       'optinEnabled' => $this->settings->get('woocommerce.optin_on_checkout.enabled', false),
       'defaultStatus' => $this->woocommerceSubscription->isCurrentUserSubscribed(),
       ],
@@ -92,13 +98,13 @@ class WooCommerceBlocksIntegration {
     $extend = Package::container()->get(ExtendRestApi::class);
     $extend->register_endpoint_data(
       [
-        'endpoint'        => CheckoutSchema::IDENTIFIER,
-        'namespace'       => 'mailpoet',
+        'endpoint' => CheckoutSchema::IDENTIFIER,
+        'namespace' => 'mailpoet',
         'schema_callback' => function () {
           return [
             'optin' => [
               'description' => __('Subscribe to marketing opt-in.', 'mailpoet'),
-              'type'        => 'boolean',
+              'type' => 'boolean',
             ],
           ];
         },
@@ -107,7 +113,8 @@ class WooCommerceBlocksIntegration {
   }
 
   public function processCheckoutBlockOptin(\WC_Order $order, $request) {
-    if (!$this->settings->get('woocommerce.optin_on_checkout.enabled', false)) {
+    $checkoutOptinEnabled = $this->settings->get(WooCommerceSubscription::OPTIN_ENABLED_SETTING_NAME, false);
+    if (!$checkoutOptinEnabled) {
       return;
     }
 
@@ -138,6 +145,6 @@ class WooCommerceBlocksIntegration {
       return null;
     }
 
-    $this->woocommerceSubscription->handleSubscriberOptin($subscriberOldModel, (bool)$request['extensions']['mailpoet']['optin']);
+    $this->woocommerceSubscription->handleSubscriberOptin($subscriberOldModel, $checkoutOptinEnabled, (bool)$request['extensions']['mailpoet']['optin']);
   }
 }

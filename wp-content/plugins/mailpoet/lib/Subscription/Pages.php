@@ -13,6 +13,7 @@ use MailPoet\Models\SubscriberSegment;
 use MailPoet\Newsletter\Scheduler\WelcomeScheduler;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Settings\TrackingConfig;
+use MailPoet\Statistics\Track\SubscriberHandler;
 use MailPoet\Statistics\Track\Unsubscribes;
 use MailPoet\Subscribers\LinkTokens;
 use MailPoet\Subscribers\NewSubscriberNotificationMailer;
@@ -67,6 +68,9 @@ class Pages {
   /** @var ManageSubscriptionFormRenderer */
   private $manageSubscriptionFormRenderer;
 
+  /** @var SubscriberHandler */
+  private $subscriberHandler;
+
   /** @var SubscribersRepository */
   private $subscribersRepository;
 
@@ -85,6 +89,7 @@ class Pages {
     TemplateRenderer $templateRenderer,
     Unsubscribes $unsubscribesTracker,
     ManageSubscriptionFormRenderer $manageSubscriptionFormRenderer,
+    SubscriberHandler $subscriberHandler,
     SubscribersRepository $subscribersRepository,
     TrackingConfig $trackingConfig
   ) {
@@ -99,6 +104,7 @@ class Pages {
     $this->templateRenderer = $templateRenderer;
     $this->unsubscribesTracker = $unsubscribesTracker;
     $this->manageSubscriptionFormRenderer = $manageSubscriptionFormRenderer;
+    $this->subscriberHandler = $subscriberHandler;
     $this->subscribersRepository = $subscribersRepository;
     $this->trackingConfig = $trackingConfig;
   }
@@ -172,6 +178,9 @@ class Pages {
     $this->subscriber->unconfirmedData = null;
     $this->subscriber->save();
 
+    // start subscriber tracking
+    $this->subscriberHandler->identifyByEmail($this->subscriber->email);
+
     if ($this->subscriber->getErrors() !== false) {
       return false;
     }
@@ -199,7 +208,8 @@ class Pages {
   }
 
   public function unsubscribe() {
-    if (!$this->isPreview()
+    if (
+      !$this->isPreview()
       && ($this->subscriber !== null)
       && ($this->subscriber->status !== Subscriber::STATUS_UNSUBSCRIBED)
     ) {

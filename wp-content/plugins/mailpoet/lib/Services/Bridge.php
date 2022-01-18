@@ -135,7 +135,8 @@ class Bridge {
   }
 
   public function storeMSSKeyAndState($key, $state) {
-    if (empty($state['state'])
+    if (
+      empty($state['state'])
       || $state['state'] === self::KEY_CHECK_ERROR
     ) {
       return false;
@@ -170,7 +171,8 @@ class Bridge {
     ];
 
     if (!empty($result['code']) && isset($stateMap[$result['code']])) {
-      if ($stateMap[$result['code']] == self::KEY_VALID
+      if (
+        $stateMap[$result['code']] == self::KEY_VALID
         && !empty($result['data']['expire_at'])
       ) {
         $keyState = self::KEY_EXPIRING;
@@ -188,7 +190,8 @@ class Bridge {
   }
 
   public function storePremiumKeyAndState($key, $state) {
-    if (empty($state['state'])
+    if (
+      empty($state['state'])
       || $state['state'] === self::KEY_CHECK_ERROR
     ) {
       return false;

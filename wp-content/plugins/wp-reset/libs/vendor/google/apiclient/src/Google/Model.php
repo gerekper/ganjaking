@@ -21,10 +21,6 @@
  * http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5
  *
  */
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 class Google_Model implements ArrayAccess
 {
   /**

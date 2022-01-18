@@ -31,7 +31,8 @@ class Installer {
   }
 
   public function getPluginInformation($data, $action = '', $args = null) {
-    if ($action === 'plugin_information'
+    if (
+      $action === 'plugin_information'
       && isset($args->slug)
       && $args->slug === $this->slug
     ) {

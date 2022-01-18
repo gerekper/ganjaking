@@ -102,6 +102,8 @@ jQuery(function ($) {
 		},
 
 		init: function (cart) {
+			var cartFormForValidity = document.querySelector('form.cart');
+			var show_subtotal_panel = false;
 			var $cart = cart,
 				$variation_input = $cart.hasClass('variations_form')
 					? $cart.find(
@@ -109,9 +111,16 @@ jQuery(function ($) {
 					  )
 					: false;
 
+			// Do this when the variations change because we need to know if the product is in a valid configuration.
+			// The woocommerce-product-addons-update event will determine whether to show the subtotal panel or not.
+			$( ".variations_form" ).on( "woocommerce_variation_select_change", function () {
+				$cart.trigger('woocommerce-product-addons-update');
+			} );
+
 			// Clear all values on variable product when clear selection is clicked.
 			$cart
 				.on('click', '.reset_variations', function () {
+					show_subtotal_panel = false;
 					$.each($cart.find('.product-addon'), function () {
 						var element = $(this).find('.addon');
 
@@ -198,6 +207,8 @@ jQuery(function ($) {
 				})
 
 				.on('woocommerce-product-addons-update', function () {
+					// Check if all required fields have been filled, to determine whether we should show the subtotal panel.
+					var formValid = cartFormForValidity.checkValidity();
 					var total = 0,
 						total_raw = 0,
 						$totals = $cart.find('#product-addons-total'),
@@ -214,6 +225,10 @@ jQuery(function ($) {
 						(product_type = $totals.data('type')),
 						(qty = parseFloat($cart.find('input.qty').val())),
 						(addons = []);
+
+					// The product_id will be 0, empty or undefined if an invalid set of variations has been chosen.
+					var parsedProductId = parseInt( product_id );
+					show_subtotal_panel = !! (formValid && parsedProductId);
 
 					// Compatibility with Smart Coupons self declared gift amount purchase.
 					if (
@@ -746,7 +761,11 @@ jQuery(function ($) {
 									' <span class="amount">' +
 									formatted_sub_total +
 									'</span></p></li></ul></div>';
-								$totals.html(html);
+								if ( show_subtotal_panel ) {
+									$totals.html(html);
+								} else {
+									$totals.html('');
+								}
 								$cart.trigger('updated_addons');
 								return;
 							}
@@ -774,7 +793,11 @@ jQuery(function ($) {
 									'</span> ' +
 									woocommerce_addons_params.price_display_suffix +
 									'</strong></li></ul></div>';
-								$totals.html(html);
+								if ( show_subtotal_panel ) {
+									$totals.html(html);
+								} else {
+									$totals.html('');
+								}
 								$cart.trigger('updated_addons');
 								return;
 							}
@@ -832,7 +855,11 @@ jQuery(function ($) {
 											'</span> ' +
 											price_display_suffix +
 											' </p></li></ul></div>';
-										$totals.html(html);
+										if ( show_subtotal_panel ) {
+											$totals.html(html);
+										} else {
+											$totals.html('');
+										}
 										$cart.trigger('updated_addons');
 									} else {
 										html =
@@ -842,8 +869,12 @@ jQuery(function ($) {
 											' <span class="amount">' +
 											formatted_sub_total +
 											'</span></p></li></ul></div>';
-										$totals.html(html);
-										$cart.trigger('updated_addons');
+										if ( show_subtotal_panel ) {
+											$totals.html(html);
+										} else {
+											$totals.html('');
+										}
+											$cart.trigger('updated_addons');
 									}
 								},
 								error: function () {
@@ -854,7 +885,12 @@ jQuery(function ($) {
 										' <span class="amount">' +
 										formatted_sub_total +
 										'</span></p></li></ul></div>';
-									$totals.html(html);
+
+									if ( show_subtotal_panel ) {
+										$totals.html(html);
+									} else {
+										$totals.html('');
+									}
 									$cart.trigger('updated_addons');
 								},
 							});

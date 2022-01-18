@@ -7,7 +7,40 @@
 jQuery(document).ready(function ($) {
   wp_reset.is_plugin_page = parseInt(wp_reset.is_plugin_page, 10);
   wp_reset.add_collection_item_dialog_markup = false;
+  console.log(wp_reset.current_screen);
 
+  window.wpr_deactivate = false;
+  if (wp_reset.current_screen == "plugins.php") {
+    $("#deactivate-wp-reset").on("click", function (e) {
+      console.log('Click');
+      if (wp_reset.space_usage_total != '0' && window.wpr_deactivate == false) {
+        e.preventDefault();
+      
+        console.log("Deactivate WPR" + wp_reset.space_usage_total);
+        swal_text = "<div style='padding:20px 10px'>WP Reset is using " + wp_reset.space_usage_total + " of space that will <strong>not</strong> be removed automatically on deactivation. Would you like to review used space before you deactivate WP Reset?</div>"; 
+        wpr_swal
+          .fire({
+            type: "",
+            title: "Review WP Reset Resource Usage?",
+            html: swal_text,
+            confirmButtonText: "Yes, review used space",
+            cancelButtonText: "No, Deactivate",
+            showConfirmButton: true,
+            showCancelButton: true,
+          })
+          .then((result) => {
+            if (result.value) {
+              window.location = wp_reset.settings_url + '#tab-snapshots';
+            } else {
+              window.location = $(this).attr('href');
+            }
+          });
+      } else {
+          console.log('OK');
+          return true;
+      }
+    });
+  }
   // init tabs
   if (wp_reset.is_plugin_page) {
     $("#wp-reset-tabs")
@@ -25,10 +58,7 @@ jQuery(document).ready(function ($) {
           }
         },
         activate: function (event, ui) {
-          localStorage.setItem(
-            "wp-reset-tabs",
-            $("#wp-reset-tabs").tabs("option", "active")
-          );
+          localStorage.setItem("wp-reset-tabs", $("#wp-reset-tabs").tabs("option", "active"));
         },
         active: localStorage.getItem("wp-reset-tabs") || 0,
       })
@@ -76,9 +106,7 @@ jQuery(document).ready(function ($) {
   }); // scroll to anchor helper
 
   // toggle button dropdown menu
-  $(".tools_page_wp-reset").on("click", ".button.dropdown-toggle", function (
-    e
-  ) {
+  $(".tools_page_wp-reset").on("click", ".button.dropdown-toggle", function (e) {
     e.preventDefault();
 
     parent_dropdown = $(this).parent(".dropdown");
@@ -100,13 +128,9 @@ jQuery(document).ready(function ($) {
     return false;
   }); // toggle button dropdown menu
 
-  $(document).on(
-    "click",
-    ":not(.dropdown-toggle), .dropdown-item",
-    function () {
-      wpr_close_dropdowns();
-    }
-  );
+  $(document).on("click", ":not(.dropdown-toggle), .dropdown-item", function () {
+    wpr_close_dropdowns();
+  });
 
   // purge cache
   $(".tools_page_wp-reset").on("click", "#purge-cache", function (e) {
@@ -138,19 +162,12 @@ jQuery(document).ready(function ($) {
     e.preventDefault();
     button = this;
 
-    wf_licensing_deactivate_licence_ajax(
-      "wpr",
-      $("#license-key").val(),
-      button
-    );
+    wf_licensing_deactivate_licence_ajax("wpr", $("#license-key").val(), button);
     return;
   });
 
   // validate license
-  $(".tools_page_wp-reset").on("click", "#save-license", function (
-    e,
-    deactivate
-  ) {
+  $(".tools_page_wp-reset").on("click", "#save-license", function (e, deactivate) {
     e.preventDefault();
     button = this;
     safe_refresh = true;
@@ -178,11 +195,7 @@ jQuery(document).ready(function ($) {
     button = this;
     safe_refresh = true;
 
-    wf_licensing_deactivate_licence_ajax(
-      "wpr",
-      $("#license-key").val(),
-      button
-    );
+    wf_licensing_deactivate_licence_ajax("wpr", $("#license-key").val(), button);
     return;
   });
 
@@ -196,25 +209,21 @@ jQuery(document).ready(function ($) {
   }); // if enter on license key field
 
   // show/hide suboptions
-  $(".tools_page_wp-reset").on(
-    "change",
-    ".toggle-wrapper.has-suboption input",
-    function (e, onload) {
-      sub_option = $(this).parents(".option-group").find(".sub-option-group");
+  $(".tools_page_wp-reset").on("change", ".toggle-wrapper.has-suboption input", function (e, onload) {
+    sub_option = $(this).parents(".option-group").find(".sub-option-group");
 
-      if (onload) {
-        duration = 0;
-      } else {
-        duration = 400;
-      }
-
-      if ($(this).is(":checked")) {
-        $(sub_option).slideDown(duration);
-      } else {
-        $(sub_option).slideUp(duration);
-      }
+    if (onload) {
+      duration = 0;
+    } else {
+      duration = 400;
     }
-  );
+
+    if ($(this).is(":checked")) {
+      $(sub_option).slideDown(duration);
+    } else {
+      $(sub_option).slideUp(duration);
+    }
+  });
   $(".toggle-wrapper.has-suboption input").trigger("change", true);
 
   $(".tools_page_wp-reset").on("change", "#option_cloud_service", function (e) {
@@ -240,10 +249,10 @@ jQuery(document).ready(function ($) {
         cloud_service = "icedrive";
         break;
       case "wpreset":
-        if(wp_reset.rebranding !== "0"){
-            cloud_name = wp_reset.rebranding.name + ' Cloud';
+        if (wp_reset.rebranding !== "0") {
+          cloud_name = wp_reset.rebranding.name + " Cloud";
         } else {
-            cloud_name = "WP Reset";
+          cloud_name = "WP Reset";
         }
         cloud_service = "wpreset";
         break;
@@ -253,32 +262,22 @@ jQuery(document).ready(function ($) {
         break;
     }
 
-    if (
-      cloud_service == "dropbox" ||
-      cloud_service == "pcloud" ||
-      cloud_service == "pcloudeu" ||
-      cloud_service == "gdrive"
-    ) {
+    if (cloud_service == "dropbox" || cloud_service == "pcloud" || cloud_service == "pcloudeu" || cloud_service == "gdrive") {
       swal_text = "";
       if (cloud_service == "dropbox") {
         swal_text = "";
       }
       if (cloud_service == "gdrive") {
-        swal_text =
-          "Our Google Drive integration (app) still has a small number of users so you'll be prompted with an extra warning. Please do not be alarmed. This is normal and will go away as soon as more people start using the integration.";
+        swal_text = "Our Google Drive integration (app) still has a small number of users so you'll be prompted with an extra warning. Please do not be alarmed. This is normal and will go away as soon as more people start using the integration.";
       }
       if (cloud_service == "pcloud" || cloud_service == "pcloudeu") {
-        swal_text =
-          "To connect to the pCloud API you will need to authorize the WP Reset App and then you will see a box with the access code that you will have to Copy into the box in the next popup.";
+        swal_text = "To connect to the pCloud API you will need to authorize the WP Reset App and then you will see a box with the access code that you will have to Copy into the box in the next popup.";
       }
-      
+
       wpr_swal
         .fire({
           type: "",
-          title:
-            "Click the button below to connect to your " +
-            cloud_name +
-            " account.",
+          title: "Click the button below to connect to your " + cloud_name + " account.",
           html: swal_text,
           confirmButtonText: "Connect " + cloud_name,
           cancelButtonText: "Cancel",
@@ -309,10 +308,7 @@ jQuery(document).ready(function ($) {
                     wpr_swal
                       .fire({
                         title: "Connect to pCloud",
-                        html:
-                          '<a href="' +
-                          data.data +
-                          '" target="_blank" class="swal2-confirm swal2-styled" style="text-decoration:none;">Click here to get your pCloud access code</a><br /><br /> then enter your pCloud access code',
+                        html: '<a href="' + data.data + '" target="_blank" class="swal2-confirm swal2-styled" style="text-decoration:none;">Click here to get your pCloud access code</a><br /><br /> then enter your pCloud access code',
                         input: "text",
                         inputValue: "",
                         inputPlaceholder: "pCloud access code",
@@ -323,17 +319,11 @@ jQuery(document).ready(function ($) {
                         width: 600,
                       })
                       .then((result) => {
-                        if (
-                          result.dismiss ||
-                          typeof result.value == "undefined"
-                        ) {
+                        if (result.dismiss || typeof result.value == "undefined") {
                           return;
                         } else {
                           block_ui();
-                          location.href =
-                            wp_reset.settings_url +
-                            "&authorize_cloud=" + cloud_service + "&code=" +
-                            result.value;
+                          location.href = wp_reset.settings_url + "&authorize_cloud=" + cloud_service + "&code=" + result.value;
                         }
                       });
                   } else {
@@ -356,18 +346,15 @@ jQuery(document).ready(function ($) {
             $("#option_cloud_service").val("disabled");
           }
         });
-    } else if(cloud_service == "icedrive"){
-        swal_text = 'Icedrive cloud is only available to Icedrive PRO users via WebDav. To connect to the Icedrive WebDav API you will need to enter your Icedrive email and WebDav Access key found on the Access page in your Icedrive account:';
-        swal_text += '<input class="swal2-input" type="text" id="icedrive_user" name="icedrive_user" placeholder="Icedrive email" value="" />';
-        swal_text += '<input class="swal2-input" type="text" id="icedrive_pass" name="icedrive_pass" placeholder="Access key" value="" />';
+    } else if (cloud_service == "icedrive") {
+      swal_text = "Icedrive cloud is only available to Icedrive PRO users via WebDav. To connect to the Icedrive WebDav API you will need to enter your Icedrive email and WebDav Access key found on the Access page in your Icedrive account:";
+      swal_text += '<input class="swal2-input" type="text" id="icedrive_user" name="icedrive_user" placeholder="Icedrive email" value="" />';
+      swal_text += '<input class="swal2-input" type="text" id="icedrive_pass" name="icedrive_pass" placeholder="Access key" value="" />';
 
-        wpr_swal
+      wpr_swal
         .fire({
           type: "",
-          title:
-            "Connect to your " +
-            cloud_name +
-            " account.",
+          title: "Connect to your " + cloud_name + " account.",
           html: swal_text,
           confirmButtonText: "Connect " + cloud_name,
           cancelButtonText: "Cancel",
@@ -375,10 +362,10 @@ jQuery(document).ready(function ($) {
           showCancelButton: true,
         })
         .then((result) => {
-            tmp = wpr_swal.getContent();
-            icedrive_user = $(tmp).find("#icedrive_user").val();
-            icedrive_pass = $(tmp).find("#icedrive_pass").val();
-            block_ui();
+          tmp = wpr_swal.getContent();
+          icedrive_user = $(tmp).find("#icedrive_user").val();
+          icedrive_pass = $(tmp).find("#icedrive_pass").val();
+          block_ui();
           if (result.value) {
             $.get({
               url: ajaxurl,
@@ -390,7 +377,7 @@ jQuery(document).ready(function ($) {
                   action: "cloud_authorize_auth",
                   service: cloud_service,
                   user: icedrive_user,
-                  pass: icedrive_pass
+                  pass: icedrive_pass,
                 },
               },
             })
@@ -399,21 +386,22 @@ jQuery(document).ready(function ($) {
               })
               .done(function (data) {
                 if (data.data) {
-                    wpr_swal.fire({
-                        title: data.data,
-                        type: data.success?'success':'error',
-                        width: 600,
-                        height: 300,
-                        allowEnterKey: true,
-                        showCancelButton: true,
-                        showConfirmButton: false,
-                        showCloseButton: true,
-                        allowEscapeKey: true,
-                        allowOutsideClick: false,
-                        cancelButtonText: "Close",
+                  wpr_swal
+                    .fire({
+                      title: data.data,
+                      type: data.success ? "success" : "error",
+                      width: 600,
+                      height: 300,
+                      allowEnterKey: true,
+                      showCancelButton: true,
+                      showConfirmButton: false,
+                      showCloseButton: true,
+                      allowEscapeKey: true,
+                      allowOutsideClick: false,
+                      cancelButtonText: "Close",
                     })
                     .then((result) => {
-                        window.location.href = wp_reset.settings_url;
+                      window.location.href = wp_reset.settings_url;
                     });
                 } else {
                   wpr_swal.fire({
@@ -492,33 +480,21 @@ jQuery(document).ready(function ($) {
         tool: "save_snapshot_options",
         extra_data: {
           tools_snapshots: Number($("#option_tools_snapshots").is(":checked")),
-          snapshots_autoupload: Number(
-            $("#option_snapshots_autoupload").is(":checked")
-          ),
-          autosnapshots_autoupload: Number(
-            $("#option_autosnapshots_autoupload").is(":checked")
-          ),
-          snapshots_upload_delete: Number(
-            $("#option_snapshots_upload_delete").is(":checked")
-          ),
-          events_snapshots: Number(
-            $("#option_events_snapshots").is(":checked")
-          ),
+          snapshots_autoupload: Number($("#option_snapshots_autoupload").is(":checked")),
+          autosnapshots_autoupload: Number($("#option_autosnapshots_autoupload").is(":checked")),
+          snapshots_upload_delete: Number($("#option_snapshots_upload_delete").is(":checked")),
+          events_snapshots: Number($("#option_events_snapshots").is(":checked")),
           snapshots_size_alert: $("#option_snapshots_size_alert").val(),
           prune_snapshots: Number($("#option_prune_snapshots").is(":checked")),
           prune_snapshots_details: $("#option_prune_snapshots_details").val(),
           prune_cloud_snapshots: Number($("#option_prune_cloud_snapshots").is(":checked")),
           prune_cloud_snapshots_details: $("#option_prune_cloud_snapshots_details").val(),
-          adminbar_snapshots: Number(
-            $("#option_adminbar_snapshots").is(":checked")
-          ),
+          adminbar_snapshots: Number($("#option_adminbar_snapshots").is(":checked")),
           optimize_tables: Number($("#option_optimize_tables").is(":checked")),
           throttle_ajax: Number($("#option_throttle_ajax").is(":checked")),
           fix_datetime: Number($("#option_fix_datetime").is(":checked")),
           alternate_db_connection: Number($("#option_alternate_db_connection").is(":checked")),
-          ajax_snapshots_export: Number(
-            $("#option_ajax_snapshots_export").is(":checked")
-          ),
+          ajax_snapshots_export: Number($("#option_ajax_snapshots_export").is(":checked")),
         },
       },
     })
@@ -576,8 +552,7 @@ jQuery(document).ready(function ($) {
   $(".tools_page_wp-reset").on("click", "#site-reset", function (e) {
     e.preventDefault();
     var button = this;
-    var confirm_title =
-      $(button).data("confirm-title") || wp_reset.confirm_title;
+    var confirm_title = $(button).data("confirm-title") || wp_reset.confirm_title;
 
     if ($("#site_reset_confirm").val() !== "reset") {
       wpr_swal.fire({
@@ -589,27 +564,14 @@ jQuery(document).ready(function ($) {
       return false;
     } // wrong confirmation code
 
-    confirm_action(
-      confirm_title,
-      $(button).data("text-confirm"),
-      $(button).data("btn-confirm") || $(button).text(),
-      wp_reset.cancel_button
-    ).then((result) => {
+    confirm_action(confirm_title, $(button).data("text-confirm"), $(button).data("btn-confirm") || $(button).text(), wp_reset.cancel_button).then((result) => {
       if (!result.value) {
         return false;
       }
 
       //moved code to do_reset_site so we can go though create_snapshot if needed
-      if (
-        typeof wp_reset.tools_autosnapshot === "object" &&
-        wp_reset.tools_autosnapshot !== null
-      ) {
-        create_snapshot(
-          wp_reset.tools_autosnapshot["reset_site"],
-          1,
-          do_reset_site,
-          [$(button).data("text-wait")]
-        );
+      if (typeof wp_reset.tools_autosnapshot === "object" && wp_reset.tools_autosnapshot !== null) {
+        create_snapshot(wp_reset.tools_autosnapshot["reset_site"], 1, do_reset_site, [$(button).data("text-wait")]);
       } else {
         do_reset_site($(button).data("text-wait"));
       }
@@ -622,84 +584,76 @@ jQuery(document).ready(function ($) {
     block_ui(wait_message);
 
     $.get({
-        url: ajaxurl,
-        data: {
-            action: 'wp_reset_run_tool',
-            _ajax_nonce: wp_reset.nonce_run_tool,
-            tool: 'before_reset'
-        },
-    }).done(function (data) {
+      url: ajaxurl,
+      data: {
+        action: "wp_reset_run_tool",
+        _ajax_nonce: wp_reset.nonce_run_tool,
+        tool: "before_reset",
+      },
+    })
+      .done(function (data) {
         if (data.success) {
-            $.get({
-                url: ajaxurl,
-                data: {
-                  action: "wp_reset_run_tool",
-                  _ajax_nonce: wp_reset.nonce_run_tool,
-                  tool: "site_reset",
-                  extra_data: {
-                    reactivate_theme: $("#site-reset-reactivate-theme").is(":checked")
-                      ? 1
-                      : 0,
-                    reactivate_plugins: $("#site-reset-reactivate-plugins").is(":checked")
-                      ? 1
-                      : 0,
-                    reactivate_wpreset: $("#site-reset-reactivate-wpreset").is(":checked")
-                      ? 1
-                      : 0,
-                  },
-                },
-              })
-                .done(function (data) {
-                  if (data.success && data.data) {
-                    if ($("#site-reset-reactivate-wpreset").is(":checked")) {
-                      wpr_swal
-                        .fire({
-                          type: "success",
-                          title:
-                            "Site successfully reset! The page will reload in a moment.",
-                          timer: 1500,
-                          showConfirmButton: false,
-                        })
-                        .then(() => {
-                          window.location.href = wp_reset.settings_url;
-                        });
-                    } else {
-                      window.location.href = data.data;
-                    }
-                  } else {
-                    wpr_swal.close();
-                    wpr_swal.fire({
-                      type: "error",
-                      title: wp_reset.documented_error + " " + data.data,
+          $.get({
+            url: ajaxurl,
+            data: {
+              action: "wp_reset_run_tool",
+              _ajax_nonce: wp_reset.nonce_run_tool,
+              tool: "site_reset",
+              extra_data: {
+                reactivate_theme: $("#site-reset-reactivate-theme").is(":checked") ? 1 : 0,
+                reactivate_plugins: $("#site-reset-reactivate-plugins").is(":checked") ? 1 : 0,
+                reactivate_wpreset: $("#site-reset-reactivate-wpreset").is(":checked") ? 1 : 0,
+              },
+            },
+          })
+            .done(function (data) {
+              if (data.success && data.data) {
+                if ($("#site-reset-reactivate-wpreset").is(":checked")) {
+                  wpr_swal
+                    .fire({
+                      type: "success",
+                      title: "Site successfully reset! The page will reload in a moment.",
+                      timer: 1500,
+                      showConfirmButton: false,
+                    })
+                    .then(() => {
+                      window.location.href = wp_reset.settings_url;
                     });
-                  }
-                })
-                .fail(function (data) {
-                  wpr_swal.close();
-                  wpr_swal.fire({ type: "error", title: wp_reset.undocumented_error });
+                } else {
+                  window.location.href = data.data;
+                }
+              } else {
+                wpr_swal.close();
+                wpr_swal.fire({
+                  type: "error",
+                  title: wp_reset.documented_error + " " + data.data,
                 });
-        } else {
-            wpr_swal.fire({
-                icon: 'error',
-                title: wp_reset.undocumented_error,
+              }
+            })
+            .fail(function (data) {
+              wpr_swal.close();
+              wpr_swal.fire({ type: "error", title: wp_reset.undocumented_error });
             });
-        }
-    }).fail(function (data) {
-        wpr_swal.fire({
-            icon: 'error',
+        } else {
+          wpr_swal.fire({
+            icon: "error",
             title: wp_reset.undocumented_error,
+          });
+        }
+      })
+      .fail(function (data) {
+        wpr_swal.fire({
+          icon: "error",
+          title: wp_reset.undocumented_error,
         });
-    });
-
-    
+      });
   }
 
   // nuclear reset
   $(".tools_page_wp-reset").on("click", "#nuclear-reset", function (e) {
     e.preventDefault();
     var button = this;
-    var confirm_title =
-      $(button).data("confirm-title") || wp_reset.confirm_title;
+    var confirm_title = $(button).data("confirm-title") || wp_reset.confirm_title;
 
     if ($("#nuclear_reset_confirm").val() !== "reset") {
       wpr_swal.fire({
@@ -711,27 +665,14 @@ jQuery(document).ready(function ($) {
       return false;
     } // wrong confirmation code
 
-    confirm_action(
-      confirm_title,
-      $(button).data("text-confirm"),
-      $(button).data("btn-confirm") || $(button).text(),
-      wp_reset.cancel_button
-    ).then((result) => {
+    confirm_action(confirm_title, $(button).data("text-confirm"), $(button).data("btn-confirm") || $(button).text(), wp_reset.cancel_button).then((result) => {
       if (!result.value) {
         return false;
       }
 
       //moved code to do_nuclear_reset so we can go though create_snapshot if needed
-      if (
-        typeof wp_reset.tools_autosnapshot === "object" &&
-        wp_reset.tools_autosnapshot !== null
-      ) {
-        create_snapshot(
-          wp_reset.tools_autosnapshot["reset_site"],
-          1,
-          do_nuclear_reset,
-          [$(button).data("text-wait")]
-        );
+      if (typeof wp_reset.tools_autosnapshot === "object" && wp_reset.tools_autosnapshot !== null) {
+        create_snapshot(wp_reset.tools_autosnapshot["reset_site"], 1, do_nuclear_reset, [$(button).data("text-wait")]);
       } else {
         do_nuclear_reset($(button).data("text-wait"));
       }
@@ -788,11 +729,7 @@ jQuery(document).ready(function ($) {
         extra_data: {
           reactivate_theme: 0,
           reactivate_plugins: 0,
-          reactivate_wpreset: $("#nuclear-reset-reactivate-wpreset").is(
-            ":checked"
-          )
-            ? 1
-            : 0,
+          reactivate_wpreset: $("#nuclear-reset-reactivate-wpreset").is(":checked") ? 1 : 0,
           reactivate_webhooks: 0,
         },
       },
@@ -822,8 +759,7 @@ jQuery(document).ready(function ($) {
         if (failed) {
           return false;
         }
-        wpr_swal.getContent().querySelector("#swal2-content").textContent =
-          i + 1 + "/" + tools.length + " - " + data.description;
+        wpr_swal.getContent().querySelector("#swal2-content").textContent = i + 1 + "/" + tools.length + " - " + data.description;
         return $.ajax({
           data: {
             action: "wp_reset_run_tool",
@@ -841,8 +777,7 @@ jQuery(document).ready(function ($) {
                   wpr_swal
                     .fire({
                       type: "success",
-                      title:
-                        "Site successfully reset! The page will reload in a moment.",
+                      title: "Site successfully reset! The page will reload in a moment.",
                       timer: 1500,
                       showConfirmButton: false,
                     })
@@ -890,15 +825,9 @@ jQuery(document).ready(function ($) {
   $(".tools_page_wp-reset").on("click", "#delete-local-data", function (e) {
     e.preventDefault();
     var button = this;
-    var confirm_title =
-      $(button).data("confirm-title") || wp_reset.confirm_title;
+    var confirm_title = $(button).data("confirm-title") || wp_reset.confirm_title;
 
-    confirm_action(
-      confirm_title,
-      $(button).data("text-confirm"),
-      $(button).data("btn-confirm"),
-      wp_reset.cancel_button
-    ).then((result) => {
+    confirm_action(confirm_title, $(button).data("text-confirm"), $(button).data("btn-confirm"), wp_reset.cancel_button).then((result) => {
       if (!result.value) {
         return false;
       }
@@ -977,8 +906,7 @@ jQuery(document).ready(function ($) {
     e.preventDefault();
 
     var button = this;
-    var confirm_title =
-      $(button).data("confirm-title") || wp_reset.confirm_title;
+    var confirm_title = $(button).data("confirm-title") || wp_reset.confirm_title;
 
     var tools = [
       {
@@ -997,12 +925,7 @@ jQuery(document).ready(function ($) {
     ];
     var looper = $.Deferred().resolve();
 
-    confirm_action(
-      confirm_title,
-      $(button).data("text-confirm"),
-      $(button).data("btn-confirm") || $(button).text(),
-      wp_reset.cancel_button
-    ).then((result) => {
+    confirm_action(confirm_title, $(button).data("text-confirm"), $(button).data("btn-confirm") || $(button).text(), wp_reset.cancel_button).then((result) => {
       if (!result.value) {
         return false;
       }
@@ -1030,8 +953,7 @@ jQuery(document).ready(function ($) {
           if (failed) {
             return false;
           }
-          wpr_swal.getContent().querySelector("#swal2-content").textContent =
-            i + 1 + "/" + tools.length + " - " + data.description;
+          wpr_swal.getContent().querySelector("#swal2-content").textContent = i + 1 + "/" + tools.length + " - " + data.description;
           return $.ajax({
             data: {
               action: "wp_reset_run_tool",
@@ -1048,9 +970,7 @@ jQuery(document).ready(function ($) {
                   if (response.data == 1) {
                     msg = $(button).data("text-done-singular");
                   } else {
-                    msg = $(button)
-                      .data("text-done")
-                      .replace("%n", response.data);
+                    msg = $(button).data("text-done").replace("%n", response.data);
                   }
                   wpr_swal_params = { type: "success", title: msg };
 
@@ -1167,9 +1087,7 @@ jQuery(document).ready(function ($) {
   }); // drop custom tables
 
   // truncate custom tables
-  $(".tools_page_wp-reset").on("click", "#truncate-custom-tables", function (
-    e
-  ) {
+  $(".tools_page_wp-reset").on("click", "#truncate-custom-tables", function (e) {
     e.preventDefault();
 
     var params = new Object();
@@ -1217,17 +1135,13 @@ jQuery(document).ready(function ($) {
   }); // restore htaccess file
 
   // trigger name edit from menu
-  $(".tools_page_wp-reset").on(
-    "click",
-    ".ss-action.edit-snapshot-description",
-    function (e) {
-      e.preventDefault();
+  $(".tools_page_wp-reset").on("click", ".ss-action.edit-snapshot-description", function (e) {
+    e.preventDefault();
 
-      $(this).parents("tr").find(".snapshot-name").trigger("click");
+    $(this).parents("tr").find(".snapshot-name").trigger("click");
 
-      return false;
-    }
-  ); // trigger name edit from menu
+    return false;
+  }); // trigger name edit from menu
 
   // edit snapshot name
   $(".tools_page_wp-reset").on("click", ".snapshot-name", function (e) {
@@ -1287,9 +1201,7 @@ jQuery(document).ready(function ($) {
                     if (data.data) {
                       $(snapshot_name_holder).text(data.data);
                     } else {
-                      $(snapshot_name_holder).html(
-                        "<i>Click to add description.</i>"
-                      );
+                      $(snapshot_name_holder).html("<i>Click to add description.</i>");
                     }
                   });
               } else {
@@ -1348,168 +1260,119 @@ jQuery(document).ready(function ($) {
     })
     .trigger("DOMSubtreeModified");
 
-  $(".tools_page_wp-reset").on(
-    "wpr-collection-table-changed",
-    ".collection-table",
-    function (e) {
-      table = this;
+  $(".tools_page_wp-reset").on("wpr-collection-table-changed", ".collection-table", function (e) {
+    table = this;
 
-      if ($("tr", table).length <= 2) {
-        $("tr.table-empty", table).show();
-      } else {
-        $("tr.table-empty", table).hide();
-      }
+    if ($("tr", table).length <= 2) {
+      $("tr.table-empty", table).show();
+    } else {
+      $("tr.table-empty", table).hide();
     }
-  );
+  });
   $(".collection-table").trigger("wpr-collection-table-changed");
 
   // compare snapshot
-  $("#snapshots-table-auto, #snapshots-table-user").on(
-    "click",
-    ".compare-snapshot",
-    function (e) {
-      e.preventDefault();
-      uid = $(this).data("ss-uid");
-      button = $(this);
+  $("#snapshots-table-auto, #snapshots-table-user").on("click", ".compare-snapshot", function (e) {
+    e.preventDefault();
+    uid = $(this).data("ss-uid");
+    button = $(this);
 
-      block_ui($(button).data("wait-msg"));
-      $.get({
-        url: ajaxurl,
-        data: {
-          action: "wp_reset_run_tool",
-          _ajax_nonce: wp_reset.nonce_run_tool,
-          tool: "compare_snapshots",
-          extra_data: uid,
-        },
+    block_ui($(button).data("wait-msg"));
+    $.get({
+      url: ajaxurl,
+      data: {
+        action: "wp_reset_run_tool",
+        _ajax_nonce: wp_reset.nonce_run_tool,
+        tool: "compare_snapshots",
+        extra_data: uid,
+      },
+    })
+      .always(function (data) {
+        wpr_swal.close();
       })
-        .always(function (data) {
-          wpr_swal.close();
-        })
-        .done(function (data) {
-          if (data.success) {
-            msg = $(button).data("title").replace("%s", $(button).data("name"));
-            wpr_swal.fire({
-              width: "90%",
-              title: msg,
-              html: data.data,
-              showConfirmButton: false,
-              allowEnterKey: false,
-              focusConfirm: false,
-              showCloseButton: true,
-              customClass: "compare-snapshots",
-            });
-          } else {
-            wpr_swal.fire({
-              type: "error",
-              title: wp_reset.documented_error + " " + data.data,
-            });
-          }
-        })
-        .fail(function (data) {
-          wpr_swal.fire({ type: "error", title: wp_reset.undocumented_error });
-        });
+      .done(function (data) {
+        if (data.success) {
+          msg = $(button).data("title").replace("%s", $(button).data("name"));
+          wpr_swal.fire({
+            width: "90%",
+            title: msg,
+            html: data.data,
+            showConfirmButton: false,
+            allowEnterKey: false,
+            focusConfirm: false,
+            showCloseButton: true,
+            customClass: "compare-snapshots",
+          });
+        } else {
+          wpr_swal.fire({
+            type: "error",
+            title: wp_reset.documented_error + " " + data.data,
+          });
+        }
+      })
+      .fail(function (data) {
+        wpr_swal.fire({ type: "error", title: wp_reset.undocumented_error });
+      });
 
-      return false;
-    }
-  ); // compare snapshot
+    return false;
+  }); // compare snapshot
 
   // restore snapshot
-  $("#snapshots-table-auto, #snapshots-table-user").on(
-    "click",
-    ".restore-snapshot",
-    function (e) {
-      e.preventDefault();
-      uid = $(this).data("ss-uid");
+  $("#snapshots-table-auto, #snapshots-table-user").on("click", ".restore-snapshot", function (e) {
+    e.preventDefault();
+    uid = $(this).data("ss-uid");
 
-      run_tool_confirm(this, "restore_snapshot", uid);
+    run_tool_confirm(this, "restore_snapshot", uid);
 
-      return false;
-    }
-  ); // restore snapshot
+    return false;
+  }); // restore snapshot
 
   // download snapshot
-  $("#snapshots-table-auto, #snapshots-table-user").on(
-    "click",
-    ".download-snapshot",
-    function (e) {
-      e.preventDefault();
-      uid = $(this).data("ss-uid");
-      button = this;
+  $("#snapshots-table-auto, #snapshots-table-user").on("click", ".download-snapshot", function (e) {
+    e.preventDefault();
+    uid = $(this).data("ss-uid");
+    button = this;
 
-      export_snapshot(uid);
+    export_snapshot(uid);
 
-      return false;
-    }
-  ); // download snapshot
+    return false;
+  }); // download snapshot
 
   // delete snapshot
-  $("#snapshots-table-auto, #snapshots-table-user").on(
-    "click",
-    ".delete-snapshot",
-    function (e) {
-      e.preventDefault();
-      uid = $(this).data("ss-uid");
+  $("#snapshots-table-auto, #snapshots-table-user").on("click", ".delete-snapshot", function (e) {
+    e.preventDefault();
+    uid = $(this).data("ss-uid");
 
-      run_tool_confirm(this, "delete_snapshot", uid, true);
+    run_tool_confirm(this, "delete_snapshot", uid, true);
 
-      return false;
-    }
-  ); // delete snapshot
+    return false;
+  }); // delete snapshot
 
   $(".tools_page_wp-reset").on("click", ".cloud-upload-snapshot", function (e) {
     e.preventDefault();
     uid = $(this).data("ss-uid");
     button = this;
 
-    export_snapshot(uid, wpr_cloud, [
-      "snapshot_upload",
-      uid,
-      wp_reset.cloud_snapshot_uploading,
-      wp_reset.cloud_snapshot_uploaded,
-      "reload",
-    ]);
+    export_snapshot(uid, wpr_cloud, ["snapshot_upload", uid, wp_reset.cloud_snapshot_uploading, wp_reset.cloud_snapshot_uploaded, "reload"]);
   });
 
   $(".tools_page_wp-reset").on("click", ".cloud-delete-snapshot", function (e) {
     e.preventDefault();
     uid = $(this).data("ss-uid");
 
-    wpr_cloud_confirm(
-      this,
-      "snapshot_delete",
-      uid,
-      wp_reset.cloud_snapshot_deleting,
-      wp_reset.cloud_snapshot_deleted,
-      "reload"
-    );
+    wpr_cloud_confirm(this, "snapshot_delete", uid, wp_reset.cloud_snapshot_deleting, wp_reset.cloud_snapshot_deleted, "reload");
   });
 
-  $(".tools_page_wp-reset").on("click", ".cloud-download-snapshot", function (
-    e
-  ) {
+  $(".tools_page_wp-reset").on("click", ".cloud-download-snapshot", function (e) {
     e.preventDefault();
     uid = $(this).data("ss-uid");
 
-    wpr_cloud(
-      "snapshot_download",
-      uid,
-      wp_reset.cloud_snapshot_downloading,
-      wp_reset.cloud_snapshot_downloaded,
-      "reload"
-    );
+    wpr_cloud("snapshot_download", uid, wp_reset.cloud_snapshot_downloading, wp_reset.cloud_snapshot_downloaded, "reload");
   });
 
-  $(".tools_page_wp-reset").on("click", ".refresh-cloud-snapshots", function (
-    e
-  ) {
+  $(".tools_page_wp-reset").on("click", ".refresh-cloud-snapshots", function (e) {
     e.preventDefault();
-    wpr_cloud(
-      "snapshots_refresh",
-      false,
-      wp_reset.cloud_snapshots_refresh,
-      wp_reset.cloud_snapshots_refreshed,
-      "reload"
-    );
+    wpr_cloud("snapshots_refresh", false, wp_reset.cloud_snapshots_refresh, wp_reset.cloud_snapshots_refreshed, "reload");
   });
 
   // delete collection
@@ -1518,23 +1381,14 @@ jQuery(document).ready(function ($) {
 
     collection_id = $(this).parents(".card").data("collection-id");
 
-    run_tool_confirm(
-      this,
-      "delete_collection",
-      { collection_id },
-      true,
-      function (return_data, call_params) {
-        $('.card[data-collection-id="' + collection_id + '"]').slideUp(
-          1000,
-          function () {
-            $(this).remove();
-            if ($(".card[data-collection-id]").length == 0) {
-              $("#no-collections").removeClass("hidden");
-            }
-          }
-        );
-      }
-    );
+    run_tool_confirm(this, "delete_collection", { collection_id }, true, function (return_data, call_params) {
+      $('.card[data-collection-id="' + collection_id + '"]').slideUp(1000, function () {
+        $(this).remove();
+        if ($(".card[data-collection-id]").length == 0) {
+          $("#no-collections").removeClass("hidden");
+        }
+      });
+    });
 
     return false;
   }); // delete collection
@@ -1572,9 +1426,7 @@ jQuery(document).ready(function ($) {
       $(markup).find("#dialog-collection-item-type").removeProp("checked");
       $(markup).find("#dialog-collection-item-source").removeProp("checked");
       $(markup).find("#edit-collection-item-source-wp").removeClass("disabled");
-      $(markup)
-        .find("#edit-collection-item-source-zip")
-        .removeClass("disabled");
+      $(markup).find("#edit-collection-item-source-zip").removeClass("disabled");
       $(markup).find("#edit-collection-item-source-wp").show();
     }
 
@@ -1583,9 +1435,7 @@ jQuery(document).ready(function ($) {
     }
 
     if (params.source == "zip") {
-      $(markup)
-        .find("#dialog-collection-item-source")
-        .prop("checked", "checked");
+      $(markup).find("#dialog-collection-item-source").prop("checked", "checked");
       $(markup).find("#edit-collection-item-license-key").show();
       $(markup).find("#edit-collection-item-source-wp").hide();
       $(markup).find("#edit-collection-item-source-zip").show();
@@ -1596,34 +1446,18 @@ jQuery(document).ready(function ($) {
     }
 
     if (wp_reset.cloud_service != 1 && $("#dialog-collection-item-type").length > 0) {
-        $(markup).find(".collection-item-source > label").addClass("disabled");
+      $(markup).find(".collection-item-source > label").addClass("disabled");
 
-        $(markup).find("#dialog-collection-item-type").removeProp("checked");
+      $(markup).find("#dialog-collection-item-type").removeProp("checked");
 
-        if (
-            $(markup)
-            .find(".collection-item-source")
-            .html()
-            .indexOf("to upload ZIP") == -1
-        ) {
-            $(markup)
-            .find(".collection-item-source")
-            .append(
-                ' Select a <a class="change-tab" data-tab="4" href="#">cloud service</a> to upload ZIP'
-            );
-        }
+      if ($(markup).find(".collection-item-source").html().indexOf("to upload ZIP") == -1) {
+        $(markup).find(".collection-item-source").append(' Select a <a class="change-tab" data-tab="4" href="#">cloud service</a> to upload ZIP');
+      }
     }
-    $(markup)
-      .find(".dialog-collection-item-slug")
-      .empty()
-      .append(
-        $("<option></option>").attr("value", params.slug).text(params.slug)
-      );
+    $(markup).find(".dialog-collection-item-slug").empty().append($("<option></option>").attr("value", params.slug).text(params.slug));
     $(markup).find(".dialog-collection-item-note").val(params.note);
 
-    $(markup)
-      .find(".dialog-collection-item-license-key")
-      .val(params.license_key);
+    $(markup).find(".dialog-collection-item-license-key").val(params.license_key);
 
     $(markup).find(".dialog-collection-id").val(params.collection_id);
 
@@ -1663,54 +1497,32 @@ jQuery(document).ready(function ($) {
         },
         preConfirm: () => {
           tmp = wpr_swal.getContent();
-          type = $(tmp).find("#dialog-collection-item-type").is(":checked")
-            ? "theme"
-            : "plugin";
-          source = $(tmp).find("#dialog-collection-item-source").is(":checked")
-            ? "zip"
-            : "repo";
+          type = $(tmp).find("#dialog-collection-item-type").is(":checked") ? "theme" : "plugin";
+          source = $(tmp).find("#dialog-collection-item-source").is(":checked") ? "zip" : "repo";
           slug = $(tmp).find(".dialog-collection-item-slug").val();
 
           if (source == "slug") {
             if (!slug) {
-              wpr_swal.showValidationMessage(
-                "Please enter the " + type + " slug."
-              );
+              wpr_swal.showValidationMessage("Please enter the " + type + " slug.");
             }
             if (type == "plugin" && source == "slug") {
-              $.get(
-                "https://api.wordpress.org/plugins/info/1.0/" + slug + ".json",
-                function (data, status) {
-                  if (status != "success") {
-                    wpr_swal.showValidationMessage(
-                      "Unable to check plugin slug in wp.org repository."
-                    );
-                  }
-                  if (data.error) {
-                    wpr_swal.showValidationMessage(
-                      "Please double-check the plugin slug. " + data.error
-                    );
-                  }
+              $.get("https://api.wordpress.org/plugins/info/1.0/" + slug + ".json", function (data, status) {
+                if (status != "success") {
+                  wpr_swal.showValidationMessage("Unable to check plugin slug in wp.org repository.");
                 }
-              );
+                if (data.error) {
+                  wpr_swal.showValidationMessage("Please double-check the plugin slug. " + data.error);
+                }
+              });
             } else {
-              $.get(
-                "https://api.wordpress.org/themes/info/1.1/?action=theme_information&request[slug]=" +
-                  slug +
-                  "",
-                function (data, status) {
-                  if (status != "success") {
-                    wpr_swal.showValidationMessage(
-                      "Unable to check theme slug in wp.org repository."
-                    );
-                  }
-                  if (!data) {
-                    wpr_swal.showValidationMessage(
-                      "Please double-check the theme slug."
-                    );
-                  }
+              $.get("https://api.wordpress.org/themes/info/1.1/?action=theme_information&request[slug]=" + slug + "", function (data, status) {
+                if (status != "success") {
+                  wpr_swal.showValidationMessage("Unable to check theme slug in wp.org repository.");
                 }
-              );
+                if (!data) {
+                  wpr_swal.showValidationMessage("Please double-check the theme slug.");
+                }
+              });
             }
           }
           return true;
@@ -1729,30 +1541,11 @@ jQuery(document).ready(function ($) {
         formData.append("zip", file);
         formData.append("collection_id", collection_id);
         formData.append("item_id", item_id);
-        formData.append(
-          "type",
-          $(tmp).find("#dialog-collection-item-type").is(":checked")
-            ? "theme"
-            : "plugin"
-        );
-        formData.append(
-          "slug",
-          $(tmp).find(".dialog-collection-item-slug").val()
-        );
-        formData.append(
-          "note",
-          $(tmp).find(".dialog-collection-item-note").val()
-        );
-        formData.append(
-          "license_key",
-          $(tmp).find(".dialog-collection-item-license-key").val()
-        );
-        formData.append(
-          "source",
-          $(tmp).find("#dialog-collection-item-source").is(":checked")
-            ? "zip"
-            : "repo"
-        );
+        formData.append("type", $(tmp).find("#dialog-collection-item-type").is(":checked") ? "theme" : "plugin");
+        formData.append("slug", $(tmp).find(".dialog-collection-item-slug").val());
+        formData.append("note", $(tmp).find(".dialog-collection-item-note").val());
+        formData.append("license_key", $(tmp).find(".dialog-collection-item-license-key").val());
+        formData.append("source", $(tmp).find("#dialog-collection-item-source").is(":checked") ? "zip" : "repo");
         formData.append("action", "wp_reset_run_tool");
         formData.append("tool", tool_endpoint);
         formData.append("_ajax_nonce", wp_reset.nonce_run_tool);
@@ -1780,9 +1573,7 @@ jQuery(document).ready(function ($) {
                 })
                 .then(() => {
                   if (edit) {
-                    $(
-                      "tr[data-collection-item-id=" + item_id + "]"
-                    ).replaceWith(data.data.item);
+                    $("tr[data-collection-item-id=" + item_id + "]").replaceWith(data.data.item);
                   } else {
                     $("#card-collection-" + collection_id)
                       .parent()
@@ -1815,9 +1606,7 @@ jQuery(document).ready(function ($) {
       });
   } // edit_collection_item
 
-  $(".tools_page_wp-reset").on("change", ".collection-item-source", function (
-    e
-  ) {
+  $(".tools_page_wp-reset").on("change", ".collection-item-source", function (e) {
     is_zip = $("#dialog-collection-item-source").is(":checked");
 
     if ($("#dialog-collection-item-source").is(":checked")) {
@@ -1860,31 +1649,23 @@ jQuery(document).ready(function ($) {
   });
 
   // delete collection item
-  $(".tools_page_wp-reset").on("click", ".delete-collection-item", function (
-    e
-  ) {
+  $(".tools_page_wp-reset").on("click", ".delete-collection-item", function (e) {
     e.preventDefault();
 
     collection_id = $(this).parents(".card").data("collection-id");
     collection_item_id = $(this).parents("tr").data("collection-item-id");
 
-    run_tool_confirm(
-      this,
-      "delete_collection_item",
-      { collection_id, collection_item_id },
-      true,
-      function (return_data, call_params) {
-        wp_reset.collections = return_data.collections;
-        $('tr[data-collection-item-id="' + collection_item_id + '"]')
-          .css("background-color", "#ff0000")
-          .fadeOut(500, function () {
-            $(this).remove();
-            $('.card[data-collection-id="' + collection_id + '"]')
-              .find(".collection-table")
-              .trigger("wpr-collection-table-changed");
-          });
-      }
-    );
+    run_tool_confirm(this, "delete_collection_item", { collection_id, collection_item_id }, true, function (return_data, call_params) {
+      wp_reset.collections = return_data.collections;
+      $('tr[data-collection-item-id="' + collection_item_id + '"]')
+        .css("background-color", "#ff0000")
+        .fadeOut(500, function () {
+          $(this).remove();
+          $('.card[data-collection-id="' + collection_id + '"]')
+            .find(".collection-table")
+            .trigger("wpr-collection-table-changed");
+        });
+    });
 
     return false;
   }); // delete collection item
@@ -2011,16 +1792,8 @@ jQuery(document).ready(function ($) {
                   .then((result) => {
                     $("#no-collections").addClass("hidden");
                     $("#new-collection-placeholder").after(data.data);
-                    $("#new-collection-placeholder")
-                      .next(".card")
-                      .first()
-                      .hide()
-                      .find(".collection-table")
-                      .trigger("wpr-collection-table-changed");
-                    $("#new-collection-placeholder")
-                      .next(".card")
-                      .first()
-                      .slideDown(1000);
+                    $("#new-collection-placeholder").next(".card").first().hide().find(".collection-table").trigger("wpr-collection-table-changed");
+                    $("#new-collection-placeholder").next(".card").first().slideDown(1000);
                   });
               } else {
                 wpr_swal.fire({
@@ -2085,28 +1858,22 @@ jQuery(document).ready(function ($) {
   }); // reload collections
 
   // preview snapshot
-  $("#snapshots-table-auto, #snapshots-table-user").on(
-    "click",
-    ".preview-snapshot",
-    function (e) {
-      e.preventDefault();
+  $("#snapshots-table-auto, #snapshots-table-user").on("click", ".preview-snapshot", function (e) {
+    e.preventDefault();
 
-      wpr_close_dropdowns();
+    wpr_close_dropdowns();
 
-      wpr_swal.fire({
-        type: "info",
-        title: $(this).data("title"),
-        text: $(this).data("description"),
-      });
+    wpr_swal.fire({
+      type: "info",
+      title: $(this).data("title"),
+      text: $(this).data("description"),
+    });
 
-      return false;
-    }
-  ); // delete snapshot
+    return false;
+  }); // delete snapshot
 
   // disabled option - delete MU plugins
-  $(".tools_page_wp-reset").on("click change", "#delete-mu-plugins", function (
-    e
-  ) {
+  $(".tools_page_wp-reset").on("click change", "#delete-mu-plugins", function (e) {
     e.preventDefault();
 
     run_tool_confirm(this, "delete_mu_plugins");
@@ -2200,32 +1967,24 @@ jQuery(document).ready(function ($) {
               var $snapshot_html = $("#wpr-ss-" + snapshot).find(".ss-name");
               if (response.data[snapshot].status == "finished") {
                 if ($snapshot_html.children(".dashicons-cloud").length == 0) {
-                  $snapshot_html.append(
-                    '<span data-tooltip="Available in the cloud" class="dashicons dashicons-cloud tooltipstered"></span>'
-                  );
+                  $snapshot_html.append('<span data-tooltip="Available in the cloud" class="dashicons dashicons-cloud tooltipstered"></span>');
                 }
               } else if (response.data[snapshot].status == "error") {
-                $snapshot_html.append(
-                  '<div class="wpr-autouploader-info wpr-autouploader-info-error">' +
-                    response.data[snapshot].message +
-                    "</div>"
-                );
+                $snapshot_html.append('<div class="wpr-autouploader-info wpr-autouploader-info-error">' + response.data[snapshot].message + "</div>");
               } else {
                 snapshots_count++;
-                $snapshot_html.append(
-                  '<div class="wpr-collections-installer-loading wpr-autouploader-info"><span class="dashicons"></span>' +
-                    response.data[snapshot].message +
-                    "</div>"
-                );
+                $snapshot_html.append('<div class="wpr-collections-installer-loading wpr-autouploader-info"><span class="dashicons"></span>' + response.data[snapshot].message + "</div>");
               }
             }
 
             if (snapshots_count > 0) {
               $(".wpr-adminbar-icon").addClass("wpr-autouploader-icon");
-              if($("#wpr-autouploader-status").length){
-                $("#wp-admin-bar-wpr-reset-ab-default").children('a').html('Uploading ' + snapshots_count + ' Automatic Snapshot' + (snapshots_count>1?'s':''));
+              if ($("#wpr-autouploader-status").length) {
+                $("#wp-admin-bar-wpr-reset-ab-default")
+                  .children("a")
+                  .html("Uploading " + snapshots_count + " Automatic Snapshot" + (snapshots_count > 1 ? "s" : ""));
               } else {
-                $("#wp-admin-bar-wpr-reset-ab-default").prepend('<li id="wpr-autouploader-status"><a class="ab-item" href="' + wp_reset.settings_url + '#tab-snapshots">Uploading ' + snapshots_count + ' Automatic Snapshot' + (snapshots_count>1?'s':'') + '</a></li>');
+                $("#wp-admin-bar-wpr-reset-ab-default").prepend('<li id="wpr-autouploader-status"><a class="ab-item" href="' + wp_reset.settings_url + '#tab-snapshots">Uploading ' + snapshots_count + " Automatic Snapshot" + (snapshots_count > 1 ? "s" : "") + "</a></li>");
               }
             } else {
               $(".wpr-adminbar-icon").removeClass("wpr-autouploader-icon");
@@ -2240,11 +1999,7 @@ jQuery(document).ready(function ($) {
   }
 
   function wpr_autouploader_check() {
-    if (
-      !localStorage.hasOwnProperty(wp_reset.autouploader_key) ||
-      wpr_autouploader == true ||
-      Date.now() - localStorage[wp_reset.autouploader_key] > 10000
-    ) {
+    if (!localStorage.hasOwnProperty(wp_reset.autouploader_key) || wpr_autouploader == true || Date.now() - localStorage[wp_reset.autouploader_key] > 10000) {
       localStorage[wp_reset.autouploader_key] = Date.now();
       wpr_autouploader = true;
       wpr_autouploader_run();
@@ -2264,12 +2019,7 @@ jQuery(document).ready(function ($) {
 
   var create_snapshot_steps;
 
-  function create_snapshot(
-    description,
-    auto = 0,
-    success_callback,
-    callback_args
-  ) {
+  function create_snapshot(description, auto = 0, success_callback, callback_args) {
     description = $.trim(description);
 
     $.Deferred(function () {
@@ -2358,10 +2108,7 @@ jQuery(document).ready(function ($) {
   function create_snapshot_run_steps(auto, success_callback, callback_args) {
     var looper = $.Deferred().resolve();
 
-    wpr_swal
-      .getContent()
-      .querySelector("#swal2-content")
-      .classList.add("swal-content-left");
+    wpr_swal.getContent().querySelector("#swal2-content").classList.add("swal-content-left");
 
     var failed = false;
     $.each(create_snapshot_steps, function (i, data) {
@@ -2370,8 +2117,7 @@ jQuery(document).ready(function ($) {
           return false;
         }
 
-        wpr_swal.getContent().querySelector("#swal2-content").innerHTML =
-          i + 1 + "/" + create_snapshot_steps.length + " - " + data.description;
+        wpr_swal.getContent().querySelector("#swal2-content").innerHTML = i + 1 + "/" + create_snapshot_steps.length + " - " + data.description;
 
         return $.ajax({
           data: {
@@ -2388,18 +2134,14 @@ jQuery(document).ready(function ($) {
               if (i == create_snapshot_steps.length - 1) {
                 if (wp_reset.is_plugin_page) {
                   if (auto) {
-                    $("#snapshots-table-auto tr:nth-child(2)").after(
-                      response.data.html
-                    );
+                    $("#snapshots-table-auto tr:nth-child(2)").after(response.data.html);
                   } else {
-                    $("#snapshots-table-user tr:nth-child(2)").after(
-                      response.data.html
-                    );
+                    $("#snapshots-table-user tr:nth-child(2)").after(response.data.html);
                   }
                 }
 
-                if(wp_reset.snapshots_autoupload == true && response.data.auto == '0'){
-                    export_snapshot(response.data.uid, wpr_cloud, ['snapshot_upload', response.data.uid, wp_reset.cloud_snapshot_uploading, wp_reset.cloud_snapshot_uploaded, 'reload']);
+                if (wp_reset.snapshots_autoupload == true && response.data.auto == "0") {
+                  export_snapshot(response.data.uid, wpr_cloud, ["snapshot_upload", response.data.uid, wp_reset.cloud_snapshot_uploading, wp_reset.cloud_snapshot_uploaded, "reload"]);
                 } else if (typeof success_callback == "function") {
                   if (auto) {
                     wpr_autouploader_check();
@@ -2502,10 +2244,7 @@ jQuery(document).ready(function ($) {
   function export_snapshot_run_steps(success_callback, callback_args) {
     var looper = $.Deferred().resolve();
 
-    wpr_swal
-      .getContent()
-      .querySelector("#swal2-content")
-      .classList.add("swal-content-left");
+    wpr_swal.getContent().querySelector("#swal2-content").classList.add("swal-content-left");
 
     var failed = false;
 
@@ -2515,8 +2254,7 @@ jQuery(document).ready(function ($) {
           return false;
         }
 
-        wpr_swal.getContent().querySelector("#swal2-content").innerHTML =
-          i + 1 + "/" + export_snapshot_steps.length + " - " + data.description;
+        wpr_swal.getContent().querySelector("#swal2-content").innerHTML = i + 1 + "/" + export_snapshot_steps.length + " - " + data.description;
         return $.ajax({
           data: {
             action: "wp_reset_run_tool",
@@ -2533,9 +2271,7 @@ jQuery(document).ready(function ($) {
                 if (typeof success_callback == "function") {
                   success_callback.apply(this, callback_args);
                 } else {
-                  msg = $(button)
-                    .data("success-msg")
-                    .replace("%s", response.data);
+                  msg = $(button).data("success-msg").replace("%s", response.data);
                   wpr_swal.fire({ type: "success", title: msg });
                 }
               }
@@ -2566,48 +2302,20 @@ jQuery(document).ready(function ($) {
   }
 
   // standard way of running a tool, with confirmation, loading and success message
-  function wpr_cloud_confirm(
-    button,
-    action,
-    parameters,
-    swal_text,
-    success_message,
-    success_callback,
-    callback_args
-  ) {
-    var confirm_title =
-      $(button).data("confirm-title") || wp_reset.confirm_title;
+  function wpr_cloud_confirm(button, action, parameters, swal_text, success_message, success_callback, callback_args) {
+    var confirm_title = $(button).data("confirm-title") || wp_reset.confirm_title;
     var btn_confirm = $(button).data("btn-confirm") || $(button).text();
 
     wpr_close_dropdowns();
 
-    confirm_action(
-      confirm_title,
-      $(button).data("text-confirm"),
-      btn_confirm,
-      wp_reset.cancel_button
-    ).then((result) => {
+    confirm_action(confirm_title, $(button).data("text-confirm"), btn_confirm, wp_reset.cancel_button).then((result) => {
       if (result.value) {
-        wpr_cloud(
-          action,
-          parameters,
-          swal_text,
-          success_message,
-          success_callback,
-          callback_args
-        );
+        wpr_cloud(action, parameters, swal_text, success_message, success_callback, callback_args);
       } // if confirmed
     });
   }
 
-  function wpr_cloud(
-    action,
-    parameters,
-    swal_text,
-    success_message,
-    success_callback,
-    callback_args
-  ) {
+  function wpr_cloud(action, parameters, swal_text, success_message, success_callback, callback_args) {
     snapshot_swal = wpr_swal.fire({
       title: swal_text,
       text: swal_text,
@@ -2642,12 +2350,7 @@ jQuery(document).ready(function ($) {
       .done(function (response) {
         if (response.success) {
           if (response.data && response.data.continue == 1) {
-            wpr_cloud_do_action(
-              response.data,
-              success_message,
-              success_callback,
-              callback_args
-            );
+            wpr_cloud_do_action(response.data, success_message, success_callback, callback_args);
           } else {
             if (response.data && response.data.action == "import") {
               import_snapshot(response.data.uid);
@@ -2688,12 +2391,7 @@ jQuery(document).ready(function ($) {
       });
   }
 
-  function wpr_cloud_do_action(
-    action,
-    success_message,
-    success_callback,
-    callback_args
-  ) {
+  function wpr_cloud_do_action(action, success_message, success_callback, callback_args) {
     $.ajax({
       data: {
         action: "wp_reset_run_tool",
@@ -2706,19 +2404,10 @@ jQuery(document).ready(function ($) {
       .done(function (response) {
         if (response.success) {
           if (response.data && response.data.continue == 1) {
-            wpr_swal.getContent().querySelector("#swal2-content").innerHTML =
-              response.data.message;
-            wpr_cloud_do_action(
-              response.data,
-              success_message,
-              success_callback,
-              callback_args
-            );
+            wpr_swal.getContent().querySelector("#swal2-content").innerHTML = response.data.message;
+            wpr_cloud_do_action(response.data, success_message, success_callback, callback_args);
           } else {
-            if (
-              response.data &&
-              response.data.action == "import_snapshot_steps"
-            ) {
+            if (response.data && response.data.action == "import_snapshot_steps") {
               import_snapshot_steps = response.data.steps;
               import_snapshot_run_steps(success_callback, callback_args);
             } else if (typeof success_callback == "function") {
@@ -2780,9 +2469,7 @@ jQuery(document).ready(function ($) {
           $(".swal2-file").change(function () {
             if (this.files[0].size > wp_reset.max_upload_size) {
               $(".swal2-file").val("");
-              alert(
-                "The import size exceeds the maximum upload size of your website!"
-              );
+              alert("The import size exceeds the maximum upload size of your website!");
               return;
             }
             var reader = new FileReader();
@@ -2813,9 +2500,7 @@ jQuery(document).ready(function ($) {
                   wpr_swal
                     .fire({
                       type: "success",
-                      title:
-                        wp_reset.import_success +
-                        " The page will reload in a moment.",
+                      title: wp_reset.import_success + " The page will reload in a moment.",
                       timer: 1500,
                       showConfirmButton: false,
                     })
@@ -2848,10 +2533,7 @@ jQuery(document).ready(function ($) {
   function import_snapshot_run_steps(success_callback, callback_args) {
     var looper = $.Deferred().resolve();
 
-    wpr_swal
-      .getContent()
-      .querySelector("#swal2-content")
-      .classList.add("swal-content-left");
+    wpr_swal.getContent().querySelector("#swal2-content").classList.add("swal-content-left");
 
     var failed = false;
 
@@ -2861,8 +2543,7 @@ jQuery(document).ready(function ($) {
           return false;
         }
 
-        wpr_swal.getContent().querySelector("#swal2-content").innerHTML =
-          i + 1 + "/" + import_snapshot_steps.length + " - " + data.description;
+        wpr_swal.getContent().querySelector("#swal2-content").innerHTML = i + 1 + "/" + import_snapshot_steps.length + " - " + data.description;
         return $.ajax({
           data: {
             action: "wp_reset_run_tool",
@@ -2882,9 +2563,7 @@ jQuery(document).ready(function ($) {
                   wpr_swal
                     .fire({
                       type: "success",
-                      title:
-                        wp_reset.import_success +
-                        " The page will reload in a moment.",
+                      title: wp_reset.import_success + " The page will reload in a moment.",
                       timer: 1500,
                       showConfirmButton: false,
                     })
@@ -2933,29 +2612,29 @@ jQuery(document).ready(function ($) {
     e.preventDefault();
     var delete_snapshots = $(this).data("snapshots");
     var selected_snapshots = [];
-    if($(this).data("snapshots") == 'selected_user'){
-        $.each($("input[name='selected_snapshots']:checked"), function(){
-            selected_snapshots.push($(this).val());
-        });
-        delete_snapshots = 'selected';
+    if ($(this).data("snapshots") == "selected_user") {
+      $.each($("input[name='selected_snapshots']:checked"), function () {
+        selected_snapshots.push($(this).val());
+      });
+      delete_snapshots = "selected";
     }
-    if($(this).data("snapshots") == 'selected_auto'){
-        $.each($("input[name='selected_autosnapshots']:checked"), function(){
-            selected_snapshots.push($(this).val());
-        });
-        delete_snapshots = 'selected';
+    if ($(this).data("snapshots") == "selected_auto") {
+      $.each($("input[name='selected_autosnapshots']:checked"), function () {
+        selected_snapshots.push($(this).val());
+      });
+      delete_snapshots = "selected";
     }
 
-    if(delete_snapshots == 'selected' && selected_snapshots.length == 0){
-        wpr_swal.fire({
-            type: "error",
-            title: 'No snapshots selected',
-        });
-        return;
+    if (delete_snapshots == "selected" && selected_snapshots.length == 0) {
+      wpr_swal.fire({
+        type: "error",
+        title: "No snapshots selected",
+      });
+      return;
     }
     run_tool_confirm(this, "delete_snapshots", {
       delete: delete_snapshots,
-      ids: selected_snapshots
+      ids: selected_snapshots,
     });
 
     return false;
@@ -2966,29 +2645,29 @@ jQuery(document).ready(function ($) {
     e.preventDefault();
     var delete_cloud_snapshots = $(this).data("snapshots");
     var selected_snapshots = [];
-    if($(this).data("snapshots") == 'selected_user'){
-        $.each($("input[name='selected_snapshots']:checked"), function(){
-            selected_snapshots.push($(this).val());
-        });
-        delete_cloud_snapshots = 'selected';
+    if ($(this).data("snapshots") == "selected_user") {
+      $.each($("input[name='selected_snapshots']:checked"), function () {
+        selected_snapshots.push($(this).val());
+      });
+      delete_cloud_snapshots = "selected";
     }
-    if($(this).data("snapshots") == 'selected_auto'){
-        $.each($("input[name='selected_autosnapshots']:checked"), function(){
-            selected_snapshots.push($(this).val());
-        });
-        delete_cloud_snapshots = 'selected';
+    if ($(this).data("snapshots") == "selected_auto") {
+      $.each($("input[name='selected_autosnapshots']:checked"), function () {
+        selected_snapshots.push($(this).val());
+      });
+      delete_cloud_snapshots = "selected";
     }
 
-    if(delete_cloud_snapshots == 'selected' && selected_snapshots.length == 0){
-        wpr_swal.fire({
-            type: "error",
-            title: 'No snapshots selected',
-        });
-        return;
+    if (delete_cloud_snapshots == "selected" && selected_snapshots.length == 0) {
+      wpr_swal.fire({
+        type: "error",
+        title: "No snapshots selected",
+      });
+      return;
     }
     run_tool_confirm(this, "delete_cloud_snapshots", {
       delete: delete_cloud_snapshots,
-      ids: selected_snapshots
+      ids: selected_snapshots,
     });
 
     return false;
@@ -3010,9 +2689,7 @@ jQuery(document).ready(function ($) {
   });
 
   // install collection item
-  $(".tools_page_wp-reset").on("click", ".install-collection-item", function (
-    e
-  ) {
+  $(".tools_page_wp-reset").on("click", ".install-collection-item", function (e) {
     e.preventDefault();
 
     wpr_close_dropdowns();
@@ -3021,8 +2698,7 @@ jQuery(document).ready(function ($) {
     collection_item_id = $(this).parents("tr").data("collection-item-id");
     do_activate = $(this).data("activate");
 
-    item_data =
-      wp_reset.collections[collection_id]["items"][collection_item_id];
+    item_data = wp_reset.collections[collection_id]["items"][collection_item_id];
 
     wpr_swal
       .fire({
@@ -3046,19 +2722,7 @@ jQuery(document).ready(function ($) {
             action: "check_install_" + item_data.type,
           });
 
-          $(".wpr-collections-installer").append(
-            '<div class="wpr-collections-installer-message" data-action="' +
-              item_data.slug +
-              "_install_" +
-              item_data.type +
-              '"><span class="dashicons"></span>' +
-              '<span class="wpr-collections-installer-message-text">' +
-              wp_reset.installing +
-              " " +
-              item_data.name +
-              "</span>" +
-              "</div>"
-          );
+          $(".wpr-collections-installer").append('<div class="wpr-collections-installer-message" data-action="' + item_data.slug + "_install_" + item_data.type + '"><span class="dashicons"></span>' + '<span class="wpr-collections-installer-message-text">' + wp_reset.installing + " " + item_data.name + "</span>" + "</div>");
 
           if (do_activate) {
             collections_ajax_queue.push({
@@ -3077,19 +2741,7 @@ jQuery(document).ready(function ($) {
               action: "check_activate_" + item_data.type,
             });
 
-            $(".wpr-collections-installer").append(
-              '<div class="wpr-collections-installer-message" data-action="' +
-                item_data.slug +
-                "_activate_" +
-                item_data.type +
-                '"><span class="dashicons"></span>' +
-                '<span class="wpr-collections-installer-message-text">' +
-                wp_reset.activating +
-                " " +
-                item_data.name +
-                "</span>" +
-                "</div>"
-            );
+            $(".wpr-collections-installer").append('<div class="wpr-collections-installer-message" data-action="' + item_data.slug + "_activate_" + item_data.type + '"><span class="dashicons"></span>' + '<span class="wpr-collections-installer-message-text">' + wp_reset.activating + " " + item_data.name + "</span>" + "</div>");
 
             if (item_data.license_key.length > 0) {
               collections_ajax_queue.push({
@@ -3110,19 +2762,7 @@ jQuery(document).ready(function ($) {
                 action: "check_activate_license_" + item_data.type,
               });
 
-              $(".wpr-collections-installer").append(
-                '<div class="wpr-collections-installer-message" data-action="' +
-                  item_data.slug +
-                  "_activate_license_" +
-                  item_data.type +
-                  '"><span class="dashicons"></span>' +
-                  '<span class="wpr-collections-installer-message-text">' +
-                  wp_reset.activating_license +
-                  " " +
-                  item_data.name +
-                  "</span>" +
-                  "</div>"
-              );
+              $(".wpr-collections-installer").append('<div class="wpr-collections-installer-message" data-action="' + item_data.slug + "_activate_license_" + item_data.type + '"><span class="dashicons"></span>' + '<span class="wpr-collections-installer-message-text">' + wp_reset.activating_license + " " + item_data.name + "</span>" + "</div>");
             }
           }
           collections_do_ajax();
@@ -3144,9 +2784,7 @@ jQuery(document).ready(function ($) {
   function show_install_collection(collection_id, do_delete, do_activate) {
     wpr_swal
       .fire({
-        title:
-          "Installing collection<br />" +
-          wp_reset.collections[collection_id]["name"],
+        title: "Installing collection<br />" + wp_reset.collections[collection_id]["name"],
         html: '<div class="wpr-collections-installer"></div>',
         width: 600,
         onRender: function () {
@@ -3300,19 +2938,7 @@ jQuery(document).ready(function ($) {
       }
 
       if (message !== false) {
-        $(".wpr-collections-installer").append(
-          '<div class="wpr-collections-installer-message" data-action="' +
-            collections_ajax_queue[ci].slug +
-            "_" +
-            collections_ajax_queue[ci].action +
-            '"><span class="dashicons"></span> ' +
-            '<span class="wpr-collections-installer-message-text">' +
-            message +
-            " " +
-            collections_ajax_queue[ci].name +
-            "</span>" +
-            "</div>"
-        );
+        $(".wpr-collections-installer").append('<div class="wpr-collections-installer-message" data-action="' + collections_ajax_queue[ci].slug + "_" + collections_ajax_queue[ci].action + '"><span class="dashicons"></span> ' + '<span class="wpr-collections-installer-message-text">' + message + " " + collections_ajax_queue[ci].name + "</span>" + "</div>");
       }
     }
 
@@ -3323,25 +2949,12 @@ jQuery(document).ready(function ($) {
   // run collection ajax
   function collections_do_ajax() {
     collection_item = collections_ajax_queue[collections_ajax_queue_index];
-    message_id =
-      collection_item.slug + "_" + collection_item.action.replace("check_", "");
+    message_id = collection_item.slug + "_" + collection_item.action.replace("check_", "");
 
-    $('[data-action="' + message_id + '"]').addClass(
-      "wpr-collections-installer-loading"
-    );
+    $('[data-action="' + message_id + '"]').addClass("wpr-collections-installer-loading");
 
     var query_data_type = "text";
-    if (
-      collection_item.action == "check_deactivate_plugin" ||
-      collection_item.action == "check_delete_plugin" ||
-      collection_item.action == "check_install_plugin" ||
-      collection_item.action == "check_activate_plugin" ||
-      collection_item.action == "check_install_theme" ||
-      collection_item.action == "check_activate_theme" ||
-      collection_item.action == "check_delete_theme" ||
-      collection_item.action == "check_activate_license_plugin" ||
-      collection_item.action == "check_activate_license_theme"
-    ) {
+    if (collection_item.action == "check_deactivate_plugin" || collection_item.action == "check_delete_plugin" || collection_item.action == "check_install_plugin" || collection_item.action == "check_activate_plugin" || collection_item.action == "check_install_theme" || collection_item.action == "check_activate_theme" || collection_item.action == "check_delete_theme" || collection_item.action == "check_activate_license_plugin" || collection_item.action == "check_activate_license_theme") {
       query_data_type = "json";
     }
 
@@ -3367,45 +2980,24 @@ jQuery(document).ready(function ($) {
           data = data.responseJSON;
         }
         var do_next_called = false;
-        if (
-          collection_item.action == "check_deactivate_plugin" ||
-          collection_item.action == "check_delete_plugin" ||
-          collection_item.action == "check_install_plugin" ||
-          collection_item.action == "check_activate_plugin" ||
-          collection_item.action == "check_install_theme" ||
-          collection_item.action == "check_activate_theme" ||
-          collection_item.action == "check_delete_theme" ||
-          collection_item.action == "check_activate_license_plugin" ||
-          collection_item.action == "check_activate_license_theme"
-        ) {
+        if (collection_item.action == "check_deactivate_plugin" || collection_item.action == "check_delete_plugin" || collection_item.action == "check_install_plugin" || collection_item.action == "check_activate_plugin" || collection_item.action == "check_install_theme" || collection_item.action == "check_activate_theme" || collection_item.action == "check_delete_theme" || collection_item.action == "check_activate_license_plugin" || collection_item.action == "check_activate_license_theme") {
           if (data == false && collections_retried == false) {
             collections_retried = true;
             collections_do_ajax();
             return false;
           }
           if (
-            (collection_item.action == "check_deactivate_plugin" &&
-              data.data == "inactive") ||
-            (collection_item.action == "check_delete_plugin" &&
-              data.data == "deleted") ||
-            (collection_item.action == "check_install_plugin" &&
-              (data.data == "inactive" || data.data == "active")) ||
-            (collection_item.action == "check_activate_plugin" &&
-              data.data == "active") ||
-            (collection_item.action == "check_install_theme" &&
-              (data.data == "inactive" || data.data == "active")) ||
-            (collection_item.action == "check_activate_theme" &&
-              data.data == "active") ||
-            (collection_item.action == "check_delete_theme" &&
-              data.data == "deleted") ||
-            (collection_item.action == "check_activate_license_plugin" &&
-              data.data == "license_active") ||
-            (collection_item.action == "check_activate_license_theme" &&
-              data.data == "license_active")
+            (collection_item.action == "check_deactivate_plugin" && data.data == "inactive") ||
+            (collection_item.action == "check_delete_plugin" && data.data == "deleted") ||
+            (collection_item.action == "check_install_plugin" && (data.data == "inactive" || data.data == "active")) ||
+            (collection_item.action == "check_activate_plugin" && data.data == "active") ||
+            (collection_item.action == "check_install_theme" && (data.data == "inactive" || data.data == "active")) ||
+            (collection_item.action == "check_activate_theme" && data.data == "active") ||
+            (collection_item.action == "check_delete_theme" && data.data == "deleted") ||
+            (collection_item.action == "check_activate_license_plugin" && data.data == "license_active") ||
+            (collection_item.action == "check_activate_license_theme" && data.data == "license_active")
           ) {
-            $('[data-action="' + message_id + '"]').addClass(
-              "wpr-collections-installer-success"
-            );
+            $('[data-action="' + message_id + '"]').addClass("wpr-collections-installer-success");
           } else {
             var error = false;
             switch (collection_item.action) {
@@ -3419,10 +3011,7 @@ jQuery(document).ready(function ($) {
               case "check_install_plugin":
               case "check_install_theme":
                 if (data.data == "active") {
-                  error =
-                    collection_item.name +
-                    " " +
-                    wp_reset.install_failed_existing;
+                  error = collection_item.name + " " + wp_reset.install_failed_existing;
                 } else if (data.data == "deleted") {
                   error = wp_reset.install_failed + " " + collection_item.name;
                 } else {
@@ -3438,10 +3027,7 @@ jQuery(document).ready(function ($) {
                 if (data.data == "unknown") {
                   //error = wp_reset.activating_license_unknown + ' ' + collection_item.name;
                 } else {
-                  error =
-                    wp_reset.activating_license_failed +
-                    " " +
-                    collection_item.name;
+                  error = wp_reset.activating_license_failed + " " + collection_item.name;
                 }
                 break;
               default:
@@ -3449,23 +3035,15 @@ jQuery(document).ready(function ($) {
             }
 
             if (error != false) {
-              $('[data-action="' + message_id + '"]').append(
-                '<div class="wpr-collections-error">' + error + "</div>"
-              );
+              $('[data-action="' + message_id + '"]').append('<div class="wpr-collections-error">' + error + "</div>");
               collections_errors.push(error);
             }
 
-            $('[data-action="' + message_id + '"]').addClass(
-              "wpr-collections-installer-error"
-            );
+            $('[data-action="' + message_id + '"]').addClass("wpr-collections-installer-error");
           }
 
-          $('[data-action="' + message_id + '"]').removeClass(
-            "wpr-collections-installer-loading"
-          );
-          $('[data-action="' + message_id + '"]').addClass(
-            "wpr-collections-installer-done"
-          );
+          $('[data-action="' + message_id + '"]').removeClass("wpr-collections-installer-loading");
+          $('[data-action="' + message_id + '"]').addClass("wpr-collections-installer-done");
         }
 
         collections_retried = false;
@@ -3476,30 +3054,12 @@ jQuery(document).ready(function ($) {
           return false;
         }
 
-        if (
-          do_next_called == false &&
-          typeof collections_ajax_queue[collections_ajax_queue_index] !==
-            "undefined"
-        ) {
-          if (
-            typeof $(
-              ".wpr-collections-installer div.wpr-collections-installer-done:last"
-            ).offset() !== "undefined"
-          ) {
-            var scroll_top =
-              $(
-                ".wpr-collections-installer div.wpr-collections-installer-done:last"
-              ).offset().top -
-              $(".wpr-collections-installer").offset().top +
-              $(".wpr-collections-installer").scrollTop() -
-              60;
-            $(".wpr-collections-installer").animate(
-              { scrollTop: scroll_top },
-              600,
-              function () {
-                collections_do_ajax();
-              }
-            );
+        if (do_next_called == false && typeof collections_ajax_queue[collections_ajax_queue_index] !== "undefined") {
+          if (typeof $(".wpr-collections-installer div.wpr-collections-installer-done:last").offset() !== "undefined") {
+            var scroll_top = $(".wpr-collections-installer div.wpr-collections-installer-done:last").offset().top - $(".wpr-collections-installer").offset().top + $(".wpr-collections-installer").scrollTop() - 60;
+            $(".wpr-collections-installer").animate({ scrollTop: scroll_top }, 600, function () {
+              collections_do_ajax();
+            });
           } else {
             collections_do_ajax();
           }
@@ -3512,20 +3072,13 @@ jQuery(document).ready(function ($) {
           if (collections_errors.length > 0) {
             var errors_html = "";
             for (e in collections_errors) {
-              errors_html +=
-                '<div class="wpr-collections-installer-message wpr-collections-installer-error"><span class="dashicons"></span> ' +
-                collections_errors[e] +
-                "</div>";
+              errors_html += '<div class="wpr-collections-installer-message wpr-collections-installer-error"><span class="dashicons"></span> ' + collections_errors[e] + "</div>";
             }
             wpr_swal
               .fire({
                 type: "error",
-                title:
-                  "Collection was installed, but the following errors occurred!", //todo: localize
-                html:
-                  '<div class="wpr-collections-installer-errors">' +
-                  errors_html +
-                  "</div>",
+                title: "Collection was installed, but the following errors occurred!", //todo: localize
+                html: '<div class="wpr-collections-installer-errors">' + errors_html + "</div>",
                 showConfirmButton: true,
               })
               .then((result) => {
@@ -3549,9 +3102,7 @@ jQuery(document).ready(function ($) {
 
   // onboarding
 
-  $(".tools_page_wp-reset").on("click", ".delete-recovery-script", function (
-    e
-  ) {
+  $(".tools_page_wp-reset").on("click", ".delete-recovery-script", function (e) {
     e.preventDefault();
 
     block = block_ui("Removing emergency recovery script");
@@ -3586,9 +3137,7 @@ jQuery(document).ready(function ($) {
           wpr_swal
             .fire({
               type: "error",
-              title:
-                "Emergency recovery script could not be removed!<br />" +
-                data.data,
+              title: "Emergency recovery script could not be removed!<br />" + data.data,
               width: 600,
               allowEnterKey: false,
               showCancelButton: false,
@@ -3608,9 +3157,7 @@ jQuery(document).ready(function ($) {
     return false;
   });
 
-  $(".tools_page_wp-reset").on("click", ".update-recovery-script", function (
-    e
-  ) {
+  $(".tools_page_wp-reset").on("click", ".update-recovery-script", function (e) {
     e.preventDefault();
 
     block = block_ui("Updating emergency recovery script");
@@ -3645,9 +3192,7 @@ jQuery(document).ready(function ($) {
           wpr_swal
             .fire({
               type: "error",
-              title:
-                "Emergency recovery script could not be updated!<br />" +
-                data.data,
+              title: "Emergency recovery script could not be updated!<br />" + data.data,
               width: 600,
               allowEnterKey: false,
               showCancelButton: false,
@@ -3667,9 +3212,7 @@ jQuery(document).ready(function ($) {
     return false;
   });
 
-  $(".tools_page_wp-reset").on("click", ".install-recovery-script", function (
-    e
-  ) {
+  $(".tools_page_wp-reset").on("click", ".install-recovery-script", function (e) {
     e.preventDefault();
 
     block = block_ui("Installing emergency recovery script");
@@ -3704,9 +3247,7 @@ jQuery(document).ready(function ($) {
           wpr_swal
             .fire({
               type: "error",
-              title:
-                "Emergency recovery script could not be installed!<br />" +
-                data.data,
+              title: "Emergency recovery script could not be installed!<br />" + data.data,
               width: 600,
               allowEnterKey: false,
               showCancelButton: false,
@@ -3771,13 +3312,12 @@ jQuery(document).ready(function ($) {
 
   function onboarding_open_step0() {
     html = '<div class="wpr-onboarding">';
-    if(wp_reset.rebranding !== "0"){
-        html += "<h2>Welcome to " + wp_reset.rebranding.name + "!</h2>";
+    if (wp_reset.rebranding !== "0") {
+      html += "<h2>Welcome to " + wp_reset.rebranding.name + "!</h2>";
     } else {
-        html += "<h2>Welcome to WP Reset PRO!</h2>";
+      html += "<h2>Welcome to WP Reset PRO!</h2>";
     }
-    html +=
-      '<p class="textleft">Onboarding takes only a minute. It creates a test snapshot to see if your site meets the requirements, and it sets up the emergency recovery script. Everything found in onboarding can be changed and configured later on too.</p><p class="textleft">If you want to re-run onboarding open the Support tab and click "run onboarding".</p><br>';
+    html += '<p class="textleft">Onboarding takes only a minute. It creates a test snapshot to see if your site meets the requirements, and it sets up the emergency recovery script. Everything found in onboarding can be changed and configured later on too.</p><p class="textleft">If you want to re-run onboarding open the Support tab and click "run onboarding".</p><br>';
     html += "</div>";
 
     wpr_swal
@@ -3836,32 +3376,23 @@ jQuery(document).ready(function ($) {
 
         if (data.success) {
           if (data.data.auto) {
-            html +=
-              "<h2>Everything looks good!<br>Auto snapshots are enabled on updates and tools.</h2>";
+            html += "<h2>Everything looks good!<br>Auto snapshots are enabled on updates and tools.</h2>";
           } else {
-            html +=
-              "<h2>It took a bit longer than we expected to do a test snapshot so we disabled auto snapshots. You can still enable them if you wish.</h2>";
+            html += "<h2>It took a bit longer than we expected to do a test snapshot so we disabled auto snapshots. You can still enable them if you wish.</h2>";
           }
         } else {
           html += "<h2>An error occurred creating the snapshot</h2>";
           html += '<h2 class="red">' + data.data + "</h2>";
-          html +=
-            "<h2>We disabled autosnapshots for now. Please resolve the error above and then you can enable auto snapshots in the Snapshots tab.</h2>";
+          html += "<h2>We disabled autosnapshots for now. Please resolve the error above and then you can enable auto snapshots in the Snapshots tab.</h2>";
         }
 
-        let plugin_name = 'WP Reset';
-        if(wp_reset.rebranding !== "0"){
-            plugin_name = wp_reset.rebranding.name;
+        let plugin_name = "WP Reset";
+        if (wp_reset.rebranding !== "0") {
+          plugin_name = wp_reset.rebranding.name;
         }
 
-        html +=
-          '<div class="option-group"><div class="toggle-wrapper"><input type="checkbox" id="ob_option_tools_snapshots" class="change-single-option" data-option="tools_snapshots" ' +
-          (data.data.auto ? 'checked="checked"' : "") +
-          ' value="1" name="ob_option_tools_snapshots"><label for="ob_option_tools_snapshots" class="toggle"><span class="toggle_handler"></span></label></div><div class="option-group-desc">Automatically create snapshots before running ' + plugin_name + ' tools</div></div>';
-        html +=
-          '<div class="option-group"><div class="toggle-wrapper"><input type="checkbox" id="ob_option_events_snapshots" class="change-single-option" data-option="events_snapshots" ' +
-          (data.data.auto ? 'checked="checked"' : "") +
-          ' value="1" name="ob_option_events_snapshots"><label for="ob_option_events_snapshots" class="toggle"><span class="toggle_handler"></span></label></div><div class="option-group-desc">Automatically create snapshots when manipulating plugins and themes</div></div>';
+        html += '<div class="option-group"><div class="toggle-wrapper"><input type="checkbox" id="ob_option_tools_snapshots" class="change-single-option" data-option="tools_snapshots" ' + (data.data.auto ? 'checked="checked"' : "") + ' value="1" name="ob_option_tools_snapshots"><label for="ob_option_tools_snapshots" class="toggle"><span class="toggle_handler"></span></label></div><div class="option-group-desc">Automatically create snapshots before running ' + plugin_name + " tools</div></div>";
+        html += '<div class="option-group"><div class="toggle-wrapper"><input type="checkbox" id="ob_option_events_snapshots" class="change-single-option" data-option="events_snapshots" ' + (data.data.auto ? 'checked="checked"' : "") + ' value="1" name="ob_option_events_snapshots"><label for="ob_option_events_snapshots" class="toggle"><span class="toggle_handler"></span></label></div><div class="option-group-desc">Automatically create snapshots when manipulating plugins and themes</div></div>';
 
         html += "</div>";
 
@@ -3899,38 +3430,32 @@ jQuery(document).ready(function ($) {
 
     html = '<div class="wpr-onboarding">';
     html += "<h2>Emergency Recovery Script setup</h2>";
-    html +=
-      '<p class="textleft">Emergency recovery script is a standalone, single-file, WP independent script created to recover a WP site in the most difficult situations. When access to admin is not possible, when core files are compromised, when you get the white-screen or can\'t log in. <b>There are two ways to set up the script:</b></p>';
+    html += '<p class="textleft">Emergency recovery script is a standalone, single-file, WP independent script created to recover a WP site in the most difficult situations. When access to admin is not possible, when core files are compromised, when you get the white-screen or can\'t log in. <b>There are two ways to set up the script:</b></p>';
 
     html += '<div class="half">';
-    html +=
-      '<p class="textleft" style="padding-right: 30px; box-sizing: border-box;">';
+    html += '<p class="textleft" style="padding-right: 30px; box-sizing: border-box;">';
     html += "<b>Install the script now</b><br>";
-    html +=
-      "In case something goes wrong, the script will already be available. ";
-    html +=
-      "We'll generate a unique password so that only you can access the script.";
+    html += "In case something goes wrong, the script will already be available. ";
+    html += "We'll generate a unique password so that only you can access the script.";
     html += " This setup is recommended for development environments.";
     html += "</p>";
     html += "</div>";
 
     html += '<div class="half">';
-    html +=
-      '<p class="textleft" style="padding-left: 30px; box-sizing: border-box;">';
+    html += '<p class="textleft" style="padding-left: 30px; box-sizing: border-box;">';
     html += "<b>Install the script later, when needed</b><br>";
     html += 'When needed you\'ll install the script from the "Support" tab';
-    if(wp_reset.rebranding === "0"){
-        html += ', or generate a new instance in WP Reset Dashboard, and upload manually via FTP. ';
+    if (wp_reset.rebranding === "0") {
+      html += ", or generate a new instance in WP Reset Dashboard, and upload manually via FTP. ";
     } else {
-        html += '. ';
+      html += ". ";
     }
 
     html += "This setup is recommended for production environments.";
     html += "</p>";
     html += "</div>";
 
-    html +=
-      "<br><br>Do you want to install the Emergency Recovery script on your server?<br />";
+    html += "<br><br>Do you want to install the Emergency Recovery script on your server?<br />";
 
     wpr_swal
       .fire({
@@ -3962,21 +3487,11 @@ jQuery(document).ready(function ($) {
               html = '<div class="wpr-onboarding">';
               type = "success";
               if (data.success) {
-                html +=
-                  "<h2>Emergency recovery script has been installed successfully!</h2>";
-                html +=
-                  'You can access it on the URL below with the following password: <strong style="color:#F00;">' +
-                  data.data.pass +
-                  "</strong>. More details are available in the Support tab:<br />";
-                html +=
-                  '<a href="' +
-                  data.data.url +
-                  '" target="_blank">' +
-                  data.data.url +
-                  "</a>";
+                html += "<h2>Emergency recovery script has been installed successfully!</h2>";
+                html += 'You can access it on the URL below with the following password: <strong style="color:#F00;">' + data.data.pass + "</strong>. More details are available in the Support tab:<br />";
+                html += '<a href="' + data.data.url + '" target="_blank">' + data.data.url + "</a>";
               } else {
-                html +=
-                  "<h2>Emergency recovery script could not be installed!</h2>";
+                html += "<h2>Emergency recovery script could not be installed!</h2>";
                 html += data.data;
                 type = "error";
               }
@@ -4030,12 +3545,8 @@ jQuery(document).ready(function ($) {
     wpr_swal.close();
 
     html = '<div class="wpr-onboarding">';
-    html +=
-      "<h2>Reminder email</h2><p>An email with instructions for installing the WP Reset Emergency recovery script manually will be sent to you. Please verify that the email address below is correct:</p>";
-    html +=
-      'Administrator email address: <input type="text" id="onboarding_recovery_email" value="' +
-      wp_reset.admin_email +
-      '" />';
+    html += "<h2>Reminder email</h2><p>An email with instructions for installing the WP Reset Emergency recovery script manually will be sent to you. Please verify that the email address below is correct:</p>";
+    html += 'Administrator email address: <input type="text" id="onboarding_recovery_email" value="' + wp_reset.admin_email + '" />';
     html += "</div>";
 
     wpr_swal
@@ -4108,52 +3619,28 @@ jQuery(document).ready(function ($) {
     parent = $(this).parents("div.wpr-table-container > table > tbody");
     $(" > tr:not(.header-row)", parent).toggleClass("hidden");
 
-    $("span.dashicons", parent)
-      .toggleClass("dashicons-arrow-down-alt2")
-      .toggleClass("dashicons-arrow-up-alt2");
+    $("span.dashicons", parent).toggleClass("dashicons-arrow-down-alt2").toggleClass("dashicons-arrow-up-alt2");
 
     return false;
   }); // show hide extra info in diff
 
-  $("body.tools_page_wp-reset").on(
-    "click",
-    ".toggle-auto-activation-supported-list",
-    function (e) {
-      e.preventDefault();
-      $(this).replaceWith(":");
-      $(".auto-activation-supported-list").toggleClass("hidden");
-    }
-  );
+  $("body.tools_page_wp-reset").on("click", ".toggle-auto-activation-supported-list", function (e) {
+    e.preventDefault();
+    $(this).replaceWith(":");
+    $(".auto-activation-supported-list").toggleClass("hidden");
+  });
 
   // standard way of running a tool, with confirmation, loading and success message
-  function run_tool_confirm(
-    button,
-    tool_name,
-    extra_data,
-    auto_close,
-    success_callback
-  ) {
-    var confirm_title =
-      $(button).data("confirm-title") || wp_reset.confirm_title;
+  function run_tool_confirm(button, tool_name, extra_data, auto_close, success_callback) {
+    var confirm_title = $(button).data("confirm-title") || wp_reset.confirm_title;
     var btn_confirm = $(button).data("btn-confirm") || $(button).text();
 
     wpr_close_dropdowns();
 
-    confirm_action(
-      confirm_title,
-      $(button).data("text-confirm"),
-      btn_confirm,
-      wp_reset.cancel_button
-    ).then((result) => {
+    confirm_action(confirm_title, $(button).data("text-confirm"), btn_confirm, wp_reset.cancel_button).then((result) => {
       if (result.value) {
         if (wp_reset.tools_autosnapshot.hasOwnProperty(tool_name)) {
-          create_snapshot(wp_reset.tools_autosnapshot[tool_name], 1, run_tool, [
-            button,
-            tool_name,
-            extra_data,
-            auto_close,
-            success_callback,
-          ]);
+          create_snapshot(wp_reset.tools_autosnapshot[tool_name], 1, run_tool, [button, tool_name, extra_data, auto_close, success_callback]);
         } else {
           run_tool(button, tool_name, extra_data, auto_close, success_callback);
         }
@@ -4162,13 +3649,7 @@ jQuery(document).ready(function ($) {
   }
 
   // standard way of running a tool, with confirmation, loading and success message
-  function run_tool(
-    button,
-    tool_name,
-    extra_data,
-    auto_close,
-    success_callback
-  ) {
+  function run_tool(button, tool_name, extra_data, auto_close, success_callback) {
     block = block_ui($(button).data("text-wait"));
     $.get({
       url: ajaxurl,
@@ -4200,13 +3681,7 @@ jQuery(document).ready(function ($) {
             wpr_swal_params = { type: "success", title: msg };
           }
           wpr_swal.fire(wpr_swal_params).then(() => {
-            if (
-              tool_name == "restore_snapshot" ||
-              tool_name == "delete_snapshot" ||
-              tool_name == "delete_snapshots" ||
-              tool_name == "delete_cloud_snapshots" ||
-              tool_name == "drop_custom_tables"
-            ) {
+            if (tool_name == "restore_snapshot" || tool_name == "delete_snapshot" || tool_name == "delete_snapshots" || tool_name == "delete_cloud_snapshots" || tool_name == "drop_custom_tables") {
               location.reload();
             }
             if (typeof success_callback == "function") {
@@ -4255,7 +3730,7 @@ jQuery(document).ready(function ($) {
   } // block_ui
 
   // display dialog to confirm action
-  function confirm_action(title, question, btn_confirm, btn_cancel, type = 'question') {
+  function confirm_action(title, question, btn_confirm, btn_cancel, type = "question") {
     tmp = wpr_swal.fire({
       title: title,
       type: type,
@@ -4272,37 +3747,24 @@ jQuery(document).ready(function ($) {
     return tmp;
   } // confirm_action
 
-
-  $(".tools_page_wp-reset").on("click", ".enable-debug-mode", function(e){
+  $(".tools_page_wp-reset").on("click", ".enable-debug-mode", function (e) {
     e.preventDefault();
     var confirm_title = $(this).data("confirm-title") || wp_reset.confirm_title;
-      confirm_action(
-        confirm_title,
-        $(this).data("text-confirm"),
-        $(this).data("btn-confirm"),
-        wp_reset.cancel_button,
-        'warning'
-      ).then((result) => {
-        if (!result.value) {
-          return false;
-        }
-  
-        location.href=$(this).attr('href');
-      });
+    confirm_action(confirm_title, $(this).data("text-confirm"), $(this).data("btn-confirm"), wp_reset.cancel_button, "warning").then((result) => {
+      if (!result.value) {
+        return false;
+      }
+
+      location.href = $(this).attr("href");
+    });
   });
 
-
   // collapse / expand card
-  $(".tools_page_wp-reset").on("click", ".toggle-card", function (
-    e,
-    skip_anim
-  ) {
+  $(".tools_page_wp-reset").on("click", ".toggle-card", function (e, skip_anim) {
     e.preventDefault();
 
     card = $(this).parents(".card").toggleClass("collapsed");
-    $(".dashicons", this)
-      .toggleClass("dashicons-arrow-up-alt2")
-      .toggleClass("dashicons-arrow-down-alt2");
+    $(".dashicons", this).toggleClass("dashicons-arrow-up-alt2").toggleClass("dashicons-arrow-down-alt2");
     $(this).blur();
 
     if (typeof skip_anim != "undefined" && skip_anim) {
@@ -4398,13 +3860,9 @@ jQuery(document).ready(function ($) {
   $("body").on("thickbox:iframe:loaded", function () {
     if ($("#TB_iframeContent").length > 0) {
       $TB_iframeContent = $("#TB_iframeContent").contents();
-      jQuery($TB_iframeContent).on(
-        "click",
-        "#plugin_install_from_iframe",
-        function () {
-          location.href = jQuery(this).attr("href");
-        }
-      );
+      jQuery($TB_iframeContent).on("click", "#plugin_install_from_iframe", function () {
+        location.href = jQuery(this).attr("href");
+      });
     }
   });
 }); // onload

@@ -96,8 +96,8 @@ class SubscribersResponseBuilder {
       'unsubscribe_token' => $subscriberEntity->getUnsubscribeToken(),
       'link_token' => $subscriberEntity->getLinkToken(),
     ];
-    $data = $this->buildCustomFields($subscriberEntity, $data);
-    return $data;
+
+    return $this->buildCustomFields($subscriberEntity, $data);
   }
 
   private function buildSubscriptions(SubscriberEntity $subscriberEntity): array {
@@ -107,6 +107,9 @@ class SubscribersResponseBuilder {
       $segment = $subscription->getSegment();
       if ($segment instanceof SegmentEntity) {
         $result[] = [
+          'id' => $subscription->getId(),
+          'subscriber_id' => (string)$subscriberEntity->getId(),
+          'created_at' => $subscription->getCreatedAt()->format(self::DATE_FORMAT),
           'segment_id' => (string)$segment->getId(),
           'status' => $subscription->getStatus(),
           'updated_at' => $subscription->getUpdatedAt()->format(self::DATE_FORMAT),

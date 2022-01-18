@@ -251,12 +251,9 @@ class FUE_Addon_Woocommerce {
 			'total_purchases'       => __('after total purchase amount by customer', 'follow_up_emails')
 		) );
 
-		if ( WC_FUE_Compatibility::is_wc_version_gte_2_2() ) {
-			// add support for refunds
-			$storewide_triggers['refund_manual']      = __('after refunded manually', 'follow_up_emails');
-			$storewide_triggers['refund_successful']  = __('after refunded successfully', 'follow_up_emails');
-			$storewide_triggers['refund_failed']      = __('after refund failed', 'follow_up_emails');
-		}
+		// Add support for refunds.
+		$storewide_triggers['refund_manual']      = __('after refunded manually', 'follow_up_emails');
+		$storewide_triggers['refund_successful']  = __('after refunded successfully', 'follow_up_emails');
 
 		$props = array(
 			'priority'              => 9,
@@ -344,22 +341,10 @@ class FUE_Addon_Woocommerce {
 	public function get_order_statuses() {
 		$order_statuses = array();
 
-		if ( WC_FUE_Compatibility::is_wc_version_gte_2_2() ) {
-			$statuses = wc_get_order_statuses();
+		$statuses = wc_get_order_statuses();
 
-			foreach ( $statuses as $key => $status ) {
-				$order_statuses[] = str_replace( 'wc-', '', $key );
-			}
-
-		} else {
-			$terms = get_terms( 'shop_order_status', array('hide_empty' => 0, 'orderby' => 'id') );
-
-			if (! isset($terms->errors) ) {
-				foreach ( $terms as $status ) {
-					$order_statuses[] = $status->slug;
-				}
-			}
-
+		foreach ( $statuses as $key => $status ) {
+			$order_statuses[] = str_replace( 'wc-', '', $key );
 		}
 
 		return $order_statuses;
@@ -427,7 +412,7 @@ class FUE_Addon_Woocommerce {
 	 */
 	public static function get_product_downloadables( $product_id ) {
 		$product = WC_FUE_Compatibility::wc_get_product( $product_id );
-		$downloadables = ( $product ) ? ( version_compare( WC_VERSION, '3.0', '<' ) ? $product->get_files() : $product->get_downloads() ) : array();
+		$downloadables = ( $product ) ? $product->get_downloads() : array();
 		$files = array();
 
 		if ( !empty( $downloadables ) ) {
@@ -721,7 +706,6 @@ class FUE_Addon_Woocommerce {
 		$wpdb = Follow_Up_Emails::instance()->wpdb;
 
 		$order_categories   = array();
-		$wc2                = WC_FUE_Compatibility::is_wc_version_gt( '2.0' );
 		$order_id           = WC_FUE_Compatibility::get_order_prop( $order, 'id' );
 		$user_id            = WC_FUE_Compatibility::get_order_user_id( $order );
 
@@ -772,47 +756,26 @@ class FUE_Addon_Woocommerce {
 			return;
 		}
 
-		if ( $wc2 ) {
-			$order_item_ids = $wpdb->get_results("SELECT order_item_id FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = {$order_id}");
+		$order_item_ids = $wpdb->get_results("SELECT order_item_id FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = {$order_id}");
 
-			foreach ( $order_item_ids as $order_item ) {
-				$product_id     = $wpdb->get_var("SELECT meta_value FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE order_item_id = {$order_item->order_item_id} AND meta_key = '_product_id'");
-				$variation_id   = $wpdb->get_var("SELECT meta_value FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE order_item_id = {$order_item->order_item_id} AND meta_key = '_variation_id'");
+		foreach ( $order_item_ids as $order_item ) {
+			$product_id     = $wpdb->get_var("SELECT meta_value FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE order_item_id = {$order_item->order_item_id} AND meta_key = '_product_id'");
+			$variation_id   = $wpdb->get_var("SELECT meta_value FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE order_item_id = {$order_item->order_item_id} AND meta_key = '_variation_id'");
 
-				if ( is_null( $variation_id ) ) {
-					$variation_id = 0;
-				}
-
-				if ( $product_id ) {
-					$insert = array(
-						'order_id'      => $order_id,
-						'product_id'    => $product_id,
-						'variation_id'  => $variation_id
-					);
-					$wpdb->insert( $wpdb->prefix .'followup_order_items', $insert );
-
-					// get the categories
-					$cat_ids = wp_get_post_terms( $product_id, 'product_cat', array('fields' => 'ids') );
-
-					if ( $cat_ids ) {
-						foreach ( $cat_ids as $cat_id ) {
-							$order_categories[] = $cat_id;
-						}
-					}
-				}
+			if ( is_null( $variation_id ) ) {
+				$variation_id = 0;
 			}
-		} else {
-			$order_items = get_post_meta( $order_id, '_order_items', true );
 
-			foreach ( $order_items as $item ) {
+			if ( $product_id ) {
 				$insert = array(
 					'order_id'      => $order_id,
-					'product_id'    => $item['id']
+					'product_id'    => $product_id,
+					'variation_id'  => $variation_id
 				);
 				$wpdb->insert( $wpdb->prefix .'followup_order_items', $insert );
 
 				// get the categories
-				$cat_ids = wp_get_post_terms( $item['id'], 'product_cat', array('fields' => 'ids') );
+				$cat_ids = wp_get_post_terms( $product_id, 'product_cat', array('fields' => 'ids') );
 
 				if ( $cat_ids ) {
 					foreach ( $cat_ids as $cat_id ) {
@@ -1041,47 +1004,24 @@ class FUE_Addon_Woocommerce {
 		}
 
 		if ( in_array( $trigger, $this->get_order_statuses() ) ) {
-			// count the number of orders matching the email's order status trigger
-			// and exclude those Order IDs that are in the email queue, sent or unsent
-			if ( WC_FUE_Compatibility::is_wc_version_gte_2_2() ) {
-				$status = 'wc-'. $email->trigger;
-				$orders = $wpdb->get_col( $wpdb->prepare(
-					"SELECT ID
-						FROM {$wpdb->posts} p
-						WHERE p.post_status = %s
-						AND (
-							SELECT COUNT(id)
-							FROM {$wpdb->prefix}followup_email_orders
-							WHERE order_id = p.ID
-							AND email_id = %d
-						) = 0",
-					$status,
-					$email->id
-				) );
-			} else {
-				$excluded_ids = $wpdb->get_col( $wpdb->prepare(
-					"SELECT DISTINCT order_id
-					FROM {$wpdb->prefix}followup_email_orders
-					WHERE order_id > 0
-					AND email_id = %d",
-					$email->id
-				) );
-				$orders = get_posts( array(
-					'post_status'   => 'publish',
-					'tax_query'     => array(
-						array(
-							'taxonomy' => 'shop_order_status',
-							'field'    => 'slug',
-							'terms'    => $email->trigger
-						)
-					),
-					'post__not_in'  => $excluded_ids,
-					'fields'        => 'ids',
-					'posts_per_page'=> -1
-				) );
-			}
+			// Count the number of orders matching the email's order status trigger
+			// and exclude those Order IDs that are in the email queue, sent or unsent.
+			$status = 'wc-'. $email->trigger;
+			$orders = $wpdb->get_col( $wpdb->prepare(
+				"SELECT ID
+					FROM {$wpdb->posts} p
+					WHERE p.post_status = %s
+					AND (
+						SELECT COUNT(id)
+						FROM {$wpdb->prefix}followup_email_orders
+						WHERE order_id = p.ID
+						AND email_id = %d
+					) = 0",
+				$status,
+				$email->id
+			) );
 
-			// filter out the orders that don't match the email's product or category filter
+			// Filter out the orders that don't match the email's product or category filter.
 			if ( $email->product_id ) {
 				$order_ids = implode( ',', array_map( 'absint', $orders ) );
 				$orders = $wpdb->get_col( $wpdb->prepare(
@@ -1403,25 +1343,14 @@ class FUE_Addon_Woocommerce {
 	}
 
 	public static function format_price( $price, $args = array() ) {
-		if ( version_compare( WOOCOMMERCE_VERSION, '2.3', '>=' ) ) {
-			$args = apply_filters( 'wc_price_args', wp_parse_args( $args, array(
-				'ex_tax_label'       => false,
-				'currency'           => '',
-				'decimal_separator'  => wc_get_price_decimal_separator(),
-				'thousand_separator' => wc_get_price_thousand_separator(),
-				'decimals'           => wc_get_price_decimals(),
-				'price_format'       => get_woocommerce_price_format()
-			) ) );
-		} else {
-			$args = apply_filters( 'wc_price_args', wp_parse_args( $args, array(
-				'ex_tax_label'       => false,
-				'currency'           => '',
-				'decimal_separator'  => '.',
-				'thousand_separator' => stripslashes( get_option( 'woocommerce_price_thousand_sep' ) ),
-				'decimals'           => absint( get_option( 'woocommerce_price_num_decimals', 2 ) ),
-				'price_format'       => get_woocommerce_price_format()
-			) ) );
-		}
+		$args = apply_filters( 'wc_price_args', wp_parse_args( $args, array(
+			'ex_tax_label'       => false,
+			'currency'           => '',
+			'decimal_separator'  => wc_get_price_decimal_separator(),
+			'thousand_separator' => wc_get_price_thousand_separator(),
+			'decimals'           => wc_get_price_decimals(),
+			'price_format'       => get_woocommerce_price_format()
+		) ) );
 
 		$negative        = $price < 0;
 		$price           = apply_filters( 'raw_woocommerce_price', floatval( $negative ? $price * -1 : $price ) );

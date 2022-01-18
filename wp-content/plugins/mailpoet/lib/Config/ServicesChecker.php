@@ -36,7 +36,8 @@ class ServicesChecker {
     $mssKeySpecified = Bridge::isMSSKeySpecified();
     $mssKey = $this->settings->get(Bridge::API_KEY_STATE_SETTING_NAME);
 
-    if (!$mssKeySpecified
+    if (
+      !$mssKeySpecified
       || empty($mssKey['state'])
       || $mssKey['state'] == Bridge::KEY_INVALID
     ) {
@@ -52,7 +53,8 @@ class ServicesChecker {
         WPNotice::displayError($error, '', '', false, false);
       }
       return false;
-    } elseif ($mssKey['state'] == Bridge::KEY_EXPIRING
+    } elseif (
+      $mssKey['state'] == Bridge::KEY_EXPIRING
       && !empty($mssKey['data']['expire_at'])
     ) {
       if ($displayErrorNotice) {
@@ -74,7 +76,7 @@ class ServicesChecker {
     return false;
   }
 
-  public function isPremiumKeyValid($displayErrorNotice = false) {
+  public function isPremiumKeyValid($displayErrorNotice = true) {
     /*$premiumKeySpecified = Bridge::isPremiumKeySpecified();
     $premiumPluginActive = License::getLicense();
     $premiumKey = $this->settings->get(Bridge::PREMIUM_KEY_STATE_SETTING_NAME);
@@ -83,7 +85,8 @@ class ServicesChecker {
       $displayErrorNotice = false;
     }
 
-    if (!$premiumKeySpecified
+    if (
+      !$premiumKeySpecified
       || empty($premiumKey['state'])
       || $premiumKey['state'] === Bridge::KEY_INVALID
       || $premiumKey['state'] === Bridge::KEY_ALREADY_USED
@@ -105,7 +108,8 @@ class ServicesChecker {
         WPNotice::displayWarning($error);
       }
       return false;
-    } elseif ($premiumKey['state'] === Bridge::KEY_EXPIRING
+    } elseif (
+      $premiumKey['state'] === Bridge::KEY_EXPIRING
       && !empty($premiumKey['data']['expire_at'])
     ) {
       if ($displayErrorNotice) {

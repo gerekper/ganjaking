@@ -50,6 +50,7 @@ class PremiumCachedContainer extends Container
             'MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository' => 'getStatisticsClicksRepositoryService',
             'MailPoet\\Premium\\Newsletter\\Stats\\Bounces' => 'getBounces2Service',
             'MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement' => 'getSubscriberEngagementService',
+            'MailPoet\\Premium\\Segments\\DynamicSegments\\SegmentCombinations' => 'getSegmentCombinationsService',
             'MailPoet\\Statistics\\StatisticsWooCommercePurchasesRepository' => 'getStatisticsWooCommercePurchasesRepositoryService',
             'MailPoet\\Util\\CdnAssetUrl' => 'getCdnAssetUrlService',
             'MailPoet\\WP\\Functions' => 'getFunctionsService',
@@ -234,7 +235,7 @@ class PremiumCachedContainer extends Container
     {
         $a = ($this->services['MailPoet\\WP\\Functions'] ?? $this->getFunctionsService());
 
-        return $this->services['MailPoet\\Premium\\Config\\Initializer'] = new \MailPoet\Premium\Config\Initializer($a, new \MailPoet\Premium\Config\Hooks($a));
+        return $this->services['MailPoet\\Premium\\Config\\Initializer'] = new \MailPoet\Premium\Config\Initializer($a, new \MailPoet\Premium\Config\Hooks($a), ($this->services['MailPoet\\Premium\\Segments\\DynamicSegments\\SegmentCombinations'] ?? ($this->services['MailPoet\\Premium\\Segments\\DynamicSegments\\SegmentCombinations'] = new \MailPoet\Premium\Segments\DynamicSegments\SegmentCombinations())));
     }
 
     /**
@@ -277,6 +278,16 @@ class PremiumCachedContainer extends Container
         $a = ($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService());
 
         return $this->services['MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement'] = new \MailPoet\Premium\Newsletter\Stats\SubscriberEngagement(($this->services['MailPoet\\Listing\\Handler'] ?? $this->getHandlerService()), $a, ($this->services['MailPoet\\Premium\\Newsletter\\StatisticsClicksRepository'] ?? $this->getStatisticsClicksRepositoryService()), new \MailPoet\Premium\Newsletter\StatisticsOpensRepository($a), new \MailPoet\Premium\Newsletter\StatisticsUnsubscribesRepository($a), ($this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository'] ?? $this->getNewsletterLinkRepositoryService()), ($this->services['MailPoet\\Newsletter\\NewslettersRepository'] ?? $this->getNewslettersRepositoryService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Premium\Segments\DynamicSegments\SegmentCombinations' shared autowired service.
+     *
+     * @return \MailPoet\Premium\Segments\DynamicSegments\SegmentCombinations
+     */
+    protected function getSegmentCombinationsService()
+    {
+        return $this->services['MailPoet\\Premium\\Segments\\DynamicSegments\\SegmentCombinations'] = new \MailPoet\Premium\Segments\DynamicSegments\SegmentCombinations();
     }
 
     /**

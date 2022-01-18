@@ -3,7 +3,7 @@ Contributors: mailpoet
 Tags: newsletter, email, welcome email, post notification, autoresponder, mailchimp, signup, smtp
 Requires at least: 5.3
 Requires PHP: 7.1
-Stable tag: 3.75.0
+Stable tag: 3.77.0
 Create and send beautiful emails and newsletters from WordPress.
 
 == Description ==
@@ -56,6 +56,12 @@ Our [support site](https://kb.mailpoet.com/) has plenty of articles. You can wri
 5. Importing subscribers with a CSV or from MailChimp.
 
 == Changelog ==
+
+= 3.77.0 - 2022-01-17 =
+* Updated: composer dependencies.
+
+= 3.76.0 - 2022-01-11 =
+* Improved: dropped support for PHP 7.1, MailPoet now requires at least PHP 7.2.
 
 = 3.75.0 - 2021-12-13 =
 * Improved: minor changes and fixes.

@@ -320,6 +320,10 @@ class Functions {
     return get_user_by($field, $value);
   }
 
+  public function hasAction($tag, $functionToCheck = false) {
+    return has_action($tag, $functionToCheck);
+  }
+
   public function hasFilter($tag, $functionToCheck = false) {
     return has_filter($tag, $functionToCheck);
   }
@@ -510,6 +514,10 @@ class Functions {
     return register_block_type($name, $args);
   }
 
+  public function registerBlockTypeFromMetadata($name, $args = []) {
+    return register_block_type_from_metadata($name, $args);
+  }
+
   public function wpGetAttachmentImageSrc($attachmentId, $size = 'thumbnail', $icon = false) {
     return wp_get_attachment_image_src($attachmentId, $size, $icon);
   }
@@ -558,7 +566,7 @@ class Functions {
     return wp_parse_url($url, $component);
   }
 
-  public function wpSpecialcharsDecode($string, $quoteStyle = ENT_NOQUOTES ) {
+  public function wpSpecialcharsDecode($string, $quoteStyle = ENT_NOQUOTES) {
     return wp_specialchars_decode($string, $quoteStyle);
   }
 

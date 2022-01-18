@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 
 
-class ComposerStaticInit961c6330ed054c7c9f29243901e7e7b9
+class ComposerStaticInitfb27b85523ea89b78c48b7ca3c9f6605
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -48,6 +48,7 @@ class ComposerStaticInit961c6330ed054c7c9f29243901e7e7b9
         'MailPoet\\Premium\\Newsletter\\Stats\\Bounces' => __DIR__ . '/../..' . '/lib/Newsletter/Stats/Bounces.php',
         'MailPoet\\Premium\\Newsletter\\Stats\\PurchasedProducts' => __DIR__ . '/../..' . '/lib/Newsletter/Stats/PurchasedProducts.php',
         'MailPoet\\Premium\\Newsletter\\Stats\\SubscriberEngagement' => __DIR__ . '/../..' . '/lib/Newsletter/Stats/SubscriberEngagement.php',
+        'MailPoet\\Premium\\Segments\\DynamicSegments\\SegmentCombinations' => __DIR__ . '/../..' . '/lib/Segments/DynamicSegments/SegmentCombinations.php',
         'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStats' => __DIR__ . '/../..' . '/lib/Subscriber/Stats/SubscriberNewsletterStats.php',
         'MailPoet\\Premium\\Subscriber\\Stats\\SubscriberNewsletterStatsRepository' => __DIR__ . '/../..' . '/lib/Subscriber/Stats/SubscriberNewsletterStatsRepository.php',
     );
@@ -55,9 +56,9 @@ class ComposerStaticInit961c6330ed054c7c9f29243901e7e7b9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit961c6330ed054c7c9f29243901e7e7b9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit961c6330ed054c7c9f29243901e7e7b9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit961c6330ed054c7c9f29243901e7e7b9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfb27b85523ea89b78c48b7ca3c9f6605::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfb27b85523ea89b78c48b7ca3c9f6605::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitfb27b85523ea89b78c48b7ca3c9f6605::$classMap;
 
         }, null, ClassLoader::class);
     }

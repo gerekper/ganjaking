@@ -13,7 +13,6 @@ use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\UserAgentEntity;
 use MailPoet\Newsletter\Shortcodes\Categories\Link as LinkShortcodeCategory;
 use MailPoet\Newsletter\Shortcodes\Shortcodes;
-use MailPoet\Settings\SettingsController;
 use MailPoet\Settings\TrackingConfig;
 use MailPoet\Statistics\StatisticsClicksRepository;
 use MailPoet\Statistics\UserAgentsRepository;
@@ -26,14 +25,11 @@ class Clicks {
   const REVENUE_TRACKING_COOKIE_NAME = 'mailpoet_revenue_tracking';
   const REVENUE_TRACKING_COOKIE_EXPIRY = 60 * 60 * 24 * 14;
 
-  const ABANDONED_CART_COOKIE_NAME = 'mailpoet_abandoned_cart_tracking';
-  const ABANDONED_CART_COOKIE_EXPIRY = 10 * 365 * 24 * 60 * 60; // 10 years (~ no expiry)
-
-  /** @var SettingsController */
-  private $settingsController;
-
   /** @var Cookies */
   private $cookies;
+
+  /** @var SubscriberCookie */
+  private $subscriberCookie;
 
   /** @var Shortcodes */
   private $shortcodes;
@@ -57,8 +53,8 @@ class Clicks {
   private $trackingConfig;
 
   public function __construct(
-    SettingsController $settingsController,
     Cookies $cookies,
+    SubscriberCookie $subscriberCookie,
     Shortcodes $shortcodes,
     Opens $opens,
     StatisticsClicksRepository $statisticsClicksRepository,
@@ -67,8 +63,8 @@ class Clicks {
     SubscribersRepository $subscribersRepository,
     TrackingConfig $trackingConfig
   ) {
-    $this->settingsController = $settingsController;
     $this->cookies = $cookies;
+    $this->subscriberCookie = $subscriberCookie;
     $this->shortcodes = $shortcodes;
     $this->linkShortcodeCategory = $linkShortcodeCategory;
     $this->opens = $opens;
@@ -105,16 +101,22 @@ class Clicks {
         $queue,
         $userAgent
       );
-      if ($userAgent instanceof UserAgentEntity &&
-          ($userAgent->getUserAgentType() === UserAgentEntity::USER_AGENT_TYPE_HUMAN
-          || $statisticsClicks->getUserAgentType() === UserAgentEntity::USER_AGENT_TYPE_MACHINE)
+      if (
+        $userAgent instanceof UserAgentEntity &&
+        ($userAgent->getUserAgentType() === UserAgentEntity::USER_AGENT_TYPE_HUMAN
+        || $statisticsClicks->getUserAgentType() === UserAgentEntity::USER_AGENT_TYPE_MACHINE)
       ) {
         $statisticsClicks->setUserAgent($userAgent);
         $statisticsClicks->setUserAgentType($userAgent->getUserAgentType());
       }
       $this->statisticsClicksRepository->flush();
       $this->sendRevenueCookie($statisticsClicks);
-      $this->sendAbandonedCartCookie($subscriber);
+
+      $subscriberId = $subscriber->getId();
+      if ($subscriberId) {
+        $this->subscriberCookie->setSubscriberId($subscriberId);
+      }
+
       // track open event
       $this->opens->track($data, $displayImage = false);
       // Update engagement date
@@ -134,21 +136,6 @@ class Clicks {
         ],
         [
           'expires' => time() + self::REVENUE_TRACKING_COOKIE_EXPIRY,
-          'path' => '/',
-        ]
-      );
-    }
-  }
-
-  private function sendAbandonedCartCookie($subscriber) {
-    if ($this->trackingConfig->isCookieTrackingEnabled()) {
-      $this->cookies->set(
-        self::ABANDONED_CART_COOKIE_NAME,
-        [
-          'subscriber_id' => $subscriber->getId(),
-        ],
-        [
-          'expires' => time() + self::ABANDONED_CART_COOKIE_EXPIRY,
           'path' => '/',
         ]
       );

@@ -48,6 +48,14 @@ class UpdraftPlus_Options {
 		return UpdraftPlus_Options::get_updraft_option('updraft_lastmessage', __('(Nothing has been logged yet)', 'updraftplus'));
 	}
 
+	/**
+	 * Get the value for a specified option
+	 *
+	 * @param String option
+	 * @param Mixed	 $default
+	 *
+	 * @return Mixed
+	 */
 	public static function get_updraft_option($option, $default = null) {
 		$ret = get_option($option, $default);
 		return apply_filters('updraftplus_get_option', $ret, $option, $default);

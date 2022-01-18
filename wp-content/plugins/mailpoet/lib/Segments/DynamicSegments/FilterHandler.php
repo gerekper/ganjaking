@@ -37,6 +37,7 @@ class FilterHandler {
     $filters = $segment->getDynamicFilters();
     $filterSelects = [];
     $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+    $pluginsForAllFiltersMissing = $this->segmentDependencyValidator->getMissingPluginsByAllFilters($filters);
     foreach ($filters as $filter) {
       $subscribersIdsQuery = $this->entityManager
         ->getConnection()
@@ -44,7 +45,7 @@ class FilterHandler {
         ->select("DISTINCT $subscribersTable.id as inner_subscriber_id")
         ->from($subscribersTable);
       // When a required plugin is missing we want to return empty result
-      if ($this->segmentDependencyValidator->getMissingPluginsByFilter($filter)) {
+      if ($pluginsForAllFiltersMissing || $this->segmentDependencyValidator->getMissingPluginsByFilter($filter)) {
         $subscribersIdsQuery->andWhere('1 = 0');
       } else {
         $this->filterFactory->getFilterForFilterEntity($filter)->apply($subscribersIdsQuery, $filter);

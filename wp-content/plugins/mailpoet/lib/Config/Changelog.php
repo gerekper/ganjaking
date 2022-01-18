@@ -71,7 +71,7 @@ class Changelog {
 
   public function check() {
     $version = $this->settings->get('version');
-    $this->checkMp2Migration($version);
+    $this->checkMp2Migration();
     if ($version === null) {
       $this->setupNewInstallation();
       $this->checkWelcomeWizard();
@@ -80,14 +80,46 @@ class Changelog {
     $this->checkRevenueTrackingPermissionPage();
   }
 
-  private function checkMp2Migration($version) {
-    if (!in_array($_GET['page'], ['mailpoet-migration', 'mailpoet-settings']) && $this->mp2Migrator->isMigrationStartedAndNotCompleted()) {
+  public function shouldShowWelcomeWizard() {
+    if ($this->wp->applyFilters('mailpoet_skip_welcome_wizard', false)) {
+      return false;
+    }
+    return $this->settings->get('version') === null;
+  }
+
+  public function shouldShowWooCommerceListImportPage() {
+    if ($this->wp->applyFilters('mailpoet_skip_woocommerce_import_page', false)) {
+      return false;
+    }
+    return !$this->settings->get('woocommerce_import_screen_displayed')
+      && $this->wooCommerceHelper->isWooCommerceActive()
+      && $this->wooCommerceHelper->getOrdersCountCreatedBefore($this->settings->get('installed_at')) > 0
+      && $this->wp->currentUserCan('administrator');
+  }
+
+  public function shouldShowRevenueTrackingPermissionPage() {
+    return ($this->settings->get('woocommerce.accept_cookie_revenue_tracking.set') === null)
+      && $this->trackingConfig->isEmailTrackingEnabled()
+      && $this->wooCommerceHelper->isWooCommerceActive()
+      && $this->wp->currentUserCan('administrator');
+  }
+
+  public function isMp2MigrationInProgress() {
+    return $this->mp2Migrator->isMigrationStartedAndNotCompleted();
+  }
+
+  public function shouldShowMp2Migration() {
+    return $this->settings->get('version') === null && $this->mp2Migrator->isMigrationNeeded();
+  }
+
+  private function checkMp2Migration() {
+    if (!in_array($_GET['page'], ['mailpoet-migration', 'mailpoet-settings']) && $this->isMp2MigrationInProgress()) {
       // Force the redirection if the migration has started but is not completed
-      return $this->terminateWithRedirect($this->wp->adminUrl('admin.php?page=mailpoet-migration'));
+      $this->terminateWithRedirect($this->wp->adminUrl('admin.php?page=mailpoet-migration'));
     }
 
-    if ($version === null && $this->mp2Migrator->isMigrationNeeded()) {
-       $this->terminateWithRedirect($this->wp->adminUrl('admin.php?page=mailpoet-migration'));
+    if ($this->shouldShowMp2Migration()) {
+      $this->terminateWithRedirect($this->wp->adminUrl('admin.php?page=mailpoet-migration'));
     }
   }
 
@@ -96,22 +128,15 @@ class Changelog {
   }
 
   private function checkWelcomeWizard() {
-    $skipWizard = $this->wp->applyFilters('mailpoet_skip_welcome_wizard', false);
-    if (!$skipWizard) {
+    if ($this->shouldShowWelcomeWizard()) {
       $this->terminateWithRedirect($this->wp->adminUrl('admin.php?page=mailpoet-welcome-wizard'));
     }
   }
 
   private function checkWooCommerceListImportPage() {
-    if ($this->wp->applyFilters('mailpoet_skip_woocommerce_import_page', false)) {
-      return;
-    }
     if (
       !in_array($_GET['page'], ['mailpoet-woocommerce-setup', 'mailpoet-welcome-wizard', 'mailpoet-migration'])
-      && !$this->settings->get('woocommerce_import_screen_displayed')
-      && $this->wooCommerceHelper->isWooCommerceActive()
-      && $this->wooCommerceHelper->getOrdersCountCreatedBefore($this->settings->get('installed_at')) > 0
-      && $this->wp->currentUserCan('administrator')
+      && $this->shouldShowWooCommerceListImportPage()
     ) {
       $this->urlHelper->redirectTo($this->wp->adminUrl('admin.php?page=mailpoet-woocommerce-setup'));
     }
@@ -120,10 +145,7 @@ class Changelog {
   private function checkRevenueTrackingPermissionPage() {
     if (
       !in_array($_GET['page'], ['mailpoet-woocommerce-setup', 'mailpoet-welcome-wizard', 'mailpoet-migration'])
-      && ($this->settings->get('woocommerce.accept_cookie_revenue_tracking.set') === null)
-      && $this->trackingConfig->isEmailTrackingEnabled()
-      && $this->wooCommerceHelper->isWooCommerceActive()
-      && $this->wp->currentUserCan('administrator')
+      && $this->shouldShowRevenueTrackingPermissionPage()
     ) {
       $this->urlHelper->redirectTo($this->wp->adminUrl('admin.php?page=mailpoet-woocommerce-setup'));
     }
