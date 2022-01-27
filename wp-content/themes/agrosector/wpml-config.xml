@@ -1,0 +1,15 @@
+<wpml-config>
+	<admin-texts>
+		<key name="agrosector">
+			<key name="text1_editor"/>
+			<key name="text2_editor"/>
+			<key name="text3_editor"/>
+			<key name="text4_editor"/>
+			<key name="text5_editor"/>
+			<key name="text6_editor"/>
+			<key name="copyright_editor"/>
+			<key name="pre_footer_editor"/>
+			<key name="title_contact_widget"/>
+		</key>
+	</admin-texts>
+</wpml-config>

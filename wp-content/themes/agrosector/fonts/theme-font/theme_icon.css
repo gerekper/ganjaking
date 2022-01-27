@@ -1,0 +1,52 @@
+/*
+Flaticon icon font: Flaticon
+Creation date: 09/08/2017 11:50
+*/
+
+@font-face {
+	font-family: "Theme_icon";
+	src: url("Flaticon.eot");
+	src: url("Flaticon.eot?#iefix") format("embedded-opentype"),
+		 url("Flaticon.woff") format("woff"),
+		 url("Flaticon.ttf") format("truetype"),
+		 url("Flaticon.svg#Flaticon") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	@font-face {
+		font-family: "Theme_icon";
+		src: url("Flaticon.svg#Flaticon") format("svg");
+	}
+}
+
+[class^="theme_icon-"]:before, [class*=" theme_icon-"]:before,
+[class^="theme_icon-"]:after, [class*=" theme_icon-"]:after {
+	font-family: Theme_icon;
+	font-size: 26px;
+	font-style: normal;
+	margin-left: 9px;
+}
+
+.theme_icon-bag:before { content: "\f100"; }         /* Bag          https://www.flaticon.com/free-icon/shopping-bag_126515 */
+.theme_icon-search:before { content: "\f101"; }	     /* Search     	 https://www.flaticon.com/free-icon/magnifying-glass_126474 */
+.theme_icon-close:before { content: "\f102"; }		 /* Close 		 https://www.flaticon.com/free-icon/close_463065 */
+.theme_icon-fullscreen:before { content: "\f103"; }	 /* Full Screen  https://www.flaticon.com/free-icon/fullscreen_483333 */
+.theme_icon-like:before { content: "\f104"; }		 /* Star 	     https://www.flaticon.com/free-icon/star-favourite_13977 */
+.theme_icon-home-repair:before { content: "\f105"; } /* Ruller 	     https://www.flaticon.com/free-icon/ruler_474993 */
+.theme_icon-heart:before { content: "\f106"; }		 /* Heart 	     https://www.flaticon.com/free-icon/heart_126471 */
+.theme_icon-null:before { content: "\f107"; }	     /* Remove 	     https://www.flaticon.com/free-icon/remove-button_39 */
+.theme_icon-error:before { content: "\f108"; }		 /* Warning 	 https://www.flaticon.com/free-icon/warning_159608 */
+.theme_icon-close-1:before { content: "\f109";}      /* Error 	     https://www.flaticon.com/free-icon/cancel_219300 */
+.theme_icon-tick:before { content: "\f10a"; }        /* Done 	     https://www.flaticon.com/free-icon/done_219311 */
+.theme_icon-telegram:before { content: "\f10b"; }    /* Mail 	     https://www.flaticon.com/free-icon/telegram_253802 */
+.theme_icon-share:before { content: "\f10c"; }       /* Share 	     https://www.flaticon.com/free-icon/share_126495 */
+.theme_icon-chat:before { content: "\f10d"; }        /* Comments 	 https://www.flaticon.com/free-icon/message_739286 */
+.theme_icon-arrow-left:before { content: "\f10e"; }  /* Left 	     https://www.flaticon.com/free-icon/arrowhead-thin-outline-to-the-left_32542 */
+.theme_icon-arrow-down:before { content: "\f10f"; }  /* Down 	     https://www.flaticon.com/free-icon/arrow-down-sign-to-navigate_32195 */
+.theme_icon-arrow-right:before { content: "\f110"; } /* Right 	     https://www.flaticon.com/free-icon/arrow-point-to-right_32213 */
+.theme_icon-arrow-up:before { content: "\f111"; }    /* Up 	         https://www.flaticon.com/free-icon/navigate-up-arrow_32323 */
+.theme_icon-two-quotes:before { content: "\f112"; }  /* Quotes 	     Custom */
+.theme_icon-link:before { content: "\f113"; }        /* Link 	     https://www.flaticon.com/free-icon/link-symbol-of-two-chains-links-linked_34470 */
+

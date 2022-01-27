@@ -1,0 +1,138 @@
+/*
+.wpb_softing_section_secheading .icon_heading, .wpb-layout-element-button .icon_heading{
+    background-color: #05edaf;
+    border: 1px solid #8e8e8e;
+    border-radius: 5px;
+    background-size: 75% 75%;
+    background-position: 50% 50%;
+}
+*/
+.nt_logo {background-image: url(ninetheme-logo-new.png);}
+
+.vc_shortcode-param[data-vc-shortcode-param-name="softing_col_lg_order"] .wpb_element_label,
+.vc_shortcode-param[data-vc-shortcode-param-name="softing_col_md_order"] .wpb_element_label,
+.vc_shortcode-param[data-vc-shortcode-param-name="softing_col_sm_order"] .wpb_element_label,
+.vc_shortcode-param[data-vc-shortcode-param-name="softing_col_xs_order"] .wpb_element_label{
+	position:relative;
+	padding: 10px 0px 10px 45px;
+	background-color: #f5f5f5;
+}
+
+.vc_shortcode-param[data-vc-shortcode-param-name="softing_col_lg_order"] .wpb_element_label:before,
+.vc_shortcode-param[data-vc-shortcode-param-name="softing_col_md_order"] .wpb_element_label:before,
+.vc_shortcode-param[data-vc-shortcode-param-name="softing_col_sm_order"] .wpb_element_label:before,
+.vc_shortcode-param[data-vc-shortcode-param-name="softing_col_xs_order"] .wpb_element_label:before{
+	position:absolute;
+	width: 21px;
+	height: 21px;
+	left: 15px;
+	display: inline-block;
+	font-size: 20px;
+	color: #8a9197;
+	font-family: vcpb-plugin-icons!important;
+	speak: none;
+	font-style: normal;
+	font-weight: 400;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.wpb_el_type_quarto_spacer .wpb_element_label{
+	text-align: center;
+	font-weight: 700!important;
+	color: #000;
+	padding: 10px 15px!important;
+	margin: 10px auto!important;
+	background: #ddd;
+	line-height: 1;
+	font-size: 15px;
+}
+
+.vc_shortcode-param[data-vc-shortcode-param-name="softing_col_lg_order"] .wpb_element_label:before{
+	content: "\e917";
+}
+.vc_shortcode-param[data-vc-shortcode-param-name="softing_col_md_order"] .wpb_element_label:before{
+	content: "\e919";
+}
+.vc_shortcode-param[data-vc-shortcode-param-name="softing_col_sm_order"] .wpb_element_label:before{
+	content: "\e91b";
+}
+.vc_shortcode-param[data-vc-shortcode-param-name="softing_col_xs_order"] .wpb_element_label:before{
+	content: "\e91a";
+}
+.wpb_softing_tab_container i.vc_general.vc_element-icon.icon_tabcontainer, .wpb_softing_btn_container i.vc_general.vc_element-icon.icon_switch  {
+    top: -9px;
+    position: absolute;
+}
+.wpb_softing_btn_container .wpb_vc_btn{
+    display: inline-block!important;
+}
+.wpb_softing_tab_content .icon_tabcontent {
+    background-size: 24px;
+    position: absolute;
+    top: -30px;
+    left: 0px;
+    background-color: #fff;
+}
+
+.wpb_softing_tab_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container, .wpb_softing_btn_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container  {
+    padding-top: 50px;
+}
+.wpb_softing_tab_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container > div:not(.bottom-controls) > .vc_control.column_add,.wpb_softing_tab_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container > div:not(.bottom-controls) > .vc_control.column_edit,.wpb_softing_tab_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container > div:not(.bottom-controls) > .vc_control.column_clone,.wpb_softing_tab_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container > div:not(.bottom-controls) > .vc_control.column_delete{
+	background:#0473aa!important;
+	color:#fff!important;
+	padding:5px;
+	margin:1px;
+
+}
+.wpb_softing_btn_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container > div:not(.bottom-controls) > .vc_control.column_add,.wpb_softing_btn_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container > div:not(.bottom-controls) > .vc_control.column_edit,.wpb_softing_btn_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container > div:not(.bottom-controls) > .vc_control.column_clone,.wpb_softing_btn_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container > div:not(.bottom-controls) > .vc_control.column_delete{
+	background:#0473aa!important;
+	color:#fff!important;
+	padding:5px;
+	margin:1px;
+
+}
+.wpb_softing_tab_content >.vc_controls >.vc_column-move, .wpb_softing_tab_container >.vc_controls >.column_move, .wpb_softing_btn_container >.vc_controls >.column_move {
+    float: none;
+    background: #0473aa;
+    padding: 5px;
+    color: #fff;
+    left: 0;
+    top: 0;
+}
+
+.wpb_softing_tab_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container > .wpb_element_wrapper, .wpb_softing_btn_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container > .wpb_element_wrapper {
+    padding-top: 50px;
+}
+.wpb_softing_tab_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container >.wpb_element_wrapper>.wpb_element_title, .wpb_softing_btn_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container >.wpb_element_wrapper>.wpb_element_title {
+    top: -10px;
+}
+.wpb_softing_tab_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container >.controls_column:not(.bottom-controls), .wpb_softing_btn_container.wpb_sortable.wpb_content_holder.vc_shortcodes_container >.controls_column:not(.bottom-controls) {
+    text-align: center;
+    width: 100%;
+    line-height: 1px;
+    padding: 10px;
+    height: 50px;
+    position: absolute;
+    width: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50px;
+}
+.wpb_softing_tab_content.wpb_sortable.wpb_content_holder.vc_shortcodes_container {
+    border: 1px solid #ddd;
+    padding: 20px 10px;
+}
+.wpb_softing_tab_content.wpb_sortable.wpb_content_holder.vc_shortcodes_container>.wpb_element_wrapper>.vc_container_for_children{
+    margin: 0 10px;
+}
+.wpb_softing_tab_content.wpb_sortable.wpb_content_holder.vc_shortcodes_container > div:not(.bottom-controls) > .vc_control.column_add,.wpb_softing_tab_content.wpb_sortable.wpb_content_holder.vc_shortcodes_container > div:not(.bottom-controls) > .vc_control.column_edit,.wpb_softing_tab_content.wpb_sortable.wpb_content_holder.vc_shortcodes_container > div:not(.bottom-controls) > .vc_control.column_clone,.wpb_softing_tab_content.wpb_sortable.wpb_content_holder.vc_shortcodes_container > div:not(.bottom-controls) > .vc_control.column_delete{
+	background:#f7b205!important;
+	color:#fff!important;
+	padding:5px;
+	margin:1px;
+
+}

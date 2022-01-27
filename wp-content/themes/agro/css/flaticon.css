@@ -1,0 +1,549 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 22/06/2016 15:37
+  	*/
+	@font-face {
+	    font-family: "Flaticon";
+	    src: url("fonts/Flaticon.eot");
+	    src: url("fonts/Flaticon.eot?#iefix") format("embedded-opentype"),
+	        url("fonts/Flaticon.woff") format("woff"),
+	        url("fonts/Flaticon.ttf") format("truetype"),
+	        url("fontsFlaticon.svg#Flaticon") format("svg");
+	    font-weight: normal;
+	    font-style: normal;
+	}
+
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+	    @font-face {
+	        font-family: "Flaticon";
+	        src: url("fonts/Flaticon.svg#Flaticon") format("svg");
+	    }
+	}
+
+	[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+	[class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+	    font-family: Flaticon;
+	    font-size: 20px;
+	    font-style: normal;
+	    margin-left: 20px;
+	}
+
+	.flaticon-align:before {
+	    content: "\f100";
+	}
+
+	.flaticon-align-1:before {
+	    content: "\f101";
+	}
+
+	.flaticon-anchor:before {
+	    content: "\f102";
+	}
+
+	.flaticon-background:before {
+	    content: "\f103";
+	}
+
+	.flaticon-background-1:before {
+	    content: "\f104";
+	}
+
+	.flaticon-background-2:before {
+	    content: "\f105";
+	}
+
+	.flaticon-bounding-box:before {
+	    content: "\f106";
+	}
+
+	.flaticon-brush:before {
+	    content: "\f107";
+	}
+
+	.flaticon-bucket:before {
+	    content: "\f108";
+	}
+
+	.flaticon-bucket-1:before {
+	    content: "\f109";
+	}
+
+	.flaticon-center-align:before {
+	    content: "\f10a";
+	}
+
+	.flaticon-center-alignment:before {
+	    content: "\f10b";
+	}
+
+	.flaticon-center-alignment-1:before {
+	    content: "\f10c";
+	}
+
+	.flaticon-circle:before {
+	    content: "\f10d";
+	}
+
+	.flaticon-circular:before {
+	    content: "\f10e";
+	}
+
+	.flaticon-column:before {
+	    content: "\f10f";
+	}
+
+	.flaticon-cone:before {
+	    content: "\f110";
+	}
+
+	.flaticon-constraint:before {
+	    content: "\f111";
+	}
+
+	.flaticon-coordinates:before {
+	    content: "\f112";
+	}
+
+	.flaticon-crop:before {
+	    content: "\f113";
+	}
+
+	.flaticon-crop-1:before {
+	    content: "\f114";
+	}
+
+	.flaticon-cube:before {
+	    content: "\f115";
+	}
+
+	.flaticon-cube-1:before {
+	    content: "\f116";
+	}
+
+	.flaticon-cube-2:before {
+	    content: "\f117";
+	}
+
+	.flaticon-cube-3:before {
+	    content: "\f118";
+	}
+
+	.flaticon-cube-4:before {
+	    content: "\f119";
+	}
+
+	.flaticon-cube-5:before {
+	    content: "\f11a";
+	}
+
+	.flaticon-cursor:before {
+	    content: "\f11b";
+	}
+
+	.flaticon-cursor-1:before {
+	    content: "\f11c";
+	}
+
+	.flaticon-cursor-2:before {
+	    content: "\f11d";
+	}
+
+	.flaticon-cylinder:before {
+	    content: "\f11e";
+	}
+
+	.flaticon-distort:before {
+	    content: "\f11f";
+	}
+
+	.flaticon-distort-1:before {
+	    content: "\f120";
+	}
+
+	.flaticon-divide:before {
+	    content: "\f121";
+	}
+
+	.flaticon-edit:before {
+	    content: "\f122";
+	}
+
+	.flaticon-edit-1:before {
+	    content: "\f123";
+	}
+
+	.flaticon-edit-2:before {
+	    content: "\f124";
+	}
+
+	.flaticon-edit-3:before {
+	    content: "\f125";
+	}
+
+	.flaticon-edit-4:before {
+	    content: "\f126";
+	}
+
+	.flaticon-edit-corner:before {
+	    content: "\f127";
+	}
+
+	.flaticon-exclude:before {
+	    content: "\f128";
+	}
+
+	.flaticon-eyedropper:before {
+	    content: "\f129";
+	}
+
+	.flaticon-eyedropper-1:before {
+	    content: "\f12a";
+	}
+
+	.flaticon-flatten:before {
+	    content: "\f12b";
+	}
+
+	.flaticon-flip:before {
+	    content: "\f12c";
+	}
+
+	.flaticon-flip-1:before {
+	    content: "\f12d";
+	}
+
+	.flaticon-foreground:before {
+	    content: "\f12e";
+	}
+
+	.flaticon-grids:before {
+	    content: "\f12f";
+	}
+
+	.flaticon-group:before {
+	    content: "\f130";
+	}
+
+	.flaticon-intersection:before {
+	    content: "\f131";
+	}
+
+	.flaticon-joint:before {
+	    content: "\f132";
+	}
+
+	.flaticon-left-alignment:before {
+	    content: "\f133";
+	}
+
+	.flaticon-left-alignment-1:before {
+	    content: "\f134";
+	}
+
+	.flaticon-left-alignment-2:before {
+	    content: "\f135";
+	}
+
+	.flaticon-merge:before {
+	    content: "\f136";
+	}
+
+	.flaticon-mirror-horizontally:before {
+	    content: "\f137";
+	}
+
+	.flaticon-mirror-horizontally-1:before {
+	    content: "\f138";
+	}
+
+	.flaticon-outline:before {
+	    content: "\f139";
+	}
+
+	.flaticon-oval:before {
+	    content: "\f13a";
+	}
+
+	.flaticon-oval-1:before {
+	    content: "\f13b";
+	}
+
+	.flaticon-oval-2:before {
+	    content: "\f13c";
+	}
+
+	.flaticon-paint-palette:before {
+	    content: "\f13d";
+	}
+
+	.flaticon-pen:before {
+	    content: "\f13e";
+	}
+
+	.flaticon-pen-1:before {
+	    content: "\f13f";
+	}
+
+	.flaticon-perspective:before {
+	    content: "\f140";
+	}
+
+	.flaticon-polygon:before {
+	    content: "\f141";
+	}
+
+	.flaticon-right-alignment:before {
+	    content: "\f142";
+	}
+
+	.flaticon-right-alignment-1:before {
+	    content: "\f143";
+	}
+
+	.flaticon-right-alignment-2:before {
+	    content: "\f144";
+	}
+
+	.flaticon-rotate:before {
+	    content: "\f145";
+	}
+
+	.flaticon-rotate-1:before {
+	    content: "\f146";
+	}
+
+	.flaticon-row:before {
+	    content: "\f147";
+	}
+
+	.flaticon-ruler:before {
+	    content: "\f148";
+	}
+
+	.flaticon-ruler-1:before {
+	    content: "\f149";
+	}
+
+	.flaticon-scale:before {
+	    content: "\f14a";
+	}
+
+	.flaticon-select:before {
+	    content: "\f14b";
+	}
+
+	.flaticon-sent:before {
+	    content: "\f14c";
+	}
+
+	.flaticon-sent-1:before {
+	    content: "\f14d";
+	}
+
+	.flaticon-shapes:before {
+	    content: "\f14e";
+	}
+
+	.flaticon-shapes-1:before {
+	    content: "\f14f";
+	}
+
+	.flaticon-spiral:before {
+	    content: "\f150";
+	}
+
+	.flaticon-spray:before {
+	    content: "\f151";
+	}
+
+	.flaticon-square:before {
+	    content: "\f152";
+	}
+
+	.flaticon-square-1:before {
+	    content: "\f153";
+	}
+
+	.flaticon-square-10:before {
+	    content: "\f154";
+	}
+
+	.flaticon-square-11:before {
+	    content: "\f155";
+	}
+
+	.flaticon-square-12:before {
+	    content: "\f156";
+	}
+
+	.flaticon-square-13:before {
+	    content: "\f157";
+	}
+
+	.flaticon-square-14:before {
+	    content: "\f158";
+	}
+
+	.flaticon-square-15:before {
+	    content: "\f159";
+	}
+
+	.flaticon-square-16:before {
+	    content: "\f15a";
+	}
+
+	.flaticon-square-17:before {
+	    content: "\f15b";
+	}
+
+	.flaticon-square-18:before {
+	    content: "\f15c";
+	}
+
+	.flaticon-square-19:before {
+	    content: "\f15d";
+	}
+
+	.flaticon-square-2:before {
+	    content: "\f15e";
+	}
+
+	.flaticon-square-20:before {
+	    content: "\f15f";
+	}
+
+	.flaticon-square-21:before {
+	    content: "\f160";
+	}
+
+	.flaticon-square-22:before {
+	    content: "\f161";
+	}
+
+	.flaticon-square-23:before {
+	    content: "\f162";
+	}
+
+	.flaticon-square-24:before {
+	    content: "\f163";
+	}
+
+	.flaticon-square-25:before {
+	    content: "\f164";
+	}
+
+	.flaticon-square-26:before {
+	    content: "\f165";
+	}
+
+	.flaticon-square-27:before {
+	    content: "\f166";
+	}
+
+	.flaticon-square-3:before {
+	    content: "\f167";
+	}
+
+	.flaticon-square-4:before {
+	    content: "\f168";
+	}
+
+	.flaticon-square-5:before {
+	    content: "\f169";
+	}
+
+	.flaticon-square-6:before {
+	    content: "\f16a";
+	}
+
+	.flaticon-square-7:before {
+	    content: "\f16b";
+	}
+
+	.flaticon-square-8:before {
+	    content: "\f16c";
+	}
+
+	.flaticon-square-9:before {
+	    content: "\f16d";
+	}
+
+	.flaticon-tile:before {
+	    content: "\f16e";
+	}
+
+	.flaticon-tile-1:before {
+	    content: "\f16f";
+	}
+
+	.flaticon-transform:before {
+	    content: "\f170";
+	}
+
+	.flaticon-triangle:before {
+	    content: "\f171";
+	}
+
+	.flaticon-triangle-1:before {
+	    content: "\f172";
+	}
+
+	.flaticon-trim:before {
+	    content: "\f173";
+	}
+
+	.flaticon-unconstrained:before {
+	    content: "\f174";
+	}
+
+	.flaticon-ungroup:before {
+	    content: "\f175";
+	}
+
+	.flaticon-unite:before {
+	    content: "\f176";
+	}
+
+	.flaticon-vector:before {
+	    content: "\f177";
+	}
+
+	.flaticon-vector-1:before {
+	    content: "\f178";
+	}
+
+	.flaticon-vector-2:before {
+	    content: "\f179";
+	}
+
+	.flaticon-vector-3:before {
+	    content: "\f17a";
+	}
+
+	.flaticon-vertical-alignment:before {
+	    content: "\f17b";
+	}
+
+	.flaticon-vertical-alignment-1:before {
+	    content: "\f17c";
+	}
+
+	.flaticon-vertical-alignment-2:before {
+	    content: "\f17d";
+	}
+
+	.flaticon-vertical-alignment-3:before {
+	    content: "\f17e";
+	}
+
+	.flaticon-vertical-alignment-4:before {
+	    content: "\f17f";
+	}
+
+	.flaticon-vertical-alignment-5:before {
+	    content: "\f180";
+	}
+
+	.flaticon-vertical-alignment-6:before {
+	    content: "\f181";
+	}

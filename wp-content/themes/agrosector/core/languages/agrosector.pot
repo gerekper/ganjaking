@@ -1,0 +1,3150 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Agrosector\n"
+"POT-Creation-Date: 2019-10-30 10:44+0200\n"
+"PO-Revision-Date: 2019-03-21\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.8\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: 404.php:11
+msgid "Whoops!"
+msgstr ""
+
+#: 404.php:12
+msgid "404"
+msgstr ""
+
+#: 404.php:13
+msgid "Nothing Was Found!"
+msgstr ""
+
+#: 404.php:14
+msgid "Either Something Get Wrong or the Page Doesn't Exist Anymore."
+msgstr ""
+
+#: 404.php:18
+msgid "Take me home"
+msgstr ""
+
+#: attachment.php:24
+msgid "attachment image"
+msgstr ""
+
+#: bloglisting.php:6 elementor/init.php:68 functions.php:999
+#: single-proof_gallery.php:31 single.php:30
+msgid "comment"
+msgstr ""
+
+#: bloglisting.php:6 elementor/init.php:68 functions.php:999
+#: single-proof_gallery.php:33 single.php:30
+msgid "comments"
+msgstr ""
+
+#: bloglisting.php:27 elementor/init.php:78 functions.php:1004 search.php:41
+#: single.php:84
+msgid "by"
+msgstr ""
+
+#: bloglisting.php:100 single.php:311
+msgid "Read More"
+msgstr ""
+
+#: bloglisting.php:108 elementor/init.php:106 single.php:98 single.php:171
+msgid "Share"
+msgstr ""
+
+#: comments.php:4
+msgid "This post is password protected. Enter the password to view comments."
+msgstr ""
+
+#: comments.php:15 comments.php:48
+msgid "Comment"
+msgstr ""
+
+#: comments.php:17
+msgid "Comments"
+msgstr ""
+
+#: comments.php:43
+msgid "Name*"
+msgstr ""
+
+#: comments.php:43
+msgid "Your Name*"
+msgstr ""
+
+#: comments.php:44
+msgid "Email*"
+msgstr ""
+
+#: comments.php:51
+msgid "You must be logged in to post a comment."
+msgstr ""
+
+#: comments.php:54
+msgid "Leave a Reply"
+msgstr ""
+
+#: comments.php:55
+msgid "Post a comment"
+msgstr ""
+
+#: comments.php:56
+msgid "Logged in as"
+msgstr ""
+
+#: comments.php:56
+msgid "Log out?"
+msgstr ""
+
+#: core/metabox_config.php:13
+msgid "Team Options"
+msgstr ""
+
+#: core/metabox_config.php:18
+msgid "Member Job"
+msgstr ""
+
+#: core/metabox_config.php:25 core/metabox_config.php:82
+#: core/redux-config.php:4163
+msgid "Short Description"
+msgstr ""
+
+#: core/metabox_config.php:30
+msgid "Fields"
+msgstr ""
+
+#: core/metabox_config.php:35
+msgid "Description"
+msgstr ""
+
+#: core/metabox_config.php:38
+msgid "Title"
+msgstr ""
+
+#: core/metabox_config.php:42
+msgid "Text"
+msgstr ""
+
+#: core/metabox_config.php:46
+msgid "Url"
+msgstr ""
+
+#: core/metabox_config.php:52
+msgid "Icons"
+msgstr ""
+
+#: core/metabox_config.php:59
+msgid "Select an icon"
+msgstr ""
+
+#: core/metabox_config.php:64
+msgid "Signature"
+msgstr ""
+
+#: core/metabox_config.php:77
+msgid "Project Options"
+msgstr ""
+
+#: core/metabox_config.php:94
+msgid "Post Format Layout"
+msgstr ""
+
+#: core/metabox_config.php:100
+msgid "You can use only featured image for this post-format"
+msgstr ""
+
+#: core/metabox_config.php:114
+msgid "Gallery images"
+msgstr ""
+
+#: core/metabox_config.php:129 core/metabox_config.php:147
+msgid "oEmbed"
+msgstr ""
+
+#: core/metabox_config.php:131 core/metabox_config.php:149
+msgid "enter URL"
+msgstr ""
+
+#: core/metabox_config.php:165
+msgid "Quote Author"
+msgstr ""
+
+#: core/metabox_config.php:178
+msgid "Author Image"
+msgstr ""
+
+#: core/metabox_config.php:192
+msgid "Quote Content"
+msgstr ""
+
+#: core/metabox_config.php:206
+msgid "Link URL"
+msgstr ""
+
+#: core/metabox_config.php:219
+msgid "Link Text"
+msgstr ""
+
+#: core/metabox_config.php:242
+msgid "Page Layout"
+msgstr ""
+
+#: core/metabox_config.php:247 core/redux-config.php:3671
+msgid "Page Sidebar Layout"
+msgstr ""
+
+#: core/metabox_config.php:251 core/metabox_config.php:333
+#: core/metabox_config.php:730 core/metabox_config.php:742
+#: core/metabox_config.php:1465 core/metabox_config.php:1637
+#: core/metabox_config.php:1696
+msgid "default"
+msgstr ""
+
+#: core/metabox_config.php:252 core/metabox_config.php:636
+#: core/metabox_config.php:1698 core/redux-config.php:2372
+#: core/redux-config.php:2969 core/redux-config.php:3119
+#: core/redux-config.php:3434 core/redux-config.php:4307
+msgid "None"
+msgstr ""
+
+#: core/metabox_config.php:253 core/redux-config.php:1791
+#: core/redux-config.php:2259 core/redux-config.php:2562
+#: core/redux-config.php:2622 core/redux-config.php:2715
+msgid "Left"
+msgstr ""
+
+#: core/metabox_config.php:254 core/redux-config.php:1793
+#: core/redux-config.php:2261 core/redux-config.php:2564
+#: core/redux-config.php:2624 core/redux-config.php:2717
+msgid "Right"
+msgstr ""
+
+#: core/metabox_config.php:260 core/redux-config.php:3691
+msgid "Page Sidebar"
+msgstr ""
+
+#: core/metabox_config.php:290
+msgid "Default from Theme Options"
+msgstr ""
+
+#: core/metabox_config.php:298
+msgid "No Name"
+msgstr ""
+
+#: core/metabox_config.php:303
+msgid "Header Builder"
+msgstr ""
+
+#: core/metabox_config.php:308
+msgid "Choose presets"
+msgstr ""
+
+#: core/metabox_config.php:324
+msgid "Page Title Options"
+msgstr ""
+
+#: core/metabox_config.php:329 core/redux-config.php:2163
+msgid "Show Page Title"
+msgstr ""
+
+#: core/metabox_config.php:334 core/metabox_config.php:743
+msgid "yes"
+msgstr ""
+
+#: core/metabox_config.php:335 core/metabox_config.php:744
+msgid "no"
+msgstr ""
+
+#: core/metabox_config.php:342
+msgid "Use featured image for the page title background"
+msgstr ""
+
+#: core/metabox_config.php:351
+msgid "Page Sub Title Text"
+msgstr ""
+
+#: core/metabox_config.php:364 core/redux-config.php:2240
+msgid "Show Breadcrumbs"
+msgstr ""
+
+#: core/metabox_config.php:373
+msgid "Vertical Alignment"
+msgstr ""
+
+#: core/metabox_config.php:377
+msgid "top"
+msgstr ""
+
+#: core/metabox_config.php:378
+msgid "middle"
+msgstr ""
+
+#: core/metabox_config.php:379
+msgid "bottom"
+msgstr ""
+
+#: core/metabox_config.php:390
+msgid "Horizontal Alignment"
+msgstr ""
+
+#: core/metabox_config.php:394 core/metabox_config.php:1159
+#: core/metabox_config.php:1334 core/registrator/license_verification.php:172
+msgid "left"
+msgstr ""
+
+#: core/metabox_config.php:395 core/metabox_config.php:1160
+#: core/metabox_config.php:1335
+msgid "center"
+msgstr ""
+
+#: core/metabox_config.php:396 core/metabox_config.php:1161
+#: core/metabox_config.php:1336
+msgid "right"
+msgstr ""
+
+#: core/metabox_config.php:407
+msgid "Font Color"
+msgstr ""
+
+#: core/metabox_config.php:421 core/metabox_config.php:1000
+msgid "Background Color"
+msgstr ""
+
+#: core/metabox_config.php:435 core/redux-config.php:2282
+#: core/redux-config.php:2290
+msgid "Page Title Background Image"
+msgstr ""
+
+#: core/metabox_config.php:447 core/metabox_config.php:1054
+msgid "Background Repeat"
+msgstr ""
+
+#: core/metabox_config.php:451 core/metabox_config.php:1058
+msgid "no-repeat"
+msgstr ""
+
+#: core/metabox_config.php:452 core/metabox_config.php:1059
+msgid "repeat"
+msgstr ""
+
+#: core/metabox_config.php:453 core/metabox_config.php:1060
+msgid "repeat-x"
+msgstr ""
+
+#: core/metabox_config.php:454 core/metabox_config.php:1061
+msgid "repeat-y"
+msgstr ""
+
+#: core/metabox_config.php:455 core/metabox_config.php:470
+#: core/metabox_config.php:489 core/metabox_config.php:987
+#: core/metabox_config.php:1062 core/metabox_config.php:1077
+#: core/metabox_config.php:1096
+msgid "inherit"
+msgstr ""
+
+#: core/metabox_config.php:466 core/metabox_config.php:983
+#: core/metabox_config.php:1073
+msgid "Background Size"
+msgstr ""
+
+#: core/metabox_config.php:471 core/metabox_config.php:988
+#: core/metabox_config.php:1078
+msgid "cover"
+msgstr ""
+
+#: core/metabox_config.php:472 core/metabox_config.php:989
+#: core/metabox_config.php:1079
+msgid "contain"
+msgstr ""
+
+#: core/metabox_config.php:483 core/metabox_config.php:1090
+msgid "Background Attachment"
+msgstr ""
+
+#: core/metabox_config.php:487 core/metabox_config.php:1094
+msgid "fixed"
+msgstr ""
+
+#: core/metabox_config.php:488 core/metabox_config.php:1095
+msgid "scroll"
+msgstr ""
+
+#: core/metabox_config.php:500 core/metabox_config.php:1107
+msgid "Background Position"
+msgstr ""
+
+#: core/metabox_config.php:504 core/metabox_config.php:1111
+msgid "left top"
+msgstr ""
+
+#: core/metabox_config.php:505 core/metabox_config.php:1112
+msgid "left center"
+msgstr ""
+
+#: core/metabox_config.php:506 core/metabox_config.php:1113
+msgid "left bottom"
+msgstr ""
+
+#: core/metabox_config.php:507 core/metabox_config.php:1114
+msgid "center top"
+msgstr ""
+
+#: core/metabox_config.php:508 core/metabox_config.php:1115
+msgid "center center"
+msgstr ""
+
+#: core/metabox_config.php:509 core/metabox_config.php:1116
+msgid "center bottom"
+msgstr ""
+
+#: core/metabox_config.php:510 core/metabox_config.php:1117
+msgid "right top"
+msgstr ""
+
+#: core/metabox_config.php:511 core/metabox_config.php:1118
+msgid "right center"
+msgstr ""
+
+#: core/metabox_config.php:512 core/metabox_config.php:1119
+msgid "right bottom"
+msgstr ""
+
+#: core/metabox_config.php:523 core/redux-config.php:1914
+msgid "Height"
+msgstr ""
+
+#: core/metabox_config.php:537
+msgid "Set Page Title Top Border?"
+msgstr ""
+
+#: core/metabox_config.php:546 core/redux-config.php:2320
+msgid "Page Title Top Border Color"
+msgstr ""
+
+#: core/metabox_config.php:561
+msgid "Page Title Top Border Opacity"
+msgstr ""
+
+#: core/metabox_config.php:579
+msgid "Set Page Title Bottom Border?"
+msgstr ""
+
+#: core/metabox_config.php:588 core/redux-config.php:2340
+msgid "Page Title Bottom Border Color"
+msgstr ""
+
+#: core/metabox_config.php:603
+msgid "Page Title Bottom Border Opacity"
+msgstr ""
+
+#: core/metabox_config.php:619
+msgid "Title Bottom Margin"
+msgstr ""
+
+#: core/metabox_config.php:632 core/redux-config.php:2370
+msgid "Page Title SVG Line"
+msgstr ""
+
+#: core/metabox_config.php:637 core/redux-config.php:2373
+msgid "SVG Line Top"
+msgstr ""
+
+#: core/metabox_config.php:638 core/redux-config.php:2374
+msgid "SVG Line Bottom"
+msgstr ""
+
+#: core/metabox_config.php:639 core/redux-config.php:2375
+msgid "SVG Line Top and Bottom"
+msgstr ""
+
+#: core/metabox_config.php:650 core/redux-config.php:2384
+msgid "SVG Top Color"
+msgstr ""
+
+#: core/metabox_config.php:666 core/metabox_config.php:698
+msgid "Opacity"
+msgstr ""
+
+#: core/metabox_config.php:682 core/redux-config.php:2400
+msgid "SVG Bottom Color"
+msgstr ""
+
+#: core/metabox_config.php:721
+msgid "Footer Options"
+msgstr ""
+
+#: core/metabox_config.php:726
+msgid "Prefooter Map"
+msgstr ""
+
+#: core/metabox_config.php:731
+msgid "Show"
+msgstr ""
+
+#: core/metabox_config.php:732
+msgid "Hide"
+msgstr ""
+
+#: core/metabox_config.php:738 core/redux-config.php:2493
+msgid "Show Footer"
+msgstr ""
+
+#: core/metabox_config.php:750 core/redux-config.php:2506
+msgid "Footer Column"
+msgstr ""
+
+#: core/metabox_config.php:769
+msgid "Footer Column 1"
+msgstr ""
+
+#: core/metabox_config.php:781
+msgid "Footer Column 2"
+msgstr ""
+
+#: core/metabox_config.php:794
+msgid "Footer Column 3"
+msgstr ""
+
+#: core/metabox_config.php:808
+msgid "Footer Column 4"
+msgstr ""
+
+#: core/metabox_config.php:823
+msgid "Footer Column 5"
+msgstr ""
+
+#: core/metabox_config.php:839 core/metabox_config.php:859
+#: core/metabox_config.php:878 core/redux-config.php:2520
+#: core/redux-config.php:2534 core/redux-config.php:2547
+msgid "Footer Column Layout"
+msgstr ""
+
+#: core/metabox_config.php:897 core/redux-config.php:2560
+msgid "Footer Title Text Align"
+msgstr ""
+
+#: core/metabox_config.php:914
+msgid "Padding Top (px)"
+msgstr ""
+
+#: core/metabox_config.php:927
+msgid "Padding Bottom (px)"
+msgstr ""
+
+#: core/metabox_config.php:940
+msgid "Padding Left (px)"
+msgstr ""
+
+#: core/metabox_config.php:953
+msgid "Padding Right (px)"
+msgstr ""
+
+#: core/metabox_config.php:967 core/redux-config.php:2437
+msgid "Full Width Footer"
+msgstr ""
+
+#: core/metabox_config.php:970 core/redux-config.php:1418
+#: core/redux-config.php:2439 core/redux-config.php:2970
+#: core/redux-config.php:3120 core/redux-config.php:3435 functions.php:2668
+#: woocommerce/gt3-templates/loop/product-show.php:18
+msgid "Default"
+msgstr ""
+
+#: core/metabox_config.php:971 core/redux-config.php:2440
+msgid "Stretch Footer"
+msgstr ""
+
+#: core/metabox_config.php:972 core/redux-config.php:2441
+msgid "Stretch Footer and Content"
+msgstr ""
+
+#: core/metabox_config.php:1014
+msgid "Footer Text Color"
+msgstr ""
+
+#: core/metabox_config.php:1028
+msgid "Footer Heading Color"
+msgstr ""
+
+#: core/metabox_config.php:1042 core/redux-config.php:2472
+msgid "Footer Background Image"
+msgstr ""
+
+#: core/metabox_config.php:1132 core/redux-config.php:2600
+msgid "Show Copyright"
+msgstr ""
+
+#: core/metabox_config.php:1142 core/redux-config.php:2606
+msgid "Copyright Editor"
+msgstr ""
+
+#: core/metabox_config.php:1155 core/redux-config.php:2620
+msgid "Copyright Title Text Align"
+msgstr ""
+
+#: core/metabox_config.php:1173
+msgid "Copyright Padding Top (px)"
+msgstr ""
+
+#: core/metabox_config.php:1187
+msgid "Copyright Padding Bottom (px)"
+msgstr ""
+
+#: core/metabox_config.php:1201
+msgid "Copyright Padding Left (px)"
+msgstr ""
+
+#: core/metabox_config.php:1215
+msgid "Copyright Padding Right (px)"
+msgstr ""
+
+#: core/metabox_config.php:1229 core/redux-config.php:2646
+msgid "Copyright Background Color"
+msgstr ""
+
+#: core/metabox_config.php:1244 core/redux-config.php:2654
+msgid "Copyright Text Color"
+msgstr ""
+
+#: core/metabox_config.php:1260
+msgid "Set Copyright Top Border?"
+msgstr ""
+
+#: core/metabox_config.php:1271 core/redux-config.php:2669
+msgid "Copyright Border Color"
+msgstr ""
+
+#: core/metabox_config.php:1287
+msgid "Copyright Border Opacity"
+msgstr ""
+
+#: core/metabox_config.php:1307
+msgid "Show Pre Footer Area"
+msgstr ""
+
+#: core/metabox_config.php:1317
+msgid "Pre Footer Editor"
+msgstr ""
+
+#: core/metabox_config.php:1330
+msgid "Pre Footer Title Text Align"
+msgstr ""
+
+#: core/metabox_config.php:1348
+msgid "Pre Footer Padding Top (px)"
+msgstr ""
+
+#: core/metabox_config.php:1362
+msgid "Pre Footer Padding Bottom (px)"
+msgstr ""
+
+#: core/metabox_config.php:1376
+msgid "Pre Footer Padding Left (px)"
+msgstr ""
+
+#: core/metabox_config.php:1390
+msgid "Pre Footer Padding Right (px)"
+msgstr ""
+
+#: core/metabox_config.php:1405
+msgid "Set Pre Footer Bottom Border?"
+msgstr ""
+
+#: core/metabox_config.php:1416
+msgid "Pre Footer Border Color"
+msgstr ""
+
+#: core/metabox_config.php:1432
+msgid "Pre Footer Border Opacity"
+msgstr ""
+
+#: core/metabox_config.php:1456
+msgid "Preloader Options"
+msgstr ""
+
+#: core/metabox_config.php:1461 core/redux-config.php:134
+#: core/redux-config.php:142
+msgid "Preloader"
+msgstr ""
+
+#: core/metabox_config.php:1466
+msgid "custom"
+msgstr ""
+
+#: core/metabox_config.php:1467
+msgid "none"
+msgstr ""
+
+#: core/metabox_config.php:1473 core/redux-config.php:148
+msgid "Preloader type"
+msgstr ""
+
+#: core/metabox_config.php:1477 core/redux-config.php:150
+msgid "Linear"
+msgstr ""
+
+#: core/metabox_config.php:1478 core/redux-config.php:151
+msgid "Circle"
+msgstr ""
+
+#: core/metabox_config.php:1479 core/redux-config.php:152
+msgid "Theme"
+msgstr ""
+
+#: core/metabox_config.php:1490 core/redux-config.php:160
+msgid "Preloader Background"
+msgstr ""
+
+#: core/metabox_config.php:1504 core/redux-config.php:169
+msgid "Preloader Stroke Background Color"
+msgstr ""
+
+#: core/metabox_config.php:1519 core/redux-config.php:178
+msgid "Preloader Stroke Foreground Color"
+msgstr ""
+
+#: core/metabox_config.php:1533
+msgid "Preloader Circle Width in px (Diameter)"
+msgstr ""
+
+#: core/metabox_config.php:1547 core/redux-config.php:203
+msgid "Preloader Circle Stroke Width"
+msgstr ""
+
+#: core/metabox_config.php:1562 core/redux-config.php:219
+msgid "Preloader Logo"
+msgstr ""
+
+#: core/metabox_config.php:1575
+msgid "Preloader Logo Width in px"
+msgstr ""
+
+#: core/metabox_config.php:1591 core/redux-config.php:242
+msgid "Preloader Fullscreen"
+msgstr ""
+
+#: core/metabox_config.php:1608
+msgid "Shortcode Above Content"
+msgstr ""
+
+#: core/metabox_config.php:1613
+msgid "Shortcode"
+msgstr ""
+
+#: core/metabox_config.php:1628
+msgid "Single Product Settings"
+msgstr ""
+
+#: core/metabox_config.php:1633
+msgid "Single Product Page Settings"
+msgstr ""
+
+#: core/metabox_config.php:1638 core/metabox_config.php:1697
+#: core/redux-config.php:1734
+msgid "Custom"
+msgstr ""
+
+#: core/metabox_config.php:1645 core/redux-config.php:4419
+msgid "Product Page Layout"
+msgstr ""
+
+#: core/metabox_config.php:1649 core/redux-config.php:4259
+#: core/redux-config.php:4421
+msgid "Container"
+msgstr ""
+
+#: core/metabox_config.php:1650 core/redux-config.php:4260
+#: core/redux-config.php:4422
+msgid "Full Width"
+msgstr ""
+
+#: core/metabox_config.php:1663 core/redux-config.php:4394
+msgid "Thumbnails Layout"
+msgstr ""
+
+#: core/metabox_config.php:1667 core/redux-config.php:4396
+msgid "Thumbnails Bottom"
+msgstr ""
+
+#: core/metabox_config.php:1668 core/redux-config.php:4397
+msgid "Thumbnails Left"
+msgstr ""
+
+#: core/metabox_config.php:1669 core/redux-config.php:4398
+msgid "Thumbnails Grid"
+msgstr ""
+
+#: core/metabox_config.php:1670 core/redux-config.php:4399
+msgid "Thumbnails Vertical Grid"
+msgstr ""
+
+#: core/metabox_config.php:1682 core/redux-config.php:4429
+msgid "Sticky Thumbnails"
+msgstr ""
+
+#: core/metabox_config.php:1692
+msgid "Size Guide for this product"
+msgstr ""
+
+#: core/metabox_config.php:1705 core/redux-config.php:4476
+msgid "Size guide Popup Image"
+msgstr ""
+
+#: core/metabox_config.php:1714
+msgid "Image Size for Masonry Layout"
+msgstr ""
+
+#: core/metabox_config.php:1718
+msgid "Small Horizontal Rectangle"
+msgstr ""
+
+#: core/metabox_config.php:1719
+msgid "Large Horizontal Rectangle"
+msgstr ""
+
+#: core/metabox_config.php:1720
+msgid "Large Vertical Rectangle"
+msgstr ""
+
+#: core/metabox_config.php:1721
+msgid "Large 2x Rectangle"
+msgstr ""
+
+#: core/redux-config.php:15 core/redux-config.php:16
+msgid "Theme Options"
+msgstr ""
+
+#: core/redux-config.php:50
+msgid "General"
+msgstr ""
+
+#: core/redux-config.php:58
+msgid "Responsive"
+msgstr ""
+
+#: core/redux-config.php:64
+msgid "Page Comments"
+msgstr ""
+
+#: core/redux-config.php:70
+msgid "Back to Top"
+msgstr ""
+
+#: core/redux-config.php:76
+msgid "Team Slug"
+msgstr ""
+
+#: core/redux-config.php:81
+msgid "Portfolio Slug"
+msgstr ""
+
+#: core/redux-config.php:86
+msgid "Project Slug"
+msgstr ""
+
+#: core/redux-config.php:91
+msgid "Page 404 Background Image"
+msgstr ""
+
+#: core/redux-config.php:96
+msgid "Add Default Typography Spacings"
+msgstr ""
+
+#: core/redux-config.php:102
+msgid "Disable right click"
+msgstr ""
+
+#: core/redux-config.php:108
+msgid "Right click alert text"
+msgstr ""
+
+#: core/redux-config.php:109
+msgid ""
+"The right click is disabled. Your content is protected. You can configure "
+"this option in the theme."
+msgstr ""
+
+#: core/redux-config.php:115 core/redux-config.php:124
+msgid "Custom JS"
+msgstr ""
+
+#: core/redux-config.php:116
+msgid "Paste your JS code here."
+msgstr ""
+
+#: core/redux-config.php:125
+msgid "Code to be added inside HEAD tag"
+msgstr ""
+
+#: core/redux-config.php:161
+msgid "Set Preloader Background"
+msgstr ""
+
+#: core/redux-config.php:170
+msgid "Set Preloader Stroke Background Color"
+msgstr ""
+
+#: core/redux-config.php:179
+msgid "Set Preloader Stroke Foreground Color"
+msgstr ""
+
+#: core/redux-config.php:187
+msgid "Preloader Circle Width"
+msgstr ""
+
+#: core/redux-config.php:188
+msgid "Set Preloader Circle Width in px (Diameter)"
+msgstr ""
+
+#: core/redux-config.php:204
+msgid "Set Preloader Circle Stroke Width in px"
+msgstr ""
+
+#: core/redux-config.php:225
+msgid "Preloader Logo Width"
+msgstr ""
+
+#: core/redux-config.php:226
+msgid "Set Preloader Logo Width"
+msgstr ""
+
+#: core/redux-config.php:1403
+msgid "Header Templates"
+msgstr ""
+
+#: core/redux-config.php:1414
+msgid "Gt3 Preset"
+msgstr ""
+
+#: core/redux-config.php:1415
+msgid "This allows you to set default header layout."
+msgstr ""
+
+#: core/redux-config.php:1442
+msgid "Header Settings"
+msgstr ""
+
+#: core/redux-config.php:1451
+msgid "Warning!"
+msgstr ""
+
+#: core/redux-config.php:1453
+msgid ""
+"To modify the settings, please add any item to the header section. It can "
+"not be empty."
+msgstr ""
+
+#: core/redux-config.php:1467
+msgid "Logo Settings"
+msgstr ""
+
+#: core/redux-config.php:1474
+msgid "Header Logo"
+msgstr ""
+
+#: core/redux-config.php:1479
+msgid "Enable Logo Height"
+msgstr ""
+
+#: core/redux-config.php:1487
+msgid "Set Logo Height"
+msgstr ""
+
+#: core/redux-config.php:1498
+msgid "Don't limit maximum height"
+msgstr ""
+
+#: core/redux-config.php:1507
+msgid "Set Sticky Logo Height"
+msgstr ""
+
+#: core/redux-config.php:1521
+msgid "Sticky Logo"
+msgstr ""
+
+#: core/redux-config.php:1527
+msgid "Tablet Logo"
+msgstr ""
+
+#: core/redux-config.php:1534
+msgid "Set Logo Width on Tablet"
+msgstr ""
+
+#: core/redux-config.php:1542
+msgid "Mobile Logo"
+msgstr ""
+
+#: core/redux-config.php:1549
+msgid "Set Logo Width on Mobile"
+msgstr ""
+
+#: core/redux-config.php:1566
+msgid "Menu Settings"
+msgstr ""
+
+#: core/redux-config.php:1573
+msgid "Select Menu"
+msgstr ""
+
+#: core/redux-config.php:1580
+msgid "Enable Active Menu Item Marker"
+msgstr ""
+
+#: core/redux-config.php:1586
+msgid "Sub Menu Background"
+msgstr ""
+
+#: core/redux-config.php:1587
+msgid "Set the background color for sub menu"
+msgstr ""
+
+#: core/redux-config.php:1598
+msgid "Menu Text Color"
+msgstr ""
+
+#: core/redux-config.php:1599
+msgid "Set the header text color for menu"
+msgstr ""
+
+#: core/redux-config.php:1606
+msgid "Menu Text Color on Hover and Current"
+msgstr ""
+
+#: core/redux-config.php:1607
+msgid "Set the header text color for menu on hover and Current menu"
+msgstr ""
+
+#: core/redux-config.php:1623
+msgid "Burger Sidebar Settings"
+msgstr ""
+
+#: core/redux-config.php:1630
+msgid "Select Sidebar"
+msgstr ""
+
+#: core/redux-config.php:1646
+msgid "Top Left Settings"
+msgstr ""
+
+#: core/redux-config.php:1647
+msgid "Top Center Settings"
+msgstr ""
+
+#: core/redux-config.php:1648
+msgid "Top Right Settings"
+msgstr ""
+
+#: core/redux-config.php:1649
+msgid "Middle Left Settings"
+msgstr ""
+
+#: core/redux-config.php:1650
+msgid "Middle Center Settings"
+msgstr ""
+
+#: core/redux-config.php:1651
+msgid "Middle Right Settings"
+msgstr ""
+
+#: core/redux-config.php:1652
+msgid "Bottom Left Settings"
+msgstr ""
+
+#: core/redux-config.php:1653
+msgid "Bottom Center Settings"
+msgstr ""
+
+#: core/redux-config.php:1654
+msgid "Bottom Right Settings"
+msgstr ""
+
+#: core/redux-config.php:1658
+msgid "Desktop"
+msgstr ""
+
+#: core/redux-config.php:1659
+msgid "Tablet"
+msgstr ""
+
+#: core/redux-config.php:1660
+msgid "Mobile"
+msgstr ""
+
+#: core/redux-config.php:1669
+msgid " Settings"
+msgstr ""
+
+#: core/redux-config.php:1680
+msgid "Full Width Header"
+msgstr ""
+
+#: core/redux-config.php:1681
+msgid "Set header content in full width layout"
+msgstr ""
+
+#: core/redux-config.php:1687 core/redux-config.php:1702
+msgid "Header Above Content"
+msgstr ""
+
+#: core/redux-config.php:1693 core/redux-config.php:1708
+msgid "Sticky Header"
+msgstr ""
+
+#: core/redux-config.php:1720
+msgid "Sticky Appearance Style"
+msgstr ""
+
+#: core/redux-config.php:1722
+msgid "Classic"
+msgstr ""
+
+#: core/redux-config.php:1723
+msgid "Appearance only on scroll top"
+msgstr ""
+
+#: core/redux-config.php:1731
+msgid "Sticky Header Appearance From Top of Page"
+msgstr ""
+
+#: core/redux-config.php:1733
+msgid "Auto"
+msgstr ""
+
+#: core/redux-config.php:1744
+msgid "Set the distance from the top of the page"
+msgstr ""
+
+#: core/redux-config.php:1755
+msgid "Sticky Header Bottom Shadow"
+msgstr ""
+
+#: core/redux-config.php:1789
+msgid "Item Align"
+msgstr ""
+
+#: core/redux-config.php:1792 core/redux-config.php:2260
+#: core/redux-config.php:2563 core/redux-config.php:2623
+#: core/redux-config.php:2716
+msgid "Center"
+msgstr ""
+
+#: core/redux-config.php:1810
+msgid "Top Header Settings"
+msgstr ""
+
+#: core/redux-config.php:1811
+msgid "Middle Header Settings"
+msgstr ""
+
+#: core/redux-config.php:1812
+msgid "Bottom Header Settings"
+msgstr ""
+
+#: core/redux-config.php:1862 core/redux-config.php:1868
+msgid "Customize "
+msgstr ""
+
+#: core/redux-config.php:1879
+msgid "Background"
+msgstr ""
+
+#: core/redux-config.php:1880 core/redux-config.php:1888
+#: core/redux-config.php:1977
+msgid "Set background color"
+msgstr ""
+
+#: core/redux-config.php:1887
+msgid "Inner Background"
+msgstr ""
+
+#: core/redux-config.php:1896
+msgid "Text Color"
+msgstr ""
+
+#: core/redux-config.php:1897 core/redux-config.php:1905
+#: core/redux-config.php:1990 core/redux-config.php:1999
+msgid "Set text color"
+msgstr ""
+
+#: core/redux-config.php:1904
+msgid "Link Text Color on Hover"
+msgstr ""
+
+#: core/redux-config.php:1932
+msgid "Padding (px)"
+msgstr ""
+
+#: core/redux-config.php:1933 core/redux-config.php:2029
+msgid "Set empty padding-left/-right to default 20px"
+msgstr ""
+
+#: core/redux-config.php:1944
+msgid "Set Bottom Border"
+msgstr ""
+
+#: core/redux-config.php:1950
+msgid "Border Color"
+msgstr ""
+
+#: core/redux-config.php:1951
+msgid "Set border color"
+msgstr ""
+
+#: core/redux-config.php:1959
+msgid "Set Border Radius"
+msgstr ""
+
+#: core/redux-config.php:1969 core/redux-config.php:2043
+msgid "Show Section in Sticky Header?"
+msgstr ""
+
+#: core/redux-config.php:1976
+msgid "Sticky Header Background"
+msgstr ""
+
+#: core/redux-config.php:1989
+msgid "Sticky Header Text Color"
+msgstr ""
+
+#: core/redux-config.php:1998
+msgid "Sticky Header Link Color on Hover"
+msgstr ""
+
+#: core/redux-config.php:2009
+msgid "Sticky Header Height"
+msgstr ""
+
+#: core/redux-config.php:2028
+msgid "Sticky Header Padding (px)"
+msgstr ""
+
+#: core/redux-config.php:2082
+msgid "Text / HTML"
+msgstr ""
+
+#: core/redux-config.php:2082 core/redux-config.php:2118
+msgid "Settings"
+msgstr ""
+
+#: core/redux-config.php:2089
+msgid "Text Editor"
+msgstr ""
+
+#: core/redux-config.php:2118
+msgid "Delimiter"
+msgstr ""
+
+#: core/redux-config.php:2126
+msgid "Delimiter Height"
+msgstr ""
+
+#: core/redux-config.php:2148
+msgid "GT3 Header Builder"
+msgstr ""
+
+#: core/redux-config.php:2155
+msgid "Page Title"
+msgstr ""
+
+#: core/redux-config.php:2169
+msgid "Show Blog Post Title"
+msgstr ""
+
+#: core/redux-config.php:2178 core/redux-config.php:2204
+#: core/redux-config.php:2223
+msgid "Show Prev/Next Links"
+msgstr ""
+
+#: core/redux-config.php:2188
+msgid "Show Team Post Title"
+msgstr ""
+
+#: core/redux-config.php:2195
+msgid "Show Portfolio Post Title"
+msgstr ""
+
+#: core/redux-config.php:2214
+msgid "Show Project Post Title"
+msgstr ""
+
+#: core/redux-config.php:2233
+msgid "Page Title Settings"
+msgstr ""
+
+#: core/redux-config.php:2246 core/redux-config.php:2855
+msgid "Vertical Align"
+msgstr ""
+
+#: core/redux-config.php:2248 core/redux-config.php:4319
+msgid "Top"
+msgstr ""
+
+#: core/redux-config.php:2249
+msgid "Middle"
+msgstr ""
+
+#: core/redux-config.php:2250 core/redux-config.php:4320
+msgid "Bottom"
+msgstr ""
+
+#: core/redux-config.php:2257
+msgid "Page Title Text Align?"
+msgstr ""
+
+#: core/redux-config.php:2268
+msgid "Page Title Font Color"
+msgstr ""
+
+#: core/redux-config.php:2275
+msgid "Page Title Background Color"
+msgstr ""
+
+#: core/redux-config.php:2304
+msgid "Page Title Height"
+msgstr ""
+
+#: core/redux-config.php:2314
+msgid "Page Title Top Border"
+msgstr ""
+
+#: core/redux-config.php:2334
+msgid "Page Title Bottom Border"
+msgstr ""
+
+#: core/redux-config.php:2361
+msgid "Page Title Bottom Margin"
+msgstr ""
+
+#: core/redux-config.php:2429
+msgid "Footer"
+msgstr ""
+
+#: core/redux-config.php:2448
+msgid "Footer Background Color"
+msgstr ""
+
+#: core/redux-config.php:2455
+msgid "Footer Text color"
+msgstr ""
+
+#: core/redux-config.php:2462
+msgid "Footer Heading color"
+msgstr ""
+
+#: core/redux-config.php:2485
+msgid "Footer Content"
+msgstr ""
+
+#: core/redux-config.php:2499
+msgid "Footer Settings"
+msgstr ""
+
+#: core/redux-config.php:2512
+msgid "4 modified"
+msgstr ""
+
+#: core/redux-config.php:2574
+msgid "Footer Padding (px)"
+msgstr ""
+
+#: core/redux-config.php:2592
+msgid "Copyright"
+msgstr ""
+
+#: core/redux-config.php:2634
+msgid "Copyright Padding (px)"
+msgstr ""
+
+#: core/redux-config.php:2662
+msgid "Set Copyright Top Border"
+msgstr ""
+
+#: core/redux-config.php:2685
+msgid "Prefooter Area"
+msgstr ""
+
+#: core/redux-config.php:2693
+msgid "Show Prefooter Area"
+msgstr ""
+
+#: core/redux-config.php:2699
+msgid "Prefooter Editor"
+msgstr ""
+
+#: core/redux-config.php:2713
+msgid "Prefooter Title Text Align"
+msgstr ""
+
+#: core/redux-config.php:2727
+msgid "Prefooter Area Padding (px)"
+msgstr ""
+
+#: core/redux-config.php:2739
+msgid "Set Prefooter Border"
+msgstr ""
+
+#: core/redux-config.php:2746
+msgid "Prefooter Border Color"
+msgstr ""
+
+#: core/redux-config.php:2763 functions.php:638 functions.php:897
+msgid "Blog"
+msgstr ""
+
+#: core/redux-config.php:2771 single.php:325
+msgid "Related Posts"
+msgstr ""
+
+#: core/redux-config.php:2777
+msgid "Author Box on Single Post"
+msgstr ""
+
+#: core/redux-config.php:2783
+msgid "Post Comments"
+msgstr ""
+
+#: core/redux-config.php:2789
+msgid "Trackbacks and Pingbacks"
+msgstr ""
+
+#: core/redux-config.php:2795
+msgid "Likes on Posts"
+msgstr ""
+
+#: core/redux-config.php:2801
+msgid "Share on Posts"
+msgstr ""
+
+#: core/redux-config.php:2807
+msgid "Cut Off Text in Blog Listing"
+msgstr ""
+
+#: core/redux-config.php:2813
+msgid "Add animation to Featured Image in Blog Listing"
+msgstr ""
+
+#: core/redux-config.php:2819
+msgid "Show Prev/Next Links on bottom"
+msgstr ""
+
+#: core/redux-config.php:2828
+msgid "Gallery"
+msgstr ""
+
+#: core/redux-config.php:2836
+msgid "Select default gallery type"
+msgstr ""
+
+#: core/redux-config.php:2838
+msgid "Grid Gallery"
+msgstr ""
+
+#: core/redux-config.php:2839
+msgid "Packery Gallery"
+msgstr ""
+
+#: core/redux-config.php:2840
+msgid "FullScreen Slider"
+msgstr ""
+
+#: core/redux-config.php:2841
+msgid "Shift Slider"
+msgstr ""
+
+#: core/redux-config.php:2842
+msgid "Masonry Gallery"
+msgstr ""
+
+#: core/redux-config.php:2843
+msgid "Kenburns"
+msgstr ""
+
+#: core/redux-config.php:2844
+msgid "Ribbon Slider"
+msgstr ""
+
+#: core/redux-config.php:2845
+msgid "Flow Slider"
+msgstr ""
+
+#: core/redux-config.php:2853
+msgid "Grid Type"
+msgstr ""
+
+#: core/redux-config.php:2856
+msgid "Square"
+msgstr ""
+
+#: core/redux-config.php:2857
+msgid "Rectangle"
+msgstr ""
+
+#: core/redux-config.php:2865 core/redux-config.php:3330
+msgid "Cols"
+msgstr ""
+
+#: core/redux-config.php:2878 core/redux-config.php:3343
+msgid "Grid Gap"
+msgstr ""
+
+#: core/redux-config.php:2906 core/redux-config.php:3057
+#: core/redux-config.php:3313 core/redux-config.php:3371
+msgid "Hover Effect"
+msgstr ""
+
+#: core/redux-config.php:2908 core/redux-config.php:3007
+#: core/redux-config.php:3059 core/redux-config.php:3373
+msgid "Type 1"
+msgstr ""
+
+#: core/redux-config.php:2909 core/redux-config.php:3011
+#: core/redux-config.php:3060 core/redux-config.php:3374
+msgid "Type 2"
+msgstr ""
+
+#: core/redux-config.php:2910 core/redux-config.php:3015
+#: core/redux-config.php:3061 core/redux-config.php:3375
+msgid "Type 3"
+msgstr ""
+
+#: core/redux-config.php:2911 core/redux-config.php:3019
+#: core/redux-config.php:3062 core/redux-config.php:3376
+msgid "Type 4"
+msgstr ""
+
+#: core/redux-config.php:2912 core/redux-config.php:3063
+#: core/redux-config.php:3377
+msgid "Type 5"
+msgstr ""
+
+#: core/redux-config.php:2921 core/redux-config.php:3071
+#: core/redux-config.php:3386
+msgid "Lightbox"
+msgstr ""
+
+#: core/redux-config.php:2928 core/redux-config.php:3078
+#: core/redux-config.php:3293 core/redux-config.php:3393
+#: core/redux-config.php:3515 core/redux-config.php:3613
+msgid "Show Title"
+msgstr ""
+
+#: core/redux-config.php:2935 core/redux-config.php:3085
+#: core/redux-config.php:3400
+msgid "Post Per Load"
+msgstr ""
+
+#: core/redux-config.php:2946 core/redux-config.php:3096
+#: core/redux-config.php:3411
+msgid "Show \"See More\" Button"
+msgstr ""
+
+#: core/redux-config.php:2953 core/redux-config.php:3103
+#: core/redux-config.php:3418
+msgid "See Items"
+msgstr ""
+
+#: core/redux-config.php:2967 core/redux-config.php:3117
+#: core/redux-config.php:3432
+msgid "Button Type"
+msgstr ""
+
+#: core/redux-config.php:2981 core/redux-config.php:3131
+#: core/redux-config.php:3141 core/redux-config.php:3446
+msgid "Button Border"
+msgstr ""
+
+#: core/redux-config.php:2991 core/redux-config.php:3151
+#: core/redux-config.php:3456
+msgid "Button Title"
+msgstr ""
+
+#: core/redux-config.php:2992 core/redux-config.php:3152
+#: core/redux-config.php:3457
+msgid "Load More"
+msgstr ""
+
+#: core/redux-config.php:3004 core/tgm/class-tgm-plugin-activation.php:2619
+msgid "Type"
+msgstr ""
+
+#: core/redux-config.php:3029
+msgid "Packery Gap"
+msgstr ""
+
+#: core/redux-config.php:3162 core/redux-config.php:3544
+msgid "Controls"
+msgstr ""
+
+#: core/redux-config.php:3169 core/redux-config.php:3260
+#: core/redux-config.php:3551 core/redux-config.php:3621
+msgid "Autoplay"
+msgstr ""
+
+#: core/redux-config.php:3176
+msgid "Thumbnails"
+msgstr ""
+
+#: core/redux-config.php:3184 core/redux-config.php:3272
+#: core/redux-config.php:3468 core/redux-config.php:3559
+#: core/redux-config.php:3629
+msgid "Slide Duration"
+msgstr ""
+
+#: core/redux-config.php:3192 core/redux-config.php:3285
+#: core/redux-config.php:3479 core/redux-config.php:3571
+#: core/redux-config.php:3641
+msgid "Transition Interval"
+msgstr ""
+
+#: core/redux-config.php:3199 core/redux-config.php:3494
+msgid "Panel Color"
+msgstr ""
+
+#: core/redux-config.php:3208
+msgid "Anim style"
+msgstr ""
+
+#: core/redux-config.php:3210
+msgid "Fade"
+msgstr ""
+
+#: core/redux-config.php:3211
+msgid "Slip"
+msgstr ""
+
+#: core/redux-config.php:3212
+msgid "Slip Up"
+msgstr ""
+
+#: core/redux-config.php:3213
+msgid "Slip Down"
+msgstr ""
+
+#: core/redux-config.php:3221
+msgid "Fit Style"
+msgstr ""
+
+#: core/redux-config.php:3223
+msgid "Cover Slide"
+msgstr ""
+
+#: core/redux-config.php:3224
+msgid "Fit Always"
+msgstr ""
+
+#: core/redux-config.php:3225
+msgid "Fit Horizontal"
+msgstr ""
+
+#: core/redux-config.php:3226
+msgid "Fit Vertical"
+msgstr ""
+
+#: core/redux-config.php:3234 core/redux-config.php:3321
+#: core/redux-config.php:3506 core/redux-config.php:3582
+#: core/redux-config.php:3652
+msgid "Module Height"
+msgstr ""
+
+#: core/redux-config.php:3235 core/redux-config.php:3322
+#: core/redux-config.php:3507 core/redux-config.php:3583
+#: core/redux-config.php:3653
+#, php-format
+msgid "Set module height in px (pixels). Enter '100%' for full height mode"
+msgstr ""
+
+#: core/redux-config.php:3244
+msgid "Show Control Buttons"
+msgstr ""
+
+#: core/redux-config.php:3245
+msgid "Turn ON or OFF control buttons"
+msgstr ""
+
+#: core/redux-config.php:3252 core/redux-config.php:4304
+msgid "Infinite Scroll"
+msgstr ""
+
+#: core/redux-config.php:3255
+msgid ""
+"Turn ON or OFF infinite  scrolling. Autoplay works only when infinite scroll "
+"is ON"
+msgstr ""
+
+#: core/redux-config.php:3261
+msgid "Turn ON or OFF slider autoplay"
+msgstr ""
+
+#: core/redux-config.php:3273 core/redux-config.php:3469
+#: core/redux-config.php:3560 core/redux-config.php:3630
+msgid "Set the timing of single slides in milliseconds"
+msgstr ""
+
+#: core/redux-config.php:3286 core/redux-config.php:3480
+#: core/redux-config.php:3572 core/redux-config.php:3642
+msgid "Set transition animation time"
+msgstr ""
+
+#: core/redux-config.php:3295
+msgid "Always Show"
+msgstr ""
+
+#: core/redux-config.php:3296
+msgid "Always Hide"
+msgstr ""
+
+#: core/redux-config.php:3297
+msgid "Show on Hover"
+msgstr ""
+
+#: core/redux-config.php:3298
+msgid "Show when slide is expanded"
+msgstr ""
+
+#: core/redux-config.php:3306
+msgid "Expandable slides"
+msgstr ""
+
+#: core/redux-config.php:3307
+msgid "Turn ON or OFF expandable slides"
+msgstr ""
+
+#: core/redux-config.php:3316
+msgid "Turn ON or OFF hover effect"
+msgstr ""
+
+#: core/redux-config.php:3487
+msgid "Overlay"
+msgstr ""
+
+#: core/redux-config.php:3488
+msgid "Turn ON or OFF slides color overlay."
+msgstr ""
+
+#: core/redux-config.php:3516
+msgid "Turn ON or OFF titles and captions"
+msgstr ""
+
+#: core/redux-config.php:3523
+msgid "Show Caption"
+msgstr ""
+
+#: core/redux-config.php:3524
+msgid "Turn ON or OFF captions"
+msgstr ""
+
+#: core/redux-config.php:3532
+msgid "Paddings around the images"
+msgstr ""
+
+#: core/redux-config.php:3533
+msgid ""
+"Please use this option to add paddings around the images. Recommended size "
+"in pixels 0-50. (Ex.: 15px)"
+msgstr ""
+
+#: core/redux-config.php:3591
+msgid "Image Width in px (pixels)"
+msgstr ""
+
+#: core/redux-config.php:3602
+msgid "Image Height in px (pixels)"
+msgstr ""
+
+#: core/redux-config.php:3614
+msgid "Turn ON or OFF titles on slide"
+msgstr ""
+
+#: core/redux-config.php:3663
+msgid "Sidebars"
+msgstr ""
+
+#: core/redux-config.php:3698
+msgid "Blog Single Sidebar Layout"
+msgstr ""
+
+#: core/redux-config.php:3718
+msgid "Blog Single Sidebar"
+msgstr ""
+
+#: core/redux-config.php:3725
+msgid "Portfolio Single Sidebar Layout"
+msgstr ""
+
+#: core/redux-config.php:3745
+msgid "Portfolio Single Sidebar"
+msgstr ""
+
+#: core/redux-config.php:3752
+msgid "Project Single Sidebar Layout"
+msgstr ""
+
+#: core/redux-config.php:3772
+msgid "Project Single Sidebar"
+msgstr ""
+
+#: core/redux-config.php:3779
+msgid "Team Single Sidebar Layout"
+msgstr ""
+
+#: core/redux-config.php:3799
+msgid "Team Single Sidebar"
+msgstr ""
+
+#: core/redux-config.php:3807 core/redux-config.php:3817
+msgid "Sidebar Generator"
+msgstr ""
+
+#: core/redux-config.php:3816
+msgid "Add Sidebar"
+msgstr ""
+
+#: core/redux-config.php:3833
+msgid "Color Options"
+msgstr ""
+
+#: core/redux-config.php:3840
+msgid "Colors"
+msgstr ""
+
+#: core/redux-config.php:3848
+msgid "Theme Color"
+msgstr ""
+
+#: core/redux-config.php:3856
+msgid "Body Background Color"
+msgstr ""
+
+#: core/redux-config.php:3866
+msgid "Typography"
+msgstr ""
+
+#: core/redux-config.php:3874
+msgid "Menu Font"
+msgstr ""
+
+#: core/redux-config.php:3898
+msgid "Main Font"
+msgstr ""
+
+#: core/redux-config.php:3920
+msgid "Headers Font"
+msgstr ""
+
+#: core/redux-config.php:3941
+msgid "H1"
+msgstr ""
+
+#: core/redux-config.php:3962
+msgid "H2"
+msgstr ""
+
+#: core/redux-config.php:3983
+msgid "H3"
+msgstr ""
+
+#: core/redux-config.php:4004
+msgid "H4"
+msgstr ""
+
+#: core/redux-config.php:4025
+msgid "H5"
+msgstr ""
+
+#: core/redux-config.php:4046
+msgid "H6"
+msgstr ""
+
+#: core/redux-config.php:4068
+msgid "Font-face list:"
+msgstr ""
+
+#: core/redux-config.php:4069
+msgid "Upload .zip archive with font-face files."
+msgstr ""
+
+#: core/redux-config.php:4069
+msgid "Create your font-face package"
+msgstr ""
+
+#: core/redux-config.php:4070
+msgid "Note"
+msgstr ""
+
+#: core/redux-config.php:4070
+msgid "You have to download the font-face.zip archive."
+msgstr ""
+
+#: core/redux-config.php:4070
+msgid ""
+"Pay your attention, that the archive has to contain the font-face files "
+"itself, and not the subfolders"
+msgstr ""
+
+#: core/redux-config.php:4070
+msgid ""
+"E.g.: font-face.zip/your-font-face.ttf, font-face.zip/your-font-face.eot, "
+"font-face.zip/your-font-face.woff etc"
+msgstr ""
+
+#: core/redux-config.php:4070
+msgid "They'll be extracted and assigned automatically."
+msgstr ""
+
+#: core/redux-config.php:4070
+msgid "Please check the instruction how to create"
+msgstr ""
+
+#: core/redux-config.php:4072
+msgid "This is a title"
+msgstr ""
+
+#: core/redux-config.php:4073
+msgid "Description Here"
+msgstr ""
+
+#: core/redux-config.php:4074
+msgid "Give us a link!"
+msgstr ""
+
+#: core/redux-config.php:4082
+msgid "Google Map"
+msgstr ""
+
+#: core/redux-config.php:4090
+msgid "Enable Map Output in the Prefooter Area?"
+msgstr ""
+
+#: core/redux-config.php:4096
+msgid "Google Map API Key"
+msgstr ""
+
+#: core/redux-config.php:4097
+msgid "Create own API key"
+msgstr ""
+
+#: core/redux-config.php:4099
+msgid "here"
+msgstr ""
+
+#: core/redux-config.php:4106
+msgid "Map Latitude Coordinate"
+msgstr ""
+
+#: core/redux-config.php:4112
+msgid "Map Longitude Coordinate"
+msgstr ""
+
+#: core/redux-config.php:4118
+msgid "Default Zoom Map"
+msgstr ""
+
+#: core/redux-config.php:4119
+msgid "Select the number of zoom map."
+msgstr ""
+
+#: core/redux-config.php:4121
+msgid "10"
+msgstr ""
+
+#: core/redux-config.php:4122
+msgid "11"
+msgstr ""
+
+#: core/redux-config.php:4123
+msgid "12"
+msgstr ""
+
+#: core/redux-config.php:4124
+msgid "13"
+msgstr ""
+
+#: core/redux-config.php:4125
+msgid "14"
+msgstr ""
+
+#: core/redux-config.php:4126
+msgid "15"
+msgstr ""
+
+#: core/redux-config.php:4127
+msgid "16"
+msgstr ""
+
+#: core/redux-config.php:4128
+msgid "17"
+msgstr ""
+
+#: core/redux-config.php:4129
+msgid "18"
+msgstr ""
+
+#: core/redux-config.php:4136
+msgid "Map Marker Info"
+msgstr ""
+
+#: core/redux-config.php:4142
+msgid "Custom Map Marker URl"
+msgstr ""
+
+#: core/redux-config.php:4144
+msgid "Visible only on mobile or if \"Map Marker Info\" option is off."
+msgstr ""
+
+#: core/redux-config.php:4149
+msgid "Street Number"
+msgstr ""
+
+#: core/redux-config.php:4156
+msgid "Street"
+msgstr ""
+
+#: core/redux-config.php:4175
+msgid "The optimal number of characters is 35"
+msgstr ""
+
+#: core/redux-config.php:4180
+msgid "Map Marker Info Background"
+msgstr ""
+
+#: core/redux-config.php:4181
+msgid "Set Map Marker Info Background"
+msgstr ""
+
+#: core/redux-config.php:4189
+msgid "Map Marker Font"
+msgstr ""
+
+#: core/redux-config.php:4205
+msgid "Map Marker Description Text Color"
+msgstr ""
+
+#: core/redux-config.php:4206
+msgid "Set Map Marker Description Text Color"
+msgstr ""
+
+#: core/redux-config.php:4214
+msgid "Custom Map Style"
+msgstr ""
+
+#: core/redux-config.php:4220
+msgid "JavaScript Style Array"
+msgstr ""
+
+#: core/redux-config.php:4221
+msgid ""
+"To change the style of the map, you must insert the JavaScript Style Array "
+"code from "
+msgstr ""
+
+#: core/redux-config.php:4221
+msgid "Snazzy Maps"
+msgstr ""
+
+#: core/redux-config.php:4235
+msgid "Shop"
+msgstr ""
+
+#: core/redux-config.php:4242
+msgid "Products Page"
+msgstr ""
+
+#: core/redux-config.php:4250
+msgid "Show Title for Shop Category"
+msgstr ""
+
+#: core/redux-config.php:4257
+msgid "Products Layout"
+msgstr ""
+
+#: core/redux-config.php:4267
+msgid "Products Page Sidebar Layout"
+msgstr ""
+
+#: core/redux-config.php:4287
+msgid "Products Page Sidebar"
+msgstr ""
+
+#: core/redux-config.php:4294
+msgid ""
+"Show dropdown on the frontend to change Number of products displayed per page"
+msgstr ""
+
+#: core/redux-config.php:4299
+msgid ""
+"Show dropdown on the frontend to change Sorting of products displayed per "
+"page"
+msgstr ""
+
+#: core/redux-config.php:4305
+msgid "Select Infinite Scroll options"
+msgstr ""
+
+#: core/redux-config.php:4308
+msgid "Activate after clicking on \"View All\""
+msgstr ""
+
+#: core/redux-config.php:4309
+msgid "Always"
+msgstr ""
+
+#: core/redux-config.php:4316
+msgid "Pagination"
+msgstr ""
+
+#: core/redux-config.php:4317
+msgid "Select the position of pagination."
+msgstr ""
+
+#: core/redux-config.php:4321
+msgid "Top and Bottom"
+msgstr ""
+
+#: core/redux-config.php:4322 core/redux-config.php:4335
+msgid "Off"
+msgstr ""
+
+#: core/redux-config.php:4330
+msgid "Grid/List Option"
+msgstr ""
+
+#: core/redux-config.php:4331
+msgid "Display products in grid or list view by default"
+msgstr ""
+
+#: core/redux-config.php:4333
+msgid "Grid"
+msgstr ""
+
+#: core/redux-config.php:4334
+msgid "List"
+msgstr ""
+
+#: core/redux-config.php:4342
+msgid "\"Sale\", \"Hot\" and \"New\" labels color"
+msgstr ""
+
+#: core/redux-config.php:4348
+msgid "Color for \"Sale\" label"
+msgstr ""
+
+#: core/redux-config.php:4349
+msgid "Select the Background Color for \"Sale\" label."
+msgstr ""
+
+#: core/redux-config.php:4359
+msgid "Color for \"Hot\" label"
+msgstr ""
+
+#: core/redux-config.php:4360
+msgid "Select the Background Color for \"Hot\" label."
+msgstr ""
+
+#: core/redux-config.php:4370
+msgid "Color for \"New\" label"
+msgstr ""
+
+#: core/redux-config.php:4371
+msgid "Select the Background Color for \"New\" label."
+msgstr ""
+
+#: core/redux-config.php:4386
+msgid "Single Product Page"
+msgstr ""
+
+#: core/redux-config.php:4406
+msgid "Activate Carousel for Vertical Thumbnail"
+msgstr ""
+
+#: core/redux-config.php:4412
+msgid "Show Product Page Title"
+msgstr ""
+
+#: core/redux-config.php:4436
+msgid "Single Product Page Sidebar Layout"
+msgstr ""
+
+#: core/redux-config.php:4456
+msgid "Single Product Page Sidebar"
+msgstr ""
+
+#: core/redux-config.php:4463
+msgid "Show Single Product Title Area (Category name)"
+msgstr ""
+
+#: core/redux-config.php:4470
+msgid "Show Size Guide"
+msgstr ""
+
+#: core/redux-config.php:4482
+msgid "Show Next and Previous products"
+msgstr ""
+
+#: core/registrator/license_verification.php:62
+#: core/registrator/license_verification.php:98
+msgid "Registration Connection error"
+msgstr ""
+
+#: core/registrator/license_verification.php:66
+#: core/registrator/license_verification.php:102
+msgid "Please provide a valid email address."
+msgstr ""
+
+#: core/registrator/license_verification.php:149
+msgid "Purchase Validation! Please activate your theme."
+msgstr ""
+
+#: core/registrator/license_verification.php:150
+#: core/registrator/license_verification.php:203
+msgid "Register Now"
+msgstr ""
+
+#: core/registrator/license_verification.php:150
+msgid "Buy Theme"
+msgstr ""
+
+#: core/registrator/license_verification.php:150
+#: core/registrator/license_verification.php:175
+#: core/registrator/license_verification.php:203
+#: core/tgm/class-tgm-plugin-activation.php:387
+msgid "Dismiss this notice"
+msgstr ""
+
+#: core/registrator/license_verification.php:170
+msgid "Your support package for this theme expired"
+msgstr ""
+
+#: core/registrator/license_verification.php:170
+msgid "ago"
+msgstr ""
+
+#: core/registrator/license_verification.php:172
+msgid "Your support package for this theme is about to expire"
+msgstr ""
+
+#: core/registrator/license_verification.php:175
+msgid "Update Support Package"
+msgstr ""
+
+#: core/registrator/license_verification.php:186
+msgid "Action failed. Please refresh the page and retry."
+msgstr ""
+
+#: core/registrator/license_verification.php:202
+msgid "Create account and manage your theme purchase codes."
+msgstr ""
+
+#: core/registrator/sidebars.php:9
+msgid ""
+"Add the widgets appearance for Custom Sidebar. Drag the widget from the "
+"available list on the left, configure widgets options and click Save button. "
+"Select the sidebar on the posts or pages in just few clicks."
+msgstr ""
+
+#: core/registrator/sidebars.php:26
+msgid "Column Footer 1"
+msgstr ""
+
+#: core/registrator/sidebars.php:28 core/registrator/sidebars.php:39
+#: core/registrator/sidebars.php:50 core/registrator/sidebars.php:61
+#: core/registrator/sidebars.php:72
+msgid ""
+"Display and style the footer area with multiple widgets. Simply drag the "
+"widgets from the left, make the adjustments to the widget according the "
+"needs. Preview the front end."
+msgstr ""
+
+#: core/registrator/sidebars.php:37
+msgid "Column Footer 2"
+msgstr ""
+
+#: core/registrator/sidebars.php:48
+msgid "Column Footer 3"
+msgstr ""
+
+#: core/registrator/sidebars.php:59
+msgid "Column Footer 4"
+msgstr ""
+
+#: core/registrator/sidebars.php:70
+msgid "Column Footer 5"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:334 core/tgm/gt3-tgm.php:85
+msgid "Install Required Plugins"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:335 core/tgm/gt3-tgm.php:86
+msgid "Install Plugins"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:337 core/tgm/gt3-tgm.php:87
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:339
+#, php-format
+msgid "Updating Plugin: %s"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:340 core/tgm/gt3-tgm.php:88
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:342 core/tgm/gt3-tgm.php:89
+#, php-format
+msgid "This theme requires the following plugins: %1$s."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:346 core/tgm/gt3-tgm.php:90
+#, php-format
+msgid "This theme recommends the following plugins: %1$s."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:350 core/tgm/gt3-tgm.php:95
+#, php-format
+msgid ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:354
+#, php-format
+msgid "There are updates available for the following plugins: %1$s."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:358 core/tgm/gt3-tgm.php:92
+#, php-format
+msgid "The following required plugins are currently inactive: %1$s."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:362 core/tgm/gt3-tgm.php:93
+#, php-format
+msgid "The following recommended plugins are currently inactive: %1$s."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:366 core/tgm/gt3-tgm.php:97
+msgid "Begin installing plugins"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:370
+msgid "Begin updating plugins"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:374 core/tgm/gt3-tgm.php:98
+msgid "Begin activating plugins"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:377 core/tgm/gt3-tgm.php:99
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:378
+#: core/tgm/class-tgm-plugin-activation.php:897
+#: core/tgm/class-tgm-plugin-activation.php:2603
+#: core/tgm/class-tgm-plugin-activation.php:3650
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:379
+#: core/tgm/class-tgm-plugin-activation.php:3229 core/tgm/gt3-tgm.php:100
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:380
+#: core/tgm/class-tgm-plugin-activation.php:3022
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/tgm/class-tgm-plugin-activation.php:382
+#, php-format
+msgid "No action taken. Plugin %1$s was already active."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:384
+#, php-format
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. "
+"Please update the plugin."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:386
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:388
+msgid ""
+"There are one or more required or recommended plugins to install, update or "
+"activate."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:389
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:592
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:593
+msgid "Update Required"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:1004
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug "
+"and renaming did not work."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:1004
+#: core/tgm/class-tgm-plugin-activation.php:1007
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin "
+"according to the WordPress guidelines."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:1007
+msgid ""
+"The remote plugin package consists of more than one file, but the files are "
+"not packaged in a folder."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:1191
+#: core/tgm/class-tgm-plugin-activation.php:3018
+msgctxt "plugin A *and* plugin B"
+msgid "and"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2052
+#, php-format
+msgid "TGMPA v%s"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2343
+msgid "Required"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2346
+msgid "Recommended"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2362
+msgid "WordPress Repository"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2365
+msgid "External Source"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2368
+msgid "Pre-Packaged"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2385
+msgid "Not Installed"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2389
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2391
+msgid "Active"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2397
+msgid "Required Update not Available"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2400
+msgid "Requires Update"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2403
+msgid "Update recommended"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2412
+#, php-format
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2458
+#, php-format
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2462
+#, php-format
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2466
+#, php-format
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2470
+#, php-format
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2552
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2560
+msgid "Installed version:"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2568
+msgid "Minimum required version:"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2580
+msgid "Available version:"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2603
+msgid "No plugins to install, update or activate."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2617
+msgid "Plugin"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2618
+msgid "Source"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2623
+msgid "Version"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2624
+msgid "Status"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2673
+#, php-format
+msgid "Install %2$s"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2678
+#, php-format
+msgid "Update %2$s"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2684
+#, php-format
+msgid "Activate %2$s"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2754
+msgid "Upgrade message from the plugin author:"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2787
+msgid "Install"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2793
+msgid "Update"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2796
+msgid "Activate"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2827
+msgid "No plugins were selected to be installed. No action taken."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2829
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2870
+msgid "No plugins are available to be installed at this time."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2872
+msgid "No plugins are available to be updated at this time."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:2978
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3004
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3228
+msgid "Plugin activation failed."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3568
+#, php-format
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3571
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3573
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3577
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3579
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3580
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3582
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3585
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3587
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3588
+msgid "All installations have been completed."
+msgstr ""
+
+#: core/tgm/class-tgm-plugin-activation.php:3590
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: core/tgm/gt3-tgm.php:16
+msgid "GT3 Themes Core"
+msgstr ""
+
+#: core/tgm/gt3-tgm.php:25
+msgid "Elementor Page Builder"
+msgstr ""
+
+#: core/tgm/gt3-tgm.php:30
+msgid "GT3 Photo & Video Gallery - Lite"
+msgstr ""
+
+#: core/tgm/gt3-tgm.php:35
+msgid "GT3 Photo & Video Gallery - Pro"
+msgstr ""
+
+#: core/tgm/gt3-tgm.php:44
+msgid "Contact Form 7"
+msgstr ""
+
+#: core/tgm/gt3-tgm.php:49
+msgid "MailChimp"
+msgstr ""
+
+#: core/tgm/gt3-tgm.php:54
+msgid "Revolution Slider"
+msgstr ""
+
+#: core/tgm/gt3-tgm.php:63
+msgid "WooCommerce"
+msgstr ""
+
+#: core/tgm/gt3-tgm.php:91
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to install the %s "
+"plugins. Contact the administrator of this site for help on getting the "
+"plugins installed."
+msgstr ""
+
+#: core/tgm/gt3-tgm.php:94
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to activate the %s "
+"plugins. Contact the administrator of this site for help on getting the "
+"plugins activated."
+msgstr ""
+
+#: core/tgm/gt3-tgm.php:96
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to update the %s plugins. "
+"Contact the administrator of this site for help on getting the plugins "
+"updated."
+msgstr ""
+
+#: core/tgm/gt3-tgm.php:101
+#, php-format
+msgid "All plugins installed and activated successfully. %s"
+msgstr ""
+
+#: full-width.php:36 page.php:31 single-portfolio.php:52 single-project.php:52
+msgid "Read more!"
+msgstr ""
+
+#: full-width.php:38 image.php:97 page.php:33 single-portfolio.php:53
+#: single-project.php:53 single-proof_gallery.php:91 single.php:141
+msgid "Pages"
+msgstr ""
+
+#: full-width.php:74 index.php:55 page.php:68 single-gallery.php:287
+#: single-portfolio.php:100 single-project.php:100 single-proof_gallery.php:131
+#: single.php:386
+msgid "Password Protected"
+msgstr ""
+
+#: functions.php:133
+msgid "says:"
+msgstr ""
+
+#: functions.php:136 image.php:85
+msgid "Edit"
+msgstr ""
+
+#: functions.php:141
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: functions.php:147
+msgid "Reply"
+msgstr ""
+
+#: functions.php:500
+msgid " Tag"
+msgstr ""
+
+#: functions.php:504
+msgid "Author:"
+msgstr ""
+
+#: functions.php:506
+msgid "Search Results for: "
+msgstr ""
+
+#: functions.php:510 functions.php:552
+msgid "Archive"
+msgstr ""
+
+#: functions.php:524
+msgid "No Posts"
+msgstr ""
+
+#: functions.php:535
+msgid "Home"
+msgstr ""
+
+#: functions.php:559
+msgid "Search for"
+msgstr ""
+
+#: functions.php:627
+msgid "Tag"
+msgstr ""
+
+#: functions.php:632
+msgid "Author"
+msgstr ""
+
+#: functions.php:635
+msgid "Error 404"
+msgstr ""
+
+#: functions.php:704 functions.php:734 functions.php:762
+msgid "preloader"
+msgstr ""
+
+#: functions.php:1064 single-portfolio.php:83 single-project.php:83
+#: single.php:369 woocommerce/gt3-templates/default-pagination.php:20
+#: woocommerce/gt3-templates/pagination.php:23
+#: woocommerce/loop/default-pagination.php:36
+#: woocommerce/loop/pagination.php:36
+msgid "Prev"
+msgstr ""
+
+#: functions.php:1068 single-portfolio.php:87 single-project.php:87
+#: single.php:373 woocommerce/gt3-templates/default-pagination.php:21
+#: woocommerce/gt3-templates/pagination.php:24
+#: woocommerce/loop/default-pagination.php:37
+#: woocommerce/loop/pagination.php:37
+msgid "Next"
+msgstr ""
+
+#: functions.php:1164 functions.php:1171 functions.php:1174 functions.php:1177
+msgid "logo"
+msgstr ""
+
+#: functions.php:1413
+msgid "Login with Facebook"
+msgstr ""
+
+#: functions.php:1421
+msgid "Login with Google"
+msgstr ""
+
+#: functions.php:1427 functions.php:1429
+msgid "Login with Twitter"
+msgstr ""
+
+#: functions.php:1591
+msgid "login / register"
+msgstr ""
+
+#: functions.php:1600
+msgid "View your shopping cart"
+msgstr ""
+
+#: functions.php:2667
+msgid "Font Weight"
+msgstr ""
+
+#: functions.php:2669
+msgid "Lightest (100)"
+msgstr ""
+
+#: functions.php:2670
+msgid "Lighter (200)"
+msgstr ""
+
+#: functions.php:2671
+msgid "Light (300)"
+msgstr ""
+
+#: functions.php:2672
+msgid "Normal (400)"
+msgstr ""
+
+#: functions.php:2673
+msgid "Medium (500)"
+msgstr ""
+
+#: functions.php:2674
+msgid "Semi-Bold (600)"
+msgstr ""
+
+#: functions.php:2675
+msgid "Bold (700)"
+msgstr ""
+
+#: functions.php:2676
+msgid "Bolder (800)"
+msgstr ""
+
+#: functions.php:2677
+msgid "Extra Bold (900)"
+msgstr ""
+
+#: image.php:62
+msgid "Published on"
+msgstr ""
+
+#: image.php:62
+msgid "in"
+msgstr ""
+
+#: image.php:79
+msgid "Link to full-size image"
+msgstr ""
+
+#: image.php:80
+msgid "Full resolution"
+msgstr ""
+
+#: image.php:103
+msgid "Back"
+msgstr ""
+
+#: search.php:56
+msgid "Oops!"
+msgstr ""
+
+#: search.php:56
+msgid "Not Found!"
+msgstr ""
+
+#: search.php:57
+msgid "Apologies, but we were unable to find what you were looking for."
+msgstr ""
+
+#: searchform.php:5
+msgctxt "label"
+msgid "Search"
+msgstr ""
+
+#: searchform.php:7 woocommerce/product-searchform.php:26
+#: woocommerce/product-searchform.php:27
+msgid "Search"
+msgstr ""
+
+#: templates/pixproof_gallery.php:17
+msgid "Deselect"
+msgstr ""
+
+#: templates/pixproof_gallery.php:19
+msgid "Select"
+msgstr ""
+
+#: templates/pixproof_gallery.php:73
+msgid "Zoom"
+msgstr ""
+
+#: templates/pixproof_metadata.php:17
+msgid "Client"
+msgstr ""
+
+#: templates/pixproof_metadata.php:27
+msgid "Event date"
+msgstr ""
+
+#: templates/pixproof_metadata.php:37
+msgid "Images"
+msgstr ""
+
+#: templates/pixproof_metadata.php:47
+msgid "Download"
+msgstr ""
+
+#: woocommerce/global/quantity-input.php:28
+msgid "Quantity"
+msgstr ""
+
+#: woocommerce/global/quantity-input.php:40
+msgctxt "Product quantity input tooltip"
+msgid "Qty"
+msgstr ""
+
+#: woocommerce/gt3-templates/gt3-form-login.php:35
+#: woocommerce/gt3-templates/gt3-form-login.php:54
+msgid "Login"
+msgstr ""
+
+#: woocommerce/gt3-templates/gt3-form-login.php:42
+msgid "Username or email address"
+msgstr ""
+
+#: woocommerce/gt3-templates/gt3-form-login.php:46
+#: woocommerce/gt3-templates/gt3-form-login.php:97
+msgid "Password"
+msgstr ""
+
+#: woocommerce/gt3-templates/gt3-form-login.php:57
+msgid "Remember me"
+msgstr ""
+
+#: woocommerce/gt3-templates/gt3-form-login.php:61
+msgid "Lost your password?"
+msgstr ""
+
+#: woocommerce/gt3-templates/gt3-form-login.php:74
+#: woocommerce/gt3-templates/gt3-form-login.php:107
+msgid "Register"
+msgstr ""
+
+#: woocommerce/gt3-templates/gt3-form-login.php:83
+msgid "Username"
+msgstr ""
+
+#: woocommerce/gt3-templates/gt3-form-login.php:90
+msgid "Email address"
+msgstr ""
+
+#: woocommerce/gt3-templates/gt3-recently-viewed.php:42
+msgid "Recently Viewed"
+msgstr ""
+
+#: woocommerce/gt3-templates/gt3-recently-viewed.php:43
+msgid "Clear All"
+msgstr ""
+
+#: woocommerce/gt3-templates/loop/orderby.php:11
+msgid "Default sorting"
+msgstr ""
+
+#: woocommerce/gt3-templates/loop/orderby.php:12
+msgid "Sort by popularity"
+msgstr ""
+
+#: woocommerce/gt3-templates/loop/orderby.php:13
+msgid "Sort by average rating"
+msgstr ""
+
+#: woocommerce/gt3-templates/loop/orderby.php:14
+msgid "Sort by newness"
+msgstr ""
+
+#: woocommerce/gt3-templates/loop/orderby.php:15
+msgid "Sort by price: low to high"
+msgstr ""
+
+#: woocommerce/gt3-templates/loop/orderby.php:16
+msgid "Sort by price: high to low"
+msgstr ""
+
+#: woocommerce/gt3-templates/loop/orderby.php:21
+msgid "Sort by:"
+msgstr ""
+
+#: woocommerce/gt3-templates/loop/product-show.php:25
+msgid "Show:"
+msgstr ""
+
+#: woocommerce/gt3-templates/loop/product-show.php:27
+msgid "orderby"
+msgstr ""
+
+#: woocommerce/gt3-templates/pagination.php:28
+#: woocommerce/loop/pagination.php:41
+msgid "View the Last Page"
+msgstr ""
+
+#: woocommerce/gt3-templates/pagination.php:28
+#: woocommerce/loop/pagination.php:41
+msgid "View Page "
+msgstr ""
+
+#: woocommerce/gt3-templates/pagination.php:29
+#: woocommerce/loop/pagination.php:42
+msgid "of "
+msgstr ""
+
+#: woocommerce/gt3-templates/pagination.php:51
+#: woocommerce/loop/pagination.php:60
+msgid "View All"
+msgstr ""
+
+#: woocommerce/product-searchform.php:25
+msgid "Search products&hellip;"
+msgstr ""
+
+#: woocommerce/wooinit.php:50
+msgid "Out Of Stock"
+msgstr ""
+
+#: woocommerce/wooinit.php:487
+msgid "Size Guide"
+msgstr ""
+
+#: woocommerce/wooinit.php:568
+msgid "PREV"
+msgstr ""
+
+#: woocommerce/wooinit.php:590
+msgid "NEXT"
+msgstr ""
+
+#: woocommerce/wooinit.php:632
+msgid "Hot Product"
+msgstr ""
+
+#: woocommerce/wooinit.php:633
+msgid "Check for Hot Product"
+msgstr ""
+
+#: woocommerce/wooinit.php:637
+msgid "New Product"
+msgstr ""
+
+#: woocommerce/wooinit.php:638
+msgid "Check for New Product"
+msgstr ""
+
+#: woocommerce/wooinit.php:657
+msgid "Hot"
+msgstr ""
+
+#: woocommerce/wooinit.php:662
+msgid "New"
+msgstr ""
+
+#: woocommerce/wooinit.php:674
+msgid "an option"
+msgstr ""
+
+#: woocommerce/wooinit.php:676
+msgid "Choose "
+msgstr ""
+
+#: woocommerce/wooinit.php:755
+msgid "Enter your keyworld..."
+msgstr ""
+
+#: woocommerce/wooinit.php:834
+msgid "Fullscreen"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "Agrosector"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "https://livewp.site/wp/md/agrosector/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"GT3themes team presents absolutely fresh and powerful WordPress theme. It "
+"combines new technologies and functional design that helps to showcase your "
+"content in better way. This WordPress theme is developed with attention to "
+"details, so you can create effective presentation of a website easily. Enjoy "
+"building web pages with our product!"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "GT3themes"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "gt3themes.com"
+msgstr ""
