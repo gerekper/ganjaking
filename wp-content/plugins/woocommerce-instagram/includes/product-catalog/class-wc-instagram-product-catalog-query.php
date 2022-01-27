@@ -2,7 +2,7 @@
 /**
  * A class for querying the products of a catalog.
  *
- * @package WC_Instagram/Product Catalog
+ * @package WC_Instagram/Product_Catalog
  * @since   3.0.0
  */
 
@@ -28,14 +28,21 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 	 * @param array $args Criteria to query on in a format similar to WP_Query.
 	 */
 	public function __construct( $args = array() ) {
-		$this->catalog_query_vars = wp_parse_args( $args, $this->get_default_catalog_query_vars() );
+		$defaults = $this->get_default_catalog_query_vars();
 
-		$args = $this->process_catalog_query_vars();
+		// Store the catalog query vars only.
+		$this->catalog_query_vars = wp_parse_args( array_intersect_key( $args, $defaults ), $defaults );
+
+		// Store the query vars only.
+		$query_vars = wp_parse_args( $this->process_catalog_query_vars(), array_diff_key( $args, $defaults ) );
 
 		// Force return the product IDs.
-		$args = wp_parse_args( array( 'return' => 'ids' ), $args );
+		$query_vars['return'] = 'ids';
 
-		parent::__construct( $args );
+		// Pagination not supported yet.
+		$query_vars['paginate'] = false;
+
+		parent::__construct( $query_vars );
 	}
 
 	/**
@@ -60,8 +67,10 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 		$query_vars = array_merge(
 			parent::get_default_query_vars(),
 			array(
-				'status' => array( 'publish' ),
-				'limit'  => -1,
+				'status'  => array( 'publish' ),
+				'limit'   => - 1,
+				'order'   => 'ASC',
+				'orderby' => 'ID',
 			)
 		);
 
@@ -83,18 +92,29 @@ class WC_Instagram_Product_Catalog_Query extends WC_Product_Query {
 	 * @return array
 	 */
 	protected function get_default_catalog_query_vars() {
-		return array(
-			'filter_by'             => 'products',
-			'products_option'       => '',
-			'product_cats_option'   => '',
-			'product_cats'          => array(),
-			'product_types_option'  => '',
-			'product_types'         => array(),
-			'virtual_products'      => '',
-			'downloadable_products' => '',
-			'stock_status'          => '',
-			'include_product_ids'   => array(),
-			'exclude_product_ids'   => array(),
+		/**
+		 * Filters the default catalog query vars.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @param array $catalog_query_vars The catalog query vars.
+		 */
+		return apply_filters(
+			'wc_instagram_product_catalog_default_catalog_query_vars',
+			array(
+				'filter_by'             => 'products',
+				'products_option'       => '',
+				'product_cats_option'   => '',
+				'product_cats'          => array(),
+				'product_types_option'  => '',
+				'product_types'         => array(),
+				'virtual_products'      => '',
+				'downloadable_products' => '',
+				'stock_status'          => '',
+				'include_product_ids'   => array(),
+				'exclude_product_ids'   => array(),
+				'return'                => 'objects',
+			)
 		);
 	}
 

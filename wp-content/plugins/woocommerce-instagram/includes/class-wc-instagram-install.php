@@ -39,6 +39,10 @@ class WC_Instagram_Install {
 			'wc_instagram_update_350_update_catalogs',
 			'wc_instagram_update_350_db_version',
 		),
+		'4.0.0' => array(
+			'wc_instagram_update_400_migrate_catalogs',
+			'wc_instagram_update_400_db_version',
+		),
 	);
 
 	/**
@@ -79,7 +83,7 @@ class WC_Instagram_Install {
 	 * @since 2.0.0
 	 */
 	public static function init_background_updater() {
-		include_once dirname( __FILE__ ) . '/class-wc-instagram-background-updater.php';
+		include_once WC_INSTAGRAM_PATH . 'includes/backgrounds/class-wc-instagram-background-updater.php';
 		self::$background_updater = new WC_Instagram_Background_Updater();
 	}
 
@@ -179,6 +183,8 @@ class WC_Instagram_Install {
 			WC_Instagram_Admin_Notices::add_dismiss_notice( 'wc_instagram_google_product_categories' );
 		} elseif ( version_compare( $old_version, '3.7.0', '<' ) ) {
 			WC_Instagram_Admin_Notices::add_dismiss_notice( 'wc_instagram_google_product_attributes' );
+		} elseif ( version_compare( $old_version, '4.0.0', '<' ) ) {
+			WC_Instagram_Admin_Notices::add_dismiss_notice( 'wc_instagram_product_catalog_files' );
 		}
 	}
 
@@ -204,6 +210,7 @@ class WC_Instagram_Install {
 		self::setup_environment();
 		self::update_version();
 		self::maybe_update_db();
+		self::create_files();
 
 		// Installation finished.
 		delete_transient( 'wc_instagram_installing' );
@@ -331,6 +338,39 @@ class WC_Instagram_Install {
 			'wc_instagram_updated',
 			_x( 'WooCommerce Instagram update complete. Thank you for updating to the latest version!', 'admin notice', 'woocommerce-instagram' )
 		);
+	}
+
+	/**
+	 * Creates files/directories.
+	 *
+	 * @since 4.0.0
+	 */
+	private static function create_files() {
+		$files = array(
+			array(
+				'base'    => WC_INSTAGRAM_CATALOGS_PATH,
+				'file'    => '.htaccess',
+				'content' => 'deny from all',
+			),
+			array(
+				'base'    => WC_INSTAGRAM_CATALOGS_PATH,
+				'file'    => 'index.html',
+				'content' => '',
+			),
+		);
+
+		foreach ( $files as $file ) {
+			$filename = trailingslashit( $file['base'] ) . $file['file'];
+
+			if ( wp_mkdir_p( $file['base'] ) && ! file_exists( $filename ) ) {
+				$file_handle = @fopen( $filename, 'wb' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_read_fopen
+
+				if ( $file_handle ) {
+					fwrite( $file_handle, $file['content'] ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fwrite
+					fclose( $file_handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose
+				}
+			}
+		}
 	}
 }
 

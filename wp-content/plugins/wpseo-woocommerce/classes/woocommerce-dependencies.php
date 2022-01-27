@@ -39,8 +39,7 @@ class Yoast_WooCommerce_Dependencies {
 			return false;
 		}
 
-		// At least 17.8, in which we introduced the specific product analysis.
-		if ( ! version_compare( $wordpress_seo_version, '17.8-RC0', '>=' ) ) {
+		if ( ! version_compare( $wordpress_seo_version, '18.0-RC0', '>=' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'yoast_seo_upgrade_error' ] );
 
 			return false;

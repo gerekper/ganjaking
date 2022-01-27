@@ -116,9 +116,11 @@ class WC_Instagram_Router {
 			return;
 		}
 
+		$file = self::$product_catalog->get_file( 'xml' );
+
 		self::send_headers( 'product_catalog' );
 
-		echo wc_instagram_get_formatted_product_catalog( self::$product_catalog, array(), 'xml' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $file->get_content(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		remove_all_actions( 'wp_footer' );
 		die();
@@ -139,7 +141,7 @@ class WC_Instagram_Router {
 		$headers = self::get_headers_for( $content_type );
 
 		foreach ( $headers as $header => $value ) {
-			header( "{$header}: $value", true );
+			header( "{$header}: $value" );
 		}
 
 		status_header( 200 );

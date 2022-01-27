@@ -3,9 +3,6 @@
  * WooCommerce Pre-Orders
  *
  * @package     WC_Pre_Orders/Order
- * @author      WooThemes
- * @copyright   Copyright (c) 2013, WooThemes
- * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0
  */
-class WC_Pre_Orders_Order  {
+class WC_Pre_Orders_Order {
 
 	/**
 	 * Add hooks / filters
@@ -43,7 +40,7 @@ class WC_Pre_Orders_Order  {
 		add_action( 'wp_trash_post', array( $this, 'maybe_cancel_trashed_pre_order' ) );
 
 		// get formatted order total when viewing order on my account page
-		add_filter( 'woocommerce_get_formatted_order_total', array( $this, 'get_formatted_order_total'), 10, 2 );
+		add_filter( 'woocommerce_get_formatted_order_total', array( $this, 'get_formatted_order_total' ), 10, 2 );
 
 		// adds a 'Release Date' line to pre-order product order items on the thank-you page, emails, my account, etc
 		add_filter( 'woocommerce_order_get_items', array( $this, 'add_product_release_date_item_meta' ), 10, 2 );
@@ -52,11 +49,11 @@ class WC_Pre_Orders_Order  {
 		// since we already reduced stock when they pre-ordered.
 		add_filter( 'woocommerce_pay_order_product_in_stock', array( $this, 'product_in_stock' ), 10, 3 );
 
-		add_filter( 'woocommerce_reports_order_statuses', array( $this, 'add_pre_orders_to_report_statuses') );
+		add_filter( 'woocommerce_reports_order_statuses', array( $this, 'add_pre_orders_to_report_statuses' ) );
 	}
 
 	/**
-	 * Add support for copupons and pre-ordered status
+	 * Add support for coupons and pre-ordered status
 	 *
 	 * @return void
 	 */
@@ -73,14 +70,18 @@ class WC_Pre_Orders_Order  {
 	 * @return void
 	 */
 	public function register_order_status() {
-		register_post_status( 'wc-pre-ordered', array(
-			'label'                     => _x( 'Pre ordered', 'Order status', 'wc-pre-orders' ),
-			'public'                    => true,
-			'exclude_from_search'       => false,
-			'show_in_admin_all_list'    => true,
-			'show_in_admin_status_list' => true,
-			'label_count'               => _n_noop( 'Pre ordered <span class="count">(%s)</span>', 'Pre ordered <span class="count">(%s)</span>', 'wc-pre-orders' )
-		) );
+		register_post_status(
+			'wc-pre-ordered',
+			array(
+				'label'                     => _x( 'Pre ordered', 'Order status', 'wc-pre-orders' ),
+				'public'                    => true,
+				'exclude_from_search'       => false,
+				'show_in_admin_all_list'    => true,
+				'show_in_admin_status_list' => true,
+				/* translators: %s: number of pre-orders */
+				'label_count'               => _n_noop( 'Pre ordered <span class="count">(%s)</span>', 'Pre ordered <span class="count">(%s)</span>', 'wc-pre-orders' ),
+			)
+		);
 	}
 
 	/**
@@ -97,12 +98,12 @@ class WC_Pre_Orders_Order  {
 
 	/**
 	 * Add "pre-ordered" order status to WC Reports for tracking order revenue.
-	 * @param array $order_statuses
+	 *
+	 * @param array|bool $order_statuses
 	 * @return array
 	 */
 	public function add_pre_orders_to_report_statuses( $order_statuses ) {
-		$order_statuses[] = 'pre-ordered';
-		return $order_statuses;
+		return is_array( $order_statuses ) ? array_merge( $order_statuses, array( 'pre-ordered' ) ) : $order_statuses;
 	}
 
 	/**
@@ -238,11 +239,7 @@ class WC_Pre_Orders_Order  {
 		$order->update_status( 'pre-ordered' );
 
 		// reduce order stock
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$order->reduce_order_stock();
-		} else {
-			wc_reduce_stock_levels( $order->get_id() );
-		}
+		WC_Pre_Orders_Manager::reduce_stock_level( $order );
 	}
 
 	/**
@@ -262,14 +259,17 @@ class WC_Pre_Orders_Order  {
 
 		foreach ( $order->get_items( 'line_item' ) as $order_item ) {
 
-			if ( ! empty( $order_item['product_id'] ) &&
-				( WC_Pre_Orders_Product::product_can_be_pre_ordered( $order_item['product_id'] )
-				|| WC_Pre_Orders_Product::product_has_active_pre_orders( $order_item['product_id'] ) ) ) {
-
-				// return the product object
-				return $order_item;
+			if ( ! empty( $order_item['product_id'] ) ) {
+				// Avoid running heavy queries via WC_Pre_Orders_Product::product_has_active_pre_orders() that check if any order exists with an active pre-order status to this product if we know the order provided is active.
+				if ( 'active' === self::get_pre_order_status( $order ) ) {
+					return $order_item;
+				} elseif ( WC_Pre_Orders_Product::product_can_be_pre_ordered( $order_item['product_id'] ) || WC_Pre_Orders_Product::product_has_active_pre_orders( $order_item['product_id'] ) ) {
+					return $order_item;
+				}
 			}
 		}
+
+		return null;
 	}
 
 	/**
@@ -286,24 +286,23 @@ class WC_Pre_Orders_Order  {
 			$order = new WC_Order( $order );
 		}
 
-		if ( self::order_contains_pre_order( $order ) ) {
+		if ( ! self::order_contains_pre_order( $order ) ) {
+			return null;
+		}
 
-			foreach ( $order->get_items( 'line_item' ) as $order_item ) {
-
-				if ( ! empty( $order_item['product_id'] ) &&
-					( WC_Pre_Orders_Product::product_can_be_pre_ordered( $order_item['product_id'] )
-					|| WC_Pre_Orders_Product::product_has_active_pre_orders( $order_item['product_id'] ) ) ) {
-
+		foreach ( $order->get_items( 'line_item' ) as $order_item ) {
+			if ( ! empty( $order_item['product_id'] ) ) {
+				// Avoid running heavy queries via WC_Pre_Orders_Product::product_has_active_pre_orders() that check if any order exists with an active pre-order status to this product if we know the order provided is active.
+				if ( 'active' === self::get_pre_order_status( $order ) ) {
+					return $order_item->get_product();
+				} elseif ( WC_Pre_Orders_Product::product_can_be_pre_ordered( $order_item['product_id'] ) || WC_Pre_Orders_Product::product_has_active_pre_orders( $order_item['product_id'] ) ) {
 					// return the product object
 					return $order_item->get_product();
 				}
 			}
-
-		} else {
-
-			// the order does not contain a pre-order
-			return null;
 		}
+
+		return null;
 	}
 
 	/**
@@ -338,16 +337,16 @@ class WC_Pre_Orders_Order  {
 		$status = self::get_pre_order_status( $order );
 
 		switch ( $status ) {
-			case 'active' :
+			case 'active':
 				$status_string = __( 'Active', 'wc-pre-orders' );
 				break;
-			case 'completed' :
+			case 'completed':
 				$status_string = __( 'Completed', 'wc-pre-orders' );
 				break;
-			case 'cancelled' :
+			case 'cancelled':
 				$status_string = __( 'Cancelled', 'wc-pre-orders' );
 				break;
-			default :
+			default:
 				$status_string = apply_filters( 'wc_pre_orders_custom_status_string', ucfirst( $status ), $order );
 				break;
 		}
@@ -359,7 +358,7 @@ class WC_Pre_Orders_Order  {
 	 * Automatically change the pre-order status when the order status changes.
 	 *
 	 * @since 1.0
-	 * @param int $order_id post ID of the order
+	 * @param int    $order_id post ID of the order
 	 * @param string $old_order_status the prior order status
 	 * @param string $new_order_status the new order status
 	 */
@@ -378,7 +377,7 @@ class WC_Pre_Orders_Order  {
 		}
 
 		// change to 'cancelled' when changing order status to 'cancelled', except when the pre-order status is already cancelled. this prevents sending double emails when bulk-cancelling pre-orders
-		if ( 'cancelled' === $new_order_status && WC_Pre_Orders_Order::order_contains_pre_order( $order_id ) && 'cancelled' !== get_post_meta( $order_id, '_wc_pre_orders_status', true ) ) {
+		if ( 'cancelled' === $new_order_status && self::order_contains_pre_order( $order_id ) && 'cancelled' !== get_post_meta( $order_id, '_wc_pre_orders_status', true ) ) {
 			$this->update_pre_order_status( $order_id, 'cancelled' );
 		}
 	}
@@ -388,22 +387,23 @@ class WC_Pre_Orders_Order  {
 	 *
 	 * @since 1.0
 	 * @param object|int $order preferably the order object, or order ID if object is inconvenient to provide
-	 * @param string $new_status the new pre-order status
-	 * @param string $message an optional message to include in the email to customer
+	 * @param string     $new_status the new pre-order status
+	 * @param string     $message an optional message to include in the email to customer
 	 */
 	public static function update_pre_order_status( $order, $new_status, $message = '' ) {
 		if ( ! $new_status ) {
 			return;
 		}
 
-		if ( ! is_object( $order ) )
+		if ( ! is_object( $order ) ) {
 			$order = new WC_Order( $order );
+		}
 
 		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
 
 		$old_status = get_post_meta( $order_id, '_wc_pre_orders_status', true );
 
-		if ( $old_status == $new_status ) {
+		if ( $old_status === $new_status ) {
 			return;
 		}
 
@@ -427,7 +427,8 @@ class WC_Pre_Orders_Order  {
 		}
 
 		// add order note
-		$order->add_order_note( $message . sprintf( __( 'Pre-Order status changed from %s to %s.', 'wc-pre-orders' ), $old_status, $new_status ) );
+		/* translators: %1$s: old pre-order status %2$s: new pre-order status */
+		$order->add_order_note( $message . sprintf( __( 'Pre-Order status changed from %1$s to %2$s.', 'wc-pre-orders' ), $old_status, $new_status ) );
 	}
 
 	/**
@@ -453,7 +454,7 @@ class WC_Pre_Orders_Order  {
 	 * thank-you page, emails, my account, etc
 	 *
 	 * @since 1.0
-	 * @param array $items array of order item arrays
+	 * @param array    $items array of order item arrays
 	 * @param WC_Order $order order object
 	 * @return array of order item arrays
 	 */
@@ -464,7 +465,7 @@ class WC_Pre_Orders_Order  {
 
 		if ( self::order_contains_pre_order( $order ) ) {
 
-			$name          = get_option( 'wc_pre_orders_availability_date_cart_title_text' );
+			$name = get_option( 'wc_pre_orders_availability_date_cart_title_text' );
 
 			$updated_items = array();
 
@@ -476,7 +477,7 @@ class WC_Pre_Orders_Order  {
 					$pre_order_meta = apply_filters( 'wc_pre_orders_order_item_meta', WC_Pre_Orders_Product::get_localized_availability_date( $product ), $current_item, $order );
 
 					if ( ! empty( $pre_order_meta ) ) {
-						$current_item['item_meta'] += array ( $name => array( $pre_order_meta ) );
+						$current_item['item_meta'] += array( $name => array( $pre_order_meta ) );
 					}
 				}
 

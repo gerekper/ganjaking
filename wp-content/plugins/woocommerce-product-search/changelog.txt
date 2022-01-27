@@ -1,5 +1,14 @@
 *** WooCommerce Product Search ***
 
+2022.01.23 - version 4.3.0
+* WordPress 5.9 compatible.
+* WooCommerce 6.1 compatible.
+* Requires at least WooCommerce 5.6.
+* Attributes from variable products that are not used for variations are added to the index for their variations.
+* Indexer administrative section reloads hourly to renew status nonce.
+* Fixed depth not taken into account when rendering hierarchical term filters.
+* Fixed option show ancestors had no effect when disabled and rendering a product category filter.
+
 2021.11.25 - version 4.2.1
 * Fixes a comparison bug in the redirect_canonical filter used to avoid redirect loops in certain circumstances.
 * Increased the implicit limit of items for category and attribute filter dropdowns (using 100000 to override the default used by the selectize component's maxOptions parameter).

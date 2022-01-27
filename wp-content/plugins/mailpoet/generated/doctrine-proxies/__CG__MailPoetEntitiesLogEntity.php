@@ -285,7 +285,7 @@ class LogEntity extends \MailPoet\Entities\LogEntity implements \MailPoetVendor\
     /**
      * {@inheritDoc}
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): ?\DateTimeInterface
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedAt', []);

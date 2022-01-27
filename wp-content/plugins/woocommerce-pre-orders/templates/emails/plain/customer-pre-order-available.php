@@ -2,10 +2,7 @@
 /**
  * WooCommerce Pre-Orders
  *
- * @package     WC_Pre_Orders/Templates/Email
- * @author      WooThemes
- * @copyright   Copyright (c) 2013, WooThemes
- * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
+ * @package WC_Pre_Orders/Templates/Email
  */
 
 /**
@@ -15,37 +12,39 @@
  * @version 1.5.1
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
-$pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
-$billing_email = $pre_wc_30 ? $order->billing_email : $order->get_billing_email();
-$billing_phone = $pre_wc_30 ? $order->billing_phone : $order->get_billing_phone();
-
-echo $email_heading . "\n\n";
+echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
+echo esc_html( wp_strip_all_tags( $email_heading ) );
+echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
 if ( 'pending' === $order->get_status() && ! WC_Pre_Orders_Manager::is_zero_cost_order( $order ) ) :
 
-	echo __( 'Your pre-order is now available, but requires payment. Please pay for your pre-order now: ', 'wc-pre-orders' ) . esc_url( $order->get_checkout_payment_url() ) . "\n\n";
+	esc_html_e( 'Your pre-order is now available, but requires payment. Please pay for your pre-order now: ', 'wc-pre-orders' ) . esc_url( $order->get_checkout_payment_url() ) . "\n\n";
 
-elseif ( 'failed' === $order->get_status() || 'on-hold' === $order->get_status() ) :
+elseif ( 'on-hold' === $order->get_status() && ! WC_Pre_Orders_Manager::is_zero_cost_order( $order ) ) :
 
-	echo __( "Your pre-order is now available, but automatic payment failed. Please update your payment information now : ", 'wc-pre-orders' ) . esc_url( $order->get_checkout_payment_url() ) . "\n\n";
+	esc_html_e( "Your pre-order is now available, but is waiting for the payment to be confirmed. Please wait until it's confirmed. Optionally, make sure the related payment has been sent to avoid delays on your order.", 'wc-pre-orders' ) . "\n\n";
+
+elseif ( 'failed' === $order->get_status() ) :
+
+	esc_html_e( 'Your pre-order is now available, but automatic payment failed. Please update your payment information now : ', 'wc-pre-orders' ) . esc_url( $order->get_checkout_payment_url() ) . "\n\n";
 
 else :
 
-	echo __( "Your pre-order is now available. Your order details are shown below for your reference.", 'wc-pre-orders' ) . "\n\n";
+	esc_html_e( 'Your pre-order is now available. Your order details are shown below for your reference.', 'wc-pre-orders' ) . "\n\n";
 
 endif;
 
 if ( $message ) :
 
-echo "----------\n\n";
-echo wptexturize( $message ) . "\n\n";
-echo "----------\n\n";
+	echo "----------\n\n";
+	echo esc_html( wp_strip_all_tags( wptexturize( $message ) ) ) . "\n\n";
+	echo "----------\n\n";
 
 endif;
-
-echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
 /*
  * @hooked WC_Emails::order_details() Shows the order details table.
@@ -55,7 +54,7 @@ echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n"
  */
 do_action( 'woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email );
 
-echo "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
+echo "\n----------------------------------------\n\n";
 
 /*
  * @hooked WC_Emails::order_meta() Shows order meta data.
@@ -68,6 +67,8 @@ do_action( 'woocommerce_email_order_meta', $order, $sent_to_admin, $plain_text, 
  */
 do_action( 'woocommerce_email_customer_details', $order, $sent_to_admin, $plain_text, $email );
 
+echo "\n\n----------------------------------------\n\n";
+
 /**
  * Show user-defined additional content - this is set in each email's settings.
  */
@@ -77,6 +78,4 @@ if ( $additional_content ) {
 	echo esc_html__( 'Thanks for shopping with us.', 'wc-pre-orders' );
 }
 
-echo "\n\n\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
-
-echo apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) );
+echo wp_kses_post( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) );

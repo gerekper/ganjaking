@@ -3583,7 +3583,7 @@ class GFFormDisplay {
 		$error_class      = $field->failed_validation ? 'gfield_error' : '';
 		$admin_only_class = $field->visibility == 'administrative' ? 'field_admin_only' : ''; // maintain for backwards compat
 		if ( $is_admin ) {
-			$visibility_class = 'gfield_visibility_visibile';
+			$visibility_class = 'gfield_visibility_visible';
 		} else {
 			$visibility_class = sprintf( 'gfield_visibility_%s', ( $field->visibility ? $field->visibility : 'visible' ) );
 		}

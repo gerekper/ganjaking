@@ -165,7 +165,7 @@ class BetterDocs_Role_Management {
 		        }
 	        }
         } else {
-        	$role = $roles[0];
+        	$role = isset( $roles[0] ) ? $roles[0] : '';
 	        if ( in_array( $role, $current_check_against ) ) {
 		        if ( $giveRole ) {
 			        return $role;

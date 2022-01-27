@@ -2,10 +2,7 @@
 /**
  * WooCommerce Pre-Orders
  *
- * @package     WC_Pre_Orders/Manager
- * @author      WooThemes
- * @copyright   Copyright (c) 2013, WooThemes
- * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
+ * @package WC_Pre_Orders/Manager
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,6 +19,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_Pre_Orders_Manager {
 
 	/**
+	 * The Scheduled action hook used to process a batch of pre-order.
+	 *
+	 * @var string
+	 */
+	private static $scheduled_batch_processing_hook = 'wc_pre_orders_process_batch';
+
+	/**
+	 * The scheduled action hook used to complete a pre-order.
+	 *
+	 * @var string
+	 */
+	private static $scheduled_pre_order_complete_hook = 'wc_pre_orders_complete_pre_order';
+
+	/**
 	 * Adds hooks / filters
 	 *
 	 * @since 1.0
@@ -32,11 +43,18 @@ class WC_Pre_Orders_Manager {
 		$disable = get_option( 'wc_pre_orders_disable_auto_processing', 'no' );
 
 		if ( 'yes' !== $disable ) {
-			// hook into cron event to check if there are pre-orders to automatically complete
-			add_action( 'wc_pre_orders_completion_check', array( $this, 'check_for_pre_orders_to_complete' ), 10 );
+			// If the site is running WC 3.5+ we can use the new queue scheduling library which uses Action Scheduler under the hood.
+			if ( version_compare( WC_VERSION, '3.5.0', '>=' ) ) {
+				add_action( 'wc_pre_orders_completion_check', array( $this, 'maybe_schedule_batch_processor' ) );
+				add_action( self::$scheduled_batch_processing_hook, array( $this, 'schedule_actions_to_complete_pre_orders' ), 10, 2 );
+				add_action( self::$scheduled_pre_order_complete_hook, array( __CLASS__, 'complete_pre_order' ) );
+			} else {
+				// hook into cron event to check if there are pre-orders to automatically complete
+				add_action( 'wc_pre_orders_completion_check', array( $this, 'check_for_pre_orders_to_complete' ), 10 );
 
-			// hook into same cron event as above and set products that didn't get any orders to a normal product
-			add_action( 'wc_pre_orders_completion_check', array( $this, 'check_for_pre_order_products_to_reset' ), 11 );
+				// hook into same cron event as above and set products that didn't get any orders to a normal product
+				add_action( 'wc_pre_orders_completion_check', array( $this, 'check_for_pre_order_products_to_reset' ), 11 );
+			}
 		}
 
 		// prevent pre-orders with a 'pending' order status from being auto-cancelled
@@ -47,7 +65,156 @@ class WC_Pre_Orders_Manager {
 
 		// Automatically cancel pre-order when associated order is fully refunded.
 		add_action( 'woocommerce_order_fully_refunded', __CLASS__ . '::cancel_pre_order', 10 );
+		add_action( 'woocommerce_product_set_stock_status', array( $this, 'maybe_activate_preorder' ), 10, 3 );
 
+	}
+
+	/**
+	 * Schedules individual background actions to process pre-order products passed their release date.
+	 *
+	 * @since 2.0.0
+	 */
+	public function maybe_schedule_batch_processor() {
+		$product_ids = WC_Pre_Orders_Product::get_products_passed_release_date();
+
+		// Generate a unique batch ID for this set of products which we will process together.
+		$batch_id = self::generate_batch_id( $product_ids );
+
+		// If we don't already have a batch processor scheduled for the products which need releasing, schedule one.
+		if ( ! empty( $product_ids ) && ! $this->has_scheduled_batch_processor( $product_ids, $batch_id ) ) {
+			$this->schedule_batch_processor( $product_ids, $batch_id );
+
+			// Now that we have scheduled the action to process these products. Disable further pre-orders for them.
+			$this->disable_pre_orders_for_products( $product_ids );
+		}
+	}
+
+	/**
+	 * Schedules a batch processor for a given batch of product IDs.
+	 *
+	 * @param int[]  $product_ids The product IDs to batch process pre-orders for.
+	 * @param string $product_ids The unique batch ID for this set of products.
+	 */
+	private function schedule_batch_processor( $product_ids, $batch_id ) {
+		// Schedule the batch to run as soon as possible. WC_Action_Queue::add() uses time().
+		WC()->queue()->add(
+			self::$scheduled_batch_processing_hook,
+			array(
+				'products' => $product_ids,
+				'batch_id' => $batch_id,
+			)
+		);
+	}
+
+	/**
+	 * Checks if there's already a scheduled batch processor action for a given set of products.
+	 *
+	 * @param int[]  $product_ids The product IDs to batch process pre-orders for.
+	 * @param string $product_ids The unique batch ID for this set of products.
+	 *
+	 * @return bool True if there's a scheduled action already, otherwise false.
+	 */
+	private function has_scheduled_batch_processor( $product_ids, $batch_id ) {
+		return null !== WC()->queue()->get_next(
+			self::$scheduled_batch_processing_hook,
+			array(
+				'products' => $product_ids,
+				'batch_id' => $batch_id,
+			)
+		);
+	}
+
+	/**
+	 * Schedules a background job to process a single pre-order.
+	 *
+	 * @param WC_Order $order The order the schedule a completetion hook for.
+	 */
+	private function schedule_pre_order_complete( $order ) {
+		$args = array( 'order_id' => $order->get_id() );
+
+		if ( null === WC()->queue()->get_next( self::$scheduled_pre_order_complete_hook, $args ) ) {
+			WC()->queue()->schedule_single( time() + MINUTE_IN_SECONDS, self::$scheduled_pre_order_complete_hook, $args );
+		}
+	}
+
+	/**
+	 * Finds pre-orders for a batch of given products and schedules a background job to process them.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param int[]  $product_ids The product IDs to schedule pre-order completion for.
+	 * @param string $product_ids The unique batch ID for this set of products.
+	 */
+	public function schedule_actions_to_complete_pre_orders( $product_ids, $batch_id ) {
+		// Generate a meta key flag which is stored on orders we have checked if they need processing by this batch so we can exclude them from future queries.
+		$meta_key_flag = "_wc_pre_handled_by_product_batch_{$batch_id}";
+		$batch_size    = apply_filters( 'wc_pre_orders_complete_pre_orders_batch_size', 200 );
+
+		// Get pre-orders which haven't been handled by this batch ID.
+		$query = new WP_Query(
+			array(
+				'post_status'    => 'wc-pre-ordered',
+				'post_type'      => 'shop_order',
+				'posts_per_page' => $batch_size,
+				'fields'         => 'ids',
+				'meta_query'     => array(
+					'relation' => 'AND',
+					array(
+						'key'   => '_wc_pre_orders_is_pre_order',
+						'value' => 1,
+					),
+					array(
+						'key'     => $meta_key_flag,
+						'compare' => 'NOT EXISTS',
+					),
+				),
+			)
+		);
+
+		// If we got a full batch of orders, we haven't finished.
+		$is_batch_complete = count( $query->posts ) !== $batch_size;
+
+		// If we've finished processing these products, release the orders and clean up the meta flags.
+		if ( $is_batch_complete ) {
+			$this->release_orders_from_batch( $meta_key_flag );
+		} else {
+			// If we got a full batch of orders, schedule a followup action.
+			$this->schedule_batch_processor( $product_ids, $batch_id );
+		}
+
+		foreach ( $query->posts as $order_id ) {
+			$order = wc_get_order( $order_id );
+
+			if ( ! $order ) {
+				continue;
+			}
+
+			// Store meta on the order so we know it has been checked by this batch so it can be excluded by future batch queries.
+			// Skip setting this meta if this is the last batch, as we've deleted it from all previous orders at this point.
+			if ( ! $is_batch_complete ) {
+				$order->update_meta_data( $meta_key_flag, 'true' );
+				$order->save();
+			}
+
+			foreach ( $order->get_items() as $item ) {
+				// If this order contains a product we need to process. Schedule an action to process it in the future.
+				if ( in_array( $item->get_product_id(), $product_ids ) || in_array( $item->get_variation_id(), $product_ids ) ) {
+					$this->schedule_pre_order_complete( $order );
+					continue;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Deletes a batch ID flag stored on orders handled by a batch processor.
+	 *
+	 * @param string $meta_key_flag The unique meta key used to flag orders as being handled by a batch processor.
+	 * @return int The number of orders updated.
+	 */
+	private function release_orders_from_batch( $meta_key_flag ) {
+		global $wpdb;
+		return $wpdb->delete( "{$wpdb->prefix}postmeta", array( 'meta_key' => $meta_key_flag ) );
 	}
 
 	/**
@@ -67,8 +234,8 @@ class WC_Pre_Orders_Manager {
 		do_action( 'wc_pre_orders_before_automatic_completion_check' );
 
 		$args = array(
-			'post_type'   => 'shop_order',
-			'nopaging'    => true,
+			'post_type'  => 'shop_order',
+			'nopaging'   => true,
 			'meta_query' => array(
 				array(
 					'key'   => '_wc_pre_orders_is_pre_order',
@@ -81,7 +248,7 @@ class WC_Pre_Orders_Manager {
 			$args['post_status'] = 'wc-pre-ordered';
 		} else {
 			$args['post_status'] = 'publish';
-			$args['tax_query'] = array(
+			$args['tax_query']   = array(
 				array(
 					'taxonomy' => 'shop_order_status',
 					'field'    => 'slug',
@@ -96,7 +263,7 @@ class WC_Pre_Orders_Manager {
 			return;
 		}
 
-		$orders_to_complete = array();
+		$orders_to_complete  = array();
 		$products_to_disable = array();
 
 		foreach ( $query->posts as $order_post ) {
@@ -166,8 +333,8 @@ class WC_Pre_Orders_Manager {
 						'value' => 'yes',
 					),
 					array(
-						'key'   => '_wc_pre_orders_availability_datetime',
-						'value' => $time_now_in_utc,
+						'key'     => '_wc_pre_orders_availability_datetime',
+						'value'   => $time_now_in_utc,
 						'compare' => '<',
 					),
 				),
@@ -212,11 +379,36 @@ class WC_Pre_Orders_Manager {
 
 		$order = new WC_Order( $order_id );
 
+		$order_status = $order->get_status();
+
+		// stock reduction should only be prevented when order is being completed
+		// ie when current order status is 'processing'
+		if ( 'processing' !== $order_status ) {
+			return $reduce_stock;
+		}
+
 		if ( WC_Pre_Orders_Order::order_contains_pre_order( $order ) && WC_Pre_Orders_Order::order_will_be_charged_upon_release( $order ) && ! self::is_order_pay_later( $order_id ) ) {
 			$reduce_stock = false;
 		}
 
 		return $reduce_stock;
+	}
+
+	/**
+	 * Reduce the stock level for an order and record the stock reduction in data store
+	 *
+	 * @since 1.5.31
+	 * @param object $order the \WC_Order object
+	 */
+	public static function reduce_stock_level( $order ) {
+		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+
+		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
+			$order->reduce_order_stock();
+		} else {
+			wc_reduce_stock_levels( $order->get_id() );
+		}
+		$order->get_data_store()->set_stock_reduced( $order_id, true );
 	}
 
 	/**
@@ -248,7 +440,7 @@ class WC_Pre_Orders_Manager {
 		$orders = array();
 
 		foreach ( $query->posts as $order_post ) {
-			$order = new WC_Order( $order_post );
+			$order    = new WC_Order( $order_post );
 			$orders[] = $order;
 		}
 
@@ -271,7 +463,8 @@ class WC_Pre_Orders_Manager {
 		}
 
 		$order_ids = $wpdb->get_results(
-			$wpdb->prepare( "
+			$wpdb->prepare(
+				"
 				SELECT items.order_id AS id
 				FROM {$wpdb->prefix}woocommerce_order_items AS items
 				LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS item_meta ON items.order_item_id = item_meta.order_item_id
@@ -279,10 +472,11 @@ class WC_Pre_Orders_Manager {
 				WHERE
 					items.order_item_type = 'line_item' AND
 					item_meta.meta_key = '_product_id' AND
-					item_meta.meta_value = '%s' AND
+					item_meta.meta_value = %s AND
 					post_meta.meta_key = '_wc_pre_orders_is_pre_order' AND
 					post_meta.meta_value = '1'
-				", $product->get_id()
+				",
+				$product->get_id()
 			)
 		);
 
@@ -316,7 +510,7 @@ class WC_Pre_Orders_Manager {
 			'post_type'   => 'shop_order',
 			'post_status' => 'publish',
 			'nopaging'    => true,
-			'meta_query' => array(
+			'meta_query'  => array(
 				array(
 					'key'   => '_customer_user',
 					'value' => $user_id,
@@ -337,7 +531,7 @@ class WC_Pre_Orders_Manager {
 		$orders = array();
 
 		foreach ( $posts as $order_post ) {
-			$order = new WC_Order( $order_post );
+			$order    = new WC_Order( $order_post );
 			$orders[] = $order;
 		}
 
@@ -365,12 +559,12 @@ class WC_Pre_Orders_Manager {
 				if ( ! in_array( $status, array( 'cancelled', 'completed', 'trash' ) ) ) {
 					$can_be_changed = true;
 				}
-			break;
+				break;
 			case 'completed':
 				if ( 'active' == $status ) {
 					$can_be_changed = true;
 				}
-			break;
+				break;
 		}
 
 		return apply_filters( 'wc_pre_orders_status_can_be_changed_to_' . $new_status, $can_be_changed, $order );
@@ -386,8 +580,13 @@ class WC_Pre_Orders_Manager {
 	 * @return string
 	 */
 	public static function get_users_change_status_link( $new_status, $order ) {
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
-		$action_link = add_query_arg( array( 'order_id' => $order_id, 'status' => $new_status ) );
+		$order_id    = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+		$action_link = add_query_arg(
+			array(
+				'order_id' => $order_id,
+				'status'   => $new_status,
+			)
+		);
 		$action_link = wp_nonce_url( $action_link, $order_id );
 
 		return apply_filters( 'wc_pre_orders_users_action_link', $action_link, $order, $new_status );
@@ -513,10 +712,9 @@ class WC_Pre_Orders_Manager {
 			// get the unix timestamp (adjusted for the site's timezone already)
 			$timestamp = $datetime->format( 'U' );
 
-			// don't allow availability dates in the past
-			if ( $timestamp <= time() ) {
-				$timestamp = '';
-			}
+			// Whether the product's release date passed.
+			$is_past_date = $timestamp <= time();
+
 		} catch ( Exception $e ) {
 			global $wc_pre_orders;
 			$wc_pre_orders->log( $e->getMessage() );
@@ -541,10 +739,34 @@ class WC_Pre_Orders_Manager {
 				continue;
 			}
 
-			// add 'release date changed' order note for admins
+			// When the product's release date passed and the order
+			// status is set to 'pre-ordered', mark pre-orders as complete.
+			if ( $is_past_date && 'pre-ordered' === $order->get_status() ) {
+				// Doing this now to not to wait for the 'wc_pre_orders_completion_check' cron job.
+				self::complete_pre_order( $order );
+			}
+
+			// Add 'release date changed' order note for admins.
+			/* translators: %s: Availability date */
 			$order->add_order_note( sprintf( __( 'Pre-Order Release Date Changed to %s', 'wc-pre-orders' ), WC_Pre_Orders_Product::get_localized_availability_date( $product, __( 'N/A', 'wc-pre-orders' ) ) ) );
 
-			do_action( 'wc_pre_orders_pre_order_date_changed', array( 'order' => $order, 'availability_date' => $new_availability_date, 'message' => $message ) );
+			do_action(
+				'wc_pre_orders_pre_order_date_changed',
+				array(
+					'order'             => $order,
+					'availability_date' => $new_availability_date,
+					'message'           => $message,
+				)
+			);
+		}
+
+		// Doing this after the pre_order_date_changed emails are sent
+		// so the availability date in the email isn't "at a future date".
+		if ( $is_past_date ) {
+			// Unmark the product as a pre-order now that it's released.
+			update_post_meta( $product->get_id(), '_wc_pre_orders_enabled', 'no' );
+
+			do_action( 'wc_pre_orders_pre_orders_disabled_for_product', $product->get_id() );
 		}
 	}
 
@@ -583,11 +805,11 @@ class WC_Pre_Orders_Manager {
 	/**
 	 * Completes the pre-order by updating the pre-order status to 'completed' and following this process for handling payment :
 	 *
-	 * - for a pre-order charged upon released AND containing a payment token, an action is fired for the supported gateway
+	 * - for a pre-order charged upon release AND containing a payment token, an action is fired for the supported gateway
 	 *   to hook into an charge the total payment amount. Note that the supported gateway will then call WC_Order::payment_complete()
 	 *   upon successful charge
 	 *
-	 * - for a pre-order charged upon released with no payment token, the order status is changed to 'pending' and an email
+	 * - for a pre-order charged upon release with no payment token, the order status is changed to 'pending' and an email
 	 *   is sent containing a link for the customer to come back to and pay for their order
 	 *
 	 * - for a pre-order charged upfront, the order status is changed to 'completed' or 'processing' based on the same rules
@@ -614,9 +836,12 @@ class WC_Pre_Orders_Manager {
 			$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
 
 			if ( ! $zero_cost_order ) {
+				// Suppress stock increase when status update to pending
+				remove_action( 'woocommerce_order_status_pending', 'wc_maybe_increase_stock_levels' );
 				// update order status to pending so it can be paid by automatic payment,
 				// or on pay page by customer if 'pay later' gateway was used.
 				$order->update_status( 'pending' );
+				add_action( 'woocommerce_order_status_pending', 'wc_maybe_increase_stock_levels' );
 
 				if ( WC_Pre_Orders_Order::order_has_payment_token( $order ) || self::is_order_pay_later( $order_id ) ) {
 					// load payment gateways.
@@ -635,7 +860,8 @@ class WC_Pre_Orders_Manager {
 					$order->update_status( 'processing' );
 				}
 
-				version_compare( WC_VERSION, '3.0.0', '<' ) ? $order->reduce_order_stock() : wc_reduce_stock_levels( $order_id );
+				self::reduce_stock_level( $order );
+
 			}
 		} else { // Complete pre-order charged upfront.
 
@@ -819,11 +1045,11 @@ class WC_Pre_Orders_Manager {
 			return;
 		}
 
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], absint( $_GET['order_id'] ) ) ) {
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), absint( $_GET['order_id'] ) ) ) {
 			return;
 		}
 
-		WC_Pre_Orders_Manager::cancel_pre_order( absint( $_GET['order_id'] ) );
+		self::cancel_pre_order( absint( $_GET['order_id'] ) );
 
 		$string = __( 'Your pre-order has been cancelled.', 'wc-pre-orders' );
 
@@ -832,6 +1058,44 @@ class WC_Pre_Orders_Manager {
 			wc_add_notice( $string );
 		} else {
 			$woocommerce->add_message( $string );
+		}
+	}
+
+	/**
+	 * Generates a unique key used to recognise if an order has been handled by a batch processeor.
+	 *
+	 * @param int[] $product_ids An array of product IDs to generate the hash for.
+	 * @return string A hash of the product IDs.
+	 */
+	private static function generate_batch_id( $product_ids ) {
+		// Sort the product IDs so a consistant hash is generated.
+		sort( $product_ids );
+		return md5( implode( array_values( $product_ids ) ) );
+	}
+
+	/**
+	 * When the setting is enabled makes out of stock products into pre-order products
+	 *
+	 * @param int $product_id
+	 * @param string $stock_status
+	 * @param WC_Product $product
+	 */
+	public function maybe_activate_preorder( $product_id, $stock_status, $product ) {
+		global $typenow;
+
+		if ( 'product' !== $typenow && 'outofstock' === $stock_status && 'yes' === get_option( 'wc_pre_orders_auto_pre_order_out_of_stock' ) ) {
+
+			foreach ( $product->get_children() as $child ) {
+				$child = wc_get_product( $child );
+				$child->set_stock_status( 'instock' );
+				$child->set_manage_stock( false );
+				$child->save();
+			}
+
+			update_post_meta( $product->get_id(), '_wc_pre_orders_enabled', 'yes' );
+			$product->set_manage_stock( false );
+			$product->set_stock_status( 'instock' );
+			$product->save();
 		}
 	}
 

@@ -3,11 +3,11 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.26
+ * Version: 2.27
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
- * WC tested up to: 6.0
+ * WC tested up to: 6.1.1
  * Text Domain:recaptcha-for-woocommerce
  * Domain Path: languages/
  * Woo: 5347485:aeae74683dd892d43ed390cc28533524
@@ -33,10 +33,12 @@ class I13_Woo_Recpatcha {
 		add_action('register_form', array($this, 'i13woo_extra_wp_register_form'));
 		add_action('lostpassword_form', array($this, 'i13woo_extra_wp_lostpassword_form'));
 		add_action('woocommerce_register_form', array($this, 'i13woo_extra_register_fields'), 9999);
+				
 		add_action('woocommerce_login_form', array($this, 'i13woo_extra_login_fields'), 9999);
 		add_action('woocommerce_lostpassword_form', array($this, 'i13woo_extra_lostpassword_fields'));
 		add_action('woocommerce_review_order_before_submit', array($this, 'i13woo_extra_checkout_fields'));
 		add_action('woocommerce_register_post', array($this, 'i13_woocomm_validate_signup_captcha'), 10, 3);
+		
 		add_action('woocommerce_process_login_errors', array($this, 'i13_woocomm_validate_login_captcha'), 10, 3);
 		add_action('woocommerce_after_checkout_validation', array($this, 'i13_woocomm_validate_checkout_captcha'), 10, 2);
 		add_filter('woocommerce_get_settings_pages', array($this, 'i13_woocomm_load_custom_settings_tab'));
@@ -102,9 +104,16 @@ class I13_Woo_Recpatcha {
 					   
 					add_action('woocommerce_resetpassword_form', array($this, 'i13woo_extra_lostpassword_fields'));
 					add_action('validate_password_reset', array($this, 'i13_woocomm_validate_lostpassword_captcha'), 10, 1);
+										add_action('lostpassword_post', array($this, 'i13_woocomm_validate_lostpassword_captcha'), 10, 1);
 		} else {
 					
 				add_action('lostpassword_post', array($this, 'i13_woocomm_validate_lostpassword_captcha'), 10, 1);
+		}
+				
+				$enabled_bp = get_option('i13_recapcha_using_buddy_press');
+		if ('yes'==$enabled_bp) {
+			add_action('bp_before_registration_submit_buttons', array($this, 'i13woo_extra_register_fields'), 9999);
+			add_action('bp_signup_pre_validate', array($this, 'i13_woocomm_validate_bb_press_signup_captcha'), 999);
 		}
 	}
 	public function is_rest() {
@@ -1672,7 +1681,7 @@ class I13_Woo_Recpatcha {
 			$recapcha_error_msg_captcha_no_response = get_option('i13_recapcha_error_msg_captcha_no_response_v3');
 			$recapcha_error_msg_captcha_invalid = get_option('i13_recapcha_error_msg_v3_invalid_captcha');
 			$secret_key = get_option('wc_settings_tab_recapcha_secret_key_v3');
-			$is_enabled = get_option('i13_recapcha_enable_on_wpregister');
+			$is_enabled = get_option('i13_recapcha_enable_on_signup');
 			$nonce_value = isset($_POST['_wpnonce']) ? sanitize_text_field(wp_unslash($_POST['_wpnonce'])) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.NoNonceVerification
 			$nonce_value = isset($_POST['woocommerce-register-nonce']) ? sanitize_text_field(wp_unslash($_POST['woocommerce-register-nonce'])) : $nonce_value; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.NoNonceVerification
 
@@ -4180,8 +4189,10 @@ class I13_Woo_Recpatcha {
 			$size = get_option('i13_recapcha_signup_size');
 			$is_enabled = get_option('i13_recapcha_enable_on_signup');
 			$i13_recapcha_no_conflict = get_option('i13_recapcha_no_conflict');
+			$enabled_bp = get_option('i13_recapcha_using_buddy_press');
 						$unique_id= uniqid('g-recaptcha-register-i13_');
-														
+									
+						
 			if ('yes' == $is_enabled) {
 
 				if ('yes'==$i13_recapcha_no_conflict) {
@@ -4204,23 +4215,39 @@ class I13_Woo_Recpatcha {
 
 				wp_enqueue_script('jquery');
 				wp_enqueue_script('i13-woo-captcha');
+								
 				?>
-								 <p id="woo_reg_recaptcha" class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-				<?php 
-				if ('yes'!=$i13_recapcha_hide_label_signup) :
-					?>
+								<?php if ('yes'!=$enabled_bp) : ?>
+									<p id="woo_reg_recaptcha" class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+									<?php 
+									if ('yes'!=$i13_recapcha_hide_label_signup) :
+										?>
 											<label for="reg_captcha"><?php echo esc_html(( ''==trim($captcha_lable) )? esc_html(__('Captcha', 'recaptcha-for-woocommerce')) : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
-					<?php 
-				endif; 
-				?>
-								<div id="<?php echo esc_html($unique_id); ?>" name="g-recaptcha-register-i13" class="g-recaptcha-register-i13" data-callback="verifyCallback_woo_signup" data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>" ></div>
-								<input type="hidden" value="" name="i13_recaptcha_register_token_v2" id="i13_recaptcha_register_token_v2"  />
-								</p>
+											<?php endif; ?>
+									<div id="<?php echo esc_html($unique_id); ?>" name="g-recaptcha-register-i13" class="g-recaptcha-register-i13" data-callback="verifyCallback_woo_signup" data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>" ></div>
+									<input type="hidden" value="" name="i13_recaptcha_register_token_v2" id="i13_recaptcha_register_token_v2"  />
+									</p>
+								 <?php else : ?>
+									<div class="editfield field_last field_apple-captcha optional-field visibility-public alt field_type_captcha">
+										<fieldset>
+
+
+												 <legend id="field_captcha">
+														 <?php if ('yes'!=$i13_recapcha_hide_label_signup) : ?>
+															<label for="reg_captcha"><?php echo esc_html(( ''==trim($captcha_lable) )? esc_html(__('Captcha', 'recaptcha-for-woocommerce')) : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
+														<?php endif; ?>				
+												</legend>
+												<div id="<?php echo esc_html($unique_id); ?>" name="g-recaptcha-register-i13" class="g-recaptcha-register-i13" data-callback="verifyCallback_woo_signup" data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>" ></div>
+												<input type="hidden" value="" name="i13_recaptcha_register_token_v2" id="i13_recaptcha_register_token_v2"  />
+
+											</fieldset>
+										</div>
+								  <?php endif; ?>  
 								<script type="text/javascript" id="woo_recaptcha_register_v2">
 										
 
 
-
+																						  var capchaChecked_signup=false;  
 											   <?php $intval_signup= uniqid('interval_'); ?>
 
 											   var <?php echo esc_html($intval_signup); ?> = setInterval(function() {
@@ -4239,15 +4266,31 @@ class I13_Woo_Recpatcha {
 															
 															}catch(error){}
 															
-																														<?php if ('yes'==trim($disable_submit_btn)) : ?>
-																																jQuery('button[name$="register"]').attr("disabled", true);
-																																<?php if (''==$recapcha_error_msg_captcha_blank) : ?>
-																																								jQuery('button[name$="register"]').attr("title", "<?php echo esc_html(__('Recaptcha is a required field.', 'recaptcha-for-woocommerce')); ?>");
-																																<?php else : ?>
-																																								jQuery('button[name$="register"]').attr("title", "<?php echo esc_html($recapcha_error_msg_captcha_blank); ?>");
+																															<?php if ('yes'==trim($disable_submit_btn)) : ?>
+																														
+																																<?php if ('yes'!=$enabled_bp) : ?>
+																																	
+																																	jQuery('button[name$="register"]').attr("disabled", true);
+																																	<?php if (''==$recapcha_error_msg_captcha_blank) : ?>
+																																		 jQuery('button[name$="register"]').attr("title", "<?php echo esc_html(__('Recaptcha is a required field.', 'recaptcha-for-woocommerce')); ?>");
+																																	<?php else : ?>
+																																		  jQuery('button[name$="register"]').attr("title", "<?php echo esc_html($recapcha_error_msg_captcha_blank); ?>");
+																																	<?php endif; ?> 
+																																		
+																																<?php else : ?>   
+																																	
+																																	setTimeout(function(){ 
+																																		
+																																		jQuery('input[name$="signup_submit"]').attr("disabled", true);
+																																	   <?php if (''==$recapcha_error_msg_captcha_blank) : ?>
+																																			jQuery('input[name$="signup_submit"]').attr("title", "<?php echo esc_html(__('Recaptcha is a required field.', 'recaptcha-for-woocommerce')); ?>");
+																																	   <?php else : ?>
+																																			 jQuery('input[name$="signup_submit"]').attr("title", "<?php echo esc_html($recapcha_error_msg_captcha_blank); ?>");
+																																	   <?php endif; ?> 
+																																		   
+																																	 }, 1500);
 																																<?php endif; ?>    
-
-																													   <?php endif; ?>
+																														<?php endif; ?>
 													   }    
 												}, 100);    
 
@@ -4259,10 +4302,15 @@ class I13_Woo_Recpatcha {
 											var verifyCallback_woo_signup = function(response) {
 
 													   if(response.length!==0){ 
-
+																														capchaChecked_signup=true;
 															<?php if ('yes'==trim($disable_submit_btn)) : ?>
-																	jQuery('button[name$="register"]').removeAttr("title");
-																	jQuery('button[name$="register"]').attr("disabled", false);
+																																	  <?php if ('yes'!=$enabled_bp) : ?>
+																																			jQuery('button[name$="register"]').removeAttr("title");
+																																			jQuery('button[name$="register"]').attr("disabled", false);
+																																	  <?php else : ?>
+																																		  jQuery('input[name$="signup_submit"]').removeAttr("title");
+																	  jQuery('input[name$="signup_submit"]').attr("disabled", false);
+																																	  <?php endif; ?>    
 															<?php endif; ?>  
 
 															if (typeof woo_register_recaptcha_verified === "function") { 
@@ -4308,18 +4356,60 @@ class I13_Woo_Recpatcha {
 
 														
 															<?php if ('yes'==trim($disable_submit_btn)) : ?>
-
-																	jQuery('button[name$="register"]').attr("disabled", true);
-																	<?php if (''==$recapcha_error_msg_captcha_blank) : ?>
+																																 <?php if ('yes'!=$enabled_bp) : ?>
+																	
+																																		jQuery('button[name$="register"]').attr("disabled", true);
+																																		<?php if (''==$recapcha_error_msg_captcha_blank) : ?>
 																			   jQuery('button[name$="register"]').attr("title", "<?php echo esc_html(__('Recaptcha is a required field.', 'recaptcha-for-woocommerce')); ?>");
 																	 <?php else : ?>
 																			   jQuery('button[name$="register"]').attr("title", "<?php echo esc_html($recapcha_error_msg_captcha_blank); ?>");
 																	 <?php endif; ?>  
-
+																																  <?php else : ?>   
+																																		jQuery('input[name$="signup_submit"]').attr("disabled", true);
+																																		<?php if (''==$recapcha_error_msg_captcha_blank) : ?>
+																																			 jQuery('input[name$="signup_submit"]').attr("title", "<?php echo esc_html(__('Recaptcha is a required field.', 'recaptcha-for-woocommerce')); ?>");
+																																		<?php else : ?>
+																																			  jQuery('input[name$="signup_submit"]').attr("title", "<?php echo esc_html($recapcha_error_msg_captcha_blank); ?>");
+																																		<?php endif; ?> 
+																																  <?php endif; ?>    
 															<?php endif; ?>          
 
 													}
 													
+																										
+																										<?php if ('yes'==trim($disable_submit_btn) && 'yes'==$enabled_bp) : ?>
+									
+																														
+																														
+																														jQuery('input[name$="signup_password"]').on('keyup',function(){
+
+																																if(jQuery('input[name$="signup_submit"]').is(":disabled") || capchaChecked_signup==false){
+
+																																   setTimeout(function(){ jQuery('input[name$="signup_submit"]').attr("disabled", true); }, 300);
+
+																																}
+																														});  
+																													   
+																														jQuery('input[name$="signup_password_confirm"]').on('keyup',function(){
+
+																																if(jQuery('input[name$="signup_submit"]').is(":disabled") || capchaChecked_signup==false){
+
+																																   setTimeout(function(){ jQuery('input[name$="signup_submit"]').attr("disabled", true); }, 300);
+
+																																}
+																														});  
+																										 <?php elseif ('yes'==trim($disable_submit_btn) && 'yes'!=$enabled_bp) : ?>               
+																													   
+																														jQuery('input[name$="password"]').on('keyup',function(){
+																																
+																																if(jQuery('button[name$="register"]').is(":disabled") || capchaChecked_signup==false){
+
+																																   setTimeout(function(){ jQuery('button[name$="register"]').attr("disabled", true); }, 2000);
+
+																																}
+																														});  
+																		
+													<?php endif; ?>
 
 
 										</script>
@@ -4331,6 +4421,7 @@ class I13_Woo_Recpatcha {
 					
 					
 			$is_enabled = get_option('i13_recapcha_enable_on_signup');
+						$enabled_bp = get_option('i13_recapcha_using_buddy_press');
 			$i13_recapcha_no_conflict = get_option('i13_recapcha_no_conflict_v3');
 			if ('yes' == $is_enabled) {
 
@@ -4366,7 +4457,7 @@ class I13_Woo_Recpatcha {
 					$i13_recapcha_disable_v3_woo_signup='no';
 				}
 				?>
-																										  <input type="hidden" value="" name="i13_recaptcha_register_token" id="i13_recaptcha_register_token" class="i13_recaptcha_register_token" />
+								<input type="hidden" value="" name="i13_recaptcha_register_token" id="i13_recaptcha_register_token" class="i13_recaptcha_register_token" />
 								  <script type="text/javascript" id="woo_recaptcha_register_v3">
 
 												<?php $intval_register= uniqid('interval_'); ?>
@@ -4411,25 +4502,42 @@ class I13_Woo_Recpatcha {
 																				  }, 40 * 1000); 
 
 																			<?php else : ?>
-																				   jQuery('.woocommerce-form-register').on('submit', function (e) {
-																					var frm = this;
-																					e.preventDefault();
-																					grecaptcha.execute('<?php echo esc_html($site_key); ?>', { action: '<?php echo esc_html($i13_recapcha_signup_action_v3); ?>' }).then(function (token) {
+																																						
+																																							<?php if ('yes'!=$enabled_bp) : ?>
+																																									  jQuery('.woocommerce-form-register').on('submit', function (e) {
+																																										   var frm = this;
+																																										   e.preventDefault();
+																																										   grecaptcha.execute('<?php echo esc_html($site_key); ?>', { action: '<?php echo esc_html($i13_recapcha_signup_action_v3); ?>' }).then(function (token) {
 
-																					 submitval=jQuery(".woocommerce-form-register__submit").val();
-																					 var myNodeList = document.querySelectorAll('.i13_recaptcha_register_token');
+																																											submitval=jQuery(".woocommerce-form-register__submit").val();
+																																											var myNodeList = document.querySelectorAll('.i13_recaptcha_register_token');
 
-																					  Array.from(myNodeList).forEach(function(el) {
-																							  el.value = token;
-																					  });
-																					   jQuery('.woocommerce-form-register').prepend('<input type="hidden" name="register" value="' + submitval + '">');
+																																											 Array.from(myNodeList).forEach(function(el) {
+																																															 el.value = token;
+																																											 });
+																																											  jQuery('.woocommerce-form-register').prepend('<input type="hidden" name="register" value="' + submitval + '">');
 
 
-																					 frm.submit();
-																					}, function (reason) {
+																																											frm.submit();
+																																										   }, function (reason) {
 
-																					});
-																			});
+																																										   });
+																																								   });
+																																						  <?php else : ?>
+																																								 setInterval(function() {
+
+																						el_i13_register_captcha= grecaptcha.execute('<?php echo esc_html($site_key); ?>', { action: '<?php echo esc_html($i13_recapcha_signup_action_v3); ?>' }).then(function (token) {
+
+																								  var myNodeList = document.querySelectorAll('.i13_recaptcha_register_token');
+
+																									Array.from(myNodeList).forEach(function(el) {
+																											el.value = token;
+																									});
+																						 });
+
+																				  }, 40 * 1000); 
+																																						  <?php endif; ?>
+																																						
 																	 <?php endif; ?>
 
 													}    
@@ -7721,6 +7829,236 @@ class I13_Woo_Recpatcha {
 			}
 					   
 		}
+	}
+		
+	public function i13_woocomm_validate_bb_press_signup_captcha() {
+			
+			
+		$reCapcha_version = get_option('i13_recapcha_version'); 
+		if (''==$reCapcha_version) {
+			$reCapcha_version='v2';
+		}
+
+		if ('v2'== strtolower($reCapcha_version)) {
+				
+			
+			$secret_key = get_option('wc_settings_tab_recapcha_secret_key');
+			$is_enabled = get_option('i13_recapcha_enable_on_signup');
+						$enabled_bp = get_option('i13_recapcha_using_buddy_press');
+			$recapcha_error_msg_captcha_blank = get_option('wc_settings_tab_recapcha_error_msg_captcha_blank');
+			$recapcha_error_msg_captcha_no_response = get_option('wc_settings_tab_recapcha_error_msg_captcha_no_response');
+			$recapcha_error_msg_captcha_invalid = get_option('wc_settings_tab_recapcha_error_msg_captcha_invalid');
+			$captcha_lable = get_option('i13_recapcha_signup_title');
+			if (''==trim($captcha_lable)) {
+					
+				$captcha_lable='recaptcha';
+			}
+			$recapcha_error_msg_captcha_blank = str_replace('[recaptcha]', ucfirst($captcha_lable), $recapcha_error_msg_captcha_blank);
+			$recapcha_error_msg_captcha_no_response = str_replace('[recaptcha]', $captcha_lable, $recapcha_error_msg_captcha_no_response);
+			$recapcha_error_msg_captcha_invalid = str_replace('[recaptcha]', $captcha_lable, $recapcha_error_msg_captcha_invalid);
+
+			$nonce_value = isset($_POST['_wpnonce']) ? sanitize_text_field(wp_unslash($_POST['_wpnonce'])) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.NoNonceVerification
+			
+			if ('yes' == $is_enabled && 'yes'== $enabled_bp && ( ( isset($_POST['_wpnonce']) && !empty($_POST['_wpnonce']) ) )) {
+
+				if (wp_verify_nonce($nonce_value, 'bp_new_signup')) {
+
+					if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
+						// Google reCAPTCHA API secret key 
+						$response = sanitize_text_field($_POST['g-recaptcha-response']);
+
+						// Verify the reCAPTCHA response 
+						$verifyResponse = wp_remote_get('https://www.' . esc_html(sanitize_text_field($this->get_recaptcha_domain())) . '/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $response, array('timeout'=> 30));
+
+						if (is_array($verifyResponse) && !is_wp_error($verifyResponse) && isset($verifyResponse['body'])) {
+
+							// Decode json data 
+							$responseData = json_decode($verifyResponse['body']);
+
+							// If reCAPTCHA response is valid 
+							if (!$responseData->success) {
+
+								if (''==trim($recapcha_error_msg_captcha_invalid)) {
+																	
+																	wp_die(esc_html__('Invalid recaptcha.', 'recaptcha-for-woocommerce'));
+																	exit; 
+								
+								} else {
+																		
+										wp_die(esc_html__($recapcha_error_msg_captcha_invalid));
+										exit; 
+																	   
+								}
+							}
+						} else {
+
+							if (''==trim($recapcha_error_msg_captcha_no_response)) {
+
+																 wp_die(esc_html__('Could not get response from recaptcha server.', 'recaptcha-for-woocommerce'));
+																 exit; 
+																
+							} else {
+															
+									 wp_die(esc_html__($recapcha_error_msg_captcha_no_response));
+									 exit; 
+															  
+							}
+						}
+					} else {
+
+						if (''==trim($recapcha_error_msg_captcha_blank)) {
+
+													wp_die(esc_html__('Recaptcha is a required field.', 'recaptcha-for-woocommerce'));
+													exit;     
+													
+						} else {
+													
+								wp_die(esc_html__($recapcha_error_msg_captcha_blank));
+								exit;
+													   
+						}
+					}
+				} else {
+
+										wp_die(esc_html__('Could not verify request.', 'recaptcha-for-woocommerce'));
+										 exit;
+										
+					
+				}
+			}
+		} else {
+				
+			
+						
+			$i13_recapcha_signup_score_threshold_v3 = get_option('i13_recapcha_signup_score_threshold_v3');
+			if (''==$i13_recapcha_signup_score_threshold_v3) {
+
+				$i13_recapcha_signup_score_threshold_v3='0.5';
+			}
+			$i13_recapcha_signup_action_v3 = get_option('i13_recapcha_signup_action_v3');
+			if (''==$i13_recapcha_signup_action_v3) {
+
+				$i13_recapcha_signup_action_v3='signup';
+			}
+
+			$recapcha_error_msg_captcha_blank = get_option('i13_recapcha_error_msg_captcha_blank_v3');
+			$recapcha_error_msg_captcha_no_response = get_option('i13_recapcha_error_msg_captcha_no_response_v3');
+			$recapcha_error_msg_captcha_invalid = get_option('i13_recapcha_error_msg_v3_invalid_captcha');
+			$secret_key = get_option('wc_settings_tab_recapcha_secret_key_v3');
+			$is_enabled = get_option('i13_recapcha_enable_on_signup');
+					$enabled_bp = get_option('i13_recapcha_using_buddy_press');
+			$nonce_value = isset($_POST['_wpnonce']) ? sanitize_text_field(wp_unslash($_POST['_wpnonce'])) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.NoNonceVerification
+			
+						
+			if ('yes' == $is_enabled && 'yes'== $enabled_bp && ( ( isset($_POST['_wpnonce']) && !empty($_POST['_wpnonce']) ) )) {
+
+				
+								
+				if (isset($_POST['i13_recaptcha_register_token']) && !empty($_POST['i13_recaptcha_register_token'])) {
+					// Google reCAPTCHA API secret key 
+					$response = sanitize_text_field($_POST['i13_recaptcha_register_token']);
+
+					// Verify the reCAPTCHA response 
+					$verifyResponse = wp_remote_post(
+						'https://www.' . esc_html(sanitize_text_field($this->get_recaptcha_domain())) . '/recaptcha/api/siteverify',
+						array(
+						'method'      => 'POST',
+						'timeout'     => 45,
+						'body'        => array(
+						'secret' => $secret_key,
+						'response' => $response
+						)
+
+						)
+					);
+
+
+					if (is_array($verifyResponse) && !is_wp_error($verifyResponse) && isset($verifyResponse['body'])) {
+
+						   // Decode json data 
+						   $responseData = json_decode($verifyResponse['body']);
+
+						   // If reCAPTCHA response is valid 
+						if (!$responseData->success) {
+
+
+							if (''==trim($recapcha_error_msg_captcha_invalid)) {
+
+																wp_die(esc_html__('Google reCAPTCHA verification failed, please try again later.', 'recaptcha-for-woocommerce'));
+																exit;
+										
+								
+
+							} else {
+															
+																wp_die(esc_html__($recapcha_error_msg_captcha_invalid));
+																exit;
+								
+
+							}
+						} else {
+
+
+
+							if ($responseData->score < $i13_recapcha_signup_score_threshold_v3 || $responseData->action!=$i13_recapcha_signup_action_v3) {
+
+								if (''==trim($recapcha_error_msg_captcha_invalid)) {
+
+									 wp_die(esc_html__('Google reCAPTCHA verification failed, please try again later.', 'recaptcha-for-woocommerce'));
+																		 exit;
+										
+
+								} else {
+
+																		 wp_die(esc_html__($recapcha_error_msg_captcha_invalid));
+																		 exit;
+										
+									 
+
+								}
+
+							}
+
+						}
+					} else {
+
+						if (''==trim($recapcha_error_msg_captcha_no_response)) {
+
+														wp_die(esc_html__('Could not get response from reCAPTCHA server.', 'recaptcha-for-woocommerce'));
+							exit;
+
+						} else {
+
+														  wp_die(esc_html__($recapcha_error_msg_captcha_no_response));
+							  exit;
+							
+
+						}
+
+					}
+				} else {
+
+					if (''==trim($recapcha_error_msg_captcha_blank)) {
+
+												wp_die(esc_html__('Google reCAPTCHA token is missing.', 'recaptcha-for-woocommerce'));
+						exit;
+						
+
+					} else {
+
+												 wp_die(esc_html__($recapcha_error_msg_captcha_blank));
+						exit;
+						
+
+					}
+
+
+				}
+
+			}
+
+		}
+		
 	}
 
 }

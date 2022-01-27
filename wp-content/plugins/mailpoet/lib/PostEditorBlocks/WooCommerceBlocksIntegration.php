@@ -145,6 +145,6 @@ class WooCommerceBlocksIntegration {
       return null;
     }
 
-    $this->woocommerceSubscription->handleSubscriberOptin($subscriberOldModel, $checkoutOptinEnabled, (bool)$request['extensions']['mailpoet']['optin']);
+    $this->woocommerceSubscription->handleSubscriberOptin($subscriberOldModel, (bool)$checkoutOptinEnabled, (bool)$request['extensions']['mailpoet']['optin']);
   }
 }

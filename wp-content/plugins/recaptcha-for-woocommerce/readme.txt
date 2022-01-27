@@ -2,9 +2,9 @@
 Contributors:nik00726
 Tags:Recaptcha
 Requires at least:3.0
-Tested up to:5.8.2
-Version:2.26
-Stable tag:2.26
+Tested up to:5.9
+Version:2.27
+Stable tag:2.27
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,13 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.27 =
+
+* Added support for buddy press signup. See reCaptcha for WooCommerce Signup Settings.
+* Fixes settings mismatch for Signup with WP signup method
+* Tested with WordPress 5.9
+
 
 = 2.26 =
 

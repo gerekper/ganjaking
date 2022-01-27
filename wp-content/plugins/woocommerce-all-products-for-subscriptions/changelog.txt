@@ -1,5 +1,9 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2022.01.17 - version 3.2.0
+* Feature - Added support for WooCommerce Subscriptions v4+.
+* Feature - Added integration with Subscriptions Core loaded via WooCommerce Payments. Important: Adding products/carts to existing subscriptions is not supported at this point when using WooCommerce Payments.
+
 2021.12.23 - version 3.1.33
 * Fix - Fixed an issue where 'Add this cart to an existing subscription' is displayed when user not logged in.
 

@@ -482,6 +482,15 @@ function betterdocs_multiple_kb($atts, $content = null)
 		'parent' => 0
 	);
 
+    $alphabetically_order_term = BetterDocs_DB::get_settings('alphabetically_order_term');
+    if ( $alphabetically_order_term != 1 ) {
+        $terms_object['meta_key'] = 'kb_order';
+        $terms_object['orderby'] = 'meta_value_num';
+        $terms_object['order'] = 'ASC';
+    } else {
+        $terms_object['orderby'] = 'name';
+    }
+
 	if ($get_args['terms']) {
 		$terms_object['include'] = explode(',', $get_args['terms']);
 		$terms_object['orderby'] = 'include';
@@ -570,6 +579,15 @@ function betterdocs_multiple_kb_2($atts, $content = null)
 		'hide_empty' => true,
 		'parent' => 0
 	);
+
+    $alphabetically_order_term = BetterDocs_DB::get_settings('alphabetically_order_term');
+    if ( $alphabetically_order_term != 1 ) {
+        $terms_object['meta_key'] = 'kb_order';
+        $terms_object['orderby'] = 'meta_value_num';
+        $terms_object['order'] = 'ASC';
+    } else {
+        $terms_object['orderby'] = 'name';
+    }
 
 	if ($get_args['terms']) {
 		$terms_object['include'] = explode(',', $get_args['terms']);

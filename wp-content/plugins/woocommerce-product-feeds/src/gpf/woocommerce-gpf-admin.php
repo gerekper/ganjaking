@@ -195,39 +195,12 @@ class WoocommerceGpfAdmin {
 	}
 
 	/**
-	 * Dismiss an admin notice.
-	 */
-	public function dismiss_admin_notice() {
-		$dismissed_notices   = get_option( 'woocommerce_gpf_dismissed_notices', array() );
-		$dismissed_notices[] = $_POST['notice'];
-		$dismissed_notices   = array_unique( $dismissed_notices );
-		update_option( 'woocommerce_gpf_dismissed_notices', $dismissed_notices );
-		wp_die();
-	}
-
-	/**
-	 * Check whether an admin notice has been dismissed.
-	 *
-	 * @param $notice
-	 *
-	 * @return bool
-	 */
-	private function is_notice_dismissed( $notice ) {
-		$dismissed_notices = get_option( 'woocommerce_gpf_dismissed_notices', array() );
-
-		return in_array( $notice, $dismissed_notices, true );
-	}
-
-	/**
 	 * Extend Product Edit Page
 	 *
 	 * @access public
 	 */
 	public function admin_init() {
-		if ( current_user_can( 'activate_plugins' ) ) {
-			add_action( 'admin_notices', array( $this, 'wc2_discontinued_notice' ) );
-			add_action( 'wp_ajax_gpf_dismiss_admin_notice', array( $this, 'dismiss_admin_notice' ) );
-		}
+		$this->maybe_refresh_google_taxonomy();
 		add_action( 'save_post_product', array( $this, 'save_product' ) );
 		if ( isset( $this->settings['product_fields'] ) && count( $this->settings['product_fields'] ) ) {
 			add_meta_box(
@@ -274,16 +247,6 @@ class WoocommerceGpfAdmin {
 	}
 
 	/**
-	 * Show WooCommerce v2 discontinued notice.
-	 */
-	public function wc2_discontinued_notice() {
-		if ( is_callable( 'wc' ) && version_compare( wc()->version, '3.0', 'lt' ) &&
-			 ! $this->is_notice_dismissed( 'wc2_discontinued_notice' ) ) {
-			$this->template_loader->output_template_with_variables( 'woo-gpf-admin', 'wc2-discontinued', array() );
-		}
-	}
-
-	/**
 	 * Handle ajax requests for the google taxonomy search. Returns a JSON encoded list of matches
 	 * and terminates execution.
 	 *
@@ -296,10 +259,26 @@ class WoocommerceGpfAdmin {
 	private function ajax_handler( $query ) {
 
 		global $wpdb, $table_prefix;
-		// Make sure the taxonomy is up to date
-		$this->refresh_google_taxonomy();
-		$sql         = "SELECT taxonomy_term FROM ${table_prefix}woocommerce_gpf_google_taxonomy WHERE search_term LIKE %s";
-		$results     = $wpdb->get_results( $wpdb->prepare( $sql, '%' . strtolower( $query ) . '%' ) );
+
+		$locales = $this->get_google_taxonomy_locales();
+		$sql     = "SELECT taxonomy_term
+                          FROM ${table_prefix}woocommerce_gpf_google_taxonomy
+                         WHERE search_term LIKE %s";
+
+		$search_term = '%' . strtolower( $query ) . '%';
+		if ( count( $locales ) > 1 ) {
+			$sql .= ' AND locale in (' . implode( ',', array_fill( 0, count( $locales ), '%s' ) ) . ')';
+
+			$query_arguments = $locales;
+			array_unshift( $query_arguments, $search_term );
+
+			$prepared_query = $wpdb->prepare( $sql, $query_arguments );
+		} else {
+			$sql .= ' AND locale = %s';
+
+			$prepared_query = $wpdb->prepare( $sql, [ $search_term, $locales[0] ?? '' ] );
+		}
+		$results     = $wpdb->get_results( $prepared_query );
 		$suggestions = array();
 		foreach ( $results as $match ) {
 			$suggestions[] = $match->taxonomy_term;
@@ -1036,6 +1015,7 @@ class WoocommerceGpfAdmin {
 				$variables
 			);
 		}
+
 		return $this->template_loader->get_template_with_variables(
 			'woo-gpf',
 			'field-row-default-generic-select',
@@ -1086,7 +1066,7 @@ class WoocommerceGpfAdmin {
 
 		$output       = '';
 		$subidx_limit = apply_filters( 'woocommerce_gpf_number_of_consumer_notice_fields', 2 );
-		for ( $subidx = 0; $subidx < $subidx_limit; $subidx ++ ) {
+		for ( $subidx = 0; $subidx < $subidx_limit; $subidx++ ) {
 			$variables['subidx']                    = $subidx;
 			$variables['notice_message']            = '';
 			$variables['US_CA_PROP_65_selected']    = '';
@@ -1124,7 +1104,7 @@ class WoocommerceGpfAdmin {
 
 		$output       = '';
 		$subidx_limit = apply_filters( 'woocommerce_gpf_number_of_product_highlight_fields', 5 );
-		for ( $subidx = 0; $subidx < $subidx_limit; $subidx ++ ) {
+		for ( $subidx = 0; $subidx < $subidx_limit; $subidx++ ) {
 			$variables['subidx']    = $subidx;
 			$variables['highlight'] = '';
 			if ( isset( $current_data[ $subidx ] ) ) {
@@ -1160,7 +1140,7 @@ class WoocommerceGpfAdmin {
 
 		$output       = '';
 		$subidx_limit = apply_filters( 'woocommerce_gpf_number_of_product_detail_fields', 2 );
-		for ( $subidx = 0; $subidx < $subidx_limit; $subidx ++ ) {
+		for ( $subidx = 0; $subidx < $subidx_limit; $subidx++ ) {
 			$variables['subidx']          = $subidx;
 			$variables['section_name']    = '';
 			$variables['attribute_name']  = '';
@@ -1198,7 +1178,7 @@ class WoocommerceGpfAdmin {
 
 		$output       = '';
 		$subidx_limit = apply_filters( 'woocommerce_gpf_number_of_consumer_datasheet_fields', 2 );
-		for ( $subidx = 0; $subidx < $subidx_limit; $subidx ++ ) {
+		for ( $subidx = 0; $subidx < $subidx_limit; $subidx++ ) {
 			$variables['subidx']          = $subidx;
 			$variables['attribute_name']  = '';
 			$variables['attribute_value'] = '';
@@ -1234,7 +1214,7 @@ class WoocommerceGpfAdmin {
 
 		$output       = '';
 		$subidx_limit = apply_filters( 'woocommerce_gpf_number_of_product_fee_fields', 1 );
-		for ( $subidx = 0; $subidx < $subidx_limit; $subidx ++ ) {
+		for ( $subidx = 0; $subidx < $subidx_limit; $subidx++ ) {
 			$variables['subidx'] = $subidx;
 			$variables['type']   = '';
 			$variables['amount'] = '';
@@ -1252,92 +1232,163 @@ class WoocommerceGpfAdmin {
 		return $output;
 	}
 
-	private function get_google_taxonomy_locale() {
-		$woocommerce       = wc();
-		$available_locales = array(
-			'DK' => 'da-DK',
-			'DE' => 'de-DE',
-			'US' => 'en-US',
-			'GB' => 'en-GB',
-			'ES' => 'es-ES',
-			'FR' => 'fr-FR',
-			'IT' => 'it-IT',
-			'NL' => 'nl-NL',
-			'NO' => 'no-NO',
-			'PL' => 'pl-PL',
-			'BR' => 'pt-BR',
-			'SE' => 'sv-SE',
-			'TR' => 'tr-TR',
-			'CZ' => 'cs-CZ',
-			'RU' => 'ru-RU',
-			'CN' => 'zh-CN',
-			'JP' => 'ja-JP',
+	private function get_google_taxonomy_locales() {
+		$country_locales = array(
+			// Argentina is en-US rather than es-ES per https://support.google.com/merchants/answer/6324436?hl=es-419
+			'AR' => [], // Argentina
+			'AU' => [ 'en-AU' ], // Australia
+			'AT' => [ 'de-DE' ], // Austria
+			'BH' => [], // Bahrain - no specific mapping clear
+			'BY' => [ 'ru-RU' ], // Belarus
+			'BE' => [ 'fr-FR', 'de-DE', 'nl-NL' ], // Belgium
+			'BR' => [ 'pt-BR' ], // Brazil
+			'CA' => [ 'fr-FR' ], // Canada
+			// Chile is en-US rather than es-ES per https://support.google.com/merchants/answer/6324436?hl=es-419
+			'CL' => [], // Chile
+			'CN' => [ 'zh-CN' ], // China
+			// Colombia is en-US rather than es-ES per https://support.google.com/merchants/answer/6324436?hl=es-419
+			'CO' => [], // Colombia
+			'CZ' => [ 'cs-CZ' ], // Czech Republic
+			'DK' => [ 'da-DK' ], // Denmark
+			// Ecuador is en-US rather than es-ES per https://support.google.com/merchants/answer/6324436?hl=es-419
+			'EC' => [], // Ecuador
+			'EG' => [ 'ar-SA' ], // Egypt
+			'FI' => [ 'fi-FI', 'sv-SE' ], // Finland
+			'FR' => [ 'fr-FR' ], // France
+			'GE' => [], // Georgian not currently supported language
+			'DE' => [ 'de-DE' ], // Germany
+			'GR' => [], // Greek not currently supported
+			'HK' => [ 'zh-CN' ], // Hong-Kong
+			'HU' => [], // Hungarian not currently supported
+			'IN' => [], // India
+			'ID' => [], // Indonesia
+			'IE' => [ 'en-GB' ], // Ireland
+			'IL' => [], // Israel
+			'IT' => [ 'it-IT' ], // Italy
+			'JP' => [ 'ja-JP' ], // Japan
+			'JO' => [ 'ar-SA' ], // Jordan
+			'KZ' => [ 'ru-RU' ], // Kazakhstan
+			'KW' => [ 'ar-SA' ], // Kuwait
+			'LB' => [ 'ar-SA' ], // Lebanon
+			'MY' => [], // Malaysia
+			'MX' => [], // Mexico
+			'NL' => [ 'nl-NL' ], // Netherlands
+			'NZ' => [], // New Zealand
+			'NO' => [ 'no-NO' ], // Norway
+			'OM' => [ 'ar-SA' ], // Oman
+			'PY' => [], // Paraguay
+			'PE' => [], // Peru
+			'PH' => [], // Philippines
+			'PL' => [ 'pl-PL' ], // Poland
+			'PT' => [ 'pt-BR' ], // Portugal
+			'RO' => [ '' ], // Romania
+			'RU' => [ 'ru-RU' ], // Russia
+			'SG' => [], // Singapore
+			'SK' => [], // Slovakia
+			'ZA' => [], // South Africa
+			'ES' => [ 'es-ES' ], // Spain
+			'SE' => [ 'sv-SE' ], // Sweden
+			'CH' => [ 'de-DE', 'fr-FR', 'it-IT' ], // Switzerland
+			'TW' => [], // Taiwan
+			'TR' => [ 'tr-TR' ], // Turkey
+			'AE' => [ 'ar-SA' ], // United Arab Emirates
+			'GB' => [ 'en-GB' ], // United Kingdom
+			'US' => [], // United States of America
+			'UY' => [], // Uruguay
+			'UZ' => [], // Uzbekistan
+			'VN' => [ 'vi-VN' ], // Vietnam
 		);
-		$base_country      = $woocommerce->countries->get_base_country();
-		if ( isset( $available_locales[ $base_country ] ) ) {
-			return $available_locales[ $base_country ];
-		} else {
-			return 'en-US';
+
+		$base_country = WC()->countries->get_base_country();
+		$locales      = $country_locales[ $base_country ] ?? [];
+		if ( ! in_array( 'en-US', $locales, true ) && ! in_array( 'en-GB', $locales, true ) ) {
+			$locales[] = 'en-US';
+		}
+
+		return apply_filters( 'woocommerce_gpf_google_taxonomy_locales', $locales );
+	}
+
+	/**
+	 * Refresh any Google taxonomies that need it.
+	 *
+	 * @return void
+	 */
+	private function maybe_refresh_google_taxonomy() {
+		global $wpdb, $table_prefix;
+		// Do not attempt to refresh before DB updates completed.
+		$current_db_version = (int) get_option( 'woocommerce_gpf_db_version', 1 );
+		if ( $current_db_version < 13 ) {
+			return;
+		}
+		$required_locales = $this->get_google_taxonomy_locales();
+		$table_name       = $table_prefix . 'woocommerce_gpf_google_taxonomy';
+		$locale_counts    = $wpdb->get_results( "SELECT locale, COUNT(*) FROM $table_name GROUP BY locale", OBJECT_K );
+		foreach ( $required_locales as $locale ) {
+			// If we have no data for this locale, trigger a refresh.
+			if ( empty( $locale_counts[ $locale ] ) ) {
+				$this->refresh_google_taxonomy( $locale );
+				continue;
+			}
+			// If we have data, but the transient has expired, refresh it.
+			$cache_key     = 'woocommerce_gpf_tax_' . $locale;
+			$locale_cached = get_transient( $cache_key );
+			if ( empty( $locale_cached ) ) {
+				$this->refresh_google_taxonomy( $locale );
+			}
+		}
+		foreach ( array_keys( $locale_counts ) as $cached_locale ) {
+			if ( ! in_array( $cached_locale, $required_locales, true ) ) {
+				$this->clear_google_taxonomy( $cached_locale );
+			}
 		}
 	}
 
 	/**
-	 * Retrieve the Google taxonomy list to allow users to choose from it
-	 *
-	 * @access private
-	 *
-	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+	 * Clear the Google taxonomy cache for a specific locale.
 	 */
-	private function refresh_google_taxonomy() {
-
-		global $wpdb, $table_prefix;
-
-		$locale    = $this->get_google_taxonomy_locale();
-		$cache_key = 'woocommerce_gpf_tax_' . $locale;
-
-		// Retrieve from cache - avoid hitting Google.com too much because they might mind :)
-		$taxonomies_cached = get_transient( $cache_key );
-		if ( $taxonomies_cached ) {
-			return true;
+	private function clear_google_taxonomy( $locale ) {
+		$pending = as_get_scheduled_actions(
+			[
+				'hook'     => 'woocommerce_product_feeds_clear_google_taxonomy',
+				'args'     => [ $locale ],
+				'status'   => [ \ActionScheduler_Store::STATUS_PENDING, \ActionScheduler_Store::STATUS_RUNNING ],
+				'per_page' => 1,
+				'orderby'  => 'none',
+			],
+			'ids'
+		);
+		if ( empty( $pending ) ) {
+			as_schedule_single_action(
+				null,
+				'woocommerce_product_feeds_clear_google_taxonomy',
+				[ $locale ],
+				'woocommerce-product-feeds'
+			);
 		}
-		set_transient( $cache_key, true, time() + ( 60 * 60 * 24 * 14 ) );
-		$request = wp_remote_get( 'http://www.google.com/basepages/producttype/taxonomy.' . $locale . '.txt' );
-		if ( is_wp_error( $request ) ||
-			 ! isset( $request['response']['code'] ) ||
-			 200 !== (int) $request['response']['code']
-		) {
-			return array();
-		}
-		$taxonomies = explode( "\n", $request['body'] );
-		// Strip the comment at the top
-		array_shift( $taxonomies );
-		// Strip the extra newline at the end
-		array_pop( $taxonomies );
+	}
 
-		$sql = 'DELETE FROM ' . $table_prefix . 'woocommerce_gpf_google_taxonomy';
-		$wpdb->query( $sql );
-
-		$cnt    = 0;
-		$values = array();
-		foreach ( $taxonomies as $term ) {
-			$values[] = $term;
-			$values[] = strtolower( $term );
-			$cnt ++;
-			if ( 250 === $cnt ) {
-				$sql  = "INSERT INTO ${table_prefix}woocommerce_gpf_google_taxonomy VALUES ";
-				$sql .= str_repeat( '(%s,%s),', $cnt - 1 ) . '(%s,%s)';
-				$wpdb->query( $wpdb->prepare( $sql, $values ) );
-				$cnt    = 0;
-				$values = array();
-			}
+	/**
+	 * Retrieve the Google taxonomy for a specific locale and cache it to allow users to choose from it.
+	 */
+	private function refresh_google_taxonomy( $locale ) {
+		$pending = as_get_scheduled_actions(
+			[
+				'hook'     => 'woocommerce_product_feeds_refresh_google_taxonomy',
+				'args'     => [ $locale ],
+				'status'   => [ \ActionScheduler_Store::STATUS_PENDING, \ActionScheduler_Store::STATUS_RUNNING ],
+				'per_page' => 1,
+				'orderby'  => 'none',
+			],
+			'ids'
+		);
+		if ( empty( $pending ) ) {
+			as_schedule_single_action(
+				null,
+				'woocommerce_product_feeds_refresh_google_taxonomy',
+				[ $locale ],
+				'woocommerce-product-feeds'
+			);
 		}
-		if ( $cnt ) {
-			$sql  = "INSERT INTO ${table_prefix}woocommerce_gpf_google_taxonomy VALUES ";
-			$sql .= str_repeat( '(%s,%s),', $cnt - 1 ) . '(%s,%s)';
-			$wpdb->query( $wpdb->prepare( $sql, $values ) );
-		}
-
-		return true;
 	}
 
 
@@ -1355,7 +1406,6 @@ class WoocommerceGpfAdmin {
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	private function render_product_type( $key, $context, $current_data = null, $placeholder = '', $loop_idx = null ) {
-		$this->refresh_google_taxonomy();
 		$variables = $this->default_field_variables( $key, $loop_idx );
 		if ( ! empty( $placeholder ) ) {
 			$variables['placeholder'] = ' placeholder="' . esc_attr( $placeholder ) . '"';
@@ -1363,6 +1413,10 @@ class WoocommerceGpfAdmin {
 			$variables['placeholder'] = '';
 		}
 		$variables['current_data'] = esc_attr( $current_data );
+		$variables['locale_list']  = implode(
+			', ',
+			array_map( [ $this, 'map_google_taxonomy_locale_names' ], $this->get_google_taxonomy_locales() )
+		);
 
 		return $this->template_loader->get_template_with_variables(
 			'woo-gpf',
@@ -1371,6 +1425,39 @@ class WoocommerceGpfAdmin {
 		);
 	}
 
+	/**
+	 * @param $locale
+	 *
+	 * @return mixed
+	 *
+	 * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+	 */
+	private function map_google_taxonomy_locale_names( $locale ) {
+		$map = [
+			'ar-SA' => __( 'Arabic', 'woocommerce_gpf' ),
+			'cs-CZ' => __( 'Czech', 'woocommerce_gpf' ),
+			'da-DK' => __( 'Danish', 'woocommerce_gpf' ),
+			'de-DE' => __( 'German', 'woocommerce_gpf' ),
+			'en-AU' => __( 'English (Australian)', 'woocommerce_gpf' ),
+			'en-GB' => __( 'English (British)', 'woocommerce_gpf' ),
+			'en-US' => __( 'English (US)', 'woocommerce_gpf' ),
+			'es-ES' => __( 'Spanish', 'woocommerce_gpf' ),
+			'fi-FI' => __( 'Finnish', 'woocommerce_gpf' ),
+			'fr-FR' => __( 'French', 'woocommerce_gpf' ),
+			'it-IT' => __( 'Italian', 'woocommerce_gpf' ),
+			'ja-JP' => __( 'Japanese', 'woocommerce_gpf' ),
+			'nl-NL' => __( 'Dutch', 'woocommerce_gpf' ),
+			'no-NO' => __( 'Norwegian', 'woocommerce_gpf' ),
+			'pl-PL' => __( 'Polish', 'woocommerce_gpf' ),
+			'pt-BR' => __( 'Portuguese', 'woocommerce_gpf' ),
+			'ru-RU' => __( 'Russian', 'woocommerce_gpf' ),
+			'sv-SE' => __( 'Swedish', 'woocommerce_gpf' ),
+			'tr-TR' => __( 'Turkish', 'woocommerce_gpf' ),
+			'vi-VN' => __( 'Vietnamese', 'woocommerce_gpf' ),
+			'zh-CN' => __( 'Chinese', 'woocommerce_gpf' ),
+		];
+		return $map[ $locale ] ?? $locale;
+	}
 
 	/**
 	 * Let people choose from the Bing taxonomy for the bing_category tag
@@ -1603,14 +1690,15 @@ class WoocommerceGpfAdmin {
 
 		$variables['active_feeds'] = $this->template_loader->get_template_with_variables( 'woo-gpf', 'admin-feeds-intro', array() );
 		foreach ( $feed_configs as $config ) {
-			$feed_type                  = $feed_types[ $config->type ];
-			$feed_url                   = get_home_url( null, '/woocommerce_gpf/' . $config->id );
-			$feed_variables             = [
+			$feed_type      = $feed_types[ $config->type ];
+			$feed_url       = get_home_url( null, '/woocommerce_gpf/' . $config->id );
+			$feed_variables = [
 				'html_name' => esc_html( $config->name ),
 				'icon'      => $feed_type['icon'],
 				'attr_url'  => esc_attr( $feed_url ),
 				'html_url'  => esc_html( $feed_url ),
 			];
+
 			$variables['active_feeds'] .= $this->template_loader->get_template_with_variables( 'woo-gpf', 'admin-feeds-feed', $feed_variables );
 		}
 		$variables['active_feeds'] .= $this->template_loader->get_template_with_variables(
@@ -1733,7 +1821,7 @@ class WoocommerceGpfAdmin {
 	 * @param string $current_data The current value. If not provided, the default will be used
 	 *                              from the store wide settings.
 	 * @param string $placeholder Placeholder text to use, leave blank for no placeholder.
-	 * @param int    $loop_idx The loop idx of the variation being output.
+	 * @param int $loop_idx The loop idx of the variation being output.
 	 *
 	 * @return string
 	 */

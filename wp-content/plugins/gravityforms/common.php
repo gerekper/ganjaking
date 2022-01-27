@@ -7551,7 +7551,7 @@ class GFCache {
  */
 class GF_Cache {
 	public function get( $key, &$found = null, $is_persistent = true ) {
-		return GFCache::get( $key, $found, $is_persisent );
+		return GFCache::get( $key, $found, $is_persistent );
 	}
 
 	public function set( $key, $data, $is_persistent = false, $expiration_seconds = 0 ) {
@@ -7563,7 +7563,7 @@ class GF_Cache {
 	}
 
 	public function flush( $flush_persistent = false ) {
-		return GFCache::flush( $flus_persistent );
+		return GFCache::flush( $flush_persistent );
 	}
 
 }

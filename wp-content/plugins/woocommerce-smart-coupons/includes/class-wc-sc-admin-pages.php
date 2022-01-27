@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.4.1
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1009,6 +1009,51 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 						jQuery('span#sc_note_about_emailing_recipients,#wc_sc_bulk_email_metabox').hide();
 					});
 				});
+
+
+				jQuery(document).ready(function() {
+					var syncChecks,
+						noSyncChecks = false;
+
+					/**
+					 * Handle display of category tabs 'All coupon categories' and 'Most used', showing & hiding
+					 *
+					 * sc_coupon_category postbox tab show-hide
+					 */
+					jQuery('#sc_coupon_category-tabs a').on( 'click', function(){
+						let tab = jQuery(this).attr('href');
+						jQuery(this).parent().addClass('tabs').siblings('li').removeClass('tabs');
+						jQuery('.tabs-panel').hide();
+						jQuery(tab).show();
+						return false;
+					});
+
+					/**
+					 * Synchronize category checkboxes.
+					 *
+					 * This function makes sure that the checkboxes are synced between the 'All coupon categories' tab
+					 * and the 'Most used' tab.
+					 */
+					syncChecks = function() {
+						if ( noSyncChecks ) {
+							return;
+						}
+						noSyncChecks = true;
+						var current_element = jQuery(this),
+							is_checked      = current_element.is(':checked'),
+							term_id         = current_element.val().toString();
+						jQuery( '#in-sc_coupon_category-' + term_id + ', #in-popular-sc_coupon_category-' + term_id ).prop( 'checked', is_checked );
+						noSyncChecks = false;
+					};
+
+					/**
+					 * Synchronize category checkboxes for sc_coupon_category postbox
+					 */
+					jQuery('.categorychecklist :checkbox').on( 'change', syncChecks ).filter( ':checked' ).trigger( 'change' );
+				});
+
+
+
 			</script>
 			<div class="woo-sc-form-wrapper">
 				<div id="message"><p></p></div>
@@ -1037,6 +1082,11 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 						}
 						#wc_sc_bulk_email_metabox textarea#edit_smart_coupon_message {
 							width: 100%;
+						}
+						.sc-bulk-generate-coupon-data-main{
+							display: grid;
+							grid-template-columns: 75% 24%;
+							grid-gap: 1%;
 						}
 					</style>
 					<?php
@@ -1176,16 +1226,65 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 									<?php $admin_post_types->edit_form_after_title( $post ); ?>
 								</div>
 							</div>
-							<div id="woocommerce-coupon-data" class="postbox">
-								<h3>
+							<div class="sc-bulk-generate-coupon-data-main">
+								<div class="sc-bulk-generate-coupon-data">
+									<div id="woocommerce-coupon-data" class="postbox">
+										<h3>
 									<span class="coupon_actions">
 										<?php echo esc_html__( 'Coupon Data', 'woocommerce-smart-coupons' ); ?>
 									</span>
-								</h3>
-								<div class="inside">
-									<?php WC_Meta_Box_Coupon_Data::output( $post ); ?>
+										</h3>
+										<div class="inside">
+											<?php WC_Meta_Box_Coupon_Data::output( $post ); ?>
+										</div>
+									</div>
+								</div>
+								<div class="sc-bulk-generate-coupon-category">
+									<div id="sc_coupon_categorydiv" class="postbox ">
+									<div class="postbox-header"><h2 class="hndle ui-sortable-handle"><?php echo esc_html__( 'Coupon categories', 'woocommerce-smart-coupons' ); ?></h2>
+										</div><div class="inside">
+										<div id="taxonomy-sc_coupon_category" class="categorydiv">
+											<div class="sc-manage-category">
+												<a target="_blank" title="" href="<?php echo esc_url( admin_url( 'edit-tags.php?taxonomy=sc_coupon_category&post_type=shop_coupon' ) ); ?>"><?php echo esc_html__( 'Manage coupon categories', 'woocommerce-smart-coupons' ); ?></a>
+											</div>
+
+											<?php
+											$args     = array( 'taxonomy' => 'sc_coupon_category' );
+											$tax_name = esc_attr( $args['taxonomy'] );
+											$taxonomy = get_taxonomy( $args['taxonomy'] );
+											?>
+											<div id="taxonomy-<?php echo esc_attr( $tax_name ); ?>" class="categorydiv">
+												<ul id="<?php echo esc_attr( $tax_name ); ?>-tabs" class="category-tabs">
+													<li class="tabs"><a href="#<?php echo esc_attr( $tax_name ); ?>-all"><?php echo esc_html( $taxonomy->labels->all_items ); ?></a></li>
+													<li class="hide-if-no-js"><a href="#<?php echo esc_attr( $tax_name ); ?>-pop"><?php echo esc_html( $taxonomy->labels->most_used ); ?></a></li>
+												</ul>
+
+												<div id="<?php echo esc_attr( $tax_name ); ?>-pop" class="tabs-panel" style="display: none;">
+													<ul id="<?php echo esc_attr( $tax_name ); ?>checklist-pop" class="categorychecklist form-no-clear" >
+														<?php $popular_ids = wp_popular_terms_checklist( $tax_name ); ?>
+													</ul>
+												</div>
+
+												<div id="<?php echo esc_attr( $tax_name ); ?>-all" class="tabs-panel">
+													<ul id="<?php echo esc_attr( $tax_name ); ?>checklist" data-wp-lists="list:<?php echo esc_attr( $tax_name ); ?>" class="categorychecklist form-no-clear">
+														<?php
+														wp_terms_checklist(
+															$post->ID,
+															array(
+																'taxonomy'     => $tax_name,
+																'popular_cats' => $popular_ids,
+															)
+														);
+														?>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 								</div>
 							</div>
+
 						</div>
 
 						<p class="submit"><input id="generate_and_import" name="generate_and_import" type="submit" class="button button-primary button-hero" value="<?php echo esc_attr__( 'Apply', 'woocommerce-smart-coupons' ); ?>" /></p>

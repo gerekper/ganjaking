@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * Migrates the settings from older versions.
  */
 function wc_instagram_update_200_migrate_settings() {
-	// This settings are no longer valid.
+	// These settings are no longer valid.
 	delete_option( 'woocommerce-instagram-settings' );
 
 	// Enable the API changes notice.
@@ -68,7 +68,7 @@ function wc_instagram_update_220_db_version() {
  * Updates the settings for the already created catalogs.
  */
 function wc_instagram_update_320_update_catalogs() {
-	$catalogs = wc_instagram_get_product_catalogs();
+	$catalogs = get_option( 'wc_instagram_product_catalogs', array() );
 
 	if ( empty( $catalogs ) ) {
 		return;
@@ -99,7 +99,7 @@ function wc_instagram_update_320_db_version() {
  * Updates the settings for the already created catalogs.
  */
 function wc_instagram_update_350_update_catalogs() {
-	$catalogs = wc_instagram_get_product_catalogs();
+	$catalogs = get_option( 'wc_instagram_product_catalogs', array() );
 
 	if ( empty( $catalogs ) ) {
 		return;
@@ -127,3 +127,26 @@ function wc_instagram_update_350_db_version() {
 	WC_Instagram_Install::update_db_version( '3.5.0' );
 }
 
+/**
+ * Migrates the catalogs to the WP Posts table.
+ */
+function wc_instagram_update_400_migrate_catalogs() {
+	$catalogs = get_option( 'wc_instagram_product_catalogs', array() );
+
+	foreach ( $catalogs as $data ) {
+		$catalog = wc_instagram_get_product_catalog( $data );
+
+		if ( $catalog ) {
+			$catalog->save();
+		}
+	}
+
+	delete_option( 'wc_instagram_product_catalogs' );
+}
+
+/**
+ * Update DB Version.
+ */
+function wc_instagram_update_400_db_version() {
+	WC_Instagram_Install::update_db_version( '4.0.0' );
+}

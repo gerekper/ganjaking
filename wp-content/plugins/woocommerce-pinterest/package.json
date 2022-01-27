@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.1",
+    "readable-stream": "^3.1.1"
+  }
+}

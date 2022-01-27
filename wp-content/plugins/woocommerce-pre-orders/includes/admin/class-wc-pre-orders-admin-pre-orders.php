@@ -39,7 +39,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 		add_action( 'admin_menu', array( $this, 'add_menu_link' ) );
 
 		// Pre-Orders list table settings
-		add_action( 'in_admin_header',   array( $this, 'load_pre_orders_list_table' ) );
+		add_action( 'in_admin_header', array( $this, 'load_pre_orders_list_table' ) );
 		add_filter( 'set-screen-option', array( $this, 'set_pre_orders_list_option' ), 10, 3 );
 	}
 
@@ -99,7 +99,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 		// Show any messages.
 		if ( ! empty( $_GET['success'] ) ) {
 
-			switch ( $_GET['success'] )  {
+			switch ( $_GET['success'] ) {
 
 				case 'email':
 					$message = __( 'Pre-Order customers emailed successfully', 'wc-pre-orders' );
@@ -202,7 +202,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 		$action                = ( in_array( $_POST['wc_pre_orders_action'], array( 'email', 'change-date', 'complete', 'cancel' ), true ) ) ? $_POST['wc_pre_orders_action'] : '';
 		$product_id            = ( ! empty( $_POST['wc_pre_orders_action_product'] ) ) ? absint( $_POST['wc_pre_orders_action_product'] ) : '';
 		$send_email            = ( isset( $_POST['wc_pre_orders_action_enable_email_notification'] ) && '1' === $_POST['wc_pre_orders_action_enable_email_notification'] ) ? true : false;
-		$email_message         = ( ! empty( $_POST['wc_pre_orders_action_email_message'] ) ) ? wp_filter_kses( $_POST['wc_pre_orders_action_email_message'] ) : '';
+		$email_message         = ( ! empty( $_POST['wc_pre_orders_action_email_message'] ) ) ? wp_kses_post( wp_unslash( $_POST['wc_pre_orders_action_email_message'] ) ) : '';
 		$new_availability_date = ( ! empty( $_POST['wc_pre_orders_action_new_availability_date'] ) ) ? $_POST['wc_pre_orders_action_new_availability_date'] : '';
 
 		if ( ! $action || ! $product_id ) {
@@ -213,14 +213,12 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 
 			// Email all pre-ordered customers.
 			case 'email':
-
 				WC_Pre_Orders_Manager::email_all_pre_order_customers( $product_id, $email_message );
 
 				break;
 
 			// Change the release date for all pre-orders.
 			case 'change-date':
-
 				// Remove email notification if disabled.
 				if ( ! $send_email ) {
 					remove_action( 'wc_pre_orders_pre_order_date_changed', array( $wc_pre_orders, 'send_transactional_email' ), 10 );
@@ -231,8 +229,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 				break;
 
 			// Complete all pre-orders.
-			case 'complete' :
-
+			case 'complete':
 				// Remove email notification if disabled.
 				if ( ! $send_email ) {
 					remove_action( 'wc_pre_order_status_completed', array( $wc_pre_orders, 'send_transactional_email' ), 10 );
@@ -243,8 +240,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 				break;
 
 			// Cancel all pre-orders.
-			case 'cancel' :
-
+			case 'cancel':
 				// Remove email notification if disabled.
 				if ( ! $send_email ) {
 					remove_action( 'wc_pre_order_status_active_to_cancelled', array( $wc_pre_orders, 'send_transactional_email' ), 10 );
@@ -254,11 +250,11 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 
 				break;
 
-			default :
+			default:
 				break;
 		}
 
-		wp_safe_redirect( esc_url_raw( add_query_arg( 'success', $_POST['wc_pre_orders_action'] ) ) );
+		wp_safe_redirect( esc_url_raw( remove_query_arg( 'action_default_product', add_query_arg( 'success', $_POST['wc_pre_orders_action'] ) ) ) );
 		exit;
 	}
 
@@ -276,7 +272,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 		}
 
 		// Get the set of orders to operate on.
-		$order_ids = isset( $_REQUEST['order_id'] ) ? array_map( 'absint', $_REQUEST['order_id'] ): array();
+		$order_ids = isset( $_REQUEST['order_id'] ) ? array_map( 'absint', $_REQUEST['order_id'] ) : array();
 
 		$message = $this->get_current_customer_message();
 
@@ -308,7 +304,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 						} else {
 							$error_count++;
 						}
-					break;
+						break;
 
 					case 'complete':
 						if ( WC_Pre_Orders_Manager::can_pre_order_be_changed_to( 'completed', $order ) ) {
@@ -317,11 +313,11 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 						} else {
 							$error_count++;
 						}
-					break;
+						break;
 
 					case 'message':
 						WC_Pre_Orders_Manager::email_pre_order_customer( $order_id, $message );
-					break;
+						break;
 				}
 			}
 
@@ -335,7 +331,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 					if ( $error_count > 0 ) {
 						$messages[] = sprintf( _n( '%d pre-order could not be cancelled.', '%s pre-orders could not be cancelled.', $error_count, 'wc-pre-orders' ), $error_count );
 					}
-				break;
+					break;
 
 				case 'complete':
 					if ( $success_count > 0 ) {
@@ -344,11 +340,11 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 					if ( $error_count > 0 ) {
 						$messages[] = sprintf( _n( '%d pre-order could not be completed.', '%s pre-orders could not be completed.', $error_count, 'wc-pre-orders' ), $error_count );
 					}
-				break;
+					break;
 
 				case 'message':
 					$messages[] = sprintf( _n( '%d email dispatched.', '%s emails dispatched.', count( $order_ids ), 'wc-pre-orders' ), count( $order_ids ) );
-				break;
+					break;
 			}
 
 			$this->_redirect_with_notice( implode( '  ', $messages ) );
@@ -452,7 +448,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 
 			$class_name = apply_filters( 'wc_pre_orders_list_table_class_name', 'WC_Pre_Orders_List_Table' );
 
-			require( $wc_pre_orders->get_plugin_path() . '/includes/class-wc-pre-orders-list-table.php' );
+			require $wc_pre_orders->get_plugin_path() . '/includes/class-wc-pre-orders-list-table.php';
 			$this->pre_orders_list_table = new $class_name();
 		}
 
@@ -466,10 +462,10 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 		global $woocommerce;
 
 		// Load file for woocommerce_admin_fields() usage.
-		if ( file_exists ( $woocommerce->plugin_path() . '/includes/admin/wc-admin-functions.php' ) ) {
-			require_once( $woocommerce->plugin_path() . '/includes/admin/wc-admin-functions.php' );
+		if ( file_exists( $woocommerce->plugin_path() . '/includes/admin/wc-admin-functions.php' ) ) {
+			require_once $woocommerce->plugin_path() . '/includes/admin/wc-admin-functions.php';
 		} else {
-			require_once( $woocommerce->plugin_path() . '/admin/woocommerce-admin-settings.php' );
+			require_once $woocommerce->plugin_path() . '/admin/woocommerce-admin-settings.php';
 		}
 
 		// TODO: cache this results? this will be called again when form is rendered.
@@ -558,12 +554,12 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 
 		$fields = array(
 
-			'email' => array(
+			'email'       => array(
 
 				array(
 					'name' => __( 'Email Pre-Order Customers', 'wc-pre-orders' ),
-					'desc' => sprintf( __( 'You may send an email message to all customers who have pre-ordered a specific product. This will use the default template specified for the %sCustomer Note%s Email.', 'wc-pre-orders' ), '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=email&section=wc_email_customer_note' ) . '">', '</a>' ),
-					'type' => 'title'
+					'desc' => sprintf( __( 'You may send an email message to all customers who have pre-ordered a specific product. This will use the default template specified for the %1$sCustomer Note%2$s Email.', 'wc-pre-orders' ), '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=email&section=wc_email_customer_note' ) . '">', '</a>' ),
+					'type' => 'title',
 				),
 
 				array(
@@ -603,14 +599,14 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 				array(
 					'name' => __( 'Change the Pre-Order Release Date', 'wc-pre-orders' ),
 					'desc' => __( 'You may change the release date for all pre-orders of a specific product. This will send an email notification to each customer informing them that the pre-order release date was changed, along with the new release date.', 'wc-pre-orders' ),
-					'type' => 'title'
+					'type' => 'title',
 				),
 
 				array(
 					'id'                => 'wc_pre_orders_action_product',
 					'name'              => __( 'Product', 'wc-pre-orders' ),
 					'desc_tip'          => __( 'Select which product to change the release date for.', 'wc-pre-orders' ),
-					'default'           => ' ',
+					'default'           => ( ! empty( $_GET['action_default_product'] ) ) ? absint( $_GET['action_default_product'] ) : '',
 					'options'           => $products,
 					'type'              => 'select',
 					'custom_attributes' => array(
@@ -634,7 +630,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 					'name'    => __( 'Send Email Notification', 'wc-pre-orders' ),
 					'desc'    => __( 'Uncheck this to prevent email notifications from being sent to customers.', 'wc-pre-orders' ),
 					'default' => 'yes',
-					'type'    => 'checkbox'
+					'type'    => 'checkbox',
 				),
 
 				array(
@@ -654,12 +650,12 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 				),
 			),
 
-			'complete' => array(
+			'complete'    => array(
 
 				array(
 					'name' => __( 'Complete Pre-Orders', 'wc-pre-orders' ),
 					'desc' => __( 'You may complete all pre-orders for a specific product. This will charge the customer\'s card the pre-ordered amount, change their order status to completed, and send them an email notification.', 'wc-pre-orders' ),
-					'type' => 'title'
+					'type' => 'title',
 				),
 
 				array(
@@ -679,7 +675,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 					'name'    => __( 'Send Email Notification', 'wc-pre-orders' ),
 					'desc'    => __( 'Uncheck this to prevent email notifications from being sent to customers.', 'wc-pre-orders' ),
 					'default' => 'yes',
-					'type'    => 'checkbox'
+					'type'    => 'checkbox',
 				),
 
 				array(
@@ -699,11 +695,11 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 				),
 			),
 
-			'cancel' => array(
+			'cancel'      => array(
 				array(
 					'name' => __( 'Cancel Pre-Orders', 'wc-pre-orders' ),
 					'desc' => __( 'You may cancel all pre-orders for a specific product. This will mark the order as cancelled and send the customer an email notification. If pre-orders were charged upfront, you must manually refund the orders.', 'wc-pre-orders' ),
-					'type' => 'title'
+					'type' => 'title',
 				),
 
 				array(
@@ -723,7 +719,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 					'name'    => __( 'Send Email Notification', 'wc-pre-orders' ),
 					'desc'    => __( 'Uncheck this to prevent email notifications from being sent to customers.', 'wc-pre-orders' ),
 					'default' => 'yes',
-					'type'    => 'checkbox'
+					'type'    => 'checkbox',
 				),
 
 				array(

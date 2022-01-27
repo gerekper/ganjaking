@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.8.0
- * @version     1.1.0
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -49,6 +49,10 @@ if ( ! class_exists( 'WC_SC_Coupon_Categories' ) ) {
 			add_action( 'init', array( $this, 'wc_sc_coupons_add_category' ) );
 			add_filter( 'parent_file', array( $this, 'wc_sc_make_menu_active' ) );
 			add_action( 'admin_footer', array( $this, 'add_footer_script' ) );
+			add_filter( 'manage_edit-sc_coupon_category_columns', array( $this, 'wc_sc_coupon_category_id_column' ) );
+			add_filter( 'manage_sc_coupon_category_custom_column', array( $this, 'wc_sc_coupon_category_id_column_content' ), 10, 3 );
+			add_filter( 'manage_edit-sc_coupon_category_sortable_columns', array( $this, 'wc_sc_define_sortable_id_columns' ) );
+
 		}
 
 		/**
@@ -167,6 +171,43 @@ if ( ! class_exists( 'WC_SC_Coupon_Categories' ) ) {
 				}
 			}
 		}
+
+		/**
+		 * Function for add id column in coupon category taxonomy page.
+		 *
+		 * @param array $columns - Existing headers.
+		 * @return array
+		 */
+		public function wc_sc_coupon_category_id_column( $columns = array() ) {
+			if ( ! empty( $columns ) ) {
+				return array_slice( $columns, 0, 1, true ) + array( 'id' => 'ID' ) + array_slice( $columns, 1, count( $columns ) - 1, true );
+			}
+			return $columns;
+		}
+
+		/**
+		 * Function for add content to ID column of coupon category taxonomy page.
+		 *
+		 * @param string $content - column content.
+		 * @param string $column_name - column_name.
+		 * @param string $term_id - id.
+		 * @return string
+		 */
+		public function wc_sc_coupon_category_id_column_content( $content = '', $column_name = '', $term_id = 0 ) {
+			return $term_id;
+		}
+
+		/**
+		 * Function for change ID column to sortable.
+		 *
+		 * @param array $columns - Existing columns.
+		 * @return array
+		 */
+		public function wc_sc_define_sortable_id_columns( $columns = array() ) {
+			$columns['id'] = 'id';
+			return $columns;
+		}
+
 
 	}
 

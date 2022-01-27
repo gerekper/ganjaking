@@ -8,7 +8,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-if ( ! defined( 'ABSPATH' ) )  {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
@@ -58,7 +58,7 @@ class WC_Pre_Orders_My_Pre_Orders {
 	 *
 	 * @return array altered query vars
 	 */
-	public function add_query_vars( $vars  ) {
+	public function add_query_vars( $vars ) {
 		$vars[] = 'pre-orders';
 		return $vars;
 	}
@@ -132,7 +132,7 @@ class WC_Pre_Orders_My_Pre_Orders {
 		$position = array_search( $after, array_keys( $items ) ) + 1;
 
 		// Insert the new item.
-		$array = array_slice( $items, 0, $position, true );
+		$array  = array_slice( $items, 0, $position, true );
 		$array += $new_items;
 		$array += array_slice( $items, $position, count( $items ) - $position, true );
 
@@ -161,14 +161,14 @@ class WC_Pre_Orders_My_Pre_Orders {
 			// Set the items for the table
 			$items[] = array(
 				'order' => $order,
-				'data'  => $order_item
+				'data'  => $order_item,
 			);
 
 			// Determine the available actions (Cancel)
 			if ( WC_Pre_Orders_Manager::can_pre_order_be_changed_to( 'cancelled', $order ) ) {
 				$_actions['cancel'] = array(
 					'url'  => WC_Pre_Orders_Manager::get_users_change_status_link( 'cancelled', $order ),
-					'name' => __( 'Cancel', 'wc-pre-orders' )
+					'name' => __( 'Cancel', 'wc-pre-orders' ),
 				);
 			}
 

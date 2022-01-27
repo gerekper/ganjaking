@@ -580,6 +580,14 @@ class WoocommerceGpfCommon {
 					'can_prepopulate' => true,
 					'feed_types'      => [ 'google' ],
 				],
+				'bing_promotion_id'                   => [
+					'desc'            => __( 'Promotion ID [Bing]', 'woocommerce_gpf' ),
+					'full_desc'       => __( 'The unique ID of a promotion.' ),
+					'can_default'     => true,
+					'callback'        => 'render_textfield',
+					'can_prepopulate' => true,
+					'feed_types'      => [ 'bing' ],
+				],
 				'shippingprice'                       => [
 					'desc'            => __( 'Bing shipping info (price only)', 'woocommerce_gpf' ),
 					'full_desc'       => __( 'The shipping field is required for Bing feed for Germany only. The format of the value is &quot;price&quot;, for example : 6.49' ),

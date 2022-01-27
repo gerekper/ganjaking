@@ -225,16 +225,8 @@ jQuery( function($) {
 
 			// Create new set of options for the States selector.
 			$.each( selected_countries, function( index, country_selection ) {
-				if ( country_selection.key.includes( 'country:' ) ) {
 
-					var country_key = country_selection.key.replace( 'country:', '' );
-
-					// Check if country is already added to avoid duplicates.
-					if ( ! country_added( selected_countries_formatted, country_key ) ) {
-						selected_countries_formatted.push( { key: country_key, value: country_selection.value } );
-					}
-
-				} else if ( country_selection.key.includes( 'continent:' ) ) {
+				if ( country_selection.key.includes( 'continent:' ) ) {
 
 					var continent_key          = country_selection.key.replace( 'continent:', '' ),
 						countries_in_continent = continents_data[ continent_key ].countries;
@@ -247,6 +239,23 @@ jQuery( function($) {
 							selected_countries_formatted.push( { key: country_in_continent_key, value: countries_data[ country_in_continent_key ] } );
 						}
 					} );
+				} else {
+
+					var country_key = '';
+
+					if ( country_selection.key.includes( 'country:' ) ) {
+						country_key = country_selection.key.replace( 'country:', '' );
+					} else {
+						// Fallback for the country/state fields in Shipping Destination Restrictions, which do not support continents yet.
+						country_key = country_selection.key;
+					}
+
+					if ( '' !== country_key ) {
+						// Check if country is already added to avoid duplicates.
+						if ( ! country_added( selected_countries_formatted, country_key ) ) {
+							selected_countries_formatted.push( { key: country_key, value: country_selection.value } );
+						}
+					}
 				}
 			} );
 

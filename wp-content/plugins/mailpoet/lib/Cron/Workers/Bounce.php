@@ -96,6 +96,7 @@ class Bounce extends SimpleWorker {
     if ($parisTask instanceof ScheduledTask) {
       $taskSubscribers = new TaskSubscribers($parisTask);
 
+      /** @var int[] $subscribersToProcessIds - it's required for PHPStan */
       foreach ($subscriberBatches as $subscribersToProcessIds) {
         // abort if execution limit is reached
         $this->cronHelper->enforceExecutionLimit($timer);

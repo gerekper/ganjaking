@@ -678,7 +678,7 @@ class SubscriberEntity extends \MailPoet\Entities\SubscriberEntity implements \M
     /**
      * {@inheritDoc}
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): ?\DateTimeInterface
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreatedAt', []);
@@ -689,12 +689,12 @@ class SubscriberEntity extends \MailPoet\Entities\SubscriberEntity implements \M
     /**
      * {@inheritDoc}
      */
-    public function setCreatedAt(\DateTimeInterface $createdAt)
+    public function setCreatedAt(\DateTimeInterface $createdAt): void
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreatedAt', [$createdAt]);
 
-        return parent::setCreatedAt($createdAt);
+        parent::setCreatedAt($createdAt);
     }
 
     /**

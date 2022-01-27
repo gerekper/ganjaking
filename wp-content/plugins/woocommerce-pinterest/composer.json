@@ -1,0 +1,33 @@
+{
+  "name": "premmerce/woocommerce-pinterest",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "premmerce"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Premmerce\\WooCommercePinterest\\": "src"
+    }
+  },
+  "require": {
+    "premmerce/wordpress-sdk": "^2.0",
+    "premmerce/primary-category": "^2.0",
+    "parsecsv/php-parsecsv": "^1.1"
+  },
+  "repositories": {
+    "premmerce-primary-category": {
+      "type": "vcs",
+      "url": "git@github.com:Premmerce/primary-category.git"
+    }
+  },
+  "require-dev": {
+    "woocommerce/woocommerce-sniffs": "^0.0.9"
+  },
+
+  "scripts": {
+    "check": "vendor/bin/phpcs --warning-severity=0 -s --ignore-annotations --extensions=php,html",
+    "fix": "vendor/bin/phpcbf --warning-severity=0 -s --ignore-annotations --extensions=php,html"
+  }
+}

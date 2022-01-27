@@ -14,25 +14,18 @@ defined( 'ABSPATH' ) || exit;
  * @since 2.0.0
  */
 function wc_instagram_enqueue_scripts() {
-	if ( ! wc_instagram_has_business_account() ) {
-		return;
-	}
-
-	// It isn't a single product page.
-	if ( ! is_product() ) {
+	if ( ! wc_instagram_has_business_account() || ! is_product() ) {
 		return;
 	}
 
 	// Add styles for the compatible themes.
-	switch ( get_template() ) {
-		case 'storefront':
-			$theme = wp_get_theme( 'storefront' );
+	if ( 'storefront' === get_template() ) {
+		$theme = wp_get_theme( 'storefront' );
 
-			// Styles not longer necessary for Storefront 2.5.5 or higher.
-			if ( $theme && version_compare( $theme['Version'], '2.5.5', '<' ) ) {
-				wp_enqueue_style( 'wc-instagram-storefront-styles', WC_INSTAGRAM_URL . 'assets/css/themes/storefront.css', array( 'storefront-style' ), WC_INSTAGRAM_VERSION );
-			}
-			break;
+		// Styles no longer necessary for Storefront 2.5.5 or higher.
+		if ( $theme && version_compare( $theme['Version'], '2.5.5', '<' ) ) {
+			wp_enqueue_style( 'wc-instagram-storefront-styles', WC_INSTAGRAM_URL . 'assets/css/themes/storefront.css', array( 'storefront-style' ), WC_INSTAGRAM_VERSION );
+		}
 	}
 }
 
@@ -102,7 +95,7 @@ function wc_instagram_set_loop_prop( $prop, $value = '' ) {
 function wc_instagram_get_loop_prop( $prop, $default = '' ) {
 	global $wc_instagram_loop;
 
-	wc_instagram_setup_loop(); // Ensure loop is setup.
+	wc_instagram_setup_loop(); // Ensure loop is set up.
 
 	return ( ( is_array( $wc_instagram_loop ) && ! empty( $wc_instagram_loop[ $prop ] ) ) ? $wc_instagram_loop[ $prop ] : $default );
 }

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.6.0
+ * @version     1.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -264,8 +264,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				$coupon_column_headers   = $this->get_coupon_column_headers();
 				$coupon_posts_headers    = $coupon_column_headers['posts_headers'];
 				$coupon_postmeta_headers = $coupon_column_headers['postmeta_headers'];
-
-				$column_headers = array_merge( $coupon_posts_headers, $coupon_postmeta_headers );
+				$coupon_term_headers     = $coupon_column_headers['term_headers'];
+				$column_headers          = array_merge( $coupon_posts_headers, $coupon_postmeta_headers, $coupon_term_headers );
 				$export_file = $woocommerce_smart_coupon->export_coupon_csv( $column_headers, array() ); // phpcs:ignore
 
 				if ( is_array( $export_file ) && ! isset( $export_file['error'] ) ) {
@@ -517,6 +517,24 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 				unset( $post['postmeta'] );
 			}
 
+			// Update term data.
+			if ( ! empty( $post['term_data'] ) && is_array( $post['term_data'] ) ) {
+				foreach ( $post['term_data'] as $data ) {
+					if ( isset( $data['key'] ) && 'sc_coupon_category' === $data['key'] ) {
+						if ( ! empty( $data['value'] ) ) {
+							$coupon_cat_details = explode( '|', $data['value'] );
+							wp_set_post_terms( $post_id, $coupon_cat_details, 'sc_coupon_category', true );
+						}
+					}
+				}
+				unset( $post['term_data'] );
+			}
+
+			$posted_data = get_option( 'woo_sc_generate_coupon_posted_data', true );
+			if ( isset( $posted_data['sc_coupon_category'] ) && ! empty( $posted_data['sc_coupon_category'] ) ) {
+				wp_set_post_terms( $post_id, $posted_data['sc_coupon_category'], 'sc_coupon_category', true );
+			}
+
 			$is_email_imported_coupons = get_option( 'woo_sc_is_email_imported_coupons' );
 
 			if ( 'yes' === $is_email_imported_coupons && ! empty( $customer_emails ) && ( ! empty( $coupon_amount ) || 'yes' === $allowed_free_shipping ) && ! empty( $coupon_code ) && ! empty( $discount_type ) ) {
@@ -529,8 +547,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 					$coupon_title[ $customer_email ] = $coupon;
 				}
 
-				$posted_data = get_option( 'woo_sc_generate_coupon_posted_data', true );
-				$message     = '';
+				$message = '';
 				if ( ! empty( $posted_data ) && is_array( $posted_data ) ) {
 					$message = ( ! empty( $posted_data['smart_coupon_message'] ) ) ? $posted_data['smart_coupon_message'] : '';
 				}

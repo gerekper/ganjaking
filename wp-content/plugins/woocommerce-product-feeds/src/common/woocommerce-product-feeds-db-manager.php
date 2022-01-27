@@ -275,4 +275,39 @@ class WoocommerceProductFeedsDbManager {
 		update_option( 'woocommerce_gpf_config', $this->settings );
 	}
 
+	/**
+	 * Add locale to the woocommerce_gpf_google_taxonomy cache table. Drop existing cached data.
+	 *
+	 * @return void
+	 */
+	public function upgrade_db_to_12() {
+		global $wpdb;
+
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+		$table_name      = $wpdb->prefix . 'woocommerce_gpf_google_taxonomy';
+		$charset_collate = $wpdb->get_charset_collate();
+
+		$sql = "CREATE TABLE $table_name (
+	            taxonomy_term text,
+	            search_term text,
+	            locale varchar(5),
+                KEY locale_index (locale)
+			) $charset_collate";
+		dbDelta( $sql );
+
+		$sql = "DELETE FROM $table_name";
+		$wpdb->query( $sql );
+	}
+
+	/**
+	 * Set a value for woocommerce_gpf_install_ts.
+	 *
+	 * @return void
+	 */
+	public function upgrade_db_to_13() {
+		if ( get_option( 'woocommerce_gpf_install_ts' ) === false ) {
+			update_option( 'woocommerce_gpf_install_ts', time(), false );
+		}
+	}
 }

@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * This is just a way to organize SATT code better.
  * See 'WCS_ATT::includes', 'WCS_ATT::register_modules' and 'WCS_ATT::register_component_hooks'.
  *
- * @version  2.2.0
+ * @version  3.2.0
  */
 abstract class WCS_ATT_Abstract_Module {
 
@@ -54,8 +54,8 @@ abstract class WCS_ATT_Abstract_Module {
 
 		$modules = array();
 
-		foreach ( $this->modules as $module ) {
-			$modules[] = new $module();
+		foreach ( $this->modules as $module_key => $module_value ) {
+			$modules[ $module_key ] = new $module_value();
 		}
 
 		$this->modules = $modules;
@@ -91,5 +91,14 @@ abstract class WCS_ATT_Abstract_Module {
 		if ( $register_module_hooks ) {
 			$this->register_module_hooks( $component );
 		}
+	}
+
+	/**
+	 * Checks if a specific module is registered.
+	 *
+	 * @return boolean
+	 */
+	public function is_module_registered( $module ) {
+		return array_key_exists( $module, $this->modules );
 	}
 }

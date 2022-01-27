@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * WC_Brands class.
  */
@@ -26,7 +27,16 @@ class WC_Brands {
 	public function register_hooks() {
 		add_action( 'woocommerce_register_taxonomy', array( __CLASS__, 'init_taxonomy' ) );
 		add_action( 'widgets_init', array( $this, 'init_widgets' ) );
-		add_filter( 'template_include', array( $this, 'template_loader' ) );
+
+		if ( version_compare( WC_VERSION, '6.1', '>=' ) && $this->is_fse_theme() ) {
+			require_once 'class-wc-brands-block-templates.php';
+		} else {
+			if ( $this->is_fse_theme() ) {
+				add_action( 'admin_notices', array( $this, 'minimum_version_blocks' ) );
+			}
+			add_filter( 'template_include', array( $this, 'template_loader' ) );
+		}
+
 		add_action( 'wp_enqueue_scripts', array( $this, 'styles' ) );
 		add_action( 'wp', array( $this, 'body_class' ) );
 
@@ -80,6 +90,27 @@ class WC_Brands {
 		} else {
 			return get_woocommerce_term_meta( $term_id, $key, $single );
 		}
+	}
+
+	/**
+	 * Check if a theme is FSE
+	 * @return bool If the theme is FSE theme
+	 * @since 1.6.26
+	 */
+	private function is_fse_theme() {
+		if ( function_exists( 'wp_is_block_theme' ) ) {
+			return (bool) wp_is_block_theme();
+		}
+
+		return false;
+	}
+
+	/**
+	 * Render an admin notice showing the minimum version for full compatibility with WC Blocks.
+	 */
+	public function minimum_version_blocks() {
+		/* translators: %s: WooCommerce link */
+		echo '<div class="error"><p>' . sprintf( esc_html__( 'Full Site Editor themes require %s >= 6.1 for full compatibility with WooCommerce Brands.', 'wc_brands' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</p></div>';
 	}
 
 	/**
@@ -286,7 +317,6 @@ class WC_Brands {
 	 * woocommerce templates.
 	 */
 	public function template_loader( $template ) {
-
 		$find = array( 'woocommerce.php' );
 		$file = '';
 

@@ -8,7 +8,9 @@
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /**
  * Pre-Orders Cron class
@@ -50,7 +52,7 @@ class WC_Pre_Orders_Cron {
 
 		$schedules['wc_pre_orders_completion_check'] = array(
 			'interval' => $interval,
-			'display'  => sprintf( __( 'Every %d minutes', 'wc-pre-orders' ), $interval / 60 )
+			'display'  => sprintf( __( 'Every %d minutes', 'wc-pre-orders' ), $interval / 60 ),
 		);
 
 		return $schedules;
@@ -67,8 +69,9 @@ class WC_Pre_Orders_Cron {
 
 		// Schedule pre-order completion check with custom interval named 'wc_pre_orders_completion_check'
 		// note the next execution time if the plugin is deactivated then reactivated is the current time + 5 minutes
-		if ( ! wp_next_scheduled( 'wc_pre_orders_completion_check' ) )
+		if ( ! wp_next_scheduled( 'wc_pre_orders_completion_check' ) ) {
 			wp_schedule_event( time() + 300, 'wc_pre_orders_completion_check', 'wc_pre_orders_completion_check' );
+		}
 	}
 
 

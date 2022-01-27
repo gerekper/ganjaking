@@ -2,7 +2,7 @@
 /**
  * A class for representing an item in a product catalog.
  *
- * @package WC_Instagram/Product Catalog/Items
+ * @package WC_Instagram/Product_Catalog/Items
  * @since   3.0.0
  */
 
@@ -322,7 +322,7 @@ class WC_Instagram_Product_Catalog_Item {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string $price        Optional. The price type. Default empty.
+	 * @param string $price        Optional. Price type. Default empty.
 	 * @param string $tax          Optional. Include tax in price?. Accepts 'excl', 'incl. Default 'excl.
 	 * @param array  $tax_location Optional. The tax location. Default: empty.
 	 * @return float

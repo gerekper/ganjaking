@@ -40,10 +40,11 @@ class StatsResponseBuilder {
       'reply_to_name' => $newsletter->getReplyToName(),
       'segments' => $this->buildSegments($segments),
       'hash' => $newsletter->getHash(),
+      'type' => $newsletter->getType(),
       'queue' => [
         'id' => $queue->getId(),
         'scheduled_at' => is_null($task->getScheduledAt()) ? null : $task->getScheduledAt()->format(self::DATE_FORMAT),
-        'created_at' => $task->getCreatedAt()->format(self::DATE_FORMAT),
+        'created_at' => ($createdAt = $task->getCreatedAt()) ? $createdAt->format(self::DATE_FORMAT) : null,
       ],
       'statistics' => $statistics->asArray(),
       'total_sent' => $statistics->getTotalSentCount(),

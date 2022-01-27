@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product on Subscription in Cart Condition.
  *
  * @class    WC_CSP_Condition_Cart_Reccuring_Item
- * @version  1.11.0
+ * @version  1.12.0
  */
 class WC_CSP_Condition_Cart_Recurring_Item extends WC_CSP_Condition {
 
@@ -185,7 +185,7 @@ class WC_CSP_Condition_Cart_Recurring_Item extends WC_CSP_Condition {
 			$order = $args[ 'order' ];
 
 			if ( ! ( $order instanceof WC_Subscription ) ) {
-				return false;
+				return $this->modifier_is( $data[ 'modifier' ], array( 'not-in', 'not-all-in' ) );
 			}
 
 			$billing_period       = $order->get_billing_period();

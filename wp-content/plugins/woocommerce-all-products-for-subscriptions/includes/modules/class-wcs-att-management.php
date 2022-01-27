@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles subscription object management functions, e.g. add, edit/switch, delete.
  *
  * @class    WCS_ATT_Management
- * @version  2.2.0
+ * @version  3.2.0
  */
 class WCS_ATT_Management extends WCS_ATT_Abstract_Module {
 
@@ -31,8 +31,8 @@ class WCS_ATT_Management extends WCS_ATT_Abstract_Module {
 
 		// Initialize modules.
 		$this->modules = apply_filters( 'wcsatt_management_modules', array(
-			'WCS_ATT_Manage_Add',
-			'WCS_ATT_Manage_Switch'
+			'manage_add'    => 'WCS_ATT_Manage_Add',
+			'manage_switch' => 'WCS_ATT_Manage_Switch'
 		) );
 	}
 }

@@ -1,5 +1,24 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.01.24 - version 4.35.0
+* New: Tested up to WooCommerce 6.1.1
+* New: Column 'sc_coupon_category' in sample.csv file
+* Fix: Shipping validation failing on live shipping method
+* Update: Improvement in coupon code generation logic
+* Update: POT file
+
+2022.01.17 - version 4.34.0
+* New: Tested up to WooCommerce 6.1.0 & WordPress 5.8.3
+* New: Support for coupon categories under bulk generate, import & export
+* Update: Coupon not applying to cart via URL coupon if the URL contains 'add-to-cart'
+* Update: Prevent generating coupon codes with profanity
+* Update: Replaced use of 'is_ajax' with 'wp_doing_ajax'
+* Update: POT file
+
+2021.11.22 - version 4.33.1
+* Fix: Fatal Error: Uncaught Error: Call to undefined function post_exists()
+* Update: POT file
+
 2021.11.18 - version 4.33.0
 * New: WooCommerce 5.9.0 compatible
 * New: Tested upto WordPress 5.8.2

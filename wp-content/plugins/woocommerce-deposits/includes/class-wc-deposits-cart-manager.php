@@ -40,13 +40,17 @@ class WC_Deposits_Cart_Manager {
 		// Control how coupons apply to products including a deposit or payment plan
 		add_action( 'woocommerce_before_calculate_totals', array( $this, 'clear_deferred_discounts' ) );
 
+
+		// Adjust mini-cart subtotal
+		add_action( 'woocommerce_widget_shopping_cart_total', array( $this, 'adjust_cart_subtotal' ), 10 );
+
+
 		// Add WC3.2 Coupons upgrade compatibility
 		if( version_compare( WC_VERSION, '3.2', '>=' ) ){
 			add_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'get_discount_amount' ), 10, 5 );
 			add_filter( 'woocommerce_cart_tax_totals' , array( $this, 'cart_totals_order_taxes' ), 10, 2 );
 			add_filter( 'woocommerce_order_get_tax_totals' , array( $this, 'order_totals_order_taxes' ), 10, 2 );
-			add_action( 'woocommerce_calculated_total', array( $this, 'adjust_cart_total' ), 10, 1 );
-			add_action( 'woocommerce_cart_get_subtotal', array( $this, 'adjust_cart_subtotal' ), 10, 1 );
+			add_action( 'woocommerce_after_calculate_totals', array( $this, 'adjust_cart_totals' ), 10, 1 );
 			add_action( 'woocommerce_coupon_validate_minimum_amount', array( $this, 'check_coupon_minimum_amount' ), 10, 3 );
 			add_action( 'woocommerce_order_status_partial-payment', 'wc_update_coupon_usage_counts' );
 			// Update order totals as late as possible, so deposit totals are recalculated before saving.
@@ -100,11 +104,15 @@ class WC_Deposits_Cart_Manager {
 	/**
 	 * Does the cart contain a deposit?
 	 *
+	 * @param WC_Cart|null $cart
 	 * @return boolean
 	 */
-	public function has_deposit() {
-		if ( ! is_null( WC()->cart ) ) {
-			foreach ( WC()->cart->get_cart() as $cart_item ) {
+	public function has_deposit( $cart = null ) {
+
+		$cart = empty( $cart ) && ! is_null( WC()->cart ) ? WC()->cart : $cart;
+
+		if ( $cart ) {
+			foreach ( $cart->get_cart() as $cart_item ) {
 				if ( ! empty( $cart_item['is_deposit'] ) ) {
 					return true;
 				}
@@ -707,22 +715,24 @@ class WC_Deposits_Cart_Manager {
 	}
 
 	/**
-	 * Calculates new total taking into account credit amount, deposit and deferred discount
+	 * Calculates new cart totals taking into account credit amount, deposit and deferred discount
 	 *
-	 * @param float $total Original cart total.
-	 * @return float
+	 * @param WC_Cart $cart cart
 	 */
-	public function adjust_cart_total( $total ) {
-		$deferred_discount_tax = 0;
-		if ( wc_tax_enabled() && ! wc_prices_include_tax() ) {
-			$tax                   = $this->calculate_deferred_and_present_discount_tax();
-			$deferred_discount_tax = round( $tax['deferred'], wc_get_price_decimals() );
+	public function adjust_cart_totals( $cart ) {
+		if ( ! $this->has_deposit( $cart ) ) {
+			return;
 		}
 
-		$deposits_remaining_amount = $this->get_deposit_remaining_amount( null, true );
-		$credit_amount             = $this->get_credit_amount( null, true );
-		$deferred_discount_amount  = self::get_deferred_discount_amount();
-		return $total - ( $deposits_remaining_amount + $credit_amount ) + $deferred_discount_amount + $deferred_discount_tax;
+		$total_deferred_discount_tax = 0;
+
+		if ( wc_tax_enabled() && ! wc_prices_include_tax() ) {
+			$tax                         = $this->calculate_deferred_and_present_discount_tax();
+			$total_deferred_discount_tax = round( $tax['deferred'], wc_get_price_decimals() );
+		}
+
+		$cart->set_subtotal( $cart->get_subtotal() - ( $this->get_deposit_remaining_amount() + $this->get_credit_amount() ) );
+		$cart->set_total( $cart->get_total( 'total' ) - ( $this->get_deposit_remaining_amount( null, true ) + $this->get_credit_amount( null, true ) ) + self::get_deferred_discount_amount() + $total_deferred_discount_tax );
 	}
 
 	/**
@@ -777,42 +787,47 @@ class WC_Deposits_Cart_Manager {
 	/**
 	 * Calculates taxes which will be deferred into future payments.
 	 *
+	 * @param WC_Cart $cart
 	 * @return array List of all deferred tax rates.
 	 */
-	public function calculate_deferred_taxes_from_cart() {
+	public function calculate_deferred_taxes_from_cart( $cart = null ) {
 		$deferred_taxes = array();
-		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-			if ( empty( $cart_item['is_deposit'] ) ) {
-				continue;
-			}
+		$cart           = empty( $cart ) && isset( WC()->cart ) ? WC()->cart : $cart;
 
-			$deposit_type = WC_Deposits_Product_Manager::get_deposit_type( $cart_item['product_id'] );
-			if ( ! in_array( $deposit_type, array( 'plan', 'percent', 'fixed' ), true ) ) {
-				continue;
-			}
-
-			$full_amount                  = floatval( $cart_item['full_amount'] );
-			$deposit_amount               = floatval( $cart_item['deposit_amount'] );
-			$quantity                     = $cart_item['quantity'];
-			$deferred_discount            = $this->get_deferred_discount_amount( null, $cart_item );
-			$present_discount             = $this->get_present_discount_amount( null, $cart_item );
-			$full_amount_with_discount    = $full_amount * $quantity - ( $deferred_discount + $present_discount );
-			$future_payment_with_discount = ( $full_amount - $deposit_amount ) * $quantity - $deferred_discount;
-			$deferred_proportion          = 1;
-
-			if ( $full_amount_with_discount ) {
-				$deferred_proportion = $future_payment_with_discount / $full_amount_with_discount;
-			}
-
-			if ( ! isset( $cart_item['line_tax_data']['total'] ) || ! is_array( $cart_item['line_tax_data']['total'] ) ) {
-				continue;
-			}
-
-			foreach ( $cart_item['line_tax_data']['total'] as $tax_id => $tax ) {
-				if ( ! isset( $deferred_taxes[ $tax_id ] ) ) {
-					$deferred_taxes[ $tax_id ] = 0;
+		if ( $cart ) {
+			foreach ( $cart->cart_contents as $cart_item_key => $cart_item ) {
+				if ( empty( $cart_item['is_deposit'] ) ) {
+					continue;
 				}
-				$deferred_taxes[ $tax_id ] += $deferred_proportion * $tax;
+
+				$deposit_type = WC_Deposits_Product_Manager::get_deposit_type( $cart_item['product_id'] );
+				if ( ! in_array( $deposit_type, array( 'plan', 'percent', 'fixed' ), true ) ) {
+					continue;
+				}
+
+				$full_amount                  = floatval( $cart_item['full_amount'] );
+				$deposit_amount               = floatval( $cart_item['deposit_amount'] );
+				$quantity                     = $cart_item['quantity'];
+				$deferred_discount            = $this->get_deferred_discount_amount( null, $cart_item );
+				$present_discount             = $this->get_present_discount_amount( null, $cart_item );
+				$full_amount_with_discount    = $full_amount * $quantity - ( $deferred_discount + $present_discount );
+				$future_payment_with_discount = ( $full_amount - $deposit_amount ) * $quantity - $deferred_discount;
+				$deferred_proportion          = 1;
+
+				if ( $full_amount_with_discount ) {
+					$deferred_proportion = $future_payment_with_discount / $full_amount_with_discount;
+				}
+
+				if ( ! isset( $cart_item['line_tax_data']['total'] ) || ! is_array( $cart_item['line_tax_data']['total'] ) ) {
+					continue;
+				}
+
+				foreach ( $cart_item['line_tax_data']['total'] as $tax_id => $tax ) {
+					if ( ! isset( $deferred_taxes[ $tax_id ] ) ) {
+						$deferred_taxes[ $tax_id ] = 0;
+					}
+					$deferred_taxes[ $tax_id ] += $deferred_proportion * $tax;
+				}
 			}
 		}
 		return $deferred_taxes;
@@ -849,12 +864,10 @@ class WC_Deposits_Cart_Manager {
 
 	/**
 	 * Calculates new subtotal taking into account credit amount and deposit
-	 *
-	 * @param float $total
 	 * @return float
 	 */
-	public function adjust_cart_subtotal( $total ) {
-		return $total - ( $this->get_deposit_remaining_amount() + $this->get_credit_amount() );
+	public function adjust_cart_subtotal() {
+		return WC()->cart->get_subtotal() - ( $this->get_deposit_remaining_amount() + $this->get_credit_amount() );
 	}
 
 	/**
@@ -1098,10 +1111,15 @@ class WC_Deposits_Cart_Manager {
 	 * Calculates the adjusted deferred taxes on the cart page.
 	 *
 	 * @param float $taxes The current tax totals.
+	 * @param WC_Cart $cart The current cart
 	 * @return array List of adjusted taxes.
 	 */
-	public function cart_totals_order_taxes( $taxes ) {
-		$deferred_tax = $this->calculate_deferred_taxes_from_cart();
+	public function cart_totals_order_taxes( $taxes, $cart = null ) {
+		if ( ! $cart || ! $this->has_deposit( $cart ) ) {
+			return $taxes;
+		}
+
+		$deferred_tax = $this->calculate_deferred_taxes_from_cart( $cart );
 
 		if ( empty( $deferred_tax ) ) {
 			// No modifications required.
@@ -1530,6 +1548,30 @@ class WC_Deposits_Cart_Manager {
 	public function reposition_display_for_variable_product() {
 		remove_action( 'woocommerce_before_add_to_cart_button', array( $this, 'deposits_form_output' ), 99 );
 		add_action( 'woocommerce_single_variation', array( $this, 'deposits_form_output' ), 16 );
+	}
+
+	/* Deprecated */
+
+	/**
+	 * Calculates new total taking into account credit amount, deposit and deferred discount
+	 *
+	 * @deprecated 1.5.7
+	 * @param float $total Original cart total.
+	 * @return float
+	 */
+	public function adjust_cart_total( $total ) {
+		_deprecated_function( 'WC_Deposits_Cart_Manager::adjust_cart_total', '1.5.7', 'Use adjust_cart_totals instead.' );
+
+		$deferred_discount_tax = 0;
+		if ( wc_tax_enabled() && ! wc_prices_include_tax() ) {
+			$tax                   = $this->calculate_deferred_and_present_discount_tax();
+			$deferred_discount_tax = round( $tax['deferred'], wc_get_price_decimals() );
+		}
+
+		$deposits_remaining_amount = $this->get_deposit_remaining_amount( null, true );
+		$credit_amount             = $this->get_credit_amount( null, true );
+		$deferred_discount_amount  = self::get_deferred_discount_amount();
+		return $total - ( $deposits_remaining_amount + $credit_amount ) + $deferred_discount_amount + $deferred_discount_tax;
 	}
 }
 

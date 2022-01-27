@@ -1067,7 +1067,7 @@ class GF_Field extends stdClass implements ArrayAccess {
 	 * @return array
 	 */
 	public function get_selected_choice( $value ) {
-		if ( empty( $value ) || is_array( $value ) || empty( $this->choices ) ) {
+		if ( rgblank( $value ) || is_array( $value ) || empty( $this->choices ) ) {
 			return array();
 		}
 

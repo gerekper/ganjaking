@@ -105,10 +105,12 @@ class WC_Instagram_Admin {
 				WC_Admin_Settings::add_message( _x( 'Your Instagram account was connected successfully.', 'settings notice', 'woocommerce-instagram' ) );
 			} elseif ( 'failed' === $notice ) {
 				WC_Admin_Settings::add_error( _x( 'Authentication failed or canceled by the user.', 'settings error', 'woocommerce-instagram' ) );
+			} elseif ( 'catalog_created' === $notice ) {
+				WC_Admin_Settings::add_message( _x( 'Catalog created successfully.', 'settings notice', 'woocommerce-instagram' ) );
 			} elseif ( 'catalog_deleted' === $notice ) {
 				WC_Admin_Settings::add_message( _x( 'Catalog deleted successfully.', 'settings notice', 'woocommerce-instagram' ) );
 			} else {
-				WC_Admin_Settings::add_error( _x( 'An unexpected error occurred.', 'settings error', 'woocommerce-instagram' ) );
+				WC_Admin_Settings::add_error( __( 'An unexpected error occurred.', 'woocommerce-instagram' ) );
 			}
 		}
 	}
@@ -211,13 +213,13 @@ class WC_Instagram_Admin {
 			$row_meta = array(
 				'docs'     => sprintf(
 					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-					esc_url( 'https://docs.woocommerce.com/document/woocommerce-instagram/' ),
+					esc_url( 'https://woocommerce.com/document/woocommerce-instagram/' ),
 					esc_attr_x( 'View WooCommerce Instagram documentation', 'aria-label: documentation link', 'woocommerce-instagram' ),
 					esc_html_x( 'Docs', 'plugin row link', 'woocommerce-instagram' )
 				),
 				'shopping' => sprintf(
 					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-					esc_url( 'https://docs.woocommerce.com/document/woocommerce-instagram/shoppable/' ),
+					esc_url( 'https://woocommerce.com/document/woocommerce-instagram/shoppable/' ),
 					esc_attr_x( 'View WooCommerce Instagram Shopping documentation', 'aria-label: documentation link', 'woocommerce-instagram' ),
 					esc_html_x( 'Shopping', 'plugin row link', 'woocommerce-instagram' )
 				),

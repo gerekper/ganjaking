@@ -2,13 +2,12 @@
 /**
  * WooCommerce Pre-Orders
  *
- * @package     WC_Pre_Orders/Checkout
- * @author      WooThemes
- * @copyright   Copyright (c) 2013, WooThemes
- * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
+ * @package WC_Pre_Orders/Checkout
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /**
  * Pre-Orders Checkout class
@@ -43,12 +42,15 @@ class WC_Pre_Orders_Checkout {
 
 		// change status to pre-ordered when payment is completed for a pre-order charged upfront ( for gateways that do not call WC_Order::payment_complete() )
 		add_action( 'woocommerce_order_status_on-hold_to_processing', array( $this, 'update_manual_payment_complete_order_status' ) );
-		add_action( 'woocommerce_order_status_on-hold_to_completed',  array( $this, 'update_manual_payment_complete_order_status' ) );
-		add_action( 'woocommerce_order_status_pending_to_processing',  array( $this, 'update_manual_payment_complete_order_status' ) );
+		add_action( 'woocommerce_order_status_on-hold_to_completed', array( $this, 'update_manual_payment_complete_order_status' ) );
+		add_action( 'woocommerce_order_status_pending_to_processing', array( $this, 'update_manual_payment_complete_order_status' ) );
 
 		// change status to pre-ordered when payment is completed for a pre-order charged upfront that previously failed
 		add_action( 'woocommerce_order_status_failed_to_processing', array( $this, 'update_manual_payment_complete_order_status' ) );
-		add_action( 'woocommerce_order_status_failed_to_completed',  array( $this, 'update_manual_payment_complete_order_status' ) );
+		add_action( 'woocommerce_order_status_failed_to_completed', array( $this, 'update_manual_payment_complete_order_status' ) );
+
+		// Remove the "is_pre_order" flag when the order is charged upfront and fails.
+		add_action( 'woocommerce_order_status_pending_to_failed', array( $this, 'remove_is_pre_order_on_failure' ) );
 
 		// Filter the thank you page to add release date message.
 		add_filter( 'woocommerce_thankyou_order_received_text', array( $this, 'add_release_date_message' ), 10, 2 );
@@ -74,6 +76,8 @@ class WC_Pre_Orders_Checkout {
 		}
 
 		$availability_date = WC_Pre_Orders_Product::get_localized_availability_date( WC_Pre_Orders_Order::get_pre_order_product( $order ) );
+
+		/* translators: %s: availability date */
 		$availability_date_text = ( ! empty( $availability_date ) ) ? sprintf( __( ' on %s.', 'wc-pre-orders' ), $availability_date ) : '.';
 
 		/* translators: 1: availability date */
@@ -140,16 +144,18 @@ class WC_Pre_Orders_Checkout {
 	public function modify_place_order_button_text( $default_text ) {
 
 		// only modify button text if the cart contains a pre-order
-		if ( ! WC_Pre_Orders_Cart::cart_contains_pre_order() )
+		if ( ! WC_Pre_Orders_Cart::cart_contains_pre_order() ) {
 			return $default_text;
+		}
 
 		// get custom text if set
 		$text = get_option( 'wc_pre_orders_place_order_button_text' );
 
-		if ( $text )
+		if ( $text ) {
 			return $text;
-		else
+		} else {
 			return $default_text;
+		}
 	}
 
 
@@ -163,8 +169,9 @@ class WC_Pre_Orders_Checkout {
 
 		// don't add meta to orders that don't contain a pre-order
 		// note the cart is checked here instead of the order since WC_Pre_Orders_Order::order_contains_pre_order() checks the meta that is about to be set here :)
-		if ( ! WC_Pre_Orders_Cart::cart_contains_pre_order() )
+		if ( ! WC_Pre_Orders_Cart::cart_contains_pre_order() ) {
 			return;
+		}
 
 		// get pre-ordered product
 		$product = WC_Pre_Orders_Cart::get_pre_order_product( $order_id );
@@ -192,7 +199,7 @@ class WC_Pre_Orders_Checkout {
 	public function update_payment_complete_order_status( $new_status, $order_id ) {
 
 		$order = wc_get_order( $order_id );
-		if ( ! $order || ! WC_Pre_Orders_Order::order_contains_pre_order( $order ) )  {
+		if ( ! $order || ! WC_Pre_Orders_Order::order_contains_pre_order( $order ) ) {
 			return $new_status;
 		}
 
@@ -219,15 +226,44 @@ class WC_Pre_Orders_Checkout {
 		$order = new WC_Order( $order_id );
 
 		// don't update status for non pre-order orders
-		if ( ! WC_Pre_Orders_Order::order_contains_pre_order( $order ) )
+		if ( ! WC_Pre_Orders_Order::order_contains_pre_order( $order ) ) {
 			return;
+		}
 
 		// don't update if pre-order will be charged upon release
-		if ( WC_Pre_Orders_Order::order_will_be_charged_upon_release( $order ) )
+		if ( WC_Pre_Orders_Order::order_will_be_charged_upon_release( $order ) ) {
 			return;
+		}
 
 		// change order status to pre-ordered
 		$order->update_status( 'pre-ordered' );
+	}
+
+	/**
+	 * Removes the "_wc_pre_orders_is_pre_order" flag when charged ufront and the payment fails.
+	 *
+	 * This prevents the pre-order from showing up under the Pre-Orders
+	 * table when the payment must be done upfront but fails.
+	 *
+	 * @since 1.5.31
+	 * @param int $order_id the post ID of the order.
+	 * @return void
+	 */
+	public function remove_is_pre_order_on_failure( $order_id ) {
+		$order = wc_get_order( $order_id );
+
+		// Don't update status for non pre-order orders.
+		if ( ! WC_Pre_Orders_Order::order_contains_pre_order( $order ) ) {
+			return;
+		}
+
+		// Don't update if pre-order will be charged upon release.
+		if ( WC_Pre_Orders_Order::order_will_be_charged_upon_release( $order ) ) {
+			return;
+		}
+
+		// Remove the pre-order flag on failure.
+		delete_post_meta( $order_id, '_wc_pre_orders_is_pre_order' );
 	}
 
 

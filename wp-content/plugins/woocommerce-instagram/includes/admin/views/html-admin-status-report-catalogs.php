@@ -7,9 +7,9 @@
  */
 
 /**
- * Globals.
+ * Template vars.
  *
- * @global array $data {
+ * @var array $data {
  *    The template data.
  *
  *    @type WC_Instagram_Product_Catalog[] $catalogs An array with the catalog objects.

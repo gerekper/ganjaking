@@ -1,5 +1,11 @@
 *** Brands Changelog ***
 
+2022-01-18 - version 1.6.26
+* Fix - Compatibility with WooCommerce 6.0 and WooCommerce 6.1 Full Site Editing. .
+* Fix - Enable version replacement.
+* Fix - Set default values for thumbnail widget.
+* Tweak - WC 6.1 compatibility.
+
 2021-06-01 - version 1.6.25
 * Fix - Plugin screen `Docs` link now links to correct documentation URL.
 

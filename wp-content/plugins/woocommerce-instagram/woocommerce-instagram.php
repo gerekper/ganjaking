@@ -3,19 +3,19 @@
  * Plugin Name: WooCommerce Instagram
  * Plugin URI: https://woocommerce.com/products/woocommerce-instagram/
  * Description: Connect your store with Instagram. Upload your product catalog to Instagram and showcase how your customers are using them.
- * Version: 3.7.1
+ * Version: 4.0.0
  * Author: Themesquad
  * Author URI: https://themesquad.com/
- * Requires at least: 4.4
- * Tested up to: 5.8
- * WC requires at least: 3.2
- * WC tested up to: 6.0
- * Woo: 260061:ecaa2080668997daf396b8f8a50d891a
- *
+ * Requires PHP: 5.4
+ * Requires at least: 4.7
+ * Tested up to: 5.9
  * Text Domain: woocommerce-instagram
  * Domain Path: /languages/
  *
- * Copyright: © 2013-2021 WooCommerce.
+ * WC requires at least: 3.5
+ * WC tested up to: 6.1
+ * Woo: 260061:ecaa2080668997daf396b8f8a50d891a
+ *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
@@ -38,31 +38,14 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
 woothemes_queue_update( plugin_basename( __FILE__ ), 'ecaa2080668997daf396b8f8a50d891a', '260061' );
 
 /**
- * Check if WooCommerce is active and the minimum requirements are satisfied.
+ * Plugin requirements.
  */
-if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_version' ), '3.2', '<' ) ) {
-	add_action( 'admin_notices', 'wc_instagram_requirements_notice' );
-	return;
+if ( ! class_exists( 'WC_Instagram_Requirements', false ) ) {
+	require_once dirname( __FILE__ ) . '/includes/class-wc-instagram-requirements.php';
 }
 
-/**
- * Displays an admin notice when the minimum requirements are not satisfied.
- *
- * @since 2.0.0
- */
-function wc_instagram_requirements_notice() {
-	if ( ! current_user_can( 'activate_plugins' ) ) {
-		return;
-	}
-
-	if ( is_woocommerce_active() ) {
-		/* translators: %s: WooCommerce version */
-		$message = sprintf( _x( '<strong>WooCommerce Instagram</strong> requires WooCommerce %s or higher.', 'admin notice', 'woocommerce-instagram' ), '3.2' );
-	} else {
-		$message = _x( '<strong>WooCommerce Instagram</strong> requires WooCommerce to be activated to work.', 'admin notice', 'woocommerce-instagram' );
-	}
-
-	printf( '<div class="error"><p>%s</p></div>', wp_kses_post( $message ) );
+if ( ! WC_Instagram_Requirements::are_satisfied() ) {
+	return;
 }
 
 // Define WC_INSTAGRAM_FILE constant.

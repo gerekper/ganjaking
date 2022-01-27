@@ -22,7 +22,7 @@ class WC_Pre_Orders_Admin {
 	 */
 	public function __construct() {
 		// Maybe register taxonomies and add admin options
-        add_action( 'admin_init', array( $this, 'maybe_install' ), 6 );
+		add_action( 'admin_init', array( $this, 'maybe_install' ), 6 );
 
 		// Load necessary admin styles / scripts (after giving woocommerce a chance to register their scripts so we can make use of them).
 		add_filter( 'woocommerce_screen_ids', array( $this, 'screen_ids' ) );

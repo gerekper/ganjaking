@@ -113,3 +113,12 @@ function wc_instagram_get_notice_dismiss_link( $notice, $base_url = false ) {
 		esc_html__( 'Dismiss', 'woocommerce-instagram' )
 	);
 }
+
+/**
+ * Outputs the loading spinner content.
+ *
+ * @since 4.0.0
+ */
+function wc_instagram_loading() {
+	echo '<div class="wc-instagram-loading"><div></div><div></div><div></div></div>';
+}

@@ -3,12 +3,11 @@
  * WooCommerce Pre-Orders
  *
  * @package     WC_Pre_Orders/Cart
- * @author      WooThemes
- * @copyright   Copyright (c) 2013, WooThemes
- * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /**
  * Pre-Orders Cart class
@@ -24,7 +23,7 @@ class WC_Pre_Orders_Cart {
 	 * Add hooks / filters
 	 *
 	 * @since 1.0
-	 * @return \WC_Pre_Orders_Cart
+	 * @return WC_Pre_Orders_Cart
 	 */
 	public function __construct() {
 
@@ -39,7 +38,6 @@ class WC_Pre_Orders_Cart {
 
 		// Modify line item display in cart/checkout to show availability date/time
 		add_filter( 'woocommerce_get_item_data', array( $this, 'get_item_data' ), 10, 2 );
-
 	}
 
 
@@ -53,8 +51,9 @@ class WC_Pre_Orders_Cart {
 	public function get_formatted_cart_total( $total ) {
 
 		// this check prevents a formatted total from display anywhere but the cart/checkout page
-		if ( $this->cart_contains_pre_order() )
+		if ( $this->cart_contains_pre_order() ) {
 			$total = WC_Pre_Orders_Manager::get_formatted_pre_order_total( $total, self::get_pre_order_product() );
+		}
 
 		return $total;
 	}
@@ -71,28 +70,47 @@ class WC_Pre_Orders_Cart {
 	public function get_item_data( $item_data, $cart_item ) {
 
 		// only modify pre-orders on cart/checkout page
-		if ( ! $this->cart_contains_pre_order() )
+		if ( ! $this->cart_contains_pre_order() ) {
 			return $item_data;
+		}
 
 		// get title text
 		$name = get_option( 'wc_pre_orders_availability_date_cart_title_text' );
 
 		// don't add if empty
-		if ( ! $name )
+		if ( ! $name ) {
 			return $item_data;
+		}
 
-		$pre_order_meta = apply_filters( 'wc_pre_orders_cart_item_meta', array(
-			'name'    => $name,
-			'display' => WC_Pre_Orders_Product::get_localized_availability_date( $cart_item['data'] ),
-		), $cart_item );
+		$pre_order_meta = apply_filters(
+			'wc_pre_orders_cart_item_meta',
+			array(
+				'name'    => $name,
+				'display' => WC_Pre_Orders_Product::get_localized_availability_date( $cart_item['data'] ),
+			),
+			$cart_item
+		);
 
 		// add title and localized date
-		if ( ! empty( $pre_order_meta ) )
+		if ( ! empty( $pre_order_meta ) ) {
 			$item_data[] = $pre_order_meta;
+		}
 
 		return $item_data;
 	}
 
+	/**
+	 * Redirect to the cart
+	 */
+	public function redirect_to_cart() {
+
+		$data = array(
+			'error'       => true,
+			'product_url' => wc_get_cart_url(),
+		);
+
+		wp_send_json( $data );
+	}
 
 	/**
 	 * When a pre-order is added to the cart, remove any other products
@@ -108,7 +126,7 @@ class WC_Pre_Orders_Cart {
 		if ( WC_Pre_Orders_Product::product_can_be_pre_ordered( $product_id ) ) {
 
 			// if a pre-order product is being added to cart, check if the cart already contains other products and empty it if it does
-			if( $woocommerce->cart->get_cart_contents_count() >= 1 ) {
+			if ( $woocommerce->cart->get_cart_contents_count() >= 1 ) {
 
 				$woocommerce->cart->empty_cart();
 
@@ -120,6 +138,9 @@ class WC_Pre_Orders_Cart {
 				} else {
 					$woocommerce->add_message( $string );
 				}
+
+				// when adding via ajax, redirect to cart page so that above notices show up
+				add_action( 'woocommerce_ajax_added_to_cart', array( $this, 'redirect_to_cart' ) );
 			}
 
 			// return what was passed in, allowing the pre-order to be added
@@ -130,10 +151,10 @@ class WC_Pre_Orders_Cart {
 			// if there's a pre-order in the cart already, prevent anything else from being added
 			if ( $this->cart_contains_pre_order() ) {
 
-				// Backwards compatible (pre 2.1) for outputting notice
 				if ( function_exists( 'wc_add_notice' ) ) {
-					wc_add_notice( __( 'This product cannot be added to your cart because it already contains a pre-order, which must be purchased separately.', 'wc-pre-orders' ) );
+					wc_add_notice( __( 'This product cannot be added to your cart because it already contains a pre-order, which must be purchased separately.', 'wc-pre-orders' ), 'error' );
 				} else {
+					// Backwards compatible (pre 2.1) for outputting notice.
 					$woocommerce->add_error( __( 'This product cannot be added to your cart because it already contains a pre-order, which must be purchased separately.', 'wc-pre-orders' ) );
 				}
 
@@ -164,6 +185,22 @@ class WC_Pre_Orders_Cart {
 		}
 
 		$product = self::get_pre_order_product();
+		$fee     = $this->generate_fee( $product );
+
+		if ( null !== $fee ) {
+			$woocommerce->cart->add_fee( $fee['label'], $fee['amount'], $fee['tax_status'] );
+		}
+
+	}
+
+	/**
+	 * Generates fee
+	 *
+	 * @since 1.6.0
+	 * @param WC_Product|int $product
+	 * @return array|null
+	 */
+	public function generate_fee( $product ) {
 
 		// Get pre-order amount
 		$amount = WC_Pre_Orders_Product::get_pre_order_fee( $product );
@@ -172,16 +209,15 @@ class WC_Pre_Orders_Cart {
 			return;
 		}
 
-		$fee = apply_filters( 'wc_pre_orders_fee', array(
-			'label' => __( 'Pre-Order Fee', 'wc-pre-orders' ),
-			'amount' => $amount,
-			'tax_status' => WC_Pre_Orders_Product::get_pre_order_fee_tax_status( $product ), // pre order fee inherits tax status of product
-		) );
-
-		// Add fee
-		$woocommerce->cart->add_fee( $fee['label'], $fee['amount'], $fee['tax_status'] );
+		return apply_filters(
+			'wc_pre_orders_fee',
+			array(
+				'label'      => __( 'Pre-Order Fee', 'wc-pre-orders' ),
+				'amount'     => $amount,
+				'tax_status' => WC_Pre_Orders_Product::get_pre_order_fee_tax_status( $product ), // pre order fee inherits tax status of product
+			)
+		);
 	}
-
 
 	/**
 	 * Checks if the current cart contains a product with pre-orders enabled
@@ -221,8 +257,9 @@ class WC_Pre_Orders_Cart {
 
 		foreach ( $woocommerce->cart->get_fees() as $fee ) {
 
-			if ( is_object( $fee ) && 'pre-order-fee' == $fee->id )
+			if ( is_object( $fee ) && 'pre-order-fee' == $fee->id ) {
 				return true;
+			}
 		}
 
 		return false;
@@ -249,13 +286,11 @@ class WC_Pre_Orders_Cart {
 					return wc_get_product( $cart_item['product_id'] );
 				}
 			}
-
 		} else {
 
 			// cart doesn't contain pre-order
 			return null;
 		}
 	}
-
 
 } // end \WC_Pre_Orders_Cart class

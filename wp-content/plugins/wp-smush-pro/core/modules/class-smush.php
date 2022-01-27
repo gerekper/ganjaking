@@ -662,8 +662,9 @@ class Smush extends Abstract_Module {
 			 * @param array $meta           Attachment meta.
 			 */
 			do_action( 'wp_smush_image_optimised', $attachment_id, $stats, $meta );
+			$stats['stats']['lossy'] = 1;
 		}
-	$stats['stats']['lossy'] = 1;
+
 		update_post_meta( $attachment_id, self::$smushed_meta_key, $stats );
 
 		return $meta;

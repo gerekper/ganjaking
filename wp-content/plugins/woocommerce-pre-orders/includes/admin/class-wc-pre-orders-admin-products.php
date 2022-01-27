@@ -60,7 +60,7 @@ class WC_Pre_Orders_Admin_Products {
 		$tabs['pre_orders'] = array(
 			'label'  => __( 'Pre-Orders', 'wc-pre-orders' ),
 			'target' => 'wc_pre_orders_data',
-			'class'  => $classes
+			'class'  => $classes,
 		);
 
 		return $tabs;
@@ -122,7 +122,6 @@ class WC_Pre_Orders_Admin_Products {
 
 				$wc_pre_orders->log( $e->getMessage() );
 			}
-
 		} else {
 			delete_post_meta( $post_id, '_wc_pre_orders_availability_datetime' );
 		}

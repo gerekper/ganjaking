@@ -308,7 +308,7 @@ class WoocommerceGpfFrontend {
 			}
 			$args['offset'] += $chunk_size;
 
-			// If we're using the built in object cache then flush it every chunk so
+			// If we're using the built-in object cache then flush it every chunk so
 			// that we don't keep churning through memory.
 			if ( ! $_wp_using_ext_object_cache ) {
 				wp_cache_flush();

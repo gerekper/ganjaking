@@ -2,10 +2,7 @@
 /**
  * WooCommerce Pre-Orders
  *
- * @package     WC_Pre_Orders/Templates/Email
- * @author      WooThemes
- * @copyright   Copyright (c) 2013, WooThemes
- * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
+ * @package WC_Pre_Orders/Templates/Email
  */
 
 /**
@@ -15,35 +12,47 @@
  * @version 1.5.1
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly ?>
 
 <?php do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
 <?php
-$pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
-$billing_email = $pre_wc_30 ? $order->billing_email : $order->get_billing_email();
-$billing_phone = $pre_wc_30 ? $order->billing_phone : $order->get_billing_phone();
 
-if ( 'pending' === $order->get_status() && ! WC_Pre_Orders_Manager::is_zero_cost_order( $order ) ) : ?>
+if ( 'pending' === $order->get_status() && ! WC_Pre_Orders_Manager::is_zero_cost_order( $order ) ) :
+	?>
 
-	<p><?php
-/* translators: 1: href link for checkout payment url 2: closing href link */
-printf( __( "Your pre-order is now available, but requires payment. %sPlease pay for your pre-order now.%s", 'wc-pre-orders' ), '<a href="' . $order->get_checkout_payment_url() . '">', '</a>' ); ?></p>
+	<p>
+	<?php
+	/* translators: %1$s: href link for checkout payment url %2$s: closing href link */
+	printf( esc_html__( 'Your pre-order is now available, but requires payment. %1$sPlease pay for your pre-order now.%2$s', 'wc-pre-orders' ), '<a href="' . esc_url( $order->get_checkout_payment_url() ) . '">', '</a>' );
+	?>
+	</p>
 
-<?php elseif ( 'failed' === $order->get_status() || 'on-hold' === $order->get_status() ) : ?>
+<?php elseif ( 'on-hold' === $order->get_status() && ! WC_Pre_Orders_Manager::is_zero_cost_order( $order ) ) : ?>
 
-	<p><?php
-/* translators: 1: href link for checkout payment url 2: closing href link */
-printf( __( "Your pre-order is now available, but automatic payment failed. %sPlease update your payment information now.%s", 'wc-pre-orders' ), '<a href="' . $order->get_checkout_payment_url() . '">', '</a>' ); ?></p>
+	<p>
+		<?php esc_html_e( "Your pre-order is now available, but is waiting for the payment to be confirmed. Please wait until it's confirmed. Optionally, make sure the related payment has been sent to avoid delays on your order.", 'wc-pre-orders' ) . "\n\n"; ?>
+	</p>
+
+<?php elseif ( 'failed' === $order->get_status() ) : ?>
+
+	<p>
+	<?php
+	/* translators: %1$s: href link for checkout payment url %2$s: closing href link */
+	printf( esc_html__( 'Your pre-order is now available, but automatic payment failed. %1$sPlease update your payment information now.%2$s', 'wc-pre-orders' ), '<a href="' . esc_url( $order->get_checkout_payment_url() ) . '">', '</a>' );
+	?>
+	</p>
 
 <?php else : ?>
 
-<p><?php _e( "Your pre-order is now available. Your order details are shown below for your reference.", 'wc-pre-orders' ); ?></p>
+<p><?php esc_html_e( 'Your pre-order is now available. Your order details are shown below for your reference.', 'wc-pre-orders' ); ?></p>
 
 <?php endif; ?>
 
 <?php if ( $message ) : ?>
-	<blockquote><?php echo wpautop( wptexturize( $message ) ); ?></blockquote>
+	<blockquote><?php echo wp_kses_post( wpautop( wptexturize( $message ) ) ); ?></blockquote>
 <?php endif; ?>
 
 <?php

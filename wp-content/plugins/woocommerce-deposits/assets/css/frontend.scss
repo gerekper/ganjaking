@@ -102,6 +102,17 @@
 		margin: 1em 0;
 	}
 }
+
+.wc-deposits-order-details {
+	&__view-original-order-link {
+		text-align: right;
+	}
+
+	&__scheduled-orders-title {
+		font-weight: 600;
+	}
+}
+
 .woocommerce {
 	.order_details {
 		.wc-deposits-order-item-description {

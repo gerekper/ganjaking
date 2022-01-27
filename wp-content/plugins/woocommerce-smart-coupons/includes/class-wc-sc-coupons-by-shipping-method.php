@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.3.0
+ * @version     1.4.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -179,7 +179,39 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Shipping_Method' ) ) {
 					$chosen_shipping_method_string = explode( ':', $chosen_shipping_method_string );
 					$chosen_shipping_method_id     = $chosen_shipping_method_string[0];
 					if ( ! in_array( $chosen_shipping_method_id, $shipping_method_ids, true ) ) {
-						throw new Exception( __( 'This coupon is not valid for selected shipping method.', 'woocommerce-smart-coupons' ) );
+						$wc_shipping_packages = ( is_callable( array( WC()->shipping, 'get_packages' ) ) ) ? WC()->shipping->get_packages() : null;
+						if ( empty( $wc_shipping_packages ) && is_callable( array( WC()->cart, 'calculate_shipping' ) ) ) {
+							WC()->cart->calculate_shipping();
+						}
+						$chosen_shipping_method_rate_id = is_array( $chosen_shipping_method_data ) && ! empty( $chosen_shipping_method_data ) ? $chosen_shipping_method_data[0] : '';
+						$shipping_method_id             = '';
+						$available_shipping_packages    = ( is_callable( array( WC()->shipping, 'get_packages' ) ) ) ? WC()->shipping->get_packages() : '';
+
+						if ( ! empty( $available_shipping_packages ) ) {
+							foreach ( $available_shipping_packages as $key => $package ) {
+								if ( ! empty( $shipping_method_id ) ) {
+									break;
+								}
+								// Loop through Shipping rates.
+								if ( isset( $package['rates'] ) && ! empty( $package['rates'] ) ) {
+									foreach ( $package['rates'] as $rate_id => $rate ) {
+										if ( $chosen_shipping_method_rate_id === $rate_id ) {
+											$shipping_method_id = ( is_callable( array( $rate, 'get_method_id' ) ) ) ? $rate->get_method_id() : '';
+											break;
+										}
+									}
+								}
+							}
+							if ( ! in_array( $shipping_method_id, $shipping_method_ids, true ) ) {
+								if ( ! apply_filters( 'wc_sc_coupon_validate_shipping_method', false, $chosen_shipping_method_id, $shipping_method_ids ) ) {
+									throw new Exception( __( 'This coupon is not valid for selected shipping method.', 'woocommerce-smart-coupons' ) );
+								}
+							}
+						} else {
+							if ( ! apply_filters( 'wc_sc_coupon_validate_shipping_method', false, $chosen_shipping_method_id, $shipping_method_ids ) ) {
+								throw new Exception( __( 'This coupon is not valid for selected shipping method.', 'woocommerce-smart-coupons' ) );
+							}
+						}
 					}
 				}
 			}

@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) exit;
  'type' => 'library',
  'install_path' => __DIR__ . '/../../',
  'aliases' => array(),
- 'reference' => '8f02c19609396de25eeebd3f1e65f9b5ce557a6f',
+ 'reference' => '1340e36d9d03ab9187d3139b62378196265149f8',
  'name' => '__root__',
  'dev' => false,
  ),
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) exit;
  'type' => 'library',
  'install_path' => __DIR__ . '/../../',
  'aliases' => array(),
- 'reference' => '8f02c19609396de25eeebd3f1e65f9b5ce557a6f',
+ 'reference' => '1340e36d9d03ab9187d3139b62378196265149f8',
  'dev_requirement' => false,
  ),
  'mtdowling/cron-expression' => array(

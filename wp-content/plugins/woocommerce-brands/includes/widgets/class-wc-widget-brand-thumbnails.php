@@ -35,12 +35,31 @@ class WC_Widget_Brand_Thumbnails extends WP_Widget {
 
 	/** @see WP_Widget */
 	public function widget( $args, $instance ) {
-		extract( $args );
+		$instance = wp_parse_args(
+			$instance,
+			array(
+				'title'      => '',
+				'columns'    => 1,
+				'exclude'    => '',
+				'orderby'    => 'name',
+				'hide_empty' => 0,
+				'number'     => '',
+			)
+		);
 
 		$exclude = array_map( 'intval', explode( ',', $instance['exclude'] ) );
-		$order = $instance['orderby'] == 'name' ? 'asc' : 'desc';
+		$order   = 'name' === $instance['orderby'] ? 'asc' : 'desc';
 
-		$brands = get_terms( 'product_brand', array( 'hide_empty' => $instance['hide_empty'], 'orderby' => $instance['orderby'], 'exclude' => $exclude, 'number' => $instance['number'], 'order' => $order ) );
+		$brands = get_terms(
+			'product_brand',
+			array(
+				'hide_empty' => $instance['hide_empty'],
+				'orderby'    => $instance['orderby'],
+				'exclude'    => $exclude,
+				'number'     => $instance['number'],
+				'order'      => $order,
+			)
+		);
 
 		if ( ! $brands ) {
 			return;
@@ -59,7 +78,7 @@ class WC_Widget_Brand_Thumbnails extends WP_Widget {
 			'fluid_columns' => ! empty( $instance['fluid_columns'] ) ? true : false,
 		), 'woocommerce-brands', untrailingslashit( plugin_dir_path( dirname( dirname( __FILE__ ) ) ) ) . '/templates/' );
 
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 
 	/** @see WP_Widget->update */

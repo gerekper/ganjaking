@@ -57,7 +57,7 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 		header( 'Content-Type: text/csv' );
 
 		// Mandatory fields
-		echo "id\ttitle\tlink\tprice\tdescription\timage_link";
+		echo "id\ttitle\tlink\tprice\tdescription\timage_link\tavailability";
 
 		// Optional fields
 		if ( isset( $this->settings['product_fields']['bing_category'] ) ) {
@@ -71,9 +71,6 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 		}
 		if ( isset( $this->settings['product_fields']['gtin'] ) ) {
 			echo "\tgtin";
-		}
-		if ( isset( $this->settings['product_fields']['availability'] ) ) {
-			echo "\tavailability";
 		}
 		if ( isset( $this->settings['product_fields']['condition'] ) ) {
 			echo "\tCondition";
@@ -101,6 +98,9 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 		}
 		if ( isset( $this->settings['product_fields']['shippingcountryserviceprice'] ) ) {
 			echo "\tshipping(country:service:price)";
+		}
+		if ( isset( $this->settings['product_fields']['bing_promotion_id'] ) ) {
+			echo "\tpromotion_ID";
 		}
 		echo "\r\n";
 
@@ -175,39 +175,31 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 			$output .= $this->tsvescape( $feed_item->image_link );
 		}
 
+		// availability
+		if ( isset( $feed_item->additional_elements['availability'][0] ) ) {
+			switch ( $feed_item->additional_elements['availability'][0] ) {
+				case 'preorder':
+					$output .= "\tPre-Order";
+					break;
+				case 'backorder':
+					$output .= "\tBack-Order";
+					break;
+				case 'out of stock':
+					$output .= "\tOut Of Stock";
+					break;
+				case 'in stock':
+				default:
+					$output .= "\tIn Stock";
+					break;
+			}
+		} else {
+			$output .= "\tIn Stock";
+		}
+
 		$output .= $this->output_element( $feed_item, 'bing_category' );
 		$output .= $this->output_element( $feed_item, 'brand' );
 		$output .= $this->output_element( $feed_item, 'mpn' );
 		$output .= $this->output_element( $feed_item, 'gtin' );
-
-		if ( isset( $this->settings['product_fields']['availability'] ) ) {
-			if ( $feed_item->is_in_stock ) {
-				if ( isset( $feed_item->additional_elements['availability'][0] ) ) {
-					//  Out of Stock; Pre-Order; Back-Order
-					switch ( $feed_item->additional_elements['availability'][0] ) {
-						case 'out of stock':
-							$output .= "\tOut Of Stock";
-							break;
-						case 'preorder':
-							$output .= "\tPre-Order";
-							break;
-						case 'available for order':
-							$output .= "\tBack-Order";
-							break;
-						case 'in stock':
-							$output .= "\tIn Stock";
-							break;
-						default:
-							$output .= "\tIn Stock";
-							break;
-					}
-				} else {
-					$output .= "\tIn Stock";
-				}
-			} else {
-				$output .= "\tOut Of Stock";
-			}
-		}
 
 		if ( isset( $this->settings['product_fields']['condition'] ) ) {
 			if ( isset( $feed_item->additional_elements['condition'][0] ) ) {
@@ -236,6 +228,8 @@ class WoocommerceGpfFeedBing extends WoocommerceGpfFeed {
 		$output .= $this->output_element( $feed_item, 'shippingprice' );
 		$output .= $this->output_element( $feed_item, 'shippingcountryprice' );
 		$output .= $this->output_element( $feed_item, 'shippingcountryserviceprice' );
+
+		$output .= $this->output_element( $feed_item, 'bing_promotion_id' );
 
 		$output .= "\r\n";
 

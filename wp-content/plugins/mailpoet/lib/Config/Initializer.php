@@ -263,7 +263,7 @@ class Initializer {
     }
 
     // if current db version and plugin version differ
-    if (version_compare($currentDbVersion, Env::$version) !== 0) {
+    if (version_compare((string)$currentDbVersion, Env::$version) !== 0) {
       $this->activator->activate();
     }
   }

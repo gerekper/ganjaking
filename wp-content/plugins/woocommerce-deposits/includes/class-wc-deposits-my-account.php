@@ -30,6 +30,8 @@ class WC_Deposits_My_Account {
 		// Insering your new tab/page into the My Account page.
 		add_filter( 'woocommerce_account_menu_items', array( $this, 'maybe_add_new_menu_items' ) );
 		add_action( 'woocommerce_account_' . self::$endpoint .  '_endpoint', array( $this, 'endpoint_content' ) );
+		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'add_original_order_link' ) );
+		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'render_related_scheduled_orders' ) );
 	}
 
 	/**
@@ -127,6 +129,97 @@ class WC_Deposits_My_Account {
 			)
 		);
 		remove_filter( 'woocommerce_get_endpoint_url', array( __CLASS__, 'set_pagination_endpoint_url' ), 10, 3 );
+	}
+
+	/**
+	 * Adds a link to the original order from within a scheduled
+	 * order.
+	 * My Account > Orders > (Any scheduled order).
+	 *
+	 * @param WC_Order $order A scheduled order object.
+	 */
+	public function add_original_order_link( $order ) {
+
+		/**
+		 * Return if the page is not the /view-order/ page.
+		 */
+		if ( ! is_wc_endpoint_url( 'view-order' ) ) {
+			return;
+		}
+
+		$original_order_id = $order->get_parent_id();
+
+		if ( ! $original_order_id ) {
+			return;
+		}
+
+		$original_order     = wc_get_order( $original_order_id );
+		$original_order_url = $original_order->get_view_order_url();
+
+		printf(
+			'<div class="wc-deposits-order-details__view-original-order-link"><a href="%s">%s</a></div>',
+			esc_url( $original_order_url ),
+			esc_html__( 'View Original Order', 'woocommerce-deposits' )
+		);
+	}
+
+	/**
+	 * Renders a table of all scheduled orders for a given order.
+	 * My Account > Orders > (Any original order).
+	 *
+	 * @param WC_Order $order The Original Order object.
+	 */
+	public function render_related_scheduled_orders( $order ) {
+
+		/**
+		 * Return if the page is not the /view-order/ page.
+		 */
+		if ( ! is_wc_endpoint_url( 'view-order' ) ) {
+			return;
+		}
+
+		/**
+		 * The current page of this table.
+		 */
+		$current_page = (int)filter_input( INPUT_GET, 'scheduled_orders_page', FILTER_SANITIZE_NUMBER_INT );
+
+		/**
+		 * Array of all custom orders except for the original order.
+		 */
+		$customer_orders = wc_get_orders(
+			array(
+				'customer'    => get_current_user_id(),
+				'paginate'    => true,
+				'post_parent' => $order->get_id(),
+				'paged'       => $current_page,
+				'order'       => 'ASC',
+			)
+		);
+
+		if ( ! $customer_orders->total ) {
+			return;
+		}
+
+		printf(
+			'<h4 class="wc-deposits-order-details__scheduled-orders-title">%s #%s</h4>',
+			esc_html__( 'Scheduled orders for order', 'woocommerce-deposits' ),
+			esc_html( $order->get_id() )
+		);
+
+		/**
+		 * Custom template similar to myaccount/orders.php used to
+		 * render the table.
+		 */
+		wc_get_template(
+			'scheduled-orders.php',
+			array(
+				'customer_orders' => $customer_orders,
+				'has_orders'      => 0 < $customer_orders->total,
+				'current_page'    => empty( $current_page ) ? 1 : $current_page,
+			),
+			'',
+			WC_DEPOSITS_TEMPLATE_PATH
+		);
 	}
 
 	/**

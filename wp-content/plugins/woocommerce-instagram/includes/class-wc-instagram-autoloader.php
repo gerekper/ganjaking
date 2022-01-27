@@ -23,7 +23,7 @@ if ( ! class_exists( 'WC_Instagram_Autoloader' ) ) {
 		 *
 		 * @var string
 		 */
-		private $include_path = '';
+		private $include_path;
 
 		/**
 		 * Constructor.
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WC_Instagram_Autoloader' ) ) {
 		}
 
 		/**
-		 * Auto-load classes on demand to reduce memory consumption.
+		 * Autoload classes on demand to reduce memory consumption.
 		 *
 		 * @since 2.0.0
 		 *
@@ -57,7 +57,7 @@ if ( ! class_exists( 'WC_Instagram_Autoloader' ) ) {
 			$file = $this->get_file_name_from_class( $class );
 
 			/**
-			 * Filters the autoload classes.
+			 * Filters autoload classes.
 			 *
 			 * @since 2.0.0
 			 *
@@ -75,6 +75,7 @@ if ( ! class_exists( 'WC_Instagram_Autoloader' ) ) {
 					'wc_instagram_product_catalog_item'    => $this->include_path . 'product-catalog/items/',
 					'wc_instagram_product_catalog'         => $this->include_path . 'product-catalog/',
 					'wc_instagram_google_product_category' => $this->include_path . 'product-catalog/',
+					'wc_instagram_data_store'              => $this->include_path . 'data-stores/',
 					'wc_instagram_'                        => $this->include_path,
 				)
 			);

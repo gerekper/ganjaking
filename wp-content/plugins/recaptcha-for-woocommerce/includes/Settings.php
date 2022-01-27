@@ -11,6 +11,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 	
 	
 	
+	
 
 		// Your class and your code / logic 
 
@@ -170,7 +171,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 			'guestcheckout' => __('Woo Checkout Captcha', 'recaptcha-for-woocommerce'),
 			'add_payment_method' => __('Woo Add Payment Method Captcha', 'recaptcha-for-woocommerce'),
 			'woo_review' => __('Woo Product Review Form Captcha', 'recaptcha-for-woocommerce'),
-						'woo_order_tracking' => __('Woo Order Tracking', 'recaptcha-for-woocommerce'),
+			'woo_order_tracking' => __('Woo Order Tracking', 'recaptcha-for-woocommerce'),
 			'woo_comments' => __('Woo Post Comment Form Captcha', 'recaptcha-for-woocommerce'),
 			'wp_login' => __('WP Login Captcha', 'recaptcha-for-woocommerce'),
 			'wp_register' => __('WP Registration Captcha', 'recaptcha-for-woocommerce'),
@@ -240,12 +241,20 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 						'type' => 'checkbox',
 						'id' => 'i13_recapcha_disable_submitbtn_woo_signup'
 						), 
-											   'i13_recapcha_using_ajax_registration_v2' => array(
-													'name' => __('Using ajax signup popup?', 'recaptcha-for-woocommerce'),
-													'type' => 'checkbox',
-													'id' => 'i13_recapcha_using_ajax_registration_v2',
-													'desc' => __('If your theme has ajax signup modal box', 'recaptcha-for-woocommerce')
-												),     
+												'i13_recapcha_using_ajax_registration_v2' => array(
+															 'name' => __('Using ajax signup popup?', 'recaptcha-for-woocommerce'),
+															 'type' => 'checkbox',
+															 'id' => 'i13_recapcha_using_ajax_registration_v2',
+															 'desc' => __('If your theme has ajax signup modal box', 'recaptcha-for-woocommerce')
+													 ),     
+													
+													'i13_recapcha_using_buddy_press' => array(
+															 'name' => __('Using Buddy Press signup?', 'recaptcha-for-woocommerce'),
+															 'type' => 'checkbox',
+															 'id' => 'i13_recapcha_using_buddy_press',
+															 'desc' => __('If your are using buddy press signup', 'recaptcha-for-woocommerce')
+													 ), 
+													
 						array(
 						'type' => 'sectionend',
 						'id' => 'wc_settings_tab_recapcha_signup',
@@ -289,11 +298,17 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 																	'default'=>'no'
 																),    
 												'i13_recapcha_using_ajax_registration_v3' => array(
-													'name' => __('Using ajax signup popup?', 'recaptcha-for-woocommerce'),
-													'type' => 'checkbox',
-													'id' => 'i13_recapcha_using_ajax_registration_v3',
-													'desc' => __('If your theme has ajax signup modal box', 'recaptcha-for-woocommerce')
+														'name' => __('Using ajax signup popup?', 'recaptcha-for-woocommerce'),
+														'type' => 'checkbox',
+														'id' => 'i13_recapcha_using_ajax_registration_v3',
+														'desc' => __('If your theme has ajax signup modal box', 'recaptcha-for-woocommerce')
 												),    
+												'i13_recapcha_using_buddy_press' => array(
+															'name' => __('Using Buddy Press signup?', 'recaptcha-for-woocommerce'),
+															'type' => 'checkbox',
+															'id' => 'i13_recapcha_using_buddy_press',
+															'desc' => __('If your are using buddy press signup', 'recaptcha-for-woocommerce')
+													),     
 						array(
 						'type' => 'sectionend',
 						'id' => 'wc_settings_tab_recapcha_signup',
@@ -1271,7 +1286,7 @@ if (!class_exists('I13_WooCommerce_Settings_Page')) :
 						'options' => array('normal' => __('Normal', 'recaptcha-for-woocommerce'), 'compact' => __('Compact', 'recaptcha-for-woocommerce')),
 						'default' => 'normal',
 						),
-						 'i13_recapcha_disable_submitbtn_woo_tracking' => array(
+						'i13_recapcha_disable_submitbtn_woo_tracking' => array(
 						'name' => __('Disable submit button', 'recaptcha-for-woocommerce'),
 						'desc' => __('Disable submit button until recaptcha validate.', 'recaptcha-for-woocommerce'),    
 						'type' => 'checkbox',

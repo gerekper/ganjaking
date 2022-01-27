@@ -45,7 +45,7 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 
 		// Default risk is false
 		$risk = false;
-		$contents = @file_get_contents("http://proxycheck.io/v2/".$ip."?key=913st5-6a024j-t43896-i0t35y&vpn=1&asn=1");
+		$contents = @file_get_contents("http://proxycheck.io/v2/".$ip."?key=913st5-6a024j-t43896-i0t35y&vpn=1&asn=1&tag=".home_url());
 				 
 		if ( $contents !== false ) {
 

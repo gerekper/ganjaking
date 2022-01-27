@@ -133,7 +133,8 @@
 		 */
 		toggleFormFields: function( ids, visible ) {
 			var that = this;
-			if ( ! $.isArray( ids ) ) {
+
+			if ( ! Array.isArray( ids ) ) {
 				ids = [ ids ];
 			}
 

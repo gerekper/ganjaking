@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles scheme switching for SATT items.
  *
  * @class    WCS_ATT_Manage_Switch
- * @version  3.1.21
+ * @version  3.2.0
  */
 class WCS_ATT_Manage_Switch extends WCS_ATT_Abstract_Module {
 

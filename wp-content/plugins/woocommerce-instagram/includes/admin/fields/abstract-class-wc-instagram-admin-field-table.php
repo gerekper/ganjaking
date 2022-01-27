@@ -18,7 +18,7 @@ if ( class_exists( 'WC_Instagram_Admin_Field_Table', false ) ) {
 abstract class WC_Instagram_Admin_Field_Table {
 
 	/**
-	 * The field Id.
+	 * The field ID.
 	 *
 	 * @var string
 	 */

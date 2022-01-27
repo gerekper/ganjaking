@@ -175,14 +175,14 @@
 			}
 		    overrides = {
 		        beforeShow: function (input, dp_inst) {
-		            if ($.isFunction(tp_inst._defaults.evnts.beforeShow)) {
+		            if (typeof tp_inst._defaults.evnts.beforeShow === 'function'){
 		                return tp_inst._defaults.evnts.beforeShow.call($input[0], input, dp_inst, tp_inst);
 		            }
 		        },
 		        onChangeMonthYear: function (year, month, dp_inst) {
 		            // Update the time as well : this prevents the time from disappearing from the $input field.
 		            tp_inst._updateDateTime(dp_inst);
-		            if ($.isFunction(tp_inst._defaults.evnts.onChangeMonthYear)) {
+		            if (typeof tp_inst._defaults.evnts.onChangeMonthYear === 'function') {
 		                tp_inst._defaults.evnts.onChangeMonthYear.call($input[0], year, month, dp_inst, tp_inst);
 		            }
 		        },
@@ -190,7 +190,7 @@
 		            if (tp_inst.timeDefined === true && $input.val() !== '') {
 		                tp_inst._updateDateTime(dp_inst);
 		            }
-		            if ($.isFunction(tp_inst._defaults.evnts.onClose)) {
+		            if (typeof tp_inst._defaults.evnts.onClose === 'function') {
 		                tp_inst._defaults.evnts.onClose.call($input[0], dateText, dp_inst, tp_inst);
 		            }
 		        }
@@ -251,7 +251,7 @@
 			if (o.altField) {
 				tp_inst.$altInput = $(o.altField).css({
 					cursor: 'pointer'
-				}).focus(function() {
+				}).on( 'focus', function() {
 					$input.trigger("focus");
 				});
 			}
@@ -276,7 +276,7 @@
 			if (tp_inst._defaults.maxDateTime !== undefined && tp_inst._defaults.maxDateTime instanceof Date) {
 				tp_inst._defaults.maxDate = new Date(tp_inst._defaults.maxDateTime.getTime());
 			}
-			tp_inst.$input.bind('focus', function() {
+			tp_inst.$input.on('focus', function() {
 				tp_inst._onFocus();
 			});
 
@@ -412,7 +412,7 @@
 							marginLeft: o.isRTL? '0' : ((size / (-2 * gridSize[litem])) + "%"),
 							marginRight: o.isRTL? ((size / (-2 * gridSize[litem])) + "%") : '0',
 							borderCollapse: 'collapse'
-						}).find("td").click(function(e){
+						}).find("td").on( 'click', function(e){
 								var $t = $(this),
 									h = $t.html(),
 									n = parseInt(h.replace(/[^0-9]/g),10),
@@ -465,7 +465,7 @@
 						selectLocalTimeZone(tp_inst);
 					}
 				}
-				this.timezone_select.change(function() {
+				this.timezone_select.on( 'change', function() {
 					tp_inst._defaults.useLocalTimezone = false;
 					tp_inst._onTimeChange();
 					tp_inst._onSelectHandler();
@@ -910,7 +910,7 @@
 
 					obj.children('select').remove();
 
-					$(sel).appendTo(obj).change(function(e){
+					$(sel).appendTo(obj).on( 'change', function(e){
 						tp_inst._onTimeChange();
 						tp_inst._onSelectHandler();
 					});
@@ -1238,7 +1238,7 @@
 			}
 		});
 
-		tmptime = $.trim(tmptime);
+		tmptime = 'string' === typeof tmptime ? tmptime.trim() : ''
 		return tmptime;
 	};
 
@@ -1393,7 +1393,7 @@
 		selectLocalTimeZone(tp_inst);
 		var now = new Date();
 		this._setTime(inst, now);
-		$('.ui-datepicker-today', $dp).click();
+		$('.ui-datepicker-today', $dp).trigger( 'click' );
 	};
 
 	/*
@@ -1728,7 +1728,7 @@
 				var dateStringLength = dateTimeString.length - (err.length - err.indexOf(':') - 2),
 					timeString = dateTimeString.substring(dateStringLength);
 
-				return [$.trim(dateTimeString.substring(0, dateStringLength)), $.trim(dateTimeString.substring(dateStringLength))];
+				return [dateTimeString.substring(0, dateStringLength).trim(), dateTimeString.substring(dateStringLength).trim()];
 
 			} else {
 				throw err;

@@ -1,5 +1,26 @@
 *** WooCommerce Instagram Changelog ***
 
+2022-01-20 - version 4.0.0
+* Feature - Generate files for the product catalogs.
+* Tweak - Process the products of a catalog in batches.
+* Tweak - Reduced the load time of the product catalog feeds.
+* Tweak - Improved performance when exporting a product catalog to an XML or CSV file.
+* Tweak - Redirect to the settings page after creating a product catalog.
+* Tweak - Product catalogs are no longer sortable in the settings table.
+* Tweak - Delete a product catalog on the settings page without the need to save the settings.
+* Tweak - Replaced deprecated jQuery functions.
+* Tweak - Clear cache after removing the plugin data on uninstalling.
+* Tweak - Updated documentation links.
+* Tweak - Tested compatibility with WC 6.1.
+* Tweak - Tested compatibility with WP 5.9.
+* Dev - Allow querying products from a catalog.
+* Dev - Store the product catalogs in the WP Posts table as a Custom Post Type.
+* Dev - Use a WC background process to handle the plugin updates.
+* Dev - Use a trait instead of a class for implementing the Singleton pattern.
+* Dev - Dropped deprecated plugin code up to version 3.6.
+* Dev - Dropped classes `WP_Async_Request` and `WP_Background_Process` from core.
+* Dev - Updated the minimum requirements to WC 3.5, WP 4.7, and PHP 5.4.
+
 2021-12-16 - version 3.7.1
 * Tweak - Tested compatibility with WC 6.0.
 

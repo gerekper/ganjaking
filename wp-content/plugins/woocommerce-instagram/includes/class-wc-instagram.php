@@ -11,8 +11,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Singleton pattern.
  */
-if ( ! class_exists( 'WC_Instagram_Singleton' ) ) {
-	require_once 'class-wc-instagram-singleton.php';
+if ( ! trait_exists( 'WC_Instagram_Singleton_Trait' ) ) {
+	require_once dirname( WC_INSTAGRAM_FILE ) . '/includes/traits/trait-wc-instagram-singleton.php';
 }
 
 /**
@@ -20,14 +20,16 @@ if ( ! class_exists( 'WC_Instagram_Singleton' ) ) {
  *
  * @class WC_Instagram
  */
-final class WC_Instagram extends WC_Instagram_Singleton {
+final class WC_Instagram {
+
+	use WC_Instagram_Singleton_Trait;
 
 	/**
 	 * The plugin version.
 	 *
 	 * @var string
 	 */
-	public $version = '3.7.1';
+	public $version = '4.0.0';
 
 	/**
 	 * Constructor.
@@ -35,8 +37,6 @@ final class WC_Instagram extends WC_Instagram_Singleton {
 	 * @since 2.0.0
 	 */
 	protected function __construct() {
-		parent::__construct();
-
 		$this->define_constants();
 		$this->includes();
 		$this->init_hooks();
@@ -48,10 +48,13 @@ final class WC_Instagram extends WC_Instagram_Singleton {
 	 * @since 2.0.0
 	 */
 	public function define_constants() {
+		$upload_dir = wp_upload_dir( null, false );
+
 		$this->define( 'WC_INSTAGRAM_VERSION', $this->version );
 		$this->define( 'WC_INSTAGRAM_PATH', plugin_dir_path( WC_INSTAGRAM_FILE ) );
 		$this->define( 'WC_INSTAGRAM_URL', plugin_dir_url( WC_INSTAGRAM_FILE ) );
 		$this->define( 'WC_INSTAGRAM_BASENAME', plugin_basename( WC_INSTAGRAM_FILE ) );
+		$this->define( 'WC_INSTAGRAM_CATALOGS_PATH', $upload_dir['basedir'] . '/wc-instagram-catalogs' );
 	}
 
 	/**
@@ -80,14 +83,13 @@ final class WC_Instagram extends WC_Instagram_Singleton {
 		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-autoloader.php';
 
 		/**
-		 * Abstract classes.
-		 */
-		include_once WC_INSTAGRAM_PATH . 'includes/abstracts/abstract-class-wc-instagram-data.php';
-
-		/**
 		 * Core classes.
 		 */
 		include_once WC_INSTAGRAM_PATH . 'includes/wc-instagram-functions.php';
+		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-post-types.php';
+		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-product-catalogs.php';
+		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-backgrounds.php';
+		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-actions.php';
 		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-ajax.php';
 		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-router.php';
 		include_once WC_INSTAGRAM_PATH . 'includes/class-wc-instagram-install.php';

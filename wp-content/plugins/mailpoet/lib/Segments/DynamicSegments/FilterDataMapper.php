@@ -156,7 +156,7 @@ class FilterDataMapper {
       'operator' => $data['operator'] ?? DynamicSegmentFilterData::OPERATOR_ANY,
     ];
 
-    if (($data['action'] !== EmailAction::ACTION_OPENED) && ($data['action'] !== EmailAction::ACTION_NOT_OPENED)) {
+    if (($data['action'] === EmailAction::ACTION_CLICKED)) {
       if (empty($data['newsletter_id'])) throw new InvalidFilterException('Missing newsletter id', InvalidFilterException::MISSING_NEWSLETTER_ID);
       $filterData['newsletter_id'] = $data['newsletter_id'];
     } else {
@@ -168,8 +168,10 @@ class FilterDataMapper {
 
     $filterType = DynamicSegmentFilterData::TYPE_EMAIL;
     $action = $data['action'];
-    if (isset($data['link_id'])) {
-      $filterData['link_id'] = $data['link_id'];
+    if (isset($data['link_ids']) && is_array($data['link_ids'])) {
+      $filterData['link_ids'] = array_map('intval', $data['link_ids']);
+      if (!isset($data['operator'])) throw new InvalidFilterException('Missing operator', InvalidFilterException::MISSING_OPERATOR);
+      $filterData['operator'] = $data['operator'];
     }
     return new DynamicSegmentFilterData($filterType, $action, $filterData);
   }

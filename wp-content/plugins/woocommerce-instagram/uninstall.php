@@ -34,6 +34,13 @@ function wc_instagram_uninstall() {
 
 		// Delete products metas.
 		$wpdb->query( "DELETE FROM $wpdb->postmeta WHERE meta_key LIKE '%_instagram_hashtag%';" );
+
+		// Delete posts + data.
+		$wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type IN ( 'wc_instagram_catalog' );" );
+		$wpdb->query( "DELETE meta FROM {$wpdb->postmeta} meta LEFT JOIN {$wpdb->posts} posts ON posts.ID = meta.post_id WHERE posts.ID IS NULL;" );
+
+		// Clear any cached data that has been removed.
+		wp_cache_flush();
 	} else {
 		include_once 'includes/wc-instagram-functions.php';
 

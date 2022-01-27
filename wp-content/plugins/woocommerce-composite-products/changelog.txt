@@ -1,5 +1,9 @@
 *** WooCommerce Composite Products ***
 
+2022.01.19 - version 8.3.7
+* Fix - Fixed warnings triggered by using deprecated `is_ajax`. Replaced with `wp_doing_ajax` for WooCommerce v6.1+.
+* Fix - Fixed issue that prevented component variations from being updated when Scenarios were used.
+
 2021.12.21 - version 8.3.6
 * Fix - Change price filters priority to retain compatibility with All Products for WooCommerce Subscriptions.
 

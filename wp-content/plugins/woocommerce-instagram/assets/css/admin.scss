@@ -6,6 +6,8 @@
  * @since   2.0.0
  */
 
+@import "loading";
+
 /* stylelint-disable */
 @font-face {
 	font-family: "woocommerce_instagram";
@@ -140,6 +142,22 @@
 
 	li {
 		list-style: disc;
+	}
+}
+
+.wc-instagram-product-catalog-download {
+
+	.wc-backbone-modal-main {
+		padding-bottom: 0;
+
+		article {
+			padding: 2em;
+			text-align: center;
+
+			time {
+				font-weight: 600;
+			}
+		}
 	}
 }
 

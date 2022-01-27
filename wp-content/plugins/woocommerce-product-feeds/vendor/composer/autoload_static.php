@@ -11,12 +11,20 @@ class ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a
         array (
             'Psr\\Container\\' => 14,
         ),
+        'A' => 
+        array (
+            'Ademti\\DismissibleWpNotices\\' => 28,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Ademti\\DismissibleWpNotices\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/leewillis77/dismissible-wp-notices/src',
         ),
     );
 
@@ -31,6 +39,7 @@ class ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a
     );
 
     public static $classMap = array (
+        'AbstractWoocommerceProductFeedsJob' => __DIR__ . '/../..' . '/src/jobs/abstract-woocommerce-product-feeds-job.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Gamajo_Template_Loader' => __DIR__ . '/../..' . '/src/common/gamajo-template-loader.class.php',
         'PWBE_WooCommerce_GPF' => __DIR__ . '/../..' . '/src/integrations/pwbe-woocommerce-gpf.php',
@@ -79,8 +88,10 @@ class ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a
         'WoocommercePrfGoogle' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google.php',
         'WoocommercePrfGoogleReviewFeed' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google-review-feed.php',
         'WoocommercePrfGoogleReviewProductInfo' => __DIR__ . '/../..' . '/src/prf/woocommerce-prf-google-review-product-info.php',
+        'WoocommerceProductFeedsAdminNotices' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-admin-notices.php',
         'WoocommerceProductFeedsAdvancedCustomFields' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-advanced-custom-fields.php',
         'WoocommerceProductFeedsAdvancedCustomFieldsFormatter' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-advanced-custom-fields-formatter.php',
+        'WoocommerceProductFeedsClearGoogleTaxonomyJob' => __DIR__ . '/../..' . '/src/jobs/woocommerce-product-feeds-clear-google-taxonomy-job.php',
         'WoocommerceProductFeedsDbManager' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-db-manager.php',
         'WoocommerceProductFeedsExpandedStructuredData' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-expanded-structured-data.php',
         'WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-expanded-structured-data-cache-invalidator.php',
@@ -94,7 +105,9 @@ class ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a
         'WoocommerceProductFeedsFeedManagerListTable' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-feed-manager-list-table.php',
         'WoocommerceProductFeedsFieldOptions' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-field-options.php',
         'WoocommerceProductFeedsIntegrationManager' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-integration-manager.php',
+        'WoocommerceProductFeedsJobManager' => __DIR__ . '/../..' . '/src/jobs/woocommerce-product-feeds-job-manager.php',
         'WoocommerceProductFeedsMain' => __DIR__ . '/../..' . '/src/woocommerce-product-feeds-main.php',
+        'WoocommerceProductFeedsRefreshGoogleTaxonomyJob' => __DIR__ . '/../..' . '/src/jobs/woocommerce-product-feeds-refresh-google-taxonomy-job.php',
         'WoocommerceProductFeedsTermDepthRepository' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-term-depth-repository.php',
         'WoocommerceProductFeedsWoocommerceAdminIntegration' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-woocommerce-admin-integration.php',
         'WoocommerceProductFeedsWoocommerceGermanized' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-woocommerce-germanized.php',

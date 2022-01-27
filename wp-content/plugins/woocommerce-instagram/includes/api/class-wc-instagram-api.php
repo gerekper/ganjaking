@@ -11,7 +11,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * WC_Instagram_API Class.
  */
-class WC_Instagram_API extends WC_Instagram_Singleton {
+class WC_Instagram_API {
+
+	use WC_Instagram_Singleton_Trait;
 
 	/**
 	 * The access token.
@@ -40,8 +42,6 @@ class WC_Instagram_API extends WC_Instagram_Singleton {
 	 * @since 2.0.0
 	 */
 	protected function __construct() {
-		parent::__construct();
-
 		$settings = wc_instagram_get_settings();
 
 		if ( is_array( $settings ) ) {

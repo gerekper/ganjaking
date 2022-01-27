@@ -3,8 +3,8 @@ Contributors: wpdevteam, re_enter_rupok
 Donate link: https://wpdeveloper.com
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
-Tested up to: 5.8
-Stable tag: 2.0.3
+Tested up to: 5.9
+Stable tag: 2.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,12 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 2.0.4 - 25/01/2022 =
+- Added: Option to disable root slug for multiple knowledge base archives
+- Fixed: PHP Error in Internal Knowledgebase
+- Fixed: Instant Answer not checking form field validations
+- Fixed: Few minor bug fixes & improvements
 
 = 2.0.3 - 12/01/2022 =
 - Added: Advanced Search option for Elementor widget

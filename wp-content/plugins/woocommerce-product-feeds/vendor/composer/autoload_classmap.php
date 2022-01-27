@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AbstractWoocommerceProductFeedsJob' => $baseDir . '/src/jobs/abstract-woocommerce-product-feeds-job.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Gamajo_Template_Loader' => $baseDir . '/src/common/gamajo-template-loader.class.php',
     'PWBE_WooCommerce_GPF' => $baseDir . '/src/integrations/pwbe-woocommerce-gpf.php',
@@ -54,8 +55,10 @@ return array(
     'WoocommercePrfGoogle' => $baseDir . '/src/prf/woocommerce-prf-google.php',
     'WoocommercePrfGoogleReviewFeed' => $baseDir . '/src/prf/woocommerce-prf-google-review-feed.php',
     'WoocommercePrfGoogleReviewProductInfo' => $baseDir . '/src/prf/woocommerce-prf-google-review-product-info.php',
+    'WoocommerceProductFeedsAdminNotices' => $baseDir . '/src/common/woocommerce-product-feeds-admin-notices.php',
     'WoocommerceProductFeedsAdvancedCustomFields' => $baseDir . '/src/integrations/woocommerce-product-feeds-advanced-custom-fields.php',
     'WoocommerceProductFeedsAdvancedCustomFieldsFormatter' => $baseDir . '/src/integrations/woocommerce-product-feeds-advanced-custom-fields-formatter.php',
+    'WoocommerceProductFeedsClearGoogleTaxonomyJob' => $baseDir . '/src/jobs/woocommerce-product-feeds-clear-google-taxonomy-job.php',
     'WoocommerceProductFeedsDbManager' => $baseDir . '/src/common/woocommerce-product-feeds-db-manager.php',
     'WoocommerceProductFeedsExpandedStructuredData' => $baseDir . '/src/common/woocommerce-product-feeds-expanded-structured-data.php',
     'WoocommerceProductFeedsExpandedStructuredDataCacheInvalidator' => $baseDir . '/src/common/woocommerce-product-feeds-expanded-structured-data-cache-invalidator.php',
@@ -69,7 +72,9 @@ return array(
     'WoocommerceProductFeedsFeedManagerListTable' => $baseDir . '/src/common/woocommerce-product-feeds-feed-manager-list-table.php',
     'WoocommerceProductFeedsFieldOptions' => $baseDir . '/src/common/woocommerce-product-feeds-field-options.php',
     'WoocommerceProductFeedsIntegrationManager' => $baseDir . '/src/common/woocommerce-product-feeds-integration-manager.php',
+    'WoocommerceProductFeedsJobManager' => $baseDir . '/src/jobs/woocommerce-product-feeds-job-manager.php',
     'WoocommerceProductFeedsMain' => $baseDir . '/src/woocommerce-product-feeds-main.php',
+    'WoocommerceProductFeedsRefreshGoogleTaxonomyJob' => $baseDir . '/src/jobs/woocommerce-product-feeds-refresh-google-taxonomy-job.php',
     'WoocommerceProductFeedsTermDepthRepository' => $baseDir . '/src/common/woocommerce-product-feeds-term-depth-repository.php',
     'WoocommerceProductFeedsWoocommerceAdminIntegration' => $baseDir . '/src/common/woocommerce-product-feeds-woocommerce-admin-integration.php',
     'WoocommerceProductFeedsWoocommerceGermanized' => $baseDir . '/src/integrations/woocommerce-product-feeds-woocommerce-germanized.php',

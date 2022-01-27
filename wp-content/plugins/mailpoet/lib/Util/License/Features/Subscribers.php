@@ -82,7 +82,7 @@ class Subscribers {
     return $this->hasValidMssKey() && $this->settings->get(self::MSS_SUPPORT_SETTING_KEY) === 'premium';
   }
 
-  private function hasValidPremiumKey() {
+  public function hasValidPremiumKey() {
     $state = $this->settings->get(self::PREMIUM_KEY_STATE);
     return $state === Bridge::KEY_VALID || $state === Bridge::KEY_EXPIRING;
   }
@@ -100,7 +100,7 @@ class Subscribers {
   }
 
   private function getFreeSubscribersLimit() {
-    $installationTime = strtotime($this->settings->get('installed_at'));
+    $installationTime = strtotime((string)$this->settings->get('installed_at'));
     $oldUser = $installationTime < strtotime(self::NEW_LIMIT_DATE);
     return $oldUser ? self::SUBSCRIBERS_OLD_LIMIT : self::SUBSCRIBERS_NEW_LIMIT;
   }

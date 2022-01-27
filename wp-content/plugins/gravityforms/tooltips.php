@@ -211,7 +211,7 @@ function gform_tooltip( $name, $css_class = '', $return = false ) {
 		return '';
 	}
 	$tooltip = sprintf(
-		'<button onclick="return false;" onkeypress="return false;" class="gf_tooltip %s" %s aria-label="%s">
+		'<button onclick="return false;" onkeypress="return false;" class="gf_tooltip %s %s" aria-label="%s">
 			<i class="gform-icon gform-icon--question-mark" aria-hidden="true"></i>
 		</button>',
 		esc_attr( $css_class ),

@@ -2,7 +2,7 @@
 /**
  * A class for representing an item in a product catalog.
  *
- * @package WC_Instagram/Product Catalog/Items
+ * @package WC_Instagram/Product_Catalog/Items
  * @since   3.0.0
  */
 
@@ -47,7 +47,7 @@ class WC_Instagram_Product_Catalog_Item_Variation extends WC_Instagram_Product_C
 	/**
 	 * Gets the specified product property and use the parent value as a fallback.
 	 *
-	 * The property must exists in the product variation.
+	 * The property must exist in the product variation.
 	 *
 	 * @since 3.0.1
 	 *

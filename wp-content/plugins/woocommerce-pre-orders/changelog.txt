@@ -1,5 +1,34 @@
 *** WooCommerce Pre-Orders Plugin ***
 
+2022-01-10 - version 1.6.0
+* Fix - Jquery deprecated code.
+* Tweak - Jquery 3.0 compatibility. 
+* Tweak - Improve performance of scheduled action that completes orders after product is released.
+* Fix - Use WooCommerce order details template instead of a custom one.
+* Fix - "Your previous cart was emptied" message does not show when using ajax cart.
+* Fix - Error message on Pre-Orders list when a product pre-order is disabled.
+* Fix - Broken email links when sending links via WooCommerce > Pre-Orders > Actions.
+* Tweak - Pre-Orders table under My Account > Pre Orders responsiveness
+* Fix - Stock inventory is not replenished when a pre-order that's set to charge "Upon Release" is canceled.
+* Tweak - Pre-load product when clicking on "Use the actions menu" to change the release date.  
+* Add - Allow to search for Pre orders only and Regular orders only on WooCommerce > Orders.
+* Fix - Refunded orders are counted as Net Sales in WC > Reports when Pre-Orders is active. 
+* Tweak - Prevent listing pre-orders when they must be paid upfront and the payment fails.
+* Tweak - Rename the .pot file so it matches the registered text domain.
+* Add - Add fees to order when creating via admin.
+* Fix - Reduce inventory for 100% coupon payments.
+* Fix - Complete the product's release process when the release date is updated to the past and pre-orders exist.
+* Tweak - Make the notice for when the cart contains a pre-order be of the 'error' type.
+* Add - Add an option to enable product Pre-Order automatically when stock hits zero.
+* Fix - Email message when order is on-hold.
+* Tweak - Prevent multiple pre-order products to be added on order created via admin.
+* Fix - "Release Date Changed" email mentions it changed to a future date when it's set to the past.
+* Tweak - Pre-Orders status counter performance improvement
+
+
+2021-02-15 - version 1.5.30
+* Fix - Prevent fatal errors when loading WC Subscriptions admin reports. PR#272
+
 2020-09-30 - version 1.5.29
 * Fix   - Fatal Error when checking out with Checkout Field Editor extension active.
 * Fix   - Pre-Order fee not applying to variable products.
@@ -149,7 +178,7 @@
 * Fix - Email template deprecated notices.
 * Fix - Invalid customer note link in the action admin section.
 * Fix - Taxes not refundable because line taxes are not showing up on the edit order screen.
- 
+
 2015-12-09 - version 1.4.5
 * Fix - Textdomain path for translations
 * Fix - Unable to set a blank pre-order fee

@@ -18,6 +18,7 @@
     var mailpoet_mss_active = <%= json_encode(mss_active) %>;
     var mailpoet_subscribers_limit = <%= subscribers_limit ? subscribers_limit : 'false'  %>;
     var mailpoet_subscribers_limit_reached = <%= subscribers_limit_reached ? 'true' : 'false' %>;
+    var mailpoet_has_valid_api_key = <%= has_valid_api_key ? 'true' : 'false' %>;
     var mailpoet_mss_key_invalid = <%= mss_key_invalid ? 'true' : 'false' %>;
     var mailpoet_subscribers_count = <%= subscriber_count %>;
     var mailpoet_custom_fields = <%= json_encode(custom_fields) %>;
@@ -136,7 +137,8 @@
     'currentPage': __('Current page'),
     'pageOutOf': _x('of', 'Page X of Y'),
     'notSentYet': __('Not sent yet'),
-    'selectLinkPlaceholder': __('Select link'),
+    'allLinksPlaceholder': __('All links'),
+    'noLinksHint': __('Email not sent yet!'),
     'selectNewsletterPlaceholder': __('Search emails'),
     'selectActionPlaceholder': __('Select action'),
     'selectUserRolePlaceholder': __('Search user roles'),

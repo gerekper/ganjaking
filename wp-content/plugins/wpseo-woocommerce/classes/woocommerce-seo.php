@@ -161,7 +161,7 @@ class Yoast_WooCommerce_SEO {
 	 * Adds the WooCommerce OpenGraph presenter.
 	 *
 	 * @param \Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter[] $presenters The presenter instances.
-	 * @param \Yoast\WP\SEO\Context\Meta_Tags_Context                 $context The meta tags context.
+	 * @param \Yoast\WP\SEO\Context\Meta_Tags_Context                 $context    The meta tags context.
 	 *
 	 * @return \Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter[] The extended presenters.
 	 */
@@ -666,7 +666,7 @@ class Yoast_WooCommerce_SEO {
 	 *
 	 * @since 4.3
 	 *
-	 * @param \Yoast\WP\SEO\Context\Meta_Tags_Context $context The meta tags context.
+	 * @param \Yoast\WP\SEO\Context\Meta_Tags_Context|null $context The meta tags context.
 	 *
 	 * @return WC_Product|null
 	 */

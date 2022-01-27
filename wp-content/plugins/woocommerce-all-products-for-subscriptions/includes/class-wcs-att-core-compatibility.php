@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WC Core compatibility functions.
  *
  * @class    WCS_ATT_Core_Compatibility
- * @version  3.1.20
+ * @version  3.2.0
  */
 class WCS_ATT_Core_Compatibility {
 
@@ -54,6 +54,14 @@ class WCS_ATT_Core_Compatibility {
 	 * @var    bool
 	 */
 	private static $is_wc_admin_enabled = null;
+
+	/**
+	 * Cache subscriptions template directory
+	 *
+	 * @since  3.2.0
+	 * @var    string
+	 */
+	private static $subscriptions_template_dir = '';
 
 	/*
 	|--------------------------------------------------------------------------
@@ -158,6 +166,26 @@ class WCS_ATT_Core_Compatibility {
 		}
 
 		return self::$is_wc_admin_enabled;
+	}
+
+	/**
+	 * Returns the directory where WooCommerce Subscriptions template files exist.
+	 *
+	 * @since  3.2.0
+	 *
+	 * @return string
+	 */
+	public static function get_subscriptions_template_directory() {
+
+		if ( empty( self::$subscriptions_template_dir ) ) {
+
+			if ( class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
+				self::$subscriptions_template_dir = WC_Subscriptions_Core_Plugin::instance()->get_subscriptions_core_directory( 'templates/' );
+			} else {
+				self::$subscriptions_template_dir = plugin_dir_path( WC_Subscriptions::$plugin_file ) . 'templates/';
+			}
+		}
+		return self::$subscriptions_template_dir;
 	}
 
 	/*

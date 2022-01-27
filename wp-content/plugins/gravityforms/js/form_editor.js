@@ -648,13 +648,13 @@ function LoadFieldSettings(){
 
     jQuery("#field_label").val(field.label);
     if(field.type == "html"){
-        jQuery(".label_setting .gf_tooltip:first-child").hide();
-        jQuery(".label_setting .gf_tooltip:last-child").show();
+        jQuery(".tooltip_form_field_label").hide();
+        jQuery(".tooltip_form_field_label_html").show();
         //jQuery(".tooltip_form_field_label").hide();
     }
     else{
-		jQuery(".label_setting .gf_tooltip:first-child").show();
-		jQuery(".label_setting .gf_tooltip:last-child").hide();
+		jQuery(".tooltip_form_field_label").show();
+		jQuery(".tooltip_form_field_label_html").hide();
     }
 
     jQuery("#field_admin_label").val(field.adminLabel);
@@ -1432,17 +1432,25 @@ function UpdateAddressFields(){
         jQuery(".field_selected #input_" + field["id"] + "_4_label").html(state_label);
     }
 
-    //hide country drop down if this address type applies to a specific country
-    var hide_country = jQuery("#field_address_country_" + addressType).val() != "";
+    // hide country drop down and setting.
+    var isInternational = jQuery( "#field_address_country_" + addressType ).val() == "";
+    var hideCountrySetting = ! isInternational;
+    var hideCountryField = ! isInternational || ! jQuery( '#field_address_fields_container [id="gforms-editor-toggle-' + field.id + '.6"' ).is( ':checked' );
 
-    if(hide_country){
-        jQuery('.field_selected #input_' + field.id + '_6_container').hide();
+    // hide country setting if this address type applies to a specific country.
+    if ( hideCountrySetting ) {
         jQuery('.field_custom_input_row_input_' + field.id + '_6').hide();
+    } else {
+        jQuery('.field_selected .field_custom_input_row_input_' + field.id + '_6').show();
+    }
+
+    // hide country field if this address type applies to a specific country or if show country is toggled off.
+    if ( hideCountryField ){
+        jQuery('.field_selected #input_' + field.id + '_6_container').hide();
     } else {
         //selects default country and displays drop down
         jQuery(".field_selected #input_" + field.id + "_6").val(jQuery("#field_address_default_country_" + addressType).val());
         jQuery(".field_selected #input_" + field.id + "_6_container").show();
-        jQuery('.field_selected .field_custom_input_row_input_' + field.id + '_6').show();
     }
 
     var has_state_drop_down = jQuery("#field_address_has_states_" + addressType).val() != "";

@@ -10,6 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 // Include core functions.
 require 'wc-instagram-compatibility-functions.php';
+require 'wc-instagram-formatting-functions.php';
 require 'wc-instagram-api-functions.php';
 require 'wc-instagram-auth-functions.php';
 require 'wc-instagram-product-functions.php';
@@ -60,19 +61,16 @@ function wc_instagram_is_request( $type ) {
 			$is_request = is_admin();
 			break;
 		case 'ajax':
-			$is_request = ( function_exists( 'wp_doing_ajax' ) ? wp_doing_ajax() : defined( 'DOING_AJAX' ) && DOING_AJAX );
+			$is_request = wp_doing_ajax();
 			break;
 		case 'cron':
 			$is_request = defined( 'DOING_CRON' );
 			break;
 		case 'frontend':
-			$is_request = ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! wc_instagram_is_request( 'rest_api' );
+			$is_request = ( ! is_admin() || wp_doing_ajax() ) && ! defined( 'DOING_CRON' ) && ! wc_instagram_is_request( 'rest_api' );
 			break;
 		case 'rest_api':
-			if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
-				$rest_prefix = trailingslashit( rest_get_url_prefix() );
-				$is_request  = ( false !== strpos( $_SERVER['REQUEST_URI'], $rest_prefix ) ); // phpcs:disable WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			}
+			$is_request = ( defined( 'REST_REQUEST' ) && REST_REQUEST );
 			break;
 	}
 

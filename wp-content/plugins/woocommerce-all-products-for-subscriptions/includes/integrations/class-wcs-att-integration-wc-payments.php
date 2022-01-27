@@ -3,7 +3,7 @@
  * WCS_ATT_Intgeration_WC_Payments class
  *
  * @package  WooCommerce All Products For Subscriptions
- * @since    3.1.32
+ * @since    3.2.0
  */
 
 // Exit if accessed directly.
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WooCommerce Payments Integration.
  *
- * @version  3.1.32
+ * @version  3.2.0
  */
 class WCS_ATT_Intgeration_WC_Payments {
 

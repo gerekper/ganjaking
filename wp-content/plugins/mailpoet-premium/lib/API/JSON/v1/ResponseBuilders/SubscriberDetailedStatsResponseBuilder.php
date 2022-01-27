@@ -90,7 +90,7 @@ class SubscriberDetailedStatsResponseBuilder {
     return [
       'id' => $open->getId(),
       'type' => $open->getUserAgentType() === UserAgentEntity::USER_AGENT_TYPE_MACHINE ? 'machine-open' : 'open',
-      'created_at' => $open->getCreatedAt()->format(self::DATE_FORMAT),
+      'created_at' => ($createdAt = $open->getCreatedAt()) ? $createdAt->format(self::DATE_FORMAT) : null,
     ];
   }
 
@@ -106,7 +106,7 @@ class SubscriberDetailedStatsResponseBuilder {
     foreach ($click->getWooCommercePurchases() as $purchase) {
       $purchases[] = [
         'id' => $purchase->getId(),
-        'created_at' => $purchase->getCreatedAt()->format(self::DATE_FORMAT),
+        'created_at' => ($createdAt = $purchase->getCreatedAt()) ? $createdAt->format(self::DATE_FORMAT) : null,
         'order_id' => $purchase->getOrderId(),
         'order_url' => $this->wp->getEditPostLink($purchase->getOrderId(), 'code'),
         'revenue' => $this->wooCommerce->getRawPrice(
@@ -118,7 +118,7 @@ class SubscriberDetailedStatsResponseBuilder {
     return [
       'id' => $click->getId(),
       'type' => 'click',
-      'created_at' => $click->getCreatedAt()->format(self::DATE_FORMAT),
+      'created_at' => ($createdAt = $click->getCreatedAt()) ? $createdAt->format(self::DATE_FORMAT) : null,
       'count' => $click->getCount(),
       'url' => $linkUrl,
       'purchases' => $purchases,

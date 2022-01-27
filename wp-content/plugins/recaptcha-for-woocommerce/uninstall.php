@@ -132,6 +132,7 @@ $options_installed = array(
 								'i13_recapcha_wp_disable_submit_token_generation_v3_woo_tracking',
 																'i13_recaptcha_v3_login_recpacha_for_req_btn_cart_page',
 																'i13_recaptcha_login_recpacha_for_req_btn_cart_page',
+																'i13_recapcha_using_buddy_press'
 																
 
 );

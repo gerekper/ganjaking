@@ -54,7 +54,6 @@ class Ajax {
 
 		// Hide tutorials.
 		add_action( 'wp_ajax_smush_hide_tutorials', array( $this, 'hide_tutorials' ) );
-		add_action( 'wp_ajax_smush_hide_black_friday', array( $this, 'hide_black_friday' ) );
 
 		/**
 		 * NOTICES
@@ -227,17 +226,6 @@ class Ajax {
 
 		update_option( 'wp-smush-hide-tutorials', true, false );
 
-		wp_send_json_success();
-	}
-
-	/**
-	 * Hide Black Friday notice.
-	 *
-	 * @since 3.9.2
-	 */
-	public function hide_black_friday() {
-		check_ajax_referer( 'wp-smush-ajax' );
-		delete_site_option( 'wp-smush-show-black-friday' );
 		wp_send_json_success();
 	}
 
@@ -589,7 +577,7 @@ class Ajax {
 
 					// If the image needs to be resmushed add it to the list.
 					if ( $should_resmush ) {
-				//		$resmush_list[] = 'nextgen' === $type ? $attachment_k : $attachment;
+					//	$resmush_list[] = 'nextgen' === $type ? $attachment_k : $attachment;
 					}
 
 					/**

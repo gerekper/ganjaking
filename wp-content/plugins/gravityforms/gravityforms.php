@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.5.16
+Version: 2.5.16.1
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -36,12 +36,11 @@ use Gravity_Forms\Gravity_Forms\Libraries\Dom_Parser;
 //---------- Gravity Forms License Key -----------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 // If you hardcode a Gravity Forms License Key here, it will automatically populate on activation.
-$gf_license_key = '';
 
 update_option( 'rg_gforms_key', 'activated' );
 update_option( 'gform_pending_installation', false );
 delete_option( 'rg_gforms_message' );
-
+$gf_license_key = '';
 
 //-- OR ---//
 
@@ -230,7 +229,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.5.16';
+	public static $version = '2.5.16.1';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -1704,7 +1703,7 @@ class GFForms {
 		$parent_menu = self::get_parent_menu( $addon_menus );
 
 		// Add a top-level left nav.
-		$update_icon = GFCommon::has_update() && current_user_can( 'install_plugins' ) ? "<span title='" . esc_attr( __( 'Update Available', 'gravityforms' ) ) . "' class='update-plugins count-1'><span class='update-count'>&#49;</span></span>" : '';
+		$update_icon = current_user_can( 'install_plugins' ) && GFCommon::has_update() ? "<span title='" . esc_attr( __( 'Update Available', 'gravityforms' ) ) . "' class='update-plugins count-1'><span class='update-count'>&#49;</span></span>" : '';
 
 		$admin_icon = self::get_admin_icon_b64( GFForms::is_gravity_page() ? '#fff' : '#a0a5aa' );
 
@@ -2301,6 +2300,7 @@ class GFForms {
 		}
 
 		if ( ! $valid_key ) {
+			return;
 			$message .= sprintf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic upgrades and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="' . admin_url() . 'admin.php?page=gf_settings">', '</a>', '<a href="https://www.gravityforms.com">', '</a>' );
 		}
 
@@ -2327,8 +2327,8 @@ class GFForms {
 
 			// Apply the class "update" to the plugin row to get rid of the ugly border.
 			echo "
-				<script type='text/javascript'> 
-					jQuery('#$slug-update').prev('tr').addClass('update'); 
+				<script type='text/javascript'>
+					jQuery('#$slug-update').prev('tr').addClass('update');
 				</script>
 				";
 		}
@@ -6096,7 +6096,7 @@ class GFForms {
 						}
 						container.html( '<p>' + response.data + '</p>' );
 					}
-				} );             	
+				} );
 			} );
 		</script>";
 

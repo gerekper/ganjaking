@@ -8,7 +8,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-if ( ! defined( 'ABSPATH' ) )  {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
@@ -41,8 +41,8 @@ class WC_Pre_Orders_Product {
 		add_filter( 'woocommerce_get_availability', array( $this, 'modify_availability_text' ), 10, 2 );
 
 		// 2.1 Filters.
-		add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'modify_add_to_cart_button_text' ), 10 , 2 );
-		add_filter( 'woocommerce_product_single_add_to_cart_text', array( $this, 'modify_add_to_cart_button_text' ), 10 , 2 );
+		add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'modify_add_to_cart_button_text' ), 10, 2 );
+		add_filter( 'woocommerce_product_single_add_to_cart_text', array( $this, 'modify_add_to_cart_button_text' ), 10, 2 );
 
 		// Automatically cancel a pre-order when product is trashed.
 		add_action( 'wp_trash_post', array( $this, 'maybe_cancel_pre_order_product_trashed' ) );
@@ -123,7 +123,7 @@ class WC_Pre_Orders_Product {
 
 		$message = apply_filters( 'wc_pre_orders_product_message', $message, $product );
 
-		$message =  '<span class="availability_date">' . $message . '</span>';
+		$message = '<span class="availability_date">' . $message . '</span>';
 
 		return $message;
 	}
@@ -173,7 +173,7 @@ class WC_Pre_Orders_Product {
 
 						foreach ( $product->get_children() as $child_id ) {
 							if ( 'yes' === get_post_meta( $child_id, '_manage_stock', true ) ) {
-								$stock = get_post_meta( $child_id, '_stock', true );
+								$stock                = get_post_meta( $child_id, '_stock', true );
 								$product_total_stock += max( 0, wc_stock_amount( $stock ) );
 							}
 						}
@@ -186,10 +186,10 @@ class WC_Pre_Orders_Product {
 
 				if ( $product->is_in_stock() && $product_total_stock > get_option( 'woocommerce_notify_no_stock_amount' ) ) {
 					switch ( get_option( 'woocommerce_stock_format' ) ) {
-						case 'no_amount' :
+						case 'no_amount':
 							$availability = __( 'Available for pre-ordering', 'wc-pre-orders' );
-						break;
-						case 'low_amount' :
+							break;
+						case 'low_amount':
 							if ( $product_total_stock <= get_option( 'woocommerce_notify_low_stock_amount' ) ) {
 								/* translators: 1: product total stock */
 								$availability = sprintf( __( 'Only %s left available for pre-ordering', 'wc-pre-orders' ), $product_total_stock );
@@ -200,16 +200,16 @@ class WC_Pre_Orders_Product {
 							} else {
 								$availability = __( 'Available for pre-ordering', 'wc-pre-orders' );
 							}
-						break;
+							break;
 
-						default :
+						default:
 							/* translators: 1: product total stock */
 							$availability = sprintf( __( '%s available for pre-ordering', 'wc-pre-orders' ), $product_total_stock );
 
 							if ( $product->backorders_allowed() && $product->backorders_require_notification() ) {
 								$availability .= ' ' . __( '(can be backordered)', 'wc-pre-orders' );
 							}
-						break;
+							break;
 					}
 
 					$class = 'in-stock';
@@ -228,7 +228,10 @@ class WC_Pre_Orders_Product {
 				$class        = 'out-of-stock';
 			}
 
-			$data = array( 'availability' => $availability, 'class' => $class );
+			$data = array(
+				'availability' => $availability,
+				'class'        => $class,
+			);
 		}
 
 		return $data;
@@ -266,7 +269,9 @@ class WC_Pre_Orders_Product {
 			$product = wc_get_product( $product );
 		}
 
-		$order_ids = $wpdb->get_col( $wpdb->prepare( "
+		$order_ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"
 			SELECT ID
 			FROM {$wpdb->posts} AS posts
 			LEFT JOIN {$wpdb->prefix}woocommerce_order_items AS items ON posts.ID = items.order_id
@@ -278,7 +283,8 @@ class WC_Pre_Orders_Product {
 				item_meta.meta_value = '%s' AND
 				post_meta.meta_key = '_wc_pre_orders_status' AND
 				post_meta.meta_value = 'active'
-			", $product->get_id()
+			",
+				$product->get_id()
 			)
 		);
 
@@ -445,28 +451,61 @@ class WC_Pre_Orders_Product {
 		global $wpdb;
 
 		$orders = $wpdb->get_results(
-			$wpdb->prepare( "
+			$wpdb->prepare(
+				"
 				SELECT order_items.order_id
 				FROM {$wpdb->prefix}woocommerce_order_items AS order_items
 					LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_itemmeta
 					ON order_itemmeta.order_item_id = order_items.order_item_id
 				WHERE order_itemmeta.meta_key = '_product_id'
 				AND order_itemmeta.meta_value = %d
-			", $product_id )
+			",
+				$product_id
+			)
 		);
 
-		if ( is_array( $orders )) {
+		if ( is_array( $orders ) ) {
 			foreach ( $orders as $order_data ) {
 				$order = wc_get_order( $order_data->order_id );
-				if ( !$order ) {
+				if ( ! $order ) {
 					continue;
 				}
-	
+
 				if ( WC_Pre_Orders_Order::order_contains_pre_order( $order ) && WC_Pre_Orders_Manager::can_pre_order_be_changed_to( 'cancelled', $order ) ) {
 					WC_Pre_Orders_Order::update_pre_order_status( $order, 'cancelled' );
 				}
 			}
 		}
+	}
 
+	/**
+	 * Gets the list of products with an availability date in the past.
+	 *
+	 * @return array An array of products IDs which have passed their scheduled availability date.
+	 */
+	public static function get_products_passed_release_date() {
+		$time_now_in_utc = time();
+
+		// Get all products that are currently an active pre order product still
+		return get_posts(
+			array(
+				'fields'      => 'ids',
+				'nopaging'    => true,
+				'post_status' => 'publish',
+				'post_type'   => 'product',
+				'meta_query'  => array(
+					'relation' => 'AND',
+					array(
+						'key'   => '_wc_pre_orders_enabled',
+						'value' => 'yes',
+					),
+					array(
+						'key'     => '_wc_pre_orders_availability_datetime',
+						'value'   => $time_now_in_utc,
+						'compare' => '<',
+					),
+				),
+			)
+		);
 	}
 }

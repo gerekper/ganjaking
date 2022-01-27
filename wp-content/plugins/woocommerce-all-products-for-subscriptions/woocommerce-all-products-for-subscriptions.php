@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce All Products For Subscriptions
 * Plugin URI: https://woocommerce.com/products/all-products-for-woocommerce-subscriptions/
 * Description: Make existing products available on subscription, and give customers the freedom to add products to their existing subscriptions. WooCommerce Subscriptions add-on formerly known as Subscribe All The Things.
-* Version: 3.1.33
+* Version: 3.2.0
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -42,18 +42,21 @@ require_once( 'includes/modules/abstract/class-wcs-att-abstract-module.php' );
  * Main plugin class.
  *
  * @class    WCS_ATT
- * @version  3.1.33
+ * @version  3.2.0
  */
 class WCS_ATT extends WCS_ATT_Abstract_Module {
 
 	/* Plugin version. */
-	const VERSION = '3.1.33';
+	const VERSION = '3.2.0';
 
 	/* Required WC version. */
 	const REQ_WC_VERSION = '3.3.0';
 
 	/* Required WC version. */
 	const REQ_WCS_VERSION = '2.3.0';
+
+	/* Required WC Payments version. */
+	const REQ_WCPAY_VERSION = '3.2.0';
 
 	/* Docs URL. */
 	const DOCS_URL = 'https://docs.woocommerce.com/document/all-products-for-woocommerce-subscriptions/';
@@ -63,6 +66,12 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 
 	/* WCS URL. */
 	const WCS_URL = 'https://woocommerce.com/products/woocommerce-subscriptions/';
+
+	/* WC Payments. */
+	const WCPAY_URL = 'https://woocommerce.com/products/woocommerce-payments/';
+
+	/* WC Payments settings page. */
+	const WCPAY_ADMIN_URL = '/wp-admin/admin.php?page=wc-settings&tab=checkout&section=woocommerce_payments';
 
 	/**
 	 * @var WCS_ATT - the single instance of the class.
@@ -110,7 +119,7 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 	 * Do some work.
 	 */
 	public function __construct() {
-		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
+		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 15 );
 	}
 
 	/**
@@ -192,9 +201,33 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 
 		$this->define_constants();
 
+		$notice = '';
+
 		// Subs version check.
-		if ( ! class_exists( 'WC_Subscriptions' ) || ! defined( 'WCS_INIT_TIMESTAMP' ) || version_compare( WC_Subscriptions::$version, self::REQ_WCS_VERSION ) < 0 ) {
-			$notice = sprintf( __( 'All Products for WooCommerce Subscriptions requires at least <a href="%1$s" target="_blank">WooCommerce Subscriptions</a> version <strong>%2$s</strong>.', 'woocommerce-all-products-for-subscriptions' ), self::WCS_URL, self::REQ_WCS_VERSION );
+		if ( class_exists( 'WC_Subscriptions' ) ) {
+
+			// Notice about plugin version when WooCommerce Subscriptions is active.
+			if ( ! defined( 'WCS_INIT_TIMESTAMP' ) || version_compare( WC_Subscriptions::$version, self::REQ_WCS_VERSION ) < 0  ) {
+				$notice = sprintf( __( 'All Products for WooCommerce Subscriptions requires at least <a href="%1$s" target="_blank">WooCommerce Subscriptions</a> version <strong>%2$s</strong>.', 'woocommerce-all-products-for-subscriptions' ), self::WCS_URL, self::REQ_WCS_VERSION );
+			}
+
+		} elseif ( class_exists( 'WC_Payments' ) && class_exists( 'WC_Payments_Features' ) ) {
+
+			if ( ! defined( 'WCS_INIT_TIMESTAMP' ) || ! WC_Payments_Features::is_wcpay_subscriptions_enabled() ) {
+				if ( version_compare( WCPAY_VERSION_NUMBER, self::REQ_WCPAY_VERSION ) < 0 ) {
+					// Notice about plugin version when WooCommerce Payments is active.
+					$notice = sprintf( __( 'All Products for WooCommerce Subscriptions requires at least <a href="%1$s" target="_blank">WooCommerce Payments</a> version <strong>%2$s</strong>.', 'woocommerce-all-products-for-subscriptions' ), self::WCPAY_URL, self::REQ_WCPAY_VERSION );
+				} else {
+					// Notice about disabled Subscription features in WooCommerce Payments.
+					$notice = sprintf( __( 'All Products for WooCommerce Subscriptions requires Subscriptions to be enabled in the <strong>WooCommerce Payments</strong> <a href="%1$s" target="_blank">settings</a>.', 'woocommerce-all-products-for-subscriptions' ), site_url( self::WCPAY_ADMIN_URL ) );
+				}
+			}
+		} else {
+			// Notice about disabled Subscriptions core not being loaded.
+			$notice = sprintf( __( 'All Products for WooCommerce Subscriptions requires at least <a href="%1$s" target="_blank">WooCommerce Payments</a> version <strong>%2$s</strong> or <a href="%3$s" target="_blank">WooCommerce Subscriptions</a> version <strong>%4$s</strong>.', 'woocommerce-all-products-for-subscriptions' ), self::WCPAY_URL, self::REQ_WCPAY_VERSION, self::WCS_URL, self::REQ_WCS_VERSION );
+		}
+
+		if ( ! empty ( $notice ) ) {
 			require_once( WCS_ATT_ABSPATH . 'includes/admin/class-wcs-att-admin-notices.php' );
 			WCS_ATT_Admin_Notices::add_notice( $notice, 'error' );
 			return false;
@@ -284,12 +317,20 @@ class WCS_ATT extends WCS_ATT_Abstract_Module {
 	 * @return void
 	 */
 	protected function register_modules() {
+		$modules = array();
 
-		require_once( WCS_ATT_ABSPATH . 'includes/modules/class-wcs-att-management.php' );
-
-		$this->modules = apply_filters( 'wcsatt_modules', array(
-			'WCS_ATT_Management'
-		) );
+		/*
+		 * Important: Switching Subscriptions and adding products/carts to existing Subscriptions
+		 * is only available with WooCommerce Subscriptions. These features are disabled when
+		 * Subscriptions core is loaded via WooCommerce Payments.
+		 *
+		 * See: https://woocommerce.com/document/payments/subscriptions/comparison/#feature-matrix
+		 */
+		if ( class_exists( 'WC_Subscriptions_Switcher' ) && class_exists( 'WC_Subscriptions' ) ) {
+			require_once( WCS_ATT_ABSPATH . 'includes/modules/class-wcs-att-management.php' );
+			$modules = array( 'manage' => 'WCS_ATT_Management' );
+		}
+		$this->modules = apply_filters( 'wcsatt_modules', $modules );
 	}
 
 	/**

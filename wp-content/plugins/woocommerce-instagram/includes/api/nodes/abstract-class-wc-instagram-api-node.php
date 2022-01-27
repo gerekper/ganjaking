@@ -120,23 +120,4 @@ abstract class WC_Instagram_API_Node {
 
 		return wc_instagram_api_request( $endpoint, $args, $method );
 	}
-
-	/**
-	 * Makes a request to the Instagram Graph API.
-	 *
-	 * @since 2.0.0
-	 * @deprecated 2.1.0
-	 *
-	 * @param string $url    The request URL.
-	 * @param array  $args   The request arguments.
-	 * @param string $method Optional. The request method.
-	 * @return mixed The request response. WP_Error on failure.
-	 */
-	protected function trigger_request( $url, $args = array(), $method = 'get' ) {
-		_deprecated_function( __METHOD__, '2.1.0', 'WC_Instagram_API_Node::request_endpoint' );
-
-		$endpoint = str_replace( 'https://graph.facebook.com/v3.2/', '', $url );
-
-		return $this->request_endpoint( $endpoint, $args, $method );
-	}
 }

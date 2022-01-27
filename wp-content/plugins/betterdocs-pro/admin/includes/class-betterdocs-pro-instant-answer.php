@@ -365,7 +365,24 @@ class BetterDocs_Pro_IA {
         $disable_reaction = $this->setNempty( 'disable_reaction', $settings ) ? $this->bdocs_settings['disable_reaction'] : '';
         $reaction = $disable_reaction == 1 ? false : true;
         $reaction_title = $this->setNempty( 'reaction_title', $settings ) ? $this->bdocs_settings['reaction_title'] : esc_html__('How did you feel?','betterdocs-pro');
-
+        //remove the slash from the Instant Answer search text placeholder
+        $search_settings['SEARCH_PLACEHOLDER'] = stripslashes($search_settings['SEARCH_PLACEHOLDER']);
+        //remove slash from Instant Answer Tab Title
+        $answer_settings['label'] = stripslashes($answer_settings['label']);
+        //remove slash from Instant Answer Tab Title
+        $answer_settings['subtitle'] = stripslashes($answer_settings['subtitle']);
+        //remove slash from Chat Tab Subtitle One
+        $chat_settings['subtitle'] = stripslashes($chat_settings['subtitle']);
+        //remove slash from Chat Tab Subtitle Two
+        $chat_settings['subtitle_two'] = stripslashes($chat_settings['subtitle_two']);
+        //remove slash from Reaction Title
+        $reaction_title = stripslashes($reaction_title);
+        //remove slash from response title
+        $response_settings['title'] = stripslashes($response_settings['title']);
+        //remove slash from docs not found oops
+        $search_settings['OOPS'] = stripslashes( $search_settings['OOPS'] );
+        //remove slash from docs not found message
+        $search_settings['NOT_FOUND'] = stripslashes($search_settings['NOT_FOUND']);
         $instant_answer = array(
             'CHAT' => $chat_settings,
             'ANSWER' => $answer_settings,
@@ -389,7 +406,7 @@ class BetterDocs_Pro_IA {
             ),
             'ASK_URL' => home_url() . '/?rest_route=/betterdocs/ask',
         );
-
+        
         if( ! empty( $launcher_settings ) ) {
             $instant_answer = array_merge( $instant_answer, array( 'LAUNCHER' => $launcher_settings ) );
         }
@@ -1518,10 +1535,10 @@ class BetterDocs_Pro_IA {
                 if( $key === 'email' ) {
                     $sanitized_data[ $key ] = sanitize_email( $data );
                 } else {
-                    $sanitized_data[ $key ] = sanitize_text_field( $data );
+                    $sanitized_data[ $key ] = sanitize_text_field( stripslashes($data) );
                 }
             }
-
+            
             return $sanitized_data;
         }
         return array();

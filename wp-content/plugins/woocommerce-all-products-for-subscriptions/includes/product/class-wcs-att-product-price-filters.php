@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles modifications to the prices of subscription-enabled product objects.
  *
  * @class    WCS_ATT_Product_Price_Filters
- * @version  3.1.32
+ * @version  3.2.0
  */
 class WCS_ATT_Product_Price_Filters {
 

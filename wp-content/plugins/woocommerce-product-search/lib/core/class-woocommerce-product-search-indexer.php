@@ -824,6 +824,7 @@ class WooCommerce_Product_Search_Indexer {
 				}
 			}
 
+			$parent    = null;
 			$parent_id = null;
 			if ( $product->is_type( 'variation' ) ) {
 				if ( method_exists( $product, 'get_parent_id' ) ) {
@@ -942,6 +943,30 @@ class WooCommerce_Product_Search_Indexer {
 					$attribute_taxonomies = wc_get_attribute_taxonomies();
 					if ( !empty( $attribute_taxonomies ) ) {
 						foreach ( $attribute_taxonomies as $attribute ) {
+
+							if ( $parent instanceof WC_Product ) {
+								$attribute_object = null;
+								$attribute_objects = $parent->get_attributes();
+								if ( is_array($attribute_objects ) ) {
+									if ( isset( $attribute_objects[ $attribute->attribute_name ] ) ) {
+										$attribute_object = $attribute_objects[ $attribute->attribute_name ];
+									} elseif ( isset( $attribute_objects[ 'pa_' . $attribute->attribute_name ] ) ) {
+										$attribute_object = $attribute_objects[ 'pa_' . $attribute->attribute_name ];
+									}
+									if ( $attribute_object !== null ) {
+										if ( is_object( $attribute_object ) && method_exists( $attribute_object, 'get_variation' ) ) {
+											if ( !$attribute_object->get_variation() ) {
+												$term_list = get_the_term_list( $parent_id, 'pa_' . $attribute->attribute_name, '', ' ', '' );
+												if ( !empty( $term_list ) && is_string( $term_list ) ) {
+													$attribute_names[] = $attribute->attribute_name;
+													$context_columns[$attribute->attribute_name] = $this->filter( $term_list, $attribute->attribute_name, $parent_id );
+												}
+											}
+										}
+									}
+								}
+							}
+
 							$term_string = $product->get_attribute( $attribute->attribute_name );
 							if ( !empty( $term_string ) && is_string( $term_string ) ) {
 								$attribute_names[] = $attribute->attribute_name;

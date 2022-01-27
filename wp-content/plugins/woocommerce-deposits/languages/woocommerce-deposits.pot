@@ -1,24 +1,24 @@
-# Copyright (C) 2021 WooCommerce
+# Copyright (C) 2022 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Deposits 1.5.7\n"
+"Project-Id-Version: WooCommerce Deposits 1.5.8\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-deposits\n"
-"POT-Creation-Date: 2021-07-05 05:25:01+00:00\n"
+"POT-Creation-Date: 2022-01-18 20:15:50+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
 
-#: includes/class-wc-deposits-cart-manager.php:325
+#: includes/class-wc-deposits-cart-manager.php:333
 msgid "Please select a valid payment plan"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:910
+#: includes/class-wc-deposits-cart-manager.php:923
 #: includes/class-wc-deposits-plans-admin.php:136
 #: includes/class-wc-deposits-settings.php:107
 #: includes/list-tables/class-wc-deposits-plans-table.php:22
@@ -27,56 +27,65 @@ msgstr ""
 msgid "Payment Plan"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:969
+#: includes/class-wc-deposits-cart-manager.php:982
 #: includes/class-wc-deposits-order-manager.php:930
 msgid "%s payable in total"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1032
+#: includes/class-wc-deposits-cart-manager.php:1045
 #. translators: %s: country name
 msgid "estimated for %s"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1034
+#: includes/class-wc-deposits-cart-manager.php:1047
 #. translators: %s: tax information
 msgid "(includes %s)"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1135
+#: includes/class-wc-deposits-cart-manager.php:1153
 #: includes/class-wc-deposits-order-manager.php:808
 msgid "(includes tax)"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1135
+#: includes/class-wc-deposits-cart-manager.php:1153
 #: includes/class-wc-deposits-order-manager.php:808
 msgid "(excludes tax)"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1163
-#: includes/class-wc-deposits-cart-manager.php:1164
+#: includes/class-wc-deposits-cart-manager.php:1181
+#: includes/class-wc-deposits-cart-manager.php:1182
 msgid "Due Today"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1170
-#: includes/class-wc-deposits-cart-manager.php:1171
+#: includes/class-wc-deposits-cart-manager.php:1188
+#: includes/class-wc-deposits-cart-manager.php:1189
 #: includes/class-wc-deposits-order-manager.php:827
 msgid "Discount Applied Toward Future Payments"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1177
-#: includes/class-wc-deposits-cart-manager.php:1178
+#: includes/class-wc-deposits-cart-manager.php:1195
+#: includes/class-wc-deposits-cart-manager.php:1196
 #: includes/class-wc-deposits-order-manager.php:839
 #: includes/class-wc-deposits-order-manager.php:844
 msgid "Future Payments"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1363
+#: includes/class-wc-deposits-cart-manager.php:1381
 msgid "Select options"
 msgstr ""
 
-#: includes/class-wc-deposits-my-account.php:69
-#: includes/class-wc-deposits-my-account.php:104
+#: includes/class-wc-deposits-my-account.php:71
+#: includes/class-wc-deposits-my-account.php:106
 msgid "Scheduled Orders"
+msgstr ""
+
+#: includes/class-wc-deposits-my-account.php:162
+#: includes/class-wc-deposits-order-manager.php:579
+msgid "View Original Order"
+msgstr ""
+
+#: includes/class-wc-deposits-my-account.php:205
+msgid "Scheduled orders for order"
 msgstr ""
 
 #: includes/class-wc-deposits-order-manager.php:168
@@ -160,10 +169,6 @@ msgstr ""
 
 #: includes/class-wc-deposits-order-manager.php:574
 msgid "Mark Paid (offline)"
-msgstr ""
-
-#: includes/class-wc-deposits-order-manager.php:579
-msgid "View Original Order"
 msgstr ""
 
 #: includes/class-wc-deposits-order-manager.php:746
@@ -593,6 +598,21 @@ msgstr ""
 msgid "Add Payment Plan"
 msgstr ""
 
+#: templates/scheduled-orders.php:40
+#. translators: 1: formatted order total 2: total order items
+msgid "%1$s for %2$s item"
+msgid_plural "%1$s for %2$s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/scheduled-orders.php:66
+msgid "Previous"
+msgstr ""
+
+#: templates/scheduled-orders.php:70
+msgid "Next"
+msgstr ""
+
 #: woocommerce-deposits.php:70
 #. translators: %s: WooCommerce link
 msgid "WooCommerce Deposits requires %s to be installed and active."
@@ -636,4 +656,9 @@ msgstr ""
 #: includes/class-wc-deposits-order-manager.php:197
 msgctxt "Order status"
 msgid "Pending Deposit Payment"
+msgstr ""
+
+#: templates/scheduled-orders.php:28
+msgctxt "hash before order number"
+msgid "#"
 msgstr ""

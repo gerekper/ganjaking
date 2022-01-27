@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.0.1
+ * @version     1.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -47,6 +47,13 @@ if ( ! class_exists( 'WC_SC_Coupon_Parser' ) ) {
 		 * @var array $postmeta_defaults
 		 */
 		public $postmeta_defaults;     // default post meta.
+
+		/**
+		 * Term defaults
+		 *
+		 * @var array $term_defaults
+		 */
+		public $term_defaults;     // default term data.
 
 		/**
 		 * Row number
@@ -151,6 +158,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Parser' ) ) {
 				)
 			);
 
+			$this->term_defaults = array(
+				'sc_coupon_category' => '',
+			);
 		}
 
 		/**
@@ -298,8 +308,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Parser' ) ) {
 			global $wc_csv_coupon_import, $wpdb;
 
 			$this->row++;
-			$postmeta = array();
-			$coupon   = array();
+			$postmeta  = array();
+			$term_data = array();
+			$coupon    = array();
 
 			$post_id = ( ! empty( $item['id'] ) ) ? absint( $item['id'] ) : 0;
 			$post_id = ( ! empty( $item['post_id'] ) ) ? absint( $item['post_id'] ) : $post_id;
@@ -322,9 +333,17 @@ if ( ! class_exists( 'WC_SC_Coupon_Parser' ) ) {
 				}
 			}
 
+			// Get term fields.
+			foreach ( $this->term_defaults as $column => $default ) {
+				if ( isset( $item[ $column ] ) ) {
+					$term_data[ $column ] = $item[ $column ];
+				}
+			}
+
 			// Merge post meta with defaults.
-			$coupon   = wp_parse_args( $product, $this->post_defaults );
-			$postmeta = wp_parse_args( $postmeta, $this->postmeta_defaults );
+			$coupon    = wp_parse_args( $product, $this->post_defaults );
+			$postmeta  = wp_parse_args( $postmeta, $this->postmeta_defaults );
+			$term_data = wp_parse_args( $term_data, $this->term_defaults );
 
 			if ( ! empty( $postmeta['discount_type'] ) ) {
 				$discount_type = $postmeta['discount_type'];
@@ -405,6 +424,14 @@ if ( ! class_exists( 'WC_SC_Coupon_Parser' ) ) {
 			// Put set core product postmeta into product array.
 			foreach ( $postmeta as $key => $value ) {
 				$coupon['postmeta'][] = array(
+					'key'   => esc_attr( $key ),
+					'value' => $value,
+				);
+			}
+
+			// term data.
+			foreach ( $term_data as $key => $value ) {
+				$coupon['term_data'][] = array(
 					'key'   => esc_attr( $key ),
 					'value' => $value,
 				);

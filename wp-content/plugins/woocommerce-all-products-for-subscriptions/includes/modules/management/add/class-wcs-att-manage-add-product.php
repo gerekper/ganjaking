@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add stuff to existing subscriptions.
  *
  * @class    WCS_ATT_Manage_Add_Product
- * @version  3.1.25
+ * @version  3.2.0
  */
 class WCS_ATT_Manage_Add_Product extends WCS_ATT_Abstract_Module {
 
@@ -87,7 +87,7 @@ class WCS_ATT_Manage_Add_Product extends WCS_ATT_Abstract_Module {
 		}
 
 		// Bypass when switching.
-		if ( WCS_ATT_Manage_Switch::is_switch_request_for_product( $product ) ) {
+		if ( WCS_ATT()->is_module_registered( 'manage' ) && WCS_ATT_Manage_Switch::is_switch_request_for_product( $product ) ) {
 			return;
 		}
 

@@ -3,12 +3,11 @@
  * WooCommerce Pre-Orders
  *
  * @package     WC_Pre_Orders/Email
- * @author      WooThemes
- * @copyright   Copyright (c) 2013, WooThemes
- * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /**
  * Customer Pre-Order Available Email
@@ -33,12 +32,12 @@ class WC_Pre_Orders_Email_Pre_Order_Available extends WC_Email {
 
 		global $wc_pre_orders;
 
-		$this->id             = 'wc_pre_orders_pre_order_available';
-		$this->title          = __( 'Pre-order Available', 'wc-pre-orders' );
-		$this->description    = __( 'This is an order notification sent to the customer once a pre-order is complete.', 'wc-pre-orders' );
+		$this->id          = 'wc_pre_orders_pre_order_available';
+		$this->title       = __( 'Pre-order Available', 'wc-pre-orders' );
+		$this->description = __( 'This is an order notification sent to the customer once a pre-order is complete.', 'wc-pre-orders' );
 
-		$this->heading        = __( 'Pre-order Available', 'wc-pre-orders' );
-		$this->subject        = __( 'Your {site_title} pre-order from {order_date} is now available', 'wc-pre-orders' );
+		$this->heading = __( 'Pre-order Available', 'wc-pre-orders' );
+		$this->subject = __( 'Your {site_title} pre-order from {order_date} is now available', 'wc-pre-orders' );
 
 		$this->template_base  = $wc_pre_orders->get_plugin_path() . '/templates/';
 		$this->template_html  = 'emails/customer-pre-order-available.php';
@@ -60,7 +59,7 @@ class WC_Pre_Orders_Email_Pre_Order_Available extends WC_Email {
 	public function trigger( $order_id, $message = '' ) {
 
 		if ( $order_id ) {
-			$pre_wc_30       = version_compare( WC_VERSION, '3.0', '<' );
+			$pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
 
 			$this->object    = new WC_Order( $order_id );
 			$this->recipient = $pre_wc_30 ? $this->object->billing_email : $this->object->get_billing_email();
@@ -76,8 +75,9 @@ class WC_Pre_Orders_Email_Pre_Order_Available extends WC_Email {
 			$this->replace[] = $this->object->get_order_number();
 		}
 
-		if ( ! $this->is_enabled() || ! $this->get_recipient() )
+		if ( ! $this->is_enabled() || ! $this->get_recipient() ) {
 			return;
+		}
 
 		$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 	}
@@ -94,13 +94,13 @@ class WC_Pre_Orders_Email_Pre_Order_Available extends WC_Email {
 		wc_get_template(
 			$this->template_html,
 			array(
-				'order'         => $this->object,
-				'email_heading' => $this->get_heading(),
+				'order'              => $this->object,
+				'email_heading'      => $this->get_heading(),
 				'additional_content' => $this->get_additional_content(),
-				'message'       => $this->message,
-				'plain_text'    => false,
-				'email'         => $this,
-				'sent_to_admin' => false,
+				'message'            => $this->message,
+				'plain_text'         => false,
+				'email'              => $this,
+				'sent_to_admin'      => false,
 			),
 			'',
 			$this->template_base
@@ -115,17 +115,18 @@ class WC_Pre_Orders_Email_Pre_Order_Available extends WC_Email {
 	 * @since 1.0
 	 * @return string the email plain content
 	 */
-	function get_content_plain() {
+	public function get_content_plain() {
 		ob_start();
 		wc_get_template(
 			$this->template_plain,
 			array(
-				'order'         => $this->object,
-				'email_heading' => $this->get_heading(),
+				'order'              => $this->object,
+				'email_heading'      => $this->get_heading(),
 				'additional_content' => $this->get_additional_content(),
-				'message'       => $this->message,
-				'plain_text'    => true,
-				'sent_to_admin' => false,
+				'message'            => $this->message,
+				'plain_text'         => true,
+				'email'              => $this,
+				'sent_to_admin'      => false,
 			),
 			'',
 			$this->template_base

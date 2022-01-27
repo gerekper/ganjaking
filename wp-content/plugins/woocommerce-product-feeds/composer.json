@@ -3,7 +3,8 @@
         "woocommerce/action-scheduler": "*",
         "pimple/pimple": "^3.2",
 	"psr/container": "1.0.0",
-        "php": ">7.2"
+        "php": ">7.2",
+	"leewillis77/dismissible-wp-notices": "dev-main"
     },
     "config": {
         "platform": {
@@ -24,6 +25,7 @@
             "./src/common/woocommerce-gpf-rest-api.php",
             "./src/common/woocommerce-gpf-status-report.php",
             "./src/common/woocommerce-gpf-template-loader.class.php",
+            "./src/common/woocommerce-product-feeds-admin-notices.php",
             "./src/common/woocommerce-product-feeds-db-manager.php",
             "./src/common/woocommerce-product-feeds-expanded-structured-data.php",
             "./src/common/woocommerce-product-feeds-expanded-structured-data-cache-invalidator.php",
@@ -63,6 +65,12 @@
             "./src/gpf/woocommerce-gpf-structured-data.php",
             "./src/gpf/woocommerce-gpf-template-tags.php",
 
+            "./src/jobs/abstract-woocommerce-product-feeds-job.php",
+            "./src/jobs/woocommerce-product-feeds-job-manager.php",
+
+            "./src/jobs/woocommerce-product-feeds-clear-google-taxonomy-job.php",
+            "./src/jobs/woocommerce-product-feeds-refresh-google-taxonomy-job.php",
+
             "./src/prf/woocommerce-prf-admin.php",
             "./src/prf/woocommerce-prf-google.php",
             "./src/prf/woocommerce-prf-google-review-feed.php",
@@ -97,5 +105,11 @@
         "wp-coding-standards/wpcs": "^2.3.0",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
         "phpmd/phpmd": "^2.8"
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org:leewillis77/dismissible-wp-notices.git"
+        }
+    ]
 }

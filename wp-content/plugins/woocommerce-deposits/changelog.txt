@@ -1,5 +1,10 @@
 *** WooCommerce Deposits Changelog ***
 
+2022-01-18 - version 1.5.8
+* Feature - Add a convenient way for customers to navigate between original orders and its related scheduled orders. PR#388
+* Fix - Fix issues with cart totals when the cart contains a subscription and a deposit product. PR#374
+* Fix - Send email alerts to customer and admin when payments are made on scheduled orders. PR#387
+
 2021-07-05 - version 1.5.7
 * Fix - Correctly calculate discounts when coupons are used for orders containing tax inclusive discount products. PR#368
 * Fix - Don't allow payment gateways that are disabled for deposits to be used to pay for future payments. PR#371

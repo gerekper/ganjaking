@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.8.0
+ * @version     1.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -613,7 +613,7 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 				wp_enqueue_style( 'smart-coupon' );
 			}
 
-			if ( ! is_ajax() ) {
+			if ( ! wp_doing_ajax() ) {
 				add_action( 'wp_footer', array( $this, 'receiver_detail_form_styles_and_scripts' ) );
 			}
 

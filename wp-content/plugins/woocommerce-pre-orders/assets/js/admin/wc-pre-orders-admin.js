@@ -21,7 +21,7 @@ jQuery( document ).ready( function( $ ) {
 
 	// Hide email notification message textarea when "send email notification" is disabled
 	if ( $actionEmailMessage.length ) {
-		$( 'input[name="wc_pre_orders_action_enable_email_notification"]').change( function() {
+		$( 'input[name="wc_pre_orders_action_enable_email_notification"]').on( 'change', function() {
 			if ( ! $( this ).is( ':checked' ) ) {
 				$actionEmailMessage.removeAttr( 'required' );
 				$actionEmailMessage.closest( 'tr' ).hide();
@@ -29,6 +29,6 @@ jQuery( document ).ready( function( $ ) {
 				$actionEmailMessage.closest( 'tr' ).show();
 				$actionEmailMessage.attr( 'required', 'required' );
 			}
-		}).change();
+		}).trigger( 'change' );
 	}
 });

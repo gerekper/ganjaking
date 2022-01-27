@@ -90,13 +90,10 @@ function wc_instagram_get_user_pages() {
  */
 function wc_instagram_get_user_pages_choices() {
 	$accounts = wc_instagram_get_user_pages();
-
-	$choices = wp_list_pluck( $accounts, 'name', 'id' );
+	$choices  = wp_list_pluck( $accounts, 'name', 'id' );
 
 	// Don't use array_merge to avoid reindexing.
-	$choices = array( '' => _x( 'Choose a page', 'Facebook page setting placeholder', 'woocommerce-instagram' ) ) + $choices;
-
-	return $choices;
+	return array( '' => _x( 'Choose a page', 'Facebook page setting placeholder', 'woocommerce-instagram' ) ) + $choices;
 }
 
 /**
@@ -313,9 +310,9 @@ function wc_instagram_clear_hashtag_media_transients() {
  *
  * @since 2.0.0
  *
- * @param mixed  $error  The error to log. It can be an string or a WP_Error object.
- * @param array  $params Optional. The error arguments. Only if the first parameter is a string.
- * @param string $tag    Optional. The error tag.
+ * @param mixed  $error  The error to log. It can be a string or a WP_Error object.
+ * @param array  $params Optional. Error arguments. Only if the first parameter is a string.
+ * @param string $tag    Optional. Error tag.
  * @return WP_Error
  */
 function wc_instagram_log_api_error( $error, $params = array(), $tag = 'API Error' ) {

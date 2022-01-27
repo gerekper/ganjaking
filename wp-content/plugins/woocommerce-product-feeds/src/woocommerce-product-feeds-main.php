@@ -34,6 +34,11 @@ class WoocommerceProductFeedsMain {
 	protected $common;
 
 	/**
+	 * @var WoocommerceProductFeedsJobManager
+	 */
+	protected $job_manager;
+
+	/**
 	 * @var WoocommerceProductFeedsFeedConfigFactory
 	 */
 	private $feed_config_factory;
@@ -97,11 +102,18 @@ class WoocommerceProductFeedsMain {
 	private $feed_config;
 
 	/**
+	 * @var WoocommerceProductFeedsAdminNotices
+	 */
+	private $admin_notices;
+
+	/**
 	 * WoocommerceProductFeedsMain constructor.
 	 *
 	 * @param WoocommerceGpfCommon $woocommerce_gpf_common
 	 * @param WoocommerceGpfCache $woocommerce_gpf_cache
 	 * @param WoocommerceProductFeedsIntegrationManager $integration_manager
+	 * @param WoocommerceProductFeedsFeedConfigFactory $feed_config_factory
+	 * @param WoocommerceProductFeedsJobManager $job_manager
 	 * @param Container $container
 	 */
 	public function __construct(
@@ -109,12 +121,14 @@ class WoocommerceProductFeedsMain {
 		WoocommerceGpfCache $woocommerce_gpf_cache,
 		WoocommerceProductFeedsIntegrationManager $integration_manager,
 		WoocommerceProductFeedsFeedConfigFactory $feed_config_factory,
+		WoocommerceProductFeedsJobManager $job_manager,
 		Container $container
 	) {
 		$this->common              = $woocommerce_gpf_common;
 		$this->cache               = $woocommerce_gpf_cache;
 		$this->integration_manager = $integration_manager;
 		$this->feed_config_factory = $feed_config_factory;
+		$this->job_manager         = $job_manager;
 		$this->container           = $container;
 	}
 
@@ -131,11 +145,14 @@ class WoocommerceProductFeedsMain {
 			$this->status_report             = $this->container['WoocommerceGpfStatusReport'];
 			$this->prf_admin                 = $this->container['WoocommercePrfAdmin'];
 			$this->import_export_integration = $this->container['WoocommerceGpfImportExportIntegration'];
+			$this->admin_notices             = $this->container['WoocommerceProductFeedsAdminNotices'];
+
 			$this->gpf_admin->initialise();
 			$this->gpf_db_manager->initialise();
 			$this->status_report->initialise();
 			$this->prf_admin->initialise();
 			$this->import_export_integration->initialise();
+			$this->admin_notices->initialise();
 		} else {
 			if ( $use_expanded_schema ) {
 				$this->expanded_structured_data = $this->container['WoocommerceProductFeedsExpandedStructuredData'];

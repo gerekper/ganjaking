@@ -13,6 +13,7 @@ if ( ! class_exists( 'WC_Instagram_Singleton' ) ) {
 	 * The class that implements the singleton pattern.
 	 *
 	 * @since 2.0.0
+	 * @deprecated 4.0.0 Use the WC_Instagram_Singleton_Trait instead.
 	 */
 	abstract class WC_Instagram_Singleton {
 
@@ -38,7 +39,9 @@ if ( ! class_exists( 'WC_Instagram_Singleton' ) ) {
 		 *
 		 * @since 2.0.0
 		 */
-		protected function __construct() {}
+		protected function __construct() {
+			wc_deprecated_function( 'WC_Instagram_Singleton::__construct', '4.0.0', 'WC_Instagram_Singleton_Trait' );
+		}
 
 		/**
 		 * Prevents cloning.
@@ -46,7 +49,7 @@ if ( ! class_exists( 'WC_Instagram_Singleton' ) ) {
 		 * @since 2.0.0
 		 */
 		private function __clone() {
-			wc_doing_it_wrong( __FUNCTION__, __( 'Cloning is forbidden.', 'woocommerce-instagram' ), '2.0.0' );
+			wc_doing_it_wrong( __FUNCTION__, 'Cloning is forbidden.', '2.0.0' );
 		}
 
 		/**
@@ -55,7 +58,7 @@ if ( ! class_exists( 'WC_Instagram_Singleton' ) ) {
 		 * @since 2.0.0
 		 */
 		final public function __wakeup() {
-			wc_doing_it_wrong( __FUNCTION__, __( 'Unserializing instances of this class is forbidden.', 'woocommerce-instagram' ), '2.0.0' );
+			wc_doing_it_wrong( __FUNCTION__, 'Unserializing instances of this class is forbidden.', '2.0.0' );
 		}
 	}
 }

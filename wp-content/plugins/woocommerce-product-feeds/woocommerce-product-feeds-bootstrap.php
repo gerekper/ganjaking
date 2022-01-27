@@ -1,6 +1,7 @@
 <?php
 
 use Pimple\Container;
+use Ademti\DismissibleWpNotices\DismissibleWpNoticeManager;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -50,6 +51,18 @@ $woocommerce_gpf_di['WoocommerceProductFeedsFeedImageManager'] = function ( $c )
 	return new WoocommerceProductFeedsFeedImageManager(
 		$c['WoocommerceGpfTemplateLoader'],
 		$c['WoocommerceProductFeedsFeedItemFactory']
+	);
+};
+
+$woocommerce_gpf_di['DismissibleWpNoticeManager'] = function ( $c ) {
+	$uri_path = plugin_dir_url( __FILE__ ) . 'vendor/leewillis77/dismissible-wp-notices/';
+	return DismissibleWpNoticeManager::get_instance( $uri_path );
+};
+
+$woocommerce_gpf_di['WoocommerceProductFeedsAdminNotices'] = function ( $c ) {
+	return new WoocommerceProductFeedsAdminNotices(
+		$c['DismissibleWpNoticeManager'],
+		$c['WoocommerceGpfTemplateLoader']
 	);
 };
 
@@ -299,6 +312,7 @@ $woocommerce_gpf_di['WoocommerceProductFeedsMain'] = function ( $c ) {
 		$c['WoocommerceGpfCache'],
 		$c['WoocommerceProductFeedsIntegrationManager'],
 		$c['WoocommerceProductFeedsFeedConfigFactory'],
+		$c['WoocommerceProductFeedsJobManager'],
 		$c
 	);
 };
@@ -312,9 +326,24 @@ $woocommerce_gpf_di['WoocommerceProductFeedsWoocommerceAdminIntegration'] = func
 };
 
 /**
- * Integrations
+ * Jobs
  */
 
+$woocommerce_gpf_di['WoocommerceProductFeedsJobManager'] = function ( $c ) {
+	return new WoocommerceProductFeedsJobManager( $c );
+};
+
+$woocommerce_gpf_di['WoocommerceProductFeedsRefreshGoogleTaxonomyJob'] = function ( $c ) {
+	return new WoocommerceProductFeedsRefreshGoogleTaxonomyJob();
+};
+
+$woocommerce_gpf_di['WoocommerceProductFeedsClearGoogleTaxonomyJob'] = function ( $c ) {
+	return new WoocommerceProductFeedsClearGoogleTaxonomyJob();
+};
+
+/**
+ * Integrations
+ */
 $woocommerce_gpf_di['WoocommerceGpfProductBrandsForWooCommerce']                = function ( $c ) {
 	return new WoocommerceGpfProductBrandsForWooCommerce();
 };

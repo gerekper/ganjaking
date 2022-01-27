@@ -21,7 +21,8 @@
 var wpsIndexer = {},
 	wpsIndexerStatus = {
 		running : true,
-		polling : false
+		polling : false,
+		loaded  : Math.floor( Date.now() / 1000 )
 	};
 
 wpsIndexer.start = function( url, redirect ) {
@@ -236,6 +237,11 @@ wpsIndexerStatus.poll = function () {
 		url = wpsIndexerStatus.url;
 	} else {
 		return;
+	}
+
+	var now = Math.floor( Date.now() / 1000 );
+	if ( now - wpsIndexerStatus.loaded > 3600 ) {
+		window.location.reload();
 	}
 
 	display.addClass( 'blinker' );

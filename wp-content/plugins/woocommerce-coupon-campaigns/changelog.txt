@@ -1,5 +1,9 @@
 *** WC Coupon Campaigns ***
 
+2022-01-18 - version 1.1.19
+* Fix - Unify `.github/**.md` files with other repos.
+* Tweak - WC 6.1 compatibility.
+
 2021-12-15 - version 1.1.18
 * Tweak - WC 6.0 compatibility.
 * Tweak - WP 5.9 compatibility.

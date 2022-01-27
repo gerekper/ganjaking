@@ -22,13 +22,6 @@ if ( ! class_exists( 'WC_Instagram_Admin_Field_Table', false ) ) {
 class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field_Table {
 
 	/**
-	 * Define if the table is sortable or not.
-	 *
-	 * @var bool
-	 */
-	protected $sortable = true;
-
-	/**
 	 * Constructor.
 	 *
 	 * @since 3.0.0
@@ -36,9 +29,7 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 	 * @param array $field The field arguments.
 	 */
 	public function __construct( $field ) {
-		$data = ( isset( $field['value'] ) && is_array( $field['value'] ) ? $field['value'] : array() );
-		$data = array_map( 'wc_instagram_get_product_catalog', $data );
-
+		$data    = ( isset( $field['value'] ) && is_array( $field['value'] ) ? $field['value'] : array() );
 		$columns = array(
 			'title'        => array(
 				'label' => _x( 'Title', 'product catalogs: table column', 'woocommerce-instagram' ),
@@ -91,6 +82,17 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 	}
 
 	/**
+	 * Outputs the field content.
+	 *
+	 * @since 4.0.0
+	 */
+	public function output() {
+		parent::output();
+
+		include 'views/html-admin-field-product-catalogs.php';
+	}
+
+	/**
 	 * Outputs the blank row.
 	 *
 	 * @since 3.0.0
@@ -103,7 +105,7 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 				<p>
 					<ul class="wc-instagram-product-catalogs-tips">
 						<li><?php esc_html_e( 'Each catalog will add a data feed URL in your store to import the products to a Facebook Catalog.', 'woocommerce-instagram' ); ?></li>
-						<li><?php esc_html_e( 'The feeds will be updated automatically when the product data changes.', 'woocommerce-instagram' ); ?></li>
+						<li><?php esc_html_e( 'The feeds will be updated periodically with the latest product data.', 'woocommerce-instagram' ); ?></li>
 						<li><?php echo wp_kses_post( __( 'To keep your catalog synchronized, set an <strong>Automatic File Upload Schedule</strong> in the Facebook Catalog.', 'woocommerce-instagram' ) ); ?></li>
 					</ul>
 				</p>
@@ -126,7 +128,7 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 		$actions = array(
 			'settings' => array(
 				'label' => __( 'Edit', 'woocommerce-instagram' ),
-				'url'   => $this->get_row_url( $row ),
+				'url'   => $this->get_row_url( $product_catalog->get_id() ),
 			),
 			'delete'   => array(
 				'label' => __( 'Delete', 'woocommerce-instagram' ),
@@ -175,7 +177,7 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 	public function output_column_title( $row, $product_catalog ) {
 		printf(
 			'<a href="%1$s">%2$s</a>',
-			esc_url( $this->get_row_url( $row ) ),
+			esc_url( $this->get_row_url( $product_catalog->get_id() ) ),
 			esc_html( $product_catalog->get_title() )
 		);
 
@@ -226,9 +228,10 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param int $row The row index.
+	 * @param int                          $row             The row index.
+	 * @param WC_Instagram_Product_Catalog $product_catalog Product Catalog.
 	 */
-	public function output_column_download( $row ) {
+	public function output_column_download( $row, $product_catalog ) {
 		/**
 		 * Filters the available formats to download a product catalog.
 		 *
@@ -239,18 +242,9 @@ class WC_Instagram_Admin_Field_Product_Catalogs extends WC_Instagram_Admin_Field
 		$formats = apply_filters( 'wc_instagram_product_catalog_download_formats', array( 'xml', 'csv' ) );
 
 		foreach ( $formats as $format ) :
-			$download_url = add_query_arg(
-				array(
-					'action' => 'download',
-					'format' => $format,
-				),
-				$this->get_row_url( $row )
-			);
-
 			printf(
-				'<a class="button wc-instagram-product-catalog-download-%1$s help_tip" href="%2$s" aria-label="%3$s" data-tip="%3$s">%4$s</a>',
+				'<a class="button wc-instagram-product-catalog-download-%1$s help_tip" href="#" aria-label="%2$s" data-tip="%2$s">%3$s</a>',
 				esc_attr( $format ),
-				esc_url( $download_url ),
 				/* translators: %s: file format */
 				esc_attr( sprintf( _x( 'Download the product catalog in %s format', 'product catalogs: catalog download aria-label', 'woocommerce-instagram' ), strtoupper( $format ) ) ),
 				esc_attr( strtoupper( $format ) )

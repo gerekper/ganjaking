@@ -1,6 +1,49 @@
 {
     "packages": [
         {
+            "name": "leewillis77/dismissible-wp-notices",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:leewillis77/dismissible-wp-notices.git",
+                "reference": "50e5c2a6d3a09c913f1f7389a3c489d8a542b643"
+            },
+            "require": {
+                "php": "^7.0|^8.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "^3.2"
+            },
+            "time": "2022-01-25T10:59:53+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-4": {
+                    "Ademti\\DismissibleWpNotices\\": "src"
+                }
+            },
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Ademti Software",
+                    "homepage": "https://www.ademti-software.co.uk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Library that automates dismissible WP notices",
+            "homepage": "https://github.com/leewillis77/dismissible-wp-notices",
+            "keywords": [
+                "WordPress",
+                "dismissible",
+                "notices"
+            ],
+            "install-path": "../leewillis77/dismissible-wp-notices"
+        },
+        {
             "name": "pimple/pimple",
             "version": "v3.3.1",
             "version_normalized": "3.3.1.0",

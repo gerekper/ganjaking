@@ -39,6 +39,8 @@ class WooCommerce_Product_Search_Term_Node_Tree_Renderer {
 
 	private $current_term_ancestor_ids = null;
 
+	private $depth = null;
+
 	private $expandable_from_depth = 0;
 
 	private $expander = true;
@@ -50,6 +52,8 @@ class WooCommerce_Product_Search_Term_Node_Tree_Renderer {
 	private $root_class = '';
 
 	private $root_id = '';
+
+	private $show_ancestors = true;
 
 	private $show_names = true;
 
@@ -73,6 +77,12 @@ class WooCommerce_Product_Search_Term_Node_Tree_Renderer {
 		if ( isset( $args['current_term_ancestor_ids'] ) ) {
 			$this->current_term_ancestor_ids = $args['current_term_ancestor_ids'];
 		}
+
+		if ( isset( $args['depth'] ) ) {
+			if ( $args['depth'] !== null && $args['depth'] > 0 ) {
+				$this->depth = $args['depth'];
+			}
+		}
 		if ( isset( $args['expander'] ) ) {
 			$this->expander = $args['expander'];
 		}
@@ -91,6 +101,10 @@ class WooCommerce_Product_Search_Term_Node_Tree_Renderer {
 		}
 		if ( isset( $args['root_id'] ) ) {
 			$this->root_id = $args['root_id'];
+		}
+
+		if ( isset( $args['show_ancestors'] ) ) {
+			$this->show_ancestors = $args['show_ancestors'];
 		}
 		if ( isset( $args['show_names'] ) ) {
 			$this->show_names = $args['show_names'];
@@ -131,11 +145,28 @@ class WooCommerce_Product_Search_Term_Node_Tree_Renderer {
 
 		$output = '';
 
+		if ( $this->depth !== null && $this->depth !== 0 && $depth > $this->depth ) {
+			return $output;
+		}
+
 		$term = null;
 		if ( $node->get_term_id() !== null ) {
 			$_term = get_term( $node->get_term_id(), $node->get_taxonomy() );
 			if ( $_term instanceof WP_Term ) {
 				$term = $_term;
+			}
+		}
+
+		$render = true;
+		if ( $term !== null ) {
+			if ( !$this->show_ancestors ) {
+				if (
+					is_array( $this->current_term_ancestor_ids ) &&
+					count( $this->current_term_ancestor_ids ) > 0 &&
+					in_array( $term->term_id, $this->current_term_ancestor_ids )
+				) {
+					$render = false;
+				}
 			}
 		}
 
@@ -151,6 +182,10 @@ class WooCommerce_Product_Search_Term_Node_Tree_Renderer {
 			'auto_retract'  => $this->auto_retract
 		);
 
+		if ( $depth === $this->depth ) {
+			$element_args['expander'] = false;
+		}
+
 		if ( $depth === 0 ) {
 			if ( $this->render_root_container ) {
 				$id_attribute = !empty( $this->root_id ) ? sprintf( 'id="%s"', esc_attr( $this->root_id ) ) : '';
@@ -158,22 +193,28 @@ class WooCommerce_Product_Search_Term_Node_Tree_Renderer {
 				$output .= $nl . $sp . sprintf( '<ul %s %s>', $id_attribute, $class_attribute ) . $nl;
 			}
 		} else {
-			if ( $term !== null ) {
-				$this->walker->start_el( $output, $term, $depth, $element_args );
-			} else {
-				$output .= $sp . '<li>';
+			if ( $render ) {
+				if ( $term !== null ) {
+					$this->walker->start_el( $output, $term, $depth, $element_args );
+				} else {
+					$output .= $sp . '<li>';
+				}
 			}
 		}
 
 		if ( $node->has_children() ) {
+			if ( $render ) {
 			if ( $depth !== 0 ) {
 				$output .= $nl . $sp . '<ul class="children">' . $nl;
+			}
 			}
 			foreach ( $node->get_children() as $child ) {
 				$output .= $this->render_level( $child, $depth + 1 );
 			}
-			if ( $depth !== 0 ) {
-				$output .= $nl . $sp . '</ul>' . $nl;
+			if ( $render ) {
+				if ( $depth !== 0 ) {
+					$output .= $nl . $sp . '</ul>' . $nl;
+				}
 			}
 		}
 
@@ -182,11 +223,13 @@ class WooCommerce_Product_Search_Term_Node_Tree_Renderer {
 				$output .= $nl . $sp . '</ul>' . $nl;
 			}
 		} else {
-			if ( $term !== null ) {
-				$this->walker->end_el( $output, $term, $depth, $element_args );
-				$this->walker->increase_elements_displayed();
-			} else {
-				$output .= $sp . '</li>' . $nl;
+			if ( $render ) {
+				if ( $term !== null ) {
+					$this->walker->end_el( $output, $term, $depth, $element_args );
+					$this->walker->increase_elements_displayed();
+				} else {
+					$output .= $sp . '</li>' . $nl;
+				}
 			}
 		}
 

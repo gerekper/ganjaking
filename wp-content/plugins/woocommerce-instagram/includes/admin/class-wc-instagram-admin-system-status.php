@@ -34,7 +34,7 @@ class WC_Instagram_Admin_System_Status {
 			'is_connected'      => wc_instagram_is_connected(),
 			'has_page'          => wc_instagram_has_business_account(),
 			'catalog_permalink' => wc_instagram_get_setting( 'product_catalog_permalink', 'product-catalog/' ),
-			'catalogs'          => array_map( 'wc_instagram_get_product_catalog', wc_instagram_get_product_catalogs() ),
+			'catalogs'          => wc_instagram_get_product_catalogs( array(), 'objects' ),
 		);
 
 		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-settings.php';

@@ -1,15 +1,15 @@
-# Copyright (C) 2021 WPMU DEV
+# Copyright (C) 2022 WPMU DEV
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smush Pro 3.9.2-alpha.1\n"
+"Project-Id-Version: Smush Pro 3.9.5\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-10-11T09:43:56+11:00\n"
+"POT-Creation-Date: 2022-01-25T02:23:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: wp-smushit\n"
@@ -40,37 +40,37 @@ msgid "https://wpmudev.com/"
 msgstr ""
 
 #. translators: 1. opening 'strong' tag, 2. closing 'strong' tag.
-#: app/class-abstract-page.php:216
+#: app/class-abstract-page.php:217
 msgid "Thanks for installing Smush! %1$sGet a free trial + 30%% OFF%2$s Smush Pro for a limited time - an exclusive welcome discount for free version users! Grab it while it lasts."
 msgstr ""
 
 #. translators: 1. opening 'strong' tag, 2. closing 'strong' tag.
-#: app/class-abstract-page.php:219
+#: app/class-abstract-page.php:220
 msgid "Thanks for updating Smush! %1$sGet 30%% OFF Smush Pro + Free Trial%2$s - Did you know we now offer Smush Pro only plans? With a limited time intro discount! Grab it while it lasts."
 msgstr ""
 
-#: app/class-abstract-page.php:238
-#: app/class-abstract-page.php:300
+#: app/class-abstract-page.php:239
+#: app/class-abstract-page.php:301
 #: app/views/cdn/disabled-meta-box.php:19
 #: app/views/cdn/upsell-meta-box.php:20
 #: app/views/lazyload/disabled-meta-box.php:18
 msgid "Smush CDN"
 msgstr ""
 
-#: app/class-abstract-page.php:243
+#: app/class-abstract-page.php:244
 msgid "*Only admin users can see this message"
 msgstr ""
 
-#: app/class-abstract-page.php:247
+#: app/class-abstract-page.php:248
 msgid "Try Smush Pro Free"
 msgstr ""
 
-#: app/class-abstract-page.php:249
+#: app/class-abstract-page.php:250
 msgid "Saving"
 msgstr ""
 
-#: app/class-abstract-page.php:250
-#: app/class-abstract-page.php:735
+#: app/class-abstract-page.php:251
+#: app/class-abstract-page.php:740
 #: app/class-admin.php:498
 #: app/pages/class-directory.php:176
 #: app/pages/class-directory.php:177
@@ -80,66 +80,66 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: app/class-abstract-page.php:268
+#: app/class-abstract-page.php:269
 msgid "Smush Free was deactivated. You have Smush Pro active!"
 msgstr ""
 
-#: app/class-abstract-page.php:304
+#: app/class-abstract-page.php:305
 msgid "Smush Pro requires the WPMU DEV Dashboard plugin to unlock pro features. Please make sure you have installed, activated and logged into the Dashboard."
 msgstr ""
 
-#: app/class-abstract-page.php:309
+#: app/class-abstract-page.php:310
 msgid "Log In"
 msgstr ""
 
-#: app/class-abstract-page.php:313
+#: app/class-abstract-page.php:314
 msgid "Install Plugin"
 msgstr ""
 
-#: app/class-abstract-page.php:677
+#: app/class-abstract-page.php:682
 msgid "Lets you check if any images can be further optimized. Useful after changing settings."
 msgstr ""
 
-#: app/class-abstract-page.php:680
+#: app/class-abstract-page.php:685
 msgid "Re-Check Images"
 msgstr ""
 
-#: app/class-abstract-page.php:684
+#: app/class-abstract-page.php:689
 msgid "Check Complete"
 msgstr ""
 
-#: app/class-abstract-page.php:691
+#: app/class-abstract-page.php:696
 msgid "Documentation"
 msgstr ""
 
-#: app/class-abstract-page.php:762
+#: app/class-abstract-page.php:767
 msgid "Your settings have been updated!"
 msgstr ""
 
-#: app/class-abstract-page.php:769
+#: app/class-abstract-page.php:774
 msgid "Your settings have been saved and changes are now propagating to the CDN. Changes can take up to 30 minutes to take effect but your images will continue to be served in the mean time, please be patient."
 msgstr ""
 
 #. translators: %1$s - <a>, %2$s - </a>
-#: app/class-abstract-page.php:782
+#: app/class-abstract-page.php:787
 msgid "You have images that need smushing. %1$sBulk smush now!%2$s"
 msgstr ""
 
-#: app/class-abstract-page.php:918
+#: app/class-abstract-page.php:923
 #: app/class-admin.php:319
 #: app/views/settings/permissions-meta-box.php:97
 msgid "Tutorials"
 msgstr ""
 
-#: app/class-abstract-page.php:922
+#: app/class-abstract-page.php:927
 msgid "Loading tutorials..."
 msgstr ""
 
-#: app/class-abstract-page.php:923
+#: app/class-abstract-page.php:928
 msgid "min read"
 msgstr ""
 
-#: app/class-abstract-page.php:924
+#: app/class-abstract-page.php:929
 msgid "Read article"
 msgstr ""
 
@@ -581,13 +581,13 @@ msgid "Select an image to view Smush stats."
 msgstr ""
 
 #: app/class-media-library.php:315
-#: app/class-media-library.php:743
+#: app/class-media-library.php:741
 #: core/integrations/nextgen/class-stats.php:543
 msgid "Image size"
 msgstr ""
 
 #: app/class-media-library.php:316
-#: app/class-media-library.php:744
+#: app/class-media-library.php:742
 #: core/integrations/nextgen/class-stats.php:544
 msgid "Savings"
 msgstr ""
@@ -612,7 +612,7 @@ msgstr ""
 
 #: app/class-media-library.php:410
 #: app/class-media-library.php:464
-#: app/class-media-library.php:702
+#: app/class-media-library.php:700
 #: core/class-core.php:291
 #: core/class-rest.php:82
 #: core/integrations/nextgen/class-admin.php:308
@@ -645,7 +645,7 @@ msgid "Undo"
 msgstr ""
 
 #: app/class-media-library.php:521
-#: app/class-media-library.php:721
+#: app/class-media-library.php:719
 msgid "Ignore"
 msgstr ""
 
@@ -657,27 +657,27 @@ msgstr ""
 msgid "View Stats"
 msgstr ""
 
-#: app/class-media-library.php:719
+#: app/class-media-library.php:717
 msgid "Show in bulk Smush"
 msgstr ""
 
-#: app/class-media-library.php:882
+#: app/class-media-library.php:880
 msgid "Smush image including original file"
 msgstr ""
 
-#: app/class-media-library.php:886
+#: app/class-media-library.php:884
 msgid "Resmush"
 msgstr ""
 
-#: app/class-media-library.php:908
+#: app/class-media-library.php:906
 msgid "Restore original image"
 msgstr ""
 
-#: app/class-media-library.php:912
+#: app/class-media-library.php:910
 msgid "Restore"
 msgstr ""
 
-#: app/class-media-library.php:941
+#: app/class-media-library.php:939
 #: core/class-core.php:266
 #: core/class-settings.php:242
 #: core/integrations/nextgen/class-admin.php:211
@@ -1658,7 +1658,7 @@ msgid "Available Integrations"
 msgstr ""
 
 #: app/views/dashboard/integrations-meta-box.php:63
-msgid "Smush Pro supports hosting images on Amazon S3 and optimizating NextGen Gallery images directly through NextGen Gallery settings."
+msgid "Smush Pro supports hosting images on Amazon S3 and optimizing NextGen Gallery images directly through NextGen Gallery settings."
 msgstr ""
 
 #. translators: %1$s - opening <a>, %2$s - closing </a>
@@ -2611,6 +2611,10 @@ msgstr ""
 msgid "[WPMUDEV API] Skipped sync due to API error exponential backoff."
 msgstr ""
 
+#: core/api/class-smush-api.php:52
+msgid "Unable to check status on staging."
+msgstr ""
+
 #. translators: %d - image ID
 #: core/class-cli.php:64
 msgid "Smushing image ID: %d"
@@ -2879,7 +2883,7 @@ msgstr ""
 msgid "The widget has been removed. Smush tutorials can still be found in the %1$sTutorials tab%2$s any time."
 msgstr ""
 
-#: core/class-helper.php:269
+#: core/class-helper.php:287
 msgid "Couldn't process image due to bad headers. Try re-saving the image in an image editor, then upload it again."
 msgstr ""
 

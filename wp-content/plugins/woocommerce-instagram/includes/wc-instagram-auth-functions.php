@@ -68,7 +68,7 @@ function wc_instagram_connect( $args ) {
 	$api = wc_instagram()->api();
 
 	$args = wp_parse_args(
-		( is_array( $args ) ? $args : array( 'access_token' => $args ) ), // Backward compatibility.
+		$args,
 		array(
 			'access_token' => '',
 			'expires_at'   => strtotime( '+60 days' ), // The access token is valid during 60 days by default.
@@ -136,7 +136,7 @@ function wc_instagram_disconnect() {
 	// Remove the scheduled access renewal event.
 	wc_instagram_unschedule_access_renewal();
 
-	// Remove the renew access notice.
+	// Remove the renewal access notice.
 	delete_option( 'wc_instagram_renew_access_notice' );
 
 	return update_option( 'wc_instagram_settings', $settings );
@@ -238,7 +238,7 @@ function wc_instagram_schedule_access_renewal() {
 
 			/*
 			 * It remains less than a week for the access token expires.
-			 * That means we tried to renew it at least three times without success and it's time to notify the merchant.
+			 * That means we tried to renew it at least three times without success, and it's time to notify the merchant.
 			 */
 			if ( $expires_at - $timestamp <= WEEK_IN_SECONDS ) {
 				$timestamp = false;

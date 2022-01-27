@@ -1,22 +1,33 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '10.4.0',
-        'version' => '10.4.0.0',
+        'pretty_version' => '10.5.0',
+        'version' => '10.5.0.0',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '064914cefafed360dad75ccad184db1b98147036',
+        'reference' => '092f3f45f05ef8324d463c811a8b6dae11eb8be0',
         'name' => '__root__',
         'dev' => false,
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '10.4.0',
-            'version' => '10.4.0.0',
+            'pretty_version' => '10.5.0',
+            'version' => '10.5.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '064914cefafed360dad75ccad184db1b98147036',
+            'reference' => '092f3f45f05ef8324d463c811a8b6dae11eb8be0',
+            'dev_requirement' => false,
+        ),
+        'leewillis77/dismissible-wp-notices' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../leewillis77/dismissible-wp-notices',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'reference' => '50e5c2a6d3a09c913f1f7389a3c489d8a542b643',
             'dev_requirement' => false,
         ),
         'pimple/pimple' => array(

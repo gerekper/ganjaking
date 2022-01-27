@@ -3,9 +3,6 @@
  * WooCommerce Pre-Orders
  *
  * @package     WC_Pre_Orders/Pay-Later-Gateway
- * @author      WooThemes
- * @copyright   Copyright (c) 2013, WooThemes
- * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -85,14 +82,13 @@ class WC_Pre_Orders_Gateway_Pay_Later extends WC_Payment_Gateway {
 			if ( WC_Pre_Orders_Cart::cart_contains_pre_order() ) {
 
 				// Not available when the pre-order amount is charged upfront
-				if ( WC_Pre_Orders_Product::product_is_charged_upfront( WC_Pre_Orders_Cart::get_pre_order_product() ) )
+				if ( WC_Pre_Orders_Product::product_is_charged_upfront( WC_Pre_Orders_Cart::get_pre_order_product() ) ) {
 					$is_available = false;
-
+				}
 			} else {
 
 				$is_available = false;
 			}
-
 		} else {
 
 			// Not available on the pay page (for now)
@@ -110,12 +106,12 @@ class WC_Pre_Orders_Gateway_Pay_Later extends WC_Payment_Gateway {
 	 */
 	public function init_form_fields() {
 		$this->form_fields = array(
-			'enabled' => array(
+			'enabled'     => array(
 				'title'       => __( 'Enable/Disable', 'wc-pre-orders' ),
 				'label'       => __( 'Enable Pay Later', 'wc-pre-orders' ),
 				'type'        => 'checkbox',
 				'description' => '',
-				'default'     => 'yes'
+				'default'     => 'yes',
 			),
 			'title'       => array(
 				'title'       => __( 'Title', 'wc-pre-orders' ),
@@ -129,7 +125,7 @@ class WC_Pre_Orders_Gateway_Pay_Later extends WC_Payment_Gateway {
 				'type'        => 'textarea',
 				'description' => __( 'Let the customer know how they will be able to pay for their pre-order.', 'wc-pre-orders' ),
 				'default'     => __( 'You will receive an email when the pre-order is available along with instructions on how to complete your order.', 'wc-pre-orders' ),
-			)
+			),
 		);
 	}
 
@@ -161,7 +157,7 @@ class WC_Pre_Orders_Gateway_Pay_Later extends WC_Payment_Gateway {
 			$order->save();
 		}
 
-		$is_pre_30 ? $order->reduce_order_stock() : wc_reduce_stock_levels( $order_id );
+		WC_Pre_Orders_Manager::reduce_stock_level( $order );
 
 		// Redirect to thank you page
 		return array(
@@ -178,7 +174,7 @@ class WC_Pre_Orders_Gateway_Pay_Later extends WC_Payment_Gateway {
 	 * @return string
 	 */
 	public function receipt_page( $order ) {
-		echo '<p>' . __( 'Thank you for your order.', 'wc-pre-orders' ) . '</p>';
+		echo '<p>' . esc_html__( 'Thank you for your order.', 'wc-pre-orders' ) . '</p>';
 	}
 
 } // end \WC_Pre_Orders_Gateway_Pay_Later class

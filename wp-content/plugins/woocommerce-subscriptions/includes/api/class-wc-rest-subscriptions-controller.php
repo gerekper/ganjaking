@@ -282,7 +282,9 @@ class WC_REST_Subscriptions_Controller extends WC_REST_Orders_Controller {
 						foreach ( $value as $item ) {
 							if ( is_array( $item ) ) {
 								if ( $this->item_is_null( $item ) || ( isset( $item['quantity'] ) && 0 === $item['quantity'] ) ) {
-									$order->remove_item( $item['id'] );
+									if ( isset( $item['id'] ) ) {
+										$subscription->remove_item( $item['id'] );
+									}
 								} else {
 									$this->set_item( $subscription, $key, $item );
 								}

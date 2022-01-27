@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add stuff to existing subscriptions.
  *
  * @class    WCS_ATT_Manage_Add
- * @version  3.1.19
+ * @version  3.2.0
  */
 class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 
@@ -31,8 +31,8 @@ class WCS_ATT_Manage_Add extends WCS_ATT_Abstract_Module {
 
 		// Initialize modules.
 		$this->modules = array(
-			'WCS_ATT_Manage_Add_Product',
-			'WCS_ATT_Manage_Add_Cart'
+			'manage_add_product' => 'WCS_ATT_Manage_Add_Product',
+			'manage_add_cart'    => 'WCS_ATT_Manage_Add_Cart'
 		);
 	}
 

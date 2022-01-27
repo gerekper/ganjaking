@@ -7,7 +7,7 @@
  */
 
 /**
- * Instagram integration class.
+ * Instagram's integration class.
  */
 class WC_Instagram_Integration extends WC_Integration {
 
@@ -51,19 +51,25 @@ class WC_Instagram_Integration extends WC_Integration {
 
 		$catalog_id = $this->get_catalog_id();
 
-		if ( '' !== $catalog_id && ! wc_instagram_is_connected() ) {
+		if ( ! $catalog_id ) {
+			$this->init_settings_api();
+			return;
+		}
+
+		$catalog_id      = ( 'new' === $catalog_id ? 0 : $catalog_id );
+		$product_catalog = WC_Instagram_Product_Catalog_Factory::get_catalog( $catalog_id );
+
+		if ( ! $product_catalog || ! wc_instagram_is_connected() ) {
 			wp_die( 'Something went wrong' );
 		}
 
-		if ( is_numeric( $catalog_id ) ) {
-			$action = ( isset( $_GET['action'] ) ? wc_clean( wp_unslash( $_GET['action'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
+		$action = ( isset( $_GET['action'] ) ? wc_clean( wp_unslash( $_GET['action'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
 
-			if ( $action ) {
-				$this->process_catalog_action( $catalog_id, $action );
-			}
+		if ( $action && $catalog_id ) {
+			$this->process_catalog_action( $catalog_id, $action );
+		} else {
+			$this->init_settings_api( $product_catalog );
 		}
-
-		$this->init_settings_api( $catalog_id );
 	}
 
 	/**
@@ -109,12 +115,13 @@ class WC_Instagram_Integration extends WC_Integration {
 	 *
 	 * @since 3.0.0
 	 * @since 3.4.4 Added parameter `$catalog_id`.
+	 * @since 4.0.0 The first parameter must be a product catalog object.
 	 *
-	 * @param string $catalog_id Optional. The catalog ID. Default empty.
+	 * @param WC_Instagram_Product_Catalog $product_catalog Optional. Product catalog object. Default false.
 	 */
-	public function init_settings_api( $catalog_id = '' ) {
-		if ( '' !== $catalog_id ) {
-			$this->settings_api = new WC_Instagram_Settings_Product_Catalog( $catalog_id );
+	public function init_settings_api( $product_catalog = false ) {
+		if ( $product_catalog ) {
+			$this->settings_api = new WC_Instagram_Settings_Product_Catalog( $product_catalog );
 		} else {
 			$this->settings_api = new WC_Instagram_Settings_General();
 		}
@@ -126,7 +133,9 @@ class WC_Instagram_Integration extends WC_Integration {
 	 * @since 2.0.0
 	 */
 	public function admin_options() {
-		$this->settings_api->admin_options();
+		if ( $this->settings_api ) {
+			$this->settings_api->admin_options();
+		}
 	}
 
 	/**
@@ -137,6 +146,10 @@ class WC_Instagram_Integration extends WC_Integration {
 	 * @return bool was anything saved?
 	 */
 	public function process_admin_options() {
+		if ( ! $this->settings_api ) {
+			return false;
+		}
+
 		return $this->settings_api->process_admin_options();
 	}
 
@@ -193,19 +206,11 @@ class WC_Instagram_Integration extends WC_Integration {
 	protected function delete_product_catalog( $catalog_id ) {
 		check_admin_referer( 'wc_instagram_delete_product_catalog' );
 
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html_x( 'You do not have permission to delete the catalog.', 'error notice', 'woocommerce-instagram' ) );
+		$result = wc_instagram_delete_product_catalog( $catalog_id );
+
+		if ( is_wp_error( $result ) ) {
+			wp_die( esc_html( $result->get_error_message() ) );
 		}
-
-		$product_catalogs = wc_instagram_get_product_catalogs();
-
-		if ( ! isset( $product_catalogs[ $catalog_id ] ) ) {
-			wp_die( esc_html_x( 'Product catalog not found.', 'error notice', 'woocommerce-instagram' ) );
-		}
-
-		unset( $product_catalogs[ $catalog_id ] );
-
-		update_option( 'wc_instagram_product_catalogs', $product_catalogs );
 
 		wp_safe_redirect( wc_instagram_get_settings_url( array( 'notice' => 'catalog_deleted' ) ) );
 	}
@@ -222,23 +227,25 @@ class WC_Instagram_Integration extends WC_Integration {
 		$product_catalog = wc_instagram_get_product_catalog( $catalog_id );
 
 		if ( ! $product_catalog ) {
-			wp_die( esc_html_x( 'Product catalog not found.', 'error notice', 'woocommerce-instagram' ) );
+			wp_die( esc_html__( 'Product catalog not found.', 'woocommerce-instagram' ) );
 		}
 
-		$charset   = get_option( 'blog_charset' );
-		$formatter = wc_instagram_get_product_catalog_formatter( $product_catalog, array( 'charset' => $charset ), $format );
+		$charset       = get_option( 'blog_charset' );
+		$format        = strtolower( $format );
+		$file          = $product_catalog->get_file( $format );
+		$last_modified = $file->get_last_modified();
 
-		if ( ! $formatter ) {
-			wp_die( esc_html_x( 'The format used to export the product catalog is not valid.', 'error notice', 'woocommerce-instagram' ) );
+		if ( ! $last_modified ) {
+			wp_die( esc_html__( 'Product catalog file not found.', 'woocommerce-instagram' ) );
 		}
 
-		$filename = sprintf( '%1$s-%2$s.%3$s', $product_catalog->get_slug(), gmdate( 'Y-m-d' ), $format );
+		$filename = sprintf( '%1$s-%2$s.%3$s', $product_catalog->get_slug(), $last_modified->date_i18n( 'Y-m-d-H-i' ), $format );
 
 		header( 'Content-Description: File Transfer' );
 		header( 'Content-Disposition: attachment; filename=' . $filename );
-		header( 'Content-Type: text/' . $format . '; charset=' . $charset, true );
+		header( 'Content-Type: text/' . $format . '; charset=' . $charset );
 
-		echo $formatter->get_output(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $file->get_content(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		die();
 	}
 }

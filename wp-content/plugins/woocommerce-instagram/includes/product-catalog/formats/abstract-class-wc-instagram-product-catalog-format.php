@@ -2,7 +2,7 @@
 /**
  * A generic class for rendering a product catalog in a specific format.
  *
- * @package WC_Instagram/Product Catalog/Formats
+ * @package WC_Instagram/Product_Catalog/Formats
  * @since   3.0.0
  */
 
@@ -42,11 +42,18 @@ abstract class WC_Instagram_Product_Catalog_Format {
 	protected $product_catalog;
 
 	/**
-	 * The products items.
+	 * The product item props.
 	 *
 	 * @var array
 	 */
-	protected $product_items = array();
+	protected $item_props = array();
+
+	/**
+	 * The products items.
+	 *
+	 * @var WC_Instagram_Product_Catalog_Items
+	 */
+	protected $product_items;
 
 	/**
 	 * Constructor.
@@ -80,7 +87,7 @@ abstract class WC_Instagram_Product_Catalog_Format {
 			$this->currency = $args['currency'];
 		}
 
-		$this->load_product_items( $this->product_catalog->get_products() );
+		$this->load_item_props();
 	}
 
 	/**
@@ -135,7 +142,11 @@ abstract class WC_Instagram_Product_Catalog_Format {
 	 * @return array
 	 */
 	public function get_product_items() {
-		return $this->product_items;
+		if ( is_null( $this->product_items ) ) {
+			$this->load_product_items();
+		}
+
+		return $this->product_items->get_all();
 	}
 
 	/**
@@ -143,61 +154,50 @@ abstract class WC_Instagram_Product_Catalog_Format {
 	 *
 	 * @since 3.0.0
 	 *
-	 * return string
+	 * @return string
 	 */
 	public function get_output() {
 		return '';
 	}
 
 	/**
-	 * Loads the product items from the product objects.
+	 * Gets the starting content of the formatted product catalog.
 	 *
-	 * @since 3.0.0
+	 * @since 4.0.0
 	 *
-	 * @param array $products Product list.
+	 * @return string
 	 */
-	protected function load_product_items( $products ) {
-		if ( empty( $products ) ) {
-			return;
-		}
-
-		$include_variations = $this->get_product_catalog()->get_include_variations();
-		$stock_status       = $this->get_product_catalog()->get_stock_status();
-
-		foreach ( $products as $product ) {
-			try {
-				if ( $include_variations && $product instanceof WC_Product_Variable ) {
-					$variations = $product->get_available_variations();
-
-					foreach ( $variations as $variation ) {
-						if ( 'instock' === $stock_status && ! $variation['is_in_stock'] ) {
-							continue;
-						}
-
-						$product_variation = wc_get_product( $variation['variation_id'] );
-
-						if ( $product_variation ) {
-							$this->product_items[] = new WC_Instagram_Product_Catalog_Item_Variation( $product_variation );
-						}
-					}
-				} else {
-					$this->product_items[] = new WC_Instagram_Product_Catalog_Item( $product );
-				}
-			} catch ( Exception $e ) {
-				continue;
-			}
-		}
+	public function get_output_start() {
+		return '';
 	}
 
 	/**
-	 * Gets the properties of the catalog item.
+	 * Gets the ending content of the formatted product catalog.
 	 *
-	 * @since 3.0.0
+	 * @since 4.0.0
 	 *
-	 * @param WC_Instagram_Product_Catalog_Item $product_item Optional. The catalog item. Default null.
-	 * @return array
+	 * @return string
 	 */
-	protected function get_item_props( $product_item = null ) {
+	public function get_output_end() {
+		return '';
+	}
+
+	/**
+	 * Gets the content of the formatted item.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param WC_Instagram_Product_Catalog_Item $product_item A catalog item.
+	 * @return string
+	 */
+	abstract public function get_output_item( $product_item );
+
+	/**
+	 * Loads the product item properties.
+	 *
+	 * @since 4.0.0
+	 */
+	protected function load_item_props() {
 		$props = array(
 			'id'                        => 'esc_attr',
 			'item_group_id'             => 'esc_attr',
@@ -216,26 +216,52 @@ abstract class WC_Instagram_Product_Catalog_Format {
 			'google_product_category'   => 'esc_attr',
 		);
 
+		if ( ! $this->product_catalog->get_include_variations() ) {
+			unset( $props['item_group_id'] );
+		}
+
 		$relationships = WC_Instagram_Attribute_Relationships::get_relationships();
 
 		foreach ( $relationships as $google_pa ) {
 			$props[ $google_pa ] = 'esc_attr';
 		}
 
-		if ( $product_item && ! $product_item instanceof WC_Instagram_Product_Catalog_Item_Variation ) {
-			unset( $props['item_group_id'] );
-		}
-
 		/**
 		 * Filters the properties of the catalog items.
 		 *
 		 * @since 3.0.0
+		 * @since 4.0.0 Deprecated the second argument `$product_item`.
 		 *
-		 * @param array                               $props        An array with the item properties.
-		 * @param WC_Instagram_Product_Catalog_Item   $product_item The catalog item.
-		 * @param WC_Instagram_Product_Catalog_Format $formatter    The product catalog formatter.
+		 * @param array                               $props      An array with the item properties.
+		 * @param null                                $deprecated Deprecated argument.
+		 * @param WC_Instagram_Product_Catalog_Format $formatter  The product catalog formatter.
 		 */
-		return apply_filters( 'wc_instagram_product_catalog_item_props', $props, $product_item, $this );
+		$this->item_props = apply_filters( 'wc_instagram_product_catalog_item_props', $props, null, $this );
+	}
+
+	/**
+	 * Loads the product items from the product objects.
+	 *
+	 * @since 3.0.0
+	 * @since 4.0.0 Deprecated argument `$products`.
+	 *
+	 * @param array $deprecated Deprecated argument.
+	 */
+	protected function load_product_items( $deprecated = array() ) {
+		$this->product_items = new WC_Instagram_Product_Catalog_Items( $this->product_catalog );
+	}
+
+	/**
+	 * Gets the properties of the catalog item.
+	 *
+	 * @since 3.0.0
+	 * @since 4.0.0 Deprecated argument `$product_item`.
+	 *
+	 * @param null $deprecated Deprecated argument.
+	 * @return array
+	 */
+	protected function get_item_props( $deprecated = null ) {
+		return $this->item_props;
 	}
 
 	/**
@@ -384,7 +410,7 @@ abstract class WC_Instagram_Product_Catalog_Format {
 	 */
 	protected function get_formatted_item( $product_item ) {
 		$values = array();
-		$props  = $this->get_item_props( $product_item );
+		$props  = $this->get_item_props();
 
 		foreach ( $props as $prop => $callback ) {
 			$value    = $this->get_item_value( $product_item, $prop );

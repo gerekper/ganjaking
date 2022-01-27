@@ -29,14 +29,69 @@ class WC_Instagram_AJAX {
 	 */
 	public static function add_ajax_events() {
 		$ajax_events = array(
+			'delete_product_catalog',
+			'fetch_product_catalog_file',
+			'generate_product_catalog_file',
 			'generate_product_catalog_slug',
 			'refresh_google_product_category_field',
-			'refresh_google_product_category_metabox_field', // Deprecated.
 		);
 
 		foreach ( $ajax_events as $ajax_event ) {
 			add_action( 'wp_ajax_wc_instagram_' . $ajax_event, array( __CLASS__, $ajax_event ) );
 		}
+	}
+
+	/**
+	 * Deletes a product catalog.
+	 *
+	 * @since 4.0.0
+	 */
+	public static function delete_product_catalog() {
+		check_ajax_referer( 'wc_instagram_delete_product_catalog' );
+
+		$catalog_id = ( isset( $_POST['catalog_id'] ) ? intval( wp_unslash( $_POST['catalog_id'] ) ) : '' );
+
+		$result = wc_instagram_delete_product_catalog( $catalog_id );
+
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( array( 'error' => esc_html( $result->get_error_message() ) ) );
+		}
+
+		wp_send_json_success();
+	}
+
+	/**
+	 * Fetches the information of a product catalog file.
+	 *
+	 * @since 4.0.0
+	 */
+	public static function fetch_product_catalog_file() {
+		list( $catalog, $format ) = self::process_catalog_file_action();
+
+		wp_send_json_success(
+			array(
+				'file' => self::get_file_data( $catalog, $format ),
+			)
+		);
+	}
+
+	/**
+	 * Generates the product catalog file.
+	 *
+	 * @since 4.0.0
+	 */
+	public static function generate_product_catalog_file() {
+		list( $catalog, $format ) = self::process_catalog_file_action();
+
+		if ( ! $catalog->get_file_status( $format ) ) {
+			WC_Instagram_Product_Catalogs::generate_catalog_file( $catalog, $format );
+		}
+
+		wp_send_json_success(
+			array(
+				'file' => self::get_file_data( $catalog, $format ),
+			)
+		);
 	}
 
 	/**
@@ -89,15 +144,56 @@ class WC_Instagram_AJAX {
 	}
 
 	/**
-	 * Refreshes the 'google_product_category' field in the product data metabox.
+	 * Processes the AJAX request of a product catalog file action.
 	 *
-	 * @since 3.4.6
-	 * @deprecated 3.6.0
+	 * @since 4.0.0
+	 *
+	 * @return array
 	 */
-	public static function refresh_google_product_category_metabox_field() {
-		wc_deprecated_function( __FUNCTION__, '3.6.0', 'WC_Instagram_AJAX::refresh_google_product_category_field()' );
+	protected static function process_catalog_file_action() {
+		check_ajax_referer( 'wc_instagram_product_catalog_file_action' );
 
-		self::refresh_google_product_category_field();
+		$catalog_id = ( isset( $_POST['catalog_id'] ) ? intval( wp_unslash( $_POST['catalog_id'] ) ) : '' );
+		$format     = ( isset( $_POST['format'] ) ? wc_clean( wp_unslash( $_POST['format'] ) ) : '' );
+
+		if ( ! $catalog_id || ! $format ) {
+			wp_send_json_error( new WP_Error( 'invalid_arguments', __( 'Invalid arguments.', 'woocommerce-instagram' ) ) );
+		}
+
+		$catalog = wc_instagram_get_product_catalog( $catalog_id );
+
+		if ( ! $catalog ) {
+			wp_send_json_error( new WP_Error( 'not_found', __( 'Product catalog not found.', 'woocommerce-instagram' ) ) );
+		}
+
+		return array( $catalog, $format );
+	}
+
+	/**
+	 * Gets the file data for the specified catalog and format.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param WC_Instagram_Product_Catalog $product_catalog Product catalog object.
+	 * @param string                       $format          The file format.
+	 * @return array
+	 */
+	protected static function get_file_data( $product_catalog, $format ) {
+		$data = array(
+			'status' => $product_catalog->get_file_status( $format ),
+		);
+
+		$file          = $product_catalog->get_file( $format );
+		$last_modified = $file->get_last_modified();
+
+		if ( $last_modified ) {
+			$data['lastModified'] = array(
+				'datetime' => $last_modified->date( 'c' ),
+				'i18n'     => wc_instagram_format_datetime( $last_modified ),
+			);
+		}
+
+		return $data;
 	}
 }
 

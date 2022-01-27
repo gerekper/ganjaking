@@ -19,6 +19,7 @@ class BetterDocs_Multiple_Kb
 	{
 		self::$enable = self::get_multiple_kb();
 		add_action('betterdocs_multi_kb_settings', array(__CLASS__, 'kb_settings'));
+		add_action('betterdocs_disable_root_slug_mkb_settings', array(__CLASS__, 'disable_root_slug_mkb'));
         add_action('betterdocs_kb_based_search_settings', array(__CLASS__, 'kb_based_search_settings'));
 		add_action('betterdocs_shortcode_fields', array(__CLASS__, 'pro_shortcodes'));
 		// we need to do add this filter outside so that user can see the tag when they enable the "Enable Multiple Knowledge Base" option without reloading the settlings page.
@@ -52,7 +53,6 @@ class BetterDocs_Multiple_Kb
 			add_action('edited_knowledge_base', array(__CLASS__, 'updated_knowledge_base_meta'), 10, 2);
 			add_action('admin_footer', array(__CLASS__, 'kb_script'));
 			add_action( 'parse_request', array(__CLASS__, 'docs_rewrite_parse_request') );
-			add_action('init', array(__CLASS__, 'front_end_order_terms'));
 			add_action('admin_head', array(__CLASS__, 'admin_order_terms'));
 			add_action('wp_ajax_update_knowledge_base_order', array(__CLASS__, 'update_knowledge_base_order'));
 			add_action('betterdocs_internal_kb_fields', array(__CLASS__, 'internal_kb_settings_field'));
@@ -69,6 +69,18 @@ class BetterDocs_Multiple_Kb
 			'label'       => __('Enable Multiple Knowledge Base', 'betterdocs-pro'),
 			'default'     => '',
 			'priority'    => 10,
+		);
+		return $settings;
+	}
+
+    public static function disable_root_slug_mkb()
+	{
+		$settings = array(
+            'type'        => 'checkbox',
+            'label'       => __('Disable Root slug for KB Archives' , 'betterdocs-pro'),
+            'default'     => '',
+            'help'        => __('<strong>Note:</strong> if you disable root slug for KB Archives, your individual knowledge base URL will be like this: <b><i>https://example.com/knowledgebase-1</i></b>' , 'betterdocs-pro'),
+            'priority'    => 10,
 		);
 		return $settings;
 	}
@@ -308,6 +320,12 @@ class BetterDocs_Multiple_Kb
 
 	public static function register_knowledge_base()
 	{
+        $disable_root_slug_mkb = BetterDocs_DB::get_settings('disable_root_slug_mkb');
+        $docs_archive = BetterDocs_Docs_Post_Type::$docs_archive;
+        if ( $disable_root_slug_mkb == 1 ) {
+            $docs_archive = '/';
+        }
+
 		/**
 		 * Register knowledge base taxonomy
 		 */
@@ -336,7 +354,7 @@ class BetterDocs_Multiple_Kb
 			'query_var'             => true,
 			'show_in_rest'          => true,
 			'has_archive'           => true,
-			'rewrite'               => array('slug' => BetterDocs_Docs_Post_Type::$docs_archive, 'with_front' => false),
+			'rewrite'               => array('slug' => $docs_archive, 'with_front' => false)
 		);
 
 		register_taxonomy('knowledge_base', array(BetterDocs_Docs_Post_Type::$post_type), $manage_args);
@@ -351,7 +369,7 @@ class BetterDocs_Multiple_Kb
     public static function post_exists_by_slug( $post_slug, $post_type = 'docs' )
     {
 		$loop_posts = new WP_Query( array( 'post_type' => 'any', 'post_status' => 'any', 'name' => $post_slug, 'posts_per_page' => 1, 'fields' => 'all' ) );
-		// print_r($loop_posts);
+
         return ( $loop_posts->have_posts() ? $loop_posts->posts[0] : false );
 	}
 
@@ -385,6 +403,30 @@ class BetterDocs_Multiple_Kb
 	public static function docs_rewrite_parse_request($wp)
     {
 		global $wp_rewrite;
+        if(isset($wp->query_vars['post_type'], $wp->query_vars['knowledge_base'], $wp->query_vars['name']) && $wp->query_vars['post_type'] == 'docs'){
+            $loop_posts = new WP_Query( array(
+                'post_type'      => 'docs',
+                'post_status'    => 'any',
+                'name'           => $wp->query_vars['name'],
+                'posts_per_page' => 1,
+                'fields'         => 'all',
+                'tax_query'      => array(
+                    array(
+                        'taxonomy' => 'knowledge_base',
+                        'field'    => 'slug',
+                        'terms'    => $wp->query_vars['knowledge_base'],
+                    ),
+                ),
+            ) );
+            if(!$loop_posts->have_posts()){
+                $wp->query_vars['pagename'] = $wp->query_vars['knowledge_base'] . "/" . $wp->query_vars['name'];
+                unset( $wp->query_vars['knowledge_base'] );
+                unset( $wp->query_vars['post_type'] );
+                unset( $wp->query_vars['name'] );
+                unset( $wp->query_vars['docs'] );
+            }
+        }
+
 		if(!isset($wp->query_vars['docs']) && !isset($wp->query_vars['pagename']) && !isset($wp->query_vars['name'])){
 			$is_done = false;
 
@@ -415,10 +457,15 @@ class BetterDocs_Multiple_Kb
         return array('slug' => trim($permalink, '/'), 'with_front' => false);
 	}
 
-	public static function doc_category_rewrite()
-	{
-        return array('slug' => trim(BetterDocs_Docs_Post_Type::$docs_slug, '/') . '/%knowledge_base%', 'with_front' => false);
-	}
+    public static function doc_category_rewrite()
+    {
+        $disable_root_slug_archive = BetterDocs_DB::get_settings('disable_root_slug_archive');
+        $docs_archive = BetterDocs_Docs_Post_Type::$docs_slug;
+        if ( $disable_root_slug_archive == 1 ) {
+            $docs_archive = '/';
+        }
+        return array('slug' => trim($docs_archive, '/') . '/%knowledge_base%', 'with_front' => false);
+    }
 
 	public static function list_tax_query($tax_query, $multiple_kb, $tax_slug, $kb_slug)
 	{
@@ -943,16 +990,6 @@ class BetterDocs_Multiple_Kb
 			}
 		}
 		return $pieces;
-	}
-
-	/**
-	 * Order the taxonomies on the front end.
-	 */
-	public static function front_end_order_terms()
-	{
-		if (!is_admin()) {
-			add_filter('terms_clauses', array(__CLASS__, 'set_tax_order'), 10, 3);
-		}
 	}
 
 	/**

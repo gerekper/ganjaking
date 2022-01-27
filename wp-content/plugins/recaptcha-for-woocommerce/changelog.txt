@@ -1,5 +1,11 @@
 *** Changelog ***
 
+2022-01-23 version 2.27
+
+* Added support for buddy press signup. See reCaptcha for WooCommerce Signup Settings.
+* Fixes settings mismatch for Signup with WP signup method
+* Tested with WordPress 5.9
+
 2022-01-04- version 2.26
 
 * WooCommerce 6.0 compatibility fixes.

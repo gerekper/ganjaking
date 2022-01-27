@@ -21,41 +21,10 @@ class WC_Instagram_Meta_Box_Product_Data {
 	 * @since 2.0.0
 	 */
 	public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_filter( 'woocommerce_product_data_tabs', array( $this, 'product_data_tabs' ) );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'product_data_panels' ) );
 		add_action( 'woocommerce_process_product_meta', array( $this, 'save_product_data' ), 15 );
 		add_action( 'woocommerce_after_product_attribute_settings', array( $this, 'product_attribute_settings' ) );
-	}
-
-	/**
-	 * Enqueue scripts.
-	 *
-	 * @since 3.3.0
-	 *
-	 * @global WP_Post $post The current post.
-	 */
-	public function enqueue_scripts() {
-		global $post;
-
-		$screen_id = wc_instagram_get_current_screen_id();
-
-		if ( 'product' !== $screen_id ) {
-			return;
-		}
-
-		$suffix = wc_instagram_get_scripts_suffix();
-
-		// Register script for backward compatibility.
-		wp_register_script( 'wc-instagram-admin-meta-boxes-product', WC_INSTAGRAM_URL . "assets/js/admin/meta-boxes-product{$suffix}.js", array( 'jquery', 'selectWoo' ), WC_INSTAGRAM_VERSION, true );
-		wp_localize_script(
-			'wc-instagram-admin-meta-boxes-product',
-			'wc_instagram_admin_meta_boxes_product_params',
-			array(
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'post_id'  => $post->ID,
-			)
-		);
 	}
 
 	/**
@@ -194,18 +163,6 @@ class WC_Instagram_Meta_Box_Product_Data {
 			</td>
 		</tr>
 		<?php
-	}
-
-	/**
-	 * Handles AJAX requests for refresh_google_product_category_field action.
-	 *
-	 * @since 3.3.0
-	 * @deprecated 3.4.6
-	 */
-	public function refresh_google_product_category_field() {
-		wc_deprecated_function( __FUNCTION__, '3.4.6', 'WC_Instagram_AJAX::refresh_google_product_category_field()' );
-
-		WC_Instagram_AJAX::refresh_google_product_category_field();
 	}
 }
 

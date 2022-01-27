@@ -5,7 +5,7 @@
  * @since   3.0.0
  */
 
-/* global wcSetClipboard, wcClearClipboard, wc_instagram_settings_params */
+/* global wc_instagram_settings_params */
 ( function( $ ) {
 
 	'use strict';
@@ -19,31 +19,6 @@
 
 		init: function() {
 			this.initSortableTables();
-
-			$( '.product_catalogs' )
-				// Delete the 'product catalog' row.
-				.on( 'click', 'tbody tr a.wc-instagram-product-catalog-delete', function( event ) {
-					event.preventDefault();
-
-					$( this ).closest( 'tr' ).remove();
-					wcInstagramSettings.hasChanges = true;
-				})
-				// Copy the catalog URL to the clipboard.
-				.on( 'click', 'tbody tr a.wc-instagram-product-catalog-copy', function( event ) {
-					event.preventDefault();
-
-					wcClearClipboard();
-					wcSetClipboard( $( this ).attr( 'href' ), $( this ) );
-				})
-				.on( 'aftercopy', 'tbody tr a.wc-instagram-product-catalog-copy', function() {
-					$( this ).tipTip( {
-						'attribute':  'data-tip',
-						'activation': 'focus',
-						'fadeIn':     50,
-						'fadeOut':    50,
-						'delay':      0
-					}).focus();
-				});
 
 			// Reset changes on click the save button.
 			$( '[name="save"]' ).on( 'click', function() {

@@ -1,5 +1,8 @@
 *** WooCommerce Anti Fraud ***
 
+2022-01-14 - version 4.2
+* PLUGINS-1362 - Proxycheck.io enhancement to track usage.
+
 2021-12-20 - version 4.1
 * PLUGINS-1255 - Correct settings for proxy/vpn, multiple attempts and mismatch address.
 

@@ -1,5 +1,40 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2022-01-19 - version 4.0.1
+* Fix: Prevent fatal error when too few arguments passed to widget_title filter. PR#4302
+* Dev: Update subscriptions-core to 1.6.2. PR#4302
+
+2022-01-19 - version 4.0.0
+* New: Update the minimum required WooCommerce version from 3.9 to 4.4. PR#4282
+* Fix: Unable to remove subscription line items via the REST API. PR#4258
+* Fix: Don't show subscription related product fields when the custom variable type products are created. PR#4215
+* Fix: Add consistent margins to the recurring taxes totals row on the Checkout and Cart block. PR#4273
+* Fix: Fatal error due to order with no created date in order row template. PR#4273
+* Fix: Fatal error on the customer payment page for renewal orders with deleted products. PR#4273
+* Fix: Prevent fatal errors on the admin subscriptions screen when a subscription fails to load. PR#4290
+* Fix: Incorrect message on the subscriptions table when filtering returns no results. PR#4290
+* Fix: Update Cart and Checkout Block hooks to prevent deprecation warnings. PR#4280
+* Tweak: Update tooltip wording when deleting product variation. PR#4273
+* Tweak: Don't show an admin error notice when a store downgrades to a previous minor version of Subscriptions. PR#4273
+* Tweak: Misleading order note on payment method change. PR#4273
+* Dev: Moved subscription core files moved into a new subscriptions-core library (loaded from vendor/woocommerce/subscriptions-core). PR#4121
+* Dev: New `WC_Subscriptions_Plugin` class to be the main Subscriptions plugin handler class. PR#4116
+* Dev: Moved and deprecated 33 functions from class `WC_Subscriptions` to more suitable classes. PR#4114
+* Dev: Moved switching feature related classes into its own directory (`includes/switching/`). PR#4122
+* Dev: Moved payment retry feature related classes into its own directory (`includes/payment-retry/`). PR#4146
+* Dev: Moved early renewal feature related classes into its own directory (`includes/early-renewals/`). PR#4148
+* Dev: Moved the "Accept manual renewals" feature and settings to a new `WCS_Manual_Renewal_Manager` class. PR#4124
+* Dev: Moved the "Customer Suspensions" feature and settings code to a new `WCS_Customer_Suspension_Manager` class. PR#4138
+* Dev: Moved the "Drip Downloadable Content" feature and settings to a new `WCS_Drip_Downloads_Manager` class. PR#4142
+* Dev: Moved the "Allow $0 initial checkout without a payment method" feature and settings to a new `WCS_Zero_Initial_Payment_Checkout_Manager` class. PR#4145
+* Dev: Moved the "Limited payment recurring coupon" feature to a new `WCS_Limited_Recurring_Coupon_Manager` class. PR#4150
+* Dev: Moved the custom subscription product and checkout button text feature to a new `WCS_Call_To_Action_Button_Text_Manager` class. PR#4152
+* Dev: Moved the custom active and inactive subscriber roles feature to a new `WCS_Subscriber_Role_Manager` class. PR#4153
+* Dev: Removed the Action Scheduler library from WC Subscriptions since it has been included in WooCommerce core since version 3.0. PR#4202
+
+2021-10-06 - version 3.1.6
+* Fix: Add back the limited subscription setting for simple subscription products (introduced in v3.1.5). PR#4214
+
 2021-09-28 - version 3.1.5
 * Fix: Update subtracted tax amounts to account for quantity changes. PR#4107
 * Fix: Correctly remove limited coupons (i.e. "Active for x payments") when the coupon code is made up of only numeric characters. PR#4139

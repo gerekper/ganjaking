@@ -38,6 +38,8 @@ class WooCommerce_Product_Search_Term_Node_Select_Renderer {
 
 	private $current_term_ancestor_ids = null;
 
+	private $depth = null;
+
 	private $elements_displayed = 0;
 
 	private $hierarchical = true;
@@ -53,6 +55,8 @@ class WooCommerce_Product_Search_Term_Node_Select_Renderer {
 	private $root_id = '';
 
 	private $root_name = '';
+
+	private $show_ancestors = true;
 
 	private $show_names = true;
 
@@ -74,6 +78,12 @@ class WooCommerce_Product_Search_Term_Node_Select_Renderer {
 		if ( isset( $args['current_term_ancestor_ids'] ) ) {
 			$this->current_term_ancestor_ids = $args['current_term_ancestor_ids'];
 		}
+
+		if ( isset( $args['depth'] ) ) {
+			if ( $args['depth'] !== null && $args['depth'] > 0 ) {
+				$this->depth = $args['depth'];
+			}
+		}
 		if ( isset( $args['none_selected'] ) ) {
 			$this->none_selected = $args['none_selected'];
 		}
@@ -94,6 +104,10 @@ class WooCommerce_Product_Search_Term_Node_Select_Renderer {
 		}
 		if ( isset( $args['root_name'] ) ) {
 			$this->root_name = $args['root_name'];
+		}
+
+		if ( isset( $args['show_ancestors'] ) ) {
+			$this->show_ancestors = $args['show_ancestors'];
 		}
 		if ( isset( $args['show_names'] ) ) {
 			$this->show_names = $args['show_names'];
@@ -130,11 +144,28 @@ class WooCommerce_Product_Search_Term_Node_Select_Renderer {
 
 		$output = '';
 
+		if ( $this->depth !== null && $this->depth !== 0 && $depth > $this->depth ) {
+			return $output;
+		}
+
 		$term = null;
 		if ( $node->get_term_id() !== null ) {
 			$_term = get_term( $node->get_term_id(), $node->get_taxonomy() );
 			if ( $_term instanceof WP_Term ) {
 				$term = $_term;
+			}
+		}
+
+		$render = true;
+		if ( $term !== null ) {
+			if ( !$this->show_ancestors ) {
+				if (
+					is_array( $this->current_term_ancestor_ids ) &&
+					count( $this->current_term_ancestor_ids ) > 0 &&
+					in_array( $term->term_id, $this->current_term_ancestor_ids )
+				) {
+					$render = false;
+				}
 			}
 		}
 
@@ -157,7 +188,10 @@ class WooCommerce_Product_Search_Term_Node_Select_Renderer {
 				$output .= sprintf( '<option value="" %s>%s</option>', empty( $this->current_term_ids ) ? ' selected="selected" ' : '', esc_html( $this->none_selected ) );
 			}
 		} else {
-			if ( $term !== null ) {
+			if (
+				$term !== null &&
+				$render
+			) {
 				$option_content  = '';
 				$option_padding  = '';
 				$option_label    = '';

@@ -7931,7 +7931,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 
 							var compatible_variation_data = self.component_selection_model.get_active_variations_data();
 
-							view.changes.variations.changed = ! _.isEqual( view.changes.variations.to, compatible_variation_data ) && view.changes.variations.to.length > 0;
+							view.changes.variations.changed = ! _.isEqual( view.changes.variations.to, compatible_variation_data );
 							view.changes.variations.to      = compatible_variation_data;
 						}
 					}

@@ -67,7 +67,7 @@
 					'fadeIn':     50,
 					'fadeOut':    50,
 					'delay':      0
-				}).focus();
+				}).trigger( 'focus' );
 			});
 
 			this.$container.on( 'click', '.editable-url-actions .save', function() {

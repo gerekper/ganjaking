@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 4.1
+ * Version: 4.2
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * License: GPL v3
@@ -912,7 +912,7 @@ function max_order_same_ip( $fields, $errors)
 		// 	$meta['key'] = '_billing_email';
 		// 	$meta['value'] = $_POST[ 'billing_email' ];
 		// }
-		Af_Logger::debug('User Meta : '. print_r($meta, true));
+		// Af_Logger::debug('User Meta : '. print_r($meta, true));
 
 		// Get the Same IP Orders
 		$orders_count_ip = wc_get_orders(
@@ -930,7 +930,7 @@ function max_order_same_ip( $fields, $errors)
 			array(
 				'limit'               => -1,
 				'meta_key'            => '_customer_user',
-    			'meta_value'          => $user->ID,
+    			'meta_value'          => isset($user->ID) ? $user->ID : '',
 	 			'customer_ip_address' => $ip_address,
 				'type'                => wc_get_order_types( 'order-count' ),
 				'date_after'          => $start_datetime_string,

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.9.3
+ * @version     3.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -2920,10 +2920,10 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			$coupon_code_length = $this->get_coupon_code_length();
 
-			$chars = array_merge( range( 'a', 'z' ), range( '1', '9' ) );
+			$chars = array_diff( array_merge( range( 'a', 'z' ), range( '0', '9' ) ), array( 'a', 'e', 'i', 'o', 'u' ) );
 			$chars = apply_filters(
 				'wc_sc_coupon_code_allowed_characters',
-				$chars,
+				array_values( $chars ),
 				array(
 					'source'             => $this,
 					'email'              => $email,
@@ -2931,9 +2931,39 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					'coupon_code_length' => $coupon_code_length,
 				)
 			);
-			for ( $rand = 1; $rand <= $coupon_code_length; $rand++ ) {
-				$random       = rand( 0, count( $chars ) - 1 ); // phpcs:ignore
-				$unique_code .= $chars[ $random ];
+
+			$numbers   = array_values( array_filter( $chars, 'is_numeric' ) );
+			$alphabets = ( count( $chars ) !== count( $numbers ) ) ? array_values( array_diff( $chars, $numbers ) ) : array();
+
+			if ( empty( $numbers ) || empty( $alphabets ) ) {
+				$chars = array_values( array_merge( $alphabets, $numbers ) );
+				for ( $rand = 1; $rand <= $coupon_code_length; $rand++ ) {
+					$random       = rand( 0, count( $chars ) - 1 ); // phpcs:ignore
+					$unique_code .= $chars[ $random ];
+				}
+			} else {
+				for ( $rand = 1, $char_count = 0, $num_count = 0; $rand <= $coupon_code_length; $rand++ ) {
+					if ( $char_count >= 2 ) {
+						$random       = rand( 0, count( $numbers ) - 1 ); // phpcs:ignore
+						$unique_code .= $numbers[ $random ];
+						$char_count   = 0;
+						$num_count++;
+					} elseif ( $num_count >= 1 ) {
+						$random       = rand( 0, count( $alphabets ) - 1 ); // phpcs:ignore
+						$unique_code .= $alphabets[ $random ];
+						$num_count    = 0;
+						$char_count++;
+					} else {
+						$random        = rand( 0, count( $chars ) - 1 ); // phpcs:ignore
+						$selected_char = $chars[ $random ];
+						$unique_code  .= $selected_char;
+						if ( is_numeric( $selected_char ) ) {
+							$num_count++;
+						} else {
+							$char_count++;
+						}
+					}
+				}
 			}
 
 			if ( $this->is_wc_gte_30() ) {
@@ -3496,6 +3526,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$data[ $i ]['wc_sc_expiry_time']                   = ( isset( $post['wc_sc_expiry_time'] ) ) ? $post['wc_sc_expiry_time'] : '';
 					$data[ $i ]['wc_sc_product_attribute_ids']         = ( isset( $post['wc_sc_product_attribute_ids'] ) ) ? implode( '|', $post['wc_sc_product_attribute_ids'] ) : '';
 					$data[ $i ]['wc_sc_exclude_product_attribute_ids'] = ( isset( $post['wc_sc_exclude_product_attribute_ids'] ) ) ? implode( '|', $post['wc_sc_exclude_product_attribute_ids'] ) : '';
+					$data[ $i ]['sc_coupon_category']                  = ( isset( $post['tax_input']['sc_coupon_category'] ) ) ? implode( '|', $post['tax_input']['sc_coupon_category'] ) : '';
 
 					$data[ $i ] = apply_filters( 'sc_generate_coupon_meta', $data[ $i ], $post );
 
@@ -4091,9 +4122,14 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				)
 			);
 
+			$coupon_term_headers = array(
+				'sc_coupon_category' => __( 'Coupon Category', 'woocommerce-smart-coupons' ),
+			);
+
 			return array(
 				'posts_headers'    => $coupon_posts_headers,
 				'postmeta_headers' => $coupon_postmeta_headers,
+				'term_headers'     => $coupon_term_headers,
 			);
 		}
 
@@ -4716,6 +4752,22 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					}
 				}
 			}
+		}
+
+		/**
+		 * Check given coupon exists.
+		 *
+		 * @param string $coupon_code Coupon code.
+		 * @return bool
+		 *
+		 * Credit: WooCommerce
+		 */
+		public function sc_coupon_exists( $coupon_code = '' ) {
+			if ( empty( $coupon_code ) ) {
+				return false;
+			}
+			$coupon = new WC_Coupon( $coupon_code );
+			return (bool) $coupon->get_id() || $coupon->get_virtual();
 		}
 
 	}//end class

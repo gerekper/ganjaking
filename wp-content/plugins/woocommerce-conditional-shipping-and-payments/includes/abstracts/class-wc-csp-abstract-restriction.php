@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Abstract Restriction class.
  *
  * @class    WC_CSP_Restriction
- * @version  1.9.0
+ * @version  1.12.0
  */
 class WC_CSP_Restriction extends WC_Settings_API {
 
@@ -759,6 +759,11 @@ class WC_CSP_Restriction extends WC_Settings_API {
 	public function get_matching_rules_map( $restriction_data, $payload, $args = array() ) {
 
 		$active_rules_map = array();
+
+		// Bail out early and not run if we're on wp-admin.
+		if ( is_admin() ) {
+			return array();
+		}
 
 		if ( ! empty( $restriction_data ) ) {
 

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Memberships Integration: Discounts inheritance.
  *
- * @version  8.3.3
+ * @version  8.3.7
  */
 class WC_CP_Members_Compatibility {
 
@@ -44,8 +44,10 @@ class WC_CP_Members_Compatibility {
 	 */
 	public static function init() {
 
+		$is_ajax = WC_CP_Core_Compatibility::is_wc_version_gte( '6.1' ) ? wp_doing_ajax() : is_ajax();
+
 		// See 'WC_Memberships_Member_Discounts'.
-		if ( ! ( is_admin() && ! is_ajax() ) ) {
+		if ( ! ( is_admin() && ! $is_ajax ) ) {
 
 			if ( 'filters' === WC_CP_Products::get_composited_cart_item_discount_method() ) {
 

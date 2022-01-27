@@ -1102,7 +1102,8 @@ class WC_Deposits_Order_Manager {
 	}
 
 	/**
-	 * Register transitions from Pending Deposit status to send default WooCommerce emails
+	 * Register transitions from Pending Deposit and Scheduled Payment status
+	 * to send default WooCommerce emails.
 	 *
 	 * @param  array $actions
 	 * @return array
@@ -1112,12 +1113,14 @@ class WC_Deposits_Order_Manager {
 			'woocommerce_order_status_pending-deposit_to_processing',
 			'woocommerce_order_status_pending-deposit_to_completed',
 			'woocommerce_order_status_pending-deposit_to_on-hold',
+			'woocommerce_order_status_scheduled-payment_to_processing'
 		) );
 		return $actions;
 	}
 
 	/**
-	 * Send WooCommerce emails on status transitions from Pending Deposit
+	 * Send WooCommerce emails on status transitions from
+	 * Pending Deposit or Scheduled Payment.
 	 *
 	 * @param  WC_Emails $email_class
 	 */
@@ -1127,11 +1130,13 @@ class WC_Deposits_Order_Manager {
 			add_action( 'woocommerce_order_status_pending-deposit_to_processing_notification', array( $email_class->emails['WC_Email_New_Order'], 'trigger' ) );
 			add_action( 'woocommerce_order_status_pending-deposit_to_completed_notification', array( $email_class->emails['WC_Email_New_Order'], 'trigger' ) );
 			add_action( 'woocommerce_order_status_pending-deposit_to_on-hold_notification', array( $email_class->emails['WC_Email_New_Order'], 'trigger' ) );
+			add_action( 'woocommerce_order_status_scheduled-payment_to_processing_notification', array( $email_class->emails['WC_Email_New_Order'], 'trigger' ) );
 		}
 
 		// Customer notifications
 		if ( isset( $email_class->emails['WC_Email_Customer_Processing_Order'] ) ) {
 			add_action( 'woocommerce_order_status_pending-deposit_to_processing_notification', array( $email_class->emails['WC_Email_Customer_Processing_Order'], 'trigger' ) );
+			add_action( 'woocommerce_order_status_scheduled-payment_to_processing_notification', array( $email_class->emails['WC_Email_Customer_Processing_Order'], 'trigger' ) );
 		}
 
 		if ( isset( $email_class->emails['WC_Email_Customer_On_Hold_Order'] ) ) {

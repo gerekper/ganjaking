@@ -1,5 +1,12 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2022.01.25 - version 10.5.0
+* New: Allow Google Product Category to be populated from multiple locales
+* New: Support 'promotion ID' in the Bing feed
+* New: Prompt for feedback
+* Fix: Resolve warning thrown when multicurrency integration active
+* Fix: Resolve issue where availability field could be missing in Bing feed
+
 2022.01.05 - version 10.4.0
 * Change: Update documentation links to reflect docs.woocommerce.com migration
 * Change: WooCommerce 6.1 Compatibility

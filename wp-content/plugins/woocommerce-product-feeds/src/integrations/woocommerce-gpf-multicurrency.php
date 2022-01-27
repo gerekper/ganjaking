@@ -48,7 +48,10 @@ class WoocommerceGpfMulticurrency {
 	 *
 	 */
 	public function maybe_trigger_integration() {
-		$feed_config    = $this->feed_config_factory->create_from_request();
+		$feed_config = $this->feed_config_factory->create_from_request();
+		if ( is_null( $feed_config ) ) {
+			return;
+		}
 		$this->currency = $_GET['currency'] ?? $feed_config->currency;
 		if ( empty( $this->currency ) ) {
 			return;

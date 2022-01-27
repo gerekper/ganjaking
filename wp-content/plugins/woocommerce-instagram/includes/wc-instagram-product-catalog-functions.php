@@ -33,17 +33,55 @@ function wc_instagram_get_product_catalog_rewrite_slug() {
  * Gets the product catalogs.
  *
  * @since 3.0.0
+ * @since 4.0.0 Added parameters `$args` and `$return`.
  *
+ * @param array  $args   Optional. The query arguments. Default empty.
+ * @param string $return Optional. The returned data. Accepts 'ids', 'objects'. Default empty (Array of data).
  * @return array
  */
-function wc_instagram_get_product_catalogs() {
-	$catalogs = get_option( 'wc_instagram_product_catalogs', array() );
+function wc_instagram_get_product_catalogs( $args = array(), $return = '' ) {
+	$args = wp_parse_args(
+		$args,
+		array(
+			'post_status'    => 'publish',
+			'posts_per_page' => - 1,
+			'orderby'        => 'ID',
+			'order'          => 'ASC',
+		)
+	);
 
-	if ( ! is_array( $catalogs ) ) {
-		$catalogs = array();
+	// Force some arguments to avoid unexpected results.
+	$query_vars = array_merge(
+		$args,
+		array(
+			'post_type' => 'wc_instagram_catalog',
+			'fields'    => 'ids',
+		)
+	);
+
+	$catalog_ids = get_posts( $query_vars );
+
+	if ( 'ids' === $return ) {
+		return $catalog_ids;
 	}
 
-	return $catalogs;
+	$catalogs = array_filter( array_map( 'wc_instagram_get_product_catalog', $catalog_ids ) );
+
+	if ( 'objects' === $return ) {
+		return $catalogs;
+	}
+
+	/*
+	 * Backward compatibility.
+	 * Return an array with the catalog data.
+	 */
+	$catalogs_data = array();
+
+	foreach ( $catalogs as $catalog ) {
+		$catalogs_data[ $catalog->get_id() ] = $catalog->get_data_without( array( 'id', 'meta_data' ) );
+	}
+
+	return $catalogs_data;
 }
 
 /**
@@ -59,24 +97,39 @@ function wc_instagram_get_product_catalog( $the_catalog ) {
 		return $the_catalog;
 	}
 
-	$catalog = ( is_array( $the_catalog ) ? $the_catalog : false );
-
-	if ( ! $catalog ) {
-		$catalogs = wc_instagram_get_product_catalogs();
-
-		if ( is_numeric( $the_catalog ) && isset( $catalogs[ $the_catalog ] ) ) {
-			$catalog = $catalogs[ $the_catalog ];
-		} elseif ( is_string( $the_catalog ) ) {
-			foreach ( $catalogs as $data ) {
-				if ( isset( $data['slug'] ) && $the_catalog === $data['slug'] ) {
-					$catalog = $data;
-					break;
-				}
-			}
-		}
+	if ( is_array( $the_catalog ) ) {
+		$catalog = new WC_Instagram_Product_Catalog( $the_catalog );
+	} else {
+		$catalog = WC_Instagram_Product_Catalog_Factory::get_catalog( $the_catalog );
 	}
 
-	return ( $catalog ? new WC_Instagram_Product_Catalog( $catalog ) : false );
+	return $catalog;
+}
+
+/**
+ * Deletes the product catalog.
+ *
+ * @since 4.0.0
+ *
+ * @param mixed $the_catalog Product catalog object, ID, slug.
+ * @return WP_Error|true True on success. WP_Error on failure.
+ */
+function wc_instagram_delete_product_catalog( $the_catalog ) {
+	if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		return new WP_Error( 'invalid_action', __( 'You do not have permission to delete the catalog.', 'woocommerce-instagram' ) );
+	}
+
+	$product_catalog = wc_instagram_get_product_catalog( $the_catalog );
+
+	if ( ! $product_catalog ) {
+		return new WP_Error( 'not_found', __( 'Product catalog not found.', 'woocommerce-instagram' ) );
+	}
+
+	if ( ! $product_catalog->delete( true ) ) {
+		return new WP_Error( 'unexpected', __( 'An unexpected error occurred.', 'woocommerce-instagram' ) );
+	}
+
+	return true;
 }
 
 /**
@@ -132,22 +185,17 @@ function wc_instagram_get_product_catalog_url( $the_catalog ) {
  * @return string
  */
 function wc_instagram_generate_product_catalog_slug( $string, $exclude_catalogs = array() ) {
-	$product_catalogs = wc_instagram_get_product_catalogs();
-
-	if ( ! empty( $exclude_catalogs ) ) {
-		$product_catalogs = array_diff_key( $product_catalogs, array_flip( (array) $exclude_catalogs ) );
-	}
-
-	$catalog_slugs = wp_list_pluck( $product_catalogs, 'slug' );
-
 	$slug        = sanitize_title( $string );
 	$unique_slug = $slug;
 	$count       = 2;
 
-	while ( in_array( $unique_slug, $catalog_slugs, true ) ) {
-		$unique_slug = $slug . '-' . $count;
+	$catalog_id = WC_Instagram_Product_Catalog_Factory::get_id_by_slug( $unique_slug );
 
+	while ( $catalog_id && ! in_array( $catalog_id, $exclude_catalogs, true ) ) {
+		$unique_slug = $slug . '-' . $count;
 		$count++;
+
+		$catalog_id = WC_Instagram_Product_Catalog_Factory::get_id_by_slug( $unique_slug );
 	}
 
 	return $unique_slug;

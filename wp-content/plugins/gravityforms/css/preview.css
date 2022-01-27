@@ -270,6 +270,7 @@ div#preview_form_container .gfield input[type="checkbox"] {
 .gform_page_footer input[type=button],
 .form_saved_message_emailform input[type=submit] {
 	border: none;
+	cursor: pointer;
     font-size: 1em;
     text-decoration: none;
     color: #FFF;

@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
+    'Ademti\\DismissibleWpNotices\\' => array($vendorDir . '/leewillis77/dismissible-wp-notices/src'),
 );

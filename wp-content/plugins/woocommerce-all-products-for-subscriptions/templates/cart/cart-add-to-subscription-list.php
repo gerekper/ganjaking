@@ -8,7 +8,7 @@
  * We try to do this as little as possible, but it does happen.
  * When this occurs the version of the template file will be bumped and the readme will list any important changes.
  *
- * @version 2.2.0
+ * @version 3.2.0
  */
 
 // Exit if accessed directly.
@@ -24,5 +24,5 @@ if ( empty( $subscriptions ) ) {
 		'user_id'       => $user_id,
 		'current_page'  => 1,
 		'max_num_pages' => 1
-	), '', plugin_dir_path( WC_Subscriptions::$plugin_file ) . 'templates/' );
+	), '', WCS_ATT_Core_Compatibility::get_subscriptions_template_directory() );
 }

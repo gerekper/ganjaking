@@ -2,16 +2,33 @@
 /**
  * A class for representing a product catalog.
  *
- * @package WC_Instagram/Product Catalog
+ * @package WC_Instagram/Product_Catalog
  * @since   3.0.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
+if ( ! class_exists( 'WC_Instagram_Data', false ) ) {
+	include_once WC_INSTAGRAM_PATH . 'includes/abstracts/abstract-wc-instagram-data.php';
+}
+
+if ( ! trait_exists( 'WC_Instagram_Data_Status', false ) ) {
+	include_once WC_INSTAGRAM_PATH . 'includes/traits/trait-wc-instagram-data-status.php';
+}
+
 /**
  * WC_Instagram_Product_Catalog class.
  */
 class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
+
+	use WC_Instagram_Data_Status;
+
+	/**
+	 * This is the name of this object type.
+	 *
+	 * @var string
+	 */
+	protected $object_type = 'instagram_product_catalog';
 
 	/**
 	 * Object data.
@@ -23,6 +40,7 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	protected $data = array(
 		'title'                       => '',
 		'slug'                        => '',
+		'status'                      => 'draft',
 		'filter_by'                   => '',
 		'products_option'             => '',
 		'product_cats_option'         => '',
@@ -64,19 +82,6 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	protected $products;
 
 	/**
-	 * Constructor.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param array $data The catalog data.
-	 */
-	public function __construct( array $data = array() ) {
-		$data = $this->parse_data( $data );
-
-		parent::__construct( $data );
-	}
-
-	/**
 	 * Parses the catalog data.
 	 *
 	 * @since 3.0.0
@@ -98,19 +103,11 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 		);
 
 		foreach ( $rename_data as $key => $replacement ) {
-			if ( ! empty( $data[ $key ] ) ) {
+			if ( isset( $data[ $key ] ) ) {
 				$data[ $replacement ] = $data[ $key ];
 			}
 
 			unset( $data[ $key ] );
-		}
-
-		$bool_data = array( 'include_variations', 'include_currency' );
-
-		foreach ( $bool_data as $key ) {
-			if ( isset( $data[ $key ] ) ) {
-				$data[ $key ] = wc_string_to_bool( $data[ $key ] );
-			}
 		}
 
 		return $data;
@@ -125,25 +122,28 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	 * @return array
 	 */
 	protected function parse_mpn_format( $data ) {
-		$mpn_option = ( isset( $data['product_mpn'] ) ? $data['product_mpn'] : 'id' );
+		$format     = '';
+		$mpn_option = ( isset( $data['product_mpn'] ) ? $data['product_mpn'] : '' );
 
-		if ( 'sku' === $mpn_option ) {
+		if ( 'id' === $mpn_option ) {
+			$format = '{product_id}';
+		} elseif ( 'sku' === $mpn_option ) {
 			$format = '{product_sku}';
 		} elseif ( 'custom' === $mpn_option && ! empty( $data['custom_mpn'] ) ) {
 			$format = $data['custom_mpn'];
-		} else {
-			$format = '{product_id}';
 		}
 
-		/**
-		 * Filters the product MPN format.
-		 *
-		 * @since 3.0.0
-		 *
-		 * @param string $format The MPN format.
-		 * @param array  $data   The product catalog settings data.
-		 */
-		$data['mpn_format'] = apply_filters( 'wc_instagram_product_mpn_format', $format, $data );
+		if ( ! empty( $format ) ) {
+			/**
+			 * Filters the product MPN format.
+			 *
+			 * @since 3.0.0
+			 *
+			 * @param string $format The MPN format.
+			 * @param array  $data   The product catalog settings data.
+			 */
+			$data['mpn_format'] = apply_filters( 'wc_instagram_product_mpn_format', $format, $data );
+		}
 
 		unset( $data['product_mpn'], $data['custom_mpn'] );
 
@@ -159,15 +159,18 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	 * @return array
 	 */
 	protected function parse_taxes( $data ) {
-		$inc_tax      = ( isset( $data['include_tax'] ) && wc_string_to_bool( $data['include_tax'] ) );
+		if ( empty( $data['tax_country'] ) || ! isset( $data['include_tax'] ) ) {
+			return $data;
+		}
+
+		$inc_tax      = wc_string_to_bool( $data['include_tax'] );
 		$tax_location = array();
 		$tax_based_on = get_option( 'woocommerce_tax_based_on' );
 
-		if ( $inc_tax && 'base' !== $tax_based_on && ! empty( $data['tax_country'] ) ) {
+		if ( $inc_tax && 'base' !== $tax_based_on ) {
 			$tax_location = array( $data['tax_country'], '', '', '' );
 		}
 
-		$data['include_tax']  = $inc_tax;
 		$data['tax_location'] = $tax_location;
 
 		unset( $data['tax_country'] );
@@ -175,26 +178,246 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 		return $data;
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Getters
+	|--------------------------------------------------------------------------
+	|
+	| Methods for getting data from the product catalog object.
+	|
+	*/
+
 	/**
 	 * Gets the catalog title.
 	 *
 	 * @since 3.0.0
+	 * @since 4.0.0 Added parameter `$context`.
 	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
 	 * @return string
 	 */
-	public function get_title() {
-		return $this->get_prop( 'title' );
+	public function get_title( $context = 'view' ) {
+		return $this->get_prop( 'title', $context );
 	}
 
 	/**
 	 * Gets the catalog slug.
 	 *
 	 * @since 3.0.0
+	 * @since 4.0.0 Added parameter `$context`.
 	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
 	 * @return string
 	 */
-	public function get_slug() {
-		return $this->get_prop( 'slug' );
+	public function get_slug( $context = 'view' ) {
+		return $this->get_prop( 'slug', $context );
+	}
+
+	/**
+	 * Gets the product ID format.
+	 *
+	 * @since 3.0.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return string
+	 */
+	public function get_id_format( $context = 'view' ) {
+		return $this->get_prop( 'id_format', $context );
+	}
+
+	/**
+	 * Gets the product group ID format.
+	 *
+	 * @since 3.0.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return string
+	 */
+	public function get_group_id_format( $context = 'view' ) {
+		return $this->get_prop( 'group_id_format', $context );
+	}
+
+	/**
+	 * Gets the product MPN format.
+	 *
+	 * @since 3.0.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return string
+	 */
+	public function get_mpn_format( $context = 'view' ) {
+		return $this->get_prop( 'mpn_format', $context );
+	}
+
+	/**
+	 * Gets the field used as the product description.
+	 *
+	 * @since 3.1.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return string
+	 */
+	public function get_description_field( $context = 'view' ) {
+		return $this->get_prop( 'description_field', $context );
+	}
+
+	/**
+	 * Gets the field used as the variation description.
+	 *
+	 * @since 3.1.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return string
+	 */
+	public function get_variation_description_field( $context = 'view' ) {
+		return $this->get_prop( 'variation_description_field', $context );
+	}
+
+	/**
+	 * Gets the brand of the products.
+	 *
+	 * @since 3.0.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return string
+	 */
+	public function get_brand( $context = 'view' ) {
+		return $this->get_prop( 'brand', $context );
+	}
+
+	/**
+	 * Gets the google_product_category value of the products.
+	 *
+	 * @since 3.3.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return string
+	 */
+	public function get_google_product_category( $context = 'view' ) {
+		return $this->get_prop( 'google_product_category', $context );
+	}
+
+	/**
+	 * Gets the condition of the products.
+	 *
+	 * @since 3.1.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return string
+	 */
+	public function get_condition( $context = 'view' ) {
+		return $this->get_prop( 'condition', $context );
+	}
+
+	/**
+	 * Gets which product images to include in the catalog.
+	 *
+	 * @since 3.2.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return string
+	 */
+	public function get_images_option( $context = 'view' ) {
+		return $this->get_prop( 'images_option', $context );
+	}
+
+	/**
+	 * Gets if to include product variations.
+	 *
+	 * @since 3.0.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return bool
+	 */
+	public function get_include_variations( $context = 'view' ) {
+		return $this->get_prop( 'include_variations', $context );
+	}
+
+	/**
+	 * Gets if to include the currency code in prices.
+	 *
+	 * @since 3.0.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return bool
+	 */
+	public function get_include_currency( $context = 'view' ) {
+		return $this->get_prop( 'include_currency', $context );
+	}
+
+	/**
+	 * Gets if prices include tax.
+	 *
+	 * @since 3.0.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return bool
+	 */
+	public function get_include_tax( $context = 'view' ) {
+		return $this->get_prop( 'include_tax', $context );
+	}
+
+	/**
+	 * Gets the tax location.
+	 *
+	 * @since 3.0.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return array
+	 */
+	public function get_tax_location( $context = 'view' ) {
+		return $this->get_prop( 'tax_location', $context );
+	}
+
+	/**
+	 * Gets stock status.
+	 *
+	 * @since 3.6.0
+	 * @since 4.0.0 Added parameter `$context`.
+	 *
+	 * @param string $context What the value is for. Accepts: 'view', 'edit'. Default: 'view'.
+	 * @return string
+	 */
+	public function get_stock_status( $context = 'view' ) {
+		return $this->get_prop( 'stock_status', $context );
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Setters
+	|--------------------------------------------------------------------------
+	|
+	| Methods for setting progressive discount data. These should not update
+	| anything in the database itself and should only change what is stored in
+	| the class object.
+	|
+	*/
+
+	/**
+	 * Set a collection of props in one go, collect any errors, and return the result.
+	 * Only sets using public methods.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array  $props Key value pairs to set. Key is the prop and should map to a setter function name.
+	 * @param string $context In what context to run this.
+	 * @return bool|WP_Error
+	 */
+	public function set_props( $props, $context = 'set' ) {
+		return parent::set_props( $this->parse_data( $props ), $context );
 	}
 
 	/**
@@ -226,158 +449,45 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	}
 
 	/**
-	 * Gets the product ID format.
+	 * Sets if the catalog includes product variations.
 	 *
-	 * @since 3.0.0
+	 * @since 4.0.0
 	 *
-	 * @return string
+	 * @param mixed $include_variations Whether to include product variations.
 	 */
-	public function get_id_format() {
-		return $this->get_prop( 'id_format' );
+	public function set_include_variations( $include_variations ) {
+		$this->set_bool_prop( 'include_variations', $include_variations );
 	}
 
 	/**
-	 * Gets the product group ID format.
+	 * Sets if the catalog should include the currency code in prices.
 	 *
-	 * @since 3.0.0
+	 * @since 4.0.0
 	 *
-	 * @return string
+	 * @param mixed $include_currency Whether to include the currency code in prices.
 	 */
-	public function get_group_id_format() {
-		return $this->get_prop( 'group_id_format' );
+	public function set_include_currency( $include_currency ) {
+		$this->set_bool_prop( 'include_currency', $include_currency );
 	}
 
 	/**
-	 * Gets the product MPN format.
+	 * Sets if the catalog prices include tax.
 	 *
-	 * @since 3.0.0
+	 * @since 4.0.0
 	 *
-	 * @return string
+	 * @param mixed $include_tax Whether the prices include tax.
 	 */
-	public function get_mpn_format() {
-		return $this->get_prop( 'mpn_format' );
+	public function set_include_tax( $include_tax ) {
+		$this->set_bool_prop( 'include_tax', $include_tax );
 	}
 
-	/**
-	 * Gets the field used as the product description.
-	 *
-	 * @since 3.1.0
-	 *
-	 * @return string
-	 */
-	public function get_description_field() {
-		return $this->get_prop( 'description_field' );
-	}
-
-	/**
-	 * Gets the field used as the variation description.
-	 *
-	 * @since 3.1.0
-	 *
-	 * @return string
-	 */
-	public function get_variation_description_field() {
-		return $this->get_prop( 'variation_description_field' );
-	}
-
-	/**
-	 * Gets the brand of the products.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return string
-	 */
-	public function get_brand() {
-		return $this->get_prop( 'brand' );
-	}
-
-	/**
-	 * Gets the google_product_category value of the products.
-	 *
-	 * @since 3.3.0
-	 *
-	 * @return string
-	 */
-	public function get_google_product_category() {
-		return $this->get_prop( 'google_product_category' );
-	}
-
-	/**
-	 * Gets the condition of the products.
-	 *
-	 * @since 3.1.0
-	 *
-	 * @return string
-	 */
-	public function get_condition() {
-		return $this->get_prop( 'condition' );
-	}
-
-	/**
-	 * Gets which product images to include in the catalog.
-	 *
-	 * @since 3.2.0
-	 *
-	 * @return string
-	 */
-	public function get_images_option() {
-		return $this->get_prop( 'images_option' );
-	}
-
-	/**
-	 * Gets if to include product variations.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return bool
-	 */
-	public function get_include_variations() {
-		return $this->get_prop( 'include_variations' );
-	}
-
-	/**
-	 * Gets if to include the currency code in prices.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return bool
-	 */
-	public function get_include_currency() {
-		return $this->get_prop( 'include_currency' );
-	}
-
-	/**
-	 * Gets if prices include tax.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return bool
-	 */
-	public function get_include_tax() {
-		return $this->get_prop( 'include_tax' );
-	}
-
-	/**
-	 * Gets the tax location.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-	public function get_tax_location() {
-		return $this->get_prop( 'tax_location' );
-	}
-
-	/**
-	 * Gets stock status.
-	 *
-	 * @since 3.6.0
-	 *
-	 * @return string
-	 */
-	public function get_stock_status() {
-		return $this->get_prop( 'stock_status' );
-	}
+	/*
+	|--------------------------------------------------------------------------
+	| Queries
+	|--------------------------------------------------------------------------
+	|
+	| Methods for handling the product queries.
+	*/
 
 	/**
 	 * Gets the product IDs of the catalog.
@@ -388,8 +498,7 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	 */
 	public function get_product_ids() {
 		if ( is_null( $this->product_ids ) ) {
-			$query             = $this->get_query();
-			$this->product_ids = $query->get_products();
+			$this->product_ids = $this->query( array( 'return' => 'ids' ) );
 		}
 
 		return $this->product_ids;
@@ -411,14 +520,30 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	}
 
 	/**
-	 * Gets the object for querying the products of the catalog.
+	 * Query products from the catalog.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $args Optional. Query args. Default empty.
+	 * @return array
+	 */
+	public function query( $args = array() ) {
+		$query = $this->get_query( $args );
+
+		return $query->get_products();
+	}
+
+	/**
+	 * Gets the object for querying the products from the catalog.
 	 *
 	 * @since 3.0.0
+	 * @since 4.0.0 Added parameter `$args`.
 	 *
+	 * @param array $args Optional. Query args. Default empty.
 	 * @return WC_Instagram_Product_Catalog_Query
 	 */
-	protected function get_query() {
-		$data = array_diff_key( $this->get_data(), array_flip( array( 'title', 'slug' ) ) );
+	protected function get_query( $args = array() ) {
+		$data = $this->get_data_without( array( 'id', 'title', 'slug', 'meta_data' ) );
 
 		/**
 		 * Filters the catalog data used for querying its products.
@@ -428,14 +553,59 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 		 * @param array                        $data            The catalog data.
 		 * @param WC_Instagram_Product_Catalog $product_catalog Product Catalog object.
 		 */
-		$args = apply_filters( 'wc_instagram_product_catalog_query_data', $data, $this );
+		$data = apply_filters( 'wc_instagram_product_catalog_query_data', $data, $this );
 
-		/*
-		 * Force return the product IDs to improve the performance in case we only need the product IDs or
-		 * the number of products of this catalog.
-		 */
-		$args['return'] = 'ids';
+		$args = wp_parse_args( $args, $data );
 
 		return new WC_Instagram_Product_Catalog_Query( $args );
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Files
+	|--------------------------------------------------------------------------
+	|
+	| Methods for handling the product catalog files.
+	*/
+
+	/**
+	 * Gets the status of the catalog file.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $format The file format.
+	 * @return string
+	 */
+	public function get_file_status( $format ) {
+		return $this->get_meta( "file_status_{$format}" );
+	}
+
+	/**
+	 * Sets the status of the catalog file.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $format The file format.
+	 * @param string $status The file status.
+	 */
+	public function set_file_status( $format, $status ) {
+		$this->update_meta_data( "file_status_{$format}", $status );
+	}
+
+	/**
+	 * Gets the product catalog file for the specified format.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $format  The file format.
+	 * @param string $context Optional. The file context. Default empty.
+	 * @return WC_Instagram_Product_Catalog_File|false
+	 */
+	public function get_file( $format, $context = '' ) {
+		if ( ! $this->get_id() ) {
+			return false;
+		}
+
+		return new WC_Instagram_Product_Catalog_File( $this, $format, $context );
 	}
 }

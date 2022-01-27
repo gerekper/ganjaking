@@ -664,6 +664,7 @@ class WooCommerce_Product_Search_Filter_Attribute {
 					$node_renderer = new WooCommerce_Product_Search_Term_Node_Select_Renderer( array(
 						'current_term_ids'          => $current_term_ids,
 
+						'depth'                     => $params['depth'] > 0 ? $params['depth'] : null,
 						'hierarchical'              => $params['hierarchical'],
 						'multiple'                  => $params['multiple'],
 						'none_selected'             => $params['none_selected'],
@@ -682,6 +683,8 @@ class WooCommerce_Product_Search_Filter_Attribute {
 						'auto_expand'               => false,
 						'auto_retract'              => false,
 						'current_term_ids'          => $current_term_ids,
+
+						'depth'                     => $params['depth'] > 0 ? $params['depth'] : null,
 
 						'expander'                  => false,
 						'hierarchical'              => $params['hierarchical'],

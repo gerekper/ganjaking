@@ -16,7 +16,9 @@ function woocommerce_gpf_install() {
 	$table_name = $wpdb->prefix . 'woocommerce_gpf_google_taxonomy';
 	$sql        = "CREATE TABLE $table_name (
 	            taxonomy_term text,
-	            search_term text
+	            search_term text,
+	            locale varchar(5),
+                KEY locale_index (locale)
 			) $charset_collate";
 	dbDelta( $sql );
 
@@ -96,6 +98,10 @@ function woocommerce_gpf_install() {
 		}
 		// Set the currently installed DB version
 		update_option( 'woocommerce_gpf_db_version', WOOCOMMERCE_GPF_DB_VERSION );
+	}
+
+	if ( get_option( 'woocommerce_gpf_install_ts' ) === false ) {
+		update_option( 'woocommerce_gpf_install_ts', time(), false );
 	}
 
 	// Flag that rewrite rules will need flushing.

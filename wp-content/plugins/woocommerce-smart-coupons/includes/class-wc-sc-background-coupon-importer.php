@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     1.6.0
+ * @version     1.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -901,8 +901,9 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 			$coupon_column_headers   = $this->get_coupon_column_headers();
 			$coupon_posts_headers    = $coupon_column_headers['posts_headers'];
 			$coupon_postmeta_headers = $coupon_column_headers['postmeta_headers'];
+			$coupon_term_headers     = $coupon_column_headers['term_headers'];
 
-			$column_headers = array_merge( $coupon_posts_headers, $coupon_postmeta_headers );
+			$column_headers = array_merge( $coupon_posts_headers, $coupon_postmeta_headers, $coupon_term_headers );
 
 			$batch_start_time = time();
 			$start_time       = get_option( 'start_time_woo_sc', false );
