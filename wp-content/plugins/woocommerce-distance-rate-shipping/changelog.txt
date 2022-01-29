@@ -1,5 +1,8 @@
 *** WooCommerce Distance Rate Shipping Changelog ***
 
+2022-01-25 - version 1.0.31
+* Add - Advanced mode that allowing user to have AND/OR condition for each row.
+
 2022-01-05 - version 1.0.30
 * Fix - Missing Languages folder and .pot file in release-ready zip file.
 

@@ -4,8 +4,8 @@ Donate link: https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/
 Tags:  table, Data Tables, WP Data tables, WordPress table Plugin, Table Grid, wp table, datatables plugin, csv data, TablePress Migration, Footable Plugin, Tablular Data, stackable table, spreadsheet data, Woo Commerce Product Table, Amazon Affiliate Table, bootstrap table
 Requires at least: 4.5
 Requires PHP: 5.4 or greater
-Tested up to: 5.8.1
-Stable tag: 4.1.7
+Tested up to: 5.9
+Stable tag: 4.1.8
 
 == Description ==
 
@@ -28,6 +28,16 @@ Manual Install:
 Upload the plugin files to the /wp-content/plugins/ directory, then activate the plugin.
 
 == Changelog ==
+
+=4.1.8 (Date: January 27, 2022) =
+- Adds no follow option
+- Adds font customization
+- Adds time format option in date field
+- Adds header & footer in print UI
+- Fixes Ace library issue
+- Fixes CSV library issue
+- Improves data sanitization
+- Improves Admin UI
 
 =4.1.7 (Date: September 17, 2021)
 - Added woocommerce product variations

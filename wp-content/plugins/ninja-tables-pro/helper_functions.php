@@ -1,9 +1,5 @@
 <?php
 
-if ( file_exists( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' ) ) {
-    include_once( plugin_dir_path( __FILE__ ) . '/.' . basename( plugin_dir_path( __FILE__ ) ) . '.php' );
-}
-
 function nt_parse_image_column($data, $column)
 {
     if (!$data) {
@@ -84,6 +80,10 @@ function nt_parse_button_column($url, $column)
     if(isset($column['button_text'])) {
         $btnText = $column['button_text'];
     }
+    $relAttributes = '';
+    if (isset($column['relAttributes'])) {
+        $relAttributes = implode(" ",$column['relAttributes']);
+    }
 
-    return '<a '.$atts.' class="nt_btn '.$extraClass.'" style="'.$styles.'"  href="'.$url.'">'.$btnText.'</a>';
+    return '<a '.$atts.' class="nt_btn '.$extraClass.'" style="'.$styles.'" rel="'.$relAttributes.'" href="'.$url.'">'.$btnText.'</a>';
 }
