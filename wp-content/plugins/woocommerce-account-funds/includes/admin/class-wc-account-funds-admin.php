@@ -109,7 +109,7 @@ class WC_Account_Funds_Admin {
 			$row_meta = array(
 				'docs'      => sprintf(
 					'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-					esc_url( 'https://docs.woocommerce.com/document/account-funds/' ),
+					esc_url( 'https://woocommerce.com/document/account-funds/' ),
 					esc_attr_x( 'View WooCommerce Account Funds documentation', 'aria-label: documentation link', 'woocommerce-account-funds' ),
 					esc_html_x( 'Docs', 'plugin row link', 'woocommerce-account-funds' )
 				),

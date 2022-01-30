@@ -1,5 +1,11 @@
 *** WooCommerce Account Funds ***
 
+2022-01-26 - version 2.6.2
+* Tweak - Don't restore the funds automatically when an order is marked as 'Refunded' (Use partial refunds instead).
+* Tweak - Tested compatibility up to WC 6.2.
+* Tweak - Tested compatibility with WP 5.9.
+* Fix - The restored funds' amount cannot be greater than the 'Net payment' amount when canceling an order that contains partial refunds.
+
 2021-12-17 - version 2.6.1
 * Tweak - Tested compatibility with WC 6.0.
 * Fix - Fixed wrong Order balance in the Square dashboard when partially paying the order with funds.

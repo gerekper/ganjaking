@@ -188,7 +188,7 @@ class WC_Account_Funds_Order_Manager {
 			$this->maybe_remove_funds( $order_id );
 		} elseif ( 'on-hold' === $to ) {
 			$this->maybe_remove_funds( $order_id );
-		} elseif ( in_array( $to, array( 'cancelled', 'refunded' ), true ) ) {
+		} elseif ( 'cancelled' === $to ) {
 			$this->maybe_restore_funds( $order_id );
 		}
 	}
@@ -218,7 +218,10 @@ class WC_Account_Funds_Order_Manager {
 			$order->save_meta_data();
 		} else {
 			$customer_id = $order->get_customer_id();
-			$funds       = $funds_used - (float) $order->get_meta( '_funds_refunded' );
+			$funds       = min(
+				( $funds_used - (float) $order->get_meta( '_funds_refunded' ) ), // The remaining funds.
+				( $order->get_total() - $order->get_total_refunded() ) // The remaining order total.
+			);
 
 			if ( $customer_id && $funds > 0 ) {
 				WC_Account_Funds::add_funds( $customer_id, $funds );
