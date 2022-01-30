@@ -1,5 +1,11 @@
 *** WooCommerce Instagram Changelog ***
 
+2022-01-27 - version 4.0.1
+* Tweak - Refresh the XML file when the catalog settings change.
+* Tweak - Tested compatibility with WC 6.2.
+* Dev - Don't trigger the action hook `wc_instagram_product_catalog_updated` when a catalog file status changes.
+* Dev - Store the status of a catalog file as a transient instead of catalog metadata.
+
 2022-01-20 - version 4.0.0
 * Feature - Generate files for the product catalogs.
 * Tweak - Process the products of a catalog in batches.

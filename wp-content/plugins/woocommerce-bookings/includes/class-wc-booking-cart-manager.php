@@ -20,7 +20,6 @@ class WC_Booking_Cart_Manager {
 		add_filter( 'woocommerce_add_cart_item', array( $this, 'add_cart_item' ), 10, 1 );
 		add_filter( 'woocommerce_get_cart_item_from_session', array( $this, 'get_cart_item_from_session' ), 10, 3 );
 		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'cart_loaded_from_session' ), 10, 3 );
-		add_action( 'woocommerce_before_cart_item_quantity_zero', array( $this, 'before_cart_item_quantity_zero' ), 10, 1 );
 		add_filter( 'woocommerce_get_item_data', array( $this, 'get_item_data' ), 10, 2 );
 		add_filter( 'woocommerce_add_cart_item_data', array( $this, 'add_cart_item_data' ), 10, 2 );
 		add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_add_cart_item' ), 10, 3 );
@@ -121,23 +120,6 @@ class WC_Booking_Cart_Manager {
 
 	/**
 	 * Before delete
-	 */
-	public function before_cart_item_quantity_zero( $cart_item_key ) {
-		$cart       = WC()->cart->get_cart();
-		$cart_item  = $cart[ $cart_item_key ];
-		$booking_id = isset( $cart_item['booking'] ) && ! empty( $cart_item['booking']['_booking_id'] ) ? absint( $cart_item['booking']['_booking_id'] ) : '';
-
-		if ( $booking_id ) {
-			$booking = get_wc_booking( $booking_id );
-			if ( $booking && $booking->has_status( array( 'was-in-cart', 'in-cart' ) ) ) {
-				wp_delete_post( $booking_id );
-				wp_clear_scheduled_hook( 'wc-booking-remove-inactive-cart', array( $booking_id ) );
-			}
-		}
-	}
-
-	/**
-	 * Before delete
 	 *
 	 * @param string $cart_item_key identifying which item in cart.
 	 */
@@ -152,7 +134,6 @@ class WC_Booking_Cart_Manager {
 
 				$booking->update_status( 'was-in-cart' );
 				WC_Cache_Helper::get_transient_version( 'bookings', true );
-				wp_clear_scheduled_hook( 'wc-booking-remove-inactive-cart', array( $booking_id ) );
 
 				if ( isset( $this->log ) ) {
 

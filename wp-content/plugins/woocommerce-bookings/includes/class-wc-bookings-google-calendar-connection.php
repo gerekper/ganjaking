@@ -1396,6 +1396,8 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		$timezone        = wc_booking_get_timezone_string();
 		$description     = '';
 		$customer        = $booking->get_customer();
+		$status          = $booking->get_status();
+		$status_label    = isset( $status ) ? WC_Bookings_Calendar::get_booking_status_label( $status ) : '';
 
 		$booking_data = array(
 			__( 'Booking ID', 'woocommerce-bookings' )   => $booking_id,
@@ -1446,7 +1448,13 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 
 		// Set the event data.
 		$product_title = $product ? html_entity_decode( $product->get_title() ) : __( 'Booking', 'woocommerce-bookings' );
-		$event->setSummary( wp_kses_post( sprintf( "%s, %s - #%s", $customer->name, $product_title, $booking->get_id() ) ) );
+
+		// Prepend booking status.
+		if ( ! empty( $status_label ) ) {
+			$event->setSummary( wp_kses_post( sprintf( "[%s] %s, %s - #%s", $status_label, $customer->name, $product_title, $booking->get_id() ) ) );
+		} else {
+			$event->setSummary( wp_kses_post( sprintf( "%s, %s - #%s", $customer->name, $product_title, $booking->get_id() ) ) );
+		}
 
 		// Set the event start and end dates.
 		$start = new Google_Service_Calendar_EventDateTime();
@@ -1567,7 +1575,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 
 		if ( 'cancelled' === $status ) {
 			$this->remove_booking( $booking_id );
-		} elseif ( in_array( $status, $this->get_booking_is_paid_statuses(), true ) ) {
+		} else {
 			$this->sync_booking( $booking_id );
 		}
 	}

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'cd38c6420a05eed5b422f1c555bf7bcb2723c443',
+    'reference' => 'f730734eff9d77bc4c7d88d59719d7281fae6c59',
     'name' => 'woocommerce/woocommerce-bookings',
   ),
   'versions' => 
@@ -244,7 +244,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'cd38c6420a05eed5b422f1c555bf7bcb2723c443',
+      'reference' => 'f730734eff9d77bc4c7d88d59719d7281fae6c59',
     ),
   ),
 );

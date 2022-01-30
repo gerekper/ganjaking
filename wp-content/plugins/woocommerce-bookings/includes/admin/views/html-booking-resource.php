@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="woocommerce_booking_resource wc-metabox closed">
+<div class="woocommerce_booking_resource wc-metabox closed postbox">
 	<h3>
 		<button type="button" class="remove_booking_resource button" rel="<?php echo esc_attr( absint( $resource->get_id() ) ); ?>"><?php esc_html_e( 'Remove', 'woocommerce-bookings' ); ?></button>
 

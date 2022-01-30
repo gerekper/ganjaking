@@ -179,12 +179,19 @@ class WC_Instagram_AJAX {
 	 * @return array
 	 */
 	protected static function get_file_data( $product_catalog, $format ) {
+		$catalog_file = $product_catalog->get_file( $format );
+
+		if ( ! $catalog_file ) {
+			return array(
+				'status' => '',
+			);
+		}
+
 		$data = array(
-			'status' => $product_catalog->get_file_status( $format ),
+			'status' => $catalog_file->get_status(),
 		);
 
-		$file          = $product_catalog->get_file( $format );
-		$last_modified = $file->get_last_modified();
+		$last_modified = $catalog_file->get_last_modified();
 
 		if ( $last_modified ) {
 			$data['lastModified'] = array(

@@ -23,20 +23,49 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( $booking_ids ) {
+	$text_align  = is_rtl() ? 'right' : 'left';
+	$margin_side = is_rtl() ? 'left' : 'right';
+
+	$show_status_date = ! ( isset( $only_title ) && $only_title );
+
 	foreach ( $booking_ids as $booking_id ) {
-		$booking = new WC_Booking( $booking_id );
+		$booking    = new WC_Booking( $booking_id );
+		$order      = $booking->get_order();
+		$plain_text = false;
 		?>
 		<div class="wc-booking-summary">
-			<strong class="wc-booking-summary-number">
-				<?php
-				/* translators: 1: booking id */
-				echo esc_html( sprintf( __( 'Booking #%s', 'woocommerce-bookings' ), (string) $booking->get_id() ) );
-				?>
-				<span class="status-<?php echo esc_attr( $booking->get_status() ); ?>">
-					<?php echo esc_html( wc_bookings_get_status_label( $booking->get_status() ) ); ?>
-				</span>
-			</strong>
-			<?php wc_bookings_get_summary_list( $booking, true ); ?>
+			<?php
+			foreach ( $order->get_items() as $item_id => $item ) {
+				// Product name.
+				echo wp_kses_post( apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, false ) );
+
+				// allow other plugins to add additional product information here.
+				do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order, $plain_text );
+
+				wc_display_item_meta(
+					$item,
+					array(
+						'label_before' => '<strong class="wc-item-meta-label" style="float: ' . esc_attr( $text_align ) . '; margin-' . esc_attr( $margin_side ) . ': .25em; clear: both">',
+					)
+				);
+
+				if ( $show_status_date  ) :
+					?>
+					<strong class="wc-booking-summary-number">
+						<?php
+						/* translators: 1: booking id */
+						printf( esc_html__( 'Booking #%s', 'woocommerce-bookings' ), (string) $booking->get_id() );
+						?>
+						<span class="status-<?php echo esc_attr( $booking->get_status() ); ?>">
+							<?php echo esc_html( wc_bookings_get_status_label( $booking->get_status() ) ); ?>
+						</span>
+					</strong>
+
+					<?php
+					wc_bookings_get_summary_list( $booking, true );
+				endif;
+			}
+			?>
 			<div class="wc-booking-summary-actions">
 				<?php if ( in_array( $booking->get_status(), array( 'pending-confirmation' ) ) ) : ?>
 					<a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-ajax.php?action=wc-booking-confirm&booking_id=' . $booking_id ), 'wc-booking-confirm' ) ); ?>"><?php esc_html_e( 'Confirm booking', 'woocommerce-bookings' ); ?></a>

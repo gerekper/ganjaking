@@ -31,8 +31,10 @@ echo esc_html( __( 'Your booking has been received and it\'s pending confirmatio
 
 echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n";
 
-/* translators: 1: booking product title */
-echo esc_html( sprintf( __( 'Booked: %s', 'woocommerce-bookings' ), $booking->get_product()->get_title() ) ) . "\n";
+esc_html_e( 'Booked: ', 'woocommerce-bookings' );
+wc_get_template( 'emails/plain/customer-booking-display.php', array( 'booking_ids' => [ $booking->get_id() ] ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH );
+echo "\n";
+
 /* translators: 1: booking id */
 echo esc_html( sprintf( __( 'Booking ID: %s', 'woocommerce-bookings' ), $booking->get_id() ) ) . "\n";
 

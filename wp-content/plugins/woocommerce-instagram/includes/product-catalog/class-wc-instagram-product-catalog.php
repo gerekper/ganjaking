@@ -569,30 +569,6 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 	*/
 
 	/**
-	 * Gets the status of the catalog file.
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param string $format The file format.
-	 * @return string
-	 */
-	public function get_file_status( $format ) {
-		return $this->get_meta( "file_status_{$format}" );
-	}
-
-	/**
-	 * Sets the status of the catalog file.
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param string $format The file format.
-	 * @param string $status The file status.
-	 */
-	public function set_file_status( $format, $status ) {
-		$this->update_meta_data( "file_status_{$format}", $status );
-	}
-
-	/**
 	 * Gets the product catalog file for the specified format.
 	 *
 	 * @since 4.0.0
@@ -607,5 +583,35 @@ class WC_Instagram_Product_Catalog extends WC_Instagram_Data {
 		}
 
 		return new WC_Instagram_Product_Catalog_File( $this, $format, $context );
+	}
+
+	/**
+	 * Gets the status of the catalog file.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $format The file format.
+	 * @return string
+	 */
+	public function get_file_status( $format ) {
+		$file = $this->get_file( $format );
+
+		return ( $file ? $file->get_status() : '' );
+	}
+
+	/**
+	 * Sets the status of the catalog file.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $format The file format.
+	 * @param string $status The file status.
+	 */
+	public function set_file_status( $format, $status ) {
+		$file = $this->get_file( $format );
+
+		if ( $file ) {
+			$file->set_status( $status );
+		}
 	}
 }

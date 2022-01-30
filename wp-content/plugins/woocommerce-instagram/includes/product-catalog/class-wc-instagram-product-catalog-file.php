@@ -113,6 +113,34 @@ class WC_Instagram_Product_Catalog_File {
 	}
 
 	/**
+	 * Gets the status of the catalog file.
+	 *
+	 * @since 4.0.1
+	 *
+	 * @return string
+	 */
+	public function get_status() {
+		return (string) get_transient( $this->get_transient_name( 'status' ) );
+	}
+
+	/**
+	 * Sets the status of the catalog file.
+	 *
+	 * @since 4.0.1
+	 *
+	 * @param string $status The file status.
+	 */
+	public function set_status( $status ) {
+		$transient_name = $this->get_transient_name( 'status' );
+
+		if ( $status ) {
+			set_transient( $transient_name, $status, DAY_IN_SECONDS );
+		} else {
+			delete_transient( $transient_name );
+		}
+	}
+
+	/**
 	 * Opens the file.
 	 *
 	 * @since 4.0.0
@@ -280,5 +308,17 @@ class WC_Instagram_Product_Catalog_File {
 	 */
 	protected function delete_file( $filename ) {
 		return ( file_exists( $filename ) && unlink( $filename ) );
+	}
+
+	/**
+	 * Gets the transient name for the specified key.
+	 *
+	 * @since 4.0.1
+	 *
+	 * @param string $key Action key.
+	 * @return string
+	 */
+	protected function get_transient_name( $key ) {
+		return "wc_instagram_catalog_file_{$key}_{$this->product_catalog->get_id()}_{$this->format}";
 	}
 }

@@ -709,7 +709,8 @@ class WC_Booking extends WC_Bookings_Data {
 		$start = $this->start_cached;
 		$end   = $this->end_cached;
 
-		if ( ! $start || ! $end || $start >= $block_end || $end <= $block_start ) {
+		// Condition: Already Booked range must be inside (or equals to) the block range.
+		if ( ! $start || ! $end || ! ( $block_start <= $start && $end <= $block_end ) ) {
 			return false;
 		}
 		return true;

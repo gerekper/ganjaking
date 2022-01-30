@@ -40,7 +40,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 		<?php $booking_form->output(); ?>
 
-		<div class="wc-bookings-booking-cost" style="display:none" data-raw-price=""></div>
+		<div class="wc-bookings-booking-cost price" style="display:none" data-raw-price=""></div>
 
 	</div>
 

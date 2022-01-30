@@ -157,6 +157,7 @@ class WC_Bookings_Ajax {
 
 		$booking_id = $posted['add-to-cart'];
 		$product    = wc_get_product( $booking_id );
+		$booking    = get_wc_product_booking( $product );
 
 		if ( ! $product ) {
 			wp_send_json( array(
@@ -198,7 +199,7 @@ class WC_Bookings_Ajax {
 		}
 
 		// Build the output
-		$output = apply_filters( 'woocommerce_bookings_booking_cost_string', __( 'Booking cost', 'woocommerce-bookings' ), $product ) . ': <strong>' . wc_price( $display_price ) . $price_suffix . '</strong>';
+		$output = apply_filters( 'woocommerce_bookings_booking_cost_string', __( 'Booking cost', 'woocommerce-bookings' ), $product ) . ': <strong>' . $booking->get_price_html( $display_price ) . $price_suffix . '</strong>';
 
 		// Send the output
 		wp_send_json( array(

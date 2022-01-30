@@ -54,7 +54,7 @@ if ( $order ) {
 	<tbody>
 		<tr>
 			<th scope="row" style="text-align:left; border: 1px solid #eee;"><?php esc_html_e( 'Booked Product', 'woocommerce-bookings' ); ?></th>
-			<td style="text-align:left; border: 1px solid #eee;"><?php echo esc_html( $booking->get_product()->get_title() ); ?></td>
+			<td style="text-align:left; border: 1px solid #eee;"><?php wc_get_template( 'order/admin/booking-display.php', array( 'booking_ids' => [ $booking->get_id() ], 'only_title' => true ), 'woocommerce-bookings', WC_BOOKINGS_TEMPLATE_PATH ); ?></td>
 		</tr>
 		<tr>
 			<th style="text-align:left; border: 1px solid #eee;" scope="row"><?php esc_html_e( 'Booking ID', 'woocommerce-bookings' ); ?></th>

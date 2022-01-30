@@ -253,20 +253,23 @@ class WC_Global_Availability extends WC_Bookings_Data implements ArrayAccess {
 	 *   int $end    Timestamp of end time.
 	 */
 	public function get_time_range_for_date( $date ) {
-		$rule_array   = WC_Product_Booking_Rule_Manager::process_availability_rules( array( $this ), 'global', false );
-		$rule         = $rule_array[0];
-		$minute_data  = WC_Product_Booking_Rule_Manager::get_rule_minute_range( $rule, $date );
-		$minutes      = $minute_data['minutes'];
+		$rule_array = WC_Product_Booking_Rule_Manager::process_availability_rules( array( $this ), 'global', false );
+		$rule       = $rule_array[0] ?? '';
+		if ( ! empty( $rule ) ) {
+			$minute_data = WC_Product_Booking_Rule_Manager::get_rule_minute_range( $rule, $date );
+			$minutes     = $minute_data['minutes'];
 
-		if ( ( false === $minute_data['is_bookable'] ) && count( $minutes ) > 0 ) {
-			$start_minute = $minutes[0];
-			$end_minute   = end( $minutes );
+			if ( ( false === $minute_data['is_bookable'] ) && count( $minutes ) > 0 ) {
+				$start_minute = ! empty( $minute_data['overlapping_start_time'] ) ? $minute_data['overlapping_start_time'] : $minutes[0];
+				$end_minute   = ! empty( $minute_data['overlapping_end_time'] ) ? $minute_data['overlapping_end_time'] : end( $minutes );
 
-			return array(
-				'start' => $date + $start_minute * self::SECONDS_IN_A_MINUTE,
-				'end'   => $date + $end_minute * self::SECONDS_IN_A_MINUTE,
-			);
+				return array(
+					'start' => $date + $start_minute * self::SECONDS_IN_A_MINUTE,
+					'end'   => $date + $end_minute * self::SECONDS_IN_A_MINUTE,
+				);
+			}
 		}
+
 		return null;
 	}
 
@@ -504,12 +507,40 @@ class WC_Global_Availability extends WC_Bookings_Data implements ArrayAccess {
 		 */
 		$today = date( 'Y-m-d', time() );
 
-		$retval = false;
+		$retval 	= false;
+		$range_type = $this->get_range_type();
 
-		if ( 'time:range' === $this->get_range_type() && $today > $this->get_to_date() ) {
+		if ( 'time:range' === $range_type && $today > $this->get_to_date() ) {
 			$retval = true;
-		} elseif ( 'custom' === $this->get_range_type() && $today > $this->get_to_range() ) {
+		} elseif ( 'custom' === $range_type && $today > $this->get_to_range() ) {
 			$retval = true;
+		} elseif ( 'custom:daterange' === $range_type && $today > $this->get_to_date() ) {
+			$retval = true;
+		} elseif ( 'rrule' === $range_type ) {
+			$start       = new WC_DateTime( $this->get_from_range() );
+			$end         = new WC_DateTime( $this->get_to_range() );
+			$is_all_day  = false === strpos( $this->get_from_range(), ':' );
+			$date_format = $is_all_day ? 'Y-m-d' : 'Y-m-d g:i A';
+	
+			/**
+			 * Using start time for all-day events but end time for intraday events.
+			 * This is required to see events which already started in the past but
+			 * not yet finished.
+			 */
+			$rrule = new \RRule\RSet(
+				$this->get_rrule(),
+				$is_all_day ? $start->format( $date_format ) : $end
+			);
+
+			// Skip infinite recurrence rules.
+			if ( $rrule->isFinite() ) {
+				$occurences = $rrule->getOccurrencesAfter( $today );
+
+				// If there is no future occurences, this is past event.
+				if ( 0 === count( $occurences ) ) {
+					$retval = true;
+				}
+			}
 		}
 
 		return apply_filters( 'woocommerce_bookings_availability_has_past', $retval, $this );

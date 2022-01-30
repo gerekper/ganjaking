@@ -23,6 +23,11 @@ class WC_Bookings_Calendar {
 		'schedule',
 	);
 
+	const HIDE_BOOKING_STATUS_LABEL = array(
+		'paid',
+		'complete',
+	);
+
 	/**
 	 * Output the calendar view.
 	 */
@@ -174,6 +179,7 @@ class WC_Bookings_Calendar {
 				$booking      = $event;
 				$booking_data = $this->get_booking_data( $booking );
 				$order        = $booking->get_order();
+				$status       = $event->data['status'] ?? '';
 				if ( ( false !== $order ) && method_exists( $order, 'get_customer_note' ) ) {
 					$note = $order->get_customer_note();
 				}
@@ -184,6 +190,7 @@ class WC_Bookings_Calendar {
 					'resource' => $booking_data['resource'],
 					'persons'  => $booking_data['persons'],
 					'url'      => $booking_data['url'],
+					'status'   => $status,
 					'note'     => isset( $note ) ? $note : '',
 					'start'    => $event->get_start(),
 				);
@@ -241,6 +248,7 @@ class WC_Bookings_Calendar {
 			$title         = '';
 			$id            = '';
 			$style         = '';
+			$status        = isset( $event->data['status'] ) ? self::get_booking_status_label( $event->data['status'] ) : '';
 
 			if ( 'WC_Booking' === get_class( $event ) ) {
 				$booking = $event;
@@ -307,7 +315,7 @@ class WC_Bookings_Calendar {
 				$data_attr .= ' data-style="' . esc_attr( $style ) . '"';
 				$data_attr .= ' data-url="' . esc_attr( $detail_href ) . '"';
 
-				echo '<li class="calendar_month_event calendar_event_id_' . esc_attr( $id ) . '" data-id="' . esc_attr( $id ) . '" ' . $data_attr . '></li>'; // phpcs:ignore WordPress.Security.EscapeOutput
+				echo '<li class="calendar_month_event calendar_event_id_' . esc_attr( $id ) . '" data-status="' . esc_attr( $status ) . '" data-id="' . esc_attr( $id ) . '" ' . $data_attr . '></li>'; // phpcs:ignore WordPress.Security.EscapeOutput
 			}
 		}
 
@@ -372,7 +380,6 @@ class WC_Bookings_Calendar {
 		$index                 = 0;
 
 		foreach ( $events as $event ) {
-
 			if ( 'WC_Global_Availability' === get_class( $event ) ) {
 				$assigned_colors[ $event->get_id() ] = '#dbdbdb';
 				continue;
@@ -426,7 +433,8 @@ class WC_Bookings_Calendar {
 		$assigned_colors = $this->get_event_color_styles( $this->events );
 
 		foreach ( $this->events as $index => $event ) {
-			$data = $this->get_booking_data( $event );
+			$data   = $this->get_booking_data( $event );
+			$status = isset( $event->data['status'] ) ? self::get_booking_status_label( $event->data['status'] ) : '';
 
 			if ( is_null( $data ) ) {
 				continue;
@@ -436,13 +444,33 @@ class WC_Bookings_Calendar {
 				$attr_data[ 'data-booking-' . $key ] = esc_attr( $val );
 			}
 
-			$css_classes   = array( 'daily_view_booking' );
-			if ( $event instanceof  WC_Global_Availability ) {
+			// Add attr for booking status label.
+			$attr_data['data-status'] = $status;
+
+			$css_classes = array( 'daily_view_booking' );
+			if ( $event instanceof WC_Global_Availability ) {
 				$css_classes[] = 'no_availability';
 			}
 
 			echo wp_kses_post( $this->render_li_element( $attr_data, $assigned_colors[ $event->get_id() ], $css_classes ) );
 		}
+	}
+
+	/**
+	 * Get translated label of booking status to display
+	 * in calendar(s).
+	 *
+	 * @param string $status Booking status value.
+	 *
+	 * @return string Returns the translated label.
+	 *
+	 * @since  1.15.49
+	 */
+	static function get_booking_status_label( $status ) {
+		$status   = $status && ! in_array( $status, self::HIDE_BOOKING_STATUS_LABEL, true ) ? $status : '';
+		$statuses = get_wc_booking_statuses( 'user', true );
+
+		return ! empty( $status ) ? $statuses[ $status ] : '';
 	}
 
 	/**

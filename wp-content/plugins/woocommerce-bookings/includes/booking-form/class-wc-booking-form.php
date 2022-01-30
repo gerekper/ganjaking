@@ -287,10 +287,16 @@ class WC_Booking_Form {
 				$duration      = $this->product->get_duration();
 				$duration_unit = $this->product->get_duration_unit();
 
-				if ( in_array( $duration_unit, array( 'minute', 'hour' ) ) ) {
-					$duration_unit = _n( 'block', 'blocks', $duration, 'woocommerce-bookings' );
-				} else if ( in_array( $duration_unit, array( 'day') ) ) {
+				if ( 'minute' === $duration_unit ) {
+					$duration_unit = _n( 'minute', 'minutes', $duration, 'woocommerce-bookings' );
+				} elseif ( 'hour' === $duration_unit ) {
+					$duration_unit = _n( 'hour', 'hours', $duration, 'woocommerce-bookings' );
+				} elseif ( 'day' === $duration_unit ) {
 					$duration_unit = _n( 'day', 'days', $duration, 'woocommerce-bookings' );
+				} elseif ( 'month' === $duration_unit ) {
+					$duration_unit = _n( 'month', 'months', $duration, 'woocommerce-bookings' );
+				} else {
+					$duration_unit = _n( 'block', 'blocks', $duration, 'woocommerce-bookings' );
 				}
 
 				// Check for singular display.

@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="woocommerce_booking_person wc-metabox closed">
+<div class="woocommerce_booking_person wc-metabox closed postbox">
 	<h3>
 		<button type="button" class="unlink_booking_person button" rel="<?php echo esc_attr( $person_type->get_id() ); ?>"><?php esc_html_e( 'Unlink', 'woocommerce-bookings' ); ?></button>
 		<div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'woocommerce-bookings' ); ?>"></div>

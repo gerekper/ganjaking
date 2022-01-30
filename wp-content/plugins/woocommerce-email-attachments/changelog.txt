@@ -1,0 +1,89 @@
+*** Email Attachments Changelog ***
+
+2022.01.26 - version 3.1.1
+	* Version bump: checked compatibility for WP 5.8 and WooCommerce 6.1
+
+2020.12.29 - version 3.1.0
+	* Version bump: checked compatibility for WP 5.6 and WooCommerce 4.8
+
+2020.05.13 - version 3.0.12
+	* Fixed bug attachments not saveing for some email types
+
+2020.02.20 - version 3.0.11
+	* Fixed bug WPML not translating E-Mail settings text
+
+2019.09.14 - version 3.0.10
+	* Update compatibility info WC 3.7
+
+2017.10.03 - version 3.0.9
+	* Move main plugin file to woocommerce-email-attachments.php to support new WC update feature
+
+2017.10.22 - version 3.0.8
+	* Adding WooCommerce 3.2 version check support
+
+2017.05.17 - version 3.0.7
+	* Fix bug with checkbox "always show the attachment notification" due to changed call sequence to e-mail handlers
+
+2017.03.10 - version 3.0.6
+	* Fix changelog
+
+2017.03.09 - version 3.0.5
+	* Fix deprecated actions/filters on settings page (notice message on tab - screen reader)
+	* Refactor code in loading plugin
+	* Refactor function autoload
+
+2016.01.09 - version 3.0.4
+	* Fixing bug with "Order Status Manager" plugin - moving handler_wc_init to WP filter init hook
+
+2015.07.24 - version 3.0.3
+	* WC 2.4 ready check
+	* Bugfix drag and drop for attachments not longer working
+	* Settingspage returns to last selected settings after save
+
+2015.07.16 - version 3.0.2
+	* Possible bugfix with WC Reports: avoid loading our admin scripts on other pages
+
+2014.09.02 - version 3.0.1
+	* Bugfix - in class-wc-email-att-func
+	* Backward comp. with admin-ajax call wc-settings
+
+2014.08.29 - version 3.0.0
+	* Complete redesign of plugin
+	* Change in structure of files, adding new classes, redesign code to prepare for extension plugins to hook
+	* Refactor code, classnames and files to apply to WP coding conventions
+	* Changeing option array to new structure
+	* Use of WP 3.5 Media Manager for uploading and selecting Attachment files
+	* E-Mail attachments implemented as WP Attachments to custom post type - a single post is used for all attachments to filter in WP 3.5 Media Manager
+	* Use of WooCommerce core functions for option pages and extending them
+	* Changeing to tab structure in option page similar to woocommerce-additional-fees plugin
+	* Using WC-Emails to hook to E-Mail subjects (eg. supporting other plugins to add E-Mail subjects)
+	* removing inoplugs_plupload class and other stuff no longer needed
+	* Backward compatibility to WooCommerce versions < 2.1.0 by integrating plugin version 2.1.0
+	* Adding hooks for plugins depending on this plugin
+	* WPML Support to add attachments and text depending on current user language or for all languages
+	* Removing old documentation html file - no longer valid
+
+2014.02.14 - version 2.1.0
+	* Fixed incompatibility issue with PDF Invoice
+	* Changed version number format to 3 digits
+
+2012.12.29 - version 2.0.0.0
+	* New Uploader - changed to standart WP plupload with drag and drop
+	* Updating for WooCommerce 2.0
+
+2012.12.04 - version 1.1.0.2
+	* New updater
+
+2012.05.25 - version 1.1.0.1
+	* Eliminating WP-DEBUG message undefined variable in woocommerce_email_attachments.php
+
+2012.03.12 - version 1.1.0.0
+	* Major enhancements to the plugin:
+		Implementing 6 new E-Mail types for adding attachments.
+		Implementing CC and BCC for all E-Mail types.
+		Implementing toggle section for all E-Mail types in admin page.
+		'Reinitialize Selection List' also saves all input, not just reloads page.
+		Updating and enhancing documentation.
+
+2012.03.01 - version 1.0
+	* First release

@@ -20,6 +20,7 @@ class WC_Instagram_Product_Catalogs {
 	 */
 	public static function init() {
 		add_action( 'wc_instagram_product_catalog_created', array( __CLASS__, 'init_catalog_files' ) );
+		add_action( 'wc_instagram_product_catalog_updated', array( __CLASS__, 'generate_catalog_file' ) );
 		add_action( 'wc_before_delete_instagram_product_catalog', array( __CLASS__, 'delete_catalog_files' ) );
 	}
 
@@ -56,11 +57,12 @@ class WC_Instagram_Product_Catalogs {
 	 * Generates a catalog file.
 	 *
 	 * @since 4.0.0
+	 * @since 4.0.1 The parameter `$format` is optional and its default value is 'xml'.
 	 *
 	 * @param WC_Instagram_Product_Catalog $product_catalog Product catalog object.
-	 * @param string                       $format          The file format.
+	 * @param string                       $format          Optional. File format. Default 'xml'.
 	 */
-	public static function generate_catalog_file( $product_catalog, $format ) {
+	public static function generate_catalog_file( $product_catalog, $format = 'xml' ) {
 		$background = WC_Instagram_Backgrounds::get( 'generate_catalog' );
 
 		if ( ! $background ) {

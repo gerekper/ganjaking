@@ -284,6 +284,13 @@ class WC_Bookings_Controller {
 
 		$max_booking_date = strtotime( '+1 day', $max_booking_date );
 
+		/*
+		 * Changing the booking timestamps according to the local timezone.
+		 * Fix for https://github.com/woocommerce/woocommerce-bookings/issues/3069
+		 */
+		$min_booking_date = strtotime( 'midnight', $min_booking_date - $timezone_offset );
+		$max_booking_date = strtotime( 'midnight', $max_booking_date - $timezone_offset );
+
 		// Call these for the whole chunk range for the bookings since they're expensive.
 		$blocks = $bookable_product->get_blocks_in_range( $min_booking_date, $max_booking_date );
 
@@ -304,6 +311,12 @@ class WC_Bookings_Controller {
 
 		$available_blocks = wc_bookings_get_time_slots( $bookable_product, $blocks, array(), 0, $min_booking_date, $max_booking_date );
 		$available_slots  = array();
+
+		// Get local timezone from existing booking object.
+		$local_timezone = $existing_booking->data['local_timezone'] ?? '';
+
+		// Update existing available blocks availability according to the customer's local timezone.
+		$available_blocks = self::update_booking_availability_for_customers_timezone( $available_blocks, $local_timezone );
 
 		foreach ( $available_blocks as $block => $quantity ) {
 			foreach ( $quantity['resources'] as $resource_id => $availability ) {
@@ -346,6 +359,43 @@ class WC_Bookings_Controller {
 		 * @param WC_Product $bookable_product
 		 */
 		return apply_filters( 'woocommerce_bookings_booked_day_blocks', $booked_day_blocks, $bookable_product );
+	}
+
+	/**
+	 * Updates existing available blocks according to the customer's local timezone.
+	 *
+	 * @param array $available_blocks Existing available block.
+	 * @param string $timezone Local timezone.
+	 *
+	 * @return array Updated available blocks.
+	 * @throws Exception
+	 */
+	public static function update_booking_availability_for_customers_timezone( $available_blocks, $timezone = '' ) {
+
+		if ( empty( $timezone ) ) {
+			if ( get_option( 'timezone_string' ) ) {
+				$timezone = wc_timezone_string();
+			} else {
+				// Return if timezone is set as UTC time.
+				return $available_blocks;
+			}
+		}
+
+		$local_timezone           = new DateTimeZone( $timezone );
+		$server_timezone          = wc_booking_get_timezone_string();
+		$updated_available_blocks = array();
+
+		foreach ( $available_blocks as $timestamp => $block ) {
+			// Create DateTime in server's timezone (otherwise UTC is assumed).
+			$dt = new DateTime( date( 'Y-m-d\TH:i:s', $timestamp ), new DateTimeZone( $server_timezone ) );
+			$dt->setTimezone( $local_timezone );
+
+			// Calling simply `getTimestamp` will not calculate the timezone.
+			$new_timestamp                              = strtotime( $dt->format( 'Y-m-d H:i:s' ) );
+			$updated_available_blocks[ $new_timestamp ] = $block;
+		}
+
+		return $updated_available_blocks;
 	}
 
 	/**

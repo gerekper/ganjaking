@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit913d775b0abcbbef3de19d4ffe289def
+class ComposerStaticInitfbbfef7935b9788d700480730021bef3
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -274,6 +274,7 @@ class ComposerStaticInit913d775b0abcbbef3de19d4ffe289def
         'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\TransferStats' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/TransferStats.php',
         'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\UriTemplate' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/UriTemplate.php',
         'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\Utils' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Utils.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Composer\\Installers\\AglInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AglInstaller.php',
         'Composer\\Installers\\AimeosInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
         'Composer\\Installers\\AnnotateCmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',
@@ -1039,10 +1040,10 @@ class ComposerStaticInit913d775b0abcbbef3de19d4ffe289def
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit913d775b0abcbbef3de19d4ffe289def::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit913d775b0abcbbef3de19d4ffe289def::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit913d775b0abcbbef3de19d4ffe289def::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit913d775b0abcbbef3de19d4ffe289def::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfbbfef7935b9788d700480730021bef3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfbbfef7935b9788d700480730021bef3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitfbbfef7935b9788d700480730021bef3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitfbbfef7935b9788d700480730021bef3::$classMap;
 
         }, null, ClassLoader::class);
     }

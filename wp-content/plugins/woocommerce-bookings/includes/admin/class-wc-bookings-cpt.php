@@ -15,7 +15,7 @@ class WC_Bookings_CPT {
 
 		// Admin Columns
 		add_filter( 'manage_edit-' . $this->type . '_columns', array( $this, 'edit_columns' ) );
-		add_action( 'manage_' . $this->type . '_posts_custom_column', array( $this, 'custom_columns' ), 2 );
+		add_action( 'manage_' . $this->type . '_posts_custom_column', array( $this, 'custom_columns' ), 2, 2 );
 		add_filter( 'manage_edit-' . $this->type . '_sortable_columns', array( $this, 'custom_columns_sort' ) );
 		add_filter( 'request', array( $this, 'custom_columns_orderby' ) );
 
@@ -203,13 +203,14 @@ class WC_Bookings_CPT {
 	 * Define our custom columns shown in admin.
 	 *
 	 * @param  string $column
+	 * @param  string $post_id
 	 * @global WC_Booking $booking
 	 */
-	public function custom_columns( $column ) {
-		global $post, $booking;
+	public function custom_columns( $column, $post_id ) {
+		global $booking;
 
-		if ( ! is_a( $booking, 'WC_Booking' ) || $booking->get_id() !== $post->ID ) {
-			$booking = new WC_Booking( $post->ID );
+		if ( ! is_a( $booking, 'WC_Booking' ) || $booking->get_id() !== $post_id ) {
+			$booking = new WC_Booking( $post_id );
 		}
 
 		$product = $booking->get_product();
@@ -220,7 +221,7 @@ class WC_Bookings_CPT {
 				break;
 			case 'booking_id':
 				/* translators: 1: a href to booking id */
-				printf( '<a href="%s">' . esc_html__( 'Booking #%d', 'woocommerce-bookings' ) . '</a>', esc_url( admin_url( 'post.php?post=' . esc_attr( $post->ID ) . '&action=edit' ) ), esc_html( $post->ID ) );
+				printf( '<a href="%s">' . esc_html__( 'Booking #%d', 'woocommerce-bookings' ) . '</a>', esc_url( admin_url( 'post.php?post=' . esc_attr( $post_id ) . '&action=edit' ) ), esc_html( $post_id ) );
 				break;
 			case 'num_of_persons':
 				if ( ! is_object( $product ) || ! $product->has_persons() ) {
@@ -270,7 +271,7 @@ class WC_Bookings_CPT {
 				echo '<p>';
 				$actions = array(
 					'view' => array(
-						'url'    => admin_url( 'post.php?post=' . $post->ID . '&action=edit' ),
+						'url'    => admin_url( 'post.php?post=' . $post_id . '&action=edit' ),
 						'name'   => __( 'View', 'woocommerce-bookings' ),
 						'action' => 'view',
 					),
@@ -278,7 +279,7 @@ class WC_Bookings_CPT {
 
 				if ( in_array( $booking->get_status(), array( 'pending-confirmation' ) ) ) {
 					$actions['confirm'] = array(
-						'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=wc-booking-confirm&booking_id=' . $post->ID ), 'wc-booking-confirm' ),
+						'url'    => wp_nonce_url( admin_url( 'admin-ajax.php?action=wc-booking-confirm&booking_id=' . $post_id ), 'wc-booking-confirm' ),
 						'name'   => __( 'Confirm', 'woocommerce-bookings' ),
 						'action' => 'confirm',
 					);

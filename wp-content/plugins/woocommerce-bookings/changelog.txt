@@ -1,5 +1,31 @@
 *** WooCommerce Bookings Changelog ***
 
+2022-01-26 - version 1.15.50
+* Fix - Add duration limit unit with max/min duration notice.
+* Fix - Add product information in the cancel email.
+* Fix - Add-Ons info in the Pending Confirmation email.
+* Fix - Added min-width to date picker and date range fields.
+* Fix - Booking events status can not be recognized when looking at the calendar(s).
+* Fix - Booking resources and persons toggle button is closing product data tab.
+* Fix - Bump date line down in the admin calendar so it's easier to read .
+* Fix - Calendar availability incorrect if customers timezone changes date. .
+* Fix - Calendar has warnings if view is 'Month' selected.
+* Fix - Custom availability rules with higher priority to override Google Calendar events.
+* Fix - Deprecated function being used: `woocommerce_before_cart_item_quantity_zero`.
+* Fix - Enhance resource cost unit label.
+* Fix - Ensure end time and start time fields don't overlap in admin bookings view.
+* Fix - Fix/3057 - Adds function to set selected month. Fix for highlighted month disappearing when clicking outside calendar.
+* Fix - Fix: Inconsistencies in start times when resources are assigned to bookable products.
+* Fix - Fix: Memberships discounts are not applied to the booking cost preview on the product's page (only in cart).
+* Fix - Hide past global availabilities from settings.
+* Fix - Overlapping resource availability - Incorrect slot display in the front-end.
+* Fix - The default parameter is not used in the `WC_Bookings_CPT::custom_columns` hook.
+* Fix - UI broken due to Booking product title on Booking >Calendar.
+* Fix - Using start of week setting.
+* Tweak - Cleanup of `was-in-cart` bookings.
+* Tweak - WC 4.7 compatibility.
+* Tweak - WP 5.9 compatibility.
+
 2021-11-30 - version 1.15.49
 * Fix - Availability of the product with multiple auto-assigned resources.
 * Fix - Bring jQuery UI into our codebase instead of loading from a CDN.

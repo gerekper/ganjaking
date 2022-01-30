@@ -652,6 +652,7 @@ class WC_Bookings_Admin {
 			'i18n_persons'           => esc_js( __( 'Persons', 'woocommerce-bookings' ) ),
 			'bookings_version'       => WC_BOOKINGS_VERSION,
 			'bookings_db_version'    => WC_BOOKINGS_DB_VERSION,
+			'start_of_week'          => get_option( 'start_of_week' ),
 		);
 
 		wp_localize_script( 'wc_bookings_admin_js', 'wc_bookings_admin_js_params', $params );

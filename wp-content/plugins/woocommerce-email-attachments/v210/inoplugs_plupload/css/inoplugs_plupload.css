@@ -1,0 +1,112 @@
+.inoplugs_plupload_clear_both{
+	clear:both;
+}
+
+div.inoplugs_drag_drop {
+	border: 4px dashed #ddd;
+}
+div.inoplugs_drag_drop_inside {
+	margin: 30px auto;
+}
+div.inoplugs_drag_drop_inside p {
+	text-align: center;
+	display: block;
+	font-size: 20px;
+	margin: 15px 0;
+	color: #aaa;
+}
+
+
+/* added with JavaScript during upload progress */
+div.inoplugs_image_uploading_bar {
+/*	position: relative;
+	width: auto;
+	height: 0%;
+	bottom: 0;
+	padding: 15px 30px;*/
+}
+
+.inoplugs_plupload_progress_list{
+	width: 90%;
+	min-height: 30px;
+	float: left;
+}
+
+.inoplugs_plupload_progress_list li{
+	background-color: #ffffff;
+	float: left;
+	width: 100%;
+	padding: 1px 8px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+}
+
+.inoplugs_plupload_uploaded_list{
+	width: 90%;
+	min-height: 30px;
+	float: left;
+}
+
+.inoplugs_plupload_uploaded_list li{
+	background-color: #66CC66;
+	float: left;
+	width: 100%;
+	padding: 10px 8px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+}
+
+.inoplugs_plupload_uploaded_list li.inoplugs_plupload_uploaded_error{
+	background-color: #FBC2C4;
+}
+
+div.inoplugs_image_uploading_status {
+	float: left;
+	margin: 2px 0 0 3px;
+}
+
+li.inoplugs_image_error {
+	border: 3px solid #c00;
+	background: #FBC2C4;
+}
+
+
+.inoplugs_image_uploading_status .inoplugs_loader {
+	width: 30px;
+	height: 30px;
+	top: 0px;
+	left: 0px;
+	position: relative;
+	padding: 5px;
+	background: transparent;
+}
+
+.inoplugs_image_uploading_file{
+	float: left;
+    margin: 3px 8px 0;
+    width: 80%;
+}
+
+.inoplugs_image_uploading_progress_bar_container{
+	border: 1px solid #ddd;
+    float: left;
+    height: 12px;
+    margin: 5px 8px;
+    width: 90%;
+	border-radius: 10px;
+	background: transparent;
+}
+
+.inoplugs_image_uploading_progress_bar{
+	position: relative;
+	left: 0;
+	top: 0;
+	height: 100%;
+	background: #00a7c8;
+	width: 0%;
+	border-radius: 10px;
+}
+
+.inoplugs_plupload_hide_on_load {
+	display: none;
+}

@@ -43,7 +43,7 @@ global $product;
 	endif;
 	?>
 
-	<?php if ( apply_filters( 'woocommerce_instagram_display_action_note', true ) ) : ?>
+	<?php if ( apply_filters( 'woocommerce_instagram_display_action_note', true ) ) : // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHooksComment ?>
 		<p class="woocommerce-instagram-call-to-action">
 			<?php
 			echo wp_kses_post(

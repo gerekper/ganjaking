@@ -36,8 +36,14 @@ class WC_Instagram_Background_Generate_Catalog extends WC_Instagram_Background_P
 	public function maybe_push_catalog( $the_catalog, $format ) {
 		$catalog = wc_instagram_get_product_catalog( $the_catalog );
 
+		if ( ! $catalog ) {
+			return false;
+		}
+
+		$catalog_file = $catalog->get_file( $format );
+
 		// Don't queue the catalog file twice.
-		if ( ! $catalog || $catalog->get_file_status( $format ) ) {
+		if ( ! $catalog_file || $catalog_file->get_status() ) {
 			return false;
 		}
 
@@ -48,8 +54,7 @@ class WC_Instagram_Background_Generate_Catalog extends WC_Instagram_Background_P
 			)
 		);
 
-		$catalog->set_file_status( $format, 'queued' );
-		$catalog->save();
+		$catalog_file->set_status( 'queued' );
 
 		return true;
 	}
@@ -123,8 +128,7 @@ class WC_Instagram_Background_Generate_Catalog extends WC_Instagram_Background_P
 
 		if ( 0 === $data['offset'] ) {
 			$this->log( 'Generating catalog: ' . $catalog->get_slug() . ".{$format}" );
-			$catalog->set_file_status( $format, 'processing' );
-			$catalog->save();
+			$catalog_file->set_status( 'processing' );
 			$catalog_file->init();
 		}
 
@@ -172,9 +176,7 @@ class WC_Instagram_Background_Generate_Catalog extends WC_Instagram_Background_P
 		$catalog_file->finish();
 		$catalog_file->close();
 		$catalog_file->publish();
-
-		$catalog->set_file_status( $format, null );
-		$catalog->save();
+		$catalog_file->set_status( '' );
 
 		delete_option( $data_option );
 
