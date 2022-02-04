@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name: 	WooCommerce Advanced Product Labels
- * Plugin URI: 		https://woocommerce.com/products/woocommerce-advanced-product-labels/
- * Description: 	Create product labels to increase visibility of your products, add information and increase conversion rate with just a few clicks!
- * Version: 		1.1.8
- * Author: 			Jeroen Sormani
- * Author URI: 		https://jeroensormani.com/
- * Text Domain: 	woocommerce-advanced-product-labels
+ * Plugin Name:    WooCommerce Advanced Product Labels
+ * Plugin URI:     https://woocommerce.com/products/woocommerce-advanced-product-labels/
+ * Description:    Create product labels to increase visibility of your products, add information and increase conversion rate with just a few clicks!
+ * Version:        1.2.0
+ * Author:         Jeroen Sormani
+ * Author URI:     https://jeroensormani.com/
+ * Text Domain:    woocommerce-advanced-product-labels
  *
- * WC requires at least: 3.0.0
- * WC tested up to:      5.1.0
+ * WC requires at least: 4.0.0
+ * WC tested up to:      6.1.0
  * Woo: 609121:d3f3fab18b6f605e093a15361e5dd486
  */
 
@@ -44,7 +44,7 @@ class Woocommerce_Advanced_Product_Labels {
 	 * @since 1.0.0
 	 * @var string $version Plugin version number.
 	 */
-	public $version = '1.1.8';
+	public $version = '1.2.0';
 
 
 	/**
@@ -59,7 +59,7 @@ class Woocommerce_Advanced_Product_Labels {
 	/**
 	 * Instance of WooCommerce_Advanced_Product_Labels.
 	 *
-	 * @since 1.0.0
+	 * @since  1.0.0
 	 * @access private
 	 * @var object $instance The instance of WAPL.
 	 */
@@ -121,7 +121,7 @@ class Woocommerce_Advanced_Product_Labels {
 		}
 
 		if ( is_admin() ) {
-			$this->admin = new WAPL_Admin();
+			$this->admin    = new WAPL_Admin();
 			$this->settings = new WAPL_Settings();
 		}
 
@@ -130,10 +130,11 @@ class Woocommerce_Advanced_Product_Labels {
 			$this->ajax = new WAPL_Ajax();
 		}
 
-		$this->post_type = new WAPL_Post_Type();
+		$this->post_type     = new WAPL_Post_Type();
 		$this->single_labels = new WAPL_Single_Labels();
-		$this->global_labels = new  WAPL_Global_Labels();
-		$this->matcher = new WAPL_Match_Conditions();
+		$this->global_labels = new WAPL_Global_Labels();
+		$this->matcher       = new WAPL_Match_Conditions();
+		$this->hook_check    = new WAPL_Hook_Check();
 
 		// Load textdomain
 		$this->load_textdomain();
@@ -150,7 +151,7 @@ class Woocommerce_Advanced_Product_Labels {
 	public function enqueue_scripts() {
 		wp_register_style( 'woocommerce-advanced-product-labels', plugins_url( '/assets/front-end/css/woocommerce-advanced-product-labels.min.css', __FILE__ ), array(), $this->version );
 
-        if ( is_woocommerce() || is_post_type_archive( 'product' ) || is_shop() || is_product() ) {
+		if ( is_woocommerce() || is_post_type_archive( 'product' ) || is_shop() || is_product() ) {
 			wp_enqueue_style( 'woocommerce-advanced-product-labels' );
 		}
 	}
@@ -189,14 +190,10 @@ class Woocommerce_Advanced_Product_Labels {
 	 * @since 1.0.6
 	 */
 	public function php_version_notice() {
-
 		?><div class='updated'>
 			<p><?php echo sprintf( __( 'Advanced Product Labels requires PHP 5.3 or higher and your current PHP version is %s. Please (contact your host to) update your PHP version.', 'woocommerce-advanced-messages' ), PHP_VERSION ); ?></p>
 		</div><?php
-
 	}
-
-
 }
 
 

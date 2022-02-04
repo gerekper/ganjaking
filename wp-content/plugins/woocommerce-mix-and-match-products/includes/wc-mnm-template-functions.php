@@ -41,15 +41,30 @@ function wc_mnm_template_add_to_cart_after_summary() {
 	}
 }
 
-
 /**
  * Add-to-cart template for Mix and Match products.
  *
  * @since  1.3.0
+ * 
+ * @param WC_Product_Mix_and_Match $product - Optionally call template for a specific product. Since 1.11.7
  */
-function wc_mnm_template_add_to_cart() {
+function wc_mnm_template_add_to_cart( $container = false ) {
 
 	global $product;
+	$backup_product = $product;
+
+	if ( is_numeric( $container ) ) {
+        $container = wc_get_product( intval( $container ) );
+    }
+
+	// Swap the global product for this specific container.
+	if ( $container ) {
+		$product = $container;
+	}
+
+	if ( ! $product || ! $product->is_type( 'mix-and-match' ) ) {
+		return;
+	}
 
 	if ( doing_action( 'woocommerce_single_product_summary' ) ) {
 		if ( 'after_summary' === $product->get_add_to_cart_form_location() ) {
@@ -73,6 +88,9 @@ function wc_mnm_template_add_to_cart() {
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
 	);
+
+	// Restore product object.
+	$product = $backup_product;
 
 }
 

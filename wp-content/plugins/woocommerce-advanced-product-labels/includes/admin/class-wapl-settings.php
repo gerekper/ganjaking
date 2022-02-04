@@ -135,6 +135,4 @@ class WAPL_Settings {
 			require_once plugin_dir_path( __FILE__ ) . 'views/html-labels-table.php';
 		ob_end_flush();
 	}
-
-
 }

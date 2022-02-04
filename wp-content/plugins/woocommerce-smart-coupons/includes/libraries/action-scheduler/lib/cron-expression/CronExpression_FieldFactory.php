@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 /**
  * CRON field factory implementing a flyweight factory
  *

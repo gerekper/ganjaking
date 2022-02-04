@@ -401,7 +401,10 @@ class WC_Brands {
 
 		if ( ! empty( $brands ) && is_array( $brands ) ) {
 			// Can only return one brand, so pick the first.
-			$markup['brand'] = $brands[0]->name;
+			$markup['brand'] = array(
+				'@type' => 'Brand',
+				'name'  => $brands[0]->name,
+			);
 		}
 
 		return $markup;

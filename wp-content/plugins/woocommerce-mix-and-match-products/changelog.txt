@@ -1,5 +1,14 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2022.01.28 - version 1.12.0
+* Update: Tested up to WooCommerce 6.1.0.
+* Note: This release is largely targeted towards improved compatibility with mini-extensions. If you are using any mini-extensions, please look to see if there's an update.
+* Dev: Frontend refactor container config to be array of objects. container.api.get_container_config( 'v2' ) to fetch new array[]{ product_id: 99, product_qty: 3 } .
+* Dev: Add parameter to wc_mnm_template_add_to_cart() to optionally call add to cart template for a specific product. Improved compatibility with mini-extensions, ie: Grouped MNM.
+* Dev: Revamp frontend price/rounding formatting functions to accept custom args.
+* Dev: Frontend calculate totals and subtotals from config instead of HTML inputs. This will allow for compat with custom layouts, ie: Select Layouts.
+* Dev: Pass false to 'wc-mnm-reset-configuration' triggerHandler to disable update_container(). Also related to compat for custom layouts.
+
 2021.12.16 - version 1.11.6
 * Fix: Missing action parameter in add to cart form element.
 * Fix: Completely remove WooCommerce Payments payment request buttons for Mix and Match products.

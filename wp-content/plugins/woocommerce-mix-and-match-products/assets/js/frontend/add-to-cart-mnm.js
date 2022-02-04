@@ -1,3 +1,6 @@
+/* exported wc_mnm_woocommerce_number_format */
+/* NB: ignore jshint defined but not used for deprecated function */
+
 /**
  * Product data metabox.
  *
@@ -18,61 +21,98 @@ var wc_mnm_scripts = {};
 
 /**
  * Converts numbers to formatted price strings. Respects WC price format settings.
+ * 
+ * @param float price The value to format
+ * @param object args {
+ * 			decimal_sep:       string
+ *			currency_position: string
+ *			currency_symbol:   string
+ *			args.:        bool,
+ *			num_decimals:      int,
+ *			html:              bool,
+ * }
  */
-function wc_mnm_price_format( price, plain ) {
-	plain = typeof( plain ) === 'undefined' ? false : plain;
-	return wc_mnm_woocommerce_number_format( wc_mnm_number_format( price ), plain );
+function wc_mnm_price_format( price, args ) { 
+	var default_args = {
+		decimal_sep:       wc_mnm_params.currency_format_decimal_sep,
+		currency_position: wc_mnm_params.currency_position,
+		currency_symbol:   wc_mnm_params.currency_symbol,
+		trim_zeros:        wc_mnm_params.currency_format_trim_zeros,
+		num_decimals:      wc_mnm_params.currency_format_num_decimals,
+		html:              true
+	};
+
+	if ( 'object' !== typeof( args ) ) {
+		// Backcompatibility for boolean args (plain == true meant no HTML).
+		args = true === args ? { html: false } : {};
+	}
+
+	args = Object.assign( default_args, args );
+
+	price = wc_mnm_number_format( price, args );
+
+	if ( args.trim_zeros === 'yes' && args.num_decimals > 0 ) {
+		for ( var i = 0; i < args.num_decimals; i++ ) {
+			args.decimal_sep = args.decimal_sep + '0';
+		}
+		price = price.replace( args.decimal_sep, '' );
+	}
+
+	var formatted_price  = price,
+		formatted_symbol = args.html ? '<span class="woocommerce-Price-currencySymbol">' + args.currency_symbol + '</span>' : args.currency_symbol;
+
+	if ( 'left' === args.currency_position ) {
+		formatted_price = formatted_symbol + formatted_price;
+	} else if ( 'right' === args.currency_position ) {
+		formatted_price = formatted_price + formatted_symbol;
+	} else if ( 'left_space' === args.currency_position ) {
+		formatted_price = formatted_symbol + ' ' + formatted_price;
+	} else if ( 'right_space' === args.currency_position ) {
+		formatted_price = formatted_price + ' ' + formatted_symbol;
+	}
+
+	formatted_price = args.html ? '<span class="woocommerce-Price-amount amount">' + formatted_price + '</span>' : formatted_price;
+
+	return formatted_price;
+
 }
 
 /**
  * Formats price strings according to WC settings.
+ * 
+ * @see float wc_mnm_price_format()
+ * @deprecated 1.12.0
  */
-function wc_mnm_woocommerce_number_format( price, plain ) {
-
-	var remove     = wc_mnm_params.currency_format_decimal_sep;
-	var position   = wc_mnm_params.currency_position;
-	var symbol     = wc_mnm_params.currency_symbol;
-	var trim_zeros = wc_mnm_params.currency_format_trim_zeros;
-	var decimals   = wc_mnm_params.currency_format_num_decimals;
-
-	plain = typeof( plain ) === 'undefined' ? false : plain;
-
-	if ( trim_zeros === 'yes' && decimals > 0 ) {
-		for (var i = 0; i < decimals; i++) {
-			remove = remove + '0'; }
-		price = price.replace( remove, '' );
-	}
-
-	var formatted_price  = String( price ),
-		formatted_symbol = plain ? symbol : '<span class="woocommerce-Price-currencySymbol">' + symbol + '</span>';
-
-	if ( 'left' === position ) {
-		formatted_price = formatted_symbol + formatted_price;
-	} else if ( 'right' === position ) {
-		formatted_price = formatted_price + formatted_symbol;
-	} else if ( 'left_space' === position ) {
-		formatted_price = formatted_symbol + ' ' + formatted_price;
-	} else if ( 'right_space' === position ) {
-		formatted_price = formatted_price + ' ' + formatted_symbol;
-	}
-
-	formatted_price = plain ? formatted_price : '<span class="woocommerce-Price-amount amount">' + formatted_price + '</span>';
-
-	return formatted_price;
+function wc_mnm_woocommerce_number_format( price, args ) {
+	return wc_mnm_price_format( price, args );
 }
 
 /**
  * Formats price values according to WC settings.
+ * 
+ * @param float number The value to format
+ * @param object args {
+ * 			decimal_sep:       string
+ *			currency_position: string
+ *			currency_symbol:   string
+ *			args.:        bool,
+ *			num_decimals:      int,
+ *			html:              bool,
+ * }
  */
-function wc_mnm_number_format( number ) {
+function wc_mnm_number_format( number, args ) {
 
-	var decimals      = wc_mnm_params.currency_format_num_decimals;
-	var decimal_sep   = wc_mnm_params.currency_format_decimal_sep;
-	var thousands_sep = wc_mnm_params.currency_format_thousand_sep;
+	var default_args = {
+		decimal_sep:       wc_mnm_params.currency_format_decimal_sep,
+		thousands_sep:     wc_mnm_params.currency_format_thousand_sep,
+		num_decimals:      wc_mnm_params.currency_format_num_decimals
+	};
 
-	var n = number, c = isNaN( decimals = Math.abs( decimals ) ) ? 2 : decimals;
-	var d = decimal_sep === undefined ? ',' : decimal_sep;
-	var t = thousands_sep === undefined ? '.' : thousands_sep, s = n < 0 ? '-' : '';
+	args = Object.assign( default_args, args );
+
+	var n = number, c = isNaN( args.num_decimals = Math.abs( args.num_decimals ) ) ? 2 : args.num_decimals;
+	var d = args.decimal_sep === undefined ? ',' : args.decimal_sep;
+	var t = args.thousands_sep === undefined ? '.' : args.thousands_sep, s = n < 0 ? '-' : '';
 	var i = parseInt( n = Math.abs( +n || 0 ).toFixed( c ), 10 ) + '', j = (j = i.length) > 3 ? j % 3 : 0;
 
 	return s + (j ? i.substr( 0, j ) + t : '') + i.substr( j ).replace( /(\d{3})(?=\d)/g, '$1' + t ) + (c ? d + Math.abs( n - i ).toFixed( c ).slice( 2 ) : '');
@@ -80,11 +120,15 @@ function wc_mnm_number_format( number ) {
 
 /**
  * Rounds price values according to WC settings.
+ *  
+ * @param float number
+ * @param int precision
  */
-function wc_mnm_number_round( number ) {
+function wc_mnm_number_round( number, precision ) {
 
-	var precision         = wc_mnm_params.currency_format_precision_decimals,
-		factor            = Math.pow( 10, precision ),
+	precision = 'undefined' !== typeof precision ? parseInt( precision ) : wc_mnm_params.currency_format_precision_decimals;
+
+	var	factor            = Math.pow( 10, precision ),
 		tempNumber        = number * factor,
 		roundedTempNumber = Math.round( tempNumber );
 
@@ -149,7 +193,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 		this.container_size     = 0;
 		this.min_container_size = data.$mnm_data.data( 'min_container_size' );
 		this.max_container_size = data.$mnm_data.data( 'max_container_size' );
-		this.container_config   = {};
+		this.container_config   = [];
 
 		this.update_mnm_timer   = false;
 		this.update_price_timer = false;
@@ -163,11 +207,52 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 			/**
 			 * Get container quantities config.
+			 * 
+			 * @param mixed version, options: 'v2'
 			 *
-			 * @return array
+			 * @return v2 returns an array of objects []object {
+			 * 		product_id: int,
+			 *  	product_qty: int
+			 * }
+			 * 
+			 * @return v1 returns an object of product ID => product Qty { product_id: product_quantity }
+			 * 
 			 */
-			get_container_config: function() {
-				return ( typeof( container.container_config ) === 'object' ) ? container.container_config : {};
+			get_container_config: function( version ) {
+
+				var config = [];
+
+				if ( 'v2' === version ) {
+					if ( Array.isArray( container.container_config ) ) {
+						config = container.container_config;
+					} else if ( 'object' === typeof( container.container_config ) ) {
+
+						// If extensions are manually editing container.container_config, we'll need to remap it to v2 to make calculate_subtotals|calculate_totals work internally.
+						Object.keys( container.container_config ).foreach( function( index ) {
+							if ( Number.isInteger( container.container_config[index] ) ) {
+								config.push( { product_id: parseInt( index, 10 ), product_qty: parseInt( container.container_config[index], 10 ) } );
+							}
+						} );
+
+					}
+
+				} else {
+
+					// Handle backcompat for folks who may have been calling container.api.get_container_config()
+					config = {};
+
+					// This will port current config back to v1 object.
+					if ( Array.isArray( container.container_config ) ) {
+						container.container_config.forEach( function( data ) {
+							config[data.product_id] = data.product_qty;
+						} );
+					} else {
+						config = container.container_config;
+					}
+
+				}
+
+				return config;
 			},
 
 			/**
@@ -200,7 +285,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			 * @return mixed int|false
 			 */
 			get_min_container_size: function() {
-				if ( typeof( container.min_container_size ) !== 'undefined' && container.min_container_size !== '' ) {
+				if ( 'undefined' !== typeof( container.min_container_size ) && '' !== container.min_container_size ) {
 					return parseInt( container.min_container_size, 10 );
 				}
 
@@ -213,7 +298,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			 * @return mixed int|false
 			 */
 			get_max_container_size: function() {
-				if ( typeof( container.max_container_size ) !== 'undefined' && container.max_container_size !== '') {
+				if ( 'undefined' !== typeof( container.max_container_size ) && '' !== container.max_container_size) {
 					return parseInt( container.max_container_size, 10 );
 				}
 
@@ -268,6 +353,43 @@ jQuery.fn.wc_get_mnm_script = function() {
 			 */
 			set_container_size: function( size ) {
 				container.container_size = parseInt( size, 10 );
+			},
+
+			/**
+			 * Set container config.
+			 * 
+			 * @param []object {
+			 * 		product_id: int,
+			 *  	product_qty: int
+			 * }
+			 * 
+			 * OR alternatively...
+			 * 
+			 * Array of product ID keys with quantity values.
+			 * [ product_id => product_qty ]
+			 * 
+			 *
+			 * @return []
+			 */
+			set_container_config: function( config ) {
+				
+				var new_config = [];
+
+				// Add up quantities.
+				$.each(
+					config,
+					function( index, data ) {
+
+						if ( Number.isInteger( data ) ) {
+							data = { product_id: index, product_qty: parseInt( data, 10 ) };
+						}
+
+						new_config.push( data );
+
+					}
+				);
+
+				container.container_config = new_config;
 			}
 		};
 
@@ -365,55 +487,47 @@ jQuery.fn.wc_get_mnm_script = function() {
 				price_data.base_price_totals = price_data.base_price_subtotals = this.get_taxed_totals( base_price, base_regular_price, base_price_tax_ratios, qty );
 			}
 
-			// Items.
-			$.each(
-				container.child_items,
-				function( index, child_item ) {
+			$.each( container.api.get_container_config( 'v2' ), function( index, data ) {
 
-					if ( false !== triggered_by && triggered_by.mnm_item_id !== child_item.mnm_item_id ) {
-						return true;
+				var { product_id, product_qty } = data;
+
+				if ( triggered_by.hasOwnProperty( 'mnm_item_id ') && triggered_by.mnm_item_id !== product_id ) {
+					return true;
+				}
+
+				var tax_ratios      = price_data.prices_tax[ product_id ],
+				    regular_price   = price_data.regular_prices[ product_id ],
+				    price           = price_data.prices[ product_id ],
+
+				totals = {
+					price:          0.0,
+					regular_price:  0.0,
+					price_incl_tax: 0.0,
+					price_excl_tax: 0.0
+				};
+
+				if ( wc_mnm_params.calc_taxes === 'yes' ) {
+
+					if ( product_qty > 0 && ( price > 0 || regular_price > 0 ) ) {
+						totals = container.get_taxed_totals( price, regular_price, tax_ratios, product_qty );
 					}
 
-					var mnm_item_id = child_item.get_item_id(),
-					product_qty     = child_item.is_sold_individually() && container.container_config[ mnm_item_id ] > 0 ? 1 : container.container_config[ mnm_item_id ] * qty,
-					tax_ratios      = price_data.prices_tax[ mnm_item_id ],
-					regular_price   = price_data.regular_prices[ mnm_item_id ],
-					price           = price_data.prices[ mnm_item_id ],
+				} else {
 
-					totals = {
-						price:          0.0,
-						regular_price:  0.0,
-						price_incl_tax: 0.0,
-						price_excl_tax: 0.0
-					};
-
-					if ( wc_mnm_params.calc_taxes === 'yes' ) {
-
-						if ( mnm_item_id > 0 && product_qty > 0 ) {
-
-							if ( price > 0 || regular_price > 0 ) {
-								totals = container.get_taxed_totals( price, regular_price, tax_ratios, product_qty );
-							}
-
-						}
-
-					} else {
-
-						totals.price          = product_qty * price;
-						totals.regular_price  = product_qty * regular_price;
-						totals.price_incl_tax = product_qty * price;
-						totals.price_excl_tax = product_qty * price;
-
-					}
-
-					if ( container.totals_changed( price_data.child_item_subtotals[ mnm_item_id ], totals ) ) {
-						container.dirty_subtotals                      = true;
-						price_data.child_item_subtotals[ mnm_item_id ] = totals;
-						price_data.child_item_totals[ mnm_item_id ]    = totals;
-					}
+					totals.price          = product_qty * price;
+					totals.regular_price  = product_qty * regular_price;
+					totals.price_incl_tax = product_qty * price;
+					totals.price_excl_tax = product_qty * price;
 
 				}
-			);
+
+				if ( container.totals_changed( price_data.child_item_subtotals[ product_id ], totals ) ) {
+					container.dirty_subtotals                 = true;
+					price_data.child_item_subtotals[ product_id ] = totals;
+					price_data.child_item_totals[ product_id ]    = totals;
+				}
+
+			} );
 
 			return price_data;
 
@@ -429,25 +543,24 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 			// Non-recurring (sub)totals.
 			var totals = {
-				price:          price_data.base_price_subtotals.price,
-				regular_price:  price_data.base_price_subtotals.regular_price,
-				price_incl_tax: price_data.base_price_subtotals.price_incl_tax,
-				price_excl_tax: price_data.base_price_subtotals.price_excl_tax
-			},
-			subtotals  = {
 				price:          price_data.base_price_totals.price,
 				regular_price:  price_data.base_price_totals.regular_price,
 				price_incl_tax: price_data.base_price_totals.price_incl_tax,
 				price_excl_tax: price_data.base_price_totals.price_excl_tax
+			},
+			subtotals  = {
+				price:          price_data.base_price_subtotals.price,
+				regular_price:  price_data.base_price_subtotals.regular_price,
+				price_incl_tax: price_data.base_price_subtotals.price_incl_tax,
+				price_excl_tax: price_data.base_price_subtotals.price_excl_tax
 			};
+			
+			$.each( container.api.get_container_config( 'v2' ), function( index, data ) {
 
-			$.each(
-				container.child_items,
-				function( index, child_item ) {
+				var { product_id } = data;
 
-					var mnm_item_id = child_item.get_item_id(),
-					item_totals     = price_data.child_item_totals[ mnm_item_id ],
-					item_subtotals  = price_data.child_item_subtotals[ mnm_item_id ];
+				var item_totals     = price_data.child_item_totals[ product_id ],
+					item_subtotals  = price_data.child_item_subtotals[ product_id ];
 
 					if ( typeof item_totals !== 'undefined' ) {
 
@@ -465,8 +578,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 						subtotals.price_excl_tax += item_subtotals.price_excl_tax;
 					}
 
-				}
-			);
+			} );
 
 			totals_changed = container.totals_changed( price_data.totals, totals ) || container.totals_changed( price_data.subtotals, subtotals );
 
@@ -541,7 +653,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 				default_config       = {
 					'show_total_string': wc_mnm_number_round( price_data.totals.price ) !== wc_mnm_number_round( price_data.raw_container_price_min ) || price_data.raw_container_price_min !== price_data.raw_container_price_max,
 					'tag'              : 'p'
-			};
+				};
 
 			config = 'undefined' === typeof( config ) ? {} : config;
 			config = $.extend( default_config, config );
@@ -570,8 +682,8 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 			qty = typeof( qty ) === 'undefined' ? 1 : qty;
 
-			var tax_ratio_incl = tax_ratios && typeof( tax_ratios.incl ) !== 'undefined' ? Number( tax_ratios.incl ) : false,
-				tax_ratio_excl = tax_ratios && typeof( tax_ratios.excl ) !== 'undefined' ? Number( tax_ratios.excl ) : false,
+			var tax_ratio_incl = tax_ratios.hasOwnProperty( 'incl' ) ? Number( tax_ratios.incl ) : false,
+				tax_ratio_excl = tax_ratios.hasOwnProperty( 'excl' ) ? Number( tax_ratios.excl ) : false,
 				totals         = {
 					price:          qty * price,
 					regular_price:  qty * regular_price,
@@ -840,19 +952,24 @@ jQuery.fn.wc_get_mnm_script = function() {
 		this.update_quantities = function( triggered_by, config ) {
 
 			var total_qty = 0;
+			var new_config = [];
 
-			if ( typeof( config ) === 'undefined' ) {
+			if ( 'undefined' === typeof( config ) ) {
 
 				// Add up quantities.
 				$.each(
 					container.child_items,
 					function( index, child_item ) {
 
-						var item_quantity = child_item.get_quantity();
-						var item_id       = child_item.get_item_id();
+						var product_qty = child_item.get_quantity();
+						var product_id       = child_item.get_item_id();
 
-						container.container_config[ item_id ] = item_quantity;
-						total_qty                            += item_quantity;
+						new_config.push( {
+							product_id: product_id,
+							product_qty: product_qty
+						} );
+
+						total_qty                            += product_qty;
 
 					}
 				);
@@ -862,19 +979,27 @@ jQuery.fn.wc_get_mnm_script = function() {
 				// Add up quantities.
 				$.each(
 					config,
-					function( item_id, item_quantity ) {
-						container.container_config[ item_id ] = parseInt( item_quantity, 10 );
-						total_qty                            += item_quantity;
+					function( index, data ) {
+
+						if ( Number.isInteger( data ) ) {
+							data = { product_id: index, product_qty: parseInt( data, 10 ) };
+						}
+
+						new_config.push( data );
+						total_qty                   += data.product_qty;
 					}
 				);
 
 			}
 
+			// Set the new config.
+			container.api.set_container_config( new_config );
+
 			// Set the container size.
 			container.api.set_container_size( total_qty );
 
 			// Serialize the config to the Add to cart button for ajax add to cart compat.
-			this.$mnm_button.data( this.$mnm_data.data( 'input_name' ), this.api.get_container_config() );
+			this.$mnm_button.data( this.$mnm_data.data( 'input_name' ), this.api.get_container_config( false ) );
 
 			this.$mnm_form.trigger( 'wc-mnm-container-quantities-updated', [ this, triggered_by ] );
 
@@ -941,7 +1066,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			if ( this.passes_validation() ) {
 
 				// Enable add to cart button.
-				this.$mnm_button.removeAttr( 'disabled' ).removeClass( 'disabled' );
+				this.$mnm_button.prop( 'disabled', false ).removeClass( 'disabled' );
 				this.$mnm_form.trigger( 'wc-mnm-display-add-to-cart-button', [ container ] );
 
 			} else {
@@ -998,10 +1123,9 @@ jQuery.fn.wc_get_mnm_script = function() {
 				}
 			);
 
-			container.$mnm_reset.trigger( 'wc-mnm-reset-configuration', [ container ] );
-
-			// Manually trigger the update method.
-			this.update_container();
+			if ( false !== container.$mnm_reset.triggerHandler( 'wc-mnm-reset-configuration', [ container ] ) ) {
+				this.update_container();
+			}
 
 		};
 

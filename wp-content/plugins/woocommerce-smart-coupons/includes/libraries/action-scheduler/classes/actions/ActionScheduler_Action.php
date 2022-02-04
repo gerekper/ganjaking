@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 /**
  * Class ActionScheduler_Action
  */
@@ -19,7 +20,7 @@ class ActionScheduler_Action {
 	}
 
 	public function execute() {
-		return do_action_ref_array($this->get_hook(), $this->get_args());
+		return do_action_ref_array( $this->get_hook(), array_values( $this->get_args() ) );
 	}
 
 	/**

@@ -1,0 +1,1423 @@
+# Copyright (C) 2015 YIThemes
+# This file is distributed under the same license as the YITH Plugin Starter package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH Plugin Starter 1.0.0 Plugin FW\n"
+"Report-Msgid-Bugs-To: YITH <plugins@yithemes.com>\n"
+"POT-Creation-Date: 2020-10-16 23:32+0330\n"
+"PO-Revision-Date: 2020-10-16 23:32+0330\n"
+"Last-Translator: \n"
+"Language-Team: Your Inspiration Themes <info@yithemes.com>\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
+"esc_html_x:1,2c\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: lib/yit-assets.php:102
+#, fuzzy
+msgid "Clear"
+msgstr "پاک کردن"
+
+#: lib/yit-assets.php:103
+#, fuzzy
+msgid "Clear color"
+msgstr "پاک کردن رنگ"
+
+#: lib/yit-assets.php:104
+#, fuzzy
+#| msgid "Set Default"
+msgid "Default"
+msgstr "پیش فرض"
+
+#: lib/yit-assets.php:105
+#, fuzzy
+#| msgid "Set Default"
+msgid "Select default color"
+msgstr "رنگ پیش فرض"
+
+#: lib/yit-assets.php:106
+#, fuzzy
+#| msgid "Select All"
+msgid "Select Color"
+msgstr "رنگ را برای متن/آیکون تقسیم کننده انتخاب کنید."
+
+#: lib/yit-assets.php:107
+#, fuzzy
+msgid "Color value"
+msgstr "مقدار رنگ"
+
+#: lib/yit-cpt-unlimited.php:462 lib/yit-cpt-unlimited.php:576
+#: lib/yit-cpt-unlimited.php:721 lib/yit-cpt-unlimited.php:1636
+msgid "Add %s"
+msgstr "افزودن %s"
+
+#: lib/yit-cpt-unlimited.php:463 lib/yit-cpt-unlimited.php:577
+msgid "Add New %s"
+msgstr "افزودن %s جدید"
+
+#: lib/yit-cpt-unlimited.php:464 lib/yit-cpt-unlimited.php:578
+#: lib/yit-cpt-unlimited.php:1269 lib/yit-cpt-unlimited.php:1306
+msgid "Edit %s"
+msgstr "ویرایش %s"
+
+#: lib/yit-cpt-unlimited.php:465 lib/yit-cpt-unlimited.php:579
+msgid "New %s"
+msgstr "%s جدید"
+
+#: lib/yit-cpt-unlimited.php:466 lib/yit-cpt-unlimited.php:580
+msgid "All %s"
+msgstr "همه %s"
+
+#: lib/yit-cpt-unlimited.php:467 lib/yit-cpt-unlimited.php:581
+#: lib/yit-cpt-unlimited.php:1253 lib/yit-cpt-unlimited.php:1307
+msgid "View %s"
+msgstr "مشاهده %s"
+
+#: lib/yit-cpt-unlimited.php:468 lib/yit-cpt-unlimited.php:582
+msgid "Search %s"
+msgstr "جستجوی %s"
+
+#: lib/yit-cpt-unlimited.php:469 lib/yit-cpt-unlimited.php:583
+msgid "No %s found"
+msgstr "هیچ %s یافت نشد"
+
+#: lib/yit-cpt-unlimited.php:470 lib/yit-cpt-unlimited.php:584
+msgid "No %s found in Trash"
+msgstr "هیچ %s در زباله دان یافت نشد"
+
+#: lib/yit-cpt-unlimited.php:629 templates/fields/ajax-terms.php:56
+msgid "Search Categories"
+msgstr "جستجوی دسته‌بندی‌ها"
+
+#: lib/yit-cpt-unlimited.php:630
+msgid "All Categories"
+msgstr "همه دسته‌بندی‌ها"
+
+#: lib/yit-cpt-unlimited.php:631
+msgid "Parent Category"
+msgstr "دسته‌بندی والد"
+
+#: lib/yit-cpt-unlimited.php:632
+msgid "Parent Category:"
+msgstr "دسته‌بندی والد:"
+
+#: lib/yit-cpt-unlimited.php:633
+msgid "Edit Category"
+msgstr "ویرایش دسته‌بندی"
+
+#: lib/yit-cpt-unlimited.php:634
+msgid "Update Category"
+msgstr "بروزرسانی دسته‌بندی"
+
+#: lib/yit-cpt-unlimited.php:635
+msgid "Add New Category"
+msgstr "افزودن دسته‌بندی جدید"
+
+#: lib/yit-cpt-unlimited.php:636
+msgid "New Category Name"
+msgstr "نام دسته‌بندی جدید"
+
+#: lib/yit-cpt-unlimited.php:637
+msgid "Category"
+msgstr "دسته‌بندی"
+
+#: lib/yit-cpt-unlimited.php:726
+msgid "Categories"
+msgstr "دسته‌بندی‌ها"
+
+#: lib/yit-cpt-unlimited.php:1044
+msgid "%s Settings"
+msgstr "تنظیمات %s"
+
+#: lib/yit-cpt-unlimited.php:1050 lib/yit-cpt-unlimited.php:1198
+#: lib/yit-cpt-unlimited.php:1204 lib/yit-plugin-panel.php:80
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: lib/yit-cpt-unlimited.php:1053
+msgid "Type"
+msgstr "نوع"
+
+#: lib/yit-cpt-unlimited.php:1054
+msgid "Layout for this %s"
+msgstr "صفحه‌بندی برای این %s"
+
+#: lib/yit-cpt-unlimited.php:1060
+msgid "Rewrite"
+msgstr "بازنویسی"
+
+#: lib/yit-cpt-unlimited.php:1061
+msgid ""
+"Univocal identification name in the URL for each product (slug from post if "
+"empty)"
+msgstr "نام شناسایی یکنواخت در URL برای هر محصول (از پست به صورت خالی)"
+
+#: lib/yit-cpt-unlimited.php:1066
+msgid "Label in Singular"
+msgstr "برچسب انحصاری"
+
+#: lib/yit-cpt-unlimited.php:1067
+msgid "Set a label in singular (title of portfolio if empty)"
+msgstr "تنظیم یک برچسب انحصاری (در صورت خالی بودن عنوان نمونه کارها)"
+
+#: lib/yit-cpt-unlimited.php:1072
+msgid "Label in Plural"
+msgstr "برچسب مجموع"
+
+#: lib/yit-cpt-unlimited.php:1073
+msgid "Set a label in plural (title of portfolio if empty)"
+msgstr "یک برچسب در مجموعه تنظیم کنید (اگر عنوان نمونه کارها خالی است)"
+
+#: lib/yit-cpt-unlimited.php:1078
+msgid "Taxonomy"
+msgstr "طبقه‌بندی"
+
+#: lib/yit-cpt-unlimited.php:1079
+msgid ""
+"If you want to use categories in the portfolio, set a name for taxonomy. Name "
+"should be a slug (must not contain capital letters nor spaces) and must not "
+"be more than 32 characters long (database structure restriction)."
+msgstr ""
+"اگر می خواهید از دسته‌های موجود در نمونه کارها استفاده کنید، یک نام برای "
+"طبقه‌بندی تنظیم کنید. نام باید یک عنوان کوتاه باشد (نباید حاوی حروف بزرگ یا "
+"فاصله باشد) و نباید طول نام بیشتر از 32 کاراکتر باشد (محدودیت ساختار پایگاه "
+"داده)."
+
+#: lib/yit-cpt-unlimited.php:1084
+msgid "Taxonomy Rewrite"
+msgstr "بازنویسی طبقه بندی"
+
+#: lib/yit-cpt-unlimited.php:1085
+msgid "Set univocal name for each category page URL."
+msgstr "نام بکپارچه برای دسته بندی URL هر صفحه انتخاب کنید."
+
+#: lib/yit-cpt-unlimited.php:1090
+msgid "Single layout"
+msgstr "صفحه‌بندی مجزا"
+
+#: lib/yit-cpt-unlimited.php:1091
+msgid "Layout for single page of this portfolio"
+msgstr "صفحه‌بندی برای یک صفحه از این نمونه کارها"
+
+#: lib/yit-cpt-unlimited.php:1132
+msgid "layout settings"
+msgstr "تنظیمات مربوط به صفحه‌بندی"
+
+#: lib/yit-cpt-unlimited.php:1224 lib/yit-cpt-unlimited.php:1237
+msgid "Quick links"
+msgstr "لینک‌های سریع"
+
+#: lib/yit-cpt-unlimited.php:1477
+msgid "Show frontend of the %s"
+msgstr "نمایش ظاهر از %s"
+
+#: lib/yit-cpt-unlimited.php:1484 templates/fields/customtabs.php:46
+#: templates/fields/customtabs.php:89
+msgid "Name"
+msgstr "نام"
+
+#: lib/yit-cpt-unlimited.php:1635
+msgid "Add %s from images"
+msgstr "افزودن %s از تصاویر"
+
+#: lib/yit-cpt-unlimited.php:1638
+msgid "Upload multiple files"
+msgstr "آپلود چندین فایل"
+
+#: lib/yit-plugin-panel-wc.php:426
+msgid "The changes you have made will be lost if you leave this page."
+msgstr "اگر این صفحه را ترک کنید، تغییرات شما از بین خواهند رفت."
+
+#: lib/yit-plugin-panel.php:79
+msgid "Plugin Settings"
+msgstr "تنظیمات افزونه"
+
+#: lib/yit-plugin-panel.php:454 lib/yit-plugin-panel.php:457
+msgid "How to install premium version"
+msgstr "نحوه نصب نسخه پولی"
+
+#: lib/yit-plugin-panel.php:617 lib/yit-plugin-subpanel.php:151
+#: templates/panel/woocommerce/woocommerce-form.php:14
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"
+
+#: lib/yit-plugin-panel.php:621 lib/yit-plugin-subpanel.php:154
+#: templates/panel/woocommerce/woocommerce-form.php:17
+msgid ""
+"If you continue with this action, you will reset all options in this page."
+msgstr "اگر این عمل را پیش بگیرید، همه گزینه‌های این صفحه بازنشانی می‌شود."
+
+#: lib/yit-plugin-panel.php:624 lib/yit-plugin-subpanel.php:156
+msgid "Reset to default"
+msgstr "تنظیم مجدد به حالت پیش فرض"
+
+#: lib/yit-plugin-panel.php:625 lib/yit-plugin-subpanel.php:157
+#: templates/panel/woocommerce/woocommerce-form.php:21
+msgid "Are you sure?"
+msgstr "آیا شما اطمینان دارید؟"
+
+#: lib/yit-plugin-panel.php:823
+msgid "The element you have entered already exists. Please, enter another name."
+msgstr "عنصری که قبلا وارد کرده اید وجود دارد. لطفا نام دیگری را وارد کنید."
+
+#: lib/yit-plugin-panel.php:824
+msgid "Settings saved"
+msgstr "تنظیمات ذخیره شد"
+
+#: lib/yit-plugin-panel.php:825
+msgid "Settings reset"
+msgstr "تنظیمات بازنشانی شد"
+
+#: lib/yit-plugin-panel.php:826
+msgid "Element deleted correctly."
+msgstr "عنصر به درستی حذف شد."
+
+#: lib/yit-plugin-panel.php:827 lib/yit-plugin-panel.php:828
+msgid "Element updated correctly."
+msgstr "عنصر به درستی به روز شد."
+
+#: lib/yit-plugin-panel.php:829
+msgid "Database imported correctly."
+msgstr "پایگاه داده به درستی وارد شده."
+
+#: lib/yit-plugin-panel.php:830
+msgid "An error has occurred during import. Please try again."
+msgstr "خطایی در هنگام وارد کردن رخ داده است. لطفا دوباره تلاش کنید."
+
+#: lib/yit-plugin-panel.php:831
+msgid "The added file is not valid."
+msgstr "فایل افزوده شده معتبر نیست."
+
+#: lib/yit-plugin-panel.php:832
+msgid "Sorry, import is disabled."
+msgstr "متأسفیم، عمل وارد کردن غیرفعال شده است."
+
+#: lib/yit-plugin-panel.php:833
+msgid "Sorting successful."
+msgstr "مرتب سازی موفقیت آمیز."
+
+#: lib/yit-plugin-panel.php:1281
+msgid "We need your support"
+msgstr "به پشتیبانی شما نیازمندیم"
+
+#: lib/yit-plugin-panel.php:1282
+msgid "to keep updating and improving the plugin. Please,"
+msgstr "برای ادامه به روزرسانی و بهبود افزونه. لطفا،"
+
+#: lib/yit-plugin-panel.php:1284
+msgid "help us by leaving a five-star rating"
+msgstr "با دادن یک امتیاز پنج ستاره به ما کمک کنید"
+
+#: lib/yit-plugin-panel.php:1285
+msgid ":) Thanks!"
+msgstr ":) سپاس!"
+
+#: lib/yit-pointers.php:70
+msgid "Plugins Activated"
+msgstr "افزونه فعال شد"
+
+#: lib/yit-pointers.php:71
+msgid ""
+"From now on, you can find all plugin options in YITH Plugins menu.\n"
+"                                     Plugin customization settings will be "
+"available as a new entry in YITH Plugins menu."
+msgstr ""
+"از هم اکنون، شما می توانید تمام گزینه‌های افزونه را در منوی پلاگین YITH پیدا "
+"کنید.\n"
+"                                      تنظیمات سفارشی‌سازی افزونه به عنوان "
+"ورودی جدید در منوی افزونه‌های YITH در دسترس خواهد بود."
+
+#: lib/yit-pointers.php:73 lib/yit-pointers.php:89
+msgid "Discover all our plugins available on:"
+msgstr "کشف همه‌ی افزونه‌های موجود در:"
+
+#: lib/yit-pointers.php:74 lib/yit-pointers.php:90
+msgid "and"
+msgstr "و"
+
+#: lib/yit-pointers.php:84
+msgid "Plugins Upgraded"
+msgstr "پلاگین ها ارتقا یافت"
+
+#: lib/yit-pointers.php:85
+msgid ""
+"From now on, you can find the option panel of YITH plugins in YITH Plugins "
+"menu.\n"
+"                                    Every time one of our plugins is added, a "
+"new entry will be added to this menu.\n"
+"                                    For example, after the update, plugin "
+"options (such as for YITH WooCommerce Wishlist, YITH WooCommerce Ajax Search, "
+"etc.)\n"
+"                                    will be moved from previous location to "
+"YITH Plugins tab."
+msgstr ""
+"از حالا به بعد می توانید پنل تنظیمات افزونه های YITH را در منوی افزونه های "
+"YIGP پیدا کنید.\n"
+"                                     هر بار که یکی از پلاگین های ما اضافه می "
+"شود، یک ورودی جدید به این منو اضافه می شود.\n"
+"                                     به عنوان مثال، پس از به روز رسانی، گزینه "
+"های پلاگین (مانند YITH WooCommerce Wishlist، YITH WooCommerce Ajax Search، و "
+"غیره)\n"
+"                                     از مکان قبلی به نوار YITH Plugins منتقل "
+"خواهد شد."
+
+#: lib/yith-dashboard.php:40
+msgid "YITH Latest Updates"
+msgstr "آخرین بروز‌رسانی YITH"
+
+#: lib/yith-dashboard.php:41
+msgid "Latest news from YITH Blog"
+msgstr "آخرین اخبار  بلاگ YITH"
+
+#: lib/yith-dashboard.php:65
+msgid "RSS Error:"
+msgstr "خطای RSS:"
+
+#: lib/yith-dashboard.php:71
+msgid ""
+"An error has occurred, which probably means the feed is down. Try again later."
+msgstr ""
+"خطایی رخ داده است، که احتمالاً به این معنی است که فید خاموش است. بعداً دوباره "
+"تلاش کنید."
+
+#: lib/yith-system-status.php:111
+msgid "WordPress Version"
+msgstr "نسخه وردپرس"
+
+#: lib/yith-system-status.php:112
+msgid "WooCommerce Version"
+msgstr "نسخه‌ی ووکامرس"
+
+#: lib/yith-system-status.php:113
+msgid "Available Memory"
+msgstr "حافظه در دسترس"
+
+#: lib/yith-system-status.php:114
+msgid "PHP Version"
+msgstr "نسخه PHP"
+
+#: lib/yith-system-status.php:115
+msgid "TLS Version"
+msgstr "نسخه‌ی TLS"
+
+#: lib/yith-system-status.php:116
+msgid "WordPress Cron"
+msgstr "زمان‌بندِ کارِ مبتنی بر زمانِ وردپرس"
+
+#: lib/yith-system-status.php:117
+msgid "SimpleXML"
+msgstr "SimpleXML"
+
+#: lib/yith-system-status.php:118
+msgid "MultiByte String"
+msgstr "رشته‌ی چند‌بایتی"
+
+#: lib/yith-system-status.php:119
+msgid "ImageMagick Version"
+msgstr "نسخه‌‌ی ImageMagick"
+
+#: lib/yith-system-status.php:120
+msgid "GD Library"
+msgstr "کتاب‌خانه GD"
+
+#: lib/yith-system-status.php:121
+msgid "Iconv Module"
+msgstr "ماژول Iconv"
+
+#: lib/yith-system-status.php:122
+msgid "OPCache Save Comments"
+msgstr "OPCache نظرات را ذخیره کن"
+
+#: lib/yith-system-status.php:123
+msgid "URL FOpen"
+msgstr "URL FOpen"
+
+#: lib/yith-system-status.php:141 lib/yith-system-status.php:142
+msgid "System Status"
+msgstr "وضعیت سیستم"
+
+#: lib/yith-system-status.php:184
+msgid "YITH Plugins"
+msgstr "پلاگین‌های YITH"
+
+#: lib/yith-system-status.php:192
+msgid "WooCommerce"
+msgstr "ووکامرس"
+
+#: lib/yith-system-status.php:330
+msgid "Warning!"
+msgstr "اخطار!"
+
+#. translators: %1$s open link tag, %2$s open link tag
+#: lib/yith-system-status.php:334
+#, fuzzy
+#| msgid ""
+#| "The system check has detected some compatibility issues on your "
+#| "installation. %sClick here%s to know more"
+msgid ""
+"The system check has detected some compatibility issues on your installation."
+"%1$sClick here%2$s to know more"
+msgstr ""
+"سیستم از طریق بررسی برخی از مشکلات سازگاری را در نصب شما تشخیص داده است. "
+"%sClick here%s برای اطلاعات بیشتر"
+
+#: lib/yith-system-status.php:473
+msgid "Enabled"
+msgstr "فعال‌سازی شده"
+
+#: lib/yith-system-status.php:473
+msgid "Disabled"
+msgstr "غیر فعال کردن"
+
+#: lib/yith-system-status.php:478
+msgid "N/A"
+msgstr "N/A"
+
+#. translators: %1$s plugin name, %2$s requirement name
+#: lib/yith-system-status.php:506
+#, fuzzy
+#| msgid "%s needs %s enabled"
+msgid "%1$s needs %2$s enabled"
+msgstr "%1$s نیازهای %2$s  فعال شد"
+
+#. translators: %1$s plugin name, %2$s required memory amount
+#: lib/yith-system-status.php:509
+#, fuzzy
+#| msgid "%s needs at least %s of available memory"
+msgid "%1$s needs at least %2$s of available memory"
+msgstr "%1$s حداقل به %2$s میزان مموری موجود نیاز داره"
+
+#. translators: %1$s plugin name, %2$s version number
+#: lib/yith-system-status.php:512
+#, fuzzy
+#| msgid "%s needs at least %s version"
+msgid "%1$s needs at least %2$s version"
+msgstr "%1$s حداقل به %2$s میزان مموری موجود نیاز داره"
+
+#: lib/yith-system-status.php:537
+msgid ""
+"Update it to the latest version in order to benefit of all new features and "
+"security updates."
+msgstr ""
+"برای بهره‌مندی از کلیه ویژگی‌های جدید و به روزرسانی‌های امنیتی ، آن را به "
+"جدیدترین نسخه به روز کنید."
+
+#: lib/yith-system-status.php:541 lib/yith-system-status.php:547
+msgid "Contact your hosting company in order to update it."
+msgstr "جهت بروزرسانی آن با شرکت میزبان خود تماس بگیرید."
+
+#: lib/yith-system-status.php:545
+#, fuzzy
+#| msgid "Contact your hosting company in order to enable it."
+msgid "Contact your hosting company in order to install it."
+msgstr "جهت بروزرسانی آن با شرکت میزبان خود تماس بگیرید."
+
+#. translators: %1$s code, %2$s file name
+#: lib/yith-system-status.php:552
+#, fuzzy
+#| msgid "Remove %s from %s file"
+msgid "Remove %1$s from %2$s file"
+msgstr "حذف %s از %s فایل"
+
+#: lib/yith-system-status.php:560
+msgid "Contact your hosting company in order to enable it."
+msgstr "برای فعال کردن با شرکت میزبان خود تماس بگیرید."
+
+#. translators: %1$s opening link tag, %2$s closing link tag
+#: lib/yith-system-status.php:564 lib/yith-system-status.php:588
+#, fuzzy
+#| msgid ""
+#| "Read more %s here%s or contact your hosting company in order to increase "
+#| "it."
+msgid ""
+"Read more %1$shere%2$s or contact your hosting company in order to increase "
+"it."
+msgstr ""
+"بیشتر بخوانید \v%s این‌جا%s\vیا به منظور افزایش آن با شرکت میزبان ارتباط "
+"برقرار کنید."
+
+#. translators: %s recommended memory amount
+#: lib/yith-system-status.php:585
+msgid ""
+"For optimal functioning of our plugins, we suggest setting at least %s of "
+"available memory"
+msgstr ""
+"برای عملکرد بهینه افزونه‌ها ، پیشنهاد می‌کنیم حداقل٪ s حافظه موجود را تنظیم کنید"
+
+#. translators: %1$s TLS label, %2$s cURL label
+#: lib/yith-system-status.php:593
+#, fuzzy
+#| msgid ""
+#| "We cannot determine which <b>TLS</b> version is installed because <b>cURL</"
+#| "b> module is disabled. Ask your hosting company to enable it."
+msgid ""
+"The system check cannot determine which %1$s version is installed because "
+"%2$s module is disabled. Ask your hosting company to enable it."
+msgstr ""
+"قادر به تعیین نسخه‌ی <b>TLS</b> نصب شده نیستیم زیرا <b>cURL</b> ماژول غیرفعال "
+"شده است. برای فعال کردن آن با شرکت میزبان خود تماس بگیرید."
+
+#. translators: %1$s TLS label
+#: lib/yith-system-status.php:596
+#, fuzzy
+msgid ""
+"The system check cannot determine which %1$s version is installed due to a "
+"connection issue between your site and our server."
+msgstr ""
+"بررسی سیستم نمیتونه اندازه گیری کنه که ورژن %1$s در طول اتصال بین سایت شما و "
+"سرور ما، نصب شده است یا خیر"
+
+#: templates/fields/ajax-customers.php:57
+msgid "Search Customers"
+msgstr "جستجوی مشتریان"
+
+#: templates/fields/ajax-customers.php:83 templates/fields/ajax-customers.php:93
+msgid "%1$s (#%2$s &ndash; %3$s)"
+msgstr "%1$s (#%2$s &ndash; %3$s)"
+
+#: templates/fields/ajax-posts.php:57
+msgid "Search Posts"
+msgstr "جستجوی پست‌ها"
+
+#: templates/fields/ajax-products.php:16
+msgid "Search Product"
+msgstr "جستجو محصول"
+
+#: templates/fields/customtabs.php:28
+msgid "Close all"
+msgstr "بستن همه"
+
+#: templates/fields/customtabs.php:28
+msgid "Expand all"
+msgstr "توسعه دادن همه"
+
+#: templates/fields/customtabs.php:37 templates/fields/customtabs.php:81
+msgid "Remove"
+msgstr "حذف کردن"
+
+#: templates/fields/customtabs.php:52 templates/fields/customtabs.php:94
+msgid "Value"
+msgstr "ارزش"
+
+#: templates/fields/customtabs.php:53 templates/fields/customtabs.php:95
+msgid "Content of the tab. (HTML is supported)"
+msgstr "محتوای برگه (HTML پشتیبانی می‌شود)"
+
+#: templates/fields/customtabs.php:65
+msgid "Add custom product tab"
+msgstr "افزودن برگه محصول سفارشی"
+
+#: templates/fields/customtabs.php:106
+msgid "Do you want to remove the custom tab?"
+msgstr "می خواهید برگه سفارشی را حذف کنید؟"
+
+#: templates/fields/date-format.php:50
+msgid "Custom:"
+msgstr "آیکون سفارشی:"
+
+#: templates/fields/icons.php:58
+msgid "Set Default"
+msgstr "تنظیمات پیش فرض"
+
+#: templates/fields/image-gallery.php:34 templates/fields/image-gallery.php:39
+msgid "Delete image"
+msgstr "حذف تصویر"
+
+#: templates/fields/image-gallery.php:39
+msgid "Add Images to Gallery"
+msgstr "افزودن تصاویر به گالری"
+
+#: templates/fields/image-gallery.php:39
+msgid "Add to gallery"
+msgstr "افزودن به گالری"
+
+#: templates/fields/image-gallery.php:39
+msgid "Add images"
+msgstr "افزودن تصاویر"
+
+#: templates/fields/image-gallery.php:39
+msgid "Delete"
+msgstr "حذف"
+
+#: templates/fields/select-buttons.php:21
+msgid "Add All"
+msgstr "افزودن همه"
+
+#: templates/fields/select-buttons.php:34
+msgid "Remove All"
+msgstr "حذف کردن همه"
+
+#: templates/fields/sidebars.php:22
+msgid "Left sidebar"
+msgstr "نوار‌کناری سمت چپ"
+
+#: templates/fields/sidebars.php:25
+msgid "Right sidebar"
+msgstr "نوار‌کناری راست"
+
+#: templates/fields/sidebars.php:28 templates/fields/sidebars.php:31
+msgid "No sidebar"
+msgstr "بدون نوار‌کناری"
+
+#: templates/fields/sidebars.php:39
+msgid "Left Sidebar"
+msgstr "سایدبار چپ"
+
+#: templates/fields/sidebars.php:41 templates/fields/sidebars.php:54
+msgid "Choose a sidebar"
+msgstr "انتخاب یک نوار‌کناری"
+
+#: templates/fields/sidebars.php:52
+msgid "Right Sidebar"
+msgstr "نوار‌کناری سمت راست"
+
+#: templates/fields/upload.php:27 templates/metaboxes/types/icon-list.php:70
+#: templates/panel/woocommerce/woocommerce-upload.php:40
+msgid "Upload"
+msgstr "بارگذاری"
+
+#: templates/fields/upload.php:29
+msgid "Reset"
+msgstr "تنظیم مجدد"
+
+#: templates/metaboxes/types/icon-list.php:76
+msgid "Image preview"
+msgstr "پیش نمایش تصویر"
+
+#: templates/metaboxes/types/icon-list.php:90
+msgid "(Default: %s <img src=\"%s\"/>)"
+msgstr "(پیش فرض: %s <img src=\"%s\"/>)"
+
+#: templates/metaboxes/types/icon-list.php:92
+msgid "(Default: <i %s></i> )"
+msgstr "(پیش فرض: <i %s></i< )"
+
+#: templates/panel/woocommerce/woocommerce-form.php:20
+msgid "Reset Defaults"
+msgstr "تنظیمات پیش فرض"
+
+#: templates/sysinfo/system-information-panel.php:39
+msgid "YITH System Information"
+msgstr "اطلاعات سیستم YITH"
+
+#: templates/sysinfo/system-information-panel.php:50
+#, fuzzy
+msgid "WP debug.log file"
+msgstr "فایل"
+
+#: templates/sysinfo/system-information-panel.php:54
+#, fuzzy
+msgid "PHP error_log file"
+msgstr "خطای ذخیره فایل در %s"
+
+#: templates/sysinfo/system-information-panel.php:59
+#: templates/sysinfo/system-information-panel.php:83
+msgid "Back to System panel"
+msgstr "بازگشت به پنل سیستم"
+
+#: templates/sysinfo/system-information-panel.php:96
+msgid "Back to top"
+msgstr "بازگشت به بالا"
+
+#: templates/sysinfo/system-information-panel.php:104
+msgid "Site URL"
+msgstr "URL سایت"
+
+#: templates/sysinfo/system-information-panel.php:112
+msgid "Output IP Address"
+msgstr "آدرس IP خروجی"
+
+#: templates/sysinfo/system-information-panel.php:120
+#, fuzzy
+msgid "Defined WP_CACHE"
+msgstr "منطقه زمانی تعریف شده وردپرس"
+
+#: templates/sysinfo/system-information-panel.php:123
+#, fuzzy
+msgid "Yes"
+msgstr "بله"
+
+#: templates/sysinfo/system-information-panel.php:123
+#, fuzzy
+#| msgid "None"
+msgid "No"
+msgstr "هیچی"
+
+#: templates/sysinfo/system-information-panel.php:159
+msgid "Show full PHPInfo"
+msgstr "نمایش کامل PHPInfo"
+
+#: templates/sysinfo/system-information-panel.php:167
+#, fuzzy
+msgid "Show log files"
+msgstr "نمایش لاگ فایل"
+
+#: yit-plugin.php:194
+msgid "License"
+msgstr "جواز"
+
+#. Author of the plugin/theme
+msgid "YITH"
+msgstr "YITH"
+
+#: lib/privacy/yit-privacy.php:24
+msgctxt "Privacy Policy Guide Title"
+msgid "YITH Plugins"
+msgstr "افزونه‌های YITH"
+
+#: lib/privacy/yit-privacy.php:59
+msgctxt "Privacy Policy Content"
+msgid ""
+"This sample language includes the basics around what personal data your store "
+"may be collecting, storing and sharing, as well as who may have access to "
+"that data. Depending on what settings are enabled and which additional "
+"plugins are used, the specific information shared by your store will vary. We "
+"recommend consulting with a lawyer when deciding what information to disclose "
+"on your privacy policy."
+msgstr ""
+"این نمونه زبان شامل اطلاعات پایه‌ای میشود که از فروشگاه شما ممکن است جمع آوری، "
+"ذخیره و اشتراک گذاری شود، همچنین کسانی که به این اطلاعات دسترسی دارند. وابسته "
+"به اینکه چه تنظیماتی فعال شده است و چه پلاگین‌های اضافی دیگری استفاده می‌شود، "
+"اطلاعات خاصی که با فروشگاه شما به اشتراک گذاشته می شود متنوع خواهد بود."
+
+#: lib/privacy/yit-privacy.php:63
+msgctxt "Privacy Policy Content"
+msgid "What we collect and store"
+msgstr "آن‌چه جمع آوری و ذخیره می‌کنیم"
+
+#: lib/privacy/yit-privacy.php:66
+msgctxt "Privacy Policy Content"
+msgid "Who on our team has access"
+msgstr "چه کسی در تیم ما دسترسی دارد"
+
+#: lib/privacy/yit-privacy.php:69
+msgctxt "Privacy Policy Content"
+msgid "What we share with others"
+msgstr "آن‌چه ما با دیگران به اشتراک می‌گذاریم"
+
+#: lib/privacy/yit-privacy.php:72
+msgctxt "Privacy Policy Content"
+msgid "Payments"
+msgstr "پرداخت‌ها"
+
+#: lib/yit-cpt-unlimited.php:627
+msgctxt "taxonomy general name"
+msgid "%s Categories"
+msgstr "%s دسته‌بندی‌ها"
+
+#: lib/yit-cpt-unlimited.php:628
+msgctxt "taxonomy singular name"
+msgid "Category"
+msgstr "دسته‌بندی"
+
+#: lib/yith-dashboard.php:99
+msgctxt "Plugin FW"
+msgid "View Changelog"
+msgstr "نمایش گزارش تغییرات"
+
+#: lib/yith-dashboard.php:100
+msgctxt "Plugin FW"
+msgid "Latest update released on"
+msgstr "آخرین بروزرسانی منتشر شده در"
+
+#: lib/yith-dashboard.php:143
+msgctxt "Button label"
+msgid "Close"
+msgstr "بستن"
+
+#: lib/yith-gutenberg.php:134
+msgctxt "[gutenberg]: Category Name"
+msgid "YITH"
+msgstr "YITH"
+
+#: templates/fields/dimensions.php:16
+#, fuzzy
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Top"
+msgstr "بالا"
+
+#: templates/fields/dimensions.php:17
+#, fuzzy
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Right"
+msgstr "راست"
+
+#: templates/fields/dimensions.php:18
+#, fuzzy
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Bottom"
+msgstr "پائین"
+
+#: templates/fields/dimensions.php:19
+#, fuzzy
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Left"
+msgstr "چپ"
+
+#: templates/fields/dimensions.php:117
+#, fuzzy
+msgctxt "Tooltip in the \"Dimensions\" field"
+msgid "Link values together"
+msgstr "متصل کردن مقدارها به یکدیگر"
+
+#: templates/fields/onoff.php:24
+#, fuzzy
+msgctxt "YES/NO button: use MAX 3 characters!"
+msgid "YES"
+msgstr "بله"
+
+#: templates/fields/onoff.php:25
+msgctxt "YES/NO button: use MAX 3 characters!"
+msgid "NO"
+msgstr ""
+
+#: yit-plugin.php:83
+msgctxt "Plugin Row Meta"
+msgid "Live Demo"
+msgstr "نسخه‌ی نمایشی زنده"
+
+#: yit-plugin.php:88
+msgctxt "Plugin Row Meta"
+msgid "Documentation"
+msgstr "مستندات"
+
+#: yit-plugin.php:93
+msgctxt "Plugin Row Meta"
+msgid "Support"
+msgstr "پشتیبانی"
+
+#: yit-plugin.php:98
+msgctxt "Plugin Row Meta"
+msgid "Premium version"
+msgstr "نسخه‌ی پولی"
+
+#: yit-plugin.php:190
+msgctxt "Action links"
+msgid "Settings"
+msgstr "تنظیمات"
+
+#~ msgid ""
+#~ "<b>ImageMagick</b> module is not installed. Ask your hosting company to "
+#~ "install it."
+#~ msgstr ""
+#~ "ماژول <b>ImageMagick</b> نصب نشده است. برای نصب با شرکت میزبان خود تماس "
+#~ "بگیرید."
+
+#~ msgctxt "ON/OFF button: use MAX 3 characters!"
+#~ msgid "ON"
+#~ msgstr "روشن"
+
+#~ msgctxt "ON/OFF button: use MAX 3 characters!"
+#~ msgid "OFF"
+#~ msgstr "خاموش"
+
+#~ msgid "An unexpected error occurred, please try again later. Thanks!"
+#~ msgstr "یک خطای غیر منتظره رخ داده است. لطفا بعدا مجدد امتحان کنید. با سپاس!"
+
+#~ msgid "There is a new version of %plugin_name% available."
+#~ msgstr "یک نسخه جدید٪ plugin_name٪ موجود است."
+
+#~ msgid "View version %latest% details."
+#~ msgstr "مشاهده‌ی جزئیات نسخه‌ی %latest%."
+
+#~ msgid "Automatic update is unavailable for this plugin,"
+#~ msgstr "به روز رسانی خودکار برای این افزونه در دسترس نیست,"
+
+#~ msgid ""
+#~ "please <a href=\"%activate_link%\">activate</a> your copy of %plugin_name%."
+#~ msgstr ""
+#~ "لطفا <a href=\"%activate_link%\">فعال کنید</a>نسخه کپی خود را از "
+#~ "%plugin_name%."
+
+#~ msgid "Update now."
+#~ msgstr "بروزرسانی کن."
+
+#~ msgid ""
+#~ "<br/><b>Please note:</b> You are using a higher version than the latest "
+#~ "available one. </em>Please, make sure you've downloaded the latest version "
+#~ "of <em>%1$s</em> from the only <a href=\"https://yithemes.com\" target="
+#~ "\"_blank\">YITH official website</a>, specifically, from your <a href="
+#~ "\"https://yithemes.com/my-account/recent-downloads/\" target=\"_blank"
+#~ "\">Downloads page</a>. This is the only way to be sure the version you are "
+#~ "using is 100% malware-free."
+#~ msgstr ""
+#~ "<br/><b>لطفا توجه کنید:</b>شما نسخه ای بالاتر از آخرین نسخه منتشر شده را "
+#~ "استفاده می‌کنید. </em>لطفا توجه کنید که آخرین نسخه از محصول <em>%plugin_name"
+#~ "%</em>را از ژاکت<a href=\"https://zhaket.com/product/multi-step-checkout/"
+#~ "\" target=\"_blank\">مرجع معتبر عرضه محصولات yith </a>, دانلود کرده‌اید."
+
+#~ msgctxt "[Update Plugin Message: License not enabled]"
+#~ msgid "You have to activate the plugin to benefit from automatic updates."
+#~ msgstr "با فعال کردن محصول از بروز رسانی خودکار آن بهره مند شوید."
+
+#~ msgid "YITH Repository"
+#~ msgstr "مخزن YITH"
+
+#~ msgid "Invalid URL Provided."
+#~ msgstr "نشانی اینترنتی نامعتبر ارائه شده."
+
+#~ msgid "Could not create Temporary file."
+#~ msgstr "نمی توان فایل موقت ایجاد کرد."
+
+#~ msgid ""
+#~ "There is a new version of %1$s available. <a href=\"%2$s\" class="
+#~ "\"thickbox yit-changelog-button open-plugin-details-modal\" title=\"%3$s"
+#~ "\">View version %4$s details</a>."
+#~ msgstr ""
+#~ "یک نسخه جدید از %1$s موجود است. <a href=\"%2$s\" class=\"thickbox yit-"
+#~ "changelog-button open-plugin-details-modal\" title=\"%3$s\">نمایش جزئیات "
+#~ "نسخه %4$s </a>."
+
+#~ msgid ""
+#~ "There is a new version of %1$s available. <a href=\"%2$s\" class="
+#~ "\"thickbox yit-changelog-button open-plugin-details-modal\" title=\"%3$s"
+#~ "\">View version %4$s details</a>. <em>You have to activate the plugin on a "
+#~ "single site of the network to benefit from automatic updates.</em>"
+#~ msgstr ""
+#~ "یک ورژن جدیدی از %1$s موجود است. <a href=\"%2$s\" class=\"thickbox yit-"
+#~ "changelog-button open-plugin-details-modal\" title=\"%3$s\">مشاهده جزییات "
+#~ "ورژن  %4$s </a. <em>شما باید تنها این محصول را بر روی یک دامنه نصب کنید و "
+#~ "بروز رسانی های خود را از <a href=\"https://zhaket.com/product/yith-test-"
+#~ "environment/\">ژاکت</a>دریافت کنید.</em>"
+
+#~ msgid ""
+#~ "There is a new version of %1$s available. <a href=\"%2$s\" class="
+#~ "\"thickbox yit-changelog-button open-plugin-details-modal\" title=\"%3$s"
+#~ "\">View version %4$s details</a>. <em>Automatic update is unavailable for "
+#~ "this plugin, please <a href=\"%5$s\" title=\"License activation"
+#~ "\">activate</a> your copy of %6s.</em>"
+#~ msgstr ""
+#~ "یک نسخه جدید از %1$s موجود است. <a href=\"%2$s\" class=\"thickbox yit-"
+#~ "changelog-button open-plugin-details-modal\" title=\"%3$s\">نمایش جزئیات "
+#~ "نسخه %4$s</a>. <em>به روز رسانی خودکار در این نسخه موجود نیست، لطفا <a "
+#~ "href=\"%5$s\" title=\"License activation\">فعال کنید</a> نسخه کپی خود را "
+#~ "از %6s.</em>"
+
+#~ msgid ""
+#~ "There is a new version of %1$s available. <a href=\"%2$s\" class="
+#~ "\"thickbox yit-changelog-button open-plugin-details-modal\" title=\"%3$s"
+#~ "\">View version %4$s details</a> or <a href=\"%5$s\">update now</a>."
+#~ msgstr ""
+#~ "یک نسخه جدید از %1$s موجود است. <a href=\"%2$s\" class=\"thickbox yit-"
+#~ "changelog-button open-plugin-details-modal\" title=\"%3$s\">نمایش جزئیات "
+#~ "نسخه %4$s</a>. <em> یا <a href=\"%5$s\">اکنون به روز رسانی کنید</a>."
+
+#~ msgid ""
+#~ "<br/><b>Please note:</b> You are using a higher version than the latest "
+#~ "available one. </em>Please, make sure you've downloaded the latest version "
+#~ "of <em>%1$s</em> from the only <a href=\"https://yithemes.com\" target="
+#~ "\"_blank\">YITH official website</a>, specifically, from your <a href="
+#~ "\"https://yithemes.com/my-account/recent-downloads/\" target=\"_blank"
+#~ "\">Downloads page</a>. This is the only way to be sure the version you are "
+#~ "using is 100%% malware-free."
+#~ msgstr ""
+#~ "<br/><b>لطفا توجه کنید:</b>شما نسخه ای بالاتر از آخرین نسخه منتشر شده را "
+#~ "استفاده می‌کنید. </em>لطفا توجه کنید که آخرین نسخه از محصول <em>%plugin_name"
+#~ "%</em>را از ژاکت<a href=\"https://zhaket.com/product/multi-step-checkout/"
+#~ "\" target=\"_blank\">مرجع معتبر عرضه محصولات yith </a>, دانلود کرده‌اید."
+
+#~ msgid "You can't update the plugins for this site."
+#~ msgstr "شما نمی توانید افزونه ها را برای این سایت به روز کنید."
+
+#~ msgid ""
+#~ "You do not have sufficient permissions to update the plugins for this site."
+#~ msgstr "برای به روز رسانی افزونه های این سایت مجوز کافی ندارید."
+
+#~ msgid "Update Plugin"
+#~ msgstr "به روز رسانی افزونه"
+
+#~ msgid "New YITH products"
+#~ msgstr "محصولات جدید YITH"
+
+#~ msgctxt "%s = field name"
+#~ msgid "Please, insert a valid %s"
+#~ msgstr "لطفا یک %s معتبر وارد کنید."
+
+#~ msgid "Please, insert a valid %s and a valid %s"
+#~ msgstr "لطفا یک مقدار معتبر برای  %s  و  %s وارد کنید"
+
+#~ msgid "Unable to contact the remote server, please try again later. Thanks!"
+#~ msgstr ""
+#~ "تماس با سرور از راه دور امکان پذیر نیست، لطفا بعدا دوباره امتحان کنید. با "
+#~ "تشکر!"
+
+#~ msgid "email address"
+#~ msgstr "آدرس ایمیل"
+
+#, fuzzy
+#~| msgid "License Key"
+#~ msgid "license key"
+#~ msgstr "کلید لایسنس"
+
+#~ msgid "Are you sure you want to deactivate the license for current site?"
+#~ msgstr "آیا مطمئنید می خواهید لایسنس را برای این سایت غیر فعال کنید؟"
+
+#~ msgid "Invalid Request"
+#~ msgstr "درخواست نامعتبر"
+
+#~ msgid "Invalid license key"
+#~ msgstr "کلید لایسنس نامعتبر است"
+
+#~ msgid "Software has been deactivated"
+#~ msgstr "نرم افزار غیرفعال شده است"
+
+#~ msgid "Maximum number of activations exceeded"
+#~ msgstr "حداکثر تعداد فعال شدن بیش از حد است"
+
+#~ msgid "Invalid instance ID"
+#~ msgstr "شناسه نمونه نامعتبر"
+
+#~ msgid "Invalid security key"
+#~ msgstr "کلید امنیتی نامعتبر است"
+
+#~ msgid "License key has expired"
+#~ msgstr "کلید لایسنس منقضی شده است"
+
+#~ msgid "License key has been banned"
+#~ msgstr "کلید مجوز ممنوع شده است"
+
+#~ msgid "Current product is not included in your YITH Club Subscription key"
+#~ msgstr "محصول فعلی در باشگاه کلید اشتراک YITH شما موجود نیست"
+
+#~ msgid "Great"
+#~ msgstr "عالی"
+
+#~ msgid "License successfully activated"
+#~ msgstr "لایسنس با موفقیت فعال شد"
+
+#~ msgid "License key deactivated for website"
+#~ msgstr "کلید مجوز برای وب سایت غیر فعال شده است"
+
+#~ msgid "License Activation"
+#~ msgstr "فعال سازی لایسنس"
+
+#~ msgctxt ""
+#~ "[Part of]: Warning! You didn't set license key for the following products:"
+#~ "[Plugins List] which means you're missing out on updates and support. "
+#~ "Enter your license key, please."
+#~ msgid "You didn't set license key for the following products"
+#~ msgstr "شما برای این محصول لایسنس خود را درج نکرده اید"
+
+#~ msgctxt ""
+#~ "[Part of]: Warning! You didn't set license key for the following products:"
+#~ "[Plugins List] which means you're missing out on updates and support. "
+#~ "Enter your license key, please."
+#~ msgid "which means you're missing out on updates and support"
+#~ msgstr "که به معنی از دست دادن پشتیبانی و بروز رسانی این محصول است"
+
+#~ msgctxt ""
+#~ "[Part of]: Warning! You didn't set license key for the following products:"
+#~ "[Plugins List] which means you're missing out on updates and support. "
+#~ "Enter your license key, please."
+#~ msgid "Enter your license key"
+#~ msgstr "کلید لایسنس را وارد نمایید"
+
+#~ msgctxt ""
+#~ "[Part of]: Warning! You didn't set license key for the following products:"
+#~ "[Plugins List] which means you're missing out on updates and support. "
+#~ "Enter your license key, please."
+#~ msgid "please"
+#~ msgstr "لطفا"
+
+#~ msgid "%s"
+#~ msgstr "%s"
+
+#~ msgid ""
+#~ "I cannot find the license key for activating the theme I have bought some "
+#~ "time ago. Where can I find it?"
+#~ msgstr ""
+#~ "من نمی توانم کلید مجوز برای فعال کردن موضوعی را که چند وقت پیش خریداری "
+#~ "کرده ام پیدا کنم. کجا می توانم آن را پیدا کنم؟"
+
+#~ msgid ""
+#~ "If you have purchased one of our products before 27 January 2015, you can "
+#~ "benefit from support and updates (the services offered with the license)\n"
+#~ "                    until 27 January 2016 and you do not have to purchase "
+#~ "it again to get a new license key, because, before this date, your license "
+#~ "used to be activated automatically by our system.\n"
+#~ "                    After 27 January 2016, instead, if you want to benefit "
+#~ "from support and updates you have to buy a new license and activate it "
+#~ "through the license key you will be\n"
+#~ "                    provided with and that you can find in your YITH "
+#~ "account, in section \"My licenses\"."
+#~ msgstr ""
+#~ "اگر قبل از 27 ژانویه 2015 یکی از محصولات ما را خریداری کرده باشید، می "
+#~ "توانید از پشتیبانی و به روز رسانی (خدمات ارائه شده با مجوز) بهره مند "
+#~ "شوید.\n"
+#~ "                     اما اگر تا 27 ژانویه 2016 این کار را کرده باشید دیگر "
+#~ "شما مجبور نیستید آن را مجددا خریداری کنید تا یک کلید مجوز جدید دریافت "
+#~ "کنید، زیرا قبل از این تاریخ مجوز شما به طور خودکار توسط سیستم ما فعال شده "
+#~ "است.\n"
+#~ "                     در عوض، پس از 27 ژانویه 2016، اگر بخواهید از پشتیبانی "
+#~ "و به روز رسانی بهره مند شوید، باید مجوز جدید خریداری کنید و آن را از طریق "
+#~ "کلید مجوز فعال کنید\n"
+#~ "                     ارائه شده و شما می توانید در حساب YIThemes خود، در "
+#~ "بخش «مجوز های من» پیدا کنید."
+
+#~ msgid "YITH License Activation"
+#~ msgstr "فعال سازی لایسنس"
+
+#~ msgid "License expiry date"
+#~ msgstr "تاریخ انقضا لایسنس"
+
+#~ msgid ""
+#~ "If you have renewed your product license key and the expiry date does not "
+#~ "appear up-to-date, please, click on the button <em>Check Expiry Date</em> "
+#~ "below and it will update."
+#~ msgstr "برای بروز رسانی روی دکمه <em>بررسی تاریخ انقضا</em> کلیک کنید."
+
+#~ msgid "Check expiry date"
+#~ msgstr "بررسی تاریخ انقضا"
+
+#~ msgid "Product to activate"
+#~ msgid_plural "Products to activate"
+#~ msgstr[0] "فعال کردن افزونه"
+
+#~ msgid "Are you having issues with the license activation?"
+#~ msgstr "ایا مشکلی در فعال سازی لایسنس دارید؟"
+
+#~ msgid "Read this article"
+#~ msgstr "مقاله را مطالعه کنید"
+
+#~ msgid "Activate"
+#~ msgstr "فعالسازی"
+
+#~ msgid "Activated"
+#~ msgstr "فعال شده"
+
+#~ msgid "Product Name"
+#~ msgstr "نام محصول"
+
+#~ msgid "Email"
+#~ msgstr "ایمیل"
+
+#~ msgid "License Key"
+#~ msgstr "کلید لایسنس"
+
+#~ msgid "Expires"
+#~ msgstr "منقضی شدن"
+
+#~ msgid "Remaining"
+#~ msgstr "باقی مانده"
+
+#~ msgid "Club Subscription"
+#~ msgstr "کلوب اشتراک"
+
+#~ msgid "%1s out of %2s"
+#~ msgstr "%1s خارج از %2s"
+
+#~ msgid "Deactivate"
+#~ msgstr "غیرفعال سازی"
+
+#~ msgid "Renew"
+#~ msgstr "به روز آوری"
+
+#~ msgid "Banned"
+#~ msgstr "مسدود شده"
+
+#~ msgid "Expired"
+#~ msgstr "منقضی شده"
+
+#~ msgid "Order again"
+#~ msgstr "دوباره سفارش بدهید"
+
+#~ msgid "Renew license"
+#~ msgstr "تجدید مجوز"
+
+#~ msgid "Deselect All"
+#~ msgstr "همه را از انتخاب خارج کنید"
+
+#~ msgctxt "%s = field name"
+#~ msgid "%s field cannot be empty"
+#~ msgstr "فیلد%s نمی تواند خالی باشد"
+
+#~ msgid "%s and %s fields cannot be empty"
+#~ msgstr "فیلدهای%s و %s نمی توانند خالی باشند"
+
+#~ msgid ""
+#~ "Have you updated your licenses? Have you asked for an extension? Update "
+#~ "information concerning your products."
+#~ msgstr ""
+#~ "شما نسخه پیشرفته این افزونه را از سایت <a href=\"https://zhaket.com\">ژاکت "
+#~ "</a> خریداری کرده اید. این افزونه توسط <a href=\"https://zhaket.com/store/"
+#~ "radiran/\">رادایران </a> فعال شده است. بروز رسانی ها را می‌توانید از حساب "
+#~ "کاربری خود در <a href=\"https://zhaket.com\">ژاکت </a> دریافت کنید."
+
+#~ msgid "Update license information"
+#~ msgstr "به روز رسانی اطلاعات مجوز"
+
+#~ msgid "License Actions"
+#~ msgstr "فعالیت های مجوز"
+
+#~ msgid ""
+#~ "If you continue with this action, you will reset all the options in this "
+#~ "page."
+#~ msgstr ""
+#~ "با ادامه‌ی این عملیات شما تمامی تنظیمات این برگه را به حالت پیشفرض "
+#~ "برمی‌گردانید."
+
+#~ msgid "Yithemes License Activation"
+#~ msgstr "فعال سازی مجوز Yithemes"
+
+#~ msgid "No categories."
+#~ msgstr "بدون دسته بندی."
+
+#~ msgid "+ Add New Category"
+#~ msgstr "+ افزودن دسته بندی جدید"
+
+#~ msgid "Add"
+#~ msgstr "افزودن"
+
+#~ msgid "Text Input"
+#~ msgstr "ورودی متن"
+
+#~ msgid "Checkbox"
+#~ msgstr "جعبه"
+
+#~ msgid "Textarea"
+#~ msgstr "منطقه متن"
+
+#~ msgid "Radio Input"
+#~ msgstr "ورودی رادیویی"
+
+#~ msgid "Password Field"
+#~ msgstr "فیلد رمز عبور"
+
+#~ msgid "File Upload"
+#~ msgstr "آپلود فایل"
+
+#~ msgid "Theme Icon"
+#~ msgstr "آیکون قالب"
+
+#~ msgid "Field Title"
+#~ msgstr "عنوان فیلد"
+
+#~ msgid "Insert the title for the field."
+#~ msgstr "عنوان را برای فیلد وارد کنید."
+
+#~ msgid "Data Name"
+#~ msgstr "نام داده"
+
+#~ msgid ""
+#~ "REQUIRED: Field identification name to be entered into email body. "
+#~ "<strong>Note:</strong>Use only lowercase characters and underscores."
+#~ msgstr ""
+#~ "مورد نیاز: نام شناسه فیلد برای وارد شدن به بدن ایمیل. <strong> توجه: </"
+#~ "strong> فقط از حروف کوچک و حروف زیر استفاده کنید."
+
+#~ msgid "Field Type"
+#~ msgstr "نوع فیلد"
+
+#~ msgid "Select the type for this field."
+#~ msgstr "نوع برای این فیلد را انتخاب کنید."
+
+#~ msgid "Checked"
+#~ msgstr "بررسی شده است"
+
+#~ msgid "Select this option if you want this field appears as already checked."
+#~ msgstr ""
+#~ "اگر می خواهید این فیل همانطور که قبلا چک شده است به نظر برسد این گزینه را "
+#~ "انتخاب کنید."
+
+#~ msgid "Add options "
+#~ msgstr "افزودن گزینه ها"
+
+#~ msgid "Add option"
+#~ msgstr "افزودن گزینه"
+
+#~ msgid "Selected"
+#~ msgstr "انتخاب شد"
+
+#~ msgid "Delete option"
+#~ msgstr "حذف گزینه"
+
+#~ msgid "Error Message"
+#~ msgstr "پیغام خطا"
+
+#~ msgid "Insert the error message for validation."
+#~ msgstr "پیام خطا را برای اعتبارسنجی وارد کنید."
+
+#~ msgid "Required"
+#~ msgstr "ضروری"
+
+#~ msgid "Select this option if it must be required."
+#~ msgstr "اگر لازم بود این گزینه را انتخاب کنید."
+
+#~ msgid "Select this option if the email must be valid."
+#~ msgstr "اگر ایمیل معتبر بود، این گزینه را انتخاب کنید."
+
+#~ msgid "Reply To"
+#~ msgstr "پاسخ دادن به"
+
+#~ msgid "Select this if it is the email you can reply to."
+#~ msgstr ""
+#~ "اگر این ایمیلی است که قصد پاسخ دادن به آن را دارید این گزینه را انتخاب "
+#~ "کنید."
+
+#~ msgid "Class"
+#~ msgstr "کلاس"
+
+#~ msgid ""
+#~ "Insert additional class(es) (separated by commas) for more personalization."
+#~ msgstr ""
+#~ "کلاس های اضافی (جدا از هم توسط کاما) را برای شخصی سازی بیشتر قرار دهید."
+
+#~ msgid "Icon"
+#~ msgstr "آیکون"
+
+#~ msgid "Insert an icon for more personalization."
+#~ msgstr "یک نماد برای شخصی سازی بیشتر قرار دهید."
+
+#~ msgid "Width"
+#~ msgstr "عرض"
+
+#~ msgid "Set field length."
+#~ msgstr "طول فیلد را تنظیم کنید."
+
+#~ msgid "Upload new images"
+#~ msgstr "آپلود کردن تصاویر جدید"
+
+#~ msgid "Are you sure you want to remove this image?"
+#~ msgstr "آیا مطمئن هستید که می خواهید این تصویر را حذف کنید؟"
+
+#~ msgid "px"
+#~ msgstr "px"
+
+#~ msgid "em"
+#~ msgstr "em"
+
+#~ msgid "pt"
+#~ msgstr "pt"
+
+#~ msgid "rem"
+#~ msgstr "rem"
+
+#~ msgid "Web fonts"
+#~ msgstr "فونت های وب"
+
+#~ msgid "Google fonts"
+#~ msgstr "فونت های گوگل"
+
+#~ msgid "Regular"
+#~ msgstr "منظم"
+
+#~ msgid "Bold"
+#~ msgstr "پر رنگ"
+
+#~ msgid "Extra bold"
+#~ msgstr "فوق العاده پر رنگ"
+
+#~ msgid "Italic"
+#~ msgstr "ایتالیایی"
+
+#~ msgid "Italic bold"
+#~ msgstr "ایتالیایی پر رنگ"

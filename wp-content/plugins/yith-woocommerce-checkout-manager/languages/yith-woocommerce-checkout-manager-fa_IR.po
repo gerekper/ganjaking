@@ -1,0 +1,571 @@
+# Copyright (C) 2018 YITH WooCommerce Checkout Manager
+# This file is distributed under the same license as the YITH WooCommerce Checkout Manager package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Checkout Manager\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"checkout-manager\n"
+"POT-Creation-Date: 2020-10-16 23:31+0330\n"
+"PO-Revision-Date: 2020-10-16 23:31+0330\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/class.ywccp-admin.php:137 templates/admin/fields-table.php:12
+msgid "Add new field"
+msgstr "افزودن فیلد جدید"
+
+#: includes/class.ywccp-admin.php:138
+msgid "Edit field"
+msgstr "ویرایش فیلد"
+
+#: includes/class.ywccp-admin.php:139 templates/admin/fields-table.php:102
+msgid "Yes"
+msgstr "بله"
+
+#: includes/class.ywccp-admin.php:207
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: includes/class.ywccp-admin.php:208
+msgid "Checkout fields"
+msgstr "فیلد های صورت حساب"
+
+#: includes/class.ywccp-admin.php:215
+msgid "Checkout Manager"
+msgstr "مدیریت صورت حساب"
+
+#: includes/class.ywccp-front.php:113
+msgid "This is a required field."
+msgstr "این فیلد ضروری است."
+
+#: includes/class.ywccp-front.php:114
+msgid "The VAT number you have entered seems to be wrong."
+msgstr "شماره \"مالیات بر ارزش افزوده\" که وارد کرده اید، اشتباه است."
+
+#: includes/class.ywccp-front.php:115
+msgid "The mail you have entered seems to be wrong."
+msgstr "ایمیلی که وارد کرده اید اشتباه است"
+
+#: includes/class.ywccp-front.php:165 includes/class.ywccp-front.php:206
+#: includes/class.ywccp-front.php:240
+msgid "required"
+msgstr "ضروری"
+
+#: includes/class.ywccp-front.php:481
+msgid "The VAT number you have entered seems to be wrong. Please, check it."
+msgstr ""
+"شماره \"مالیات بر ارزش افزوده\" که وارد کرده اید، اشتباه است. لطفا آن را چک "
+"کنید."
+
+#. Translators: %s Prop name.
+#: includes/class.ywccp.php:204
+msgid "Removed customer \"%s\""
+msgstr "مشتری \"%s\" حذف شد"
+
+#: includes/functions.ywccp.php:367
+msgid "Order notes"
+msgstr " یادداشت های سفارش"
+
+#: includes/functions.ywccp.php:388
+msgid "Text"
+msgstr "متن"
+
+#: includes/functions.ywccp.php:389
+msgid "Number"
+msgstr "عدد"
+
+#: includes/functions.ywccp.php:390
+msgid "Password"
+msgstr "کلمه عبور"
+
+#: includes/functions.ywccp.php:391 includes/functions.ywccp.php:439
+msgid "Phone"
+msgstr "تلفن"
+
+#: includes/functions.ywccp.php:392
+msgid "Textarea"
+msgstr "ناحیه متنی"
+
+#: includes/functions.ywccp.php:393
+msgid "Radio"
+msgstr "رادیو"
+
+#: includes/functions.ywccp.php:394
+msgid "Checkbox"
+msgstr "چک باکس"
+
+#: includes/functions.ywccp.php:395
+msgid "Select"
+msgstr "انتخاب کنید"
+
+#: includes/functions.ywccp.php:396
+msgid "Multi select"
+msgstr "انتخاب چندگانه"
+
+#: includes/functions.ywccp.php:397
+msgid "Date"
+msgstr "تاریخ"
+
+#: includes/functions.ywccp.php:398
+msgid "Time"
+msgstr "زمان"
+
+#: includes/functions.ywccp.php:399
+msgid "Heading"
+msgstr "سرفصل"
+
+#: includes/functions.ywccp.php:417
+msgid "First"
+msgstr "اولین"
+
+#: includes/functions.ywccp.php:418
+msgid "Last"
+msgstr "آخر"
+
+#: includes/functions.ywccp.php:419
+msgid "Wide"
+msgstr "عریض"
+
+#: includes/functions.ywccp.php:437
+msgid "No validation"
+msgstr "اعتبار ندارد"
+
+#: includes/functions.ywccp.php:438
+msgid "PostCode"
+msgstr "کد پستی"
+
+#: includes/functions.ywccp.php:440
+msgid "Email"
+msgstr "پست الکترونیک"
+
+#: includes/functions.ywccp.php:441
+msgid "State"
+msgstr "استان"
+
+#: includes/functions.ywccp.php:442
+msgid "VAT"
+msgstr "مالیات بر ارزش افزوده"
+
+#: includes/functions.ywccp.php:945
+msgid "%s %s %s is a required field"
+msgstr "%s %s %s فیلدهای ضروری هستند."
+
+#: init.php:45
+msgid ""
+"YITH WooCommerce Checkout Manager is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Checkout Manager فعال است اما ;کارآمد نیست. برای کار به "
+"WooCommerce نیاز دارد."
+
+#: plugin-options/general-options.php:19
+msgid "General options"
+msgstr "گزینه های عمومی"
+
+#: plugin-options/general-options.php:26
+msgid "Enable JS validation"
+msgstr "تأیید اعتبار JS را فعال کنید"
+
+#: plugin-options/general-options.php:27
+msgid "Enable JavaScript field validation."
+msgstr "فعال کردن اعتبار سنجی جاوا اسکریپتی فیلد"
+
+#: plugin-options/general-options.php:35
+msgid "Enable VAT JS Validation (EU)"
+msgstr "فعال کردن اعبتارسنجی جاوااسکریپتی \"مالیات بر ارزش افزوده\" (EU)"
+
+#: plugin-options/general-options.php:36
+msgid ""
+"Enable JavaScript VAT field validation. \"Country\" field is also required. "
+"This option is available only for European countries"
+msgstr ""
+"فعال کردن اعبتارسنجی جاوااسکریپتی فیلد \"مالیات بر ارزش افزوده\". فیلد \"کشور"
+"\" نیز مورد نیاز است. این گزینه فقط برای کشورهای اروپایی در دسترس است"
+
+#: plugin-options/general-options.php:44
+msgid "Enable tooltip"
+msgstr "ابزارک را فعال کنید"
+
+#: plugin-options/general-options.php:45
+msgid ""
+"Enable tooltip on checkout fields. Don't forget to set the tooltip text in "
+"single field edit window, otherwise the tooltip will not appear"
+msgstr ""
+"tooltip را در فیلد های صورت حساب فعال کنید. فراموش نکنید که متن tooltip را در "
+"پنجره ویرایش تک فیلد تنظیم کنید، در غیر این صورت tooltip ظاهر نخواهد شد"
+
+#: plugin-options/general-options.php:53
+msgid "Date format"
+msgstr "فرمت تاریخ"
+
+#: plugin-options/general-options.php:54
+msgid "Choose the date format for date fields."
+msgstr "فرمت تاریخ برای فیلد های تاریخ را انتخاب کنید."
+
+#: plugin-options/general-options.php:70
+msgid "Time format"
+msgstr "فرمت زمان"
+
+#: plugin-options/general-options.php:71
+msgid "Choose the time format for time fields."
+msgstr "فرمت زمان را برای فیلدهای زمان انتخاب کنید."
+
+#: plugin-options/general-options.php:75
+msgid "Meridian (AM/PM)"
+msgstr "نیم روز (قبل از ظهر/ بعد از ظهر)"
+
+#: plugin-options/general-options.php:76
+msgid "24 hour clock"
+msgstr "ساعت 24 ساعته"
+
+#: plugin-options/general-options.php:83
+msgid "Overwrite formatted addresses"
+msgstr "بازخوانی آدرس های حذف شده"
+
+#: plugin-options/general-options.php:84
+msgid ""
+"Choose to overwrite formatted addresses with the plugin ordering or with the "
+"one applied by WooCommerce."
+msgstr ""
+"انتخاب کنید ادرس‌های حذف شده را با استفاده از سفارش‌دهی خود افزونه رونویسی کنید "
+"و یا با خود ووکامرس"
+
+#: plugin-options/general-options.php:92
+msgid "Show field label"
+msgstr "نمایش برچسب فیلد"
+
+#: plugin-options/general-options.php:93
+msgid "Choose to show or hide the field label for the formatted addresses."
+msgstr ""
+"برای نشان دادن یا مخفی کردن برچسب فیلد برای آدرس های حذف شده انتخاب کنید."
+
+#: plugin-options/general-options.php:106
+msgid "Style options"
+msgstr "تنظیمات استایل"
+
+#: plugin-options/general-options.php:113
+msgid "Checkout style"
+msgstr "استایل صورت حساب"
+
+#: plugin-options/general-options.php:114
+msgid ""
+"Show checkout form in one column instead of using two-column default layout."
+msgstr ""
+"به جای استفاده از طرح پیش فرض دو ستون، فرم صورت حساب را در یک ستون نمایش دهید."
+
+#: plugin-options/general-options.php:122
+msgid "Input field height"
+msgstr "ارتفاع فیلد ورودی"
+
+#: plugin-options/general-options.php:123
+msgid "Set input field height (px)"
+msgstr "تنظیم ارتفاع فیلد ورودی (px)"
+
+#: plugin-options/general-options.php:132
+msgid "Input field border"
+msgstr "حاشیه فیلد ورودی"
+
+#: plugin-options/general-options.php:133
+msgid "Set a color for input field border."
+msgstr "یک رنگ برای حاشبه فیلد ورودی تنظیم کنید."
+
+#: plugin-options/general-options.php:141
+msgid "Input field border on focus"
+msgstr "حاشبه  فیلد ورودی در فوکوس"
+
+#: plugin-options/general-options.php:142
+msgid "Set a color for input field border on focus."
+msgstr "یک رنگ برای حاشبه فیلد ورودی در فوکوس تنظیم کنید."
+
+#: plugin-options/general-options.php:150
+msgid "Input field border (correct info)"
+msgstr "حاشبه فیلد ورودی (اطلاعات صحیح)"
+
+#: plugin-options/general-options.php:151
+msgid "Set a color for input field border when info entered is correct."
+msgstr ""
+"هنگامی که اطلاعات وارد شده صحیح باشد، یک رنگ برای حاشبه فیلد ورودی تنظیم شود."
+
+#: plugin-options/general-options.php:159
+msgid "Input field border (wrong info)"
+msgstr "حاشبه فیلد ورودی (اطلاعات اشتباه)"
+
+#: plugin-options/general-options.php:160
+msgid "Set a color for input field border when info entered is wrong."
+msgstr ""
+"هنگامی که اطلاعات ورودی اشتباه است، یک رنگ برای حاشبه فیلد ورودی تنظیم کنید."
+
+#: plugin-options/general-options.php:168
+msgid "Error message color"
+msgstr "رنگ پیام خطا"
+
+#: plugin-options/general-options.php:169
+msgid "Set a color for error messages."
+msgstr "یک رنگ برای پیام های خطا تنظیم کنید"
+
+#: templates/admin/fields-edit.php:22 templates/admin/fields-table.php:33
+#: templates/admin/fields-table.php:46
+msgid "Name"
+msgstr "نام"
+
+#: templates/admin/fields-edit.php:26 templates/admin/fields-table.php:34
+#: templates/admin/fields-table.php:47
+msgid "Type"
+msgstr "نوع"
+
+#: templates/admin/fields-edit.php:36 templates/admin/fields-table.php:35
+#: templates/admin/fields-table.php:48
+msgid "Label"
+msgstr "برچسب"
+
+#: templates/admin/fields-edit.php:40 templates/admin/fields-table.php:36
+#: templates/admin/fields-table.php:49
+msgid "Placeholder"
+msgstr "Placeholde"
+
+#: templates/admin/fields-edit.php:45
+msgid "Tooltip"
+msgstr "Tooltip"
+
+#: templates/admin/fields-edit.php:51
+msgid "Options"
+msgstr "تنظیمات"
+
+#: templates/admin/fields-edit.php:53
+msgid ""
+"Separate options with pipes (|) and key from value using (::). Es. key::value|"
+msgstr ""
+"گزینه ها را با پایپس (|) از هم جدا کنید و کلید  و مقدار آن را با (::). مثال: "
+"کلید::مقدار|"
+
+#: templates/admin/fields-edit.php:58
+msgid "Position"
+msgstr "موقعیت"
+
+#: templates/admin/fields-edit.php:69
+msgid "Class"
+msgstr "کلاس"
+
+#: templates/admin/fields-edit.php:71 templates/admin/fields-edit.php:77
+msgid "Separate classes with commas"
+msgstr "جدا کردن کلاس ها با کاما"
+
+#: templates/admin/fields-edit.php:75
+msgid "Label class"
+msgstr "کلاس برچسب"
+
+#: templates/admin/fields-edit.php:82
+msgid "Validation"
+msgstr "اعتبار سنجی"
+
+#: templates/admin/fields-edit.php:98 templates/admin/fields-table.php:38
+#: templates/admin/fields-table.php:51
+msgid "Required"
+msgstr "ضروری"
+
+#: templates/admin/fields-edit.php:100
+msgid ""
+"Please keep it disabled if you need to set at least one condition. %sThe "
+"field will be set as required according to the conditions configured"
+msgstr ""
+"اگر حداقل یک شرط می‌خواهید تنظیم کنید، این را در وضعیت نمایش قرار دهید. بر "
+"اساس شرایط پیکره‌بندی شده، فیلد %s به عنوان ضروری تنظیم خواهد شد"
+
+#: templates/admin/fields-edit.php:111
+msgid "Display in emails"
+msgstr "نمایش در ایمیل‌ها"
+
+#: templates/admin/fields-edit.php:115
+msgid "Display in Order Detail Pages"
+msgstr "نمایش در صفحات جزئیات سفارش"
+
+#: templates/admin/fields-edit.php:122
+msgid "Field"
+msgstr "فیلد"
+
+#: templates/admin/fields-edit.php:123
+msgid "Condition"
+msgstr "شرط"
+
+#: templates/admin/fields-edit.php:125
+msgid "Value *"
+msgstr "مقدار*"
+
+#: templates/admin/fields-edit.php:127
+msgid ""
+"If the condition is %1$s%3$sselected products in cart%4$s%3$sat least one "
+"product in cart%4$s %3$sall selected categories in cart%4$s%3$sat least one "
+"selected category in cart%4$s%2$s please insert product/category IDs "
+"separated by comma"
+msgstr ""
+"اگر شرط  %1$s%3$s است محصولات انتخاب شده در سبد %4$s%3$s حداقل یک محصول در "
+"سبد %4$s %3$s تمامی دسته‌بندی‌های انتخاب شده در سبد %4$s%3$s حداقل یک دسته بندی "
+"انتخاب شده در سبد %4$s%2$s لطفا شناسه‌های محصول/دسته بندی را با جداکننده کاما "
+"وارد کنید"
+
+#: templates/admin/fields-edit.php:129
+msgid "Action"
+msgstr "عملیات‌"
+
+#: templates/admin/fields-edit.php:131
+msgid "Required *"
+msgstr "ضروری*"
+
+#: templates/admin/fields-edit.php:133
+msgid ""
+"check if the current field has to be set as Required only if the condition is "
+"fulfilled. Make sure the default Required value (above) is not checked, "
+"otherwise this setting will not take effect."
+msgstr ""
+"انتخاب کنید اگر این فیلد لازمه در صورت محقق شدن کامل شرط، یک فیلد ضروری باشد. "
+"مطمئن شوید که مقدار ضروری پیش فرض (بالا) انتخاب نشده باشد در غیر این صورت این "
+"تنظیمات اجرا نخواهد شد."
+
+#: templates/admin/fields-edit.php:144
+msgid "Products in cart"
+msgstr "محصولات در سبد خرید"
+
+#: templates/admin/fields-edit.php:166
+msgid "Is set"
+msgstr "تنظیم شده است"
+
+#: templates/admin/fields-edit.php:168
+msgid "Is empty"
+msgstr "خالی است"
+
+#: templates/admin/fields-edit.php:170
+msgid "Value is"
+msgstr "مقدار برابر است با"
+
+#: templates/admin/fields-edit.php:172
+msgid "Value is not"
+msgstr "مقدار برابر نیست با"
+
+#: templates/admin/fields-edit.php:174
+msgid "All selected products in cart"
+msgstr "همه محصولات انتخاب شده در سبد خرید"
+
+#: templates/admin/fields-edit.php:176
+msgid "At least one selected product in cart"
+msgstr "حداقل یک محصول انتخاب شده در سبد خرید"
+
+#: templates/admin/fields-edit.php:178
+msgid "All selected categories in cart"
+msgstr "همه دسته بندی های انتخاب شده در سبد خرید"
+
+#: templates/admin/fields-edit.php:180
+msgid "At least one selected category in cart"
+msgstr "حداقل یک دسته بندی انتخاب شده در سبد خرید"
+
+#: templates/admin/fields-edit.php:191
+msgid "Show"
+msgstr "نمایش دادن"
+
+#: templates/admin/fields-edit.php:193
+msgid "Hide"
+msgstr "پنهان کردن"
+
+#: templates/admin/fields-general.php:21
+msgid "Fields"
+msgstr "فیلدها"
+
+#: templates/admin/fields-general.php:44
+msgid "If you go on with this action, you will reset all options in this page."
+msgstr "اگر با این عملیات ادامه دهید، تمام گزینه های این صفحه را ریست می کنید."
+
+#: templates/admin/fields-general.php:47
+msgid "Reset defaults"
+msgstr "تنظیمات پیش فرض را ریست کنید"
+
+#: templates/admin/fields-general.php:47
+msgid "Are you sure?"
+msgstr "آیا مطمئن هستید؟"
+
+#: templates/admin/fields-table.php:13
+msgid "Enter field name"
+msgstr "نام فیلد را وارد کنید"
+
+#: templates/admin/fields-table.php:15
+msgid "Add field"
+msgstr "اضافه کردن فیلد"
+
+#: templates/admin/fields-table.php:22 templates/admin/fields-table.php:119
+msgid "Select an action"
+msgstr "یک عملیات را انتخاب کنید"
+
+#: templates/admin/fields-table.php:23 templates/admin/fields-table.php:106
+#: templates/admin/fields-table.php:107 templates/admin/fields-table.php:120
+msgid "Enable"
+msgstr "فعال کردن"
+
+#: templates/admin/fields-table.php:24 templates/admin/fields-table.php:106
+#: templates/admin/fields-table.php:107 templates/admin/fields-table.php:121
+msgid "Disable"
+msgstr "غیرفعال کردن"
+
+#: templates/admin/fields-table.php:37 templates/admin/fields-table.php:50
+msgid "Validation rules"
+msgstr "قوانین اعتبارسنجی"
+
+#: templates/admin/fields-table.php:39 templates/admin/fields-table.php:52
+msgid "Actions"
+msgstr "عملیات‌ها"
+
+#: templates/admin/fields-table.php:104
+msgid "Edit"
+msgstr "ویرایش"
+
+#: templates/admin/fields-table.php:111
+msgid "Remove"
+msgstr "حذف"
+
+#: templates/admin/fields-table.php:128
+msgid "Save changes"
+msgstr "ذخیره تغییرات"
+
+#: templates/email/plain/ywccp-additional-fields-list.php:15
+#: templates/email/ywccp-additional-fields-list.php:16
+#: templates/ywccp-additional-fields-table.php:16
+msgid "Additional info"
+msgstr "اطلاعات اضافی"
+
+#. Description of the plugin/theme
+msgid ""
+"The <code><strong>YITH WooCommerce Checkout Manager</strong></code> allows "
+"you add, edit or remove checkout fields. <a href=\"https://yithemes.com/\" "
+"target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
+"strong></a>."
+msgstr ""
+"<code><strong> مدیریت صورت حساب ووکامرس YITH</strong></code> به شما امکان می "
+"دهد که فیلدهای صورت حساب را اضافه، ویرایش یا حذف کنید. <a href=\"https://"
+"zhaket.com/store/poyanweb\" target=\"_blank\"> پلاگین های بیشتری برای فروشگاه "
+"الکترونیک خود را در <strong> پویان وب</strong></a> دریافت کنید."
+
+#: includes/functions.ywccp.php:368
+msgctxt "placeholder"
+msgid "Notes on your order, e.g. special notes concerning delivery."
+msgstr ""
+"یادداشت های مربوط به سفارش شما، به عنوان مثال یادداشت های ویژه مربوط به تحویل "
+"سفارش."
+
+#~ msgid "YITH WooCommerce Checkout Manager"
+#~ msgstr "مدیریت صورت حساب ووکامرس YITH"
+
+#~ msgid ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-checkout-manager/"
+#~ msgstr ""
+#~ "https://yithemes.com/themes/plugins/yith-woocommerce-checkout-manager/"
+
+#~ msgid "YITH"
+#~ msgstr "YITH"
+
+#~ msgid "https://yithemes.com/"
+#~ msgstr "https://yithemes.com/"

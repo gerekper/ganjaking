@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Smart Coupons
  * Plugin URI: https://woocommerce.com/products/smart-coupons/
  * Description: <strong>WooCommerce Smart Coupons</strong> lets customers buy gift certificates, store credits or coupons easily. They can use purchased credits themselves or gift to someone else.
- * Version: 4.35.0
+ * Version: 4.36.0
  * Author: StoreApps
  * Author URI: https://www.storeapps.org/
  * Developer: StoreApps
  * Developer URI: https://www.storeapps.org/
  * Requires at least: 4.4
- * Tested up to: 5.8.3
+ * Tested up to: 5.9.0
  * WC requires at least: 3.0.0
  * WC tested up to: 6.1.1
  * Text Domain: woocommerce-smart-coupons

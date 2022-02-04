@@ -29,7 +29,7 @@ gulp.task('js', function () {
 });
 
 gulp.task('watch:sass', function () {
-	gulp.watch('./assets/**/css/*.scss', gulp.series('sass'));
+	gulp.watch(['./assets/**/css/*.scss', './assets/**/css/**/*.scss'], gulp.series('sass'));
 });
 gulp.task('watch:js', function () {
 	gulp.watch(['assets/**/js/*.js', '!assets/**/js/*.min.js'], gulp.series('js'));

@@ -22,14 +22,14 @@ class WAPL_Global_Labels {
 	public function __construct() {
 
 		// Double insurance to not load on admin. Using shortcodes like [products ids] can cause fatals.
-		if ( is_admin() ) return;
+		// @since NEWVERSION wp_is_json_request() added due to fatal error in gutenberg when using 'sale products' block
+		if ( ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) || wp_is_json_request() ) return;
 
 		// Add labels on archive page
 		add_action( 'woocommerce_before_shop_loop_item_title', array( $this, 'global_label_hook' ), 15 ); // executing global label function
 
 		// Add labels on product detail page
 		add_action( 'woocommerce_product_thumbnails', array( $this, 'global_label_hook' ), 9 );
-
 	}
 
 

@@ -3,34 +3,39 @@
 @import 'parts/diagonal-bar';
 @import 'parts/flash';
 @import 'parts/corner';
+@import 'parts/custom';
 
-.onsale { display: none; }
+.onsale { display: none; } // Hide default sale label
+
 /**
  *	Label
  */
-.single-product .wapl-label {
-	margin-top: 8px;
-}
-.single-product .images	{
-	position: relative;
+.single-product {
+	.wapl-label {
+		margin-top: 8px;
+	}
+	.images	{
+		position: relative;
+	}
 }
 .wapl-label .product-label{
-  display: inline;
-  padding: .2em .6em .3em;
-  font-size: 75%;
-  font-weight: bold;
-  line-height: 1;
-  color: #fff;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: .25em;
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 75%;
+	font-weight: bold;
+	line-height: 1;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+	position: relative;
 }
 .wapl-label .label-product[href]:hover,
 .wapl-label .label-product[href]:focus {
-  color: #fff;
-  text-decoration: none;
-  cursor: pointer;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
 }
 /* Flash colors */
 .wapl-label .label-red {

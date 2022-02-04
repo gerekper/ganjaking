@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 /**
  * Class ActionScheduler_Store_Deprecated
  * @codeCoverageIgnore

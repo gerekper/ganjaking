@@ -157,6 +157,21 @@ class WAPL_Post_Type {
 	 * @since 1.0.0
 	 */
 	public function render_settings() {
+		wp_enqueue_media();
+
+		$preview_product_id = get_option( 'wapl_preview_product_id', 0 );
+
+		if ( $preview_product_id ) {
+			$preview_product = wc_get_product( $preview_product_id );
+			$GLOBALS['product'] = $preview_product;
+			ob_start();
+				woocommerce_template_loop_product_thumbnail();
+			$image = ob_get_clean();
+		} else {
+			$image_size = apply_filters( 'single_product_archive_thumbnail_size', 'woocommerce_thumbnail' );
+			$image      = wc_placeholder_img( $image_size, array() );
+		}
+
 		require_once plugin_dir_path( __FILE__ ) . 'admin/views/html-meta-box-settings.php';
 	}
 
@@ -194,10 +209,29 @@ class WAPL_Post_Type {
 			return $post_id;
 		}
 
-		$label               = $_POST['_wapl_global_label'];
-		$label['conditions'] = wpc_sanitize_conditions( $_POST['conditions'] );
+		$postdata  = $_POST['_wapl_label'];
+		$label     = array(
+			'type'                          => in_array( $postdata['type'], array_keys( wapl_get_label_types() ) ) ? $postdata['type'] : '',
+			'text'                          => wp_kses_post( $postdata['text'] ),
+			'style'                         => in_array( $postdata['style'], array_keys( wapl_get_label_styles() ) ) ? $postdata['style'] : '',
+			'align'                         => sanitize_key( $postdata['align'] ),
+			'position'                      => wc_clean( $postdata['position'] ),
+			'label_custom_background_color' => sanitize_text_field( $postdata['label_custom_background_color'] ),
+			'label_custom_text_color'       => sanitize_text_field( $postdata['label_custom_text_color'] ),
+			'custom_image'                  => absint( $postdata['custom_image'] ),
+			'conditions'                    => wpc_sanitize_conditions( $_POST['conditions'] ),
+		);
+
+		if ( $label['type'] !== 'custom' ) {
+			$label['custom_image'] = '';
+		}
 
 		update_post_meta( $post_id, '_wapl_global_label', $label );
+
+		// Thumbnail ID
+		if ( isset( $_POST['product_id'] ) ) {
+			update_option( 'wapl_preview_product_id', absint( $_POST['product_id'] ), false );
+		}
 	}
 
 

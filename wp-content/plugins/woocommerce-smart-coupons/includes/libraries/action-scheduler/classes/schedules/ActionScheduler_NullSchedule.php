@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 /**
  * Class ActionScheduler_NullSchedule
  */

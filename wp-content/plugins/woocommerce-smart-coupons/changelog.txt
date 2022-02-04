@@ -1,5 +1,10 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.02.04 - version 4.36.0
+* New: Tested up to WordPress 5.9.0
+* Update: Action Scheduler to version 3.4.0
+* Update: POT file
+
 2022.01.24 - version 4.35.0
 * New: Tested up to WooCommerce 6.1.1
 * New: Column 'sc_coupon_category' in sample.csv file
@@ -31,7 +36,7 @@
 * Update: POT file
 
 2021.10.22 - version 4.31.0
-* Fix: Auto apply coupons once removed automatically, not reapplying again even if it’s valid
+* Fix: Auto apply coupons once removed automatically, not reapplying again even if it's valid
 * Update: POT file
 
 2021.10.15 - version 4.30.0

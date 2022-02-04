@@ -1,0 +1,32 @@
+.label-wrap:not(.wapl-custom) .product-label {
+	background-image: none !important;
+}
+.wapl-custom {
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	overflow: hidden;
+
+	.product-label {
+		width: 100%;
+		height: 100%;
+		background-repeat: no-repeat;
+		display: inline-block;
+		position: relative;
+	}
+
+	/* Align */
+	&.wapl-alignleft .product-label {
+		background-position: top left;
+	}
+
+	&.wapl-alignnone .product-label,
+	&.wapl-alignright .product-label {
+		background-position: top right;
+	}
+
+	&.wapl-aligncenter .product-label {
+		background-position: top center;
+	}
+}

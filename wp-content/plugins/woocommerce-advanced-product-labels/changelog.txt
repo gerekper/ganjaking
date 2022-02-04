@@ -1,11 +1,18 @@
 *** WooCommerce Advanced Product Labels Changelog ***
 
-2021.04.02 - version 1.1.8
-* [Update] - Add z-index: 99; for labels
-* [Update] - Add additional checks for WC Active / Composite compatibility
-* [Tested] - Up to WooCommerce version 5.1
+2022.02.02 - version 1.2.0
+* [Add] - Allow custom labels - Upload your custom images to use as product labels!
+* [Add] - 'Custom' alignment - drag&drop the labels at any position!
+* [Add] - Actual product image preview - select which product you want to preview the label on.
+* [Add] - Check to see if labels are missing. Will show notice in admin if detected that labels are missing.
+* [Tested] - Up to WooCommerce version 6.1
 
-2020.02.03 - version 1.1.7
+2021.04.02 - version 1.1.8
+ * [Update] - Add z-index: 99; for labels
+ * [Update] - Add additional checks for WC Active / Composite compatibility
+ * [Tested] - Up to WooCommerce version 5.1
+
+2020.02.06 - version 1.1.7
 * [Improvement] - Ensure styles are loaded on non-WooCommerce pages when labels are displayed
 
 2019.11.25 - version 1.1.6

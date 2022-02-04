@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 /**
  * Hours field.  Allows: * , / -
  *

@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 		woocommerce_wp_checkbox( array(
 			'id'          => '_wapl_label_exclude',
 			'label'       => __( 'Exclude Global Labels', 'woocommerce-advanced-product-labels' ),
-			'description' => __( 'When checked, global labels will be excluded', 'woocommerce-advanced-product-labels' ),
+			'description' => __( 'Check to exclude global labels', 'woocommerce-advanced-product-labels' ),
 		) );
 
 	?></div>
@@ -25,23 +25,37 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				'options'     => wapl_get_label_types(),
 			) );
 
+			$custom_image = $label['custom_image'] ?? ''
+			?>
+			<p class='form-field custom-image type-custom-show'>
+				<label for='wapl-custom-image'><?php _e( 'Image', 'woocommerce-advanced-product-labels' ); ?></label>
+				<input type='text' id="custom-image-url" value='<?php echo wp_get_attachment_url( $custom_image ); ?>' class='' readonly/>
+				<input type='hidden' name='_wapl_custom_image' value='<?php echo $custom_image; ?>' id='wapl-custom-image' class='' readonly/>
+			</p>
+			<p class="form-field custom-image type-custom-show">
+				<label for='wapl-custom-image'></label>
+				<input id="upload_image_button" type="button" class="button" value="<?php _e( 'Select image' ); ?>" style="margin-left: 0;"/>
+			</p><?php
+
 			woocommerce_wp_text_input( array(
-				'id'          => '_wapl_label_text',
-				'label'       => __( 'Label text', 'woocommerce-advanced-product-labels' ),
-				'desc_tip'    => true,
-				'description' => __( 'What text do you want the label to show?', 'woocommerce-advanced-product-labels' ),
+				'id'            => '_wapl_label_text',
+				'label'         => __( 'Label text', 'woocommerce-advanced-product-labels' ),
+				'desc_tip'      => true,
+				'wrapper_class' => 'type-custom-hidden',
+				'description'   => __( 'What text do you want the label to show?', 'woocommerce-advanced-product-labels' ),
 			) );
 
 			woocommerce_wp_select( array(
-				'id'      => '_wapl_label_style',
-				'label'   => __( 'Label style', 'woocommerce-advanced-product-labels' ),
-				'options' => wapl_get_label_styles()
+				'id'            => '_wapl_label_style',
+				'label'         => __( 'Label style', 'woocommerce-advanced-product-labels' ),
+				'wrapper_class' => 'type-custom-hidden',
+				'options'       => wapl_get_label_styles()
 			) );
 
-			$label_custom_bg_color   = isset( $label['custom_bg_color'] ) ? $label['custom_bg_color'] : '#D9534F';
-			$label_custom_text_color = isset( $label['custom_text_color'] ) ? $label['custom_text_color'] : '#fff';
+			$label_custom_bg_color   = $label['custom_bg_color'] ?? '#D9534F';
+			$label_custom_text_color = $label['custom_text_color'] ?? '#fff';
 
-			?><p class='form-field _wapl_label_custom_bg_color_field wapl-custom-colors custom-colors <?php echo isset( $label['style'] ) && $label['style'] == 'custom' ? '' : 'hidden'; ?>'>
+			?><p class='form-field color-custom-show'>
 				<label for='wapl-custom-background'><?php _e( 'Background color', 'woocommerce-advanced-product-labels' ); ?></label>
 				<input type='text' name='_wapl_custom_bg_color' value='<?php echo $label_custom_bg_color; ?>' id='wapl-custom-background' class='color-picker' />
 
@@ -57,19 +71,38 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 					'left'   => __( 'Left', 'woocommerce-advanced-product-labels' ),
 					'right'  => __( 'Right', 'woocommerce-advanced-product-labels' ),
 					'center' => __( 'Center', 'woocommerce-advanced-product-labels' ),
+					'custom' => __( 'Custom', 'woocommerce-advanced-product-labels' ),
 				),
 			) );
 
-		?></div>
+			$position = $label['position'] ?? array( 'top' => null, 'left' => null );
+			?>
+			<p class='form-field align-custom-show'>
+				<label for=''><?php _e( 'Position', 'woocommerce-advanced-product-labels' ); ?></label>
+				<label style="width: auto; float: unset; margin: 0;"><?php _e( 'Top', 'woocommerce-advanced-product-labels' ); ?>: </label>
+				<input style="width: 60px; float: unset;" type='number' placeholder="Top" name='_wapl_position[top]' value='<?php echo $position['top']; ?>' id='wapl-custom-position-top' class='' />
+				<label style="width: auto; float: unset; margin: 0;"><?php _e( 'Left', 'woocommerce-advanced-product-labels' ); ?>: </label>
+				<input style="width: 60px; float: unset;" type='number' placeholder="Left" name='_wapl_position[left]' value='<?php echo $position['left']; ?>' id='wapl-custom-position-left' class='' />
+			</p>
+
+		</div>
 
 		<div class='wapl-column' style='width: 20%; margin-top: 20px; padding-left: 40px; border-left: 1px solid #ddd;'>
 
-			<div id='wapl-label-preview'>
-				<img width='150' height='150' title='' alt='' src='<?php echo apply_filters( 'wapl_preview_image_src', 'data:image/gif;base64,R0lGODdhlgCWAOMAAMzMzJaWlr6+vpycnLGxsaOjo8XFxbe3t6qqqgAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAlgCWAAAE/hDISau9OOvNu/9gKI5kaZ5oqq5s675wLM90bd94ru987//AoHBILBqPyKRyyWw6n9CodEqtWq/YrHbL7Xq/4LB4TC6bz+i0es1uu9/wuHxOr9vv+Lx+z+/7/4CBgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foHcCAwMTAaenBxMCBQEFBiajpRKoqautr2cEp7MApwjAAhIGA64BvSK7x6YBwAjCAMTGyGK7rb3LFbsEAAgBqsnTptQA293fZQaq2b7krbACzSPq7eMW7wDxCGjsxwTPE4oNc2XhlIB4ATT0G/APGgCB0Qie6VcL2kIL3oDJy0ARlUVsz+TEsEPw6sDGi/dIFdgwsuRJkPxCZkNZAaFDDOwozIQ5MSREiAYkVggaAJZCnwkfJg26sucEcEol4NN3QRm3o08DJp260Uw2k9yYSjDnDarOAgVC6pwFNmJTsujKoD3VtFjauNKuXWh1wGSBffdaSbRbDFzenGNqLb12VcIoV0YrnKI1uWCtYYwpPM4VqrPnz6BDix5NurTp06hTq17NurXr17Bjy55Nu7bt27hz697Nu7fv38CDCx9OvLjx48iTK1/OvLnz59CjS59OvfqLCAA7' ); ?>' /><?php
+			<div id='wapl-global-preview'>
 
-				echo wapl_get_label_html( $label );
+				<ul class="products columns-3" style="margin: 0; padding: 0;">
+					<li class="product type-products first">
+						<div class="woo-thumbnail-wrap">
+							<div class="woo-thumbnail-wrap"><?php
+								woocommerce_template_loop_product_thumbnail();
+							?></div>
+						</div>
+						<?php echo wapl_get_label_html( $label ); ?>
+						<h2 class="woocommerce-loop-product__title"><?php echo $GLOBALS['product']->get_name(); ?></h2>
+					</li>
+				</ul>
 
-				?><p><strong>Product name</strong></p>
 			</div>
 		</div>
 	</div>

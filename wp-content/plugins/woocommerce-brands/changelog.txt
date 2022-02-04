@@ -1,5 +1,8 @@
 *** Brands Changelog ***
 
+2022-02-03 - version 1.6.27
+* Fix - Update schema.org Brand markup.
+
 2022-01-18 - version 1.6.26
 * Fix - Compatibility with WooCommerce 6.0 and WooCommerce 6.1 Full Site Editing. .
 * Fix - Enable version replacement.

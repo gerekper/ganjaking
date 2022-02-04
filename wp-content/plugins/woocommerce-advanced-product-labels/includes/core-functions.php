@@ -49,6 +49,7 @@ function wapl_get_label_types( $type = '' ) {
 		'corner'       => __( 'Corner', 'woocommerce-advanced-product-labels' ),
 		'ribbon'       => __( 'Ribbon', 'woocommerce-advanced-product-labels' ),
 		'ribbon2'      => __( 'Ribbon style 2', 'woocommerce-advanced-product-labels' ),
+		'custom'       => __( 'Custom image', 'woocommerce-advanced-product-labels' ),
 	) );
 
 	if ( ! empty( $type ) && isset( $types[ $type ] ) ) {
@@ -102,13 +103,35 @@ function wapl_get_label_html( $args ) {
 		'style_attr'        => '',
 		'type'              => '',
 		'align'             => '',
+		'custom_image'      => '',
 		'custom_bg_color'   => '',
 		'custom_text_color' => '',
+		'position'          => array( 'left' => null, 'top' => null ),
 	) );
+
+	if ( $label['align'] === 'custom' ) {
+		$label['style_attr'] .= "left: {$label['position']['left']}px; top: {$label['position']['top']}px;";
+	}
+
+	if ( $label['style'] == 'custom' ) {
+		$label['style_attr'] .= "background-color: {$label['custom_bg_color']}; color: {$label['custom_text_color']};";
+	}
+
+	if ( $label['type'] == 'custom' ) {
+		$label['style_attr'] .= "background-image: url(\"" . wp_get_attachment_url( $label['custom_image'] ) . "\");";
+	}
+
+	if ( ! empty( $label['style_attr'] ) ) {
+		$label['style_attr'] = "style='" . $label['style_attr'] . "'";
+	}
 
 	ob_start();
 
-		?><style>.wapl-label-id-<?php echo esc_attr( $label['id'] ); ?> .product-label:after { border-color: <?php echo $label['custom_bg_color']; ?>; }</style><?php
+		if ( ! empty( $label['custom_bg_color'] ) && $label['style'] == 'custom' ) :
+			?><style><?php
+				echo ".wapl-label-id-" . esc_attr( $label['id'] ) . " .product-label:after { border-color: {$label['custom_bg_color']}; }";
+			?></style><?php
+		endif;
 
 		?><div class="wapl-label-id-<?php echo esc_attr( $label['id'] ); ?> label-wrap wapl-<?php echo sanitize_html_class( $label['type'] ); ?> label-<?php echo sanitize_html_class( $label['style'] ); ?> wapl-align<?php echo esc_attr( $label['align'] ); ?>">
 			<span class="woocommerce-advanced-product-label product-label label-<?php echo sanitize_html_class( $label['style'] ); ?>" <?php echo ( $label['style_attr'] ); ?>>
@@ -161,7 +184,6 @@ function wapl_smart_product_label_filter( $label ) {
 		$regular_price      = $product->get_regular_price();
 		$sale_price         = $product->get_sale_price();
 		$highest_percentage = ( $sale_price !== '' && $regular_price != 0 ) ? ( ( $regular_price - $sale_price ) / $regular_price * 100 ) : $highest_percentage;
-
     } else { // Get the right variable percentage
 
 		$var_prices = $product->get_variation_prices();

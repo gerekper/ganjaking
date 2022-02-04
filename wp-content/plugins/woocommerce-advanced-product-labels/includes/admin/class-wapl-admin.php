@@ -18,6 +18,15 @@ class WAPL_Admin {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
+		// Add to WC Screen IDs to load scripts.
+		add_filter( 'woocommerce_screen_ids', array( $this, 'add_screen_ids' ) );
+
+		// Enqueue scripts
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+
+		// Keep WC menu open while in WAS edit screen
+		add_action( 'admin_head', array( $this, 'menu_highlight' ) );
+
 		// Initialize class
 		add_action( 'admin_init', array( $this, 'init' ) );
 	}
@@ -29,16 +38,6 @@ class WAPL_Admin {
 	 * @since 1.1.6
 	 */
 	public function init() {
-
-		// Add to WC Screen IDs to load scripts.
-		add_filter( 'woocommerce_screen_ids', array( $this, 'add_screen_ids' ) );
-
-		// Enqueue scripts
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-
-		// Keep WC menu open while in WAS edit screen
-		add_action( 'admin_head', array( $this, 'menu_highlight' ) );
-
 		global $pagenow;
 		if ( 'plugins.php' == $pagenow ) {
 			add_filter( 'plugin_action_links_' . plugin_basename( WooCommerce_Advanced_Product_Labels()->file ), array( $this, 'add_plugin_action_links' ), 10, 2 );
@@ -78,11 +77,12 @@ class WAPL_Admin {
 		wp_register_script( 'woocommerce-advanced-product-labels', plugins_url( '/assets/admin/js/woocommerce-advanced-product-labels' . $suffix . '.js', WooCommerce_Advanced_Product_Labels()->file ), array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker' ), WooCommerce_Advanced_Product_Labels()->version );
 
 		// Only load scripts on relevant pages
-		if (
-			( isset( $_REQUEST['post'] ) && in_array( get_post_type( $_REQUEST['post'] ), array( 'wapl', 'product' ) ) ) ||
-			( isset( $_REQUEST['post_type'] ) && 'wapl' == $_REQUEST['post_type'] ) ||
-			( isset( $_REQUEST['tab'] ) && in_array( $_REQUEST['tab'], array( 'labels' ) ) )
-		) {
+		if ( $this->is_wapl_page() ) {
+			wp_localize_script( 'woocommerce-advanced-product-labels', 'wapl', array(
+				'types' => array_keys( wapl_get_label_types() ),
+				'colors' => array_keys( wapl_get_label_styles() ),
+			) );
+
 			wp_localize_script( 'wp-conditions', 'wpc2', array(
 				'action_prefix' => 'wapl_',
 			) );
@@ -133,6 +133,26 @@ class WAPL_Admin {
 		}
 
 		return $links;
+	}
+
+
+	/**
+	 * Check WAPL admin page.
+	 *
+	 * Returns true when current view is related to WAPL.
+	 *
+	 * @return bool
+	 */
+	public function is_wapl_page() {
+		if (
+			( isset( $_REQUEST['post'] ) && in_array( get_post_type( $_REQUEST['post'] ), array( 'wapl', 'product' ) ) ) ||
+			( isset( $_REQUEST['post_type'] ) && in_array( $_REQUEST['post_type'], array( 'wapl', 'product' ) ) ) ||
+			( isset( $_REQUEST['tab'] ) && in_array( $_REQUEST['tab'], array( 'labels' ) ) )
+		) {
+			return true;
+		}
+
+		return false;
 	}
 
 

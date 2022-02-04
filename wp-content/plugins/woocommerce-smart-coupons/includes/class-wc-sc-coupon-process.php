@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.7.1
+ * @version     1.7.2
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -300,7 +300,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 		}
 
 		/**
-		 * Function to update Store Credit / Gift Ceritficate balance
+		 * Function to update Store Credit / Gift Certificate balance
 		 *
 		 * @param int $order_id The order id.
 		 */

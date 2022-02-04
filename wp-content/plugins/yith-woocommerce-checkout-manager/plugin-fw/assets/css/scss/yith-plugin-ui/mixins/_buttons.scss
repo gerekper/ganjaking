@@ -1,0 +1,124 @@
+@mixin button {
+  display: inline-block;
+  height: auto;
+  line-height: 30px;
+  border-radius: 4px;
+  padding: 0 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+@mixin button-primary {
+  background: var(--yith-primary);
+  color: var(--yith-primary-text);
+  border: 1px solid var(--yith-primary);
+
+  &:focus {
+    background: var(--yith-primary);
+    color: var(--yith-primary-text);
+    border: 1px solid var(--yith-primary);
+    box-shadow: 0 0 0 3px var(--yith-primary-focus);
+  }
+
+  &:hover, &:active {
+    background: var(--yith-primary-hover);
+    color: var(--yith-primary-text);
+    border: 1px solid var(--yith-primary-hover);
+  }
+}
+
+@mixin button-secondary {
+  background: var(--yith-outline-bg);
+  border: 1px solid var(--yith-outline-border);
+  color: var(--yith-outline-text);
+
+  &:focus {
+    background: var(--yith-outline-bg);
+    border: 1px solid var(--yith-outline-border);
+    color: var(--yith-outline-text);
+    box-shadow: 0 0 0 3px var(--yith-outline-focus);
+  }
+
+  &:hover, &:active {
+    background: var(--yith-outline-bg-hover);
+    border-color: var(--yith-outline-border-hover);
+    color: var(--yith-outline-text);
+  }
+}
+
+@mixin button-update {
+  background: var(--yith-update);
+  color: var(--yith-update-text);
+  border: 1px solid var(--yith-update);
+
+  &:focus {
+    background: var(--yith-update);
+    color: var(--yith-update-text);
+    border: 1px solid var(--yith-update);
+    box-shadow: 0 0 0 3px var(--yith-update-focus);
+  }
+
+  &:hover, &:active {
+    background: var(--yith-update-hover);
+    color: var(--yith-update-text);
+    border: 1px solid var(--yith-update-hover);
+  }
+}
+
+@mixin button-delete {
+  background: var(--yith-delete);
+  color: var(--yith-delete-text);
+  border: 1px solid var(--yith-delete);
+
+  &:focus {
+    background: var(--yith-delete);
+    color: var(--yith-delete-text);
+    border: 1px solid var(--yith-delete);
+    box-shadow: 0 0 0 3px var(--yith-delete-focus);
+  }
+
+  &:hover, &:active {
+    background: var(--yith-delete-hover);
+    color: var(--yith-delete-text);
+    border: 1px solid var(--yith-delete-hover);
+  }
+}
+
+@mixin button-delete-outline {
+  background: var(--yith-delete-outline-bg);
+  border: 1px solid var(--yith-delete-outline-border);
+  color: var(--yith-delete-outline-text);
+
+  &:focus {
+    background: var(--yith-delete-outline-bg);
+    border: 1px solid var(--yith-delete-outline-border);
+    color: var(--yith-delete-outline-text);
+    box-shadow: 0 0 0 3px var(--yith-delete-outline-focus);
+  }
+
+  &:hover, &:active {
+    background: var(--yith-delete-outline-bg-hover);
+    border-color: var(--yith-delete-outline-border-hover);
+    color: var(--yith-delete-outline-text);
+  }
+}
+
+@mixin button-with-icon($icon) {
+
+  &:before {
+    font-family: yith-icon;
+    content: $icon;
+    margin: 0 8px 0 -5px;
+    font-size: 1.15em;
+    font-weight: 400;
+    vertical-align: top;
+  }
+}

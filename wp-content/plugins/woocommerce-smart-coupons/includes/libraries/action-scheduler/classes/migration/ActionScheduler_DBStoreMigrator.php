@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 /**
  * Class ActionScheduler_DBStoreMigrator
  *
@@ -41,7 +42,7 @@ class ActionScheduler_DBStoreMigrator extends ActionScheduler_DBStore {
 
 			return $action_id;
 		} catch ( \Exception $e ) {
-			throw new \RuntimeException( sprintf( __( 'Error saving action: %s', 'woocommerce' ), $e->getMessage() ), 0 );
+			throw new \RuntimeException( sprintf( __( 'Error saving action: %s', 'action-scheduler' ), $e->getMessage() ), 0 );
 		}
 	}
 }

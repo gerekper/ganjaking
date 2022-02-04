@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 /**
  * Class ActionScheduler_ActionFactory
  */
@@ -158,7 +159,7 @@ class ActionScheduler_ActionFactory {
 		$next     = $schedule->get_next( as_get_datetime_object() );
 
 		if ( is_null( $next ) || ! $schedule->is_recurring() ) {
-			throw new InvalidArgumentException( __( 'Invalid action - must be a recurring action.', 'woocommerce' ) );
+			throw new InvalidArgumentException( __( 'Invalid action - must be a recurring action.', 'action-scheduler' ) );
 		}
 
 		$schedule_class = get_class( $schedule );

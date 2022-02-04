@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 /**
  * InvalidAction Exception.
  *
@@ -18,7 +19,7 @@ class ActionScheduler_InvalidActionException extends \InvalidArgumentException i
 	public static function from_schedule( $action_id, $schedule ) {
 		$message = sprintf(
 			/* translators: 1: action ID 2: schedule */
-			__( 'Action [%1$s] has an invalid schedule: %2$s', 'woocommerce' ),
+			__( 'Action [%1$s] has an invalid schedule: %2$s', 'action-scheduler' ),
 			$action_id,
 			var_export( $schedule, true )
 		);
@@ -37,7 +38,7 @@ class ActionScheduler_InvalidActionException extends \InvalidArgumentException i
 	public static function from_decoding_args( $action_id, $args = array() ) {
 		$message = sprintf(
 			/* translators: 1: action ID 2: arguments */
-			__( 'Action [%1$s] has invalid arguments. It cannot be JSON decoded to an array. $args = %2$s', 'woocommerce' ),
+			__( 'Action [%1$s] has invalid arguments. It cannot be JSON decoded to an array. $args = %2$s', 'action-scheduler' ),
 			$action_id,
 			var_export( $args, true )
 		);

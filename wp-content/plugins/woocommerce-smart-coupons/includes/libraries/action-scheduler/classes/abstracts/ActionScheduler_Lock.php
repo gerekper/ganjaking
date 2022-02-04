@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 /**
  * Abstract class for setting a basic lock to throttle some action.
  *

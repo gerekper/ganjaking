@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 use Action_Scheduler\WP_CLI\Migration_Command;
 use Action_Scheduler\Migration\Controller;
 
@@ -192,7 +193,7 @@ abstract class ActionScheduler {
 	 */
 	public static function is_initialized( $function_name = null ) {
 		if ( ! self::$data_store_initialized && ! empty( $function_name ) ) {
-			$message = sprintf( __( '%s() was called before the Action Scheduler data store was initialized', 'woocommerce' ), esc_attr( $function_name ) );
+			$message = sprintf( __( '%s() was called before the Action Scheduler data store was initialized', 'action-scheduler' ), esc_attr( $function_name ) );
 			error_log( $message, E_WARNING );
 		}
 

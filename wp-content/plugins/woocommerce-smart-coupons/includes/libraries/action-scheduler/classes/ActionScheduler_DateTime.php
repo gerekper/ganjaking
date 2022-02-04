@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 /**
  * ActionScheduler DateTime class.
  *

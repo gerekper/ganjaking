@@ -1,8 +1,32 @@
 @import '../../../libraries/wp-conditions/assets/css/wp-conditions';
 
+@mixin transition($duration) {
+	-webkit-transition: $duration;
+	-moz-transition: $duration;
+	-ms-transition: $duration;
+	-o-transition: $duration;
+	transition: $duration;
+}
+
+.wapl-meta-box {
+	overflow: hidden;
+	display: flex;
+	flex-direction: row;
+
+	.wapl-column {
+		display: inline-block;
+		height: 100%;
+		margin-right: 2%;
+		vertical-align: top;
+	}
+}
 .wapl-meta-box label {
 	display: inline-block;
 	width: 150px;
+
+	@media (max-width: 1320px) {
+		width: 100%;
+	}
 }
 .wapl-meta-box input,
 .wapl-meta-box select {
@@ -11,12 +35,7 @@
 }
 
 /* Label settings */
-.wapl-column {
-	display: inline-block;
-	height: 100%;
-	margin-right: 2%;
-	vertical-align: top;
-}
+
 .wp-picker-container, .wp-picker-container:active {
 	display: block;
 }
@@ -25,8 +44,9 @@
  * Preview
  ******************/
 
-h2.wapl-preview {
+h2.wapl-preview-title {
 	margin-top: 5px !important;
+	padding-left: 0 !important;
 }
 #wapl-global-preview,
 #wapl-label-preview {
@@ -51,6 +71,44 @@ h2.wapl-preview {
 }
 #woocommerce_advanced_product_labels #wapl-label-preview p {
 	padding-left: 0px;
+}
+
+.label-wrap.wapl-aligncustom {
+	pointer-events: initial;
+	cursor: move;
+}
+
+.label-color-custom {
+	.color-custom-hidden {
+		display: none;
+	}
+	.color-custom-show {
+		display: block;
+	}
+}
+.color-custom-hidden {
+	display: initial;
+}
+.color-custom-show {
+	display: none;
+}
+.type-custom-hidden {
+	display: block;
+}
+.type-custom .type-custom-hidden {
+	display: none;
+}
+.type-custom-show {
+	display: none;
+}
+.type-custom .type-custom-show {
+	display: block;
+}
+.align-custom-show {
+	display: none;
+}
+.align-custom .align-custom-show {
+	display: block;
 }
 
 /**********************

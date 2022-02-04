@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.1
+ * @version     1.3.2
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -410,7 +410,7 @@ if ( ! class_exists( 'WC_SC_Order_Fields' ) ) {
 		}
 
 		/**
-		 * Function to notifiy user about remaining balance in Store Credit in "Order Complete" email
+		 * Function to notify user about remaining balance in Store Credit in "Order Complete" email
 		 *
 		 * @param WC_Order $order The order object.
 		 * @param boolean  $send_to_admin Is send to admin.

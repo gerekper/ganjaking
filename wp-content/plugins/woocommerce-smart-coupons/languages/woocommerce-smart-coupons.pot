@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the WooCommerce Smart Coupons package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Smart Coupons 4.35.0\n"
+"Project-Id-Version: WooCommerce Smart Coupons 4.36.0\n"
 "Report-Msgid-Bugs-To: https://www.storeapps.org/support/contact-us/\n"
-"POT-Creation-Date: 2022-01-24 08:07:18+00:00\n"
+"POT-Creation-Date: 2022-02-04 07:03:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: Mon, 24 Jan 2022 13:37:18 +0530\n"
+"PO-Revision-Date: Fri, 04 Feb 2022 12:33:10 +0530\n"
 "Last-Translator: Ratnakar Dubey <support@storeapps.org>\n"
 "Language-Team: StoreApps <support@storeapps.org>\n"
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "it to use"
 msgstr ""
 
-#. #-#-#-#-#  woocommerce-smart-coupons.pot (WooCommerce Smart Coupons 4.35.0)  #-#-#-#-#
+#. #-#-#-#-#  woocommerce-smart-coupons.pot (WooCommerce Smart Coupons 4.36.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: includes/class-wc-sc-admin-notifications.php:177
 #: includes/class-wc-sc-admin-notifications.php:243
@@ -3138,7 +3138,7 @@ msgid "Insert Shortcode"
 msgstr ""
 
 #: includes/class-wc-sc-shortcode.php:854
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:133
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:134
 msgid "Cancel"
 msgstr ""
 
@@ -3722,28 +3722,28 @@ msgstr ""
 msgid "Email heading"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ActionFactory.php:161
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ActionFactory.php:162
 msgid "Invalid action - must be a recurring action."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:60
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:75
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:61
 #: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:76
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:89
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:19
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:30
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:77
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:90
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:20
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:31
 msgid "Scheduled Actions"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:127
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:128
 msgid "About"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:129
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:130
 msgid "About Action Scheduler %s"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:131
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:132
 msgid ""
 "Action Scheduler is a scalable, traceable job queue for background "
 "processing large sets of actions. Action Scheduler works by triggering an "
@@ -3751,193 +3751,193 @@ msgid ""
 "scheduled to run on a recurring schedule."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:139
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:140
 msgid "Columns"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:141
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:142
 msgid "Scheduled Action Columns"
-msgstr ""
-
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:143
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:96
-msgid "Hook"
-msgstr ""
-
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:143
-msgid "Name of the action hook that will be triggered."
 msgstr ""
 
 #: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:144
 #: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:97
-msgid "Status"
+msgid "Hook"
 msgstr ""
 
 #: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:144
-msgid "Action statuses are Pending, Complete, Canceled, Failed"
+msgid "Name of the action hook that will be triggered."
 msgstr ""
 
 #: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:145
 #: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:98
-msgid "Arguments"
+msgid "Status"
 msgstr ""
 
 #: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:145
-msgid "Optional data array passed to the action hook."
+msgid "Action statuses are Pending, Complete, Canceled, Failed"
 msgstr ""
 
 #: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:146
 #: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:99
-msgid "Group"
+msgid "Arguments"
 msgstr ""
 
 #: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:146
-msgid "Optional action group."
+msgid "Optional data array passed to the action hook."
 msgstr ""
 
 #: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:147
 #: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:100
-msgid "Recurrence"
+msgid "Group"
 msgstr ""
 
 #: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:147
+msgid "Optional action group."
+msgstr ""
+
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:148
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:101
+msgid "Recurrence"
+msgstr ""
+
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:148
 msgid "The action's schedule frequency."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:148
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:149
 msgid "Scheduled"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:148
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:149
 msgid "The date/time the action is/was scheduled to run."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:149
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:102
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:150
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:103
 msgid "Log"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:149
+#: includes/libraries/action-scheduler/classes/ActionScheduler_AdminView.php:150
 msgid "Activity log for the action."
 msgstr ""
 
 #. translators: %d: amount of time
-#: includes/libraries/action-scheduler/classes/ActionScheduler_DataController.php:133
+#: includes/libraries/action-scheduler/classes/ActionScheduler_DataController.php:134
 msgid "Stopped the insanity for %d second"
 msgid_plural "Stopped the insanity for %d seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_DataController.php:137
+#: includes/libraries/action-scheduler/classes/ActionScheduler_DataController.php:138
 msgid "Attempting to reduce used memory..."
 msgstr ""
 
 #. translators: 1: action ID 2: schedule
-#: includes/libraries/action-scheduler/classes/ActionScheduler_InvalidActionException.php:21
+#: includes/libraries/action-scheduler/classes/ActionScheduler_InvalidActionException.php:22
 msgid "Action [%1$s] has an invalid schedule: %2$s"
 msgstr ""
 
 #. translators: 1: action ID 2: arguments
-#: includes/libraries/action-scheduler/classes/ActionScheduler_InvalidActionException.php:40
+#: includes/libraries/action-scheduler/classes/ActionScheduler_InvalidActionException.php:41
 msgid ""
 "Action [%1$s] has invalid arguments. It cannot be JSON decoded to an array. "
 "$args = %2$s"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:92
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:93
 msgid "Delete"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:101
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:102
 msgid "Scheduled Date"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:122
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:123
 msgid "Claim ID"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:129
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:130
 msgid "Run"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:130
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:131
 msgid "Process the action now as if it were run as part of a queue"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:134
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:135
 msgid "Cancel the action now to avoid it being run in future"
 msgstr ""
 
 #. translators: %s: amount of time
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:144
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:145
 msgid "%s year"
 msgid_plural "%s years"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: amount of time
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:149
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:150
 msgid "%s month"
 msgid_plural "%s months"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: amount of time
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:154
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:155
 msgid "%s week"
 msgid_plural "%s weeks"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: amount of time
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:159
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:160
 msgid "%s day"
 msgid_plural "%s days"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: amount of time
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:164
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:165
 msgid "%s hour"
 msgid_plural "%s hours"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: amount of time
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:169
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:170
 msgid "%s minute"
 msgid_plural "%s minutes"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: amount of time
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:174
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:175
 msgid "%s second"
 msgid_plural "%s seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:201
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:225
 msgid "Now!"
 msgstr ""
 
 #. translators: %s: time interval
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:237
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:261
 msgid "Every %s"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:243
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:267
 msgid "Non-repeating"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:341
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:365
 msgid ""
 "It appears one or more database tables were missing. Attempting to re-create "
 "the missing table(s)."
 msgstr ""
 
 #. translators: %s: amount of claims
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:357
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:381
 msgid ""
 "Maximum simultaneous queues already in progress (%s queue). No additional "
 "queues will begin processing until the current queues are complete."
@@ -3948,463 +3948,471 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: process URL
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:374
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:398
 msgid ""
 "A new queue has begun processing. <a href=\"%s\">View actions in-progress "
 "&raquo;</a>"
 msgstr ""
 
 #. translators: %d: seconds
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:377
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:401
 msgid "The next queue will begin processing in approximately %d seconds."
 msgstr ""
 
 #. translators: %s: action HTML
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:398
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:422
 msgid "Successfully executed action: %s"
 msgstr ""
 
 #. translators: %s: action HTML
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:402
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:426
 msgid "Successfully canceled action: %s"
 msgstr ""
 
 #. translators: %s: action HTML
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:406
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:430
 msgid "Successfully processed change for action: %s"
 msgstr ""
 
 #. translators: 1: action HTML 2: action ID 3: error message
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:412
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:436
 msgid "Could not process change for action: \"%1$s\" (ID: %2$d). Error: %3$s"
 msgstr ""
 
 #. translators: %s: date interval
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:458
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:482
 msgid " (%s ago)"
 msgstr ""
 
 #. translators: %s: date interval
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:461
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:485
 msgid " (%s)"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:610
+#: includes/libraries/action-scheduler/classes/ActionScheduler_ListTable.php:635
 msgid "Search hook, args and claim ID"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_QueueRunner.php:192
+#: includes/libraries/action-scheduler/classes/ActionScheduler_QueueRunner.php:193
 msgid "Every minute"
 msgstr ""
 
 #. translators: %s: date interval
-#: includes/libraries/action-scheduler/classes/ActionScheduler_WPCommentCleaner.php:103
+#: includes/libraries/action-scheduler/classes/ActionScheduler_WPCommentCleaner.php:104
 msgid "This data will be deleted in %s."
 msgstr ""
 
 #. translators: 1: next cleanup message 2: github issue URL
-#: includes/libraries/action-scheduler/classes/ActionScheduler_WPCommentCleaner.php:108
+#: includes/libraries/action-scheduler/classes/ActionScheduler_WPCommentCleaner.php:109
 msgid ""
 "Action Scheduler has migrated data to custom tables; however, orphaned log "
 "entries exist in the WordPress Comments table. %1$s <a href=\"%2$s\">Learn "
 "more &raquo;</a>"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:101
+#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:112
 msgid "Action Scheduler"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:101
-msgid "This section shows scheduled action counts."
+#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:112
+msgid "This section shows details of Action Scheduler."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:104
+#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:115
 msgid "Version:"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:108
+#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:119
+msgid "Data store:"
+msgstr ""
+
+#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:123
 msgid "Action Status"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:110
+#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:125
 msgid "Count"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:111
+#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:126
 msgid "Oldest Scheduled Date"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:112
+#: includes/libraries/action-scheduler/classes/ActionScheduler_wcSystemStatus.php:127
 msgid "Newest Scheduled Date"
 msgstr ""
 
 #. translators: %s php class name
-#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:33
-#: includes/libraries/action-scheduler/classes/WP_CLI/ProgressBar.php:47
+#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:34
+#: includes/libraries/action-scheduler/classes/WP_CLI/ProgressBar.php:48
 msgid "The %s class can only be run within WP CLI."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:59
+#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:60
 msgid ""
 "There are too many concurrent batches, but the run is forced to continue."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:61
+#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:62
 msgid "There are too many concurrent batches."
 msgstr ""
 
 #. translators: %d: amount of actions
-#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:93
+#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:94
 msgid "Running %d action"
 msgid_plural "Running %d actions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:113
+#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:114
 msgid "The claim has been lost. Aborting current batch."
 msgstr ""
 
 #. translators: %s refers to the action ID
-#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:138
+#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:139
 msgid "Started processing action %s"
 msgstr ""
 
 #. translators: 1: action ID 2: hook name
-#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:155
+#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:156
 msgid "Completed processing action %1$s with hook: %2$s"
 msgstr ""
 
 #. translators: 1: action ID 2: exception message
-#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:170
+#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_QueueRunner.php:171
 msgid "Error processing action %1$s: %2$s"
 msgstr ""
 
 #. translators: %d refers to how many scheduled taks were found to run
-#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_Scheduler_command.php:100
+#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_Scheduler_command.php:101
 msgid "Found %d scheduled task"
 msgid_plural "Found %d scheduled tasks"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d refers to the total number of batches executed
-#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_Scheduler_command.php:117
+#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_Scheduler_command.php:118
 msgid "%d batch executed."
 msgid_plural "%d batches executed."
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s refers to the exception error message
-#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_Scheduler_command.php:136
+#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_Scheduler_command.php:137
 msgid "There was an error running the action scheduler: %s"
 msgstr ""
 
 #. translators: %d refers to the total number of taskes completed
-#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_Scheduler_command.php:153
+#: includes/libraries/action-scheduler/classes/WP_CLI/ActionScheduler_WPCLI_Scheduler_command.php:154
 msgid "%d scheduled task completed."
 msgid_plural "%d scheduled tasks completed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler.php:195
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler.php:196
 msgid "%s() was called before the Action Scheduler data store was initialized"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Abstract_ListTable.php:467
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Abstract_ListTable.php:524
 msgid "Filter"
 msgstr ""
 
 #. translators: %s: search query
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Abstract_ListTable.php:567
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Abstract_ListTable.php:651
 msgid "Search results for \"%s\""
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Abstract_ListTable.php:672
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Abstract_ListTable.php:756
 msgid "Search"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:72
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:73
 msgid "action created"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:76
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBLogger.php:134
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:77
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBLogger.php:143
 msgid "action canceled"
 msgstr ""
 
 #. translators: %s: context
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:82
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:83
 msgid "action started via %s"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:84
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:85
 msgid "action started"
 msgstr ""
 
 #. translators: %s: context
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:92
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:93
 msgid "action complete via %s"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:94
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:95
 msgid "action complete"
 msgstr ""
 
 #. translators: 1: context 2: exception message
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:102
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:103
 msgid "action failed via %1$s: %2$s"
 msgstr ""
 
 #. translators: %s: exception message
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:105
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:106
 msgid "action failed: %s"
 msgstr ""
 
 #. translators: %s: amount of time
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:112
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:113
 msgid "action timed out after %s seconds"
 msgstr ""
 
 #. translators: 1: error message 2: filename 3: line
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:118
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:119
 msgid "unexpected shutdown: PHP Fatal error %1$s in %2$s on line %3$s"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:123
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:124
 msgid "action reset"
 msgstr ""
 
 #. translators: %s: context
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:129
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:130
 msgid "action ignored via %s"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:131
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:132
 msgid "action ignored"
 msgstr ""
 
 #. translators: %s: exception message
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:146
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:147
 msgid "There was a failure fetching this action: %s"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:148
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:149
 msgid "There was a failure fetching this action"
 msgstr ""
 
 #. translators: %s: exception message
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:156
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Logger.php:157
 msgid "There was a failure scheduling the next instance of this action: %s"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Store.php:227
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Store.php:302
 msgid ""
 "ActionScheduler_Action::$args too long. To ensure the args column can be "
 "indexed, action args should not be more than %d characters when encoded as "
 "JSON."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Store.php:301
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Store.php:378
 msgid "Complete"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Store.php:302
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Store.php:379
 msgid "Pending"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Store.php:303
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Store.php:380
 msgid "In-progress"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Store.php:304
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Store.php:381
 msgid "Failed"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Store.php:305
+#: includes/libraries/action-scheduler/classes/abstracts/ActionScheduler_Store.php:382
 msgid "Canceled"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:67
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:79
 msgid "Database error."
 msgstr ""
 
 #. translators: %s: error message
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:75
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:25
-#: includes/libraries/action-scheduler/classes/migration/ActionScheduler_DBStoreMigrator.php:44
+#. translators: %s: action error message
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:87
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:50
+#: includes/libraries/action-scheduler/classes/migration/ActionScheduler_DBStoreMigrator.php:45
 msgid "Error saving action: %s"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:268
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:247
 msgid "Invalid value for select or count parameter. Cannot query actions."
 msgstr ""
 
 #. translators: %s: action ID
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:458
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:548
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:580
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:777
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:819
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:457
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:468
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:495
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:773
+#. translators: %s is the action ID
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:452
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:544
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:575
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:798
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:841
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:516
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:535
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:565
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:975
 msgid "Unidentified action %s"
 msgstr ""
 
 #. translators: %s: group name
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:661
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:627
+#. translators: %s is the group name
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:664
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:718
 msgid "The group \"%s\" does not exist."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:675
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:607
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:684
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:697
 msgid "Unable to claim actions. Database error."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:838
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:740
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:862
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:905
 msgid "Invalid action ID. No status found."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:840
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_DBStore.php:864
 msgid "Unknown status found for action."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:62
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:102
 msgid "Unable to save action."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:283
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:319
 msgid "Invalid schedule. Cannot save action."
 msgstr ""
 
 #. translators: %s: claim ID
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:689
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:825
 msgid "Unable to unlock claim %s. Database error."
 msgstr ""
 
 #. translators: %s: action ID
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:704
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:853
 msgid "Unable to unlock claim on action %s. Database error."
 msgstr ""
 
 #. translators: %s: action ID
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:716
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:879
 msgid "Unable to mark failure on action %s. Database error."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:840
+#. translators: %s is the error message
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore.php:1047
 msgid ""
 "%s Support for strings longer than this will be removed in a future version."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostStatusRegistrar.php:36
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostStatusRegistrar.php:37
 msgctxt "post"
 msgid "Failed"
 msgstr ""
 
 #. translators: %s: count
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostStatusRegistrar.php:38
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostStatusRegistrar.php:39
 msgid "Failed <span class=\"count\">(%s)</span>"
 msgid_plural "Failed <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostStatusRegistrar.php:51
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostStatusRegistrar.php:52
 msgctxt "post"
 msgid "In-Progress"
 msgstr ""
 
 #. translators: %s: count
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostStatusRegistrar.php:53
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostStatusRegistrar.php:54
 msgid "In-Progress <span class=\"count\">(%s)</span>"
 msgid_plural "In-Progress <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:20
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:21
 msgid "Scheduled actions are hooks triggered on a cetain date and time."
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:31
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:32
 msgid "Scheduled Action"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:32
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:33
 msgctxt "Admin menu name"
 msgid "Scheduled Actions"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:33
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:34
 msgid "Add"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:34
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:35
 msgid "Add New Scheduled Action"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:35
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:36
 msgid "Edit"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:36
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:37
 msgid "Edit Scheduled Action"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:37
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:38
 msgid "New Scheduled Action"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:38
 #: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:39
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:40
 msgid "View Action"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:40
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:41
 msgid "Search Scheduled Actions"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:41
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:42
 msgid "No actions found"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:42
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_PostTypeRegistrar.php:43
 msgid "No actions found in trash"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_TaxonomyRegistrar.php:14
+#: includes/libraries/action-scheduler/classes/data-stores/ActionScheduler_wpPostStore_TaxonomyRegistrar.php:15
 msgid "Action Group"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/migration/ActionMigrator.php:95
+#: includes/libraries/action-scheduler/classes/migration/ActionMigrator.php:96
 msgid "Unable to remove source migrated action %s"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/migration/Config.php:52
+#: includes/libraries/action-scheduler/classes/migration/Config.php:53
 msgid "Source store must be configured before running a migration"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/migration/Config.php:74
+#: includes/libraries/action-scheduler/classes/migration/Config.php:75
 msgid "Source logger must be configured before running a migration"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/migration/Config.php:96
+#: includes/libraries/action-scheduler/classes/migration/Config.php:97
 msgid "Destination store must be configured before running a migration"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/migration/Config.php:118
+#: includes/libraries/action-scheduler/classes/migration/Config.php:119
 msgid "Destination logger must be configured before running a migration"
 msgstr ""
 
-#: includes/libraries/action-scheduler/classes/migration/Controller.php:142
+#: includes/libraries/action-scheduler/classes/migration/Controller.php:163
 msgid ""
 "Action Scheduler migration in progress. The list of scheduled actions may be "
 "incomplete."
 msgstr ""
 
 #. translators: %d: amount of actions
-#: includes/libraries/action-scheduler/classes/migration/Runner.php:82
+#: includes/libraries/action-scheduler/classes/migration/Runner.php:83
 msgid "Migrating %d action"
 msgid_plural "Migrating %d actions"
 msgstr[0] ""
@@ -4412,7 +4420,7 @@ msgstr[1] ""
 
 #. translators: 1: source action ID 2: source store class 3: destination action
 #. ID 4: destination store class
-#: includes/libraries/action-scheduler/classes/migration/Runner.php:107
+#: includes/libraries/action-scheduler/classes/migration/Runner.php:108
 msgid "Migrated action with ID %1$d in %2$s to ID %3$d in %4$s"
 msgstr ""
 

@@ -15,18 +15,19 @@ $label               = wp_parse_args( $label, array(
 	'align'             => '',
 	'custom_bg_color'   => isset( $label['label_custom_background_color'] ) ? $label['label_custom_background_color'] : '#D9534F',
 	'custom_text_color' => isset( $label['label_custom_text_color'] ) ? $label['label_custom_text_color'] : '#fff',
+	'custom_image'      => isset( $label['custom_image'] ) ? $label['custom_image'] : 0,
+	'position'          => $label['position'] ?? array( 'left' => null, 'top' => null ),
 ) );
-$label['style_attr'] = isset( $label['style'] ) && 'custom' == $label['style'] ? "style='background-color: {$label['custom_bg_color']}; color: {$label['custom_text_color']};'" : '';
 
 ?><div class='wapl-meta-box'>
 
-	<div class='wapl-column' style='width: 48%;'>
+	<div class='wapl-column'>
 
 
 		<p class='wapl-global-option'>
 
-			<label for='wapl_global_label_type'><?php _e( 'Label type', 'woocommerce-advanced-product-labels' ); ?></label>
-			<select id='wapl_global_label_type' name='_wapl_global_label[type]'><?php
+			<label for='_wapl_label_type'><?php _e( 'Type', 'woocommerce-advanced-product-labels' ); ?></label>
+			<select id='_wapl_label_type' name='_wapl_label[type]'><?php
 				foreach ( wapl_get_label_types() as $key => $value ) :
 					?><option value='<?php echo $key; ?>' <?php selected( $label['type'], $key ); ?>><?php echo $value; ?></option><?php
 				endforeach;
@@ -34,62 +35,95 @@ $label['style_attr'] = isset( $label['style'] ) && 'custom' == $label['style'] ?
 
 		</p>
 
-
-		<p class='wapl-global-option'>
-
-			<label for='wapl_global_label_text'><?php _e( 'Label text', 'woocommerce-advanced-product-labels' ); ?></label>
-			<input type='text' id='wapl_global_label_text' name='_wapl_global_label[text]' value='<?php echo esc_attr( $label['text'] ); ?>' size='25'/>
-
+		<p class='wapl-global-option custom-image type-custom-show'>
+			<label for='wapl-custom-image'><?php _e( 'Image', 'woocommerce-advanced-product-labels' ); ?></label>
+			<input type='text' id="custom-image-url" value='<?php echo wp_get_attachment_url( $label['custom_image'] ); ?>' class='' readonly />
+			<input type='hidden' name='_wapl_label[custom_image]' value='<?php echo $label['custom_image']; ?>' id='wapl-custom-image' class='' readonly />
+		</p>
+		<p class="custom-image type-custom-show">
+			<label for='wapl-custom-image'></label>
+			<input id="upload_image_button" type="button" class="button" value="<?php _e( 'Select image' ); ?>"/>
 		</p>
 
 
-		<p class='wapl-global-option'>
+		<p class='wapl-global-option type-custom-hidden'>
+			<label for='_wapl_label_text'><?php _e( 'Text', 'woocommerce-advanced-product-labels' ); ?></label>
+			<input type='text' id='_wapl_label_text' name='_wapl_label[text]' value='<?php echo esc_attr( $label['text'] ); ?>' size='25'/>
+		</p>
 
-			<label for='wapl_global_label_style'><?php _e( 'Label style', 'woocommerce-advanced-product-labels' ); ?></label>
-			<select name='_wapl_global_label[style]' class='wapl-select' id='wapl_global_label_style'><?php
 
+		<p class='wapl-global-option type-custom-hidden'>
+			<label for='_wapl_label_style'><?php _e( 'Color', 'woocommerce-advanced-product-labels' ); ?></label>
+			<select name='_wapl_label[style]' class='wapl-select' id='_wapl_label_style'><?php
 				foreach ( wapl_get_label_styles() as $key => $value ) :
 					?><option value='<?php echo $key; ?>' <?php selected( $label['style'], $key ); ?>><?php echo $value; ?></option><?php
 				endforeach;
-
 			?></select>
-
 		</p>
 
-		<p class='wapl-global-option custom-colors <?php echo isset( $label['style'] ) && $label['style'] == 'custom' ? '' : 'hidden'; ?>'>
+		<p class='wapl-global-option color-custom-show'>
 			<label for='wapl-custom-background'><?php _e( 'Background color', 'woocommerce-advanced-product-labels' ); ?></label>
-			<input type='text' name='_wapl_global_label[label_custom_background_color]' value='<?php echo $label['custom_bg_color']; ?>' id='wapl-custom-background' class='color-picker' />
+			<input type='text' name='_wapl_label[label_custom_background_color]' value='<?php echo $label['custom_bg_color']; ?>' id='wapl-custom-background' class='color-picker' />
 
 			<label for='wapl-custom-text'><?php _e( 'Text color', 'woocommerce-advanced-product-labels' ); ?></label>
-			<input type='text' name='_wapl_global_label[label_custom_text_color]' value='<?php echo $label['custom_text_color']; ?>' id='wapl-custom-text' class='color-picker' />
+			<input type='text' name='_wapl_label[label_custom_text_color]' value='<?php echo $label['custom_text_color']; ?>' id='wapl-custom-text' class='color-picker' />
 		</p>
 
 
 		<p class='wapl-global-option'>
 
-			<label for='wapl_global_label_align'><?php _e( 'Label align', 'woocommerce-advanced-product-labels' ); ?></label>
-			<select name='_wapl_global_label[align]' class='wapl-select' id='wapl_global_label_align'>
+			<label for='_wapl_label_align'><?php _e( 'Align', 'woocommerce-advanced-product-labels' ); ?></label>
+			<select name='_wapl_label[align]' class='wapl-select' id='_wapl_label_align'>
 				<option value='none' <?php selected( $label['align'], 'none' ); ?>><?php _e( 'None', 'woocommerce-advanced-product-labels' ); ?></option>
 				<option value='left' <?php selected( $label['align'], 'left' ); ?>><?php _e( 'Left', 'woocommerce-advanced-product-labels' ); ?></option>
 				<option value='center' <?php selected( $label['align'], 'center' ); ?>><?php _e( 'Center', 'woocommerce-advanced-product-labels' ); ?></option>
 				<option value='right' <?php selected( $label['align'], 'right' ); ?>><?php _e( 'Right', 'woocommerce-advanced-product-labels' ); ?></option>
+				<option value='custom' <?php selected( $label['align'], 'custom' ); ?>><?php _e( 'Custom', 'woocommerce-advanced-product-labels' ); ?></option>
 			</select>
 
 		</p>
 
+		<p class='wapl-global-option align-custom-show'>
+			<label for=''><?php _e( 'Position', 'woocommerce-advanced-product-labels' ); ?></label>
+			<label style="width: auto;"><?php _e( 'Top', 'woocommerce-advanced-product-labels' ); ?>: </label> <input type='number' style="width: 60px;" placeholder="Top" name='_wapl_label[position][top]' value='<?php echo $label['position']['top']; ?>' id='wapl-custom-position-top' class='' />
+			<label style="width: auto;"><?php _e( 'Left', 'woocommerce-advanced-product-labels' ); ?>: </label> <input type='number' style="width: 60px;" placeholder="Left" name='_wapl_label[position][left]' value='<?php echo $label['position']['left']; ?>' id='wapl-custom-position-left' class='' />
+		</p>
+
 	</div>
 
-	<div class='wapl-column' style='width: 10%;'>
-		<h2 class='wapl-preview'><?php _e( 'Preview', 'woocommerce-advanced-product-labels' ); ?></h2>
-	</div>
+	<div class='wapl-column' style='border-left: 1px solid #ddd; padding-left: 4%;'>
 
-	<div class='wapl-column' style='width: 28%; border-left: 1px solid #ddd; padding-left: 4%;'>
+		<h2 class='wapl-preview-title'><?php
+			_e( 'Preview', 'woocommerce-advanced-product-labels' );
+			echo wc_help_tip( __( 'This provides a indication of the label, front-end may display the label differently based on the theme.', 'woocommerce-advanced-product-labels' ) );
+		?></h2>
+
+		<p>
+			<input type="hidden" name="product_id" value="0" />
+			<select class="wc-product-search" name="product_id" id="product_id" data-allow_clear="true" data-exclude_type="variable" onchange="this.form.submit()" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce' ); ?>"><?php
+
+				if ( isset( $preview_product ) ) :
+					?><option value="<?php echo absint( $preview_product->get_id() ); ?>"><?php echo $preview_product->get_formatted_name(); ?></option><?php
+				endif;
+
+				?><option value="0"><?php _e( 'Placeholder', 'woocommerce-advanced-product-labels' ); ?></option>
+			</select>
+		</p>
 
 		<div id='wapl-global-preview'>
-			<img src='<?php echo apply_filters( 'wapl_preview_image', 'data:image/gif;base64,R0lGODdhlgCWAOMAAMzMzJaWlr6+vpycnLGxsaOjo8XFxbe3t6qqqgAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAlgCWAAAE/hDISau9OOvNu/9gKI5kaZ5oqq5s675wLM90bd94ru987//AoHBILBqPyKRyyWw6n9CodEqtWq/YrHbL7Xq/4LB4TC6bz+i0es1uu9/wuHxOr9vv+Lx+z+/7/4CBgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foHcCAwMTAaenBxMCBQEFBiajpRKoqautr2cEp7MApwjAAhIGA64BvSK7x6YBwAjCAMTGyGK7rb3LFbsEAAgBqsnTptQA293fZQaq2b7krbACzSPq7eMW7wDxCGjsxwTPE4oNc2XhlIB4ATT0G/APGgCB0Qie6VcL2kIL3oDJy0ARlUVsz+TEsEPw6sDGi/dIFdgwsuRJkPxCZkNZAaFDDOwozIQ5MSREiAYkVggaAJZCnwkfJg26sucEcEol4NN3QRm3o08DJp260Uw2k9yYSjDnDarOAgVC6pwFNmJTsujKoD3VtFjauNKuXWh1wGSBffdaSbRbDFzenGNqLb12VcIoV0YrnKI1uWCtYYwpPM4VqrPnz6BDix5NurTp06hTq17NurXr17Bjy55Nu7bt27hz697Nu7fv38CDCx9OvLjx48iTK1/OvLnz59CjS59OvfqLCAA7' ); ?>' /><?php
 
-			echo wapl_get_label_html( $label );
-			?><p><strong>Product name</strong></p>
+			<ul class="products columns-3" style="margin: 0; padding: 0;">
+				<li class="product type-products first">
+					<div class="woo-thumbnail-wrap">
+						<div class="woo-thumbnail-wrap"><?php
+							echo $image;
+						?></div>
+					</div>
+					<?php echo wapl_get_label_html( $label ); ?>
+					<h2 class="woocommerce-loop-product__title">Product title</h2>
+				</li>
+			</ul>
+
 		</div>
 
 	</div>

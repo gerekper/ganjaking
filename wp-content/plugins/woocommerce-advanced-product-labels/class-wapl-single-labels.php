@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  * WAPL single label class, load single label config.
  *
- * @class       Wapl_Single_label
+ * @class       WAPL_Single_label
  * @version     1.0.0
  * @author      Jeroen Sormani
  */
@@ -65,6 +65,7 @@ class WAPL_Single_Labels {
 	 */
 	public function product_label_tab_settings() {
 		$label = $this->get_label_data();
+		$GLOBALS['product'] = wc_get_product();
 
 		require 'includes/admin/views/html-product-tab.php';
 	}
@@ -86,11 +87,13 @@ class WAPL_Single_Labels {
 			'_wapl_label_align',
 			'_wapl_custom_bg_color',
 			'_wapl_custom_text_color',
+			'_wapl_custom_image',
+			'_wapl_position',
 		);
 
 		foreach ( $meta_keys as $meta ) {
 			if ( isset( $_POST[ $meta ] ) ) {
-				update_post_meta( $post->ID, $meta, sanitize_text_field( $_POST[ $meta ] ) );
+				update_post_meta( $post->ID, $meta, wc_clean( $_POST[ $meta ] ) );
 			}
 		}
 
@@ -116,7 +119,7 @@ class WAPL_Single_Labels {
 		}
 
 		$label = $this->get_label_data();
-		if ( ! empty( $label['text'] ) ) {
+		if ( ! empty( $label ) ) {
 			echo wapl_get_label_html( $label );
 		}
 	}
@@ -146,6 +149,8 @@ class WAPL_Single_Labels {
 			'align'             => get_post_meta( $product_id, '_wapl_label_align', true ),
 			'custom_bg_color'   => get_post_meta( $product_id, '_wapl_custom_bg_color', true ),
 			'custom_text_color' => get_post_meta( $product_id, '_wapl_custom_text_color', true ),
+			'custom_image'      => get_post_meta( $product_id, '_wapl_custom_image', true ),
+			'position'          => get_post_meta( $product_id, '_wapl_position', true ),
 		);
 
 		if ( empty( $data['custom_bg_color'] ) ) {
@@ -154,10 +159,15 @@ class WAPL_Single_Labels {
 		if ( empty( $data['custom_text_color'] ) ) {
 			$data['custom_text_color'] = '#fff';
 		}
-		$data['style_attr'] = ! empty( $data['style'] ) && 'custom' == $data['style'] ? "style='background-color: {$data['custom_bg_color']}; color: {$data['custom_text_color']};'" : '';
+		if ( empty( $data['position'] ) ) {
+			$data['position'] = array( 'left' => 0, 'top' => 0 );
+		}
+
+		if ( $data['text'] == '' && $data['type'] !== 'custom' ) {
+			$data = array();
+		}
 
 		return $data;
-
 	}
 
 

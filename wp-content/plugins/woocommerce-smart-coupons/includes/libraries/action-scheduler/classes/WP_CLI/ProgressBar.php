@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 namespace Action_Scheduler\WP_CLI;
 
 /**
@@ -44,7 +45,7 @@ class ProgressBar {
 	public function __construct( $message, $count, $interval = 100 ) {
 		if ( ! ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 			/* translators: %s php class name */
-			throw new \Exception( sprintf( __( 'The %s class can only be run within WP CLI.', 'woocommerce' ), __CLASS__ ) );
+			throw new \Exception( sprintf( __( 'The %s class can only be run within WP CLI.', 'action-scheduler' ), __CLASS__ ) );
 		}
 
 		$this->total_ticks = 0;

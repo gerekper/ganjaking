@@ -1,5 +1,6 @@
 <?php
 // phpcs:ignoreFile
+
 /**
  * Class ActionScheduler_WPCommentCleaner
  *
@@ -100,12 +101,12 @@ class ActionScheduler_WPCommentCleaner {
 
 		if ( $next_scheduled_cleanup_hook ) {
 			/* translators: %s: date interval */
-			$next_cleanup_message = sprintf( __( 'This data will be deleted in %s.', 'woocommerce' ), human_time_diff( gmdate( 'U' ), $next_scheduled_cleanup_hook ) );
+			$next_cleanup_message = sprintf( __( 'This data will be deleted in %s.', 'action-scheduler' ), human_time_diff( gmdate( 'U' ), $next_scheduled_cleanup_hook ) );
 		}
 
 		$notice = sprintf(
 			/* translators: 1: next cleanup message 2: github issue URL */
-			__( 'Action Scheduler has migrated data to custom tables; however, orphaned log entries exist in the WordPress Comments table. %1$s <a href="%2$s">Learn more &raquo;</a>', 'woocommerce' ),
+			__( 'Action Scheduler has migrated data to custom tables; however, orphaned log entries exist in the WordPress Comments table. %1$s <a href="%2$s">Learn more &raquo;</a>', 'action-scheduler' ),
 			$next_cleanup_message,
 			'https://github.com/woocommerce/action-scheduler/issues/368'
 		);
