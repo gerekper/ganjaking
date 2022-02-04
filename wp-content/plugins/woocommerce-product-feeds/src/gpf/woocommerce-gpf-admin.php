@@ -200,7 +200,9 @@ class WoocommerceGpfAdmin {
 	 * @access public
 	 */
 	public function admin_init() {
-		$this->maybe_refresh_google_taxonomy();
+		if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+			$this->maybe_refresh_google_taxonomy();
+		}
 		add_action( 'save_post_product', array( $this, 'save_product' ) );
 		if ( isset( $this->settings['product_fields'] ) && count( $this->settings['product_fields'] ) ) {
 			add_meta_box(
@@ -1317,7 +1319,7 @@ class WoocommerceGpfAdmin {
 		global $wpdb, $table_prefix;
 		// Do not attempt to refresh before DB updates completed.
 		$current_db_version = (int) get_option( 'woocommerce_gpf_db_version', 1 );
-		if ( $current_db_version < 13 ) {
+		if ( $current_db_version < 14 ) {
 			return;
 		}
 		$required_locales = $this->get_google_taxonomy_locales();
@@ -1329,10 +1331,10 @@ class WoocommerceGpfAdmin {
 				$this->refresh_google_taxonomy( $locale );
 				continue;
 			}
-			// If we have data, but the transient has expired, refresh it.
-			$cache_key     = 'woocommerce_gpf_tax_' . $locale;
-			$locale_cached = get_transient( $cache_key );
-			if ( empty( $locale_cached ) ) {
+			// If we have data, but the refresh timestamp has expired, refresh it.
+			$cache_key        = 'woocommerce_gpf_tax_ts_' . $locale;
+			$locale_cached_ts = get_option( $cache_key, 0 );
+			if ( empty( $locale_cached_ts ) || $locale_cached_ts < time() ) {
 				$this->refresh_google_taxonomy( $locale );
 			}
 		}

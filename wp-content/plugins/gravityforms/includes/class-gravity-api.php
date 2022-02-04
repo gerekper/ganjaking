@@ -41,7 +41,6 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		 * @return bool|WP_Error
 		 */
 		public function register_current_site( $license_key, $is_md5 = false ) {
-
 			$body              = array();
 			$body['site_name'] = get_bloginfo( 'name' );
 			$body['site_url']  = get_bloginfo( 'url' );

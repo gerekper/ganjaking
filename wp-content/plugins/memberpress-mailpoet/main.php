@@ -3,11 +3,11 @@
 Plugin Name: MemberPress MailPoet
 Plugin URI: http://www.memberpress.com/
 Description: MailPoet Autoresponder integration for MemberPress.
-Version: 1.2.0
+Version: 1.2.3
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress-mailpoet
-Copyright: 2004-2015, Caseproof, LLC
+Copyright: 2004-2020, Caseproof, LLC
 */
 
 if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}

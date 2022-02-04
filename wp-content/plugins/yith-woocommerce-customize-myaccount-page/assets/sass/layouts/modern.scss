@@ -1,0 +1,71 @@
+@mixin modern-item-style {
+    border: 1px solid var(--ywcmap-items-border-color);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    -webkit-box-shadow: 0 0 16px 0 var(--ywcmap-items-shadow-color);
+    -moz-box-shadow: 0 0 16px 0 var(--ywcmap-items-shadow-color);
+    box-shadow: 0 0 16px 0 var(--ywcmap-items-shadow-color);
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+
+    &:hover {
+        border-color: var(--ywcmap-items-border-color-hover);
+        -webkit-box-shadow: 0 0 16px 0 var(--ywcmap-items-shadow-color-hover);
+        -moz-box-shadow: 0 0 16px 0 var(--ywcmap-items-shadow-color-hover);
+        box-shadow: 0 0 16px 0 var(--ywcmap-items-shadow-color-hover);
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+
+    }
+
+    &.active, &.is-active {
+        border-color: var(--ywcmap-items-border-color-active);
+        -webkit-box-shadow: 0 0 16px 0 var(--ywcmap-items-shadow-color-active);
+        -moz-box-shadow: 0 0 16px 0 var(--ywcmap-items-shadow-color-active);
+        box-shadow: 0 0 16px 0 var(--ywcmap-items-shadow-color-active);
+    }
+}
+
+#my-account-menu.layout-modern, #my-account-menu-tab.layout-modern  {
+    .myaccount-menu {
+        > li {
+            @include modern-item-style;
+        }
+
+        li {
+            background-color: var( --ywcmap-items-background-color, #ffffff );
+
+            &:hover {
+                background-color: var( --ywcmap-items-background-color-hover, #ffffff );
+            }
+
+            &.active, &.is-active {
+                background-color: var( --ywcmap-items-background-color-active, #ffffff );
+            }
+        }
+    }
+}
+
+#my-account-menu-tab.layout-modern  {
+    .myaccount-menu {
+        > li {
+            overflow: visible;
+            margin-right: 10px;
+        }
+
+        .item-opener {
+            margin-right: 0;
+        }
+    }
+
+    .myaccount-submenu {
+        padding-top: 10px;
+        > li {
+            @include modern-item-style;
+            margin-bottom: 10px;
+        }
+    }
+}

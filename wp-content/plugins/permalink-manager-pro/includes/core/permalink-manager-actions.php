@@ -124,10 +124,7 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 		}
 
 		// Get content type & post statuses
-		if(empty($_POST['content_type'])) {
-			$error = true;
-			$return = array('alert' => Permalink_Manager_Admin_Functions::get_alert_message(__( '<strong>No content type</strong> selected!', 'permalink-manager' ), 'error updated_slugs'));
-		} else if($_POST['content_type'] == 'taxonomies') {
+		if(!empty($_POST['content_type']) && $_POST['content_type'] == 'taxonomies') {
 			$content_type = 'taxonomies';
 
 			if(empty($_POST['taxonomies'])) {

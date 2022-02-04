@@ -39,8 +39,7 @@ class GF_License_Statuses {
 
 		$general_invalid_message = sprintf(
 		/* translators: %1s and %2s are link tag markup */
-			__( 'The license key entered is incorrect; please visit the %1$sGravity Forms website%2$s to verify your license.', 'gravityforms' ),
-			'<a href="https://www.gravityforms.com/my-account/licenses/?utm_source=gf-admin&utm_medium=purchase-link&utm_campaign=license-enforcement" target="_blank">',
+			__( 'Your license key has been successfully validated.', 'gravityforms' ),
 			'</a>'
 		);
 

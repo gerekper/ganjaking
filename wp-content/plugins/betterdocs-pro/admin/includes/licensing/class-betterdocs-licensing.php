@@ -316,7 +316,8 @@ class BetterDocs_Licensing {
 			return;
 		}
 
-			$license_data = new \stdClass();
+		
+		$license_data = new \stdClass();
 				$license_data->license = 'valid';
 				$license_data->success = true;
 				$license_data->payment_id = 0;
@@ -413,7 +414,7 @@ class BetterDocs_Licensing {
 				$license_data->license_limit = 0;
 				$license_data->site_count = 0;
 				$license_data->activations_left = 0;
-				$this->set_license_data( $license_data );
+			$this->set_license_data( $license_data );
 				$this->set_license_status( $license_data->license );
 		}
 
@@ -438,9 +439,9 @@ class BetterDocs_Licensing {
 			}
 		}
 
-		$license_data = new \stdClass();
+	$license_data = new \stdClass();
 				$license_data->license = 'deactivated';
-				
+
 		if( is_wp_error( $license_data ) ) {
 			$message = $license_data->get_error_message();
 		}

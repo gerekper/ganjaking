@@ -1,0 +1,168 @@
+.admin_page_mpcs-quiz-attempts .vex-overlay,
+.mpcs-quiz-attempt-vex {
+  z-index: 99999;
+}
+.mpcs-quiz-attempt-vex.vex {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.mpcs-quiz-attempt-vex.vex.vex-theme-plain .vex-content {
+  width: calc(100% - 40px);
+  border-radius: 5px;
+  padding: 45px;
+}
+@media (min-width: 940px) {
+  .mpcs-quiz-attempt-vex.vex.vex-theme-plain .vex-content {
+    width: 880px;
+  }
+}
+@media (max-width: 782px) {
+  .mpcs-quiz-attempt-vex.vex.vex-theme-plain .vex-content {
+    padding: 30px;
+  }
+}
+.mpcs-admin-attempt h2:first-child {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 23px;
+  margin-top: 0;
+}
+.mpcs-admin-attempt-score {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 19px;
+  font-weight: 500;
+}
+.mpcs-quiz-question {
+  margin-bottom: 49px;
+}
+.mpcs-quiz-question:first-of-type {
+  margin-top: 40px;
+}
+.mpcs-quiz-question-label {
+  margin-bottom: 15px;
+}
+.mpcs-quiz-question-label > label {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #000;
+  display: inline-block;
+  position: relative;
+  float: none;
+  margin: 0;
+  padding: 0;
+}
+.mpcs-quiz-question-label > label > .mpcs-quiz-correct-answer,
+.mpcs-quiz-question-label > label > .mpcs-quiz-incorrect-answer {
+  position: absolute;
+  top: 5px;
+  left: -27px;
+  font-size: 14px;
+  line-height: 1;
+}
+.mpcs-quiz-question-label > label > .mpcs-quiz-correct-answer i:before,
+.mpcs-quiz-question-label > label > .mpcs-quiz-incorrect-answer i:before,
+.mpcs-quiz-question-option .mpcs-quiz-correct-answer i:before,
+.mpcs-quiz-question-option .mpcs-quiz-incorrect-answer i:before {
+  margin: 0;
+}
+.mpcs-quiz-question-correct .mpcs-quiz-question-label > label,
+.mpcs-quiz-correct-answer {
+  color: #1FA058;
+}
+.mpcs-quiz-question-incorrect .mpcs-quiz-question-label > label,
+.mpcs-quiz-incorrect-answer {
+  color: #D93C38;
+}
+.mpcs-quiz-question-short-answer .mpcs-quiz-question-input,
+.mpcs-quiz-question-essay .mpcs-quiz-question-input {
+  margin-left: 8px;
+}
+.mpcs-quiz-question-option {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 8px;
+}
+.mpcs-quiz-question-option:last-child {
+  margin-bottom: 0;
+}
+.mpcs-quiz-question-option input {
+  display: none;
+}
+.mpcs-quiz-question-option input + label {
+  display: flex;
+}
+.mpcs-quiz-question-option input + label i {
+  font-size: 20px;
+  line-height: 1;
+  color: #736B6A;
+}
+.mpcs-quiz-question-option.mpcs-quiz-question-option-correct {
+  background-color: #F1F9E9;
+}
+.mpcs-quiz-question-option.mpcs-quiz-question-option-incorrect {
+  background-color: #FBE9E7;
+}
+.mpcs-quiz-question-option input + label i:before {
+  margin: 0;
+}
+.mpcs-quiz-question-option input + label i.mpcs-radio-unchecked,
+.mpcs-quiz-question-option input + label i.mpcs-checkbox-unchecked {
+  color: #BEBEBE;
+}
+.mpcs-quiz-question-option input:checked + label i.mpcs-radio-checked,
+.mpcs-quiz-question-option input:checked + label i.mpcs-checkbox-checked {
+  display: block;
+}
+.mpcs-quiz-question-option input + label i.mpcs-radio-checked,
+.mpcs-quiz-question-option input:checked + label i.mpcs-radio-unchecked,
+.mpcs-quiz-question-option input + label i.mpcs-checkbox-checked,
+.mpcs-quiz-question-option input:checked + label i.mpcs-checkbox-unchecked {
+  display: none;
+}
+.mpcs-quiz-question-option input:checked ~ label {
+  color: #000;
+}
+.mpcs-quiz-question-option .mpcs-quiz-question-option-label {
+  flex-grow: 1;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #757575;
+  padding-left: 12px;
+}
+.mpcs-quiz-question-option .mpcs-quiz-correct-answer,
+.mpcs-quiz-question-option .mpcs-quiz-incorrect-answer {
+  font-size: 10px;
+  margin: 0 10px;
+}
+.mpcs-quiz-question-option .mpcs-quiz-incorrect-answer {
+  position: relative;
+  top: 1px;
+  left: 3px;
+}
+.mpcs-quiz-question-true-false .mpcs-quiz-question-options {
+  display: flex;
+  gap: 35px;
+}
+.mpcs-quiz-question-short-answer input[type="text"] {
+  width: 100%;
+  margin-bottom: 2px;
+  padding: 8px;
+  border: 1px solid #BEBEBE;
+}
+.mpcs-quiz-question-essay textarea {
+  display: block;
+  width: 100%;
+  height: 150px;
+  padding: 8px;
+  border-color: #BEBEBE;
+}
+.mpcs-quiz-correct-answer,
+.mpcs-quiz-incorrect-answer {
+  vertical-align: top;
+  font-size: 17px;
+}
+.mpcs-quiz-question-feedback {
+  display: none;
+}

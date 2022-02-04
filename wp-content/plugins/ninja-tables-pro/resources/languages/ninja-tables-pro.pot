@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ninja Tables Pro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-10 10:35+0000\n"
+"POT-Creation-Date: 2022-02-01 13:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -15,156 +15,140 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.2.2; wp-5.2.1"
 
-#: src/TableEditor.php:49 src/TableEditor.php:519
-msgid "New Row"
-msgstr ""
-
-#: src/TableEditor.php:50 src/TableEditor.php:520
-msgid "Edit Rows"
-msgstr ""
-
-#: src/TableEditor.php:51 src/TableEditor.php:521 src/views/row_editor.php:11
-msgid "Add Data"
-msgstr ""
-
-#: src/TableEditor.php:52 src/TableEditor.php:522 src/views/row_editor.php:12
-msgid "Edit Data"
-msgstr ""
-
-#: src/TableEditor.php:113 src/TableEditor.php:120
-msgid "Please check which columns can be edit at frontend"
-msgstr ""
-
-#: src/TableEditor.php:142
-msgid "Settings successfully updated"
-msgstr ""
-
-#: src/TableEditor.php:324
+#: src/TableEditor.php:332
 msgid " is required"
 msgstr ""
 
-#: src/TableEditor.php:333
-msgid "Validation failed, Please fill up required fields"
-msgstr ""
-
-#: src/TableEditor.php:392
-msgid "Data successfully saved"
-msgstr ""
-
-#: src/TableEditor.php:419
-msgid "Data successfully deleted"
-msgstr ""
-
-#: src/TableEditor.php:468 src/views/row_editor.php:146
-msgid "Cancel"
-msgstr ""
-
-#: src/DataProviders/WoocommercePostsProvider.php:117
-#: src/DataProviders/WPPostsProvider.php:33
-msgid "The title field is required."
-msgstr ""
-
-#: src/DataProviders/WoocommercePostsProvider.php:539
-msgid "Items"
-msgstr ""
-
-#: src/DataProviders/WoocommercePostsProvider.php:541
-msgid "Item"
-msgstr ""
-
-#: src/DataProviders/WoocommercePostsProvider.php:546
-msgid "Checkout"
-msgstr ""
-
-#: src/DataProviders/WoocommercePostsProvider.php:549
-msgid "View cart"
-msgstr ""
-
-#: src/DataProviders/WooDataSourceTrait.php:351
-#: src/DataProviders/WPPostDataSourceTrait.php:219
-msgid "Author"
-msgstr ""
-
-#: src/DataProviders/WooDataSourceTrait.php:352
-#: src/DataProviders/WPPostDataSourceTrait.php:220
-msgid "Create Date"
-msgstr ""
-
-#: src/DataProviders/WooDataSourceTrait.php:353
-#: src/DataProviders/WPPostDataSourceTrait.php:221
-msgid "Content"
-msgstr ""
-
-#: src/DataProviders/WooDataSourceTrait.php:354
-#: src/DataProviders/WPPostDataSourceTrait.php:222
-msgid "Title"
-msgstr ""
-
-#: src/DataProviders/WooDataSourceTrait.php:355
-#: src/DataProviders/WPPostDataSourceTrait.php:223
-msgid "Excerpt"
-msgstr ""
-
-#: src/DataProviders/WooDataSourceTrait.php:356
-#: src/DataProviders/WPPostDataSourceTrait.php:224
-msgid "Status"
-msgstr ""
-
-#: src/DataProviders/WooDataSourceTrait.php:357
-#: src/DataProviders/WPPostDataSourceTrait.php:225
-msgid "Comment Status"
-msgstr ""
-
-#: src/DataProviders/WooDataSourceTrait.php:358
-#: src/DataProviders/WPPostDataSourceTrait.php:226
-msgid "Post Type"
-msgstr ""
-
-#: src/DataProviders/WooDataSourceTrait.php:359
-#: src/DataProviders/WPPostDataSourceTrait.php:227
-msgid "Total Comments"
-msgstr ""
-
-#: src/DataProviders/WPPostsProvider.php:41
-msgid "No columns were selected."
-msgstr ""
-
-#: src/views/row_editor.php:13
-msgid "Are you sure?"
-msgstr ""
-
-#: src/views/row_editor.php:82
-msgid "Select"
-msgstr ""
-
-#: src/views/row_editor.php:109
-msgid "Upload"
-msgstr ""
-
-#: src/views/row_editor.php:142
-msgid "Please confirm deletion. There is no undo!"
-msgstr ""
-
-#: src/views/row_editor.php:148
-msgid "Apply and Add New"
-msgstr ""
-
-#: src/views/row_editor.php:150
-msgid "Update"
-msgstr ""
-
-#: src/views/row_editor.php:152
+#: src/views/row_editor.php:169
 msgid "Add"
 msgstr ""
 
-#: src/views/row_editor.php:155
+#: src/TableEditor.php:59 src/TableEditor.php:553 src/views/row_editor.php:13
+msgid "Add Data"
+msgstr ""
+
+#: src/DataProviders/WooDataSourceTrait.php:234
+msgid "Add to cart"
+msgstr ""
+
+#: src/views/row_editor.php:165
+msgid "Apply and Add New"
+msgstr ""
+
+#: src/views/row_editor.php:18
+msgid "Are you sure?"
+msgstr ""
+
+#: src/DataProviders/__WooDataSourceTrait.php:375
+#: src/DataProviders/WooDataSourceTrait.php:485
+#: src/DataProviders/WPPostDataSourceTrait.php:261
+msgid "Author"
+msgstr ""
+
+#: src/TableEditor.php:498 src/views/row_editor.php:163
+msgid "Cancel"
+msgstr ""
+
+#: src/DataProviders/__WooDataSourceTrait.php:381
+#: src/DataProviders/WooDataSourceTrait.php:491
+#: src/DataProviders/WPPostDataSourceTrait.php:267
+msgid "Comment Status"
+msgstr ""
+
+#: src/DataProviders/__WooDataSourceTrait.php:377
+#: src/DataProviders/WooDataSourceTrait.php:487
+#: src/DataProviders/WPPostDataSourceTrait.php:263
+msgid "Content"
+msgstr ""
+
+#: src/DataProviders/__WooDataSourceTrait.php:376
+#: src/DataProviders/WooDataSourceTrait.php:486
+#: src/DataProviders/WPPostDataSourceTrait.php:262
+msgid "Create Date"
+msgstr ""
+
+#: src/TableEditor.php:449
+msgid "Data successfully deleted"
+msgstr ""
+
+#: src/TableEditor.php:415
+msgid "Data successfully saved"
+msgstr ""
+
+#: src/views/row_editor.php:172
 msgid "Delete"
+msgstr ""
+
+#: src/TableEditor.php:60 src/TableEditor.php:554 src/views/row_editor.php:16
+msgid "Edit Data"
+msgstr ""
+
+#: src/TableEditor.php:58 src/TableEditor.php:552
+msgid "Edit Rows"
+msgstr ""
+
+#: src/DataProviders/__WooDataSourceTrait.php:379
+#: src/DataProviders/WooDataSourceTrait.php:489
+#: src/DataProviders/WPPostDataSourceTrait.php:265
+msgid "Excerpt"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://wpmanageninja.com/"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/"
+msgstr ""
+
+#: src/DataProviders/WoocommercePostsProvider.php:560
+msgid "Item"
+msgstr ""
+
+#: src/DataProviders/WoocommercePostsProvider.php:558
+msgid "Items"
+msgstr ""
+
+#: src/TableEditor.php:57 src/TableEditor.php:551
+msgid "New Row"
 msgstr ""
 
 #. Name of the plugin
 #: src/libs/updater/ninja_table_pro_updater.php:37
 #: src/libs/updater/ninja_table_pro_updater.php:39
 msgid "Ninja Tables Pro"
+msgstr ""
+
+#: src/DataProviders/WPPostsProvider.php:43
+msgid "No columns were selected."
+msgstr ""
+
+#: src/TableEditor.php:121 src/TableEditor.php:128
+msgid "Please check which columns can be edit at frontend"
+msgstr ""
+
+#: src/views/row_editor.php:159
+msgid "Please confirm deletion. There is no undo!"
+msgstr ""
+
+#: src/DataProviders/__WooDataSourceTrait.php:382
+#: src/DataProviders/WooDataSourceTrait.php:492
+#: src/DataProviders/WPPostDataSourceTrait.php:268
+msgid "Post Type"
+msgstr ""
+
+#: src/views/row_editor.php:126
+msgid "Remove"
+msgstr ""
+
+#: src/TableEditor.php:150
+msgid "Settings successfully updated"
+msgstr ""
+
+#: src/DataProviders/__WooDataSourceTrait.php:380
+#: src/DataProviders/WooDataSourceTrait.php:490
+#: src/DataProviders/WPPostDataSourceTrait.php:266
+msgid "Status"
 msgstr ""
 
 #: src/libs/updater/NinjaTableUpdateChecker.php:108
@@ -178,14 +162,35 @@ msgid ""
 "The Pro Add-On of Ninja Tables, best Responsive Table Plugin for WordPress."
 msgstr ""
 
-#. URI of the plugin
-msgid "https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/"
+#: src/DataProviders/WoocommercePostsProvider.php:125
+#: src/DataProviders/WPPostsProvider.php:35
+msgid "The title field is required."
+msgstr ""
+
+#: src/DataProviders/__WooDataSourceTrait.php:378
+#: src/DataProviders/WooDataSourceTrait.php:488
+#: src/DataProviders/WPPostDataSourceTrait.php:264
+msgid "Title"
+msgstr ""
+
+#: src/DataProviders/__WooDataSourceTrait.php:383
+#: src/DataProviders/WooDataSourceTrait.php:493
+#: src/DataProviders/WPPostDataSourceTrait.php:269
+msgid "Total Comments"
+msgstr ""
+
+#: src/views/row_editor.php:167
+msgid "Update"
+msgstr ""
+
+#: src/views/row_editor.php:125
+msgid "Upload"
+msgstr ""
+
+#: src/TableEditor.php:341
+msgid "Validation failed, Please fill up required fields"
 msgstr ""
 
 #. Author of the plugin
 msgid "WPManageNinja"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://wpmanageninja.com/"
 msgstr ""

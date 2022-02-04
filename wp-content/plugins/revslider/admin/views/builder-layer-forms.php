@@ -283,8 +283,8 @@ if(!defined('ABSPATH')) exit();
 						<!-- SLIDE VIDEO OVERLAY -->
 							<label_a><?php _e('Overlay', 'revslider');?></label_a><select data-evt="updateslidebasic" id="layer_dotted_overlay" class="dottedoverlay layerinput tos2 nosearchbox easyinit callEvent" data-r="media.dotted"></select>
 							<label_a><?php _e('Size', 'revslider');?></label_a><input data-numeric="true" data-allowed="none" data-min="0"  data-r="media.dottedSize" data-evt="drawBGOverlay"  type="text"  class="layerinput valueduekeyboard  easyinit callEvent" placeholder="none" >
-							<label_a><?php _e('Color 1', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 1" data-evt="updateslidebasic" name="layervideooverlaycolor_a" id="layervideooverlaycolor_a" class="my-color-field layerinput easyinit" data-visible="true" data-r="media.dottedColorA" value="transparent">
-							<label_a><?php _e('Color 2', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 2" data-evt="updateslidebasic" name="layervideooverlaycolor_b" id="layervideooverlaycolor_b" class="my-color-field layerinput easyinit" data-visible="true" data-r="media.dottedColorB" value="transparent">						
+							<label_a><?php _e('Color 1', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 1" data-evt="updateslidebasic" name="layervideooverlaycolor_a" id="layervideooverlaycolor_a" class="my-color-field layerinput easyinit" data-visible="true" data-mode="single" data-r="media.dottedColorA" value="transparent">
+							<label_a><?php _e('Color 2', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 2" data-evt="updateslidebasic" name="layervideooverlaycolor_b" id="layervideooverlaycolor_b" class="my-color-field layerinput easyinit" data-visible="true" data-mode="single" data-r="media.dottedColorB" value="transparent">						
 					</div>
 				</div>
 			</div>
@@ -467,8 +467,8 @@ if(!defined('ABSPATH')) exit();
 					<div class="_nflic_ _nvojcm_">
 						<label_a><?php _e('Layer Align', 'revslider');?></label_a>
 						<div class="radiooption">
-							<div><input name="layer_within_align" class="layerinput easyinit" data-r="behavior.baseAlign" type="radio" value="grid"><label_sub><?php _e('Layer Area', 'revslider');?></label_sub></div>
-							<div><input name="layer_within_align" class="layerinput easyinit" data-r="behavior.baseAlign" type="radio" value="slide"><label_sub><?php _e('Scene', 'revslider');?></label_sub></div>
+							<div><input name="layer_within_align" class="layerinput easyinit" data-r="behavior.baseAlign" data-evt="layerAlignChanged" type="radio" value="grid"><label_sub><?php _e('Layer Area', 'revslider');?></label_sub></div>
+							<div><input name="layer_within_align" class="layerinput easyinit" data-r="behavior.baseAlign" data-evt="layerAlignChanged" type="radio" value="slide"><label_sub><?php _e('Scene', 'revslider');?></label_sub></div>
 						</div>
 					</div>
 				</div>

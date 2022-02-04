@@ -2,7 +2,7 @@
 /*
 Plugin Name: Ninja Tables Pro
 Description: The Pro Add-On of Ninja Tables, best Responsive Table Plugin for WordPress.
-Version: 4.1.8
+Version: 4.1.10
 Author: WPManageNinja
 Author URI: https://wpmanageninja.com/
 Plugin URI: https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/
@@ -23,7 +23,7 @@ update_option('_ninjatables_pro_license_key', 'B5E0B5F8DD8689E6ACA49DD6E6E1A930'
 defined('NINJATABLESPRO') or define('NINJATABLESPRO', true);
 define('NINJAPROPLUGIN_PATH', plugin_dir_path(__FILE__));
 define('NINJAPRO_PLUGIN_FILE', __FILE__);
-defined('NINJAPROPLUGIN_VERSION') or define('NINJAPROPLUGIN_VERSION', '4.1.8');
+defined('NINJAPROPLUGIN_VERSION') or define('NINJAPROPLUGIN_VERSION', '4.1.10');
 define('NINJAPROPLUGIN_URL', plugin_dir_url(__FILE__));
 
 define('NINJATABLESPRO_SORTABLE', true);
@@ -63,6 +63,7 @@ if (!class_exists('NinjaTablesPro')) {
             add_action('wp_ajax_ninja_tables_sort_table', '\NinjaTablesPro\Sortable::sort');
 
             add_action('ninja_tables_loaded_boot_script', array($this, 'loadFormulaScript'));
+            add_action('ninja_tables_custom_code_before_save', '\NinjaTablesPro\TableEditor::savedCustomCode');
         }
 
         public function public_hooks()

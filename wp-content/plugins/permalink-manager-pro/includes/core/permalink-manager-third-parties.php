@@ -80,6 +80,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		add_filter('seopress_pro_breadcrumbs_crumbs', array($this, 'filter_breadcrumbs'), 9);
 		add_filter('woocommerce_get_breadcrumb', array($this, 'filter_breadcrumbs'), 9);
 		add_filter('slim_seo_breadcrumbs_links', array($this, 'filter_breadcrumbs'), 9);
+		add_filter('avia_breadcrumbs_trail', array($this, 'filter_breadcrumbs'), 100);
 
 		// 8. WooCommerce Wishlist Plugin
 		if(function_exists('tinv_get_option')) {
@@ -123,7 +124,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		if(class_exists('\MyListing\Post_Types')) {
 			add_filter('permalink_manager_filter_default_post_uri', array($this, 'ml_listing_custom_fields'), 5, 5 );
 			add_action('mylisting/submission/save-listing-data', array($this, 'ml_set_listing_uri'), 100);
-			add_filter('permalink_manager_filter_query', array($this, 'ml_detect_archives'), 1);
+			add_filter('permalink_manager_filter_query', array($this, 'ml_detect_archives'), 1, 2);
 		}
 
 		// 14. bbPress
@@ -717,7 +718,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
  			}
  		}
 
- 		// Add new links to current breadcrumbs array
+		// Add new links to current breadcrumbs array
  		if(!empty($links) && is_array($links)) {
  			$first_element = reset($links);
  			$last_element = end($links);
@@ -731,13 +732,24 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
  						$breadcrumb[1] = $breadcrumb['url'];
  					}
  				}
- 			}
 
- 			if(in_array($current_filter, array('slim_seo_breadcrumbs_links'))) {
- 				$links = array_merge(array($first_element), $breadcrumbs);
- 			} else {
- 				$links = array_merge(array($first_element), $breadcrumbs, array($last_element));
+				if(in_array($current_filter, array('slim_seo_breadcrumbs_links'))) {
+					$links = array_merge(array($first_element), $breadcrumbs);
+				} else {
+					$links = array_merge(array($first_element), $breadcrumbs, array($last_element));
+				}
  			}
+			// Support Avia/Enfold breadcrumbs
+			else if($current_filter == 'avia_breadcrumbs_trail') {
+				foreach($breadcrumbs as &$breadcrumb) {
+ 					if(isset($breadcrumb['text'])) {
+						$breadcrumb = sprintf('<a href="%s" title="%2$s">%2$s</a>', esc_attr($breadcrumb['url']), esc_attr($breadcrumb['text']));
+ 					}
+ 				}
+
+				$links = $breadcrumbs;
+				$links['trail_end'] = $last_element;
+			}
  		}
 
  		return array_filter($links);
@@ -1101,27 +1113,46 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		}
 	}
 
-	function ml_detect_archives($query) {
+	function ml_detect_archives($query, $old_query) {
 		if(function_exists('mylisting_custom_taxonomies') && empty($_POST['submit_job'])) {
 			$explore_page_id = get_option('options_general_explore_listings_page', false);
 			if(empty($explore_page_id)) { return $query; }
 
-			$taxonomies = mylisting_custom_taxonomies();
-			$taxonomies = array_merge(array_keys($taxonomies), array('job_listing_category', 'region', 'case27_job_listing_tags'));
+			// 1. Set-up new query array variable
+			$new_query = array(
+				"page_id" => $explore_page_id
+			);
 
-			// Check if any MyListing taxonomy was detected
-			foreach($taxonomies as $taxonomy) {
-				if(!empty($query[$taxonomy]) && empty($_GET[$taxonomy])) {
-					return array(
-						"page_id" => $explore_page_id,
-						"explore_tab" => $taxonomy,
-						"explore_{$taxonomy}" => $query['term']
-					);
+			// 2A. Check if any custom MyListing taxonomy was detected
+			$ml_taxonomies = mylisting_custom_taxonomies();
+
+			if(!empty($ml_taxonomies) && is_array($ml_taxonomies)) {
+				$ml_taxonomies = array_keys($ml_taxonomies);
+
+				foreach($ml_taxonomies as $taxonomy) {
+					if(!empty($query[$taxonomy]) && empty($_GET[$taxonomy])) {
+						$new_query["explore_tab"] = $taxonomy;
+						$new_query["explore_{$taxonomy}"] = $query['term'];
+					}
+				}
+			}
+
+			// 2b. Check if any MyListing query var was detected
+			$ml_query_vars = array(
+				'explore_tag' => 'tags',
+				'explore_region' => 'regions',
+				'explore_category' => 'categories'
+			);
+
+			foreach($ml_query_vars as $query_var => $explore_tab) {
+				if(!empty($old_query[$query_var]) && empty($_GET[$query_var])) {
+					$new_query[$query_var] = $old_query[$query_var];
+					$new_query["explore_tab"] = $explore_tab;
 				}
 			}
 		}
 
-		return $query;
+		return (!empty($new_query["explore_tab"])) ? $new_query : $query;
 	}
 
 	/**
@@ -1164,7 +1195,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 		global $post, $wp_query, $wp, $pm_query;
 
 		// Check if Dokan is activated
-		if(!function_exists('dokan_get_option') || is_admin()) { return; }
+		if(!function_exists('dokan_get_option') || is_admin() || empty($pm_query['id'])) { return; }
 
 		// Get Dokan dashboard page id
 		$dashboard_page = dokan_get_option('dashboard', 'dokan_pages');

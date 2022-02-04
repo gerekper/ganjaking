@@ -1,0 +1,88 @@
+/**
+ * YITH Plugin UI - WP Pages
+ */
+
+.yith-plugin-fw-wp-page-wrapper {
+
+  .yith-plugin-fw__back-to-wp-list__wrapper {
+    margin: -5px 0 15px;
+
+    .yith-plugin-fw__back-to-wp-list {
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--yith-link);
+      vertical-align: middle;
+
+      &:before {
+        content: "\e901";
+        font-family: yith-icon;
+        margin-right: 5px;
+        font-size: .8em;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .wrap div#message.updated {
+    display: none;
+    padding: 15px 40px 15px 45px;
+    margin: 15px 0 20px;
+    border-radius: 5px;
+    background: var(--yith-success-lightest);
+    border: 1px solid var(--yith-success-light);
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+    color: var(--yith-content-text);
+    box-shadow: 1px 1px 2px var(--yith-success-lighter);
+
+
+    &:before {
+      font-family: yith-icon;
+      content: "\e921";
+      position: absolute;
+      top: 50%;
+      left: 13px;
+      font-size: 21px;
+      font-weight: 400;
+      transform: translateY(-50%);
+      color: var(--yith-success);
+    }
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    .notice-dismiss {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      color: var(--yith-success);
+      padding: 7px;
+      background: transparent;
+      box-shadow: 0 0 0 5px rgba(0, 0, 0, 0);
+      transition: all .3s ease-in-out;
+
+      &:before {
+        font-family: yith-icon;
+        content: "\e906";
+        font-weight: 600;
+        font-size: 12px;
+        color: inherit;
+      }
+
+      &:hover {
+        box-shadow: 0 0 0 0 var(--yith-success-lighter);
+        background: var(--yith-success-lighter);
+      }
+
+      &:hover:before, &:active:before, &:focus:before {
+        color: inherit;
+      }
+    }
+  }
+}

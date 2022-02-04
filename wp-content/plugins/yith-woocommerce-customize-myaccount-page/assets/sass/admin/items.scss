@@ -1,0 +1,270 @@
+.button-container {
+    padding: 0 20px;
+    background: #fff;
+    border-right: 1px solid #d8d8d8;
+    border-left: 1px solid #d8d8d8;
+}
+
+.items-container {
+    padding: 30px 20px;
+    background: #fff;
+    border: 1px solid #d8d8d8;
+    border-top: 0;
+
+    > .items {
+        max-width: 70%;
+    }
+}
+
+.item {
+    .item-content {
+        background: #fff;
+        border: 1px solid #d9d9d9;
+        min-height: 45px;
+        height: auto;
+        font-weight: normal;
+        padding: 0 10px;
+
+        .item-header {
+            display: flex;
+            align-items: center;
+            align-content: center;
+            padding: 10px 0;
+
+            .toggle-options {
+                padding: 10px 10px 10px 0;
+                line-height: 1;
+                cursor: pointer;
+
+                span {
+                    display: inline-block;
+                    transform: rotate(0);
+                    -moz-transform: rotate(0);
+                    -webkit-transform: rotate(0);
+                    transition: all 0.5s ease;
+                    -moz-transition: all 0.5s ease;
+                    -webkit-transition: all 0.5s ease;
+                }
+            }
+
+            .item-info-container {
+                background: transparent;
+                border: none;
+                margin: 0;
+                padding: 0;
+                height: auto;
+                font-weight: 500;
+                cursor: move;
+                box-shadow: none;
+                flex: 1 1 auto;
+
+                .item-info {
+                    display: flex;
+                    align-items: center;
+                    align-content: center;
+
+                    .item-title {
+                        text-transform: uppercase;
+                        font-weight: bold;
+                        flex: 1 1 auto;
+
+                        .sub-item-label {
+                            display: none;
+                            color: #c0c0c0;
+                            margin-left: 10px;
+                            font-size: 14px;
+                            text-transform: none;
+                            font-weight: 500;
+                        }
+                    }
+
+                    .item-type {
+                        padding: 0 5px;
+                        font-size: inherit;
+                        line-height: inherit;
+                        text-align: right;
+                    }
+                }
+            }
+
+            .item-actions {
+                padding-left: 10px;
+                & > * {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+
+                .remove-item {
+                    cursor: pointer;
+                    margin-right: 5px;
+                    &:before {
+                        transition: all .3s ease;
+                    }
+                    &:hover:before {
+                        color: #d90d10;
+                    }
+                }
+
+                .yith-plugin-fw-onoff-container input {
+                    & + span {
+                        width: 45px;
+                        height: 20px;
+                        line-height: 12px;
+
+                        &:before {
+                            width: 10px;
+                            height: 10px;
+                            top: 4px;
+                            left: 4px;
+                        }
+
+                        &:after {
+                            height: 12px;
+                            font-size: 10px;
+                            padding-left: 10px;
+                            line-height: 10px;
+                        }
+                    }
+
+                    &:checked + span {
+                        &:before {
+                            left: 30px;
+                        }
+                        &:after {
+                            padding: 0 10px 0 0;
+                        }
+                    }
+                }
+            }
+
+            .drag-item, .item-type, .remove-item {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            span.yith-icon {
+                margin-left: 0;
+                line-height: inherit;
+            }
+        }
+
+        .item-options {
+            padding: 0 30px;
+
+            // overwrite plugin FW rules
+            table {
+                margin-top: 20px;
+                border: none !important;
+                
+                tr.hidden {
+                    display: none;
+                }
+
+                textarea {
+                    width: 100%;
+                    border-radius: 0 !important;
+                    border: 0 !important;
+                }
+
+                input.required-error {
+                    border-color: #ef0808 !important;
+                    & + .description {
+                        color: #ef0808;
+                    }
+                }
+
+                .editor {
+                    max-width: 750px;
+                }
+
+                .yith-plugin-fw-upload-img-preview {
+                    max-width: 50px;
+                }
+            }
+            .save-item {
+                margin-bottom: 20px;
+            }
+            .spinner {
+                vertical-align: 3px;
+            }
+        }
+
+        &.dd-nodrag {
+            .item-info-container {
+                cursor: default;
+                color: #2ea8e5;
+            }
+        }
+
+        &:hover {
+            .item-header {
+                .drag-item, .item-type, .remove-item {
+                    opacity: 1;
+                    visibility: visible;
+                    transition: all 0.5s ease;
+                    -webkit-transition: all 0.5s ease;
+                    -moz-transition: all 0.5s ease;
+                }
+            }
+        }
+    }
+
+    &.opened {
+        .item-header {
+            .toggle-options {
+                span {
+                    transform: rotate(90deg);
+                    -moz-transform: rotate(90deg);
+                    -webkit-transform: rotate(90deg);
+                }
+            }
+        }
+    }
+
+    &.group {
+        .items {
+            .item-header {
+                .sub-item-label {
+                    display: inline-block !important;
+                }
+            }
+        }
+    }
+}
+
+#yith-wcmap-add-item-form {
+    margin-top: 20px;
+    border: 1px solid #d9d9d9;
+    .item-content {
+        border: none;
+    }
+
+    .yith-toggle-content-buttons {
+        padding: 0 40px;
+        margin-bottom: 20px;
+    }
+}
+#yith-wcmap-items-form {
+    p.submit {
+        float: left;
+        margin-right: 10px;
+    }
+}
+
+@media ( max-width: 1440px ) {
+    .items-container {
+        > .items {
+            max-width: none;
+        }
+    }
+}
+
+@media (max-width: 782px) {
+    .items-container {
+        table {
+            td {
+                padding: 4px 0 6px 0;
+            }
+        }
+    }
+}

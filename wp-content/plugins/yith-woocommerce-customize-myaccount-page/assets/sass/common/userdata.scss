@@ -1,0 +1,85 @@
+.yith-wcmap {
+    .user-profile {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+
+        .user-avatar {
+            margin-right: 20px;
+
+            img {
+                border-radius: var(--ywcmap-avatar-border-radius, 0);
+            }
+
+            &.avatar-upload {
+                cursor: pointer;
+                position: relative;
+
+                &:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    right: -5px;
+                    bottom: -10px;
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%;
+                    background: url( '../images/photo.svg' ) #29ac8f no-repeat;
+                    background-position: 8px 9px;
+                    background-size: 18px;
+                }
+            }
+        }
+
+        .user-info {
+            > span {
+                display: block;
+                margin-bottom: 7px;
+                line-height: normal;
+            }
+
+            .username {
+                font-weight: 600;
+            }
+
+            .user-email {
+                font-size: 80%;
+            }
+
+            .logout {
+                a {
+                    padding: 2px 10px;
+                    font-size: 80%;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    border: 0;
+                    color: var(--ywcmap-logout-text-color);
+                    background-color: var(--ywcmap-logout-background-color);
+
+                    &:hover {
+                        color: var(--ywcmap-logout-text-color-hover);
+                        background-color: var(--ywcmap-logout-background-color-hover);
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    &.position-vertical-right {
+        .user-profile {
+            flex-direction: row-reverse;
+
+            .user-avatar {
+                margin-right: 0;
+                margin-left: 10px;
+            }
+
+            .user-info {
+                text-align: right;
+            }
+        }
+    }
+}

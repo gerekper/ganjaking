@@ -121,6 +121,10 @@ function a2w_get_product_proc(params, callback) {
         }
 
         $("#doaction, #doaction2").click(function (e) {
+            if (b2w_update_action_lock) {
+                e.preventDefault();
+                return;
+            }
             var check_action = ($(this).attr('id') == 'doaction') ? $('#bulk-action-selector-top').val() : $('#bulk-action-selector-bottom').val();
             if (!a2w_update_action_lock && ('a2w_product_update_manual' === check_action || 'a2w_product_update_reviews_manual' === check_action)) {
                 e.preventDefault();

@@ -1,0 +1,1237 @@
+# Translation of YITH WooCommerce Customize My Account Page in Dutch
+# This file is distributed under the same license as the YITH WooCommerce Customize My Account Page package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Customize My Account Page\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"customize-my-account-page\n"
+"POT-Creation-Date: 2022-02-01 10:39:56+00:00\n"
+"PO-Revision-Date: 2021-03-15 20:22:53+0000\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#: includes/admin/class.yith-wcmap-admin.php:120
+msgid "Are you sure that you want to delete this endpoint?"
+msgstr "Weet u zeker dat u dit wilt verwijderen?"
+
+#: includes/admin/class.yith-wcmap-admin.php:158
+msgid "Endpoints"
+msgstr "Eindpunten"
+
+#: includes/admin/class.yith-wcmap-admin.php:159
+msgid "General Settings"
+msgstr "Algemene instellingen"
+
+#: includes/admin/class.yith-wcmap-admin.php:160
+#: plugin-options/style-options.php:36
+msgid "Style Options"
+msgstr "Stijlopties"
+
+#: includes/admin/class.yith-wcmap-admin.php:161
+#: plugin-options/banners-options.php:19 plugin-options/banners-options.php:27
+msgid "Banners"
+msgstr "Banners"
+
+#: includes/admin/class.yith-wcmap-admin.php:162
+#: plugin-options/security-options.php:17
+msgid "Security Options"
+msgstr "Beveiligings optie"
+
+#: includes/class.yith-wcmap-avatar.php:399
+msgid "Custom Avatar"
+msgstr "Aangepaste Avatar"
+
+#: includes/class.yith-wcmap-avatar.php:439
+msgid "Removed customer avatar"
+msgstr "Aangepaste Avatar verwijderd"
+
+#: includes/class.yith-wcmap-frontend.php:604
+msgid "There are no available downloads yet."
+msgstr "Er zijn nog geen downloads beschikbaar."
+
+#: includes/class.yith-wcmap-frontend.php:662
+msgid "Invalid order."
+msgstr "Onjuiste bestelling."
+
+#: includes/class.yith-wcmap-frontend.php:662
+msgid "My Account"
+msgstr "Mijn Account"
+
+#: includes/class.yith-wcmap-items.php:302
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: includes/class.yith-wcmap-items.php:303
+msgid "My Orders"
+msgstr "Mijn bestellingen"
+
+#: includes/class.yith-wcmap-items.php:304
+msgid "My Downloads"
+msgstr "Mijn Downloads"
+
+#: includes/class.yith-wcmap-items.php:305
+msgid "Edit Address"
+msgstr "Adres bewerken"
+
+#: includes/class.yith-wcmap-items.php:306
+msgid "Payment Methods"
+msgstr "Betaalmethoden"
+
+#: includes/class.yith-wcmap-items.php:307
+msgid "Edit Account"
+msgstr "Account bewerken"
+
+#: includes/class.yith-wcmap-items.php:308
+#: templates/ywcmap-myaccount-menu.php:34
+msgid "Logout"
+msgstr "Uitloggen"
+
+#: includes/class.yith-wcmap-security.php:176
+msgid "ReCaptcha validation error. Please try again."
+msgstr "Er is ReCaptcha validatie probeem opgetreden, probeer het opnieuw."
+
+#: includes/class.yith-wcmap-security.php:203
+msgid "Email domain is not valid! Please use a different one and try again."
+msgstr ""
+"E-maildomein is niet geldig! Gebruik een andere en probeer het opnieuw."
+
+#: includes/class.yith-wcmap-security.php:426
+msgid "Click here to resend email."
+msgstr "Klik hier om e-mail opnieuw te verzenden."
+
+#. translators: %s stand for the link to resend confirmation email.
+#: includes/class.yith-wcmap-security.php:448
+msgid ""
+"You have to confirm your account. Please, click on the link in the "
+"verification email. %s"
+msgstr ""
+"U moet uw account bevestigen. Klik alstublieft op de link in de verificatie-"
+"e-mail. %s"
+
+#. translators: %s is a message that ask customer to confirm the account
+#. clicking on the link in the verification email.
+#: includes/class.yith-wcmap-security.php:454
+msgid "An account is already registered with this email. %s"
+msgstr "Er is al een account geregistreerd bij deze e-mail. %s"
+
+#. translators: %s is a message that ask customer to confirm the account
+#. clicking on the link in the verification email.
+#: includes/class.yith-wcmap-security.php:458
+msgid "Login is not permitted! %s"
+msgstr "Inloggen is niet toegestaan! %s"
+
+#. translators: %s is a message that ask customer to confirm the account
+#. clicking on the link in the verification email.
+#: includes/class.yith-wcmap-security.php:462
+msgid "Checkout is not permitted! %s"
+msgstr "Afrekenen is niet toegestaan! %s"
+
+#: includes/class.yith-wcmap-security.php:465
+msgid "Thanks your account is now confirmed!"
+msgstr "Bedankt dat je account nu is bevestigd!"
+
+#: includes/class.yith-wcmap-security.php:468
+msgid ""
+"A confirmation email has been sent to your email address. Please click on "
+"the confirmation link in the email to complete your account activation."
+msgstr ""
+"Een bevestigingsmail is verzonden naar uw e-mailadres. Klik op de "
+"bevestigingslink in de e-mail om het activeren van uw account te voltooien."
+
+#: includes/class.yith-wcmap.php:80 includes/class.yith-wcmap.php:89
+msgid "Cheatin&#8217; huh?"
+msgstr "Cheatin&#8217; huh?"
+
+#: includes/compatibilities/class.yith-wcmap-advanced-reviews-compatibility.php:30
+msgid "Reviews"
+msgstr ""
+
+#: includes/compatibilities/class.yith-wcmap-auctions-compatibility.php:30
+msgid "Auctions"
+msgstr "Veilingen"
+
+#: includes/compatibilities/class.yith-wcmap-bookings-compatibility.php:29
+msgid "Bookings"
+msgstr "Boekingen"
+
+#: includes/compatibilities/class.yith-wcmap-funds-compatibility.php:31
+msgid "Make a Deposit"
+msgstr "Doe een storting"
+
+#: includes/compatibilities/class.yith-wcmap-funds-compatibility.php:37
+msgid "Income/Expenditure History"
+msgstr "Inkomsten/uitgaven geschiedenis"
+
+#: includes/compatibilities/class.yith-wcmap-gift-cards-compatibility.php:30
+msgid "Gift Cards"
+msgstr "Cadeaubonnen"
+
+#: includes/compatibilities/class.yith-wcmap-membership-compatibility.php:28
+#: includes/compatibilities/class.yith-wcmap-membership-compatibility.php:34
+msgid "Membership Plans"
+msgstr "Lidmaatschap plannen"
+
+#: includes/compatibilities/class.yith-wcmap-membership-compatibility.php:95
+msgid "Only users of a specific membership plan"
+msgstr "Alleen gebruikers met een specifiek lidmaatschap plan"
+
+#: includes/compatibilities/class.yith-wcmap-membership-compatibility.php:100
+msgid "Membership plans"
+msgstr "Lidmaatschap plannen"
+
+#: includes/compatibilities/class.yith-wcmap-membership-compatibility.php:101
+msgid ""
+"Restrict endpoint visibility to users who are purchased following membership "
+"plan(s)"
+msgstr ""
+"Beperkte eindpunt weergave voor de gebruikers die de volgende lidmaatschap "
+"plan(nen) hebben gekocht."
+
+#: includes/compatibilities/class.yith-wcmap-one-click-compatibility.php:30
+msgid "One click checkout"
+msgstr "Een klik checkout"
+
+#: includes/compatibilities/class.yith-wcmap-payouts-compatibility.php:30
+msgid "Payouts"
+msgstr "Payouts"
+
+#: includes/compatibilities/class.yith-wcmap-refund-requests-compatibility.php:30
+msgid "Refund Requests"
+msgstr "Restitutie verzoeken"
+
+#: includes/compatibilities/class.yith-wcmap-request-quote-compatibility.php:31
+msgid "My Quotes"
+msgstr "Mijn offertes"
+
+#. translators: %s stand for the ID of the quote.
+#: includes/compatibilities/class.yith-wcmap-request-quote-compatibility.php:151
+msgid "Quote #%s"
+msgstr "Offerte #%s"
+
+#: includes/compatibilities/class.yith-wcmap-stripe-connect-compatibility.php:30
+msgid "Stripe Connect"
+msgstr "Stripe Connect"
+
+#: includes/compatibilities/class.yith-wcmap-subscriptions-compatibility.php:32
+msgid "My Subscriptions"
+msgstr "Mijn subscripties"
+
+#: includes/compatibilities/class.yith-wcmap-tinv-wishlist-compatibility.php:30
+#: includes/compatibilities/class.yith-wcmap-wishlist-compatibility.php:29
+msgid "My Wishlist"
+msgstr "Mijn wensenlijst"
+
+#: includes/compatibilities/class.yith-wcmap-waiting-list-compatibility.php:30
+msgid "My Waiting List"
+msgstr "Mijn wachtlijst"
+
+#: includes/compatibilities/class.yith-wcmap-wc-api-manager-compatibility.php:31
+msgid "API Keys"
+msgstr "API Keys"
+
+#: includes/compatibilities/class.yith-wcmap-wc-api-manager-compatibility.php:35
+msgid "API Downloads"
+msgstr "API Downloads"
+
+#: includes/compatibilities/class.yith-wcmap-wc-membership-compatibility.php:66
+msgid "My Membership"
+msgstr "Mijn lidmaatschap"
+
+#: includes/compatibilities/class.yith-wcmap-wc-subscriptions-compatibility.php:30
+msgid "My Subscription"
+msgstr "Mijn subscriptie"
+
+#: includes/compatibilities/class.yith-wcmap-wt-smart-coupon-compatibility.php:30
+msgid "My Coupons"
+msgstr "Mijn kortingsbonnen"
+
+#: includes/email/class.yith-wcmap-verify-account.php:50
+msgid "YITH Customize My Account Verify Account"
+msgstr "YITH Pas mijn account aan Controleer account"
+
+#: includes/email/class.yith-wcmap-verify-account.php:54
+msgid "{blogname}"
+msgstr "{blogname}"
+
+#: includes/email/class.yith-wcmap-verify-account.php:55
+msgid "You need to verify your account email."
+msgstr "U moet het e-mailadres van uw account verifiëren."
+
+#: init.php:51
+msgid ""
+"YITH WooCommerce Customize My Account Page is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"YITH WooCommerce Customize My Account Page is ingeschakeld maar niet "
+"werkend. Het heeft WooCommerce nodig om te werken."
+
+#: plugin-options/banners-options.php:30
+msgid "Add banner"
+msgstr "Banner toevoegen"
+
+#: plugin-options/banners-options.php:31
+msgid "Close new element"
+msgstr "Nieuw element sluiten"
+
+#: plugin-options/banners-options.php:49
+#: plugin-options/items-options-fields.php:37
+#: plugin-options/items-options-fields.php:125
+#: plugin-options/items-options-fields.php:195
+msgid "Don't show an icon"
+msgstr "Geen pictogram tonen"
+
+#: plugin-options/banners-options.php:50
+#: plugin-options/items-options-fields.php:38
+#: plugin-options/items-options-fields.php:126
+#: plugin-options/items-options-fields.php:196
+msgid "Show a default icon"
+msgstr "Toon een standaardpictogram"
+
+#: plugin-options/banners-options.php:51
+#: plugin-options/items-options-fields.php:39
+#: plugin-options/items-options-fields.php:127
+#: plugin-options/items-options-fields.php:197
+msgid "Upload a custom icon"
+msgstr "Persoonlijk pictogram uploaden"
+
+#: plugin-options/banners-options.php:197
+msgid "Don't add a link"
+msgstr "Geen link toevoegen"
+
+#: plugin-options/banners-options.php:198
+msgid "To a specific endpoint"
+msgstr "Een specifiek endpoint"
+
+#: plugin-options/banners-options.php:199
+msgid "To an external url"
+msgstr "Een externe url"
+
+#: plugin-options/banners-options.php:205
+#: plugin-options/banners-options.php:217
+msgid "Banner links to"
+msgstr "Banner is gelinkt aan"
+
+#: plugin-options/banners-options.php:230
+msgid "Show banner to"
+msgstr "Toon banner aan"
+
+#: plugin-options/banners-options.php:231
+msgid ""
+"Choose whether to show this banner to all users or only to specific users"
+msgstr ""
+"Bepaal of je deze banner wilt tonen aan alle gebruikers of alleen specifieke "
+"gebruikers"
+
+#: plugin-options/banners-options.php:233
+#: plugin-options/items-options-fields.php:68
+#: plugin-options/items-options-fields.php:156
+#: plugin-options/items-options-fields.php:226
+msgid "All users"
+msgstr "Alle gebruikers"
+
+#: plugin-options/banners-options.php:234
+#: plugin-options/items-options-fields.php:69
+#: plugin-options/items-options-fields.php:157
+#: plugin-options/items-options-fields.php:227
+msgid "Only users with a specific role"
+msgstr "Alleen gebruikers met een specifieke rol"
+
+#: plugin-options/banners-options.php:242
+#: plugin-options/items-options-fields.php:75
+#: plugin-options/items-options-fields.php:163
+#: plugin-options/items-options-fields.php:233
+msgid "User roles"
+msgstr "Gebruikersrollen"
+
+#: plugin-options/banners-options.php:243
+#: plugin-options/items-options-fields.php:76
+#: plugin-options/items-options-fields.php:164
+#: plugin-options/items-options-fields.php:234
+msgid "Restrict visibility to the following user role(s)."
+msgstr "Beperk zichtbarheid voor de volgende gebruikersrol(len)."
+
+#: plugin-options/general-options.php:17
+msgid "General Options"
+msgstr "Algemene opties"
+
+#: plugin-options/general-options.php:24 plugin-options/general-options.php:29
+msgid "Default user avatar"
+msgstr "Standaard gebruikersavatar"
+
+#: plugin-options/general-options.php:25
+msgid ""
+"Choose whether to use a default avatar icon or upload a custom one for your "
+"users."
+msgstr ""
+"Bepaal of je een standaard avatar pictogram wilt gebruiken of upload een "
+"persoonlijke avatar voor je gebruikers."
+
+#: plugin-options/general-options.php:30
+msgid "Upload a custom user avatar"
+msgstr "Een persoonlijke gebruikersavatar uploaden"
+
+#: plugin-options/general-options.php:37
+msgid "Upload default avatar"
+msgstr "Standaardavatar uploaden"
+
+#: plugin-options/general-options.php:38
+msgid ""
+"Upload a custom avatar for you users. A square image with a width of 200px "
+"works best."
+msgstr ""
+"Een custom avatar uploaden voor je gebruikers. Een vierkante afbeelding met "
+"een breedte van 200px werkt het beste."
+
+#: plugin-options/general-options.php:52
+msgid "Avatar size"
+msgstr "Avatargrootte"
+
+#: plugin-options/general-options.php:53
+msgid "Set the avatar size in px."
+msgstr "Avatargrootte instellen in px."
+
+#: plugin-options/general-options.php:63
+msgid "Avatar border radius"
+msgstr "Avatar border radius"
+
+#: plugin-options/general-options.php:64
+msgid ""
+"Set the avatar border radius. A border radius of 0 means a square avatar, a "
+"border radius of 10 is a circle avatar."
+msgstr ""
+"Avatar rand radius instellen. Een rand radius van 0 betekend een vierkante "
+"avatar, een rand radius van 10 is een cirkelvormige avatar."
+
+#: plugin-options/general-options.php:77
+msgid "Allow users to upload avatar"
+msgstr "Toestaan dat gebruikers een avatar kunnen uploaden"
+
+#: plugin-options/general-options.php:78
+msgid ""
+"If enabled users can upload a custom image to replace the default avatar."
+msgstr ""
+"Indien ingeschakeld kunnen gebruikers een aangepaste afbeelding uploaden om "
+"de standaard avatar te vervangen."
+
+#: plugin-options/general-options.php:86
+msgid "Enable AJAX navigation"
+msgstr "AJAX navigatie inschakelen"
+
+#: plugin-options/general-options.php:87
+msgid "Enable AJAX navigation between the endpoints."
+msgstr "AJAX navigatie tussen endpoints inschakelen."
+
+#: plugin-options/general-options.php:95
+msgid "Default endpoint"
+msgstr "Default eindpunt"
+
+#: plugin-options/general-options.php:96
+msgid "Choose the default endpoint for \"My account\" page"
+msgstr "Kies een default eindpunt voor \"Mijn Account\" pagina"
+
+#: plugin-options/items-options-fields.php:19
+msgid "Endpoint label"
+msgstr "Eindpunt label"
+
+#: plugin-options/items-options-fields.php:20
+msgid "Enter a name to identify this endpoint"
+msgstr "Naam invoeren om dit endpoint te identificeren"
+
+#: plugin-options/items-options-fields.php:25
+msgid "Endpoint slug"
+msgstr "Eindpunt slug"
+
+#: plugin-options/items-options-fields.php:26
+msgid "Enter a slug for this endpoint"
+msgstr "Slug invoeren voor dit endpoint"
+
+#: plugin-options/items-options-fields.php:34
+msgid "Endpoint icon"
+msgstr "Eindpunt icoon"
+
+#: plugin-options/items-options-fields.php:35
+msgid "Choose if show or not an icon to identify this endpoint"
+msgstr ""
+"Bepaal of je wel of geen icoon wilt tonen om dit endpoint te identificeren"
+
+#: plugin-options/items-options-fields.php:45
+#: plugin-options/items-options-fields.php:133
+#: plugin-options/items-options-fields.php:203
+msgid "Choose icon"
+msgstr "Icoon kiezen"
+
+#: plugin-options/items-options-fields.php:46
+msgid "Choose an icon to identify this endpoint"
+msgstr "Kies een icoon om dit endpoint te identificeren"
+
+#: plugin-options/items-options-fields.php:56
+#: plugin-options/items-options-fields.php:144
+#: plugin-options/items-options-fields.php:214
+msgid "Upload icon"
+msgstr "Icoon uploaden"
+
+#: plugin-options/items-options-fields.php:57
+msgid "Upload you custom icon to identify this endpoint"
+msgstr "Persoonlijk icoon uploaden om dit endpoint te identificeren"
+
+#: plugin-options/items-options-fields.php:65
+msgid "Show endpoint to"
+msgstr "Endpoint tonen aan"
+
+#: plugin-options/items-options-fields.php:66
+msgid ""
+"Choose whether to show this endpoint to all users or only to specific users"
+msgstr ""
+"Bepaal of je dit endpoint wilt tonen aan alle gebruikers of alleen aan "
+"specifieke gebruikers"
+
+#: plugin-options/items-options-fields.php:86
+msgid "Content"
+msgstr "Inhoud"
+
+#: plugin-options/items-options-fields.php:87
+msgid ""
+"Set the endpoint content. Use <code>%%customer_name%%</code> as placeholder "
+"for print the current customer name."
+msgstr ""
+"Endpoint inhoud instellen. Gebruik <code>%%customer_name%%</code> als "
+"invulveld om de huidige klantnaam te printen"
+
+#: plugin-options/items-options-fields.php:93
+msgid "Place content"
+msgstr "Inhoud plaatsen"
+
+#: plugin-options/items-options-fields.php:94
+msgid ""
+"Choose to overwrite the default content or add before/after the default "
+"content"
+msgstr ""
+"Bepaal of je het wilt toevoegen voor/na de standaard inhoud, of dat je de "
+"standaard inhoud wilt overschrijven"
+
+#: plugin-options/items-options-fields.php:96
+msgid "Before the default content"
+msgstr "Voor de standaard inhoud"
+
+#: plugin-options/items-options-fields.php:97
+msgid "After the default content"
+msgstr "Na de standaard inhoud"
+
+#: plugin-options/items-options-fields.php:98
+msgid "Overriding the default content"
+msgstr "Standaardinhoud overschrijven"
+
+#: plugin-options/items-options-fields.php:104
+#: plugin-options/items-options-fields.php:174
+#: plugin-options/items-options-fields.php:244
+msgid "CSS class"
+msgstr "CSS klassen"
+
+#: plugin-options/items-options-fields.php:105
+#: plugin-options/items-options-fields.php:175
+msgid "Add additional CSS classes to this endpoint container"
+msgstr "Aanvullende CSS klassen toevoegen aan deze endpoint container"
+
+#: plugin-options/items-options-fields.php:111
+msgid "Group label"
+msgstr "Groep label"
+
+#: plugin-options/items-options-fields.php:112
+msgid "Enter a name to identify this endpoints group"
+msgstr "Naam invoeren om deze endpoint groep te identificeren"
+
+#: plugin-options/items-options-fields.php:117
+msgid "Show open"
+msgstr "Toon open"
+
+#: plugin-options/items-options-fields.php:118
+msgid ""
+"Show the group open by default. (Please note: this option is valid only for "
+"\"Sidebar\" style)"
+msgstr ""
+"Toon de open groep met default. (Let op: deze optie is alleen geldig voor "
+"\"Sidebar\" stijl)"
+
+#: plugin-options/items-options-fields.php:122
+msgid "Group icon"
+msgstr "Groepsicoon"
+
+#: plugin-options/items-options-fields.php:123
+msgid "Choose if show or not an icon to identify this endpoints group"
+msgstr ""
+"Bepaal of je wel of geen icoon wilt tonen om deze endpoint groep te "
+"identificeren"
+
+#: plugin-options/items-options-fields.php:134
+msgid "Choose an icon to identify this endpoints group"
+msgstr "Kies een icoon om deze endpoint groep te identificeren"
+
+#: plugin-options/items-options-fields.php:145
+msgid "Upload you custom icon to identify this endpoints group"
+msgstr ""
+"Je persoonlijke icoon  uploaden om deze eindpunt groep te identificeren"
+
+#: plugin-options/items-options-fields.php:153
+msgid "Show group to"
+msgstr "Groep tonen aan"
+
+#: plugin-options/items-options-fields.php:154
+msgid ""
+"Choose whether to show this group to all users or only to specific users"
+msgstr ""
+"Bepaal of je deze groep wilt tonen aan alle gebruikers of alleen aan "
+"specifieke gebruikers"
+
+#: plugin-options/items-options-fields.php:181
+msgid "Link url"
+msgstr "Link url"
+
+#: plugin-options/items-options-fields.php:182
+msgid "The url of the menu item"
+msgstr "De url van het menu item"
+
+#: plugin-options/items-options-fields.php:186
+msgid "Link label"
+msgstr "Link label"
+
+#: plugin-options/items-options-fields.php:187
+msgid "Enter a name to identify this link"
+msgstr "Naam invoeren om deze link te identificeren"
+
+#: plugin-options/items-options-fields.php:192
+msgid "Link icon"
+msgstr "Link icoon"
+
+#: plugin-options/items-options-fields.php:193
+msgid "Choose if show or not an icon to identify this link"
+msgstr ""
+"Bepaal of je wel of geen icoon wilt tonen om deze link te identificeren"
+
+#: plugin-options/items-options-fields.php:204
+msgid "Choose an icon to identify this link"
+msgstr "Kies een icoon om deze link te identificeren"
+
+#: plugin-options/items-options-fields.php:215
+msgid "Upload you custom icon to identify this link"
+msgstr "Je persoonlijke icoon uploaden om deze link te identificeren"
+
+#: plugin-options/items-options-fields.php:223
+msgid "Show link to"
+msgstr "Link tonen aan"
+
+#: plugin-options/items-options-fields.php:224
+msgid "Choose whether to show this link to all users or only to specific users"
+msgstr ""
+"Bepaal of je deze link wilt tonen aan alle gebruikers of alleen aan "
+"specifieke gebruikers"
+
+#: plugin-options/items-options-fields.php:245
+msgid "Add additional CSS classes to this link container"
+msgstr "Aanvullende CSS klassen toevoegen aan deze link container"
+
+#: plugin-options/items-options-fields.php:249
+msgid "Open link in a new tab?"
+msgstr "Link openen in een nieuw tabblad?"
+
+#: plugin-options/security-options.php:24
+msgid "Show reCaptcha in registration form"
+msgstr "ReCaptcha tonen in registratieformulier"
+
+#. translators: placeholders are used for link to reCaptcha documentation.
+#: plugin-options/security-options.php:26
+msgid "Enable reCaptcha in registration form. %1$sRead more here >%2$s"
+msgstr ""
+"ReCaptcha inschakelen in registratieformulier. %1$sLees meer hier >%2$s"
+
+#: plugin-options/security-options.php:34
+msgid "reCaptcha public key"
+msgstr "openbare reCaptcha-sleutel"
+
+#: plugin-options/security-options.php:48
+msgid "reCaptcha private key"
+msgstr "reCaptcha prive sleutel"
+
+#: plugin-options/security-options.php:61
+msgid "Send a verification email to new users"
+msgstr "Verificatie e-mail sturen naar nieuwe gebruikers"
+
+#: plugin-options/security-options.php:62
+msgid "Enable to send an email to verify account to new users."
+msgstr ""
+"Inschakelen om een e-mail te sturen om accounts te verifiëren van nieuwe "
+"gebruikers."
+
+#: plugin-options/security-options.php:70
+msgid "Without a verified account"
+msgstr "Zonder een geverifieerd account"
+
+#: plugin-options/security-options.php:71
+msgid "Set permissions of user without a verified account."
+msgstr "Goedkeuring instellen voor gebruikers zonder geverifieerd account."
+
+#: plugin-options/security-options.php:88
+msgid "Block email addresses from these domains"
+msgstr "E-mailadressen van deze domeinen blokkeren"
+
+#: plugin-options/security-options.php:89
+msgid ""
+"Add a list of email domains (comma separated) you want to block.<br>Example: "
+"<code>yopmail.com, email.org</code>"
+msgstr ""
+"Lijst met e-mail domeinen toevoegen (gescheiden door komma) die je wilt "
+"blokkeren. <br>Voorbeeld: <code>yopmail.com, email.org</code>"
+
+#: plugin-options/style-options.php:234
+msgid "Padding of menu items"
+msgstr "Opvulling van menu items"
+
+#: templates/admin/items-list.php:18
+msgid "Manage Endpoints"
+msgstr "Beheer eindpunten"
+
+#: templates/admin/items-list.php:21
+msgid "Close new endpoint"
+msgstr "Nieuw endpoint sluiten"
+
+#: templates/admin/items-list.php:22
+msgid "Add endpoint"
+msgstr "Voeg eindpunt toe"
+
+#: templates/admin/items-list.php:25
+msgid "Close new link"
+msgstr "Nieuwe link sluiten"
+
+#: templates/admin/items-list.php:26
+msgid "Add link"
+msgstr "Link toevoegen"
+
+#: templates/admin/items-list.php:29
+msgid "Close new group"
+msgstr "Nieuwe groep sluiten"
+
+#: templates/admin/items-list.php:30
+msgid "Add group"
+msgstr "Groep toevoegen"
+
+#: templates/admin/items-list.php:62
+msgid "Save changes"
+msgstr "Wijzigingen opslaan"
+
+#: templates/admin/items-list.php:68
+msgid "Reset Defaults"
+msgstr "Naar standaard herstellen"
+
+#: templates/admin/single-item.php:33
+msgid "sub item"
+msgstr "sub item"
+
+#. translators: %s Customer first name
+#: templates/email/customer-verify-account.php:21
+#: templates/email/plain/customer-verify-account.php:19
+msgid "Hi %s,"
+msgstr "Hoi %s,"
+
+#. translators: %1$s: Site title
+#: templates/email/customer-verify-account.php:23
+msgid "Thanks for creating an account on %1$s."
+msgstr "Bedankt voor het aanmaken van dit account op %1$s."
+
+#. translators: %1$s: My Account link
+#: templates/email/customer-verify-account.php:25
+msgid ""
+"To complete registration process you need to verify your account email by "
+"clicking this link: <br>%1$s"
+msgstr ""
+"Om je registratie proces af te ronden, dien je je account te verifiëren door "
+"op deze link te klikken: <br>%1$s"
+
+#: templates/email/customer-verify-account.php:26
+#: templates/email/plain/customer-verify-account.php:23
+msgid "We look forward to seeing you soon."
+msgstr "We kijken er naar uit om je te zien"
+
+#. translators: %1$s: Site title
+#: templates/email/customer-verify-account.php:28
+msgid "Regards, <br>%1$s staff"
+msgstr "Met vriendelijke groet, <br>%1$s team"
+
+#. translators: %1$s: Site title, %2$s: Username, %3$s: My account link
+#: templates/email/plain/customer-verify-account.php:21
+msgid ""
+"Thanks for creating an account on %1$s. To complete registration process you "
+"need to verify your account email by clicking this link: %2$s"
+msgstr ""
+"Bedankt voor het maken van een account op%1$s. Om het registratieproces te "
+"voltooien, moet u het e-mailadres van uw account verifiëren door op deze "
+"link te klikken:%2$s"
+
+#. Description of the plugin/theme
+msgid ""
+"The <code><strong>YITH WooCommerce Customize My Account Page</strong></code> "
+"lets you customize the layout of the \"My Account\" page, adds new endpoints "
+"and manage its content easily. <a href=\"https://yithemes.com/\" target="
+"\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</"
+"strong></a>."
+msgstr ""
+"De <code> <strong> YITH WooCommerce aanpassen mijn accountpagina </strong> </"
+"code> u aanpassen van de lay-out van de mijn account pagina, voegt nieuwe "
+"eindpunten en het beheer van de inhoud gemakkelijk. <a href=\"https://"
+"yithemes.com/\" target=\"_blank\"> Haal meer plugins voor uw e-commerce shop "
+"op <strong> YITH </strong> </a>."
+
+#: includes/admin/class.yith-wcmap-admin.php:180
+msgctxt "[HELP TAB] Video title"
+msgid ""
+"Check this video to learn how to <b>manage and customize your customer’s My "
+"Account Page</b>"
+msgstr ""
+
+#: includes/class.yith-wcmap-banners.php:66
+msgctxt "Default banner title"
+msgid "Downloads"
+msgstr "Downloads"
+
+#: includes/class.yith-wcmap-banners.php:76
+msgctxt "Default banner title"
+msgid "Orders"
+msgstr "Bestellingen"
+
+#: includes/class.yith-wcmap-banners.php:86
+msgctxt "Default banner title"
+msgid "Account info"
+msgstr "Accountinformatie"
+
+#: includes/class.yith-wcmap-banners.php:94
+msgctxt "Default banner title"
+msgid "Your address"
+msgstr "Je adres"
+
+#: includes/class.yith-wcmap-banners.php:102
+msgctxt "Default banner title"
+msgid "Payment methods"
+msgstr "Betaalmethoden"
+
+#: includes/class.yith-wcmap-banners.php:67
+msgctxt "Default banner \"downloads\" text"
+msgid "Check your available downloads"
+msgstr "Controleer je beschikbare downloads"
+
+#: includes/class.yith-wcmap-banners.php:77
+msgctxt "Default banner \"orders\" text"
+msgid "Check the history of all your orders and download the invoices"
+msgstr ""
+"Controleer de geschiedenis van al je bestellingen en download de facturen"
+
+#: includes/class.yith-wcmap-banners.php:87
+msgctxt "Default banner \"account info\" text"
+msgid "Edit your personal info like name, e-mail address and password."
+msgstr ""
+"Bewerk je persoonlijke informatie zoals naam, e-mailadres en wachtwoord."
+
+#: includes/class.yith-wcmap-banners.php:95
+msgctxt "Default banner \"your address\" text"
+msgid "Edit and update your address info before to purchase!"
+msgstr "Je adresinformatie bewerken en bijwerken voor de aankoop!"
+
+#: includes/class.yith-wcmap-banners.php:103
+msgctxt "Default banner \"your address\" text"
+msgid "Manage your payment methods and your credit cards."
+msgstr "Beheer je betaalmethoden en je credit cards."
+
+#: includes/class.yith-wcmap-banners.php:377
+msgctxt "Admin editor button label"
+msgid "Add banner"
+msgstr "Add banner"
+
+#: includes/compatibilities/class.yith-wcmap-gift-cards-compatibility.php:52
+msgctxt "Banner counter option"
+msgid "Gift cards"
+msgstr "Cadeaubonnen"
+
+#: includes/compatibilities/class.yith-wcmap-points-compatibility.php:65
+msgctxt "Banner counter option"
+msgid "Customer points"
+msgstr "Klantpunten"
+
+#: includes/compatibilities/class.yith-wcmap-request-quote-compatibility.php:166
+msgctxt "Banner counter option"
+msgid "Quotes"
+msgstr "Prijsopgave verzoeken"
+
+#: includes/compatibilities/class.yith-wcmap-waiting-list-compatibility.php:69
+msgctxt "Banner counter option"
+msgid "Products in waiting list"
+msgstr "Producten in wachtlijst"
+
+#: includes/compatibilities/class.yith-wcmap-wishlist-compatibility.php:149
+msgctxt "Banner counter option"
+msgid "Products in wishlist"
+msgstr "Producten in verlanglijst"
+
+#: plugin-options/banners-options.php:160
+msgctxt "Banner counter option"
+msgid "Downloads"
+msgstr "Downloads"
+
+#: plugin-options/banners-options.php:161
+msgctxt "Banner counter option"
+msgid "Orders"
+msgstr "Bestellingen"
+
+#: plugin-options/banners-options.php:38
+msgctxt "[admin]Plugin option label"
+msgid "Banner name"
+msgstr "Naam banner"
+
+#: plugin-options/banners-options.php:45
+msgctxt "[admin]Plugin option label"
+msgid "Banner icon"
+msgstr "Banner pictogram"
+
+#: plugin-options/banners-options.php:59
+msgctxt "[admin]Plugin option label"
+msgid "Choose icon"
+msgstr "Pictogram kiezen"
+
+#: plugin-options/banners-options.php:71
+msgctxt "[admin]Plugin option label"
+msgid "Upload icon"
+msgstr "Pictogram uploaden"
+
+#: plugin-options/banners-options.php:79
+msgctxt "[admin]Plugin option label"
+msgid "Icon width (px)"
+msgstr "Breedte pictogram (px)"
+
+#: plugin-options/banners-options.php:93
+msgctxt "[admin]Plugin option label"
+msgid "Widget width (px)"
+msgstr "Widget breedte (px)"
+
+#: plugin-options/banners-options.php:102
+msgctxt "[admin]Plugin option label"
+msgid "Widget text"
+msgstr "Widget tekst"
+
+#: plugin-options/banners-options.php:109
+msgctxt "[admin]Plugin option label"
+msgid "Banner colors"
+msgstr "Banner kleuren"
+
+#: plugin-options/banners-options.php:147
+#: plugin-options/banners-options.php:154
+msgctxt "[admin]Plugin option label"
+msgid "Show badge with dynamic count of items"
+msgstr "Toon badge met dynamische item teller"
+
+#: plugin-options/banners-options.php:171
+msgctxt "[admin]Plugin option label"
+msgid "Badge colors"
+msgstr "Badge kleuren"
+
+#: plugin-options/banners-options.php:193
+msgctxt "[admin]Plugin option label"
+msgid "Banner links"
+msgstr "Banner links"
+
+#: plugin-options/style-options.php:92
+msgctxt "[admin]Plugin option label"
+msgid "Menu background"
+msgstr "Achtergrond menu"
+
+#: plugin-options/style-options.php:104 plugin-options/style-options.php:116
+msgctxt "[admin]Plugin option label"
+msgid "Border color"
+msgstr "Randkleur"
+
+#: plugin-options/style-options.php:122
+msgctxt "[admin]Plugin option label"
+msgid "Default border color"
+msgstr "Standaard randkleur"
+
+#: plugin-options/style-options.php:127
+msgctxt "[admin]Plugin option label"
+msgid "Hover border color"
+msgstr "Randkleur hoveren"
+
+#: plugin-options/style-options.php:132
+msgctxt "[admin]Plugin option label"
+msgid "Active border color"
+msgstr "Randkleur geselecteerde optie"
+
+#: plugin-options/style-options.php:144
+msgctxt "[admin]Plugin option label"
+msgid "Shadow color"
+msgstr "Schaduwkleur"
+
+#: plugin-options/style-options.php:150
+msgctxt "[admin]Plugin option label"
+msgid "Default shadow color"
+msgstr "Standaard schaduwkleur"
+
+#: plugin-options/style-options.php:155
+msgctxt "[admin]Plugin option label"
+msgid "Hover shadow color"
+msgstr "Schaduw kleur hoveren"
+
+#: plugin-options/style-options.php:160
+msgctxt "[admin]Plugin option label"
+msgid "Active shadow color"
+msgstr "Schaduw kleur geselecteerde optie"
+
+#: plugin-options/style-options.php:172
+msgctxt "[admin]Plugin option label"
+msgid "Items background color"
+msgstr "Achtergrondkleur items"
+
+#: plugin-options/style-options.php:178
+msgctxt "[admin]Plugin option label"
+msgid "Default background color"
+msgstr "Standaard achtergrondkleur"
+
+#: plugin-options/style-options.php:183 plugin-options/style-options.php:272
+msgctxt "[admin]Plugin option label"
+msgid "Hover background color"
+msgstr "Achtergrondkleur hoveren"
+
+#: plugin-options/style-options.php:188
+msgctxt "[admin]Plugin option label"
+msgid "Active background color"
+msgstr "Achtergrondkleur geselecteerde optie"
+
+#: plugin-options/style-options.php:200
+msgctxt "[admin]Plugin option label"
+msgid "Items text color"
+msgstr "Tekst kleur items"
+
+#: plugin-options/style-options.php:206
+msgctxt "[admin]Plugin option label"
+msgid "Default text color"
+msgstr "Standaard tekst kleur"
+
+#: plugin-options/style-options.php:211 plugin-options/style-options.php:262
+msgctxt "[admin]Plugin option label"
+msgid "Hover text color"
+msgstr "Tekst kleur hoveren"
+
+#: plugin-options/style-options.php:216
+msgctxt "[admin]Plugin option label"
+msgid "Active text color"
+msgstr "Tekst kleur van geselecteerde optie"
+
+#: plugin-options/style-options.php:224
+msgctxt "[admin]Plugin option label"
+msgid "Text size (px)"
+msgstr "Tekst grootte (px)"
+
+#: plugin-options/style-options.php:251
+msgctxt "[admin]Plugin option label"
+msgid "Logout button colors"
+msgstr "Knop kleuren voor uitloggen"
+
+#: plugin-options/style-options.php:257
+msgctxt "[admin]Plugin option label"
+msgid "Text color"
+msgstr "Tekstkleur"
+
+#: plugin-options/style-options.php:267
+msgctxt "[admin]Plugin option label"
+msgid "Background color"
+msgstr "Achtergrondkleur"
+
+#: plugin-options/style-options.php:280
+msgctxt "[admin]Plugin option label"
+msgid "AJAX loader"
+msgstr "AJAX lader"
+
+#: plugin-options/style-options.php:287
+msgctxt "[admin]Plugin option label"
+msgid "Use default loader"
+msgstr "Gebruik standaard lader"
+
+#: plugin-options/style-options.php:288
+msgctxt "[admin]Plugin option label"
+msgid "Upload custom loader"
+msgstr "Aangepaste lader uploaden"
+
+#: plugin-options/style-options.php:293
+msgctxt "[admin]Plugin option label"
+msgid "Custom AJAX loader"
+msgstr "Aangepaste AJAX lader"
+
+#: plugin-options/banners-options.php:114
+#: plugin-options/banners-options.php:181
+msgctxt "[admin]Plugin option color label"
+msgid "Text"
+msgstr "Tekst"
+
+#: plugin-options/banners-options.php:119
+#: plugin-options/banners-options.php:176
+msgctxt "[admin]Plugin option color label"
+msgid "Background"
+msgstr "Achtergrond"
+
+#: plugin-options/banners-options.php:124
+msgctxt "[admin]Plugin option color label"
+msgid "Borders"
+msgstr "Randen"
+
+#: plugin-options/banners-options.php:129
+msgctxt "[admin]Plugin option color label"
+msgid "Text hover"
+msgstr "Tekst hoveren"
+
+#: plugin-options/banners-options.php:134
+msgctxt "[admin]Plugin option color label"
+msgid "Background hover"
+msgstr "Achtergrond hoveren"
+
+#: plugin-options/banners-options.php:139
+msgctxt "[admin]Plugin option color label"
+msgid "Borders hover"
+msgstr "Randen hoveren"
+
+#: plugin-options/banners-options.php:255
+msgctxt "Save single banner button label"
+msgid "Save"
+msgstr "Opslaan"
+
+#: plugin-options/banners-options.php:259
+msgctxt "Delete single banner button label"
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: plugin-options/security-options.php:75
+msgctxt "\"Without account verified\" option label"
+msgid "the user can't login in the site"
+msgstr "de gebruiker kan niet inloggen op de site"
+
+#: plugin-options/security-options.php:76
+msgctxt "\"Without account verified\" option label"
+msgid "the user can login but not purchase"
+msgstr "de gebruiker kan inloggen maar niet kopen"
+
+#: plugin-options/style-options.php:46
+msgctxt "Option: title"
+msgid "Menu position"
+msgstr "Positie menu"
+
+#: plugin-options/style-options.php:69
+msgctxt "Option: title"
+msgid "Menu layout"
+msgstr "Lay-out menu"
+
+#: plugin-options/style-options.php:47
+msgctxt "Option: description"
+msgid ""
+"Choose the position of the links to be displayed in a horizontal or vertical "
+"sidebar."
+msgstr ""
+"Kies de positie van de links die worden weergegeven in een horizontale of "
+"verticale zijbalk."
+
+#: plugin-options/style-options.php:70
+msgctxt "Option: description"
+msgid "Choose the menu layout style."
+msgstr "Kies de lay-out stijl van het menu."
+
+#: plugin-options/style-options.php:51
+msgctxt "Option: Menu position"
+msgid "Vertical Left"
+msgstr "Verticaal links"
+
+#: plugin-options/style-options.php:55
+msgctxt "Option: Menu position"
+msgid "Vertical Right"
+msgstr "Verticaal rechts"
+
+#: plugin-options/style-options.php:59
+msgctxt "Option: Menu position"
+msgid "Horizontal"
+msgstr "Horizontaal"
+
+#: plugin-options/style-options.php:74
+msgctxt "Option: Menu position"
+msgid "No borders"
+msgstr "Geen randen"
+
+#: plugin-options/style-options.php:79
+msgctxt "Option: Menu position"
+msgid "Modern banners"
+msgstr "Moderne banners"
+
+#: plugin-options/style-options.php:84
+msgctxt "Option: Menu position"
+msgid "Simple tabs"
+msgstr "Simpele tabbladen"
+
+#: plugin-options/style-options.php:281
+msgctxt "[admin]Plugin option description"
+msgid "Choose the style for the AJAX loader icon"
+msgstr "Kies de stijl voor de AJAX lader pictogram"
+
+#: plugin-options/style-options.php:294
+msgctxt "[admin]Plugin option description"
+msgid "Upload an icon you'd like to use as AJAX Loader (suggested 50px x 50px)"
+msgstr ""
+"Pictogram naar keuze uploaden door middel van AJAX Loader (aanbevolen 50px x "
+"50px)"
+
+#: templates/admin/banners-modal.php:13
+msgctxt "Admin banners modal title"
+msgid "Add banners"
+msgstr "Banners toevoegen"
+
+#: templates/admin/banners-modal.php:14
+msgctxt "Admin banners modal content"
+msgid "Choose one or more banner to add to endpoint content"
+msgstr "Kies een of meerdere banners om toe te voegen aan de endpoint inhoud"
+
+#: templates/admin/items-list.php:35
+msgctxt "Admin button label"
+msgid "Add item"
+msgstr "Item toevoegen"
+
+#: templates/admin/single-item.php:78
+msgctxt "Admin button label"
+msgid "Save"
+msgstr "Opslaan"
+
+#: templates/admin/single-item.php:52
+msgctxt "YES/NO button: use MAX 3 characters!"
+msgid "YES"
+msgstr "JA"
+
+#: templates/admin/single-item.php:53
+msgctxt "YES/NO button: use MAX 3 characters!"
+msgid "NO"
+msgstr "NEE"
+
+#: templates/ywcmap-myaccount-avatar-modal.php:25
+msgctxt "Avatar modal title"
+msgid "Your avatar"
+msgstr "Je avatar"
+
+#: templates/ywcmap-myaccount-avatar-modal.php:37
+msgctxt "Avatar form label"
+msgid "Upload avatar"
+msgstr "Avatar uploaden"
+
+#: templates/ywcmap-myaccount-avatar-modal.php:48
+msgctxt "Reset avatar to the default one"
+msgid "Reset default"
+msgstr "Naar standaard herstellen"
+
+#: templates/ywcmap-myaccount-avatar-modal.php:52
+msgctxt "Cancel custom avatar upload"
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: templates/ywcmap-myaccount-avatar-modal.php:57
+msgctxt "Confirm custom avatar upload"
+msgid "Use it!"
+msgstr "Gebruik het!"

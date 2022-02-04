@@ -133,18 +133,18 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	 */
 	public static function get_expiration_date($basic_check = false, $empty_if_valid = false) {
 		global $permalink_manager_options;
-		set_transient('permalink_manager_active', $permalink_manager_options['licence']['licence_key'], 12 * YEAR_IN_SECONDS);
-		$expired = 0;
-		$expiration_info = __('You own a lifetime licence key.', 'permalink-manager');
-		if($basic_check || ($empty_if_valid && $expired == 0)) {
-		return $expired;
-		}
-		if(!empty($_REQUEST['action']) && $_REQUEST['action'] == 'pm_get_exp_date') {
-		echo $expiration_info;
-		die();
-		} else {
-		return $expiration_info;
-		}
+			set_transient('permalink_manager_active', $permalink_manager_options['licence']['licence_key'], 12 * YEAR_IN_SECONDS);
+			$expired = 0;
+			$expiration_info = __('You own a lifetime licence key.', 'permalink-manager');
+			if($basic_check || ($empty_if_valid && $expired == 0)) {
+			return $expired;
+			}
+			if(!empty($_REQUEST['action']) && $_REQUEST['action'] == 'pm_get_exp_date') {
+			echo $expiration_info;
+			die();
+			} else {
+			return $expiration_info;
+			}
 		// Get expiration info & the licence key
 		$exp_date = (!empty($permalink_manager_options['licence']['expiration_date'])) ? $permalink_manager_options['licence']['expiration_date'] : false;
 		$license_key = (!empty($permalink_manager_options['licence']['licence_key'])) ? $permalink_manager_options['licence']['licence_key'] : "";

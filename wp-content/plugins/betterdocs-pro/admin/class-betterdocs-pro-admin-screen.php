@@ -87,7 +87,7 @@ class BetterDocs_Pro_Admin_Screen
                 <option value="all"><?php esc_html_e('All KBs', 'betterdocs-pro') ?></option>
                 <?php
                 $selected = (isset($_GET['knowledgebase'])) ? $_GET['knowledgebase'] : '';
-                BetterDocs_Helper::term_options('knowledge_base', $selected);
+                echo BetterDocs_Helper::term_options('knowledge_base', $selected);
                 ?>
             </select>
         <?php }

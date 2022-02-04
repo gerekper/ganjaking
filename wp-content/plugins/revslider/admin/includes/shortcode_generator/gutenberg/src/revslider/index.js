@@ -37,7 +37,12 @@ export default registerBlockType(
           background: 'rgb(94, 53, 177)',
           color: 'white',
           viewbox: "0 0 28 28"
-        },        
+        },   
+        example: {
+          attributes: {
+              cover: true
+          },
+        },  
         keywords: [
             __( 'Banner', 'revslider' ),
             __( 'CTA', 'revslider' ),
@@ -82,15 +87,21 @@ export default registerBlockType(
           },
           wrapperid: {
            type: 'string'
+          },
+          cover: {
+            default: false
           }
         },
         edit: props => {
-          const { setAttributes, attributes: { wrapperid } } = props;
+          const { setAttributes, attributes: { wrapperid ,cover} } = props;
+          
           return [
-            
+            !cover &&
             <div>
               <RevSlider {...{ setAttributes, ...props }} />
-            </div>
+            </div>,
+            cover &&
+            <center><img src={revslider_gutenberg.pluginurl + "/admin/includes/shortcode_generator/gutenberg/dist/images/sr-minigif.gif"} width={320} height={180}></img></center>
           ];
         },
         deprecated,

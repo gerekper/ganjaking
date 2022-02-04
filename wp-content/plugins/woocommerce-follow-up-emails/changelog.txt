@@ -1,5 +1,8 @@
 *** WooCommerce Follow-Up Emails ***
 
+2022-02-02 - version 4.9.18
+* Fix - Include POT file in the release.
+
 2022-01-13 - version 4.9.17
 * Fix - After Refunded Successfully trigger.
 * Fix - Products from multiple categories in an order only schedules some emails.

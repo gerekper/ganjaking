@@ -4,7 +4,7 @@ Donate link: https://wpdeveloper.com
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 5.9
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,11 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 2.0.5 - 02/02/2022 =
+- Fixed: Category Box Layout 2 Shortcode attribute issue
+- Fixed: Multiple KB Layout 4 not passing the name argument properly resulting in 404 error
+- Fixed: Few minor bug fixes & improvements
 
 = 2.0.4 - 25/01/2022 =
 - Added: Option to disable root slug for multiple knowledge base archives

@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gravity Forms 2.5.16.1\n"
+"Project-Id-Version: Gravity Forms 2.5.16.2\n"
 "Report-Msgid-Bugs-To: https://gravityforms.com/support\n"
 "Last-Translator: Gravity Forms <support@gravityforms.com>\n"
 "Language-Team: Gravity Forms <support@gravityforms.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-24T16:31:27+00:00\n"
+"POT-Creation-Date: 2022-02-02T09:24:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: gravityforms\n"
@@ -373,7 +373,7 @@ msgstr ""
 
 #: common.php:5242
 #: common.php:5963
-#: common.php:6144
+#: common.php:6156
 #: form_list.php:151
 #: form_list.php:608
 #: includes/addon/class-gf-feed-addon.php:2465
@@ -388,7 +388,7 @@ msgid "Active"
 msgstr ""
 
 #: common.php:5243
-#: common.php:6143
+#: common.php:6155
 #: form_list.php:147
 #: form_list.php:611
 #: includes/addon/class-gf-feed-addon.php:2468
@@ -870,7 +870,7 @@ msgid "Failed"
 msgstr ""
 
 #: common.php:5964
-#: common.php:6169
+#: common.php:6181
 msgid "Cancelled"
 msgstr ""
 
@@ -887,144 +887,144 @@ msgstr ""
 msgid "Voided"
 msgstr ""
 
-#: common.php:6109
+#: common.php:6121
 msgid "Mon"
 msgstr ""
 
-#: common.php:6110
+#: common.php:6122
 msgid "Tue"
 msgstr ""
 
-#: common.php:6111
+#: common.php:6123
 msgid "Wed"
 msgstr ""
 
-#: common.php:6112
+#: common.php:6124
 msgid "Thu"
 msgstr ""
 
-#: common.php:6113
+#: common.php:6125
 msgid "Fri"
 msgstr ""
 
-#: common.php:6114
+#: common.php:6126
 msgid "Sat"
 msgstr ""
 
-#: common.php:6115
+#: common.php:6127
 msgid "Sun"
 msgstr ""
 
-#: common.php:6118
+#: common.php:6130
 #: form_detail.php:1475
 msgid "January"
 msgstr ""
 
-#: common.php:6119
+#: common.php:6131
 #: form_detail.php:1475
 msgid "February"
 msgstr ""
 
-#: common.php:6120
+#: common.php:6132
 #: form_detail.php:1475
 msgid "March"
 msgstr ""
 
-#: common.php:6121
+#: common.php:6133
 #: form_detail.php:1475
 msgid "April"
 msgstr ""
 
-#: common.php:6122
+#: common.php:6134
 #: form_detail.php:1475
 #: includes/addon/class-gf-payment-addon.php:3153
 msgid "May"
 msgstr ""
 
-#: common.php:6123
+#: common.php:6135
 #: form_detail.php:1475
 msgid "June"
 msgstr ""
 
-#: common.php:6124
+#: common.php:6136
 #: form_detail.php:1475
 msgid "July"
 msgstr ""
 
-#: common.php:6125
+#: common.php:6137
 #: form_detail.php:1475
 msgid "August"
 msgstr ""
 
-#: common.php:6126
+#: common.php:6138
 #: form_detail.php:1475
 msgid "September"
 msgstr ""
 
-#: common.php:6127
+#: common.php:6139
 #: form_detail.php:1475
 msgid "October"
 msgstr ""
 
-#: common.php:6128
+#: common.php:6140
 #: form_detail.php:1475
 msgid "November"
 msgstr ""
 
-#: common.php:6129
+#: common.php:6141
 #: form_detail.php:1475
 msgid "December"
 msgstr ""
 
-#: common.php:6132
+#: common.php:6144
 msgid "Select date"
 msgstr ""
 
-#: common.php:6147
+#: common.php:6159
 #: export.php:341
 #: js/blocks.js:244
 #: js/blocks.js:252
 msgid "Edit Form"
 msgstr ""
 
-#: common.php:6148
+#: common.php:6160
 #: includes/templates/edit-shortcode-form.tpl.php:18
 msgid "Insert Form"
 msgstr ""
 
-#: common.php:6159
+#: common.php:6171
 msgid "This type of file is not allowed. Must be one of the following: "
 msgstr ""
 
-#: common.php:6160
+#: common.php:6172
 msgid "Delete this file"
 msgstr ""
 
-#: common.php:6161
+#: common.php:6173
 msgid "in progress"
 msgstr ""
 
-#: common.php:6162
+#: common.php:6174
 msgid "File exceeds size limit"
 msgstr ""
 
-#: common.php:6163
+#: common.php:6175
 msgid "This type of file is not allowed."
 msgstr ""
 
-#: common.php:6164
+#: common.php:6176
 msgid "Maximum number of files reached"
 msgstr ""
 
-#: common.php:6165
+#: common.php:6177
 msgid "There was a problem while saving the file on the server"
 msgstr ""
 
-#: common.php:6166
+#: common.php:6178
 msgid "Please wait for the uploading to complete"
 msgstr ""
 
-#: common.php:6167
+#: common.php:6179
 #: entry_detail.php:1476
 #: form_detail.php:1522
 #: form_detail.php:1534
@@ -1034,19 +1034,19 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: common.php:6168
+#: common.php:6180
 msgid "Cancel this upload"
 msgstr ""
 
-#: common.php:6891
+#: common.php:6903
 msgid "Visible"
 msgstr ""
 
-#: common.php:6893
+#: common.php:6905
 msgid "Default option. The field is visible when viewing the form."
 msgstr ""
 
-#: common.php:6896
+#: common.php:6908
 #: form_detail.php:569
 #: form_detail.php:651
 #: form_detail.php:759
@@ -1057,24 +1057,24 @@ msgstr ""
 msgid "Hidden"
 msgstr ""
 
-#: common.php:6898
+#: common.php:6910
 msgid "The field is hidden when viewing the form. Useful when you require the functionality of this field but do not want the user to be able to see this field."
 msgstr ""
 
-#: common.php:6901
+#: common.php:6913
 msgid "Administrative"
 msgstr ""
 
-#: common.php:6903
+#: common.php:6915
 msgid "The field is only visible when administering submitted entries. The field is not visible or functional when viewing the form."
 msgstr ""
 
-#: common.php:6934
+#: common.php:6946
 #: form_detail.php:2348
 msgid "Visibility"
 msgstr ""
 
-#: common.php:6934
+#: common.php:6946
 msgid "Select the visibility for this field."
 msgstr ""
 
@@ -8794,32 +8794,32 @@ msgstr ""
 msgid "Please complete the following fields: %s."
 msgstr ""
 
-#: includes/fields/class-gf-field-time.php:278
-#: includes/fields/class-gf-field-time.php:317
+#: includes/fields/class-gf-field-time.php:277
+#: includes/fields/class-gf-field-time.php:316
 #: js.php:322
 #: js.php:325
 msgid "HH"
 msgstr ""
 
-#: includes/fields/class-gf-field-time.php:279
-#: includes/fields/class-gf-field-time.php:326
+#: includes/fields/class-gf-field-time.php:278
+#: includes/fields/class-gf-field-time.php:325
 msgctxt "Abbreviation: Minutes"
 msgid "MM"
 msgstr ""
 
-#: includes/fields/class-gf-field-time.php:299
+#: includes/fields/class-gf-field-time.php:298
 msgid "AM"
 msgstr ""
 
-#: includes/fields/class-gf-field-time.php:300
+#: includes/fields/class-gf-field-time.php:299
 msgid "PM"
 msgstr ""
 
-#: includes/fields/class-gf-field-time.php:319
+#: includes/fields/class-gf-field-time.php:318
 msgid "Hours"
 msgstr ""
 
-#: includes/fields/class-gf-field-time.php:328
+#: includes/fields/class-gf-field-time.php:327
 msgid "Minutes"
 msgstr ""
 
@@ -12136,14 +12136,154 @@ msgstr ""
 msgid "Select and display one of your forms."
 msgstr ""
 
-#: tmp/wordpress/wp-includes/theme.json
-msgctxt "Font size name"
-msgid "Small"
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Font family name"
+msgid "System Font"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Font family name"
+msgid "Source Serif Pro"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Color name"
+msgid "Foreground"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Color name"
+msgid "Background"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Color name"
+msgid "Primary"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Color name"
+msgid "Secondary"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Color name"
+msgid "Tertiary"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Gradient name"
+msgid "Vertical secondary to tertiary"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Gradient name"
+msgid "Vertical secondary to background"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Gradient name"
+msgid "Vertical tertiary to background"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Gradient name"
+msgid "Diagonal primary to foreground"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Gradient name"
+msgid "Diagonal secondary to background"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Gradient name"
+msgid "Diagonal background to secondary"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Gradient name"
+msgid "Diagonal tertiary to background"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Gradient name"
+msgid "Diagonal background to tertiary"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Duotone name"
+msgid "Foreground and background"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Duotone name"
+msgid "Foreground and secondary"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Duotone name"
+msgid "Foreground and tertiary"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Duotone name"
+msgid "Primary and background"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Duotone name"
+msgid "Primary and secondary"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Duotone name"
+msgid "Primary and tertiary"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Custom template name"
+msgid "Blank"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Custom template name"
+msgid "Page (Large Header)"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Custom template name"
+msgid "Single Post (No Separators)"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Custom template name"
+msgid "Page (No Separators)"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Template part name"
+msgid "Header"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Template part name"
+msgid "Header (Dark, large)"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Template part name"
+msgid "Header (Dark, small)"
+msgstr ""
+
+#: tmp/wordpress/wp-content/themes/twentytwentytwo/theme.json
+msgctxt "Template part name"
+msgid "Footer"
 msgstr ""
 
 #: tmp/wordpress/wp-includes/theme.json
 msgctxt "Font size name"
-msgid "Normal"
+msgid "Small"
 msgstr ""
 
 #: tmp/wordpress/wp-includes/theme.json
@@ -12158,7 +12298,7 @@ msgstr ""
 
 #: tmp/wordpress/wp-includes/theme.json
 msgctxt "Font size name"
-msgid "Huge"
+msgid "Extra Large"
 msgstr ""
 
 #: tmp/wordpress/wp-includes/theme.json

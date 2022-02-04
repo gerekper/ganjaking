@@ -1,17 +1,17 @@
-# Copyright (C) 2019 Caseproof, LLC
+# Copyright (C) 2022 Caseproof, LLC
 # This file is distributed under the same license as the MemberPress MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MemberPress MailPoet 1.2.0\n"
+"Project-Id-Version: MemberPress MailPoet 1.2.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/memberpress-mailpoet\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-12-17T23:58:54-06:00\n"
+"POT-Creation-Date: 2022-01-04T18:03:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: memberpress-mailpoet\n"
 
 #. Plugin Name of the plugin
@@ -39,54 +39,54 @@ msgstr ""
 msgid "MailPoet Autoresponder Integration for MemberPress."
 msgstr ""
 
-#: MpMailPoet.php:74
+#: MpMailPoet.php:69
 msgid "Enable MailPoet"
 msgstr ""
 
-#: MpMailPoet.php:81
+#: MpMailPoet.php:76
 msgid "MailPoet List:"
 msgstr ""
 
-#: MpMailPoet.php:93
+#: MpMailPoet.php:88
 msgid "Enable Opt-In Checkbox"
 msgstr ""
 
-#: MpMailPoet.php:97
+#: MpMailPoet.php:92
 msgid "If checked, an opt-in checkbox will appear on all of your membership registration pages."
 msgstr ""
 
-#: MpMailPoet.php:102
+#: MpMailPoet.php:97
 msgid "Signup Checkbox Label:"
 msgstr ""
 
-#: MpMailPoet.php:105
+#: MpMailPoet.php:100
 msgid "This is the text that will display on the signup page next to your mailing list opt-in checkbox."
 msgstr ""
 
-#: MpMailPoet.php:111
+#: MpMailPoet.php:106
 msgid "MailPoet Plugin not found. You must install the MailPoet Plugin to use this integration."
 msgstr ""
 
-#: MpMailPoet.php:148
+#: MpMailPoet.php:143
 msgid "We Respect Your Privacy"
 msgstr ""
 
-#: MpMailPoet.php:222
+#: MpMailPoet.php:207
 msgid "MailPoet list for this Membership"
 msgstr ""
 
-#: MpMailPoet.php:225
+#: MpMailPoet.php:210
 msgid "Enable Membership MailPoet List"
 msgstr ""
 
-#: MpMailPoet.php:226
+#: MpMailPoet.php:211
 msgid "If this is set the member will be added to this list when their payment is completed for this membership. If the member cancels or you refund their subscription, they will be removed from the list automatically."
 msgstr ""
 
-#: MpMailPoet.php:230
+#: MpMailPoet.php:215
 msgid "MailPoet List: "
 msgstr ""
 
-#: MpMailPoet.php:436
+#: MpMailPoet.php:423
 msgid "Sign Up for the %s Newsletter"
 msgstr ""

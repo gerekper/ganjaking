@@ -97,6 +97,7 @@ function betterdocs_category_box_2($atts, $content = null)
 			'column' => '',
 			'nested_subcategory' => '',
 			'terms' => '',
+            'terms_orderby' => BetterDocs_DB::get_settings('alphabetically_order_term'),
 			'kb_slug' => '',
 			'multiple_knowledge_base' => false,
 			'disable_customizer_style' => false,
@@ -106,7 +107,7 @@ function betterdocs_category_box_2($atts, $content = null)
 	);
 
     $nested_subcategory = ($nested_subcategory == 1 && $get_args['nested_subcategory'] == '') || ($get_args['nested_subcategory'] == true && $get_args['nested_subcategory'] != "false");
-	$taxonomy_objects = BetterDocs_Helper::taxonomy_object($get_args['multiple_knowledge_base'], $get_args['terms'], $get_args['kb_slug'], $nested_subcategory);
+	$taxonomy_objects = BetterDocs_Helper::taxonomy_object($get_args['multiple_knowledge_base'], $get_args['terms'], $get_args['terms_orderby'], $get_args['kb_slug'], $nested_subcategory);
 
 	if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
 		$class = ['betterdocs-categories-wrap betterdocs-category-box betterdocs-category-box-pro pro-layout-3 ash-bg layout-flex'];
@@ -182,6 +183,7 @@ function betterdocs_list_view($atts, $content = null)
             'nested_subcategory' => '',
             'terms' => '',
             'kb_slug' => '',
+            'terms_orderby' => '',
             'multiple_knowledge_base' => false,
             'disable_customizer_style' => false,
             'title_tag' => 'h2'
@@ -189,7 +191,7 @@ function betterdocs_list_view($atts, $content = null)
         $atts
     );
     $nested_subcategory = ($nested_subcategory == 1 && $get_args['nested_subcategory'] == '') || ($get_args['nested_subcategory'] == true && $get_args['nested_subcategory'] != "false");
-    $taxonomy_objects = BetterDocs_Helper::taxonomy_object($get_args['multiple_knowledge_base'], $get_args['terms'], $get_args['kb_slug'], $nested_subcategory);
+    $taxonomy_objects = BetterDocs_Helper::taxonomy_object($get_args['multiple_knowledge_base'], $get_args['terms'], $get_args['terms_orderby'], $get_args['kb_slug'], $nested_subcategory);
 
     if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
         $class = ['betterdocs-categories-wrap betterdocs-category-box betterdocs-category-box-pro pro-layout-3 layout-flex betterdocs-list-view ash-bg'];
@@ -259,6 +261,8 @@ function betterdocs_multiple_kb_tab_grid($atts, $content = null)
         array(
             'column' => '',
             'terms' => '',
+            'terms_orderby' => '',
+            'terms_order' => '',
             'disable_customizer_style' => false,
             'title_tag' => 'h2',
             'orderby' => BetterDocs_DB::get_settings('alphabetically_order_post'),
@@ -307,7 +311,7 @@ function betterdocs_multiple_kb_tab_grid($atts, $content = null)
                 if ($kb->count > 0) {
                     echo '<div class="betterdocs-tab-content '.$kb->slug.'">';
                     echo '<div class="betterdocs-tab-categories">';
-                    $category_objects = BetterDocs_Helper::taxonomy_object(true, '', $kb->slug, $nested_subcategory);
+                    $category_objects = BetterDocs_Helper::taxonomy_object(true, '', $get_args['terms_orderby'], $kb->slug, $nested_subcategory);
                     if ($category_objects && !is_wp_error($category_objects)) {
                         // display category grid by order
                         foreach ($category_objects as $term) {
@@ -358,8 +362,8 @@ function betterdocs_multiple_kb_tab_grid($atts, $content = null)
                                                 true,
                                                 '',
                                                 'docs',
-                                                $get_args['orderby'],
-                                                $get_args['order'],
+                                                $get_args['terms_orderby'],
+                                                $get_args['terms_order'],
                                                 '',
                                                 $kb->slug
                                             );
@@ -762,6 +766,8 @@ function betterdocs_category_grid_2($atts, $content = null)
 			'nested_subcategory' => '',
 			'terms' => '',
             'kb_slug' => '',
+            'terms_orderby' => '',
+            'terms_order' => '',
 			'multiple_knowledge_base' => false,
 			'disable_customizer_style' => false,
             'title_tag' => 'h2'
@@ -769,7 +775,7 @@ function betterdocs_category_grid_2($atts, $content = null)
 		$atts
 	);
     $nested_subcategory = ($nested_subcategory == 1 && $get_args['nested_subcategory'] == '') || ($get_args['nested_subcategory'] == true && $get_args['nested_subcategory'] != "false");
-	$taxonomy_objects = BetterDocs_Helper::taxonomy_object($get_args['multiple_knowledge_base'], $get_args['terms'], $get_args['kb_slug'], $nested_subcategory);
+	$taxonomy_objects = BetterDocs_Helper::taxonomy_object($get_args['multiple_knowledge_base'], $get_args['terms'], $get_args['terms_orderby'], $get_args['kb_slug'], $nested_subcategory);
 
 	if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
 		$class = ['betterdocs-categories-wrap category-grid pro-layout-4 white-bg'];
@@ -888,8 +894,8 @@ function betterdocs_category_grid_2($atts, $content = null)
 					$get_args['multiple_knowledge_base'], 
 					$category_id,
                     'docs',
-                    $get_args['orderby'],
-                    $get_args['order'],
+                    $get_args['terms_orderby'],
+                    $get_args['terms_order'],
 					$page_cat,
                     $get_args['kb_slug']
 				);

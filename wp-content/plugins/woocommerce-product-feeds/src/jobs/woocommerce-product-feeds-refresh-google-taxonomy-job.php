@@ -26,6 +26,11 @@ class WoocommerceProductFeedsRefreshGoogleTaxonomyJob extends AbstractWoocommerc
 		// Strip the extra newline at the end
 		array_pop( $taxonomy_data );
 
+		// Remove the old entries for this locale.
+		$sql = "DELETE FROM ${table_prefix}woocommerce_gpf_google_taxonomy WHERE locale = %s";
+		$wpdb->query( $wpdb->prepare( $sql, [ $locale ] ) );
+
+		// Read in the replacements.
 		$cnt    = 0;
 		$values = [];
 		foreach ( $taxonomy_data as $term ) {
@@ -53,10 +58,10 @@ class WoocommerceProductFeedsRefreshGoogleTaxonomyJob extends AbstractWoocommerc
 		}
 
 		// Refresh the transient lifetime
-		set_transient(
-			'woocommerce_gpf_tax_' . $locale,
-			true,
-			time() + ( 60 * 60 * 24 * 30 )
+		update_option(
+			'woocommerce_gpf_tax_ts_' . $locale,
+			time() + ( 60 * 60 * 24 * 30 ),
+			false
 		);
 
 		return true;

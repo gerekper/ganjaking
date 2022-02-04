@@ -319,8 +319,8 @@ $api = 'revapi'; // . $slider_id;
 						<!-- SLIDER OVERLAY -->
 						<label_a><?php _e('Overlay', 'revslider');?></label_a><select data-evt="drawBGOverlay" id="sr_overlay" class="dottedoverlay sliderinput tos2 nosearchbox easyinit callEvent" data-r="layout.bg.dottedOverlay"></select>
 						<label_a><?php _e('Size', 'revslider');?></label_a><input data-numeric="true" data-allowed="none" data-min="0"  data-r="layout.bg.dottedOverlaySize" data-evt="drawBGOverlay"  type="text"  class="sliderinput valueduekeyboard  easyinit callEvent" placeholder="none" >
-						<label_a><?php _e('Color 1', 'revslider');?></label_a><input type="text" data-editing="Background Overlay Color 1" data-evt="drawBGOverlay" name="sliderbgoverlaycolor_a" id="slideroverlaybgcolor_a" class="my-color-field sliderinput easyinit" data-visible="true" data-r="layout.bg.dottedColorA" value="transparent">
-						<label_a><?php _e('Color 2', 'revslider');?></label_a><input type="text" data-editing="Background Overlay Color 2" data-evt="drawBGOverlay" name="sliderbgoverlaycolor_b" id="slideroverlaybgcolor_b" class="my-color-field sliderinput easyinit" data-visible="true" data-r="layout.bg.dottedColorB" value="transparent">
+						<label_a><?php _e('Color 1', 'revslider');?></label_a><input type="text" data-editing="Background Overlay Color 1" data-evt="drawBGOverlay" name="sliderbgoverlaycolor_a" id="slideroverlaybgcolor_a" class="my-color-field sliderinput easyinit" data-visible="true" data-mode="single" data-r="layout.bg.dottedColorA" value="transparent">
+						<label_a><?php _e('Color 2', 'revslider');?></label_a><input type="text" data-editing="Background Overlay Color 2" data-evt="drawBGOverlay" name="sliderbgoverlaycolor_b" id="slideroverlaybgcolor_b" class="my-color-field sliderinput easyinit" data-visible="true" data-mode="single" data-r="layout.bg.dottedColorB" value="transparent">
 				</div>
 			</div>
 

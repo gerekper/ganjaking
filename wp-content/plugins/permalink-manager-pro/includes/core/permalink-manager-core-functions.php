@@ -64,6 +64,9 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		$request_url = (!empty($request_url)) ? parse_url($request_url, PHP_URL_PATH) : $_SERVER['REQUEST_URI'];
 		$request_url = strtok($request_url, "?");
 
+		// Make sure that either $_SERVER['SERVER_NAME'] or $_SERVER['HTTP_HOST'] are set
+		if(empty($_SERVER['HTTP_HOST']) && empty($_SERVER['SERVER_NAME'])) { return $query; }
+
 		$http_host = (!empty($_SERVER['HTTP_HOST'])) ? $_SERVER['HTTP_HOST'] : preg_replace('/www\./i', '', $_SERVER['SERVER_NAME']);
 		$request_url = sprintf("http://%s%s", str_replace("www.", "", $http_host), $request_url);
 		$raw_home_url = trim(get_option('home'));
@@ -365,7 +368,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			/**
 			 * 5A. Endpoints
 			 */
-			if(!empty($element_id) && (!empty($endpoint) || !empty($endpoint_value))) {
+			if(!empty($element_id) && empty($disabled) && (!empty($endpoint) || !empty($endpoint_value))) {
 				if(is_array($endpoint)) {
 					foreach($endpoint as $endpoint_name => $endpoint_value) {
 						$query[$endpoint_name] = $endpoint_value;
@@ -421,7 +424,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			/**
 			 * 6. Set global with detected item id
 			 */
-			if(!empty($element_id)) {
+			if(!empty($element_id) && empty($disabled)) {
 				$pm_query['id'] = $element_id;
 
 				// Make the redirects more clever - see new_uri_redirect_and_404() method
@@ -558,8 +561,10 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		$correct_permalink = '';
 
 		// Get query string & URI
+		if(empty($_SERVER['REQUEST_URI'])) { return; }
+
 		$query_string = ($copy_query_redirect && !empty($_SERVER['QUERY_STRING'])) ? $_SERVER['QUERY_STRING'] : '';
-		$old_uri = $_SERVER['REQUEST_URI'];
+		$old_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 		// Fix for WP installed in directories (remove the directory name from the URI)
 		if(!empty($home_dir)) {
@@ -691,9 +696,11 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			/**
 			 * 2. Check if URL contains duplicated slashes
 			 */
-			if(!empty($old_uri) && ($old_uri != '/') && preg_match('/\/{2,}/', $old_uri)) {
-				$new_uri = ltrim(preg_replace('/([^:])([\/]+)/', '$1/', $old_uri), "/");
-				$correct_permalink = "{$home_url}/{$new_uri}";
+			if(!empty($old_uri) && ($old_uri !== '/') && preg_match('/\/{2,}/', $old_uri)) {
+				$new_uri = ltrim(preg_replace('/([^:])([\/]+)/', '$1/', $old_uri), '/');
+				$correct_permalink = sprintf("%s/%s", $home_url, $new_uri);
+
+				$redirect_type = ($redirect_type == '-') ? 'duplicated_slash_redirect' : $redirect_type;
 			}
 
 			/**
@@ -731,24 +738,26 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		/**
 		 * 5. Check trailing slashes (ignore links with query parameters)
 		 */
-		if($trailing_slashes_mode && $trailing_slashes_redirect && empty($correct_permalink) && empty($_SERVER['QUERY_STRING']) && !empty($_SERVER['REQUEST_URI']) && !is_front_page()) {
+		if($trailing_slashes_mode && $trailing_slashes_redirect && empty($correct_permalink) && empty($query_string) && !empty($old_uri) && !is_front_page()) {
 			// Check if $old_uri ends with slash or not
 			$ends_with_slash = (substr($old_uri, -1) == "/") ? true : false;
 			$trailing_slashes_mode = (preg_match("/.*\.([a-zA-Z]{3,4})\/?$/", $old_uri) && $trailing_slashes_mode == 1) ? 2 : $trailing_slashes_mode;
 
 			// Ignore empty URIs
 			if($old_uri != "/") {
+				$new_uri = trim($old_uri, '/');
+
 				// 2A. Force trailing slashes
 				if($trailing_slashes_mode == 1 && $ends_with_slash == false) {
-					$correct_permalink = sprintf("%s/%s/", rtrim($home_url, '/'), trim($old_uri, '/'));
+					$correct_permalink = sprintf("%s/%s/", $home_url, $new_uri);
 				}
 				// 2B. Remove trailing slashes
 				else if($trailing_slashes_mode == 2 && $ends_with_slash == true) {
-					$correct_permalink = sprintf("%s/%s", rtrim($home_url, '/'), trim($old_uri, '/'));
+					$correct_permalink = sprintf("%s/%s", $home_url, $new_uri);
 				}
 				// 2C. Remove duplicated trailing slashes
 				else if($trailing_slashes_mode == 1 && preg_match('/[\/]{2,}$/', $old_uri)) {
-					$correct_permalink = sprintf("%s/%s/", rtrim($home_url, '/'), trim($old_uri, '/'));
+					$correct_permalink = sprintf("%s/%s/", $home_url, $new_uri);
 				}
 			}
 
@@ -765,7 +774,9 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			$requested_url_has_ssl = is_ssl();
 
 			if(($home_url_has_www !== $requested_url_has_www) || ($home_url_has_ssl !== $requested_url_has_ssl)) {
-				$correct_permalink = "{$home_url}/{$old_uri}";
+				$new_uri = ltrim($old_uri, '/');
+				$correct_permalink = sprintf("%s/%s", $home_url, $new_uri);
+				
 				$redirect_type = 'www_redirect';
 			}
 		}

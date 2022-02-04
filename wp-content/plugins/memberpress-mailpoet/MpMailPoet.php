@@ -10,7 +10,7 @@ class MpMailPoet  {
     add_action('mepr-user-signup-fields',     array($this, 'display_signup_field'));
 
     // Signup
-    add_action('mepr-signup', array($this, 'process_signup'));
+    add_action('mepr-signup-user-loaded', array($this, 'process_signup'));
 
     // Updating tags
     add_action('mepr-account-is-active',   array($this, 'maybe_add_subscriber'));
@@ -55,12 +55,7 @@ class MpMailPoet  {
       WYSIJA::hook_edit_WP_subscriber($mepr_user->ID);
     }
     else {
-      try {
-        \MailPoet\Segments\WP::synchronizeUser($mepr_user->ID);
-      }
-      catch (Exception $e) {
-        //Do nothing
-      }
+      // Nothing to do here for V3
     }
   }
 
@@ -154,29 +149,19 @@ class MpMailPoet  {
      }
   }
 
-  public function process_signup($txn) {
+  public function process_signup($user) {
+    global $wp_current_filter;
+    $old_wp_current_filter = $wp_current_filter;
+
     $mepr_options = MeprOptions::fetch();
 
-    $prd = $txn->product();
-    $usr = $txn->user();
-
-    $enabled = (bool)get_post_meta($prd->ID, '_meprmailpoet_list_override', true);
-
-    //If version 3, we need to sync the WP user account here before we add lists to them
-    if($this->is_version_three()) {
-      try {
-        \MailPoet\Segments\WP::synchronizeUser($usr->ID);
-      }
-      catch (Exception $e) {
-        return false;
-      }
-    }
+    $enabled = (bool)get_post_meta((int)sanitize_text_field($_POST['mepr_product_id']), '_meprmailpoet_list_override', true);
 
     //If the per membership list is enabled, and the global list is disabled -- then we should be sure the member doesn't get added
     if(!$this->is_enabled() || ($enabled && $mepr_options->disable_global_autoresponder_list)) { return; }
 
-    if(!$this->is_optin_enabled() or ($this->is_optin_enabled() and isset($_POST['meprmailpoet_opt_in']))) {
-      $this->add_subscriber($usr, $this->list_id());
+    if(!$this->is_optin_enabled() || ($this->is_optin_enabled() && isset($_POST['meprmailpoet_opt_in']))) {
+      $this->add_subscriber($user, $this->list_id());
     }
   }
 
@@ -378,7 +363,9 @@ class MpMailPoet  {
 
       if($exists !== false) {
         try {
-          \MailPoet\API\API::MP('v1')->subscribeToList($user_data['email'], $list_id, array('send_confirmation_email' => true));
+          $request_args = apply_filters('mepr-mailpoet-subscribe-args', array('send_confirmation_email' => false));
+
+          \MailPoet\API\API::MP('v1')->subscribeToList($user_data['email'], $list_id, $request_args);
         }
         catch (Exception $e) {
           return false;

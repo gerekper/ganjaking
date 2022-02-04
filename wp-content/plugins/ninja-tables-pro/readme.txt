@@ -5,7 +5,7 @@ Tags:  table, Data Tables, WP Data tables, WordPress table Plugin, Table Grid, w
 Requires at least: 4.5
 Requires PHP: 5.4 or greater
 Tested up to: 5.9
-Stable tag: 4.1.8
+Stable tag: 4.1.10
 
 == Description ==
 
@@ -28,6 +28,13 @@ Manual Install:
 Upload the plugin files to the /wp-content/plugins/ directory, then activate the plugin.
 
 == Changelog ==
+=4.1.10 (Date: February 01, 2022) =
+- Adds global font style
+- Fixes number range filter reset issue
+- Improves frontend editing sanitization
+
+=4.1.9 (Date: January 27, 2022) =
+- Improves data sanitization
 
 =4.1.8 (Date: January 27, 2022) =
 - Adds no follow option

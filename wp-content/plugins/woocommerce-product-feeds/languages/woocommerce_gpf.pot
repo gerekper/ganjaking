@@ -1,9 +1,9 @@
 # Copyright (C) 2017 Ademti Software Ltd.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Google Product Feed 10.5.0\n"
+"Project-Id-Version: WooCommerce Google Product Feed 10.5.1\n"
 "Report-Msgid-Bugs-To: https://plugins.leewillis.co.uk/support\n"
-"POT-Creation-Date: 2022-01-25 12:01:39+00:00\n"
+"POT-Creation-Date: 2022-01-29 12:15:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -201,7 +201,7 @@ msgid "Manage product feeds"
 msgstr ""
 
 #: src/common/woocommerce-product-feeds-feed-manager.php:68
-#: src/gpf/woocommerce-gpf-admin.php:1504
+#: src/gpf/woocommerce-gpf-admin.php:1506
 msgid "Product Feeds"
 msgstr ""
 
@@ -230,153 +230,153 @@ msgstr ""
 msgid "Troubleshooting"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:208 src/gpf/woocommerce-gpf-admin.php:506
+#: src/gpf/woocommerce-gpf-admin.php:210 src/gpf/woocommerce-gpf-admin.php:508
 #: templates/woo-gpf-meta-edit-intro.php:3
 msgid "Product Feed Information"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:447 src/gpf/woocommerce-gpf-admin.php:659
+#: src/gpf/woocommerce-gpf-admin.php:449 src/gpf/woocommerce-gpf-admin.php:661
 msgid "Default: "
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:450 src/gpf/woocommerce-gpf-admin.php:561
-#: src/gpf/woocommerce-gpf-admin.php:662 src/gpf/woocommerce-gpf-admin.php:798
+#: src/gpf/woocommerce-gpf-admin.php:452 src/gpf/woocommerce-gpf-admin.php:563
+#: src/gpf/woocommerce-gpf-admin.php:664 src/gpf/woocommerce-gpf-admin.php:800
 #: src/integrations/woocommerce-gpf-pw-bulk-edit.php:135
 msgid "Use default"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:510
+#: src/gpf/woocommerce-gpf-admin.php:512
 msgid ""
 "Set values here if you want to override the information for this specific "
 "variation. If information should apply to all variations, then set it "
 "against the main product."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:800
+#: src/gpf/woocommerce-gpf-admin.php:802
 msgid "No default"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:845
+#: src/gpf/woocommerce-gpf-admin.php:847
 msgid "Hide this product from the feed"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1437
+#: src/gpf/woocommerce-gpf-admin.php:1439
 msgid "Arabic"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1438
+#: src/gpf/woocommerce-gpf-admin.php:1440
 msgid "Czech"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1439
+#: src/gpf/woocommerce-gpf-admin.php:1441
 msgid "Danish"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1440
+#: src/gpf/woocommerce-gpf-admin.php:1442
 msgid "German"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1441
+#: src/gpf/woocommerce-gpf-admin.php:1443
 msgid "English (Australian)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1442
+#: src/gpf/woocommerce-gpf-admin.php:1444
 msgid "English (British)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1443
+#: src/gpf/woocommerce-gpf-admin.php:1445
 msgid "English (US)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1444
+#: src/gpf/woocommerce-gpf-admin.php:1446
 msgid "Spanish"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1445
+#: src/gpf/woocommerce-gpf-admin.php:1447
 msgid "Finnish"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1446
+#: src/gpf/woocommerce-gpf-admin.php:1448
 msgid "French"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1447
+#: src/gpf/woocommerce-gpf-admin.php:1449
 msgid "Italian"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1448
+#: src/gpf/woocommerce-gpf-admin.php:1450
 msgid "Japanese"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1449
+#: src/gpf/woocommerce-gpf-admin.php:1451
 msgid "Dutch"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1450
+#: src/gpf/woocommerce-gpf-admin.php:1452
 msgid "Norwegian"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1451
+#: src/gpf/woocommerce-gpf-admin.php:1453
 msgid "Polish"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1452
+#: src/gpf/woocommerce-gpf-admin.php:1454
 msgid "Portuguese"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1453
+#: src/gpf/woocommerce-gpf-admin.php:1455
 msgid "Russian"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1454
+#: src/gpf/woocommerce-gpf-admin.php:1456
 msgid "Swedish"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1455
+#: src/gpf/woocommerce-gpf-admin.php:1457
 msgid "Turkish"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1456
+#: src/gpf/woocommerce-gpf-admin.php:1458
 msgid "Vietnamese"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1457
+#: src/gpf/woocommerce-gpf-admin.php:1459
 msgid "Chinese"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1554
+#: src/gpf/woocommerce-gpf-admin.php:1556
 msgid "Use value from existing product field: "
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1559
+#: src/gpf/woocommerce-gpf-admin.php:1561
 msgid "No"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1631
+#: src/gpf/woocommerce-gpf-admin.php:1633
 #. Translators: %s is the name of the taxonomy
 msgid "<em>%s</em> taxonomy"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1637
+#: src/gpf/woocommerce-gpf-admin.php:1639
 #. Translators: %s is the name of the field
 msgid "<em>%s</em> field"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1642
+#: src/gpf/woocommerce-gpf-admin.php:1644
 #. Translators: %1$s is the name of the meta field, %2$s is the raw meta key
 msgid "<em>%1$s</em> meta (%2$s)"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1654
+#: src/gpf/woocommerce-gpf-admin.php:1656
 #. Translators: %s is the description of where the data will be pulled from.
 msgid "Uses value from %s if set."
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1739
+#: src/gpf/woocommerce-gpf-admin.php:1741
 msgid "Store default: <br>"
 msgstr ""
 
-#: src/gpf/woocommerce-gpf-admin.php:1876
+#: src/gpf/woocommerce-gpf-admin.php:1878
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 

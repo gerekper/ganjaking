@@ -52,8 +52,17 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 
 		// A. Yoast SEO
 		if(class_exists('WPSEO_Primary_Term')) {
-			$primary_term = new WPSEO_Primary_Term($taxonomy, $post_id);
-			$primary_term = get_term($primary_term->get_primary_term());
+			$yoast_primary_term_label = sprintf('yoast_wpseo_primary_%s_term', $taxonomy);
+
+			// Hotfix: Yoast SEO saves the primary term using 'save_post' hook with highest priority, so the primary term ID is taken directly from $_POST
+			if(!empty($_POST[$yoast_primary_term_label])) {
+				$yoast_primary_term_id = filter_input(INPUT_POST, $yoast_primary_term_label, FILTER_SANITIZE_NUMBER_INT);
+			} else {
+				$yoast_primary_term = new WPSEO_Primary_Term($taxonomy, $post_id);
+				$yoast_primary_term_id = $yoast_primary_term->get_primary_term();
+			}
+
+			$primary_term = (is_numeric($yoast_primary_term_id)) ? get_term($yoast_primary_term_id, $taxonomy) : '';
 		}
 		// B. The SEO Framework
 		else if(function_exists('the_seo_framework')) {

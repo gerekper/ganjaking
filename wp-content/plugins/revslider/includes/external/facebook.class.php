@@ -21,6 +21,8 @@ if(!defined('ABSPATH')) exit();
 
 class RevSliderFacebook extends RevSliderFunctions {
 
+	const TRANSIENT_PREFIX = 'revslider_fb_';
+	
 	const URL_FB_AUTH = 'https://updates.themepunch.tools/fb/login.php';
 	const URL_FB_API = 'https://updates.themepunch.tools/fb/api.php';
 
@@ -56,6 +58,7 @@ class RevSliderFacebook extends RevSliderFunctions {
 	public function add_actions(){
 		add_action('init', array(&$this, 'do_init'), 5);
 		add_action('admin_footer', array(&$this, 'footer_js'));
+		add_action('revslider_slider_on_delete_slider', array(&$this, 'on_delete_slider'), 10, 1);
 	}
 
 	/**
@@ -75,7 +78,7 @@ class RevSliderFacebook extends RevSliderFunctions {
 		$token = $_GET[self::QUERY_TOKEN];
 		$connectwith = isset($_GET[self::QUERY_CONNECTWITH]) ? $_GET[self::QUERY_CONNECTWITH] : '';
 		$page_id = isset($_GET[self::QUERY_PAGE_ID]) ? $_GET[self::QUERY_PAGE_ID] : '';
-		$id = $_GET['id'];
+		$id = (isset($_GET['id'])) ? $_GET['id'] : '';
 
 		$slider	= new RevSliderSlider();
 		$slide	= new RevSliderSlide();
@@ -121,7 +124,8 @@ class RevSliderFacebook extends RevSliderFunctions {
 	}
 
 	public static function get_login_url(){
-		$state = base64_encode(admin_url('admin.php?page=revslider&view=slide&id='.$_GET['id']));
+		$id = (isset($_GET['id'])) ? $_GET['id'] : '';
+		$state = base64_encode(admin_url('admin.php?page=revslider&view=slide&id='.$id));
 		return self::URL_FB_AUTH . '?state=' . $state;
 	}
 
@@ -153,7 +157,7 @@ class RevSliderFacebook extends RevSliderFunctions {
 	}
 
 	protected function _get_transient_fb_data($requestData){
-		$transient_name = 'revslider_' . md5(json_encode($requestData));
+		$transient_name = self::TRANSIENT_PREFIX . $requestData['slider_id'] . '_' . md5(json_encode($requestData));
 		if($this->transient_sec > 0 && false !== ($data = get_transient($transient_name))){
 			return $data;
 		}
@@ -212,13 +216,15 @@ class RevSliderFacebook extends RevSliderFunctions {
 	/**
 	 * Get Photoset Photos
 	 *
+	 * @param	mixed	$slider_id 	slider id
 	 * @param	string	$access_token 	page access token
 	 * @param	string	$album_id 	Album ID
 	 * @param	int 	$item_count 	items count
 	 * @return	array
 	 */
-	public function get_photo_set_photos($access_token, $album_id, $item_count = 8){
+	public function get_photo_set_photos($slider_id, $access_token, $album_id, $item_count = 8){
 		$requestData = array(
+			'slider_id' => $slider_id,
 			'token' => $access_token,
 			'action' => 'photos',
 			'album_id' => $album_id,
@@ -230,19 +236,37 @@ class RevSliderFacebook extends RevSliderFunctions {
 	/**
 	 * Get Feed
 	 *
+	 * @param	mixed	$slider_id 	slider id
 	 * @param	string	$access_token 	page access token
 	 * @param	string	$page_id 	page id
 	 * @param	int 	$item_count 	items count
 	 * @return	array
 	 */
-	public function get_photo_feed($access_token, $page_id, $item_count = 8){
+	public function get_photo_feed($slider_id, $access_token, $page_id, $item_count = 8){
 		$requestData = array(
+			'slider_id' => $slider_id,
 			'token' => $access_token,
 			'page_id' => $page_id,
 			'action' => 'feed',
 			'limit' => $item_count,
 		);
 		return $this->_get_transient_fb_data($requestData);
+	}
+
+	/**
+	 * delete slider fb transients upon deletion
+	 * 
+	 * @param	$id		slider id
+	 * @return	void
+	 */
+	public function on_delete_slider($id)
+	{
+		global $wpdb;
+
+		if (empty($id)) return;
+
+		$prefix = self::TRANSIENT_PREFIX . $id;
+		$wpdb->query($wpdb->prepare("DELETE FROM $wpdb->options WHERE `option_name` LIKE '%%%s%%'", $wpdb->esc_like($prefix)));
 	}
 
 }

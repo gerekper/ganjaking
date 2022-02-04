@@ -118,9 +118,9 @@ class RevSliderInstagram extends RevSliderFunctions {
 		//we need token and slide ID to proceed with saving token
 		if(!isset($_GET[self::QUERY_TOKEN]) || !isset($_GET['id'])) return;
 
-		$token = $_GET[self::QUERY_TOKEN];
+		$token		 = $_GET[self::QUERY_TOKEN];
 		$connectwith = $_GET[self::QUERY_CONNECTWITH];
-		$id = $_GET['id'];
+		$id			 = $this->get_val($_GET, 'id');
 
 		$slider	= new RevSliderSlider();
 		$slide	= new RevSliderSlide();
@@ -166,9 +166,10 @@ class RevSliderInstagram extends RevSliderFunctions {
 	}
 
 	public static function get_login_url(){
-		$app_id = '677807423170942';
-		$redirect = 'https://updates.themepunch.tools/ig/auth.php';
-		$state = base64_encode(admin_url('admin.php?page=revslider&view=slide&id='.$_GET['id']));
+		$app_id		= '677807423170942';
+		$redirect	= 'https://updates.themepunch.tools/ig/auth.php';
+		$id			= (isset($_GET['id'])) ? $_GET['id'] : '';
+		$state		= base64_encode(admin_url('admin.php?page=revslider&view=slide&id='.$id));
 		return sprintf(
 			'https://api.instagram.com/oauth/authorize?app_id=%s&redirect_uri=%s&response_type=code&scope=user_profile,user_media&state=%s',
 			$app_id,

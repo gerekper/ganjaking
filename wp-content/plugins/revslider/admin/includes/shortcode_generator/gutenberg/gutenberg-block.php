@@ -97,6 +97,8 @@ if(!class_exists('RevSliderGutenberg')){
 				true // Enqueue the script in the footer.
 			);
 
+			wp_localize_script( 'revslider_gutenberg-cgb-block-js', 'revslider_gutenberg', array('pluginurl' => RS_PLUGIN_URL) );
+
 			// Styles.
 			wp_enqueue_style(
 				'revslider_gutenberg-cgb-block-editor-css', // Handle.

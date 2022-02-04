@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.5.16.1
+Version: 2.5.16.2
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -13,7 +13,7 @@ Text Domain: gravityforms
 Domain Path: /languages
 
 ------------------------------------------------------------------------
-Copyright 2009-2021 Rocketgenius, Inc.
+Copyright 2009-2022 Rocketgenius, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -43,7 +43,6 @@ delete_option( 'rg_gforms_message' );
 $gf_license_key = '';
 
 //-- OR ---//
-
 // You can also add the Gravity Forms license key to your wp-config.php file to automatically populate on activation
 // Add the code in the comment below to your wp-config.php to do so:
 // define('GF_LICENSE_KEY','YOUR_KEY_GOES_HERE');
@@ -125,7 +124,7 @@ define( 'GF_SUPPORTED_WP_VERSION', version_compare( get_bloginfo( 'version' ), G
  *
  * @var string GF_MIN_WP_VERSION_SUPPORT_TERMS The version number
  */
-define( 'GF_MIN_WP_VERSION_SUPPORT_TERMS', '5.6' );
+define( 'GF_MIN_WP_VERSION_SUPPORT_TERMS', '5.8' );
 
 
 if ( ! defined( 'GRAVITY_MANAGER_URL' ) ) {
@@ -229,7 +228,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.5.16.1';
+	public static $version = '2.5.16.2';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -2327,8 +2326,8 @@ class GFForms {
 
 			// Apply the class "update" to the plugin row to get rid of the ugly border.
 			echo "
-				<script type='text/javascript'>
-					jQuery('#$slug-update').prev('tr').addClass('update');
+				<script type='text/javascript'> 
+					jQuery('#$slug-update').prev('tr').addClass('update'); 
 				</script>
 				";
 		}
@@ -6096,7 +6095,7 @@ class GFForms {
 						}
 						container.html( '<p>' + response.data + '</p>' );
 					}
-				} );
+				} );             	
 			} );
 		</script>";
 

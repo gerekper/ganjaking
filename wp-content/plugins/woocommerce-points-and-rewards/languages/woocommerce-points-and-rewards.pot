@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Points and Rewards 1.7.5\n"
+"Project-Id-Version: WooCommerce Points and Rewards 1.7.6\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-points-and-rewards\n"
-"POT-Creation-Date: 2022-01-14 23:26:37+00:00\n"
+"POT-Creation-Date: 2022-02-02 11:50:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -507,18 +507,18 @@ msgstr ""
 msgid "Customer earned %1$d %2$s for purchase."
 msgstr ""
 
-#: includes/class-wc-points-rewards-order.php:267
+#: includes/class-wc-points-rewards-order.php:268
 #. translators: 1: points earned 2: points label 3: discount amount
 msgid "%1$d %2$s redeemed for a %3$s discount."
 msgstr ""
 
-#: includes/class-wc-points-rewards-order.php:327
-#: includes/class-wc-points-rewards-order.php:382
+#: includes/class-wc-points-rewards-order.php:329
+#: includes/class-wc-points-rewards-order.php:384
 #. translators: 1: points earned 2: points earned label
 msgid "%1$d %2$s removed."
 msgstr ""
 
-#: includes/class-wc-points-rewards-order.php:343
+#: includes/class-wc-points-rewards-order.php:345
 #. translators: 1: points redeemed 2: points redeemed label
 msgid "%1$d %2$s credited back to customer."
 msgstr ""

@@ -1,12 +1,18 @@
+### 2.5.16.2
+- Updated the minimum WordPress version (for support) on the System Status page to 5.8.
+- Fixed an issue where the time field sub-label placement setting of hidden is not hiding the sub-labels.
+- Fixed an issue with the address field where the zip code autocomplete attribute does not appear if the sub-labels are above the inputs.
+- API: Added the gform_field_filter_from_post filter to allow filter settings for the form fields, entry properties, and entry meta used in conditional logic for entry export, entry list, results pages, and some add-on to be overridden when the filters are being processed. Complements the *[gform_field_filters](https://docs.gravityforms.com/gform_field_filters/)* filter.
+
 ### 2.5.16.1
 - Fixed a typo in the visibility class for fields in the form editor.
 - Fixed an issue where the next, previous, and submit buttons are not showing the pointer when hovering over them.
 - Fixed an issue where the aria labels for new rows in the list field do not match column headers.
-- Fixed an issue where the form editor tooltip is rendering CSS classes incorrectly.
 - Fixed an issue where the show country field toggle for the address field is not being respected in the form editor.
 - Fixed an issue where license validation was being performed too many times when license key was left blank.
 - Fixed an issue where the all_fields merge tag renders the radio choice value instead of choice label when the value is 0.
 - Fixed an issue where long forms with conditional logic can become slow and unresponsive.
+- API: Fixed an issue where the form editor tooltip is rendering CSS classes incorrectly.
 - AF: Fixed an issue with the "select" settings field where empty option groups are being rendered as selectable options.
 
 ### 2.5.16 | 2022-01-11

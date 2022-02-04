@@ -609,9 +609,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		global $wpdb, $permalink_manager_before_sections_html, $permalink_manager_after_sections_html;
 
 		$html = "<div id=\"permalink-manager\" class=\"wrap\">";
-
-		$donate_link = (self::is_pro_active()) ? "" : sprintf("<a href=\"%s\" target=\"_blank\" class=\"page-title-action\">%s</a>", PERMALINK_MANAGER_DONATE, __("Donate", "permalink-manager"));
-		$html .= sprintf("<h2 id=\"plugin-name-heading\">%s <a href=\"http://maciejbis.net\" class=\"author-link\" target=\"_blank\">%s</a> %s</h2>", PERMALINK_MANAGER_PLUGIN_NAME, __("by Maciej Bis", "permalink-manager"), $donate_link);
+		$html .= sprintf("<h2 id=\"plugin-name-heading\">%s <a href=\"http://maciejbis.net\" class=\"author-link\" target=\"_blank\">%s</a></h2>", PERMALINK_MANAGER_PLUGIN_NAME, __("by Maciej Bis", "permalink-manager"));
 
 		// Display the tab navigation
 		$html .= "<div id=\"permalink-manager-tab-nav\" class=\"nav-tab-wrapper\">";

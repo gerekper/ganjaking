@@ -1,0 +1,14 @@
+<wpml-config>
+    <admin-texts>
+        <key name="woocommerce_admin_yith_wcmap_verify_account_settings">
+            <key name="subject"/>
+            <key name="heading"/>
+        </key>
+        <key name="woocommerce_yith_wcmap_verify_account_settings">
+            <key name="subject"/>
+            <key name="heading"/>
+            <key name="content_html"/>
+            <key name="content_text"/>
+        </key>
+    </admin-texts>
+</wpml-config>

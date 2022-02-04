@@ -270,6 +270,18 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 	}
 
 	/**
+ 	 * opens the external sliderrevolution.com menu URLs in a blank tab
+ 	 * @since 6.5.11
+ 	 */
+	  public function add_js_menu_open_blank() {
+		echo '<script>
+				jQuery(document).ready(function(){
+					jQuery("#revslider_manual_link, #revslider_helpcenter_link, #revslider_templates_link, #revslider_ticket_link, #revslider_premium_link").parent().attr("target","_blank");
+				});
+			</script>';
+	}
+
+	/**
 	 * redirect to external URLs
 	 * @since 6.5.10
 	 */
@@ -281,23 +293,23 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 
 		switch ( $page ) {
 			case 'revslider-buy-license':
-				wp_redirect('https://account.sliderrevolution.com/portal/pricing/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=buykey');
+				wp_redirect('https://account.sliderrevolution.com/portal/pricing/?utm_source=admin&utm_medium=menu&utm_campaign=srusers&utm_content=buykey');
 				exit;
 				break;
 			case 'revslider-documentation':
-				wp_redirect('https://www.sliderrevolution.com/manual/quick-setup-register-your-plugin/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=usedocumentation&premium='.$tp_premium);
+				wp_redirect('https://www.sliderrevolution.com/manual/quick-setup-register-your-plugin/?utm_source=admin&utm_medium=menu&utm_campaign=srusers&utm_content=usedocumentation&premium='.$tp_premium);
 				exit;
 				break;
 			case 'revslider-help-center':
-				wp_redirect('https://www.sliderrevolution.com/help-center?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=help&premium='.$tp_premium);
+				wp_redirect('https://www.sliderrevolution.com/help-center?utm_source=admin&utm_medium=menu&utm_campaign=srusers&utm_content=help&premium='.$tp_premium);
 				exit;
 				break;
 			case 'revslider-templates':
-				wp_redirect('https://www.sliderrevolution.com/examples?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=templates&premium='.$tp_premium);
+				wp_redirect('https://www.sliderrevolution.com/examples?utm_source=admin&utm_medium=menu&utm_campaign=srusers&utm_content=templates&premium='.$tp_premium);
 				exit;
 				break;
 			case 'revslider-ticket':
-				wp_redirect('https://support.sliderrevolution.com?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=support&premium='.$tp_premium);
+				wp_redirect('https://support.sliderrevolution.com?utm_source=admin&utm_medium=menu&utm_campaign=srusers&utm_content=support&premium='.$tp_premium);
 				exit;
 				break;
 			default:
@@ -482,6 +494,7 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		add_action('admin_head', array($this, 'hide_notices'), 1);
 		add_action('admin_menu', array($this, 'add_admin_pages'));
 		add_action('admin_init', array($this, 'display_external_redirects'));
+		add_action('admin_head', array($this, 'add_js_menu_open_blank'));
 		add_action('admin_head', array($this, 'remove_admin_pages'));
 		add_action('add_meta_boxes', array($this, 'add_slider_meta_box'));
 		add_action('save_post', array($this, 'on_save_post'));

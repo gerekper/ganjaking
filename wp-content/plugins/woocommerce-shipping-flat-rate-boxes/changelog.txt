@@ -1,5 +1,8 @@
 *** Flat Rate Box Shipping Changelog ***
 
+2022-01-05 - version 2.0.17
+* Fix   - Missing Languages folder and .pot file in release-ready zip file.
+
 2020-10-06 - version 2.0.16
 * Tweak - WC 4.5 compatibility.
 

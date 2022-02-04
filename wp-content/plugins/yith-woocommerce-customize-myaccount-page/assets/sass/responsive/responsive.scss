@@ -1,0 +1,109 @@
+@media( max-width: 768px ) {
+    #my-account-menu .myaccount-menu li .item-icon {
+        display: none;
+    }
+}
+
+@media( max-width: 480px ) {
+    #my-account-menu, #my-account-menu-tab {
+        float: none !important;
+        margin-right: 0 !important;
+        width: 100%;
+        margin-bottom: 25px;
+
+        & ~ .woocommerce-MyAccount-content, .woocommerce-MyAccount-content {
+            float: none !important;
+            width: 100%;
+        }
+
+        .myaccount-menu {
+            display: block;
+
+            li {
+                display: block;
+
+                .item-icon {
+                    display: inline-block;
+                }
+            }
+        }
+
+        .myaccount-submenu {
+            position: relative;
+        }
+
+        &.layout-simple {
+
+            &.position-vertical-left, &.position-vertical-right {
+                .myaccount-menu li a {
+                    border-right: 0;
+                    border-left: 0;
+                }
+            }
+
+            .myaccount-menu {
+
+                &:after, &:before {
+                    display: none;
+                }
+
+                border-bottom: none;
+
+                li {
+                    margin: 0;
+
+                    a {
+                        border: none;
+                        border-bottom: 1px solid var(--ywcmap-menu-border-color, #e0e0e0);
+                    }
+                }
+            }
+
+            .myaccount-submenu {
+                border-bottom: none;
+                background: inherit;
+            }
+        }
+
+        &.layout-modern {
+            .myaccount-menu {
+                li {
+                    overflow: hidden;
+                }
+            }
+            .myaccount-submenu {
+                li {
+                    border: none;
+                    margin: 0;
+                    border-radius: 0;
+                    box-shadow: none;
+                }
+            }
+        }
+
+        &.layout-no-borders {
+            position: relative;
+            padding: 10px 0;
+
+            &:before {
+                content: '';
+                background: var(--ywcmap-menu-background, #f4f4f4);
+                top: 0;
+                bottom: 0;
+                display: block;
+                position: absolute;
+                right: 0;
+                left: 0;
+                z-index: -1;
+                margin-left: -25vw;
+                margin-right: -25vw;
+            }
+
+            .myaccount-menu, .myaccount-submenu {
+                li {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

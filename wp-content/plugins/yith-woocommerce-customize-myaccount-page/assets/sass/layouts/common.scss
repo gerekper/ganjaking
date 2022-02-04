@@ -1,0 +1,209 @@
+#my-account-menu, #my-account-menu-tab {
+    font-size: var(--ywcmap-font-size, 16px);
+
+    .myaccount-menu,
+    .myaccount-submenu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li  {
+            position: relative;
+
+            a {
+                display: flex;
+                align-items: center;
+                padding: var(--ywcmap-menu-items-padding, 12px 5px 12px 0 );
+                font-style: normal;
+                font-weight: 500;
+                text-align: left;
+                text-decoration: none;
+                box-shadow: none;
+                outline: none;
+                color: var( --ywcmap-items-text-color, #777777 );
+                margin: 0;
+                cursor: pointer;
+
+                > span:last-child {
+                    flex: 1 1 auto;
+                }
+
+                span.item-icon {
+                    width: 20px;
+                    margin-right: 10px;
+                    svg {
+                        width: 20px;
+                        height: auto;
+                        display: block;
+                        fill: var( --ywcmap-items-text-color, #777777 ) !important; // force svg color
+                        stroke: var( --ywcmap-items-text-color, #777777 ) !important; // force svg color
+                    }
+
+                    img {
+                        max-width: 20px;
+                        height: auto;
+                        display: block;
+                        width: 100%;
+                    }
+                }
+
+                span.item-opener {
+                    font-size: 10px;
+                    margin: 0 20px;
+                    text-align: right;
+                }
+
+                &:hover {
+                    color: var( --ywcmap-items-text-color-hover, #000000 );
+
+                    span.item-icon {
+                        svg {
+                            fill: var( --ywcmap-items-text-color-hover, #000000 ) !important; // force svg color
+                            stroke: var( --ywcmap-items-text-color-hover, #000000 ) !important; // force svg color
+                        }
+                    }
+                }
+            }
+
+            &.active, &.is-active {
+                font-weight: bold;
+                a {
+                    color: var( --ywcmap-items-text-color-active, #000000 );
+
+                    span.item-icon {
+                        svg {
+                            fill: var( --ywcmap-items-text-color-hover, #000000 ) !important; // force svg color
+                            stroke: var( --ywcmap-items-text-color-hover, #000000 ) !important; // force svg color
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .myaccount-menu {
+        margin-bottom: 30px;
+    }
+}
+#my-account-menu {
+    width: 30%;
+    box-sizing: border-box;
+
+    & ~ .woocommerce-MyAccount-content {
+        width: 67%;
+        box-sizing: border-box;
+        margin: 0;
+
+        .woocommerce-MyAccount-content {
+            float: none;
+            width: 100%;
+            margin: 0;
+        }
+    }
+
+    .myaccount-submenu {
+        li {
+            a {
+                font-size: 90%;
+                span.item-icon {
+                    svg {
+                        width: 15px;
+                    }
+                    img {
+                        max-width: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.position-vertical-left {
+        float: left;
+        margin-right: 3%;
+
+        & ~ .woocommerce-MyAccount-content {
+            float: right;
+        }
+
+        .myaccount-submenu {
+            > li {
+                padding-left: 30px;
+            }
+        }
+    }
+
+    &.position-vertical-right {
+        float: right;
+        margin-left: 3%;
+
+        & ~ .woocommerce-MyAccount-content {
+            float: left;
+        }
+
+        li {
+            a {
+                flex-direction: row-reverse;
+                text-align: right;
+
+                span.item-icon {
+                    margin-right: 0;
+                    margin-left: 10px;
+                }
+
+                span.item-opener {
+                    text-align: left;
+                }
+            }
+        }
+
+        .myaccount-submenu {
+            > li {
+                padding-right: 25px;
+            }
+        }
+    }
+}
+#my-account-menu-tab {
+    & ~ .woocommerce-MyAccount-content, .woocommerce-MyAccount-content {
+        float: none;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .myaccount-menu {
+        display: flex;
+        align-self: stretch;
+        align-items: center;
+        flex-wrap: wrap;
+
+        > li {
+            display: flex;
+            align-self: stretch;
+            align-items: center;
+        }
+
+        li {
+            .item-opener {
+                margin: 0 15px;
+            }
+        }
+    }
+
+    .myaccount-submenu {
+        position: absolute;
+        z-index: 999;
+        top: 100%;
+        min-width: 100%;
+        white-space: nowrap;
+
+        li {
+            width: 100%;
+        }
+    }
+}
+
+// Prevent double loader for blockUI
+.ywcmap-loading .blockOverlay:before {
+    display: none;
+}

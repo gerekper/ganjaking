@@ -244,8 +244,8 @@ if ($wpml->wpml_exists()) {
 						<!-- SLIDE VIDEO OVERLAY -->
 						<label_a><?php _e('Overlay', 'revslider');?></label_a><select data-evt="updateslidebasic" id="sl_vid_overlay" class="dottedoverlay slideinput tos2 nosearchbox easyinit callEvent" data-r="bg.video.dottedOverlay"></select>
 						<label_a><?php _e('Overlay Size', 'revslider');?></label_a><input data-numeric="true" data-allowed="none" data-min="0"  data-r="bg.video.dottedOverlaySize" data-evt="drawBGOverlay"  type="text"  class="slideinput valueduekeyboard  easyinit callEvent" placeholder="none" >
-						<label_a><?php _e('O. Color 1', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 1" data-evt="updateslidebasic" name="slidebgoverlaycolor_a" id="slideoverlaybgcolor_a" class="my-color-field slideinput easyinit" data-visible="true" data-r="bg.video.dottedColorA" value="transparent">
-						<label_a><?php _e('O. Color 2', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 2" data-evt="updateslidebasic" name="slidebgoverlaycolor_b" id="slideoverlaybgcolor_b" class="my-color-field slideinput easyinit" data-visible="true" data-r="bg.video.dottedColorB" value="transparent">
+						<label_a><?php _e('O. Color 1', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 1" data-evt="updateslidebasic" name="slidebgoverlaycolor_a" id="slideoverlaybgcolor_a" class="my-color-field slideinput easyinit" data-visible="true" data-mode="single" data-r="bg.video.dottedColorA" value="transparent">
+						<label_a><?php _e('O. Color 2', 'revslider');?></label_a><input type="text" data-editing="Video Overlay Color 2" data-evt="updateslidebasic" name="slidebgoverlaycolor_b" id="slideoverlaybgcolor_b" class="my-color-field slideinput easyinit" data-visible="true" data-mode="single" data-r="bg.video.dottedColorB" value="transparent">
 					</div>
 				</div>
 			</div><!-- END OF SOURCE SETTINGS -->			

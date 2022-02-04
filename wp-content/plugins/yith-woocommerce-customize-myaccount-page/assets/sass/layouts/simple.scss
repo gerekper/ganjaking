@@ -1,0 +1,109 @@
+#my-account-menu.layout-simple, #my-account-menu-tab.layout-simple {
+    .myaccount-menu {
+        li {
+            background-color: var(--ywcmap-items-background-color, #ffffff);
+
+            &:hover {
+                background-color: var(--ywcmap-items-background-color-hover, #ffffff);
+            }
+
+            &.active, &.is-active {
+                background-color: var(--ywcmap-items-background-color-active, #ffffff);
+            }
+        }
+    }
+}
+
+#my-account-menu.layout-simple {
+    .myaccount-menu {
+        &:before {
+            border-bottom: 1px solid var(--ywcmap-menu-border-color, #e0e0e0);
+            padding: 10px 0;
+            content: '';
+            display: block;
+        }
+
+        &:after {
+            padding: 60px 0;
+            content: '';
+            display: block;
+        }
+
+        > li  {
+            border-bottom: 1px solid var(--ywcmap-menu-border-color, #e0e0e0);
+        }
+    }
+
+    .myaccount-submenu {
+        > li {
+            border-top: 1px solid var(--ywcmap-menu-border-color, #e0e0e0);
+        }
+    }
+
+    &.position-vertical-left {
+        .myaccount-menu {
+            &:before, &:after {
+                border-right: 1px solid var(--ywcmap-menu-border-color, #e0e0e0);
+            }
+            li  {
+                a {
+                    border-right: 1px solid var(--ywcmap-menu-border-color, #e0e0e0);
+                }
+                &.active, &.is-active {
+                    a {
+                        border-right: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    &.position-vertical-right {
+        .myaccount-menu {
+            &:before, &:after {
+                border-left: 1px solid var(--ywcmap-menu-border-color, #e0e0e0);
+            }
+
+            li  {
+                > a {
+                    text-align: right;
+                }
+                a {
+                    border-left: 1px solid var(--ywcmap-menu-border-color, #e0e0e0);
+                }
+                &.active, &.is-active {
+                    a {
+                        border-left: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#my-account-menu-tab.layout-simple {
+    .myaccount-menu {
+        border-bottom: 1px solid var(--ywcmap-menu-border-color, #e0e0e0);
+
+        li {
+            margin: 10px 5px 0 0;
+            a {
+                border: 1px solid  var(--ywcmap-menu-border-color, #e0e0e0);
+                border-bottom: none;
+            }
+
+            .item-opener {
+                margin-right: 0;
+            }
+        }
+    }
+
+    .myaccount-submenu {
+        border-bottom: 1px solid var(--ywcmap-menu-border-color, #e0e0e0);
+        background: #ffffff;
+
+        li {
+            margin: 0;
+        }
+    }
+}

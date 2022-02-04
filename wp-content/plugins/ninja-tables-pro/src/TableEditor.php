@@ -304,11 +304,14 @@ class TableEditor
     	ninjaTablesValidateNonce('ninja_table_public_nonce');
         $tableId = intval($_REQUEST['table_id']);
         $rowId = false;
-        if (isset($_REQUEST['row_id']) && $_REQUEST['row_id']) {
+
+        if (isset($_REQUEST['row_id']) && intval($_REQUEST['row_id'])) {
             $rowId = intval($_REQUEST['row_id']);
         }
+
         $this->checkRowPermission($tableId, $rowId);
-        $values = wp_unslash($_REQUEST['values']);
+        $data = ninja_tables_sanitize_array($_REQUEST);
+        $values = wp_unslash($data['values']);
         $provider = ninja_table_get_data_provider($tableId);
 
         // Validate Submitted Data
@@ -590,5 +593,11 @@ class TableEditor
             $query->where('owner_id', $currentUserId);
         }
         return $query;
+    }
+
+    public static function savedCustomCode($data) {
+        $tableId = intval($data['table_id']);
+        $js = $data['custom_js'];
+        update_post_meta($tableId, '_ninja_tables_custom_js', $js);
     }
 }

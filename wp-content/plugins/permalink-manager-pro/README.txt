@@ -6,8 +6,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: permalinks, custom permalinks, url editor, permalinks, woocommerce permalinks
 Requires at least: 4.4.0
 Requires PHP: 5.4
-Tested up to: 5.8.3
-Stable tag: 2.2.15
+Tested up to: 5.9
+Stable tag: 2.2.16
 
 Permalink Manager lets you customize the complete URL addresses of your posts, pages, custom post types, terms, and WooCommerce links with ease without touching any core files.
 
@@ -23,7 +23,7 @@ The plugin works with all custom post types and taxonomies, as well as many popu
 
 = Features =
 
-* **Edit the individual permalinks as you choose! **<br/>Every post, page, and public custom post type on your site may have its permalink customized to your liking. *Categories, tags & custom taxonomies terms permalinks can be edited in Permalink Manager Pro.*
+* **Edit the individual permalinks as you choose**<br/>Every post, page, and public custom post type on your site may have its permalink customized to your liking. *Categories, tags & custom taxonomies terms permalinks can be edited in Permalink Manager Pro.*
 * **Edit URLs in bulk using permalink formats**<br/>In order to speed up the process of bulk URL modification, the plugin allows you to choose the default format for custom URLs using "Permastructures" settings. The new format will be applied automatically when a new post/term is added or once the old permalinks are regenerated.
 * **Custom post types support**<br/>You may easily remove post type rewrite (base) slugs from your WordPress permalinks, for example. The plugin may be configured to filter just specified post types and taxonomies permalinks, excluding the rest of your content types.
 * **Translate permalinks**<br/>If you have the WPML or Polylang plugins installed on your website, Permalink Manager allows you to translate the slug and specify different permalink format/structure for each language.
@@ -95,11 +95,20 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 
 == Changelog ==
 
+= 2.2.16 (January 23, 2021) =
+* Enhancement - Improved support for "Primary category" feature included in Yoast SEO
+* Enhancement - Added support for Avia/Enfold breadcrumbs filter
+* Enhancement - Further optimisation and improvements for Permalink_Manager_Core_Functions->new_uri_redirect_and_404() function
+* Fix - Permalink Manager now recognises the "Explore" listing page in MyListing theme properly
+
+= 2.2.15.1 (January 14, 2021) =
+* Fix - "Regenerate/reset" tool works correctly again in Permalink Manager Lite
+
 = 2.2.15 (January 12, 2021) =
 * Enhancement - UI Improvements for Regenerate/reset tool
-* Dev - WPML_URL_Filters->permalink_filter() hook is also used by Permalink Manager to filter custom permalinks.
+* Dev - WPML_URL_Filters->permalink_filter() hook is also used by Permalink Manager to filter custom permalinks
 * Enhancement - wp_make_link_relative() function is used to prevent redirect loops in new_uri_redirect_and_404() (suggested by mgussekloo)
-* Fix - Enhancements to the debug function's security to avoid XSS injection.
+* Fix - Adjustments to the debug function's security to prevent XSS injection
 
 = 2.2.14 (October 20, 2021) =
 * Enhancement - Improvements for Gutenberg Editor

@@ -192,7 +192,8 @@ class WC_Points_Rewards_Order {
 		}
 
 		$discount_code   = WC_Points_Rewards_Discount::get_discount_code();
-		$discount_amount = $this->get_discount_from_code( $discount_code );
+		$max_discount    = WC_Points_Rewards_Manager::get_users_points_value( get_current_user_id() );
+		$discount_amount = $this->get_discount_from_code( $discount_code, $max_discount );
 		$points_redeemed = WC_Points_Rewards_Manager::calculate_points_for_discount( $discount_amount );
 
 		$order->update_meta_data(
@@ -246,8 +247,8 @@ class WC_Points_Rewards_Order {
 			$discount_code   = $logged_redemption['discount_code'];
 		} else {
 			// Get amount of discount
-			$discount_amount = $this->get_discount_from_code( $discount_code );
-
+			$max_discount    = WC_Points_Rewards_Manager::get_users_points_value( get_current_user_id() );
+			$discount_amount = $this->get_discount_from_code( $discount_code, $max_discount );
 			$points_redeemed = WC_Points_Rewards_Manager::calculate_points_for_discount( $discount_amount );
 		}
 
@@ -272,10 +273,11 @@ class WC_Points_Rewards_Order {
 	 *
 	 * @since 1.6.22
 	 * @param string $discount_code The unique discount code generated for the applied discount.
+	 * @param float  $max_discount The maximum discount available.
+	 * @return float The discount amount for the coupon.
 	 */
-	public function get_discount_from_code( $discount_code ) {
+	public function get_discount_from_code( $discount_code, $max_discount = null ) {
 		$discount_amount = 0;
-
 		if ( isset( WC()->cart->coupon_discount_amounts[ $discount_code ] ) ) {
 			$discount_amount += WC()->cart->coupon_discount_amounts[ $discount_code ];
 		}
@@ -284,7 +286,7 @@ class WC_Points_Rewards_Order {
 			$discount_amount += WC()->cart->coupon_discount_tax_amounts[ $discount_code ];
 		}
 
-		return $discount_amount;
+		return $max_discount === null ? $discount_amount : min( $discount_amount, $max_discount );
 	}
 
 	/**

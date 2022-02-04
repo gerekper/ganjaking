@@ -2904,7 +2904,6 @@ Content-Type: text/html;
 	}
 
 	public static function get_key_info( $key ) {
-
 		$options            = array( 'method' => 'POST', 'timeout' => 3 );
 		$options['headers'] = array(
 			'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
@@ -6075,7 +6074,19 @@ Content-Type: text/html;
 
 				$field_filter['operator'] = $operator;
 				$field_filter['value']    = $val;
-				$field_filters[]          = $field_filter;
+
+				/**
+				 * Enables the filter settings for the form fields retrieved from $_POST to be modified.
+				 *
+				 * @since 2.5.17
+				 *
+				 * @param array    $field_filter The field filters.
+				 * @param array    $form         The form object the filter settings have been prepared for.
+				 * @param GF_Field $field        The current field being evaluated.
+				 */
+				$field_filter = apply_filters( 'gform_field_filter_from_post', $field_filter, $form, $field );
+
+				$field_filters[] = $field_filter;
 			}
 		}
 		$field_filters['mode'] = rgpost( 'mode' );

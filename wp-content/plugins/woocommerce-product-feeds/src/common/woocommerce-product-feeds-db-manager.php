@@ -310,4 +310,17 @@ class WoocommerceProductFeedsDbManager {
 			update_option( 'woocommerce_gpf_install_ts', time(), false );
 		}
 	}
+
+	/**
+	 * TRUNCATE taxonomy cache table to remove invalid data.
+	 *
+	 * @return void
+	 */
+	public function upgrade_db_to_14() {
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'woocommerce_gpf_google_taxonomy';
+		$sql        = "TRUNCATE $table_name";
+		$wpdb->query( $sql );
+	}
 }

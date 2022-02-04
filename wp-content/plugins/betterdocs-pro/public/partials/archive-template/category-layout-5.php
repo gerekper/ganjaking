@@ -21,10 +21,14 @@ echo '<div class="betterdocs-wraper betterdocs-main-wraper">';
         <div class="betterdocs-list-popular">
             <div class="betterdocs-archive-list-view">';
                 $output = betterdocs_generate_output();
+                $terms_orderby = BetterDocs_DB::get_settings('terms_orderby');
+                if (BetterDocs_DB::get_settings('alphabetically_order_term') == 1) {
+                    $terms_orderby = BetterDocs_DB::get_settings('alphabetically_order_term');
+                }
                 if ( is_tax( 'knowledge_base' ) && BetterDocs_Multiple_Kb::$enable == 1 ) {
-                    echo do_shortcode( '[betterdocs_list_view multiple_knowledge_base="true" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]' );
+                    echo do_shortcode( '[betterdocs_list_view multiple_knowledge_base="true" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" terms_orderby="'.esc_html($terms_orderby).'"]' );
                 } else {
-                    echo do_shortcode( '[betterdocs_list_view title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]' );
+                    echo do_shortcode( '[betterdocs_list_view title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" terms_orderby="'.esc_html($terms_orderby).'"]' );
                 }
             echo '</div>';
             if( get_theme_mod('betterdocs_docs_page_popular_docs_switch', true) ) {

@@ -249,16 +249,16 @@ RVS.SC = RVS.SC === undefined ? {} : RVS.SC;
 			            RVS.C.RBBS = jQuery('#rbm_blocksettings');				
 						RVS.F.initOnOff(RVS.C.RBBS);
 						RVS.F.RSDialog.create({modalid:'#rbm_blocksettings', bgopacity:0.5});
-						RVS.C.RBBS.RSScroll({wheelPropagation:false, suppressScrollX:true});
-						RVS.F.RSDialog.center();			
+						RVS.C.RBBS.RSScroll({wheelPropagation:false, suppressScrollX:true});						
 						RVS.C.RBBS.find('.origlayout').hide();
 						RVS.C.RBBS.find('.origlayout.origlayout_'+RVS.SC.BLOCK.origlayout).show();		
-						
-						if (RVS.SC.type==="wpbackery") {			
-							setTimeout(RVS.F.RSDialog.center,19);
-							setTimeout(RVS.F.RSDialog.center,50);
-						}
+						RVS.F.RSDialog.center();					
+						setTimeout(RVS.F.RSDialog.center,19);
+						setTimeout(RVS.F.RSDialog.center,50);
+						setTimeout(RVS.F.RSDialog.center,400);					
 						blockSettingsUpdate();
+					
+						
 			          }
 			      });										
 		    } 		
@@ -546,28 +546,55 @@ VISUAL COMPOSER HOOKS
 				currentInput.data('ghost').val(cssColor);
 				currentInput.val(cssColor);
 			}
-		});			
+		});	
 
+		function isSelectWithThemes(sel) {
+			if (sel===undefined || sel.options===undefined) return false;
+			var ret = false;
+			for (var opt in sel.options) {
+				if (!sel.options.hasOwnProperty(opt) || ret) continue;
+				ret = sel.options[opt].value === "../public/views/revslider-page-template.php";
+			}
+			return ret;
+		}	
+
+		function findSelectWithThemes() {
+			var wpsc = document.getElementsByClassName('components-select-control__input'),
+				ret = false;
+			for (var i in wpsc) {
+				if (!wpsc.hasOwnProperty(i) || ret!==false) continue
+				if (isSelectWithThemes(wpsc[i])) ret = wpsc[i];
+			}
+			return ret;
+		}
+				
 		// Page Template , Color Picker, checkbox check only when RevSlider Blank Template
-		jQuery(document.body).on('change', '.editor-page-attributes__template select', function() {
-			if(jQuery(this).val() === "../public/views/revslider-page-template.php"){
+		jQuery(document.body).on('change', '.components-select-control__input, .editor-page-attributes__template select', function() {
+			
+			if (!isSelectWithThemes(this)) return;
+			
+			if(this.value === "../public/views/revslider-page-template.php"){				
 				jQuery('#rs_page_bg_color_column').show(); 
 				jQuery('#rs_blank_template').prop('checked', true);
+				jQuery('#slide_template_row .tponoffwrap').removeClass('off');
 			}
-			else {
+			else {				
 				jQuery('#rs_page_bg_color_column').hide();									
 				jQuery('#rs_blank_template').prop('checked', false);
+				jQuery('#slide_template_row .tponoffwrap').addClass('off');
 			}
 		});
 		
 		// Page Template , checkbox check sync Page Template Selectbox
 		jQuery(document.body).on('change', '#rs_blank_template', function() {
-			if(jQuery(this).prop('checked')){
-				jQuery('.editor-page-attributes__template select').val("../public/views/revslider-page-template.php").change(); 
+			var sel = findSelectWithThemes();
+			if (sel===false) sel = jQuery('.editor-page-attributes__template select'); else sel=jQuery(sel);
+			if(jQuery(this).prop('checked')){			
+				sel.val("../public/views/revslider-page-template.php").change(); 
 				jQuery('#rs_page_bg_color_column').show(); 
 			}
 			else {
-				jQuery('.editor-page-attributes__template select').val("").change();
+				sel.val("").change();
 				jQuery('#rs_page_bg_color_column').hide();
 			}
 		});

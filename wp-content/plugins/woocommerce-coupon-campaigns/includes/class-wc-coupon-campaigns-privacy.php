@@ -6,12 +6,10 @@ if ( ! class_exists( 'WC_Abstract_Privacy' ) ) {
 class WC_Coupon_Campaigns_Privacy extends WC_Abstract_Privacy {
 	/**
 	 * Constructor
-	 *
 	 */
 	public function __construct() {
-		parent::__construct( __( 'Coupon Campaigns' , 'wc_coupon_campaigns' ) );
+		parent::__construct( __( 'Coupon Campaigns', 'wc_coupon_campaigns' ) );
 
-		$this->add_exporter( 'woocommerce-coupon-campaigns-order-data', __( 'WooCommerce Coupons Order Data', 'wc_coupon_campaigns' ), array( $this, 'order_data_exporter' ) );
 		$this->add_eraser( 'woocommerce-coupon-campaigns-order-data', __( 'WooCommerce Coupons Data', 'wc_coupon_campaigns' ), array( $this, 'order_data_eraser' ) );
 
 		$this->add_exporter( 'woocommerce-coupon-campaigns-notes-data', __( 'WooCommerce Coupon Notes Data', 'wc_coupon_campaigns' ), array( $this, 'coupon_note_data_exporter' ) );

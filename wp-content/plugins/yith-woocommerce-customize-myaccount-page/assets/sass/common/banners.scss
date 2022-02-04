@@ -1,0 +1,54 @@
+.yith-wcmap-banners-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+
+    .yith-wcmap-banner {
+        margin: 15px;
+        padding: 25px;
+        border: 1px solid;
+        text-align: center;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+
+        > a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .banner-title {
+            text-transform: uppercase;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 15px 0 0;
+        }
+
+        .banner-text {
+            margin: 15px 0 0;
+        }
+
+        .banner-icon-counter {
+            position: relative;
+            display: inline-block;
+
+            .banner-counter {
+                font-size: 14px;
+                line-height: 26px;
+                min-width: 25px;
+                height: 25px;
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                right: -10px;
+                border-radius: 50%;
+                font-weight: 600;
+                padding: 0 5px;
+            }
+        }
+    }
+}

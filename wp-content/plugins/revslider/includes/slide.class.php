@@ -704,7 +704,7 @@ class RevSliderSlide extends RevSliderFunctions {
 			if($featured_image_url !== false){
 				$attr['img_urls'][$img_handle] = array(
 					'url' => $featured_image_url[0],
-					'tag' => '<img class="'.$class.'" src="'.$featured_image_url[0].'" width="'.$featured_image_url[1].'" height="'.$featured_image_url[2].'" alt="'.esc_attr($this->get_val($attr1, 'title')).'" data-no-retina />'
+					'tag' => '<img class="'.$class.'" src="'.$featured_image_url[0].'" width="'.$featured_image_url[1].'" height="'.$featured_image_url[2].'" alt="'.esc_attr($this->get_val($attr, 'title')).'" data-no-retina />'
 				);
 			}
 		}

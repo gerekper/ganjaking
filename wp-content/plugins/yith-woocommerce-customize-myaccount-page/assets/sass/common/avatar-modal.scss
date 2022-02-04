@@ -1,0 +1,209 @@
+@mixin selected {
+    position: relative;
+    box-shadow: 0 0 14px 0 rgba(0,98,145,0.50);
+    -webkit-box-shadow: 0 0 14px 0 rgba(0,98,145,0.50);
+    -moz-box-shadow: 0 0 14px 0 rgba(0,98,145,0.50);
+
+    &:after {
+        content: '\f00c';
+        font-family: 'FontAwesome';
+        font-size: 25px;
+        line-height: 25px;
+        color: #97ca2d;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+    }
+}
+
+#yith-wcmap-avatar {
+    display: none;
+
+    .avatar-modal-overlay {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: none;
+        background-color: rgba( 0,0,0,0.5 );
+        z-index: 1000;
+    }
+
+    .avatar-modal-wrapper {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        .avatar-modal-wrapper-region {
+            padding: 20px;
+            z-index: 1000;
+            width: 100%;
+
+            .avatar-modal {
+                position: relative;
+                margin-left: auto;
+                margin-right: auto;
+                background: #ffffff;
+                border-radius: 8px;
+                display: none;
+            }
+        }
+    }
+
+    .avatar-modal-close {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 12px;
+        height: 12px;
+        line-height: 1;
+        cursor: pointer;
+        color: #c0c0c0;
+
+        &:hover {
+            color: #777777;
+        }
+    }
+
+    .avatar-modal-content {
+        padding: 15px 30px 30px;
+
+        h3 {
+            text-align: center;
+            margin: 10px 0 20px;
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+        .cols-wrapper {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+
+            .single-col {
+                flex: 0 0 auto;
+                width: 150px;
+                margin: 10px;
+            }
+        }
+
+        .avatar-select {
+            > div {
+                height: 150px;
+                border-radius: 8px;
+            }
+
+            img {
+                border-radius: 8px;
+            }
+
+            form {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                background: #f0f0f0;
+                border-radius: 8px;
+                display: table;
+
+                label {
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center;
+                    color: #6d6d6d;
+                    cursor: pointer;
+
+                    img {
+                        display: inline-block;
+                    }
+                }
+
+                input[type="file"] {
+                    display: none;
+                }
+            }
+        }
+
+        .avatar-actions {
+            a {
+                text-decoration: none;
+                outline: none;
+                font-weight: 600;
+
+                &.cancel {
+                    display: none;
+                    color: #aaa;
+
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+
+                &.reset {
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: #00678a;
+                    i {
+                        margin-right: 5px;
+                    }
+                    &:hover {
+                        color: #2e80a9;
+                    }
+                }
+            }
+
+            .set-avatar {
+                visibility: hidden;
+                text-align: right;
+                button {
+                    border-radius: 8px;
+                    background: #00678a;
+                    color: #fff;
+
+                    &:hover, &:focus {
+                        background: #2e80a9;
+                        color: #fff;
+                        transition: all 0.3s ease;
+                        -webkit-transition: all 0.3s ease;
+                    }
+                }
+            }
+        }
+
+        &:not( .avatar-uploaded ){
+            .current-avatar {
+                @include selected;
+            }
+        }
+
+        &.avatar-uploaded {
+            .current-avatar {
+                opacity: 0.3;
+            }
+            .new-avatar {
+                @include selected;
+            }
+
+            .avatar-actions {
+                .set-avatar {
+                    visibility: visible;
+                }
+
+                a.reset {
+                    display: none;
+                }
+
+                a.cancel {
+                    display: block;
+                }
+            }
+        }
+    }
+}

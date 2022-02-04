@@ -1,0 +1,49 @@
+.post-type-mpcs-quiz .vex-overlay,
+.mpcs-quiz-locked-vex {
+  z-index: 99999;
+}
+.mpcs-quiz-locked-vex.vex .vex-content {
+  border: 1px solid #07A4D0;
+}
+.mpcs-quiz-locked-content {
+  padding: 40px 30px 10px 30px;
+}
+.mpcs-quiz-locked-content p:last-child {
+  margin-bottom: 0;
+}
+.mpcs-quiz-locked-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  color: #fff;
+  background-color: #07A4D0;
+  text-align: center;
+  padding: 8px;
+  font-size: 17px;
+}
+.mpcs-quiz-locked-vex .vex-dialog-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 0 15px 0;
+}
+.mpcs-quiz-locked-vex .vex-dialog-buttons:after {
+  display: none !important;
+}
+.mpcs-quiz-locked-vex.vex.vex-theme-plain .vex-dialog-button:focus {
+  animation: none;
+}
+.mpcs-quiz-locked-vex.vex .vex-dialog-button {
+  border: 0;
+  border-radius: 0;
+  float: none;
+  padding: 12px 20px;
+  letter-spacing: normal;
+}
+.mpcs-quiz-locked-vex.vex .vex-dialog-button.vex-dialog-button-primary {
+  background-color: #07A4D0;
+}
+.mpcs-quiz-locked-vex.vex .vex-dialog-button.vex-dialog-button-secondary {
+  background-color: #999999;
+  color: #fff;
+}

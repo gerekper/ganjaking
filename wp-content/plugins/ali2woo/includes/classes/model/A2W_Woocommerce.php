@@ -1810,6 +1810,8 @@ if (!class_exists('A2W_Woocommerce')) {
         {
             global $wpdb;
 
+            $autoremove_meta_key = $untrash ? '_a2w_autoremove' : '_a2w_skip_this_meta_check';
+
             if ($compare) {
                 $operation = "=";
                 $value = "";
@@ -1822,7 +1824,6 @@ if (!class_exists('A2W_Woocommerce')) {
                     $value = $compare;
                 }
 
-                $autoremove_meta_key = $untrash ? '_a2w_autoremove' : '_a2w_skip_this_meta_check';
                 if (!empty($operation) && !empty($value)) {
                     $query = $wpdb->prepare("SELECT p.ID FROM $wpdb->posts p INNER JOIN $wpdb->postmeta pm1 ON (pm1.post_id=p.ID AND pm1.meta_key='_a2w_external_id') LEFT JOIN $wpdb->postmeta pm2 ON (pm2.post_id=p.ID AND pm2.meta_key=%s) LEFT JOIN $wpdb->postmeta pm3 ON (pm3.post_id=p.ID AND pm3.meta_key=%s) WHERE p.post_type = 'product' AND pm1.meta_value != '' AND (p.post_status != 'trash' || NOT pm3.meta_key IS NULL) AND (pm2.meta_value is null OR pm2.meta_value $operation %s) ORDER BY pm2.meta_value LIMIT %d", $sort_type, $autoremove_meta_key, $value, $ids_count);
                 }

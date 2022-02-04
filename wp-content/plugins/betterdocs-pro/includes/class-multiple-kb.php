@@ -33,9 +33,9 @@ class BetterDocs_Multiple_Kb
 			add_filter('nav_menu_link_attributes', array(__CLASS__, 'doc_category_nav_menu_permalink'), 10, 2);
 			add_action('betterdocs_cat_template_multikb', array(__CLASS__, 'get_multiple_kb'));
 			add_action('betterdocs_postcount', array(__CLASS__, 'postcount'), 10, 7);
-			add_action('betterdocs_category_list_shortcode', array(__CLASS__, 'category_list_shortcode'), 10, 1);
-			add_action('betterdocs_category_box_shortcode', array(__CLASS__, 'category_box_shortcode'), 10, 1);
-			add_action('betterdocs_sidebar_category_shortcode', array(__CLASS__, 'sidebar_category_shortcode'), 10, 1);
+			add_action('betterdocs_category_list_shortcode', array(__CLASS__, 'category_list_shortcode'), 10, 2);
+			add_action('betterdocs_category_box_shortcode', array(__CLASS__, 'category_box_shortcode'), 10, 2);
+			add_action('betterdocs_sidebar_category_shortcode', array(__CLASS__, 'sidebar_category_shortcode'), 10, 2);
 			add_action('betterdocs_list_tax_query_arg', array(__CLASS__, 'list_tax_query'), 10, 4);
 			add_action('betterdocs_taxonomy_object_meta_query', array(__CLASS__, 'taxonomy_object_meta_query'), 10, 3);
 			add_action('betterdocs_child_taxonomy_meta_query', array(__CLASS__, 'child_taxonomy_meta_query'), 10, 3);
@@ -231,34 +231,34 @@ class BetterDocs_Multiple_Kb
 		return $query->found_posts;
 	}
 
-	public static function category_list_shortcode($shortcode)
+	public static function category_list_shortcode($shortcode, $terms_orderby)
 	{
         $output = betterdocs_generate_output();
 		if (is_tax('knowledge_base')) {
-			$shortcode = do_shortcode('[betterdocs_category_grid multiple_knowledge_base="true" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]');
+			$shortcode = do_shortcode('[betterdocs_category_grid multiple_knowledge_base="true" terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]');
 		} else {
-			$shortcode = do_shortcode('[betterdocs_category_grid title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]');
+			$shortcode = do_shortcode('[betterdocs_category_grid terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]');
 		}
 
 		return $shortcode;
 	}
 
-	public static function category_box_shortcode($shortcode)
+	public static function category_box_shortcode($shortcode, $terms_orderby)
 	{
         $output = betterdocs_generate_output();
 		if (is_tax('knowledge_base')) {
-			$shortcode = do_shortcode('[betterdocs_category_box multiple_knowledge_base="true" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" border_bottom="'.$output['betterdocs_doc_page_box_border_bottom'].'"]');
+			$shortcode = do_shortcode('[betterdocs_category_box multiple_knowledge_base="true" terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" border_bottom="'.$output['betterdocs_doc_page_box_border_bottom'].'"]');
 		} else {
-			$shortcode = do_shortcode('[betterdocs_category_box title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" border_bottom="'.$output['betterdocs_doc_page_box_border_bottom'].'"]');
+			$shortcode = do_shortcode('[betterdocs_category_box terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" border_bottom="'.$output['betterdocs_doc_page_box_border_bottom'].'"]');
 		}
 
 		return $shortcode;
 	}
 
-	public static function sidebar_category_shortcode($shortcode)
+	public static function sidebar_category_shortcode($shortcode, $terms_orderby)
 	{
         $output = betterdocs_generate_output();
-		return do_shortcode('[betterdocs_category_grid sidebar_list="true" posts_per_grid="-1" multiple_knowledge_base="true" kb_slug="'.self::kb_slug().'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_sidebar_title_tag']).'"]');
+		return do_shortcode('[betterdocs_category_grid terms_orderby="'.esc_html($terms_orderby).'" sidebar_list="true" posts_per_grid="-1" multiple_knowledge_base="true" kb_slug="'.self::kb_slug().'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_sidebar_title_tag']).'"]');
 	}
 
 	public static function breadcrumb_archive($html, $delimiter)

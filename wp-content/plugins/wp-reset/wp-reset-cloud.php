@@ -1080,7 +1080,7 @@ class WP_Reset_Cloud
             )
         );
 
-        if ($response['success'] == true) {
+        if (!is_wp_error($response) && $response['success'] == true) {
             $wp_reset->log('info', 'Cloud: Snapshot ' . $snapshot_uid . ' deleted successfully!');
             return array('action' => 'snapshots_refresh', 'continue' => 1, 'message' => 'Refreshing cloud snapshots');
         } else if (isset($response['data'])) {

@@ -111,7 +111,7 @@ Class BetterDocs_Elementor_Tab_View extends Widget_Base{
                     if ($kb->count > 0) {
                         echo '<div class="betterdocs-tab-content '.$kb->slug.'">';
                         echo '<div class="betterdocs-tab-categories">';
-                        $category_objects = BetterDocs_Helper::taxonomy_object(true, '', $kb->slug, $settings['nested_subcategory_tab_list']);
+                        $category_objects = BetterDocs_Helper::taxonomy_object(true, '', $settings['tab_list_posts_orderby'], $kb->slug, $settings['nested_subcategory_tab_list']);
                         if ($category_objects && !is_wp_error($category_objects)) {
                             // display category grid by order
                             foreach ($category_objects as $term) {

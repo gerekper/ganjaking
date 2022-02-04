@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="21.905" height="20" viewBox="0 0 21.905 20">
+  <g id="Page-1" transform="translate(0 -0.75)">
+    <g id="Withdrawals" transform="translate(0 0.75)">
+      <g id="left-panel" transform="translate(0 0)">
+        <path id="Shape" d="M164.857,182.607V179.75h1.9v2.857h2.857v1.9h-2.857v2.857h-1.9v-2.857H162v-1.9Zm2.857,5.714v-2.857h2.857v-2.857h6.667l1.743,1.9H182a1.91,1.91,0,0,1,1.9,1.9v11.429a1.91,1.91,0,0,1-1.9,1.9H166.762a1.91,1.91,0,0,1-1.9-1.9v-9.524Zm6.667,8.571a4.762,4.762,0,1,0-4.762-4.762,4.764,4.764,0,0,0,4.762,4.762Zm-3.048-4.762a3.048,3.048,0,1,0,3.048-3.048,3.044,3.044,0,0,0-3.048,3.048Z" transform="translate(-162 -179.75)" fill="#fff" fill-rule="evenodd"/>
+      </g>
+    </g>
+  </g>
+</svg>
