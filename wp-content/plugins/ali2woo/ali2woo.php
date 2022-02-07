@@ -5,7 +5,7 @@ Plugin URI: https://codecanyon.net/user/ma-group/portfolio
 Description: Aliexpress Dropship for Woocommerce is a WordPress plugin created for AliExpress Drop Shipping and Affiliate marketing
 Text Domain: ali2woo
 Domain Path: /languages
-Version: 1.19.15
+Version: 1.19.16
 Author: MA-Group
 Author URI: htts://codecanyon.net/user/ma-group
 License: GPLv2+

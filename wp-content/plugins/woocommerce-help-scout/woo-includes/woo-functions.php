@@ -1,14 +1,21 @@
 <?php
 /**
  * Functions used by plugins
+ *
+ * @package woo-function
  */
-if ( ! class_exists( 'WC_Dependencies' ) )
+
+if ( ! class_exists( 'WC_Dependencies' ) ) {
 	require_once 'class-wc-dependencies.php';
+}
 
 /**
  * WC Detection
  */
 if ( ! function_exists( 'is_woocommerce_active' ) ) {
+	/**
+	 * Is woocommerce_active check.
+	 */
 	function is_woocommerce_active() {
 		return WC_Dependencies::woocommerce_active_check();
 	}
@@ -18,11 +25,19 @@ if ( ! function_exists( 'is_woocommerce_active' ) ) {
  * Queue updates for the WooUpdater
  */
 if ( ! function_exists( 'woothemes_queue_update' ) ) {
+	/**
+	 * Woothemes queue update.
+	 *
+	 * @param string $file comment about this variable.
+	 * @param string $file_id  comment about this variable.
+	 * @param string $product_id  comment about this variable.
+	 */
 	function woothemes_queue_update( $file, $file_id, $product_id ) {
 		global $woothemes_queued_updates;
 
-		if ( ! isset( $woothemes_queued_updates ) )
+		if ( ! isset( $woothemes_queued_updates ) ) {
 			$woothemes_queued_updates = array();
+		}
 
 		$plugin             = new stdClass();
 		$plugin->file       = $file;
@@ -35,17 +50,27 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
 
 /**
  * Load installer for the WooThemes Updater.
+ *
  * @return $api Object
  */
 if ( ! class_exists( 'WooThemes_Updater' ) && ! function_exists( 'woothemes_updater_install' ) ) {
+	/**
+	 * Display a notice if the "WooThemes Updater" plugin hasn't been installed.
+	 *
+	 * @param string $api comment about this variable.
+	 * @param string $action  comment about this variable.
+	 * @param object $args comment about this variable.
+	 */
 	function woothemes_updater_install( $api, $action, $args ) {
 		$download_url = 'http://woodojo.s3.amazonaws.com/downloads/woothemes-updater/woothemes-updater.zip';
 
-		if ( 'plugin_information' != $action ||
+		if ( 'plugin_information' !== $action ||
 			false !== $api ||
 			! isset( $args->slug ) ||
-			'woothemes-updater' != $args->slug
-		) return $api;
+			'woothemes-updater' !== $args->slug
+		) {
+			return $api;
+		}
 
 		$api = new stdClass();
 		$api->name = 'WooThemes Updater';
@@ -64,34 +89,36 @@ if ( ! class_exists( 'WooThemes_Updater' ) && ! function_exists( 'woothemes_upda
 
 	/**
 	 * Display a notice if the "WooThemes Updater" plugin hasn't been installed.
+	 *
 	 * @return void
 	 */
 	function woothemes_updater_notice() {
-		$active_plugins = apply_filters( 'active_plugins', get_option('active_plugins' ) );
-		if ( in_array( 'woothemes-updater/woothemes-updater.php', $active_plugins ) ) return;
+		$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+		if ( in_array( 'woothemes-updater/woothemes-updater.php', $active_plugins ) ) {
+			return;
+		}
 
 		$slug = 'woothemes-updater';
 		$install_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=' . $slug ), 'install-plugin_' . $slug );
-		$activate_url = 'plugins.php?action=activate&plugin=' . urlencode( 'woothemes-updater/woothemes-updater.php' ) . '&plugin_status=all&paged=1&s&_wpnonce=' . urlencode( wp_create_nonce( 'activate-plugin_woothemes-updater/woothemes-updater.php' ) );
+		$activate_url = 'plugins.php?action=activate&plugin=' . rawurlencode( 'woothemes-updater/woothemes-updater.php' ) . '&plugin_status=all&paged=1&s&_wpnonce=' . rawurlencode( wp_create_nonce( 'activate-plugin_woothemes-updater/woothemes-updater.php' ) );
 
 		$message = '<a href="' . esc_url( $install_url ) . '">Install the WooThemes Updater plugin</a> to get updates for your WooThemes plugins.';
-		$is_downloaded = false;
 		$plugins = array_keys( get_plugins() );
 		foreach ( $plugins as $plugin ) {
 			if ( strpos( $plugin, 'woothemes-updater.php' ) !== false ) {
-				$is_downloaded = true;
 				$message = '<a href="' . esc_url( admin_url( $activate_url ) ) . '">Activate the WooThemes Updater plugin</a> to get updates for your WooThemes plugins.';
 			}
 		}
-		echo '<div class="updated fade"><p>' . $message . '</p></div>' . "\n";
+		echo '<div class="updated fade"><p>' . wp_kses_post(
+			$message,
+			array(
+				'div' => array( 'class' => array() ),
+				'a' => array( 'href' => array() ),
+				'p' => array(),
+				'strong' => array(),
+			)
+		) . '</p></div>' . "\n";
 	}
 
 	add_action( 'admin_notices', 'woothemes_updater_notice' );
-}
-
-/**
- * Prevent conflicts with older versions
- */
-if ( ! class_exists( 'WooThemes_Plugin_Updater' ) ) {
-	class WooThemes_Plugin_Updater { function init() {} }
 }

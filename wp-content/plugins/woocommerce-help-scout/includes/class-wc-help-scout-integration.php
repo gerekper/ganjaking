@@ -3,21 +3,89 @@
  * Help Scout Integration.
  *
  * @package  WC_Help_Scout_Integration
- * @category Integration
- * @author   WooThemes
  */
 
-class WC_Help_Scout_Integration extends WC_Integration {
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
+/**
+ * Help Scout Integration.
+ *
+ * @package  WC_Help_Scout_Integration
+ */
+class WC_Help_Scout_Integration extends WC_Integration {
+	/**
+	 * Api ulr
+	 *
+	 * @var string
+	 */
 	protected $api_url;
+	/**
+	 * * Api ulr
+	 *
+	 * @var string
+	 */
 	protected $admin_url;
+	/**
+	 * * Api ulr
+	 *
+	 * @var string
+	 */
 	protected $app_key;
+	/**
+	 * * Api ulr
+	 *
+	 * @var string
+	 */
 	protected $app_secret;
+	/**
+	 * * Api ulr
+	 *
+	 * @var string
+	 */
 	protected $mailbox_id;
+	/**
+	 * * Api ulr
+	 *
+	 * @var string
+	 */
 	protected $assigned_to;
+	/**
+	 * * Api ulr
+	 *
+	 * @var string
+	 */
 	protected $conversation_cc;
+	/**
+	 * * Api ulr
+	 *
+	 * @var string
+	 */
 	protected $conversation_bcc;
+	/**
+	 * * Api ulr
+	 *
+	 * @var string
+	 */
 	protected $debug;
+	/**
+	 * * Api ulr
+	 *
+	 * @var string
+	 */
+	protected $hide_conversation;
+	/**
+	 * * Api ulr
+	 *
+	 * @var string
+	 */
+	protected $hide_help_button;
+	/**
+	 * * Api ulr
+	 *
+	 * @var string
+	 */
 	protected $log;
 
 	/**
@@ -26,8 +94,9 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	public function __construct() {
 		$this->id                 = 'help-scout';
 		$this->method_title       = __( 'Help Scout', 'woocommerce-help-scout' );
-		$this->method_description = __( 'Help Scout is a scalable customer support, no help desk headaches.<br/><br/>Redirect URL:   '.$this->help_scout_redirect_uri(), 'woocommerce-help-scout' );
 
+		/* translators: %s: search term */
+		$this->method_description = sprintf( __( 'Help Scout is a scalable customer support, no help desk headaches.<br/><br/>Redirect URL:  %1$s <br/><br/><b>Notes :</b> <br/>1. Please make sure you enable legacy of woocommerce <a href="%2$s" target="_blank">click here</a>.<br/>2. REST Api that you create have read permission also <a href="%3$s" target="_blank">click here</a>.', 'woocommerce-help-scout' ), $this->help_scout_redirect_uri(), admin_url( 'admin.php?page=wc-settings&tab=advanced&section=legacy_api' ), admin_url( 'admin.php?page=wc-settings&tab=advanced&section=keys' ) );
 		// API.
 		$this->api_url            = 'https://api.helpscout.net/v2/';
 		$this->admin_url          = 'https://secure.helpscout.net/';
@@ -44,23 +113,14 @@ class WC_Help_Scout_Integration extends WC_Integration {
 		$this->conversation_cc  = $this->get_option( 'conversation_cc' );
 		$this->conversation_bcc = $this->get_option( 'conversation_bcc' );
 		$this->debug            = $this->get_option( 'debug' );
+		$this->hide_conversation = $this->get_option( 'hide_conversation' );
+		$this->hide_help_button = $this->get_option( 'hide_help_button' );
 
 		// Actions.
-		add_action( 'woocommerce_update_options_integration_' .  $this->id, array( $this, 'process_admin_options' ),10 ,1 );
+		add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ), 10, 1 );
 
 		// Scripts.
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
-
-		//wp_schedule_event( time(), 'hourly', array($this,'check_authorization_still_valid') );
-		//add_action('init',array($this,'check_authorization_still_valid') );
-
-		/*if (!wp_next_scheduled('my_task_hook')) {
-			wp_schedule_event( time(), '60', 'my_task_hook' );
-		}
-		add_action ( 'my_task_hook', array($this,'check_authorization_still_valid') ); */
-
-
-		// add_action( 'wp', array( $this,'check_authorization_still_valid' ));
 
 		if ( is_admin() ) {
 			// Comments.
@@ -80,7 +140,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 		}
 
 		// Active logs.
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log = WC_Help_Scout::get_logger();
 		}
 	}
@@ -99,7 +159,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			wp_enqueue_style( $this->id . '-comments-screen', plugins_url( 'assets/css/admin/comments-screen' . $suffix . '.css', plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, 'all' );
 		}
 
-		if('woocommerce_page_wc-settings'===$screen->id){
+		if ( 'woocommerce_page_wc-settings' === $screen->id ) {
 			wp_enqueue_style( $this->id . '-integration-screen', plugins_url( 'assets/css/admin/integration-screen.css', plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, 'all' );
 
 			wp_enqueue_script( $this->id . '-integration-screen', plugins_url( 'assets/js/admin/integration-screen.js', plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, true );
@@ -117,7 +177,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 					'ajax_url'  => admin_url( 'admin-ajax.php' ),
 					'security'  => wp_create_nonce( 'woocommerce_help_scout_ajax' ),
 					'error'     => __( 'Failed to create the conversation, please try again.', 'woocommerce-help-scout' ),
-					'admin_url' => $this->admin_url
+					'admin_url' => $this->admin_url,
 				)
 			);
 		}
@@ -129,7 +189,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 * @return boolean
 	 */
 	public function are_credentials_defined() {
-		if(!empty($this->app_key) && !empty($this->app_secret) && !empty($this->app_secret)) {
+		if ( ! empty( $this->app_key ) && ! empty( $this->app_secret ) && ! empty( $this->app_secret ) ) {
 			return true;
 		}
 		return false;
@@ -152,7 +212,6 @@ class WC_Help_Scout_Integration extends WC_Integration {
 
 			wp_enqueue_script( 'help-scout-myaccount-scripts', plugins_url( 'assets/js/frontend/myaccount-page' . $suffix . '.js', plugin_dir_path( __FILE__ ) ), array( 'help-scout-form' ), WC_HELP_SCOUT_VERSION, true );
 
-
 			wp_localize_script(
 				'help-scout-myaccount-scripts',
 				'woocommerce_help_scout_myaccount_params',
@@ -167,7 +226,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 					'reply_to'             => __( 'Reply to', 'woocommerce-help-scout' ),
 					'message'              => __( 'Message', 'woocommerce-help-scout' ),
 					'send'                 => __( 'Send', 'woocommerce-help-scout' ),
-					'user_id'              => get_current_user_id()
+					'user_id'              => get_current_user_id(),
 				)
 			);
 		}
@@ -180,20 +239,17 @@ class WC_Help_Scout_Integration extends WC_Integration {
 				'success'              => __( 'Thank you for your contact, we will respond as soon as possible.', 'woocommerce-help-scout' ),
 				'ajax_url'             => admin_url( 'admin-ajax.php' ),
 				'security'             => wp_create_nonce( 'woocommerce_help_scout_ajax' ),
-				'error'                => __( 'There was an error in the request, please try again or contact us for assistance.', 'woocommerce-help-scout' )
+				'error'                => __( 'There was an error in the request, please try again or contact us for assistance.', 'woocommerce-help-scout' ),
 			)
 		);
-
-		
 		wp_enqueue_style( 'hs-img-upload-css', plugins_url( 'assets/css/frontend/image-uploader.min.css', plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, 'all' );
-		wp_enqueue_script( 'hs-jquery-img-plupload', plugins_url( 'assets/js/frontend/image-uploader.min.js',plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, false );
+		wp_enqueue_script( 'hs-jquery-img-plupload', plugins_url( 'assets/js/frontend/image-uploader.min.js', plugin_dir_path( __FILE__ ) ), array(), WC_HELP_SCOUT_VERSION, false );
 	}
 
 	/**
-     * Helpscout redirect uri.
-    */
-
-	public function help_scout_redirect_uri(){
+	 * Helpscout redirect uri.
+	 */
+	public function help_scout_redirect_uri() {
 
 		return WC_HELP_SCOUT_PLUGINURL . 'allow-access.php';
 	}
@@ -204,14 +260,14 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 * @return void
 	 */
 	public function init_form_fields() {
-
+		/* translators: %s: serach tearm */
 		$debug_label       = __( 'Enable Logging %s', 'woocommerce-help-scout' );
 		$debug_description = __( 'Log Help Scout events, such as API requests.', 'woocommerce-help-scout' );
 
 		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.2', '>=' ) ) {
-			$debug_label = sprintf( $debug_label, ' | ' . '<a href="' . esc_url( admin_url( 'admin.php?page=wc-status&tab=logs&log_file=' . esc_attr( $this->id ) . '-' . sanitize_file_name( wp_hash( $this->id ) ) . '.log' ) ) . '">' . __( 'View Log', 'woocommerce-help-scout' ) . '</a>' );
+			$debug_label = sprintf( $debug_label, ' | <a href="' . esc_url( admin_url( 'admin.php?page=wc-status&tab=logs&log_file=' . esc_attr( $this->id ) . '-' . sanitize_file_name( wp_hash( $this->id ) ) . '.log' ) ) . '">' . esc_html( __( 'View Log', 'woocommerce-help-scout' ) ) . '</a>' );
 		} else {
-			$debug_label = sprintf( $debug_label, ' | ' . __( 'View Log', 'woocommerce-help-scout' ) . ': <code>woocommerce/logs/' . $this->id . '-' . sanitize_file_name( wp_hash( $this->id ) ) . '.txt</code>' );
+			$debug_label = sprintf( $debug_label, ' | ' . esc_html( __( 'View Log', 'woocommerce-help-scout' ) ) . ': <code>woocommerce/logs/' . $this->id . '-' . sanitize_file_name( wp_hash( $this->id ) ) . '.txt</code>' );
 		}
 
 		$this->form_fields = array(
@@ -220,57 +276,71 @@ class WC_Help_Scout_Integration extends WC_Integration {
 				'type'        => 'text',
 				'description' => __( 'Enter your Scout APP API Key. Create one by navigating to Your Profile > My apps and click Create My App', 'woocommerce-help-scout' ),
 				'desc_tip'    => false,
-				'default'     => ''
+				'default'     => '',
 			),
 			'app_secret' => array(
 				'title'       => __( 'APP Secret', 'woocommerce-help-scout' ),
 				'type'        => 'text',
 				'description' => __( 'Enter your Help Scout APP Secret Key.', 'woocommerce-help-scout' ),
 				'desc_tip'    => false,
-				'default'     => ''
+				'default'     => '',
 			),
 			'mailbox_id' => array(
 				'title'       => __( 'Mailbox ID', 'woocommerce-help-scout' ),
 				'type'        => 'text',
 				'description' => __( 'Enter with your Help Scout Mailbox ID. Find this in your Help Scout Mailbox > Mailbox Settings > Edit Mailbox, example: <code>https://secure.helpscout.net/settings/mailbox/ID-HERE/</code>.', 'woocommerce-help-scout' ),
 				'desc_tip'    => false,
-				'default'     => ''
+				'default'     => '',
 			),
 			'assigned_to' => array(
 				'title'       => __( 'Assigned To (optional)', 'woocommerce-help-scout' ),
 				'type'        => 'text',
 				'description' => __( 'Enter the user ID responsible for conversations. Find this in the "Your Profile" page URL, example: <code>https://secure.helpscout.net/users/profile/USER-ID-HERE/</code>.', 'woocommerce-help-scout' ),
 				'desc_tip'    => false,
-				'default'     => ''
+				'default'     => '',
 			),
 			'conversation_cc' => array(
 				'title'       => __( 'Conversation CC (optional)', 'woocommerce-help-scout' ),
 				'type'        => 'textarea',
 				'description' => __( 'Enter a list of users emails that will receive copies of the all conversations, separate each email address with a comma.', 'woocommerce-help-scout' ),
 				'desc_tip'    => false,
-				'default'     => ''
+				'default'     => '',
 			),
 			'conversation_bcc' => array(
 				'title'       => __( 'Conversation BCC (optional)', 'woocommerce-help-scout' ),
 				'type'        => 'textarea',
 				'description' => __( 'Enter a list of users emails that will receive hidden copies of the all conversations, separate each email address with a comma.', 'woocommerce-help-scout' ),
 				'desc_tip'    => false,
-				'default'     => ''
+				'default'     => '',
 			),
 			'debug'   => array(
 				'title'       => __( 'Debug Log', 'woocommerce-help-scout' ),
 				'type'        => 'checkbox',
 				'label'       => $debug_label,
 				'default'     => 'no',
-				'description' => $debug_description
+				'description' => $debug_description,
 			),
+			'hide_conversation'   => array(
+				'title'       => '',
+				'type'        => 'checkbox',
+				'label'       => __( 'Hide Support Conversations From Sidebar', 'woocommerce-help-scout' ),
+				'default'     => 'no',
+				'description' => '',
+			),
+			'hide_help_button'   => array(
+				'title'       => '',
+				'type'        => 'checkbox',
+				'label'       => 'Hide Help Button From Order Details Page',
+				'default'     => 'no',
+				'description' => '',
+			),
+
 			'access_url' => array(
-				'title'       => __( '', 'woocommerce-help-scout' ),
+				'title'       => '',
 				'type'        => 'title',
 				'description' => '<a href="#" id="allow_access_url">Allow Access</a>',
-			)
+			),
 		);
-
 	}
 
 	/**
@@ -281,231 +351,226 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 * @param  string $first_name User first name (optional).
 	 * @param  string $last_name  User last name (optional).
 	 *
-	 * @return int                Help Scout customer ID.
+	 * @return int  Help Scout customer ID.
 	 */
-	public function get_customer_id($user_id, $user_email, $first_name = null, $last_name = null) {
-        /* print_R($user_id);die; */
-        // Gets the Help Scout customer ID.
-        $customer_id = get_user_meta($user_id, '_help_scout_customer_id', true);
+	public function get_customer_id( $user_id, $user_email, $first_name = null, $last_name = null ) {
+		// Gets the Help Scout customer ID.
+		$customer_id = get_user_meta( $user_id, '_help_scout_customer_id', true );
 
-        if ('yes' == $this->debug) {
-            $this->log->add($this->id, 'Getting Help Scout customer ID for the user ' . $user_id . '...');
-        }
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( $this->id, 'Getting Help Scout customer ID for the user ' . $user_id . '...' );
+		}
 
-        if ($customer_id) {
-            if ('yes' == $this->debug) {
-                $this->log->add($this->id, 'Customer ID for the user ' . $user_id . ' is ' . $customer_id);
-            }
+		if ( $customer_id ) {
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( $this->id, 'Customer ID for the user ' . $user_id . ' is ' . $customer_id );
+			}
+			return $customer_id;
+		}
 
-            return $customer_id;
-        }
+		// Customers API.
+		$customers_url = $this->api_url . 'customers';
 
-        // Customers API.
-        $customers_url = $this->api_url . 'customers';
+		// Set connection params.
+		$params = array(
+			'timeout' => 45,
+			'headers' => array(
+				'Content-Type' => 'application/json;charset=UTF-8',
+				'Authorization' => 'Bearer ' . get_option( 'helpscout_access_token' ),
+			),
+		);
 
-        // Set connection params.
-        $params = array(
-            'timeout' => 60,
-            'headers' => array(
-                'Content-Type' => 'application/json;charset=UTF-8',
-                'Authorization' => 'Bearer ' . get_option('helpscout_access_token')
-            )
-        );
+		// First name fallback.
+		if ( null === $first_name ) {
+			$first_name = get_user_meta( $user_id, 'first_name', true );
+		}
 
-        // First name fallback.
-        if (null === $first_name) {
-            $first_name = get_user_meta($user_id, 'first_name', true);
-        }
+		// Last name fallback.
+		if ( null === $last_name ) {
+			$last_name = get_user_meta( $user_id, 'last_name', true );
+		}
 
-        // Last name fallback.
-        if (null === $last_name) {
-            $last_name = get_user_meta($user_id, 'last_name', true);
-        }
+		// Create/update customer.
+		$customer_data = array(
+			'firstName' => $first_name,
+			'lastName' => $last_name,
+			'emails' => array(
+				array(
+					'type' => 'work',
+					'value' => $user_email,
+				),
+			),
+		);
 
-        // Create/update customer.
-        $customer_data = array(
-            'firstName' => $first_name,
-            'lastName' => $last_name,
-            'emails' => array(
-                array(
-                    'type' => 'work',
-                    'value' => $user_email
-                )
-            )
-        );
+		// Customer address.
+		$billing_address_1 = get_user_meta( $user_id, 'billing_address_1', true );
+		$billing_address_2 = get_user_meta( $user_id, 'billing_address_2', true );
+		$billing_city = get_user_meta( $user_id, 'billing_city', true );
+		$billing_state = get_user_meta( $user_id, 'billing_state', true );
+		$billing_postcode = get_user_meta( $user_id, 'billing_postcode', true );
+		$billing_country = get_user_meta( $user_id, 'billing_country', true );
 
-        // Customer address.
-        $billing_address_1 = get_user_meta($user_id, 'billing_address_1', true);
-        $billing_address_2 = get_user_meta($user_id, 'billing_address_2', true);
-        $billing_city = get_user_meta($user_id, 'billing_city', true);
-        $billing_state = get_user_meta($user_id, 'billing_state', true);
-        $billing_postcode = get_user_meta($user_id, 'billing_postcode', true);
-        $billing_country = get_user_meta($user_id, 'billing_country', true);
+		if (
+				( $billing_address_1 || $billing_address_2 ) && $billing_city && $billing_state && $billing_postcode && $billing_country
+		) {
+			$customer_data['address'] = array(
+				'lines' => array( $billing_address_1, $billing_address_2 ),
+				'city' => $billing_city,
+				'state' => $billing_state,
+				'postalCode' => $billing_postcode,
+				'country' => $billing_country,
+			);
 
-        if (
-                ( $billing_address_1 || $billing_address_2 ) && $billing_city && $billing_state && $billing_postcode && $billing_country
-        ) {
-            $customer_data['address'] = array(
-                'lines' => array($billing_address_1, $billing_address_2),
-                'city' => $billing_city,
-                'state' => $billing_state,
-                'postalCode' => $billing_postcode,
-                'country' => $billing_country
-            );
+			$search_customers_by_id = wp_safe_remote_get( $customers_url, $params );
 
-            $search_customers_by_id = wp_safe_remote_get($customers_url, $params);
-            //echo '<pre>'; print_r($search_customers_by_id); //exit;
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( $this->id, 'search_customers_by_id...' . print_r( $search_customers_by_id, true ) );
+			}
+			if ( ! is_wp_error( $search_customers_by_id ) ) {
+				if ( 404 === $search_customers_by_id['response']['code'] ) {
+					// Customers API.
+					$customers_url = $this->api_url . 'customers';
 
-            if ('yes' == $this->debug) {
-                $this->log->add($this->id, 'search_customers_by_id...' . print_r($search_customers_by_id, true));
-            }
-            if (!is_wp_error($search_customers_by_id)) {
-                if (404 == $search_customers_by_id['response']['code']) {
-                    // Customers API.
-                    $customers_url = $this->api_url . 'customers';
+					// Set connection params.
+					$params = array(
+						'timeout' => 45,
+						'headers' => array(
+							'Content-Type' => 'application/json;charset=UTF-8',
+							'Authorization' => 'Bearer ' . get_option( 'helpscout_access_token' ),
+						),
+					);
 
-                    // Set connection params.
-                    $params = array(
-                        'timeout' => 60,
-                        'headers' => array(
-                            'Content-Type' => 'application/json;charset=UTF-8',
-                            'Authorization' => 'Bearer ' . get_option('helpscout_access_token')
-                        )
-                    );
+					// First name fallback.
+					if ( null === $first_name ) {
+						$first_name = get_user_meta( $user_id, 'first_name', true );
+					}
 
-                    // First name fallback.
-                    if (null === $first_name) {
-                        $first_name = get_user_meta($user_id, 'first_name', true);
-                    }
+					$customer_data = apply_filters( 'woocommerce_help_scout_customer_args', $customer_data, $user_id, $user_email );
 
-                    $customer_data = apply_filters('woocommerce_help_scout_customer_args', $customer_data, $user_id, $user_email);
+					// Searches for an existing client.
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( $this->id, 'Searching customer in Help Scout...' );
+					}
 
+					$search_customers = wp_safe_remote_get( $customers_url . '?query=(email:' . $user_email . ')', $params );
 
+					if (
+							! is_wp_error( $search_customers ) && 200 === $search_customers['response']['code'] && ( 0 === strcmp( $search_customers['response']['message'], 'OK' ) )
+					) {
 
-                    // Searches for an existing client.
-                    if ('yes' == $this->debug) {
-                        $this->log->add($this->id, 'Searching customer in Help Scout...');
-                    }
+						$search_customers_data = json_decode( $search_customers['body'], true );
 
-                    $search_customers = wp_safe_remote_get($customers_url . '?query=(email:' . $user_email . ')', $params);
+						if (
+								isset( $search_customers_data['_embedded']['customers'][0]['id'] ) && ! empty( $search_customers_data['_embedded']['customers'][0]['id'] )
+						) {
+							$customer_id = intval( $search_customers_data['_embedded']['customers'][0]['id'] );
 
-                    if (
-                            !is_wp_error($search_customers) && 200 == $search_customers['response']['code'] && ( 0 == strcmp($search_customers['response']['message'], 'OK') )
-                    ) {
+							update_user_meta( $user_id, '_help_scout_customer_id', $customer_id );
 
-                        $search_customers_data = json_decode($search_customers['body'], true);
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( $this->id, 'Customer successfully found' );
+							}
 
-                        if (
-                                isset($search_customers_data['_embedded']['customers'][0]['id']) && !empty($search_customers_data['_embedded']['customers'][0]['id'])
-                        ) {
-                            $customer_id = intval($search_customers_data['_embedded']['customers'][0]['id']);
+							// Update the customer data.
+							$params['method'] = 'PUT';
+							$params['body'] = json_encode( $customer_data );
 
-                            update_user_meta($user_id, '_help_scout_customer_id', $customer_id);
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( $this->id, 'Updating customer in Help Scout...' );
+							}
 
-                            if ('yes' == $this->debug) {
-                                $this->log->add($this->id, 'Customer successfully found');
-                            }
+							$update_customer = wp_safe_remote_post( $this->api_url . 'customers/' . $customer_id, $params );
 
-                            // Update the customer data.
-                            $params['method'] = 'PUT';
-                            $params['body'] = json_encode($customer_data);
+							if (
+									! is_wp_error( $update_customer ) && 200 === $update_customer['response']['code'] && ( 0 === strcmp( $update_customer['response']['message'], 'OK' ) )
+							) {
 
-                            if ('yes' == $this->debug) {
-                                $this->log->add($this->id, 'Updating customer in Help Scout...');
-                            }
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( $this->id, 'Customer successfully updated' );
+								}
+							} else {
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( $this->id, 'Error updating customer data: ' . print_r( $update_customer, true ) );
+								}
+							}
+						} elseif ( 200 === $search_customers_by_id['response']['code'] ) {
+							return $customer_id;
+						}
+					}
+				}
+			}
+		}
 
-                            $update_customer = wp_safe_remote_post($this->api_url . 'customers/' . $customer_id, $params);
+		// Create a new customer in Help Scout.
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( $this->id, 'No customer was found' );
+			$this->log->add( $this->id, 'Creating a new customer in Help Scout...' );
+		}
+		$customers_url = $this->api_url . 'customers';
+		// Set connection params.
+		$params = array(
+			'timeout' => 45,
+			'headers' => array(
+				'Content-Type' => 'application/json;charset=UTF-8',
+				'Authorization' => 'Bearer ' . get_option( 'helpscout_access_token' ),
+			),
+		);
+		$search_customers = wp_safe_remote_get( $customers_url . '?query=(email:' . $user_email . ')', $params );
+		if (
+				! is_wp_error( $search_customers ) && 200 === $search_customers['response']['code'] && ( 0 === strcmp( $search_customers['response']['message'], 'OK' ) )
+		) {
 
-                            if (
-                                    !is_wp_error($update_customer) && 200 == $update_customer['response']['code'] && ( 0 == strcmp($update_customer['response']['message'], 'OK') )
-                            ) {
+			$search_customers_data = json_decode( $search_customers['body'], true );
 
-                                if ('yes' == $this->debug) {
-                                    $this->log->add($this->id, 'Customer successfully updated');
-                                }
-                            } else {
-                                if ('yes' == $this->debug) {
-                                    $this->log->add($this->id, 'Error updating customer data: ' . print_r($update_customer, true));
-                                }
-                            }
-                        } elseif (200 == $search_customers_by_id['response']['code']) {
-                            return $customer_id;
-                        }
-                    }
-                }
-            }
-        }
+			if (
+					isset( $search_customers_data['_embedded']['customers'][0]['id'] ) && ! empty( $search_customers_data['_embedded']['customers'][0]['id'] )
+			) {
+				$customer_id = intval( $search_customers_data['_embedded']['customers'][0]['id'] );
+				return $customer_id;
+			}
+		}
 
-        // Create a new customer in Help Scout.
-        if ('yes' == $this->debug) {
-            $this->log->add($this->id, 'No customer was found');
-            $this->log->add($this->id, 'Creating a new customer in Help Scout...');
-        }
-        $customers_url = $this->api_url . 'customers';
-        // Set connection params.
-        $params = array(
-            'timeout' => 60,
-            'headers' => array(
-                'Content-Type' => 'application/json;charset=UTF-8',
-                'Authorization' => 'Bearer ' . get_option('helpscout_access_token')
-            )
-        );
-        $search_customers = wp_safe_remote_get($customers_url . '?query=(email:' . $user_email . ')', $params);
-        //echo '<pre>'; print_r($search_customers);
-        if (
-                !is_wp_error($search_customers) && 200 == $search_customers['response']['code'] && ( 0 == strcmp($search_customers['response']['message'], 'OK') )
-        ) {
+		// Create customer.
+		$customer_data = array(
+			'firstName' => $first_name,
+			'lastName' => $last_name,
+			'emails' => array(
+				array(
+					'type' => 'work',
+					'value' => $user_email,
+				),
+			),
+		);
 
-            $search_customers_data = json_decode($search_customers['body'], true);
+		$params['method'] = 'POST';
+		$params['body'] = json_encode( $customer_data );
+		$create_customer = wp_safe_remote_post( $customers_url, $params );
 
-            if (
-                    isset($search_customers_data['_embedded']['customers'][0]['id']) && !empty($search_customers_data['_embedded']['customers'][0]['id'])
-            ) {
-                return $customer_id = intval($search_customers_data['_embedded']['customers'][0]['id']);
-            }
-        }
+		if (
+				! is_wp_error( $create_customer ) && 201 === $create_customer['response']['code'] && ( 0 === strcmp( $create_customer['response']['message'], 'Created' ) ) && isset( $create_customer['headers']['location'] )
+		) {
+			$customer_id = str_replace( array( $this->api_url, 'customers/', '.json' ), '', $create_customer['headers']['location'] );
+			$customer_id = intval( $customer_id );
+			if ( ! empty( $user_id ) ) {
+				update_user_meta( $user_id, '_help_scout_customer_id', $customer_id );
+			}
 
-        // Create customer.
-        $customer_data = array(
-            'firstName' => $first_name,
-            'lastName' => $last_name,
-            'emails' => array(
-                array(
-                    'type' => 'work',
-                    'value' => $user_email
-                )
-            )
-        );
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( $this->id, 'Customer ID for the user ' . $user_id . ' is ' . $customer_id );
+			}
 
-        $params['method'] = 'POST';
-        $params['body'] = json_encode($customer_data);
-        $create_customer = wp_safe_remote_post($customers_url, $params);
-        //echo '<pre>'; print_r($create_customer); exit;
-        if (
-                !is_wp_error($create_customer) && 201 == $create_customer['response']['code'] && ( 0 == strcmp($create_customer['response']['message'], 'Created') ) && isset($create_customer['headers']['location'])
-        ) {
-            $customer_id = str_replace(array($this->api_url, 'customers/', '.json'), '', $create_customer['headers']['location']);
-            $customer_id = intval($customer_id);
-            if (!empty($user_id)) {
-                update_user_meta($user_id, '_help_scout_customer_id', $customer_id);
-            }
+			return $customer_id;
+		}
 
-            if ('yes' == $this->debug) {
-                $this->log->add($this->id, 'Customer ID for the user ' . $user_id . ' is ' . $customer_id);
-            }
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( $this->id, 'Error creating customer: ' . print_r( $create_customer, true ) );
+			$this->log->add( $this->id, 'Unable to obtain the customer ID' );
+		}
 
-            return $customer_id;
-        }
+		return 0;
+	}
 
-        if ('yes' == $this->debug) {
-            $this->log->add($this->id, 'Error creating customer: ' . print_r($create_customer, true));
-            $this->log->add($this->id, 'Unable to obtain the customer ID');
-        }
-
-        return 0;
-    }
-
-    /**
+	/**
 	 * Get customer conversations.
 	 *
 	 * @param  int    $customer_id Help Scout customer ID.
@@ -515,37 +580,37 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 * @return array               Customer conversatios.
 	 */
 	public function get_customer_conversations( $customer_id, $page = 1, $status = 'all' ) {
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Getting conversations customer ID: ' . $customer_id );
 		}
 
-		$url = $this->api_url .'conversations?mailbox' . $this->mailbox_id .'&query=(customerIds:'.$customer_id.')&page=' . $page . '&status=' . $status;
+		$url = $this->api_url . 'conversations?mailbox' . $this->mailbox_id . '&query=(customerIds:' . $customer_id . ')&page=' . $page . '&status=' . $status;
 
 		$params = array(
-			'timeout' => 60,
+			'timeout' => 45,
 			'headers' => array(
 				'Content-Type' => 'application/json;charset=UTF-8',
-				'Authorization' => 'Bearer ' .get_option('helpscout_access_token')
-			)
+				'Authorization' => 'Bearer ' . get_option( 'helpscout_access_token' ),
+			),
 		);
 
 		$response = wp_safe_remote_get( $url, $params );
 
 		if (
 			! is_wp_error( $response )
-			&& 200 == $response['response']['code']
-			&& ( 0 == strcmp( $response['response']['message'], 'OK' ) )
+			&& 200 === $response['response']['code']
+			&& ( 0 === strcmp( $response['response']['message'], 'OK' ) )
 		) {
 			$conversations = json_decode( $response['body'], true );
 
-			if ( 'yes' == $this->debug ) {
+			if ( 'yes' === $this->debug ) {
 				$this->log->add( $this->id, 'conversations successfully retrieved for the customer ID: ' . $customer_id );
 			}
 
 			return wp_unslash( $conversations );
 		}
 
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Error while try to get the conversations for customer ID: ' . $customer_id );
 		}
 
@@ -553,60 +618,60 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			'page'  => 1,
 			'pages' => 0,
 			'count' => 0,
-			'items' => array()
+			'items' => array(),
 		);
 	}
 
 	/**
 	 * Get conversation details.
 	 *
-	 * @param  int    $conversation_id Conversation ID.
+	 * @param  int $conversation_id Conversation ID.
 	 *
 	 * @return array                   Conversation details.
 	 */
 	public function get_conversation( $conversation_id ) {
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Getting conversation by ID: ' . $conversation_id );
 		}
 
-		$url = $this->api_url . 'conversations/' . $conversation_id .'/threads' ;
+		$url = $this->api_url . 'conversations/' . $conversation_id . '/threads';
 		$params = array(
-			'timeout' => 60,
+			'timeout' => 45,
 			'headers' => array(
 				'Content-Type' => 'application/json;charset=UTF-8',
-				'Authorization' => 'Bearer ' .get_option('helpscout_access_token')
-			)
+				'Authorization' => 'Bearer ' . get_option( 'helpscout_access_token' ),
+			),
 		);
 
 		$response = wp_safe_remote_get( $url, $params );
 
 		if (
 			! is_wp_error( $response )
-			&& 200 == $response['response']['code']
-			&& ( 0 == strcmp( $response['response']['message'], 'OK' ) )
+			&& 200 === $response['response']['code']
+			&& ( 0 === strcmp( $response['response']['message'], 'OK' ) )
 		) {
 			$items = json_decode( $response['body'], true );
 
-			if ( 'yes' == $this->debug ) {
+			if ( 'yes' === $this->debug ) {
 				$this->log->add( $this->id, 'Conversation successfully retrieved by ID: ' . $conversation_id );
 			}
 
 			return wp_unslash( $items );
 		}
 
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Error while try to get the conversation by ID: ' . $conversation_id );
 		}
 
 		return array(
-			'items' => array()
+			'items' => array(),
 		);
 	}
 
 	/**
 	 * Get conversation status.
 	 *
-	 * @param  string $slug
+	 * @param  string $slug slug.
 	 *
 	 * @return string
 	 */
@@ -632,19 +697,19 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 * @param  string $message        Conversation body.
 	 * @param  int    $customer_id    Customer ID.
 	 * @param  string $customer_email Customer email.
-	 * @param  string $fileData attachment files.
-	 * @param  int $user_id to get billing first name & last name using $user_id in case customer id is not matched to the configured helpscoout account
+	 * @param  string $filedata attachment files.
+	 * @param  int    $user_id to get billing first name & last name using $user_id in case customer id is not matched to the configured helpscoout account.
 	 *
 	 * @return string                 Conversation URL.
 	 */
-	public function create_conversation( $subject, $message, $customer_id = 0, $customer_email = '', $fileData = '', $user_id = 0 ) {
+	public function create_conversation( $subject, $message, $customer_id = 0, $customer_email = '', $filedata = '', $user_id = 0 ) {
 
 		$data = array(
 			'customer' => array(
-				'email' => $customer_email
+				'email' => $customer_email,
 			),
 			'subject'  => $subject,
-			'mailboxId'=> $this->mailbox_id,
+			'mailboxId' => $this->mailbox_id,
 			'status'   => 'active',
 			'type'     => 'email',
 			'threads'  => array(
@@ -652,12 +717,12 @@ class WC_Help_Scout_Integration extends WC_Integration {
 					'type'      => 'customer',
 					'createdBy' => array(
 						'email' => $customer_email,
-						'type'  => 'customer'
+						'type'  => 'customer',
 					),
 					'text'   => strip_tags( $message ),
-					'status' => 'active'
-				)
-			)
+					'status' => 'active',
+				),
+			),
 		);
 
 		if ( 0 < $customer_id ) {
@@ -704,83 +769,80 @@ class WC_Help_Scout_Integration extends WC_Integration {
 		$url = add_query_arg( $request_query, $url );
 
 		$params = array(
-			'timeout' => 60,
+			'timeout' => 45,
 			'headers' => array(
 				'Content-Type' => 'application/json;charset=UTF-8',
-				'Authorization' => 'Bearer ' .get_option('helpscout_access_token')
-			)
+				'Authorization' => 'Bearer ' . get_option( 'helpscout_access_token' ),
+			),
 		);
 
 		$post_params = $params;
 
 		$post_params['body'] = json_encode( $data );
 		$response = wp_safe_remote_post( $url, $post_params );
-		//echo '<pre>';
-		//print_r($response);
-		//die;
 
-		//Here we check for error message if customer id is not matched to the configured helpscoout account
-		$arrError = json_decode($response['body']);
-		$errorMsgCustomer = '';
-		if(isset($arrError->_embedded->errors[0]->message)){
-		    $errorMsgCustomer = $arrError->_embedded->errors[0]->message;
+		// Here we check for error message if customer id is not matched to the configured helpscoout account.
+		$arrerror = json_decode( $response['body'] );
+
+		$errormsgcustomer = '';
+		if ( isset( $arrerror->_embedded->errors[0]->message ) ) {
+			$errormsgcustomer = $arrerror->_embedded->errors[0]->message;
 		}
 
-		//Check for the condition if customer id is not matched to the configured helpscoout account
-        if($errorMsgCustomer=='Customer must belong to the company'){
-            //Here we call create_conversation_by_email function to create coonversation by using email id
-            $response = $this->create_conversation_by_email( $subject, $message, $customer_id, $customer_email, $fileData, $user_id );
-        }
+		// Check for the condition if customer id is not matched to the configured helpscoout account.
+		if ( 'Customer must belong to the company' === $errormsgcustomer ) {
+			// Here we call create_conversation_by_email function to create coonversation by using email id.
+			$response = $this->create_conversation_by_email( $subject, $message, $customer_id, $customer_email, $filedata, $user_id );
+		}
 
-		if (! is_wp_error( $response )
-			&& 201 == $response['response']['code']
-			&& ( 0 == strcmp( $response['response']['message'], 'Created' ) )
+		if ( ! is_wp_error( $response )
+			&& 201 === $response['response']['code']
+			&& ( 0 === strcmp( $response['response']['message'], 'Created' ) )
 			&& isset( $response['headers']['location'] )
 		) {
 			$conversion_api = esc_url( $response['headers']['location'] );
-    		$conversion = wp_safe_remote_get( $conversion_api, $params );
+			$conversion = wp_safe_remote_get( $conversion_api, $params );
 
-    		if (
-    			! is_wp_error( $conversion )
-    			&& 200 == $conversion['response']['code']
-    			&& ( 0 == strcmp( $conversion['response']['message'], 'OK' ) )
-    		) {
-    			$conversion_data = json_decode( $conversion['body'], true );
-    			$id              = intval( $conversion_data['id'] );
-    			$number          = intval( $conversion_data['number'] );
+			if (
+				! is_wp_error( $conversion )
+				&& 200 === $conversion['response']['code']
+				&& ( 0 === strcmp( $conversion['response']['message'], 'OK' ) )
+			) {
+				$conversion_data = json_decode( $conversion['body'], true );
+				$id              = intval( $conversion_data['id'] );
+				$number          = intval( $conversion_data['number'] );
 
-    			if(!empty($fileData[0]['name'])){
-    				//$this->conversations_attachment($id, $number, $fileData);
-    				$this->create_thread_with_attachment($id, $number, $customer_id, $fileData);
-    			}
-    			if ( 'yes' == $this->debug ) {
-    				$this->log->add( $this->id, 'Conversation created successfully! ID: ' . $id . ', Number: ' . $number );
-    			}
+				if ( ! empty( $filedata[0]['name'] ) ) {
+					// $this->conversations_attachment($id, $number, $filedata);.
+					$this->create_thread_with_attachment( $id, $number, $customer_id, $filedata );
+				}
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( $this->id, 'Conversation created successfully! ID: ' . $id . ', Number: ' . $number );
+				}
 
-    			return array(
-    				'id'     => $id,
-    				'number' => $number,
-    				'status' => 1
-    			);
-    		}
+				return array(
+					'id'     => $id,
+					'number' => $number,
+					'status' => 1,
+				);
+			}
 
-    		if ( 'yes' == $this->debug ) {
-    			$this->log->add( $this->id, 'Failed to get the conversation: ' . print_r( $conversion, true ) );
-    		}
-    	}
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( $this->id, 'Failed to get the conversation: ' . print_r( $conversion, true ) );
+			}
+		}
 
-    	if ( 'yes' == $this->debug ) {
-    		$this->log->add( $this->id, 'Failed to create the conversation: ' . print_r( $response, true ) );
-    	}
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( $this->id, 'Failed to create the conversation: ' . print_r( $response, true ) );
+		}
 
-    	return array(
-    		'id'     => 0,
-    		'number' => 0,
-    		'status' => 0
-    	);
+		return array(
+			'id'     => 0,
+			'number' => 0,
+			'status' => 0,
+		);
 
-
-}
+	}
 
 	/**
 	 * Create Conversations using email if customer id not matched in helpscout configured account.
@@ -789,22 +851,21 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 * @param  string $message        Conversation body.
 	 * @param  int    $customer_id    Customer ID.
 	 * @param  string $customer_email Customer email.
-	 * @param  string $fileData attachment files.
-	 * @param  int $user_id to get billing first name & last name using $user_id
-	 *
+	 * @param  string $filedata attachment files.
+	 * @param  int    $user_id to get billing first name & last name using $user_id.
 	 * @return string                 Conversation URL.
 	 */
-function create_conversation_by_email( $subject, $message, $customer_id = 0, $customer_email, $fileData = '', $user_id = 0 ){
-    $billing_fname = get_user_meta( $user_id, 'billing_first_name', true );
-    $billing_lname = get_user_meta( $user_id, 'billing_last_name', true );
-    $data = array(
+	public function create_conversation_by_email( $subject, $message, $customer_id = 0, $customer_email, $filedata = '', $user_id = 0 ) {
+		$billing_fname = get_user_meta( $user_id, 'billing_first_name', true );
+		$billing_lname = get_user_meta( $user_id, 'billing_last_name', true );
+		$data = array(
 			'customer' => array(
 				'email' => $customer_email,
 				'firstName' => $billing_fname,
-				'lastName' => $billing_lname
+				'lastName' => $billing_lname,
 			),
 			'subject'  => $subject,
-			'mailboxId'=> $this->mailbox_id,
+			'mailboxId' => $this->mailbox_id,
 			'status'   => 'active',
 			'type'     => 'email',
 			'threads'  => array(
@@ -812,19 +873,17 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 					'type'      => 'customer',
 					'createdBy' => array(
 						'email' => $customer_email,
-						'type'  => 'customer'
+						'type'  => 'customer',
 					),
 					'text'   => strip_tags( $message ),
-					'status' => 'active'
-				)
-			)
+					'status' => 'active',
+				),
+			),
 		);
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'create_conversation_by_email #' . print_r( $customer_id, true ) );
 		}
 		if ( 0 < $customer_id ) {
-			//$data['customer']['id'] = $customer_id;
-			//$data['threads'][0]['createdBy']['id'] = $customer_id;
 			$data['threads'][0]['customer']['email'] = $customer_email;
 			$data['threads'][0]['customer']['firstName'] = $billing_fname;
 			$data['threads'][0]['customer']['lastName'] = $billing_lname;
@@ -868,23 +927,23 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 		$url = add_query_arg( $request_query, $url );
 
 		$params = array(
-			'timeout' => 60,
+			'timeout' => 45,
 			'headers' => array(
 				'Content-Type' => 'application/json;charset=UTF-8',
-				'Authorization' => 'Bearer ' .get_option('helpscout_access_token')
-			)
+				'Authorization' => 'Bearer ' . get_option( 'helpscout_access_token' ),
+			),
 		);
 
 		$post_params = $params;
 
 		$post_params['body'] = json_encode( $data );
 		$response = wp_safe_remote_post( $url, $post_params );
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'create_conversation_by_email response #' . print_r( $response, true ) );
 		}
 		return $response;
 
-}
+	}
 
 	/**
 	 * Create attachments in a conversation on Help Scout.
@@ -895,48 +954,45 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 	 *
 	 * @return bool.
 	 */
+	public function conversations_attachment( $conversation_id, $thread_id, $files ) {
 
-	public function conversations_attachment($conversation_id, $thread_id, $files) {
-
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Creating a thread in the conversation #' . $conversation_id . '...' );
 		}
-		/*if(!empty($files[0]['name'])){
-			foreach($files as $singleAttach){
-				$data['attachments'][] = array('fileName'=>$singleAttach['name'],'mimeType'=>$singleAttach['type'],'data'=>$singleAttach['data']);
-			}
-		}*/
-		$data['attachments'] = array('fileName'=>$files[0]['name'],'mimeType'=>$files[0]['type'],'data'=>$files[0]['data']);
+		$data['attachments'] = array(
+			'fileName' => $files[0]['name'],
+			'mimeType' => $files[0]['type'],
+			'data' => $files[0]['data'],
+		);
 		// Add filter to customize the conversation arguments.
 		$data = apply_filters( 'woocommerce_help_scout_thread_args', $data );
 		$data = wp_unslash( $data );
-		$url  = $this->api_url . 'conversations/' . $conversation_id.'/threads/'.$thread_id.'/attachments';
+		$url  = $this->api_url . 'conversations/' . $conversation_id . '/threads/' . $thread_id . '/attachments';
 
 		$params = array(
 			'body'    => json_encode( $data ),
-			'timeout' => 60,
+			'timeout' => 45,
 			'headers' => array(
 				'Content-Type' => 'application/json;charset=UTF-8',
-				'Authorization' => 'Bearer ' .get_option('helpscout_access_token')
-			)
+				'Authorization' => 'Bearer ' . get_option( 'helpscout_access_token' ),
+			),
 		);
 
 		$response = wp_safe_remote_post( $url, $params );
-		//echo '<pre>';
-		//print_r($response); exit;
+
 		if (
 			! is_wp_error( $response )
-			&& 201 == $response['response']['code']
-			&& ( 0 == strcmp( $response['response']['message'], 'Created' ) )
+			&& 201 === $response['response']['code']
+			&& ( 0 === strcmp( $response['response']['message'], 'Created' ) )
 		) {
-			if ( 'yes' == $this->debug ) {
+			if ( 'yes' === $this->debug ) {
 				$this->log->add( $this->id, 'Thread created successfully in the conversation #' . $conversation_id . '!' );
 			}
 
 			return true;
 		}
 
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Failed to create the thread in the conversation #' . $conversation_id . ': ' . print_r( $response, true ) );
 		}
 
@@ -953,57 +1009,56 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 	 *
 	 * @return bool.
 	 */
-	public function create_thread_with_attachment($conversation_id, $thread_id, $customer_id, $files) {
+	public function create_thread_with_attachment( $conversation_id, $thread_id, $customer_id, $files ) {
 
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Creating a thread in the conversation #' . $conversation_id . '...' );
 		}
 
 		$data['customer']['id'] = $customer_id;
 		$data['text'] = 'Attachments';
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'create_thread_with_attachment #' . print_r( $data, true ) );
 		}
-		$data['attachments'] = [];
-		if(!empty($files[0]['name'])){
-			foreach($files as $singleAttach){
-				$data['attachments'][] = array('fileName'=>$singleAttach['name'],'mimeType'=>$singleAttach['type'],'data'=>$singleAttach['data']);
+		$data['attachments'] = array();
+		if ( ! empty( $files[0]['name'] ) ) {
+			foreach ( $files as $singleattach ) {
+				$data['attachments'][] = array(
+					'fileName' => $singleattach['name'],
+					'mimeType' => $singleattach['type'],
+					'data' => $singleattach['data'],
+				);
 			}
 		}
-		//print_r($data['attachments']); exit;
 		// Add filter to customize the conversation arguments.
 		$data = apply_filters( 'woocommerce_help_scout_thread_args', $data );
 		$data = wp_unslash( $data );
-		//$url  = $this->api_url . 'conversations/' . $conversation_id.'/threads/'.$thread_id.'/attachments' ;
-		$url  = $this->api_url . 'conversations/' . $conversation_id.'/chats';
+		// $url  = $this->api_url . 'conversations/' . $conversation_id.'/threads/'.$thread_id.'/attachments' ;.
+		$url  = $this->api_url . 'conversations/' . $conversation_id . '/chats';
 
 		$params = array(
 			'body'    => json_encode( $data ),
-			'timeout' => 60,
+			'timeout' => 45,
 			'headers' => array(
 				'Content-Type' => 'application/json;charset=UTF-8',
-				'Authorization' => 'Bearer ' .get_option('helpscout_access_token')
-			)
+				'Authorization' => 'Bearer ' . get_option( 'helpscout_access_token' ),
+			),
 		);
 
-
-
 		$response = wp_safe_remote_post( $url, $params );
-		//echo '<pre>';
-		//print_r($response); exit;
 		if (
 			! is_wp_error( $response )
-			&& 201 == $response['response']['code']
-			&& ( 0 == strcmp( $response['response']['message'], 'Created' ) )
+			&& 201 === $response['response']['code']
+			&& ( 0 === strcmp( $response['response']['message'], 'Created' ) )
 		) {
-			if ( 'yes' == $this->debug ) {
+			if ( 'yes' === $this->debug ) {
 				$this->log->add( $this->id, 'Thread created successfully in the conversation #' . $conversation_id . '!' );
 			}
 
 			return true;
 		}
 
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Failed to create the thread in the conversation #' . $conversation_id . ': ' . print_r( $response, true ) );
 		}
 
@@ -1017,22 +1072,23 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 	 * @param  string $message          Thread message.
 	 * @param  int    $customer_id      Customer ID.
 	 * @param  string $customer_email   Customer email.
+	 * @param  string $files   files.
 	 *
 	 * @return bool.
 	 */
 	public function create_thread( $conversation_id, $message, $customer_id = 0, $customer_email = '', $files = '' ) {
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Creating a thread in the conversation #' . $conversation_id . '...' );
 		}
 
 		$data = array(
 			'createdBy' => array(
 				'email' => $customer_email,
-				'type'  => 'customer'
+				'type'  => 'customer',
 			),
 			'type'      => 'customer',
 			'text'      => strip_tags( $message ),
-			'status'    => 'active'
+			'status'    => 'active',
 		);
 
 		if ( 0 < $customer_id ) {
@@ -1040,10 +1096,14 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 			$data['customer']['id']  = $customer_id;
 		}
 
-		$data['attachments'] = [];
-		if(!empty($files[0]['name'])){
-			foreach($files as $singleAttach){
-				$data['attachments'][] = array('fileName'=>$singleAttach['name'],'mimeType'=>$singleAttach['type'],'data'=>$singleAttach['data']);
+		$data['attachments'] = array();
+		if ( ! empty( $files[0]['name'] ) ) {
+			foreach ( $files as $singleattach ) {
+				$data['attachments'][] = array(
+					'fileName' => $singleattach['name'],
+					'mimeType' => $singleattach['type'],
+					'data' => $singleattach['data'],
+				);
 			}
 		}
 
@@ -1068,32 +1128,32 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 		// Add filter to customize the conversation arguments.
 		$data = apply_filters( 'woocommerce_help_scout_thread_args', $data );
 		$data = wp_unslash( $data );
-		$url  = $this->api_url . 'conversations/' . $conversation_id.'/customer' ;
+		$url  = $this->api_url . 'conversations/' . $conversation_id . '/customer';
 
 		$params = array(
 			'body'    => json_encode( $data ),
-			'timeout' => 60,
+			'timeout' => 45,
 			'headers' => array(
 				'Content-Type' => 'application/json;charset=UTF-8',
-				'Authorization' => 'Bearer ' .get_option('helpscout_access_token')
-			)
+				'Authorization' => 'Bearer ' . get_option( 'helpscout_access_token' ),
+			),
 		);
 
 		$response = wp_safe_remote_post( $url, $params );
 
 		if (
 			! is_wp_error( $response )
-			&& 201 == $response['response']['code']
-			&& ( 0 == strcmp( $response['response']['message'], 'Created' ) )
+			&& 201 === $response['response']['code']
+			&& ( 0 === strcmp( $response['response']['message'], 'Created' ) )
 		) {
-			if ( 'yes' == $this->debug ) {
+			if ( 'yes' === $this->debug ) {
 				$this->log->add( $this->id, 'Thread created successfully in the conversation #' . $conversation_id . '!' );
 			}
 
 			return true;
 		}
 
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Failed to create the thread in the conversation #' . $conversation_id . ': ' . print_r( $response, true ) );
 		}
 
@@ -1114,37 +1174,42 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 		echo PHP_EOL . PHP_EOL;
 		echo '****************************************************';
 		echo PHP_EOL . PHP_EOL;
-		echo __( 'Order data:', 'woocommerce-help-scout' );
+		echo esc_html( __( 'Order data:', 'woocommerce-help-scout' ) );
 		echo PHP_EOL . PHP_EOL;
 
 		do_action( 'woocommerce_help_scout_conversation_order_data_before', $order );
 
 		// Order meta.
-		echo sprintf( __( 'Order number: %s', 'woocommerce-help-scout' ), $order->get_order_number() );
+		/* translators: %s: search tearm */
+		echo sprintf( esc_html( __( 'Order number: %s', 'woocommerce-help-scout' ), $order->get_order_number() ) );
 		echo PHP_EOL;
 		$order_date = version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' );
-		echo sprintf( __( 'Order date: %s', 'woocommerce-help-scout' ), date_i18n( wc_date_format(), strtotime( $order_date ) ) );
+		/* translators: %s: search tearm */
+		echo sprintf( esc_html( __( 'Order date: %s', 'woocommerce-help-scout' ) ), esc_html( date_i18n( wc_date_format(), strtotime( $order_date ) ) ) );
 		echo PHP_EOL . PHP_EOL;
 
 		do_action( 'woocommerce_help_scout_conversation_order_data_meta', $order );
 
-		// Products list. (Always plain text)
-		wc_get_template( 'emails/plain/email-order-items.php', array(
-			'order' => $order,
-			'items' => $order->get_items(),
-			'show_download_links' => false,
-			'show_sku' => true,
-			'show_purchase_note' => false,
-			'show_image' => false,
-			'plain_text' => true,
-			'image_size' => ''
-		) );
+		// Products list. (Always plain text).
+		wc_get_template(
+			'emails/plain/email-order-items.php',
+			array(
+				'order' => $order,
+				'items' => $order->get_items(),
+				'show_download_links' => false,
+				'show_sku' => true,
+				'show_purchase_note' => false,
+				'show_image' => false,
+				'plain_text' => true,
+				'image_size' => '',
+			)
+		);
 
 		echo '----------' . PHP_EOL . PHP_EOL;
-
-		if ( $totals = $order->get_order_item_totals() ) {
+		$totals = $order->get_order_item_totals();
+		if ( $totals ) {
 			foreach ( $totals as $total ) {
-				echo sanitize_text_field( $total['label'] . "\t " . $total['value'] ) . PHP_EOL;
+				echo wp_kses( $total['label'] . "\t " . $total['value'], array() ) . PHP_EOL;
 			}
 		}
 
@@ -1178,12 +1243,13 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 			$emails[] = $customer_email;
 		}
 
-		if ( sizeof( $emails ) == 0 ) {
+		if ( count( $emails ) === 0 ) {
 			return 0;
 		}
 
 		return $wpdb->get_var(
-			$wpdb->prepare( "
+			$wpdb->prepare(
+				"
 				SELECT order_items.order_id
 				FROM {$wpdb->prefix}woocommerce_order_items as order_items
 				LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS itemmeta ON order_items.order_item_id = itemmeta.order_item_id
@@ -1193,7 +1259,7 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 				itemmeta.meta_key    IN ( '_variation_id', '_product_id' ) AND
 				postmeta.meta_key    IN ( '_billing_email', '_customer_user' ) AND
 				(
-				postmeta.meta_value  IN ( '" . implode( "','", array_unique( $emails ) ) . "' ) OR
+				postmeta.meta_value  IN ( %s ) OR
 				(
 				postmeta.meta_value = %s AND
 				postmeta.meta_value > 0
@@ -1201,15 +1267,16 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 				)
 				ORDER BY order_items.order_id DESC
 				LIMIT 1
-				", $product_id, $user_id
+				",
+				"'" . implode( "','", array_unique( $emails ) ) . "'",
+				$product_id,
+				$user_id
 			)
 		);
 	}
 
 	/**
 	 * Comments to conversation.
-	 *
-	 * @return void
 	 */
 	public function comment_to_conversation() {
 		if ( ! isset( $_GET['comment_to_conversation'] ) ) {
@@ -1221,11 +1288,14 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 
 		// Get the post ID from the comment ID.
 		$post_id = $wpdb->get_var(
-			$wpdb->prepare( "
+			$wpdb->prepare(
+				"
 				SELECT comment_post_ID
 				FROM $wpdb->comments
 				WHERE comment_ID = %d
-				", $comment_id )
+				",
+				$comment_id
+			)
 		);
 
 		// Stops if don't find a post id.
@@ -1239,7 +1309,8 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 		// Sets the conversation data.
 		$comment     = get_comment( $comment_id );
 		$email       = $comment->comment_author_email;
-		$subject     = sprintf( __( 'Comment in %s at %s', 'woocommerce-help-scout' ), get_the_title( $post_id ), $comment->comment_date );
+		/* translators: $s: search tearms */
+		$subject     = sprintf( __( 'Comment in %1$s at %2$s', 'woocommerce-help-scout' ), get_the_title( $post_id ), $comment->comment_date );
 		$subject     = apply_filters( 'woocommerce_help_scout_conversation_from_comment_subject', $subject, $comment );
 		$description = $comment->comment_content;
 
@@ -1256,7 +1327,7 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 		}
 
 		// Get post data.
-		if ( 'product' == $post_type ) {
+		if ( 'product' === $post_type ) {
 			$order_id = $this->get_order_from_comment( $comment->comment_author_email, $comment->user_id, $comment->comment_post_ID );
 			if ( $order_id ) {
 				$order = new WC_Order( $order_id );
@@ -1267,7 +1338,7 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 		$author_last_name  = '';
 		$comment_author    = explode( ' ', $comment->comment_author );
 
-		if ( 1 == count( $comment_author ) ) {
+		if ( 1 === count( $comment_author ) ) {
 			$author_first_name = $comment->comment_author;
 		} else {
 			$author_first_name = $comment_author[0];
@@ -1282,7 +1353,7 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 		$args = array(
 			'conversation_id'     => $response['id'],
 			'conversation_number' => $response['number'],
-			'conversation_status' => $response['status']
+			'conversation_status' => $response['status'],
 		);
 
 		wp_redirect( esc_url_raw( add_query_arg( $args, admin_url( 'edit-comments.php' ) ) ) );
@@ -1307,22 +1378,18 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 	 *
 	 * @param  string $column     Column ID.
 	 * @param  int    $comment_id Comment ID.
-	 *
-	 * @return string             Column content.
 	 */
 	public function custom_comment_column( $column, $comment_id ) {
-		if ( $this->id . '_comment_actions' == $column ) {
-			echo '<p><a class="button" href="' . esc_url( admin_url( 'edit-comments.php' ) ) . '?comment_to_conversation=' . intval( $comment_id ) . '">' . __( 'Create a Conversation', 'woocommerce-help-scout' ) . '</a></p>';
+		if ( $this->id . '_comment_actions' === $column ) {
+			echo '<p><a class="button" href="' . esc_url( admin_url( 'edit-comments.php' ) ) . '?comment_to_conversation=' . intval( $comment_id ) . '">' . esc_html( __( 'Create a Conversation', 'woocommerce-help-scout' ) ) . '</a></p>';
 		}
 	}
 
 	/**
 	 * Displays notices in admin.
-	 *
-	 * @return string Error notices.
 	 */
 	public function admin_notices() {
-		global $post;
+		// global $post;.
 
 		$screen = get_current_screen();
 
@@ -1330,36 +1397,36 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 
 			switch ( intval( $_GET['conversation_status'] ) ) {
 				case 0:
-				echo '<div class="error"><p><strong>' . __( 'Help Scout Error', 'woocommerce-help-scout' ) . ':</strong> ' . __( 'Failed to create the conversation, please try again.', 'woocommerce-help-scout' ) . '</p></div>';
-				break;
+					echo '<div class="error"><p><strong>' . esc_html( __( 'Help Scout Error', 'woocommerce-help-scout' ) ) . ':</strong> ' . esc_html( __( 'Failed to create the conversation, please try again.', 'woocommerce-help-scout' ) ) . '</p></div>';
+					break;
 				case 1:
-				$conversation_id  = isset( $_GET['conversation_id'] ) ? intval( $_GET['conversation_id'] ) : 0;
-				$conversation_number  = isset( $_GET['conversation_number'] ) ? intval( $_GET['conversation_number'] ) : 0;
-				$conversation_url = ( $conversation_id > 0 ) ? ' <a href="' . esc_url( $this->admin_url . 'conversation/' . $conversation_id . '/' . $conversation_number ) . '/">' . __( 'View conversation.', 'woocommerce-help-scout' ) . '</a>' : '';
+					$conversation_id  = isset( $_GET['conversation_id'] ) ? intval( $_GET['conversation_id'] ) : 0;
+					$conversation_number  = isset( $_GET['conversation_number'] ) ? intval( $_GET['conversation_number'] ) : 0;
+					$conversation_url = ( $conversation_id > 0 ) ? ' <a href="' . esc_url( $this->admin_url . 'conversation/' . $conversation_id . '/' . $conversation_number ) . '/">' . esc_html( __( 'View conversation.', 'woocommerce-help-scout' ) ) . '</a>' : '';
 
-				echo '<div class="updated"><p><strong>' . __( 'Help Scout', 'woocommerce-help-scout' ) . ':</strong> ' . __( 'Conversation created successfully.', 'woocommerce-help-scout' ) . $conversation_url . '</p></div>';
-				break;
+					echo '<div class="updated"><p><strong>' . esc_html( __( 'Help Scout', 'woocommerce-help-scout' ) ) . ':</strong> ' . esc_html( __( 'Conversation created successfully.', 'woocommerce-help-scout' ) ) . esc_url( $conversation_url ) . '</p></div>';
+					break;
 				case 2:
-				echo '<div class="error"><p><strong>' . __( 'Help Scout Error', 'woocommerce-help-scout' ) . ':</strong> ' . __( 'This comment has not a valid email address.', 'woocommerce-help-scout' ) . '</p></div>';
-				break;
+					echo '<div class="error"><p><strong>' . esc_html( __( 'Help Scout Error', 'woocommerce-help-scout' ) ) . ':</strong> ' . esc_html( __( 'This comment has not a valid email address.', 'woocommerce-help-scout' ) ) . '</p></div>';
+					break;
 				case 3:
-				echo '<div class="error"><p><strong>' . __( 'Help Scout Error', 'woocommerce-help-scout' ) . ':</strong> ' . __( 'This review/comment is empty, needs some content to create the conversation!', 'woocommerce-help-scout' ) . '</p></div>';
-				break;
+					echo '<div class="error"><p><strong>' . esc_html( __( 'Help Scout Error', 'woocommerce-help-scout' ) ) . ':</strong> ' . esc_html( __( 'This review/comment is empty, needs some content to create the conversation!', 'woocommerce-help-scout' ) ) . '</p></div>';
+					break;
 
 				default:
-				break;
+					break;
 			}
 		}
 
-	} 
+	}
 
 	/**
 	 * Generate a URL to our specific settings screen.
-	 * @access public
+	 *
 	 * @since  1.3.4
 	 * @return string Generated URL.
 	 */
-	public function get_settings_url () {
+	public function get_settings_url() {
 		return add_query_arg(
 			array(
 				'page'    => 'wc-settings',
@@ -1389,9 +1456,7 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 	/**
 	 * Order conversations metabox content.
 	 *
-	 * @param  int    $post_id Current order/post ID.
-	 *
-	 * @return string          Conversation fields.
+	 * @param  int $post_id Current order/post ID.
 	 */
 	public function order_conversation_metabox_content( $post_id ) {
 		include_once( 'views/html-admin-order-create-conversation.php' );
@@ -1399,30 +1464,25 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 	/**
 	 * Order conversations auth token validation.
 	 *
-	 * @param  int    $mailbox_id.
-	 *
-	 * @return string auth token.
+	 * @return bool auth token.
 	 */
 	public function check_authorization_still_valid() {
 
-
 		$current_timestamp = time();
-		$expire_timestamp =  get_option('helpscout_expires_in');
-		if(!empty($expire_timestamp)) {
-			//include a 5 minute buffer for long API calls.
+		$expire_timestamp = get_option( 'helpscout_expires_in' );
+		if ( ! empty( $expire_timestamp ) ) {
+			// include a 5 minute buffer for long API calls.
 			$expire_timestamp_with_buffer = $expire_timestamp - 300;
 
-			//regenerate token if current token has expired
-			if($expire_timestamp_with_buffer <= $current_timestamp) {
-
-				return $this->regenrate_credentials();
-
+			// regenerate token if current token has expired.
+			if ( $expire_timestamp_with_buffer <= $current_timestamp ) {
+				return $this->regenerate_credentials();
 			} else {
 				return true;
 			}
 		} else {
-			if ( 'yes' == $this->debug ) {
-				$this->log->add( $this->id, "Please try to generate credenials from Plugin's settings page.");
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( $this->id, "Please try to generate credenials from Plugin's settings page." );
 			}
 			return false;
 		}
@@ -1434,89 +1494,85 @@ function create_conversation_by_email( $subject, $message, $customer_id = 0, $cu
 	 *
 	 * @return boolean
 	 */
+	public function regenerate_credentials() {
 
-	public function regenrate_credentials(){
-
-		$url  = $this->api_url .'oauth2/token';
+		$url  = $this->api_url . 'oauth2/token';
 
 		$params = array(
-			'client_id'				=>	$this->app_key,
-			'client_secret'			=>	$this->app_secret,
-			'grant_type'			=>	'refresh_token',
-			'refresh_token'			=>	get_option('helpscout_access_refresh_token'),
+			'client_id'             => $this->app_key,
+			'client_secret'         => $this->app_secret,
+			'grant_type'            => 'refresh_token',
+			'refresh_token'         => get_option( 'helpscout_access_refresh_token' ),
 		);
-		$params = http_build_query($params);
-			// generate token post through api
-		$response  = wp_safe_remote_post( $url , array(
-			'body' => $params
-		));
+		$params = http_build_query( $params );
+			// generate token post through api.
+		$response  = wp_safe_remote_post(
+			$url,
+			array(
+				'body' => $params,
+			)
+		);
 
-		if($response['response']['code']=="200"){
-			$tokenData = json_decode($response['body']);
-			$expire_timestamp = time() + $tokenData->expires_in;
-				/*echo "<b>Token Generated:-</b>";
-				echo "</br>----------------------------------------</br>";
-				echo $tokenData->access_token;
-				echo "</br>----------------------------------------</br>";*/
-
-				// update token related data in option table
-				update_option('helpscout_access_token',$tokenData->access_token);
-				update_option('helpscout_access_refresh_token',$tokenData->refresh_token);
-				update_option('helpscout_access_token_type',$tokenData->token_type);
-				update_option('helpscout_expires_in', $expire_timestamp);
+		if ( '200' === $response['response']['code'] ) {
+			$tokendata = json_decode( $response['body'] );
+			$expire_timestamp = time() + $tokendata->expires_in;
+				// Update token related data in option table.
+				update_option( 'helpscout_access_token', $tokendata->access_token );
+				update_option( 'helpscout_access_refresh_token', $tokendata->refresh_token );
+				update_option( 'helpscout_access_token_type', $tokendata->token_type );
+				update_option( 'helpscout_expires_in', $expire_timestamp );
 				return true;
 		} else {
-			if ( 'yes' == $this->debug ) {
-				$this->log->add( $this->id, "Problem with generating API Access Token. Please verify credentials or Retry to generate credenials from Plugin's settings page.");
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( $this->id, "Problem with generating API Access Token. Please verify credentials or Retry to generate credenials from Plugin's settings page." );
 				return false;
 			}
-
 		}
 	}
 
 	/**
 	 * Get conversation Subject.
 	 *
-	 * @param  int    $conversation_id Conversation ID.
+	 * @param  int $conversation_id Conversation ID.
 	 *
 	 * @return array Conversation Subject.
-	*/
+	 */
 	public function get_conversation_thread_subject( $conversation_id ) {
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Getting Thread Subject by ID: ' . $conversation_id );
 		}
 
 		$url = $this->api_url . 'conversations/' . $conversation_id;
 		$params = array(
-			'timeout' => 60,
+			'timeout' => 45,
 			'headers' => array(
 				'Content-Type' => 'application/json;charset=UTF-8',
-				'Authorization' => 'Bearer ' .get_option('helpscout_access_token')
-			)
+				'Authorization' => 'Bearer ' . get_option( 'helpscout_access_token' ),
+			),
 		);
 
 		$response = wp_safe_remote_get( $url, $params );
 
 		if (
 			! is_wp_error( $response )
-			&& 200 == $response['response']['code']
-			&& ( 0 == strcmp( $response['response']['message'], 'OK' ) )
+			&& 200 === $response['response']['code']
+			&& ( 0 === strcmp( $response['response']['message'], 'OK' ) )
 		) {
 			$items = json_decode( $response['body'], true );
 
-			if ( 'yes' == $this->debug ) {
+			if ( 'yes' === $this->debug ) {
 				$this->log->add( $this->id, 'Conversation successfully retrieved by ID: ' . $conversation_id );
 			}
 
 			return wp_unslash( $items );
 		}
 
-		if ( 'yes' == $this->debug ) {
+		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Error while try to get the conversation by ID: ' . $conversation_id );
 		}
 
 		return array(
-			'items' => array()
+			'items' => array(),
 		);
 	}
 }

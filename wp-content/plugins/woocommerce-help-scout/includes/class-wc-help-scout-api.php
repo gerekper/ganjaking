@@ -3,14 +3,18 @@
  * Help Scout API.
  *
  * @package  WC_Help_Scout_API
- * @category Integration
- * @author   WooThemes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
-
+/**
+ * WC_Help_Scout_API.
+ *
+ * @package WC_Help_Scout_API
+ *
+ * @since 1.3.0
+ */
 class WC_Help_Scout_API extends WC_API_Resource {
 
 	/**
@@ -25,13 +29,12 @@ class WC_Help_Scout_API extends WC_API_Resource {
 	 *
 	 * GET /wc-help-scout
 	 *
-	 * @param  array $routes
+	 * @param  array $routes routes.
 	 *
 	 * @return array
 	 */
 	public function register_routes( $routes ) {
-
-		# GET /wc-help-scout
+		// GET /wc-help-scout.
 		$routes[ $this->base ] = array(
 			array( array( $this, 'get_app_data' ), WC_API_Server::READABLE ),
 		);
@@ -50,6 +53,8 @@ class WC_Help_Scout_API extends WC_API_Resource {
 	 * @return array                  Customer data for the APP.
 	 */
 	public function get_app_data( $customer_id, $customer_email = '', $orders = 5, $products = 0 ) {
+		// $customer_id = 475201484;
+
 		$customer_id = $this->validate_request( $customer_id, 'customer', 'read' );
 
 		if ( is_wp_error( $customer_id ) ) {
@@ -140,7 +145,7 @@ class WC_Help_Scout_API extends WC_API_Resource {
 		$last_order    = null;
 
 		// Get the customer orders.
-		$order_ids = $wpdb->get_results( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_billing_email' AND meta_value = %s$orders_limit", $email ) );
+		$order_ids = $wpdb->get_results( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_billing_email' AND meta_value = %s  %s ", $email, $orders_limit ) );
 
 		if ( ! $order_ids ) {
 			return array();
@@ -163,10 +168,16 @@ class WC_Help_Scout_API extends WC_API_Resource {
 
 			$last_orders[] = array(
 				'id'     => $order->get_order_number(),
-				'url'    => add_query_arg( array( 'post' => $item->post_id, 'action' => 'edit' ), admin_url( 'post.php' ) ),
+				'url'    => add_query_arg(
+					array(
+						'post' => $item->post_id,
+						'action' => 'edit',
+					),
+					admin_url( 'post.php' )
+				),
 				'date'   => $this->server->format_datetime( $order_date ),
 				'total'  => $order->get_total(),
-				'status' => $order->get_status()
+				'status' => $order->get_status(),
 			);
 
 			$orders_count++;
@@ -181,11 +192,11 @@ class WC_Help_Scout_API extends WC_API_Resource {
 		$customer_data['total_spent'] = '';
 		$customer_data['sign_up'] = array(
 			'date' => '',
-			'diff' => ''
+			'diff' => '',
 		);
 		$customer_data['currency'] = array(
 			'code'   => get_woocommerce_currency(),
-			'symbol' => get_woocommerce_currency_symbol( get_woocommerce_currency() )
+			'symbol' => get_woocommerce_currency_symbol( get_woocommerce_currency() ),
 		);
 		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
 			$customer_data['billing_address'] = array(
@@ -199,7 +210,7 @@ class WC_Help_Scout_API extends WC_API_Resource {
 				'postcode'   => $last_order->billing_postcode,
 				'country'    => $last_order->billing_country,
 				'email'      => $last_order->billing_email,
-				'phone'      => $last_order->billing_phone
+				'phone'      => $last_order->billing_phone,
 			);
 			$customer_data['shipping_address'] = array(
 				'first_name' => $last_order->shipping_first_name,
@@ -211,7 +222,7 @@ class WC_Help_Scout_API extends WC_API_Resource {
 				'state'      => $last_order->shipping_state,
 				'postcode'   => $last_order->shipping_postcode,
 				'country'    => $last_order->shipping_country,
-				'phone'      => $last_order->billing_phone
+				'phone'      => $last_order->billing_phone,
 			);
 		} else {
 			$customer_data['billing_address'] = array(
@@ -225,7 +236,7 @@ class WC_Help_Scout_API extends WC_API_Resource {
 				'postcode'   => $last_order->get_billing_postcode(),
 				'country'    => $last_order->get_billing_country(),
 				'email'      => $last_order->get_billing_email(),
-				'phone'      => $last_order->get_billing_phone()
+				'phone'      => $last_order->get_billing_phone(),
 			);
 			$customer_data['shipping_address'] = array(
 				'first_name' => $last_order->get_shipping_first_name(),
@@ -237,7 +248,7 @@ class WC_Help_Scout_API extends WC_API_Resource {
 				'state'      => $last_order->get_shipping_state(),
 				'postcode'   => $last_order->get_shipping_postcode(),
 				'country'    => $last_order->get_shipping_country(),
-				'phone'      => $last_order->get_billing_phone()
+				'phone'      => $last_order->get_billing_phone(),
 			);
 		}
 
@@ -254,7 +265,8 @@ class WC_Help_Scout_API extends WC_API_Resource {
 		$purchased_products = array();
 		$products_limit     = ( 0 < $products ) ? 'LIMIT ' . absint( $products ) : '';
 		$products_query     = $wpdb->get_results(
-			$wpdb->prepare( "
+			$wpdb->prepare(
+				"
 				SELECT DISTINCT order_items.order_item_name
 				FROM   $wpdb->postmeta AS postmeta
 					LEFT JOIN {$wpdb->prefix}woocommerce_order_items AS order_items
@@ -262,8 +274,11 @@ class WC_Help_Scout_API extends WC_API_Resource {
 					AND order_items.order_item_type = 'line_item'
 				WHERE  postmeta.meta_key = '_billing_email'
 				AND    postmeta.meta_value = %s
+				%s
+			 ",
+				$email,
 				$products_limit
-			 ", $email )
+			)
 		);
 
 		foreach ( $products_query as $item ) {
@@ -294,11 +309,11 @@ class WC_Help_Scout_API extends WC_API_Resource {
 			'total_spent'     => $lifetime_value,
 			'sign_up'         => array(
 				'date' => $sign_up_date,
-				'diff' => human_time_diff( date( 'U', strtotime( $sign_up_date ) ), current_time( 'timestamp' ) )
+				'diff' => human_time_diff( gmdate( 'U', strtotime( $sign_up_date ) ), current_time( 'timestamp' ) ),
 			),
-			'currency'        => array(
+			'currency'  => array(
 				'code'   => $currency_code,
-				'symbol' => get_woocommerce_currency_symbol( $currency_code )
+				'symbol' => get_woocommerce_currency_symbol( $currency_code ),
 			),
 			'avatar_url'      => $this->get_avatar_url( $customer->user_email ),
 			'billing_address' => array(
@@ -325,7 +340,7 @@ class WC_Help_Scout_API extends WC_API_Resource {
 				'postcode'   => $customer->shipping_postcode,
 				'country'    => $customer->shipping_country,
 			),
-			'profile_url'     => add_query_arg( array( 'user_id' => $customer->ID ), admin_url( 'user-edit.php' ) )
+			'profile_url'     => add_query_arg( array( 'user_id' => $customer->ID ), admin_url( 'user-edit.php' ) ),
 		);
 
 		return $data;
@@ -345,9 +360,10 @@ class WC_Help_Scout_API extends WC_API_Resource {
 		$args = array(
 			'posts_per_page'      => intval( $total ),
 			'post_type'           => 'shop_order',
+			'suppress_filters' => false,
 			'meta_key'            => '_customer_user',
 			'meta_value'          => $customer->ID,
-			'ignore_sticky_posts' => 1
+			'ignore_sticky_posts' => 1,
 		);
 
 		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.2', '>=' ) ) {
@@ -361,10 +377,16 @@ class WC_Help_Scout_API extends WC_API_Resource {
 			$order_date = version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' );
 			$orders[] = array(
 				'id'     => $order->get_order_number(),
-				'url'    => add_query_arg( array( 'post' => $item->ID, 'action' => 'edit' ), admin_url( 'post.php' ) ),
+				'url'    => add_query_arg(
+					array(
+						'post' => $item->ID,
+						'action' => 'edit',
+					),
+					admin_url( 'post.php' )
+				),
 				'date'   => $this->server->format_datetime( $order_date ),
 				'total'  => $order->get_total(),
-				'status' => $order->get_status()
+				'status' => $order->get_status(),
 			);
 		}
 
@@ -385,7 +407,8 @@ class WC_Help_Scout_API extends WC_API_Resource {
 		$purchased_products = array();
 		$limit              = ( 0 < $products ) ? 'LIMIT ' . absint( $products ) : '';
 		$query              = $wpdb->get_results(
-			$wpdb->prepare( "
+			$wpdb->prepare(
+				"
 				SELECT DISTINCT order_items.order_item_name
 				FROM   $wpdb->postmeta AS postmeta
 					LEFT JOIN {$wpdb->prefix}woocommerce_order_items AS order_items
@@ -393,8 +416,11 @@ class WC_Help_Scout_API extends WC_API_Resource {
 					AND order_items.order_item_type = 'line_item'
 				WHERE  postmeta.meta_key = '_customer_user'
 				AND    postmeta.meta_value = %s
+				%s
+			 ",
+				$customer->ID,
 				$limit
-			 ", $customer->ID )
+			)
 		);
 
 		foreach ( $query as $item ) {
@@ -413,7 +439,7 @@ class WC_Help_Scout_API extends WC_API_Resource {
 	private function get_avatar_url( $email ) {
 		$avatar_html = get_avatar( $email );
 
-		// Get the URL of the avatar from the provided HTML
+		// Get the URL of the avatar from the provided HTML.
 		preg_match( '/src=["|\'](.+)[\&|"|\']/U', $avatar_html, $matches );
 
 		if ( isset( $matches[1] ) && ! empty( $matches[1] ) ) {
@@ -430,9 +456,9 @@ class WC_Help_Scout_API extends WC_API_Resource {
 	 * 2) the current user has the proper permissions
 	 *
 	 * @see    WC_API_Resource::validate_request().
-	 * @param  string|int   $id      The customer ID.
-	 * @param  string       $type    The request type, unused because this method overrides the parent class.
-	 * @param  string       $context The context of the request, either `read`, `edit` or `delete`.
+	 * @param  string|int $id      The customer ID.
+	 * @param  string     $type    The request type, unused because this method overrides the parent class.
+	 * @param  string     $context The context of the request, either `read`, `edit` or `delete`.
 	 *
 	 * @return int|WP_Error          Valid user ID or WP_Error if any of the checks fails.
 	 */
@@ -445,7 +471,7 @@ class WC_Help_Scout_API extends WC_API_Resource {
 			return new WP_Error( 'wc_help_scout_api_invalid_customer_id', __( 'Invalid customer ID', 'woocommerce-help-scout' ), array( 'status' => 404 ) );
 		}
 
-		if ( 'read' != $context ) {
+		if ( 'read' !== $context ) {
 			return new WP_Error( 'wc_help_scout_api_invalid_context', __( 'You have only read permission', 'woocommerce-help-scout' ), array( 'status' => 401 ) );
 		}
 

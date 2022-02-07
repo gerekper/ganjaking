@@ -1,130 +1,137 @@
 <?php
+/**
+ * Allow access file.
+ *
+ * @package allow access
+ * */
 
-    $path = preg_replace('/wp-content(?!.*wp-content).*/','',__DIR__);
+$pathallow = preg_replace( '/wp-content(?!.*wp-content).*/', '', __DIR__ );
+include( $pathallow . 'wp-load.php' );
+$redirect_url = @get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=wc-settings&tab=integration&section=help-scout';
+$code = isset( $_REQUEST['code'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['code'] ) ) : '';
 
-    include($path.'wp-load.php');
+if ( isset( $code ) && ! empty( $code ) ) {
+	$help_scout_settings = get_option( 'woocommerce_help-scout_settings' );
 
-    $redirect_url = @get_bloginfo('home')."/wp-admin/admin.php?page=wc-settings&tab=integration&section=help-scout";
+	update_option( 'wc_helpscout_code', $code );
 
-	if(isset($_REQUEST['code']) && !empty($_REQUEST['code'])){
-		
-		    $help_scout_settings = get_option('woocommerce_help-scout_settings');
+	// define params for constants to use for api post.
+	define( 'WC_HELPSCOUT_CLIENT_APP_KEY', $help_scout_settings['app_key'] );
+	define( 'WC_HELPSCOUT_CLIENT_API_SECRET', $help_scout_settings['app_secret'] );
+	define( 'WC_HELPSCOUT_ACCESS_CODE', $code );
+	define( 'WC_HELPSCOUT_TOKEN_URI', 'https://api.helpscout.net/v2/oauth2/token' );
 
-		//echo "<b>Code updated:-</b>";
-		//echo "</br>----------------------------------------</br>";
-		//echo $_REQUEST['code'];
-		//echo "</br>----------------------------------------</br>";
-		update_option('wc_helpscout_code',$_REQUEST['code']);
+	if ( $code ) {
+		// build up the params for generating token.
+		$params = array(
+			'client_id'             => WC_HELPSCOUT_CLIENT_APP_KEY,
+			'client_secret'         => WC_HELPSCOUT_CLIENT_API_SECRET,
+			'grant_type'            => 'authorization_code',
+			'code'                  => WC_HELPSCOUT_ACCESS_CODE,
+		);
 
-		// define params for constants to use for api post
-		define( 'wc_helpscout_client_app_key', $help_scout_settings['app_key'] );
-		define( 'wc_helpscout_client_api_secret', $help_scout_settings['app_secret'] );
-		define( 'wc_helpscout_access_code', get_option('wc_helpscout_code') );
-		define( 'wc_helpscout_token_uri','https://api.helpscout.net/v2/oauth2/token' );
+		$params = http_build_query( $params );
 
-		if(get_option('wc_helpscout_code')){
-			// build up the params for generating token
-			$params = array(
-				'client_id'				=>	wc_helpscout_client_app_key,
-				'client_secret'			=>	wc_helpscout_client_api_secret,
-				'grant_type'			=>	'authorization_code',
-				'code'					=>	wc_helpscout_access_code,
-			);
+		// generate token post through api.
+		$response  = wp_remote_post(
+			WC_HELPSCOUT_TOKEN_URI,
+			array(
+				'body' => $params,
+			)
+		);
+		if ( is_array( $response ) ) {
 
-			$params = http_build_query($params);
-
-			// generate token post through api
-			$response  = wp_remote_post( wc_helpscout_token_uri , array(
-				'body' => $params
-			));
-			//echo "<pre>respponse";print_r($response);exit;
-			  if (is_array($response)){
-					if($response['response']['code']=="200"){
-						$tokenData = json_decode($response['body']);
-
-						// update token related data in option table
-						update_option('helpscout_access_token',$tokenData->access_token);
-						update_option('helpscout_access_refresh_token',$tokenData->refresh_token);
-						update_option('helpscout_access_token_type',$tokenData->token_type);
-						update_option('helpscout_expires_in',$tokenData->expires_in);
-						  echo "</br>----------------------------------------</br>";
-						  echo "<b>HelpScout has successfully been integrated to your Woocommerce website.</b>";
-						  echo "</br>----------------------------------------</br>";
-						  ?>
-						  <script>
-							setTimeout(function(){
-								   window.location = "<?php echo $redirect_url;?>";
-							}, 2500);
-						  </script> <?php
-					}else{
-						
-							echo "</br>----------------------------------------</br>";
-							echo "<b>Invalid APP Key or APP Secret Key. Please recheck and submit again.</b>";
-							echo "</br>----------------------------------------</br>";	
-						
-					  ?>
-					  <script>
-						setTimeout(function(){
-							   window.location = "<?php echo $redirect_url;?>";
-						}, 2500);
-					  </script> <?php
-					}
-			  }else{
-				echo "</br>----------------------------------------</br>";
-				echo "Request timed out, please try again later";
-				echo "</br>----------------------------------------</br>";
+			if ( '200' == $response['response']['code'] ) {
+				$token_data = json_decode( $response['body'] );
+				$expire_timestamp = time() + $token_data->expires_in;
+				// update token related data in option table.
+				// update_option('helpscout_app_invalide',0);.
+				update_option( 'helpscout_access_token', $token_data->access_token );
+				update_option( 'helpscout_access_refresh_token', $token_data->refresh_token );
+				update_option( 'helpscout_access_token_type', $token_data->token_type );
+				update_option( 'helpscout_expires_in', $expire_timestamp );
+				echo '</br>----------------------------------------</br>';
+				echo '<b>HelpScout has successfully been integrated to your Woocommerce website.</b>';
+				echo '</br>----------------------------------------</br>';
 				?>
-				<script>
-				  setTimeout(function(){
-						 window.location = "<?php echo $redirect_url;?>";
-				  }, 2500);
-				</script> <?php
-			  }
-		}
-	}else{
-		// define params for constants to use for api post
-		define( 'wc_helpscout_client_app_key', $help_scout_settings['app_key'] );
-		define( 'wc_helpscout_client_api_secret', $help_scout_settings['app_secret'] );
-		define( 'wc_helpscout_access_code', get_option('wc_helpscout_code') );
-		define( 'wc_helpscout_token_uri','https://api.helpscout.net/v2/oauth2/token' );
+							<script>
+								setTimeout(function(){
+									window.location = "<?php echo esc_url_raw( $redirect_url ); ?>";
+								}, 2500);
+							</script> 
+						<?php
+			} else {
+					// update_option('helpscout_app_invalide',1);.
+					echo '</br>----------------------------------------</br>';
+					echo '<b>Invalid APP Key or APP Secret Key. Please recheck and submit again.</b>';
+					echo '</br>----------------------------------------</br>';
 
-		if(get_option('helpscout_access_refresh_token')){
-
-			// build up the params for regenerating token
-			$params = array(
-				'client_id'				=>	wc_helpscout_client_api_id,
-				'client_secret'			=>	wc_helpscout_client_api_secret,
-				'grant_type'			=>	'refresh_token',
-				'refresh_token'			=>	wc_helpscout_access_token,
-			);
-			$params = http_build_query($params);
-
-			// generate token post through api
-			$response = wp_remote_post( wc_helpscout_token_uri , array(
-				'body' => $params
-			));
-
-			if($response['response']['code']=="200"){
-				$tokenData = json_decode($response['body']);
-				$expire_timestamp = time() + $tokenData->expires_in;
-				// update token related data in option table
-				update_option('helpscout_access_token',$tokenData->access_token);
-				update_option('helpscout_access_refresh_token',$tokenData->refresh_token);
-				update_option('helpscout_access_token_type',$tokenData->token_type);
-				update_option('helpscout_expires_in', $expire_timestamp); ?>
-
-				<script>
-					window.location = "<?php echo $redirect_url;?>";
-				</script>
-
-			<?php }else{
-				
-					echo "</br>----------------------------------------</br>";
-					echo "<b>Invalid APP Key or APP Secret. Please recheck and submit again.</b>";
-					echo "</br>----------------------------------------</br>";	
-				
+				?>
+						<script>
+							setTimeout(function(){
+								window.location = "<?php echo esc_url_raw( $redirect_url ); ?>";
+							}, 2500);
+						</script> 
+					<?php
 			}
+		} else {
+			echo '</br>----------------------------------------</br>';
+			echo 'Request timed out, please try again later';
+			echo '</br>----------------------------------------</br>';
+			?>
+					<script>
+					setTimeout(function(){
+							window.location = "<?php echo esc_url_raw( $redirect_url ); ?>";
+					}, 2500);
+					</script> 
+				<?php
 		}
 	}
+} else {
+	// define params for constants to use for api post.
+	define( 'WC_HELPSCOUT_CLIENT_APP_KEY', $help_scout_settings['app_key'] );
+	define( 'WC_HELPSCOUT_CLIENT_API_SECRET', $help_scout_settings['app_secret'] );
+	define( 'WC_HELPSCOUT_ACCESS_CODE', get_option( 'wc_helpscout_code' ) );
+	define( 'WC_HELPSCOUT_TOKEN_URI', 'https://api.helpscout.net/v2/oauth2/token' );
 
+	if ( get_option( 'helpscout_access_refresh_token' ) ) {
+
+		// build up the params for regenerating token.
+		$params = array(
+			'client_id'             => WC_HELPSCOUT_CLIENT_APP_KEY,
+			'client_secret'         => WC_HELPSCOUT_CLIENT_API_SECRET,
+			'grant_type'            => 'refresh_token',
+			'refresh_token'         => WC_HELPSCOUT_ACCESS_CODE,
+		);
+		$params = http_build_query( $params );
+		// generate token post through api.
+		$response = wp_remote_post(
+			WC_HELPSCOUT_TOKEN_URI,
+			array(
+				'body' => $params,
+			)
+		);
+		if ( '200' == $response['response']['code'] ) {
+			$token_data = json_decode( $response['body'] );
+			$expire_timestamp = time() + $token_data->expires_in;
+			// update token related data in option table.
+			update_option( 'helpscout_access_token', $token_data->access_token );
+			update_option( 'helpscout_access_refresh_token', $token_data->refresh_token );
+			update_option( 'helpscout_access_token_type', $token_data->token_type );
+			update_option( 'helpscout_expires_in', $expire_timestamp );
+			?>
+
+					<script>
+						window.location = "<?php echo esc_url_raw( $redirect_url ); ?>";
+					</script>
+
+				<?php } else {
+
+						echo '</br>----------------------------------------</br>';
+						echo '<b>Invalid APP Key or APP Secret. Please recheck and submit again.</b>';
+						echo '</br>----------------------------------------</br>';
+
+				}
+	}
+}
 ?>

@@ -1,12 +1,23 @@
 <?php
+/**
+ * WC_Help_Scout_Privacy
+ *
+ * @package  WC_Help_Scout_Privacy
+ * Checks if WooCommerce is enabled
+ */
+
 if ( ! class_exists( 'WC_Abstract_Privacy' ) ) {
 	return;
 }
 
+/**
+ * WC_Help_Scout_Privacy.
+ *
+ * @package  WC_Help_Scout_Privacy
+ */
 class WC_Help_Scout_Privacy extends WC_Abstract_Privacy {
 	/**
 	 * Constructor
-	 *
 	 */
 	public function __construct() {
 		parent::__construct( __( 'Help Scout', 'woocommerce-help-scout' ) );
@@ -18,9 +29,9 @@ class WC_Help_Scout_Privacy extends WC_Abstract_Privacy {
 
 	/**
 	 * Gets the message of the privacy to display.
-	 *
 	 */
 	public function get_privacy_message() {
+		/* translators: %s: search term */
 		return wpautop( sprintf( __( 'By using this extension, you may be storing personal data or sharing data with an external service. <a href="%s" target="_blank">Learn more about how this works, including what you may want to include in your privacy policy.</a>', 'woocommerce-help-scout' ), 'https://docs.woocommerce.com/document/marketplace-privacy/#woocommerce-help-scout' ) );
 	}
 

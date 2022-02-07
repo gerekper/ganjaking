@@ -41,3 +41,6 @@
 	margin-right: 0.236em;
 	float: right;
 }
+.woocommerce-button{
+	margin-top:4px !important;
+}

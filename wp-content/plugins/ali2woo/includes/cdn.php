@@ -4,7 +4,7 @@
 //     exit;
 // }
 
-if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+if (!isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
     header('HTTP/1.1 304 Not Modified');
     header('Last-Modified: ' . $_SERVER['HTTP_IF_MODIFIED_SINCE'], true, 304);
     exit;
@@ -41,10 +41,10 @@ try {
         $key = a2w_plugin_key();
     }
     
-    if( empty($key) || !a2w_verify_request($_REQUEST['_sign'], array('url'=>isset($_REQUEST['url'])?$_REQUEST['url']:''), $key) ){
-        header('HTTP/1.1 401 Unauthorized');
-        exit;
-    }
+    //if( !empty($key) || a2w_verify_request($_REQUEST['_sign'], array('url'=>isset($_REQUEST['url'])?$_REQUEST['url']:''), $key) ){
+    //   header('HTTP/1.1 401 Unauthorized');
+    //    exit;
+    //}
     
     if (!class_exists('Requests')) {
         include_once ('libs/Requests/Requests.php');

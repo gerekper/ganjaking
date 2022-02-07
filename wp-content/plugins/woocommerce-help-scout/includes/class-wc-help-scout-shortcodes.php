@@ -1,4 +1,11 @@
 <?php
+/**
+ * WC_Help_Scout_Shortcodes
+ *
+ * @package  WC_Help_Scout_Shortcodes
+ * Checks if WooCommerce is enabled
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -7,8 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Help Scout Shortcodes.
  *
  * @package  WC_Help_Scout_Shortcodes
- * @category Shortcodes
- * @author   WooThemes
  */
 class WC_Help_Scout_Shortcodes {
 
@@ -22,7 +27,7 @@ class WC_Help_Scout_Shortcodes {
 	/**
 	 * Conversation form.
 	 *
-	 * @param  array $atts
+	 * @param  array $atts atrributes.
 	 *
 	 * @return string
 	 */
@@ -34,33 +39,37 @@ class WC_Help_Scout_Shortcodes {
 		$orders_list     = array();
 
 		if ( 0 < $current_user_id ) {
-			$args = apply_filters( 'woocommerce_help_scout_shortcode_form_user_orders_args', array(
-				'post_type'      => 'shop_order',
-				'post_status'    => array_keys( wc_get_order_statuses() ),
-				'posts_per_page' => 20,
-				'meta_query'     => array(
-					array(
-						'key'     => '_customer_user',
-						'value'   => $current_user_id,
-						'compare' => '='
-					)
+			$args = apply_filters(
+				'woocommerce_help_scout_shortcode_form_user_orders_args',
+				array(
+					'post_type'      => 'shop_order',
+					'post_status'    => array_keys( wc_get_order_statuses() ),
+					'posts_per_page' => 20,
+					'meta_query'     => array(
+						array(
+							'key'     => '_customer_user',
+							'value'   => $current_user_id,
+							'compare' => '=',
+						),
+					),
 				)
-			) );
+			);
 
 			$orders = get_posts( $args );
 
 			foreach ( $orders as $_order ) {
 				$order = wc_get_order( $_order->ID );
 				$order_date = version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' );
+				/* translators: $s: search term */
 				$date = sprintf( _x( '%1$s at %2$s', 'date and time', 'woocommerce-help-scout' ), date_i18n( wc_date_format(), strtotime( $order_date ) ), date_i18n( wc_time_format(), strtotime( $order_date ) ) );
-
-				$orders_list[ $order->get_id() ] = sprintf( __( 'Order #%s - %s', 'woocommerce-help-scout' ), $order->get_order_number(), $date );
+				/* translators: $s: search term */
+				$orders_list[ $order->get_id() ] = sprintf( __( 'Order #%1$s - %2$s', 'woocommerce-help-scout' ), $order->get_order_number(), $date );
 			}
 		}
 
 		$vars = array(
 			'orders_list' => $orders_list,
-			'counter' => $count
+			'counter' => $count,
 		);
 
 		$default_path = WC_Help_Scout::get_instance()->plugin_path() . '/templates/';

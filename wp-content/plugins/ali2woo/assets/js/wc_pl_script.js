@@ -121,7 +121,7 @@ function a2w_get_product_proc(params, callback) {
         }
 
         $("#doaction, #doaction2").click(function (e) {
-            if (b2w_update_action_lock) {
+            if (a2w_update_action_lock) {
                 e.preventDefault();
                 return;
             }
